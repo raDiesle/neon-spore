@@ -63,7 +63,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   rows: 15,
   bpm: 96,
   tickHz: 120,
-  guardWindowMs: 600,
+  guardWindowMs: 900,
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
   hullRegenPerSecond: 3,

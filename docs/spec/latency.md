@@ -27,7 +27,8 @@ about when a creature reaches the hull. The tile shrinks to fit instead. See
 
 ## Still to measure
 
-The 600 ms trigger window (`guardWindowMs`) decides whether the shared defence
+The 900 ms trigger window (`guardWindowMs`) decides whether the shared defence
 feels precise or mean. It has never been measured with two people over a real
-voice channel. `docs/decisions.md` #10 proposes a second config preset so two
+voice channel; it was raised from 600 ms because a call, a hand and a beat do
+not fit into 600 ms when the two players are not in the same room. `docs/decisions.md` #10 proposes a second config preset so two
 values can be compared side by side.

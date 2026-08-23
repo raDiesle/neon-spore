@@ -85,9 +85,9 @@ trademark search is still outstanding either way.
     That is calm and readable, but it could contribute something (repair?
     switching segments off?). Deliberately left open rather than filled in
     prematurely.
-18. **The size of the trigger window.** The prototype and the port both run
-    **600 ms** (`guardWindowMs`); the 260 ms once quoted in section 2.2 was
-    guessed and never in any running code. Measure it with two people over a
+18. **The size of the trigger window.** The prototype ran **600 ms**
+    (`guardWindowMs`) and the port now runs **900 ms**; the 260 ms once quoted
+    in section 2.2 was guessed and never in any running code. Measure it with two people over a
     real voice channel — the number decides whether the mechanic feels precise
     or mean.
 

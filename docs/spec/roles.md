@@ -55,9 +55,11 @@ the moment of contact**. Both halves must arrive: the right column (player 2)
 and the right moment (player 1). Against creatures the shield does nothing —
 those belong to the cannon.
 
-Trigger window: **600 ms** (`guardWindowMs`). The German original said 260 ms
-in this section and 600 ms in its own open questions; 600 is what the code
-runs and what the prototype always ran. See `docs/decisions.md` #9.
+Trigger window: **900 ms** (`guardWindowMs`). The German original said 260 ms
+in this section and 600 ms in its own open questions; the prototype ran 600.
+It is 900 now: hearing the column, finding it and pressing is three actions
+across a voice delay, and 600 ms only ever fitted two of them. See
+`docs/decisions.md` #9.
 
 ## Role choice
 
