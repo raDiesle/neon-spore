@@ -91,6 +91,24 @@ export function blobPath(
 }
 
 /**
+ * Radius multiplier for a crystal facet at angle `a`. Split out for the same
+ * reason as `hullRadiusMul`: the shape tools measure a silhouette by calling
+ * this, so a facet cannot mean one thing in the game and another on the sheet.
+ */
+export function crystalRadiusMul(
+  a: number,
+  sides: number,
+  depth: number,
+  wobble: number,
+  t: number,
+  seed: number,
+): number {
+  let m = 1 + depth * Math.cos(sides * a * 0.5 + seed);
+  m *= 1 + wobble * Math.sin(a * 2 + t * 0.4 + seed);
+  return m;
+}
+
+/**
  * A crystal with angular facets instead of curves. Meteors in free flight would
  * use this; the raster prototype uses a geometrically simple meteor, so this is
  * prepared for later use.
@@ -109,8 +127,7 @@ export function crystalPath(
   const pts: Point[] = [];
   for (let i = 0; i < sides; i++) {
     const a = (i / sides) * Math.PI * 2;
-    let m = 1 + depth * Math.cos(sides * a * 0.5 + seed);
-    m *= 1 + wobble * Math.sin(a * 2 + t * 0.4 + seed);
+    const m = crystalRadiusMul(a, sides, depth, wobble, t, seed);
     pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
   }
   let d = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;

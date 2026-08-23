@@ -6,6 +6,8 @@ set -uo pipefail
 
 payload=$(cat)
 path=$(printf '%s' "$payload" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"file_path"[[:space:]]*:[[:space:]]*"//; s/"$//')
+# Windows arrives as C:\Users\... - normalise the separators before matching.
+path=$(printf '%s' "$path" | tr -s '\134' '/')
 
 case "$path" in
   *packages/sim/*|*packages/content/*) ;;

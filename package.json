@@ -16,7 +16,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "check": "bun run typecheck && bun run lint && bun test"
+    "check": "bun run typecheck && bun run lint && bun test",
+    "shapes": "bun run --cwd tools/shape-sheet sheets",
+    "shapes:report": "bun run --cwd tools/shape-sheet report"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",

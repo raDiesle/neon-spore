@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun run ./src/main.ts"
+    "build": "bun run ./src/main.ts",
+    "motion": "bun run ./src/motion.ts",
+    "report": "bun run ./src/report.ts",
+    "sheets": "bun run ./src/main.ts && bun run ./src/motion.ts"
   },
   "dependencies": {
     "@neon-spore/content": "workspace:*"

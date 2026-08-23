@@ -7,6 +7,7 @@ export {
   catmullRomToBezierPath,
   circleSubpath,
   crystalPath,
+  crystalRadiusMul,
   hullPointAt,
   hullRadiusMul,
   openSmoothPath,

@@ -6,7 +6,27 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash .claude/hooks/format-edited.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
             "command": "bash .claude/hooks/after-sim-edit.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-on-stop.sh",
+            "timeout": 180
           }
         ]
       }
