@@ -2,7 +2,7 @@ import { startWave } from "./beat.js";
 import { DEFAULT_CONFIG, type SimConfig } from "./config.js";
 import { hashWorld } from "./hash.js";
 import type { TimedCommand } from "./types.js";
-import { createWorld, step, type SpawnEntry, type World } from "./world.js";
+import { createWorld, type SpawnEntry, step, type World } from "./world.js";
 
 /**
  * A replay is the whole test format of this project: inputs in, fingerprint out.

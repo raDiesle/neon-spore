@@ -71,7 +71,21 @@ function pointsAcross(f: HullFrame, l: Layout, steps: number, bumps: Bump[]) {
   const pts = [];
   for (let i = 0; i <= steps; i++) {
     const a = from + (to - from) * (i / steps);
-    pts.push(hullPointAt(a, f.cx, f.cy, f.rx, f.ry, HULL.lobes, HULL.depth, HULL.wobble, f.t, HULL.seed, bumps));
+    pts.push(
+      hullPointAt(
+        a,
+        f.cx,
+        f.cy,
+        f.rx,
+        f.ry,
+        HULL.lobes,
+        HULL.depth,
+        HULL.wobble,
+        f.t,
+        HULL.seed,
+        bumps,
+      ),
+    );
   }
   return pts;
 }
@@ -90,9 +104,7 @@ export function drawHull(
   const pts = pointsAcross(f, l, 140, f.bumps);
 
   const body = new Path2D(openSmoothPath(pts));
-  const filled = new Path2D(
-    `${openSmoothPath(pts)} L ${l.width} ${l.bandTop} L 0 ${l.bandTop} Z`,
-  );
+  const filled = new Path2D(`${openSmoothPath(pts)} L ${l.width} ${l.bandTop} L 0 ${l.bandTop} Z`);
 
   const top = Math.min(...pts.map((p) => p.y));
   const bg = ctx.createLinearGradient(0, top, 0, l.bandTop);
@@ -167,7 +179,19 @@ function drawShieldRim(
   for (let i = 0; i <= 18; i++) {
     const a = f.shieldAngle - half + 2 * half * (i / 18);
     pts.push(
-      hullPointAt(a, f.cx, f.cy, f.rx, f.ry, HULL.lobes, HULL.depth, HULL.wobble, f.t, HULL.seed, f.bumps),
+      hullPointAt(
+        a,
+        f.cx,
+        f.cy,
+        f.rx,
+        f.ry,
+        HULL.lobes,
+        HULL.depth,
+        HULL.wobble,
+        f.t,
+        HULL.seed,
+        f.bumps,
+      ),
     );
   }
   const seg = new Path2D(openSmoothPath(pts));
@@ -179,7 +203,17 @@ function drawShieldRim(
 /** The fire opening at the tip of the cannon lobe. */
 function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): void {
   const tip = hullPointAt(
-    f.cannonAngle, f.cx, f.cy, f.rx, f.ry, HULL.lobes, HULL.depth, HULL.wobble, f.t, HULL.seed, f.bumps,
+    f.cannonAngle,
+    f.cx,
+    f.cy,
+    f.rx,
+    f.ry,
+    HULL.lobes,
+    HULL.depth,
+    HULL.wobble,
+    f.t,
+    HULL.seed,
+    f.bumps,
   );
   ctx.fillStyle = PALETTE.redDark;
   ctx.beginPath();
@@ -191,9 +225,24 @@ function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): voi
 }
 
 /** Where a shot leaves the hull, so the bullet starts at the muzzle. */
-export function cannonTip(l: Layout, world: World, time: number, armed: number): { x: number; y: number } {
+export function cannonTip(
+  l: Layout,
+  world: World,
+  time: number,
+  armed: number,
+): { x: number; y: number } {
   const f = frame(l, world, time, armed);
   return hullPointAt(
-    f.cannonAngle, f.cx, f.cy, f.rx, f.ry, HULL.lobes, HULL.depth, HULL.wobble, f.t, HULL.seed, f.bumps,
+    f.cannonAngle,
+    f.cx,
+    f.cy,
+    f.rx,
+    f.ry,
+    HULL.lobes,
+    HULL.depth,
+    HULL.wobble,
+    f.t,
+    HULL.seed,
+    f.bumps,
   );
 }

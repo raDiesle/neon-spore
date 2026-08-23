@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { hashWorld, runReplay, type Replay } from "../src/index.js";
+import { hashWorld, type Replay, runReplay } from "../src/index.js";
 
 /**
  * The most important test in the project. If determinism breaks, lockstep

@@ -43,9 +43,9 @@ triggers the shield, `1`/`2` fire red and cyan.
 | `legacy/` | the original prototypes and the German spec |
 
 Two rules make the rest work: `sim` never imports `render`, and nothing in
-`sim` uses `Math.random`, `Date.now` or the DOM. Both are enforced by ESLint,
-because determinism is what lets two devices play the same game — and what lets
-the project be tested at all.
+`sim` uses `Math.random`, `Date.now` or the DOM. Both are enforced by a test
+that scans the source, because determinism is what lets two devices play the
+same game — and what lets the project be tested at all.
 
 ## Licence
 

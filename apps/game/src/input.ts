@@ -77,8 +77,10 @@ export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: 
   canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();
     const l = layout();
-    if (cannonPointer === e.pointerId) buffer.push(1, { kind: "cannonCol", col: colFromX(l, e.clientX) });
-    if (shieldPointer === e.pointerId) buffer.push(2, { kind: "shieldCol", col: colFromX(l, e.clientX) });
+    if (cannonPointer === e.pointerId)
+      buffer.push(1, { kind: "cannonCol", col: colFromX(l, e.clientX) });
+    if (shieldPointer === e.pointerId)
+      buffer.push(2, { kind: "shieldCol", col: colFromX(l, e.clientX) });
   });
   const up = (e: PointerEvent): void => {
     if (cannonPointer === e.pointerId) cannonPointer = null;
@@ -100,16 +102,20 @@ export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: 
     if (shield < 0) shield = Math.floor(cols / 2);
     switch (e.code) {
       case "KeyQ":
-        buffer.push(1, { kind: "cannonCol", col: (cannon = Math.max(0, cannon - 1)) });
+        cannon = Math.max(0, cannon - 1);
+        buffer.push(1, { kind: "cannonCol", col: cannon });
         break;
       case "KeyE":
-        buffer.push(1, { kind: "cannonCol", col: (cannon = Math.min(cols - 1, cannon + 1)) });
+        cannon = Math.min(cols - 1, cannon + 1);
+        buffer.push(1, { kind: "cannonCol", col: cannon });
         break;
       case "ArrowLeft":
-        buffer.push(2, { kind: "shieldCol", col: (shield = Math.max(0, shield - 1)) });
+        shield = Math.max(0, shield - 1);
+        buffer.push(2, { kind: "shieldCol", col: shield });
         break;
       case "ArrowRight":
-        buffer.push(2, { kind: "shieldCol", col: (shield = Math.min(cols - 1, shield + 1)) });
+        shield = Math.min(cols - 1, shield + 1);
+        buffer.push(2, { kind: "shieldCol", col: shield });
         break;
       case "Space":
         e.preventDefault();

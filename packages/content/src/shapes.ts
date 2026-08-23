@@ -24,7 +24,7 @@ export function catmullRomToBezierPath(pts: Point[]): string {
     const c2y = p2.y - (p3.y - p1.y) / 6;
     d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
   }
-  return d + "Z";
+  return `${d}Z`;
 }
 
 /**
@@ -117,7 +117,7 @@ export function crystalPath(
   for (let i = 1; i < pts.length; i++) {
     d += `L ${pts[i]!.x.toFixed(2)} ${pts[i]!.y.toFixed(2)} `;
   }
-  return d + "Z";
+  return `${d}Z`;
 }
 
 /**

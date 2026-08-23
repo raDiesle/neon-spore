@@ -1,8 +1,8 @@
+import { onBeat, resetRun, startWave } from "./beat.js";
+import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { createRng, type Rng } from "./rng.js";
 import type { Bullet, Color, Creature, GuardStats, Scar, TimedCommand } from "./types.js";
-import { advanceBullets, fire } from "./bullets.js";
-import { onBeat, resetRun, startWave } from "./beat.js";
 
 /**
  * Everything the simulation knows. Integers only — see docs/architecture.md.

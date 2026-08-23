@@ -4,10 +4,10 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   resetRun,
+  type SimEvent,
   startWave,
   step,
   ticksPerBeat,
-  type SimEvent,
 } from "@neon-spore/sim";
 import { bindControls, InputBuffer } from "./input.js";
 import { startLoop } from "./loop.js";

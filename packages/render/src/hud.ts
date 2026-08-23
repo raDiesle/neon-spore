@@ -103,7 +103,11 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
     ctx.fillText("HULL BREACHED", l.width / 2, l.height * 0.44);
     ctx.fillStyle = PALETTE.dim;
     ctx.font = '12px "Courier New",monospace';
-    ctx.fillText(`Wave ${world.wave + 1} · ${world.score} points`, l.width / 2, l.height * 0.44 + 26);
+    ctx.fillText(
+      `Wave ${world.wave + 1} · ${world.score} points`,
+      l.width / 2,
+      l.height * 0.44 + 26,
+    );
     ctx.fillText("tap to restart", l.width / 2, l.height * 0.44 + 48);
   } else if (!view.running) {
     ctx.fillStyle = "rgba(7,4,15,.55)";

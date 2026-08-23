@@ -27,9 +27,7 @@ export function fire(world: World, color: Color): void {
 }
 
 export function advanceBullets(world: World): void {
-  const stepMilli = Math.round(
-    (world.cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(world.cfg),
-  );
+  const stepMilli = Math.round((world.cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
   const alive: Bullet[] = [];
 
   for (const b of world.bullets) {

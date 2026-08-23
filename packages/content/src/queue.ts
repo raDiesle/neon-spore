@@ -1,4 +1,4 @@
-import { createRng, next, nextInt, type Color, type SpawnEntry } from "@neon-spore/sim";
+import { type Color, createRng, next, nextInt, type SpawnEntry } from "@neon-spore/sim";
 import { WAVES, type Wave } from "./waves.js";
 
 const COLORS: Color[] = ["red", "cyan"];

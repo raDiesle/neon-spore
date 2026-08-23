@@ -76,7 +76,7 @@ export function bindTestControls({ world, jumpToWave, isRunning, setRunning }: T
 
   for (const btn of document.querySelectorAll<HTMLElement>("#waveSkip button")) {
     btn.addEventListener("click", () => {
-      jumpToWave(world.wave + Number(btn.dataset["d"] ?? 0));
+      jumpToWave(world.wave + Number(btn.dataset.d ?? 0));
       refreshWave();
     });
   }

@@ -4,9 +4,29 @@ import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
-interface Spark { x: number; y: number; vx: number; vy: number; life: number; hex: string }
-interface Deflect { x: number; y: number; vx: number; vy: number; spin: number; vs: number; life: number }
-interface Shock { x: number; y: number; r: number; life: number }
+interface Spark {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  hex: string;
+}
+interface Deflect {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  spin: number;
+  vs: number;
+  life: number;
+}
+interface Shock {
+  x: number;
+  y: number;
+  r: number;
+  life: number;
+}
 
 const SPARK_LIFE = 0.4;
 const DEFLECT_LIFE = 1.1;
@@ -29,7 +49,6 @@ export class Effects {
   private shocks: Shock[] = [];
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
-  private clock = 0;
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -40,7 +59,11 @@ export class Effects {
     return this.guardHit;
   }
 
-  ingest(events: readonly SimEvent[], l: Layout, creatureIdAt: (col: number, row: number) => number): void {
+  ingest(
+    events: readonly SimEvent[],
+    l: Layout,
+    creatureIdAt: (col: number, row: number) => number,
+  ): void {
     for (const e of events) {
       switch (e.type) {
         case "destroy": {
@@ -64,7 +87,8 @@ export class Effects {
           const x = tileCX(l, e.col);
           const y = l.hullY;
           this.deflects.push({
-            x, y,
+            x,
+            y,
             vx: (Math.random() - 0.5) * 90,
             vy: -260 - Math.random() * 80,
             spin: Math.random() * 6.28,
@@ -83,7 +107,6 @@ export class Effects {
   }
 
   update(dt: number, l: Layout): void {
-    this.clock += dt;
     for (let i = this.sparks.length - 1; i >= 0; i--) {
       const s = this.sparks[i]!;
       s.x += s.vx * dt;
@@ -175,7 +198,8 @@ export class Effects {
   private burst(x: number, y: number, n: number, hex: string): void {
     for (let k = 0; k < n; k++) {
       this.sparks.push({
-        x, y,
+        x,
+        y,
         vx: (Math.random() - 0.5) * 150,
         vy: (Math.random() - 0.5) * 150,
         life: SPARK_LIFE,

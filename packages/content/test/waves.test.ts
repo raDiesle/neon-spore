@@ -1,5 +1,5 @@
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { describe, expect, it } from "bun:test";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { buildQueue, WAVES } from "../src/index.js";
 
 const beatSeconds = 60 / DEFAULT_CONFIG.bpm;
@@ -15,7 +15,10 @@ describe("wave content", () => {
   it("passes the one-sentence test", () => {
     for (const wave of WAVES) {
       expect(wave.sentence, `${wave.name} has no one-sentence description`).toMatch(/\S/);
-      expect(wave.sentence.split(".").length, `${wave.name}: more than one sentence`).toBeLessThanOrEqual(2);
+      expect(
+        wave.sentence.split(".").length,
+        `${wave.name}: more than one sentence`,
+      ).toBeLessThanOrEqual(2);
     }
   });
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  type Color,
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
@@ -7,13 +8,12 @@ import {
   hullRow,
   record,
   runReplay,
-  step,
-  ticksPerBeat,
-  type Color,
   type SimConfig,
   type SimEvent,
   type SpawnEntry,
+  step,
   type TimedCommand,
+  ticksPerBeat,
 } from "../src/index.js";
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -47,13 +47,19 @@ const meteor = (col: number): SpawnEntry => ({ beat: 0, col, kind: "meteor", col
 const manta = (col: number, color: Color): SpawnEntry => ({ beat: 0, col, kind: "manta", color });
 const guard = (tick: number): TimedCommand => ({ tick, player: 1, command: { kind: "guard" } });
 const shieldTo = (tick: number, col: number): TimedCommand => ({
-  tick, player: 2, command: { kind: "shieldCol", col },
+  tick,
+  player: 2,
+  command: { kind: "shieldCol", col },
 });
 const aim = (tick: number, col: number): TimedCommand => ({
-  tick, player: 1, command: { kind: "cannonCol", col },
+  tick,
+  player: 1,
+  command: { kind: "cannonCol", col },
 });
 const fire = (tick: number, color: Color): TimedCommand => ({
-  tick, player: 2, command: { kind: "fire", color },
+  tick,
+  player: 2,
+  command: { kind: "fire", color },
 });
 
 describe("the beat", () => {
@@ -86,7 +92,8 @@ describe("the hull", () => {
     expect(hullPercent(later.world)).toBeGreaterThan(hullPercent(after.world));
     // A second of regeneration is worth exactly hullRegenPerSecond points.
     expect(hullPercent(later.world) - hullPercent(after.world)).toBeCloseTo(
-      CFG.hullRegenPerSecond, 1,
+      CFG.hullRegenPerSecond,
+      1,
     );
     expect(later.world.scars).toHaveLength(1);
   });
@@ -115,10 +122,7 @@ describe("the shield", () => {
   });
 
   it("does nothing from the wrong column, however well timed", () => {
-    const { world } = run([meteor(5)], IMPACT_TICK + 1, [
-      shieldTo(10, 2),
-      guard(IMPACT_TICK - 20),
-    ]);
+    const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 2), guard(IMPACT_TICK - 20)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(0);
     expect(world.guard.tries).toBe(1);

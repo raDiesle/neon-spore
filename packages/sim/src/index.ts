@@ -1,16 +1,8 @@
-export { DEFAULT_CONFIG, hullRow, ticksPerBeat, type SimConfig } from "./config.js";
-export { createRng, next, nextInt, type Rng } from "./rng.js";
-export { hashWorld } from "./hash.js";
-export { record, runReplay, type Replay } from "./replay.js";
 export { resetRun, startWave } from "./beat.js";
-export {
-  createWorld,
-  hullPercent,
-  step,
-  type SimEvent,
-  type SpawnEntry as SpawnEntry,
-  type World,
-} from "./world.js";
+export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+export { hashWorld } from "./hash.js";
+export { type Replay, record, runReplay } from "./replay.js";
+export { createRng, next, nextInt, type Rng } from "./rng.js";
 export type {
   Bullet,
   Color,
@@ -21,3 +13,11 @@ export type {
   Scar,
   TimedCommand,
 } from "./types.js";
+export {
+  createWorld,
+  hullPercent,
+  type SimEvent,
+  type SpawnEntry,
+  step,
+  type World,
+} from "./world.js";

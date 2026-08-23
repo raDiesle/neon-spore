@@ -16,6 +16,11 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["packages/*/src/**/*.ts", "packages/*/test/**/*.ts", "apps/*/src/**/*.ts", "tools/**/*.ts"],
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/test/**/*.ts",
+    "apps/*/src/**/*.ts",
+    "tools/**/*.ts"
+  ],
   "exclude": ["node_modules", "**/dist", "legacy"]
 }

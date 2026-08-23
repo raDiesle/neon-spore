@@ -1,4 +1,7 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import {
+  type Bump,
   blobPath,
   crystalPath,
   HULL,
@@ -7,10 +10,7 @@ import {
   MANTA,
   METEOR,
   openSmoothPath,
-  type Bump,
 } from "@neon-spore/content";
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
 
 /**
  * The SVG test sheet.
@@ -57,16 +57,16 @@ function hull(armed: boolean): Cell {
   // sheet is for judging the *shape*, not for measuring pixels against a phone.
   const rx = 300;
   const ry = 48;
-  const bumps: Bump[] = [
-    { angle: -Math.PI / 2, strength: 0.5, plateau: 0.014, shoulder: 0.026 },
-  ];
+  const bumps: Bump[] = [{ angle: -Math.PI / 2, strength: 0.5, plateau: 0.014, shoulder: 0.026 }];
   if (armed) {
     bumps.push({ angle: -Math.PI / 2 + 0.16, strength: 0.34, plateau: 0.024, shoulder: 0.03 });
   }
   const pts = [];
   for (let i = 0; i <= 120; i++) {
     const a = -Math.PI / 2 - 0.42 + 0.84 * (i / 120);
-    pts.push(hullPointAt(a, 0, ry, rx, ry, HULL.lobes, HULL.depth, HULL.wobble, T, HULL.seed, bumps));
+    pts.push(
+      hullPointAt(a, 0, ry, rx, ry, HULL.lobes, HULL.depth, HULL.wobble, T, HULL.seed, bumps),
+    );
   }
   return {
     name: armed ? "HULL · ARMED" : "HULL · PASSIVE",

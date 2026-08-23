@@ -14,7 +14,10 @@ not a help, it is the control scheme. Portrait mobile web.
 4. **The game never reads a microphone and never evaluates speech.** Any
    mechanic that would need to know whether something was said is out of scope.
 
-Rules 1 and 2 are enforced by ESLint, not by good intentions. Run `bun run lint`.
+Rules 1 and 2 are enforced by `packages/sim/test/purity.test.ts`, not by good
+intentions: it scans every file in `sim` and `content` and fails on a wall
+clock, a random number, a DOM global or an import of `render`. Run `bun test`.
+Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 
 ## Commands
 

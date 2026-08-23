@@ -33,8 +33,24 @@ export function drawBand(
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
-  strip(ctx, l, l.cannonStrip.y, l.cannonStrip.height, world.cannonCol, PALETTE.hull, "PLAYER 1 · CANNON");
-  strip(ctx, l, l.shieldStrip.y, l.shieldStrip.height, world.shieldCol, PALETTE.shield, "PLAYER 2 · SHIELD");
+  strip(
+    ctx,
+    l,
+    l.cannonStrip.y,
+    l.cannonStrip.height,
+    world.cannonCol,
+    PALETTE.hull,
+    "PLAYER 1 · CANNON",
+  );
+  strip(
+    ctx,
+    l,
+    l.shieldStrip.y,
+    l.shieldStrip.height,
+    world.shieldCol,
+    PALETTE.shield,
+    "PLAYER 2 · SHIELD",
+  );
 
   // Trigger. Lit for exactly as long as the guard window is open, so player 1
   // can see what they are spending.
@@ -66,7 +82,11 @@ export function drawBand(
     ctx.translate(b.circle.x, b.circle.y);
     ctx.scale(s, s);
     ctx.fillStyle = dark;
-    ctx.fill(new Path2D(blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed)));
+    ctx.fill(
+      new Path2D(
+        blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed),
+      ),
+    );
     ctx.restore();
   }
   ctx.textAlign = "left";

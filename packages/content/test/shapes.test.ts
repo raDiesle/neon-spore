@@ -36,10 +36,39 @@ describe("shapes", () => {
 
   describe("blobPath", () => {
     it("is deterministic for the same parameters", () => {
-      const params = { cx: 50, cy: 50, rx: 40, ry: 40, lobes: 2, depth: 0.3, wobble: 0.1, seed: 1.5 };
+      const params = {
+        cx: 50,
+        cy: 50,
+        rx: 40,
+        ry: 40,
+        lobes: 2,
+        depth: 0.3,
+        wobble: 0.1,
+        seed: 1.5,
+      };
       const t = 1.23;
-      const a = blobPath(params.cx, params.cy, params.rx, params.ry, params.lobes, params.depth, params.wobble, t, params.seed);
-      const b = blobPath(params.cx, params.cy, params.rx, params.ry, params.lobes, params.depth, params.wobble, t, params.seed);
+      const a = blobPath(
+        params.cx,
+        params.cy,
+        params.rx,
+        params.ry,
+        params.lobes,
+        params.depth,
+        params.wobble,
+        t,
+        params.seed,
+      );
+      const b = blobPath(
+        params.cx,
+        params.cy,
+        params.rx,
+        params.ry,
+        params.lobes,
+        params.depth,
+        params.wobble,
+        t,
+        params.seed,
+      );
       expect(a).toBe(b);
     });
 

@@ -8,7 +8,7 @@ import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull } from "./hull.js";
 import { computeLayout, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import type { Renderer, ViewState, Viewport } from "./renderer.js";
+import type { Renderer, Viewport, ViewState } from "./renderer.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
