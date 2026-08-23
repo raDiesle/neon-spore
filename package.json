@@ -1,0 +1,22 @@
+{
+  "name": "neon-spore",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*", "tools/*"],
+  "scripts": {
+    "dev": "bun run --cwd apps/game dev",
+    "build": "bun run --cwd apps/game build",
+    "test": "bun test",
+    "test:determinism": "bun test packages/sim/test/determinism.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "check": "bun run typecheck && bun run lint && bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  }
+}

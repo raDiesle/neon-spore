@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Bloom — Stil-Referenz: Schiff, Kanone, Schild, Gegner</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; min-height: 100%;
+    background: #07060F;
+    font-family: 'Courier New', monospace;
+    color: #E8E2F5;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 24px 16px 60px; }
+  h1 { font-size: 13px; letter-spacing: 2.5px; color: #FFC24B; font-weight: 600; margin: 0 0 6px; }
+  h2 { font-size: 11px; letter-spacing: 2px; color: #2FE0F0; margin: 28px 0 10px; font-weight: 600; }
+  h3 { font-size: 10px; letter-spacing: 1.5px; color: #FF8AA3; margin: 18px 0 8px; font-weight: 600; }
+  .sub { font-size: 11px; color: #7A6FA8; line-height: 1.6; margin: 0 0 4px; }
+
+  .hullBox { position: relative; touch-action: none; }
+  .hullBox svg { width: 100%; height: auto; display: block; overflow: hidden;
+                 filter: drop-shadow(0 0 22px #FFC24B33); cursor: grab; }
+  .hullBox svg:active { cursor: grabbing; }
+  .hint { font-size: 10px; color: #6F639F; text-align: center; margin-top: 4px; }
+  .readout { font-size: 10px; color: #9C8FD6; text-align: center; margin-top: 2px; }
+  .readout b { color: #F2E9DC; }
+
+  .ammoRow { display: flex; gap: 10px; justify-content: center; margin: 14px 0 6px; flex-wrap: wrap; }
+  .ammoBtn { border: 1px solid; border-radius: 20px; padding: 8px 14px; background: transparent;
+             font: 10px 'Courier New', monospace; letter-spacing: 1px; cursor: pointer; }
+  .fireBtn { display: block; margin: 10px auto 0; border: 1px solid #FFC24B; border-radius: 20px;
+             padding: 8px 22px; background: transparent; color: #FFC24B; font: 10px 'Courier New', monospace;
+             letter-spacing: 2px; cursor: pointer; }
+  .fireBtn:active { transform: translateY(1px); }
+
+  .panel { background: #100B22; border: 1px solid #241B4F; border-radius: 10px; padding: 14px 16px; margin-top: 10px; }
+  .ctl { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 11px; color: #C9C0E8; }
+  .ctl label { flex: 0 0 120px; }
+  .ctl input[type=range] { flex: 1; accent-color: #FFC24B; }
+  .ctl span { flex: 0 0 42px; text-align: right; color: #F2E9DC; }
+  .copyBtn { margin-top: 10px; padding: 8px 14px; border-radius: 8px; border: 1px solid #FFC24B;
+             background: transparent; color: #FFC24B; font: 10px 'Courier New', monospace; letter-spacing: 1px; cursor: pointer; }
+  pre { margin-top: 10px; padding: 10px; background: #0B0819; border-radius: 8px; overflow-x: auto;
+        font-size: 9.5px; line-height: 1.5; color: #8FE8F0; max-height: 140px; }
+
+  .variantRow { display: flex; gap: 8px; justify-content: center; margin: 10px 0 4px; flex-wrap: wrap; }
+  .variantBtn { border: 1px solid #3A3160; border-radius: 14px; padding: 6px 10px; background: transparent;
+                color: #9C8FD6; font: 9px 'Courier New', monospace; letter-spacing: 0.5px; cursor: pointer; }
+  .variantBtn.active { border-color: #2FE0F0; color: #2FE0F0; background: #0B2A2E; }
+  .holdBtn { display: block; margin: 10px auto 0; border: 1px solid #2FE0F0; border-radius: 20px;
+             padding: 9px 26px; background: transparent; color: #2FE0F0; font: 10px 'Courier New', monospace;
+             letter-spacing: 2px; cursor: pointer; user-select: none; }
+  .holdBtn.held { background: #0B2A2E; }
+
+  .enemyGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 10px; margin-top: 8px; }
+  .enemyGrid .full { grid-column: 1 / -1; display: flex; justify-content: center; }
+  .enemy { text-align: center; }
+  .enemy svg { width: 108px; height: 108px; }
+  .enemy .name { display: block; font-size: 10.5px; color: #F2E9DC; letter-spacing: 1px; margin-top: 6px; }
+  .enemy .trait { display: block; font-size: 9px; color: #7A6FA8; line-height: 1.4; margin-top: 2px; padding: 0 4px; }
+
+  .note { font-size: 10px; color: #6F639F; line-height: 1.7; margin-top: 14px; }
+  .ideaList { font-size: 10px; color: #9C8FD6; line-height: 1.7; margin: 6px 0 0; padding-left: 16px; }
+  .ideaList b { color: #F2E9DC; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SIGNAL BLOOM — STIL-REFERENZ</h1>
+  <p class="sub">Kanone und Schild sind jetzt direkt Teil der Rumpfkontur — kein aufgesetztes Extra-Objekt mehr,
+  sondern eine lokale Ausbuchtung derselben Membran, so als würde man von innen an der Stelle nach außen drücken.</p>
+
+  <h2>SCHIFF · KANONE ALS RUMPF-LAPPEN</h2>
+  <div class="hullBox">
+    <svg id="hullSvg" viewBox="0 0 400 200">
+      <defs>
+        <radialGradient id="gradAmber" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.14"/>
+          <stop offset="45%" stop-color="#FFD98A" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#FFC24B" stop-opacity="0.58"/>
+        </radialGradient>
+        <radialGradient id="gradCyan" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#EAFEFF" stop-opacity="0.14"/>
+          <stop offset="45%" stop-color="#8FE8F0" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#2FE0F0" stop-opacity="0.58"/>
+        </radialGradient>
+        <radialGradient id="gradMagenta" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#FFE9EF" stop-opacity="0.14"/>
+          <stop offset="45%" stop-color="#FF8AA3" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#FF3B6B" stop-opacity="0.58"/>
+        </radialGradient>
+        <radialGradient id="gradYellow" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#FFFCE0" stop-opacity="0.14"/>
+          <stop offset="45%" stop-color="#FFF08A" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#FFE24B" stop-opacity="0.58"/>
+        </radialGradient>
+        <radialGradient id="gradGreen" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#EAFFF2" stop-opacity="0.14"/>
+          <stop offset="45%" stop-color="#8AFFC0" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#4BFF8A" stop-opacity="0.58"/>
+        </radialGradient>
+        <radialGradient id="gradIce" cx="50%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+          <stop offset="45%" stop-color="#D9F5FF" stop-opacity="0.34"/>
+          <stop offset="100%" stop-color="#BFE9FF" stop-opacity="0.55"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Kachel-Referenz: 1 Kachel = 60px, zum Größenvergleich mit der Kanone -->
+      <rect id="tileRef" x="40" y="112" width="60" height="60" fill="none" stroke="#3A3160" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="70" y="105" text-anchor="middle" font-size="8" fill="#6F639F" font-family="Courier New, monospace">1 KACHEL · 60px</text>
+
+      <g id="shots"></g>
+
+      <!-- Rumpf inkl. Kanonen-Lappen (und ggf. Schild-Wölbung) als EINE Kontur, evenodd für die Feuer-Öffnung -->
+      <path id="hullPath" fill="url(#gradAmber)" stroke="#FFF3D0" stroke-width="3" fill-rule="evenodd"/>
+
+      <!-- Schild-Varianten (nur die aktive ist sichtbar) -->
+      <path id="shieldRim" fill="none" stroke="#2FE0F0" stroke-width="0" opacity="0" stroke-linecap="round"/>
+      <path id="shieldCrystal" fill="url(#gradIce)" stroke="#EAFBFF" stroke-width="2" opacity="0"/>
+      <line id="plateLineA" stroke="#FFF3D0" stroke-width="1.2" opacity="0"/>
+      <line id="plateLineB" stroke="#FFF3D0" stroke-width="1.2" opacity="0"/>
+      <circle id="shieldRing" r="0" fill="url(#gradCyan)" opacity="0" style="filter:blur(4px)"/>
+
+      <!-- Öffnung beim Feuern: dunkler Ausschnitt (evenodd) + heller Rand-Ring -->
+      <circle id="holeRing" r="0" fill="none" stroke="#FFC24B" stroke-width="1.5" opacity="0"/>
+    </svg>
+  </div>
+  <p class="hint">↔ Ziehen, um die Kanone horizontal zu verschieben</p>
+  <p class="readout">Kanonen-Lappen: <b id="cannonSizeOut">40px</b> Basisbreite · <b id="cannonFracOut">0.67</b> Kacheln</p>
+
+  <div class="ammoRow">
+    <button class="ammoBtn" id="btnAmber" style="border-color:#FFC24B;color:#FFC24B">BERNSTEIN</button>
+    <button class="ammoBtn" id="btnCyan" style="border-color:#2FE0F0;color:#2FE0F0">CYAN</button>
+    <button class="ammoBtn" id="btnMagenta" style="border-color:#FF3B6B;color:#FF3B6B">MAGENTA</button>
+  </div>
+  <button class="fireBtn" id="fireBtn">FEUER</button>
+  <p class="hint">Beim Feuern öffnet sich kurz eine kleine Pore an der Lappenspitze und schließt sich wieder.</p>
+
+  <div class="panel">
+    <div class="ctl"><label>Lappen (Rumpf)</label><input id="rLobes" type="range" min="1" max="8" step="1" value="2"><span id="vLobes"></span></div>
+    <div class="ctl"><label>Lappentiefe</label><input id="rDepth" type="range" min="0" max="0.6" step="0.01" value="0.40"><span id="vDepth"></span></div>
+    <div class="ctl"><label>Wabber-Stärke</label><input id="rWob" type="range" min="0" max="0.12" step="0.005" value="0.065"><span id="vWob"></span></div>
+    <div class="ctl"><label>Tempo</label><input id="rSpeed" type="range" min="0.1" max="2" step="0.05" value="1.40"><span id="vSpeed"></span></div>
+    <div class="ctl"><label>Randbreite</label><input id="rStroke" type="range" min="0" max="8" step="0.5" value="3"><span id="vStroke"></span></div>
+    <div class="ctl"><label>Kanonengröße</label><input id="rCannon" type="range" min="4" max="22" step="1" value="10"><span id="vCannon"></span></div>
+    <div class="ctl"><label>Kanonenbreite</label><input id="rCannonWidth" type="range" min="50" max="150" step="5" value="100"><span id="vCannonWidth"></span></div>
+    <button class="copyBtn" id="copyBtn">WERTE KOPIEREN</button>
+    <pre id="codeOut">&lt;!-- aktuelle Werte erscheinen hier --&gt;</pre>
+  </div>
+
+  <h2>SCHILD · VIER IDEEN, DIREKT AM RUMPF</h2>
+  <p class="sub">Gleiche Grundidee wie die Kanone: keine separate Form, sondern eine Veränderung der bestehenden
+  Membran an einer steuerbaren Stelle, in etwa so breit wie der Kanonen-Lappen. Vier Varianten zum Vergleichen:</p>
+  <ul class="ideaList">
+    <li><b>Rand-Verdickung</b> — die Kontur bleibt gleich, aber Rand/Glow wird an der Stelle lokal dicker und heller (deine Idee, 1:1 umgesetzt).</li>
+    <li><b>Panzerplatte</b> — echte flache Aufwölbung nach außen, wie ein zweiter, breiterer und flacherer Lappen neben der Kanone.</li>
+    <li><b>Kristall-Patch</b> — kleine kantige Facette wächst auf der Haut, Kontrast organisch/starr signalisiert „gehärtet".</li>
+    <li><b>Leuchtring</b> — kein Kontur-Effekt, sondern ein Lichtschein direkt unter der durchsichtigen Haut, der beim Aktivieren aufglüht.</li>
+  </ul>
+
+  <div class="variantRow">
+    <button class="variantBtn active" id="vBtnRand" data-v="RAND">RAND-VERDICKUNG</button>
+    <button class="variantBtn" id="vBtnPlatte" data-v="PLATTE">PANZERPLATTE</button>
+    <button class="variantBtn" id="vBtnKristall" data-v="KRISTALL">KRISTALL-PATCH</button>
+    <button class="variantBtn" id="vBtnRing" data-v="RING">LEUCHTRING</button>
+  </div>
+
+  <div class="panel">
+    <p class="readout">Auto-Test — Position wandert automatisch: <b id="shieldPosOut">—</b></p>
+    <button class="holdBtn held" id="shieldToggleBtn">SCHILD: AN</button>
+    <p class="hint">wandert selbständig links↔rechts über den Rumpf, zum direkten Vergleich mit der Kanonen-Beule</p>
+  </div>
+
+  <h2>GEGNER · FÜNF SILHOUETTEN</h2>
+  <div class="enemyGrid">
+    <div class="enemy" style="filter: drop-shadow(0 0 12px #2FE0F055)">
+      <svg viewBox="0 0 160 160"><path id="e-qualle" fill="url(#gradCyan)" stroke="#BFF6FF" stroke-width="2.5"/></svg>
+      <span class="name">QUALLE</span>
+      <span class="trait">Viele feine Lappen am Rand, ruhiges Pulsieren.</span>
+    </div>
+    <div class="enemy" style="filter: drop-shadow(0 0 12px #FF3B6B55)">
+      <svg viewBox="0 0 160 160"><path id="e-manta" fill="url(#gradMagenta)" stroke="#FF8AA3" stroke-width="2.5"/></svg>
+      <span class="name">MANTA</span>
+      <span class="trait">Zwei breite Flügel-Lappen, flach und breit.</span>
+    </div>
+    <div class="enemy" style="filter: drop-shadow(0 0 12px #FFE24B55)">
+      <svg viewBox="0 0 160 160"><path id="e-wespe" fill="url(#gradYellow)" stroke="#FFF7C2" stroke-width="2.5"/></svg>
+      <span class="name">WESPE</span>
+      <span class="trait">Fünf spitze Lappen, schnelles nervöses Zittern.</span>
+    </div>
+    <div class="enemy" style="filter: drop-shadow(0 0 12px #4BFF8A55)">
+      <svg viewBox="0 0 160 160"><path id="e-wurm" fill="url(#gradGreen)" stroke="#C6FFDD" stroke-width="2.5"/></svg>
+      <span class="name">WURM</span>
+      <span class="trait">Lang gestreckt, kaum Lappen, sanftes Schlängeln.</span>
+    </div>
+    <div class="enemy full">
+      <div style="filter: drop-shadow(0 0 12px #BFE9FF44)">
+        <svg viewBox="0 0 160 160"><path id="e-kristall" fill="url(#gradIce)" stroke="#EAFBFF" stroke-width="3"/></svg>
+        <span class="name">KRISTALL</span>
+        <span class="trait">Kantige Facetten statt runder Kontur, kaum Eigenbewegung.</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">
+    Kanone und Schild-Wölbung entstehen als lokale Ausbuchtung derselben Rumpfkurve (Gauß-förmiger Zusatzausschlag
+    an einem steuerbaren Winkel), keine eigenen Formen mehr. Die Feuer-Öffnung ist ein per evenodd ausgeschnittenes
+    Loch an der Lappenspitze, das über ~0.3s auf- und wieder zuschwingt. Rand-Verdickung und Leuchtring verändern die
+    Kontur nicht, nur Glow/Licht — Panzerplatte verformt den Rumpf zusätzlich wie die Kanone.
+  </p>
+</div>
+
+<script>
+/* ---------- geometrie: geschlossene kontur (rumpf, gegner) ---------- */
+function catmullRomToBezierPath(pts){
+  const n = pts.length;
+  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)} `;
+  for (let i = 0; i < n; i++){
+    const p0 = pts[(i - 1 + n) % n];
+    const p1 = pts[i];
+    const p2 = pts[(i + 1) % n];
+    const p3 = pts[(i + 2) % n];
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+  }
+  return d + 'Z';
+}
+
+/* offene kontur (rand-verdickungs-segment) */
+function openSmoothPath(pts){
+  if (pts.length < 2) return '';
+  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)} `;
+  for (let i = 0; i < pts.length - 1; i++){
+    const p0 = pts[i === 0 ? 0 : i - 1];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+  }
+  return d;
+}
+
+function circleSubpath(cx, cy, r){
+  return `M ${(cx - r).toFixed(2)} ${cy.toFixed(2)} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx + r).toFixed(2)} ${cy.toFixed(2)} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx - r).toFixed(2)} ${cy.toFixed(2)} Z `;
+}
+
+function blobPath(cx, cy, rx, ry, lobes, depth, wobble, t, seed, N){
+  N = N || 40;
+  const pts = [];
+  for (let i = 0; i < N; i++){
+    const a = (i / N) * Math.PI * 2;
+    let m = 1 + depth * Math.cos(lobes * a + seed);
+    m *= 1 + wobble * Math.sin(a * 3 + t * 0.9 + seed * 1.7);
+    m *= 1 + wobble * 0.6 * Math.sin(a * 5 - t * 0.53 + seed * 2.3);
+    m *= 1 + wobble * 0.4 * Math.sin(a * 2 + t * 0.31 + seed * 0.6);
+    m *= 1 + 0.02 * Math.sin(t * 0.6 + seed);
+    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
+  }
+  return catmullRomToBezierPath(pts);
+}
+
+function crystalPath(cx, cy, rx, ry, sides, depth, wobble, t, seed){
+  const pts = [];
+  for (let i = 0; i < sides; i++){
+    const a = (i / sides) * Math.PI * 2;
+    let m = 1 + depth * Math.cos(sides * a * 0.5 + seed);
+    m *= 1 + wobble * Math.sin(a * 2 + t * 0.4 + seed);
+    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
+  }
+  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)} `;
+  for (let i = 1; i < pts.length; i++) d += `L ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)} `;
+  return d + 'Z';
+}
+
+/* ---------- rumpf: eine kontur, lappen + wabber + zusätzliche lokale "bumps" ---------- */
+const HULL_CX = 200, HULL_CY = 215, HULL_RX = 205, HULL_RY = 70, APEX = -Math.PI / 2;
+
+/* Wölbung mit flachem Plateau und kurzer, aber weiterhin nahtloser Schulter:
+   innerhalb "plateau" volle Höhe (flacher Rücken statt Kuppel), danach fällt sie
+   auf der Breite "shoulder" per Kosinus auf 0 — steiler Übergang, abgerundete
+   Ecken, aber immer noch Steigung 0 am äußeren Rand (kein Knick, nahtlos). */
+function bumpAdd(diff, strength, plateau, shoulder){
+  const ad = Math.abs(diff);
+  if (ad <= plateau) return strength;
+  const total = plateau + shoulder;
+  if (ad >= total) return 0;
+  const local = (ad - plateau) / shoulder;
+  return strength * 0.5 * (1 + Math.cos(Math.PI * local));
+}
+function hullRadiusMul(a, lobes, depth, wobble, t, seed, bumps){
+  let m = 1 + depth * Math.cos(lobes * a + seed);
+  m *= 1 + wobble * Math.sin(a * 3 + t * 0.9 + seed * 1.7);
+  m *= 1 + wobble * 0.6 * Math.sin(a * 5 - t * 0.53 + seed * 2.3);
+  m *= 1 + wobble * 0.4 * Math.sin(a * 2 + t * 0.31 + seed * 0.6);
+  m *= 1 + 0.02 * Math.sin(t * 0.6 + seed);
+  if (bumps){
+    for (const b of bumps){
+      let diff = a - b.angle;
+      diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+      m += bumpAdd(diff, b.strength, b.plateau, b.shoulder);
+    }
+  }
+  return m;
+}
+function hullPointAt(a, lobes, depth, wobble, t, seed, bumps){
+  const m = hullRadiusMul(a, lobes, depth, wobble, t, seed, bumps);
+  return { x: HULL_CX + Math.cos(a) * HULL_RX * m, y: HULL_CY + Math.sin(a) * HULL_RY * m };
+}
+function xToAngle(x){ return APEX + (x - HULL_CX) / HULL_RX; }
+
+/* ---------- rumpf-parameter (regler) ---------- */
+const R = {
+  lobes: document.getElementById('rLobes'), depth: document.getElementById('rDepth'),
+  wob: document.getElementById('rWob'), speed: document.getElementById('rSpeed'),
+  stroke: document.getElementById('rStroke'), cannon: document.getElementById('rCannon'),
+  cannonWidth: document.getElementById('rCannonWidth')
+};
+const V = {
+  lobes: document.getElementById('vLobes'), depth: document.getElementById('vDepth'),
+  wob: document.getElementById('vWob'), speed: document.getElementById('vSpeed'),
+  stroke: document.getElementById('vStroke'), cannon: document.getElementById('vCannon'),
+  cannonWidth: document.getElementById('vCannonWidth')
+};
+const hullPath = document.getElementById('hullPath');
+const cannonSizeOut = document.getElementById('cannonSizeOut');
+const cannonFracOut = document.getElementById('cannonFracOut');
+const TILE = 60;
+
+function syncLabels(){
+  V.lobes.textContent = R.lobes.value;
+  V.depth.textContent = (+R.depth.value).toFixed(2);
+  V.wob.textContent = (+R.wob.value).toFixed(3);
+  V.speed.textContent = (+R.speed.value).toFixed(2);
+  V.stroke.textContent = (+R.stroke.value).toFixed(1);
+  V.cannon.textContent = (+R.cannon.value);
+  V.cannonWidth.textContent = (+R.cannonWidth.value) + '%';
+  hullPath.setAttribute('stroke-width', R.stroke.value);
+  const dia = (+R.cannon.value) * 2 * ((+R.cannonWidth.value) / 100);
+  cannonSizeOut.textContent = dia.toFixed(0) + 'px';
+  cannonFracOut.textContent = (dia / TILE).toFixed(2);
+}
+Object.values(R).forEach(el => el.addEventListener('input', syncLabels));
+syncLabels();
+
+/* ---------- ammo-farben (nur öffnung + schuss, rumpf bleibt bernstein) ---------- */
+const AMMO = {
+  amber:   { stroke: '#FFF3D0', glow: '#FFC24B' },
+  cyan:    { stroke: '#BFF6FF', glow: '#2FE0F0' },
+  magenta: { stroke: '#FF8AA3', glow: '#FF3B6B' }
+};
+let currentAmmo = 'amber';
+function setAmmo(key){ currentAmmo = key; fire(); }
+document.getElementById('btnAmber').addEventListener('click', () => setAmmo('amber'));
+document.getElementById('btnCyan').addEventListener('click', () => setAmmo('cyan'));
+document.getElementById('btnMagenta').addEventListener('click', () => setAmmo('magenta'));
+document.getElementById('fireBtn').addEventListener('click', () => fire());
+
+/* ---------- kanone: horizontale bewegung per drag ---------- */
+const hullSvg = document.getElementById('hullSvg');
+let cannonX = 200;
+const CANNON_MIN_X = 130, CANNON_MAX_X = 270;
+let dragging = false;
+function localX(clientX){
+  const r = hullSvg.getBoundingClientRect();
+  const frac = (clientX - r.left) / r.width;
+  return Math.max(CANNON_MIN_X, Math.min(CANNON_MAX_X, frac * 400));
+}
+hullSvg.addEventListener('pointerdown', e => { dragging = true; hullSvg.setPointerCapture(e.pointerId); cannonX = localX(e.clientX); });
+hullSvg.addEventListener('pointermove', e => { if (dragging) cannonX = localX(e.clientX); });
+hullSvg.addEventListener('pointerup', () => dragging = false);
+hullSvg.addEventListener('pointercancel', () => dragging = false);
+
+/* ---------- feuern: öffnung + schuss ---------- */
+const holeRing = document.getElementById('holeRing');
+let fireTimer = null;
+const FIRE_DURATION = 0.28;
+let lastTip = { x: 200, y: 145 };
+function fire(){ fireTimer = 0; spawnShot(); }
+
+const shotsGroup = document.getElementById('shots');
+let shots = [];
+function spawnShot(){
+  shots.push({ x: lastTip.x, y: lastTip.y, life: 1, color: AMMO[currentAmmo].glow });
+}
+let autoFireAcc = 0;
+
+/* ---------- schild: position, variante, halten ---------- */
+const shieldPosOut = document.getElementById('shieldPosOut');
+
+let shieldVariant = 'RAND';
+document.querySelectorAll('.variantBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    shieldVariant = btn.dataset.v;
+    document.querySelectorAll('.variantBtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+let shieldOn = true;
+let shieldActiveAmt = 0;
+let currentShieldX = 200;
+const shieldToggleBtn = document.getElementById('shieldToggleBtn');
+function updateToggleLabel(){
+  shieldToggleBtn.textContent = shieldOn ? 'SCHILD: AN' : 'SCHILD: AUS';
+  shieldToggleBtn.classList.toggle('held', shieldOn);
+}
+shieldToggleBtn.addEventListener('click', () => { shieldOn = !shieldOn; updateToggleLabel(); });
+updateToggleLabel();
+
+const shieldRim = document.getElementById('shieldRim');
+const shieldCrystal = document.getElementById('shieldCrystal');
+const plateLineA = document.getElementById('plateLineA');
+const plateLineB = document.getElementById('plateLineB');
+const shieldRing = document.getElementById('shieldRing');
+function hideAllShieldVisuals(){
+  shieldRim.setAttribute('opacity', 0); shieldRim.setAttribute('stroke-width', 0);
+  shieldCrystal.setAttribute('opacity', 0);
+  plateLineA.setAttribute('opacity', 0); plateLineB.setAttribute('opacity', 0);
+  shieldRing.setAttribute('opacity', 0); shieldRing.setAttribute('r', 0);
+}
+
+/* ---------- gegner: feste vorgaben ---------- */
+const enemies = [
+  { el: document.getElementById('e-qualle'),  kind: 'blob',    lobes: 9, depth: 0.10, wobble: 0.055, speed: 0.50, rx: 52, ry: 52, seed: 1.0 },
+  { el: document.getElementById('e-manta'),   kind: 'blob',    lobes: 2, depth: 0.38, wobble: 0.020, speed: 0.35, rx: 68, ry: 34, seed: 2.0 },
+  { el: document.getElementById('e-wespe'),   kind: 'blob',    lobes: 5, depth: 0.30, wobble: 0.110, speed: 1.60, rx: 42, ry: 42, seed: 3.0 },
+  { el: document.getElementById('e-wurm'),    kind: 'blob',    lobes: 1, depth: 0.08, wobble: 0.090, speed: 0.60, rx: 26, ry: 72, seed: 4.0 },
+  { el: document.getElementById('e-kristall'),kind: 'crystal', lobes: 7, depth: 0.15, wobble: 0.010, speed: 0.15, rx: 46, ry: 46, seed: 5.0 }
+];
+
+/* ---------- animationsschleife ---------- */
+let t0 = performance.now();
+function frame(now){
+  const dt = Math.min(0.05, (now - (frame.last || now)) / 1000);
+  frame.last = now;
+  const t = (now - t0) / 1000;
+
+  const lobes = +R.lobes.value, depth = +R.depth.value, wobble = +R.wob.value;
+  const tt = t * (+R.speed.value);
+  const cannonR = +R.cannon.value;
+
+  const cannonAngle = xToAngle(cannonX);
+  const cannonWidthMul = (+R.cannonWidth.value) / 100;
+  const cannonPlateau = (0.07 + (cannonR / HULL_RX) * 0.55) * cannonWidthMul;
+  const cannonShoulder = (0.07 + (cannonR / HULL_RX) * 0.65) * cannonWidthMul;
+  const cannonBump = { angle: cannonAngle, strength: (cannonR / HULL_RY) * 2.0, plateau: cannonPlateau, shoulder: cannonShoulder };
+
+  shieldActiveAmt += ((shieldOn ? 1 : 0) - shieldActiveAmt) * Math.min(1, dt * 6);
+  const shieldX = 70 + (330 - 70) * (0.5 + 0.5 * Math.sin(t * 0.5));
+  currentShieldX = shieldX;
+  shieldPosOut.textContent = Math.round(shieldX) + 'px';
+  const shieldAngle = xToAngle(shieldX);
+  // kürzer als die Kanone
+  const shieldPlateau = cannonPlateau * 0.45;
+  const shieldShoulder = cannonShoulder * 0.6;
+  const shieldHalfWidth = shieldPlateau + shieldShoulder;
+
+  // variables, nie exakt periodisches Leuchten (zwei unabhängige Wellen überlagert)
+  const shimmer = 0.72 + 0.16 * Math.sin(t * 2.6) + 0.12 * Math.sin(t * 1.15 + 1.7);
+  const glowAmt = shieldActiveAmt * shimmer;
+
+  const bumps = [cannonBump];
+  if (shieldVariant === 'PLATTE'){
+    bumps.push({ angle: shieldAngle, strength: (cannonR / HULL_RY) * 2.0 * 0.7 * shieldActiveAmt, plateau: shieldPlateau, shoulder: shieldShoulder });
+  }
+
+  // rumpfkontur (inkl. kanonen-lappen und ggf. panzerplatte) — hohe Auflösung,
+  // damit die Wölbung als weicher, ununterbrochener Übergang gezeichnet wird
+  const N = 150;
+  const hullPts = [];
+  for (let i = 0; i < N; i++){
+    const a = (i / N) * Math.PI * 2;
+    hullPts.push(hullPointAt(a, lobes, depth, wobble, tt, 0.4, bumps));
+  }
+  let mainD = catmullRomToBezierPath(hullPts);
+
+  // feuer-öffnung an der lappenspitze
+  lastTip = hullPointAt(cannonAngle, lobes, depth, wobble, tt, 0.4, bumps);
+  let holeR = 0;
+  if (fireTimer !== null){
+    fireTimer += dt;
+    const prog = fireTimer / FIRE_DURATION;
+    if (prog >= 1){ fireTimer = null; } else { holeR = cannonR * 0.55 * Math.sin(Math.PI * prog); }
+  }
+  if (holeR > 0.5) mainD += ' ' + circleSubpath(lastTip.x, lastTip.y, holeR);
+  hullPath.setAttribute('d', mainD);
+
+  const ammoC = AMMO[currentAmmo];
+  holeRing.setAttribute('cx', lastTip.x.toFixed(2));
+  holeRing.setAttribute('cy', lastTip.y.toFixed(2));
+  holeRing.setAttribute('r', holeR.toFixed(2));
+  holeRing.setAttribute('stroke', ammoC.glow);
+  holeRing.setAttribute('opacity', (holeR > 0.5 ? Math.min(1, holeR / (cannonR * 0.55)) : 0).toFixed(2));
+
+  // schild-visualisierung: nur die gewählte variante zeichnen
+  hideAllShieldVisuals();
+  const shieldTip = hullPointAt(shieldAngle, lobes, depth, wobble, tt, 0.4, [cannonBump]);
+  if (shieldVariant === 'RAND'){
+    const win = shieldHalfWidth * 1.25;
+    const segPts = [];
+    const STEPS = 16;
+    for (let i = 0; i <= STEPS; i++){
+      const a = shieldAngle - win + (2 * win) * (i / STEPS);
+      segPts.push(hullPointAt(a, lobes, depth, wobble, tt, 0.4, [cannonBump]));
+    }
+    shieldRim.setAttribute('d', openSmoothPath(segPts));
+    shieldRim.setAttribute('stroke-width', (2 + 8 * glowAmt).toFixed(1));
+    shieldRim.setAttribute('stroke', '#BFF6FF');
+    shieldRim.setAttribute('opacity', (0.12 + 0.88 * glowAmt).toFixed(2));
+    shieldRim.style.filter = `drop-shadow(0 0 ${(3 + 11 * glowAmt).toFixed(0)}px #2FE0F0${glowAmt > 0.4 ? 'cc' : '66'})`;
+  } else if (shieldVariant === 'KRISTALL'){
+    const size = cannonR * (0.5 + 0.28 * shieldActiveAmt);
+    shieldCrystal.setAttribute('d', crystalPath(shieldTip.x, shieldTip.y, size, size, 6, 0.15, 0.02, t * 0.3, 7.0));
+    shieldCrystal.setAttribute('opacity', glowAmt.toFixed(2));
+  } else if (shieldVariant === 'PLATTE'){
+    // die aufwölbung ist bereits teil von mainD; hier nur zwei feine "platten"-linien als textur
+    const a1 = shieldAngle - shieldHalfWidth * 0.5, a2 = shieldAngle + shieldHalfWidth * 0.5;
+    const p1 = hullPointAt(a1, lobes, depth, wobble, tt, 0.4, bumps);
+    const p1b = hullPointAt(a1, lobes, depth, wobble, tt, 0.4, [cannonBump]);
+    const p2 = hullPointAt(a2, lobes, depth, wobble, tt, 0.4, bumps);
+    const p2b = hullPointAt(a2, lobes, depth, wobble, tt, 0.4, [cannonBump]);
+    plateLineA.setAttribute('x1', p1b.x.toFixed(2)); plateLineA.setAttribute('y1', p1b.y.toFixed(2));
+    plateLineA.setAttribute('x2', p1.x.toFixed(2)); plateLineA.setAttribute('y2', p1.y.toFixed(2));
+    plateLineA.setAttribute('opacity', (0.7 * glowAmt).toFixed(2));
+    plateLineB.setAttribute('x1', p2b.x.toFixed(2)); plateLineB.setAttribute('y1', p2b.y.toFixed(2));
+    plateLineB.setAttribute('x2', p2.x.toFixed(2)); plateLineB.setAttribute('y2', p2.y.toFixed(2));
+    plateLineB.setAttribute('opacity', (0.7 * glowAmt).toFixed(2));
+  } else if (shieldVariant === 'RING'){
+    const dirx = HULL_CX - shieldTip.x, diry = HULL_CY - shieldTip.y;
+    const len = Math.max(1, Math.hypot(dirx, diry));
+    const inner = { x: shieldTip.x + (dirx / len) * 14, y: shieldTip.y + (diry / len) * 14 };
+    shieldRing.setAttribute('cx', inner.x.toFixed(2));
+    shieldRing.setAttribute('cy', inner.y.toFixed(2));
+    shieldRing.setAttribute('r', (cannonR * (0.5 + 0.26 * shieldActiveAmt)).toFixed(2));
+    shieldRing.setAttribute('opacity', (0.85 * glowAmt).toFixed(2));
+  }
+
+  // auto-feuer alle ~1.1s
+  autoFireAcc += dt;
+  if (autoFireAcc > 1.1){ autoFireAcc = 0; fire(); }
+
+  // schüsse aktualisieren + zeichnen
+  shots = shots.filter(s => s.life > 0 && s.y > 15);
+  let shotsMarkup = '';
+  for (const s of shots){
+    s.y -= 55 * dt;
+    s.life -= 0.5 * dt;
+    const r = 5 + 3 * Math.max(0, s.life);
+    shotsMarkup += `<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${r.toFixed(1)}" fill="${s.color}" opacity="${Math.max(0, s.life).toFixed(2)}" style="filter:drop-shadow(0 0 6px ${s.color})"/>`;
+  }
+  shotsGroup.innerHTML = shotsMarkup;
+
+  // gegner
+  for (const en of enemies){
+    const d = en.kind === 'crystal'
+      ? crystalPath(80, 80, en.rx, en.ry, en.lobes, en.depth, en.wobble, t * en.speed, en.seed)
+      : blobPath(80, 80, en.rx, en.ry, en.lobes, en.depth, en.wobble, t * en.speed, en.seed);
+    en.el.setAttribute('d', d);
+  }
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ---------- werte kopieren ---------- */
+document.getElementById('copyBtn').addEventListener('click', () => {
+  const dia = (+R.cannon.value) * 2;
+  const data = {
+    rumpf: { lobes: +R.lobes.value, lappentiefe: +R.depth.value, wabber: +R.wob.value, tempo: +R.speed.value, randbreite: +R.stroke.value },
+    kanone: { basisRadius: +R.cannon.value, basisBreitePx: dia, kachelAnteil: +(dia / TILE).toFixed(2), integriert: true },
+    schild: { variante: shieldVariant, positionPx: Math.round(currentShieldX), breitePxCa: dia, aktiv: shieldOn },
+    ammoFarbe: currentAmmo
+  };
+  const txt = JSON.stringify(data, null, 2);
+  document.getElementById('codeOut').textContent = txt;
+  navigator.clipboard?.writeText(txt);
+  const btn = document.getElementById('copyBtn');
+  const old = btn.textContent; btn.textContent = 'KOPIERT ✓';
+  setTimeout(() => btn.textContent = old, 1200);
+});
+</script>
+</body>
+</html>

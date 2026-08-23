@@ -1,0 +1,15 @@
+{
+  "name": "@neon-spore/game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot ./index.html",
+    "build": "bun build ./index.html --outdir=dist --minify --sourcemap"
+  },
+  "dependencies": {
+    "@neon-spore/content": "workspace:*",
+    "@neon-spore/render": "workspace:*",
+    "@neon-spore/sim": "workspace:*"
+  }
+}

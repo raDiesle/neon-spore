@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Signal Bloom — Raster-Prototyp</title>
+<style>
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; padding:0; height:100%; overflow:hidden;
+              background:#07060F; font-family:'Courier New',monospace; color:#F2E9DC;
+              touch-action:none; user-select:none; }
+  canvas { display:block; width:100%; height:100%; }
+
+  #pauseBtn, #gear { position:fixed; top:8px; z-index:5; width:32px; height:32px;
+          border-radius:9px; border:1px solid #3B3163; background:rgba(20,14,45,.75);
+          font:14px/1 'Courier New',monospace; }
+  #pauseBtn { right:46px; color:#2FE0F0; }
+  #gear     { right:8px;  color:#9C8FD6; font-size:13px; }
+
+  #waveSkip { position:fixed; top:30px; left:8px; z-index:5; display:flex; align-items:center; gap:3px; }
+  #waveSkip button { width:26px; height:18px; border-radius:5px; border:1px solid #3B3163;
+          background:rgba(20,14,45,.75); color:#FFC24B; font:10px/1 'Courier New',monospace; padding:0; }
+  #waveSkip span { font-size:10px; color:#9C8FD6; padding:0 3px; min-width:22px; text-align:center; }
+
+  #panel { position:fixed; inset:0; z-index:10; display:none; overflow-y:auto;
+           background:rgba(7,6,15,.96); padding:18px 16px 40px; }
+  #panel h2 { font-size:13px; letter-spacing:3px; color:#FFC24B; margin:0 0 4px; font-weight:600; }
+  #panel .sub { font-size:10px; color:#6F639F; margin:0 0 18px; line-height:1.6; }
+  #panel .grp { font-size:10px; letter-spacing:2px; color:#2FE0F0; margin:18px 0 8px; }
+  .row { display:flex; align-items:center; gap:10px; margin:9px 0; font-size:11px; }
+  .row label { flex:0 0 122px; color:#9C8FD6; }
+  .row span  { flex:0 0 60px; text-align:right; color:#F2E9DC; }
+  .row input { flex:1; accent-color:#FFC24B; }
+  #panel button { margin-top:18px; padding:9px 16px; border-radius:8px; border:1px solid #FFC24B;
+                  background:transparent; color:#FFC24B; font:12px 'Courier New',monospace; letter-spacing:2px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<button id="pauseBtn">⏸</button>
+<button id="gear">⚙</button>
+<div id="waveSkip">
+  <button data-d="-5">−5</button>
+  <button data-d="-1">−1</button>
+  <span id="waveLabel">W1</span>
+  <button data-d="1">+1</button>
+  <button data-d="5">+5</button>
+</div>
+
+<div id="panel">
+  <h2>RASTER-PROTOTYP</h2>
+  <p class="sub">Die Hülle ist über die volle Breite präsent. Kanone und Schild schieben sich
+     beide frei und sofort darüber — die Kanone für <b>Spieler 1</b>, das Schild für
+     <b>Spieler 2</b>, jeweils per Streifen. Kreaturen gleiten gleichmäßig — pro Beat genau
+     eine Kachel. Die Kanone feuert immer gerade nach oben. Das Schild wehrt einen
+     Meteoriten nur ab, wenn <b>Spieler 1</b> im Moment der Berührung auslöst — Position
+     allein reicht nicht. Ein Gegner, der die Hülle erreicht, bricht sie sichtbar an.</p>
+
+  <div class="grp">TAKT</div>
+  <div class="row"><label>Tempo</label><input id="s_bpm" type="range" min="40" max="200" step="2"><span id="v_bpm"></span></div>
+  <div class="row"><label>Sprungdauer</label><input id="s_hop" type="range" min="40" max="400" step="10"><span id="v_hop"></span></div>
+  <div class="row"><label>Schusstempo</label><input id="s_bps" type="range" min="2" max="20" step="1"><span id="v_bps"></span></div>
+  <div class="row"><label>Feuerpause</label><input id="s_fev" type="range" min="0.15" max="2" step="0.05"><span id="v_fev"></span></div>
+
+  <div class="grp">RASTER</div>
+  <div class="row"><label>Spalten</label><input id="s_cols" type="range" min="7" max="15" step="2"><span id="v_cols"></span></div>
+  <div class="row"><label>Radar-Vorlauf</label><input id="s_rad" type="range" min="1" max="8" step="1"><span id="v_rad"></span></div>
+
+  <div class="grp">SPIELGEFÜHL</div>
+  <div class="row"><label>Abwehr-Fenster</label><input id="s_sync" type="range" min="80" max="900" step="10"><span id="v_sync"></span></div>
+  <div class="row"><label>Hülle regen/s</label><input id="s_regen" type="range" min="0" max="30" step="1"><span id="v_regen"></span></div>
+  <div class="row"><label>Bedienfeld</label><input id="s_band" type="range" min="24" max="44" step="1"><span id="v_band"></span></div>
+
+  <div class="grp">WELLE SPRINGEN</div>
+  <div class="row"><label>Ziel</label><input id="s_jump" type="range" min="1" max="60" step="1"><span id="v_jump"></span></div>
+  <button id="jumpBtn">SPRINGEN</button>
+
+  <button id="close">ZURÜCK</button>
+  <p class="sub" style="margin-top:16px">
+    Solo am Rechner: Q / E Kanone · ← → Schild verschieben · Leertaste Schild auslösen · 1 / 2 feuern · P Pause<br>
+    Position allein genügt nicht — die Auslösung muss im Moment des Aufpralls kommen.
+  </p>
+</div>
+
+<script>
+/* ============================================================
+   SIGNAL BLOOM — RASTER-PROTOTYP
+   Zweck: die Taktmechanik testen. Alles rastet auf ein Schachbrett,
+   alles bewegt sich auf den Beat. Kein Ersatz für den freien
+   Prototyp, sondern eine Variante zum Vergleichen.
+   ============================================================ */
+
+const CFG = {
+  cols: 11,
+  bpm: 96,
+  hopMs: 130,          // Dauer eines Sprungs (dazwischen wird verweilt)
+  bulletPerBeat: 12,   // Kacheln pro Beat — hoch genug, dass die Diagonal-
+                       // Vorschau stimmt und man nicht vorhalten muss
+  fireEveryBeats: 0.5, // frühestens nach diesem Bruchteil eines Beats wieder feuern
+  radarLead: 4,        // Beats Vorlauf am Rand
+  guardWindow: 600,   // Zeitfenster für die Schild-Aktivierung beim Aufprall (mind. verdoppelt)
+  hullRegen: 3,
+  bandPct: 37
+};
+
+const COLORS = {
+  rot:  { hex:'#FF3B6B', dark:'#190F2C', eye:'#FF8AA3', shape:'manta'  },
+  cyan: { hex:'#2FE0F0', dark:'#0F2E38', eye:'#BFF6FF', shape:'qualle' }
+};
+const COLOR_KEYS = Object.keys(COLORS);
+const GREY = '#C7CBD6';
+
+/* ============================================================
+   WELLEN — b = Beat-Versatz nach Wellenstart, col = Spalte (0-basiert
+   auf 7 Spalten gedacht, wird bei anderer Spaltenzahl skaliert)
+   ============================================================ */
+const WAVES = [
+  { name:'ERSTER SPRUNG', hint:'Kanone auf die Spalte schieben — sie feuert immer gerade nach oben.',
+    e:[{b:0,col:2,type:'enemy',color:'rot'}] },
+
+  { name:'ZWEI FARBEN', hint:'Farbe wählen, dann Kanone positionieren — erst dann trifft der Schuss.',
+    e:[{b:0,col:2,type:'enemy',color:'rot'}, {b:3,col:4,type:'enemy',color:'cyan'}] },
+
+  { name:'IM WECHSEL', hint:'Drei nacheinander, abwechselnde Farben.',
+    e:[{b:0,col:1,type:'enemy',color:'alt'}, {b:2,col:3,type:'enemy',color:'alt'},
+       {b:4,col:5,type:'enemy',color:'alt'}] },
+
+  { name:'DER STEIN', hint:'Schild in die Spalte schieben (Spieler 2) UND im Moment der Berührung auslösen (Spieler 1).',
+    e:[{b:0,col:3,type:'meteor'}] },
+
+  { name:'ZWEI STEINE', hint:'Zweimal hintereinander: verschieben, auslösen, verschieben, auslösen.',
+    e:[{b:0,col:3,type:'meteor'}, {b:4,col:2,type:'meteor'}] },
+
+  { name:'SCHILD, DANN KANONE', hint:'Erst den Stein abwehren, dann den Gegner abschießen.',
+    e:[{b:0,col:3,type:'meteor'}, {b:5,col:3,type:'enemy',color:'rand'}] },
+
+  { name:'DIE MAUER', hint:'Breite Front — schnell zwischen den Spalten wechseln.',
+    e:[{b:0,col:0,type:'enemy',color:'alt'}, {b:1,col:2,type:'enemy',color:'alt'},
+       {b:2,col:4,type:'enemy',color:'alt'}, {b:3,col:6,type:'enemy',color:'alt'}] },
+
+  { name:'SCHIESSEN UND SCHÜTZEN', hint:'Im Wechsel: Gegner abschießen, Stein abwehren.',
+    e:[{b:0,col:2,type:'enemy',color:'alt'}, {b:3,col:4,type:'meteor'},
+       {b:6,col:5,type:'enemy',color:'alt'}, {b:9,col:2,type:'meteor'}] },
+
+  { name:'DICHT', hint:'Jetzt überlappt es sich. Sagt einander an, was ihr tut.',
+    e:[{b:0,col:1,type:'enemy',color:'alt'}, {b:1,col:5,type:'enemy',color:'alt'},
+       {b:3,col:3,type:'meteor'},            {b:5,col:0,type:'enemy',color:'alt'},
+       {b:6,col:6,type:'enemy',color:'alt'}] },
+
+  { name:'FINALE', hint:'Alles zusammen.',
+    e:[{b:0,col:0,type:'enemy',color:'alt'}, {b:0,col:6,type:'enemy',color:'alt'},
+       {b:2,col:3,type:'meteor'},            {b:4,col:2,type:'enemy',color:'alt'},
+       {b:4,col:4,type:'enemy',color:'alt'}, {b:7,col:1,type:'meteor'},
+       {b:7,col:5,type:'meteor'}] }
+];
+
+/* ============================================================
+   REPRODUZIERBARER ZUFALL — gleiche Welle, gleicher Ablauf
+   ============================================================ */
+let rngState = 1;
+function seedRng(n){ rngState = ((n+1)*2654435761)>>>0 || 1; }
+function rnd(){
+  rngState ^= rngState<<13; rngState>>>=0;
+  rngState ^= rngState>>>17;
+  rngState ^= rngState<<5;  rngState>>>=0;
+  return rngState/4294967296;
+}
+
+/* ============================================================
+   GEOMETRIE
+   ============================================================ */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W=0,H=0, bandTop=0, bandH=0, playH=0;
+let COLS=7, ROWS=8, TILE=0, gridTop=0, gridLeft=0, radarH=34;
+let L = {};
+
+function resize(){
+  const dpr = Math.min(window.devicePixelRatio||1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  layout();
+}
+
+function layout(){
+  bandH   = H*CFG.bandPct/100;
+  playH   = H - bandH;
+  bandTop = playH;
+
+  COLS = CFG.cols|0;
+  const usable = playH - radarH;
+  const MINROWS = 10;
+  TILE = W/COLS;
+  ROWS = Math.floor(usable/TILE);
+  // Im Querformat wären es zu wenige Reihen — dann lieber kleinere Kacheln,
+  // damit das Feld immer genug Tiefe für den Anflug hat
+  if (ROWS < MINROWS){ ROWS = MINROWS; TILE = usable/ROWS; }
+  gridLeft = (W - COLS*TILE)/2;
+  gridTop  = playH - ROWS*TILE;
+
+  const rowCannon = bandTop + bandH*0.20;
+  const rowShield = bandTop + bandH*0.48;
+  const rowBtn    = bandTop + bandH*0.80;
+  const r    = Math.min(bandH*0.15, W*0.068);
+
+  // Kanonen-Position (Spieler 1) und Schild-Position (Spieler 2): je ein
+  // Streifen über die volle Breite, zum Ziehen — rastet auf die Mitte jeder
+  // Spalte, nichts dazwischen. Beide bewegen sich frei und sofort.
+  L.colStrip    = { y:rowCannon, h:Math.min(bandH*0.24, 32) };
+  L.shieldStrip = { y:rowShield, h:Math.min(bandH*0.24, 32) };
+  L.guard = { x:W*0.14, y:rowBtn, r };
+  L.colors = COLOR_KEYS.map((k,i)=>({ key:k, x:W*(0.66+i*0.20), y:rowBtn, r }));
+}
+
+const tileCX = c => gridLeft + c*TILE + TILE/2;
+const tileCY = r => gridTop  + r*TILE + TILE/2;
+const clampCol = c => Math.max(0, Math.min(COLS-1, c));
+/* Wellen sind für 7 Spalten geschrieben — auf andere Breiten umrechnen */
+const mapCol = c => clampCol(Math.round(c*(COLS-1)/6));
+
+/* ============================================================
+   ZUSTAND
+   ============================================================ */
+let shield, cannon, hullScars, enemies, meteors, bullets, sparks, deflects, shocks, game, queue;
+
+function reset(){
+  shield = { col:(COLS/2)|0, visX:0 };
+  cannon = { col:(COLS/2)|0, visX:0 };
+  hullScars = [];
+  enemies=[]; meteors=[]; bullets=[]; sparks=[]; deflects=[]; shocks=[]; queue=[];
+  game = { wave:0, beat:0, beatT:0, flash:0, hull:100, score:0, over:false,
+           banner:'', bannerT:0, waveBeat:0, spawned:0,
+           restBeats:0, lastActivate:-9999, guardFlash:0, guardHit:0,
+           guardTries:0, guardOk:0, guardLate:0 };
+  startWave(0);
+}
+
+const beatSec = () => 60/CFG.bpm;
+
+function startWave(i){
+  game.wave = i;
+  seedRng(i);
+  enemies.length=0; meteors.length=0; bullets.length=0;
+  deflects.length=0; shocks.length=0;
+  queue.length = 0;
+  game.restBeats = 0;
+  game.lastActivate = -9999; game.guardFlash = 0; game.guardHit = 0;
+  shield.col = (COLS/2)|0; shield.visX = tileCX(shield.col);
+  cannon.col = (COLS/2)|0; cannon.visX = tileCX(cannon.col);
+
+  const w = WAVES[i];
+  if (w){
+    game.banner = w.name + '\n' + w.hint;
+    let altIdx = (rnd()<0.5)?0:1;
+    for (const e of w.e){
+      let color = null;
+      if (e.type === 'enemy'){
+        if (e.color === 'alt'){ color = COLOR_KEYS[altIdx % COLOR_KEYS.length]; altIdx++; }
+        else if (e.color === 'rand') color = COLOR_KEYS[(rnd()*COLOR_KEYS.length)|0];
+        else color = e.color;
+      }
+      queue.push({ beat:e.b, col:mapCol(e.col), type:e.type, color });
+    }
+  } else {
+    // Fortsetzungswellen: reproduzierbar erzeugt
+    const n = Math.min(9, 3 + Math.floor((i-WAVES.length)/2));
+    const mc = Math.min(3, 1 + Math.floor((i-WAVES.length)/4));
+    game.banner = 'WELLE ' + (i+1) + '\n' + n + ' Kreaturen' + (mc?' + ' + mc + ' Steine':'') + ' im Takt.';
+    for (let k=0;k<n+mc;k++){
+      const isMeteor = k >= n;
+      queue.push({ beat: Math.floor(k*1.6 + rnd()*1.4),
+                   col: (rnd()*COLS)|0,
+                   type: isMeteor ? 'meteor' : 'enemy',
+                   color: isMeteor ? null : COLOR_KEYS[(rnd()*COLOR_KEYS.length)|0] });
+    }
+  }
+  queue.sort((a,b)=>a.beat-b.beat);
+  game.waveBeat = 0; game.spawned = 0;
+  game.bannerT = 2.6;
+  const lbl = document.getElementById('waveLabel');
+  if (lbl) lbl.textContent = 'W' + (i+1);
+}
+
+/* ============================================================
+   TAKT — hier passiert alles Bewegte
+   ============================================================ */
+function onBeat(){
+  game.flash = 1;
+  game.waveBeat++;
+
+  // 1) Kreaturen springen
+  for (const en of enemies) hopEnemy(en);
+  for (const m of meteors){
+    m.fromCol = m.col; m.fromRow = m.row;
+    m.row += 1; m.anim = 0; m.spin += 0.5;
+  }
+
+  // 2) neue Kreaturen erscheinen — sie springen mehrere Kacheln herein,
+  //    damit der Auftritt Wucht hat statt nur eine Reihe zu betreten
+  while (game.spawned < queue.length && queue[game.spawned].beat <= game.waveBeat-1){
+    spawnEntry(queue[game.spawned]); game.spawned++;
+  }
+
+  // 4) Treffer prüfen (nach dem Sprung)
+  resolveTiles();
+}
+
+/* Die ersten beiden Gegnertypen halten ihre Bahn — sie sinken stur in ihrer
+   Spalte. Die Abwechslung passiert rein optisch (siehe Zeichnung), damit die
+   Spur vorhersagbar bleibt. Spurwechsel bleibt späteren Typen vorbehalten. */
+function hopEnemy(en){
+  en.fromCol = en.col; en.fromRow = en.row;
+  en.row += 1;
+  en.anim = 0;
+  en.spin += 0.4;
+}
+
+function spawnEntry(q){
+  // Kreaturen treten normal ein: eine Kachel von oberhalb des Rasters herein,
+  // danach geht es im gleichen Takt weiter wie bei allen anderen
+  if (q.type === 'meteor'){
+    meteors.push({ col:q.col, row:0, fromCol:q.col, fromRow:-1, anim:0,
+                   holes:[], spin:rnd()*6.28, tex:meteorTex() });
+  } else {
+    enemies.push({ col:q.col, row:0, fromCol:q.col, fromRow:-1, anim:0,
+                   color:q.color, phase:(rnd()*2)|0, spin:0, blocked:0 });
+  }
+}
+
+function meteorTex(){
+  const t=[]; const n=3+((rnd()*2)|0);
+  for(let i=0;i<n;i++) t.push({a:rnd()*6.28,d:0.25+rnd()*0.4,r:0.13+rnd()*0.13,light:rnd()<0.4});
+  return t;
+}
+
+/* Kollisionen auf Kachelebene. Die Hülle ist über die volle Breite präsent —
+   ein Gegner, der unten ankommt, trifft immer (Schadensbild am Rumpf).
+   Ein Meteorit trifft nur, wenn das Schild NICHT in seiner Spalte steht —
+   steht es dort, prallt er ab und es gibt keinen Schaden. */
+function resolveTiles(){
+  const shipRow = ROWS-1;
+  for (let i=enemies.length-1;i>=0;i--){
+    const en = enemies[i];
+    if (en.row >= shipRow){
+      for (let k=0;k<14;k++) spark(tileCX(en.col), gridTop+shipRow*TILE, COLORS[en.color].hex);
+      addScar(en.col, COLORS[en.color].hex); damage(12);
+      enemies.splice(i,1);
+    }
+  }
+  for (let i=meteors.length-1;i>=0;i--){
+    const m = meteors[i];
+    if (m.row >= shipRow){
+      const covered = (m.col === shield.col);
+      if (covered && guardArmed()){
+        // Abgewehrt: Position UND Aktivierung im richtigen Moment
+        const x = tileCX(m.col), y = gridTop+shipRow*TILE;
+        deflects.push({ x, y, vx:(rnd()-0.5)*90, vy:-260-rnd()*80, spin:m.spin, vs:(rnd()-0.5)*7,
+                        tex:m.tex, holes:m.holes, life:1.1 });
+        shocks.push({ x, y, r:TILE*0.4, life:0.5 });
+        for (let k=0;k<26;k++) spark(x, y, k%2 ? '#2FE0F0' : '#BFF6FF');
+        game.guardHit = 0.9; game.score += 150; game.guardOk++;
+        if (navigator.vibrate) navigator.vibrate([0,18,40,18]);
+      } else {
+        for (let k=0;k<18;k++) spark(tileCX(m.col), gridTop+shipRow*TILE, '#FF3B6B');
+        addScar(m.col, '#FF3B6B'); damage(20);
+        if (covered) game.guardLate++;   // richtig gestanden, zu spät gedrückt
+      }
+      game.guardTries++;
+      meteors.splice(i,1);
+    }
+  }
+}
+
+/* ============================================================
+   SCHÜSSE — die Kanone sitzt physisch an ihrer Position auf der
+   Hülle und feuert immer gerade nach oben durch genau diese Spalte.
+   ============================================================ */
+function fire(colorKey){
+  if (game.over) return;
+  // Feuerrate hängt am Takt, nicht am Schusstempo — sonst wird schnelleres
+  // Fliegen versehentlich zu Dauerfeuer
+  const cooldown = beatSec()*1000*CFG.fireEveryBeats;
+  if (game.lastFire && (now()-game.lastFire) < cooldown) return;
+  game.lastFire = now();
+  bullets.push({ col:cannon.col, row:ROWS-2, fromCol:cannon.col, fromRow:ROWS-1, anim:0, color:colorKey, t:0 });
+}
+
+function advanceBullet(b){
+  b.fromCol = b.col; b.fromRow = b.row;
+  b.row -= 1; b.anim = 0;
+}
+
+function stepBullets(dt){
+  const stepSec = beatSec()/CFG.bulletPerBeat;
+  for (let i=bullets.length-1;i>=0;i--){
+    const b = bullets[i];
+    b.anim = Math.min(1, b.anim + dt/(CFG.hopMs/1000));
+    b.t += dt;
+    if (b.t < stepSec) continue;
+    b.t -= stepSec;
+
+    let hit = false;
+    for (let j=enemies.length-1;j>=0;j--){
+      const en = enemies[j];
+      if (en.col !== b.col || en.row !== b.row) continue;
+      hit = true;
+      if (en.color === b.color){
+        for (let k=0;k<12;k++) spark(tileCX(en.col), tileCY(en.row), COLORS[en.color].hex);
+        enemies.splice(j,1); game.score += 100;
+      } else {
+        en.blocked = 0.35;
+        for (let k=0;k<5;k++) spark(tileCX(en.col), tileCY(en.row), '#8B85AB');
+      }
+      break;
+    }
+    if (!hit){
+      for (const m of meteors){
+        if (m.col !== b.col || m.row !== b.row) continue;
+        hit = true;
+        m.holes.push({ a:rnd()*6.28, d:0.3+rnd()*0.35 });
+        if (m.holes.length > 10) m.holes.shift();
+        for (let k=0;k<5;k++) spark(tileCX(m.col), tileCY(m.row), GREY);
+        if (navigator.vibrate) navigator.vibrate(10);
+        break;
+      }
+    }
+    if (hit){ bullets.splice(i,1); continue; }
+
+    advanceBullet(b);
+    if (b.row < 0) bullets.splice(i,1);
+  }
+}
+
+/* ============================================================
+   HILFEN
+   ============================================================ */
+const now = () => performance.now();
+const ease = t => 1-Math.pow(1-t,3);
+function spark(x,y,hex){ sparks.push({x,y,vx:(Math.random()-.5)*150,vy:(Math.random()-.5)*150,life:.4,hex}); }
+function addScar(col, hex){
+  hullScars.push({ col, ox:(Math.random()-0.5)*TILE*0.5, r:4+Math.random()*4, hex });
+  if (hullScars.length > 30) hullScars.shift();
+}
+function damage(n){
+  game.hull -= n;
+  if (navigator.vibrate) navigator.vibrate(35);
+  if (game.hull <= 0){ game.hull = 0; game.over = true; }
+}
+function glow(hex,b){ ctx.shadowColor=hex; ctx.shadowBlur=b; }
+function noGlow(){ ctx.shadowBlur=0; }
+
+/* Bildschirmposition einer Kachel-Kreatur. Linear interpoliert — die Bewegung
+   soll gleichmäßig fließen, nicht ausrollen. Der Schild nutzt weiter ease(). */
+function posOf(o){
+  const t = Math.min(1, o.anim);
+  const c = (o.fromCol!==undefined? o.fromCol : o.col) + ((o.col-(o.fromCol!==undefined?o.fromCol:o.col))*t);
+  const r = (o.fromRow!==undefined? o.fromRow : o.row) + ((o.row-(o.fromRow!==undefined?o.fromRow:o.row))*t);
+  return { x: tileCX(c), y: tileCY(r) };
+}
+
+/* ============================================================
+   AKTUALISIEREN
+   ============================================================ */
+function update(dt){
+  if (game.over) return;
+
+  // Takt
+  game.beatT += dt;
+  const bs = beatSec();
+  while (game.beatT >= bs){ game.beatT -= bs; game.beat++; onBeat(); }
+  game.flash = Math.max(0, game.flash - dt/0.26);
+
+  // Bewegung: Kreaturen gleiten gleichmäßig über den ganzen Beat und stehen
+  // dadurch bei jedem Schlag genau auf der nächsten Kachelmitte. Tempo bleibt
+  // identisch zum Hüpfen (eine Kachel pro Beat), nur ohne Verharren.
+  // Die Phase kommt direkt aus dem Takt-Akkumulator — alle Kreaturen springen
+  // auf denselben Schlag, dadurch ist die Bewegung exakt gleichförmig.
+  const phase = Math.min(1, game.beatT / beatSec());
+  shield.visX  += (tileCX(shield.col)  - shield.visX)  * Math.min(1, dt*14);
+  cannon.visX  += (tileCX(cannon.col)  - cannon.visX)  * Math.min(1, dt*14);
+  for (const en of enemies){ en.anim = phase; en.blocked = Math.max(0, en.blocked - dt); }
+  for (const m of meteors)  m.anim = phase;
+
+  stepBullets(dt);
+
+  for (let i=sparks.length-1;i>=0;i--){
+    const s=sparks[i]; s.x+=s.vx*dt; s.y+=s.vy*dt; s.vy+=200*dt; s.life-=dt;
+    if (s.life<=0) sparks.splice(i,1);
+  }
+  // abgewehrte Meteoriten fliegen sichtbar nach oben davon
+  for (let i=deflects.length-1;i>=0;i--){
+    const d=deflects[i];
+    d.x+=d.vx*dt; d.y+=d.vy*dt; d.vy+=120*dt; d.spin+=d.vs*dt; d.life-=dt;
+    if (d.life<=0 || d.y < -60) deflects.splice(i,1);
+  }
+  for (let i=shocks.length-1;i>=0;i--){
+    const s=shocks[i]; s.r += TILE*4.5*dt; s.life-=dt;
+    if (s.life<=0) shocks.splice(i,1);
+  }
+  game.guardFlash = Math.max(0, game.guardFlash - dt/0.25);
+  game.guardHit   = Math.max(0, game.guardHit   - dt/0.9);
+
+  game.hull = Math.min(100, game.hull + CFG.hullRegen*dt);
+  if (game.bannerT>0) game.bannerT-=dt;
+
+  // Welle fertig?
+  const done = game.spawned >= queue.length && enemies.length===0 && meteors.length===0;
+  if (done){
+    if (game.restBeats === 0){ game.restBeats = game.beat + 3; game.score += 300; }
+    else if (game.beat >= game.restBeats) startWave(game.wave+1);
+  }
+}
+
+/* ============================================================
+   ZEICHNEN
+   ============================================================ */
+function draw(){
+  // Hintergrund
+  const g = ctx.createRadialGradient(W/2, playH*0.2, 10, W/2, playH*0.2, Math.max(W,playH));
+  g.addColorStop(0,'#1D1547'); g.addColorStop(1,'#08060F');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  drawRadar();
+  drawGrid();
+
+  // Meteoriten
+  for (const m of meteors){
+    const p = posOf(m), r = TILE*0.40;
+    const wob = Math.sin(now()/1000*1.1 + m.spin)*TILE*0.06;
+    ctx.save(); ctx.translate(p.x+wob,p.y);
+    const hg = ctx.createRadialGradient(0,0,0,0,0,r*2);
+    hg.addColorStop(0,'#C7CBD628'); hg.addColorStop(1,'#C7CBD600');
+    ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(0,0,r*2,0,6.3); ctx.fill();
+    ctx.rotate(m.spin);
+    const rg = ctx.createLinearGradient(-r,-r,r,r);
+    rg.addColorStop(0,'#9DA3B0'); rg.addColorStop(.55,'#6B707E'); rg.addColorStop(1,'#3C3F49');
+    glow(GREY,7); ctx.fillStyle=rg;
+    ctx.beginPath();
+    ctx.moveTo(0,-r); ctx.lineTo(r*.8,-r*.5); ctx.lineTo(r,r*.3);
+    ctx.lineTo(r*.4,r); ctx.lineTo(-r*.5,r*.9); ctx.lineTo(-r,r*.2); ctx.lineTo(-r*.8,-r*.55);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle=GREY; ctx.lineWidth=1.6; ctx.stroke(); noGlow();
+    for (const t of m.tex){
+      ctx.fillStyle = t.light?'rgba(216,220,230,.4)':'rgba(26,27,33,.4)';
+      ctx.beginPath(); ctx.arc(Math.cos(t.a)*r*t.d, Math.sin(t.a)*r*t.d, r*t.r,0,6.3); ctx.fill();
+    }
+    for (const h of m.holes){
+      const hx=Math.cos(h.a)*r*h.d, hy=Math.sin(h.a)*r*h.d;
+      ctx.fillStyle='#17181D'; ctx.beginPath(); ctx.arc(hx,hy,r*0.16,0,6.3); ctx.fill();
+      ctx.strokeStyle='rgba(199,203,214,.5)'; ctx.lineWidth=0.8;
+      ctx.beginPath(); ctx.arc(hx,hy,r*0.16,0,6.3); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Gegner
+  for (const en of enemies){
+    const col = COLORS[en.color], p = posOf(en), r = TILE*0.38;
+    // Rein optisches Eigenleben — verändert die Kachel nicht, nur das Bild.
+    // Die Bahn bleibt damit ablesbar, sieht aber nicht starr aus.
+    const t = now()/1000 + en.phase*2.1;
+    let ox=0, oy=0, rot=0, sx=1, sy=1;
+    if (en.color === 'cyan'){
+      // Qualle: pendelt in der Spur und pumpt mit der Glocke
+      ox = Math.sin(t*1.9)*TILE*0.17;
+      const pump = Math.sin(t*3.1);
+      sx = 1 + pump*0.10; sy = 1 - pump*0.10;
+      rot = Math.sin(t*1.9)*0.18;
+    } else {
+      // Manta: gleitet, kippt sanft in die Kurve und schlägt mit den Flügeln
+      ox = Math.sin(t*1.35)*TILE*0.11;
+      oy = Math.sin(t*2.2)*TILE*0.05;
+      rot = Math.sin(t*1.35+0.5)*0.22;
+      sx = 1 + Math.sin(t*2.2)*0.09;
+    }
+    ctx.save(); ctx.translate(p.x+ox, p.y+oy); ctx.rotate(rot); ctx.scale(sx,sy);
+    if (en.blocked>0){
+      ctx.strokeStyle='#8B85AB'; ctx.lineWidth=2; noGlow();
+      shapePath(col.shape,0,0,r); ctx.stroke();
+    } else {
+      const hg=ctx.createRadialGradient(0,0,0,0,0,r*2.4);
+      hg.addColorStop(0,col.hex+'33'); hg.addColorStop(1,col.hex+'00');
+      ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(0,0,r*2.4,0,6.3); ctx.fill();
+      glow(col.hex,11); ctx.fillStyle=col.dark;
+      shapePath(col.shape,0,0,r); ctx.fill();
+      ctx.strokeStyle=col.hex; ctx.lineWidth=Math.max(1,r*0.10); ctx.stroke(); noGlow();
+      shapeDetails(col.shape,0,0,r,col.eye,col.hex);
+    }
+    ctx.restore();
+  }
+
+  // Schüsse — mit kurzem Schweif entlang der Diagonale
+  for (const b of bullets){
+    const p = posOf(b), hex = COLORS[b.color].hex;
+    const px = tileCX(b.fromCol), py = tileCY(b.fromRow);
+    ctx.globalAlpha = 0.35;
+    glow(hex,8); ctx.strokeStyle=hex; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(p.x,p.y); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle=hex;
+    ctx.beginPath(); ctx.arc(p.x,p.y,TILE*0.14,0,6.3); ctx.fill(); noGlow();
+  }
+
+  // Abgewehrte Meteoriten — fliegen nach oben aus dem Bild
+  for (const d of deflects){
+    const r = TILE*0.40, a = Math.min(1, d.life/0.5);
+    ctx.save(); ctx.translate(d.x,d.y); ctx.globalAlpha = a; ctx.rotate(d.spin);
+    const rg = ctx.createLinearGradient(-r,-r,r,r);
+    rg.addColorStop(0,'#9DA3B0'); rg.addColorStop(.55,'#6B707E'); rg.addColorStop(1,'#3C3F49');
+    glow('#2FE0F0',10); ctx.fillStyle=rg;
+    ctx.beginPath();
+    ctx.moveTo(0,-r); ctx.lineTo(r*.8,-r*.5); ctx.lineTo(r,r*.3);
+    ctx.lineTo(r*.4,r); ctx.lineTo(-r*.5,r*.9); ctx.lineTo(-r,r*.2); ctx.lineTo(-r*.8,-r*.55);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle='#BFF6FF'; ctx.lineWidth=1.8; ctx.stroke(); noGlow();
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  // Druckwelle der Abwehr
+  for (const s of shocks){
+    const a = Math.max(0, s.life/0.5);
+    ctx.globalAlpha = a*0.85;
+    glow('#2FE0F0', 16*a); ctx.strokeStyle='#BFF6FF'; ctx.lineWidth=3*a+1;
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,Math.PI,0); ctx.stroke(); noGlow();
+    ctx.globalAlpha = 1;
+  }
+
+  // Funken
+  for (const s of sparks){
+    ctx.globalAlpha=Math.max(0,s.life/0.4); ctx.fillStyle=s.hex;
+    ctx.fillRect(s.x-1.5,s.y-1.5,3,3);
+  }
+  ctx.globalAlpha=1;
+
+  drawHull();
+  drawShield();
+  drawCannon();
+  drawHUD();
+  drawBand();
+
+  if (game.over){
+    ctx.fillStyle='rgba(7,4,15,.8)'; ctx.fillRect(0,0,W,H);
+    ctx.textAlign='center';
+    ctx.fillStyle='#FF3B6B'; ctx.font='600 20px "Courier New",monospace';
+    ctx.fillText('HÜLLE DURCH', W/2, H*0.44);
+    ctx.fillStyle='#9C8FD6'; ctx.font='12px "Courier New",monospace';
+    ctx.fillText('Welle ' + (game.wave+1) + ' · ' + game.score + ' Punkte', W/2, H*0.44+26);
+    ctx.fillText('tippen für Neustart', W/2, H*0.44+48);
+    ctx.textAlign='left';
+  } else if (!running){
+    ctx.fillStyle='rgba(7,4,15,.55)'; ctx.fillRect(0,0,W,H);
+    ctx.textAlign='center';
+    ctx.fillStyle='#F2E9DC'; ctx.font='600 16px "Courier New",monospace';
+    ctx.fillText('PAUSIERT', W/2, H*0.46);
+    ctx.fillStyle='#7A6FA8'; ctx.font='11px "Courier New",monospace';
+    ctx.fillText('P oder ⏸ zum Fortsetzen', W/2, H*0.46+20);
+    ctx.textAlign='left';
+  }
+}
+
+/* Raster — der Takt ist hier zu sehen: auf jeden Beat leuchtet es auf */
+function drawGrid(){
+  const f = game.flash;
+  ctx.strokeStyle = `rgba(124,107,196,${0.07 + 0.30*f})`;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let c=0;c<=COLS;c++){
+    const x = gridLeft + c*TILE;
+    ctx.moveTo(x, gridTop); ctx.lineTo(x, gridTop+ROWS*TILE);
+  }
+  for (let r=0;r<=ROWS;r++){
+    const y = gridTop + r*TILE;
+    ctx.moveTo(gridLeft, y); ctx.lineTo(gridLeft+COLS*TILE, y);
+  }
+  ctx.stroke();
+
+  // Kreuzungspunkte — die Punkte, auf die alles einrastet
+  ctx.fillStyle = `rgba(164,147,232,${0.18 + 0.5*f})`;
+  for (let c=0;c<=COLS;c++) for (let r=0;r<=ROWS;r++){
+    const s = 1.2 + 1.6*f;
+    ctx.fillRect(gridLeft + c*TILE - s/2, gridTop + r*TILE - s/2, s, s);
+  }
+
+  // Vorschau: die Spalte der Kanone, gerade nach oben — einzige Bahnanzeige, die bleibt
+  const acx = tileCX(cannon.col);
+  const cg = ctx.createLinearGradient(0, gridTop, 0, gridTop+ROWS*TILE);
+  cg.addColorStop(0,'rgba(47,224,240,0)'); cg.addColorStop(1,'rgba(47,224,240,.16)');
+  ctx.fillStyle = cg;
+  ctx.fillRect(acx - TILE/2, gridTop, TILE, ROWS*TILE);
+}
+
+/* Radar: nur am oberen Rand, in der Farbe des Objekts. Die Höhe zeigt,
+   was zuerst hereinkommt — je näher am Rand, desto eher. Im Feld selbst
+   wird nichts mehr angezeigt. */
+function drawRadar(){
+  ctx.save();
+  for (let i=game.spawned; i<queue.length; i++){
+    const q = queue[i];
+    const inBeats = q.beat - (game.waveBeat-1);
+    if (inBeats < 0 || inBeats > CFG.radarLead) continue;
+    const hex = q.type==='meteor' ? GREY : COLORS[q.color].hex;
+    const x = tileCX(q.col);
+    const y = gridTop - 7 - (inBeats)*((radarH-12)/CFG.radarLead);
+    const a = Math.max(0.18, 1 - inBeats/(CFG.radarLead+1));
+    const s = 5 + 4*(1 - inBeats/(CFG.radarLead+1));
+    ctx.globalAlpha = a;
+    glow(hex, 10*a); ctx.fillStyle = hex;
+    ctx.beginPath();
+    ctx.moveTo(x, y+s); ctx.lineTo(x-s*0.85, y-s*0.55); ctx.lineTo(x+s*0.85, y-s*0.55);
+    ctx.closePath(); ctx.fill(); noGlow();
+    // unmittelbar bevorstehend: Randkante in der Spalte markieren
+    if (inBeats <= 0){
+      ctx.globalAlpha = 0.75;
+      ctx.fillRect(x - TILE*0.36, gridTop-2.5, TILE*0.72, 2.5);
+    }
+    ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+}
+
+function shapePath(shape,x,y,r){
+  const k=r/22; ctx.beginPath();
+  if (shape==='manta'){
+    ctx.moveTo(x,y+14*k);
+    ctx.bezierCurveTo(x+10*k,y+13*k,x+20*k,y+3*k,x+22*k,y-6*k);
+    ctx.bezierCurveTo(x+14*k,y-4*k,x+9*k,y-6*k,x+5*k,y-12*k);
+    ctx.bezierCurveTo(x+2*k,y-16*k,x-2*k,y-16*k,x-5*k,y-12*k);
+    ctx.bezierCurveTo(x-9*k,y-6*k,x-14*k,y-4*k,x-22*k,y-6*k);
+    ctx.bezierCurveTo(x-20*k,y+3*k,x-10*k,y+13*k,x,y+14*k);
+  } else if (shape==='qualle'){
+    ctx.moveTo(x-18*k,y-3*k);
+    ctx.bezierCurveTo(x-18*k,y+17*k,x-8*k,y+22*k,x,y+22*k);
+    ctx.bezierCurveTo(x+8*k,y+22*k,x+18*k,y+17*k,x+18*k,y-3*k);
+    ctx.bezierCurveTo(x+14*k,y-8*k,x+12*k,y-5*k,x+8*k,y-10*k);
+    ctx.bezierCurveTo(x+5*k,y-5*k,x+3*k,y-10*k,x,y-5*k);
+    ctx.bezierCurveTo(x-3*k,y-10*k,x-5*k,y-5*k,x-8*k,y-10*k);
+    ctx.bezierCurveTo(x-12*k,y-5*k,x-14*k,y-8*k,x-18*k,y-3*k);
+  } else {
+    for(let i=0;i<6;i++){const a=i*Math.PI/3,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+  }
+  ctx.closePath();
+}
+
+function shapeDetails(shape,x,y,r,eyeHex,lineHex){
+  const k=r/22;
+  if (shape==='manta'){
+    glow(eyeHex,6); ctx.fillStyle=eyeHex;
+    ctx.beginPath(); ctx.arc(x-4*k,y+4*k,1.6*k,0,6.3); ctx.fill();
+    ctx.beginPath(); ctx.arc(x+4*k,y+4*k,1.6*k,0,6.3); ctx.fill();
+    noGlow();
+  } else if (shape==='qualle'){
+    glow(eyeHex,6); ctx.fillStyle=eyeHex;
+    ctx.beginPath(); ctx.arc(x,y+7*k,2*k,0,6.3); ctx.fill(); noGlow();
+    ctx.strokeStyle=lineHex; ctx.lineWidth=Math.max(0.6,0.8*k); ctx.globalAlpha=.5;
+    ctx.beginPath();
+    ctx.moveTo(x-5*k,y-9*k); ctx.quadraticCurveTo(x-7*k,y-15*k,x-4*k,y-20*k);
+    ctx.moveTo(x+5*k,y-9*k); ctx.quadraticCurveTo(x+7*k,y-15*k,x+4*k,y-20*k);
+    ctx.stroke(); ctx.globalAlpha=1;
+  }
+}
+
+/* Rumpf: über die volle Breite sichtbar, nur der obere Teil ragt ins Bild —
+   der Rest wird als "unter dem Spielfeld" gedacht. Trifft ein Gegner,
+   bricht an genau dieser Stelle sichtbar ein Stück heraus. */
+function drawHull(){
+  const topY = gridTop + (ROWS-1)*TILE;
+  const botY = bandTop;
+  const x0 = gridLeft, x1 = gridLeft + COLS*TILE;
+  const teeth = COLS*2;
+  const jagY = i => (i%2===0) ? topY : topY - TILE*0.16;
+
+  const haloGrad = ctx.createLinearGradient(0, topY-24, 0, topY+24);
+  haloGrad.addColorStop(0,'#FFC24B00'); haloGrad.addColorStop(1,'#FFC24B26');
+  ctx.fillStyle = haloGrad; ctx.fillRect(x0, topY-24, x1-x0, 48);
+
+  glow('#FFC24B', 10);
+  const bg = ctx.createLinearGradient(0, topY, 0, botY);
+  bg.addColorStop(0, '#FFE9BE'); bg.addColorStop(0.3, '#FFC24B'); bg.addColorStop(1, '#7A4E14');
+  ctx.fillStyle = bg;
+  ctx.beginPath(); ctx.moveTo(x0, botY);
+  for (let i=0;i<=teeth;i++) ctx.lineTo(x0+(x1-x0)*i/teeth, jagY(i));
+  ctx.lineTo(x1, botY); ctx.closePath(); ctx.fill();
+  noGlow();
+  ctx.strokeStyle = '#FFC24B'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let i=0;i<=teeth;i++){ const x=x0+(x1-x0)*i/teeth; i?ctx.lineTo(x,jagY(i)):ctx.moveTo(x,jagY(i)); }
+  ctx.stroke();
+
+  // Einschläge: an der getroffenen Spalte bricht ein Stück heraus
+  for (const sc of hullScars){
+    const cx = tileCX(sc.col) + sc.ox, cy = topY + TILE*0.20;
+    ctx.fillStyle = '#1A1330';
+    ctx.beginPath(); ctx.arc(cx, cy, sc.r, 0, 6.3); ctx.fill();
+    const flick = 0.3 + Math.sin(now()/1000*5 + sc.col*1.3)*0.15;
+    ctx.globalAlpha = flick; glow(sc.hex,7); ctx.fillStyle = sc.hex;
+    ctx.beginPath(); ctx.arc(cx, cy, sc.r*0.4, 0, 6.3); ctx.fill();
+    noGlow(); ctx.globalAlpha = 1;
+  }
+}
+
+/* Kanone: schiebt sich frei (nicht im Takt) über die Hülle und feuert
+   immer gerade nach oben, egal wo sie gerade steht */
+function drawCannon(){
+  const topY = gridTop + (ROWS-1)*TILE;
+  ctx.save(); ctx.translate(cannon.visX, topY - TILE*0.06);
+
+  const halo = ctx.createRadialGradient(0,-10,0,0,-10,26);
+  halo.addColorStop(0,'#2FE0F02A'); halo.addColorStop(1,'#2FE0F000');
+  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(0,-10,26,0,6.3); ctx.fill();
+
+  ctx.fillStyle='#8A5A1E'; ctx.fillRect(-7,-24,14,24);
+  glow('#FFC24B',6); ctx.fillStyle='#C98A2E'; ctx.fillRect(-5,-27,10,20); noGlow();
+  glow('#2FE0F0',10); ctx.fillStyle='#2FE0F0'; ctx.fillRect(-3,-27,6,7); noGlow();
+
+  ctx.fillStyle='#190F2C'; ctx.beginPath(); ctx.arc(0,1,9,0,6.3); ctx.fill();
+  ctx.strokeStyle='#FFC24B'; ctx.lineWidth=1.6; ctx.stroke();
+  glow('#2FE0F0',7); ctx.fillStyle='#2FE0F0';
+  ctx.beginPath(); ctx.arc(0,1,3,0,6.3); ctx.fill(); noGlow();
+  ctx.restore();
+}
+
+/* Schild: Spieler 2 verschiebt es frei und sofort (wie die Kanone, nur für
+   sich), Spieler 1 aktiviert es. Nur im aktivierten Moment wehrt es einen
+   Meteoriten ab — passiv ist es wirkungslos. Der Unterschied muss auf einen
+   Blick erkennbar sein. */
+function drawShield(){
+  const x = shield.visX, y = gridTop + (ROWS-1)*TILE;
+  const armed = guardArmed();
+  const hit = game.guardHit;
+  const w = TILE*(armed ? 1.02 : 0.92), h = TILE*(armed ? 0.42 : 0.24);
+  const pulse = 0.7 + 0.3*Math.sin(now()/220);
+
+  ctx.save(); ctx.translate(x,y);
+
+  // Erfolgreiche Abwehr blitzt nach
+  if (hit>0){
+    ctx.globalAlpha = hit;
+    glow('#BFF6FF', 24*hit); ctx.strokeStyle='#BFF6FF'; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.arc(0,0,TILE*(0.5+0.7*(1-hit)),Math.PI,0); ctx.stroke();
+    noGlow(); ctx.globalAlpha = 1;
+  }
+
+  if (armed){
+    // aktiviert: geschlossene, helle Kuppel
+    glow('#2FE0F0', 22);
+    const dg = ctx.createLinearGradient(0,-h,0,h*0.4);
+    dg.addColorStop(0,'#BFF6FF'); dg.addColorStop(1,'#2FE0F0');
+    ctx.fillStyle = dg;
+    ctx.beginPath(); ctx.ellipse(0,h*0.3,w*0.5,h,0,Math.PI,0); ctx.fill();
+    noGlow();
+    ctx.strokeStyle='#FFFFFF'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.ellipse(0,h*0.3,w*0.5,h,0,Math.PI,0); ctx.stroke();
+  } else {
+    // passiv: dünner, durchlässiger Streifen
+    glow('#2FE0F0', 9*pulse);
+    const bg = ctx.createLinearGradient(-w/2,0,w/2,0);
+    bg.addColorStop(0,'#2FE0F000'); bg.addColorStop(.5,'#2FE0F0AA'); bg.addColorStop(1,'#2FE0F000');
+    ctx.fillStyle=bg; ctx.fillRect(-w/2,-h/2,w,h);
+    noGlow();
+    ctx.strokeStyle='rgba(191,246,255,.55)'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.moveTo(-w*0.34,-h*0.5); ctx.lineTo(w*0.34,-h*0.5); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawHUD(){
+  // Hülle
+  const bw = W*0.42, bx = W - bw - 10, by = 14;
+  ctx.fillStyle='#2A1F4E'; ctx.fillRect(bx,by,bw,6);
+  const hp = game.hull/100;
+  ctx.fillStyle = hp>0.5 ? '#2FE0F0' : hp>0.25 ? '#FFC24B' : '#FF3B6B';
+  glow(ctx.fillStyle,8); ctx.fillRect(bx,by,bw*hp,6); noGlow();
+
+  ctx.font='10px "Courier New",monospace'; ctx.fillStyle='#9C8FD6';
+  ctx.fillText(game.score+' P', 10, 20);
+
+  // Taktanzeige: vier Punkte, der aktive leuchtet
+  const bi = game.beat % 4;
+  for (let i=0;i<4;i++){
+    const x = 10 + i*13, y = 34;
+    const on = i===bi;
+    if (on){ glow('#FFC24B',10); ctx.fillStyle='#FFC24B'; } else ctx.fillStyle='#3B3163';
+    ctx.beginPath(); ctx.arc(x,y, on? 4.5 : 3, 0, 6.3); ctx.fill(); noGlow();
+  }
+
+  if (game.guardHit > 0){
+    const a = Math.min(1, game.guardHit/0.6);
+    ctx.globalAlpha = a; ctx.textAlign='center';
+    glow('#BFF6FF', 12*a);
+    ctx.fillStyle='#BFF6FF'; ctx.font='600 15px "Courier New",monospace';
+    ctx.fillText('ABGEWEHRT', W/2, gridTop + (ROWS-1)*TILE - TILE*0.9);
+    noGlow(); ctx.textAlign='left'; ctx.globalAlpha=1;
+  }
+
+  if (game.guardTries > 0){
+    ctx.font='9px "Courier New",monospace'; ctx.fillStyle='#6F639F';
+    ctx.fillText('Abwehr ' + game.guardOk + '/' + game.guardTries, 10, 48);
+  }
+
+  if (game.bannerT>0){
+    const a = Math.min(1, game.bannerT/0.5);
+    ctx.globalAlpha=a; ctx.textAlign='center';
+    const lines = game.banner.split('\n');
+    ctx.fillStyle='#FFC24B'; ctx.font='600 15px "Courier New",monospace';
+    ctx.fillText(lines[0], W/2, playH*0.30);
+    ctx.fillStyle='#9C8FD6'; ctx.font='11px "Courier New",monospace';
+    ctx.fillText(lines[1]||'', W/2, playH*0.30+20);
+    ctx.textAlign='left'; ctx.globalAlpha=1;
+  }
+}
+
+function drawBand(){
+  ctx.fillStyle='#0E0A22'; ctx.fillRect(0,bandTop,W,bandH);
+  ctx.strokeStyle='#33295C'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(0,bandTop); ctx.lineTo(W,bandTop); ctx.stroke();
+
+  ctx.font='9px "Courier New",monospace'; ctx.textAlign='center';
+
+  // Kanonen-Streifen (Spieler 1): über die volle Breite, rastet auf Kachelmitten
+  ctx.fillStyle='#FFC24B'; ctx.fillText('SPIELER 1 · KANONE', W/2, L.colStrip.y - L.colStrip.h/2 - 4);
+  ctx.fillStyle = 'rgba(36,27,79,.55)';
+  ctx.fillRect(gridLeft, L.colStrip.y - L.colStrip.h/2, COLS*TILE, L.colStrip.h);
+  for (let c=0;c<COLS;c++){
+    const x = tileCX(c);
+    const on = c === cannon.col;
+    if (on){
+      glow('#FFC24B',12); ctx.fillStyle='#FFC24B';
+      ctx.fillRect(x-TILE*0.40, L.colStrip.y-L.colStrip.h/2+2, TILE*0.80, L.colStrip.h-4);
+      noGlow();
+    } else {
+      ctx.fillStyle='#3B3163';
+      ctx.fillRect(x-1, L.colStrip.y-L.colStrip.h*0.22, 2, L.colStrip.h*0.44);
+    }
+  }
+
+  // Schild-Streifen (Spieler 2): dieselbe Steuerung, eigene Farbe — bewegt
+  // sich frei und sofort, genau wie die Kanone
+  ctx.fillStyle='#2FE0F0'; ctx.fillText('SPIELER 2 · SCHILD', W/2, L.shieldStrip.y - L.shieldStrip.h/2 - 4);
+  ctx.fillStyle = 'rgba(36,27,79,.55)';
+  ctx.fillRect(gridLeft, L.shieldStrip.y - L.shieldStrip.h/2, COLS*TILE, L.shieldStrip.h);
+  for (let c=0;c<COLS;c++){
+    const x = tileCX(c);
+    const on = c === shield.col;
+    if (on){
+      glow('#2FE0F0',12); ctx.fillStyle='#2FE0F0';
+      ctx.fillRect(x-TILE*0.40, L.shieldStrip.y-L.shieldStrip.h/2+2, TILE*0.80, L.shieldStrip.h-4);
+      noGlow();
+    } else {
+      ctx.fillStyle='#3B3163';
+      ctx.fillRect(x-1, L.shieldStrip.y-L.shieldStrip.h*0.22, 2, L.shieldStrip.h*0.44);
+    }
+  }
+  ctx.textAlign='left';
+
+  // Schild aktivieren (Spieler 1) — leuchtet, solange das Fenster offen ist
+  const th=L.guard;
+  const armed = guardArmed();
+  if (armed){ glow('#2FE0F0',16); ctx.fillStyle='#2FE0F0'; }
+  else ctx.fillStyle='#2A1F4E';
+  ctx.beginPath(); ctx.arc(th.x,th.y,th.r,0,6.3); ctx.fill(); noGlow();
+  ctx.strokeStyle='#2FE0F0'; ctx.lineWidth=2; ctx.stroke();
+  ctx.textAlign='center'; ctx.font='9px "Courier New",monospace';
+  ctx.fillStyle = armed ? '#08131A' : '#2FE0F0';
+  ctx.fillText('AUSLÖSEN', th.x, th.y+3);
+
+  // Farben (Spieler 2 feuert)
+  for (const b of L.colors){
+    const hex=COLORS[b.key].hex;
+    glow(hex,9); ctx.fillStyle=hex;
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,6.3); ctx.fill(); noGlow();
+    ctx.fillStyle=COLORS[b.key].dark; shapePath(COLORS[b.key].shape,b.x,b.y,b.r*0.5); ctx.fill();
+    shapeDetails(COLORS[b.key].shape,b.x,b.y,b.r*0.5,COLORS[b.key].eye,hex);
+  }
+  ctx.textAlign='left';
+}
+
+
+/* ============================================================
+   EINGABE
+   ============================================================ */
+function hitCircle(p,c){ const dx=p.x-c.x,dy=p.y-c.y; return dx*dx+dy*dy <= (c.r*1.3)**2; }
+
+let cannonStripId = null, shieldStripId = null;
+const colFromX = x => clampCol(Math.round((x - gridLeft - TILE/2)/TILE));
+
+function onDown(id,x,y){
+  if (game.over){ reset(); return; }
+  if (y < bandTop) return;
+  const p={x,y};
+  if (Math.abs(y - L.colStrip.y) <= L.colStrip.h*0.75){
+    cannon.col = colFromX(x); cannonStripId = id; return;
+  }
+  if (Math.abs(y - L.shieldStrip.y) <= L.shieldStrip.h*0.75){
+    shield.col = colFromX(x); shieldStripId = id; return;
+  }
+  if (hitCircle(p,L.guard)){ activateGuard(); return; }
+  for (const b of L.colors) if (hitCircle(p,b)){ fire(b.key); return; }
+}
+function onMove(id,x){
+  if (cannonStripId === id) cannon.col = colFromX(x);
+  if (shieldStripId === id) shield.col = colFromX(x);
+}
+function onUp(id){
+  if (cannonStripId === id) cannonStripId = null;
+  if (shieldStripId === id) shieldStripId = null;
+}
+
+/* Spieler 1 aktiviert das Schild. Ein Meteorit wird NUR abgewehrt, wenn die
+   Aktivierung im Moment der Berührung liegt — Position allein reicht nicht. */
+function activateGuard(){
+  if (game.over) return;
+  game.lastActivate = now();
+  game.guardFlash = 1;
+}
+const guardArmed = () => (now() - (game.lastActivate ?? -9999)) < CFG.guardWindow;
+
+canvas.addEventListener('pointerdown', e=>{ e.preventDefault(); canvas.setPointerCapture(e.pointerId); onDown(e.pointerId,e.clientX,e.clientY); });
+canvas.addEventListener('pointermove', e=>{ e.preventDefault(); onMove(e.pointerId,e.clientX); });
+canvas.addEventListener('pointerup',   e=>{ e.preventDefault(); onUp(e.pointerId); });
+canvas.addEventListener('pointercancel', e=>onUp(e.pointerId));
+canvas.addEventListener('contextmenu', e=>e.preventDefault());
+
+const keys={};
+addEventListener('keydown', e=>{
+  if (keys[e.code]) return; keys[e.code]=true;
+  if (e.code==='Space'){ activateGuard(); e.preventDefault(); }
+  if (e.code==='ArrowLeft')  shield.col = clampCol(shield.col-1);
+  if (e.code==='ArrowRight') shield.col = clampCol(shield.col+1);
+  if (e.code==='KeyQ') cannon.col = clampCol(cannon.col-1);
+  if (e.code==='KeyE') cannon.col = clampCol(cannon.col+1);
+  if (e.code==='Digit1') fire(COLOR_KEYS[0]);
+  if (e.code==='Digit2') fire(COLOR_KEYS[1]);
+  if (e.code==='KeyP' && document.getElementById('panel').style.display!=='block') setPaused(!manuallyPaused);
+});
+addEventListener('keyup', e=>{ keys[e.code]=false; });
+
+/* ============================================================
+   SCHLEIFE
+   ============================================================ */
+let last=0, running=true, manuallyPaused=false;
+function frame(t){
+  const dt = Math.min(0.05,(t-last)/1000||0); last=t;
+  if (running) update(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+document.addEventListener('visibilitychange', ()=>{
+  if (document.hidden) running=false;
+  else if (!manuallyPaused && document.getElementById('panel').style.display!=='block'){ running=true; last=performance.now(); }
+});
+
+const pauseBtn=document.getElementById('pauseBtn');
+function setPaused(p){ manuallyPaused=p; running=!p; pauseBtn.textContent=p?'▶':'⏸'; if(!p) last=performance.now(); }
+pauseBtn.onclick=()=>{ if (document.getElementById('panel').style.display!=='block') setPaused(!manuallyPaused); };
+
+document.getElementById('gear').onclick=()=>{ document.getElementById('panel').style.display='block'; running=false; pauseBtn.textContent='▶'; };
+document.getElementById('close').onclick=()=>{ document.getElementById('panel').style.display='none'; running=true; last=performance.now(); manuallyPaused=false; pauseBtn.textContent='⏸'; };
+
+/* Regler */
+const SLIDERS=[
+  ['s_bpm','v_bpm','bpm',' BPM'],   ['s_hop','v_hop','hopMs',' ms'],
+  ['s_bps','v_bps','bulletPerBeat',' Kacheln/Beat'],
+  ['s_fev','v_fev','fireEveryBeats',' Beats'],
+  ['s_cols','v_cols','cols',''],
+  ['s_rad','v_rad','radarLead',' Beats'],
+  ['s_sync','v_sync','guardWindow',' ms'], ['s_regen','v_regen','hullRegen',''],
+  ['s_band','v_band','bandPct',' %']
+];
+for (const [sid,vid,key,unit] of SLIDERS){
+  const s=document.getElementById(sid), v=document.getElementById(vid);
+  if (!s) continue;
+  s.value = CFG[key];
+  v.textContent = CFG[key]+unit;
+  s.addEventListener('input', ()=>{
+    CFG[key] = +s.value; v.textContent = s.value+unit;
+    if (key==='cols'||key==='bandPct') layout();
+  });
+}
+
+function jumpToWave(idx, closePanel){
+  idx = Math.max(0, idx);
+  hullScars.length=0; sparks.length=0; deflects.length=0; shocks.length=0;
+  game.guardTries=0; game.guardOk=0; game.guardLate=0;
+  game.hull=100; game.score=0; game.over=false;
+  game.beat=0; game.beatT=0;
+  startWave(idx);
+  if (closePanel) document.getElementById('panel').style.display='none';
+  running=true; last=performance.now(); manuallyPaused=false; pauseBtn.textContent='⏸';
+  jumpSlider.value=Math.min(+jumpSlider.max, idx+1); jumpLabel.textContent='Welle '+(idx+1);
+}
+const jumpSlider=document.getElementById('s_jump'), jumpLabel=document.getElementById('v_jump');
+jumpSlider.value=1; jumpLabel.textContent='Welle 1';
+jumpSlider.addEventListener('input', ()=>{ jumpLabel.textContent='Welle '+jumpSlider.value; });
+document.getElementById('jumpBtn').onclick=()=>jumpToWave((+jumpSlider.value)-1, true);
+for (const btn of document.querySelectorAll('#waveSkip button'))
+  btn.addEventListener('click', ()=>jumpToWave(game.wave + (+btn.dataset.d), false));
+
+addEventListener('resize', resize);
+resize(); reset(); requestAnimationFrame(frame);
+</script>
+</body>
+</html>

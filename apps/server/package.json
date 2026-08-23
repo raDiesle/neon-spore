@@ -1,0 +1,10 @@
+{
+  "name": "@neon-spore/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'phase 2 — see docs/architecture.md, Network'",
+    "build": "echo 'phase 2'"
+  }
+}
