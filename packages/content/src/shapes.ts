@@ -155,9 +155,12 @@ export function bumpAdd(diff: number, strength: number, plateau: number, shoulde
 }
 
 /**
- * Radius multiplier for the hull at angle `a`. This combines the base lobes,
- * the wobble (three frequency layers), and optional bumps (cannon, shield).
- * Returns a value to multiply the nominal radius by.
+ * Radius multiplier for the hull at angle `a`. This combines the base lobes and
+ * the wobble (three frequency layers). Returns a value to multiply the nominal
+ * radius by.
+ *
+ * Bumps are deliberately *not* part of it: they lift the surface straight up
+ * (`bumpLift`), not outwards along the radius. See `hullPointAtX`.
  */
 export function hullRadiusMul(
   a: number,
@@ -166,31 +169,52 @@ export function hullRadiusMul(
   wobble: number,
   t: number,
   seed: number,
-  bumps?: Bump[],
 ): number {
   let m = 1 + depth * Math.cos(lobes * a + seed);
   m *= 1 + wobble * Math.sin(a * 3 + t * 0.9 + seed * 1.7);
   m *= 1 + wobble * 0.6 * Math.sin(a * 5 - t * 0.53 + seed * 2.3);
   m *= 1 + wobble * 0.4 * Math.sin(a * 2 + t * 0.31 + seed * 0.6);
   m *= 1 + 0.02 * Math.sin(t * 0.6 + seed);
-  if (bumps) {
-    for (const b of bumps) {
-      let diff = a - b.angle;
-      // Wrap to ±π so the bump doesn't split at the seam
-      diff = Math.atan2(Math.sin(diff), Math.cos(diff));
-      m += bumpAdd(diff, b.strength, b.plateau, b.shoulder);
-    }
-  }
   return m;
 }
 
 /**
- * A point on the hull contour at angle `a`. The hull is an ellipse at
- * (hullCx, hullCy) with semi-axes (hullRx, hullRy), deformed by lobes and
- * animated by wobble and time.
+ * How far the bumps lift the surface at angle `a`, in units of `ry`.
+ *
+ * The lift is vertical, and that is the whole point. Added to the radius
+ * instead, a bump would push the surface *outwards along the ellipse*, so the
+ * further a lobe sits from the apex the more it would lean and stretch
+ * sideways — the cannon would no longer stand above the column it fires from.
+ * Straight up means the lobe looks the same in the middle of the hull as it
+ * does at either edge, and its tip is always directly above its base.
  */
-export function hullPointAt(
-  a: number,
+export function bumpLift(a: number, bumps?: Bump[]): number {
+  if (!bumps) return 0;
+  let lift = 0;
+  for (const b of bumps) {
+    // Wrap to ±π so the bump doesn't split at the seam
+    const diff = Math.atan2(Math.sin(a - b.angle), Math.cos(a - b.angle));
+    lift += bumpAdd(diff, b.strength, b.plateau, b.shoulder);
+  }
+  return lift;
+}
+
+/**
+ * The hull surface directly above a screen `x`.
+ *
+ * The hull is a height field, not a closed contour: only the arc around the
+ * apex is ever in view, and every lobe has to stand exactly above the column it
+ * belongs to. Taking the angle as the parameter and reading x back off it does
+ * not do that — the lobe depth multiplies the radius, so it slides the point
+ * sideways by as much as `depth * (x - cx)`, and a cannon at the edge of the
+ * field ends up leaning towards the middle of it. So x is the parameter, and
+ * the lobes, the wobble and the bumps only ever move the surface up and down.
+ *
+ * The ellipse is at (cx, cy) with semi-axes (rx, ry); the angle is derived from
+ * x, which is what keeps the mapping linear. Bumps lift straight up.
+ */
+export function hullPointAtX(
+  x: number,
   cx: number,
   cy: number,
   rx: number,
@@ -202,8 +226,15 @@ export function hullPointAt(
   seed: number,
   bumps?: Bump[],
 ): Point {
-  const m = hullRadiusMul(a, lobes, depth, wobble, t, seed, bumps);
-  return { x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m };
+  const a = -Math.PI / 2 + (x - cx) / rx;
+  const m = hullRadiusMul(a, lobes, depth, wobble, t, seed);
+  const lift = bumpLift(a, bumps) * ry;
+  return { x, y: cy + Math.sin(a) * ry * m - lift };
+}
+
+/** The angle a screen `x` sits at on a hull centred at `cx` with radius `rx`. */
+export function hullAngleAtX(x: number, cx: number, rx: number): number {
+  return -Math.PI / 2 + (x - cx) / rx;
 }
 
 export interface Point {

@@ -1,4 +1,4 @@
-import { type Bump, HULL, hullPointAt, openSmoothPath } from "@neon-spore/content";
+import { type Bump, HULL, hullAngleAtX, hullPointAtX, openSmoothPath } from "@neon-spore/content";
 import type { Scar, World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -12,9 +12,10 @@ import { PALETTE, STROKE } from "./palette.js";
  *
  * The contour is an ellipse far wider than the screen; only the arc around its
  * apex is in view, which is what keeps the surface almost flat and lets the
- * angle-to-x mapping stay linear (`xToAngle` in the style guide).
+ * angle-to-x mapping stay linear (`xToAngle` in the style guide). It is sampled
+ * as a height field over x (`hullPointAtX`), so a lobe stands above the column
+ * it belongs to instead of leaning towards the middle of the field.
  */
-const APEX = -Math.PI / 2;
 /** How far past the field edges to sample, so the contour never ends in view. */
 const MARGIN = 0.12;
 
@@ -24,9 +25,9 @@ interface HullFrame {
   rx: number;
   ry: number;
   bumps: Bump[];
-  /** Angle of the cannon, needed again for the muzzle. */
-  cannonAngle: number;
-  shieldAngle: number;
+  /** Screen x of the cannon, needed again for the muzzle. */
+  cannonX: number;
+  shieldX: number;
   t: number;
 }
 
@@ -35,18 +36,18 @@ function frame(l: Layout, world: World, time: number, armed: number): HullFrame 
   const ry = l.tile * 1.6;
   const cx = l.gridLeft + l.gridWidth / 2;
   const cy = l.hullY + ry;
-  const toAngle = (x: number): number => APEX + (x - cx) / rx;
+  const toAngle = (x: number): number => hullAngleAtX(x, cx, rx);
 
   // Widths are chosen in tiles and converted, so a lobe stays the same size
   // relative to a column whatever the screen does.
   const cannonHalf = (l.tile * 0.42) / rx;
   const shieldHalf = (l.tile * 0.6) / rx;
-  const cannonAngle = toAngle(tileCX(l, world.cannonCol));
-  const shieldAngle = toAngle(tileCX(l, world.shieldCol));
+  const cannonX = tileCX(l, world.cannonCol);
+  const shieldX = tileCX(l, world.shieldCol);
 
   const bumps: Bump[] = [
     {
-      angle: cannonAngle,
+      angle: toAngle(cannonX),
       strength: (l.tile * 0.5) / ry,
       plateau: cannonHalf * 0.35,
       shoulder: cannonHalf * 0.65,
@@ -56,24 +57,24 @@ function frame(l: Layout, world: World, time: number, armed: number): HullFrame 
   // than the cannon, and only there while player 1 holds it open.
   if (armed > 0.01) {
     bumps.push({
-      angle: shieldAngle,
+      angle: toAngle(shieldX),
       strength: ((l.tile * 0.34) / ry) * armed,
       plateau: shieldHalf * 0.45,
       shoulder: shieldHalf * 0.55,
     });
   }
-  return { cx, cy, rx, ry, bumps, cannonAngle, shieldAngle, t: time * 1.4 };
+  return { cx, cy, rx, ry, bumps, cannonX, shieldX, t: time * 1.4 };
 }
 
 function pointsAcross(f: HullFrame, l: Layout, steps: number, bumps: Bump[]) {
-  const from = APEX + (l.gridLeft - MARGIN * l.gridWidth - f.cx) / f.rx;
-  const to = APEX + (l.gridLeft + (1 + MARGIN) * l.gridWidth - f.cx) / f.rx;
+  const from = l.gridLeft - MARGIN * l.gridWidth;
+  const to = l.gridLeft + (1 + MARGIN) * l.gridWidth;
   const pts = [];
   for (let i = 0; i <= steps; i++) {
-    const a = from + (to - from) * (i / steps);
+    const x = from + (to - from) * (i / steps);
     pts.push(
-      hullPointAt(
-        a,
+      hullPointAtX(
+        x,
         f.cx,
         f.cy,
         f.rx,
@@ -103,8 +104,20 @@ export function drawHull(
   // as a bump glued to a line.
   const pts = pointsAcross(f, l, 140, f.bumps);
 
+  const right = l.gridLeft + l.gridWidth;
   const body = new Path2D(openSmoothPath(pts));
-  const filled = new Path2D(`${openSmoothPath(pts)} L ${l.width} ${l.bandTop} L 0 ${l.bandTop} Z`);
+  const filled = new Path2D(
+    `${openSmoothPath(pts)} L ${right} ${l.bandTop} L ${l.gridLeft} ${l.bandTop} Z`,
+  );
+
+  // The hull is cut off at the columns, not at the window. The contour itself
+  // is unchanged — it is sampled past both edges so it never ends in view — but
+  // nothing of the ship is drawn outside the coordinate field, because that is
+  // where the game ends on a phone and a wider screen may not show more ship.
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(l.gridLeft, 0, l.gridWidth, l.height);
+  ctx.clip();
 
   const top = Math.min(...pts.map((p) => p.y));
   const bg = ctx.createLinearGradient(0, top, 0, l.bandTop);
@@ -118,13 +131,14 @@ export function drawHull(
   halo.addColorStop(0, "#FFC24B00");
   halo.addColorStop(1, "#FFC24B26");
   ctx.fillStyle = halo;
-  ctx.fillRect(0, top - 26, l.width, 52);
+  ctx.fillRect(l.gridLeft, top - 26, l.gridWidth, 52);
 
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
   drawScars(ctx, l, world.scars, time);
   drawShieldRim(ctx, l, f, armed, time);
   drawMuzzle(ctx, f, l);
+  ctx.restore();
 }
 
 /**
@@ -174,13 +188,13 @@ function drawShieldRim(
 ): void {
   const shimmer = 0.72 + 0.16 * Math.sin(time * 2.6) + 0.12 * Math.sin(time * 1.15 + 1.7);
   const glow = Math.max(0.12, armed * shimmer);
-  const half = (l.tile * 0.75) / f.rx;
+  const half = l.tile * 0.75;
   const pts = [];
   for (let i = 0; i <= 18; i++) {
-    const a = f.shieldAngle - half + 2 * half * (i / 18);
+    const x = f.shieldX - half + 2 * half * (i / 18);
     pts.push(
-      hullPointAt(
-        a,
+      hullPointAtX(
+        x,
         f.cx,
         f.cy,
         f.rx,
@@ -202,8 +216,8 @@ function drawShieldRim(
 
 /** The fire opening at the tip of the cannon lobe. */
 function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): void {
-  const tip = hullPointAt(
-    f.cannonAngle,
+  const tip = hullPointAtX(
+    f.cannonX,
     f.cx,
     f.cy,
     f.rx,
@@ -232,8 +246,8 @@ export function cannonTip(
   armed: number,
 ): { x: number; y: number } {
   const f = frame(l, world, time, armed);
-  return hullPointAt(
-    f.cannonAngle,
+  return hullPointAtX(
+    f.cannonX,
     f.cx,
     f.cy,
     f.rx,

@@ -4,6 +4,7 @@ import {
   catmullRomToBezierPath,
   crystalRadiusMul,
   HULL,
+  hullPointAtX,
   hullRadiusMul,
   METEOR,
   openSmoothPath,
@@ -102,9 +103,25 @@ function hull(armed: boolean): Subject {
     pointsAt(t) {
       const pts: Point[] = [];
       for (let i = 0; i <= HULL_STEPS; i++) {
-        const a = -Math.PI / 2 - HULL_ARC + 2 * HULL_ARC * (i / HULL_STEPS);
-        const m = hullRadiusMul(a, HULL.lobes, HULL.depth, HULL.wobble, t, HULL.seed, bumps);
-        pts.push({ x: Math.cos(a) * HULL_RX * m, y: HULL_RY + Math.sin(a) * HULL_RY * m });
+        // Through `hullPointAtX`, not a second copy of the formula: the hull is
+        // a height field over x and the lobes lift vertically, so the sheet has
+        // to sample it the same way or it judges a shape the game never draws.
+        const x = (-HULL_ARC + (2 * HULL_ARC * i) / HULL_STEPS) * HULL_RX;
+        pts.push(
+          hullPointAtX(
+            x,
+            0,
+            HULL_RY,
+            HULL_RX,
+            HULL_RY,
+            HULL.lobes,
+            HULL.depth,
+            HULL.wobble,
+            t,
+            HULL.seed,
+            bumps,
+          ),
+        );
       }
       return pts;
     },

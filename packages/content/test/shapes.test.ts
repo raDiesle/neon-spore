@@ -2,8 +2,10 @@ import { describe, expect, it } from "bun:test";
 import {
   blobPath,
   bumpAdd,
+  bumpLift,
   catmullRomToBezierPath,
-  hullPointAt,
+  hullAngleAtX,
+  hullPointAtX,
   hullRadiusMul,
   type Point,
 } from "../src/shapes.js";
@@ -130,33 +132,51 @@ describe("shapes", () => {
       expect(m0).not.toBe(m1);
     });
 
-    it("can apply bumps", () => {
+    it("ignores bumps — they lift, they do not widen", () => {
       const bumps = [{ angle: 0, strength: 0.2, plateau: 0.1, shoulder: 0.1 }];
-      const without = hullRadiusMul(0, 2, 0.3, 0.1, 0, 0);
-      const with_bump = hullRadiusMul(0, 2, 0.3, 0.1, 0, 0, bumps);
-      expect(with_bump).toBeGreaterThan(without);
+      expect(bumpLift(0, bumps)).toBeCloseTo(0.2);
+      expect(bumpLift(5, bumps)).toBe(0);
+      expect(bumpLift(0, undefined)).toBe(0);
     });
   });
 
-  describe("hullPointAt", () => {
-    it("returns a point with x and y", () => {
-      const p = hullPointAt(0, 100, 100, 50, 50, 2, 0.3, 0.1, 0, 0);
-      expect(p.x).toBeDefined();
-      expect(p.y).toBeDefined();
-      expect(typeof p.x).toBe("number");
+  describe("hullPointAtX", () => {
+    it("returns the x it was asked about", () => {
+      const p = hullPointAtX(120, 100, 100, 300, 50, 2, 0.3, 0.1, 0, 0);
+      expect(p.x).toBe(120);
       expect(typeof p.y).toBe("number");
     });
 
     it("is deterministic", () => {
-      const a = hullPointAt(0.5, 100, 100, 50, 50, 2, 0.3, 0.1, 1.2, 0.7);
-      const b = hullPointAt(0.5, 100, 100, 50, 50, 2, 0.3, 0.1, 1.2, 0.7);
+      const a = hullPointAtX(150, 100, 100, 300, 50, 2, 0.3, 0.1, 1.2, 0.7);
+      const b = hullPointAtX(150, 100, 100, 300, 50, 2, 0.3, 0.1, 1.2, 0.7);
       expect(a).toEqual(b);
     });
 
     it("changes over time", () => {
-      const a = hullPointAt(0, 100, 100, 50, 50, 2, 0.3, 0.1, 0, 0);
-      const b = hullPointAt(0, 100, 100, 50, 50, 2, 0.3, 0.1, 0.5, 0);
-      expect(a.x).not.toBe(b.x);
+      const a = hullPointAtX(100, 100, 100, 300, 50, 2, 0.3, 0.1, 0, 0);
+      const b = hullPointAtX(100, 100, 100, 300, 50, 2, 0.3, 0.1, 0.5, 0);
+      expect(a.y).not.toBe(b.y);
+    });
+
+    /**
+     * The lobe stands above the column it belongs to. A bump moves the surface
+     * straight up by `strength * ry` at the x it is centred on, and leaves x
+     * alone — at the apex and at either edge of the field alike. This is what
+     * keeps the cannon from leaning towards the middle at the edges.
+     */
+    it("lifts a bump straight up, at the apex and away from it", () => {
+      const cx = 100;
+      const rx = 300;
+      for (const x of [cx, cx - 140, cx + 140]) {
+        const bumps = [
+          { angle: hullAngleAtX(x, cx, rx), strength: 0.2, plateau: 0.1, shoulder: 0.1 },
+        ];
+        const flat = hullPointAtX(x, cx, 100, rx, 50, 2, 0.3, 0.1, 0, 0);
+        const bumped = hullPointAtX(x, cx, 100, rx, 50, 2, 0.3, 0.1, 0, 0, bumps);
+        expect(bumped.x).toBe(x);
+        expect(flat.y - bumped.y).toBeCloseTo(0.2 * 50);
+      }
     });
   });
 });
