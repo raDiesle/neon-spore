@@ -10,6 +10,15 @@ import { PALETTE } from "./palette.js";
  * moment — the surface breathes and the lobes lift it, and the damage rides
  * along — and a torn membrane tears, so it is a crack rather than a pellet.
  *
+ * It rides two different heights, though, and that is the whole of `skinAt`.
+ * The body of the tear hangs from the membrane *without* the cannon lobe: the
+ * cannon is narrow and travels fast, so a crack that rode it was flicked half a
+ * tile upwards and back within a fifth of a second, and half a tile in a fifth
+ * of a second is a twitch, not a swelling passing underneath. Only the topmost
+ * point follows the true outline, so the tear stays attached and its mouth
+ * stretches as the cannon goes by. The shield keeps pushing the whole crack up,
+ * because a wide, flat, slow lobe lifting a tear is exactly what it looks like.
+ *
  * The jitter comes from the column and the beat it happened on, so the same
  * damage looks the same on both screens without the simulation storing it.
  */
@@ -19,6 +28,13 @@ const DEPTH_MIN = 0.34;
 const DEPTH_MAX = 0.62;
 /** Kinks along the crack. Few enough to stay a line, enough to look torn. */
 const KINKS = 5;
+/**
+ * How many points from the mouth down share the pull of the cannon lobe. Only
+ * the mouth follows it fully; the share tapers to nothing by the third kink, so
+ * the tear opens instead of being dragged, and never grows one long straight
+ * spike between a raised outline and a crack that stayed behind.
+ */
+const FOLLOW = 3;
 
 /** A tiny deterministic stream of 0..1 values from one integer. */
 function stream(seed: number): () => number {
@@ -57,6 +73,7 @@ export function drawScars(
   scars: readonly Scar[],
   time: number,
   surfaceAt: (x: number) => Point,
+  skinAt: (x: number) => Point,
 ): void {
   ctx.save();
   for (const s of scars) {
@@ -65,12 +82,16 @@ export function drawScars(
     const x = tileCX(l, s.col) + (rnd() - 0.5) * l.tile * 0.44;
     const top = surfaceAt(x);
     const lean = rnd() < 0.5 ? -1 : 1;
-    const main = crackPoints(l.tile, top, rnd, lean);
+    const main = crackPoints(l.tile, skinAt(x), rnd, lean);
+    // The mouth sits a hair above the outline, so the crack breaks it rather
+    // than beginning under it; the pull tapers away below.
+    const pull = main[0]!.y - (top.y - 1.5);
+    for (let i = 0; i < FOLLOW && i < main.length; i++) {
+      main[i] = { x: main[i]!.x, y: main[i]!.y - pull * (1 - i / FOLLOW) };
+    }
 
-    // The split itself, dark, starting a hair above the surface so the crack
-    // breaks the outline rather than beginning under it.
     ctx.strokeStyle = "#150E28";
-    strokeCrack(ctx, [{ x: top.x, y: top.y - 1.5 }, ...main.slice(1)], 3.2);
+    strokeCrack(ctx, main, 3.2);
 
     // One fork off the middle. Two would read as a spider, none as a scratch.
     const at = 1 + Math.floor(rnd() * 2);

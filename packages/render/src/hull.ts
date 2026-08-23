@@ -43,6 +43,11 @@ interface HullFrame {
   rx: number;
   ry: number;
   bumps: Bump[];
+  /**
+   * Everything but the cannon lobe. Damage hangs from this rather than from the
+   * full contour — see `drawScars`.
+   */
+  skinBumps: Bump[];
   /** Screen x of the cannon, needed again for the muzzle. */
   cannonX: number;
   t: number;
@@ -68,7 +73,8 @@ function frame(l: Layout, time: number, armed: number, at: LobePositions): HullF
 
   // The columns are followed, not snapped to: `at` is fractional.
   const cannonX = tileCX(l, at.cannon);
-  const bumps: Bump[] = [lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, 1)];
+  const cannon = lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, 1);
+  const skinBumps: Bump[] = [];
 
   // The shield is a body, not a plate: a head and three followers, each a bump
   // of its own. At rest they lie on top of each other and add up to the armour
@@ -77,15 +83,15 @@ function frame(l: Layout, time: number, armed: number, at: LobePositions): HullF
   const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * armed;
   for (const seg of at.shield) {
     const x = tileCX(l, seg.col);
-    bumps.push(
+    skinBumps.push(
       lobe(SHIELD_LOBE, toAngle(x), l.tile, ry, rx, time, scale * seg.weight, seg.halfMul),
     );
   }
-  return { cx, cy, rx, ry, bumps, cannonX, t: time * 1.4 };
+  return { cx, cy, rx, ry, bumps: [cannon, ...skinBumps], skinBumps, cannonX, t: time * 1.4 };
 }
 
-/** The membrane directly above a screen x, lobes and all. */
-function surface(f: HullFrame, x: number): Point {
+/** The membrane directly above a screen x. `bumps` selects which lobes count. */
+function pointOn(f: HullFrame, x: number, bumps: Bump[]): Point {
   return hullPointAtX(
     x,
     f.cx,
@@ -97,8 +103,18 @@ function surface(f: HullFrame, x: number): Point {
     HULL.wobble,
     f.t,
     HULL.seed,
-    f.bumps,
+    bumps,
   );
+}
+
+/** The outline as drawn: lobes and all. */
+function surface(f: HullFrame, x: number): Point {
+  return pointOn(f, x, f.bumps);
+}
+
+/** The same membrane without the cannon lobe standing on it. */
+function skin(f: HullFrame, x: number): Point {
+  return pointOn(f, x, f.skinBumps);
 }
 
 function pointsAcross(f: HullFrame, l: Layout, steps: number): Point[] {
@@ -151,7 +167,14 @@ export function drawHull(
   innerWarmth(ctx, body, filled);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
-  drawScars(ctx, l, world.scars, time, (x) => surface(f, x));
+  drawScars(
+    ctx,
+    l,
+    world.scars,
+    time,
+    (x) => surface(f, x),
+    (x) => skin(f, x),
+  );
   drawShieldRim(ctx, l, f, armed, time, at);
   drawMuzzle(ctx, f, l);
   ctx.restore();
