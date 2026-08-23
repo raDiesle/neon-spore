@@ -1,0 +1,5 @@
+[bundle]
+root = "apps/game"
+
+[watch]
+allow_external_dir = true
