@@ -59,6 +59,18 @@ is Node-oriented; if it misbehaves under Bun, run it through `npx`.
 **Reconsider if:** the tuning loop — change a value, see it immediately —
 turns out to be worse under Bun's dev server than it was under Vite.
 
+*Amended August 2026:* `bun --hot` watches only files under the directory it
+was **started from**. Started in `apps/game`, it bundled all three workspace
+packages but watched none of them — every file in `sim`, `render` and `content`
+drew "is not in the project directory and will not be watched", and editing a
+renderer meant restarting the server. So `dev` runs from the repository root
+(`bun --hot apps/game/index.html`) and `apps/game` no longer carries a `dev`
+script of its own, because running one there would silently reintroduce it.
+
+The cwd is the whole mechanism — not the workspace symlinks, which are what
+made it look like a resolution problem. `build` and `preview` are unaffected:
+neither watches.
+
 ## 5. Canvas 2D for the field, DOM for everything else
 
 *August 2026.* Three layers rather than one technology:

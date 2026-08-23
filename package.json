@@ -9,7 +9,7 @@
     "tools/*"
   ],
   "scripts": {
-    "dev": "bun run --cwd apps/game dev",
+    "dev": "bun --hot apps/game/index.html",
     "build": "bun run --cwd apps/game build",
     "preview": "bun run --cwd apps/game preview",
     "test": "bun test",
