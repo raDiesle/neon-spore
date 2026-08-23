@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot ./index.html",
-    "build": "bun build ./index.html --outdir=dist --minify --sourcemap"
+    "build": "bun build ./index.html --outdir=dist --minify --sourcemap",
+    "preview": "bun run build && bun preview.ts"
   },
   "dependencies": {
     "@neon-spore/content": "workspace:*",

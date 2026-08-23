@@ -4,9 +4,9 @@
     {
       "name": "game",
       "runtimeExecutable": "C:/Users/raDi/.bun/bin/bun.exe",
-      "runtimeArgs": ["run", "--cwd", "apps/game", "dev"],
+      "runtimeArgs": ["run", "preview"],
       "port": 3000,
-      "autoPort": true
+      "autoPort": false
     }
   ]
 }

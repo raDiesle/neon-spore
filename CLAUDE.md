@@ -50,11 +50,28 @@ Say what was committed. Do not push unless asked.
 
 ```
 bun install            # once
-bun run dev            # game at localhost:3000, hot reload
+bun run dev            # game at localhost:3000, hot reload — for a human
+bun run preview        # build, then serve dist/ on 3000 — how an agent verifies
 bun test               # everything
 bun run test:determinism
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
+
+## Verifying in a browser
+
+`bun run preview`, never `bun run dev`. It builds first — `bun build` takes
+about ten milliseconds, so there is nothing to save by skipping it — and serves
+`apps/game/dist` on a fixed port 3000.
+
+The distinction is not fussiness. `bun --hot` serves a transform of the source,
+keeps state across edits, and outlives the session that started it; the port it
+lands on is not the port it asked for. Every one of those turns into a verified
+result that was read off the wrong bundle. The preview server instead refuses to
+start next to a stranger on its port, retires an older copy of itself, and exits
+after fifteen minutes of silence, so a leaked one dies without help.
+
+Never start a server with a backgrounded shell command. Use the `game` entry in
+`.claude/launch.json`, which runs exactly this.
 
 ## Where things live
 

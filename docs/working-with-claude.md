@@ -28,6 +28,31 @@ division of labour, not a limitation.
 - **Subagents** — for searching the codebase, so the main session does not fill
   up with file contents.
 
+## Verification runs against the build, not the dev server
+
+A hot-reloading dev server is the wrong thing to check an agent's work against,
+for three reasons that all end the same way — a result reported as verified
+that was read off something other than the code just written.
+
+It serves a transform of the source rather than the bundle that ships. It keeps
+state across edits, so what is on screen is the sum of several attempts. And it
+outlives the turn: nothing in a session ends the process, so the next session
+finds port 3000 occupied, quietly takes 3001, and verifies against a server
+started days ago. That is not hypothetical — on 2026-08-23 a `bun --hot` from an
+earlier session was still holding the port, listening on `::1` only, while
+`127.0.0.1` sat free for a second server to bind beside it.
+
+So `bun run preview` builds and serves `apps/game/dist`. The build costs about
+ten milliseconds, which is the whole argument: there is no speed to trade away.
+
+The guarantee is in the server, not in the instruction. `apps/game/preview.ts`
+holds a fixed port and probes both loopback families before binding; if an older
+preview answers it asks it to quit, and if a stranger answers it stops with an
+error rather than killing a process it cannot identify. It exits by itself after
+fifteen minutes without a request, so even a preview that escapes the session
+cleans itself up. `.claude/launch.json` offers this and nothing else, which
+leaves `bun run dev` where it belongs — with a person watching hot reload.
+
 ## Parameters, not shouting
 
 Not "make the bubble softer" but named values — stiffness, damping, elongation,

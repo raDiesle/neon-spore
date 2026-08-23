@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "bun run --cwd apps/game dev",
     "build": "bun run --cwd apps/game build",
+    "preview": "bun run --cwd apps/game preview",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "typecheck": "tsc --noEmit",
