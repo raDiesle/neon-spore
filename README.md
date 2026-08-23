@@ -27,8 +27,14 @@ bun run dev      # http://localhost:3000
 bun run check    # typecheck + lint + tests
 ```
 
-Solo at a desk: `Q`/`E` move the cannon, `←`/`→` move the shield, `Space`
-triggers the shield, `1`/`2` fire red and cyan.
+Solo at a desk, one hand per role: `A`/`D` move the cannon and `I` triggers the
+shield; `J`/`L` move the shield and `W`/`E` fire red and cyan. `→`/`←` step
+between waves, `P` pauses.
+
+The switch at the top of the screen decides what the screen *shows*: `P1` is
+player 1's device, `P2` player 2's, `TEST` both halves plus the tuning panel.
+The finished game is one role per device, so `P1` and `P2` are the honest
+answer to how much room the field really gets.
 
 ## How it is built
 

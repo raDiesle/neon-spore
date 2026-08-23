@@ -47,9 +47,10 @@ bun run dev       # http://localhost:3000
 If `bun` is missing: `curl -fsSL https://bun.sh/install | bash`.
 
 The game shows a grid, creatures gliding down one tile per beat, a cannon and a
-shield. At a desk: `Q`/`E` cannon, `←`/`→` shield, `Space` triggers the shield,
-`1`/`2` fire red and cyan. This is a skeleton, not the prototype — the port is
-the first task.
+shield. At a desk: `A`/`D` cannon, `I` triggers the shield, `J`/`L` shield,
+`W`/`E` fire red and cyan, `→`/`←` step between waves. The switch at the top
+picks whose screen you are looking at: `P1`, `P2`, or `TEST` with the rig.
+This is a skeleton, not the prototype — the port is the first task.
 
 ## 4. Open Claude Code and hand over
 
