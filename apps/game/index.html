@@ -10,58 +10,78 @@
     <style>
       * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
       html, body {
-        margin: 0; height: 100%; overflow: hidden;
+        margin: 0; padding: 0; height: 100%; overflow: hidden;
         background: #07060f; color: #f2e9dc;
         font-family: "Courier New", monospace; touch-action: none; user-select: none;
       }
       canvas { display: block; width: 100%; height: 100%; }
 
-      /* HUD lives in the DOM on purpose: changing it never touches render/. */
-      #hud {
-        position: fixed; top: 8px; left: 10px; right: 10px; z-index: 2;
-        display: flex; justify-content: space-between;
-        font-size: 11px; letter-spacing: 1px; color: #9c8fd6; pointer-events: none;
+      /* The field is canvas; the test rig is DOM, so changing it never touches
+         renderer code. See docs/decisions.md, decision 5. */
+      #pauseBtn, #gear {
+        position: fixed; top: 8px; z-index: 5; width: 32px; height: 32px;
+        border-radius: 9px; border: 1px solid #3b3163; background: rgba(20, 14, 45, 0.75);
+        font: 14px/1 "Courier New", monospace;
       }
-      #hud b { color: #f2e9dc; font-weight: 600; }
+      #pauseBtn { right: 46px; color: #2fe0f0; }
+      #gear { right: 8px; color: #9c8fd6; font-size: 13px; }
 
-      #controls {
-        position: fixed; left: 0; right: 0; bottom: 0; z-index: 2;
-        height: 34vh; display: grid; gap: 8px; padding: 10px;
-        grid-template-rows: auto auto 1fr;
+      #waveSkip {
+        position: fixed; top: 30px; left: 8px; z-index: 5;
+        display: flex; align-items: center; gap: 3px;
       }
-      .strip {
-        height: 34px; border: 1px solid #3b3163; border-radius: 10px;
-        background: rgba(20, 14, 45, 0.7); display: flex; align-items: center;
-        justify-content: center; font-size: 10px; letter-spacing: 2px; color: #9c8fd6;
+      #waveSkip button {
+        width: 26px; height: 18px; border-radius: 5px; border: 1px solid #3b3163;
+        background: rgba(20, 14, 45, 0.75); color: #ffc24b;
+        font: 10px/1 "Courier New", monospace; padding: 0;
       }
-      #cannonStrip { border-color: #6b5a2e; color: #ffc24b; }
-      #shieldStrip { border-color: #1d5560; color: #2fe0f0; }
-      .buttons { display: flex; gap: 10px; align-items: center; justify-content: center; }
-      .buttons button {
-        flex: 1; height: 100%; max-height: 74px; border-radius: 14px;
-        border: 1px solid currentColor; background: transparent;
-        font: 11px "Courier New", monospace; letter-spacing: 2px;
+      #waveSkip span { font-size: 10px; color: #9c8fd6; padding: 0 3px; min-width: 22px; text-align: center; }
+
+      #panel {
+        position: fixed; inset: 0; z-index: 10; display: none; overflow-y: auto;
+        background: rgba(7, 6, 15, 0.96); padding: 18px 16px 40px;
       }
-      #fireRed { color: #ff3b6b; }
-      #fireCyan { color: #2fe0f0; }
-      #guard { color: #ffc24b; }
+      #panel h2 { font-size: 13px; letter-spacing: 3px; color: #ffc24b; margin: 0 0 4px; font-weight: 600; }
+      #panel .sub { font-size: 10px; color: #6f639f; margin: 0 0 18px; line-height: 1.6; }
+      #panel .grp { font-size: 10px; letter-spacing: 2px; color: #2fe0f0; margin: 18px 0 8px; }
+      .row { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 11px; }
+      .row label { flex: 0 0 122px; color: #9c8fd6; }
+      .row span { flex: 0 0 76px; text-align: right; color: #f2e9dc; }
+      .row input { flex: 1; accent-color: #ffc24b; }
+      #panel button {
+        margin-top: 18px; padding: 9px 16px; border-radius: 8px; border: 1px solid #ffc24b;
+        background: transparent; color: #ffc24b; font: 12px "Courier New", monospace; letter-spacing: 2px;
+      }
     </style>
   </head>
   <body>
     <canvas id="stage"></canvas>
-    <div id="hud">
-      <span>HULL <b id="hull">100</b></span>
-      <span>BEAT <b id="beat">0</b></span>
-      <span>GUARD <b id="guardStat">0/0</b></span>
+    <button id="pauseBtn">⏸</button>
+    <button id="gear">⚙</button>
+    <div id="waveSkip">
+      <button data-d="-5">−5</button>
+      <button data-d="-1">−1</button>
+      <span id="waveLabel">W1</span>
+      <button data-d="1">+1</button>
+      <button data-d="5">+5</button>
     </div>
-    <div id="controls">
-      <div class="strip" id="cannonStrip">CANNON — PLAYER 1</div>
-      <div class="strip" id="shieldStrip">SHIELD — PLAYER 2</div>
-      <div class="buttons">
-        <button id="guard">GUARD</button>
-        <button id="fireRed">RED</button>
-        <button id="fireCyan">CYAN</button>
-      </div>
+
+    <div id="panel">
+      <h2>NEON SPORE — TEST BUILD</h2>
+      <p class="sub">
+        The hull runs the full width. Player 1 slides the cannon and triggers the shield;
+        player 2 slides the shield and fires. A meteor is only deflected when the shield
+        stands in its column <b>and</b> is triggered at the moment of contact — position
+        alone is not enough. Anything that reaches the hull breaks it visibly.
+      </p>
+
+      <div class="grp">TUNING</div>
+      <div id="sliders"></div>
+
+      <button id="close">BACK</button>
+      <p class="sub" style="margin-top: 16px">
+        Solo at a desk: Q / E cannon · ← → shield · Space triggers · 1 / 2 fire · P pause
+      </p>
     </div>
     <script type="module" src="./src/main.ts"></script>
   </body>

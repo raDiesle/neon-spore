@@ -39,6 +39,10 @@ export interface SimConfig {
   radarLead: number;
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
   bulletGlideMs: number;
+  /** Share of the screen height the control band takes, in percent. Read by render/. */
+  bandPct: number;
+  /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
+  radarHeightPx: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -60,6 +64,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreWave: 300,
   radarLead: 4,
   bulletGlideMs: 130,
+  bandPct: 37,
+  radarHeightPx: 34,
 };
 
 /** Ticks per beat. Throws unless it is a whole number — see docs/architecture.md. */

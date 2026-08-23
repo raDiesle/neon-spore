@@ -237,9 +237,14 @@ werden — Spieler 1 muss die Lücke decken).
 
 Gilt für `signal-bloom-raster.html`. Ergänzt Abschnitt 2.2 um das Verhalten.
 
-**Raster.** 11 Spalten × 15 Reihen (Regler: 7–15 Spalten, Reihen ergeben sich
-aus der Kachelgröße). Bei 96 BPM braucht eine Kreatur vom oberen Rand bis zur
-Hülle rund 8,8 s — die 4-Sekunden-Regel aus Abschnitt 4 ist damit erfüllt.
+**Raster.** 11 Spalten × 15 Reihen (Regler: 7–15 Spalten). Die unterste Reihe
+ist die Hülle, eine Kreatur läuft also `Reihen − 1` = 14 Schläge. Bei 96 BPM
+sind das 8,75 s — die 4-Sekunden-Regel aus Abschnitt 4 ist damit erfüllt.
+
+Im Prototyp ergab sich die Reihenzahl aus der Kachelgröße. Im Port ist sie ein
+festes Feld von `SimConfig`: zwei Geräte, die sich über die Höhe des Feldes
+nicht einig sind, sind sich auch nicht einig, wann eine Kreatur die Hülle
+erreicht. Stattdessen schrumpft die Kachel, bis das Feld passt.
 
 **Bewegung der Kreaturen.** Sie **gleiten gleichmäßig**, nicht ruckweise:
 genau eine Kachel pro Schlag, linear interpoliert, ohne Verharren zwischen den
@@ -271,8 +276,10 @@ sonst lernt das Paar das Timing nicht. Gebaut: das Schild wechselt von einem
 dünnen, durchlässigen Streifen zu einer geschlossenen hellen Kuppel, der
 Meteorit prallt sichtbar nach oben aus dem Bild ab, eine Druckwelle läuft
 auseinander, es blitzt nach, „ABGEWEHRT" erscheint, und im HUD läuft eine
-Bilanz (`Abwehr 7/9`) mit. Fehlversuche mit richtiger Position, aber falschem
-Zeitpunkt werden separat gezählt — sie sind die interessante Fehlerklasse.
+Bilanz (`Abwehr 7/9`) mit. Der Nenner ist **jeder** Meteorit, der die Hülle
+erreicht hat, nicht nur die mit Schild in der Spalte. Fehlversuche mit
+richtiger Position, aber falschem Zeitpunkt werden separat gezählt — sie sind
+die interessante Fehlerklasse.
 
 **Schüsse.** Rasten auf Kachelmitten, 12 Kacheln pro Schlag, Feuerpause ein
 halber Schlag. Beides hängt am Takt, nicht aneinander — sonst wird schnelleres
@@ -970,9 +977,10 @@ für Blasen: 180–260 px/s.
     nicht bedient wird. Das ist ruhig und lesbar, aber sie könnte auch etwas
     beitragen (Reparatur? Segmente abschalten?). Bewusst offen gelassen, statt
     voreilig zu füllen.
-18. **Fenstergröße der Auslösung.** 260 ms sind bisher geraten. Zu zweit mit
-    Sprachverzögerung messen — die Zahl entscheidet, ob die Mechanik sich
-    präzise oder gemein anfühlt.
+18. **Fenstergröße der Auslösung.** Der Prototyp läuft mit **600 ms**
+    (`CFG.guardWindow`); die früher hier genannten 260 ms waren geraten und
+    standen nie im Code. Zu zweit mit Sprachverzögerung messen — die Zahl
+    entscheidet, ob die Mechanik sich präzise oder gemein anfühlt.
 
 ### 15.4 Erledigt
 

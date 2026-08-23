@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import type { SimEvent, World } from "@neon-spore/sim";
 
 export interface Viewport {
   width: number;
@@ -12,6 +12,24 @@ export interface ViewState {
   beatPhase: number;
   /** Which of the two screens this is. Pilot warmer, navigator cooler. */
   player: 1 | 2;
+  /**
+   * Seconds since the page opened. Own-motion only — a creature's wing beat and
+   * the membrane's wobble run on wall-clock time because nothing about them
+   * touches a tile. The simulation never sees this value.
+   */
+  time: number;
+  /** Seconds since the previous frame, for particles. */
+  dt: number;
+  /**
+   * Everything the simulation reported since the previous frame. `world.events`
+   * is cleared every tick and a frame covers several ticks, so the host
+   * collects them; effects read this and write nothing back.
+   */
+  events: readonly SimEvent[];
+  /** False while paused, so the field can dim without the loop stopping. */
+  running: boolean;
+  /** Wave name and hint, shown for a moment when a wave opens. */
+  banner: { title: string; hint: string; remaining: number } | null;
 }
 
 /**

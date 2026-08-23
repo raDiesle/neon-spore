@@ -1,19 +1,30 @@
-import { hullPercent } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { hullPercent, ticksPerBeat } from "@neon-spore/sim";
+import { drawBand } from "./band.js";
+import { drawBullets } from "./bullets.js";
+import { drawCreatures } from "./creatures.js";
+import { Effects } from "./effects.js";
+import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { drawHud, drawOverlay } from "./hud.js";
+import { drawHull } from "./hull.js";
+import { computeLayout, type Layout } from "./layout.js";
+import { PALETTE } from "./palette.js";
 import type { Renderer, ViewState, Viewport } from "./renderer.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
  * that the world does not have, the world is missing it — do not compute
  * gameplay state in this file.
+ *
+ * The one thing this file does own is transient appearance: particles, flashes
+ * and the shield's fade between passive and armed. None of it is ever read back.
  */
 export class Canvas2DRenderer implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-  private tile = 0;
-  private left = 0;
-  private top = 0;
+  private layout: Layout | null = null;
+  private effects = new Effects();
+  /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
+  private armed = 0;
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -28,104 +39,54 @@ export class Canvas2DRenderer implements Renderer {
     this.canvas.style.width = `${viewport.width}px`;
     this.canvas.style.height = `${viewport.height}px`;
     this.ctx.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
+    this.layout = null;
+  }
+
+  /** The layout is derived, so it is rebuilt whenever the config could change. */
+  private layoutFor(view: ViewState): Layout {
+    if (!this.layout || this.layout.cols !== view.world.cfg.cols) {
+      this.layout = computeLayout(this.viewport, view.world.cfg);
+    }
+    return this.layout;
   }
 
   draw(view: ViewState): void {
     const { ctx } = this;
-    const { world, beatPhase } = view;
-    const { width, height } = this.viewport;
+    const { world } = view;
+    const l = this.layoutFor(view);
 
-    this.tile = width / world.cfg.cols;
-    this.left = 0;
-    this.top = Math.max(0, height * 0.6 - world.cfg.rows * this.tile);
+    const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
+    const isArmed = world.tick - world.guardTick < windowTicks;
+    this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
+
+    this.effects.ingest(view.events, l, (col, row) => {
+      const c = world.creatures.find((x) => x.col === col && x.row === row);
+      return c ? c.id : 0;
+    });
+    this.effects.update(view.dt, l);
+
+    // The beat is loud at the moment of the beat and gone before the next one.
+    const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
 
     ctx.fillStyle = PALETTE.background;
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, l.width, l.height);
+    drawBackground(ctx, l);
+    drawRadar(ctx, l, world);
+    drawGrid(ctx, l, world.cannonCol, flash);
 
-    this.drawGrid(world.cfg.cols, world.cfg.rows, beatPhase);
-    this.drawHull(world.cfg.cols, world.cfg.rows, world.scars.map((s) => s.col), hullPercent(world));
+    drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    drawBullets(ctx, l, world.bullets);
+    this.effects.draw(ctx, l);
 
-    for (const c of world.creatures) {
-      const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
-      const color = c.color === "red" ? PALETTE.red : c.color === "cyan" ? PALETTE.cyan : PALETTE.rock;
-      this.drawBlob(this.cx(c.col), this.cy(row), this.tile * 0.34, color);
-    }
+    drawHull(ctx, l, world, view.time, this.armed, hullPercent(world));
+    this.effects.drawBanner(ctx, l);
 
-    for (const b of world.bullets) {
-      const y = this.cy(b.row / 1000);
-      const color = b.color === "red" ? PALETTE.red : PALETTE.cyan;
-      halo(this.ctx, this.cx(b.col), y, this.tile * 0.22, color, 0.9);
-    }
-
-    this.drawCannon(world.cannonCol, world.cfg.rows);
-    this.drawShield(world.shieldCol, world.cfg.rows, beatPhase);
+    drawHud(ctx, l, view);
+    drawBand(ctx, l, world, isArmed);
+    drawOverlay(ctx, l, view);
   }
 
   dispose(): void {
-    /* nothing retained yet */
-  }
-
-  private cx(col: number): number {
-    return this.left + col * this.tile + this.tile / 2;
-  }
-
-  private cy(row: number): number {
-    return this.top + row * this.tile + this.tile / 2;
-  }
-
-  private drawGrid(cols: number, rows: number, beatPhase: number): void {
-    const { ctx } = this;
-    const pulse = Math.max(0, 1 - beatPhase * 3);
-    const path = new Path2D();
-    for (let c = 0; c <= cols; c++) {
-      path.moveTo(this.left + c * this.tile, this.top);
-      path.lineTo(this.left + c * this.tile, this.top + rows * this.tile);
-    }
-    for (let r = 0; r <= rows; r++) {
-      path.moveTo(this.left, this.top + r * this.tile);
-      path.lineTo(this.left + cols * this.tile, this.top + r * this.tile);
-    }
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = pulse > 0.05 ? PALETTE.gridBeat : PALETTE.grid;
-    ctx.globalAlpha = 0.35 + 0.35 * pulse;
-    ctx.stroke(path);
-    ctx.globalAlpha = 1;
-  }
-
-  private drawHull(cols: number, rows: number, scars: number[], integrity: number): void {
-    const y = this.top + rows * this.tile;
-    const broken = new Set(scars);
-    const path = new Path2D();
-    for (let c = 0; c < cols; c++) {
-      const depth = broken.has(c) ? this.tile * 0.35 : 0;
-      path.moveTo(this.left + c * this.tile, y + depth);
-      path.lineTo(this.left + (c + 1) * this.tile, y + depth);
-    }
-    strokeGlow(this.ctx, path, PALETTE.hull, STROKE.outline + 1, integrity / 100);
-  }
-
-  private drawCannon(col: number, rows: number): void {
-    const x = this.cx(col);
-    const y = this.top + rows * this.tile;
-    const path = new Path2D();
-    path.moveTo(x - this.tile * 0.22, y);
-    path.quadraticCurveTo(x, y - this.tile * 0.75, x + this.tile * 0.22, y);
-    strokeGlow(this.ctx, path, PALETTE.hullRim, STROKE.outline, 1);
-  }
-
-  private drawShield(col: number, rows: number, beatPhase: number): void {
-    const x = this.cx(col);
-    const y = this.top + rows * this.tile - this.tile * 0.15;
-    const path = new Path2D();
-    path.moveTo(x - this.tile * 0.42, y);
-    path.quadraticCurveTo(x, y - this.tile * 0.34, x + this.tile * 0.42, y);
-    strokeGlow(this.ctx, path, PALETTE.shieldRim, STROKE.outline, 0.5 + 0.5 * (1 - beatPhase));
-  }
-
-  /** Placeholder silhouette. Replace with the contour maths from the style guide. */
-  private drawBlob(x: number, y: number, r: number, color: string): void {
-    const path = new Path2D();
-    path.ellipse(x, y, r, r * 0.7, 0, 0, Math.PI * 2);
-    strokeGlow(this.ctx, path, color, STROKE.outline, 1);
+    this.layout = null;
   }
 }

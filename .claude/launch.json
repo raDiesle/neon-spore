@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "game",
+      "runtimeExecutable": "C:/Users/raDi/.bun/bin/bun.exe",
+      "runtimeArgs": ["run", "--cwd", "apps/game", "dev"],
+      "port": 3000
+    }
+  ]
+}

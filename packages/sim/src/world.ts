@@ -2,7 +2,7 @@ import { type SimConfig, ticksPerBeat } from "./config.js";
 import { createRng, type Rng } from "./rng.js";
 import type { Bullet, Color, Creature, GuardStats, Scar, TimedCommand } from "./types.js";
 import { advanceBullets, fire } from "./bullets.js";
-import { onBeat, startWave } from "./beat.js";
+import { onBeat, resetRun, startWave } from "./beat.js";
 
 /**
  * Everything the simulation knows. Integers only — see docs/architecture.md.
@@ -52,7 +52,7 @@ export interface SpawnEntry {
 export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
-  | { type: "waveComplete"; wave: number }
+  | { type: "needWave"; wave: number }
   | { type: "fire"; col: number; color: Color }
   | { type: "destroy"; col: number; row: number; color: Color }
   | { type: "hole"; col: number; row: number }
@@ -95,10 +95,11 @@ export function createWorld(cfg: SimConfig, seed: number, queue?: SpawnEntry[]):
 
 /** Advance exactly one tick. The only way the world ever changes. */
 export function step(world: World, commands: readonly TimedCommand[]): void {
-  if (world.over) return;
-
   world.events.length = 0;
+  // Commands are read even when the hull is through — otherwise `restart`
+  // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);
+  if (world.over) return;
 
   world.tick += 1;
   const tpb = ticksPerBeat(world.cfg);
@@ -125,9 +126,10 @@ function applyCommand(world: World, timed: TimedCommand): void {
       fire(world, c.color);
       break;
     case "restart":
-      world.over = false;
-      world.score = 0;
-      // The app will handle restart; the command is a signal, not a method
+      // The sim clears the run and then asks for a queue. It cannot build one
+      // itself: waves live in content/, and content points at sim, not back.
+      resetRun(world);
+      world.events.push({ type: "needWave", wave: 0 });
       break;
   }
 }
@@ -138,11 +140,15 @@ function regenerateHull(world: World): void {
   world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
 }
 
+/**
+ * The rest between waves is over. Ask the host for the next queue — and mark
+ * the request as sent, so it is not repeated on every following tick while the
+ * host gets around to answering.
+ */
 function progressWave(world: World): void {
-  if (world.restBeat === 0 || world.beat < world.restBeat) return;
-  // Emit a signal for the app to load the next wave
-  world.wave += 1;
-  world.events.push({ type: "waveComplete", wave: world.wave });
+  if (world.restBeat <= 0 || world.beat < world.restBeat) return;
+  world.restBeat = -1;
+  world.events.push({ type: "needWave", wave: world.wave + 1 });
 }
 
 function clampCol(world: World, col: number): number {

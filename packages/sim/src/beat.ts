@@ -104,23 +104,39 @@ function damage(world: World, col: number, amount: number): void {
 /**
  * Begin playing a wave. The queue is built by the app from `content/` and
  * passed in, so the sim never needs to know about waves, act structure or
- * authored entries — it only knows a sequence of spawns with beats, columns
- * and kinds. That separation keeps the sim truly headless and direction stays
- * `content → sim`.
+ * authored entries — it only knows a sequence of spawns. Direction stays
+ * `content -> sim`.
+ *
+ * Only wave-local state is reset. Hull, scars, score and the guard balance
+ * carry across waves, exactly as in the prototype: damage is permanent and the
+ * balance is the record of the whole run.
  */
 export function startWave(world: World, waveIndex: number, queue: SpawnEntry[]): void {
+  const mid = Math.floor(world.cfg.cols / 2);
+  world.wave = waveIndex;
   world.waveBeat = 0;
   world.spawned = 0;
   world.restBeat = 0;
   world.queue = queue;
   world.creatures = [];
   world.bullets = [];
+  world.guardTick = -1_000_000;
+  world.lastFireTick = -1_000_000;
+  world.cannonCol = mid;
+  world.shieldCol = mid;
+  world.events.push({ type: "waveStart", wave: waveIndex });
+}
+
+/**
+ * Wipe the run itself: hull, scars, score and balance. Used by a restart after
+ * the hull is through, and by jumping to a wave in the test build.
+ */
+export function resetRun(world: World): void {
+  world.hullMilli = 100 * MILLI;
   world.scars = [];
+  world.score = 0;
+  world.over = false;
   world.guard.tries = 0;
   world.guard.deflected = 0;
   world.guard.mistimed = 0;
-  world.hullMilli = 100 * MILLI;
-  world.cannonCol = Math.floor(world.cfg.cols / 2);
-  world.shieldCol = Math.floor(world.cfg.cols / 2);
-  world.events.push({ type: "waveStart", wave: waveIndex });
 }

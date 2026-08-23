@@ -99,3 +99,64 @@ sim/render/content, with the game rules unchanged. Only then the network layer
 
 Network before content, because content built on a timing model that does not
 hold is built twice.
+
+## 9. The port keeps the prototype's rules, the style guide's shapes
+
+*August 2026.* Milestone 1 draws from two sources, and they do not overlap:
+`legacy/raster-prototype.html` supplies the rules, the layout, the radar, the
+HUD and the effects; `legacy/style-guide.html` supplies the ship, the creatures
+and the shield. Pixel-identical parity with the prototype was never the goal —
+the style guide is the newer art direction and supersedes the prototype's
+hard-coded silhouettes.
+
+Four places where the sources disagreed, and how it was settled:
+
+- **Guard window: 600 ms.** The prototype runs 600 (`CFG.guardWindow`, commented
+  "at least doubled"). The scaffold's `SimConfig` said 260, which came from
+  spec 15.3 #18 — a number that was guessed and never in any running code. The
+  spec has been corrected. It still wants measuring with two people; it decides
+  whether the shared defence feels precise or mean.
+- **The hull is row `rows - 1`, not `rows`.** The prototype's `shipRow` is
+  `ROWS-1`, and spec 5.8 measures 8.8 s of approach, which is 14 beats at
+  96 BPM. The scaffold was off by one.
+- **`guard.tries` counts every meteor that reaches the hull**, not only those
+  with the shield in the column. That is the denominator the prototype's
+  `Abwehr 7/9` shows.
+- **`rows` is fixed in `SimConfig`.** The prototype derived it from the tile
+  size. Two devices that disagree about the height of the field disagree about
+  when a creature reaches the hull, so the tile shrinks to fit instead.
+
+**Also decided here:**
+
+- **The shield is the armour-plate variant.** The style guide offers four; the
+  brief says the shield is a lobe of the hull contour, which is `PLATTE`. The
+  rim-brightening (`RAND`) is drawn on the same segment when armed, so armed and
+  passive differ in silhouette *and* in light — spec 5.8 insists a deflection be
+  unmissable, or the pair never learns the timing.
+- **Visual variation comes from ids, not from the rng.** Creature motion phase,
+  meteor spin, crater placement and scar jitter are derived from `creature.id`
+  and `(scar.col, scar.beat)`. Both devices agree without the simulation storing
+  a jitter, and the seeded rng stays reserved for things that affect play.
+- **The control band is drawn on the canvas**, not in the DOM. Every element of
+  it is per-column and has to line up with the grid exactly. This narrows
+  decision 5: the *field surface* is canvas, and the band is part of it. Menus,
+  the tuning panel and the wave-skip controls remain DOM.
+- **Wave progression crosses the boundary by request.** The sim emits
+  `needWave` and the app answers with `buildQueue`, because waves live in
+  `content/` and nothing may point back into the sim.
+
+**Reconsider if:** playing it with two people shows the style guide's silhouettes
+read worse in motion at tile size than the prototype's did. The prototype's
+`shapePath` is still in `legacy/` for comparison.
+
+## 10. Proposals, not yet done
+
+*August 2026.* Recorded rather than acted on, per the milestone-1 brief.
+
+- **Split render-only tunables out of `SimConfig`.** `radarLead`,
+  `bulletGlideMs`, `bandPct` and `radarHeightPx` sit there today because the
+  convention says every tunable is a named field of `SimConfig`. They change no
+  rule and enter no hash. A `RenderConfig` would be honest, at the cost of two
+  config objects to thread through.
+- **A second config preset at 260 ms**, so the guard window can be compared
+  side by side without editing code.

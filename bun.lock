@@ -35,6 +35,7 @@
       "name": "@neon-spore/render",
       "version": "0.0.0",
       "dependencies": {
+        "@neon-spore/content": "workspace:*",
         "@neon-spore/sim": "workspace:*",
       },
     },
