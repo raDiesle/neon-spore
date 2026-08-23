@@ -1,14 +1,14 @@
 import {
+  BULB,
   type Bump,
   catmullRomToBezierPath,
   crystalRadiusMul,
   HULL,
   hullRadiusMul,
-  BULB,
-  SLICK,
   METEOR,
   openSmoothPath,
   type Point,
+  SLICK,
 } from "@neon-spore/content";
 
 /**

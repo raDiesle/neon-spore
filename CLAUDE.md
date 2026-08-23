@@ -24,6 +24,28 @@ intentions: it scans every file in `sim` and `content` and fails on a wall
 clock, a random number, a DOM global or an import of `render`. Run `bun test`.
 Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 
+## Git
+
+Work on `main`, directly. No feature branches, no pull requests — one person
+works on this repo, so a branch is a detour with no reviewer at the end of it.
+Do not branch before committing.
+
+**Commit when the work is done, without being asked.** Finishing a task
+includes committing it. Do not ask permission, and do not leave finished work
+sitting in the working tree.
+
+Four conditions, all of them:
+
+1. `bun run check` passes. Never commit a red tree.
+2. The work is actually finished. Mid-task, or blocked on a question, means no
+   commit — say what is outstanding instead.
+3. Stage **only the files this task touched**, by path. Never `git add -A`:
+   another session or an editor may have unrelated work in the tree.
+4. One commit per coherent change. Unrelated work that was already lying in the
+   tree gets its own commit, or none.
+
+Say what was committed. Do not push unless asked.
+
 ## Commands
 
 ```

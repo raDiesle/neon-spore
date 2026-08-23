@@ -38,6 +38,34 @@ by side with *identical* input. The agent produces variants; you pick.
 
 Plan with a large model, execute with a fast one. See `docs/token-budget.md`.
 
+## Git
+
+**Straight to `main`.** No feature branches, no pull requests. One person works
+on this repo; a branch means a merge step later and a review that never comes.
+Agents default to branching before they commit on a default branch — that
+default is off here, and it is written into `CLAUDE.md` so every session sees
+it.
+
+The safety this normally buys is bought differently: `bun run check` before
+anything is called done, the determinism hook after every edit in
+`packages/sim`, and small commits that are easy to read and easy to revert.
+
+If a change really is exploratory, a branch is still allowed — but it is a
+deliberate choice to be stated, not the default.
+
+**Committing is part of finishing.** Claude commits at the end of a task
+without being asked, provided `bun run check` passes and the task is actually
+done. The four conditions are in `CLAUDE.md`; the one that matters most is
+staging by path rather than `git add -A`, because the working tree is not
+guaranteed to hold only this session's work — that happened on 2026-08-23, when
+a second session was mid-refactor and a blanket commit would have captured a
+broken state.
+
+This is deliberately *not* a hook. A hook cannot tell a finished result from an
+abandoned one, cannot write a message that explains why, and cannot decide what
+to leave out. The `Stop` hook already guards the part that is mechanical:
+typecheck and tests have to pass before the turn ends.
+
 ## House style for changes
 
 - Touch only what changed. Do not regenerate whole files.
