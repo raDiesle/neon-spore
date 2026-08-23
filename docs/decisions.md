@@ -273,3 +273,34 @@ set before the bestiary grows.
 **Reconsider if:** saying a name out loud in play turns out to be rare — if
 pairs point at columns instead ("column four") and never name the creature,
 rule 3 is over-weighted and rule 2 should lead.
+
+## 14. The window is not the stage
+
+*August 2026.* The game is portrait mobile web, and a browser window on a
+desktop is nothing like a phone. Drawing into the whole window made the hull as
+wide as the desk: a shape nobody will ever be shown, judged on a screen nobody
+will ever play on.
+
+So the window is not the stage. `computeStage` in `packages/render/src/layout.ts`
+returns a portrait rectangle, at most 0.56 as wide as it is tall, centred; the
+renderer clips and translates into it and everything a player sees lives inside
+it. Input subtracts the same offset, so a control is never drawn in one place
+and answered in another — the reason the layout was shared in the first place.
+Only the test chrome, which no player gets, is allowed outside.
+
+**The view switch** follows from the same worry. The finished game is one role
+per device, so a screen showing both halves of the control band is not the
+game's layout: it has controls the real screen does not carry, and the field is
+correspondingly smaller. `P1` and `P2` show one role's half and hide the rig;
+`TEST` shows everything. The band's share of the height is a named field either
+way — `bandPct` and `bandSoloPct` — never a literal.
+
+Two smaller things came with it. The layout is now derived per frame rather
+than cached, because a tuning slider moves `bandPct` between two frames and a
+cached layout would ignore it until the next resize. And `hullInvulnerable` is
+a `SimConfig` field rather than an app flag: it belongs to the run, and a
+replay has to record that the run was played with the hull holding.
+
+**Reconsider if:** a landscape or tablet layout is ever wanted. The stage is
+one aspect ratio by choice; making it a range is a change to `computeStage` and
+nothing else.
