@@ -17,6 +17,13 @@ export interface SimConfig {
   bulletTilesPerBeat: number;
   /** Minimum gap between shots, in beats. */
   fireEveryBeats: number;
+  /**
+   * Height of the invisible box a shot tests against, in thousandths of a
+   * tile. One tile means a creature is hit over exactly the tile it looks like
+   * it stands on; more is generous, less asks for precision the beat does not
+   * give. The width is always the column.
+   */
+  hitHeightMilli: number;
   /** Hull points regained per second. */
   hullRegenPerSecond: number;
   /**
@@ -66,6 +73,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   guardWindowMs: 900,
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
+  hitHeightMilli: 1000,
   hullRegenPerSecond: 3,
   hullInvulnerable: false,
   damageCreature: 12,
