@@ -17,12 +17,15 @@ export {
 } from "./shapes.js";
 export {
   BULB,
+  CANNON_LOBE,
   type CreatureSilhouette,
   type CrystalSilhouette,
   HULL,
   HULL_GEOMETRY,
   type HullSilhouette,
+  type LobeShape,
   METEOR,
+  SHIELD_LOBE,
   SLICK,
   xToHullAngle,
 } from "./silhouettes.js";

@@ -4,6 +4,7 @@ import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { type Glide, glideTo } from "./glide.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
@@ -25,6 +26,12 @@ export class Canvas2DRenderer implements Renderer {
   private effects = new Effects();
   /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
   private armed = 0;
+  /**
+   * Where the two lobes are, in fractional columns. The world snaps to a
+   * column; these follow it, so the membrane slides instead of jumping.
+   */
+  private cannon: Glide = { value: Number.NaN, velocity: 0 };
+  private shield: Glide = { value: Number.NaN, velocity: 0 };
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -76,6 +83,9 @@ export class Canvas2DRenderer implements Renderer {
     const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
     const isArmed = world.tick - world.guardTick < windowTicks;
     this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
+    glideTo(this.cannon, world.cannonCol, view.dt);
+    glideTo(this.shield, world.shieldCol, view.dt);
+    const at = { cannon: this.cannon.value, shield: this.shield.value };
 
     this.effects.ingest(view.events, l, (col, row) => {
       const c = world.creatures.find((x) => x.col === col && x.row === row);
@@ -96,7 +106,7 @@ export class Canvas2DRenderer implements Renderer {
     drawBullets(ctx, l, world.bullets);
     this.effects.draw(ctx, l);
 
-    drawHull(ctx, l, world, view.time, this.armed, hullPercent(world));
+    drawHull(ctx, l, world, view.time, this.armed, hullPercent(world), at);
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);

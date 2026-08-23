@@ -1,4 +1,13 @@
-import { type Bump, HULL, hullAngleAtX, hullPointAtX, openSmoothPath } from "@neon-spore/content";
+import {
+  type Bump,
+  CANNON_LOBE,
+  HULL,
+  hullAngleAtX,
+  hullPointAtX,
+  type LobeShape,
+  openSmoothPath,
+  SHIELD_LOBE,
+} from "@neon-spore/content";
 import type { Scar, World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -31,37 +40,56 @@ interface HullFrame {
   t: number;
 }
 
-function frame(l: Layout, world: World, time: number, armed: number): HullFrame {
+/**
+ * Where the lobes are, in columns. Fractional: the world moves the cannon a
+ * whole column at a time and `Glide` in render/ carries the eye across.
+ */
+export interface LobePositions {
+  cannon: number;
+  shield: number;
+}
+
+/**
+ * One lobe, as a bump on the contour. The lift breathes and the width breathes
+ * against it, so the lobe swells and narrows the way a held breath does rather
+ * than simply scaling up and down.
+ */
+function lobe(
+  shape: LobeShape,
+  angle: number,
+  tile: number,
+  ry: number,
+  rx: number,
+  time: number,
+  scale: number,
+): Bump {
+  const breath = Math.sin(time * shape.breathHz * Math.PI * 2 + shape.breathPhase);
+  const lift = ((tile * shape.liftTiles) / ry) * (1 + shape.breath * breath) * scale;
+  const half = ((tile * shape.halfTiles) / rx) * (1 - shape.breath * 0.5 * breath);
+  return {
+    angle,
+    strength: lift,
+    plateau: half * shape.plateau,
+    shoulder: half * shape.shoulder,
+  };
+}
+
+function frame(l: Layout, time: number, armed: number, at: LobePositions): HullFrame {
   const rx = l.gridWidth;
   const ry = l.tile * 1.6;
   const cx = l.gridLeft + l.gridWidth / 2;
   const cy = l.hullY + ry;
   const toAngle = (x: number): number => hullAngleAtX(x, cx, rx);
 
-  // Widths are chosen in tiles and converted, so a lobe stays the same size
-  // relative to a column whatever the screen does.
-  const cannonHalf = (l.tile * 0.42) / rx;
-  const shieldHalf = (l.tile * 0.6) / rx;
-  const cannonX = tileCX(l, world.cannonCol);
-  const shieldX = tileCX(l, world.shieldCol);
+  // The columns are followed, not snapped to: `at` is fractional.
+  const cannonX = tileCX(l, at.cannon);
+  const shieldX = tileCX(l, at.shield);
 
-  const bumps: Bump[] = [
-    {
-      angle: toAngle(cannonX),
-      strength: (l.tile * 0.5) / ry,
-      plateau: cannonHalf * 0.35,
-      shoulder: cannonHalf * 0.65,
-    },
-  ];
+  const bumps: Bump[] = [lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, 1)];
   // The armour-plate variant of the shield: a real swelling, wider and flatter
   // than the cannon, and only there while player 1 holds it open.
   if (armed > 0.01) {
-    bumps.push({
-      angle: toAngle(shieldX),
-      strength: ((l.tile * 0.34) / ry) * armed,
-      plateau: shieldHalf * 0.45,
-      shoulder: shieldHalf * 0.55,
-    });
+    bumps.push(lobe(SHIELD_LOBE, toAngle(shieldX), l.tile, ry, rx, time, armed));
   }
   return { cx, cy, rx, ry, bumps, cannonX, shieldX, t: time * 1.4 };
 }
@@ -98,8 +126,9 @@ export function drawHull(
   time: number,
   armed: number,
   hullPercent: number,
+  at: LobePositions,
 ): void {
-  const f = frame(l, world, time, armed);
+  const f = frame(l, time, armed, at);
   // High resolution: the swelling has to read as one unbroken transition, not
   // as a bump glued to a line.
   const pts = pointsAcross(f, l, 140, f.bumps);
@@ -241,11 +270,11 @@ function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): voi
 /** Where a shot leaves the hull, so the bullet starts at the muzzle. */
 export function cannonTip(
   l: Layout,
-  world: World,
   time: number,
   armed: number,
+  at: LobePositions,
 ): { x: number; y: number } {
-  const f = frame(l, world, time, armed);
+  const f = frame(l, time, armed, at);
   return hullPointAtX(
     f.cannonX,
     f.cx,

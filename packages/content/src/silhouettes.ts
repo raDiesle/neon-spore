@@ -79,6 +79,58 @@ export const HULL: HullSilhouette = {
 };
 
 /**
+ * A lobe of the hull: the cannon, or the shield while it is armed.
+ *
+ * Widths are in tiles, not pixels, so a lobe stays the same size relative to
+ * the column it stands over whatever the screen does. The lift is vertical
+ * (`bumpLift`), and it breathes — a swelling of a living membrane is never
+ * quite still, and the breathing is what says the ship is alive rather than a
+ * shape parked on a line.
+ */
+export interface LobeShape {
+  /** Half width, in tiles. */
+  halfTiles: number;
+  /** Share of the half width held at full lift. */
+  plateau: number;
+  /** Share of the half width the lift falls back to the hull over. */
+  shoulder: number;
+  /** How far the lobe raises the surface, in tiles. */
+  liftTiles: number;
+  /** How much the lift breathes, as a share of itself. */
+  breath: number;
+  /** Breaths per second. */
+  breathHz: number;
+  /** Phase offset, so the two lobes never breathe in step. */
+  breathPhase: number;
+}
+
+/**
+ * The cannon: narrow, tall, and mostly shoulder — the wide falloff is what
+ * rounds the corners where the lobe meets the rest of the membrane, so it
+ * reads as the hull swelling rather than a bump glued on.
+ */
+export const CANNON_LOBE: LobeShape = {
+  halfTiles: 0.62,
+  plateau: 0.22,
+  shoulder: 0.78,
+  liftTiles: 0.5,
+  breath: 0.16,
+  breathHz: 0.55,
+  breathPhase: 0,
+};
+
+/** The shield plate: wider, flatter, and slower — armour, not a muzzle. */
+export const SHIELD_LOBE: LobeShape = {
+  halfTiles: 0.85,
+  plateau: 0.34,
+  shoulder: 0.66,
+  liftTiles: 0.34,
+  breath: 0.1,
+  breathHz: 0.37,
+  breathPhase: 2.1,
+};
+
+/**
  * Hull ellipse dimensions. These define the grid against which all angles are
  * measured. They are not exposed as tuning — the rest of the layout depends on them.
  */

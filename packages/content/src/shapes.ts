@@ -138,9 +138,14 @@ export function crystalPath(
 }
 
 /**
- * Gaussian bump used to deform the hull. The bump rises to full `strength`
- * over a `plateau` range and falls back to 0 over a `shoulder` range on each
- * side, so the derivative is always 0 at the edges (no kinks).
+ * Bump used to deform the hull. It holds full `strength` over a `plateau` range
+ * and falls back to 0 over a `shoulder` range on each side.
+ *
+ * The falloff is a smootherstep, not a raised cosine: both leave the slope at 0
+ * where the lobe meets the hull, but the cosine still turns a corner in
+ * curvature there, and on a membrane that corner is visible as a crease at the
+ * foot of the lobe. Smootherstep flattens the second derivative as well, so the
+ * lobe grows out of the surface instead of being set down on it.
  *
  * Used by both the cannon and shield lobes, which are bumps on the hull contour
  * at a controllable angle.
@@ -150,8 +155,8 @@ export function bumpAdd(diff: number, strength: number, plateau: number, shoulde
   if (ad <= plateau) return strength;
   const total = plateau + shoulder;
   if (ad >= total) return 0;
-  const local = (ad - plateau) / shoulder;
-  return strength * 0.5 * (1 + Math.cos(Math.PI * local));
+  const u = (ad - plateau) / shoulder;
+  return strength * (1 - u * u * u * (u * (u * 6 - 15) + 10));
 }
 
 /**
