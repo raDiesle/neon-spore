@@ -13,6 +13,8 @@ import type { Viewport } from "./renderer.js";
  * shrinks to fit instead.
  */
 export interface Layout {
+  /** Which half of the band this screen carries. */
+  role: ViewRole;
   width: number;
   height: number;
   cols: number;
@@ -46,9 +48,45 @@ export interface Circle {
   r: number;
 }
 
-export function computeLayout(viewport: Viewport, cfg: SimConfig): Layout {
+/**
+ * Whose screen this is. `p1` shows the cannon and the trigger, `p2` the shield
+ * and the two colours — one role per device, which is the finished game. `test`
+ * is both halves at once on one screen, which is how it is played alone.
+ */
+export type ViewRole = "p1" | "p2" | "test";
+
+export const showsCannon = (role: ViewRole): boolean => role !== "p2";
+export const showsShield = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * The phone-shaped rectangle the game is drawn into, centred in the window.
+ *
+ * The game is portrait mobile web; a desktop window is far wider than that, and
+ * a hull drawn across the whole window is not the hull anybody will ever see.
+ * So the window is not the stage — this rectangle is, and everything the
+ * players are meant to see lives inside it. Only the test chrome, which no
+ * player gets, is allowed outside.
+ */
+export interface Stage {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+/** Widest the stage is allowed to get, width / height. Roughly a 9:16 phone. */
+const STAGE_ASPECT = 0.56;
+
+export function computeStage(viewport: Viewport): Stage {
+  const height = viewport.height;
+  const width = Math.min(viewport.width, height * STAGE_ASPECT);
+  return { left: Math.round((viewport.width - width) / 2), top: 0, width, height };
+}
+
+export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole): Layout {
   const { width, height } = viewport;
-  const bandHeight = (height * cfg.bandPct) / 100;
+  const solo = role !== "test";
+  const bandHeight = (height * (solo ? cfg.bandSoloPct : cfg.bandPct)) / 100;
   const playHeight = height - bandHeight;
   const bandTop = playHeight;
   const radarHeight = cfg.radarHeightPx;
@@ -56,18 +94,23 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig): Layout {
   // The field must fit both ways round: never wider than the screen, never
   // taller than the play area above the band.
   const usable = playHeight - radarHeight;
-  const tile = Math.min(width / cfg.cols, usable / cfg.rows);
+  // Never negative: a hidden tab reports a zero-sized window, and a negative
+  // tile reaches the canvas as a negative radius, which throws.
+  const tile = Math.max(0, Math.min(width / cfg.cols, usable / cfg.rows));
   const gridWidth = cfg.cols * tile;
   const gridHeight = cfg.rows * tile;
   const gridLeft = (width - gridWidth) / 2;
   const gridTop = playHeight - gridHeight;
 
-  const rowCannon = bandTop + bandHeight * 0.2;
-  const rowShield = bandTop + bandHeight * 0.48;
-  const rowButton = bandTop + bandHeight * 0.8;
-  const r = Math.min(bandHeight * 0.15, width * 0.068);
+  // One role has a single strip and its buttons, so both move up and the band
+  // itself is shorter. Two roles share the band in the order they are read out.
+  const rowCannon = bandTop + bandHeight * (solo ? 0.28 : 0.2);
+  const rowShield = bandTop + bandHeight * (solo ? 0.28 : 0.48);
+  const rowButton = bandTop + bandHeight * (solo ? 0.72 : 0.8);
+  const r = Math.min(bandHeight * (solo ? 0.19 : 0.15), width * 0.068);
 
   return {
+    role,
     width,
     height,
     cols: cfg.cols,
@@ -84,11 +127,17 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig): Layout {
     hullY: gridTop + (cfg.rows - 1) * tile,
     cannonStrip: { y: rowCannon, height: Math.min(bandHeight * 0.24, 32) },
     shieldStrip: { y: rowShield, height: Math.min(bandHeight * 0.24, 32) },
-    guardButton: { x: width * 0.14, y: rowButton, r },
-    fireButtons: [
-      { color: "red", circle: { x: width * 0.66, y: rowButton, r } },
-      { color: "cyan", circle: { x: width * 0.86, y: rowButton, r } },
-    ],
+    guardButton: { x: role === "p1" ? width * 0.5 : width * 0.14, y: rowButton, r },
+    fireButtons:
+      role === "p2"
+        ? [
+            { color: "red" as const, circle: { x: width * 0.34, y: rowButton, r } },
+            { color: "cyan" as const, circle: { x: width * 0.66, y: rowButton, r } },
+          ]
+        : [
+            { color: "red" as const, circle: { x: width * 0.66, y: rowButton, r } },
+            { color: "cyan" as const, circle: { x: width * 0.86, y: rowButton, r } },
+          ],
   };
 }
 

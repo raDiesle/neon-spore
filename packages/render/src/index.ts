@@ -4,11 +4,16 @@ export {
   type Circle,
   colFromX,
   computeLayout,
+  computeStage,
   hitCircle,
   type Layout,
+  type Stage,
   type Strip,
+  showsCannon,
+  showsShield,
   tileCX,
   tileCY,
+  type ViewRole,
 } from "./layout.js";
 export { PALETTE, STROKE } from "./palette.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";

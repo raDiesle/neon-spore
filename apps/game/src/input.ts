@@ -1,4 +1,11 @@
-import { colFromX, hitCircle, type Layout } from "@neon-spore/render";
+import {
+  colFromX,
+  hitCircle,
+  type Layout,
+  type Stage,
+  showsCannon,
+  showsShield,
+} from "@neon-spore/render";
 import type { Command } from "@neon-spore/sim";
 
 /**
@@ -25,8 +32,12 @@ export interface Bindings {
   buffer: InputBuffer;
   /** Read fresh on every event — the layout changes when the screen does. */
   layout: () => Layout;
+  /** The phone-shaped rectangle the game is drawn into. Touches are relative to it. */
+  stage: () => Stage;
   isOver: () => boolean;
   onPauseToggle: () => void;
+  /** Wave step, for the test keys. Positive is forwards. */
+  onWaveStep: (delta: number) => void;
 }
 
 /**
@@ -35,7 +46,15 @@ export interface Bindings {
  * the real split: player 1 has the cannon and the trigger, player 2 has the
  * shield and the colours.
  */
-export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: Bindings): void {
+export function bindControls({
+  canvas,
+  buffer,
+  layout,
+  stage,
+  isOver,
+  onPauseToggle,
+  onWaveStep,
+}: Bindings): void {
   let cannonPointer: number | null = null;
   let shieldPointer: number | null = null;
 
@@ -47,40 +66,59 @@ export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: 
     const l = layout();
     if (y < l.bandTop) return;
 
-    if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
-      cannonPointer = id;
-      buffer.push(1, { kind: "cannonCol", col: colFromX(l, x) });
-      return;
-    }
-    if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
-      shieldPointer = id;
-      buffer.push(2, { kind: "shieldCol", col: colFromX(l, x) });
-      return;
-    }
-    if (hitCircle(l.guardButton, x, y)) {
-      buffer.push(1, { kind: "guard" });
-      return;
-    }
-    for (const b of l.fireButtons) {
-      if (hitCircle(b.circle, x, y)) {
-        buffer.push(2, { kind: "fire", color: b.color });
+    if (showsCannon(l.role)) {
+      if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
+        cannonPointer = id;
+        buffer.push(1, { kind: "cannonCol", col: colFromX(l, x) });
         return;
+      }
+      if (hitCircle(l.guardButton, x, y)) {
+        buffer.push(1, { kind: "guard" });
+        return;
+      }
+    }
+    if (showsShield(l.role)) {
+      if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
+        shieldPointer = id;
+        buffer.push(2, { kind: "shieldCol", col: colFromX(l, x) });
+        return;
+      }
+      for (const b of l.fireButtons) {
+        if (hitCircle(b.circle, x, y)) {
+          buffer.push(2, { kind: "fire", color: b.color });
+          return;
+        }
       }
     }
   };
 
+  /**
+   * Screen to stage. The game is drawn into a phone-shaped rectangle, so on a
+   * wide window a touch is offset by the same amount the picture is — and a
+   * touch beside the rectangle belongs to nothing.
+   */
+  const inStage = (e: PointerEvent): { x: number; y: number } | null => {
+    const s = stage();
+    const x = e.clientX - s.left;
+    const y = e.clientY - s.top;
+    if (x < 0 || y < 0 || x > s.width || y > s.height) return null;
+    return { x, y };
+  };
+
   canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
+    const p = inStage(e);
+    if (!p) return;
     canvas.setPointerCapture(e.pointerId);
-    down(e.pointerId, e.clientX, e.clientY);
+    down(e.pointerId, p.x, p.y);
   });
   canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();
+    const p = inStage(e);
+    if (!p) return;
     const l = layout();
-    if (cannonPointer === e.pointerId)
-      buffer.push(1, { kind: "cannonCol", col: colFromX(l, e.clientX) });
-    if (shieldPointer === e.pointerId)
-      buffer.push(2, { kind: "shieldCol", col: colFromX(l, e.clientX) });
+    if (cannonPointer === e.pointerId) buffer.push(1, { kind: "cannonCol", col: colFromX(l, p.x) });
+    if (shieldPointer === e.pointerId) buffer.push(2, { kind: "shieldCol", col: colFromX(l, p.x) });
   });
   const up = (e: PointerEvent): void => {
     if (cannonPointer === e.pointerId) cannonPointer = null;
@@ -90,10 +128,32 @@ export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: 
   canvas.addEventListener("pointercancel", up);
   canvas.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  // Keyboard, for testing both roles alone at a desk.
+  /**
+   * Keyboard, for playing both roles alone at a desk. Two hands, two halves:
+   * A/D slide the cannon on the left of the keyboard, J/L the shield on the
+   * right, W/E fire the two colours and I opens the guard window. The keys stay
+   * live in every view — the view switch decides what is *shown*, not what a
+   * single tester can reach. The arrows step between waves.
+   *
+   * `guard` is still player 1's command whichever key sends it: the trigger and
+   * the shield being in different hands is the rule the whole defence rests on.
+   */
+  bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep });
+}
+
+interface KeyBindings {
+  buffer: InputBuffer;
+  layout: () => Layout;
+  isOver: () => boolean;
+  onPauseToggle: () => void;
+  onWaveStep: (delta: number) => void;
+}
+
+function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBindings): void {
   let cannon = -1;
   let shield = -1;
   const held = new Set<string>();
+
   window.addEventListener("keydown", (e) => {
     if (held.has(e.code)) return;
     held.add(e.code);
@@ -101,31 +161,38 @@ export function bindControls({ canvas, buffer, layout, isOver, onPauseToggle }: 
     if (cannon < 0) cannon = Math.floor(cols / 2);
     if (shield < 0) shield = Math.floor(cols / 2);
     switch (e.code) {
-      case "KeyQ":
+      case "KeyA":
         cannon = Math.max(0, cannon - 1);
         buffer.push(1, { kind: "cannonCol", col: cannon });
         break;
-      case "KeyE":
+      case "KeyD":
         cannon = Math.min(cols - 1, cannon + 1);
         buffer.push(1, { kind: "cannonCol", col: cannon });
         break;
-      case "ArrowLeft":
+      case "KeyJ":
         shield = Math.max(0, shield - 1);
         buffer.push(2, { kind: "shieldCol", col: shield });
         break;
-      case "ArrowRight":
+      case "KeyL":
         shield = Math.min(cols - 1, shield + 1);
         buffer.push(2, { kind: "shieldCol", col: shield });
         break;
-      case "Space":
-        e.preventDefault();
+      case "KeyI":
         buffer.push(1, { kind: "guard" });
         break;
-      case "Digit1":
+      case "KeyW":
         buffer.push(2, { kind: "fire", color: "red" });
         break;
-      case "Digit2":
+      case "KeyE":
         buffer.push(2, { kind: "fire", color: "cyan" });
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        onWaveStep(1);
+        break;
+      case "ArrowLeft":
+        e.preventDefault();
+        onWaveStep(-1);
         break;
       case "KeyP":
         onPauseToggle();

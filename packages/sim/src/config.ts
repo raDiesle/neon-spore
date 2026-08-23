@@ -19,6 +19,12 @@ export interface SimConfig {
   fireEveryBeats: number;
   /** Hull points regained per second. */
   hullRegenPerSecond: number;
+  /**
+   * Damage is counted and shown but never subtracted. A test convenience, so a
+   * wave can be watched to its end; it is a config field rather than a flag in
+   * the app because a replay has to record that the run was played this way.
+   */
+  hullInvulnerable: boolean;
   /** Damage when a creature reaches the hull. */
   damageCreature: number;
   /** Damage when a meteor is not deflected. */
@@ -41,6 +47,13 @@ export interface SimConfig {
   bulletGlideMs: number;
   /** Share of the screen height the control band takes, in percent. Read by render/. */
   bandPct: number;
+  /**
+   * The same share when a screen carries only one player's half of the band.
+   * The finished game is one role per device, so the field gets the space the
+   * missing controls leave behind — see the view switch in `apps/game`.
+   * Read by render/.
+   */
+  bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
 }
@@ -54,6 +67,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
   hullRegenPerSecond: 3,
+  hullInvulnerable: false,
   damageCreature: 12,
   damageMeteor: 20,
   maxHoles: 10,
@@ -65,6 +79,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   radarLead: 4,
   bulletGlideMs: 130,
   bandPct: 37,
+  bandSoloPct: 27,
   radarHeightPx: 34,
 };
 

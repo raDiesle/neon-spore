@@ -17,8 +17,13 @@ export interface TestBindings {
   setRunning: (running: boolean) => void;
 }
 
+/** Only the numeric tunables can sit behind a slider. */
+type NumericKey = {
+  [K in keyof SimConfig]: SimConfig[K] extends number ? K : never;
+}[keyof SimConfig];
+
 interface SliderSpec {
-  key: keyof SimConfig;
+  key: NumericKey;
   label: string;
   min: number;
   max: number;
@@ -78,6 +83,17 @@ export function bindTestControls({ world, jumpToWave, isRunning, setRunning }: T
     btn.addEventListener("click", () => {
       jumpToWave(world.wave + Number(btn.dataset.d ?? 0));
       refreshWave();
+    });
+  }
+
+  // Infinite hull. On by default in this build (see main.ts) — a wave that is
+  // being watched should reach its end even when the defence is missed, and the
+  // damage is still drawn, so what was missed stays visible.
+  const godBox = el("godMode") as HTMLInputElement | null;
+  if (godBox) {
+    godBox.checked = world.cfg.hullInvulnerable;
+    godBox.addEventListener("change", () => {
+      world.cfg.hullInvulnerable = godBox.checked;
     });
   }
 

@@ -6,7 +6,7 @@ import { MILLI, type SpawnEntry, type World } from "./world.js";
  * Everything that happens on a beat. Creatures glide smoothly but land on tile
  * centres each beat, all at once, so a creature's `row` is exact. The shell
  * has no intermediate state — collision happens the moment a tile-change brings
- * someone to the hull row (spec 5.8).
+ * someone to the hull row (docs/spec/systems.md 5.8).
  */
 export function onBeat(world: World): void {
   world.beat += 1;
@@ -60,7 +60,7 @@ export function onBeat(world: World): void {
  * (meteors when the shield is in column and player 1 triggered it in time).
  *
  * Guard tries always increments for a meteor. Deflected, mistimed count the
- * two failure states that matter for learning (spec 5.8).
+ * two failure states that matter for learning (docs/spec/systems.md 5.8).
  */
 function resolveHull(world: World): void {
   const survivors: Creature[] = [];
@@ -94,8 +94,10 @@ function resolveHull(world: World): void {
 }
 
 function damage(world: World, col: number, amount: number): void {
-  world.hullMilli = Math.max(0, world.hullMilli - amount * MILLI);
-  if (world.hullMilli <= 0) world.over = true;
+  if (!world.cfg.hullInvulnerable) {
+    world.hullMilli = Math.max(0, world.hullMilli - amount * MILLI);
+    if (world.hullMilli <= 0) world.over = true;
+  }
   world.scars.push({ col, beat: world.beat });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
   world.events.push({ type: "breach", col, damage: amount });

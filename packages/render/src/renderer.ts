@@ -1,4 +1,5 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import type { ViewRole } from "./layout.js";
 
 export interface Viewport {
   width: number;
@@ -10,10 +11,10 @@ export interface ViewState {
   world: World;
   /** 0..1 within the current beat. The only interpolation the sim allows. */
   beatPhase: number;
-  /** Which of the two screens this is. Pilot warmer, navigator cooler. */
-  player: 1 | 2;
+  /** Which of the two screens this is, or both at once while testing. */
+  role: ViewRole;
   /**
-   * Seconds since the page opened. Own-motion only — a creature's wing beat and
+   * Seconds since the page opened. Own-motion only — a creature's ripple and
    * the membrane's wobble run on wall-clock time because nothing about them
    * touches a tile. The simulation never sees this value.
    */

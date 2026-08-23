@@ -16,6 +16,25 @@
       }
       canvas { display: block; width: 100%; height: 100%; }
 
+      /* The view switch. Always there, in every mode — it is the one piece of
+         chrome that is not part of either player's device. */
+      #viewSwitch {
+        position: fixed; top: 6px; left: 50%; transform: translateX(-50%); z-index: 6;
+        display: flex; gap: 2px; padding: 2px; border-radius: 9px;
+        border: 1px solid #2A2250; background: rgba(10, 7, 26, 0.82);
+      }
+      #viewSwitch button {
+        min-width: 42px; padding: 4px 7px; border: 0; border-radius: 7px;
+        background: transparent; color: #6F639F;
+        font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+      }
+      #viewSwitch button.on { background: #2A1F4E; color: #ffc24b; }
+
+      /* A player's device carries no test rig. */
+      body.player-view #pauseBtn,
+      body.player-view #gear,
+      body.player-view #waveSkip { display: none; }
+
       /* The field is canvas; the test rig is DOM, so changing it never touches
          renderer code. See docs/decisions.md, decision 5. */
       #pauseBtn, #gear {
@@ -48,6 +67,7 @@
       .row label { flex: 0 0 122px; color: #9c8fd6; }
       .row span { flex: 0 0 76px; text-align: right; color: #f2e9dc; }
       .row input { flex: 1; accent-color: #ffc24b; }
+      .row input[type="checkbox"] { flex: 0 0 16px; height: 16px; }
       #panel button {
         margin-top: 18px; padding: 9px 16px; border-radius: 8px; border: 1px solid #ffc24b;
         background: transparent; color: #ffc24b; font: 12px "Courier New", monospace; letter-spacing: 2px;
@@ -56,6 +76,7 @@
   </head>
   <body>
     <canvas id="stage"></canvas>
+    <div id="viewSwitch"></div>
     <button type="button" id="pauseBtn">⏸</button>
     <button type="button" id="gear">⚙</button>
     <div id="waveSkip">
@@ -75,12 +96,21 @@
         alone is not enough. Anything that reaches the hull breaks it visibly.
       </p>
 
+      <div class="grp">TESTING</div>
+      <div class="row">
+        <label for="godMode">Infinite hull</label>
+        <input type="checkbox" id="godMode" />
+        <span></span>
+      </div>
+
       <div class="grp">TUNING</div>
       <div id="sliders"></div>
 
       <button type="button" id="close">BACK</button>
       <p class="sub" style="margin-top: 16px">
-        Solo at a desk: Q / E cannon · ← → shield · Space triggers · 1 / 2 fire · P pause
+        Solo at a desk — player 1: A / D cannon · I trigger.
+        Player 2: J / L shield · W / E fire.
+        → / ← next and previous wave · P pause.
       </p>
     </div>
     <script type="module" src="./src/main.ts"></script>

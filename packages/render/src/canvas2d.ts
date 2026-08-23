@@ -6,7 +6,7 @@ import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull } from "./hull.js";
-import { computeLayout, type Layout } from "./layout.js";
+import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 
@@ -21,7 +21,7 @@ import type { Renderer, Viewport, ViewState } from "./renderer.js";
 export class Canvas2DRenderer implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-  private layout: Layout | null = null;
+  private stage: Stage = { left: 0, top: 0, width: 0, height: 0 };
   private effects = new Effects();
   /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
   private armed = 0;
@@ -39,21 +39,39 @@ export class Canvas2DRenderer implements Renderer {
     this.canvas.style.width = `${viewport.width}px`;
     this.canvas.style.height = `${viewport.height}px`;
     this.ctx.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
-    this.layout = null;
+    this.stage = computeStage(viewport);
   }
 
-  /** The layout is derived, so it is rebuilt whenever the config could change. */
+  /**
+   * The layout is derived from the stage, not from the window: on a desktop
+   * screen the window is far wider than any phone, and the hull is as wide as
+   * the field. Cheap arithmetic, so it is redone every frame rather than
+   * cached — a test slider moves `bandPct` and `cols` between two frames.
+   */
   private layoutFor(view: ViewState): Layout {
-    if (!this.layout || this.layout.cols !== view.world.cfg.cols) {
-      this.layout = computeLayout(this.viewport, view.world.cfg);
-    }
-    return this.layout;
+    return computeLayout(
+      { width: this.stage.width, height: this.stage.height, dpr: this.viewport.dpr },
+      view.world.cfg,
+      view.role,
+    );
   }
 
   draw(view: ViewState): void {
     const { ctx } = this;
     const { world } = view;
     const l = this.layoutFor(view);
+    const { stage } = this;
+
+    // Outside the stage is not the game. It is painted flat and left alone, and
+    // everything below draws in stage coordinates — as does input hit-testing,
+    // which subtracts the same offset.
+    ctx.fillStyle = "#05040B";
+    ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(stage.left, stage.top, stage.width, stage.height);
+    ctx.clip();
+    ctx.translate(stage.left, stage.top);
 
     const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
     const isArmed = world.tick - world.guardTick < windowTicks;
@@ -84,9 +102,17 @@ export class Canvas2DRenderer implements Renderer {
     drawHud(ctx, l, view);
     drawBand(ctx, l, world, isArmed);
     drawOverlay(ctx, l, view);
+    ctx.restore();
+
+    // A seam, so a wide window shows where the phone ends.
+    if (stage.width < this.viewport.width) {
+      ctx.strokeStyle = "#1C1640";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(stage.left + 0.5, stage.top + 0.5, stage.width - 1, stage.height - 1);
+    }
   }
 
   dispose(): void {
-    this.layout = null;
+    // Nothing retained: the layout is derived per frame.
   }
 }

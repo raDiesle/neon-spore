@@ -1,5 +1,5 @@
 import { buildQueue, WAVES } from "@neon-spore/content";
-import { Canvas2DRenderer, computeLayout } from "@neon-spore/render";
+import { Canvas2DRenderer, computeLayout, computeStage, type Layout } from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -12,17 +12,21 @@ import {
 import { bindControls, InputBuffer } from "./input.js";
 import { startLoop } from "./loop.js";
 import { bindTestControls } from "./testing.js";
+import { bindViewSwitch } from "./view.js";
 
 const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");
 
-const cfg = { ...DEFAULT_CONFIG };
+// The hull holds by default here, and only here: this is the test build, and a
+// wave that is being looked at should be allowed to finish. The switch is in
+// the test panel; `packages/sim` still ships with the hull breakable.
+const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
 
-let viewport = { width: 0, height: 0, dpr: 1 };
-let layout = computeLayout({ width: 1, height: 1, dpr: 1 }, cfg);
+let viewport = { width: 1, height: 1, dpr: 1 };
+let stage = computeStage(viewport);
 const resize = (): void => {
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -32,8 +36,16 @@ const resize = (): void => {
   if (width < 1 || height < 1) return;
   viewport = { width, height, dpr: Math.min(window.devicePixelRatio || 1, 2) };
   renderer.resize(viewport);
-  layout = computeLayout(viewport, cfg);
+  stage = computeStage(viewport);
 };
+
+/**
+ * Input hit-tests against the same layout the renderer draws, so it is derived
+ * the same way: from the stage rather than the window, and for whichever role
+ * the view switch is showing. Cheap enough to compute per event.
+ */
+const layout = (): Layout =>
+  computeLayout({ width: stage.width, height: stage.height, dpr: viewport.dpr }, cfg, view.role());
 window.addEventListener("resize", resize);
 new ResizeObserver(resize).observe(document.documentElement);
 resize();
@@ -75,12 +87,18 @@ const setRunning = (next: boolean): void => {
   running = next;
 };
 
+const view = bindViewSwitch(() => {
+  // Nothing to rebuild: the layout is derived per frame and per event.
+});
+
 bindControls({
   canvas,
   buffer,
-  layout: () => layout,
+  layout,
+  stage: () => stage,
   isOver: () => world.over,
   onPauseToggle: () => setRunning(!running),
+  onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
 
 bindTestControls({
@@ -100,7 +118,7 @@ const paint = (dt: number): void => {
   renderer.draw({
     world,
     beatPhase: (world.tick % tpb) / tpb,
-    player: 1,
+    role: view.role(),
     time: performance.now() / 1000,
     dt,
     events: frameEvents,
