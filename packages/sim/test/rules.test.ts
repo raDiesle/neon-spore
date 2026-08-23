@@ -2,8 +2,11 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  hashWorld,
   hullPercent,
   hullRow,
+  record,
+  runReplay,
   step,
   ticksPerBeat,
   type Color,
@@ -184,5 +187,27 @@ describe("waves", () => {
     // Asked exactly once — the host has not answered, and it does not nag.
     expect(world.restBeat).toBe(-1);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreWave);
+  });
+});
+
+describe("replays across waves", () => {
+  it("plays on into a wave the replay carries, and stops at one it does not", () => {
+    const two = record({
+      name: "two waves",
+      seed: 0,
+      ticks: IMPACT_TICK + TPB * 6,
+      queues: [[manta(3, "red")], [meteor(6)]],
+      inputs: [],
+    });
+    const world = runReplay(two);
+    expect(world.wave).toBe(1);
+    expect(world.creatures[0]!.kind).toBe("meteor");
+    // Same inputs, same fingerprint — the whole point of the format.
+    expect(hashWorld(runReplay(two))).toBe(two.expectHash!);
+
+    // Without a queue for wave 1 the field simply stays empty.
+    const one = runReplay({ ...two, queues: [[manta(3, "red")]] });
+    expect(one.wave).toBe(0);
+    expect(one.creatures).toHaveLength(0);
   });
 });
