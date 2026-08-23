@@ -36,10 +36,27 @@ const HULL_RY = 48;
 const HULL_ARC = 0.42;
 const HULL_STEPS = 120;
 
-function cannonBumps(armed: boolean): Bump[] {
+/**
+ * Cannon lobe plus the shield body.
+ *
+ * The shield is never absent: at rest it is a passive swelling player 2 can
+ * aim, and holding it open swells it the rest of the way. And it is a chain of
+ * four bumps rather than one, so `spread` — the lag between head and tail while
+ * it travels, in radians — is what the third hull cell shows.
+ */
+const SHIELD_WEIGHT = [0.46, 0.28, 0.17, 0.09];
+const SHIELD_PASSIVE = 0.42;
+
+function hullBumps(armed: boolean, spread = 0): Bump[] {
   const bumps: Bump[] = [{ angle: -Math.PI / 2, strength: 0.5, plateau: 0.014, shoulder: 0.026 }];
-  if (armed) {
-    bumps.push({ angle: -Math.PI / 2 + 0.16, strength: 0.34, plateau: 0.024, shoulder: 0.03 });
+  const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * (armed ? 1 : 0);
+  for (let i = 0; i < SHIELD_WEIGHT.length; i++) {
+    bumps.push({
+      angle: -Math.PI / 2 + 0.16 + i * spread,
+      strength: 0.34 * scale * SHIELD_WEIGHT[i]!,
+      plateau: 0.024,
+      shoulder: 0.03,
+    });
   }
   return bumps;
 }
@@ -89,16 +106,24 @@ const meteor: Subject = {
 };
 
 /**
- * The hull as the game draws it: one contour with a cannon lobe, and a shield
- * lobe that only exists while armed. Two subjects, so the difference between
- * passive and armed can be judged side by side — docs/spec/systems.md 5.8 says
- * that difference has to be unmissable, and it has to live in the *silhouette*.
+ * The hull as the game draws it: one contour with a cannon lobe and a shield
+ * body. Three subjects, so the difference between passive and armed can be
+ * judged side by side — docs/spec/systems.md 5.8 says that difference has to be
+ * unmissable, and it has to live in the *silhouette* — and so that the shield
+ * in motion, strung out behind its head, can be judged as a shape rather than
+ * only as a movement.
  */
-function hull(armed: boolean): Subject {
-  const bumps = cannonBumps(armed);
+function hull(armed: boolean, spread = 0): Subject {
+  const bumps = hullBumps(armed, spread);
+  const name = spread > 0 ? "HULL · MOVING" : armed ? "HULL · ARMED" : "HULL · PASSIVE";
   return {
-    name: armed ? "HULL · ARMED" : "HULL · PASSIVE",
-    note: armed ? "cannon lobe + shield lobe" : "cannon lobe only",
+    name,
+    note:
+      spread > 0
+        ? "the body strung out behind its head"
+        : armed
+          ? "shield held open"
+          : "shield passive, still aimable",
     open: true,
     pointsAt(t) {
       const pts: Point[] = [];
@@ -135,4 +160,5 @@ export const SUBJECTS: Subject[] = [
   meteor,
   hull(false),
   hull(true),
+  hull(true, 0.05),
 ];

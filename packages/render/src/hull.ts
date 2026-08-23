@@ -4,14 +4,17 @@ import {
   HULL,
   hullAngleAtX,
   hullPointAtX,
-  type LobeShape,
   openSmoothPath,
+  type Point,
   SHIELD_LOBE,
 } from "@neon-spore/content";
-import type { Scar, World } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
+import { lobe } from "./lobe.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawScars } from "./scars.js";
+import type { ShieldSegment } from "./shield.js";
 
 /**
  * The ship, from `legacy/style-guide.html`. One membrane, not a collection of
@@ -27,6 +30,12 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 /** How far past the field edges to sample, so the contour never ends in view. */
 const MARGIN = 0.12;
+/**
+ * How much of the shield's lift is there while nobody holds it open. It is not
+ * zero: a shield that only exists during the trigger window cannot be aimed,
+ * and player 2 has to see the thing they are sliding. Armed still doubles it.
+ */
+const SHIELD_PASSIVE = 0.42;
 
 interface HullFrame {
   cx: number;
@@ -36,42 +45,18 @@ interface HullFrame {
   bumps: Bump[];
   /** Screen x of the cannon, needed again for the muzzle. */
   cannonX: number;
-  shieldX: number;
   t: number;
 }
 
 /**
- * Where the lobes are, in columns. Fractional: the world moves the cannon a
- * whole column at a time and `Glide` in render/ carries the eye across.
+ * Where the lobes are, in columns. Fractional: the world moves them a whole
+ * column at a time and render/ carries the eye across — `Glide` for the cannon,
+ * a chain of them for the shield (`ShieldBody`).
  */
 export interface LobePositions {
   cannon: number;
-  shield: number;
-}
-
-/**
- * One lobe, as a bump on the contour. The lift breathes and the width breathes
- * against it, so the lobe swells and narrows the way a held breath does rather
- * than simply scaling up and down.
- */
-function lobe(
-  shape: LobeShape,
-  angle: number,
-  tile: number,
-  ry: number,
-  rx: number,
-  time: number,
-  scale: number,
-): Bump {
-  const breath = Math.sin(time * shape.breathHz * Math.PI * 2 + shape.breathPhase);
-  const lift = ((tile * shape.liftTiles) / ry) * (1 + shape.breath * breath) * scale;
-  const half = ((tile * shape.halfTiles) / rx) * (1 - shape.breath * 0.5 * breath);
-  return {
-    angle,
-    strength: lift,
-    plateau: half * shape.plateau,
-    shoulder: half * shape.shoulder,
-  };
+  /** The shield's body, head first. Each segment is its own bump. */
+  shield: readonly ShieldSegment[];
 }
 
 function frame(l: Layout, time: number, armed: number, at: LobePositions): HullFrame {
@@ -83,38 +68,45 @@ function frame(l: Layout, time: number, armed: number, at: LobePositions): HullF
 
   // The columns are followed, not snapped to: `at` is fractional.
   const cannonX = tileCX(l, at.cannon);
-  const shieldX = tileCX(l, at.shield);
-
   const bumps: Bump[] = [lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, 1)];
-  // The armour-plate variant of the shield: a real swelling, wider and flatter
-  // than the cannon, and only there while player 1 holds it open.
-  if (armed > 0.01) {
-    bumps.push(lobe(SHIELD_LOBE, toAngle(shieldX), l.tile, ry, rx, time, armed));
+
+  // The shield is a body, not a plate: a head and three followers, each a bump
+  // of its own. At rest they lie on top of each other and add up to the armour
+  // plate; while it travels they string out behind the head and the skin of the
+  // ship travels with them.
+  const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * armed;
+  for (const seg of at.shield) {
+    const x = tileCX(l, seg.col);
+    bumps.push(
+      lobe(SHIELD_LOBE, toAngle(x), l.tile, ry, rx, time, scale * seg.weight, seg.halfMul),
+    );
   }
-  return { cx, cy, rx, ry, bumps, cannonX, shieldX, t: time * 1.4 };
+  return { cx, cy, rx, ry, bumps, cannonX, t: time * 1.4 };
 }
 
-function pointsAcross(f: HullFrame, l: Layout, steps: number, bumps: Bump[]) {
+/** The membrane directly above a screen x, lobes and all. */
+function surface(f: HullFrame, x: number): Point {
+  return hullPointAtX(
+    x,
+    f.cx,
+    f.cy,
+    f.rx,
+    f.ry,
+    HULL.lobes,
+    HULL.depth,
+    HULL.wobble,
+    f.t,
+    HULL.seed,
+    f.bumps,
+  );
+}
+
+function pointsAcross(f: HullFrame, l: Layout, steps: number): Point[] {
   const from = l.gridLeft - MARGIN * l.gridWidth;
   const to = l.gridLeft + (1 + MARGIN) * l.gridWidth;
-  const pts = [];
+  const pts: Point[] = [];
   for (let i = 0; i <= steps; i++) {
-    const x = from + (to - from) * (i / steps);
-    pts.push(
-      hullPointAtX(
-        x,
-        f.cx,
-        f.cy,
-        f.rx,
-        f.ry,
-        HULL.lobes,
-        HULL.depth,
-        HULL.wobble,
-        f.t,
-        HULL.seed,
-        bumps,
-      ),
-    );
+    pts.push(surface(f, from + (to - from) * (i / steps)));
   }
   return pts;
 }
@@ -131,7 +123,7 @@ export function drawHull(
   const f = frame(l, time, armed, at);
   // High resolution: the swelling has to read as one unbroken transition, not
   // as a bump glued to a line.
-  const pts = pointsAcross(f, l, 140, f.bumps);
+  const pts = pointsAcross(f, l, 140);
 
   const right = l.gridLeft + l.gridWidth;
   const body = new Path2D(openSmoothPath(pts));
@@ -156,57 +148,52 @@ export function drawHull(
   ctx.fillStyle = bg;
   ctx.fill(filled);
 
-  const halo = ctx.createLinearGradient(0, top - 26, 0, top + 26);
-  halo.addColorStop(0, "#FFC24B00");
-  halo.addColorStop(1, "#FFC24B26");
-  ctx.fillStyle = halo;
-  ctx.fillRect(l.gridLeft, top - 26, l.gridWidth, 52);
-
+  innerWarmth(ctx, body, filled);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
-  drawScars(ctx, l, world.scars, time);
-  drawShieldRim(ctx, l, f, armed, time);
+  drawScars(ctx, l, world.scars, time, (x) => surface(f, x));
+  drawShieldRim(ctx, l, f, armed, time, at);
   drawMuzzle(ctx, f, l);
   ctx.restore();
 }
 
 /**
- * A breach stays. The prototype scatters it with `Math.random`; here the offset
- * comes from the column and the beat it happened on, so the same damage looks
- * the same on both screens without the simulation storing a jitter.
+ * The warm light just under the skin.
+ *
+ * It used to be a gradient rectangle across the full width, starting at the
+ * highest point of the contour — which meant that whenever the two lobes met
+ * and the surface rose, a pale band slid up the whole hull and showed its own
+ * straight lower edge. The membrane has no straight edges. So the glow is a
+ * wide, soft stroke of the contour itself, clipped to the inside of the hull:
+ * it follows every swelling exactly, and the half that would spill into space
+ * is cut away by the clip rather than by a horizontal line.
  */
-function drawScars(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  scars: readonly Scar[],
-  time: number,
-): void {
-  for (const s of scars) {
-    const n = (s.col * 73856093) ^ (s.beat * 19349663);
-    const ox = (((n >>> 8) % 100) / 100 - 0.5) * l.tile * 0.5;
-    const radius = 4 + ((n >>> 3) % 40) / 10;
-    const cx = tileCX(l, s.col) + ox;
-    const cy = l.hullY + l.tile * 0.2;
-
-    ctx.fillStyle = "#1A1330";
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.fill();
-    // Something still burns in the break.
-    ctx.globalAlpha = 0.3 + Math.sin(time * 5 + s.col * 1.3) * 0.15;
-    ctx.fillStyle = PALETTE.red;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius * 0.4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+function innerWarmth(ctx: CanvasRenderingContext2D, body: Path2D, filled: Path2D): void {
+  ctx.save();
+  ctx.clip(filled);
+  ctx.strokeStyle = "#FFC24B";
+  ctx.lineCap = "round";
+  for (const [width, alpha] of [
+    [46, 0.05],
+    [22, 0.06],
+    [9, 0.08],
+  ] as const) {
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = width;
+    ctx.stroke(body);
   }
+  ctx.globalAlpha = 1;
+  ctx.restore();
 }
 
 /**
  * The rim-thickening variant on top of the plate: over the shield's segment the
  * edge of the membrane brightens and thickens. Armed and passive then differ in
- * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a deflection has
- * to be unmissable or the pair never learns the timing.
+ * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a
+ * deflection has to be unmissable or the pair never learns the timing.
+ *
+ * The bright stretch spans the whole body, head to tail, so a shield in motion
+ * lights up as a long moving band rather than a dot with a tail behind it.
  */
 function drawShieldRim(
   ctx: CanvasRenderingContext2D,
@@ -214,50 +201,28 @@ function drawShieldRim(
   f: HullFrame,
   armed: number,
   time: number,
+  at: LobePositions,
 ): void {
+  if (at.shield.length === 0) return;
+  const cols = at.shield.map((s) => s.col);
   const shimmer = 0.72 + 0.16 * Math.sin(time * 2.6) + 0.12 * Math.sin(time * 1.15 + 1.7);
-  const glow = Math.max(0.12, armed * shimmer);
-  const half = l.tile * 0.75;
-  const pts = [];
-  for (let i = 0; i <= 18; i++) {
-    const x = f.shieldX - half + 2 * half * (i / 18);
-    pts.push(
-      hullPointAtX(
-        x,
-        f.cx,
-        f.cy,
-        f.rx,
-        f.ry,
-        HULL.lobes,
-        HULL.depth,
-        HULL.wobble,
-        f.t,
-        HULL.seed,
-        f.bumps,
-      ),
-    );
-  }
+  const glow = Math.max(0.34, armed * shimmer);
+  const half = l.tile * 0.8;
+  const from = tileCX(l, Math.min(...cols)) - half;
+  const to = tileCX(l, Math.max(...cols)) + half;
+  const pts: Point[] = [];
+  const steps = 26;
+  for (let i = 0; i <= steps; i++) pts.push(surface(f, from + (to - from) * (i / steps)));
+
   const seg = new Path2D(openSmoothPath(pts));
-  ctx.globalAlpha = 0.12 + 0.88 * glow;
-  strokeGlow(ctx, seg, PALETTE.shieldRim, 2 + 6 * armed, 0.4 + armed);
+  ctx.globalAlpha = 0.3 + 0.7 * glow;
+  strokeGlow(ctx, seg, PALETTE.shieldRim, 2.4 + 5.6 * armed, 0.5 + armed);
   ctx.globalAlpha = 1;
 }
 
 /** The fire opening at the tip of the cannon lobe. */
 function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): void {
-  const tip = hullPointAtX(
-    f.cannonX,
-    f.cx,
-    f.cy,
-    f.rx,
-    f.ry,
-    HULL.lobes,
-    HULL.depth,
-    HULL.wobble,
-    f.t,
-    HULL.seed,
-    f.bumps,
-  );
+  const tip = surface(f, f.cannonX);
   ctx.fillStyle = PALETTE.redDark;
   ctx.beginPath();
   ctx.arc(tip.x, tip.y + l.tile * 0.12, l.tile * 0.13, 0, Math.PI * 2);
@@ -275,17 +240,5 @@ export function cannonTip(
   at: LobePositions,
 ): { x: number; y: number } {
   const f = frame(l, time, armed, at);
-  return hullPointAtX(
-    f.cannonX,
-    f.cx,
-    f.cy,
-    f.rx,
-    f.ry,
-    HULL.lobes,
-    HULL.depth,
-    HULL.wobble,
-    f.t,
-    HULL.seed,
-    f.bumps,
-  );
+  return surface(f, f.cannonX);
 }

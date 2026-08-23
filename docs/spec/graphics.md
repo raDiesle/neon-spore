@@ -45,6 +45,34 @@ separate objects sitting on top of it.
 Lobe, hull, beat and ward are the fixed vocabulary. Do not invent synonyms —
 see `CLAUDE.md`.
 
+### The shield is a body, not a plate
+
+One lobe sliding along the hull reads as a lump being dragged over the skin. So
+the shield is a short chain — a head that chases the column and three followers,
+each chasing the one in front of it more slowly
+(`packages/render/src/shield.ts`). While it travels the body strings out behind
+the head, roughly as far as it moved, and gathers back up within a second; a
+peristaltic wave runs from head to tail the whole time and speeds up with
+travel. Every segment is a bump on the *same* contour, so the outline of the
+ship travels with the shield instead of the shield travelling over the outline.
+
+It is also never absent. A shield that only exists inside the trigger window
+cannot be aimed, so it sits at 42 % of its lift while passive and swells the
+rest of the way when player 1 holds it open — the armed state still reads
+unmistakably, in a taller plate *and* a far brighter rim.
+
+### Damage is a tear, not a pellet
+
+A breach is a crack in the membrane (`packages/render/src/scars.ts`): a jagged
+split with one fork, dark, with something still burning along its length. It
+hangs from the surface as the surface actually is at that instant — the same
+`hullPointAtX` the contour is drawn from — so it breathes and rides up and down
+with the lobes. Damage that stays at a fixed height is damage to nothing.
+
+Its jitter comes from the column and the beat it happened on, never from
+`Math.random`: the same breach has to look the same on both screens without the
+simulation storing an angle.
+
 ## The fiction — out of date
 
 The German original justified the rules from a marine setting:

@@ -10,6 +10,7 @@ import { drawHull } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
+import { ShieldBody } from "./shield.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
@@ -28,10 +29,11 @@ export class Canvas2DRenderer implements Renderer {
   private armed = 0;
   /**
    * Where the two lobes are, in fractional columns. The world snaps to a
-   * column; these follow it, so the membrane slides instead of jumping.
+   * column; these follow it, so the membrane slides instead of jumping. The
+   * shield follows with a whole chain of them and crawls.
    */
   private cannon: Glide = { value: Number.NaN, velocity: 0 };
-  private shield: Glide = { value: Number.NaN, velocity: 0 };
+  private shield = new ShieldBody();
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -84,8 +86,8 @@ export class Canvas2DRenderer implements Renderer {
     const isArmed = world.tick - world.guardTick < windowTicks;
     this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
     glideTo(this.cannon, world.cannonCol, view.dt);
-    glideTo(this.shield, world.shieldCol, view.dt);
-    const at = { cannon: this.cannon.value, shield: this.shield.value };
+    this.shield.update(world.shieldCol, view.dt);
+    const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
     this.effects.ingest(view.events, l, (col, row) => {
       const c = world.creatures.find((x) => x.col === col && x.row === row);
