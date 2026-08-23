@@ -11,9 +11,13 @@ export const PALETTE = {
   dim: "#7A6FA8",
   red: "#FF3B6B",
   redRim: "#FF8AA3",
+  redDark: "#190F2C",
   cyan: "#2FE0F0",
   cyanRim: "#BFF6FF",
+  cyanDark: "#0F2E38",
   rock: "#C7CBD6",
+  rockDark: "#3C3F49",
+  sparkDim: "#8B85AB",
 } as const;
 
 /**

@@ -15,6 +15,8 @@ export function hashWorld(world: World): number {
 
   push(world.tick);
   push(world.beat);
+  push(world.over ? 1 : 0);
+  push(world.score);
   push(world.cannonCol);
   push(world.shieldCol);
   push(world.hullMilli);
@@ -29,6 +31,7 @@ export function hashWorld(world: World): number {
     push(c.col);
     push(c.row);
     push(c.color === null ? 0 : c.color === "red" ? 1 : 2);
+    push(c.holes);
   }
 
   push(world.bullets.length);
@@ -36,6 +39,7 @@ export function hashWorld(world: World): number {
     push(b.id);
     push(b.col);
     push(b.row);
+    push(b.subMilli);
   }
 
   push(world.scars.length);

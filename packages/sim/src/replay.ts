@@ -21,8 +21,8 @@ export interface Replay {
 
 export function runReplay(replay: Replay): World {
   const cfg: SimConfig = { ...DEFAULT_CONFIG, ...replay.config };
-  const world = createWorld(cfg, replay.seed);
-  if (replay.queue) world.queue = replay.queue.map((q) => ({ ...q }));
+  const queue = replay.queue ? replay.queue.map((q) => ({ ...q })) : [];
+  const world = createWorld(cfg, replay.seed, queue);
 
   const byTick = new Map<number, TimedCommand[]>();
   for (const input of replay.inputs) {

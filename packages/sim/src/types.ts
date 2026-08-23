@@ -8,19 +8,26 @@ export interface Creature {
   kind: CreatureKind;
   /** Column it occupies. The first two kinds never change lanes. */
   col: number;
-  /** Row after the most recent beat. Row `rows` means it has reached the hull. */
+  /** Row after the most recent beat. Row `hullRow` means it has reached the hull. */
   row: number;
   /** Row before the most recent beat, for interpolation in render/. */
   fromRow: number;
   /** null for meteors, which cannot be shot. */
   color: Color | null;
+  /**
+   * Craters left by shots. A meteor keeps its size and stays indestructible —
+   * the holes are the only trace. render/ places crater `k` from the id.
+   */
+  holes: number;
 }
 
 export interface Bullet {
   id: number;
   col: number;
-  /** Fractional row, counted upwards from the hull. Advances every tick. */
+  /** Tile row, counted from the hull upwards. Bullets sit on tile centres. */
   row: number;
+  /** Progress towards the next tile, 0..999. Interpolation only. */
+  subMilli: number;
   color: Color;
 }
 
@@ -32,7 +39,7 @@ export interface Scar {
 }
 
 export interface GuardStats {
-  /** Attempts with the shield in the right column. */
+  /** Every meteor that reached the hull. The denominator of the HUD balance. */
   tries: number;
   /** Right column and right moment. */
   deflected: number;
@@ -45,7 +52,8 @@ export type Command =
   | { kind: "cannonCol"; col: number }
   | { kind: "shieldCol"; col: number }
   | { kind: "fire"; color: Color }
-  | { kind: "guard" };
+  | { kind: "guard" }
+  | { kind: "restart" };
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

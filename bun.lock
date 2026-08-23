@@ -20,6 +20,10 @@
         "@neon-spore/sim": "workspace:*",
       },
     },
+    "apps/server": {
+      "name": "@neon-spore/server",
+      "version": "0.0.0",
+    },
     "packages/content": {
       "name": "@neon-spore/content",
       "version": "0.0.0",
@@ -36,6 +40,10 @@
     },
     "packages/sim": {
       "name": "@neon-spore/sim",
+      "version": "0.0.0",
+    },
+    "tools/director": {
+      "name": "@neon-spore/director",
       "version": "0.0.0",
     },
   },
@@ -70,9 +78,13 @@
 
     "@neon-spore/content": ["@neon-spore/content@workspace:packages/content"],
 
+    "@neon-spore/director": ["@neon-spore/director@workspace:tools/director"],
+
     "@neon-spore/game": ["@neon-spore/game@workspace:apps/game"],
 
     "@neon-spore/render": ["@neon-spore/render@workspace:packages/render"],
+
+    "@neon-spore/server": ["@neon-spore/server@workspace:apps/server"],
 
     "@neon-spore/sim": ["@neon-spore/sim@workspace:packages/sim"],
 
