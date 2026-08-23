@@ -1,4 +1,10 @@
-export { type ControlGroup, CREATURES, type CreatureDef, controlsForKinds } from "./creatures.js";
+export {
+  type ControlGroup,
+  CREATURES,
+  type CreatureDef,
+  controlsForKinds,
+  kindForColor,
+} from "./creatures.js";
 export { buildQueue, mapCol } from "./queue.js";
 export {
   type Bump,

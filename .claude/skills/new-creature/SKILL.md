@@ -29,11 +29,17 @@ More hit points or more speed is not one of them. Write the answer into the
 Add the entry in `packages/content/src/creatures.ts`:
 
 ```ts
-newkind: { kind: "newkind", controls: ["aim"], colored: true, blurb: "…" },
+newkind: { kind: "newkind", controls: ["aim"], color: "red", blurb: "…" },
 ```
 
 `controls` decides which controls a wave containing it shows. Never edit a wave
 to make a creature work — the union is computed.
+
+`color` is **one** colour, and it comes with **one** silhouette: the pair say
+these things out loud across a voice delay, so a shape must mean the same word
+every time. Two colours of the same shape is not two creatures. A free
+silhouette is spent on a creature that *behaves* differently — and then it has
+to look clearly different, not merely differently tinted.
 
 ## 3. Rules in sim, appearance in render
 

@@ -9,7 +9,7 @@
 
 ## Naming
 
-Three rules, in this order:
+Four rules, in this order:
 
 1. **Blob and slime, not sea life.** The original bestiary was marine because
    the setting was. It is not any more — see `docs/decisions.md` #11 and #13.
@@ -23,6 +23,13 @@ Three rules, in this order:
    two creatures must not share an onset, a vowel and a syllable count. That is
    why the flat one is not called a *glider* — "glide" is already the fixed
    word for how every creature moves, one tile per beat.
+4. **One kind, one colour, one silhouette.** A shape is not painted in two
+   colours: a red one is a slick, a cyan one is a bulb, and `kindForColor` in
+   `packages/content/src/creatures.ts` is the only place that mapping lives —
+   waves author the colour and the shape follows. A free silhouette from the
+   table below is spent on a creature that *behaves* differently from the
+   standard one, and then it has to read as clearly different, not as the same
+   blob in another tint.
 
 **Only `slick`, `bulb` and `meteor` are committed** — they are `CreatureKind`
 values in the simulation. Every other name on this page is a label on an
@@ -32,11 +39,11 @@ unbuilt design and costs one edit to change.
 
 | Creature | Form | Role |
 |---|---|---|
-| **Slick** | wide flat blob, two broad lobes; tilts and ripples | match the colour |
+| **Slick** | wide flat blob, two broad lobes; tilts and ripples — always red | match the colour |
 | **Dart** | small, banded, quick | match the colour |
 | **Meteor** | matt, angular, no glow | ward only (the mirror image of the strand) |
 | **Veil** | opaque; one flash shows the core | announce the colour |
-| **Bulb** | round, many fine lobes, rotating ring of light; pumps | mark + colour |
+| **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments, boring head | shoot through; warding locked out |
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |

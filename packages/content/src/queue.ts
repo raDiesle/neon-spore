@@ -1,4 +1,5 @@
 import { type Color, createRng, next, nextInt, type SpawnEntry } from "@neon-spore/sim";
+import { kindForColor } from "./creatures.js";
 import { WAVES, type Wave } from "./waves.js";
 
 const COLORS: Color[] = ["red", "cyan"];
@@ -28,7 +29,9 @@ export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
     if (e.color === "alt") color = COLORS[alt++ % COLORS.length]!;
     else if (e.color === "any") color = COLORS[nextInt(rng, COLORS.length)]!;
     else color = e.color;
-    queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind: e.kind, color });
+    // The colour decides the silhouette; the wave never names both.
+    const kind = color ? kindForColor(color) : (e.kind ?? "meteor");
+    queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color });
   }
   return queue.sort((a, b) => a.beat - b.beat);
 }
@@ -42,11 +45,12 @@ function buildContinuation(waveIndex: number, cols: number): SpawnEntry[] {
   const queue: SpawnEntry[] = [];
   for (let k = 0; k < creatures + rocks; k++) {
     const isRock = k >= creatures;
+    const color = isRock ? null : COLORS[nextInt(rng, COLORS.length)]!;
     queue.push({
       beat: Math.floor(k * 1.6 + next(rng) * 1.4),
       col: nextInt(rng, cols),
-      kind: isRock ? "meteor" : k % 2 === 0 ? "slick" : "bulb",
-      color: isRock ? null : COLORS[nextInt(rng, COLORS.length)]!,
+      kind: color ? kindForColor(color) : "meteor",
+      color,
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);
