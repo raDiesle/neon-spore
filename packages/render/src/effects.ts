@@ -1,4 +1,4 @@
-import { crystalPath } from "@neon-spore/content";
+import { crystalPath, METEOR } from "@neon-spore/content";
 import type { SimEvent } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -123,7 +123,9 @@ export class Effects {
       ctx.translate(d.x, d.y);
       ctx.globalAlpha = Math.min(1, d.life / 0.5);
       ctx.rotate(d.spin);
-      const path = new Path2D(crystalPath(0, 0, r, r, 7, 0.15, 0.01, 0, 5));
+      const path = new Path2D(
+        crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed),
+      );
       const rg = ctx.createLinearGradient(-r, -r, r, r);
       rg.addColorStop(0, "#9DA3B0");
       rg.addColorStop(0.55, "#6B707E");

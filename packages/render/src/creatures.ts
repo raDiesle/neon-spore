@@ -1,4 +1,4 @@
-import { blobPath, crystalPath, JELLY, MANTA } from "@neon-spore/content";
+import { blobPath, crystalPath, JELLY, MANTA, METEOR } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -149,7 +149,7 @@ function drawMeteor(
   const r = l.tile * 0.4;
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
-  const d = crystalPath(0, 0, r, r, 7, 0.15, 0.01, time * 0.15, 5);
+  const d = crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed);
   const path = new Path2D(d);
 
   ctx.save();

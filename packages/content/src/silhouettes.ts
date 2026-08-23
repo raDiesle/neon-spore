@@ -44,14 +44,23 @@ export const JELLY: CreatureSilhouette = {
   seed: 1.0,
 };
 
+export interface CrystalSilhouette {
+  sides: number;
+  depth: number;
+  wobble: number;
+  seed: number;
+}
+
 /**
- * Meteor: solid and slow. The raster model does not animate it, and spec 9
- * says it is a dead rock — nothing living. In free flight it could use the
- * crystal model for a starker look; here it is geometrically simple.
+ * Meteor: angular facets, not a contour. It gets `crystalPath` rather than
+ * `blobPath` precisely because it does not live — spec 9 hangs the whole
+ * indestructibility rule on that fiction, so the rock must not read as an
+ * organism. Almost no wobble, for the same reason.
  */
-export const METEOR = {
-  /** Not a blobPath; meteors are drawn geometrically. This is for reference. */
-  type: "geometric" as const,
+export const METEOR: CrystalSilhouette = {
+  sides: 7,
+  depth: 0.15,
+  wobble: 0.01,
   seed: 5.0,
 };
 

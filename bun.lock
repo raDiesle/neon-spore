@@ -47,6 +47,13 @@
       "name": "@neon-spore/director",
       "version": "0.0.0",
     },
+    "tools/shape-sheet": {
+      "name": "@neon-spore/shape-sheet",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+      },
+    },
   },
   "packages": {
     "@eslint-community/eslint-utils": ["@eslint-community/eslint-utils@4.10.1", "", { "dependencies": { "eslint-visitor-keys": "^3.4.3" }, "peerDependencies": { "eslint": "^6.0.0 || ^7.0.0 || >=8.0.0" } }, "sha512-cuadcxVFE8sDK6iWJbs8Sn0av2Nrh2QSGQhVlBW9AaAHqHwjWsZHT8LJ4hFGPh7ASBV2deFdM7H/DPjulmh8rg=="],
@@ -86,6 +93,8 @@
     "@neon-spore/render": ["@neon-spore/render@workspace:packages/render"],
 
     "@neon-spore/server": ["@neon-spore/server@workspace:apps/server"],
+
+    "@neon-spore/shape-sheet": ["@neon-spore/shape-sheet@workspace:tools/shape-sheet"],
 
     "@neon-spore/sim": ["@neon-spore/sim@workspace:packages/sim"],
 

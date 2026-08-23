@@ -1,0 +1,8 @@
+{
+  "name": "@neon-spore/shape-sheet",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "bun run ./src/main.ts" },
+  "dependencies": { "@neon-spore/content": "workspace:*" }
+}

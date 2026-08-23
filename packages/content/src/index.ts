@@ -9,6 +9,7 @@ export {
   METEOR,
   xToHullAngle,
   type CreatureSilhouette,
+  type CrystalSilhouette,
   type HullSilhouette,
 } from "./silhouettes.js";
 export {
