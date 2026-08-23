@@ -44,7 +44,7 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): R
 }
 
 const meteor = (col: number): SpawnEntry => ({ beat: 0, col, kind: "meteor", color: null });
-const manta = (col: number, color: Color): SpawnEntry => ({ beat: 0, col, kind: "manta", color });
+const slick = (col: number, color: Color): SpawnEntry => ({ beat: 0, col, kind: "slick", color });
 const guard = (tick: number): TimedCommand => ({ tick, player: 1, command: { kind: "guard" } });
 const shieldTo = (tick: number, col: number): TimedCommand => ({
   tick,
@@ -64,7 +64,7 @@ const fire = (tick: number, color: Color): TimedCommand => ({
 
 describe("the beat", () => {
   it("moves a creature exactly one tile per beat, on tile centres", () => {
-    const { world } = run([manta(3, "red")], TPB * 6 + 1);
+    const { world } = run([slick(3, "red")], TPB * 6 + 1);
     // Spawned on beat 1 at row 0, so after six beats it stands on row 5.
     expect(world.creatures).toHaveLength(1);
     expect(world.creatures[0]!.row).toBe(5);
@@ -72,7 +72,7 @@ describe("the beat", () => {
   });
 
   it("brings a creature in from above the grid, not out of thin air", () => {
-    const { world } = run([manta(3, "red")], TPB + 1);
+    const { world } = run([slick(3, "red")], TPB + 1);
     expect(world.creatures[0]!.row).toBe(0);
     expect(world.creatures[0]!.fromRow).toBe(-1);
   });
@@ -80,15 +80,15 @@ describe("the beat", () => {
 
 describe("the hull", () => {
   it("takes damage and keeps a break where a creature landed", () => {
-    const { world } = run([manta(4, "red")], IMPACT_TICK + 1);
+    const { world } = run([slick(4, "red")], IMPACT_TICK + 1);
     expect(world.creatures).toHaveLength(0);
     expect(hullPercent(world)).toBeLessThan(100);
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
   it("regenerates slowly, and the break stays", () => {
-    const after = run([manta(4, "red")], IMPACT_TICK + 1);
-    const later = run([manta(4, "red")], IMPACT_TICK + CFG.tickHz);
+    const after = run([slick(4, "red")], IMPACT_TICK + 1);
+    const later = run([slick(4, "red")], IMPACT_TICK + CFG.tickHz);
     expect(hullPercent(later.world)).toBeGreaterThan(hullPercent(after.world));
     // A second of regeneration is worth exactly hullRegenPerSecond points.
     expect(hullPercent(later.world) - hullPercent(after.world)).toBeCloseTo(
@@ -140,7 +140,7 @@ describe("shots", () => {
   it("destroy a creature of the matching colour", () => {
     const inputs = [aim(10, 3)];
     for (let t = 200; t < IMPACT_TICK; t += 60) inputs.push(fire(t, "red"));
-    const { world, events } = run([manta(3, "red")], IMPACT_TICK, inputs);
+    const { world, events } = run([slick(3, "red")], IMPACT_TICK, inputs);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDestroy);
@@ -150,7 +150,7 @@ describe("shots", () => {
   it("bounce off a creature of the wrong colour", () => {
     const inputs = [aim(10, 3)];
     for (let t = 200; t < IMPACT_TICK; t += 60) inputs.push(fire(t, "cyan"));
-    const { world, events } = run([manta(3, "red")], IMPACT_TICK - 1, inputs);
+    const { world, events } = run([slick(3, "red")], IMPACT_TICK - 1, inputs);
     expect(events.some((e) => e.type === "reject")).toBe(true);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     expect(world.creatures).toHaveLength(1);
@@ -184,7 +184,7 @@ describe("shots", () => {
 
 describe("waves", () => {
   it("asks the host for the next wave once the field is clear", () => {
-    const { world, events } = run([manta(3, "red")], IMPACT_TICK + TPB * 5);
+    const { world, events } = run([slick(3, "red")], IMPACT_TICK + TPB * 5);
     const asks = events.filter((e) => e.type === "needWave");
     expect(asks).toHaveLength(1);
     expect(asks[0]).toEqual({ type: "needWave", wave: 1 });
@@ -200,7 +200,7 @@ describe("replays across waves", () => {
       name: "two waves",
       seed: 0,
       ticks: IMPACT_TICK + TPB * 6,
-      queues: [[manta(3, "red")], [meteor(6)]],
+      queues: [[slick(3, "red")], [meteor(6)]],
       inputs: [],
     });
     const world = runReplay(two);
@@ -210,7 +210,7 @@ describe("replays across waves", () => {
     expect(hashWorld(runReplay(two))).toBe(two.expectHash!);
 
     // Without a queue for wave 1 the field simply stays empty.
-    const one = runReplay({ ...two, queues: [[manta(3, "red")]] });
+    const one = runReplay({ ...two, queues: [[slick(3, "red")]] });
     expect(one.wave).toBe(0);
     expect(one.creatures).toHaveLength(0);
   });

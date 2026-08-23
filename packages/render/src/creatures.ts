@@ -1,4 +1,4 @@
-import { blobPath, crystalPath, JELLY, MANTA, METEOR } from "@neon-spore/content";
+import { BULB, blobPath, crystalPath, METEOR, SLICK } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -10,8 +10,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * wobble. The wobble is time-based, so a creature is never quite still.
  *
  * On top of the contour sits the own-motion the raster prototype gives each
- * kind. Spec 5.8 is strict about what it may touch: **nothing**. The jelly
- * sways, the manta tilts and beats its wings, but neither ever leaves its
+ * kind. Spec 5.8 is strict about what it may touch: **nothing**. The bulb
+ * sways and pumps, the slick tilts and ripples, but neither ever leaves its
  * column, so the lane stays exactly readable while the picture stays alive.
  */
 export function drawCreatures(
@@ -42,8 +42,8 @@ function drawLiving(
   time: number,
   blocked: number,
 ): void {
-  const isJelly = c.kind === "jelly";
-  const shape = isJelly ? JELLY : MANTA;
+  const isBulb = c.kind === "bulb";
+  const shape = isBulb ? BULB : SLICK;
   const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const hex = c.color === "red" ? PALETTE.red : PALETTE.cyan;
   const dark = c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
@@ -60,7 +60,7 @@ function drawLiving(
   let rot = 0;
   let sx = 1;
   let sy = 1;
-  if (isJelly) {
+  if (isBulb) {
     ox = Math.sin(t * 1.9) * l.tile * 0.17;
     const pump = Math.sin(t * 3.1);
     sx = 1 + pump * 0.1;
@@ -101,24 +101,25 @@ function drawLiving(
     ctx.fillStyle = dark;
     ctx.fill(path);
     strokeGlow(ctx, path, hex, Math.max(1, r * 0.1) / scale, 1);
-    drawDetails(ctx, isJelly, shape.rx, shape.ry, rim, hex);
+    drawDetails(ctx, isBulb, shape.rx, shape.ry, rim, hex);
   }
   ctx.restore();
 
   if (blocked <= 0) halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
 }
 
-/** Eyes and tendrils. Inner drawing is thinner than the outline (spec 9). */
+/** Core and trailing filaments. Inner drawing is thinner than the outline
+ * (docs/spec/graphics.md). */
 function drawDetails(
   ctx: CanvasRenderingContext2D,
-  isJelly: boolean,
+  isBulb: boolean,
   rx: number,
   ry: number,
   rim: string,
   hex: string,
 ): void {
   ctx.fillStyle = rim;
-  if (isJelly) {
+  if (isBulb) {
     ctx.beginPath();
     ctx.arc(0, ry * 0.3, ry * 0.09, 0, Math.PI * 2);
     ctx.fill();
@@ -144,7 +145,7 @@ function drawDetails(
 
 /**
  * The rock. Angular facets rather than a contour, because it does not live —
- * that is the fiction the indestructibility rests on (spec 9). Craters from
+ * that is the fiction the indestructibility rests on (docs/spec/graphics.md). Craters from
  * shots are placed from the creature id, so both screens agree without the
  * simulation having to store an angle per hole.
  */

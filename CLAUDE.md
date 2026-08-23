@@ -3,6 +3,11 @@
 Two-player co-op game. Two people, two devices, two different views. Talking is
 not a help, it is the control scheme. Portrait mobile web.
 
+Set in space; the nearest comparable game is Spaceteam. **Nothing the players
+control travels the field** — no flight, thrust, dodge or jump. There is a
+fixed hull, a cannon that slides along it, and a shield. The forms are blobs
+and slimes: closed contours with lobes (`blobPath`, `hullRadiusMul`).
+
 ## The rules that are not negotiable
 
 1. **`packages/sim` never imports `packages/render`.** State flows one way.
@@ -48,6 +53,11 @@ bun run check          # typecheck + lint + test, run this before saying "done"
   not touched: a wave shows the union of its creatures' control groups.
 - A new wave must pass the one-sentence test — if you cannot write
   `sentence`, the wave is padding. See `.claude/skills/new-wave`.
+- Silhouettes are judged through `tools/shape-sheet`, not by screenshotting
+  the running game. `bun run shapes:report` prints the geometry as numbers —
+  reach for that first, since most shape work is nudging a parameter and asking
+  whether the result is more or less than before. `bun run shapes` regenerates
+  the still and the motion sheet for the questions that need an eye.
 - Files stay under ~250 lines. Split rather than grow.
 - Code, identifiers and commits in English. The design vocabulary
   (hull, lobe, beat, guard) is fixed — do not invent synonyms.

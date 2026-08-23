@@ -39,7 +39,7 @@ const BANNER_LIFE = 0.9;
  * `SimEvent`s, and write nothing back — the world does not know they exist.
  *
  * The deflection gets the most work by a wide margin, and deliberately: it is
- * the one moment that needs both players, and spec 5.8 says a pair that cannot
+ * the one moment that needs both players, and docs/spec/systems.md 5.8 says a pair that cannot
  * see it worked will never learn the timing. So the rock bounces visibly out of
  * frame, a pressure wave runs outward, and the word appears.
  */

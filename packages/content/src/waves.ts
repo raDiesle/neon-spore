@@ -29,15 +29,15 @@ export const WAVES: Wave[] = [
     name: "FIRST STEP",
     sentence: "The one where you only have to be in the right column.",
     hint: "Slide the cannon onto the column — it always fires straight up.",
-    entries: [{ beat: 0, col: 2, kind: "manta", color: "red" }],
+    entries: [{ beat: 0, col: 2, kind: "slick", color: "red" }],
   },
   {
     name: "TWO COLOURS",
     sentence: "The one where colour starts to matter.",
     hint: "Pick the colour, then the column. Only both together land a hit.",
     entries: [
-      { beat: 0, col: 2, kind: "manta", color: "red" },
-      { beat: 3, col: 4, kind: "jelly", color: "cyan" },
+      { beat: 0, col: 2, kind: "slick", color: "red" },
+      { beat: 3, col: 4, kind: "bulb", color: "cyan" },
     ],
   },
   {
@@ -45,9 +45,9 @@ export const WAVES: Wave[] = [
     sentence: "The one where you never keep the same colour twice.",
     hint: "Three in a row, colours alternate.",
     entries: [
-      { beat: 0, col: 1, kind: "manta", color: "alt" },
-      { beat: 2, col: 3, kind: "jelly", color: "alt" },
-      { beat: 4, col: 5, kind: "manta", color: "alt" },
+      { beat: 0, col: 1, kind: "slick", color: "alt" },
+      { beat: 2, col: 3, kind: "bulb", color: "alt" },
+      { beat: 4, col: 5, kind: "slick", color: "alt" },
     ],
   },
   {
@@ -71,7 +71,7 @@ export const WAVES: Wave[] = [
     hint: "Deflect the rock first, then shoot the creature.",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
-      { beat: 5, col: 3, kind: "manta", color: "any" },
+      { beat: 5, col: 3, kind: "slick", color: "any" },
     ],
   },
   {
@@ -79,10 +79,10 @@ export const WAVES: Wave[] = [
     sentence: "The one where the cannon never stops moving.",
     hint: "A broad front — change columns fast.",
     entries: [
-      { beat: 0, col: 0, kind: "manta", color: "alt" },
-      { beat: 1, col: 2, kind: "jelly", color: "alt" },
-      { beat: 2, col: 4, kind: "manta", color: "alt" },
-      { beat: 3, col: 6, kind: "jelly", color: "alt" },
+      { beat: 0, col: 0, kind: "slick", color: "alt" },
+      { beat: 1, col: 2, kind: "bulb", color: "alt" },
+      { beat: 2, col: 4, kind: "slick", color: "alt" },
+      { beat: 3, col: 6, kind: "bulb", color: "alt" },
     ],
   },
   {
@@ -90,9 +90,9 @@ export const WAVES: Wave[] = [
     sentence: "The one that alternates between the two jobs on a fixed beat.",
     hint: "Creature, rock, creature, rock.",
     entries: [
-      { beat: 0, col: 2, kind: "manta", color: "alt" },
+      { beat: 0, col: 2, kind: "slick", color: "alt" },
       { beat: 3, col: 4, kind: "meteor", color: null },
-      { beat: 6, col: 5, kind: "jelly", color: "alt" },
+      { beat: 6, col: 5, kind: "bulb", color: "alt" },
       { beat: 9, col: 2, kind: "meteor", color: null },
     ],
   },
@@ -101,11 +101,11 @@ export const WAVES: Wave[] = [
     sentence: "The one where the jobs overlap and you have to say what you are doing.",
     hint: "It overlaps now. Tell each other what you are taking.",
     entries: [
-      { beat: 0, col: 1, kind: "manta", color: "alt" },
-      { beat: 1, col: 5, kind: "jelly", color: "alt" },
+      { beat: 0, col: 1, kind: "slick", color: "alt" },
+      { beat: 1, col: 5, kind: "bulb", color: "alt" },
       { beat: 3, col: 3, kind: "meteor", color: null },
-      { beat: 5, col: 0, kind: "manta", color: "alt" },
-      { beat: 6, col: 6, kind: "jelly", color: "alt" },
+      { beat: 5, col: 0, kind: "slick", color: "alt" },
+      { beat: 6, col: 6, kind: "bulb", color: "alt" },
     ],
   },
   {
@@ -113,11 +113,11 @@ export const WAVES: Wave[] = [
     sentence: "The one where everything you have learned arrives at once.",
     hint: "All of it together.",
     entries: [
-      { beat: 0, col: 0, kind: "manta", color: "alt" },
-      { beat: 0, col: 6, kind: "jelly", color: "alt" },
+      { beat: 0, col: 0, kind: "slick", color: "alt" },
+      { beat: 0, col: 6, kind: "bulb", color: "alt" },
       { beat: 2, col: 3, kind: "meteor", color: null },
-      { beat: 4, col: 2, kind: "manta", color: "alt" },
-      { beat: 4, col: 4, kind: "jelly", color: "alt" },
+      { beat: 4, col: 2, kind: "slick", color: "alt" },
+      { beat: 4, col: 4, kind: "bulb", color: "alt" },
       { beat: 7, col: 1, kind: "meteor", color: null },
       { beat: 7, col: 5, kind: "meteor", color: null },
     ],

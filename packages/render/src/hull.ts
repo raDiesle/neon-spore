@@ -162,7 +162,7 @@ function drawScars(
 /**
  * The rim-thickening variant on top of the plate: over the shield's segment the
  * edge of the membrane brightens and thickens. Armed and passive then differ in
- * both silhouette and light, which is what spec 5.8 asks for — a deflection has
+ * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a deflection has
  * to be unmissable or the pair never learns the timing.
  */
 function drawShieldRim(

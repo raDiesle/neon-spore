@@ -86,6 +86,9 @@ replaces pre-rendered stages.
 translated topic by topic into `docs/spec/`; the original stays in `legacy/` as
 the source of truth until each part has moved.
 
+*Amended August 2026:* every part has moved. `docs/spec/` is the specification;
+the German original was deleted and lives in the git history — see decision 12.
+
 ## 7. Public repository
 
 *August 2026.* Public from the start. No open-source licence is granted yet —
@@ -160,3 +163,113 @@ read worse in motion at tile size than the prototype's did. The prototype's
   config objects to thread through.
 - **A second config preset at 260 ms**, so the guard window can be compared
   side by side without editing code.
+
+## 11. The setting is space
+
+*August 2026.* Neon Spore takes place in space, not underwater. The nearest
+comparable game is Spaceteam: two people, two devices, and the order arrives at
+the person who cannot carry it out.
+
+This was implicit in the name from decision #1 — chosen for organic plus
+science fiction, "without the sea or flower imagery of the earlier
+candidates" — but the German spec was written for an ocean and nobody had said
+out loud that the fiction had moved with the name.
+
+**What is unaffected:** the three couplings, the beat, the raster, the ten
+pillars and the wave design. None of them depends on what the backdrop is.
+
+**What is affected and not yet resolved:** the marine fiction was carrying real
+argumentative weight. Colour is bioluminescence, matching ammunition shatters
+the light organ by resonance, the rock is indestructible because it does not
+live, and "you are a bubble in an ocean full of animals — not the warriors, but
+the fragile thing." Each of those needs a reason that fits a void. The bestiary
+is sea life, and `manta` and `jelly` are `CreatureKind` values in the
+simulation, so that question is a code change whichever way it goes.
+`packages/render/src/field.ts` still calls its background "deep-water".
+
+These are written up as S1–S5 in `docs/spec/open-questions.md` rather than
+answered here. An alien ecosystem drifting through a void is a coherent answer
+that costs nothing and renames nothing; it is the leading candidate, not a
+decision.
+
+**Reconsider if:** the fiction pass finds that the creature vocabulary cannot
+be justified in space at all. Then the bestiary is redrawn, which is a bigger
+change than the setting was.
+
+## 12. The spec is design intent, marked with build status
+
+*August 2026.* The German original has been translated and split into
+`docs/spec/`. It says what the game is *for*, not what it currently does, and
+every file carries a status marker: built, partly built, not built, superseded.
+
+The alternative — keeping the spec in permanent sync with the running game —
+was rejected. It would turn every gameplay commit into a docs commit, and it
+would delete the part of the spec that is most valuable: ninety unbuilt waves,
+seventeen unbuilt creatures and eleven bosses that the prototype says nothing
+about. Splitting into `built/` and `planned/` trees was rejected too: sections
+like "systems" are half of each, and entries would migrate between files as
+they land, which is churn without a reader.
+
+**The order of authority when sources disagree:** `docs/decisions.md` decides;
+the code is the truth for numbers; the spec says what the thing is for. A
+section that is merely unbuilt is fine and says so. A section that is *wrong* —
+contradicted by a decision or by the code — gets fixed in the same commit,
+with the reasoning recorded here.
+
+Where the original assumed free flight, the translation keeps the passage and
+marks what no longer applies, rather than quietly rewriting it. The
+communication idea inside a mechanic usually survives the change of control
+model even when the gesture does not, and that is worth being able to see.
+
+**Cost accepted:** the status markers go stale unless they are touched when
+something ships. They are one line per file, and `docs/spec/README.md` collects
+them in a table, so the staleness is at least visible in one place.
+
+**Reconsider if:** the markers are found to be wrong more than once. At that
+point they are worse than nothing and the sync-always option gets a second
+hearing.
+
+## 13. The bestiary is blob and slime, not sea life
+
+*August 2026.* This answers the open item left by decision 11. (That entry
+names the creatures `manta` and `jelly`; those are the old names, renamed
+here.)
+
+In the code: `manta` → **`slick`**, `jelly` → **`bulb`**. `meteor` is
+unchanged — it is already space-native, and its job is to be the one thing that
+is *not* a blob: angular, `crystalPath` rather than `blobPath`, indestructible
+because it does not live. That contrast is what teaches the rule visually, so
+the non-living family (meteor, crystal) deliberately keeps its own register.
+
+`slick` is `lobes: 2`, `rx 68 × ry 34` — wide and flat, tilts and ripples.
+`bulb` is `lobes: 9`, round, pumps and sways. The names describe the shapes
+that were already there.
+
+**Three naming rules, in priority order** — written up in
+`docs/spec/bestiary.md`:
+
+1. Blob and slime, not sea life.
+2. The name says the behaviour or the shape.
+3. **Distinct when spoken over a laggy voice channel** — this one overrides the
+   other two.
+
+Rule 3 is the one that does real work, and it is a consequence of the core
+sentence rather than a style preference: names are said out loud across a
+0.5–2 s delay, so two creatures must not share an onset, a vowel and a syllable
+count. `/slɪk/`, `/bʌlb/` and `/ˈmiːtiər/` share none of the three.
+
+Rule 3 is also why the flat one is not called a *glider*, which was the obvious
+name: "glide" is already the fixed term for how every creature moves, one tile
+per beat, and overloading it is exactly the synonym drift `CLAUDE.md` forbids.
+
+**Scope:** only the three names above are committed, because only they are
+`CreatureKind` values. The other seventeen creatures and the eleven bosses were
+renamed in `docs/spec/` in the same pass so the page is not half marine, but
+those are labels on unbuilt designs — proposals, one edit each. Rule 3 is
+likely to bind before rule 1 does: twenty names that stay distinct over a voice
+channel is the harder constraint, and it should be checked against the whole
+set before the bestiary grows.
+
+**Reconsider if:** saying a name out loud in play turns out to be rare — if
+pairs point at columns instead ("column four") and never name the creature,
+rule 3 is over-weighted and rule 2 should lead.

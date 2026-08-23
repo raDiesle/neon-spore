@@ -11,7 +11,7 @@
             stroke-linejoin="round" stroke-linecap="round"/>
     </g>
     <text y="108" text-anchor="middle" fill="#F2E9DC"
-          font-family="Courier New, monospace" font-size="11">MANTA</text>
+          font-family="Courier New, monospace" font-size="11">SLICK</text>
     <text y="122" text-anchor="middle" fill="#7A6FA8"
           font-family="Courier New, monospace" font-size="9">2 lobes · depth 0.38 · wobble 0.02</text>
   </g>
@@ -23,7 +23,7 @@
             stroke-linejoin="round" stroke-linecap="round"/>
     </g>
     <text y="108" text-anchor="middle" fill="#F2E9DC"
-          font-family="Courier New, monospace" font-size="11">JELLY</text>
+          font-family="Courier New, monospace" font-size="11">BULB</text>
     <text y="122" text-anchor="middle" fill="#7A6FA8"
           font-family="Courier New, monospace" font-size="9">9 lobes · depth 0.1 · wobble 0.055</text>
   </g>

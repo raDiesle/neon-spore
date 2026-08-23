@@ -1,4 +1,4 @@
-import { blobPath, JELLY, MANTA } from "@neon-spore/content";
+import { BULB, blobPath, SLICK } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -69,7 +69,7 @@ export function drawBand(
   for (const b of l.fireButtons) {
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
     const dark = b.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
-    const shape = b.color === "red" ? MANTA : JELLY;
+    const shape = b.color === "red" ? SLICK : BULB;
     halo(ctx, b.circle.x, b.circle.y, b.circle.r * 1.6, hex, 0.45);
     ctx.fillStyle = hex;
     ctx.beginPath();

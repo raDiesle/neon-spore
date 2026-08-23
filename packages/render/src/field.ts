@@ -3,10 +3,10 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * The field itself: the deep-water background, the grid that pulses on the
+ * The field itself: the background, the grid that pulses on the
  * beat, and the radar strip along the top edge.
  *
- * The beat is visible here and nowhere else in the geometry — spec 5.8 asks for
+ * The beat is visible here and nowhere else in the geometry — docs/spec/systems.md 5.8 asks for
  * grid lines and crossing points that light up on every beat and fade, because
  * the pulse is the thing both players share across a voice delay.
  */
@@ -74,7 +74,7 @@ export function drawGrid(
  * Radar: arrivals only, along the top edge, in the colour of the thing that is
  * coming. Height encodes order — the closer to the edge, the sooner. There are
  * deliberately no trajectory lines inside the field, not even for meteors
- * (spec 5.8), because reading the field out loud is the game.
+ * (docs/spec/systems.md 5.8), because reading the field out loud is the game.
  */
 export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World): void {
   const lead = world.cfg.radarLead;

@@ -73,13 +73,6 @@ session. Copy it into `legacy/` if you still have it — decision 2 keeps it as
 the fallback if the raster model turns out to feel like a puzzle rather than a
 game.
 
-**The translated specification.** The full German spec sits in
-`legacy/spec-de-original.md`. `docs/spec/README.md` holds the plan for splitting
-it into thirteen topic files in English. Do that gradually, one part when a task
-needs it — it is cheap, mechanical work and a fast model handles it well. Do not
-translate sections 12–14 and 18–20: they are already superseded by
-`docs/decisions.md`, `docs/architecture.md` and `docs/working-with-claude.md`.
-
 **A licence.** The repository is public but not licensed. `LICENSE` currently
 reserves all rights. Decide before anyone contributes.
 

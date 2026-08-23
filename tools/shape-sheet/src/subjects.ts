@@ -1,14 +1,14 @@
 import {
-  JELLY,
   type Bump,
   catmullRomToBezierPath,
   crystalRadiusMul,
   HULL,
   hullRadiusMul,
+  BULB,
+  SLICK,
   METEOR,
   openSmoothPath,
   type Point,
-  MANTA,
 } from "@neon-spore/content";
 
 /**
@@ -43,7 +43,7 @@ function cannonBumps(armed: boolean): Bump[] {
   return bumps;
 }
 
-function blob(name: string, s: typeof MANTA): Subject {
+function blob(name: string, s: typeof SLICK): Subject {
   return {
     name,
     note: `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}`,
@@ -113,8 +113,8 @@ function hull(armed: boolean): Subject {
 }
 
 export const SUBJECTS: Subject[] = [
-  blob("MANTA", MANTA),
-  blob("JELLY", JELLY),
+  blob("SLICK", SLICK),
+  blob("BULB", BULB),
   meteor,
   hull(false),
   hull(true),

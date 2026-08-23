@@ -18,17 +18,17 @@ export interface CreatureDef {
  * a wave shows the union of its creatures' control groups, nothing else.
  */
 export const CREATURES: Record<CreatureKind, CreatureDef> = {
-  manta: {
-    kind: "manta",
+  slick: {
+    kind: "slick",
     controls: ["aim"],
     colored: true,
-    blurb: "Glides, tilts, beats its wings. Holds its lane. Match its colour.",
+    blurb: "Flat and wide. Glides, tilts and ripples. Holds its lane. Match its colour.",
   },
-  jelly: {
-    kind: "jelly",
+  bulb: {
+    kind: "bulb",
     controls: ["aim"],
     colored: true,
-    blurb: "Sways in its lane and pumps its bell. Match its colour.",
+    blurb: "Round and swollen. Sways in its lane and pumps. Match its colour.",
   },
   meteor: {
     kind: "meteor",

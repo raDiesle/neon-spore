@@ -45,7 +45,7 @@ function buildContinuation(waveIndex: number, cols: number): SpawnEntry[] {
     queue.push({
       beat: Math.floor(k * 1.6 + next(rng) * 1.4),
       col: nextInt(rng, cols),
-      kind: isRock ? "meteor" : k % 2 === 0 ? "manta" : "jelly",
+      kind: isRock ? "meteor" : k % 2 === 0 ? "slick" : "bulb",
       color: isRock ? null : COLORS[nextInt(rng, COLORS.length)]!,
     });
   }

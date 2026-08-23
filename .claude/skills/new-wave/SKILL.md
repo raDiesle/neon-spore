@@ -26,7 +26,7 @@ start of the wave.
   name: "THE WALL",
   sentence: "The one where the cannon never stops moving.",
   hint: "A broad front — change columns fast.",
-  entries: [{ beat: 0, col: 0, kind: "manta", color: "alt" }],
+  entries: [{ beat: 0, col: 0, kind: "slick", color: "alt" }],
 }
 ```
 
@@ -38,7 +38,7 @@ rng, or `null` for creatures that carry none.
 Reach for these before inventing a creature. Each one makes a known wave feel
 new without anything being drawn:
 
-- **mixture** — a rock between mantas forces switching between the two jobs
+- **mixture** — a meteor between slicks forces switching between the two jobs
 - **controls** — a wave that *removes* a control group is the strongest lever
 - **direction and density** — from below, from two sides, clustered
 - **beat** — on the pulse instead of free; this changes the talking more than

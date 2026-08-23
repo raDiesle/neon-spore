@@ -24,8 +24,8 @@ export interface HullSilhouette {
   seed: number;
 }
 
-/** Manta: two broad wing-lobes, glides and tilts. */
-export const MANTA: CreatureSilhouette = {
+/** Slick: two broad lobes, wide and flat. Tilts and ripples as it travels. */
+export const SLICK: CreatureSilhouette = {
   lobes: 2,
   depth: 0.38,
   wobble: 0.02,
@@ -34,8 +34,8 @@ export const MANTA: CreatureSilhouette = {
   seed: 2.0,
 };
 
-/** Jelly: many fine lobes around the edge, pulses with the bell. */
-export const JELLY: CreatureSilhouette = {
+/** Bulb: many fine lobes around a round body. Pumps and sways. */
+export const BULB: CreatureSilhouette = {
   lobes: 9,
   depth: 0.1,
   wobble: 0.055,
@@ -53,7 +53,7 @@ export interface CrystalSilhouette {
 
 /**
  * Meteor: angular facets, not a contour. It gets `crystalPath` rather than
- * `blobPath` precisely because it does not live — spec 9 hangs the whole
+ * `blobPath` precisely because it does not live — docs/spec/graphics.md hangs the whole
  * indestructibility rule on that fiction, so the rock must not read as an
  * organism. Almost no wobble, for the same reason.
  */

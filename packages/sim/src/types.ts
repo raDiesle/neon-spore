@@ -1,7 +1,7 @@
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
-export type CreatureKind = "manta" | "jelly" | "meteor";
+export type CreatureKind = "slick" | "bulb" | "meteor";
 
 export interface Creature {
   id: number;

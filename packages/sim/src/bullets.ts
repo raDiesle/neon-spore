@@ -5,7 +5,7 @@ import { MILLI, type World } from "./world.js";
 /**
  * Shots sit on tile centres and cross exactly `bulletTilesPerBeat` tiles per
  * beat. Both hang off the beat, never off each other — otherwise a faster
- * bullet quietly turns the cannon into a continuous stream (spec 5.8).
+ * bullet quietly turns the cannon into a continuous stream (docs/spec/systems.md 5.8).
  *
  * At the defaults that is 12 tiles over 75 ticks, so a bullet gains exactly
  * 160 thousandths of a tile per tick and crosses one every 6.25 ticks. The
@@ -57,7 +57,7 @@ function resolveAt(world: World, b: Bullet): boolean {
 
   if (hit.kind === "meteor") {
     // A rock cannot be broken, because it does not live. The shot leaves a
-    // crater and nothing else — the rule made visible (spec 9).
+    // crater and nothing else — the rule made visible (docs/spec/graphics.md).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
     return true;

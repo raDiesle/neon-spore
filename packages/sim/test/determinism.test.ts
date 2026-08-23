@@ -11,10 +11,10 @@ const replay: Replay = {
   seed: 7,
   ticks: 1800,
   queue: [
-    { beat: 0, col: 2, kind: "manta", color: "red" },
-    { beat: 3, col: 4, kind: "jelly", color: "cyan" },
+    { beat: 0, col: 2, kind: "slick", color: "red" },
+    { beat: 3, col: 4, kind: "bulb", color: "cyan" },
     { beat: 6, col: 5, kind: "meteor", color: null },
-    { beat: 9, col: 1, kind: "manta", color: "cyan" },
+    { beat: 9, col: 1, kind: "slick", color: "cyan" },
   ],
   inputs: [
     { tick: 10, player: 1, command: { kind: "cannonCol", col: 2 } },

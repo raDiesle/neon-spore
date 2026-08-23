@@ -14,9 +14,29 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 
 ## Specification
 
-The design lives in `docs/spec/`, split by topic. The German original is in
-`legacy/spec-de-original.md` and is the source of truth until each part is
-translated. See `docs/spec/README.md` for the split plan and its status.
+The design lives in `docs/spec/`, translated and split by topic. Start at
+`docs/spec/README.md`: it carries the status vocabulary and says which parts
+are built. The spec is design intent — `docs/decisions.md` decides when it and
+the code disagree, and the code is the truth for numbers.
+
+| File | Read it when |
+|---|---|
+| `docs/spec/overview.md` | you need the core sentence, the speech rule or the setting |
+| `docs/spec/roles.md` | you touch what either player can operate |
+| `docs/spec/couplings.md` | you are designing something two people must do together |
+| `docs/spec/latency.md` | you change a speed, a distance or the beat |
+| `docs/spec/systems.md` | you touch control visibility, damage, shots or the grid |
+| `docs/spec/assists.md` | you work on helping a weaker partner |
+| `docs/spec/structure.md` | you touch waves, score, saving or randomness |
+| `docs/spec/wave-design.md` | you author a wave or an act |
+| `docs/spec/graphics.md` | you draw anything |
+| `docs/spec/bestiary.md` | you add or change a creature |
+| `docs/spec/bosses.md` | you build a boss |
+| `docs/spec/open-questions.md` | you hit something the design has not decided |
+| `docs/spec/ideas.md` | you are looking for what to build next |
+
+The German original has been translated in full and deleted; it is in the git
+history if the wording of a rejected idea is ever needed.
 
 ## Code
 

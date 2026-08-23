@@ -7,7 +7,7 @@ import type { SimConfig, World } from "@neon-spore/sim";
  * This exists because of docs/decisions.md — a tunable is a named field of
  * `SimConfig`, and the point of naming them is that they can be moved while
  * two people are playing, instead of being described to each other afterwards.
- * The guard window in particular is still a guess (spec 15.3): it decides
+ * The guard window in particular is still a guess (docs/spec/open-questions.md): it decides
  * whether the shared defence feels precise or mean, and only playing tells you.
  */
 export interface TestBindings {

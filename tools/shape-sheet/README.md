@@ -19,7 +19,7 @@ a sheet that animated would be useless for comparing one revision against the
 next.
 
 The hull appears twice, passive and armed. That pair is the reason the tool
-exists: spec 5.8 insists a successful deflection be unmissable,
+exists: docs/spec/systems.md 5.8 insists a successful deflection be unmissable,
 and the armed hull has to differ in *silhouette* — the shield is a lobe of the
 contour, not something laid on top of it.
 
@@ -35,7 +35,7 @@ zero. One static image, so motion is something you can look at and archive.
 
 ```
 SHAPE         W      H      AREA     LENGTH   TRAVEL  BREATH%
-MANTA         146.7  87.0   7985     363.4    7.00    4.86
+SLICK         146.7  87.0   7985     363.4    7.00    4.86
 METEOR        90.5   90.5   5852     282.0    0.94    0.07
 ```
 
@@ -45,7 +45,7 @@ enough to contain every wobble layer's extremes.
 
 Most shape work is nudging a parameter and asking *is that more or less than
 before?* — a question a measurement answers better than a picture, and one that
-goes in a diff. The meteor's 0.94 px of travel against the jelly's 12.6 is the
+goes in a diff. The meteor's 0.94 px of travel against the bulb's 12.6 is the
 indestructibility fiction of docs/spec/graphics.md, stated as a number: the rock
 must not read as an organism. Reach for the sheets when the question genuinely
 needs an eye. Reach for this first.
