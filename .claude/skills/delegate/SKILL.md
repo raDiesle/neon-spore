@@ -204,6 +204,28 @@ and the line exists to make it say so out loud. *Unsure* points at the guesses
 a green test does not catch: a name, a magic number, a convention it could not
 tell how to apply.
 
+They are a signal and never evidence. The worker has reported *Not done:
+Nothing, Unsure: Nothing* on a run that applied no edit at all, and on a diff
+that spelled out a rule it should have imported. It is not lying; it cannot see
+its own work from outside. Judge the diff.
+
+### Verification does not go over
+
+The reviewing stays here, for the same reason the deciding does: it is judged
+against decisions the spec came from, and the session is the only party holding
+them. A second opinion from the model that wrote the code is worth nothing —
+it already believes the code is right, which is why it produced it.
+
+What *should* leave this session is the part that was never judgement. The
+checks already run on the worker's tokens, looped until green, and none of that
+traffic arrives here. So when review catches something a machine could have
+caught, the fix is not to review harder next time — it is to move that check
+into the tests. `packages/sim/test/purity.test.ts` is where both kinds live:
+the determinism bans, and a table of rules that must be **called and not
+re-derived**, which exists because `mapCol` came back written out by hand twice
+in one day and both times passed every check. Adding a row is how something
+that got past review once is stopped from getting past it twice.
+
 Then walk the spec's Goal against the diff, bullet by bullet. Something absent
 from both the diff and the *Not done* line is the case to look for hardest.
 
