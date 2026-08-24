@@ -67,6 +67,7 @@ bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
 bun run director       # the wave editor on 4174 — desktop, for a human
+bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
 

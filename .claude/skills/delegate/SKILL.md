@@ -134,33 +134,43 @@ Name every file it may edit. That list is the blast radius *and* the token
 budget — aider reads what you name and nothing else.
 
 ```bash
-PYTHONIOENCODING=utf-8 PYTHONUTF8=1 aider --message-file .claude/tmp/spec.md packages/content/src/creatures.ts
+bun run delegate .claude/tmp/spec.md packages/content/src/creatures.ts
 ```
 
-The two env vars are a no-op on macOS and Linux, which default to UTF-8
-already, and load-bearing on Windows: aider's console there defaults to
-cp1252, and a spec containing a character outside it — an em dash, an
-arrow, `⏸` — crashes the run *after* the edit has already been applied,
-and has been seen silently flattening such characters in the code it writes
-instead of erroring. Always pass them; do not make it conditional on the
-platform this session happens to be running on.
+Not `aider` directly. The wrapper is three lessons that each cost a session,
+and it holds them so nobody has to remember them.
 
-Add `--read <path>` for a file it must see but must not change — an existing
-file in the same style is worth more than a paragraph describing the style.
+It reads the spec and the files it may edit, finds every repository path
+mentioned in any of them, and hands each one over read-only before starting.
+That is what stops the failure where the worker offers to add a mentioned file,
+the standing yes accepts, and the reply that should have carried the edit is
+spent on that exchange instead — a run that reports the work done and leaves
+the tree untouched. It bites hardest on prose and markup, which cite paths in
+their own text, and no amount of rewording the spec helps, because the mentions
+come out of the *files*. What it worked out is printed before the run, so the
+blast radius is visible without reading the command back.
 
-**A run that reports success and changes nothing is usually file mentions.**
-Aider scans both the message and the files in the chat for anything that looks
-like a repository path, offers to add each one, and `yes-always: true` accepts
-— then the reply carrying the actual edit is spent on that exchange instead.
-The worker reports the work as done, `git diff` is empty, and re-running does
-the same thing again. It bites hardest on prose and markup, which cite paths in
-their own text: a README naming three source files re-triggers it on every
-attempt, whatever the spec says. Check `git status` before believing any
-report. The fix is to leave it nothing to ask for: read the tail for the paths
-it offered, and pass each one as `--read`. A file already in the chat is not
-mentioned at it. `--no-detect-urls` does not help — that is about URLs — and
-neither does rewording the spec, since the mentions come out of the files
-themselves. Two attempts is the cap; after that write that one file here.
+It sets the console encoding on every platform. That is a no-op on macOS and
+Linux, which are UTF-8 already, and load-bearing on Windows: aider's console
+there is cp1252, and a spec containing a character outside it — an em dash, an
+arrow, `⏸` — kills the run *after* the edit has been applied, and the worker
+has been seen silently flattening such characters in the code it writes rather
+than erroring. Worth knowing only because that failure looks like the worker's
+fault and is not.
+
+And it compares the files before and after, and **exits non-zero when nothing
+changed**. So the report is no longer the thing you check.
+
+Extra arguments for aider go after a `--`: escalating the model is one, a
+narrower `--test-cmd` than the default is another, and so is `--read <path>`
+for a file the worker must see but must not change, on the rare occasion the
+scan does not already find it. An existing file in the same style is worth more
+than a paragraph describing that style.
+
+Some of the tree is out of the worker's reach on purpose — `.aiderignore` keeps
+`.claude/` and `legacy/` out of it. Ask for one of those and the wrapper says
+so and refuses before spending anything: that task is done here, and the final
+report says so, the same as when the worker cannot run at all.
 
 Give the call a wall-clock ceiling and expect minutes, not seconds: a reasoning
 worker plus `bun run check` after every edit runs long, and aider buffers its

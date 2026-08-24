@@ -85,3 +85,6 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/planned.ts` | the panel that shows them |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
+| `tools/delegate/run.ts` | the one command that hands a spec to the worker |
+| `tools/delegate/mentions.ts` | the paths a spec names, handed over read-only |
+| `tools/delegate/ignored.ts` | what `.aiderignore` keeps out of the worker's reach |
