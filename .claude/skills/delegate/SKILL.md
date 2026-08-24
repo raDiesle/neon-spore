@@ -156,9 +156,11 @@ The worker reports the work as done, `git diff` is empty, and re-running does
 the same thing again. It bites hardest on prose and markup, which cite paths in
 their own text: a README naming three source files re-triggers it on every
 attempt, whatever the spec says. Check `git status` before believing any
-report; if the file is untouched and the tail mentions files being added, pass
-`--no-detect-urls` and strip bare paths from the spec, or write that one file
-here. Do not spend a third run on it.
+report. The fix is to leave it nothing to ask for: read the tail for the paths
+it offered, and pass each one as `--read`. A file already in the chat is not
+mentioned at it. `--no-detect-urls` does not help — that is about URLs — and
+neither does rewording the spec, since the mentions come out of the files
+themselves. Two attempts is the cap; after that write that one file here.
 
 Give the call a wall-clock ceiling and expect minutes, not seconds: a reasoning
 worker plus `bun run check` after every edit runs long, and aider buffers its
