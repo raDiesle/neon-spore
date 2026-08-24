@@ -26,9 +26,20 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 
 ## Git
 
-Work on `main`, directly. No feature branches, no pull requests — one person
-works on this repo, so a branch is a detour with no reviewer at the end of it.
-Do not branch before committing.
+The history on `main` is linear. No pull requests, no merge commits, no
+long-lived branches — one person works on this repo, so a review branch is a
+detour with no reviewer at the end of it.
+
+Worktrees are allowed, and are purely a working tool: a session running
+alongside another one, or preparing a rebuild it might throw away, may create
+one. The branch that comes with it is temporary. Before the task counts as
+finished it is fast-forwarded or rebased onto `main`, then deleted along with
+the worktree. A temporary branch is never pushed.
+
+A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
+copied from the main tree: the workspace links inside it point at the main
+tree's `packages/*` by absolute path, so a test there would run against
+someone else's code.
 
 **Commit when the work is done, without being asked.** Finishing a task
 includes committing it. Do not ask permission, and do not leave finished work
