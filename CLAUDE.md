@@ -57,6 +57,14 @@ bun run test:determinism
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
 
+## Delegating implementation
+
+Mechanical work with a known file list is handed to the cheap worker instead of
+being typed in the session: `.claude/skills/delegate` carries the procedure,
+`docs/delegating.md` the reasoning. The test is whether `bun run check` can
+decide the result. Judgement stays here — the sim/render boundary, couplings,
+and anything whose criterion is whether it feels right.
+
 ## Verifying in a browser
 
 `bun run preview`, never `bun run dev`. It builds first — `bun build` takes
