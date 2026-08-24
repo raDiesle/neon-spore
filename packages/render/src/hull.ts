@@ -13,7 +13,7 @@ import type { World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
-import { drawCharge, drawChew } from "./maw.js";
+import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
@@ -208,6 +208,8 @@ export function drawHull(
     (x) => skin(f, x),
   );
   drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
+  const tip = surface(f, f.cannonX);
+  drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
   drawMuzzle(ctx, f, l, mood.intake);
   drawChew(ctx, l, mood, time, f.cannonX, (x) => surface(f, x));
   drawCharge(ctx, l, mood, filled, body);

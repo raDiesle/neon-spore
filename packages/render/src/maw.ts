@@ -1,11 +1,17 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
-import { strokeGlow } from "./glow.js";
+import { halo, strokeGlow } from "./glow.js";
 import type { HullMood } from "./hull.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * Swallowing a pod, in two movements.
+ * Swallowing a pod, in three movements.
+ *
+ * **The inhale.** While the maw is held open, motes above it are pulled
+ * steadily down into the throat and shrink away — suction, running the whole
+ * time player 1 holds the button, whether or not anything is actually falling
+ * toward it. This is what makes opening the maw read as an action rather than
+ * a mode: press it over empty air and the ship still visibly draws breath.
  *
  * **The chew.** The membrane on either side of the maw comes apart: the edge
  * stops being a line and becomes a run of broken pieces that crawl inwards,
@@ -18,9 +24,47 @@ import { PALETTE } from "./palette.js";
  * That flash is the receipt: player 1 knows the catch counted without reading a
  * number, which is what a HUD figure could never do at the speed this happens.
  *
- * Both are pure appearance and neither is ever read back — the world knows only
- * that a pod was taken (`podTaken`).
+ * The chew and the charge are pure appearance and neither is ever read back —
+ * the world knows only that a pod was taken (`podTaken`). The inhale is driven
+ * by `mood.intake` alone, which the world does report (`world.intakeTick`):
+ * it is the one movement of the three that runs before any catch is decided.
  */
+
+/** Motes pulled toward the mouth at once. Any more and they blur into a haze. */
+const INHALE_MOTES = 6;
+
+/**
+ * Air (or whatever passes for it) being drawn into the mouth. Each mote
+ * travels in a straight line from a point above the mouth down into it,
+ * looping continuously: `phase` is where mote `i` is along that trip, and it
+ * starts over the instant it arrives, the way a conveyor does.
+ */
+export function drawInhale(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  intake: number,
+  time: number,
+  tipX: number,
+  tipY: number,
+): void {
+  if (intake <= 0.02) return;
+  const ringR = l.tile * 1.05;
+  const ringCy = tipY - l.tile * 0.6;
+  for (let i = 0; i < INHALE_MOTES; i++) {
+    const angle = (i / INHALE_MOTES) * Math.PI * 2 + i * 1.7;
+    const phase = (time * 1.4 + i / INHALE_MOTES) % 1;
+    const startX = tipX + Math.cos(angle) * ringR;
+    const startY = ringCy + Math.sin(angle) * ringR * 0.4;
+    // Accelerates inward, the way suction does: slow at the ring, fast at the
+    // mouth, rather than a mote drifting in at an even pace.
+    const eased = phase * phase;
+    const x = startX + (tipX - startX) * eased;
+    const y = startY + (tipY - startY) * eased;
+    const a = intake * (1 - phase) * 0.7;
+    if (a <= 0.01) continue;
+    halo(ctx, x, y, l.tile * (0.09 - 0.05 * phase), PALETTE.podRim, a);
+  }
+}
 
 /** How far to either side of the maw the skin comes apart, in tiles. */
 const CHEW_TILES = 2.4;
