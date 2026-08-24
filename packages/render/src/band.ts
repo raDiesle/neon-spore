@@ -2,7 +2,7 @@ import { BULB, blobPath, SLICK } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -90,6 +90,13 @@ export function drawBand(
       ),
     );
     ctx.restore();
+    reticle(
+      ctx,
+      b.circle.x,
+      b.circle.y,
+      b.circle.r,
+      b.color === "red" ? PALETTE.redRim : PALETTE.cyanRim,
+    );
   }
   ctx.textAlign = "left";
 }
@@ -113,6 +120,37 @@ function action(
   ctx.stroke();
   ctx.fillStyle = lit ? litText : hex;
   ctx.fillText(label, c.x, c.y + 3);
+}
+
+/** Scope-style crosshair on a fire button, so it reads as a target. */
+function reticle(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  hex: string,
+): void {
+  const inner = r * 0.55;
+  const outer = r * 0.78;
+  ctx.save();
+  ctx.globalAlpha = 0.85;
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = STROKE.outline;
+  ctx.beginPath();
+  ctx.arc(x, y, outer, 0, Math.PI * 2);
+  ctx.stroke();
+  // Four ticks, leaving the centre clear for the silhouette.
+  ctx.beginPath();
+  ctx.moveTo(x, y - outer);
+  ctx.lineTo(x, y - inner);
+  ctx.moveTo(x, y + inner);
+  ctx.lineTo(x, y + outer);
+  ctx.moveTo(x - outer, y);
+  ctx.lineTo(x - inner, y);
+  ctx.moveTo(x + inner, y);
+  ctx.lineTo(x + outer, y);
+  ctx.stroke();
+  ctx.restore();
 }
 
 function strip(
