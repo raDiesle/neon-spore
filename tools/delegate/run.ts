@@ -11,6 +11,7 @@ import { existsSync } from "node:fs";
 import { normalize } from "node:path";
 import { ignoredBy } from "./ignored.js";
 import { mentionedPaths } from "./mentions.js";
+import { ceilingMs } from "./timeout.js";
 
 async function filterReadOnlyCandidates(
   candidates: string[],
@@ -152,6 +153,24 @@ async function main() {
   };
 
   const exitCode = await new Promise<number>((resolve) => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let timedOut = false;
+
+    const killChild = (child: ReturnType<typeof spawn>): Promise<void> => {
+      if (process.platform === "win32") {
+        return new Promise<void>((resolve) => {
+          const killer = spawn("taskkill", ["/pid", String(child.pid), "/t", "/f"], {
+            stdio: "ignore",
+            shell: false,
+          });
+          killer.on("close", () => resolve());
+          killer.on("error", () => resolve());
+        });
+      }
+      child.kill();
+      return Promise.resolve();
+    };
+
     const trySpawn = (cmd: string) => {
       const child = spawn(cmd, aiderArgs, {
         stdio: "inherit",
@@ -159,8 +178,22 @@ async function main() {
         shell: false,
       });
 
-      child.on("close", (code: number | null) => resolve(code ?? 1));
+      const ms = ceilingMs(process.env);
+      timer = setTimeout(() => {
+        timedOut = true;
+        const min = ms / 60_000;
+        console.error(
+          `ceiling of ${min} min reached — run aborted; raise DELEGATE_TIMEOUT_MIN if the run was healthy`,
+        );
+        killChild(child).then(() => resolve(124));
+      }, ms);
+
+      child.on("close", (code: number | null) => {
+        if (timer) clearTimeout(timer);
+        resolve(timedOut ? 124 : (code ?? 1));
+      });
       child.on("error", () => {
+        if (timer) clearTimeout(timer);
         if (process.platform === "win32" && cmd === "aider") {
           trySpawn("aider.cmd");
         } else {
@@ -172,6 +205,10 @@ async function main() {
 
     trySpawn("aider");
   });
+
+  // A timeout abort has already printed its message; do not fall through to
+  // the no-op check, which would misdiagnose a cutoff as an uncovered mention.
+  if (exitCode === 124) process.exit(124);
 
   const changedFiles: string[] = [];
   for (const file of targetFiles) {
