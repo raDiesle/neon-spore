@@ -130,11 +130,12 @@ export function bindControls({
 
   /**
    * Keyboard, for playing both roles alone at a desk. A/D slide the cannon
-   * *and* the shield together, W/E fire the two colours and I opens the guard
-   * window, so one hand drives a whole test run. J/L still move the shield
-   * alone, for the moment a test needs the two apart. The keys stay live in
-   * every view — the view switch decides what is *shown*, not what a single
-   * tester can reach. The arrows step between waves.
+   * *and* the shield together, W fires red and opens the guard window in one
+   * press, E fires cyan, so one hand drives a whole test run. J/L still move
+   * the shield alone and I still guards on its own, for the moments a test
+   * needs the two apart. The keys stay live in every view — the view switch
+   * decides what is *shown*, not what a single tester can reach. The arrows
+   * step between waves.
    *
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
@@ -189,6 +190,7 @@ function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBind
         break;
       case "KeyW":
         buffer.push(2, { kind: "fire", color: "red" });
+        buffer.push(1, { kind: "guard" });
         break;
       case "KeyE":
         buffer.push(2, { kind: "fire", color: "cyan" });
