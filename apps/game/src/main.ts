@@ -98,7 +98,7 @@ const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
 
-bindControls({
+const tickKeys = bindControls({
   canvas,
   buffer,
   layout,
@@ -166,6 +166,7 @@ startLoop(
       buffer.drain(world.tick);
       return;
     }
+    tickKeys();
     step(world, buffer.drain(world.tick));
     if (world.events.length) {
       frameEvents.push(...world.events);

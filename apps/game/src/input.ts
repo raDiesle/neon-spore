@@ -54,7 +54,7 @@ export function bindControls({
   isOver,
   onPauseToggle,
   onWaveStep,
-}: Bindings): void {
+}: Bindings): () => void {
   let cannonPointer: number | null = null;
   let shieldPointer: number | null = null;
 
@@ -144,7 +144,7 @@ export function bindControls({
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
    */
-  bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep });
+  return bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep });
 }
 
 interface KeyBindings {
@@ -155,10 +155,45 @@ interface KeyBindings {
   onWaveStep: (delta: number) => void;
 }
 
-function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBindings): void {
+/** Ticks (at `cfg.tickHz`, currently 120) before a held move key starts repeating. */
+const KEY_REPEAT_DELAY_TICKS = 24;
+/** Ticks between repeats once a held move key is repeating. */
+const KEY_REPEAT_INTERVAL_TICKS = 8;
+
+/**
+ * A/D slide the cannon *and* the shield together, J/L move the shield alone.
+ * Holding any of them keeps sliding: one step on keydown, then steps on a
+ * repeat timer driven by `tick()` — the sim tick, not wall-clock time, so a
+ * held key is exactly as reproducible as everything else in `sim`.
+ */
+function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBindings): () => void {
   let cannon = -1;
   let shield = -1;
   const held = new Set<string>();
+  const repeatTicks = new Map<string, number>();
+
+  const moveCannon = (delta: number): void => {
+    const cols = layout().cols;
+    cannon = Math.min(cols - 1, Math.max(0, cannon + delta));
+    buffer.push(1, { kind: "cannonCol", col: cannon });
+  };
+  const moveShield = (delta: number): void => {
+    const cols = layout().cols;
+    shield = Math.min(cols - 1, Math.max(0, shield + delta));
+    buffer.push(2, { kind: "shieldCol", col: shield });
+  };
+  const moveKeys: Record<string, () => void> = {
+    KeyA: () => {
+      moveCannon(-1);
+      moveShield(-1);
+    },
+    KeyD: () => {
+      moveCannon(1);
+      moveShield(1);
+    },
+    KeyJ: () => moveShield(-1),
+    KeyL: () => moveShield(1),
+  };
 
   window.addEventListener("keydown", (e) => {
     if (held.has(e.code)) return;
@@ -166,29 +201,14 @@ function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBind
     const cols = layout().cols;
     if (cannon < 0) cannon = Math.floor(cols / 2);
     if (shield < 0) shield = Math.floor(cols / 2);
-    const moveCannon = (delta: number): void => {
-      cannon = Math.min(cols - 1, Math.max(0, cannon + delta));
-      buffer.push(1, { kind: "cannonCol", col: cannon });
-    };
-    const moveShield = (delta: number): void => {
-      shield = Math.min(cols - 1, Math.max(0, shield + delta));
-      buffer.push(2, { kind: "shieldCol", col: shield });
-    };
+
+    const moveKey = moveKeys[e.code];
+    if (moveKey) {
+      moveKey();
+      repeatTicks.set(e.code, KEY_REPEAT_DELAY_TICKS);
+      return;
+    }
     switch (e.code) {
-      case "KeyA":
-        moveCannon(-1);
-        moveShield(-1);
-        break;
-      case "KeyD":
-        moveCannon(1);
-        moveShield(1);
-        break;
-      case "KeyJ":
-        moveShield(-1);
-        break;
-      case "KeyL":
-        moveShield(1);
-        break;
       case "KeyI":
         buffer.push(1, { kind: "guard" });
         break;
@@ -218,5 +238,20 @@ function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBind
         break;
     }
   });
-  window.addEventListener("keyup", (e) => held.delete(e.code));
+  window.addEventListener("keyup", (e) => {
+    held.delete(e.code);
+    repeatTicks.delete(e.code);
+  });
+
+  /** Called once per sim tick to advance held-key repeats. */
+  return function tick(): void {
+    for (const [code, remaining] of repeatTicks) {
+      if (remaining > 1) {
+        repeatTicks.set(code, remaining - 1);
+        continue;
+      }
+      moveKeys[code]?.();
+      repeatTicks.set(code, KEY_REPEAT_INTERVAL_TICKS);
+    }
+  };
 }
