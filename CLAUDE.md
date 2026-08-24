@@ -89,6 +89,11 @@ you can already see the answer.
 Two exceptions, and both are reported rather than assumed: the worker cannot
 run, or it has already missed twice on this task.
 
+Friction in this arrangement is a bug in the task at hand, not a note for
+later — a loop that burns tokens, an error that names the wrong cause, work
+still being typed here that a command could have judged. Fix it in the same
+turn. Every rough edge left standing is paid again on everything that follows.
+
 ## Verifying in a browser
 
 `bun run preview`, never `bun run dev`. It builds first — `bun build` takes
