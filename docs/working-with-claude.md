@@ -61,9 +61,12 @@ check handed a URL has no way of noticing which server answered. The stranger
 check worked exactly as designed and still yielded a verified result off the
 wrong bundle.
 
-Two ports now, so the collision is impossible rather than merely detected: `dev`
-is pinned to 3000, `preview` sits on 4173. A preview that fails to start leaves
-an empty port behind, and an empty port cannot be mistaken for a passing check.
+Two ports now, so the collision is impossible rather than merely detected:
+`dev:game` is pinned to 3000, `preview` sits on 4173. (`dev` itself now
+launches the director, on its own port, 4174 — unrelated to this collision,
+which is specifically about the game's hot server and its built preview.) A
+preview that fails to start leaves an empty port behind, and an empty port
+cannot be mistaken for a passing check.
 
 `/__preview` answers `{"app":"neon-spore-preview"}` and settles who replied — a
 dev server hands back `index.html` for every unknown path, so a 200 is not

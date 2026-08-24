@@ -23,7 +23,7 @@ and content. Milestone 2: two-device play.
 
 ```bash
 bun install
-bun run dev      # http://localhost:3000
+bun run dev:game # http://localhost:3000
 bun run check    # typecheck + lint + tests
 ```
 

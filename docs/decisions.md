@@ -71,6 +71,14 @@ The cwd is the whole mechanism — not the workspace symlinks, which are what
 made it look like a resolution problem. `build` and `preview` are unaffected:
 neither watches.
 
+*Amended 2026-08-24:* `dev` now launches the director instead of the game —
+that is the one being edited and reloaded on every cycle, so it is the one
+that must not need a manual restart. The same cwd-from-the-repository-root
+rule applies to it for the same reason: started inside `tools/director`,
+`--hot` would bundle `sim`, `render` and `content` without watching them,
+exactly as it once did for `apps/game`. The game's own hot dev server moved
+to `dev:game`, otherwise unchanged.
+
 ## 5. Canvas 2D for the field, DOM for everything else
 
 *August 2026.* Three layers rather than one technology:

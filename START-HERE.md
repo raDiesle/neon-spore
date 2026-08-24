@@ -41,7 +41,7 @@ git push -u origin main
 ```bash
 bun install
 bun run check     # typecheck, lint, tests — all green
-bun run dev       # http://localhost:3000
+bun run dev:game  # http://localhost:3000
 ```
 
 If `bun` is missing: `curl -fsSL https://bun.sh/install | bash`.

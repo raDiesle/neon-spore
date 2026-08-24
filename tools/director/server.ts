@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import indexHtml from "./index.html";
 import { parseRoster } from "./src/roster.js";
 import { serializeWaves } from "./src/serialize.js";
 
@@ -13,11 +14,10 @@ import { serializeWaves } from "./src/serialize.js";
  * resolved by asking an older copy to quit rather than by killing a process we
  * did not recognise, and an idle exit so a leaked one dies without help.
  *
- * Run it through `bun run director`, which builds first.
+ * Run it through `bun run dev`, from the repository root.
  */
 
 const port = Number(process.env.DIRECTOR_PORT ?? 4174);
-const root = new URL("./dist/", import.meta.url);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
 const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
 const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
@@ -28,6 +28,16 @@ const marker = "neon-spore-director";
 const idleMs = Number(process.env.DIRECTOR_IDLE_MS ?? 60 * 60 * 1000);
 
 const loopbacks = ["127.0.0.1", "[::1]"] as const;
+
+interface DirectorHotState {
+  booted: boolean;
+  signalsBound: boolean;
+  idle: ReturnType<typeof setTimeout> | undefined;
+}
+
+const globalDirector = globalThis as unknown as { __director?: DirectorHotState };
+globalDirector.__director ??= { booted: false, signalsBound: false, idle: undefined };
+const hot = globalDirector.__director;
 
 async function probe(host: string): Promise<{ app?: string } | null> {
   let res: Response;
@@ -63,18 +73,27 @@ Stop it yourself, or set DIRECTOR_PORT — this script will not kill an unknown 
   process.exit(1);
 }
 
-for (const host of loopbacks) await reclaim(host);
+if (!hot.booted) {
+  hot.booted = true;
+  for (const host of loopbacks) await reclaim(host);
+}
 
-let idle: ReturnType<typeof setTimeout>;
 function resetIdle(): void {
-  clearTimeout(idle);
-  idle = setTimeout(() => {
+  clearTimeout(hot.idle);
+  hot.idle = setTimeout(() => {
     console.log(`director idle for ${Math.round(idleMs / 60000)} min — exiting.`);
     process.exit(0);
   }, idleMs);
 }
 
 const noCache = { "cache-control": "no-store, must-revalidate" } as const;
+
+function withIdle<T extends (req: Request) => Response | Promise<Response>>(handler: T): T {
+  return ((req: Request) => {
+    resetIdle();
+    return handler(req);
+  }) as T;
+}
 
 /** The waves as they are on disk right now, not as they were bundled. */
 async function readWaves(): Promise<Wave[]> {
@@ -107,45 +126,45 @@ async function writeWaves(waves: Wave[]): Promise<string | null> {
 const server = Bun.serve({
   port,
   hostname: process.env.DIRECTOR_HOST ?? "::",
-  async fetch(req) {
-    resetIdle();
-    const path = new URL(req.url).pathname;
+  development: true,
+  routes: {
+    "/": indexHtml,
 
-    if (path === "/__director") return Response.json({ app: marker, pid: process.pid, port });
-    if (path === "/__director/quit") {
-      setTimeout(() => process.exit(0), 30);
-      return new Response("bye", { headers: noCache });
-    }
+    "/__director": {
+      GET: withIdle(() => Response.json({ app: marker, pid: process.pid, port })),
+    },
 
-    if (path === "/api/waves" && req.method === "GET") {
-      return Response.json(await readWaves(), { headers: noCache });
-    }
-    if (path === "/api/roster" && req.method === "GET") {
-      const bestiary = await Bun.file(bestiaryFile).text();
-      const bosses = await Bun.file(bossesFile).text();
-      const roster = parseRoster(bestiary, bosses);
-      return Response.json(roster, { headers: noCache });
-    }
-    if (path === "/api/waves" && req.method === "PUT") {
-      try {
-        const waves = (await req.json()) as Wave[];
-        const complaint = await writeWaves(waves);
-        if (complaint) return Response.json({ error: complaint }, { status: 500 });
-        console.log(`wrote ${waves.length} waves`);
-        return Response.json({ ok: true }, { headers: noCache });
-      } catch (err) {
-        return Response.json({ error: String(err) }, { status: 400 });
-      }
-    }
+    "/__director/quit": {
+      GET: withIdle(() => {
+        setTimeout(() => process.exit(0), 30);
+        return new Response("bye", { headers: noCache });
+      }),
+    },
 
-    // Resolving against `root` keeps `..` inside dist/.
-    const rel = path === "/" ? "index.html" : path.replace(/^\/+/, "");
-    const target = new URL(rel, root);
-    if (!target.href.startsWith(root.href)) {
-      return new Response("no", { status: 403, headers: noCache });
-    }
-    const file = Bun.file(target);
-    if (await file.exists()) return new Response(file, { headers: noCache });
+    "/api/waves": {
+      GET: withIdle(async () => Response.json(await readWaves(), { headers: noCache })),
+      PUT: withIdle(async (req) => {
+        try {
+          const waves = (await req.json()) as Wave[];
+          const complaint = await writeWaves(waves);
+          if (complaint) return Response.json({ error: complaint }, { status: 500 });
+          console.log(`wrote ${waves.length} waves`);
+          return Response.json({ ok: true }, { headers: noCache });
+        } catch (err) {
+          return Response.json({ error: String(err) }, { status: 400 });
+        }
+      }),
+    },
+
+    "/api/roster": {
+      GET: withIdle(async () => {
+        const bestiary = await Bun.file(bestiaryFile).text();
+        const bosses = await Bun.file(bossesFile).text();
+        return Response.json(parseRoster(bestiary, bosses), { headers: noCache });
+      }),
+    },
+  },
+  fetch() {
     return new Response("not found", { status: 404, headers: noCache });
   },
 });
@@ -153,9 +172,12 @@ const server = Bun.serve({
 resetIdle();
 console.log(`director on http://localhost:${server.port} — pid ${process.pid}`);
 
-for (const signal of ["SIGINT", "SIGTERM"] as const) {
-  process.on(signal, () => {
-    server.stop(true);
-    process.exit(0);
-  });
+if (!hot.signalsBound) {
+  hot.signalsBound = true;
+  for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    process.on(signal, () => {
+      server.stop(true);
+      process.exit(0);
+    });
+  }
 }

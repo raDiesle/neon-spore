@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "bun build ./index.html --outdir=dist --sourcemap",
-    "start": "bun run build && bun server.ts"
-  },
   "dependencies": {
     "@neon-spore/content": "workspace:*",
     "@neon-spore/render": "workspace:*",

@@ -11,7 +11,7 @@
     {
       "name": "director",
       "runtimeExecutable": "bun",
-      "runtimeArgs": ["run", "director"],
+      "runtimeArgs": ["run", "dev"],
       "port": 4174,
       "autoPort": false
     }

@@ -4,13 +4,15 @@ One screen where a wave is placed, played and judged. Desktop only — it is not
 the game, and it carries controls no player's phone has.
 
 ```bash
-bun run director
+bun run dev
 ```
 
-Builds, then serves on a fixed port 4174 — next to the game preview on 4173,
-and deliberately out of the 3000s, where a `bun --hot` whose own port is taken
-will wander. It refuses to start beside a stranger on that port, retires an
-older copy of itself, and exits after an hour of silence.
+Bundles and serves on the fly, with hot reload — editing anything under
+`tools/director`, `packages/sim`, `packages/render` or `packages/content`
+shows up without a restart. Runs on a fixed port 4174 — next to the game
+preview on 4173, and deliberately out of the 3000s, where a `bun --hot` whose
+own port is taken will wander. It refuses to start beside a stranger on that
+port, retires an older copy of itself, and exits after an hour of silence.
 
 ## What it is for
 

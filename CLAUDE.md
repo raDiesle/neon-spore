@@ -65,12 +65,12 @@ Say what was committed. Do not push unless asked.
 
 ```
 bun install            # once
-bun run dev            # game at localhost:3000, hot reload — for a human
+bun run dev            # the wave editor at 4174, hot reload — for a human
+bun run dev:game       # the game at localhost:3000, hot reload — for a human
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
-bun run director       # the wave editor on 4174 — desktop, for a human
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
@@ -96,11 +96,11 @@ turn. Every rough edge left standing is paid again on everything that follows.
 
 ## Verifying in a browser
 
-`bun run preview`, never `bun run dev`. It builds first — `bun build` takes
+`bun run preview`, never `bun run dev:game`. It builds first — `bun build` takes
 about ten milliseconds, so there is nothing to save by skipping it — and serves
 `apps/game/dist` on port 4173.
 
-**The two ports are separate on purpose.** `bun run dev` is the human's, pinned
+**The two ports are separate on purpose.** `bun run dev:game` is the human's, pinned
 to 3000; `bun run preview` is the agent's, on 4173. They used to share 3000, and
 a session that found a human's dev server sitting there got a preview that
 refused to start and a browser check that quietly read the dev server instead —
