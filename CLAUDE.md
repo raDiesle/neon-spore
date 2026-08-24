@@ -72,13 +72,17 @@ bun run check          # typecheck + lint + test, run this before saying "done"
 
 ## Delegating implementation
 
-Implementation is delegated to the worker model by default, not typed in the
-session: `.claude/skills/delegate` carries the procedure, `docs/delegating.md`
-the reasoning. Decide what has to be decided — the interface, the constraint,
-the shape — then hand over the typing. A constraint you can write down belongs
-in the spec, not in your head, and is not a reason to keep the work. What stays
-here is what no spec can carry: whether it feels right, and what should be
-built at all.
+Code is written by the worker, not in the session. `.claude/skills/delegate`
+carries the procedure, `docs/delegating.md` the reasoning.
+
+The session decides and reviews; it does not type. Deciding is real work and it
+stays here — the interface, the constraint, the shape, which of two variants
+reads better, what is worth building at all. None of that is code. Once it is
+decided, the writing goes over, however small the change and however plainly
+you can already see the answer.
+
+Two exceptions, and both are reported rather than assumed: the worker cannot
+run, or it has already missed twice on this task.
 
 ## Verifying in a browser
 

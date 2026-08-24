@@ -10,19 +10,17 @@ not the typing — it is the retries. Aider re-prompts the worker with the failu
 output of `bun run check` until it is green, and none of that traffic reaches
 this session.
 
-## Delegation is the default
+## Everything that gets written, gets delegated
 
-Implementation is handed over unless there is a stated reason not to. The
-question is never "is this mechanical enough" — almost nothing is purely
-mechanical, and waiting for a task that is costs more than the setup saves.
-The question is: **what has to be decided here, and what is typing once it is
-decided?** Decide the first part, delegate the second.
+Not "is this mechanical enough" — that question invites an exception every
+time, and an exception is what it always gets. The line is simpler: **the
+session decides, the worker writes.**
 
-That split is usually small and lopsided. "`bindControls` returns a `tick()`
-the loop calls each tick, repeat after 24 ticks then every 8, drive it off the
-tick counter and never off wall-clock time" is the judgement — two minutes.
-The eighty lines that follow from it are typing, and typing is what the worker
-is for.
+Deciding is not a lesser job, and it does not go anywhere. The interface, the
+constraint, the shape of the answer, which of two variants reads better, what
+is worth building at all — that is the work, and no spec can carry it. But none
+of it is code. The moment something is to be *written*, it goes over, however
+small.
 
 ### Not reasons to keep it
 
@@ -31,18 +29,21 @@ is for.
 - **"It touches a coupling."** Naming the coupling in the spec is cheaper than
   implementing around it.
 - **"It is only a few lines."** Then the spec is only a few lines too.
+- **"Its criterion is whether it feels right."** Judging the result is yours.
+  Typing the parameter that produces it is not. Name the values, have the
+  variants produced, then look.
 - **"Faster to do myself."** Measured against your own tokens, rarely true;
   measured against the retry loop, never.
 
-### Actual reasons to keep it
+### The two that are real
 
-- The criterion is whether it **feels right** — game feel, glow, timing as an
-  experience, a silhouette. No spec can carry that.
-- It **decides something** rather than implements it: a design rule, a change
-  to `docs/spec/`, a new coupling, the shape of the sim/render boundary.
-- You cannot name the files yet, because finding them *is* the task.
-- The spec would have to be longer than the change. Rare, and it means you have
-  not finished deciding.
+- **The worker cannot run** — `aider` not on PATH, or `OPENROUTER_API_KEY`
+  unset. Say so once and do the task here. Do not install anything.
+- **It has missed twice on this task.** Escalate the model once; if that misses
+  too, take it back. A third attempt costs more in review than it saves.
+
+Neither is assumed. Say in the final report whether the work was delegated, and
+if it was not, which of these two applied.
 
 ### Which invariants the gate actually holds
 
@@ -52,8 +53,6 @@ is for.
 stray `Math.random` there comes back green. That is not a reason to withhold
 the task; it is a reason to put the constraint in the spec **and** to look for
 it by name in the diff.
-
-Say in the final report whether the work was delegated, and if it was not, why.
 
 ## 1. Write the spec
 
