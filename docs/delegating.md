@@ -34,20 +34,32 @@ and it still looks wrong.
 
 ## The worker model
 
-`z-ai/glm-4.6` through OpenRouter. Second choice when it comes back wrong:
-`qwen/qwen3-coder`. Qwen is the stronger one-shot generator, GLM the stronger
-agent — better at holding a constraint across many turns and at correcting
-itself from test output without drifting. This loop is not one-shot generation,
-so the agentic half is what is being bought.
+`qwen/qwen3-coder-next` by default, `z-ai/glm-5.2` when the default has missed
+twice. Cheap-first with an escalation, rather than one middling model for
+everything: the input price between the two differs by about eightfold, and
+most delegable work here is mechanical enough that the cheap one finishes it.
+Arguing with a model that has already missed twice costs more in review than
+the escalation costs in tokens.
 
-Not a reasoning model. R1 and its kind emit long thinking traces, are slow, and
-are comparatively weak at a many-turn edit loop. Ask one a hard algorithmic
+The rankings underneath this move every few months and any claim about which
+model is *better* is stale before it is committed. What does not move is the
+method — both are one line in `.aider.conf.yml`, so the two of them can be run
+against the same spec and judged on the diff that comes back. Prefer that over
+anyone's benchmark, this file included.
+
+Not a reasoning model. They emit long thinking traces, are slow, and are
+comparatively weak at a many-turn edit loop. Ask one a hard algorithmic
 question once; do not put one behind the typing.
 
-OpenRouter rather than an account per provider, because the point of a
-one-line model slot is defeated if changing it means a new key and a new
-prepaid balance. The 5% credit fee buys the ability to A/B two workers on the
-same spec for pennies, plus fallback when a provider is down mid-loop.
+OpenRouter rather than an account per provider, because the point of a one-line
+model slot is defeated if changing it means a new key and a new prepaid
+balance. The credit fee buys the A/B above, plus fallback when a provider is
+down mid-loop.
+
+`edit-format: diff` is pinned. Aider negotiates the format per model and will
+choose `whole` for some of them, which regenerates entire files — against the
+house rule, and it prices output by the length of the file instead of by the
+size of the change.
 
 ## What is set up
 

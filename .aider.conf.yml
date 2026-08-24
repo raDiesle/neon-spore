@@ -2,7 +2,16 @@
 # Driven from .claude/skills/delegate, never by hand.
 # Requires OPENROUTER_API_KEY in the environment.
 
-model: openrouter/z-ai/glm-4.6
+model: openrouter/qwen/qwen3-coder-next
+
+# Escalation when the default comes back wrong. Swap the line above, do not
+# argue with a model that has already missed twice.
+# model: openrouter/z-ai/glm-5.2
+
+# Surgical edits, not regenerated files. Aider will pick `whole` for some
+# models on its own, which contradicts the house rule and costs output tokens
+# in proportion to file length rather than to the size of the change.
+edit-format: diff
 
 # The invariants, handed over as read-only context so they do not have to be
 # repeated in every spec.
