@@ -11,7 +11,8 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
-| `docs/delegating.md` | you hand implementation to the cheap worker model |
+| `docs/delegating.md` | you hand implementation to the worker model |
+| `CONVENTIONS.md` | you change what the worker is allowed to do or must know |
 
 ## Specification
 
@@ -76,3 +77,7 @@ history if the wording of a rejected idea is ever needed.
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/input.ts` | commands from touch and keyboard |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
+| `tools/director/src/grid.ts` | the beat grid a wave is placed on |
+| `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
+| `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
+| `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |

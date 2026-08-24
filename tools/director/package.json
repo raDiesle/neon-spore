@@ -4,6 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "echo 'not built yet — see tools/director/README.md'"
+    "build": "bun build ./index.html --outdir=dist --sourcemap",
+    "start": "bun run build && bun server.ts"
+  },
+  "dependencies": {
+    "@neon-spore/content": "workspace:*",
+    "@neon-spore/render": "workspace:*",
+    "@neon-spore/shape-sheet": "workspace:*",
+    "@neon-spore/sim": "workspace:*"
   }
 }

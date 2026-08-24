@@ -5,7 +5,14 @@ export {
   controlsForKinds,
   kindForColor,
 } from "./creatures.js";
-export { buildPods, buildQueue, mapCol } from "./queue.js";
+export {
+  AUTHORED_COLS,
+  buildPods,
+  buildQueue,
+  mapCol,
+  podsFromWave,
+  queueFromWave,
+} from "./queue.js";
 export {
   type Bump,
   blobPath,

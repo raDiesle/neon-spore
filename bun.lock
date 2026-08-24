@@ -45,6 +45,12 @@
     "tools/director": {
       "name": "@neon-spore/director",
       "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+        "@neon-spore/render": "workspace:*",
+        "@neon-spore/shape-sheet": "workspace:*",
+        "@neon-spore/sim": "workspace:*",
+      },
     },
     "tools/shape-sheet": {
       "name": "@neon-spore/shape-sheet",

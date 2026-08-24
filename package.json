@@ -13,6 +13,7 @@
     "build": "bun run --cwd apps/game build",
     "preview": "bun run --cwd apps/game preview",
     "preview:once": "bun run --cwd apps/game preview:once",
+    "director": "bun run --cwd tools/director start",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "typecheck": "tsc --noEmit",

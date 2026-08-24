@@ -10,7 +10,8 @@ import { kindForColor } from "./creatures.js";
 import { WAVES, type Wave } from "./waves.js";
 
 const COLORS: Color[] = ["red", "cyan"];
-const AUTHORED_COLS = 7;
+/** The field waves are authored against. The real `cols` is remapped from it. */
+export const AUTHORED_COLS = 7;
 
 /** Waves are authored for 7 columns. Remap, never re-author. */
 export function mapCol(col: number, cols: number): number {
@@ -25,10 +26,21 @@ export function mapCol(col: number, cols: number): number {
  * may be random.
  */
 export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
-  const rng = createRng(waveIndex);
   const wave: Wave | undefined = WAVES[waveIndex];
   if (!wave) return buildContinuation(waveIndex, cols);
+  return queueFromWave(wave, waveIndex, cols);
+}
 
+/**
+ * The same translation, for a wave that is not in `WAVES` — the one the
+ * director is editing before it has been saved.
+ *
+ * The index is still a parameter, and it is still what seeds the rng: the
+ * index is what decides `"alt"` and `"any"`. An editor that drew those from
+ * anywhere else would be showing a wave nobody is going to play.
+ */
+export function queueFromWave(wave: Wave, waveIndex: number, cols: number): SpawnEntry[] {
+  const rng = createRng(waveIndex);
   let alt = next(rng) < 0.5 ? 0 : 1;
   const queue: SpawnEntry[] = [];
   for (const e of wave.entries) {
@@ -50,7 +62,7 @@ export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
  */
 export function buildPods(waveIndex: number, cols: number): PodEntry[] {
   const wave: Wave | undefined = WAVES[waveIndex];
-  if (wave) return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
+  if (wave) return podsFromWave(wave, cols);
 
   // Beyond the authored waves, every third one carries a pod. Seeded off the
   // wave index like everything else, and off a different stream from the
@@ -59,6 +71,11 @@ export function buildPods(waveIndex: number, cols: number): PodEntry[] {
   if (beyond % 3 !== 0) return [];
   const rng = createRng(waveIndex + 9973);
   return [{ beat: 1 + nextInt(rng, 3), col: nextInt(rng, cols), row: 2 + nextInt(rng, 3) }];
+}
+
+/** `buildPods` for an unsaved wave. The sibling of `queueFromWave`. */
+export function podsFromWave(wave: Wave, cols: number): PodEntry[] {
+  return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
 }
 
 /** Beyond the authored waves: reproducible filler, clearly marked as such. */
