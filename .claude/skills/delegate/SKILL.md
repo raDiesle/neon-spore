@@ -148,6 +148,18 @@ platform this session happens to be running on.
 Add `--read <path>` for a file it must see but must not change — an existing
 file in the same style is worth more than a paragraph describing the style.
 
+**A run that reports success and changes nothing is usually file mentions.**
+Aider scans both the message and the files in the chat for anything that looks
+like a repository path, offers to add each one, and `yes-always: true` accepts
+— then the reply carrying the actual edit is spent on that exchange instead.
+The worker reports the work as done, `git diff` is empty, and re-running does
+the same thing again. It bites hardest on prose and markup, which cite paths in
+their own text: a README naming three source files re-triggers it on every
+attempt, whatever the spec says. Check `git status` before believing any
+report; if the file is untouched and the tail mentions files being added, pass
+`--no-detect-urls` and strip bare paths from the spec, or write that one file
+here. Do not spend a third run on it.
+
 Give the call a wall-clock ceiling and expect minutes, not seconds: a reasoning
 worker plus `bun run check` after every edit runs long, and aider buffers its
 output, so a run in progress looks identical to a hung one. Name the target
