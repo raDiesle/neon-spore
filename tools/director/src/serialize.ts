@@ -27,7 +27,9 @@ function serializeEntry(entry: WaveEntry): string {
 }
 
 function serializePod(pod: PodEntry): string {
-  return `{ beat: ${pod.beat}, col: ${pod.col}, row: ${pod.row} }`;
+  const parts = [`beat: ${pod.beat}`, `col: ${pod.col}`, `row: ${pod.row}`];
+  if (pod.kind !== undefined) parts.push(`kind: "${pod.kind}"`);
+  return `{ ${parts.join(", ")} }`;
 }
 
 function serializeWave(wave: Wave): string {

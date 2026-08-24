@@ -1,15 +1,17 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
-import type { SimConfig } from "@neon-spore/sim";
+import type { PodEntry, SimConfig } from "@neon-spore/sim";
 import type { Palette } from "./palette.js";
 import { silhouette } from "./silhouette.js";
 import {
   BRUSHES,
+  type Brush,
   beatCount,
   brushOf,
   currentWave,
   entryAt,
   paint,
   podAt,
+  podBrushOf,
   type Store,
 } from "./state.js";
 
@@ -93,7 +95,9 @@ export function bindGrid(
     if (pod) {
       const mark = document.createElement("span");
       mark.className = "pod";
-      mark.textContent = `◇${pod.row}`;
+      mark.textContent = `${podGlyph(podBrushOf(pod))}${pod.row}`;
+      const spec = BRUSHES.find((x) => x.brush === podBrushOf(pod));
+      if (spec) mark.style.color = spec.stroke;
       button.appendChild(mark);
     }
 
@@ -114,11 +118,11 @@ export function bindGrid(
     }
   };
 
-  const podRow = (pod: { beat: number; col: number; row: number }): HTMLElement => {
+  const podRow = (pod: PodEntry): HTMLElement => {
     const row = document.createElement("div");
     row.className = "pod-row";
     const where = document.createElement("span");
-    where.textContent = `◇ beat ${pod.beat} · col ${pod.col} · row`;
+    where.textContent = `${podGlyph(podBrushOf(pod))} beat ${pod.beat} · col ${pod.col} · row`;
 
     // The row is the one pod coordinate the grid cannot show: the grid's
     // vertical axis is time, and a pod's row is where in the field it hangs.
@@ -184,4 +188,15 @@ function label(cls: string, text: string): HTMLElement {
   el.className = cls;
   el.textContent = text;
   return el;
+}
+
+function podGlyph(brush: Brush): string {
+  switch (brush) {
+    case "purge":
+      return "✦";
+    case "ward":
+      return "◎";
+    default:
+      return "◇";
+  }
 }

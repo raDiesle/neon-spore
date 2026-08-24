@@ -22,7 +22,7 @@ export interface Store {
  * states: authoring a wave means putting the same thing in several columns,
  * and a cycle makes that six clicks instead of one.
  */
-export type Brush = "red" | "cyan" | "rock" | "pod" | "erase";
+export type Brush = "red" | "cyan" | "rock" | "mend" | "purge" | "ward" | "erase";
 
 export const BRUSHES: {
   brush: Brush;
@@ -54,11 +54,25 @@ export const BRUSHES: {
     note: CREATURES.meteor.blurb,
   },
   {
-    brush: "pod",
-    label: "POD",
+    brush: "mend",
+    label: "MEND",
     subjects: ["POD"],
     stroke: PALETTE.pod,
-    note: "not a creature — cargo, and never cleared",
+    note: "restores hull — the pod as it has always been",
+  },
+  {
+    brush: "purge",
+    label: "PURGE",
+    subjects: ["POD"],
+    stroke: PALETTE.ember,
+    note: "clears every creature on the field",
+  },
+  {
+    brush: "ward",
+    label: "WARD",
+    subjects: ["POD"],
+    stroke: PALETTE.shieldRim,
+    note: "holds the shield armed for a few beats, no trigger needed",
   },
   {
     brush: "erase",
@@ -102,13 +116,18 @@ export function brushOf(entry: WaveEntry): Brush {
   return entry.color === "cyan" ? "cyan" : "red";
 }
 
+/** What kind of pod a cell holds, as the brush that would have made it. */
+export function podBrushOf(pod: PodEntry): Brush {
+  return pod.kind ?? "mend";
+}
+
 /**
  * Paint one cell. Painting what is already there removes it, so the brush is
  * also its own eraser and the common correction costs no trip to the palette.
  */
 export function paint(wave: Wave, beat: number, col: number, brush: Brush): void {
-  if (brush === "pod") {
-    togglePod(wave, beat, col);
+  if (brush === "mend" || brush === "purge" || brush === "ward") {
+    paintPod(wave, beat, col, brush);
     return;
   }
   if (brush === "erase") {
@@ -131,7 +150,8 @@ export function paint(wave: Wave, beat: number, col: number, brush: Brush): void
  * The brushes that make an entry. `pod` and `erase` are the two that do not:
  * a pod is not an entry, and an erase is not a thing but the absence of one.
  */
-type EntryBrush = Exclude<Brush, "pod" | "erase">;
+type EntryBrush = Exclude<Brush, "mend" | "purge" | "ward" | "erase">;
+type PodBrush = Extract<Brush, "mend" | "purge" | "ward">;
 
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   // Only the rock names a kind. Everything else is named by its colour, and the
@@ -144,13 +164,18 @@ function removeEntry(wave: Wave, beat: number, col: number): void {
   wave.entries = wave.entries.filter((e) => !(e.beat === beat && e.col === col));
 }
 
-function togglePod(wave: Wave, beat: number, col: number): void {
-  if (podAt(wave, beat, col)) {
-    removePod(wave, beat, col);
+function paintPod(wave: Wave, beat: number, col: number, brush: PodBrush): void {
+  const existing = podAt(wave, beat, col);
+  if (existing) {
+    if (podBrushOf(existing) === brush) {
+      removePod(wave, beat, col);
+      return;
+    }
+    existing.kind = brush === "mend" ? undefined : brush;
     return;
   }
   const pods = wave.pods ?? [];
-  pods.push({ beat, col, row: POD_DEFAULT_ROW });
+  pods.push({ beat, col, row: POD_DEFAULT_ROW, kind: brush === "mend" ? undefined : brush });
   wave.pods = pods.sort(byBeatThenCol);
 }
 
