@@ -63,13 +63,21 @@
       .brush .name { font-size: 11px; letter-spacing: 2px; color: var(--ink); }
       .brush .hint { font-size: 9px; color: var(--dim); line-height: 1.4; }
       #grid { display: inline-grid; gap: 2px; }
-      #grid .head, #grid .beat { color: var(--dim); font-size: 9px; display: flex; align-items: center; justify-content: center; }
+      #grid .head { color: var(--dim); font-size: 9px; display: flex; flex-direction: column; gap: 0; line-height: 1.1; align-items: center; justify-content: center; }
+      #grid .head .maps { color: #4b4177; font-size: 8px; }
+      #grid .beat {
+        color: var(--dim); font-size: 9px; display: flex; align-items: center; justify-content: center;
+        border: 0; background: transparent; padding: 0; width: 24px; cursor: pointer;
+      }
+      #grid .beat:hover { color: var(--ink); }
+      #grid .beat.now { color: var(--gold); }
       #grid .cell {
         width: 32px; height: 32px; border: 1px solid var(--line-soft); border-radius: 5px;
         background: #0a0719; cursor: pointer; position: relative; padding: 0;
         font-size: 13px; line-height: 1; color: var(--dim);
       }
       #grid .cell:hover { border-color: #3b3163; }
+      #grid .cell.now { border-color: #3b3163; background: #120c2b; }
       #grid .cell .pod { position: absolute; right: 1px; bottom: 0; font-size: 9px; color: var(--gold); }
       #grid .cell svg { display: block; margin: auto; }
 
@@ -85,6 +93,7 @@
       #stage {
         height: 100%; width: auto; aspect-ratio: 0.56;
         background: #05040c; border: 1px solid var(--line); border-radius: 8px; display: block;
+        cursor: crosshair;
       }
       .transport { flex: 0 0 auto; display: flex; gap: 4px; }
 
@@ -143,7 +152,9 @@
         </div>
         <p class="note">
           The field is the phone-shaped rectangle the game draws into, not the
-          panel it sits in — computeStage, the same call the device makes.
+          panel it sits in — computeStage, the same call the device makes. Click
+          the field to place the current brush at the held beat, in the nearest
+          of the seven authored columns.
         </p>
       </section>
 

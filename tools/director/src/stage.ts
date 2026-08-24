@@ -1,5 +1,5 @@
 import { podsFromWave, queueFromWave } from "@neon-spore/content";
-import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
   type SimConfig,
@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bindKeys, type Keys } from "./keys.js";
+import { authoredColAt } from "./place.js";
 import { currentWave, type Store } from "./state.js";
 
 /**
@@ -23,9 +24,18 @@ import { currentWave, type Store } from "./state.js";
 export interface StagePanel {
   /** Fresh run of the wave being edited. Called whenever its shape changes. */
   rebuild(): void;
+  /** Replay the wave from its start up to `beat`, then hold there. */
+  seek(beat: number): void;
+  /** The beat the field is holding, for a placement to land on. */
+  beat(): number;
 }
 
-export function bindStage(store: Store, cfg: SimConfig): StagePanel {
+export function bindStage(
+  store: Store,
+  cfg: SimConfig,
+  onBeat: (beat: number) => void,
+  onPlace: (col: number) => void,
+): StagePanel {
   const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
   if (!canvas) throw new Error("canvas #stage missing");
 
@@ -35,18 +45,44 @@ export function bindStage(store: Store, cfg: SimConfig): StagePanel {
   let role: ViewRole = "test";
   let running = true;
   let frameEvents: SimEvent[] = [];
+  let lastBeat = -1;
+  let viewport: Viewport = { width: 0, height: 0, dpr: 1 };
 
   const resize = (): void => {
     const rect = canvas.getBoundingClientRect();
     if (rect.width < 1 || rect.height < 1) return;
-    renderer.resize({
+    viewport = {
       width: rect.width,
       height: rect.height,
       dpr: Math.min(window.devicePixelRatio || 1, 2),
-    });
+    };
+    renderer.resize(viewport);
   };
   new ResizeObserver(resize).observe(canvas);
   resize();
+
+  canvas.addEventListener("click", (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const layout = computeLayout(viewport, cfg, role);
+    if (
+      x < layout.gridLeft ||
+      x >= layout.gridLeft + layout.gridWidth ||
+      y < layout.gridTop ||
+      y >= layout.gridTop + layout.gridHeight
+    ) {
+      return;
+    }
+
+    const fieldCol = Math.max(
+      0,
+      Math.min(cfg.cols - 1, Math.floor((x - layout.gridLeft) / layout.tile)),
+    );
+
+    onPlace(authoredColAt(fieldCol, cfg.cols));
+  });
 
   const rebuild = (): void => {
     const wave = currentWave(store);
@@ -58,6 +94,8 @@ export function bindStage(store: Store, cfg: SimConfig): StagePanel {
       queueFromWave(wave, store.index, cfg.cols),
       podsFromWave(wave, cfg.cols),
     );
+    lastBeat = 0;
+    onBeat(0);
   };
 
   /**
@@ -76,6 +114,11 @@ export function bindStage(store: Store, cfg: SimConfig): StagePanel {
     if (world.events.length) {
       frameEvents.push(...world.events);
       handle(world.events);
+    }
+    const beat = Math.floor(world.tick / ticksPerBeat(cfg));
+    if (beat !== lastBeat) {
+      lastBeat = beat;
+      onBeat(beat);
     }
   };
 
@@ -141,6 +184,14 @@ export function bindStage(store: Store, cfg: SimConfig): StagePanel {
     });
   }
 
+  const seek = (beat: number): void => {
+    rebuild();
+    const ticks = beat * ticksPerBeat(cfg);
+    for (let i = 0; i < ticks; i++) stepOnce();
+    running = false;
+    paintPlay();
+  };
+
   paintPlay();
   rebuild();
 
@@ -158,5 +209,5 @@ export function bindStage(store: Store, cfg: SimConfig): StagePanel {
     paint: () => paint(1 / 60),
   };
 
-  return { rebuild };
+  return { rebuild, seek, beat: () => lastBeat };
 }

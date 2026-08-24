@@ -1,4 +1,4 @@
-import { AUTHORED_COLS, type Wave } from "@neon-spore/content";
+import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { Palette } from "./palette.js";
 import { silhouette } from "./silhouette.js";
@@ -23,6 +23,7 @@ import {
  */
 export interface GridPanel {
   render(): void;
+  mark(beat: number): void;
 }
 
 export function bindGrid(
@@ -30,10 +31,12 @@ export function bindGrid(
   cfg: () => SimConfig,
   palette: Palette,
   onEdit: () => void,
+  onSeek: (beat: number) => void,
 ): GridPanel {
   const grid = document.getElementById("grid");
   const podList = document.getElementById("podList");
   const note = document.getElementById("gridNote");
+  let markedBeat = 0;
 
   const renderGrid = (): void => {
     if (!grid) return;
@@ -43,12 +46,33 @@ export function bindGrid(
 
     grid.style.gridTemplateColumns = `24px repeat(${AUTHORED_COLS}, 32px)`;
     grid.appendChild(label("head", ""));
-    for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(label("head", String(c)));
+    for (let c = 0; c < AUTHORED_COLS; c++) {
+      const mapped = mapCol(c, cfg().cols);
+      const head = document.createElement("div");
+      head.className = "head";
+      head.textContent = String(c);
+      const maps = document.createElement("span");
+      maps.className = "maps";
+      maps.textContent = `↓${mapped}`;
+      head.appendChild(maps);
+      grid.appendChild(head);
+    }
 
     for (let b = 0; b < beatCount(wave); b++) {
-      grid.appendChild(label("beat", String(b)));
+      grid.appendChild(beatLabel(b));
       for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
     }
+    mark(markedBeat);
+  };
+
+  const beatLabel = (b: number): HTMLElement => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "beat";
+    button.textContent = String(b);
+    button.dataset.beat = String(b);
+    button.addEventListener("click", () => onSeek(b));
+    return button;
   };
 
   const cell = (wave: Wave, b: number, c: number): HTMLElement => {
@@ -134,6 +158,17 @@ export function bindGrid(
       `field plays ${cfg().cols} and mapCol remaps them.`;
   };
 
+  const mark = (beat: number): void => {
+    markedBeat = beat;
+    if (!grid) return;
+    for (const el of grid.querySelectorAll(".now")) {
+      el.classList.remove("now");
+    }
+    for (const el of grid.querySelectorAll(`[data-beat="${beat}"]`)) {
+      el.classList.add("now");
+    }
+  };
+
   const render = (): void => {
     renderGrid();
     renderPods();
@@ -141,7 +176,7 @@ export function bindGrid(
   };
 
   render();
-  return { render };
+  return { render, mark };
 }
 
 function label(cls: string, text: string): HTMLElement {

@@ -1,11 +1,11 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
-import { bindGrid } from "./grid.js";
+import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
 import { bindStage } from "./stage.js";
-import { refuse, type Store } from "./state.js";
+import { currentWave, paint, refuse, type Store } from "./state.js";
 import { bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 
@@ -34,9 +34,29 @@ const setStatus = (text: string, cls = ""): void => {
   status.className = cls;
 };
 
-const stage = bindStage(store, cfg);
+let grid: GridPanel | null = null;
+const stage = bindStage(
+  store,
+  cfg,
+  (beat) => grid?.mark(beat),
+  (col) => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    const beat = stage.beat();
+    paint(wave, beat, col, palette.current());
+    store.dirty = true;
+    onShape();
+    stage.seek(beat);
+  },
+);
 const palette = bindPalette(() => {});
-const grid = bindGrid(store, () => cfg, palette, onShape);
+grid = bindGrid(
+  store,
+  () => cfg,
+  palette,
+  onShape,
+  (beat) => stage.seek(beat),
+);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
@@ -46,7 +66,7 @@ renderShip(cfg);
 
 /** A wave changed shape: redraw the grid and replay it from the top. */
 function onShape(): void {
-  grid.render();
+  grid?.render();
   stage.rebuild();
   paintStatus();
 }
@@ -58,7 +78,7 @@ function onProse(): void {
 
 function refreshAll(): void {
   rail.render();
-  grid.render();
+  grid?.render();
   stage.rebuild();
   paintStatus();
 }
