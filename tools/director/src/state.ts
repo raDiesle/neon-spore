@@ -11,7 +11,7 @@ import type { PodEntry } from "@neon-spore/sim";
  */
 export interface Store {
   waves: Wave[];
-  /** Which wave is being edited. Also its seed — see `queueFromWave`. */
+  /** Which wave is being edited. */
   index: number;
   /** Edited since the last save. */
   dirty: boolean;
@@ -22,7 +22,7 @@ export interface Store {
  * states: authoring a wave means putting the same thing in several columns,
  * and a cycle makes that six clicks instead of one.
  */
-export type Brush = "alt" | "any" | "red" | "cyan" | "rock" | "pod" | "erase";
+export type Brush = "red" | "cyan" | "rock" | "pod" | "erase";
 
 export const BRUSHES: {
   brush: Brush;
@@ -32,20 +32,6 @@ export const BRUSHES: {
   stroke: string;
   note: string;
 }[] = [
-  {
-    brush: "alt",
-    label: "ALT",
-    subjects: ["SLICK", "BULB"],
-    stroke: "#ffc24b",
-    note: "red and cyan in turn — which one starts is seeded by the wave's index",
-  },
-  {
-    brush: "any",
-    label: "ANY",
-    subjects: ["SLICK", "BULB"],
-    stroke: "#a98cff",
-    note: "the rng picks, seeded by the wave's index",
-  },
   {
     brush: "red",
     label: "SLICK",
@@ -113,7 +99,6 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
 /** What the cell currently holds, as the brush that would have made it. */
 export function brushOf(entry: WaveEntry): Brush {
   if (entry.kind === "meteor") return "rock";
-  if (entry.color === "alt" || entry.color === "any") return entry.color;
   return entry.color === "cyan" ? "cyan" : "red";
 }
 

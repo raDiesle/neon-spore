@@ -8,7 +8,7 @@ export interface Palette {
 
 export function bindPalette(onPick: () => void): Palette {
   const brushBar = document.getElementById("brushes");
-  let brush: Brush = "alt";
+  let brush: Brush = "red";
 
   const render = (): void => {
     if (!brushBar) return;

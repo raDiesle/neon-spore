@@ -28,26 +28,17 @@ export function mapCol(col: number, cols: number): number {
 export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
   const wave: Wave | undefined = WAVES[waveIndex];
   if (!wave) return buildContinuation(waveIndex, cols);
-  return queueFromWave(wave, waveIndex, cols);
+  return queueFromWave(wave, cols);
 }
 
 /**
  * The same translation, for a wave that is not in `WAVES` — the one the
  * director is editing before it has been saved.
- *
- * The index is still a parameter, and it is still what seeds the rng: the
- * index is what decides `"alt"` and `"any"`. An editor that drew those from
- * anywhere else would be showing a wave nobody is going to play.
  */
-export function queueFromWave(wave: Wave, waveIndex: number, cols: number): SpawnEntry[] {
-  const rng = createRng(waveIndex);
-  let alt = next(rng) < 0.5 ? 0 : 1;
+export function queueFromWave(wave: Wave, cols: number): SpawnEntry[] {
   const queue: SpawnEntry[] = [];
   for (const e of wave.entries) {
-    let color: Color | null = null;
-    if (e.color === "alt") color = COLORS[alt++ % COLORS.length]!;
-    else if (e.color === "any") color = COLORS[nextInt(rng, COLORS.length)]!;
-    else color = e.color;
+    const color = e.color;
     // The colour decides the silhouette; the wave never names both.
     const kind = color ? kindForColor(color) : (e.kind ?? "meteor");
     queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color });

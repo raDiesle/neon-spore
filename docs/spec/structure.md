@@ -84,4 +84,4 @@ gives nothing back.
 In the code: the rule is enforced by construction. `buildQueue`
 (`packages/content/src/queue.ts`) seeds an `Rng` from the wave index, so the
 same wave always plays the same way, and the authored `WaveEntry` fixes column,
-beat and kind. Only a colour written as `"any"` is drawn from the rng.
+beat and kind. A `WaveEntry`'s colour is authored fixed too.

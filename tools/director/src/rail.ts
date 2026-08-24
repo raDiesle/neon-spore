@@ -101,11 +101,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   return { render };
 }
 
-/**
- * Reordering is not cosmetic: the index seeds the rng, so moving a wave up the
- * list changes which colour every `alt` and `any` in it resolves to. The stage
- * is rebuilt after a move for exactly that reason.
- */
+/** The stage is rebuilt after a move to reflect the wave's new position. */
 function move(store: Store, delta: number): void {
   const to = store.index + delta;
   if (to < 0 || to >= store.waves.length) return;

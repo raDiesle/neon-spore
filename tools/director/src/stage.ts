@@ -88,12 +88,7 @@ export function bindStage(
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
     if (!wave) return;
-    startWave(
-      world,
-      store.index,
-      queueFromWave(wave, store.index, cfg.cols),
-      podsFromWave(wave, cfg.cols),
-    );
+    startWave(world, store.index, queueFromWave(wave, cfg.cols), podsFromWave(wave, cfg.cols));
     lastBeat = 0;
     onBeat(0);
   };

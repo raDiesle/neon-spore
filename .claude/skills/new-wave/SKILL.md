@@ -26,12 +26,12 @@ start of the wave.
   name: "THE WALL",
   sentence: "The one where the cannon never stops moving.",
   hint: "A broad front — change columns fast.",
-  entries: [{ beat: 0, col: 0, color: "alt" }],
+  entries: [{ beat: 0, col: 0, color: "red" }],
 }
 ```
 
-`color`: a fixed colour, `"alt"` to alternate, `"any"` to draw from the seeded
-rng, or `null` with `kind: "meteor"` for the rock, which carries none.
+`color`: a fixed colour, or `null` with `kind: "meteor"` for the rock, which
+carries none.
 
 A living creature's **kind is not written down** — the colour decides it
 (`kindForColor`). One kind is one colour and one silhouette, so a red one is a

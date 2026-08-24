@@ -52,9 +52,7 @@ what is already there removes it, so the brush is its own eraser.
 Only the rock names a `kind`. Everything else is named by its colour and the
 silhouette follows — the rule in `packages/content/src/creatures.ts`.
 
-`alt` and `any` resolve through the seeded rng, and the seed is the **wave
-index**. Moving a wave up the list therefore changes which colour every `alt`
-in it comes out as, which is why the stage rebuilds after a reorder.
+Moving a wave up or down the list rebuilds the stage to reflect its new position.
 
 ## The grid is the field
 

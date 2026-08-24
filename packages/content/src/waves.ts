@@ -17,8 +17,8 @@ export interface WaveEntry {
    * disagree.
    */
   kind?: Extract<CreatureKind, "meteor">;
-  /** "alt" alternates, "any" is drawn from the seeded rng, or a fixed colour. */
-  color: Color | "alt" | "any" | null;
+  /** A fixed colour, or null for the rock. */
+  color: Color | null;
 }
 
 export interface Wave {
@@ -58,9 +58,9 @@ export const WAVES: Wave[] = [
     sentence: "The one where you never keep the same colour twice.",
     hint: "Three in a row, colours alternate.",
     entries: [
-      { beat: 0, col: 1, color: "alt" },
-      { beat: 2, col: 3, color: "alt" },
-      { beat: 4, col: 5, color: "alt" },
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 2, col: 3, color: "red" },
+      { beat: 4, col: 5, color: "cyan" },
     ],
   },
   {
@@ -84,7 +84,7 @@ export const WAVES: Wave[] = [
     hint: "Deflect the rock first, then shoot the creature.",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
-      { beat: 5, col: 3, color: "any" },
+      { beat: 5, col: 3, color: "cyan" },
     ],
   },
   {
@@ -92,10 +92,10 @@ export const WAVES: Wave[] = [
     sentence: "The one where the cannon never stops moving.",
     hint: "A broad front — change columns fast.",
     entries: [
-      { beat: 0, col: 0, color: "alt" },
-      { beat: 1, col: 2, color: "alt" },
-      { beat: 2, col: 4, color: "alt" },
-      { beat: 3, col: 6, color: "alt" },
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 1, col: 2, color: "red" },
+      { beat: 2, col: 4, color: "cyan" },
+      { beat: 3, col: 6, color: "red" },
     ],
   },
   {
@@ -103,9 +103,9 @@ export const WAVES: Wave[] = [
     sentence: "The one that alternates between the two jobs on a fixed beat.",
     hint: "Creature, rock, creature, rock.",
     entries: [
-      { beat: 0, col: 2, color: "alt" },
+      { beat: 0, col: 2, color: "cyan" },
       { beat: 3, col: 4, kind: "meteor", color: null },
-      { beat: 6, col: 5, color: "alt" },
+      { beat: 6, col: 5, color: "red" },
       { beat: 9, col: 2, kind: "meteor", color: null },
     ],
   },
@@ -114,11 +114,11 @@ export const WAVES: Wave[] = [
     sentence: "The one where the jobs overlap and you have to say what you are doing.",
     hint: "It overlaps now. Tell each other what you are taking.",
     entries: [
-      { beat: 0, col: 1, color: "alt" },
-      { beat: 1, col: 5, color: "alt" },
+      { beat: 0, col: 1, color: "red" },
+      { beat: 1, col: 5, color: "cyan" },
       { beat: 3, col: 3, kind: "meteor", color: null },
-      { beat: 5, col: 0, color: "alt" },
-      { beat: 6, col: 6, color: "alt" },
+      { beat: 5, col: 0, color: "red" },
+      { beat: 6, col: 6, color: "cyan" },
     ],
   },
   {
@@ -126,8 +126,8 @@ export const WAVES: Wave[] = [
     sentence: "The one where shooting something is only half of getting it.",
     hint: "Shoot the pod loose, then follow it with the cannon and open the maw as it arrives.",
     entries: [
-      { beat: 2, col: 1, color: "alt" },
-      { beat: 7, col: 5, color: "alt" },
+      { beat: 2, col: 1, color: "cyan" },
+      { beat: 7, col: 5, color: "red" },
     ],
     pods: [{ beat: 0, col: 3, row: 3 }],
   },
@@ -136,11 +136,11 @@ export const WAVES: Wave[] = [
     sentence: "The one where everything you have learned arrives at once.",
     hint: "All of it together.",
     entries: [
-      { beat: 0, col: 0, color: "alt" },
-      { beat: 0, col: 6, color: "alt" },
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 0, col: 6, color: "red" },
       { beat: 2, col: 3, kind: "meteor", color: null },
-      { beat: 4, col: 2, color: "alt" },
-      { beat: 4, col: 4, color: "alt" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 4, col: 4, color: "red" },
       { beat: 7, col: 1, kind: "meteor", color: null },
       { beat: 7, col: 5, kind: "meteor", color: null },
     ],
