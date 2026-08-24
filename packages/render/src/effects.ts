@@ -1,8 +1,8 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
-import type { SimEvent } from "@neon-spore/sim";
+import type { PodKind, SimEvent } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { Sparks } from "./sparks.js";
 
 interface Deflect {
@@ -26,12 +26,18 @@ const SHOCK_LIFE = 0.5;
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
 /**
- * The swallow, end to end. The skin comes apart for the first stretch of it and
- * the ship lights up for the rest — two movements, one timer, so the flash can
- * never arrive before the chewing that earns it.
+ * The swallow, end to end: the skin comes apart, then the ship lights up —
+ * two movements, one timer, so the flash never arrives before the chewing.
  */
 const SWALLOW_LIFE = 1.05;
 const CHEW_SHARE = 0.55;
+
+/** The one-word receipt for what a pod just gave, and the colour it reads in. */
+const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
+  mend: { text: "+HULL", hex: PALETTE.pod },
+  purge: { text: "SWEPT", hex: PALETTE.ember },
+  ward: { text: "WARDED", hex: PALETTE.shieldRim },
+};
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -50,6 +56,8 @@ export class Effects {
   private guardHit = 0;
   /** Counts down from `SWALLOW_LIFE` while a pod is being taken in. */
   private swallow = 0;
+  /** Which kind the swallow currently running is for, for the receipt. */
+  private podKind: PodKind | null = null;
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -109,6 +117,7 @@ export class Effects {
           // takes something instead of losing it.
           this.sparks.implode(tileCX(l, e.col), l.hullY, 22, PALETTE.pod, l.tile * 1.9);
           this.swallow = SWALLOW_LIFE;
+          this.podKind = e.kind;
           break;
         }
         case "podLost":
@@ -202,17 +211,19 @@ export class Effects {
     this.sparks.draw(ctx);
   }
 
-  /** The word itself, over the hull. */
+  /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
-    if (this.guardHit <= 0) return;
-    const a = Math.min(1, this.guardHit / 0.6);
-    ctx.globalAlpha = a;
-    ctx.textAlign = "center";
-    ctx.fillStyle = PALETTE.shieldRim;
-    ctx.font = '600 15px "Courier New",monospace';
-    ctx.fillText("DEFLECTED", l.width / 2, l.hullY - l.tile * 0.9);
-    ctx.textAlign = "left";
-    ctx.globalAlpha = 1;
+    if (this.guardHit > 0) {
+      drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, this.guardHit / 0.6), 0.9);
+    }
+    if (this.swallow <= 0 || !this.podKind) return;
+    const done = 1 - this.swallow / SWALLOW_LIFE;
+    if (done < CHEW_SHARE) return; // wait for the chewing to finish first
+    const after = (done - CHEW_SHARE) / (1 - CHEW_SHARE);
+    const a = Math.min(1, 1 - after);
+    if (a <= 0) return;
+    const { text, hex } = POD_RECEIPT[this.podKind];
+    drawWord(ctx, l, text, hex, a, 0.55);
   }
 
   private burst(x: number, y: number, n: number, hex: string): void {
@@ -220,4 +231,20 @@ export class Effects {
   }
 }
 
-export { STROKE };
+/** One word, centred above the hull. `tiles` is how far above `l.hullY`. */
+function drawWord(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  text: string,
+  hex: string,
+  alpha: number,
+  tiles: number,
+): void {
+  ctx.globalAlpha = alpha;
+  ctx.textAlign = "center";
+  ctx.fillStyle = hex;
+  ctx.font = '600 15px "Courier New",monospace';
+  ctx.fillText(text, l.width / 2, l.hullY - l.tile * tiles);
+  ctx.textAlign = "left";
+  ctx.globalAlpha = 1;
+}

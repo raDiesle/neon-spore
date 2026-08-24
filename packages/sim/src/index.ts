@@ -11,6 +11,7 @@ export type {
   CreatureKind,
   GuardStats,
   Pod,
+  PodKind,
   Scar,
   TimedCommand,
 } from "./types.js";
