@@ -1,3 +1,4 @@
+import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -135,6 +136,85 @@ export function sweep(
     ctx.lineWidth = width;
     ctx.stroke(body);
   }
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+/**
+ * Bioluminescence: a handful of soft lights adrift under the skin, each one a
+ * different colour off the film, each on its own slow course. This is what
+ * makes the ship read as a living thing rather than a lit shape — a jellyfish
+ * is dark where it is thick and bright in patches, and the patches move.
+ *
+ * `surfaceY` is the membrane above a given x, so a light hangs under the skin
+ * and rises with a lobe instead of swimming through the middle of the hull.
+ */
+export function bloom(
+  ctx: CanvasRenderingContext2D,
+  filled: Path2D,
+  l: Layout,
+  time: number,
+  surfaceY: (x: number) => number,
+): void {
+  ctx.save();
+  ctx.clip(filled);
+  for (let i = 0; i < 5; i++) {
+    // Coprime-ish speeds, so the five never line up into a row.
+    const u = (0.11 + i * 0.23 + time * (0.013 + i * 0.004)) % 1;
+    const x = l.gridLeft + u * l.gridWidth;
+    const breathe = 0.62 + 0.38 * Math.sin(time * (0.5 + i * 0.17) + i * 2.1);
+    const y = surfaceY(x) + l.tile * (0.55 + 0.75 * breathe);
+    halo(
+      ctx,
+      x,
+      y,
+      l.tile * (1.1 + 0.5 * breathe),
+      film(i / 5 + time * 0.02),
+      0.1 + 0.12 * breathe,
+    );
+  }
+  ctx.restore();
+}
+
+/**
+ * Dither.
+ *
+ * A gradient across a hull this large steps through the 8-bit ramp slowly
+ * enough that the steps themselves are visible as bands — the eye finds an edge
+ * in a wall of one colour that no amount of extra colour stops removes. A film
+ * of noise under a twentieth of a level breaks the band up: too little to read
+ * as grain, enough that no two neighbouring pixels round to the same step.
+ */
+let grain: CanvasPattern | null = null;
+
+function grainPattern(ctx: CanvasRenderingContext2D): CanvasPattern | null {
+  if (grain) return grain;
+  const size = 64;
+  const c = document.createElement("canvas");
+  c.width = size;
+  c.height = size;
+  const g = c.getContext("2d");
+  if (!g) return null;
+  const img = g.createImageData(size, size);
+  for (let i = 0; i < img.data.length; i += 4) {
+    img.data[i] = 255;
+    img.data[i + 1] = 255;
+    img.data[i + 2] = 255;
+    img.data[i + 3] = Math.random() * 26;
+  }
+  g.putImageData(img, 0, 0);
+  grain = ctx.createPattern(c, "repeat");
+  return grain;
+}
+
+export function dither(ctx: CanvasRenderingContext2D, filled: Path2D): void {
+  const pattern = grainPattern(ctx);
+  if (!pattern) return;
+  ctx.save();
+  ctx.clip(filled);
+  ctx.globalAlpha = 0.55;
+  ctx.fillStyle = pattern;
+  ctx.fill(filled);
   ctx.globalAlpha = 1;
   ctx.restore();
 }

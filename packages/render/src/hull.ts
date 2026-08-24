@@ -14,7 +14,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
-import { innerLight, iridescence, sweep } from "./sheen.js";
+import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import type { ShieldSegment } from "./shield.js";
 
 /**
@@ -157,17 +157,23 @@ export function drawHull(
   ctx.rect(l.gridLeft, 0, l.gridWidth, l.height);
   ctx.clip();
 
+  // Dark where it is thick, bright at the skin: a jellyfish is mostly the
+  // membrane, and a hull filled edge to edge with its own colour is a plate.
+  // The light is put back on top, by the passes in sheen.ts.
   const top = Math.min(...pts.map((p) => p.y));
   const bg = ctx.createLinearGradient(0, top, 0, l.bandTop);
-  bg.addColorStop(0, "#EFCBFF");
-  bg.addColorStop(0.3, PALETTE.hull);
-  bg.addColorStop(1, "#33095C");
+  bg.addColorStop(0, "#B268F0");
+  bg.addColorStop(0.14, "#6C2AAE");
+  bg.addColorStop(0.5, "#33105E");
+  bg.addColorStop(1, "#150632");
   ctx.fillStyle = bg;
   ctx.fill(filled);
 
+  bloom(ctx, filled, l, time, (x) => skin(f, x).y);
   innerLight(ctx, body, filled);
   iridescence(ctx, body, filled, l, time);
   sweep(ctx, body, filled, l, time);
+  dither(ctx, filled);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
   drawScars(
