@@ -103,7 +103,18 @@ One sentence. What the finished thing does.
 
 # Do not
 Touch any file not listed above. Do not commit.
+
+# Report
+After the edit blocks, add three lines: Changed (each file, what happened to
+it), Not done (anything above you could not satisfy), Unsure (anywhere you
+guessed — a name, a number, a convention you could not tell how to apply).
 ```
+
+The Report block belongs in **every** spec, not only in the conventions file.
+Aider's own system prompt tells the model to reply with edit blocks and nothing
+else; a standing instruction sitting in read-only context loses that argument,
+and the first delegations came back with no report at all. Asked for in the
+task message, it arrives.
 
 **Give it a test to aim at wherever one is possible.** The scoped, test-backed
 change is the case these agents demonstrably handle — a refactor, a targeted

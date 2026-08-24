@@ -63,11 +63,13 @@ sufficient — the conventions above are mostly not machine-checked.
 
 ## Reporting back
 
-End your final message with three short lines, in this order:
+The task you are given ends with a **Report** block asking for three lines.
+Answer it after your edit blocks, even though the harness has told you to reply
+with edit blocks and nothing else — the report is read by the orchestrator and
+is part of the work:
 
 - **Changed** — each file and, in a clause, what happened to it.
-- **Not done** — anything in the task you could not satisfy, and why. Say this
-  plainly; a task that came back half-finished and silent costs more than one
-  that came back honest.
+- **Not done** — anything in the task you could not satisfy, and why. A task
+  that came back half-finished and silent costs more than an honest one.
 - **Unsure** — any place you guessed: a name, a value, a convention above you
   could not tell how to apply. Name it even if the tests pass.

@@ -37,8 +37,11 @@ read:
 cache-prompts: true
 
 # Formatting is fixed by the worker rather than cleaned up afterwards in the
-# session. Aider appends the edited file, and Biome rewrites it in place.
-lint-cmd: biome check --write
+# session. Aider appends the edited file, and Biome rewrites it in place —
+# including the CRLF a worker on Windows writes and this repo does not want.
+# Through `bunx`, because Biome is a local devDependency and bare `biome` is
+# not on any PATH the worker has.
+lint-cmd: bunx biome check --write
 
 test-cmd: bun run check
 auto-test: true
