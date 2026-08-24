@@ -9,4 +9,6 @@ dist/
 coverage/
 .aider*
 !.aider.conf.yml
+!.aider.model.settings.yml
+!.aiderignore
 .claude/tmp/

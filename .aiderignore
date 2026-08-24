@@ -1,0 +1,16 @@
+# Kept out of the worker's repo map and out of reach of `/add`.
+
+# The original prototypes. Reference only, never imported — and never a model
+# for new code, which is exactly what a repo map would turn them into.
+legacy/
+
+# Generated, large, and nothing to learn from.
+dist/
+node_modules/
+tools/shape-sheet/*.svg
+coverage/
+
+# The harness that drives the worker is not the worker's business.
+.claude/
+.aider.conf.yml
+.aider.model.settings.yml

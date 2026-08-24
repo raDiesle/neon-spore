@@ -98,7 +98,6 @@ Add `--read <path>` for a file it must see but must not change.
 ## 3. Take it back
 
 ```bash
-bun run format
 bun run check
 git diff --stat
 ```
@@ -110,8 +109,10 @@ addressed to a reader who does not exist; a wave that fails the one-sentence
 test.
 
 The edit hooks in `.claude/hooks/` do **not** fire for the worker's writes —
-they are bound to this session's `Edit`/`Write`. `bun run format` and
-`bun run check` in step 3 are what replaces them. Do not skip them.
+they are bound to this session's `Edit`/`Write`. What replaces them lives in
+`.aider.conf.yml`: `lint-cmd` runs Biome over each edited file and `test-cmd`
+runs `bun run check` after every edit. Re-run the check yourself anyway — the
+worker's last edit can land after its final test.
 
 If it came back wrong twice, stop and do the task here. A third attempt costs
 more in review than it saves in worker tokens.

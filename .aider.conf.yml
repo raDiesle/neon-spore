@@ -17,11 +17,17 @@ model: openrouter/z-ai/glm-5.2
 # in proportion to file length rather than to the size of the change.
 edit-format: diff
 
-# The invariants, handed over as read-only context so they do not have to be
-# repeated in every spec.
+# Aider derives the reply language from the OS locale, so a German Windows
+# makes the worker report in German. The repo is English throughout and the
+# report is read by the orchestrator, not by a person — pin it.
+chat-language: english
+
+# The rulebook, read-only so it is cached and cannot be edited. CONVENTIONS.md
+# is written for this worker; CLAUDE.md is not, and handing it over was a
+# mistake — it instructs its reader to delegate implementation and to commit
+# when done, both of which are exactly wrong on this side of the handover.
 read:
-  - CLAUDE.md
-  - docs/INDEX.md
+  - CONVENTIONS.md
 
 # The contract. Aider re-prompts itself with the failure output until this
 # passes, which is the entire point: the retries happen on cheap tokens.
@@ -29,6 +35,10 @@ read:
 # previous attempt. Cached input is roughly a tenth the price of fresh, and it
 # is the largest single lever on what a delegated task costs.
 cache-prompts: true
+
+# Formatting is fixed by the worker rather than cleaned up afterwards in the
+# session. Aider appends the edited file, and Biome rewrites it in place.
+lint-cmd: biome check --write
 
 test-cmd: bun run check
 auto-test: true
