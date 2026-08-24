@@ -91,6 +91,44 @@ each other. Rewritten as three numbered assertions with "do not add a fourth",
 there was nothing left to deliberate. Prefer enumeration over description
 wherever a spec touches behaviour.
 
+## Three more, and what was tried
+
+The guards for these live in the delegate skill and in `tools/delegate/`, so
+what is worth recording here is the part a guard cannot carry: what was tried
+and did not work. A failure with no record of its dead ends gets its dead ends
+retried.
+
+The run that reports success and changes nothing. Aider scans the message and
+the files already in the chat for anything that looks like a repository path,
+and offers to add each one. `yes-always: true` accepts, and the reply that
+should have carried the edit is spent on that exchange instead. The worker then
+reports the work done and `git diff` is empty. Tried and useless, all three:
+rewording the spec, because the mentions come out of the files rather than the
+message, so a document citing three source paths re-triggers it on every
+attempt; `--no-detect-urls`, which is about URLs and not files; and escalating
+the model, because it is not a model mistake and the better model fails in
+exactly the same way. What works is leaving it nothing to ask for, which is
+what `bun run delegate` does by handing every mentioned path over read-only
+before it starts.
+
+A spec that asserts something false about the repository. Not a worker failure.
+A spec claimed Biome wraps an array of object literals once the line passes a
+width. The real rule is that it wraps once the array has more than one element.
+The worker spent an entire reply deriving the true rule empirically against the
+stated false one, and hit its output ceiling without finishing. The lesson is
+about what a spec asserts rather than how long it is. A claim about this
+repository that the worker can check, it will check, and it will spend the
+reply doing so. State only what is known; where a rule is uncertain, name a
+file that demonstrates it and let the worker read it instead.
+
+The worker fixing another session's failures. `bun run check` is the right
+default for `test-cmd` and the wrong one when another session has uncommitted
+work in the tree. The worker sees their lint failures, takes them for its own,
+and edits files outside its whitelist to fix them. Pass a scoped test command
+instead, naming only the package the task touches — for a task under
+`tools/director`, a typecheck plus Biome and the tests for that directory
+alone.
+
 ## What is set up
 
 | File | Does |
