@@ -7,3 +7,6 @@ dist/
 !.env.example
 .wrangler/
 coverage/
+.aider*
+!.aider.conf.yml
+.claude/tmp/

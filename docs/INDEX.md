@@ -11,6 +11,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
+| `docs/delegating.md` | you hand implementation to the cheap worker model |
 
 ## Specification
 

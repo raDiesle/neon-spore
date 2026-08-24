@@ -1,0 +1,27 @@
+# The cheap implementation worker. Opus orchestrates and reviews, this types.
+# Driven from .claude/skills/delegate, never by hand.
+# Requires DEEPSEEK_API_KEY in the environment.
+
+model: deepseek/deepseek-chat
+
+# The invariants, handed over as read-only context so they do not have to be
+# repeated in every spec.
+read:
+  - CLAUDE.md
+  - docs/INDEX.md
+
+# The contract. Aider re-prompts itself with the failure output until this
+# passes, which is the entire point: the retries happen on cheap tokens.
+test-cmd: bun run check
+auto-test: true
+
+# Committing stays with the orchestrator. CLAUDE.md wants only the files a task
+# touched, staged by path, one commit per coherent change — none of which a
+# worker loop can decide.
+auto-commits: false
+dirty-commits: false
+
+# Always non-interactive: invoked with --message-file from a single Bash call.
+yes-always: true
+check-update: false
+analytics-disable: true
