@@ -242,6 +242,18 @@ that got past review once is stopped from getting past it twice.
 Then walk the spec's Goal against the diff, bullet by bullet. Something absent
 from both the diff and the *Not done* line is the case to look for hardest.
 
+**A guard has to be fired, not read.** Anything whose job is to stop, refuse or
+abort is reviewed by triggering it — a tiny ceiling, a rejected argument, a
+forced failure. The run ceiling in `tools/delegate` passed three readings and
+was still wrong: it aborted correctly and then fell through to the wrapper's
+no-op check, which overwrote the exit code and blamed an uncovered file
+mention. Two guards, each right alone. Only running it showed that.
+
+That cost four rounds where two would have done, and the fault was in the
+specs, not the worker — each one described a fragment instead of the behaviour
+from end to end. For a guard, write the whole path down once: what fires, what
+it prints, what it returns, and what downstream code must now leave alone.
+
 If it came back wrong twice, stop. Escalate the model once by swapping the
 line in `.aider.conf.yml`; if that misses too, do the task here. And if the
 worker reports the same test failing over and over, do not re-run the same
