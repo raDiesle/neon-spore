@@ -1,8 +1,8 @@
 # The cheap implementation worker. Opus orchestrates and reviews, this types.
 # Driven from .claude/skills/delegate, never by hand.
-# Requires DEEPSEEK_API_KEY in the environment.
+# Requires OPENROUTER_API_KEY in the environment.
 
-model: deepseek/deepseek-chat
+model: openrouter/z-ai/glm-4.6
 
 # The invariants, handed over as read-only context so they do not have to be
 # repeated in every spec.

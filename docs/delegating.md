@@ -2,7 +2,7 @@
 
 `docs/token-budget.md` says: plan with a large model, execute with a fast one.
 This is the machinery for the second half. A large model orchestrates in
-Claude Code; a second process — `aider` driving DeepSeek — does the editing and
+Claude Code; a second process — `aider` driving an open-weights model — does the editing and
 absorbs the failed attempts.
 
 ## Why two processes and not a proxy
@@ -34,12 +34,20 @@ and it still looks wrong.
 
 ## The worker model
 
-`deepseek-chat` (V3), not `deepseek-reasoner` (R1). R1 is a reasoner: long
-thinking traces, slow, and comparatively weak at the many-turn edit loop this
-is. Keep R1 for a single hard algorithmic question asked once, not for typing.
+`z-ai/glm-4.6` through OpenRouter. Second choice when it comes back wrong:
+`qwen/qwen3-coder`. Qwen is the stronger one-shot generator, GLM the stronger
+agent — better at holding a constraint across many turns and at correcting
+itself from test output without drifting. This loop is not one-shot generation,
+so the agentic half is what is being bought.
 
-The slot is one line in `.aider.conf.yml`, so Qwen3-Coder, GLM or Kimi via
-OpenRouter are a config change and not a migration.
+Not a reasoning model. R1 and its kind emit long thinking traces, are slow, and
+are comparatively weak at a many-turn edit loop. Ask one a hard algorithmic
+question once; do not put one behind the typing.
+
+OpenRouter rather than an account per provider, because the point of a
+one-line model slot is defeated if changing it means a new key and a new
+prepaid balance. The 5% credit fee buys the ability to A/B two workers on the
+same spec for pennies, plus fallback when a provider is down mid-loop.
 
 ## What is set up
 
@@ -48,7 +56,7 @@ OpenRouter are a config change and not a migration.
 | `.aider.conf.yml` | worker model, the `bun run check` retry loop, committing off |
 | `.claude/skills/delegate` | the procedure: spec, file list, review, commit |
 
-Requires `aider` on PATH and `DEEPSEEK_API_KEY` in the environment. Without
+Requires `aider` on PATH and `OPENROUTER_API_KEY` in the environment. Without
 either, the skill says so and the session does the work itself.
 
 ## The habit that actually saves tokens

@@ -1,12 +1,12 @@
 ---
 name: delegate
-description: Hand an implementation task to the cheap worker (aider + DeepSeek) instead of typing it in this session. Use when a task is mechanical, its blast radius is a known list of files, and `bun run check` can decide whether the result is right.
+description: Hand an implementation task to the cheap worker (aider + an open-weights model via OpenRouter) instead of typing it in this session. Use when a task is mechanical, its blast radius is a known list of files, and `bun run check` can decide whether the result is right.
 ---
 
 # Delegating implementation
 
 The orchestrator decides *what* and *where*; the worker types. The saving is
-not the typing — it is the retries. Aider re-prompts DeepSeek with the failure
+not the typing — it is the retries. Aider re-prompts the worker with the failure
 output of `bun run check` until it is green, and none of that traffic reaches
 this session.
 
@@ -91,5 +91,5 @@ commit — `auto-commits: false` is deliberate, not an oversight.
 
 ## When the worker cannot run
 
-If `aider` is not on PATH or `DEEPSEEK_API_KEY` is unset, say so once and do
+If `aider` is not on PATH or `OPENROUTER_API_KEY` is unset, say so once and do
 the task in this session. Do not install anything and do not fall back silently.
