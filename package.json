@@ -14,6 +14,7 @@
     "preview": "bun run --cwd apps/game preview",
     "preview:once": "bun run --cwd apps/game preview:once",
     "director": "bun run --cwd tools/director start",
+    "delegate": "bun run tools/delegate/run.ts",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "typecheck": "tsc --noEmit",
