@@ -57,7 +57,12 @@ question asked once. GLM reasons and edits in the same turn, which is a
 different thing, and its thinking tokens are billed as output — the reason its
 per-task cost sits above what its input rate suggests.
 
-Never an Anthropic model through OpenRouter. Those are paid for on a separate
+Never an Anthropic model through OpenRouter, and this one is enforced by
+`.claude/hooks/worker-model-guard.sh` because it already happened: a session
+whose worker had missed put `--model openrouter/anthropic/claude-sonnet-4.5` on
+the command line and escalated that way twenty-five times. A command-line
+`--model` overrides the config file and every provider rule in it, so prose
+could not have stopped it and neither could the model settings. Those are paid for on a separate
 account that the Claude app is configured against, and routing them through
 here would bill the same work twice over on the wrong ledger. The worker slot
 is for open weights only, and `provider.ignore` in the model settings holds

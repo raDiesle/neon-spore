@@ -1,6 +1,8 @@
 {
   "permissions": {
-    "allow": ["Bash(aider:*)"]
+    "allow": [
+      "Bash(aider:*)"
+    ]
   },
   "hooks": {
     "PostToolUse": [
@@ -30,6 +32,17 @@
             "type": "command",
             "command": "bash .claude/hooks/check-on-stop.sh",
             "timeout": 180
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/worker-model-guard.sh"
           }
         ]
       }
