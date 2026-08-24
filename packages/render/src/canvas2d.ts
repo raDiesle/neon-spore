@@ -69,6 +69,10 @@ export class Canvas2DRenderer implements Renderer {
     // The stage depends on the band, and the band on the role, so it is sized
     // per frame like the layout rather than at resize.
     const stage = computeStage(this.viewport, world.cfg, view.role);
+    // A hidden tab reports a zero-sized window, and a field with no width
+    // divides by zero on its way into the hull contour. There is nothing to
+    // draw into either way, so leave the canvas alone until a size arrives.
+    if (stage.width < 1 || stage.height < 1) return;
     const l = this.layoutFor(view, stage);
 
     // Outside the stage is not the game. It is painted flat and left alone, and

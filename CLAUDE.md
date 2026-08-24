@@ -97,6 +97,11 @@ Never start a server with a backgrounded shell command. Use the `game` entry in
   reach for that first, since most shape work is nudging a parameter and asking
   whether the result is more or less than before. `bun run shapes` regenerates
   the still and the motion sheet for the questions that need an eye.
+- Anything drawn is drawn again in `packages/render/test/frame.test.ts`, which
+  runs whole frames through a canvas that refuses what a real one refuses — an
+  unparseable colour, a NaN coordinate, a negative radius. It is the only test
+  that covers render/, and it catches the class of mistake a type check cannot:
+  a value that is a perfectly good `string` and not a colour.
 - Files stay under ~250 lines. Split rather than grow.
 - Code, identifiers and commits in English. The design vocabulary
   (hull, lobe, beat, guard) is fixed — do not invent synonyms.
