@@ -77,16 +77,34 @@ export interface Stage {
 /** Widest the stage is allowed to get, width / height. Roughly a 9:16 phone. */
 const STAGE_ASPECT = 0.56;
 
-export function computeStage(viewport: Viewport): Stage {
+/**
+ * The band is a share of the screen height and one role needs less of it, so
+ * both the stage and the layout ask for it before anything else is placed.
+ */
+function bandHeightFor(height: number, cfg: SimConfig, role: ViewRole): number {
+  return (height * (role === "test" ? cfg.bandPct : cfg.bandSoloPct)) / 100;
+}
+
+/**
+ * The columns are the frame, not the phone. The hull is exactly as wide as the
+ * field and is clipped to it, so any stage wider than the columns shows empty
+ * background beside the ship — and it changes width with the band, which is why
+ * the gap used to move when the view switched. The tile is whatever the height
+ * leaves; the stage is that many columns wide, and never wider than a phone or
+ * than the window.
+ */
+export function computeStage(viewport: Viewport, cfg: SimConfig, role: ViewRole): Stage {
   const height = viewport.height;
-  const width = Math.min(viewport.width, height * STAGE_ASPECT);
+  const usable = height - bandHeightFor(height, cfg, role) - cfg.radarHeightPx;
+  const tile = Math.max(0, usable / cfg.rows);
+  const width = Math.min(viewport.width, height * STAGE_ASPECT, cfg.cols * tile);
   return { left: Math.round((viewport.width - width) / 2), top: 0, width, height };
 }
 
 export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole): Layout {
   const { width, height } = viewport;
   const solo = role !== "test";
-  const bandHeight = (height * (solo ? cfg.bandSoloPct : cfg.bandPct)) / 100;
+  const bandHeight = bandHeightFor(height, cfg, role);
   const playHeight = height - bandHeight;
   const bandTop = playHeight;
   const radarHeight = cfg.radarHeightPx;

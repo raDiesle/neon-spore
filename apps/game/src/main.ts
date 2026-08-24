@@ -1,5 +1,11 @@
 import { buildQueue, WAVES } from "@neon-spore/content";
-import { Canvas2DRenderer, computeLayout, computeStage, type Layout } from "@neon-spore/render";
+import {
+  Canvas2DRenderer,
+  computeLayout,
+  computeStage,
+  type Layout,
+  type Stage,
+} from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -26,7 +32,6 @@ const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
 
 let viewport = { width: 1, height: 1, dpr: 1 };
-let stage = computeStage(viewport);
 const resize = (): void => {
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -36,7 +41,6 @@ const resize = (): void => {
   if (width < 1 || height < 1) return;
   viewport = { width, height, dpr: Math.min(window.devicePixelRatio || 1, 2) };
   renderer.resize(viewport);
-  stage = computeStage(viewport);
 };
 
 /**
@@ -44,8 +48,11 @@ const resize = (): void => {
  * the same way: from the stage rather than the window, and for whichever role
  * the view switch is showing. Cheap enough to compute per event.
  */
-const layout = (): Layout =>
-  computeLayout({ width: stage.width, height: stage.height, dpr: viewport.dpr }, cfg, view.role());
+const stage = (): Stage => computeStage(viewport, cfg, view.role());
+const layout = (): Layout => {
+  const s = stage();
+  return computeLayout({ width: s.width, height: s.height, dpr: viewport.dpr }, cfg, view.role());
+};
 window.addEventListener("resize", resize);
 new ResizeObserver(resize).observe(document.documentElement);
 resize();
@@ -95,7 +102,7 @@ bindControls({
   canvas,
   buffer,
   layout,
-  stage: () => stage,
+  stage,
   isOver: () => world.over,
   onPauseToggle: () => setRunning(!running),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),

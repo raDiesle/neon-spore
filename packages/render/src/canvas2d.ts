@@ -23,7 +23,6 @@ import { ShieldBody } from "./shield.js";
 export class Canvas2DRenderer implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-  private stage: Stage = { left: 0, top: 0, width: 0, height: 0 };
   private effects = new Effects();
   /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
   private armed = 0;
@@ -48,7 +47,6 @@ export class Canvas2DRenderer implements Renderer {
     this.canvas.style.width = `${viewport.width}px`;
     this.canvas.style.height = `${viewport.height}px`;
     this.ctx.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
-    this.stage = computeStage(viewport);
   }
 
   /**
@@ -57,9 +55,9 @@ export class Canvas2DRenderer implements Renderer {
    * the field. Cheap arithmetic, so it is redone every frame rather than
    * cached — a test slider moves `bandPct` and `cols` between two frames.
    */
-  private layoutFor(view: ViewState): Layout {
+  private layoutFor(view: ViewState, stage: Stage): Layout {
     return computeLayout(
-      { width: this.stage.width, height: this.stage.height, dpr: this.viewport.dpr },
+      { width: stage.width, height: stage.height, dpr: this.viewport.dpr },
       view.world.cfg,
       view.role,
     );
@@ -68,8 +66,10 @@ export class Canvas2DRenderer implements Renderer {
   draw(view: ViewState): void {
     const { ctx } = this;
     const { world } = view;
-    const l = this.layoutFor(view);
-    const { stage } = this;
+    // The stage depends on the band, and the band on the role, so it is sized
+    // per frame like the layout rather than at resize.
+    const stage = computeStage(this.viewport, world.cfg, view.role);
+    const l = this.layoutFor(view, stage);
 
     // Outside the stage is not the game. It is painted flat and left alone, and
     // everything below draws in stage coordinates — as does input hit-testing,
