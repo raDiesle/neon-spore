@@ -3,12 +3,13 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * The field itself: the background, the grid that pulses on the
- * beat, and the radar strip along the top edge.
+ * The field itself: the background, the cannon's column marker, and the radar
+ * strip along the top edge.
  *
- * The beat is visible here and nowhere else in the geometry — docs/spec/systems.md 5.8 asks for
- * grid lines and crossing points that light up on every beat and fade, because
- * the pulse is the thing both players share across a voice delay.
+ * docs/spec/systems.md 5.8 asks for grid lines and crossing points that light
+ * up on every beat and fade, because the pulse is the thing both players share
+ * across a voice delay. That lattice is written and switched off — see
+ * `SHOW_TILE_GRID`.
  */
 export function drawBackground(ctx: CanvasRenderingContext2D, l: Layout): void {
   const g = ctx.createRadialGradient(
@@ -26,6 +27,17 @@ export function drawBackground(ctx: CanvasRenderingContext2D, l: Layout): void {
 }
 
 /**
+ * The tile lattice is off. It reads as decoration today: nothing in the game
+ * asks a player to name a coordinate, so the lines only compete with the
+ * silhouettes. Flip this back on when a mechanic needs a player to call out a
+ * square — a catapult shot aimed at a column and a row — and the grid becomes
+ * the thing being read out loud rather than a texture behind it.
+ *
+ * The cannon's column marker below is not part of it and stays.
+ */
+const SHOW_TILE_GRID = false;
+
+/**
  * `flash` is 1 on the beat and decays to 0 before the next one. It is derived
  * from `beatPhase`, never stored — the simulation has no notion of a fade.
  */
@@ -35,6 +47,20 @@ export function drawGrid(
   cannonCol: number,
   flash: number,
 ): void {
+  if (SHOW_TILE_GRID) drawTiles(ctx, l, flash);
+
+  // The cannon's own column, straight up. Spec 5.8: this is the only path
+  // marker left in the field — everything else is read off the radar.
+  const x = tileCX(l, cannonCol);
+  const cg = ctx.createLinearGradient(0, l.gridTop, 0, l.gridTop + l.gridHeight);
+  cg.addColorStop(0, "rgba(47,224,240,0)");
+  cg.addColorStop(1, "rgba(47,224,240,.16)");
+  ctx.fillStyle = cg;
+  ctx.fillRect(x - l.tile / 2, l.gridTop, l.tile, l.gridHeight);
+}
+
+/** Lines on every tile edge, brighter crossings, both pulsing on the beat. */
+function drawTiles(ctx: CanvasRenderingContext2D, l: Layout, flash: number): void {
   ctx.strokeStyle = `rgba(124,107,196,${0.07 + 0.3 * flash})`;
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -59,15 +85,6 @@ export function drawGrid(
       ctx.fillRect(l.gridLeft + c * l.tile - s / 2, l.gridTop + r * l.tile - s / 2, s, s);
     }
   }
-
-  // The cannon's own column, straight up. Spec 5.8: this is the only path
-  // marker left in the field — everything else is read off the radar.
-  const x = tileCX(l, cannonCol);
-  const cg = ctx.createLinearGradient(0, l.gridTop, 0, l.gridTop + l.gridHeight);
-  cg.addColorStop(0, "rgba(47,224,240,0)");
-  cg.addColorStop(1, "rgba(47,224,240,.16)");
-  ctx.fillStyle = cg;
-  ctx.fillRect(x - l.tile / 2, l.gridTop, l.tile, l.gridHeight);
 }
 
 /**
