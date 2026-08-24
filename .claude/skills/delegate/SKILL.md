@@ -54,6 +54,31 @@ stray `Math.random` there comes back green. That is not a reason to withhold
 the task; it is a reason to put the constraint in the spec **and** to look for
 it by name in the diff.
 
+## 0. Cut the task to one change
+
+The failure that shows up in every report on these agents is the same: a task
+big enough that the model pushes deep into its own context, loses the decisions
+it made early, and returns something partial but confident. It does not
+announce itself — the diff looks finished.
+
+So one delegation is **one coherent change**. Two distinct behaviours, or more
+than about three files, is two delegations run in sequence, each reviewed
+before the next is written. The worker is cheap; a second pass costs almost
+nothing next to reviewing a tangle.
+
+Then check the ground before handing over:
+
+```bash
+git status --short <every file in your whitelist>
+```
+
+A file another session has already modified makes the returned diff unreadable
+— you cannot tell the worker's work from theirs. Reorder: delegate a part that
+touches clean files first, and come back to the rest. Neither this check nor
+the one-change rule is a reason to keep work; both are about **sequencing** the
+handover, never about cancelling it. Splitting a task means two delegations,
+not one delegation and one thing you typed yourself.
+
 ## 1. Write the spec
 
 `.claude/tmp/spec.md`. Keep it short — it is read by a model with less patience
@@ -80,7 +105,15 @@ One sentence. What the finished thing does.
 Touch any file not listed above. Do not commit.
 ```
 
-`CLAUDE.md` and `docs/INDEX.md` already reach the worker as read-only context
+**Give it a test to aim at wherever one is possible.** The scoped, test-backed
+change is the case these agents demonstrably handle — a refactor, a targeted
+migration, a small interface change, each with a focused test. Prose acceptance
+("the cannon should slide") leaves the worker guessing what done means;
+"`bun test packages/sim` passes, including a new case asserting X" does not. In
+`sim` and `content` a test is nearly always possible, and writing it is part of
+the delegated work, not preparation for it.
+
+`CONVENTIONS.md` already reaches the worker as read-only context
 (`read:` in `.aider.conf.yml`), so repeat only the invariants this particular
 task could plausibly break.
 
@@ -90,10 +123,25 @@ Name every file it may edit. That list is the blast radius *and* the token
 budget — aider reads what you name and nothing else.
 
 ```bash
-aider --message-file .claude/tmp/spec.md packages/content/src/creatures.ts
+PYTHONIOENCODING=utf-8 PYTHONUTF8=1 aider --message-file .claude/tmp/spec.md packages/content/src/creatures.ts
 ```
 
-Add `--read <path>` for a file it must see but must not change.
+The two env vars are a no-op on macOS and Linux, which default to UTF-8
+already, and load-bearing on Windows: aider's console there defaults to
+cp1252, and a spec containing a character outside it — an em dash, an
+arrow, `⏸` — crashes the run *after* the edit has already been applied,
+and has been seen silently flattening such characters in the code it writes
+instead of erroring. Always pass them; do not make it conditional on the
+platform this session happens to be running on.
+
+Add `--read <path>` for a file it must see but must not change — an existing
+file in the same style is worth more than a paragraph describing the style.
+
+Give the call a wall-clock ceiling and expect minutes, not seconds: a reasoning
+worker plus `bun run check` after every edit runs long, and aider buffers its
+output, so a run in progress looks identical to a hung one. Name the target
+file in the command even when it does not exist yet — aider creates it empty at
+the start, which is the earliest sign the run is alive.
 
 ## 3. Take it back
 
@@ -114,8 +162,21 @@ they are bound to this session's `Edit`/`Write`. What replaces them lives in
 runs `bun run check` after every edit. Re-run the check yourself anyway — the
 worker's last edit can land after its final test.
 
-If it came back wrong twice, stop and do the task here. A third attempt costs
-more in review than it saves in worker tokens.
+**Read the three report lines before the diff.** *Changed* tells you where to
+look. *Not done* is the one that matters — an agent that signals completion
+with items outstanding is the second failure mode these tools are known for,
+and the line exists to make it say so out loud. *Unsure* points at the guesses
+a green test does not catch: a name, a magic number, a convention it could not
+tell how to apply.
+
+Then walk the spec's Goal against the diff, bullet by bullet. Something absent
+from both the diff and the *Not done* line is the case to look for hardest.
+
+If it came back wrong twice, stop. Escalate the model once by swapping the
+line in `.aider.conf.yml`; if that misses too, do the task here. And if the
+worker reports the same test failing over and over, do not re-run the same
+spec — that is a doom loop, and it will spend the whole budget repeating
+itself. Change what the spec asks for, or take it back.
 
 ## 4. Commit
 

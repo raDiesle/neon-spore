@@ -67,6 +67,30 @@ choose `whole` for some of them, which regenerates entire files — against the
 house rule, and it prices output by the length of the file instead of by the
 size of the change.
 
+## The failure that costs money
+
+The first real delegation failed, and it is worth writing down because the
+shape of it is not obvious. The worker did not produce wrong code. It produced
+*nothing*: it got stuck deliberating one ambiguous sentence in the spec, began
+repeating the same clause, and kept going until it hit the model's context
+limit — 65,000 output tokens spent on a file that stayed empty, at several
+times what the task would have cost to type.
+
+Two things came out of it, both in the config now.
+
+A **cap on one reply** (`max_tokens` in `.aider.model.settings.yml`). A loop
+that would have run to the context ceiling now dies in seconds and costs cents.
+The cap does not prevent the loop; it makes the loop cheap and visible, which
+is all a guard has to do.
+
+And a rule about specs: **anywhere the worker has to decide what you meant, it
+may instead decide nothing at all.** The sentence that hung it was a rule about
+when an entry should be removed from a table, written as prose alongside an
+instruction not to add extra checks — the two could be read as contradicting
+each other. Rewritten as three numbered assertions with "do not add a fourth",
+there was nothing left to deliberate. Prefer enumeration over description
+wherever a spec touches behaviour.
+
 ## What is set up
 
 | File | Does |

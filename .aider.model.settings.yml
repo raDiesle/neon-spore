@@ -7,6 +7,13 @@
   # breakpoints to and the cached-input saving quietly does not happen.
   cache_control: true
   extra_params:
+    # A ceiling on one reply. Without it a doom loop — the worker repeating
+    # itself instead of deciding — runs all the way to the context limit before
+    # anything stops it. That happened on the first real task: 65k output
+    # tokens spent repeating one clause, an empty file, and a bill several
+    # times the cost of the work. Capped, the same failure costs cents and
+    # surfaces immediately.
+    max_tokens: 8192
     extra_body:
       provider:
         # OpenRouter routes one model across several hosts, and they differ.
