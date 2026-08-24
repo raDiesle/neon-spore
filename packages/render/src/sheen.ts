@@ -19,9 +19,12 @@ const FILM = ["#4FE9E0", "#6E8CFF", "#C05CFF", "#FF6BD6", "#8B5BFF"] as const;
 function mix(a: string, b: string, t: number): string {
   const ca = Number.parseInt(a.slice(1), 16);
   const cb = Number.parseInt(b.slice(1), 16);
-  const ch = (shift: number): number =>
-    Math.round(((ca >> shift) & 255) * (1 - t) + ((cb >> shift) & 255) * t);
-  return `rgb(${ch(16)},${ch(8)},${ch(0)})`;
+  const ch = (shift: number): string =>
+    Math.round(((ca >> shift) & 255) * (1 - t) + ((cb >> shift) & 255) * t)
+      .toString(16)
+      .padStart(2, "0");
+  // `#rrggbb`, not `rgb()`: `halo` appends a hex alpha to whatever it is given.
+  return `#${ch(16)}${ch(8)}${ch(0)}`;
 }
 
 /** The film colour at a position along the loop. `at` wraps, in turns. */
@@ -164,14 +167,10 @@ export function bloom(
     const x = l.gridLeft + u * l.gridWidth;
     const breathe = 0.62 + 0.38 * Math.sin(time * (0.5 + i * 0.17) + i * 2.1);
     const y = surfaceY(x) + l.tile * (0.55 + 0.75 * breathe);
-    halo(
-      ctx,
-      x,
-      y,
-      l.tile * (1.1 + 0.5 * breathe),
-      film(i / 5 + time * 0.02),
-      0.1 + 0.12 * breathe,
-    );
+    // A fixed colour and a radius in whole steps: `halo` caches one sprite per
+    // pair, so a value that moves every frame caches a canvas every frame.
+    const radius = Math.round((l.tile * (1.1 + 0.5 * breathe)) / 4) * 4;
+    halo(ctx, x, y, radius, FILM[i] as string, 0.1 + 0.12 * breathe);
   }
   ctx.restore();
 }

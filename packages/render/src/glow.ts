@@ -35,7 +35,11 @@ export function strokeGlow(
 
 const haloCache = new Map<string, HTMLCanvasElement>();
 
-/** A pre-rendered radial gradient, cached per colour and size. */
+/**
+ * A pre-rendered radial gradient, cached per colour and size. The colour has to
+ * be `#rrggbb` — a hex alpha is appended to it — and both it and the radius
+ * have to come from a small fixed set, or the cache grows a canvas per frame.
+ */
 export function haloSprite(color: string, radius: number): HTMLCanvasElement {
   const key = `${color}@${radius}`;
   const cached = haloCache.get(key);
