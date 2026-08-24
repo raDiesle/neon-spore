@@ -30,6 +30,8 @@ export interface SimConfig {
   podDriftTilesPerBeat: number;
   /** Hull points a swallowed pod gives back. The energy boost, as a number. */
   podRepair: number;
+  /** Beats a `ward` pod keeps the shield armed without a trigger. */
+  wardBeats: number;
   /** Bullet speed, in tiles per beat. */
   bulletTilesPerBeat: number;
   /** Minimum gap between shots, in beats. */
@@ -94,6 +96,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   podFallTilesPerBeat: 1.5,
   podDriftTilesPerBeat: 0.4,
   podRepair: 18,
+  wardBeats: 6,
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
   hitHeightMilli: 1000,

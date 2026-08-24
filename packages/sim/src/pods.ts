@@ -1,6 +1,6 @@
 import { hullRow, ticksPerBeat } from "./config.js";
 import { nextInt } from "./rng.js";
-import type { Pod } from "./types.js";
+import type { Color, Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -16,6 +16,12 @@ import { MILLI, type World } from "./world.js";
  * The pod is the answer to the gap docs/spec/systems.md 5.7 leaves open: the
  * old design had player 1 fly to the power-up, and there is no flying any more.
  * Here the pod comes to the ship instead, and the ship has to open for it.
+ *
+ * What is taken is one of three things — mend, purge or ward, see `PodKind` —
+ * authored in the wave and never drawn at random: a pair that watches a pod
+ * come loose has to be able to tell what it is before it decides whether to
+ * chase it. The effect lands all at once, on the tick of the catch; there is
+ * no pickup that waits to be spent.
  */
 
 /** Position and speed in thousandths, all derived from the config. */
@@ -38,6 +44,7 @@ export function spawnPods(world: World): void {
       rowMilli: entry.row * MILLI,
       driftMilli: 0,
       loose: false,
+      kind: entry.kind ?? "mend",
     });
     world.podSpawned += 1;
   }
@@ -125,10 +132,48 @@ function resolveIntake(world: World, pod: Pod): void {
   const inTime = world.tick - world.intakeTick <= windowTicks && world.intakeTick <= world.tick;
 
   if (inColumn && inTime) {
-    world.hullMilli = Math.min(100 * MILLI, world.hullMilli + world.cfg.podRepair * MILLI);
     world.score += world.cfg.scorePod;
-    world.events.push({ type: "podTaken", col });
+    switch (pod.kind) {
+      case "mend":
+        mend(world);
+        break;
+      case "purge":
+        purge(world);
+        break;
+      case "ward":
+        ward(world);
+        break;
+    }
+    world.events.push({ type: "podTaken", col, kind: pod.kind });
     return;
   }
   world.events.push({ type: "podLost", col });
+}
+
+/** The hull repair a plain pod has always given. Clamped, never a debt. */
+function mend(world: World): void {
+  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + world.cfg.podRepair * MILLI);
+}
+
+/**
+ * Every creature on the field is gone. A rock is not shot down, it is swept
+ * aside — a meteor cannot carry a `destroy` event, since that event names a
+ * colour and a meteor has none — so it leaves a `hole` instead and pays
+ * nothing. The field must be empty afterwards or the word "purge" is a lie.
+ */
+function purge(world: World): void {
+  for (const c of world.creatures) {
+    if (c.kind === "meteor") {
+      world.events.push({ type: "hole", col: c.col, row: c.row });
+      continue;
+    }
+    world.events.push({ type: "destroy", col: c.col, row: c.row, color: c.color as Color });
+    world.score += world.cfg.scoreDestroy;
+  }
+  world.creatures = [];
+}
+
+/** Hold the shield armed without a trigger for `wardBeats` beats. */
+function ward(world: World): void {
+  world.wardUntilTick = world.tick + world.cfg.wardBeats * ticksPerBeat(world.cfg);
 }

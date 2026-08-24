@@ -184,3 +184,116 @@ describe("taking a pod in", () => {
     expect(world.scars).toHaveLength(0);
   });
 });
+
+/**
+ * The three things a pod can give. A pod with no `kind` at all — every test
+ * above this point authors one that way — defaults to `mend`, which is what
+ * every pod authored before this mechanic existed already was; that default
+ * is what keeps every one of those tests honest without being told about
+ * `kind` at all.
+ */
+describe("what a pod gives", () => {
+  it("mends the hull, capped at 100, when a mend pod is swallowed", () => {
+    const { world, events } = run(
+      [{ beat: 0, col: 3, row: 4, kind: "mend" }],
+      ARRIVAL,
+      hold(3, true),
+      STILL,
+    );
+    expect(events.some((e) => e.type === "podTaken")).toBe(true);
+    expect(hullPercent(world)).toBe(100);
+  });
+
+  it("carries the kind it was authored with on podTaken", () => {
+    const { events } = run(
+      [{ beat: 0, col: 3, row: 4, kind: "ward" }],
+      ARRIVAL,
+      hold(3, true),
+      STILL,
+    );
+    const taken = events.find((e) => e.type === "podTaken");
+    expect(taken && "kind" in taken ? taken.kind : undefined).toBe("ward");
+  });
+
+  it("purge clears every creature on the field and pays for each one", () => {
+    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "purge" }]);
+    // Row 0, as if freshly spawned: anything further down would reach the
+    // hull under its own advance before the pod's slow fall gets it caught,
+    // and be gone by then for an unrelated reason.
+    world.creatures.push(
+      { id: world.nextId++, kind: "slick", col: 5, row: 0, fromRow: -1, color: "red", holes: 0 },
+      { id: world.nextId++, kind: "meteor", col: 7, row: 0, fromRow: -1, color: null, holes: 0 },
+    );
+    const inputs = hold(3, true);
+    const byTick = new Map<number, TimedCommand[]>();
+    for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
+    const events: SimEvent[] = [];
+    for (let t = 0; t < ARRIVAL; t++) {
+      step(world, byTick.get(t) ?? []);
+      events.push(...world.events);
+    }
+    expect(events.some((e) => e.type === "podTaken")).toBe(true);
+    expect(world.creatures).toHaveLength(0);
+    expect(events.some((e) => e.type === "destroy" && e.col === 5)).toBe(true);
+    expect(events.some((e) => e.type === "hole" && e.col === 7)).toBe(true);
+  });
+
+  it("ward holds the shield armed with no guard command, deflecting a meteor after the catch", () => {
+    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "ward" }]);
+    const inputs = hold(3, true);
+    const byTick = new Map<number, TimedCommand[]>();
+    for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
+    const events: SimEvent[] = [];
+    for (let t = 0; t < ARRIVAL; t++) {
+      step(world, byTick.get(t) ?? []);
+      events.push(...world.events);
+    }
+    expect(events.some((e) => e.type === "podTaken")).toBe(true);
+
+    // A meteor arriving one beat later, in the column the cannon is already
+    // holding, with no guard command anywhere in the run: only the ward can
+    // deflect it.
+    world.creatures.push({
+      id: world.nextId++,
+      kind: "meteor",
+      col: world.shieldCol,
+      row: HULL - 1,
+      fromRow: HULL - 2,
+      color: null,
+      holes: 0,
+    });
+    const events2: SimEvent[] = [];
+    for (let t = 0; t < TPB; t++) {
+      step(world, []);
+      events2.push(...world.events);
+    }
+    expect(events2.some((e) => e.type === "deflect")).toBe(true);
+    expect(hullPercent(world)).toBe(100);
+  });
+
+  it("without a ward, the same arriving meteor breaches the hull instead", () => {
+    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "mend" }]);
+    const inputs = hold(3, true);
+    const byTick = new Map<number, TimedCommand[]>();
+    for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
+    for (let t = 0; t < ARRIVAL; t++) step(world, byTick.get(t) ?? []);
+
+    world.creatures.push({
+      id: world.nextId++,
+      kind: "meteor",
+      col: world.shieldCol,
+      row: HULL - 1,
+      fromRow: HULL - 2,
+      color: null,
+      holes: 0,
+    });
+    const events2: SimEvent[] = [];
+    for (let t = 0; t < TPB; t++) {
+      step(world, []);
+      events2.push(...world.events);
+    }
+    expect(events2.some((e) => e.type === "deflect")).toBe(false);
+    expect(events2.some((e) => e.type === "breach")).toBe(true);
+    expect(hullPercent(world)).toBeLessThan(100);
+  });
+});

@@ -79,7 +79,12 @@ function resolveHull(world: World): void {
     if (c.kind === "meteor") {
       const inColumn = world.shieldCol === c.col;
       const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
-      const inTime = world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick;
+      // A ward frees player 1 from the *timing* only, not from the aiming — the
+      // shield still has to be in the meteor's column, so player 2's job is
+      // untouched.
+      const inTime =
+        (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
+        world.tick <= world.wardUntilTick;
       world.guard.tries += 1;
 
       if (inColumn && inTime) {
@@ -136,6 +141,7 @@ export function startWave(
   world.pods = [];
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;
+  world.wardUntilTick = -1_000_000;
   world.lastFireTick = -1_000_000;
   world.cannonCol = mid;
   world.shieldCol = mid;

@@ -3,7 +3,16 @@ import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
-import type { Bullet, Color, Creature, GuardStats, Pod, Scar, TimedCommand } from "./types.js";
+import type {
+  Bullet,
+  Color,
+  Creature,
+  GuardStats,
+  Pod,
+  PodKind,
+  Scar,
+  TimedCommand,
+} from "./types.js";
 
 /**
  * Everything the simulation knows. Integers only — see docs/architecture.md.
@@ -23,6 +32,8 @@ export interface World {
   guardTick: number;
   /** Tick of the most recent maw opening by player 1. */
   intakeTick: number;
+  /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
+  wardUntilTick: number;
   lastFireTick: number;
 
   creatures: Creature[];
@@ -65,6 +76,8 @@ export interface PodEntry {
   col: number;
   /** Row it hangs at, from the top. Never the hull row. */
   row: number;
+  /** What the pod gives when swallowed. A wave that does not say means `mend`. */
+  kind?: PodKind;
 }
 
 export type SimEvent =
@@ -77,7 +90,7 @@ export type SimEvent =
   | { type: "reject"; col: number; row: number }
   | { type: "deflect"; col: number }
   | { type: "podLoose"; col: number; row: number }
-  | { type: "podTaken"; col: number }
+  | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
   | { type: "breach"; col: number; damage: number };
 
@@ -101,6 +114,7 @@ export function createWorld(
     shieldCol: mid,
     guardTick: -1_000_000,
     intakeTick: -1_000_000,
+    wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
     creatures: [],
     bullets: [],

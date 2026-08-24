@@ -3,6 +3,13 @@ export type Color = "red" | "cyan";
 
 export type CreatureKind = "slick" | "bulb" | "meteor";
 
+/**
+ * What a pod gives when it is swallowed. Every pod is one of exactly these:
+ * `mend` gives hull back, `purge` sweeps the field, `ward` holds the shield
+ * armed without a trigger.
+ */
+export type PodKind = "mend" | "purge" | "ward";
+
 export interface Creature {
   id: number;
   kind: CreatureKind;
@@ -53,6 +60,8 @@ export interface Pod {
   driftMilli: number;
   /** False while it hangs, true once it is falling. */
   loose: boolean;
+  /** What it gives when it is swallowed. Authored, never random. */
+  kind: PodKind;
 }
 
 /** A broken segment of the hull. Damage is visible and stays visible. */
