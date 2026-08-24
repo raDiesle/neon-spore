@@ -1,4 +1,5 @@
-import type { Wave, WaveEntry } from "@neon-spore/content";
+import { CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
+import { PALETTE } from "@neon-spore/render";
 import type { PodEntry } from "@neon-spore/sim";
 
 /**
@@ -23,14 +24,63 @@ export interface Store {
  */
 export type Brush = "alt" | "any" | "red" | "cyan" | "rock" | "pod" | "erase";
 
-export const BRUSHES: { brush: Brush; label: string; glyph: string; cls: string }[] = [
-  { brush: "alt", label: "ALT", glyph: "◐", cls: "swatch-alt" },
-  { brush: "any", label: "ANY", glyph: "?", cls: "swatch-any" },
-  { brush: "red", label: "RED", glyph: "●", cls: "swatch-red" },
-  { brush: "cyan", label: "CYAN", glyph: "●", cls: "swatch-cyan" },
-  { brush: "rock", label: "ROCK", glyph: "◆", cls: "swatch-rock" },
-  { brush: "pod", label: "POD", glyph: "◇", cls: "swatch-alt" },
-  { brush: "erase", label: "ERASE", glyph: "·", cls: "" },
+export const BRUSHES: {
+  brush: Brush;
+  label: string;
+  /** SUBJECTS names drawn on the card. Two means the brush resolves to either. */
+  subjects: string[];
+  stroke: string;
+  note: string;
+}[] = [
+  {
+    brush: "alt",
+    label: "ALT",
+    subjects: ["SLICK", "BULB"],
+    stroke: "#ffc24b",
+    note: "red and cyan in turn — which one starts is seeded by the wave's index",
+  },
+  {
+    brush: "any",
+    label: "ANY",
+    subjects: ["SLICK", "BULB"],
+    stroke: "#a98cff",
+    note: "the rng picks, seeded by the wave's index",
+  },
+  {
+    brush: "red",
+    label: "SLICK",
+    subjects: ["SLICK"],
+    stroke: PALETTE.red,
+    note: CREATURES.slick.blurb,
+  },
+  {
+    brush: "cyan",
+    label: "BULB",
+    subjects: ["BULB"],
+    stroke: PALETTE.cyan,
+    note: CREATURES.bulb.blurb,
+  },
+  {
+    brush: "rock",
+    label: "METEOR",
+    subjects: ["METEOR"],
+    stroke: PALETTE.rock,
+    note: CREATURES.meteor.blurb,
+  },
+  {
+    brush: "pod",
+    label: "POD",
+    subjects: ["POD"],
+    stroke: PALETTE.pod,
+    note: "not a creature — cargo, and never cleared",
+  },
+  {
+    brush: "erase",
+    label: "ERASE",
+    subjects: [],
+    stroke: "#574d84",
+    note: "takes back whatever is in the cell, entry or pod",
+  },
 ];
 
 /** Row a new pod hangs at. Never the hull row, and never the top one either. */

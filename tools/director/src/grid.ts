@@ -1,8 +1,9 @@
 import { AUTHORED_COLS, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
+import type { Palette } from "./palette.js";
+import { silhouette } from "./silhouette.js";
 import {
   BRUSHES,
-  type Brush,
   beatCount,
   brushOf,
   currentWave,
@@ -24,28 +25,15 @@ export interface GridPanel {
   render(): void;
 }
 
-export function bindGrid(store: Store, cfg: () => SimConfig, onEdit: () => void): GridPanel {
-  const brushBar = document.getElementById("brushes");
+export function bindGrid(
+  store: Store,
+  cfg: () => SimConfig,
+  palette: Palette,
+  onEdit: () => void,
+): GridPanel {
   const grid = document.getElementById("grid");
   const podList = document.getElementById("podList");
   const note = document.getElementById("gridNote");
-  let brush: Brush = "alt";
-
-  const renderBrushes = (): void => {
-    if (!brushBar) return;
-    brushBar.replaceChildren();
-    for (const b of BRUSHES) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = `${b.glyph} ${b.label}`;
-      button.className = b.brush === brush ? "on" : "";
-      button.addEventListener("click", () => {
-        brush = b.brush;
-        renderBrushes();
-      });
-      brushBar.appendChild(button);
-    }
-  };
 
   const renderGrid = (): void => {
     if (!grid) return;
@@ -73,8 +61,9 @@ export function bindGrid(store: Store, cfg: () => SimConfig, onEdit: () => void)
     const entry = entryAt(wave, b, c);
     if (entry) {
       const spec = BRUSHES.find((x) => x.brush === brushOf(entry));
-      button.textContent = spec?.glyph ?? "?";
-      button.classList.add(spec?.cls ?? "");
+      if (spec && spec.subjects.length > 0) {
+        button.appendChild(silhouette(spec.subjects[0]!, spec.stroke, 26));
+      }
     }
     const pod = podAt(wave, b, c);
     if (pod) {
@@ -85,7 +74,7 @@ export function bindGrid(store: Store, cfg: () => SimConfig, onEdit: () => void)
     }
 
     button.addEventListener("click", () => {
-      paint(wave, b, c, brush);
+      paint(wave, b, c, palette.current());
       store.dirty = true;
       onEdit();
     });
@@ -146,7 +135,6 @@ export function bindGrid(store: Store, cfg: () => SimConfig, onEdit: () => void)
   };
 
   const render = (): void => {
-    renderBrushes();
     renderGrid();
     renderPods();
     renderNote();

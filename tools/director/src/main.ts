@@ -1,10 +1,12 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
-import { renderBestiary } from "./bestiary.js";
 import { bindGrid } from "./grid.js";
+import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
+import { renderShip } from "./ship.js";
 import { bindStage } from "./stage.js";
 import { refuse, type Store } from "./state.js";
+import { bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 
 /**
@@ -33,13 +35,14 @@ const setStatus = (text: string, cls = ""): void => {
 };
 
 const stage = bindStage(store, cfg);
-const grid = bindGrid(store, () => cfg, onShape);
+const palette = bindPalette(() => {});
+const grid = bindGrid(store, () => cfg, palette, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
-  renderBestiary(cfg);
+  renderShip(cfg);
 });
-renderBestiary(cfg);
+renderShip(cfg);
 
 /** A wave changed shape: redraw the grid and replay it from the top. */
 function onShape(): void {
@@ -105,16 +108,7 @@ async function load(): Promise<void> {
   refreshAll();
 }
 
-for (const tab of document.querySelectorAll<HTMLElement>("#tabs button")) {
-  tab.addEventListener("click", () => {
-    for (const other of document.querySelectorAll("#tabs button")) {
-      other.classList.toggle("on", other === tab);
-    }
-    for (const page of document.querySelectorAll(".tabpage")) {
-      page.classList.toggle("on", page.id === `tab-${tab.dataset.tab}`);
-    }
-  });
-}
+bindTabs("#tabs");
 
 window.addEventListener("beforeunload", (e) => {
   if (!store.dirty) return;
