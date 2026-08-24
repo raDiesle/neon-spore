@@ -1,4 +1,4 @@
-import type { Color, CreatureKind } from "@neon-spore/sim";
+import type { Color, CreatureKind, PodEntry } from "@neon-spore/sim";
 
 /**
  * Waves are data, never code. Columns are authored against a 7-column field
@@ -28,6 +28,13 @@ export interface Wave {
   /** Shown to both players on first play. */
   hint: string;
   entries: WaveEntry[];
+  /**
+   * Pods left hanging in the field. Their own list, because a pod is not an
+   * enemy: it is never cleared and it never blocks the end of the wave. Columns
+   * are authored against the same 7-column field as `entries`; the row is
+   * absolute, and a pod never hangs on the hull row.
+   */
+  pods?: PodEntry[];
 }
 
 export const WAVES: Wave[] = [
@@ -113,6 +120,16 @@ export const WAVES: Wave[] = [
       { beat: 5, col: 0, color: "alt" },
       { beat: 6, col: 6, color: "alt" },
     ],
+  },
+  {
+    name: "SALVAGE",
+    sentence: "The one where shooting something is only half of getting it.",
+    hint: "Shoot the pod loose, then follow it with the cannon and open the maw as it arrives.",
+    entries: [
+      { beat: 2, col: 1, color: "alt" },
+      { beat: 7, col: 5, color: "alt" },
+    ],
+    pods: [{ beat: 0, col: 3, row: 3 }],
   },
   {
     name: "FINALE",

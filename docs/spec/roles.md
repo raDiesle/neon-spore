@@ -30,6 +30,7 @@ width, a freely sliding cannon on it, and a shield.
 |---|---|---|
 | Move the cannon (column strip) | ✔ | |
 | **Trigger** the shield | ✔ | |
+| **Open the maw** (take a pod in) | ✔ | |
 | Choose colour and fire | | ✔ |
 | **Move** the shield left/right | | ✔ |
 | Radar: *which* creatures are coming | ✔ | |
@@ -60,6 +61,12 @@ in this section and 600 ms in its own open questions; the prototype ran 600.
 It is 900 now: hearing the column, finding it and pressing is three actions
 across a voice delay, and 600 ms only ever fitted two of them. See
 `docs/decisions.md` #9.
+
+**Maw.** Player 1's second action. It turns the cannon lobe inside out, and a
+pod that reaches the hull is taken in only if the cannon is in its column and
+the maw is open — the one thing in the game player 1 finishes alone, and only
+because player 2 had to shoot the pod loose in the first place. Window: **800 ms**
+(`intakeWindowMs`). See [systems](systems.md) 5.7.
 
 ## Role choice
 

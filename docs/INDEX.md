@@ -49,6 +49,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/world.ts` | the world and the single `step` function |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
 | `packages/sim/src/bullets.ts` | firing and tile-wise travel |
+| `packages/sim/src/pods.ts` | pods: hanging, shot loose, falling, taken in |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
 | `packages/content/src/creatures.ts` | bestiary and control-visibility table |
@@ -61,9 +62,12 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
 | `packages/render/src/hull.ts` | the ship; cannon and shield as lobes of one contour |
+| `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
+| `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/bullets.ts` | shots and their tails |
-| `packages/render/src/effects.ts` | sparks, deflection, shockwave, DEFLECTED |
+| `packages/render/src/effects.ts` | deflection, shockwave, DEFLECTED, the swallow's timing |
+| `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
 | `packages/render/src/hud.ts` | hull, score, beat, the guard balance, overlays |
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |

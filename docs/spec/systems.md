@@ -1,8 +1,8 @@
 # Systems
 
-> **Status: mixed.** Control visibility, the beat, damage and the grid
-> behaviour are built. The information split, weapons, destruction and
-> power-ups are design only. Each section says which.
+> **Status: mixed.** Control visibility, the beat, damage, power-ups and the
+> grid behaviour are built. The information split, weapons and destruction are
+> design only. Each section says which.
 
 ## 5.1 Control visibility (Principle A) — built
 
@@ -106,7 +106,9 @@ and craters on the meteor, which keeps its size and stays indestructible
 (`holes`, `maxHoles`). Not built: polygon clipping, splinters, debris. The
 clipping algorithm is chosen but unimplemented — see `docs/decisions.md`.
 
-## 5.7 Power-ups — not built
+## 5.7 Power-ups — the pod, built
+
+The original design:
 
 - **Slow motion** and **autopilot** (one evasive manoeuvre without sync)
 - Visible to both; player 1 has to fly to it, which keeps him from aiming
@@ -114,8 +116,48 @@ clipping algorithm is chosen but unimplemented — see `docs/decisions.md`.
 - Path: in from below, circles beneath the middle, exits sideways
 - Does not block the end of a wave
 
-"Player 1 has to fly to it" assumes free flight. Collection needs re-designing
-for a cannon that only slides along one row.
+"Player 1 has to fly to it" assumed free flight. **The pod is the re-design.**
+Instead of the ship going to the power-up, the power-up comes to the ship, and
+the ship has to open for it.
+
+**The pod.** A capsule with a core, amber — neither ammunition colour, so it is
+never mistaken for a target that needs a colour called out. It hangs at a fixed
+column and row and does nothing at all. It is not an enemy: it is never
+cleared, it costs no hull, and it **does not block the end of a wave**, exactly
+as the original says.
+
+**Two halves, as everything here has two halves.**
+
+1. **Shooting it loose** needs both players: player 1 holds the column, player 2
+   fires. Either colour frees it — a pod is not a creature and has no
+   resonance.
+2. **Catching it** is player 1 alone, doing two things at once: the cannon in
+   the pod's column *and* the maw open at the moment it arrives.
+
+**The fall.** Once loose the pod sinks like a burning wreck — `podFallTilesPerBeat`
+(1.5, against a creature's 1) — and slides sideways at `podDriftTilesPerBeat`,
+in a **direction drawn from the seeded rng**. That is the original's "escape
+direction is random", kept intact: both players see the pod, neither knows
+which way it will go until it moves ([structure](structure.md)). A pod freed
+near the top of the field takes about **4.2 s** to reach the hull, which
+clears [the 4-second rule](latency.md) with nothing to spare — catching one is
+meant to be a scramble.
+
+**The maw.** Player 1's second action (`intake`), the sibling of the trigger.
+It does not add a part to the ship: it **inverts the cannon lobe**. The same
+swelling that fires passes through flat and keeps going, into a throat wider
+than the muzzle was tall (`MAW`). Window: `intakeWindowMs`, 800 ms.
+
+**Taking it in.** The skin either side of the maw comes apart while the pod goes
+through, and then the whole ship lights from inside and goes out again. The
+flash is the receipt — player 1 knows the catch counted without reading a
+number. What the pod actually gives is `podRepair` hull points and `scorePod`
+score; slow motion and autopilot are still unbuilt and would now be a second
+kind of pod rather than a second way of collecting one.
+
+**Missing it costs nothing.** A pod that arrives with the cannon elsewhere, or
+with the maw shut, breaks on the skin: no damage, no scar. A missed gift is a
+missed gift, not a punishment.
 
 ## 5.8 Overall behaviour in the raster — built
 

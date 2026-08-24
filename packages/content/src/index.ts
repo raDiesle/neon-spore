@@ -5,7 +5,7 @@ export {
   controlsForKinds,
   kindForColor,
 } from "./creatures.js";
-export { buildQueue, mapCol } from "./queue.js";
+export { buildPods, buildQueue, mapCol } from "./queue.js";
 export {
   type Bump,
   blobPath,
@@ -30,7 +30,9 @@ export {
   HULL_GEOMETRY,
   type HullSilhouette,
   type LobeShape,
+  MAW,
   METEOR,
+  POD,
   SHIELD_LOBE,
   SLICK,
   xToHullAngle,

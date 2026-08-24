@@ -15,7 +15,7 @@
   devices this needs a "both ready" signal
 
 Built: the closed-set arrival, the rest (`waveRestBeats`), and the hull
-regeneration. The ten waves that exist are in
+regeneration. The eleven waves that exist are in
 `packages/content/src/waves.ts`; they run 10–20 s rather than 30–60, because
 they are teaching waves. Not built: invulnerability after a colour mistake, the
 bounce-off, the previews.
@@ -74,7 +74,9 @@ announcing it on the fourth attempt — both would know it by heart. That is
 where the game loses its core, not merely its variety.
 
 \* A deliberate exception: both see the power-up, but nobody knows where it
-will fly — which forces a joint decision under incomplete knowledge.
+will fly — which forces a joint decision under incomplete knowledge. Built: a
+pod that is shot loose draws its sideways drift direction from the world's rng
+(`freePod`), and nothing else about a pod is random.
 
 **Struck out:** the small positional scatter. It costs recognisability and
 gives nothing back.

@@ -1,4 +1,5 @@
 import { hullRow, ticksPerBeat } from "./config.js";
+import { firstPodAlong, freePod } from "./pods.js";
 import type { Bullet, Color, Creature } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -60,6 +61,13 @@ export function advanceBullets(world: World): void {
     // The shot sweeps a segment every tick, so nothing can slip between two
     // samples — one tile of box against 160 thousandths of travel.
     const hit = firstAlong(world, b, from, to);
+    const pod = firstPodAlong(world, b.col, from, to);
+    // Both can be inside the same sweep. The shot stops at whichever stands
+    // lower in the column, because that is the one it reaches first.
+    if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
+      freePod(world, pod);
+      continue;
+    }
     if (hit) {
       resolve(world, b, hit);
       continue;

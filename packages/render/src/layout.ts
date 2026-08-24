@@ -34,6 +34,8 @@ export interface Layout {
   cannonStrip: Strip;
   shieldStrip: Strip;
   guardButton: Circle;
+  /** Player 1's second action: the maw. Sits next to the trigger, never alone. */
+  intakeButton: Circle;
   fireButtons: { color: "red" | "cyan"; circle: Circle }[];
 }
 
@@ -127,6 +129,12 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
   const rowButton = bandTop + bandHeight * (solo ? 0.72 : 0.8);
   const r = Math.min(bandHeight * (solo ? 0.19 : 0.15), width * 0.068);
 
+  // Player 1 now has two buttons, so neither of them can sit in the middle any
+  // more. They stay side by side and in a fixed order — trigger left, maw
+  // right — because a control that moves between screens is a control that gets
+  // pressed by mistake under time pressure.
+  const p1Buttons = role === "p1" ? [width * 0.35, width * 0.65] : [width * 0.1, width * 0.3];
+
   return {
     role,
     width,
@@ -145,7 +153,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     hullY: gridTop + (cfg.rows - 1) * tile,
     cannonStrip: { y: rowCannon, height: Math.min(bandHeight * 0.24, 32) },
     shieldStrip: { y: rowShield, height: Math.min(bandHeight * 0.24, 32) },
-    guardButton: { x: role === "p1" ? width * 0.5 : width * 0.14, y: rowButton, r },
+    guardButton: { x: p1Buttons[0]!, y: rowButton, r },
+    intakeButton: { x: p1Buttons[1]!, y: rowButton, r },
     fireButtons:
       role === "p2"
         ? [
@@ -153,8 +162,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
             { color: "cyan" as const, circle: { x: width * 0.66, y: rowButton, r } },
           ]
         : [
-            { color: "red" as const, circle: { x: width * 0.66, y: rowButton, r } },
-            { color: "cyan" as const, circle: { x: width * 0.86, y: rowButton, r } },
+            { color: "red" as const, circle: { x: width * 0.58, y: rowButton, r } },
+            { color: "cyan" as const, circle: { x: width * 0.82, y: rowButton, r } },
           ],
   };
 }

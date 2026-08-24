@@ -1,8 +1,9 @@
 import { onBeat, resetRun, startWave } from "./beat.js";
 import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
-import type { Bullet, Color, Creature, GuardStats, Scar, TimedCommand } from "./types.js";
+import type { Bullet, Color, Creature, GuardStats, Pod, Scar, TimedCommand } from "./types.js";
 
 /**
  * Everything the simulation knows. Integers only — see docs/architecture.md.
@@ -20,10 +21,13 @@ export interface World {
   shieldCol: number;
   /** Tick of the most recent shield trigger by player 1. */
   guardTick: number;
+  /** Tick of the most recent maw opening by player 1. */
+  intakeTick: number;
   lastFireTick: number;
 
   creatures: Creature[];
   bullets: Bullet[];
+  pods: Pod[];
   scars: Scar[];
   /** Hull integrity in thousandths, 0..100000. */
   hullMilli: number;
@@ -33,6 +37,8 @@ export interface World {
   waveBeat: number;
   spawned: number;
   queue: SpawnEntry[];
+  podQueue: PodEntry[];
+  podSpawned: number;
   restBeat: number;
 
   over: boolean;
@@ -49,6 +55,18 @@ export interface SpawnEntry {
   color: Color | null;
 }
 
+/**
+ * Where a pod is left hanging. Its own queue rather than an entry in the spawn
+ * queue: a pod is not a creature, it is never cleared, and a wave that ends
+ * with one still hanging has still ended (docs/spec/systems.md 5.7).
+ */
+export interface PodEntry {
+  beat: number;
+  col: number;
+  /** Row it hangs at, from the top. Never the hull row. */
+  row: number;
+}
+
 export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
@@ -58,11 +76,19 @@ export type SimEvent =
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
   | { type: "deflect"; col: number }
+  | { type: "podLoose"; col: number; row: number }
+  | { type: "podTaken"; col: number }
+  | { type: "podLost"; col: number }
   | { type: "breach"; col: number; damage: number };
 
 export const MILLI = 1000;
 
-export function createWorld(cfg: SimConfig, seed: number, queue?: SpawnEntry[]): World {
+export function createWorld(
+  cfg: SimConfig,
+  seed: number,
+  queue?: SpawnEntry[],
+  podQueue?: PodEntry[],
+): World {
   ticksPerBeat(cfg); // fail loudly at construction, not mid-game
   const mid = Math.floor(cfg.cols / 2);
   const world: World = {
@@ -74,9 +100,11 @@ export function createWorld(cfg: SimConfig, seed: number, queue?: SpawnEntry[]):
     cannonCol: mid,
     shieldCol: mid,
     guardTick: -1_000_000,
+    intakeTick: -1_000_000,
     lastFireTick: -1_000_000,
     creatures: [],
     bullets: [],
+    pods: [],
     scars: [],
     hullMilli: 100 * MILLI,
     guard: { tries: 0, deflected: 0, mistimed: 0 },
@@ -84,12 +112,14 @@ export function createWorld(cfg: SimConfig, seed: number, queue?: SpawnEntry[]):
     waveBeat: 0,
     spawned: 0,
     queue: queue ?? [],
+    podQueue: podQueue ?? [],
+    podSpawned: 0,
     restBeat: 0,
     over: false,
     score: 0,
     events: [],
   };
-  if (queue) startWave(world, 0, queue);
+  if (queue || podQueue) startWave(world, 0, queue ?? [], podQueue);
   return world;
 }
 
@@ -106,6 +136,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   if (world.tick % tpb === 0) onBeat(world);
 
   advanceBullets(world);
+  advancePods(world);
   regenerateHull(world);
   progressWave(world);
 }
@@ -121,6 +152,9 @@ function applyCommand(world: World, timed: TimedCommand): void {
       break;
     case "guard":
       world.guardTick = world.tick;
+      break;
+    case "intake":
+      world.intakeTick = world.tick;
       break;
     case "fire":
       fire(world, c.color);

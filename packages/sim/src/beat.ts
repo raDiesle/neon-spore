@@ -1,6 +1,7 @@
 import { hullRow } from "./config.js";
+import { spawnPods } from "./pods.js";
 import type { Creature } from "./types.js";
-import { MILLI, type SpawnEntry, type World } from "./world.js";
+import { MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
  * Everything that happens on a beat. Creatures glide smoothly but land on tile
@@ -39,12 +40,15 @@ export function onBeat(world: World): void {
     });
     world.spawned += 1;
   }
+  spawnPods(world);
 
   // Hull resolution. Creatures that have reached it are removed and cause damage.
   resolveHull(world);
 
   // Wave progression: if all enemies are gone and all were spawned, the wave is
-  // done. Wait `waveRestBeats` before the next one starts automatically.
+  // done. Wait `waveRestBeats` before the next one starts automatically. Pods
+  // are deliberately not counted — a power-up never blocks the end of a wave
+  // (docs/spec/systems.md 5.7), so one left hanging is one left behind.
   const cleared = world.spawned >= world.queue.length && world.creatures.length === 0;
   if (cleared) {
     if (world.restBeat === 0) {
@@ -113,16 +117,25 @@ function damage(world: World, col: number, amount: number): void {
  * carry across waves, exactly as in the prototype: damage is permanent and the
  * balance is the record of the whole run.
  */
-export function startWave(world: World, waveIndex: number, queue: SpawnEntry[]): void {
+export function startWave(
+  world: World,
+  waveIndex: number,
+  queue: SpawnEntry[],
+  podQueue: PodEntry[] = [],
+): void {
   const mid = Math.floor(world.cfg.cols / 2);
   world.wave = waveIndex;
   world.waveBeat = 0;
   world.spawned = 0;
   world.restBeat = 0;
   world.queue = queue;
+  world.podQueue = podQueue;
+  world.podSpawned = 0;
   world.creatures = [];
   world.bullets = [];
+  world.pods = [];
   world.guardTick = -1_000_000;
+  world.intakeTick = -1_000_000;
   world.lastFireTick = -1_000_000;
   world.cannonCol = mid;
   world.shieldCol = mid;

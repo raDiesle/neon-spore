@@ -31,6 +31,30 @@ export interface Bullet {
   color: Color;
 }
 
+/**
+ * A supply pod. It is not a creature: it does not live, does not travel of its
+ * own accord and is never a target that must be cleared. It hangs where it was
+ * left until a shot knocks it loose, and then falls like a burning wreck —
+ * which is the only reason its position is not a plain row and column.
+ *
+ * Both coordinates are in thousandths of a tile, counted the way the grid is:
+ * `colMilli` from the left edge, `rowMilli` down from the top.
+ */
+export interface Pod {
+  id: number;
+  colMilli: number;
+  rowMilli: number;
+  /**
+   * Sideways travel per tick, in thousandths, signed. Zero while it is moored;
+   * drawn from the seeded rng the moment a shot frees it, because which way a
+   * wreck falls away is the one thing neither player may know in advance
+   * (docs/spec/structure.md).
+   */
+  driftMilli: number;
+  /** False while it hangs, true once it is falling. */
+  loose: boolean;
+}
+
 /** A broken segment of the hull. Damage is visible and stays visible. */
 export interface Scar {
   col: number;
@@ -53,6 +77,7 @@ export type Command =
   | { kind: "shieldCol"; col: number }
   | { kind: "fire"; color: Color }
   | { kind: "guard" }
+  | { kind: "intake" }
   | { kind: "restart" };
 
 export interface TimedCommand {

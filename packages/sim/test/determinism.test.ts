@@ -16,15 +16,21 @@ const replay: Replay = {
     { beat: 6, col: 5, kind: "meteor", color: null },
     { beat: 9, col: 1, kind: "slick", color: "cyan" },
   ],
+  // One pod, shot loose at tick 740 below. Its sideways drift is the only draw
+  // from the rng once a wave is running, so the fingerprint has to cover it.
+  podQueues: [[{ beat: 1, col: 3, row: 4 }]],
   inputs: [
     { tick: 10, player: 1, command: { kind: "cannonCol", col: 2 } },
     { tick: 40, player: 2, command: { kind: "fire", color: "red" } },
     { tick: 300, player: 1, command: { kind: "cannonCol", col: 4 } },
     { tick: 340, player: 2, command: { kind: "fire", color: "cyan" } },
     { tick: 600, player: 2, command: { kind: "shieldCol", col: 5 } },
+    { tick: 700, player: 1, command: { kind: "cannonCol", col: 3 } },
+    { tick: 740, player: 2, command: { kind: "fire", color: "red" } },
     { tick: 1120, player: 1, command: { kind: "guard" } },
     { tick: 1400, player: 1, command: { kind: "cannonCol", col: 1 } },
     { tick: 1430, player: 2, command: { kind: "fire", color: "cyan" } },
+    { tick: 1500, player: 1, command: { kind: "intake" } },
   ],
 };
 

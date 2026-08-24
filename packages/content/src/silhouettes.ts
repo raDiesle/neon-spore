@@ -44,6 +44,22 @@ export const BULB: CreatureSilhouette = {
   seed: 1.0,
 };
 
+/**
+ * Pod: a capsule with a core, upright and softly ribbed. Three shallow lobes,
+ * so it reads as a made object that has been *grown* — the ship eats it, and a
+ * ship does not eat machinery. It must not be mistaken for either creature at a
+ * glance, which is why it stands taller than it is wide and carries neither of
+ * the two ammunition colours.
+ */
+export const POD: CreatureSilhouette = {
+  lobes: 3,
+  depth: 0.16,
+  wobble: 0.03,
+  rx: 36,
+  ry: 48,
+  seed: 3.0,
+};
+
 export interface CrystalSilhouette {
   sides: number;
   depth: number;
@@ -129,6 +145,22 @@ export const SHIELD_LOBE: LobeShape = {
   breathHz: 0.37,
   breathPhase: 2.1,
 };
+
+/**
+ * The maw: the cannon lobe turned inside out.
+ *
+ * There is no second shape for it and there must not be — the whole reading is
+ * that the *same* swelling that fires is the one that opens. Player 1 presses
+ * and the lobe passes through flat and keeps going, into a throat wider than
+ * the muzzle was tall. A separate mouth drawn beside the cannon would say the
+ * ship has a part for eating; this says the ship opens.
+ */
+export const MAW = {
+  /** Lobe scale at full intake. Negative, which is the entire idea. */
+  scale: -1.8,
+  /** How much wider the throat is than the muzzle. */
+  halfMul: 1.6,
+} as const;
 
 /**
  * Hull ellipse dimensions. These define the grid against which all angles are

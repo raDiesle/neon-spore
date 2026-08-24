@@ -2,7 +2,7 @@ import { startWave } from "./beat.js";
 import { DEFAULT_CONFIG, type SimConfig } from "./config.js";
 import { hashWorld } from "./hash.js";
 import type { TimedCommand } from "./types.js";
-import { createWorld, type SpawnEntry, step, type World } from "./world.js";
+import { createWorld, type PodEntry, type SpawnEntry, step, type World } from "./world.js";
 
 /**
  * A replay is the whole test format of this project: inputs in, fingerprint out.
@@ -26,17 +26,21 @@ export interface Replay {
    * silently invalidate every fingerprint taken before the edit.
    */
   queues?: SpawnEntry[][];
+  /** One pod queue per wave, in the same order as `queues`. */
+  podQueues?: PodEntry[][];
   inputs: TimedCommand[];
   /** Filled in by `record`. A mismatch means determinism broke. */
   expectHash?: number;
 }
 
 const copy = (q: SpawnEntry[]): SpawnEntry[] => q.map((e) => ({ ...e }));
+const copyPods = (q: PodEntry[]): PodEntry[] => q.map((e) => ({ ...e }));
 
 export function runReplay(replay: Replay): World {
   const cfg: SimConfig = { ...DEFAULT_CONFIG, ...replay.config };
   const queues = replay.queues ?? (replay.queue ? [replay.queue] : [[]]);
-  const world = createWorld(cfg, replay.seed, copy(queues[0] ?? []));
+  const podQueues = replay.podQueues ?? [];
+  const world = createWorld(cfg, replay.seed, copy(queues[0] ?? []), copyPods(podQueues[0] ?? []));
 
   const byTick = new Map<number, TimedCommand[]>();
   for (const input of replay.inputs) {
@@ -52,7 +56,7 @@ export function runReplay(replay: Replay): World {
       // idle, which is a legitimate way to end a recording — not an error.
       if (e.type !== "needWave") continue;
       const next = queues[e.wave];
-      if (next) startWave(world, e.wave, copy(next));
+      if (next) startWave(world, e.wave, copy(next), copyPods(podQueues[e.wave] ?? []));
     }
   }
   return world;

@@ -10,12 +10,14 @@ export type {
   Creature,
   CreatureKind,
   GuardStats,
+  Pod,
   Scar,
   TimedCommand,
 } from "./types.js";
 export {
   createWorld,
   hullPercent,
+  type PodEntry,
   type SimEvent,
   type SpawnEntry,
   step,

@@ -1,16 +1,20 @@
 import { BULB, blobPath, SLICK } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { type Layout, tileCX } from "./layout.js";
+import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
  * centres, plus the trigger and the two colours.
  *
- * The split is the game: player 1 slides the cannon and triggers the shield,
- * player 2 slides the shield and fires. Neither can carry a defence alone, and
- * the band shows that by never giving one player both halves of anything.
+ * The split is the game: player 1 slides the cannon, triggers the shield and
+ * opens the maw; player 2 slides the shield and fires. Neither can carry a
+ * defence alone, and the band shows that by never giving one player both halves
+ * of anything.
+ *
+ * A screen only draws the half it owns. The test view owns both, which is why
+ * the four buttons have to fit beside each other at all.
  *
  * It is drawn on the canvas rather than in the DOM because every element is
  * per-column and has to line up with the grid exactly — see docs/decisions.md.
@@ -20,6 +24,7 @@ export function drawBand(
   l: Layout,
   world: World,
   armed: boolean,
+  open: boolean,
 ): void {
   ctx.fillStyle = "#0E0A22";
   ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
@@ -33,15 +38,26 @@ export function drawBand(
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
-  strip(
-    ctx,
-    l,
-    l.cannonStrip.y,
-    l.cannonStrip.height,
-    world.cannonCol,
-    PALETTE.hull,
-    "PLAYER 1 · CANNON",
-  );
+  if (showsCannon(l.role)) {
+    strip(
+      ctx,
+      l,
+      l.cannonStrip.y,
+      l.cannonStrip.height,
+      world.cannonCol,
+      PALETTE.hull,
+      "PLAYER 1 · CANNON",
+    );
+    // Both lit for exactly as long as their window is open, so player 1 can see
+    // what they are spending.
+    action(ctx, l.guardButton, armed, PALETTE.shield, "#08131A", "TRIGGER");
+    action(ctx, l.intakeButton, open, PALETTE.pod, "#2C1C05", "INTAKE");
+  }
+  if (!showsShield(l.role)) {
+    ctx.textAlign = "left";
+    return;
+  }
+
   strip(
     ctx,
     l,
@@ -51,20 +67,6 @@ export function drawBand(
     PALETTE.shield,
     "PLAYER 2 · SHIELD",
   );
-
-  // Trigger. Lit for exactly as long as the guard window is open, so player 1
-  // can see what they are spending.
-  const g = l.guardButton;
-  ctx.fillStyle = armed ? PALETTE.shield : "#2A1F4E";
-  ctx.beginPath();
-  ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
-  ctx.fill();
-  if (armed) halo(ctx, g.x, g.y, g.r * 1.8, PALETTE.shield, 0.5);
-  ctx.strokeStyle = PALETTE.shield;
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = armed ? "#08131A" : PALETTE.shield;
-  ctx.fillText("TRIGGER", g.x, g.y + 3);
 
   for (const b of l.fireButtons) {
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
@@ -90,6 +92,27 @@ export function drawBand(
     ctx.restore();
   }
   ctx.textAlign = "left";
+}
+
+/** One of player 1's two actions. Same button, different colour and word. */
+function action(
+  ctx: CanvasRenderingContext2D,
+  c: Circle,
+  lit: boolean,
+  hex: string,
+  litText: string,
+  label: string,
+): void {
+  ctx.fillStyle = lit ? hex : "#2A1F4E";
+  ctx.beginPath();
+  ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+  ctx.fill();
+  if (lit) halo(ctx, c.x, c.y, c.r * 1.8, hex, 0.5);
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fillStyle = lit ? litText : hex;
+  ctx.fillText(label, c.x, c.y + 3);
 }
 
 function strip(

@@ -4,6 +4,7 @@ import {
   HULL,
   hullAngleAtX,
   hullPointAtX,
+  MAW,
   openSmoothPath,
   type Point,
   SHIELD_LOBE,
@@ -12,10 +13,11 @@ import type { World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
+import { drawCharge, drawChew } from "./maw.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
-import type { ShieldSegment } from "./shield.js";
+import { drawShieldRim, type ShieldSegment } from "./shield.js";
 
 /**
  * The ship, from `legacy/style-guide.html`. One membrane, not a collection of
@@ -65,7 +67,23 @@ export interface LobePositions {
   shield: readonly ShieldSegment[];
 }
 
-function frame(l: Layout, time: number, armed: number, at: LobePositions): HullFrame {
+/**
+ * The ship's transient state, all of it eased and none of it in the world.
+ * One object rather than four arguments, because every one of them is the same
+ * kind of thing: how the membrane is behaving this frame.
+ */
+export interface HullMood {
+  /** 0..1 towards the shield held open. */
+  armed: number;
+  /** 0..1 towards the cannon lobe turned inside out — the maw. */
+  intake: number;
+  /** 0..1 while the skin around the maw comes apart over a pod. */
+  chew: number;
+  /** 0..1 the light that goes through the ship once the pod is inside. */
+  charge: number;
+}
+
+function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {
   const rx = l.gridWidth;
   const ry = l.tile * 1.6;
   const cx = l.gridLeft + l.gridWidth / 2;
@@ -74,14 +92,19 @@ function frame(l: Layout, time: number, armed: number, at: LobePositions): HullF
 
   // The columns are followed, not snapped to: `at` is fractional.
   const cannonX = tileCX(l, at.cannon);
-  const cannon = lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, 1);
+  // The maw is the cannon lobe with the sign of its lift taken away from it: at
+  // full intake the same swelling has passed through flat into a throat. One
+  // lobe, two directions — see `MAW`.
+  const cannonScale = 1 + (MAW.scale - 1) * mood.intake;
+  const cannonHalf = 1 + (MAW.halfMul - 1) * mood.intake;
+  const cannon = lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, cannonScale, cannonHalf);
   const skinBumps: Bump[] = [];
 
   // The shield is a body, not a plate: a head and three followers, each a bump
   // of its own. At rest they lie on top of each other and add up to the armour
   // plate; while it travels they string out behind the head and the skin of the
   // ship travels with them.
-  const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * armed;
+  const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * mood.armed;
   for (const seg of at.shield) {
     const x = tileCX(l, seg.col);
     skinBumps.push(
@@ -133,11 +156,11 @@ export function drawHull(
   l: Layout,
   world: World,
   time: number,
-  armed: number,
+  mood: HullMood,
   hullPercent: number,
   at: LobePositions,
 ): void {
-  const f = frame(l, time, armed, at);
+  const f = frame(l, time, mood, at);
   // High resolution: the swelling has to read as one unbroken transition, not
   // as a bump glued to a line.
   const pts = pointsAcross(f, l, 140);
@@ -184,53 +207,26 @@ export function drawHull(
     (x) => surface(f, x),
     (x) => skin(f, x),
   );
-  drawShieldRim(ctx, l, f, armed, time, at);
-  drawMuzzle(ctx, f, l);
+  drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
+  drawMuzzle(ctx, f, l, mood.intake);
+  drawChew(ctx, l, mood, time, f.cannonX, (x) => surface(f, x));
+  drawCharge(ctx, l, mood, filled, body);
   ctx.restore();
 }
 
 /**
- * The rim-thickening variant on top of the plate: over the shield's segment the
- * edge of the membrane brightens and thickens. Armed and passive then differ in
- * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a
- * deflection has to be unmissable or the pair never learns the timing.
- *
- * The bright stretch spans the whole body, head to tail, so a shield in motion
- * lights up as a long moving band rather than a dot with a tail behind it.
+ * The fire opening at the tip of the cannon lobe. While the maw is open it is
+ * the throat instead: it widens and darkens, and it sits at the bottom of the
+ * dent rather than at the top of the swelling, because `surface` follows the
+ * lobe wherever the lobe has gone.
  */
-function drawShieldRim(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  f: HullFrame,
-  armed: number,
-  time: number,
-  at: LobePositions,
-): void {
-  if (at.shield.length === 0) return;
-  const cols = at.shield.map((s) => s.col);
-  const shimmer = 0.72 + 0.16 * Math.sin(time * 2.6) + 0.12 * Math.sin(time * 1.15 + 1.7);
-  const glow = Math.max(0.34, armed * shimmer);
-  const half = l.tile * 0.8;
-  const from = tileCX(l, Math.min(...cols)) - half;
-  const to = tileCX(l, Math.max(...cols)) + half;
-  const pts: Point[] = [];
-  const steps = 26;
-  for (let i = 0; i <= steps; i++) pts.push(surface(f, from + (to - from) * (i / steps)));
-
-  const seg = new Path2D(openSmoothPath(pts));
-  ctx.globalAlpha = 0.3 + 0.7 * glow;
-  strokeGlow(ctx, seg, PALETTE.shieldRim, 2.4 + 5.6 * armed, 0.5 + armed);
-  ctx.globalAlpha = 1;
-}
-
-/** The fire opening at the tip of the cannon lobe. */
-function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): void {
+function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout, intake: number): void {
   const tip = surface(f, f.cannonX);
   ctx.fillStyle = PALETTE.redDark;
   ctx.beginPath();
-  ctx.arc(tip.x, tip.y + l.tile * 0.12, l.tile * 0.13, 0, Math.PI * 2);
+  ctx.arc(tip.x, tip.y + l.tile * 0.12, l.tile * (0.13 + 0.22 * intake), 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = PALETTE.hullRim;
+  ctx.strokeStyle = intake > 0.5 ? PALETTE.podRim : PALETTE.hullRim;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke();
 }
@@ -239,9 +235,9 @@ function drawMuzzle(ctx: CanvasRenderingContext2D, f: HullFrame, l: Layout): voi
 export function cannonTip(
   l: Layout,
   time: number,
-  armed: number,
+  mood: HullMood,
   at: LobePositions,
 ): { x: number; y: number } {
-  const f = frame(l, time, armed, at);
+  const f = frame(l, time, mood, at);
   return surface(f, f.cannonX);
 }

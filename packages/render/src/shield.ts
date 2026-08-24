@@ -1,4 +1,9 @@
+import { openSmoothPath, type Point } from "@neon-spore/content";
 import { type Glide, glideTo } from "./glide.js";
+import { strokeGlow } from "./glow.js";
+import type { LobePositions } from "./hull.js";
+import { type Layout, tileCX } from "./layout.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * The shield, as a body rather than a plate.
@@ -92,4 +97,38 @@ export class ShieldBody {
     }
     return { from, to };
   }
+}
+
+/**
+ * The rim-thickening variant on top of the plate: over the shield's segment the
+ * edge of the membrane brightens and thickens. Armed and passive then differ in
+ * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a
+ * deflection has to be unmissable or the pair never learns the timing.
+ *
+ * The bright stretch spans the whole body, head to tail, so a shield in motion
+ * lights up as a long moving band rather than a dot with a tail behind it.
+ */
+export function drawShieldRim(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  armed: number,
+  time: number,
+  at: LobePositions,
+  surface: (x: number) => Point,
+): void {
+  if (at.shield.length === 0) return;
+  const cols = at.shield.map((s) => s.col);
+  const shimmer = 0.72 + 0.16 * Math.sin(time * 2.6) + 0.12 * Math.sin(time * 1.15 + 1.7);
+  const glow = Math.max(0.34, armed * shimmer);
+  const half = l.tile * 0.8;
+  const from = tileCX(l, Math.min(...cols)) - half;
+  const to = tileCX(l, Math.max(...cols)) + half;
+  const pts: Point[] = [];
+  const steps = 26;
+  for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));
+
+  const seg = new Path2D(openSmoothPath(pts));
+  ctx.globalAlpha = 0.3 + 0.7 * glow;
+  strokeGlow(ctx, seg, PALETTE.shieldRim, 2.4 + 5.6 * armed, 0.5 + armed);
+  ctx.globalAlpha = 1;
 }

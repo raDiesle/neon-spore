@@ -37,6 +37,8 @@ const SLIDERS: SliderSpec[] = [
   { key: "fireEveryBeats", label: "Fire pause", min: 0.15, max: 2, s: 0.05, unit: " beats" },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, s: 1, unit: " beats" },
   { key: "guardWindowMs", label: "Guard window", min: 80, max: 1600, s: 20, unit: " ms" },
+  { key: "intakeWindowMs", label: "Intake window", min: 80, max: 1600, s: 20, unit: " ms" },
+  { key: "podFallTilesPerBeat", label: "Pod fall", min: 0.5, max: 5, s: 0.1, unit: " tiles/beat" },
   { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, s: 1, unit: "" },
   { key: "bandPct", label: "Control band", min: 24, max: 44, s: 1, unit: " %" },
 ];

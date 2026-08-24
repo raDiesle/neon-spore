@@ -53,14 +53,20 @@ unbuilt design and costs one edit to change.
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor. The three of them carry the ten teaching waves.
+Built: slick, bulb, meteor. The three of them carry the teaching waves.
+
+**The pod is built, and it is not a creature.** It carries no colour, is never
+cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its
+own list on the wave, its own list in the world. Shooting it loose needs both
+players, catching it needs player 1's maw. See [systems](systems.md) 5.7.
 
 **The strand in detail:** it appears, turns lengthways, fires an unavoidable
 marking shot at the hull, **extinguishes its own drive** (visibly), whereupon
 player 2's controls **grey out**. After that the only way through is shooting
 its 5–7 segments in alternating colours.
 
-> The strand, the gum and the pod depend on evasion, which no longer exists.
+> The strand and the gum depend on evasion, which no longer exists. (The pod
+> did too; it was re-designed rather than dropped — see above.)
 > The strand's whole point — greying out a control group — survives if it greys
 > out `guard` instead, but that has to be re-designed rather than renamed.
 

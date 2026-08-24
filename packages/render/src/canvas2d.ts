@@ -6,9 +6,10 @@ import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { type Glide, glideTo } from "./glide.js";
 import { drawHud, drawOverlay } from "./hud.js";
-import { drawHull } from "./hull.js";
+import { drawHull, type HullMood } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPods } from "./pods.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
 
@@ -26,6 +27,12 @@ export class Canvas2DRenderer implements Renderer {
   private effects = new Effects();
   /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
   private armed = 0;
+  /**
+   * The same for the maw. Eased harder than the shield: the lobe has to travel
+   * through flat and out the other side, and a snap would read as two shapes
+   * rather than one turning inside out.
+   */
+  private intake = 0;
   /**
    * Where the two lobes are, in fractional columns. The world snaps to a
    * column; these follow it, so the membrane slides instead of jumping. The
@@ -89,6 +96,9 @@ export class Canvas2DRenderer implements Renderer {
     const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
     const isArmed = world.tick - world.guardTick < windowTicks;
     this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
+    const intakeTicks = Math.round((world.cfg.intakeWindowMs / 1000) * world.cfg.tickHz);
+    const isOpen = world.tick - world.intakeTick < intakeTicks;
+    this.intake += ((isOpen ? 1 : 0) - this.intake) * Math.min(1, view.dt * 11);
     glideTo(this.cannon, world.cannonCol, view.dt);
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
@@ -109,14 +119,21 @@ export class Canvas2DRenderer implements Renderer {
     drawGrid(ctx, l, world.cannonCol, flash);
 
     drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
     this.effects.draw(ctx, l);
 
-    drawHull(ctx, l, world, view.time, this.armed, hullPercent(world), at);
+    const mood: HullMood = {
+      armed: this.armed,
+      intake: this.intake,
+      chew: this.effects.chew,
+      charge: this.effects.charge,
+    };
+    drawHull(ctx, l, world, view.time, mood, hullPercent(world), at);
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);
-    drawBand(ctx, l, world, isArmed);
+    drawBand(ctx, l, world, isArmed, isOpen);
     drawOverlay(ctx, l, view);
     ctx.restore();
 

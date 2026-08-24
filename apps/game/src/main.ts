@@ -1,4 +1,4 @@
-import { buildQueue, WAVES } from "@neon-spore/content";
+import { buildPods, buildQueue, WAVES } from "@neon-spore/content";
 import {
   Canvas2DRenderer,
   computeLayout,
@@ -27,7 +27,7 @@ if (!canvas) throw new Error("canvas #stage missing");
 // wave that is being looked at should be allowed to finish. The switch is in
 // the test panel; `packages/sim` still ships with the hull breakable.
 const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true };
-const world = createWorld(cfg, 0, buildQueue(0, cfg.cols));
+const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
 
@@ -76,7 +76,7 @@ function openingBanner(wave: number): { title: string; hint: string; remaining: 
 function handle(events: readonly SimEvent[]): void {
   for (const e of events) {
     if (e.type !== "needWave") continue;
-    startWave(world, e.wave, buildQueue(e.wave, cfg.cols));
+    startWave(world, e.wave, buildQueue(e.wave, cfg.cols), buildPods(e.wave, cfg.cols));
     banner = openingBanner(e.wave);
   }
 }
@@ -85,7 +85,7 @@ function handle(events: readonly SimEvent[]): void {
 function jumpToWave(wave: number): void {
   const target = Math.max(0, wave);
   resetRun(world);
-  startWave(world, target, buildQueue(target, cfg.cols));
+  startWave(world, target, buildQueue(target, cfg.cols), buildPods(target, cfg.cols));
   banner = openingBanner(target);
 }
 

@@ -42,6 +42,15 @@ export function hashWorld(world: World): number {
     push(b.subMilli);
   }
 
+  push(world.pods.length);
+  for (const p of world.pods) {
+    push(p.id);
+    push(p.colMilli);
+    push(p.rowMilli);
+    push(p.driftMilli);
+    push(p.loose ? 1 : 0);
+  }
+
   push(world.scars.length);
   for (const s of world.scars) {
     push(s.col);

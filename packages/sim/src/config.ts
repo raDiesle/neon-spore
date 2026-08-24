@@ -13,6 +13,23 @@ export interface SimConfig {
   tickHz: number;
   /** How long after player 1 triggers the shield it stays armed, in milliseconds. */
   guardWindowMs: number;
+  /**
+   * How long after player 1 opens the maw it stays open, in milliseconds. The
+   * sibling of `guardWindowMs`, and deliberately not the same number: the pod
+   * falls slowly and is caught by the cannon the player is already holding, so
+   * the window may be tighter than the one that answers a rock.
+   */
+  intakeWindowMs: number;
+  /** How fast a pod that has been shot loose sinks, in tiles per beat. */
+  podFallTilesPerBeat: number;
+  /**
+   * How far a falling pod slides sideways, in tiles per beat. The direction is
+   * drawn from the seeded rng when the shot lands, so the cannon has to chase
+   * what it just freed rather than wait under it.
+   */
+  podDriftTilesPerBeat: number;
+  /** Hull points a swallowed pod gives back. The energy boost, as a number. */
+  podRepair: number;
   /** Bullet speed, in tiles per beat. */
   bulletTilesPerBeat: number;
   /** Minimum gap between shots, in beats. */
@@ -48,6 +65,8 @@ export interface SimConfig {
   scoreDeflect: number;
   /** Score for clearing a wave. */
   scoreWave: number;
+  /** Score for taking a pod in. */
+  scorePod: number;
   /** How many beats ahead the radar strip shows an arrival. Read by render/. */
   radarLead: number;
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
@@ -71,6 +90,10 @@ export const DEFAULT_CONFIG: SimConfig = {
   bpm: 96,
   tickHz: 120,
   guardWindowMs: 900,
+  intakeWindowMs: 800,
+  podFallTilesPerBeat: 1.5,
+  podDriftTilesPerBeat: 0.4,
+  podRepair: 18,
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
   hitHeightMilli: 1000,
@@ -84,6 +107,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,
+  scorePod: 250,
   radarLead: 4,
   bulletGlideMs: 130,
   bandPct: 37,

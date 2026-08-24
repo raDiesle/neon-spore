@@ -1,4 +1,11 @@
-import { type Color, createRng, next, nextInt, type SpawnEntry } from "@neon-spore/sim";
+import {
+  type Color,
+  createRng,
+  next,
+  nextInt,
+  type PodEntry,
+  type SpawnEntry,
+} from "@neon-spore/sim";
 import { kindForColor } from "./creatures.js";
 import { WAVES, type Wave } from "./waves.js";
 
@@ -34,6 +41,24 @@ export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
     queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color });
   }
   return queue.sort((a, b) => a.beat - b.beat);
+}
+
+/**
+ * The pods of a wave, remapped onto the real field the same way the spawns are.
+ * A separate call rather than a second return value, because a pod queue is a
+ * separate thing to the simulation: `startWave` takes them apart.
+ */
+export function buildPods(waveIndex: number, cols: number): PodEntry[] {
+  const wave: Wave | undefined = WAVES[waveIndex];
+  if (wave) return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
+
+  // Beyond the authored waves, every third one carries a pod. Seeded off the
+  // wave index like everything else, and off a different stream from the
+  // spawns, so the pod does not land under the same creature every time.
+  const beyond = waveIndex - WAVES.length;
+  if (beyond % 3 !== 0) return [];
+  const rng = createRng(waveIndex + 9973);
+  return [{ beat: 1 + nextInt(rng, 3), col: nextInt(rng, cols), row: 2 + nextInt(rng, 3) }];
 }
 
 /** Beyond the authored waves: reproducible filler, clearly marked as such. */

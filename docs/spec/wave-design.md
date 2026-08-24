@@ -1,7 +1,7 @@
 # Wave design
 
 > **Status: partly built.** The one-sentence test is enforced in the data
-> structure and ten waves exist. Figures, acts and the modifier system are
+> structure and eleven waves exist. Figures, acts and the modifier system are
 > design only.
 
 **Goal:** a very long playing time made of through-composed waves with a low

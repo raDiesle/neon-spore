@@ -6,8 +6,10 @@ import {
   HULL,
   hullPointAtX,
   hullRadiusMul,
+  MAW,
   METEOR,
   openSmoothPath,
+  POD,
   type Point,
   SLICK,
 } from "@neon-spore/content";
@@ -47,8 +49,19 @@ const HULL_STEPS = 120;
 const SHIELD_WEIGHT = [0.46, 0.28, 0.17, 0.09];
 const SHIELD_PASSIVE = 0.42;
 
-function hullBumps(armed: boolean, spread = 0): Bump[] {
-  const bumps: Bump[] = [{ angle: -Math.PI / 2, strength: 0.5, plateau: 0.014, shoulder: 0.026 }];
+function hullBumps(armed: boolean, spread = 0, intake = 0): Bump[] {
+  // The cannon lobe, and the same lobe inverted: `intake` 1 is the maw, which
+  // is a dent of its own depth rather than a swelling — see `MAW`.
+  const cannonScale = 1 + (MAW.scale - 1) * intake;
+  const cannonHalf = 1 + (MAW.halfMul - 1) * intake;
+  const bumps: Bump[] = [
+    {
+      angle: -Math.PI / 2,
+      strength: 0.5 * cannonScale,
+      plateau: 0.014 * cannonHalf,
+      shoulder: 0.026 * cannonHalf,
+    },
+  ];
   const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * (armed ? 1 : 0);
   for (let i = 0; i < SHIELD_WEIGHT.length; i++) {
     bumps.push({
@@ -113,17 +126,26 @@ const meteor: Subject = {
  * in motion, strung out behind its head, can be judged as a shape rather than
  * only as a movement.
  */
-function hull(armed: boolean, spread = 0): Subject {
-  const bumps = hullBumps(armed, spread);
-  const name = spread > 0 ? "HULL · MOVING" : armed ? "HULL · ARMED" : "HULL · PASSIVE";
+function hull(armed: boolean, spread = 0, intake = 0): Subject {
+  const bumps = hullBumps(armed, spread, intake);
+  const name =
+    intake > 0
+      ? "HULL · MAW"
+      : spread > 0
+        ? "HULL · MOVING"
+        : armed
+          ? "HULL · ARMED"
+          : "HULL · PASSIVE";
   return {
     name,
     note:
-      spread > 0
-        ? "the body strung out behind its head"
-        : armed
-          ? "shield held open"
-          : "shield passive, still aimable",
+      intake > 0
+        ? "the cannon lobe turned inside out"
+        : spread > 0
+          ? "the body strung out behind its head"
+          : armed
+            ? "shield held open"
+            : "shield passive, still aimable",
     open: true,
     pointsAt(t) {
       const pts: Point[] = [];
@@ -157,8 +179,10 @@ function hull(armed: boolean, spread = 0): Subject {
 export const SUBJECTS: Subject[] = [
   blob("SLICK", SLICK),
   blob("BULB", BULB),
+  blob("POD", POD),
   meteor,
   hull(false),
   hull(true),
   hull(true, 0.05),
+  hull(false, 0, 1),
 ];
