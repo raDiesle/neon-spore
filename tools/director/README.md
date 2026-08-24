@@ -31,7 +31,8 @@ takes its field with it and the list stops typechecking.
 ## The layout
 
 Three columns: the wave list on the left, the field in the middle, the
-authoring panel on the right behind a `WAVE` / `SHIP` tab bar. The field takes
+authoring panel on the right behind a `WAVE` / `SHIP` / `PLANNED` tab bar. The
+field takes
 the full height of its column at the aspect the renderer uses, so it is the
 field the device draws rather than a thumbnail of it — which is the whole
 argument for having a stage at all. It is also the one column that does not
@@ -75,6 +76,29 @@ is holding, in the authored column nearest to where you clicked. It holds that
 beat afterwards rather than restarting, so you see what you just put down. A
 click in the band or the radar strip is not a placement — those are controls,
 not the field.
+
+## What is not built yet
+
+A third tab lists the rest of the bestiary — the thirteen creatures of which
+three exist, the seven newly accepted ones — and the eleven bosses. Each is
+marked built or not built. Built names are bright and unbuilt ones dim, because
+the tab is mostly things that do not exist and the exceptions are what should
+stand out.
+
+None of it is typed into the editor. The server parses the two spec files on
+every request and the editor renders what comes back, so there is no second
+copy of the list to keep in step, and a name renamed in the spec is renamed
+here. Whether something counts as built is derived the same way — the
+simulation's own creature table is the only thing that decides it, not a flag
+somebody set.
+
+What it is for: the palette answers what you can place, and this answers what
+the wave you are writing is eventually going to sit inside. A wave built around
+a mechanic that does not exist yet is worth knowing about while you are writing
+it, not afterwards.
+
+One caution, in the spec's own words: a name here is a label on an unbuilt
+design and costs one edit to change. Nothing in the simulation depends on it.
 
 ## Saving
 

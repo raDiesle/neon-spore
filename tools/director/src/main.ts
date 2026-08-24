@@ -2,6 +2,7 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
+import { renderPlanned } from "./planned.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
 import { bindStage } from "./stage.js";
@@ -63,6 +64,7 @@ bindTuning(cfg, () => {
   renderShip(cfg);
 });
 renderShip(cfg);
+void renderPlanned();
 
 /** A wave changed shape: redraw the grid and replay it from the top. */
 function onShape(): void {

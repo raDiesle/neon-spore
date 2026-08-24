@@ -81,5 +81,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
 | `tools/director/src/palette.ts` | the creature palette — the brushes are the bestiary |
 | `tools/director/src/ship.ts` | what the ship can do, read off SimConfig |
+| `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
+| `tools/director/src/planned.ts` | the panel that shows them |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |

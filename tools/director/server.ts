@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import { parseRoster } from "./src/roster.js";
 import { serializeWaves } from "./src/serialize.js";
 
 /**
@@ -18,6 +19,8 @@ import { serializeWaves } from "./src/serialize.js";
 const port = Number(process.env.DIRECTOR_PORT ?? 4174);
 const root = new URL("./dist/", import.meta.url);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
+const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
+const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
 const repoRoot = new URL("../../", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's fifteen minutes: this one is left open while a
@@ -116,6 +119,12 @@ const server = Bun.serve({
 
     if (path === "/api/waves" && req.method === "GET") {
       return Response.json(await readWaves(), { headers: noCache });
+    }
+    if (path === "/api/roster" && req.method === "GET") {
+      const bestiary = await Bun.file(bestiaryFile).text();
+      const bosses = await Bun.file(bossesFile).text();
+      const roster = parseRoster(bestiary, bosses);
+      return Response.json(roster, { headers: noCache });
     }
     if (path === "/api/waves" && req.method === "PUT") {
       try {

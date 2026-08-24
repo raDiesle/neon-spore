@@ -106,6 +106,14 @@
       .cap .num { color: var(--gold); float: right; }
       .cap p { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
 
+      .plan { padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
+      .plan .name { color: var(--dim); letter-spacing: 2px; font-size: 11px; }
+      .plan.is-built .name { color: var(--ink); }
+      .plan .stamp { float: right; font-size: 8px; letter-spacing: 1px; color: #574d84; }
+      .plan.is-built .stamp { color: var(--cyan); }
+      .plan .kind { color: #a98cff; margin-left: 6px; font-size: 9px; }
+      .plan .blurb { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
+
       .row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
       .row label { flex: 0 0 96px; color: var(--dim); }
       .row span { flex: 0 0 62px; text-align: right; }
@@ -162,6 +170,7 @@
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
           <button type="button" data-tab="ship">SHIP</button>
+          <button type="button" data-tab="planned">PLANNED</button>
         </div>
         <div class="tabpage on" id="tab-wave">
           <label class="field" for="fName">NAME</label>
@@ -187,6 +196,13 @@
           <p class="note">
             Tuning is the run, not the wave. It is never written to waves.ts —
             saved presets live in this browser.
+          </p>
+        </div>
+        <div class="tabpage" id="tab-planned">
+          <div id="planned"></div>
+          <p class="note">
+            These are read from the bestiary and boss specs. A name here costs
+            one edit to change — nothing depends on it yet.
           </p>
         </div>
       </section>
