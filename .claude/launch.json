@@ -3,14 +3,14 @@
   "configurations": [
     {
       "name": "game",
-      "runtimeExecutable": "C:/Users/raDi/.bun/bin/bun.exe",
+      "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "preview"],
       "port": 4173,
       "autoPort": false
     },
     {
       "name": "director",
-      "runtimeExecutable": "C:/Users/raDi/.bun/bin/bun.exe",
+      "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "director"],
       "port": 4174,
       "autoPort": false
