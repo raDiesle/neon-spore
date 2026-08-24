@@ -41,7 +41,15 @@ cache-prompts: true
 # including the CRLF a worker on Windows writes and this repo does not want.
 # Through `bunx`, because Biome is a local devDependency and bare `biome` is
 # not on any PATH the worker has.
-lint-cmd: bunx biome check --write
+#
+# Scoped to "typescript:" rather than left bare. A bare lint-cmd runs against
+# every file aider touches, Biome included; biome.json points Biome at
+# `**/*.ts` only (deliberately — see CLAUDE.md), so linting a `.md` file "no
+# files processed" and the worker's fix has twice been to widen biome.json
+# instead. Scoping the command here to the one language it actually covers
+# means a non-ts file gets no lint-cmd at all, which is correct: nothing to
+# run.
+lint-cmd: "typescript: bunx biome check --write"
 
 test-cmd: bun run check
 auto-test: true
