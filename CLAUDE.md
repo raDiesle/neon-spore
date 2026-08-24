@@ -66,16 +66,19 @@ bun run preview        # build, then serve dist/ on 4173 — how an agent verifi
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
+bun run director       # the wave editor on 4174 — desktop, for a human
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
 
 ## Delegating implementation
 
-Mechanical work with a known file list is handed to the cheap worker instead of
-being typed in the session: `.claude/skills/delegate` carries the procedure,
-`docs/delegating.md` the reasoning. The test is whether `bun run check` can
-decide the result. Judgement stays here — the sim/render boundary, couplings,
-and anything whose criterion is whether it feels right.
+Implementation is delegated to the worker model by default, not typed in the
+session: `.claude/skills/delegate` carries the procedure, `docs/delegating.md`
+the reasoning. Decide what has to be decided — the interface, the constraint,
+the shape — then hand over the typing. A constraint you can write down belongs
+in the spec, not in your head, and is not a reason to keep the work. What stays
+here is what no spec can carry: whether it feels right, and what should be
+built at all.
 
 ## Verifying in a browser
 

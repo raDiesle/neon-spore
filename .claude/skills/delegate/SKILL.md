@@ -1,6 +1,6 @@
 ---
 name: delegate
-description: Hand an implementation task to the cheap worker (aider + an open-weights model via OpenRouter) instead of typing it in this session. Use when a task is mechanical, its blast radius is a known list of files, and `bun run check` can decide whether the result is right.
+description: Hand implementation to the worker model (aider + GLM via OpenRouter) instead of typing it in this session. Implementation is delegated by default, so reach for this whenever code is about to be written — not only when the task looks mechanical. It carries the spec format, the file whitelist, the review pass and the commit rules.
 ---
 
 # Delegating implementation
@@ -10,17 +10,50 @@ not the typing — it is the retries. Aider re-prompts the worker with the failu
 output of `bun run check` until it is green, and none of that traffic reaches
 this session.
 
-## Delegate only when all three hold
+## Delegation is the default
 
-1. **The blast radius is known.** You can name the files before starting.
-2. **`bun run check` decides it.** If a green tree would not convince you the
-   work is right, the worker has nothing to aim at.
-3. **It is mechanical.** A creature entry, a wave, a parameter sweep, a rename,
-   splitting a file that grew past 250 lines, a test that mirrors an existing one.
+Implementation is handed over unless there is a stated reason not to. The
+question is never "is this mechanical enough" — almost nothing is purely
+mechanical, and waiting for a task that is costs more than the setup saves.
+The question is: **what has to be decided here, and what is typing once it is
+decided?** Decide the first part, delegate the second.
 
-Do it here instead when the shape of the answer is the hard part: the
-sim/render boundary, a new coupling, anything in `docs/spec/`, and anything
-whose criterion is whether it feels right.
+That split is usually small and lopsided. "`bindControls` returns a `tick()`
+the loop calls each tick, repeat after 24 ticks then every 8, drive it off the
+tick counter and never off wall-clock time" is the judgement — two minutes.
+The eighty lines that follow from it are typing, and typing is what the worker
+is for.
+
+### Not reasons to keep it
+
+- **"It needed a constraint kept in mind."** A constraint you can write down is
+  not judgement, it is a line in the spec. Write it there.
+- **"It touches a coupling."** Naming the coupling in the spec is cheaper than
+  implementing around it.
+- **"It is only a few lines."** Then the spec is only a few lines too.
+- **"Faster to do myself."** Measured against your own tokens, rarely true;
+  measured against the retry loop, never.
+
+### Actual reasons to keep it
+
+- The criterion is whether it **feels right** — game feel, glow, timing as an
+  experience, a silhouette. No spec can carry that.
+- It **decides something** rather than implements it: a design rule, a change
+  to `docs/spec/`, a new coupling, the shape of the sim/render boundary.
+- You cannot name the files yet, because finding them *is* the task.
+- The spec would have to be longer than the change. Rare, and it means you have
+  not finished deciding.
+
+### Which invariants the gate actually holds
+
+`bun run check` enforces purity and determinism **in `sim` and `content` only**
+— `packages/sim/test/purity.test.ts` scans those two. Work in `apps/game`,
+`packages/render` or `tools/` is not covered by it, so a wall-clock call or a
+stray `Math.random` there comes back green. That is not a reason to withhold
+the task; it is a reason to put the constraint in the spec **and** to look for
+it by name in the diff.
+
+Say in the final report whether the work was delegated, and if it was not, why.
 
 ## 1. Write the spec
 
