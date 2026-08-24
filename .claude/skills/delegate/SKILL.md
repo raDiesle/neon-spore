@@ -45,6 +45,19 @@ small.
 Neither is assumed. Say in the final report whether the work was delegated, and
 if it was not, which of these two applied.
 
+### The file the diff format cannot edit
+
+A file that *generates source as strings* — template literals, nested
+backticks, `${}` inside quoted code — collides with the edit format, which
+delimits its blocks with the same characters. The worker cannot produce a valid
+edit block, retries, fails the same way, and runs until something stops it.
+Both doom loops so far were this: `tools/director/src/serialize.ts`, and both
+ended at about 65,000 output tokens.
+
+Before delegating, look at the target for backticks. If it is dense with them,
+pass `--edit-format whole` for that run and accept the extra output tokens, or
+keep the task. Do not hand a backtick-heavy file to the diff format twice.
+
 ### Which invariants the gate actually holds
 
 `bun run check` enforces purity and determinism **in `sim` and `content` only**
