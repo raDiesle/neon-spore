@@ -1,0 +1,4 @@
+# Line endings live here, not in a contributor's git config. `core.autocrlf`
+# disagreeing with this file is what re-injected CRLF into worker-written
+# files and broke `bun run lint` after the code was already correct.
+* text=auto eol=lf
