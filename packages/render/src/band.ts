@@ -51,7 +51,7 @@ export function drawBand(
     // Both lit for exactly as long as their window is open, so player 1 can see
     // what they are spending.
     action(ctx, l.guardButton, armed, PALETTE.shield, "#08131A", "SHIELD");
-    action(ctx, l.intakeButton, open, PALETTE.pod, "#2C1C05", "INTAKE");
+    action(ctx, l.intakeButton, open, PALETTE.pod, "#2C1C05", "SUCK");
   }
   if (!showsShield(l.role)) {
     ctx.textAlign = "left";

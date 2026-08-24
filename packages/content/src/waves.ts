@@ -124,7 +124,7 @@ export const WAVES: Wave[] = [
   {
     name: "SALVAGE",
     sentence: "The one where shooting something is only half of getting it.",
-    hint: "Shoot the pod loose, then follow it with the cannon and open the maw as it arrives.",
+    hint: "A shot in its column knocks the pod loose — any colour works. Chase it down with the cannon and hit SUCK the moment it reaches the hull.",
     entries: [
       { beat: 2, col: 1, color: "cyan" },
       { beat: 7, col: 5, color: "red" },
