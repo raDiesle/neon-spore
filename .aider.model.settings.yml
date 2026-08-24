@@ -27,3 +27,9 @@
         # cache breakpoints above are silently dropped by whoever answers.
         require_parameters: true
         allow_fallbacks: true
+        # Anthropic models are paid for through a separate account and are
+        # never to be billed through OpenRouter. A fallback switches host, not
+        # model, so this cannot fire today — it is here so that it still cannot
+        # fire after someone changes the model line above without thinking
+        # about it.
+        ignore: [anthropic]

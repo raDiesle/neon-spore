@@ -57,6 +57,12 @@ question asked once. GLM reasons and edits in the same turn, which is a
 different thing, and its thinking tokens are billed as output — the reason its
 per-task cost sits above what its input rate suggests.
 
+Never an Anthropic model through OpenRouter. Those are paid for on a separate
+account that the Claude app is configured against, and routing them through
+here would bill the same work twice over on the wrong ledger. The worker slot
+is for open weights only, and `provider.ignore` in the model settings holds
+that line even if the model line is changed carelessly.
+
 OpenRouter rather than an account per provider, because the point of a one-line
 model slot is defeated if changing it means a new key and a new prepaid
 balance. The credit fee buys the A/B above, plus fallback when a provider is
