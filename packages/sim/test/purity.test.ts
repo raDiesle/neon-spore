@@ -74,3 +74,69 @@ describe("determinism", () => {
     });
   }
 });
+
+interface Copy {
+  /** What to call instead. */
+  call: string;
+  /** The one file allowed to contain the arithmetic — it is the definition. */
+  owner: string;
+  /** The shape of the rule written out by hand. */
+  pattern: RegExp;
+}
+
+/**
+ * Each row is a rule the simulation owns. The row exists because someone has
+ * already re-derived that rule rather than importing it. Adding a row is how a
+ * defect that got through review once is stopped from getting through twice.
+ */
+const COPIES: Copy[] = [
+  {
+    call: "mapCol",
+    owner: "packages/content/src/queue.ts",
+    pattern: /\bAUTHORED_COLS\s*-\s*1\b/,
+  },
+];
+
+function allSourceFiles(): string[] {
+  const patterns = ["packages/*/src/**/*.ts", "apps/*/src/**/*.ts", "tools/**/*.ts"];
+  const all: string[] = [];
+  for (const pattern of patterns) {
+    const glob = new Glob(pattern);
+    for (const f of glob.scanSync(ROOT)) {
+      const path = join(ROOT, f);
+      if (!path.includes("node_modules") && !path.includes("dist") && !path.includes(".claude")) {
+        all.push(path);
+      }
+    }
+  }
+  return all;
+}
+
+describe("no re-derived rules", () => {
+  const files = allSourceFiles();
+
+  it("guards a non-empty set of files", () => {
+    expect(files.length).toBeGreaterThan(0);
+  });
+
+  for (const copy of COPIES) {
+    const ownerPath = join(ROOT, copy.owner);
+
+    it(`${copy.owner} contains its own pattern`, async () => {
+      const code = stripNonCode(await Bun.file(ownerPath).text());
+      expect(copy.pattern.test(code)).toBe(true);
+    });
+
+    for (const file of files) {
+      if (file === ownerPath) continue;
+
+      const name = relative(ROOT, file).replaceAll("\\", "/");
+      it(`${name} calls ${copy.call} instead of re-deriving it`, async () => {
+        const code = stripNonCode(await Bun.file(file).text());
+        if (copy.pattern.test(code)) {
+          throw new Error(`Call ${copy.call} from ${copy.owner}`);
+        }
+      });
+    }
+  }
+});

@@ -22,6 +22,10 @@ and slimes: closed contours with lobes (`blobPath`, `hullRadiusMul`).
 Rules 1 and 2 are enforced by `packages/sim/test/purity.test.ts`, not by good
 intentions: it scans every file in `sim` and `content` and fails on a wall
 clock, a random number, a DOM global or an import of `render`. Run `bun test`.
+The same file carries a table of rules that must be **called, not re-derived** —
+`mapCol` spelled out by hand is a second copy of where a creature lands, and it
+will drift. Add a row when review catches one; that is how something that got
+past review once stops getting past it twice.
 Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 
 ## Git
