@@ -14,6 +14,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
+import { innerLight, iridescence, sweep } from "./sheen.js";
 import type { ShieldSegment } from "./shield.js";
 
 /**
@@ -158,13 +159,15 @@ export function drawHull(
 
   const top = Math.min(...pts.map((p) => p.y));
   const bg = ctx.createLinearGradient(0, top, 0, l.bandTop);
-  bg.addColorStop(0, "#FFE9BE");
+  bg.addColorStop(0, "#EFCBFF");
   bg.addColorStop(0.3, PALETTE.hull);
-  bg.addColorStop(1, "#7A4E14");
+  bg.addColorStop(1, "#33095C");
   ctx.fillStyle = bg;
   ctx.fill(filled);
 
-  innerWarmth(ctx, body, filled);
+  innerLight(ctx, body, filled);
+  iridescence(ctx, body, filled, l, time);
+  sweep(ctx, body, filled, l, time);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
   drawScars(
@@ -177,35 +180,6 @@ export function drawHull(
   );
   drawShieldRim(ctx, l, f, armed, time, at);
   drawMuzzle(ctx, f, l);
-  ctx.restore();
-}
-
-/**
- * The warm light just under the skin.
- *
- * It used to be a gradient rectangle across the full width, starting at the
- * highest point of the contour — which meant that whenever the two lobes met
- * and the surface rose, a pale band slid up the whole hull and showed its own
- * straight lower edge. The membrane has no straight edges. So the glow is a
- * wide, soft stroke of the contour itself, clipped to the inside of the hull:
- * it follows every swelling exactly, and the half that would spill into space
- * is cut away by the clip rather than by a horizontal line.
- */
-function innerWarmth(ctx: CanvasRenderingContext2D, body: Path2D, filled: Path2D): void {
-  ctx.save();
-  ctx.clip(filled);
-  ctx.strokeStyle = "#FFC24B";
-  ctx.lineCap = "round";
-  for (const [width, alpha] of [
-    [46, 0.05],
-    [22, 0.06],
-    [9, 0.08],
-  ] as const) {
-    ctx.globalAlpha = alpha;
-    ctx.lineWidth = width;
-    ctx.stroke(body);
-  }
-  ctx.globalAlpha = 1;
   ctx.restore();
 }
 
