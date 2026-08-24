@@ -62,7 +62,8 @@ Say what was committed. Do not push unless asked.
 ```
 bun install            # once
 bun run dev            # game at localhost:3000, hot reload — for a human
-bun run preview        # build, then serve dist/ on 3000 — how an agent verifies
+bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
+bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
 bun run check          # typecheck + lint + test, run this before saying "done"
@@ -80,14 +81,32 @@ and anything whose criterion is whether it feels right.
 
 `bun run preview`, never `bun run dev`. It builds first — `bun build` takes
 about ten milliseconds, so there is nothing to save by skipping it — and serves
-`apps/game/dist` on a fixed port 3000.
+`apps/game/dist` on port 4173.
 
-The distinction is not fussiness. `bun --hot` serves a transform of the source,
-keeps state across edits, and outlives the session that started it; the port it
-lands on is not the port it asked for. Every one of those turns into a verified
-result that was read off the wrong bundle. The preview server instead refuses to
-start next to a stranger on its port, retires an older copy of itself, and exits
-after fifteen minutes of silence, so a leaked one dies without help.
+**The two ports are separate on purpose.** `bun run dev` is the human's, pinned
+to 3000; `bun run preview` is the agent's, on 4173. They used to share 3000, and
+a session that found a human's dev server sitting there got a preview that
+refused to start and a browser check that quietly read the dev server instead —
+a verified result taken off the wrong bundle, which is the one failure this
+whole arrangement exists to prevent.
+
+A dev server answers *any* path with `index.html`, so a 200 proves nothing about
+which server replied. Before trusting a measurement, ask who it was:
+
+```
+curl -s http://localhost:4173/__preview
+```
+
+Only the preview answers `{"app":"neon-spore-preview",...}`. Anything else means
+the number came off the wrong server and does not count.
+
+`bun run preview:once` takes an OS-assigned free port instead of 4173 — for a
+throwaway check, or a second worktree previewing beside this one. Several can
+run at the same time without arranging anything.
+
+Either way the server refuses to start next to a stranger, retires an older copy
+of itself, and exits after fifteen minutes of silence, so a leaked one dies
+without help.
 
 Never start a server with a backgrounded shell command. Use the `game` entry in
 `.claude/launch.json`, which runs exactly this.

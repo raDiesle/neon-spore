@@ -9,9 +9,10 @@
     "tools/*"
   ],
   "scripts": {
-    "dev": "bun --hot apps/game/index.html",
+    "dev": "bun --hot apps/game/index.html --port 3000",
     "build": "bun run --cwd apps/game build",
     "preview": "bun run --cwd apps/game preview",
+    "preview:once": "bun run --cwd apps/game preview:once",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "typecheck": "tsc --noEmit",

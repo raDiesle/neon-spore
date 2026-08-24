@@ -3,15 +3,19 @@
 // that started it. This serves `dist/` — the same bundle that ships — and it
 // cannot linger:
 //
-//   * the port is fixed, so a second start collides instead of quietly
-//     moving to 3001 and leaving the stale one running;
+//   * the port is its own: 4173, never the 3000 that `bun --hot` takes. A
+//     human dev server and this one cannot want the same socket, so a
+//     preview that fails to start leaves an empty port rather than a dev
+//     server that answers happily with the wrong bundle;
+//   * that port is fixed, so a second start collides instead of quietly
+//     moving to 4174 and leaving the stale one running;
 //   * a collision with an older preview is resolved by asking it to quit,
 //     never by killing a process we did not recognise;
 //   * an idle preview exits on its own, so a leaked one dies without help.
 //
 // Run it through `bun run preview`, which builds first.
 
-const port = Number(process.env.PREVIEW_PORT ?? 3000);
+const port = Number(process.env.PREVIEW_PORT ?? 4173);
 const root = new URL("./dist/", import.meta.url);
 const marker = "neon-spore-preview";
 const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 15 * 60 * 1000);
@@ -65,7 +69,11 @@ Stop it yourself, or set PREVIEW_PORT — this script will not kill an unknown p
   process.exit(1);
 }
 
-for (const host of loopbacks) await reclaim(host);
+// PREVIEW_PORT=0 asks the OS for a free port: there is nothing to reclaim and
+// nothing to collide with. That is the mode for a one-shot check, or for a
+// second worktree running its own preview beside this one.
+const ephemeral = port === 0;
+if (!ephemeral) for (const host of loopbacks) await reclaim(host);
 
 let idle: ReturnType<typeof setTimeout>;
 function resetIdle(): void {

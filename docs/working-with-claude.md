@@ -53,6 +53,23 @@ fifteen minutes without a request, so even a preview that escapes the session
 cleans itself up. `.claude/launch.json` offers this and nothing else, which
 leaves `bun run dev` where it belongs — with a person watching hot reload.
 
+*Amended 2026-08-24:* that fixed port was 3000 — the same one `bun --hot` takes
+by default — and the refusal to kill a stranger turned it into the failure it
+was written to prevent. A session that found a person's dev server on 3000 got a
+preview that would not start, and then measured the dev server anyway: a browser
+check handed a URL has no way of noticing which server answered. The stranger
+check worked exactly as designed and still yielded a verified result off the
+wrong bundle.
+
+Two ports now, so the collision is impossible rather than merely detected: `dev`
+is pinned to 3000, `preview` sits on 4173. A preview that fails to start leaves
+an empty port behind, and an empty port cannot be mistaken for a passing check.
+
+`/__preview` answers `{"app":"neon-spore-preview"}` and settles who replied — a
+dev server hands back `index.html` for every unknown path, so a 200 is not
+evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
+throwaway check or a second worktree; several can run side by side.
+
 ## Parameters, not shouting
 
 Not "make the bubble softer" but named values — stiffness, damping, elongation,
