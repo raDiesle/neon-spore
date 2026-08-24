@@ -34,22 +34,28 @@ and it still looks wrong.
 
 ## The worker model
 
-`qwen/qwen3-coder-next` by default, `z-ai/glm-5.2` when the default has missed
-twice. Cheap-first with an escalation, rather than one middling model for
-everything: the input price between the two differs by about eightfold, and
-most delegable work here is mechanical enough that the cheap one finishes it.
-Arguing with a model that has already missed twice costs more in review than
-the escalation costs in tokens.
+`z-ai/glm-5.2` through OpenRouter. Chosen on hit rate rather than on token
+price, and the arithmetic is why. One delegated task costs the orchestrating
+session roughly eight cents to specify, review and commit. The entire spread
+between the cheapest worker on the market and this one is about the same eight
+cents. So the second attempt is the expensive event, not the model: anything
+that raises the chance of landing it first time pays for itself several times
+over, and picking a worker to save a cent per task optimises the wrong term.
+
+`qwen/qwen3-coder-next` sits commented above it for a task trivial enough that
+the swap is worth the keystroke. It is roughly seven times cheaper per edit and
+measurably competent at small surgical ones.
 
 The rankings underneath this move every few months and any claim about which
 model is *better* is stale before it is committed. What does not move is the
-method — both are one line in `.aider.conf.yml`, so the two of them can be run
-against the same spec and judged on the diff that comes back. Prefer that over
-anyone's benchmark, this file included.
+method — the slot is one line, so two candidates can be run against the same
+spec and judged on the diff that comes back. Prefer that over anyone's
+benchmark, this file included.
 
-Not a reasoning model. They emit long thinking traces, are slow, and are
-comparatively weak at a many-turn edit loop. Ask one a hard algorithmic
-question once; do not put one behind the typing.
+Not a reasoning-only model asked to type. Reserve those for a hard algorithmic
+question asked once. GLM reasons and edits in the same turn, which is a
+different thing, and its thinking tokens are billed as output — the reason its
+per-task cost sits above what its input rate suggests.
 
 OpenRouter rather than an account per provider, because the point of a one-line
 model slot is defeated if changing it means a new key and a new prepaid

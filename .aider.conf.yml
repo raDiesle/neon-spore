@@ -1,12 +1,16 @@
-# The cheap implementation worker. Opus orchestrates and reviews, this types.
+# The implementation worker. Opus orchestrates and reviews, this types.
 # Driven from .claude/skills/delegate, never by hand.
 # Requires OPENROUTER_API_KEY in the environment.
 
-model: openrouter/qwen/qwen3-coder-next
+model: openrouter/z-ai/glm-5.2
 
-# Escalation when the default comes back wrong. Swap the line above, do not
-# argue with a model that has already missed twice.
-# model: openrouter/z-ai/glm-5.2
+# Chosen on hit rate, not on token price. The whole spread from the cheapest
+# worker to this one is about the cost of one extra review pass in the
+# orchestrating session, so a model that lands it first time is the cheaper
+# one even at twenty times the rate.
+#
+# The cheap end, if a task is trivial enough to be worth the swap:
+# model: openrouter/qwen/qwen3-coder-next
 
 # Surgical edits, not regenerated files. Aider will pick `whole` for some
 # models on its own, which contradicts the house rule and costs output tokens
