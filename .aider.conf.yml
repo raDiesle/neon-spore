@@ -21,6 +21,11 @@ read:
 
 # The contract. Aider re-prompts itself with the failure output until this
 # passes, which is the entire point: the retries happen on cheap tokens.
+# Every turn of that loop resends the same context — the files, CLAUDE.md, the
+# previous attempt. Cached input is roughly a tenth the price of fresh, and it
+# is the largest single lever on what a delegated task costs.
+cache-prompts: true
+
 test-cmd: bun run check
 auto-test: true
 
