@@ -129,11 +129,12 @@ export function bindControls({
   canvas.addEventListener("contextmenu", (e) => e.preventDefault());
 
   /**
-   * Keyboard, for playing both roles alone at a desk. Two hands, two halves:
-   * A/D slide the cannon on the left of the keyboard, J/L the shield on the
-   * right, W/E fire the two colours and I opens the guard window. The keys stay
-   * live in every view — the view switch decides what is *shown*, not what a
-   * single tester can reach. The arrows step between waves.
+   * Keyboard, for playing both roles alone at a desk. A/D slide the cannon
+   * *and* the shield together, W/E fire the two colours and I opens the guard
+   * window, so one hand drives a whole test run. J/L still move the shield
+   * alone, for the moment a test needs the two apart. The keys stay live in
+   * every view — the view switch decides what is *shown*, not what a single
+   * tester can reach. The arrows step between waves.
    *
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
@@ -160,22 +161,28 @@ function bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep }: KeyBind
     const cols = layout().cols;
     if (cannon < 0) cannon = Math.floor(cols / 2);
     if (shield < 0) shield = Math.floor(cols / 2);
+    const moveCannon = (delta: number): void => {
+      cannon = Math.min(cols - 1, Math.max(0, cannon + delta));
+      buffer.push(1, { kind: "cannonCol", col: cannon });
+    };
+    const moveShield = (delta: number): void => {
+      shield = Math.min(cols - 1, Math.max(0, shield + delta));
+      buffer.push(2, { kind: "shieldCol", col: shield });
+    };
     switch (e.code) {
       case "KeyA":
-        cannon = Math.max(0, cannon - 1);
-        buffer.push(1, { kind: "cannonCol", col: cannon });
+        moveCannon(-1);
+        moveShield(-1);
         break;
       case "KeyD":
-        cannon = Math.min(cols - 1, cannon + 1);
-        buffer.push(1, { kind: "cannonCol", col: cannon });
+        moveCannon(1);
+        moveShield(1);
         break;
       case "KeyJ":
-        shield = Math.max(0, shield - 1);
-        buffer.push(2, { kind: "shieldCol", col: shield });
+        moveShield(-1);
         break;
       case "KeyL":
-        shield = Math.min(cols - 1, shield + 1);
-        buffer.push(2, { kind: "shieldCol", col: shield });
+        moveShield(1);
         break;
       case "KeyI":
         buffer.push(1, { kind: "guard" });
