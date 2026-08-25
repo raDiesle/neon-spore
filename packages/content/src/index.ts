@@ -4,6 +4,9 @@ export {
   type CreatureDef,
   controlsForKinds,
   kindForColor,
+  type RadarOwner,
+  radarOwner,
+  showsRadar,
 } from "./creatures.js";
 export {
   AUTHORED_COL_MAX,

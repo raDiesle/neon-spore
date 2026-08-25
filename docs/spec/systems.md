@@ -26,19 +26,29 @@ In the code: `CREATURES` and `controlsForKinds` in
 > rock. `dodge` died with free flight; the meteor's group is `guard`. See
 > [roles](roles.md#there-is-no-ship-movement).
 
-## 5.2 Information split — not built
-
-One device today, so both players see the same screen.
+## 5.2 Information split — partly built
 
 | Information | Pilot | Navigator |
 |---|---|---|
 | Position of all creatures | ✔ | ✔ |
 | Colours (normal) | ✔ | ✔ |
 | Veil: the colour inside | ✔ (only at the flash) | ✘ |
-| Radar: which are coming (the queue) | ✔ | ✘ |
-| Radar: where they are coming (traces) | ✘ | ✔ |
+| Radar: rocks + torch (`guard` kinds) | ✔ | ✘ |
+| Radar: slick, bulb, queen (`aim` kinds) | ✘ | ✔ |
 | Target mix (boss "The Vessel") | ✘ | ✔ |
 | Mark + target colour | ✔ | ✔ |
+
+**Built:** the radar rows. The split crosses the controls rather than the
+information type ("which" vs "where") the German original proposed — see
+`docs/decisions.md` #15 for why. `radarOwner(kind)` in
+`packages/content/src/creatures.ts` is the single source; `showsRadar(role,
+kind)` in the same file is what `packages/render/src/field.ts`'s `drawRadar`
+calls to decide whether a given screen shows an arrival at all.
+
+**Not built:** the veil, target mix and mark rows, and the "traces" idea
+(where something is coming from) the original table proposed for the
+navigator's half — the strip currently shows only that something is coming,
+in the colour/kind it will arrive as, at a column.
 
 Radar lines: length = remaining time until arrival; a warning before the
 creature is visible. The veil appears on the radar as a question mark.

@@ -3,6 +3,14 @@ import { type Color, type CreatureKind, livingKindForColor } from "@neon-spore/s
 /** The control groups a creature demands. Principle A, see docs/spec/systems.md. */
 export type ControlGroup = "aim" | "guard";
 
+/**
+ * Which player's radar strip shows this kind coming. Data, not derived from
+ * `controls` — the queen carries both control groups, and a later creature
+ * must be able to opt out of both radars (`"none"`) without that reading as
+ * "aim and guard, so p2".
+ */
+export type RadarOwner = "p1" | "p2" | "none";
+
 export interface CreatureDef {
   kind: CreatureKind;
   /** Which controls a wave containing this creature must show. */
@@ -13,6 +21,13 @@ export interface CreatureDef {
    * `kindForColor`.
    */
   color: Color | null;
+  /**
+   * Whose radar strip announces this kind. The rule crosses the controls
+   * instead of splitting information types by kind of information: the one
+   * who reads the radar is never the one who acts on it, so the pair has to
+   * talk (docs/spec/roles.md).
+   */
+  radar: RadarOwner;
   /** One sentence. This is what the first-appearance preview says. */
   blurb: string;
 }
@@ -34,24 +49,28 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "slick",
     controls: ["aim"],
     color: "red",
+    radar: "p2",
     blurb: "Flat and wide, and always red. Glides, tilts and ripples. Holds its lane.",
   },
   bulb: {
     kind: "bulb",
     controls: ["aim"],
     color: "cyan",
+    radar: "p2",
     blurb: "Round and swollen, and always cyan. Sways in its lane and pumps.",
   },
   meteor: {
     kind: "meteor",
     controls: ["guard"],
     color: null,
+    radar: "p1",
     blurb: "Dead rock. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
   meteorMedium: {
     kind: "meteorMedium",
     controls: ["guard"],
     color: null,
+    radar: "p1",
     blurb:
       "Dead rock, falling twice as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
@@ -59,6 +78,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "meteorFast",
     controls: ["guard"],
     color: null,
+    radar: "p1",
     blurb:
       "Dead rock, falling three times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
@@ -66,6 +86,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "meteorFaster",
     controls: ["guard"],
     color: null,
+    radar: "p1",
     blurb:
       "Dead rock, falling four times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
@@ -73,6 +94,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "meteorFastest",
     controls: ["guard"],
     color: null,
+    radar: "p1",
     blurb:
       "Dead rock, falling five times as fast — the queen's own. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
@@ -80,6 +102,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "queen",
     controls: ["aim", "guard"],
     color: null,
+    radar: "p2",
     blurb:
       "Huge and armoured. She opens for a moment, in one column and one colour — and answers a miss with a rock.",
   },
@@ -98,4 +121,26 @@ export function controlsForKinds(kinds: readonly CreatureKind[]): ControlGroup[]
   const set = new Set<ControlGroup>();
   for (const k of kinds) for (const g of CREATURES[k].controls) set.add(g);
   return [...set];
+}
+
+/**
+ * Whose radar strip announces this kind, straight from `CREATURES`. Call
+ * this instead of re-deriving ownership from `controls` by hand — writing
+ * `controls.includes("guard") ? "p1" : "p2"` happens to match today's
+ * bestiary, but it is a second, undeclared copy of a rule that a mixed
+ * creature or a radar-`"none"` one will silently break.
+ */
+export function radarOwner(kind: CreatureKind): RadarOwner {
+  return CREATURES[kind].radar;
+}
+
+/**
+ * Whether a screen with this role should show a kind coming. `role` is a
+ * plain string, not render's `ViewRole` — content must not import render
+ * (CLAUDE.md rule 1) — so `"test"` is spelled out here too: it is both
+ * halves at once, so it shows everything.
+ */
+export function showsRadar(role: "p1" | "p2" | "test", kind: CreatureKind): boolean {
+  if (role === "test") return true;
+  return radarOwner(kind) === role;
 }

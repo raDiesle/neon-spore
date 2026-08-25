@@ -324,3 +324,44 @@ replay has to record that the run was played with the hull holding.
 **Reconsider if:** a landscape or tablet layout is ever wanted. The stage is
 one aspect ratio by choice; making it a range is a change to `computeStage` and
 nothing else.
+
+## 15. The radar splits by control, not by information type
+
+*August 2026.* `docs/spec/roles.md` and `systems.md` 5.2 had proposed a radar
+split along "which creature is coming" (pilot) versus "where it is coming
+from" (navigator). Building it that way would have let the pilot both read the
+rocks' arrival and, alone, do nothing about it — the shield is player 2's to
+move. The information and the action would have sat on the same screen, which
+needs no voice channel at all.
+
+The rule that shipped instead crosses the controls: **the one who sees a kind
+coming is never the one who acts on it.** Rocks and the torch (`guard` kinds)
+show on player 1's strip; player 1 has no shield to move, so player 1 has to
+tell player 2. Slick, bulb and the queen (`aim` kinds) show on player 2's
+strip; player 2 has no cannon, so player 2 has to tell player 1.
+
+`CreatureDef.radar` (`packages/content/src/creatures.ts`) is data, not derived
+from `controls` — a creature with both groups or neither still needs an
+explicit answer. `radarOwner(kind)` reads it; `showsRadar(role, kind)` is what
+`packages/render/src/field.ts` calls. `purity.test.ts` guards against
+re-deriving ownership from `controls` by hand.
+
+**Reconsider if:** a creature ever needs a radar owner that is not simply "the
+side that doesn't act" — `RadarOwner` already has a `"none"` case reserved for
+that (see *The Silent*, `docs/spec/bestiary.md` 10.2).
+
+## 16. The radar lead is a 3-second floor, not a 4-beat habit
+
+*August 2026.* `radarLead` was 4 beats — 2.5 s at 96 BPM. `docs/spec/latency.md`
+sets 3 seconds as the minimum warning a creature needs so it can be called out,
+found and acted on across a voice delay with room to spare; 2.5 s undercut that
+floor before the torch ever needed the room. `radarLead` is now 6 beats, 3.75 s
+at the default tempo.
+
+It is one field, not one per creature kind: the strip is a single time axis,
+and a per-kind lead would make two simultaneous arrivals draw at two
+unrelated heights for no reason a player could read.
+
+**Reconsider if:** the tempo (`bpm`) is ever tuned independently of
+`radarLead` — the two are coupled only through the 3-second floor, and a much
+faster tempo would need more beats to keep the same real time.

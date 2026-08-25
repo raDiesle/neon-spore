@@ -86,7 +86,13 @@ export interface SimConfig {
   scoreQueenPetal: number;
   /** Score for bringing the queen down. */
   scoreQueenDown: number;
-  /** How many beats ahead the radar strip shows an arrival. Read by render/. */
+  /**
+   * How many beats ahead the radar strip shows an arrival. Read by render/.
+   * A creature needs at least a 3-second floor of warning (docs/spec/latency.md)
+   * to be called out and acted on across the voice delay, and a single time
+   * axis on the strip is the only readable one — there is no per-kind lead.
+   * At 96 BPM, 6 beats is 3.75 s.
+   */
   radarLead: number;
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
   bulletGlideMs: number;
@@ -140,7 +146,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   scorePod: 250,
   scoreQueenPetal: 400,
   scoreQueenDown: 2000,
-  radarLead: 4,
+  radarLead: 6,
   bulletGlideMs: 130,
   bandPct: 37,
   bandSoloPct: 27,

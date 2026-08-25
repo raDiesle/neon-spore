@@ -1,3 +1,4 @@
+import { showsRadar } from "@neon-spore/content";
 import { isMeteorKind, type World } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -98,6 +99,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
   ctx.save();
   for (let i = world.spawned; i < world.queue.length; i++) {
     const q = world.queue[i]!;
+    if (!showsRadar(l.role, q.kind)) continue;
     const inBeats = q.beat - (world.waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
 

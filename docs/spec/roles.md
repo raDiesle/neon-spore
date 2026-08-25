@@ -33,12 +33,18 @@ width, a freely sliding cannon on it, and a shield.
 | **Open the maw** (take a pod in) | ✔ | |
 | Choose colour and fire | | ✔ |
 | **Move** the shield left/right | | ✔ |
-| Radar: *which* creatures are coming | ✔ | |
-| Radar: *where* they are coming | | ✔ |
+| Radar: rocks + torch (`guard` kinds) | ✔ | |
+| Radar: slick, bulb, queen (`aim` kinds) | | ✔ |
 
-The radar split is the one row of that table that is **not built**: the
-prototype is one device showing both bands, and the radar strip at the top
-shows everything to everyone. It becomes real with two-device play.
+**Built.** The radar crosses the controls instead of splitting information
+types by *which* vs *where*: player 1 sees the rocks coming (`radar: "p1"` in
+`packages/content/src/creatures.ts`) but cannot act on them alone — player 2
+holds the shield. Player 2 sees the living creatures coming but cannot act on
+them alone — player 1 holds the cannon. Either way, the one who knows has to
+say so; a split by information type would let the one who reads the strip also
+be the one who acts, which needs no voice channel at all. `radarOwner` and
+`showsRadar` are the calls; nothing else may re-derive ownership from
+`controls`. See `docs/decisions.md` #15.
 
 **Hull.** Visible across the whole lower width; only its upper, jagged edge
 reaches into the picture. It does not move. When a creature reaches it, a piece

@@ -4,12 +4,14 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   type SimEvent,
+  type SpawnEntry,
   startWave,
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
-import type { ViewRole } from "../src/layout.js";
+import { drawRadar } from "../src/field.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -126,6 +128,42 @@ describe("a frame", () => {
     ]) {
       expect(() => frames("test", 8, viewport)).not.toThrow();
     }
+  });
+});
+
+describe("the radar", () => {
+  /**
+   * Radar ownership crosses the controls: p1 reads rocks, p2 reads the living.
+   * A single queued rock must draw on p1's strip and nowhere on p2's.
+   */
+  it("shows a rock's arrival to p1 only, never to p2", () => {
+    const queue: SpawnEntry[] = [{ beat: 2, col: 3, kind: "meteor", color: null }];
+    const world = createWorld(CFG, 1, queue);
+    const layout = (role: ViewRole) =>
+      computeLayout({ width: 900, height: 1600, dpr: 1 }, CFG, role);
+
+    const p1 = stubCanvas();
+    drawRadar(p1.ctx as unknown as CanvasRenderingContext2D, layout("p1"), world);
+    const p2 = stubCanvas();
+    drawRadar(p2.ctx as unknown as CanvasRenderingContext2D, layout("p2"), world);
+
+    expect(p1.ctx.calls).toBeGreaterThan(0);
+    expect(p2.ctx.calls).toBe(0);
+  });
+
+  it("shows a living arrival to p2 only, never to p1", () => {
+    const queue: SpawnEntry[] = [{ beat: 2, col: 3, kind: "slick", color: "red" }];
+    const world = createWorld(CFG, 1, queue);
+    const layout = (role: ViewRole) =>
+      computeLayout({ width: 900, height: 1600, dpr: 1 }, CFG, role);
+
+    const p1 = stubCanvas();
+    drawRadar(p1.ctx as unknown as CanvasRenderingContext2D, layout("p1"), world);
+    const p2 = stubCanvas();
+    drawRadar(p2.ctx as unknown as CanvasRenderingContext2D, layout("p2"), world);
+
+    expect(p1.ctx.calls).toBe(0);
+    expect(p2.ctx.calls).toBeGreaterThan(0);
   });
 });
 

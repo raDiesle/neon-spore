@@ -109,6 +109,12 @@ const COPIES: Copy[] = [
     pattern: /\bkind\s*===\s*"meteor"/,
     strip: false,
   },
+  {
+    call: "radarOwner",
+    owner: "packages/content/src/creatures.ts",
+    pattern: /controls\s*\.\s*includes\s*\(\s*"guard"\s*\)\s*\?\s*"p1"\s*:\s*"p2"/,
+    strip: false,
+  },
 ];
 
 function allSourceFiles(): string[] {
