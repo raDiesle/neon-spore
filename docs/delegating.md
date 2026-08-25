@@ -157,7 +157,9 @@ was measured on 25 August 2026 by building one boss twice, and it survives only
 in part. The retries did move. They were not the expensive part: delegating the
 same module cost 6.8 times as much overall, and 91.5% of that was the
 orchestrating session, not the worker. `docs/delegation-cost.md` has the
-figures and the mechanism.
+figures and the mechanism; `docs/delegation-pitfalls.md` has the concrete ways
+the machinery itself broke across that session's forty-odd runs, kept for
+whenever delegation is turned back on for more of what gets written.
 
 ## The habit that actually saves tokens
 
