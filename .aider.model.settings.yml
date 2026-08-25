@@ -33,3 +33,21 @@
         # fire after someone changes the model line above without thinking
         # about it.
         ignore: [anthropic]
+
+# Escalation slot, per .claude/skills/delegate: used when the default worker has
+# missed twice on the same task. Same provider rules; a larger reply budget,
+# because the misses it is meant to answer are replies cut off mid-edit rather
+# than wrong ones.
+- name: openrouter/moonshotai/kimi-k2.7-code
+  edit_format: diff
+  use_repo_map: true
+  cache_control: true
+  extra_params:
+    max_tokens: 16384
+    extra_body:
+      provider:
+        quantizations: [fp8, bf16, fp16]
+        data_collection: deny
+        require_parameters: true
+        allow_fallbacks: true
+        ignore: [anthropic]
