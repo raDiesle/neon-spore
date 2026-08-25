@@ -109,6 +109,54 @@ function queenFrames(
   return { world, ctx };
 }
 
+function torchFrames(
+  role: ViewRole,
+  ticks: number,
+  viewport = { width: 900, height: 1600, dpr: 2 },
+) {
+  const queue: SpawnEntry[] = [
+    { beat: 0, col: 1, kind: "torch", color: null },
+    { beat: 6, col: 5, kind: "torch", color: null },
+  ];
+  const world = createWorld(CFG, 3, queue);
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize(viewport);
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  for (let tick = 0; tick < ticks; tick++) {
+    // Shield never in column: every torch reaches the hull and deflects
+    // nothing, so both the miss (span scars, single breach) and the deflect
+    // path get exercised across the two queued torches and every role.
+    step(world, tick === 1 ? [{ tick, player: 2, command: { kind: "shieldCol", col: 5 } }] : []);
+    if (tick % tpb === 1) step(world, [{ tick, player: 1, command: { kind: "guard" } }]);
+    if (world.events.length) events.push(...world.events);
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+      banner: null,
+    });
+    events = [];
+  }
+  return { world, ctx };
+}
+
+describe("the torch", () => {
+  for (const role of ROLES) {
+    it(`draws in flight and the alarm for ${role} without the canvas refusing a value`, () => {
+      const { ctx } = torchFrames(role, ticksPerBeat(CFG) * 10);
+      expect(ctx.calls).toBeGreaterThan(500);
+    });
+  }
+});
+
 describe("a frame", () => {
   for (const role of ROLES) {
     it(`draws a wave for ${role} without the canvas refusing a value`, () => {

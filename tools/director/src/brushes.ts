@@ -1,5 +1,6 @@
-import { CREATURES } from "@neon-spore/content";
+import { CREATURES, type CreatureCategory, categoryOf } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
+import type { CreatureKind } from "@neon-spore/sim";
 
 /**
  * What a click paints. A brush rather than a cell that cycles through six
@@ -14,6 +15,7 @@ export type Brush =
   | "rockFast"
   | "rockFaster"
   | "rockFastest"
+  | "torch"
   | "mend"
   | "purge"
   | "ward"
@@ -77,6 +79,13 @@ export const BRUSHES: {
     note: CREATURES.meteorFastest.blurb,
   },
   {
+    brush: "torch",
+    label: "TORCH",
+    subjects: ["TORCH"],
+    stroke: PALETTE.rock,
+    note: CREATURES.torch.blurb,
+  },
+  {
     brush: "mend",
     label: "MEND",
     subjects: ["POD"],
@@ -105,3 +114,63 @@ export const BRUSHES: {
     note: "takes back whatever is in the cell, entry or pod",
   },
 ];
+
+/** The creature kind a brush paints, for brushes that paint one at all. */
+const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
+  red: "slick",
+  cyan: "bulb",
+  rock: "meteor",
+  rockMedium: "meteorMedium",
+  rockFast: "meteorFast",
+  rockFaster: "meteorFaster",
+  rockFastest: "meteorFastest",
+  torch: "torch",
+};
+
+const CATEGORY_LABEL: Record<CreatureCategory, string> = {
+  cannon: "CANNON",
+  shield: "SHIELD",
+  mixed: "MIXED",
+  special: "SPECIAL",
+};
+
+export interface BrushGroup {
+  label: string;
+  brushes: Brush[];
+}
+
+/**
+ * Section headers for the palette. A group's membership traces back to
+ * `categoryOf` — the category of the kind a brush paints — rather than being
+ * retyped a second time here. Pods have no `CreatureKind` and go in their own
+ * literal `SUCK` group; `ERASE` is a tool action, not a creature, and always
+ * comes last, outside every category. A category with nothing in it today
+ * (`special`) is left out entirely rather than shown with no buttons under
+ * it — `bindPalette` in palette.ts applies the same rule again at render time
+ * for a group every brush of which the current wave hides.
+ */
+export const BRUSH_GROUPS: BrushGroup[] = (() => {
+  const byCategory = new Map<CreatureCategory, Brush[]>();
+  for (const { brush } of BRUSHES) {
+    const kind = BRUSH_KIND[brush];
+    if (!kind) continue;
+    const category = categoryOf(kind);
+    const list = byCategory.get(category) ?? [];
+    list.push(brush);
+    byCategory.set(category, list);
+  }
+
+  const groups: BrushGroup[] = [];
+  for (const category of [
+    "cannon",
+    "shield",
+    "mixed",
+    "special",
+  ] as const satisfies CreatureCategory[]) {
+    const brushes = byCategory.get(category);
+    if (brushes?.length) groups.push({ label: CATEGORY_LABEL[category], brushes });
+  }
+  groups.push({ label: "SUCK", brushes: ["mend", "purge", "ward"] });
+  groups.push({ label: "ERASE", brushes: ["erase"] });
+  return groups;
+})();

@@ -1,4 +1,4 @@
-import type { BossEntry, Color, CreatureKind, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, Color, PodEntry, RockKind } from "@neon-spore/sim";
 
 /**
  * Waves are data, never code. Columns are authored against a 7-column field
@@ -16,10 +16,7 @@ export interface WaveEntry {
    * one colour and one silhouette, so naming both would be naming the same
    * thing twice and inviting them to disagree.
    */
-  kind?: Extract<
-    CreatureKind,
-    "meteor" | "meteorMedium" | "meteorFast" | "meteorFaster" | "meteorFastest"
-  >;
+  kind?: RockKind;
   /** A fixed colour, or null for the rock. */
   color: Color | null;
 }
@@ -84,6 +81,16 @@ export const WAVES: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 4, col: 2, kind: "meteor", color: null },
+    ],
+  },
+  {
+    name: "TORCH",
+    sentence: "The one where the only warning is on the other player's screen.",
+    hint: "Three tiles wide, moves at the fastest rock's speed. Player 1 reads the radar, player 2 has the shield.",
+    entries: [
+      { beat: 0, col: 1, kind: "torch", color: null },
+      { beat: 6, col: 5, kind: "torch", color: null },
+      { beat: 12, col: 3, kind: "torch", color: null },
     ],
   },
   {

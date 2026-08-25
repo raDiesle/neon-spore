@@ -14,6 +14,7 @@ import { drawQueen } from "./queen.js";
 import { queenSpitSide } from "./queen-spawn.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
+import { drawTorchAlarm } from "./torch-alarm.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
@@ -117,7 +118,7 @@ export class Canvas2DRenderer implements Renderer {
     ctx.fillStyle = PALETTE.background;
     ctx.fillRect(0, 0, l.width, l.height);
     drawBackground(ctx, l);
-    drawRadar(ctx, l, world);
+    drawRadar(ctx, l, world, view.time);
     drawGrid(ctx, l, world.cannonCol, flash);
 
     let queenOrigin: { col: number; row: number } | null = null;
@@ -169,6 +170,7 @@ export class Canvas2DRenderer implements Renderer {
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);
+    drawTorchAlarm(ctx, l, world, view.time);
     drawBand(ctx, l, world, isArmed, isOpen);
     drawOverlay(ctx, l, view);
     ctx.restore();

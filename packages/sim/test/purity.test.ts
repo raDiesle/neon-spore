@@ -121,6 +121,24 @@ const COPIES: Copy[] = [
     pattern: /kind\s*===\s*"queen"\s*\?\s*"mixed"/,
     strip: false,
   },
+  {
+    call: "occupiesCol",
+    owner: "packages/sim/src/types.ts",
+    pattern: /c\s*\.\s*col\s*===\s*col\b/,
+    strip: false,
+  },
+  {
+    call: "colSpan",
+    owner: "packages/sim/src/types.ts",
+    pattern: /kind\s*===\s*"torch"\s*\?\s*3\s*:\s*1/,
+    strip: false,
+  },
+  {
+    call: "fallTilesPerBeat",
+    owner: "packages/sim/src/types.ts",
+    pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,
+    strip: false,
+  },
 ];
 
 function allSourceFiles(): string[] {

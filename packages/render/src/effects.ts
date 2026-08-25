@@ -122,8 +122,8 @@ export class Effects {
         case "deflect": {
           const x = tileCX(l, e.col);
           const y = l.hullY;
-          this.deflectFx.spawn(x, y, l.tile);
-          this.burst(x, y, 26, PALETTE.shieldRim);
+          this.deflectFx.spawn(x, y, l.tile, e.span);
+          this.burst(x, y, 26 * e.span, PALETTE.shieldRim);
           this.guardHit = BANNER_LIFE;
           break;
         }

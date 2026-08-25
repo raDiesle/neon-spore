@@ -13,10 +13,18 @@ export type {
   GuardStats,
   Pod,
   PodKind,
+  RockKind,
   Scar,
   TimedCommand,
 } from "./types.js";
-export { fallTilesPerBeat, isMeteorKind, livingKindForColor } from "./types.js";
+export {
+  clampSpanCol,
+  colSpan,
+  fallTilesPerBeat,
+  isMeteorKind,
+  livingKindForColor,
+  occupiesCol,
+} from "./types.js";
 export {
   type BossEntry,
   createWorld,

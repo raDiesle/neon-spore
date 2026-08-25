@@ -14,6 +14,7 @@ import {
   type Point,
   QUEEN_SHELL,
   SLICK,
+  TORCH,
 } from "@neon-spore/content";
 
 /**
@@ -123,6 +124,7 @@ function crystal(name: string, s: CrystalSilhouette, radius: number, note: strin
 }
 
 const meteor = crystal("METEOR", METEOR, 46, `${METEOR.sides} facets · dead rock`);
+const torch = crystal("TORCH", TORCH, 70, `${TORCH.sides} facets · three tiles wide, burning`);
 
 /**
  * The hull as the game draws it: one contour with a cannon lobe and a shield
@@ -187,6 +189,7 @@ export const SUBJECTS: Subject[] = [
   blob("BULB", BULB),
   blob("POD", POD),
   meteor,
+  torch,
   crystal("BULB QUEEN", QUEEN_SHELL, 100, `${QUEEN_SHELL.sides} facets · armoured shell`),
   hull(false),
   hull(true),

@@ -1,6 +1,6 @@
 import { hullRow, ticksPerBeat } from "./config.js";
 import { firstPodAlong, freePod } from "./pods.js";
-import { type Bullet, type Color, type Creature, isMeteorKind } from "./types.js";
+import { type Bullet, type Color, type Creature, isMeteorKind, occupiesCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -94,7 +94,7 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
   let best: Creature | undefined;
   let bestMilli = 0;
   for (const c of world.creatures) {
-    if (c.col !== b.col) continue;
+    if (!occupiesCol(c, b.col)) continue;
     const pos = creatureMilli(world, c);
     if (pos - half > from || pos + half < to) continue;
     // Several boxes can overlap the sweep; the shot stops at the lowest one,

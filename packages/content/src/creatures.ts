@@ -98,6 +98,14 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Dead rock, falling five times as fast — the queen's own. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
+  torch: {
+    kind: "torch",
+    controls: ["guard"],
+    color: null,
+    radar: "p1",
+    blurb:
+      "Three tiles wide, burning. Falls at the fastest rock's speed — the shape and the size are the new part, not the speed. Cannot be shot. Shield in the right column, triggered at the right moment.",
+  },
   queen: {
     kind: "queen",
     controls: ["aim", "guard"],

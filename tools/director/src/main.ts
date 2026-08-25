@@ -79,6 +79,34 @@ renderShip(cfg);
 void renderPlanned();
 void renderConcepts();
 
+/**
+ * The brush description text (`.hint`, e.g. a blurb like "Dead rock. Cannot
+ * be shot…") defaults to hidden — the palette is grouped by category now, so
+ * the name alone is usually enough, and the full bestiary blurb is one click
+ * away in the CREATURES tab. Persisted the same way the tuning presets are:
+ * plain `localStorage`, read once at startup.
+ */
+const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";
+
+function bindBrushHints(): void {
+  const brushes = document.getElementById("brushes");
+  const toggle = document.getElementById("brushHintToggle");
+  let show = window.localStorage.getItem(BRUSH_HINTS_KEY) === "1";
+
+  const apply = (): void => {
+    brushes?.classList.toggle("hide-hints", !show);
+    if (toggle) toggle.textContent = show ? "HIDE DESCRIPTIONS" : "SHOW DESCRIPTIONS";
+  };
+  apply();
+
+  toggle?.addEventListener("click", () => {
+    show = !show;
+    window.localStorage.setItem(BRUSH_HINTS_KEY, show ? "1" : "0");
+    apply();
+  });
+}
+bindBrushHints();
+
 /** Brushes the current wave has no use for, so the palette knows what to hide. */
 function hiddenBrushes(): ReadonlySet<Brush> {
   const wave = currentWave(store);

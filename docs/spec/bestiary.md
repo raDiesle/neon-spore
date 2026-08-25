@@ -45,14 +45,18 @@ cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
 | Category | Answered by | Members today |
 |---|---|---|
 | `cannon` | `aim` only | slick, bulb |
-| `shield` | `guard` only | every meteor tier |
+| `shield` | `guard` only | every meteor tier, the torch |
 | `mixed` | `aim` and `guard` | the queen |
 | `special` | neither | *(reserved, empty)* |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` is not a bucket to fill on principle — nothing standard describes a
 creature that is neither aimed at nor guarded against, and the plan is to
-leave it empty until one is actually designed (see *The Silent*, 10.2).
+leave it empty until one is actually designed. It is a different axis from
+`radar`: *The Silent* and *The Jammer* (10.2) are unusual in what they tell a
+radar strip, not in what a player does about them, so they still land in
+`cannon`, `shield` or `mixed` like anything else — `special` waits for a
+creature answered by neither control at all.
 Pods are never `CreatureKind` values and were never in `CREATURES`, so they do
 not go through `categoryOf` at all — `POD_CATEGORY` names their group
 directly, `"suck"`, after what taking one in is called throughout the sim
@@ -76,12 +80,25 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor. The three of them carry the teaching waves.
+Built: slick, bulb, meteor, torch. Slick, bulb and meteor carry the teaching
+waves; the torch is the meteor's own widened relative, not one of the
+original thirteen.
 
 **The pod is built, and it is not a creature.** It carries no colour, is never
 cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its
 own list on the wave, its own list in the world. Shooting it loose needs both
 players, catching it needs player 1's maw. See [systems](systems.md) 5.7.
+
+**The torch is built, and it is a rock, not a new tier.** Three tiles wide,
+falling at `meteorFastest`'s speed rather than a faster one of its own — the
+other session already tuned that tier, and a new number would only drift from
+it. What is new is the shape and the size: `colSpan` makes it occupy three
+columns at once, so a shield in any one of them deflects it and a miss scars
+all three, once, for a single `damageMeteor`. Radar `"p1"`, the same as every
+other rock — see `docs/decisions.md` #15 — and `packages/render/src/torch-alarm.ts`
+gives the strip a second, louder cue: a pulsing band and a role-specific line,
+because three columns of warning is worth more than a blip the size of every
+other rock's.
 
 **The strand in detail:** it appears, turns lengthways, fires an unavoidable
 marking shot at the hull, **extinguishes its own drive** (visibly), whereupon
@@ -104,19 +121,42 @@ its 5–7 segments in alternating colours.
 | **The Blind One** | Uncertainty | visible to one, only interference to the other — see below |
 | **The Clamp** | Order | joins two creatures into one dangerous line; three ways out, chosen together |
 | **The Beat-breaker** | Rhythm | runs on its own offset while the global beat stays correct |
+| **The Silent** | Uncertainty | `radar: "none"` — neither strip announces it. Must be slow enough that the field itself is the only warning |
+| **The Jammer** | Uncertainty | blanks the *other* player's radar for as long as it lives — the one kind whose danger is what it does to a strip, not what it does to the hull |
 
-**The Blind One — interference, not invisibility.** On the second device it
-appears as interference in the right place (noise, distortion, a flicker in the
-grid), not as nothing. The information is thereby incomplete rather than
-absent, and the ground rule from
-[systems 5.2](systems.md#52-information-split--not-built) holds: the position
-is there, it is just not readable. The other player has to turn that into a
-very short description — which is exactly the task. Act 5 at the earliest.
+**The Silent — the field is the warning, or there is none.** Every other rock
+and every living kind picks a `radar` owner (`docs/decisions.md` #15); this is
+the one place `RadarOwner`'s third case, `"none"`, is meant to be spent. With
+no strip announcement at all, it can only be fair if it is slow enough to be
+read and named after it is already visible — which is a tighter constraint
+than it sounds, since `docs/spec/latency.md`'s 3-second floor was written
+assuming a radar lead exists. Do not build this one until that arithmetic is
+worked out; a silent fast kind is not uncertainty, it is an unannounced hit.
 
-Two requirements: the interference must sit **at the position** and travel with
-it, or it is decoration. And it must be distinguishable from a real connection
-problem — otherwise a pair will think the game is broken the first time they
-see it.
+**The Jammer — the danger is the strip going dark, not the kind itself.**
+While it is alive, the radar that would normally show its own kind (say,
+guard kinds, if the jammer itself is aimed at) blanks for the player who reads
+that strip — a live variant of `showsRadar` returning false for everything,
+not just this one kind, for as long as the jammer's creature exists. The
+player who lost their strip has to fall back on the other player's picture of
+the field, which is the one time in the game the split is not permanent.
+
+**The Blind One — interference, not invisibility.** It does not touch the
+field the way the original draft proposed; with the radar built and owned per
+kind (`systems.md#52-information-split--partly-built`), interference belongs
+on the *radar strip that owns it* — the screen that would normally get a clean
+announcement instead gets noise, distortion, a flicker in the blip's shape or
+timing, in the right column, not silence. The information is incomplete
+rather than absent: the other player still holds a clean picture, since only
+one radar owns any given kind, and has to turn a garbled call into a very
+short, best-guess description — which is exactly the task. Act 5 at the
+earliest.
+
+Two requirements, unchanged from the original draft: the interference must sit
+**at the position** (now: in the blip's column, at its correct height) and
+travel with it, or it is decoration. And it must be distinguishable from a
+real connection problem — otherwise a pair will think the game is broken the
+first time they see it.
 
 ## 10.3 Examined and rejected
 

@@ -36,6 +36,14 @@ figure layer above it. Figures are the next authoring step, and
   spread
 - **The beat** — on the pulse instead of free. Changes the talking more than
   any new creature does
+- **The twin torch** — a figure the built torch makes possible without any new
+  creature: two torches entering from opposite sides on the same beat. Neither
+  is a surprise on its own — a single torch is TORCH, the teaching wave — but
+  together they force player 1 to get two three-wide column ranges out in one
+  breath, and player 2 to know which one is coming first from the order they
+  are named in, not from which arrives on the field sooner (both do, at once).
+  Variation from placement, not material — the same lever `Mixture` above uses
+  for a meteor among slicks.
 - **Modifiers** — echo, interference, camouflage, reversed wave, countdown,
   inverted instructions. Each one transforms a known wave completely, without a
   creature having to be drawn

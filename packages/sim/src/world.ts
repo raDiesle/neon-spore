@@ -103,7 +103,7 @@ export type SimEvent =
   | { type: "destroy"; col: number; row: number; color: Color }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
-  | { type: "deflect"; col: number }
+  | { type: "deflect"; col: number; span: number }
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }

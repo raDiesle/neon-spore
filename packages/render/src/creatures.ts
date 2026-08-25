@@ -4,6 +4,7 @@ import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { isFreshQueenSpawn, type QueenOrigin } from "./queen-spawn.js";
+import { drawTorch } from "./torch.js";
 
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
 const METEOR_GROW_FLOOR = 0.02;
@@ -37,7 +38,8 @@ export function drawCreatures(
     const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
     const x = tileCX(l, c.col);
     const y = tileCY(l, row);
-    if (isMeteorKind(c.kind))
+    if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time, beatPhase);
+    else if (isMeteorKind(c.kind))
       drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin, meteorGrowShare);
     else drawLiving(ctx, l, c, x, y, time, blocked.get(c.id) ?? 0);
   }

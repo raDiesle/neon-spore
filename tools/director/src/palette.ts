@@ -1,5 +1,5 @@
 import { silhouette } from "./silhouette.js";
-import { BRUSHES, type Brush } from "./state.js";
+import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
 
 export interface Palette {
   current(): Brush;
@@ -26,32 +26,47 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
       if (first) brush = first.brush;
     }
     brushBar.replaceChildren();
-    for (const b of BRUSHES) {
-      if (hide.has(b.brush)) continue;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = b.brush === brush ? "brush on" : "brush";
+    const byBrush = new Map(BRUSHES.map((b) => [b.brush, b] as const));
+    for (const group of BRUSH_GROUPS) {
+      const visible = group.brushes.filter((b) => !hide.has(b));
+      // A group every brush of which the current wave hides — the boss-panel
+      // creature groups on a boss wave — loses its label along with its
+      // buttons, rather than leaving a heading with nothing under it.
+      if (!visible.length) continue;
 
-      for (const subject of b.subjects) {
-        button.appendChild(silhouette(subject, b.stroke, 34));
+      const label = document.createElement("div");
+      label.className = "brush-group-label";
+      label.textContent = group.label;
+      brushBar.appendChild(label);
+
+      for (const brushKind of visible) {
+        const b = byBrush.get(brushKind);
+        if (!b) continue;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = b.brush === brush ? "brush on" : "brush";
+
+        for (const subject of b.subjects) {
+          button.appendChild(silhouette(subject, b.stroke, 34));
+        }
+
+        const text = document.createElement("div");
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = b.label;
+        const hint = document.createElement("span");
+        hint.className = "hint";
+        hint.textContent = b.note;
+        text.append(name, hint);
+        button.appendChild(text);
+
+        button.addEventListener("click", () => {
+          brush = b.brush;
+          render();
+          onPick();
+        });
+        brushBar.appendChild(button);
       }
-
-      const text = document.createElement("div");
-      const name = document.createElement("span");
-      name.className = "name";
-      name.textContent = b.label;
-      const hint = document.createElement("span");
-      hint.className = "hint";
-      hint.textContent = b.note;
-      text.append(name, hint);
-      button.appendChild(text);
-
-      button.addEventListener("click", () => {
-        brush = b.brush;
-        render();
-        onPick();
-      });
-      brushBar.appendChild(button);
     }
   };
 

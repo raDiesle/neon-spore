@@ -1,7 +1,14 @@
 import { initialDropSide, stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { spawnPods } from "./pods.js";
-import { type Creature, fallTilesPerBeat, isMeteorKind } from "./types.js";
+import {
+  type Creature,
+  clampSpanCol,
+  colSpan,
+  fallTilesPerBeat,
+  isMeteorKind,
+  occupiesCol,
+} from "./types.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
@@ -36,7 +43,7 @@ export function onBeat(world: World): void {
     world.creatures.push({
       id: world.nextId++,
       kind: entry.kind,
-      col: entry.col,
+      col: clampSpanCol(entry.col, world.cfg.cols, entry.kind),
       row: 0,
       fromRow: -1,
       color: entry.color,
@@ -84,7 +91,7 @@ function resolveHull(world: World): void {
     }
 
     if (isMeteorKind(c.kind)) {
-      const inColumn = world.shieldCol === c.col;
+      const inColumn = occupiesCol(c, world.shieldCol);
       const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
       // A ward frees player 1 from the *timing* only, not from the aiming — the
       // shield still has to be in the meteor's column, so player 2's job is
@@ -97,11 +104,11 @@ function resolveHull(world: World): void {
       if (inColumn && inTime) {
         world.guard.deflected += 1;
         world.score += world.cfg.scoreDeflect;
-        world.events.push({ type: "deflect", col: c.col });
+        world.events.push({ type: "deflect", col: c.col, span: colSpan(c.kind) });
         continue;
       }
       if (inColumn) world.guard.mistimed += 1;
-      damage(world, c.col, world.cfg.damageMeteor);
+      damageSpan(world, c, world.cfg.damageMeteor);
     } else {
       damage(world, c.col, world.cfg.damageCreature);
     }
@@ -117,6 +124,26 @@ function damage(world: World, col: number, amount: number): void {
   world.scars.push({ col, beat: world.beat });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
   world.events.push({ type: "breach", col, damage: amount });
+}
+
+/**
+ * A miss costs the hull `amount` once, no matter how many columns the
+ * creature spans — the torch is one impact, not three — but every column it
+ * covers scars, since that is where the hull visibly broke. The `breach`
+ * event still fires once, on the centre column, so an effect that reacts to
+ * it plays once rather than three times stacked on each other.
+ */
+function damageSpan(world: World, c: Creature, amount: number): void {
+  if (!world.cfg.hullInvulnerable) {
+    world.hullMilli = Math.max(0, world.hullMilli - amount * MILLI);
+    if (world.hullMilli <= 0) world.over = true;
+  }
+  const half = (colSpan(c.kind) - 1) / 2;
+  for (let col = c.col - half; col <= c.col + half; col++) {
+    world.scars.push({ col, beat: world.beat });
+    if (world.scars.length > world.cfg.maxScars) world.scars.shift();
+  }
+  world.events.push({ type: "breach", col: c.col, damage: amount });
 }
 
 /**

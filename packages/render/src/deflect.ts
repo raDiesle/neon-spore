@@ -31,7 +31,12 @@ export class DeflectFx {
   private particles: Particle[] = [];
   private shocks: Shock[] = [];
 
-  spawn(x: number, y: number, tile: number): void {
+  /**
+   * `span` is the deflected creature's `colSpan` — 3 for a torch, 1 for a
+   * plain rock — so the shockwave draws as wide as the thing it came off,
+   * rather than a single-tile ring for a three-tile impact.
+   */
+  spawn(x: number, y: number, tile: number, span = 1): void {
     this.particles.push({
       x,
       y,
@@ -42,7 +47,7 @@ export class DeflectFx {
       vs: (Math.random() - 0.5) * 7,
       life: DEFLECT_LIFE,
     });
-    this.shocks.push({ x, y, r: tile * 0.4, life: SHOCK_LIFE });
+    this.shocks.push({ x, y, r: tile * 0.4 * span, life: SHOCK_LIFE });
   }
 
   update(dt: number, tile: number): void {

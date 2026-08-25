@@ -15,7 +15,9 @@ describe("roster", () => {
     const roster = parseRoster(bestiary, bosses);
 
     expect(roster.creatures).toHaveLength(13);
-    expect(roster.accepted).toHaveLength(7);
+    // The Silent and The Jammer joined for the torch's radar-ownership work —
+    // docs/decisions.md #15.
+    expect(roster.accepted).toHaveLength(9);
     expect(roster.bosses).toHaveLength(11);
 
     const slick = roster.creatures.find((c) => c.name === "Slick");

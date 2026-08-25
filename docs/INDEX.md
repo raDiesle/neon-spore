@@ -68,6 +68,8 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
+| `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
+| `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | deflection, shockwave, DEFLECTED, the swallow's timing |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |

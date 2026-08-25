@@ -85,5 +85,5 @@ current states. That makes it no longer an arithmetic puzzle under time
 pressure, but an announcement under time pressure.
 
 This is the clearest single argument for the
-[information split](systems.md#52-information-split--not-built): the boss does
+[information split](systems.md#52-information-split--partly-built): the boss does
 not work at all on one shared screen.

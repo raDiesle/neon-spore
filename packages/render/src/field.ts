@@ -94,7 +94,7 @@ function drawTiles(ctx: CanvasRenderingContext2D, l: Layout, flash: number): voi
  * deliberately no trajectory lines inside the field, not even for meteors
  * (docs/spec/systems.md 5.8), because reading the field out loud is the game.
  */
-export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World): void {
+export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World, time = 0): void {
   const lead = world.cfg.radarLead;
   ctx.save();
   for (let i = world.spawned; i < world.queue.length; i++) {
@@ -113,19 +113,34 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     const a = Math.max(0.18, 1 - inBeats / (lead + 1));
     const s = 5 + 4 * (1 - inBeats / (lead + 1));
 
-    ctx.globalAlpha = a;
-    ctx.fillStyle = hex;
-    ctx.beginPath();
-    ctx.moveTo(x, y + s);
-    ctx.lineTo(x - s * 0.85, y - s * 0.55);
-    ctx.lineTo(x + s * 0.85, y - s * 0.55);
-    ctx.closePath();
-    ctx.fill();
+    if (q.kind === "torch") {
+      // Three tiles wide, like the shape it warns about, and pulsing —
+      // the one blip on the strip that is never mistaken for a single-tile rock.
+      const pulse = 0.7 + 0.3 * Math.sin(time * 6);
+      ctx.globalAlpha = a * pulse;
+      ctx.fillStyle = hex;
+      ctx.beginPath();
+      ctx.moveTo(x, y + s * 1.15);
+      ctx.lineTo(x - l.tile * 1.3, y - s * 0.55);
+      ctx.lineTo(x + l.tile * 1.3, y - s * 0.55);
+      ctx.closePath();
+      ctx.fill();
+    } else {
+      ctx.globalAlpha = a;
+      ctx.fillStyle = hex;
+      ctx.beginPath();
+      ctx.moveTo(x, y + s);
+      ctx.lineTo(x - s * 0.85, y - s * 0.55);
+      ctx.lineTo(x + s * 0.85, y - s * 0.55);
+      ctx.closePath();
+      ctx.fill();
+    }
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {
+      const width = q.kind === "torch" ? l.tile * 2.6 : l.tile * 0.72;
       ctx.globalAlpha = 0.75;
-      ctx.fillRect(x - l.tile * 0.36, l.gridTop - 2.5, l.tile * 0.72, 2.5);
+      ctx.fillRect(x - width / 2, l.gridTop - 2.5, width, 2.5);
     }
     ctx.globalAlpha = 1;
   }

@@ -52,6 +52,7 @@ export {
   QUEEN_SHELL,
   SHIELD_LOBE,
   SLICK,
+  TORCH,
   xToHullAngle,
 } from "./silhouettes.js";
 export { WAVES, type Wave, type WaveEntry } from "./waves.js";

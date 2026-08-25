@@ -2,8 +2,8 @@ import type { Wave, WaveEntry } from "@neon-spore/content";
 import type { CreatureKind, PodEntry } from "@neon-spore/sim";
 import type { Brush } from "./brushes.js";
 
-export type { Brush } from "./brushes.js";
-export { BRUSHES } from "./brushes.js";
+export type { Brush, BrushGroup } from "./brushes.js";
+export { BRUSH_GROUPS, BRUSHES } from "./brushes.js";
 
 /**
  * The rock brushes, paired with the kind each one paints. One table instead
@@ -15,6 +15,7 @@ const ROCK_BRUSHES: readonly [Brush, CreatureKind][] = [
   ["rockFast", "meteorFast"],
   ["rockFaster", "meteorFaster"],
   ["rockFastest", "meteorFastest"],
+  ["torch", "torch"],
 ];
 
 /**
@@ -140,6 +141,8 @@ function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
       return { beat, col, kind: "meteorFaster", color: null };
     case "rockFastest":
       return { beat, col, kind: "meteorFastest", color: null };
+    case "torch":
+      return { beat, col, kind: "torch", color: null };
     default:
       return { beat, col, color: brush };
   }

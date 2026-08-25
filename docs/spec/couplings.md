@@ -36,5 +36,5 @@ before the bulb's "mark, then colour" role ([bestiary](bestiary.md)) or
 
 One piece of information sits with the person who cannot act on it: the radar,
 the veil's colour, the boss target mix. This is the whole reason for
-[the information split](systems.md#52-information-split--not-built) and it needs two
+[the information split](systems.md#52-information-split--partly-built) and it needs two
 devices.
