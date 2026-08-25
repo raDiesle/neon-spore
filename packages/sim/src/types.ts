@@ -4,6 +4,16 @@ export type Color = "red" | "cyan";
 export type CreatureKind = "slick" | "bulb" | "meteor" | "queen";
 
 /**
+ * The single source of the colour-to-silhouette pairing. `packages/content`
+ * checks its own bestiary against this, and nothing may spell the mapping out
+ * by hand a second time.
+ */
+export function livingKindForColor(color: Color): CreatureKind {
+  if (color === "red") return "slick";
+  return "bulb";
+}
+
+/**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:
  * `mend` gives hull back, `purge` sweeps the field, `ward` holds the shield
  * armed without a trigger.

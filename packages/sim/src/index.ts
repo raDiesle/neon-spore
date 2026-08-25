@@ -17,6 +17,7 @@ export type {
   Scar,
   TimedCommand,
 } from "./types.js";
+export { livingKindForColor } from "./types.js";
 export {
   type BossEntry,
   createWorld,

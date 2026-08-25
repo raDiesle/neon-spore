@@ -1,4 +1,4 @@
-import type { Color, CreatureKind } from "@neon-spore/sim";
+import { type Color, type CreatureKind, livingKindForColor } from "@neon-spore/sim";
 
 /** The control groups a creature demands. Principle A, see docs/spec/systems.md. */
 export type ControlGroup = "aim" | "guard";
@@ -63,10 +63,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
  * follows from it rather than being chosen next to it.
  */
 export function kindForColor(color: Color): CreatureKind {
-  for (const def of Object.values(CREATURES)) {
-    if (def.color === color) return def.kind;
-  }
-  throw new Error(`No creature carries the colour ${color}.`);
+  return livingKindForColor(color);
 }
 
 export function controlsForKinds(kinds: readonly CreatureKind[]): ControlGroup[] {

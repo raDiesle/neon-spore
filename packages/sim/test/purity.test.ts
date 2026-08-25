@@ -82,6 +82,8 @@ interface Copy {
   owner: string;
   /** The shape of the rule written out by hand. */
   pattern: RegExp;
+  /** Whether to strip comments and strings before testing. Defaults to true. */
+  strip?: boolean;
 }
 
 /**
@@ -94,6 +96,12 @@ const COPIES: Copy[] = [
     call: "mapCol",
     owner: "packages/content/src/queue.ts",
     pattern: /\bAUTHORED_COLS\s*-\s*1\b/,
+  },
+  {
+    call: "livingKindForColor",
+    owner: "packages/sim/src/types.ts",
+    pattern: /"red"[\s\S]{0,30}"slick"|"slick"[\s\S]{0,30}"red"/,
+    strip: false,
   },
 ];
 
@@ -123,7 +131,8 @@ describe("no re-derived rules", () => {
     const ownerPath = join(ROOT, copy.owner);
 
     it(`${copy.owner} contains its own pattern`, async () => {
-      const code = stripNonCode(await Bun.file(ownerPath).text());
+      const text = await Bun.file(ownerPath).text();
+      const code = copy.strip === false ? text : stripNonCode(text);
       expect(copy.pattern.test(code)).toBe(true);
     });
 
@@ -132,7 +141,8 @@ describe("no re-derived rules", () => {
 
       const name = relative(ROOT, file).replaceAll("\\", "/");
       it(`${name} calls ${copy.call} instead of re-deriving it`, async () => {
-        const code = stripNonCode(await Bun.file(file).text());
+        const text = await Bun.file(file).text();
+        const code = copy.strip === false ? text : stripNonCode(text);
         if (copy.pattern.test(code)) {
           throw new Error(`Call ${copy.call} from ${copy.owner}`);
         }
