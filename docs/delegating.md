@@ -150,6 +150,15 @@ alone.
 Requires `aider` on PATH and `OPENROUTER_API_KEY` in the environment. Without
 either, the skill says so and the session does the work itself.
 
+## What it actually cost
+
+The claim in this file — that delegating moves the retries onto cheap tokens —
+was measured on 25 August 2026 by building one boss twice, and it survives only
+in part. The retries did move. They were not the expensive part: delegating the
+same module cost 6.8 times as much overall, and 91.5% of that was the
+orchestrating session, not the worker. `docs/delegation-cost.md` has the
+figures and the mechanism.
+
 ## The habit that actually saves tokens
 
 Delegate the loop, not the keystrokes. A task handed over as "here is the file
