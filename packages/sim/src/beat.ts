@@ -1,4 +1,4 @@
-import { stepBoss } from "./boss.js";
+import { initialDropSide, stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { spawnPods } from "./pods.js";
 import { type Creature, fallTilesPerBeat } from "./types.js";
@@ -178,7 +178,7 @@ export function startWave(
       openBeat: -1,
       closeBeat: -1,
       startPetals: boss.petals,
-      dropSide: 0,
+      dropSide: initialDropSide(world),
       scratch: [],
     };
   }

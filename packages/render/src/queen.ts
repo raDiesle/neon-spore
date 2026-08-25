@@ -58,7 +58,7 @@ export function drawQueen(
   const wy = y + shape.ry * scale * WEAK_POINT_DROP;
   drawWeakPoint(ctx, x, wy, wr, queen, boss, beat, time, healthShare);
 
-  drawPetals(ctx, x, y, r, queen.petals);
+  drawPetals(ctx, x, y, r, queen.petals, boss.startPetals);
 }
 
 /** Always the same rock-armoured look — the open/announced colour lives on the weak point now. */
@@ -170,23 +170,41 @@ function drawBulge(
   }
 }
 
-/** The health bar, on her body so both screens see the same count. */
+/**
+ * The health bar, above her body so both screens see the same count. Every
+ * petal she started with gets a slot, not just the ones she has left — an
+ * empty ring where a filled dot used to be reads as progress, not just a
+ * shrinking row that is easy to miss at a glance.
+ */
 function drawPetals(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
   r: number,
   petals: number,
+  startPetals: number,
 ): void {
-  if (petals <= 0) return;
-  ctx.fillStyle = PALETTE.hullRim;
-  const petalR = r * 0.08;
-  const span = r * 1.2;
-  const py = -r * 0.8;
-  for (let i = 0; i < petals; i++) {
-    const px = petals === 1 ? 0 : -span / 2 + (span / (petals - 1)) * i;
+  if (startPetals <= 0) return;
+  const petalR = r * 0.14;
+  const span = r * 1.7;
+  const py = -r * 1.2;
+  for (let i = 0; i < startPetals; i++) {
+    const px = startPetals === 1 ? 0 : -span / 2 + (span / (startPetals - 1)) * i;
+    const cx = x + px;
+    const cy = y + py;
     ctx.beginPath();
-    ctx.arc(x + px, y + py, petalR, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.arc(cx, cy, petalR, 0, Math.PI * 2);
+    if (i < petals) {
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fill();
+      ctx.strokeStyle = PALETTE.hull;
+      ctx.lineWidth = Math.max(1, petalR * 0.3);
+      ctx.stroke();
+      halo(ctx, cx, cy, petalR * 3, PALETTE.hullRim, 0.4);
+    } else {
+      ctx.strokeStyle = PALETTE.dim;
+      ctx.lineWidth = Math.max(1, petalR * 0.3);
+      ctx.stroke();
+    }
   }
 }

@@ -59,17 +59,17 @@ export function drawWeakPoint(
   let fill: string;
   let rim: string = PALETTE.rock;
   let hex: string | null = null;
-  let alpha = 1;
 
   if (queen.color != null) {
-    // Open: full colour.
+    // Open: full colour, body and border alike.
     fill = queen.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
     hex = queen.color === "red" ? PALETTE.red : PALETTE.cyan;
   } else if (isAnnounced) {
-    // Announced: dark fill, rim in the promised colour at low alpha.
+    // Announced: the border is already the colour that is coming, at full
+    // strength, so it reads at a glance — only the body stays dark rock,
+    // which is what still separates "coming" from "open".
     fill = PALETTE.rockDark;
-    rim = boss.tellColor === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-    alpha = 0.3;
+    hex = boss.tellColor === "red" ? PALETTE.red : PALETTE.cyan;
   } else {
     // Closed: no colour anywhere.
     fill = PALETTE.rockDark;
@@ -84,9 +84,7 @@ export function drawWeakPoint(
   } else {
     ctx.strokeStyle = rim;
     ctx.lineWidth = Math.max(1, r * 0.14) / scale;
-    ctx.globalAlpha = alpha;
     ctx.stroke(path);
-    ctx.globalAlpha = 1;
   }
 
   ctx.restore();

@@ -52,13 +52,16 @@ const QUEEN_MAX_DROP = 3;
  * once and rely on from her very first beat to her last.
  */
 const ROCK_CYCLE = 8;
-/** Beats of warning before a rock actually drops, on the side it is drawn for. */
-const ROCK_TELL = 2;
 
 /** Blooms announced so far. Decides the colour, which alternates cyan first. */
 const BLOOMS = 0;
 /** Which way she is walking: 1 right, -1 left. */
 const WALK = 1;
+
+/** The side her very first rock will come from — drawn once, at the moment she takes the field. */
+export function initialDropSide(world: World): -1 | 1 {
+  return nextInt(world.rng, 2) === 0 ? -1 : 1;
+}
 
 export function stepBoss(world: World): void {
   const boss = world.boss;
@@ -163,20 +166,16 @@ function forget(boss: BossState): void {
 
 /**
  * Her rocks, on a fixed clock of their own, counted from the wave's own start
- * so it never drifts with anything else about her. The side is drawn
- * `ROCK_TELL` beats ahead of the drop — long enough to call before it lands —
- * and cleared the instant it does, so the tell is never stale.
+ * so it never drifts with anything else about her. The side for the *next*
+ * one is drawn the instant this one lands, so the tell for it is up for the
+ * whole cycle rather than appearing late — `boss.dropSide` is never `0` for
+ * longer than the length of this one call.
  */
 function spitCycle(world: World, boss: BossState, queen: Creature): void {
-  const at = world.waveBeat % ROCK_CYCLE;
-  if (at === ROCK_CYCLE - ROCK_TELL) {
-    boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
-    return;
-  }
-  if (at !== 0 || boss.dropSide === 0) return;
+  if (world.waveBeat % ROCK_CYCLE !== 0) return;
   const landCol = Math.max(0, Math.min(world.cfg.cols - 1, queen.col + boss.dropSide));
   spit(world, queen, landCol);
-  boss.dropSide = 0;
+  boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
 /** A rock, out of her body and one row below her — always the fast kind. */
