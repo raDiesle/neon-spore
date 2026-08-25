@@ -103,6 +103,12 @@ const COPIES: Copy[] = [
     pattern: /"red"[\s\S]{0,30}"slick"|"slick"[\s\S]{0,30}"red"/,
     strip: false,
   },
+  {
+    call: "isMeteorKind",
+    owner: "packages/sim/src/types.ts",
+    pattern: /\bkind\s*===\s*"meteor"/,
+    strip: false,
+  },
 ];
 
 function allSourceFiles(): string[] {

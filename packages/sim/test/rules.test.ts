@@ -3,6 +3,7 @@ import {
   type Color,
   createWorld,
   DEFAULT_CONFIG,
+  fallTilesPerBeat,
   hashWorld,
   hullPercent,
   hullRow,
@@ -133,6 +134,26 @@ describe("the shield", () => {
     const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 5)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);
+  });
+
+  it("deflects a faster rock tier too, not just the original meteor", () => {
+    // Regression: resolveHull used to test `c.kind === "meteor"` literally,
+    // so every other tier fell through to the creature branch — undeflectable
+    // chip damage instead of a guard try. Any tier must reach the shield
+    // branch the same way.
+    const rate = fallTilesPerBeat("meteorFast");
+    const impactBeat = Math.ceil(HULL / rate) + 1;
+    const impactTick = TPB * impactBeat;
+    const { world, events } = run(
+      [{ beat: 0, col: 5, kind: "meteorFast", color: null }],
+      impactTick + 1,
+      [shieldTo(10, 5), guard(impactTick - 20)],
+    );
+    expect(world.guard.tries).toBe(1);
+    expect(world.guard.deflected).toBe(1);
+    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDeflect);
+    expect(hullPercent(world)).toBe(100);
+    expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
 });
 

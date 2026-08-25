@@ -1,7 +1,7 @@
 import { initialDropSide, stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { spawnPods } from "./pods.js";
-import { type Creature, fallTilesPerBeat } from "./types.js";
+import { type Creature, fallTilesPerBeat, isMeteorKind } from "./types.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
@@ -83,7 +83,7 @@ function resolveHull(world: World): void {
       continue;
     }
 
-    if (c.kind === "meteor") {
+    if (isMeteorKind(c.kind)) {
       const inColumn = world.shieldCol === c.col;
       const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
       // A ward frees player 1 from the *timing* only, not from the aiming — the

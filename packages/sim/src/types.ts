@@ -29,7 +29,11 @@ const METEOR_KINDS: readonly CreatureKind[] = [
   "meteorFastest",
 ];
 
-/** True for any rock — dead, indestructible, warded rather than shot. */
+/**
+ * True for any rock — dead, indestructible, warded rather than shot. Call
+ * this instead of writing `kind === "meteor"` by hand: that shape checks only
+ * the original, slowest tier and silently drops every rock added since.
+ */
 export function isMeteorKind(kind: CreatureKind): boolean {
   return METEOR_KINDS.includes(kind);
 }

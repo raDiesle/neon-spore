@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import { isMeteorKind, type World } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -101,7 +101,11 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     const inBeats = q.beat - (world.waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
 
-    const hex = q.kind === "meteor" ? PALETTE.rock : q.color === "red" ? PALETTE.red : PALETTE.cyan;
+    const hex = isMeteorKind(q.kind)
+      ? PALETTE.rock
+      : q.color === "red"
+        ? PALETTE.red
+        : PALETTE.cyan;
     const x = tileCX(l, q.col);
     const y = l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead);
     const a = Math.max(0.18, 1 - inBeats / (lead + 1));

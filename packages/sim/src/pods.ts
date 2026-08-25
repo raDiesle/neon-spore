@@ -1,6 +1,6 @@
 import { hullRow, ticksPerBeat } from "./config.js";
 import { nextInt } from "./rng.js";
-import type { Color, Pod } from "./types.js";
+import { type Color, isMeteorKind, type Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -183,7 +183,7 @@ function mend(world: World): void {
  */
 function purge(world: World): void {
   for (const c of world.creatures) {
-    if (c.kind === "meteor") {
+    if (isMeteorKind(c.kind)) {
       world.events.push({ type: "hole", col: c.col, row: c.row });
       continue;
     }
