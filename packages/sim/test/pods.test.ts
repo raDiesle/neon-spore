@@ -297,3 +297,17 @@ describe("what a pod gives", () => {
     expect(hullPercent(world)).toBeLessThan(100);
   });
 });
+
+describe("the last stretch of the fall", () => {
+  it("steers into the cannon's column so an off-column catch still lands", () => {
+    const { events } = run([{ beat: 0, col: POD_COL, row: 4 }], ARRIVAL, hold(2, true), STILL);
+    expect(events.some((e) => e.type === "podTaken")).toBe(true);
+  });
+
+  it("without the assist, the same off-column hold misses", () => {
+    const NO_HOME: SimConfig = { ...STILL, podHomeTiles: 0 };
+    const { events } = run([{ beat: 0, col: POD_COL, row: 4 }], ARRIVAL, hold(2, true), NO_HOME);
+    expect(events.some((e) => e.type === "podLost")).toBe(true);
+    expect(events.some((e) => e.type === "podTaken")).toBe(false);
+  });
+});

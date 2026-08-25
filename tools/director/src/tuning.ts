@@ -32,6 +32,15 @@ const SLIDERS: SliderSpec[] = [
   { key: "intakeWindowMs", label: "Maw window", min: 80, max: 1600, step: 20, unit: " ms" },
   { key: "podFallTilesPerBeat", label: "Pod fall", min: 0.5, max: 4, step: 0.1, unit: " t/beat" },
   { key: "podDriftTilesPerBeat", label: "Pod drift", min: 0, max: 2, step: 0.1, unit: " t/beat" },
+  { key: "podHomeTiles", label: "Pod home range", min: 0, max: 5, step: 1, unit: " tiles" },
+  {
+    key: "podHomeTilesPerBeat",
+    label: "Pod home speed",
+    min: 0,
+    max: 6,
+    step: 0.5,
+    unit: " t/beat",
+  },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, step: 1, unit: " beats" },
   { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, step: 1, unit: "" },
 ];

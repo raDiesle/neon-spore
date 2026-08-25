@@ -28,6 +28,17 @@ export interface SimConfig {
    * what it just freed rather than wait under it.
    */
   podDriftTilesPerBeat: number;
+  /**
+   * How close to the hull, in tiles, a falling pod has to be before it starts
+   * steering toward the cannon's column instead of drifting on its own.
+   */
+  podHomeTiles: number;
+  /**
+   * Sideways speed while steering toward the cannon, in tiles per beat. Once a
+   * pod is inside `podHomeTiles` of the hull this replaces
+   * `podDriftTilesPerBeat` entirely — the two never apply on the same tick.
+   */
+  podHomeTilesPerBeat: number;
   /** Hull points a swallowed pod gives back. The energy boost, as a number. */
   podRepair: number;
   /** Beats a `ward` pod keeps the shield armed without a trigger. */
@@ -93,8 +104,10 @@ export const DEFAULT_CONFIG: SimConfig = {
   tickHz: 120,
   guardWindowMs: 900,
   intakeWindowMs: 800,
-  podFallTilesPerBeat: 1.5,
+  podFallTilesPerBeat: 3,
   podDriftTilesPerBeat: 0.4,
+  podHomeTiles: 2,
+  podHomeTilesPerBeat: 2,
   podRepair: 18,
   wardBeats: 6,
   bulletTilesPerBeat: 12,

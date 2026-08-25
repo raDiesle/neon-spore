@@ -22,6 +22,11 @@ import { MILLI, type World } from "./world.js";
  * come loose has to be able to tell what it is before it decides whether to
  * chase it. The effect lands all at once, on the tick of the catch; there is
  * no pickup that waits to be spent.
+ *
+ * The fall is no longer the only thing that changes near the mouth — the last
+ * stretch of it steers toward whatever column the cannon already holds, so
+ * the two players' work stays "be in the right column, be open at the right
+ * time" rather than becoming a tracking problem on top of it.
  */
 
 /** Position and speed in thousandths, all derived from the config. */
@@ -31,6 +36,10 @@ function fallMilli(world: World): number {
 
 function driftMilli(world: World): number {
   return Math.round((world.cfg.podDriftTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
+}
+
+function homeMilli(world: World): number {
+  return Math.round((world.cfg.podHomeTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
 }
 
 /** Pods enter on their beat, exactly like creatures — see `onBeat`. */
@@ -102,7 +111,18 @@ export function advancePods(world: World): void {
       continue;
     }
     p.rowMilli += fall;
-    p.colMilli += p.driftMilli;
+    if (mouth - p.rowMilli <= world.cfg.podHomeTiles * MILLI) {
+      const target = world.cannonCol * MILLI;
+      const step = homeMilli(world);
+      if (p.colMilli < target) {
+        p.colMilli = Math.min(target, p.colMilli + step);
+      } else {
+        p.colMilli = Math.max(target, p.colMilli - step);
+      }
+      p.driftMilli = 0;
+    } else {
+      p.colMilli += p.driftMilli;
+    }
     // A wreck that reaches the edge of the field slides down it rather than
     // leaving: the field is the whole world, and a pod outside it is a pod the
     // cannon can never be under.
