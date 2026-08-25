@@ -12,6 +12,8 @@ export type Brush =
   | "rock"
   | "rockMedium"
   | "rockFast"
+  | "rockFaster"
+  | "rockFastest"
   | "mend"
   | "purge"
   | "ward"
@@ -59,6 +61,20 @@ export const BRUSHES: {
     subjects: ["METEOR"],
     stroke: PALETTE.rock,
     note: CREATURES.meteorFast.blurb,
+  },
+  {
+    brush: "rockFaster",
+    label: "METEOR ×4",
+    subjects: ["METEOR"],
+    stroke: PALETTE.rock,
+    note: CREATURES.meteorFaster.blurb,
+  },
+  {
+    brush: "rockFastest",
+    label: "METEOR ×5",
+    subjects: ["METEOR"],
+    stroke: PALETTE.rock,
+    note: CREATURES.meteorFastest.blurb,
   },
   {
     brush: "mend",

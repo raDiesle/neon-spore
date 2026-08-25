@@ -42,6 +42,14 @@ const SLIDERS: SliderSpec[] = [
     unit: " t/beat",
   },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, step: 1, unit: " beats" },
+  {
+    key: "meteorGrowShare",
+    label: "Rock grow time",
+    min: 0.05,
+    max: 1,
+    step: 0.05,
+    unit: " × beat",
+  },
   { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, step: 1, unit: "" },
   { key: "bandPct", label: "Control band", min: 24, max: 44, step: 1, unit: " %" },
 ];

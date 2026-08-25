@@ -134,6 +134,7 @@ export class Canvas2DRenderer implements Renderer {
       view.time,
       this.effects.blocked,
       queenOrigin,
+      world.cfg.meteorGrowShare,
     );
     if (world.boss != null) {
       const boss = world.boss;
@@ -150,6 +151,7 @@ export class Canvas2DRenderer implements Renderer {
           view.beatPhase,
           spitSide,
           this.effects.queenShake,
+          world.cfg.meteorGrowShare,
         );
       }
     }

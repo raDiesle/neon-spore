@@ -177,11 +177,11 @@ function spitCycle(world: World, boss: BossState, queen: Creature): void {
   boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
-/** A rock, out of her body and one row below her — always the fast kind. */
+/** A rock, out of her body and one row below her — always the fastest kind. */
 function spit(world: World, queen: Creature, col: number): void {
   world.creatures.push({
     id: world.nextId++,
-    kind: "meteorFast",
+    kind: "meteorFastest",
     col,
     row: queen.row + 1,
     fromRow: queen.row,

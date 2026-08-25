@@ -101,6 +101,13 @@ export interface SimConfig {
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
+  /**
+   * Share of a beat a rock the queen spits takes to grow from a bulge on her
+   * body to a fully formed meteor — how long it looks like it is "starting to
+   * fall" before it reads as fallen. 1 means the whole beat, 0 means instant.
+   * Read by render/.
+   */
+  meteorGrowShare: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -138,6 +145,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   bandPct: 37,
   bandSoloPct: 27,
   radarHeightPx: 34,
+  meteorGrowShare: 0.3,
 };
 
 /** Ticks per beat. Throws unless it is a whole number — see docs/architecture.md. */

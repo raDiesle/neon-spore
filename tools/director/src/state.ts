@@ -1,9 +1,21 @@
 import type { Wave, WaveEntry } from "@neon-spore/content";
-import type { PodEntry } from "@neon-spore/sim";
+import type { CreatureKind, PodEntry } from "@neon-spore/sim";
 import type { Brush } from "./brushes.js";
 
 export type { Brush } from "./brushes.js";
 export { BRUSHES } from "./brushes.js";
+
+/**
+ * The rock brushes, paired with the kind each one paints. One table instead
+ * of a chain of `if`s in both directions, so a sixth tier is one row here.
+ */
+const ROCK_BRUSHES: readonly [Brush, CreatureKind][] = [
+  ["rock", "meteor"],
+  ["rockMedium", "meteorMedium"],
+  ["rockFast", "meteorFast"],
+  ["rockFaster", "meteorFaster"],
+  ["rockFastest", "meteorFastest"],
+];
 
 /**
  * The waves being edited, and the operations the grid performs on them.
@@ -49,9 +61,8 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
 
 /** What the cell currently holds, as the brush that would have made it. */
 export function brushOf(entry: WaveEntry): Brush {
-  if (entry.kind === "meteor") return "rock";
-  if (entry.kind === "meteorMedium") return "rockMedium";
-  if (entry.kind === "meteorFast") return "rockFast";
+  const rock = ROCK_BRUSHES.find(([, kind]) => kind === entry.kind);
+  if (rock) return rock[0];
   return entry.color === "cyan" ? "cyan" : "red";
 }
 
@@ -61,7 +72,11 @@ export function podBrushOf(pod: PodEntry): Brush {
 }
 
 /** The brushes that place a living creature or a rock, never a pod. */
-export const CREATURE_BRUSHES: readonly Brush[] = ["red", "cyan", "rock", "rockMedium", "rockFast"];
+export const CREATURE_BRUSHES: readonly Brush[] = [
+  "red",
+  "cyan",
+  ...ROCK_BRUSHES.map(([brush]) => brush),
+];
 
 /**
  * A wave that carries a boss is the boss's wave: nothing about her design says
@@ -114,10 +129,20 @@ type PodBrush = Extract<Brush, "mend" | "purge" | "ward">;
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   // Only a rock names a kind. Everything else is named by its colour, and the
   // silhouette follows — `kindForColor`, the rule in packages/content.
-  if (brush === "rock") return { beat, col, kind: "meteor", color: null };
-  if (brush === "rockMedium") return { beat, col, kind: "meteorMedium", color: null };
-  if (brush === "rockFast") return { beat, col, kind: "meteorFast", color: null };
-  return { beat, col, color: brush };
+  switch (brush) {
+    case "rock":
+      return { beat, col, kind: "meteor", color: null };
+    case "rockMedium":
+      return { beat, col, kind: "meteorMedium", color: null };
+    case "rockFast":
+      return { beat, col, kind: "meteorFast", color: null };
+    case "rockFaster":
+      return { beat, col, kind: "meteorFaster", color: null };
+    case "rockFastest":
+      return { beat, col, kind: "meteorFastest", color: null };
+    default:
+      return { beat, col, color: brush };
+  }
 }
 
 function removeEntry(wave: Wave, beat: number, col: number): void {

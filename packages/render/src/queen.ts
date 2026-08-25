@@ -1,4 +1,4 @@
-import { blobPath, crystalPath, METEOR, QUEEN } from "@neon-spore/content";
+import { crystalPath, METEOR, QUEEN_SHELL } from "@neon-spore/content";
 import type { BossState, Creature } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
@@ -7,8 +7,6 @@ import { drawWeakPoint } from "./queen-weakpoint.js";
 
 /** How much faster the outer body's wobble gets by her last petal. */
 const OUTER_WOBBLE_BONUS = 1.5;
-/** Share of a beat a bulge takes to hand off to the rock breaking out of it. */
-const GROW_SHARE = 0.3;
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
 const BULGE_FLOOR = 0.02;
 /** How hard the queen shudders per tile of her own size, at full shake. */
@@ -17,10 +15,10 @@ const SHAKE_TILES = 0.06;
 const WEAK_POINT_DROP = 1.1;
 
 /**
- * The queen: an armoured body of her own shape, a weak point that sticks out
- * of her lowest edge where a shot actually lands, and two bulges either side
- * — already shaped like the rock they are — that hand one off to the meteor
- * breaking out of it.
+ * The queen: an armoured shell of the same rock her meteors are made of, a
+ * weak point that sticks out of her lowest edge where a shot actually lands,
+ * and two bulges either side — already shaped like the rock they are — that
+ * hand one off to the meteor breaking out of it.
  */
 export function drawQueen(
   ctx: CanvasRenderingContext2D,
@@ -32,10 +30,10 @@ export function drawQueen(
   beatPhase: number,
   spitSide: -1 | 0 | 1,
   shake: number,
+  growShare: number,
 ): void {
-  const shape = QUEEN;
-  const r = l.tile * 1.3;
-  const scale = r / Math.max(shape.rx, shape.ry);
+  // Her width plus two tiles: one tile of radius either side.
+  const r = l.tile * 2.3;
   const baseX = tileCX(l, queen.col);
   const baseY = tileCY(l, queen.row);
 
@@ -47,55 +45,78 @@ export function drawQueen(
   const x = baseX + Math.sin(time * 40) * jitter;
   const y = baseY + Math.cos(time * 53) * jitter;
 
-  drawOuterBody(ctx, x, y, r, scale, queen.id, time, healthShare);
+  drawOuterBody(ctx, x, y, r, queen.id, time, healthShare);
 
   const bulgeR = r * 0.35;
   const bulgeOffset = r * 0.85;
-  drawBulge(ctx, x - bulgeOffset, y, bulgeR, -1, boss, l.role, spitSide, beatPhase, time, queen.id);
-  drawBulge(ctx, x + bulgeOffset, y, bulgeR, 1, boss, l.role, spitSide, beatPhase, time, queen.id);
+  drawBulge(
+    ctx,
+    x - bulgeOffset,
+    y,
+    bulgeR,
+    -1,
+    boss,
+    l.role,
+    spitSide,
+    beatPhase,
+    time,
+    queen.id,
+    growShare,
+  );
+  drawBulge(
+    ctx,
+    x + bulgeOffset,
+    y,
+    bulgeR,
+    1,
+    boss,
+    l.role,
+    spitSide,
+    beatPhase,
+    time,
+    queen.id,
+    growShare,
+  );
 
   const wr = l.tile * 0.4;
-  const wy = y + shape.ry * scale * WEAK_POINT_DROP;
+  const wy = y + r * WEAK_POINT_DROP;
   drawWeakPoint(ctx, x, wy, wr, queen, boss, beat, time, healthShare);
 
   drawPetals(ctx, x, y, r, queen.petals, boss.startPetals);
 }
 
-/** Always the same rock-armoured look — the open/announced colour lives on the weak point now. */
+/**
+ * Her armour, the same angular rock her meteors are made of rather than a
+ * living contour — always the same look; the open/announced colour lives on
+ * the weak point now. Faceted and gradient-shaded like `drawMeteor`, so the
+ * material reads as one thing across her whole body and the rock she spits.
+ */
 function drawOuterBody(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
   r: number,
-  scale: number,
   id: number,
   time: number,
   healthShare: number,
 ): void {
-  const shape = QUEEN;
+  const shape = QUEEN_SHELL;
   const phase = (id % 7) * 0.9;
   const wobbleMult = 1 + (1 - healthShare) * OUTER_WOBBLE_BONUS;
   const t = time * wobbleMult + phase;
-  const d = blobPath(
-    0,
-    0,
-    shape.rx,
-    shape.ry,
-    shape.lobes,
-    shape.depth,
-    shape.wobble,
-    t,
-    shape.seed,
-  );
+  const d = crystalPath(0, 0, r, r, shape.sides, shape.depth, shape.wobble, t, shape.seed);
   const path = new Path2D(d);
 
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(scale, scale);
-  ctx.fillStyle = PALETTE.rockDark;
+  const rg = ctx.createLinearGradient(-r, -r, r, r);
+  rg.addColorStop(0, "#6B707E");
+  rg.addColorStop(0.55, "#3C3F49");
+  rg.addColorStop(1, PALETTE.rockDark);
+  ctx.fillStyle = rg;
   ctx.fill(path);
   ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = Math.max(1, r * 0.1) / scale;
+  ctx.lineWidth = Math.max(1, r * 0.06);
   ctx.stroke(path);
   ctx.restore();
 }
@@ -104,7 +125,7 @@ function drawOuterBody(
  * One flanking bulge, already the same rock a shot cannot break — angular
  * facets, not a contour, exactly like `drawMeteor`, so the eye reads what it
  * will become before it breaks off. It shrinks to nothing over the first
- * `GROW_SHARE` of the beat a rock breaks out of its side, and — for player 2
+ * `growShare` of the beat a rock breaks out of its side, and — for player 2
  * only — carries a bright ring while a rock is announced for this side,
  * ahead of the drop.
  */
@@ -120,10 +141,11 @@ function drawBulge(
   beatPhase: number,
   time: number,
   id: number,
+  growShare: number,
 ): void {
   let scale = 1;
   if (spitSide === side) {
-    const growth = Math.min(1, beatPhase / GROW_SHARE);
+    const growth = Math.min(1, beatPhase / Math.max(1e-3, growShare));
     scale = Math.max(BULGE_FLOOR, 1 - growth);
   }
   const rr = r * scale;
@@ -185,9 +207,9 @@ function drawPetals(
   startPetals: number,
 ): void {
   if (startPetals <= 0) return;
-  const petalR = r * 0.14;
-  const span = r * 1.7;
-  const py = -r * 1.2;
+  const petalR = r * 0.08;
+  const span = r * 1.1;
+  const py = -r * 0.8;
   for (let i = 0; i < startPetals; i++) {
     const px = startPetals === 1 ? 0 : -span / 2 + (span / (startPetals - 1)) * i;
     const cx = x + px;

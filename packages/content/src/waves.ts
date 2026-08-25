@@ -16,7 +16,10 @@ export interface WaveEntry {
    * one colour and one silhouette, so naming both would be naming the same
    * thing twice and inviting them to disagree.
    */
-  kind?: Extract<CreatureKind, "meteor" | "meteorMedium" | "meteorFast">;
+  kind?: Extract<
+    CreatureKind,
+    "meteor" | "meteorMedium" | "meteorFast" | "meteorFaster" | "meteorFastest"
+  >;
   /** A fixed colour, or null for the rock. */
   color: Color | null;
 }

@@ -85,7 +85,7 @@ test("her first bloom is announced on beat 1, opens on 3 and closes on 5, and a 
   expect(queenOf(world).color).toBeNull();
   // A missed bloom is not a punishment here — her rocks are their own thing,
   // on `spitCycle`'s clock, and none of that clock has fired yet.
-  expect(world.creatures.some((c) => c.kind === "meteorFast")).toBe(false);
+  expect(world.creatures.some((c) => c.kind === "meteorFastest")).toBe(false);
 });
 
 test("left alone through a cycle she has walked", () => {
@@ -119,7 +119,7 @@ test("a matching shot while she is open takes exactly one petal and no rock foll
 test("she is the only thing on the field — no runt ever joins her", () => {
   const world = install();
   runTo(world, beatTick(40));
-  expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "meteorFast")).toBe(true);
+  expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "meteorFastest")).toBe(true);
 });
 
 test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of health", () => {
@@ -127,7 +127,7 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
   runTo(world, beatTick(8));
 
   const queen = queenOf(world);
-  const rocks = world.creatures.filter((c) => c.kind === "meteorFast");
+  const rocks = world.creatures.filter((c) => c.kind === "meteorFastest");
   expect(rocks.length).toBe(1);
   // A column to one side of her, not the same column — that is the side shift.
   expect(Math.abs(rocks[0]!.col - queen.col)).toBe(1);
@@ -135,10 +135,10 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
   expect(rocks[0]!.fromRow).toBe(queen.row);
 
   // The cycle repeats untouched by anything that happened in between — the
-  // first rock has long since fallen (it moves 3 tiles a beat), and a fresh
+  // first rock has long since fallen (it is her fastest kind), and a fresh
   // one lands exactly 8 beats after it.
   runTo(world, beatTick(16));
-  const second = world.creatures.filter((c) => c.kind === "meteorFast");
+  const second = world.creatures.filter((c) => c.kind === "meteorFastest");
   expect(second.length).toBe(1);
   expect(second[0]!.fromRow).toBe(queenOf(world).row);
 });

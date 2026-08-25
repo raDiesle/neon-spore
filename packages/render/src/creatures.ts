@@ -5,8 +5,6 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { isFreshQueenSpawn, type QueenOrigin } from "./queen-spawn.js";
 
-/** Share of a beat a rock takes to grow to full size out of the queen's body. */
-const METEOR_GROW_SHARE = 0.3;
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
 const METEOR_GROW_FLOOR = 0.02;
 
@@ -28,6 +26,7 @@ export function drawCreatures(
   time: number,
   blocked: ReadonlyMap<number, number>,
   queenOrigin: QueenOrigin | null = null,
+  meteorGrowShare = 0.3,
 ): void {
   for (const c of creatures) {
     // The queen is drawn by her own module, because she is the only creature
@@ -38,7 +37,8 @@ export function drawCreatures(
     const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
     const x = tileCX(l, c.col);
     const y = tileCY(l, row);
-    if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin);
+    if (isMeteorKind(c.kind))
+      drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin, meteorGrowShare);
     else drawLiving(ctx, l, c, x, y, time, blocked.get(c.id) ?? 0);
   }
 }
@@ -168,11 +168,12 @@ function drawMeteor(
   time: number,
   beatPhase: number,
   queenOrigin: QueenOrigin | null,
+  growShare: number,
 ): void {
   // Fresh out of the queen's body: it grows from nothing to full size over the
   // first slice of the beat, in step with the bulge it broke off from.
   const growth = isFreshQueenSpawn(c, queenOrigin)
-    ? Math.max(METEOR_GROW_FLOOR, Math.min(1, beatPhase / METEOR_GROW_SHARE))
+    ? Math.max(METEOR_GROW_FLOOR, Math.min(1, beatPhase / Math.max(1e-3, growShare)))
     : 1;
   const r = l.tile * 0.4 * growth;
   const spin = (c.id % 13) * 0.48;

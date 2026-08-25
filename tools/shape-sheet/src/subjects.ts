@@ -1,6 +1,7 @@
 import {
   BULB,
   type Bump,
+  type CrystalSilhouette,
   catmullRomToBezierPath,
   crystalRadiusMul,
   HULL,
@@ -11,7 +12,7 @@ import {
   openSmoothPath,
   POD,
   type Point,
-  QUEEN,
+  QUEEN_SHELL,
   SLICK,
 } from "@neon-spore/content";
 
@@ -94,30 +95,34 @@ function blob(name: string, s: typeof SLICK): Subject {
   };
 }
 
-const meteor: Subject = {
-  name: "METEOR",
-  note: `${METEOR.sides} facets · dead rock`,
-  open: false,
-  pointsAt(t) {
-    const pts: Point[] = [];
-    for (let i = 0; i < METEOR.sides; i++) {
-      const a = (i / METEOR.sides) * Math.PI * 2;
-      const m = crystalRadiusMul(a, METEOR.sides, METEOR.depth, METEOR.wobble, t, METEOR.seed);
-      pts.push({ x: Math.cos(a) * 46 * m, y: Math.sin(a) * 46 * m });
-    }
-    return pts;
-  },
-  path(pts) {
-    const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
-    return `${
-      head +
-      pts
-        .slice(1)
-        .map((p) => `L ${p.x.toFixed(2)} ${p.y.toFixed(2)} `)
-        .join("")
-    }Z`;
-  },
-};
+function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
+  return {
+    name,
+    note,
+    open: false,
+    pointsAt(t) {
+      const pts: Point[] = [];
+      for (let i = 0; i < s.sides; i++) {
+        const a = (i / s.sides) * Math.PI * 2;
+        const m = crystalRadiusMul(a, s.sides, s.depth, s.wobble, t, s.seed);
+        pts.push({ x: Math.cos(a) * radius * m, y: Math.sin(a) * radius * m });
+      }
+      return pts;
+    },
+    path(pts) {
+      const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
+      return `${
+        head +
+        pts
+          .slice(1)
+          .map((p) => `L ${p.x.toFixed(2)} ${p.y.toFixed(2)} `)
+          .join("")
+      }Z`;
+    },
+  };
+}
+
+const meteor = crystal("METEOR", METEOR, 46, `${METEOR.sides} facets · dead rock`);
 
 /**
  * The hull as the game draws it: one contour with a cannon lobe and a shield
@@ -180,9 +185,9 @@ function hull(armed: boolean, spread = 0, intake = 0): Subject {
 export const SUBJECTS: Subject[] = [
   blob("SLICK", SLICK),
   blob("BULB", BULB),
-  blob("BULB QUEEN", QUEEN),
   blob("POD", POD),
   meteor,
+  crystal("BULB QUEEN", QUEEN_SHELL, 100, `${QUEEN_SHELL.sides} facets · armoured shell`),
   hull(false),
   hull(true),
   hull(true, 0.05),

@@ -1,7 +1,15 @@
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
-export type CreatureKind = "slick" | "bulb" | "meteor" | "meteorMedium" | "meteorFast" | "queen";
+export type CreatureKind =
+  | "slick"
+  | "bulb"
+  | "meteor"
+  | "meteorMedium"
+  | "meteorFast"
+  | "meteorFaster"
+  | "meteorFastest"
+  | "queen";
 
 /**
  * The single source of the colour-to-silhouette pairing. `packages/content`
@@ -13,16 +21,26 @@ export function livingKindForColor(color: Color): CreatureKind {
   return "bulb";
 }
 
+const METEOR_KINDS: readonly CreatureKind[] = [
+  "meteor",
+  "meteorMedium",
+  "meteorFast",
+  "meteorFaster",
+  "meteorFastest",
+];
+
 /** True for any rock — dead, indestructible, warded rather than shot. */
 export function isMeteorKind(kind: CreatureKind): boolean {
-  return kind === "meteor" || kind === "meteorMedium" || kind === "meteorFast";
+  return METEOR_KINDS.includes(kind);
 }
 
-/** Tiles a creature falls each beat. Only the rock kinds ever differ from one. */
+/**
+ * Tiles a creature falls each beat. Only the rock kinds ever differ from one
+ * — five tiers, one tile per beat apart, `meteor` the original and slowest.
+ */
 export function fallTilesPerBeat(kind: CreatureKind): number {
-  if (kind === "meteorMedium") return 2;
-  if (kind === "meteorFast") return 3;
-  return 1;
+  const tier = METEOR_KINDS.indexOf(kind);
+  return tier === -1 ? 1 : tier + 1;
 }
 
 /**
