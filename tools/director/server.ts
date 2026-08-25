@@ -1,5 +1,6 @@
 import type { Wave } from "@neon-spore/content";
 import indexHtml from "./index.html";
+import { parseConcepts } from "./src/concepts.js";
 import { parseRoster } from "./src/roster.js";
 import { serializeWaves } from "./src/serialize.js";
 
@@ -21,6 +22,10 @@ const port = Number(process.env.DIRECTOR_PORT ?? 4174);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
 const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
 const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
+const couplingsFile = new URL("../../docs/spec/couplings.md", import.meta.url);
+const assistsFile = new URL("../../docs/spec/assists.md", import.meta.url);
+const systemsFile = new URL("../../docs/spec/systems.md", import.meta.url);
+const ideasFile = new URL("../../docs/spec/ideas.md", import.meta.url);
 const repoRoot = new URL("../../", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
@@ -161,6 +166,20 @@ const server = Bun.serve({
         const bestiary = await Bun.file(bestiaryFile).text();
         const bosses = await Bun.file(bossesFile).text();
         return Response.json(parseRoster(bestiary, bosses), { headers: noCache });
+      }),
+    },
+
+    "/api/concepts": {
+      GET: withIdle(async () => {
+        const [couplings, assists, systems, ideas] = await Promise.all([
+          Bun.file(couplingsFile).text(),
+          Bun.file(assistsFile).text(),
+          Bun.file(systemsFile).text(),
+          Bun.file(ideasFile).text(),
+        ]);
+        return Response.json(parseConcepts(couplings, assists, systems, ideas), {
+          headers: noCache,
+        });
       }),
     },
   },

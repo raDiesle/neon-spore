@@ -32,6 +32,13 @@ describe("roster", () => {
 
     const veil = roster.creatures.find((c) => c.name === "Veil");
     expect(veil?.built).toBe(false);
+
+    // Only the three worked-out bosses carry a note off their own heading's tail.
+    const queen = roster.bosses.find((b) => b.name === "Bulb Queen");
+    expect(queen?.note).toBe("armoured everywhere but the mark");
+
+    const strandNest = roster.bosses.find((b) => b.name === "Strand Nest");
+    expect(strandNest?.note).toBe("");
   });
 
   test("parses a minimal example", () => {

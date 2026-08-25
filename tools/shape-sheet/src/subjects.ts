@@ -11,6 +11,7 @@ import {
   openSmoothPath,
   POD,
   type Point,
+  QUEEN,
   SLICK,
 } from "@neon-spore/content";
 
@@ -179,6 +180,7 @@ function hull(armed: boolean, spread = 0, intake = 0): Subject {
 export const SUBJECTS: Subject[] = [
   blob("SLICK", SLICK),
   blob("BULB", BULB),
+  blob("BULB QUEEN", QUEEN),
   blob("POD", POD),
   meteor,
   hull(false),

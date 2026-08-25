@@ -85,6 +85,9 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/ship.ts` | what the ship can do, read off SimConfig |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
 | `tools/director/src/planned.ts` | the panel that shows them |
+| `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
+| `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
+| `tools/director/src/concepts-render.ts` | the panel that shows them |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |

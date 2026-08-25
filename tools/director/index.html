@@ -41,7 +41,10 @@
       textarea { resize: vertical; }
       label.field { display: block; font-size: 9px; letter-spacing: 2px; color: var(--dim); margin: 9px 0 3px; }
 
-      main { display: grid; grid-template-columns: 186px minmax(320px, 1fr) 372px; min-height: 0; }
+      /* Below ~878px the three columns no longer fit side by side. Rather than
+         clip the third one off-screen — the tabs used to vanish silently on a
+         narrower desktop window — main scrolls horizontally instead. */
+      main { display: grid; grid-template-columns: 186px minmax(320px, 1fr) 372px; min-height: 0; overflow-x: auto; }
       main > section { border-right: 1px solid var(--line); overflow-y: auto; padding: 10px; min-height: 0; }
       main > section.stage-col { overflow: hidden; }
       main > section:last-child { border-right: 0; }
@@ -98,7 +101,7 @@
       }
       .transport { flex: 0 0 auto; display: flex; gap: 4px; }
 
-      #tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+      #tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
       .tabpage { display: none; }
       .tabpage.on { display: block; }
 
@@ -108,12 +111,28 @@
       .cap p { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
 
       .plan { padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
+      .plan .head { display: flex; align-items: center; gap: 8px; }
+      .plan svg { flex: 0 0 auto; background: #0a0719; border-radius: 5px; }
       .plan .name { color: var(--dim); letter-spacing: 2px; font-size: 11px; }
       .plan.is-built .name { color: var(--ink); }
-      .plan .stamp { float: right; font-size: 8px; letter-spacing: 1px; color: #574d84; }
+      .plan .stamp { margin-left: auto; font-size: 8px; letter-spacing: 1px; color: #574d84; }
       .plan.is-built .stamp { color: var(--cyan); }
       .plan .kind { color: #a98cff; margin-left: 6px; font-size: 9px; }
       .plan .blurb { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
+
+      .concept { padding: 6px 0 10px; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
+      .concept .name { color: var(--ink); letter-spacing: 2px; font-size: 11px; }
+      .concept .status { float: right; font-size: 8px; letter-spacing: 1px; color: #574d84; }
+      .concept .status.is-built { color: var(--cyan); }
+      .concept .blurb { margin: 4px 0 0; color: var(--dim); line-height: 1.45; }
+      table.concept-table { width: 100%; border-collapse: collapse; margin: 8px 0 0; font-size: 9px; }
+      table.concept-table th, table.concept-table td { padding: 3px 5px; text-align: left; color: var(--dim); border-bottom: 1px solid var(--line-soft); }
+      table.concept-table th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
+      table.concept-table td:first-child { color: var(--ink); }
+
+      .idea { padding: 5px 0; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
+      .idea .name { color: var(--ink); letter-spacing: 1px; }
+      .idea .blurb { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
 
       .row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
       .row label { flex: 0 0 96px; color: var(--dim); }
@@ -185,6 +204,7 @@
           <button type="button" data-tab="creatures">CREATURES</button>
           <button type="button" data-tab="accepted">ACCEPTED</button>
           <button type="button" data-tab="bosses">BOSSES</button>
+          <button type="button" data-tab="concepts">CONCEPTS</button>
         </div>
         <div class="tabpage on" id="tab-wave">
           <label class="field" for="fName">NAME</label>
@@ -217,24 +237,55 @@
           </p>
         </div>
         <div class="tabpage" id="tab-creatures">
+          <p class="note">
+            CREATURES is the original bestiary — the first thirteen enemy
+            types the design started from. Three of them (Slick, Bulb,
+            Meteor) exist in the simulation and carry the teaching waves; the
+            other ten are names and roles with nothing built yet.
+          </p>
           <div id="plannedCreatures"></div>
           <p class="note">
-            The first thirteen, read from the bestiary. A name here costs one
-            edit to change — nothing depends on it yet.
+            A name here costs one edit to change — nothing depends on it yet.
           </p>
         </div>
         <div class="tabpage" id="tab-accepted">
+          <p class="note">
+            ACCEPTED is what got proposed after that first thirteen and was
+            argued into the spec rather than rejected — see
+            docs/spec/bestiary.md §10.2. Nothing in this list is built; it is
+            the queue of what the bestiary grows into next.
+          </p>
           <div id="plannedAccepted"></div>
           <p class="note">
-            Proposed since the first thirteen. Also read from the bestiary,
-            also nothing built unless it says BUILT.
+            Also read from the bestiary, also nothing built unless it says
+            BUILT.
           </p>
         </div>
         <div class="tabpage" id="tab-bosses">
           <div id="plannedBosses"></div>
           <p class="note">
-            The act order, read from the boss spec. A boss with a BOSS panel in
-            the WAVE tab is playable; the rest are names holding a slot.
+            The act order, read from the boss spec. Only three of the eleven
+            have a worked-out design (Bulb Queen, The Mother, The Vessel) —
+            their blurb comes from that write-up; the rest are names holding
+            a slot. A boss with a BOSS panel in the WAVE tab is playable.
+          </p>
+        </div>
+        <div class="tabpage" id="tab-concepts">
+          <h2>COUPLINGS — the patterns everything else follows from</h2>
+          <div id="conceptCouplings"></div>
+          <h2 style="margin-top: 14px">ASSIST FORMS</h2>
+          <div id="conceptAssists"></div>
+          <h2 style="margin-top: 14px">SYSTEMS</h2>
+          <div id="conceptSystems"></div>
+          <h2 style="margin-top: 14px">IDEAS — accepted, not yet worked out</h2>
+          <div id="conceptIdeas"></div>
+          <h2 style="margin-top: 14px">DEFERRED</h2>
+          <div id="conceptDeferred"></div>
+          <p class="note">
+            Read from docs/spec/couplings.md, assists.md, systems.md and
+            ideas.md. This is the design that has no code and, for most of
+            it, no creature or boss name attached yet — what to look at when
+            deciding what to build next.
           </p>
         </div>
       </section>

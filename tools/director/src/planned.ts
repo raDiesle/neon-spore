@@ -5,6 +5,8 @@
  * maintains a second copy.
  */
 
+import { hasSilhouette, silhouette } from "./silhouette.js";
+
 interface Planned {
   name: string;
   kind: string;
@@ -27,15 +29,25 @@ function renderGroup(container: HTMLElement, heading: string, items: Planned[]):
     const div = document.createElement("div");
     div.className = item.built ? "plan is-built" : "plan";
 
+    const head = document.createElement("div");
+    head.className = "head";
+
+    // Only entries with a tuned shape get one — the style guide has not
+    // drawn most of this list yet, and an empty box would say it had.
+    if (hasSilhouette(item.name)) {
+      head.appendChild(silhouette(item.name, item.built ? "var(--cyan)" : "var(--dim)", 34));
+    }
+
     const name = document.createElement("span");
     name.className = "name";
     name.textContent = item.name;
-    div.appendChild(name);
+    head.appendChild(name);
 
     const stamp = document.createElement("span");
     stamp.className = "stamp";
     stamp.textContent = item.built ? "BUILT" : "NOT BUILT";
-    div.appendChild(stamp);
+    head.appendChild(stamp);
+    div.appendChild(head);
 
     if (item.kind) {
       const kind = document.createElement("span");

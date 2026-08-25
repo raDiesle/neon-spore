@@ -1,6 +1,7 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { renderConcepts } from "./concepts-render.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
 import { renderPlanned } from "./planned.js";
@@ -76,6 +77,7 @@ bindTuning(cfg, () => {
 });
 renderShip(cfg);
 void renderPlanned();
+void renderConcepts();
 
 /** Brushes the current wave has no use for, so the palette knows what to hide. */
 function hiddenBrushes(): ReadonlySet<Brush> {

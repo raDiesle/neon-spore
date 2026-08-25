@@ -1,5 +1,16 @@
 import { boundsOver, SUBJECTS, type Subject } from "@neon-spore/shape-sheet";
 
+/** Case-insensitive: callers pass a creature's spec name, not a SUBJECTS key. */
+function findSubject(name: string): Subject | undefined {
+  const key = name.toUpperCase();
+  return SUBJECTS.find((s) => s.name === key);
+}
+
+/** True once a name has a tuned shape — the rest of the bestiary has none yet. */
+export function hasSilhouette(name: string): boolean {
+  return findSubject(name) !== undefined;
+}
+
 /**
  * The contour at rest, through the same functions the canvas calls. Still,
  * not animated: the shape sheet is where motion is judged, and a panel that
@@ -12,7 +23,7 @@ export function silhouette(name: string, stroke: string, box = 58): SVGElement {
   svg.setAttribute("width", String(box));
   svg.setAttribute("height", String(box));
 
-  const subject: Subject | undefined = SUBJECTS.find((s) => s.name === name);
+  const subject = findSubject(name);
   if (!subject) return svg;
 
   const b = boundsOver(subject, [0]);

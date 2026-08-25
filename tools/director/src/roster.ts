@@ -5,6 +5,7 @@
  */
 
 import { CREATURES } from "@neon-spore/content";
+import { firstParagraph, parseNumberedSections, type Section } from "./sections.js";
 
 export interface Planned {
   name: string;
@@ -112,10 +113,32 @@ function parseBosses(text: string): Planned[] {
   return bosses;
 }
 
+/** "The Bulb Queen" and "Bulb Queen" name the same boss; strip the article to compare. */
+function normalize(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/^the\s+/, "")
+    .trim();
+}
+
+/**
+ * Only three of the eleven bosses (`docs/spec/bosses.md`) have a worked-out
+ * section — the rest are names holding a slot. Where one exists its heading's
+ * own tail ("armoured everywhere but the mark") is the fact that matters, so
+ * it comes first; the opening paragraph is the fallback for a heading with
+ * none, like The Vessel's.
+ */
+function detailFor(name: string, sections: Section[]): string {
+  const section = sections.find((s) => normalize(s.title) === normalize(name));
+  if (!section) return "";
+  return section.tail || firstParagraph(section.lines);
+}
+
 export function parseRoster(bestiary: string, bosses: string): Roster {
+  const sections = parseNumberedSections(bosses);
   return {
     creatures: parseTable(bestiary, "first thirteen"),
     accepted: parseTable(bestiary, "Newly accepted"),
-    bosses: parseBosses(bosses),
+    bosses: parseBosses(bosses).map((b) => ({ ...b, note: detailFor(b.name, sections) })),
   };
 }
