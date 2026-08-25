@@ -27,7 +27,16 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       const n = document.createElement("span");
       n.className = "n";
       n.textContent = String(i + 1).padStart(2, "0");
-      button.append(n, document.createTextNode(wave.name || "— unnamed —"));
+      button.append(n);
+      // A boss wave is not one entry among several; a small mark says so at a
+      // glance without spending a whole tab on the one wave that needs it.
+      if (wave.boss) {
+        const mark = document.createElement("span");
+        mark.className = "boss-mark";
+        mark.textContent = "♛ ";
+        button.append(mark);
+      }
+      button.append(document.createTextNode(wave.name || "— unnamed —"));
       button.addEventListener("click", () => {
         store.index = i;
         onSelect();
