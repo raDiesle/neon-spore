@@ -1,9 +1,12 @@
 export {
   type ControlGroup,
   CREATURES,
+  type CreatureCategory,
   type CreatureDef,
+  categoryOf,
   controlsForKinds,
   kindForColor,
+  POD_CATEGORY,
   type RadarOwner,
   radarOwner,
   showsRadar,

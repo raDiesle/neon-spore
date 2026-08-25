@@ -35,6 +35,29 @@ Four rules, in this order:
 values in the simulation. Every other name on this page is a label on an
 unbuilt design and costs one edit to change.
 
+## Categories
+
+The bestiary groups into what a player does about a kind, not its shape.
+`categoryOf(kind)` (`packages/content/src/creatures.ts`) derives the group
+from `controls` — it is never a second, hand-maintained classification, so it
+cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
+
+| Category | Answered by | Members today |
+|---|---|---|
+| `cannon` | `aim` only | slick, bulb |
+| `shield` | `guard` only | every meteor tier |
+| `mixed` | `aim` and `guard` | the queen |
+| `special` | neither | *(reserved, empty)* |
+| `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
+
+`special` is not a bucket to fill on principle — nothing standard describes a
+creature that is neither aimed at nor guarded against, and the plan is to
+leave it empty until one is actually designed (see *The Silent*, 10.2).
+Pods are never `CreatureKind` values and were never in `CREATURES`, so they do
+not go through `categoryOf` at all — `POD_CATEGORY` names their group
+directly, `"suck"`, after what taking one in is called throughout the sim
+(`docs/spec/systems.md` 5.7).
+
 ## 10.1 The first thirteen
 
 | Creature | Form | Role |

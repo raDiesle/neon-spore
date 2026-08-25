@@ -115,6 +115,12 @@ const COPIES: Copy[] = [
     pattern: /controls\s*\.\s*includes\s*\(\s*"guard"\s*\)\s*\?\s*"p1"\s*:\s*"p2"/,
     strip: false,
   },
+  {
+    call: "categoryOf",
+    owner: "packages/content/src/creatures.ts",
+    pattern: /kind\s*===\s*"queen"\s*\?\s*"mixed"/,
+    strip: false,
+  },
 ];
 
 function allSourceFiles(): string[] {

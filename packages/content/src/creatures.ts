@@ -144,3 +144,33 @@ export function showsRadar(role: "p1" | "p2" | "test", kind: CreatureKind): bool
   if (role === "test") return true;
   return radarOwner(kind) === role;
 }
+
+/**
+ * The bestiary grouped by what a player does about it. `"special"` is
+ * reserved for a creature answered by neither `aim` nor `guard` — nothing
+ * standard describes it, and nothing is forced into it today.
+ */
+export type CreatureCategory = "cannon" | "shield" | "mixed" | "special";
+
+/**
+ * Derived from `controls`, never re-typed by hand — see purity.test.ts. A
+ * second, parallel switch on `CreatureKind` (`kind === "queen" ? "mixed" :
+ * ...`) would drift from `controls` the moment a creature's control groups
+ * changed without its category following.
+ */
+export function categoryOf(kind: CreatureKind): CreatureCategory {
+  const controls = CREATURES[kind].controls;
+  const hasAim = controls.includes("aim");
+  const hasGuard = controls.includes("guard");
+  if (hasAim && hasGuard) return "mixed";
+  if (hasAim) return "cannon";
+  if (hasGuard) return "shield";
+  return "special";
+}
+
+/**
+ * Pods (`mend`/`purge`/`ward`) are not a `CreatureKind` and were never in
+ * `CREATURES` — they get their own constant rather than a `categoryOf` case
+ * that would need a `PodKind` overload for one label.
+ */
+export const POD_CATEGORY = "suck" as const;
