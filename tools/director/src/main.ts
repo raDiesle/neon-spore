@@ -72,6 +72,7 @@ const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
   renderShip(cfg);
+  stage.rebuild();
 });
 renderShip(cfg);
 void renderPlanned();

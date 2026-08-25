@@ -43,6 +43,7 @@ const SLIDERS: SliderSpec[] = [
   },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, step: 1, unit: " beats" },
   { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, step: 1, unit: "" },
+  { key: "bandPct", label: "Control band", min: 24, max: 44, step: 1, unit: " %" },
 ];
 
 type Preset = Partial<Record<NumericKey, number>>;
