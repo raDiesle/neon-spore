@@ -1,49 +1,62 @@
 ---
 name: delegate
-description: Hand implementation to the worker model (aider + GLM via OpenRouter) instead of typing it in this session. Implementation is delegated by default, so reach for this whenever code is about to be written — not only when the task looks mechanical. It carries the spec format, the file whitelist, the review pass and the commit rules.
+description: Hand implementation to the worker model (aider + GLM via OpenRouter) instead of typing it in this session. Delegation is a deliberate choice, not the default — reach for this when the spec is genuinely much smaller than the code, such as a uniform change across many files or a long mechanical file whose shape is already decided. It carries the criteria, the spec format, the file whitelist, the review pass and the commit rules.
 ---
 
 # Delegating implementation
 
-The orchestrator decides *what* and *where*; the worker types. The saving is
-not the typing — it is the retries. Aider re-prompts the worker with the failure
-output of `bun run check` until it is green, and none of that traffic reaches
-this session.
+The orchestrator decides *what* and *where*; the worker types. What that buys
+is the retry loop: aider re-prompts the worker with the failure output of
+`bun run check` until it is green, and none of that traffic reaches this
+session.
 
-## Everything that gets written, gets delegated
+What it costs is round trips here, and that turns out to be the larger number.
 
-Not "is this mechanical enough" — that question invites an exception every
-time, and an exception is what it always gets. The line is simpler: **the
-session decides, the worker writes.**
+## When to reach for the worker
 
-Deciding is not a lesser job, and it does not go anywhere. The interface, the
-constraint, the shape of the answer, which of two variants reads better, what
-is worth building at all — that is the work, and no spec can carry it. But none
-of it is code. The moment something is to be *written*, it goes over, however
-small.
+**Delegation is a choice, not the default.** It used to be the default — the
+rule was that everything written went over, on the reasoning that the retries
+would land on cheap tokens. That was measured on 25 August 2026 by building one
+boss twice, and only half of it survived. The retries did move. They were never
+the expensive part: delegating the same module cost 6.8 times as much, and
+91.5% of that was this session rather than the worker. `docs/delegation-cost.md`
+has the figures.
 
-### Not reasons to keep it
+The mechanism is worth carrying in your head, because it decides every case:
 
-- **"It needed a constraint kept in mind."** A constraint you can write down is
-  not judgement, it is a line in the spec. Write it there.
-- **"It touches a coupling."** Naming the coupling in the spec is cheaper than
-  implementing around it.
-- **"It is only a few lines."** Then the spec is only a few lines too.
-- **"Its criterion is whether it feels right."** Judging the result is yours.
-  Typing the parameter that produces it is not. Name the values, have the
-  variants produced, then look.
-- **"Faster to do myself."** Measured against your own tokens, rarely true;
-  measured against the retry loop, never.
+> Cost per request is the same whether the code is delegated or typed here.
+> What delegation multiplies is the **number** of requests — a delegated task is
+> at least three round trips, write the spec, run it, read the diff, where
+> writing the code is one. A run that fails makes it five or six, and 31% of
+> runs failed at least once.
 
-### The two that are real
+So the default is to **write it here, in as few turns as the work allows**.
+
+Reach for the worker when the spec is genuinely much smaller than the code:
+
+- a uniform change across many files — a rename, a codemod, one signature
+  threaded through a package;
+- a long mechanical file whose shape is entirely decided, where only the typing
+  is left;
+- a change you expect to need several failing rounds of `bun run check` to land,
+  where the loop is the point;
+- when Claude quota matters more than money, and slower and rougher is a trade
+  worth making.
+
+Do not reach for it for a small edit, for a test, for a document, or for
+anything where the spec would run as long as the code. Two more cases are
+settled before you start:
 
 - **The worker cannot run** — `aider` not on PATH, or `OPENROUTER_API_KEY`
-  unset. Say so once and do the task here. Do not install anything.
+  unset. Do the task here. Do not install anything.
 - **It has missed twice on this task.** Escalate the model once; if that misses
   too, take it back. A third attempt costs more in review than it saves.
 
-Neither is assumed. Say in the final report whether the work was delegated, and
-if it was not, which of these two applied.
+Prose is the worst case, not the safest one. A document that cites repository
+paths re-triggers the file-mention failure below on every attempt, and both of
+the tasks that had to be taken back in the measured run were markdown.
+
+Say in the final report whether the work was delegated, and why.
 
 ### The file the diff format cannot edit
 
@@ -66,6 +79,13 @@ keep the task. Do not hand a backtick-heavy file to the diff format twice.
 stray `Math.random` there comes back green. That is not a reason to withhold
 the task; it is a reason to put the constraint in the spec **and** to look for
 it by name in the diff.
+
+## What does not go over, ever
+
+Deciding. The interface, the constraint, the shape of the answer, which of two
+variants reads better, what is worth building at all — that is the work, and no
+spec can carry it. Reviewing does not go over either, for the same reason; that
+is spelled out where the review happens, in step 3.
 
 ## 0. Cut the task to one change
 
@@ -269,3 +289,5 @@ commit — `auto-commits: false` is deliberate, not an oversight.
 
 If `aider` is not on PATH or `OPENROUTER_API_KEY` is unset, say so once and do
 the task in this session. Do not install anything and do not fall back silently.
+That is a report, not a failure — the session writing the code is now the
+ordinary case.

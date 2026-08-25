@@ -77,17 +77,28 @@ bun run check          # typecheck + lint + test, run this before saying "done"
 
 ## Delegating implementation
 
-Code is written by the worker, not in the session. `.claude/skills/delegate`
-carries the procedure, `docs/delegating.md` the reasoning.
+**Write it here, in as few turns as the work allows.** Delegation to the worker
+model is a deliberate choice for a particular shape of task, not the default.
 
-The session decides and reviews; it does not type. Deciding is real work and it
-stays here — the interface, the constraint, the shape, which of two variants
-reads better, what is worth building at all. None of that is code. Once it is
-decided, the writing goes over, however small the change and however plainly
-you can already see the answer.
+It used to be the default. That was measured on 25 August 2026 by building one
+boss twice, and the arithmetic did not survive: delegating the same module cost
+6.8 times as much, and 91.5% of that was the session, not the worker. Cost per
+request is the same either way — what delegation multiplies is the *number* of
+requests, because a delegated task is at least three round trips where writing
+the code is one. `docs/delegation-cost.md` has the figures and the mechanism;
+`docs/delegating.md` still holds the reasoning behind the machinery itself.
 
-Two exceptions, and both are reported rather than assumed: the worker cannot
-run, or it has already missed twice on this task.
+Reach for `bun run delegate` when the spec is genuinely much smaller than the
+code — a uniform change across many files, a long mechanical file whose shape is
+already decided, or a change you expect to need several failing rounds of
+`bun run check`, where the retry loop is the point. Not for a small edit, a
+test, a document, or anything whose spec would run as long as its code.
+`.claude/skills/delegate` carries the criteria and the procedure. Say in the
+report whether the work was delegated, and why.
+
+**Deciding never goes over, and neither does reviewing.** The interface, the
+constraint, the shape, which of two variants reads better, what is worth
+building at all — that is the work, and no spec can carry it.
 
 Friction in this arrangement is a bug in the task at hand, not a note for
 later — a loop that burns tokens, an error that names the wrong cause, work

@@ -24,8 +24,12 @@ that cache for every session. Put anything that changes often in `docs/`.
 
 ## Practical habits
 
-- Plan with a large model, execute with a fast one. The expensive part is the
-  thinking, not the typing.
+- Do the thinking and the typing in the same session, in as few turns as the
+  work allows. The expensive part is the **round trip**, not the typing: every
+  request re-reads the whole conversation, so cost tracks turns multiplied by
+  how long the conversation has got. Handing the typing to a fast model adds
+  turns rather than removing them — see `delegation-cost.md`, where it was
+  measured at 6.8 times the cost.
 - Let subagents do code searches. Their reading does not stay in the main
   session's context.
 - Prefer `bun run check` over describing what you changed and hoping.
