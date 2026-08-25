@@ -133,7 +133,7 @@ throwaway check, or a second worktree previewing beside this one. Several can
 run at the same time without arranging anything.
 
 Either way the server refuses to start next to a stranger, retires an older copy
-of itself, and exits after fifteen minutes of silence, so a leaked one dies
+of itself, and exits after 30 seconds of silence, so a leaked one dies
 without help.
 
 Never start a server with a backgrounded shell command. Use the `game` entry in

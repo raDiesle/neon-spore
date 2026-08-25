@@ -18,7 +18,7 @@
 const port = Number(process.env.PREVIEW_PORT ?? 4173);
 const root = new URL("./dist/", import.meta.url);
 const marker = "neon-spore-preview";
-const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 15 * 60 * 1000);
+const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 30 * 1000);
 
 /**
  * Both loopback families, because they are separate listeners: a ghost on

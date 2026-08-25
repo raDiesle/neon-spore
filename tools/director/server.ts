@@ -23,7 +23,7 @@ const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
 const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
 const repoRoot = new URL("../../", import.meta.url);
 const marker = "neon-spore-director";
-// Longer than the preview's fifteen minutes: this one is left open while a
+// Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
 const idleMs = Number(process.env.DIRECTOR_IDLE_MS ?? 60 * 60 * 1000);
 

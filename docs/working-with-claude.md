@@ -49,7 +49,7 @@ The guarantee is in the server, not in the instruction. `apps/game/preview.ts`
 holds a fixed port and probes both loopback families before binding; if an older
 preview answers it asks it to quit, and if a stranger answers it stops with an
 error rather than killing a process it cannot identify. It exits by itself after
-fifteen minutes without a request, so even a preview that escapes the session
+30 seconds without a request, so even a preview that escapes the session
 cleans itself up. `.claude/launch.json` offers this and nothing else, which
 leaves `bun run dev` where it belongs — with a person watching hot reload.
 
