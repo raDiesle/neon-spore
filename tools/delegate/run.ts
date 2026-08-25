@@ -150,6 +150,9 @@ async function main() {
     ...process.env,
     PYTHONIOENCODING: "utf-8",
     PYTHONUTF8: "1",
+    // `yes-always` accepts aider's offer to open a help URL when a run is cut
+    // off; setting BROWSER to a no-op stops Python's webbrowser from opening one.
+    BROWSER: "echo",
   };
 
   const exitCode = await new Promise<number>((resolve) => {
