@@ -26,6 +26,7 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   const hp = hullPercent(world) / 100;
   ctx.fillStyle = hp > 0.5 ? PALETTE.cyan : hp > 0.25 ? PALETTE.hull : PALETTE.red;
   ctx.fillRect(bx, by, bw * hp, 6);
+  drawHeart(ctx, bx - 9, by + 3, 6, PALETTE.pod);
 
   ctx.fillStyle = PALETTE.dim;
   ctx.fillText(`${world.score} P`, 10, 20);
@@ -120,4 +121,25 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
     ctx.fillText("P or the button to continue", l.width / 2, l.height * 0.46 + 20);
   }
   ctx.textAlign = "left";
+}
+
+/** A small filled heart, for labelling the hull bar as what a `mend` pod feeds. */
+function drawHeart(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  r: number,
+  hex: string,
+): void {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.beginPath();
+  ctx.moveTo(0, -r * 0.15);
+  ctx.quadraticCurveTo(-r * 0.3, -r * 0.5, -r * 0.55, -r * 0.1);
+  ctx.quadraticCurveTo(-r * 0.55, r * 0.3, 0, r * 0.55);
+  ctx.quadraticCurveTo(r * 0.55, r * 0.3, r * 0.55, -r * 0.1);
+  ctx.quadraticCurveTo(r * 0.3, -r * 0.5, 0, -r * 0.15);
+  ctx.fillStyle = hex;
+  ctx.fill();
+  ctx.restore();
 }
