@@ -20,7 +20,8 @@ act structure.
 
 A huge, armoured body of her own shape. She paces the top of the field, one
 column per beat, turning at the edges — and, one tile per petal lost, sinks
-nearer the hull, up to three tiles over the whole fight. Only the mark
+nearer the hull for as long as she has any left, closing the distance for the
+whole fight rather than levelling off partway through. Only the mark
 embedded in her front is ever hittable; the rest of her is decoration a shot
 cannot reach, sized and drawn like an ordinary creature so the one column that
 matters is never in doubt.

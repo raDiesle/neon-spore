@@ -7,7 +7,7 @@ export interface SimConfig {
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
   rows: number;
-  /** The row the queen holds at full health. She sinks toward the hull as she loses petals — see `QUEEN_MAX_DROP` in `boss.ts`. */
+  /** The row the queen holds at full health. She sinks a tile per petal lost — see `queenRow` in `boss.ts`. */
   queenRow: number;
   /** Beats per minute of the shared clock. */
   bpm: number;

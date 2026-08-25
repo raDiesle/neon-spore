@@ -1,4 +1,4 @@
-import type { SimConfig } from "./config.js";
+import { hullRow, type SimConfig } from "./config.js";
 import { nextInt } from "./rng.js";
 import type { BossState, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -38,13 +38,6 @@ const PHASES: readonly Phase[] = [
   { above: 4, cycle: 5, tell: 2, openBeats: 2 },
   { above: 0, cycle: 4, tell: 1, openBeats: 2 },
 ];
-
-/**
- * How many tiles she may sink toward the hull over the whole fight, one tile
- * per petal lost. Same kind of number as `PHASES` — the boss, not a knob on
- * her — so it lives here rather than in `SimConfig`.
- */
-const QUEEN_MAX_DROP = 3;
 
 /**
  * Beats between one scripted rock and the next. Fixed for the whole fight —
@@ -97,13 +90,19 @@ function enterPhase(world: World, boss: BossState, queen: Creature): void {
   forget(boss);
 }
 
-/** How close to the hull she has earned, purely from petals lost. */
+/**
+ * How close to the hull she has earned, purely from petals lost — one tile
+ * per petal, all the way down, for as long as she has any left. The only
+ * ceiling is the field itself: she may never reach the row the hull resolves
+ * on, whatever a wave author sets her starting petals to.
+ */
 function queenRow(cfg: SimConfig, boss: BossState, queen: Creature): number {
-  const drop = Math.min(QUEEN_MAX_DROP, boss.startPetals - queen.petals);
+  const maxDrop = Math.max(0, hullRow(cfg) - 1 - cfg.queenRow);
+  const drop = Math.min(maxDrop, boss.startPetals - queen.petals);
   return cfg.queenRow + Math.max(0, drop);
 }
 
-/** One tile nearer the hull for every petal she has lost, up to `QUEEN_MAX_DROP`. */
+/** One tile nearer the hull for every petal she has lost, for as long as she has any left. */
 function descend(world: World, boss: BossState, queen: Creature): void {
   const target = queenRow(world.cfg, boss, queen);
   if (target === queen.row) return;
