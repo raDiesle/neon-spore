@@ -6,6 +6,7 @@ export {
   kindForColor,
 } from "./creatures.js";
 export {
+  AUTHORED_COL_MAX,
   AUTHORED_COLS,
   bossFromWave,
   buildBoss,

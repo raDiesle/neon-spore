@@ -56,24 +56,36 @@ function renderGroup(container: HTMLElement, heading: string, items: Planned[]):
   }
 }
 
+/**
+ * Three panels, not one: `CREATURES` is the original thirteen, `ACCEPTED` is
+ * everything proposed since, `BOSSES` is the act order. All three mix built
+ * and unbuilt entries — "built" is its own badge on each row — so the split is
+ * by which list of the spec an entry comes from, not by whether it exists yet.
+ */
 export async function renderPlanned(): Promise<void> {
-  const planned = document.getElementById("planned");
-  if (!planned) return;
+  const creatures = document.getElementById("plannedCreatures");
+  const accepted = document.getElementById("plannedAccepted");
+  const bosses = document.getElementById("plannedBosses");
+  if (!creatures || !accepted || !bosses) return;
 
   try {
     const res = await fetch("/api/roster");
     if (!res.ok) throw new Error(res.statusText);
     const roster = (await res.json()) as Roster;
 
-    planned.replaceChildren();
-    renderGroup(planned, "CREATURES", roster.creatures);
-    renderGroup(planned, "ACCEPTED", roster.accepted);
-    renderGroup(planned, "BOSSES", roster.bosses);
+    creatures.replaceChildren();
+    accepted.replaceChildren();
+    bosses.replaceChildren();
+    renderGroup(creatures, "CREATURES", roster.creatures);
+    renderGroup(accepted, "ACCEPTED", roster.accepted);
+    renderGroup(bosses, "BOSSES", roster.bosses);
   } catch {
-    planned.replaceChildren();
-    const msg = document.createElement("p");
-    msg.textContent = "no server — read only";
-    msg.style.color = "var(--dim)";
-    planned.appendChild(msg);
+    for (const el of [creatures, accepted, bosses]) {
+      el.replaceChildren();
+      const msg = document.createElement("p");
+      msg.textContent = "no server — read only";
+      msg.style.color = "var(--dim)";
+      el.appendChild(msg);
+    }
   }
 }

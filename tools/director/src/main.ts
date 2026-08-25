@@ -1,12 +1,21 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
+import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
 import { renderPlanned } from "./planned.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
 import { bindStage } from "./stage.js";
-import { currentWave, paint, refuse, type Store } from "./state.js";
+import {
+  type Brush,
+  CREATURE_BRUSHES,
+  currentWave,
+  isCreaturePlacementBlocked,
+  paint,
+  refuse,
+  type Store,
+} from "./state.js";
 import { bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 
@@ -50,7 +59,7 @@ const stage = bindStage(
     stage.seek(beat);
   },
 );
-const palette = bindPalette(() => {});
+const palette = bindPalette(() => {}, hiddenBrushes);
 grid = bindGrid(
   store,
   () => cfg,
@@ -58,6 +67,7 @@ grid = bindGrid(
   onShape,
   (beat) => stage.seek(beat),
 );
+const boss: BossPanel = bindBossPanel(store, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
@@ -66,9 +76,18 @@ bindTuning(cfg, () => {
 renderShip(cfg);
 void renderPlanned();
 
-/** A wave changed shape: redraw the grid and replay it from the top. */
+/** Brushes the current wave has no use for, so the palette knows what to hide. */
+function hiddenBrushes(): ReadonlySet<Brush> {
+  const wave = currentWave(store);
+  if (!wave || !isCreaturePlacementBlocked(wave)) return new Set();
+  return new Set(CREATURE_BRUSHES);
+}
+
+/** A wave changed shape: redraw the grid, the boss panel, and replay from the top. */
 function onShape(): void {
   grid?.render();
+  boss.render();
+  palette.render();
   stage.rebuild();
   paintStatus();
 }
@@ -81,6 +100,8 @@ function onProse(): void {
 function refreshAll(): void {
   rail.render();
   grid?.render();
+  boss.render();
+  palette.render();
   stage.rebuild();
   paintStatus();
 }

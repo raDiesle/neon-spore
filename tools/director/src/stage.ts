@@ -1,4 +1,4 @@
-import { podsFromWave, queueFromWave } from "@neon-spore/content";
+import { bossFromWave, podsFromWave, queueFromWave } from "@neon-spore/content";
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
@@ -88,7 +88,13 @@ export function bindStage(
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
     if (!wave) return;
-    startWave(world, store.index, queueFromWave(wave, cfg.cols), podsFromWave(wave, cfg.cols));
+    startWave(
+      world,
+      store.index,
+      queueFromWave(wave, cfg.cols),
+      podsFromWave(wave, cfg.cols),
+      bossFromWave(wave, cfg.cols),
+    );
     lastBeat = 0;
     onBeat(0);
   };

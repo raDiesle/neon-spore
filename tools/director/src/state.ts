@@ -121,11 +121,30 @@ export function podBrushOf(pod: PodEntry): Brush {
   return pod.kind ?? "mend";
 }
 
+/** The three brushes that place a living creature or a rock, never a pod. */
+export const CREATURE_BRUSHES: readonly Brush[] = ["red", "cyan", "rock"];
+
+/**
+ * A wave that carries a boss is the boss's wave: nothing about her design says
+ * what a regular creature arriving alongside her would mean, and the one that
+ * exists was authored with none. Erasing and placing pods both still work —
+ * the queen's own wave hangs a pod for the pair to salvage.
+ */
+export function isCreaturePlacementBlocked(wave: Wave): boolean {
+  return wave.boss !== undefined;
+}
+
 /**
  * Paint one cell. Painting what is already there removes it, so the brush is
  * also its own eraser and the common correction costs no trip to the palette.
+ *
+ * The guard against a creature brush on a boss wave lives here and not only in
+ * the palette that hides the buttons — a stale selection carried over from
+ * another wave must not be able to place one either.
  */
 export function paint(wave: Wave, beat: number, col: number, brush: Brush): void {
+  if (isCreaturePlacementBlocked(wave) && CREATURE_BRUSHES.includes(brush)) return;
+
   if (brush === "mend" || brush === "purge" || brush === "ward") {
     paintPod(wave, beat, col, brush);
     return;
@@ -211,6 +230,7 @@ export function copyWave(wave: Wave): Wave {
     hint: wave.hint,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
+    boss: wave.boss ? { ...wave.boss } : undefined,
   };
 }
 
@@ -220,7 +240,8 @@ export function refuse(waves: Wave[]): string | null {
     if (!w.name.trim()) return `wave ${i + 1} has no name`;
     if (!w.sentence.trim()) return `wave ${i + 1} has no sentence — it is padding`;
     if (!w.hint.trim()) return `wave ${i + 1} has no hint`;
-    if (!w.entries.length) return `wave ${i + 1} is empty`;
+    // A boss wave is the boss: she is the whole wave, not an entry in it.
+    if (!w.entries.length && !w.boss) return `wave ${i + 1} is empty`;
   }
   return null;
 }

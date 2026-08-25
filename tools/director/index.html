@@ -119,6 +119,16 @@
       .row span { flex: 0 0 62px; text-align: right; }
       .row input[type="range"] { flex: 1; accent-color: var(--gold); }
       .note { font-size: 9px; color: #574d84; line-height: 1.5; margin: 10px 0 0; }
+
+      #bossPanel { margin: 4px 0 14px; padding: 8px 0 12px; border-bottom: 1px solid var(--line-soft); }
+      #bossPanel > button { width: 100%; }
+      .boss-fields { display: flex; gap: 14px; margin: 10px 0; }
+      .boss-field { display: flex; flex-direction: column; gap: 3px; font-size: 9px; letter-spacing: 1px; color: var(--dim); }
+      .boss-field input { width: 64px; }
+      table.boss-phases { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9px; }
+      table.boss-phases th, table.boss-phases td { padding: 3px 5px; text-align: left; color: var(--dim); border-bottom: 1px solid var(--line-soft); }
+      table.boss-phases th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
+      table.boss-phases td:first-child { color: var(--ink); letter-spacing: 1px; }
     </style>
   </head>
   <body>
@@ -170,7 +180,9 @@
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
           <button type="button" data-tab="ship">SHIP</button>
-          <button type="button" data-tab="planned">PLANNED</button>
+          <button type="button" data-tab="creatures">CREATURES</button>
+          <button type="button" data-tab="accepted">ACCEPTED</button>
+          <button type="button" data-tab="bosses">BOSSES</button>
         </div>
         <div class="tabpage on" id="tab-wave">
           <label class="field" for="fName">NAME</label>
@@ -179,6 +191,8 @@
           <textarea id="fSentence" rows="2"></textarea>
           <label class="field" for="fHint">HINT — shown to both players</label>
           <textarea id="fHint" rows="2"></textarea>
+
+          <div id="bossPanel"></div>
 
           <h2 style="margin-top: 14px">BRUSH</h2>
           <div id="brushes"></div>
@@ -198,11 +212,25 @@
             saved presets live in this browser.
           </p>
         </div>
-        <div class="tabpage" id="tab-planned">
-          <div id="planned"></div>
+        <div class="tabpage" id="tab-creatures">
+          <div id="plannedCreatures"></div>
           <p class="note">
-            These are read from the bestiary and boss specs. A name here costs
-            one edit to change — nothing depends on it yet.
+            The first thirteen, read from the bestiary. A name here costs one
+            edit to change — nothing depends on it yet.
+          </p>
+        </div>
+        <div class="tabpage" id="tab-accepted">
+          <div id="plannedAccepted"></div>
+          <p class="note">
+            Proposed since the first thirteen. Also read from the bestiary,
+            also nothing built unless it says BUILT.
+          </p>
+        </div>
+        <div class="tabpage" id="tab-bosses">
+          <div id="plannedBosses"></div>
+          <p class="note">
+            The act order, read from the boss spec. A boss with a BOSS panel in
+            the WAVE tab is playable; the rest are names holding a slot.
           </p>
         </div>
       </section>

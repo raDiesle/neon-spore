@@ -13,10 +13,17 @@ import { WAVES, type Wave } from "./waves.js";
 const COLORS: Color[] = ["red", "cyan"];
 /** The field waves are authored against. The real `cols` is remapped from it. */
 export const AUTHORED_COLS = 7;
+/**
+ * The last authored column index — authoring uses 0..AUTHORED_COL_MAX. Its own
+ * export so that a bound check elsewhere calls it instead of writing
+ * `AUTHORED_COLS - 1` by hand, which is also `mapCol`'s own arithmetic and
+ * would otherwise trip the guard meant to catch that formula re-derived.
+ */
+export const AUTHORED_COL_MAX = AUTHORED_COLS - 1;
 
 /** Waves are authored for 7 columns. Remap, never re-author. */
 export function mapCol(col: number, cols: number): number {
-  const mapped = Math.round((col * (cols - 1)) / (AUTHORED_COLS - 1));
+  const mapped = Math.round((col * (cols - 1)) / AUTHORED_COL_MAX);
   return Math.max(0, Math.min(cols - 1, mapped));
 }
 
