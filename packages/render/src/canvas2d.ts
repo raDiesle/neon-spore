@@ -10,6 +10,7 @@ import { drawHull, type HullMood } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
+import { drawQueen } from "./queen.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
 
@@ -119,6 +120,13 @@ export class Canvas2DRenderer implements Renderer {
     drawGrid(ctx, l, world.cannonCol, flash);
 
     drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    if (world.boss != null) {
+      const boss = world.boss;
+      const queen = world.creatures.find((c) => c.id === boss.creatureId);
+      if (queen) {
+        drawQueen(ctx, l, queen, boss, world.beat, view.time);
+      }
+    }
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
     this.effects.draw(ctx, l);

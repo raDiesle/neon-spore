@@ -1,4 +1,5 @@
 import {
+  type BossEntry,
   type Color,
   createRng,
   next,
@@ -67,6 +68,19 @@ export function buildPods(waveIndex: number, cols: number): PodEntry[] {
 /** `buildPods` for an unsaved wave. The sibling of `queueFromWave`. */
 export function podsFromWave(wave: Wave, cols: number): PodEntry[] {
   return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
+}
+
+/** The boss of an authored wave, remapped onto the real field, or null. */
+export function buildBoss(waveIndex: number, cols: number): BossEntry | null {
+  const wave: Wave | undefined = WAVES[waveIndex];
+  if (wave) return bossFromWave(wave, cols);
+  return null;
+}
+
+/** `buildBoss` for an unsaved wave. The sibling of `podsFromWave`. */
+export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
+  if (!wave.boss) return null;
+  return { ...wave.boss, col: mapCol(wave.boss.col, cols) };
 }
 
 /** Beyond the authored waves: reproducible filler, clearly marked as such. */

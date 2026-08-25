@@ -1,4 +1,4 @@
-import type { Color, CreatureKind, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, Color, CreatureKind, PodEntry } from "@neon-spore/sim";
 
 /**
  * Waves are data, never code. Columns are authored against a 7-column field
@@ -35,6 +35,11 @@ export interface Wave {
    * absolute, and a pod never hangs on the hull row.
    */
   pods?: PodEntry[];
+  /**
+   * What the wave authors when the queen is in it. `col` is authored against
+   * the same 7-column field as everything else.
+   */
+  boss?: BossEntry;
 }
 
 export const WAVES: Wave[] = [
@@ -144,5 +149,21 @@ export const WAVES: Wave[] = [
       { beat: 7, col: 1, kind: "meteor", color: null },
       { beat: 7, col: 5, kind: "meteor", color: null },
     ],
+  },
+  {
+    name: "BULB QUEEN A",
+    sentence: "The one where she opens for two beats, and every miss comes back as a rock.",
+    hint: "She is armoured until she blooms. Say the column and the colour — one of you has each half. A bloom you miss comes back as a rock.",
+    entries: [],
+    pods: [{ beat: 2, col: 3, row: 4 }],
+    boss: { variant: "a", col: 3, petals: 9 },
+  },
+  {
+    name: "BULB QUEEN B",
+    sentence: "The one where she opens for two beats, and every miss comes back as a rock.",
+    hint: "She is armoured until she blooms. Say the column and the colour — one of you has each half. A bloom you miss comes back as a rock.",
+    entries: [],
+    pods: [{ beat: 2, col: 3, row: 4 }],
+    boss: { variant: "b", col: 3, petals: 9 },
   },
 ];

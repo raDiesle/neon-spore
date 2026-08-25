@@ -48,6 +48,13 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     blurb: "Dead rock. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
+  queen: {
+    kind: "queen",
+    controls: ["aim", "guard"],
+    color: null,
+    blurb:
+      "Huge and armoured. She opens for a moment, in one column and one colour — and answers a miss with a rock.",
+  },
 };
 
 /**

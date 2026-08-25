@@ -32,6 +32,7 @@ export function hashWorld(world: World): number {
     push(c.row);
     push(c.color === null ? 0 : c.color === "red" ? 1 : 2);
     push(c.holes);
+    push(c.petals);
   }
 
   push(world.bullets.length);
@@ -55,6 +56,20 @@ export function hashWorld(world: World): number {
   for (const s of world.scars) {
     push(s.col);
     push(s.beat);
+  }
+
+  push(world.boss === null ? 0 : 1);
+  if (world.boss !== null) {
+    push(world.boss.variant === "a" ? 1 : 2);
+    push(world.boss.creatureId);
+    push(world.boss.phase);
+    push(world.boss.phaseBeat);
+    push(world.boss.tellCol);
+    push(world.boss.tellColor === null ? 0 : world.boss.tellColor === "red" ? 1 : 2);
+    push(world.boss.openBeat);
+    push(world.boss.closeBeat);
+    push(world.boss.scratch.length);
+    for (const n of world.boss.scratch) push(n);
   }
 
   return h >>> 0;

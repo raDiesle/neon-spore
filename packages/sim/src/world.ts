@@ -4,6 +4,8 @@ import { type SimConfig, ticksPerBeat } from "./config.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
 import type {
+  BossState,
+  BossVariant,
   Bullet,
   Color,
   Creature,
@@ -43,6 +45,8 @@ export interface World {
   /** Hull integrity in thousandths, 0..100000. */
   hullMilli: number;
   guard: GuardStats;
+  /** The boss a wave installs, or null. */
+  boss: BossState | null;
 
   wave: number;
   waveBeat: number;
@@ -80,6 +84,19 @@ export interface PodEntry {
   kind?: PodKind;
 }
 
+/**
+ * What a wave authors when it wants the queen — the boss counterpart of
+ * `PodEntry`. The sim turns it into one creature of kind `"queen"` plus a
+ * filled `BossState`; everything else about her is unbuilt.
+ */
+export interface BossEntry {
+  variant: BossVariant;
+  /** The column she starts on. */
+  col: number;
+  /** Petals she starts with. */
+  petals: number;
+}
+
 export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
@@ -92,7 +109,9 @@ export type SimEvent =
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
-  | { type: "breach"; col: number; damage: number };
+  | { type: "breach"; col: number; damage: number }
+  | { type: "petal"; col: number; left: number }
+  | { type: "queenDown"; col: number };
 
 export const MILLI = 1000;
 
@@ -122,6 +141,7 @@ export function createWorld(
     scars: [],
     hullMilli: 100 * MILLI,
     guard: { tries: 0, deflected: 0, mistimed: 0 },
+    boss: null,
     wave: 0,
     waveBeat: 0,
     spawned: 0,

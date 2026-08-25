@@ -7,6 +7,8 @@ export {
 } from "./creatures.js";
 export {
   AUTHORED_COLS,
+  bossFromWave,
+  buildBoss,
   buildPods,
   buildQueue,
   mapCol,

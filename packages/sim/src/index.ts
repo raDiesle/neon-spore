@@ -4,6 +4,8 @@ export { hashWorld } from "./hash.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export type {
+  BossState,
+  BossVariant,
   Bullet,
   Color,
   Command,
@@ -16,6 +18,7 @@ export type {
   TimedCommand,
 } from "./types.js";
 export {
+  type BossEntry,
   createWorld,
   hullPercent,
   type PodEntry,

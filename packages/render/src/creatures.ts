@@ -23,6 +23,9 @@ export function drawCreatures(
   blocked: ReadonlyMap<number, number>,
 ): void {
   for (const c of creatures) {
+    // The queen is drawn by her own module, because she is the only creature
+    // whose picture depends on world.boss and not on the creature alone.
+    if (c.kind === "queen") continue;
     // One tile per beat, linear. No easing: the movement must read as an even
     // glide so that "it lands on the four" is a statement both players can act on.
     const row = c.fromRow + (c.row - c.fromRow) * beatPhase;

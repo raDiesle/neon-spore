@@ -1,6 +1,13 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildQueue } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, type SimEvent, step, ticksPerBeat } from "@neon-spore/sim";
+import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  type SimEvent,
+  startWave,
+  step,
+  ticksPerBeat,
+} from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -50,6 +57,56 @@ function frames(role: ViewRole, ticks: number, viewport = { width: 900, height: 
   return { world, ctx };
 }
 
+function queenFrames(
+  role: ViewRole,
+  ticks: number,
+  viewport = { width: 900, height: 1600, dpr: 2 },
+) {
+  const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize(viewport);
+
+  const index = WAVES.length - 1;
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  for (let tick = 0; tick < ticks; tick++) {
+    step(world, []);
+    if (world.events.length) events.push(...world.events);
+
+    if (tick === tpb * 2) {
+      if (world.boss) {
+        world.boss.tellColor = "red";
+        world.boss.openBeat = world.beat + 2;
+      }
+    }
+    if (tick === tpb * 6) {
+      const queen = world.creatures.find((c) => c.kind === "queen");
+      if (queen) queen.color = "red";
+    }
+    if (tick === tpb * 10) {
+      const queen = world.creatures.find((c) => c.kind === "queen");
+      if (queen) queen.petals = 0;
+    }
+
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+      banner: tick < 60 ? { title: "Wave", hint: "hint", remaining: 1.2 } : null,
+    });
+    events = [];
+  }
+  return { world, ctx };
+}
+
 describe("a frame", () => {
   for (const role of ROLES) {
     it(`draws a wave for ${role} without the canvas refusing a value`, () => {
@@ -70,4 +127,13 @@ describe("a frame", () => {
       expect(() => frames("test", 8, viewport)).not.toThrow();
     }
   });
+});
+
+describe("the queen", () => {
+  for (const role of ROLES) {
+    it(`draws every state for ${role} without the canvas refusing a value`, () => {
+      const { ctx } = queenFrames(role, ticksPerBeat(CFG) * 12);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
 });

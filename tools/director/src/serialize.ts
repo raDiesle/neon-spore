@@ -4,7 +4,7 @@
  * so the editor produces diffs you can review and commit.
  */
 import type { Wave, WaveEntry } from "@neon-spore/content";
-import type { PodEntry } from "@neon-spore/sim";
+import type { BossEntry, PodEntry } from "@neon-spore/sim";
 
 function escapeString(s: string): string {
   return s
@@ -32,6 +32,11 @@ function serializePod(pod: PodEntry): string {
   return `{ ${parts.join(", ")} }`;
 }
 
+function serializeBoss(boss: BossEntry): string {
+  const parts = [`variant: "${boss.variant}"`, `col: ${boss.col}`, `petals: ${boss.petals}`];
+  return `{ ${parts.join(", ")} }`;
+}
+
 function serializeWave(wave: Wave): string {
   const lines: string[] = [];
   lines.push("  {");
@@ -39,7 +44,9 @@ function serializeWave(wave: Wave): string {
   lines.push(`    sentence: "${escapeString(wave.sentence)}",`);
   lines.push(`    hint: "${escapeString(wave.hint)}",`);
 
-  if (wave.entries.length === 1) {
+  if (wave.entries.length === 0) {
+    lines.push("    entries: [],");
+  } else if (wave.entries.length === 1) {
     lines.push(`    entries: [${serializeEntry(wave.entries[0]!)}],`);
   } else {
     lines.push("    entries: [");
@@ -59,6 +66,10 @@ function serializeWave(wave: Wave): string {
       }
       lines.push("    ],");
     }
+  }
+
+  if (wave.boss) {
+    lines.push(`    boss: ${serializeBoss(wave.boss)},`);
   }
 
   lines.push("  },");

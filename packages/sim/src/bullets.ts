@@ -116,6 +116,10 @@ function resolve(world: World, b: Bullet, hit: Creature): void {
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
     return;
   }
+  if (hit.kind === "queen") {
+    resolveQueen(world, b, hit);
+    return;
+  }
   if (hit.color !== b.color) {
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return;
@@ -125,4 +129,28 @@ function resolve(world: World, b: Bullet, hit: Creature): void {
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
   world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+}
+
+/**
+ * The queen wears her petals as armour. A shot that matches her open colour
+ * takes one; anything else skids off. The last petal brings her down.
+ */
+function resolveQueen(world: World, b: Bullet, hit: Creature): void {
+  if (hit.color === null || hit.color !== b.color) {
+    world.events.push({ type: "reject", col: hit.col, row: hit.row });
+    return;
+  }
+
+  hit.petals -= 1;
+  world.score += world.cfg.scoreQueenPetal;
+  hit.color = null;
+  if (world.boss) world.boss.closeBeat = world.beat;
+  world.events.push({ type: "petal", col: hit.col, left: hit.petals });
+
+  if (hit.petals <= 0) {
+    world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+    world.score += world.cfg.scoreQueenDown;
+    world.boss = null;
+    world.events.push({ type: "queenDown", col: hit.col });
+  }
 }

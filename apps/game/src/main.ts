@@ -1,4 +1,4 @@
-import { buildPods, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
 import {
   Canvas2DRenderer,
   computeLayout,
@@ -76,7 +76,13 @@ function openingBanner(wave: number): { title: string; hint: string; remaining: 
 function handle(events: readonly SimEvent[]): void {
   for (const e of events) {
     if (e.type !== "needWave") continue;
-    startWave(world, e.wave, buildQueue(e.wave, cfg.cols), buildPods(e.wave, cfg.cols));
+    startWave(
+      world,
+      e.wave,
+      buildQueue(e.wave, cfg.cols),
+      buildPods(e.wave, cfg.cols),
+      buildBoss(e.wave, cfg.cols),
+    );
     banner = openingBanner(e.wave);
   }
 }
@@ -85,7 +91,13 @@ function handle(events: readonly SimEvent[]): void {
 function jumpToWave(wave: number): void {
   const target = Math.max(0, wave);
   resetRun(world);
-  startWave(world, target, buildQueue(target, cfg.cols), buildPods(target, cfg.cols));
+  startWave(
+    world,
+    target,
+    buildQueue(target, cfg.cols),
+    buildPods(target, cfg.cols),
+    buildBoss(target, cfg.cols),
+  );
   banner = openingBanner(target);
 }
 

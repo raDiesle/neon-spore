@@ -1,7 +1,8 @@
+import { stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { spawnPods } from "./pods.js";
 import type { Creature } from "./types.js";
-import { MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
+import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
  * Everything that happens on a beat. Creatures glide smoothly but land on tile
@@ -16,6 +17,8 @@ export function onBeat(world: World): void {
 
   // Creatures glide exactly one tile per beat and are only ever on tile centres.
   for (const c of world.creatures) {
+    // The queen holds her row and never descends — she waits for the bloom.
+    if (c.kind === "queen") continue;
     c.fromRow = c.row;
     c.row += 1;
   }
@@ -37,9 +40,12 @@ export function onBeat(world: World): void {
       fromRow: -1,
       color: entry.color,
       holes: 0,
+      petals: 0,
     });
     world.spawned += 1;
   }
+  // What she releases this beat has to be on the field before the hull is resolved.
+  stepBoss(world);
   spawnPods(world);
 
   // Hull resolution. Creatures that have reached it are removed and cause damage.
@@ -127,6 +133,7 @@ export function startWave(
   waveIndex: number,
   queue: SpawnEntry[],
   podQueue: PodEntry[] = [],
+  boss: BossEntry | null = null,
 ): void {
   const mid = Math.floor(world.cfg.cols / 2);
   world.wave = waveIndex;
@@ -145,6 +152,33 @@ export function startWave(
   world.lastFireTick = -1_000_000;
   world.cannonCol = mid;
   world.shieldCol = mid;
+  world.boss = null;
+
+  if (boss) {
+    const id = world.nextId++;
+    world.creatures.push({
+      id,
+      kind: "queen",
+      col: boss.col,
+      row: world.cfg.queenRow,
+      fromRow: world.cfg.queenRow,
+      color: null,
+      holes: 0,
+      petals: boss.petals,
+    });
+    world.boss = {
+      variant: boss.variant,
+      creatureId: id,
+      phase: 0,
+      phaseBeat: 0,
+      tellCol: -1,
+      tellColor: null,
+      openBeat: -1,
+      closeBeat: -1,
+      scratch: [],
+    };
+  }
+
   world.events.push({ type: "waveStart", wave: waveIndex });
 }
 

@@ -221,8 +221,26 @@ describe("what a pod gives", () => {
     // hull under its own advance before the pod's slow fall gets it caught,
     // and be gone by then for an unrelated reason.
     world.creatures.push(
-      { id: world.nextId++, kind: "slick", col: 5, row: 0, fromRow: -1, color: "red", holes: 0 },
-      { id: world.nextId++, kind: "meteor", col: 7, row: 0, fromRow: -1, color: null, holes: 0 },
+      {
+        id: world.nextId++,
+        kind: "slick",
+        col: 5,
+        row: 0,
+        fromRow: -1,
+        color: "red",
+        holes: 0,
+        petals: 0,
+      },
+      {
+        id: world.nextId++,
+        kind: "meteor",
+        col: 7,
+        row: 0,
+        fromRow: -1,
+        color: null,
+        holes: 0,
+        petals: 0,
+      },
     );
     const inputs = hold(3, true);
     const byTick = new Map<number, TimedCommand[]>();
@@ -261,6 +279,7 @@ describe("what a pod gives", () => {
       fromRow: HULL - 2,
       color: null,
       holes: 0,
+      petals: 0,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {
@@ -286,6 +305,7 @@ describe("what a pod gives", () => {
       fromRow: HULL - 2,
       color: null,
       holes: 0,
+      petals: 0,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {

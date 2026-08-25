@@ -7,6 +7,8 @@ export interface SimConfig {
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
   rows: number;
+  /** The row the queen holds. She never leaves it. */
+  queenRow: number;
   /** Beats per minute of the shared clock. */
   bpm: number;
   /** Fixed simulation rate. Must divide into a whole number of ticks per beat. */
@@ -80,6 +82,10 @@ export interface SimConfig {
   scoreWave: number;
   /** Score for taking a pod in. */
   scorePod: number;
+  /** Score for stripping a petal from the queen. */
+  scoreQueenPetal: number;
+  /** Score for bringing the queen down. */
+  scoreQueenDown: number;
   /** How many beats ahead the radar strip shows an arrival. Read by render/. */
   radarLead: number;
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
@@ -100,6 +106,7 @@ export interface SimConfig {
 export const DEFAULT_CONFIG: SimConfig = {
   cols: 11,
   rows: 15,
+  queenRow: 2,
   bpm: 96,
   tickHz: 120,
   guardWindowMs: 900,
@@ -124,6 +131,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDeflect: 150,
   scoreWave: 300,
   scorePod: 250,
+  scoreQueenPetal: 400,
+  scoreQueenDown: 2000,
   radarLead: 4,
   bulletGlideMs: 130,
   bandPct: 37,

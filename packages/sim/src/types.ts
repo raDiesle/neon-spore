@@ -1,7 +1,7 @@
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
-export type CreatureKind = "slick" | "bulb" | "meteor";
+export type CreatureKind = "slick" | "bulb" | "meteor" | "queen";
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:
@@ -26,6 +26,30 @@ export interface Creature {
    * the holes are the only trace. render/ places crater `k` from the id.
    */
   holes: number;
+  /** Petals left on a queen, 0 on every other kind. */
+  petals: number;
+}
+
+export type BossVariant = "a" | "b";
+
+export interface BossState {
+  variant: BossVariant;
+  /** The id of the queen in `world.creatures`. */
+  creatureId: number;
+  /** 0-based phase index. */
+  phase: number;
+  /** The world beat the current phase started on. */
+  phaseBeat: number;
+  /** The column the announced bloom will open in, -1 when nothing is announced. */
+  tellCol: number;
+  /** The colour that bloom is vulnerable to. */
+  tellColor: Color | null;
+  /** The beat the announced bloom opens on, -1 for none. */
+  openBeat: number;
+  /** The first beat it is closed again, -1 for none. */
+  closeBeat: number;
+  /** Integers owned by the variant module. Nothing outside it reads them. */
+  scratch: number[];
 }
 
 export interface Bullet {
