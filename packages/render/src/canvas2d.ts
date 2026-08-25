@@ -11,6 +11,7 @@ import { computeLayout, computeStage, type Layout, type Stage } from "./layout.j
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import { drawQueen } from "./queen.js";
+import { queenSpitSide } from "./queen-spawn.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
 
@@ -119,17 +120,42 @@ export class Canvas2DRenderer implements Renderer {
     drawRadar(ctx, l, world);
     drawGrid(ctx, l, world.cannonCol, flash);
 
-    drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    let queenOrigin: { col: number; row: number } | null = null;
     if (world.boss != null) {
       const boss = world.boss;
       const queen = world.creatures.find((c) => c.id === boss.creatureId);
-      if (queen) {
-        drawQueen(ctx, l, queen, boss, world.beat, view.time);
+      if (queen) queenOrigin = { col: queen.col, row: queen.row };
+    }
+    drawCreatures(
+      ctx,
+      l,
+      world.creatures,
+      view.beatPhase,
+      view.time,
+      this.effects.blocked,
+      queenOrigin,
+    );
+    if (world.boss != null) {
+      const boss = world.boss;
+      const queen = world.creatures.find((c) => c.id === boss.creatureId);
+      if (queen && queenOrigin) {
+        const spitSide = queenSpitSide(world.creatures, queenOrigin);
+        drawQueen(
+          ctx,
+          l,
+          queen,
+          boss,
+          world.beat,
+          view.time,
+          view.beatPhase,
+          spitSide,
+          this.effects.queenShake,
+        );
       }
     }
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
-    this.effects.draw(ctx, l);
+    this.effects.draw(ctx);
 
     const mood: HullMood = {
       armed: this.armed,

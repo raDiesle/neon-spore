@@ -55,6 +55,10 @@ export interface BossState {
   openBeat: number;
   /** The first beat it is closed again, -1 for none. */
   closeBeat: number;
+  /** Petals she started the fight with, so a drop in petals can be measured. */
+  startPetals: number;
+  /** The side her next scripted rock will emerge from: -1 left, 1 right, 0 none pending. */
+  dropSide: -1 | 0 | 1;
   /** Integers owned by `boss.ts`. Nothing outside it reads them. */
   scratch: number[];
 }

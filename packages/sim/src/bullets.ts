@@ -145,12 +145,12 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   world.score += world.cfg.scoreQueenPetal;
   hit.color = null;
   if (world.boss) world.boss.closeBeat = world.beat;
-  world.events.push({ type: "petal", col: hit.col, left: hit.petals });
+  world.events.push({ type: "petal", col: hit.col, row: hit.row, left: hit.petals });
 
   if (hit.petals <= 0) {
     world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
     world.score += world.cfg.scoreQueenDown;
     world.boss = null;
-    world.events.push({ type: "queenDown", col: hit.col });
+    world.events.push({ type: "queenDown", col: hit.col, row: hit.row });
   }
 }

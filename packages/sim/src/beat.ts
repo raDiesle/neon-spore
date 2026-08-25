@@ -176,6 +176,8 @@ export function startWave(
       tellColor: null,
       openBeat: -1,
       closeBeat: -1,
+      startPetals: boss.petals,
+      dropSide: 0,
       scratch: [],
     };
   }

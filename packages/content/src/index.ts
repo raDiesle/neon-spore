@@ -43,6 +43,7 @@ export {
   MAW,
   METEOR,
   POD,
+  QUEEN,
   SHIELD_LOBE,
   SLICK,
   xToHullAngle,

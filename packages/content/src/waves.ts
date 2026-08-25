@@ -153,7 +153,7 @@ export const WAVES: Wave[] = [
   {
     name: "BULB QUEEN",
     sentence: "The one where she opens for two beats, and every miss comes back as a rock.",
-    hint: "She is armoured until she blooms. Say the column and the colour — one of you has each half. A bloom you miss comes back as a rock.",
+    hint: "Only the mark in her middle takes a shot. Say the column and the colour — one of you has each half. A miss comes back as a rock; her scripted ones grow from a bulge on one side and land a column over — whoever calls colour, watch which side glows before it drops.",
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4 }],
     boss: { col: 3, petals: 9 },

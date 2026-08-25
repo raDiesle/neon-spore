@@ -1,3 +1,5 @@
+import type { SimConfig } from "./config.js";
+import { nextInt } from "./rng.js";
 import { type BossState, type Color, type Creature, livingKindForColor } from "./types.js";
 import type { World } from "./world.js";
 
@@ -40,6 +42,13 @@ const PHASES: readonly Phase[] = [
   { above: 0, cycle: 4, tell: 1, openBeats: 2, runt: true, rock: true },
 ];
 
+/**
+ * How many tiles she may sink toward the hull over the whole fight, one tile
+ * per petal lost. Same kind of number as `PHASES` — the boss, not a knob on
+ * her — so it lives here rather than in `SimConfig`.
+ */
+const QUEEN_MAX_DROP = 3;
+
 /** Blooms announced so far. Decides the colour, which alternates cyan first. */
 const BLOOMS = 0;
 /** Runts released so far. Decides which edge the next one enters from. */
@@ -56,6 +65,7 @@ export function stepBoss(world: World): void {
   if (queen === undefined) return; // The last petal came off; she is gone.
 
   enterPhase(world, boss, queen);
+  descend(world, boss, queen);
   const plan = PHASES[boss.phase] ?? PHASES[0]!;
 
   closeBloom(world, boss, queen);
@@ -79,6 +89,20 @@ function enterPhase(world: World, boss: BossState, queen: Creature): void {
   forget(boss);
 }
 
+/** How close to the hull she has earned, purely from petals lost. */
+function queenRow(cfg: SimConfig, boss: BossState, queen: Creature): number {
+  const drop = Math.min(QUEEN_MAX_DROP, boss.startPetals - queen.petals);
+  return cfg.queenRow + Math.max(0, drop);
+}
+
+/** One tile nearer the hull for every petal she has lost, up to `QUEEN_MAX_DROP`. */
+function descend(world: World, boss: BossState, queen: Creature): void {
+  const target = queenRow(world.cfg, boss, queen);
+  if (target === queen.row) return;
+  queen.fromRow = queen.row;
+  queen.row = target;
+}
+
 /**
  * The bloom is over once this beat has *reached or passed* its close — not on
  * equality. A shot that lands moves the close beat back to the beat of the
@@ -93,7 +117,9 @@ function closeBloom(world: World, boss: BossState, queen: Creature): void {
   if (world.beat < boss.closeBeat) return;
   if (queen.color !== null) {
     queen.color = null;
-    spit(world, boss.tellCol);
+    // A miss is a punishment, not something to telegraph — it lands exactly
+    // where the bloom was, no side shift.
+    spit(world, queen, boss.tellCol);
   }
   forget(boss);
 }
@@ -102,14 +128,21 @@ function closeBloom(world: World, boss: BossState, queen: Creature): void {
 function openBloom(world: World, boss: BossState, queen: Creature, plan: Phase): void {
   if (world.beat !== boss.openBeat) return;
   queen.color = boss.tellColor;
-  if (plan.rock) spit(world, queen.col);
-  if (plan.runt) release(world, boss);
+  if (plan.rock) {
+    const landCol = Math.max(0, Math.min(world.cfg.cols - 1, queen.col + boss.dropSide));
+    spit(world, queen, landCol);
+  }
+  if (plan.runt) release(world, boss, queen);
 }
 
 /**
  * The announcement. Her column is the one she is standing in, because she has
  * stopped walking for the length of the bloom — that is the whole reason the
  * tell is worth saying out loud.
+ *
+ * When this bloom will spit a rock regardless of the outcome, the side it
+ * grows from is drawn here, `tell` beats ahead of the drop, so there is time
+ * to show it before it happens.
  */
 function announce(world: World, boss: BossState, queen: Creature, plan: Phase): void {
   if (boss.openBeat !== -1) return;
@@ -119,6 +152,7 @@ function announce(world: World, boss: BossState, queen: Creature, plan: Phase): 
   boss.openBeat = world.beat + plan.tell;
   boss.closeBeat = boss.openBeat + plan.openBeats;
   boss.scratch[BLOOMS]! += 1;
+  if (plan.rock) boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
 /** One column a beat, turning at the edges, and never while a bloom is live. */
@@ -135,21 +169,22 @@ function forget(boss: BossState): void {
   boss.tellColor = null;
   boss.openBeat = -1;
   boss.closeBeat = -1;
+  boss.dropSide = 0;
 }
 
 /**
  * A runt of the colour she is *not* open in, so the pair cannot park on one
  * colour and answer everything with it. It enters from alternating edges.
  */
-function release(world: World, boss: BossState): void {
+function release(world: World, boss: BossState, queen: Creature): void {
   const color: Color = boss.tellColor === "cyan" ? "red" : "cyan";
   const left = boss.scratch[RUNTS]! % 2 === 0;
   world.creatures.push({
     id: world.nextId++,
     kind: livingKindForColor(color),
     col: left ? 0 : world.cfg.cols - 1,
-    row: world.cfg.queenRow,
-    fromRow: world.cfg.queenRow - 1,
+    row: queen.row,
+    fromRow: queen.row - 1,
     color,
     holes: 0,
     petals: 0,
@@ -158,13 +193,13 @@ function release(world: World, boss: BossState): void {
 }
 
 /** A rock, out of her body and one row below her. */
-function spit(world: World, col: number): void {
+function spit(world: World, queen: Creature, col: number): void {
   world.creatures.push({
     id: world.nextId++,
     kind: "meteor",
     col,
-    row: world.cfg.queenRow + 1,
-    fromRow: world.cfg.queenRow,
+    row: queen.row + 1,
+    fromRow: queen.row,
     color: null,
     holes: 0,
     petals: 0,

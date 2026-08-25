@@ -59,6 +59,8 @@ export type ViewRole = "p1" | "p2" | "test";
 
 export const showsCannon = (role: ViewRole): boolean => role !== "p2";
 export const showsShield = (role: ViewRole): boolean => role !== "p1";
+/** Which side the queen's next rock drops from — the navigator's read, same half as the shield. */
+export const showsQueenHint = (role: ViewRole): boolean => role !== "p1";
 
 /**
  * The phone-shaped rectangle the game is drawn into, centred in the window.

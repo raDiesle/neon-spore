@@ -45,6 +45,20 @@ export const BULB: CreatureSilhouette = {
 };
 
 /**
+ * The Bulb Queen: a crown of many fine lobes, calmer than a bulb's — the
+ * armoured body holds still while the weak point embedded in it does the
+ * writhing. Not a scaled-up `BULB`; hers is a shape of her own.
+ */
+export const QUEEN: CreatureSilhouette = {
+  lobes: 12,
+  depth: 0.16,
+  wobble: 0.04,
+  rx: 60,
+  ry: 56,
+  seed: 7.0,
+};
+
+/**
  * Pod: a capsule with a core, upright and softly ribbed. Three shallow lobes,
  * so it reads as a made object that has been *grown* — the ship eats it, and a
  * ship does not eat machinery. It must not be mistaken for either creature at a

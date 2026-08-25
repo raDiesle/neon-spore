@@ -1,28 +1,9 @@
-import { crystalPath, METEOR } from "@neon-spore/content";
 import type { PodKind, SimEvent } from "@neon-spore/sim";
-import { halo } from "./glow.js";
+import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { Sparks } from "./sparks.js";
 
-interface Deflect {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  spin: number;
-  vs: number;
-  life: number;
-}
-interface Shock {
-  x: number;
-  y: number;
-  r: number;
-  life: number;
-}
-
-const DEFLECT_LIFE = 1.1;
-const SHOCK_LIFE = 0.5;
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
 /**
@@ -31,6 +12,8 @@ const BANNER_LIFE = 0.9;
  */
 const SWALLOW_LIFE = 1.05;
 const CHEW_SHARE = 0.55;
+/** How long the queen shudders after losing a petal. */
+const QUEEN_SHAKE_LIFE = 0.35;
 
 /** The one-word receipt for what a pod just gave, and the colour it reads in. */
 const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
@@ -50,18 +33,24 @@ const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
  */
 export class Effects {
   private sparks = new Sparks();
-  private deflects: Deflect[] = [];
-  private shocks: Shock[] = [];
+  private deflectFx = new DeflectFx();
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
   /** Counts down from `SWALLOW_LIFE` while a pod is being taken in. */
   private swallow = 0;
   /** Which kind the swallow currently running is for, for the receipt. */
   private podKind: PodKind | null = null;
+  /** Counts down from `QUEEN_SHAKE_LIFE` after she loses a petal. There is only ever one queen. */
+  private queenShakeUntil = 0;
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
     return this.blockedUntil;
+  }
+
+  /** 0..1, how hard the queen is shuddering right now. */
+  get queenShake(): number {
+    return Math.max(0, this.queenShakeUntil / QUEEN_SHAKE_LIFE);
   }
 
   get deflectFlash(): number {
@@ -109,6 +98,13 @@ export class Effects {
         case "breach":
           this.burst(tileCX(l, e.col), l.hullY, 16, PALETTE.red);
           break;
+        case "petal":
+          this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.hullRim);
+          this.queenShakeUntil = QUEEN_SHAKE_LIFE;
+          break;
+        case "queenDown":
+          this.burst(tileCX(l, e.col), tileCY(l, e.row), 24, PALETTE.red);
+          break;
         case "podLoose":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.ember);
           break;
@@ -126,16 +122,7 @@ export class Effects {
         case "deflect": {
           const x = tileCX(l, e.col);
           const y = l.hullY;
-          this.deflects.push({
-            x,
-            y,
-            vx: (Math.random() - 0.5) * 90,
-            vy: -260 - Math.random() * 80,
-            spin: Math.random() * 6.28,
-            vs: (Math.random() - 0.5) * 7,
-            life: DEFLECT_LIFE,
-          });
-          this.shocks.push({ x, y, r: l.tile * 0.4, life: SHOCK_LIFE });
+          this.deflectFx.spawn(x, y, l.tile);
           this.burst(x, y, 26, PALETTE.shieldRim);
           this.guardHit = BANNER_LIFE;
           break;
@@ -148,21 +135,7 @@ export class Effects {
 
   update(dt: number, l: Layout): void {
     this.sparks.update(dt);
-    for (let i = this.deflects.length - 1; i >= 0; i--) {
-      const d = this.deflects[i]!;
-      d.x += d.vx * dt;
-      d.y += d.vy * dt;
-      d.vy += 120 * dt;
-      d.spin += d.vs * dt;
-      d.life -= dt;
-      if (d.life <= 0 || d.y < -60) this.deflects.splice(i, 1);
-    }
-    for (let i = this.shocks.length - 1; i >= 0; i--) {
-      const s = this.shocks[i]!;
-      s.r += l.tile * 4.5 * dt;
-      s.life -= dt;
-      if (s.life <= 0) this.shocks.splice(i, 1);
-    }
+    this.deflectFx.update(dt, l.tile);
     for (const [id, t] of this.blockedUntil) {
       const left = t - dt;
       if (left <= 0) this.blockedUntil.delete(id);
@@ -170,44 +143,12 @@ export class Effects {
     }
     this.guardHit = Math.max(0, this.guardHit - dt);
     this.swallow = Math.max(0, this.swallow - dt);
+    this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
-  draw(ctx: CanvasRenderingContext2D, l: Layout): void {
-    for (const d of this.deflects) {
-      const r = l.tile * 0.4;
-      ctx.save();
-      ctx.translate(d.x, d.y);
-      ctx.globalAlpha = Math.min(1, d.life / 0.5);
-      ctx.rotate(d.spin);
-      const path = new Path2D(
-        crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed),
-      );
-      const rg = ctx.createLinearGradient(-r, -r, r, r);
-      rg.addColorStop(0, "#9DA3B0");
-      rg.addColorStop(0.55, "#6B707E");
-      rg.addColorStop(1, PALETTE.rockDark);
-      ctx.fillStyle = rg;
-      ctx.fill(path);
-      ctx.strokeStyle = PALETTE.shieldRim;
-      ctx.lineWidth = 1.8;
-      ctx.stroke(path);
-      ctx.globalAlpha = 1;
-      ctx.restore();
-    }
-
-    for (const s of this.shocks) {
-      const a = Math.max(0, s.life / SHOCK_LIFE);
-      ctx.globalAlpha = a * 0.85;
-      ctx.strokeStyle = PALETTE.shieldRim;
-      ctx.lineWidth = 3 * a + 1;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, Math.PI, 0);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      halo(ctx, s.x, s.y, s.r * 0.5, PALETTE.shield, a * 0.4);
-    }
-
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
   }
 

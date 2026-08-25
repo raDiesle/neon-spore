@@ -1,13 +1,24 @@
-import { BULB, blobPath } from "@neon-spore/content";
+import { BULB, blobPath, QUEEN } from "@neon-spore/content";
 import type { BossState, Creature } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { halo } from "./glow.js";
+import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawWeakPoint } from "./queen-weakpoint.js";
+
+/** How much faster the outer body's wobble gets by her last petal. */
+const OUTER_WOBBLE_BONUS = 1.5;
+/** Share of a beat a bulge takes to hand off to the rock breaking out of it. */
+const GROW_SHARE = 0.3;
+/** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
+const BULGE_FLOOR = 0.02;
+/** How hard the queen shudders per tile of her own size, at full shake. */
+const SHAKE_TILES = 0.06;
 
 /**
- * The queen is the only creature whose picture depends on `world.boss` and not
- * on the creature alone. She is drawn from the `BULB` silhouette, the same
- * contour a bulb uses, but larger and with her own states.
+ * The queen: an armoured body of her own shape, a weak point embedded in it
+ * where a shot actually lands, and two bulges either side that swell and, on
+ * her turn to spit, hand one off to the rock breaking out of it — the same
+ * kind of swelling the ship's own cannon and shield are built from.
  */
 export function drawQueen(
   ctx: CanvasRenderingContext2D,
@@ -16,24 +27,52 @@ export function drawQueen(
   boss: BossState,
   beat: number,
   time: number,
+  beatPhase: number,
+  spitSide: -1 | 0 | 1,
+  shake: number,
 ): void {
-  const shape = BULB;
+  const shape = QUEEN;
   const r = l.tile * 1.3;
   const scale = r / Math.max(shape.rx, shape.ry);
-  const x = tileCX(l, queen.col);
-  const y = tileCY(l, queen.row);
+  const baseX = tileCX(l, queen.col);
+  const baseY = tileCY(l, queen.row);
 
-  // Variation without randomness: the id is deterministic on both devices.
-  const phase = (queen.id % 7) * 0.9;
-  const t = time + phase;
+  const healthShare = boss.startPetals > 0 ? queen.petals / boss.startPetals : 0;
 
-  // Breath: slow and deep normally, faster while announced.
-  const isAnnounced = queen.color == null && boss.tellColor != null && beat < boss.openBeat;
-  const breathSpeed = isAnnounced ? 4.5 : 1.5;
-  const pump = Math.sin(t * breathSpeed);
-  const sx = 1 + pump * 0.15;
-  const sy = 1 - pump * 0.15;
+  // A local shudder, not a screen shake: mismatched frequencies so it reads as
+  // a shudder rather than a spin, decaying with `shake` as the timer runs out.
+  const jitter = l.tile * SHAKE_TILES * shake;
+  const x = baseX + Math.sin(time * 40) * jitter;
+  const y = baseY + Math.cos(time * 53) * jitter;
 
+  drawOuterBody(ctx, x, y, r, scale, queen.id, time, healthShare);
+
+  const bulgeR = r * 0.35;
+  const bulgeOffset = r * 0.85;
+  drawBulge(ctx, x - bulgeOffset, y, bulgeR, -1, boss, l.role, spitSide, beatPhase, time, queen.id);
+  drawBulge(ctx, x + bulgeOffset, y, bulgeR, 1, boss, l.role, spitSide, beatPhase, time, queen.id);
+
+  const wr = l.tile * 0.4;
+  drawWeakPoint(ctx, x, y + shape.ry * scale * 0.55, wr, queen, boss, beat, time, healthShare);
+
+  drawPetals(ctx, x, y, r, queen.petals);
+}
+
+/** Always the same rock-armoured look — the open/announced colour lives on the weak point now. */
+function drawOuterBody(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  scale: number,
+  id: number,
+  time: number,
+  healthShare: number,
+): void {
+  const shape = QUEEN;
+  const phase = (id % 7) * 0.9;
+  const wobbleMult = 1 + (1 - healthShare) * OUTER_WOBBLE_BONUS;
+  const t = time * wobbleMult + phase;
   const d = blobPath(
     0,
     0,
@@ -49,58 +88,89 @@ export function drawQueen(
 
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(scale * sx, scale * sy);
-
-  let fill: string;
-  let rim: string = PALETTE.rock;
-  let hex: string | null = null;
-  let alpha = 1;
-
-  if (queen.color != null) {
-    // Open: full colour.
-    fill = queen.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
-    hex = queen.color === "red" ? PALETTE.red : PALETTE.cyan;
-  } else if (isAnnounced) {
-    // Announced: dark fill, rim in the promised colour at low alpha.
-    fill = PALETTE.rockDark;
-    rim = boss.tellColor === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-    alpha = 0.3;
-  } else {
-    // Closed: no colour anywhere.
-    fill = PALETTE.rockDark;
-    rim = PALETTE.rock;
-  }
-
-  ctx.fillStyle = fill;
+  ctx.scale(scale, scale);
+  ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(path);
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.lineWidth = Math.max(1, r * 0.1) / scale;
+  ctx.stroke(path);
+  ctx.restore();
+}
 
-  if (hex != null) {
-    strokeGlow(ctx, path, hex, Math.max(1, r * 0.1) / scale, 1);
-  } else {
-    ctx.strokeStyle = rim;
-    ctx.lineWidth = Math.max(1, r * 0.1) / scale;
-    ctx.globalAlpha = alpha;
-    ctx.stroke(path);
-    ctx.globalAlpha = 1;
+/**
+ * One flanking bulge. It shrinks to nothing over the first `GROW_SHARE` of
+ * the beat a rock breaks out of its side, and — for player 2 only — glows
+ * while a rock is announced for this side, ahead of the drop.
+ */
+function drawBulge(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  r: number,
+  side: -1 | 1,
+  boss: BossState,
+  role: Layout["role"],
+  spitSide: -1 | 0 | 1,
+  beatPhase: number,
+  time: number,
+  id: number,
+): void {
+  let scale = 1;
+  if (spitSide === side) {
+    const growth = Math.min(1, beatPhase / GROW_SHARE);
+    scale = Math.max(BULGE_FLOOR, 1 - growth);
   }
+  const rr = r * scale;
 
+  const shape = BULB;
+  const s = rr / Math.max(shape.rx, shape.ry);
+  const t = time * 1.6 + (id % 7) * 0.9 + side;
+  const d = blobPath(
+    0,
+    0,
+    shape.rx,
+    shape.ry,
+    shape.lobes,
+    shape.depth,
+    shape.wobble,
+    t,
+    shape.seed,
+  );
+  const path = new Path2D(d);
+
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(s, s);
+  ctx.fillStyle = PALETTE.rockDark;
+  ctx.fill(path);
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.lineWidth = Math.max(1, rr * 0.12) / s;
+  ctx.stroke(path);
   ctx.restore();
 
-  if (hex != null) {
-    halo(ctx, x, y, r * 1.9, hex, 0.16);
+  if (boss.dropSide === side && showsQueenHint(role)) {
+    const pulse = 0.2 + 0.12 * Math.sin(time * 3);
+    halo(ctx, cx, cy, rr * 1.6, PALETTE.shieldRim, pulse);
   }
+}
 
-  // Petals: the health bar, on her body so both screens see the same count.
-  if (queen.petals > 0) {
-    ctx.fillStyle = PALETTE.hullRim;
-    const petalR = r * 0.08;
-    const span = r * 1.2;
-    const py = -r * 0.8;
-    for (let i = 0; i < queen.petals; i++) {
-      const px = queen.petals === 1 ? 0 : -span / 2 + (span / (queen.petals - 1)) * i;
-      ctx.beginPath();
-      ctx.arc(x + px, y + py, petalR, 0, Math.PI * 2);
-      ctx.fill();
-    }
+/** The health bar, on her body so both screens see the same count. */
+function drawPetals(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  petals: number,
+): void {
+  if (petals <= 0) return;
+  ctx.fillStyle = PALETTE.hullRim;
+  const petalR = r * 0.08;
+  const span = r * 1.2;
+  const py = -r * 0.8;
+  for (let i = 0; i < petals; i++) {
+    const px = petals === 1 ? 0 : -span / 2 + (span / (petals - 1)) * i;
+    ctx.beginPath();
+    ctx.arc(x + px, y + py, petalR, 0, Math.PI * 2);
+    ctx.fill();
   }
 }

@@ -108,8 +108,8 @@ export type SimEvent =
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
   | { type: "breach"; col: number; damage: number }
-  | { type: "petal"; col: number; left: number }
-  | { type: "queenDown"; col: number };
+  | { type: "petal"; col: number; row: number; left: number }
+  | { type: "queenDown"; col: number; row: number };
 
 export const MILLI = 1000;
 
