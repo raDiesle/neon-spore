@@ -72,6 +72,11 @@ test("closed queen rejects any shot and keeps her petals", () => {
   const world = createWorld({ ...CFG }, 0);
   const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
+  // Hold the choreography still so the case tests the shot, not the bloom cycle.
+  // Pin the phase too: an unentered phase is a phase change waiting to happen.
+  world.boss!.openBeat = 10_000;
+  world.boss!.closeBeat = 10_000;
+  world.boss!.phase = 0;
   const queen = queenAt(world);
 
   expect(queen.color).toBeNull();
@@ -88,6 +93,11 @@ test("open queen rejects a mismatched colour", () => {
   const world = createWorld({ ...CFG }, 0);
   const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
+  // Hold the choreography still so the case tests the shot, not the bloom cycle.
+  // Pin the phase too: an unentered phase is a phase change waiting to happen.
+  world.boss!.openBeat = 10_000;
+  world.boss!.closeBeat = 10_000;
+  world.boss!.phase = 0;
   const queen = queenAt(world);
   queen.color = "cyan";
 
@@ -101,6 +111,11 @@ test("open queen loses exactly one petal to a matching shot", () => {
   const world = createWorld({ ...CFG }, 0);
   const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
+  // Hold the choreography still so the case tests the shot, not the bloom cycle.
+  // Pin the phase too: an unentered phase is a phase change waiting to happen.
+  world.boss!.openBeat = 10_000;
+  world.boss!.closeBeat = 10_000;
+  world.boss!.phase = 0;
   const queen = queenAt(world);
   queen.color = "red";
 
@@ -118,6 +133,11 @@ test("losing the last petal brings the queen down", () => {
   const world = createWorld({ ...CFG }, 0);
   const boss: BossEntry = { variant: "a", col: 3, petals: 1 };
   startWave(world, 0, [], [], boss);
+  // Hold the choreography still so the case tests the shot, not the bloom cycle.
+  // Pin the phase too: an unentered phase is a phase change waiting to happen.
+  world.boss!.openBeat = 10_000;
+  world.boss!.closeBeat = 10_000;
+  world.boss!.phase = 2;
   const queen = queenAt(world);
   queen.color = "red";
 
