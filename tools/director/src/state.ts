@@ -1,6 +1,9 @@
-import { CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
+import type { Wave, WaveEntry } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
+import type { Brush } from "./brushes.js";
+
+export type { Brush } from "./brushes.js";
+export { BRUSHES } from "./brushes.js";
 
 /**
  * The waves being edited, and the operations the grid performs on them.
@@ -16,72 +19,6 @@ export interface Store {
   /** Edited since the last save. */
   dirty: boolean;
 }
-
-/**
- * What a click paints. A brush rather than a cell that cycles through six
- * states: authoring a wave means putting the same thing in several columns,
- * and a cycle makes that six clicks instead of one.
- */
-export type Brush = "red" | "cyan" | "rock" | "mend" | "purge" | "ward" | "erase";
-
-export const BRUSHES: {
-  brush: Brush;
-  label: string;
-  /** SUBJECTS names drawn on the card. Two means the brush resolves to either. */
-  subjects: string[];
-  stroke: string;
-  note: string;
-}[] = [
-  {
-    brush: "red",
-    label: "SLICK",
-    subjects: ["SLICK"],
-    stroke: PALETTE.red,
-    note: CREATURES.slick.blurb,
-  },
-  {
-    brush: "cyan",
-    label: "BULB",
-    subjects: ["BULB"],
-    stroke: PALETTE.cyan,
-    note: CREATURES.bulb.blurb,
-  },
-  {
-    brush: "rock",
-    label: "METEOR",
-    subjects: ["METEOR"],
-    stroke: PALETTE.rock,
-    note: CREATURES.meteor.blurb,
-  },
-  {
-    brush: "mend",
-    label: "MEND",
-    subjects: ["POD"],
-    stroke: PALETTE.pod,
-    note: "restores hull — the pod as it has always been",
-  },
-  {
-    brush: "purge",
-    label: "PURGE",
-    subjects: ["POD"],
-    stroke: PALETTE.ember,
-    note: "clears every creature on the field",
-  },
-  {
-    brush: "ward",
-    label: "WARD",
-    subjects: ["POD"],
-    stroke: PALETTE.shieldRim,
-    note: "holds the shield armed for a few beats, no trigger needed",
-  },
-  {
-    brush: "erase",
-    label: "ERASE",
-    subjects: [],
-    stroke: "#574d84",
-    note: "takes back whatever is in the cell, entry or pod",
-  },
-];
 
 /** Row a new pod hangs at. Never the hull row, and never the top one either. */
 const POD_DEFAULT_ROW = 3;
@@ -113,6 +50,8 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
 /** What the cell currently holds, as the brush that would have made it. */
 export function brushOf(entry: WaveEntry): Brush {
   if (entry.kind === "meteor") return "rock";
+  if (entry.kind === "meteorMedium") return "rockMedium";
+  if (entry.kind === "meteorFast") return "rockFast";
   return entry.color === "cyan" ? "cyan" : "red";
 }
 
@@ -121,8 +60,8 @@ export function podBrushOf(pod: PodEntry): Brush {
   return pod.kind ?? "mend";
 }
 
-/** The three brushes that place a living creature or a rock, never a pod. */
-export const CREATURE_BRUSHES: readonly Brush[] = ["red", "cyan", "rock"];
+/** The brushes that place a living creature or a rock, never a pod. */
+export const CREATURE_BRUSHES: readonly Brush[] = ["red", "cyan", "rock", "rockMedium", "rockFast"];
 
 /**
  * A wave that carries a boss is the boss's wave: nothing about her design says
@@ -173,9 +112,11 @@ type EntryBrush = Exclude<Brush, "mend" | "purge" | "ward" | "erase">;
 type PodBrush = Extract<Brush, "mend" | "purge" | "ward">;
 
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
-  // Only the rock names a kind. Everything else is named by its colour, and the
+  // Only a rock names a kind. Everything else is named by its colour, and the
   // silhouette follows — `kindForColor`, the rule in packages/content.
   if (brush === "rock") return { beat, col, kind: "meteor", color: null };
+  if (brush === "rockMedium") return { beat, col, kind: "meteorMedium", color: null };
+  if (brush === "rockFast") return { beat, col, kind: "meteorFast", color: null };
   return { beat, col, color: brush };
 }
 

@@ -11,12 +11,12 @@ export interface WaveEntry {
   beat: number;
   col: number;
   /**
-   * Only the rock is named here. A living creature's kind follows from its
-   * colour (`kindForColor`) — one kind is one colour and one silhouette, so
-   * naming both would be naming the same thing twice and inviting them to
-   * disagree.
+   * Only a rock is named here, and only ever one of the rock kinds. A living
+   * creature's kind follows from its colour (`kindForColor`) — one kind is
+   * one colour and one silhouette, so naming both would be naming the same
+   * thing twice and inviting them to disagree.
    */
-  kind?: Extract<CreatureKind, "meteor">;
+  kind?: Extract<CreatureKind, "meteor" | "meteorMedium" | "meteorFast">;
   /** A fixed colour, or null for the rock. */
   color: Color | null;
 }
