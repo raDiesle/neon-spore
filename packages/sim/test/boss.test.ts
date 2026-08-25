@@ -7,14 +7,13 @@ import type { Color, Creature, TimedCommand } from "../src/types.js";
 import { type BossEntry, createWorld, type SimEvent, type World } from "../src/world.js";
 
 /**
- * Variant B of the queen, played out headlessly. The cases are the ones the
- * design is judged by, so variant A's file asserts the same seven things about
- * the same choreography — if the two ever disagree, one of them is wrong.
+ * The Bulb Queen's choreography, played out headlessly. These seven cases are
+ * the ones the design in `docs/spec/bosses.md` 11.0 is judged by.
  */
 
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-const BOSS: BossEntry = { variant: "b", col: 5, petals: 9 };
+const BOSS: BossEntry = { col: 5, petals: 9 };
 
 /**
  * The hull holds. She spits a rock at every bloom she is not answered on, and

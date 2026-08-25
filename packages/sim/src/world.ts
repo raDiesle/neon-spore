@@ -5,7 +5,6 @@ import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
 import type {
   BossState,
-  BossVariant,
   Bullet,
   Color,
   Creature,
@@ -90,7 +89,6 @@ export interface PodEntry {
  * filled `BossState`; everything else about her is unbuilt.
  */
 export interface BossEntry {
-  variant: BossVariant;
   /** The column she starts on. */
   col: number;
   /** Petals she starts with. */

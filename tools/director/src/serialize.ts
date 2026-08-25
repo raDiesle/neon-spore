@@ -33,7 +33,7 @@ function serializePod(pod: PodEntry): string {
 }
 
 function serializeBoss(boss: BossEntry): string {
-  const parts = [`variant: "${boss.variant}"`, `col: ${boss.col}`, `petals: ${boss.petals}`];
+  const parts = [`col: ${boss.col}`, `petals: ${boss.petals}`];
   return `{ ${parts.join(", ")} }`;
 }
 

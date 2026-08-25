@@ -167,7 +167,6 @@ export function startWave(
       petals: boss.petals,
     });
     world.boss = {
-      variant: boss.variant,
       creatureId: id,
       // -1 is not a real phase; it means "has not entered one yet", so the
       // first beat is read as a phase change and she can open on it.

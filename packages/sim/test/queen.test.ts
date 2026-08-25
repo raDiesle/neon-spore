@@ -43,7 +43,7 @@ function fireAtQueen(world: World, color: Color): void {
 test("startWave installs the queen at cfg.queenRow", () => {
   const cfg = { ...DEFAULT_CONFIG };
   const world = createWorld(cfg, 0);
-  const boss: BossEntry = { variant: "a", col: 5, petals: 8 };
+  const boss: BossEntry = { col: 5, petals: 8 };
   startWave(world, 0, [], [], boss);
 
   expect(world.creatures.length).toBe(1);
@@ -56,7 +56,6 @@ test("startWave installs the queen at cfg.queenRow", () => {
 
   expect(world.boss).not.toBeNull();
   expect(world.boss!.creatureId).toBe(queen.id);
-  expect(world.boss!.variant).toBe("a");
 });
 
 test("startWave without a boss leaves no queen and no boss state", () => {
@@ -70,7 +69,7 @@ test("startWave without a boss leaves no queen and no boss state", () => {
 
 test("closed queen rejects any shot and keeps her petals", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
+  const boss: BossEntry = { col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
@@ -91,7 +90,7 @@ test("closed queen rejects any shot and keeps her petals", () => {
 
 test("open queen rejects a mismatched colour", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
+  const boss: BossEntry = { col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
@@ -109,7 +108,7 @@ test("open queen rejects a mismatched colour", () => {
 
 test("open queen loses exactly one petal to a matching shot", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { variant: "a", col: 3, petals: 8 };
+  const boss: BossEntry = { col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
@@ -131,7 +130,7 @@ test("open queen loses exactly one petal to a matching shot", () => {
 
 test("losing the last petal brings the queen down", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { variant: "a", col: 3, petals: 1 };
+  const boss: BossEntry = { col: 3, petals: 1 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.

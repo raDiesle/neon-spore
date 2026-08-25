@@ -60,7 +60,6 @@ export function hashWorld(world: World): number {
 
   push(world.boss === null ? 0 : 1);
   if (world.boss !== null) {
-    push(world.boss.variant === "a" ? 1 : 2);
     push(world.boss.creatureId);
     push(world.boss.phase);
     push(world.boss.phaseBeat);

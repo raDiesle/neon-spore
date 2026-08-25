@@ -40,10 +40,7 @@ export interface Creature {
   petals: number;
 }
 
-export type BossVariant = "a" | "b";
-
 export interface BossState {
-  variant: BossVariant;
   /** The id of the queen in `world.creatures`. */
   creatureId: number;
   /** 0-based phase index. */
@@ -58,7 +55,7 @@ export interface BossState {
   openBeat: number;
   /** The first beat it is closed again, -1 for none. */
   closeBeat: number;
-  /** Integers owned by the variant module. Nothing outside it reads them. */
+  /** Integers owned by `boss.ts`. Nothing outside it reads them. */
   scratch: number[];
 }
 

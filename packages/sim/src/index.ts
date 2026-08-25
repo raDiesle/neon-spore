@@ -5,7 +5,6 @@ export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export type {
   BossState,
-  BossVariant,
   Bullet,
   Color,
   Command,

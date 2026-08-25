@@ -49,12 +49,15 @@ on one colour. The rock in the last phase is the guard load: it arrives in the
 same breath as a bloom, so the pilot has to trigger while the navigator holds
 the shield column and still answers the colour.
 
-**Where she lives.** Her choreography is one module per variant,
-`packages/sim/src/boss-a.ts` and `packages/sim/src/boss-b.ts` — the same design
-implemented twice so the two can be played side by side, carried by the waves
-`BULB QUEEN A` and `BULB QUEEN B`. Everything else about her is shared: the
-creature, the petals, the rule that a shot matching her open colour takes one,
-and the picture.
+**Where she lives.** Her choreography is `packages/sim/src/boss.ts`, carried by
+the wave `BULB QUEEN`. Everything else about her is shared with the rest of the
+sim: the creature, the petals, the rule that a shot matching her open colour
+takes one, and the picture.
+
+*She was briefly built twice*, as `boss-a.ts` and `boss-b.ts`, to measure
+whether delegating implementation actually saves tokens — see
+`docs/delegation-cost.md`. Variant A was removed once the comparison was done;
+`boss.ts` is what was variant B.
 
 ## 11.1 The Mother — reactive, but announced
 

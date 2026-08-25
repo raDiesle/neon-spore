@@ -5,8 +5,11 @@ the retries onto cheap tokens. On 25 August 2026 that argument was measured
 instead of assumed: one boss, designed once, implemented twice from the same
 written spec — once delegated, once written in the orchestrating session.
 
-Both implementations ship. They are the waves `BULB QUEEN A` and
-`BULB QUEEN B`, and over forty beats in the built game they behave identically.
+Both implementations shipped, as the waves `BULB QUEEN A` and `BULB QUEEN B`,
+and over forty beats in the built game they behaved identically. Once the
+comparison was made, variant A was removed to avoid carrying two copies of one
+boss — the boss in the game today is what was variant B, at
+`packages/sim/src/boss.ts`.
 
 ## The result
 
