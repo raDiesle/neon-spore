@@ -1,21 +1,22 @@
 import type { SimConfig } from "./config.js";
 import { nextInt } from "./rng.js";
-import { type BossState, type Color, type Creature, livingKindForColor } from "./types.js";
+import type { BossState, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
  * The Bulb Queen's whole choreography.
  *
- * She paces, she announces, she opens for a moment, and she answers a bloom
- * the pair missed with a rock in the column she opened in. Nothing here is
- * random: the whole encounter is fixed, which is what makes it learnable and
- * what makes two devices agree about it.
+ * She paces, she announces, and she opens for a moment — that is the whole
+ * mark. Her rocks are a separate, fixed clock: nothing here is random except
+ * which side one grows from, and even that is drawn from the seeded rng, so
+ * the whole encounter replays identically on both devices.
  */
 
 /**
- * The three phases, tightening. These numbers are the boss rather than a knob
- * on it — changing one writes a different fight, not a different difficulty —
- * so they live here as choreography and not in `SimConfig`.
+ * The three phases, tightening the mark's cadence as she loses petals. These
+ * numbers are the boss rather than a knob on it — changing one writes a
+ * different fight, not a different difficulty — so they live here as
+ * choreography and not in `SimConfig`.
  *
  * The beats a bloom stands open are `openBeats`: the purity scan bans the bare
  * word `window` anywhere in `sim`, because it cannot tell a DOM global from a
@@ -30,16 +31,12 @@ interface Phase {
   tell: number;
   /** Beats a bloom stands open. */
   openBeats: number;
-  /** She releases a runt when she opens. */
-  runt: boolean;
-  /** She spits a rock when she opens, hit or not. */
-  rock: boolean;
 }
 
 const PHASES: readonly Phase[] = [
-  { above: 7, cycle: 6, tell: 2, openBeats: 2, runt: false, rock: false },
-  { above: 4, cycle: 5, tell: 2, openBeats: 2, runt: true, rock: false },
-  { above: 0, cycle: 4, tell: 1, openBeats: 2, runt: true, rock: true },
+  { above: 7, cycle: 6, tell: 2, openBeats: 2 },
+  { above: 4, cycle: 5, tell: 2, openBeats: 2 },
+  { above: 0, cycle: 4, tell: 1, openBeats: 2 },
 ];
 
 /**
@@ -49,17 +46,24 @@ const PHASES: readonly Phase[] = [
  */
 const QUEEN_MAX_DROP = 3;
 
+/**
+ * Beats between one scripted rock and the next. Fixed for the whole fight —
+ * not tied to her phase or her health, so it is one thing the pair can learn
+ * once and rely on from her very first beat to her last.
+ */
+const ROCK_CYCLE = 8;
+/** Beats of warning before a rock actually drops, on the side it is drawn for. */
+const ROCK_TELL = 2;
+
 /** Blooms announced so far. Decides the colour, which alternates cyan first. */
 const BLOOMS = 0;
-/** Runts released so far. Decides which edge the next one enters from. */
-const RUNTS = 1;
 /** Which way she is walking: 1 right, -1 left. */
-const WALK = 2;
+const WALK = 1;
 
 export function stepBoss(world: World): void {
   const boss = world.boss;
   if (boss === null) return;
-  if (boss.scratch.length === 0) boss.scratch = [0, 0, 1];
+  if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);
   if (queen === undefined) return; // The last petal came off; she is gone.
@@ -69,9 +73,10 @@ export function stepBoss(world: World): void {
   const plan = PHASES[boss.phase] ?? PHASES[0]!;
 
   closeBloom(world, boss, queen);
-  openBloom(world, boss, queen, plan);
+  openBloom(world, boss, queen);
   announce(world, boss, queen, plan);
   walk(world, boss, queen);
+  spitCycle(world, boss, queen);
 }
 
 /**
@@ -109,40 +114,26 @@ function descend(world: World, boss: BossState, queen: Creature): void {
  * hit, which is already behind us by the time this runs again, and an
  * announcement that is never cleared is one she never blooms or walks out of.
  *
- * Still open means it was missed, and a miss is answered by a rock in the
- * column she opened in.
+ * A miss just closes it. There is no punishment here — her rocks are their
+ * own thing, on `spitCycle`'s clock, not a consequence of a missed mark.
  */
 function closeBloom(world: World, boss: BossState, queen: Creature): void {
   if (boss.openBeat === -1) return;
   if (world.beat < boss.closeBeat) return;
-  if (queen.color !== null) {
-    queen.color = null;
-    // A miss is a punishment, not something to telegraph — it lands exactly
-    // where the bloom was, no side shift.
-    spit(world, queen, boss.tellCol);
-  }
+  queen.color = null;
   forget(boss);
 }
 
-/** She opens, and whatever else this phase does, it does now. */
-function openBloom(world: World, boss: BossState, queen: Creature, plan: Phase): void {
+/** She opens. That is all this beat does now — the mark, nothing riding on it. */
+function openBloom(world: World, boss: BossState, queen: Creature): void {
   if (world.beat !== boss.openBeat) return;
   queen.color = boss.tellColor;
-  if (plan.rock) {
-    const landCol = Math.max(0, Math.min(world.cfg.cols - 1, queen.col + boss.dropSide));
-    spit(world, queen, landCol);
-  }
-  if (plan.runt) release(world, boss, queen);
 }
 
 /**
  * The announcement. Her column is the one she is standing in, because she has
  * stopped walking for the length of the bloom — that is the whole reason the
  * tell is worth saying out loud.
- *
- * When this bloom will spit a rock regardless of the outcome, the side it
- * grows from is drawn here, `tell` beats ahead of the drop, so there is time
- * to show it before it happens.
  */
 function announce(world: World, boss: BossState, queen: Creature, plan: Phase): void {
   if (boss.openBeat !== -1) return;
@@ -152,7 +143,6 @@ function announce(world: World, boss: BossState, queen: Creature, plan: Phase): 
   boss.openBeat = world.beat + plan.tell;
   boss.closeBeat = boss.openBeat + plan.openBeats;
   boss.scratch[BLOOMS]! += 1;
-  if (plan.rock) boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
 /** One column a beat, turning at the edges, and never while a bloom is live. */
@@ -169,34 +159,31 @@ function forget(boss: BossState): void {
   boss.tellColor = null;
   boss.openBeat = -1;
   boss.closeBeat = -1;
-  boss.dropSide = 0;
 }
 
 /**
- * A runt of the colour she is *not* open in, so the pair cannot park on one
- * colour and answer everything with it. It enters from alternating edges.
+ * Her rocks, on a fixed clock of their own, counted from the wave's own start
+ * so it never drifts with anything else about her. The side is drawn
+ * `ROCK_TELL` beats ahead of the drop — long enough to call before it lands —
+ * and cleared the instant it does, so the tell is never stale.
  */
-function release(world: World, boss: BossState, queen: Creature): void {
-  const color: Color = boss.tellColor === "cyan" ? "red" : "cyan";
-  const left = boss.scratch[RUNTS]! % 2 === 0;
-  world.creatures.push({
-    id: world.nextId++,
-    kind: livingKindForColor(color),
-    col: left ? 0 : world.cfg.cols - 1,
-    row: queen.row,
-    fromRow: queen.row - 1,
-    color,
-    holes: 0,
-    petals: 0,
-  });
-  boss.scratch[RUNTS]! += 1;
+function spitCycle(world: World, boss: BossState, queen: Creature): void {
+  const at = world.waveBeat % ROCK_CYCLE;
+  if (at === ROCK_CYCLE - ROCK_TELL) {
+    boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
+    return;
+  }
+  if (at !== 0 || boss.dropSide === 0) return;
+  const landCol = Math.max(0, Math.min(world.cfg.cols - 1, queen.col + boss.dropSide));
+  spit(world, queen, landCol);
+  boss.dropSide = 0;
 }
 
-/** A rock, out of her body and one row below her. */
+/** A rock, out of her body and one row below her — always the fast kind. */
 function spit(world: World, queen: Creature, col: number): void {
   world.creatures.push({
     id: world.nextId++,
-    kind: "meteor",
+    kind: "meteorFast",
     col,
     row: queen.row + 1,
     fromRow: queen.row,

@@ -48,6 +48,20 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     blurb: "Dead rock. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
+  meteorMedium: {
+    kind: "meteorMedium",
+    controls: ["guard"],
+    color: null,
+    blurb:
+      "Dead rock, falling twice as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
+  },
+  meteorFast: {
+    kind: "meteorFast",
+    controls: ["guard"],
+    color: null,
+    blurb:
+      "Dead rock, falling three times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
+  },
   queen: {
     kind: "queen",
     controls: ["aim", "guard"],

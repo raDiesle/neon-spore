@@ -68,7 +68,7 @@ test("she holds her row for sixty beats", () => {
   expect(queen.fromRow).toBe(CFG.queenRow);
 });
 
-test("her first bloom is announced on beat 1, opens on 3 and closes on 5", () => {
+test("her first bloom is announced on beat 1, opens on 3 and closes on 5, and a miss spits no rock", () => {
   const world = install();
 
   runTo(world, beatTick(1) + 1);
@@ -83,9 +83,9 @@ test("her first bloom is announced on beat 1, opens on 3 and closes on 5", () =>
 
   runTo(world, beatTick(5) + 1);
   expect(queenOf(world).color).toBeNull();
-  const rocks = world.creatures.filter((c) => c.kind === "meteor");
-  expect(rocks.length).toBe(1);
-  expect(rocks[0]!.col).toBe(col);
+  // A missed bloom is not a punishment here — her rocks are their own thing,
+  // on `spitCycle`'s clock, and none of that clock has fired yet.
+  expect(world.creatures.some((c) => c.kind === "meteorFast")).toBe(false);
 });
 
 test("left alone through a cycle she has walked", () => {
@@ -116,18 +116,31 @@ test("a matching shot while she is open takes exactly one petal and no rock foll
   );
 });
 
-test("a bloom in phase 1 releases a runt of the opposite colour", () => {
-  const world = install(7);
+test("she is the only thing on the field — no runt ever joins her", () => {
+  const world = install();
+  runTo(world, beatTick(40));
+  expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "meteorFast")).toBe(true);
+});
 
-  runTo(world, beatTick(1) + 1);
-  expect(world.boss!.phase).toBe(1);
-  expect(world.boss!.tellColor).toBe("cyan");
+test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of health", () => {
+  const world = install();
+  runTo(world, beatTick(8));
 
-  runTo(world, beatTick(3) + 1);
-  const runts = world.creatures.filter((c) => c.kind !== "queen");
-  expect(runts.length).toBe(1);
-  expect(runts[0]!.color).toBe("red");
-  expect(runts[0]!.kind).toBe("slick");
+  const queen = queenOf(world);
+  const rocks = world.creatures.filter((c) => c.kind === "meteorFast");
+  expect(rocks.length).toBe(1);
+  // A column to one side of her, not the same column — that is the side shift.
+  expect(Math.abs(rocks[0]!.col - queen.col)).toBe(1);
+  expect(rocks[0]!.row).toBe(queen.row + 1);
+  expect(rocks[0]!.fromRow).toBe(queen.row);
+
+  // The cycle repeats untouched by anything that happened in between — the
+  // first rock has long since fallen (it moves 3 tiles a beat), and a fresh
+  // one lands exactly 8 beats after it.
+  runTo(world, beatTick(16));
+  const second = world.creatures.filter((c) => c.kind === "meteorFast");
+  expect(second.length).toBe(1);
+  expect(second[0]!.fromRow).toBe(queenOf(world).row);
 });
 
 test("a hit does not leave her frozen", () => {

@@ -1,5 +1,5 @@
 import { BULB, blobPath, crystalPath, METEOR, SLICK } from "@neon-spore/content";
-import type { Creature } from "@neon-spore/sim";
+import { type Creature, isMeteorKind } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -38,7 +38,7 @@ export function drawCreatures(
     const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
     const x = tileCX(l, c.col);
     const y = tileCY(l, row);
-    if (c.kind === "meteor") drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin);
+    if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin);
     else drawLiving(ctx, l, c, x, y, time, blocked.get(c.id) ?? 0);
   }
 }

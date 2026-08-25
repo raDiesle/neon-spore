@@ -1,4 +1,4 @@
-import { BULB, blobPath, QUEEN } from "@neon-spore/content";
+import { blobPath, crystalPath, METEOR, QUEEN } from "@neon-spore/content";
 import type { BossState, Creature } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
@@ -13,12 +13,14 @@ const GROW_SHARE = 0.3;
 const BULGE_FLOOR = 0.02;
 /** How hard the queen shudders per tile of her own size, at full shake. */
 const SHAKE_TILES = 0.06;
+/** How far past her own edge the weak point sits, as a share of her vertical radius. */
+const WEAK_POINT_DROP = 1.1;
 
 /**
- * The queen: an armoured body of her own shape, a weak point embedded in it
- * where a shot actually lands, and two bulges either side that swell and, on
- * her turn to spit, hand one off to the rock breaking out of it — the same
- * kind of swelling the ship's own cannon and shield are built from.
+ * The queen: an armoured body of her own shape, a weak point that sticks out
+ * of her lowest edge where a shot actually lands, and two bulges either side
+ * — already shaped like the rock they are — that hand one off to the meteor
+ * breaking out of it.
  */
 export function drawQueen(
   ctx: CanvasRenderingContext2D,
@@ -53,7 +55,8 @@ export function drawQueen(
   drawBulge(ctx, x + bulgeOffset, y, bulgeR, 1, boss, l.role, spitSide, beatPhase, time, queen.id);
 
   const wr = l.tile * 0.4;
-  drawWeakPoint(ctx, x, y + shape.ry * scale * 0.55, wr, queen, boss, beat, time, healthShare);
+  const wy = y + shape.ry * scale * WEAK_POINT_DROP;
+  drawWeakPoint(ctx, x, wy, wr, queen, boss, beat, time, healthShare);
 
   drawPetals(ctx, x, y, r, queen.petals);
 }
@@ -98,9 +101,12 @@ function drawOuterBody(
 }
 
 /**
- * One flanking bulge. It shrinks to nothing over the first `GROW_SHARE` of
- * the beat a rock breaks out of its side, and — for player 2 only — glows
- * while a rock is announced for this side, ahead of the drop.
+ * One flanking bulge, already the same rock a shot cannot break — angular
+ * facets, not a contour, exactly like `drawMeteor`, so the eye reads what it
+ * will become before it breaks off. It shrinks to nothing over the first
+ * `GROW_SHARE` of the beat a rock breaks out of its side, and — for player 2
+ * only — carries a bright ring while a rock is announced for this side,
+ * ahead of the drop.
  */
 function drawBulge(
   ctx: CanvasRenderingContext2D,
@@ -122,35 +128,45 @@ function drawBulge(
   }
   const rr = r * scale;
 
-  const shape = BULB;
-  const s = rr / Math.max(shape.rx, shape.ry);
-  const t = time * 1.6 + (id % 7) * 0.9 + side;
-  const d = blobPath(
+  const spin = ((id + side) % 13) * 0.48;
+  const wobble = Math.sin(time * 1.1 + spin) * rr * 0.15;
+  const d = crystalPath(
     0,
     0,
-    shape.rx,
-    shape.ry,
-    shape.lobes,
-    shape.depth,
-    shape.wobble,
-    t,
-    shape.seed,
+    rr,
+    rr,
+    METEOR.sides,
+    METEOR.depth,
+    METEOR.wobble,
+    time * 0.15,
+    METEOR.seed,
   );
   const path = new Path2D(d);
 
   ctx.save();
-  ctx.translate(cx, cy);
-  ctx.scale(s, s);
-  ctx.fillStyle = PALETTE.rockDark;
+  ctx.translate(cx + wobble, cy);
+  ctx.rotate(spin + time * 0.12);
+  const rg = ctx.createLinearGradient(-rr, -rr, rr, rr);
+  rg.addColorStop(0, "#9DA3B0");
+  rg.addColorStop(0.55, "#6B707E");
+  rg.addColorStop(1, PALETTE.rockDark);
+  ctx.fillStyle = rg;
   ctx.fill(path);
   ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = Math.max(1, rr * 0.12) / s;
+  ctx.lineWidth = Math.max(1, rr * 0.12);
   ctx.stroke(path);
   ctx.restore();
 
   if (boss.dropSide === side && showsQueenHint(role)) {
-    const pulse = 0.2 + 0.12 * Math.sin(time * 3);
-    halo(ctx, cx, cy, rr * 1.6, PALETTE.shieldRim, pulse);
+    const pulse = 0.4 + 0.25 * Math.sin(time * 3);
+    ctx.strokeStyle = PALETTE.shieldRim;
+    ctx.lineWidth = 2.4;
+    ctx.globalAlpha = pulse;
+    ctx.beginPath();
+    ctx.arc(cx, cy, rr * 1.5, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    halo(ctx, cx, cy, rr * 2.4, PALETTE.shieldRim, pulse * 0.7);
   }
 }
 

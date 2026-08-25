@@ -1,7 +1,7 @@
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
-export type CreatureKind = "slick" | "bulb" | "meteor" | "queen";
+export type CreatureKind = "slick" | "bulb" | "meteor" | "meteorMedium" | "meteorFast" | "queen";
 
 /**
  * The single source of the colour-to-silhouette pairing. `packages/content`
@@ -11,6 +11,18 @@ export type CreatureKind = "slick" | "bulb" | "meteor" | "queen";
 export function livingKindForColor(color: Color): CreatureKind {
   if (color === "red") return "slick";
   return "bulb";
+}
+
+/** True for any rock — dead, indestructible, warded rather than shot. */
+export function isMeteorKind(kind: CreatureKind): boolean {
+  return kind === "meteor" || kind === "meteorMedium" || kind === "meteorFast";
+}
+
+/** Tiles a creature falls each beat. Only the rock kinds ever differ from one. */
+export function fallTilesPerBeat(kind: CreatureKind): number {
+  if (kind === "meteorMedium") return 2;
+  if (kind === "meteorFast") return 3;
+  return 1;
 }
 
 /**

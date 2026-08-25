@@ -1,6 +1,6 @@
 import { hullRow, ticksPerBeat } from "./config.js";
 import { firstPodAlong, freePod } from "./pods.js";
-import type { Bullet, Color, Creature } from "./types.js";
+import { type Bullet, type Color, type Creature, isMeteorKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -109,7 +109,7 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
 
 /** Spend the bullet on the creature it met. */
 function resolve(world: World, b: Bullet, hit: Creature): void {
-  if (hit.kind === "meteor") {
+  if (isMeteorKind(hit.kind)) {
     // A rock cannot be broken, because it does not live. The shot leaves a
     // crater and nothing else — the rule made visible (docs/spec/graphics.md).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);

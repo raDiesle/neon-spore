@@ -1,7 +1,7 @@
 import { stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { spawnPods } from "./pods.js";
-import type { Creature } from "./types.js";
+import { type Creature, fallTilesPerBeat } from "./types.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
@@ -15,12 +15,13 @@ export function onBeat(world: World): void {
   world.waveBeat += 1;
   world.events.push({ type: "beat", beat: world.beat });
 
-  // Creatures glide exactly one tile per beat and are only ever on tile centres.
+  // Creatures land on tile centres each beat, all at once — most move one
+  // tile, a rock may move several, but never a fraction of one.
   for (const c of world.creatures) {
-    // The queen holds her row and never descends — she waits for the bloom.
+    // The queen holds her row until she is made to descend — see `boss.ts`.
     if (c.kind === "queen") continue;
     c.fromRow = c.row;
-    c.row += 1;
+    c.row += fallTilesPerBeat(c.kind);
   }
 
   // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
