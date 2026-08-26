@@ -161,11 +161,11 @@ export function drawTorchImpactMarks(
     ctx.rotate(rotation);
     const d = crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
     const path = new Path2D(d);
+    // Fill only — no outline. A stroke here reads as the rock's own material
+    // edge, the same light grey the ship's solid rock objects are rimmed in;
+    // a hole has no rim of its own material, only the dark of what is gone.
     ctx.fillStyle = "#14101F";
     ctx.fill(path);
-    ctx.strokeStyle = "rgba(199,203,214,.55)";
-    ctx.lineWidth = 1.4;
-    ctx.stroke(path);
     ctx.restore();
 
     // A hairline of the tail's old colour along the cut itself — the seam
