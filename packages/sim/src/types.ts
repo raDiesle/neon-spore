@@ -67,34 +67,51 @@ export function isMeteorKind(kind: CreatureKind): boolean {
  *
  * `torch` is deliberately not appended to `METEOR_TIER_KINDS`: that would
  * silently make it tier six, one beat faster than intended, and drift the
- * next time a tier is added. It moves at the fastest tier's speed instead,
- * by calling this function rather than repeating the number.
+ * next time a tier is added. It moves at three times the fastest tier's
+ * speed instead, by calling this function rather than repeating the number.
  */
 export function fallTilesPerBeat(kind: CreatureKind): number {
-  if (kind === "torch") return fallTilesPerBeat("meteorFastest");
+  if (kind === "torch") return fallTilesPerBeat("meteorFastest") * 3;
   const tier = METEOR_TIER_KINDS.indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
 
-/** Columns wide a kind occupies. Every kind is one tile except the torch. */
+/**
+ * Columns wide a kind occupies. Every kind is one tile except the torch,
+ * which is two — twice a plain rock's width.
+ */
 export function colSpan(kind: CreatureKind): number {
-  return kind === "torch" ? 3 : 1;
+  return kind === "torch" ? 2 : 1;
 }
 
 /**
  * Whether a creature occupies the given column — true for every column its
- * span covers, not only its centre. Call this instead of `c.col === col`
+ * span covers, not only `col` itself. Call this instead of `c.col === col`
  * wherever a column test decides a hit, a hull impact or a shield match: a
- * one-column comparison silently misses the torch's flanks.
+ * one-column comparison silently misses the torch's second column.
+ *
+ * `c.col` is always the *leftmost* column a creature occupies — a span wider
+ * than one tile has no single integer column at its centre, so there is
+ * nothing else `col` could consistently mean once a kind spans an even
+ * number of tiles. See `spanCenterCol` for where the centre is needed.
  */
 export function occupiesCol(c: Creature, col: number): boolean {
-  return Math.abs(col - c.col) <= (colSpan(c.kind) - 1) / 2;
+  return col >= c.col && col < c.col + colSpan(c.kind);
 }
 
 /** Clamp a spawn column so a wide creature's whole span stays on the field. */
 export function clampSpanCol(col: number, cols: number, kind: CreatureKind): number {
-  const half = (colSpan(kind) - 1) / 2;
-  return Math.max(half, Math.min(cols - 1 - half, Math.round(col)));
+  return Math.max(0, Math.min(cols - colSpan(kind), Math.round(col)));
+}
+
+/**
+ * The tile column at a creature's visual centre, in tile units. Needed
+ * anywhere a wide creature (only the torch, today) must be drawn or reported
+ * as one thing rather than as its leftmost column — `col` itself is always
+ * an integer, but a two-wide creature's centre sits half a tile past it.
+ */
+export function spanCenterCol(kind: CreatureKind, col: number): number {
+  return col + (colSpan(kind) - 1) / 2;
 }
 
 /**

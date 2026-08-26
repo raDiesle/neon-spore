@@ -1,5 +1,5 @@
 import { showsRadar } from "@neon-spore/content";
-import { isMeteorKind, type World } from "@neon-spore/sim";
+import { colSpan, isMeteorKind, spanCenterCol, type World } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -108,21 +108,24 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
       : q.color === "red"
         ? PALETTE.red
         : PALETTE.cyan;
-    const x = tileCX(l, q.col);
+    // `q.col` is a wide kind's leftmost column (see `spanCenterCol` in
+    // sim/types.ts) — the blip itself is drawn at the visual centre.
+    const x = tileCX(l, spanCenterCol(q.kind, q.col));
     const y = l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead);
     const a = Math.max(0.18, 1 - inBeats / (lead + 1));
     const s = 5 + 4 * (1 - inBeats / (lead + 1));
 
     if (q.kind === "torch") {
-      // Three tiles wide, like the shape it warns about, and pulsing —
-      // the one blip on the strip that is never mistaken for a single-tile rock.
+      // As wide as the shape it warns about, and pulsing — the one blip on
+      // the strip that is never mistaken for a single-tile rock.
       const pulse = 0.7 + 0.3 * Math.sin(time * 6);
+      const spread = (l.tile * (colSpan("torch") - 0.4)) / 2;
       ctx.globalAlpha = a * pulse;
       ctx.fillStyle = hex;
       ctx.beginPath();
       ctx.moveTo(x, y + s * 1.15);
-      ctx.lineTo(x - l.tile * 1.3, y - s * 0.55);
-      ctx.lineTo(x + l.tile * 1.3, y - s * 0.55);
+      ctx.lineTo(x - spread, y - s * 0.55);
+      ctx.lineTo(x + spread, y - s * 0.55);
       ctx.closePath();
       ctx.fill();
     } else {
@@ -138,7 +141,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {
-      const width = q.kind === "torch" ? l.tile * 2.6 : l.tile * 0.72;
+      const width = q.kind === "torch" ? l.tile * (colSpan("torch") - 0.4) : l.tile * 0.72;
       ctx.globalAlpha = 0.75;
       ctx.fillRect(x - width / 2, l.gridTop - 2.5, width, 2.5);
     }

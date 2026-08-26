@@ -2,6 +2,10 @@ import { colSpan, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
+/** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
+ * same literal the meteor's own crater rim already uses in `creatures.ts`. */
+const ROCK_RGB = "199,203,214";
+
 /**
  * The torch alarm. It is the one piece of the HUD that reads differently
  * depending on who is looking: player 1 has the radar (`radar: "p1"` on
@@ -43,16 +47,18 @@ export function drawTorchAlarm(
   if (!warning) return;
 
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
-  const half = (colSpan("torch") - 1) / 2;
-  const left = l.gridLeft + (warning.col - half) * l.tile;
-  const right = l.gridLeft + (warning.col + half + 1) * l.tile;
+  // `col` is the torch's leftmost column (see `spanCenterCol` in sim/types.ts),
+  // so the band runs from that column's left edge to the right edge of the
+  // column past it.
+  const left = l.gridLeft + warning.col * l.tile;
+  const right = l.gridLeft + (warning.col + colSpan("torch")) * l.tile;
 
   ctx.save();
 
   const band = ctx.createLinearGradient(left, 0, right, 0);
-  band.addColorStop(0, "rgba(255,122,47,0)");
-  band.addColorStop(0.5, `rgba(255,122,47,${0.3 * pulse})`);
-  band.addColorStop(1, "rgba(255,122,47,0)");
+  band.addColorStop(0, `rgba(${ROCK_RGB},0)`);
+  band.addColorStop(0.5, `rgba(${ROCK_RGB},${0.3 * pulse})`);
+  band.addColorStop(1, `rgba(${ROCK_RGB},0)`);
   ctx.fillStyle = band;
   ctx.fillRect(0, ALARM_TOP, l.width, ALARM_HEIGHT);
 
@@ -60,8 +66,8 @@ export function drawTorchAlarm(
   // that lands away from the strip or the text.
   const edge = Math.min(40, l.width * 0.15);
   const vg = ctx.createLinearGradient(0, 0, edge, 0);
-  vg.addColorStop(0, `rgba(255,122,47,${0.22 * pulse})`);
-  vg.addColorStop(1, "rgba(255,122,47,0)");
+  vg.addColorStop(0, `rgba(${ROCK_RGB},${0.22 * pulse})`);
+  vg.addColorStop(1, `rgba(${ROCK_RGB},0)`);
   ctx.fillStyle = vg;
   ctx.fillRect(0, 0, edge, l.height);
   ctx.save();
@@ -73,7 +79,7 @@ export function drawTorchAlarm(
 
   ctx.font = '600 10px "Courier New",monospace';
   ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.ember;
+  ctx.fillStyle = PALETTE.rock;
   ctx.globalAlpha = 0.6 + 0.4 * pulse;
   ctx.fillText(alarmText(l.role, warning), l.width / 2, ALARM_TOP + ALARM_HEIGHT - 2);
   ctx.globalAlpha = 1;
@@ -84,9 +90,9 @@ export function drawTorchAlarm(
 
 function alarmText(role: Layout["role"], w: TorchWarning): string {
   if (role === "p2") return "TORCH INBOUND · TAKE THE COLUMN";
-  const half = (colSpan("torch") - 1) / 2;
-  // 1-based, the way a caller says a column out loud.
-  const lo = w.col - half + 1;
-  const hi = w.col + half + 1;
+  // 1-based, the way a caller says a column out loud: `w.col` is the torch's
+  // leftmost (0-based) column, so the pair spans `w.col + 1` to `w.col + colSpan`.
+  const lo = w.col + 1;
+  const hi = w.col + colSpan("torch");
   return `TORCH · COLUMNS ${lo}-${hi} · CALL IT`;
 }

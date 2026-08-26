@@ -24,6 +24,7 @@ export {
   isMeteorKind,
   livingKindForColor,
   occupiesCol,
+  spanCenterCol,
 } from "./types.js";
 export {
   type BossEntry,

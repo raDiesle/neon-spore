@@ -130,7 +130,7 @@ const COPIES: Copy[] = [
   {
     call: "colSpan",
     owner: "packages/sim/src/types.ts",
-    pattern: /kind\s*===\s*"torch"\s*\?\s*3\s*:\s*1/,
+    pattern: /kind\s*===\s*"torch"\s*\?\s*2\s*:\s*1/,
     strip: false,
   },
   {

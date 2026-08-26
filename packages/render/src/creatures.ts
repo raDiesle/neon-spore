@@ -1,5 +1,5 @@
 import { BULB, blobPath, crystalPath, METEOR, SLICK } from "@neon-spore/content";
-import { type Creature, isMeteorKind } from "@neon-spore/sim";
+import { type Creature, isMeteorKind, spanCenterCol } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -36,7 +36,9 @@ export function drawCreatures(
     // One tile per beat, linear. No easing: the movement must read as an even
     // glide so that "it lands on the four" is a statement both players can act on.
     const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
-    const x = tileCX(l, c.col);
+    // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
+    // sim/types.ts) — every kind is drawn at its visual centre.
+    const x = tileCX(l, spanCenterCol(c.kind, c.col));
     const y = tileCY(l, row);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time, beatPhase);
     else if (isMeteorKind(c.kind))

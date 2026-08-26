@@ -65,25 +65,24 @@ const fire = (tick: number, color: "red" | "cyan"): TimedCommand => ({
 });
 
 describe("colSpan and occupiesCol", () => {
-  it("is 3 wide for a torch, 1 for everything else", () => {
-    expect(colSpan("torch")).toBe(3);
+  it("is 2 wide for a torch, 1 for everything else", () => {
+    expect(colSpan("torch")).toBe(2);
     expect(colSpan("meteor")).toBe(1);
     expect(colSpan("slick")).toBe(1);
   });
 
-  it("occupies its centre column and both flanks, nothing further", () => {
+  it("occupies its leftmost column and the one to its right, nothing further", () => {
     const c = { col: 5 } as Parameters<typeof occupiesCol>[0];
-    expect(occupiesCol({ ...c, kind: "torch" }, 4)).toBe(true);
     expect(occupiesCol({ ...c, kind: "torch" }, 5)).toBe(true);
     expect(occupiesCol({ ...c, kind: "torch" }, 6)).toBe(true);
-    expect(occupiesCol({ ...c, kind: "torch" }, 3)).toBe(false);
+    expect(occupiesCol({ ...c, kind: "torch" }, 4)).toBe(false);
     expect(occupiesCol({ ...c, kind: "torch" }, 7)).toBe(false);
   });
 });
 
 describe("clampSpanCol", () => {
   it("keeps a torch's whole span on the field at both edges", () => {
-    expect(clampSpanCol(0, CFG.cols, "torch")).toBe(1);
+    expect(clampSpanCol(0, CFG.cols, "torch")).toBe(0);
     expect(clampSpanCol(CFG.cols - 1, CFG.cols, "torch")).toBe(CFG.cols - 2);
   });
 
@@ -95,62 +94,58 @@ describe("clampSpanCol", () => {
 
 describe("the torch", () => {
   it("spawns clamped so its whole span lands on the field", () => {
+    // Two-wide and leftmost-anchored: col 0 already keeps the whole span
+    // (columns 0 and 1) on the field, so no clamping is needed at the left edge.
     const { world } = run([{ beat: 0, col: 0, kind: "torch", color: null }], TPB);
-    expect(world.creatures[0]!.col).toBe(1);
+    expect(world.creatures[0]!.col).toBe(0);
   });
 
-  it("deflects from the centre column", () => {
+  it("deflects when the shield is on its left column", () => {
     const { world, events } = run([torch(5)], IMPACT_TICK + 1, [
       shieldTo(10, 5),
       guard(IMPACT_TICK - 20),
     ]);
     expect(world.guard.deflected).toBe(1);
     expect(hullPercent(world)).toBe(100);
-    expect(events.some((e) => e.type === "deflect" && e.span === 3)).toBe(true);
+    expect(events.some((e) => e.type === "deflect" && e.span === 2)).toBe(true);
   });
 
-  it("deflects from the left flank", () => {
-    const { world } = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 4), guard(IMPACT_TICK - 20)]);
-    expect(world.guard.deflected).toBe(1);
-    expect(hullPercent(world)).toBe(100);
-  });
-
-  it("deflects from the right flank", () => {
+  it("deflects when the shield is on its right column", () => {
     const { world } = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 6), guard(IMPACT_TICK - 20)]);
     expect(world.guard.deflected).toBe(1);
     expect(hullPercent(world)).toBe(100);
   });
 
-  it("does not deflect one column past either flank", () => {
-    const left = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 3), guard(IMPACT_TICK - 20)]);
+  it("does not deflect one column past either edge", () => {
+    const left = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 4), guard(IMPACT_TICK - 20)]);
     expect(left.world.guard.deflected).toBe(0);
     const right = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 7), guard(IMPACT_TICK - 20)]);
     expect(right.world.guard.deflected).toBe(0);
   });
 
-  it("costs the hull damageMeteor exactly once on a miss, and scars all three columns", () => {
+  it("costs the hull damageMeteor exactly once on a miss, and scars both columns", () => {
     // No-regen config: a miss should cost exactly one damageMeteor, and the
     // ambient per-tick hull regen over IMPACT_TICK ticks would otherwise mask
-    // whether the span paid for itself three times over.
+    // whether the span paid for itself twice over.
     const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
     const world = createWorld(noRegen, 0, [torch(5)]);
     const byTick = new Map<number, TimedCommand[]>();
     for (let t = 0; t < IMPACT_TICK + 1; t++) step(world, byTick.get(t) ?? []);
     expect(hullPercent(world)).toBe(100 - CFG.damageMeteor);
     const scarredCols = new Set(world.scars.map((s) => s.col));
-    expect(scarredCols).toEqual(new Set([4, 5, 6]));
+    expect(scarredCols).toEqual(new Set([5, 6]));
   });
 
-  it("fires a single breach event on a miss, on the centre column", () => {
+  it("fires a single breach event on a miss, on its visual centre between the two columns", () => {
     const { events } = run([torch(5)], IMPACT_TICK + 1);
     const breaches = events.filter((e) => e.type === "breach");
     expect(breaches).toHaveLength(1);
-    expect(breaches[0]).toMatchObject({ col: 5, damage: CFG.damageMeteor });
+    expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor });
   });
 
   it("craters rather than destroys when shot, like every other rock", () => {
     const inputs = [aim(10, 5)];
-    for (let t = 200; t < IMPACT_TICK; t += 60) inputs.push(fire(t, "red"));
+    for (let t = 10; t < IMPACT_TICK; t += 15) inputs.push(fire(t, "red"));
     const { world, events } = run([torch(5)], IMPACT_TICK - 1, inputs);
     expect(world.creatures).toHaveLength(1);
     expect(world.creatures[0]!.holes).toBeGreaterThan(0);

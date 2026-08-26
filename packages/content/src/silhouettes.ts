@@ -81,10 +81,12 @@ export const METEOR: CrystalSilhouette = {
 };
 
 /**
- * Torch: the same non-living crystal material as `METEOR`, but more sides and
- * deeper facets — it has to read as the rock family at a glance and still be
- * unmistakably its own thing at three tiles wide. Judge changes with
- * `bun run shapes:report` before eyeballing the sheet.
+ * The torch's original shape — more sides and deeper facets than `METEOR`,
+ * the same non-living crystal material. The live torch now draws as a plain
+ * `METEOR` instead (`packages/render/src/torch.ts`); this silhouette lives on
+ * as the shape `packages/render/src/flare.ts` clones from, a starting point
+ * for a future creature. Judge changes with `bun run shapes:report` before
+ * eyeballing the sheet.
  */
 export const TORCH: CrystalSilhouette = {
   sides: 9,

@@ -104,7 +104,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p1",
     blurb:
-      "Three tiles wide, burning. Falls at the fastest rock's speed — the shape and the size are the new part, not the speed. Cannot be shot. Shield in the right column, triggered at the right moment.",
+      "Same rock, same colour as a meteor, just twice as wide and three times the fastest tier's speed — the size and the speed are the new part, not the shape. Cannot be shot. Shield across both columns, triggered at the right moment.",
   },
   queen: {
     kind: "queen",

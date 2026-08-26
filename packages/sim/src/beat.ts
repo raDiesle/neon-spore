@@ -8,6 +8,7 @@ import {
   fallTilesPerBeat,
   isMeteorKind,
   occupiesCol,
+  spanCenterCol,
 } from "./types.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
@@ -104,7 +105,11 @@ function resolveHull(world: World): void {
       if (inColumn && inTime) {
         world.guard.deflected += 1;
         world.score += world.cfg.scoreDeflect;
-        world.events.push({ type: "deflect", col: c.col, span: colSpan(c.kind) });
+        world.events.push({
+          type: "deflect",
+          col: spanCenterCol(c.kind, c.col),
+          span: colSpan(c.kind),
+        });
         continue;
       }
       if (inColumn) world.guard.mistimed += 1;
@@ -128,22 +133,22 @@ function damage(world: World, col: number, amount: number): void {
 
 /**
  * A miss costs the hull `amount` once, no matter how many columns the
- * creature spans — the torch is one impact, not three — but every column it
+ * creature spans — the torch is one impact, not two — but every column it
  * covers scars, since that is where the hull visibly broke. The `breach`
- * event still fires once, on the centre column, so an effect that reacts to
- * it plays once rather than three times stacked on each other.
+ * event still fires once, on the creature's visual centre, so an effect that
+ * reacts to it plays once rather than stacked on top of itself per column.
  */
 function damageSpan(world: World, c: Creature, amount: number): void {
   if (!world.cfg.hullInvulnerable) {
     world.hullMilli = Math.max(0, world.hullMilli - amount * MILLI);
     if (world.hullMilli <= 0) world.over = true;
   }
-  const half = (colSpan(c.kind) - 1) / 2;
-  for (let col = c.col - half; col <= c.col + half; col++) {
+  const span = colSpan(c.kind);
+  for (let col = c.col; col < c.col + span; col++) {
     world.scars.push({ col, beat: world.beat });
     if (world.scars.length > world.cfg.maxScars) world.scars.shift();
   }
-  world.events.push({ type: "breach", col: c.col, damage: amount });
+  world.events.push({ type: "breach", col: spanCenterCol(c.kind, c.col), damage: amount });
 }
 
 /**
