@@ -7,8 +7,12 @@ import { drawTorchRock, drawTorchTail, torchRadius, torchRotation } from "./torc
 const STICK_LIFE = 2;
 /** How long the slow drift away takes to fully fade. */
 const FLOAT_LIFE = 1.8;
-/** How long the tail it dragged down keeps fading in after impact. */
-const TAIL_LIFE = STICK_LIFE + 0.6;
+/**
+ * How long the tail it dragged down keeps fading after impact. Fades to
+ * nothing exactly as the rock lets go and lifts clear of the hull, so the
+ * tail never has to be cut off mid-fade — it just runs out on its own.
+ */
+const TAIL_LIFE = STICK_LIFE;
 /**
  * How long the *start* of the drift takes to reach its cruising height and
  * speed — the thing that used to jump instantly to a new height and speed
@@ -118,6 +122,11 @@ export class TorchImpactFx {
       const x = currentX(im);
       const surfaceY = skinAt(x);
 
+      // Anchored to `surfaceY`, the hull's own skin line — once it lets go
+      // and rises clear of that line, a tail still drawn down to it reads as
+      // a stray mark still touching the crater, not as the rock's own trail.
+      // `TAIL_LIFE` reaches 0 exactly at `STICK_LIFE`, so it is already gone
+      // by the time floating starts, with no cutoff pop of its own.
       const tailAlpha = Math.max(0, 1 - im.t / TAIL_LIFE);
       if (tailAlpha > 0) drawTorchTail(ctx, l, x, surfaceY, im.r, tailAlpha);
 
