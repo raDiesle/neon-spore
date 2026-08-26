@@ -59,8 +59,18 @@ export type ViewRole = "p1" | "p2" | "test";
 
 export const showsCannon = (role: ViewRole): boolean => role !== "p2";
 export const showsShield = (role: ViewRole): boolean => role !== "p1";
-/** Which side the queen's next rock drops from — the navigator's read, same half as the shield. */
+/**
+ * *Where* — which side the queen's next rock drops from, and which of her two
+ * marks is the real one. The navigator's read, same half as the shield.
+ */
 export const showsQueenHint = (role: ViewRole): boolean => role !== "p1";
+/**
+ * *What* — the creature and colour her mark is about to become. The pilot's
+ * read, same half as the cannon that has to answer it: they hold the
+ * ammunition, so they are the one who has to know which it needs to be.
+ * Player 2 gets a question mark in its place (`queen-weakpoint.ts`).
+ */
+export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
 
 /**
  * The phone-shaped rectangle the game is drawn into, centred in the window.

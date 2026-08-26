@@ -7,12 +7,13 @@ export {
 } from "./balance.js";
 export { endRun, resetClock, resetRun, startWave } from "./beat.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
+export type { BossState } from "./boss-state.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { hashWorld } from "./hash.js";
+export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export type {
-  BossState,
   Bullet,
   Color,
   Command,

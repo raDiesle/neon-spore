@@ -89,16 +89,16 @@ describe("the queen's figure", () => {
   const torchLow = torchLowest();
 
   it("keeps every part of her above a flank torch's own lower edge", () => {
-    const parts = [
-      lowest(QUEEN_SHELL, f.bodyCy, f.bodyRx, f.bodyRy),
-      lowest(QUEEN_SHELL, f.headCy, f.headRx, f.headRy),
-      f.weakCy + f.weakR,
-    ];
+    const parts = [lowest(QUEEN_SHELL, f.bodyCy, f.bodyRx, f.bodyRy), f.weakCy + f.weakR];
     for (const low of parts) expect(low).toBeLessThan(torchLow);
   });
 
   it("reaches the socket, so an egg rides a wing tip rather than floating beside her", () => {
     expect(widest(QUEEN_SHELL, f.bodyRx, f.bodyRy)).toBeGreaterThan(QUEEN_FLANK_TILES - TORCH_R);
+  });
+
+  it("reaches past both marks, one tile either side of her own column", () => {
+    expect(widest(QUEEN_SHELL, f.bodyRx, f.bodyRy)).toBeGreaterThan(1 + f.weakR);
   });
 
   it("half-buries the mark, and leaves the lower half of it out in the open", () => {

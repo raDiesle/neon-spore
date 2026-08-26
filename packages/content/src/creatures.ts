@@ -112,7 +112,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p2",
     blurb:
-      "Huge and armoured. She opens for a moment, in one column and one colour — and every eight beats one of the two torches she carries drops straight out of its socket.",
+      "Huge and armoured. Two marks under her middle, one real and one not: one of you sees what is coming, the other sees which side. Every eight beats one of the two torches she carries drops straight out of its socket.",
   },
 };
 

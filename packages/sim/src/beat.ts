@@ -129,6 +129,11 @@ export function startWave(
       phaseBeat: 0,
       tellCol: -1,
       tellColor: null,
+      // Both overwritten before either is ever read: `pickNextBloom` runs on
+      // her very first beat, from `enterPhase`.
+      weakSide: 1,
+      pickBeat: 0,
+      spentSide: 0,
       openBeat: -1,
       closeBeat: -1,
       startPetals: boss.petals,

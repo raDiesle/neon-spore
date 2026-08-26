@@ -73,6 +73,9 @@ export function hashWorld(world: World): number {
     push(world.boss.phaseBeat);
     push(world.boss.tellCol);
     push(world.boss.tellColor === null ? 0 : world.boss.tellColor === "red" ? 1 : 2);
+    push(world.boss.weakSide);
+    push(world.boss.pickBeat);
+    push(world.boss.spentSide);
     push(world.boss.openBeat);
     push(world.boss.closeBeat);
     push(world.boss.dropSide);

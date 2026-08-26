@@ -24,9 +24,15 @@ function shoot(tick: number, color: Color): TimedCommand {
   return { tick, player: 2, command: { kind: "fire", color } };
 }
 
-function fireAtQueen(world: World, color: Color): void {
+/** The column of the mark `world.boss.weakSide` actually names as real — the
+ * other mark, one tile the other way, always rejects. */
+function weakMarkCol(world: World): number {
   const q = queenAt(world);
-  const cmds: TimedCommand[] = [aim(FIRE_TICK, q.col), shoot(FIRE_TICK, color)];
+  return q.col + world.boss!.weakSide;
+}
+
+function fireAtQueen(world: World, color: Color): void {
+  const cmds: TimedCommand[] = [aim(FIRE_TICK, weakMarkCol(world)), shoot(FIRE_TICK, color)];
   const limit = FIRE_TICK + TPB * (HULL + 2);
   for (let t = 0; t < limit; t++) {
     step(
@@ -83,7 +89,9 @@ test("closed queen rejects any shot and keeps her petals", () => {
 
   expect(queen.petals).toBe(8);
   expect(
-    world.events.some((e) => e.type === "reject" && e.col === queen.col && e.row === queen.row),
+    world.events.some(
+      (e) => e.type === "reject" && e.col === weakMarkCol(world) && e.row === queen.row,
+    ),
   ).toBe(true);
   expect(world.boss).not.toBeNull();
 });
@@ -124,7 +132,7 @@ test("open queen loses exactly one petal to a matching shot", () => {
   expect(queen.color).toBeNull();
   expect(world.boss!.closeBeat).toBe(world.beat);
   expect(world.events).toContainEqual(
-    expect.objectContaining({ type: "petal", col: queen.col, left: 7 }),
+    expect.objectContaining({ type: "petal", col: weakMarkCol(world), left: 7 }),
   );
 });
 
@@ -139,10 +147,11 @@ test("losing the last petal brings the queen down", () => {
   world.boss!.phase = 2;
   const queen = queenAt(world);
   queen.color = "red";
+  const col = weakMarkCol(world);
 
   fireAtQueen(world, "red");
 
-  expect(world.events.some((e) => e.type === "queenDown" && e.col === queen.col)).toBe(true);
+  expect(world.events.some((e) => e.type === "queenDown" && e.col === col)).toBe(true);
   expect(world.creatures.some((c) => c.kind === "queen")).toBe(false);
   expect(world.boss).toBeNull();
 });

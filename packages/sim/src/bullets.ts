@@ -1,6 +1,7 @@
 import { markMoment } from "./balance.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { firstPodAlong, freePod } from "./pods.js";
+import { queenOccupiesCol } from "./queen-mark.js";
 import { type Bullet, type Color, type Creature, isMeteorKind, occupiesCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -89,13 +90,19 @@ export function advanceBullets(world: World): void {
  * middle of a column, so the column is the whole of the horizontal test and
  * the shape of the creature never enters into it — a lobe that leans out of
  * its column is drawing, not hitbox.
+ *
+ * The queen is the one exception: her own column carries nothing, and the
+ * two columns that do (`queenOccupiesCol`) are not a span either — nothing
+ * stands in the tile between them. `occupiesCol`/`colSpan` cannot be asked
+ * to describe that, so she gets her own column test instead of the shared one.
  */
 function firstAlong(world: World, b: Bullet, from: number, to: number): Creature | undefined {
   const half = Math.round(world.cfg.hitHeightMilli / 2);
   let best: Creature | undefined;
   let bestMilli = 0;
   for (const c of world.creatures) {
-    if (!occupiesCol(c, b.col)) continue;
+    const inCol = c.kind === "queen" ? queenOccupiesCol(c.col, b.col) : occupiesCol(c, b.col);
+    if (!inCol) continue;
     const pos = creatureMilli(world, c);
     if (pos - half > from || pos + half < to) continue;
     // Several boxes can overlap the sweep; the shot stops at the lowest one,
@@ -135,13 +142,32 @@ function resolve(world: World, b: Bullet, hit: Creature): void {
 }
 
 /**
- * The queen wears her petals as armour. A shot that matches her open colour
- * takes one; anything else skids off. The last petal brings her down.
+ * The queen wears her petals as armour. A shot that matches her open colour,
+ * in the one column of the two marks that is actually real this bloom,
+ * takes one; anything else — the wrong colour, the wrong side, or a shot at
+ * either mark while neither is open — skids off. The last petal brings her
+ * down.
+ *
+ * `b.col`, not `hit.col`, is what the events below carry: `hit.col` is her
+ * own centre column, where nothing stands, and a spark or a reject drawn
+ * there instead of at the mark a player actually aimed at is drawn nowhere
+ * a player was looking.
  */
 function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   if (hit.color === null || hit.color !== b.color) {
+    // A colour that could never have matched. Which of the two marks it went
+    // up does not change that, so it is the colour balance's to carry.
     missedColor(world);
-    world.events.push({ type: "reject", col: hit.col, row: hit.row });
+    world.events.push({ type: "reject", col: b.col, row: hit.row });
+    return;
+  }
+  const weakSide = world.boss?.weakSide ?? 0;
+  if (b.col !== hit.col + weakSide) {
+    // Right colour, wrong mark — and deliberately *not* a colour miss. The
+    // ammunition was correct; what failed was the side, which is the other
+    // player's half of the call (`queen-mark.ts`). Charging it to the colour
+    // balance would read the failure to the wrong player.
+    world.events.push({ type: "reject", col: b.col, row: hit.row });
     return;
   }
 
@@ -150,13 +176,13 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   world.score += world.cfg.scoreQueenPetal;
   hit.color = null;
   if (world.boss) world.boss.closeBeat = world.beat;
-  world.events.push({ type: "petal", col: hit.col, row: hit.row, left: hit.petals });
+  world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
 
   if (hit.petals <= 0) {
     world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
     world.score += world.cfg.scoreQueenDown;
     world.boss = null;
-    world.events.push({ type: "queenDown", col: hit.col, row: hit.row });
+    world.events.push({ type: "queenDown", col: b.col, row: hit.row });
   }
 }
 

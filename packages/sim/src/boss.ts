@@ -1,43 +1,25 @@
+import type { BossState } from "./boss-state.js";
 import { hullRow, type SimConfig } from "./config.js";
+import {
+  announce,
+  closeBloom,
+  forget,
+  openBloom,
+  PHASES,
+  pickNextBloom,
+  ROCK_CYCLE,
+} from "./queen-mark.js";
 import { nextInt } from "./rng.js";
-import { type BossState, type Creature, colSpan } from "./types.js";
+import { type Creature, colSpan } from "./types.js";
 import type { World } from "./world.js";
 
 /**
  * The Bulb Queen's whole choreography.
  *
- * She paces, she announces, and she opens for a moment — that is the whole
- * mark. Her rocks are a separate, fixed clock: nothing here is random except
- * which side one grows from, and even that is drawn from the seeded rng, so
- * the whole encounter replays identically on both devices.
+ * She paces, walks and drops her rocks here. The mark itself — announcing,
+ * opening, closing, which of the two spots is real — is `queen-mark.ts`;
+ * this file calls it from `stepBoss` and otherwise leaves it alone.
  */
-
-/**
- * The three phases, tightening the mark's cadence as she loses petals. These
- * numbers are the boss rather than a knob on it — changing one writes a
- * different fight, not a different difficulty — so they live here as
- * choreography and not in `SimConfig`.
- *
- * The beats a bloom stands open are `openBeats`: the purity scan bans the bare
- * word `window` anywhere in `sim`, because it cannot tell a DOM global from a
- * property name.
- */
-interface Phase {
-  /** She is in this phase while her petals are above this number. */
-  above: number;
-  /** Beats from one announcement to the next. */
-  cycle: number;
-  /** Beats between the announcement and the opening. */
-  tell: number;
-  /** Beats a bloom stands open. */
-  openBeats: number;
-}
-
-const PHASES: readonly Phase[] = [
-  { above: 7, cycle: 6, tell: 2, openBeats: 2 },
-  { above: 4, cycle: 5, tell: 2, openBeats: 2 },
-  { above: 0, cycle: 4, tell: 1, openBeats: 2 },
-];
 
 /**
  * How far out from her own column, in tiles, the centre of a flank torch
@@ -73,15 +55,6 @@ export function clampQueenCol(cfg: SimConfig, col: number): number {
   return Math.max(half, Math.min(cfg.cols - 1 - half, col));
 }
 
-/**
- * Beats between one scripted rock and the next. Fixed for the whole fight —
- * not tied to her phase or her health, so it is one thing the pair can learn
- * once and rely on from her very first beat to her last.
- */
-const ROCK_CYCLE = 8;
-
-/** Blooms announced so far. Decides the colour, which alternates cyan first. */
-const BLOOMS = 0;
 /** Which way she is walking: 1 right, -1 left. */
 const WALK = 1;
 
@@ -122,6 +95,9 @@ function enterPhase(world: World, boss: BossState, queen: Creature): void {
   boss.phaseBeat = world.beat;
   queen.color = null;
   forget(boss);
+  // Her very first beat is a phase change (she is installed at phase -1), so
+  // this is also where the opening bloom is chosen.
+  pickNextBloom(world, boss);
 }
 
 /**
@@ -145,43 +121,6 @@ function descend(world: World, boss: BossState, queen: Creature): void {
 }
 
 /**
- * The bloom is over once this beat has *reached or passed* its close — not on
- * equality. A shot that lands moves the close beat back to the beat of the
- * hit, which is already behind us by the time this runs again, and an
- * announcement that is never cleared is one she never blooms or walks out of.
- *
- * A miss just closes it. There is no punishment here — her rocks are their
- * own thing, on `spitCycle`'s clock, not a consequence of a missed mark.
- */
-function closeBloom(world: World, boss: BossState, queen: Creature): void {
-  if (boss.openBeat === -1) return;
-  if (world.beat < boss.closeBeat) return;
-  queen.color = null;
-  forget(boss);
-}
-
-/** She opens. That is all this beat does now — the mark, nothing riding on it. */
-function openBloom(world: World, boss: BossState, queen: Creature): void {
-  if (world.beat !== boss.openBeat) return;
-  queen.color = boss.tellColor;
-}
-
-/**
- * The announcement. Her column is the one she is standing in, because she has
- * stopped walking for the length of the bloom — that is the whole reason the
- * tell is worth saying out loud.
- */
-function announce(world: World, boss: BossState, queen: Creature, plan: Phase): void {
-  if (boss.openBeat !== -1) return;
-  if ((world.beat - boss.phaseBeat) % plan.cycle !== 0) return;
-  boss.tellCol = queen.col;
-  boss.tellColor = boss.scratch[BLOOMS]! % 2 === 0 ? "cyan" : "red";
-  boss.openBeat = world.beat + plan.tell;
-  boss.closeBeat = boss.openBeat + plan.openBeats;
-  boss.scratch[BLOOMS]! += 1;
-}
-
-/**
  * One column a beat, turning at the edges, and never while a bloom is live.
  * The edge is `clampQueenCol`'s, not the field's: she turns where her
  * outermost torch would leave the grid, so both eggs stay over columns the
@@ -192,14 +131,6 @@ function walk(world: World, boss: BossState, queen: Creature): void {
   const turned = queen.col + boss.scratch[WALK]!;
   if (turned !== clampQueenCol(world.cfg, turned)) boss.scratch[WALK] = -boss.scratch[WALK]!;
   queen.col = clampQueenCol(world.cfg, queen.col + boss.scratch[WALK]!);
-}
-
-/** No bloom announced, and none open. */
-function forget(boss: BossState): void {
-  boss.tellCol = -1;
-  boss.tellColor = null;
-  boss.openBeat = -1;
-  boss.closeBeat = -1;
 }
 
 /**

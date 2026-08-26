@@ -1,26 +1,24 @@
 import { crystalPath, QUEEN_SHELL } from "@neon-spore/content";
-import { type BossState, type Creature, queenTorchCol, spanCenterCol } from "@neon-spore/sim";
+import type { BossState, Creature } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawWeakPoint, weakPointHex } from "./queen-weakpoint.js";
-import { drawTorchRock, torchRadius, torchRotation } from "./torch.js";
+import { drawEgg, drawSideHint } from "./queen-egg.js";
+import { drawMark, markGlow } from "./queen-weakpoint.js";
 
 /** How much faster the outer body's wobble gets by her last petal. */
 const OUTER_WOBBLE_BONUS = 1.5;
-/** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
-const EGG_FLOOR = 0.02;
 /** How hard the queen shudders per tile of her own size, at full shake. */
 const SHAKE_TILES = 0.06;
 
 /**
- * Her whole figure, in tiles from the centre of the tile she stands on. She
- * is a wide, low hull with one tall head over the middle of it, and that is
- * the shape the rest of this follows from:
+ * Her whole figure, in tiles from the centre of the tile she stands on. A
+ * wide, low hull, and that is the shape the rest of this follows from:
  *
- * - the mark hangs out of the middle of her underside, where a shot coming
- *   straight up her column reaches it, and the hull closes over its top and
- *   both its sides so only the lower half of it is ever exposed;
+ * - the two marks hang out of the middle of her underside, one tile either
+ *   side of her own column, with a one-tile gap between them where the hull
+ *   simply carries on. The hull closes over the top and both sides of each
+ *   so only its lower half is ever exposed;
  * - the two torches ride the tips of the hull, `QUEEN_FLANK_TILES` out. Her
  *   lowest edge sits well above a torch's own lower edge at that offset, so
  *   there is nothing of her under either egg and a released one falls
@@ -35,22 +33,22 @@ export const QUEEN_FIGURE = {
   bodyCy: -0.5,
   bodyRx: 2.2,
   bodyRy: 0.72,
-  headCy: -1.28,
-  headRx: 0.46,
-  headRy: 0.52,
   weakCy: 0.42,
   weakR: 0.4,
-  /** The health bar rides her shell rather than floating over her head: the
-   * head reaches the top of the field from the row she holds, and a count
-   * drawn above it would land on the radar strip instead of on her. */
-  petalCy: -0.5,
+  /** Above the body, clear of both marks either side of it below. */
+  petalCy: -1.0,
 } as const;
 
 /**
- * The queen: an armoured shell of the same rock her torches are made of, a
- * head over the middle of it, a weak point cradled in her underside where a
- * shot actually lands, and a torch on each wing tip — the very rock that
- * drops, not a picture of one.
+ * The queen: an armoured shell of the same rock her torches are made of, two
+ * marks cradled in her underside where a shot actually lands, and a torch on
+ * each wing tip — the very rock that drops, not a picture of one.
+ *
+ * Only one of the two marks is ever real (`boss.weakSide`). Player 1's
+ * picture never says which — both go through the same call, in the same
+ * colour, on the same clock — and the side shows only in the pulsing ring,
+ * which is player 2's alone. `queen-weakpoint.ts` owns that split; this file
+ * only places the two marks and lets the shell close over them.
  */
 export function drawQueen(
   ctx: CanvasRenderingContext2D,
@@ -78,19 +76,32 @@ export function drawQueen(
   const x = baseX + ox;
   const y = baseY + oy;
 
-  // The order is the picture. The mark first, so the shell closes over it;
-  // the head before the body, so the body covers where it joins.
+  // The marks first, so the shell closes over both of them.
   const weakY = y + f.weakCy * tile;
-  drawWeakPoint(ctx, x, weakY, f.weakR * tile, queen, boss, beat, time, healthShare);
-  const shell = (cy: number, rx: number, ry: number, id: number): void =>
-    drawShell(ctx, x, y + cy * tile, rx * tile, ry * tile, id, time, healthShare);
-  shell(f.headCy, f.headRx, f.headRy, queen.id + 1);
-  shell(f.bodyCy, f.bodyRx, f.bodyRy, queen.id);
-
-  // Last, over the shell that half-buries the mark, or the colour she is
-  // asking for would be buried with it.
-  const hex = weakPointHex(queen, boss, beat);
-  if (hex != null) halo(ctx, x, weakY, f.weakR * tile * 1.9, hex, 0.16);
+  const markR = f.weakR * tile;
+  for (const side of [-1, 1] as const) {
+    const mx = tileCX(l, queen.col + side) + ox;
+    drawMark(ctx, l, mx, weakY, markR, side, queen, boss, beat, beatPhase, time, healthShare);
+    // The glow goes on last, over the shell that half-buries the mark, or
+    // the colour it is asking for would be buried with it. Never on player
+    // 2's screen while she is still armoured — see `markGlow`.
+    const glow = markGlow(l, side, queen, boss, beat, beatPhase);
+    if (glow) halo(ctx, mx, weakY, markR * 1.9, glow.hex, glow.alpha);
+    // Which mark is real is player 2's half, and it is up from the moment
+    // the bloom is chosen rather than only once it is announced: it is a
+    // thing to say out loud, and saying it takes longer than a beat.
+    if (boss.weakSide === side) drawSideHint(ctx, l, mx, weakY, markR, time);
+  }
+  drawShell(
+    ctx,
+    x,
+    y + f.bodyCy * tile,
+    f.bodyRx * tile,
+    f.bodyRy * tile,
+    queen.id,
+    time,
+    healthShare,
+  );
 
   drawEgg(ctx, l, queen, boss, -1, ox, oy, beat, beatPhase, time, eggGrowShare);
   drawEgg(ctx, l, queen, boss, 1, ox, oy, beat, beatPhase, time, eggGrowShare);
@@ -99,10 +110,10 @@ export function drawQueen(
 }
 
 /**
- * One piece of her armour — body or head, the same angular rock her torches
- * are made of rather than a living contour. Faceted and gradient-shaded like
- * `drawTorchRock`, so the material reads as one thing across her whole body
- * and the rock she drops.
+ * The armoured shell — the same angular rock her torches are made of rather
+ * than a living contour. Faceted and gradient-shaded like `drawTorchRock`,
+ * so the material reads as one thing across her whole body and the rock she
+ * drops. Drawn over both marks, closing over the top and sides of each.
  */
 function drawShell(
   ctx: CanvasRenderingContext2D,
@@ -133,76 +144,6 @@ function drawShell(
   ctx.lineWidth = Math.max(1, Math.min(rx, ry) * 0.06);
   ctx.stroke(path);
   ctx.restore();
-}
-
-/**
- * How much of the egg is there this beat.
- *
- * 0 on the beat the torch on that side broke off: it is standing in the
- * socket as a creature of its own now (`spit` in sim/boss.ts, drawn by
- * `drawCreatures`), and an egg drawn here as well is exactly the doubling
- * this replaces — one shape shrinking while an identical one grew beside it.
- * Then back to full over `growShare` of the beat after, so the next torch
- * visibly grows into the empty socket instead of appearing whole in it.
- */
-function eggScale(
-  boss: BossState,
-  side: -1 | 1,
-  beat: number,
-  beatPhase: number,
-  growShare: number,
-): number {
-  if (boss.releaseSide !== side) return 1;
-  if (beat === boss.releaseBeat) return 0;
-  if (beat !== boss.releaseBeat + 1) return 1;
-  return Math.max(EGG_FLOOR, Math.min(1, beatPhase / Math.max(1e-3, growShare)));
-}
-
-/**
- * One flanking torch, drawn by the torch's own hand (`drawTorchRock`) at the
- * torch's own radius and facing, in the tile column the rock will be pushed
- * into — so the beat it breaks off, the creature takes over the picture
- * without anything moving, changing size or turning. It carries a bright
- * ring, for player 2 only, while it is the side the next one comes from. No
- * tail: a torch only drags one once it is falling (`drawTorch`).
- */
-function drawEgg(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  queen: Creature,
-  boss: BossState,
-  side: -1 | 1,
-  ox: number,
-  oy: number,
-  beat: number,
-  beatPhase: number,
-  time: number,
-  growShare: number,
-): void {
-  const scale = eggScale(boss, side, beat, beatPhase, growShare);
-  if (scale <= 0) return;
-
-  const cx = tileCX(l, spanCenterCol("torch", queenTorchCol(queen.col, side))) + ox;
-  const cy = tileCY(l, queen.row) + oy;
-  const r = torchRadius(l) * scale;
-
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(torchRotation(cx));
-  drawTorchRock(ctx, r, time);
-  ctx.restore();
-
-  if (boss.dropSide === side && showsQueenHint(l.role)) {
-    const pulse = 0.4 + 0.25 * Math.sin(time * 3);
-    ctx.strokeStyle = PALETTE.shieldRim;
-    ctx.lineWidth = 2.4;
-    ctx.globalAlpha = pulse;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r * 1.5, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    halo(ctx, cx, cy, r * 2.4, PALETTE.shieldRim, pulse * 0.7);
-  }
 }
 
 /**
