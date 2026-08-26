@@ -1,16 +1,28 @@
 ---
 name: worktree-preview
-description: Hand a worktree's director webserver to the user in their real Chrome for hands-on testing, then let them choose in chat whether to keep working or merge to main and shut the server down. Use whenever work in a git worktree is ready to be looked at by a human, or the user asks to "test it", "open it in chrome", or "give me a running instance".
+description: Hand a worktree's webserver to the user in their real Chrome for hands-on testing — the director to look at a wave, the game itself when a control has to be played — then let them choose in chat whether to keep working or merge to main and shut the server down. Use whenever work in a git worktree is ready to be looked at by a human, or the user asks to "test it", "open it in chrome", or "give me a running instance".
 ---
 
 # Previewing a worktree for the user
 
-Always the **director** (`tools/director`), never the game's own preview or
-`dev:game`. The director is the one server that renders through the real
-`@neon-spore/sim` + `@neon-spore/render` pipeline *and* lets the user place,
-step through and inspect waves and bosses interactively — it is strictly
-more than a static playthrough, and it is what this flow always hands over,
-whatever the task touched.
+**Which server depends on what the user has to do with it**, and there are
+only two answers.
+
+**The director** (`tools/director`, step 1) for anything to be *looked at*:
+a wave, a silhouette, a boss, a number. It renders through the real
+`@neon-spore/sim` + `@neon-spore/render` pipeline and lets the user place,
+step through and inspect waves and bosses interactively, which is strictly
+more than a playthrough. This is the default.
+
+**The game** (`game-dev` in `.claude/launch.json`, step 1b) for anything to
+be *played*: a control, a gesture, anything a thumb does. The director's
+stage answers a click with the editor's own meaning — placing, scrubbing,
+pausing — so the game's controls are not reachable there at all. Handing the
+director over for a control change costs the user a turn and they have to
+come back and say so, which is how this paragraph came to be written.
+
+If the task touched `apps/game/src/input.ts`, `keys.ts` or anything either of
+them reaches, it is the second one.
 
 ## 1. Start it
 
@@ -37,6 +49,23 @@ curl -s http://localhost:<port>/__director
 It refuses to start beside a stranger, retires an older copy *of its own
 tree*, and exits after an hour of silence. None of that is a substitute for
 step 3.
+
+## 1b. Or start the game, when it has to be played
+
+```
+preview_start { "name": "game-dev" }
+```
+
+That is the `dev:game` entry: `bun --hot`, port 3000, hot reload, and no idle
+exit — the human's server, and the one CLAUDE.md names as theirs. Not `bun run
+preview`: that one exits after 30 seconds without a request, and a page being
+played makes none, so it dies under the user mid-test.
+
+Port 3000 is pinned rather than derived from the tree, so two worktrees cannot
+both hand it over. Ask before taking it if something already answers there.
+
+Both servers can run at once, and often should: the director to look at the
+wave, the game to play it.
 
 ## 2. Open it in the user's real Chrome
 
@@ -79,7 +108,9 @@ nowhere. So, in this order:
    ```bash
    curl -s http://localhost:<port>/__director/quit
    ```
-   `/__preview/quit` for a game preview. Then confirm each is actually gone
+   `/__preview/quit` for a game preview. A `game-dev` server has no quit
+   route — it is a plain `bun --hot`, so stop it the way it was started
+   (`preview_stop` with its `serverId`). Then confirm each is actually gone
    (`curl` again and expect a failure), and kill any still-running background
    tasks the session owns.
 5. Only then remove the worktree and its branch. A session cannot remove the

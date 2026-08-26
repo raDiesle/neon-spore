@@ -9,6 +9,13 @@
       "autoPort": false
     },
     {
+      "name": "game-dev",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run", "dev:game"],
+      "port": 3000,
+      "autoPort": false
+    },
+    {
       "name": "director",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "dev"],
