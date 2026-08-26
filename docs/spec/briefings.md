@@ -35,11 +35,21 @@ goes; the wave list is `packages/content/src/waves.ts`.
 | 1 | **The opening** | two devices, one ship; the beat; the cannon | see §2 | 1 · FIRST STEP |
 | 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed | p1 the column, p2 the colour | 2 · TWO COLOURS |
 | 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 4 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 6 · TORCH |
-| 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 11 · SALVAGE |
-| 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 13 · BULB QUEEN |
+| 4 | **The grip** | a finger held on anything falling drags at it; two hands compound; the price is the hand itself | either player, on either half — the only gesture that is not split | 6 · THE HAND |
+| 5 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 7 · TORCH |
+| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 13 · SALVAGE |
+| 7 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 15 · BULB QUEEN |
 
-Six blocks, twelve or so steps. That is the whole built game.
+Seven blocks, fourteen or so steps. That is the whole built game.
+
+**The grip is the odd one out**, and its block has to say so in one line: it is
+the only thing in the game both players can do, on the same part of the screen,
+at the same time. Every other block teaches a split. This one teaches that
+there is a third pair of hands and it costs whichever control that hand was
+on — which is why its two waves are a pair. `THE HAND` is the arithmetic
+(three rocks, one shield, one beat), and `IN ITS SHADOW` is the one that only
+makes sense once: a rock stops your own shot too, so the way to shoot the thing
+behind it is to hold that thing back until the rock is gone.
 
 ### Gaps this list exposes
 

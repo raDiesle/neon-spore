@@ -150,6 +150,13 @@ export function buildMenu(h: MenuHandlers): MenuDom {
       "foot",
       "On a phone the two strips answer separate thumbs — the keys are for one person at a desk playing both seats.",
     ),
+    // The one control that is on neither strip, so a list of the strips
+    // would never mention it.
+    el(
+      "p",
+      "foot",
+      "Either of you can press and hold anything falling: it drags at it and slows it, for as long as the finger stays. Both screens are told whose hand it is.",
+    ),
   );
 
   inner.append(pages.root, pages.waves, pages.keys);

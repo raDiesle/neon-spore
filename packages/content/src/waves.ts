@@ -84,6 +84,16 @@ export const WAVES: Wave[] = [
     ],
   },
   {
+    name: "THE HAND",
+    sentence: "The one where three arrive on the same beat and the shield is one column.",
+    hint: "One shield, three rocks, the same beat. Press and hold two of them back.",
+    entries: [
+      { beat: 0, col: 1, kind: "meteor", color: null },
+      { beat: 0, col: 3, kind: "meteor", color: null },
+      { beat: 0, col: 5, kind: "meteor", color: null },
+    ],
+  },
+  {
     name: "TORCH",
     sentence: "The one where the only warning is on the other player's screen.",
     hint: "Twice as wide, and the fastest thing there is. P1 reads the radar, P2 has the shield.",
@@ -122,6 +132,17 @@ export const WAVES: Wave[] = [
       { beat: 3, col: 4, kind: "meteor", color: null },
       { beat: 6, col: 5, color: "red" },
       { beat: 9, col: 2, kind: "meteor", color: null },
+    ],
+  },
+  {
+    name: "IN ITS SHADOW",
+    sentence: "The one where you hold back the very thing you are trying to shoot.",
+    hint: "A rock stops your shot too. Hold the one behind it until the rock is gone.",
+    entries: [
+      { beat: 0, col: 3, kind: "meteor", color: null },
+      { beat: 1, col: 3, color: "red" },
+      { beat: 8, col: 5, kind: "meteor", color: null },
+      { beat: 9, col: 5, color: "cyan" },
     ],
   },
   {

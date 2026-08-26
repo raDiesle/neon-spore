@@ -123,6 +123,21 @@ the hull (`hullInvulnerable`), so no run here ever ends on its own, and a
 screen that can only be reached by dying is a screen nobody tunes. `↺ WAVE`
 starts over and clears the sheet.
 
+## Playing the stage
+
+The stage answers a finger the way the phone does — the same `touch.ts` the
+game calls, so what is drawn and what answers a press cannot drift apart. Drag
+the cannon and shield strips, press the trigger, the maw and the two colours,
+and **press and hold anything falling** to grip it: it keeps
+`gripSlowPermille` of its speed for as long as the button is down, and both
+hands compound. The mouse is player 1's hand; `G` is player 2's, on whatever
+is nearest the hull, which is the only way to see the other player's grip and
+the word that names it from one keyboard.
+
+It used to place a creature instead, and held the wave still while it did.
+Placing lives on the beat grid beside it, where a column and a beat are both
+already visible.
+
 ## The game, and its main menu
 
 `▶ MAIN MENU` in the header opens the game — this tree's source, bundled by

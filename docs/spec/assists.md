@@ -104,6 +104,16 @@ told who is holding what, in words.
 of hands could do exactly nothing about one; now it can buy the shield a beat
 to reach the column.
 
+**Where it is taught.** `THE HAND` (wave 6) is three rocks arriving on the
+same beat in three columns, against one shield — the arithmetic does not work
+without a hand, and holding two of them turns one impossible beat into three
+possible ones. `IN ITS SHADOW` (wave 11) is the one that has to be played to
+be believed: a rock absorbs your own shots as well as everything else, so a
+creature falling right behind one cannot be hit at all until the rock is gone,
+and by then it is on top of the hull. Holding the creature back is the only
+opening, which makes it the one wave where you grip the thing you are trying
+to destroy.
+
 **Not yet, deliberately:** the unlock schedule in 6.2. The grip is live in
 every wave from the first, because what it needs first is play, and gating it
 behind wave 8 would mean nobody had held anything for an hour.
