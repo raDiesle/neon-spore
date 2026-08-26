@@ -1,4 +1,4 @@
-import { hullPercent, ticksPerBeat } from "@neon-spore/sim";
+import { hullPercent, ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
@@ -43,11 +43,31 @@ export class Canvas2DRenderer implements Renderer {
    */
   private cannon: Glide = { value: Number.NaN, velocity: 0 };
   private shield = new ShieldBody();
+  /** Enough of last frame's world to notice a wave starting over — see `waveRestarted`. */
+  private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) throw new Error("Canvas 2D context unavailable");
     this.ctx = ctx;
+  }
+
+  /**
+   * Whether the wave on screen has just (re)started, so everything transient
+   * this renderer is holding belongs to a run that no longer exists —
+   * `Effects.reset` says what goes wrong when it is kept.
+   *
+   * Three ways in, because the hosts restart differently: the director swaps
+   * in a whole new `World` (`tools/director/src/stage.ts`'s `rebuild`), the
+   * game keeps one world and calls `startWave` on it — same object, new wave
+   * index — and a restart of the *same* wave changes neither, but always puts
+   * `waveBeat` back to 0.
+   */
+  private waveRestarted(world: World): boolean {
+    const last = this.seen;
+    this.seen = { world, wave: world.wave, waveBeat: world.waveBeat };
+    if (!last) return false;
+    return last.world !== world || last.wave !== world.wave || world.waveBeat < last.waveBeat;
   }
 
   resize(viewport: Viewport): void {
@@ -106,9 +126,7 @@ export class Canvas2DRenderer implements Renderer {
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
-    // No scars at all means the run was reset, and every arrival latched
-    // against the old run's beats has to go with it — see `forgetArrivals`.
-    if (world.scars.length === 0) this.effects.forgetArrivals();
+    if (this.waveRestarted(world)) this.effects.reset();
     this.effects.ingest(
       view.events,
       l,

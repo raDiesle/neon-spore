@@ -36,11 +36,9 @@ function smoothstep(t: number): number {
 
 interface Impact {
   kind: CreatureKind;
-  /**
-   * Sinks into the hull and drifts off once it arrives (a miss), or simply
-   * fires `onArrive` and is gone (a deflect, which bounces away by its own
-   * animation, `DeflectFx`, and must not also embed here).
-   */
+  /** Sinks in and drifts off once it arrives (a miss), or simply fires
+   * `onArrive` and is gone (a deflect, which bounces by its own animation,
+   * `DeflectFx`, and must not also embed here). */
   embed: boolean;
   /** Screen x at impact — fixed; the drift is computed fresh from it every
    * frame (`currentX`), never accumulated, so there is no running velocity
@@ -88,25 +86,28 @@ function currentX(im: Impact): number {
 }
 
 /**
- * The last, biggest step of a rock's fall, replayed here at the speed every
- * earlier beat of the fall had: the sim removes a creature the same tick the
- * beat's motion is computed, so `creatures.ts` never gets a frame to glide it
- * through that final step (`fallTilesPerBeat`, sim/types.ts) — without this,
- * a fast rock vanishes mid-air and reappears at the hull, and the faster it
- * fell the further that gap is. `onArrive` (the spark burst, the deflect
- * bounce) fires only once this replay actually reaches the hull's skin,
- * instead of at the instant the sim resolved the impact.
+ * The last, biggest step of a rock's fall, replayed at the speed every
+ * earlier beat had: the sim removes a creature the same tick its motion is
+ * computed, so `creatures.ts` never gets a frame to glide it through that
+ * final step (`fallTilesPerBeat`, sim/types.ts) — without this a fast rock
+ * vanishes mid-air and reappears at the hull. `onArrive` fires only once the
+ * replay actually reaches the hull's skin, not at the instant of impact.
  *
- * Every rock kind that misses — not just the torch — sinks in and drifts off
- * afterwards, sized by its own radius (`rockRadius`); see `stickStart`. A
- * deflected rock never embeds: `onArrive` fires its bounce (`DeflectFx`) and
- * this impact is simply gone the same frame.
+ * Every rock kind that misses sinks in and drifts off afterwards, sized by
+ * its own radius (`rockRadius`); a deflected rock never embeds — `onArrive`
+ * fires its bounce (`DeflectFx`) and the impact is gone the same frame.
  *
  * While stuck it rides the hull's own breathing motion via `skinAt`
  * (`craters.ts` uses the same query), not a fixed height above `Layout.hullY`.
  */
 export class RockImpactFx {
   private impacts: Impact[] = [];
+
+  /** Drop every impact still falling, stuck or rolling — for a restart,
+   * else one would land on the new run's hull. See `Effects.reset`. */
+  clear(): void {
+    this.impacts.length = 0;
+  }
 
   /** `beatSeconds` is how long one beat takes at the tempo the miss happened
    * at (`60 / cfg.bpm`) — the pace the replayed last step of the fall has to

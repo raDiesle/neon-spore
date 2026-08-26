@@ -23,6 +23,11 @@ export const SPARK_LIFE = 0.4;
 export class Sparks {
   private list: Spark[] = [];
 
+  /** Drop every spark still in the air. For a restart — see `Effects.reset`. */
+  clear(): void {
+    this.list.length = 0;
+  }
+
   /** Thrown outwards from a point: something came apart here. */
   burst(x: number, y: number, n: number, hex: string): void {
     for (let k = 0; k < n; k++) {

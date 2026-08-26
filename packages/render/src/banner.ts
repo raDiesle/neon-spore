@@ -3,14 +3,41 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /** The one-word receipt for what a pod just gave, and the colour it reads in. */
-export const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
+const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
   mend: { text: "+HULL", hex: PALETTE.pod },
   purge: { text: "SWEPT", hex: PALETTE.ember },
   ward: { text: "WARDED", hex: PALETTE.shieldRim },
 };
 
+/** What the words over the hull are reading from, all of it `Effects` state. */
+export interface BannerState {
+  /** Counts down while DEFLECTED is up. */
+  guardHit: number;
+  /** Counts down from `swallowLife` while a pod is being taken in. */
+  swallow: number;
+  swallowLife: number;
+  /** Share of the swallow the chewing takes; the receipt waits for it. */
+  chewShare: number;
+  podKind: PodKind | null;
+}
+
+/** DEFLECTED, or a pod's one-word receipt, over the hull. */
+export function drawBanner(ctx: CanvasRenderingContext2D, l: Layout, s: BannerState): void {
+  if (s.guardHit > 0) {
+    drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, s.guardHit / 0.6), 0.9);
+  }
+  if (s.swallow <= 0 || !s.podKind) return;
+  const done = 1 - s.swallow / s.swallowLife;
+  if (done < s.chewShare) return; // wait for the chewing to finish first
+  const after = (done - s.chewShare) / (1 - s.chewShare);
+  const a = Math.min(1, 1 - after);
+  if (a <= 0) return;
+  const { text, hex } = POD_RECEIPT[s.podKind];
+  drawWord(ctx, l, text, hex, a, 0.55);
+}
+
 /** One word, centred above the hull. `tiles` is how far above `l.hullY`. */
-export function drawWord(
+function drawWord(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   text: string,

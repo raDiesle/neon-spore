@@ -1,6 +1,6 @@
 import { colSpan, isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
-import { drawWord, POD_RECEIPT } from "./banner.js";
+import { drawBanner } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -23,10 +23,9 @@ const QUEEN_SHAKE_LIFE = 0.35;
  * Everything transient. Effects own their own state, are fed only by
  * `SimEvent`s, and write nothing back — the world does not know they exist.
  *
- * The deflection gets the most work by a wide margin, and deliberately: it is
- * the one moment that needs both players, and docs/spec/systems.md 5.8 says a pair that cannot
- * see it worked will never learn the timing. So the rock bounces visibly out of
- * frame, a pressure wave runs outward, and the word appears.
+ * The deflection gets the most work, deliberately: it is the one moment that
+ * needs both players, and docs/spec/systems.md 5.8 says a pair that cannot see
+ * it worked will never learn the timing.
  */
 export class Effects {
   private sparks = new Sparks();
@@ -38,7 +37,7 @@ export class Effects {
   private swallow = 0;
   /** Which kind the swallow currently running is for, for the receipt. */
   private podKind: PodKind | null = null;
-  /** Counts down from `QUEEN_SHAKE_LIFE` after she loses a petal. There is only ever one queen. */
+  /** Counts down after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
   /** Which impacts have visibly landed — see `arrivals.ts`. */
   private arrivals = new Arrivals();
@@ -105,9 +104,8 @@ export class Effects {
             const r = rockRadius(l, e.kind);
             const span = colSpan(e.kind);
             const loCol = Math.round(e.col - (span - 1) / 2);
-            // Two bursts flanking the crater rather than one on top of it —
-            // sparks fly off the rim the rock just tore, not out of thin air
-            // at its own centre.
+            // Two bursts flanking the crater, not one on top of it: sparks
+            // fly off the rim the rock tore, not out of thin air at its centre.
             const arrive = (ax: number, ay: number): void => {
               this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
               this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
@@ -152,10 +150,8 @@ export class Effects {
           break;
         case "deflect": {
           const x = tileCX(l, e.col);
-          // Same lateness as a breach: the rock is still falling when the sim
-          // resolves the deflect, so the bounce waits for it to arrive too.
-          // `embed: false` — a deflected rock bounces (`DeflectFx`), it never
-          // sinks into a crater the way a miss does.
+          // Same lateness as a breach, so the bounce waits for the rock too.
+          // `embed: false` — a deflected rock bounces, it never sinks in.
           this.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.fromRow, false, (ax, ay) => {
             this.deflectFx.spawn(ax, ay, l.tile, e.span);
             this.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
@@ -190,14 +186,12 @@ export class Effects {
   }
 
   /**
-   * The last step of a rock's fall, replayed until it actually reaches the
-   * hull — and, for the torch, the stuck-then-drifting rock afterwards.
-   * Drawn *over* the hull rather than under it like the rest of this class:
-   * a rock still falling, or lodged, has to stay in front, not partly hidden
-   * behind the hull's own fill. `skinAt` is the hull's real, breathing
-   * surface height at an x — `hull.ts`'s own `hullSkinY` — so a stuck rock
-   * rides the same motion its crater does instead of hanging at a fixed
-   * height above `Layout.hullY`'s flat approximation of the surface.
+   * The last step of a rock's fall, replayed until it reaches the hull, and
+   * the stuck-then-rolling rock afterwards. Drawn *over* the hull, unlike the
+   * rest of this class: a rock falling or lodged has to stay in front, not
+   * half hidden behind the hull's fill. `skinAt` is the hull's real,
+   * breathing surface (`hullSkinY`), so a stuck rock rides the same motion
+   * its crater does rather than a flat approximation of it.
    */
   drawRockImpact(
     ctx: CanvasRenderingContext2D,
@@ -216,31 +210,38 @@ export class Effects {
     return this.rockImpactFx.coversCrater(x, tile);
   }
 
-  /** Whether the rock that scarred this column on this beat has visibly
-   * arrived yet — the hull asks before it draws that scar's crack at all
-   * (`scars.ts`'s `arrived`). */
+  /** Whether the rock that scarred this column on this beat has landed yet —
+   * the hull asks before drawing that scar's crack (`scars.ts`'s `arrived`). */
   hasArrived(col: number, beat: number): boolean {
     return this.arrivals.has(col, beat);
   }
 
-  /** Drop every latched arrival — a fresh run, see `arrivals.ts`. */
-  forgetArrivals(): void {
+  /** Forget everything transient: a wave has (re)started and none of it
+   * belongs on screen now. Without this a rock from the run just abandoned
+   * keeps falling onto the new hull and latches an arrival (`arrivals.ts`)
+   * against a beat the new run is about to reuse — showing that beat's crack
+   * before its own rock ever lands. */
+  reset(): void {
+    this.sparks.clear();
+    this.deflectFx.clear();
+    this.rockImpactFx.clear();
     this.arrivals.clear();
+    this.blockedUntil.clear();
+    this.guardHit = 0;
+    this.swallow = 0;
+    this.podKind = null;
+    this.queenShakeUntil = 0;
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
-    if (this.guardHit > 0) {
-      drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, this.guardHit / 0.6), 0.9);
-    }
-    if (this.swallow <= 0 || !this.podKind) return;
-    const done = 1 - this.swallow / SWALLOW_LIFE;
-    if (done < CHEW_SHARE) return; // wait for the chewing to finish first
-    const after = (done - CHEW_SHARE) / (1 - CHEW_SHARE);
-    const a = Math.min(1, 1 - after);
-    if (a <= 0) return;
-    const { text, hex } = POD_RECEIPT[this.podKind];
-    drawWord(ctx, l, text, hex, a, 0.55);
+    drawBanner(ctx, l, {
+      guardHit: this.guardHit,
+      swallow: this.swallow,
+      swallowLife: SWALLOW_LIFE,
+      chewShare: CHEW_SHARE,
+      podKind: this.podKind,
+    });
   }
 
   private burst(x: number, y: number, n: number, hex: string): void {

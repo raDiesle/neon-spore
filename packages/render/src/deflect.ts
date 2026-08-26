@@ -31,6 +31,12 @@ export class DeflectFx {
   private particles: Particle[] = [];
   private shocks: Shock[] = [];
 
+  /** Drop every bounce still running. For a restart — see `Effects.reset`. */
+  clear(): void {
+    this.particles.length = 0;
+    this.shocks.length = 0;
+  }
+
   /**
    * `span` is the deflected creature's `colSpan` — 3 for a torch, 1 for a
    * plain rock — so the shockwave draws as wide as the thing it came off,
