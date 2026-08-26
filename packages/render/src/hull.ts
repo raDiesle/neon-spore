@@ -12,9 +12,10 @@ import {
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawScars, drawTorchImpactMarks } from "./scars.js";
+import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim } from "./shield.js";
+import { type Crater, clipOutMouths, drawTorchCraters, torchCraters } from "./torch-crater.js";
 
 export type { HullMood, LobePositions } from "./hull-frame.js";
 export { hullSkinY } from "./hull-frame.js";
@@ -53,6 +54,7 @@ export function drawHull(
   mood: HullMood,
   hullPercent: number,
   at: LobePositions,
+  craterVisible: (x: number) => boolean = () => true,
 ): void {
   const f = frame(l, time, mood, at);
   // High resolution: the swelling has to read as one unbroken transition, not
@@ -91,7 +93,13 @@ export function drawHull(
   iridescence(ctx, body, filled, l, time);
   sweep(ctx, body, filled, l, time);
   dither(ctx, filled);
-  strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
+  // The rim goes round the torches' craters, not over them: a hole in the
+  // skin that still has the ship's own bright outline running across its
+  // mouth is not a hole, it is a stain. `craterVisible` keeps a crater — and
+  // so this gap in the rim — out of the picture until the rock that made it
+  // has climbed back out of it.
+  const craters = torchCraters(l, world.scars, (x) => skin(f, x), craterVisible);
+  strokeHullRim(ctx, l, body, hullPercent, craters);
 
   // Cracks first, the torch's dent after: its opaque fill paints over
   // whatever a crack drew across that patch, so the crack reads as staying
@@ -104,13 +112,27 @@ export function drawHull(
     (x) => surface(f, x),
     (x) => skin(f, x),
   );
-  drawTorchImpactMarks(ctx, l, world.scars, (x) => skin(f, x));
+  drawTorchCraters(ctx, craters);
   drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
   drawMuzzle(ctx, f, l, mood.intake);
   drawChew(ctx, l, mood, time, f.cannonX, (x) => surface(f, x));
   drawCharge(ctx, l, mood, filled, body);
+  ctx.restore();
+}
+
+/** The outline, minus the mouths of any craters it would otherwise run over. */
+function strokeHullRim(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  body: Path2D,
+  hullPercent: number,
+  craters: Crater[],
+): void {
+  ctx.save();
+  clipOutMouths(ctx, l, craters);
+  strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
   ctx.restore();
 }
 

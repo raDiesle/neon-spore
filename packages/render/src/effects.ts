@@ -178,6 +178,14 @@ export class Effects {
     this.torchImpactFx.draw(ctx, l, time, skinAt);
   }
 
+  /**
+   * Whether a torch's rock is still sitting in its crater at this x — the
+   * hull asks before it draws that crater at all (`torchCraters`).
+   */
+  torchCoversCrater(x: number, tile: number): boolean {
+    return this.torchImpactFx.coversCrater(x, tile);
+  }
+
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
     if (this.guardHit > 0) {

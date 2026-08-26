@@ -1,8 +1,7 @@
-import { crystalPath, METEOR, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { torchRadius, torchRotation } from "./torch.js";
 
 /**
  * A breach stays, and it stays *in the skin*. The prototype scattered round
@@ -109,77 +108,4 @@ export function drawScars(
     ctx.globalAlpha = 1;
   }
   ctx.restore();
-}
-
-/**
- * The torch's own mark: not the whole rock's silhouette, only the sliver of
- * it that was ever inside the skin. Built from the exact same shape, radius
- * and facing (`torchRotation`) as the rock `TorchImpactFx` holds embedded, so
- * the dent is legible as *this* rock's dent, not a generic notch — clipped to
- * the quarter-height overlap the whole embedding was ever defined as, so
- * nothing of it shows above the skin line. One per torch that ever reached
- * the hull, sitting between the two cracks its impact scarred (`damageSpan`
- * in sim/beat.ts always scars a torch's two columns together on the same
- * beat, which is the only signal needed to find the pair here — no extra sim
- * state). `drawScars` draws the two cracks themselves and is called after
- * this, so its opaque fill covers whatever a crack draws across it — the
- * crack stays in the skin, not inside the crater.
- */
-export function drawTorchImpactMarks(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  scars: readonly Scar[],
-  skinAt: (x: number) => Point,
-): void {
-  const used = new Set<Scar>();
-  for (const a of scars) {
-    if (used.has(a)) continue;
-    const b = scars.find((s) => s !== a && s.beat === a.beat && Math.abs(s.col - a.col) === 1);
-    if (!b) continue;
-    used.add(a);
-    used.add(b);
-
-    const loCol = Math.min(a.col, b.col);
-    const x = tileCX(l, loCol + 0.5);
-    const top = skinAt(x);
-    const r = torchRadius(l);
-    const rotation = torchRotation(x);
-    // The rock's centre when it sits embedded (torch-impact.ts): above the
-    // skin line by half its radius, so only its bottom quarter-height ever
-    // crosses below `top.y`.
-    const cy = top.y - r * 0.5;
-
-    ctx.save();
-    // Everything above the skin line is outside the ship — clip it away
-    // *before* rotating, in screen space, so the cut stays flat and level
-    // regardless of which way the rock itself is facing.
-    ctx.beginPath();
-    ctx.rect(x - r * 2, top.y, r * 4, r * 2);
-    ctx.clip();
-
-    ctx.translate(x, cy);
-    ctx.rotate(rotation);
-    const d = crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
-    const path = new Path2D(d);
-    // Fill only — no outline. A stroke here reads as the rock's own material
-    // edge, the same light grey the ship's solid rock objects are rimmed in;
-    // a hole has no rim of its own material, only the dark of what is gone.
-    ctx.fillStyle = "#14101F";
-    ctx.fill(path);
-    ctx.restore();
-
-    // A hairline of the tail's old colour along the cut itself — the seam
-    // where the rock ends and the skin resumes, still a little hot.
-    const glowW = r * 1.15;
-    const rim = ctx.createLinearGradient(x - glowW, top.y, x + glowW, top.y);
-    rim.addColorStop(0, "rgba(255,122,47,0)");
-    rim.addColorStop(0.5, "rgba(255,122,47,0.4)");
-    rim.addColorStop(1, "rgba(255,122,47,0)");
-    ctx.strokeStyle = rim;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.moveTo(x - glowW, top.y);
-    ctx.lineTo(x + glowW, top.y);
-    ctx.stroke();
-  }
 }

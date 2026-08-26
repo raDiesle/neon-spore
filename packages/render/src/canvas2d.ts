@@ -172,7 +172,16 @@ export class Canvas2DRenderer implements Renderer {
       chew: this.effects.chew,
       charge: this.effects.charge,
     };
-    drawHull(ctx, l, world, view.time, mood, hullPercent(world), at);
+    drawHull(
+      ctx,
+      l,
+      world,
+      view.time,
+      mood,
+      hullPercent(world),
+      at,
+      (x) => !this.effects.torchCoversCrater(x, l.tile),
+    );
     // In front of the hull, unlike the rest of Effects.draw() — see
     // Effects.drawTorchImpact.
     this.effects.drawTorchImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));

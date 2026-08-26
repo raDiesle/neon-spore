@@ -52,6 +52,12 @@ class StubPath {
       fail("new Path2D", `path contains ${/NaN/.test(d) ? "NaN" : "a non-finite value"}`);
     }
   }
+
+  /** A path can also be built by call, not only from a string — and a real
+   * `Path2D.rect` refuses a non-finite coordinate the same as a string one. */
+  rect(x: number, y: number, w: number, h: number): void {
+    nums("Path2D.rect", [x, y, w, h]);
+  }
 }
 
 class StubImageData {

@@ -116,6 +116,13 @@ export function drawTorchRock(ctx: CanvasRenderingContext2D, r: number, time: nu
  * the top of the field down to where it is now. The whole point is
  * legibility at speed: even a glance that lands mid-fall reads the streak as
  * "this came from up there," not just "something is here."
+ *
+ * What it does *not* do is turn. A rock spinning on its way down reads as
+ * tumbling through the frame rather than dropping straight at one column,
+ * and the pair calls columns. It holds one facing the whole way — the facing
+ * `torchRotation` derives from its column, which is the same one the
+ * embedded rock and its crater use, so nothing snaps round at the moment it
+ * lands.
  */
 export function drawTorch(
   ctx: CanvasRenderingContext2D,
@@ -127,14 +134,12 @@ export function drawTorch(
   _beatPhase: number,
 ): void {
   const r = torchRadius(l);
-  const spin = (c.id % 13) * 0.48;
-  const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
 
   drawTorchTail(ctx, l, x, y, r);
 
   ctx.save();
-  ctx.translate(x + wobble, y);
-  ctx.rotate(spin + time * 0.12);
+  ctx.translate(x, y);
+  ctx.rotate(torchRotation(x));
 
   drawTorchRock(ctx, r, time);
 
@@ -153,6 +158,6 @@ export function drawTorch(
   }
   ctx.restore();
 
-  halo(ctx, x + wobble, y, r * 1.6, PALETTE.rock, 0.1);
-  halo(ctx, x + wobble, y, r * 2, PALETTE.ember, 0.08);
+  halo(ctx, x, y, r * 1.6, PALETTE.rock, 0.1);
+  halo(ctx, x, y, r * 2, PALETTE.ember, 0.08);
 }
