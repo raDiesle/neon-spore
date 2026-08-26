@@ -15,7 +15,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawScars } from "./scars.js";
+import { drawScars, drawTorchImpactMarks } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim, type ShieldSegment } from "./shield.js";
 
@@ -199,6 +199,7 @@ export function drawHull(
   dither(ctx, filled);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
+  drawTorchImpactMarks(ctx, l, world.scars, (x) => skin(f, x));
   drawScars(
     ctx,
     l,

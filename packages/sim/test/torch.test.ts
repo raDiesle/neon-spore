@@ -140,7 +140,7 @@ describe("the torch", () => {
     const { events } = run([torch(5)], IMPACT_TICK + 1);
     const breaches = events.filter((e) => e.type === "breach");
     expect(breaches).toHaveLength(1);
-    expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor });
+    expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor, span: 2 });
   });
 
   it("craters rather than destroys when shot, like every other rock", () => {

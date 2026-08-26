@@ -1,4 +1,4 @@
-import type { Point } from "@neon-spore/content";
+import { crystalPath, METEOR, type Point } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -106,6 +106,60 @@ export function drawScars(
     ctx.strokeStyle = PALETTE.redRim;
     strokeCrack(ctx, main.slice(0, 2), 0.8);
     ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+}
+
+/**
+ * The torch's own mark: a rock-shaped dent sunk into the skin, one per torch
+ * that ever reached the hull, sitting between the two cracks its impact
+ * scarred (`damageSpan` in sim/beat.ts always scars a torch's two columns
+ * together on the same beat, which is the only signal needed to find the
+ * pair here — no extra sim state). `drawScars` above still draws the two
+ * cracks themselves; this only adds the shape between them.
+ */
+export function drawTorchImpactMarks(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  scars: readonly Scar[],
+  skinAt: (x: number) => Point,
+): void {
+  ctx.save();
+  const used = new Set<Scar>();
+  for (const a of scars) {
+    if (used.has(a)) continue;
+    const b = scars.find((s) => s !== a && s.beat === a.beat && Math.abs(s.col - a.col) === 1);
+    if (!b) continue;
+    used.add(a);
+    used.add(b);
+
+    const loCol = Math.min(a.col, b.col);
+    const seed = Math.imul(loCol + 1, 2654435761) ^ Math.imul(a.beat + 1, 40503);
+    const rnd = stream(seed);
+    const x = tileCX(l, loCol + 0.5);
+    const top = skinAt(x);
+    const r = l.tile * 0.62;
+    // Sunk a quarter of its own height into the skin, same depth the torch
+    // itself embeds to before it reflects away (torch-impact.ts).
+    const cy = top.y + r * 0.5;
+
+    const d = crystalPath(
+      x,
+      cy,
+      r,
+      r,
+      METEOR.sides,
+      METEOR.depth,
+      METEOR.wobble,
+      rnd() * 6.28,
+      METEOR.seed,
+    );
+    const path = new Path2D(d);
+    ctx.fillStyle = "#14101F";
+    ctx.fill(path);
+    ctx.strokeStyle = "rgba(199,203,214,.55)";
+    ctx.lineWidth = 1.4;
+    ctx.stroke(path);
   }
   ctx.restore();
 }

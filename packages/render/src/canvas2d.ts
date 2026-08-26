@@ -158,7 +158,7 @@ export class Canvas2DRenderer implements Renderer {
     }
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
-    this.effects.draw(ctx);
+    this.effects.draw(ctx, l, view.time);
 
     const mood: HullMood = {
       armed: this.armed,

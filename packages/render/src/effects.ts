@@ -3,6 +3,7 @@ import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { Sparks } from "./sparks.js";
+import { TorchImpactFx } from "./torch-impact.js";
 
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
@@ -34,6 +35,7 @@ const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
 export class Effects {
   private sparks = new Sparks();
   private deflectFx = new DeflectFx();
+  private torchImpactFx = new TorchImpactFx();
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
   /** Counts down from `SWALLOW_LIFE` while a pod is being taken in. */
@@ -96,7 +98,10 @@ export class Effects {
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
           break;
         case "breach":
-          this.burst(tileCX(l, e.col), l.hullY, 16, PALETTE.red);
+          this.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
+          // A torch (span > 1) gets its own embed-and-reflect animation
+          // instead of just a spark burst — see torch-impact.ts.
+          if (e.span > 1) this.torchImpactFx.spawn(tileCX(l, e.col), l);
           break;
         case "petal":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.hullRim);
@@ -136,6 +141,7 @@ export class Effects {
   update(dt: number, l: Layout): void {
     this.sparks.update(dt);
     this.deflectFx.update(dt, l.tile);
+    this.torchImpactFx.update(dt, l);
     for (const [id, t] of this.blockedUntil) {
       const left = t - dt;
       if (left <= 0) this.blockedUntil.delete(id);
@@ -147,8 +153,9 @@ export class Effects {
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
     this.deflectFx.draw(ctx);
+    this.torchImpactFx.draw(ctx, l, time);
     this.sparks.draw(ctx);
   }
 
