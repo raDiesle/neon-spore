@@ -106,7 +106,7 @@ export class Canvas2DRenderer implements Renderer {
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
-    this.effects.ingest(view.events, l, (col, row) => {
+    this.effects.ingest(view.events, l, view.time, (col, row) => {
       const c = world.creatures.find((x) => x.col === col && x.row === row);
       return c ? c.id : 0;
     });

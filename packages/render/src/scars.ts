@@ -2,6 +2,7 @@ import { crystalPath, METEOR, type Point } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { torchRadius, torchRotation } from "./torch.js";
 
 /**
  * A breach stays, and it stays *in the skin*. The prototype scattered round
@@ -111,12 +112,18 @@ export function drawScars(
 }
 
 /**
- * The torch's own mark: a rock-shaped dent sunk into the skin, one per torch
- * that ever reached the hull, sitting between the two cracks its impact
- * scarred (`damageSpan` in sim/beat.ts always scars a torch's two columns
- * together on the same beat, which is the only signal needed to find the
- * pair here — no extra sim state). `drawScars` above still draws the two
- * cracks themselves; this only adds the shape between them.
+ * The torch's own mark: not the whole rock's silhouette, only the sliver of
+ * it that was ever inside the skin. Built from the exact same shape, radius
+ * and facing (`torchRotation`) as the rock `TorchImpactFx` holds embedded, so
+ * the dent is legible as *this* rock's dent, not a generic notch — clipped to
+ * the quarter-height overlap the whole embedding was ever defined as, so
+ * nothing of it shows above the skin line. One per torch that ever reached
+ * the hull, sitting between the two cracks its impact scarred (`damageSpan`
+ * in sim/beat.ts always scars a torch's two columns together on the same
+ * beat, which is the only signal needed to find the pair here — no extra sim
+ * state). `drawScars` draws the two cracks themselves and is called after
+ * this, so its opaque fill covers whatever a crack draws across it — the
+ * crack stays in the skin, not inside the crater.
  */
 export function drawTorchImpactMarks(
   ctx: CanvasRenderingContext2D,
@@ -124,7 +131,6 @@ export function drawTorchImpactMarks(
   scars: readonly Scar[],
   skinAt: (x: number) => Point,
 ): void {
-  ctx.save();
   const used = new Set<Scar>();
   for (const a of scars) {
     if (used.has(a)) continue;
@@ -134,32 +140,46 @@ export function drawTorchImpactMarks(
     used.add(b);
 
     const loCol = Math.min(a.col, b.col);
-    const seed = Math.imul(loCol + 1, 2654435761) ^ Math.imul(a.beat + 1, 40503);
-    const rnd = stream(seed);
     const x = tileCX(l, loCol + 0.5);
     const top = skinAt(x);
-    const r = l.tile * 0.62;
-    // Sunk a quarter of its own height into the skin, same depth the torch
-    // itself embeds to before it reflects away (torch-impact.ts).
-    const cy = top.y + r * 0.5;
+    const r = torchRadius(l);
+    const rotation = torchRotation(x);
+    // The rock's centre when it sits embedded (torch-impact.ts): above the
+    // skin line by half its radius, so only its bottom quarter-height ever
+    // crosses below `top.y`.
+    const cy = top.y - r * 0.5;
 
-    const d = crystalPath(
-      x,
-      cy,
-      r,
-      r,
-      METEOR.sides,
-      METEOR.depth,
-      METEOR.wobble,
-      rnd() * 6.28,
-      METEOR.seed,
-    );
+    ctx.save();
+    // Everything above the skin line is outside the ship — clip it away
+    // *before* rotating, in screen space, so the cut stays flat and level
+    // regardless of which way the rock itself is facing.
+    ctx.beginPath();
+    ctx.rect(x - r * 2, top.y, r * 4, r * 2);
+    ctx.clip();
+
+    ctx.translate(x, cy);
+    ctx.rotate(rotation);
+    const d = crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
     const path = new Path2D(d);
     ctx.fillStyle = "#14101F";
     ctx.fill(path);
     ctx.strokeStyle = "rgba(199,203,214,.55)";
     ctx.lineWidth = 1.4;
     ctx.stroke(path);
+    ctx.restore();
+
+    // A hairline of the tail's old colour along the cut itself — the seam
+    // where the rock ends and the skin resumes, still a little hot.
+    const glowW = r * 1.15;
+    const rim = ctx.createLinearGradient(x - glowW, top.y, x + glowW, top.y);
+    rim.addColorStop(0, "rgba(255,122,47,0)");
+    rim.addColorStop(0.5, "rgba(255,122,47,0.4)");
+    rim.addColorStop(1, "rgba(255,122,47,0)");
+    ctx.strokeStyle = rim;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(x - glowW, top.y);
+    ctx.lineTo(x + glowW, top.y);
+    ctx.stroke();
   }
-  ctx.restore();
 }

@@ -10,6 +10,16 @@ export function torchRadius(l: Layout): number {
 }
 
 /**
+ * The rock's own facing, from its screen x alone — deterministic and
+ * shared between `torch-impact.ts`'s embedded rock and `scars.ts`'s dent in
+ * the hull it left, so the two are drawn at the exact same orientation and
+ * the dent reads as a hole this exact rock made, not a generic one.
+ */
+export function torchRotation(x: number): number {
+  return (x * 0.37) % (Math.PI * 2);
+}
+
+/**
  * The tail: an ember streak from the top of the field down to wherever the
  * torch is now, so a fall fast enough to otherwise read as a blink still
  * reads as a fall. `alpha` scales the whole thing down, for the effect that

@@ -79,6 +79,7 @@ export class Effects {
   ingest(
     events: readonly SimEvent[],
     l: Layout,
+    time: number,
     creatureIdAt: (col: number, row: number) => number,
   ): void {
     for (const e of events) {
@@ -99,9 +100,9 @@ export class Effects {
           break;
         case "breach":
           this.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
-          // A torch (span > 1) gets its own embed-and-reflect animation
+          // A torch (span > 1) gets its own embed-and-drift animation
           // instead of just a spark burst — see torch-impact.ts.
-          if (e.span > 1) this.torchImpactFx.spawn(tileCX(l, e.col), l);
+          if (e.span > 1) this.torchImpactFx.spawn(tileCX(l, e.col), l, time);
           break;
         case "petal":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.hullRim);

@@ -199,7 +199,9 @@ export function drawHull(
   dither(ctx, filled);
   strokeGlow(ctx, body, PALETTE.hull, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
 
-  drawTorchImpactMarks(ctx, l, world.scars, (x) => skin(f, x));
+  // Cracks first, the torch's dent after: its opaque fill paints over
+  // whatever a crack drew across that patch, so the crack reads as staying
+  // in the skin around the crater rather than running into it.
   drawScars(
     ctx,
     l,
@@ -208,6 +210,7 @@ export function drawHull(
     (x) => surface(f, x),
     (x) => skin(f, x),
   );
+  drawTorchImpactMarks(ctx, l, world.scars, (x) => skin(f, x));
   drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
