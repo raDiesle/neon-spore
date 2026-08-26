@@ -6,7 +6,7 @@ import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { type Glide, glideTo } from "./glide.js";
 import { drawHud, drawOverlay } from "./hud.js";
-import { drawHull, type HullMood } from "./hull.js";
+import { drawHull, type HullMood, hullSkinY } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
@@ -169,7 +169,7 @@ export class Canvas2DRenderer implements Renderer {
     drawHull(ctx, l, world, view.time, mood, hullPercent(world), at);
     // In front of the hull, unlike the rest of Effects.draw() — see
     // Effects.drawTorchImpact.
-    this.effects.drawTorchImpact(ctx, l, view.time);
+    this.effects.drawTorchImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);

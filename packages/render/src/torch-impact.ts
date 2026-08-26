@@ -14,7 +14,6 @@ const TAIL_LIFE = STICK_LIFE + 0.6;
 
 interface Impact {
   x: number;
-  hullY: number;
   r: number;
   dir: -1 | 1;
   rotation: number;
@@ -36,10 +35,18 @@ interface Impact {
  * not one per column it scarred. The tail it dragged down keeps fading in
  * underneath it, so the fall still reads as a fall for a moment after.
  *
+ * While it is stuck it has to sit exactly in its own crater and ride the
+ * hull's own motion, not hang at a fixed height above `Layout.hullY` — that
+ * is a flat approximation of a surface that breathes and lifts under its
+ * lobes, so a rock anchored to it instead of to the real, curved skin
+ * visibly floats free of both the hull and the dent it supposedly made. The
+ * `skinAt` callback is the same query `hull.ts`'s `drawTorchImpactMarks`
+ * dent already positions itself with, so the two agree frame to frame.
+ *
  * The permanent trace is separate: `drawTorchImpactMarks` in scars.ts sinks
  * the exact overlap of this same shape, at the same orientation
- * (`torchRotation`) and the same embedded position, into the hull's skin —
- * so the two agree on where it hit and the dent reads as this rock's dent.
+ * (`torchRotation`), into the hull's skin — so the two agree on where it hit
+ * and the dent reads as this rock's dent.
  */
 export class TorchImpactFx {
   private impacts: Impact[] = [];
@@ -48,7 +55,6 @@ export class TorchImpactFx {
     const mid = l.gridLeft + l.gridWidth / 2;
     this.impacts.push({
       x,
-      hullY: l.hullY,
       r: torchRadius(l),
       dir: x < mid ? -1 : 1,
       rotation: torchRotation(x),
@@ -74,23 +80,33 @@ export class TorchImpactFx {
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    time: number,
+    skinAt: (x: number) => number,
+  ): void {
     for (const im of this.impacts) {
+      const surfaceY = skinAt(im.x);
+
       const tailAlpha = Math.max(0, 1 - im.t / TAIL_LIFE);
-      if (tailAlpha > 0) drawTorchTail(ctx, l, im.x, im.hullY, im.r, tailAlpha);
+      if (tailAlpha > 0) drawTorchTail(ctx, l, im.x, surfaceY, im.r, tailAlpha);
 
       const floating = im.t > STICK_LIFE;
-      // Sunk a quarter of its own height (half its radius) into the hull
-      // while stuck. Floating off, it rises clear of the line and bobs, the
-      // way something loose and weightless drifts rather than falls.
+      // Sunk a quarter of its own height (half its radius) into the hull —
+      // exactly the crater's own depth, so it sits in the hole it made
+      // rather than hovering over it — and riding the same surface point,
+      // so the ship's own motion carries it while it is stuck. Floating
+      // off, it rises clear of the line and bobs, the way something loose
+      // and weightless drifts rather than falls.
       const bob = floating ? Math.sin((im.t - STICK_LIFE) * 2.4) * im.r * 0.12 : 0;
-      const y = floating ? im.hullY - im.r * 1.1 + bob : im.hullY - im.r * 0.5;
+      const y = floating ? surfaceY - im.r * 1.1 + bob : surfaceY - im.r * 0.5;
       const alpha = floating ? Math.max(0, 1 - (im.t - STICK_LIFE) / FLOAT_LIFE) : 1;
       if (alpha <= 0) continue;
 
       // While it is still stuck, a low ember glow sells the "melted into the
       // skin" contact rather than a rock merely floating in front of it.
-      if (!floating) halo(ctx, im.x, im.hullY, im.r * 1.1, PALETTE.ember, 0.22);
+      if (!floating) halo(ctx, im.x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
 
       ctx.save();
       ctx.globalAlpha = alpha;

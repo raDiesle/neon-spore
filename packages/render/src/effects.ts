@@ -162,12 +162,19 @@ export class Effects {
   /**
    * The stuck-then-drifting torch, drawn *over* the hull rather than under
    * it like the rest of this class: the rock has to stay in front the whole
-   * time it is stuck, not partly hidden behind the hull's own fill the way
-   * the flat `l.hullY` this effect uses would otherwise clip it against the
-   * hull's real, curved surface.
+   * time it is stuck, not partly hidden behind the hull's own fill. `skinAt`
+   * is the hull's real, breathing surface height at an x — `hull.ts`'s own
+   * `hullSkinY` — so the stuck rock rides the same motion its crater does
+   * instead of hanging at a fixed height above `Layout.hullY`'s flat
+   * approximation of the surface.
    */
-  drawTorchImpact(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
-    this.torchImpactFx.draw(ctx, l, time);
+  drawTorchImpact(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    time: number,
+    skinAt: (x: number) => number,
+  ): void {
+    this.torchImpactFx.draw(ctx, l, time, skinAt);
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
