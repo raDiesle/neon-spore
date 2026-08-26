@@ -1,7 +1,7 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -12,6 +12,14 @@ import { PALETTE, STROKE } from "./palette.js";
  * it apart, plus a faint second ring in the tail's old colour — the one
  * trace it keeps of the flame it used to carry. Craters from shots place the
  * same way a meteor's do.
+ *
+ * It is also the fastest thing in the field (`fallTilesPerBeat` in
+ * sim/types.ts), which on its own would read as a blink rather than a fall —
+ * so it drags a tail the length of however far it has already dropped, from
+ * the top of the field down to where it is now, fading in as it nears the
+ * torch itself. The whole point is legibility at speed: even a glance that
+ * lands mid-fall reads the streak as "this came from up there," not just
+ * "something is here."
  */
 export function drawTorch(
   ctx: CanvasRenderingContext2D,
@@ -25,6 +33,22 @@ export function drawTorch(
   const r = l.tile * 0.8;
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
+
+  const topY = tileCY(l, 0);
+  const tailGrad = ctx.createLinearGradient(x, topY, x, y);
+  tailGrad.addColorStop(0, "rgba(255,122,47,0)");
+  tailGrad.addColorStop(0.75, "rgba(255,122,47,0.1)");
+  tailGrad.addColorStop(1, "rgba(255,122,47,0.3)");
+  ctx.save();
+  ctx.fillStyle = tailGrad;
+  ctx.beginPath();
+  ctx.moveTo(x - r * 0.12, topY);
+  ctx.lineTo(x + r * 0.12, topY);
+  ctx.lineTo(x + r * 0.9, y);
+  ctx.lineTo(x - r * 0.9, y);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
 
   ctx.save();
   ctx.translate(x + wobble, y);

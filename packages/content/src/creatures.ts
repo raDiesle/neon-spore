@@ -104,7 +104,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p1",
     blurb:
-      "Same rock, same colour as a meteor, just twice as wide and three times the fastest tier's speed — the size and the speed are the new part, not the shape. Cannot be shot. Shield across both columns, triggered at the right moment.",
+      "Same rock, same colour as a meteor, just twice as wide and the fastest thing in the field — three beats from top to hull. Cannot be shot. Shield across both columns, triggered at the right moment.",
   },
   queen: {
     kind: "queen",
