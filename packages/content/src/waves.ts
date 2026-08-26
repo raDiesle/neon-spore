@@ -168,4 +168,17 @@ export const WAVES: Wave[] = [
     pods: [{ beat: 2, col: 3, row: 4 }],
     boss: { col: 3, petals: 9 },
   },
+  {
+    name: "meteor testings",
+    sentence: "meteor testings",
+    hint: "meteor testings",
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null },
+      { beat: 0, col: 1, kind: "meteorMedium", color: null },
+      { beat: 0, col: 2, kind: "meteorFast", color: null },
+      { beat: 0, col: 3, kind: "meteorFaster", color: null },
+      { beat: 0, col: 4, kind: "meteorFastest", color: null },
+      { beat: 0, col: 5, kind: "torch", color: null },
+    ],
+  },
 ];
