@@ -32,6 +32,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/systems.md` | you touch control visibility, damage, shots or the grid |
 | `docs/spec/assists.md` | you work on helping a weaker partner |
 | `docs/spec/structure.md` | you touch waves, score, saving or randomness |
+| `docs/spec/briefings.md` | you teach the pair a mechanic or a creature |
 | `docs/spec/wave-design.md` | you author a wave or an act |
 | `docs/spec/graphics.md` | you draw anything |
 | `docs/spec/bestiary.md` | you add or change a creature |

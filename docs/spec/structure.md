@@ -18,7 +18,9 @@ Built: the closed-set arrival, the rest (`waveRestBeats`), and the hull
 regeneration. The eleven waves that exist are in
 `packages/content/src/waves.ts`; they run 10–20 s rather than 30–60, because
 they are teaching waves. Not built: invulnerability after a colour mistake, the
-bounce-off, the previews.
+bounce-off, the previews. The previews are specified in full in
+[briefings.md](briefings.md), including where a pair is told which block, and
+who places it.
 
 ## 7.1 Saving — not built
 

@@ -30,6 +30,7 @@ and record why in `docs/decisions.md`.
 | [systems.md](systems.md) | control visibility, information split, beat, ammunition, weapons, destruction, power-ups, raster behaviour | mixed |
 | [assists.md](assists.md) | the three assist forms and their unlock order | not built |
 | [structure.md](structure.md) | waves, saving, scoring, the randomness rule | partly built |
+| [briefings.md](briefings.md) | what is taught before a wave, and how it is placed | not built |
 | [wave-design.md](wave-design.md) | figures, variation, the two filters, the ten acts | partly built |
 | [graphics.md](graphics.md) | the visual rules and the fiction | mostly built |
 | [bestiary.md](bestiary.md) | creatures, rejected creatures, the ceiling | 3 of 20 built |
