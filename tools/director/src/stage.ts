@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bindKeys, type Keys } from "./keys.js";
-import { authoredColAt } from "./place.js";
+import { bindStageTouch } from "./stage-touch.js";
 import { currentWave, type Store } from "./state.js";
 
 /**
@@ -41,14 +41,16 @@ export function bindStage(
   store: Store,
   cfg: SimConfig,
   onBeat: (beat: number) => void,
-  onPlace: (col: number) => void,
   onFrame: () => void = () => {},
 ): StagePanel {
   const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
   if (!canvas) throw new Error("canvas #stage missing");
 
   const renderer = new Canvas2DRenderer(canvas);
-  const keys: Keys = bindKeys(() => cfg.cols);
+  const keys: Keys = bindKeys(
+    () => cfg.cols,
+    () => world.creatures,
+  );
   let world: World = createWorld(cfg, store.index);
   let role: ViewRole = "test";
   let running = true;
@@ -69,27 +71,17 @@ export function bindStage(
   new ResizeObserver(resize).observe(canvas);
   resize();
 
-  canvas.addEventListener("click", (event) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    const layout = computeLayout(viewport, cfg, role);
-    if (
-      x < layout.gridLeft ||
-      x >= layout.gridLeft + layout.gridWidth ||
-      y < layout.gridTop ||
-      y >= layout.gridTop + layout.gridHeight
-    ) {
-      return;
-    }
-
-    const fieldCol = Math.max(
-      0,
-      Math.min(cfg.cols - 1, Math.floor((x - layout.gridLeft) / layout.tile)),
-    );
-
-    onPlace(authoredColAt(fieldCol, cfg.cols));
+  bindStageTouch({
+    canvas,
+    layout: () => computeLayout(viewport, cfg, role),
+    // Player 1's seat, because a mouse is one hand. G is the other player's —
+    // see `keys.ts`.
+    field: () => ({
+      creatures: world.creatures,
+      beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
+      seat: 1,
+    }),
+    push: keys.push,
   });
 
   const rebuild = (): void => {

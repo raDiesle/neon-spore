@@ -1,4 +1,4 @@
-import type { Command, TimedCommand } from "@neon-spore/sim";
+import { type Command, type Creature, NO_GRIP, type TimedCommand } from "@neon-spore/sim";
 
 /**
  * Both roles on one keyboard, so a wave can be tried the moment it is placed.
@@ -10,9 +10,15 @@ import type { Command, TimedCommand } from "@neon-spore/sim";
  */
 export interface Keys {
   drain(tick: number): TimedCommand[];
+  /**
+   * A command from somewhere other than the keyboard — the stage's own pointer.
+   * Both land in one buffer because the world takes one list per tick, and
+   * because a mouse and a key held at once are two hands, not two games.
+   */
+  push(player: 1 | 2, command: Command): void;
 }
 
-export function bindKeys(cols: () => number): Keys {
+export function bindKeys(cols: () => number, creatures: () => readonly Creature[]): Keys {
   let pending: { player: 1 | 2; command: Command }[] = [];
   let cannon = -1;
   let shield = -1;
@@ -69,11 +75,21 @@ export function bindKeys(cols: () => number): Keys {
       case "KeyE":
         push(2, { kind: "fire", color: "cyan" });
         break;
+      // The grip, as player 2 — the mouse on the stage is player 1's hand, so
+      // this is the only way to see the half that matters: the other player's.
+      case "KeyG": {
+        const target = nearestHull(creatures());
+        if (target !== NO_GRIP) push(2, { kind: "grip", id: target });
+        break;
+      }
       default:
         break;
     }
   });
-  window.addEventListener("keyup", (e) => held.delete(e.code));
+  window.addEventListener("keyup", (e) => {
+    held.delete(e.code);
+    if (e.code === "KeyG") push(2, { kind: "grip", id: NO_GRIP });
+  });
 
   return {
     drain(tick: number): TimedCommand[] {
@@ -81,7 +97,20 @@ export function bindKeys(cols: () => number): Keys {
       pending = [];
       return out;
     },
+    push,
   };
+}
+
+/** The creature closest to the hull. Never the queen, who cannot be gripped. */
+function nearestHull(creatures: readonly Creature[]): number {
+  let best = NO_GRIP;
+  let bestRow = -1;
+  for (const c of creatures) {
+    if (c.kind === "queen" || c.row <= bestRow) continue;
+    best = c.id;
+    bestRow = c.row;
+  }
+  return best;
 }
 
 function isTyping(target: EventTarget | null): boolean {

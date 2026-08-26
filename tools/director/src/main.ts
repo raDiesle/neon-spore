@@ -14,7 +14,6 @@ import {
   CREATURE_BRUSHES,
   currentWave,
   isCreaturePlacementBlocked,
-  paint,
   refuse,
   type Store,
 } from "./state.js";
@@ -53,15 +52,6 @@ const stage = bindStage(
   store,
   cfg,
   (beat) => grid?.mark(beat),
-  (col) => {
-    const wave = currentWave(store);
-    if (!wave) return;
-    const beat = stage.beat();
-    paint(wave, beat, col, palette.current());
-    store.dirty = true;
-    onShape();
-    stage.seek(beat);
-  },
   () => balance?.render(),
 );
 balance = bindBalance(() => stage.world());

@@ -1,13 +1,13 @@
 import {
-  colFromX,
-  creatureAt,
-  hitCircle,
+  type Field,
+  type Hold,
   type Layout,
   type Stage,
-  showsCannon,
-  showsShield,
+  touchDown,
+  touchMove,
+  touchUp,
 } from "@neon-spore/render";
-import { type Command, type Creature, NO_GRIP } from "@neon-spore/sim";
+import type { Command, Creature } from "@neon-spore/sim";
 import { bindKeys } from "./keys.js";
 
 /**
@@ -71,55 +71,23 @@ export function bindControls({
   onPauseToggle,
   onWaveStep,
 }: Bindings): () => void {
-  let cannonPointer: number | null = null;
-  let shieldPointer: number | null = null;
-  /** The one finger that is on the field. One hand per player — see grip.ts. */
-  let gripPointer: number | null = null;
+  /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
+  const holding = new Map<number, Hold>();
+  const field = (): Field => ({
+    creatures: creatures(),
+    beatPhase: beatPhase(),
+    seat: player(),
+  });
 
   const down = (id: number, x: number, y: number): void => {
     if (isOver()) {
       buffer.push(1, { kind: "restart" });
       return;
     }
-    const l = layout();
-    // Above the band is the field, and the field answers both players: a
-    // finger held on something falling drags at it (`grip` in sim/grip.ts).
-    if (y < l.bandTop) {
-      const held = creatureAt(l, creatures(), x, y, beatPhase());
-      if (!held) return;
-      gripPointer = id;
-      buffer.push(player(), { kind: "grip", id: held.id });
-      return;
-    }
-
-    if (showsCannon(l.role)) {
-      if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
-        cannonPointer = id;
-        buffer.push(1, { kind: "cannonCol", col: colFromX(l, x) });
-        return;
-      }
-      if (hitCircle(l.guardButton, x, y)) {
-        buffer.push(1, { kind: "guard" });
-        return;
-      }
-      if (hitCircle(l.intakeButton, x, y)) {
-        buffer.push(1, { kind: "intake" });
-        return;
-      }
-    }
-    if (showsShield(l.role)) {
-      if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
-        shieldPointer = id;
-        buffer.push(2, { kind: "shieldCol", col: colFromX(l, x) });
-        return;
-      }
-      for (const b of l.fireButtons) {
-        if (hitCircle(b.circle, x, y)) {
-          buffer.push(2, { kind: "fire", color: b.color });
-          return;
-        }
-      }
-    }
+    const t = touchDown(layout(), x, y, field());
+    if (!t) return;
+    if (t.hold) holding.set(id, t.hold);
+    buffer.push(t.player, t.command);
   };
 
   /**
@@ -146,19 +114,17 @@ export function bindControls({
     e.preventDefault();
     const p = inStage(e);
     if (!p) return;
-    const l = layout();
-    if (cannonPointer === e.pointerId) buffer.push(1, { kind: "cannonCol", col: colFromX(l, p.x) });
-    if (shieldPointer === e.pointerId) buffer.push(2, { kind: "shieldCol", col: colFromX(l, p.x) });
+    const hold = holding.get(e.pointerId);
+    if (!hold) return;
+    const t = touchMove(layout(), hold, p.x);
+    if (t) buffer.push(t.player, t.command);
   });
   const up = (e: PointerEvent): void => {
-    if (cannonPointer === e.pointerId) cannonPointer = null;
-    if (shieldPointer === e.pointerId) shieldPointer = null;
-    // A grip lasts exactly as long as the finger does. Nothing decays it in
-    // the simulation, so the lift has to be sent.
-    if (gripPointer === e.pointerId) {
-      gripPointer = null;
-      buffer.push(player(), { kind: "grip", id: NO_GRIP });
-    }
+    const hold = holding.get(e.pointerId);
+    if (!hold) return;
+    holding.delete(e.pointerId);
+    const t = touchUp(hold, field());
+    if (t) buffer.push(t.player, t.command);
   };
   canvas.addEventListener("pointerup", up);
   canvas.addEventListener("pointercancel", up);

@@ -94,6 +94,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
+| `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |
 | `packages/render/src/grip.ts` | the grip drawn: beam, ring, and whose hand it is |
 | `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
@@ -108,7 +109,7 @@ history if the wording of a rejected idea is ever needed.
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop, wave progression |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
-| `apps/game/src/input.ts` | commands from touch |
+| `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `render/touch.ts` |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
@@ -120,6 +121,7 @@ history if the wording of a rejected idea is ever needed.
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
 | `tools/director/src/grid.ts` | the beat grid a wave is placed on |
 | `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
+| `tools/director/src/stage-touch.ts` | the stage played rather than edited — the game's own controls |
 | `tools/director/src/palette.ts` | the creature palette — the brushes are the bestiary |
 | `tools/director/src/balance.ts` | the live balance sheet, as numbers |
 | `tools/director/src/ship.ts` | what the ship can do, read off SimConfig |

@@ -154,6 +154,12 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    call: "touchDown",
+    owner: "packages/render/src/touch.ts",
+    pattern: /cannonStrip\s*\.\s*height\s*\*\s*0\.75/,
+    strip: false,
+  },
+  {
     call: "gripsCreature",
     owner: "packages/sim/src/grip.ts",
     pattern: /world\s*\.\s*gripP[12]\s*===/,
