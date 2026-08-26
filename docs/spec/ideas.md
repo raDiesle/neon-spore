@@ -23,6 +23,28 @@
 - **Codebook table**
 - **Inverted instructions** — the Spaceteam principle
 - **The Needle** — a geometric corridor
+- **Prism** (working name only — "Mirror" is taken by [THE MIRROR](bosses.md),
+  and the name **The Mirror** was already examined and rejected as a creature
+  for an unrelated reason, [bestiary](bestiary.md#103-examined-and-rejected))
+  — falls like a creature but is never destroyed by a hit: a shot that lands
+  on it re-launches sideways, left or right, depending on which way the object
+  is angled at that moment. Aim becomes two steps — where the shot goes in is
+  not where it does damage — and it could be the answer for a creature sitting
+  in a column with no clean line. Unworked out: what sets the angle (fixed at
+  spawn, or does it flip on a timer or by column — the beat is right there);
+  whether the redirected bolt keeps the shooter's colour; whether it can be
+  wounded at all or is a pure router
+- **Wave gate** — a creature that, unlike every other one, is not removed by
+  reaching the hull: reaching it does no damage and does not count toward
+  clearing the wave, and it holds there or loops back to the top for another
+  pass. Only a hit removes it. It is the pod turned inside out — the pod is
+  named as never blocking a wave's end ([systems](systems.md) 5.7); this one
+  would exist for no other reason than to block it, forcing a queue to be
+  beaten rather than merely outlasted. Unworked out: whether an arrival that
+  loops back reads as different enough from an ordinary miss that the pair
+  learns "that one comes back" rather than assuming the game glitched
+  (`resolveHull` treats every arrival alike today); whether it loops forever
+  or a bounded number of times, so a bad wave cannot soft-lock a run
 
 ## Deliberately deferred
 

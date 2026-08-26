@@ -163,7 +163,9 @@ first time they see it.
 - **The Mirror**, **The Translator** — they rest on the same object being drawn
   differently on the two devices without the world explaining it. Pure UI
   confusion; and with separate devices there is no shared screen on which
-  "left" could be in dispute
+  "left" could be in dispute. (A later, unrelated idea reused the name for a
+  shot-deflecting object — see **Prism** in [ideas](ideas.md), which needs a
+  different final name since "Mirror" is also THE MIRROR boss)
 - **The Fogger** — duplicates the veil
 - **The Resonator** — every hit changes its neighbours; collides with the fixed
   choreography, because after two shots no announcement holds any more
