@@ -147,9 +147,13 @@ function allSourceFiles(): string[] {
   for (const pattern of patterns) {
     const glob = new Glob(pattern);
     for (const f of glob.scanSync(ROOT)) {
-      const path = join(ROOT, f);
-      if (!path.includes("node_modules") && !path.includes("dist") && !path.includes(".claude")) {
-        all.push(path);
+      // Tested against the path *inside* the repository, never the absolute
+      // one: a git worktree lives under `.claude/worktrees/`, so an absolute
+      // test threw away every file in the tree and the whole guard passed
+      // vacuously wherever it mattered most — in the copy work is done in.
+      const rel = f.replaceAll("\\", "/");
+      if (!rel.includes("node_modules") && !rel.includes("dist") && !rel.includes(".claude")) {
+        all.push(join(ROOT, f));
       }
     }
   }
