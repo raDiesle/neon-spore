@@ -140,6 +140,11 @@ on startup. So a session in a worktree reads the port out of the server's own
 log rather than assuming it, and points the browser there. The director does
 the same, from 4174.
 
+The game opens straight onto the field. The **main menu** is behind `?menu` —
+`http://localhost:<port>/?menu=1` — so that a hundred openings a day to look at
+one wave are not a hundred taps through a title screen. The director links to
+it; see `tools/director/README.md`.
+
 `bun run preview:once` takes an OS-assigned free port instead of 4173 — for a
 throwaway check, or a second worktree previewing beside this one. Several can
 run at the same time without arranging anything.

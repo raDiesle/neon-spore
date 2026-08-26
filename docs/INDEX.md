@@ -87,11 +87,14 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop, wave progression |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
+| `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
 | `apps/game/src/input.ts` | commands from touch and keyboard |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
 | `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
+| `apps/game/src/menu.ts` | the main menu, and the rule that keeps it out of a tester's way |
+| `apps/game/src/menu-view.ts` | its three pages: the entries, the authored waves, the keys |
 | `apps/server/src/index.ts` | the worker: `/room/:code` and `/net/health` |
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
 | `tools/director/src/grid.ts` | the beat grid a wave is placed on |

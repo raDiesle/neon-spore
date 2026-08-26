@@ -16,6 +16,12 @@ export interface JoinBindings {
 export interface JoinScreen {
   /** Called whenever the link changes; repaints the chip and the overlay. */
   update: (status: LinkStatus) => void;
+  /**
+   * Show or hide the room screen. The chip is how a player reaches it; the
+   * main menu is a second door onto the same screen, so it is opened by name
+   * rather than by clicking the chip on the player's behalf.
+   */
+  open: (isOpen: boolean) => void;
 }
 
 /**
@@ -99,7 +105,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   };
 
   update(last);
-  return { update };
+  return { update, open };
 }
 
 function chipText(status: LinkStatus): string {

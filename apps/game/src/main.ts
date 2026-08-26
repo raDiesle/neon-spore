@@ -1,11 +1,5 @@
 import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
-import {
-  Canvas2DRenderer,
-  computeLayout,
-  computeStage,
-  type Layout,
-  type Stage,
-} from "@neon-spore/render";
+import { Canvas2DRenderer } from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -20,8 +14,10 @@ import { bindControls, InputBuffer } from "./input.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
+import { bindMainMenu, menuRequested } from "./menu.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
+import { bindViewport } from "./viewport.js";
 
 const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");
@@ -34,31 +30,10 @@ const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
 
-let viewport = { width: 1, height: 1, dpr: 1 };
-const resize = (): void => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  // A zero-sized viewport happens for real: a hidden tab, and on a phone the
-  // moment the address bar animates. Sizing the canvas to it once would leave
-  // it at zero for good, because no further resize event need follow.
-  if (width < 1 || height < 1) return;
-  viewport = { width, height, dpr: Math.min(window.devicePixelRatio || 1, 2) };
-  renderer.resize(viewport);
-};
-
-/**
- * Input hit-tests against the same layout the renderer draws, so it is derived
- * the same way: from the stage rather than the window, and for whichever role
- * the view switch is showing. Cheap enough to compute per event.
- */
-const stage = (): Stage => computeStage(viewport, cfg, view.role());
-const layout = (): Layout => {
-  const s = stage();
-  return computeLayout({ width: s.width, height: s.height, dpr: viewport.dpr }, cfg, view.role());
-};
-window.addEventListener("resize", resize);
-new ResizeObserver(resize).observe(document.documentElement);
-resize();
+const view = bindViewSwitch(() => {
+  // Nothing to rebuild: the layout is derived per frame and per event.
+});
+const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
 
 /** Wave name and hint, shown for a moment at the start of a wave. */
 const BANNER_SECONDS = 2.6;
@@ -109,10 +84,6 @@ const setRunning = (next: boolean): void => {
   running = next;
 };
 
-const view = bindViewSwitch(() => {
-  // Nothing to rebuild: the layout is derived per frame and per event.
-});
-
 const tickKeys = bindControls({
   canvas,
   buffer,
@@ -123,7 +94,7 @@ const tickKeys = bindControls({
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
 
-bindTestControls({
+const testPanel = bindTestControls({
   world,
   jumpToWave,
   isRunning: () => running,
@@ -152,6 +123,21 @@ joinScreen = bindJoinScreen({
   join: (room) => link.join(room),
   leave: () => link.leave(),
 });
+
+/**
+ * The main menu, and only when it was asked for: a build that was opened to
+ * look at a wave goes straight to the field. See `menu.ts`.
+ */
+if (menuRequested(location.href)) {
+  bindMainMenu({
+    jumpToWave,
+    setRunning,
+    seat: () => view.role(),
+    setSeat: (role) => view.set(role),
+    openRoom: () => joinScreen?.open(true),
+    openTuning: () => testPanel.open(),
+  });
+}
 
 /**
  * Beat zero. Both devices land here within a few milliseconds of each other and

@@ -34,6 +34,11 @@
       button:hover { color: var(--ink); border-color: #3b3163; }
       button.on { background: #2a1f4e; color: var(--gold); border-color: var(--gold); }
       button.primary { color: var(--gold); border-color: var(--gold); }
+      a.linkbtn {
+        font: 11px "Courier New", monospace; color: var(--cyan); padding: 4px 9px;
+        border: 1px solid var(--line); border-radius: 6px; text-decoration: none; letter-spacing: 1px;
+      }
+      a.linkbtn:hover { color: var(--ink); border-color: var(--cyan); }
       input, textarea {
         font: 11px "Courier New", monospace; color: var(--ink); background: #0a0719;
         border: 1px solid var(--line); border-radius: 5px; padding: 4px 6px; width: 100%;
@@ -204,6 +209,7 @@
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
       <span class="spacer"></span>
+      <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0">A/D cannon · J/L shield · I guard · S maw · W/E fire</span>
     </header>
 

@@ -1,0 +1,172 @@
+/* The main menu.
+ *
+ * It draws over the running field rather than replacing it: the world keeps
+ * ticking behind the scrim, so the backdrop is the game itself and not a
+ * picture of one. Off unless the URL asks for it — see menu.ts.
+ *
+ * A separate file rather than more of index.html's <style>: the menu is the
+ * largest single piece of chrome in the app and index.html was already close
+ * to the size a file in this repository is allowed to reach. */
+
+#menu { position: fixed; inset: 0; z-index: 20; display: none; }
+#menu.on { display: block; }
+
+/* The scrim and the scanlines, under everything and answering no touch. */
+#menu .sky {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(130% 70% at 50% -12%, rgba(47, 224, 240, 0.16), transparent 62%),
+    radial-gradient(110% 60% at 50% 112%, rgba(255, 194, 75, 0.13), transparent 58%),
+    linear-gradient(180deg, rgba(7, 6, 15, 0.8), rgba(7, 6, 15, 0.95) 46%, rgba(7, 6, 15, 0.99));
+  backdrop-filter: blur(3px) saturate(1.35);
+}
+#menu .sky::after {
+  content: ""; position: absolute; inset: -4px;
+  background: repeating-linear-gradient(180deg, rgba(47, 224, 240, 0.055) 0 1px, transparent 1px 3px);
+  animation: menu-drift 6s linear infinite;
+}
+@keyframes menu-drift { from { transform: translateY(0); } to { transform: translateY(3px); } }
+
+#menu .scroll {
+  position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain;
+  padding: 30px 18px 36px;
+}
+#menu .inner { max-width: 390px; margin: 0 auto; }
+
+#menu .spore {
+  display: block; width: 78px; height: 78px; margin: 0 auto 12px;
+  filter: drop-shadow(0 0 12px rgba(47, 224, 240, 0.5));
+}
+
+#menu h1 {
+  position: relative; margin: 0; text-align: center; font-weight: 600;
+  font-size: clamp(26px, 11vw, 44px); letter-spacing: 0.2em; text-indent: 0.2em;
+  color: #f2e9dc;
+  text-shadow: 0 0 18px rgba(255, 194, 75, 0.45), 0 0 46px rgba(47, 224, 240, 0.3);
+}
+/* The wordmark split into its two ammunition colours, drifting apart for a
+   frame now and then. The game is red and cyan; so is its name. */
+#menu h1::before, #menu h1::after {
+  content: attr(data-text); position: absolute; inset: 0;
+  pointer-events: none; opacity: 0.5; mix-blend-mode: screen; text-shadow: none;
+}
+#menu h1::before { color: #ff5470; animation: menu-split-a 4.1s ease-in-out infinite; }
+#menu h1::after { color: #2fe0f0; animation: menu-split-b 4.1s ease-in-out infinite; }
+@keyframes menu-split-a {
+  0%, 86%, 100% { transform: translate(0, 0); }
+  89% { transform: translate(-3px, 1px); }
+  93% { transform: translate(2px, -1px); }
+}
+@keyframes menu-split-b {
+  0%, 86%, 100% { transform: translate(0, 0); }
+  89% { transform: translate(3px, -1px); }
+  93% { transform: translate(-2px, 1px); }
+}
+
+#menu .tag {
+  margin: 10px 0 24px; text-align: center;
+  font-size: 10px; letter-spacing: 0.22em; color: #6f639f;
+}
+
+/* One page at a time: the entries, the wave list, or the keys. */
+#menu .page { display: none; }
+#menu .page.on { display: block; animation: menu-fade 0.26s ease backwards; }
+@keyframes menu-fade {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: none; }
+}
+
+#menu h2 {
+  margin: 0 0 12px; font-size: 10px; letter-spacing: 0.3em; color: #2fe0f0; font-weight: 600;
+}
+
+/* `backwards`, never `both`: a filled-forwards animation keeps its own
+   `transform` on the element for good, and the hover nudge below would then
+   never move anything. */
+#menu .entry {
+  display: grid; grid-template-columns: 16px 1fr; gap: 0 10px; width: 100%;
+  margin: 0 0 8px; padding: 12px 13px; text-align: left; cursor: pointer;
+  border: 1px solid #2a2250; border-radius: 11px;
+  background: linear-gradient(100deg, rgba(42, 31, 78, 0.5), rgba(10, 7, 26, 0) 68%);
+  color: #ffc24b; font: 13px/1 "Courier New", monospace; letter-spacing: 0.2em;
+  animation: menu-rise 0.42s cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
+  transition: border-color 0.16s, color 0.16s, transform 0.16s, background 0.16s;
+}
+#menu .entry .mark { color: #4b4177; transition: color 0.16s, transform 0.16s; }
+#menu .entry .desc {
+  grid-column: 2; margin-top: 7px;
+  font-size: 10px; letter-spacing: 0.05em; line-height: 1.55; color: #9c8fd6;
+}
+#menu .entry:hover, #menu .entry:focus-visible {
+  outline: none; transform: translateX(4px); border-color: #2fe0f0; color: #2fe0f0;
+  background: linear-gradient(100deg, rgba(47, 224, 240, 0.15), rgba(10, 7, 26, 0) 70%);
+}
+#menu .entry:hover .mark, #menu .entry:focus-visible .mark { color: #2fe0f0; transform: translateX(2px); }
+@keyframes menu-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+#menu .seat { display: flex; align-items: center; gap: 6px; margin: 18px 0 0; }
+#menu .seat .cap { font-size: 9px; letter-spacing: 0.22em; color: #6f639f; }
+#menu .seat button {
+  flex: 1; padding: 9px 0; cursor: pointer;
+  border: 1px solid #2a2250; border-radius: 8px; background: transparent;
+  color: #6f639f; font: 11px "Courier New", monospace; letter-spacing: 0.18em;
+}
+#menu .seat button.on { border-color: #ffc24b; color: #ffc24b; background: rgba(42, 31, 78, 0.6); }
+
+#menu .wave {
+  display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; width: 100%;
+  margin: 0 0 6px; padding: 10px 11px; text-align: left; cursor: pointer;
+  border: 1px solid #1f1943; border-radius: 9px; background: rgba(10, 7, 26, 0.55);
+  color: #f2e9dc; font: 12px/1 "Courier New", monospace; letter-spacing: 0.14em;
+  transition: border-color 0.16s, color 0.16s;
+}
+#menu .wave .n { color: #4b4177; font-size: 11px; }
+#menu .wave .boss { color: #ffc24b; }
+#menu .wave .s {
+  grid-column: 2; margin-top: 6px;
+  font-size: 9px; letter-spacing: 0.04em; line-height: 1.55; color: #6f639f;
+}
+#menu .wave:hover, #menu .wave:focus-visible { outline: none; border-color: #2fe0f0; color: #2fe0f0; }
+
+#menu .keys { width: 100%; border-collapse: collapse; font-size: 10px; }
+#menu .keys td { padding: 7px 6px; border-bottom: 1px solid #16112f; color: #9c8fd6; letter-spacing: 0.04em; }
+#menu .keys td:first-child { width: 78px; color: #ffc24b; letter-spacing: 0.12em; white-space: nowrap; }
+
+#menu .back {
+  margin: 0 0 14px; padding: 7px 13px; cursor: pointer;
+  border: 1px solid #2a2250; border-radius: 8px; background: transparent;
+  color: #9c8fd6; font: 11px "Courier New", monospace; letter-spacing: 0.2em;
+}
+#menu .back:hover { color: #2fe0f0; border-color: #2fe0f0; }
+
+#menu .foot {
+  margin: 24px 0 0; text-align: center;
+  font-size: 9px; line-height: 1.8; letter-spacing: 0.06em; color: #4b4177;
+}
+
+/* The way back in, once the menu has been closed. It belongs to nobody's
+   device — but neither does the whole menu in this build, so unlike the test
+   rig it stays put in every view. */
+#menuChip {
+  position: fixed; top: 8px; right: 8px; z-index: 7; display: none;
+  width: 32px; height: 32px; border-radius: 9px;
+  border: 1px solid #3b3163; background: rgba(20, 14, 45, 0.75);
+  color: #ffc24b; font: 14px/1 "Courier New", monospace; cursor: pointer;
+}
+#menuChip.on { display: block; }
+/* It takes the gear's corner, so the test rig steps one place along. */
+body.has-menu #gear { right: 46px; }
+body.has-menu #pauseBtn { right: 84px; }
+
+/* The entrances hide their own element until they run (`backwards`), so a
+   browser that has been told not to animate must be given the finished state
+   rather than nothing at all. */
+@media (prefers-reduced-motion: reduce) {
+  #menu .sky::after, #menu h1::before, #menu h1::after,
+  #menu .page.on, #menu .entry { animation: none; }
+  #menu .entry { transition: none; }
+}

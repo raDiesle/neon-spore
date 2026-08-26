@@ -10,6 +10,11 @@ import type { SimConfig, World } from "@neon-spore/sim";
  * The guard window in particular is still a guess (docs/spec/open-questions.md): it decides
  * whether the shared defence feels precise or mean, and only playing tells you.
  */
+/** The handle the main menu opens the panel with. */
+export interface TestPanel {
+  open: () => void;
+}
+
 export interface TestBindings {
   world: World;
   jumpToWave: (wave: number) => void;
@@ -43,7 +48,12 @@ const SLIDERS: SliderSpec[] = [
   { key: "bandPct", label: "Control band", min: 24, max: 44, s: 1, unit: " %" },
 ];
 
-export function bindTestControls({ world, jumpToWave, isRunning, setRunning }: TestBindings): void {
+export function bindTestControls({
+  world,
+  jumpToWave,
+  isRunning,
+  setRunning,
+}: TestBindings): TestPanel {
   const el = (id: string): HTMLElement | null => document.getElementById(id);
   const panel = el("panel");
   const pauseBtn = el("pauseBtn");
@@ -71,10 +81,11 @@ export function bindTestControls({ world, jumpToWave, isRunning, setRunning }: T
     apply();
   });
 
-  el("gear")?.addEventListener("click", () => {
+  const openPanel = (): void => {
     if (panel) panel.style.display = "block";
     apply();
-  });
+  };
+  el("gear")?.addEventListener("click", openPanel);
   el("close")?.addEventListener("click", () => {
     if (panel) panel.style.display = "none";
     pausedByHand = false;
@@ -117,6 +128,7 @@ export function bindTestControls({ world, jumpToWave, isRunning, setRunning }: T
   refreshWave();
   apply();
   window.setInterval(refreshWave, 250);
+  return { open: openPanel };
 }
 
 function sliderRow(world: World, spec: SliderSpec): HTMLElement {

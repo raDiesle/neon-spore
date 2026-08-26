@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { parseConcepts } from "./src/concepts.js";
@@ -128,6 +129,19 @@ const server = Bun.serve({
   development: true,
   routes: {
     "/": indexHtml,
+
+    /**
+     * The game itself, from this tree's source, so the main menu has a door
+     * that does not depend on a preview server being up. It is the only door:
+     * the menu stays out of the way of a plain game URL, and this link carries
+     * `?menu` (see `apps/game/src/menu.ts`).
+     *
+     * Never the bundle a *check* is read off. This is a hot bundle of the
+     * working tree, like `bun run dev:game`; `bun run preview` on its own port
+     * is what an agent verifies against, and `/__preview` is still the only
+     * thing that can say which server answered.
+     */
+    "/game": gameHtml,
 
     "/__director": {
       GET: withIdle(() => Response.json({ app: marker, pid: process.pid, port, tree: treeId })),
