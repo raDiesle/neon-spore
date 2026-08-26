@@ -1,4 +1,4 @@
-import { initialDropSide, stepBoss } from "./boss.js";
+import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { clampSpanCol, fallTilesPerBeat } from "./types.js";
@@ -109,7 +109,9 @@ export function startWave(
     world.creatures.push({
       id,
       kind: "queen",
-      col: boss.col,
+      // Wherever a wave put her, she stands where both her flank torches are
+      // on the field — see `clampQueenCol`.
+      col: clampQueenCol(world.cfg, boss.col),
       row: world.cfg.queenRow,
       fromRow: world.cfg.queenRow,
       color: null,
@@ -128,6 +130,8 @@ export function startWave(
       closeBeat: -1,
       startPetals: boss.petals,
       dropSide: initialDropSide(world),
+      releaseBeat: -1,
+      releaseSide: 0,
       scratch: [],
     };
   }

@@ -162,8 +162,8 @@ export const WAVES: Wave[] = [
   },
   {
     name: "BULB QUEEN",
-    sentence: "The one where she opens for two beats, and a rock falls fast on a clock of its own.",
-    hint: "Only the mark in her middle takes a shot. Say the column and the colour — one of you has each half. Every eight beats a rock grows out of one side of her and falls fast — whoever calls colour, watch which side glows before it drops.",
+    sentence: "The one where she opens for two beats, and drops a torch on a clock of its own.",
+    hint: "Only the mark under her middle takes a shot. Say the column and the colour — one of you has each half. Every eight beats one of the torches on her wings breaks off and falls straight down from where it sat — whoever calls colour, watch which one glows, and take those two columns before it goes.",
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4 }],
     boss: { col: 3, petals: 9 },

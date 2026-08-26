@@ -1,6 +1,6 @@
 import { hullRow, type SimConfig } from "./config.js";
 import { nextInt } from "./rng.js";
-import type { BossState, Creature } from "./types.js";
+import { type BossState, type Creature, colSpan } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -38,6 +38,40 @@ const PHASES: readonly Phase[] = [
   { above: 4, cycle: 5, tell: 2, openBeats: 2 },
   { above: 0, cycle: 4, tell: 1, openBeats: 2 },
 ];
+
+/**
+ * How far out from her own column, in tiles, the centre of a flank torch
+ * sits. Half a tile off a whole number because a torch is two tiles wide and
+ * therefore has no whole column at its centre (`spanCenterCol`).
+ *
+ * It is also what keeps her honest: a torch this far out is clear of every
+ * part of her that render/ draws, so the rock that breaks off has nothing of
+ * hers underneath it and falls straight down from the socket it sat in. The
+ * walk bound, the spawn column and the socket render/ draws the egg at all
+ * come from this one number.
+ */
+export const QUEEN_FLANK_TILES = 2.5;
+
+/** The leftmost column of the torch riding one of her sides. */
+export function queenTorchCol(queenCol: number, side: -1 | 1): number {
+  return queenCol + side * QUEEN_FLANK_TILES - (colSpan("torch") - 1) / 2;
+}
+
+/** Columns from her own out to the outer edge of a flank torch. */
+export function queenHalfCols(): number {
+  return queenTorchCol(0, 1) + colSpan("torch") - 1;
+}
+
+/**
+ * Her column, held where her whole span — both flank torches included — is
+ * still on the field. She is wider than she used to be, and a torch clamped
+ * back inboard to fit would no longer be under the socket it left, which is
+ * the one thing the drop is supposed to promise.
+ */
+export function clampQueenCol(cfg: SimConfig, col: number): number {
+  const half = queenHalfCols();
+  return Math.max(half, Math.min(cfg.cols - 1 - half, col));
+}
 
 /**
  * Beats between one scripted rock and the next. Fixed for the whole fight —
@@ -147,12 +181,17 @@ function announce(world: World, boss: BossState, queen: Creature, plan: Phase): 
   boss.scratch[BLOOMS]! += 1;
 }
 
-/** One column a beat, turning at the edges, and never while a bloom is live. */
+/**
+ * One column a beat, turning at the edges, and never while a bloom is live.
+ * The edge is `clampQueenCol`'s, not the field's: she turns where her
+ * outermost torch would leave the grid, so both eggs stay over columns the
+ * pair can name and drop into.
+ */
 function walk(world: World, boss: BossState, queen: Creature): void {
   if (boss.openBeat !== -1) return;
   const turned = queen.col + boss.scratch[WALK]!;
-  if (turned < 0 || turned > world.cfg.cols - 1) boss.scratch[WALK] = -boss.scratch[WALK]!;
-  queen.col = queen.col + boss.scratch[WALK]!;
+  if (turned !== clampQueenCol(world.cfg, turned)) boss.scratch[WALK] = -boss.scratch[WALK]!;
+  queen.col = clampQueenCol(world.cfg, queen.col + boss.scratch[WALK]!);
 }
 
 /** No bloom announced, and none open. */
@@ -172,18 +211,30 @@ function forget(boss: BossState): void {
  */
 function spitCycle(world: World, boss: BossState, queen: Creature): void {
   if (world.waveBeat % ROCK_CYCLE !== 0) return;
-  const landCol = Math.max(0, Math.min(world.cfg.cols - 1, queen.col + boss.dropSide));
-  spit(world, queen, landCol);
+  const side: -1 | 1 = boss.dropSide === -1 ? -1 : 1;
+  spit(world, queen, queenTorchCol(queen.col, side));
+  boss.releaseBeat = world.beat;
+  boss.releaseSide = side;
   boss.dropSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
-/** A rock, out of her body and one row below her — always the fastest kind. */
+/**
+ * The torch on that flank breaks off. It is the one that was already riding
+ * her there, not a second rock grown beside it: it is pushed in the socket's
+ * own column at her own row and stands still for the beat, which is the beat
+ * render/ hands the picture over on — the egg stops being drawn and the
+ * creature is drawn in its place, same rock, same size, same facing.
+ *
+ * From the next beat it falls at the torch's own speed, the only speed it
+ * ever has, and straight down: nothing of her reaches below a torch this far
+ * out (`QUEEN_FLANK_TILES`), so there is nothing to slide clear of first.
+ */
 function spit(world: World, queen: Creature, col: number): void {
   world.creatures.push({
     id: world.nextId++,
-    kind: "meteorFastest",
+    kind: "torch",
     col,
-    row: queen.row + 1,
+    row: queen.row,
     fromRow: queen.row,
     color: null,
     holes: 0,

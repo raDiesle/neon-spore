@@ -141,11 +141,14 @@ export function drawTorch(
   x: number,
   y: number,
   time: number,
-  _beatPhase: number,
 ): void {
   const r = torchRadius(l);
 
-  drawTorchTail(ctx, l, x, y, r);
+  // No travel this beat, no trail: the beat a torch breaks off the queen it
+  // stands still in the socket it grew in (`spit`, sim/boss.ts), and a streak
+  // running off the top of the field behind it would read as a fall that has
+  // not started yet.
+  if (c.row !== c.fromRow) drawTorchTail(ctx, l, x, y, r);
 
   ctx.save();
   ctx.translate(x, y);

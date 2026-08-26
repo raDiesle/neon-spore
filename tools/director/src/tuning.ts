@@ -43,8 +43,8 @@ const SLIDERS: SliderSpec[] = [
   },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, step: 1, unit: " beats" },
   {
-    key: "meteorGrowShare",
-    label: "Rock grow time",
+    key: "queenEggGrowShare",
+    label: "Egg regrow time",
     min: 0.05,
     max: 1,
     step: 0.05,

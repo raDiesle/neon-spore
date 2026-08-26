@@ -1,4 +1,5 @@
 export { resetRun, startWave } from "./beat.js";
+export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { hashWorld } from "./hash.js";
 export { type Replay, record, runReplay } from "./replay.js";

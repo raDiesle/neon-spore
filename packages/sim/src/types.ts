@@ -164,6 +164,10 @@ export interface BossState {
   startPetals: number;
   /** The side her next scripted rock will emerge from: -1 left, 1 right, 0 none pending. */
   dropSide: -1 | 0 | 1;
+  /** The beat her last torch broke off her, -1 before the first one has. */
+  releaseBeat: number;
+  /** Which side it broke off: -1 left, 1 right, 0 none yet. */
+  releaseSide: -1 | 0 | 1;
   /** Integers owned by `boss.ts`. Nothing outside it reads them. */
   scratch: number[];
 }

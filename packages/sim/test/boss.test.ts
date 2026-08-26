@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 import { startWave } from "../src/beat.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import { step, ticksPerBeat } from "../src/index.js";
+import { colSpan, fallTilesPerBeat, queenTorchCol, step, ticksPerBeat } from "../src/index.js";
 import type { Color, Creature, TimedCommand } from "../src/types.js";
 import { type BossEntry, createWorld, type SimEvent, type World } from "../src/world.js";
 
@@ -85,7 +85,7 @@ test("her first bloom is announced on beat 1, opens on 3 and closes on 5, and a 
   expect(queenOf(world).color).toBeNull();
   // A missed bloom is not a punishment here — her rocks are their own thing,
   // on `spitCycle`'s clock, and none of that clock has fired yet.
-  expect(world.creatures.some((c) => c.kind === "meteorFastest")).toBe(false);
+  expect(world.creatures.some((c) => c.kind === "torch")).toBe(false);
 });
 
 test("left alone through a cycle she has walked", () => {
@@ -119,7 +119,7 @@ test("a matching shot while she is open takes exactly one petal and no rock foll
 test("she is the only thing on the field — no runt ever joins her", () => {
   const world = install();
   runTo(world, beatTick(40));
-  expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "meteorFastest")).toBe(true);
+  expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "torch")).toBe(true);
 });
 
 test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of health", () => {
@@ -127,20 +127,50 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
   runTo(world, beatTick(8));
 
   const queen = queenOf(world);
-  const rocks = world.creatures.filter((c) => c.kind === "meteorFastest");
+  const rocks = world.creatures.filter((c) => c.kind === "torch");
   expect(rocks.length).toBe(1);
-  // A column to one side of her, not the same column — that is the side shift.
-  expect(Math.abs(rocks[0]!.col - queen.col)).toBe(1);
-  expect(rocks[0]!.row).toBe(queen.row + 1);
+  // The socket it grew in, on the side that was announced — not a column
+  // beside her, and not one the field's edge pulled back inboard.
+  const boss = world.boss!;
+  expect(boss.releaseBeat).toBe(world.beat);
+  expect(rocks[0]!.col).toBe(queenTorchCol(queen.col, boss.releaseSide === -1 ? -1 : 1));
+  // Standing still in the socket for the beat it breaks off, so render/ can
+  // hand the picture over from the egg to the creature without either moving.
+  expect(rocks[0]!.row).toBe(queen.row);
   expect(rocks[0]!.fromRow).toBe(queen.row);
 
   // The cycle repeats untouched by anything that happened in between — the
-  // first rock has long since fallen (it is her fastest kind), and a fresh
-  // one lands exactly 8 beats after it.
+  // first rock has long since fallen (it is the fastest kind there is), and
+  // a fresh one lands exactly 8 beats after it.
   runTo(world, beatTick(16));
-  const second = world.creatures.filter((c) => c.kind === "meteorFastest");
+  const second = world.creatures.filter((c) => c.kind === "torch");
   expect(second.length).toBe(1);
   expect(second[0]!.fromRow).toBe(queenOf(world).row);
+});
+
+test("what she releases falls at the torch's own speed, from the socket down", () => {
+  const world = install();
+  runTo(world, beatTick(8));
+  const queen = queenOf(world);
+  const rock = world.creatures.find((c) => c.kind === "torch")!;
+  const col = rock.col;
+
+  // One beat on, it has left her by a whole torch fall and not a tile less —
+  // and it has not changed columns, because nothing of hers is under it.
+  runTo(world, beatTick(9));
+  expect(rock.fromRow).toBe(queen.row);
+  expect(rock.row).toBe(queen.row + fallTilesPerBeat("torch"));
+  expect(rock.col).toBe(col);
+});
+
+test("both her torches stay on the field, wherever she has walked to", () => {
+  const world = install();
+  for (let beat = 1; beat <= 60; beat++) {
+    runTo(world, beatTick(beat));
+    const queen = queenOf(world);
+    expect(queenTorchCol(queen.col, -1)).toBeGreaterThanOrEqual(0);
+    expect(queenTorchCol(queen.col, 1) + colSpan("torch")).toBeLessThanOrEqual(CFG.cols);
+  }
 });
 
 test("a hit does not leave her frozen", () => {

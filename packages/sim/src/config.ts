@@ -108,12 +108,13 @@ export interface SimConfig {
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
   /**
-   * Share of a beat a rock the queen spits takes to grow from a bulge on her
-   * body to a fully formed meteor — how long it looks like it is "starting to
-   * fall" before it reads as fallen. 1 means the whole beat, 0 means instant.
-   * Read by render/.
+   * Share of a beat the queen takes to grow a torch back into the socket the
+   * last one broke off from. 1 means the whole beat, 0 means it is simply
+   * there again. The rock that left is never redrawn here — it is the
+   * creature now (`spit` in boss.ts); this is only how fast the next egg
+   * comes in behind it. Read by render/.
    */
-  meteorGrowShare: number;
+  queenEggGrowShare: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -151,7 +152,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   bandPct: 37,
   bandSoloPct: 27,
   radarHeightPx: 34,
-  meteorGrowShare: 0.3,
+  queenEggGrowShare: 0.5,
 };
 
 /** Ticks per beat. Throws unless it is a whole number — see docs/architecture.md. */

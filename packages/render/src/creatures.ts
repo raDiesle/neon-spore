@@ -3,11 +3,7 @@ import { type Creature, isMeteorKind, spanCenterCol } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { isFreshQueenSpawn, type QueenOrigin } from "./queen-spawn.js";
 import { drawTorch, rockRadius } from "./torch.js";
-
-/** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
-const METEOR_GROW_FLOOR = 0.02;
 
 /**
  * Creature silhouettes come from `legacy/style-guide.html` by way of
@@ -26,8 +22,6 @@ export function drawCreatures(
   beatPhase: number,
   time: number,
   blocked: ReadonlyMap<number, number>,
-  queenOrigin: QueenOrigin | null = null,
-  meteorGrowShare = 0.3,
 ): void {
   for (const c of creatures) {
     // The queen is drawn by her own module, because she is the only creature
@@ -40,9 +34,8 @@ export function drawCreatures(
     // sim/types.ts) — every kind is drawn at its visual centre.
     const x = tileCX(l, spanCenterCol(c.kind, c.col));
     const y = tileCY(l, row);
-    if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time, beatPhase);
-    else if (isMeteorKind(c.kind))
-      drawMeteor(ctx, l, c, x, y, time, beatPhase, queenOrigin, meteorGrowShare);
+    if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
+    else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
     else drawLiving(ctx, l, c, x, y, time, blocked.get(c.id) ?? 0);
   }
 }
@@ -170,16 +163,8 @@ function drawMeteor(
   x: number,
   y: number,
   time: number,
-  beatPhase: number,
-  queenOrigin: QueenOrigin | null,
-  growShare: number,
 ): void {
-  // Fresh out of the queen's body: it grows from nothing to full size over the
-  // first slice of the beat, in step with the bulge it broke off from.
-  const growth = isFreshQueenSpawn(c, queenOrigin)
-    ? Math.max(METEOR_GROW_FLOOR, Math.min(1, beatPhase / Math.max(1e-3, growShare)))
-    : 1;
-  const r = rockRadius(l, c.kind) * growth;
+  const r = rockRadius(l, c.kind);
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
   const d = crystalPath(

@@ -96,7 +96,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p1",
     blurb:
-      "Dead rock, falling five times as fast — the queen's own. Cannot be shot. Shield in the right column, triggered at the right moment.",
+      "Dead rock, falling five times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
   },
   torch: {
     kind: "torch",
@@ -104,7 +104,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p1",
     blurb:
-      "Same rock, same colour as a meteor, just twice as wide and the fastest thing in the field — three beats from top to hull. Cannot be shot. Shield across both columns, triggered at the right moment.",
+      "Same rock, same colour as a meteor, just twice as wide and the fastest thing in the field. Cannot be shot — and it is what the queen carries on each wing. Shield across both columns, triggered at the right moment.",
   },
   queen: {
     kind: "queen",
@@ -112,7 +112,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     color: null,
     radar: "p2",
     blurb:
-      "Huge and armoured. She opens for a moment, in one column and one colour — and answers a miss with a rock.",
+      "Huge and armoured. She opens for a moment, in one column and one colour — and every eight beats one of the two torches she carries drops straight out of its socket.",
   },
 };
 

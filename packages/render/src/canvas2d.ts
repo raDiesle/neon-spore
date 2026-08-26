@@ -11,7 +11,6 @@ import { computeLayout, computeStage, type Layout, type Stage } from "./layout.j
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import { drawQueen } from "./queen.js";
-import { queenSpitSide } from "./queen-spawn.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
@@ -168,27 +167,11 @@ export class Canvas2DRenderer implements Renderer {
     drawRadar(ctx, l, world, view.time);
     drawGrid(ctx, l, world.cannonCol, flash);
 
-    let queenOrigin: { col: number; row: number } | null = null;
+    drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
     if (world.boss != null) {
       const boss = world.boss;
       const queen = world.creatures.find((c) => c.id === boss.creatureId);
-      if (queen) queenOrigin = { col: queen.col, row: queen.row };
-    }
-    drawCreatures(
-      ctx,
-      l,
-      world.creatures,
-      view.beatPhase,
-      view.time,
-      this.effects.blocked,
-      queenOrigin,
-      world.cfg.meteorGrowShare,
-    );
-    if (world.boss != null) {
-      const boss = world.boss;
-      const queen = world.creatures.find((c) => c.id === boss.creatureId);
-      if (queen && queenOrigin) {
-        const spitSide = queenSpitSide(world.creatures, queenOrigin);
+      if (queen) {
         drawQueen(
           ctx,
           l,
@@ -197,9 +180,8 @@ export class Canvas2DRenderer implements Renderer {
           world.beat,
           view.time,
           view.beatPhase,
-          spitSide,
           this.effects.queenShake,
-          world.cfg.meteorGrowShare,
+          world.cfg.queenEggGrowShare,
         );
       }
     }
