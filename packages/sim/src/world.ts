@@ -103,11 +103,18 @@ export type SimEvent =
   | { type: "destroy"; col: number; row: number; color: Color }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
-  | { type: "deflect"; col: number; span: number }
+  | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
-  | { type: "breach"; col: number; damage: number; span: number }
+  | {
+      type: "breach";
+      col: number;
+      damage: number;
+      span: number;
+      kind: Creature["kind"];
+      fromRow: number;
+    }
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number };
 

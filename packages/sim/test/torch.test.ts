@@ -143,6 +143,24 @@ describe("the torch", () => {
     expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor, span: 2 });
   });
 
+  // render/ has no notion of a creature's fall speed of its own — it replays
+  // the last, skipped step of the fall at exactly this event's own numbers
+  // (rock-impact.ts), so a breach or deflect carrying the wrong `kind` or
+  // `fromRow` would make that replay start from the wrong height or speed.
+  it("carries its own kind and the row it fell from on both breach and deflect", () => {
+    // row at beat N is RATE * (N - 1) (spawns at row 0 on beat 1), so fromRow
+    // — the row held at the previous beat — is one step further back.
+    const lastRow = RATE * (IMPACT_BEAT - 2);
+
+    const missed = run([torch(5)], IMPACT_TICK + 1);
+    const breach = missed.events.find((e) => e.type === "breach");
+    expect(breach).toMatchObject({ kind: "torch", fromRow: lastRow });
+
+    const deflected = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 5), guard(IMPACT_TICK - 20)]);
+    const deflect = deflected.events.find((e) => e.type === "deflect");
+    expect(deflect).toMatchObject({ kind: "torch", fromRow: lastRow });
+  });
+
   it("craters rather than destroys when shot, like every other rock", () => {
     const inputs = [aim(10, 5)];
     for (let t = 10; t < IMPACT_TICK; t += 15) inputs.push(fire(t, "red"));
