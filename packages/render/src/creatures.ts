@@ -112,7 +112,30 @@ function drawLiving(
   }
   ctx.restore();
 
-  if (blocked <= 0) halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
+  if (blocked <= 0) {
+    drawMotionTrail(ctx, l, x, y, r, hex, t);
+    halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
+  }
+}
+
+/** The pod wreck's trail (`drawWreck` in pods.ts), in the creature's own
+ * colour: fading halos strung out behind — up, since row only grows toward
+ * the hull. */
+function drawMotionTrail(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x: number,
+  y: number,
+  r: number,
+  hex: string,
+  t: number,
+): void {
+  for (let k = 1; k <= 4; k++) {
+    const a = (1 - k / 5) * 0.4;
+    const ty = y - k * l.tile * 0.3;
+    const tx = x - Math.sin(t * 3 + k) * l.tile * 0.05 * k;
+    halo(ctx, tx, ty, r * (0.85 - k * 0.12), hex, a * 0.5);
+  }
 }
 
 /** Core and trailing filaments. Inner drawing is thinner than the outline
