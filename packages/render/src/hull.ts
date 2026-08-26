@@ -1,5 +1,6 @@
 import { openSmoothPath } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
+import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
 import { strokeGlow } from "./glow.js";
 import {
   frame,
@@ -15,7 +16,6 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim } from "./shield.js";
-import { type Crater, clipOutMouths, drawTorchCraters, torchCraters } from "./torch-crater.js";
 
 export type { HullMood, LobePositions } from "./hull-frame.js";
 export { hullSkinY } from "./hull-frame.js";
@@ -93,17 +93,18 @@ export function drawHull(
   iridescence(ctx, body, filled, l, time);
   sweep(ctx, body, filled, l, time);
   dither(ctx, filled);
-  // The rim goes round the torches' craters, not over them: a hole in the
-  // skin that still has the ship's own bright outline running across its
-  // mouth is not a hole, it is a stain. `craterVisible` keeps a crater — and
-  // so this gap in the rim — out of the picture until the rock that made it
-  // has climbed back out of it.
-  const craters = torchCraters(l, world.scars, (x) => skin(f, x), craterVisible);
+  // The rim goes round every rock's crater, not over it: a hole in the skin
+  // that still has the ship's own bright outline running across its mouth is
+  // not a hole, it is a stain. `craterVisible` keeps a crater — and so this
+  // gap in the rim — out of the picture until the rock that made it has
+  // climbed back out of it.
+  const craters = findCraters(l, world.scars, (x) => skin(f, x), craterVisible);
   strokeHullRim(ctx, l, body, hullPercent, craters);
 
-  // Cracks first, the torch's dent after: its opaque fill paints over
+  // Cracks first, each rock's dent after: its opaque fill paints over
   // whatever a crack drew across that patch, so the crack reads as staying
-  // in the skin around the crater rather than running into it.
+  // in the skin around the crater rather than running into it. `craters`
+  // also tells a crack where not to start (`scars.ts`'s `crackOrigin`).
   drawScars(
     ctx,
     l,
@@ -111,8 +112,9 @@ export function drawHull(
     time,
     (x) => surface(f, x),
     (x) => skin(f, x),
+    craters,
   );
-  drawTorchCraters(ctx, craters);
+  drawCraters(ctx, craters);
   drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);

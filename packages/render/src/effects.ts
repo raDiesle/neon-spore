@@ -1,9 +1,11 @@
 import { isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
+import { drawWord, POD_RECEIPT } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { Sparks } from "./sparks.js";
+import { rockRadius } from "./torch.js";
 
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
@@ -15,13 +17,6 @@ const SWALLOW_LIFE = 1.05;
 const CHEW_SHARE = 0.55;
 /** How long the queen shudders after losing a petal. */
 const QUEEN_SHAKE_LIFE = 0.35;
-
-/** The one-word receipt for what a pod just gave, and the colour it reads in. */
-const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
-  mend: { text: "+HULL", hex: PALETTE.pod },
-  purge: { text: "SWEPT", hex: PALETTE.ember },
-  ward: { text: "WARDED", hex: PALETTE.shieldRim },
-};
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -100,15 +95,20 @@ export class Effects {
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
           break;
         case "breach": {
-          const arrive = (ax: number, ay: number): void => {
-            this.burst(ax, ay, 16 * e.span, PALETTE.red);
-          };
           // A rock is still visibly falling when the sim resolves the hit —
           // the burst has to wait for it to actually arrive (rock-impact.ts).
           // A living creature falls one tile a beat, close enough to the hull
           // already that the same instant read as arrival before this event
           // carried `fromRow`, so it keeps firing right away.
           if (isMeteorKind(e.kind)) {
+            const r = rockRadius(l, e.kind);
+            // Two bursts flanking the crater rather than one on top of it —
+            // sparks fly off the rim the rock just tore, not out of thin air
+            // at its own centre.
+            const arrive = (ax: number, ay: number): void => {
+              this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
+              this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
+            };
             this.rockImpactFx.spawn(
               tileCX(l, e.col),
               l,
@@ -116,10 +116,11 @@ export class Effects {
               beatSeconds,
               e.kind,
               e.fromRow,
+              true,
               arrive,
             );
           } else {
-            arrive(tileCX(l, e.col), l.hullY);
+            this.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
           }
           break;
         }
@@ -148,7 +149,9 @@ export class Effects {
           const x = tileCX(l, e.col);
           // Same lateness as a breach: the rock is still falling when the sim
           // resolves the deflect, so the bounce waits for it to arrive too.
-          this.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.fromRow, (ax, ay) => {
+          // `embed: false` — a deflected rock bounces (`DeflectFx`), it never
+          // sinks into a crater the way a miss does.
+          this.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.fromRow, false, (ax, ay) => {
             this.deflectFx.spawn(ax, ay, l.tile, e.span);
             this.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
             this.guardHit = BANNER_LIFE;
@@ -201,10 +204,10 @@ export class Effects {
   }
 
   /**
-   * Whether a torch's rock is still sitting in its crater at this x — the
-   * hull asks before it draws that crater at all (`torchCraters`).
+   * Whether a rock is still sitting in its own crater at this x — the hull
+   * asks before it draws that crater at all (`craters.ts`).
    */
-  torchCoversCrater(x: number, tile: number): boolean {
+  rockCoversCrater(x: number, tile: number): boolean {
     return this.rockImpactFx.coversCrater(x, tile);
   }
 
@@ -226,22 +229,4 @@ export class Effects {
   private burst(x: number, y: number, n: number, hex: string): void {
     this.sparks.burst(x, y, n, hex);
   }
-}
-
-/** One word, centred above the hull. `tiles` is how far above `l.hullY`. */
-function drawWord(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  text: string,
-  hex: string,
-  alpha: number,
-  tiles: number,
-): void {
-  ctx.globalAlpha = alpha;
-  ctx.textAlign = "center";
-  ctx.fillStyle = hex;
-  ctx.font = '600 15px "Courier New",monospace';
-  ctx.fillText(text, l.width / 2, l.hullY - l.tile * tiles);
-  ctx.textAlign = "left";
-  ctx.globalAlpha = 1;
 }

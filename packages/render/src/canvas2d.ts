@@ -180,7 +180,7 @@ export class Canvas2DRenderer implements Renderer {
       mood,
       hullPercent(world),
       at,
-      (x) => !this.effects.torchCoversCrater(x, l.tile),
+      (x) => !this.effects.rockCoversCrater(x, l.tile),
     );
     // In front of the hull, unlike the rest of Effects.draw() — see
     // Effects.drawRockImpact.

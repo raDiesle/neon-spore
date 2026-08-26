@@ -4,7 +4,7 @@ import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { isFreshQueenSpawn, type QueenOrigin } from "./queen-spawn.js";
-import { drawTorch } from "./torch.js";
+import { drawTorch, rockRadius } from "./torch.js";
 
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
 const METEOR_GROW_FLOOR = 0.02;
@@ -179,7 +179,7 @@ function drawMeteor(
   const growth = isFreshQueenSpawn(c, queenOrigin)
     ? Math.max(METEOR_GROW_FLOOR, Math.min(1, beatPhase / Math.max(1e-3, growShare)))
     : 1;
-  const r = l.tile * 0.4 * growth;
+  const r = rockRadius(l, c.kind) * growth;
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
   const d = crystalPath(

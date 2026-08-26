@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
+import { type Crater, mouth } from "./craters.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -67,6 +68,34 @@ function strokeCrack(ctx: CanvasRenderingContext2D, pts: Point[], width: number)
   ctx.stroke();
 }
 
+/**
+ * A crack never starts *inside* the hole its own rock left — a jagged line
+ * with its mouth painted over by the crater's opaque fill used to read as
+ * damage cut short, not damage that runs past the hole. When this scar's
+ * column belongs to a crater that has appeared (`craters`, from `hull.ts` —
+ * empty or not-yet-visible ones simply have no entry to find), the crack's
+ * mouth starts just past that crater's own measured edge (`mouth`) instead
+ * of at the impact column itself, on the side away from the hole, so it
+ * reads as tearing outward from the rim rather than climbing out of the pit.
+ */
+function crackOrigin(
+  l: Layout,
+  s: Scar,
+  rnd: () => number,
+  lean: number,
+  craters: readonly Crater[],
+): { x: number; side: number } {
+  const crater = craters.find((c) => c.cols.includes(s.col));
+  if (!crater) return { x: tileCX(l, s.col) + (rnd() - 0.5) * l.tile * 0.44, side: lean };
+  // A torch's two columns each own one side of the shared crater; a single
+  // column has no such geometry to read, so it falls back to the same random
+  // lean the zigzag itself uses, rather than a side that's always the same.
+  const side = crater.cols.length > 1 ? (s.col === Math.min(...crater.cols) ? -1 : 1) : lean;
+  const m = mouth(crater);
+  const edge = side < 0 ? m.left : m.right;
+  return { x: edge + side * l.tile * (0.12 + rnd() * 0.2), side };
+}
+
 export function drawScars(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -74,14 +103,14 @@ export function drawScars(
   time: number,
   surfaceAt: (x: number) => Point,
   skinAt: (x: number) => Point,
+  craters: readonly Crater[] = [],
 ): void {
   ctx.save();
   for (const s of scars) {
     const seed = Math.imul(s.col + 1, 73856093) ^ Math.imul(s.beat + 1, 19349663);
     const rnd = stream(seed);
-    const x = tileCX(l, s.col) + (rnd() - 0.5) * l.tile * 0.44;
+    const { x, side: lean } = crackOrigin(l, s, rnd, rnd() < 0.5 ? -1 : 1, craters);
     const top = surfaceAt(x);
-    const lean = rnd() < 0.5 ? -1 : 1;
     const main = crackPoints(l.tile, skinAt(x), rnd, lean);
     // The mouth sits a hair above the outline, so the crack breaks it rather
     // than beginning under it; the pull tapers away below.

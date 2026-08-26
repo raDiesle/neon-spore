@@ -68,13 +68,14 @@ export function isMeteorKind(kind: CreatureKind): boolean {
  * `torch` is deliberately not appended to `METEOR_TIER_KINDS`: that would
  * silently make it tier six, one beat faster than intended, and drift the
  * next time a tier is added. It stays the fastest thing in the field instead,
- * by calling this function rather than repeating the number — `+ 2` is tuned
- * so it crosses the field (`hullRow` at the default `rows`) in three beats,
+ * by calling this function rather than repeating the number — `+ 4` is tuned
+ * so it still crosses the field (`hullRow` at the default `rows`) in two
+ * beats, but noticeably faster within each of them than the fastest tier,
  * fast enough that the pair still has to call it, not so fast it is gone
  * before the trail behind it (`drawTorch`'s tail) reads as a fall at all.
  */
 export function fallTilesPerBeat(kind: CreatureKind): number {
-  if (kind === "torch") return fallTilesPerBeat("meteorFastest") + 2;
+  if (kind === "torch") return fallTilesPerBeat("meteorFastest") + 4;
   const tier = METEOR_TIER_KINDS.indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
@@ -208,6 +209,8 @@ export interface Scar {
   col: number;
   /** Beat at which it was made, for the render fade-in. */
   beat: number;
+  /** What hit here — a rock crater is only ever drawn for a rock kind. */
+  kind: CreatureKind;
 }
 
 export interface GuardStats {

@@ -26,7 +26,7 @@ describe.each([["torch", 2] as const, ["meteorFastest", 1] as const])(
       const { ctx } = stubCanvas();
       let arrived = false;
       const fromRow = CFG.rows - 1 - hullGap;
-      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, () => {
+      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, true, () => {
         arrived = true;
       });
 
@@ -53,7 +53,7 @@ describe.each([["torch", 2] as const, ["meteorFastest", 1] as const])(
       const { ctx } = stubCanvas();
       let arrivals = 0;
       const fromRow = CFG.rows - 1 - hullGap;
-      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, () => {
+      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, true, () => {
         arrivals += 1;
       });
 
