@@ -42,6 +42,10 @@
       "name": "@neon-spore/sim",
       "version": "0.0.0",
     },
+    "tools/delegate": {
+      "name": "@neon-spore/delegate",
+      "version": "0.0.0",
+    },
     "tools/director": {
       "name": "@neon-spore/director",
       "version": "0.0.0",
@@ -80,6 +84,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.10", "", { "os": "win32", "cpu": "x64" }, "sha512-M+2dgBsl3lXRiTfgPVc2p3anS4Tocojke4rzFLScZ2Y/wmF+36dRb1iHCLiyGqOzQGyTplZH1HnEYviiAqi3nA=="],
 
     "@neon-spore/content": ["@neon-spore/content@workspace:packages/content"],
+
+    "@neon-spore/delegate": ["@neon-spore/delegate@workspace:tools/delegate"],
 
     "@neon-spore/director": ["@neon-spore/director@workspace:tools/director"],
 
