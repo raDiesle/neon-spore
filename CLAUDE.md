@@ -66,6 +66,7 @@ Say what was committed. Do not push unless asked.
 ```
 bun install            # once
 bun run dev            # the wave editor at 4174, hot reload — for a human
+bun run dev:once       # the same on a free port, beside one that is running
 bun run dev:game       # the game at localhost:3000, hot reload — for a human
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # same, on a free port that nobody else can be holding
@@ -125,8 +126,18 @@ which server replied. Before trusting a measurement, ask who it was:
 curl -s http://localhost:4173/__preview
 ```
 
-Only the preview answers `{"app":"neon-spore-preview",...}`. Anything else means
-the number came off the wrong server and does not count.
+Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
+checkout it is serving in `tree`. Anything else — a different app, or the right
+app serving somebody else's tree — means the number came off the wrong server
+and does not count.
+
+**In a worktree the port may not be 4173.** A preview takes 4173 when it can,
+retires a stale copy of *its own* tree, and steps aside onto a port derived
+from the worktree's path when 4173 is held by a preview of another checkout —
+`tools/ports.ts` decides, and the server prints the port and the tree it serves
+on startup. So a session in a worktree reads the port out of the server's own
+log rather than assuming it, and points the browser there. The director does
+the same, from 4174.
 
 `bun run preview:once` takes an OS-assigned free port instead of 4173 — for a
 throwaway check, or a second worktree previewing beside this one. Several can

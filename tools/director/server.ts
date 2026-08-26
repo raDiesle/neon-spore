@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { parseConcepts } from "./src/concepts.js";
 import { parseRoster } from "./src/roster.js";
@@ -10,15 +11,23 @@ import { serializeWaves } from "./src/serialize.js";
  * that what you place ends up in `packages/content/src/waves.ts` as a diff you
  * can read.
  *
- * It borrows the preview server's hygiene, and for the same reasons: a fixed
- * port so a second start collides instead of quietly moving, a collision
- * resolved by asking an older copy to quit rather than by killing a process we
- * did not recognise, and an idle exit so a leaked one dies without help.
+ * It borrows the preview server's hygiene, and for the same reasons: a port
+ * fixed per tree so a second start in the same tree collides instead of
+ * quietly moving, a collision resolved by asking an older copy to quit rather
+ * than by killing a process we did not recognise, and an idle exit so a leaked
+ * one dies without help. A worktree derives a port of its own — see
+ * `tools/ports.ts` — so two sessions editing two trees do not fight over one
+ * socket, and neither ever answers with the other's waves.
  *
  * Run it through `bun run dev`, from the repository root.
  */
 
-const port = Number(process.env.DIRECTOR_PORT ?? 4174);
+const repoRoot = new URL("../../", import.meta.url);
+const repoRootPath = Bun.fileURLToPath(repoRoot);
+const given =
+  process.env.DIRECTOR_PORT === undefined ? undefined : Number(process.env.DIRECTOR_PORT);
+/** Which checkout's `waves.ts` this one reads and writes. */
+const treeId = treeKey(repoRootPath);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
 const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
 const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
@@ -26,62 +35,47 @@ const couplingsFile = new URL("../../docs/spec/couplings.md", import.meta.url);
 const assistsFile = new URL("../../docs/spec/assists.md", import.meta.url);
 const systemsFile = new URL("../../docs/spec/systems.md", import.meta.url);
 const ideasFile = new URL("../../docs/spec/ideas.md", import.meta.url);
-const repoRoot = new URL("../../", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
 const idleMs = Number(process.env.DIRECTOR_IDLE_MS ?? 60 * 60 * 1000);
 
-const loopbacks = ["127.0.0.1", "[::1]"] as const;
-
 interface DirectorHotState {
   booted: boolean;
   signalsBound: boolean;
   idle: ReturnType<typeof setTimeout> | undefined;
+  /** Settled once per process, not once per hot reload — see below. */
+  port: number | undefined;
 }
 
 const globalDirector = globalThis as unknown as { __director?: DirectorHotState };
-globalDirector.__director ??= { booted: false, signalsBound: false, idle: undefined };
+globalDirector.__director ??= {
+  booted: false,
+  signalsBound: false,
+  idle: undefined,
+  port: undefined,
+};
 const hot = globalDirector.__director;
-
-async function probe(host: string): Promise<{ app?: string } | null> {
-  let res: Response;
-  try {
-    res = await fetch(`http://${host}:${port}/__director`, { signal: AbortSignal.timeout(700) });
-  } catch {
-    return null;
-  }
-  try {
-    const body = (await res.json()) as { app?: string };
-    return res.ok && typeof body.app === "string" ? body : {};
-  } catch {
-    return {};
-  }
-}
-
-async function reclaim(host: string): Promise<void> {
-  const found = await probe(host);
-  if (found === null) return;
-  if (found.app !== marker) {
-    console.error(
-      `port ${port} on ${host} is held by something that is not the director.
-Stop it yourself, or set DIRECTOR_PORT — this script will not kill an unknown process.`,
-    );
-    process.exit(1);
-  }
-  await fetch(`http://${host}:${port}/__director/quit`).catch(() => {});
-  for (let i = 0; i < 40; i++) {
-    if ((await probe(host)) === null) return;
-    await Bun.sleep(50);
-  }
-  console.error(`the previous director on ${host}:${port} did not exit.`);
-  process.exit(1);
-}
 
 if (!hot.booted) {
   hot.booted = true;
-  for (const host of loopbacks) await reclaim(host);
+  hot.port = await claimPort({
+    base: 4174,
+    band: DIRECTOR_BAND,
+    tree: repoRootPath,
+    marker,
+    probePath: "/__director",
+    quitPath: "/__director/quit",
+    given,
+  }).catch((err: Error) => {
+    console.error(err.message);
+    process.exit(1);
+  });
 }
+// `bun --hot` re-evaluates this file in the same process, and the port was
+// settled the first time round. Claiming it again would find this very server
+// and ask it to quit.
+const port = hot.port ?? 4174;
 
 function resetIdle(): void {
   clearTimeout(hot.idle);
@@ -119,7 +113,7 @@ async function writeWaves(waves: Wave[]): Promise<string | null> {
 
   const rel = "packages/content/src/waves.ts";
   const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", rel], {
-    cwd: Bun.fileURLToPath(repoRoot),
+    cwd: repoRootPath,
     stdout: "pipe",
     stderr: "pipe",
   });
@@ -136,7 +130,7 @@ const server = Bun.serve({
     "/": indexHtml,
 
     "/__director": {
-      GET: withIdle(() => Response.json({ app: marker, pid: process.pid, port })),
+      GET: withIdle(() => Response.json({ app: marker, pid: process.pid, port, tree: treeId })),
     },
 
     "/__director/quit": {
@@ -190,6 +184,7 @@ const server = Bun.serve({
 
 resetIdle();
 console.log(`director on http://localhost:${server.port} — pid ${process.pid}`);
+console.log(`editing ${treeId}`);
 
 if (!hot.signalsBound) {
   hot.signalsBound = true;

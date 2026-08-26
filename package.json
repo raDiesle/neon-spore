@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "dev": "bun --hot tools/director/server.ts",
+    "dev:once": "DIRECTOR_PORT=0 bun --hot tools/director/server.ts",
     "dev:game": "bun --hot apps/game/index.html --port 3000",
     "build": "bun run --cwd apps/game build",
     "preview": "bun run --cwd apps/game preview",
