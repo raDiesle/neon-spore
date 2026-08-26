@@ -21,8 +21,15 @@ import { PALETTE } from "./palette.js";
 
 /** How far outside the silhouette the ring sits. */
 const RING_MUL = 1.5;
-/** Ticks travelling up the beam, spread over its length. */
+/** Lights travelling up the beam, spread over its length. */
 const SPARKS = 4;
+/**
+ * How wide one of them is, in tiles — the glow, and the lit core inside it.
+ * Big enough to read as a light being drawn *up* the line at a glance: at a
+ * third of this they were a texture on the beam rather than a direction.
+ */
+const SPARK_TILES = 0.3;
+const SPARK_CORE = 0.1;
 
 export function drawGrips(
   ctx: CanvasRenderingContext2D,
@@ -75,12 +82,21 @@ function drawBeam(
   ctx.stroke();
   ctx.restore();
 
-  // Ticks climbing the beam: the direction of the pull, so it never reads as
-  // something falling down the line instead.
+  // Lights climbing the beam: the direction of the pull, so it never reads as
+  // something falling down the line instead. Each is a glow with a lit core in
+  // it — the glow on its own is soft enough to lose against the field.
   for (let k = 0; k < SPARKS; k++) {
     const t = (((time * 0.7 + k / SPARKS) % 1) + 1) % 1;
     const sy = from - (from - y) * t;
-    halo(ctx, x, sy, l.tile * 0.13, PALETTE.pod, 0.32 * (1 - t) * weight + 0.1);
+    const fade = 1 - t * 0.55;
+    halo(ctx, x, sy, l.tile * SPARK_TILES, PALETTE.pod, (0.34 * weight + 0.22) * fade);
+    ctx.save();
+    ctx.globalAlpha = 0.9 * fade;
+    ctx.fillStyle = PALETTE.podRim;
+    ctx.beginPath();
+    ctx.arc(x, sy, Math.max(1, l.tile * SPARK_CORE), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   }
 }
 
