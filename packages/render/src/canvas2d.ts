@@ -183,8 +183,8 @@ export class Canvas2DRenderer implements Renderer {
       (x) => !this.effects.torchCoversCrater(x, l.tile),
     );
     // In front of the hull, unlike the rest of Effects.draw() — see
-    // Effects.drawTorchImpact.
-    this.effects.drawTorchImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
+    // Effects.drawRockImpact.
+    this.effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);

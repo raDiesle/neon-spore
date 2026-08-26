@@ -6,7 +6,7 @@ import { torchRadius, torchRotation } from "./torch.js";
 /**
  * The torch's own mark: not the whole rock's silhouette, only the sliver of
  * it that was ever inside the skin. Built from the exact same shape, radius
- * and facing (`torchRotation`) as the rock `TorchImpactFx` holds embedded, so
+ * and facing (`torchRotation`) as the rock `RockImpactFx` holds embedded, so
  * the dent is legible as *this* rock's dent, not a generic notch — clipped to
  * the quarter-height overlap the whole embedding was ever defined as, so
  * nothing of it shows above the skin line. One per torch that ever reached
@@ -32,7 +32,7 @@ export interface Crater {
 
 /**
  * Every crater the hull currently shows, paired off the scars. `visible`
- * decides which ones exist yet: `TorchImpactFx.coversCrater` says no while
+ * decides which ones exist yet: `RockImpactFx.coversCrater` says no while
  * the rock that made it is still falling into it or lodged in it, so the hole
  * appears when the rock leaves and not a beat before the rock arrives.
  */

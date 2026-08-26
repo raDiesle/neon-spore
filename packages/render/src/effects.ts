@@ -1,9 +1,9 @@
-import type { PodKind, SimEvent } from "@neon-spore/sim";
+import { isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { RockImpactFx } from "./rock-impact.js";
 import { Sparks } from "./sparks.js";
-import { TorchImpactFx } from "./torch-impact.js";
 
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
@@ -35,7 +35,7 @@ const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
 export class Effects {
   private sparks = new Sparks();
   private deflectFx = new DeflectFx();
-  private torchImpactFx = new TorchImpactFx();
+  private rockImpactFx = new RockImpactFx();
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
   /** Counts down from `SWALLOW_LIFE` while a pod is being taken in. */
@@ -99,12 +99,30 @@ export class Effects {
         case "hole":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
           break;
-        case "breach":
-          this.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
-          // A torch (span > 1) gets its own embed-and-drift animation
-          // instead of just a spark burst — see torch-impact.ts.
-          if (e.span > 1) this.torchImpactFx.spawn(tileCX(l, e.col), l, time, beatSeconds);
+        case "breach": {
+          const arrive = (ax: number, ay: number): void => {
+            this.burst(ax, ay, 16 * e.span, PALETTE.red);
+          };
+          // A rock is still visibly falling when the sim resolves the hit —
+          // the burst has to wait for it to actually arrive (rock-impact.ts).
+          // A living creature falls one tile a beat, close enough to the hull
+          // already that the same instant read as arrival before this event
+          // carried `fromRow`, so it keeps firing right away.
+          if (isMeteorKind(e.kind)) {
+            this.rockImpactFx.spawn(
+              tileCX(l, e.col),
+              l,
+              time,
+              beatSeconds,
+              e.kind,
+              e.fromRow,
+              arrive,
+            );
+          } else {
+            arrive(tileCX(l, e.col), l.hullY);
+          }
           break;
+        }
         case "petal":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.hullRim);
           this.queenShakeUntil = QUEEN_SHAKE_LIFE;
@@ -128,10 +146,13 @@ export class Effects {
           break;
         case "deflect": {
           const x = tileCX(l, e.col);
-          const y = l.hullY;
-          this.deflectFx.spawn(x, y, l.tile, e.span);
-          this.burst(x, y, 26 * e.span, PALETTE.shieldRim);
-          this.guardHit = BANNER_LIFE;
+          // Same lateness as a breach: the rock is still falling when the sim
+          // resolves the deflect, so the bounce waits for it to arrive too.
+          this.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.fromRow, (ax, ay) => {
+            this.deflectFx.spawn(ax, ay, l.tile, e.span);
+            this.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
+            this.guardHit = BANNER_LIFE;
+          });
           break;
         }
         default:
@@ -143,7 +164,7 @@ export class Effects {
   update(dt: number, l: Layout): void {
     this.sparks.update(dt);
     this.deflectFx.update(dt, l.tile);
-    this.torchImpactFx.update(dt, l);
+    this.rockImpactFx.update(dt, l);
     for (const [id, t] of this.blockedUntil) {
       const left = t - dt;
       if (left <= 0) this.blockedUntil.delete(id);
@@ -161,21 +182,22 @@ export class Effects {
   }
 
   /**
-   * The stuck-then-drifting torch, drawn *over* the hull rather than under
-   * it like the rest of this class: the rock has to stay in front the whole
-   * time it is stuck, not partly hidden behind the hull's own fill. `skinAt`
-   * is the hull's real, breathing surface height at an x — `hull.ts`'s own
-   * `hullSkinY` — so the stuck rock rides the same motion its crater does
-   * instead of hanging at a fixed height above `Layout.hullY`'s flat
-   * approximation of the surface.
+   * The last step of a rock's fall, replayed until it actually reaches the
+   * hull — and, for the torch, the stuck-then-drifting rock afterwards.
+   * Drawn *over* the hull rather than under it like the rest of this class:
+   * a rock still falling, or lodged, has to stay in front, not partly hidden
+   * behind the hull's own fill. `skinAt` is the hull's real, breathing
+   * surface height at an x — `hull.ts`'s own `hullSkinY` — so a stuck rock
+   * rides the same motion its crater does instead of hanging at a fixed
+   * height above `Layout.hullY`'s flat approximation of the surface.
    */
-  drawTorchImpact(
+  drawRockImpact(
     ctx: CanvasRenderingContext2D,
     l: Layout,
     time: number,
     skinAt: (x: number) => number,
   ): void {
-    this.torchImpactFx.draw(ctx, l, time, skinAt);
+    this.rockImpactFx.draw(ctx, l, time, skinAt);
   }
 
   /**
@@ -183,7 +205,7 @@ export class Effects {
    * hull asks before it draws that crater at all (`torchCraters`).
    */
   torchCoversCrater(x: number, tile: number): boolean {
-    return this.torchImpactFx.coversCrater(x, tile);
+    return this.rockImpactFx.coversCrater(x, tile);
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

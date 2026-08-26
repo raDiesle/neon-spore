@@ -4,14 +4,14 @@ import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
-/** How far a torch's radius reaches, in tiles — shared with `torch-impact.ts` so the two never drift apart. */
+/** How far a torch's radius reaches, in tiles — shared with `rock-impact.ts` so the two never drift apart. */
 export function torchRadius(l: Layout): number {
   return l.tile * 0.8;
 }
 
 /**
  * The rock's own facing, from its screen x alone — deterministic and
- * shared between `torch-impact.ts`'s embedded rock and `scars.ts`'s dent in
+ * shared between `rock-impact.ts`'s embedded rock and `scars.ts`'s dent in
  * the hull it left, so the two are drawn at the exact same orientation and
  * the dent reads as a hole this exact rock made, not a generic one.
  */
@@ -24,7 +24,7 @@ export function torchRotation(x: number): number {
  * torch is now, so a fall fast enough to otherwise read as a blink still
  * reads as a fall. `alpha` scales the whole thing down, for the effect that
  * keeps the tail alive a moment after the torch itself is gone
- * (`torch-impact.ts`) instead of it vanishing the instant the creature does.
+ * (`rock-impact.ts`) instead of it vanishing the instant the creature does.
  */
 export function drawTorchTail(
   ctx: CanvasRenderingContext2D,
@@ -54,8 +54,9 @@ export function drawTorchTail(
 /**
  * The rock itself: the ember ring, then the same crystal shape and stone-grey
  * fill as a plain meteor. Assumes `ctx` is already translated to the rock's
- * centre and rotated. Shared with `torch-impact.ts`'s embed-and-reflect
- * animation, so the bounced rock is unmistakably the same thing that fell.
+ * centre and rotated. Shared with `rock-impact.ts`'s fall-replay for every
+ * rock kind, and the torch's own embed-and-drift on top of that, so a
+ * bounced or embedded rock is unmistakably the same thing that fell.
  */
 export function drawTorchRock(ctx: CanvasRenderingContext2D, r: number, time: number): void {
   // The tail's colour, kept only as a faint ring just outside the rock's own

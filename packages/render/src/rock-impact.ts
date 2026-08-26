@@ -1,21 +1,12 @@
-import { fallTilesPerBeat } from "@neon-spore/sim";
+import { type CreatureKind, fallTilesPerBeat } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawTorchRock, drawTorchTail, torchRadius, torchRotation } from "./torch.js";
 
-/**
- * Rows the torch covers in one beat (`fallTilesPerBeat`, sim/types.ts). The
- * sim removes a creature in the same tick the beat's motion is computed, so
- * `creatures.ts` never gets a frame to glide it through that last, biggest
- * step; the fall below re-plays it here, at that same speed, so the drop
- * looks unbroken all the way to the hull instead of vanishing mid-air and
- * reappearing embedded in it.
- */
-const FALL_TILES = fallTilesPerBeat("torch");
-/** How long it sits sunk into the hull before it starts to drift off. */
+/** How long it sits sunk into the hull before it starts to drift off. Torch only. */
 const STICK_LIFE = 2;
-/** How long the slow drift away takes to fully fade. */
+/** How long the slow drift away takes to fully fade. Torch only. */
 const FLOAT_LIFE = 1.8;
 /**
  * How long the tail it dragged down lasts once the rock is in the hull. Long
@@ -30,28 +21,16 @@ const TAIL_LIFE = 0.15;
  * speed — the thing that used to jump instantly to a new height and speed
  * the moment it stopped being stuck. Everything about letting go eases
  * against this, not against `FLOAT_LIFE`, so the liftoff is a beat, not the
- * whole drift.
+ * whole drift. Torch only.
  */
 const RISE_TIME = 0.5;
 /**
  * Sideways acceleration once it lets go, in px/s². A constant acceleration
  * from a standing start is the simplest curve that starts slow and ends
  * faster with no separate easing code of its own — the drift itself *is*
- * the ease.
+ * the ease. Torch only.
  */
 const DRIFT_ACCEL = 28;
-
-/**
- * The row the torch stood on for the last frame anybody saw it as a creature:
- * the last multiple of its per-beat step that is still above the hull row
- * (`hullRow` is `rows - 1`). The replay below starts there and nowhere else —
- * a start computed backwards from the hull instead was up to a tile away from
- * it, and a tile of jump at the handoff is exactly the stutter this replay
- * exists to remove.
- */
-function lastFallRow(l: Layout): number {
-  return Math.floor((l.rows - 2) / FALL_TILES) * FALL_TILES;
-}
 
 function smoothstep(t: number): number {
   const c = Math.max(0, Math.min(1, t));
@@ -59,6 +38,7 @@ function smoothstep(t: number): number {
 }
 
 interface Impact {
+  kind: CreatureKind;
   /**
    * Screen x at the moment of impact — fixed. The drift is computed from it
    * fresh every frame (`currentX`), not accumulated onto it tick by tick, so
@@ -66,33 +46,36 @@ interface Impact {
    * changes phase.
    */
   x0: number;
-  /** Screen y the replayed last step of the fall starts from: exactly where
-   * the creature itself was last drawn (`lastFallRow`). */
+  /**
+   * Screen y the replayed last step of the fall starts from — the sim's own
+   * `fromRow` at the beat the miss happened, the exact row render/ last drew
+   * this creature at. Computed backwards from the hull instead, this used to
+   * land up to a tile off; carrying the real row removes the guess.
+   */
   y0: number;
-  /** How fast that step falls, in px/s — one beat's worth of tiles per beat,
-   * the same speed every earlier beat of the fall had. */
+  /** px/s — the same speed every earlier beat of the fall had. */
   fallSpeed: number;
   r: number;
   dir: -1 | 1;
   rotation0: number;
   spin: number;
-  /** The clock reading at impact, so the embedded rock holds one still shape
-   * while stuck instead of visibly wobbling in place — a fixed rock reads as
-   * lodged; a wobbling one reads as still falling. */
+  /** Clock reading at impact — a stuck rock holds this still shape rather than visibly wobbling. */
   spawnTime: number;
   /**
-   * How long the replay takes: the distance from `y0` down to the hull's real
-   * skin divided by `fallSpeed`. 0 until the first frame, because the skin's
-   * height is only known inside `draw` — the constant speed is what is fixed
-   * here, the duration is whatever that speed needs to cover the gap.
+   * How long the replay takes: `y0` down to the hull's real skin over
+   * `fallSpeed`. 0 until the first `draw` frame, because the skin's height is
+   * only known there — speed is fixed, duration is whatever it takes.
    */
   fallLife: number;
   t: number;
+  /** Fires once, the frame the replay reaches the hull's skin. */
+  onArrive: (x: number, y: number) => void;
+  arrived: boolean;
 }
 
-/** When the stuck hold ends and the drift-off begins, in `im.t`. */
+/** When the stuck hold ends and the drift-off begins, in `im.t`. Torch only — every other kind fires `onArrive` and is gone the moment it lands. */
 function stickStart(im: Impact): number {
-  return im.fallLife + STICK_LIFE;
+  return im.fallLife + (im.kind === "torch" ? STICK_LIFE : 0);
 }
 
 /** Screen x right now — a pure function of elapsed time, not accumulated state. */
@@ -102,50 +85,57 @@ function currentX(im: Impact): number {
 }
 
 /**
- * What a torch's miss looks like, once it is no longer a creature: it sinks a
- * quarter of its own height into the hull and holds there completely still —
- * two full seconds, so the stick unmistakably reads as a stick — then lifts
- * off and drifts towards the nearer edge of the screen, slow at first and
- * faster as it goes, fading out along the way. The `damageSpan` breach that
- * spawns this fires once, on the torch's own `spanCenterCol`, so there is
- * exactly one of these per torch, not one per column it scarred. The tail it
- * dragged down goes out with the fall itself (`TAIL_LIFE`), not with the
- * rock: a streak still hanging off something already lodged in the hull
- * reads as a fall that never ended.
+ * The last, biggest step of a rock's fall, replayed here at the speed every
+ * earlier beat of the fall had: the sim removes a creature the same tick the
+ * beat's motion is computed, so `creatures.ts` never gets a frame to glide it
+ * through that final step (`fallTilesPerBeat`, sim/types.ts) — without this,
+ * a fast rock vanishes mid-air and reappears at the hull, and the faster it
+ * fell the further that gap is. `onArrive` (the spark burst, the deflect
+ * bounce) fires only once this replay actually reaches the hull's skin,
+ * instead of at the instant the sim resolved the impact.
  *
- * While it is stuck it has to sit exactly in its own crater and ride the
- * hull's own motion, not hang at a fixed height above `Layout.hullY` — that
- * is a flat approximation of a surface that breathes and lifts under its
- * lobes, so a rock anchored to it instead of to the real, curved skin
- * visibly floats free of both the hull and the dent it supposedly made. The
- * `skinAt` callback is the same query `torch-crater.ts`'s dent already
- * positions itself with, so the two agree frame to frame.
+ * Only the torch — the one rock with a crater and a hole to sit in — sinks in
+ * and drifts off afterwards; see `stickStart`. Every other rock kind fires
+ * `onArrive` and is simply gone the moment it lands, exactly as it read
+ * before this replay existed, just no longer early.
  *
- * The permanent trace is separate: `torch-crater.ts` sinks the exact overlap
- * of this same shape, at the same orientation (`torchRotation`), into the
- * hull's skin — so the two agree on where it hit and the dent reads as this
- * rock's dent. It stays hidden until this rock is out of the way; see
- * `coversCrater`.
+ * While stuck it rides the hull's own breathing motion via `skinAt`
+ * (`torch-crater.ts`'s dent uses the same query), not a fixed height above
+ * `Layout.hullY`'s flat approximation — else it floats free of its own dent.
  */
-export class TorchImpactFx {
+export class RockImpactFx {
   private impacts: Impact[] = [];
 
   /** `beatSeconds` is how long one beat takes at the tempo the miss happened
    * at (`60 / cfg.bpm`) — the pace the replayed last step of the fall has to
-   * match to read as a continuation of it, not a new, different fall. */
-  spawn(x: number, l: Layout, time: number, beatSeconds: number): void {
+   * match to read as a continuation of it, not a new, different fall.
+   * `fromRow` is the sim's own row for this creature the beat it missed. */
+  spawn(
+    x: number,
+    l: Layout,
+    time: number,
+    beatSeconds: number,
+    kind: CreatureKind,
+    fromRow: number,
+    onArrive: (x: number, y: number) => void,
+  ): void {
     const mid = l.gridLeft + l.gridWidth / 2;
+    const fallTiles = fallTilesPerBeat(kind);
+    const r = kind === "torch" ? torchRadius(l) : l.tile * 0.4;
     this.impacts.push({
+      kind,
       x0: x,
-      y0: tileCY(l, lastFallRow(l)),
-      fallSpeed: (FALL_TILES * l.tile) / beatSeconds,
-      r: torchRadius(l),
+      y0: tileCY(l, fromRow),
+      fallSpeed: (fallTiles * l.tile) / beatSeconds,
+      r,
       dir: x < mid ? -1 : 1,
       rotation0: torchRotation(x),
       spin: 0.4 + (x % 1) * 0.3,
       spawnTime: time,
       fallLife: 0,
       t: 0,
+      onArrive,
+      arrived: false,
     });
   }
 
@@ -158,7 +148,8 @@ export class TorchImpactFx {
       im.t += dt;
       const x = currentX(im);
       const offscreen = x < left || x > right;
-      if (im.t > stickStart(im) + FLOAT_LIFE || offscreen) this.impacts.splice(i, 1);
+      const done = im.kind !== "torch" ? im.arrived : im.t > stickStart(im) + FLOAT_LIFE;
+      if (done || offscreen) this.impacts.splice(i, 1);
     }
   }
 
@@ -179,11 +170,15 @@ export class TorchImpactFx {
       if (im.fallLife === 0) im.fallLife = Math.max(0.001, (stuckY - im.y0) / im.fallSpeed);
       const stuckAt = stickStart(im);
 
-      // Still falling: the last step the sim itself never got to render (see
-      // `FALL_TILES`), replayed here at the same speed and with no easing —
-      // matching the plain, even glide every earlier beat of the fall had —
-      // so it reads as the same fall finishing, not a new one starting.
+      // Still falling: the last step the sim itself never got to render,
+      // replayed here at the same speed and with no easing — matching the
+      // plain, even glide every earlier beat of the fall had — so it reads
+      // as the same fall finishing, not a new one starting.
       const falling = im.t < im.fallLife;
+      if (!falling && !im.arrived) {
+        im.arrived = true;
+        im.onArrive(x, surfaceY);
+      }
 
       // The tail belongs to the fall and to nothing else: full strength on
       // the way down, then `TAIL_LIFE` to leave. It hangs from the rock, not
@@ -212,6 +207,8 @@ export class TorchImpactFx {
           ? stuckY + (surfaceY - im.r * 1.1 - stuckY) * rise + bob
           : stuckY;
 
+      if (im.kind !== "torch" && !falling) continue;
+
       const tailAlpha = falling ? 1 : Math.max(0, 1 - (im.t - im.fallLife) / TAIL_LIFE);
       if (tailAlpha > 0) drawTorchTail(ctx, l, x, y, im.r, tailAlpha);
 
@@ -233,7 +230,9 @@ export class TorchImpactFx {
 
   /**
    * Whether a rock is still in the crater at this x — still falling into it
-   * or still lodged in it. The hull only draws a torch's dent once this goes
+   * or still lodged in it. Only the torch has a crater; every other kind
+   * fires `onArrive` and disappears the same frame, so it never has a hull
+   * dent waiting on it. The hull only draws a torch's dent once this goes
    * false (`hull.ts`): the sim scars the columns at the instant of the beat,
    * a good half second before the rock is visibly there, and a hole that
    * opens ahead of the thing that punches it reads as the ship breaking by
@@ -241,7 +240,7 @@ export class TorchImpactFx {
    */
   coversCrater(x: number, tile: number): boolean {
     for (const im of this.impacts) {
-      if (im.t > stickStart(im)) continue;
+      if (im.kind !== "torch" || im.t > stickStart(im)) continue;
       if (Math.abs(x - im.x0) < tile * 0.75) return true;
     }
     return false;
