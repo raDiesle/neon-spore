@@ -106,10 +106,16 @@ export class Canvas2DRenderer implements Renderer {
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
-    this.effects.ingest(view.events, l, view.time, (col, row) => {
-      const c = world.creatures.find((x) => x.col === col && x.row === row);
-      return c ? c.id : 0;
-    });
+    this.effects.ingest(
+      view.events,
+      l,
+      view.time,
+      (col, row) => {
+        const c = world.creatures.find((x) => x.col === col && x.row === row);
+        return c ? c.id : 0;
+      },
+      60 / world.cfg.bpm,
+    );
     this.effects.update(view.dt, l);
 
     // The beat is loud at the moment of the beat and gone before the next one.

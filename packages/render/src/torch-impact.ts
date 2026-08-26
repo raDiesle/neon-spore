@@ -1,8 +1,20 @@
+import { fallTilesPerBeat } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawTorchRock, drawTorchTail, torchRadius, torchRotation } from "./torch.js";
 
+/**
+ * Rows the torch covers in the one beat that carries it onto the hull
+ * (`fallTilesPerBeat`, sim/types.ts) — the sim removes a creature the instant
+ * that beat lands it on the hull row, in the same tick that beat's motion
+ * was computed, so `packages/render/src/creatures.ts` never gets a frame to
+ * glide it through that last, biggest step. `spawn` below re-plays exactly
+ * that skipped step here, in render's own clock, so the fall still looks
+ * unbroken all the way to the hull instead of vanishing mid-air and
+ * reappearing embedded in it.
+ */
+const FALL_TILES = fallTilesPerBeat("torch");
 /** How long it sits sunk into the hull before it starts to drift off. */
 const STICK_LIFE = 2;
 /** How long the slow drift away takes to fully fade. */
@@ -50,12 +62,21 @@ interface Impact {
    * while stuck instead of visibly wobbling in place — a fixed rock reads as
    * lodged; a wobbling one reads as still falling. */
   spawnTime: number;
+  /** How long the replayed last step of the fall (see `FALL_TILES`) takes —
+   * one beat at the tempo the miss actually happened at, so it falls at the
+   * same speed it fell the rest of the way down. */
+  fallLife: number;
   t: number;
+}
+
+/** When the stuck hold ends and the drift-off begins, in `im.t`. */
+function stickStart(im: Impact): number {
+  return im.fallLife + STICK_LIFE;
 }
 
 /** Screen x right now — a pure function of elapsed time, not accumulated state. */
 function currentX(im: Impact): number {
-  const floatT = Math.max(0, im.t - STICK_LIFE);
+  const floatT = Math.max(0, im.t - stickStart(im));
   return im.x0 + im.dir * 0.5 * DRIFT_ACCEL * floatT * floatT;
 }
 
@@ -86,7 +107,10 @@ function currentX(im: Impact): number {
 export class TorchImpactFx {
   private impacts: Impact[] = [];
 
-  spawn(x: number, l: Layout, time: number): void {
+  /** `beatSeconds` is how long one beat takes at the tempo the miss happened
+   * at (`60 / cfg.bpm`) — the pace the replayed last step of the fall has to
+   * match to read as a continuation of it, not a new, different fall. */
+  spawn(x: number, l: Layout, time: number, beatSeconds: number): void {
     const mid = l.gridLeft + l.gridWidth / 2;
     this.impacts.push({
       x0: x,
@@ -95,6 +119,7 @@ export class TorchImpactFx {
       rotation0: torchRotation(x),
       spin: 0.4 + (x % 1) * 0.3,
       spawnTime: time,
+      fallLife: beatSeconds,
       t: 0,
     });
   }
@@ -108,7 +133,7 @@ export class TorchImpactFx {
       im.t += dt;
       const x = currentX(im);
       const offscreen = x < left || x > right;
-      if (im.t > STICK_LIFE + FLOAT_LIFE || offscreen) this.impacts.splice(i, 1);
+      if (im.t > stickStart(im) + FLOAT_LIFE || offscreen) this.impacts.splice(i, 1);
     }
   }
 
@@ -121,22 +146,38 @@ export class TorchImpactFx {
     for (const im of this.impacts) {
       const x = currentX(im);
       const surfaceY = skinAt(x);
+      const stuckAt = stickStart(im);
+
+      // Still falling: the last step the sim itself never got to render (see
+      // `FALL_TILES`), replayed here at the same speed and with no easing —
+      // matching the plain, even glide every earlier beat of the fall had —
+      // so it reads as the same fall finishing, not a new one starting.
+      const falling = im.t < im.fallLife;
+      const fallT = Math.min(1, im.t / im.fallLife);
 
       // Anchored to `surfaceY`, the hull's own skin line — once it lets go
       // and rises clear of that line, a tail still drawn down to it reads as
       // a stray mark still touching the crater, not as the rock's own trail.
-      // `TAIL_LIFE` reaches 0 exactly at `STICK_LIFE`, so it is already gone
-      // by the time floating starts, with no cutoff pop of its own.
-      const tailAlpha = Math.max(0, 1 - im.t / TAIL_LIFE);
+      // `TAIL_LIFE` reaches 0 exactly at `STICK_LIFE` after the stick begins,
+      // so it is already gone by the time floating starts, with no cutoff
+      // pop of its own. Full strength while still falling, same as ever.
+      const tailAlpha = falling ? 1 : Math.max(0, 1 - (im.t - im.fallLife) / TAIL_LIFE);
       if (tailAlpha > 0) drawTorchTail(ctx, l, x, surfaceY, im.r, tailAlpha);
 
-      const floating = im.t > STICK_LIFE;
-      const floatT = Math.max(0, im.t - STICK_LIFE);
+      const floating = im.t > stuckAt;
+      const floatT = Math.max(0, im.t - stuckAt);
       // 0 the instant it lets go, 1 once the liftoff has run its course —
       // everything about leaving the hull eases in against this, so there is
       // no frame where height or spin visibly jumps to a new value.
       const rise = smoothstep(floatT / RISE_TIME);
-      const rotation = im.rotation0 + im.spin * 0.5 * floatT * floatT;
+      // While falling it keeps spinning the way a live torch does, settling
+      // into the fixed, lodged orientation right as it reaches the hull —
+      // never visibly snapping from one to the other.
+      const spinning = time * 0.5;
+      const settle = smoothstep(fallT);
+      const rotation = falling
+        ? spinning + (im.rotation0 - spinning) * settle
+        : im.rotation0 + im.spin * 0.5 * floatT * floatT;
 
       // Sunk a quarter of its own height (half its radius) into the hull —
       // exactly the crater's own depth, so it sits in the hole it made
@@ -146,19 +187,23 @@ export class TorchImpactFx {
       // bobs once it has actually risen.
       const bob = floating ? Math.sin(floatT * 2.4) * im.r * 0.12 * rise : 0;
       const stuckY = surfaceY - im.r * 0.5;
-      const y = floating ? stuckY + (surfaceY - im.r * 1.1 - stuckY) * rise + bob : stuckY;
+      const y = falling
+        ? stuckY - (1 - fallT) * FALL_TILES * l.tile
+        : floating
+          ? stuckY + (surfaceY - im.r * 1.1 - stuckY) * rise + bob
+          : stuckY;
       const alpha = floating ? Math.max(0, 1 - floatT / FLOAT_LIFE) : 1;
       if (alpha <= 0) continue;
 
       // While it is still stuck, a low ember glow sells the "melted into the
       // skin" contact rather than a rock merely floating in front of it.
-      if (!floating) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
+      if (!falling && !floating) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
 
       ctx.save();
       ctx.globalAlpha = alpha;
       ctx.translate(x, y);
       ctx.rotate(rotation);
-      drawTorchRock(ctx, im.r, floating ? time : im.spawnTime);
+      drawTorchRock(ctx, im.r, falling || floating ? time : im.spawnTime);
       ctx.restore();
     }
   }
