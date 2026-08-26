@@ -158,7 +158,7 @@ export class Canvas2DRenderer implements Renderer {
     }
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
-    this.effects.draw(ctx, l, view.time);
+    this.effects.draw(ctx);
 
     const mood: HullMood = {
       armed: this.armed,
@@ -167,6 +167,9 @@ export class Canvas2DRenderer implements Renderer {
       charge: this.effects.charge,
     };
     drawHull(ctx, l, world, view.time, mood, hullPercent(world), at);
+    // In front of the hull, unlike the rest of Effects.draw() — see
+    // Effects.drawTorchImpact.
+    this.effects.drawTorchImpact(ctx, l, view.time);
     this.effects.drawBanner(ctx, l);
 
     drawHud(ctx, l, view);

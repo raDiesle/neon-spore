@@ -86,11 +86,11 @@ export const WAVES: Wave[] = [
   {
     name: "TORCH",
     sentence: "The one where the only warning is on the other player's screen.",
-    hint: "Three tiles wide, moves at the fastest rock's speed. Player 1 reads the radar, player 2 has the shield.",
+    hint: "Same rock as a meteor, twice as wide and the fastest thing in the field. Player 1 reads the radar, player 2 has the shield.",
     entries: [
-      { beat: 0, col: 1, kind: "torch", color: null },
-      { beat: 6, col: 5, kind: "torch", color: null },
-      { beat: 12, col: 3, kind: "torch", color: null },
+      { beat: 6, col: 1, kind: "torch", color: null },
+      { beat: 12, col: 5, kind: "torch", color: null },
+      { beat: 18, col: 3, kind: "torch", color: null },
     ],
   },
   {

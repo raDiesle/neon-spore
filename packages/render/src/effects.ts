@@ -154,10 +154,20 @@ export class Effects {
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
-  draw(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+  draw(ctx: CanvasRenderingContext2D): void {
     this.deflectFx.draw(ctx);
-    this.torchImpactFx.draw(ctx, l, time);
     this.sparks.draw(ctx);
+  }
+
+  /**
+   * The stuck-then-drifting torch, drawn *over* the hull rather than under
+   * it like the rest of this class: the rock has to stay in front the whole
+   * time it is stuck, not partly hidden behind the hull's own fill the way
+   * the flat `l.hullY` this effect uses would otherwise clip it against the
+   * hull's real, curved surface.
+   */
+  drawTorchImpact(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+    this.torchImpactFx.draw(ctx, l, time);
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
