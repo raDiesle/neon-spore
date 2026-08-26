@@ -13,7 +13,6 @@ import { Glob } from "bun";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const LIMIT = 250;
 const KNOWN_LONG: Record<string, number> = {
-  "packages/content/src/shapes.ts": 259,
   "apps/game/src/input.ts": 257,
 };
 

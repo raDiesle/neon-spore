@@ -1,14 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import {
-  blobPath,
-  bumpAdd,
-  bumpLift,
-  catmullRomToBezierPath,
-  hullAngleAtX,
-  hullPointAtX,
-  hullRadiusMul,
-  type Point,
-} from "../src/shapes.js";
+import { bumpAdd, bumpLift, hullAngleAtX, hullPointAtX, hullRadiusMul } from "../src/hull-shape.js";
+import { blobPath, catmullRomToBezierPath, type Point } from "../src/shapes.js";
 
 describe("shapes", () => {
   describe("catmullRomToBezierPath", () => {

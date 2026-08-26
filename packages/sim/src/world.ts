@@ -1,11 +1,11 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
 import { onBeat, resetRun, startWave } from "./beat.js";
+import type { BossState } from "./boss-state.js";
 import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
 import type {
-  BossState,
   Bullet,
   Color,
   Creature,

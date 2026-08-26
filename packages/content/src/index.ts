@@ -12,6 +12,14 @@ export {
   showsRadar,
 } from "./creatures.js";
 export {
+  type Bump,
+  bumpAdd,
+  bumpLift,
+  hullAngleAtX,
+  hullPointAtX,
+  hullRadiusMul,
+} from "./hull-shape.js";
+export {
   AUTHORED_COL_MAX,
   AUTHORED_COLS,
   bossFromWave,
@@ -23,17 +31,12 @@ export {
   queueFromWave,
 } from "./queue.js";
 export {
-  type Bump,
   blobPath,
-  bumpAdd,
-  bumpLift,
+  blobRadiusMul,
   catmullRomToBezierPath,
   circleSubpath,
   crystalPath,
   crystalRadiusMul,
-  hullAngleAtX,
-  hullPointAtX,
-  hullRadiusMul,
   openSmoothPath,
   type Point,
 } from "./shapes.js";
@@ -46,6 +49,7 @@ export {
   HULL_GEOMETRY,
   type HullSilhouette,
   type LobeShape,
+  livingSilhouette,
   MAW,
   METEOR,
   POD,
