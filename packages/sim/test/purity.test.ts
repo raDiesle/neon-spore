@@ -45,12 +45,20 @@ const BANS: Ban[] = [
  * message that explains the rule may quote it.
  */
 function stripNonCode(source: string): string {
-  return source
-    .replace(/\/\*[\s\S]*?\*\//g, " ")
-    .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ")
-    .replace(/`(?:[^`\]|[\s\S])*`/g, '""')
-    .replace(/"(?:[^"\\n]|\.)*"/g, '""')
-    .replace(/'(?:[^'\\n]|\.)*'/g, '""');
+  return (
+    source
+      .replace(/\/\*[\s\S]*?\*\//g, " ")
+      .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ")
+      .replace(/`(?:[^`\]|[\s\S])*`/g, '""')
+      // A quoted string's own body is anything but its closing quote or a
+      // literal backslash, or a backslash-escaped pair — never "any letter
+      // except n": `[^"\\n]` used to exclude the letter n itself, so a hint
+      // string with an ordinary word like "navigator" in it was never
+      // stripped and read as real code. `bosses.md` 11.0's own hint text is
+      // what caught it.
+      .replace(/"(?:[^"\\]|\\.)*"/g, '""')
+      .replace(/'(?:[^'\\]|\\.)*'/g, '""')
+  );
 }
 
 function sourceFiles(dir: string): string[] {
@@ -125,6 +133,12 @@ const COPIES: Copy[] = [
     call: "occupiesCol",
     owner: "packages/sim/src/types.ts",
     pattern: /c\s*\.\s*col\s*===\s*col\b/,
+    strip: false,
+  },
+  {
+    call: "livingSilhouette",
+    owner: "packages/content/src/silhouettes.ts",
+    pattern: /\?\s*BULB\s*:\s*SLICK|\?\s*SLICK\s*:\s*BULB/,
     strip: false,
   },
   {

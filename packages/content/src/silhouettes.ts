@@ -1,3 +1,5 @@
+import type { CreatureKind } from "@neon-spore/sim";
+
 /**
  * Creature and hull parameters for the raster game. These are tuned in
  * legacy/style-guide.html and transcribed here as data.
@@ -43,6 +45,21 @@ export const BULB: CreatureSilhouette = {
   ry: 52,
   seed: 1.0,
 };
+
+/**
+ * The silhouette a living kind is drawn with. Call this instead of writing
+ * `kind === "bulb" ? BULB : SLICK` by hand: the queen's mark blends two of
+ * these into each other as it morphs, and a second copy of the pairing is
+ * exactly how a morph ends up starting from a shape the creature it names is
+ * not actually drawn as.
+ *
+ * A rock kind has no blob contour at all — it is faceted, not lobed
+ * (`crystalPath`) — so anything but `slick` falls to `SLICK`, which is what
+ * the colour mapping (`livingKindForColor`) can ever hand over anyway.
+ */
+export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
+  return kind === "bulb" ? BULB : SLICK;
+}
 
 /**
  * Pod: a capsule with a core, upright and softly ribbed. Three shallow lobes,

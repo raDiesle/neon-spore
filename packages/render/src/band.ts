@@ -1,5 +1,5 @@
-import { BULB, blobPath, SLICK } from "@neon-spore/content";
-import type { World } from "@neon-spore/sim";
+import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingKindForColor, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -71,7 +71,9 @@ export function drawBand(
   for (const b of l.fireButtons) {
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
     const dark = b.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
-    const shape = b.color === "red" ? SLICK : BULB;
+    // The button wears the creature its ammunition answers — through the
+    // one mapping that owns it, never a second copy of the pairing.
+    const shape = livingSilhouette(livingKindForColor(b.color));
     halo(ctx, b.circle.x, b.circle.y, b.circle.r * 1.6, hex, 0.45);
     ctx.fillStyle = hex;
     ctx.beginPath();

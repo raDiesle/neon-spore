@@ -1,4 +1,4 @@
-import { BULB, blobPath, crystalPath, METEOR, SLICK } from "@neon-spore/content";
+import { blobPath, crystalPath, livingSilhouette, METEOR } from "@neon-spore/content";
 import { type Creature, isMeteorKind, spanCenterCol } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -50,7 +50,7 @@ function drawLiving(
   blocked: number,
 ): void {
   const isBulb = c.kind === "bulb";
-  const shape = isBulb ? BULB : SLICK;
+  const shape = livingSilhouette(c.kind);
   const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const hex = c.color === "red" ? PALETTE.red : PALETTE.cyan;
   const dark = c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
