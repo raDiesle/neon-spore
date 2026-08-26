@@ -51,6 +51,12 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
 | `packages/sim/src/world.ts` | the world and the single `step` function |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
+| `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
+| `packages/sim/src/queen-geometry.ts` | how wide her reach is with both flank torches counted in |
+| `packages/sim/src/simon.ts` | THE MIRROR's vocabulary: what a step is, what it remembers |
+| `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
+| `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
+| `packages/sim/src/entries.ts` | what a wave hands the sim: spawns, pods, either boss |
 | `packages/sim/src/bullets.ts` | firing and tile-wise travel |
 | `packages/sim/src/pods.ts` | pods: hanging, shot loose, falling, taken in |
 | `packages/sim/src/balance.ts` | the balance sheet: joint moments, SYNC, the streak |
@@ -72,6 +78,15 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
 | `packages/render/src/hull.ts` | the ship; cannon and shield as lobes of one contour |
+| `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
+| `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
+| `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
+| `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |
+| `packages/render/src/simon-ghost.ts` | the shots THE MIRROR drops while demonstrating |
+| `packages/render/src/simon-glyph.ts` | one control, drawn small enough for a row of six |
+| `packages/render/src/controls.ts` | the band's buttons, drawn at any size — band and sequence share them |
+| `packages/render/src/boss-draw.ts` | whichever boss is on the field, drawn among the creatures |
+| `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
@@ -88,7 +103,8 @@ history if the wording of a rejected idea is ever needed.
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop, wave progression |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
-| `apps/game/src/input.ts` | commands from touch and keyboard |
+| `apps/game/src/input.ts` | commands from touch |
+| `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
@@ -102,6 +118,8 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/palette.ts` | the creature palette — the brushes are the bestiary |
 | `tools/director/src/balance.ts` | the live balance sheet, as numbers |
 | `tools/director/src/ship.ts` | what the ship can do, read off SimConfig |
+| `tools/director/src/boss.ts` | the boss panel: which boss the wave carries, and its knobs |
+| `tools/director/src/simon-editor.ts` | THE MIRROR's rounds, edited as lists of controls |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
 | `tools/director/src/planned.ts` | the panel that shows them |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |

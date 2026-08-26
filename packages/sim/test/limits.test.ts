@@ -12,10 +12,12 @@ import { Glob } from "bun";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const LIMIT = 250;
-const KNOWN_LONG: Record<string, number> = {
-  "apps/game/src/input.ts": 257,
-};
-
+/**
+ * Nothing is over the limit any more: `shapes.ts` and `input.ts` were both
+ * split by the work that needed them. The map stays because the next file to
+ * outgrow the limit will want somewhere to be recorded rather than excused.
+ */
+const KNOWN_LONG: Record<string, number> = {};
 function sourceFiles(): string[] {
   const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");
   return [...glob.scanSync(ROOT)]

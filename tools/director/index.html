@@ -201,6 +201,21 @@
       table.boss-phases th, table.boss-phases td { padding: 3px 5px; text-align: left; color: var(--dim); border-bottom: 1px solid var(--line-soft); }
       table.boss-phases th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
       table.boss-phases td:first-child { color: var(--ink); letter-spacing: 1px; }
+
+      /* THE MIRROR's rounds. A sequence is read down the page, one round per
+         block, so the editor is shaped like the thing it edits. */
+      .boss-pick { display: flex; gap: 6px; }
+      .boss-pick button { flex: 1; }
+      .simon-rounds { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+      .simon-round { border: 1px solid var(--line-soft); border-radius: 6px; padding: 7px 8px; }
+      .simon-head { display: flex; align-items: center; justify-content: space-between; }
+      .simon-head b { font-size: 9px; letter-spacing: 2px; color: var(--gold); font-weight: 600; }
+      .simon-head button { padding: 2px 6px; font-size: 9px; }
+      .simon-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 7px 0; min-height: 20px; }
+      .simon-chips button { padding: 2px 7px; font-size: 9px; }
+      .simon-add { display: flex; flex-wrap: wrap; gap: 3px; opacity: .65; }
+      .simon-add button { padding: 1px 5px; font-size: 9px; }
+      .simon-add:hover { opacity: 1; }
     </style>
   </head>
   <body>

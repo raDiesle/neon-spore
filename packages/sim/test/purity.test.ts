@@ -130,6 +130,18 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    call: "mirrorListenBeats",
+    owner: "packages/sim/src/simon.ts",
+    pattern: /MIRROR_LISTEN_PER_STEP\s*\+\s*MIRROR_LISTEN_SLACK/,
+    strip: false,
+  },
+  {
+    call: "mirrorHoldsControls",
+    owner: "packages/sim/src/mirror.ts",
+    pattern: /phase\s*===\s*"lead"\s*\|\|[\s\S]{0,20}phase\s*===\s*"show"/,
+    strip: false,
+  },
+  {
     call: "occupiesCol",
     owner: "packages/sim/src/types.ts",
     pattern: /c\s*\.\s*col\s*===\s*col\b/,

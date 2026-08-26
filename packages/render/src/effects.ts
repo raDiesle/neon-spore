@@ -1,21 +1,17 @@
-import { colSpan, isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
+import { colSpan, isMeteorKind, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
+import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
+import { SwallowFx } from "./swallow.js";
 import { rockRadius } from "./torch.js";
 
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
-/**
- * The swallow, end to end: the skin comes apart, then the ship lights up —
- * two movements, one timer, so the flash never arrives before the chewing.
- */
-const SWALLOW_LIFE = 1.05;
-const CHEW_SHARE = 0.55;
 /** How long the queen shudders after losing a petal. */
 const QUEEN_SHAKE_LIFE = 0.35;
 
@@ -33,14 +29,18 @@ export class Effects {
   private rockImpactFx = new RockImpactFx();
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
-  /** Counts down from `SWALLOW_LIFE` while a pod is being taken in. */
-  private swallow = 0;
-  /** Which kind the swallow currently running is for, for the receipt. */
-  private podKind: PodKind | null = null;
+  /** Taking a pod in — its own two-part clock, see `swallow.ts`. */
+  private swallow = new SwallowFx();
   /** Counts down after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
   /** Which impacts have visibly landed — see `arrivals.ts`. */
   private arrivals = new Arrivals();
+  /**
+   * THE MIRROR's own transients. Public because the boss is drawn as a whole
+   * ship rather than as a handful of particles: `canvas2d` reads `armed` and
+   * `intake` off it to build the mirror's hull mood, and calls its own draws.
+   */
+  readonly mirror = new MirrorFx();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -58,19 +58,12 @@ export class Effects {
 
   /** 0..1 while the membrane around the maw is coming apart. */
   get chew(): number {
-    const done = 1 - this.swallow / SWALLOW_LIFE;
-    if (this.swallow <= 0 || done > CHEW_SHARE) return 0;
-    // Up fast, then held: the ship bites and keeps its mouth busy.
-    return Math.min(1, done / (CHEW_SHARE * 0.3));
+    return this.swallow.chew;
   }
 
   /** 0..1 for the light that goes through the ship once the pod is inside. */
   get charge(): number {
-    const done = 1 - this.swallow / SWALLOW_LIFE;
-    if (this.swallow <= 0 || done < CHEW_SHARE) return 0;
-    const after = (done - CHEW_SHARE) / (1 - CHEW_SHARE);
-    // A flash is all attack and no sustain: full at once, then gone.
-    return Math.max(0, 1 - after) ** 1.6;
+    return this.swallow.charge;
   }
 
   ingest(
@@ -80,6 +73,7 @@ export class Effects {
     creatureIdAt: (col: number, row: number) => number,
     beatSeconds: number,
   ): void {
+    this.mirror.ingest(events);
     for (const e of events) {
       switch (e.type) {
         case "destroy": {
@@ -141,8 +135,7 @@ export class Effects {
           // Sparks flying *inwards*: the one moment in the game where the ship
           // takes something instead of losing it.
           this.sparks.implode(tileCX(l, e.col), l.hullY, 22, PALETTE.pod, l.tile * 1.9);
-          this.swallow = SWALLOW_LIFE;
-          this.podKind = e.kind;
+          this.swallow.start(e.kind);
           break;
         }
         case "podLost":
@@ -175,8 +168,9 @@ export class Effects {
       else this.blockedUntil.set(id, left);
     }
     this.guardHit = Math.max(0, this.guardHit - dt);
-    this.swallow = Math.max(0, this.swallow - dt);
+    this.swallow.update(dt);
     this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
+    this.mirror.update(dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
@@ -228,19 +222,19 @@ export class Effects {
     this.arrivals.clear();
     this.blockedUntil.clear();
     this.guardHit = 0;
-    this.swallow = 0;
-    this.podKind = null;
+    this.swallow.clear();
     this.queenShakeUntil = 0;
+    this.mirror.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
     drawBanner(ctx, l, {
       guardHit: this.guardHit,
-      swallow: this.swallow,
-      swallowLife: SWALLOW_LIFE,
-      chewShare: CHEW_SHARE,
-      podKind: this.podKind,
+      swallow: this.swallow.remaining,
+      swallowLife: this.swallow.life,
+      chewShare: this.swallow.chewShare,
+      podKind: this.swallow.podKind,
     });
   }
 

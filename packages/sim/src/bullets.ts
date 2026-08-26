@@ -161,7 +161,7 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
     world.events.push({ type: "reject", col: b.col, row: hit.row });
     return;
   }
-  const weakSide = world.boss?.weakSide ?? 0;
+  const weakSide = world.boss?.kind === "queen" ? world.boss.weakSide : 0;
   if (b.col !== hit.col + weakSide) {
     // Right colour, wrong mark — and deliberately *not* a colour miss. The
     // ammunition was correct; what failed was the side, which is the other
@@ -175,7 +175,7 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   hit.petals -= 1;
   world.score += world.cfg.scoreQueenPetal;
   hit.color = null;
-  if (world.boss) world.boss.closeBeat = world.beat;
+  if (world.boss?.kind === "queen") world.boss.closeBeat = world.beat;
   world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
 
   if (hit.petals <= 0) {

@@ -3,8 +3,14 @@ import { onBeat, resetRun, startWave } from "./beat.js";
 import type { BossState } from "./boss-state.js";
 import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
+import { fireStep, type MirrorStep, type MirrorVerdictReason } from "./simon.js";
+
+export type { BossEntry, MirrorEntry, PodEntry, QueenEntry, SpawnEntry } from "./entries.js";
+
+import type { PodEntry, SpawnEntry } from "./entries.js";
 import type {
   Bullet,
   Color,
@@ -65,39 +71,6 @@ export interface World {
   events: SimEvent[];
 }
 
-export interface SpawnEntry {
-  beat: number;
-  col: number;
-  kind: Creature["kind"];
-  color: Color | null;
-}
-
-/**
- * Where a pod is left hanging. Its own queue rather than an entry in the spawn
- * queue: a pod is not a creature, it is never cleared, and a wave that ends
- * with one still hanging has still ended (docs/spec/systems.md 5.7).
- */
-export interface PodEntry {
-  beat: number;
-  col: number;
-  /** Row it hangs at, from the top. Never the hull row. */
-  row: number;
-  /** What the pod gives when swallowed. A wave that does not say means `mend`. */
-  kind?: PodKind;
-}
-
-/**
- * What a wave authors when it wants the queen — the boss counterpart of
- * `PodEntry`. The sim turns it into one creature of kind `"queen"` plus a
- * filled `BossState`; everything else about her is unbuilt.
- */
-export interface BossEntry {
-  /** The column she starts on. */
-  col: number;
-  /** Petals she starts with. */
-  petals: number;
-}
-
 export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
@@ -122,7 +95,18 @@ export type SimEvent =
       beat: number;
     }
   | { type: "petal"; col: number; row: number; left: number }
-  | { type: "queenDown"; col: number; row: number };
+  | { type: "queenDown"; col: number; row: number }
+  /**
+   * THE MIRROR performed one step of a sequence. `index` is 1-based, and
+   * `col` is the column its own cannon was standing in as it did — which is
+   * where render/ drops the ghost of a shot it performed.
+   */
+  | { type: "mirrorShow"; step: MirrorStep; index: number; of: number; col: number }
+  /** The pair answered one step of a sequence correctly. */
+  | { type: "mirrorEcho"; step: MirrorStep; index: number; of: number }
+  /** A round is settled — right or wrong, why, and where it landed. */
+  | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
+  | { type: "mirrorDown"; col: number };
 
 export const MILLI = 1000;
 
@@ -187,29 +171,51 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   progressWave(world);
 }
 
+/**
+ * Every command is also a gesture THE MIRROR may be listening for, so each of
+ * the four that has a step to its name reports it (`mirrorHeard` ignores it
+ * unless a sequence is actually open). The cannon is the one that has to be
+ * *derived*: a column is a place, and the step is which way it moved, so the
+ * old column is read before the new one is written. Any jump counts once, in
+ * the direction it went — a thumb dragged three columns is one gesture, not
+ * three, because that is how many things the player did.
+ */
 function applyCommand(world: World, timed: TimedCommand): void {
   const c = timed.command;
+  if (c.kind === "restart") {
+    // The sim clears the run and then asks for a queue. It cannot build one
+    // itself: waves live in content/, and content points at sim, not back.
+    // Read even while the controls are held, or a run could never be left.
+    resetRun(world);
+    world.events.push({ type: "needWave", wave: 0 });
+    return;
+  }
+  // Nothing at all reaches the ship while THE MIRROR is presenting.
+  if (mirrorHoldsControls(world)) return;
+
   switch (c.kind) {
-    case "cannonCol":
+    case "cannonCol": {
+      const from = world.cannonCol;
       world.cannonCol = clampCol(world, c.col);
+      if (world.cannonCol !== from) {
+        mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
+      }
       break;
+    }
     case "shieldCol":
       world.shieldCol = clampCol(world, c.col);
       break;
     case "guard":
       world.guardTick = world.tick;
+      mirrorHeard(world, "guard");
       break;
     case "intake":
       world.intakeTick = world.tick;
+      mirrorHeard(world, "intake");
       break;
     case "fire":
       fire(world, c.color);
-      break;
-    case "restart":
-      // The sim clears the run and then asks for a queue. It cannot build one
-      // itself: waves live in content/, and content points at sim, not back.
-      resetRun(world);
-      world.events.push({ type: "needWave", wave: 0 });
+      mirrorHeard(world, fireStep(c.color));
       break;
   }
 }

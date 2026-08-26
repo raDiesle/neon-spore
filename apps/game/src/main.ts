@@ -35,8 +35,12 @@ const view = bindViewSwitch(() => {
 });
 const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
 
-/** Wave name and hint, shown for a moment at the start of a wave. */
-const BANNER_SECONDS = 2.6;
+/**
+ * How long the wave's name and hint stand. Long enough to read a short one
+ * twice: at 2.6 s the hint was gone before anyone had finished it, which made
+ * every wave feel like it started mid-sentence.
+ */
+const BANNER_SECONDS = 5.5;
 let banner = openingBanner(0);
 
 function openingBanner(wave: number): { title: string; hint: string; remaining: number } {

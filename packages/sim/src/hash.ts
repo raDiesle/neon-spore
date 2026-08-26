@@ -1,3 +1,4 @@
+import { MIRROR_PHASES } from "./simon.js";
 import type { World } from "./world.js";
 
 /**
@@ -66,23 +67,40 @@ export function hashWorld(world: World): number {
     push(s.beat);
   }
 
-  push(world.boss === null ? 0 : 1);
-  if (world.boss !== null) {
-    push(world.boss.creatureId);
-    push(world.boss.phase);
-    push(world.boss.phaseBeat);
-    push(world.boss.tellCol);
-    push(world.boss.tellColor === null ? 0 : world.boss.tellColor === "red" ? 1 : 2);
-    push(world.boss.weakSide);
-    push(world.boss.pickBeat);
-    push(world.boss.spentSide);
-    push(world.boss.openBeat);
-    push(world.boss.closeBeat);
-    push(world.boss.dropSide);
-    push(world.boss.releaseBeat);
-    push(world.boss.releaseSide);
-    push(world.boss.scratch.length);
-    for (const n of world.boss.scratch) push(n);
+  const boss = world.boss;
+  push(boss === null ? 0 : boss.kind === "queen" ? 1 : 2);
+  if (boss !== null && boss.kind === "queen") {
+    push(boss.creatureId);
+    push(boss.phase);
+    push(boss.phaseBeat);
+    push(boss.tellCol);
+    push(boss.tellColor === null ? 0 : boss.tellColor === "red" ? 1 : 2);
+    push(boss.weakSide);
+    push(boss.pickBeat);
+    push(boss.spentSide);
+    push(boss.openBeat);
+    push(boss.closeBeat);
+    push(boss.dropSide);
+    push(boss.releaseBeat);
+    push(boss.releaseSide);
+    push(boss.scratch.length);
+    for (const n of boss.scratch) push(n);
+  }
+  if (boss !== null && boss.kind === "mirror") {
+    push(boss.round);
+    push(MIRROR_PHASES.indexOf(boss.phase));
+    push(boss.phaseBeat);
+    push(boss.matched);
+    push(boss.shown);
+    push(boss.cannonCol);
+    push(boss.hullMilli);
+    push(boss.verdict);
+    push(boss.verdictCol);
+    push(boss.scars.length);
+    for (const s of boss.scars) {
+      push(s.col);
+      push(s.beat);
+    }
   }
 
   return h >>> 0;

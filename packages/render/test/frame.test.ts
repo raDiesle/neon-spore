@@ -59,6 +59,13 @@ function frames(role: ViewRole, ticks: number, viewport = { width: 900, height: 
   return { world, ctx };
 }
 
+/** The index of the wave carrying a boss of this kind. */
+function waveWith(kind: "queen" | "mirror"): number {
+  const index = WAVES.findIndex((w) => w.boss?.kind === kind);
+  if (index === -1) throw new Error(`no wave carries the ${kind}`);
+  return index;
+}
+
 function queenFrames(
   role: ViewRole,
   ticks: number,
@@ -69,7 +76,9 @@ function queenFrames(
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize(viewport);
 
-  const index = WAVES.length - 1;
+  // By name, never by position: there is more than one boss wave now, and
+  // `WAVES.length - 1` quietly became a different fight the day one was added.
+  const index = waveWith("queen");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
 
   const tpb = ticksPerBeat(CFG);
@@ -79,7 +88,7 @@ function queenFrames(
     if (world.events.length) events.push(...world.events);
 
     if (tick === tpb * 2) {
-      if (world.boss) {
+      if (world.boss?.kind === "queen") {
         world.boss.tellColor = "red";
         world.boss.openBeat = world.beat + 2;
       }
@@ -213,6 +222,63 @@ describe("the radar", () => {
     expect(p1.ctx.calls).toBe(0);
     expect(p2.ctx.calls).toBeGreaterThan(0);
   });
+});
+
+/**
+ * THE MIRROR, over a whole round: it performs, the pair answers one step
+ * right and the next one wrong, and both verdicts are drawn — the correct
+ * one scars the mirror's own hull, the wrong one throws a rock at the ship's
+ * and tips the entire frame upside down over itself.
+ */
+function mirrorFrames(role: ViewRole, ticks: number) {
+  const world = createWorld(CFG, 5);
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+  const index = waveWith("mirror");
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  for (let tick = 0; tick < ticks; tick++) {
+    const listening = world.boss?.kind === "mirror" && world.boss.phase === "listen";
+    // One right, then one wrong: the first round is FIRE RED then SHIELD.
+    if (listening && tick % tpb === 1) {
+      step(world, [{ tick, player: 2, command: { kind: "fire", color: "red" } }]);
+    } else if (listening && tick % tpb === 40) {
+      step(world, [{ tick, player: 1, command: { kind: "intake" } }]);
+    } else {
+      step(world, []);
+    }
+    if (world.events.length) events.push(...world.events);
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+      banner: null,
+    });
+    events = [];
+  }
+  return { world, ctx };
+}
+
+describe("the mirror", () => {
+  for (const role of ROLES) {
+    it(`draws its ship, its sequence and both verdicts for ${role}`, () => {
+      const { ctx, world } = mirrorFrames(role, ticksPerBeat(CFG) * 20);
+      expect(ctx.calls).toBeGreaterThan(1000);
+      // It really got as far as being judged, or the frames prove nothing
+      // about the parts of the picture that only exist after a verdict.
+      const boss = world.boss;
+      expect(boss?.kind === "mirror" && boss.verdict !== 0).toBe(true);
+    });
+  }
 });
 
 describe("the queen", () => {

@@ -78,6 +78,14 @@ export interface SimConfig {
   damageCreature: number;
   /** Damage when a meteor is not deflected. */
   damageMeteor: number;
+  /** The row THE MIRROR's own hull surface sits on — the ship's, upside down. */
+  mirrorRow: number;
+  /** Damage a wrong step in a Simon sequence costs, thrown back by THE MIRROR. */
+  damageEcho: number;
+  /** Score for answering one of THE MIRROR's sequences in full. */
+  scoreMirrorRound: number;
+  /** Score for breaking THE MIRROR. */
+  scoreMirrorDown: number;
   /** Craters a single meteor can carry. Older ones are forgotten. */
   maxHoles: number;
   /** Breaks the hull remembers. Older ones are forgotten. */
@@ -149,6 +157,10 @@ export const DEFAULT_CONFIG: SimConfig = {
   hullInvulnerable: false,
   damageCreature: 12,
   damageMeteor: 20,
+  mirrorRow: 3,
+  damageEcho: 15,
+  scoreMirrorRound: 500,
+  scoreMirrorDown: 2500,
   maxHoles: 10,
   maxScars: 30,
   waveRestBeats: 3,

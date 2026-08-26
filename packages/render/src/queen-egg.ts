@@ -1,4 +1,4 @@
-import { type BossState, type Creature, queenTorchCol, spanCenterCol } from "@neon-spore/sim";
+import { type Creature, type QueenState, queenTorchCol, spanCenterCol } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -46,7 +46,7 @@ export function drawSideHint(
  * visibly grows into the empty socket instead of appearing whole in it.
  */
 function eggScale(
-  boss: BossState,
+  boss: QueenState,
   side: -1 | 1,
   beat: number,
   beatPhase: number,
@@ -70,7 +70,7 @@ export function drawEgg(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   queen: Creature,
-  boss: BossState,
+  boss: QueenState,
   side: -1 | 1,
   ox: number,
   oy: number,

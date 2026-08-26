@@ -1,5 +1,5 @@
 import { crystalPath, QUEEN_SHELL } from "@neon-spore/content";
-import type { BossState, Creature } from "@neon-spore/sim";
+import type { Creature, QueenState } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -54,7 +54,7 @@ export function drawQueen(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   queen: Creature,
-  boss: BossState,
+  boss: QueenState,
   beat: number,
   time: number,
   beatPhase: number,

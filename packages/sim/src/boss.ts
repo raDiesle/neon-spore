@@ -1,5 +1,6 @@
-import type { BossState } from "./boss-state.js";
+import type { QueenState } from "./boss-state.js";
 import { hullRow, type SimConfig } from "./config.js";
+import { stepMirror } from "./mirror.js";
 import {
   announce,
   closeBloom,
@@ -63,9 +64,18 @@ export function initialDropSide(world: World): -1 | 1 {
   return nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
+/**
+ * One beat of whichever boss the wave installed. The dispatch lives here, and
+ * not in `beat.ts`, so `onBeat` keeps calling one thing: a wave has a boss or
+ * it does not, and which one it is has never been the beat's business.
+ */
 export function stepBoss(world: World): void {
   const boss = world.boss;
   if (boss === null) return;
+  if (boss.kind === "mirror") {
+    stepMirror(world, boss);
+    return;
+  }
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);
@@ -88,7 +98,7 @@ export function stepBoss(world: World): void {
  * "none entered yet" — that is what makes her first beat a phase change, and
  * what lets her announce her opening bloom on it instead of a cycle later.
  */
-function enterPhase(world: World, boss: BossState, queen: Creature): void {
+function enterPhase(world: World, boss: QueenState, queen: Creature): void {
   const phase = PHASES.findIndex((p) => queen.petals > p.above);
   if (phase === boss.phase) return;
   boss.phase = phase;
@@ -106,14 +116,14 @@ function enterPhase(world: World, boss: BossState, queen: Creature): void {
  * ceiling is the field itself: she may never reach the row the hull resolves
  * on, whatever a wave author sets her starting petals to.
  */
-function queenRow(cfg: SimConfig, boss: BossState, queen: Creature): number {
+function queenRow(cfg: SimConfig, boss: QueenState, queen: Creature): number {
   const maxDrop = Math.max(0, hullRow(cfg) - 1 - cfg.queenRow);
   const drop = Math.min(maxDrop, boss.startPetals - queen.petals);
   return cfg.queenRow + Math.max(0, drop);
 }
 
 /** One tile nearer the hull for every petal she has lost, for as long as she has any left. */
-function descend(world: World, boss: BossState, queen: Creature): void {
+function descend(world: World, boss: QueenState, queen: Creature): void {
   const target = queenRow(world.cfg, boss, queen);
   if (target === queen.row) return;
   queen.fromRow = queen.row;
@@ -126,7 +136,7 @@ function descend(world: World, boss: BossState, queen: Creature): void {
  * outermost torch would leave the grid, so both eggs stay over columns the
  * pair can name and drop into.
  */
-function walk(world: World, boss: BossState, queen: Creature): void {
+function walk(world: World, boss: QueenState, queen: Creature): void {
   if (boss.openBeat !== -1) return;
   const turned = queen.col + boss.scratch[WALK]!;
   if (turned !== clampQueenCol(world.cfg, turned)) boss.scratch[WALK] = -boss.scratch[WALK]!;
@@ -140,7 +150,7 @@ function walk(world: World, boss: BossState, queen: Creature): void {
  * whole cycle rather than appearing late — `boss.dropSide` is never `0` for
  * longer than the length of this one call.
  */
-function spitCycle(world: World, boss: BossState, queen: Creature): void {
+function spitCycle(world: World, boss: QueenState, queen: Creature): void {
   if (world.waveBeat % ROCK_CYCLE !== 0) return;
   const side: -1 | 1 = boss.dropSide === -1 ? -1 : 1;
   spit(world, queen, queenTorchCol(queen.col, side));

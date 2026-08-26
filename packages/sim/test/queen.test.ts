@@ -1,9 +1,21 @@
 import { expect, test } from "bun:test";
 import { startWave } from "../src/beat.js";
+import type { QueenState } from "../src/boss-state.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { hullRow, step, ticksPerBeat } from "../src/index.js";
 import type { Color, Creature, TimedCommand } from "../src/types.js";
-import { type BossEntry, createWorld, type World } from "../src/world.js";
+import { createWorld, type QueenEntry, type World } from "../src/world.js";
+
+/**
+ * The queen's own state, narrowed off the boss slot. `world.boss` is a union
+ * of the two bosses now, so a test that reads her fields has to say which one
+ * it expects — and fail loudly rather than silently if it is the other.
+ */
+function queenOf_(world: World): QueenState {
+  const boss = world.boss;
+  if (boss === null || boss.kind !== "queen") throw new Error("no queen installed");
+  return boss;
+}
 
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
@@ -28,7 +40,7 @@ function shoot(tick: number, color: Color): TimedCommand {
  * other mark, one tile the other way, always rejects. */
 function weakMarkCol(world: World): number {
   const q = queenAt(world);
-  return q.col + world.boss!.weakSide;
+  return q.col + queenOf_(world).weakSide;
 }
 
 function fireAtQueen(world: World, color: Color): void {
@@ -49,7 +61,7 @@ function fireAtQueen(world: World, color: Color): void {
 test("startWave installs the queen at cfg.queenRow", () => {
   const cfg = { ...DEFAULT_CONFIG };
   const world = createWorld(cfg, 0);
-  const boss: BossEntry = { col: 5, petals: 8 };
+  const boss: QueenEntry = { kind: "queen", col: 5, petals: 8 };
   startWave(world, 0, [], [], boss);
 
   expect(world.creatures.length).toBe(1);
@@ -61,7 +73,7 @@ test("startWave installs the queen at cfg.queenRow", () => {
   expect(queen.petals).toBe(8);
 
   expect(world.boss).not.toBeNull();
-  expect(world.boss!.creatureId).toBe(queen.id);
+  expect(queenOf_(world).creatureId).toBe(queen.id);
 });
 
 test("startWave without a boss leaves no queen and no boss state", () => {
@@ -75,13 +87,13 @@ test("startWave without a boss leaves no queen and no boss state", () => {
 
 test("closed queen rejects any shot and keeps her petals", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { col: 3, petals: 8 };
+  const boss: QueenEntry = { kind: "queen", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
-  world.boss!.openBeat = 10_000;
-  world.boss!.closeBeat = 10_000;
-  world.boss!.phase = 0;
+  queenOf_(world).openBeat = 10_000;
+  queenOf_(world).closeBeat = 10_000;
+  queenOf_(world).phase = 0;
   const queen = queenAt(world);
 
   expect(queen.color).toBeNull();
@@ -98,13 +110,13 @@ test("closed queen rejects any shot and keeps her petals", () => {
 
 test("open queen rejects a mismatched colour", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { col: 3, petals: 8 };
+  const boss: QueenEntry = { kind: "queen", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
-  world.boss!.openBeat = 10_000;
-  world.boss!.closeBeat = 10_000;
-  world.boss!.phase = 0;
+  queenOf_(world).openBeat = 10_000;
+  queenOf_(world).closeBeat = 10_000;
+  queenOf_(world).phase = 0;
   const queen = queenAt(world);
   queen.color = "cyan";
 
@@ -116,13 +128,13 @@ test("open queen rejects a mismatched colour", () => {
 
 test("open queen loses exactly one petal to a matching shot", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { col: 3, petals: 8 };
+  const boss: QueenEntry = { kind: "queen", col: 3, petals: 8 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
-  world.boss!.openBeat = 10_000;
-  world.boss!.closeBeat = 10_000;
-  world.boss!.phase = 0;
+  queenOf_(world).openBeat = 10_000;
+  queenOf_(world).closeBeat = 10_000;
+  queenOf_(world).phase = 0;
   const queen = queenAt(world);
   queen.color = "red";
 
@@ -130,7 +142,7 @@ test("open queen loses exactly one petal to a matching shot", () => {
 
   expect(queen.petals).toBe(7);
   expect(queen.color).toBeNull();
-  expect(world.boss!.closeBeat).toBe(world.beat);
+  expect(queenOf_(world).closeBeat).toBe(world.beat);
   expect(world.events).toContainEqual(
     expect.objectContaining({ type: "petal", col: weakMarkCol(world), left: 7 }),
   );
@@ -138,13 +150,13 @@ test("open queen loses exactly one petal to a matching shot", () => {
 
 test("losing the last petal brings the queen down", () => {
   const world = createWorld({ ...CFG }, 0);
-  const boss: BossEntry = { col: 3, petals: 1 };
+  const boss: QueenEntry = { kind: "queen", col: 3, petals: 1 };
   startWave(world, 0, [], [], boss);
   // Hold the choreography still so the case tests the shot, not the bloom cycle.
   // Pin the phase too: an unentered phase is a phase change waiting to happen.
-  world.boss!.openBeat = 10_000;
-  world.boss!.closeBeat = 10_000;
-  world.boss!.phase = 2;
+  queenOf_(world).openBeat = 10_000;
+  queenOf_(world).closeBeat = 10_000;
+  queenOf_(world).phase = 2;
   const queen = queenAt(world);
   queen.color = "red";
   const col = weakMarkCol(world);

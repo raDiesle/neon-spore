@@ -18,7 +18,11 @@ describe("roster", () => {
     // The Silent and The Jammer joined for the torch's radar-ownership work —
     // docs/decisions.md #15.
     expect(roster.accepted).toHaveLength(9);
-    expect(roster.bosses).toHaveLength(11);
+    // Eleven named in the act order, plus THE MIRROR, which holds no slot in
+    // it and is built (docs/spec/bosses.md 11.3).
+    expect(roster.bosses).toHaveLength(12);
+    expect(roster.bosses.find((b) => b.name === "The Mirror")?.built).toBe(true);
+    expect(roster.bosses.find((b) => b.name === "Bulb Queen")?.built).toBe(true);
 
     const slick = roster.creatures.find((c) => c.name === "Slick");
     expect(slick?.built).toBe(true);
@@ -91,7 +95,7 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
     ]);
 
     expect(roster.bosses).toEqual([
-      { name: "Bulb Queen", kind: "10", note: "", built: false },
+      { name: "Bulb Queen", kind: "10", note: "", built: true },
       { name: "Strand Nest", kind: "20", note: "", built: false },
       { name: "The Vessel", kind: "finale", note: "", built: false },
     ]);

@@ -1,4 +1,4 @@
-import type { BossState } from "./boss-state.js";
+import type { QueenState } from "./boss-state.js";
 import { nextInt } from "./rng.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -95,7 +95,7 @@ export function queenOccupiesCol(queenCol: number, col: number): boolean {
  * standing: it is chosen a whole bloom ahead by `pickNextBloom` and is what
  * her body shows the entire time she is between blooms.
  */
-export function forget(boss: BossState): void {
+export function forget(boss: QueenState): void {
   boss.tellCol = -1;
   boss.openBeat = -1;
   boss.closeBeat = -1;
@@ -111,7 +111,7 @@ export function forget(boss: BossState): void {
  * The colour alternates, cyan first, which is what makes the mark's morph
  * always a slick↔bulb one: consecutive blooms are never the same creature.
  */
-export function pickNextBloom(world: World, boss: BossState): void {
+export function pickNextBloom(world: World, boss: QueenState): void {
   boss.tellColor = boss.scratch[BLOOMS]! % 2 === 0 ? "cyan" : "red";
   boss.weakSide = nextInt(world.rng, 2) === 0 ? -1 : 1;
   boss.pickBeat = world.beat;
@@ -127,7 +127,7 @@ export function pickNextBloom(world: World, boss: BossState): void {
  * A miss just closes it. There is no punishment here — her rocks are their
  * own thing, on `spitCycle`'s clock, not a consequence of a missed mark.
  */
-export function closeBloom(world: World, boss: BossState, queen: Creature): void {
+export function closeBloom(world: World, boss: QueenState, queen: Creature): void {
   if (boss.openBeat === -1) return;
   if (world.beat < boss.closeBeat) return;
   queen.color = null;
@@ -140,7 +140,7 @@ export function closeBloom(world: World, boss: BossState, queen: Creature): void
 }
 
 /** She opens. That is all this beat does now — the mark, nothing riding on it. */
-export function openBloom(world: World, boss: BossState, queen: Creature): void {
+export function openBloom(world: World, boss: QueenState, queen: Creature): void {
   if (world.beat !== boss.openBeat) return;
   queen.color = boss.tellColor;
 }
@@ -151,7 +151,7 @@ export function openBloom(world: World, boss: BossState, queen: Creature): void 
  * stops walking for the length of the bloom — that is the whole reason the
  * tell is worth saying out loud.
  */
-export function announce(world: World, boss: BossState, queen: Creature, plan: Phase): void {
+export function announce(world: World, boss: QueenState, queen: Creature, plan: Phase): void {
   if (boss.openBeat !== -1) return;
   if (world.waveBeat % ROCK_CYCLE !== ROCK_MID - plan.tell) return;
   boss.tellCol = queen.col;

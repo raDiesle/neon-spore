@@ -1,5 +1,6 @@
 import { markMoment } from "./balance.js";
 import { hullRow, ticksPerBeat } from "./config.js";
+import { mirrorBaitTaken } from "./mirror-round.js";
 import { nextInt } from "./rng.js";
 import { type Color, isMeteorKind, type Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -69,6 +70,8 @@ export function freePod(world: World, pod: Pod): void {
   if (pod.loose) return;
   pod.loose = true;
   world.balance.podsFreed += 1;
+  // A boss may be hanging this pod out as bait — see `mirrorBaitTaken`.
+  mirrorBaitTaken(world);
   const dir = nextInt(world.rng, 2) === 0 ? -1 : 1;
   pod.driftMilli = dir * driftMilli(world);
   world.events.push({
@@ -168,6 +171,7 @@ function resolveIntake(world: World, pod: Pod): void {
         ward(world);
         break;
     }
+    mirrorBaitTaken(world);
     world.events.push({ type: "podTaken", col, kind: pod.kind });
     return;
   }

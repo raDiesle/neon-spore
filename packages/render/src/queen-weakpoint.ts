@@ -1,4 +1,4 @@
-import type { BossState, Color, Creature } from "@neon-spore/sim";
+import type { Color, Creature, QueenState } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, showsQueenShape } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -47,12 +47,12 @@ const PENDING_ALPHA = 0.45;
  */
 
 /** True once this particular mark has opened — the real one, while she is open. */
-function isRevealed(side: -1 | 1, queen: Creature, boss: BossState): boolean {
+function isRevealed(side: -1 | 1, queen: Creature, boss: QueenState): boolean {
   return queen.color != null && boss.weakSide === side;
 }
 
 /** A bloom is named and has a clock on it, but has not opened yet. */
-function isAnnounced(queen: Creature, boss: BossState, beat: number): boolean {
+function isAnnounced(queen: Creature, boss: QueenState, beat: number): boolean {
   return queen.color == null && boss.openBeat !== -1 && beat < boss.openBeat;
 }
 
@@ -69,7 +69,7 @@ const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
  * (`spentSide` still 0) it is flatly 0: a wave must not open on a mark
  * already part-way through shrinking.
  */
-function revealShare(boss: BossState, queen: Creature, beat: number, beatPhase: number): number {
+function revealShare(boss: QueenState, queen: Creature, beat: number, beatPhase: number): number {
   if (queen.color != null) return clamp01((beat - boss.openBeat + beatPhase) / MORPH_BEATS);
   if (boss.spentSide === 0) return 0;
   return 1 - clamp01((beat - boss.pickBeat + beatPhase) / MORPH_BEATS);
@@ -83,7 +83,7 @@ function revealShare(boss: BossState, queen: Creature, beat: number, beatPhase: 
  * then.
  */
 export function ballShare(
-  boss: BossState,
+  boss: QueenState,
   queen: Creature,
   side: -1 | 1,
   beat: number,
@@ -103,7 +103,7 @@ export function markGlow(
   l: Layout,
   side: -1 | 1,
   queen: Creature,
-  boss: BossState,
+  boss: QueenState,
   beat: number,
   beatPhase = 0,
 ): { hex: string; alpha: number } | null {
@@ -127,7 +127,7 @@ export function markGlow(
  * beat the next bloom was chosen on (`boss.pickBeat`), stateless for the same
  * reason as `revealShare`.
  */
-function morphShare(boss: BossState, beat: number, beatPhase: number): number {
+function morphShare(boss: QueenState, beat: number, beatPhase: number): number {
   return clamp01((beat - boss.pickBeat + beatPhase) / MORPH_BEATS);
 }
 
@@ -139,7 +139,7 @@ export function drawMark(
   r: number,
   side: -1 | 1,
   queen: Creature,
-  boss: BossState,
+  boss: QueenState,
   beat: number,
   beatPhase: number,
   time: number,

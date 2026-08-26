@@ -1,6 +1,7 @@
 import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { resolveHull } from "./hull.js";
+import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
 import { createRng } from "./rng.js";
 import { clampSpanCol, fallTilesPerBeat } from "./types.js";
@@ -61,7 +62,11 @@ export function onBeat(world: World): void {
   // done. Wait `waveRestBeats` before the next one starts automatically. Pods
   // are deliberately not counted — a power-up never blocks the end of a wave
   // (docs/spec/systems.md 5.7), so one left hanging is one left behind.
-  const cleared = world.spawned >= world.queue.length && world.creatures.length === 0;
+  // A boss still standing holds the wave open even when the field is empty.
+  // The queen is a creature and counted herself; THE MIRROR is not on the
+  // field at all, so without this its wave would clear on its first beat.
+  const cleared =
+    world.spawned >= world.queue.length && world.creatures.length === 0 && world.boss === null;
   if (cleared) {
     if (world.restBeat === 0) {
       world.balance.wavesCleared += 1;
@@ -107,7 +112,9 @@ export function startWave(
   world.shieldCol = mid;
   world.boss = null;
 
-  if (boss) {
+  if (boss?.kind === "mirror") {
+    world.boss = installMirror(world, boss.rounds);
+  } else if (boss) {
     const id = world.nextId++;
     world.creatures.push({
       id,
@@ -122,6 +129,7 @@ export function startWave(
       petals: boss.petals,
     });
     world.boss = {
+      kind: "queen",
       creatureId: id,
       // -1 is not a real phase; it means "has not entered one yet", so the
       // first beat is read as a phase change and she can open on it.

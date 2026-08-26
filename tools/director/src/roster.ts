@@ -5,6 +5,7 @@
  */
 
 import { CREATURES } from "@neon-spore/content";
+import { BOSS_KINDS } from "@neon-spore/sim";
 import { firstParagraph, parseNumberedSections, type Section } from "./sections.js";
 
 export interface Planned {
@@ -22,9 +23,17 @@ export interface Roster {
   bosses: Planned[];
 }
 
+/**
+ * Whether the simulation actually has this. A creature is looked up by its
+ * own key; a boss by the last word of its name, because the spec calls her
+ * "Bulb Queen" and the sim calls her `queen` — the panel used to answer "not
+ * built" for a boss that has been in the game since August.
+ */
 function isBuilt(name: string): boolean {
   const key = name.toLowerCase();
-  return key in CREATURES;
+  if (key in CREATURES) return true;
+  const last = key.split(/\s+/).at(-1) ?? "";
+  return BOSS_KINDS.some((kind) => kind === last);
 }
 
 function parseTable(text: string, headingEnd: string): Planned[] {

@@ -86,7 +86,7 @@ export const WAVES: Wave[] = [
   {
     name: "TORCH",
     sentence: "The one where the only warning is on the other player's screen.",
-    hint: "Same rock as a meteor, twice as wide and the fastest thing in the field. Player 1 reads the radar, player 2 has the shield.",
+    hint: "Twice as wide, and the fastest thing there is. P1 reads the radar, P2 has the shield.",
     entries: [
       { beat: 6, col: 1, kind: "torch", color: null },
       { beat: 12, col: 5, kind: "torch", color: null },
@@ -139,7 +139,7 @@ export const WAVES: Wave[] = [
   {
     name: "SALVAGE",
     sentence: "The one where shooting something is only half of getting it.",
-    hint: "A shot in its column knocks the pod loose — any colour works. Chase it down with the cannon and hit SUCK the moment it reaches the hull.",
+    hint: "Shoot the pod loose, chase it, then SUCK as it reaches the hull.",
     entries: [
       { beat: 2, col: 1, color: "cyan" },
       { beat: 7, col: 5, color: "red" },
@@ -163,10 +163,24 @@ export const WAVES: Wave[] = [
   {
     name: "BULB QUEEN",
     sentence: "The one where she opens for two beats, and drops a torch on a clock of its own.",
-    hint: "Two armoured marks under her middle, and only one of them is real. Player 1 sees what is coming and not where; player 2 sees where and not what. Say both, every time, or the bloom closes on nothing. Every eight beats one of the torches on her wings breaks off and falls straight down from where it sat — player 2 watches which one glows and takes that column before it goes.",
+    hint: "Two marks, one real. P1 sees what is coming, P2 sees where — say both.",
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4 }],
-    boss: { col: 3, petals: 9 },
+    boss: { kind: "queen", col: 3, petals: 9 },
+  },
+  {
+    name: "THE MIRROR",
+    sentence: "The one where the boss is your own ship, and it asks for your moves back.",
+    hint: "Watch, then do the same. Say every step out loud — the pod is bait.",
+    entries: [],
+    boss: {
+      kind: "mirror",
+      rounds: [
+        ["fireRed", "guard"],
+        ["cannonLeft", "cannonRight", "cannonRight"],
+        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
+      ],
+    },
   },
   {
     name: "meteor testings",

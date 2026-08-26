@@ -33,7 +33,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       if (wave.boss) {
         const mark = document.createElement("span");
         mark.className = "boss-mark";
-        mark.textContent = "♛ ";
+        mark.textContent = wave.boss.kind === "mirror" ? "◑ " : "♛ ";
         button.append(mark);
       }
       button.append(document.createTextNode(wave.name || "— unnamed —"));

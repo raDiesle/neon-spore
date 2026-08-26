@@ -49,7 +49,7 @@ export function resolveHull(world: World): void {
       markMoment(world, false);
       damageSpan(world, c, world.cfg.damageMeteor);
     } else {
-      damage(world, c.col, c.kind, c.fromRow, world.cfg.damageCreature);
+      breachHull(world, c.col, c.kind, c.fromRow, world.cfg.damageCreature);
     }
   }
   world.creatures = survivors;
@@ -62,7 +62,17 @@ function applyHullDamage(world: World, amount: number): void {
   if (world.hullMilli <= 0) world.over = true;
 }
 
-function damage(
+/**
+ * One column of the hull, broken. The whole of what "something got through"
+ * means: the damage, the scar that stays, and the `breach` event render/ hangs
+ * the impact on.
+ *
+ * Exported because a creature reaching the hull is no longer the only way this
+ * happens — THE MIRROR answers a wrong step by breaking the hull directly
+ * (`mirror.ts`), and it must break it the same way, with the same event, or
+ * the picture and the record of the damage would quietly diverge.
+ */
+export function breachHull(
   world: World,
   col: number,
   kind: Creature["kind"],

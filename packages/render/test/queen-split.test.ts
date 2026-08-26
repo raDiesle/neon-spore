@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { type BossState, type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type Creature, DEFAULT_CONFIG, type QueenState } from "@neon-spore/sim";
 import { computeLayout, showsQueenHint, showsQueenShape, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { innerQuestionRadius, markOutline } from "../src/queen-glyph.js";
@@ -50,8 +50,9 @@ function queenAt(color: Creature["color"]): Creature {
 }
 
 /** Armoured and announced: a bloom is named, with a clock on it, not yet open. */
-function bossState(overrides: Partial<BossState> = {}): BossState {
+function bossState(overrides: Partial<QueenState> = {}): QueenState {
   return {
+    kind: "queen",
     creatureId: 3,
     phase: 0,
     phaseBeat: 0,
@@ -72,7 +73,7 @@ function bossState(overrides: Partial<BossState> = {}): BossState {
 }
 
 /** Every colour string a role's mark hands to the canvas, both marks drawn. */
-function coloursDrawn(role: ViewRole, queen: Creature, boss: BossState, beat: number): string[] {
+function coloursDrawn(role: ViewRole, queen: Creature, boss: QueenState, beat: number): string[] {
   const l = layoutFor(role);
   const { ctx } = stubCanvas();
   const seen: string[] = [];
@@ -90,7 +91,7 @@ function coloursDrawn(role: ViewRole, queen: Creature, boss: BossState, beat: nu
  * validates but does not record them — so record them here by watching the
  * two setters the mark actually writes to.
  */
-function paintedColours(role: ViewRole, queen: Creature, boss: BossState, beat: number): string[] {
+function paintedColours(role: ViewRole, queen: Creature, boss: QueenState, beat: number): string[] {
   const l = layoutFor(role);
   const { ctx } = stubCanvas();
   const seen: string[] = [];
@@ -119,7 +120,7 @@ function extent(d: string): number {
 function glyphCount(
   role: ViewRole,
   queen: Creature,
-  boss: BossState,
+  boss: QueenState,
   side: -1 | 1,
   beat: number,
 ): number {

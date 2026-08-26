@@ -21,6 +21,10 @@ export const PALETTE = {
   ember: "#FF7A2F",
   rock: "#C7CBD6",
   rockDark: "#3C3F49",
+  /** The one thing in the game that goes right: a Simon round answered in
+   * full. Nothing else is ever green, which is what makes it read instantly. */
+  good: "#3BFF9E",
+  goodRim: "#C7FFE4",
   sparkDim: "#8B85AB",
 } as const;
 

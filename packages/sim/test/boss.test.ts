@@ -1,5 +1,6 @@
 import { expect, test } from "bun:test";
 import { startWave } from "../src/beat.js";
+import type { QueenState } from "../src/boss-state.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import {
@@ -11,16 +12,27 @@ import {
   ticksPerBeat,
 } from "../src/index.js";
 import type { Color, Creature, TimedCommand } from "../src/types.js";
-import { type BossEntry, createWorld, type SimEvent, type World } from "../src/world.js";
+import { createWorld, type QueenEntry, type SimEvent, type World } from "../src/world.js";
 
 /**
  * The Bulb Queen's choreography, played out headlessly. These seven cases are
  * the ones the design in `docs/spec/bosses.md` 11.0 is judged by.
  */
 
+/**
+ * The queen's own state, narrowed off the boss slot. `world.boss` is a union
+ * of the two bosses now, so a test that reads her fields has to say which one
+ * it expects — and fail loudly rather than silently if it is the other.
+ */
+function queenOf_(world: World): QueenState {
+  const boss = world.boss;
+  if (boss === null || boss.kind !== "queen") throw new Error("no queen installed");
+  return boss;
+}
+
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-const BOSS: BossEntry = { col: 5, petals: 9 };
+const BOSS: QueenEntry = { kind: "queen", col: 5, petals: 9 };
 
 /**
  * The hull holds. She spits a rock at every bloom she is not answered on, and
@@ -79,7 +91,7 @@ test("her first bloom is announced on beat 2, opens on 4 and closes on 6 — the
   const world = install();
 
   runTo(world, beatTick(2) + 1);
-  const boss = world.boss!;
+  const boss = queenOf_(world);
   expect(boss.tellColor).toBe("cyan");
   // She has walked one column by the time this cycle's announcement lands —
   // it names wherever she is standing right now, not where she started.
@@ -101,7 +113,7 @@ test("every bloom opens exactly halfway between one rock release and the next, n
   let sawOne = false;
   for (let beat = 1; beat <= 100; beat++) {
     runTo(world, beatTick(beat));
-    if (world.boss!.openBeat !== beat) continue;
+    if (queenOf_(world).openBeat !== beat) continue;
     sawOne = true;
     // A rock releases on every multiple of 8 (`spitCycle`'s clock); the open
     // beat must sit exactly 4 beats past the one before it, and 4 beats short
@@ -127,7 +139,7 @@ test("a matching shot on the real mark while she is open takes exactly one petal
   expect(color).not.toBeNull();
   // She walks again the moment the bloom is over, so the column she is hit in
   // has to be taken now rather than read back at the end.
-  const hitCol = queenMarkCol(queen.col, world.boss!.weakSide);
+  const hitCol = queenMarkCol(queen.col, queenOf_(world).weakSide);
   const at = world.tick;
 
   const seen = runTo(world, beatTick(7), [aim(at, hitCol), fire(at, color!)]);
@@ -148,7 +160,7 @@ test("the same matching shot on the *other* mark — one tile the wrong way — 
   const color = queen.color;
   expect(color).not.toBeNull();
   // The decoy is one tile the other way from the real mark.
-  const decoyCol = queenMarkCol(queen.col, world.boss!.weakSide === -1 ? 1 : -1);
+  const decoyCol = queenMarkCol(queen.col, queenOf_(world).weakSide === -1 ? 1 : -1);
   const at = world.tick;
 
   const seen = runTo(world, beatTick(7), [aim(at, decoyCol), fire(at, color!)]);
@@ -172,7 +184,7 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
   expect(rocks.length).toBe(1);
   // The socket it grew in, on the side that was announced — not a column
   // beside her, and not one the field's edge pulled back inboard.
-  const boss = world.boss!;
+  const boss = queenOf_(world);
   expect(boss.releaseBeat).toBe(world.beat);
   expect(rocks[0]!.col).toBe(queenTorchCol(queen.col, boss.releaseSide === -1 ? -1 : 1));
   // Standing still in the socket for the beat it breaks off, so render/ can
@@ -219,14 +231,14 @@ test("a hit does not leave her frozen", () => {
   runTo(world, beatTick(4));
 
   const queen = queenOf(world);
-  const hitCol = queenMarkCol(queen.col, world.boss!.weakSide);
+  const hitCol = queenMarkCol(queen.col, queenOf_(world).weakSide);
   const at = world.tick;
   runTo(world, beatTick(5), [aim(at, hitCol), fire(at, queen.color!)]);
   expect(queen.petals).toBe(BOSS.petals - 1);
 
   // One phase-0 cycle later she is announcing again, and she has moved.
   runTo(world, beatTick(10));
-  expect(world.boss!.tellCol).not.toBe(-1);
+  expect(queenOf_(world).tellCol).not.toBe(-1);
   expect(queen.col).not.toBe(hitCol);
 });
 
@@ -236,7 +248,7 @@ test("which mark is real is not fixed — it varies bloom to bloom", () => {
   const sides = new Set<-1 | 1>();
   for (let beat = 1; beat <= 30; beat++) {
     runTo(world, beatTick(beat));
-    if (world.boss!.openBeat === beat) sides.add(world.boss!.weakSide);
+    if (queenOf_(world).openBeat === beat) sides.add(queenOf_(world).weakSide);
   }
   expect(sides.size).toBe(2);
 });

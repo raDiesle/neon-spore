@@ -1,3 +1,4 @@
+import type { MirrorState } from "./simon.js";
 import type { Color } from "./types.js";
 
 /**
@@ -7,7 +8,8 @@ import type { Color } from "./types.js";
  * nothing else may write one.
  */
 
-export interface BossState {
+export interface QueenState {
+  kind: "queen";
   /** The id of the queen in `world.creatures`. */
   creatureId: number;
   /** 0-based phase index. */
@@ -52,3 +54,12 @@ export interface BossState {
   /** Integers owned by `boss.ts`. Nothing outside it reads them. */
   scratch: number[];
 }
+
+/**
+ * The boss a wave installed, whichever one it is. A tagged union rather than
+ * one widening interface: the two bosses share the slot and nothing else, and
+ * a single struct carrying both sets of fields would let `boss.ts` read a
+ * `tellColor` off a mirror and get `undefined` at runtime with a clean type
+ * check behind it.
+ */
+export type BossState = QueenState | MirrorState;

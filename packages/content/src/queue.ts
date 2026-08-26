@@ -84,10 +84,18 @@ export function buildBoss(waveIndex: number, cols: number): BossEntry | null {
   return null;
 }
 
-/** `buildBoss` for an unsaved wave. The sibling of `podsFromWave`. */
+/**
+ * `buildBoss` for an unsaved wave. The sibling of `podsFromWave`.
+ *
+ * Only the queen has a column to remap — THE MIRROR stands over the ship
+ * wherever the ship is, so its entry names no place at all and passes through
+ * untouched.
+ */
 export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
-  if (!wave.boss) return null;
-  return { ...wave.boss, col: mapCol(wave.boss.col, cols) };
+  const boss = wave.boss;
+  if (!boss) return null;
+  if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
+  return { ...boss, col: mapCol(boss.col, cols) };
 }
 
 /** Beyond the authored waves: reproducible filler, clearly marked as such. */

@@ -184,6 +184,16 @@ function byBeatThenCol(a: { beat: number; col: number }, b: { beat: number; col:
 }
 
 /**
+ * A boss, deep enough. THE MIRROR carries an array of arrays, and a shallow
+ * copy of it would leave the copy editing the original's sequences.
+ */
+function copyBoss(boss: Wave["boss"]): Wave["boss"] {
+  if (!boss) return undefined;
+  if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
+  return { ...boss };
+}
+
+/**
  * A new wave, deliberately unnamed and unsentenced. The save refuses it until
  * both are written, which is the one-sentence test doing its job at the moment
  * the wave is made rather than in review.
@@ -199,7 +209,7 @@ export function copyWave(wave: Wave): Wave {
     hint: wave.hint,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
-    boss: wave.boss ? { ...wave.boss } : undefined,
+    boss: copyBoss(wave.boss),
   };
 }
 
@@ -209,8 +219,15 @@ export function refuse(waves: Wave[]): string | null {
     if (!w.name.trim()) return `wave ${i + 1} has no name`;
     if (!w.sentence.trim()) return `wave ${i + 1} has no sentence — it is padding`;
     if (!w.hint.trim()) return `wave ${i + 1} has no hint`;
-    // A boss wave is the boss: she is the whole wave, not an entry in it.
+    // A boss wave is the boss: it is the whole wave, not an entry in it.
     if (!w.entries.length && !w.boss) return `wave ${i + 1} is empty`;
+    // THE MIRROR is nothing but its rounds, and a round nobody can answer
+    // wrong is a round that costs the pair nothing to sit through.
+    if (w.boss?.kind === "mirror") {
+      if (!w.boss.rounds.length) return `wave ${i + 1}: the mirror has no rounds`;
+      const empty = w.boss.rounds.findIndex((r) => r.length === 0);
+      if (empty !== -1) return `wave ${i + 1}: the mirror's round ${empty + 1} is empty`;
+    }
   }
   return null;
 }

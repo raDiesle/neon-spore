@@ -1,8 +1,8 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
-import { livingKindForColor, type World } from "@neon-spore/sim";
+import { mirrorHoldsControls, type World } from "@neon-spore/sim";
+import { drawActionButton, drawFireButton } from "./controls.js";
 import { halo } from "./glow.js";
-import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -26,6 +26,11 @@ export function drawBand(
   armed: boolean,
   open: boolean,
 ): void {
+  // A boss can take the controls away (`mirrorHoldsControls`). When it has,
+  // the band is drawn dead and says so: a control that quietly does nothing
+  // is indistinguishable from a control that is broken.
+  const locked = mirrorHoldsControls(world);
+  ctx.save();
   ctx.fillStyle = "#0E0A22";
   ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
   ctx.strokeStyle = "#33295C";
@@ -50,10 +55,14 @@ export function drawBand(
     );
     // Both lit for exactly as long as their window is open, so player 1 can see
     // what they are spending.
-    action(ctx, l.guardButton, armed, PALETTE.shield, "#08131A", "SHIELD");
-    action(ctx, l.intakeButton, open, PALETTE.pod, "#2C1C05", "SUCK");
+    const g = l.guardButton;
+    const m = l.intakeButton;
+    drawActionButton(ctx, g.x, g.y, g.r, armed, PALETTE.shield, "#08131A", "SHIELD");
+    drawActionButton(ctx, m.x, m.y, m.r, open, PALETTE.pod, "#2C1C05", "SUCK");
   }
   if (!showsShield(l.role)) {
+    ctx.restore();
+    if (locked) drawLock(ctx, l);
     ctx.textAlign = "left";
     return;
   }
@@ -69,90 +78,43 @@ export function drawBand(
   );
 
   for (const b of l.fireButtons) {
-    const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
-    const dark = b.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
-    // The button wears the creature its ammunition answers — through the
-    // one mapping that owns it, never a second copy of the pairing.
-    const shape = livingSilhouette(livingKindForColor(b.color));
-    halo(ctx, b.circle.x, b.circle.y, b.circle.r * 1.6, hex, 0.45);
-    ctx.fillStyle = hex;
-    ctx.beginPath();
-    ctx.arc(b.circle.x, b.circle.y, b.circle.r, 0, Math.PI * 2);
-    ctx.fill();
-
-    // The button shows what the colour is *for*: the silhouette it resonates.
-    const s = (b.circle.r * 0.62) / Math.max(shape.rx, shape.ry);
-    ctx.save();
-    ctx.translate(b.circle.x, b.circle.y);
-    ctx.scale(s, s);
-    ctx.fillStyle = dark;
-    ctx.fill(
-      new Path2D(
-        blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed),
-      ),
-    );
-    ctx.restore();
-    reticle(
-      ctx,
-      b.circle.x,
-      b.circle.y,
-      b.circle.r,
-      b.color === "red" ? PALETTE.redRim : PALETTE.cyanRim,
-    );
+    drawFireButton(ctx, b.circle.x, b.circle.y, b.circle.r, b.color);
   }
+  ctx.restore();
+  if (locked) drawLock(ctx, l);
   ctx.textAlign = "left";
 }
 
-/** One of player 1's two actions. Same button, different colour and word. */
-function action(
-  ctx: CanvasRenderingContext2D,
-  c: Circle,
-  lit: boolean,
-  hex: string,
-  litText: string,
-  label: string,
-): void {
-  ctx.fillStyle = lit ? hex : "#2A1F4E";
-  ctx.beginPath();
-  ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-  ctx.fill();
-  if (lit) halo(ctx, c.x, c.y, c.r * 1.8, hex, 0.5);
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = lit ? litText : hex;
-  ctx.fillText(label, c.x, c.y + 3);
-}
-
-/** Scope-style crosshair on a fire button, so it reads as a target. */
-function reticle(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  hex: string,
-): void {
-  const inner = r * 0.55;
-  const outer = r * 0.78;
+/**
+ * The band, put out.
+ *
+ * A scrim over the finished drawing rather than an alpha set before it: every
+ * button in here reaches for `halo` or `reticle`, and both of those set
+ * `globalAlpha` outright. Canvas alpha does not multiply, so anything set up
+ * front is simply overwritten by the first child that has an opinion — which
+ * is why the strips dimmed and the four buttons did not.
+ */
+function drawLock(ctx: CanvasRenderingContext2D, l: Layout): void {
+  const y = l.bandTop + l.bandHeight / 2;
   ctx.save();
-  ctx.globalAlpha = 0.85;
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.outline;
+  ctx.fillStyle = "rgba(7,4,15,.78)";
+  ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
+  ctx.fillStyle = "rgba(7,4,15,.72)";
+  ctx.fillRect(0, y - 15, l.width, 30);
+  ctx.strokeStyle = PALETTE.red;
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.arc(x, y, outer, 0, Math.PI * 2);
+  ctx.moveTo(0, y - 15);
+  ctx.lineTo(l.width, y - 15);
+  ctx.moveTo(0, y + 15);
+  ctx.lineTo(l.width, y + 15);
   ctx.stroke();
-  // Four ticks, leaving the centre clear for the silhouette.
-  ctx.beginPath();
-  ctx.moveTo(x, y - outer);
-  ctx.lineTo(x, y - inner);
-  ctx.moveTo(x, y + inner);
-  ctx.lineTo(x, y + outer);
-  ctx.moveTo(x - outer, y);
-  ctx.lineTo(x - inner, y);
-  ctx.moveTo(x + inner, y);
-  ctx.lineTo(x + outer, y);
-  ctx.stroke();
+  ctx.textAlign = "center";
+  ctx.fillStyle = PALETTE.red;
+  ctx.font = '700 12px "Courier New",monospace';
+  ctx.fillText("LOCKED — WATCH", l.width / 2, y + 4);
   ctx.restore();
+  ctx.textAlign = "left";
 }
 
 function strip(

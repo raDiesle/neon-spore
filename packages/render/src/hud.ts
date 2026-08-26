@@ -52,6 +52,13 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   drawWaveBanner(ctx, l, view);
 }
 
+/**
+ * How far down the play area the wave banner sits. Low, not high: a boss can
+ * own the top of the field — THE MIRROR's row of slots is up there — and a
+ * banner printed over the thing it is explaining explains nothing.
+ */
+const BANNER_Y = 0.74;
+
 /** Wave name and hint, for the first seconds of a wave. */
 function drawWaveBanner(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
   const b = view.banner;
@@ -61,10 +68,10 @@ function drawWaveBanner(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 15px "Courier New",monospace';
-  ctx.fillText(b.title, l.width / 2, l.playHeight * 0.3);
+  ctx.fillText(b.title, l.width / 2, l.playHeight * BANNER_Y);
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '11px "Courier New",monospace';
-  wrap(ctx, b.hint, l.width / 2, l.playHeight * 0.3 + 20, l.width - 40, 14);
+  wrap(ctx, b.hint, l.width / 2, l.playHeight * BANNER_Y + 20, l.width - 40, 14);
   ctx.textAlign = "left";
   ctx.globalAlpha = 1;
 }

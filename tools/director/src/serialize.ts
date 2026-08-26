@@ -33,8 +33,14 @@ function serializePod(pod: PodEntry): string {
 }
 
 function serializeBoss(boss: BossEntry): string {
-  const parts = [`col: ${boss.col}`, `petals: ${boss.petals}`];
-  return `{ ${parts.join(", ")} }`;
+  if (boss.kind === "queen") {
+    return `{ kind: "queen", col: ${boss.col}, petals: ${boss.petals} }`;
+  }
+  // The rounds go one per line: a sequence is read down the page, and putting
+  // several on one line is how a diff of a boss stops being reviewable.
+  const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);
+  const lines = ["{", '      kind: "mirror",', "      rounds: [", ...rounds, "      ],", "    }"];
+  return lines.join("\n");
 }
 
 function serializeWave(wave: Wave): string {

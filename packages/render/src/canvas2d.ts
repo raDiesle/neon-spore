@@ -1,5 +1,6 @@
 import { hullPercent, ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
@@ -10,7 +11,6 @@ import { drawHull, type HullMood, hullSkinY } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
-import { drawQueen } from "./queen.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
@@ -168,23 +168,7 @@ export class Canvas2DRenderer implements Renderer {
     drawGrid(ctx, l, world.cannonCol, flash);
 
     drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
-    if (world.boss != null) {
-      const boss = world.boss;
-      const queen = world.creatures.find((c) => c.id === boss.creatureId);
-      if (queen) {
-        drawQueen(
-          ctx,
-          l,
-          queen,
-          boss,
-          world.beat,
-          view.time,
-          view.beatPhase,
-          this.effects.queenShake,
-          world.cfg.queenEggGrowShare,
-        );
-      }
-    }
+    drawBoss(ctx, l, view, this.effects);
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);
     this.effects.draw(ctx);
@@ -198,7 +182,7 @@ export class Canvas2DRenderer implements Renderer {
     drawHull(
       ctx,
       l,
-      world,
+      world.scars,
       view.time,
       mood,
       hullPercent(world),
@@ -211,6 +195,9 @@ export class Canvas2DRenderer implements Renderer {
     this.effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
     this.effects.drawBanner(ctx, l);
 
+    if (world.boss?.kind === "mirror") {
+      this.effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
+    }
     drawHud(ctx, l, view);
     drawTorchAlarm(ctx, l, world, view.time);
     drawBand(ctx, l, world, isArmed, isOpen);

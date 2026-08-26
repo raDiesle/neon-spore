@@ -1,14 +1,19 @@
 # Bosses
 
-> **Status: one of eleven built.** The Bulb Queen is in the game. The rest are
-> not, and the two worked-out ones depend on systems that are also unbuilt — the
-> second device for The Vessel, and destruction tracking for The Mother.
+> **Status: two built.** The Bulb Queen and THE MIRROR are in the game. Of the
+> remaining nine names none are, and the two worked-out ones depend on systems
+> that are also unbuilt — the second device for The Vessel, and destruction
+> tracking for The Mother.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
 Bulb Queen (10) · Strand Nest (20) · The Conductor (30) · The Choir (40) ·
 The Warden (50) · The Heart (60) · The Mother (70) · The Codex (80) ·
-The Echoes (90) · The Kernel (100) · The Vessel (finale).
+The Echoes (90) · The Kernel (100) · The Vessel (finale) · The Mirror (built).
+
+THE MIRROR is a twelfth, outside that order. It was built because it was asked
+for, and it holds no slot in the act structure yet — 11.3 says where it would
+fit if one is ever given to it.
 
 Only two of the eleven are worked out. The rest are names holding a slot in the
 act structure.
@@ -122,3 +127,56 @@ pressure, but an announcement under time pressure.
 This is the clearest single argument for the
 [information split](systems.md#52-information-split--partly-built): the boss does
 not work at all on one shared screen.
+
+## 11.3 THE MIRROR — your own ship, asking for your moves back
+
+> The one where the boss is an exact copy of your ship, and Simon says.
+
+An exact copy of the player's hull, upside down at the top of the field, in the
+colours of something that went wrong: blood where the ship has violet, bone
+where it has white. Not a lookalike — it is drawn by `drawHull`, the same
+function, under a vertical flip (`packages/render/src/mirror.ts`), so the claim
+"that is your ship" is one the picture cannot fail to make.
+
+**The mechanic is Simon Says, played on the pair's own controls.** It performs a
+sequence at its own ship — its cannon slides, its shield flashes, its maw opens,
+its shots drop — one step every two beats, with the glyphs running along above
+it. Then the glyphs go and it is the pair's turn: a sequence still on screen
+while it is repeated is not a memory test, it is reading aloud. Only the count
+of steps stays, filling in as they land.
+
+**Neither of them can answer a sequence alone, and neither can answer one
+silently.** The alphabet is six steps and it crosses the roles: FIRE RED and
+FIRE CYAN are the navigator's, SHIELD and SUCK are the pilot's, LEFT and RIGHT
+are the pilot's cannon. A round mixing the two halves has to be talked through
+in order, under a clock, from memory. That is the whole reason it is a boss.
+
+The shield's *position* is deliberately not in the alphabet. A lobe's column is
+aiming, not a gesture — and one test key moves both lobes at once, which a
+shield step would turn into two.
+
+**A wrong step is thrown back.** The mirror answers it with a rock out of its
+own body into whichever column the cannon is standing in: an ordinary hull
+breach, crater, crack and all, and the whole picture tips upside down over
+itself for half a second while it lands. Then it asks the same round again, at
+the same cadence — the pair failed to remember it, not to keep up with it.
+
+**A right answer is the same damage, turned around.** The round breaks the
+mirror in the column the cannon was standing in, by one round's share of its
+hull, so the last round written is the one that brings it down however many
+there are. Its damage is a `hullMilli` and a list of `Scar`s, the two fields
+the ship's own damage lives in, and it is drawn by the same code: the mirror
+visibly cracks up exactly the way the ship does.
+
+**A pod on this wave is bait.** Taking one in is a SUCK, and a SUCK the
+sequence did not ask for is a wrong step. Nothing implements that — it falls
+out of the alphabet, which is the argument for the alphabet being the controls
+rather than a vocabulary of its own.
+
+**Where it lives.** The rounds are authored in the director and carried by the
+wave `THE MIRROR`; the choreography is `packages/sim/src/mirror.ts` and the
+vocabulary `packages/sim/src/simon.ts`. Nothing about it is random — the fight
+is the same fight on both devices without a single draw from the rng.
+
+If the act structure ever wants it, its slot is The Echoes (90): a boss whose
+whole subject is repetition is the one the ninth pillar is already reaching for.
