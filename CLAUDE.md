@@ -168,6 +168,14 @@ Never start a server with a backgrounded shell command. Use the `game` entry in
   unparseable colour, a NaN coordinate, a negative radius. It is the only test
   that covers render/, and it catches the class of mistake a type check cannot:
   a value that is a perfectly good `string` and not a colour.
+- **`world.beat`, `world.tick` and `world.nextId` are not monotonic.** A
+  restart builds a fresh `World` and all three start again at 0, so render
+  state cached against them is read by the next run as its own — that is how a
+  crack came to show before the rock that made it. Anything in render/ that
+  outlives a frame belongs in `Effects` and gets cleared in `Effects.reset()`,
+  which `Canvas2DRenderer.waveRestarted` calls on every way a wave can start
+  over. `packages/render/test/restart.test.ts` fails if a new field is added
+  and not cleared; it is not optional bookkeeping.
 - Files stay under ~250 lines. Split rather than grow.
 - Code, identifiers and commits in English. The design vocabulary
   (hull, lobe, beat, guard) is fixed — do not invent synonyms.

@@ -77,6 +77,21 @@ export class ShieldBody {
     }
   }
 
+  /**
+   * Back to never-having-moved, so the next `update` puts the whole chain
+   * straight onto its column instead of crawling there from wherever the
+   * abandoned run left it (`glideTo` snaps a non-finite value). For a wave
+   * restart — see `Canvas2DRenderer`'s `waveRestarted`.
+   */
+  reset(): void {
+    for (const g of this.chain) {
+      g.value = Number.NaN;
+      g.velocity = 0;
+    }
+    this.phase = 0;
+    this.out.length = 0;
+  }
+
   /** Head first, tail last. Empty until the first `update`. */
   get segments(): readonly ShieldSegment[] {
     return this.out;

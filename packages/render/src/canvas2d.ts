@@ -70,6 +70,19 @@ export class Canvas2DRenderer implements Renderer {
     return last.world !== world || last.wave !== world.wave || world.waveBeat < last.waveBeat;
   }
 
+  /**
+   * The ship itself, back to rest. `startWave` puts both lobes in the middle
+   * and closes the shield, and the ship should *be* like that on the first
+   * frame of the new run rather than sliding there from wherever the last one
+   * left it — the eased pose is the last render state that outlives a world.
+   */
+  private resetPose(): void {
+    this.armed = 0;
+    this.intake = 0;
+    this.cannon = { value: Number.NaN, velocity: 0 };
+    this.shield.reset();
+  }
+
   resize(viewport: Viewport): void {
     this.viewport = viewport;
     this.canvas.width = Math.round(viewport.width * viewport.dpr);
@@ -116,6 +129,14 @@ export class Canvas2DRenderer implements Renderer {
     ctx.clip();
     ctx.translate(stage.left, stage.top);
 
+    // Before anything eases or ingests: a wave that just (re)started leaves
+    // none of last run's state meaning anything, and this frame is already
+    // the new run's first.
+    if (this.waveRestarted(world)) {
+      this.effects.reset();
+      this.resetPose();
+    }
+
     const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
     const isArmed = world.tick - world.guardTick < windowTicks;
     this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
@@ -126,7 +147,6 @@ export class Canvas2DRenderer implements Renderer {
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
-    if (this.waveRestarted(world)) this.effects.reset();
     this.effects.ingest(
       view.events,
       l,
