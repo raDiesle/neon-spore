@@ -15,6 +15,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@neon-spore/content": "workspace:*",
+        "@neon-spore/net": "workspace:*",
         "@neon-spore/render": "workspace:*",
         "@neon-spore/sim": "workspace:*",
       },
@@ -22,9 +23,22 @@
     "apps/server": {
       "name": "@neon-spore/server",
       "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/net": "workspace:*",
+      },
+      "devDependencies": {
+        "@cloudflare/workers-types": "^4.20250803.0",
+      },
     },
     "packages/content": {
       "name": "@neon-spore/content",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/sim": "workspace:*",
+      },
+    },
+    "packages/net": {
+      "name": "@neon-spore/net",
       "version": "0.0.0",
       "dependencies": {
         "@neon-spore/sim": "workspace:*",
@@ -56,6 +70,15 @@
         "@neon-spore/sim": "workspace:*",
       },
     },
+    "tools/relay-check": {
+      "name": "@neon-spore/relay-check",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+        "@neon-spore/net": "workspace:*",
+        "@neon-spore/sim": "workspace:*",
+      },
+    },
     "tools/shape-sheet": {
       "name": "@neon-spore/shape-sheet",
       "version": "0.0.0",
@@ -83,6 +106,8 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.10", "", { "os": "win32", "cpu": "x64" }, "sha512-M+2dgBsl3lXRiTfgPVc2p3anS4Tocojke4rzFLScZ2Y/wmF+36dRb1iHCLiyGqOzQGyTplZH1HnEYviiAqi3nA=="],
 
+    "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20260702.1", "", {}, "sha512-mOhf5TUEB1m2vPrxtqoIGfz0fUC9xyxRDx5gWHy5s+OCo6dcV+g7wI1R7gYCMFohhqF/2y2xeKVwMwCJjfn/WA=="],
+
     "@neon-spore/content": ["@neon-spore/content@workspace:packages/content"],
 
     "@neon-spore/delegate": ["@neon-spore/delegate@workspace:tools/delegate"],
@@ -90,6 +115,10 @@
     "@neon-spore/director": ["@neon-spore/director@workspace:tools/director"],
 
     "@neon-spore/game": ["@neon-spore/game@workspace:apps/game"],
+
+    "@neon-spore/net": ["@neon-spore/net@workspace:packages/net"],
+
+    "@neon-spore/relay-check": ["@neon-spore/relay-check@workspace:tools/relay-check"],
 
     "@neon-spore/render": ["@neon-spore/render@workspace:packages/render"],
 

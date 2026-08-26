@@ -72,6 +72,7 @@ bun run preview        # build, then serve dist/ on 4173 — how an agent verifi
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
+bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
 ```
@@ -150,6 +151,25 @@ without help.
 Never start a server with a backgrounded shell command. Use the `game` entry in
 `.claude/launch.json`, which runs exactly this.
 
+## Verifying the relay
+
+`packages/net` is unit-tested against a wire the test controls, which proves the
+scheduler and proves nothing about the Durable Object, the seat handout or the
+order a socket actually delivers in. For that:
+
+```
+bun run --cwd apps/server dev     # wrangler, on 8787
+bun run relay:check               # two headless devices, same code the phone runs
+bun run relay:check ws://127.0.0.1:8787 8 --split
+```
+
+`--split` reaches into one of the two worlds on purpose, to prove the desync
+detector is watching and not merely present. `curl -s
+http://localhost:8787/net/health` says who answered, for the same reason
+`/__preview` does.
+
+Kill the wrangler process when the check is done.
+
 ## Where things live
 
 | Path | Contains |
@@ -158,7 +178,8 @@ Never start a server with a backgrounded shell command. Use the `game` entry in
 | `packages/render` | draws a world, changes nothing |
 | `packages/content` | creatures, waves, acts — data, not code |
 | `apps/game` | the browser app: loop, input, HUD |
-| `apps/server` | Cloudflare Worker, lockstep relay (phase 2) |
+| `packages/net` | protocol, delayed lockstep, clock sync, desync ledger |
+| `apps/server` | Cloudflare Worker, one Durable Object per room |
 | `docs/` | the spec, split by topic — read `docs/INDEX.md` first |
 | `legacy/` | the original prototypes. Reference only, never imported |
 

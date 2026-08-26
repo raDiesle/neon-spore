@@ -9,6 +9,7 @@ import {
 import {
   createWorld,
   DEFAULT_CONFIG,
+  resetClock,
   resetRun,
   type SimEvent,
   startWave,
@@ -16,6 +17,8 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { bindControls, InputBuffer } from "./input.js";
+import { bindJoinScreen, type JoinScreen } from "./join.js";
+import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
@@ -127,6 +130,40 @@ bindTestControls({
   setRunning,
 });
 
+/**
+ * Two devices. Solo until a room is joined, and joining is the only thing that
+ * changes: the same world, the same `step`, the same commands — they simply
+ * arrive from two phones instead of two thumbs.
+ */
+let joinScreen: JoinScreen | null = null;
+const link = createLink({
+  cfg,
+  world,
+  buffer,
+  onStart: (player) => {
+    // The room hands out the seat, so the view follows it rather than whatever
+    // this device was last left on.
+    view.set(player === 1 ? "p1" : "p2");
+    startTogether();
+  },
+  onStatus: (status) => joinScreen?.update(status),
+});
+joinScreen = bindJoinScreen({
+  join: (room) => link.join(room),
+  leave: () => link.leave(),
+});
+
+/**
+ * Beat zero. Both devices land here within a few milliseconds of each other and
+ * from here on the tick counter is the only clock either of them reads —
+ * which is why the clock goes back to zero and not merely the run.
+ */
+function startTogether(): void {
+  resetClock(world, 0);
+  jumpToWave(0);
+  running = true;
+}
+
 // Events are cleared every tick and a frame covers several ticks, so they are
 // collected here rather than read off the world.
 let frameEvents: SimEvent[] = [];
@@ -178,17 +215,22 @@ startLoop(
       buffer.drain(world.tick);
       return;
     }
+    // Lockstep: a tick may only run once the other device has promised that
+    // nothing more is coming for it. Solo, this is always true.
+    if (!link.mayTick()) return;
     tickKeys();
-    step(world, buffer.drain(world.tick));
+    step(world, link.drain());
     if (world.events.length) {
       frameEvents.push(...world.events);
       handle(world.events);
     }
+    link.checkpoint();
   },
   () => {
     const now = performance.now();
     const dt = Math.min(0.05, (now - lastFrame) / 1000);
     lastFrame = now;
+    link.frame(dt * 1000);
     if (banner.remaining > 0) banner.remaining -= dt;
     paint(dt);
   },

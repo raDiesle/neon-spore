@@ -22,27 +22,35 @@ const STORAGE_KEY = "neon-spore.view";
 
 export interface ViewSwitch {
   role: () => ViewRole;
+  /**
+   * Take the view over. The room hands out the seat, and a device showing the
+   * other player's controls is a device whose touches go nowhere — so joining
+   * decides the view rather than asking the player to remember to.
+   */
+  set: (role: ViewRole) => void;
 }
 
 export function bindViewSwitch(onChange: (role: ViewRole) => void): ViewSwitch {
   const bar = document.getElementById("viewSwitch");
   let role = restore();
 
+  const set = (next: ViewRole): void => {
+    role = next;
+    try {
+      localStorage.setItem(STORAGE_KEY, role);
+    } catch {
+      // Private browsing refuses to store. The switch still works.
+    }
+    paint();
+    onChange(role);
+  };
+
   const buttons = ROLES.map((r) => {
     const b = document.createElement("button");
     b.type = "button";
     b.textContent = r.label;
     b.title = r.title;
-    b.addEventListener("click", () => {
-      role = r.role;
-      try {
-        localStorage.setItem(STORAGE_KEY, role);
-      } catch {
-        // Private browsing refuses to store. The switch still works.
-      }
-      paint();
-      onChange(role);
-    });
+    b.addEventListener("click", () => set(r.role));
     bar?.appendChild(b);
     return { role: r.role, el: b };
   });
@@ -55,7 +63,7 @@ export function bindViewSwitch(onChange: (role: ViewRole) => void): ViewSwitch {
 
   paint();
   onChange(role);
-  return { role: () => role };
+  return { role: () => role, set };
 }
 
 function restore(): ViewRole {

@@ -5,7 +5,7 @@ export {
   share,
   type Tally,
 } from "./balance.js";
-export { endRun, resetRun, startWave } from "./beat.js";
+export { endRun, resetClock, resetRun, startWave } from "./beat.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { hashWorld } from "./hash.js";

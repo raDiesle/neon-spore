@@ -365,3 +365,27 @@ unrelated heights for no reason a player could read.
 **Reconsider if:** the tempo (`bpm`) is ever tuned independently of
 `radarLead` — the two are coupled only through the 3-second floor, and a much
 faster tempo would need more beats to keep the same real time.
+
+## 17. Joining a room stops the world until beat zero
+
+*August 2026.* A device that has joined a room does not simulate anything until
+the room's beat zero arrives, and beat zero puts `tick`, `beat`, `nextId` and
+the rng back to zero (`resetClock`) before the lockstep scheduler is built.
+
+Delayed lockstep numbers every command by the tick it takes effect on. Two
+worlds that begin on different tick counts are not one game played twice; they
+are two games. A device that keeps playing solo while it waits for the other
+phone arrives at beat zero on a tick count of its own, and the obvious repair —
+reset the clock at the start — is not enough on its own: a scheduler built
+before the reset spends the wait promising the peer that nothing is coming
+before tick 47, and then keeps that promise across the reset. The first
+forty-seven ticks of the real run carry no commands at all while both devices
+insist they are in step. That is not a hypothetical; it is what the first run of
+`bun run relay:check` found.
+
+So the order is fixed: hold still, put the clock back, *then* build the
+scheduler.
+
+**Reconsider if:** the game ever wants a lobby you can play in — a warm-up
+field while waiting for the second phone. It would need its own world, thrown
+away at beat zero, rather than the one the run uses.

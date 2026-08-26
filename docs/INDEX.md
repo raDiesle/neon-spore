@@ -56,6 +56,12 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/balance.ts` | the balance sheet: joint moments, SYNC, the streak |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
+| `packages/net/src/protocol.ts` | every message that crosses the wire, and how to distrust one |
+| `packages/net/src/lockstep.ts` | delayed lockstep: the promise each device makes to the other |
+| `packages/net/src/clock.ts` | four-timestamp clock sync, median, moved gently |
+| `packages/net/src/desync.ts` | the fingerprint ledger — where `hash.ts` finally gets used |
+| `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
+| `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/content/src/creatures.ts` | bestiary and control-visibility table |
 | `packages/content/src/waves.ts` | authored waves, 7-column coordinates |
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
@@ -83,6 +89,11 @@ history if the wording of a rejected idea is ever needed.
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/input.ts` | commands from touch and keyboard |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
+| `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
+| `apps/game/src/relay.ts` | the socket, and only the socket |
+| `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
+| `apps/server/src/index.ts` | the worker: `/room/:code` and `/net/health` |
+| `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
 | `tools/director/src/grid.ts` | the beat grid a wave is placed on |
 | `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
 | `tools/director/src/palette.ts` | the creature palette — the brushes are the bestiary |
@@ -96,6 +107,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
+| `tools/relay-check/check.ts` | two headless devices against a real relay |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |
 | `tools/delegate/mentions.ts` | the paths a spec names, handed over read-only |
 | `tools/delegate/ignored.ts` | what `.aiderignore` keeps out of the worker's reach |

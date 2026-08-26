@@ -3,8 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "main": "./src/index.ts",
   "scripts": {
-    "dev": "echo 'phase 2 — see docs/architecture.md, Network'",
-    "build": "echo 'phase 2'"
+    "typecheck": "tsc -p . --noEmit",
+    "dev": "npx wrangler dev --config ../../wrangler.jsonc",
+    "deploy": "npx wrangler deploy --config ../../wrangler.jsonc"
+  },
+  "dependencies": {
+    "@neon-spore/net": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250803.0"
   }
 }

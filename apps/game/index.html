@@ -30,6 +30,38 @@
       }
       #viewSwitch button.on { background: #2A1F4E; color: #ffc24b; }
 
+      /* The network indicator. Not test rig — it is part of the finished game,
+         so it stays in every view. Tapping it opens the room screen. */
+      #linkChip {
+        position: fixed; top: 8px; left: 8px; z-index: 6;
+        min-width: 54px; height: 22px; padding: 0 8px; border-radius: 7px;
+        border: 1px solid #3b3163; background: rgba(20, 14, 45, 0.75); color: #6f639f;
+        font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+      }
+      #linkChip.live { border-color: #2fe0f0; color: #2fe0f0; }
+      #linkChip.fault { border-color: #ff5470; color: #ff5470; }
+
+      #joinScreen {
+        position: fixed; inset: 0; z-index: 11; display: none; overflow-y: auto;
+        background: rgba(7, 6, 15, 0.97); padding: 26px 18px 40px;
+      }
+      #joinScreen h2 { font-size: 13px; letter-spacing: 3px; color: #ffc24b; margin: 0 0 6px; font-weight: 600; }
+      #joinCode {
+        font-size: 42px; letter-spacing: 12px; color: #2fe0f0; margin: 18px 0 10px; text-align: center;
+      }
+      #joinState { font-size: 11px; color: #9c8fd6; line-height: 1.7; margin: 0 0 20px; min-height: 3em; }
+      #joinScreen input {
+        width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #3b3163;
+        background: rgba(20, 14, 45, 0.75); color: #f2e9dc; text-align: center;
+        font: 22px/1 "Courier New", monospace; letter-spacing: 8px;
+      }
+      #joinScreen .acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+      #joinScreen button {
+        flex: 1 1 40%; padding: 11px 12px; border-radius: 8px; border: 1px solid #ffc24b;
+        background: transparent; color: #ffc24b; font: 12px "Courier New", monospace; letter-spacing: 2px;
+      }
+      #joinScreen button.quiet { border-color: #3b3163; color: #9c8fd6; }
+
       /* A player's device carries no test rig. */
       body.player-view #pauseBtn,
       body.player-view #gear,
@@ -77,6 +109,24 @@
   <body>
     <canvas id="stage"></canvas>
     <div id="viewSwitch"></div>
+    <button type="button" id="linkChip">SOLO</button>
+
+    <div id="joinScreen">
+      <h2>ROOM</h2>
+      <p class="sub" style="margin: 0">
+        Two people, two devices, one voice channel. Read the code out loud.
+      </p>
+      <div id="joinCode">————</div>
+      <p id="joinState"></p>
+      <label class="sub" for="joinInput" style="display: block; margin: 0 0 6px">JOIN A CODE</label>
+      <input id="joinInput" type="text" inputmode="latin" autocomplete="off" spellcheck="false" maxlength="4" />
+      <div class="acts">
+        <button type="button" id="joinGo">JOIN</button>
+        <button type="button" id="joinCreate">CREATE</button>
+        <button type="button" id="joinSolo" class="quiet">PLAY ALONE</button>
+        <button type="button" id="joinClose" class="quiet">BACK</button>
+      </div>
+    </div>
     <button type="button" id="pauseBtn">⏸</button>
     <button type="button" id="gear">⚙</button>
     <div id="waveSkip">

@@ -13,6 +13,16 @@ export interface SimConfig {
   bpm: number;
   /** Fixed simulation rate. Must divide into a whole number of ticks per beat. */
   tickHz: number;
+  /**
+   * Ticks between a press and the tick it takes effect on, on both devices at
+   * once — the "delayed" in delayed lockstep. It buys the time a command needs
+   * to reach the other phone, so it has to be longer than one trip through the
+   * relay or every press lands after the tick it was meant for. It changes no
+   * rule and enters no fingerprint; it is here because a tunable in this game
+   * is a named field of `SimConfig` and because the number wants measuring on
+   * a real connection, like `guardWindowMs` beside it.
+   */
+  inputDelayTicks: number;
   /** How long after player 1 triggers the shield it stays armed, in milliseconds. */
   guardWindowMs: number;
   /**
@@ -123,6 +133,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   queenRow: 2,
   bpm: 96,
   tickHz: 120,
+  inputDelayTicks: 12,
   guardWindowMs: 900,
   intakeWindowMs: 800,
   podFallTilesPerBeat: 3,
