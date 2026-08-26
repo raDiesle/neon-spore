@@ -46,7 +46,10 @@ export function onBeat(world: World): void {
       kind: entry.kind,
       col: clampSpanCol(entry.col, world.cfg.cols, entry.kind),
       row: 0,
-      fromRow: -1,
+      // Glide onto the field at the kind's own speed, not a flat one tile —
+      // a torch (`fallTilesPerBeat` far above 1) that crept in for its first
+      // beat and only then jumped to full speed read as a stutter, not a fall.
+      fromRow: -fallTilesPerBeat(entry.kind),
       color: entry.color,
       holes: 0,
       petals: 0,
