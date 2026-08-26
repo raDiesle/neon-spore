@@ -74,6 +74,19 @@ export function portFor(base: number, band: number, root: string): number {
 /** The hundred ports each server owns. Written down once, here. */
 export const PREVIEW_BAND = 4200;
 export const DIRECTOR_BAND = 4300;
+/**
+ * The relay's band. Its base is 8787 rather than a number of ours, because
+ * that is wrangler's default and the one a person will type from memory.
+ * `claimPort` is no use here — wrangler is not our server and answers no
+ * marker — so the port is simply derived and handed to it with `--port`.
+ */
+export const RELAY_BAND = 8800;
+export const RELAY_BASE = 8787;
+
+/** The port this tree's relay takes. Both the server and the check call it. */
+export function relayPort(root: string): number {
+  return portFor(RELAY_BASE, RELAY_BAND, root);
+}
 
 /**
  * Taking a port, with the hygiene both servers used to carry a copy of each.

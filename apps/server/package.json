@@ -6,7 +6,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc -p . --noEmit",
-    "dev": "npx wrangler dev --config ../../wrangler.jsonc",
+    "dev": "bun run dev.ts",
     "deploy": "npx wrangler deploy --config ../../wrangler.jsonc"
   },
   "dependencies": {

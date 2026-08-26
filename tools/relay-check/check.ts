@@ -13,8 +13,8 @@
  * that was then thrown away.
  *
  *   bun run --cwd apps/server dev     # in one terminal
- *   bun run relay:check               # in another
- *   bun run relay:check ws://127.0.0.1:8787 6 --split
+ *   bun run relay:check               # in another — same port, derived the same way
+ *   bun run relay:check ws://127.0.0.1:8800 6 --split
  *
  * `--split` reaches into one of the two worlds on purpose, to prove the desync
  * detector is watching and not merely present.
@@ -36,8 +36,12 @@ import {
 // Relative on purpose: `apps/game` is an application, not a library, and giving
 // it an entry point so one check could import it would be the wrong trade.
 import { createLink, type Link } from "../../apps/game/src/link.js";
+import { relayPort } from "../ports.js";
 
-const relay = process.argv[2]?.startsWith("ws") ? process.argv[2] : "ws://127.0.0.1:8787";
+const tree = Bun.fileURLToPath(new URL("../../", import.meta.url));
+const relay = process.argv[2]?.startsWith("ws")
+  ? process.argv[2]
+  : `ws://127.0.0.1:${relayPort(tree)}`;
 const seconds = Number(process.argv.find((a) => /^\d+$/.test(a)) ?? 10);
 const split = process.argv.includes("--split");
 const ROOM = "TUVW";
@@ -100,6 +104,7 @@ a.link.join(ROOM);
 setTimeout(() => b.link.join(ROOM), 300);
 
 let elapsed = 0;
+let hasSplit = false;
 await new Promise<void>((done) => {
   const timer = setInterval(() => {
     elapsed += FRAME_MS;
@@ -110,7 +115,10 @@ await new Promise<void>((done) => {
         d.link.checkpoint();
       }
     }
-    if (split && elapsed === (seconds * 1000) / 2) b.world.score += 1;
+    if (split && !hasSplit && elapsed >= (seconds * 1000) / 2) {
+      hasSplit = true;
+      b.world.score += 1;
+    }
     if (a.link.status().state === "live" && elapsed % 320 === 0) {
       a.press(1, { kind: "cannonCol", col: (elapsed / 320) % cfg.cols });
       b.press(2, { kind: "fire", color: "red" });

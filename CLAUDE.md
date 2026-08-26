@@ -158,15 +158,18 @@ scheduler and proves nothing about the Durable Object, the seat handout or the
 order a socket actually delivers in. For that:
 
 ```
-bun run --cwd apps/server dev     # wrangler, on 8787
+bun run --cwd apps/server dev     # wrangler; it prints the port
 bun run relay:check               # two headless devices, same code the phone runs
-bun run relay:check ws://127.0.0.1:8787 8 --split
+bun run relay:check ws://127.0.0.1:8800 8 --split
 ```
 
 `--split` reaches into one of the two worlds on purpose, to prove the desync
-detector is watching and not merely present. `curl -s
-http://localhost:8787/net/health` says who answered, for the same reason
-`/__preview` does.
+detector is watching and not merely present.
+
+The relay's port belongs to its tree for the same reason the preview's does —
+8787 in the main checkout, derived from the path in a worktree. Both the server
+and the check work it out the same way, so neither needs to be told. `curl -s
+http://127.0.0.1:<port>/net/health` says who answered.
 
 Kill the wrangler process when the check is done.
 
