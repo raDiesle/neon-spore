@@ -6,6 +6,7 @@ import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { type Glide, glideTo } from "./glide.js";
+import { drawGrips } from "./grip.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
@@ -168,6 +169,9 @@ export class Canvas2DRenderer implements Renderer {
     drawGrid(ctx, l, world.cannonCol, flash);
 
     drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    // Over the creatures, under everything the ship does: a hand on something
+    // is not an effect this file owns — it is world state, read fresh.
+    drawGrips(ctx, l, world, view.beatPhase, view.time);
     drawBoss(ctx, l, view, this.effects);
     drawPods(ctx, l, world.pods, view.time);
     drawBullets(ctx, l, world.bullets);

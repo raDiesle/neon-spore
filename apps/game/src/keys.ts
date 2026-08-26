@@ -1,4 +1,5 @@
 import type { Layout } from "@neon-spore/render";
+import { type Creature, NO_GRIP } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -12,8 +13,23 @@ export interface KeyBindings {
   buffer: InputBuffer;
   layout: () => Layout;
   isOver: () => boolean;
+  /** The field, for G — the grip needs something to take hold of. */
+  creatures: () => readonly Creature[];
   onPauseToggle: () => void;
   onWaveStep: (delta: number) => void;
+}
+
+/** The creature closest to the hull — the one a pair would actually reach
+ * for. Never the queen, who cannot be gripped (`setGrip` in sim/grip.ts). */
+function nearestHull(creatures: readonly Creature[]): number {
+  let best = NO_GRIP;
+  let bestRow = -1;
+  for (const c of creatures) {
+    if (c.kind === "queen" || c.row <= bestRow) continue;
+    best = c.id;
+    bestRow = c.row;
+  }
+  return best;
 }
 
 /** Ticks (at `cfg.tickHz`, currently 120) before a held move key starts repeating. */
@@ -31,6 +47,7 @@ export function bindKeys({
   buffer,
   layout,
   isOver,
+  creatures,
   onPauseToggle,
   onWaveStep,
 }: KeyBindings): () => void {
@@ -103,6 +120,15 @@ export function bindKeys({
         e.preventDefault();
         onWaveStep(-1);
         break;
+      // G takes hold of whatever is nearest the hull, **as player 2**. On a
+      // phone the grip is a finger on the field and either player may use it;
+      // at a desk this is the only way to see the half of it that matters —
+      // the other player's hand, and the word on the field that names it.
+      case "KeyG": {
+        const target = nearestHull(creatures());
+        if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
+        break;
+      }
       case "KeyP":
         onPauseToggle();
         break;
@@ -114,6 +140,7 @@ export function bindKeys({
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
     repeatTicks.delete(e.code);
+    if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
   });
 
   /** Called once per sim tick to advance held-key repeats. */

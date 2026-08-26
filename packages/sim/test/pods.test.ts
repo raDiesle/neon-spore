@@ -230,6 +230,7 @@ describe("what a pod gives", () => {
         color: "red",
         holes: 0,
         petals: 0,
+        dragMilli: 0,
       },
       {
         id: world.nextId++,
@@ -240,6 +241,7 @@ describe("what a pod gives", () => {
         color: null,
         holes: 0,
         petals: 0,
+        dragMilli: 0,
       },
     );
     const inputs = hold(3, true);
@@ -280,6 +282,7 @@ describe("what a pod gives", () => {
       color: null,
       holes: 0,
       petals: 0,
+      dragMilli: 0,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {
@@ -306,6 +309,7 @@ describe("what a pod gives", () => {
       color: null,
       holes: 0,
       petals: 0,
+      dragMilli: 0,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {

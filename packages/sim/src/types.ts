@@ -143,6 +143,12 @@ export interface Creature {
   holes: number;
   /** Petals left on a queen, 0 on every other kind. */
   petals: number;
+  /**
+   * Thousandths of a tile a grip has held back and not yet spent. Zero unless
+   * a hand is on it — see `grippedFallTiles` in grip.ts, which is the only
+   * thing that reads or writes it.
+   */
+  dragMilli: number;
 }
 
 export interface Bullet {
@@ -206,6 +212,14 @@ export type Command =
   | { kind: "fire"; color: Color }
   | { kind: "guard" }
   | { kind: "intake" }
+  /**
+   * A hand on something falling, or `NO_GRIP` for the hand lifted again.
+   * Either player may send it — it is the one command that is not half of the
+   * split. The id is safe to name across the wire because ids are dealt out
+   * by the simulation, so both devices already agree about which creature is
+   * which (see `setGrip` in grip.ts for what happens when it is stale).
+   */
+  | { kind: "grip"; id: number }
   | { kind: "restart" };
 
 export interface TimedCommand {

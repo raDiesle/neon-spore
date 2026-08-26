@@ -10,6 +10,13 @@ export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "
 export type { BossState, QueenState } from "./boss-state.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { BOSS_KINDS } from "./entries.js";
+export {
+  clearGrips,
+  gripCount,
+  gripsCreature,
+  NO_GRIP,
+  setGrip,
+} from "./grip.js";
 export { hashWorld } from "./hash.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";

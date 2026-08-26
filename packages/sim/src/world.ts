@@ -1,12 +1,13 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
-import { onBeat, resetRun, startWave } from "./beat.js";
+import { onBeat, startWave } from "./beat.js";
 import type { BossState } from "./boss-state.js";
-import { advanceBullets, fire } from "./bullets.js";
+import { advanceBullets } from "./bullets.js";
+import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
+import { dropLostGrips, NO_GRIP } from "./grip.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
-import { fireStep, type MirrorStep, type MirrorVerdictReason } from "./simon.js";
+import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 
 export type { BossEntry, MirrorEntry, PodEntry, QueenEntry, SpawnEntry } from "./entries.js";
 
@@ -43,6 +44,13 @@ export interface World {
   /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
   wardUntilTick: number;
   lastFireTick: number;
+  /**
+   * The creature each player has a hand on, or `NO_GRIP`. Read them through
+   * `gripsCreature` (grip.ts) rather than by name — which field is whose is
+   * that file's business.
+   */
+  gripP1: number;
+  gripP2: number;
 
   creatures: Creature[];
   bullets: Bullet[];
@@ -80,6 +88,9 @@ export type SimEvent =
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
   | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }
+  /** A hand took hold. Only the moment it lands — the hold itself is state,
+   * not an event, and render/ reads it off the world every frame. */
+  | { type: "grip"; player: 1 | 2; col: number; row: number }
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
@@ -130,6 +141,8 @@ export function createWorld(
     intakeTick: -1_000_000,
     wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
+    gripP1: NO_GRIP,
+    gripP2: NO_GRIP,
     creatures: [],
     bullets: [],
     pods: [],
@@ -166,58 +179,12 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   if (world.tick % tpb === 0) onBeat(world);
 
   advanceBullets(world);
+  // After the shots, before anything else asks who is holding what: a hand
+  // stays on a creature until the creature stops existing.
+  dropLostGrips(world);
   advancePods(world);
   regenerateHull(world);
   progressWave(world);
-}
-
-/**
- * Every command is also a gesture THE MIRROR may be listening for, so each of
- * the four that has a step to its name reports it (`mirrorHeard` ignores it
- * unless a sequence is actually open). The cannon is the one that has to be
- * *derived*: a column is a place, and the step is which way it moved, so the
- * old column is read before the new one is written. Any jump counts once, in
- * the direction it went — a thumb dragged three columns is one gesture, not
- * three, because that is how many things the player did.
- */
-function applyCommand(world: World, timed: TimedCommand): void {
-  const c = timed.command;
-  if (c.kind === "restart") {
-    // The sim clears the run and then asks for a queue. It cannot build one
-    // itself: waves live in content/, and content points at sim, not back.
-    // Read even while the controls are held, or a run could never be left.
-    resetRun(world);
-    world.events.push({ type: "needWave", wave: 0 });
-    return;
-  }
-  // Nothing at all reaches the ship while THE MIRROR is presenting.
-  if (mirrorHoldsControls(world)) return;
-
-  switch (c.kind) {
-    case "cannonCol": {
-      const from = world.cannonCol;
-      world.cannonCol = clampCol(world, c.col);
-      if (world.cannonCol !== from) {
-        mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
-      }
-      break;
-    }
-    case "shieldCol":
-      world.shieldCol = clampCol(world, c.col);
-      break;
-    case "guard":
-      world.guardTick = world.tick;
-      mirrorHeard(world, "guard");
-      break;
-    case "intake":
-      world.intakeTick = world.tick;
-      mirrorHeard(world, "intake");
-      break;
-    case "fire":
-      fire(world, c.color);
-      mirrorHeard(world, fireStep(c.color));
-      break;
-  }
 }
 
 function regenerateHull(world: World): void {
@@ -235,10 +202,6 @@ function progressWave(world: World): void {
   if (world.restBeat <= 0 || world.beat < world.restBeat) return;
   world.restBeat = -1;
   world.events.push({ type: "needWave", wave: world.wave + 1 });
-}
-
-function clampCol(world: World, col: number): number {
-  return Math.max(0, Math.min(world.cfg.cols - 1, Math.round(col)));
 }
 
 /** Hull integrity as a plain 0..100 number, for display only. */

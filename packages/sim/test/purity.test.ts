@@ -154,6 +154,12 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    call: "gripsCreature",
+    owner: "packages/sim/src/grip.ts",
+    pattern: /world\s*\.\s*gripP[12]\s*===/,
+    strip: false,
+  },
+  {
     call: "colSpan",
     owner: "packages/sim/src/types.ts",
     pattern: /kind\s*===\s*"torch"\s*\?\s*2\s*:\s*1/,

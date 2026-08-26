@@ -1,7 +1,8 @@
 import { blobPath, crystalPath, livingSilhouette, METEOR } from "@neon-spore/content";
-import { type Creature, isMeteorKind, spanCenterCol } from "@neon-spore/sim";
+import { type Creature, isMeteorKind } from "@neon-spore/sim";
+import { creatureCenter } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawTorch, rockRadius } from "./torch.js";
 
@@ -27,13 +28,7 @@ export function drawCreatures(
     // The queen is drawn by her own module, because she is the only creature
     // whose picture depends on world.boss and not on the creature alone.
     if (c.kind === "queen") continue;
-    // One tile per beat, linear. No easing: the movement must read as an even
-    // glide so that "it lands on the four" is a statement both players can act on.
-    const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
-    // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
-    // sim/types.ts) — every kind is drawn at its visual centre.
-    const x = tileCX(l, spanCenterCol(c.kind, c.col));
-    const y = tileCY(l, row);
+    const { x, y } = creatureCenter(l, c, beatPhase);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
     else drawLiving(ctx, l, c, x, y, time, blocked.get(c.id) ?? 0);

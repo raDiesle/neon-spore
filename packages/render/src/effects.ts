@@ -87,6 +87,11 @@ export class Effects {
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.sparkDim);
           break;
         }
+        case "grip":
+          // The moment a hand lands. The hold itself is drawn from the world
+          // every frame (grip.ts); this is only the grab.
+          this.burst(tileCX(l, e.col), tileCY(l, e.row), 7, PALETTE.pod);
+          break;
         case "hole":
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
           break;

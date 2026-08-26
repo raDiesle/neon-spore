@@ -50,6 +50,7 @@ const KEYS: [string, string][] = [
   ["S", "The maw, to take a loose pod in."],
   ["W", "Fire red — and guard in the same press."],
   ["E", "Fire cyan."],
+  ["G", "Hold the nearest creature — the grip, as the other player."],
   ["← / →", "The previous and the next wave."],
   ["P", "Pause."],
   ["ESC", "This menu."],

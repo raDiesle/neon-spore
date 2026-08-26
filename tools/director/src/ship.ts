@@ -41,6 +41,11 @@ function capabilities(cfg: SimConfig): Capability[] {
       note: `Sinks ${cfg.podFallTilesPerBeat} tiles a beat and drifts ${cfg.podDriftTilesPerBeat} sideways, the way the rng picks.`,
     },
     {
+      name: "GRIP — a hand on the field",
+      value: `${cfg.gripSlowPermille} ‰ speed`,
+      note: "Either player holds anything falling and it falls slower. Two hands compound.",
+    },
+    {
       name: "SCARS — damage that stays",
       value: `${cfg.maxScars} kept`,
       note: "Anything that reaches the hull breaks it visibly and the break does not heal.",

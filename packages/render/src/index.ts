@@ -1,5 +1,7 @@
 export { Canvas2DRenderer } from "./canvas2d.js";
+export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
+export { gripLabel } from "./grip.js";
 export {
   type Circle,
   colFromX,

@@ -29,6 +29,9 @@ const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
+const tpb = ticksPerBeat(cfg);
+/** 0..1 within the beat. Both the picture and a finger on the field need it. */
+const beatPhase = (): number => (world.tick % tpb) / tpb;
 
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
@@ -94,6 +97,11 @@ const tickKeys = bindControls({
   layout,
   stage,
   isOver: () => world.over,
+  // The seat decides whose hand a finger on the field is. `test` is both
+  // halves on one screen, so it grips as player 1 and G grips as player 2.
+  player: () => (view.role() === "p2" ? 2 : 1),
+  creatures: () => world.creatures,
+  beatPhase,
   onPauseToggle: () => setRunning(!running),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
@@ -157,13 +165,12 @@ function startTogether(): void {
 // Events are cleared every tick and a frame covers several ticks, so they are
 // collected here rather than read off the world.
 let frameEvents: SimEvent[] = [];
-const tpb = ticksPerBeat(cfg);
 let lastFrame = performance.now();
 
 const paint = (dt: number): void => {
   renderer.draw({
     world,
-    beatPhase: (world.tick % tpb) / tpb,
+    beatPhase: beatPhase(),
     role: view.role(),
     time: performance.now() / 1000,
     dt,

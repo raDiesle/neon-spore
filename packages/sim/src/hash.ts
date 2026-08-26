@@ -20,6 +20,8 @@ export function hashWorld(world: World): number {
   push(world.score);
   push(world.cannonCol);
   push(world.shieldCol);
+  push(world.gripP1);
+  push(world.gripP2);
   push(world.hullMilli);
   push(world.rng.state);
   push(world.guard.tries);
@@ -42,6 +44,7 @@ export function hashWorld(world: World): number {
     push(c.color === null ? 0 : c.color === "red" ? 1 : 2);
     push(c.holes);
     push(c.petals);
+    push(c.dragMilli);
   }
 
   push(world.bullets.length);

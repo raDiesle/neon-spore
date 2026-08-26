@@ -52,6 +52,8 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
 | `packages/sim/src/world.ts` | the world and the single `step` function |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
+| `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip |
+| `packages/sim/src/grip.ts` | THE GRIP: a hand held on something falling, and how much it slows |
 | `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
 | `packages/sim/src/queen-geometry.ts` | how wide her reach is with both flank torches counted in |
 | `packages/sim/src/simon.ts` | THE MIRROR's vocabulary: what a step is, what it remembers |
@@ -91,6 +93,8 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
+| `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
+| `packages/render/src/grip.ts` | the grip drawn: beam, ring, and whose hand it is |
 | `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |

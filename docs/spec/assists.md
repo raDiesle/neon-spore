@@ -1,8 +1,9 @@
 # Assist mechanics
 
-> **Status: not built.** One of the three forms existed in the retired
-> free-flight prototype. None of them exists in the raster game, and one of
-> them does not translate to it at all.
+> **Status: one of three built.** **Keep watch** is in the raster game as
+> THE GRIP — see 6.4, which also answers the objection this file used to end
+> that section with. Share sight and the reserve are still unbuilt, and one of
+> the three existed only in the retired free-flight prototype.
 
 **Why they exist:** to cushion differences in ability. Two people are rarely
 equally fast; without a counterweight the pair stops playing — not out of
@@ -40,10 +41,9 @@ visibly in the field instead of in a readout.
 recognisable effect explains itself to no one. Both fill, both trigger, but
 never their own store. Help has to be accepted.
 
-> **Keep watch does not translate to the raster.** Slowing a creature there
-> would mean skipping a beat, and the beat is the shared clock. It has to be
-> re-thought, not ported. It also depends on marking, which is itself
-> unbuilt — see [couplings](couplings.md#2-marking--not-built).
+> **Keep watch was re-thought rather than ported** — see 6.4. The objection
+> stands as it was written: a creature may not skip a beat, because the beat
+> is the shared clock.
 
 ## 6.2 Unlocking
 
@@ -72,3 +72,38 @@ Unlocks get the same animated preview as new creatures — and the same rule:
 **An open handicap chosen before the game starts** (a larger sync window or
 slower creatures for one device). More honest than hidden easing, but the
 staggered unlock achieves the same thing without labelling anybody.
+
+## 6.4 THE GRIP — keep watch, built
+
+A finger held on anything falling drags at it: it keeps
+`gripSlowPermille` of its speed for as long as the finger stays, and two
+hands compound. Nothing else changes — no column, no colour, no state the
+other systems read.
+
+**What the objection above got right, and how it is answered.** The beat is
+untouched. A gripped creature still lands on a tile centre on every beat like
+everything else; what changes is *how many tiles*, and the fraction that
+leaves over is carried in thousandths (`dragMilli`) rather than rounded away.
+So a slick, which falls one tile a beat, can fall at 55% of that — it stands
+still on some beats and moves a whole tile on others, and the clock both
+players are counting never moves.
+
+**It does not need marking.** The spec tied keep watch to the held mark from
+[couplings](couplings.md); the grip is its own gesture, on a part of the
+screen that answered nothing before. Marking stays unbuilt and is no longer in
+the way.
+
+**The price is the hand.** Not a blocked action in the rules — nothing in the
+simulation refuses a command from a player who is gripping — but the thumb
+itself: it is on the field, so it is off the strip below, and a player holding
+a rock is a player who is not moving their own control. Both principles at the
+top of this file hold: either player may grip anything, and both screens are
+told who is holding what, in words.
+
+**Rocks are the point.** A rock cannot be shot. Before the grip, a second pair
+of hands could do exactly nothing about one; now it can buy the shield a beat
+to reach the column.
+
+**Not yet, deliberately:** the unlock schedule in 6.2. The grip is live in
+every wave from the first, because what it needs first is play, and gating it
+behind wave 8 would mean nobody had held anything for an hour.

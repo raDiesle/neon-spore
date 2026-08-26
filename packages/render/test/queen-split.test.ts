@@ -46,7 +46,17 @@ function layoutFor(role: ViewRole) {
 }
 
 function queenAt(color: Creature["color"]): Creature {
-  return { id: 3, kind: "queen", col: 5, row: 2, fromRow: 2, color, holes: 0, petals: 9 };
+  return {
+    id: 3,
+    kind: "queen",
+    col: 5,
+    row: 2,
+    fromRow: 2,
+    color,
+    holes: 0,
+    petals: 9,
+    dragMilli: 0,
+  };
 }
 
 /** Armoured and announced: a bloom is named, with a clock on it, not yet open. */

@@ -1,12 +1,13 @@
 import {
   colFromX,
+  creatureAt,
   hitCircle,
   type Layout,
   type Stage,
   showsCannon,
   showsShield,
 } from "@neon-spore/render";
-import type { Command } from "@neon-spore/sim";
+import { type Command, type Creature, NO_GRIP } from "@neon-spore/sim";
 import { bindKeys } from "./keys.js";
 
 /**
@@ -36,6 +37,17 @@ export interface Bindings {
   /** The phone-shaped rectangle the game is drawn into. Touches are relative to it. */
   stage: () => Stage;
   isOver: () => boolean;
+  /**
+   * Which seat this device holds. The field belongs to both players, so a
+   * finger on a creature has to be signed with whoever is sitting here — the
+   * strips below can be told apart by where they are, and this cannot.
+   */
+  player: () => 1 | 2;
+  /** The field, for hit-testing a finger against what is falling. */
+  creatures: () => readonly Creature[];
+  /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
+   * it stood on the last beat. */
+  beatPhase: () => number;
   onPauseToggle: () => void;
   /** Wave step, for the test keys. Positive is forwards. */
   onWaveStep: (delta: number) => void;
@@ -53,11 +65,16 @@ export function bindControls({
   layout,
   stage,
   isOver,
+  player,
+  creatures,
+  beatPhase,
   onPauseToggle,
   onWaveStep,
 }: Bindings): () => void {
   let cannonPointer: number | null = null;
   let shieldPointer: number | null = null;
+  /** The one finger that is on the field. One hand per player — see grip.ts. */
+  let gripPointer: number | null = null;
 
   const down = (id: number, x: number, y: number): void => {
     if (isOver()) {
@@ -65,7 +82,15 @@ export function bindControls({
       return;
     }
     const l = layout();
-    if (y < l.bandTop) return;
+    // Above the band is the field, and the field answers both players: a
+    // finger held on something falling drags at it (`grip` in sim/grip.ts).
+    if (y < l.bandTop) {
+      const held = creatureAt(l, creatures(), x, y, beatPhase());
+      if (!held) return;
+      gripPointer = id;
+      buffer.push(player(), { kind: "grip", id: held.id });
+      return;
+    }
 
     if (showsCannon(l.role)) {
       if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
@@ -128,6 +153,12 @@ export function bindControls({
   const up = (e: PointerEvent): void => {
     if (cannonPointer === e.pointerId) cannonPointer = null;
     if (shieldPointer === e.pointerId) shieldPointer = null;
+    // A grip lasts exactly as long as the finger does. Nothing decays it in
+    // the simulation, so the lift has to be sent.
+    if (gripPointer === e.pointerId) {
+      gripPointer = null;
+      buffer.push(player(), { kind: "grip", id: NO_GRIP });
+    }
   };
   canvas.addEventListener("pointerup", up);
   canvas.addEventListener("pointercancel", up);
@@ -146,5 +177,5 @@ export function bindControls({
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
    */
-  return bindKeys({ buffer, layout, isOver, onPauseToggle, onWaveStep });
+  return bindKeys({ buffer, layout, isOver, creatures, onPauseToggle, onWaveStep });
 }

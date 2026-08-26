@@ -1,5 +1,6 @@
 import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
+import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
@@ -24,7 +25,9 @@ export function onBeat(world: World): void {
     // The queen holds her row until she is made to descend — see `boss.ts`.
     if (c.kind === "queen") continue;
     c.fromRow = c.row;
-    c.row += fallTilesPerBeat(c.kind);
+    // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
+    // and `grippedFallTiles` is where that is decided (grip.ts).
+    c.row += grippedFallTiles(world, c);
   }
 
   // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
@@ -48,6 +51,7 @@ export function onBeat(world: World): void {
       color: entry.color,
       holes: 0,
       petals: 0,
+      dragMilli: 0,
     });
     world.spawned += 1;
   }
@@ -103,6 +107,7 @@ export function startWave(
   world.podSpawned = 0;
   world.creatures = [];
   world.bullets = [];
+  clearGrips(world);
   world.pods = [];
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;
@@ -127,6 +132,7 @@ export function startWave(
       color: null,
       holes: 0,
       petals: boss.petals,
+      dragMilli: 0,
     });
     world.boss = {
       kind: "queen",

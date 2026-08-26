@@ -55,6 +55,13 @@ export interface SimConfig {
   podRepair: number;
   /** Beats a `ward` pod keeps the shield armed without a trigger. */
   wardBeats: number;
+  /**
+   * Share of its speed a creature keeps for each hand held on it, in
+   * thousandths — the whole of THE GRIP as a number. 550 leaves a little over
+   * half from one player and a little under a third when both pull, which is
+   * a beat or two bought and never a creature stopped dead.
+   */
+  gripSlowPermille: number;
   /** Bullet speed, in tiles per beat. */
   bulletTilesPerBeat: number;
   /** Minimum gap between shots, in beats. */
@@ -150,6 +157,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   podHomeTilesPerBeat: 2,
   podRepair: 18,
   wardBeats: 6,
+  gripSlowPermille: 550,
   bulletTilesPerBeat: 12,
   fireEveryBeats: 0.5,
   hitHeightMilli: 1000,
