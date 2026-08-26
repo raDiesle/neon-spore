@@ -1,4 +1,5 @@
 import { colSpan, isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
+import { Arrivals } from "./arrivals.js";
 import { drawWord, POD_RECEIPT } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -39,10 +40,8 @@ export class Effects {
   private podKind: PodKind | null = null;
   /** Counts down from `QUEEN_SHAKE_LIFE` after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
-  /** Scarred columns a rock has actually arrived at, `${col}:${beat}` — set
-   * once and never cleared, so a crack's gate outlives the transient
-   * `RockImpactFx` record that set it, long after that rock has drifted off. */
-  private arrivedScars = new Set<string>();
+  /** Which impacts have visibly landed — see `arrivals.ts`. */
+  private arrivals = new Arrivals();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -99,11 +98,9 @@ export class Effects {
           this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
           break;
         case "breach": {
-          // A rock is still visibly falling when the sim resolves the hit —
-          // the burst has to wait for it to actually arrive (rock-impact.ts).
-          // A living creature falls one tile a beat, close enough to the hull
-          // already that the same instant read as arrival before this event
-          // carried `fromRow`, so it keeps firing right away.
+          // A rock is still visibly falling when the sim resolves the hit, so
+          // its burst waits for it to arrive (rock-impact.ts). A living
+          // creature falls one tile a beat, already at the hull, and fires now.
           if (isMeteorKind(e.kind)) {
             const r = rockRadius(l, e.kind);
             const span = colSpan(e.kind);
@@ -114,9 +111,8 @@ export class Effects {
             const arrive = (ax: number, ay: number): void => {
               this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
               this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
-              // Only now does this rock's own crack get to show — see
-              // `arrivedScars`.
-              for (let i = 0; i < span; i++) this.arrivedScars.add(`${loCol + i}:${e.beat}`);
+              // Only now does this rock's own crack get to show.
+              this.arrivals.mark(loCol, span, e.beat);
             };
             this.rockImpactFx.spawn(
               tileCX(l, e.col),
@@ -224,7 +220,12 @@ export class Effects {
    * arrived yet — the hull asks before it draws that scar's crack at all
    * (`scars.ts`'s `arrived`). */
   hasArrived(col: number, beat: number): boolean {
-    return this.arrivedScars.has(`${col}:${beat}`);
+    return this.arrivals.has(col, beat);
+  }
+
+  /** Drop every latched arrival — a fresh run, see `arrivals.ts`. */
+  forgetArrivals(): void {
+    this.arrivals.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

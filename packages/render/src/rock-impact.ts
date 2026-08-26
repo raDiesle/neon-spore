@@ -20,12 +20,13 @@ const TAIL_LIFE = 0.15;
  * field (`update`'s `offscreen`).
  */
 const RISE_TIME = 0.5;
-/**
- * Sideways acceleration once it lets go, in px/s². A constant acceleration
- * from a standing start is the simplest curve that starts slow and ends
- * faster with no separate easing code of its own — the drift itself *is*
- * the ease.
- */
+/** How fast it is already moving sideways the instant it lets go, in px/s.
+ * Not zero: a rock accelerating up from a standstill spends its first half
+ * second barely moving and barely turning, which reads as the hull letting
+ * go reluctantly. With real speed it rolls out of its hole from frame one. */
+const DRIFT_SPEED = 30;
+/** Sideways acceleration once it lets go, in px/s² — on top of `DRIFT_SPEED`,
+ * so it leaves at a believable pace and keeps gathering. */
 const DRIFT_ACCEL = 28;
 
 function smoothstep(t: number): number {
@@ -54,7 +55,6 @@ interface Impact {
   r: number;
   dir: -1 | 1;
   rotation0: number;
-  spin: number;
   /** Clock reading at impact — a stuck rock holds this still shape rather than visibly wobbling. */
   spawnTime: number;
   /**
@@ -75,10 +75,16 @@ function stickStart(im: Impact): number {
   return im.fallLife + (im.embed ? STICK_LIFE : 0);
 }
 
-/** Screen x right now — a pure function of elapsed time, not accumulated state. */
-function currentX(im: Impact): number {
+/** How far it has rolled from where it landed, in px — 0 until it lets go.
+ * A pure function of elapsed time, not accumulated state. */
+function travelled(im: Impact): number {
   const floatT = Math.max(0, im.t - stickStart(im));
-  return im.x0 + im.dir * 0.5 * DRIFT_ACCEL * floatT * floatT;
+  return DRIFT_SPEED * floatT + 0.5 * DRIFT_ACCEL * floatT * floatT;
+}
+
+/** Screen x right now. */
+function currentX(im: Impact): number {
+  return im.x0 + im.dir * travelled(im);
 }
 
 /**
@@ -128,7 +134,6 @@ export class RockImpactFx {
       r: rockRadius(l, kind),
       dir: x < mid ? -1 : 1,
       rotation0: torchRotation(x),
-      spin: 0.4 + (x % 1) * 0.3,
       spawnTime: time,
       fallLife: 0,
       t: 0,
@@ -165,10 +170,9 @@ export class RockImpactFx {
       const x = currentX(im);
       const surfaceY = skinAt(x);
       const stuckY = surfaceY - im.r * 0.5;
-      // The duration of the replayed step, fixed on the first frame it is
-      // drawn: whatever the fall's own speed needs to close the gap between
-      // where the creature was last drawn and the hull's real skin. Speed is
-      // the thing held constant, never the time.
+      // Duration of the replayed step, fixed on its first drawn frame:
+      // whatever the fall's own speed needs to close the gap. Speed is the
+      // thing held constant, never the time.
       if (im.fallLife === 0) im.fallLife = Math.max(0.001, (stuckY - im.y0) / im.fallSpeed);
       const stuckAt = stickStart(im);
 
@@ -182,26 +186,23 @@ export class RockImpactFx {
         im.onArrive(x, surfaceY);
       }
 
-      // The tail belongs to the fall and to nothing else: full strength on
-      // the way down, then `TAIL_LIFE` to leave. It hangs from the rock, not
-      // from the hull line — a streak drawn down to a crater the rock is
-      // already sitting in is a mark on the ship, not a trail behind a rock.
       const floating = im.t > stuckAt;
       const floatT = Math.max(0, im.t - stuckAt);
       // 0 the instant it lets go, 1 once the liftoff has run its course —
       // everything about leaving the hull eases in against this, so there is
-      // no frame where height or spin visibly jumps to a new value.
+      // no frame where the height visibly jumps to a new value.
       const rise = smoothstep(floatT / RISE_TIME);
-      // It came down without turning (`drawTorch`) and it lands the same way
-      // up it fell — only once it lets go of the hull does it tumble.
-      const rotation = im.rotation0 + (floating ? im.spin * 0.5 * floatT * floatT : 0);
+      // It came down without turning (`drawTorch`) and lands the same way up
+      // it fell. Leaving, it *rolls*: the turn is its travel over its own
+      // radius — the arc a wheel that size covers going that far — and since
+      // it leaves at `DRIFT_SPEED`, not from a standstill, the roll starts
+      // the same instant the drift does.
+      const rotation = im.rotation0 + (im.dir * travelled(im)) / im.r;
 
-      // Sunk a quarter of its own height (half its radius) into the hull —
-      // exactly the crater's own depth, so it sits in the hole it made
-      // rather than hovering over it — and riding the same surface point,
-      // so the ship's own motion carries it while it is stuck. Letting go,
-      // it eases up to clear of the line rather than jumping there, and only
-      // bobs once it has actually risen.
+      // Sunk half its radius into the hull — exactly the crater's own depth,
+      // so it sits in the hole it made — and riding the same surface point,
+      // so the ship's motion carries it while stuck. Letting go, it eases up
+      // clear of the line rather than jumping, and only bobs once risen.
       const bob = floating ? Math.sin(floatT * 2.4) * im.r * 0.12 * rise : 0;
       const y = falling
         ? im.y0 + im.fallSpeed * im.t

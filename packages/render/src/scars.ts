@@ -69,14 +69,17 @@ function strokeCrack(ctx: CanvasRenderingContext2D, pts: Point[], width: number)
 }
 
 /**
- * A crack never starts *inside* the hole its own rock left — a jagged line
- * with its mouth painted over by the crater's opaque fill used to read as
- * damage cut short, not damage that runs past the hole. When this scar's
- * column belongs to a crater that has appeared (`craters`, from `hull.ts` —
- * empty or not-yet-visible ones simply have no entry to find), the crack's
- * mouth starts just past that crater's own measured edge (`mouth`) instead
- * of at the impact column itself, on the side away from the hole, so it
- * reads as tearing outward from the rim rather than climbing out of the pit.
+ * A crack starts exactly *on* the rim of the hole its own rock tore — the
+ * crater's own measured edge (`mouth`), with no gap of intact skin in
+ * between — and runs away from the hole from there. Touching matters: a
+ * crack floating a little clear of the rim reads as damage that happened to
+ * the ship near the rock, and a crack starting inside the pit is painted
+ * over by the crater's own opaque fill. Starting on the rim, it reads as one
+ * thing — this rock split this skin, and the split runs outward from where
+ * it went in.
+ *
+ * A scar with no crater (a living creature's breach) has no rim to start
+ * from, so it keeps the old jitter around its own column.
  */
 function crackOrigin(
   l: Layout,
@@ -87,13 +90,13 @@ function crackOrigin(
 ): { x: number; side: number } {
   const crater = craters.find((c) => c.cols.includes(s.col));
   if (!crater) return { x: tileCX(l, s.col) + (rnd() - 0.5) * l.tile * 0.44, side: lean };
-  // A torch's two columns each own one side of the shared crater; a single
-  // column has no such geometry to read, so it falls back to the same random
-  // lean the zigzag itself uses, rather than a side that's always the same.
+  // A torch's two columns each own one side of the shared crater, so its one
+  // impact tears one crack out of each side; a single column has no such
+  // geometry to read, so it falls back to the same random lean the zigzag
+  // itself uses, rather than a side that's always the same.
   const side = crater.cols.length > 1 ? (s.col === Math.min(...crater.cols) ? -1 : 1) : lean;
   const m = mouth(crater);
-  const edge = side < 0 ? m.left : m.right;
-  return { x: edge + side * l.tile * (0.12 + rnd() * 0.2), side };
+  return { x: side < 0 ? m.left : m.right, side };
 }
 
 export function drawScars(

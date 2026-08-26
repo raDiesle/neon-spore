@@ -106,6 +106,9 @@ export class Canvas2DRenderer implements Renderer {
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
 
+    // No scars at all means the run was reset, and every arrival latched
+    // against the old run's beats has to go with it — see `forgetArrivals`.
+    if (world.scars.length === 0) this.effects.forgetArrivals();
     this.effects.ingest(
       view.events,
       l,
