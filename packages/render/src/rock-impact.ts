@@ -6,22 +6,18 @@ import { drawTorchRock, drawTorchTail, rockRadius, torchRotation } from "./torch
 
 /** How long a missed rock sits sunk into the hull before it starts to drift off. */
 const STICK_LIFE = 2;
-/** How long the slow drift away takes to fully fade. */
-const FLOAT_LIFE = 1.8;
-/**
- * How long the tail it dragged down lasts once the rock is in the hull. Long
- * enough not to blink out between two frames, short enough that the streak is
- * gone by the time anyone reads the crater: a rock lodged in the skin with a
- * trail still hanging off it reads as still falling, and there is no falling
- * left to do.
- */
+/** How long the torch's tail lasts once it is in the hull — long enough not
+ * to blink out between two frames, short enough that it is gone by the time
+ * anyone reads the crater: a rock lodged in the skin with a trail still
+ * hanging off it reads as still falling, and there is no falling left to do. */
 const TAIL_LIFE = 0.15;
 /**
  * How long the *start* of the drift takes to reach its cruising height and
  * speed — the thing that used to jump instantly to a new height and speed
  * the moment it stopped being stuck. Everything about letting go eases
- * against this, not against `FLOAT_LIFE`, so the liftoff is a beat, not the
- * whole drift.
+ * against this, so the liftoff is a beat, not the whole drift, which never
+ * eases back down again — it simply keeps accelerating off the edge of the
+ * field (`update`'s `offscreen`).
  */
 const RISE_TIME = 0.5;
 /**
@@ -73,7 +69,8 @@ interface Impact {
   arrived: boolean;
 }
 
-/** When the stuck hold ends and the drift-off begins, in `im.t`. Meaningless for a non-embedding impact, which is gone the moment it lands. */
+/** When the stuck hold ends and drift-off begins, in `im.t` — meaningless for
+ * a non-embedding impact, which is gone the moment it lands. */
 function stickStart(im: Impact): number {
   return im.fallLife + (im.embed ? STICK_LIFE : 0);
 }
@@ -149,7 +146,11 @@ export class RockImpactFx {
       im.t += dt;
       const x = currentX(im);
       const offscreen = x < left || x > right;
-      const done = !im.embed ? im.arrived : im.t > stickStart(im) + FLOAT_LIFE;
+      // A drifting rock keeps drifting — accelerating the whole way, per
+      // `DRIFT_ACCEL` — until it is actually gone from view, not for some
+      // fixed time regardless of where that leaves it. A non-embedding
+      // impact (a deflect) has nothing left to draw once it has arrived.
+      const done = !im.embed && im.arrived;
       if (done || offscreen) this.impacts.splice(i, 1);
     }
   }
@@ -210,18 +211,18 @@ export class RockImpactFx {
 
       if (!im.embed && !falling) continue;
 
-      const tailAlpha = falling ? 1 : Math.max(0, 1 - (im.t - im.fallLife) / TAIL_LIFE);
-      if (tailAlpha > 0) drawTorchTail(ctx, l, x, y, im.r, tailAlpha);
-
-      const alpha = floating ? Math.max(0, 1 - floatT / FLOAT_LIFE) : 1;
-      if (alpha <= 0) continue;
+      // Only the torch drags a tail (`drawTorch`) — a plain meteor tier
+      // falls slowly enough on its own not to need one.
+      if (im.kind === "torch") {
+        const tailAlpha = falling ? 1 : Math.max(0, 1 - (im.t - im.fallLife) / TAIL_LIFE);
+        if (tailAlpha > 0) drawTorchTail(ctx, l, x, y, im.r, tailAlpha);
+      }
 
       // While it is still stuck, a low ember glow sells the "melted into the
       // skin" contact rather than a rock merely floating in front of it.
       if (!falling && !floating) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
 
       ctx.save();
-      ctx.globalAlpha = alpha;
       ctx.translate(x, y);
       ctx.rotate(rotation);
       drawTorchRock(ctx, im.r, falling || floating ? time : im.spawnTime);

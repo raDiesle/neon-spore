@@ -181,6 +181,7 @@ export class Canvas2DRenderer implements Renderer {
       hullPercent(world),
       at,
       (x) => !this.effects.rockCoversCrater(x, l.tile),
+      (col, beat) => this.effects.hasArrived(col, beat),
     );
     // In front of the hull, unlike the rest of Effects.draw() — see
     // Effects.drawRockImpact.

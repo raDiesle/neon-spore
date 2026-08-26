@@ -114,6 +114,9 @@ export type SimEvent =
       span: number;
       kind: Creature["kind"];
       fromRow: number;
+      /** The beat this happened on — matches the `Scar`s it left, so render/
+       * can tell a scar's crack apart from one an earlier beat left behind. */
+      beat: number;
     }
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number };

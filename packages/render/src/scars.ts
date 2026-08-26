@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import type { Scar } from "@neon-spore/sim";
+import { isMeteorKind, type Scar } from "@neon-spore/sim";
 import { type Crater, mouth } from "./craters.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -104,9 +104,16 @@ export function drawScars(
   surfaceAt: (x: number) => Point,
   skinAt: (x: number) => Point,
   craters: readonly Crater[] = [],
+  // A rock's crack waits for the rock itself to visibly arrive — the sim
+  // scars the hull the instant the beat resolves, a rock's render-side fall
+  // replay (`rock-impact.ts`) takes a little longer to actually get there,
+  // and a crack that opens first reads as the ship breaking on its own. A
+  // living creature has no replay to wait for, so it is never gated here.
+  arrived: (col: number, beat: number) => boolean = () => true,
 ): void {
   ctx.save();
   for (const s of scars) {
+    if (isMeteorKind(s.kind) && !arrived(s.col, s.beat)) continue;
     const seed = Math.imul(s.col + 1, 73856093) ^ Math.imul(s.beat + 1, 19349663);
     const rnd = stream(seed);
     const { x, side: lean } = crackOrigin(l, s, rnd, rnd() < 0.5 ? -1 : 1, craters);

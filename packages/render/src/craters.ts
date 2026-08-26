@@ -50,18 +50,16 @@ function cutY(c: Crater): number {
 }
 
 /**
- * Every crater the hull currently shows, one per rock that ever reached it.
- * `visible` decides which ones exist yet: `RockImpactFx.coversCrater` says no
- * while the rock that made it is still falling into it or lodged in it, so
- * the hole appears when the rock leaves and not a beat before the rock
- * arrives.
+ * Every crater a rock has ever left, one per rock, purely as geometry — this
+ * says nothing about whether its hole should be drawn open yet. That is a
+ * separate question a caller answers itself (`hull.ts` filters this list by
+ * `RockImpactFx.coversCrater` before cutting the rim or filling the hole).
+ * Kept unconditional here so a crack's *position* (`scars.ts`'s
+ * `crackOrigin`) can read a crater's edge from the moment its rock arrives,
+ * long before the hole itself is open — a position that later changed once
+ * the hole opened used to read as a second crack appearing out of nowhere.
  */
-export function craters(
-  l: Layout,
-  scars: readonly Scar[],
-  skinAt: (x: number) => Point,
-  visible: (x: number) => boolean,
-): Crater[] {
+export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) => Point): Crater[] {
   const out: Crater[] = [];
   const used = new Set<Scar>();
 
@@ -77,7 +75,6 @@ export function craters(
     used.add(b);
     const loCol = Math.min(a.col, b.col);
     const x = tileCX(l, loCol + 0.5);
-    if (!visible(x)) continue;
     out.push({
       x,
       top: skinAt(x),
@@ -94,7 +91,6 @@ export function craters(
     if (used.has(s) || !isMeteorKind(s.kind)) continue;
     used.add(s);
     const x = tileCX(l, s.col);
-    if (!visible(x)) continue;
     out.push({
       x,
       top: skinAt(x),

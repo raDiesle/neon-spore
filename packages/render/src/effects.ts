@@ -1,4 +1,4 @@
-import { isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
+import { colSpan, isMeteorKind, type PodKind, type SimEvent } from "@neon-spore/sim";
 import { drawWord, POD_RECEIPT } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -39,6 +39,10 @@ export class Effects {
   private podKind: PodKind | null = null;
   /** Counts down from `QUEEN_SHAKE_LIFE` after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
+  /** Scarred columns a rock has actually arrived at, `${col}:${beat}` — set
+   * once and never cleared, so a crack's gate outlives the transient
+   * `RockImpactFx` record that set it, long after that rock has drifted off. */
+  private arrivedScars = new Set<string>();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -102,12 +106,17 @@ export class Effects {
           // carried `fromRow`, so it keeps firing right away.
           if (isMeteorKind(e.kind)) {
             const r = rockRadius(l, e.kind);
+            const span = colSpan(e.kind);
+            const loCol = Math.round(e.col - (span - 1) / 2);
             // Two bursts flanking the crater rather than one on top of it —
             // sparks fly off the rim the rock just tore, not out of thin air
             // at its own centre.
             const arrive = (ax: number, ay: number): void => {
               this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
               this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
+              // Only now does this rock's own crack get to show — see
+              // `arrivedScars`.
+              for (let i = 0; i < span; i++) this.arrivedScars.add(`${loCol + i}:${e.beat}`);
             };
             this.rockImpactFx.spawn(
               tileCX(l, e.col),
@@ -209,6 +218,13 @@ export class Effects {
    */
   rockCoversCrater(x: number, tile: number): boolean {
     return this.rockImpactFx.coversCrater(x, tile);
+  }
+
+  /** Whether the rock that scarred this column on this beat has visibly
+   * arrived yet — the hull asks before it draws that scar's crack at all
+   * (`scars.ts`'s `arrived`). */
+  hasArrived(col: number, beat: number): boolean {
+    return this.arrivedScars.has(`${col}:${beat}`);
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

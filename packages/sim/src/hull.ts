@@ -69,7 +69,15 @@ function damage(
   applyHullDamage(world, amount);
   world.scars.push({ col, beat: world.beat, kind });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
-  world.events.push({ type: "breach", col, damage: amount, span: 1, kind, fromRow });
+  world.events.push({
+    type: "breach",
+    col,
+    damage: amount,
+    span: 1,
+    kind,
+    fromRow,
+    beat: world.beat,
+  });
 }
 
 /**
@@ -93,5 +101,6 @@ function damageSpan(world: World, c: Creature, amount: number): void {
     span,
     kind: c.kind,
     fromRow: c.fromRow,
+    beat: world.beat,
   });
 }

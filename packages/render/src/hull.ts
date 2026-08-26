@@ -55,6 +55,7 @@ export function drawHull(
   hullPercent: number,
   at: LobePositions,
   craterVisible: (x: number) => boolean = () => true,
+  crackArrived: (col: number, beat: number) => boolean = () => true,
 ): void {
   const f = frame(l, time, mood, at);
   // High resolution: the swelling has to read as one unbroken transition, not
@@ -93,18 +94,22 @@ export function drawHull(
   iridescence(ctx, body, filled, l, time);
   sweep(ctx, body, filled, l, time);
   dither(ctx, filled);
-  // The rim goes round every rock's crater, not over it: a hole in the skin
-  // that still has the ship's own bright outline running across its mouth is
-  // not a hole, it is a stain. `craterVisible` keeps a crater — and so this
-  // gap in the rim — out of the picture until the rock that made it has
-  // climbed back out of it.
-  const craters = findCraters(l, world.scars, (x) => skin(f, x), craterVisible);
-  strokeHullRim(ctx, l, body, hullPercent, craters);
+  // Every crater's geometry, whether or not its hole is open yet — a crack's
+  // *position* (`scars.ts`'s `crackOrigin`) reads this unconditional list, so
+  // it never moves once drawn. The rim goes round every OPEN crater, not
+  // over it: a hole in the skin that still has the ship's own bright outline
+  // running across its mouth is not a hole, it is a stain. `craterVisible`
+  // keeps an open crater — and so this gap in the rim — out of the picture
+  // until the rock that made it has climbed back out of it.
+  const allCraters = findCraters(l, world.scars, (x) => skin(f, x));
+  const openCraters = allCraters.filter((c) => craterVisible(c.x));
+  strokeHullRim(ctx, l, body, hullPercent, openCraters);
 
   // Cracks first, each rock's dent after: its opaque fill paints over
   // whatever a crack drew across that patch, so the crack reads as staying
-  // in the skin around the crater rather than running into it. `craters`
-  // also tells a crack where not to start (`scars.ts`'s `crackOrigin`).
+  // in the skin around the crater rather than running into it. `crackArrived`
+  // is a rock's own arrival, not its crater opening — a crack belongs to the
+  // impact, and shows long before the hole itself is allowed to.
   drawScars(
     ctx,
     l,
@@ -112,9 +117,10 @@ export function drawHull(
     time,
     (x) => surface(f, x),
     (x) => skin(f, x),
-    craters,
+    allCraters,
+    crackArrived,
   );
-  drawCraters(ctx, craters);
+  drawCraters(ctx, openCraters);
   drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
