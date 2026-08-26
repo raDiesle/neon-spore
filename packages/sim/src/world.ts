@@ -1,3 +1,4 @@
+import { emptyRunStats, type RunStats } from "./balance.js";
 import { onBeat, resetRun, startWave } from "./beat.js";
 import { advanceBullets, fire } from "./bullets.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
@@ -44,6 +45,8 @@ export interface World {
   /** Hull integrity in thousandths, 0..100000. */
   hullMilli: number;
   guard: GuardStats;
+  /** The rest of the balance sheet — pods, colours, the streak. */
+  balance: RunStats;
   /** The boss a wave installs, or null. */
   boss: BossState | null;
 
@@ -149,6 +152,7 @@ export function createWorld(
     scars: [],
     hullMilli: 100 * MILLI,
     guard: { tries: 0, deflected: 0, mistimed: 0 },
+    balance: emptyRunStats(),
     boss: null,
     wave: 0,
     waveBeat: 0,

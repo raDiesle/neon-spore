@@ -9,10 +9,17 @@ bun run dev
 
 Bundles and serves on the fly, with hot reload — editing anything under
 `tools/director`, `packages/sim`, `packages/render` or `packages/content`
-shows up without a restart. Runs on a fixed port 4174 — next to the game
-preview on 4173, and deliberately out of the 3000s, where a `bun --hot` whose
-own port is taken will wander. It refuses to start beside a stranger on that
-port, retires an older copy of itself, and exits after an hour of silence.
+shows up without a restart. Runs on 4174 — next to the game preview on 4173,
+and deliberately out of the 3000s, where a `bun --hot` whose own port is taken
+will wander. It refuses to start beside a stranger on that port, retires an
+older copy of itself, and exits after an hour of silence.
+
+It moves for exactly one thing: a director serving a **different checkout**.
+That one is not a stale copy of itself — retiring it would take down an editor
+writing another tree's `waves.ts` — so this one steps onto a port derived from
+its own tree's path instead (`tools/ports.ts`) and prints it. `bun run
+dev:once` takes a port the OS picks, for a second editor beside one already
+running in the same tree.
 
 ## What it is for
 
@@ -99,6 +106,22 @@ it, not afterwards.
 
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
+
+## The balance sheet
+
+`BALANCE` is the screen after the run, as numbers, moving while the wave plays.
+It is the one tab that is not about the wave being edited but about the pair
+playing it: one shared SYNC percentage over every **joint moment** — a rock at
+the hull, a pod at the maw, a shot at a colour — and the wards, timing, colour
+and pod rows underneath it. Nothing on it can be read backwards to say who
+missed, which is a rule from `docs/spec/structure.md` 7.2 rather than a
+presentation choice.
+
+`▣ SHEET` under the field ends the run, so the drawn version — the one the
+phone shows — appears on the stage. It has to be a button: the director holds
+the hull (`hullInvulnerable`), so no run here ever ends on its own, and a
+screen that can only be reached by dying is a screen nobody tunes. `↺ WAVE`
+starts over and clears the sheet.
 
 ## Saving
 

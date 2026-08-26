@@ -170,6 +170,17 @@
       .idea .name { color: var(--ink); letter-spacing: 1px; }
       .idea .blurb { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
 
+      #balanceSheet .sync { text-align: center; padding: 6px 0 12px; border-bottom: 1px solid var(--line-soft); }
+      #balanceSheet .sync-value { font-size: 34px; letter-spacing: 2px; color: var(--gold); line-height: 1.2; }
+      #balanceSheet .sync-label { font-size: 9px; letter-spacing: 1px; color: var(--dim); }
+      .sheet-row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
+      .sheet-label { flex: 0 0 54px; color: var(--ink); letter-spacing: 1px; }
+      .sheet-track { flex: 1; height: 6px; background: #2a1f4e; border-radius: 3px; overflow: hidden; }
+      .sheet-fill { display: block; height: 100%; background: var(--cyan); }
+      .sheet-count { flex: 0 0 46px; text-align: right; color: var(--dim); }
+      .sheet-memory { display: flex; justify-content: space-between; font-size: 10px; color: var(--dim); margin: 3px 0; }
+      .sheet-memory span:last-child { color: var(--ink); }
+
       .row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
       .row label { flex: 0 0 96px; color: var(--dim); }
       .row span { flex: 0 0 62px; text-align: right; }
@@ -221,6 +232,7 @@
           <button type="button" data-tab="creatures">CREATURES</button>
           <button type="button" data-tab="accepted">ACCEPTED</button>
           <button type="button" data-tab="bosses">BOSSES</button>
+          <button type="button" data-tab="balance">BALANCE</button>
           <button type="button" data-tab="concepts">CONCEPTS</button>
         </div>
         <div class="tabpage on" id="tab-wave">
@@ -281,6 +293,22 @@
             a slot. A boss with a BOSS panel in the WAVE tab is playable.
           </p>
         </div>
+        <div class="tabpage" id="tab-balance">
+          <h2>THE BALANCE SHEET — live</h2>
+          <div id="balanceSheet"></div>
+          <p class="note">
+            The same numbers the screen after the run draws, moving as the
+            wave is played. Every one of them takes both players to move, and
+            none can be read backwards to say who missed — that is the rule
+            docs/spec/structure.md 7.2 puts on this screen, not a style
+            choice.
+          </p>
+          <p class="note">
+            SHEET under the field ends the run, so the drawn version appears
+            on the stage. The director holds the hull, so nothing else here
+            ever ends a run. ↺ WAVE starts it over and clears the sheet.
+          </p>
+        </div>
         <div class="tabpage" id="tab-concepts">
           <h2>COUPLINGS — the patterns everything else follows from</h2>
           <div id="conceptCouplings"></div>
@@ -307,6 +335,7 @@
           <div class="transport">
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>
+            <button type="button" id="endRun">▣ SHEET</button>
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>

@@ -1,3 +1,4 @@
+import { markMoment } from "./balance.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { type Bullet, type Color, type Creature, isMeteorKind, occupiesCol } from "./types.js";
@@ -121,11 +122,13 @@ function resolve(world: World, b: Bullet, hit: Creature): void {
     return;
   }
   if (hit.color !== b.color) {
+    missedColor(world);
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return;
   }
 
   // Matching ammunition resonates the light organ until it bursts.
+  metColor(world);
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
   world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
@@ -137,10 +140,12 @@ function resolve(world: World, b: Bullet, hit: Creature): void {
  */
 function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   if (hit.color === null || hit.color !== b.color) {
+    missedColor(world);
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return;
   }
 
+  metColor(world);
   hit.petals -= 1;
   world.score += world.cfg.scoreQueenPetal;
   hit.color = null;
@@ -153,4 +158,22 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
     world.boss = null;
     world.events.push({ type: "queenDown", col: hit.col, row: hit.row });
   }
+}
+
+/**
+ * A shot met a creature in its own colour. A joint moment: player 2 is the
+ * only one who can see the colour and player 1 is the only one who can load
+ * it, so the shot is the pair agreeing out loud (docs/spec/couplings.md).
+ *
+ * A rock is not counted either way — it has no colour to get right.
+ */
+function metColor(world: World): void {
+  world.balance.colorHits += 1;
+  markMoment(world, true);
+}
+
+/** The same moment, missed: the wrong colour went up the column. */
+function missedColor(world: World): void {
+  world.balance.colorMisses += 1;
+  markMoment(world, false);
 }

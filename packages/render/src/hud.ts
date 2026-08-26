@@ -1,4 +1,5 @@
 import { hullPercent } from "@neon-spore/sim";
+import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -97,19 +98,10 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
   const { world } = view;
   ctx.textAlign = "center";
   if (world.over) {
-    ctx.fillStyle = "rgba(7,4,15,.8)";
-    ctx.fillRect(0, 0, l.width, l.height);
-    ctx.fillStyle = PALETTE.red;
-    ctx.font = '600 20px "Courier New",monospace';
-    ctx.fillText("HULL BREACHED", l.width / 2, l.height * 0.44);
-    ctx.fillStyle = PALETTE.dim;
-    ctx.font = '12px "Courier New",monospace';
-    ctx.fillText(
-      `Wave ${world.wave + 1} · ${world.score} points`,
-      l.width / 2,
-      l.height * 0.44 + 26,
-    );
-    ctx.fillText("tap to restart", l.width / 2, l.height * 0.44 + 48);
+    // The end of a run is the balance sheet, not a headline. It was three
+    // lines of "wave N · score" for as long as nobody had wired up the
+    // numbers the world was already counting.
+    drawBalanceSheet(ctx, l, view);
   } else if (!view.running) {
     ctx.fillStyle = "rgba(7,4,15,.55)";
     ctx.fillRect(0, 0, l.width, l.height);

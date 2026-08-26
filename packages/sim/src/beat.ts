@@ -1,3 +1,4 @@
+import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
@@ -62,6 +63,7 @@ export function onBeat(world: World): void {
   const cleared = world.spawned >= world.queue.length && world.creatures.length === 0;
   if (cleared) {
     if (world.restBeat === 0) {
+      world.balance.wavesCleared += 1;
       world.score += world.cfg.scoreWave;
       world.restBeat = world.beat + world.cfg.waveRestBeats;
     }
@@ -151,4 +153,15 @@ export function resetRun(world: World): void {
   world.guard.tries = 0;
   world.guard.deflected = 0;
   world.guard.mistimed = 0;
+  world.balance = emptyRunStats();
+}
+
+/**
+ * End the run where it stands, without waiting for the hull to go. The game
+ * never calls this — there the hull decides — but the director does, because
+ * it plays with the hull held (`hullInvulnerable`) and the balance sheet is a
+ * screen that has to be reachable to be judged.
+ */
+export function endRun(world: World): void {
+  world.over = true;
 }

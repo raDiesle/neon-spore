@@ -2,6 +2,7 @@ import { bossFromWave, podsFromWave, queueFromWave } from "@neon-spore/content";
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
+  endRun,
   type SimConfig,
   type SimEvent,
   startWave,
@@ -28,6 +29,12 @@ export interface StagePanel {
   seek(beat: number): void;
   /** The beat the field is holding, for a placement to land on. */
   beat(): number;
+  /**
+   * The world being played. A panel that reads the run — the balance sheet —
+   * needs the live object, and `rebuild` swaps it for a new one, so the handle
+   * has to be a call rather than a reference handed out once.
+   */
+  world(): World;
 }
 
 export function bindStage(
@@ -35,6 +42,7 @@ export function bindStage(
   cfg: SimConfig,
   onBeat: (beat: number) => void,
   onPlace: (col: number) => void,
+  onFrame: () => void = () => {},
 ): StagePanel {
   const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
   if (!canvas) throw new Error("canvas #stage missing");
@@ -144,6 +152,7 @@ export function bindStage(
       banner: null,
     });
     frameEvents = [];
+    onFrame();
   };
 
   // A local fixed-timestep loop rather than the game's: `apps/game` is an
@@ -175,6 +184,14 @@ export function bindStage(
     paintPlay();
   });
   document.getElementById("restart")?.addEventListener("click", rebuild);
+  // The director holds the hull, so no run here ever ends on its own. The
+  // after-run screen is a screen, and a screen that cannot be reached cannot
+  // be judged — this is the way in.
+  document.getElementById("endRun")?.addEventListener("click", () => {
+    endRun(world);
+    running = false;
+    paintPlay();
+  });
 
   for (const button of document.querySelectorAll<HTMLElement>("button.role")) {
     button.addEventListener("click", () => {
@@ -210,5 +227,5 @@ export function bindStage(
     paint: () => paint(1 / 60),
   };
 
-  return { rebuild, seek, beat: () => lastBeat };
+  return { rebuild, seek, beat: () => lastBeat, world: () => world };
 }

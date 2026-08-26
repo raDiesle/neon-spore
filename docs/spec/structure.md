@@ -1,8 +1,8 @@
 # Game structure
 
 > **Status: partly built.** Waves arrive as closed sets with a rest between
-> them, and a score exists. Saving, the balance sheet, the leaderboards and the
-> first-appearance previews are design only.
+> them, a score exists, and the run ends on the balance sheet. Saving, the
+> leaderboards and the first-appearance previews are design only.
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises
@@ -42,10 +42,21 @@ bounce-off, the previews.
 - **Shared memories** instead of only numbers: longest error-free sequence,
   first boss without damage, fastest joint reaction
 
-Built: the shared score (`scoreDestroy`, `scoreDeflect`, `scoreWave`) and the
-ward balance in the HUD, which counts tries, deflections and mistimed attempts
-without attributing them (`GuardStats`). Not built: the SYNC value, the
-memories. Note that "evasion sync" no longer has anything to measure.
+Built. The shared score (`scoreDestroy`, `scoreDeflect`, `scoreWave`), the ward
+balance in the HUD (`GuardStats`), and the sheet itself: the run ends on it
+rather than on a headline (`packages/render/src/balance.ts`).
+
+The SYNC value is the share of **joint moments** that went right, where a joint
+moment is an occasion neither player could have met alone — a rock at the hull,
+a pod at the maw, a shot at a colour. `packages/sim/src/balance.ts` derives it;
+`RunStats` and `GuardStats` are what the world counts on the way. The three
+sub-values are wards, timing and colour, and each passes the spec's test: no
+arithmetic on them yields a per-player figure. Of the memories, the longest
+error-free sequence is built, as `bestStreak`.
+
+Not built: the first boss without damage, the fastest joint reaction. Note that
+"evasion sync" no longer has anything to measure, and "reaction consistency"
+would need per-input timing the sim does not keep.
 
 **Two separate leaderboards**, so nobody has to choose between progressing and
 the leaderboard. Not built.

@@ -1,3 +1,4 @@
+import { markMoment } from "./balance.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { nextInt } from "./rng.js";
 import { type Color, isMeteorKind, type Pod } from "./types.js";
@@ -67,6 +68,7 @@ export function spawnPods(world: World): void {
 export function freePod(world: World, pod: Pod): void {
   if (pod.loose) return;
   pod.loose = true;
+  world.balance.podsFreed += 1;
   const dir = nextInt(world.rng, 2) === 0 ? -1 : 1;
   pod.driftMilli = dir * driftMilli(world);
   world.events.push({
@@ -152,6 +154,8 @@ function resolveIntake(world: World, pod: Pod): void {
   const inTime = world.tick - world.intakeTick <= windowTicks && world.intakeTick <= world.tick;
 
   if (inColumn && inTime) {
+    world.balance.podsTaken += 1;
+    markMoment(world, true);
     world.score += world.cfg.scorePod;
     switch (pod.kind) {
       case "mend":
@@ -167,6 +171,8 @@ function resolveIntake(world: World, pod: Pod): void {
     world.events.push({ type: "podTaken", col, kind: pod.kind });
     return;
   }
+  world.balance.podsLost += 1;
+  markMoment(world, false);
   world.events.push({ type: "podLost", col });
 }
 

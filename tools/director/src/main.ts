@@ -1,5 +1,6 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
+import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { renderConcepts } from "./concepts-render.js";
 import { bindGrid, type GridPanel } from "./grid.js";
@@ -46,6 +47,8 @@ const setStatus = (text: string, cls = ""): void => {
 };
 
 let grid: GridPanel | null = null;
+// Bound after the stage, because it reads the stage's world — see below.
+let balance: BalancePanel | null = null;
 const stage = bindStage(
   store,
   cfg,
@@ -59,7 +62,9 @@ const stage = bindStage(
     onShape();
     stage.seek(beat);
   },
+  () => balance?.render(),
 );
+balance = bindBalance(() => stage.world());
 const palette = bindPalette(() => {}, hiddenBrushes);
 grid = bindGrid(
   store,

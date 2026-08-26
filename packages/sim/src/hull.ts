@@ -1,3 +1,4 @@
+import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
 import { type Creature, colSpan, isMeteorKind, occupiesCol, spanCenterCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -33,6 +34,7 @@ export function resolveHull(world: World): void {
 
       if (inColumn && inTime) {
         world.guard.deflected += 1;
+        markMoment(world, true);
         world.score += world.cfg.scoreDeflect;
         world.events.push({
           type: "deflect",
@@ -44,6 +46,7 @@ export function resolveHull(world: World): void {
         continue;
       }
       if (inColumn) world.guard.mistimed += 1;
+      markMoment(world, false);
       damageSpan(world, c, world.cfg.damageMeteor);
     } else {
       damage(world, c.col, c.kind, c.fromRow, world.cfg.damageCreature);

@@ -24,6 +24,14 @@ export function hashWorld(world: World): number {
   push(world.guard.tries);
   push(world.guard.deflected);
   push(world.guard.mistimed);
+  push(world.balance.podsFreed);
+  push(world.balance.podsTaken);
+  push(world.balance.podsLost);
+  push(world.balance.colorHits);
+  push(world.balance.colorMisses);
+  push(world.balance.streak);
+  push(world.balance.bestStreak);
+  push(world.balance.wavesCleared);
 
   push(world.creatures.length);
   for (const c of world.creatures) {
