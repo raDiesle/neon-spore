@@ -20,7 +20,7 @@ export {
   MAX_BRIEFING_SUBJECTS,
   subjectIndex,
 } from "./briefing.js";
-export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
 export { throbIsOpen } from "./creature-rules.js";
 export { BOSS_KINDS, bossFillsWave, type VaneEntry, type WardenEntry } from "./entries.js";
 export { closeFork, forkBeats, forkHeld, forkOpen, NO_FORK } from "./fork.js";

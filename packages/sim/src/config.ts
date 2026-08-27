@@ -2,7 +2,7 @@ import type { BossConfig } from "./config-boss.js";
 import type { PairConfig } from "./config-pair.js";
 
 export type { BossConfig } from "./config-boss.js";
-export type { PairConfig } from "./config-pair.js";
+export { PAIR_ON, type PairConfig } from "./config-pair.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —

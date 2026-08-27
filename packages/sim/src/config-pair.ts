@@ -34,3 +34,22 @@ export interface PairConfig {
    */
   forkBetweenWaves: boolean;
 }
+
+/**
+ * Both switches, on — the configuration the game actually ships with two
+ * people in front of it, named for the same reason `DEFAULT_CONFIG` is: so
+ * that a caller reaches for a name instead of retyping the pair's own list of
+ * fields.
+ *
+ * `apps/game` still spells its two fields out by hand rather than spreading
+ * this in — that call site is not this constant's to move. What this buys is
+ * the *other* direction: anything that wants "the world with two people in
+ * front of it" — today that is only this package's own tests — writes
+ * `{ ...DEFAULT_CONFIG, ...PAIR_ON }` and a third field added to `PairConfig`
+ * above is on in that world by construction, not by whoever remembers to add
+ * a third `true` beside the two that are already here.
+ */
+export const PAIR_ON: PairConfig = {
+  briefings: true,
+  forkBetweenWaves: true,
+};
