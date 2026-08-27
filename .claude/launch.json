@@ -21,6 +21,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 4174,
       "autoPort": false
+    },
+    {
+      "name": "director-once",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run", "dev:once"],
+      "port": 0,
+      "autoPort": true
     }
   ]
 }
