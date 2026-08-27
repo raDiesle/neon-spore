@@ -41,6 +41,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/bosses.md` | you build a boss |
 | `docs/spec/open-questions.md` | you hit something the design has not decided |
 | `docs/spec/ideas.md` | you are looking for what to build next |
+| `docs/spec/transfers.md` | you are mining Spaceteam or Lovers in a Dangerous Spacetime for an idea |
 
 The German original has been translated in full and deleted; it is in the git
 history if the wording of a rejected idea is ever needed.

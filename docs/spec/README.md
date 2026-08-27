@@ -38,6 +38,7 @@ and record why in `docs/decisions.md`.
 | [bosses.md](bosses.md) | the eleven bosses | not built |
 | [open-questions.md](open-questions.md) | what is undecided, including the move to space | live |
 | [ideas.md](ideas.md) | accepted but not worked out | not built |
+| [transfers.md](transfers.md) | what the two reference games do, and what of it survives the trip | not built |
 
 ## What is not here
 

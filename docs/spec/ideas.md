@@ -91,6 +91,33 @@ the slot they were competing for. Each names the slot it would fit.
 - **Reverse wave** — from below
 - **Light traces**
 - **The Needle** — a geometric corridor
+- **The Patch** — a scar you can hold shut. Damage is a number today; here a
+  fresh scar leaves its column open — the cannon cannot fire through it, or a
+  hit there costs double — until somebody holds a hand on it for a few beats.
+  It is [THE GRIP](assists.md#64-the-grip--keep-watch-built) pointed inward at
+  your own hull, so it needs no new gesture, and it is one answer to
+  [open question 17](open-questions.md#from-the-raster-round), which asks
+  whether the hull stays mute. Taken from the breaches in Lovers in a Dangerous
+  Spacetime; see [transfers](transfers.md). Unworked out: whether the open
+  column blocks your own shots or only doubles the damage, and how long a patch
+  holds
+- **The Flip** — the field's column order reverses for one player, so column
+  four on one device is column eight on the other, and every announcement has
+  to be turned around out loud. Spaceteam's wormhole. This is the shape that
+  was rejected as The Mirror and The Translator
+  ([bestiary](bestiary.md#103-examined-and-rejected)), and it comes back on one
+  condition: the world explains it. A field that visibly rolls over, for a
+  bounded number of beats, with both devices told which of them turned, is a
+  mechanic; a silent disagreement between two screens is a bug the pair will
+  report. Unworked out: how long it lasts, and what triggers it
+- **The Fork** — the run stops between waves and continues only when both
+  thumbs are down, and the pair chooses which of two routes to take with half
+  the knowledge each: the pilot the rock traffic, the navigator the colour mix.
+  The only announcement in the game with no falling object over it, and the
+  only moment that belongs to the pair rather than to the clock. From
+  Spaceteam's warp jump and the forking levels of Lovers in a Dangerous
+  Spacetime. Unworked out: what a fork does to wave numbering and the save
+  points ([structure](structure.md), open question 11)
 
 ### Controls
 
@@ -98,6 +125,20 @@ the slot they were competing for. Each names the slot it would fit.
 - **Bearing waves** — a coordinate grid, a change of controls
 - **Codebook table**
 - **Inverted instructions** — the Spaceteam principle
+- **Call signs** — the eleven columns get names instead of numbers, chosen the
+  way Spaceteam chooses its words: to be unmistakable when shouted across a
+  laggy channel. Naming rule 3 ([bestiary](bestiary.md#naming)) applies to
+  creatures and was never applied to the field, where "seven" and "eleven"
+  share a vowel and an ending. The trade cuts both ways — numbers carry order
+  for free and names have to be learnt — so the likely answer is partial: fix
+  the collisions, or name the few columns that matter and count from them
+- **The Other Hand** — your hull shows that your partner's thumb is down, never
+  what it is doing. A lobe brightens while they hold something and goes out
+  when they let go. It is what survives of the single shared screen in Lovers
+  in a Dangerous Spacetime, deliberately narrowed: knowing their column would
+  replace a sentence, knowing only that their hands are full changes which
+  sentence you say. If it gives away too much it belongs in
+  [assists](assists.md) with a price on it, like sharing sight
 
 ## Deliberately deferred
 
