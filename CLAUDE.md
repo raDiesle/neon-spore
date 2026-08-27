@@ -116,6 +116,23 @@ rather than offering a green check that covered less than usual. A wave whose
 timing was never watched is not finished, it is written — landed, now, but
 still written.
 
+**Its servers need a host, and the error if you forget says the wrong thing.**
+`preview.ts` and the director both bind `::`, which is right on a machine with
+IPv6 and impossible on this one — and what Bun reports is `EADDRINUSE`, so the
+first guess is always a stale server holding the port. It is not; nothing is
+listening at all. Both already take the way out, so this costs one variable:
+
+```
+PREVIEW_HOST=127.0.0.1 bun run preview
+DIRECTOR_HOST=127.0.0.1 bun run dev
+```
+
+With one of those up, a headless Chromium reaches further than "the DOM is
+there". It can drive the real loop — `window.neonSpore.advance` and `paint`
+past a gesture that unlocks audio — and a frame that throws is a frame that
+never draws, so a run of a few thousand ticks with no page error is a real
+result about the wiring. Still not about how any of it *reads*.
+
 **Several at once is allowed, and is not the shape to reach for first.** Each
 cloud session is its own VM with its own clone, so none of this needs a
 worktree — the isolation already sits a level above the filesystem, and two
