@@ -66,38 +66,65 @@ session that rule inverts; see below.
 ## Working in a cloud session
 
 A session started from the phone runs on a machine that clones `origin` and
-never sees this checkout. Three things follow, and each one cuts against a rule
-above.
+never sees this checkout. Several things follow, and each one cuts against a
+rule above.
 
 **It reads the remote, not the tree.** Anything unpushed is invisible to it, so
 the hand-off from here to there is a push, not a save. That is also how unpushed
 work turns into a trap: a `main` sitting five commits ahead of `origin` gives
 the cloud a task briefed on code that is not there.
 
-**It must push, and only to its own branch.** "Do not push unless asked" is a
+**It must push its own branch.** "Do not push unless asked" is a
 rule about this machine, where not pushing costs nothing because the work is
 already where the human is. In the cloud the opposite holds — work that is not
 pushed is work nobody can reach. So a cloud session pushes the branch it was
-given, when it is done, without being asked. Never `main`, and never a pull
-request: the rebase onto `main` happens here, by hand, after `bun run check` has
-run on a machine that can run all of it.
+given, when it is done, without being asked. Never a pull request; `main` only
+under the next paragraph, and never on its own initiative.
+
+**It may land `main` itself when asked, and the eye-check happens after.** The
+rule used to be that it never could, and the reason was verification: a change
+the sandbox cannot fully check should not become the trunk that the next cloud
+session clones. That reason survives; the ordering it implied does not. One
+person works on this repo, so a `main` that turns out to need another pass
+costs that person one commit and nobody else anything — while a branch parked
+until they get to a desk costs a day and, if two are parked, a rebase each.
+
+So: on the human's say-so, in this session, a cloud session lands `main`
+itself. Two conditions. The branch is **already rebased onto the current
+`origin/main`**, so the landing is a fast-forward and the history stays linear —
+never a merge commit, never a force-push to `main`. And `bun run check` is green
+on that rebased branch. Nothing else gates it.
+
+What the sandbox could not check does not block the landing, but it does not
+evaporate either: it moves *after* it, onto the machine that can look. The
+report names it — the wave whose timing was never watched, the shape whose
+motion was never seen, the relay never run — as a list of what to open, not as
+a caveat. Landing without saying that is the one way this arrangement fails,
+because it turns "not looked at" into "looked fine". If it turns out wrong,
+`main` takes the fix as its own commit; the history is linear and stays that
+way.
 
 **It cannot verify everything, and has to say which parts.** The sandbox has no
-browser preview to point at, no wrangler, no `bun run delegate`, and no network
-access it did not arrange. `bun test` and the typecheck are the parts that hold.
-Anything that would have needed `bun run preview`, `bun run relay:check` or a
-shape sheet is *unverified*, and the report says so in that word rather than
-offering a green check that covered less than usual. A wave whose timing was
-never watched is not finished, it is written.
+wrangler, no `bun run delegate`, and no network access it did not arrange. It
+does have a headless Chromium, so a page can be opened, driven and
+screenshotted — what it cannot do is *look*, and those are different things: a
+green screenshot check says the DOM is there, not that the motion reads.
+`bun test` and the typecheck are the parts that hold unaided. Anything that
+would have needed `bun run relay:check`, a human eye on a shape sheet, or a
+wave watched at tempo is *unverified*, and the report says so in that word
+rather than offering a green check that covered less than usual. A wave whose
+timing was never watched is not finished, it is written — landed, now, but
+still written.
 
 **Several at once is allowed, and is not the shape to reach for first.** Each
 cloud session is its own VM with its own clone, so none of this needs a
 worktree — the isolation already sits a level above the filesystem, and two
 branches in flight are no problem in themselves. What does not parallelise is
-the landing. Every branch still has to arrive on a linear `main`, by hand, on
-the one machine that can run the whole check, so three branches are three
-rebases onto a `main` that moved under all of them — and the conflict surfaces
-where the work is expensive rather than where it was cheap. Two at once, on
+the landing. Every branch still has to arrive on a **linear** `main`, one after
+another, so three branches are three rebases onto a `main` that moved under all
+of them — and the conflict surfaces where the work is expensive rather than
+where it was cheap. A session landing its own branch does not change that; it
+only moves who does the rebase. Two at once, on
 different packages, each naming its branch in the prompt so no two sessions
 reach for the same one. Prefer the work the sandbox can actually finish:
 `sim`, `content` and `net` are covered by `bun test`, while a wave's timing or
