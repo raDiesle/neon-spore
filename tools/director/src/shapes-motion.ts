@@ -1,5 +1,6 @@
-import type { OwnMotion } from "@neon-spore/content";
+import { beatsFromSeconds, type OwnMotion, type Pose } from "@neon-spore/content";
 import type { Bounds, Subject } from "@neon-spore/shape-sheet";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
  * Own-motion, in the units a card is drawn in.
@@ -27,6 +28,20 @@ export function tilePixels(b: Bounds): number {
   return half / 0.4;
 }
 
+/**
+ * A pose at a moment on the card's clock, which is seconds.
+ *
+ * The field's pose clock is `world.beat + beatPhase`, so that two phones agree
+ * about what a body looks like; a card has no world, and its contour wobble is
+ * genuinely sampled in seconds. This is the one place the two meet, and every
+ * caller here goes through it — a card that converted at its own rate would be
+ * showing a sway the game does not have, which is the failure `own-motion.ts`
+ * exists to prevent.
+ */
+function poseAtSecond(motion: OwnMotion, t: number): Pose {
+  return motion.poseAt(beatsFromSeconds(t, DEFAULT_CONFIG.bpm));
+}
+
 export interface Centre {
   x: number;
   y: number;
@@ -44,7 +59,7 @@ export function motionTransform(
   tile: number,
 ): string {
   if (!motion) return "";
-  const p = motion.poseAt(t);
+  const p = poseAtSecond(motion, t);
   const dx = centre.x + p.dx * tile;
   const dy = centre.y + p.dy * tile;
   const deg = ((p.rot * 180) / Math.PI).toFixed(2);
@@ -121,7 +136,7 @@ export function transformedBounds(
     // frequencies chosen not to divide into each other, and its widest excursion
     // is a beat the two of them only share once every half minute.
     for (let t = 0; t < 64; t += 0.01) {
-      const pose = motion.poseAt(t);
+      const pose = poseAtSecond(motion, t);
       for (const c of corners) {
         const q = move(c.x, c.y, pose, centre, tile);
         if (q.x < b.x0) b.x0 = q.x;
@@ -146,7 +161,7 @@ export function transformedBounds(
     // The same centre the drawn transform turns about — the still shape's, not
     // the moving one's. A box measured about a centre that chases the sway is
     // a box the drawing does not agree with, which is how a card clips.
-    const pose = motion.poseAt(t);
+    const pose = poseAtSecond(motion, t);
     for (const p of pts) {
       const q = move(p.x, p.y, pose, centre, tile);
       if (q.x < b.x0) b.x0 = q.x;

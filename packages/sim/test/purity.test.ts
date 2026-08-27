@@ -177,9 +177,24 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The sway's own frequencies. They read as odd numbers because they are
+    // the seconds-era 1.9 and 1.35 divided by 1.6: the pose clock moved off
+    // `performance.now()` and onto `world.beat`, so that two phones stop
+    // drawing the same creature at different points in its cycle.
     call: "livingMotion",
     owner: "packages/content/src/own-motion.ts",
-    pattern: /\bt\s*\*\s*1\.9\b|\bt\s*\*\s*1\.35\b/,
+    pattern: /\bt\s*\*\s*1\.1875\b|\bt\s*\*\s*0\.84375\b/,
+    strip: false,
+  },
+  {
+    // Where a body sits in the cycle is `poseClock(id, beat)`, and the reason
+    // it is a rule rather than two lines at the draw site is that it used to
+    // be two lines at the draw site: `(id % 7) * 0.9`, seven phases on an
+    // eleven-column field. A second copy is how one screen's wave ends up in
+    // step while the other's is not.
+    call: "poseClock",
+    owner: "packages/content/src/own-motion.ts",
+    pattern: /\bbodyPhase\s*\([^)]*\)\s*\*/,
     strip: false,
   },
   {

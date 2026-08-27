@@ -37,9 +37,14 @@ export {
   type WaveKind,
 } from "./mechanics.js";
 export {
+  type Beats,
+  beats,
+  beatsFromSeconds,
+  bodyPhase,
   livingMotion,
   type OwnMotion,
   type Pose,
+  poseClock,
   REST,
   SWAY_PUMP,
   TILT_RIPPLE,

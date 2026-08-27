@@ -185,7 +185,7 @@ export class Canvas2DRenderer implements Renderer {
 
     // Under the creatures: the mark is on the column, not on anything in it.
     drawLanceMark(ctx, l, world);
-    drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
+    drawCreatures(ctx, l, world, view.beatPhase, view.time, this.effects.blocked);
     // Over the creatures, under everything the ship does: a hand on something
     // is not an effect this file owns — it is world state, read fresh.
     drawGrips(ctx, l, world, view.beatPhase, view.time);

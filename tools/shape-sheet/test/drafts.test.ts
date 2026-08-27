@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { beats, beatsFromSeconds } from "@neon-spore/content";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { CATALOGUE } from "../src/catalogue.js";
 import { contourAt } from "../src/contour.js";
 import { boundsOver, WOBBLE_PERIOD } from "../src/metrics.js";
@@ -154,7 +156,9 @@ describe("the shape catalogue", () => {
 
       it("moves, if it claims a motion", () => {
         if (!entry.motion) return;
-        const poses = TIMES.map((t) => entry.motion?.poseAt(t));
+        const poses = TIMES.map((t) =>
+          entry.motion?.poseAt(beatsFromSeconds(t, DEFAULT_CONFIG.bpm)),
+        );
         for (const p of poses) {
           if (!p) continue;
           expect(Number.isFinite(p.dx + p.dy + p.rot + p.sx + p.sy)).toBe(true);
@@ -208,8 +212,10 @@ describe("the spare motions", () => {
   for (const m of MOTIONS) {
     it(`${m.name} stays in its lane and actually moves`, () => {
       let moved = false;
-      for (let t = 0; t < 32; t += 0.01) {
-        const p = m.poseAt(t);
+      // Beats, not seconds: fifty of them is a little over half a minute at
+      // 96 BPM, which still covers CANT's eight-beat cycle several times over.
+      for (let t = 0; t < 50; t += 0.01) {
+        const p = m.poseAt(beats(t));
         expect(Math.abs(p.dx)).toBeLessThan(0.25);
         expect(Math.abs(p.dy)).toBeLessThan(0.25);
         expect(p.sx).toBeGreaterThan(0.5);

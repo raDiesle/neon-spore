@@ -1,3 +1,4 @@
+import { beatsFromSeconds, REST } from "@neon-spore/content";
 import { type Layout, PALETTE, STROKE, strokeGlow, tileCX, tileCY } from "@neon-spore/render";
 import {
   boundsOver,
@@ -8,6 +9,7 @@ import {
   type SceneTint,
   type Subject,
 } from "@neon-spore/shape-sheet";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { FIT_TIMES } from "./shape-figure.js";
 
 /**
@@ -150,7 +152,9 @@ export function drawOverlay(
   ctx.scale(dpr, dpr);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   for (const p of placed) {
-    const pose = p.entry.motion?.poseAt(t) ?? { dx: 0, dy: 0, rot: 0, sx: 1, sy: 1 };
+    // `t` is seconds, as it is everywhere a contour is sampled; a pose is
+    // counted in beats, because the field's is (`content/own-motion.ts`).
+    const pose = p.entry.motion?.poseAt(beatsFromSeconds(t, DEFAULT_CONFIG.bpm)) ?? REST;
     ctx.save();
     ctx.translate(p.centre.x + pose.dx * p.tile, p.centre.y + pose.dy * p.tile);
     ctx.rotate(p.turn + pose.rot);
