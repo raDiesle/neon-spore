@@ -1,3 +1,4 @@
+import { GAPS } from "@neon-spore/content";
 import {
   hitSlab,
   interludeControls,
@@ -5,35 +6,15 @@ import {
   type Stage,
   type ViewRole,
 } from "@neon-spore/render";
-import {
-  type InterludeEntry,
-  interludeDue,
-  interludeHolds,
-  startInterlude,
-  type World,
-} from "@neon-spore/sim";
+import { interludeDue, interludeHolds, startInterlude, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
  * The host's half of an interlude: which gap carries one, and the two thumbs
- * that play it.
- *
- * **Where the gap table belongs, and why it is here.** Which interlude sits in
- * which gap is content's — `docs/spec/interludes.md` says so, and it is the
- * same call `buildQueue` makes for a wave. It is in `apps/game` for one turn
- * only because this lane could add no new file under `packages/content`; the
- * shape is already right, so moving it is a `git mv` and an export, and the
- * second interlude is the session that should do it.
- *
- * **Nine gaps, one filled.** Ten acts is nine gaps between them
- * (`docs/spec/interludes.md`), which is more interludes than anybody should
- * build and exactly the right number of slots to have. A table rather than
- * arithmetic over the act length: eleven more rounds are coming and each of
- * them is a decision about *which gap*, not a formula.
+ * that play it. The gap table itself is content's — `GAPS` in
+ * `packages/content/src/interludes.ts` — and this only asks it the one
+ * question it needs answered.
  */
-const GAPS: Record<number, InterludeEntry> = {
-  10: { kind: "gauge" },
-};
 
 /**
  * The third thing a `needWave` can mean. `waves.ts` asks this first, and only

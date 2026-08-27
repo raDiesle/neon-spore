@@ -86,6 +86,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/content/src/creatures.ts` | bestiary and control-visibility table |
 | `packages/content/src/waves.ts` | authored waves, 7-column coordinates |
+| `packages/content/src/interludes.ts` | which gap between waves carries an interlude, and which one |
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |

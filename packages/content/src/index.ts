@@ -20,6 +20,7 @@ export {
   hullPointAtX,
   hullRadiusMul,
 } from "./hull-shape.js";
+export { GAPS } from "./interludes.js";
 export {
   livingMotion,
   type OwnMotion,
