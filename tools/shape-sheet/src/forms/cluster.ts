@@ -83,11 +83,17 @@ export function cluster(name: string, note: string, o: ClusterOpts): Subject {
  *
  * The same metaball field `cluster` traces, asked the opposite question. There
  * the interesting instant is the separation; here there is none — the lumps
- * sit at fixed offsets, well inside each other's reach, and what the field
- * buys is the **join**: a union of unequal circles meets in a concave neck,
- * and no lobed contour sampled one radius per angle can produce a concave
- * anything. That is the whole difference between a shape with lobes on it and
- * a shape that looks poured.
+ * sit at fixed offsets, close enough that the field never lets them part.
+ *
+ * What it buys is not concavity: a lobed blob is concave between every pair of
+ * lobes, and saying otherwise was the first thing measured about this form and
+ * the first thing wrong about it. What it buys is that the outline need not be
+ * **star-shaped**. Anything sampled one radius per angle has exactly one
+ * answer per angle, so every ray from its centre crosses it once and the shape
+ * is star-shaped by construction; a union of unequal circles offset from the
+ * middle is under no such rule, and a neck between two of them can hide part
+ * of the outline from the centre entirely. That is the whole difference
+ * between a shape with lobes on it and a shape that looks poured.
  *
  * `lumps` is `[dx, dy, r]` per body, in units of `radius`. They breathe out of
  * step, so the necks move without the body ever travelling.

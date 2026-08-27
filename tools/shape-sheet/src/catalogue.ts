@@ -218,16 +218,16 @@ const free: CatalogueEntry[] = [
       "nothing yet — a body that is held rather than falling, which no creature in the bestiary is; whatever takes it inherits the claim that it cannot be pushed off a column, and that is a rule before it is a picture",
   },
   {
-    subject: moulded("MASS", "one body poured out of four, with concave joins", 52, [
-      [0, 0, 1.15],
-      [-0.95, -0.5, 0.72],
-      [0.85, 0.55, 0.8],
-      [0.15, -1.05, 0.6],
+    subject: moulded("MASS", "one body poured out of four, necked where they meet", 52, [
+      [0, 0, 1.0],
+      [-1.6, -0.6, 0.75],
+      [1.5, 0.7, 0.85],
+      [0.25, -1.65, 0.62],
     ]),
     status: "free",
     slot: "creature",
     owner:
-      "nothing — the only contour here with a concave join in it, which is the one thing lobes cannot draw; drawn large on purpose, as the single body that fills a field rather than one of a wave of them",
+      "nothing — the only contour here that is not star-shaped about its own centre, which is the one thing a radius-per-angle sample can never be; drawn large on purpose, as the single body that fills a field rather than one of a wave of them",
   },
 ];
 
