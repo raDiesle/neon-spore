@@ -15,6 +15,7 @@
     "sheets": "bun run ./src/main.ts && bun run ./src/motion.ts"
   },
   "dependencies": {
-    "@neon-spore/content": "workspace:*"
+    "@neon-spore/content": "workspace:*",
+    "@neon-spore/sim": "workspace:*"
   }
 }

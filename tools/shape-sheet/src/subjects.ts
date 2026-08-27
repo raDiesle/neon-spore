@@ -1,24 +1,23 @@
 import {
-  BULB,
-  type Bump,
+  CREATURES,
   type CreatureSilhouette,
   type CrystalSilhouette,
   catmullRomToBezierPath,
   crystalRadiusMul,
-  HULL,
-  hullPointAtX,
   hullRadiusMul,
-  MAW,
+  livingSilhouette,
   METEOR,
-  openSmoothPath,
   POD,
   type Point,
   QUEEN_SHELL,
-  SLICK,
   TORCH,
 } from "@neon-spore/content";
+import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
 import type { Subject } from "./contour.js";
+import { hull } from "./hull-subjects.js";
 import { WARDEN_POSES } from "./ring.js";
+
+export { hullArc } from "./hull-subjects.js";
 
 /**
  * Every silhouette in the game, as a function of time.
@@ -34,70 +33,51 @@ import { WARDEN_POSES } from "./ring.js";
  * outline.
  */
 
-/** Illustrative hull proportions. The game derives these from the tile size. */
-const HULL_RX = 300;
-const HULL_RY = 48;
-const HULL_ARC = 0.42;
-const HULL_STEPS = 120;
-
-/**
- * Cannon lobe plus the shield body.
- *
- * The shield is never absent: at rest it is a passive swelling player 2 can
- * aim, and holding it open swells it the rest of the way. And it is a chain of
- * four bumps rather than one, so `spread` — the lag between head and tail while
- * it travels, in radians — is what the third hull cell shows.
- */
-const SHIELD_WEIGHT = [0.46, 0.28, 0.17, 0.09];
-const SHIELD_PASSIVE = 0.42;
-
-function hullBumps(armed: boolean, spread = 0, intake = 0): Bump[] {
-  // The cannon lobe, and the same lobe inverted: `intake` 1 is the maw, which
-  // is a dent of its own depth rather than a swelling — see `MAW`.
-  const cannonScale = 1 + (MAW.scale - 1) * intake;
-  const cannonHalf = 1 + (MAW.halfMul - 1) * intake;
-  const bumps: Bump[] = [
-    {
-      angle: -Math.PI / 2,
-      strength: 0.5 * cannonScale,
-      plateau: 0.014 * cannonHalf,
-      shoulder: 0.026 * cannonHalf,
-    },
-  ];
-  const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * (armed ? 1 : 0);
-  for (let i = 0; i < SHIELD_WEIGHT.length; i++) {
-    bumps.push({
-      angle: -Math.PI / 2 + 0.16 + i * spread,
-      strength: 0.34 * scale * SHIELD_WEIGHT[i]!,
-      plateau: 0.024,
-      shoulder: 0.03,
-    });
-  }
-  return bumps;
-}
-
 /**
  * A lobed body. The note defaults to the figures, which is what a shape being
  * measured wants; a draft passes its own, because "3 lobes · depth 0.24" says
  * nothing about why the shape was drawn that way.
  */
 export function blob(name: string, s: CreatureSilhouette, note?: string): Subject {
+  // `sizeMul` is the Runt's whole "tiny" — render/creatures.ts folds it into
+  // the draw scale, and a subject that dropped it would show the Runt at the
+  // Bulb's size on the one sheet built to answer "how big does it actually
+  // read" (docs/queue.md, THE SHAPE SHEET CANNOT SEE HALF THE BESTIARY).
+  const sizeMul = s.sizeMul ?? 1;
   return {
     name,
-    note: note ?? `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}`,
+    note:
+      note ??
+      `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}${
+        s.sizeMul ? ` · ${s.sizeMul}× size` : ""
+      }`,
     open: false,
     pointsAt(t) {
       const pts: Point[] = [];
       const N = 40;
       for (let i = 0; i < N; i++) {
         const a = (i / N) * Math.PI * 2;
-        const m = hullRadiusMul(a, s.lobes, s.depth, s.wobble, t, s.seed);
+        const m = hullRadiusMul(a, s.lobes, s.depth, s.wobble, t, s.seed) * sizeMul;
         pts.push({ x: Math.cos(a) * s.rx * m, y: Math.sin(a) * s.ry * m });
       }
       return pts;
     },
     path: catmullRomToBezierPath,
   };
+}
+
+/**
+ * Every `CreatureKind` `render/creatures.ts` draws through `drawLiving` — a
+ * contour plus own-motion, as opposed to a crystal (`isMeteorKind`) or a body
+ * with its own draw path (`isBossBody`, and the tether, which has no body at
+ * all). Read off `CREATURES` and the same predicates `drawCreatures` calls, so
+ * a kind added to the bestiary reaches the sheet without a second list here
+ * drifting from render's own branch on what to draw.
+ */
+export function livingKinds(): CreatureKind[] {
+  return (Object.keys(CREATURES) as CreatureKind[]).filter(
+    (kind) => kind !== "tether" && !isBossBody(kind) && !isMeteorKind(kind),
+  );
 }
 
 export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
@@ -131,107 +111,18 @@ const meteor = crystal("METEOR", METEOR, 46, `${METEOR.sides} facets · dead roc
 const torch = crystal("TORCH", TORCH, 70, `${TORCH.sides} facets · three tiles wide, burning`);
 
 /**
- * The hull as the game draws it: one contour with a cannon lobe and a shield
- * body. Three subjects, so the difference between passive and armed can be
- * judged side by side — docs/spec/systems.md 5.8 says that difference has to be
- * unmissable, and it has to live in the *silhouette* — and so that the shield
- * in motion, strung out behind its head, can be judged as a shape rather than
- * only as a movement.
+ * One subject per living kind, in bestiary order — `slick` and `bulb` first,
+ * because that is where `CREATURES` puts them, then whatever is added after.
+ * Named by the kind itself (`"RUNT"`, `"THROB"`) rather than by a label chosen
+ * here, so the name on the sheet is never a second spelling of the one in
+ * `packages/content/src/creatures.ts`.
  */
-function hull(armed: boolean, spread = 0, intake = 0): Subject {
-  const bumps = hullBumps(armed, spread, intake);
-  const name =
-    intake > 0
-      ? "HULL · MAW"
-      : spread > 0
-        ? "HULL · MOVING"
-        : armed
-          ? "HULL · ARMED"
-          : "HULL · PASSIVE";
-  return {
-    name,
-    note:
-      intake > 0
-        ? "the cannon lobe turned inside out"
-        : spread > 0
-          ? "the body strung out behind its head"
-          : armed
-            ? "shield held open"
-            : "shield passive, still aimable",
-    open: true,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i <= HULL_STEPS; i++) {
-        // Through `hullPointAtX`, not a second copy of the formula: the hull is
-        // a height field over x and the lobes lift vertically, so the sheet has
-        // to sample it the same way or it judges a shape the game never draws.
-        const x = (-HULL_ARC + (2 * HULL_ARC * i) / HULL_STEPS) * HULL_RX;
-        pts.push(
-          hullPointAtX(
-            x,
-            0,
-            HULL_RY,
-            HULL_RX,
-            HULL_RY,
-            HULL.lobes,
-            HULL.depth,
-            HULL.wobble,
-            t,
-            HULL.seed,
-            bumps,
-          ),
-        );
-      }
-      return pts;
-    },
-    path: openSmoothPath,
-  };
-}
-
-/**
- * A window of the passive hull's own contour, for judging a treatment that
- * lies *along* the hull rather than deforming it — the rim thickening the
- * style guide drew and the game did not take. Sampled through the same
- * `hullPointAtX` the full hull uses, over a narrower span of x.
- */
-export function hullArc(name: string, note: string, halfArc: number): Subject {
-  // No bumps: this is the membrane itself, away from the cannon and the
-  // shield. With the cannon lobe in the window the card showed a spike, which
-  // is the one thing a treatment lying *along* the hull is not.
-  const bumps: Bump[] = [];
-  return {
-    name,
-    note,
-    open: true,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i <= HULL_STEPS; i++) {
-        const x = (-halfArc + (2 * halfArc * i) / HULL_STEPS) * HULL_RX;
-        pts.push(
-          hullPointAtX(
-            x,
-            0,
-            HULL_RY,
-            HULL_RX,
-            HULL_RY,
-            HULL.lobes,
-            HULL.depth,
-            HULL.wobble,
-            t,
-            HULL.seed,
-            bumps,
-          ),
-        );
-      }
-      return pts;
-    },
-    path: openSmoothPath,
-  };
-}
+const LIVING_SUBJECTS: Subject[] = livingKinds().map((kind) =>
+  blob(kind.toUpperCase(), livingSilhouette(kind)),
+);
 
 export const SUBJECTS: Subject[] = [
-  blob("SLICK", SLICK),
-  blob("BULB", BULB),
+  ...LIVING_SUBJECTS,
   blob("POD", POD),
   meteor,
   torch,

@@ -3,7 +3,7 @@ import { livingMotion } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
 import { TURN } from "./motions.js";
-import { blob, crystal, hullArc, SUBJECTS } from "./subjects.js";
+import { blob, crystal, hullArc, livingKinds, SUBJECTS } from "./subjects.js";
 
 /**
  * Every contour that has been drawn, and who has it.
@@ -114,6 +114,8 @@ const RING: CreatureSilhouette = {
 const OWNERS: Record<string, string> = {
   SLICK: "the slick — the flat red one",
   BULB: "the bulb — round and cyan",
+  RUNT: "the runt — tiny, colourless, and shrunk well below the rest",
+  THROB: "the throb — colourless, swells and shrinks on the shared beat",
   POD: "the pod, which is not a creature",
   METEOR: "every rock tier, and the torch that spans three columns",
   "BULB QUEEN": "the queen's shell, and her armoured marks",
@@ -126,10 +128,21 @@ const OWNERS: Record<string, string> = {
   "WARDEN · OPEN": "the same ring, open: the two beats the core stands in the hole",
 };
 
-/** The motion the game gives a shape it already draws, where it gives one. */
+/**
+ * The motion the game gives a shape it already draws, where it gives one.
+ *
+ * The living kinds are read off `livingKinds()` — the same list `subjects.ts`
+ * builds `SUBJECTS` from — rather than named again here by hand, so a kind
+ * added to `CREATURES` gets its own-motion on this page the moment it gets a
+ * contour, instead of falling back to no motion until somebody edits a second
+ * list. `livingMotion` itself still decides *which* motion; today that is
+ * `SWAY_PUMP` for the bulb and `TILT_RIPPLE` for everything else, runt and
+ * throb included — a real fallback, not a placeholder, and exactly as far as
+ * this lane goes: teaching the throb a beat-driven pulse of its own is motion
+ * work, not a derived list, and stays out of it.
+ */
 const TAKEN_MOTION: Record<string, OwnMotion> = {
-  SLICK: livingMotion("slick"),
-  BULB: livingMotion("bulb"),
+  ...Object.fromEntries(livingKinds().map((kind) => [kind.toUpperCase(), livingMotion(kind)])),
   WARDEN: TURN,
   "WARDEN · LOOKING": TURN,
   "WARDEN · OPEN": TURN,
