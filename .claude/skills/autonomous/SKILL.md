@@ -87,6 +87,10 @@ must carry, every time:
   in it** (`git log -1 --format=%B`). A lane reported two, amended during a
   rebase, and the trailers went with the amendment — the obligations vanished
   and were repeated to the user as though they were on the list;
+- **a report of at most 250 words.** Everything else goes in the commit
+  message, which is where a cold session will look for it anyway. A long
+  report is read once by an orchestrator whose context is the scarcest thing
+  in the run, and then it is gone; a commit message is in the clone forever;
 - anything noticed and not done comes back in its **report**, not in
   `docs/parked.md` — that file is shared, and three lanes appending to the end
   of it is three rebase conflicts in the one file whose content nobody would
@@ -112,8 +116,11 @@ rather than merging. A rebase conflict comes back as a refusal with the files
 named — send the lane's agent back to resolve it (`SendMessage`), do not
 resolve it yourself in a worktree you do not own.
 
-Then delete the entry from `docs/queue.md` and commit that. The tick is the
-deletion; there is no other one.
+`bun run land` deletes the entry from `docs/queue.md` itself and commits that,
+because the tick is the deletion and leaving it to whoever ran the landing
+failed twice in one afternoon — the same way both times, and invisibly: a
+landed branch stops sitting on the trunk's tip the moment anything else lands,
+so it falls back to reading exactly like a branch nobody has started.
 
 A lane whose `Check:` list is the interesting part gets said out loud in the
 final report, not buried.
@@ -180,6 +187,26 @@ The orchestrator is Opus, and thinks hard at exactly two moments: choosing
 what goes in the queue, and deciding whether a returned lane is finished or
 merely green. Everything between those is bookkeeping and wants no thinking
 at all.
+
+## When your own context fills
+
+It will, and the answer is not to be careful. An orchestrator running a long
+batch accumulates a lane report, a set of prompts and a diff review per lane,
+and the first thing to go is not reasoning but *bookkeeping* — the small
+mechanical step at the end of a landing. That is exactly what happened here
+twice, and both times the board caught it rather than the session.
+
+So: push the mechanical steps into the tools, keep the reports short, and
+treat starting a fresh session as routine rather than as a failure. Nothing in
+this arrangement lives in a transcript. `bun run burn` reconstructs the run
+from `docs/queue.md` and git, `bun run checks` reconstructs what is owed, and
+`docs/parked.md` holds what was noticed. A new session picks all three up
+knowing nothing, which is the property the whole design is arranged around —
+so the cheapest fix for a full context is to spend it and start again.
+
+**Do not run two orchestrators at once.** Lanes parallelise; landing does not.
+Two sessions landing onto one linear trunk is the one shape that turns a
+rebase into a race.
 
 ## When the tokens run out
 

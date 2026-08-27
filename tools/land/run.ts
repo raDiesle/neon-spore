@@ -16,10 +16,14 @@
  * is linear on purpose.
  */
 
+import { join } from "node:path";
+import { parseQueue } from "../burn/queue.js";
 import { LOG_FORMAT, parseLog } from "../checks/trailers.js";
 import { describe, type LandState, plan } from "./land.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
+/** Written out rather than escaped, because this file is edited by tools that mangle escapes. */
+const EOL = String.fromCharCode(10);
 const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const wantsPush = argv.includes("--push");
@@ -138,6 +142,51 @@ if (carried.length > 0) {
 } else {
   console.log("  0 checks — nothing here needs an eye, or a rebase ate the trailers");
 }
+
+/**
+ * Retiring the entry is part of landing, not tidying afterwards.
+ *
+ * `docs/queue.md` says an entry leaves by being deleted, and for a while the
+ * deleting was left to whoever ran the landing. That failed twice in one day,
+ * the same way both times: the lane landed, the entry stayed, and the board
+ * went on showing work that was already on the trunk. It is not even a visible
+ * failure — a landed branch stops sitting on the trunk's tip as soon as
+ * anything else lands, so it falls back to reading exactly like a branch
+ * nobody has started, which is the one ambiguity the status rules cannot
+ * resolve from git alone.
+ *
+ * So the tick happens where the fact is known: here, one line after the
+ * fast-forward, while the branch name is still in hand.
+ */
+async function retire(branch: string): Promise<void> {
+  if (!state.trunkTree) {
+    console.log(
+      `  ⚑ retire ${branch} from docs/queue.md by hand — nothing has ${TRUNK} checked out`,
+    );
+    return;
+  }
+  const path = join(state.trunkTree, "docs/queue.md");
+  const file = Bun.file(path);
+  if (!(await file.exists())) return;
+  const text = await file.text();
+  const lane = parseQueue(text).find((l) => l.branch === branch);
+  if (!lane) return;
+
+  const start = text.indexOf(`## ${lane.title}`);
+  if (start < 0) return;
+  const next = text.indexOf(`${EOL}## `, start + 1);
+  const cut = `${text.slice(0, start)}${next < 0 ? "" : text.slice(next + 1)}`.trimEnd();
+  await Bun.write(path, `${cut}${EOL}`);
+
+  await gitOrDie(["add", "docs/queue.md"], state.trunkTree);
+  await gitOrDie(
+    ["commit", "-q", "-m", `${lane.title} is on ${TRUNK}, so it leaves the queue`],
+    state.trunkTree,
+  );
+  console.log(`  retired  ${lane.title}`);
+}
+
+await retire(branch);
 
 if (wantsPush) {
   const pushed = await git(["push", "origin", `${TRUNK}:${TRUNK}`]);
