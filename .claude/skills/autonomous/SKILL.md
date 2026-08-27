@@ -105,22 +105,45 @@ final report, not buried.
 Until the queue is empty or the budget is gone. Refill from `--candidates`
 when it empties; keep a `/loop`-style wakeup only if the user asked for one.
 
-## Choosing a model and a thinking depth
+## Choosing a model and an effort
 
-Decide per lane, and say in the report which you chose. The default is Sonnet;
-Opus is for work where the *shape* is the hard part, not the typing.
+Two dials, and they are not the same dial. **Model** is how good the writing
+is. **Effort** is how long it thinks before writing. A cheap model thinking
+hard and an expensive one answering off the top are different mistakes, and
+the second is the one an unattended run makes, because nothing stops it.
 
-| The work | Model | Told to think |
-|---|---|---|
-| Designing a mechanic, a coupling, a boss's choreography — where the answer is a judgement | `opus` | "think hard about the shape before writing anything" |
-| A new creature or wave from a pattern that already exists in `content/` | `sonnet` | "think about the one-sentence test first" |
-| Render work against a written reference — a card, a background, a glyph | `sonnet` | "think about how it reads at 26 px" |
-| A long mechanical file whose shape is decided; a uniform sweep | `haiku`, or `bun run delegate` | nothing |
-| Tests against a module that already exists | `sonnet` | nothing |
-| Reviewing a landed lane, or judging whether two shapes read differently | `opus` | "think hard" |
+Effort is not a parameter on `Agent`. It is set by the words in the prompt —
+`think`, `think hard`, `think harder`, `ultrathink` — which is a real ladder
+and not a figure of speech. So every lane prompt carries a rung **and** a
+subject: the rung buys the thinking, the subject decides whether it is spent
+on the thing that is actually hard. "Think hard" alone buys depth on whatever
+the model happened to find interesting.
 
-The orchestrator is Opus. Effort is not a parameter on `Agent`, so the depth
-is carried in the prompt — say what to think about, not "think harder".
+| The work | Model | Effort | Spent on |
+|---|---|---|---|
+| A mechanic, a coupling, a boss's choreography — the answer is a judgement and the code is the easy half | `opus` | `ultrathink` | the shape, before a line is written |
+| A system that restructures the loop — a round that is not the field, a new mode | `opus` | `think harder` | what it does to the world's idea of a round |
+| A new creature or wave from a pattern `content/` already has | `sonnet` | `think hard` | the communication test, or the one-sentence test |
+| Render against a written reference — a card, a background, a glyph | `sonnet` | `think` | how it reads at 26 px on a phone |
+| Tests against a module that already exists | `sonnet` | none | — |
+| A long mechanical file whose shape is decided; a uniform sweep | `haiku`, or `bun run delegate` | none | — |
+| Reviewing a landed lane; judging whether two shapes read differently | `opus` | `think hard` | the case *against* the thing, first |
+
+Two rules that override the table.
+
+**Raise the effort, not the model, when the risk is a wrong decision.** A lane
+that will be hard to unpick — anything touching `world.ts`, the hash, the
+protocol, or the shape of a round — goes up a rung even where the table says
+`sonnet`. Landing is cheap to redo; a mechanic built on a bad premise is not.
+
+**Drop both when the lane is transcription.** A spec that reads as long as its
+code is a spec that should have been the code. That is the `delegate` case,
+and `docs/delegation-cost.md` has the arithmetic on why it is rarely worth it.
+
+The orchestrator is Opus, and thinks hard at exactly two moments: choosing
+what goes in the queue, and deciding whether a returned lane is finished or
+merely green. Everything between those is bookkeeping and wants no thinking
+at all.
 
 ## When the tokens run out
 
