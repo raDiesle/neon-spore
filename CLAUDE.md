@@ -38,7 +38,8 @@ Worktrees are allowed, and are purely a working tool: a session running
 alongside another one, or preparing a rebuild it might throw away, may create
 one. The branch that comes with it is temporary. Before the task counts as
 finished it is fast-forwarded or rebased onto `main`, then deleted along with
-the worktree. A temporary branch is never pushed.
+the worktree. A temporary branch is never pushed — a cloud session's branch is
+the one exception, and the section after this one says why.
 
 A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
 copied from the main tree: the workspace links inside it point at the main
@@ -59,7 +60,40 @@ Four conditions, all of them:
 4. One commit per coherent change. Unrelated work that was already lying in the
    tree gets its own commit, or none.
 
-Say what was committed. Do not push unless asked.
+Say what was committed. Do not push unless asked — on this machine. In a cloud
+session that rule inverts; see below.
+
+## Working in a cloud session
+
+A session started from the phone runs on a machine that clones `origin` and
+never sees this checkout. Three things follow, and each one cuts against a rule
+above.
+
+**It reads the remote, not the tree.** Anything unpushed is invisible to it, so
+the hand-off from here to there is a push, not a save. That is also how unpushed
+work turns into a trap: a `main` sitting five commits ahead of `origin` gives
+the cloud a task briefed on code that is not there.
+
+**It must push, and only to its own branch.** "Do not push unless asked" is a
+rule about this machine, where not pushing costs nothing because the work is
+already where the human is. In the cloud the opposite holds — work that is not
+pushed is work nobody can reach. So a cloud session pushes the branch it was
+given, when it is done, without being asked. Never `main`, and never a pull
+request: the rebase onto `main` happens here, by hand, after `bun run check` has
+run on a machine that can run all of it.
+
+**It cannot verify everything, and has to say which parts.** The sandbox has no
+browser preview to point at, no wrangler, no `bun run delegate`, and no network
+access it did not arrange. `bun test` and the typecheck are the parts that hold.
+Anything that would have needed `bun run preview`, `bun run relay:check` or a
+shape sheet is *unverified*, and the report says so in that word rather than
+offering a green check that covered less than usual. A wave whose timing was
+never watched is not finished, it is written.
+
+Coming back the other way, `claude --teleport` carries the branch and the
+conversation with it. Going out again carries neither: a new cloud session
+starts cold, knowing only what `origin` and the commit messages tell it. One
+more reason the commit messages here are sentences.
 
 ## Commands
 
