@@ -2,13 +2,15 @@ import { colSpan, isMeteorKind, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { DeflectFx } from "./deflect.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { burstFor } from "./effects-spark.js";
+import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SwallowFx } from "./swallow.js";
 import { rockRadius } from "./torch.js";
+import { WardenFx } from "./warden-fx.js";
 
 /** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
 const BANNER_LIFE = 0.9;
@@ -41,6 +43,12 @@ export class Effects {
    * `intake` off it to build the mirror's hull mood, and calls its own draws.
    */
   readonly mirror = new MirrorFx();
+  /**
+   * THE WARDEN's one transient: the line whipping down after it is torn. Public
+   * for the same reason the mirror's is — the boss is drawn as a whole body by
+   * `boss-draw.ts`, not as a handful of particles here.
+   */
+  readonly warden = new WardenFx();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -74,26 +82,21 @@ export class Effects {
     beatSeconds: number,
   ): void {
     this.mirror.ingest(events);
+    this.warden.ingest(events);
     for (const e of events) {
+      const spark = burstFor(e, l);
+      if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);
+
       switch (e.type) {
-        case "destroy": {
-          const hex = e.color === "red" ? PALETTE.red : PALETTE.cyan;
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, hex);
-          break;
-        }
+        // Everything below either remembers something past this frame or is
+        // not a burst at all. The rest is `effects-spark.ts`'s table.
         case "reject": {
           const id = creatureIdAt(e.col, e.row);
           if (id) this.blockedUntil.set(id, 0.35);
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.sparkDim);
           break;
         }
-        case "grip":
-          // The moment a hand lands. The hold itself is drawn from the world
-          // every frame (grip.ts); this is only the grab.
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 7, PALETTE.pod);
-          break;
-        case "hole":
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 5, PALETTE.rock);
+        case "petal":
+          this.queenShakeUntil = QUEEN_SHAKE_LIFE;
           break;
         case "breach": {
           // A rock is still visibly falling when the sim resolves the hit, so
@@ -126,16 +129,6 @@ export class Effects {
           }
           break;
         }
-        case "petal":
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.hullRim);
-          this.queenShakeUntil = QUEEN_SHAKE_LIFE;
-          break;
-        case "queenDown":
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 24, PALETTE.red);
-          break;
-        case "podLoose":
-          this.burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.ember);
-          break;
         case "podTaken": {
           // Sparks flying *inwards*: the one moment in the game where the ship
           // takes something instead of losing it.
@@ -143,9 +136,6 @@ export class Effects {
           this.swallow.start(e.kind);
           break;
         }
-        case "podLost":
-          this.burst(tileCX(l, e.col), l.hullY, 12, PALETTE.sparkDim);
-          break;
         case "deflect": {
           const x = tileCX(l, e.col);
           // Same lateness as a breach, so the bounce waits for the rock too.
@@ -176,6 +166,7 @@ export class Effects {
     this.swallow.update(dt);
     this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
     this.mirror.update(dt);
+    this.warden.update(dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
@@ -230,6 +221,7 @@ export class Effects {
     this.swallow.clear();
     this.queenShakeUntil = 0;
     this.mirror.clear();
+    this.warden.reset();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

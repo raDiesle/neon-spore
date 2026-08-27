@@ -139,6 +139,10 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
   let best: Creature | undefined;
   let bestMilli = 0;
   for (const c of world.creatures) {
+    // A tether is not shootable, and it does not stop a shot either: it is a
+    // line hanging in a column the pair still has to fire up. It is answered
+    // by a hand and by nothing else (docs/spec/bosses.md 11.4).
+    if (c.kind === "tether") continue;
     const inCol = c.kind === "queen" ? queenOccupiesCol(c.col, b.col) : occupiesCol(c, b.col);
     if (!inCol) continue;
     const pos = creatureMilli(world, c);

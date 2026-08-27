@@ -80,6 +80,7 @@ export function bindStage(
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: 1,
+      wardenRow: cfg.wardenRow,
     }),
     push: keys.push,
   });

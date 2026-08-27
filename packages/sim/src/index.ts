@@ -5,11 +5,11 @@ export {
   share,
   type Tally,
 } from "./balance.js";
-export { endRun, resetClock, resetRun, startWave } from "./beat.js";
+export { startWave } from "./beat.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
-export type { BossState, QueenState } from "./boss-state.js";
+export type { BossState, QueenState, WardenState } from "./boss-state.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
-export { BOSS_KINDS } from "./entries.js";
+export { BOSS_KINDS, type WardenEntry } from "./entries.js";
 export {
   clearGrips,
   gripCount,
@@ -29,6 +29,7 @@ export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
+export { endRun, resetClock, resetRun } from "./run.js";
 export {
   fireStep,
   MIRROR_HOLD_BEATS,
@@ -58,11 +59,37 @@ export {
   clampSpanCol,
   colSpan,
   fallTilesPerBeat,
+  isBossBody,
+  isGrippable,
   isMeteorKind,
   livingKindForColor,
   occupiesCol,
   spanCenterCol,
+  WARDEN_COLS,
 } from "./types.js";
+export {
+  wardenClamp,
+  wardenEyeOpen,
+  wardenPullMilli,
+  wardenRefusesGrip,
+  wardenTether,
+} from "./warden.js";
+export {
+  NO_TETHER,
+  WARDEN_OPEN_BEATS,
+  WARDEN_PHASES,
+  type WardenControl,
+  type WardenPhase,
+  wardenClampedControl,
+  wardenClampedPlayer,
+  wardenColor,
+  wardenCycle,
+  wardenCycleBeat,
+  wardenPhase,
+  wardenPullTicks,
+  wardenReachBeats,
+  wardenRescuer,
+} from "./warden-cycle.js";
 export {
   type BossEntry,
   createWorld,

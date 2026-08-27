@@ -88,13 +88,14 @@ export function buildBoss(waveIndex: number, cols: number): BossEntry | null {
  * `buildBoss` for an unsaved wave. The sibling of `podsFromWave`.
  *
  * Only the queen has a column to remap — THE MIRROR stands over the ship
- * wherever the ship is, so its entry names no place at all and passes through
- * untouched.
+ * wherever the ship is, and THE WARDEN is a fixture dead centre, so neither
+ * entry names a place at all and both pass through untouched.
  */
 export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   const boss = wave.boss;
   if (!boss) return null;
   if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
+  if (boss.kind === "warden") return { ...boss };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

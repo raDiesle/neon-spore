@@ -18,10 +18,15 @@ describe("categoryOf", () => {
     expect(categoryOf("queen")).toBe("mixed");
   });
 
-  it("never returns special today — nothing standard is unanswered by aim or guard", () => {
-    for (const kind of Object.keys(CREATURES) as (keyof typeof CREATURES)[]) {
-      expect(categoryOf(kind)).not.toBe("special");
-    }
+  it("groups the tether as special, and nothing else", () => {
+    // The category stood empty until THE WARDEN's line: a thing answered by
+    // neither cannon nor shield, only by a hand. Anything else arriving in it
+    // is a creature that has quietly lost its control groups, which is what
+    // this test is really watching for.
+    const special = (Object.keys(CREATURES) as (keyof typeof CREATURES)[]).filter(
+      (kind) => categoryOf(kind) === "special",
+    );
+    expect(special).toEqual(["tether"]);
   });
 });
 

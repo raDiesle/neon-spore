@@ -107,13 +107,13 @@ const COPIES: Copy[] = [
   },
   {
     call: "livingKindForColor",
-    owner: "packages/sim/src/types.ts",
+    owner: "packages/sim/src/kinds.ts",
     pattern: /"red"[\s\S]{0,30}"slick"|"slick"[\s\S]{0,30}"red"/,
     strip: false,
   },
   {
     call: "isMeteorKind",
-    owner: "packages/sim/src/types.ts",
+    owner: "packages/sim/src/kinds.ts",
     pattern: /\bkind\s*===\s*"meteor"/,
     strip: false,
   },
@@ -143,7 +143,7 @@ const COPIES: Copy[] = [
   },
   {
     call: "occupiesCol",
-    owner: "packages/sim/src/types.ts",
+    owner: "packages/sim/src/kinds.ts",
     pattern: /c\s*\.\s*col\s*===\s*col\b/,
     strip: false,
   },
@@ -173,13 +173,19 @@ const COPIES: Copy[] = [
   },
   {
     call: "colSpan",
-    owner: "packages/sim/src/types.ts",
+    owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\?\s*2\s*:\s*1/,
     strip: false,
   },
   {
+    call: "isGrippable",
+    owner: "packages/sim/src/kinds.ts",
+    pattern: /kind\s*===\s*"queen"\s*\|\|[\s\S]{0,30}"warden"/,
+    strip: false,
+  },
+  {
     call: "fallTilesPerBeat",
-    owner: "packages/sim/src/types.ts",
+    owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,
     strip: false,
   },

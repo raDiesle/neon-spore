@@ -1,14 +1,16 @@
+import type { BossConfig } from "./config-boss.js";
+
+export type { BossConfig } from "./config-boss.js";
+
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig {
+export interface SimConfig extends BossConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
   rows: number;
-  /** The row the queen holds at full health. She sinks a tile per petal lost — see `queenRow` in `boss.ts`. */
-  queenRow: number;
   /** Beats per minute of the shared clock. */
   bpm: number;
   /** Fixed simulation rate. Must divide into a whole number of ticks per beat. */
@@ -105,14 +107,6 @@ export interface SimConfig {
   damageCreature: number;
   /** Damage when a meteor is not deflected. */
   damageMeteor: number;
-  /** The row THE MIRROR's own hull surface sits on — the ship's, upside down. */
-  mirrorRow: number;
-  /** Damage a wrong step in a Simon sequence costs, thrown back by THE MIRROR. */
-  damageEcho: number;
-  /** Score for answering one of THE MIRROR's sequences in full. */
-  scoreMirrorRound: number;
-  /** Score for breaking THE MIRROR. */
-  scoreMirrorDown: number;
   /** Craters a single meteor can carry. Older ones are forgotten. */
   maxHoles: number;
   /** Breaks the hull remembers. Older ones are forgotten. */
@@ -127,10 +121,6 @@ export interface SimConfig {
   scoreWave: number;
   /** Score for taking a pod in. */
   scorePod: number;
-  /** Score for stripping a petal from the queen. */
-  scoreQueenPetal: number;
-  /** Score for bringing the queen down. */
-  scoreQueenDown: number;
   /**
    * How many beats ahead the radar strip shows an arrival. Read by render/.
    * A creature needs at least a 3-second floor of warning (docs/spec/latency.md)
@@ -152,14 +142,6 @@ export interface SimConfig {
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
-  /**
-   * Share of a beat the queen takes to grow a torch back into the socket the
-   * last one broke off from. 1 means the whole beat, 0 means it is simply
-   * there again. The rock that left is never redrawn here — it is the
-   * creature now (`spit` in boss.ts); this is only how fast the next egg
-   * comes in behind it. Read by render/.
-   */
-  queenEggGrowShare: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -188,6 +170,13 @@ export const DEFAULT_CONFIG: SimConfig = {
   hullInvulnerable: false,
   damageCreature: 12,
   damageMeteor: 20,
+  wardenRow: 2,
+  wardenCycleBeats: 12,
+  wardenPullBeats: 2,
+  wardenPlates: 5,
+  damageWarden: 16,
+  scoreWardenPlate: 500,
+  scoreWardenDown: 2500,
   mirrorRow: 3,
   damageEcho: 15,
   scoreMirrorRound: 500,

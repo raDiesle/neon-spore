@@ -18,6 +18,7 @@ import {
   TORCH,
 } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
+import { WARDEN_POSES } from "./ring.js";
 
 /**
  * Every silhouette in the game, as a function of time.
@@ -239,4 +240,5 @@ export const SUBJECTS: Subject[] = [
   hull(true),
   hull(true, 0.05),
   hull(false, 0, 1),
+  ...WARDEN_POSES,
 ];

@@ -1,5 +1,12 @@
 import { AUTHORED_COL_MAX, CREATURES, type Wave } from "@neon-spore/content";
-import type { QueenEntry } from "@neon-spore/sim";
+import {
+  DEFAULT_CONFIG,
+  type QueenEntry,
+  WARDEN_PHASES,
+  wardenClampedControl,
+  wardenColor,
+  wardenReachBeats,
+} from "@neon-spore/sim";
 import { MIRROR_DEFAULT, renderSimonEditor } from "./simon-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
@@ -8,10 +15,11 @@ import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js"
  * placed at a beat, she is the whole wave — so she gets her own small panel
  * instead of a brush.
  *
- * The description text is written out here rather than parsed from
- * `docs/spec/bosses.md` the way `planned.ts` reads the bestiary: one boss does
- * not earn that machinery yet. If a second one is built, read both the same
- * way `planned.ts` does, rather than writing a second copy by hand here.
+ * What each boss *is* comes from `CREATURES` where the boss is a creature
+ * kind, and its numbers come from the simulation's own tables — the Warden's
+ * phases are `WARDEN_PHASES` rendered, not a second copy of them typed here.
+ * THE MIRROR is the one that has to be written out, because it is not on the
+ * field at all and so has no bestiary entry to read.
  */
 export interface BossPanel {
   render(): void;
@@ -30,9 +38,10 @@ const QUEEN_DEFAULT: QueenEntry = {
  * the grid. A wave carries one boss, so choosing the other replaces it — a
  * wave with two bosses is not a wave anybody has designed.
  */
-function setBoss(wave: Wave, kind: "queen" | "mirror" | null): void {
+function setBoss(wave: Wave, kind: "queen" | "mirror" | "warden" | null): void {
   if (kind === null) wave.boss = undefined;
   else if (kind === "queen") wave.boss = { ...QUEEN_DEFAULT };
+  else if (kind === "warden") wave.boss = { kind: "warden" };
   else wave.boss = { kind: "mirror", rounds: MIRROR_DEFAULT.rounds.map((r) => [...r]) };
 }
 
@@ -45,7 +54,7 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     panel.replaceChildren();
     if (!wave) return;
 
-    const pick = (label: string, kind: "queen" | "mirror" | null): HTMLButtonElement => {
+    const pick = (label: string, kind: "queen" | "mirror" | "warden" | null): HTMLButtonElement => {
       const el = document.createElement("button");
       el.type = "button";
       el.textContent = label;
@@ -62,6 +71,7 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     if (wave.boss) bar.appendChild(pick("REMOVE BOSS", null));
     if (wave.boss?.kind !== "queen") bar.appendChild(pick("+ BULB QUEEN", "queen"));
     if (wave.boss?.kind !== "mirror") bar.appendChild(pick("+ THE MIRROR", "mirror"));
+    if (wave.boss?.kind !== "warden") bar.appendChild(pick("+ THE WARDEN", "warden"));
     panel.appendChild(bar);
 
     if (!wave.boss) return;
@@ -71,6 +81,14 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       blurbM.textContent = MIRROR_BLURB;
       panel.appendChild(blurbM);
       renderSimonEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
+    if (wave.boss.kind === "warden") {
+      renderWarden(panel, wave.boss, () => {
         store.dirty = true;
         onEdit();
       });
@@ -125,15 +143,66 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
 }
 
 /**
- * One sentence about THE MIRROR, written here rather than parsed out of
- * `docs/spec/bosses.md` — the same bargain the queen's phase table makes two
- * panels up. A third boss is the point at which both should be read the way
- * `planned.ts` reads the bestiary instead.
+ * One sentence about THE MIRROR. The only boss blurb typed here, because it is
+ * the only one that is not a `CreatureKind` and so has no bestiary entry the
+ * panel could read instead.
  */
 const MIRROR_BLURB =
   "An exact copy of your own ship, upside down at the top of the field and " +
   "the colour of something that went wrong. It performs sequences of your " +
   "own controls and asks for them back.";
+
+/**
+ * THE WARDEN's panel. Its one authored number is the plate count; everything
+ * else about it is fixed — it stands dead centre, and its cycle follows from
+ * `wardenRow` and how fast a tether falls. So the panel is mostly the cycle
+ * itself, rendered from the simulation's own tables so that a retune shows up
+ * here without anyone remembering to come and change it.
+ */
+function renderWarden(
+  panel: HTMLElement,
+  boss: { kind: "warden"; plates?: number },
+  onEdit: () => void,
+): void {
+  const cfg = DEFAULT_CONFIG;
+  const fields = document.createElement("div");
+  fields.className = "boss-fields";
+  fields.append(
+    numberField("plates", 1, 12, boss.plates ?? cfg.wardenPlates, (v) => {
+      boss.plates = v;
+      onEdit();
+    }),
+  );
+  panel.appendChild(fields);
+
+  const blurb = document.createElement("p");
+  blurb.className = "note";
+  blurb.textContent = CREATURES.warden.blurb;
+  panel.appendChild(blurb);
+
+  const reach = wardenReachBeats(cfg);
+  const cycle = document.createElement("table");
+  cycle.className = "boss-phases";
+  cycle.innerHTML =
+    "<tr><th>cycle beat</th><th>what happens</th></tr>" +
+    `<tr><td>0</td><td>a line takes the ${wardenClampedControl(0)} (${wardenColor(0)} rim), ` +
+    `then the ${wardenClampedControl(1)} (${wardenColor(1)}) next cycle</td></tr>` +
+    `<tr><td>0–${reach}</td><td>it draws down that column. Only the other player may pull it</td></tr>` +
+    `<tr><td>${reach}–${reach + 2}</td><td>torn in time: the pupil snaps wide, one shot counts</td></tr>` +
+    `<tr><td>${reach + 2}</td><td>the iris shuts and vents a rock, torn or not</td></tr>` +
+    `<tr><td>${cfg.wardenCycleBeats}</td><td>the next line, on the other control</td></tr>`;
+  panel.appendChild(cycle);
+
+  const phases = document.createElement("table");
+  phases.className = "boss-phases";
+  phases.innerHTML =
+    "<tr><th></th><th>plates above</th><th>pupil drift</th><th>vent</th></tr>" +
+    WARDEN_PHASES.map(
+      (p) =>
+        `<tr><td>${p.name}</td><td>${p.above}</td><td>${p.drift}/beat</td><td>${p.vent}</td></tr>`,
+    ).join("");
+  panel.appendChild(phases);
+}
 
 function placementNote(): HTMLElement {
   const guard = document.createElement("p");

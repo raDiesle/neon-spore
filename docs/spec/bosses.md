@@ -1,10 +1,9 @@
 # Bosses
 
-> **Status: two built.** The Bulb Queen and THE MIRROR are in the game. Of the
-> remaining nine names none are. Three of them are worked out on this page, and
-> only one of the three is buildable today: The Vessel waits on a second device
-> and The Mother on destruction tracking, while **The Warden needs nothing that
-> does not already exist** — the grip, rocks, scars and the beat, all built.
+> **Status: three built.** The Bulb Queen, THE MIRROR and The Warden are in the
+> game. Of the remaining eight names none are. Two of them are worked out on
+> this page and neither is buildable today: The Vessel waits on a second device
+> and The Mother on destruction tracking.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -18,6 +17,12 @@ fit if one is ever given to it.
 
 Only three of the eleven are worked out. The rest are names holding a slot in
 the act structure.
+
+The three that exist ask three different questions. The Queen is about **what
+you know**, THE MIRROR about **what you remember**, and The Warden about **what
+your hands are free to do** — which is why none of them is a re-skin of another
+and why the fourth one built should be asked the same question before it is
+started.
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
 
@@ -320,8 +325,30 @@ Everything held between frames — bow, tension, whip, dilation — lives in
 `Effects` and is cleared in `Effects.reset()`: `world.beat` is not monotonic
 across a restart, and `restart.test.ts` fails on a field that is not.
 
-**Where it would live.** `WardenState` joining the `BossState` union, a `warden`
-kind with `colSpan` 5 and a `tether` kind, the cycle in
-`packages/sim/src/warden.ts` dispatched from `stepBoss`, every number above a
-named field in `SimConfig`. Its wave is `THE WARDEN` and its sentence is the
-epigraph.
+**Where it lives.** `WardenState` in the `BossState` union, a `warden` kind
+with `colSpan` 5 and a `tether` kind beside it, and two files: the cycle's
+arithmetic in `packages/sim/src/warden-cycle.ts` — which control this cycle
+clamps, which colour the rim carries, which phase the plates put it in, all
+*derived* and none of it stored — and the choreography that moves state in
+`packages/sim/src/warden.ts`, dispatched from `stepBoss`. Every number above is
+a named field of `BossConfig`.
+
+Two things did not survive contact with the code exactly as written above, and
+both are worth saying because the page they contradict is this one.
+
+**The hold is measured in ticks, not beats, and so it has its own call in
+`step`.** Everything else a boss does happens on a beat; a hold that
+accumulates cannot, or a thumb that slipped for a third of a beat would lose
+the whole beat. `pullTether` runs once a tick, after `dropLostGrips`.
+
+**The pupil keeps drifting through the opening.** The two beats the core is
+exposed are too few to *find* a column in across the voice delay, so the aim
+has to be a prediction the pair agreed on beforehand — which is what the drift
+is for. Freezing it for the window would have made the drift decorative.
+
+Its wave is `THE WARDEN` and its sentence is the epigraph. What has *not* been
+looked at by a human is how the ring reads at phone size: the hole is genuinely
+cut (the field and the grid pulse show through it, which nothing else in the
+game does), but whether a body in `rockDark` reads as solid enough against the
+field for that to land is a question a still cannot answer and a test cannot
+either.

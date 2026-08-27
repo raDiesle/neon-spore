@@ -1,5 +1,5 @@
 import type { Layout } from "@neon-spore/render";
-import { type Creature, NO_GRIP } from "@neon-spore/sim";
+import { type Creature, isGrippable, NO_GRIP } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -19,13 +19,24 @@ export interface KeyBindings {
   onWaveStep: (delta: number) => void;
 }
 
-/** The creature closest to the hull — the one a pair would actually reach
- * for. Never the queen, who cannot be gripped (`setGrip` in sim/grip.ts). */
+/**
+ * The creature closest to the hull — the one a pair would actually reach for.
+ * Never a boss body, which cannot be gripped (`isGrippable` in sim/types.ts).
+ *
+ * THE WARDEN's tether wins outright whatever else is falling, because it is
+ * the only thing on the field a hand is the *only* answer to: a rock a hand
+ * misses is still a rock the shield can meet, and a line nobody pulls costs
+ * the hull and the plate both. On one screen this key is the whole of player
+ * 2's half of that fight — the finger on the field is signed with this
+ * device's seat, and half the cycles hold that seat's own control.
+ */
 function nearestHull(creatures: readonly Creature[]): number {
+  const tether = creatures.find((c) => c.kind === "tether");
+  if (tether) return tether.id;
   let best = NO_GRIP;
   let bestRow = -1;
   for (const c of creatures) {
-    if (c.kind === "queen" || c.row <= bestRow) continue;
+    if (!isGrippable(c.kind) || c.row <= bestRow) continue;
     best = c.id;
     bestRow = c.row;
   }

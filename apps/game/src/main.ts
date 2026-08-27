@@ -106,6 +106,7 @@ const tickKeys = bindControls({
   // The seat decides whose hand a finger on the field is. `test` is both
   // halves on one screen, so it grips as player 1 and G grips as player 2.
   player: () => (view.role() === "p2" ? 2 : 1),
+  cfg: world.cfg,
   creatures: () => world.creatures,
   beatPhase,
   onPauseToggle: () => setRunning(!running),

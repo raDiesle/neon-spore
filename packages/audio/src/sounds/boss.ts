@@ -1,12 +1,12 @@
 /**
- * The bosses. Two exist; nine are names holding a slot (docs/spec/bosses.md).
+ * The bosses. Three exist; eight are names holding a slot (docs/spec/bosses.md).
  *
  * A boss is not louder than a wave, it is *lower*. Everything here has a body
  * under 90 Hz, which is the one register the rest of the catalogue leaves
  * alone — so a boss can be heard arriving under a field already full of
  * creatures without anything having to be turned down.
  *
- * The nine unbuilt ones each get a voice here anyway. A name holding a slot is
+ * The unbuilt ones each get a voice here anyway. A name holding a slot is
  * easier to argue about once you can hear what it would sound like.
  */
 
@@ -62,11 +62,57 @@ export const BOSS_SOUNDS: SoundDef[] = [
     ],
   },
   {
+    // THE WARDEN. Commissioned as a spare against act 50 and claimed when the
+    // eye was built — the sound came first and the encounter came to it.
+    id: "boss.warden",
+    family: "boss",
+    blurb: "A door in something enormous, opening once and shutting once.",
+    status: "bound",
+    use: "The Warden's pupil snapping wide after a tether is torn.",
+    level: 0.42,
+    layers: [
+      metal(44, 0.9, 0.55, 130),
+      after(0.5, air(120, 400, 0.7, 0.12, 3)),
+      after(1.3, soft(0.8, metal(40, 0.8, 0.5, 110))),
+    ],
+  },
+  {
+    id: "boss.wardenTether",
+    family: "boss",
+    blurb: "A cable going taut, and something heavy taking up the slack behind it.",
+    status: "bound",
+    use: "A tether attaching, and one of the pair's two sliding controls freezing.",
+    level: 0.4,
+    layers: [
+      metal(58, 0.5, 0.42, 200),
+      // A triangle and not a saw: the slack coming up is a pitch rising under
+      // the voice, and a saw at 70 Hz puts its fifth harmonic straight into
+      // the speech band for the whole half second (`band.ts`).
+      { source: "triangle", freq: 70, toFreq: 128, gain: 0.28, attack: 0.03, release: 0.5 },
+      after(0.18, soft(0.7, sub(41, 0.7, 0.4))),
+    ],
+  },
+  {
+    id: "boss.wardenPlate",
+    family: "boss",
+    blurb: "One plate coming off a rim, and the gap it leaves ringing.",
+    status: "bound",
+    use: "A shot into the open pupil taking a plate off THE WARDEN.",
+    level: 0.46,
+    layers: [
+      thud(220, 46, 0.5, 0.6),
+      metal(120, 0.35, 0.32, 120),
+      // The gap left in the rim, ringing — put above the speech band rather
+      // than through it, which is where the catalogue keeps its sparkle.
+      after(0.09, glint(3400, 0.3, 0.14)),
+    ],
+  },
+  {
     id: "boss.queenDown",
     family: "boss",
     blurb: "The last petal, and everything under it letting go at once.",
     status: "bound",
-    use: "The Bulb Queen destroyed.",
+    use: "A boss destroyed — the Bulb Queen, or THE WARDEN's last plate.",
     level: 0.6,
     pierce: "A boss dying is the end of the conversation about the boss.",
     layers: [

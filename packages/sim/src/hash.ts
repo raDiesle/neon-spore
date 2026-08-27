@@ -1,5 +1,14 @@
+import { BOSS_KINDS } from "./entries.js";
 import { MIRROR_PHASES } from "./simon.js";
 import type { World } from "./world.js";
+
+/**
+ * Which boss is installed, as a number. Read off `BOSS_KINDS` rather than
+ * written out as a ternary chain: a fourth boss added to that list and not to
+ * a chain here would hash as the third, and two devices would agree about a
+ * world they disagree about.
+ */
+const BOSS_TAG = BOSS_KINDS;
 
 /**
  * A cheap, stable fingerprint of the whole world. Two devices running lockstep
@@ -74,7 +83,7 @@ export function hashWorld(world: World): number {
   }
 
   const boss = world.boss;
-  push(boss === null ? 0 : boss.kind === "queen" ? 1 : 2);
+  push(boss === null ? 0 : BOSS_TAG.indexOf(boss.kind) + 1);
   if (boss !== null && boss.kind === "queen") {
     push(boss.creatureId);
     push(boss.phase);
@@ -91,6 +100,17 @@ export function hashWorld(world: World): number {
     push(boss.releaseSide);
     push(boss.scratch.length);
     for (const n of boss.scratch) push(n);
+  }
+  if (boss !== null && boss.kind === "warden") {
+    push(boss.creatureId);
+    push(boss.tetherId);
+    push(boss.pupilCol);
+    push(boss.pupilDir);
+    push(boss.plates);
+    push(boss.tornBeat);
+    push(boss.openBeat);
+    push(boss.eyeSpent ? 1 : 0);
+    push(boss.pullTicks);
   }
   if (boss !== null && boss.kind === "mirror") {
     push(boss.round);

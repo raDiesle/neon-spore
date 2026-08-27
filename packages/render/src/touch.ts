@@ -45,6 +45,12 @@ export interface Field {
    * signed by the seat this screen holds.
    */
   seat: 1 | 2;
+  /**
+   * The row THE WARDEN's rim sits on, so a hand anywhere along a tether counts
+   * as a hand on it (`creatureAt`). It is on the field rather than read off a
+   * config here because `touch.ts` is handed a field, never a world.
+   */
+  wardenRow: number;
 }
 
 /** A press. Null where nothing is. */
@@ -52,7 +58,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   // Above the band is the field, and the field answers both players: a finger
   // held on something falling drags at it (`grip` in sim/grip.ts).
   if (y < l.bandTop) {
-    const held = creatureAt(l, field.creatures, x, y, field.beatPhase);
+    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.wardenRow);
     if (!held) return null;
     return { player: field.seat, command: { kind: "grip", id: held.id }, hold: "grip" };
   }

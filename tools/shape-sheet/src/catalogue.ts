@@ -2,6 +2,7 @@ import type { CreatureSilhouette, CrystalSilhouette, OwnMotion } from "@neon-spo
 import { livingMotion } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
+import { TURN } from "./motions.js";
 import { blob, crystal, hullArc, SUBJECTS } from "./subjects.js";
 
 /**
@@ -120,18 +121,30 @@ const OWNERS: Record<string, string> = {
   "HULL · ARMED": "the ship, shield held open",
   "HULL · MOVING": "the ship, shield strung out behind its head",
   "HULL · MAW": "the ship, the cannon lobe turned inside out",
+  WARDEN: "THE WARDEN's ring — the one contour in the game you can see the field through",
+  "WARDEN · LOOKING": "the same ring, with the pupil run out to the edge of its travel",
+  "WARDEN · OPEN": "the same ring, open: the two beats the core stands in the hole",
 };
 
 /** The motion the game gives a shape it already draws, where it gives one. */
 const TAKEN_MOTION: Record<string, OwnMotion> = {
   SLICK: livingMotion("slick"),
   BULB: livingMotion("bulb"),
+  WARDEN: TURN,
+  "WARDEN · LOOKING": TURN,
+  "WARDEN · OPEN": TURN,
+};
+
+const slotOf = (name: string): ShapeSlot => {
+  if (name.startsWith("HULL")) return "ship";
+  if (name.startsWith("WARDEN")) return "boss";
+  return "creature";
 };
 
 const taken: CatalogueEntry[] = SUBJECTS.filter((s) => s.name !== "TORCH").map((subject) => ({
   subject,
   status: "taken",
-  slot: subject.name.startsWith("HULL") ? "ship" : "creature",
+  slot: slotOf(subject.name),
   owner: OWNERS[subject.name] ?? "drawn by the game",
   motion: TAKEN_MOTION[subject.name],
 }));

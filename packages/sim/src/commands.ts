@@ -1,10 +1,11 @@
-import { resetRun } from "./beat.js";
 import { fire } from "./bullets.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { endPrime, startPrime } from "./lance.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
+import { resetRun } from "./run.js";
 import { fireStep } from "./simon.js";
 import { spanCenterCol, type TimedCommand } from "./types.js";
+import { wardenClamp, wardenRefusesGrip } from "./warden.js";
 import type { World } from "./world.js";
 
 /**
@@ -40,6 +41,10 @@ export function applyCommand(world: World, timed: TimedCommand): void {
 
   switch (c.kind) {
     case "cannonCol": {
+      // A clamped control takes no column, and the command is *dropped* rather
+      // than queued: a release that teleported the cannon to wherever a thumb
+      // had wandered in the meantime would undo the whole point of being held.
+      if (wardenClamp(world) === "cannon") break;
       const from = world.cannonCol;
       world.cannonCol = clampCol(world, c.col);
       if (world.cannonCol !== from) {
@@ -52,6 +57,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       break;
     }
     case "shieldCol":
+      if (wardenClamp(world) === "shield") break;
       world.shieldCol = clampCol(world, c.col);
       break;
     case "guard":
@@ -78,6 +84,8 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "grip": {
       // Either seat may send this one, so it is the player on the command
       // that decides whose hand it is — not the control it arrived beside.
+      // Except on your own tether, which you get no leverage on (`warden.ts`).
+      if (wardenRefusesGrip(world, timed.player, c.id)) break;
       setGrip(world, timed.player, c.id);
       const held = world.creatures.find((x) => x.id === c.id);
       if (held && gripsCreature(world, timed.player, c.id)) {

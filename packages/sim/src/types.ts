@@ -1,6 +1,20 @@
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
+export type { RockKind } from "./kinds.js";
+export {
+  clampSpanCol,
+  colSpan,
+  fallTilesPerBeat,
+  isBossBody,
+  isGrippable,
+  isMeteorKind,
+  livingKindForColor,
+  occupiesCol,
+  spanCenterCol,
+  WARDEN_COLS,
+} from "./kinds.js";
+
 export type CreatureKind =
   | "slick"
   | "bulb"
@@ -10,113 +24,9 @@ export type CreatureKind =
   | "meteorFaster"
   | "meteorFastest"
   | "torch"
-  | "queen";
-
-/**
- * The single source of the colour-to-silhouette pairing. `packages/content`
- * checks its own bestiary against this, and nothing may spell the mapping out
- * by hand a second time.
- */
-export function livingKindForColor(color: Color): CreatureKind {
-  if (color === "red") return "slick";
-  return "bulb";
-}
-
-/**
- * The five numbered tiers, in speed order, one tile per beat apart. `torch` is
- * a rock too but is not a tier — see `fallTilesPerBeat`, which is why it is
- * not in this list.
- */
-const METEOR_TIER_KINDS: readonly CreatureKind[] = [
-  "meteor",
-  "meteorMedium",
-  "meteorFast",
-  "meteorFaster",
-  "meteorFastest",
-];
-
-/** Every rock: the five tiers plus the torch. */
-const METEOR_KINDS: readonly CreatureKind[] = [...METEOR_TIER_KINDS, "torch"];
-
-/**
- * The `CreatureKind` values `isMeteorKind` accepts, spelled out once so a
- * wave that names a rock kind (`packages/content/src/waves.ts`) can be typed
- * against exactly that set instead of the bare `CreatureKind` union, which
- * would let a wave author a living kind where only a rock belongs.
- */
-export type RockKind =
-  | "meteor"
-  | "meteorMedium"
-  | "meteorFast"
-  | "meteorFaster"
-  | "meteorFastest"
-  | "torch";
-
-/**
- * True for any rock — dead, indestructible, warded rather than shot. Call
- * this instead of writing `kind === "meteor"` by hand: that shape checks only
- * the original, slowest tier and silently drops every rock added since.
- */
-export function isMeteorKind(kind: CreatureKind): boolean {
-  return METEOR_KINDS.includes(kind);
-}
-
-/**
- * Tiles a creature falls each beat. Only the rock kinds ever differ from one
- * — five tiers, one tile per beat apart, `meteor` the original and slowest.
- *
- * `torch` is deliberately not appended to `METEOR_TIER_KINDS`: that would
- * silently make it tier six, one beat faster than intended, and drift the
- * next time a tier is added. It stays the fastest thing in the field instead,
- * by calling this function rather than repeating the number — `+ 8` is as
- * fast as it can go without dropping the fall from two beats to one: a torch
- * can be shot full of holes while it falls (`torch.test.ts`), and a one-beat
- * fall leaves nowhere near enough of the flight in range for that to still
- * be a thing a player can do, not just a thing that is technically possible.
- */
-export function fallTilesPerBeat(kind: CreatureKind): number {
-  if (kind === "torch") return fallTilesPerBeat("meteorFastest") + 8;
-  const tier = METEOR_TIER_KINDS.indexOf(kind);
-  return tier === -1 ? 1 : tier + 1;
-}
-
-/**
- * Columns wide a kind occupies. Every kind is one tile except the torch,
- * which is two — twice a plain rock's width.
- */
-export function colSpan(kind: CreatureKind): number {
-  return kind === "torch" ? 2 : 1;
-}
-
-/**
- * Whether a creature occupies the given column — true for every column its
- * span covers, not only `col` itself. Call this instead of `c.col === col`
- * wherever a column test decides a hit, a hull impact or a shield match: a
- * one-column comparison silently misses the torch's second column.
- *
- * `c.col` is always the *leftmost* column a creature occupies — a span wider
- * than one tile has no single integer column at its centre, so there is
- * nothing else `col` could consistently mean once a kind spans an even
- * number of tiles. See `spanCenterCol` for where the centre is needed.
- */
-export function occupiesCol(c: Creature, col: number): boolean {
-  return col >= c.col && col < c.col + colSpan(c.kind);
-}
-
-/** Clamp a spawn column so a wide creature's whole span stays on the field. */
-export function clampSpanCol(col: number, cols: number, kind: CreatureKind): number {
-  return Math.max(0, Math.min(cols - colSpan(kind), Math.round(col)));
-}
-
-/**
- * The tile column at a creature's visual centre, in tile units. Needed
- * anywhere a wide creature (only the torch, today) must be drawn or reported
- * as one thing rather than as its leftmost column — `col` itself is always
- * an integer, but a two-wide creature's centre sits half a tile past it.
- */
-export function spanCenterCol(kind: CreatureKind, col: number): number {
-  return col + (colSpan(kind) - 1) / 2;
-}
+  | "queen"
+  | "warden"
+  | "tether";
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:

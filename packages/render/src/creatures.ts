@@ -1,5 +1,5 @@
 import { blobPath, crystalPath, livingMotion, livingSilhouette, METEOR } from "@neon-spore/content";
-import { type Creature, isMeteorKind } from "@neon-spore/sim";
+import { type Creature, isBossBody, isMeteorKind } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -25,9 +25,10 @@ export function drawCreatures(
   blocked: ReadonlyMap<number, number>,
 ): void {
   for (const c of creatures) {
-    // The queen is drawn by her own module, because she is the only creature
-    // whose picture depends on world.boss and not on the creature alone.
-    if (c.kind === "queen") continue;
+    // A boss body is drawn by `boss-draw.ts`, because its picture depends on
+    // `world.boss` and not on the creature alone — and so is the tether, which
+    // is a line down a column rather than a thing standing on a tile.
+    if (isBossBody(c.kind) || c.kind === "tether") continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);

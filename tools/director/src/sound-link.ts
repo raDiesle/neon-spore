@@ -28,6 +28,8 @@ const HULL = shape("HULL · PASSIVE");
 const ARMED = shape("HULL · ARMED");
 const MAW = shape("HULL · MAW");
 const QUEEN = shape("BULB QUEEN");
+const WARDEN = shape("WARDEN");
+const WARDEN_OPEN = shape("WARDEN · OPEN");
 
 /**
  * By id, where the id is the only honest answer. Everything not named here
@@ -44,6 +46,10 @@ const BY_ID: Record<string, Subject> = {
   "ship.reload": control("fireCyan"),
   "ship.charge": control("fireRed"),
   "ship.merge": control("fireCyan"),
+  "boss.warden": WARDEN_OPEN,
+  "boss.wardenTether": WARDEN,
+  "boss.wardenPlate": WARDEN,
+
   "ship.guard": ARMED,
   "ship.guardLapse": ARMED,
   "ship.intake": MAW,

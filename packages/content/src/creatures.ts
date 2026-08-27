@@ -114,6 +114,29 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Huge and armoured. Two marks under her middle, one real and one not: one of you sees what is coming, the other sees which side. Every eight beats one of the two torches she carries drops straight out of its socket.",
   },
+  warden: {
+    kind: "warden",
+    controls: ["aim", "guard"],
+    color: null,
+    radar: "p2",
+    blurb:
+      "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
+  },
+  tether: {
+    kind: "tether",
+    // The first `special`: answered by neither cannon nor shield. A hand is
+    // the only thing that touches it, so it carries no control group at all
+    // and a wave containing one shows the band its other creatures ask for.
+    controls: [],
+    color: null,
+    // Nobody's strip. It is installed by the boss rather than arriving from
+    // above, and the boss is already announced — a second warning of a thing
+    // that is not travelling anywhere would be noise on a strip that exists
+    // to say what is coming.
+    radar: "none",
+    blurb:
+      "A line out of THE WARDEN's rim, holding one of your two sliding controls. Cannot be shot and cannot be warded — only the player it is *not* holding can pull it off, and that costs them their own hand.",
+  },
 };
 
 /**
@@ -154,9 +177,10 @@ export function showsRadar(role: "p1" | "p2" | "test", kind: CreatureKind): bool
 }
 
 /**
- * The bestiary grouped by what a player does about it. `"special"` is
- * reserved for a creature answered by neither `aim` nor `guard` — nothing
- * standard describes it, and nothing is forced into it today.
+ * The bestiary grouped by what a player does about it. `"special"` is for a
+ * creature answered by neither `aim` nor `guard`, and it stood empty until
+ * THE WARDEN's tether: a thing you can only put a hand on is exactly what it
+ * was being held open for (docs/spec/bestiary.md).
  */
 export type CreatureCategory = "cannon" | "shield" | "mixed" | "special";
 

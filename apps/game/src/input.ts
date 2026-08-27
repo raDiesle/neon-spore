@@ -7,7 +7,7 @@ import {
   touchMove,
   touchUp,
 } from "@neon-spore/render";
-import type { Command, Creature } from "@neon-spore/sim";
+import type { Command, Creature, SimConfig } from "@neon-spore/sim";
 import { bindKeys } from "./keys.js";
 
 /**
@@ -43,6 +43,8 @@ export interface Bindings {
    * strips below can be told apart by where they are, and this cannot.
    */
   player: () => 1 | 2;
+  /** The numbers the hit test needs — today, the row a tether hangs from. */
+  cfg: SimConfig;
   /** The field, for hit-testing a finger against what is falling. */
   creatures: () => readonly Creature[];
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
@@ -66,6 +68,7 @@ export function bindControls({
   stage,
   isOver,
   player,
+  cfg,
   creatures,
   beatPhase,
   onPauseToggle,
@@ -77,6 +80,7 @@ export function bindControls({
     creatures: creatures(),
     beatPhase: beatPhase(),
     seat: player(),
+    wardenRow: cfg.wardenRow,
   });
 
   const down = (id: number, x: number, y: number): void => {

@@ -1,12 +1,14 @@
 import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
+import type { WardenEntry } from "./entries.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { endPrime } from "./lance.js";
 import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
 import { createRng } from "./rng.js";
-import { clampSpanCol, fallTilesPerBeat } from "./types.js";
+import { clampSpanCol, fallTilesPerBeat, isBossBody, WARDEN_COLS } from "./types.js";
+import { NO_TETHER } from "./warden-cycle.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
 /**
@@ -23,8 +25,9 @@ export function onBeat(world: World): void {
   // Creatures land on tile centres each beat, all at once — most move one
   // tile, a rock may move several, but never a fraction of one.
   for (const c of world.creatures) {
-    // The queen holds her row until she is made to descend — see `boss.ts`.
-    if (c.kind === "queen") continue;
+    // A boss body holds its row: the queen until petals make her descend, the
+    // Warden for good. `isBossBody` is the one place both are named.
+    if (isBossBody(c.kind)) continue;
     c.fromRow = c.row;
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
@@ -122,6 +125,8 @@ export function startWave(
 
   if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
+  } else if (boss?.kind === "warden") {
+    installWarden(world, boss);
   } else if (boss) {
     const id = world.nextId++;
     world.creatures.push({
@@ -165,46 +170,39 @@ export function startWave(
 }
 
 /**
- * Wipe the run itself: hull, scars, score and balance. Used by a restart after
- * the hull is through, and by jumping to a wave in the test build.
- */
-export function resetRun(world: World): void {
-  world.hullMilli = 100 * MILLI;
-  world.scars = [];
-  world.score = 0;
-  world.over = false;
-  world.guard.tries = 0;
-  world.guard.deflected = 0;
-  world.guard.mistimed = 0;
-  world.balance = emptyRunStats();
-}
-
-/**
- * End the run where it stands, without waiting for the hull to go. The game
- * never calls this — there the hull decides — but the director does, because
- * it plays with the hull held (`hullInvulnerable`) and the balance sheet is a
- * screen that has to be reachable to be judged.
- */
-export function endRun(world: World): void {
-  world.over = true;
-}
-
-/**
- * Put the clock itself back to zero: tick, beat, the id counter and the seeded
- * rng. `resetRun` deliberately leaves all four alone — a restart mid-session is
- * one continuous run, and the tick counter is what every window in the game is
- * measured against.
+ * THE WARDEN takes the field where it stands and never leaves it: dead centre,
+ * at `wardenRow`, five columns wide. There is no starting column to author —
+ * a ring placed off centre is a ring with a short side — so the only thing a
+ * wave says about it is how many plates it wears.
  *
- * Two devices agreeing to start together is the one case where they must go
- * back. Delayed lockstep numbers every command by the tick it takes effect on,
- * so two worlds that begin on different tick counts are not one game played
- * twice; they are two games. Call this, then `resetRun`, then `startWave`.
- *
- * Never from inside `step`: the tick is being counted there.
+ * The pupil starts in the middle of the body, which is also the column the two
+ * controls start in: the first cycle's line comes down over the pupil, and the
+ * pair's first move in the fight is to get out from under their own eye.
  */
-export function resetClock(world: World, seed: number): void {
-  world.tick = 0;
-  world.beat = 0;
-  world.nextId = 1;
-  world.rng = createRng(seed);
+function installWarden(world: World, entry: WardenEntry): void {
+  const id = world.nextId++;
+  const col = Math.floor((world.cfg.cols - WARDEN_COLS) / 2);
+  world.creatures.push({
+    id,
+    kind: "warden",
+    col,
+    row: world.cfg.wardenRow,
+    fromRow: world.cfg.wardenRow,
+    color: null,
+    holes: 0,
+    petals: 0,
+    dragMilli: 0,
+  });
+  world.boss = {
+    kind: "warden",
+    creatureId: id,
+    tetherId: NO_TETHER,
+    pupilCol: col + Math.floor(WARDEN_COLS / 2),
+    pupilDir: 1,
+    plates: entry.plates ?? world.cfg.wardenPlates,
+    tornBeat: -1,
+    openBeat: -1,
+    eyeSpent: false,
+    pullTicks: 0,
+  };
 }

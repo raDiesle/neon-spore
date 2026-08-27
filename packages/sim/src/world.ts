@@ -8,21 +8,14 @@ import { dropLostGrips, NO_GRIP } from "./grip.js";
 import { NO_PRIME, noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
-import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
+import { pullTether } from "./warden.js";
 
 export type { BossEntry, MirrorEntry, PodEntry, QueenEntry, SpawnEntry } from "./entries.js";
+export type { SimEvent } from "./events.js";
 
 import type { PodEntry, SpawnEntry } from "./entries.js";
-import type {
-  Bullet,
-  Color,
-  Creature,
-  GuardStats,
-  Pod,
-  PodKind,
-  Scar,
-  TimedCommand,
-} from "./types.js";
+import type { SimEvent } from "./events.js";
+import type { Bullet, Creature, GuardStats, Pod, Scar, TimedCommand } from "./types.js";
 
 /**
  * Everything the simulation knows. Integers only — see docs/architecture.md.
@@ -91,51 +84,6 @@ export interface World {
   events: SimEvent[];
 }
 
-export type SimEvent =
-  | { type: "beat"; beat: number }
-  | { type: "waveStart"; wave: number }
-  | { type: "needWave"; wave: number }
-  /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
-  | { type: "fire"; col: number; color: Color; lance: boolean }
-  /** The lobe came full: from this moment the next shot out of it is a lance. */
-  | { type: "lanceFull"; col: number }
-  /** A shot went out through a lobe that was not full yet, and took the fill with it. */
-  | { type: "lanceSpilled"; col: number }
-  | { type: "destroy"; col: number; row: number; color: Color }
-  | { type: "hole"; col: number; row: number }
-  | { type: "reject"; col: number; row: number }
-  | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }
-  /** A hand took hold. Only the moment it lands — the hold itself is state,
-   * not an event, and render/ reads it off the world every frame. */
-  | { type: "grip"; player: 1 | 2; col: number; row: number }
-  | { type: "podLoose"; col: number; row: number }
-  | { type: "podTaken"; col: number; kind: PodKind }
-  | { type: "podLost"; col: number }
-  | {
-      type: "breach";
-      col: number;
-      damage: number;
-      span: number;
-      kind: Creature["kind"];
-      fromRow: number;
-      /** The beat this happened on — matches the `Scar`s it left, so render/
-       * can tell a scar's crack apart from one an earlier beat left behind. */
-      beat: number;
-    }
-  | { type: "petal"; col: number; row: number; left: number }
-  | { type: "queenDown"; col: number; row: number }
-  /**
-   * THE MIRROR performed one step of a sequence. `index` is 1-based, and
-   * `col` is the column its own cannon was standing in as it did — which is
-   * where render/ drops the ghost of a shot it performed.
-   */
-  | { type: "mirrorShow"; step: MirrorStep; index: number; of: number; col: number }
-  /** The pair answered one step of a sequence correctly. */
-  | { type: "mirrorEcho"; step: MirrorStep; index: number; of: number }
-  /** A round is settled — right or wrong, why, and where it landed. */
-  | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
-  | { type: "mirrorDown"; col: number };
-
 export const MILLI = 1000;
 
 export function createWorld(
@@ -203,6 +151,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // After the shots, before anything else asks who is holding what: a hand
   // stays on a creature until the creature stops existing.
   dropLostGrips(world);
+  // The Warden's rescue is the one hold measured in ticks rather than beats,
+  // because it accumulates: see `wardenPullBeats`.
+  pullTether(world);
   advancePods(world);
   regenerateHull(world);
   progressWave(world);

@@ -1,5 +1,15 @@
-import { catmullRomToBezierPath, hullRadiusMul, type Point } from "@neon-spore/content";
+import {
+  type CreatureSilhouette,
+  catmullRomToBezierPath,
+  hullRadiusMul,
+  type Point,
+  type RingSilhouette,
+  WARDEN_PUPIL_OPEN,
+  WARDEN_RING,
+} from "@neon-spore/content";
 import type { Subject } from "./contour.js";
+
+export type { RingSilhouette };
 
 /**
  * The ring: the one contour in this game with a hole through it.
@@ -19,27 +29,11 @@ import type { Subject } from "./contour.js";
  */
 
 /**
- * The lobes of one loop of a ring. A ring is two of these — an outer body and
- * a pupil cut out of it — and they are tuned separately on purpose: the game
- * has no other shape whose inside can be more restless than its outside.
+ * The shape itself now lives in `packages/content` — the game draws THE WARDEN,
+ * so its parameters belong where every other drawn silhouette's do and this
+ * sheet reads the same copy the canvas does. What is left here is only how one
+ * is built out of points.
  */
-export interface RingLobes {
-  lobes: number;
-  depth: number;
-  wobble: number;
-  seed: number;
-}
-
-export interface RingSilhouette {
-  outer: RingLobes;
-  pupil: RingLobes;
-  rx: number;
-  ry: number;
-  /** Pupil radius as a fraction of the body's, before anything dilates it. */
-  pupilMul: number;
-  /** How far off centre the pupil sits, in fractions of `rx`. */
-  pupilDx: number;
-}
 
 /**
  * A body with a hole through it, sampled through the same `hullRadiusMul`
@@ -51,7 +45,7 @@ export interface RingSilhouette {
  * point of this shape is that the two edges disagree.
  */
 export function ring(name: string, s: RingSilhouette, note: string): Subject {
-  const loop = (l: RingLobes, rx: number, ry: number, dx: number, t: number): Point[] => {
+  const loop = (l: CreatureSilhouette, rx: number, ry: number, dx: number, t: number): Point[] => {
     const pts: Point[] = [];
     const N = 40;
     for (let i = 0; i < N; i++) {
@@ -65,8 +59,37 @@ export function ring(name: string, s: RingSilhouette, note: string): Subject {
     name,
     note,
     open: false,
-    pointsAt: (t) => loop(s.outer, s.rx, s.ry, 0, t),
-    hole: (t) => loop(s.pupil, s.rx * s.pupilMul, s.ry * s.pupilMul, s.pupilDx * s.rx, t),
+    pointsAt: (t) => loop(s.outer, s.outer.rx, s.outer.ry, 0, t),
+    hole: (t) =>
+      loop(
+        s.pupil,
+        s.outer.rx * s.pupilMul,
+        s.outer.ry * s.pupilMul,
+        s.pupilTravel * s.outer.rx,
+        t,
+      ),
     path: catmullRomToBezierPath,
   };
 }
+
+/**
+ * THE WARDEN's ring at a named point of the pupil's travel — `at` is 0 at home
+ * and 1 at the edge, the same number the canvas derives from the pupil's
+ * column, so a pose here cannot show an offset the game can never reach.
+ */
+function warden(name: string, note: string, at: number, pupilMul = WARDEN_RING.pupilMul): Subject {
+  return ring(name, { ...WARDEN_RING, pupilMul, pupilTravel: WARDEN_RING.pupilTravel * at }, note);
+}
+
+/**
+ * The three poses of it worth judging apart, and there is no fourth. A still
+ * cannot show a slide, and GLARE — the last phase — is the open pupil at rest,
+ * which would be the third card twice.
+ */
+export const WARDEN_POSES: Subject[] = [
+  // Not dead centre: a hole exactly in the middle of a ring reads as a washer,
+  // and the pupil is only ever at home for the one beat it passes through.
+  warden("WARDEN", "8 lobes · pupil of 5 · a hole you see the field through", 0.36),
+  warden("WARDEN · LOOKING", "the pupil run out to the edge of its travel", 1),
+  warden("WARDEN · OPEN", "the two beats the core is exposed", 0.2, WARDEN_PUPIL_OPEN),
+];

@@ -1,5 +1,7 @@
 import { markMoment } from "./balance.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
+import { wardenEyeOpen } from "./warden.js";
+import { wardenColor, wardenCycle } from "./warden-cycle.js";
 import type { World } from "./world.js";
 
 /**
@@ -29,6 +31,10 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "queen") {
     resolveQueen(world, b, hit);
+    return false;
+  }
+  if (hit.kind === "warden") {
+    resolveWarden(world, b, hit);
     return false;
   }
   if (hit.color !== b.color) {
@@ -88,6 +94,53 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
     world.score += world.cfg.scoreQueenDown;
     world.boss = null;
     world.events.push({ type: "queenDown", col: b.col, row: hit.row });
+  }
+}
+
+/**
+ * THE WARDEN is armour everywhere except the hole, and the hole is only a
+ * target for the two beats the rim's recoil holds it open. Three things have
+ * to line up and each of them belongs to a different half of the pair's
+ * attention: the eye has to be open, which is the rescue the *other* player
+ * just made; the shot has to be in the pupil's column, which drifts; and it
+ * has to carry the rim's colour, which follows the clamp and is therefore
+ * known a whole cycle in advance.
+ *
+ * A second shot inside the same opening does nothing at all. A spray must not
+ * be allowed to skip a plate — the fight is one aimed shot per rescue.
+ */
+function resolveWarden(world: World, b: Bullet, hit: Creature): void {
+  const boss = world.boss;
+  if (boss === null || boss.kind !== "warden") return;
+  if (!wardenEyeOpen(world, boss) || boss.eyeSpent || b.col !== boss.pupilCol) {
+    // Armour, a shut iris, or an opening already spent. Deliberately *not* a
+    // colour miss: the ammunition may have been perfectly right and the moment
+    // wrong, and charging that to the colour balance would read the failure to
+    // the wrong player.
+    world.events.push({ type: "reject", col: b.col, row: hit.row });
+    return;
+  }
+  const rim = wardenColor(wardenCycle(world.cfg, world.waveBeat));
+  if (b.color !== rim) {
+    // The rim has carried this colour since the tether attached, on both
+    // screens. Getting it wrong is a colour miss and nothing else.
+    missedColor(world);
+    world.events.push({ type: "reject", col: b.col, row: hit.row });
+    return;
+  }
+
+  metColor(world);
+  boss.eyeSpent = true;
+  boss.plates -= 1;
+  world.score += world.cfg.scoreWardenPlate;
+  world.events.push({ type: "plate", col: b.col, row: hit.row, left: boss.plates, color: rim });
+
+  if (boss.plates <= 0) {
+    const gone = new Set([hit.id, boss.tetherId]);
+    world.creatures = world.creatures.filter((c: Creature) => !gone.has(c.id));
+    world.score += world.cfg.scoreWardenDown;
+    world.boss = null;
+    world.events.push({ type: "wardenDown", col: b.col, row: hit.row });
   }
 }
 

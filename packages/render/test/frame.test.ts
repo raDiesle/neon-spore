@@ -3,11 +3,16 @@ import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  gripsCreature,
   type SimEvent,
   type SpawnEntry,
   startWave,
   step,
+  type TimedCommand,
   ticksPerBeat,
+  wardenCycle,
+  wardenRescuer,
+  wardenTether,
 } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { creatureAt, creatureCenter } from "../src/creature-place.js";
@@ -62,7 +67,7 @@ function frames(role: ViewRole, ticks: number, viewport = { width: 900, height: 
 }
 
 /** The index of the wave carrying a boss of this kind. */
-function waveWith(kind: "queen" | "mirror"): number {
+function waveWith(kind: "queen" | "mirror" | "warden"): number {
   const index = WAVES.findIndex((w) => w.boss?.kind === kind);
   if (index === -1) throw new Error(`no wave carries the ${kind}`);
   return index;
@@ -355,6 +360,73 @@ describe("the mirror", () => {
   }
 });
 
+/**
+ * THE WARDEN over a whole cycle, driven rather than watched: the line has to
+ * be *torn* for the pupil to open, and the two beats it stands open are the
+ * only frames the core is ever drawn in. Left alone, this wave would never
+ * draw the half of the boss that matters.
+ */
+function wardenFrames(role: ViewRole, ticks: number) {
+  const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+  const index = waveWith("warden");
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+
+  const tpb = ticksPerBeat(CFG);
+  const all: SimEvent[] = [];
+  let events: SimEvent[] = [];
+  for (let tick = 0; tick < ticks; tick++) {
+    // The rescuing player's hand goes on the line as soon as there is one, and
+    // stays until it comes away — a held line, a torn one, the whip after it
+    // and the open pupil are four separate pictures.
+    const tether = wardenTether(world);
+    const rescuer = wardenRescuer(wardenCycle(CFG, world.waveBeat));
+    const commands: TimedCommand[] =
+      tether && !gripsCreature(world, rescuer, tether.id)
+        ? [{ tick: world.tick, player: rescuer, command: { kind: "grip", id: tether.id } }]
+        : [];
+    step(world, commands);
+    if (world.events.length) events.push(...world.events);
+    all.push(...world.events);
+
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+      banner: null,
+    });
+    events = [];
+  }
+  return { world, ctx, events: all };
+}
+
+describe("the warden", () => {
+  for (const role of ROLES) {
+    it(`draws the ring, a held line and an open pupil for ${role}`, () => {
+      const { ctx } = wardenFrames(role, ticksPerBeat(CFG) * (CFG.wardenCycleBeats + 2));
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  it("really did tear a line and open the pupil, or the frames proved nothing", () => {
+    // The state is no help here: the next cycle's attach puts `openBeat` back
+    // to -1, so by the last frame there is nothing left to look at. What the
+    // run reported is the record.
+    const { events } = wardenFrames("test", ticksPerBeat(CFG) * (CFG.wardenCycleBeats + 2));
+    expect(events.some((e) => e.type === "tetherTorn")).toBe(true);
+    expect(events.some((e) => e.type === "eyeOpen")).toBe(true);
+    expect(events.some((e) => e.type === "vent")).toBe(true);
+  });
+});
+
 describe("the queen", () => {
   for (const role of ROLES) {
     it(`draws every state for ${role} without the canvas refusing a value`, () => {
@@ -524,7 +596,7 @@ describe("a finger on the field", () => {
   it("finds what it is pointing at, mid-glide", () => {
     for (const c of world.creatures) {
       const at = creatureCenter(L, c, 0.5);
-      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5)?.id).toBe(c.id);
+      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, CFG.wardenRow)?.id).toBe(c.id);
     }
   });
 
@@ -532,7 +604,7 @@ describe("a finger on the field", () => {
     const c = world.creatures[0];
     if (!c) throw new Error("the field is empty");
     const at = creatureCenter(L, c, 0.5);
-    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5)).toBeNull();
+    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5, CFG.wardenRow)).toBeNull();
   });
 
   it("never offers the queen, who cannot be gripped", () => {
@@ -542,6 +614,6 @@ describe("a finger on the field", () => {
     const queen = boss.creatures.find((c) => c.kind === "queen");
     if (!queen) throw new Error("no queen");
     const at = creatureCenter(L, queen, 0);
-    expect(creatureAt(L, boss.creatures, at.x, at.y, 0)).toBeNull();
+    expect(creatureAt(L, boss.creatures, at.x, at.y, 0, CFG.wardenRow)).toBeNull();
   });
 });

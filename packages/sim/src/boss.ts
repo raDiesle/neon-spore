@@ -12,6 +12,7 @@ import {
 } from "./queen-mark.js";
 import { nextInt } from "./rng.js";
 import { type Creature, colSpan } from "./types.js";
+import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
 
 /**
@@ -74,6 +75,10 @@ export function stepBoss(world: World): void {
   if (boss === null) return;
   if (boss.kind === "mirror") {
     stepMirror(world, boss);
+    return;
+  }
+  if (boss.kind === "warden") {
+    stepWarden(world, boss);
     return;
   }
   if (boss.scratch.length === 0) boss.scratch = [0, 1];

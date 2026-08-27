@@ -204,6 +204,14 @@ export const WAVES: Wave[] = [
     },
   },
   {
+    name: "THE WARDEN",
+    sentence:
+      "The one where it holds one of your controls and only the other one of you can get it back.",
+    hint: "It takes the cannon, then the shield, then the cannon. Whoever is free pulls the line — and the rim's colour is the shot.",
+    entries: [],
+    boss: { kind: "warden" },
+  },
+  {
     name: "meteor testings",
     sentence: "meteor testings",
     hint: "meteor testings",

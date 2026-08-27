@@ -1,7 +1,7 @@
 /**
- * The nine bosses that are names holding a slot in the act structure.
+ * The bosses that are still names holding a slot in the act structure.
  *
- * `docs/spec/bosses.md` has two of eleven worked out. The rest are a name and
+ * `docs/spec/bosses.md` has three of eleven built. The rest are a name and
  * a number, and a name is hard to argue with. A voice is easier: the Choir is
  * many voices on one note with one of them wrong, and either that is a fight
  * or it is not — which is a more useful thing to disagree about than the word
@@ -49,19 +49,6 @@ export const BOSS_PLANNED_SOUNDS: SoundDef[] = [
       spore(90.7, 1.2, 0.3, 20),
       spore(89.2, 1.2, 0.3, 20),
       soft(0.5, spore(96, 1.2, 0.28, 40)),
-    ],
-  },
-  {
-    id: "boss.warden",
-    family: "boss",
-    blurb: "A door in something enormous, opening once and shutting once.",
-    status: "spare",
-    use: "The Warden, act 50.",
-    level: 0.42,
-    layers: [
-      metal(44, 0.9, 0.55, 130),
-      after(0.5, air(120, 400, 0.7, 0.12, 3)),
-      after(1.3, soft(0.8, metal(40, 0.8, 0.5, 110))),
     ],
   },
   {

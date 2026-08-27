@@ -17,7 +17,7 @@ const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr:
 function field(seat: 1 | 2 = 1): Field {
   const world = createWorld(CFG, 2, [{ beat: 0, col: 4, kind: "slick", color: "red" }]);
   for (let i = 0; i < 200; i++) step(world, []);
-  return { creatures: world.creatures, beatPhase: 0.5, seat };
+  return { creatures: world.creatures, beatPhase: 0.5, seat, wardenRow: CFG.wardenRow };
 }
 
 describe("a press on the band", () => {

@@ -22,19 +22,35 @@ An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
 reads to the bottom of.
 
+## The one-screen tester cannot pull half of THE WARDEN's tethers
 
-## The catalogue's draft count should be derived, not typed
+2026-08-27 · claude/boss-concepts-implementation-4hri7c
 
-2026-08-27 · claude/cleanup-stale-worktrees-branches-txkdj4
+A finger on the field is signed with the seat this device holds, and in the
+`test` role that seat is player 1. Half the Warden's cycles clamp player 1, and
+you get no leverage on your own tether — so on those cycles a mouse cannot
+touch the line at all and the rescue has to go through the **G** key, which is
+player 2's hand. That is correct for the finished game (one role per device)
+and awkward for the one screen everything is actually tested on.
 
-`docs/asset-catalogue.md` opens with "N drafts: so many creatures, so many
-bosses". It has now been wrong twice in one day — it read "four bosses" while
-there were seven, on both sides of a merge, because two sessions each
-incremented the number they found instead of counting. Every other number in
-the repo that goes stale this way has a test or a generator behind it.
+Not done here because the fix is a choice about the test rig rather than about
+the boss: either the field's touch carries a modifier for "the other seat", or
+the `test` role signs a finger with whichever seat is *not* currently clamped —
+which is a rule that exists only in a view nobody ships. Start at
+`field.seat` in `packages/render/src/touch.ts`.
 
-Not done here because the fix is a choice and this was a merge: either a test
-that parses the sentence and compares it against `CATALOGUE` — cheap, ugly, and
-it fails for the right reason — or the line becomes generated, like
-`bun run checks` derives its own. Start at `tools/shape-sheet/test/drafts.test.ts`,
-which already counts drafts by status and would only need the slots.
+## The Warden's phase table is written twice, in prose and in code
+
+2026-08-27 · claude/boss-concepts-implementation-4hri7c
+
+`WARDEN_PHASES` in `packages/sim/src/warden-cycle.ts` and the table in
+`docs/spec/bosses.md` 11.4 carry the same three rows. The director's boss panel
+already renders the code's copy rather than a third one, so the tool is honest;
+the spec is the copy free to drift. The queen has exactly the same problem one
+section up.
+
+Not done here because the general fix is the interesting one: `tools/director`
+already parses `## N Title — tail` sections out of the spec (`sections.ts`), so
+a check that a spec table matches the constant it describes would cover both
+bosses and every one after them. Start at `tools/director/src/roster.ts`, which
+already reads `bosses.md`.

@@ -56,13 +56,23 @@ export interface MirrorEntry {
   rounds: MirrorStep[][];
 }
 
+/**
+ * What a wave authors when it wants THE WARDEN. No column: it is a fixture,
+ * dead centre, and a Warden placed anywhere else would be a Warden with a
+ * short side. Only how many plates it wears, which is how long the fight is.
+ */
+export interface WardenEntry {
+  kind: "warden";
+  plates?: number;
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
-export type BossEntry = QueenEntry | MirrorEntry;
+export type BossEntry = QueenEntry | MirrorEntry | WardenEntry;
 
 /**
  * The bosses that exist, as data. `tools/director` reads this to say which of
- * the eleven names in `docs/spec/bosses.md` are actually in the game — the
+ * the twelve names in `docs/spec/bosses.md` are actually in the game — the
  * same question `CREATURES` answers for the bestiary, and one a tool must
  * never answer from a list of its own.
  */
-export const BOSS_KINDS: readonly BossEntry["kind"][] = ["queen", "mirror"];
+export const BOSS_KINDS: readonly BossEntry["kind"][] = ["queen", "mirror", "warden"];

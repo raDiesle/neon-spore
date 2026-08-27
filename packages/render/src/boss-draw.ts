@@ -1,8 +1,11 @@
+import { WARDEN_OPEN_BEATS, wardenTether } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
 import type { Layout } from "./layout.js";
 import { drawMirror } from "./mirror.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
+import { drawTether } from "./tether.js";
+import { drawWarden, pupilOpenness } from "./warden.js";
 
 /**
  * Whichever boss the wave installed, drawn among the creatures.
@@ -36,6 +39,32 @@ export function drawBoss(
       effects.queenShake,
       world.cfg.queenEggGrowShare,
     );
+    return;
+  }
+
+  if (boss.kind === "warden") {
+    const body = world.creatures.find((c) => c.id === boss.creatureId);
+    if (!body) return;
+    drawWarden(
+      ctx,
+      l,
+      world.cfg,
+      body,
+      boss,
+      world.waveBeat,
+      world.beat,
+      view.beatPhase,
+      view.time,
+      pupilOpenness(boss, world.beat, view.beatPhase, WARDEN_OPEN_BEATS),
+    );
+    // The line is drawn after the ring it comes out of, and before the whip a
+    // torn one leaves behind — which `effects` draws with everything else that
+    // is transient.
+    const tether = wardenTether(world);
+    if (tether) drawTether(ctx, l, world, boss, tether, view.beatPhase, view.time);
+    // A line that was torn no longer exists in the world, so its fall is the
+    // one part of this boss the picture has to remember for itself.
+    effects.warden.draw(ctx, l, world.cfg.wardenRow);
     return;
   }
 

@@ -13,11 +13,10 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
  * which is exactly the day the new event silently has no sound.
  */
 async function eventTypes(): Promise<string[]> {
-  const src = await Bun.file(join(ROOT, "packages/sim/src/world.ts")).text();
+  const src = await Bun.file(join(ROOT, "packages/sim/src/events.ts")).text();
   const start = src.indexOf("export type SimEvent =");
   expect(start).toBeGreaterThan(-1);
-  const end = src.indexOf("export const MILLI", start);
-  const union = src.slice(start, end);
+  const union = src.slice(start);
   return [...new Set([...union.matchAll(/type:\s*"([a-zA-Z]+)"/g)].map((m) => m[1] as string))];
 }
 
@@ -40,6 +39,12 @@ const SAMPLES: Record<string, SimEvent> = {
   breach: { type: "breach", col: 5, damage: 12_000, span: 1, kind: "slick", fromRow: 10, beat: 8 },
   petal: { type: "petal", col: 3, row: 1, left: 2 },
   queenDown: { type: "queenDown", col: 3, row: 1 },
+  tether: { type: "tether", col: 2, control: "shield", color: "cyan" },
+  tetherTorn: { type: "tetherTorn", col: 2, row: 6, player: 1 },
+  eyeOpen: { type: "eyeOpen", col: 5, color: "red" },
+  vent: { type: "vent", col: 5, kind: "meteor" },
+  plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
+  wardenDown: { type: "wardenDown", col: 5, row: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },
   mirrorEcho: { type: "mirrorEcho", step: "guard", index: 2, of: 3 },
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },

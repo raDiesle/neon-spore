@@ -107,6 +107,28 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         id: e.damage >= 8000 ? "hull.breachHeavy" : "hull.breachLight",
         pan: panForCol(e.col, cols),
       };
+    case "tether":
+      // The rim taking a control. Named by what it costs rather than by which
+      // control, because both screens hear it and only one of them is held.
+      return { id: "boss.wardenTether", pan: panForCol(e.col, cols) };
+    case "tetherTorn":
+      return { id: "ship.gripTake", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
+    case "eyeOpen":
+      // The one cue written for this boss and unspent until now: a door in
+      // something enormous, opening once and shutting once.
+      return { id: "boss.warden", pan: panForCol(e.col, cols) };
+    case "vent":
+      // The same rock leaving the same kind of socket. It is the queen's cue
+      // because it is the queen's event: something large pushing a rock out.
+      return { id: "boss.torchDrop", pan: panForCol(e.col, cols) };
+    case "plate":
+      return {
+        id: "boss.wardenPlate",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "wardenDown":
+      return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     case "petal":
       return { id: "impact.petal", pan: panForCol(e.col, cols) };
     case "queenDown":

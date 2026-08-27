@@ -56,10 +56,51 @@ export interface QueenState {
 }
 
 /**
+ * Everything the Warden encounter remembers between beats — which is
+ * deliberately little. Its cycle number, which control is clamped, the rim's
+ * colour and the phase are all *derived* from `world.waveBeat` and the plates
+ * (`warden.ts`), because a fight with nothing random in it should have nothing
+ * to disagree about either.
+ *
+ * What is left here is the three things that cannot be derived: which line is
+ * live, where the pupil has drifted to, and how much of a hold has gone into
+ * the line so far.
+ */
+export interface WardenState {
+  kind: "warden";
+  /** The id of the ring in `world.creatures`. */
+  creatureId: number;
+  /** The id of the live tether, or `0` while nothing is hanging. */
+  tetherId: number;
+  /** The column the pupil is in. It drifts; the body never moves. */
+  pupilCol: number;
+  /** Which way the pupil is drifting: 1 right, -1 left. */
+  pupilDir: -1 | 1;
+  /** Plates left on the rim. The silhouette is the health bar. */
+  plates: number;
+  /**
+   * The beat this cycle's tether was torn out of the rim, or -1 if it has not
+   * been. Reset at every attach, so it only ever answers for the line that is
+   * hanging now.
+   */
+  tornBeat: number;
+  /** The beat the pupil last snapped wide, or -1 if it has not this cycle. */
+  openBeat: number;
+  /** Whether this opening has already taken its one hit. */
+  eyeSpent: boolean;
+  /**
+   * Ticks of hold the rescuing player has put into the line. Ticks rather than
+   * beats because the hold accumulates and a slip on a phone must not cost a
+   * cycle — see `wardenPullBeats`.
+   */
+  pullTicks: number;
+}
+
+/**
  * The boss a wave installed, whichever one it is. A tagged union rather than
- * one widening interface: the two bosses share the slot and nothing else, and
- * a single struct carrying both sets of fields would let `boss.ts` read a
+ * one widening interface: the three bosses share the slot and nothing else,
+ * and a single struct carrying every set of fields would let `boss.ts` read a
  * `tellColor` off a mirror and get `undefined` at runtime with a clean type
  * check behind it.
  */
-export type BossState = QueenState | MirrorState;
+export type BossState = QueenState | MirrorState | WardenState;

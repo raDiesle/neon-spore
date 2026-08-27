@@ -21,6 +21,16 @@ export function resolveHull(world: World): void {
       continue;
     }
 
+    if (c.kind === "tether") {
+      // Not shootable and not wardable — the shield has nothing to do with it
+      // and it is not a guard try. A line that gets all the way down breaks
+      // the hull in the column the pair chose a cycle ago, and lets go. What
+      // it does *not* do is also take the plate that would have opened: this
+      // fight has no spiral in it (docs/spec/bosses.md 11.4).
+      breachHull(world, c.col, c.kind, c.fromRow, world.cfg.damageWarden);
+      continue;
+    }
+
     if (isMeteorKind(c.kind)) {
       const inColumn = occupiesCol(c, world.shieldCol);
       const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
