@@ -45,6 +45,12 @@ export function hashWorld(world: World): number {
     push(shot.lance ? 1 : 0);
   }
   push(world.hullMilli);
+  // A ward pod arms the shield without a guard command until this tick — a
+  // fact about the world exactly like `hullMilli`, and missing here the same
+  // way a bug could miss it: two devices could run the same inputs and the
+  // same tick count and still disagree about whether a rock gets deflected,
+  // with nothing above catching it.
+  push(world.wardUntilTick);
   push(world.rng.state);
   push(world.guard.tries);
   push(world.guard.deflected);

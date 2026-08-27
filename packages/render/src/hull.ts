@@ -111,9 +111,14 @@ export function drawHull(
   // is unchanged — it is sampled past both edges so it never ends in view — but
   // nothing of the ship is drawn outside the coordinate field, because that is
   // where the game ends on a phone and a wider screen may not show more ship.
+  // The bottom edge is `bandTop`, not `l.height`: the field ends where the
+  // control band begins, and everything in this function — the fill already
+  // stops there (`filled`, above) — has to agree, or the one shape with
+  // negative lift (the maw, inverted past the hull line) draws into the
+  // buttons instead of stopping at the skin around it.
   ctx.save();
   ctx.beginPath();
-  ctx.rect(l.gridLeft, 0, l.gridWidth, l.height);
+  ctx.rect(l.gridLeft, 0, l.gridWidth, l.bandTop);
   ctx.clip();
 
   // Dark where it is thick, bright at the skin: a jellyfish is mostly the
@@ -193,7 +198,22 @@ function strokeHullRim(
  * the throat instead: it widens and darkens, and it sits at the bottom of the
  * dent rather than at the top of the swelling, because `surface` follows the
  * lobe wherever the lobe has gone.
+ *
+ * At rest this is the same circle it always was, offset a little below the
+ * tip so it sits inside the raised muzzle rather than on its peak. As the
+ * maw opens, that offset eases back to zero — the tip is already sinking
+ * into the throat, so the opening no longer needs to reach further below it
+ * — and the growth that used to go equally into the radius in every
+ * direction now goes sideways only. `MUZZLE_RY` never changes with intake:
+ * whatever the maw does, this shape cannot reach any further below the tip
+ * than the resting muzzle already did. The width spends what the depth no
+ * longer does — at full intake, `rx` against `MUZZLE_RY` fills 0.94 × 0.13 ×
+ * π ≈ 0.1222 tile², against the old full-intake circle's 0.35² × π ≈ 0.1225
+ * tile²: the same opening, spent across instead of down.
  */
+const MUZZLE_RY = 0.13;
+const MUZZLE_RX_OPEN = 0.94;
+
 function drawMuzzle(
   ctx: CanvasRenderingContext2D,
   f: HullFrame,
@@ -202,9 +222,12 @@ function drawMuzzle(
   skin_: HullSkin,
 ): void {
   const tip = surface(f, f.cannonX);
+  const cy = tip.y + l.tile * 0.12 * (1 - intake);
+  const rx = l.tile * (0.13 + (MUZZLE_RX_OPEN - 0.13) * intake);
+  const ry = l.tile * MUZZLE_RY;
   ctx.fillStyle = skin_.muzzle;
   ctx.beginPath();
-  ctx.arc(tip.x, tip.y + l.tile * 0.12, l.tile * (0.13 + 0.22 * intake), 0, Math.PI * 2);
+  ctx.ellipse(tip.x, cy, rx, ry, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = intake > 0.5 ? PALETTE.podRim : skin_.edge;
   ctx.lineWidth = STROKE.outline;

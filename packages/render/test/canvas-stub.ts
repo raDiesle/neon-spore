@@ -155,6 +155,19 @@ export class StubContext {
     if (r < 0) fail("arc", `radius ${r} is negative`);
     this.calls++;
   }
+  ellipse(
+    x: number,
+    y: number,
+    rx: number,
+    ry: number,
+    rotation: number,
+    from: number,
+    to: number,
+  ): void {
+    nums("ellipse", [x, y, rx, ry, rotation, from, to]);
+    if (rx < 0 || ry < 0) fail("ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
+    this.calls++;
+  }
   fillRect(...a: number[]): void {
     nums("fillRect", a);
     this.calls++;
