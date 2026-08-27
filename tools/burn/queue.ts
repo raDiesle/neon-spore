@@ -118,6 +118,42 @@ export function clashes(lanes: readonly Lane[]): string[] {
   return found;
 }
 
+/**
+ * The package a path sits in — `packages/sim`, `apps/game`, `tools/director`.
+ * Two segments, because that is the depth at which this repository's files
+ * start sharing a `config.ts` and a `types.ts`.
+ */
+function packageOf(path: string): string {
+  const parts = path.split("/");
+  return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : (parts[0] ?? "");
+}
+
+/**
+ * Lanes that own nothing in common and will still meet in a rebase.
+ *
+ * `clashes` catches the case the ownership line was written for and misses
+ * the one that actually happens: three lanes with perfectly disjoint files,
+ * all inside `packages/sim`, all adding a line to `config.ts`, `types.ts` and
+ * `hashWorld` — the files owned by nobody precisely because everybody needs
+ * them. Disjoint ownership was never the same claim as disjoint work.
+ *
+ * This is a warning and not a refusal. Two lanes in one package is often the
+ * right call and the replay is cheap; three is where the third one starts
+ * paying for the two before it, and the point is that it is said in advance
+ * rather than discovered at the landing.
+ */
+export function crowding(lanes: readonly Lane[]): string[] {
+  const byPackage = new Map<string, string[]>();
+  for (const lane of lanes) {
+    for (const pkg of new Set(lane.owns.map(packageOf))) {
+      byPackage.set(pkg, [...(byPackage.get(pkg) ?? []), lane.branch]);
+    }
+  }
+  return [...byPackage.entries()]
+    .filter(([, branches]) => branches.length > 1)
+    .map(([pkg, branches]) => `${branches.length} lanes in ${pkg}: ${branches.join(", ")}`);
+}
+
 /** The first lane nobody has opened a branch for. Where a resumed run starts. */
 export function nextLane(
   lanes: readonly Lane[],

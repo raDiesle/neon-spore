@@ -48,8 +48,17 @@ Ordered: the first thing in the file is the next thing done. Six to ten lanes
 is a queue; thirty is a wish. Commit it before spawning anything — a plan that
 exists only in the transcript is not a plan.
 
-**Ownership is the whole safety mechanism.** Two lanes may not own the same
-path, and `bun run burn` says so if they do. The files everything wants —
+**Ownership is most of the safety mechanism, and it is not all of it.** Two
+lanes may not own the same path, and `bun run burn` refuses to be quiet about
+two that do. But disjoint ownership was never the same claim as disjoint work:
+three lanes with perfectly separate files, all inside `packages/sim`, all add
+a line to `config.ts`, `types.ts` and `hashWorld` — the files owned by nobody
+precisely because everybody needs them. That is a rebase apiece, and the third
+lane pays for the two before it. `bun run burn` warns about it as *crowded*,
+which is a warning and not a refusal: two lanes in one package is often right
+and the replay is cheap. Three is where it stops being cheap. Prefer a batch
+that spans packages — one in `sim`, one in `render`, one in `tools` — over
+three good lanes that happen to live together. The files everything wants —
 `config.ts`, `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by
 nobody: a lane may add to one in a single contiguous region and will replay
 over somebody else's addition. A lane that would *restructure* one runs alone,

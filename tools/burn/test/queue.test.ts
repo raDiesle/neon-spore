@@ -1,5 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { clashes, type LaneFact, nextLane, parseQueue, render, statusOf } from "../queue.js";
+import {
+  clashes,
+  crowding,
+  type LaneFact,
+  nextLane,
+  parseQueue,
+  render,
+  statusOf,
+} from "../queue.js";
 
 const QUEUE = `# Queue
 
@@ -118,5 +126,42 @@ describe("render", () => {
     );
     const facts = new Map([["a", fact({ ahead: 0, atTip: true })]]);
     expect(render(lanes, facts)).not.toContain("ownership clash");
+  });
+});
+
+describe("crowding", () => {
+  const THREE = `## A
+_a · packages/sim/src/briefing.ts_
+
+x
+
+## B
+_b · packages/sim/src/fork.ts_
+
+y
+
+## C
+_c · packages/render/src/backdrop.ts_
+
+z
+`;
+
+  // The failure this was written for: three lanes with perfectly disjoint
+  // files, all inside packages/sim, all adding a line to config.ts, types.ts
+  // and hashWorld — the files owned by nobody because everybody needs them.
+  test("names the package two lanes share, and not the one only a third is in", () => {
+    const found = crowding(parseQueue(THREE));
+    expect(found).toHaveLength(1);
+    expect(found[0]).toContain("packages/sim");
+    expect(found[0]).toContain("2 lanes");
+  });
+
+  test("a lane alone in its package is not crowding", () => {
+    expect(crowding(parseQueue("## A\n_a · packages/sim/src/fork.ts_\n\nx\n"))).toEqual([]);
+  });
+
+  test("one lane owning two files in a package does not crowd itself", () => {
+    const one = parseQueue("## A\n_a · packages/sim/src/fork.ts packages/sim/src/vane.ts_\n\nx\n");
+    expect(crowding(one)).toEqual([]);
   });
 });
