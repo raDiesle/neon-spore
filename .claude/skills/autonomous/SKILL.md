@@ -179,6 +179,15 @@ preview`, wave 3; the director's CARDS tab; `bun run shapes:page`. If a
 repository command settles it outright, put it in backticks and
 `bun run checks --run` will run it without a person at all.
 
+**The restatement is a second commit, immediately after.** A lane writes its
+entry into `docs/checks/restated.md` keyed by the sha of the commit carrying
+the trailer — which does not exist until that commit is made, so "in the same
+commit" is a paradox and a lane told me so rather than fudging it. Commit the
+work, read the sha, commit the restatement naming it. **Quote the trailer word
+for word**: the keying is exact on purpose, because a loose match can attach a
+restatement to the wrong check, and five entries failed to attach in one
+evening for being quoted nearly.
+
 **And a picture, when the change is visual and one is cheap.** A lane driving
 a headless preview can already capture a frame; capturing the same frame
 before the change costs one `git stash` and a second capture. Commit both

@@ -385,3 +385,25 @@ same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
 and how much of the fifty-five it can actually answer, since a check about a
 sound or about two devices cannot be photographed at all. Report that number
 honestly before capturing anything in bulk.
+
+## A SHAPE NOBODY HAS DRAWN IS THE CHEAPEST THING IN THIS REPOSITORY TO BE SHORT OF
+_claude/burn-assets-a1 · tools/shape-sheet/src/drafts docs/asset-catalogue.md_
+
+Thirty creatures, fifteen bosses and twelve interludes are designed and
+undrawn, and every one of them will eventually stall on the same thing: a
+contour nobody has spent an hour on. The shape sheet exists precisely so that
+hour can happen away from the game — `bun run shapes:report` prints geometry as
+numbers, `bun run shapes` regenerates the stills and the motion sheet, and
+`tools/shape-sheet/src/drafts/` already holds a shape per open idea joined to
+what it is offered to by `suggests`.
+
+Draw ahead of the need. Pick unbuilt subjects from `bun run burn --candidates`
+that the design argues for most clearly, and give each a contour and an
+own-motion in the sheet's own vocabulary — not in the game, which is what
+keeps this cheap and reversible. Finished when the drafts drawer has several
+new subjects, each one named for the idea it serves, each legible at 26 px by
+its own numbers, and `docs/asset-catalogue.md` says what is now spendable.
+
+The rule that outranks prettiness: **a silhouette must mean the same word every
+time.** Two people say shapes out loud across a two-second delay. A shape that
+is beautiful and ambiguous is a shape that costs the pair their vocabulary.
