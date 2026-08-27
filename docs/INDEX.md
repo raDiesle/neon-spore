@@ -165,6 +165,10 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/sound-art.ts` | that subject drawn — a contour or a control glyph, never an invented icon |
 | `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
+| `tools/director/src/backlog.ts` | the six spec-derived groups, and where `queue`/`designs` are stitched in |
+| `tools/director/src/backlog-api.ts` | `GET /api/backlog`: nine files read, parsed and joined into one response |
+| `tools/director/src/queue-panel.ts` | `docs/queue.md` as a backlog group, joined to what git knows about each lane |
+| `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |

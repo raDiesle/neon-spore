@@ -45,6 +45,8 @@ interface Backlog {
   bosses: BacklogGroup[];
   interludes: BacklogGroup[];
   parked: BacklogGroup[];
+  queue: BacklogGroup[];
+  designs: BacklogGroup[];
 }
 
 function renderEntry(item: BacklogEntry): HTMLElement {
@@ -169,6 +171,8 @@ async function load(): Promise<void> {
   fill("backlogBosses", backlog.bosses);
   fill("backlogInterludes", backlog.interludes);
   fill("backlogParked", backlog.parked);
+  fill("backlogQueue", backlog.queue);
+  fill("backlogDesigns", backlog.designs);
   void renderSpec();
   loaded = true;
 }

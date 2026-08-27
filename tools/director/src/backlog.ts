@@ -43,6 +43,22 @@ export interface Backlog {
   bosses: BacklogGroup[];
   interludes: BacklogGroup[];
   parked: BacklogGroup[];
+  /**
+   * Decided, not yet done — `docs/queue.md`, joined to what git knows about
+   * each lane. Built in `queue-panel.ts`, which needs git and so cannot live
+   * in this file: everything here is a pure function of the markdown handed
+   * to it. Passed in already built; empty where nobody supplied it, which
+   * keeps every existing caller of `buildBacklog` compiling unchanged.
+   */
+  queue: BacklogGroup[];
+  /**
+   * Worked-out design documents — `docs/versus.md`, `docs/teaching.md`,
+   * `docs/alive.md` — each already carrying numbers a queued lane is meant to
+   * build. Built in `design-docs.ts`, out of the same reasoning `queue` is:
+   * a plan with parameter values in it is a different thing from an idea
+   * nobody has argued with, which is what `parked` above is for.
+   */
+  designs: BacklogGroup[];
 }
 
 /** A built entry is not backlog. It is in the brush palette, or on the field. */
@@ -132,6 +148,8 @@ export function buildBacklog(
   assists: string,
   systems: string,
   ideas: string,
+  queue: BacklogGroup[] = [],
+  designs: BacklogGroup[] = [],
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
@@ -207,5 +225,7 @@ export function buildBacklog(
         "bestiary.md 10.3",
       ),
     ],
+    queue,
+    designs,
   };
 }

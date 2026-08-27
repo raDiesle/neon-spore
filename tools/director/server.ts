@@ -4,7 +4,7 @@ import type { Wave } from "@neon-spore/content";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
-import { buildBacklog } from "./src/backlog.js";
+import { backlogState } from "./src/backlog-api.js";
 import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
 import { serializeWaves } from "./src/serialize.js";
 
@@ -32,12 +32,6 @@ const given =
 /** Which checkout's `waves.ts` this one reads and writes. */
 const treeId = treeKey(repoRootPath);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
-const bestiaryFile = new URL("../../docs/spec/bestiary.md", import.meta.url);
-const bossesFile = new URL("../../docs/spec/bosses.md", import.meta.url);
-const couplingsFile = new URL("../../docs/spec/couplings.md", import.meta.url);
-const assistsFile = new URL("../../docs/spec/assists.md", import.meta.url);
-const systemsFile = new URL("../../docs/spec/systems.md", import.meta.url);
-const ideasFile = new URL("../../docs/spec/ideas.md", import.meta.url);
 const specDir = new URL("../../docs/spec/", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
@@ -174,25 +168,13 @@ const server = Bun.serve({
 
     /**
      * The backlog: what the design has agreed to and the game does not have,
-     * grouped by what each thing would become. Six spec files are parsed on
-     * every request rather than copied, for the reason the roster always was —
-     * a list kept beside the spec goes stale silently, and here the grouping
-     * is parsed too, out of the `###` headings in `ideas.md`.
+     * grouped by what each thing would become — spec, queue and design
+     * documents alike. See `backlog-api.ts`, split out for the same reason
+     * the TO CHECK routes below are: a request handler is not the file where
+     * a server binds its port.
      */
     "/api/backlog": {
-      GET: withIdle(async () => {
-        const [bestiary, bosses, couplings, assists, systems, ideas] = await Promise.all([
-          Bun.file(bestiaryFile).text(),
-          Bun.file(bossesFile).text(),
-          Bun.file(couplingsFile).text(),
-          Bun.file(assistsFile).text(),
-          Bun.file(systemsFile).text(),
-          Bun.file(ideasFile).text(),
-        ]);
-        return Response.json(buildBacklog(bestiary, bosses, couplings, assists, systems, ideas), {
-          headers: noCache,
-        });
-      }),
+      GET: withIdle(() => backlogState(repoRootPath)),
     },
 
     /**
