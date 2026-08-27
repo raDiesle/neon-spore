@@ -236,6 +236,35 @@
 
       /* The backlog sheet. Covers the editor rather than sitting beside it:
          a paragraph does not fit in a 300px authoring column. */
+      /* The same shell as the other two sheets — full screen over the editor,
+         the stage still running behind it. */
+      #states { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #states.on { display: flex; flex-direction: column; }
+      #states > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #states .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #states .sub { color: var(--dim); font-size: 10px; max-width: 720px; }
+      #states > header button { margin-left: auto; }
+      #statesBody { flex: 1; overflow-y: auto; padding: 14px 20px 40px; }
+      #statesBody section { margin-bottom: 26px; }
+      #statesBody .note { color: var(--dim); font-size: 10px; margin: 0 0 10px; }
+      .states-row { display: flex; flex-wrap: wrap; gap: 14px; }
+      .state { width: 210px; }
+      /* The frame is the picture's own edge, so a crop that happens to end on
+         black is still seen to be a crop and not the page behind it. */
+      .state .shot {
+        border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+        background: #05040b; display: flex; align-items: center; justify-content: center;
+        min-height: 60px;
+      }
+      .state .shot.is-broken { color: var(--red); font-size: 18px; min-height: 120px; }
+      .state canvas { display: block; }
+      .state .name { color: var(--ink); letter-spacing: 2px; font-size: 10px; margin-top: 6px; }
+      .state .seat { color: var(--cyan); letter-spacing: 1px; font-size: 8px; }
+      .state .blurb { color: var(--dim); font-size: 9px; line-height: 1.45; margin: 3px 0 0; }
+
       #backlog { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
       #backlog.on { display: flex; flex-direction: column; }
       #backlog > header {
@@ -451,6 +480,7 @@
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
+      <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
@@ -578,6 +608,19 @@
         <span class="note" id="checksCount" style="margin: 0"></span>
       </div>
       <div id="checksBody"></div>
+    </div>
+
+    <div id="states">
+      <header>
+        <span class="title">STATES</span>
+        <span class="sub">
+          every state the game can be held in, drawn — a real frame of the
+          shipping renderer against a world run into that state, not a
+          screenshot somebody took
+        </span>
+        <button type="button" id="statesClose">✕ CLOSE</button>
+      </header>
+      <div id="statesBody"></div>
     </div>
 
     <div id="backlog">

@@ -171,6 +171,47 @@ from the original draft" stays attached to The Blind One.
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
 
+## STATES
+
+`▣ STATES` is the third full-screen sheet, and the only one that is pictures
+rather than prose.
+
+The other two are lists of sentences, and a sentence is the slowest possible
+way to learn what something looks like. Most of what the spec argues about is
+visual: the shield is *passively useless*, one of the queen's two marks is a
+*lie that looks identical*, a rock full of craters is *no closer to breaking*.
+Each of those is a picture a reader has to build for themselves, and two
+readers build two different ones. So every row here is that state, drawn.
+
+**A real frame, not a screenshot.** `Canvas2DRenderer` against a real `World`
+through `computeStage` — the same code the phone runs and the same code the
+stage in the middle of the editor runs — cut down to the part of the phone the
+state is about. A captured screenshot is the game as it was on the day somebody
+remembered to take one, and it goes silently wrong the first time a lobe or a
+colour moves; this one cannot be out of date, because it is not a picture of
+the game, it is the game drawn once.
+
+**A pose never sets a field it could reach.** `until` and `runUntil` in
+`src/pose-kit.ts` run the simulation forward until the state arrives, so the
+queen's mark is open because her own phase clock opened it and the rock
+deflected because the trigger was down on the beat it landed. A boss posed by
+assignment would be a frame the game cannot produce, and a reference picture of
+an impossible moment is worse than none. `test/poses.test.ts` builds every one
+of them, so a pose that can no longer reach its own state fails there rather
+than showing something else under a label that says bloom.
+
+Grouped as CONTROLS, MECHANICS, CREATURES, BOSSES — the hands first and the
+field after them, because a state is easier to read once you know which control
+answers it. The two radar rows are the same moment on the two seats, which is
+the one thing a screenshot of the test view can never show: the test view has
+both halves, and that is the arrangement no player is ever in.
+
+The renderer eases — the shield swells towards armed, the maw travels through
+flat, the cannon glides to its column — so a single frame catches all three at
+zero. Each pose is drawn a few dozen times with a long `dt` first and only the
+last frame is kept: the easing settled, and the last tick's events still fresh,
+so a deflection is drawn with its flash on.
+
 ## TO CHECK
 
 `⚑ TO CHECK` in the header is the other full-screen sheet: what landed on

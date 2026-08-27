@@ -18,6 +18,7 @@ import {
   refuse,
   type Store,
 } from "./state.js";
+import { bindStates } from "./states-page.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 
@@ -179,6 +180,7 @@ async function load(): Promise<void> {
 bindTabs("#tabs");
 bindBacklog();
 bindChecks();
+bindStates();
 bindSoundPage();
 bindExpanders();
 
