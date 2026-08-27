@@ -1,15 +1,17 @@
 import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
-import type { Subject } from "./contour.js";
+import type { Subject } from "../contour.js";
 
 /**
  * The contour forms whose outline carries a **direction**.
  *
- * They live beside `forms.ts` rather than in it for the ordinary reason — that
- * file was full — but the seam is a real one. Every form there is either
- * symmetric or symmetric-with-a-wobble, which is right for anything that holds
- * its lane and useless for the Notch, whose whole mechanic is that it takes a
- * different column on the next accent and the pair has to say so before it
- * does. A creature that has a facing needs a silhouette that has one.
+ * They were written beside `forms.ts` because that file was full; it is a
+ * directory now and they have moved in, but the seam they named is real and is
+ * why they keep a file rather than joining `radial`. Everything sampled one
+ * radius per angle is otherwise symmetric, or symmetric-with-a-wobble, which is
+ * right for anything that holds its lane and useless for the Notch, whose whole
+ * mechanic is that it takes a different column on the next accent and the pair
+ * has to say so before it does. A creature that has a facing needs a silhouette
+ * that has one.
  *
  * There are two of them because there are two ways to say "that way" with an
  * outline, and nobody knows which survives 26 px. `hooked` puts the direction

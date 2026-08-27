@@ -1,5 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
 import { BOSS_DRAFTS } from "./bosses.js";
+import { COLLECTED_DRAFTS } from "./collected.js";
 import { CREATURE_DRAFTS } from "./creatures.js";
 import { SYSTEM_DRAFTS } from "./systems.js";
 
@@ -13,4 +14,9 @@ import { SYSTEM_DRAFTS } from "./systems.js";
  * same seam the backlog page already groups by, so an entry that is filed
  * wrongly is one move between two files.
  */
-export const DRAFTS: CatalogueEntry[] = [...CREATURE_DRAFTS, ...BOSS_DRAFTS, ...SYSTEM_DRAFTS];
+export const DRAFTS: CatalogueEntry[] = [
+  ...CREATURE_DRAFTS,
+  ...BOSS_DRAFTS,
+  ...COLLECTED_DRAFTS,
+  ...SYSTEM_DRAFTS,
+];

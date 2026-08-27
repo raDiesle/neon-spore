@@ -57,8 +57,8 @@ already the right picture for it.
 |---|---|---|
 | A multi-part body that comes apart and re-forms | **THE CHOIR**, drawn as a `cluster` that now genuinely parts | nothing — the drawing caught up while this was being written |
 | Armour that visibly sheds, phase by phase | the Warden's plates, the Queen's petals — built | nothing |
-| A weak point that opens where your shield is *not* | nothing does this | **THE TITHE** |
-| A body assembled from the level's own hazards | nothing does this | **THE CAIRN** |
+| A weak point that opens where your shield is *not* | nothing does this | **THE TITHE**, now with a body |
+| A body assembled from the level's own hazards | nothing does this | **THE CAIRN**, now with a body |
 
 The third row is the best thing either game has at this scale and it is the one
 this design has never used. Its shield holds one column; every boss so far has
@@ -93,11 +93,18 @@ second and third boss and it leaves a whole question unasked.
 
 ### THE VANE — it bends the field, not the beat
 
-**The shape.** The pendulum arm already drawn for the Conductor: an *open*
-contour with no inside, the only kind of body in the game besides the Warden's
-tether, sweeping the top of the field on `TOLL`. A vane is the thing that turns
-when something pushes it, which is what the sweep should read as — not a
-weapon, a mechanism.
+**The shape.** Drawn, as `vane`: the pendulum arm offered to the Conductor plus
+the bearing it turns on. An *open* contour with no inside, the only kind of
+body in the game besides the Warden's tether, sweeping the top of the field on
+`TOLL`. A vane is the thing that turns when something pushes it, which is what
+the sweep should read as — not a weapon, a mechanism.
+
+The bearing is not decoration and it is what took a second attempt. The first
+was the Conductor's arm at a phase offset, on the theory that the still should
+stand at the end of a sweep; the arm is already at an end at `t = 0`, so the
+two cards came out mirror images of each other and a mirror image is not a
+second idea. The pivot is the only part of this boss that can be hit, so a card
+without it on it was a picture of the part you cannot reach.
 
 **The mechanic.** At the end of each sweep the arm **rolls one player's field**:
 their column order reverses, so column four on their device is column eight on
@@ -124,12 +131,23 @@ it is a passage and not a state.
 
 ### THE TITHE — it always takes something; you choose what
 
-**The shape.** The first boss wider than the middle of the field: a `slab`
-spanning seven of the eleven columns, made rather than grown, with a row of
-plates along its underside and exactly one of them lit. Where the Warden is a
-body with a hole and the Queen is a body with a mark, this is a body that is
-mostly *edge* — the danger is which part of a long thing is live right now, and
-a long thing makes "which column" a fine distinction inside one silhouette.
+**The shape.** Drawn, as `plated`. The first boss wider than the middle of the
+field: a slab spanning seven of the eleven columns, made rather than grown,
+with a row of plates along its underside and exactly one of them live. Where
+the Warden is a body with a hole and the Queen is a body with a mark, this is a
+body that is mostly *edge* — the danger is which part of a long thing is live
+right now, and a long thing makes "which column" a fine distinction inside one
+silhouette.
+
+Drawing it settled the thing prose could not. "Lit" is a colour and a
+silhouette has no colours, so the live plate cannot glow: it **reaches**,
+hanging two and a half times as far as its neighbours, and it is the only part
+of the outline that moves. At 390 px the body is 248 across, which makes each
+of the seven plates exactly one column wide — not a number to tidy up later,
+since the mechanic is "which column" and a plate that spans anything else is a
+body arguing with the grid it is asking about. Two cards: the live plate in the
+middle, and the live plate at the outermost column, which is where the reading
+is a fine distinction rather than an obvious one.
 
 **The mechanic.** Two rocks a cycle, in two columns, on the same beat. One
 shield, and one lit plate in a third column that wants the cannon on that same
@@ -153,12 +171,25 @@ and whether the third demand should be the cannon at all, or the maw.
 
 ### THE CAIRN — a boss built out of the field's own rocks
 
-**The shape.** Seven or so angular units held in one outline: the first boss
-drawn with `crystalPath` rather than `blobPath`, and the first that is a *pile*
-rather than a body. The free `BURNING ROCK` contour is already the unit, at
-several sizes and seeds, with the seams between units left visible so the eye
-can count them. `SHIVER` for the pile settling; a unit that is being pulled
-goes `LURCH` before it comes free.
+**The shape.** Drawn, as `pile` — the form this page asked for, below. Seven
+angular units held in one outline: the first boss drawn with facets rather than
+lobes, and the first that is a *pile* rather than a body, with the seams
+between units left visible so the eye can count them. `SHIVER` for the pile
+settling; the pulled card goes `LURCH`.
+
+A unit is a rock at the size and facet count the game already draws one —
+seven-sided, radius 46, the same as `METEOR`. That is the fiction made literal
+rather than described: the boss dismantles into ordinary rocks, so the parts it
+is stacked from have to *be* ordinary rocks before anything is pulled, not
+boss-sized lumps that shrink on the way out. Seven of them stack three, three
+and one, which lands a shade wider than the Warden.
+
+Two cards, and the second is the encounter: one unit dragged clear becomes its
+own loop and stops being part of the boss. It is one outline while stacked and
+exactly two once pulled, at every one of fifteen thousand sampled moments —
+which is a claim worth checking rather than eyeballing, because a pile held
+together by a field is held together by arithmetic, and the first spacing tried
+shed a rock at six moments in four hundred and eighty.
 
 **The mechanic.** Nothing about it can be shot — rocks are indestructible and
 the game teaches that in its first act. You take it apart with **hands**: a
@@ -184,21 +215,25 @@ four have a draft offered to them, and four have a name and nothing else.
 |---|---|---|---|
 | Bulb Queen (10) | **built** — armoured body, two marks, torches on the wing tips | `blobPath` | own |
 | Strand Nest (20) | nothing | — | — |
-| The Conductor (30) | draft — the pendulum arm, offered to a boss that bends *something* | `arm` | `TOLL` |
+| The Conductor (30) | draft — the pendulum arm, and THE VANE's the same arm on a drawn bearing | `arm`, `vane` | `TOLL` |
 | The Choir (40) | draft — three bodies in one film, parting and merging | `cluster` | `SHIVER` |
 | The Warden (50) | **built** — the ring you see the field through | `ring` | `TURN` |
-| The Heart (60) | draft — a sac hung heavy on a taut stalk (THE WEIGHT) | `sac` | `HEAVE` |
+| The Heart (60) | two drafts for one slot — a sac hung heavy (THE WEIGHT), a pile of seven rocks (THE CAIRN) | `sac`, `pile` | `HEAVE`, `SHIVER` |
 | The Mother (70) | nothing; she is a rule about the previous act, not a body yet | — | — |
 | The Codex (80) | draft — a slab whose rim scrolls a key | `glyphed` | `SWELL` |
 | The Echoes (90) | **built**, if it is given the slot — THE MIRROR, your own hull flipped | `drawHull` | own |
-| The Kernel (100) | nothing | — | — |
+| The Kernel (100) | draft — a slab of seven columns, one plate reaching (THE TITHE) | `plated` | `TWITCH` |
 | The Vessel (finale) | nothing; the clearest argument for the information split | — | — |
 
-Two things that fall out of the table. **The Warden spent the see-past trick**,
+Three things fall out of the table. **The Warden spent the see-past trick**,
 and it can only be spent once — a second body with a window in it is a repeat,
 not a surprise, and `ringClearance` says how narrow the margin was even the
-first time. And **the two empty slots at the end of the run have no picture at
-all**, which is the opposite of where drawing effort has gone so far.
+first time. **The Kernel is no longer empty**, which leaves the finale as the
+only slot at the end of the run with no picture at all — still the opposite of
+where drawing effort has gone, but one slot rather than two. And **The Heart
+now has two bodies competing for it**, which is the argument this page said
+THE WEIGHT and THE CAIRN would have to have; both are drawn now, so it can be
+had by looking rather than by imagining.
 
 ## The machinery, now that the cluster parts
 
@@ -208,11 +243,28 @@ closed loops, so the Warden's hole and a parted cluster are one rule
 ([asset catalogue](../asset-catalogue.md)). Every "it comes apart" boss either
 game has is drawable today.
 
-What is left is narrower and it belongs to **THE CAIRN**. `cluster` traces a
-metaball of round bodies, and a pile of rocks is neither round nor a field: it
-wants the same tracing over *faceted* units, so the seams stay straight and the
-pile reads as stacked rather than as a bloom. That is one form beside `cluster`
-in `forms.ts`, not a new idea about contours.
+What was left was narrower and belonged to **THE CAIRN**, and it is built.
+`cluster` traces a metaball of round bodies, and a pile of rocks is neither
+round nor a field: it wanted the same tracing over *faceted* units, so the
+seams stay straight and the pile reads as stacked rather than as a bloom. That
+is `pile`, one form beside `cluster`, and it was not a new idea about contours
+— the grid tracing is shared and only the field differs. Each unit contributes
+its own polygon raised to the twentieth rather than a metaball, so the sum
+behaves nearly as a maximum and the union is very nearly the union of the
+polygons themselves: straight edges, and a sharp reflex corner everywhere two
+rocks cross. The exponent is the whole shape. Six was the first guess and drew
+a lumpy boulder — enough to dent the outline, nowhere near enough to keep a
+facet straight — and the spacing had to follow it: the units are driven into
+each other by a fixed fraction of their own reach, so an overlap is guaranteed
+by construction rather than by a grid that happens to suit the sizes one seed
+drew. With a near-maximum field, overlapping and joined are the same word.
+
+A regular polygon is the intersection of its facet half-planes, which is what
+makes that cheap: the ratio the field needs is the largest of the facet dot
+products, so there is no angle taken anywhere and the exactness is free. The
+first version asked `atan2` per unit per grid cell and cost thirteen
+milliseconds a frame; the same shape, to the last loop, comes out of dot
+products in five.
 
 ## Refused at boss scale
 

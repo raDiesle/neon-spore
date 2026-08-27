@@ -1,5 +1,5 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { arm, cluster, glyphed, slab } from "../forms.js";
+import { arm, cluster, glyphed, slab } from "../forms/index.js";
 import { DRIFT, SWELL, TURN, TWITCH } from "../motions.js";
 import { hullArc } from "../subjects.js";
 

@@ -326,8 +326,10 @@ Each names the slot it would fit.
   and its touch mapping, so both worlds stay identical. Spaceteam's wormhole,
   and the pendulum already drawn for THE CONDUCTOR is the picture. Slot: The
   Conductor (30), whose deferral asked for a boss that bends something other
-  than the tempo. Unworked out: whether The Flip should run at wave scale
-  first, and how a roll ends so it stays a passage rather than a state
+  than the tempo. Drawn, as `vane`: the arm with the bearing it turns on, which
+  is the only part of it that can be hit. Unworked out: whether The Flip should
+  run at wave scale first, and how a roll ends so it stays a passage rather
+  than a state
 - **THE TITHE** — it always takes something and the pair chooses what. Two
   rocks a cycle in two columns on the same beat, one shield, and one lit plate
   in a third column wanting the cannon on that beat: two hands, three demands,
@@ -339,7 +341,9 @@ Each names the slot it would fit.
   edge: a slab across seven columns with a row of plates under it. Slot: The
   Kernel (100). Unworked out: it is one edit from merely mean, so the choice
   has to be legible a cycle ahead and a pair eating one scar a cycle has to
-  finish alive
+  finish alive. Drawn, as `plated`: the live plate reaches rather than lights,
+  since a silhouette has no colours, and each of the seven is exactly one
+  column wide
 - **THE CAIRN** — a boss built out of the field's own rocks: seven angular
   units in one outline, the first drawn with the crystal contour rather than a
   blob, and nothing about it can be shot. You take it apart with hands — a grip
@@ -350,10 +354,11 @@ Each names the slot it would fit.
   which is the question Lovers in a Dangerous Spacetime asks constantly and
   none of the three built bosses asks at all. Slot: it wants The Heart (60) and
   so does THE WEIGHT; they are the same pillar and both should not be built.
-  Unworked out: what stops a pair pulling nothing and waiting; and the drawing,
-  since `cluster` traces a metaball of round bodies and a pile of rocks wants
-  the same tracing over faceted units, so the seams read as stacked rather than
-  as a bloom
+  Drawn, as `pile`: the faceted tracing this asked for exists, the units are
+  rocks at `METEOR`'s own size and facet count, and the pile is one outline
+  until a unit is dragged clear and exactly two after. Unworked out: what stops
+  a pair pulling nothing and waiting; and whether a person can count seven
+  rocks in the silhouette, which is the whole mechanic and needs an eye
 
 ### Mechanics
 

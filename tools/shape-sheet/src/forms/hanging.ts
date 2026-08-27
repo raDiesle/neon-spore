@@ -1,14 +1,14 @@
 import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
-import type { Subject } from "./contour.js";
+import type { Subject } from "../contour.js";
 
 /**
  * The forms for a body whose mass has gone downward.
  *
- * A separate file from `forms.ts` for the ordinary reason — that one was full —
- * and along a seam worth having: everything here is a shape that has *given
- * way*, which is a thing two of the drafts are entirely about. THE WEIGHT hangs
- * off a stalk and the HUSK is a pod that has died, and neither is describable
- * as a blob with a parameter turned up.
+ * Split out of `forms.ts` when that one was full, along a seam worth keeping
+ * now that it is a directory: everything here is a shape that has *given way*,
+ * which is a thing two of the drafts are entirely about. THE WEIGHT hangs off a
+ * stalk and the HUSK is a pod that has died, and neither is describable as a
+ * blob with a parameter turned up.
  *
  * Both husk variants are built here, and they are the same question asked at
  * two strengths. A husk has to pass for a pod while it hangs — one that

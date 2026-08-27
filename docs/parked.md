@@ -22,3 +22,19 @@ An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
 reads to the bottom of.
 
+
+## The catalogue's draft count should be derived, not typed
+
+2026-08-27 · claude/cleanup-stale-worktrees-branches-txkdj4
+
+`docs/asset-catalogue.md` opens with "N drafts: so many creatures, so many
+bosses". It has now been wrong twice in one day — it read "four bosses" while
+there were seven, on both sides of a merge, because two sessions each
+incremented the number they found instead of counting. Every other number in
+the repo that goes stale this way has a test or a generator behind it.
+
+Not done here because the fix is a choice and this was a merge: either a test
+that parses the sentence and compares it against `CATALOGUE` — cheap, ugly, and
+it fails for the right reason — or the line becomes generated, like
+`bun run checks` derives its own. Start at `tools/shape-sheet/test/drafts.test.ts`,
+which already counts drafts by status and would only need the slots.

@@ -38,3 +38,23 @@ export function contourAt(s: Subject, t: number): string {
   const hole = s.hole?.(t);
   return s.path(s.pointsAt(t)) + (hole ? s.path(hole) : "");
 }
+
+/**
+ * A closed outline drawn corner to corner, with nothing smoothed.
+ *
+ * `catmullRomToBezierPath` is right for anything grown — it is what makes a
+ * lobe a lobe — and wrong for anything with a corner in it, because it rounds
+ * the corner away and a faceted pile becomes a bloom. `crystalPath` in content
+ * already draws the game's angular shapes this way; this is the same rule for
+ * a form that arrives as points rather than as parameters.
+ */
+export function linePath(pts: Point[]): string {
+  if (pts.length === 0) return "";
+  const head = pts[0] as Point;
+  let d = `M ${head.x.toFixed(2)} ${head.y.toFixed(2)} `;
+  for (let i = 1; i < pts.length; i++) {
+    const p = pts[i] as Point;
+    d += `L ${p.x.toFixed(2)} ${p.y.toFixed(2)} `;
+  }
+  return `${d}Z`;
+}

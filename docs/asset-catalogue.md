@@ -48,9 +48,9 @@ which is why every draft lives in `tools/` and none of them in `packages/`.
 
 ## What is in it now
 
-**Twenty-four drafts** across all but a handful of the open ideas: fourteen
-creatures, four bosses, six for the controls and mechanics. Each names the idea
-it is offered to, and a test fails if that idea is not a heading in
+**Thirty-two drafts** across all but a handful of the open ideas: fourteen
+creatures, twelve bosses, six for the controls and mechanics. Each names the
+idea it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
 suggestion.
 
@@ -63,15 +63,21 @@ being the only thing on the page, so both go up, numbered, turning on the same
 clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
 fall short says what each pair is asking.
 
-**Eight new contour forms**, because several ideas are not describable as a
-lobed blob or a faceted rock. They sit in three files, split along seams rather
-than at line counts.
+**Eleven contour forms** in `tools/shape-sheet/src/forms/`, because several
+ideas are not describable as a lobed blob or a faceted rock. They sit in six
+files, split along seams rather than at line counts.
 
-`forms.ts` holds the four that are symmetric or symmetric-with-a-wobble, which
-is what anything holding its lane wants: `cluster` (several bodies in one
-membrane, metaball, and the one form that can return more than one loop), `arm`
-(open, swung from a pivot), `slab` (superellipse, made rather than grown),
-`glyphed` (a rim of notches that travel).
+A directory rather than siblings, and that is the one thing here that was
+decided twice. `forms.ts` filled, and the overflow went to a file beside it;
+it filled again, and so did that. Both overflow files say in their own comments
+that the reason was a full file. The seams they had found were real and are
+kept exactly as they were — what changed is that they now sit inside the thing
+they are seams of, so the next one has somewhere to go.
+
+`radial.ts` holds the ones sampled one radius per angle and symmetric, or
+symmetric-with-a-wobble, which is what anything holding its lane wants: `slab`
+(superellipse, made rather than grown) and `glyphed` (a rim of notches that
+travel).
 
 `hooked.ts` holds the two whose outline carries a **direction**, which nothing
 else in the catalogue does: `hooked` grows a barb toward where the body is
@@ -83,6 +89,20 @@ between them is where the direction is carried.
 original, now taking an optional skin so it can be cut from somebody else's
 lobes) and `slumped` (the same sag with one shoulder fallen in). THE WEIGHT uses
 the first; the two HUSK cards are one of each.
+
+`cluster.ts` and `pile.ts` are a field walked on a grid, which is how a contour
+comes apart into more than one loop. They agree on the machinery and disagree
+about what the field is made of, and that disagreement is the whole shape in
+both cases: `cluster` sums round metaballs and blooms, so several bodies share
+one membrane; `pile` sums polygons raised high enough that the sum is nearly a
+maximum, so a stack of rocks creases at its seams instead.
+
+`walked.ts` holds the three whose outline is stepped corner to corner, because
+a radius per angle cannot say what they say: `arm` (open, swung from a pivot —
+it has no inside to have a radius of), `vane` (the same arm with the bearing it
+turns on drawn, since that is the only part of THE VANE that can be hit) and
+`plated` (a slab with a row of plates under it, one of them reaching, which is
+a rule about one edge rather than a function of angle).
 
 **Eleven spare motions** in `tools/shape-sheet/src/motions.ts` — SHIVER,
 TWITCH, TURN, DRIFT, TOLL, SWELL, LURCH, HEAVE, SLITHER, CANT, SAG — written to
@@ -120,6 +140,22 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   off it is unanswered, and it is the question both of those ideas turn on.
 - **The arms are single strokes.** THE CONDUCTOR, THE NEEDLE and LIGHT TRACE
   have no thickness of their own. A real one is a stroke width and a taper.
+  THE VANE now carries a drawn bearing at its pivot, which is the part of it
+  that can be hit; the arm below the bearing is still one stroke.
+- **The pile creases, and nobody has seen whether the creases count.** `pile`
+  sums each unit's own polygon rather than a metaball, so THE CAIRN's outline
+  notches where two rocks meet instead of bulging — and it is one loop while it
+  is stacked and exactly two once a unit is dragged clear, at every one of
+  fifteen thousand sampled moments. What that does **not** say is whether a
+  person can *count seven rocks* in the silhouette. The whole encounter is
+  taking units off a pile, so if the notches read as one lumpy boulder the
+  mechanic has no body. That is an eye's question and it is the first one.
+- **THE TITHE's live plate reaches instead of lighting, and that is a guess.**
+  A silhouette has no colours, so the live plate hangs two and a half times as
+  far as its neighbours and steps a column every cycle. Measured, it is the
+  only part of the outline that moves and it visits all seven columns. Whether
+  *which* column reads at a glance — especially at the outermost of seven,
+  which is why that case has a card of its own — is unlooked at.
 - **None of them has colour, glow or detail.** The cards are outlines. The
   field draws fills, rims, cores and halos, and a silhouette that reads bare
   can still fail dressed.

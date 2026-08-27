@@ -1,8 +1,6 @@
 import { POD } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
-import { cluster, glyphed, slab } from "../forms.js";
-import { sac, slumped } from "../hanging.js";
-import { heeled, hooked } from "../hooked.js";
+import { cluster, glyphed, heeled, hooked, sac, slab, slumped } from "../forms/index.js";
 import {
   CANT,
   DRIFT,
