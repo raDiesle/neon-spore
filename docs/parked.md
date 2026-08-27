@@ -118,3 +118,64 @@ Not done there because inventing an `Act` type is a change to what a run *is*
 render lane is the wrong place to decide it. Start by asking whether an act is
 a field on the wave or a grouping around the bosses; the tint table in
 `backdrop.ts` is then two lines.
+
+## The grip and the lance are controls no wave contains, so no card can find them
+
+2026-08-27 · claude/burn-briefings-b1
+
+A briefing's subjects are derived from what `startWave` was handed — the spawn
+queue, the pods, the boss — which is what stops a card going stale when a
+creature is swapped out of a wave. THE GRIP and THE LANCE are not in any of
+those lists: they are controls the pair has, not things the wave contains, so
+the derivation cannot reach them and the two hardest couplings in the game are
+the two nobody is taught.
+
+Not done there because the obvious fix is the one `docs/decisions.md` #18 just
+argued against — a `briefings:` list grown back onto `Wave` is the placed
+version returning through the back door. Start by asking what a control's
+first *use* looks like from the sim's side: the first wave whose creatures
+make a control visible is derivable too, and that may be the hook.
+
+## Nothing can look at a briefing card twice
+
+2026-08-27 · claude/burn-briefings-b1
+
+The game shows each card exactly once per fresh pair, which is correct and
+makes the card the one drawn thing in the repository that cannot be reviewed:
+seeing it a second time means a page reload, and seeing all of them means
+several. The director has a STATES sheet and a SHAPES sheet for exactly this
+problem and neither knows about cards.
+
+Not done there because it is a director panel rather than a game change, and
+the lane owned no files under `tools/`. Start at
+`tools/director/src/backlog-page.ts` for the tab shape, and note that
+`packages/render/src/briefing.ts` already draws a card from nothing but a
+subject and a role — which is the whole of what a sheet would need.
+
+## The link chip says STALLED while a player is reading
+
+2026-08-27 · claude/burn-briefings-b1
+
+A card freezes the field until both seats dismiss it, and one player reading
+theirs while the other has already tapped looks, to `packages/net`, exactly
+like a device that has stopped sending — so the network indicator is expected
+to go to STALLED during the one moment the game deliberately waits.
+
+Not done there because the lane owned nothing in `net/`, and because the fix
+is a judgement about what the indicator is *for*: either it learns that a
+briefing is a legitimate wait, or the wait stops looking like silence on the
+wire. Start at `packages/net/src/status.ts`, which is deliberately the only
+file allowed to say what the indicator may show.
+
+## A subject's bit position is derived by hand in two places
+
+2026-08-27 · claude/burn-briefings-b1
+
+`world.brief.met` is a bitmask over `BRIEFING_SUBJECTS`, and anything that
+wants to know whether a subject has been met computes its bit from its index.
+`packages/sim/test/purity.test.ts` keeps a table of rules that must be called
+rather than re-derived, for exactly this class of mistake, and this one is not
+on it.
+
+Not done there because adding a row means editing a shared test file that
+another lane was in at the time. It is one row.

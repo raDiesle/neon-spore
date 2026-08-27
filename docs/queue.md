@@ -17,18 +17,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE BRIEFING BEFORE A WAVE
-_claude/burn-briefings-b1 · packages/sim/src/briefing.ts packages/content/src/briefings.ts packages/render/src/briefing.ts docs/spec/briefings.md_
-
-The first time a wave contains a creature or a control the pair has not met,
-the round opens on a card that names it and says the one thing about it that
-matters — and the card is *split*, so neither player can read the whole of it
-alone. `docs/spec/briefings.md` is the design and none of it is built.
-
-Finished when a fresh run of wave 1 shows the card, both players have to
-dismiss it, and a second wave with the same creature does not show it again.
-The "has met" set is world state, so it is in `hashWorld` or it desyncs.
-
 ## TWO CREATURES THE WAVES DO NOT HAVE
 _claude/burn-creatures-b3 · packages/content/src/creatures.ts packages/sim/src/creature-rules.ts docs/spec/bestiary.md_
 
