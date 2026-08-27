@@ -526,3 +526,29 @@ Finished when a cold reader can act on any row without asking, when no row
 says something they already knew, when a row with frames attached can be
 decided from the sheet alone, and when the fifty-five that predate this lane
 read as well as the ones that come after it.
+
+## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
+_claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
+
+The owner wants a before and after picture, or an animation, beside a check —
+and for anything landing from now on the skill already asks the lane to
+capture both while it still has the tree in front of it. The fifty-five that
+already landed have no such thing, and it looks at first as though they never
+can.
+
+They can. Every one of them names a commit, every commit has a parent, and a
+headless preview can be built and driven at either. So: `bun run frames <sha>`
+checks the parent out into a scratch worktree, builds, drives the real loop to
+an agreed frame, captures it, does the same at the commit itself, and writes
+the pair under `docs/checks/`. For anything whose question is about *motion* —
+and most of them are — the same run captures a short strip of frames rather
+than one.
+
+Two things decide whether this is worth building, and both should be settled
+before it is: whether a frame can be made **comparable** across two builds (the
+same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
+and how much of the fifty-five it can actually answer, since a check about a
+sound or about two devices cannot be photographed at all. Report that number
+honestly before capturing anything in bulk.
+
+
