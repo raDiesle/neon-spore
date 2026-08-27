@@ -399,6 +399,15 @@ type error and caught two separate lanes; `effects-spark.ts` made an event
 without a burst a type error after a silent gap had already cost a particle
 burst. A mechanic that lands without a registry entry must not typecheck.
 
+**One thing found next door and left for this lane**, because it is the same
+derivation one layer down: `WaveEntry.kind` in
+`packages/content/src/wave-types.ts` is a hand-written union,
+`RockKind | "runt" | "throb"`. The brushes lane derived the palette from
+`CREATURES` and could not touch that, so a third colourless creature still
+needs the union extended by hand — and if somebody forgets, the director's
+cast produces an invalid entry silently. Derive it, or make forgetting a type
+error.
+
 Finished when the list exists, is exhaustive over what is built today, and
 cannot be added to by accident. It is the first of three lanes; the other two
 are unbuildable before it.
