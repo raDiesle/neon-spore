@@ -48,6 +48,12 @@ Ordered: the first thing in the file is the next thing done. Six to ten lanes
 is a queue; thirty is a wish. Commit it before spawning anything — a plan that
 exists only in the transcript is not a plan.
 
+**`packages/sim/test/purity.test.ts` is never owned by a lane either.** It is
+the table of rules that must be called rather than re-derived, so it is the
+file every lane eventually adds a row to — which makes it exactly like
+`config.ts` and `hashWorld`: owned by nobody, added to in one contiguous
+region, and replayed over.
+
 **`docs/decisions.md` is never owned by a lane.** A decision is the
 orchestrator's to record, and two lanes each appending an entry is two
 conflicting numberings of the same list. A lane that reaches a decision worth

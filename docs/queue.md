@@ -105,7 +105,7 @@ Model `sonnet`, effort `think`. The decisions are made in this plan; the work is
 Model `sonnet`, effort `think`. Read `docs/teaching.md` first — it is the design this lane implements.
 
 ## THE FIELD STOPS ON AN AUTHORED BEAT AND THE CLOCK DOES NOT
-_claude/burn-teach-call-t4 · packages/sim/src/call.ts packages/sim/src/commands.ts packages/sim/src/hull.ts packages/sim/src/briefing.ts packages/sim/src/events.ts packages/sim/test/call.test.ts packages/sim/test/purity.test.ts packages/audio/src/bind.ts packages/audio/src/catalogue.ts packages/audio/test/bind.test.ts_
+_claude/burn-teach-call-t4 · packages/sim/src/call.ts packages/sim/src/commands.ts packages/sim/src/hull.ts packages/sim/src/briefing.ts packages/sim/src/events.ts packages/sim/test/call.test.ts packages/audio/src/bind.ts packages/audio/src/catalogue.ts packages/audio/test/bind.test.ts_
 
 The mechanism. Sixteen files, but nine of them are one or two lines each and the mechanism itself is one new file — `packages/sim/src/call.ts`. Read `docs/spec/calls.md` (lane 3) first; it is the design this implements.
 
@@ -137,7 +137,7 @@ Starting it early means authoring against a layout that is about to change.
 Model `opus`, effort `ultrathink`. Read `docs/teaching.md` first — it is the design this lane implements.
 
 ## SEVEN WORDS A SCREEN, AND THE THREE WAVES THEY BELONG TO
-_claude/burn-teach-script-t5 · packages/content/src/calls.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/interludes.ts packages/content/src/queue.ts packages/content/src/index.ts packages/content/test/calls.test.ts apps/game/src/waves.ts tools/director/src/serialize.ts tools/director/src/rail.ts tools/director/src/stage.ts tools/director/test/serialize.test.ts_
+_claude/burn-teach-script-t5 · packages/content/src/calls.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/queue.ts packages/content/src/index.ts packages/content/test/calls.test.ts apps/game/src/waves.ts tools/director/src/serialize.ts tools/director/src/rail.ts tools/director/src/stage.ts tools/director/test/serialize.test.ts_
 
 The words and the waves. `theThreeWaves` in the plan this lane came from has every entry, every call, every beat and every line already decided — author them, do not re-decide them.
 
@@ -247,4 +247,150 @@ needs, since an interlude cannot be watched in a world built from
 `DEFAULT_CONFIG`. Starting early means authoring against a layout about to
 change.
 
+## THE ROUND THREE ARE ROUND IN THE SAME WAY, AND ONE OF THEM CAN STOP BEING
+_claude/burn-body-bulb-c1 · packages/content/src/silhouettes.ts tools/shape-sheet/shape-sheet.svg tools/shape-sheet/motion-sheet.svg_
 
+Three numbers, and they go first because everything after this treats the six contour parameters as frozen. `BULB.depth` 0.1 -> 0.13, `SLICK.wobble` 0.02 -> 0.045, `RUNT.wobble` 0.02 -> 0.03. Nothing else in the file moves — not `lobes`, not `rx`/`ry`, not `seed`, and specifically not `BULB.wobble`, which D1 wanted at 0.075 and which is refused here on the record: depth 0.1 with nine lobes against a time-varying 3rd and 5th harmonic at comparable magnitude makes the bulb's lobe count ambiguous between frames, and that is the second failure the brief names.
+
+The argument for the bulb is measurement, not taste. `bun run shapes:report` has BULB at 117.3 x 111.7 and THROB at 102.5 x 103.2 — two round bodies at aspect ~1.0, separated only by area and by `throbOpen`'s swell — and bulb-versus-throb is the pair a voice callout across a two-second delay most needs separated. Run the report before and after and put both tables in the commit; the ceilings are BULB.depth 0.15 (past which nine lobes read as a gear) and SLICK.wobble 0.07 (past which the 5th harmonic reads as extra lobes), and SLICK's lobe extent must come back unchanged, because `depth: 0.38` is what carries the two-lobe read and a radius modulation must not touch it.
+
+Two traps. `silhouettes.ts` is **exactly 250 lines**, at CLAUDE.md's ceiling — this is a one-for-one number change and must not add a line; if a doc comment above BULB becomes false, rewrite the clause in place rather than adding one. And `bun run shapes` rewrites two **committed** SVGs: `tools/shape-sheet/shape-sheet.svg` contains the literal string `9 lobes` for BULB, which stays true here since `lobes` is untouched, but the geometry changes and a committed derived artefact goes stale in silence because nothing in `bun run check` can see it. Run it and stage whatever it rewrites. Check that `tools/shape-sheet/test/drafts.test.ts` reads `docs/asset-catalogue.md` and not the SVG before assuming it is unaffected.
+
+Finished when `bun run check` is green, the two sheets are regenerated and staged, and the commit carries the before/after report plus `Check: the bulb's lobes still count at 26 px on a phone — beside a throb`.
+
+Model `sonnet`, effort `think`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## THREE KINDS ARE ALREADY THE SAME ASPECT, SO THE GUARD AS DESIGNED PASSES NOTHING
+_claude/burn-body-gate-c2 · tools/shape-sheet/src/metrics.ts tools/shape-sheet/src/report.ts tools/shape-sheet/test/nameability.test.ts_
+
+The build check that has to exist before any amplitude does, because every amplitude in this batch is one somebody will want to raise once it is on a phone, and "a reviewer remembers the rule" is not a mechanism.
+
+D3 designed it as: sample each living kind's pose across one beat under the worst simultaneous drive and fail when two kinds' ranges overlap. **That gate is unsatisfiable today and this lane's whole judgement is fixing it.** The report has SLICK at 146.7/87.0 ~ 1.69 and BULB, THROB and RUNT all at ~1.0, so three ranges already overlap before a line of this batch is written; as written the check either fails on the current build or gets quietly weakened to slick-versus-everything, which is the one pair that was never in danger. Aspect cannot separate the round three, and the round three are where the vocabulary risk actually lives.
+
+So: three axes, and a kind collides with another only when it overlaps on **all three at once**. (a) Aspect range `(rx*sx)/(ry*sy)` sampled across a beat. (b) A lobe / harmonic-energy measure derived from `blobRadiusMul` — **called, not re-derived**; a second copy of where the contour is drifts the first time a wobble constant changes, and this lane adds a `COPIES` row for it if `purity.test.ts` does not already cover the call. (c) Effective drawn radius including `sizeMul` and `throbMul`, which is what actually separates RUNT (sizeMul 0.55, ~10 px on screen) from everything else and is the number that says why no interior work belongs on it. Print all three in `bun run shapes:report` as new columns beside W/H/AREA/LENGTH/TRAVEL/BREATH%, and assert the no-collision rule in a test, so the numbers are readable in a diff and the rule is refused by the build.
+
+The test must be **green on the current tree** and on lane 1's deepened bulb. If it is not, the axes are wrong, not the shapes — say so and fix the axes.
+
+Finished when `bun run check` is green, the report prints the three new columns for every living kind, and deliberately widening any pose amplitude past its stated cap turns the test red.
+
+Model `opus` because this is the metric that licenses or refuses every later change in the batch: the unpick cost of a gate measuring the wrong thing is every amplitude that got past it. Think hard about **which axes actually carry the word at 26 px** — that is the part D3 got wrong, and it got it wrong by picking the axis that was easiest to compute.
+
+Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## THE FIELD'S MOST VISIBLE MOTION RUNS ON A WALL CLOCK, AND SEVEN BODIES SHARE FOUR PHASES
+_claude/burn-body-beat-c3 · packages/content/src/own-motion.ts packages/content/src/hash.ts packages/content/test/own-motion.test.ts packages/content/test/hash.test.ts tools/shape-sheet/src/motions.ts tools/director/src/shapes-motion.ts tools/director/src/scene-art.ts_
+
+A unit change and a hash, no new drawing code, and it is the cheapest real win in the batch — an A/B you can watch the moment it compiles.
+
+**The clock.** `poseAt`'s argument stops being seconds and becomes beats. Today `creatures.ts:74` calls `livingMotion(c.kind).poseAt(time + phase)` where `time` is `view.time`, which `apps/game/src/main.ts:152` fills from `performance.now()/1000` — so the field's most visible motion is on a wall clock and **two phones sway the same creature differently**. The call site becomes `world.beat + beatPhase + hash01(c.id, 3) * 4`, both of which are lockstep state already computed for `creatureCenter`. Rewrite every constant in cycles-per-beat: SWAY_PUMP sway period 4 beats and pump 3; TILT_RIPPLE drift 6 and ripple 4; HOLD 16. The 3-against-4 and 3-against-2 ratios are the point — the field holds the tempo without any two bodies sitting in unison. **TREMBLE is not converted**: the runt's meaning is that it is not part of the pattern, and it takes its free-win frequency nudge to 8.3/12.7/5.9 here. The contour wobble in `shapes.ts` stays on seconds and is not touched — two clocks in one body is the right answer, and moving `blobRadiusMul` onto a beat would drag the hull, pods, queen morph and the menu blob along for nothing.
+
+**The unit change must fail loudly.** Changing the meaning of a `number` while leaving the type a `number` silently runs 14 tool call sites — `scene-art.ts:153`, three in `shapes-motion.ts`, and about twelve draft motions in `tools/shape-sheet/src/motions.ts` written in seconds — at 1.6x the wrong rate with a green typecheck, which is the shape sheet judging a motion the game does not have, the exact failure `own-motion.ts`'s own header says it was extracted to prevent. Land it as a branded `Beats` type (or a renamed `poseAtBeat`) so every one of them is a compile error, and convert the drafts in the same commit.
+
+**The purity row moves with it.** `packages/sim/test/purity.test.ts:168` asserts `own-motion.ts` contains `t * 1.9` or `t * 1.35`. The rewrite deletes both, so `bun run check` goes red on the first commit unless that row is rewritten to the new pattern in the same edit. Do not weaken the pattern to something that matches anything.
+
+**The phase.** `const phase = (c.id % 7) * 0.9` yields seven phases on an eleven-column field, so two neighbours in perfect lockstep is routine and two identical bodies on the same frame of the same motion is the loudest sprite tell there is — and it is whole-body, so it is one of the few tells that survives 26 px. New `packages/content/src/hash.ts`: `hash01(id, salt)`, three `Math.imul`s and two shifts, pure integers, no clock and no randomness, legal in `content` and passing the purity scan. Salts give independent streams off one id for pose phase, landing scatter and (later) light. Continuous phase over [0,1) is the point — the comment should say why, because the next person will reach for a modulo again.
+
+**Do not derive rotation.** D3 wanted `rot` deleted from the four `poseAt` bodies and reintroduced from a finite difference of drift. Its claim that constants can reproduce today's look exactly is false — a finite difference of `sin(t*1.35)` gives a quarter-cycle lag and the slick's authored offset is 0.5 rad — and deleting `rot` leaves `scene-art.ts` and `shapes-motion.ts` drawing bodies that never rotate. That question goes to a vote, not into this lane.
+
+`packages/content/src/index.ts` and `packages/render/src/creatures.ts` are owned by nobody: add to each in one contiguous region and expect to replay over somebody else. `own-motion.test.ts` samples `t` from 0 to 64 in steps of 0.01 and applies spec 5.8's 0.25-tile lane limit; that still holds when the unit is beats, and it must stay green untouched except where the amplitude genuinely moved.
+
+Finished when `bun run check` and `bun run test:determinism` are green, no call site anywhere still passes seconds, and the commit carries `Check: does the field read as in time, or as a metronome — watch a full wave at tempo`.
+
+Model `opus` because a silent unit change across a shared, tool-facing API is the expensive-to-unpick category by name. Think hard about **which call sites the typecheck will not catch** before you write anything.
+
+Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## TWO HUNDRED AND THIRTY-ONE LINES, AND FOUR LANES WANT TO ADD TO THEM
+_claude/burn-body-lift-c4 · packages/render/src/creatures.ts packages/render/src/meteor.ts packages/render/src/creature-detail.ts_
+
+The lifting commit, and **no behaviour change at all**. `packages/render/src/creatures.ts` is at 231 lines against CLAUDE.md's ~250 ceiling and every render lane after this one adds to it. Split it first.
+
+Two cuts, both along seams the file already has. `drawMeteor` goes to `packages/render/src/meteor.ts` — it is the one body the fiction requires to look inert, it shares nothing with `drawLiving` but the layout, and it is 60 lines. `drawDetails` goes to `packages/render/src/creature-detail.ts`. `creatures.ts` keeps `drawCreatures`'s dispatch, `drawLiving` and `drawMotionTrail`, which leaves it around 130 lines with room for the four regions that follow.
+
+Bank the two free-win budget numbers here, because they are pure numbers and can be measured before any new drawing code exists: `drawMotionTrail`'s loop `k <= 4` becomes `k <= 2` with spacing `l.tile * 0.3` -> `0.26`, and the creature call site passes `28` for `blobPath`'s existing `N` argument, leaving `tools/shape-sheet` at the 40 default. Be honest in the commit about what the second one buys: it cuts path string construction and `Path2D` parsing, which is a different bill from rasterisation and compositing, so it is headroom and not a payment for anything the later lanes add.
+
+Do **not** move `creatureCenter` or put anything springy in it. `creature-place.ts` is the single source of truth for the drawn body, the grip ring and the app's finger hit-test, and `bullets.ts:109` keeps its own integer copy of the same lerp in the simulation — an overshoot there puts the sim's hit position and the picture out of agreement. Every impulse in this batch lives in the pose.
+
+After this lands, **`creatures.ts` is owned by nobody**: lanes 5 to 8 each add in one contiguous region and expect to replay over each other, the way `canvas2d.ts` and `config.ts` already work.
+
+Finished when `bun run check` is green, every file is under 250 lines, `packages/render/test/frame.test.ts` is untouched and passing, and `git diff --stat` shows only moved lines plus the two banked numbers.
+
+Model `sonnet`. The one judgement — where to cut — is small and has a precedent in the file's own history; behaviour must not change, which is a constraint rather than a decision. Think about which files import `drawDetails` and `drawMeteor` by name before moving either.
+
+Model `sonnet`, effort `think`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## EVERY BODY MOVES A ROW ON THE SAME INSTANT AND NONE OF THEM ARRIVES
+_claude/burn-body-land-c5 · packages/content/src/drive.ts packages/content/test/drive.test.ts_
+
+The beat arriving in a body, and the hull's approach arriving with it. Behind lanes 3 and 4.
+
+A new pure file in `content`, so nothing here reads a world: `Drive` (a struct of plain numbers: `beatPhase`, `moved`, `dread`, `held`, `jolt`, `shockX`, `shockY`, `scatter`) and `poseWith(motion, beats, drive)`, which composes an `OwnMotion`'s pose with the impulses. `own-motion.ts` is not touched — lane 3 owns it, and `poseWith` taking an `OwnMotion` is what keeps these two lanes from colliding.
+
+**The landing and the gather.** With `p = beatPhase + (scatter - 0.5) * 0.08`: `land = max(0, 1 - p/0.32)^2`, `gather = max(0, (p - 0.75)/0.25)^2`, and `squash = landGain * (0.18*land - 0.07*gather)` applied volume-preserving as `sx *= 1 + squash`, `sy *= 1 - squash`, plus a small `dy`. Position stays exactly linear — `creatureCenter` is untouched, because "it lands on the three" is a statement both players act on across a two-second delay and the even glide is what makes it one. **The overshoot goes in the pose, never in the position.** `landGain` is a new named field on `OwnMotion`... which lane 3 owns, so take it as a `Record<CreatureKind, number>` in this file instead and say in the comment that it wants to move onto `OwnMotion` once the two lanes are both on `main`. Bulb 1.0, slick 0.6, runt 0.4, **throb 0.0** — and write the reason down as a rule rather than a value, because the next person raising SWAY_PUMP's pump needs it: `throbOpen` is a gameplay signal telling the pair when to fire, so the throb keeps a monopoly on beat-synchronous scale change and no other body may express the beat in size. The slick's 0.6 exists because it is the one kind whose squash could walk it toward the round three; check the direction — at maximum it goes to ~2.24, away from them, not toward.
+
+**Dread.** `dread = clamp01((c.row - (hullRow(cfg) - 3)) / 3)`, zero until three rows out and one at the hull, scaling everything the body already does by `1 + 0.55*dread` and doubling the gather in the last row before impact. No new motion is invented; the existing one gets louder. Amplitude scaling touches no shape parameter, so it is free of nameability risk by construction — and it is not decoration: agitation is a second, peripheral channel telling the pair which lane is about to cost them, readable without reading a row number.
+
+**The elliptical pen, and nobody in three design proposals noticed it.** `drawLiving` composes `ctx.scale(scale * sx, scale * sy)`, so a non-uniform pose strokes the outline with an elliptical pen: apparent line weight varies by direction at exactly the instant the squash peaks. This is already true today at SWAY_PUMP's +/-10%; this lane takes it to 18%, a swing `docs/spec/graphics.md` pins at 1.2-1.8 px cannot absorb. Fix it in the one contiguous region this lane adds to `creatures.ts` — compensate `lineWidth` against the geometric mean of `sx` and `sy`, or stroke outside the non-uniform transform. Say in the commit which, and that it changes the resting look slightly because the bug predates the batch.
+
+The gate from lane 2 must be green with `landGain` at these values and red if any of them is doubled; that is the acceptance test, not an eye.
+
+Finished when `bun run check` is green, `drive.test.ts` proves every impulse decays to under 1% by mid-beat and that `sx * sy` stays within 1% of 1 at every sample, and the commit carries `Check: does the unison landing read as tempo or as twelve metronomes — a full wave at tempo, then a two-body wave`.
+
+Model `opus`, and think hard about **whether the unison is tempo or a metronome** — it is the one item in the batch with real nameability exposure, D3 itself calls its own hedges "the argument, not the evidence", and the fallback if it reads mechanical is to halve every `landGain` and let the directional gather carry the beat alone.
+
+Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## A THING DIES AND EVERYTHING AROUND IT CARRIES ON EXACTLY AS BEFORE
+_claude/burn-body-shock-c6 · packages/render/src/shock.ts packages/render/test/shock.test.ts_
+
+The only change in the batch that makes one creature react to something that happened to another, and the largest visible motion proposed anywhere — up to 0.35 tiles, about 12 px of whole-body translation, at the most-watched instant in the game. Behind lanes 4 and 5.
+
+Right now a kill is a silhouette vanishing behind a particle burst while its neighbours carry on unchanged, which reads as objects being deleted from a list. `Effects.ingest` already receives `destroy`, `runtHit`, `petal`, `queenDown` and `wardenDown`, and **all five already carry `col` and `row`** — check `packages/sim/src/events.ts` and confirm before building. Push `{ x, y, age: 0, life: 0.45, power }` (power 2 for the two boss deaths) into a new list, age it in `update`, and per creature accumulate `k = power * (1 - age/life)^2 * max(0, 1 - dist/(2.6*l.tile))` as a push away from the source, clamped to 0.35 tiles total. Shocks are few and short-lived, so this is a handful of multiplies per body. It feeds lane 5's `Drive` as `shockX`/`shockY`; it is pure translation, no colour and no scale.
+
+**This is new render state that outlives a frame**, and it is the only thing in the batch that is. It goes in a list on `Effects` and **must be cleared in `Effects.reset()`**, which `Canvas2DRenderer.waveRestarted` calls on every way a wave can start over — `packages/render/test/restart.test.ts` compares structurally against a fresh `Effects` and fails if a new field is added and not cleared. That is correct behaviour, not an obstacle; `world.beat`, `world.tick` and `world.nextId` all restart at 0 and state cached against them is read by the next run as its own.
+
+`packages/render/src/effects.ts` is 241 lines and owned by nobody — add the field, the ingest case and the reset line in one contiguous region each, and put the falloff maths in this lane's own `shock.ts` so the region in `effects.ts` stays three lines.
+
+**The risk to watch, and it is the one failure in the batch that misinforms a player rather than looking wrong.** Three bodies flinching when one dies may read as a chain reaction and invite a wasted shot. The mitigations are the short falloff, the pure translation and the absence of any colour change — but they are arguments. This is the first thing to look at on a phone, and if it reads as damage it is worse than nothing, because it lies about the rules.
+
+Finished when `bun run check` is green, `restart.test.ts` passes without being weakened, a test proves the list is empty after `reset()` and that a shock decays to zero within its life, and the commit carries `Check: does a neighbour's flinch read as sympathy or as damage — fire into a cluster and watch what a partner assumes`.
+
+Model `sonnet`, `think hard` — the pattern (an `Effects` field aged in `update` and cleared in `reset`) already exists several times in the file; the hard part is the falloff radius and whether it lies, and that is named above.
+
+Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## A BODY UNDER A HAND SWAYS EXACTLY LIKE A FREE ONE
+_claude/burn-body-held-c7 · packages/render/src/creature-drive.ts packages/render/test/creature-drive.test.ts_
+
+What the two players do to a body, drawn on the body. Behind lanes 4 and 5.
+
+One new file that reads the `World`, the `SimConfig` and `Effects` and hands lane 5's plain-number `Drive` to `poseWith` — so the direction of flow stays one way, render still decides nothing, and `content` stays pure. Everything it reads exists: `gripsCreature`, `gripCount`, `hullRow`, and `Effects.blocked`, which already holds a per-id countdown from 0.35.
+
+**The hit-stop comes first, and it is the only item in this batch that makes a silhouette *more* legible.** For the first 60 ms of `blocked` — while the countdown is above 0.29 — draw the pose lerped fully to `REST`: no sway, no drift, no impulse, and quantise the `t` fed to `blobPath` so the contour freezes too. That is the clearest, stillest, most canonical look at a shape anywhere in the game, and it happens at the exact moment the player is looking hardest at that one body. D3 wanted to answer a blocked shot with *more* motion; this is the opposite and it is right.
+
+**Then the recoil.** With `b = blocked/0.29` decaying from 1: a volume-preserving squash of about 0.18 scaled by `b*b`, a small upward `dy` because the shot came from the hull below, and amplitude scaled by `1 + 0.6*b`. The existing grey-outline branch stays; it stops being the *whole* response. A wrong-colour hit currently reads as the silhouette going grey behind a particle cloud, and `docs/spec/graphics.md` asks in its own words for a short hit-stop and a reaction proportional to its cause — there is none anywhere in the pipeline today.
+
+**And the grip.** `grip.ts`'s own comment says the entire point of the mechanic is the *other* screen seeing that a hand is on something, and yet a held creature currently sways identically to a free one — the whole mechanic lives in a ring drawn around it. Under a hand: `sy *= 1 + 0.09*held`, `sx *= 1 - 0.09*held`, and own-motion amplitude cut by 35% — the body is stretched between the hand pulling up and the fall pulling down, and pinned rather than free. One consequence falls out for nothing: `grippedFallTiles` returns 0 for a held creature on most beats, so `moved` is 0 and it gets no landing kick — the grip becomes visible as an absence of the field's pulse, a body held out of time.
+
+Add to `creatures.ts` in one contiguous region; it is owned by nobody after lane 4.
+
+Finished when `bun run check` is green, a test proves the pose is exactly `REST` for the first 60 ms of a block and that every reaction returns to within 1% of the canonical pose, and the commit carries `Check: does a held body read as held from the other seat, at arm's length` and `Check: is the hit-stop visible at all, or is 60 ms below the threshold on a phone`.
+
+Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## THE ONE BODY THE FICTION FORBIDS FROM LOOKING ALIVE IS THE ONLY ONE WITH VOLUME
+_claude/burn-body-skin-c8 · packages/render/src/creature-skin.ts packages/render/src/glow.ts packages/render/src/palette.ts_
+
+Last on purpose, and **conditional**: build it only if the field still looks flat once the bodies are behaving. Everything before this is behaviour; this is the only lane that is decoration, and it is also the only one whose premise a judge argued might be wrong — `docs/spec/graphics.md` says liveliness at 20-26 px comes from motion with overshoot and not from detail, and the flat swatch may be a deliberate reading of that line rather than the omission three readers took it for.
+
+The counter-evidence is in the file itself: `drawMeteor` builds a linear gradient, and the indestructible rock — the one body whose fiction requires it to look inert — is the only thing on the field with volume. A viewer currently finds more depth in the meteor than in the bulb beside it.
+
+**Three things, and no more.** (a) `coreFill`: replace the flat `dark` swatch with a cached radial gradient in the shape's local coordinates, offset toward one implied key light shared by every body on the field, with stops `mix(dark, hex, 0.34)` -> `mix(dark, hex, 0.12)` at 0.5 -> `dark` mixed 35% toward `PALETTE.background` at the rim. The outermost stop is the whole point and it is why this is the safest interior item in the exercise: it *darkens* the body at the edge and raises the rim-to-interior contrast the lobe read depends on, instead of eroding it like every other interior proposal. Cache in a `Map` keyed by colour and shape — three colour triples times four silhouettes is at most twelve gradient objects for the life of the process. **Never construct a gradient per frame**, and never build a breathing radius through `halo()`: `haloSprite` keys on `${color}@${radius}` and allocates a canvas on a miss, which is exactly the trap `sheen.ts` guards against with `Math.round(.../4)*4`. (b) One clipped inward membrane stroke, `innerLight`'s technique from `sheen.ts` re-expressed as fractions of the body radius rather than pixel constants, so it survives at 26 px — it follows every lobe and puts a bright inner edge on each one, which should make lobes *easier* to count. (c) Widen `strokeGlow`'s `color` parameter from `string` to `string | CanvasGradient`. It is assigned straight to `ctx.strokeStyle`, so every existing caller is unaffected and there are zero extra draw calls, and a colour gradient around the loop varies apparent line weight — which is what a constant stroke weight all the way round a closed contour costs you: it is the signature of vector clip-art. **The rule is colour only, never alpha**: add named deep swatches (`redDeep`, `cyanDeep`) to `palette.ts` so all three stops are fully opaque and the rule is enforced by the palette rather than by memory, because a stop reaching zero alpha opens a hole in the outline and a silhouette with a missing bottom edge is a different word.
+
+**Explicitly not built**: the travelling gleam (a 9 px additive dot at alpha 0.35 on a 30 px contour looks like a bullet, and D3 admits it); a second organ, or any organ at all on the runt, which draws at about 10 px — below graphics.md's own "at 11 px nothing of a figure survives" line, so everything the runt says it says with tremble amplitude and with the absence of the field's rhythm; iridescence, because a third colour on a body whose red-or-cyan is a gameplay fact the pair says out loud is worse than a body that is merely less alive; and any drifting, unmirroring or breathing of the detail dots, which are 1.0 px in radius with 0.5 px filaments. If the details are worth an entry, the entry is deleting them and letting the gradient carry the interior.
+
+**Budget the brightness, not just the cost.** "Creatures stay the brightest thing on the field" is a ratio, and this adds light inside the rim. Drop `strokeGlow`'s pass count for creatures from 3 to 2 (an optional `passes` argument), since the inner light now carries part of the rim read. Check the result against the hull's five sheen passes and against a Simon round's green, which is the one colour in the game that must never be competed with.
+
+Finished when `bun run check` is green, `frame.test.ts` passes with the new fills through the strict canvas stub, no gradient or halo sprite is allocated after the first frame, and the commit carries `Check: does the interior gradient survive 26 px, or is the spec right that it does not — desaturated shape sheet at 26 px, rim peak at least 2.5x the interior peak`.
+
+Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
