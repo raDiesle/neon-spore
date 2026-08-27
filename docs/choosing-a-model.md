@@ -186,3 +186,54 @@ The unit of cost is the **turn**, not the token rate. Any task that comes back
 for a second pass has doubled, whatever wrote it. That is why scope and
 collisions dominate model choice, and it is why the cheapest way to save money
 is a prompt precise enough to be answered once.
+
+## 10. What choosing wrong actually costs
+
+One honest caveat first: the table of consequences below is **estimated**.
+Thirteen lanes were watched in a day, but none was run twice with different
+settings, so there is no controlled counterfactual for any of them. The one
+genuinely controlled measurement this repository has is
+`docs/delegation-cost.md`, where the same module was built twice and
+delegation came out at 6.8 times the cost.
+
+### What was measured
+
+Token spend per lane, by model:
+
+| | Range across the day |
+|---|---|
+| `sonnet` lanes | 111k - 358k |
+| `opus` lanes | 193k - 347k |
+
+**The ranges almost entirely overlap.** The cheapest lane of the day was
+`sonnet` (111k, one file, one clear seam). The most expensive lane of the day
+was also `sonnet` (358k, twenty files across three packages, plus a rebase).
+The model tier explained close to none of the spread. Scope and repeat turns
+explained nearly all of it.
+
+That is the single most useful fact on this page, and it argues for spending
+your attention on questions 1 and 2 rather than on the table in section 4.
+
+### What is estimated
+
+| Wrong choice | What you get | Estimated cost |
+|---|---|---|
+| **Model too low** on a judgement task | Comes back green, with a plausible wrong premise. It compiles, the tests pass, and the hard question was never asked | Unbounded. Either you catch it in review (one extra turn, about 2x) or it sits in the code for months |
+| **Model too high** | Nothing bad. Slightly more spend, same result | About 1.2-1.5x on that lane. The cheapest mistake available |
+| **Effort too low** | The most common failure: green but shallow. The first workable structure, not the right one | About one extra turn if you notice - and you often do not |
+| **Effort too high** | Usually harmless; occasionally over-engineering, an abstraction for a problem that did not have one | About 1.1-1.3x, plus the odd piece of code somebody later deletes |
+| **Scope too wide** | Measured rather than estimated: the widest lane cost roughly 3x the narrowest and needed a rebase | 2-3x |
+| **No subject named for the thinking** | You pay for depth and receive reflections on file layout while the data-model question goes untouched | Full price of the rung, no return |
+
+### The asymmetry is the actual rule
+
+Choosing **too high** costs visibly, boundedly, and now.
+Choosing **too low** costs invisibly, unboundedly, and later.
+
+So when you are unsure about the unpick price, go up - the uncertainty is
+itself the signal. When the unpick price is clearly low, a layout, a landing,
+a contour, go down without guilt.
+
+And when you are unsure whether the task is one thing, that is not a model
+question at all. Split it, and ask again.
+
