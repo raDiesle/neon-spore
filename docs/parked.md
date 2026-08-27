@@ -22,6 +22,34 @@ An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
 reads to the bottom of.
 
+## No shape is drawn at any of the twelve interludes
+
+2026-08-27 · claude/game-in-game-mechanics-uxmysp
+
+Every idea in the store has a contour offered to it on the director's SHAPES
+tab, joined by name through `suggests` in `tools/shape-sheet/src/drafts/`. The
+new INTERLUDES tab therefore shows twelve empty frames, which is the deliberate
+"a picture will go here" gap rather than a bug — but it is twelve of them.
+
+Not done here because an interlude is drawn out of `slab` and `glyphed` rather
+than out of blobs ([interludes](spec/interludes.md)), and the shape sheet's
+subjects are all contours with own-motion. Drawing a dial, a claw on a rail or
+a grid of face-down slabs means the sheet learning a second kind of subject,
+which is a change to `tools/shape-sheet/src/subjects.ts` and not a drawing
+task. Start there, with THE GAUGE, which is one needle and two marks.
+
+## `packages/sim/src/beat.ts` carries three unused imports
+
+2026-08-27 · claude/game-in-game-mechanics-uxmysp
+
+`bun run lint` reports three `noUnusedImports` warnings there, and has done
+since before this branch — `bun run check` is green because they are warnings.
+They are fixable automatically.
+
+Not done here because this branch touched no simulation code at all, and the
+rule is that unrelated work gets its own commit or none. It is one
+`bun run lint --write` away for whichever session is next in that file.
+
 ## The one-screen tester cannot pull half of THE WARDEN's tethers
 
 2026-08-27 · claude/boss-concepts-implementation-4hri7c

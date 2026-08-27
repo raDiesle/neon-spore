@@ -78,6 +78,14 @@ describe("buildBacklog", () => {
     expect(names(backlog.mechanics)).toContain("Reverse wave");
     expect(names(backlog.controls)).toContain("Inverted instructions");
 
+    // A round that is not the field is none of the three above: it has no
+    // silhouette, it is not a rule the field plays by, and it does not change
+    // what a hand does on a wave. Before this group existed the whole heading
+    // was parsed and then dropped, which is the failure a spec-derived page is
+    // supposed to make impossible.
+    expect(names(backlog.interludes)).toContain("THE LATHE");
+    expect(names(backlog.interludes)).toContain("THE VAULT");
+
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
     expect(names(backlog.bosses)).toContain("THE CHOIR");
@@ -89,6 +97,7 @@ describe("buildBacklog", () => {
       ...names(backlog.bestiary),
       ...names(backlog.mechanics),
       ...names(backlog.controls),
+      ...names(backlog.interludes),
     ];
     expect(new Set(everywhere).size).toBe(everywhere.length);
   });

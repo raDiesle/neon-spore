@@ -41,6 +41,7 @@ export interface Backlog {
   mechanics: BacklogGroup[];
   controls: BacklogGroup[];
   bosses: BacklogGroup[];
+  interludes: BacklogGroup[];
   parked: BacklogGroup[];
 }
 
@@ -175,6 +176,14 @@ export function buildBacklog(
         "encounters worked out and set aside, each naming the slot it would fit — ideas.md",
         sheet,
         "Bosses",
+      ),
+    ],
+    interludes: [
+      fromIdeas(
+        "INTERLUDE IDEAS",
+        "rounds that are not the field, each with its own controls and picture — ideas.md",
+        sheet,
+        "Interludes",
       ),
     ],
     parked: [

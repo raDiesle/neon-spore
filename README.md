@@ -9,6 +9,12 @@ needs both of you to act together or in a fixed order.
 
 **The core sentence: talking is not a help, it is the control scheme.**
 
+The nearest comparisons are Spaceteam and Lovers in a Dangerous Spacetime for
+what the pair does minute to minute, and **It Takes Two and its successor Split
+Fiction** for the shape of a run: co-op built out of short rounds that each
+hand the two of you a different thing to hold. `docs/spec/interludes.md` is
+what that would mean here.
+
 The game never reads a microphone and never evaluates speech. It only ever
 processes inputs — which, from whom, at what local moment, in what order, in
 which beat. Communication stays human, control stays digital.

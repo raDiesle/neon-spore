@@ -510,6 +510,194 @@ Each names the slot it would fit.
   which is a question a prototype answers and a paragraph does not
 
 
+### Interludes
+
+Twelve short rounds that are not the field: their own rules, their own
+controls, their own picture, over in about ninety seconds, and nothing they
+teach is used again. The category comes from reading Hazelight's two co-op
+games — see [transfers-hazelight](transfers-hazelight.md) — and what an
+interlude is allowed to be is [interludes](interludes.md). THE MIRROR
+([bosses](bosses.md) 11.4) is the one the game already has without calling it
+that, and a snake is being built in a session running beside this one.
+
+Each entry says whether it needs the no-travel rule relaxed. Most do not, and
+that is deliberate: an interlude that survives either answer to
+[the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on)
+is worth more than a better one that is waiting on it.
+
+- **THE CLAW** — a salvage machine over a wreck field, and the strongest
+  argument that this category costs almost nothing. The pilot slides a claw
+  along a rail above the wreckage — the cannon's exact verb, one tile per
+  press, on a rail that is a hull by another name, so **no relaxation is
+  needed**. The navigator sees what the pilot cannot: the wreck field's
+  contents, cell by cell, pods and rocks mixed. The pilot sees only the claw,
+  the rail and the dark. Every drop is a sentence, and a wrong one comes back
+  holding a rock. What it gives is `mend`, `purge` and `ward`
+  ([systems](systems.md) 5.7) for the act about to start, which is the whole of
+  its stakes: nothing is lost by fishing badly, and an act begins better or
+  plainer. Unworked out: whether the pilot ever sees a cell resolve, since a
+  claw that comes up empty and says nothing is a round with no feedback in it;
+  whether the navigator's map is fixed at the start or is revealed a column at
+  a time as the claw passes, which turns one long announcement into eight short
+  ones; how many drops a round gets, which is the only difficulty knob it has
+- **THE LATHE** — one of you describes a shape and the other builds it blind,
+  and it is made entirely out of maths the game already has. The navigator's
+  device shows a target contour and no controls. The pilot's shows four
+  numbered knobs and a contour that is not the target: lobe count, radius,
+  bump depth, bump position — the parameters `blobPath` and `hullRadiusMul`
+  already take (`packages/content/src/shapes.ts`). Neither sees the other's
+  screen, and the only channel is the sentence "three lobes, fatter at the
+  top". It is [announcing](couplings.md) with the falling object removed, which
+  is the one condition under which the pair finds out how bad their shared
+  vocabulary actually is. **No relaxation needed** — nothing moves at all. The
+  design vocabulary is fixed and this round is where a pair discovers whether
+  it works: lobe is the word, and if two people cannot use it to agree on a
+  shape in ninety seconds then the word is wrong and the bestiary has a problem
+  ([bestiary](bestiary.md) naming). Unworked out: how close is close enough,
+  which has to be an integer distance between two contours computed the same
+  way on both devices, and there is no such function today; whether the knobs
+  are shared or split, since four knobs on one device is one person working
+  while the other talks; whether a round is one shape or three
+- **THE VAULT** — pairs, played across two devices, with the faces on the wrong
+  one. A grid of slabs, face down on both screens. Each player can read the
+  faces of the cells **the other one is able to turn**, and neither can read
+  their own. So every turn is dictated: you are told what you are about to
+  reveal and by whom, and a pair that stops narrating loses the board
+  immediately. It is the cleanest expression of the information split in the
+  whole store — no timing, no aim, no clock, nothing but what each of you can
+  see. **No relaxation needed.** Unworked out: whether a wrong pair costs a
+  turn or costs nothing, where costing nothing makes it a memory exercise and
+  costing a turn makes it a memory exercise with a punish; the grid size, which
+  is the entire difficulty and has to fit a portrait phone twice; whether the
+  faces are glyphs the pair already knows — the six control glyphs
+  (`packages/render/src/simon-glyph.ts`) are drawn and legible small — or new
+  symbols, which would be a vocabulary lesson inside a minute
+- **THE GAUGE** — the smallest one, and the one to build first if any of them
+  is built. A single needle between two marks. Each player holds a valve that
+  pushes it one way, both valves are always pushing, and the needle sits still
+  only while the two are matched. Only the navigator sees the dial. Only the
+  pilot's valve is strong enough to move it quickly. The target band drifts on
+  the beat, so the pair is never done, only currently right. Ninety seconds of
+  "ease off, ease off, now hold" and nothing else. **No relaxation needed** —
+  a needle is not a thing that travels a field, it is a number in thousandths.
+  Unworked out: whether the drift is authored or drawn from the seeded rng at
+  the start, where authored is repeatable and drawn is fairer to a second
+  playthrough; whether letting the needle hit an end costs the round or only
+  time; whether it is a gauge at all or is the same round drawn as two hands on
+  a rope, which is the picture everybody already understands
+- **THE ACCORD** — eight beats, two dials, no picture in common. Each of you
+  has a dial showing a number neither of you chose, and the round ends when
+  both dials read the same. Neither can see the other's. There is no correct
+  answer, only an agreed one, so the whole round is two people inventing a
+  protocol for meeting in the middle and then executing it before the count
+  runs out. It is the shortest thing the category can hold and it is the one
+  that would go in the first gap of a run, before the pair has learnt anything
+  else. **No relaxation needed.** Unworked out: whether the dials wrap, which
+  turns "go up" into an ambiguity the pair has to notice on their own and is
+  probably the best thing in it; whether the count is eight beats or sixteen;
+  whether it repeats three times with a tighter count each time, which is how
+  it becomes a round rather than a moment
+- **THE DUET** — the beat, played rather than counted, and the one round built
+  to spend an asset that is finished and unheard. The audio catalogue is built
+  ([audio](audio.md)), the speech band is deliberately kept clear, and no
+  design has yet asked the pair to *listen* to anything. Here a phrase runs
+  past on the beat and each player holds half of its notes — the pilot's pads
+  and the navigator's, never the same one twice — so a phrase can only be
+  played by two people taking turns inside a bar. Each device shows only its
+  own half, which means the handover is announced, out loud, in a channel the
+  sound was designed not to occupy. **No relaxation needed.** Unworked out:
+  whether a phrase is authored or generated, where authored is the only version
+  that can be *good*; what a wrong note does, since silence is a poor answer and
+  a buzzer is a sound in the speech band; whether 625 ms per beat
+  ([latency](latency.md)) is a musical tempo or merely the game's, which is a
+  question somebody has to hear before it can be answered
+- **THE SPLICE** — a nest of tangled cable, two ends, and the colour on the
+  wrong device. The navigator sees where each strand enters; the pilot sees
+  where each leaves; the tangle in between is drawn on both and legible on
+  neither. Cutting the right strand takes a call from one and a press from the
+  other, and cutting the wrong one re-tangles the rest. It is the classic
+  asymmetric puzzle and the reason it is here rather than in
+  [transfers](transfers.md) with Keep Talking is that it needs no manual: both
+  halves are pictures, and neither is a page of rules somebody has to read
+  aloud. **No relaxation needed.** Unworked out: whether the strands may cross
+  at all, since a tangle that is genuinely unreadable is a round decided by
+  who has better eyes; whether the two colours are the game's red and cyan,
+  which would collide with what a shot means everywhere else; how a re-tangle
+  is drawn so that it reads as a consequence and not as a bug
+- **THE BELT** — the first thing in this game that moves sideways, and it is
+  worth building for that alone. A horizontal line of slabs travels across both
+  devices at one tile per beat. Each carries a mark that is legible on the
+  navigator's device and blank on the pilot's, and the levers that sort them
+  are the pilot's alone. Everything in the game falls; a pair that has spent an
+  act reading a vertical field has to re-learn where to look, and the
+  re-learning is the round. **No relaxation needed** — nothing the pair
+  controls moves, the belt does. It is also the one candidate that is close to
+  a genre this design has already refused, and the refusal is worth
+  re-reading before anybody starts: a sorting line under time pressure is a
+  reflex game, and reflex games are what the beat exists to prevent. Unworked
+  out: whether the pressure is the belt's speed, which makes it a reflex game
+  and disqualifies it, or the number of slabs in flight, which does not;
+  whether a mis-sorted slab comes back round; whether the marks are the control
+  glyphs or something new
+- **THE REPRISE** — one of you plays, and then the other has to live inside the
+  recording. The pilot performs a short pattern of presses over four beats. It
+  is recorded — `packages/sim/src/replay.ts` already stores inputs and returns
+  a fingerprint, so a minigame built on recorded input is nearly free in an
+  engine that is lockstep anyway — and then it replays, on a loop, while the
+  navigator has to do their own half around it. The pilot cannot intervene: it
+  is their own past, and they watch it get in the way. It is the nearest this
+  design gets to It Takes Two's best verb pair, rewind and clone
+  ([transfers-hazelight](transfers-hazelight.md)), without either player
+  touching time. **No relaxation needed.** Unworked out: what the navigator is
+  actually doing around the loop, which is the whole design and is not decided
+  — the honest answer is that this is a mechanism looking for a round; whether
+  the pilot records blind or is told what the loop will have to accommodate,
+  where blind is crueller and much funnier; whether the loop is four beats or a
+  bar of the pair's own choosing
+- **THE EDGE** — one space, two projections, and the pair has to work out that
+  they are looking at the same thing. The navigator sees a field from above,
+  the way the game is always drawn. The pilot sees it edge on: one row of
+  eleven columns with depth carried as brightness, so two objects in the same
+  column at different rows are one bright mark and one dim one. Neither view is
+  wrong and neither is sufficient. It comes from Split Fiction's habit of
+  giving the two players genuinely different cameras on one room. **No
+  relaxation needed.** Unworked out: whether brightness can carry fifteen rows
+  legibly, which is an eye's question and probably answers "no, so use fewer";
+  whether this is an interlude at all or is a *veil* — a way of showing the
+  ordinary field, which would make it a system rather than a round, and
+  [systems](systems.md) 5.2 already governs what may be disturbed and what may
+  never be absent; what the pair is doing in it, which like THE REPRISE is not
+  yet decided
+- **THE WELL** — the field turned inside out: the hull at the centre, the
+  creatures falling inward from a rim, and eleven columns become eleven
+  positions on a clock face. Nothing in `packages/sim` changes at all — a
+  creature is still `(col, row)` and the rules are the rules; only
+  `packages/render` projects it differently, which is legal precisely because
+  render changes nothing (`CLAUDE.md` rule 1). What changes is the **sentence**:
+  "column four" stops being a phrase and "four o'clock" starts being one, and a
+  pair that has spent four acts building one vocabulary discovers it was
+  building a vocabulary about a picture rather than about a game. **No
+  relaxation needed**, and it is the cheapest large change in the store. It
+  also plainly **fails the first test of an interlude** — the field is not
+  gone, it is re-drawn — and that failure is the useful part: its real home may
+  be the modifier slot that [wave-design](wave-design.md) already reserves for
+  waves 8 and 9 of an act, where inverting something is the point. Unworked
+  out: which of the two it is, which is the only question it has and is worth
+  answering before the drawing starts; whether both devices flip or only one,
+  where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
+  hat; whether the radar strip survives a polar field at all
+- **SNAKE** — being built in a session running beside this one, so this entry
+  claims no design and exists to record what the category asks of it. A snake
+  is one body that travels, which is the one shape this game's central rule
+  forbids on the field, so it is also the first real test of
+  [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on):
+  either an interlude is outside that rule or a snake cannot be one. And a
+  snake is famously a game for one person, so the thing that makes it a Neon
+  Spore round is whatever makes it unplayable alone — the head answering to one
+  player and the turn to the other, or the food visible on one device and the
+  tail on the other. Unworked out: all of it, elsewhere. When that session
+  lands, this bullet is replaced by what it actually built.
+
 ## Deliberately deferred
 
 - **Cracks in the cockpit** — a downward spiral

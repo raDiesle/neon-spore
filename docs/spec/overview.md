@@ -17,6 +17,19 @@ Reference points: Spaceteam (the order arrives at the wrong person), Lovers in
 a Dangerous Spacetime (split roles), Keep Talking and Nobody Explodes
 (asymmetric information). Spaceteam is the closest comparison.
 
+**It Takes Two, and its successor Split Fiction**, are a reference for a
+different thing, and it is worth naming separately because it is not what the
+three above are for. Those three are about two people operating one machine,
+which is what this game *is*. Hazelight's two are about never operating the
+same machine twice: a level hands the pair a pair of verbs, spends them, and
+throws them away, and both games are full of short self-contained rounds —
+minigames, side stories — with their own rules, their own controls and their
+own picture. Nothing about the swarm, the hull or the columns comes from them.
+The shape of a round does. See [transfers-hazelight](transfers-hazelight.md)
+for the reading and [interludes](interludes.md) for what this game would do
+with it; [THE MIRROR](bosses.md) is the one round the game already has that
+works this way, and it was not called that when it was built.
+
 **The core sentence: talking is not a help, it is the control scheme.**
 
 ## The setting

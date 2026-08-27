@@ -8,7 +8,8 @@
  * paragraph. The stage keeps running behind it.
  *
  * Grouped by what a thing would become — creatures, shapes, mechanics,
- * controls, bosses — not by which spec file it was written in. `backlog.ts`
+ * controls, bosses, interludes — not by which spec file it was written in.
+ * `backlog.ts`
  * does that grouping on the server, out of the spec's own headings.
  */
 
@@ -39,6 +40,7 @@ interface Backlog {
   mechanics: BacklogGroup[];
   controls: BacklogGroup[];
   bosses: BacklogGroup[];
+  interludes: BacklogGroup[];
   parked: BacklogGroup[];
 }
 
@@ -155,6 +157,7 @@ async function load(): Promise<void> {
   fill("backlogMechanics", backlog.mechanics);
   fill("backlogControls", backlog.controls);
   fill("backlogBosses", backlog.bosses);
+  fill("backlogInterludes", backlog.interludes);
   fill("backlogParked", backlog.parked);
   void renderSpec();
   loaded = true;
