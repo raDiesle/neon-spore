@@ -57,24 +57,6 @@ a guess.
 
 Model `sonnet`, effort `think hard`. Read `docs/versus.md` first — it is the design this lane implements.
 
-## THE SWALLOW LEAVES THE FIELD, AND SPENDS ITSELF DOWNWARDS
-_claude/burn-swallow-s2 · packages/render/src/swallow.ts packages/render/src/maw.ts packages/sim/src/pods.ts_
-
-Three things about taking a pod in, reported by the owner, and the first is a
-bug: the downward part of the motion is drawn past the edge of the field.
-Nothing clips it — there is no `clip()` anywhere in `drawInhale` or `maw.ts`,
-so the shape simply goes where the arithmetic sends it.
-
-The second is the shape itself. It should spend less of itself vertically and
-more across, and round out on the inside, at roughly the same volume — a mouth
-that widens rather than a throat that stretches. The third is a rule: a
-power-up should be drawn all the way to the **centre** before it activates,
-rather than counting as taken the moment it is swallowed.
-
-Finished when the swallow stays inside the field at every phase, reads as
-width rather than descent, and a power-up's effect begins at the centre. The
-last of those is sim timing and belongs in `hashWorld` if it becomes state.
-
 ## TWO FILES AT THE CEILING, AND EVERYTHING WANTS TO ADD TO THEM
 _claude/burn-teach-split-t1 · packages/sim/src/world.ts packages/sim/src/beat.ts packages/sim/src/step.ts packages/sim/src/wave-start.ts packages/sim/src/index.ts_
 
