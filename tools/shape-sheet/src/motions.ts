@@ -161,6 +161,53 @@ export const SLITHER: OwnMotion = {
     ),
 };
 
+/**
+ * Leans one way, holds there, then commits the other way — and never passes
+ * through a rest pose on the way. Every other lean in this set is a rock, which
+ * has a middle it returns to and therefore says nothing about *where* the body
+ * is headed; this one is a held state, so the pose at any moment is a claim.
+ *
+ * Half a cycle is 2.5 s, which is four beats at 96 BPM: one accent, and one
+ * decision for a creature that re-picks its column on the accent.
+ */
+export const CANT: OwnMotion = {
+  name: "CANT",
+  note: "leans and stays leaning, then commits the other way — no rest in the middle",
+  poseAt(t) {
+    const period = 5;
+    const p = (t % period) / period;
+    const edge = (x: number): number => {
+      const c = Math.min(1, Math.max(0, x));
+      return c * c * (3 - 2 * c);
+    };
+    // A square wave with eased shoulders: -1 held, then +1 held.
+    const lean = (edge(p / 0.12) - edge((p - 0.5) / 0.12)) * 2 - 1;
+    return pose(lean * 0.09, 0, lean * 0.26, 1, 1);
+  },
+};
+
+/**
+ * Slumps slowly and is caught, over and over, with nothing lifting it: down
+ * over four fifths of the cycle and back in the last fifth.
+ *
+ * It is HEAVE with the asymmetry the other way round, and that is deliberate
+ * rather than careless. HEAVE is a body working against its own weight and this
+ * is a body that has stopped; the Husk's whole tell is that a pod bobs and it
+ * does not, so whether these two can be told apart at 26 px *is* the question
+ * the draft was drawn to ask. Two motions that read the same here would be an
+ * answer, not a duplication.
+ */
+export const SAG: OwnMotion = {
+  name: "SAG",
+  note: "down slowly, caught at the bottom, nothing lifting it — HEAVE's inverse",
+  poseAt(t) {
+    const period = 1.25;
+    const p = (t % period) / period;
+    const drop = p < 0.8 ? p / 0.8 : 1 - (p - 0.8) / 0.2;
+    return pose(0, drop * 0.11, 0, 1 + drop * 0.06, 1 - drop * 0.05);
+  },
+};
+
 /** Everything the drafts may be animated with, in one list for the panel. */
 export const MOTIONS: OwnMotion[] = [
   SHIVER,
@@ -172,4 +219,6 @@ export const MOTIONS: OwnMotion[] = [
   LURCH,
   HEAVE,
   SLITHER,
+  CANT,
+  SAG,
 ];

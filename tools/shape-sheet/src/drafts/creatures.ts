@@ -1,6 +1,19 @@
+import { POD } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
 import { cluster, glyphed, sac, slab } from "../forms.js";
-import { DRIFT, HEAVE, LURCH, SHIVER, SLITHER, SWELL, TURN, TWITCH } from "../motions.js";
+import { hooked } from "../hooked.js";
+import {
+  CANT,
+  DRIFT,
+  HEAVE,
+  LURCH,
+  SAG,
+  SHIVER,
+  SLITHER,
+  SWELL,
+  TURN,
+  TWITCH,
+} from "../motions.js";
 import { blob, crystal } from "../subjects.js";
 
 /**
@@ -143,5 +156,30 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     suggests: "The Colony",
     owner:
       "the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
+  },
+  {
+    subject: hooked("NOTCH", "a body with a barb, and the barb is the aim", 32, 30, 0.85, 5),
+    motion: CANT,
+    status: "draft",
+    slot: "creature",
+    suggests: "Notch",
+    owner:
+      "the first creature that changes lane, so the first that needs a silhouette with a facing: the barb points at the column it takes on the next accent, and it retracts before it comes out the other side, so the body commits rather than popping between two poses",
+  },
+  {
+    subject: sac(
+      "HUSK",
+      "the pod's own contour with its mass gone to the bottom",
+      0.3,
+      POD.rx,
+      POD.ry,
+      { lobes: POD.lobes, depth: POD.depth, wobble: POD.wobble, seed: POD.seed },
+    ),
+    motion: SAG,
+    status: "draft",
+    slot: "creature",
+    suggests: "Husk",
+    owner:
+      "drawn from the POD card's own numbers so that everything different about it is the sag and nothing else, which is the only question worth asking of a thing that has to pass for a pod: at 26 px, is slack tellable from taut, or does the dead core have to carry the whole tell alone",
   },
 ];

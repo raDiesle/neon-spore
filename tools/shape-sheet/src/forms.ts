@@ -28,13 +28,37 @@ import { isoLoops, resampleAll } from "./iso.js";
 
 const N = 64;
 
+/** The lobing a sac is cut from, where the default two-lobed one is wrong. */
+export interface SacSkin {
+  lobes: number;
+  depth: number;
+  wobble: number;
+  seed: number;
+}
+
+const SAC_SKIN: SacSkin = { lobes: 2, depth: 0.1, wobble: 0.05, seed: 1.7 };
+
 /**
  * A sac: a blob with its mass pulled downward, hanging rather than floating.
  * `bias` 0 is an ordinary blob; 0.5 is a teardrop with a narrow top.
  *
  * Screen y grows downward, so the widening is at `sin(a) > 0` — the bottom.
+ *
+ * `skin` exists for the one case where a sac has to be *somebody else's*
+ * contour with the mass moved: the HUSK is drawn from the pod's own lobes,
+ * depth, wobble and seed, so at `bias` 0 the two cards are the same picture and
+ * every difference on the page is the sag and nothing else. A sag drawn on a
+ * different skin would be a comparison of two shapes rather than of one shape
+ * before and after, which is not the question the draft is asking.
  */
-export function sac(name: string, note: string, bias: number, rx: number, ry: number): Subject {
+export function sac(
+  name: string,
+  note: string,
+  bias: number,
+  rx: number,
+  ry: number,
+  skin: SacSkin = SAC_SKIN,
+): Subject {
   return {
     name,
     note,
@@ -43,7 +67,9 @@ export function sac(name: string, note: string, bias: number, rx: number, ry: nu
       const pts: Point[] = [];
       for (let i = 0; i < N; i++) {
         const a = (i / N) * Math.PI * 2;
-        const m = blobRadiusMul(a, 2, 0.1, 0.05, t, 1.7) * (1 + bias * Math.sin(a));
+        const m =
+          blobRadiusMul(a, skin.lobes, skin.depth, skin.wobble, t, skin.seed) *
+          (1 + bias * Math.sin(a));
         pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
       }
       return pts;

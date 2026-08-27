@@ -142,33 +142,134 @@ filed rightly, and there is no second list to change.
   learns "that one comes back" rather than assuming the game glitched
   (`resolveHull` treats every arrival alike today); whether it loops forever
   or a bounded number of times, so a bad wave cannot soft-lock a run
-- **Notch** — it steers for the damage already done. Hull scars are permanent
-  and visible to both players ([systems](systems.md) 5.8), and today they are
-  history; this is what would make them a target list. It re-picks its column on
-  the accented beat and drifts one column toward the deepest scar, which makes
-  it the first creature to change lane at all — 5.8 reserves lane changing for
-  later types, and this is the kind of type it was reserved for. It is also the
-  first creature whose column is a **prediction**: a column named under a 0.5 to
-  2 s voice delay ([latency](latency.md)) can be wrong by the time it is heard,
-  so the pair has to say where it is going rather than where it is, and the
-  Thread's future trace ([bestiary](bestiary.md#102-newly-accepted)) is the
-  instrument that would let them. Unworked out: the drift has to be whole
-  columns on a beat and never a fraction between them, or two devices round it
-  apart; whether it goes for the deepest scar or the nearest one, which is the
-  difference between a wave that concentrates damage and one that spreads it;
-  whether an unscarred hull leaves it wandering, which would make the first one
-  harmless and every one after it worse
-- **Husk** — a pod that should be refused. It falls amber at the pod's own
-  speed, and taking it in costs hull instead of repairing it; the tell is on the
-  radar strip and not on the body, so the player who can read it is not the
-  player whose maw is about to open ([systems](systems.md) 5.7). It is the first
-  thing in the game that would make player 1's one solo action a question:
-  today a missed pod costs nothing and a caught one is pure gain, so the maw is
-  never a decision. Unworked out: whether it can be told apart without the
-  strip, since a husk legible on its own body needs no conversation; what
-  refusing costs, given that a pair who simply never open the maw are safe from
-  it and lose only what pods would have given them; whether it has to be shot
-  loose like a pod, which would make the wasted shot the real price
+- **Notch** — it steers for the damage already done, and it is the first
+  creature on the field that changes lane at all. Hull scars are permanent and
+  visible to **both** players ([systems](systems.md) 5.8); today they are
+  history, and this is the one thing that would turn them into a target list.
+  Red and answered by the cannon, exactly like a slick — everything new about
+  it lives in one integer, the column it is heading for.
+
+  **The rule, in whole columns.** It glides one tile per beat and holds its
+  column between accents. On every accented beat — every fourth, the one the
+  pair already hears — it re-picks: it counts the scars standing in each
+  column, takes the deepest, and moves **one** column toward it, by the sign of
+  the difference and never by a fraction. Ties go to the column nearest its
+  own, and after that to the lower index, so the whole choice is a total order
+  and two devices cannot round it apart. Fourteen beats from the top is three
+  accents, so a Notch reaches at most three columns from where it spawned;
+  that is the number a wave author has to hold in their head, and it is small
+  enough to author against. The accent itself is `beat % 4` in
+  `packages/audio/src/bind.ts` and nowhere else — a sim that spells the same
+  arithmetic out a second time is precisely the drift `purity.test.ts` keeps a
+  table against, so the accent moves into `sim` and the mixer reads it there.
+
+  **The scars it reads are the recent ones.** `world.scars` is a list of
+  events capped at `maxScars` (30) with the oldest shifted off, not a depth per
+  column — so "deepest" is a count over a rolling window, and a column stops
+  being the target once its damage has aged out behind thirty newer ones. That
+  is not an implementation detail to be tidied away later: it is what keeps a
+  long run recoverable, because a hull that has been hit everywhere would
+  otherwise doom every later Notch to the same corner.
+
+  **An unscarred hull leaves it going straight.** With nothing to steer for it
+  holds its spawn column and reads as a slick wearing the wrong outline. The
+  first one a pair ever meets is harmless and every one after it is worse,
+  which is the teaching order for free — and it is honest, because the pair can
+  *see* that it went straight rather than being told it was going to.
+
+  **The sentence is what changes.** A column named across a 0.5–2 s voice delay
+  ([latency](latency.md)) can be stale by the time it is heard, so "it's in six"
+  is a worse sentence than "it's in six, going to four". Position splits the
+  usual way — an `aim` kind, radar `p2`, so the navigator sees it coming and the
+  pilot holds the cannon (`docs/decisions.md` #15) — but the *destination* does
+  not split at all: the scars are on the hull and both players are looking at
+  them. It is the first creature whose target is public while its position is
+  private, and that asymmetry is what lets the pair compute the prediction
+  together instead of one of them reading it out.
+
+  **The tell has to arrive a beat early.** On the beat before an accent the body
+  leans toward the column it is about to take. The lean is a render offset fed
+  by the sim's target column and never a second position (CLAUDE.md rule 1), and
+  it never leaves the lane (5.8): the shape carries the direction, the tile
+  carries the placement. That is also why the draft drawn at it — NOTCH, in
+  [the asset catalogue](../asset-catalogue.md) — is a body with a barb rather
+  than another round thing. A creature that has a facing needs a silhouette that
+  has one.
+
+  **What it would cost.** One integer on `Creature`, a re-pick in `beat.ts` on
+  the accent, the accent itself moved into `sim`, and a lean in
+  `packages/render/src/creatures.ts` reading the target. One further edit, worth
+  naming now rather than discovering mid-build: `livingKindForColor` maps a
+  colour to exactly one living kind, so a *third* kind carrying red means a wave
+  entry has to be able to name its kind and let the colour follow, instead of
+  the other way round. Nothing else in the bestiary has needed that yet.
+
+  Unworked out: whether a lean reads as a lean at 26 px, where the bulb already
+  sways and the slick already tilts and a small body has only so many ways to
+  move — an eye's question, and the NOTCH draft is drawn at exactly it; and
+  whether a wave holding one has to be authored so that a scar already exists,
+  or whether the inert first one is the better teaching after all
+- **Husk** — a pod that should be refused, and the cheapest new object in the
+  store: a fourth `PodKind` beside `mend`, `purge` and `ward`. No new list, no
+  new category, no new control, no new gesture. It hangs amber at a fixed column
+  and row and does nothing; it is never cleared and never blocks the end of a
+  wave; it is a pod in every respect ([systems](systems.md) 5.7) except what it
+  gives.
+
+  **It is freed the same way and costs the same to free.** The pilot holds the
+  column, the navigator fires, either colour. That price is paid *before*
+  anybody knows what they bought — a shot and half a beat of cooldown, which on
+  a wave carrying rocks is a rock left unanswered. A husk that could be read
+  while it still hung would be free to ignore, and free to ignore is not a
+  decision.
+
+  **Taking it in inverts the receipt.** `mend` gives `podRepair` hull back and a
+  husk takes the same number away; there is no flash, and the ship darkens from
+  inside instead of lighting. Player 1 learns the answer the way they learn
+  every other one, from the ship rather than from a number.
+
+  **Refusing costs no hull and a great deal of everything else.** A husk that
+  arrives with the maw shut breaks on the skin exactly as a missed pod does: no
+  damage, no scar. So a pair who simply never open the maw are safe from it —
+  and give up `purge`, which sweeps the field, and `ward`, which holds the
+  shield armed without a trigger. Those are the two pods that answer a wave, so
+  a standing refusal is not a safe strategy, it is a wave surrendered. The husk
+  invents no punishment; it only has to make an existing gift into a question.
+
+  **The tell is the core, not the strip.** The idea store first said radar, and
+  the radar does not carry pods at all: the strips are owned per creature kind
+  (`docs/decisions.md` #15) and a pod is not a creature. Putting pods on a strip
+  to hold one bit is a large change for a small purpose. What is already drawn
+  is better. Every pod's core carries a **glyph** — `mend` a heart, `purge` a
+  bomb, `ward` a shield — because a pair chasing one down the field has to name
+  it before deciding whether it is worth chasing
+  (`packages/render/src/pods.ts`). A husk wears the heart. It is a `mend` that
+  has died, and the heart is what makes it a lie. What it does not do is
+  **beat**: a hanging pod's core pulses and its whole body bobs, and a husk's
+  core sits at one dead brightness and its body hangs still.
+
+  **So the split is workload, not information.** Both players can see the core.
+  Only one of them has the attention to watch it for a beat: the pilot in the
+  last stretch is holding a column and an 800 ms window at once, while the
+  navigator, having fired it loose, has nothing to do until the catch resolves.
+  Nothing is hidden from anybody, which keeps 5.2 intact — every position is
+  present for both, disturbed or incomplete but never absent — and it is the
+  first time the game separates the pair by how busy they are rather than by
+  what they are shown.
+
+  **And the body sags.** A pod is taut; a husk is the same capsule with its mass
+  gone to the bottom. That is a second and slower tell, for a pair who have met
+  one before, and it is deliberately drawn at the edge of legibility: the HUSK
+  draft in [the asset catalogue](../asset-catalogue.md) is that and nothing
+  else, so the card answers whether slack can be told from taut at 26 px. If it
+  cannot, the dead core carries the whole tell alone; if it can, the husk is a
+  shape rather than a rhythm and the concept is simpler than it thought it was.
+
+  Unworked out: whether the first husk of a run is taught
+  ([briefings](briefings.md)) — the world explains itself everywhere else, which
+  argues for teaching it and letting the trap be per-pod rather than per-run;
+  and whether a husk may share a wave with a `mend`, since two identical amber
+  hearts falling together is either the whole idea or one coin-flip too many
 
 ### Bosses
 

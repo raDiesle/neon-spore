@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty drafts, none of them claimed.** A draft is a picture offered
+> **Status: twenty-two drafts, none of them claimed.** A draft is a picture offered
 > to an idea, not a decision about it. Nothing on this page is in the game, and
 > a draft leaves it by being claimed — its parameters moving into
 > `packages/content` — or by being cut.
@@ -48,22 +48,31 @@ which is why every draft lives in `tools/` and none of them in `packages/`.
 
 ## What is in it now
 
-**Twenty drafts**, one for all but a handful of the open ideas: ten creatures,
-four bosses, six for the controls and mechanics. Each names the idea it is
-offered to, and a test fails if that idea is not a heading in
+**Twenty-two drafts**, one for all but a handful of the open ideas: twelve
+creatures, four bosses, six for the controls and mechanics. Each names the idea
+it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
 suggestion.
 
-**Five new contour forms** in `tools/shape-sheet/src/forms.ts`, because several
-ideas are not describable as a lobed blob or a faceted rock: `sac` (mass pulled
-downward, hanging), `cluster` (several bodies in one membrane, metaball, and
-the one form that can return more than one loop),
+**Six new contour forms**, because several ideas are not describable as a
+lobed blob or a faceted rock. Five are in `tools/shape-sheet/src/forms.ts`:
+`sac` (mass pulled downward, hanging), `cluster` (several bodies in one
+membrane, metaball, and the one form that can return more than one loop),
 `arm` (open, swung from a pivot), `slab` (superellipse, made rather than
-grown), `glyphed` (a rim of notches that travel).
+grown), `glyphed` (a rim of notches that travel). The sixth has a file of its
+own, `hooked.ts`, and the split is a real seam rather than a full file: every
+form in `forms.ts` is symmetric or symmetric-with-a-wobble, which is right for
+anything that holds its lane, and `hooked` is the one whose outline carries a
+**direction** — a barb that points where the body is going. `sac` also takes an
+optional skin now, so a sac can be drawn from somebody else's lobes; the HUSK
+is the reason and the section below says why.
 
-**Nine spare motions** in `tools/shape-sheet/src/motions.ts` — SHIVER, TWITCH,
-TURN, DRIFT, TOLL, SWELL, LURCH, HEAVE, SLITHER — written to be told apart at
-26 px rather than to differ by a frequency.
+**Eleven spare motions** in `tools/shape-sheet/src/motions.ts` — SHIVER,
+TWITCH, TURN, DRIFT, TOLL, SWELL, LURCH, HEAVE, SLITHER, CANT, SAG — written to
+be told apart at 26 px rather than to differ by a frequency. SAG is the one
+deliberate exception: it is HEAVE with the asymmetry the other way round,
+because whether those two can be told apart at 26 px *is* the question the HUSK
+was drawn to ask.
 
 ## Own-motion is now data
 
@@ -97,6 +106,20 @@ Said plainly, because a catalogue that oversells itself is worse than none.
 - **None of them has colour, glow or detail.** The cards are outlines. The
   field draws fills, rims, cores and halos, and a silhouette that reads bare
   can still fail dressed.
+- **HUSK is the one draft that has to *fail* to be readable, a little.** It is
+  the pod's own contour with the mass moved to the bottom and nothing else
+  changed, because a husk that announces itself while it still hangs is free to
+  ignore, and free to ignore is not a decision. So the card is asking whether
+  slack can be told from taut at 26 px, and either answer is useful: if it can,
+  the husk is a shape; if it cannot, the whole tell falls to the dead core, and
+  the outline was never going to carry it. That question cannot be settled here
+  — put the HUSK card next to the POD card and look.
+- **NOTCH leans, and so does everything else.** The barb gives the body a
+  facing, which is what the mechanic needs; the CANT motion then holds that
+  lean rather than rocking through it. But the bulb already sways and the slick
+  already tilts, and at 26 px a small body has very few ways to move. Whether a
+  *held* lean reads as a direction rather than as one more wobble is an eye's
+  question, and it is the one the draft exists to have asked.
 
 ## What a later session picks up
 
@@ -113,14 +136,14 @@ Roughly in the order the work is worth doing.
    likeliest first is the **Wave gate** — its idea is worked out furthest, and
    GATE is the only draft that needs no new contour maths. Walking it once will
    say more about whether this arrangement is right than another ten drafts.
-3. **A draft for the five ideas that have none.** *Reverse wave* was the only
-   one when this page was written, because a direction is not a shape and it
-   was not obvious what to draw. The idea store has since answered that — a
-   reverse wave comes up out of a **breach**, so the thing to draw is the hole
-   in the hull rather than the direction — and has added four entries nothing
-   here was drawn at: *Notch*, *Husk*, *The breach* and *Handover*. The first
-   two are creatures and want a silhouette; the other two are a rule and a
-   control, so they want a mark on the ship in the way the SWAP ARC does.
+3. **A draft for the three ideas that still have none.** *Notch* and *Husk*
+   have theirs now — NOTCH and HUSK below — and both entries in the idea store
+   were worked out to match, so the picture and the paragraph were written
+   against each other rather than one being fitted to the other afterwards.
+   What is left is *Reverse wave*, *The breach* and *Handover*. The first two
+   are the same drawing: a reverse wave comes up out of a **breach**, so the
+   thing to draw is the hole in the hull rather than the direction. The third
+   is a control and wants a mark on the ship in the way the SWAP ARC does.
    Anything new goes in the same three files, not a fourth list.
 4. **Draw the motion sheet from the catalogue, not from `SUBJECTS`.**
    `bun run shapes` still onion-skins only what the game draws, so a draft
