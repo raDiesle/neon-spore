@@ -121,9 +121,22 @@ try {
 console.log(`✓ ${TRUNK} is at ${await git(["rev-parse", "--short", TRUNK])}`);
 for (const line of subjects.split("\n").filter(Boolean)) console.log(`  ${line}`);
 
+/**
+ * What the lane says nobody has looked at — and, when that is nothing, the
+ * fact that it is nothing.
+ *
+ * The silent version of this line cost a real obligation. A lane reported two
+ * `Check:` trailers, amended its commit during a rebase, and the trailers went
+ * with the amendment; the landing printed no check line, which is exactly what
+ * a fully-verified lane also prints. Nobody noticed for an hour. A sandbox
+ * lane that genuinely leaves nothing for an eye is rare enough that it is
+ * worth saying out loud rather than inferring from a missing line.
+ */
 const carried = parseLog(landing).flatMap((c) => c.checks);
 if (carried.length > 0) {
   console.log(`  ${carried.length} check(s) landed with it — bun run checks`);
+} else {
+  console.log("  0 checks — nothing here needs an eye, or a rebase ate the trailers");
 }
 
 if (wantsPush) {
