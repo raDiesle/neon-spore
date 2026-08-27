@@ -216,7 +216,7 @@ remembering — `ship.ts` today hand-lists capabilities and its own comment
 admits it only catches a field being *removed*.
 
 ## AN INTERLUDE IS AUTHORED LIKE A BOSS AND EDITED LIKE NOTHING AT ALL
-_claude/burn-interlude-panel-d3 · tools/director/src/interlude-panel.ts tools/director/src/interlude-serialize.ts packages/content/src/interludes.ts_
+_claude/burn-interlude-panel-d3 · tools/director/src/interlude-panel.ts tools/director/src/interlude-serialize.ts tools/director/src/roster.ts packages/content/src/interludes.ts_
 
 THE GAUGE is a playable round and there is no way to reach it from the
 director: no panel, no info, no way to play it, and no way to say which gap it
@@ -232,6 +232,13 @@ with a seam already cut for it — `stage-touch.ts` is the stage played rather
 than edited, with the game's own controls, and `world.interlude` is a mode the
 existing `World` enters (`docs/decisions.md` #20), so the stage does not need
 a second kind of round to know about.
+
+**And it is currently listed as unbuilt, which is worse than absent.** The NOT
+BUILT YET sheet shows "INTERLUDES — 12 unbuilt" and THE GAUGE is one of the
+twelve. `isBuilt` in `tools/director/src/roster.ts` knows `CREATURES` and
+`BOSS_KINDS` and nothing else, so no interlude can ever read as built however
+many are finished. Fix that in this lane: a built round must leave the backlog
+by being built, the same way a creature does.
 
 **Behind `claude/burn-director-see-d2`, not beside it.** Both mount a panel
 into `tools/director/src/main.ts` and `index.html`, and that lane is also
