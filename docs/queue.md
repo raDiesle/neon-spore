@@ -72,3 +72,25 @@ Taken off `docs/parked.md`. Finished when both are drawn by the test that
 refuses what a real canvas refuses. Start by asking whether `config-pair.ts`
 should carry a `PAIR_ON` constant, so the next switch of that kind is covered
 by being added rather than by somebody remembering.
+
+## THE GAME'S OWN ENTRY POINT HAS NO ROOM LEFT
+_claude/burn-main-split-b12 · apps/game/src/main.ts apps/game/src/wiring.ts_
+
+`apps/game/src/main.ts` sits at exactly 250 lines, which is the limit
+`packages/sim/test/limits.test.ts` enforces. It has already cost two people: a
+lane moved a call out of it into `beat.ts` to make room for one line, and a
+one-line improvement to how it spreads its config was reverted rather than
+landed, because an import and a comment put it four lines over.
+
+A file at its limit does not merely resist growth, it silently taxes every
+change that touches it — and this is the file every new mechanic has to be
+wired into. Split it the way this repository splits things: `main.ts` is
+wiring, and wiring divides by what is being wired. Finished when `main.ts` has
+room and `bun run preview` still opens the field.
+
+**Then make the one change that was reverted**: `const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true }`.
+`PAIR_ON` landed with the renderer's pair coverage and exists precisely so a
+third pair-switch reaches the game by being added to `PairConfig` rather than
+by somebody remembering this line — and the line it is meant to fix is
+currently spelling both switches out by hand.
+
