@@ -8,21 +8,23 @@
 
 ## Accepted, not yet worked out
 
+An idea's sub-heading says **what it would become**, not how far along it is —
+nothing on this page is built. A creature is a thing that falls down the field
+and gets a silhouette; a mechanic is a rule the field plays by; a control is a
+change to what a player's own hands do. The director's backlog page groups by
+these three, so an idea that is filed wrongly is one edit here away from being
+filed rightly, and there is no second list to change.
+
+### Creatures
+
 - **Echo** — a creature appears one second earlier for one player
 - **Reverb** — repeats an action with a delay (a different thing from the Echo;
   see the name clash in [bestiary](bestiary.md#103-examined-and-rejected))
-- **Interference** — one player's colours are swapped and they do not know it
 - **Countdown creature** — can only be hit at zero
-- **Reverse wave** — from below
 - **Moulting**
 - **Symbiosis** — only vulnerable while the two are far apart
 - **Camouflage** — goes out when you take aim, so you have to aim beside it
 - **The Colony** — spreads, hatches darts; absorbs the brood fibre and the root
-- **Light traces**
-- **Bearing waves** — a coordinate grid, a change of controls
-- **Codebook table**
-- **Inverted instructions** — the Spaceteam principle
-- **The Needle** — a geometric corridor
 - **Prism** (working name only — "Mirror" is taken by [THE MIRROR](bosses.md),
   and the name **The Mirror** was already examined and rejected as a creature
   for an unrelated reason, [bestiary](bestiary.md#103-examined-and-rejected))
@@ -45,6 +47,19 @@
   learns "that one comes back" rather than assuming the game glitched
   (`resolveHull` treats every arrival alike today); whether it loops forever
   or a bounded number of times, so a bad wave cannot soft-lock a run
+
+### Mechanics
+
+- **Reverse wave** — from below
+- **Light traces**
+- **The Needle** — a geometric corridor
+
+### Controls
+
+- **Interference** — one player's colours are swapped and they do not know it
+- **Bearing waves** — a coordinate grid, a change of controls
+- **Codebook table**
+- **Inverted instructions** — the Spaceteam principle
 
 ## Deliberately deferred
 

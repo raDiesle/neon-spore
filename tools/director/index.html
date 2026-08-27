@@ -211,6 +211,50 @@
       table.md-table th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
 
       .expand { font-size: 9px; letter-spacing: 1px; margin: 0 0 8px; }
+
+      /* The backlog sheet. Covers the editor rather than sitting beside it:
+         a paragraph does not fit in a 300px authoring column. */
+      #backlog { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #backlog.on { display: flex; flex-direction: column; }
+      #backlog > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #backlog .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #backlog .sub { color: var(--dim); font-size: 10px; }
+      #backlog > header button { margin-left: auto; }
+      #backlogTabs {
+        display: flex; flex-wrap: wrap; gap: 4px; flex: 0 0 auto;
+        padding: 10px 20px 0; 
+      }
+      #backlogBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      .sheetpage { display: none; }
+      .sheetpage.on { display: block; }
+      .sheetpage > .note { max-width: 620px; }
+      .sheetpage h2 { color: var(--cyan); letter-spacing: 3px; font-size: 11px; margin: 18px 0 2px; }
+
+      /* One group per column, kept whole — and a column width rather than the
+         full screen, because a 1600px line of prose is unreadable however
+         much room there is. */
+      .columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 8px 26px; align-items: start; }
+      .columns > section { min-width: 0; max-width: 560px; }
+
+      .shapes { display: flex; flex-wrap: wrap; gap: 10px; }
+      .shape {
+        display: flex; gap: 10px; align-items: flex-start; width: 330px;
+        padding: 8px; border: 1px solid var(--line-soft); border-radius: 8px; font-size: 10px;
+      }
+      .shape.is-free { border-color: #5a4a1f; background: #120d05; }
+      /* The hull is six times as wide as it is tall; a square card draws it as
+         a hairline, so those cards take two slots and stack their text. */
+      .shape.is-wide { width: 686px; flex-direction: column; }
+      .shape svg { flex: 0 0 auto; background: #0a0719; border-radius: 6px; }
+      .shape > div { min-width: 0; }
+      .shape .name { color: var(--ink); letter-spacing: 2px; font-size: 11px; }
+      .shape .stamp { float: right; font-size: 8px; letter-spacing: 1px; color: #574d84; }
+      .shape.is-free .stamp { color: var(--gold); }
+      .shape .blurb { margin: 3px 0 0; color: var(--dim); line-height: 1.45; }
+      .shape .figures { margin: 4px 0 0; color: #574d84; font-size: 9px; }
       .spec-file { padding: 6px 0; border-bottom: 1px solid var(--line-soft); }
       .spec-file details.more > summary { color: var(--ink); font-size: 11px; letter-spacing: 1px; }
       .spec-file .blurb { margin: 3px 0 0; color: var(--dim); font-size: 10px; line-height: 1.45; }
@@ -264,6 +308,7 @@
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
       <span class="spacer"></span>
+      <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
@@ -293,12 +338,7 @@
           <button type="button" data-tab="wave" class="on">WAVE</button>
           <button type="button" data-tab="ship">SHIP</button>
           <button type="button" data-tab="tuning">TUNING</button>
-          <button type="button" data-tab="creatures">CREATURES</button>
-          <button type="button" data-tab="accepted">ACCEPTED</button>
-          <button type="button" data-tab="bosses">BOSSES</button>
           <button type="button" data-tab="balance">BALANCE</button>
-          <button type="button" data-tab="concepts">CONCEPTS</button>
-          <button type="button" data-tab="spec">SPEC</button>
         </div>
         <div class="tabpage on" id="tab-wave">
           <label class="field" for="fName">NAME</label>
@@ -324,43 +364,6 @@
             saved presets live in this browser.
           </p>
         </div>
-        <div class="tabpage" id="tab-creatures">
-          <p class="note">
-            CREATURES is the original bestiary — the first thirteen enemy
-            types the design started from. Three of them (Slick, Bulb,
-            Meteor) exist in the simulation and carry the teaching waves; the
-            other ten are names and roles with nothing built yet.
-          </p>
-          <button type="button" class="expand" data-expand="#plannedCreatures">EXPAND ALL</button>
-          <div id="plannedCreatures"></div>
-          <p class="note">
-            A name here costs one edit to change — nothing depends on it yet.
-          </p>
-        </div>
-        <div class="tabpage" id="tab-accepted">
-          <p class="note">
-            ACCEPTED is what got proposed after that first thirteen and was
-            argued into the spec rather than rejected — see
-            docs/spec/bestiary.md §10.2. Nothing in this list is built; it is
-            the queue of what the bestiary grows into next.
-          </p>
-          <button type="button" class="expand" data-expand="#plannedAccepted">EXPAND ALL</button>
-          <div id="plannedAccepted"></div>
-          <p class="note">
-            Also read from the bestiary, also nothing built unless it says
-            BUILT.
-          </p>
-        </div>
-        <div class="tabpage" id="tab-bosses">
-          <button type="button" class="expand" data-expand="#plannedBosses">EXPAND ALL</button>
-          <div id="plannedBosses"></div>
-          <p class="note">
-            The act order, read from the boss spec. Only three of the eleven
-            have a worked-out design (Bulb Queen, The Mother, The Vessel) —
-            their blurb comes from that write-up; the rest are names holding
-            a slot. A boss with a BOSS panel in the WAVE tab is playable.
-          </p>
-        </div>
         <div class="tabpage" id="tab-balance">
           <h2>THE BALANCE SHEET — live</h2>
           <div id="balanceSheet"></div>
@@ -375,42 +378,6 @@
             SHEET under the field ends the run, so the drawn version appears
             on the stage. The director holds the hull, so nothing else here
             ever ends a run. ↺ WAVE starts it over and clears the sheet.
-          </p>
-        </div>
-        <div class="tabpage" id="tab-spec">
-          <h2>THE SPEC, VERBATIM</h2>
-          <p class="note">
-            Every file in docs/spec/, read off disk on load. The other tabs
-            parse the design into entries, and a parse keeps what fits an
-            entry — the naming rules, the categories, the names that were
-            examined and rejected, the ceiling on how many silhouettes stay
-            distinct over a voice channel are none of them a row with a badge.
-            This is where the rest of it is.
-          </p>
-          <button type="button" class="expand" data-expand="#specFiles">EXPAND ALL</button>
-          <div id="specFiles"></div>
-          <p class="note">
-            Nothing here is editable. The spec is argued over in the
-            repository; this is the copy you read while writing a wave.
-          </p>
-        </div>
-        <div class="tabpage" id="tab-concepts">
-          <button type="button" class="expand" data-expand="#tab-concepts">EXPAND ALL</button>
-          <h2>COUPLINGS — the patterns everything else follows from</h2>
-          <div id="conceptCouplings"></div>
-          <h2 style="margin-top: 14px">ASSIST FORMS</h2>
-          <div id="conceptAssists"></div>
-          <h2 style="margin-top: 14px">SYSTEMS</h2>
-          <div id="conceptSystems"></div>
-          <h2 style="margin-top: 14px">IDEAS — accepted, not yet worked out</h2>
-          <div id="conceptIdeas"></div>
-          <h2 style="margin-top: 14px">DEFERRED</h2>
-          <div id="conceptDeferred"></div>
-          <p class="note">
-            Read from docs/spec/couplings.md, assists.md, systems.md and
-            ideas.md. This is the design that has no code and, for most of
-            it, no creature or boss name attached yet — what to look at when
-            deciding what to build next.
           </p>
         </div>
       </section>
@@ -448,6 +415,98 @@
         </div>
       </section>
     </main>
+
+    <!-- The backlog. Outside <main> because it covers it: the editor is about
+         one wave, and this is about everything that is not in the game yet. -->
+    <div id="backlog">
+      <header>
+        <span class="title">NOT BUILT YET</span>
+        <span class="sub">what the design has agreed to and the game does not have</span>
+        <button type="button" id="backlogClose">✕ CLOSE</button>
+      </header>
+      <div id="backlogTabs">
+        <button type="button" data-tab="bestiary" class="on">BESTIARY</button>
+        <button type="button" data-tab="shapes">SHAPES</button>
+        <button type="button" data-tab="mechanics">MECHANICS</button>
+        <button type="button" data-tab="controls">CONTROLS</button>
+        <button type="button" data-tab="bosses">BOSSES</button>
+        <button type="button" data-tab="parked">PARKED</button>
+        <button type="button" data-tab="spec">SPEC</button>
+      </div>
+      <div id="backlogBody">
+        <div class="sheetpage on" id="sheet-bestiary">
+          <p class="note">
+            Every creature the design has a name for and the simulation does
+            not: the first thirteen, everything argued into the spec since, and
+            the creature ideas that are accepted but not worked out. A
+            silhouette beside a name means that one is already drawn — most are
+            not, which is what SHAPES is for.
+          </p>
+          <button type="button" class="expand" data-expand="#backlogBestiary">EXPAND ALL</button>
+          <div id="backlogBestiary" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-shapes">
+          <p class="note">
+            Contours that have been drawn, free ones first. A free shape is one
+            nothing in the game carries — tuned in legacy/style-guide.html and
+            never spent. They animate here because whether a lobe swings or
+            only shivers is most of what tells two blobs apart at 26 px.
+          </p>
+          <p class="note">
+            A shape is not a name. Anything that takes one still gets its own
+            name out of the bestiary's four naming rules.
+          </p>
+          <h2>FREE</h2>
+          <div id="shapesFree" class="shapes"></div>
+          <h2 style="margin-top: 18px">TAKEN</h2>
+          <div id="shapesTaken" class="shapes"></div>
+        </div>
+        <div class="sheetpage" id="sheet-mechanics">
+          <p class="note">
+            Rules the field would play by. The couplings are the patterns
+            everything else follows from, the assist forms cushion a difference
+            in ability, and the systems are the machinery underneath. Anything
+            whose heading says plainly "built" is not here.
+          </p>
+          <button type="button" class="expand" data-expand="#backlogMechanics">EXPAND ALL</button>
+          <div id="backlogMechanics" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-controls">
+          <p class="note">
+            What a player's own hands would do differently. The control scheme
+            that exists is in the game itself and in its KEYS screen; this is
+            the queue of changes to it.
+          </p>
+          <div id="backlogControls" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-bosses">
+          <p class="note">
+            One boss every ten waves. Only a few have a worked-out design; the
+            rest are names holding a slot in the act structure.
+          </p>
+          <button type="button" class="expand" data-expand="#backlogBosses">EXPAND ALL</button>
+          <div id="backlogBosses" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-parked">
+          <p class="note">
+            Not queued: deferred on purpose, or examined and turned down with a
+            reason. Here so that the same idea does not get proposed twice.
+          </p>
+          <div id="backlogParked" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-spec">
+          <p class="note">
+            Every file in docs/spec/, read off disk. The tabs beside this one
+            group the design into entries, and a group is a choice about what
+            to keep — the naming rules, the categories and the ceiling on how
+            many silhouettes stay distinct over a voice channel are none of
+            them an entry. This is the rest of it.
+          </p>
+          <button type="button" class="expand" data-expand="#specFiles">EXPAND ALL</button>
+          <div id="specFiles"></div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="./src/main.ts"></script>
   </body>

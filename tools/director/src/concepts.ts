@@ -28,6 +28,13 @@ export interface Idea {
   name: string;
   note: string;
   ref: string;
+  /**
+   * The `###` sub-heading it sits under — "Creatures", "Mechanics",
+   * "Controls" — or "" where the section has none. What an idea would become
+   * is a fact about the idea, so the spec carries it and this reads it; a
+   * table of names kept here instead would go stale the first time one moved.
+   */
+  group: string;
 }
 
 export interface ConceptSheet {
@@ -62,20 +69,37 @@ function stripLinks(text: string): string {
  * few names carry no note at all, and a few notes wrap onto an indented
  * continuation line — both kept, since dropping either silently understates
  * the idea store.
+ *
+ * `###` sub-headings inside the section are read as the bullet's group and do
+ * not end it; only the next `##` does.
  */
 function parseBullets(text: string, headingContains: string, file: string): Idea[] {
   const ideas: Idea[] = [];
   let inSection = false;
+  let group = "";
   for (const line of text.split(/\r?\n/)) {
     if (!inSection) {
-      if (line.startsWith("##") && line.includes(headingContains)) inSection = true;
+      if (/^##\s/.test(line) && line.includes(headingContains)) inSection = true;
+      continue;
+    }
+    if (/^###\s/.test(line)) {
+      group = line.replace(/^###\s*/, "").trim();
       continue;
     }
     if (line.startsWith("##")) break;
 
-    const bullet = line.match(/^-\s+\*\*(.+?)\*\*(?:\s*—\s*(.*))?$/);
+    // Whatever follows the name is the note, em dash or not. Requiring the
+    // dash lost the Prism, whose bullet opens `**Prism** (working name only…`:
+    // the line matched nothing, so it was appended to the idea above it and
+    // the store quietly showed one fewer idea than it holds.
+    const bullet = line.match(/^-\s+\*\*(.+?)\*\*\s*(?:—\s*)?(.*)$/);
     if (bullet) {
-      ideas.push({ name: bullet[1]!.trim(), note: stripLinks(bullet[2] ?? "").trim(), ref: file });
+      ideas.push({
+        name: bullet[1]!.trim(),
+        note: stripLinks(bullet[2] ?? "").trim(),
+        ref: file,
+        group,
+      });
       continue;
     }
     const trimmed = line.trim();

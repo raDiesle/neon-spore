@@ -1,6 +1,7 @@
 import {
   BULB,
   type Bump,
+  type CreatureSilhouette,
   type CrystalSilhouette,
   catmullRomToBezierPath,
   crystalRadiusMul,
@@ -77,7 +78,7 @@ function hullBumps(armed: boolean, spread = 0, intake = 0): Bump[] {
   return bumps;
 }
 
-function blob(name: string, s: typeof SLICK): Subject {
+export function blob(name: string, s: CreatureSilhouette): Subject {
   return {
     name,
     note: `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}`,
@@ -96,7 +97,7 @@ function blob(name: string, s: typeof SLICK): Subject {
   };
 }
 
-function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
+export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
   return {
     name,
     note,
@@ -162,6 +163,47 @@ function hull(armed: boolean, spread = 0, intake = 0): Subject {
         // a height field over x and the lobes lift vertically, so the sheet has
         // to sample it the same way or it judges a shape the game never draws.
         const x = (-HULL_ARC + (2 * HULL_ARC * i) / HULL_STEPS) * HULL_RX;
+        pts.push(
+          hullPointAtX(
+            x,
+            0,
+            HULL_RY,
+            HULL_RX,
+            HULL_RY,
+            HULL.lobes,
+            HULL.depth,
+            HULL.wobble,
+            t,
+            HULL.seed,
+            bumps,
+          ),
+        );
+      }
+      return pts;
+    },
+    path: openSmoothPath,
+  };
+}
+
+/**
+ * A window of the passive hull's own contour, for judging a treatment that
+ * lies *along* the hull rather than deforming it — the rim thickening the
+ * style guide drew and the game did not take. Sampled through the same
+ * `hullPointAtX` the full hull uses, over a narrower span of x.
+ */
+export function hullArc(name: string, note: string, halfArc: number): Subject {
+  // No bumps: this is the membrane itself, away from the cannon and the
+  // shield. With the cannon lobe in the window the card showed a spike, which
+  // is the one thing a treatment lying *along* the hull is not.
+  const bumps: Bump[] = [];
+  return {
+    name,
+    note,
+    open: true,
+    pointsAt(t) {
+      const pts: Point[] = [];
+      for (let i = 0; i <= HULL_STEPS; i++) {
+        const x = (-halfArc + (2 * halfArc * i) / HULL_STEPS) * HULL_RX;
         pts.push(
           hullPointAtX(
             x,

@@ -1,14 +1,12 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
+import { bindBacklog } from "./backlog-page.js";
 import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
-import { renderConcepts } from "./concepts-render.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
-import { renderPlanned } from "./planned.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
-import { renderSpec } from "./spec.js";
 import { bindStage } from "./stage.js";
 import {
   type Brush,
@@ -72,9 +70,6 @@ bindTuning(cfg, () => {
   stage.rebuild();
 });
 renderShip(cfg);
-void renderPlanned();
-void renderConcepts();
-void renderSpec();
 
 /**
  * The brush description text (`.hint`, e.g. a blurb like "Dead rock. Cannot
@@ -180,6 +175,7 @@ async function load(): Promise<void> {
 }
 
 bindTabs("#tabs");
+bindBacklog();
 bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {

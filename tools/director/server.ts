@@ -4,8 +4,7 @@ import type { Wave } from "@neon-spore/content";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
-import { parseConcepts } from "./src/concepts.js";
-import { parseRoster } from "./src/roster.js";
+import { buildBacklog } from "./src/backlog.js";
 import { serializeWaves } from "./src/serialize.js";
 
 /**
@@ -172,11 +171,26 @@ const server = Bun.serve({
       }),
     },
 
-    "/api/roster": {
+    /**
+     * The backlog: what the design has agreed to and the game does not have,
+     * grouped by what each thing would become. Six spec files are parsed on
+     * every request rather than copied, for the reason the roster always was —
+     * a list kept beside the spec goes stale silently, and here the grouping
+     * is parsed too, out of the `###` headings in `ideas.md`.
+     */
+    "/api/backlog": {
       GET: withIdle(async () => {
-        const bestiary = await Bun.file(bestiaryFile).text();
-        const bosses = await Bun.file(bossesFile).text();
-        return Response.json(parseRoster(bestiary, bosses), { headers: noCache });
+        const [bestiary, bosses, couplings, assists, systems, ideas] = await Promise.all([
+          Bun.file(bestiaryFile).text(),
+          Bun.file(bossesFile).text(),
+          Bun.file(couplingsFile).text(),
+          Bun.file(assistsFile).text(),
+          Bun.file(systemsFile).text(),
+          Bun.file(ideasFile).text(),
+        ]);
+        return Response.json(buildBacklog(bestiary, bosses, couplings, assists, systems, ideas), {
+          headers: noCache,
+        });
       }),
     },
 
@@ -197,20 +211,6 @@ const server = Bun.serve({
           names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
         );
         return Response.json({ files }, { headers: noCache });
-      }),
-    },
-
-    "/api/concepts": {
-      GET: withIdle(async () => {
-        const [couplings, assists, systems, ideas] = await Promise.all([
-          Bun.file(couplingsFile).text(),
-          Bun.file(assistsFile).text(),
-          Bun.file(systemsFile).text(),
-          Bun.file(ideasFile).text(),
-        ]);
-        return Response.json(parseConcepts(couplings, assists, systems, ideas), {
-          headers: noCache,
-        });
       }),
     },
   },

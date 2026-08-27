@@ -31,6 +31,21 @@ envelope — how far the outline breathes, whether a lobe swings or only shivers
 whether the armed hull still reads as armed at every instant and not just at
 zero. One static image, so motion is something you can look at and archive.
 
+## `catalogue.ts` — who has which shape
+
+`subjects.ts` answers "what does the game draw". `catalogue.ts` answers the
+question the director's backlog page asks instead: **which shapes are spare.**
+Every contour, marked taken with the creature that carries it or free with the
+reason nothing does — the two creature shapes the setting outgrew, the burning
+rock that survives only as the flare's clone source, and the shield ideas the
+style guide drew and the game did not take.
+
+The free ones are transcribed out of `legacy/style-guide.html` the same way the
+taken ones were, and sampled through the same radius functions, so a spare
+shape is judged against a built one on equal terms. They live here rather than
+in `packages/content` because content is what the game ships and a contour no
+creature carries is not content yet.
+
 ## `report` — the numbers
 
 ```

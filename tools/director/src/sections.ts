@@ -43,13 +43,23 @@ export function parseNumberedSections(text: string): Section[] {
  */
 export function firstParagraph(lines: string[]): string {
   const paragraph: string[] = [];
+  // A list is skipped whole, continuation lines included. Skipping only the
+  // lines that start with a dash left the wrapped half of the last item
+  // standing, and a lead of "in flight become one mixed bubble" is worse than
+  // no lead at all — it reads as a sentence and is the tail of one.
+  let inList = false;
   for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed === "") {
+      inList = false;
       if (paragraph.length > 0) break;
       continue;
     }
-    if (trimmed.startsWith(">") || trimmed.startsWith("|") || trimmed.startsWith("#")) continue;
+    if (/^[-*]\s/.test(trimmed)) inList = true;
+    if (inList || trimmed.startsWith(">") || trimmed.startsWith("|") || trimmed.startsWith("#")) {
+      if (paragraph.length > 0) break;
+      continue;
+    }
     paragraph.push(trimmed);
   }
   return paragraph

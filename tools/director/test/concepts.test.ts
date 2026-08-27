@@ -21,6 +21,18 @@ Player 1 holds the beam.
     expect(sections[1]).toMatchObject({ number: "2.", title: "Marking", tail: "not built" });
   });
 
+  test("firstParagraph skips a list whole, wrapped lines and all", () => {
+    const lines = [
+      "",
+      "- ~100 beats/min, every fourth accented",
+      "- Sync window = the same beat, instead of an invisible",
+      "  250 ms that nobody sees",
+      "",
+      "The prose after it.",
+    ];
+    expect(firstParagraph(lines)).toBe("The prose after it.");
+  });
+
   test("firstParagraph skips blockquotes and tables", () => {
     const lines = [
       "",
@@ -74,10 +86,17 @@ One device today.
   const ideas = `
 ## Accepted, not yet worked out
 
+### Creatures
+
 - **Echo** — a creature appears one second earlier for one player
 - **Reverb** — repeats an action with a delay (a different thing from the Echo;
   see the name clash in [bestiary](bestiary.md#103))
 - **Moulting**
+- **Prism** (working name only) — falls like a creature, never destroyed
+
+### Controls
+
+- **Inverted instructions** — the Spaceteam principle
 
 ## Deliberately deferred
 
@@ -133,17 +152,33 @@ One device today.
         name: "Echo",
         note: "a creature appears one second earlier for one player",
         ref: "ideas.md",
+        group: "Creatures",
       },
       {
         name: "Reverb",
         note: "repeats an action with a delay (a different thing from the Echo; see the name clash in bestiary)",
         ref: "ideas.md",
+        group: "Creatures",
       },
-      { name: "Moulting", note: "", ref: "ideas.md" },
+      { name: "Moulting", note: "", ref: "ideas.md", group: "Creatures" },
+      // No em dash after the name: the note is whatever the rest of the line
+      // is, or this bullet matches nothing and folds into the one above it.
+      {
+        name: "Prism",
+        note: "(working name only) — falls like a creature, never destroyed",
+        ref: "ideas.md",
+        group: "Creatures",
+      },
+      {
+        name: "Inverted instructions",
+        note: "the Spaceteam principle",
+        ref: "ideas.md",
+        group: "Controls",
+      },
     ]);
 
     expect(sheet.deferred).toEqual([
-      { name: "Freighter", note: "overlaps with the runt", ref: "ideas.md" },
+      { name: "Freighter", note: "overlaps with the runt", ref: "ideas.md", group: "" },
     ]);
   });
 
@@ -167,5 +202,12 @@ One device today.
     const warding = sheet.couplings.find((c) => c.name === "Warding");
     expect(warding?.detail).toContain("column four, I trigger on the three");
     expect(warding?.detail.length).toBeGreaterThan(warding?.note.length ?? 0);
+
+    // The sub-headings the backlog groups by: an idea with no group would
+    // silently vanish from every section of the page.
+    expect(sheet.ideas.every((i) => i.group !== "")).toBe(true);
+    expect(new Set(sheet.ideas.map((i) => i.group))).toEqual(
+      new Set(["Creatures", "Mechanics", "Controls"]),
+    );
   });
 });

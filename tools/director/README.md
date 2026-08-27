@@ -84,63 +84,97 @@ beat afterwards rather than restarting, so you see what you just put down. A
 click in the band or the radar strip is not a placement — those are controls,
 not the field.
 
-## What is not built yet
+## NOT BUILT YET
 
-A third tab lists the rest of the bestiary — the thirteen creatures of which
-three exist, the seven newly accepted ones — and the eleven bosses. Each is
-marked built or not built. Built names are bright and unbuilt ones dim, because
-the tab is mostly things that do not exist and the exceptions are what should
-stand out.
+`◇ NOT BUILT YET` in the header opens a full-screen sheet over the editor:
+everything the design has agreed to and the game does not have. `Esc` closes
+it, and the stage keeps running underneath.
 
-None of it is typed into the editor. The server parses the two spec files on
-every request and the editor renders what comes back, so there is no second
-copy of the list to keep in step, and a name renamed in the spec is renamed
-here. Whether something counts as built is derived the same way — the
-simulation's own creature table is the only thing that decides it, not a flag
-somebody set.
+Full screen rather than a fourth column, because it is not something consulted
+while placing a creature. It is what you read *before* deciding what the next
+wave is for, and a 300 px column is the wrong shape for a paragraph.
+
+**Grouped by what a thing would become, not by which file it was written in.**
+That is the whole point of the rearrangement. The rail used to carry a tab per
+spec file — CREATURES, ACCEPTED, BOSSES, CONCEPTS — with built and unbuilt
+mixed in each, which is the wrong axis for the one question this page exists to
+answer: *what is left to build, and what could it be made of.* So a creature
+idea sits with the creatures whether `bestiary.md` or `ideas.md` was where
+somebody wrote it down.
+
+| Tab | What is in it |
+|---|---|
+| `BESTIARY` | every creature with a name and no code: the first thirteen, everything accepted since, and the creature ideas |
+| `SHAPES` | the contour catalogue — see below |
+| `MECHANICS` | couplings, assist forms, systems and the mechanic ideas |
+| `CONTROLS` | what a player's own hands would do differently |
+| `BOSSES` | the act order, minus the ones that exist |
+| `PARKED` | deferred on purpose, or examined and turned down with the reason |
+| `SPEC` | every file in `docs/spec/`, verbatim |
+
+**Anything built is not on this page at all.** A creature that exists is in the
+brush palette; a capability that exists is on `SHIP`. Each group says how many
+it left out rather than dropping them silently, because a bestiary showing ten
+of thirteen and not saying so reads as a bestiary of ten.
+
+Whether something counts as built is derived, never flagged: the simulation's
+own creature table decides it for a creature, and for a spec section the
+heading's own tail does — allowing for the fact that the spec does not write
+that tail the same way twice, so "the pod, built" and "keep watch, built" count
+as built while "partly built" stays, work half done being work.
+
+**Which section an idea belongs to is a heading in the spec.** `ideas.md`
+carries `### Creatures`, `### Mechanics` and `### Controls`, and the page reads
+them. Filing an idea differently is one edit there; there is no name-to-section
+table here to go stale.
 
 **A row that has more to say says it.** The table cell is a label; the design
 is the paragraph the spec spends on that name further down the page. A panel
 that shows the first and drops the second gives the Jammer as one sentence
 where `bestiary.md` argues it in four. So every entry the spec says more about
 carries `FULL TEXT`, shut, naming the file and section it opens; a boss opens
-its whole write-up, tables and all. `EXPAND ALL` at the top of a panel opens
-every one of them at once, for the reading where you want the tab rather than
-an entry. The markdown is rendered rather than shown raw —
-`packages/render` stays a link's text, not a URL beside it — by
-`src/markdown.ts`, which handles what the spec actually writes and is tested
-against a document stub in `test/markdown.test.ts`.
+its whole write-up, tables and all. `EXPAND ALL` opens a whole tab's worth at
+once. The markdown is rendered rather than shown raw — `packages/render` stays
+a link's text, not a URL beside it — by `src/markdown.ts`, which handles what
+the spec actually writes and is tested against a document stub in
+`test/markdown.test.ts`.
 
 Which paragraph belongs to which name is not guessed twice: a block that opens
 `**The Jammer — …**` goes to the Jammer, and a block with no bold lead of its
 own stays with the block above it, which is how "Two requirements, unchanged
 from the original draft" stays attached to The Blind One.
 
-What it is for: the palette answers what you can place, and this answers what
-the wave you are writing is eventually going to sit inside. A wave built around
-a mechanic that does not exist yet is worth knowing about while you are writing
-it, not afterwards.
-
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
 
-## The spec itself
+## The shape catalogue
 
-`SPEC` is every file in `docs/spec/`, read off disk and rendered, one expander
-each with its opening line as the summary.
+`SHAPES` is the other half of a pair. A creature in the bestiary is a behaviour
+and a name with **no picture**; a contour tuned in `legacy/style-guide.html` and
+never claimed is a picture with **no behaviour**. Putting the two on one screen
+is what lets a concept be handed a shape.
 
-It is the catch-all, and it exists because a parse is a choice about what to
-keep. The other tabs turn the design into entries with a name and a badge, and
-the naming rules, the categories, the names that were examined and rejected and
-the ceiling on how many silhouettes stay distinct over a voice channel are none
-of them an entry. Neither is the whole of overview, structure, graphics or
-latency. Rather than grow a panel for each, the tab hands over the files: the
-server reads the directory, so a spec file added tomorrow appears here without
-anything being added to a list.
+Free ones first, then the taken ones with the creature that carries each. Free
+today: two creature contours the setting outgrew — five sharp lobes with a
+nervous shiver, and the one contour taller than it is wide — the burning rock
+that survives only as the shape the flare clones, and three of the four shield
+ideas the style guide drew, the fourth having become the lobe of the hull the
+game actually has.
 
-Nothing on it is editable. The spec is argued over in the repository; this is
-the copy you read while writing a wave, so the answer to "what does the spec
-say about this" does not need a second window.
+They **animate**, unlike the still thumbnail beside a bestiary row. This is the
+one place motion is the question: whether a lobe swings or only shivers is most
+of what tells two blobs apart at 26 px, and there is no simulation behind this
+page to take the frames from. The contours come from `tools/shape-sheet`, so
+they are sampled through the same radius functions the canvas calls and a spare
+shape is judged against the built ones on equal terms.
+
+A free shape lives in `tools/shape-sheet/src/catalogue.ts` rather than in
+`packages/content`, because content is what the game ships and a contour no
+creature carries is not content yet. It becomes content the day something
+claims it.
+
+**Nothing on the page writes anything.** Handing a shape to a concept is a
+decision, and decisions are not made by an editor.
 
 ## The balance sheet
 

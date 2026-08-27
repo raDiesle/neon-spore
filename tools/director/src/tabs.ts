@@ -1,12 +1,19 @@
-/** Buttons carrying `data-tab`, pages with the matching `tab-<name>` id. */
-export function bindTabs(bar: string): void {
+/**
+ * Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id.
+ *
+ * The page class and the id prefix are arguments because there are two tab
+ * bars now — the authoring rail and the backlog sheet — and a bar that
+ * switched *every* `.tabpage` on the document would close the rail behind it
+ * every time the sheet changed tab.
+ */
+export function bindTabs(bar: string, pageClass = "tabpage", prefix = "tab-"): void {
   for (const tab of document.querySelectorAll<HTMLElement>(`${bar} button`)) {
     tab.addEventListener("click", () => {
       for (const other of document.querySelectorAll(`${bar} button`)) {
         other.classList.toggle("on", other === tab);
       }
-      for (const page of document.querySelectorAll(".tabpage")) {
-        page.classList.toggle("on", page.id === `tab-${tab.dataset.tab}`);
+      for (const page of document.querySelectorAll(`.${pageClass}`)) {
+        page.classList.toggle("on", page.id === `${prefix}${tab.dataset.tab}`);
       }
     });
   }

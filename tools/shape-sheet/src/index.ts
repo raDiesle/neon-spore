@@ -10,6 +10,13 @@
  * bundle that pulled in `node:fs` for the sake of one geometry helper would be
  * paying for the wrong thing.
  */
+
+export {
+  CATALOGUE,
+  type CatalogueEntry,
+  type ShapeSlot,
+  type ShapeStatus,
+} from "./catalogue.js";
 export {
   type Bounds,
   boundsOver,
