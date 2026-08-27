@@ -30,21 +30,6 @@ a small file and two entries in it. Finished when both read as themselves on
 `bun run shapes` — which is also the tool the two outstanding creature checks
 point at, so this lane may discharge them rather than merely serving them.
 
-## THE PAGE THAT GRADES THE DAY WILL NOT LOAD
-_claude/burn-checks-api-b14 · tools/checks/repo.ts tools/director/src/checks-page.ts_
-
-`/api/checks` returns `ERR_EMPTY_RESPONSE` in the director's console, which
-means ⚑ TO CHECK — the page a person opens to decide what landed unlooked-at —
-shows nothing. Twenty-odd checks landed today and none of them can be ticked
-off from the browser.
-
-Noticed in passing by the card-sheet lane, which correctly left it alone.
-First guess, unverified: `tools/checks/repo.ts` shells out to git once per
-branch *and* once per outstanding check, and this repository now has a lot of
-both — so a timeout or an unhandled rejection is likelier than a wrong route.
-Finished when the sheet lists what `bun run checks` lists, and ✓ TESTED and
-🗑 DELETE work from the browser as `docs/verification.md` says they do.
-
 ## AN INTERLUDE'S GAPS ARE CONTENT AND LIVE IN THE APP
 _claude/burn-gaps-move-b15 · packages/content/src/interludes.ts apps/game/src/interlude.ts_
 
@@ -58,4 +43,3 @@ Taken off `docs/parked.md`. It is a `git mv` and an export rather than a
 decision, and it is worth doing before the second interlude rather than after
 — two rounds authored in the app is the point where it stops looking like an
 accident and starts being where interludes live.
-
