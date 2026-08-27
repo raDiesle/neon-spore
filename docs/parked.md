@@ -328,3 +328,70 @@ clearing by hand more than they needed a design. The fix is small and in
 gone after the delete, retry once, and if it still stands say *that* rather
 than re-raising the original git error. A tree that git has forgotten is not
 dirty, it is litter, and the two want different sentences.
+
+## Laser barriers, and a thing pushed up between them
+
+2026-08-27 · main
+
+Beams strung across the field, each one anchored between two emitters, and
+something the pair has to get from the hull to the top edge without letting it
+touch one. Taken from the mobile shooters' barrier rounds: the beam is a line
+with a node at each end, it reads at a glance, and the whole round is the gap
+between two of them. The split writes itself — one player can see which beams
+are live and when they blink, the other is the one pushing — and it lands on
+the game's own sentence, "column four, now", with a deadline attached.
+
+Nothing forbids it: `docs/decisions.md` #21 scopes the no-travel rule to the
+field, so an interlude may move something, and THE CLAW and THE BELT both
+already say they need no relaxation. What is undecided is the verb. Every
+control the pair has fires or covers, and this round asks them to **push** —
+so either the cannon's bolt is what nudges the thing along, which makes the
+beams a reason to *not* fire, or the round hands out a control that exists
+nowhere else and has to be taught in one screen. That is the question to
+answer before drawing anything. Start at `docs/spec/interludes.md`; the beam
+itself is `slab` plus a node at each end rather than any contour the shape
+sheet has.
+
+## A ball that falls, breaks things, and is picked up again
+
+2026-08-27 · main
+
+Peggle's verb, borrowed: the cannon launches a ball instead of a bolt, and
+from then on the pair only watches — it falls, bounces off what it hits,
+breaks what it touches, and comes to rest somewhere on the hull to be
+collected and fired again. One shot becomes a sentence with a long tail, which
+is the opposite of every control the game has now, and that is the appeal:
+the navigator can read the whole path before it happens and has the length of
+the fall to say so, so aiming becomes the pair's only decision and everything
+after it is watching a prediction come true.
+
+Not started here because the physics is the whole risk and it lands squarely
+on rule 3: the ball's position, its bounce and the angle it leaves a rock at
+are all sub-tile, they all have to live in integer thousandths, and two
+devices that round one bounce differently diverge for the rest of the fall
+rather than for a frame. That is a determinism problem before it is a game
+one, and `packages/sim/test/determinism.test.ts` is where the answer gets
+proven. Start by deciding whether the ball reflects off the **column grid**
+rather than off a real contour — a grid bounce is exact, and the game is
+already a raster.
+
+## A pod could be a bubble with a mark in it, and the rim could be the clock
+
+2026-08-27 · main
+
+The mobile shooters draw a timed pickup as a soft glowing sphere with one flat
+symbol floating inside it and a countdown written on the rim — the sphere says
+"catch me", the symbol says which one it is, and the rim says how long is
+left. Three facts, one object, no HUD row. The pod is already the thing this
+game hands the pair, already round, and already has to be *told about* across
+two devices, which is exactly the case where a mark beats a colour: "the one
+with the arrows" survives a two-second delay and "the blue one" does not.
+
+Not done here because the pod currently carries no state worth a symbol —
+there is one kind, it is eaten, and that is the whole interaction. This is
+therefore a drawing waiting on a design: it is worth doing on the day pods
+differ from each other, and it would be a good reason to make them differ.
+Start at `packages/render/src/pods.ts` and `POD` in
+`packages/content/src/silhouettes.ts`, and note that the shield is a lobe of
+the hull contour rather than a bubble, so a sphere here would not collide with
+it visually.
