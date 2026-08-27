@@ -136,22 +136,6 @@ version returning through the back door. Start by asking what a control's
 first *use* looks like from the sim's side: the first wave whose creatures
 make a control visible is derivable too, and that may be the hook.
 
-## Nothing can look at a briefing card twice
-
-2026-08-27 · claude/burn-briefings-b1
-
-The game shows each card exactly once per fresh pair, which is correct and
-makes the card the one drawn thing in the repository that cannot be reviewed:
-seeing it a second time means a page reload, and seeing all of them means
-several. The director has a STATES sheet and a SHAPES sheet for exactly this
-problem and neither knows about cards.
-
-Not done there because it is a director panel rather than a game change, and
-the lane owned no files under `tools/`. Start at
-`tools/director/src/backlog-page.ts` for the tab shape, and note that
-`packages/render/src/briefing.ts` already draws a card from nothing but a
-subject and a role — which is the whole of what a sheet would need.
-
 ## The link chip says STALLED while a player is reading
 
 2026-08-27 · claude/burn-briefings-b1

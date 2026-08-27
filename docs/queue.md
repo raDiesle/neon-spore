@@ -43,20 +43,6 @@ a small file and two entries in it. Finished when both read as themselves on
 `bun run shapes` — which is also the tool the two outstanding creature checks
 point at, so this lane may discharge them rather than merely serving them.
 
-## THE ONLY TEST THAT COVERS RENDER CANNOT SEE TWO THINGS IT DRAWS
-_claude/burn-frame-cover-b11 · packages/render/test/frame.test.ts_
-
-`frame.test.ts` builds its worlds from `DEFAULT_CONFIG`, where `briefings` and
-`forkBetweenWaves` are both off — so the briefing card and `drawFork`, two of
-the newest things this renderer draws, are drawn by nothing in CI. Both were
-checked by throwaway harnesses that were then deleted, which is worth exactly
-what it sounds like.
-
-Taken off `docs/parked.md`. Finished when both are drawn by the test that
-refuses what a real canvas refuses. Start by asking whether `config-pair.ts`
-should carry a `PAIR_ON` constant, so the next switch of that kind is covered
-by being added rather than by somebody remembering.
-
 ## THE GAME'S OWN ENTRY POINT HAS NO ROOM LEFT
 _claude/burn-main-split-b12 · apps/game/src/main.ts apps/game/src/wiring.ts_
 
@@ -77,4 +63,21 @@ room and `bun run preview` still opens the field.
 third pair-switch reaches the game by being added to `PairConfig` rather than
 by somebody remembering this line — and the line it is meant to fix is
 currently spelling both switches out by hand.
+
+## A CARD CAN ONLY BE SEEN ONCE, AND THREE CHECKS ASK ABOUT ONE
+_claude/burn-card-panel-b13 · tools/director/src/card-page.ts tools/director/src/backlog-page.ts_
+
+The game shows each briefing card exactly once per fresh pair, which is
+correct and makes the card the one drawn thing here that cannot be reviewed:
+seeing it a second time means a page reload, and seeing all of them means
+several. Three outstanding checks ask questions only answerable by looking at
+one — whether the two halves read as one instruction, whether the redacted
+half reads as withheld rather than as damage, whether wave 1 opening on two
+cards is one too many.
+
+Taken off `docs/parked.md`. `packages/render/src/briefing.ts` already draws a
+card from nothing but a subject and a role, which is the whole of what a sheet
+needs. Finished when every card in `BRIEFINGS` can be seen in both roles
+without playing a wave. This is the same trade the shape sheet made earlier
+today: a tool that makes a check cheap to settle is worth more than the check.
 
