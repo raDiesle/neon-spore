@@ -140,3 +140,19 @@ the wrong check. Three fields, and none of them replaces the trailer:
 - **changed** a full-screen sheet listing every mechanic; OPEN sets the wave rail's selection and the pair panel's switches together, closing itself on success
 - **decide** does the sheet's shell, the row styling and the OPEN button read as one more tool that already lived here, or as a screen dropped in from somewhere else?
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, click ▶ DEMOS in the header, then OPEN on a few rows
+
+## `9d9e58e` — the pose clock, and seven phases
+
+> the runt's tremor now runs on the beat clock and its three frequencies moved to 8.3/12.7/5.9 — does it still read as debris caught in the wave rather than as something moving with it? `bun run preview`, the wave named THE RUNT.
+
+- **subject** the Runt's shiver, the one creature the pair must not shoot
+- **changed** its tremor used to be sampled on the page's own wall clock, which knew nothing about the beat; it is now on `world.beat`, where 5.3 rad/s would have sat within a few percent of the beat's own 5.03 — so the triple was moved out to 8.3 / 12.7 / 5.9, the only number in this change that is not a unit conversion
+- **decide** does the runt still read as debris the wave is carrying — arrhythmic, helpless, not part of the formation — or does its shiver now look locked to the same pulse everything else moves on, which would make it look like a target?
+- **where** `bun run preview`, the wave named THE RUNT; watch the colourless body in column 3 against the cyan one that arrives a beat later
+
+> every body's phase is now a hash of its id spread over eight beats rather than one of seven fixed values — does a full row read as in time but not in step, or does it now read as merely scattered? `bun run preview`, the wave named CROWDED.
+
+- **subject** how a row of creatures idles together
+- **changed** each body's place in its cycle was `(id % 7) * 0.9` — seven phases on an eleven-column field, so neighbours in perfect step were routine and n and n + 1 were always exactly 0.9 apart; it is now an integer hash of the id, every body different, spread across eight beats
+- **decide** the field is meant to be *in time* without being *in step*: every creature still moves one row on the same instant, but nothing idles in unison. Does a full row now read that way — one wave, many bodies — or has the extra spread tipped it into looking like unrelated things that happen to be side by side?
+- **where** `bun run preview`, the wave named CROWDED, which is the widest row in the run; compare against ALTERNATING, which is sparse enough that phase hardly shows
