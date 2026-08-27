@@ -19,14 +19,14 @@ the wrong check. Three fields, and none of them replaces the trailer:
 
 ## `d5df018` — the swallow
 
-> the wider mouth still reads as swallowing rather than as a flash, not merely smaller
+> the wider mouth still reads as swallowing rather than as a flash, not merely smaller — looked at one catch in preview, not the shape sheet
 
 - **subject** the cannon's fire opening while it takes a pod in
 - **changed** the opening used to stretch downwards, past the edge of the field; it now widens sideways and rounds out inside, at 99.8% of the same area
 - **decide** does the wider shape still read as *effort* — a mouth working — or does it read as a flash that happens to be bigger?
 - **where** `bun run preview`, any wave with a pod; shoot the pod loose and catch it
 
-> whether activating at the centre still feels like a reward arriving now that the mouth reads wider and shallower
+> whether activating at the centre (already instant) still feels like a reward arriving now that the mouth reads wider and shallower
 
 - **subject** the moment a power-up starts working
 - **changed** nothing in the timing — it was already instant; only the mouth around it changed
@@ -49,7 +49,7 @@ the wrong check. Three fields, and none of them replaces the trailer:
 - **decide** which values feel like rhythm and which feel broken — this is the number the mechanic stands on
 - **where** `bun run preview`, TEST panel, Shot lay slider
 
-> a maw held open while a shot is laid still reads as one mouth rather than two effects fighting
+> a maw held open while a shot is laid still reads as one mouth rather than two effects fighting — worth looking at beside the reshaped swallow
 
 - **subject** the same opening doing both jobs at once
 - **changed** two lanes landed into this one aperture on the same evening — a swallow that widens it and a wind-up that swells it
@@ -111,14 +111,14 @@ the wrong check. Three fields, and none of them replaces the trailer:
 
 ## `62d728f` — the two creatures
 
-> THE RUNT reads as small and helpless beside a slick at 26 px, and not merely as a slick drawn smaller
+> THE RUNT reads as small and helpless beside a slick at 26 px, and not merely as a slick drawn smaller — `bun run shapes:report`
 
 - **subject** the Runt's silhouette and motion
 - **changed** it is 0.55× the size of a slick and now trembles on three incommensurate frequencies instead of tilting
 - **decide** helpless, or just small?
 - **where** `bun run dev`, ▣ SHAPES — and see `docs/versus.md` for a second motion already written, not yet built
 
-> the Throb's swell is legible as "wait for it" at tempo rather than as a flicker
+> the Throb's swell is legible as "wait for it" at tempo rather than as a flicker, which is the whole of what tells the pair when to fire
 
 - **subject** the Throb's beat-driven open and shut
 - **changed** its own-motion was reduced to almost nothing, so the swell is the only thing it says
