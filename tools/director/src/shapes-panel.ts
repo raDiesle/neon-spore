@@ -26,6 +26,7 @@
 import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
+import { SKINS, type SkinId } from "./skins.js";
 
 const BOX = 92;
 /** The frame a long shape gets instead of the square one — see `isWide`. */
@@ -36,6 +37,18 @@ const STROKE: Record<CatalogueEntry["status"], string> = {
   free: "var(--gold)",
   taken: "var(--dim)",
 };
+
+/**
+ * Which skin every card on the page is wearing.
+ *
+ * One setting for the whole page rather than one per card, because the
+ * question it exists to answer is a comparison and a comparison needs every
+ * shape to change at once — a page where three cards are lit and the rest are
+ * wireframes tells you which cards somebody clicked, not which look wins.
+ * It starts on MEMBRANE rather than on LINE: the outline is the control, and a
+ * control is a thing you switch *to*.
+ */
+let skin: SkinId = "membrane";
 
 const STAMP: Record<CatalogueEntry["status"], string> = {
   draft: "DRAFT",
@@ -61,7 +74,7 @@ function card(entry: CatalogueEntry): HTMLElement {
   const wide = isWide(entry);
   if (wide) div.classList.add("is-wide");
   div.appendChild(
-    shapeFigure(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status] }),
+    shapeFigure(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status], skin }),
   );
 
   const side = document.createElement("div");
@@ -99,8 +112,34 @@ function fill(id: string, entries: CatalogueEntry[]): void {
   for (const el2 of built) el.appendChild(el2);
 }
 
+/**
+ * The skin switcher, built once above the drafts.
+ *
+ * Rebuilding every card is the whole of switching: a figure's fill, aura and
+ * clip are decided when it is constructed, and mutating them in place would be
+ * a second copy of `buildSkin` that has to agree with the first.
+ */
+function skinBar(): void {
+  const host = document.getElementById("shapesSkin");
+  if (!host) return;
+  host.replaceChildren();
+  for (const s of SKINS) {
+    const b = document.createElement("button");
+    b.className = s.id === skin ? "skin is-on" : "skin";
+    b.textContent = s.label;
+    b.title = s.hint;
+    b.addEventListener("click", () => {
+      skin = s.id;
+      renderShapes();
+    });
+    host.appendChild(b);
+  }
+}
+
 export function renderShapes(): void {
   if (!document.getElementById("shapesFree")) return;
+
+  skinBar();
 
   fill(
     "shapesDrafts",

@@ -1,5 +1,6 @@
 import { boundsOver, type CatalogueEntry, contourAt, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
 import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
+import { buildSkin, type SkinId } from "./skins.js";
 
 /**
  * One contour, fitted into a frame and animated.
@@ -39,7 +40,12 @@ export function isWide(entry: CatalogueEntry): boolean {
 
 interface Drawn {
   entry: CatalogueEntry;
-  path: SVGPathElement;
+  /**
+   * Every path that wears the contour. One for a bare outline, six or more for
+   * a skin with a fill, an aura and a clip — they all take the same `d`, so
+   * the skin never lags its own rim by a frame.
+   */
+  paths: SVGPathElement[];
   /** The group the own-motion is written onto, inside the fitted frame. */
   body: SVGGElement;
   centre: { x: number; y: number };
@@ -48,6 +54,7 @@ interface Drawn {
 
 const drawn: Drawn[] = [];
 let running = false;
+let uid = 0;
 
 /**
  * Every figure on the page, redrawn. One loop rather than one per card: a
@@ -58,9 +65,11 @@ function tick(): void {
   const t = performance.now() / 1000;
   let live = 0;
   for (const d of drawn) {
-    if (!d.path.isConnected) continue;
+    const first = d.paths[0];
+    if (!first?.isConnected) continue;
     drawn[live++] = d;
-    d.path.setAttribute("d", contourAt(d.entry.subject, t));
+    const shape = contourAt(d.entry.subject, t);
+    for (const p of d.paths) p.setAttribute("d", shape);
     d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
   }
   drawn.length = live;
@@ -75,6 +84,12 @@ export interface FigureOptions {
   stroke: string;
   /** Line weight in frame pixels, before the fit's own scaling. */
   weight?: number;
+  /**
+   * How the body is drawn. `line` is the bare outline the cards had before
+   * skins existed and is still the control the others are judged against;
+   * `skins.ts` says what each of the rest adds and why.
+   */
+  skin?: SkinId;
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
@@ -106,17 +121,23 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   );
   const body = document.createElementNS(SVG, "g");
 
-  const path = document.createElementNS(SVG, "path");
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", stroke);
-  path.setAttribute("stroke-width", String((opts.weight ?? 2) / scale));
-  path.setAttribute("stroke-linecap", "round");
-  path.setAttribute("stroke-linejoin", "round");
-  body.appendChild(path);
+  const defs = document.createElementNS(SVG, "defs");
+  svg.appendChild(defs);
+  // Unique per figure: the gradient and the clip are referenced by id, and the
+  // same shape is on screen twice the moment the backlog page draws a draft
+  // beside the idea it was offered to.
+  uid += 1;
+  const { contour } = buildSkin(opts.skin ?? "line", body, defs, {
+    colour: stroke,
+    weight: (opts.weight ?? 2) / scale,
+    uid: `sk${uid}`,
+    name: entry.subject.name,
+    reach: Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2,
+  });
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({ entry, path, body, centre: pivot, tile });
+  drawn.push({ entry, paths: contour, body, centre: pivot, tile });
   if (!running) {
     running = true;
     requestAnimationFrame(tick);

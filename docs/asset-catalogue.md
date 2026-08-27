@@ -22,6 +22,27 @@ Browse it in the director: `bun run dev`, then **NOT BUILT YET → SHAPES**. The
 cards animate, and that is the whole reason the page exists rather than a
 folder of SVGs.
 
+**Four skins sit above the drafts**, and they are there to settle an argument
+rather than to decorate. `docs/alive.md` sends one question to a vote —
+*is the spec right that detail does not survive* — and until now the cards
+could not put the two sides on a screen: every shape was drawn as a bare
+outline, which is not a neutral rendering but a claim, and it was the only
+claim available. LINE is that outline, kept as the control. MEMBRANE adds the
+dark fill and the layered aura `packages/render/src/glow.ts` already draws
+creatures with, so a card stops being a wireframe of the game and starts being
+a picture of it. CORE adds a value gradient falling *outward to the card's own
+dark*, which is the direction that raises rim-to-interior contrast rather than
+eroding it. VEIN adds branching filaments under the skin — the one treatment
+that is genuinely detail in the sense the spec forbids, and therefore the only
+one that actually answers the question.
+
+The switch is page-wide on purpose: a comparison needs every shape to change
+at once, or what you are reading is which cards somebody clicked.
+
+`tools/director/src/skins.ts` is the whole of it, and it draws into the DOM —
+so the static sheet `bun run shapes` writes is still LINE-only. That is a gap,
+not a decision.
+
 `bun run shapes:page` writes the same catalogue to
 `tools/director/dist/shapes.html`, one self-contained file that animates
 anywhere and needs no server — for handing a look to somebody who is not at
