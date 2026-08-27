@@ -425,8 +425,6 @@ Each names the slot it would fit.
 
 ### Controls
 
-### Controls
-
 - **Interference** — one player's colours are swapped and they do not know it.
   The navigator chooses the colour and fires, so the swap lives on their
   swatches: they say red and cyan comes out. Nobody is told; the pair finds out
