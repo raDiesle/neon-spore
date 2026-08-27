@@ -13,6 +13,7 @@
  * does that grouping on the server, out of the spec's own headings.
  */
 
+import { drawCards, mountCardTab } from "./card-page.js";
 import { conceptArt, draftFor } from "./concept-art.js";
 import { detailBox, inline } from "./markdown.js";
 import { onTheField } from "./scene-box.js";
@@ -182,6 +183,10 @@ export function bindBacklog(): void {
   const close = document.getElementById("backlogClose");
   if (!sheet || !open || !close) return;
 
+  // CARDS is a tab of this sheet rather than a sheet of its own — see
+  // `card-page.ts`. It has to be mounted before `bindTabs` runs, so a click
+  // on it is wired the same way a click on BESTIARY or SPEC is.
+  mountCardTab();
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 
   /**
@@ -189,7 +194,8 @@ export function bindBacklog(): void {
    * first open of the sheet. Fitting thirty-odd animated cards means scanning
    * every contour over a minute of its own wobble — a third of a second of
    * arithmetic, which is nothing to wait for when you asked for shapes and a
-   * visible stall when you asked for the bestiary.
+   * visible stall when you asked for the bestiary. CARDS is lazy the same way,
+   * for the same reason — see `card-page.ts`.
    */
   let shapesDrawn = false;
   const drawShapes = (): void => {
@@ -199,6 +205,7 @@ export function bindBacklog(): void {
   };
   for (const tab of document.querySelectorAll<HTMLElement>("#backlogTabs button")) {
     if (tab.dataset.tab === "shapes") tab.addEventListener("click", drawShapes);
+    if (tab.dataset.tab === "cards") tab.addEventListener("click", drawCards);
   }
 
   const show = (on: boolean): void => {
