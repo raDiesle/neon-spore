@@ -9,6 +9,7 @@ import { type Glide, glideTo } from "./glide.js";
 import { drawGrips } from "./grip.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY } from "./hull.js";
+import { drawLanceMark } from "./lance.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
@@ -168,6 +169,8 @@ export class Canvas2DRenderer implements Renderer {
     drawRadar(ctx, l, world, view.time);
     drawGrid(ctx, l, world.cannonCol, flash);
 
+    // Under the creatures: the mark is on the column, not on anything in it.
+    drawLanceMark(ctx, l, world);
     drawCreatures(ctx, l, world.creatures, view.beatPhase, view.time, this.effects.blocked);
     // Over the creatures, under everything the ship does: a hand on something
     // is not an effect this file owns — it is world state, read fresh.

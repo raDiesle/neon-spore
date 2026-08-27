@@ -18,6 +18,13 @@ export {
   setGrip,
 } from "./grip.js";
 export { hashWorld } from "./hash.js";
+export {
+  lanceReady,
+  NO_PRIME,
+  primeChargeMilli,
+  primeTicks,
+  priming,
+} from "./lance.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";

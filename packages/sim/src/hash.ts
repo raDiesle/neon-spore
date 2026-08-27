@@ -22,6 +22,7 @@ export function hashWorld(world: World): number {
   push(world.shieldCol);
   push(world.gripP1);
   push(world.gripP2);
+  push(world.primeTick);
   push(world.hullMilli);
   push(world.rng.state);
   push(world.guard.tries);
@@ -53,6 +54,8 @@ export function hashWorld(world: World): number {
     push(b.col);
     push(b.row);
     push(b.subMilli);
+    push(b.lance ? 1 : 0);
+    push(b.pierced);
   }
 
   push(world.pods.length);

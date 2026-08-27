@@ -31,6 +31,7 @@ width, a freely sliding cannon on it, and a shield.
 | Move the cannon (column strip) | ✔ | |
 | **Trigger** the shield | ✔ | |
 | **Open the maw** (take a pod in) | ✔ | |
+| **Hold the lance** (mark the column) | ✔ | |
 | Choose colour and fire | | ✔ |
 | **Move** the shield left/right | | ✔ |
 | Radar: rocks + torch (`guard` kinds) | ✔ | |
@@ -73,6 +74,13 @@ pod that reaches the hull is taken in only if the cannon is in its column and
 the maw is open — the one thing in the game player 1 finishes alone, and only
 because player 2 had to shoot the pod loose in the first place. Window: **800 ms**
 (`intakeWindowMs`). See [systems](systems.md) 5.7.
+
+**Lance.** Player 1's third action, and the only one that is *held* rather
+than pressed. The lobe fills over `lancePrimeBeats` while the thumb stays down
+and the cannon stands still; moving the cannon, opening the maw or lifting the
+thumb empties it. What comes out is player 2's shot, and player 2 has to hold
+fire for the whole fill or spend it on an ordinary bolt. See
+[couplings](couplings.md) 2 — it is marking, re-grounded on the column.
 
 ## Role choice
 

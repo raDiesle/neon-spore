@@ -49,6 +49,14 @@ const BY_ID: Record<string, Subject> = {
   "ship.intake": MAW,
   "ship.intakeShut": MAW,
 
+  // THE LANCE is the cannon lobe filling and then emptying, so all three
+  // belong to the ship's own contour. There is no `HULL · LANCE` pose on the
+  // shape sheet yet — a full lobe is drawn in the game (`render/lance.ts`) and
+  // has never been drawn as a still.
+  "signal.markSet": HULL,
+  "signal.markHit": HULL,
+  "signal.markMissed": HULL,
+
   "impact.destroyRed": shape("SLICK"),
   "impact.destroyCyan": shape("BULB"),
   "impact.reject": shape("METEOR"),

@@ -57,7 +57,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
 | `packages/sim/src/world.ts` | the world and the single `step` function |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
-| `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip |
+| `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on something falling, and how much it slows |
 | `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
 | `packages/sim/src/queen-geometry.ts` | how wide her reach is with both flank torches counted in |
@@ -66,6 +66,8 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
 | `packages/sim/src/entries.ts` | what a wave hands the sim: spawns, pods, either boss |
 | `packages/sim/src/bullets.ts` | firing and tile-wise travel |
+| `packages/sim/src/bullet-hit.ts` | what a shot does when it meets something, and whether it goes on |
+| `packages/sim/src/lance.ts` | THE LANCE: a lobe filled by one player, spent by the other |
 | `packages/sim/src/pods.ts` | pods: hanging, shot loose, falling, taken in |
 | `packages/sim/src/balance.ts` | the balance sheet: joint moments, SYNC, the streak |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
@@ -112,6 +114,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |
 | `packages/render/src/grip.ts` | the grip drawn: beam, ring, and whose hand it is |
+| `packages/render/src/lance.ts` | the lance drawn: the button filling, and the mark that puts on a column |
 | `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |

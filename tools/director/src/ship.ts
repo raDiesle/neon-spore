@@ -41,6 +41,11 @@ function capabilities(cfg: SimConfig): Capability[] {
       note: `Sinks ${cfg.podFallTilesPerBeat} tiles a beat and drifts ${cfg.podDriftTilesPerBeat} sideways, the way the rng picks.`,
     },
     {
+      name: "LANCE — a column marked, then spent",
+      value: `${cfg.lancePrimeBeats} beats`,
+      note: `Player 1 holds the lance with the cannon still; player 2 has to not fire until it is full. Then one shot at ${cfg.lanceTilesPerBeat} tiles a beat goes through ${cfg.lancePierce} of its own colour.`,
+    },
+    {
       name: "GRIP — a hand on the field",
       value: `${cfg.gripSlowPermille} ‰ speed`,
       note: "Either player holds anything falling and it falls slower. Two hands compound.",

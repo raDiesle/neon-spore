@@ -64,6 +64,26 @@ export interface SimConfig {
   gripSlowPermille: number;
   /** Bullet speed, in tiles per beat. */
   bulletTilesPerBeat: number;
+  /**
+   * Beats player 1 has to hold the lance with the cannon standing still before
+   * the lobe is full — THE LANCE's whole cost, as a number. It sits inside the
+   * voice delay on purpose (docs/spec/latency.md): long enough that the pair
+   * has to have agreed on the column beforehand, short enough that the
+   * agreement is still worth acting on when the hold is done.
+   */
+  lancePrimeBeats: number;
+  /**
+   * Bodies one lance takes before it is spent. The "up to 3 segments in a
+   * line" of the drill in docs/spec/systems.md 5.5. Only living bodies of the
+   * shot's own colour are counted — a rock stops it whatever is left.
+   */
+  lancePierce: number;
+  /**
+   * Lance speed, in tiles per beat. Deliberately below `bulletTilesPerBeat`:
+   * the drill in 5.5 is the slower weapon, and a lance that arrived as fast as
+   * an ordinary shot would be a pure upgrade rather than a trade.
+   */
+  lanceTilesPerBeat: number;
   /** Minimum gap between shots, in beats. */
   fireEveryBeats: number;
   /**
@@ -159,6 +179,9 @@ export const DEFAULT_CONFIG: SimConfig = {
   wardBeats: 6,
   gripSlowPermille: 550,
   bulletTilesPerBeat: 12,
+  lancePrimeBeats: 3,
+  lancePierce: 3,
+  lanceTilesPerBeat: 6,
   fireEveryBeats: 0.5,
   hitHeightMilli: 1000,
   hullRegenPerSecond: 3,

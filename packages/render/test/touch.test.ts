@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { createWorld, DEFAULT_CONFIG, NO_GRIP, step } from "@neon-spore/sim";
 import { creatureCenter } from "../src/creature-place.js";
-import { computeLayout, type ViewRole } from "../src/layout.js";
+import { computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
 
 /**
@@ -42,6 +42,33 @@ describe("a press on the band", () => {
       command: { kind: "fire", color: red.color },
       hold: null,
     });
+  });
+
+  it("gives player 1 a third button that is held rather than tapped", () => {
+    const down = touchDown(l, l.lanceButton.x, l.lanceButton.y, field());
+    expect(down).toEqual({ player: 1, command: { kind: "prime", on: true }, hold: "lance" });
+    // The lift is the other half: nothing in the simulation empties a lobe on
+    // its own, so a thumb coming off has to be sent.
+    expect(touchUp("lance", field())).toEqual({
+      player: 1,
+      command: { kind: "prime", on: false },
+      hold: null,
+    });
+  });
+
+  it("keeps player 1's five buttons out of each other's rings", () => {
+    // `hitCircle` answers a ring 30% wider than the circle drawn, so buttons
+    // that merely do not overlap on screen can still both claim a touch.
+    const circles = [
+      l.guardButton,
+      l.intakeButton,
+      l.lanceButton,
+      ...l.fireButtons.map((b) => b.circle),
+    ];
+    for (const a of circles) {
+      const claimed = circles.filter((c) => hitCircle(c, a.x, a.y));
+      expect(claimed).toHaveLength(1);
+    }
   });
 
   it("answers nothing where the other player's half would be", () => {

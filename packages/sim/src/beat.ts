@@ -2,6 +2,7 @@ import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
+import { endPrime } from "./lance.js";
 import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
 import { createRng } from "./rng.js";
@@ -108,6 +109,8 @@ export function startWave(
   world.creatures = [];
   world.bullets = [];
   clearGrips(world);
+  // A wave that starts over starts with nothing held and nothing charged.
+  endPrime(world);
   world.pods = [];
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;

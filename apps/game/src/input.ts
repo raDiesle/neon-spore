@@ -133,8 +133,8 @@ export function bindControls({
   /**
    * Keyboard, for playing both roles alone at a desk. A/D slide the cannon
    * *and* the shield together, W fires red and opens the guard window in one
-   * press, Q fires red alone, E fires cyan, S opens the maw, so one hand
-   * drives a whole test run.
+   * press, Q fires red alone, E fires cyan, S opens the maw, F holds the
+   * lance, so one hand drives a whole test run.
    * J/L still move the shield alone and I still guards on its own, for the
    * moments a test needs the two apart. The keys stay live in every view — the
    * view switch decides what is *shown*, not what a single tester can reach.

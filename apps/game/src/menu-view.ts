@@ -48,6 +48,7 @@ const KEYS: [string, string][] = [
   ["J / L", "The shield on its own."],
   ["I", "The guard trigger."],
   ["S", "The maw, to take a loose pod in."],
+  ["F", "Hold the lance. Three beats with the cannon still, then one shot goes through three."],
   ["W", "Fire red — and guard in the same press."],
   ["E", "Fire cyan."],
   ["G", "Hold the nearest creature — the grip, as the other player."],

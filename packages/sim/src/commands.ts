@@ -1,6 +1,7 @@
 import { resetRun } from "./beat.js";
 import { fire } from "./bullets.js";
 import { gripsCreature, setGrip } from "./grip.js";
+import { endPrime, startPrime } from "./lance.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { fireStep } from "./simon.js";
 import { spanCenterCol, type TimedCommand } from "./types.js";
@@ -28,6 +29,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // itself: waves live in content/, and content points at sim, not back.
     // Read even while the controls are held, or a run could never be left.
     resetRun(world);
+    // A run that is being left takes the lobe with it. Nothing else clears a
+    // charge, so one left standing would arm the first shot of the next run.
+    endPrime(world);
     world.events.push({ type: "needWave", wave: 0 });
     return;
   }
@@ -40,6 +44,10 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       world.cannonCol = clampCol(world, c.col);
       if (world.cannonCol !== from) {
         mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
+        // The mark is on a column. A cannon that leaves the column it was
+        // filling in has nothing left to have marked, so the lobe empties —
+        // which is the whole reason priming costs anything (`lance.ts`).
+        endPrime(world);
       }
       break;
     }
@@ -53,6 +61,15 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "intake":
       world.intakeTick = world.tick;
       mirrorHeard(world, "intake");
+      // The maw *is* the cannon lobe, turned inside out (docs/spec/systems.md
+      // 5.7). Whatever was filling it goes out of the same opening.
+      endPrime(world);
+      break;
+    case "prime":
+      // The hold itself. THE MIRROR is not listening for it — the lance is not
+      // in its vocabulary (`simon.ts`), and a sequence cannot ask for one.
+      if (c.on) startPrime(world);
+      else endPrime(world);
       break;
     case "fire":
       fire(world, c.color);

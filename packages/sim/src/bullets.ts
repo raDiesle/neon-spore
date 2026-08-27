@@ -1,8 +1,9 @@
-import { markMoment } from "./balance.js";
-import { hullRow, ticksPerBeat } from "./config.js";
+import { resolve } from "./bullet-hit.js";
+import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+import { endPrime, lanceReady, priming } from "./lance.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { queenOccupiesCol } from "./queen-mark.js";
-import { type Bullet, type Color, type Creature, isMeteorKind, occupiesCol } from "./types.js";
+import { type Bullet, type Color, type Creature, occupiesCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -17,16 +18,35 @@ import { MILLI, type World } from "./world.js";
 export function fire(world: World, color: Color): void {
   if (world.over) return;
   const cooldown = Math.round(world.cfg.fireEveryBeats * ticksPerBeat(world.cfg));
+  // A shot the cooldown refuses never leaves the lobe, so it takes nothing
+  // with it either — the charge is only ever spent by a shot that goes out.
   if (world.tick - world.lastFireTick < cooldown) return;
   world.lastFireTick = world.tick;
+  // Everything leaves through the same lobe. A full one sends a lance; one
+  // that is still filling sends an ordinary shot and loses what was in it,
+  // which is the half of the coupling player 2 holds (`lance.ts`).
+  const lance = lanceReady(world);
+  const spilled = priming(world) && !lance;
+  endPrime(world);
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
     row: hullRow(world.cfg) - 1,
     subMilli: 0,
     color,
+    lance,
+    pierced: 0,
   });
-  world.events.push({ type: "fire", col: world.cannonCol, color });
+  world.events.push({ type: "fire", col: world.cannonCol, color, lance });
+  if (spilled) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
+}
+
+/**
+ * How fast this shot travels, in tiles per beat. The only difference a lance
+ * makes to its own flight — everything else about the sweep is shared.
+ */
+function tilesPerBeat(cfg: SimConfig, b: Bullet): number {
+  return b.lance ? cfg.lanceTilesPerBeat : cfg.bulletTilesPerBeat;
 }
 
 /**
@@ -54,12 +74,28 @@ function creatureMilli(world: World, c: Creature): number {
 }
 
 export function advanceBullets(world: World): void {
-  const stepMilli = Math.round((world.cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
   const alive: Bullet[] = [];
+  for (const b of world.bullets) if (sweep(world, b)) alive.push(b);
+  world.bullets = alive;
+}
 
-  for (const b of world.bullets) {
-    const from = bulletMilli(b);
-    const to = from - stepMilli;
+/**
+ * One tick of one shot, from where it stands to where it would be. False when
+ * the shot is spent and does not survive the tick.
+ *
+ * The loop is the lance: an ordinary shot resolves at most one body and is
+ * gone, but a lance that goes through one carries on along the *same* sweep,
+ * because two bodies a tile apart can both sit inside a single tick of travel
+ * and a lance that only ever took the lowest of them would need three ticks to
+ * do what it does in one. Each turn of the loop either ends the shot or
+ * removes a creature from the field, so it cannot run forever.
+ */
+function sweep(world: World, b: Bullet): boolean {
+  const stepMilli = Math.round((tilesPerBeat(world.cfg, b) * MILLI) / ticksPerBeat(world.cfg));
+  let from = bulletMilli(b);
+  const to = from - stepMilli;
+
+  for (;;) {
     // The shot sweeps a segment every tick, so nothing can slip between two
     // samples — one tile of box against 160 thousandths of travel.
     const hit = firstAlong(world, b, from, to);
@@ -68,18 +104,20 @@ export function advanceBullets(world: World): void {
     // lower in the column, because that is the one it reaches first.
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
       freePod(world, pod);
-      continue;
+      return false;
     }
-    if (hit) {
-      resolve(world, b, hit);
-      continue;
-    }
-    if (to < 0) continue; // gone past the top of the field
-    b.row = Math.ceil(to / MILLI);
-    b.subMilli = b.row * MILLI - to;
-    alive.push(b);
+    if (!hit) break;
+    // Where it met that body, so a lance carries on from there and cannot
+    // meet the same stretch of column twice.
+    const met = creatureMilli(world, hit);
+    if (!resolve(world, b, hit)) return false;
+    from = met;
   }
-  world.bullets = alive;
+
+  if (to < 0) return false; // gone past the top of the field
+  b.row = Math.ceil(to / MILLI);
+  b.subMilli = b.row * MILLI - to;
+  return true;
 }
 
 /**
@@ -113,93 +151,4 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
     }
   }
   return best;
-}
-
-/** Spend the bullet on the creature it met. */
-function resolve(world: World, b: Bullet, hit: Creature): void {
-  if (isMeteorKind(hit.kind)) {
-    // A rock cannot be broken, because it does not live. The shot leaves a
-    // crater and nothing else — the rule made visible (docs/spec/graphics.md).
-    hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
-    world.events.push({ type: "hole", col: hit.col, row: hit.row });
-    return;
-  }
-  if (hit.kind === "queen") {
-    resolveQueen(world, b, hit);
-    return;
-  }
-  if (hit.color !== b.color) {
-    missedColor(world);
-    world.events.push({ type: "reject", col: hit.col, row: hit.row });
-    return;
-  }
-
-  // Matching ammunition resonates the light organ until it bursts.
-  metColor(world);
-  world.score += world.cfg.scoreDestroy;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
-}
-
-/**
- * The queen wears her petals as armour. A shot that matches her open colour,
- * in the one column of the two marks that is actually real this bloom,
- * takes one; anything else — the wrong colour, the wrong side, or a shot at
- * either mark while neither is open — skids off. The last petal brings her
- * down.
- *
- * `b.col`, not `hit.col`, is what the events below carry: `hit.col` is her
- * own centre column, where nothing stands, and a spark or a reject drawn
- * there instead of at the mark a player actually aimed at is drawn nowhere
- * a player was looking.
- */
-function resolveQueen(world: World, b: Bullet, hit: Creature): void {
-  if (hit.color === null || hit.color !== b.color) {
-    // A colour that could never have matched. Which of the two marks it went
-    // up does not change that, so it is the colour balance's to carry.
-    missedColor(world);
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-  const weakSide = world.boss?.kind === "queen" ? world.boss.weakSide : 0;
-  if (b.col !== hit.col + weakSide) {
-    // Right colour, wrong mark — and deliberately *not* a colour miss. The
-    // ammunition was correct; what failed was the side, which is the other
-    // player's half of the call (`queen-mark.ts`). Charging it to the colour
-    // balance would read the failure to the wrong player.
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-
-  metColor(world);
-  hit.petals -= 1;
-  world.score += world.cfg.scoreQueenPetal;
-  hit.color = null;
-  if (world.boss?.kind === "queen") world.boss.closeBeat = world.beat;
-  world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
-
-  if (hit.petals <= 0) {
-    world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
-    world.score += world.cfg.scoreQueenDown;
-    world.boss = null;
-    world.events.push({ type: "queenDown", col: b.col, row: hit.row });
-  }
-}
-
-/**
- * A shot met a creature in its own colour. A joint moment: player 2 is the
- * only one who can see the colour and player 1 is the only one who can load
- * it, so the shot is the pair agreeing out loud (docs/spec/couplings.md).
- *
- * A rock is not counted either way — it has no colour to get right.
- */
-function metColor(world: World): void {
-  world.balance.colorHits += 1;
-  markMoment(world, true);
-}
-
-/** The same moment, missed: the wrong colour went up the column. */
-function missedColor(world: World): void {
-  world.balance.colorMisses += 1;
-  markMoment(world, false);
 }

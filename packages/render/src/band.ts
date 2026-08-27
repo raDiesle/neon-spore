@@ -1,6 +1,7 @@
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { halo } from "./glow.js";
+import { drawLanceButton } from "./lance.js";
 import { type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -8,13 +9,13 @@ import { PALETTE } from "./palette.js";
  * The control band. Two strips over the full width, each snapping to column
  * centres, plus the trigger and the two colours.
  *
- * The split is the game: player 1 slides the cannon, triggers the shield and
- * opens the maw; player 2 slides the shield and fires. Neither can carry a
- * defence alone, and the band shows that by never giving one player both halves
- * of anything.
+ * The split is the game: player 1 slides the cannon, triggers the shield, opens
+ * the maw and holds the lance; player 2 slides the shield and fires. Neither
+ * can carry a defence alone, and the band shows that by never giving one player
+ * both halves of anything.
  *
  * A screen only draws the half it owns. The test view owns both, which is why
- * the four buttons have to fit beside each other at all.
+ * the five buttons have to fit beside each other at all.
  *
  * It is drawn on the canvas rather than in the DOM because every element is
  * per-column and has to line up with the grid exactly — see docs/decisions.md.
@@ -53,12 +54,16 @@ export function drawBand(
       PALETTE.hull,
       "PLAYER 1 · CANNON",
     );
-    // Both lit for exactly as long as their window is open, so player 1 can see
-    // what they are spending.
+    // The first two are lit for exactly as long as their window is open, so
+    // player 1 can see what they are spending.
     const g = l.guardButton;
     const m = l.intakeButton;
+    const n = l.lanceButton;
     drawActionButton(ctx, g.x, g.y, g.r, armed, PALETTE.shield, "#08131A", "SHIELD");
     drawActionButton(ctx, m.x, m.y, m.r, open, PALETTE.pod, "#2C1C05", "SUCK");
+    // Not a `drawActionButton`: the other two are lit or not, and this one has
+    // a length. See `drawLanceButton`.
+    drawLanceButton(ctx, n.x, n.y, n.r, world);
   }
   if (!showsShield(l.role)) {
     ctx.restore();
@@ -92,7 +97,7 @@ export function drawBand(
  * button in here reaches for `halo` or `reticle`, and both of those set
  * `globalAlpha` outright. Canvas alpha does not multiply, so anything set up
  * front is simply overwritten by the first child that has an opinion — which
- * is why the strips dimmed and the four buttons did not.
+ * is why the strips dimmed and the buttons did not.
  */
 function drawLock(ctx: CanvasRenderingContext2D, l: Layout): void {
   const y = l.bandTop + l.bandHeight / 2;

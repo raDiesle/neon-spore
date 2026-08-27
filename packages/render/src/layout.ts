@@ -36,6 +36,12 @@ export interface Layout {
   guardButton: Circle;
   /** Player 1's second action: the maw. Sits next to the trigger, never alone. */
   intakeButton: Circle;
+  /**
+   * Player 1's third: the lance, held rather than tapped. Last in the row
+   * because it is the one that is not an instant — the two beside it spend a
+   * window that is already open, and this one opens over three beats.
+   */
+  lanceButton: Circle;
   fireButtons: { color: "red" | "cyan"; circle: Circle }[];
 }
 
@@ -139,13 +145,19 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
   const rowCannon = bandTop + bandHeight * (solo ? 0.28 : 0.2);
   const rowShield = bandTop + bandHeight * (solo ? 0.28 : 0.48);
   const rowButton = bandTop + bandHeight * (solo ? 0.72 : 0.8);
-  const r = Math.min(bandHeight * (solo ? 0.19 : 0.15), width * 0.068);
+  // Five buttons share the test view — player 1's three and player 2's two —
+  // and `hitCircle` answers a ring 30% wider than the circle drawn, so they
+  // have to be smaller there than on a screen carrying one role's half.
+  const r = Math.min(bandHeight * (solo ? 0.19 : 0.14), width * (solo ? 0.068 : 0.056));
 
-  // Player 1 now has two buttons, so neither of them can sit in the middle any
-  // more. They stay side by side and in a fixed order — trigger left, maw
-  // right — because a control that moves between screens is a control that gets
-  // pressed by mistake under time pressure.
-  const p1Buttons = role === "p1" ? [width * 0.35, width * 0.65] : [width * 0.1, width * 0.3];
+  // Player 1 has three buttons, so none of them sits in the middle. They stay
+  // side by side and in a fixed order — trigger, maw, lance — because a control
+  // that moves between screens is a control that gets pressed by mistake under
+  // time pressure.
+  const p1Buttons =
+    role === "p1"
+      ? [width * 0.22, width * 0.5, width * 0.78]
+      : [width * 0.08, width * 0.23, width * 0.38];
 
   return {
     role,
@@ -167,6 +179,7 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     shieldStrip: { y: rowShield, height: Math.min(bandHeight * 0.24, 32) },
     guardButton: { x: p1Buttons[0]!, y: rowButton, r },
     intakeButton: { x: p1Buttons[1]!, y: rowButton, r },
+    lanceButton: { x: p1Buttons[2]!, y: rowButton, r },
     fireButtons:
       role === "p2"
         ? [
@@ -174,8 +187,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
             { color: "cyan" as const, circle: { x: width * 0.66, y: rowButton, r } },
           ]
         : [
-            { color: "red" as const, circle: { x: width * 0.58, y: rowButton, r } },
-            { color: "cyan" as const, circle: { x: width * 0.82, y: rowButton, r } },
+            { color: "red" as const, circle: { x: width * 0.6, y: rowButton, r } },
+            { color: "cyan" as const, circle: { x: width * 0.84, y: rowButton, r } },
           ],
   };
 }

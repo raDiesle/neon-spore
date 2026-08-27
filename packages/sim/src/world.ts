@@ -5,6 +5,7 @@ import { advanceBullets } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { dropLostGrips, NO_GRIP } from "./grip.js";
+import { NO_PRIME, noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
@@ -51,6 +52,17 @@ export interface World {
    */
   gripP1: number;
   gripP2: number;
+  /**
+   * The tick player 1's thumb went down on the lance, or `NO_PRIME`. Read it
+   * through `lance.ts` rather than by name — how full the lobe is and whether
+   * the next shot is a lance are that file's business, and render/, the band
+   * and the shot itself all ask the same question from three places.
+   *
+   * There is no `primeCol` beside it, deliberately: a cannon that moves ends
+   * the fill, so while this is set the column *is* `cannonCol`, and a second
+   * copy of it could only ever disagree.
+   */
+  primeTick: number;
 
   creatures: Creature[];
   bullets: Bullet[];
@@ -83,7 +95,12 @@ export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
   | { type: "needWave"; wave: number }
-  | { type: "fire"; col: number; color: Color }
+  /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
+  | { type: "fire"; col: number; color: Color; lance: boolean }
+  /** The lobe came full: from this moment the next shot out of it is a lance. */
+  | { type: "lanceFull"; col: number }
+  /** A shot went out through a lobe that was not full yet, and took the fill with it. */
+  | { type: "lanceSpilled"; col: number }
   | { type: "destroy"; col: number; row: number; color: Color }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
@@ -143,6 +160,7 @@ export function createWorld(
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,
+    primeTick: NO_PRIME,
     creatures: [],
     bullets: [],
     pods: [],
@@ -175,6 +193,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   if (world.over) return;
 
   world.tick += 1;
+  // Before the beat and before the shots: the lobe fills on the tick counter,
+  // so the tick it comes full on is this one, whatever else happens next.
+  noteLanceFull(world);
   const tpb = ticksPerBeat(world.cfg);
   if (world.tick % tpb === 0) onBeat(world);
 

@@ -25,7 +25,7 @@ and record why in `docs/decisions.md`.
 |---|---|---|
 | [overview.md](overview.md) | what the game is, the guiding question, the speech rule, the setting | built in outline |
 | [roles.md](roles.md) | the two roles and the raster control model | built |
-| [couplings.md](couplings.md) | warding, marking, announcing | 1 of 3 built |
+| [couplings.md](couplings.md) | warding, marking, announcing | 2 of 3 built |
 | [latency.md](latency.md) | the voice delay and the 4-second rule | built into the timing |
 | [systems.md](systems.md) | control visibility, information split, beat, ammunition, weapons, destruction, power-ups, raster behaviour | mixed |
 | [assists.md](assists.md) | the three assist forms and their unlock order | not built |

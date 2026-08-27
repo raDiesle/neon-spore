@@ -26,7 +26,9 @@ const SAMPLES: Record<string, SimEvent> = {
   beat: { type: "beat", beat: 4 },
   waveStart: { type: "waveStart", wave: 0 },
   needWave: { type: "needWave", wave: 1 },
-  fire: { type: "fire", col: 3, color: "red" },
+  fire: { type: "fire", col: 3, color: "red", lance: false },
+  lanceFull: { type: "lanceFull", col: 3 },
+  lanceSpilled: { type: "lanceSpilled", col: 3 },
   destroy: { type: "destroy", col: 3, row: 4, color: "cyan" },
   hole: { type: "hole", col: 2, row: 5 },
   reject: { type: "reject", col: 2, row: 5 },
@@ -64,8 +66,12 @@ describe("bindings", () => {
   });
 
   it("tells the two colours apart in both directions", () => {
-    expect(cueFor({ type: "fire", col: 0, color: "red" }, 7, 12)?.id).toBe("ship.fireRed");
-    expect(cueFor({ type: "fire", col: 0, color: "cyan" }, 7, 12)?.id).toBe("ship.fireCyan");
+    expect(cueFor({ type: "fire", col: 0, color: "red", lance: false }, 7, 12)?.id).toBe(
+      "ship.fireRed",
+    );
+    expect(cueFor({ type: "fire", col: 0, color: "cyan", lance: false }, 7, 12)?.id).toBe(
+      "ship.fireCyan",
+    );
     expect(cueFor({ type: "destroy", col: 0, row: 0, color: "red" }, 7, 12)?.id).toBe(
       "impact.destroyRed",
     );

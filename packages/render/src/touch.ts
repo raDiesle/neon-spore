@@ -19,8 +19,14 @@ import { colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./la
  * finger is which belongs to whoever owns the canvas.
  */
 
-/** What a drag and a lift continue to mean, after the press that started them. */
-export type Hold = "cannon" | "shield" | "grip";
+/**
+ * What a drag and a lift continue to mean, after the press that started them.
+ *
+ * `lance` follows nothing sideways — it is here because the *lift* matters:
+ * the lobe fills for exactly as long as the thumb stays down, and nothing in
+ * the simulation empties it on its own (`sim/lance.ts`).
+ */
+export type Hold = "cannon" | "shield" | "grip" | "lance";
 
 export interface Touch {
   player: 1 | 2;
@@ -60,6 +66,9 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     if (hitCircle(l.intakeButton, x, y)) {
       return { player: 1, command: { kind: "intake" }, hold: null };
     }
+    if (hitCircle(l.lanceButton, x, y)) {
+      return { player: 1, command: { kind: "prime", on: true }, hold: "lance" };
+    }
   }
   if (showsShield(l.role)) {
     if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
@@ -90,11 +99,12 @@ export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
 }
 
 /**
- * The finger lifted. Only a grip has anything to say: it lasts exactly as long
- * as the finger does and nothing in the simulation decays it, so the lift has
- * to be sent.
+ * The finger lifted. Only the two holds that are *held* have anything to say:
+ * both last exactly as long as the finger does and nothing in the simulation
+ * decays either, so the lift has to be sent.
  */
 export function touchUp(hold: Hold, field: Field): Touch | null {
+  if (hold === "lance") return { player: 1, command: { kind: "prime", on: false }, hold: null };
   if (hold !== "grip") return null;
   return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };
 }

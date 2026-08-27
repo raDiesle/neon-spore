@@ -21,20 +21,30 @@ export function drawBullets(
     const fromY = tileCY(l, b.row);
 
     // A short tail back to the tile it came from, so the direction is legible
-    // even at twelve tiles a beat.
-    ctx.globalAlpha = 0.35;
+    // even at twelve tiles a beat. A lance keeps its tail: it is half the
+    // speed, so the same tail is twice the object, which is the point — it has
+    // to be told apart from an ordinary shot at a glance by both players.
+    ctx.globalAlpha = b.lance ? 0.6 : 0.35;
     ctx.strokeStyle = hex;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = b.lance ? 5 : 2;
     ctx.beginPath();
     ctx.moveTo(x, fromY);
     ctx.lineTo(x, y);
     ctx.stroke();
     ctx.globalAlpha = 1;
 
-    halo(ctx, x, y, l.tile * 0.3, hex, 0.85);
+    halo(ctx, x, y, l.tile * (b.lance ? 0.5 : 0.3), hex, 0.85);
     ctx.fillStyle = hex;
     ctx.beginPath();
-    ctx.arc(x, y, l.tile * 0.14, 0, Math.PI * 2);
+    ctx.arc(x, y, l.tile * (b.lance ? 0.2 : 0.14), 0, Math.PI * 2);
     ctx.fill();
+    if (!b.lance) continue;
+    // The cannon's own colour round the head, so the shot carries the mark
+    // that made it as well as the ammunition it was loaded with.
+    ctx.strokeStyle = PALETTE.hullRim;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.arc(x, y, l.tile * 0.28, 0, Math.PI * 2);
+    ctx.stroke();
   }
 }

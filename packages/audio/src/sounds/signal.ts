@@ -3,8 +3,9 @@
  *
  * Marks, announcements, the radar strip, and the several idea-store mechanics
  * that are all the same shape underneath: something is known over here and has
- * to be got over there through a voice channel with a delay on it. Nothing
- * here is bound; marking and announcing are both unbuilt
+ * to be got over there through a voice channel with a delay on it. The three
+ * `mark` sounds are bound: marking is built, as THE LANCE (`sim/lance.ts`),
+ * and they were written for exactly this. Announcing is still unbuilt
  * (`docs/spec/couplings.md`).
  */
 
@@ -16,8 +17,8 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     id: "signal.markSet",
     family: "signal",
     blurb: "A mark landing on a tile: one pip, and a ring around it.",
-    status: "spare",
-    use: "Marking (couplings.md 2) — the navigator putting a mark down.",
+    status: "bound",
+    use: "THE LANCE's lobe coming full — the mark is set, and player 2 may fire it.",
     level: 0.3,
     layers: [
       glint(6200, 0.05, 0.5),
@@ -35,8 +36,8 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     id: "signal.markHit",
     family: "signal",
     blurb: "A shot landing where the mark was. Two sounds agreeing.",
-    status: "spare",
-    use: "The marked tile shot — the joint moment marking exists to make.",
+    status: "bound",
+    use: "A lance leaving a full lobe — the joint moment marking exists to make.",
     level: 0.36,
     layers: [
       glint(6200, 0.04, 0.5),
@@ -48,8 +49,8 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     id: "signal.markMissed",
     family: "signal",
     blurb: "The mark going out without being used.",
-    status: "spare",
-    use: "A mark expiring — the sentence arrived too late.",
+    status: "bound",
+    use: "A shot fired through a lobe that was still filling — the fill goes with it.",
     level: 0.24,
     layers: [{ source: "sine", freq: 4400, toFreq: 3300, gain: 0.3, attack: 0.03, release: 0.26 }],
   },

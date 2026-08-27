@@ -41,9 +41,10 @@ describe("buildBacklog", () => {
     const backlog = await realBacklog();
     const mechanics = names(backlog.mechanics);
 
-    // Warding is in the game; marking and announcing are the work left.
+    // Warding and marking are in the game; announcing is the work left.
     expect(mechanics).not.toContain("Warding");
-    expect(mechanics).toContain("Marking");
+    expect(mechanics).not.toContain("Marking");
+    expect(mechanics).toContain("Announcing");
 
     // "partly built" is work with a half still missing, and the badge says which.
     const partly = backlog.mechanics

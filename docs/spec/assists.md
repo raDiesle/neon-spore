@@ -90,8 +90,9 @@ players are counting never moves.
 
 **It does not need marking.** The spec tied keep watch to the held mark from
 [couplings](couplings.md); the grip is its own gesture, on a part of the
-screen that answered nothing before. Marking stays unbuilt and is no longer in
-the way.
+screen that answered nothing before. Marking has since been built, as THE
+LANCE, and it holds a *column* rather than a body — so it is still not the
+gesture keep watch was written for, and it no longer has to be.
 
 **The price is the hand.** Not a blocked action in the rules — nothing in the
 simulation refuses a command from a player who is gripping — but the thumb

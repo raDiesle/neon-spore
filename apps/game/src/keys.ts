@@ -42,6 +42,10 @@ const KEY_REPEAT_INTERVAL_TICKS = 8;
  * Holding any of them keeps sliding: one step on keydown, then steps on a
  * repeat timer driven by `tick()` — the sim tick, not wall-clock time, so a
  * held key is exactly as reproducible as everything else in `sim`.
+ *
+ * F and G are the two keys that are *held* rather than pressed: the lance and
+ * the grip. Both send a second command on the keyup, because nothing in the
+ * simulation ends either on its own.
  */
 export function bindKeys({
   buffer,
@@ -99,6 +103,12 @@ export function bindKeys({
       case "KeyS":
         buffer.push(1, { kind: "intake" });
         break;
+      // F holds the lance, as player 1. Held, not tapped: the lobe fills for
+      // as long as the key is down and empties on the keyup below, which is
+      // the same contract the thumb on the band has (`sim/lance.ts`).
+      case "KeyF":
+        buffer.push(1, { kind: "prime", on: true });
+        break;
       case "KeyW":
         buffer.push(2, { kind: "fire", color: "red" });
         buffer.push(1, { kind: "guard" });
@@ -141,6 +151,7 @@ export function bindKeys({
     held.delete(e.code);
     repeatTicks.delete(e.code);
     if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
+    if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
   });
 
   /** Called once per sim tick to advance held-key repeats. */

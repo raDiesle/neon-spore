@@ -159,6 +159,16 @@ export interface Bullet {
   /** Progress towards the next tile, 0..999. Interpolation only. */
   subMilli: number;
   color: Color;
+  /**
+   * True for a shot that left a full lobe — THE LANCE. It travels at
+   * `lanceTilesPerBeat` instead of `bulletTilesPerBeat` and passes through
+   * bodies of its own colour rather than stopping at the first one. Decided
+   * once, when the shot leaves: a charge that fills while the shot is in the
+   * air arms the *next* one (`lance.ts`).
+   */
+  lance: boolean;
+  /** Bodies this shot has already gone through. 0 for everything but a lance. */
+  pierced: number;
 }
 
 /**
@@ -220,6 +230,13 @@ export type Command =
    * which (see `setGrip` in grip.ts for what happens when it is stale).
    */
   | { kind: "grip"; id: number }
+  /**
+   * Player 1's thumb on the lance, down (`on`) and up again. The hold is the
+   * whole of it: the lobe fills for as long as the thumb stays and the cannon
+   * stands still, and nothing in the simulation keeps it filled once the
+   * thumb lifts (`lance.ts`).
+   */
+  | { kind: "prime"; on: boolean }
   | { kind: "restart" };
 
 export interface TimedCommand {

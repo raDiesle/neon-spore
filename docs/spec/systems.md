@@ -36,7 +36,8 @@ In the code: `CREATURES` and `controlsForKinds` in
 | Radar: rocks + torch (`guard` kinds) | ✔ | ✘ |
 | Radar: slick, bulb, queen (`aim` kinds) | ✘ | ✔ |
 | Target mix (boss "The Vessel") | ✘ | ✔ |
-| Mark + target colour | ✔ | ✔ |
+| Mark: the lance's column and how full it is | ✔ | ✔ |
+| Target colour | ✔ | ✔ |
 
 **Built:** the radar rows. The split crosses the controls rather than the
 information type ("which" vs "where") the German original proposed — see
@@ -45,7 +46,13 @@ information type ("which" vs "where") the German original proposed — see
 kind)` in the same file is what `packages/render/src/field.ts`'s `drawRadar`
 calls to decide whether a given screen shows an arrival at all.
 
-**Not built:** the veil, target mix and mark rows, and the "traces" idea
+**Built:** the mark row, as THE LANCE (`primeChargeMilli`, drawn by
+`packages/render/src/lance.ts`). It is the one row of this table that is
+deliberately *not* split: the player who has to hold the fill and the player
+who has to withhold the shot are different people, so both read the same
+number.
+
+**Not built:** the veil, target mix and target-colour rows, and the "traces" idea
 (where something is coming from) the original table proposed for the
 navigator's half — the strip currently shows only that something is coming,
 in the colour/kind it will arrive as, at a column.
@@ -89,16 +96,34 @@ beat, minimum gap half a beat (`bulletTilesPerBeat`, `fireEveryBeats`). The
 original's conflict — "while charging, the thumb is blocked for evasion" — no
 longer exists, because there is no evasion.
 
-## 5.5 Weapons — not built
+## 5.5 Weapons — one of three built
 
 Switchable at any time, with **1.5 s of re-arming without firepower** — which
 has to be announced, because player 1 must cover the gap.
 
-| Weapon | Effect |
-|---|---|
-| Standard | single bubble |
-| Drill | punches through up to 3 segments in a line, slower |
-| Sticky mine | sticks, detonates on the next hit of a *different* colour |
+| Weapon | Effect | |
+|---|---|---|
+| Standard | single bubble | built |
+| Drill | punches through up to 3 segments in a line, slower | built, as THE LANCE |
+| Sticky mine | sticks, detonates on the next hit of a *different* colour | not built |
+
+**THE LANCE is the drill, and it is not switched to.** A weapon *selector* would
+be a fourth thing on player 2's half, and player 2 already holds both colours;
+worse, a weapon chosen once and kept is a state nobody has to say anything
+about. So the drill is loaded rather than selected: player 1 fills the cannon
+lobe over `lancePrimeBeats` by holding the lance with the cannon still, and the
+next shot player 2 fires out of that lobe is the drill — `lancePierce` bodies
+of its own colour, at `lanceTilesPerBeat` instead of `bulletTilesPerBeat`.
+
+The original's "1.5 s of re-arming without firepower, which has to be
+announced" survives exactly, and is the whole coupling: the fill is roughly two
+seconds during which the cannon cannot move and any shot fired spends the fill
+on an ordinary bolt. See [couplings](couplings.md) 2 and
+`packages/sim/src/lance.ts`.
+
+A rock still stops it and the wrong colour still stops it — a lance is a line,
+not a licence ([graphics](graphics.md); a rock cannot be broken because it does
+not live).
 
 ## 5.6 Destruction and damage — partly built
 

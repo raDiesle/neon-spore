@@ -68,10 +68,18 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "needWave":
       return null;
     case "fire":
+      // A lance is a different sound, not a louder one: the pair spent three
+      // beats of held thumb and a silence on it, and it has to be audible that
+      // what left the lobe was the thing they were waiting for.
+      if (e.lance) return { id: "signal.markHit", pan: panForCol(e.col, cols) };
       return {
         id: e.color === "red" ? "ship.fireRed" : "ship.fireCyan",
         pan: panForCol(e.col, cols),
       };
+    case "lanceFull":
+      return { id: "signal.markSet", pan: panForCol(e.col, cols) };
+    case "lanceSpilled":
+      return { id: "signal.markMissed", pan: panForCol(e.col, cols) };
     case "destroy":
       return {
         id: e.color === "red" ? "impact.destroyRed" : "impact.destroyCyan",
