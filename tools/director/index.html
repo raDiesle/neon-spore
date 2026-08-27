@@ -486,6 +486,11 @@
       .row input[type="range"] { flex: 1; accent-color: var(--gold); }
       .note { font-size: 9px; color: #574d84; line-height: 1.5; margin: 10px 0 0; }
 
+      .pair-row { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0; cursor: pointer; }
+      .pair-row input[type="checkbox"] { margin-top: 2px; accent-color: var(--gold); }
+      .pair-row b { font-size: 10px; letter-spacing: 1px; color: var(--ink); font-weight: 400; }
+      .pair-row .note { margin: 2px 0 0; }
+
       #bossPanel { margin: 4px 0 14px; padding: 8px 0 12px; border-bottom: 1px solid var(--line-soft); }
       #bossPanel > button { width: 100%; }
       .boss-fields { display: flex; gap: 14px; margin: 10px 0; }
@@ -562,13 +567,23 @@
           <textarea id="fHint" rows="2"></textarea>
 
           <div id="bossPanel"></div>
+
+          <h2 style="margin-top: 14px">BRIEFING</h2>
+          <p class="note" id="waveBriefing"></p>
         </div>
         <div class="tabpage" id="tab-ship">
           <h2>WHAT THE SHIP CAN DO</h2>
           <div id="caps"></div>
         </div>
         <div class="tabpage" id="tab-tuning">
-          <h2>PRESET</h2>
+          <h2>PAIR</h2>
+          <p class="note">
+            Off by default so a determinism run, a shape sheet and
+            relay:check all get the wave rather than the wait — see
+            docs/decisions.md. On here, only for this run.
+          </p>
+          <div id="pairPanel"></div>
+          <h2 style="margin-top: 14px">PRESET</h2>
           <div class="rail-actions" id="presets"></div>
           <h2 style="margin-top: 14px">TUNING</h2>
           <div id="sliders"></div>
@@ -602,6 +617,9 @@
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>
             <button type="button" id="endRun">▣ SHEET</button>
+            <button type="button" id="ackBrief" title="Dismiss the briefing card, as both seats">
+              ✓ CARD
+            </button>
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>

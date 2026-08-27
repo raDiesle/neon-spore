@@ -1,10 +1,18 @@
 import type { SimConfig } from "@neon-spore/sim";
+import { fieldsIn, GROUP_NOTE, GROUP_ORDER } from "./ship-fields.js";
 
 /**
  * What the ship can do, read off `SimConfig` rather than described.
  *
- * Every number here is anchored to the field that tunes it. A mechanic that is
- * removed takes its `SimConfig` field with it, and this list stops typechecking.
+ * `ship-fields.ts` carries the part that has to typecheck: a
+ * `Record<keyof SimConfig, GroupName>` that sorts every field into one of the
+ * cards below. This file only formats the nine mechanics worth a hand-written
+ * sentence — `VALUE` — and falls back to the raw field for everything else, so
+ * a tunable that lands today shows up as `fieldName: 12` tomorrow rather than
+ * not at all. Five fields landed on 27 Aug 2026 (`briefings`,
+ * `forkBetweenWaves`, `interludes`, the six `gauge*` fields, `shotChargeBeats`)
+ * and none of them appeared here — that gap is what this file is now built to
+ * refuse.
  */
 
 interface Capability {
@@ -13,59 +21,35 @@ interface Capability {
   note: string;
 }
 
-/**
- * The mechanics a wave can lean on, each anchored to the field that tunes it.
- * The anchor is the point: a mechanic that is removed takes its `SimConfig`
- * field with it, and this list stops typechecking.
- */
+/** Curated wording for the mechanics worth a sentence rather than a number dump. */
+const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
+  "AIM — colour and column": (cfg) => `${cfg.fireEveryBeats} beats`,
+  "GUARD — the shared defence": (cfg) => `${cfg.guardWindowMs} ms`,
+  "MAW — taking a pod in": (cfg) => `${cfg.intakeWindowMs} ms`,
+  "POD — shot loose, then caught": (cfg) => `+${cfg.podRepair} hull`,
+  "LANCE — a column marked, then spent": (cfg) => `${cfg.lancePrimeBeats} beats`,
+  "GRIP — a hand on the field": (cfg) => `${cfg.gripSlowPermille} ‰ speed`,
+  "HULL — damage and repair": (cfg) => `${cfg.maxScars} scars kept`,
+  "RADAR — what is coming": (cfg) => `${cfg.radarLead} beats`,
+  "THE BEAT": (cfg) => `${cfg.bpm} BPM`,
+  "THE FORK — the seam between waves": (cfg) => (cfg.forkBetweenWaves ? "ON" : "off"),
+  "BRIEFING — the card a wave opens on": (cfg) => (cfg.briefings ? "ON" : "off"),
+  "THE GAUGE — an interlude's own round": (cfg) => (cfg.interludes ? "ON" : "off"),
+};
+
+/** Every field of `group`, as `name: value`, for the ones `VALUE` does not word by hand. */
+function rawLine(cfg: SimConfig, group: Parameters<typeof fieldsIn>[0]): string {
+  return fieldsIn(group)
+    .map((k) => `${k}: ${cfg[k]}`)
+    .join(", ");
+}
+
 function capabilities(cfg: SimConfig): Capability[] {
-  return [
-    {
-      name: "AIM — colour and column",
-      value: `${cfg.fireEveryBeats} beats`,
-      note: "Player 2 fires the colour, player 1 holds the column. Both or nothing.",
-    },
-    {
-      name: "GUARD — the shared defence",
-      value: `${cfg.guardWindowMs} ms`,
-      note: "Player 2 places the shield, player 1 triggers it. Position alone is not enough.",
-    },
-    {
-      name: "MAW — taking a pod in",
-      value: `${cfg.intakeWindowMs} ms`,
-      note: "Player 1 opens the cannon lobe inside out as the pod arrives.",
-    },
-    {
-      name: "POD — shot loose, then caught",
-      value: `+${cfg.podRepair} hull`,
-      note: `Sinks ${cfg.podFallTilesPerBeat} tiles a beat and drifts ${cfg.podDriftTilesPerBeat} sideways, the way the rng picks.`,
-    },
-    {
-      name: "LANCE — a column marked, then spent",
-      value: `${cfg.lancePrimeBeats} beats`,
-      note: `Player 1 holds the lance with the cannon still; player 2 has to not fire until it is full. Then one shot at ${cfg.lanceTilesPerBeat} tiles a beat goes through ${cfg.lancePierce} of its own colour.`,
-    },
-    {
-      name: "GRIP — a hand on the field",
-      value: `${cfg.gripSlowPermille} ‰ speed`,
-      note: "Either player holds anything falling and it falls slower. Two hands compound.",
-    },
-    {
-      name: "SCARS — damage that stays",
-      value: `${cfg.maxScars} kept`,
-      note: "Anything that reaches the hull breaks it visibly and the break does not heal.",
-    },
-    {
-      name: "RADAR — what is coming",
-      value: `${cfg.radarLead} beats`,
-      note: "The strip above the grid is how far ahead either player can talk about.",
-    },
-    {
-      name: "THE BEAT",
-      value: `${cfg.bpm} BPM`,
-      note: `A creature enters at the top and reaches the hull ${cfg.rows - 1} beats later.`,
-    },
-  ];
+  return GROUP_ORDER.map((group) => ({
+    name: group,
+    value: VALUE[group]?.(cfg) ?? rawLine(cfg, group),
+    note: GROUP_NOTE[group],
+  }));
 }
 
 export function renderShip(cfg: SimConfig): void {

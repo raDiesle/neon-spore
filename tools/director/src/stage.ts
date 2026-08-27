@@ -177,6 +177,18 @@ export function bindStage(
     paintPlay();
   });
   document.getElementById("restart")?.addEventListener("click", rebuild);
+  // The whole stage is the card's button on a phone (`apps/game/src/briefing.ts`);
+  // here it is one button instead, since `bindStageTouch` above already spends
+  // the canvas's own pointerdown on the cannon. Both acks unconditionally,
+  // exactly like the game's own Space key — the command means nothing when no
+  // card is up, so it costs nothing to send it whether or not one is. Without
+  // this, turning `briefings` on (`pair-panel.ts`) freezes the stage on the
+  // first wave forever: `startWave` opens the card and nothing else in the
+  // director could ever put it away.
+  document.getElementById("ackBrief")?.addEventListener("click", () => {
+    keys.push(1, { kind: "brief" });
+    keys.push(2, { kind: "brief" });
+  });
   // The director holds the hull, so no run here ever ends on its own. The
   // after-run screen is a screen, and a screen that cannot be reached cannot
   // be judged — this is the way in.

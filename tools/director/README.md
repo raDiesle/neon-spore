@@ -33,9 +33,16 @@ numbers would answer nothing.
 There is no bestiary panel; the palette is the bestiary. Each brush is a card
 carrying the silhouette `tools/shape-sheet` draws and the blurb off `CREATURES`,
 so picking a creature and reading what it does are one act rather than two
-lists to keep in step. The `SHIP` tab holds what is left of it: the capability
-numbers, each read off a named `SimConfig` field, so a mechanic that is removed
-takes its field with it and the list stops typechecking.
+lists to keep in step. The `SHIP` tab holds what is left of it: nine mechanics
+worth a hand-written sentence, and every other `SimConfig` field grouped and
+shown beside them. `src/ship-fields.ts` sorts every field into its group
+through a `Record<keyof SimConfig, GroupName>`, so this cuts both ways now —
+a mechanic that is *removed* takes its field with it and the list stops
+typechecking, the way it always did, and a field that *lands* and is left out
+of that map fails the same build rather than landing invisible. That second
+half is why this file exists: `briefings`, `forkBetweenWaves`, `interludes` and
+`shotChargeBeats` shipped and stayed invisible here for a day before anyone
+noticed.
 
 ## The layout
 
@@ -364,6 +371,35 @@ The sliders belong to the run, never to the wave, and are not written to
 arrives at — `THE WALL` is a different wave at 70 BPM than at 96. The named
 presets answer decision #10, which wanted a second guard window comparable side
 by side instead of edited into the source.
+
+## Pair
+
+`PAIR`, at the top of the `TUNING` tab, is `packages/sim/src/config-pair.ts`'s
+three switches — `briefings`, `forkBetweenWaves`, `interludes` — plus
+`shotChargeBeats` beside them for the reason `config-shot.ts` gives it its own
+line rather than a place inside `PairConfig`. All four are off or zero in
+`DEFAULT_CONFIG`, on purpose: a determinism run, a shape sheet and
+`relay:check` all want the wave rather than the lesson (docs/decisions.md).
+Nobody had carried that decision through to the one caller that is a person
+looking at the game, so the briefing card, THE FORK, THE GAUGE and the
+cannon's wind-up were all built, tested, and invisible here.
+
+One `cfg`, so the checkboxes are global rather than per-panel — `src/pair-panel.ts`
+is bound the same way `bindTuning` is, and flipping one replays the wave on the
+stage under the new run. Turning `briefings` on freezes the stage on whichever
+wave is open until the card is dismissed; `✓ CARD`, beside `▣ SHEET` under the
+field, sends both seats' ack unconditionally, the same way the game's own
+Space key does. THE FORK's own lance button is already live in the `TEST` role
+(`touch.ts` — the director never had to add it), so priming it with the mouse
+and firing with `E` crosses the fork the same way a phone would.
+
+The `WAVE` tab's own `BRIEFING` line answers the other half of the same
+question — not just *whether* a card can show, but *which* one the wave being
+edited raises, and for a fresh pair rather than for whatever this run has
+already met. `src/wave-briefing.ts` builds that off the store's live entries,
+so an edit not yet saved shows there immediately. `◇ NOT BUILT YET → CARDS`
+still holds the full picture of every card and a wave-by-wave picker of its
+own — that page asks the shipped catalogue, this line asks the stage.
 
 ## MUSIC
 

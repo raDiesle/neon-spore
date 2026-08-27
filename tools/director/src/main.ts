@@ -5,6 +5,7 @@ import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
 import { bindGrid, type GridPanel } from "./grid.js";
+import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
@@ -21,6 +22,7 @@ import {
 import { bindStates } from "./states-page.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
+import { renderWaveBriefing } from "./wave-briefing.js";
 
 /**
  * The director: one screen where a wave is placed, played and judged.
@@ -72,6 +74,14 @@ bindTuning(cfg, () => {
   renderShip(cfg);
   stage.rebuild();
 });
+// The pair's own switches, plus the cannon's wind-up beside them — see
+// `pair-panel.ts`. Same shape as `bindTuning` above: one `cfg`, one stage, so
+// a flip here replays the wave being edited under the new run rather than
+// asking which of several stages it meant.
+bindPairPanel(cfg, () => {
+  renderShip(cfg);
+  stage.rebuild();
+});
 renderShip(cfg);
 
 /**
@@ -116,6 +126,12 @@ function onShape(): void {
   palette.render();
   stage.rebuild();
   paintStatus();
+  paintBriefing();
+}
+
+/** Which cards the wave on the stage raises for a fresh pair — see `wave-briefing.ts`. */
+function paintBriefing(): void {
+  renderWaveBriefing(currentWave(store), store.index, cfg.cols);
 }
 
 /** Only the prose changed. Replaying the wave for a typed letter would be rude. */
@@ -130,6 +146,7 @@ function refreshAll(): void {
   palette.render();
   stage.rebuild();
   paintStatus();
+  paintBriefing();
 }
 
 function paintStatus(): void {
