@@ -242,3 +242,21 @@ until `packages/audio/src/bind.ts` names a cue for it, and audio was another
 lane's ground. The same is true of the Runt being shot by mistake, which is
 parked above — one lane in `packages/audio` could answer both, and should look
 at what is already in the catalogue before writing a new sound.
+
+## The Throb's swell cannot be judged in the tool built for judging swells
+
+2026-08-27 · claude/burn-shapesheet-b8
+
+The shape sheet now derives its subjects from `CREATURES`, so the Throb is on
+it — with the fallback tilt every non-bulb gets, and not with the swell that
+is the entire point of the creature. `OwnMotion.poseAt` is a pure function of
+seconds and the swell is keyed to `world.beat`, so the tooling has no clock
+that could show it.
+
+Not done there because a beat clock in the shape sheet is motion-system work
+rather than a derived list, and the lane was scoped to the list. It matters
+more than it sounds: one of the two outstanding creature checks asks whether
+that swell reads as "wait for it" at tempo, and the tool the check points at
+is currently showing the one motion the creature does not have. Start by
+asking whether the sheet wants a beat clock or simply a manual open/shut
+toggle — the second is much smaller and may answer the check on its own.
