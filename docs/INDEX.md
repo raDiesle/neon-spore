@@ -130,7 +130,8 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
-| `apps/game/src/main.ts` | wiring: world, renderer, input, loop, wave progression |
+| `apps/game/src/main.ts` | wiring: world, renderer, input, loop |
+| `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |

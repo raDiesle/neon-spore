@@ -1,12 +1,11 @@
-import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
+import { buildPods, buildQueue } from "@neon-spore/content";
 import { Canvas2DRenderer } from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  PAIR_ON,
   resetClock,
-  resetRun,
   type SimEvent,
-  startWave,
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
@@ -20,6 +19,7 @@ import { bindMainMenu, menuRequested } from "./menu.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
+import { createWaveProgression } from "./waves.js";
 
 const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");
@@ -27,8 +27,9 @@ if (!canvas) throw new Error("canvas #stage missing");
 // The hull holds by default here, and only here: this is the test build, and a
 // wave that is being looked at should be allowed to finish. The switch is in
 // the test panel; `packages/sim` still ships with the hull breakable.
-// Briefings and THE FORK are on here and off by default: both want two people.
-const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true, forkBetweenWaves: true };
+// `PAIR_ON` is the other switch: briefings and THE FORK, on here and off by
+// default, because both want two people. See `config-pair.ts`.
+const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
@@ -41,58 +42,8 @@ const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
 const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
-
-/**
- * How long the wave's name and hint stand. Long enough to read a short one
- * twice: at 2.6 s the hint was gone before anyone had finished it, which made
- * every wave feel like it started mid-sentence.
- */
-const BANNER_SECONDS = 5.5;
-let banner = openingBanner(0);
-
-function openingBanner(wave: number): { title: string; hint: string; remaining: number } {
-  const w = WAVES[wave];
-  return w
-    ? { title: w.name, hint: w.hint, remaining: BANNER_SECONDS }
-    : { title: `WAVE ${wave + 1}`, hint: "Beyond the authored waves.", remaining: BANNER_SECONDS };
-}
-
-/**
- * The simulation asks for a queue; it cannot fetch one itself, because waves
- * live in `content/` and nothing points back into the sim. This is the only
- * place the two meet.
- */
-function handle(events: readonly SimEvent[]): void {
-  for (const e of events) {
-    if (e.type !== "needWave") continue;
-    startWave(
-      world,
-      e.wave,
-      buildQueue(e.wave, cfg.cols),
-      buildPods(e.wave, cfg.cols),
-      buildBoss(e.wave, cfg.cols),
-    );
-    banner = openingBanner(e.wave);
-  }
-}
-
-/** Jump to a wave in the test build: a fresh run, not a continuation. */
-function jumpToWave(wave: number): void {
-  const target = Math.max(0, wave);
-  resetRun(world);
-  // The tick counter goes back to zero with the run, so anything remembered
-  // against it — in render/ and in audio/ alike — is about to be read as this
-  // run's own. See CLAUDE.md on `world.beat` not being monotonic.
-  audio.restarted();
-  startWave(
-    world,
-    target,
-    buildQueue(target, cfg.cols),
-    buildPods(target, cfg.cols),
-    buildBoss(target, cfg.cols),
-  );
-  banner = openingBanner(target);
-}
+const progression = createWaveProgression({ world, cfg, audio });
+const jumpToWave = progression.jumpToWave;
 
 let running = true;
 const setRunning = (next: boolean): void => {
@@ -189,7 +140,7 @@ const paint = (dt: number): void => {
     dt,
     events: frameEvents,
     running,
-    banner,
+    banner: progression.banner(),
   });
   frameEvents = [];
 };
@@ -210,7 +161,7 @@ const paint = (dt: number): void => {
       step(world, buffer.drain(world.tick));
       if (world.events.length) {
         frameEvents.push(...world.events);
-        handle(world.events);
+        progression.handle(world.events);
       }
     }
   },
@@ -234,7 +185,7 @@ startLoop(
     step(world, link.drain());
     if (world.events.length) {
       frameEvents.push(...world.events);
-      handle(world.events);
+      progression.handle(world.events);
     }
     link.checkpoint();
   },
@@ -244,7 +195,7 @@ startLoop(
     lastFrame = now;
     link.frame(dt * 1000);
     // The wave name waits behind the card; five seconds is less than reading it.
-    if (banner.remaining > 0 && !brief.holds()) banner.remaining -= dt;
+    progression.tickBanner(dt, brief.holds());
     paint(dt);
   },
 );
