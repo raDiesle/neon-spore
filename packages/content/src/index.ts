@@ -20,6 +20,14 @@ export {
   hullRadiusMul,
 } from "./hull-shape.js";
 export {
+  livingMotion,
+  type OwnMotion,
+  type Pose,
+  REST,
+  SWAY_PUMP,
+  TILT_RIPPLE,
+} from "./own-motion.js";
+export {
   AUTHORED_COL_MAX,
   AUTHORED_COLS,
   bossFromWave,

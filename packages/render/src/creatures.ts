@@ -1,4 +1,4 @@
-import { blobPath, crystalPath, livingSilhouette, METEOR } from "@neon-spore/content";
+import { blobPath, crystalPath, livingMotion, livingSilhouette, METEOR } from "@neon-spore/content";
 import { type Creature, isMeteorKind } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
@@ -57,23 +57,14 @@ function drawLiving(
   const r = l.tile * 0.4;
   const scale = r / Math.max(shape.rx, shape.ry);
 
-  let ox = 0;
-  let oy = 0;
-  let rot = 0;
-  let sx = 1;
-  let sy = 1;
-  if (isBulb) {
-    ox = Math.sin(t * 1.9) * l.tile * 0.17;
-    const pump = Math.sin(t * 3.1);
-    sx = 1 + pump * 0.1;
-    sy = 1 - pump * 0.1;
-    rot = Math.sin(t * 1.9) * 0.18;
-  } else {
-    ox = Math.sin(t * 1.35) * l.tile * 0.11;
-    oy = Math.sin(t * 2.2) * l.tile * 0.05;
-    rot = Math.sin(t * 1.35 + 0.5) * 0.22;
-    sx = 1 + Math.sin(t * 2.2) * 0.09;
-  }
+  // The sway itself is data, in `content/own-motion.ts`, so the shape tools
+  // can animate a creature the way the game does instead of re-typing it.
+  // Offsets come back in tiles, which is the only form that survives a
+  // different screen.
+  const pose = livingMotion(c.kind).poseAt(t);
+  const ox = pose.dx * l.tile;
+  const oy = pose.dy * l.tile;
+  const { rot, sx, sy } = pose;
 
   const d = blobPath(
     0,

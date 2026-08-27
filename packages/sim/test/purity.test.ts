@@ -154,6 +154,12 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    call: "livingMotion",
+    owner: "packages/content/src/own-motion.ts",
+    pattern: /\bt\s*\*\s*1\.9\b|\bt\s*\*\s*1\.35\b/,
+    strip: false,
+  },
+  {
     call: "touchDown",
     owner: "packages/render/src/touch.ts",
     pattern: /cannonStrip\s*\.\s*height\s*\*\s*0\.75/,
