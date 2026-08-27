@@ -180,69 +180,6 @@ on it.
 Not done there because adding a row means editing a shared test file that
 another lane was in at the time. It is one row.
 
-## Two new creatures move like a slick because there is nothing else to move like
-
-2026-08-27 · claude/burn-creatures-b3
-
-`packages/content/src/own-motion.ts` falls back to `TILT_RIPPLE` for anything
-that is not a bulb, so the Runt twitches like a slick and the Throb tilts like
-a slick. Both want their own: the Runt is meant to read as small and helpless,
-the Throb as breathing, and the Throb's is nearly load-bearing — its swell is
-what tells the pair when to fire, and a body that also tilts is a body saying
-two things at once.
-
-Not done there because `own-motion.ts` is the one copy of how a body sways and
-the lane did not own it. It is a short file and this is two entries in it.
-
-## Shooting the Runt looks exactly like shooting anything else
-
-2026-08-27 · claude/burn-creatures-b3
-
-The Runt is the creature you must not hit, and hitting it spends the ordinary
-`destroy` event and the ordinary effect — so the only tell that the pair got it
-wrong is the score moving the wrong way, which is the one place neither of them
-is looking during a wave. A mistake that announces itself is what makes "leave
-that one" a rule they learn in one wave instead of five.
-
-Not done there because a new `SimEvent` fails `packages/audio/test/bind.test.ts`
-until `packages/audio/src/bind.ts` names a cue for it, and the audio package was
-another lane's ground. Start there; the catalogue already has spare sounds
-(`bun run dev`, ♪ SOUND) and this is one of the things they were kept for.
-
-## The only test that covers render/ cannot see two of the things render draws
-
-2026-08-27 · claude/burn-fork-b4
-
-`packages/render/test/frame.test.ts` builds its worlds from `DEFAULT_CONFIG`,
-where `briefings` and `forkBetweenWaves` are both off — so `drawFork` and the
-briefing card, two of the newest things the renderer draws, are drawn by
-nothing in CI. Both were exercised by throwaway harnesses through
-`canvas-stub.ts` and then deleted, which is worth exactly as much as it
-sounds.
-
-Not done there because the lane that found it was in `sim` and this is a test
-file everything touches. One world built with `{ ...DEFAULT_CONFIG,
-forkBetweenWaves: true, briefings: true }` folds both into the only test that
-catches a colour that is a perfectly good string and not a colour. Start by
-checking whether `config-pair.ts` should carry a `PAIR_ON` constant, so the
-next switch of that kind is covered by being added rather than by somebody
-remembering.
-
-## The fork opens in silence
-
-2026-08-27 · claude/burn-fork-b4
-
-The run stops between waves and waits for two people to agree, and nothing is
-heard. It is the one moment in a run that belongs to the pair rather than to
-the clock, and the audio catalogue has spare sounds kept for exactly this kind
-of thing (`bun run dev`, ♪ SOUND, the ones marked unbound).
-
-Not done there because a new `SimEvent` fails `packages/audio/test/bind.test.ts`
-until `packages/audio/src/bind.ts` names a cue for it, and audio was another
-lane's ground. The same is true of the Runt being shot by mistake, which is
-parked above — one lane in `packages/audio` could answer both, and should look
-at what is already in the catalogue before writing a new sound.
-
 ## The Throb's swell cannot be judged in the tool built for judging swells
 
 2026-08-27 · claude/burn-shapesheet-b8
@@ -260,3 +197,19 @@ that swell reads as "wait for it" at tempo, and the tool the check points at
 is currently showing the one motion the creature does not have. Start by
 asking whether the sheet wants a beat clock or simply a manual open/shut
 toggle — the second is much smaller and may answer the check on its own.
+
+## Only one hand in this game can be seen letting go
+
+2026-08-27 · claude/burn-other-hand-b5
+
+THE OTHER HAND shows a partner's thumb on the lance and says nothing about the
+other player's, because `prime` is the only control the band emits both a
+press and a lift for — the shield strip sends no release, so a resting finger
+there is invisible to the simulation. The lane built the honest half and said
+so rather than inventing the missing one.
+
+Not done there because a lift edge on the shield strip is a change to
+`packages/render/src/touch.ts` and `apps/game/src/input.ts`, neither of which
+the lane owned. Start by asking whether a hold is a thing the shield *should*
+have — the fork already spends the lance's hold as half of a two-person gate,
+and a second holdable control is a second thing that could.
