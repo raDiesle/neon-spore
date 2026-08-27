@@ -45,6 +45,11 @@ needed a browser someone was watching. Do not write one for what `bun run
 check` already proved — a check that a green tree covers is noise on a list
 whose only value is that everything on it is real.
 
+Do not write one for an idea, either. A check is an obligation somebody incurred
+by landing something unlooked-at; a suggestion nobody has decided to act on is
+the opposite, and it goes in `docs/parked.md`. Mixing them costs the outstanding
+list the one property it has.
+
 ## The list
 
 Derived, never kept:
@@ -98,6 +103,18 @@ unticked box from last week.
 The same loop covers a worktree here. A worktree's branch is on the same list,
 under the same rule, and gets removed the same way once main has its work and
 the checks are decided.
+
+## The closing block
+
+`bun run handoff` is the other end of the same idea. `bun run checks` is read
+here, at the machine that can look; the handoff block is read there, on the
+phone, at the moment a turn ends — and it answers one question, whether
+anything is still owed. It derives every fact it prints from git, the trailers
+and `docs/parked.md`, so a landing it claims is a landing that happened.
+
+A `Check:` never appears in it as a block. It is printed under `optional`,
+because a check is work for a machine that can look and there is no obligation
+to look today. `CLAUDE.md` has the block itself.
 
 ## Why it is committed
 

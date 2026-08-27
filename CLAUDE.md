@@ -86,22 +86,30 @@ the cloud a task briefed on code that is not there.
 rule about this machine, where not pushing costs nothing because the work is
 already where the human is. In the cloud the opposite holds — work that is not
 pushed is work nobody can reach. So a cloud session pushes the branch it was
-given, when it is done, without being asked. Never a pull request; `main` only
-under the next paragraph, and never on its own initiative.
+given, when it is done, without being asked. Never a pull request; `main` under
+the next paragraph, which it does on its own.
 
-**It may land `main` itself when asked, and the eye-check happens after.** The
-rule used to be that it never could, and the reason was verification: a change
-the sandbox cannot fully check should not become the trunk that the next cloud
-session clones. That reason survives; the ordering it implied does not. One
-person works on this repo, so a `main` that turns out to need another pass
-costs that person one commit and nobody else anything — while a branch parked
-until they get to a desk costs a day and, if two are parked, a rebase each.
+**It lands `main` itself, every turn, without being asked.** The rule used to
+be that it never could, and then that it could when asked; both were about
+verification — a change the sandbox cannot fully check should not become the
+trunk that the next cloud session clones. That worry survives, and the ordering
+it implied does not. One person works on this repo, so a `main` that turns out
+to need another pass costs that person one commit and nobody else anything —
+while a branch parked until they get to a desk costs a day, and two parked
+branches cost a rebase each. Asking first only moved the day-long wait to a
+different question.
 
-So: on the human's say-so, in this session, a cloud session lands `main`
-itself. Two conditions. The branch is **already rebased onto the current
+So: a cloud session finishes a turn by landing its branch on `main`. Two
+conditions, and no third. The branch is **already rebased onto the current
 `origin/main`**, so the landing is a fast-forward and the history stays linear —
 never a merge commit, never a force-push to `main`. And `bun run check` is green
-on that rebased branch. Nothing else gates it.
+on that rebased branch. If either fails, the branch is pushed and the closing
+block says so; the turn does not end quietly on unlanded work.
+
+Mid-task is the one exception, and it is the same exception as everywhere else
+in this file: work that is not finished is not committed, and what is not
+committed cannot land. A turn that ends on a question ends with the question,
+not with a landing.
 
 What the sandbox could not check does not block the landing, but it does not
 evaporate either: it moves *after* it, onto the machine that can look. The
@@ -139,6 +147,48 @@ from those trailers, and `docs/verified.md` records what has actually been
 looked at. **Not** for anything `bun run check` already proved — a list is only
 worth reading if everything on it is real. `docs/verification.md` has the whole
 loop, the ledger and how a branch is retired once its checks are decided.
+
+**Every turn ends on the same four-line block, and it is derived.** The last
+thing a cloud session runs is `bun run handoff`, and the last thing its report
+carries is that command's output, verbatim. The question it answers is the only
+one worth asking from a phone: *is there anything left for me to do, or can I
+close this and go back to `main`?*
+
+```
+──────────────────────────────────────────────────────────
+ ✅ NOTHING WAITING — main has this, and no answer is owed
+──────────────────────────────────────────────────────────
+  landed   claude/thing-9f2 → origin/main, fast-forward
+  check    bun run check green
+  optional 2 thing(s) on main want an eye — bun run checks
+  optional 1 parked idea(s) — docs/parked.md
+```
+
+It is derived rather than written because prose is exactly where "I landed it"
+and "I meant to land it" look identical on a small screen. Every fact in it
+comes from git, from the `Check:` trailers or from `docs/parked.md`; the only
+part a session authors is a question, passed in:
+
+```
+bun run handoff --ask "should the barb sway with the bulb or against it"
+```
+
+A question, uncommitted files, or work still ahead of `origin/main` turn the
+head line into `⚑ YOUR MOVE` and name what by. Nothing else does. A check
+waiting for an eye and a parked idea are printed under `optional` and are not
+allowed to shout — the first is an offer to a machine that can look, the second
+is an offer to nobody in particular, and a session that ends every turn in red
+is a session that ends none of them cleanly.
+
+**Suggestions go in `docs/parked.md`, not in the report.** Anything the session
+noticed and did not do — a refactor it stepped around, a tool that would have
+helped, an idea for the game — is written there as one `##` section in the same
+commit, and then it is in the clone forever instead of four sessions up a
+transcript. It is deliberately not the `Check:` list: a check is an obligation
+somebody incurred by landing something, a parked idea is a thing nobody has
+decided to do, and mixing them is how the obligation list stops being read.
+Picking one up later is a fresh session and a `git rm`-shaped edit to that
+file. `docs/parked.md` says the rest.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
@@ -193,6 +243,7 @@ bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
 bun run checks         # what landed on main that nobody has looked at yet
+bun run handoff        # the closing block: is anything still owed to the human
 ```
 
 ## Delegating implementation

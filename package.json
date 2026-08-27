@@ -17,6 +17,7 @@
     "preview:once": "bun run --cwd apps/game preview:once",
     "delegate": "bun run tools/delegate/run.ts",
     "checks": "bun run tools/checks/run.ts",
+    "handoff": "bun run tools/handoff/run.ts",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "relay:check": "bun run --cwd tools/relay-check check",
