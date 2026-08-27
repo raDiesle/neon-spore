@@ -11,29 +11,18 @@ import type { Scene } from "../scene.js";
  * to draw the thing as wide as it says it is, above a hull the same picture is
  * drawing to scale.
  *
+ * There is deliberately no Warden here. It was the first scene written and it
+ * stopped being one the moment the boss was built: a scene draws what the
+ * simulation cannot, and a bone contour laid over a ring the game now renders
+ * itself would be the exact confusion `scene-art.ts` exists to avoid. Its
+ * states belong on the STATES sheet, posed, like every other built thing.
+ *
  * These are also where the field figure earns the most, because a boss is the
  * one thing nobody can imagine from a paragraph: `bosses.md` spends four
  * hundred words on the Warden's tether and none of them says how much of the
  * screen a line from the rim to the hull actually crosses.
  */
 export const BOSS_SCENES: Scene[] = [
-  {
-    suggests: "The Warden",
-    role: "p1",
-    claim:
-      "five columns wide, never walking, with a tether straight down the column the cannon was standing in — the picture `bosses.md` 11.4 describes and nobody has seen",
-    bodies: [{ shape: "WARDEN · LOOKING", col: 3, row: 2, span: 5 }],
-    marks: [
-      {
-        kind: "tether",
-        col: 5,
-        fromRow: 4,
-        toRow: 13,
-        note: "it takes the control where it stands",
-      },
-    ],
-    spawns: [{ what: "meteor", col: 8, row: 9 }],
-  },
   {
     suggests: "THE CHOIR",
     role: "p1",
