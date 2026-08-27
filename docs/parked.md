@@ -101,3 +101,20 @@ the file would stop being what the game plays and nobody would find out by
 listening. Start by asking whether `OfflineAudioContext` under a headless
 Chromium can drive the real `engine.ts` and hand back the buffer — that keeps
 one synthesiser and makes the rendering a harness rather than a rewrite.
+
+## The backdrop tints an act it has to guess at
+
+2026-08-27 · claude/burn-backdrop-b2
+
+`packages/render/src/backdrop.ts` picks its wash and horizon tint from
+`world.wave % 5`, because the wave is the finest-grained thing the world
+tracks and there is no `Act` anywhere in `sim` or `content` — the spec talks
+about ten acts, one boss every ten waves, and nothing in the code knows it.
+So the field changes colour every wave rather than every act, which is five
+times too often to mean anything.
+
+Not done there because inventing an `Act` type is a change to what a run *is*
+— `docs/spec/structure.md` and the wave queue both have an opinion — and a
+render lane is the wrong place to decide it. Start by asking whether an act is
+a field on the wave or a grouping around the bosses; the tint table in
+`backdrop.ts` is then two lines.
