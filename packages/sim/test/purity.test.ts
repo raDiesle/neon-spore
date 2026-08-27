@@ -117,6 +117,18 @@ const COPIES: Copy[] = [
     pattern: /\bAUTHORED_COLS\s*-\s*1\b/,
   },
   {
+    // Turning a wave's authored `color` back into the kind it spawns is
+    // `queueFromWave`'s job, and asking a *wave* what it contains is the
+    // question `mechanics.ts` had to answer without becoming a second copy of
+    // it. The ternary is the whole of the translation, so it is the shape to
+    // watch: written out again, it is a place where a wave and the field it
+    // produces can start disagreeing about what is in it.
+    call: "queueFromWave",
+    owner: "packages/content/src/queue.ts",
+    pattern: /\bcolor\s*\?\s*kindForColor\s*\(/,
+    strip: false,
+  },
+  {
     call: "livingKindForColor",
     owner: "packages/sim/src/kinds.ts",
     pattern: /"red"[\s\S]{0,30}"slick"|"slick"[\s\S]{0,30}"red"/,

@@ -22,6 +22,21 @@ export {
 } from "./hull-shape.js";
 export { GAPS } from "./interludes.js";
 export {
+  MECHANIC_IDS,
+  MECHANICS,
+  type Mechanic,
+  type MechanicId,
+  type MechanicSwitch,
+  mechanic,
+  mechanicOn,
+  mechanicsInGaps,
+  mechanicsInWave,
+  type Reach,
+  type RunMechanicId,
+  unreachedMechanics,
+  type WaveKind,
+} from "./mechanics.js";
+export {
   livingMotion,
   type OwnMotion,
   type Pose,

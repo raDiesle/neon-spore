@@ -1,4 +1,5 @@
-import type { BossEntry, Color, PodEntry, RockKind } from "@neon-spore/sim";
+import type { BossEntry, Color, PodEntry } from "@neon-spore/sim";
+import type { WaveKind } from "./mechanics.js";
 
 /**
  * What a wave is made of.
@@ -27,8 +28,14 @@ export interface WaveEntry {
    * instead (`kindForColor`), so a wave with `color` set never also writes
    * `kind` — naming both would be naming the same thing twice and inviting
    * them to disagree.
+   *
+   * `WaveKind` is derived from the `waveNames` flags in `mechanics.ts` rather
+   * than written out here. It used to be `RockKind | "runt" | "throb"`, by
+   * hand, so a third colourless creature needed this line extended too — and
+   * the failure of forgetting was silent: the director's cast would produce an
+   * entry naming a kind no wave could carry.
    */
-  kind?: RockKind | "runt" | "throb";
+  kind?: WaveKind;
   /** A fixed colour, or null for a kind that carries none. */
   color: Color | null;
 }
