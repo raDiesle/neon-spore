@@ -116,9 +116,8 @@ the fork is an announcement with a decision at the end of it, at zero timing
 pressure. Everything else in this game is an announcement under a falling
 object.
 
-The friction is bookkeeping, and it is worth naming here: waves are numbered
-and save points hang off the numbering
-([structure](structure.md), open question 11).
+The friction is bookkeeping: waves are numbered and save points hang off the
+numbering ([structure](structure.md), open question 11).
 
 ## Lovers in a Dangerous Spacetime
 
@@ -218,12 +217,17 @@ name. The hull may flinch. The field may not.
 ## Promoted to the idea store
 
 Five bullets, in [ideas.md](ideas.md), under the group each would become:
-**The Flip** and **The Fork** as mechanics, **Call signs** and **The Other
-Hand** as controls, **The Patch** as a mechanic. Nothing was promoted as a
-creature, and that is a finding rather than an omission: neither of these games
-gets its pressure from the things that come at you, so neither has much to say
-about a bestiary. Both put the pressure on the controls, on what each person
-can reach, and on the shape of the round.
+**The Patch**, **The Flip** and **The Fork** as mechanics, **Call signs** and
+**The Other Hand** as controls. Nothing was promoted as a creature, and that is
+a finding rather than an omission: neither game gets its pressure from the
+things that come at you, so neither has much to say about a bestiary. Both put
+it on the controls, on what each person can reach, and on the shape of the
+round.
+
+Nothing was promoted as a boss either, and that was this page's blind spot
+rather than a finding — a boss is where a shape is spent, and both games keep
+their best pictures at that size. [transfers-bosses](transfers-bosses.md) fills
+it in, and promoted three more.
 
 ## Refused, with the reason
 

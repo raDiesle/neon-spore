@@ -171,9 +171,13 @@ filed rightly, and there is no second list to change.
 
 ### Bosses
 
-Three encounters worked out far enough to be worth keeping, set aside when
+Six encounters, in two batches. The first three were worked out far enough to
+be worth keeping and set aside when
 [The Warden](bosses.md#114-the-warden--the-eye-that-takes-a-hand-off-you) took
-the slot they were competing for. Each names the slot it would fit.
+the slot they were competing for. The last three came out of reading the two
+reference games at boss scale — see [transfers-bosses](transfers-bosses.md),
+which also says what each of the first three looks like on a second reading.
+Each names the slot it would fit.
 
 - **THE WEIGHT** — a boss held up by hands alone. A heavy sagging sac on a taut
   stalk, the only boss that descends continuously instead of holding a row, and
@@ -199,6 +203,45 @@ the slot they were competing for. Each names the slot it would fit.
   key is legible only on the boss's own skin, which only the *other* player can
   read. Grounds **Interference** and the **Codebook table** below in one object
   rather than two systems. Slot: The Codex (80)
+- **THE VANE** — the boss that bends the field instead of the beat. An open
+  contour with no inside, a pendulum arm sweeping the top, and at the end of
+  each sweep it reverses one player's column order: column four on their device
+  is column eight on the other, until the arm comes back. Its pivot is exposed
+  only at the far end of a sweep, the end belonging to the player who was just
+  rolled — so the one who has to shoot is the one whose numbers stopped
+  matching, and the other has to talk them into a column they cannot read. It
+  costs the simulation nothing: the roll is a transform on one device's picture
+  and its touch mapping, so both worlds stay identical. Spaceteam's wormhole,
+  and the pendulum already drawn for THE CONDUCTOR is the picture. Slot: The
+  Conductor (30), whose deferral asked for a boss that bends something other
+  than the tempo. Unworked out: whether The Flip should run at wave scale
+  first, and how a roll ends so it stays a passage rather than a state
+- **THE TITHE** — it always takes something and the pair chooses what. Two
+  rocks a cycle in two columns on the same beat, one shield, and one lit plate
+  in a third column wanting the cannon on that beat: two hands, three demands,
+  so every cycle is a sentence about what to give up and the scars are the
+  record of it. The first boss where the right play is to take damage on
+  purpose. From the rotating shield in Lovers in a Dangerous Spacetime, which
+  is the one thing its bosses do that nothing here does — every boss so far is
+  careful never to ask for the shield and the cannon at once. A body mostly
+  edge: a slab across seven columns with a row of plates under it. Slot: The
+  Kernel (100). Unworked out: it is one edit from merely mean, so the choice
+  has to be legible a cycle ahead and a pair eating one scar a cycle has to
+  finish alive
+- **THE CAIRN** — a boss built out of the field's own rocks: seven angular
+  units in one outline, the first drawn with the crystal contour rather than a
+  blob, and nothing about it can be shot. You take it apart with hands — a grip
+  drags a unit out of the pile, and once loose it falls as an ordinary rock to
+  be warded like any other — so the boss dismantles into the game the pair
+  already knows and the whole fight is rate: pull two at once and you have two
+  rocks and one shield. It asks how much your partner can absorb right now,
+  which is the question Lovers in a Dangerous Spacetime asks constantly and
+  none of the three built bosses asks at all. Slot: it wants The Heart (60) and
+  so does THE WEIGHT; they are the same pillar and both should not be built.
+  Unworked out: what stops a pair pulling nothing and waiting; and the drawing,
+  since `cluster` traces a metaball of round bodies and a pile of rocks wants
+  the same tracing over faceted units, so the seams read as stacked rather than
+  as a bloom
 
 ### Mechanics
 
