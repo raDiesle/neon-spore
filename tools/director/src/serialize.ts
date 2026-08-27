@@ -15,6 +15,28 @@ function escapeString(s: string): string {
     .replace(/\t/g, "\\t");
 }
 
+/**
+ * Biome's line width. The serializer has to match the formatter exactly or the
+ * round trip fails on a file nobody edited — `serialize.test.ts` compares the
+ * output against the real `waves.ts`, which is formatted.
+ */
+const LINE_WIDTH = 100;
+
+/**
+ * `name: "value",` at four spaces of indent, wrapped the way Biome wraps it:
+ * the string goes to its own line only when that actually gets the line under
+ * the limit. A sentence longer than the width either way stays where it is,
+ * because breaking it would buy nothing — which is the rule the formatter
+ * follows and therefore the only rule this may follow.
+ */
+function textField(name: string, value: string): string[] {
+  const one = `    ${name}: "${escapeString(value)}",`;
+  if (one.length <= LINE_WIDTH) return [one];
+  const wrapped = `      "${escapeString(value)}",`;
+  if (wrapped.length > LINE_WIDTH) return [one];
+  return [`    ${name}:`, wrapped];
+}
+
 function serializeEntry(entry: WaveEntry): string {
   const parts: string[] = [];
   parts.push(`beat: ${entry.beat}`);
@@ -36,6 +58,10 @@ function serializeBoss(boss: BossEntry): string {
   if (boss.kind === "queen") {
     return `{ kind: "queen", col: ${boss.col}, petals: ${boss.petals} }`;
   }
+  if (boss.kind === "warden") {
+    const plates = boss.plates === undefined ? "" : `, plates: ${boss.plates}`;
+    return `{ kind: "warden"${plates} }`;
+  }
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);
@@ -46,9 +72,9 @@ function serializeBoss(boss: BossEntry): string {
 function serializeWave(wave: Wave): string {
   const lines: string[] = [];
   lines.push("  {");
-  lines.push(`    name: "${escapeString(wave.name)}",`);
-  lines.push(`    sentence: "${escapeString(wave.sentence)}",`);
-  lines.push(`    hint: "${escapeString(wave.hint)}",`);
+  lines.push(...textField("name", wave.name));
+  lines.push(...textField("sentence", wave.sentence));
+  lines.push(...textField("hint", wave.hint));
 
   if (wave.entries.length === 0) {
     lines.push("    entries: [],");
