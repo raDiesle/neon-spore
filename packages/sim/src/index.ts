@@ -47,6 +47,7 @@ export {
   type InterludeState,
   interludeBeats,
   interludeDue,
+  interludeHeard,
   interludeHolds,
   NO_INTERLUDE,
   startInterlude,

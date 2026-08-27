@@ -1,11 +1,13 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
+import type { InterludeEntry } from "@neon-spore/sim";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
 import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
+import { serializeGaps } from "./src/interlude-serialize.js";
 import { serializeWaves } from "./src/serialize.js";
 
 /**
@@ -32,6 +34,7 @@ const given =
 /** Which checkout's `waves.ts` this one reads and writes. */
 const treeId = treeKey(repoRootPath);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
+const interludesFile = new URL("../../packages/content/src/interludes.ts", import.meta.url);
 const specDir = new URL("../../docs/spec/", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
@@ -120,6 +123,31 @@ async function writeWaves(waves: Wave[]): Promise<string | null> {
   return await new Response(proc.stderr).text();
 }
 
+/** `GAPS` as it is on disk right now, not as it was bundled — same reasoning as `readWaves`. */
+async function readGaps(): Promise<Record<number, InterludeEntry>> {
+  const mod = (await import(`${interludesFile.href}?t=${Date.now()}`)) as {
+    GAPS: Record<number, InterludeEntry>;
+  };
+  return mod.GAPS;
+}
+
+/** The `GAPS` counterpart of `writeWaves`: serialize, write, then let Biome format it. */
+async function writeGaps(gaps: Record<number, InterludeEntry>): Promise<string | null> {
+  const source = await Bun.file(interludesFile).text();
+  const next = serializeGaps(source, gaps);
+  await Bun.write(interludesFile, next);
+
+  const rel = "packages/content/src/interludes.ts";
+  const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", rel], {
+    cwd: repoRootPath,
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const code = await proc.exited;
+  if (code === 0) return null;
+  return await new Response(proc.stderr).text();
+}
+
 const server = Bun.serve({
   port,
   hostname: process.env.DIRECTOR_HOST ?? "::",
@@ -159,6 +187,26 @@ const server = Bun.serve({
           const complaint = await writeWaves(waves);
           if (complaint) return Response.json({ error: complaint }, { status: 500 });
           console.log(`wrote ${waves.length} waves`);
+          return Response.json({ ok: true }, { headers: noCache });
+        } catch (err) {
+          return Response.json({ error: String(err) }, { status: 400 });
+        }
+      }),
+    },
+
+    /**
+     * `GAPS`: which wave's gap, if any, carries an interlude. The counterpart
+     * of `/api/waves` for the one authored table a wave's own fields do not
+     * cover — see `interlude-panel.ts`.
+     */
+    "/api/interludes": {
+      GET: withIdle(async () => Response.json(await readGaps(), { headers: noCache })),
+      PUT: withIdle(async (req) => {
+        try {
+          const gaps = (await req.json()) as Record<number, InterludeEntry>;
+          const complaint = await writeGaps(gaps);
+          if (complaint) return Response.json({ error: complaint }, { status: 500 });
+          console.log(`wrote ${Object.keys(gaps).length} interludes`);
           return Response.json({ ok: true }, { headers: noCache });
         } catch (err) {
           return Response.json({ error: String(err) }, { status: 400 });

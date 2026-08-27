@@ -15,7 +15,8 @@
  */
 
 import { parseParked } from "../../handoff/parked.js";
-import { type Concept, type ConceptSheet, parseConcepts } from "./concepts.js";
+import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
+import { type Concept, parseConcepts } from "./concepts.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 
@@ -112,17 +113,6 @@ function fromConcepts(title: string, note: string, concepts: Concept[]): Backlog
   };
 }
 
-function fromIdeas(title: string, note: string, sheet: ConceptSheet, group: string): BacklogGroup {
-  return {
-    title,
-    note,
-    builtHidden: 0,
-    entries: sheet.ideas
-      .filter((i) => i.group === group)
-      .map((i) => ({ name: i.name, kind: "idea", note: i.note, detail: "", ref: i.ref })),
-  };
-}
-
 /** A whole spec section as one entry — for prose that never became a list. */
 function fromSection(
   title: string,
@@ -199,11 +189,13 @@ export function buildBacklog(
       ),
     ],
     interludes: [
-      fromIdeas(
-        "INTERLUDE IDEAS",
-        "rounds that are not the field, each with its own controls and picture — ideas.md",
-        sheet,
-        "Interludes",
+      dropBuilt(
+        fromIdeas(
+          "INTERLUDE IDEAS",
+          "rounds that are not the field, each with its own controls and picture — ideas.md",
+          sheet,
+          "Interludes",
+        ),
       ),
     ],
     parked: [

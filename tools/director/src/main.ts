@@ -6,6 +6,7 @@ import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
+import { bindInterludePanel, type InterludePanel } from "./interlude-panel.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
@@ -83,6 +84,16 @@ const pair = bindPairPanel(cfg, () => {
   renderShip(cfg);
   stage.rebuild();
 });
+// The gap in front of the wave being edited — see `interlude-panel.ts`. Reads
+// `store.index` rather than `Store` itself, because `GAPS` is keyed by wave
+// number and is not a field on the `Wave` the way `boss` is.
+const interlude: InterludePanel = bindInterludePanel(
+  () => store.index,
+  () => store.waves.length,
+  () => stage.world(),
+  cfg,
+  () => pair.render(),
+);
 renderShip(cfg);
 // One wave and one set of switches per mechanic, opened in one click — see
 // `demo-panel.ts`. `refreshAll` is what every other jump to a wave already
@@ -141,6 +152,7 @@ function onShape(): void {
   stage.rebuild();
   paintStatus();
   paintBriefing();
+  interlude.render();
 }
 
 /** Which cards the wave on the stage raises for a fresh pair — see `wave-briefing.ts`. */
@@ -161,6 +173,7 @@ function refreshAll(): void {
   stage.rebuild();
   paintStatus();
   paintBriefing();
+  interlude.render();
 }
 
 function paintStatus(): void {

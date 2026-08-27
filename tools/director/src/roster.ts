@@ -5,7 +5,7 @@
  */
 
 import { CREATURES } from "@neon-spore/content";
-import { BOSS_KINDS } from "@neon-spore/sim";
+import { BOSS_KINDS, INTERLUDE_KINDS } from "@neon-spore/sim";
 import {
   firstParagraph,
   parseNumberedSections,
@@ -40,15 +40,24 @@ export interface Roster {
 
 /**
  * Whether the simulation actually has this. A creature is looked up by its
- * own key; a boss by the last word of its name, because the spec calls her
- * "Bulb Queen" and the sim calls her `queen` — the panel used to answer "not
- * built" for a boss that has been in the game since August.
+ * own key; a boss or an interlude by the last word of its name, because the
+ * spec calls her "Bulb Queen" and the sim calls her `queen`, and it calls a
+ * round "THE GAUGE" where the sim calls it `gauge` — the panel used to answer
+ * "not built" for a boss that has been in the game since August, and the
+ * backlog went on calling THE GAUGE unbuilt the same way: `CREATURES` and
+ * `BOSS_KINDS` were every category this function knew, and an interlude was
+ * neither, so no round that is not the field could ever leave the backlog
+ * however many of them were finished.
+ *
+ * Exported because `backlog.ts` asks the same question of an idea's name that
+ * this file asks of a bestiary row's — a built thing leaves every list it
+ * appears on by being built, not by being told about a second time.
  */
-function isBuilt(name: string): boolean {
+export function isBuilt(name: string): boolean {
   const key = name.toLowerCase();
   if (key in CREATURES) return true;
   const last = key.split(/\s+/).at(-1) ?? "";
-  return BOSS_KINDS.some((kind) => kind === last);
+  return BOSS_KINDS.some((kind) => kind === last) || INTERLUDE_KINDS.some((kind) => kind === last);
 }
 
 function parseTable(text: string, headingEnd: string, ref: string): Planned[] {

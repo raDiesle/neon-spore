@@ -93,6 +93,13 @@ describe("buildBacklog", () => {
     expect(names(backlog.interludes)).toContain("THE LATHE");
     expect(names(backlog.interludes)).toContain("THE VAULT");
 
+    // THE GAUGE is built — `packages/sim/src/gauge.ts`, `INTERLUDE_KINDS` —
+    // and a built round leaves the backlog by being built, the same way a
+    // creature or a boss does. It used to stay listed forever: `isBuilt`
+    // only asked `CREATURES` and `BOSS_KINDS`, and an interlude was neither.
+    expect(names(backlog.interludes)).not.toContain("THE GAUGE");
+    expect(backlog.interludes[0]!.builtHidden).toBe(1);
+
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
     expect(names(backlog.bosses)).toContain("THE CHOIR");
