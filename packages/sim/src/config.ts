@@ -1,12 +1,14 @@
 import type { BossConfig } from "./config-boss.js";
+import type { PairConfig } from "./config-pair.js";
 
 export type { BossConfig } from "./config-boss.js";
+export type { PairConfig } from "./config-pair.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig extends BossConfig {
+export interface SimConfig extends BossConfig, PairConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -152,18 +154,6 @@ export interface SimConfig extends BossConfig {
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
-  /**
-   * Whether a wave opens on a card for anything the pair has not met yet
-   * (`briefing.ts`). A boolean rather than a flag in the app for the same
-   * reason `hullInvulnerable` is: the card stops the wave, so a replay has to
-   * record that the run was played with it on.
-   *
-   * Off by default, and the default is what everything headless gets: a
-   * determinism run, a shape sheet, `relay:check` and the director all want
-   * the wave, not the lesson. The game turns it on — it is the only caller
-   * with two people in front of it.
-   */
-  briefings: boolean;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -206,6 +196,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxHoles: 10,
   maxScars: 30,
   waveRestBeats: 3,
+  forkBetweenWaves: false,
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,

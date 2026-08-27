@@ -23,6 +23,7 @@ export {
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { throbIsOpen } from "./creature-rules.js";
 export { BOSS_KINDS, type WardenEntry } from "./entries.js";
+export { closeFork, forkBeats, forkHeld, forkOpen, NO_FORK } from "./fork.js";
 export {
   clearGrips,
   gripCount,

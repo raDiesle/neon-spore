@@ -45,6 +45,10 @@ export function hashWorld(world: World): number {
   push(world.balance.streak);
   push(world.balance.bestStreak);
   push(world.balance.wavesCleared);
+  // THE FORK. Whether the run is waiting for both thumbs is a fact about the
+  // world, and two devices that disagree about it disagree about whether a
+  // wave has begun.
+  push(world.forkBeat);
 
   // The briefing. It is in the fingerprint because it decides whether the
   // world ticks at all: a device that thinks a card is still up is a device

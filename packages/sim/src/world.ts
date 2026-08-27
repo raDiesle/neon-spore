@@ -5,6 +5,7 @@ import { ackBriefing, type Briefings, briefingHolds, newBriefings } from "./brie
 import { advanceBullets } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import { forkOpen, NO_FORK, restEnded } from "./fork.js";
 import { dropLostGrips, NO_GRIP } from "./grip.js";
 import { NO_PRIME, noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
@@ -77,6 +78,14 @@ export interface World {
    */
   brief: Briefings;
 
+  /**
+   * The beat THE FORK opened on, or `NO_FORK` while a wave is running. Ask
+   * `fork.ts` rather than comparing it here — whether the run is waiting, whose
+   * thumb is in and how long the breath has been are that file's business, and
+   * it is deliberately never compared with a deadline.
+   */
+  forkBeat: number;
+
   wave: number;
   waveBeat: number;
   spawned: number;
@@ -126,6 +135,7 @@ export function createWorld(
     balance: emptyRunStats(),
     boss: null,
     brief: newBriefings(),
+    forkBeat: NO_FORK,
     wave: 0,
     waveBeat: 0,
     spawned: 0,
@@ -182,20 +192,26 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
 }
 
 function regenerateHull(world: World): void {
-  if (world.over) return;
+  // A fork is a wait with no end on it, so a hull that healed through one
+  // would make standing at it the cheapest move in the game. Nothing mends
+  // while the run belongs to the pair (`fork.ts`).
+  if (world.over || forkOpen(world)) return;
   const perTick = Math.round((world.cfg.hullRegenPerSecond * MILLI) / world.cfg.tickHz);
   world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
 }
 
 /**
- * The rest between waves is over. Ask the host for the next queue — and mark
- * the request as sent, so it is not repeated on every following tick while the
- * host gets around to answering.
+ * The rest between waves is over — and mark it spent, so the question is not
+ * asked again on every following tick while the host gets around to it.
+ *
+ * What happens next is `restEnded`'s and not this file's: either the host is
+ * asked for the next queue, as it always was, or the run stops and waits for
+ * both thumbs. See `fork.ts`.
  */
 function progressWave(world: World): void {
   if (world.restBeat <= 0 || world.beat < world.restBeat) return;
   world.restBeat = -1;
-  world.events.push({ type: "needWave", wave: world.wave + 1 });
+  restEnded(world);
 }
 
 /** Hull integrity as a plain 0..100 number, for display only. */

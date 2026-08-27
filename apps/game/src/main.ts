@@ -27,8 +27,8 @@ if (!canvas) throw new Error("canvas #stage missing");
 // The hull holds by default here, and only here: this is the test build, and a
 // wave that is being looked at should be allowed to finish. The switch is in
 // the test panel; `packages/sim` still ships with the hull breakable.
-// Briefings are on here and off in `DEFAULT_CONFIG`: two people, one card.
-const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
+// Briefings and THE FORK are on here and off by default: both want two people.
+const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true, forkBetweenWaves: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();

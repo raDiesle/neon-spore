@@ -3,6 +3,7 @@ import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { openBriefings } from "./briefing.js";
 import { throbIsOpen } from "./creature-rules.js";
 import type { WardenEntry } from "./entries.js";
+import { closeFork } from "./fork.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { endPrime } from "./lance.js";
@@ -173,6 +174,12 @@ export function startWave(
       scratch: [],
     };
   }
+
+  // A wave that has started is not a wave waiting to start, so THE FORK closes
+  // here and nowhere else can leave one open behind a running field (`fork.ts`).
+  // It is also the order the two gates run in: the pair commits, and then the
+  // card tells them what they committed to.
+  closeFork(world);
 
   // Last, so it can read the boss that was just installed: whatever this wave
   // asks of the pair for the first time is a card it opens on, and the field
