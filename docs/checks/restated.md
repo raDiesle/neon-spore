@@ -193,3 +193,28 @@ the wrong check. Three fields, and none of them replaces the trailer:
 - **changed** the strand's sideways wander and its backtrack run at 2 and 2.5 turns over its length, a ratio picked so the two never fall into step; at whole ratios the loop degenerates into a cusp and the strand is briefly untangled every cycle
 - **decide** at the size a phone would draw it, can a person follow one end to the other? If yes the round has no puzzle in it and the tangle needs more strands, not more writhe
 - **where** `bun run dev`, SHAPES
+
+## `5a0b25b` — an interlude gets a panel
+
+> the dial itself was only read from World state (needleMilli,
+markMilli) through the headless bridge, never seen drawn — does the needle
+and band actually read on the stage canvas the way THE MIRROR and the
+bosses already do, in both the navigator's and the pilot's role? Where to
+stand: `DIRECTOR_HOST=127.0.0.1 bun run dev`, INTERLUDE tab, wave 10, ▶ PLAY,
+then P1 and P2 role buttons.
+
+- **subject** THE GAUGE's picture, drawn by the shipping renderer on the director's own stage
+- **changed** the INTERLUDE tab can now open the round on the live World (a PLAY button calling `startInterlude` directly) and drive it with VALVE/CALL buttons of its own
+- **decide** does the needle and the band read as a dial worth turning, in both the navigator's role (the marks) and the pilot's (the valve, nothing else drawn)?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, INTERLUDE tab, wave 10, ▶ PLAY, then the P1 and P2 role buttons
+
+> the moveField's number input has no bound tying it to the wave
+actually holding the entry once two interludes exist — does adding a second
+kind ever let one gap's MOVE collide with another's key silently? Where to
+stand: add a second entry in INTERLUDE_DEFAULTS, try moving one onto the
+other's wave number.
+
+- **subject** `moveField` in `interlude-panel.ts`, the "plays before wave #" reassignment
+- **changed** nothing stops a MOVE from overwriting a second gap already sitting at the target wave number — today there is exactly one entry in `GAPS` so it cannot happen yet
+- **decide** should a second interlude ever be added, does moving one onto an occupied wave silently drop the one that was there, or does the panel need to refuse it?
+- **where** add a second entry to `INTERLUDE_DEFAULTS` in `interlude-panel.ts`, place two gaps, try moving one onto the other's wave number
