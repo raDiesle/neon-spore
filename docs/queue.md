@@ -244,25 +244,6 @@ Model `opus` because this is the metric that licenses or refuses every later cha
 
 Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
 
-## TWO HUNDRED AND THIRTY-ONE LINES, AND FOUR LANES WANT TO ADD TO THEM
-_claude/burn-body-lift-c4 · packages/render/src/creatures.ts packages/render/src/meteor.ts packages/render/src/creature-detail.ts_
-
-The lifting commit, and **no behaviour change at all**. `packages/render/src/creatures.ts` is at 231 lines against CLAUDE.md's ~250 ceiling and every render lane after this one adds to it. Split it first.
-
-Two cuts, both along seams the file already has. `drawMeteor` goes to `packages/render/src/meteor.ts` — it is the one body the fiction requires to look inert, it shares nothing with `drawLiving` but the layout, and it is 60 lines. `drawDetails` goes to `packages/render/src/creature-detail.ts`. `creatures.ts` keeps `drawCreatures`'s dispatch, `drawLiving` and `drawMotionTrail`, which leaves it around 130 lines with room for the four regions that follow.
-
-Bank the two free-win budget numbers here, because they are pure numbers and can be measured before any new drawing code exists: `drawMotionTrail`'s loop `k <= 4` becomes `k <= 2` with spacing `l.tile * 0.3` -> `0.26`, and the creature call site passes `28` for `blobPath`'s existing `N` argument, leaving `tools/shape-sheet` at the 40 default. Be honest in the commit about what the second one buys: it cuts path string construction and `Path2D` parsing, which is a different bill from rasterisation and compositing, so it is headroom and not a payment for anything the later lanes add.
-
-Do **not** move `creatureCenter` or put anything springy in it. `creature-place.ts` is the single source of truth for the drawn body, the grip ring and the app's finger hit-test, and `bullets.ts:109` keeps its own integer copy of the same lerp in the simulation — an overshoot there puts the sim's hit position and the picture out of agreement. Every impulse in this batch lives in the pose.
-
-After this lands, **`creatures.ts` is owned by nobody**: lanes 5 to 8 each add in one contiguous region and expect to replay over each other, the way `canvas2d.ts` and `config.ts` already work.
-
-Finished when `bun run check` is green, every file is under 250 lines, `packages/render/test/frame.test.ts` is untouched and passing, and `git diff --stat` shows only moved lines plus the two banked numbers.
-
-Model `sonnet`. The one judgement — where to cut — is small and has a precedent in the file's own history; behaviour must not change, which is a constraint rather than a decision. Think about which files import `drawDetails` and `drawMeteor` by name before moving either.
-
-Model `sonnet`, effort `think`. Read `docs/alive.md` first — it is the design this lane implements.
-
 ## EVERY BODY MOVES A ROW ON THE SAME INSTANT AND NONE OF THEM ARRIVES
 _claude/burn-body-land-c5 · packages/content/src/drive.ts packages/content/test/drive.test.ts_
 
