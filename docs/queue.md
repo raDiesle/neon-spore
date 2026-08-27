@@ -510,6 +510,19 @@ inline, side by side, at a size worth deciding from — a check with a picture
 should be settleable without leaving the page, which is the difference between
 a list that gets worked through and one that gets scrolled past.
 
+**And the fifty-five that already exist have to be reachable too.** Their text
+lives in commit messages on a pushed, linear `main` and is not editable — so
+the clearer reading is *added* beside them, keyed by sha and text exactly the
+way `docs/verified.md` already keys its decisions. For each existing check the
+sheet should be able to show: what the subject is (which creature, which wave,
+which boss, which sheet), where in the director it is looked at, and the
+original sentence unchanged underneath. The addition is a restatement, never a
+replacement — the trailer stays the record.
+
+Number the rows, too. A person deciding fifty-five of them needs to be able to
+say "3, 7 and 12 passed" rather than quoting sentences back.
+
 Finished when a cold reader can act on any row without asking, when no row
-says something they already knew, and when a row with frames attached can be
-decided from the sheet alone.
+says something they already knew, when a row with frames attached can be
+decided from the sheet alone, and when the fifty-five that predate this lane
+read as well as the ones that come after it.
