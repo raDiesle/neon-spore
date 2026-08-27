@@ -139,7 +139,6 @@ async function load(): Promise<void> {
   fill("backlogControls", backlog.controls);
   fill("backlogBosses", backlog.bosses);
   fill("backlogParked", backlog.parked);
-  renderShapes();
   void renderSpec();
   loaded = true;
 }
@@ -156,6 +155,23 @@ export function bindBacklog(): void {
   if (!sheet || !open || !close) return;
 
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
+
+  /**
+   * The shape catalogue is built on first sight of its own tab, not on the
+   * first open of the sheet. Fitting thirty-odd animated cards means scanning
+   * every contour over a minute of its own wobble — a third of a second of
+   * arithmetic, which is nothing to wait for when you asked for shapes and a
+   * visible stall when you asked for the bestiary.
+   */
+  let shapesDrawn = false;
+  const drawShapes = (): void => {
+    if (shapesDrawn) return;
+    shapesDrawn = true;
+    renderShapes();
+  };
+  for (const tab of document.querySelectorAll<HTMLElement>("#backlogTabs button")) {
+    if (tab.dataset.tab === "shapes") tab.addEventListener("click", drawShapes);
+  }
 
   const show = (on: boolean): void => {
     sheet.classList.toggle("on", on);

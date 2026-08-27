@@ -8,6 +8,12 @@
 
 ## Accepted, not yet worked out
 
+Most of what follows has a **shape drawn at it** — a silhouette and an
+own-motion, offered to the idea and not yet accepted by it. They are on the
+director's SHAPES tab beside the contours the game already draws; see
+[the asset catalogue](../asset-catalogue.md). A shape is not a name and a
+suggestion is not a decision: an idea is free to refuse the one drawn for it.
+
 An idea's sub-heading says **what it would become**, not how far along it is —
 nothing on this page is built. A creature is a thing that falls down the field
 and gets a silhouette; a mechanic is a rule the field plays by; a control is a

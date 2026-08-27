@@ -78,10 +78,15 @@ function hullBumps(armed: boolean, spread = 0, intake = 0): Bump[] {
   return bumps;
 }
 
-export function blob(name: string, s: CreatureSilhouette): Subject {
+/**
+ * A lobed body. The note defaults to the figures, which is what a shape being
+ * measured wants; a draft passes its own, because "3 lobes · depth 0.24" says
+ * nothing about why the shape was drawn that way.
+ */
+export function blob(name: string, s: CreatureSilhouette, note?: string): Subject {
   return {
     name,
-    note: `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}`,
+    note: note ?? `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}`,
     open: false,
     pointsAt(t) {
       const pts: Point[] = [];

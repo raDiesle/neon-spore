@@ -14,6 +14,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
 | `docs/delegation-pitfalls.md` | you turn delegation back on for more tasks — the failure modes already hit |
+| `docs/asset-catalogue.md` | you are looking for a shape to spend, or adding one |
 | `CONVENTIONS.md` | you change what the worker is allowed to do or must know |
 
 ## Specification
@@ -77,6 +78,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
+| `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
 | `packages/audio/src/types.ts` | what a sound is made of: layers, families, `bound` or `spare` |
 | `packages/audio/src/grain.ts` | the grains — the instruments every sound is stacked from |
 | `packages/audio/src/band.ts` | the speech band, kept clear, as something that can fail |
@@ -147,9 +149,14 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
-| `tools/director/src/shapes-panel.ts` | the contours that are drawn, free ones first |
+| `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |
+| `tools/director/src/shapes-motion.ts` | a sway in tiles turned into a card that does not clip |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
+| `tools/shape-sheet/src/catalogue.ts` | drawn, spare and drafted — which shapes are spendable |
+| `tools/shape-sheet/src/forms.ts` | contour forms the game has no creature for yet |
+| `tools/shape-sheet/src/motions.ts` | the spare motions, unclaimed by anything |
+| `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
 | `tools/relay-check/check.ts` | two headless devices against a real relay |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |

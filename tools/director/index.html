@@ -305,6 +305,12 @@
         padding: 8px; border: 1px solid var(--line-soft); border-radius: 8px; font-size: 10px;
       }
       .shape.is-free { border-color: #5a4a1f; background: #120d05; }
+      .shape.is-draft { border-color: #1d5a63; background: #041013; }
+      .shape.is-draft .stamp { color: var(--cyan); }
+      /* The idea a draft is offered to, above the reasoning: it is the first
+         thing worth knowing and the only line that is not about the picture. */
+      .shape .suggest { margin: 3px 0 0; color: var(--cyan); letter-spacing: 1px; font-size: 9px; }
+      .shape .suggest b { color: var(--ink); font-weight: 600; }
       /* The hull is six times as wide as it is tall; a square card draws it as
          a hairline, so those cards take two slots and stack their text. */
       .shape.is-wide { width: 686px; flex-direction: column; }
@@ -508,18 +514,28 @@
         </div>
         <div class="sheetpage" id="sheet-shapes">
           <p class="note">
-            Contours that have been drawn, free ones first. A free shape is one
-            nothing in the game carries — tuned in legacy/style-guide.html and
-            never spent. They animate here because whether a lobe swings or
-            only shivers is most of what tells two blobs apart at 26 px.
+            Every contour the project has, in three states. A DRAFT was drawn
+            for a named idea in the store and offered to it. A FREE shape has
+            nothing behind it — tuned in legacy/style-guide.html and never
+            spent. TAKEN is what the game already draws, here so a proposal is
+            judged beside what it will stand next to.
           </p>
           <p class="note">
-            A shape is not a name. Anything that takes one still gets its own
-            name out of the bestiary's four naming rules.
+            They animate, because whether a lobe swings or only shivers is most
+            of what tells two blobs apart at 26 px. The sway is the same data
+            the game draws with, measured in tiles, so a card shows the motion
+            the field would show and not an impression of it.
           </p>
-          <h2>FREE</h2>
+          <p class="note">
+            A shape is not a name, and a suggestion is not a decision. Anything
+            that takes one still gets its own name out of the bestiary's four
+            naming rules, and the idea it was drawn for is free to refuse it.
+          </p>
+          <h2>DRAFTS — drawn for something in the idea store</h2>
+          <div id="shapesDrafts" class="shapes"></div>
+          <h2 style="margin-top: 18px">FREE — a picture with no behaviour</h2>
           <div id="shapesFree" class="shapes"></div>
-          <h2 style="margin-top: 18px">TAKEN</h2>
+          <h2 style="margin-top: 18px">TAKEN — spent</h2>
           <div id="shapesTaken" class="shapes"></div>
         </div>
         <div class="sheetpage" id="sheet-mechanics">

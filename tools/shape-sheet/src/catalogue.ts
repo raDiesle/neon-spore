@@ -1,4 +1,6 @@
-import type { CreatureSilhouette, CrystalSilhouette } from "@neon-spore/content";
+import type { CreatureSilhouette, CrystalSilhouette, OwnMotion } from "@neon-spore/content";
+import { livingMotion } from "@neon-spore/content";
+import { DRAFTS } from "./drafts/index.js";
 import { blob, crystal, hullArc, SUBJECTS, type Subject } from "./subjects.js";
 
 /**
@@ -20,18 +22,38 @@ import { blob, crystal, hullArc, SUBJECTS, type Subject } from "./subjects.js";
  * becomes content on the day something claims it.
  */
 
-/** Whether a creature, a boss or a part of the ship already carries it. */
-export type ShapeStatus = "taken" | "free";
+/**
+ * Whether a creature, a boss or a part of the ship already carries it.
+ *
+ * `draft` is the third state and the newest: a shape drawn *for* a named idea
+ * in `docs/spec/ideas.md` that the idea has not been designed around yet. A
+ * free shape is a picture looking for a behaviour; a draft is a picture drawn
+ * at a behaviour, which is a proposal and not a decision. It stops being a
+ * draft by being claimed — at which point its parameters move into
+ * `packages/content` and it becomes `taken` — or by being cut.
+ */
+export type ShapeStatus = "taken" | "free" | "draft";
 
-/** What a shape could be spent on: a thing that falls, or a part of the ship. */
-export type ShapeSlot = "creature" | "ship";
+/** What a shape could be spent on. */
+export type ShapeSlot = "creature" | "ship" | "boss" | "field";
 
 export interface CatalogueEntry {
   subject: Subject;
   status: ShapeStatus;
   slot: ShapeSlot;
-  /** Who carries it, or — for a free one — why nothing does. */
+  /** Who carries it, or — for a free or draft one — why nothing does. */
   owner: string;
+  /**
+   * How the whole body moves, on top of the contour's own wobble. Present for
+   * anything drawn to be judged in motion; the free contours predate it.
+   */
+  motion?: OwnMotion;
+  /**
+   * The idea in `docs/spec/ideas.md` this was drawn for, named as it is named
+   * there. A suggestion — the shape is offered to the idea, and a person
+   * decides, the same way a free shape is offered to the bestiary.
+   */
+  suggests?: string;
 }
 
 /**
@@ -96,11 +118,18 @@ const OWNERS: Record<string, string> = {
   "HULL · MAW": "the ship, the cannon lobe turned inside out",
 };
 
+/** The motion the game gives a shape it already draws, where it gives one. */
+const TAKEN_MOTION: Record<string, OwnMotion> = {
+  SLICK: livingMotion("slick"),
+  BULB: livingMotion("bulb"),
+};
+
 const taken: CatalogueEntry[] = SUBJECTS.filter((s) => s.name !== "TORCH").map((subject) => ({
   subject,
   status: "taken",
   slot: subject.name.startsWith("HULL") ? "ship" : "creature",
   owner: OWNERS[subject.name] ?? "drawn by the game",
+  motion: TAKEN_MOTION[subject.name],
 }));
 
 const free: CatalogueEntry[] = [
@@ -152,4 +181,9 @@ const free: CatalogueEntry[] = [
   },
 ];
 
-export const CATALOGUE: CatalogueEntry[] = [...free, ...taken];
+/**
+ * Drafts first, then the free contours, then what the game already draws. The
+ * order is the reading order of the question the page asks: here is what has
+ * been proposed, here is what is spare, here is what is spent.
+ */
+export const CATALOGUE: CatalogueEntry[] = [...DRAFTS, ...free, ...taken];
