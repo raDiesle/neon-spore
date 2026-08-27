@@ -101,6 +101,17 @@ interface Copy {
  */
 const COPIES: Copy[] = [
   {
+    // The mouth's offset was a constant, and `cannon-maw.ts` copied the number
+    // under a comment saying it was `drawMuzzle`'s — true when written, false
+    // the moment the swallow was reshaped and the offset began easing to zero.
+    // Two things draw into this opening now; a wind-up gathering its bolt
+    // where the mouth used to be is what a second copy buys.
+    call: "muzzleCenterY",
+    owner: "packages/render/src/muzzle.ts",
+    pattern: /MUZZLE_DROP\s*\*\s*\(\s*1\s*-\s*intake\s*\)/,
+    strip: false,
+  },
+  {
     call: "mapCol",
     owner: "packages/content/src/queue.ts",
     pattern: /\bAUTHORED_COLS\s*-\s*1\b/,

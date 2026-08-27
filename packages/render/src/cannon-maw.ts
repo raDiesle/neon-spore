@@ -1,6 +1,7 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { muzzleCenterY } from "./muzzle.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -36,8 +37,6 @@ import { PALETTE } from "./palette.js";
 const PART_TILES = 0.5;
 /** Pieces the parted stretch is drawn in. Fewer reads as a dashed border. */
 const PART_STEPS = 10;
-/** Where the opening sits relative to the lobe's tip — `drawMuzzle`'s offset. */
-const MOUTH_DROP = 0.12;
 
 /**
  * @param lay 0..1, how close the shot is to leaving. `chargeMilli / 1000`.
@@ -49,10 +48,12 @@ export function drawLay(
   time: number,
   cannonX: number,
   tipY: number,
+  /** How far the maw is already open for a swallow — the mouth moves with it. */
+  intake: number,
   surface: (x: number) => Point,
 ): void {
   if (lay <= 0.02) return;
-  const mouthY = tipY + l.tile * MOUTH_DROP;
+  const mouthY = muzzleCenterY(l, tipY, intake);
 
   // Behind the opening first, so the parting skin and the rim draw over it: a
   // bolt gathering *inside* the ship, not a light stuck on the outside of it.

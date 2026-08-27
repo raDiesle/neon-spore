@@ -13,6 +13,7 @@ import {
 } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
+import { drawMuzzle } from "./muzzle.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
@@ -174,7 +175,7 @@ export function drawHull(
   // Last, and over everything the ship is otherwise doing: a shot about to
   // leave is the most urgent thing on the hull, and it is the only thing here
   // that either player has to act on within the beat.
-  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, (x) => surface(f, x));
+  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, (x) => surface(f, x));
   ctx.restore();
 }
 
@@ -211,30 +212,6 @@ function strokeHullRim(
  * π ≈ 0.1222 tile², against the old full-intake circle's 0.35² × π ≈ 0.1225
  * tile²: the same opening, spent across instead of down.
  */
-const MUZZLE_RY = 0.13;
-const MUZZLE_RX_OPEN = 0.94;
-
-function drawMuzzle(
-  ctx: CanvasRenderingContext2D,
-  f: HullFrame,
-  l: Layout,
-  intake: number,
-  skin_: HullSkin,
-): void {
-  const tip = surface(f, f.cannonX);
-  const cy = tip.y + l.tile * 0.12 * (1 - intake);
-  const rx = l.tile * (0.13 + (MUZZLE_RX_OPEN - 0.13) * intake);
-  const ry = l.tile * MUZZLE_RY;
-  ctx.fillStyle = skin_.muzzle;
-  ctx.beginPath();
-  ctx.ellipse(tip.x, cy, rx, ry, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = intake > 0.5 ? PALETTE.podRim : skin_.edge;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke();
-}
-
-/** Where a shot leaves the hull, so the bullet starts at the muzzle. */
 export function cannonTip(
   l: Layout,
   time: number,

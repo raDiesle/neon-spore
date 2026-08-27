@@ -109,6 +109,7 @@ describe("the opening itself", () => {
       1.4,
       L.gridLeft + 40,
       L.hullY,
+      0,
       surface,
     );
     expect(ctx.calls).toBe(0);
@@ -124,6 +125,7 @@ describe("the opening itself", () => {
         1.4,
         L.gridLeft + 40,
         L.hullY,
+        0,
         surface,
       );
       return ctx.calls;
