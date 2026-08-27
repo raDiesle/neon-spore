@@ -17,9 +17,70 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
  */
 const TIMES = [0, 0.7, 1.9, 4.3, 9.1, WOBBLE_PERIOD, WOBBLE_PERIOD * 1.5, 31.4];
 
+/**
+ * English number words, as far as this page will ever need them. A table
+ * rather than a library because the alternative was leaving the count in
+ * `docs/asset-catalogue.md` unchecked, and it had already been wrong twice in
+ * one day: two sessions each incremented the number they found instead of
+ * counting the catalogue.
+ */
+const UNITS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen",
+];
+const TENS: Record<string, number> = {
+  twenty: 20,
+  thirty: 30,
+  forty: 40,
+  fifty: 50,
+  sixty: 60,
+  seventy: 70,
+  eighty: 80,
+  ninety: 90,
+};
+
+function wordsToNumber(words: string): number | null {
+  const parts = words.toLowerCase().split("-");
+  const tens = TENS[parts[0] ?? ""];
+  if (tens !== undefined) {
+    if (parts.length === 1) return tens;
+    const unit = UNITS.indexOf(parts[1] ?? "");
+    return unit > 0 ? tens + unit : null;
+  }
+  const unit = UNITS.indexOf(parts[0] ?? "");
+  return unit >= 0 ? unit : null;
+}
+
 describe("the shape catalogue", () => {
   it("has drafts in it at all", () => {
     expect(CATALOGUE.filter((e) => e.status === "draft").length).toBeGreaterThan(12);
+  });
+
+  it("says how many drafts it has, and is right about it", async () => {
+    const page = await Bun.file(join(ROOT, "docs/asset-catalogue.md")).text();
+    const said = /\*\*Status:\s+([a-z-]+)\s+drafts/.exec(page);
+    expect(said, "docs/asset-catalogue.md has no `**Status: N drafts` line").not.toBeNull();
+    expect(wordsToNumber(said?.[1] ?? ""), `"${said?.[1]}" is not a number word`).toBe(
+      CATALOGUE.filter((e) => e.status === "draft").length,
+    );
   });
 
   it("names every shape exactly once", () => {

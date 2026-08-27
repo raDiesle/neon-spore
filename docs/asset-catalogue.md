@@ -1,9 +1,22 @@
 # The asset catalogue
 
-> **Status: twenty-four drafts, none of them claimed.** A draft is a picture offered
-> to an idea, not a decision about it. Nothing on this page is in the game, and
-> a draft leaves it by being claimed — its parameters moving into
-> `packages/content` — or by being cut.
+> **Status: twenty-nine drafts, and one claimed so far.** A draft is a picture
+> offered to an idea, not a decision about it. Nothing on this page is in the
+> game until it is claimed — its parameters moving into `packages/content` —
+> or cut.
+
+THE WARDEN's ring is the first that went that way, and it is worth saying how,
+because until it happened "claimed" was a word on this page rather than a
+thing anybody had done. Its three cards were drafts offered to a boss with a
+section in `docs/spec/bosses.md` and no code. The boss was built; the numbers
+moved to `packages/content/src/warden-shape.ts`, where the canvas and this
+sheet now read the same copy; and the cards moved out of the drafts and in
+among the shapes that are spent. Nothing about the contour changed.
+
+The count above is checked by `tools/shape-sheet/test/drafts.test.ts`, which
+reads this sentence and counts the catalogue. It had gone wrong twice in one
+day before that — two sessions each incrementing the number they found instead
+of counting — and a status line nobody can trust is worse than none.
 
 Browse it in the director: `bun run dev`, then **NOT BUILT YET → SHAPES**. The
 cards animate, and that is the whole reason the page exists rather than a
