@@ -244,29 +244,6 @@ Model `opus` because this is the metric that licenses or refuses every later cha
 
 Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
 
-## THE FIELD'S MOST VISIBLE MOTION RUNS ON A WALL CLOCK, AND SEVEN BODIES SHARE FOUR PHASES
-_claude/burn-body-beat-c3 · packages/content/src/own-motion.ts packages/content/src/hash.ts packages/content/test/own-motion.test.ts packages/content/test/hash.test.ts tools/shape-sheet/src/motions.ts tools/director/src/shapes-motion.ts tools/director/src/scene-art.ts_
-
-A unit change and a hash, no new drawing code, and it is the cheapest real win in the batch — an A/B you can watch the moment it compiles.
-
-**The clock.** `poseAt`'s argument stops being seconds and becomes beats. Today `creatures.ts:74` calls `livingMotion(c.kind).poseAt(time + phase)` where `time` is `view.time`, which `apps/game/src/main.ts:152` fills from `performance.now()/1000` — so the field's most visible motion is on a wall clock and **two phones sway the same creature differently**. The call site becomes `world.beat + beatPhase + hash01(c.id, 3) * 4`, both of which are lockstep state already computed for `creatureCenter`. Rewrite every constant in cycles-per-beat: SWAY_PUMP sway period 4 beats and pump 3; TILT_RIPPLE drift 6 and ripple 4; HOLD 16. The 3-against-4 and 3-against-2 ratios are the point — the field holds the tempo without any two bodies sitting in unison. **TREMBLE is not converted**: the runt's meaning is that it is not part of the pattern, and it takes its free-win frequency nudge to 8.3/12.7/5.9 here. The contour wobble in `shapes.ts` stays on seconds and is not touched — two clocks in one body is the right answer, and moving `blobRadiusMul` onto a beat would drag the hull, pods, queen morph and the menu blob along for nothing.
-
-**The unit change must fail loudly.** Changing the meaning of a `number` while leaving the type a `number` silently runs 14 tool call sites — `scene-art.ts:153`, three in `shapes-motion.ts`, and about twelve draft motions in `tools/shape-sheet/src/motions.ts` written in seconds — at 1.6x the wrong rate with a green typecheck, which is the shape sheet judging a motion the game does not have, the exact failure `own-motion.ts`'s own header says it was extracted to prevent. Land it as a branded `Beats` type (or a renamed `poseAtBeat`) so every one of them is a compile error, and convert the drafts in the same commit.
-
-**The purity row moves with it.** `packages/sim/test/purity.test.ts:168` asserts `own-motion.ts` contains `t * 1.9` or `t * 1.35`. The rewrite deletes both, so `bun run check` goes red on the first commit unless that row is rewritten to the new pattern in the same edit. Do not weaken the pattern to something that matches anything.
-
-**The phase.** `const phase = (c.id % 7) * 0.9` yields seven phases on an eleven-column field, so two neighbours in perfect lockstep is routine and two identical bodies on the same frame of the same motion is the loudest sprite tell there is — and it is whole-body, so it is one of the few tells that survives 26 px. New `packages/content/src/hash.ts`: `hash01(id, salt)`, three `Math.imul`s and two shifts, pure integers, no clock and no randomness, legal in `content` and passing the purity scan. Salts give independent streams off one id for pose phase, landing scatter and (later) light. Continuous phase over [0,1) is the point — the comment should say why, because the next person will reach for a modulo again.
-
-**Do not derive rotation.** D3 wanted `rot` deleted from the four `poseAt` bodies and reintroduced from a finite difference of drift. Its claim that constants can reproduce today's look exactly is false — a finite difference of `sin(t*1.35)` gives a quarter-cycle lag and the slick's authored offset is 0.5 rad — and deleting `rot` leaves `scene-art.ts` and `shapes-motion.ts` drawing bodies that never rotate. That question goes to a vote, not into this lane.
-
-`packages/content/src/index.ts` and `packages/render/src/creatures.ts` are owned by nobody: add to each in one contiguous region and expect to replay over somebody else. `own-motion.test.ts` samples `t` from 0 to 64 in steps of 0.01 and applies spec 5.8's 0.25-tile lane limit; that still holds when the unit is beats, and it must stay green untouched except where the amplitude genuinely moved.
-
-Finished when `bun run check` and `bun run test:determinism` are green, no call site anywhere still passes seconds, and the commit carries `Check: does the field read as in time, or as a metronome — watch a full wave at tempo`.
-
-Model `opus` because a silent unit change across a shared, tool-facing API is the expensive-to-unpick category by name. Think hard about **which call sites the typecheck will not catch** before you write anything.
-
-Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
-
 ## TWO HUNDRED AND THIRTY-ONE LINES, AND FOUR LANES WANT TO ADD TO THEM
 _claude/burn-body-lift-c4 · packages/render/src/creatures.ts packages/render/src/meteor.ts packages/render/src/creature-detail.ts_
 
