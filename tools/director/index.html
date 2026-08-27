@@ -183,6 +183,23 @@
       .concept-art svg { background: none; }
       .plan .drawn.is-wide { margin-left: 140px; }
 
+      /* ON THE FIELD. Never scaled: the frame is cut at the phone's own width
+         and drawn at it, so a creature is 27 px across on this page because it
+         is 27 px across on the device. A rule that fitted one of these to its
+         column would take away the only thing it is for. */
+      .scenes { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 4px; }
+      .scene { width: 380px; }
+      .scene-shot {
+        position: relative; width: 380px;
+        border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #05040b;
+      }
+      .scene-shot canvas { display: block; }
+      /* The unbuilt half, stacked exactly over the frame it belongs to. */
+      .scene-shot canvas.over { position: absolute; inset: 0; }
+      .scene .claim { margin: 5px 0 0; color: var(--dim); line-height: 1.45; font-size: 9px; }
+      .scene .claim b { color: var(--ink); font-weight: 400; }
+      .scene .seat { margin: 2px 0 0; color: #574d84; font-size: 8px; letter-spacing: 1px; }
+
       .concept { padding: 6px 0 10px; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
       .concept .name { color: var(--ink); letter-spacing: 2px; font-size: 11px; }
       .concept .status { float: right; font-size: 8px; letter-spacing: 1px; color: #574d84; }

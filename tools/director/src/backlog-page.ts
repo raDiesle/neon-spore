@@ -15,6 +15,7 @@
 
 import { conceptArt, draftFor } from "./concept-art.js";
 import { detailBox, inline } from "./markdown.js";
+import { onTheField } from "./scene-box.js";
 import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
 import { renderSpec } from "./spec.js";
@@ -94,6 +95,13 @@ function renderEntry(item: BacklogEntry): HTMLElement {
     inline(why, `**${draft.subject.name}**, offered — ${draft.owner}`);
     div.appendChild(why);
   }
+
+  // The shape, and then the *mechanic*. A contour in a 46 px frame says what
+  // something looks like and cannot say what it does, and every one of these
+  // entries is a behaviour first. `scene-box.ts` opens a real frame of the game
+  // with the idea standing in it, at the size a phone would draw it.
+  const field = onTheField(item.name);
+  if (field) div.appendChild(field);
 
   if (item.detail) div.appendChild(detailBox(item.detail, item.ref));
   return div;

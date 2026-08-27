@@ -152,6 +152,35 @@ spelling: renaming an idea in `ideas.md` is one edit, and without the test the
 shape drawn at it would go quietly back to being a picture beside other
 pictures.
 
+**A row that has more to say says it — and a row about a mechanic shows it.**
+`⌒ ON THE FIELD`, shut under an entry, opens the idea drawn *where it
+happens*: a phone-shaped frame at 380 × 820, the tile a device actually gets,
+with the unbuilt body standing in a lane at the size the game would draw it.
+
+The frame is the game. It is `frameWorld` — `Canvas2DRenderer` against a real
+`World`, the same arrangement STATES makes — so the hull, the band, the radar
+strip and every creature the scene *spawns* are the shipping renderer's, not an
+impression of one. Only the unbuilt bodies are drawn on top, in bone rather
+than in any of the field's own colours, because cyan is a bulb and red is a
+slick and a proposal must not wear a kind it has not been given. What is built
+is drawn by the game; what is proposed is drawn as a proposal.
+
+**Nothing scales it.** A card fits a shape to its frame, and fitting is exactly
+what destroys the only question worth asking about a silhouette — the SHAPES
+tab shows the Symbiosis parting beautifully at 132 px and cannot tell you
+whether it parts at 26. So the frame is cut at the phone's own width and drawn
+at it, one CSS pixel to one device pixel, and the sheet scrolls instead.
+
+A scene is a *placement*, in `tools/shape-sheet/src/scenes/`: which contour
+stands in which column and row, what the simulation should put beside it, and
+one line saying what the picture claims. The mark vocabulary is deliberately
+three — a tether down a column, a scar at one, a lane called out — because a
+fourth kind is how a catalogue turns into a drawing program.
+`test/scenes.test.ts` holds the join to the spec's spelling, holds every body
+inside the field, and builds each scene's world to check the creatures actually
+landed on the rows they were asked for: the spawn arithmetic reads a rule in
+`beat.ts` that it does not own.
+
 **A row that has more to say says it.** The table cell is a label; the design
 is the paragraph the spec spends on that name further down the page. A panel
 that shows the first and drops the second gives the Jammer as one sentence

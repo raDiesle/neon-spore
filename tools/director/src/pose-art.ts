@@ -5,8 +5,9 @@ import {
   type Layout,
   type Stage,
   type Viewport,
+  type ViewRole,
 } from "@neon-spore/render";
-import { hullRow, type SimConfig, ticksPerBeat } from "@neon-spore/sim";
+import { hullRow, type SimConfig, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { CropKind, Pose } from "./pose-kit.js";
 
 /**
@@ -29,7 +30,7 @@ import type { CropKind, Pose } from "./pose-kit.js";
  */
 
 /** The phone the frame is drawn into before it is cut. Bigger than a card. */
-const PHONE: Viewport = { width: 380, height: 820, dpr: 2 };
+export const PHONE: Viewport = { width: 380, height: 820, dpr: 2 };
 /** Frames spent settling the eased pose before the one that is kept. */
 const SETTLE = 40;
 
@@ -82,6 +83,35 @@ function cropRect(
 }
 
 /**
+ * A drawn frame, and enough of the arithmetic behind it to put something else
+ * on top in the right place.
+ *
+ * The pose sheet never needed the second half — a pose is finished the moment
+ * it is drawn. The scenes do: an unbuilt body has no `CreatureKind`, so the
+ * renderer cannot be asked to draw one, and the tool has to place it itself at
+ * the same tile size and the same column the frame underneath was drawn with.
+ * Handing back the layout and the crop is what keeps that one arithmetic
+ * rather than two that have to agree.
+ */
+export interface Framed {
+  canvas: HTMLCanvasElement;
+  layout: Layout;
+  stage: Stage;
+  /** Card CSS pixels per phone CSS pixel — the crop's own scaling. */
+  scale: number;
+  /** The cut, in the phone's CSS pixels, `stage.left` already added back. */
+  rect: { x: number; y: number; w: number; h: number };
+}
+
+/**
+ * A point in the *layout's* coordinates — what `tileCX` and `tileCY` return —
+ * in the card's CSS pixels. The stage offset is added here and nowhere else.
+ */
+export function onCard(f: Framed, x: number, y: number): { x: number; y: number } {
+  return { x: (f.stage.left + x - f.rect.x) * f.scale, y: (y - f.rect.y) * f.scale };
+}
+
+/**
  * The pose on its own canvas, at the device's pixel ratio.
  *
  * `width` is what the card gives it; the height follows from the crop, so a
@@ -89,8 +119,27 @@ function cropRect(
  */
 export function poseArt(pose: Pose, width: number): HTMLCanvasElement {
   const world = pose.build();
+  return frameWorld(world, pose.role ?? "test", pose.crop, width, pose.at?.(world), pose.span)
+    .canvas;
+}
+
+/** One settled frame of a world, cut to `crop` and scaled into a card. */
+export function frameWorld(
+  world: World,
+  role: ViewRole,
+  crop: CropKind,
+  width: number,
+  at?: { col: number; row: number },
+  span?: number,
+  /**
+   * Tallest the card may be drawn. A scene passes `Infinity` and the phone's
+   * own width, which is the whole of what makes it true size: a picture that
+   * claims a shape reads at 26 px and then shrinks itself to fit a row is
+   * claiming nothing.
+   */
+  cap = MAX_HEIGHT,
+): Framed {
   const cfg = world.cfg;
-  const role = pose.role ?? "test";
 
   const off = document.createElement("canvas");
   const renderer = new Canvas2DRenderer(off);
@@ -118,11 +167,11 @@ export function poseArt(pose: Pose, width: number): HTMLCanvasElement {
     cfg,
     role,
   );
-  const rect = cropRect(pose.crop, layout, stage, pose.at?.(world), pose.span ?? TILE_SPAN, cfg);
+  const rect = cropRect(crop, layout, stage, at, span ?? TILE_SPAN, cfg);
 
   const dpr = Math.min(3, window.devicePixelRatio || 1);
   // The crop decides the shape; the cap decides how much of the row it takes.
-  const wide = Math.min(width, Math.round((MAX_HEIGHT * rect.w) / rect.h));
+  const wide = Math.min(width, Math.round((cap * rect.w) / rect.h));
   const height = Math.round((wide * rect.h) / rect.w);
   const card = document.createElement("canvas");
   card.width = Math.round(wide * dpr);
@@ -146,5 +195,5 @@ export function poseArt(pose: Pose, width: number): HTMLCanvasElement {
     );
   }
   renderer.dispose();
-  return card;
+  return { canvas: card, layout, stage, rect, scale: wide / rect.w };
 }

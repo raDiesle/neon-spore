@@ -29,4 +29,13 @@ export {
 } from "./metrics.js";
 export { MOTIONS } from "./motions.js";
 export { type RingSilhouette, ring } from "./ring.js";
+export type {
+  Scene,
+  SceneBody,
+  SceneCrop,
+  SceneMark,
+  SceneSpawn,
+  SceneTint,
+} from "./scene.js";
+export { SCENES } from "./scenes/index.js";
 export { SUBJECTS } from "./subjects.js";
