@@ -30,23 +30,32 @@ a small file and two entries in it. Finished when both read as themselves on
 `bun run shapes` — which is also the tool the two outstanding creature checks
 point at, so this lane may discharge them rather than merely serving them.
 
-## THE GAME'S OWN ENTRY POINT HAS NO ROOM LEFT
-_claude/burn-main-split-b12 · apps/game/src/main.ts apps/game/src/wiring.ts_
+## THE PAGE THAT GRADES THE DAY WILL NOT LOAD
+_claude/burn-checks-api-b14 · tools/checks/repo.ts tools/director/src/checks-page.ts_
 
-`apps/game/src/main.ts` sits at exactly 250 lines, which is the limit
-`packages/sim/test/limits.test.ts` enforces. It has already cost two people: a
-lane moved a call out of it into `beat.ts` to make room for one line, and a
-one-line improvement to how it spreads its config was reverted rather than
-landed, because an import and a comment put it four lines over.
+`/api/checks` returns `ERR_EMPTY_RESPONSE` in the director's console, which
+means ⚑ TO CHECK — the page a person opens to decide what landed unlooked-at —
+shows nothing. Twenty-odd checks landed today and none of them can be ticked
+off from the browser.
 
-A file at its limit does not merely resist growth, it silently taxes every
-change that touches it — and this is the file every new mechanic has to be
-wired into. Split it the way this repository splits things: `main.ts` is
-wiring, and wiring divides by what is being wired. Finished when `main.ts` has
-room and `bun run preview` still opens the field.
+Noticed in passing by the card-sheet lane, which correctly left it alone.
+First guess, unverified: `tools/checks/repo.ts` shells out to git once per
+branch *and* once per outstanding check, and this repository now has a lot of
+both — so a timeout or an unhandled rejection is likelier than a wrong route.
+Finished when the sheet lists what `bun run checks` lists, and ✓ TESTED and
+🗑 DELETE work from the browser as `docs/verification.md` says they do.
 
-**Then make the one change that was reverted**: `const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true }`.
-`PAIR_ON` landed with the renderer's pair coverage and exists precisely so a
-third pair-switch reaches the game by being added to `PairConfig` rather than
-by somebody remembering this line — and the line it is meant to fix is
-currently spelling both switches out by hand.
+## AN INTERLUDE'S GAPS ARE CONTENT AND LIVE IN THE APP
+_claude/burn-gaps-move-b15 · packages/content/src/interludes.ts apps/game/src/interlude.ts_
+
+`GAPS` — nine gaps between waves, one filled by THE GAUGE before wave 10 —
+sits in `apps/game/src/interlude.ts` because the lane that wrote it could add
+no file under `packages/content`. Everything else is already right:
+`InterludeEntry` is data and the direction of travel is content to sim, like
+every other authored thing here.
+
+Taken off `docs/parked.md`. It is a `git mv` and an export rather than a
+decision, and it is worth doing before the second interlude rather than after
+— two rounds authored in the app is the point where it stops looking like an
+accident and starts being where interludes live.
+

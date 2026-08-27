@@ -280,37 +280,6 @@ builds a real world per wave, so the change is to thread one bitmask through
 the loop rather than to reset it. Worth doing — "what does wave 9 actually add"
 is the question an author asks, and the sheet answers a different one.
 
-## The director's TO CHECK page answers nothing
-
-2026-08-27 · claude/burn-card-panel-b13
-
-A lane working in the director noticed `/api/checks` returning
-`ERR_EMPTY_RESPONSE` in the console — pre-existing, unrelated to its work, and
-not investigated because it was not that lane's ground. It matters more than
-it sounds: that endpoint is what feeds `⚑ TO CHECK`, which is the page a person
-opens to decide the checks that sixteen commits landed today.
-
-Not done there or here because nobody has looked at why. Start by running
-`DIRECTOR_HOST=127.0.0.1 bun run dev` and hitting the endpoint directly —
-`tools/checks/repo.ts` shells out to git for every branch and every check, so
-a plausible first guess is that it is slow or throwing on a repository with
-this many branches, rather than that the route is wrong.
-
-## The gap table is content and lives in the app
-
-2026-08-27 · claude/burn-gauge-b6
-
-`GAPS` — nine gaps between waves, one of them filled by THE GAUGE before wave
-10 — sits in `apps/game/src/interlude.ts` because the lane that wrote it could
-add no new file under `packages/content`. Everything else about it is already
-right: `InterludeEntry` is data, and the direction of travel is content to sim
-like every other authored thing here.
-
-Not done there for lack of a path rather than for a reason, so this is a
-`git mv` and an export rather than a decision. The session that builds the
-second interlude should do it first, because two rounds authored in the app
-is the point where it stops looking like an accident.
-
 ## A round that is not the field makes no sound at all
 
 2026-08-27 · claude/burn-gauge-b6
@@ -340,4 +309,3 @@ It is still open, and it is not open in the abstract: THE CLAW, THE BELT and
 THE WELL all move something, and each is cheaper to design after the rule is
 written than to design twice. Whoever takes the second interlude should settle
 it first, in `docs/decisions.md`, before choosing which one to build.
-
