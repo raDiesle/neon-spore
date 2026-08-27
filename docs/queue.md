@@ -362,23 +362,6 @@ Finished when `bun run check` is green, `frame.test.ts` passes with the new fill
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
 
-## A FEATURE THAT NO WAVE REACHES SHOULD SAY SO, LOUDLY
-_claude/burn-orphans-m2 · tools/checks/orphans.ts tools/director/src/orphans-panel.ts_
-
-The owner's words: if a feature is implemented but connected to nothing, the
-director must warn about it, and it should not happen. He is right that it
-should not, and it does — THE GAUGE is playable and sits in no gap the game
-plays through, the Runt and the Throb cannot be placed at all, and neither
-fact announced itself.
-
-Derive it, the way `bun run checks` derives the outstanding list from the
-`Check:` trailers rather than keeping one by hand: walk the mechanics registry
-against every authored wave and report what nothing reaches. A command for the
-machine and a panel for the person, and the panel is not a quiet row — an
-orphan is a defect, not a note.
-
-**Behind `claude/burn-mechanics-registry-m1`.** It is that list, read.
-
 ## EVERY FEATURE SHOULD HAVE A WAVE THAT DEMONSTRATES IT
 _claude/burn-demo-waves-m3 · packages/content/src/waves-demo.ts_
 
@@ -472,5 +455,3 @@ Then update `.claude/skills/autonomous/SKILL.md` so a lane writes its entry
 into that file as part of landing, beside the trailer it already writes. A
 check is authored by the one session that knows what changed, and that session
 is gone by the time anybody reads it.
-
-
