@@ -399,7 +399,21 @@ append point: one file per commit, `docs/checks/<sha>.md`, which is how the
 entries are keyed anyway. Two lanes then never touch the same path, and the
 reader gains nothing to merge.
 
+**And a sha is not stable, which is the other half of the problem.** A lane
+that lands behind another one is replayed, so the commit it keyed its
+restatement to no longer exists — the drafts lane was rebased twice tonight
+and said so: its key is only correct while the landing stays a fast-forward,
+and nothing would notice it going stale except the orphan report. Splitting
+the file does not fix that on its own.
+
+`bun run land` is where it can be fixed, because that is the one place both
+shas are known: it rebases, so it can see what each commit was and what it
+became, and rewrite the key as part of landing — the same way it already
+retires the queue entry. Do that, and prove it by landing something behind
+another lane and watching the key follow.
+
 Finished when the parser reads a directory rather than a document, when the
-existing entries are split without losing their keying, and when the skill
-tells a lane to write `docs/checks/<sha>.md` in its second commit. The keying
-stays exact — sha plus trailer text, word for word.
+existing entries are split without losing their keying, when a replayed commit
+carries its restatement with it, and when the skill tells a lane to write
+`docs/checks/<sha>.md` in its second commit. The keying stays exact — sha plus
+trailer text, word for word.
