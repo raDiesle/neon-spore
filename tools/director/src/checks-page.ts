@@ -138,6 +138,20 @@ function render(): void {
         : `${left.length} outstanding · ${view.runnable} of them name a command`;
   }
 
+  // Said before the list, not after it: a main that has not been pulled
+  // answers "nothing to check" about work it cannot see, which is the one
+  // wrong answer this page can give.
+  if (view.behind > 0) {
+    const n = view.behind;
+    body.appendChild(
+      el(
+        "p",
+        "check-stale",
+        `main is ${n} commit${n === 1 ? "" : "s"} behind origin — pull first.`,
+      ),
+    );
+  }
+
   renderCommits(body, left);
 
   const done = view.checks.filter((c) => c.verdict !== null);

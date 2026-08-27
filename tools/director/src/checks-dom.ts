@@ -33,6 +33,8 @@ export interface ChecksView {
   left: number;
   ready: number;
   runnable: number;
+  /** Commits on origin's main this checkout has not pulled. */
+  behind: number;
 }
 
 export function el(tag: string, cls = "", text = ""): HTMLElement {

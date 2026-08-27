@@ -15,19 +15,30 @@
  */
 
 import { branchReady, branchReason, outstanding, runnable } from "./checks.js";
-import { deleteBranch, readBranches, readChecks, runCommand, writeDecision } from "./repo.js";
+import {
+  deleteBranch,
+  readBranches,
+  readChecks,
+  runCommand,
+  trunk,
+  writeDecision,
+} from "./repo.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const flags = new Set(process.argv.slice(2));
 const today = new Date().toISOString().slice(0, 10);
 
+const here = await trunk(root);
 const states = await readChecks(root);
 const left = outstanding(states);
 const branches = await readBranches(root, states);
 const spent = branches.filter(branchReady);
 
-if (flags.has("--brief") && left.length === 0 && spent.length === 0) process.exit(0);
+if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behind === 0) {
+  process.exit(0);
+}
 
+stale();
 if (flags.has("--run")) await runAll();
 if (flags.has("--clean")) await cleanAll();
 if (!flags.has("--run") && !flags.has("--clean")) report();
@@ -67,6 +78,16 @@ function report(): void {
  * is a fix, and once the fix lands the same check can still go green — which
  * writing FAIL here would have taken away.
  */
+/**
+ * The one thing this must never do is say "nothing to check" about work it
+ * cannot see. A `main` that has not been pulled does exactly that.
+ */
+function stale(): void {
+  if (here.behind === 0) return;
+  const n = here.behind;
+  console.log(`main is ${n} commit${n === 1 ? "" : "s"} behind origin — git pull first.\n`);
+}
+
 async function runAll(): Promise<void> {
   const jobs = runnable(states);
   if (jobs.length === 0) {

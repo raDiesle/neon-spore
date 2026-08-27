@@ -21,6 +21,7 @@ import {
   readBranches,
   readChecks,
   runCommand,
+  trunk,
   writeDecision,
 } from "../../checks/repo.js";
 
@@ -33,6 +34,8 @@ export interface ChecksView {
   left: number;
   ready: number;
   runnable: number;
+  /** Commits on origin's main this checkout has not pulled. */
+  behind: number;
 }
 
 async function view(root: string): Promise<ChecksView> {
@@ -41,6 +44,7 @@ async function view(root: string): Promise<ChecksView> {
   return {
     checks,
     branches,
+    behind: (await trunk(root)).behind,
     left: outstanding(checks).length,
     ready: branches.filter(branchReady).length,
     runnable: runnable(checks).length,

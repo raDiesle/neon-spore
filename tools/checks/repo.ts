@@ -44,10 +44,30 @@ async function ok(root: string, args: string[]): Promise<boolean> {
   return (await proc.exited) === 0;
 }
 
-/** `main` if it is here, `origin/main` in a clone that only fetched it. */
-export async function trunk(root: string): Promise<string> {
-  if (await ok(root, ["rev-parse", "--verify", "--quiet", "main"])) return "main";
-  return "origin/main";
+export interface Trunk {
+  /** `main` if it is here, `origin/main` in a clone that only fetched it. */
+  ref: string;
+  /** Commits on origin's `main` that this one has not got. */
+  behind: number;
+}
+
+/**
+ * Which trunk the list is read off, and whether it is the current one.
+ *
+ * A `main` that has not been pulled answers with last week's list, and the one
+ * thing this arrangement must never do is say "nothing to check" about work it
+ * simply cannot see. So the staleness is measured and said, rather than being
+ * something you find out by noticing.
+ */
+export async function trunk(root: string): Promise<Trunk> {
+  if (!(await ok(root, ["rev-parse", "--verify", "--quiet", "main"]))) {
+    return { ref: "origin/main", behind: 0 };
+  }
+  if (!(await ok(root, ["rev-parse", "--verify", "--quiet", "origin/main"]))) {
+    return { ref: "main", behind: 0 };
+  }
+  const count = await git(root, ["rev-list", "--count", "main..origin/main"]);
+  return { ref: "main", behind: Number(count.trim()) || 0 };
 }
 
 export async function readLedger(root: string): Promise<Decision[]> {
@@ -64,7 +84,7 @@ export async function writeDecision(root: string, decision: Decision): Promise<v
 }
 
 export async function readChecks(root: string): Promise<CheckState[]> {
-  const ref = await trunk(root);
+  const { ref } = await trunk(root);
   const log = await git(root, ["log", `--format=${LOG_FORMAT}`, "--date=short", ref]);
   return joinChecks(parseLog(log), await readLedger(root));
 }
@@ -111,7 +131,7 @@ async function worktrees(root: string): Promise<Map<string, string>> {
  * deleting one and leaving the other is not what "cleaned up" means.
  */
 export async function readBranches(root: string, states: readonly CheckState[]): Promise<Branch[]> {
-  const ref = await trunk(root);
+  const { ref } = await trunk(root);
   const head = (await git(root, ["rev-parse", "--abbrev-ref", "HEAD"])).trim();
   const held = await worktrees(root);
   const left = outstanding(states);
