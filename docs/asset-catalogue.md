@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty-nine drafts, and one claimed so far.** A draft is a picture
+> **Status: thirty-two drafts, and one claimed so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content` —
 > or cut.
@@ -61,9 +61,9 @@ which is why every draft lives in `tools/` and none of them in `packages/`.
 
 ## What is in it now
 
-**Thirty-two drafts** across all but a handful of the open ideas: fourteen
-creatures, twelve bosses, six for the controls and mechanics. Each names the
-idea it is offered to, and a test fails if that idea is not a heading in
+**Thirty-two drafts** across all but a handful of the open ideas: fifteen
+creatures, six bosses, five collected and six for the controls and mechanics.
+Each names the idea it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
 suggestion.
 
@@ -76,8 +76,8 @@ being the only thing on the page, so both go up, numbered, turning on the same
 clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
 fall short says what each pair is asking.
 
-**Eleven contour forms** in `tools/shape-sheet/src/forms/`, because several
-ideas are not describable as a lobed blob or a faceted rock. They sit in six
+**Sixteen contour forms** in `tools/shape-sheet/src/forms/`, because several
+ideas are not describable as a lobed blob or a faceted rock. They sit in seven
 files, split along seams rather than at line counts.
 
 A directory rather than siblings, and that is the one thing here that was

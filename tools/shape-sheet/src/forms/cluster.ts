@@ -77,3 +77,49 @@ export function cluster(name: string, note: string, o: ClusterOpts): Subject {
     path: catmullRomToBezierPath,
   };
 }
+
+/**
+ * One body moulded out of several, which never come apart.
+ *
+ * The same metaball field `cluster` traces, asked the opposite question. There
+ * the interesting instant is the separation; here there is none — the lumps
+ * sit at fixed offsets, well inside each other's reach, and what the field
+ * buys is the **join**: a union of unequal circles meets in a concave neck,
+ * and no lobed contour sampled one radius per angle can produce a concave
+ * anything. That is the whole difference between a shape with lobes on it and
+ * a shape that looks poured.
+ *
+ * `lumps` is `[dx, dy, r]` per body, in units of `radius`. They breathe out of
+ * step, so the necks move without the body ever travelling.
+ */
+export function moulded(
+  name: string,
+  note: string,
+  radius: number,
+  lumps: ReadonlyArray<readonly [number, number, number]>,
+): Subject {
+  const loopsAt = (t: number): Point[][] => {
+    const field = (x: number, y: number): number => {
+      let f = 0;
+      for (let i = 0; i < lumps.length; i++) {
+        const [dx, dy, lr] = lumps[i]!;
+        const r = radius * lr * (1 + 0.04 * Math.sin(t * 0.9 + i * 1.9));
+        f += (r * r) / Math.max((x - dx * radius) ** 2 + (y - dy * radius) ** 2, 1);
+      }
+      return f;
+    };
+    let reach = 0;
+    for (const [dx, dy, lr] of lumps) reach = Math.max(reach, (Math.hypot(dx, dy) + lr) * radius);
+    const half = reach + radius;
+    return resampleAll(isoLoops(field, { x0: -half, x1: half, y0: -half, y1: half }), LOOP_POINTS);
+  };
+
+  return {
+    name,
+    note,
+    open: false,
+    loopsAt,
+    pointsAt: (t) => loopsAt(t).flat(),
+    path: catmullRomToBezierPath,
+  };
+}

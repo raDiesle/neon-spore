@@ -1,6 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { arm, cluster, glyphed, sac } from "../forms/index.js";
-import { HEAVE, SHIVER, SWELL, TOLL } from "../motions.js";
+import { arm, bloom, cluster, glyphed, mawed, sac } from "../forms/index.js";
+import { HEAVE, SHIVER, SWELL, TOLL, TURN } from "../motions.js";
 
 /**
  * Draft bosses: four encounters nobody has designed yet.
@@ -19,6 +19,32 @@ import { HEAVE, SHIVER, SWELL, TOLL } from "../motions.js";
  * something that can exist at 390 px wide.
  */
 export const BOSS_DRAFTS: CatalogueEntry[] = [
+  {
+    subject: mawed(
+      "THE MOTHER",
+      "a mouth with arms, and what you killed comes back out of it",
+      68,
+      6,
+      0.5,
+      0.62,
+      7,
+    ),
+    motion: SWELL,
+    status: "draft",
+    slot: "boss",
+    suggests: "The Mother",
+    owner:
+      "she gives back what the pair destroyed, so the shape is built around the opening it comes back out of rather than around a body with an attack: the arms say how far she reaches and the mouth says what she is for, and the pair can name both before anything happens",
+  },
+  {
+    subject: bloom("THE VESSEL", "one core, six arms, each at its own length", 60, 6, 0.62, 9),
+    motion: TURN,
+    status: "draft",
+    slot: "boss",
+    suggests: "The Vessel",
+    owner:
+      "the navigator reads a target combination and the pilot only the current states, so the silhouette has to *be* several readings at once — six arms on six periods, never in step, so the shape at any instant is a set of numbers and not a mood",
+  },
   {
     subject: sac("THE WEIGHT", "a sac hung heavy, narrow at the top", 0.46, 74, 96),
     motion: HEAVE,

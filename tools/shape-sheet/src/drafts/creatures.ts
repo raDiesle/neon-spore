@@ -1,6 +1,6 @@
 import { POD } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
-import { cluster, glyphed, heeled, hooked, sac, slab, slumped } from "../forms/index.js";
+import { cluster, glyphed, heeled, hooked, sac, slab, slumped, welling } from "../forms/index.js";
 import {
   CANT,
   DRIFT,
@@ -30,6 +30,23 @@ import { blob, crystal } from "../subjects.js";
  * a person hands it over — or does not.
  */
 export const CREATURE_DRAFTS: CatalogueEntry[] = [
+  {
+    subject: welling(
+      "THE BREACH",
+      "a torn opening, and something rising in it",
+      44,
+      52,
+      0.34,
+      0.16,
+      5.5,
+    ),
+    motion: HEAVE,
+    status: "draft",
+    slot: "creature",
+    suggests: "Reverse wave",
+    owner:
+      "the idea store says nothing was drawn at a reverse wave because a direction is not a shape — this is the shape it names instead: the hole is in the picture, so what arrives is the ship's own damage rather than an arrival from off-screen with no warning edge",
+  },
   {
     subject: cluster("ECHO", "a body and its earlier self, never quite together", {
       bodies: 2,

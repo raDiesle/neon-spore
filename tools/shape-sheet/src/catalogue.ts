@@ -2,6 +2,7 @@ import type { CreatureSilhouette, CrystalSilhouette, OwnMotion } from "@neon-spo
 import { livingMotion } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
+import { moulded, rooted } from "./forms/index.js";
 import { TURN } from "./motions.js";
 import { blob, crystal, hullArc, livingKinds, SUBJECTS } from "./subjects.js";
 
@@ -208,6 +209,25 @@ const free: CatalogueEntry[] = [
     status: "free",
     slot: "ship",
     owner: "nothing — light rather than silhouette, which is why it lost",
+  },
+  {
+    subject: rooted("TAPROOT", "a bulb that will not come loose", 46, 40, 5, 0.7, 0.18, 6),
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing yet — a body that is held rather than falling, which no creature in the bestiary is; whatever takes it inherits the claim that it cannot be pushed off a column, and that is a rule before it is a picture",
+  },
+  {
+    subject: moulded("MASS", "one body poured out of four, with concave joins", 52, [
+      [0, 0, 1.15],
+      [-0.95, -0.5, 0.72],
+      [0.85, 0.55, 0.8],
+      [0.15, -1.05, 0.6],
+    ]),
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing — the only contour here with a concave join in it, which is the one thing lobes cannot draw; drawn large on purpose, as the single body that fills a field rather than one of a wave of them",
   },
 ];
 

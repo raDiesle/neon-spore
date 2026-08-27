@@ -23,6 +23,8 @@
  * inside the thing they are seams of, so a fourth one has somewhere to go:
  *
  * - `radial` — one radius per angle, symmetric or symmetric-with-a-wobble
+ * - `anchored` — held to something: the anchor is part of the outline, and the
+ *   asymmetry is fixed rather than a bearing the body keeps re-deciding
  * - `hooked` — the same sampling, asymmetric: the outlines that carry a facing
  * - `hanging` — a body whose mass has given way
  * - `cluster` and `pile` — a field walked on a grid, for anything that comes
@@ -33,9 +35,10 @@
  *   is not a function of angle but a rule about one edge
  */
 
-export { type ClusterOpts, cluster } from "./cluster.js";
+export { rooted, welling } from "./anchored.js";
+export { type ClusterOpts, cluster, moulded } from "./cluster.js";
 export { type SacSkin, sac, slumped } from "./hanging.js";
 export { heeled, hooked } from "./hooked.js";
 export { type PileOpts, pile } from "./pile.js";
-export { glyphed, slab } from "./radial.js";
+export { bloom, glyphed, mawed, slab } from "./radial.js";
 export { arm, type PlatedOpts, plated, type VaneOpts, vane } from "./walked.js";
