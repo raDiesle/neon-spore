@@ -96,3 +96,15 @@ export function branchReason(branch: Branch): string {
   if (branch.undecided > 1) return `${branch.undecided} checks outstanding`;
   return branch.worktree ? "merged and checked — its worktree goes too" : "merged and checked";
 }
+
+/**
+ * A `main` that has not been pulled answers every question about branches
+ * wrongly, and confidently: work that landed reads as "still ahead of main",
+ * so `--clean` finds nothing spent and says "no branch is spent yet" as if it
+ * had looked. Reading a stale list is merely incomplete and the warning
+ * covers it; acting on one is the wrong answer in the shape of a right one,
+ * so the flags that act stop instead.
+ */
+export function staleStops(behind: number, acting: boolean): boolean {
+  return behind > 0 && acting;
+}

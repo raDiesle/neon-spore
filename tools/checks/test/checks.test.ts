@@ -6,6 +6,7 @@ import {
   joinChecks,
   outstanding,
   runnable,
+  staleStops,
   undecidedOn,
 } from "../checks.js";
 import type { Decision } from "../ledger.js";
@@ -121,5 +122,20 @@ describe("branches", () => {
     expect(branchReason({ ...base, undecided: 1 })).toBe("1 check outstanding");
     expect(branchReason({ ...base, undecided: 3 })).toBe("3 checks outstanding");
     expect(branchReason({ ...base, current: true })).toBe("you are standing on it");
+  });
+});
+
+describe("staleStops", () => {
+  test("a stale main stops the flags that act", () => {
+    expect(staleStops(25, true)).toBe(true);
+  });
+
+  test("a stale main only warns the plain report, which says so itself", () => {
+    expect(staleStops(25, false)).toBe(false);
+  });
+
+  test("a pulled main stops nothing", () => {
+    expect(staleStops(0, true)).toBe(false);
+    expect(staleStops(0, false)).toBe(false);
   });
 });

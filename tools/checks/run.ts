@@ -14,7 +14,7 @@
  *   bun run checks --brief   say nothing when there is nothing (for the hook)
  */
 
-import { branchReady, branchReason, outstanding, runnable } from "./checks.js";
+import { branchReady, branchReason, outstanding, runnable, staleStops } from "./checks.js";
 import {
   deleteBranch,
   readBranches,
@@ -38,10 +38,12 @@ if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behi
   process.exit(0);
 }
 
-stale();
+const acting = flags.has("--run") || flags.has("--clean");
+stale(acting);
+if (staleStops(here.behind, acting)) process.exit(1);
 if (flags.has("--run")) await runAll();
 if (flags.has("--clean")) await cleanAll();
-if (!flags.has("--run") && !flags.has("--clean")) report();
+if (!acting) report();
 
 function report(): void {
   console.log(left.length === 0 ? "nothing to check on main." : `${left.length} to check on main:`);
@@ -61,7 +63,9 @@ function report(): void {
     for (const check of failed) console.log(`    ✗ ${check.sha} ${check.text}`);
   }
 
-  if (branches.length > 0) console.log("\n  branches:");
+  if (branches.length > 0) {
+    console.log(here.behind > 0 ? "\n  branches (read off a stale main):" : "\n  branches:");
+  }
   for (const branch of branches) {
     const where = [branch.local ? "local" : "", branch.remote ? "origin" : ""].filter(Boolean);
     const mark = branchReady(branch) ? "✓" : "·";
@@ -80,12 +84,17 @@ function report(): void {
  */
 /**
  * The one thing this must never do is say "nothing to check" about work it
- * cannot see. A `main` that has not been pulled does exactly that.
+ * cannot see. A `main` that has not been pulled does exactly that, and it
+ * misreads the branches the same way — every landed branch as "still ahead
+ * of main". So the warning is the whole story only while nothing acts on it.
  */
-function stale(): void {
+function stale(acting: boolean): void {
   if (here.behind === 0) return;
   const n = here.behind;
-  console.log(`main is ${n} commit${n === 1 ? "" : "s"} behind origin — git pull first.\n`);
+  console.log(`main is ${n} commit${n === 1 ? "" : "s"} behind origin — git pull first.`);
+  if (acting)
+    console.log("nothing was run or deleted: this would have decided it off a stale main.");
+  console.log("");
 }
 
 async function runAll(): Promise<void> {
