@@ -86,3 +86,23 @@ compares by moving a slider rather than by rebuilding, and so every existing
 replay keeps its timing. Finished when the charge is world state, in
 `hashWorld`, drawn through the vocabulary `maw.ts` already has, and the owner
 can feel every value between 0 and a beat.
+
+## THE SWALLOW LEAVES THE FIELD, AND SPENDS ITSELF DOWNWARDS
+_claude/burn-swallow-s2 · packages/render/src/swallow.ts packages/render/src/maw.ts packages/sim/src/pods.ts_
+
+Three things about taking a pod in, reported by the owner, and the first is a
+bug: the downward part of the motion is drawn past the edge of the field.
+Nothing clips it — there is no `clip()` anywhere in `drawInhale` or `maw.ts`,
+so the shape simply goes where the arithmetic sends it.
+
+The second is the shape itself. It should spend less of itself vertically and
+more across, and round out on the inside, at roughly the same volume — a mouth
+that widens rather than a throat that stretches. The third is a rule: a
+power-up should be drawn all the way to the **centre** before it activates,
+rather than counting as taken the moment it is swallowed.
+
+Finished when the swallow stays inside the field at every phase, reads as
+width rather than descent, and a power-up's effect begins at the centre. The
+last of those is sim timing and belongs in `hashWorld` if it becomes state.
+
+
