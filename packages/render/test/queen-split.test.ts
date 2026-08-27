@@ -56,6 +56,7 @@ function queenAt(color: Creature["color"]): Creature {
     holes: 0,
     petals: 9,
     dragMilli: 0,
+    throbOpen: false,
   };
 }
 

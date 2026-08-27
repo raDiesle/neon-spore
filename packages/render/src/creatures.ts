@@ -47,16 +47,25 @@ function drawLiving(
 ): void {
   const isBulb = c.kind === "bulb";
   const shape = livingSilhouette(c.kind);
-  const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-  const hex = c.color === "red" ? PALETTE.red : PALETTE.cyan;
-  const dark = c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
+  // Runt and Throb carry no colour at all (bullet-hit.ts's own branches, not
+  // a colour match) — the red/cyan ternary below would otherwise read a null
+  // colour as cyan, painting a decoy in one of the two ammunition colours.
+  const neutral = c.color === null;
+  const rim = neutral ? PALETTE.sparkDim : c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
+  const hex = neutral ? PALETTE.dim : c.color === "red" ? PALETTE.red : PALETTE.cyan;
+  const dark = neutral ? PALETTE.rockDark : c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
 
   // Variation without randomness in the simulation: the id is deterministic on
   // both devices, so two screens shake the same creature the same way.
   const phase = (c.id % 7) * 0.9;
   const t = time + phase;
   const r = l.tile * 0.4;
-  const scale = r / Math.max(shape.rx, shape.ry);
+  // The Throb's whole "swells and shrinks" tell: bigger while `throbOpen` is
+  // true (a shot lands), smaller while it is shut (a shot does nothing) — the
+  // same flag bullet-hit.ts reads, so the picture never disagrees with what a
+  // shot actually does.
+  const throbMul = c.kind === "throb" ? (c.throbOpen ? 1.3 : 0.7) : 1;
+  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1) * throbMul;
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools
   // can animate a creature the way the game does instead of re-typing it.

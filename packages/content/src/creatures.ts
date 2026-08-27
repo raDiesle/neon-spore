@@ -122,6 +122,26 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
   },
+  runt: {
+    kind: "runt",
+    // Same job as any other aim target — the cannon has to be in its column
+    // and player 2 has to choose whether to fire — so a wave containing only
+    // Runts still shows the controls that make not-firing a real restraint
+    // rather than an absent one.
+    controls: ["aim"],
+    color: null,
+    radar: "p2",
+    blurb:
+      "Tiny and helpless, and carries no colour. Do not shoot it — any shot that lands costs points, whatever colour it was.",
+  },
+  throb: {
+    kind: "throb",
+    controls: ["aim"],
+    color: null,
+    radar: "p2",
+    blurb:
+      "Swells and shrinks on the shared beat and carries no colour. Only a shot while it is swollen lands — a miss on the beat it is shut is just a miss.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is

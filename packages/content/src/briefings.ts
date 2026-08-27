@@ -50,6 +50,18 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
     p1: "The column is still yours to stand in. Say the colour you can see.",
     p2: "Cyan for this one. A wrong colour is spent, not missed.",
   },
+  runt: {
+    title: "THE RUNT",
+    both: "Tiny, and carries no colour at all. A shot that lands on it is the mistake — it costs points, whatever colour was fired.",
+    p1: "The column is still yours to hold. Say when it is not worth standing in.",
+    p2: "No colour is the right one here. Hold your fire and let it reach the hull instead.",
+  },
+  throb: {
+    title: "THE THROB",
+    both: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
+    p1: "Call the beat it swells on, out loud, the way you call a column.",
+    p2: "Fire on the count, not on sight — a shot on the wrong beat does nothing.",
+  },
   meteor: {
     title: "THE ROCK",
     both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",

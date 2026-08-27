@@ -1,6 +1,7 @@
 import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { openBriefings } from "./briefing.js";
+import { throbIsOpen } from "./creature-rules.js";
 import type { WardenEntry } from "./entries.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
@@ -33,6 +34,10 @@ export function onBeat(world: World): void {
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);
+    // Decided once a beat, from the beat this creature now stands on, and
+    // stored — bullet-hit.ts and render/ both read it off the creature rather
+    // than asking `throbIsOpen` a second time at a possibly different tick.
+    if (c.kind === "throb") c.throbOpen = throbIsOpen(world.cfg, world.beat);
   }
 
   // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
@@ -57,6 +62,7 @@ export function onBeat(world: World): void {
       holes: 0,
       petals: 0,
       dragMilli: 0,
+      throbOpen: entry.kind === "throb" && throbIsOpen(world.cfg, world.beat),
     });
     world.spawned += 1;
   }
@@ -142,6 +148,7 @@ export function startWave(
       holes: 0,
       petals: boss.petals,
       dragMilli: 0,
+      throbOpen: false,
     });
     world.boss = {
       kind: "queen",
@@ -198,6 +205,7 @@ function installWarden(world: World, entry: WardenEntry): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
+    throbOpen: false,
   });
   world.boss = {
     kind: "warden",

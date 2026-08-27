@@ -64,6 +64,7 @@ export function hashWorld(world: World): number {
     push(c.holes);
     push(c.petals);
     push(c.dragMilli);
+    push(c.throbOpen ? 1 : 0);
   }
 
   push(world.bullets.length);

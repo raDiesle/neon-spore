@@ -63,8 +63,10 @@ export {
   METEOR,
   POD,
   QUEEN_SHELL,
+  RUNT,
   SHIELD_LOBE,
   SLICK,
+  THROB,
   TORCH,
   xToHullAngle,
 } from "./silhouettes.js";

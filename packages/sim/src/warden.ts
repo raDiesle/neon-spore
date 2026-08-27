@@ -145,6 +145,7 @@ function attach(world: World, b: WardenState): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
+    throbOpen: false,
   });
   b.tetherId = id;
   world.events.push({ type: "tether", col, control, color: wardenColor(cycle) });
@@ -217,6 +218,7 @@ function ventRock(world: World, b: WardenState, phase: WardenPhase): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
+    throbOpen: false,
   });
   world.events.push({ type: "vent", col: b.pupilCol, kind: phase.vent });
 }

@@ -37,6 +37,14 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     resolveWarden(world, b, hit);
     return false;
   }
+  if (hit.kind === "runt") {
+    resolveRunt(world, b, hit);
+    return false;
+  }
+  if (hit.kind === "throb") {
+    resolveThrob(world, b, hit);
+    return false;
+  }
   if (hit.color !== b.color) {
     missedColor(world);
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
@@ -142,6 +150,40 @@ function resolveWarden(world: World, b: Bullet, hit: Creature): void {
     world.boss = null;
     world.events.push({ type: "wardenDown", col: b.col, row: hit.row });
   }
+}
+
+/**
+ * The Runt: tiny, helpless, and carries no colour — nothing about the shot
+ * matters except that it landed. Landing it is the mistake. It turns the
+ * reflex that pays off against every other aim target (match the colour,
+ * pull the trigger) into a decision the pair has to make on purpose: this one
+ * is not a target, whatever it looks like at a glance.
+ *
+ * Reaching the hull is deliberately *not* special-cased — it costs the hull
+ * exactly what any other missed creature does (`hull.ts`'s generic branch),
+ * because the only thing this kind changes is what happens if it is shot.
+ */
+function resolveRunt(world: World, b: Bullet, hit: Creature): void {
+  world.score = Math.max(0, world.score - world.cfg.scoreRuntPenalty);
+  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+}
+
+/**
+ * The Throb: swells and shrinks on the shared beat (`throbIsOpen`,
+ * creature-rules.ts) rather than carrying a colour. A shot while it is shut
+ * is a shot at the wrong *moment* rather than the wrong body — the timing
+ * equivalent of a colour miss, and deliberately not scored as one, since the
+ * ammunition was never the question. Either colour lands it while it is open.
+ */
+function resolveThrob(world: World, b: Bullet, hit: Creature): void {
+  if (!hit.throbOpen) {
+    world.events.push({ type: "reject", col: hit.col, row: hit.row });
+    return;
+  }
+  world.score += world.cfg.scoreThrobHit;
+  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
 }
 
 /**

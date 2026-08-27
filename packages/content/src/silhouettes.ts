@@ -16,6 +16,8 @@ export interface CreatureSilhouette {
   rx: number;
   ry: number;
   seed: number;
+  /** Extra scale below `drawLiving`'s usual fixed footprint. Unset but on the Runt. */
+  sizeMul?: number;
 }
 
 export interface HullSilhouette {
@@ -46,18 +48,36 @@ export const BULB: CreatureSilhouette = {
   seed: 1.0,
 };
 
+/** Runt: few shallow lobes, and `sizeMul` shrunk well below anything else that glides. */
+export const RUNT: CreatureSilhouette = {
+  lobes: 4,
+  depth: 0.22,
+  wobble: 0.02,
+  rx: 30,
+  ry: 30,
+  seed: 6.0,
+  sizeMul: 0.55,
+};
+
+/** Throb: round, soft-lobed. render/ swells and shrinks it with `Creature.throbOpen`. */
+export const THROB: CreatureSilhouette = {
+  lobes: 6,
+  depth: 0.2,
+  wobble: 0.09,
+  rx: 44,
+  ry: 44,
+  seed: 7.0,
+};
+
 /**
  * The silhouette a living kind is drawn with. Call this instead of writing
- * `kind === "bulb" ? BULB : SLICK` by hand: the queen's mark blends two of
- * these into each other as it morphs, and a second copy of the pairing is
- * exactly how a morph ends up starting from a shape the creature it names is
- * not actually drawn as.
- *
- * A rock kind has no blob contour at all — it is faceted, not lobed
- * (`crystalPath`) — so anything but `slick` falls to `SLICK`, which is what
- * the colour mapping (`livingKindForColor`) can ever hand over anyway.
+ * `kind === "bulb" ? BULB : SLICK` by hand — the queen's morph blends two of
+ * these, and a second copy of the pairing drifts. `runt`/`throb` carry no
+ * colour but get a contour, named ahead of the colour-driven fallback.
  */
 export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
+  if (kind === "runt") return RUNT;
+  if (kind === "throb") return THROB;
   return kind === "bulb" ? BULB : SLICK;
 }
 

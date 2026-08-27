@@ -186,5 +186,6 @@ function spit(world: World, queen: Creature, col: number): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
+    throbOpen: false,
   });
 }

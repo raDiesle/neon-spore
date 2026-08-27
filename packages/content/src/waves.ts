@@ -11,13 +11,15 @@ export interface WaveEntry {
   beat: number;
   col: number;
   /**
-   * Only a rock is named here, and only ever one of the rock kinds. A living
-   * creature's kind follows from its colour (`kindForColor`) — one kind is
-   * one colour and one silhouette, so naming both would be naming the same
-   * thing twice and inviting them to disagree.
+   * Named here only for a kind that carries no colour — a rock, or one of the
+   * two kinds that carry none on purpose (`runt`, `throb`). A living creature
+   * that *has* a colour never names its kind here: it follows from the colour
+   * instead (`kindForColor`), so a wave with `color` set never also writes
+   * `kind` — naming both would be naming the same thing twice and inviting
+   * them to disagree.
    */
-  kind?: RockKind;
-  /** A fixed colour, or null for the rock. */
+  kind?: RockKind | "runt" | "throb";
+  /** A fixed colour, or null for a kind that carries none. */
   color: Color | null;
 }
 
@@ -210,6 +212,21 @@ export const WAVES: Wave[] = [
     hint: "It takes the cannon, then the shield, then the cannon. Whoever is free pulls the line — and the rim's colour is the shot.",
     entries: [],
     boss: { kind: "warden" },
+  },
+  {
+    name: "THE RUNT",
+    sentence: "The one where a shot that lands is the mistake.",
+    hint: "Small and colourless — leave it alone. A real target is coming too; say which column is which.",
+    entries: [
+      { beat: 0, col: 3, kind: "runt", color: null },
+      { beat: 1, col: 5, color: "cyan" },
+    ],
+  },
+  {
+    name: "ON THE BEAT",
+    sentence: "The one where firing on sight is the miss.",
+    hint: "It swells and shrinks on the beat. Wait for it — a shot on the wrong one does nothing at all.",
+    entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
   },
   {
     name: "meteor testings",

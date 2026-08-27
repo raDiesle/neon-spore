@@ -21,6 +21,7 @@ export {
   subjectIndex,
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+export { throbIsOpen } from "./creature-rules.js";
 export { BOSS_KINDS, type WardenEntry } from "./entries.js";
 export {
   clearGrips,

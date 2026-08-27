@@ -1,6 +1,6 @@
 # Bestiary
 
-> **Status: three of twenty built.** Slick, bulb and meteor exist
+> **Status: five of twenty built.** Slick, bulb, meteor, runt and throb exist
 > (`packages/content/src/creatures.ts`). Everything else on this page is
 > design.
 >
@@ -31,9 +31,9 @@ Four rules, in this order:
    standard one, and then it has to read as clearly different, not as the same
    blob in another tint.
 
-**Only `slick`, `bulb` and `meteor` are committed** — they are `CreatureKind`
-values in the simulation. Every other name on this page is a label on an
-unbuilt design and costs one edit to change.
+**Only `slick`, `bulb`, `meteor`, `runt` and `throb` are committed** — they are
+`CreatureKind` values in the simulation. Every other name on this page is a
+label on an unbuilt design and costs one edit to change.
 
 ## Categories
 
@@ -44,7 +44,7 @@ cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | slick, bulb |
+| `cannon` | `aim` only | slick, bulb, runt, throb |
 | `shield` | `guard` only | every meteor tier, the torch |
 | `mixed` | `aim` and `guard` | the queen |
 | `special` | neither | *(reserved, empty)* |
@@ -80,9 +80,11 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, torch. Slick, bulb and meteor carry the teaching
-waves; the torch is the meteor's own widened relative, not one of the
-original thirteen.
+Built: slick, bulb, meteor, runt, throb, torch. Slick, bulb and meteor carry
+the teaching waves; the torch is the meteor's own widened relative, not one of
+the original thirteen. Runt and throb are the next two of that thirteen —
+neither needed a new control group, only an entry and a state machine (see
+THE RUNT and ON THE BEAT waves, and `.claude/skills/new-creature`).
 
 **The pod is built, and it is not a creature.** It carries no colour, is never
 cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its

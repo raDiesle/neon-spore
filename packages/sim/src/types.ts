@@ -26,7 +26,21 @@ export type CreatureKind =
   | "torch"
   | "queen"
   | "warden"
-  | "tether";
+  | "tether"
+  /**
+   * Tiny and helpless, and carries no colour — a shot of either colour costs
+   * points rather than earning them (`resolveRunt`, bullet-hit.ts). Reaching
+   * the hull is not special-cased: it costs the hull exactly what any other
+   * missed creature would, same as `damageCreature` for anything else.
+   */
+  | "runt"
+  /**
+   * Swells and shrinks on the shared beat instead of carrying a colour.
+   * `throbOpen` on the `Creature` says whether this beat is one it can be hit
+   * on — see `throbIsOpen` in `creature-rules.ts`, which is the only place
+   * that cycle is decided.
+   */
+  | "throb";
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:
@@ -59,6 +73,13 @@ export interface Creature {
    * thing that reads or writes it.
    */
   dragMilli: number;
+  /**
+   * Whether a `throb` can be hit this beat. False on every other kind. Set
+   * once a beat, in `onBeat`, from `throbIsOpen` — never computed a second
+   * time from `world.beat` at hit time, so render/ and bullet-hit.ts agree
+   * about the same instant without either owning the cycle.
+   */
+  throbOpen: boolean;
 }
 
 export interface Bullet {

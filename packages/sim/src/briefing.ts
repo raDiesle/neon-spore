@@ -27,7 +27,7 @@ import type { World } from "./world.js";
  * `packages/content` is a record over exactly this list, so a creature that
  * ships without a card fails the type check rather than opening a blank card.
  *
- * The eleven creature kinds and the three pod kinds are spelled the same as
+ * The thirteen creature kinds and the three pod kinds are spelled the same as
  * their kinds, so `subjectIndex` takes either straight off the wave's own
  * entries and nothing has to keep a second table of names in step.
  */
@@ -35,6 +35,8 @@ export const BRIEFING_SUBJECTS = [
   "opening",
   "slick",
   "bulb",
+  "runt",
+  "throb",
   "meteor",
   "meteorMedium",
   "meteorFast",

@@ -121,6 +121,16 @@ export interface SimConfig extends BossConfig {
   scoreWave: number;
   /** Score for taking a pod in. */
   scorePod: number;
+  /** What a shot at a Runt costs, off the score (never below zero) — the
+   * reflex that pays off against every other aim target is wrong here. */
+  scoreRuntPenalty: number;
+  /** Score for hitting a Throb while it is open. */
+  scoreThrobHit: number;
+  /** Beats in one Throb swell-shrink cycle — `throbIsOpen`'s whole state
+   * machine is `beat % throbPeriodBeats` against `throbOpenBeats`. */
+  throbPeriodBeats: number;
+  /** Beats out of every cycle a Throb can be hit at all. */
+  throbOpenBeats: number;
   /**
    * How many beats ahead the radar strip shows an arrival. Read by render/.
    * A creature needs at least a 3-second floor of warning (docs/spec/latency.md)
@@ -200,6 +210,10 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDeflect: 150,
   scoreWave: 300,
   scorePod: 250,
+  scoreRuntPenalty: 150,
+  scoreThrobHit: 200,
+  throbPeriodBeats: 4,
+  throbOpenBeats: 1,
   scoreQueenPetal: 400,
   scoreQueenDown: 2000,
   radarLead: 6,
