@@ -5,7 +5,7 @@
  * goes stale silently.
  */
 
-import { firstParagraph, firstTable, parseNumberedSections } from "./sections.js";
+import { firstParagraph, firstTable, parseNumberedSections, sectionBody } from "./sections.js";
 
 export interface ConceptTable {
   headers: string[];
@@ -15,13 +15,19 @@ export interface ConceptTable {
 export interface Concept {
   name: string;
   status: string;
+  /** The opening line or two — what the panel shows before it is opened. */
   note: string;
   table: ConceptTable | null;
+  /** The section verbatim, markdown and all. Nothing the spec says is dropped. */
+  detail: string;
+  /** Where it came from, e.g. "couplings.md 2." — printed beside the detail. */
+  ref: string;
 }
 
 export interface Idea {
   name: string;
   note: string;
+  ref: string;
 }
 
 export interface ConceptSheet {
@@ -32,7 +38,7 @@ export interface ConceptSheet {
   deferred: Idea[];
 }
 
-function toConcepts(text: string): Concept[] {
+function toConcepts(text: string, file: string): Concept[] {
   return parseNumberedSections(text).map((s) => {
     const table = firstTable(s.lines);
     return {
@@ -40,6 +46,8 @@ function toConcepts(text: string): Concept[] {
       status: s.tail,
       note: firstParagraph(s.lines),
       table: table && table.length > 1 ? { headers: table[0]!, rows: table.slice(1) } : null,
+      detail: sectionBody(s.lines),
+      ref: `${file} ${s.number}`,
     };
   });
 }
@@ -55,7 +63,7 @@ function stripLinks(text: string): string {
  * continuation line — both kept, since dropping either silently understates
  * the idea store.
  */
-function parseBullets(text: string, headingContains: string): Idea[] {
+function parseBullets(text: string, headingContains: string, file: string): Idea[] {
   const ideas: Idea[] = [];
   let inSection = false;
   for (const line of text.split(/\r?\n/)) {
@@ -67,7 +75,7 @@ function parseBullets(text: string, headingContains: string): Idea[] {
 
     const bullet = line.match(/^-\s+\*\*(.+?)\*\*(?:\s*—\s*(.*))?$/);
     if (bullet) {
-      ideas.push({ name: bullet[1]!.trim(), note: stripLinks(bullet[2] ?? "").trim() });
+      ideas.push({ name: bullet[1]!.trim(), note: stripLinks(bullet[2] ?? "").trim(), ref: file });
       continue;
     }
     const trimmed = line.trim();
@@ -86,10 +94,10 @@ export function parseConcepts(
   ideas: string,
 ): ConceptSheet {
   return {
-    couplings: toConcepts(couplings),
-    assists: toConcepts(assists),
-    systems: toConcepts(systems),
-    ideas: parseBullets(ideas, "Accepted, not yet worked out"),
-    deferred: parseBullets(ideas, "Deliberately deferred"),
+    couplings: toConcepts(couplings, "couplings.md"),
+    assists: toConcepts(assists, "assists.md"),
+    systems: toConcepts(systems, "systems.md"),
+    ideas: parseBullets(ideas, "Accepted, not yet worked out", "ideas.md"),
+    deferred: parseBullets(ideas, "Deliberately deferred", "ideas.md"),
   };
 }

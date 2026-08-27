@@ -1,3 +1,5 @@
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
@@ -36,6 +38,7 @@ const couplingsFile = new URL("../../docs/spec/couplings.md", import.meta.url);
 const assistsFile = new URL("../../docs/spec/assists.md", import.meta.url);
 const systemsFile = new URL("../../docs/spec/systems.md", import.meta.url);
 const ideasFile = new URL("../../docs/spec/ideas.md", import.meta.url);
+const specDir = new URL("../../docs/spec/", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
@@ -174,6 +177,26 @@ const server = Bun.serve({
         const bestiary = await Bun.file(bestiaryFile).text();
         const bosses = await Bun.file(bossesFile).text();
         return Response.json(parseRoster(bestiary, bosses), { headers: noCache });
+      }),
+    },
+
+    /**
+     * Every spec file, verbatim. The roster and concept endpoints parse the
+     * design into entries, and a parse is a choice about what to keep — the
+     * naming rules, the categories, the rejected names and the ceiling are
+     * none of them an entry. This is the catch-all that makes "what does the
+     * spec say" answerable in the editor rather than in a text editor beside
+     * it: the directory is read, so a new file appears here without being
+     * added to a list.
+     */
+    "/api/spec": {
+      GET: withIdle(async () => {
+        const dir = Bun.fileURLToPath(specDir);
+        const names = (await readdir(dir)).filter((n) => n.endsWith(".md")).sort();
+        const files = await Promise.all(
+          names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
+        );
+        return Response.json({ files }, { headers: noCache });
       }),
     },
 

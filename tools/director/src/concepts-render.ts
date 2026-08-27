@@ -4,6 +4,8 @@
  * Parsed out of the spec on every request — see concepts.ts.
  */
 
+import { detailBox, inline } from "./markdown.js";
+
 interface ConceptTable {
   headers: string[];
   rows: string[][];
@@ -14,11 +16,14 @@ interface Concept {
   status: string;
   note: string;
   table: ConceptTable | null;
+  detail: string;
+  ref: string;
 }
 
 interface Idea {
   name: string;
   note: string;
+  ref: string;
 }
 
 interface ConceptSheet {
@@ -48,7 +53,7 @@ function renderTable(container: HTMLElement, table: ConceptTable): void {
     const tr = document.createElement("tr");
     for (const cell of row) {
       const td = document.createElement("td");
-      td.textContent = cell;
+      inline(td, cell);
       tr.appendChild(td);
     }
     tbody.appendChild(tr);
@@ -77,11 +82,15 @@ function renderConceptGroup(container: HTMLElement, items: Concept[]): void {
     if (item.note) {
       const blurb = document.createElement("p");
       blurb.className = "blurb";
-      blurb.textContent = item.note;
+      inline(blurb, item.note);
       div.appendChild(blurb);
     }
 
     if (item.table) renderTable(div, item.table);
+
+    // The lead sentence answers "what is this"; the section answers "why", and
+    // for a coupling the why is the argument the whole control model rests on.
+    if (item.detail) div.appendChild(detailBox(item.detail, item.ref));
 
     container.appendChild(div);
   }
@@ -99,7 +108,7 @@ function renderIdeaGroup(container: HTMLElement, items: Idea[]): void {
 
     const blurb = document.createElement("p");
     blurb.className = "blurb";
-    blurb.textContent = item.note;
+    inline(blurb, item.note);
     div.appendChild(blurb);
 
     container.appendChild(div);

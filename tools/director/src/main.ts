@@ -8,6 +8,7 @@ import { bindPalette } from "./palette.js";
 import { renderPlanned } from "./planned.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
+import { renderSpec } from "./spec.js";
 import { bindStage } from "./stage.js";
 import {
   type Brush,
@@ -17,7 +18,7 @@ import {
   refuse,
   type Store,
 } from "./state.js";
-import { bindTabs } from "./tabs.js";
+import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 
 /**
@@ -73,6 +74,7 @@ bindTuning(cfg, () => {
 renderShip(cfg);
 void renderPlanned();
 void renderConcepts();
+void renderSpec();
 
 /**
  * The brush description text (`.hint`, e.g. a blurb like "Dead rock. Cannot
@@ -178,6 +180,7 @@ async function load(): Promise<void> {
 }
 
 bindTabs("#tabs");
+bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {
   if (!store.dirty) return;

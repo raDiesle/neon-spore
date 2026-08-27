@@ -88,8 +88,22 @@ One device today.
     const sheet = parseConcepts(couplings, assists, systems, ideas);
 
     expect(sheet.couplings).toEqual([
-      { name: "Warding", status: "built", note: "Both halves.", table: null },
-      { name: "Marking", status: "not built", note: "Needs re-inventing.", table: null },
+      {
+        name: "Warding",
+        status: "built",
+        note: "Both halves.",
+        table: null,
+        detail: "Both halves.",
+        ref: "couplings.md 1.",
+      },
+      {
+        name: "Marking",
+        status: "not built",
+        note: "Needs re-inventing.",
+        table: null,
+        detail: "Needs re-inventing.",
+        ref: "couplings.md 2.",
+      },
     ]);
 
     expect(sheet.assists).toEqual([
@@ -98,23 +112,39 @@ One device today.
         status: "",
         note: "",
         table: { headers: ["Form", "Price"], rows: [["Share sight", "fainter"]] },
+        detail: "| Form | Price |\n|---|---|\n| Share sight | fainter |",
+        ref: "assists.md 6.1",
       },
     ]);
 
     expect(sheet.systems).toEqual([
-      { name: "Information split", status: "not built", note: "One device today.", table: null },
+      {
+        name: "Information split",
+        status: "not built",
+        note: "One device today.",
+        table: null,
+        detail: "One device today.",
+        ref: "systems.md 5.2",
+      },
     ]);
 
     expect(sheet.ideas).toEqual([
-      { name: "Echo", note: "a creature appears one second earlier for one player" },
+      {
+        name: "Echo",
+        note: "a creature appears one second earlier for one player",
+        ref: "ideas.md",
+      },
       {
         name: "Reverb",
         note: "repeats an action with a delay (a different thing from the Echo; see the name clash in bestiary)",
+        ref: "ideas.md",
       },
-      { name: "Moulting", note: "" },
+      { name: "Moulting", note: "", ref: "ideas.md" },
     ]);
 
-    expect(sheet.deferred).toEqual([{ name: "Freighter", note: "overlaps with the runt" }]);
+    expect(sheet.deferred).toEqual([
+      { name: "Freighter", note: "overlaps with the runt", ref: "ideas.md" },
+    ]);
   });
 
   test("parses the real spec files without throwing", async () => {
@@ -131,5 +161,11 @@ One device today.
     expect(sheet.couplings.length).toBeGreaterThan(0);
     expect(sheet.systems.length).toBeGreaterThan(0);
     expect(sheet.ideas.length).toBeGreaterThan(0);
+
+    // A concept's detail is the section as written, not the sentence the panel
+    // used to show — warding is the argument the whole control model rests on.
+    const warding = sheet.couplings.find((c) => c.name === "Warding");
+    expect(warding?.detail).toContain("column four, I trigger on the three");
+    expect(warding?.detail.length).toBeGreaterThan(warding?.note.length ?? 0);
   });
 });

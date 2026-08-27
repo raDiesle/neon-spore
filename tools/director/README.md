@@ -99,6 +99,23 @@ here. Whether something counts as built is derived the same way — the
 simulation's own creature table is the only thing that decides it, not a flag
 somebody set.
 
+**A row that has more to say says it.** The table cell is a label; the design
+is the paragraph the spec spends on that name further down the page. A panel
+that shows the first and drops the second gives the Jammer as one sentence
+where `bestiary.md` argues it in four. So every entry the spec says more about
+carries `FULL TEXT`, shut, naming the file and section it opens; a boss opens
+its whole write-up, tables and all. `EXPAND ALL` at the top of a panel opens
+every one of them at once, for the reading where you want the tab rather than
+an entry. The markdown is rendered rather than shown raw —
+`packages/render` stays a link's text, not a URL beside it — by
+`src/markdown.ts`, which handles what the spec actually writes and is tested
+against a document stub in `test/markdown.test.ts`.
+
+Which paragraph belongs to which name is not guessed twice: a block that opens
+`**The Jammer — …**` goes to the Jammer, and a block with no bold lead of its
+own stays with the block above it, which is how "Two requirements, unchanged
+from the original draft" stays attached to The Blind One.
+
 What it is for: the palette answers what you can place, and this answers what
 the wave you are writing is eventually going to sit inside. A wave built around
 a mechanic that does not exist yet is worth knowing about while you are writing
@@ -106,6 +123,24 @@ it, not afterwards.
 
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
+
+## The spec itself
+
+`SPEC` is every file in `docs/spec/`, read off disk and rendered, one expander
+each with its opening line as the summary.
+
+It is the catch-all, and it exists because a parse is a choice about what to
+keep. The other tabs turn the design into entries with a name and a badge, and
+the naming rules, the categories, the names that were examined and rejected and
+the ceiling on how many silhouettes stay distinct over a voice channel are none
+of them an entry. Neither is the whole of overview, structure, graphics or
+latency. Rather than grow a panel for each, the tab hands over the files: the
+server reads the directory, so a spec file added tomorrow appears here without
+anything being added to a list.
+
+Nothing on it is editable. The spec is argued over in the repository; this is
+the copy you read while writing a wave, so the answer to "what does the spec
+say about this" does not need a second window.
 
 ## The balance sheet
 

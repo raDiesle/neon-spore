@@ -5,6 +5,7 @@
  * maintains a second copy.
  */
 
+import { detailBox, inline } from "./markdown.js";
 import { hasSilhouette, silhouette } from "./silhouette.js";
 
 interface Planned {
@@ -12,6 +13,8 @@ interface Planned {
   kind: string;
   note: string;
   built: boolean;
+  detail: string;
+  ref: string;
 }
 
 interface Roster {
@@ -58,11 +61,19 @@ function renderGroup(container: HTMLElement, heading: string, items: Planned[]):
     }
 
     if (item.note) {
+      // Through the inline renderer, not as plain text: the cells carry the
+      // spec's own emphasis and code spans, and "a trace of its *future*
+      // movement" printed with the asterisks in it reads worse, not more
+      // faithfully.
       const blurb = document.createElement("p");
       blurb.className = "blurb";
-      blurb.textContent = item.note;
+      inline(blurb, item.note);
       div.appendChild(blurb);
     }
+
+    // The table cell is a label; the paragraphs the spec spends on a name are
+    // the design. The Jammer had three of them that this panel never showed.
+    if (item.detail) div.appendChild(detailBox(item.detail, item.ref));
 
     container.appendChild(div);
   }

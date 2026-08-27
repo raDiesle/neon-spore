@@ -78,3 +78,61 @@ export function firstTable(lines: string[]): string[][] | null {
   }
   return rows.length > 0 ? rows : null;
 }
+
+/**
+ * The section verbatim — every line under the heading, blank edges trimmed.
+ * `firstParagraph` answers "what is this in one line"; this answers "show me
+ * everything the spec says about it", which is the whole reason the panels
+ * stopped being a list of one-liners.
+ */
+export function sectionBody(lines: string[]): string {
+  return lines
+    .join("\n")
+    .replace(/^\s*\n+/, "")
+    .replace(/\s+$/, "");
+}
+
+export interface ProseBlock {
+  /** The `**bold**` the block opens with, if any — the spec's way of saying what it is about. */
+  lead: string;
+  text: string;
+}
+
+/**
+ * The blank-line-separated blocks of a section, tables left out because
+ * `firstTable` already reads those. The lead is what lets a paragraph be
+ * handed to the entry it argues about rather than shown as loose prose.
+ */
+export function proseBlocks(lines: string[]): ProseBlock[] {
+  const blocks: ProseBlock[] = [];
+  let current: string[] = [];
+
+  const flush = (): void => {
+    const text = current.join("\n");
+    current = [];
+    if (text.trim() === "" || text.trim().startsWith("|")) return;
+    blocks.push({ lead: text.match(/^\*\*([^*]+)\*\*/)?.[1]?.trim() ?? "", text });
+  };
+
+  for (const line of lines) {
+    if (line.trim() === "") flush();
+    else current.push(line);
+  }
+  flush();
+  return blocks;
+}
+
+/** The lines under the first `##` heading containing `needle`, up to the next one. */
+export function sectionNamed(text: string, needle: string): string[] {
+  const lines: string[] = [];
+  let inside = false;
+  for (const line of text.split(/\r?\n/)) {
+    if (line.startsWith("##")) {
+      if (inside) break;
+      if (line.includes(needle)) inside = true;
+      continue;
+    }
+    if (inside) lines.push(line);
+  }
+  return lines;
+}
