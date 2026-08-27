@@ -82,11 +82,59 @@ export const TILT_RIPPLE: OwnMotion = {
 };
 
 /**
+ * The runt: a tight, arrhythmic tremor that never travels and never settles
+ * into a rhythm. Three frequencies with no common period, so the body never
+ * completes one clean rock the way the slick or the bulb does — that absence
+ * of a rhythm is the whole point. A creature you must not shoot has to read
+ * as *helpless* rather than as a slick drawn smaller, and a confident glide
+ * or a lagging tilt both say "in control of where it is going." A tremor
+ * says the opposite: too small to do anything but shake.
+ */
+export const TREMBLE: OwnMotion = {
+  name: "TREMBLE",
+  note: "tight, arrhythmic shiver, no drift and no lag — too small to glide",
+  poseAt(t) {
+    const jitter = Math.sin(t * 8.7) * 0.035 + Math.sin(t * 13.1) * 0.02 + Math.sin(t * 5.3) * 0.02;
+    return {
+      dx: jitter,
+      dy: Math.sin(t * 9.9) * 0.02,
+      rot: Math.sin(t * 11.3) * 0.08,
+      sx: 1,
+      sy: 1,
+    };
+  },
+};
+
+/**
+ * The throb: the smallest motion here, on purpose. `Creature.throbOpen`
+ * already swells and shrinks it on the shared beat (`render/creatures.ts`),
+ * and that pulse is nearly load-bearing — it is what tells the pair when to
+ * fire. A tilt or a pump layered on top would still be legible on its own,
+ * but next to the beat it reads as a second signal fighting the first: a
+ * body saying "now" cannot also be saying "and also this." So no rotation,
+ * no scale — either would move the same silhouette the beat is already
+ * moving, and a player would have to separate the beat's swell from the
+ * body's own sway to find the one that matters. What is left is a drift too
+ * small and too slow to compete with anything, there only so the throb does
+ * not read as a dead thing between beats.
+ */
+export const HOLD: OwnMotion = {
+  name: "HOLD",
+  note: "a small, slow drift and nothing else — the beat's own swell is the whole of what it says",
+  poseAt(t) {
+    return { dx: Math.sin(t * 0.6) * 0.04, dy: 0, rot: 0, sx: 1, sy: 1 };
+  },
+};
+
+/**
  * The motion a living kind is drawn with. Call this rather than writing
  * `kind === "bulb" ? SWAY_PUMP : TILT_RIPPLE` by hand, for the same reason
  * `livingSilhouette` exists: the pairing of a kind to its picture is one fact,
  * and a second copy of it is how a creature ends up swaying like the other one.
  */
 export function livingMotion(kind: CreatureKind): OwnMotion {
-  return kind === "bulb" ? SWAY_PUMP : TILT_RIPPLE;
+  if (kind === "bulb") return SWAY_PUMP;
+  if (kind === "runt") return TREMBLE;
+  if (kind === "throb") return HOLD;
+  return TILT_RIPPLE;
 }

@@ -86,6 +86,16 @@ the original thirteen. Runt and throb are the next two of that thirteen —
 neither needed a new control group, only an entry and a state machine (see
 THE RUNT and ON THE BEAT waves, and `.claude/skills/new-creature`).
 
+Runt and throb each carry their own entry in `packages/content/src/own-motion.ts`
+now, rather than falling back to the slick's `TILT_RIPPLE`. The runt's is
+`TREMBLE` — a tight, arrhythmic shiver with no drift and no lag, so it reads as
+too small and scared to glide rather than as a slick drawn smaller. The
+throb's is `HOLD`, deliberately the smallest motion in the file: its swell on
+the shared beat (`Creature.throbOpen`, `render/creatures.ts`) is what tells the
+pair when to fire, and a body that also tilted or pumped on its own would be
+saying two things at once. `HOLD` never rotates and never scales, so nothing
+in the own-motion layer competes with that beat.
+
 **The pod is built, and it is not a creature.** It carries no colour, is never
 cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its
 own list on the wave, its own list in the world. Shooting it loose needs both

@@ -1,5 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { livingMotion, type OwnMotion, REST, SWAY_PUMP, TILT_RIPPLE } from "../src/own-motion.js";
+import {
+  HOLD,
+  livingMotion,
+  type OwnMotion,
+  REST,
+  SWAY_PUMP,
+  TILT_RIPPLE,
+  TREMBLE,
+} from "../src/own-motion.js";
 
 /**
  * Spec 5.8: own-motion may not touch the lane. A creature that swayed half a
@@ -14,8 +22,19 @@ function samples(m: OwnMotion): ReturnType<OwnMotion["poseAt"]>[] {
   return out;
 }
 
+/** The furthest a motion's own signal reaches, all four channels summed. */
+function reach(m: OwnMotion): number {
+  let worst = 0;
+  for (const p of samples(m)) {
+    const r =
+      Math.abs(p.dx) + Math.abs(p.dy) + Math.abs(p.rot) + Math.abs(p.sx - 1) + Math.abs(p.sy - 1);
+    if (r > worst) worst = r;
+  }
+  return worst;
+}
+
 describe("own-motion", () => {
-  for (const m of [SWAY_PUMP, TILT_RIPPLE]) {
+  for (const m of [SWAY_PUMP, TILT_RIPPLE, TREMBLE, HOLD]) {
     it(`${m.name} stays inside its column`, () => {
       for (const p of samples(m)) {
         expect(Math.abs(p.dx)).toBeLessThan(LANE_LIMIT);
@@ -44,6 +63,31 @@ describe("own-motion", () => {
   it("pairs each living kind with its own motion", () => {
     expect(livingMotion("bulb")).toBe(SWAY_PUMP);
     expect(livingMotion("slick")).toBe(TILT_RIPPLE);
+    expect(livingMotion("runt")).toBe(TREMBLE);
+    expect(livingMotion("throb")).toBe(HOLD);
+  });
+
+  it("the runt and the throb no longer borrow the slick's tilt", () => {
+    // The bug this file exists to fix: both used to fall through to
+    // TILT_RIPPLE, so the runt twitched like a slick and the throb tilted
+    // like one.
+    expect(livingMotion("runt")).not.toBe(TILT_RIPPLE);
+    expect(livingMotion("throb")).not.toBe(TILT_RIPPLE);
+  });
+
+  it("the throb's own-motion is the smallest of the four — it must not compete with the beat", () => {
+    const throbReach = reach(HOLD);
+    expect(throbReach).toBeLessThan(reach(SWAY_PUMP));
+    expect(throbReach).toBeLessThan(reach(TILT_RIPPLE));
+    expect(throbReach).toBeLessThan(reach(TREMBLE));
+  });
+
+  it("the throb never rotates or scales — either would shadow throbOpen's own pulse", () => {
+    for (const p of samples(HOLD)) {
+      expect(p.rot).toBe(0);
+      expect(p.sx).toBe(1);
+      expect(p.sy).toBe(1);
+    }
   });
 
   it("rests at the identity", () => {
