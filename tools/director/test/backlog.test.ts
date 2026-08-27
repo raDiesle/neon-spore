@@ -77,6 +77,11 @@ describe("buildBacklog", () => {
     expect(names(backlog.mechanics)).toContain("Reverse wave");
     expect(names(backlog.controls)).toContain("Inverted instructions");
 
+    // A boss idea sits with the act order rather than among the creatures:
+    // it is a whole encounter waiting for a slot, not a thing that falls.
+    expect(names(backlog.bosses)).toContain("THE CHOIR");
+    expect(names(backlog.bestiary)).not.toContain("THE CHOIR");
+
     // And in exactly one of them — a name in two sections is a name that gets
     // worked on twice.
     const everywhere = [

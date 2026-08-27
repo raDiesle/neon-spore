@@ -1,9 +1,10 @@
 # Bosses
 
 > **Status: two built.** The Bulb Queen and THE MIRROR are in the game. Of the
-> remaining nine names none are, and the two worked-out ones depend on systems
-> that are also unbuilt — the second device for The Vessel, and destruction
-> tracking for The Mother.
+> remaining nine names none are. Three of them are worked out on this page, and
+> only one of the three is buildable today: The Vessel waits on a second device
+> and The Mother on destruction tracking, while **The Warden needs nothing that
+> does not already exist** — the grip, rocks, scars and the beat, all built.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -15,8 +16,8 @@ THE MIRROR is a twelfth, outside that order. It was built because it was asked
 for, and it holds no slot in the act structure yet — 11.3 says where it would
 fit if one is ever given to it.
 
-Only two of the eleven are worked out. The rest are names holding a slot in the
-act structure.
+Only three of the eleven are worked out. The rest are names holding a slot in
+the act structure.
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
 
@@ -180,3 +181,130 @@ is the same fight on both devices without a single draw from the rng.
 
 If the act structure ever wants it, its slot is The Echoes (90): a boss whose
 whole subject is repetition is the one the ninth pillar is already reaching for.
+
+## 11.4 The Warden — the eye that takes a hand off you
+
+> The one where it holds one of your controls and only the other one of you can
+> get it back.
+
+A third boss for a third question. The Queen is about **what you know** and THE
+MIRROR about **what you remember**; the Warden is about **what your hands are
+free to do**. It splits no information at all — both screens show everything it
+does — because the Queen already owns that coupling and a second boss built on
+it would be a re-skin.
+
+**A ring with a hole in it.** Five columns wide, at `wardenRow`, dead centre,
+and it never walks: it is a fixture, not an arrival. What moves is the **pupil**
+— the hole slides a column a beat, back and forth inside the ring, so the column
+that matters changes while the body does not. Through the hole you see the
+field, the grid pulse and the stars behind it: the only object in the game you
+can see past.
+
+**The tether.** Every `wardenCycleBeats`, on beat 0, a line comes out of the rim
+and takes hold of one control — cannon, shield, cannon, strictly alternating, so
+the pair always knows whose turn it is to be helpless. A held control is
+**frozen**: a clamped cannon takes no `cannonCol`, a clamped shield no
+`shieldCol`, and those commands are *dropped rather than queued*, so the release
+cannot teleport the control to wherever a thumb wandered. The trigger and the
+maw keep working; it is the sliding that stops.
+
+It takes the control **where it stands**, and the line then runs straight down
+that column — so the column the pair will be stuck in, and the column the scar
+lands in if the rescue fails, is one they chose a cycle earlier. There is no
+homing and nothing to outrun: a control cannot be walked out from under a
+tether, only pulled free of one.
+
+**Only the player it is not holding may pull it.** That is the fight in one
+line. You get no leverage on your own tether, so the rescue falls to the other
+one every cycle and costs them their hand — a thumb on the line is a thumb off
+the strip below it. For those beats one of you is clamped and the other is
+holding, and between you there is one working control.
+
+`wardenPullBeats` of hold tears it out of the rim, and the hold **accumulates**
+rather than having to be unbroken: a slip on a phone should not cost a cycle.
+The line is its own progress bar, going white and thin from the rim down.
+
+**The clock never moves — only your choice of when to start.** The tether falls
+at `meteorMedium`'s speed, reaching the hull from `wardenRow` on cycle beat 6,
+and a hand slows it by `gripSlowPermille`, the same number every grip uses. So a
+late pull is a real trade rather than a mistake: the slowing still saves the
+hull, but the tear lands after beat 6 and the cycle opens nothing.
+
+| Cycle beat | What happens |
+|---|---|
+| 0 | the tether attaches, that control freezes, the rim takes the cycle's colour |
+| 0–6 | it draws straight down that column. Not shootable, not wardable |
+| 6–8 | **only if torn by 6:** the pupil snaps wide and the core stands in it |
+| 8 | the pupil shuts and **vents one rock** from its column, torn or not |
+| 12 | the next cycle, the other control |
+
+**One hit per opened eye**, in the pupil's column, in the colour the rim has
+carried all cycle — and the colour follows the clamp: a cannon cycle is red, a
+shield cycle cyan. One alternating parameter runs the whole fight. A second shot
+inside the same window does nothing; a spray must not be allowed to skip a
+plate.
+
+**A tether that reaches the hull costs `damageWarden` and a scar** at its
+column, then lets go. Nothing compounds — losing hull and losing the plate you
+would have taken is punishment enough without a spiral.
+
+**The vent is what keeps the shield honest.** A plain meteor takes twelve beats
+from `wardenRow` to the hull, exactly one cycle, so every rock the eye exhales
+arrives on beat 8 of the *following* cycle — during the next clamp, which on
+half the cycles is the shield's. The shield has to be parked in the vent's
+column before it is taken, and that is planned out loud a cycle ahead: "it's in
+six, put it there now, it comes for you next." Fixed and learnable from the
+first cycle, as 11.1 demands of The Mother.
+
+**Phases follow the plates and nothing else.** The ring wears `wardenPlates`
+and drops one per hit, leaving a gap that never fills, so the silhouette says
+how far in you are without a bar. Only how hard the pupil is to name and reach
+tightens; the timing never does.
+
+| Phase | Plates left | Pupil drift | Vent |
+|---|---|---|---|
+| WATCH | 5–4 | a column a beat | meteor |
+| NARROW | 3–2 | two a beat | meteor |
+| GLARE | 1 | two a beat | meteorMedium |
+
+**Nothing about it is random.** Like THE MIRROR it never draws from the rng —
+alternation, drift, colour and vent all follow from the cycle count.
+
+**The tether is the first `special` creature.** The bestiary reserves that
+category for something answered by neither cannon nor shield and says to leave
+it empty until one is designed ([bestiary](bestiary.md#categories)); a thing you
+can only put a hand on is exactly that. It carries no control group, so the band
+still shows `aim` and `guard` from the Warden itself, whose radar owner is
+`"p2"` and never fires — it is installed by a wave, not announced as an arrival.
+The vented rocks are ordinary meteors on P1's strip like every other rock.
+
+**Neither boss may be gripped, and that has to be one rule.** `setGrip` excludes
+the queen by naming her kind; a second name beside it is a second copy, and the
+next fixture makes it three. It becomes `isGrippable(kind)` in `types.ts`,
+called and not re-derived. What is clamped stays derived too — `cycle % 2`,
+never a stored field.
+
+**How it is drawn.** The ring is two contours from `blobRadiusMul` under
+different seeds, the inner one reversed so an even-odd fill leaves a real hole —
+the trick `circleSubpath` already plays for the hull's fire opening, so there is
+nothing new to invent. The pupil sits off-centre and slides, bunching the ring's
+material on one side and thinning it on the other: an eye looking sideways.
+
+The tether is the game's first **open** contour, `openSmoothPath`, taut, a slow
+wave travelling down it — and a hand on it **bows the line toward the finger**,
+stops the wave into a shiver, thins and brightens the stretch under tension, and
+snaps back with an overshoot when the hand lifts. The tear parts it at the rim;
+it whips down, lies limp across the field for a beat, goes out. The ring's
+recoil is what opens the pupil. The vented rock is drawn full size behind the
+closing iris and emerges as the aperture crosses it, so it reads as squeezed out
+rather than spawned.
+
+Everything held between frames — bow, tension, whip, dilation — lives in
+`Effects` and is cleared in `Effects.reset()`: `world.beat` is not monotonic
+across a restart, and `restart.test.ts` fails on a field that is not.
+
+**Where it would live.** `WardenState` joining the `BossState` union, a `warden`
+kind with `colSpan` 5 and a `tether` kind, the cycle in
+`packages/sim/src/warden.ts` dispatched from `stepBoss`, every number above a
+named field in `SimConfig`. Its wave is `THE WARDEN` and its sentence is the
+epigraph.

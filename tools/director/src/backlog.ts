@@ -168,7 +168,15 @@ export function buildBacklog(
         "Controls",
       ),
     ],
-    bosses: [fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses)],
+    bosses: [
+      fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses),
+      fromIdeas(
+        "BOSS IDEAS",
+        "encounters worked out and set aside, each naming the slot it would fit — ideas.md",
+        sheet,
+        "Bosses",
+      ),
+    ],
     parked: [
       {
         title: "DELIBERATELY DEFERRED",

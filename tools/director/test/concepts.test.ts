@@ -207,7 +207,7 @@ One device today.
     // silently vanish from every section of the page.
     expect(sheet.ideas.every((i) => i.group !== "")).toBe(true);
     expect(new Set(sheet.ideas.map((i) => i.group))).toEqual(
-      new Set(["Creatures", "Mechanics", "Controls"]),
+      new Set(["Creatures", "Bosses", "Mechanics", "Controls"]),
     );
   });
 });
