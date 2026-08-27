@@ -10,6 +10,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/decisions.md` | you are about to change a technology or a structural rule |
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
+| `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
@@ -158,6 +159,11 @@ history if the wording of a rejected idea is ever needed.
 | `tools/shape-sheet/src/forms.ts` | contour forms the game has no creature for yet |
 | `tools/shape-sheet/src/motions.ts` | the spare motions, unclaimed by anything |
 | `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |
+| `tools/checks/trailers.ts` | the `Check:` trailer: what a commit says nobody has looked at |
+| `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
+| `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |
+| `tools/checks/repo.ts` | the git and file calls behind it |
+| `tools/director/src/checks-page.ts` | the TO CHECK sheet, and the buttons that decide a check |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
 | `tools/relay-check/check.ts` | two headless devices against a real relay |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |

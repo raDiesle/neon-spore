@@ -147,6 +147,33 @@ from the original draft" stays attached to The Blind One.
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
 
+## TO CHECK
+
+`⚑ TO CHECK` in the header is the other full-screen sheet: what landed on
+`main` that a sandbox could not look at. It goes gold and carries a count when
+something is waiting, which is the whole point — a list nobody is told about is
+a list nobody reads.
+
+The list is **derived from the history**, not kept beside it. A commit that
+leaves something unlooked-at says so in a `Check:` trailer, and this page joins
+those against `docs/verified.md`, which holds the one thing nothing can derive:
+whether a person looked. `▶ RUN` appears on a check whose trailer names one of
+this repository's own commands, `✓ TESTED` and `✗ FAILED` record a verdict, and
+`▶ NEXT` steps down the list one at a time, because going through them is what
+this is for rather than reading them.
+
+A green command records its own pass. A red one records nothing — what a
+failing command wants is a fix, and closing it would take away the chance for
+the same check to go green once the fix lands.
+
+Underneath, the branches. One row per name whether it sits here, on origin or
+both; a branch whose work is on `main` and whose checks are all decided is
+spent, and `🗑 DELETE` takes the worktree, the branch and origin's copy. Nothing
+is forced, so a worktree with edits in it stops the whole thing and says so.
+
+`bun run checks` is the same list in a terminal, and `docs/verification.md` is
+the argument for the arrangement.
+
 ## The shape catalogue
 
 `SHAPES` is the other half of a pair. A creature in the bestiary is a behaviour

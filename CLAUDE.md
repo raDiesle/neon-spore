@@ -41,6 +41,14 @@ finished it is fast-forwarded or rebased onto `main`, then deleted along with
 the worktree. A temporary branch is never pushed — a cloud session's branch is
 the one exception, and the section after this one says why.
 
+**A branch outlives its landing by exactly as long as its checks do.** Work can
+reach `main` before anybody has looked at it, and a branch deleted at that
+moment takes with it the only handle on which landing a look belongs to. So a
+branch goes when `main` has its work *and* every `Check:` it carries has been
+decided — `bun run checks --clean`, or the button in the director. Nothing is
+forced: `git worktree remove` and `git branch -d` both refuse to lose work, and
+neither is argued with. `docs/verification.md` has the loop.
+
 A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
 copied from the main tree: the workspace links inside it point at the main
 tree's `packages/*` by absolute path, so a test there would run against
@@ -104,17 +112,33 @@ because it turns "not looked at" into "looked fine". If it turns out wrong,
 `main` takes the fix as its own commit; the history is linear and stays that
 way.
 
-**It cannot verify everything, and has to say which parts.** The sandbox has no
-wrangler, no `bun run delegate`, and no network access it did not arrange. It
-does have a headless Chromium, so a page can be opened, driven and
-screenshotted — what it cannot do is *look*, and those are different things: a
-green screenshot check says the DOM is there, not that the motion reads.
-`bun test` and the typecheck are the parts that hold unaided. Anything that
-would have needed `bun run relay:check`, a human eye on a shape sheet, or a
-wave watched at tempo is *unverified*, and the report says so in that word
-rather than offering a green check that covered less than usual. A wave whose
-timing was never watched is not finished, it is written — landed, now, but
-still written.
+**It cannot verify everything, and has to say which parts — in the commit.**
+The sandbox has no wrangler, no `bun run delegate`, and no network access it
+did not arrange. It does have a headless Chromium, so a page can be opened,
+driven and screenshotted — what it cannot do is *look*, and those are
+different things: a green screenshot check says the DOM is there, not that the
+motion reads. `bun test` and the typecheck are the parts that hold unaided.
+Anything that would have needed `bun run relay:check`, a human eye on a shape
+sheet, or a wave watched at tempo is *unverified*, and the report says so in
+that word rather than offering a green check that covered less than usual. A
+wave whose timing was never watched is not finished, it is written — landed,
+now, but still written.
+
+The report says it, and so does the commit. A report is read once, on a phone,
+and scrolled past; by the time there is a machine that can open a shape sheet,
+the list of what to open is four sessions up the transcript. So each thing gets
+a trailer, one line, prose:
+
+```
+Check: the hole still reads at 26 px on a phone
+Check: the flank torches do not clip the hull — `bun run shapes`
+```
+
+`bun run checks` and the director's `⚑ TO CHECK` derive the outstanding list
+from those trailers, and `docs/verified.md` records what has actually been
+looked at. **Not** for anything `bun run check` already proved — a list is only
+worth reading if everything on it is real. `docs/verification.md` has the whole
+loop, the ledger and how a branch is retired once its checks are decided.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
@@ -168,6 +192,7 @@ bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
+bun run checks         # what landed on main that nobody has looked at yet
 ```
 
 ## Delegating implementation

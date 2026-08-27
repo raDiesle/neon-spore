@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { bindChecks } from "./checks-page.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
@@ -177,6 +178,7 @@ async function load(): Promise<void> {
 
 bindTabs("#tabs");
 bindBacklog();
+bindChecks();
 bindSoundPage();
 bindExpanders();
 

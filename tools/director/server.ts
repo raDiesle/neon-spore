@@ -5,6 +5,7 @@ import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { buildBacklog } from "./src/backlog.js";
+import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
 import { serializeWaves } from "./src/serialize.js";
 
 /**
@@ -192,6 +193,31 @@ const server = Bun.serve({
           headers: noCache,
         });
       }),
+    },
+
+    /**
+     * TO CHECK: what landed on `main` that only this machine can look at.
+     *
+     * The list is derived from `Check:` trailers in the history — a cloud
+     * session cannot open a shape sheet or watch a wave at tempo, so it names
+     * what it left unlooked-at in the commit itself. `docs/verified.md` holds
+     * the other half, which nothing can derive: whether somebody looked.
+     */
+    "/api/checks": {
+      GET: withIdle(() => checksState(repoRootPath)),
+    },
+
+    "/api/checks/decide": {
+      POST: withIdle((req) => checksDecide(repoRootPath, req)),
+    },
+
+    "/api/checks/run": {
+      POST: withIdle((req) => checksRun(repoRootPath, req)),
+    },
+
+    /** Deleting a branch is a button, never a consequence of loading a page. */
+    "/api/checks/clean": {
+      POST: withIdle((req) => checksClean(repoRootPath, req)),
     },
 
     /**

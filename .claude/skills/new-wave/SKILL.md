@@ -63,3 +63,14 @@ bun run check
 
 The content tests verify the one-sentence test, the column range and that the
 queue builds identically every time.
+
+Neither of them watches the wave. Whether the cannon has time to get there is
+a thing a person sees at tempo in the director, so a wave landed without that
+having happened carries the fact in its commit:
+
+```
+Check: THE WALL at 96 BPM — does the cannon reach column 6 before beat 9
+```
+
+`bun run checks` and the director's `⚑ TO CHECK` collect them. See
+`docs/verification.md`.

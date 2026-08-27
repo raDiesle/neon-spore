@@ -228,6 +228,55 @@
         padding: 10px 20px 0; 
       }
       #backlogBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      /* TO CHECK. Same full-screen sheet as the backlog, and for the same
+         reason: it is read between pieces of work, not beside one. */
+      #checks { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
+      #checks.on { display: flex; flex-direction: column; }
+      #checks > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #checks .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #checks .sub { color: var(--dim); font-size: 10px; }
+      #checks > header button { margin-left: auto; }
+      #checksBar {
+        display: flex; align-items: center; gap: 8px; flex: 0 0 auto; padding: 10px 20px 0;
+      }
+      #checksBody {
+        flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px;
+        max-width: 900px;
+      }
+      /* A count on the button, because the whole point is being told without
+         having to ask. Gold when something is waiting. */
+      #checksOpen.waiting { color: var(--gold); border-color: var(--gold); }
+      #checksBody .commit { margin: 0 0 16px; }
+      #checksBody .commit-head {
+        display: flex; align-items: baseline; gap: 8px;
+        border-bottom: 1px solid var(--line-soft); padding-bottom: 3px; margin-bottom: 5px;
+        color: var(--cyan); font-size: 10px; letter-spacing: 2px;
+      }
+      #checksBody .commit-head .subject { color: var(--ink); letter-spacing: 0; }
+      #checksBody .commit-head .when { margin-left: auto; color: var(--dim); }
+      .check { border: 1px solid transparent; border-radius: 6px; padding: 4px 6px; }
+      .check.now { border-color: var(--gold); background: #14102b; }
+      .check.is-done { opacity: .55; }
+      .check-head { display: flex; align-items: center; gap: 8px; }
+      .check-head .mark { color: var(--gold); width: 12px; }
+      .check.is-done .mark { color: var(--dim); }
+      .check-head .what { flex: 1 1 auto; min-width: 0; font-size: 11px; }
+      .check-head .stamp { color: var(--dim); font-size: 9px; letter-spacing: 1px; }
+      .check-fail { display: flex; gap: 6px; margin: 4px 0 0 20px; }
+      .check-fail input { flex: 0 1 420px; }
+      .check-fail button { white-space: nowrap; }
+      .check-out {
+        margin: 4px 0 0 20px; padding: 6px 8px; background: #0a0719; border-radius: 5px;
+        color: var(--red); font-size: 9px; white-space: pre-wrap; max-height: 220px;
+        overflow-y: auto;
+      }
+      #checksBody details > summary {
+        cursor: pointer; color: var(--dim); font-size: 10px; letter-spacing: 2px; margin: 12px 0;
+      }
+
       /* The sound catalogue's own sheet, built like the backlog's for the
          same reason: a row carrying a contour, a paragraph and a plot does not
          fit in a 300px authoring column. */
@@ -374,6 +423,7 @@
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
       <span class="spacer"></span>
+      <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
@@ -485,6 +535,25 @@
 
     <!-- The backlog. Outside <main> because it covers it: the editor is about
          one wave, and this is about everything that is not in the game yet. -->
+    <!-- What landed on main that only this machine can look at. The list is
+         derived from `Check:` trailers in the history; the ticks are the one
+         thing written down, in docs/verified.md. -->
+    <div id="checks">
+      <header>
+        <span class="title">TO CHECK</span>
+        <span class="sub">
+          what landed on main that a sandbox could not look at — tick it once you have
+        </span>
+        <button type="button" id="checksClose">✕ CLOSE</button>
+      </header>
+      <div id="checksBar">
+        <button type="button" id="checksNext">▶ NEXT</button>
+        <button type="button" id="checksRunAll">▶ RUN THE COMMANDS</button>
+        <span class="note" id="checksCount" style="margin: 0"></span>
+      </div>
+      <div id="checksBody"></div>
+    </div>
+
     <div id="backlog">
       <header>
         <span class="title">NOT BUILT YET</span>
