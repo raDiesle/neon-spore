@@ -473,8 +473,10 @@ three states are told apart rather than merged — an **idea** nobody has
 decided on, an **intention** somebody has (the queue), and a **design** with
 numbers already in it. Merging those is how the list stops being read.
 
-**Behind `claude/burn-mechanics-registry-m1`**, which is what lets the sheet
-subtract what is built rather than guess at it.
+**Only the subtraction waits on `claude/burn-mechanics-registry-m1`.** Showing
+the queue and the design documents needs no registry at all — they are files,
+and none of them claims to know what is built. Do that half first and land it;
+hiding what is already built is a second commit once the registry exists.
 
 ## A CHECK SAYS WHAT TO LOOK AT AND NEVER WHERE TO STAND
 _claude/burn-checks-hint-h1 · tools/checks/hint.ts tools/checks/checks.ts_
