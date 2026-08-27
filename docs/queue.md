@@ -455,4 +455,32 @@ honest definition of "every feature".
 
 **Behind both lanes above.**
 
+## NOT BUILT YET KNOWS THE SPEC AND NOTHING ELSE
+_claude/burn-backlog-whole-m4 · tools/director/src/backlog.ts tools/director/src/concepts.ts_
+
+The ◇ NOT BUILT YET sheet derives itself from `docs/spec/` — the bestiary,
+the bosses, the couplings, the assists, the systems, the idea store, the
+interludes, and `docs/parked.md`. That was the whole of the unbuilt surface
+when it was written and it is not any more.
+
+What it cannot see today: `docs/queue.md`, which holds two dozen lanes that
+are **decided and not yet done** — the state between an idea and a landing,
+and the one a person most wants to look at; the three design documents this
+session produced (`docs/versus.md`, `docs/teaching.md`, `docs/alive.md`),
+each carrying concrete unbuilt work with numbers in it; and the transfer
+documents, where a good half of the ideas the bestiary and the bosses draw on
+still sit unclaimed.
+
+So a person opening the sheet to ask *what is left* gets a confident partial
+answer, which is the same failure as the brushes and the false unbuilt
+interlude: a tool asserting completeness it does not have.
+
+Finished when everything unbuilt is reachable from that sheet, and when the
+three states are told apart rather than merged — an **idea** nobody has
+decided on, an **intention** somebody has (the queue), and a **design** with
+numbers already in it. Merging those is how the list stops being read.
+
+**Behind `claude/burn-mechanics-registry-m1`**, which is what lets the sheet
+subtract what is built rather than guess at it.
+
 
