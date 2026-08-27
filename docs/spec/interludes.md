@@ -142,25 +142,28 @@ Says round is the interlude *inside* it. Both readings are true and the
 distinction is worth keeping: a boss may contain an interlude, an interlude is
 never a boss.
 
-## The question the whole page hangs on
+## The question the whole page hung on, now answered
 
-`CLAUDE.md` rule: **nothing the players control travels the field.** No flight,
-thrust, dodge or jump. It is the sentence that makes this game the game it is,
-and it is the reason the cannon slides along a fixed hull instead of flying.
+`CLAUDE.md` rule: **on the field, nothing the players control travels.** No
+flight, thrust, dodge or jump. It is the sentence that makes this game the game
+it is, and it is the reason the cannon slides along a fixed hull instead of
+flying.
 
-Every idea in [the idea store's interlude group](ideas.md#interludes) is
-written on the reading that this rule is about **the hull, on the field**, and
-that a round with no hull and no field is outside its scope. That reading is
-not obviously right. It is not obviously wrong either — the rule exists so that
-two people naming a column mean the same column, and an interlude with no
-columns has nothing to disagree about.
+Every idea in [the idea store's interlude group](ideas.md#interludes) was
+written on the reading that the rule is about **the hull, on the field**, and
+that a round with no hull and no field is outside its scope. **That reading is
+the correct one**, and `docs/decisions.md` #21 now says so: the owner settled
+it, and settled it that way because the rule as a statement about the whole
+game was simply wrong.
 
-**It still needs a decision in `docs/decisions.md`, and the shell being built
-does not make it.** THE GAUGE was chosen to go first partly because it does not
-need the relaxation: a needle is not a thing that travels a field, it is a
-number in thousandths. The candidates that do need it are still waiting on the
-answer, and the snake is the first that genuinely tests the question rather
-than itself.
+What the rule is for is keeping the field a place where two people talk about
+**columns** — everything there has one, and "column four, on the three" is a
+complete instruction because of it. None of that reasoning reaches a round with
+no columns. So THE CLAW, THE BELT and THE WELL are not asking for a relaxation
+and never were; they are outside the sentence.
+
+THE GAUGE still went first, and for a better reason than caution: it is the
+smallest, so the shell it dragged in was the visible part of the work.
 
 ## What an interlude is drawn out of
 

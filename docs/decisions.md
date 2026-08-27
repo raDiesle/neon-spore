@@ -485,3 +485,56 @@ presses counted, so the check lives in the simulation.
 something back to the wave that follows it. Either would reopen the seam, and
 the second is the likelier.
 
+## 21. The no-travel rule is about the field, not about the game
+
+*August 2026.* `CLAUDE.md` said "nothing the players control travels the
+field", and every reader took the sentence to bind the whole game — including
+`docs/spec/interludes.md`, which asked for this entry before any round that
+moves something could be built. The owner has settled it: the rule is scoped
+to the field, and it was incorrect as a rule about the game.
+
+What it is actually for is keeping the field a place where two people talk
+about **columns**. A cannon that slides, a shield that covers, a creature that
+falls: everything on the field has a column, and the whole control scheme
+exists so that "column four, on the three" is a complete instruction. Free
+movement would replace that with a shared reflex, which is the argument
+`docs/decisions.md` #2 already made when the raster model beat free flight.
+
+None of that reasoning reaches an interlude. A round that is not the field has
+its own rules, its own controls and its own picture (`#20`), and a claw on a
+rail, a belt that carries things sideways or a well the creatures fall into is
+not a violation of anything — those three are THE CLAW, THE BELT and THE WELL
+in `docs/spec/interludes.md`, and all three were blocked on this sentence.
+
+**Reconsider if:** an interlude's movement starts leaking back into how the
+field is described — if a round teaches a gesture the field then has to
+refuse, the two halves have stopped being different rounds and are competing.
+
+## 22. A branch is swept as soon as its work is on main, and main is pushed
+
+*August 2026.* Two rules in `CLAUDE.md` were written for a repository that had
+never run more than one branch at a time, and one day of parallel lanes showed
+both to be wrong.
+
+**Branches outlived their landing until every `Check:` had been decided.** The
+stated reason was that a branch is the only handle on which landing a look
+belongs to — which was not true when it was written and is not true now. A
+check is derived from the commit carrying the trailer, and `bun run checks`
+prints it under that commit's sha and subject; the branch rows are a
+convenience built on top. What keeping them actually bought was twenty-seven
+standing worktrees in a day, and a list nobody reads.
+
+**`main` was not pushed unless asked.** The reason given was that not pushing
+costs nothing on this machine, because the work is already where the person
+is. That ignored the other reader: a session started from a phone clones
+`origin`, so an unpushed `main` briefs it on code that does not exist. The
+same file already called this a trap in its cloud section and then instructed
+the opposite here.
+
+Both are reversed. A landed lane is swept without being asked, and `main` is
+pushed when it has landed something.
+
+**Reconsider if:** more than one person works on this repository. Both new
+rules assume the pusher is also the only reviewer, and a sweep that deletes a
+branch someone else is reading is a different thing entirely.
+

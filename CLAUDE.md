@@ -3,10 +3,17 @@
 Two-player co-op game. Two people, two devices, two different views. Talking is
 not a help, it is the control scheme. Portrait mobile web.
 
-Set in space; the nearest comparable game is Spaceteam. **Nothing the players
-control travels the field** — no flight, thrust, dodge or jump. There is a
-fixed hull, a cannon that slides along it, and a shield. The forms are blobs
-and slimes: closed contours with lobes (`blobPath`, `hullRadiusMul`).
+Set in space; the nearest comparable game is Spaceteam. **On the field,
+nothing the players control travels** — no flight, thrust, dodge or jump.
+There is a fixed hull, a cannon that slides along it, and a shield. The forms
+are blobs and slimes: closed contours with lobes (`blobPath`, `hullRadiusMul`).
+
+That sentence used to be about the game rather than about the field, and it
+was wrong that way round. It exists to keep the *field* a place where the two
+players talk about columns instead of dodging, and it earns nothing outside
+it — an interlude is a round with its own rules and its own picture, and one
+that moves a claw along a rail is not a violation of anything. See
+`docs/decisions.md` #21.
 
 ## The rules that are not negotiable
 
@@ -41,13 +48,20 @@ finished it is fast-forwarded or rebased onto `main`, then deleted along with
 the worktree. A temporary branch is never pushed — a cloud session's branch is
 the one exception, and the section after this one says why.
 
-**A branch outlives its landing by exactly as long as its checks do.** Work can
-reach `main` before anybody has looked at it, and a branch deleted at that
-moment takes with it the only handle on which landing a look belongs to. So a
-branch goes when `main` has its work *and* every `Check:` it carries has been
-decided — `bun run checks --clean`, or the button in the director. Nothing is
-forced: `git worktree remove` and `git branch -d` both refuse to lose work, and
-neither is argued with. `docs/verification.md` has the loop.
+**A branch goes as soon as `main` has its work.** It used to outlive its
+landing until every `Check:` it carried had been decided, on the reasoning
+that a branch is the only handle on which landing a look belongs to. That
+reasoning was false and had been false since `tools/checks` was written: a
+check is derived from the **commit** that carries the trailer, and
+`bun run checks` lists it under that commit's own sha and subject. The branch
+rows beside it are a convenience. Nothing is lost by deleting one, and what
+was lost by keeping them was legibility — a day of lanes left twenty-seven
+worktrees standing, and a list that long is not read.
+
+So a landed lane is swept: `bun run checks --clean`, or the button in the
+director, and an autonomous run does it without being asked. Nothing is
+forced even so — `git worktree remove` and `git branch -d` both refuse to lose
+work, and neither is argued with. `docs/verification.md` has the loop.
 
 A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
 copied from the main tree: the workspace links inside it point at the main
@@ -68,8 +82,14 @@ Four conditions, all of them:
 4. One commit per coherent change. Unrelated work that was already lying in the
    tree gets its own commit, or none.
 
-Say what was committed. Do not push unless asked — on this machine. In a cloud
-session that rule inverts; see below.
+Say what was committed, and **push `main` when it has landed something**. That
+rule used to be the other way round on this machine, on the reasoning that not
+pushing cost nothing because the work was already where the human was. It cost
+something the first day anybody worked at volume: forty-seven commits sat on a
+local `main` that `origin` had never seen, which is exactly the trap the cloud
+section below describes — a session started from a phone clones `origin` and
+is briefed on code that is not there. The saving was never real and the trap
+always was.
 
 ## Working in a cloud session
 
