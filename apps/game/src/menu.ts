@@ -1,5 +1,6 @@
-import { WAVES } from "@neon-spore/content";
+import { type MechanicId, WAVES } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
+import type { DemoRow } from "./demo-menu.js";
 import { buildMenu } from "./menu-view.js";
 
 /**
@@ -31,6 +32,10 @@ export interface MenuBindings {
   setSeat: (role: ViewRole) => void;
   openRoom: () => void;
   openTuning: () => void;
+  /** One row per mechanic — see `demo-menu.ts`. */
+  demos: DemoRow[];
+  /** Switches the run to the demonstration's config and opens its wave. */
+  openDemo: (id: MechanicId) => void;
 }
 
 export function bindMainMenu(b: MenuBindings): void {
@@ -52,6 +57,12 @@ export function bindMainMenu(b: MenuBindings): void {
     b.setRunning(true);
     close();
   };
+  /** The one way in that also turns switches on before the wave starts. */
+  const playDemo = (id: MechanicId): void => {
+    b.openDemo(id);
+    b.setRunning(true);
+    close();
+  };
 
   const dom = buildMenu({
     entries: [
@@ -64,6 +75,11 @@ export function bindMainMenu(b: MenuBindings): void {
         label: "WAVES",
         desc: `All ${WAVES.length} authored waves, each by the sentence it exists for.`,
         run: () => dom.show("waves"),
+      },
+      {
+        label: "DEMOS",
+        desc: `One wave per mechanic, ${b.demos.length} in all, already switched on.`,
+        run: () => dom.show("demos"),
       },
       {
         label: "TWO DEVICES",
@@ -87,7 +103,9 @@ export function bindMainMenu(b: MenuBindings): void {
         run: () => dom.show("keys"),
       },
     ],
+    demos: b.demos,
     onWave: play,
+    onDemo: playDemo,
     onSeat: (role) => {
       b.setSeat(role);
       dom.paintSeat(role);

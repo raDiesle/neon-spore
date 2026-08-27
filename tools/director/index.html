@@ -377,6 +377,32 @@
       .orphan-head .id { flex: 1 1 auto; letter-spacing: 2px; font-size: 12px; color: var(--ink); }
       .orphan-head .stamp { color: var(--dim); font-size: 9px; letter-spacing: 1px; }
       .orphan .what { font-size: 11px; margin: 6px 0 0; }
+
+      /* DEMOS. Same full-screen shell again — a mechanic whose named wave has
+         gone missing turns its row the same red an orphan gets, since both
+         are a registry claiming something the catalogue no longer has. */
+      #demos { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
+      #demos.on { display: flex; flex-direction: column; }
+      #demos > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #demos .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #demos .sub { color: var(--dim); font-size: 10px; }
+      #demos > header button { margin-left: auto; }
+      #demosBody {
+        flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px;
+        max-width: 700px;
+      }
+      .demo { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; margin: 0 0 12px; }
+      .demo.broken { border-color: var(--red); }
+      .demo-head { display: flex; align-items: center; gap: 8px; }
+      .demo-head .mark { color: var(--gold); }
+      .demo.broken .demo-head .mark { color: var(--red); }
+      .demo-head .id { flex: 1 1 auto; letter-spacing: 2px; font-size: 12px; color: var(--ink); }
+      .demo .wave { color: var(--dim); font-size: 10px; margin: 6px 0 0; }
+      .demo .what { font-size: 11px; margin: 4px 0 0; }
+      .demo.broken .what { color: var(--red); }
       .orphan .fix { color: var(--cyan); font-size: 10px; margin: 4px 0 0; }
 
       /* The sound catalogue's own sheet, built like the backlog's for the
@@ -555,6 +581,7 @@
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="orphansOpen">☠ ORPHANS 0</button>
+      <button type="button" id="demosOpen">▶ DEMOS</button>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
       <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
@@ -713,6 +740,22 @@
         <button type="button" id="orphansClose">✕ CLOSE</button>
       </header>
       <div id="orphansBody"></div>
+    </div>
+
+    <!-- DEMOS: one row per mechanic, read straight out of
+         `packages/content/src/waves-demo.ts`'s `DEMONSTRATIONS` table. OPEN
+         sets the wave and the config switches together — the same pair-panel
+         `cfg` this screen already plays — so seeing a mechanic never means
+         knowing its wave number or its switches by hand. -->
+    <div id="demos">
+      <header>
+        <span class="title">DEMOS</span>
+        <span class="sub">
+          one wave and one set of switches per mechanic — a name to click, not a wave number to know
+        </span>
+        <button type="button" id="demosClose">✕ CLOSE</button>
+      </header>
+      <div id="demosBody"></div>
     </div>
 
     <div id="states">

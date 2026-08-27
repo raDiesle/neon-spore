@@ -4,6 +4,7 @@ import { bindBacklog } from "./backlog-page.js";
 import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
+import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
@@ -78,11 +79,24 @@ bindTuning(cfg, () => {
 // `pair-panel.ts`. Same shape as `bindTuning` above: one `cfg`, one stage, so
 // a flip here replays the wave being edited under the new run rather than
 // asking which of several stages it meant.
-bindPairPanel(cfg, () => {
+const pair = bindPairPanel(cfg, () => {
   renderShip(cfg);
   stage.rebuild();
 });
 renderShip(cfg);
+// One wave and one set of switches per mechanic, opened in one click — see
+// `demo-panel.ts`. `refreshAll` is what every other jump to a wave already
+// runs through (`rail.ts`'s own selection), so a demo lands the stage, the
+// rail highlight and the briefing card in the same state a manual click would.
+// `pair.render()` and `renderShip` are added on top of that because a demo is
+// the one caller that changes `cfg`'s switches from outside `pair-panel.ts`
+// and `tuning.ts` — the two checkboxes and the ship sheet would otherwise go
+// on showing whatever they last painted.
+bindDemoPanel(store, cfg, () => {
+  refreshAll();
+  pair.render();
+  renderShip(cfg);
+});
 
 /**
  * The brush description text (`.hint`, e.g. a blurb like "Dead rock. Cannot

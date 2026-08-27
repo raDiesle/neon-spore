@@ -1,5 +1,6 @@
-import { BULB, blobPath, WAVES } from "@neon-spore/content";
+import { BULB, blobPath, type MechanicId, WAVES } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
+import type { DemoRow } from "./demo-menu.js";
 
 /**
  * The menu's markup, built here rather than written into index.html.
@@ -12,7 +13,7 @@ import type { ViewRole } from "@neon-spore/render";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-export type MenuPage = "root" | "waves" | "keys";
+export type MenuPage = "root" | "waves" | "demos" | "keys";
 
 export interface MenuEntry {
   label: string;
@@ -22,8 +23,12 @@ export interface MenuEntry {
 
 export interface MenuHandlers {
   entries: MenuEntry[];
+  /** One row per mechanic — see `demo-menu.ts`. */
+  demos: DemoRow[];
   /** A wave was picked out of the list. */
   onWave: (wave: number) => void;
+  /** A demonstration was picked out of the list. */
+  onDemo: (id: MechanicId) => void;
   onSeat: (role: ViewRole) => void;
 }
 
@@ -88,6 +93,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const pages: Record<MenuPage, HTMLElement> = {
     root: el("div", "page on"),
     waves: el("div", "page"),
+    demos: el("div", "page"),
     keys: el("div", "page"),
   };
   const show = (page: MenuPage): void => {
@@ -137,6 +143,16 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     pages.waves.append(button);
   });
 
+  pages.demos.append(backButton(show), el("h2", undefined, "DEMOS"));
+  h.demos.forEach((row) => {
+    const button = el("button", "wave");
+    button.type = "button";
+    button.append(el("span", "n", row.id));
+    button.append(el("span", "label", row.waveName), el("span", "s", row.what));
+    button.addEventListener("click", () => h.onDemo(row.id));
+    pages.demos.append(button);
+  });
+
   pages.keys.append(backButton(show), el("h2", undefined, "CONTROLS AT A DESK"));
   const table = el("table", "keys");
   for (const [key, what] of KEYS) {
@@ -160,7 +176,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     ),
   );
 
-  inner.append(pages.root, pages.waves, pages.keys);
+  inner.append(pages.root, pages.waves, pages.demos, pages.keys);
   document.body.append(root);
 
   return {

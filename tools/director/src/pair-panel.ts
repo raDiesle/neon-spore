@@ -23,56 +23,72 @@ import type { SimConfig } from "@neon-spore/sim";
  * blocks no headless caller, so it is not one of the three switches — but it
  * is the fourth invisible thing the brief named (the cannon's wind-up), so it
  * gets a row here rather than a fifth place in the editor to look for it.
+ *
+ * `render()` exists because this is no longer the only writer of `cfg`'s
+ * switches: `demo-panel.ts` sets them too, straight from `DEMONSTRATIONS`,
+ * and a checkbox painted once at `bindPairPanel` time would go on showing
+ * whatever it opened with. `main.ts` calls it after every demo, the same way
+ * it already calls `renderShip`.
  */
-export function bindPairPanel(cfg: SimConfig, onChange: () => void): void {
+export interface PairPanel {
+  render(): void;
+}
+
+export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   const mount = document.getElementById("pairPanel");
-  if (!mount) return;
+  const rows: { box: HTMLInputElement; get: () => boolean }[] = [];
+  if (!mount) return { render: () => {} };
   mount.replaceChildren();
 
-  mount.appendChild(
-    toggleRow(
-      "Briefings",
-      "A wave opens on a card for anything the pair has not met yet.",
-      () => cfg.briefings,
-      (on) => {
-        cfg.briefings = on;
-      },
-      onChange,
-    ),
+  const add = (
+    label: string,
+    note: string,
+    get: () => boolean,
+    set: (on: boolean) => void,
+  ): void => {
+    const { row, box } = toggleRow(label, note, get, set, onChange);
+    rows.push({ box, get });
+    mount.appendChild(row);
+  };
+
+  add(
+    "Briefings",
+    "A wave opens on a card for anything the pair has not met yet.",
+    () => cfg.briefings,
+    (on) => {
+      cfg.briefings = on;
+    },
   );
-  mount.appendChild(
-    toggleRow(
-      "THE FORK",
-      "The rest between waves ends in a wait only two thumbs can cross.",
-      () => cfg.forkBetweenWaves,
-      (on) => {
-        cfg.forkBetweenWaves = on;
-      },
-      onChange,
-    ),
+  add(
+    "THE FORK",
+    "The rest between waves ends in a wait only two thumbs can cross.",
+    () => cfg.forkBetweenWaves,
+    (on) => {
+      cfg.forkBetweenWaves = on;
+    },
   );
-  mount.appendChild(
-    toggleRow(
-      "Interludes (THE GAUGE)",
-      "The gaps between acts may carry a round that is not the field.",
-      () => cfg.interludes,
-      (on) => {
-        cfg.interludes = on;
-      },
-      onChange,
-    ),
+  add(
+    "Interludes (THE GAUGE)",
+    "The gaps between acts may carry a round that is not the field.",
+    () => cfg.interludes,
+    (on) => {
+      cfg.interludes = on;
+    },
   );
-  mount.appendChild(
-    toggleRow(
-      "Cannon wind-up",
-      "shotChargeBeats: a press waits for the next half-beat instead of firing on the tick.",
-      () => cfg.shotChargeBeats > 0,
-      (on) => {
-        cfg.shotChargeBeats = on ? 0.5 : 0;
-      },
-      onChange,
-    ),
+  add(
+    "Cannon wind-up",
+    "shotChargeBeats: a press waits for the next half-beat instead of firing on the tick.",
+    () => cfg.shotChargeBeats > 0,
+    (on) => {
+      cfg.shotChargeBeats = on ? 0.5 : 0;
+    },
   );
+
+  return {
+    render: () => {
+      for (const { box, get } of rows) box.checked = get();
+    },
+  };
 }
 
 function toggleRow(
@@ -81,7 +97,7 @@ function toggleRow(
   get: () => boolean,
   set: (on: boolean) => void,
   onChange: () => void,
-): HTMLElement {
+): { row: HTMLElement; box: HTMLInputElement } {
   const row = document.createElement("label");
   row.className = "pair-row";
 
@@ -102,5 +118,5 @@ function toggleRow(
   text.append(b, p);
 
   row.append(box, text);
-  return row;
+  return { row, box };
 }

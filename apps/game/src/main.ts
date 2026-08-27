@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
+import { demoRows, openDemonstration } from "./demo-menu.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { bindInterlude, enterInterlude } from "./interlude.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
@@ -122,6 +123,8 @@ if (menuRequested(location.href)) {
     setSeat: (role) => view.set(role),
     openRoom: () => joinScreen?.open(true),
     openTuning: () => testPanel.open(),
+    demos: demoRows(),
+    openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
   });
 }
 
