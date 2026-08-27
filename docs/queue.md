@@ -362,25 +362,6 @@ Finished when `bun run check` is green, `frame.test.ts` passes with the new fill
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
 
-## EVERY FEATURE SHOULD HAVE A WAVE THAT DEMONSTRATES IT
-_claude/burn-demo-waves-m3 · packages/content/src/waves-demo.ts_
-
-One authored wave per landed feature, playable without configuring anything —
-the owner should be able to open the game, pick a wave, and see the mechanic
-it exists to show. Where a mechanic is a global switch today (the fork, the
-briefing card, the wind-up), the wave has to be able to turn it on itself, so
-this lane decides whether `Wave` carries a config override, and if it does,
-that override is world state and belongs in `hashWorld`.
-
-Not a substitute for the teaching waves in `docs/teaching.md`: those are for a
-pair learning the game, this is for one person checking a feature works.
-Different audiences, different content, and mixing them would serve neither.
-
-Finished when `bun run orphans` reports nothing unreachable, which is the
-honest definition of "every feature".
-
-**Behind both lanes above.**
-
 ## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
 _claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
 
