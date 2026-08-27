@@ -384,3 +384,44 @@ its own numbers, and `docs/asset-catalogue.md` says what is now spendable.
 The rule that outranks prettiness: **a silhouette must mean the same word every
 time.** Two people say shapes out loud across a two-second delay. A shape that
 is beautiful and ambiguous is a shape that costs the pair their vocabulary.
+
+## ONE PREDICATE STANDS BETWEEN THIRTEEN CREATURES AND A PICTURE
+_claude/burn-drafts-suggest-p1 · tools/shape-sheet/test/drafts.test.ts tools/shape-sheet/src/drafts/index.ts_
+
+A draft shape names the idea it is offered to through `suggests`, and
+`drafts.test.ts` resolves that name against `docs/spec/ideas.md` and
+`docs/spec/bosses.md` only. The thirteen unbuilt creatures in the bestiary are
+table rows rather than idea-store sections, so a draft cannot legally point at
+one — which means the largest undrawn group in the repository is the one group
+nobody can draw for.
+
+Found by the lane that drew six shapes ahead of the need and then ran out of
+things it was allowed to offer them to. It called it one predicate, and it is:
+`roster.ts` already parses the bestiary table into named rows, so the
+resolution has a second source waiting for it.
+
+Finished when a draft can name a bestiary creature, when a name that matches
+nothing still fails loudly, and when `bun run shapes:report` shows at least one
+new contour offered to one of the thirteen. The rule that has to survive: a
+`suggests` pointing at nothing must remain an error, because the whole value of
+the field is that a drawn shape is joined to the idea it serves.
+
+## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
+_claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts_
+
+`docs/checks/restated.md` is a single file that every lane appends to, at the
+end, in the same commit shape — so two lanes landing in one evening conflict
+there by construction. That is the exact failure this repository diagnosed
+this morning about `docs/parked.md` and fixed by taking the writing away from
+lanes; the skill then recreated it here an hour later.
+
+The fix is not to take the writing away again — a restatement has to be
+written by the session that knows what changed. It is to remove the shared
+append point: one file per commit, `docs/checks/<sha>.md`, which is how the
+entries are keyed anyway. Two lanes then never touch the same path, and the
+reader gains nothing to merge.
+
+Finished when the parser reads a directory rather than a document, when the
+existing entries are split without losing their keying, and when the skill
+tells a lane to write `docs/checks/<sha>.md` in its second commit. The keying
+stays exact — sha plus trailer text, word for word.
