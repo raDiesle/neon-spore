@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty-two drafts, none of them claimed.** A draft is a picture offered
+> **Status: twenty-four drafts, none of them claimed.** A draft is a picture offered
 > to an idea, not a decision about it. Nothing on this page is in the game, and
 > a draft leaves it by being claimed — its parameters moving into
 > `packages/content` — or by being cut.
@@ -48,24 +48,41 @@ which is why every draft lives in `tools/` and none of them in `packages/`.
 
 ## What is in it now
 
-**Twenty-two drafts**, one for all but a handful of the open ideas: twelve
+**Twenty-four drafts** across all but a handful of the open ideas: fourteen
 creatures, four bosses, six for the controls and mechanics. Each names the idea
 it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
 suggestion.
 
-**Six new contour forms**, because several ideas are not describable as a
-lobed blob or a faceted rock. Five are in `tools/shape-sheet/src/forms.ts`:
-`sac` (mass pulled downward, hanging), `cluster` (several bodies in one
-membrane, metaball, and the one form that can return more than one loop),
-`arm` (open, swung from a pivot), `slab` (superellipse, made rather than
-grown), `glyphed` (a rim of notches that travel). The sixth has a file of its
-own, `hooked.ts`, and the split is a real seam rather than a full file: every
-form in `forms.ts` is symmetric or symmetric-with-a-wobble, which is right for
-anything that holds its lane, and `hooked` is the one whose outline carries a
-**direction** — a barb that points where the body is going. `sac` also takes an
-optional skin now, so a sac can be drawn from somebody else's lobes; the HUSK
-is the reason and the section below says why.
+**Two ideas carry two drafts each**, which is new. Every other entry here is one
+picture offered to one idea, and that works while the open question is *what*
+should be drawn. The Notch and the Husk are past that: what each is has been
+worked out, and what is left is a question with two candidate answers that only
+an eye can settle. A single draft in that position quietly becomes the answer by
+being the only thing on the page, so both go up, numbered, turning on the same
+clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
+fall short says what each pair is asking.
+
+**Eight new contour forms**, because several ideas are not describable as a
+lobed blob or a faceted rock. They sit in three files, split along seams rather
+than at line counts.
+
+`forms.ts` holds the four that are symmetric or symmetric-with-a-wobble, which
+is what anything holding its lane wants: `cluster` (several bodies in one
+membrane, metaball, and the one form that can return more than one loop), `arm`
+(open, swung from a pivot), `slab` (superellipse, made rather than grown),
+`glyphed` (a rim of notches that travel).
+
+`hooked.ts` holds the two whose outline carries a **direction**, which nothing
+else in the catalogue does: `hooked` grows a barb toward where the body is
+going, `heeled` leans the whole mass there instead. They share one `commitment`
+clock, so the two NOTCH cards turn on the same beats and the only difference
+between them is where the direction is carried.
+
+`hanging.ts` holds the two for a body whose mass has **given way**: `sac` (the
+original, now taking an optional skin so it can be cut from somebody else's
+lobes) and `slumped` (the same sag with one shoulder fallen in). THE WEIGHT uses
+the first; the two HUSK cards are one of each.
 
 **Eleven spare motions** in `tools/shape-sheet/src/motions.ts` — SHIVER,
 TWITCH, TURN, DRIFT, TOLL, SWELL, LURCH, HEAVE, SLITHER, CANT, SAG — written to
@@ -106,20 +123,25 @@ Said plainly, because a catalogue that oversells itself is worse than none.
 - **None of them has colour, glow or detail.** The cards are outlines. The
   field draws fills, rims, cores and halos, and a silhouette that reads bare
   can still fail dressed.
-- **HUSK is the one draft that has to *fail* to be readable, a little.** It is
-  the pod's own contour with the mass moved to the bottom and nothing else
-  changed, because a husk that announces itself while it still hangs is free to
-  ignore, and free to ignore is not a decision. So the card is asking whether
-  slack can be told from taut at 26 px, and either answer is useful: if it can,
-  the husk is a shape; if it cannot, the whole tell falls to the dead core, and
-  the outline was never going to carry it. That question cannot be settled here
-  — put the HUSK card next to the POD card and look.
-- **NOTCH leans, and so does everything else.** The barb gives the body a
-  facing, which is what the mechanic needs; the CANT motion then holds that
-  lean rather than rocking through it. But the bulb already sways and the slick
-  already tilts, and at 26 px a small body has very few ways to move. Whether a
-  *held* lean reads as a direction rather than as one more wobble is an eye's
-  question, and it is the one the draft exists to have asked.
+- **The HUSK pair has to *fail* to be readable, a little.** A husk that
+  announces itself while it still hangs is free to ignore, and free to ignore is
+  not a decision — so these two are not trying to be legible, they are trying to
+  find the point where legibility starts. HUSK 1 is the POD card's own lobes,
+  depth, wobble and seed with the mass moved down: a proportion changed and no
+  landmark, so an eye may have nothing to point at. HUSK 2 cuts one landmark, a
+  dent 26% of the radius deep across 23% of the outline, off-centre so it reads
+  as damage rather than as design. Put both beside the POD card. If neither
+  separates, the dead core carries the whole tell alone; if HUSK 2 separates and
+  HUSK 1 does not, the line runs between them and that is the measurement.
+- **The NOTCH pair asks where a direction can live.** Both commit on the same
+  clock and both carry CANT, which holds a lean instead of rocking through it,
+  so the contour is the only variable. NOTCH 1 says it with a barb — one feature
+  to find, and exactly the size of thing that disappears at 26 px. NOTCH 2 says
+  it with the whole mass, fat in front and lean behind, which cannot disappear
+  and may read as one more wobble beside the bulb's sway and the slick's tilt.
+  The failure modes are opposite, which is the point: if both work, take the
+  quieter one; if both fail, the direction does not belong in the outline and
+  the lean has to come from somewhere else.
 
 ## What a later session picks up
 

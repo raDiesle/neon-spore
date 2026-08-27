@@ -1,7 +1,8 @@
 import { POD } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
-import { cluster, glyphed, sac, slab } from "../forms.js";
-import { hooked } from "../hooked.js";
+import { cluster, glyphed, slab } from "../forms.js";
+import { sac, slumped } from "../hanging.js";
+import { heeled, hooked } from "../hooked.js";
 import {
   CANT,
   DRIFT,
@@ -158,19 +159,43 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
   },
   {
-    subject: hooked("NOTCH", "a body with a barb, and the barb is the aim", 32, 30, 0.85, 5),
+    subject: hooked("NOTCH 1", "a barb, and the barb is the aim", 32, 30, 0.85, 5),
     motion: CANT,
     status: "draft",
     slot: "creature",
     suggests: "Notch",
     owner:
-      "the first creature that changes lane, so the first that needs a silhouette with a facing: the barb points at the column it takes on the next accent, and it retracts before it comes out the other side, so the body commits rather than popping between two poses",
+      "direction as a *feature*: one barb on an otherwise ordinary contour, pointing at the column it takes on the next accent, retracting before it comes out the other side so the body commits rather than popping between poses. Unmistakable at card size, and the thing most likely to disappear at 26 px — which is what variant 2 is for",
   },
   {
-    subject: sac(
-      "HUSK",
-      "the pod's own contour with its mass gone to the bottom",
+    subject: heeled("NOTCH 2", "no barb — the whole mass leans", 33, 31, 0.42, 5),
+    motion: CANT,
+    status: "draft",
+    slot: "creature",
+    suggests: "Notch",
+    owner:
+      "the same commitment on the same beats, said with the whole body instead: fat on the leading side, lean behind, nothing small enough to be lost at creature size. Its risk is the opposite one — the bulb already sways and the slick already tilts, so a lopsided blob may read as one more of those rather than as a claim about the next column",
+  },
+  {
+    subject: sac("HUSK 1", "the pod's contour, its mass gone to the bottom", 0.3, POD.rx, POD.ry, {
+      lobes: POD.lobes,
+      depth: POD.depth,
+      wobble: POD.wobble,
+      seed: POD.seed,
+    }),
+    motion: SAG,
+    status: "draft",
+    slot: "creature",
+    suggests: "Husk",
+    owner:
+      "the quiet answer: the POD card's own lobes, depth, wobble and seed with the mass moved down and nothing else touched, so every difference on the page is the sag. It changes a proportion and no landmark, which is why an eye may have nothing to point at",
+  },
+  {
+    subject: slumped(
+      "HUSK 2",
+      "the same sag, and one shoulder fallen in",
       0.3,
+      0.26,
       POD.rx,
       POD.ry,
       { lobes: POD.lobes, depth: POD.depth, wobble: POD.wobble, seed: POD.seed },
@@ -180,6 +205,6 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     suggests: "Husk",
     owner:
-      "drawn from the POD card's own numbers so that everything different about it is the sag and nothing else, which is the only question worth asking of a thing that has to pass for a pod: at 26 px, is slack tellable from taut, or does the dead core have to carry the whole tell alone",
+      "the loud answer: the same sag with a dent cut where an intact body has a crown, off-centre so it reads as damage rather than as a shape the thing was built with. Far easier to see — and that is the risk, because a husk legible while it still hangs is one nobody ever has to gamble on",
   },
 ];

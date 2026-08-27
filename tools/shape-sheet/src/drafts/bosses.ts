@@ -1,5 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { arm, cluster, glyphed, sac } from "../forms.js";
+import { arm, cluster, glyphed } from "../forms.js";
+import { sac } from "../hanging.js";
 import { HEAVE, SHIVER, SWELL, TOLL, TURN } from "../motions.js";
 import { type RingSilhouette, ring } from "../ring.js";
 

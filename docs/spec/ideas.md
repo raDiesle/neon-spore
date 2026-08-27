@@ -191,10 +191,14 @@ filed rightly, and there is no second list to change.
   leans toward the column it is about to take. The lean is a render offset fed
   by the sim's target column and never a second position (CLAUDE.md rule 1), and
   it never leaves the lane (5.8): the shape carries the direction, the tile
-  carries the placement. That is also why the draft drawn at it — NOTCH, in
-  [the asset catalogue](../asset-catalogue.md) — is a body with a barb rather
-  than another round thing. A creature that has a facing needs a silhouette that
-  has one.
+  carries the placement. That is also why the drafts drawn at it — NOTCH 1 and
+  NOTCH 2, in [the asset catalogue](../asset-catalogue.md) — are the only
+  contours in that catalogue with a facing at all. There are two because there
+  are two ways to say "that way" with an outline and nobody knows which one
+  survives a phone: NOTCH 1 puts the direction in a barb, which is unmistakable
+  and is exactly the size of thing that vanishes at 26 px, and NOTCH 2 puts it
+  in the whole mass, which cannot vanish and may read as one more wobble. They
+  commit on the same beats, so the page is asking one question and not two.
 
   **What it would cost.** One integer on `Creature`, a re-pick in `beat.ts` on
   the accent, the accent itself moved into `sim`, and a lean in
@@ -206,9 +210,10 @@ filed rightly, and there is no second list to change.
 
   Unworked out: whether a lean reads as a lean at 26 px, where the bulb already
   sways and the slick already tilts and a small body has only so many ways to
-  move — an eye's question, and the NOTCH draft is drawn at exactly it; and
-  whether a wave holding one has to be authored so that a scar already exists,
-  or whether the inert first one is the better teaching after all
+  move — an eye's question, and the two NOTCH drafts are the two candidate
+  answers to it rather than one proposal and a caveat; and whether a wave
+  holding one has to be authored so that a scar already exists, or whether the
+  inert first one is the better teaching after all
 - **Husk** — a pod that should be refused, and the cheapest new object in the
   store: a fourth `PodKind` beside `mend`, `purge` and `ward`. No new list, no
   new category, no new control, no new gesture. It hangs amber at a fixed column
@@ -259,11 +264,16 @@ filed rightly, and there is no second list to change.
 
   **And the body sags.** A pod is taut; a husk is the same capsule with its mass
   gone to the bottom. That is a second and slower tell, for a pair who have met
-  one before, and it is deliberately drawn at the edge of legibility: the HUSK
-  draft in [the asset catalogue](../asset-catalogue.md) is that and nothing
-  else, so the card answers whether slack can be told from taut at 26 px. If it
-  cannot, the dead core carries the whole tell alone; if it can, the husk is a
-  shape rather than a rhythm and the concept is simpler than it thought it was.
+  one before, and it is the one thing here drawn *at the edge of legibility on
+  purpose* — a husk that announces itself while it still hangs is free to
+  ignore. So [the asset catalogue](../asset-catalogue.md) carries two, and they
+  are the same question at two strengths. HUSK 1 is the pod's own skin with the
+  mass moved down and no landmark touched, which may leave an eye nothing to
+  point at. HUSK 2 adds one fallen shoulder — a dent about a quarter of the
+  radius deep across a quarter of the outline, off-centre so it reads as damage
+  rather than as something the thing was built with. Somewhere between those two
+  is the line, and the page is where it gets found. Below it the dead core
+  carries the whole tell alone; above it the husk stops being a gamble.
 
   Unworked out: whether the first husk of a run is taught
   ([briefings](briefings.md)) — the world explains itself everywhere else, which
