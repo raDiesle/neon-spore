@@ -208,3 +208,37 @@ Not done there because a new `SimEvent` fails `packages/audio/test/bind.test.ts`
 until `packages/audio/src/bind.ts` names a cue for it, and the audio package was
 another lane's ground. Start there; the catalogue already has spare sounds
 (`bun run dev`, ♪ SOUND) and this is one of the things they were kept for.
+
+## The only test that covers render/ cannot see two of the things render draws
+
+2026-08-27 · claude/burn-fork-b4
+
+`packages/render/test/frame.test.ts` builds its worlds from `DEFAULT_CONFIG`,
+where `briefings` and `forkBetweenWaves` are both off — so `drawFork` and the
+briefing card, two of the newest things the renderer draws, are drawn by
+nothing in CI. Both were exercised by throwaway harnesses through
+`canvas-stub.ts` and then deleted, which is worth exactly as much as it
+sounds.
+
+Not done there because the lane that found it was in `sim` and this is a test
+file everything touches. One world built with `{ ...DEFAULT_CONFIG,
+forkBetweenWaves: true, briefings: true }` folds both into the only test that
+catches a colour that is a perfectly good string and not a colour. Start by
+checking whether `config-pair.ts` should carry a `PAIR_ON` constant, so the
+next switch of that kind is covered by being added rather than by somebody
+remembering.
+
+## The fork opens in silence
+
+2026-08-27 · claude/burn-fork-b4
+
+The run stops between waves and waits for two people to agree, and nothing is
+heard. It is the one moment in a run that belongs to the pair rather than to
+the clock, and the audio catalogue has spare sounds kept for exactly this kind
+of thing (`bun run dev`, ♪ SOUND, the ones marked unbound).
+
+Not done there because a new `SimEvent` fails `packages/audio/test/bind.test.ts`
+until `packages/audio/src/bind.ts` names a cue for it, and audio was another
+lane's ground. The same is true of the Runt being shot by mistake, which is
+parked above — one lane in `packages/audio` could answer both, and should look
+at what is already in the catalogue before writing a new sound.

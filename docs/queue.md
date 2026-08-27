@@ -17,18 +17,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE FORK — A RUN THAT WAITS FOR BOTH THUMBS
-_claude/burn-fork-b4 · packages/sim/src/fork.ts docs/spec/systems.md_
-
-Between waves the run stops and continues only when both thumbs are down. It
-is four lines of rule and it changes the shape of a session: the pause belongs
-to the pair rather than to the clock, and it is where everything that wants to
-be said between waves finally has somewhere to be said.
-
-Finished when a wave cannot start with one thumb down, and the wait is visible
-on both devices. It sits next to the briefing card on purpose — the card is
-what the pause is *for*.
-
 ## THE VANE — THE BOSS THAT BENDS THE FIELD
 _claude/burn-vane-b7 · packages/sim/src/vane.ts packages/render/src/vane-draw.ts docs/spec/transfers-bosses.md_
 
