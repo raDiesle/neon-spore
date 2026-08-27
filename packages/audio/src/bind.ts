@@ -152,5 +152,17 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mirrorDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    case "forkWait":
+      // No column — the fork belongs to the whole field, not a tile in it.
+      return { id: "ship.forkOpen" };
+    case "runtHit":
+      // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
+      // the right thing, and this is the one hit that must not be mistaken
+      // for one (`docs/spec/audio.md`).
+      return {
+        id: "impact.wrongTarget",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
   }
 }

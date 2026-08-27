@@ -76,6 +76,7 @@ export function forkOpen(world: World): boolean {
 export function restEnded(world: World): void {
   if (world.cfg.forkBetweenWaves) {
     world.forkBeat = world.beat;
+    world.events.push({ type: "forkWait" });
     return;
   }
   world.events.push({ type: "needWave", wave: world.wave + 1 });

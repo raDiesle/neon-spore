@@ -55,7 +55,7 @@ describe("the runt", () => {
       }
       expect(start.creatures).toHaveLength(0);
       expect(start.score).toBe(1000 - CFG.scoreRuntPenalty);
-      expect(events.some((e) => e.type === "destroy")).toBe(true);
+      expect(events.some((e) => e.type === "runtHit")).toBe(true);
     }
   });
 

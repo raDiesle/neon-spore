@@ -163,9 +163,9 @@ function resolveWarden(world: World, b: Bullet, hit: Creature): void {
  * exactly what any other missed creature does (`hull.ts`'s generic branch),
  * because the only thing this kind changes is what happens if it is shot.
  */
-function resolveRunt(world: World, b: Bullet, hit: Creature): void {
+function resolveRunt(world: World, _b: Bullet, hit: Creature): void {
   world.score = Math.max(0, world.score - world.cfg.scoreRuntPenalty);
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({ type: "runtHit", col: hit.col, row: hit.row });
   world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
 }
 

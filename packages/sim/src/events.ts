@@ -72,4 +72,19 @@ export type SimEvent =
   | { type: "mirrorEcho"; step: MirrorStep; index: number; of: number }
   /** A round is settled — right or wrong, why, and where it landed. */
   | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
-  | { type: "mirrorDown"; col: number };
+  | { type: "mirrorDown"; col: number }
+  /**
+   * THE FORK opened: the rest between waves ran out and the run has stopped,
+   * waiting on both thumbs (`fork.ts`). No column — it belongs to the whole
+   * field, not a tile in it — and no timeout follows it, so this fires once
+   * on the way in and nothing repeats it while the pair stands there.
+   */
+  | { type: "forkWait" }
+  /**
+   * The Runt was shot — a mistake, not a kill (`resolveRunt`, bullet-hit.ts).
+   * Its own event because the ear has to tell this apart from an ordinary
+   * `destroy`: the same reflex that pays off everywhere else on the field is
+   * wrong here, and a sound identical to a kill is the one that would hide
+   * that from the pair.
+   */
+  | { type: "runtHit"; col: number; row: number };

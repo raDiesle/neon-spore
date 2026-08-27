@@ -190,7 +190,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.wrongTarget",
     family: "impact",
     blurb: "A burst that curdles halfway — it worked, and it should not have.",
-    status: "spare",
+    status: "bound",
     use: "Hitting the runt, which costs points (bestiary 10.1).",
     level: 0.38,
     layers: [

@@ -49,6 +49,8 @@ const SAMPLES: Record<string, SimEvent> = {
   mirrorEcho: { type: "mirrorEcho", step: "guard", index: 2, of: 3 },
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },
   mirrorDown: { type: "mirrorDown", col: 3 },
+  forkWait: { type: "forkWait" },
+  runtHit: { type: "runtHit", col: 3, row: 4 },
 };
 
 describe("bindings", () => {
