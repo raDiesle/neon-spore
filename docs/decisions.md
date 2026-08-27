@@ -417,3 +417,28 @@ counter would wait forever for a dismissal it had arranged never to arrive.
 and the lance are already in that position — they are controls, not contents,
 so the derivation cannot see them. That wants a third mechanism, not a
 `briefings:` list grown back onto `Wave`.
+
+## 19. Replay tests compare two runs, and never pin a number
+
+*August 2026.* The wording in `.claude/skills/new-creature` said a replay test
+"pins the fingerprint", and no test in the repository has ever done that: every
+one of them calls `runReplay` twice in the same process and compares the two
+hashes. The code was right and the sentence was wrong, so the sentence changed.
+
+Pinning would cost more than it catches. `hashWorld` gains a field whenever
+anything gains state — three lanes added one on a single afternoon — and every
+such change moves every pinned constant at once. The only workable response to
+a wall of moved numbers is to re-pin them because the change was intended,
+which is precisely the motion by which a real regression gets blessed. A
+constant that is updated whenever it fails is not a test.
+
+What the comparison does prove is the property lockstep actually needs: two
+devices on the *same build* stepping the same inputs reach the same world. It
+is not a guard against a behaviour change between commits, and nothing in the
+suite is. That gap is real and is filled by the replay's own assertions —
+what died, what scored, what the hull took — which is where a behaviour change
+belongs anyway, because a moved hash says only that something is different.
+
+**Reconsider if:** two devices ever have to interoperate across versions. Then
+cross-build stability becomes a correctness requirement rather than a nicety,
+and a pinned corpus earns its maintenance.

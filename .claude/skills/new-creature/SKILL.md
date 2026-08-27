@@ -59,8 +59,19 @@ announcement.
 
 ## 5. Replay test
 
-Add a replay in `packages/sim/test/` that spawns the creature, plays the inputs
-that beat it, and pins the fingerprint. Then run:
+Add a replay in `packages/sim/test/` that spawns the creature and plays the
+inputs that beat it. Assert what the creature *does* — it died on the beat it
+should have, the score moved the way it should, the hull took what it should —
+and then that the run fingerprints the same twice.
+
+**Do not pin the fingerprint as a constant.** Nothing in this repository does,
+and `docs/decisions.md` #19 says why: every legitimate change to `hashWorld`
+moves every pinned number at once, so the maintenance move is "re-pin them,
+the change was intended", which is the exact motion that blesses a real
+regression. Two runs compared in one process prove the property that matters
+for lockstep — the two phones are on the same build.
+
+Then run:
 
 ```
 bun run check
