@@ -1,18 +1,24 @@
 import { showsRadar } from "@neon-spore/content";
 import { colSpan, isMeteorKind, spanCenterCol, type World } from "@neon-spore/sim";
+import { drawBackdrop } from "./backdrop.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * The field itself: the background, the cannon's column marker, and the radar
- * strip along the top edge.
+ * The field itself: the background, its depth, the cannon's column marker,
+ * and the radar strip along the top edge.
  *
  * docs/spec/systems.md 5.8 asks for grid lines and crossing points that light
  * up on every beat and fade, because the pulse is the thing both players share
  * across a voice delay. That lattice is written and switched off — see
  * `SHOW_TILE_GRID`.
  */
-export function drawBackground(ctx: CanvasRenderingContext2D, l: Layout): void {
+export function drawBackground(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  wave: number,
+  time: number,
+): void {
   const g = ctx.createRadialGradient(
     l.width / 2,
     l.playHeight * 0.2,
@@ -25,6 +31,7 @@ export function drawBackground(ctx: CanvasRenderingContext2D, l: Layout): void {
   g.addColorStop(1, "#08060F");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, l.width, l.height);
+  drawBackdrop(ctx, l, wave, time);
 }
 
 /**
@@ -47,8 +54,11 @@ export function drawGrid(
   l: Layout,
   cannonCol: number,
   flash: number,
+  beatPhase: number,
 ): void {
   if (SHOW_TILE_GRID) drawTiles(ctx, l, flash);
+
+  drawBeatSweep(ctx, l, beatPhase);
 
   // The cannon's own column, straight up. Spec 5.8: this is the only path
   // marker left in the field — everything else is read off the radar.
@@ -58,6 +68,28 @@ export function drawGrid(
   cg.addColorStop(1, "rgba(47,224,240,.16)");
   ctx.fillStyle = cg;
   ctx.fillRect(x - l.tile / 2, l.gridTop, l.tile, l.gridHeight);
+}
+
+/**
+ * The beat itself, travelling: a soft band starts at the very top of the grid
+ * on the beat and crosses down to the hull over the beat's length, fading as
+ * it goes. `backdrop.ts` hangs its horizon near the top of this same span, so
+ * the pulse reads as passing *over* it rather than the horizon sitting on top
+ * of the grid as a second, static layer — `beatPhase` alone drives it, so it
+ * never drifts out of step between the two screens the way a wall clock would.
+ */
+function drawBeatSweep(ctx: CanvasRenderingContext2D, l: Layout, beatPhase: number): void {
+  if (l.gridHeight <= 0 || l.width <= 0) return;
+  const alpha = (1 - beatPhase) * 0.1;
+  if (alpha <= 0.002) return;
+  const y = l.gridTop + beatPhase * l.gridHeight;
+  const half = Math.max(1, l.tile * 0.6);
+  const g = ctx.createLinearGradient(0, y - half, 0, y + half);
+  g.addColorStop(0, "rgba(164,147,232,0)");
+  g.addColorStop(0.5, `rgba(164,147,232,${alpha})`);
+  g.addColorStop(1, "rgba(164,147,232,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, y - half, l.width, half * 2);
 }
 
 /** Lines on every tile edge, brighter crossings, both pulsing on the beat. */

@@ -165,9 +165,9 @@ export class Canvas2DRenderer implements Renderer {
 
     ctx.fillStyle = PALETTE.background;
     ctx.fillRect(0, 0, l.width, l.height);
-    drawBackground(ctx, l);
+    drawBackground(ctx, l, world.wave, view.time);
     drawRadar(ctx, l, world, view.time);
-    drawGrid(ctx, l, world.cannonCol, flash);
+    drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase);
 
     // Under the creatures: the mark is on the column, not on anything in it.
     drawLanceMark(ctx, l, world);
