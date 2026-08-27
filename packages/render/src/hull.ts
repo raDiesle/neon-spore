@@ -1,5 +1,6 @@
 import { openSmoothPath } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
+import { drawLay } from "./cannon-maw.js";
 import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
 import { strokeGlow } from "./glow.js";
 import {
@@ -165,6 +166,10 @@ export function drawHull(
   drawMuzzle(ctx, f, l, mood.intake, skin_);
   drawChew(ctx, l, mood, time, f.cannonX, (x) => surface(f, x));
   drawCharge(ctx, l, mood, filled, body);
+  // Last, and over everything the ship is otherwise doing: a shot about to
+  // leave is the most urgent thing on the hull, and it is the only thing here
+  // that either player has to act on within the beat.
+  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, (x) => surface(f, x));
   ctx.restore();
 }
 

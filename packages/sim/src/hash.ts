@@ -33,6 +33,17 @@ export function hashWorld(world: World): number {
   push(world.gripP1);
   push(world.gripP2);
   push(world.primeTick);
+  // The shot that has been pressed and has not left yet. In for the reason a
+  // bullet is: two devices that disagree about whether a shot exists have
+  // desynced, and a charge is a shot that exists everywhere except on the
+  // field. Its colour and its lance only when there is one, the same way an
+  // interlude's fields are pushed only when a round is open.
+  const shot = world.charge;
+  push(shot === null ? -1 : shot.left);
+  if (shot !== null) {
+    push(shot.color === "red" ? 1 : 2);
+    push(shot.lance ? 1 : 0);
+  }
   push(world.hullMilli);
   push(world.rng.state);
   push(world.guard.tries);

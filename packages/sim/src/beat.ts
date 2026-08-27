@@ -131,8 +131,9 @@ export function startWave(
   world.creatures = [];
   world.bullets = [];
   clearGrips(world);
-  // A wave that starts over starts with nothing held and nothing charged.
+  // Nothing held and nothing charged — the second a field now (`shot-charge.ts`).
   endPrime(world);
+  world.charge = null;
   world.pods = [];
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;

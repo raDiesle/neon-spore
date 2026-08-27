@@ -240,6 +240,53 @@ the interesting failure class (`GuardStats`).
 Both hang off the beat, not off each other — otherwise firing faster
 accidentally becomes continuous fire.
 
+**A shot is laid, not fired.** A press does not produce a bullet; it puts one
+in the muzzle, and the muzzle empties on the next point of a grid measured in
+beats (`shotChargeBeats`, `packages/sim/src/shot-charge.ts`). The game runs it
+at **half a beat**, so the wait is between one tick and 312 ms and always ends
+on a named moment.
+
+Two reasons, and the second is the one worth keeping.
+
+*The other player can see it.* Player 1 has no fire buttons. Before this, a
+press by player 2 reached him only as a bolt already halfway up the field —
+the act was invisible and only the result was not. Now the cannon visibly
+works first: the opening dilates and the membrane beside it parts, in the
+place he is already watching. It is the same thing THE OTHER HAND buys, bought
+again for nothing, because the tell is already on screen.
+
+*The delay is rhythm rather than lag.* A wait measured in milliseconds moves
+the shot by an amount nobody can name, and a trigger that answers late reads
+as broken. A wait that ends **on the beat** makes "I fire on the three"
+literally true instead of approximately true — and the beat is the one shared
+clock that survives two seconds of voice delay ([latency](latency.md)). The
+grid contains every beat by construction, whatever the value: it is measured
+from the start of the beat and the beat always closes it. Half a beat is 37.5
+ticks at the defaults, so a fixed period would have walked off the beat inside
+two bars and taken the whole argument with it.
+
+Half a beat rather than a whole one, for three reasons that are numbers:
+`fireEveryBeats` is also half a beat, so the grid and the reload gap coincide
+and the rate of fire is unchanged; `throbOpenBeats` is one beat in four, so a
+half-beat grid puts two departures inside every open window where a whole-beat
+grid would leave exactly one; and 625 ms of nothing after a press is a dead
+trigger where 312 ms is anticipation.
+
+What the shot carries is settled at the **press** — its colour, and whether
+it is a lance — so a wind-up cannot show one thing and deliver another. Where
+it comes out is read when it **leaves**: the bolt leaves the muzzle, and the
+muzzle is wherever player 1 is holding the cannon. That is the coupling
+getting stronger rather than a detail, because the column now has to be *held*
+through the wind-up instead of merely being right at one instant.
+
+A charge is world state and is in the fingerprint — two devices that disagree
+about whether a shot exists have desynced. It is thrown away by anything that
+ends the wave it belonged to (`startWave`, `restart`), and it waits rather
+than expiring while the world is stopped, exactly as a bullet already in the
+air does. The wind-up shows *when*, never the colour: the colour is player 2's
+half of the split above, and a tell that leaked it would hand player 1 the one
+thing he is supposed to have to be told.
+
 **Radar.** Only along the top edge, in the object's colour. Height shows the
 order: the closer to the edge, the sooner it arrives. There are **no** path
 indicators in the field itself, not even for meteors. The only line left is

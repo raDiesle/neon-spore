@@ -33,6 +33,7 @@ export {
   setGrip,
 } from "./grip.js";
 export { hashWorld } from "./hash.js";
+export { hullPercent } from "./hull.js";
 export {
   clearInterlude,
   INTERLUDE_KINDS,
@@ -62,6 +63,13 @@ export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
+export {
+  chargeDueTick,
+  chargeMilli,
+  chargePartTicks,
+  laying,
+  type ShotCharge,
+} from "./shot-charge.js";
 export {
   fireStep,
   MIRROR_HOLD_BEATS,
@@ -146,7 +154,6 @@ export {
 export {
   type BossEntry,
   createWorld,
-  hullPercent,
   type MirrorEntry,
   type PodEntry,
   type QueenEntry,

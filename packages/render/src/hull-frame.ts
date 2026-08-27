@@ -69,6 +69,15 @@ export interface HullMood {
   chew: number;
   /** 0..1 the light that goes through the ship once the pod is inside. */
   charge: number;
+  /**
+   * 0..1 towards the shot that has been pressed leaving the muzzle
+   * (`cannon-maw.ts`). The one field here that is *not* eased and not this
+   * package's invention: the world fixes the tick the shot goes, to the tick,
+   * on both devices, so easing it would put the two cannons out of step with
+   * each other. Absent on a ship with no trigger of its own — THE MIRROR's
+   * copy performs shots rather than firing them.
+   */
+  lay?: number;
 }
 
 export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {

@@ -40,6 +40,10 @@ const SLIDERS: SliderSpec[] = [
   { key: "bpm", label: "Tempo", min: 40, max: 200, s: 2, unit: " BPM" },
   { key: "bulletTilesPerBeat", label: "Shot speed", min: 2, max: 20, s: 1, unit: " tiles/beat" },
   { key: "fireEveryBeats", label: "Fire pause", min: 0.15, max: 2, s: 0.05, unit: " beats" },
+  // 0 is the shot fired the instant it is pressed; every other step is a grid
+  // it waits for. Eighths, because the values worth arguing about are 1/4, 1/2
+  // and 1, and the ones in between exist to prove they are worse.
+  { key: "shotChargeBeats", label: "Shot lay", min: 0, max: 1, s: 0.125, unit: " beats" },
   { key: "radarLead", label: "Radar lead", min: 1, max: 8, s: 1, unit: " beats" },
   { key: "guardWindowMs", label: "Guard window", min: 80, max: 1600, s: 20, unit: " ms" },
   { key: "gripSlowPermille", label: "Grip drag", min: 200, max: 1000, s: 25, unit: " ‰ speed" },

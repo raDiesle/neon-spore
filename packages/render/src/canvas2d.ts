@@ -1,4 +1,4 @@
-import { hullPercent, ticksPerBeat, type World } from "@neon-spore/sim";
+import { chargeMilli, hullPercent, ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBriefing } from "./briefing.js";
@@ -199,6 +199,10 @@ export class Canvas2DRenderer implements Renderer {
       intake: this.intake,
       chew: this.effects.chew,
       charge: this.effects.charge,
+      // Straight off the world, and the only one of the five that is: the tick
+      // the shot leaves is fixed for both devices, so an ease here would have
+      // one cannon working ahead of the other (`shot-charge.ts`).
+      lay: chargeMilli(world) / 1000,
     };
     drawHull(
       ctx,

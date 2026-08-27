@@ -3,6 +3,7 @@ import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { endPrime, lanceReady, priming } from "./lance.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { queenOccupiesCol } from "./queen-mark.js";
+import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { type Bullet, type Color, type Creature, occupiesCol } from "./types.js";
 import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
@@ -22,13 +23,35 @@ export function fire(world: World, color: Color): void {
   // A shot the cooldown refuses never leaves the lobe, so it takes nothing
   // with it either — the charge is only ever spent by a shot that goes out.
   if (world.tick - world.lastFireTick < cooldown) return;
+  // One shot is laid at a time. A second press while the first is still in
+  // the muzzle is not a second shot and does not restart the first — the same
+  // rule `startPrime` plays by, and the reason two presses inside one part of
+  // a beat cannot both come out on the same grid point.
+  if (laying(world)) return;
   world.lastFireTick = world.tick;
   // Everything leaves through the same lobe. A full one sends a lance; one
   // that is still filling sends an ordinary shot and loses what was in it,
   // which is the half of the coupling player 2 holds (`lance.ts`).
+  //
+  // Decided here, at the press, and not when the shot finally goes: the
+  // wind-up is a tell, and a tell that showed a lance being laid and then
+  // delivered an ordinary bolt because the cannon moved in between would be a
+  // tell that lies. Everything about THE LANCE's own timing is unchanged.
   const lance = lanceReady(world);
   const spilled = priming(world) && !lance;
   endPrime(world);
+  if (chargePartTicks(world.cfg) === 0) launch(world, color, lance);
+  else layShot(world, color, lance);
+  if (spilled) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
+}
+
+/**
+ * The shot exists. Its column is read *now* rather than at the press, so a
+ * cannon that slid during the wind-up takes the shot with it — the bolt leaves
+ * the muzzle, and the muzzle is wherever player 1 is holding it
+ * (`shot-charge.ts`).
+ */
+function launch(world: World, color: Color, lance: boolean): void {
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
@@ -39,7 +62,19 @@ export function fire(world: World, color: Color): void {
     pierced: 0,
   });
   world.events.push({ type: "fire", col: world.cannonCol, color, lance });
-  if (spilled) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
+}
+
+/**
+ * One tick of the wind-up, and the shot on the tick it is due. Called from
+ * `step` where `fire` itself would have pushed the bullet, so a world with no
+ * grid at all (`shotChargeBeats` 0, the default) never reaches this and every
+ * recorded run keeps its timing to the tick.
+ */
+export function releaseShot(world: World): void {
+  const shot = world.charge;
+  if (!chargeDue(world) || shot === null) return;
+  endCharge(world);
+  launch(world, shot.color, shot.lance);
 }
 
 /**

@@ -5,6 +5,7 @@ import { clearInterlude } from "./interlude.js";
 import { endPrime, startPrime } from "./lance.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { resetRun } from "./run.js";
+import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
 import { spanCenterCol, type TimedCommand } from "./types.js";
 import { wardenClamp, wardenRefusesGrip } from "./warden.js";
@@ -33,8 +34,13 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // Read even while the controls are held, or a run could never be left.
     resetRun(world);
     // A run that is being left takes the lobe with it. Nothing else clears a
-    // charge, so one left standing would arm the first shot of the next run.
+    // fill, so one left standing would arm the first shot of the next run.
     endPrime(world);
+    // And the shot already pressed and not yet out, for the same reason one
+    // step further on: a run being left is not a run that owes anybody a bolt,
+    // and the host does not answer `needWave` on the same tick it is asked, so
+    // there are ticks in between for a charge to go out into (`shot-charge.ts`).
+    endCharge(world);
     // And it takes THE FORK with it. A run being left is not a run waiting to
     // be continued, and a fork still open would be one asking two people for
     // permission to start the wave they just asked for (`fork.ts`).

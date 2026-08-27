@@ -2,16 +2,18 @@ import { emptyRunStats, type RunStats } from "./balance.js";
 import { beatMetronome, onBeat, startWave } from "./beat.js";
 import type { BossState } from "./boss-state.js";
 import { ackBriefing, type Briefings, briefingHolds, newBriefings } from "./briefing.js";
-import { advanceBullets } from "./bullets.js";
+import { advanceBullets, releaseShot } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import { forkOpen, NO_FORK, restEnded } from "./fork.js";
+import { NO_FORK, restEnded } from "./fork.js";
 import { dropLostGrips, NO_GRIP } from "./grip.js";
+import { regenerateHull } from "./hull.js";
 import type { InterludeState } from "./interlude.js";
 import { interludeHeard, interludeHolds, NO_INTERLUDE, stepInterlude } from "./interlude.js";
 import { NO_PRIME, noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
+import type { ShotCharge } from "./shot-charge.js";
 import { pullTether } from "./warden.js";
 
 export type { BossEntry, MirrorEntry, PodEntry, QueenEntry, SpawnEntry } from "./entries.js";
@@ -60,6 +62,12 @@ export interface World {
    * copy of it could only ever disagree.
    */
   primeTick: number;
+  /**
+   * The shot player 2 has pressed that has not left the muzzle yet, or null.
+   * World state for the reason a bullet in flight is: two devices that
+   * disagree about whether a shot exists have desynced. Ask `shot-charge.ts`.
+   */
+  charge: ShotCharge | null;
 
   creatures: Creature[];
   bullets: Bullet[];
@@ -138,6 +146,7 @@ export function createWorld(
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,
     primeTick: NO_PRIME,
+    charge: null,
     creatures: [],
     bullets: [],
     pods: [],
@@ -200,6 +209,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);
   if (world.over) return;
+  // Exactly where `fire` used to push the bullet, so a shot laid half a beat
+  // ago is indistinguishable from one pressed now by the time anything else
+  // in the loop sees it. A run that is over never reaches it (`shot-charge.ts`).
+  releaseShot(world);
 
   world.tick += 1;
   // Before the beat and before the shots: the lobe fills on the tick counter,
@@ -220,15 +233,6 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   progressWave(world);
 }
 
-function regenerateHull(world: World): void {
-  // A fork is a wait with no end on it, so a hull that healed through one
-  // would make standing at it the cheapest move in the game. Nothing mends
-  // while the run belongs to the pair (`fork.ts`).
-  if (world.over || forkOpen(world)) return;
-  const perTick = Math.round((world.cfg.hullRegenPerSecond * MILLI) / world.cfg.tickHz);
-  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
-}
-
 /**
  * The rest between waves is over — and mark it spent, so the question is not
  * asked again on every following tick while the host gets around to it.
@@ -241,9 +245,4 @@ function progressWave(world: World): void {
   if (world.restBeat <= 0 || world.beat < world.restBeat) return;
   world.restBeat = -1;
   restEnded(world);
-}
-
-/** Hull integrity as a plain 0..100 number, for display only. */
-export function hullPercent(world: World): number {
-  return world.hullMilli / MILLI;
 }

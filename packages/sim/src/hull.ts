@@ -1,5 +1,6 @@
 import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
+import { forkOpen } from "./fork.js";
 import { type Creature, colSpan, isMeteorKind, occupiesCol, spanCenterCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -101,6 +102,26 @@ export function breachHull(
     fromRow,
     beat: world.beat,
   });
+}
+
+/** Hull integrity as a plain 0..100 number, for display only. */
+export function hullPercent(world: World): number {
+  return world.hullMilli / MILLI;
+}
+
+/**
+ * The hull mending itself, one tick's worth. It lived in `world.ts` beside the
+ * `step` that calls it until that file ran out of room; this is where it
+ * always belonged, next to the two functions that break the hull in the first
+ * place — one file for what the hull loses and what it gets back.
+ */
+export function regenerateHull(world: World): void {
+  // A fork is a wait with no end on it, so a hull that healed through one
+  // would make standing at it the cheapest move in the game. Nothing mends
+  // while the run belongs to the pair (`fork.ts`).
+  if (world.over || forkOpen(world)) return;
+  const perTick = Math.round((world.cfg.hullRegenPerSecond * MILLI) / world.cfg.tickHz);
+  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
 }
 
 /**

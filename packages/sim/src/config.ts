@@ -1,16 +1,18 @@
 import type { BossConfig } from "./config-boss.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
+import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 
 export type { BossConfig } from "./config-boss.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
+export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig extends BossConfig, GaugeConfig, PairConfig {
+export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -68,37 +70,6 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig {
    * a beat or two bought and never a creature stopped dead.
    */
   gripSlowPermille: number;
-  /** Bullet speed, in tiles per beat. */
-  bulletTilesPerBeat: number;
-  /**
-   * Beats player 1 has to hold the lance with the cannon standing still before
-   * the lobe is full — THE LANCE's whole cost, as a number. It sits inside the
-   * voice delay on purpose (docs/spec/latency.md): long enough that the pair
-   * has to have agreed on the column beforehand, short enough that the
-   * agreement is still worth acting on when the hold is done.
-   */
-  lancePrimeBeats: number;
-  /**
-   * Bodies one lance takes before it is spent. The "up to 3 segments in a
-   * line" of the drill in docs/spec/systems.md 5.5. Only living bodies of the
-   * shot's own colour are counted — a rock stops it whatever is left.
-   */
-  lancePierce: number;
-  /**
-   * Lance speed, in tiles per beat. Deliberately below `bulletTilesPerBeat`:
-   * the drill in 5.5 is the slower weapon, and a lance that arrived as fast as
-   * an ordinary shot would be a pure upgrade rather than a trade.
-   */
-  lanceTilesPerBeat: number;
-  /** Minimum gap between shots, in beats. */
-  fireEveryBeats: number;
-  /**
-   * Height of the invisible box a shot tests against, in thousandths of a
-   * tile. One tile means a creature is hit over exactly the tile it looks like
-   * it stands on; more is generous, less asks for precision the beat does not
-   * give. The width is always the column.
-   */
-  hitHeightMilli: number;
   /** Hull points regained per second. */
   hullRegenPerSecond: number;
   /**
@@ -160,6 +131,7 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig {
 
 export const DEFAULT_CONFIG: SimConfig = {
   ...GAUGE_DEFAULTS,
+  ...SHOT_DEFAULTS,
   cols: 11,
   rows: 15,
   queenRow: 2,
@@ -175,12 +147,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   podRepair: 18,
   wardBeats: 6,
   gripSlowPermille: 550,
-  bulletTilesPerBeat: 12,
-  lancePrimeBeats: 3,
-  lancePierce: 3,
-  lanceTilesPerBeat: 6,
-  fireEveryBeats: 0.5,
-  hitHeightMilli: 1000,
   hullRegenPerSecond: 3,
   hullInvulnerable: false,
   damageCreature: 12,
