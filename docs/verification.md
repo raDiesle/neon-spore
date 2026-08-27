@@ -112,9 +112,11 @@ phone, at the moment a turn ends — and it answers one question, whether
 anything is still owed. It derives every fact it prints from git, the trailers
 and `docs/parked.md`, so a landing it claims is a landing that happened.
 
-A `Check:` never appears in it as a block. It is printed under `optional`,
-because a check is work for a machine that can look and there is no obligation
-to look today. `CLAUDE.md` has the block itself.
+A `Check:` never appears in it at all. Something always wants an eye — that is
+what a sandbox leaves behind every time it runs — and a row that is on every
+block is read as furniture rather than as news. What the block does carry is
+the postponed work from `docs/parked.md`, in its own words, because that is the
+part that changes from turn to turn. `CLAUDE.md` has the block itself.
 
 ## Why it is committed
 

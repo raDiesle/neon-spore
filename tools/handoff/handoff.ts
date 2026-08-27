@@ -25,9 +25,7 @@ export interface Handoff {
   green: boolean | null;
   /** Questions this session needs answered before it can go further. */
   asks: string[];
-  /** Outstanding `Check:` trailers on main — things wanting an eye here. */
-  waiting: number;
-  /** Titles in `docs/parked.md`: optional, nobody's obligation. */
+  /** Titles in `docs/parked.md`: work identified and postponed, in its words. */
   parked: string[];
   /** origin could not be reached, so `landed` is about the last fetch. */
   offline: boolean;
@@ -47,20 +45,23 @@ export function blocking(h: Handoff): string[] {
 }
 
 /**
- * A check waiting for an eye is not a block and must never be drawn as one.
- * It is work the sandbox was never able to do, offered to a machine that can —
- * and a session that ends every turn shouting would be read as ending none of
- * them cleanly.
+ * The follow-ups, in the words they were written in.
+ *
+ * A count would be the wrong thing here. "1 parked idea" tells the reader that
+ * a file exists, which they knew; the title tells them whether it is worth a
+ * session, which is the only question they are asking at this point in a turn.
+ *
+ * What is deliberately *not* here is the outstanding `Check:` list. Something
+ * always wants an eye — that is what a sandbox leaves behind every time it
+ * runs — so a row saying so carries no information from one turn to the next,
+ * and a row that is always there is read as furniture. `bun run checks` is the
+ * place for it, at the machine that can do the looking.
  */
-export function optional(h: Handoff): string[] {
-  const spare: string[] = [];
-  if (h.waiting > 0) spare.push(`${h.waiting} thing(s) on main want an eye — bun run checks`);
-  if (h.parked.length > 0) {
-    spare.push(`${h.parked.length} parked idea(s) — docs/parked.md`);
-  }
-  if (!h.pushed && h.branch !== "main") spare.push(`${h.branch} is not on origin`);
-  return spare;
+export function followUps(h: Handoff): string[] {
+  return h.parked.slice(0, SHOWN);
 }
+
+const SHOWN = 6;
 
 export function render(h: Handoff): string {
   const held = blocking(h);
@@ -74,18 +75,27 @@ export function render(h: Handoff): string {
 
   for (const ask of h.asks) row("ask", ask);
 
+  // Always against `origin/main` by name, never "on main". A landing is only
+  // worth anything if it is the one the next clone will see, and a local
+  // trunk five commits ahead of origin reads as done and is not.
   if (h.landed) {
-    const how = h.branch === "main" ? "on main" : `${h.branch} → origin/main, fast-forward`;
-    row("landed", h.offline ? `${how} (as of the last fetch — origin unreachable)` : how);
+    const how = `every commit of ${h.branch} is on origin/main`;
+    row("landed", h.offline ? `${how} — as of the last fetch, origin unreachable` : how);
   } else {
-    row("landed", `no — ${h.branch} is ${h.ahead} commit(s) ahead of origin/main`);
+    row("landed", `NO — ${h.branch} is ${h.ahead} commit(s) ahead of origin/main`);
   }
 
   if (h.dirty.length > 0) row("dirty", h.dirty.slice(0, 4).join(", ") + tail(h.dirty, 4));
   if (h.green !== null) row("check", h.green ? "bun run check green" : "bun run check RED");
 
-  for (const line of optional(h)) row("optional", line);
-  if (held.length === 0 && optional(h).length === 0) row("optional", "nothing — the desk is clear");
+  if (!h.pushed && h.branch !== "main") row("origin", `${h.branch} is not pushed`);
+
+  const follow = followUps(h);
+  for (const idea of follow) row("parked", idea);
+  if (h.parked.length > follow.length) {
+    row("parked", `and ${h.parked.length - follow.length} more — docs/parked.md`);
+  }
+  if (follow.length === 0) row("parked", "nothing postponed");
 
   return lines.join("\n");
 }

@@ -158,10 +158,9 @@ close this and go back to `main`?*
 ──────────────────────────────────────────────────────────
  ✅ NOTHING WAITING — main has this, and no answer is owed
 ──────────────────────────────────────────────────────────
-  landed   claude/thing-9f2 → origin/main, fast-forward
+  landed   every commit of claude/thing-9f2 is on origin/main
   check    bun run check green
-  optional 2 thing(s) on main want an eye — bun run checks
-  optional 1 parked idea(s) — docs/parked.md
+  parked   the director could show the parked list beside TO CHECK
 ```
 
 It is derived rather than written because prose is exactly where "I landed it"
@@ -174,11 +173,22 @@ bun run handoff --ask "should the barb sway with the bulb or against it"
 ```
 
 A question, uncommitted files, or work still ahead of `origin/main` turn the
-head line into `⚑ YOUR MOVE` and name what by. Nothing else does. A check
-waiting for an eye and a parked idea are printed under `optional` and are not
-allowed to shout — the first is an offer to a machine that can look, the second
-is an offer to nobody in particular, and a session that ends every turn in red
-is a session that ends none of them cleanly.
+head line into `⚑ YOUR MOVE` and name what by. Nothing else does.
+
+The `landed` row always names `origin/main`, never "main". A landing is worth
+something only if it is the one the next clone will see, and a local trunk five
+commits ahead of origin reads as done and is not.
+
+The outstanding `Check:` list is deliberately **not** a row. Something always
+wants an eye — that is what a sandbox leaves behind every time it runs — so a
+row saying so carries nothing from one turn to the next, and a row that is
+always there is read as furniture. It belongs in `bun run checks`, at the
+machine that can do the looking.
+
+The `parked` rows carry the ideas themselves, in their own words, up to six of
+them. A count would be the wrong thing: "1 parked idea" says a file exists,
+which the reader knew; the title says whether it is worth a session, which is
+the only question being asked at the end of a turn.
 
 **Suggestions go in `docs/parked.md`, not in the report.** Anything the session
 noticed and did not do — a refactor it stepped around, a tool that would have

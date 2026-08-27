@@ -15,8 +15,6 @@
  */
 
 import { join } from "node:path";
-import { outstanding } from "../checks/checks.js";
-import { readChecks } from "../checks/repo.js";
 import { type Handoff, render } from "./handoff.js";
 import { parseParked } from "./parked.js";
 
@@ -73,7 +71,6 @@ const state: Handoff = {
     .map((line) => line.trim().replace(/^\S+\s+/, "")),
   green: wantsCheck ? await run(["bun", "run", "check"]) : null,
   asks,
-  waiting: outstanding(await readChecks(root)).length,
   parked: parked.map((p) => p.title),
   offline,
 };

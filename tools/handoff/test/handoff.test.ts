@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { blocking, type Handoff, optional, render } from "../handoff.js";
+import { blocking, followUps, type Handoff, render } from "../handoff.js";
 import { parseParked } from "../parked.js";
 
 const CLEAR: Handoff = {
@@ -10,7 +10,6 @@ const CLEAR: Handoff = {
   dirty: [],
   green: true,
   asks: [],
-  waiting: 0,
   parked: [],
   offline: false,
 };
@@ -32,21 +31,20 @@ describe("blocking", () => {
     expect(blocking({ ...CLEAR, green: false })).toEqual(["the tree is red"]);
   });
 
-  test("a check waiting for an eye does not — it is an offer, not a debt", () => {
-    expect(blocking({ ...CLEAR, waiting: 3 })).toEqual([]);
+  test("a parked idea does not — nobody has decided to do it", () => {
     expect(blocking({ ...CLEAR, parked: ["a director sheet"] })).toEqual([]);
   });
 });
 
-describe("optional", () => {
-  test("checks and parked ideas are both offered", () => {
-    const spare = optional({ ...CLEAR, waiting: 2, parked: ["a director sheet"] });
-    expect(spare.some((s) => s.includes("bun run checks"))).toBe(true);
-    expect(spare.some((s) => s.includes("docs/parked.md"))).toBe(true);
+describe("followUps", () => {
+  test("a parked idea is offered in its own words, not as a count", () => {
+    const ideas = ["the director could show the parked list beside TO CHECK"];
+    expect(followUps({ ...CLEAR, parked: ideas })).toEqual(ideas);
   });
 
-  test("an unpushed branch is offered, because nothing is lost by it", () => {
-    expect(optional({ ...CLEAR, pushed: false })).toEqual(["claude/thing-9f2 is not on origin"]);
+  test("a long list is cut, because the block has to fit a phone", () => {
+    const many = Array.from({ length: 9 }, (_, i) => `idea ${i}`);
+    expect(followUps({ ...CLEAR, parked: many })).toHaveLength(6);
   });
 });
 
@@ -54,8 +52,22 @@ describe("render", () => {
   test("the clear block says so in its first line and claims nothing else", () => {
     const out = render(CLEAR);
     expect(out).toContain("✅ NOTHING WAITING");
-    expect(out).toContain("the desk is clear");
+    expect(out).toContain("nothing postponed");
     expect(out).not.toContain("⚑");
+  });
+
+  test("a parked idea is printed in full, so it can be judged without opening it", () => {
+    const idea = "the director could show the parked list beside TO CHECK";
+    expect(render({ ...CLEAR, parked: [idea] })).toContain(idea);
+  });
+
+  test("the outstanding check list is never a row — it is always non-empty", () => {
+    expect(render(CLEAR)).not.toContain("bun run checks");
+  });
+
+  test("what was cut is said, rather than silently dropped", () => {
+    const many = Array.from({ length: 8 }, (_, i) => `idea ${i}`);
+    expect(render({ ...CLEAR, parked: many })).toContain("and 2 more — docs/parked.md");
   });
 
   test("a block that is held up names what by", () => {
@@ -73,6 +85,10 @@ describe("render", () => {
 
   test("an unreachable origin does not turn into a landing", () => {
     expect(render({ ...CLEAR, offline: true })).toContain("origin unreachable");
+  });
+
+  test('the landing is stated against origin/main by name, never just "main"', () => {
+    expect(render({ ...CLEAR, branch: "main" })).toContain("is on origin/main");
   });
 
   test("a long dirty list is cut rather than allowed to fill a phone", () => {
