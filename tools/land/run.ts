@@ -98,6 +98,14 @@ if (decided.rebase) {
   console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK])}`);
 }
 
+// A replay can bring a workspace package the lane never had — `tools/orphans`
+// arrived that way — and `node_modules` is then stale between the rebase and
+// the check. What the check reports is `Cannot find module '@neon-spore/…'` in
+// a file the lane never opened, which reads as a rebase disaster and is
+// thirteen milliseconds of work. Cheap, idempotent, and it runs after the
+// replay rather than before it, which is the whole point.
+await Bun.spawn(["bun", "install"], { cwd: root, stdout: "ignore", stderr: "ignore" }).exited;
+
 const check = Bun.spawn(["bun", "run", "check"], { cwd: root, stdout: "pipe", stderr: "pipe" });
 const [checkOut, checkErr, checkCode] = await Promise.all([
   new Response(check.stdout).text(),
