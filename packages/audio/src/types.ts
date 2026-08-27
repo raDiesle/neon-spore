@@ -69,7 +69,9 @@ export type Family =
   | "swarm"
   | "signal"
   | "motion"
-  | "ruin";
+  | "ruin"
+  /** Not a sound the game makes. The music candidates' cells — see music/. */
+  | "music";
 
 /**
  * `bound` means something in the running game plays it today. `spare` means it

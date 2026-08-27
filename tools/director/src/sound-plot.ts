@@ -24,12 +24,20 @@ const HIGH = 16_000;
 /** Points sampled along a voice. Enough for a swept filter to read as a curve. */
 const STEPS = 12;
 
-const y = (hz: number): number => {
-  const t = Math.log(Math.max(LOW, Math.min(HIGH, hz)) / LOW) / Math.log(HIGH / LOW);
-  return H - t * H;
-};
+/**
+ * Where a frequency sits in a plot `height` tall — log, because an octave is
+ * an octave whether it is at 50 Hz or at 5 kHz. Exported so the music roll
+ * (`music-plot.ts`) reads on this axis rather than inventing a second one that
+ * drifts from it.
+ */
+export function hzAxis(height: number): (hz: number) => number {
+  return (hz) =>
+    height - (Math.log(Math.max(LOW, Math.min(HIGH, hz)) / LOW) / Math.log(HIGH / LOW)) * height;
+}
 
-function el<K extends keyof SVGElementTagNameMap>(
+const y = hzAxis(H);
+
+export function svgEl<K extends keyof SVGElementTagNameMap>(
   tag: K,
   attrs: Record<string, string | number>,
 ): SVGElementTagNameMap[K] {
@@ -37,6 +45,8 @@ function el<K extends keyof SVGElementTagNameMap>(
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
   return node;
 }
+
+const el = svgEl;
 
 /**
  * One voice as a filled ribbon between its own low and high edge. A pure tone

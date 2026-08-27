@@ -392,6 +392,29 @@
         .sound { grid-template-columns: 40px minmax(0, 1fr); }
         .sound .plot { grid-column: 2; width: 100%; }
       }
+
+      /* MUSIC. One column rather than three: a piece is half a minute long and
+         its roll wants the whole width, where a sound's plot fits in 190px. */
+      .theme {
+        border: 1px solid var(--line-soft); border-radius: 8px;
+        padding: 8px 10px; margin: 8px 0; max-width: 900px;
+      }
+      .theme .head { display: flex; align-items: center; gap: 8px; }
+      .theme .name { color: var(--gold); letter-spacing: 2px; font-size: 12px; }
+      .theme .id { color: #4d4478; font-size: 9px; }
+      .theme .stamp { margin-left: auto; font-size: 9px; color: #574d84; letter-spacing: 2px; }
+      .theme .note { margin: 4px 0 0; max-width: none; }
+      .theme .use { margin: 2px 0; color: var(--dim); font-size: 10px; }
+      .theme .kind { margin: 2px 0 6px; color: #a98cff; font-size: 9px; }
+      .theme .roll {
+        display: block; width: 100%; height: 96px;
+        border-radius: 5px; border: 1px solid var(--line-soft);
+      }
+      .playbtn.on { color: var(--red); }
+      .cells { margin: 18px 0 0; max-width: 900px; }
+      .cells h2 { color: var(--dim); font-size: 10px; letter-spacing: 2px; margin: 0 0 6px; }
+      .cellrow { display: flex; flex-wrap: wrap; gap: 4px; }
+      .cellbtn { font-size: 9px; letter-spacing: 1px; }
       .sheetpage { display: none; }
       .sheetpage.on { display: block; }
       .sheetpage > .note { max-width: 620px; }

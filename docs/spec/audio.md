@@ -98,6 +98,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | `creature` | the bestiary, built and unbuilt | 0 of 32 |
 | `assist` · `signal` | the couplings and the assists | 0 of 20 |
 | `swarm` · `motion` · `ruin` | the field, and things ending | 0 of 20 |
+| `music` | ten instruments, and not in `CATALOGUE` at all — section 8 | — |
 
 Four outcomes the pair must tell apart across a voice channel — destroyed, went
 through, wrong colour, deflected — are separated by **shape**, not by pitch: a
@@ -163,4 +164,51 @@ read this; nothing writes back."*
   not is an open question, not a decision.
 - **Nothing loops.** The ambience is written as one-shots a host would repeat,
   because a loop that has to be stopped is state, and state in audio is where
-  the leaks are.
+  the leaks are. The music candidates in section 8 keep that rule: a theme
+  repeats by being *scheduled again*, a second at a time, not by a node with
+  `loop` set on it.
+- **No music.** Six pieces exist to be listened to and refused; section 8.
+
+## 8 · Music — six candidates, and no decision
+
+`docs/spec/systems.md` 5.3 says **no soundtrack**, and section 1 is the reason:
+a bed of music under a game whose control scheme is talking is a bed under the
+control scheme. Nothing here overturns that. What it does is make the rule
+arguable, because it was decided with nothing to listen to.
+
+`packages/audio/src/music/` holds six pieces. None is bound, nothing in the
+game plays one, and they are deliberately **not in `CATALOGUE`** — `spare`
+there means "something could claim this tomorrow", and half a chord is not a
+sound the game will ever trigger.
+
+| Theme | What it is | Where it would sit |
+|---|---|---|
+| `pulseFloor` | a heartbeat on every beat of the game's own 96 BPM | under an ordinary wave — the click track with a body |
+| `deepCurrent` | a four-note bass figure under a wavering low voice | under a quiet wave, where the bass is the only pulse |
+| `driftBloom` | four low chords over half a minute, far-off bells | the title screen, and the gap between waves |
+| `glassRain` | bells falling, and no bass at all | the menu and the results screen |
+| `pressure` | a very low saw walking down, the pulse doubling | a boss |
+| `ember` | clicks scattering and slowing, one chord opening | after a boss dies, and after a run ends |
+
+They are built out of the same grains as everything else and carved around the
+voice the same way, which is the point: **all six read 0.00 s of speech band
+per minute**. `test/music.test.ts` holds that line at four seconds per minute
+and checks it per note as well as per piece — a pitch multiplier moves a cell's
+filters with it, so a bell walked down seven semitones lands in the middle of
+the voice even though the cell it came from is clean.
+
+Two things follow from being written rather than recorded. A whole theme is
+about as many bytes as a sound, so keeping five refused ones costs nothing.
+And the choosing is a page rather than a meeting: the director's SOUND sheet
+has a **MUSIC** tab where each piece has a play button, a roll drawn on the same
+axis as the sound plots, and its own speech-band number.
+
+The player is the only new machinery. The engine stops building at 64 live
+voices — a mobile limit, not a CPU one — and a thirty-second piece is several
+hundred, so `music/player.ts` schedules about a second ahead and comes back for
+more. Which is also the whole of looping, and of `Engine.silence()`: a piece
+built a second ahead of the clock cannot be stopped by waiting.
+
+**None of them has been heard.** The same warning at the top of this file
+applies twice over here, because a sound that is wrong is a wrong noise and a
+piece of music that is wrong is half a minute of one.

@@ -336,6 +336,26 @@ arrives at — `THE WALL` is a different wave at 70 BPM than at 96. The named
 presets answer decision #10, which wanted a second guard window comparable side
 by side instead of edited into the source.
 
+## MUSIC
+
+The last tab of the SOUND sheet, and the only one that is not a catalogue.
+
+`docs/spec/systems.md` 5.3 says the game has no soundtrack, and section 1 of
+`docs/spec/audio.md` says why: talking is the control scheme, and music under a
+conversation is music under the control scheme. That was decided with nothing
+to listen to. So the tab holds six pieces — `packages/audio/src/music/` — that
+would have to be better than silence for the question to be worth reopening.
+
+Each row plays, loops, and says what a minute of it costs the conversation. The
+roll beside it is the same picture the sound plots make, at the scale of half a
+minute: time across, frequency up, the speech band in red, a dashed gold line
+where it comes back to the top. A piece with anything in the red is one the
+pair hears instead of each other; all six currently read `0.00s per minute`,
+which is the only reason there is anything to argue about.
+
+Nothing here is wired to the game and nothing can be. Taking one is a decision
+made elsewhere — in the spec first, and then in `mixer.ts`.
+
 ## Still to build
 
 From the original brief, in rough order of how much they would add:

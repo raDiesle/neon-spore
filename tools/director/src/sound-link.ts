@@ -121,6 +121,10 @@ function byFamily(def: SoundDef): Subject {
     case "swarm":
     case "motion":
     case "ruin":
+    // `music` never reaches here — its cells are not in `CATALOGUE` — but the
+    // switch is exhaustive on purpose and an unlisted family should fail the
+    // typecheck rather than fall through to a picture it has no claim to.
+    case "music":
       return NONE;
   }
 }

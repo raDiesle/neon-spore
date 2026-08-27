@@ -20,7 +20,9 @@ import {
   judgeBand,
   planSound,
   type SoundDef,
+  THEMES,
 } from "@neon-spore/audio";
+import { bindMusicPage } from "./music-page.js";
 import { subjectArt } from "./sound-art.js";
 import { NO_SUBJECT, subjectFor, triggerFor } from "./sound-link.js";
 import { plotLegend, plotSound } from "./sound-plot.js";
@@ -162,7 +164,13 @@ function renderPage(family: string): void {
   for (const def of list) page.appendChild(row(def));
 }
 
-/** Every family's page. Cheap enough to redo whole when the filter changes. */
+/**
+ * Every family's page. Cheap enough to redo whole when the filter changes.
+ *
+ * MUSIC is not among them and is not redrawn here: it holds a running player,
+ * and a redraw for the sake of a BOUND/SPARE filter that does not apply to it
+ * would cut off whatever is playing.
+ */
 function renderAll(): void {
   renderPage("all");
   for (const family of families()) renderPage(family);
@@ -186,12 +194,17 @@ export function bindSoundPage(): void {
   bindTabs("#soundTabs", "soundpage", "sound-");
 
   let drawn = false;
+  let hush: () => void = () => {};
   const show = (on: boolean): void => {
     sheet.classList.toggle("on", on);
-    if (!on) return;
+    if (!on) {
+      hush();
+      return;
+    }
     if (!drawn) {
       drawn = true;
       renderAll();
+      hush = bindMusicPage(engine);
     }
     // A browser will not start audio before a gesture, and opening the sheet
     // is one. Doing it here means the first ▶ plays rather than arming.
@@ -229,4 +242,7 @@ function buildTabs(): void {
   for (const family of families()) {
     make(family, `${family.toUpperCase()} ${byFamily(family).length}`, false);
   }
+  // Last, and apart: the music is candidates rather than catalogue, and it is
+  // the one tab where pressing a button starts something that keeps going.
+  make("music", `MUSIC ${THEMES.length} ★`, false);
 }

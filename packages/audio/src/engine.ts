@@ -22,7 +22,12 @@ export class Engine {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private noise: AudioBuffer | null = null;
-  private live = 0;
+  /**
+   * Every source currently scheduled or sounding. It is a set rather than a
+   * count because `silence()` has to reach them: a voice built a second ahead
+   * of the clock has not started yet and cannot be waited out.
+   */
+  private live = new Set<AudioScheduledSourceNode>();
   private muted = false;
   private volume: number;
 
@@ -95,7 +100,7 @@ export class Engine {
     if (!ctx || !master || this.muted) return;
     const t0 = Math.max(ctx.currentTime, when || ctx.currentTime) + 0.002;
     for (const v of plan.voices) {
-      if (this.live >= MAX_LIVE_VOICES) return;
+      if (this.live.size >= MAX_LIVE_VOICES) return;
       const start = t0 + v.start;
       const end = start + v.attack + v.hold + v.release;
 
@@ -157,9 +162,9 @@ export class Engine {
       }
       source.start(start);
       source.stop(end);
-      this.live++;
+      this.live.add(source.node);
       source.node.onended = () => {
-        this.live--;
+        this.live.delete(source.node);
       };
     }
   }
@@ -186,8 +191,24 @@ export class Engine {
     return { node, start: (t) => node.start(t), stop: (t) => node.stop(t) };
   }
 
+  /**
+   * Stop everything, including what is scheduled and has not started.
+   *
+   * The game never needs this — a sound there is a third of a second long and
+   * stopping it is not a thing anyone wants. A piece of music is: `music/` has
+   * a second of it built ahead of the clock at all times, so without this, ■
+   * means "in a moment" and two themes in a row overlap.
+   */
+  silence(): void {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    for (const node of this.live) node.stop(ctx.currentTime);
+    this.live.clear();
+  }
+
   dispose(): void {
     void this.ctx?.close();
+    this.live.clear();
     this.ctx = null;
     this.master = null;
   }

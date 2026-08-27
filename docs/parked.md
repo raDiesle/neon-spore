@@ -54,3 +54,22 @@ already parses `## N Title — tail` sections out of the spec (`sections.ts`), s
 a check that a spec table matches the constant it describes would cover both
 bosses and every one after them. Start at `tools/director/src/roster.ts`, which
 already reads `bosses.md`.
+
+
+## Rendering a theme to a file, so it can be heard away from the director
+
+2026-08-27 · claude/game-music-creation-dzjb8r
+
+The six music candidates can only be listened to by running `bun run dev` and
+opening the SOUND sheet, which means the person choosing between them has to be
+at a machine. An offline renderer — `PlannedVoice` to samples to a WAV — would
+turn a theme into a file that plays on a phone, and would let a cloud session
+attach what it wrote rather than describe it.
+
+Not done here because it is a **second synthesiser**. `engine.ts` is the one
+place that turns a plan into sound, and a renderer that re-derives its envelope,
+its ring modulation and its filters is exactly the drift CLAUDE.md warns about:
+the file would stop being what the game plays and nobody would find out by
+listening. Start by asking whether `OfflineAudioContext` under a headless
+Chromium can drive the real `engine.ts` and hand back the buffer — that keeps
+one synthesiser and makes the rendering a harness rather than a rewrite.
