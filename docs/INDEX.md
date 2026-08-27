@@ -11,6 +11,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/choosing-a-model.md` | you are writing a prompt and picking a model and a thinking effort |
+| `docs/versus.md` | you are offering a second answer to something already drawn, or judging one |
 | `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
 | `docs/parked.md` | you had an idea you are not acting on, or want one to act on |
 | `docs/queue.md` | you are picking the next thing to build, or resuming an unattended run |
