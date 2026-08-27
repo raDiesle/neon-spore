@@ -182,23 +182,6 @@ Model `sonnet`, effort `think hard`. **Think hard about `elsewhere`** — it is 
 
 Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
 
-## THE DIRECTOR PLAYS A DIFFERENT GAME THAN THE GAME
-_claude/burn-director-see-d2 · tools/director/src/ship.ts tools/director/src/config-panel.ts_
-
-`tools/director/src/main.ts` builds its worlds from `DEFAULT_CONFIG`, where
-`briefings`, `forkBetweenWaves` and `shotChargeBeats` are all off — correct
-for a determinism run, wrong for the tool a person opens to *look at the
-game*. So THE FORK, THE GAUGE, the briefing card and the shot wind-up are all
-invisible in the director, and the owner reasonably concluded they had not
-been built.
-
-The owner wants to see everything, to switch the pair-only parts on, and to
-know **which wave** a briefing belongs to. Finished when every landed mechanic
-is reachable from the director, and when a new `PairConfig` switch or a new
-`SimConfig` tunable appears there by being added rather than by somebody
-remembering — `ship.ts` today hand-lists capabilities and its own comment
-admits it only catches a field being *removed*.
-
 ## AN INTERLUDE IS AUTHORED LIKE A BOSS AND EDITED LIKE NOTHING AT ALL
 _claude/burn-interlude-panel-d3 · tools/director/src/interlude-panel.ts tools/director/src/interlude-serialize.ts tools/director/src/roster.ts packages/content/src/interludes.ts_
 
@@ -552,5 +535,3 @@ same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
 and how much of the fifty-five it can actually answer, since a check about a
 sound or about two devices cannot be photographed at all. Report that number
 honestly before capturing anything in bulk.
-
-
