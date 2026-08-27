@@ -128,6 +128,30 @@ carries `### Creatures`, `### Mechanics` and `### Controls`, and the page reads
 them. Filing an idea differently is one edit there; there is no name-to-section
 table here to go stale.
 
+**A row shows the shape drawn at it.** `tools/shape-sheet/src/drafts/` holds a
+contour drawn *at* a named idea, each one carrying the name of the idea it was
+offered to, and the frame beside a row is that join. It was one-sided before:
+a row got a picture only where the spec's name happened to match a contour the
+game already draws, which on a page of unbuilt things is almost never — so the
+twenty ideas that do have a shape drawn at them showed nothing, and the shape
+sat on the SHAPES tab beside the other shapes rather than beside the idea,
+which is the one place it answers a question. The line under the paragraph is
+the draft's own argument for being that shape: the Echo is two bodies because
+the pair never sees one at the same moment.
+
+The draft **animates** and a contour the game already draws does not, and that
+difference is the point. A draft is a proposal, and whether its lobes swing or
+only shiver is most of what a person is being asked to accept; a built name has
+a simulation behind it, and a card is not where its motion is judged.
+
+A frame with a question mark in it is a name nobody has drawn anything at. The
+empty frame is deliberate — a gap where a picture will go has to look different
+from a picture that failed to draw, the same arrangement the SOUND sheet makes.
+`tools/director/test/concept-art.test.ts` holds the join to the spec's own
+spelling: renaming an idea in `ideas.md` is one edit, and without the test the
+shape drawn at it would go quietly back to being a picture beside other
+pictures.
+
 **A row that has more to say says it.** The table cell is a label; the design
 is the paragraph the spec spends on that name further down the page. A panel
 that shows the first and drops the second gives the Jammer as one sentence

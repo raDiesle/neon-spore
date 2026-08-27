@@ -12,9 +12,10 @@
  * does that grouping on the server, out of the spec's own headings.
  */
 
+import { conceptArt, draftFor } from "./concept-art.js";
 import { detailBox, inline } from "./markdown.js";
+import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
-import { hasSilhouette, silhouette } from "./silhouette.js";
 import { renderSpec } from "./spec.js";
 import { bindTabs } from "./tabs.js";
 
@@ -48,13 +49,15 @@ function renderEntry(item: BacklogEntry): HTMLElement {
   const head = document.createElement("div");
   head.className = "head";
 
-  // A shape beside a name means that one is already drawn. Most of this page
-  // is names with no picture, which is the whole reason SHAPES sits next to it.
-  if (hasSilhouette(item.name)) {
-    head.appendChild(silhouette(item.name, "var(--cyan)", 34));
-  }
-
+  // Every named entry gets a frame, filled or empty. It used to get one only
+  // where the *spec's* name happened to match a contour the game draws, which
+  // on a page of unbuilt things is almost never — so the twenty ideas that do
+  // have a shape drawn at them showed nothing, and the shape sat one tab away
+  // beside the other shapes instead of beside the idea. `concept-art.ts` is
+  // the join, and the empty frame is deliberate: a gap where a picture will go
+  // has to look different from a picture that failed to draw.
   if (item.name) {
+    head.appendChild(conceptArt(item.name));
     const name = document.createElement("span");
     name.className = "name";
     name.textContent = item.name;
@@ -74,6 +77,20 @@ function renderEntry(item: BacklogEntry): HTMLElement {
     blurb.className = "blurb";
     inline(blurb, item.note);
     div.appendChild(blurb);
+  }
+
+  // Why the shape is *that* shape. A contour drawn at a mechanic is an
+  // argument — the Echo is two bodies because the pair never sees one at the
+  // same moment — and a picture with the argument left on the other tab is a
+  // picture a person has to take on trust.
+  const draft = draftFor(item.name);
+  if (draft) {
+    const why = document.createElement("p");
+    // Indented to clear the frame above it, and a long shape gets a wide
+    // frame — so the sentence has to know which one it is standing under.
+    why.className = isWide(draft) ? "drawn is-wide" : "drawn";
+    inline(why, `**${draft.subject.name}**, offered — ${draft.owner}`);
+    div.appendChild(why);
   }
 
   if (item.detail) div.appendChild(detailBox(item.detail, item.ref));

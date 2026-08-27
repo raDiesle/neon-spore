@@ -160,6 +160,28 @@
       .plan.is-built .stamp { color: var(--cyan); }
       .plan .kind { color: #a98cff; margin-left: 6px; font-size: 9px; }
       .plan .blurb { margin: 2px 0 0; color: var(--dim); line-height: 1.45; }
+      /* Why a draft is that shape. Cyan, like the draft's own frame, so the
+         sentence and the picture it explains read as one thing. */
+      .plan .drawn { margin: 3px 0 0 54px; color: #6fb9c4; line-height: 1.4; font-size: 9px; }
+      .plan .drawn b { color: var(--cyan); font-weight: 600; letter-spacing: 1px; }
+      /* Always the same width whether it holds a shape or a gap, so a column
+         of entries stays a column and the names line up down the page. */
+      .concept-art {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line-soft);
+        border-radius: 5px;
+        background: #0a0719;
+      }
+      .concept-art.is-wide { width: 132px; }
+      .concept-art.is-draft { border-color: #1d5a63; background: #041013; }
+      .concept-art.is-none { color: #3b3163; font-size: 13px; }
+      .concept-art svg { background: none; }
+      .plan .drawn.is-wide { margin-left: 140px; }
 
       .concept { padding: 6px 0 10px; border-bottom: 1px solid var(--line-soft); font-size: 10px; }
       .concept .name { color: var(--ink); letter-spacing: 2px; font-size: 11px; }
@@ -578,9 +600,12 @@
           <p class="note">
             Every creature the design has a name for and the simulation does
             not: the first thirteen, everything argued into the spec since, and
-            the creature ideas that are accepted but not worked out. A
-            silhouette beside a name means that one is already drawn — most are
-            not, which is what SHAPES is for.
+            the creature ideas that are accepted but not worked out. The frame
+            beside a name holds the contour drawn at that idea, and the line
+            under the paragraph says why it is that shape. A frame with a
+            question mark in it is a name nobody has drawn anything at yet —
+            SHAPES has the spare contours, and handing one over is a decision
+            rather than an edit here.
           </p>
           <button type="button" class="expand" data-expand="#backlogBestiary">EXPAND ALL</button>
           <div id="backlogBestiary" class="columns"></div>

@@ -16,42 +16,20 @@
  * Everything here animates, and that is the point: motion is what tells two
  * blobs apart at 26 px, and there is no simulation running behind this page to
  * take the frames from.
+ *
+ * The fitting and the animation are `shape-figure.ts`'s. They were this file's
+ * until the backlog page needed the same picture beside the idea each draft
+ * was drawn for, and a second copy of a frame-fitting algorithm is a second
+ * answer to "does this card clip".
  */
 
-import {
-  boundsOver,
-  CATALOGUE,
-  type CatalogueEntry,
-  contourAt,
-  WOBBLE_PERIOD,
-} from "@neon-spore/shape-sheet";
+import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
-import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
+import { isWide, shapeFigure } from "./shape-figure.js";
 
-const SVG = "http://www.w3.org/2000/svg";
 const BOX = 92;
-/**
- * The hull is six times as wide as it is tall, and a span of it far more.
- * Fitted into a square such a shape becomes a hairline across the middle, so
- * anything this long gets a wide frame and everything else stays square.
- */
+/** The frame a long shape gets instead of the square one — see `isWide`. */
 const WIDE = 620;
-const WIDE_RATIO = 3;
-
-/** The moments a card's frame is fitted over: one whole wobble, sampled. */
-const FIT_TIMES = [0, 0.2, 0.4, 0.6, 0.8].map((f) => f * WOBBLE_PERIOD);
-
-interface Drawn {
-  entry: CatalogueEntry;
-  path: SVGPathElement;
-  /** The group the own-motion is written onto, inside the fitted frame. */
-  body: SVGGElement;
-  centre: { x: number; y: number };
-  tile: number;
-}
-
-const drawn: Drawn[] = [];
-let running = false;
 
 const STROKE: Record<CatalogueEntry["status"], string> = {
   draft: "var(--cyan)",
@@ -76,51 +54,15 @@ function card(entry: CatalogueEntry): HTMLElement {
   const div = document.createElement("div");
   div.className = `shape is-${entry.status}`;
 
-  // The box is sized on the shape's whole wobble *and* its whole own-motion,
-  // not on its rest pose: a frame fitted to t = 0 clips the moment the outline
-  // breathes outwards, and one fitted to the contour alone clips the sway.
-  const still = boundsOver(entry.subject, FIT_TIMES);
-
   // Measured, not assumed. This used to ask whether the contour was open, on
   // the reasoning that an open one is the hull — but an arm is open too, and
   // it is *taller* than it is wide. It got a 686 px card with a thumbnail in
   // the middle of it and six inches of nothing either side.
-  const wide = (still.x1 - still.x0) / (still.y1 - still.y0) > WIDE_RATIO;
+  const wide = isWide(entry);
   if (wide) div.classList.add("is-wide");
-
-  const w = wide ? WIDE : BOX;
-  const svg = document.createElementNS(SVG, "svg");
-  svg.setAttribute("viewBox", `0 0 ${w} ${BOX}`);
-  svg.setAttribute("width", String(w));
-  svg.setAttribute("height", String(BOX));
-
-  const tile = tilePixels(still);
-  // The still shape's middle is the pivot, fixed once. Both the box below and
-  // the transform written every frame turn about this same point, or the two
-  // disagree and the card clips whatever the box did not know was coming.
-  const pivot = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
-  const b = transformedBounds(entry.subject, entry.motion, FIT_TIMES, tile, pivot);
-  const scale = Math.min((w - 18) / (b.x1 - b.x0), (BOX - 18) / (b.y1 - b.y0));
-  const cx = (b.x0 + b.x1) / 2;
-  const cy = (b.y0 + b.y1) / 2;
-
-  const frame = document.createElementNS(SVG, "g");
-  frame.setAttribute(
-    "transform",
-    `translate(${w / 2} ${BOX / 2}) scale(${scale.toFixed(4)}) translate(${-cx} ${-cy})`,
+  div.appendChild(
+    shapeFigure(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status] }),
   );
-  const body = document.createElementNS(SVG, "g");
-
-  const path = document.createElementNS(SVG, "path");
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", STROKE[entry.status]);
-  path.setAttribute("stroke-width", String(2 / scale));
-  path.setAttribute("stroke-linecap", "round");
-  path.setAttribute("stroke-linejoin", "round");
-  body.appendChild(path);
-  frame.appendChild(body);
-  svg.appendChild(frame);
-  div.appendChild(svg);
 
   const side = document.createElement("div");
   const head = document.createElement("div");
@@ -139,23 +81,7 @@ function card(entry: CatalogueEntry): HTMLElement {
   text(side, "figures", figures);
 
   div.appendChild(side);
-  drawn.push({ entry, path, body, centre: pivot, tile });
   return div;
-}
-
-/**
- * One loop for every card. `performance.now` is the clock here and nowhere
- * near the simulation — this panel draws no world, holds no state a replay
- * could disagree about, and the wobble is a decoration on a still page.
- */
-function tick(): void {
-  const t = performance.now() / 1000;
-  for (const d of drawn) {
-    if (!d.path.isConnected) continue;
-    d.path.setAttribute("d", contourAt(d.entry.subject, t));
-    d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
-  }
-  requestAnimationFrame(tick);
 }
 
 function fill(id: string, entries: CatalogueEntry[]): void {
@@ -176,7 +102,6 @@ function fill(id: string, entries: CatalogueEntry[]): void {
 export function renderShapes(): void {
   if (!document.getElementById("shapesFree")) return;
 
-  drawn.length = 0;
   fill(
     "shapesDrafts",
     CATALOGUE.filter((e) => e.status === "draft"),
@@ -189,9 +114,4 @@ export function renderShapes(): void {
     "shapesTaken",
     CATALOGUE.filter((e) => e.status === "taken"),
   );
-
-  if (!running) {
-    running = true;
-    requestAnimationFrame(tick);
-  }
 }
