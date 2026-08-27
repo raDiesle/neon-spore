@@ -215,4 +215,29 @@ is reachable from the director, and when a new `PairConfig` switch or a new
 remembering — `ship.ts` today hand-lists capabilities and its own comment
 admits it only catches a field being *removed*.
 
+## AN INTERLUDE IS AUTHORED LIKE A BOSS AND EDITED LIKE NOTHING AT ALL
+_claude/burn-interlude-panel-d3 · tools/director/src/interlude-panel.ts tools/director/src/interlude-serialize.ts packages/content/src/interludes.ts_
+
+THE GAUGE is a playable round and there is no way to reach it from the
+director: no panel, no info, no way to play it, and no way to say which gap it
+sits in. `GAPS` in `packages/content/src/interludes.ts` is a
+`Record<number, InterludeEntry>` keyed by the wave it opens in front of —
+authored data, exactly like the boss a wave carries, and the boss has a panel
+(`tools/director/src/boss.ts`) that reads the code's own table and writes back
+through `serialize.ts`.
+
+The owner wants the same four things a boss panel gives: reach it, read what
+it is, **play it**, and change which wave it comes before. Playing is the part
+with a seam already cut for it — `stage-touch.ts` is the stage played rather
+than edited, with the game's own controls, and `world.interlude` is a mode the
+existing `World` enters (`docs/decisions.md` #20), so the stage does not need
+a second kind of round to know about.
+
+**Behind `claude/burn-director-see-d2`, not beside it.** Both mount a panel
+into `tools/director/src/main.ts` and `index.html`, and that lane is also
+deciding where the pair-only switches are controlled from — which this panel
+needs, since an interlude cannot be watched in a world built from
+`DEFAULT_CONFIG`. Starting early means authoring against a layout about to
+change.
+
 
