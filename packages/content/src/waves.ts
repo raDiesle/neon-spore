@@ -1,49 +1,11 @@
-import type { BossEntry, Color, PodEntry, RockKind } from "@neon-spore/sim";
+import type { Wave } from "./wave-types.js";
+
+export type { Wave, WaveEntry } from "./wave-types.js";
 
 /**
- * Waves are data, never code. Columns are authored against a 7-column field
- * and remapped by `buildQueue`; `beat` is the offset from the start of the wave.
- *
- * Every wave must pass the one-sentence test (docs/spec/wave-design.md):
- * if `sentence` cannot be written, the wave is padding and gets cut.
+ * Every wave in the game, in order. Nothing but the list — what a wave is made
+ * of is `wave-types.ts`, because this file is the half that grows.
  */
-export interface WaveEntry {
-  beat: number;
-  col: number;
-  /**
-   * Named here only for a kind that carries no colour — a rock, or one of the
-   * two kinds that carry none on purpose (`runt`, `throb`). A living creature
-   * that *has* a colour never names its kind here: it follows from the colour
-   * instead (`kindForColor`), so a wave with `color` set never also writes
-   * `kind` — naming both would be naming the same thing twice and inviting
-   * them to disagree.
-   */
-  kind?: RockKind | "runt" | "throb";
-  /** A fixed colour, or null for a kind that carries none. */
-  color: Color | null;
-}
-
-export interface Wave {
-  name: string;
-  /** The one-sentence test. Not flavour text — the reason the wave exists. */
-  sentence: string;
-  /** Shown to both players on first play. */
-  hint: string;
-  entries: WaveEntry[];
-  /**
-   * Pods left hanging in the field. Their own list, because a pod is not an
-   * enemy: it is never cleared and it never blocks the end of the wave. Columns
-   * are authored against the same 7-column field as `entries`; the row is
-   * absolute, and a pod never hangs on the hull row.
-   */
-  pods?: PodEntry[];
-  /**
-   * What the wave authors when the queen is in it. `col` is authored against
-   * the same 7-column field as everything else.
-   */
-  boss?: BossEntry;
-}
-
 export const WAVES: Wave[] = [
   {
     name: "FIRST STEP",
@@ -227,6 +189,26 @@ export const WAVES: Wave[] = [
     sentence: "The one where firing on sight is the miss.",
     hint: "It swells and shrinks on the beat. Wait for it — a shot on the wrong one does nothing at all.",
     entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
+  },
+  {
+    name: "THE VANE",
+    sentence: "The one where the column you were told is never the column it lands in.",
+    hint: "The arm folds every arrival about the column it is standing in. Count from the arm, not from the edge.",
+    entries: [
+      { beat: 0, col: 1, kind: "meteor", color: null },
+      { beat: 3, col: 5, color: "red" },
+      { beat: 6, col: 0, kind: "meteor", color: null },
+      { beat: 9, col: 4, color: "cyan" },
+      { beat: 12, col: 6, kind: "meteor", color: null },
+      { beat: 15, col: 2, color: "red" },
+      { beat: 18, col: 3, kind: "meteorMedium", color: null },
+      { beat: 21, col: 6, color: "cyan" },
+      { beat: 24, col: 1, kind: "meteor", color: null },
+      { beat: 27, col: 5, color: "red" },
+      { beat: 30, col: 0, kind: "meteorMedium", color: null },
+      { beat: 33, col: 3, color: "cyan" },
+    ],
+    boss: { kind: "vane" },
   },
   {
     name: "meteor testings",

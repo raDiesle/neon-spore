@@ -1,12 +1,6 @@
 import { AUTHORED_COL_MAX, CREATURES, type Wave } from "@neon-spore/content";
-import {
-  DEFAULT_CONFIG,
-  type QueenEntry,
-  WARDEN_PHASES,
-  wardenClampedControl,
-  wardenColor,
-  wardenReachBeats,
-} from "@neon-spore/sim";
+import type { BossEntry, QueenEntry } from "@neon-spore/sim";
+import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { MIRROR_DEFAULT, renderSimonEditor } from "./simon-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
@@ -16,10 +10,12 @@ import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js"
  * instead of a brush.
  *
  * What each boss *is* comes from `CREATURES` where the boss is a creature
- * kind, and its numbers come from the simulation's own tables — the Warden's
- * phases are `WARDEN_PHASES` rendered, not a second copy of them typed here.
- * THE MIRROR is the one that has to be written out, because it is not on the
- * field at all and so has no bestiary entry to read.
+ * kind, and its numbers come from the simulation's own tables. THE MIRROR and
+ * THE VANE are the two that have to be written out, because neither is on the
+ * field as a creature and so neither has a bestiary entry to read.
+ *
+ * This file is the queen's form and the choice between the four. The two
+ * panels that are mostly a rendered cycle live in `boss-cycles.ts`.
  */
 export interface BossPanel {
   render(): void;
@@ -38,10 +34,11 @@ const QUEEN_DEFAULT: QueenEntry = {
  * the grid. A wave carries one boss, so choosing the other replaces it — a
  * wave with two bosses is not a wave anybody has designed.
  */
-function setBoss(wave: Wave, kind: "queen" | "mirror" | "warden" | null): void {
+function setBoss(wave: Wave, kind: BossEntry["kind"] | null): void {
   if (kind === null) wave.boss = undefined;
   else if (kind === "queen") wave.boss = { ...QUEEN_DEFAULT };
   else if (kind === "warden") wave.boss = { kind: "warden" };
+  else if (kind === "vane") wave.boss = { kind: "vane" };
   else wave.boss = { kind: "mirror", rounds: MIRROR_DEFAULT.rounds.map((r) => [...r]) };
 }
 
@@ -54,7 +51,7 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     panel.replaceChildren();
     if (!wave) return;
 
-    const pick = (label: string, kind: "queen" | "mirror" | "warden" | null): HTMLButtonElement => {
+    const pick = (label: string, kind: BossEntry["kind"] | null): HTMLButtonElement => {
       const el = document.createElement("button");
       el.type = "button";
       el.textContent = label;
@@ -72,6 +69,7 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     if (wave.boss?.kind !== "queen") bar.appendChild(pick("+ BULB QUEEN", "queen"));
     if (wave.boss?.kind !== "mirror") bar.appendChild(pick("+ THE MIRROR", "mirror"));
     if (wave.boss?.kind !== "warden") bar.appendChild(pick("+ THE WARDEN", "warden"));
+    if (wave.boss?.kind !== "vane") bar.appendChild(pick("+ THE VANE", "vane"));
     panel.appendChild(bar);
 
     if (!wave.boss) return;
@@ -93,6 +91,13 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
         onEdit();
       });
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
+    if (wave.boss.kind === "vane") {
+      renderVane(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
       return;
     }
     const boss = wave.boss;
@@ -151,91 +156,3 @@ const MIRROR_BLURB =
   "An exact copy of your own ship, upside down at the top of the field and " +
   "the colour of something that went wrong. It performs sequences of your " +
   "own controls and asks for them back.";
-
-/**
- * THE WARDEN's panel. Its one authored number is the plate count; everything
- * else about it is fixed — it stands dead centre, and its cycle follows from
- * `wardenRow` and how fast a tether falls. So the panel is mostly the cycle
- * itself, rendered from the simulation's own tables so that a retune shows up
- * here without anyone remembering to come and change it.
- */
-function renderWarden(
-  panel: HTMLElement,
-  boss: { kind: "warden"; plates?: number },
-  onEdit: () => void,
-): void {
-  const cfg = DEFAULT_CONFIG;
-  const fields = document.createElement("div");
-  fields.className = "boss-fields";
-  fields.append(
-    numberField("plates", 1, 12, boss.plates ?? cfg.wardenPlates, (v) => {
-      boss.plates = v;
-      onEdit();
-    }),
-  );
-  panel.appendChild(fields);
-
-  const blurb = document.createElement("p");
-  blurb.className = "note";
-  blurb.textContent = CREATURES.warden.blurb;
-  panel.appendChild(blurb);
-
-  const reach = wardenReachBeats(cfg);
-  const cycle = document.createElement("table");
-  cycle.className = "boss-phases";
-  cycle.innerHTML =
-    "<tr><th>cycle beat</th><th>what happens</th></tr>" +
-    `<tr><td>0</td><td>a line takes the ${wardenClampedControl(0)} (${wardenColor(0)} rim), ` +
-    `then the ${wardenClampedControl(1)} (${wardenColor(1)}) next cycle</td></tr>` +
-    `<tr><td>0–${reach}</td><td>it draws down that column. Only the other player may pull it</td></tr>` +
-    `<tr><td>${reach}–${reach + 2}</td><td>torn in time: the pupil snaps wide, one shot counts</td></tr>` +
-    `<tr><td>${reach + 2}</td><td>the iris shuts and vents a rock, torn or not</td></tr>` +
-    `<tr><td>${cfg.wardenCycleBeats}</td><td>the next line, on the other control</td></tr>`;
-  panel.appendChild(cycle);
-
-  const phases = document.createElement("table");
-  phases.className = "boss-phases";
-  phases.innerHTML =
-    "<tr><th></th><th>plates above</th><th>pupil drift</th><th>vent</th></tr>" +
-    WARDEN_PHASES.map(
-      (p) =>
-        `<tr><td>${p.name}</td><td>${p.above}</td><td>${p.drift}/beat</td><td>${p.vent}</td></tr>`,
-    ).join("");
-  panel.appendChild(phases);
-}
-
-function placementNote(): HTMLElement {
-  const guard = document.createElement("p");
-  guard.className = "note";
-  guard.textContent = "creature placement is off on a boss wave — pods and erase still work.";
-  return guard;
-}
-
-function numberField(
-  labelText: string,
-  min: number,
-  max: number,
-  value: number,
-  onChange: (v: number) => void,
-): HTMLElement {
-  const row = document.createElement("label");
-  row.className = "boss-field";
-  const span = document.createElement("span");
-  span.textContent = labelText;
-  const input = document.createElement("input");
-  input.type = "number";
-  input.min = String(min);
-  input.max = String(max);
-  input.value = String(value);
-  input.addEventListener("change", () => {
-    const next = Number(input.value);
-    if (!Number.isInteger(next) || next < min || next > max) {
-      input.value = String(value);
-      return;
-    }
-    value = next;
-    onChange(next);
-  });
-  row.append(span, input);
-  return row;
-}

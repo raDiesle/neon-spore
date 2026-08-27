@@ -62,6 +62,10 @@ function serializeBoss(boss: BossEntry): string {
     const plates = boss.plates === undefined ? "" : `, plates: ${boss.plates}`;
     return `{ kind: "warden"${plates} }`;
   }
+  if (boss.kind === "vane") {
+    const pins = boss.pins === undefined ? "" : `, pins: ${boss.pins}`;
+    return `{ kind: "vane"${pins} }`;
+  }
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

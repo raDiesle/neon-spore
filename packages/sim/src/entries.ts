@@ -66,8 +66,34 @@ export interface WardenEntry {
   plates?: number;
 }
 
+/**
+ * What a wave authors when it wants THE VANE. No column: the bearing hangs dead
+ * centre off the top edge, and an arm on an off-centre pivot would have a long
+ * side and a short one, so the fold would mean a different thing depending on
+ * which half of the field a body came down in. Only how many pins hold the
+ * bearing, which is how long the fight is.
+ */
+export interface VaneEntry {
+  kind: "vane";
+  pins?: number;
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
-export type BossEntry = QueenEntry | MirrorEntry | WardenEntry;
+export type BossEntry = QueenEntry | MirrorEntry | WardenEntry | VaneEntry;
+
+/**
+ * Whether this boss *is* the wave, or only bends what the wave sends.
+ *
+ * Three of the four are the whole encounter and a creature placed beside one is
+ * a wave nobody designed; THE VANE is the opposite — it spawns nothing at all,
+ * and a wave without arrivals for it to throw is a mechanism turning over an
+ * empty field. So the director's guard against a creature brush on a boss wave
+ * asks this rather than `wave.boss !== undefined`, and there is one place the
+ * answer lives.
+ */
+export function bossFillsWave(kind: BossEntry["kind"]): boolean {
+  return kind !== "vane";
+}
 
 /**
  * The bosses that exist, as data. `tools/director` reads this to say which of
@@ -75,4 +101,4 @@ export type BossEntry = QueenEntry | MirrorEntry | WardenEntry;
  * same question `CREATURES` answers for the bestiary, and one a tool must
  * never answer from a list of its own.
  */
-export const BOSS_KINDS: readonly BossEntry["kind"][] = ["queen", "mirror", "warden"];
+export const BOSS_KINDS: readonly BossEntry["kind"][] = ["queen", "mirror", "warden", "vane"];

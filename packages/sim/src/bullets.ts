@@ -4,6 +4,7 @@ import { endPrime, lanceReady, priming } from "./lance.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { queenOccupiesCol } from "./queen-mark.js";
 import { type Bullet, type Color, type Creature, occupiesCol } from "./types.js";
+import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -114,7 +115,14 @@ function sweep(world: World, b: Bullet): boolean {
     from = met;
   }
 
-  if (to < 0) return false; // gone past the top of the field
+  // Gone past the top of the field — which is where THE VANE's bearing hangs,
+  // and the only thing in the game that is not on the grid at all. Every other
+  // shot that gets here is simply spent; `vaneStruck` is a no-op unless the
+  // arm is up and its housing is split (docs/spec/transfers-bosses.md).
+  if (to < 0) {
+    vaneStruck(world, b);
+    return false;
+  }
   b.row = Math.ceil(to / MILLI);
   b.subMilli = b.row * MILLI - to;
   return true;

@@ -1,5 +1,5 @@
 import type { Wave, WaveEntry } from "@neon-spore/content";
-import type { CreatureKind, PodEntry } from "@neon-spore/sim";
+import { bossFillsWave, type CreatureKind, type PodEntry } from "@neon-spore/sim";
 import type { Brush } from "./brushes.js";
 
 export type { Brush, BrushGroup } from "./brushes.js";
@@ -86,7 +86,10 @@ export const CREATURE_BRUSHES: readonly Brush[] = [
  * the queen's own wave hangs a pod for the pair to salvage.
  */
 export function isCreaturePlacementBlocked(wave: Wave): boolean {
-  return wave.boss !== undefined;
+  // Not "has a boss": THE VANE spawns nothing and only bends what the wave
+  // sends, so its wave has to be allowed creatures. The simulation owns which
+  // bosses are the whole encounter (`bossFillsWave` in entries.ts).
+  return wave.boss !== undefined && bossFillsWave(wave.boss.kind);
 }
 
 /**

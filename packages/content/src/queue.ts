@@ -96,6 +96,9 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   if (!boss) return null;
   if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
   if (boss.kind === "warden") return { ...boss };
+  // THE VANE hangs dead centre off the top edge, so it has no authored column
+  // to remap either.
+  if (boss.kind === "vane") return { ...boss };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

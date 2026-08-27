@@ -122,6 +122,12 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
     p1: "Say every step out loud as it happens. Neither of you can hold six of them alone.",
     p2: "Nothing you press counts while it is still showing. Wait for it to finish.",
   },
+  vane: {
+    title: "THE VANE",
+    both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
+    p1: "Your strip still says where a rock was aimed. Fold it before you say it, or you have named a column nothing lands in.",
+    p2: "Same for what you see coming. Count from the arm, not from the edge — that is the only number that survives being said out loud.",
+  },
   mend: {
     title: "A POD",
     both: "It hangs where it was left. Shooting it loose is only half of getting it — after that it sinks and drifts.",

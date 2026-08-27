@@ -97,10 +97,36 @@ export interface WardenState {
 }
 
 /**
+ * Everything THE VANE remembers between beats, which is four integers.
+ *
+ * Where the arm is standing, how far it reaches, whether the bearing is split
+ * and which side of it, what colour that side carries — all of it is derived
+ * from the wave's beat and the pins (`vane-cycle.ts`). What cannot be derived
+ * is how many pins are left, which opening has already spent its one shot, and
+ * the last thing the arm threw, which is render/'s to draw and nobody else's.
+ */
+export interface VaneState {
+  kind: "vane";
+  /** Pins left in the bearing. Each one gone lets the arm slip further out. */
+  pins: number;
+  /**
+   * The opening whose one shot has been spent, -1 for none yet. An index and
+   * not a flag: openings are numbered from the start of the wave, so "already
+   * spent" is one integer against another and nothing has to remember to clear
+   * itself when the housing shuts.
+   */
+  spentOpening: number;
+  /** The beat the arm last threw an arrival, -1 before the first. render/ only. */
+  throwBeat: number;
+  /** The column that arrival was thrown into, -1 before the first. render/ only. */
+  throwCol: number;
+}
+
+/**
  * The boss a wave installed, whichever one it is. A tagged union rather than
- * one widening interface: the three bosses share the slot and nothing else,
+ * one widening interface: the four bosses share the slot and nothing else,
  * and a single struct carrying every set of fields would let `boss.ts` read a
  * `tellColor` off a mirror and get `undefined` at runtime with a clean type
  * check behind it.
  */
-export type BossState = QueenState | MirrorState | WardenState;
+export type BossState = QueenState | MirrorState | WardenState | VaneState;

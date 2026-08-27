@@ -192,14 +192,20 @@ function resolveThrob(world: World, b: Bullet, hit: Creature): void {
  * it, so the shot is the pair agreeing out loud (docs/spec/couplings.md).
  *
  * A rock is not counted either way — it has no colour to get right.
+ *
+ * Exported for THE VANE, which is the one boss a shot never *meets*: its
+ * bearing hangs above the field, so the shot that answers it is resolved where
+ * a bullet runs out of field rather than here (`vane.ts`). It still books the
+ * same two moments, and it books them by calling these rather than by writing
+ * `colorHits += 1` a second time somewhere else.
  */
-function metColor(world: World): void {
+export function metColor(world: World): void {
   world.balance.colorHits += 1;
   markMoment(world, true);
 }
 
 /** The same moment, missed: the wrong colour went up the column. */
-function missedColor(world: World): void {
+export function missedColor(world: World): void {
   world.balance.colorMisses += 1;
   markMoment(world, false);
 }

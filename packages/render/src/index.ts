@@ -22,3 +22,4 @@ export { PALETTE, STROKE } from "./palette.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
+export { drawVane } from "./vane-draw.js";

@@ -1,6 +1,7 @@
 # The same two games, read at boss scale
 
-> **Status: none of it built, none of it accepted.** The second half of
+> **Status: one of them built.** THE VANE is in the game; the rest of this page
+> is unbuilt and unaccepted. The second half of
 > [transfers](transfers.md), which read Spaceteam and Lovers in a Dangerous
 > Spacetime for the whole game and promoted five things, **none of them a
 > boss**. This page is that gap filled in: what the two games do with a big
@@ -93,6 +94,11 @@ second and third boss and it leaves a whole question unasked.
 
 ### THE VANE — it bends the field, not the beat
 
+> **Status: built.** The one thing on this page that is. Its wave is `THE VANE`,
+> its cycle is `packages/sim/src/vane-cycle.ts` and the fight is
+> `packages/sim/src/vane.ts`; [bosses](bosses.md#115-the-vane--the-arm-that-decides-where-you-are-hit)
+> 11.5 is the design. What is left is an eye's question and is listed there.
+
 **The shape.** Drawn, as `vane`: the pendulum arm offered to the Conductor plus
 the bearing it turns on. An *open* contour with no inside, the only kind of
 body in the game besides the Warden's tether, sweeping the top of the field on
@@ -106,28 +112,64 @@ two cards came out mirror images of each other and a mirror image is not a
 second idea. The pivot is the only part of this boss that can be hit, so a card
 without it on it was a picture of the part you cannot reach.
 
-**The mechanic.** At the end of each sweep the arm **rolls one player's field**:
-their column order reverses, so column four on their device is column eight on
-the other. Every announcement made under a roll has to be turned around out
-loud by whoever is not rolled. Its pivot is exposed only at the far end of a
-sweep — which is the end belonging to the player who was just rolled, so the
-person who has to shoot is the person whose numbers stopped matching, and the
-other one has to talk them into a column that is not the one they can read.
-The fourth question, and it is a good one: **what you can still say when the
-words no longer line up.**
+**The mechanic, in one sentence.** *Something crossing the arm three columns to
+its left comes out three columns to its right.* The field is **folded** about
+the column the tip is standing in, and every arrival goes through it: the radar
+names the column a body was aimed at, and the arm decides the one it lands in.
 
-**Why it does not break determinism.** The roll is a transform on one device's
-picture and that device's touch mapping (`packages/render/src/layout.ts`,
-`touch.ts`); both simulations stay identical and the wire carries nothing new.
-It is the one flip that is legal here, and it is legal because the sim never
-hears about it.
+**What that costs the pair, which is the whole point.** Every sentence this
+game has ever asked for is `<thing> in <column>`, and the radar is split by
+kind — the pilot is shown rocks and holds no shield, the navigator is shown the
+living and holds no cannon ([systems](systems.md#52-information-split--partly-built)
+5.2). So the one who reads a column is never the one who acts on it, and under
+the arm the number they read is not the number that will be true. They can wait
+two beats and read the field instead, and pay for it with the whole of their
+head start; or they can fold it before they say it, which means predicting
+where a moving arm will be on a beat that has not happened. The beat gave them
+*"on the three"*, which stays true however long a sentence takes to arrive
+([latency](latency.md)); the arm asks them to find the same trick for space,
+and the only thing that works is a column named **against the arm** rather than
+against the grid — which is a vocabulary the pair has to invent, out loud,
+under a clock. The fourth question, and it is a good one: **what you can still
+say when the words no longer line up.**
+
+**Why the radar is not a lie.** It touches an arrival once, on the beat it
+arrives, and never again — everything standing on the field keeps its column
+for the whole of its fall. That is the line between a rule and noise, and it is
+held by a test (`vane.test.ts`, "never moves anything twice"). The 4-second
+rule is untouched for the same reason: the fold happens at row 0, so a body is
+in its true column for all fourteen beats of its fall. What the arm spends is
+the radar's lead, which is surplus, and never the warning
+([latency](latency.md)).
+
+**What it does *not* do.** It attacks nothing. It spawns nothing, drops
+nothing, and no part of it can reach the hull — the first boss whose only act is
+to decide where the wave's own arrivals land. That is what makes the picture
+and the mechanic the same claim: if the arm ever reads as a weapon, the boss is
+wrong, and if it reads as a mechanism, it is right.
+
+**How it is answered.** The bearing hangs off the *top edge*, above row 0, and
+it is the only thing in the game that is not on the grid — so a shot answers it
+by leaving the field entirely, which is why the hit is resolved where a bullet
+runs out of column rather than where a bullet meets a body. It is reachable
+only while the arm is held at an end of its travel, and only up a **clear**
+column: a shot stops at the first body in its way, so the arm defends its own
+bearing with whatever it has just thrown.
+
+**The roll, and why it is not this.** The first version of this section had the
+arm reverse *one player's column order*, as a transform on that device's
+picture and its touch mapping. It asks the same question and it is not the same
+proposal: a flip the simulation never hears about has nothing to hash, nothing
+to replay, and nothing the director can show, so the boss would have been a
+render trick with a boss's name on it. The queue asked for the *field* to bend,
+not the device, and the fold bends it in the one place both devices already
+agree. The roll survives as an idea about a **wave**, where a mechanic nobody
+has ever run belongs.
 
 **Slot:** The Conductor (30), whose deferral invited exactly this.
-**Unworked out:** whether **The Flip** ([ideas](ideas.md)) should be built at
-wave scale first — leaning a boss on a mechanic no wave has ever run is how you
-find out at the worst moment; whether both players can ever be rolled at once
-(almost certainly never: then nobody can translate); and how the roll ends, so
-it is a passage and not a state.
+**Unworked out:** whether an arm that reaches the whole field in its last phase
+folds *too* far to be predicted at all, or whether that is the ending it wants
+— see 11.5.
 
 ### THE TITHE — it always takes something; you choose what
 
@@ -208,14 +250,14 @@ they have to have before either is drawn.
 
 ## The shapes, slot by slot
 
-Every act slot, and what picture it has today. Three of the eleven have a body,
-four have a draft offered to them, and four have a name and nothing else.
+Every act slot, and what picture it has today. Four of the eleven have a body,
+three have a draft offered to them, and four have a name and nothing else.
 
 | Slot | Picture today | Form | Motion |
 |---|---|---|---|
 | Bulb Queen (10) | **built** — armoured body, two marks, torches on the wing tips | `blobPath` | own |
 | Strand Nest (20) | nothing | — | — |
-| The Conductor (30) | draft — the pendulum arm, and THE VANE's the same arm on a drawn bearing | `arm`, `vane` | `TOLL` |
+| The Conductor (30) | **built**, as THE VANE — the arm on its drawn bearing | `vane` | `TOLL` |
 | The Choir (40) | draft — three bodies in one film, parting and merging | `cluster` | `SHIVER` |
 | The Warden (50) | **built** — the ring you see the field through | `ring` | `TURN` |
 | The Heart (60) | two drafts for one slot — a sac hung heavy (THE WEIGHT), a pile of seven rocks (THE CAIRN) | `sac`, `pile` | `HEAVE`, `SHIVER` |
@@ -225,7 +267,10 @@ four have a draft offered to them, and four have a name and nothing else.
 | The Kernel (100) | draft — a slab of seven columns, one plate reaching (THE TITHE) | `plated` | `TWITCH` |
 | The Vessel (finale) | nothing; the clearest argument for the information split | — | — |
 
-Three things fall out of the table. **The Warden spent the see-past trick**,
+Four things fall out of the table. **A draft can become a body without a new
+drawing**: THE VANE went from a card to a fight without a line of its geometry
+changing, which is the strongest argument this page has that drawing first was
+worth it. **The Warden spent the see-past trick**,
 and it can only be spent once — a second body with a window in it is a repeat,
 not a surprise, and `ringClearance` says how narrow the margin was even the
 first time. **The Kernel is no longer empty**, which leaves the finale as the

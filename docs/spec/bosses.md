@@ -1,13 +1,15 @@
 # Bosses
 
-> **Status: three built.** The Bulb Queen, THE MIRROR and The Warden are in the
-> game. Of the remaining eight names none are. Two of them are worked out on
-> this page and neither is buildable today: The Vessel waits on a second device
-> and The Mother on destruction tracking.
+> **Status: four built.** The Bulb Queen, THE MIRROR, The Warden and THE VANE
+> are in the game — the last of them holding The Conductor's slot. Of the
+> remaining seven names none are. Two of them are worked out on this page and
+> neither is buildable today: The Vessel waits on a second device and The
+> Mother on destruction tracking.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
-Bulb Queen (10) · Strand Nest (20) · The Conductor (30) · The Choir (40) ·
+Bulb Queen (10) · Strand Nest (20) · The Conductor (30, **THE VANE**) ·
+The Choir (40) ·
 The Warden (50) · The Heart (60) · The Mother (70) · The Codex (80) ·
 The Echoes (90) · The Kernel (100) · The Vessel (finale) · The Mirror (built).
 
@@ -15,13 +17,14 @@ THE MIRROR is a twelfth, outside that order. It was built because it was asked
 for, and it holds no slot in the act structure yet — 11.3 says where it would
 fit if one is ever given to it.
 
-Only three of the eleven are worked out. The rest are names holding a slot in
+Only four of the eleven are worked out. The rest are names holding a slot in
 the act structure.
 
-The three that exist ask three different questions. The Queen is about **what
-you know**, THE MIRROR about **what you remember**, and The Warden about **what
-your hands are free to do** — which is why none of them is a re-skin of another
-and why the fourth one built should be asked the same question before it is
+The four that exist ask four different questions. The Queen is about **what you
+know**, THE MIRROR about **what you remember**, The Warden about **what your
+hands are free to do**, and THE VANE about **what you can still say when the
+words no longer line up** — which is why none of them is a re-skin of another
+and why the fifth one built should be asked the same question before it is
 started.
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
@@ -352,3 +355,103 @@ cut (the field and the grid pulse show through it, which nothing else in the
 game does), but whether a body in `rockDark` reads as solid enough against the
 field for that to land is a question a still cannot answer and a test cannot
 either.
+
+## 11.5 THE VANE — the arm that decides where you are hit
+
+> The one where the column you were told is never the column it lands in.
+
+A fourth boss for a fourth question. The Queen is about **what you know**, THE
+MIRROR about **what you remember**, The Warden about **what your hands are free
+to do**; THE VANE is about **what you can still say when the words no longer
+line up**. It splits no information and takes no control — both screens show
+everything it does and both thumbs work all fight. What it takes is the
+*meaning* of a number.
+
+**An arm on a bearing, hung off the top edge.** It is the only thing in the
+game that is not on the grid: the bearing hangs above row 0 and the arm sweeps
+across the row every arrival comes in on. Nothing of it is a creature, so
+nothing of it falls, can be warded, or can be gripped — and nothing of it can
+reach the hull. It is the first boss that attacks you not at all. That is not a
+softening: a wave under it is as dangerous as the wave its author wrote, and
+what the arm decides is only *where*.
+
+**The rule, and it is one sentence.** Something crossing the arm three columns
+to its left comes out three columns to its right. The field is folded about the
+column the tip is standing in, `2 x tip - col`, held to the grid so a body
+thrown past the edge is pinned against it rather than lost.
+
+**It touches an arrival once and never again.** The fold happens on the beat a
+body comes in, at row 0, and everything already standing on the field keeps its
+column for the whole of its fall. That line is the whole difference between a
+rule the pair can state and a radar they cannot believe, and it is the one
+thing about this boss that may never be relaxed.
+
+**Why that is a fight.** The radar is split by kind: the pilot is shown rocks
+and holds no shield, the navigator is shown the living and holds no cannon
+([systems](systems.md#52-information-split--partly-built) 5.2). So the one who
+reads a column is never the one who acts on it, and the number on the strip is
+no longer the number that will be true. Two ways through, and both cost
+something. Wait two beats and read the field, and the head start the radar
+exists to give is gone for the whole fight. Or fold it before saying it, which
+means predicting where a moving arm will be on a beat that has not happened
+yet. The beat solved this problem for *time* — you say "on the three", not
+"now", and it survives a two-second delay ([latency](latency.md)). The arm asks
+for the same trick in space, and the only phrasing that works is one counted
+**against the arm** instead of against the grid, because a fold turns "three
+left of it" into "three right of it" and leaves the three alone. That sentence
+is not written anywhere in the game; the pair has to arrive at it.
+
+**The 4-second rule is untouched.** The fold is at row 0, so a body is standing
+in its true column for all fourteen beats of its fall — 8.75 s at the defaults.
+What the arm spends is the radar's lead, which is surplus on top of the floor,
+never the floor itself.
+
+**The cycle is fixed and learnable, and it is written once.** Held at one end,
+across, held at the other, back — the same lengths in every phase, so a pair
+that learned it on its first turn has learned it for the fight, exactly as 11.1
+demands of The Mother. It is `VANE_CYCLE` in `packages/sim/src/vane-cycle.ts`,
+and the director's boss panel renders that array. It is deliberately **not**
+repeated here: the Warden's table above is already written twice, and a third
+copy is how a spec starts lying. What is worth saying in prose is the one thing
+a table would not make obvious — the arm reaches the end of its travel one beat
+**before** the housing splits, and that beat is the tell. A window with nothing
+in front of it cannot be called across a voice delay.
+
+**The bearing, and how a shot gets to it.** The pivot is the only part that can
+be hit, and it is reachable only while the arm is held at an end. It hangs
+above the field, so a shot answers it by *leaving* the field: the pilot stands
+in the split column and the navigator fires the split's colour, and the shot
+has to climb a clear lane, because anything in the way stops it. The arm
+therefore defends its own bearing with whatever it has just thrown, which is
+the one place its two halves meet. One hit per opening; a spray may not skip a
+pin. The housing splits on the side away from the load — arm hard right, split
+one column left of the bearing — so which column to stand in is the fold's own
+direction in miniature, twice a cycle, taught by a column instead of a card.
+
+**Its health is its reach.** Every pin taken out of the bearing lets the arm
+slip a phase further out, so the boss answers damage by folding *more* of the
+field. SWING reaches two columns, VEER four, SEIZE the whole width; the phases
+are `VANE_PHASES` beside the cycle. It is the Queen's bargain — she sinks a
+tile per petal — read sideways, and it means the silhouette says how far in the
+pair are without a bar anywhere. It also means the fight gets harder to *talk
+about* while getting easier to *shoot*, which is the shape this boss should
+have: by the last phase the arm is throwing across the whole field, and the
+pair either have a vocabulary by then or they never will.
+
+**Nothing about it is random.** Like THE MIRROR and The Warden it never draws
+from the rng: the sweep, the openings, the colours and the fold all follow from
+the wave's beat and the pins. `vane.test.ts` holds the seed to that.
+
+**Where it lives.** `VaneState` in the `BossState` union — four integers, two of
+them only so render/ can draw the last throw — with the arithmetic in
+`packages/sim/src/vane-cycle.ts` and the choreography in
+`packages/sim/src/vane.ts`. Its wave is `THE VANE` and its sentence is the
+epigraph. It is the one boss whose wave *must* carry creatures, so the
+director's guard against a creature brush on a boss wave asks `bossFillsWave`
+rather than whether a boss is there at all.
+
+What has **not** been looked at by a human is whether the arm reads as a
+mechanism sweeping the top of the field or as a weapon hanging over it. That is
+the question the whole picture rests on — a vane is a thing that turns when
+something pushes it — and neither a still nor a test can answer it, because it
+is a question about motion at tempo.

@@ -54,6 +54,21 @@ export interface BossConfig {
   scoreMirrorRound: number;
   /** Score for breaking THE MIRROR. */
   scoreMirrorDown: number;
+  /**
+   * Pins holding THE VANE's bearing. One comes out per opening answered, and
+   * the arm slips a phase further out as they go — so this is both how long the
+   * fight is and how much of the field it ends up folding.
+   *
+   * There is no `vaneRow` beside it and no `vaneCycleBeats`. The arm sweeps the
+   * row bodies arrive on, which is the top of the field by definition, and its
+   * cycle is the table in `vane-cycle.ts` rather than a number a table would
+   * then have to agree with.
+   */
+  vanePins: number;
+  /** Score for taking a pin out of THE VANE's bearing. */
+  scoreVanePin: number;
+  /** Score for bringing THE VANE down. */
+  scoreVaneDown: number;
   /** Score for stripping a petal from the queen. */
   scoreQueenPetal: number;
   /** Score for bringing the queen down. */

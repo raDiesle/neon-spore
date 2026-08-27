@@ -11,6 +11,7 @@ import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
 import { createRng } from "./rng.js";
 import { clampSpanCol, fallTilesPerBeat, isBossBody, WARDEN_COLS } from "./types.js";
+import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
 import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
 
@@ -133,6 +134,11 @@ export function startWave(
 
   if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
+  } else if (boss?.kind === "vane") {
+    // No creature and no row. THE VANE hangs off the top edge rather than
+    // standing on the grid, so there is nothing of it for the fall loop, the
+    // hull or a hand to find (docs/spec/transfers-bosses.md).
+    world.boss = installVane(world, boss);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

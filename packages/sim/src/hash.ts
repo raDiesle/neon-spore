@@ -126,6 +126,12 @@ export function hashWorld(world: World): number {
     push(boss.eyeSpent ? 1 : 0);
     push(boss.pullTicks);
   }
+  if (boss !== null && boss.kind === "vane") {
+    push(boss.pins);
+    push(boss.spentOpening);
+    push(boss.throwBeat);
+    push(boss.throwCol);
+  }
   if (boss !== null && boss.kind === "mirror") {
     push(boss.round);
     push(MIRROR_PHASES.indexOf(boss.phase));

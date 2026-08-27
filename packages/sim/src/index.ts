@@ -7,7 +7,7 @@ export {
 } from "./balance.js";
 export { startWave } from "./beat.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
-export type { BossState, QueenState, WardenState } from "./boss-state.js";
+export type { BossState, QueenState, VaneState, WardenState } from "./boss-state.js";
 export {
   ackBriefing,
   BRIEFING_SUBJECTS,
@@ -22,7 +22,7 @@ export {
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { throbIsOpen } from "./creature-rules.js";
-export { BOSS_KINDS, type WardenEntry } from "./entries.js";
+export { BOSS_KINDS, bossFillsWave, type VaneEntry, type WardenEntry } from "./entries.js";
 export { closeFork, forkBeats, forkHeld, forkOpen, NO_FORK } from "./fork.js";
 export {
   clearGrips,
@@ -81,6 +81,27 @@ export {
   spanCenterCol,
   WARDEN_COLS,
 } from "./types.js";
+export { vaneOpen } from "./vane.js";
+export {
+  VANE_CYCLE,
+  VANE_CYCLE_BEATS,
+  VANE_PHASES,
+  type VanePhase,
+  type VaneStage,
+  vaneColor,
+  vaneCycle,
+  vaneCycleBeat,
+  vaneFold,
+  vaneOpening,
+  vanePhase,
+  vanePivotCol,
+  vaneReach,
+  vaneReachMilli,
+  vaneStageIndex,
+  vaneStageStart,
+  vaneTipCol,
+  vaneWeakCol,
+} from "./vane-cycle.js";
 export {
   wardenClamp,
   wardenEyeOpen,

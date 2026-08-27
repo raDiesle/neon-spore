@@ -47,6 +47,7 @@ export const BRIEFING_SUBJECTS = [
   "warden",
   "tether",
   "mirror",
+  "vane",
   "mend",
   "purge",
   "ward",

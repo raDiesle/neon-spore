@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildQueue, WAVES, type Wave } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -67,7 +67,7 @@ function frames(role: ViewRole, ticks: number, viewport = { width: 900, height: 
 }
 
 /** The index of the wave carrying a boss of this kind. */
-function waveWith(kind: "queen" | "mirror" | "warden"): number {
+function waveWith(kind: NonNullable<Wave["boss"]>["kind"]): number {
   const index = WAVES.findIndex((w) => w.boss?.kind === kind);
   if (index === -1) throw new Error(`no wave carries the ${kind}`);
   return index;
@@ -424,6 +424,57 @@ describe("the warden", () => {
     expect(events.some((e) => e.type === "tetherTorn")).toBe(true);
     expect(events.some((e) => e.type === "eyeOpen")).toBe(true);
     expect(events.some((e) => e.type === "vent")).toBe(true);
+  });
+});
+
+/**
+ * THE VANE over a full cycle and a half: the arm at both ends of its travel,
+ * mid-sweep in both directions, the housing split in both colours and shut, and
+ * the flick it leaves when it throws an arrival. Its own wave carries the
+ * arrivals, because a mechanism turning over an empty field draws none of them.
+ */
+function vaneFrames(role: ViewRole, ticks: number) {
+  const world = createWorld(CFG, 3);
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+  const index = waveWith("vane");
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  for (let tick = 0; tick < ticks; tick++) {
+    step(world, []);
+    if (world.events.length) events.push(...world.events);
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+      banner: null,
+    });
+    events = [];
+  }
+  return { world, ctx };
+}
+
+describe("the vane", () => {
+  for (const role of ROLES) {
+    it(`draws the arm, the bearing and a split housing for ${role}`, () => {
+      const { ctx } = vaneFrames(role, ticksPerBeat(CFG) * 18);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  it("really threw something, or the flick was never drawn", () => {
+    const { world } = vaneFrames("test", ticksPerBeat(CFG) * 18);
+    const boss = world.boss;
+    expect(boss?.kind === "vane" && boss.throwBeat !== -1).toBe(true);
   });
 });
 

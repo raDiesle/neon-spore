@@ -5,6 +5,7 @@ import { drawMirror } from "./mirror.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawTether } from "./tether.js";
+import { drawVane } from "./vane-draw.js";
 import { drawWarden, pupilOpenness } from "./warden.js";
 
 /**
@@ -65,6 +66,13 @@ export function drawBoss(
     // A line that was torn no longer exists in the world, so its fall is the
     // one part of this boss the picture has to remember for itself.
     effects.warden.draw(ctx, l, world.cfg.wardenRow);
+    return;
+  }
+
+  if (boss.kind === "vane") {
+    // No body among the creatures: the arm hangs off the top edge, so there is
+    // nothing of it on the grid to find.
+    drawVane(ctx, l, world.cfg, boss, world.waveBeat, world.beat, view.beatPhase, view.time);
     return;
   }
 
