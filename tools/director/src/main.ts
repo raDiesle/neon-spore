@@ -7,6 +7,7 @@ import { bindGrid, type GridPanel } from "./grid.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
 import { renderShip } from "./ship.js";
+import { bindSoundPage } from "./sound-page.js";
 import { bindStage } from "./stage.js";
 import {
   type Brush,
@@ -176,6 +177,7 @@ async function load(): Promise<void> {
 
 bindTabs("#tabs");
 bindBacklog();
+bindSoundPage();
 bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {

@@ -140,7 +140,10 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/boss.ts` | the boss panel: which boss the wave carries, and its knobs |
 | `tools/director/src/simon-editor.ts` | THE MIRROR's rounds, edited as lists of controls |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
-| `tools/director/src/sound-lab.ts` | the backlog sheet's SOUND tab: every sound, playable, bound or unspent |
+| `tools/director/src/sound-page.ts` | THE SOUND CATALOGUE sheet: every sound, playable, bound or unspent |
+| `tools/director/src/sound-link.ts` | what a sound is attached to, and the five that are attached to nothing |
+| `tools/director/src/sound-art.ts` | that subject drawn — a contour or a control glyph, never an invented icon |
+| `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |

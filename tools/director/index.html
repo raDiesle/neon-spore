@@ -228,22 +228,66 @@
         padding: 10px 20px 0; 
       }
       #backlogBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
-      /* The sound catalogue. It borrows .plan's shape on purpose: a spare
-         sound and an undrawn creature are the same kind of entry. */
-      .sound { border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px 10px; margin: 6px 0; }
+      /* The sound catalogue's own sheet, built like the backlog's for the
+         same reason: a row carrying a contour, a paragraph and a plot does not
+         fit in a 300px authoring column. */
+      #soundboard { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #soundboard.on { display: flex; flex-direction: column; }
+      #soundboard > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #soundboard .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #soundboard .sub { color: var(--dim); font-size: 10px; }
+      #soundboard > header button { margin-left: auto; }
+      #soundTabs {
+        display: flex; flex-wrap: wrap; gap: 4px; flex: 0 0 auto; padding: 10px 20px 0;
+      }
+      #soundBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      .soundpage { display: none; }
+      .soundpage.on { display: block; }
+      .soundpage > .note { max-width: 700px; }
+
+      /* Three columns: what it is attached to, what it is, what it looks like.
+         The plot is last because it is the one you scan down a column of. */
+      .sound {
+        display: grid; grid-template-columns: 40px minmax(0, 1fr) 190px;
+        gap: 12px; align-items: start;
+        border: 1px solid var(--line-soft); border-radius: 8px;
+        padding: 8px 10px; margin: 6px 0;
+      }
       .sound.is-built { border-color: var(--line); background: #0b0820; }
+      .sound .art {
+        display: flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; border-radius: 6px; background: #0a0719;
+        border: 1px solid var(--line-soft);
+      }
+      .sound .art-empty { color: #3b3163; font-size: 14px; }
+      .sound-body { min-width: 0; }
       .sound .head { display: flex; align-items: center; gap: 8px; }
       .sound .name { color: var(--ink); letter-spacing: 1px; font-size: 11px; }
       .sound.is-built .name { color: var(--cyan); }
       .sound .stamp { margin-left: auto; font-size: 9px; color: #574d84; letter-spacing: 2px; }
       .sound.is-built .stamp { color: var(--gold); }
-      .sound .note { margin: 3px 0 0; }
+      .sound .note { margin: 3px 0 0; max-width: none; }
       .sound .use { margin: 2px 0; color: var(--dim); font-size: 10px; }
       .sound .pierce { margin: 2px 0; color: var(--red); font-size: 9px; letter-spacing: 1px; }
-      .sound .kind { color: #a98cff; font-size: 9px; }
-      .sound .recipe { display: block; margin-top: 4px; color: #4d4478; font-size: 9px; word-break: break-word; }
+      .sound .kind { margin: 2px 0 0; color: #a98cff; font-size: 9px; }
+      .sound .recipe {
+        display: block; margin-top: 4px; color: #4d4478; font-size: 9px; word-break: break-word;
+      }
+      .sound .plot { border-radius: 5px; border: 1px solid var(--line-soft); }
       .playbtn { width: 26px; padding: 2px 0; color: var(--gold); }
-      .soundbar { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 6px; }
+      .soundbar { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 10px; }
+      .plotkey { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+      .plotkey .plot { border-radius: 5px; border: 1px solid var(--line-soft); }
+      .plotkey .note { margin: 0; }
+
+      /* Narrow: the plot drops under the text rather than squeezing both. */
+      @media (max-width: 900px) {
+        .sound { grid-template-columns: 40px minmax(0, 1fr); }
+        .sound .plot { grid-column: 2; width: 100%; }
+      }
       .sheetpage { display: none; }
       .sheetpage.on { display: block; }
       .sheetpage > .note { max-width: 620px; }
@@ -325,6 +369,7 @@
       <span id="status">loading…</span>
       <span class="spacer"></span>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
+      <button type="button" id="soundOpen">♪ SOUND</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
@@ -443,7 +488,6 @@
       <div id="backlogTabs">
         <button type="button" data-tab="bestiary" class="on">BESTIARY</button>
         <button type="button" data-tab="shapes">SHAPES</button>
-        <button type="button" data-tab="sound">SOUND</button>
         <button type="button" data-tab="mechanics">MECHANICS</button>
         <button type="button" data-tab="controls">CONTROLS</button>
         <button type="button" data-tab="bosses">BOSSES</button>
@@ -477,23 +521,6 @@
           <div id="shapesFree" class="shapes"></div>
           <h2 style="margin-top: 18px">TAKEN</h2>
           <div id="shapesTaken" class="shapes"></div>
-        </div>
-        <div class="sheetpage" id="sheet-sound">
-          <p class="note">
-            Every sound in the game, and every one built for something the game
-            does not have yet. Nothing here is a recording — each is a few
-            numbers a synthesiser builds when you press it, which is why there
-            can be this many of them for 20 kB.
-          </p>
-          <p class="note">
-            BOUND means something plays it today; SPARE means it is finished
-            and unspent, waiting for the creature or the boss it was made for.
-            The stamp is not maintained by hand — a test reads the binding
-            files and fails if one of them lies. The band figure is what a
-            sound costs the conversation, and almost all of them read 0.000:
-            see docs/spec/audio.md.
-          </p>
-          <div id="soundLab"></div>
         </div>
         <div class="sheetpage" id="sheet-mechanics">
           <p class="note">
@@ -540,6 +567,22 @@
           <div id="specFiles"></div>
         </div>
       </div>
+    </div>
+
+    <!-- The sound catalogue. Its own sheet rather than a tab on the backlog:
+         most of it is unspent, but the half that is wired up is a picture of
+         what the game already does, and that does not belong under a heading
+         reading NOT BUILT YET. -->
+    <div id="soundboard">
+      <header>
+        <span class="title">THE SOUND CATALOGUE</span>
+        <span class="sub">
+          every sound the game can make — press one. Nothing here is a recording.
+        </span>
+        <button type="button" id="soundClose">✕ CLOSE</button>
+      </header>
+      <div id="soundTabs"></div>
+      <div id="soundBody"></div>
     </div>
 
     <script type="module" src="./src/main.ts"></script>

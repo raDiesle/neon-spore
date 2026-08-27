@@ -113,10 +113,25 @@ like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and
 either that reads instantly or the mechanic is a guessing game.
 
-The **SOUND tab in the director** (`bun run dev`, then SOUND) plays every one
-of them, filtered by family and by whether it is wired up. The `BOUND` stamp is
-not a label anyone maintains: the test reads `bind.ts` and `mixer.ts` and fails
-if a sound claims to be wired and is not, or is played and claims to be spare.
+**THE SOUND CATALOGUE** is its own sheet in the director — `bun run dev`, then
+`♪ SOUND` in the header. A tab per family, a filter for bound or spare, and
+three things on every row:
+
+- **What it is attached to**, drawn. A contour out of `shape-sheet` or a
+  control glyph out of `render/simon-glyph.ts` — the same geometry the canvas
+  draws and the same button the band draws. Nothing on the page invents a
+  picture for something the game already knows how to draw, and a subject with
+  no drawn contour yet shows a question mark rather than a stand-in.
+- **What it sounds like**: press ▶.
+- **What it looks like**: time across, frequency up, the speech band shaded in
+  red. This is section 1 made visible — a sound either goes through the red or
+  around it, and almost all of them go around.
+
+The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts` and
+`mixer.ts` and fails if a sound claims to be wired and is not, or is played and
+claims to be spare. Five bound sounds have no subject to draw — the beat, a
+hole punched in whatever was hit, a wave opening and closing — and each carries
+a written reason in `sound-link.ts`, the same arrangement `pierce` makes here.
 
 ## 6 · How a sound reaches the game
 

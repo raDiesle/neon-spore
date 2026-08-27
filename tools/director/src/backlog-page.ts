@@ -15,7 +15,6 @@
 import { detailBox, inline } from "./markdown.js";
 import { renderShapes } from "./shapes-panel.js";
 import { hasSilhouette, silhouette } from "./silhouette.js";
-import { renderSoundLab } from "./sound-lab.js";
 import { renderSpec } from "./spec.js";
 import { bindTabs } from "./tabs.js";
 
@@ -158,19 +157,9 @@ export function bindBacklog(): void {
 
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 
-  // The catalogue is bundled data, not something the server parses out of the
-  // spec, so it renders whether or not `load()` below can reach one — and once,
-  // rather than on every open. 190 rows is not worth building at boot for a
-  // tool whose main job is placing creatures on a grid.
-  let soundsDrawn = false;
   const show = (on: boolean): void => {
     sheet.classList.toggle("on", on);
     if (!on) return;
-    const soundLab = document.getElementById("soundLab");
-    if (soundLab && !soundsDrawn) {
-      soundsDrawn = true;
-      renderSoundLab(soundLab);
-    }
     load().catch(() => {
       const failed = document.getElementById("backlogBestiary");
       if (!failed) return;
