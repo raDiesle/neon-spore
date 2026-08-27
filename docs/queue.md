@@ -362,39 +362,6 @@ Finished when `bun run check` is green, `frame.test.ts` passes with the new fill
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
 
-## NOTHING KNOWS WHAT MECHANICS EXIST, SO NOTHING CAN SAY ONE IS UNUSED
-_claude/burn-mechanics-registry-m1 · packages/content/src/mechanics.ts_
-
-Three things the owner asked for need the same missing list: a warning when a
-mechanic is implemented and reachable from no wave, a per-wave switch for a
-mechanic, and one demonstration wave per feature. None of them can be built
-until something in the repository can answer *what mechanics are there*.
-
-So: a closed registry. One entry per mechanic that a wave can contain or turn
-on — the fork, the briefing card, the shot wind-up, the lance, the grip, the
-torch, each interlude, each boss, each creature — carrying what it is in one
-sentence, which `SimConfig` field turns it on where one does, and how to tell
-from a `Wave` whether that wave reaches it.
-
-**Closed, and a `Record` over it**, which is the guardrail this repository has
-now proved three times: `BRIEFING_SUBJECTS` made a creature without a card a
-type error and caught two separate lanes; `effects-spark.ts` made an event
-without a burst a type error after a silent gap had already cost a particle
-burst. A mechanic that lands without a registry entry must not typecheck.
-
-**One thing found next door and left for this lane**, because it is the same
-derivation one layer down: `WaveEntry.kind` in
-`packages/content/src/wave-types.ts` is a hand-written union,
-`RockKind | "runt" | "throb"`. The brushes lane derived the palette from
-`CREATURES` and could not touch that, so a third colourless creature still
-needs the union extended by hand — and if somebody forgets, the director's
-cast produces an invalid entry silently. Derive it, or make forgetting a type
-error.
-
-Finished when the list exists, is exhaustive over what is built today, and
-cannot be added to by accident. It is the first of three lanes; the other two
-are unbuildable before it.
-
 ## A FEATURE THAT NO WAVE REACHES SHOULD SAY SO, LOUDLY
 _claude/burn-orphans-m2 · tools/checks/orphans.ts tools/director/src/orphans-panel.ts_
 
