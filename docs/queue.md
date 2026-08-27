@@ -29,18 +29,6 @@ Finished when a fresh run of wave 1 shows the card, both players have to
 dismiss it, and a second wave with the same creature does not show it again.
 The "has met" set is world state, so it is in `hashWorld` or it desyncs.
 
-## A FIELD WITH SOMETHING BEHIND IT
-_claude/burn-backdrop-b2 · packages/render/src/backdrop.ts packages/render/src/field.ts docs/spec/graphics.md_
-
-The field is a grid on flat black and it reads as a test rig. Give it a
-back: drifting motes at two depths, a slow wash that belongs to the act, and
-a horizon the grid pulse travels *over* rather than sits on. Render only —
-nothing here may decide anything, and it must cost nothing a phone notices.
-
-Finished when the field has depth at 26 px on a phone and the creatures still
-read as the brightest thing on it. That last part is the whole risk, and only
-an eye settles it: a `Check:` trailer, not a green tick.
-
 ## TWO CREATURES THE WAVES DO NOT HAVE
 _claude/burn-creatures-b3 · packages/content/src/creatures.ts packages/sim/src/creature-rules.ts docs/spec/bestiary.md_
 
