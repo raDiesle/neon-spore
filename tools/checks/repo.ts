@@ -10,7 +10,7 @@ import {
   branchReady,
   type CheckState,
   joinChecks,
-  outstanding,
+  reachableAlong,
   undecidedOn,
 } from "./checks.js";
 import { appendDecision, type Decision, parseLedger } from "./ledger.js";
@@ -89,6 +89,16 @@ export async function readChecks(root: string): Promise<CheckState[]> {
   return joinChecks(parseLog(log), await readLedger(root));
 }
 
+/**
+ * `main`'s own commits, full hashes, newest first — the line `reachableAlong`
+ * reads a branch's ancestry off. One spawn, no matter how many branches or
+ * checks are waiting on it.
+ */
+async function mainLine(root: string, ref: string): Promise<string[]> {
+  const out = await git(root, ["log", "--format=%H", ref]);
+  return out.split("\n").filter(Boolean);
+}
+
 interface Ref {
   name: string;
   remote: boolean;
@@ -129,12 +139,21 @@ async function worktrees(root: string): Promise<Map<string, string>> {
 /**
  * One row per branch name, whether it sits here, on origin or both — because
  * deleting one and leaving the other is not what "cleaned up" means.
+ *
+ * This used to spawn one `merge-base` per branch *and* one more per branch per
+ * outstanding check — branches times checks, which is the multiplication that
+ * made the sheet time out once this repository grew past a couple of dozen of
+ * each. `reachableAlong` answers the same question off one `git log` of `main`,
+ * read once, so the git calls here no longer scale with how many checks are
+ * waiting.
  */
 export async function readBranches(root: string, states: readonly CheckState[]): Promise<Branch[]> {
   const { ref } = await trunk(root);
-  const head = (await git(root, ["rev-parse", "--abbrev-ref", "HEAD"])).trim();
-  const held = await worktrees(root);
-  const left = outstanding(states);
+  const [head, held, line] = await Promise.all([
+    git(root, ["rev-parse", "--abbrev-ref", "HEAD"]).then((s) => s.trim()),
+    worktrees(root),
+    mainLine(root, ref),
+  ]);
 
   const rows = new Map<string, Branch>();
   for (const found of await refs(root)) {
@@ -150,15 +169,14 @@ export async function readBranches(root: string, states: readonly CheckState[]):
     if (found.remote) row.remote = true;
     else row.local = true;
 
-    if (!(await ok(root, ["merge-base", "--is-ancestor", found.tip, ref]))) row.merged = false;
-
-    const reachable = new Set<string>();
-    for (const check of left) {
-      if (await ok(root, ["merge-base", "--is-ancestor", check.full, found.tip])) {
-        reachable.add(check.full);
-      }
+    const reachable = reachableAlong(line, found.tip);
+    if (reachable === null) {
+      // Not on `main` at all: unmerged, and `branchReason` says so without
+      // needing a count — so there is nothing here worth a git call for.
+      row.merged = false;
+    } else {
+      row.undecided = Math.max(row.undecided, undecidedOn(reachable, states));
     }
-    row.undecided = Math.max(row.undecided, undecidedOn(reachable, states));
     rows.set(found.name, row);
   }
   return [...rows.values()].sort((a, b) => a.name.localeCompare(b.name));

@@ -79,6 +79,29 @@ export function undecidedOn(reachable: ReadonlySet<string>, states: readonly Che
 }
 
 /**
+ * Which commits a branch tip can reach, read off `main`'s own newest-first
+ * line instead of a `merge-base --is-ancestor` per commit. `main` is never
+ * merged into (`CLAUDE.md`: the history is linear, fast-forward only), so a
+ * tip that sits on that line at all sits at exactly one position in it, and
+ * everything from there to the end is exactly what it is an ancestor of.
+ *
+ * `null` when the tip is not on the line at all — an unmerged branch, which
+ * `branchReason` already reports as "still ahead of main" without a count.
+ *
+ * This turns what used to be one `merge-base` spawn per commit per branch —
+ * branches times outstanding checks, the multiplication that made the sheet
+ * time out — into one `git log` read of `main`, done once, and a plain index
+ * lookup per branch.
+ */
+export function reachableAlong(
+  mainLine: readonly string[],
+  tip: string,
+): ReadonlySet<string> | null {
+  const at = mainLine.indexOf(tip);
+  return at === -1 ? null : new Set(mainLine.slice(at));
+}
+
+/**
  * A worktree holding it is not a reason to keep it — `CLAUDE.md` says a
  * worktree is a working tool and goes when the task does, so the worktree is
  * removed first and the branch after it. Only an undecided check, work that

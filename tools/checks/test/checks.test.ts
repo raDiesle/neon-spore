@@ -5,6 +5,7 @@ import {
   branchReason,
   joinChecks,
   outstanding,
+  reachableAlong,
   runnable,
   staleStops,
   undecidedOn,
@@ -122,6 +123,26 @@ describe("branches", () => {
     expect(branchReason({ ...base, undecided: 1 })).toBe("1 check outstanding");
     expect(branchReason({ ...base, undecided: 3 })).toBe("3 checks outstanding");
     expect(branchReason({ ...base, current: true })).toBe("you are standing on it");
+  });
+});
+
+describe("reachableAlong", () => {
+  const line = ["h4", "h3", "h2", "h1", "h0"]; // newest first, as `git log` hands it over
+
+  test("everything from the tip's own position to the end is reachable", () => {
+    expect(reachableAlong(line, "h2")).toEqual(new Set(["h2", "h1", "h0"]));
+  });
+
+  test("the tip of the line reaches only itself", () => {
+    expect(reachableAlong(line, "h4")).toEqual(new Set(["h4", "h3", "h2", "h1", "h0"]));
+  });
+
+  test("the oldest commit reaches nothing older than itself", () => {
+    expect(reachableAlong(line, "h0")).toEqual(new Set(["h0"]));
+  });
+
+  test("a tip that never landed on this line is not merged, and has no count", () => {
+    expect(reachableAlong(line, "somewhere-else")).toBeNull();
   });
 });
 
