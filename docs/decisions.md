@@ -389,3 +389,31 @@ scheduler.
 **Reconsider if:** the game ever wants a lobby you can play in — a warm-up
 field while waiting for the second phone. It would need its own world, thrown
 away at beat zero, rather than the one the run uses.
+
+## 18. A briefing is derived from the wave, and lives in the world
+
+*August 2026.* `docs/spec/briefings.md` said two things that did not survive
+being built, and both are now reversed there.
+
+**Placed became derived.** The spec had each wave naming what it teaches. That
+is a second copy of the wave's contents, kept by hand, in the file that gets
+edited most — a creature swapped into a wave keeps the old card, and nothing
+says so. So the subjects are computed from what `startWave` was actually
+handed: the spawn queue, the pods, the boss. The subject list is closed and the
+catalogue is a `Record` over it, which makes a creature that ships without a
+card a type error rather than a silence.
+
+**`localStorage` became world state.** The card stops the wave, so whether it
+is up is a fact the simulation acts on, and a fact the simulation acts on
+cannot live on one device. `World.brief` is a bitmask, it is in `hashWorld`,
+and dismissing is a command like any other — two devices disagreeing about
+whether a card is up is a desync however it is spelled.
+
+The clock deliberately keeps counting while the field is frozen. A press is
+scheduled `inputDelayTicks` into the future, so a world that stopped its tick
+counter would wait forever for a dismissal it had arranged never to arrive.
+
+**Reconsider if:** something has to be taught that no wave contains. The grip
+and the lance are already in that position — they are controls, not contents,
+so the derivation cannot see them. That wants a third mechanism, not a
+`briefings:` list grown back onto `Wave`.
