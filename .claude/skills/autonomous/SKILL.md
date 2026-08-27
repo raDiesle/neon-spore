@@ -121,6 +121,17 @@ is. **Effort** is how long it thinks before writing. A cheap model thinking
 hard and an expensive one answering off the top are different mistakes, and
 the second is the one an unattended run makes, because nothing stops it.
 
+**Neither dial is the main thing a lane costs.** That was measured, on the
+first run this skill drove, and the numbers are in `docs/autonomous.md`: the
+cheapest model ran the most expensive lane, because it touched twenty files
+across three packages and then had to replay. Scope dominates tier, and a
+crowded batch — two lanes sent back to rebase — cost more than every model
+choice in the run put together. So the first question is never which model.
+It is whether the lane is one thing.
+
+The default is `sonnet` with a named subject to think about. `opus` is bought,
+not defaulted to, and the thing it is bought with is the test below.
+
 Effort is not a parameter on `Agent`. It is set by the words in the prompt —
 `think`, `think hard`, `think harder`, `ultrathink` — which is a real ladder
 and not a figure of speech. So every lane prompt carries a rung **and** a
@@ -138,12 +149,19 @@ the model happened to find interesting.
 | A long mechanical file whose shape is decided; a uniform sweep | `haiku`, or `bun run delegate` | none | — |
 | Reviewing a landed lane; judging whether two shapes read differently | `opus` | `think hard` | the case *against* the thing, first |
 
-Two rules that override the table.
+Three rules that override the table.
 
-**Raise the effort, not the model, when the risk is a wrong decision.** A lane
-that will be hard to unpick — anything touching `world.ts`, the hash, the
-protocol, or the shape of a round — goes up a rung even where the table says
-`sonnet`. Landing is cheap to redo; a mechanic built on a bad premise is not.
+**The unpick test decides `opus`, and nothing else does.** Not how important
+the lane feels. Ask what it costs to be wrong: a landing is cheap to redo, a
+contour is cheap to redraw, and both are `sonnet` however much they matter. A
+premise baked into `world.ts`, the hash, the protocol or the shape of a round
+is expensive to unpick months later by somebody who no longer remembers it was
+a choice. That is what the tier is for.
+
+**Raise the effort before the model.** A rung of thinking is a fraction of the
+price of a tier, and for the failure that actually happens — the hard part
+went by without being looked at — it is the dial that works. `sonnet` told
+what to think about beats `opus` told nothing.
 
 **Drop both when the lane is transcription.** A spec that reads as long as its
 code is a spec that should have been the code. That is the `delegate` case,

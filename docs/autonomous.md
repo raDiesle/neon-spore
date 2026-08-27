@@ -57,6 +57,34 @@ history has is not an accident.
 Landings happen one at a time, in queue order, driven by the session that owns
 the run. A subagent commits; it does not land.
 
+## What a lane costs
+
+Measured on the first run this arrangement drove, 27 August 2026, four lanes
+against the same trunk.
+
+| Lane | Model | Effort | Tokens | Files | Outcome |
+|---|---|---|---|---|---|
+| Backdrop | `sonnet` | `think` | ~151k | 4 | landed clean |
+| Briefings | `opus` | `think hard` | ~202k | 18 | landed; overturned two spec decisions |
+| Fork | `opus` | `think harder` | ~193k | 10 | landed after one replay |
+| Creatures | `sonnet` | `think` | ~322k, then ~358k | 20, plus a rebase | landed after one replay |
+
+The cheapest model ran the most expensive lane, by a wide margin, and it was
+not close to being about the model. It touched twenty files across three
+packages and then had to be sent back — so what it cost was *scope* and a
+*second turn*, and the tier was noise beside both.
+
+That is the same finding `docs/delegation-cost.md` arrived at from the other
+direction: delegating cost 6.8 times as much and 91.5% of it was the session
+rather than the worker, because what delegation multiplies is the number of
+round trips. Here too, the unit of cost is the turn. A lane that comes back
+once has doubled, whatever wrote it.
+
+So the order of the questions is: **is this lane one thing** (scope), **will
+it collide** (crowding — two extra turns on that first run), and only then
+which model and how much thinking. Reaching for the top tier by default is not
+generous, it is a way of not asking the first two.
+
 ## What the run may not do
 
 **It may not decide that something was looked at.** A wave watched at tempo, a
