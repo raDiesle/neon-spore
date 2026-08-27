@@ -12,6 +12,7 @@ import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY } from "./hull.js";
 import { drawLanceMark } from "./lance.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
+import { drawOtherHand } from "./other-hand.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
@@ -198,6 +199,9 @@ export class Canvas2DRenderer implements Renderer {
       (x) => !this.effects.rockCoversCrater(x, l.tile),
       (col, beat) => this.effects.hasArrived(col, beat),
     );
+    // A hand on the lance, read straight off the world both devices share —
+    // see other-hand.ts for why this is the only control that can say so.
+    drawOtherHand(ctx, l, world, view.time, mood, at);
     // In front of the hull, unlike the rest of Effects.draw() — see
     // Effects.drawRockImpact.
     this.effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));

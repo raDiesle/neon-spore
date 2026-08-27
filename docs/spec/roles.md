@@ -82,6 +82,20 @@ thumb empties it. What comes out is player 2's shot, and player 2 has to hold
 fire for the whole fill or spend it on an ordinary bolt. See
 [couplings](couplings.md) 2 — it is marking, re-grounded on the column.
 
+**The other hand.** Both screens draw the same world, so a presence in it is
+not split — the same rule that keeps the mark itself unsplit (5.2). The lance
+is the one control the simulation can say anything honest about: `touchDown`
+signs it and `touchUp` explicitly ends it (`touch.ts`), so `world.primeTick`
+is a real "thumb down, thumb up," not a position sampled between two unknown
+edges. The cannon and shield strips are drags with no release — a finger
+lifted from either leaves nothing in the world — so there is no matching
+signal for player 2's hand. **Built, one-directional:** a pulse over the
+cannon lobe while player 1 holds the lance, on both screens
+(`packages/render/src/other-hand.ts`). It is presence, not the fill —
+`drawLanceMark` already draws that, precisely, on both screens too — and it
+stops the instant the thumb lifts rather than fading, because a hold that
+faded would be showing a decay the simulation never asked for.
+
 ## Role choice
 
 Roles are chosen before the game starts — in the finished game, not in the test
