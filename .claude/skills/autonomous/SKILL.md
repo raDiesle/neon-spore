@@ -125,6 +125,19 @@ so it falls back to reading exactly like a branch nobody has started.
 A lane whose `Check:` list is the interesting part gets said out loud in the
 final report, not buried.
 
+Then sweep, from your own worktree — never from the lane's, which you are
+standing in when you land it:
+
+```bash
+bun run checks --clean
+```
+
+A landed branch and its worktree go **without being asked**. A lane still
+working is protected by the one thing that distinguishes it: uncommitted files
+in its tree. Git cannot tell the two apart on its own, because a lane that has
+not committed yet points at whatever `main` was when it started, which is an
+ancestor of `main`, which reads as landed.
+
 ## 4. Go back to 0
 
 Until the queue is empty or the budget is gone. Refill from `--candidates`
@@ -235,7 +248,8 @@ costs nothing and the next one picks up. Do **not** poll every minute.
   on to the next one rather than building on a guess.
 - **Land red.** `bun run land` runs `bun run check` after the replay for
   exactly this reason. Never talk it out of a refusal.
-- **Push.** Not on this machine, not without being asked.
+- **Leave `main` unpushed.** Push it when it has landed something. An
+  unpushed trunk briefs the next clone on code that is not there.
 
 ## The closing report
 

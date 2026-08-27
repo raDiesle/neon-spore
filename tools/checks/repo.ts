@@ -164,6 +164,7 @@ export async function readBranches(root: string, states: readonly CheckState[]):
       merged: true,
       worktree: held.get(found.name) ?? "",
       current: found.name === head,
+      dirty: false,
       undecided: 0,
     };
     if (found.remote) row.remote = true;
@@ -176,6 +177,15 @@ export async function readBranches(root: string, states: readonly CheckState[]):
       row.merged = false;
     } else {
       row.undecided = Math.max(row.undecided, undecidedOn(reachable, states));
+    }
+    // Asked of the tree rather than of the branch, because git cannot tell a
+    // finished lane from one that has not committed yet: an agent's fresh
+    // branch points at whatever `main` was when it started, which is an
+    // ancestor of `main`, which reads as landed. The uncommitted files in its
+    // worktree are the only difference, and this is what stops a sweep taking
+    // a running lane's tree out from under it.
+    if (row.worktree && !row.dirty) {
+      row.dirty = (await git(root, ["-C", row.worktree, "status", "--porcelain"])).trim() !== "";
     }
     rows.set(found.name, row);
   }

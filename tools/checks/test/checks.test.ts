@@ -96,6 +96,7 @@ describe("branches", () => {
     merged: true,
     worktree: "",
     current: false,
+    dirty: false,
     undecided: 0,
   };
 
@@ -106,11 +107,26 @@ describe("branches", () => {
     expect(undecidedOn(new Set(), states)).toBe(0);
   });
 
-  test("ready means merged, decided, and not underfoot", () => {
+  test("ready means merged and not underfoot", () => {
     expect(branchReady(base)).toBe(true);
     expect(branchReady({ ...base, merged: false })).toBe(false);
-    expect(branchReady({ ...base, undecided: 1 })).toBe(false);
     expect(branchReady({ ...base, current: true })).toBe(false);
+  });
+
+  // An outstanding check used to keep a branch alive, on the reasoning that a
+  // branch is the handle on which landing a look belongs to. It never was —
+  // the check is derived from the commit that carries the trailer, and the
+  // sheet lists it under that commit's own sha. See docs/decisions.md #22.
+  test("an undecided check does not keep a landed branch alive", () => {
+    expect(branchReady({ ...base, undecided: 8 })).toBe(true);
+  });
+
+  // The one thing that does keep it: somebody is in its tree. A lane that has
+  // not committed yet points at the `main` it branched from, so git reads it
+  // as landed; its uncommitted files are the only tell.
+  test("a tree somebody is working in keeps its branch alive", () => {
+    expect(branchReady({ ...base, worktree: "/tmp/wt", dirty: true })).toBe(false);
+    expect(branchReason({ ...base, dirty: true })).toBe("somebody is working in its tree");
   });
 
   test("a worktree is not a reason to keep a branch", () => {
@@ -120,9 +136,15 @@ describe("branches", () => {
 
   test("says why, in one phrase", () => {
     expect(branchReason({ ...base, merged: false })).toBe("still ahead of main");
-    expect(branchReason({ ...base, undecided: 1 })).toBe("1 check outstanding");
-    expect(branchReason({ ...base, undecided: 3 })).toBe("3 checks outstanding");
     expect(branchReason({ ...base, current: true })).toBe("you are standing on it");
+  });
+
+  // The count is still worth saying as the branch goes — eight unlooked-at
+  // checks leaving at once is a fact about the day — it just no longer votes.
+  test("still names the open checks it is taking with it", () => {
+    expect(branchReason({ ...base, undecided: 1 })).toContain("1 check still open");
+    expect(branchReason({ ...base, undecided: 3 })).toContain("3 checks still open");
+    expect(branchReason({ ...base, undecided: 0 })).toBe("landed");
   });
 });
 

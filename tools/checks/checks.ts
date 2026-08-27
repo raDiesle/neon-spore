@@ -69,6 +69,17 @@ export interface Branch {
   worktree: string;
   /** HEAD is on it. Nothing deletes the branch it is standing on. */
   current: boolean;
+  /**
+   * Its worktree has uncommitted files in it — so somebody is working there
+   * right now, and a landed-looking branch is a lane that has not committed
+   * yet rather than one that is finished.
+   *
+   * Git cannot tell those two apart on its own: an agent's fresh branch points
+   * at whatever `main` was when it started, which is an ancestor of `main`,
+   * which reads as merged. This is the field that stops a sweep taking a
+   * running lane's tree out from under it.
+   */
+  dirty: boolean;
   /** How many of the checks it carries nobody has decided. */
   undecided: number;
 }
@@ -104,20 +115,40 @@ export function reachableAlong(
 /**
  * A worktree holding it is not a reason to keep it — `CLAUDE.md` says a
  * worktree is a working tool and goes when the task does, so the worktree is
- * removed first and the branch after it. Only an undecided check, work that
- * never reached `main`, or standing on it keeps a branch alive.
+ * removed first and the branch after it. Work that never reached `main`, or
+ * standing on it, are the only two things that keep a branch alive.
+ *
+ * **An outstanding check used to be a third, and it was wrong.** The stated
+ * reason was that a branch is the only handle on which landing a look belongs
+ * to, and that was never true of this code: a check is derived from the commit
+ * carrying the trailer, and the sheet and the CLI both list it under that
+ * commit's own sha and subject. The branch rows are a convenience built on
+ * top, and deleting one loses nothing that `bun run checks` cannot still say.
+ *
+ * What the rule cost was legibility. One day of parallel lanes left
+ * twenty-seven worktrees and fifty-odd branches standing, all of them landed,
+ * none of them removable until a person had worked through every check — so
+ * the list that exists to be read became the longest thing in the repository.
+ * `docs/decisions.md` #22 has the reversal.
  */
 export function branchReady(branch: Branch): boolean {
-  return branch.merged && branch.undecided === 0 && !branch.current;
+  return branch.merged && !branch.current && !branch.dirty;
 }
 
 /** Why it is not ready, or what is left of it. Said in the page and the CLI. */
 export function branchReason(branch: Branch): string {
   if (branch.current) return "you are standing on it";
   if (!branch.merged) return "still ahead of main";
-  if (branch.undecided === 1) return "1 check outstanding";
-  if (branch.undecided > 1) return `${branch.undecided} checks outstanding`;
-  return branch.worktree ? "merged and checked — its worktree goes too" : "merged and checked";
+  if (branch.dirty) return "somebody is working in its tree";
+  // The count is still said, because a branch carrying eight unlooked-at
+  // checks is worth knowing about as it goes. It just no longer keeps it.
+  const left =
+    branch.undecided === 1
+      ? ", 1 check still open"
+      : branch.undecided > 1
+        ? `, ${branch.undecided} checks still open`
+        : "";
+  return branch.worktree ? `landed — its worktree goes too${left}` : `landed${left}`;
 }
 
 /**
