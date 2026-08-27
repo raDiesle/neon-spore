@@ -90,6 +90,21 @@ shape sheet is *unverified*, and the report says so in that word rather than
 offering a green check that covered less than usual. A wave whose timing was
 never watched is not finished, it is written.
 
+**Several at once is allowed, and is not the shape to reach for first.** Each
+cloud session is its own VM with its own clone, so none of this needs a
+worktree — the isolation already sits a level above the filesystem, and two
+branches in flight are no problem in themselves. What does not parallelise is
+the landing. Every branch still has to arrive on a linear `main`, by hand, on
+the one machine that can run the whole check, so three branches are three
+rebases onto a `main` that moved under all of them — and the conflict surfaces
+where the work is expensive rather than where it was cheap. Two at once, on
+different packages, each naming its branch in the prompt so no two sessions
+reach for the same one. Prefer the work the sandbox can actually finish:
+`sim`, `content` and `net` are covered by `bun test`, while a wave's timing or
+anything in `render` comes back needing an eye here regardless, and running
+four of those in parallel only builds a queue in front of the one machine that
+can look.
+
 Coming back the other way, `claude --teleport` carries the branch and the
 conversation with it. Going out again carries neither: a new cloud session
 starts cold, knowing only what `origin` and the commit messages tell it. One
