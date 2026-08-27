@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: thirty-two drafts, and one claimed so far.** A draft is a picture
+> **Status: thirty-eight drafts, and one claimed so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content` —
 > or cut.
@@ -82,11 +82,38 @@ which is why every draft lives in `tools/` and none of them in `packages/`.
 
 ## What is in it now
 
-**Thirty-two drafts** across all but a handful of the open ideas: fifteen
-creatures, six bosses, five collected and six for the controls and mechanics.
+**Thirty-eight drafts** across all but a handful of the open ideas: fifteen
+creatures, six bosses, five collected, six for the controls and mechanics, four
+marks on the ship's own skin and two interlude bodies.
 Each names the idea it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
 suggestion.
+
+**Four ideas turned out to be one drawing problem, and that is why they had no
+picture.** *The breach*, *The Patch*, *The Other Hand* and *Handover* had sat
+undrawn while fifteen creatures got shapes, and the reason was not that they
+were hard: none of them is a **body**, so none was drawable as a blob. Every one
+is the ship saying something about **one column** — it gave way, it is being
+held shut, somebody's thumb is down over it, the two of you have just swapped
+what you own. They are HULL · TORN, HULL · MENDED, HULL · HELD and HULL ·
+TRADED, one span at one scale so the page compares them against each other and
+against HULL · PASSIVE with no scaling step in between, and their features are
+exactly one column wide — measured off the drawn hull rather than typed, because
+a mark that is not a column is a ship arguing with the grid the pair names
+things in.
+
+None of the four carries an own-motion, which is a rule and not an omission. The
+hull is fixed; everything these cards do happens in the contour.
+
+**Ten of the twelve interludes need no new art, and drawing the other two is how
+that was found out.** [interludes.md](spec/interludes.md) fixes the material as
+*slabs and glyphs, never blobs*, and `slab` and `glyphed` were already here. THE
+VAULT is a grid of slabs. THE ACCORD is two dials, which is BEARING RING twice.
+THE LATHE is the blob vocabulary itself, on purpose. THE GAUGE is built. THE
+BELT was drawn and thrown away — see below. What was actually missing was a
+thing that **grips** and a line that **crosses itself**, so THE CLAW and THE
+SPLICE are the two cards, and the rest of the category is spendable out of what
+the page already holds.
 
 **Two ideas carry two drafts each**, which is new. Every other entry here is one
 picture offered to one idea, and that works while the open question is *what*
@@ -130,6 +157,14 @@ about what the field is made of, and that disagreement is the whole shape in
 both cases: `cluster` sums round metaballs and blooms, so several bodies share
 one membrane; `pile` sums polygons raised high enough that the sum is nearly a
 maximum, so a stack of rocks creases at its seams instead.
+
+**Three more forms are parked in `drafts/` rather than in `forms/`**, and the
+reason is a night rather than a seam: another lane owned that directory while
+these were drawn, and a rebase over it is cleaner if nobody reached into it.
+`membrane.ts` is the span of hull with one column changed, the generator behind
+all four ship cards; `machined.ts` is `claw` and `cable`. If the cards survive
+review the two files belong in `forms/`, under the seam `radial` and `walked`
+already draw between a body and an edge.
 
 `walked.ts` holds the three whose outline is stepped corner to corner, because
 a radius per angle cannot say what they say: `arm` (open, swung from a pivot —
@@ -190,6 +225,29 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   only part of the outline that moves and it visits all seven columns. Whether
   *which* column reads at a glance — especially at the outermost of seven,
   which is why that case has a card of its own — is unlooked at.
+- **A raised lump on the hull may only ever mean "shield".** HULL · HELD and
+  HULL · MENDED both put something up on the membrane, and the ship already does
+  that for one thing. The margins are measured and they are small: against the
+  armed shield's 7.5 px over two thirds of a column, the welt is 7.0 px flat
+  across a full one and the held lobe is 6.0 px and returns to nothing. In added
+  contour that is +8.2 px for the welt and 0 → +6.3 px for the lobe, against the
+  shield's +15.3 on the whole hull. If a phone reads all three as the shield then
+  the hull cannot carry a second meaning and both ideas need a mark somewhere
+  else — which is a bigger answer than either card.
+- **HULL · TORN is the only shape here that is not one stroke, and nothing has
+  looked through it.** Its edge is 20.4 px *shorter* than the bare span, because
+  a column of skin is gone: the one card in the catalogue whose contour
+  subtracts. Whether a 23 px hole in a 150 px line reads as a breach at 26 px, or
+  as the ship having been drawn badly, is the whole question and it is an eye's.
+- **THE BELT was drawn and cut, and the cut is worth more than the card.** A
+  horizontal run of slabs at one tile per beat measures as seven rectangles in a
+  row — which is THE TITHE with the top taken off, and CODE PLATE seven times.
+  The two would sit in the same catalogue meaning different words, and a
+  silhouette that means two words means neither. What actually distinguishes THE
+  BELT is that its marks are on the **faces** of the slabs, and a face is not in
+  an outline. THE VAULT fails identically, and for the same reason: both rounds
+  hang on `simon-glyph.ts` rather than on this page, and neither is waiting on a
+  shape.
 - **None of them has colour, glow or detail.** The cards are outlines. The
   field draws fills, rims, cores and halos, and a silhouette that reads bare
   can still fail dressed.
@@ -228,15 +286,28 @@ Roughly in the order the work is worth doing.
    likeliest first is the **Wave gate** — its idea is worked out furthest, and
    GATE is the only draft that needs no new contour maths. Walking it once will
    say more about whether this arrangement is right than another ten drafts.
-3. **A draft for the three ideas that still have none.** *Notch* and *Husk*
-   have theirs now — NOTCH and HUSK below — and both entries in the idea store
-   were worked out to match, so the picture and the paragraph were written
-   against each other rather than one being fitted to the other afterwards.
-   What is left is *Reverse wave*, *The breach* and *Handover*. The first two
-   are the same drawing: a reverse wave comes up out of a **breach**, so the
-   thing to draw is the hole in the hull rather than the direction. The third
-   is a control and wants a mark on the ship in the way the SWAP ARC does.
-   Anything new goes in the same three files, not a fourth list.
+3. **Every creature, mechanic and control idea that can be a shape now has
+   one.** *Reverse wave*, *The breach* and *Handover* were the three this page
+   listed; they have drafts, and so do *The Patch* and *The Other Hand*, which
+   nobody had counted. Three ideas are left over and none of them is waiting on
+   a drawing: *The Flip* is the whole field rolling over, which is a motion and
+   not a contour; *The Fork* is two routes and a gate; *Call signs* is what the
+   eleven columns are **called**, which is typography. Of the twelve interludes,
+   THE CLAW and THE SPLICE are drawn, THE GAUGE is built, SNAKE belongs to
+   another session, and the remaining eight are answered out of `slab`,
+   `glyphed` and the blob vocabulary itself — the two that are not, THE BELT and
+   THE VAULT, are cut above for the same reason.
+
+   What is left undrawn is not an idea without a picture, it is a **creature**
+   without one:
+   the thirteen in [bestiary](spec/bestiary.md) 10.1 and 10.2 that were never
+   built — Dart, Veil, Strand, Crystal, Gum, Choke, Glyph, Thread, The Shadow,
+   The Doppelgänger, The Clamp, The Beat-breaker, The Jammer. They are not here
+   because the bestiary is not the idea store: a draft's `suggests` has to
+   resolve to a heading, the test only reads `ideas.md` and `bosses.md`, and a
+   lane that widened that test to take a table row would have been changing the
+   rule rather than drawing. It is the next thing worth doing on this page and
+   it costs one predicate.
 4. **Draw the motion sheet from the catalogue, not from `SUBJECTS`.**
    `bun run shapes` still onion-skins only what the game draws, so a draft
    cannot be diffed or archived as an image. `tools/shape-sheet/src/motion.ts`
