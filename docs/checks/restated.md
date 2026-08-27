@@ -124,3 +124,19 @@ the wrong check. Three fields, and none of them replaces the trailer:
 - **changed** its own-motion was reduced to almost nothing, so the swell is the only thing it says
 - **decide** does the swell tell you when to fire, or is it noise?
 - **where** `bun run dev`, ▣ SHAPES — note the still sheet cannot show this; only the animated page can
+
+## `f2e0d6d` — opening a demonstration
+
+> a demonstration opened from the game's own menu reads as landing on a wave that was always going to open that way, not as a jump with something flipped behind it — bun run preview:once, ?menu=1, DEMOS, any row
+
+- **subject** the game's own main menu, opening a mechanic from its new DEMOS page
+- **changed** DEMOS is new: picking a row calls `openDemonstration`, which mutates the run's `cfg` in place and jumps to the named wave in one motion, the same close-the-menu-and-play the WAVES page already does
+- **decide** does the wave arrive the way any other menu pick would, or does the config flip read as a visible jolt — a banner, a briefing card, a beat grid appearing a step late?
+- **where** `bun run preview:once`, confirm the tree at `/__preview`, then `?menu=1` → DEMOS → any row
+
+> the director's DEMOS sheet and its OPEN button read as belonging beside the pair panel and wave rail rather than as a bolted-on modal — DIRECTOR_HOST=127.0.0.1 bun run dev, then click DEMOS
+
+- **subject** the director's new DEMOS sheet (`tools/director/src/demo-panel.ts`), styled after the existing ORPHANS sheet
+- **changed** a full-screen sheet listing every mechanic; OPEN sets the wave rail's selection and the pair panel's switches together, closing itself on success
+- **decide** does the sheet's shell, the row styling and the OPEN button read as one more tool that already lived here, or as a screen dropped in from somewhere else?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, click ▶ DEMOS in the header, then OPEN on a few rows
