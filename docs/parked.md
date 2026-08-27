@@ -263,3 +263,36 @@ are indistinguishable afterwards. `packages/audio/src/bind.ts`,
 look first. Start by grepping for `default:` in a `switch` on a `.type` or a
 `.kind` and asking, of each, whether a missing case would be visible.
 
+## The card sheet shows a wave as if nobody had played the ones before it
+
+2026-08-27 · claude/burn-card-panel-b13
+
+The CARDS tab's wave picker builds a fresh pair for whichever wave is chosen,
+so wave 1 is exactly right and wave 9 shows what a pair *skipping straight to
+wave 9* would be told — not what a pair who played one to eight would still
+have left to learn. The difference is the whole point of the "has met" set,
+and the sheet currently has no memory of it.
+
+Not done there because carrying a cumulative `met` set across the picker is a
+different question from drawing a card, and the lane was scoped to the second.
+Start at `waveBriefingOrder` in `tools/director/src/card-waves.ts`: it already
+builds a real world per wave, so the change is to thread one bitmask through
+the loop rather than to reset it. Worth doing — "what does wave 9 actually add"
+is the question an author asks, and the sheet answers a different one.
+
+## The director's TO CHECK page answers nothing
+
+2026-08-27 · claude/burn-card-panel-b13
+
+A lane working in the director noticed `/api/checks` returning
+`ERR_EMPTY_RESPONSE` in the console — pre-existing, unrelated to its work, and
+not investigated because it was not that lane's ground. It matters more than
+it sounds: that endpoint is what feeds `⚑ TO CHECK`, which is the page a person
+opens to decide the checks that sixteen commits landed today.
+
+Not done there or here because nobody has looked at why. Start by running
+`DIRECTOR_HOST=127.0.0.1 bun run dev` and hitting the endpoint directly —
+`tools/checks/repo.ts` shells out to git for every branch and every check, so
+a plausible first guess is that it is slow or throwing on a repository with
+this many branches, rather than that the route is wrong.
+

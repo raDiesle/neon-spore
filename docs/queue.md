@@ -65,21 +65,3 @@ room and `bun run preview` still opens the field.
 third pair-switch reaches the game by being added to `PairConfig` rather than
 by somebody remembering this line — and the line it is meant to fix is
 currently spelling both switches out by hand.
-
-## A CARD CAN ONLY BE SEEN ONCE, AND THREE CHECKS ASK ABOUT ONE
-_claude/burn-card-panel-b13 · tools/director/src/card-page.ts tools/director/src/backlog-page.ts_
-
-The game shows each briefing card exactly once per fresh pair, which is
-correct and makes the card the one drawn thing here that cannot be reviewed:
-seeing it a second time means a page reload, and seeing all of them means
-several. Three outstanding checks ask questions only answerable by looking at
-one — whether the two halves read as one instruction, whether the redacted
-half reads as withheld rather than as damage, whether wave 1 opening on two
-cards is one too many.
-
-Taken off `docs/parked.md`. `packages/render/src/briefing.ts` already draws a
-card from nothing but a subject and a role, which is the whole of what a sheet
-needs. Finished when every card in `BRIEFINGS` can be seen in both roles
-without playing a wave. This is the same trade the shape sheet made earlier
-today: a tool that makes a check cheap to settle is worth more than the check.
-
