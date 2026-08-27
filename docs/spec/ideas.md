@@ -1,12 +1,22 @@
 # Idea store
 
-> **Status: none of it built.** Accepted in principle, not worked out. Nothing
-> here is a commitment; an idea leaves this page by being designed into
-> [bestiary](bestiary.md), [systems](systems.md) or
+> **Status: none of it built.** Accepted in principle. Most of it is now worked
+> out far enough that a session could start on one without having to decide the
+> design first — none of it is a commitment. An idea leaves this page by being
+> designed into [bestiary](bestiary.md), [systems](systems.md) or
 > [wave-design](wave-design.md), or by being rejected in
 > [open questions](open-questions.md).
 
 ## Accepted, not yet worked out
+
+**What an entry is.** A one-line idea is a mood, and a mood cannot be picked up
+by somebody who was not in the room when it was had. So an entry says three
+things: what the thing is, where it attaches to the controls that actually
+exist — the cannon's column, the shield's two halves, the maw, the beat, the
+radar split — and what is still **unworked out**, written as questions rather
+than left as a silence. The third part is the one that earns the page. An entry
+with no open questions left is either finished, in which case it belongs in
+another file, or it is lying.
 
 Most of what follows has a **shape drawn at it** — a silhouette and an
 own-motion, offered to the idea and not yet accepted by it. They are on the
@@ -24,14 +34,91 @@ filed rightly, and there is no second list to change.
 
 ### Creatures
 
-- **Echo** — a creature appears one second earlier for one player
-- **Reverb** — repeats an action with a delay (a different thing from the Echo;
-  see the name clash in [bestiary](bestiary.md#103-examined-and-rejected))
-- **Countdown creature** — can only be hit at zero
-- **Moulting**
-- **Symbiosis** — only vulnerable while the two are far apart
-- **Camouflage** — goes out when you take aim, so you have to aim beside it
-- **The Colony** — spreads, hatches darts; absorbs the brood fibre and the root
+- **Echo** — the one creature the two players do not see at the same moment: it
+  is drawn on the pilot's field one beat ahead of where it is, and on the
+  navigator's at its true row. The pilot, who cannot fire, is the one who sees
+  it first, so the only thing that kills it on time is a sentence — the
+  [announcing](couplings.md) coupling with nothing invented for it. One beat
+  rather than the original's one second, because the beat is the shared clock
+  and 625 ms is a quantity both players can count ([latency](latency.md)). The
+  lead is a **render** offset and never a second position in the simulation:
+  `World` holds one creature at one row and each device draws its own role's
+  view of it, or two devices disagree about where something is. Unworked out:
+  whether the navigator sees the lead copy at all, faintly (which makes the
+  pair's disagreement legible) or not (which makes it real); whether a shot
+  fired into the ghost's row hits anything; whether the lead stays one beat all
+  the way down or grows as it falls
+- **Reverb** — one body that arrives twice: it takes a hit without dying and
+  dies one beat later, and a second shot fired inside that beat is spent on
+  something that is already gone. A different thing from the Echo, which is
+  about *seeing* twice; see the name clash in
+  [bestiary](bestiary.md#103-examined-and-rejected). The delay is in the motion
+  as well — travel, stop, wait, travel — so the pair can read the rhythm before
+  they have to shoot against it. Unworked out: whether a pending death still
+  costs the hull if the beat runs out at row 14, and it should, or the last beat
+  of a wave is free; how the pending state is drawn, since the draft has no
+  marker for it and a hit that visibly does nothing reads as a miss; whether the
+  wasted second shot costs score or only time
+- **Countdown creature** — can only be hit at zero, and only one player can
+  read the count. The marks are cut into the rim, one fewer each pass, and they
+  are legible on the pilot's screen while the navigator sees a blank rim — so
+  the sentence the pair already says for warding, "column four, I trigger on the
+  three", comes out of the other mouth and aims the cannon instead of the
+  shield. It hangs off the beat, which [systems](systems.md) 5.3 already says
+  countdown creatures do. Unworked out: what a hit off zero does, where nothing
+  is safe and dull and a reset is a punish that can push a creature past row 14
+  and strand a wave; whether the count runs in beats or in passes; whether a
+  wave holding one has to be authored so a zero always falls above the hull,
+  which would be the first thing `packages/content` checks rather than the
+  author remembering
+- **Moulting** — it changes which control answers it, halfway down. It falls
+  armoured and faceted and shots only crater it, exactly as the meteor already
+  does (`holes`, [systems](systems.md) 5.6); on a fixed beat the shell comes off
+  and the soft body inside is killable for a bounded window, in a colour nobody
+  knew until the moult. The shed shell keeps falling as a rock, so one arrival
+  needs the cannon and then the shield, in that order. Control visibility needs
+  no new rule for it: a wave holding one shows both groups from the start, and
+  the pair sees the second half coming before they know why
+  ([systems](systems.md) 5.1). Unworked out: whether the shell is a real second
+  body spawned mid-field, which nothing in `entries.ts` does today, or debris
+  that only looks like one; whether the moult is on a beat count or is provoked
+  by damage; the colour has to be drawn from the seeded rng at spawn, or the two
+  devices disagree the instant it is revealed
+- **Symbiosis** — two bodies in one membrane, vulnerable only while they are
+  apart, and they part on a period rather than on a timer, so the window is a
+  shape both players watch arrive instead of a number one of them holds. The
+  talking comes from the columns: the two bodies sit in different ones, the
+  cannon is in one column at a time, and both have to be hit inside the same
+  opening — the pilot slides while the navigator fires twice against a half-beat
+  cooldown. Unworked out: whether hitting one alone re-merges and heals the
+  pair, which is what would make the order matter; how far apart is far enough
+  to read at 26 px, given that the cluster form reaches a waist and not a
+  parting ([the asset catalogue](../asset-catalogue.md)); whether it is one
+  creature spanning columns, as the torch's `colSpan` already does, or two that
+  share a fate
+- **Camouflage** — goes out when you take aim, so you have to aim beside it.
+  Written for an aim beam that no longer exists; in the raster the aim is a
+  column, so the re-grounding is that it dims on the **pilot's** field while the
+  cannon stands in its column, and stays bright on the navigator's. The player
+  who can see it cannot move the cannon, and the player holding the column has
+  to be talked into staying on a piece of field that looks empty. Dims rather
+  than disappears: every creature's position is present for both, disturbed or
+  incomplete but never absent ([systems](systems.md) 5.2), and that ground rule
+  is what stops this being a hit nobody could have taken. Unworked out: whether
+  the radar blip goes out with it; whether it re-lights the moment the cannon
+  leaves, which makes hunting it a wobble, or after a delay, which makes it a
+  decision; whether the navigator can lose it too once a shot is in the air
+- **The Colony** — it spreads while it falls, and it is the first creature that
+  adds work rather than presenting it. Five small bodies in one skin with a root
+  hanging under them; on the accented beat it hatches a dart into a neighbouring
+  column. Ignoring it is a decision the pair has to make out loud, because
+  everything else on the field is a fixed amount of work and this one is not.
+  Unworked out: a mid-field spawn breaks the radar's promise, since the strip is
+  a warning and a hatched dart arrives without one — either the brood shows on
+  the strip as a second row, or the strip stops meaning what it means; the
+  hatching needs a cap and a stop condition, or a wave runs away from a pair
+  that is already losing; whether cutting the root is what ends it, which is the
+  version where the tendril in the catalogue is a target and not a decoration
 - **Prism** (working name only — "Mirror" is taken by [THE MIRROR](bosses.md),
   and the name **The Mirror** was already examined and rejected as a creature
   for an unrelated reason, [bestiary](bestiary.md#103-examined-and-rejected))
@@ -54,6 +141,33 @@ filed rightly, and there is no second list to change.
   learns "that one comes back" rather than assuming the game glitched
   (`resolveHull` treats every arrival alike today); whether it loops forever
   or a bounded number of times, so a bad wave cannot soft-lock a run
+- **Notch** — it steers for the damage already done. Hull scars are permanent
+  and visible to both players ([systems](systems.md) 5.8), and today they are
+  history; this is what would make them a target list. It re-picks its column on
+  the accented beat and drifts one column toward the deepest scar, which makes
+  it the first creature to change lane at all — 5.8 reserves lane changing for
+  later types, and this is the kind of type it was reserved for. It is also the
+  first creature whose column is a **prediction**: a column named under a 0.5 to
+  2 s voice delay ([latency](latency.md)) can be wrong by the time it is heard,
+  so the pair has to say where it is going rather than where it is, and the
+  Thread's future trace ([bestiary](bestiary.md#102-newly-accepted)) is the
+  instrument that would let them. Unworked out: the drift has to be whole
+  columns on a beat and never a fraction between them, or two devices round it
+  apart; whether it goes for the deepest scar or the nearest one, which is the
+  difference between a wave that concentrates damage and one that spreads it;
+  whether an unscarred hull leaves it wandering, which would make the first one
+  harmless and every one after it worse
+- **Husk** — a pod that should be refused. It falls amber at the pod's own
+  speed, and taking it in costs hull instead of repairing it; the tell is on the
+  radar strip and not on the body, so the player who can read it is not the
+  player whose maw is about to open ([systems](systems.md) 5.7). It is the first
+  thing in the game that would make player 1's one solo action a question:
+  today a missed pod costs nothing and a caught one is pure gain, so the maw is
+  never a decision. Unworked out: whether it can be told apart without the
+  strip, since a husk legible on its own body needs no conversation; what
+  refusing costs, given that a pair who simply never open the maw are safe from
+  it and lose only what pods would have given them; whether it has to be shot
+  loose like a pod, which would make the wasted shot the real price
 
 ### Bosses
 
@@ -88,9 +202,53 @@ the slot they were competing for. Each names the slot it would fit.
 
 ### Mechanics
 
-- **Reverse wave** — from below
-- **Light traces**
-- **The Needle** — a geometric corridor
+- **Reverse wave** — a wave from below, and the reason nothing was drawn at it
+  is that a direction is not a shape. The breach is what would give it one:
+  something comes up out of a hole in the hull, and since the hull is the bottom
+  row, a reverse wave is not an arrival from off-screen at all — it is the
+  ship's own damage turning into enemies. Unworked out, and this is the crux:
+  the cannon fires straight up from the hull, so a thing **below** the hull line
+  cannot be shot at all. Either it climbs first and the fight starts when it is
+  level with the field like everything else, or the pair has an arrival with no
+  answer, which is a different game. The radar is the top edge only
+  ([systems](systems.md) 5.8), so the warning has to appear somewhere it never
+  has; and [the 4-second rule](latency.md) is measured from the top, so
+  something that starts at the hull has no budget at all until it has climbed
+- **The breach** — a column scarred past a threshold stops being cosmetic and
+  opens. Scars are already permanent, already at a column and already drawn
+  (`Scar`, `maxScars`); this is the single rule that would make them structural
+  instead of a record. What an open column *does* is deliberately not settled
+  here: it could let the next arrival through for nothing, it could be where a
+  reverse wave comes from, it could be the thing a repair pod is finally for.
+  Unworked out: whether the hull's slow regeneration (`hullRegenPerSecond`)
+  closes one, which decides whether a run can recover or only decay; how many
+  arrivals in one column is the threshold, and whether the pair can watch it
+  approach, since a hull that gives way without warning reads as the game
+  cheating; whether a breach is per column or per neighbouring pair, because
+  eleven independent columns is eleven small collapses and not one crisis;
+  and **The Patch** below is the same scar from the other side, so whichever
+  is built first decides what the other one means
+- **Light traces** — a line that lags whatever drew it, so it says where
+  something **was**. This is a rule broken on purpose: there are no path
+  indicators in the field, not even for meteors, and the only line is your own
+  cannon's column ([systems](systems.md) 5.8). A trace has to earn that, and it
+  earns it by being past tense and by belonging to one player — history for the
+  one who cannot act, the present for the one who can, the mirror image of the
+  Thread and its future. Unworked out: whether a trace belongs to a creature, a
+  wave or a pod; whether the trace of a thing that glides one tile per beat says
+  anything at all, since a straight lane makes a straight trace and a straight
+  trace is a repetition rather than information — which may mean this idea has
+  to wait for the first creature that changes lane, and the Notch above is it
+- **The Needle** — a geometric corridor, and the first thing on the field that
+  is not in a lane. Drawn rather than grown, crossing columns, and it does not
+  so much occupy a column as close it: a shot has to pass a gap that only lines
+  up with the cannon on some beats. Position from player 1, moment from the
+  beat — warding's shape pointed at firing instead of defence. Unworked out:
+  whether it stops bullets, creatures or both; how it is stored, because the
+  simulation holds integers and a diagonal has to be a per-column table of open
+  and closed rather than a line equation, and choosing the wrong one of those is
+  a rounding disagreement between two devices; whether it moves at all, or is
+  fixed wave furniture the pair works around
 - **The Patch** — a scar you can hold shut. Damage is a number today; here a
   fresh scar leaves its column open — the cannon cannot fire through it, or a
   hit there costs double — until somebody holds a hand on it for a few beats.
@@ -98,7 +256,8 @@ the slot they were competing for. Each names the slot it would fit.
   your own hull, so it needs no new gesture, and it is one answer to
   [open question 17](open-questions.md#from-the-raster-round), which asks
   whether the hull stays mute. Taken from the breaches in Lovers in a Dangerous
-  Spacetime; see [transfers](transfers.md). Unworked out: whether the open
+  Spacetime; see [transfers](transfers.md). **The breach** above is the same
+  scar left alone rather than held shut. Unworked out: whether the open
   column blocks your own shots or only doubles the damage, and how long a patch
   holds
 - **The Flip** — the field's column order reverses for one player, so column
@@ -121,10 +280,51 @@ the slot they were competing for. Each names the slot it would fit.
 
 ### Controls
 
-- **Interference** — one player's colours are swapped and they do not know it
-- **Bearing waves** — a coordinate grid, a change of controls
-- **Codebook table**
-- **Inverted instructions** — the Spaceteam principle
+### Controls
+
+- **Interference** — one player's colours are swapped and they do not know it.
+  The navigator chooses the colour and fires, so the swap lives on their
+  swatches: they say red and cyan comes out. Nobody is told; the pair finds out
+  through the contradiction between what one of them says and what the other
+  sees, which makes it the only mechanic here that is *discovered* rather than
+  announced. It is a fact in the simulation and a mapping in the renderer — the
+  sim knows which colour was fired, each device draws its own role's labels, and
+  the one-way flow stays intact. Unworked out: how it ends, where the
+  interesting answer is that the pilot ends it, being the one who can see it and
+  the one with a spare hand on the trigger; how long it may run before it stops
+  being a joke and becomes a lost wave; how a briefing ([briefings](briefings.md))
+  teaches a thing whose whole point is not being told
+- **Bearing waves** — a coordinate grid, which is a change to the sentence
+  rather than to the controls. Columns are counted today, so an announcement is
+  a number both players derive the same way and neither can get wrong. A ring
+  with a mark on it gives a zero that can be named without counting, two right
+  of the mark, and the mark turns on the beat, so the same column has a
+  different name a moment later. Unworked out: whether both players see the
+  ring, because if they do it is a rename and nothing else, and if only one does
+  then the other cannot check the sentence they were handed; whether eleven
+  columns can be named off a ring at a glance on a phone; whether the turn is on
+  the beat, which makes it countable, or continuous, which makes it a race
+- **Codebook table** — the key is on the ship, and only the other player can
+  read it. A plate on the hull carries a mapping from something said to
+  something done: a word to a column, a mark to a colour. It is the Glyph
+  creature's other half ([bestiary](bestiary.md) 10.1) and the ground THE CODEX
+  stands on. Unworked out: how many rows stay legible on a phone beside
+  everything else on the screen, which is probably a very small number; whether
+  the lookup costs time, because a key readable at a glance is free and a free
+  key changes nothing; whether it is fixed for a run, redrawn per wave or
+  rewritten mid-wave, which is the difference between learning a table and
+  reading one
+- **Inverted instructions** — the Spaceteam principle: a control that does the
+  opposite of what it says, for a bounded time. The Choke
+  ([bestiary](bestiary.md) 10.1) already shuts a control down; this is the
+  milder and more talkative version, and the ship says so by drawing a span of
+  its own membrane reversed. Not every control can take it — the trigger is a
+  moment, and an inverted moment is only a miss, so the honest candidates are
+  the cannon strip, where left is right, and the shield's queued move. Unworked
+  out: whether the inversion is shown to the player it happens to, making it a
+  puzzle, or only to the other one, making it a conversation; whether it
+  survives control visibility, since a wave that hides a control group cannot
+  invert it ([systems](systems.md) 5.1); how it is undone
 - **Call signs** — the eleven columns get names instead of numbers, chosen the
   way Spaceteam chooses its words: to be unmistakable when shouted across a
   laggy channel. Naming rule 3 ([bestiary](bestiary.md#naming)) applies to
@@ -139,6 +339,18 @@ the slot they were competing for. Each names the slot it would fit.
   replace a sentence, knowing only that their hands are full changes which
   sentence you say. If it gives away too much it belongs in
   [assists](assists.md) with a price on it, like sharing sight
+- **Handover** — the two control sets trade owners in the middle of a wave.
+  Roles are picked before a run and kept, with separate high scores per split as
+  the incentive to swap ([roles](roles.md)); this makes the swap something that
+  happens *inside* a wave, announced by the ship rather than agreed beforehand.
+  Everything each player has learned about their own half becomes something they
+  have to say out loud to somebody who is now holding it. Unworked out: whether
+  radar ownership travels with the controls, and it almost certainly must, since
+  the whole point of the split is that the one who knows is not the one who acts
+  ([systems](systems.md) 5.2); whether a shield move already queued survives the
+  handover; whether it reads as exciting rather than as simply losing the wave,
+  which is a question a prototype answers and a paragraph does not
+
 
 ## Deliberately deferred
 
@@ -163,7 +375,10 @@ the slot they were competing for. Each names the slot it would fit.
 ## Note
 
 Several of these were written for free flight and assume an aim beam or
-evasion — camouflage ("aim beside it"), the bearing waves, cracks in the
-cockpit. They are kept because the communication idea inside them survives the
-control model; the gesture does not. Anything moved off this page has to be
-re-grounded in the cannon, the shield and the beat.
+evasion. Two of them have been re-grounded above: **Camouflage** is now about
+the cannon's column rather than a beam, and **Bearing waves** is about the
+sentence rather than a heading to steer on. **Cracks in the cockpit** has not
+been, and stays deferred until it is. The rule holds for anything else that
+moves off this page — the communication idea inside an old entry usually
+survives the control model and the gesture does not, so it has to be re-grounded
+in the cannon, the shield and the beat before it is designed in.

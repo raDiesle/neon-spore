@@ -103,10 +103,15 @@ Roughly in the order the work is worth doing.
    likeliest first is the **Wave gate** — its idea is worked out furthest, and
    GATE is the only draft that needs no new contour maths. Walking it once will
    say more about whether this arrangement is right than another ten drafts.
-3. **A draft for the one idea that has none.** *Reverse wave* — a wave from
-   below — is the only entry in the store nothing here was drawn at, because a
-   direction is not a shape and it was not obvious what to draw. Worth another
-   look. Anything new goes in the same three files, not a fourth list.
+3. **A draft for the five ideas that have none.** *Reverse wave* was the only
+   one when this page was written, because a direction is not a shape and it
+   was not obvious what to draw. The idea store has since answered that — a
+   reverse wave comes up out of a **breach**, so the thing to draw is the hole
+   in the hull rather than the direction — and has added four entries nothing
+   here was drawn at: *Notch*, *Husk*, *The breach* and *Handover*. The first
+   two are creatures and want a silhouette; the other two are a rule and a
+   control, so they want a mark on the ship in the way the SWAP ARC does.
+   Anything new goes in the same three files, not a fourth list.
 4. **Draw the motion sheet from the catalogue, not from `SUBJECTS`.**
    `bun run shapes` still onion-skins only what the game draws, so a draft
    cannot be diffed or archived as an image. `tools/shape-sheet/src/motion.ts`
