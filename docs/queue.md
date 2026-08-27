@@ -69,3 +69,20 @@ candidate authored before the registry exists is a candidate authored against
 a guess.
 
 Model `sonnet`, effort `think hard`. Read `docs/versus.md` first — it is the design this lane implements.
+
+## THE SHOT IS LAID, NOT FIRED
+_claude/burn-shot-delay-s1 · packages/sim/src/shot-charge.ts packages/render/src/cannon-maw.ts docs/spec/systems.md_
+
+Today player 2 presses and a bullet exists; player 1 sees only the result.
+Give the cannon a wind-up — the fire opening swells, the skin parts, and the
+shot is *extruded* rather than fired — and the press becomes something the
+other player can see happening. That is the same thing THE OTHER HAND bought
+and it is bought again here for free, because the tell is already on screen.
+
+**Quantised to the beat, not to milliseconds.** The shot leaves on the next
+half-beat after the press, so a delay becomes a rhythm and "on the three" stops
+being approximately true. A number in `SimConfig`, default 0, so the owner
+compares by moving a slider rather than by rebuilding, and so every existing
+replay keeps its timing. Finished when the charge is world state, in
+`hashWorld`, drawn through the vocabulary `maw.ts` already has, and the owner
+can feel every value between 0 and a beat.
