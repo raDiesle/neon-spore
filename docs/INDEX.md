@@ -141,10 +141,10 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/simon-editor.ts` | THE MIRROR's rounds, edited as lists of controls |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
 | `tools/director/src/sound-lab.ts` | the backlog sheet's SOUND tab: every sound, playable, bound or unspent |
-| `tools/director/src/planned.ts` | the panel that shows them |
+| `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
-| `tools/director/src/concepts-render.ts` | the panel that shows them |
+| `tools/director/src/shapes-panel.ts` | the contours that are drawn, free ones first |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
