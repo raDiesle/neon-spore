@@ -30,22 +30,6 @@ player reading and the other turning.
 a gauge round can be entered, failed, passed and left, and the field comes
 back afterwards with the wave intact.
 
-## THE TWO SILENCES
-_claude/burn-audio-b9 · packages/audio/src/bind.ts packages/audio/src/sounds packages/sim/src/events.ts_
-
-Two moments report nothing to the ear, and both are blocked on the same file.
-The fork opening is the one moment in a run that belongs to the pair rather
-than to the clock, and it is silent. Shooting the Runt — the creature you must
-not shoot — spends the ordinary `destroy` cue, so the only tell that the pair
-got it wrong is the score moving the wrong way, which is the one place neither
-of them is looking.
-
-Taken off `docs/parked.md`, where two lanes filed them separately before
-noticing they were the same lane. **Look at what the catalogue already has
-before writing a sound** — `bun run dev`, ♪ SOUND lists the ones kept unbound,
-and they were kept for this. Finished when both events exist, both are bound,
-and `packages/audio/test/bind.test.ts` is green without being relaxed.
-
 ## TWO CREATURES THAT MOVE LIKE A THIRD
 _claude/burn-own-motion-b10 · packages/content/src/own-motion.ts_
 

@@ -273,3 +273,21 @@ is binding two other silences right now, so whoever picks this up should read
 what it decided first — the argument about whether to bind an unbound cue
 rather than write a new sound applies here identically.
 
+## An exhaustive switch has just been proved here, and three others have not been looked at
+
+2026-08-27 · claude/burn-audio-b9
+
+`packages/render/src/effects-spark.ts` now covers every `SimEvent` variant
+explicitly and ends in `assertNever`, so an event added without a burst fails
+the typecheck rather than silently drawing nothing. That change was made
+because the silent version had already bitten: an event was renamed, a burst
+stopped existing, and everything stayed green.
+
+Nobody has checked whether the same shape is hiding elsewhere. Any `switch`
+over a union that ends in `default:` returning a neutral value has the same
+property — it turns "somebody forgot" into "deliberately nothing", and the two
+are indistinguishable afterwards. `packages/audio/src/bind.ts`,
+`packages/render/src/boss-draw.ts` and the mixer are the obvious places to
+look first. Start by grepping for `default:` in a `switch` on a `.type` or a
+`.kind` and asking, of each, whether a missing case would be visible.
+
