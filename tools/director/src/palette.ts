@@ -14,7 +14,9 @@ export interface Palette {
  */
 export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>): Palette {
   const brushBar = document.getElementById("brushes");
-  let brush: Brush = "red";
+  // The first brush in bestiary order, not a hardcoded colour — the bestiary
+  // no longer starts with a coloured kind on any guarantee.
+  let brush: Brush = BRUSHES[0]?.brush ?? "erase";
 
   const render = (): void => {
     if (!brushBar) return;

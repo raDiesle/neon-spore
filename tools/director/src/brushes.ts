@@ -1,25 +1,72 @@
 import { CREATURES, type CreatureCategory, categoryOf } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import type { CreatureKind } from "@neon-spore/sim";
+import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
 
 /**
  * What a click paints. A brush rather than a cell that cycles through six
  * states: authoring a wave means putting the same thing in several columns,
  * and a cycle makes that six clicks instead of one.
+ *
+ * A living creature's brush is its own `CreatureKind` — `"slick"`, `"runt"`,
+ * whatever `CREATURES` names it — not a colour. A colour-keyed brush
+ * (`"red"` → slick, `"cyan"` → bulb) cannot say what a Runt or a Throb is:
+ * both carry `color: null` (`packages/content/src/creatures.ts`), so the only
+ * name either of them has is its kind. Rocks keep their own literal names —
+ * `"rock"`, `"rockMedium"`, … — because five tiers share one kind-shape and a
+ * sixth is a new row in `ROCK_BRUSHES` (state.ts), not a new kind.
  */
 export type Brush =
-  | "red"
-  | "cyan"
+  | CreatureKind
   | "rock"
   | "rockMedium"
   | "rockFast"
   | "rockFaster"
   | "rockFastest"
-  | "torch"
   | "mend"
   | "purge"
   | "ward"
   | "erase";
+
+/**
+ * The living kinds a brush paints one-to-one: everything in `CREATURES` that
+ * is neither a rock (`isMeteorKind` — its own tier table below), nor a boss
+ * body (`isBossBody` — placed by the boss panel, never by a click), nor the
+ * one `"special"` kind, the tether, which a boss installs rather than a wave
+ * author (`categoryOf`). `tools/shape-sheet/src/subjects.ts`'s `livingKinds`
+ * draws the same line for the same reason, on the same three calls — this is
+ * not a second copy of a rule, it is the rule read twice for two different
+ * questions ("what does the sheet draw" there, "what can a click place" here).
+ *
+ * Every key of `CREATURES` is covered by exactly one of "rock", "boss body",
+ * "special", or this list — so a creature added there needs nothing done here
+ * to get a brush, and `brushes.test.ts` fails if that ever stops being true.
+ */
+export const LIVING_BRUSH_KINDS: CreatureKind[] = (Object.keys(CREATURES) as CreatureKind[]).filter(
+  (kind) => !isMeteorKind(kind) && !isBossBody(kind) && categoryOf(kind) !== "special",
+);
+
+/** The stroke a living creature's card is drawn in — its own colour, or the
+ * neutral one `render/creatures.ts` gives anything that carries none. */
+function livingStroke(kind: CreatureKind): string {
+  const color = CREATURES[kind].color;
+  if (color === "red") return PALETTE.red;
+  if (color === "cyan") return PALETTE.cyan;
+  return PALETTE.dim;
+}
+
+const LIVING_BRUSHES: {
+  brush: Brush;
+  label: string;
+  subjects: string[];
+  stroke: string;
+  note: string;
+}[] = LIVING_BRUSH_KINDS.map((kind) => ({
+  brush: kind,
+  label: kind.toUpperCase(),
+  subjects: [kind.toUpperCase()],
+  stroke: livingStroke(kind),
+  note: CREATURES[kind].blurb,
+}));
 
 export const BRUSHES: {
   brush: Brush;
@@ -29,20 +76,7 @@ export const BRUSHES: {
   stroke: string;
   note: string;
 }[] = [
-  {
-    brush: "red",
-    label: "SLICK",
-    subjects: ["SLICK"],
-    stroke: PALETTE.red,
-    note: CREATURES.slick.blurb,
-  },
-  {
-    brush: "cyan",
-    label: "BULB",
-    subjects: ["BULB"],
-    stroke: PALETTE.cyan,
-    note: CREATURES.bulb.blurb,
-  },
+  ...LIVING_BRUSHES,
   {
     brush: "rock",
     label: "METEOR",
@@ -115,10 +149,15 @@ export const BRUSHES: {
   },
 ];
 
-/** The creature kind a brush paints, for brushes that paint one at all. */
+/**
+ * The creature kind a brush paints, for brushes that paint one at all. Every
+ * living brush paints the kind of its own name — `BRUSH_KIND.slick` is
+ * `"slick"` — because that is what "a brush is a `CreatureKind`" means; only
+ * the rock tiers need a table at all, since `"rock"` and `"meteor"` are not
+ * the same string.
+ */
 const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
-  red: "slick",
-  cyan: "bulb",
+  ...Object.fromEntries(LIVING_BRUSH_KINDS.map((kind) => [kind, kind])),
   rock: "meteor",
   rockMedium: "meteorMedium",
   rockFast: "meteorFast",

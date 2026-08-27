@@ -1,6 +1,12 @@
-import type { Wave, WaveEntry } from "@neon-spore/content";
-import { bossFillsWave, type CreatureKind, type PodEntry } from "@neon-spore/sim";
-import type { Brush } from "./brushes.js";
+import { CREATURES, kindForColor, type Wave, type WaveEntry } from "@neon-spore/content";
+import {
+  bossFillsWave,
+  type Color,
+  type CreatureKind,
+  type PodEntry,
+  type RockKind,
+} from "@neon-spore/sim";
+import { type Brush, LIVING_BRUSH_KINDS } from "./brushes.js";
 
 export type { Brush, BrushGroup } from "./brushes.js";
 export { BRUSH_GROUPS, BRUSHES } from "./brushes.js";
@@ -9,7 +15,7 @@ export { BRUSH_GROUPS, BRUSHES } from "./brushes.js";
  * The rock brushes, paired with the kind each one paints. One table instead
  * of a chain of `if`s in both directions, so a sixth tier is one row here.
  */
-const ROCK_BRUSHES: readonly [Brush, CreatureKind][] = [
+const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
   ["rock", "meteor"],
   ["rockMedium", "meteorMedium"],
   ["rockFast", "meteorFast"],
@@ -60,11 +66,18 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
   return (wave.pods ?? []).find((p) => p.beat === beat && p.col === col);
 }
 
-/** What the cell currently holds, as the brush that would have made it. */
+/**
+ * What the cell currently holds, as the brush that would have made it. A
+ * rock or a colourless living creature (a Runt, a Throb) names its own kind
+ * in `entry.kind`; a coloured one never does — `kindForColor` is what turns
+ * its `color` back into the kind, the same rule `wave-types.ts` names in the
+ * comment on `WaveEntry.kind`.
+ */
 export function brushOf(entry: WaveEntry): Brush {
   const rock = ROCK_BRUSHES.find(([, kind]) => kind === entry.kind);
   if (rock) return rock[0];
-  return entry.color === "cyan" ? "cyan" : "red";
+  if (entry.kind) return entry.kind;
+  return kindForColor(entry.color as Color);
 }
 
 /** What kind of pod a cell holds, as the brush that would have made it. */
@@ -74,8 +87,7 @@ export function podBrushOf(pod: PodEntry): Brush {
 
 /** The brushes that place a living creature or a rock, never a pod. */
 export const CREATURE_BRUSHES: readonly Brush[] = [
-  "red",
-  "cyan",
+  ...LIVING_BRUSH_KINDS,
   ...ROCK_BRUSHES.map(([brush]) => brush),
 ];
 
@@ -131,24 +143,22 @@ type EntryBrush = Exclude<Brush, "mend" | "purge" | "ward" | "erase">;
 type PodBrush = Extract<Brush, "mend" | "purge" | "ward">;
 
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
-  // Only a rock names a kind. Everything else is named by its colour, and the
-  // silhouette follows — `kindForColor`, the rule in packages/content.
-  switch (brush) {
-    case "rock":
-      return { beat, col, kind: "meteor", color: null };
-    case "rockMedium":
-      return { beat, col, kind: "meteorMedium", color: null };
-    case "rockFast":
-      return { beat, col, kind: "meteorFast", color: null };
-    case "rockFaster":
-      return { beat, col, kind: "meteorFaster", color: null };
-    case "rockFastest":
-      return { beat, col, kind: "meteorFastest", color: null };
-    case "torch":
-      return { beat, col, kind: "torch", color: null };
-    default:
-      return { beat, col, color: brush };
-  }
+  const rock = ROCK_BRUSHES.find(([b]) => b === brush);
+  if (rock) return { beat, col, kind: rock[1], color: null };
+
+  // A living brush left: its own `CreatureKind` — every rock literal was
+  // handled above, so the cast only narrows to what the runtime already
+  // knows. A coloured one is named by its colour and no kind at all —
+  // `color` is what a wave author says out loud, and `kindForColor` turns it
+  // back into a shape — while a colourless one (Runt, Throb) has no colour to
+  // name, so it carries its kind instead. `WaveEntry.kind`'s hand-written
+  // union in `packages/content/src/wave-types.ts` has to grow the day a third
+  // colourless kind joins `CREATURES`; `brushes.test.ts`'s round trip is what
+  // catches the day someone forgets, since the cast below cannot.
+  const kind = brush as CreatureKind;
+  const color = CREATURES[kind].color;
+  if (color) return { beat, col, color };
+  return { beat, col, kind: kind as WaveEntry["kind"], color: null };
 }
 
 function removeEntry(wave: Wave, beat: number, col: number): void {
