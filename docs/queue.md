@@ -29,17 +29,3 @@ Taken off `docs/parked.md`. It is the one copy of how a body sways, so this is
 a small file and two entries in it. Finished when both read as themselves on
 `bun run shapes` — which is also the tool the two outstanding creature checks
 point at, so this lane may discharge them rather than merely serving them.
-
-## AN INTERLUDE'S GAPS ARE CONTENT AND LIVE IN THE APP
-_claude/burn-gaps-move-b15 · packages/content/src/interludes.ts apps/game/src/interlude.ts_
-
-`GAPS` — nine gaps between waves, one filled by THE GAUGE before wave 10 —
-sits in `apps/game/src/interlude.ts` because the lane that wrote it could add
-no file under `packages/content`. Everything else is already right:
-`InterludeEntry` is data and the direction of travel is content to sim, like
-every other authored thing here.
-
-Taken off `docs/parked.md`. It is a `git mv` and an export rather than a
-decision, and it is worth doing before the second interlude rather than after
-— two rounds authored in the app is the point where it stops looking like an
-accident and starts being where interludes live.
