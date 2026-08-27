@@ -48,6 +48,17 @@ Ordered: the first thing in the file is the next thing done. Six to ten lanes
 is a queue; thirty is a wish. Commit it before spawning anything — a plan that
 exists only in the transcript is not a plan.
 
+**`docs/decisions.md` is never owned by a lane.** A decision is the
+orchestrator's to record, and two lanes each appending an entry is two
+conflicting numberings of the same list. A lane that reaches a decision worth
+keeping says so in its report and its commit; the run writes the entry.
+
+**A clash the board reports may be an *ordering* rather than a conflict.** A
+lane built on another one legitimately edits what the first reshapes — it adds
+to those files, it does not own them. Trim the later lane's ownership to what
+it exclusively owns and say in its brief which lane it sits behind, because
+the queue's order alone does not say it: the order is also just the order.
+
 **Ownership is most of the safety mechanism, and it is not all of it.** Two
 lanes may not own the same path, and `bun run burn` refuses to be quiet about
 two that do. But disjoint ownership was never the same claim as disjoint work:

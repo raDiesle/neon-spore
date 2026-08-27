@@ -12,3 +12,4 @@ coverage/
 !.aider.model.settings.yml
 !.aiderignore
 .claude/tmp/
+.claude/settings.local.json
