@@ -156,3 +156,40 @@ the wrong check. Three fields, and none of them replaces the trailer:
 - **changed** each body's place in its cycle was `(id % 7) * 0.9` — seven phases on an eleven-column field, so neighbours in perfect step were routine and n and n + 1 were always exactly 0.9 apart; it is now an integer hash of the id, every body different, spread across eight beats
 - **decide** the field is meant to be *in time* without being *in step*: every creature still moves one row on the same instant, but nothing idles in unison. Does a full row now read that way — one wave, many bodies — or has the extra spread tipped it into looking like unrelated things that happen to be side by side?
 - **where** `bun run preview`, the wave named CROWDED, which is the widest row in the run; compare against ALTERNATING, which is sparse enough that phase hardly shows
+
+## `7490495` — four marks on the ship, and two interlude bodies
+
+> the four hull marks are new — nothing was ever drawn on the membrane before except the shield. The ship raises a lobe for exactly one thing today. Does HULL · HELD's lobe (6.0 px, a full column wide) read as a *different* claim from HULL · ARMED's shield (7.5 px, two thirds of a column), or does any lump on the hull just mean "shield"? Yes and both ideas are cheap; no and The Other Hand needs a mark somewhere off the membrane. `bun run dev`, NOT BUILT YET → SHAPES.
+
+- **subject** HULL · HELD, the draft offered to *The Other Hand* — a lobe that stands up while the partner's thumb is down
+- **changed** the ship's silhouette has only ever carried two features, the cannon lobe and the shield; this is the first third thing, and it deliberately borrows the shield's register because there is nowhere else on a membrane to say something
+- **decide** does the held lobe say something the shield does not, or does the eye file both as "the shield"? Shorter and a full column wide against taller and narrower is the entire margin
+- **where** `bun run dev`, NOT BUILT YET → SHAPES; put HULL · HELD and HULL · ARMED on screen together
+
+> HULL · MENDED's welt is flat-topped with shoulders a fifth of a column, against the shield's long-shouldered swelling — that contrast is the whole margin and it was chosen, not measured against an eye. Does a held seam read as *made* beside a shield that reads as *grown*, at card size? `bun run dev`, SHAPES, with HULL · ARMED in view at the same time.
+
+- **subject** HULL · MENDED, the draft offered to *The Patch* — a scar held shut by a hand
+- **changed** the welt is 7.0 px over a flat plateau half a column wide with shoulders a fifth of one; the armed shield is 7.5 px, round, over two thirds of a column. Nearly the same height on purpose: shape is meant to be the difference, not size
+- **decide** does a flat top with square shoulders read as something *put there* rather than something the ship grew? If not, a patch cannot live on the membrane
+- **where** `bun run dev`, SHAPES, with HULL · ARMED in view at the same time
+
+> HULL · TORN is the first shape in the catalogue drawn as two open strokes instead of one. Does a 23 px hole in a 150 px line read as a breach, or as the hull having been drawn badly? `bun run dev`, SHAPES.
+
+- **subject** HULL · TORN, the draft offered to *The breach* — a column whose skin is gone
+- **changed** every other contour in the catalogue is one closed body or one open sweep; this one stops and starts again, so its edge is 20.4 px *shorter* than the bare span it was cut from. The lips curl 8 px up at the tear
+- **decide** does the break read as damage the ship took, or as a drawing mistake — a stroke that failed to close?
+- **where** `bun run dev`, SHAPES; compare against HULL · PASSIVE, which is the same span whole
+
+> THE CLAW and THE SPLICE are the first interlude bodies, and an interlude is meant to be legible as *not the field* from the first frame. Put them beside the creature cards: do they read as machinery, or as two more organisms? `bun run dev`, SHAPES.
+
+- **subject** THE CLAW and THE SPLICE, the first two shapes drawn for a round that is not the field
+- **changed** `docs/spec/interludes.md` promises the pair knows from the first frame that this is a different kind of thing, and rests that promise on slabs and glyphs against blobs. Neither of these is a slab: one is a jointed machine, one is a wandering line, and both are new material
+- **decide** scrolled past the creature cards, do these two land as *machinery* — hard, made, not alive — or do they read as two more creatures with unusual outlines?
+- **where** `bun run dev`, SHAPES
+
+> THE SPLICE crosses itself between one and four times, which is measured, and the round dies if a player can trace the strand by eye anyway. At card size, is the tangle genuinely unfollowable, or can you get from one end to the other? `bun run dev`, SHAPES.
+
+- **subject** THE SPLICE's tangle, the thing the round's whole difficulty rests on
+- **changed** the strand's sideways wander and its backtrack run at 2 and 2.5 turns over its length, a ratio picked so the two never fall into step; at whole ratios the loop degenerates into a cusp and the strand is briefly untangled every cycle
+- **decide** at the size a phone would draw it, can a person follow one end to the other? If yes the round has no puzzle in it and the tangle needs more strands, not more writhe
+- **where** `bun run dev`, SHAPES
