@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { bindAudio } from "./audio.js";
+import { bindBriefing } from "./briefing.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
@@ -26,7 +27,8 @@ if (!canvas) throw new Error("canvas #stage missing");
 // The hull holds by default here, and only here: this is the test build, and a
 // wave that is being looked at should be allowed to finish. The switch is in
 // the test panel; `packages/sim` still ships with the hull breakable.
-const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+// Briefings are on here and off in `DEFAULT_CONFIG`: two people, one card.
+const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
@@ -113,6 +115,7 @@ const tickKeys = bindControls({
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
 
+const brief = bindBriefing({ canvas, buffer, world });
 const testPanel = bindTestControls({
   world,
   jumpToWave,
@@ -165,6 +168,8 @@ if (menuRequested(location.href)) {
  */
 function startTogether(): void {
   resetClock(world, 0);
+  // The one moment that is a genuinely fresh pair, so the one that forgets.
+  brief.forget();
   jumpToWave(0);
   running = true;
 }
@@ -198,6 +203,8 @@ const paint = (dt: number): void => {
 (window as unknown as { neonSpore: unknown }).neonSpore = {
   world,
   jumpToWave,
+  // A headless check has no thumbs, and a card waits for two of them.
+  dismissBriefing: brief.dismiss,
   advance(ticks: number) {
     for (let i = 0; i < ticks; i++) {
       step(world, buffer.drain(world.tick));
@@ -236,7 +243,8 @@ startLoop(
     const dt = Math.min(0.05, (now - lastFrame) / 1000);
     lastFrame = now;
     link.frame(dt * 1000);
-    if (banner.remaining > 0) banner.remaining -= dt;
+    // The wave name waits behind the card; five seconds is less than reading it.
+    if (banner.remaining > 0 && !brief.holds()) banner.remaining -= dt;
     paint(dt);
   },
 );

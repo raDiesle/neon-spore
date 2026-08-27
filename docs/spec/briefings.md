@@ -1,34 +1,58 @@
 # Briefings
 
-> **Status: planned, nothing built.** This is the plan `docs/spec/structure.md`
-> promises under "New creature types get a short animated preview" and never
-> specified. Read it before writing any of it; the first block is meant to be
-> built alone, shown, and approved before the second one exists.
+> **Status: the card is built; the animation is not.** A wave opens on a split
+> card for anything the pair has not met, and the field waits behind it until
+> both of them have put it away. What §3.2 asks for — the demonstration drawn
+> with the game's own geometry — is still a plan, and so is the director panel
+> in §3.7.
+>
+> Two decisions below were overturned on the way in, and the paragraphs that
+> made them have been rewritten rather than left standing beside the code that
+> contradicts them: a briefing is **derived**, not placed, and the "already
+> seen" set is **world state**, not `localStorage`. The arguments are in place.
 
-A **briefing** is an animated demonstration with words, shown before a wave
-that asks something new of the pair. It stops the field, plays a short loop of
-the thing being taught, says what each of the two devices has to do about it,
-and gets out of the way. Either player can skip it.
+A **briefing** is a demonstration with words, shown before a wave that asks
+something new of the pair. It stops the field, says what the thing is and what
+each of the two devices has to do about it, and gets out of the way when both
+of them say so.
 
 ## The rule it is built on
 
-A briefing is **placed, never triggered**. The game does not watch the queue
-and guess that a meteor is new; a wave names the blocks that run before it, and
-moving that wave in the director moves its teaching with it. Anything else goes
-wrong the first time a wave is reordered — the rock gets taught on wave 9,
-three waves after the rock arrived, and nothing complains.
+A briefing is **derived, never placed**. The card follows from what the wave
+actually contains: the simulation reads the queue it was handed, the pods, and
+the boss, and asks which of those subjects the pair has never met.
+
+This was the other way round in the first draft of this file, and the argument
+for placing it was that a wave dragged around in the director should take its
+teaching with it — otherwise the rock gets taught on wave 9, three waves after
+the rock arrived. That is the right worry and the wrong fix. A hand-kept list
+beside a wave is *itself* the thing that goes stale; deriving the subject from
+the wave's own entries cannot, and a new creature gets its card the first time
+it appears without anybody remembering to arrange it. `packages/sim/src/briefing.ts`
+holds the closed subject list, and it is closed so that a creature shipping
+without a card is a type error rather than a blank card in front of a new pair.
+
+What the derivation cannot reach is a subject no wave *contains* — the grip,
+the lance, the split itself. The split is handled by being a subject that comes
+due before the pair's first wave and never again. The other two are not built.
 
 The second rule is the game's own: **neither player is told the other's half.**
-Every step carries three lines — one both screens read, and one for each
-device. A briefing that puts all of it on both screens has taught the pair that
-they do not need to talk, which is the one thing the game cannot survive.
+Every card carries three lines — one both screens read, and one for each
+device. A card that put all of it on both screens would have taught the pair,
+in the first ten seconds, that they do not need to talk to each other, which is
+the one thing the game cannot survive. So this screen gets its own half in
+words and the other player's half as blocks: visibly there, plainly not yours
+to read.
 
 ---
 
 ## 1 · What has to be taught
 
-Everything below is *built* today. The right-hand column is where the block
-goes; the wave list is `packages/content/src/waves.ts`.
+Everything below is *built* today. The right-hand column is no longer an
+instruction — a card arrives at the first wave that contains its subject, and
+the wave list is `packages/content/src/waves.ts` — but it is still worth
+reading as a record of where each block was expected to land, and as the check
+that the derivation puts it there.
 
 | # | Block | What is new | Who holds what | Before wave |
 |---|---|---|---|---|
@@ -104,18 +128,29 @@ before a room is even joined, and is being written separately.
 
 ## 3 · What is required
 
-### 3.1 Data — `packages/content`
+### 3.1 Data — `packages/content` · built
 
-- `briefings.ts`: the catalogue. A `Briefing` is `{ id, title, category,
-  summary, steps }`; a `BriefingStep` is `{ scene, title, say, p1, p2 }`.
-- `scene` names one of a **closed set** of animations. Placing and rewording a
-  block is authoring; adding a new picture is a change to `render/`. Closing the
-  set is what keeps the director honest — it can only offer what exists.
-- `Wave.briefings?: BriefingId[]`. Ids are stable: renaming one is a migration,
-  because the id is also what the "already seen" set remembers.
+- `briefings.ts`: the catalogue. A `BriefingCard` is `{ title, both, p1, p2 }`,
+  and `BRIEFINGS` is a `Record` over the closed subject list in
+  `packages/sim/src/briefing.ts` — so every subject has a card and no card
+  belongs to nothing.
+- The eleven creature kinds and the three pod kinds are spelled exactly as
+  their kinds are, so a wave's own entries name their subjects and nothing
+  keeps a second table of names in step. `opening` is the only id that is not
+  also a kind.
+- Ids are stable: renaming one is a migration, because the id's *index* is the
+  bit the met set remembers.
+- There is no `Wave.briefings` field. See "derived, never placed" above.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The animations — `packages/render/src/briefing/`
+A card is not authored as steps, because it does not animate yet. When §3.2
+lands, a step is what carries a scene, and the card becomes the first step.
+
+### 3.2 The animations — `packages/render/src/briefing/` · not built
+
+`packages/render/src/briefing.ts` today draws the card and nothing that moves.
+The rest of this section stands as written.
+
 
 The load-bearing requirement: **the demonstration is drawn with the game's own
 geometry, not a diagram of it.** A briefing that shows a simplified hull teaches
@@ -135,77 +170,126 @@ test, and look the same in all three.
 Scenes needed: `hail`, `field`, `cannon`, `colour`, `rock`, `torch`, `pod`,
 `queen`.
 
-### 3.3 Playback
+### 3.3 Playback · built, without the player
 
-- A `BriefingPlayer` in `render/`: which step is showing, how long it has been
-  up, `next()`, `skip()`, `done`. Presentation state, driven by `dt`.
-- `ViewState.briefing` carries it into `Canvas2DRenderer.draw`, which paints it
-  over everything else.
-- The overlay owns its own hit areas (NEXT, SKIP) and exports them, so input
-  hit-tests exactly what was drawn — the same rule as `Layout`.
-- Keyboard: space/enter advances, escape skips.
+There is no `BriefingPlayer` and no presentation state at all: which card is
+showing is `world.brief.due[0]`, and whether it has been read is
+`world.brief.ack`. `drawBriefing` is a pure function of the world and the role,
+so it survives a restart by having nothing to survive — `Effects.reset()` has
+nothing of its own to clear, and §3.8 says that must stay true.
 
-### 3.4 Where it hooks into the game
+The hit area is the whole stage. With a card up there is exactly one thing to
+do and nowhere else to press, so a target the size of the screen is one nobody
+has to look for. Keyboard: space, as both seats at once, for a desk.
 
-After `startWave`, before the world is allowed to tick. The wave is then frozen
-on its first beat behind the overlay, which is exactly the right picture. The
-tick gate is a new flag, not `running` — `running` is the pause overlay and
-already means something else.
+There is no SKIP. "Either player can skip it" was written before the card was
+split; a card one player skips past is a sentence the pair never finished
+reading, so both seats have to dismiss it and neither can do it for the other.
 
-### 3.5 Two devices
+### 3.4 Where it hooks into the game · built
 
-`docs/spec/structure.md` calls for a "both ready" signal. **Delayed lockstep
-already is one:** a device holding a briefing sends no commands, so the other
-one cannot advance past the input-delay window whatever it does. No protocol
-change. The one visible consequence is that the link chip will read `STALLED`
-while one player is still reading — worth suppressing while a briefing is up,
-and worth deciding rather than discovering.
+`startWave` opens the cards last, after the boss is installed, so it can read
+what the wave actually contains. `step` then refuses everything but the
+dismissal — the same rule THE MIRROR plays by while it is presenting — and the
+wave stands frozen on its first beat behind the card.
 
-### 3.6 Seen once
+**The clock is not what stands still.** A press is scheduled `inputDelayTicks`
+into the future on both devices at once, so a world that froze its tick counter
+would be waiting for a dismissal it had arranged never to reach itself. The
+tick counts; the wave does not.
 
-Persisted in `localStorage` in `apps/game`, keyed by block id — never in
-`content` or `render`. Spec 7.1 already says the save carries "the previews
-already seen". The test rig needs a way to forget them, or every session after
-the first is testing nothing.
+The gate is `cfg.briefings`, off in `DEFAULT_CONFIG` and on in `apps/game`. A
+determinism run, a shape sheet, `relay:check` and the director all want the
+wave rather than the lesson, and the game is the only caller with two people in
+front of it.
 
-### 3.7 The director
+### 3.5 Two devices · built
 
-This is the half the request is most specific about: **a fixed block of
-category description you can move to the right place before a specific wave.**
+`docs/spec/structure.md` calls for a "both ready" signal, and this is it,
+spelled out: a `brief` command from each seat, no protocol change. Leaning on
+delayed lockstep instead — a device holding a card simply sends nothing — was
+the first plan and is not enough, because it says nothing about *whether the
+card was read*; it only says a device is quiet.
 
-- A panel in the WAVE tab listing the catalogue grouped by category, each block
-  a toggle: on this wave, or not. Order within a wave is the catalogue's.
-- A mark in the wave rail, the way `♛` marks a boss wave, so placement is
-  visible without opening every wave.
-- `serialize.ts` writes `briefings: [...]` back into `waves.ts`, after `hint`.
-  The round-trip test covers it.
-- `refuse()` rejects an id that resolves to nothing, so a hand edit cannot be
-  saved into a wave that teaches nothing.
+Both devices push both acks and let the lockstep scheduler drop the half this
+device is not sitting in, which is the contract the keyboard already plays by.
+Solo, both land, and one tap is the whole of it.
+
+The card shows two pips, one per seat, lit as each dismissal lands. Without
+them a player who has tapped is looking at a card that did nothing and has no
+way to tell whether it is their screen that is stuck or their partner.
+
+Still open: the link chip reads `STALLED` while one player is reading. Worth
+suppressing while a card is up.
+
+### 3.6 Seen once · built, and not where this said
+
+**World state, not `localStorage`.** The set cannot live in the app: the card
+stops the wave, so two devices that disagree about whether one is up disagree
+about whether the world ticked at all. It is a bitmask in `World`, one bit per
+subject index, and it is in `hashWorld` — the desync ledger watches it like
+everything else. Spec 7.1's "the previews already seen" is a save-file
+question, and a save file will write this integer out rather than a second
+list beside it.
+
+The consequence to know: **a restart does not forget.** `resetRun` leaves the
+met set alone, because a run restarted after the hull went is the same two
+people and re-teaching them the rock is an insult with a tap attached. The one
+thing that forgets is two devices agreeing to start together at beat zero,
+which is the only moment in the game that is a genuinely fresh pair. A reload
+does too, by building a fresh `World`.
+
+### 3.7 The director · not built
+
+The original request here was **a fixed block of category description you can
+move to the right place before a specific wave**, and half of it has gone away:
+there is nothing to move, because a wave's cards follow from its contents. What
+is left is looking at them.
+
 - **A PREVIEW button on the stage.** The director is where these get judged, so
-  it has to be able to play one. Without it every review is a round trip through
-  the game.
+  it has to be able to show one. Without it every review is a round trip
+  through the game, and the game shows a card exactly once per fresh pair.
+- A mark in the wave rail, the way `♛` marks a boss wave, so a reviewer can see
+  which waves *will* open on a card without stepping through them. Derived, not
+  stored: the director already builds the queue, and that is all it takes.
+- No `serialize.ts` change and nothing for `refuse()` to reject. There is no
+  hand-editable field, which is one fewer way for a wave to teach nothing.
 
-### 3.8 Tests
+### 3.8 Tests · built
 
-- `content`: ids unique, every `Wave.briefings` entry resolves, no step with an
-  empty line.
-- `render/test/frame.test.ts`: every scene, every role, through the strict
-  canvas stub. Anything drawn is drawn there — the convention is not optional.
-- `render/test/restart.test.ts` is unaffected: a briefing holds no state that
-  outlives a wave. It must stay that way.
-- `serialize.test.ts`: round trip with and without `briefings`.
+- `packages/sim/test/briefing.test.ts`: the field holds, both seats are needed,
+  the met set does not teach twice, and two worlds that disagree about a card
+  disagree about their fingerprints. Also that the subject list still fits in
+  the 31 bits the met set has.
+- `packages/render/test/briefing.test.ts`: every card, every role, through the
+  strict canvas stub, including a screen too narrow for a word — plus the
+  catalogue itself, which may not hold an empty line or tell both players the
+  same thing.
+- `render/test/restart.test.ts` is unaffected, and must stay that way: the card
+  is drawn from the world and holds no state of its own.
+- `serialize.test.ts`: nothing to do. There is no wave field to round-trip.
 
 ---
 
 ## 4 · Order of work
 
-1. **The machinery, with one block only** — the opening, three steps. Data
-   shape, `Field`, the three scenes, the overlay, the game hook, the director
-   panel and its preview. Ship it and look at it.
-2. **Approve or rework the opening.** This is the step the whole plan is shaped
-   around: the first block is the one that decides what the rest look like, so
-   nothing else gets authored until it has been seen and agreed.
-3. **The remaining five blocks.** By then they are authoring, not building.
+1. ~~The machinery, with one block only~~ — **done, as a card rather than a
+   demonstration.** All sixteen subjects are authored, because a `Record` over
+   a closed list is authored in full or it does not type-check; what is not
+   built is the picture.
+2. **Look at it.** This is still the step the plan is shaped around: the card
+   is what decides what the animated version looks like, and nothing in §3.2
+   should be started until a pair has read one on two phones.
+3. **The animation** — §3.2's `Field` split, the eight scenes, and the step
+   structure that turns a card into the first of several.
+4. **The director panel** (§3.7), which becomes worth building once there is
+   something to preview that a `bun test` cannot judge.
+
+Two subjects the derivation cannot reach and nobody has placed: **the grip**
+and **the lance**. Both are controls no wave *contains*, so neither has a card
+today. They are the case the placed version of this file existed to serve, and
+whatever answers them should be a third thing rather than a `briefings:` list
+grown back onto `Wave`.
 
 Deliberately not in scope: figures (`wave-design.md` 8.1), an unlockable
 bestiary screen, and anything that reads a microphone — rule 4 stands.

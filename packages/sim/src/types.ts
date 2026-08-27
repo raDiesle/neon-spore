@@ -147,6 +147,16 @@ export type Command =
    * thumb lifts (`lance.ts`).
    */
   | { kind: "prime"; on: boolean }
+  /**
+   * This seat has read the briefing card that is up and is done with it. Both
+   * seats have to send one before the card goes and the wave starts moving —
+   * neither of them was shown the whole of it, so one player skipping ahead
+   * skips a sentence the pair never finished (`briefing.ts`).
+   *
+   * Handled in `step` rather than in `applyCommand`, because while a card is
+   * up nothing else reaches the ship at all.
+   */
+  | { kind: "brief" }
   | { kind: "restart" };
 
 export interface TimedCommand {

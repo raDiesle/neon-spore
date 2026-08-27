@@ -1,3 +1,4 @@
+export { BRIEFINGS, type BriefingCard } from "./briefings.js";
 export {
   type ControlGroup,
   CREATURES,

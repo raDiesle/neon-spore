@@ -1,6 +1,7 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
 import { onBeat, startWave } from "./beat.js";
 import type { BossState } from "./boss-state.js";
+import { ackBriefing, type Briefings, briefingHolds, newBriefings } from "./briefing.js";
 import { advanceBullets } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
@@ -68,6 +69,13 @@ export interface World {
   balance: RunStats;
   /** The boss a wave installs, or null. */
   boss: BossState | null;
+  /**
+   * The cards this wave still owes, and everything the pair has already been
+   * taught. World state rather than the app's, because a card stops the wave:
+   * two devices that disagree about whether one is up disagree about whether
+   * the world ticked at all (`briefing.ts`).
+   */
+  brief: Briefings;
 
   wave: number;
   waveBeat: number;
@@ -117,6 +125,7 @@ export function createWorld(
     guard: { tries: 0, deflected: 0, mistimed: 0 },
     balance: emptyRunStats(),
     boss: null,
+    brief: newBriefings(),
     wave: 0,
     waveBeat: 0,
     spawned: 0,
@@ -135,6 +144,19 @@ export function createWorld(
 /** Advance exactly one tick. The only way the world ever changes. */
 export function step(world: World, commands: readonly TimedCommand[]): void {
   world.events.length = 0;
+  // A card is up. Nothing reaches the ship — the same rule THE MIRROR plays by
+  // while it is presenting — and the only command that means anything is the
+  // one that puts the card away.
+  //
+  // The tick still counts, and that is not a detail: a press is scheduled
+  // `inputDelayTicks` into the future on both devices at once, so a world that
+  // froze its tick counter would be waiting for a dismissal it had arranged to
+  // never reach itself. The wave is what stands still, not the clock.
+  if (briefingHolds(world)) {
+    for (const c of commands) if (c.command.kind === "brief") ackBriefing(world, c.player);
+    world.tick += 1;
+    return;
+  }
   // Commands are read even when the hull is through — otherwise `restart`
   // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);

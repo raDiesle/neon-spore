@@ -150,6 +150,15 @@ export function bindKeys({
         if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
         break;
       }
+      // Space puts a briefing card away, as both seats at once. The command
+      // means nothing when no card is up — the simulation only reads it while
+      // one is — so it costs nothing to send it unconditionally, and at a desk
+      // there is no second thumb to wait for.
+      case "Space":
+        e.preventDefault();
+        buffer.push(1, { kind: "brief" });
+        buffer.push(2, { kind: "brief" });
+        break;
       case "KeyP":
         onPauseToggle();
         break;

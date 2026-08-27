@@ -1,6 +1,7 @@
 import { hullPercent, ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
+import { drawBriefing } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
@@ -209,6 +210,9 @@ export class Canvas2DRenderer implements Renderer {
     drawTorchAlarm(ctx, l, world, view.time);
     drawBand(ctx, l, world, isArmed, isOpen);
     drawOverlay(ctx, l, view);
+    // Over the pause overlay and everything else: while a card is up the world
+    // is not ticking, so nothing under it is doing anything worth seeing.
+    drawBriefing(ctx, l, world, view.role);
     ctx.restore();
 
     // A seam, so a wide window shows where the phone ends.

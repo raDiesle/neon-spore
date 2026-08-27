@@ -1,5 +1,6 @@
 import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
+import { openBriefings } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
@@ -165,6 +166,11 @@ export function startWave(
       scratch: [],
     };
   }
+
+  // Last, so it can read the boss that was just installed: whatever this wave
+  // asks of the pair for the first time is a card it opens on, and the field
+  // holds still behind it until both of them have put it away.
+  openBriefings(world, queue, podQueue, boss);
 
   world.events.push({ type: "waveStart", wave: waveIndex });
 }

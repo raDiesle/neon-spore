@@ -46,6 +46,15 @@ export function hashWorld(world: World): number {
   push(world.balance.bestStreak);
   push(world.balance.wavesCleared);
 
+  // The briefing. It is in the fingerprint because it decides whether the
+  // world ticks at all: a device that thinks a card is still up is a device
+  // holding a wave the other one is already playing, and that is a desync
+  // whichever way it is spelled.
+  push(world.brief.met);
+  push(world.brief.ack);
+  push(world.brief.due.length);
+  for (const n of world.brief.due) push(n);
+
   push(world.creatures.length);
   for (const c of world.creatures) {
     push(c.id);

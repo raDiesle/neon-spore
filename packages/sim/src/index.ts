@@ -8,6 +8,18 @@ export {
 export { startWave } from "./beat.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, QueenState, WardenState } from "./boss-state.js";
+export {
+  ackBriefing,
+  BRIEFING_SUBJECTS,
+  type BriefingId,
+  type Briefings,
+  briefingAcked,
+  briefingHolds,
+  currentBriefing,
+  forgetBriefings,
+  MAX_BRIEFING_SUBJECTS,
+  subjectIndex,
+} from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 export { BOSS_KINDS, type WardenEntry } from "./entries.js";
 export {
