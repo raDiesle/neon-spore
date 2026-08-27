@@ -309,3 +309,22 @@ It is still open, and it is not open in the abstract: THE CLAW, THE BELT and
 THE WELL all move something, and each is cheaper to design after the rule is
 written than to design twice. Whoever takes the second interlude should settle
 it first, in `docs/decisions.md`, before choosing which one to build.
+
+## A swept worktree can survive its own removal on Windows
+
+2026-08-27 · claude/pull-remote-master-132f48
+
+`bun run checks --clean` unregisters a worktree and then deletes its
+directory, and on Windows the delete can half-succeed: `node_modules` holds
+open handles, `rm` stops part way, and what is left is a directory git no
+longer knows about containing some of a checkout. The next sweep then reports
+it as dirty — `docs/` is gone, so every tracked file in it reads as modified —
+and refuses forever, with git's original "Directory not empty" as the reason,
+which points at the wrong thing entirely.
+
+Not fixed here because the sweep had already run and three trees needed
+clearing by hand more than they needed a design. The fix is small and in
+`removeWorktree` in `tools/checks/repo.ts`: check the directory is actually
+gone after the delete, retry once, and if it still stands say *that* rather
+than re-raising the original git error. A tree that git has forgotten is not
+dirty, it is litter, and the two want different sentences.
