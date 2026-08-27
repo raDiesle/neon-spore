@@ -508,7 +508,17 @@ exactly like the brushes did.
 
 **Say nothing when there is nothing to add.** Sixteen checks already name
 their own command; a generic hint under those is noise, and noise is what
-stops a list being read. Finished when a cold reader can act on any row
-without asking, and when no row says something they already knew.
+stops a list being read.
+
+**And show the picture when there is one.** The skill now asks a lane that
+changes something visual to commit a before and an after frame under
+`docs/checks/` and name them in the trailer. The sheet must render those
+inline, side by side, at a size worth deciding from — a check with a picture
+should be settleable without leaving the page, which is the difference between
+a list that gets worked through and one that gets scrolled past.
+
+Finished when a cold reader can act on any row without asking, when no row
+says something they already knew, and when a row with frames attached can be
+decided from the sheet alone.
 
 

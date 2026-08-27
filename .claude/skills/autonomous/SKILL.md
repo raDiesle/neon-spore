@@ -99,7 +99,9 @@ must carry, every time:
 - read `CLAUDE.md` and the one or two spec files the brief names;
 - `bun run check` green, then commit, staging **only its own paths**;
 - a `Check:` trailer for anything only an eye can settle — a wave at tempo, a
-  silhouette at 26 px, a colour against the field;
+  silhouette at 26 px, a colour against the field — written to the shape
+  below, because a check is read cold, weeks later, by somebody who was not
+  there;
 - **after any amend, re-read the message and confirm the trailers are still
   in it** (`git log -1 --format=%B`). A lane reported two, amended during a
   rebase, and the trailers went with the amendment — the obligations vanished
@@ -154,6 +156,37 @@ working is protected by the one thing that distinguishes it: uncommitted files
 in its tree. Git cannot tell the two apart on its own, because a lane that has
 not committed yet points at whatever `main` was when it started, which is an
 ancestor of `main`, which reads as landed.
+
+## What a `Check:` has to contain
+
+The person reading it has not seen the code, does not remember the lane, and
+is deciding in the two minutes before they close the laptop. A trailer that
+assumes any of that back is a trailer that stays on the list forever.
+
+Three parts, in one or two plain sentences:
+
+**What changed, in a clause** — so the reader knows what "before" was. "The
+motes are new" is worth more than any amount of describing what to look for,
+because without it they cannot tell the change from the thing.
+
+**What to decide, as a question with a yes and a no.** Not "check the
+backdrop". *Does the wash stay under the creatures, or does it compete with
+them?* A check whose failure is not imaginable cannot be failed, so it never
+gets ticked either.
+
+**Where to stand.** The command, and the wave or tab within it — `bun run
+preview`, wave 3; the director's CARDS tab; `bun run shapes:page`. If a
+repository command settles it outright, put it in backticks and
+`bun run checks --run` will run it without a person at all.
+
+**And a picture, when the change is visual and one is cheap.** A lane driving
+a headless preview can already capture a frame; capturing the same frame
+before the change costs one `git stash` and a second capture. Commit both
+under `docs/checks/` and name them in the trailer. A still that shows the
+difference converts a check from a task into a glance, and the ones that have
+sat longest on this list are all ones where the reader would have had to build
+the comparison themselves. Do not do this for a change with no visual half,
+and do not fake it with a diagram — the value is that it is the real frame.
 
 ## 4. Drain before deciding anything else
 
