@@ -92,8 +92,9 @@ filed rightly, and there is no second list to change.
   opening — the pilot slides while the navigator fires twice against a half-beat
   cooldown. Unworked out: whether hitting one alone re-merges and heals the
   pair, which is what would make the order matter; how far apart is far enough
-  to read at 26 px, given that the cluster form reaches a waist and not a
-  parting ([the asset catalogue](../asset-catalogue.md)); whether it is one
+  to read at 26 px, now that the cluster form genuinely parts and nobody has
+  watched one at creature size ([the asset catalogue](../asset-catalogue.md));
+  whether it is one
   creature spanning columns, as the torch's `colSpan` already does, or two that
   share a fate
 - **Camouflage** — goes out when you take aim, so you have to aim beside it.
