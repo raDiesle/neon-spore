@@ -32,7 +32,7 @@ export async function backlogState(repoRootPath: string): Promise<Response> {
   // silently start reading the wrong tree — `repoRootPath` only names *which*
   // checkout's git this queries, for the lane facts.
   const base = new URL(import.meta.url);
-  const [bestiary, bosses, couplings, assists, systems, ideas, queueMd, designText] =
+  const [bestiary, bosses, couplings, assists, systems, ideas, queueMd, parkedMd, designText] =
     await Promise.all([
       Bun.file(specFile(base, "bestiary.md")).text(),
       Bun.file(specFile(base, "bosses.md")).text(),
@@ -41,6 +41,7 @@ export async function backlogState(repoRootPath: string): Promise<Response> {
       Bun.file(specFile(base, "systems.md")).text(),
       Bun.file(specFile(base, "ideas.md")).text(),
       Bun.file(docFile(base, "queue.md")).text(),
+      Bun.file(docFile(base, "parked.md")).text(),
       Promise.all(DESIGN_NAMES.map((name) => Bun.file(docFile(base, name)).text())),
     ]);
 
@@ -58,6 +59,7 @@ export async function backlogState(repoRootPath: string): Promise<Response> {
     ideas,
     queue,
     buildDesigns(designs),
+    parkedMd,
   );
   return Response.json(backlog, { headers: noCache });
 }

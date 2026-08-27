@@ -12,6 +12,11 @@ async function realBacklog(): Promise<Backlog> {
     await read("docs/spec/assists.md"),
     await read("docs/spec/systems.md"),
     await read("docs/spec/ideas.md"),
+    [],
+    [],
+    // The real file, so the "every group is populated" guard below covers the
+    // tab that was named after it and did not show it until somebody asked.
+    await read("docs/parked.md"),
   );
 }
 
@@ -110,6 +115,16 @@ describe("buildBacklog", () => {
 
     const rejected = backlog.parked.find((g) => g.title === "EXAMINED AND REJECTED");
     expect(rejected?.entries[0]?.detail).toContain("The Fogger");
+  });
+
+  // The tab is called PARKED and showed the spec's deferrals and rejections,
+  // which are a different thing wearing the same word — so what a session
+  // actually parked was nowhere, and stayed nowhere until somebody asked.
+  test("what a session parked is under the tab named after it", async () => {
+    const backlog = await realBacklog();
+    const mine = backlog.parked.find((g) => g.title === "PARKED BY A SESSION");
+    expect(mine?.entries.length ?? 0).toBeGreaterThan(0);
+    expect(mine?.entries.every((e) => e.name.length > 0)).toBe(true);
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {

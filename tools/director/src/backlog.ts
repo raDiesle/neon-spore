@@ -14,6 +14,7 @@
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.
  */
 
+import { parseParked } from "../../handoff/parked.js";
 import { type Concept, type ConceptSheet, parseConcepts } from "./concepts.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
@@ -150,6 +151,7 @@ export function buildBacklog(
   ideas: string,
   queue: BacklogGroup[] = [],
   designs: BacklogGroup[] = [],
+  parkedMd = "",
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
@@ -205,6 +207,22 @@ export function buildBacklog(
       ),
     ],
     parked: [
+      // The file the tab is named after, and which it did not show until
+      // somebody asked where today's notes had gone. The two groups below it
+      // are the spec's own deferrals and rejections — a different thing with
+      // the same word on it, which is why this went unnoticed for so long.
+      {
+        title: "PARKED BY A SESSION",
+        note: "noticed and not done, with where to start — docs/parked.md",
+        builtHidden: 0,
+        entries: parseParked(parkedMd).map((e) => ({
+          name: e.title,
+          kind: "",
+          note: e.origin,
+          detail: "",
+          ref: "parked.md",
+        })),
+      },
       {
         title: "DELIBERATELY DEFERRED",
         note: "not rejected, not queued — ideas.md",
