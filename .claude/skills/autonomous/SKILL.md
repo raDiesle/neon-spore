@@ -74,7 +74,10 @@ must carry, every time:
 - `bun run check` green, then commit, staging **only its own paths**;
 - a `Check:` trailer for anything only an eye can settle — a wave at tempo, a
   silhouette at 26 px, a colour against the field;
-- anything noticed and not done goes to `docs/parked.md` in the same commit;
+- anything noticed and not done comes back in its **report**, not in
+  `docs/parked.md` — that file is shared, and three lanes appending to the end
+  of it is three rebase conflicts in the one file whose content nobody would
+  think to check. The orchestrator files them, in one commit, after landing;
 - **do not land, do not push, do not touch `main`** — the orchestrator lands;
 - if it is blocked on a design decision, stop and say so rather than guess.
 

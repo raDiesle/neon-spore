@@ -69,10 +69,16 @@ holds the loop; the trailers are how the morning finds out what to open.
 stops, writes the question into its report, and the run moves to the next lane
 rather than guessing and building on the guess.
 
-**It may not leave the queue lying.** Anything noticed and not done goes to
-`docs/parked.md` in the same commit, and anything decided-but-not-started
-stays in `docs/queue.md`. A run that ends with its plan only in the transcript
-has ended with no plan.
+**It may not leave the queue lying.** Anything decided-but-not-started stays
+in `docs/queue.md`, and anything noticed-and-not-done reaches `docs/parked.md`
+before the run ends. A run whose plan exists only in the transcript has ended
+with no plan.
+
+Parked notes are filed by the orchestrator rather than by the lane that had
+them, and that is not tidiness. `docs/parked.md` is the one file every lane
+would want to append to, so three lanes appending to its end is three rebase
+conflicts in the file whose content nobody would think to look at twice. A
+lane reports its idea; the run files it once, after the landings.
 
 ## Stopping and starting again
 
