@@ -213,3 +213,63 @@ Not done there because a lift edge on the shield strip is a change to
 the lane owned. Start by asking whether a hold is a thing the shield *should*
 have — the fork already spends the lance's hold as half of a two-person gate,
 and a second holdable control is a second thing that could.
+
+## The roll wants to be a wave before it is ever a boss
+
+2026-08-27 · claude/burn-vane-b7
+
+`docs/spec/transfers-bosses.md` proposed THE VANE as a render-only column
+*roll* — one player's column order reversed, so column four on one device is
+column eight on the other. The boss was built the other way, folding where
+things land in the simulation, because a flip the simulation never hears about
+has nothing to hash, nothing to replay and nothing the director can show.
+
+The roll itself is still a good mechanic and it is still unbuilt. What it is
+not is a boss: leaning an act on a rule no wave has ever run is how you find
+out at the worst possible moment. It belongs at wave scale first, in
+`layout.ts` and `touch.ts`, where a bad answer costs one wave. Start there and
+let a boss claim it afterwards if it survives.
+
+## Nothing on the field can move between columns
+
+2026-08-27 · claude/burn-vane-b7
+
+THE VANE folds an arrival about the arm's column, and it does it at row 0
+precisely so a thrown body is *born* in its landing column and is never seen
+to jump. That was the cheap way out of a gap: `Creature` has no `fromCol`, so
+there is nothing to interpolate from and no mechanic in this game has ever
+moved something sideways once it was falling.
+
+Not done there because it is a wide edit — every construction site of a
+`Creature`, plus `hashWorld` — and the boss did not need it. The next mechanic
+that wants something to *drift* across columns will, and THE BELT in
+`docs/spec/interludes.md` is the one most likely to ask.
+
+## THE CONDUCTOR's slot is spent and the beat is still unbent
+
+2026-08-27 · claude/burn-vane-b7
+
+THE VANE took the act slot that `docs/spec/transfers-bosses.md` drew the
+pendulum arm for, and bent the field's geometry rather than its tempo. The
+original worry about bending the shared *beat* — that the beat is the one
+thing surviving a two-second voice delay, so a boss that moves it attacks the
+pair's only reliable ground — is untouched and still deferred.
+
+Worth writing down because the arm is now spent, and the next session reaching
+for THE CONDUCTOR will find its picture already in use and should know that is
+deliberate rather than an oversight.
+
+## THE VANE is silent
+
+2026-08-27 · claude/burn-vane-b7
+
+A pin coming out and a body being thrown report nothing to `packages/audio`.
+The events want to be `pin`, `vaneThrow` and `vaneDown`, and each costs
+`events.ts`, `audio/src/bind.ts`, `audio/test/bind.test.ts` and possibly a
+sound. Refused shots already report, through the existing `reject`.
+
+Not done there because audio was another lane's ground at the time. That lane
+is binding two other silences right now, so whoever picks this up should read
+what it decided first — the argument about whether to bind an unbound cue
+rather than write a new sound applies here identically.
+
