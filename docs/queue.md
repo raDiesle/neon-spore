@@ -483,4 +483,32 @@ numbers already in it. Merging those is how the list stops being read.
 **Behind `claude/burn-mechanics-registry-m1`**, which is what lets the sheet
 subtract what is built rather than guess at it.
 
+## A CHECK SAYS WHAT TO LOOK AT AND NEVER WHERE TO STAND
+_claude/burn-checks-hint-h1 · tools/checks/hint.ts tools/checks/checks.ts_
+
+The outstanding list gives a sentence and a date. A person coming back to it
+cold — which is the only way anybody comes back to it — has to work out for
+themselves which tool opens the thing being asked about, and for most of the
+fifty-five rows that is a guess.
+
+Two additions, both generic, neither written by hand.
+
+**The time, not just the day.** Twenty-odd checks landed within one afternoon
+and they all read `2026-08-27`. Ordering them by when they were incurred is
+most of what makes a long list walkable, and git already knows.
+
+**Where to stand, derived from the commit's own paths.** A check on a commit
+that touched `packages/render/` wants `bun run preview`; one touching
+`tools/shape-sheet/` or `packages/content/src/silhouettes.ts` wants
+`bun run shapes:page`; `packages/audio/` wants the director's ♪ SOUND sheet;
+`packages/net/` wants `bun run relay:check`; a briefing wants the CARDS tab.
+That mapping is a small table in one place, and it is derived from `git show
+--stat` rather than typed per check — a hint kept by hand would go stale
+exactly like the brushes did.
+
+**Say nothing when there is nothing to add.** Sixteen checks already name
+their own command; a generic hint under those is noise, and noise is what
+stops a list being read. Finished when a cold reader can act on any row
+without asking, and when no row says something they already knew.
+
 
