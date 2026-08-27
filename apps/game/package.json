@@ -9,6 +9,7 @@
     "preview:once": "bun run build && PREVIEW_PORT=0 bun preview.ts"
   },
   "dependencies": {
+    "@neon-spore/audio": "workspace:*",
     "@neon-spore/content": "workspace:*",
     "@neon-spore/net": "workspace:*",
     "@neon-spore/render": "workspace:*",

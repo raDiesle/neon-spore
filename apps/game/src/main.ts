@@ -10,6 +10,7 @@ import {
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { bindAudio } from "./audio.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
@@ -29,6 +30,7 @@ const cfg = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
+const audio = bindAudio(canvas);
 const tpb = ticksPerBeat(cfg);
 /** 0..1 within the beat. Both the picture and a finger on the field need it. */
 const beatPhase = (): number => (world.tick % tpb) / tpb;
@@ -76,6 +78,10 @@ function handle(events: readonly SimEvent[]): void {
 function jumpToWave(wave: number): void {
   const target = Math.max(0, wave);
   resetRun(world);
+  // The tick counter goes back to zero with the run, so anything remembered
+  // against it — in render/ and in audio/ alike — is about to be read as this
+  // run's own. See CLAUDE.md on `world.beat` not being monotonic.
+  audio.restarted();
   startWave(
     world,
     target,
@@ -168,6 +174,7 @@ let frameEvents: SimEvent[] = [];
 let lastFrame = performance.now();
 
 const paint = (dt: number): void => {
+  audio.frame(world, frameEvents);
   renderer.draw({
     world,
     beatPhase: beatPhase(),

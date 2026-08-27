@@ -33,6 +33,7 @@ and record why in `docs/decisions.md`.
 | [briefings.md](briefings.md) | what is taught before a wave, and how it is placed | not built |
 | [wave-design.md](wave-design.md) | figures, variation, the two filters, the ten acts | partly built |
 | [graphics.md](graphics.md) | the visual rules and the fiction | mostly built |
+| [audio.md](audio.md) | the speech-band rule, the grains, the catalogue | built, unheard |
 | [bestiary.md](bestiary.md) | creatures, rejected creatures, the ceiling | 3 of 20 built |
 | [bosses.md](bosses.md) | the eleven bosses | not built |
 | [open-questions.md](open-questions.md) | what is undecided, including the move to space | live |

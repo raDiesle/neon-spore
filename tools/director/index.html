@@ -228,6 +228,22 @@
         padding: 10px 20px 0; 
       }
       #backlogBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      /* The sound catalogue. It borrows .plan's shape on purpose: a spare
+         sound and an undrawn creature are the same kind of entry. */
+      .sound { border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px 10px; margin: 6px 0; }
+      .sound.is-built { border-color: var(--line); background: #0b0820; }
+      .sound .head { display: flex; align-items: center; gap: 8px; }
+      .sound .name { color: var(--ink); letter-spacing: 1px; font-size: 11px; }
+      .sound.is-built .name { color: var(--cyan); }
+      .sound .stamp { margin-left: auto; font-size: 9px; color: #574d84; letter-spacing: 2px; }
+      .sound.is-built .stamp { color: var(--gold); }
+      .sound .note { margin: 3px 0 0; }
+      .sound .use { margin: 2px 0; color: var(--dim); font-size: 10px; }
+      .sound .pierce { margin: 2px 0; color: var(--red); font-size: 9px; letter-spacing: 1px; }
+      .sound .kind { color: #a98cff; font-size: 9px; }
+      .sound .recipe { display: block; margin-top: 4px; color: #4d4478; font-size: 9px; word-break: break-word; }
+      .playbtn { width: 26px; padding: 2px 0; color: var(--gold); }
+      .soundbar { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 6px; }
       .sheetpage { display: none; }
       .sheetpage.on { display: block; }
       .sheetpage > .note { max-width: 620px; }
@@ -427,6 +443,7 @@
       <div id="backlogTabs">
         <button type="button" data-tab="bestiary" class="on">BESTIARY</button>
         <button type="button" data-tab="shapes">SHAPES</button>
+        <button type="button" data-tab="sound">SOUND</button>
         <button type="button" data-tab="mechanics">MECHANICS</button>
         <button type="button" data-tab="controls">CONTROLS</button>
         <button type="button" data-tab="bosses">BOSSES</button>
@@ -460,6 +477,23 @@
           <div id="shapesFree" class="shapes"></div>
           <h2 style="margin-top: 18px">TAKEN</h2>
           <div id="shapesTaken" class="shapes"></div>
+        </div>
+        <div class="sheetpage" id="sheet-sound">
+          <p class="note">
+            Every sound in the game, and every one built for something the game
+            does not have yet. Nothing here is a recording — each is a few
+            numbers a synthesiser builds when you press it, which is why there
+            can be this many of them for 20 kB.
+          </p>
+          <p class="note">
+            BOUND means something plays it today; SPARE means it is finished
+            and unspent, waiting for the creature or the boss it was made for.
+            The stamp is not maintained by hand — a test reads the binding
+            files and fails if one of them lies. The band figure is what a
+            sound costs the conversation, and almost all of them read 0.000:
+            see docs/spec/audio.md.
+          </p>
+          <div id="soundLab"></div>
         </div>
         <div class="sheetpage" id="sheet-mechanics">
           <p class="note">

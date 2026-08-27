@@ -68,11 +68,12 @@ never absent — otherwise a hit is arbitrary for the person who took it.
   shot, damage. Both hear everything — a tone is faster than a sentence
 - Silent mode: a pulsing screen border as a visible substitute
 
-Built: the clock itself at **96 BPM** (`bpm`, `ticksPerBeat`), and the beat as
+Built: the clock itself at **96 BPM** (`bpm`, `ticksPerBeat`), the beat as
 something you can see — grid lines and crossing points light up on every beat
-and fade, four beat dots in the HUD, a ring on the shield. **Not built:** the
-audio. There is no click track and no tones yet, so the shared clock is
-currently visual only.
+and fade, four beat dots in the HUD, a ring on the shield — and, now, the beat
+as something you can hear: `beat.tick` and `beat.accent`, with tones for the
+outcomes above. See [audio.md](audio.md), including the part where none of it
+has been listened to yet.
 
 ## 5.4 Bubbles as ammunition — not built
 

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@neon-spore/audio": "workspace:*",
     "@neon-spore/content": "workspace:*",
     "@neon-spore/render": "workspace:*",
     "@neon-spore/shape-sheet": "workspace:*",

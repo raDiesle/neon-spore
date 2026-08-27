@@ -35,6 +35,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/briefings.md` | you teach the pair a mechanic or a creature |
 | `docs/spec/wave-design.md` | you author a wave or an act |
 | `docs/spec/graphics.md` | you draw anything |
+| `docs/spec/audio.md` | you add a sound, or wonder why none of them sit in the speech band |
 | `docs/spec/bestiary.md` | you add or change a creature |
 | `docs/spec/bosses.md` | you build a boss |
 | `docs/spec/open-questions.md` | you hit something the design has not decided |
@@ -76,6 +77,16 @@ history if the wording of a rejected idea is ever needed.
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
+| `packages/audio/src/types.ts` | what a sound is made of: layers, families, `bound` or `spare` |
+| `packages/audio/src/grain.ts` | the grains — the instruments every sound is stacked from |
+| `packages/audio/src/band.ts` | the speech band, kept clear, as something that can fail |
+| `packages/audio/src/plan.ts` | a sound flattened to voices with absolute times — pure, so it is testable |
+| `packages/audio/src/engine.ts` | the only file with an `AudioContext` in it |
+| `packages/audio/src/catalogue.ts` | every sound in one list, and the only way to reach one |
+| `packages/audio/src/bind.ts` | one `SimEvent` to one cue: id, pan, pitch |
+| `packages/audio/src/mixer.ts` | the game's ear: events, plus the state the sim never reports |
+| `packages/audio/src/memory.ts` | the one frame of world the mixer remembers, and why clearing it matters |
+| `packages/audio/src/sounds/` | the catalogue itself, one file per family |
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
@@ -107,6 +118,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop, wave progression |
+| `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `render/touch.ts` |
@@ -128,6 +140,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/boss.ts` | the boss panel: which boss the wave carries, and its knobs |
 | `tools/director/src/simon-editor.ts` | THE MIRROR's rounds, edited as lists of controls |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
+| `tools/director/src/sound-lab.ts` | the backlog sheet's SOUND tab: every sound, playable, bound or unspent |
 | `tools/director/src/planned.ts` | the panel that shows them |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |

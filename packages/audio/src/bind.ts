@@ -1,0 +1,126 @@
+/**
+ * What the simulation reported, as a sound.
+ *
+ * This is the only file in the package that knows what a `SimEvent` is, and it
+ * is pure — it returns ids and pan positions, and plays nothing. `mixer.ts`
+ * does the playing, and the tests read this file directly, which is how the
+ * catalogue can be checked for gaps without a browser.
+ *
+ * The pan is the column something happened in. Both players hear everything
+ * (`docs/spec/systems.md` 5.3), so the ear is the fastest way to know *where* —
+ * faster than the eye finding a tile, and much faster than a sentence.
+ */
+
+import type { SimEvent } from "@neon-spore/sim";
+
+export interface Cue {
+  id: string;
+  /** -1..1 across the field, or undefined for something with no column. */
+  pan?: number;
+  /** Multiplies every frequency — how a row becomes a pitch. */
+  pitch?: number;
+  gain?: number;
+}
+
+/** A column as a stereo position. The edges stop short of hard left and right. */
+export function panForCol(col: number, cols: number): number {
+  if (cols <= 1) return 0;
+  return ((col / (cols - 1)) * 2 - 1) * 0.75;
+}
+
+/**
+ * Higher up the field is higher in pitch — the same mapping the radar makes
+ * with length. It is a small range on purpose: a fifth across the whole field,
+ * so a sound is still recognisably itself wherever it happens.
+ */
+export function pitchForRow(row: number, rows: number): number {
+  if (rows <= 1) return 1;
+  const t = 1 - Math.min(1, Math.max(0, row / (rows - 1)));
+  return 1 + t * 0.5;
+}
+
+const MIRROR_STEP_SOUNDS: Record<string, string> = {
+  fireRed: "mirror.showFireRed",
+  fireCyan: "mirror.showFireCyan",
+  guard: "mirror.showGuard",
+  intake: "mirror.showIntake",
+  cannonLeft: "mirror.showCannonLeft",
+  cannonRight: "mirror.showCannonRight",
+};
+
+const POD_TAKEN_SOUNDS: Record<string, string> = {
+  mend: "pod.takenMend",
+  purge: "pod.takenPurge",
+  ward: "pod.takenWard",
+};
+
+/**
+ * One event, one cue, or none. `needWave` is bookkeeping between the host and
+ * the sim rather than something that happened on the field, so it is silent by
+ * design — the wave it leads to says so itself with `ui.waveOpen`.
+ */
+export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
+  switch (e.type) {
+    case "beat":
+      return { id: e.beat % 4 === 0 ? "beat.accent" : "beat.tick" };
+    case "waveStart":
+      return { id: "ui.waveOpen" };
+    case "needWave":
+      return null;
+    case "fire":
+      return {
+        id: e.color === "red" ? "ship.fireRed" : "ship.fireCyan",
+        pan: panForCol(e.col, cols),
+      };
+    case "destroy":
+      return {
+        id: e.color === "red" ? "impact.destroyRed" : "impact.destroyCyan",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "hole":
+      return { id: "impact.hole", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
+    case "reject":
+      return { id: "impact.reject", pan: panForCol(e.col, cols) };
+    case "deflect":
+      return { id: "impact.deflect", pan: panForCol(e.col, cols) };
+    case "grip":
+      return { id: "ship.gripTake", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
+    case "podLoose":
+      return { id: "pod.loose", pan: panForCol(e.col, cols) };
+    case "podTaken":
+      return { id: POD_TAKEN_SOUNDS[e.kind] ?? "pod.takenMend", pan: panForCol(e.col, cols) };
+    case "podLost":
+      return { id: "pod.lost", pan: panForCol(e.col, cols) };
+    case "breach":
+      // The split is by what it cost, not by what hit: the pair needs to know
+      // how bad it was before it needs to know what did it.
+      return {
+        id: e.damage >= 8000 ? "hull.breachHeavy" : "hull.breachLight",
+        pan: panForCol(e.col, cols),
+      };
+    case "petal":
+      return { id: "impact.petal", pan: panForCol(e.col, cols) };
+    case "queenDown":
+      return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
+    case "mirrorShow":
+      return { id: MIRROR_STEP_SOUNDS[e.step] ?? "mirror.handover", pan: panForCol(e.col, cols) };
+    case "mirrorEcho":
+      // Each step answered sits a little higher than the one before it, so a
+      // long round is heard to be going well without anyone saying so.
+      return { id: "mirror.echo", pitch: 1 + (e.index - 1) * 0.06 };
+    case "mirrorVerdict":
+      if (e.right) return { id: "mirror.verdictRight", pan: panForCol(e.col, cols) };
+      return {
+        id:
+          e.reason === "bait"
+            ? "mirror.bait"
+            : e.reason === "silence"
+              ? "mirror.silence"
+              : "mirror.verdictWrong",
+        pan: panForCol(e.col, cols),
+      };
+    case "mirrorDown":
+      return { id: "mirror.down", pan: panForCol(e.col, cols) };
+  }
+}
