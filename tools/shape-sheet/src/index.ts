@@ -26,5 +26,6 @@ export {
   travel,
   WOBBLE_PERIOD,
 } from "./metrics.js";
+export { MOTIONS } from "./motions.js";
 export { type RingLobes, type RingSilhouette, ring } from "./ring.js";
 export { SUBJECTS, type Subject } from "./subjects.js";

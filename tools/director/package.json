@@ -9,5 +9,8 @@
     "@neon-spore/render": "workspace:*",
     "@neon-spore/shape-sheet": "workspace:*",
     "@neon-spore/sim": "workspace:*"
+  },
+  "scripts": {
+    "shapes-page": "bun run ./shapes-page.ts"
   }
 }

@@ -24,7 +24,8 @@
     "format": "biome check --write .",
     "check": "bun run typecheck && bun run lint && bun test",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
-    "shapes:report": "bun run --cwd tools/shape-sheet report"
+    "shapes:report": "bun run --cwd tools/shape-sheet report",
+    "shapes:page": "bun run --cwd tools/director shapes-page"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",
