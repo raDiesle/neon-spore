@@ -4,7 +4,7 @@
  * is pure and tested; this file only fetches and writes.
  */
 
-import { rm } from "node:fs/promises";
+import { readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 import {
   type Branch,
@@ -20,7 +20,7 @@ import { parseRestated, type Restated } from "./restated.js";
 import { argvOf, type CheckCommit, LOG_FORMAT, parseLog } from "./trailers.js";
 
 export const LEDGER = "docs/verified.md";
-export const RESTATED = "docs/checks/restated.md";
+export const RESTATED_DIR = "docs/checks";
 
 const LEDGER_HEADER = `# Verified
 
@@ -88,14 +88,36 @@ export async function writeDecision(root: string, decision: Decision): Promise<v
 }
 
 /**
- * `docs/checks/restated.md` — content, not generated, and owned by whoever
- * wrote the checks it restates rather than by this file. Empty when the
- * repository has none yet, the same way `readLedger` reads an empty ledger.
+ * Every restatement in `docs/checks/`, from one file per commit.
+ *
+ * It was a single document for about an hour, and three lanes collided in it
+ * in that hour — every one of them appending at the same end of the same
+ * file, which is exactly the failure `docs/parked.md` was diagnosed with in
+ * the morning and fixed by taking the writing away from lanes. The writing
+ * cannot be taken away here: a restatement says what changed, and only the
+ * session that changed it knows. So the shared append point goes instead.
+ *
+ * The parser is unchanged and reads a whole document either way, so a file
+ * may hold one commit's entries or many — `restated.md` still holds the
+ * night they were all written together. Only `.md` is read, because this
+ * directory will also hold before-and-after frames.
  */
 export async function readRestated(root: string): Promise<Restated[]> {
-  const file = Bun.file(join(root, RESTATED));
-  if (!(await file.exists())) return [];
-  return parseRestated(await file.text());
+  const dir = join(root, RESTATED_DIR);
+  const names = await readdirSafe(dir);
+  const all: Restated[] = [];
+  for (const name of names.filter((n) => n.endsWith(".md")).sort()) {
+    all.push(...parseRestated(await Bun.file(join(dir, name)).text()));
+  }
+  return all;
+}
+
+async function readdirSafe(dir: string): Promise<string[]> {
+  try {
+    return await readdir(dir);
+  } catch {
+    return [];
+  }
 }
 
 export async function readChecks(root: string): Promise<CheckState[]> {

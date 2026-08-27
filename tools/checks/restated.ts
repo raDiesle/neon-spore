@@ -39,16 +39,27 @@ export function parseRestated(md: string): Restated[] {
   const entries: Restated[] = [];
   let sha = "";
   let pending: Restated | null = null;
+  let lastWasQuote = false;
 
   for (const raw of md.split("\n")) {
     const heading = HEADING.exec(raw);
     if (heading) {
       sha = heading[1] ?? "";
       pending = null;
+      lastWasQuote = false;
       continue;
     }
     const quote = QUOTE.exec(raw);
     if (quote) {
+      // A quote that wrapped is one quote. `checksIn` folds a trailer's
+      // continuation lines for the same reason and learned it the same way:
+      // a session wraps at the margin the way it wraps everything else, and
+      // the half of the sentence carrying the key ends up on the floor. Two
+      // entries were lost to exactly this before the fold went in.
+      if (pending && lastWasQuote) {
+        pending.text = `${pending.text} ${(quote[1] ?? "").trim()}`;
+        continue;
+      }
       pending = {
         sha,
         text: (quote[1] ?? "").trim(),
@@ -58,9 +69,21 @@ export function parseRestated(md: string): Restated[] {
         where: "",
       };
       entries.push(pending);
+      lastWasQuote = true;
       continue;
     }
     const field = FIELD.exec(raw);
+    // A blank line closes the quote; a field closes it; anything else that is
+    // not blank continues it, with or without its own `>`. Markdown calls
+    // that a lazy continuation and a session writing prose produces one
+    // without thinking about it — which is how two quotes ended up keyed to
+    // half a sentence, the same failure `checksIn` records having made and
+    // fixed for the trailers themselves.
+    if (lastWasQuote && pending && !field && raw.trim()) {
+      pending.text = `${pending.text} ${raw.trim()}`;
+      continue;
+    }
+    lastWasQuote = false;
     if (field && pending) {
       const key = field[1] as "subject" | "changed" | "decide" | "where";
       pending[key] = (field[2] ?? "").trim();
@@ -70,15 +93,32 @@ export function parseRestated(md: string): Restated[] {
 }
 
 /** The one entry keyed to this check, or null when nobody wrote one. */
+/**
+ * The trailer's text is the key; the sha only breaks a tie.
+ *
+ * It was sha *and* text, which is how `docs/verified.md` keys a decision, and
+ * it was wrong here for a reason that took three lanes in one night to become
+ * obvious: **a decision is written after its commit has landed, and a
+ * restatement is written before.** Every lane that lands behind another one is
+ * replayed, its commit is rewritten, and the sha it keyed itself to stops
+ * existing — six entries orphaned that way in a single evening, one of them
+ * after the lane had already hand-corrected the key once.
+ *
+ * A trailer's text is a whole sentence somebody wrote about one specific
+ * thing, so on its own it is very nearly unique, and it survives a rebase
+ * because rebasing does not rewrite messages. Where two checks genuinely
+ * share a text the sha decides between them, which keeps the property the
+ * original keying was protecting: a restatement can never silently attach to
+ * the wrong check.
+ */
 export function findRestated(
   entries: readonly Restated[],
   sha: string,
   text: string,
 ): Restated | null {
-  for (const entry of entries) {
-    if (sameCommit(entry.sha, sha) && entry.text === text) return entry;
-  }
-  return null;
+  const sameText = entries.filter((e) => e.text === text);
+  if (sameText.length === 1) return sameText[0] ?? null;
+  return sameText.find((e) => sameCommit(e.sha, sha)) ?? null;
 }
 
 /**
@@ -105,5 +145,7 @@ export function orphanedRestated(
   entries: readonly Restated[],
   checks: readonly { sha: string; text: string }[],
 ): Restated[] {
-  return entries.filter((e) => !checks.some((c) => sameCommit(e.sha, c.sha) && e.text === c.text));
+  // Orphaned means no check says this sentence at all — not that the sha
+  // moved, which is what a rebase does to every lane that lands second.
+  return entries.filter((e) => !checks.some((c) => c.text === e.text));
 }

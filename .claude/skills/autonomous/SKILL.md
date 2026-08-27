@@ -179,14 +179,24 @@ preview`, wave 3; the director's CARDS tab; `bun run shapes:page`. If a
 repository command settles it outright, put it in backticks and
 `bun run checks --run` will run it without a person at all.
 
-**The restatement is a second commit, immediately after.** A lane writes its
-entry into `docs/checks/restated.md` keyed by the sha of the commit carrying
-the trailer — which does not exist until that commit is made, so "in the same
-commit" is a paradox and a lane told me so rather than fudging it. Commit the
-work, read the sha, commit the restatement naming it. **Quote the trailer word
-for word**: the keying is exact on purpose, because a loose match can attach a
-restatement to the wrong check, and five entries failed to attach in one
-evening for being quoted nearly.
+**The restatement is a second commit, and it gets its own file.** Write
+`docs/checks/<sha>.md`, where the sha is the commit carrying the trailer —
+which does not exist until that commit is made, so "in the same commit" is a
+paradox and a lane said so rather than fudging a key. Commit the work, read
+the sha, commit the restatement.
+
+**One file per commit, never a shared one.** It was a single document for
+about an hour and three lanes collided in it, every one of them appending at
+the same end — the identical failure `docs/parked.md` was diagnosed with and
+fixed by taking the writing away from lanes. That cure is not available here,
+because only the session that changed something knows what changed. So the
+shared append point goes instead.
+
+**Quote the trailer word for word.** The join is on the sentence, not the sha,
+because a lane that lands behind another is replayed and its sha stops
+existing — six entries orphaned that way in one night, one of them after its
+lane had already hand-corrected the key. Wrapping is forgiven now, in the
+quote and in the trailer both; a truncated quote is not.
 
 **And a picture, when the change is visual and one is cheap.** A lane driving
 a headless preview can already capture a frame; capturing the same frame

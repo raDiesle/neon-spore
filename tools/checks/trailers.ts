@@ -65,8 +65,18 @@ export function argvOf(command: string): string[] | null {
 /**
  * Any other trailer: `Co-Authored-By:`, `Signed-off-by:`, a second `Check:`.
  * A line that opens one ends whatever `Check:` came before it.
+ *
+ * **The key must be capitalised, and that is load-bearing.** It used to accept
+ * any word followed by a colon, which is what a trailer looks like and also
+ * what a wrapped sentence looks like: a check reading "…in both roles? Where
+ * to / stand: `bun run dev`" lost everything from `stand:` onward, because
+ * the continuation began with a lowercase word and a colon. The half that
+ * went missing was the half saying where to look — the exact thing the fold
+ * below was written to stop losing. Trailer keys are capitalised by
+ * convention (`Check`, `Co-Authored-By`, `Signed-off-by`); ordinary prose
+ * mid-sentence is not.
  */
-const TRAILER = /^[A-Za-z][A-Za-z-]*:\s/;
+const TRAILER = /^[A-Z][A-Za-z-]*:\s/;
 
 /**
  * Trailers out of one commit body. A continuation — the rest of a sentence on
