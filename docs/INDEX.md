@@ -12,6 +12,8 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
 | `docs/parked.md` | you had an idea you are not acting on, or want one to act on |
+| `docs/queue.md` | you are picking the next thing to build, or resuming an unattended run |
+| `docs/autonomous.md` | you are running for hours without a person, in parallel lanes |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
@@ -170,6 +172,8 @@ history if the wording of a rejected idea is ever needed.
 | `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
 | `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |
 | `tools/checks/repo.ts` | the git and file calls behind it |
+| `tools/burn/queue.ts` | `docs/queue.md` parsed, and whether two lanes own the same path |
+| `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
 | `tools/director/src/checks-page.ts` | the TO CHECK sheet, and the buttons that decide a check |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
 | `tools/relay-check/check.ts` | two headless devices against a real relay |
