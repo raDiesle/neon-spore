@@ -31,8 +31,11 @@ function cell(s: Subject, index: number): string {
     const opacity = newest ? 1 : 0.14 + 0.3 * (1 - i / FRAMES);
     const stroke = newest ? "#2FE0F0" : "#8A6BF0";
     const width = ((newest ? 2.5 : 1.6) / f.scale).toFixed(2);
+    // Stroked, not filled, so the hole is simply a second loop in the same
+    // `d` — and on a ring it is the loop worth watching.
+    const d = s.path(s.pointsAt(t)) + (s.hole ? s.path(s.hole(t)) : "");
     layers.push(
-      `      <path d="${s.path(s.pointsAt(t))}" fill="none" stroke="${stroke}"` +
+      `      <path d="${d}" fill="none" stroke="${stroke}"` +
         ` stroke-opacity="${opacity.toFixed(2)}" stroke-width="${width}"` +
         ` stroke-linejoin="round" stroke-linecap="round"/>`,
     );

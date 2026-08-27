@@ -33,6 +33,11 @@ export interface Subject {
   /** An open contour must not be filled — SVG would close it across the ends. */
   open: boolean;
   pointsAt(t: number): Point[];
+  /**
+   * A second closed loop cut out of the first, for the one shape with a hole
+   * through it — `ring.ts`, which explains why nothing has to reverse it.
+   */
+  hole?(t: number): Point[];
   path(pts: Point[]): string;
 }
 

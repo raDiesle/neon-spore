@@ -1,10 +1,18 @@
 import type { CatalogueEntry } from "../catalogue.js";
 import { arm, cluster, glyphed, sac } from "../forms.js";
-import { HEAVE, SHIVER, SWELL, TOLL } from "../motions.js";
+import { HEAVE, SHIVER, SWELL, TOLL, TURN } from "../motions.js";
+import { type RingSilhouette, ring } from "../ring.js";
 
 /**
- * Draft bosses: the three encounters set aside when The Warden took the slot
- * they were competing for, and the one that was deferred rather than rejected.
+ * Draft bosses: The Warden, and the three encounters set aside when it took
+ * the slot they were competing for, and the one that was deferred rather than
+ * rejected.
+ *
+ * The Warden is the odd one here and is first for that reason. The other four
+ * are shapes offered to ideas nobody has designed yet; its design is written
+ * out in `bosses.md` 11.4, and that section describes *this* contour — so the
+ * shape is not a proposal for the encounter, it is the encounter's body,
+ * waiting only for something to draw it.
  *
  * A boss is a whole encounter, so a shape can only ever be part of the
  * proposal — but it is the load-bearing part. Each of these four was described
@@ -14,7 +22,87 @@ import { HEAVE, SHIVER, SWELL, TOLL } from "../motions.js";
  * Drawing them is how you find out whether the sentence was describing
  * something that can exist at 390 px wide.
  */
+/**
+ * The Warden's body: a ring with a hole through it, and the only contour drawn
+ * for this game that you can see the field through.
+ *
+ * Two loops that deliberately disagree. The body is eight shallow lobes with
+ * almost no wobble — rounder than any creature, faintly organic, so it reads
+ * as a fixture rather than as something that fell. The pupil is five deeper
+ * lobes with three times the wobble, because the inside is the part that is
+ * alive: on a shape whose whole subject is an eye, the edge that moves has to
+ * be the one you are looking through.
+ *
+ * The pupil sits off centre and slides, which is what makes it an eye rather
+ * than a washer — the body's material bunches on one side and thins on the
+ * other as it travels. `bosses.md` 11.4 has the choreography; these are only
+ * the numbers.
+ */
+const WARDEN: RingSilhouette = {
+  outer: { lobes: 8, depth: 0.035, wobble: 0.012, seed: 5.0 },
+  pupil: { lobes: 5, depth: 0.1, wobble: 0.075, seed: 9.0 },
+  rx: 100,
+  ry: 100,
+  pupilMul: 0.44,
+  pupilDx: 0.1,
+};
+
+/**
+ * The pupil run out to the edge of its travel. Far enough that the body's
+ * material visibly bunches on one side and thins on the other — a smaller
+ * offset reads as a hole that happens to be off centre, which is a
+ * manufacturing defect rather than a thing looking at you.
+ */
+const WARDEN_LOOKING: RingSilhouette = { ...WARDEN, pupilDx: 0.28 };
+
+/**
+ * The eye open: the two beats the core is exposed. Half again as wide, and
+ * that is close to as far as it can ever go — `ringClearance` puts the pupil
+ * out of body somewhere past 0.66 of the radius, where it breaches the rim and
+ * the shape quietly stops being a ring. `ring.test.ts` holds that floor.
+ *
+ * Which settles what the last phase looks like, and settles it by measurement
+ * rather than by taste. GLARE cannot be *a wider opening* — there is no room.
+ * It is this pupil at rest: by the end the eye is permanently as wide as it
+ * used to get for two beats, which is the health bar drawn as a silhouette.
+ * It gets no card of its own because a still cannot show "all the time", and
+ * the card would be this one twice. Anything that wants to dilate further has
+ * to thin the body from the outside instead.
+ */
+const WARDEN_OPEN: RingSilhouette = { ...WARDEN, pupilMul: 0.62, pupilDx: 0.06 };
+
 export const BOSS_DRAFTS: CatalogueEntry[] = [
+  {
+    subject: ring("WARDEN", WARDEN, "8 lobes · pupil of 5 · a hole you see the field through"),
+    motion: TURN,
+    status: "draft",
+    slot: "boss",
+    suggests: "The Warden",
+    owner:
+      "the boss's own body, and the only contour in the game you can see the field through: a ring whose pupil slides a column a beat, so the column that matters changes while the body does not",
+  },
+  {
+    subject: ring(
+      "WARDEN · LOOKING",
+      WARDEN_LOOKING,
+      "the pupil run out to the edge of its travel",
+    ),
+    motion: TURN,
+    status: "draft",
+    slot: "boss",
+    suggests: "The Warden",
+    owner:
+      "far enough off centre that the body visibly bunches on one side and thins on the other — a smaller offset reads as a hole that happens to be off centre, which is a manufacturing defect rather than a thing looking at you",
+  },
+  {
+    subject: ring("WARDEN · OPEN", WARDEN_OPEN, "the two beats the core is exposed"),
+    motion: TURN,
+    status: "draft",
+    slot: "boss",
+    suggests: "The Warden",
+    owner:
+      "the only window the core can be hit in, and near the widest the pupil can ever be: `ringClearance` puts it out of body past about 0.66 of the radius, which is what settles the last phase as this pupil at rest rather than a wider one",
+  },
   {
     subject: sac("THE WEIGHT", "a sac hung heavy, narrow at the top", 0.46, 74, 96),
     motion: HEAVE,

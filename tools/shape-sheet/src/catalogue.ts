@@ -49,9 +49,12 @@ export interface CatalogueEntry {
    */
   motion?: OwnMotion;
   /**
-   * The idea in `docs/spec/ideas.md` this was drawn for, named as it is named
-   * there. A suggestion — the shape is offered to the idea, and a person
-   * decides, the same way a free shape is offered to the bestiary.
+   * What this was drawn for, named as the spec names it: an idea in
+   * `docs/spec/ideas.md`, or a design in `docs/spec/bosses.md` that has a
+   * section and no code. A suggestion in the first case — the shape is offered
+   * to the idea and a person decides, the same way a free shape is offered to
+   * the bestiary — and in the second a label, because the section already
+   * describes the contour.
    */
   suggests?: string;
 }

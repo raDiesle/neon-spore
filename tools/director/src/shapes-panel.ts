@@ -146,7 +146,11 @@ function tick(): void {
   const t = performance.now() / 1000;
   for (const d of drawn) {
     if (!d.path.isConnected) continue;
-    d.path.setAttribute("d", d.entry.subject.path(d.entry.subject.pointsAt(t)));
+    const subject = d.entry.subject;
+    // The card strokes rather than fills, so a hole is just a second loop in
+    // the same `d`. Without this a ring draws as an ordinary blob.
+    const outline = subject.path(subject.pointsAt(t));
+    d.path.setAttribute("d", subject.hole ? outline + subject.path(subject.hole(t)) : outline);
     d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
   }
   requestAnimationFrame(tick);

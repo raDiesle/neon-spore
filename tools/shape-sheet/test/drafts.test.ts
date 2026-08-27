@@ -85,18 +85,27 @@ describe("the shape catalogue", () => {
 });
 
 /**
- * A suggestion that names an idea the store does not have is worse than no
+ * A suggestion that names something the spec does not have is worse than no
  * suggestion: it points a future session at a heading that is not there, and
  * the whole value of a draft is that it is attached to something.
+ *
+ * Two places count, because a shape can be drawn at two kinds of thing: a
+ * bullet in the idea store, and a boss with a worked-out section and no code.
+ * What is checked is only that the name resolves — an idea store bullet is
+ * bold, a boss is a numbered heading, and either is somewhere to go and read.
  */
 describe("what the drafts are offered to", () => {
   const ideas = Bun.file(join(ROOT, "docs", "spec", "ideas.md")).text();
+  const bosses = Bun.file(join(ROOT, "docs", "spec", "bosses.md")).text();
 
   for (const entry of CATALOGUE) {
     if (!entry.suggests) continue;
-    it(`${entry.subject.name} is offered to an idea that exists`, async () => {
-      const text = await ideas;
-      expect(text).toContain(`**${entry.suggests}**`);
+    it(`${entry.subject.name} is offered to something that exists`, async () => {
+      const name = entry.suggests ?? "";
+      const asIdea = (await ideas).includes(`**${name}**`);
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const asBoss = new RegExp(`^##\\s+[\\d.]+\\s+${escaped}\\b`, "m").test(await bosses);
+      expect({ name, found: asIdea || asBoss }).toEqual({ name, found: true });
     });
   }
 

@@ -71,18 +71,41 @@ function length(pts: Point[], closed: boolean): number {
   return l;
 }
 
-/** Furthest any contour point strays from where it sits at t = 0. */
-export function travel(s: Subject): number {
-  const base = s.pointsAt(0);
+function strayed(base: Point[], pts: Point[]): number {
   let worst = 0;
-  for (let t = 0; t <= WINDOW; t += STEP) {
-    const pts = s.pointsAt(t);
-    for (let i = 0; i < pts.length; i++) {
-      const d = Math.hypot(pts[i]!.x - base[i]!.x, pts[i]!.y - base[i]!.y);
-      if (d > worst) worst = d;
-    }
+  for (let i = 0; i < pts.length; i++) {
+    const d = Math.hypot(pts[i]!.x - base[i]!.x, pts[i]!.y - base[i]!.y);
+    if (d > worst) worst = d;
   }
   return worst;
+}
+
+/**
+ * Furthest any contour point strays from where it sits at t = 0 — the pupil's
+ * points included, because on a ring the inner edge is the one that moves
+ * most, and a travel figure blind to it would call the liveliest shape on the
+ * sheet the stillest.
+ */
+export function travel(s: Subject): number {
+  const base = s.pointsAt(0);
+  const holeBase = s.hole?.(0);
+  let worst = 0;
+  for (let t = 0; t <= WINDOW; t += STEP) {
+    worst = Math.max(worst, strayed(base, s.pointsAt(t)));
+    if (holeBase) worst = Math.max(worst, strayed(holeBase, s.hole!(t)));
+  }
+  return worst;
+}
+
+/**
+ * Contour length at one moment, both loops of a ring counted. A hole is edge
+ * the eye reads exactly like the outer edge, so leaving it out would under-
+ * report the shape and, worse, hide the pupil's own breathing inside a figure
+ * dominated by a body that barely moves.
+ */
+function totalLength(s: Subject, t: number, closed: boolean): number {
+  const outer = length(s.pointsAt(t), closed);
+  return s.hole ? outer + length(s.hole(t), true) : outer;
 }
 
 export function measure(s: Subject): Metrics {
@@ -92,19 +115,48 @@ export function measure(s: Subject): Metrics {
   let lo = Infinity;
   let hi = -Infinity;
   for (let t = 0; t <= WINDOW; t += STEP) {
-    const l = length(s.pointsAt(t), closed);
+    const l = totalLength(s, t, closed);
     if (l < lo) lo = l;
     if (l > hi) hi = l;
   }
   const mean = (lo + hi) / 2;
+  // Enclosed area is the body less the hole — a ring encloses the material,
+  // not the opening, and a figure that counted the pupil would say a shape you
+  // can see straight through is as solid as the queen.
+  const filled = closed ? area(base) - (s.hole ? area(s.hole(0)) : 0) : 0;
   return {
     w: box.w,
     h: box.h,
-    area: closed ? area(base) : 0,
-    length: length(base, closed),
+    area: filled,
+    length: totalLength(s, 0, closed),
     travel: travel(s),
     breath: mean === 0 ? 0 : ((hi - lo) / mean) * 100,
   };
+}
+
+/**
+ * The narrowest the body ever gets between its two loops, scanned across the
+ * wobble window. Only a ring has two loops, so this is `Infinity` for
+ * everything else.
+ *
+ * It is the one measurement a ring needs and no other shape does. A pupil that
+ * grows or slides too far crosses the outer edge, and at that moment the shape
+ * silently stops being a ring and becomes a crescent — a failure that is
+ * invisible at `t = 0` and appears three seconds later at the top of a wobble,
+ * which is exactly the kind of thing a still cannot catch and a number can.
+ */
+export function ringClearance(s: Subject): number {
+  if (!s.hole) return Infinity;
+  let worst = Infinity;
+  for (let t = 0; t <= WINDOW; t += STEP) {
+    const outer = s.pointsAt(t);
+    for (const h of s.hole(t)) {
+      let near = Infinity;
+      for (const o of outer) near = Math.min(near, Math.hypot(o.x - h.x, o.y - h.y));
+      worst = Math.min(worst, near);
+    }
+  }
+  return worst;
 }
 
 export interface Bounds {

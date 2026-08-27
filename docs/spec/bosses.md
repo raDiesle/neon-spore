@@ -284,11 +284,28 @@ next fixture makes it three. It becomes `isGrippable(kind)` in `types.ts`,
 called and not re-derived. What is clamped stays derived too — `cycle % 2`,
 never a stored field.
 
-**How it is drawn.** The ring is two contours from `blobRadiusMul` under
-different seeds, the inner one reversed so an even-odd fill leaves a real hole —
-the trick `circleSubpath` already plays for the hull's fire opening, so there is
-nothing new to invent. The pupil sits off-centre and slides, bunching the ring's
-material on one side and thinning it on the other: an eye looking sideways.
+**How it is drawn — and this part is built.** The body is two lobed contours
+under different seeds, cut with an even-odd fill, the trick `circleSubpath`
+already plays for the hull's fire opening; nothing had to be invented and
+nothing has to be wound a particular way. The pupil sits off-centre and slides,
+bunching the material on one side and thinning it on the other: an eye looking
+sideways. The two loops deliberately disagree — eight shallow lobes and almost
+no wobble on the body, five deeper ones with three times the wobble on the
+pupil, so the edge you look *through* is the one that moves. It is tuned in
+`tools/shape-sheet/src/catalogue.ts` and shows in the director's SHAPES tab.
+
+**The pupil cannot keep growing, and that is a measurement.** `ringClearance`
+scans the narrowest the body ever gets between its two loops across the whole
+wobble window, and past about 0.66 of the radius the pupil breaches the rim: the
+shape stops being a ring and becomes a crescent, at some moment three seconds
+into a wobble rather than at rest, which is why an eye alone cannot catch it.
+`tools/shape-sheet/test/ring.test.ts` holds the floor at 12% of the radius.
+
+That settles what GLARE looks like. It is **not** a wider opening — there is no
+room for one. It is the open pupil *at rest*: by the last phase the eye is
+permanently as wide as it used to get for two beats, which is the hollowing-out
+this section already asks for, drawn as a silhouette instead of a bar. Anything
+that wants to dilate further has to thin the body from the outside.
 
 The tether is the game's first **open** contour, `openSmoothPath`, taut, a slow
 wave travelling down it — and a hand on it **bows the line toward the finger**,

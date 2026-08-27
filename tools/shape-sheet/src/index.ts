@@ -22,7 +22,9 @@ export {
   boundsOver,
   type Metrics,
   measure,
+  ringClearance,
   travel,
   WOBBLE_PERIOD,
 } from "./metrics.js";
+export { type RingLobes, type RingSilhouette, ring } from "./ring.js";
 export { SUBJECTS, type Subject } from "./subjects.js";

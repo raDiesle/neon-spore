@@ -21,9 +21,14 @@ import { CELL, COLS, fit, frame, sheet } from "./svg.js";
 const T = 0;
 
 function cell(s: Subject, index: number): string {
-  const d = s.path(s.pointsAt(T));
+  // Two subpaths in one `d` where a subject has a hole, and `evenodd` to cut
+  // it — the technique `circleSubpath` already uses for the hull's fire
+  // opening, and the reason neither loop has to be wound a particular way.
+  const d = s.path(s.pointsAt(T)) + (s.hole ? s.path(s.hole(T)) : "");
   const f = fit(boundsOver(s, [T]));
-  const fill = s.open ? 'fill="none"' : 'fill="#190F2C" fill-opacity="0.55"';
+  const fill = s.open
+    ? 'fill="none"'
+    : `fill="#190F2C" fill-opacity="0.55"${s.hole ? ' fill-rule="evenodd"' : ""}`;
   const body = `    <g transform="${f.transform}">
       <path d="${d}" ${fill} stroke="#2FE0F0" stroke-width="${(2.5 / f.scale).toFixed(2)}"
             stroke-linejoin="round" stroke-linecap="round"/>
