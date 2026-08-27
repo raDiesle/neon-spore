@@ -1,6 +1,7 @@
 import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
 import { resetRun, type SimConfig, type SimEvent, startWave, type World } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
+import { enterInterludeIfDue } from "./interlude.js";
 
 /**
  * Wave progression: the two ways a wave starts, and the banner that names it.
@@ -63,6 +64,11 @@ export function createWaveProgression({
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
       if (e.type !== "needWave") continue;
+      // A third thing a `needWave` can mean: the gap in front of this wave
+      // carries a round that is not the field, and the wave waits behind it.
+      // The round leaves by asking for the same wave again, and the second
+      // ask comes back through here and builds it (`interlude.ts`).
+      if (enterInterludeIfDue(world, e.wave)) continue;
       startWave(
         world,
         e.wave,

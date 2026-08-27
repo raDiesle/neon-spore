@@ -12,6 +12,7 @@ import {
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
 import { bindControls, InputBuffer } from "./input.js";
+import { bindInterlude, enterInterlude } from "./interlude.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
@@ -67,6 +68,10 @@ const tickKeys = bindControls({
 });
 
 const brief = bindBriefing({ canvas, buffer, world });
+// The round that is not the field brings its own controls, on its own listener
+// — neither player's band is the answer, and the two seats do not get the same
+// one (`interlude.ts`, docs/spec/interludes.md).
+bindInterlude({ canvas, buffer, world, layout, stage, role: () => view.role() });
 const testPanel = bindTestControls({
   world,
   jumpToWave,
@@ -156,6 +161,9 @@ const paint = (dt: number): void => {
   jumpToWave,
   // A headless check has no thumbs, and a card waits for two of them.
   dismissBriefing: brief.dismiss,
+  // Nine gaps into a run is a long way to press for a ninety-second round, so
+  // a check can open one where it stands. It comes back to the wave it left.
+  enterInterlude: () => enterInterlude(world),
   advance(ticks: number) {
     for (let i = 0; i < ticks; i++) {
       step(world, buffer.drain(world.tick));

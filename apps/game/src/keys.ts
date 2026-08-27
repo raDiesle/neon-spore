@@ -159,6 +159,21 @@ export function bindKeys({
         buffer.push(1, { kind: "brief" });
         buffer.push(2, { kind: "brief" });
         break;
+      // An interlude's own three, and they are its own on purpose: a round
+      // that is not the field does not borrow the field's verbs
+      // (`docs/spec/interludes.md`). Z and X hold the valve as player 1 — held
+      // like F, and ended on the keyup below, because nothing in the
+      // simulation lets go of it. C calls, as player 2. All three mean nothing
+      // while a wave is running, so they cost nothing to send unconditionally.
+      case "KeyZ":
+        buffer.push(1, { kind: "valve", on: true, dir: -1 });
+        break;
+      case "KeyX":
+        buffer.push(1, { kind: "valve", on: true, dir: 1 });
+        break;
+      case "KeyC":
+        buffer.push(2, { kind: "call" });
+        break;
       case "KeyP":
         onPauseToggle();
         break;
@@ -172,6 +187,8 @@ export function bindKeys({
     repeatTicks.delete(e.code);
     if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
     if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
+    if (e.code === "KeyZ") buffer.push(1, { kind: "valve", on: false, dir: -1 });
+    if (e.code === "KeyX") buffer.push(1, { kind: "valve", on: false, dir: 1 });
   });
 
   /** Called once per sim tick to advance held-key repeats. */

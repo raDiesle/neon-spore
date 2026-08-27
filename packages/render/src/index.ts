@@ -1,8 +1,18 @@
 export { drawBriefing } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
+export { type Dial, type DialView, drawGauge } from "./gauge.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
+export {
+  drawInterlude,
+  hitSlab,
+  type InterludeControls,
+  interludeControls,
+  type Slab,
+  showsGaugeMarks,
+  showsGaugeValve,
+} from "./interlude.js";
 export {
   type Circle,
   colFromX,

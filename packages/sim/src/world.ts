@@ -1,5 +1,5 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
-import { onBeat, startWave } from "./beat.js";
+import { beatMetronome, onBeat, startWave } from "./beat.js";
 import type { BossState } from "./boss-state.js";
 import { ackBriefing, type Briefings, briefingHolds, newBriefings } from "./briefing.js";
 import { advanceBullets } from "./bullets.js";
@@ -7,6 +7,8 @@ import { applyCommand } from "./commands.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { forkOpen, NO_FORK, restEnded } from "./fork.js";
 import { dropLostGrips, NO_GRIP } from "./grip.js";
+import type { InterludeState } from "./interlude.js";
+import { interludeHeard, interludeHolds, NO_INTERLUDE, stepInterlude } from "./interlude.js";
 import { NO_PRIME, noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
 import { createRng, type Rng } from "./rng.js";
@@ -86,6 +88,16 @@ export interface World {
    */
   forkBeat: number;
 
+  /**
+   * The round that is not the field, or null while the field is the game — and
+   * the wave the most recent one was played in front of, which is what stops a
+   * gap being played twice. World state for the briefing card's reason: they
+   * decide whether the world ticks at all. Ask `interlude.ts` about either
+   * rather than comparing them here.
+   */
+  interlude: InterludeState | null;
+  interludeDone: number;
+
   wave: number;
   waveBeat: number;
   spawned: number;
@@ -136,6 +148,8 @@ export function createWorld(
     boss: null,
     brief: newBriefings(),
     forkBeat: NO_FORK,
+    interlude: null,
+    interludeDone: NO_INTERLUDE,
     wave: 0,
     waveBeat: 0,
     spawned: 0,
@@ -165,6 +179,21 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   if (briefingHolds(world)) {
     for (const c of commands) if (c.command.kind === "brief") ackBriefing(world, c.player);
     world.tick += 1;
+    return;
+  }
+  // A round that is not the field has the world: no spawn, no fall, no shot,
+  // no hull. The spec's "the field is gone" as an early return rather than a
+  // coat of paint (`interlude.ts`). Two things still get through — `restart`,
+  // so a run is leavable from anywhere, and the metronome, because the beat is
+  // the game's heartbeat and the round's own drift hangs off it.
+  if (interludeHolds(world)) {
+    for (const c of commands) {
+      if (c.command.kind === "restart") applyCommand(world, c);
+      else interludeHeard(world, c.player, c.command);
+    }
+    world.tick += 1;
+    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+    stepInterlude(world);
     return;
   }
   // Commands are read even when the hull is through — otherwise `restart`

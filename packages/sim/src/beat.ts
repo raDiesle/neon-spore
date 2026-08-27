@@ -5,6 +5,7 @@ import type { WardenEntry } from "./entries.js";
 import { closeFork } from "./fork.js";
 import { clearGrips, grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
+import { clearInterlude } from "./interlude.js";
 import { endPrime } from "./lance.js";
 import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
@@ -19,10 +20,21 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * has no intermediate state — collision happens the moment a tile-change brings
  * someone to the hull row (docs/spec/systems.md 5.8).
  */
-export function onBeat(world: World): void {
+/**
+ * The metronome on its own: the shared clock ticking over, and nothing about a
+ * field. Separate because an interlude is a round with no field in it and the
+ * beat still runs through one — the ear would notice ninety seconds of silence
+ * and the round's own drift is counted in beats. Call it rather than writing
+ * the two lines again.
+ */
+export function beatMetronome(world: World): void {
   world.beat += 1;
-  world.waveBeat += 1;
   world.events.push({ type: "beat", beat: world.beat });
+}
+
+export function onBeat(world: World): void {
+  beatMetronome(world);
+  world.waveBeat += 1;
 
   // Creatures land on tile centres each beat, all at once — most move one
   // tile, a rock may move several, but never a fraction of one.
@@ -184,6 +196,10 @@ export function startWave(
   // It is also the order the two gates run in: the pair commits, and then the
   // card tells them what they committed to.
   closeFork(world);
+  // And any interlude, for the same reason: a wave that has started is not a
+  // round waiting in front of it. The record of which gap was played lives
+  // only from the round's end to here, so it goes too (`interlude.ts`).
+  clearInterlude(world);
 
   // Last, so it can read the boss that was just installed: whatever this wave
   // asks of the pair for the first time is a card it opens on, and the field

@@ -1,14 +1,16 @@
 import type { BossConfig } from "./config-boss.js";
+import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
 
 export type { BossConfig } from "./config-boss.js";
+export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig extends BossConfig, PairConfig {
+export interface SimConfig extends BossConfig, GaugeConfig, PairConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -157,6 +159,7 @@ export interface SimConfig extends BossConfig, PairConfig {
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
+  ...GAUGE_DEFAULTS,
   cols: 11,
   rows: 15,
   queenRow: 2,
@@ -200,6 +203,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxScars: 30,
   waveRestBeats: 3,
   forkBetweenWaves: false,
+  interludes: false,
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,

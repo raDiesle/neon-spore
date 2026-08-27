@@ -10,6 +10,7 @@ import { type Glide, glideTo } from "./glide.js";
 import { drawGrips } from "./grip.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY } from "./hull.js";
+import { drawInterlude } from "./interlude.js";
 import { drawLanceMark } from "./lance.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { drawOtherHand } from "./other-hand.js";
@@ -138,6 +139,17 @@ export class Canvas2DRenderer implements Renderer {
     if (this.waveRestarted(world)) {
       this.effects.reset();
       this.resetPose();
+    }
+
+    // A round that is not the field takes the whole stage and this method ends
+    // here. Not a panel over the grid and not a dimmed field behind one — the
+    // spec's first condition for an interlude being one at all is that the
+    // field is *gone* (`interlude.ts`), and the cheapest way to be sure of
+    // that is for none of the code below to run.
+    if (world.interlude !== null) {
+      drawInterlude(ctx, l, view);
+      ctx.restore();
+      return;
     }
 
     const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);

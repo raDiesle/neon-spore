@@ -1,4 +1,5 @@
 import { BOSS_KINDS } from "./entries.js";
+import { INTERLUDE_KINDS, INTERLUDE_PHASES } from "./interlude.js";
 import { MIRROR_PHASES } from "./simon.js";
 import type { World } from "./world.js";
 
@@ -54,6 +55,32 @@ export function hashWorld(world: World): number {
   // world ticks at all: a device that thinks a card is still up is a device
   // holding a wave the other one is already playing, and that is a desync
   // whichever way it is spelled.
+  // The interlude, and the same argument one more time: a device that thinks
+  // the pair is at a dial is a device that is not running the field the other
+  // one is running. `interludeDone` is in for a narrower reason — it decides
+  // whether the wave a `needWave` asks for is answered with the wave or with
+  // the round in front of it, so two devices disagreeing about it would deal
+  // themselves different rounds without ever disagreeing about a tick.
+  const round = world.interlude;
+  push(round === null ? 0 : INTERLUDE_KINDS.indexOf(round.kind) + 1);
+  push(world.interludeDone);
+  if (round !== null) {
+    push(round.wave);
+    push(INTERLUDE_PHASES.indexOf(round.phase));
+    push(round.phaseBeat);
+    push(round.openBeat);
+    push(round.passed ? 1 : 0);
+    push(round.needleMilli);
+    push(round.valve);
+    push(round.markMilli);
+    push(round.driftDir);
+    push(round.marks);
+    push(round.misses);
+    push(round.calledBeat);
+    push(round.calledMilli);
+    push(round.calledGood ? 1 : 0);
+  }
+
   push(world.brief.met);
   push(world.brief.ack);
   push(world.brief.due.length);

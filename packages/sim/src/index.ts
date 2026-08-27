@@ -24,6 +24,7 @@ export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "
 export { throbIsOpen } from "./creature-rules.js";
 export { BOSS_KINDS, bossFillsWave, type VaneEntry, type WardenEntry } from "./entries.js";
 export { closeFork, forkBeats, forkHeld, forkOpen, NO_FORK } from "./fork.js";
+export { GAUGE_FULL, type GaugeState, gaugeSeated } from "./gauge.js";
 export {
   clearGrips,
   gripCount,
@@ -32,6 +33,23 @@ export {
   setGrip,
 } from "./grip.js";
 export { hashWorld } from "./hash.js";
+export {
+  clearInterlude,
+  INTERLUDE_KINDS,
+  INTERLUDE_LEAD_BEATS,
+  INTERLUDE_PHASES,
+  INTERLUDE_VERDICT_BEATS,
+  type InterludeEntry,
+  type InterludeKind,
+  type InterludePhase,
+  type InterludeRound,
+  type InterludeState,
+  interludeBeats,
+  interludeDue,
+  interludeHolds,
+  NO_INTERLUDE,
+  startInterlude,
+} from "./interlude.js";
 export {
   lanceReady,
   NO_PRIME,

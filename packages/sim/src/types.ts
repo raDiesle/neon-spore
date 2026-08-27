@@ -178,6 +178,20 @@ export type Command =
    * up nothing else reaches the ship at all.
    */
   | { kind: "brief" }
+  /**
+   * An interlude's own controls, and the reason they are here rather than
+   * reusing the ship's: a round that is not the field has its own verbs, and a
+   * pair told to "fire" at a dial would be learning that the words mean
+   * whatever the screen currently needs (`docs/spec/interludes.md`).
+   *
+   * `valve` is player 1's, held rather than pressed — `dir` is which way it
+   * pushes and `on` ends it, the same contract `prime` has. `call` is player
+   * 2's, and it is the only thing in THE GAUGE that can be wrong. Which seat
+   * may send which is checked in `gauge.ts`, not here: the command is what was
+   * pressed, and whose press counts is the round's rule.
+   */
+  | { kind: "valve"; on: boolean; dir: -1 | 1 }
+  | { kind: "call" }
   | { kind: "restart" };
 
 export interface TimedCommand {
