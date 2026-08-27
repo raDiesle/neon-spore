@@ -18,15 +18,17 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 to one in a single contiguous region and expect to replay over somebody else.
 
 ## THE GAUGE — THE FIRST ROUND THAT IS NOT THE FIELD
-_claude/burn-gauge-b6 · packages/sim/src/interlude.ts packages/sim/src/gauge.ts packages/render/src/gauge.ts docs/spec/interludes.md_
+_claude/burn-gauge-b6 · packages/sim/src/interlude.ts packages/sim/src/gauge.ts packages/render/src/gauge.ts apps/game/src/interlude.ts docs/spec/interludes.md_
 
 The smallest of the twelve interludes, and the one that has to go first
 because it drags the shell in with it: a mode that is not the field, with its
 own rules, its own controls and its own picture. One needle, two marks, one
 player reading and the other turning.
 
-**This lane runs alone**, between batches — it restructures the loop in
-`apps/game/src/main.ts` and the world's idea of what a round is. Finished when
+**This lane runs alone**, between batches — it restructures the world's idea
+of what a round is. `main.ts` was split down to 201 lines to make room for it,
+and `apps/game/src/waves.ts` now holds the two ways a wave starts, which is
+the seam an interlude has to enter through. Finished when
 a gauge round can be entered, failed, passed and left, and the field comes
 back afterwards with the wave intact.
 

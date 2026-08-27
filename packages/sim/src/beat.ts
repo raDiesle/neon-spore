@@ -1,4 +1,3 @@
-import { emptyRunStats } from "./balance.js";
 import { clampQueenCol, initialDropSide, stepBoss } from "./boss.js";
 import { openBriefings } from "./briefing.js";
 import { throbIsOpen } from "./creature-rules.js";
@@ -9,11 +8,10 @@ import { resolveHull } from "./hull.js";
 import { endPrime } from "./lance.js";
 import { installMirror } from "./mirror.js";
 import { spawnPods } from "./pods.js";
-import { createRng } from "./rng.js";
 import { clampSpanCol, fallTilesPerBeat, isBossBody, WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
-import { type BossEntry, MILLI, type PodEntry, type SpawnEntry, type World } from "./world.js";
+import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
 
 /**
  * Everything that happens on a beat. Creatures glide smoothly but land on tile
