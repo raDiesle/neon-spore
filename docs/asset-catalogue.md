@@ -9,6 +9,12 @@ Browse it in the director: `bun run dev`, then **NOT BUILT YET → SHAPES**. The
 cards animate, and that is the whole reason the page exists rather than a
 folder of SVGs.
 
+`bun run shapes:page` writes the same catalogue to
+`tools/director/dist/shapes.html`, one self-contained file that animates
+anywhere and needs no server — for handing a look to somebody who is not at
+this machine, which is the only way a cloud session can put a shape in front
+of an eye.
+
 ## Why there is one
 
 The bestiary is a list of behaviours with no pictures. The style guide left a
@@ -50,7 +56,8 @@ suggestion.
 
 **Five new contour forms** in `tools/shape-sheet/src/forms.ts`, because several
 ideas are not describable as a lobed blob or a faceted rock: `sac` (mass pulled
-downward, hanging), `cluster` (several bodies in one membrane, metaball),
+downward, hanging), `cluster` (several bodies in one membrane, metaball, and
+the one form that can return more than one loop),
 `arm` (open, swung from a pivot), `slab` (superellipse, made rather than
 grown), `glyphed` (a rim of notches that travel).
 
@@ -74,14 +81,14 @@ so a sway is the same fraction of a lane on a card as it is on a phone.
 
 Said plainly, because a catalogue that oversells itself is worse than none.
 
-- **A cluster cannot come apart.** `cluster` marches its outline radially from
-  the centroid, so the bodies can only separate until the middle empties — past
-  that the outline collapses onto the centre. They are clamped short of it, and
-  what you see is a waist deepening rather than a parting. Good enough for the
-  pairs (ECHO, SYMBIOSIS and INTERFERENCE reach a waist a fifth of their width);
-  weak for THE CHOIR, and weakest for COLONY, which stays a rosette. **Symbiosis
-  and The Choir both hang their entire mechanic on visible separation**, so
-  either will need a multi-loop subject before it can be judged properly.
+- **A cluster comes apart now, and nobody has watched it at 26 px.** `cluster`
+  is traced on a grid rather than marched radially from the centroid, so it
+  returns as many closed loops as the field actually has: one while the bodies
+  are merged, five when the Colony spreads. ECHO, SYMBIOSIS, COLONY and THE
+  CHOIR each part into their full body count and merge back, and a test fails
+  if one of them stops. What that does **not** say is whether the parting reads
+  at creature size on a phone — five bodies at a fifth of a tile each may be a
+  spread, or may be a smear. That is an eye's question and it is open.
 - **The glyph rim is a notch pattern, not glyphs.** COUNTDOWN and THE CODEX
   scroll a wave around their outline. Whether a *count* or a *key* can be read
   off it is unanswered, and it is the question both of those ideas turn on.
@@ -95,10 +102,13 @@ Said plainly, because a catalogue that oversells itself is worse than none.
 
 Roughly in the order the work is worth doing.
 
-1. **A multi-loop subject**, so a cluster can genuinely part. `Subject.path`
-   takes a point list and returns one path string; a second form returning
-   several closed loops would unblock Symbiosis and The Choir at once. Start in
-   `forms.ts`, keep the metaball for the merged phase.
+1. **Look at the four clusters at creature size.** They part now — `iso.ts`
+   traces the metaball instead of marching it, `Subject.loopsAt` carries the
+   loops and `contourAt` draws them — and the spreads were retuned until each
+   reached its full body count. The numbers say it separates; only an eye says
+   whether it separates *legibly* on a phone. `bun run shapes:page` builds the
+   catalogue as one page that can be opened anywhere, which is how a session
+   with no screen of its own hands that question to somebody who has one.
 2. **Claim two or three drafts.** The pipeline above has never been walked. The
    likeliest first is the **Wave gate** — its idea is worked out furthest, and
    GATE is the only draft that needs no new contour maths. Walking it once will

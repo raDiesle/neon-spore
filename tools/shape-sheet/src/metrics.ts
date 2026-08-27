@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import type { Subject } from "./subjects.js";
+import type { Subject } from "./contour.js";
 
 /**
  * Numbers about a silhouette, so that judging one does not always cost a look.

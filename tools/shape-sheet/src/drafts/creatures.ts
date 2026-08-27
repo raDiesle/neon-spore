@@ -22,7 +22,7 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     subject: cluster("ECHO", "a body and its earlier self, never quite together", {
       bodies: 2,
       radius: 30,
-      spread: 1.5,
+      spread: 2.2,
       period: 7,
       floor: 0.55,
     }),
@@ -101,7 +101,7 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     subject: cluster("COLONY", "five small bodies sharing one skin", {
       bodies: 5,
       radius: 17,
-      spread: 2.6,
+      spread: 3.8,
       period: 11,
       floor: 0.35,
     }),

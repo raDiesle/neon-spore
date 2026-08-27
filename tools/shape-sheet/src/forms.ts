@@ -4,7 +4,8 @@ import {
   openSmoothPath,
   type Point,
 } from "@neon-spore/content";
-import type { Subject } from "./subjects.js";
+import type { Subject } from "./contour.js";
+import { isoLoops, resampleAll } from "./iso.js";
 
 /**
  * Contour forms the game does not have yet.
@@ -65,68 +66,61 @@ export interface ClusterOpts {
 }
 
 /**
- * Several bodies inside one membrane, drifting apart and snapping back into a
- * single contour.
+ * Several bodies inside one membrane, drifting apart and coming back together.
  *
- * The outline is a metaball field sampled radially from the centroid: at each
- * angle, the distance where the summed field crosses 1. Radial sampling means
- * the contour is only exact while the cluster stays star-shaped about its
- * centre — pulled far enough apart it goes lumpy before it goes wrong, and it
- * has already stopped reading as one body by then, which is the moment the
- * shape is trying to show.
+ * The outline is a metaball field — each body contributes `r²/d²`, and the
+ * contour is where the sum crosses 1 — traced by `isoLoops` rather than
+ * marched radially from the middle. That is the whole difference: a radial
+ * march has one answer per angle and so can only ever return one ring, which
+ * is why this used to thin to a waist and stop. Traced on a grid, the bodies
+ * separate when the field between them says they have, into as many loops as
+ * there are bodies, and merge back the same way. Symbiosis and The Choir both
+ * hang their mechanic on that instant being visible.
+ *
+ * The bodies breathe slightly out of step with each other, which is what keeps
+ * a merged cluster from reading as one rigid blob with a dent in it.
  */
 export function cluster(name: string, note: string, o: ClusterOpts): Subject {
-  const field = (px: number, py: number, centres: Point[]): number => {
-    let f = 0;
-    for (const c of centres) {
-      const d2 = (px - c.x) ** 2 + (py - c.y) ** 2;
-      f += (o.radius * o.radius) / Math.max(d2, 1);
+  const centresAt = (t: number): Point[] => {
+    // A raised cosine: apart for most of the cycle, together briefly. The
+    // merged instant is the rare one, which is what makes it an event.
+    const phase = (1 - Math.cos((t / o.period) * Math.PI * 2)) / 2;
+    const apart = o.radius * o.spread * (o.floor + (1 - o.floor) * phase);
+    const centres: Point[] = [];
+    for (let i = 0; i < o.bodies; i++) {
+      const a = (i / o.bodies) * Math.PI * 2 + t * 0.21;
+      centres.push({ x: Math.cos(a) * apart, y: Math.sin(a) * apart * 0.7 });
     }
-    return f;
+    return centres;
+  };
+
+  const loopsAt = (t: number): Point[][] => {
+    const centres = centresAt(t);
+    const radii = centres.map((_, i) => o.radius * (1 + 0.05 * Math.sin(t * 1.4 + i * 2.3)));
+    const field = (x: number, y: number): number => {
+      let f = 0;
+      for (let i = 0; i < centres.length; i++) {
+        const c = centres[i]!;
+        const r = radii[i]!;
+        f += (r * r) / Math.max((x - c.x) ** 2 + (y - c.y) ** 2, 1);
+      }
+      return f;
+    };
+    // A body's own isosurface sits at `r`, so a margin of two radii clears the
+    // widest a merged pair ever bulges and costs a grid this size nothing.
+    let reach = 0;
+    for (const c of centres) reach = Math.max(reach, Math.hypot(c.x, c.y));
+    const half = reach + o.radius * 2;
+    const box = { x0: -half, x1: half, y0: -half, y1: half };
+    return resampleAll(isoLoops(field, box), N);
   };
 
   return {
     name,
     note,
     open: false,
-    pointsAt(t) {
-      // A raised cosine: apart for most of the cycle, together briefly. The
-      // merged instant is the rare one, which is what makes it an event.
-      const phase = (1 - Math.cos((t / o.period) * Math.PI * 2)) / 2;
-      const wanted = o.radius * o.spread * (o.floor + (1 - o.floor) * phase);
-      // Pulled past this, the field at the centroid falls below the threshold
-      // and the march finds no crossing at all: the outline collapses to the
-      // centre and the card draws a pinwheel rather than two bodies. So the
-      // bodies go as far as a single contour can carry them and no further —
-      // the parting reads as a waist deepening to a thread, not as separation.
-      // A cluster that genuinely comes apart is a different subject, one loop
-      // per body, and it is on the list rather than faked here.
-      const apart = Math.min(wanted, o.radius * Math.sqrt(o.bodies / 1.15));
-      const centres: Point[] = [];
-      for (let i = 0; i < o.bodies; i++) {
-        const a = (i / o.bodies) * Math.PI * 2 + t * 0.21;
-        centres.push({ x: Math.cos(a) * apart, y: Math.sin(a) * apart * 0.7 });
-      }
-
-      const far = apart + o.radius * 3;
-      const pts: Point[] = [];
-      for (let i = 0; i < N; i++) {
-        const a = (i / N) * Math.PI * 2;
-        const dx = Math.cos(a);
-        const dy = Math.sin(a);
-        // Bisect between a point certainly inside and one certainly outside.
-        let lo = 0;
-        let hi = far;
-        for (let k = 0; k < 14; k++) {
-          const mid = (lo + hi) / 2;
-          if (field(dx * mid, dy * mid, centres) > 1) lo = mid;
-          else hi = mid;
-        }
-        const wobble = blobRadiusMul(a, 3, 0.02, 0.04, t, 2.6);
-        pts.push({ x: dx * lo * wobble, y: dy * lo * wobble });
-      }
-      return pts;
-    },
+    loopsAt,
+    pointsAt: (t) => loopsAt(t).flat(),
     path: catmullRomToBezierPath,
   };
 }

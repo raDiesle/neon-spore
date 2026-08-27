@@ -17,6 +17,7 @@ export {
   type ShapeSlot,
   type ShapeStatus,
 } from "./catalogue.js";
+export { contourAt, type Subject } from "./contour.js";
 export {
   type Bounds,
   boundsOver,
@@ -28,4 +29,4 @@ export {
 } from "./metrics.js";
 export { MOTIONS } from "./motions.js";
 export { type RingLobes, type RingSilhouette, ring } from "./ring.js";
-export { SUBJECTS, type Subject } from "./subjects.js";
+export { SUBJECTS } from "./subjects.js";

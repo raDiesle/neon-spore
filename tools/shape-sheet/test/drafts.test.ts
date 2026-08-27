@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CATALOGUE } from "../src/catalogue.js";
+import { contourAt } from "../src/contour.js";
 import { boundsOver, WOBBLE_PERIOD } from "../src/metrics.js";
 import { MOTIONS } from "../src/motions.js";
 
@@ -44,16 +45,37 @@ describe("the shape catalogue", () => {
       });
 
       it("never collapses part of its outline onto its own centre", () => {
-        // A metaball contour is marched radially from the middle, so pulling
-        // its bodies too far apart leaves a ray with nothing to cross and the
-        // outline falls to the centre — a pinwheel where two bodies should be.
-        // It is the one way a shape here can be drawn wrongly rather than not
-        // drawn at all, which is why it is checked rather than looked at.
+        // A contour marched radially from the middle falls to the centre when
+        // there is nothing for a ray to cross — a pinwheel where two bodies
+        // should be. It is the one way a shape here can be drawn wrongly
+        // rather than not drawn at all, which is why it is checked rather than
+        // looked at.
+        //
+        // A subject that reports loops is traced on a grid instead and cannot
+        // fail that way; what it can do is emit a degenerate ring, so each of
+        // its loops is checked for enclosing something instead. A body that
+        // has just separated legitimately passes within a hair of the centre,
+        // which is exactly what the radial test forbade.
+        if (entry.subject.open) return;
+        if (entry.subject.loopsAt) {
+          for (let t = 0; t < 24; t += 0.25) {
+            for (const loop of entry.subject.loopsAt(t)) {
+              expect(loop.length).toBeGreaterThan(3);
+              let a = 0;
+              for (let i = 0; i < loop.length; i++) {
+                const p = loop[i]!;
+                const q = loop[(i + 1) % loop.length]!;
+                a += p.x * q.y - q.x * p.y;
+              }
+              expect(Math.abs(a) / 2).toBeGreaterThan(4);
+            }
+          }
+          return;
+        }
         const still = boundsOver(entry.subject, TIMES);
         const reach = Math.max(still.x1 - still.x0, still.y1 - still.y0) / 2;
         for (let t = 0; t < 24; t += 0.25) {
           const pts = entry.subject.pointsAt(t);
-          if (entry.subject.open) continue;
           const mid = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
           for (const p of pts) {
             expect(Math.hypot(p.x - mid.x, p.y - mid.y)).toBeGreaterThan(reach * 0.08);
@@ -63,7 +85,7 @@ describe("the shape catalogue", () => {
 
       it("builds a path string with no NaN in it", () => {
         for (const t of TIMES) {
-          const d = entry.subject.path(entry.subject.pointsAt(t));
+          const d = contourAt(entry.subject, t);
           expect(d.length).toBeGreaterThan(0);
           expect(d).not.toContain("NaN");
         }
@@ -138,4 +160,47 @@ describe("the spare motions", () => {
       expect(moved).toBe(true);
     });
   }
+});
+
+/**
+ * The drafts whose idea is the separation itself.
+ *
+ * Symbiosis is vulnerable only while its two bodies are apart, The Choir is
+ * three voices that merge on the beat they are hit, and the Colony's whole
+ * behaviour is spreading. A picture that can only thin to a waist cannot show
+ * any of that, and for a while none of them could: the contour was marched
+ * radially from the centre, which has one answer per angle and so has one
+ * outline. This is the claim the change was made for, checked rather than
+ * remembered — a spread tuned back down far enough to stop parting is a draft
+ * that quietly stops saying what it was drawn to say.
+ *
+ * Exactly the body count, not merely more than one: a stray extra loop is a
+ * fragment, which is what a mis-oriented trace produces instead of a ring.
+ */
+describe("the clusters that have to come apart", () => {
+  const BODIES: Array<[string, number]> = [
+    ["ECHO", 2],
+    ["SYMBIOSIS", 2],
+    ["COLONY", 5],
+    ["THE CHOIR", 3],
+  ];
+
+  const loopsOver = (name: string): number => {
+    const subject = CATALOGUE.find((e) => e.subject.name === name)?.subject;
+    let most = 0;
+    for (let t = 0; t < 24; t += 0.05) most = Math.max(most, subject?.loopsAt?.(t).length ?? 0);
+    return most;
+  };
+
+  for (const [name, bodies] of BODIES) {
+    it(`${name} parts into ${bodies} bodies and no more`, () => {
+      expect(loopsOver(name)).toBe(bodies);
+    });
+  }
+
+  // The one cluster drawn to stay one contour: two lobes that lean and never
+  // resolve into a single body, and never separate into two either.
+  it("INTERFERENCE stays one contour, which is what it was drawn for", () => {
+    expect(loopsOver("INTERFERENCE")).toBe(1);
+  });
 });

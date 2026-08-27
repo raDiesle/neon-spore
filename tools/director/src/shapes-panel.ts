@@ -18,7 +18,13 @@
  * take the frames from.
  */
 
-import { boundsOver, CATALOGUE, type CatalogueEntry, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
+import {
+  boundsOver,
+  CATALOGUE,
+  type CatalogueEntry,
+  contourAt,
+  WOBBLE_PERIOD,
+} from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
 
@@ -146,11 +152,7 @@ function tick(): void {
   const t = performance.now() / 1000;
   for (const d of drawn) {
     if (!d.path.isConnected) continue;
-    const subject = d.entry.subject;
-    // The card strokes rather than fills, so a hole is just a second loop in
-    // the same `d`. Without this a ring draws as an ordinary blob.
-    const outline = subject.path(subject.pointsAt(t));
-    d.path.setAttribute("d", subject.hole ? outline + subject.path(subject.hole(t)) : outline);
+    d.path.setAttribute("d", contourAt(d.entry.subject, t));
     d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
   }
   requestAnimationFrame(tick);

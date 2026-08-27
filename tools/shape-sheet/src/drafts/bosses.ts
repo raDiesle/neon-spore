@@ -116,7 +116,7 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
     subject: cluster("THE CHOIR", "three bodies in one film, apart and then one", {
       bodies: 3,
       radius: 34,
-      spread: 2.2,
+      spread: 3.0,
       period: 6,
       floor: 0.08,
     }),

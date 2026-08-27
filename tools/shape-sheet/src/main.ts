@@ -1,5 +1,6 @@
+import { contourAt, type Subject } from "./contour.js";
 import { boundsOver } from "./metrics.js";
-import { SUBJECTS, type Subject } from "./subjects.js";
+import { SUBJECTS } from "./subjects.js";
 import { CELL, COLS, fit, frame, sheet } from "./svg.js";
 
 /**
@@ -21,10 +22,7 @@ import { CELL, COLS, fit, frame, sheet } from "./svg.js";
 const T = 0;
 
 function cell(s: Subject, index: number): string {
-  // Two subpaths in one `d` where a subject has a hole, and `evenodd` to cut
-  // it — the technique `circleSubpath` already uses for the hull's fire
-  // opening, and the reason neither loop has to be wound a particular way.
-  const d = s.path(s.pointsAt(T)) + (s.hole ? s.path(s.hole(T)) : "");
+  const d = contourAt(s, T);
   const f = fit(boundsOver(s, [T]));
   const fill = s.open
     ? 'fill="none"'

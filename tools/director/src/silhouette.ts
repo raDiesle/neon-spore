@@ -1,4 +1,4 @@
-import { boundsOver, SUBJECTS, type Subject } from "@neon-spore/shape-sheet";
+import { boundsOver, contourAt, SUBJECTS, type Subject } from "@neon-spore/shape-sheet";
 
 /** Case-insensitive: callers pass a creature's spec name, not a SUBJECTS key. */
 function findSubject(name: string): Subject | undefined {
@@ -32,7 +32,7 @@ export function silhouette(name: string, stroke: string, box = 58): SVGElement {
   const cy = (b.y0 + b.y1) / 2;
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", subject.path(subject.pointsAt(0)));
+  path.setAttribute("d", contourAt(subject, 0));
   path.setAttribute("fill", "none");
   path.setAttribute("stroke", stroke);
   path.setAttribute("stroke-width", String(2 / scale));

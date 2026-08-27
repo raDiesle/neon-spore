@@ -1,7 +1,8 @@
 import type { CreatureSilhouette, CrystalSilhouette, OwnMotion } from "@neon-spore/content";
 import { livingMotion } from "@neon-spore/content";
+import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
-import { blob, crystal, hullArc, SUBJECTS, type Subject } from "./subjects.js";
+import { blob, crystal, hullArc, SUBJECTS } from "./subjects.js";
 
 /**
  * Every contour that has been drawn, and who has it.

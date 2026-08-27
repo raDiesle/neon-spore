@@ -18,6 +18,7 @@ import {
   boundsOver,
   CATALOGUE,
   type CatalogueEntry,
+  contourAt,
   MOTIONS,
   type Subject,
   WOBBLE_PERIOD,
@@ -81,7 +82,7 @@ function panel(subject: Subject, motion: OwnMotion | undefined, stroke: string):
   path.setAttribute("stroke-width", String(2 / scale));
   path.setAttribute("stroke-linecap", "round");
   path.setAttribute("stroke-linejoin", "round");
-  path.setAttribute("d", subject.path(subject.pointsAt(0)));
+  path.setAttribute("d", contourAt(subject, 0));
   body.appendChild(path);
   frame.appendChild(body);
   svg.appendChild(frame);
@@ -184,7 +185,7 @@ function tick(): void {
   if (paused) return;
   const t = performance.now() / 1000;
   for (const d of drawn) {
-    d.path.setAttribute("d", d.subject.path(d.subject.pointsAt(t)));
+    d.path.setAttribute("d", contourAt(d.subject, t));
     d.body.setAttribute("transform", motionTransform(d.motion, t, d.centre, d.tile));
   }
 }

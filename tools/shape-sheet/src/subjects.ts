@@ -17,6 +17,7 @@ import {
   SLICK,
   TORCH,
 } from "@neon-spore/content";
+import type { Subject } from "./contour.js";
 
 /**
  * Every silhouette in the game, as a function of time.
@@ -26,20 +27,11 @@ import {
  * *same* radius functions the canvas calls — `hullRadiusMul` for anything that
  * lives, `crystalRadiusMul` for the rock — which is the no-drift property the
  * sheet was built for, extended to the tools that measure rather than draw.
+ *
+ * `Subject` itself lives in `contour.ts`, beside the one function that knows
+ * how its optional pieces — a hole, several loops — go together into an
+ * outline.
  */
-export interface Subject {
-  name: string;
-  note: string;
-  /** An open contour must not be filled — SVG would close it across the ends. */
-  open: boolean;
-  pointsAt(t: number): Point[];
-  /**
-   * A second closed loop cut out of the first, for the one shape with a hole
-   * through it — `ring.ts`, which explains why nothing has to reverse it.
-   */
-  hole?(t: number): Point[];
-  path(pts: Point[]): string;
-}
 
 /** Illustrative hull proportions. The game derives these from the tile size. */
 const HULL_RX = 300;

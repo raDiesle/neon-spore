@@ -1,5 +1,5 @@
 import { catmullRomToBezierPath, hullRadiusMul, type Point } from "@neon-spore/content";
-import type { Subject } from "./subjects.js";
+import type { Subject } from "./contour.js";
 
 /**
  * The ring: the one contour in this game with a hole through it.
