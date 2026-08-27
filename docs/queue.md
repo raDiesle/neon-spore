@@ -451,3 +451,26 @@ same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
 and how much of the fifty-five it can actually answer, since a check about a
 sound or about two devices cannot be photographed at all. Report that number
 honestly before capturing anything in bulk.
+
+## THE HALF OF A CHECK NOBODY CAN DERIVE IS SITTING IN A FILE NOTHING READS
+_claude/burn-restated-r1 · tools/checks/restated.ts tools/checks/checks-page-restated.ts_
+
+`bun run checks` now derives a subject and a place to stand from each
+commit's own paths, which is the half a machine can work out. The other half
+cannot be derived at all — *what changed*, so the reader can imagine the
+before, and *the question, with a yes and a no*, so a failure is picturable.
+That half is written by hand in `docs/checks/restated.md`, keyed by sha and
+trailer text the way `docs/verified.md` keys its decisions, and nothing reads
+the file.
+
+Finished when the sheet and the CLI render an authored restatement under its
+check when one exists, and say nothing when it does not — the same silence
+rule the derived hint already follows. The trailer stays the record and the
+restatement never replaces it.
+
+Then update `.claude/skills/autonomous/SKILL.md` so a lane writes its entry
+into that file as part of landing, beside the trailer it already writes. A
+check is authored by the one session that knows what changed, and that session
+is gone by the time anybody reads it.
+
+
