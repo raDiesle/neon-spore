@@ -88,3 +88,10 @@ export {
 } from "./silhouettes.js";
 export { type RingSilhouette, WARDEN_PUPIL_OPEN, WARDEN_RING } from "./warden-shape.js";
 export { WAVES, type Wave, type WaveEntry } from "./waves.js";
+export {
+  DEMONSTRATIONS,
+  type Demonstration,
+  demonstrationConfig,
+  demonstrationIndex,
+  demonstrationWave,
+} from "./waves-demo.js";

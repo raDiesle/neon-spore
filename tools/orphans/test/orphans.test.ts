@@ -29,12 +29,14 @@ describe("orphanReport", () => {
     expect(spawnRow.fix).not.toBe(gapRow.fix);
   });
 
-  it("finds the two pods today's content leaves in no wave", () => {
-    // Not a claim that this stays true — the lane that authors demonstration
-    // waves for `purge` and `ward` makes it false, and rightly edits this.
-    // It is here so the tool's very first run is on record as having found
-    // something, not zero.
-    expect(unreachedMechanics().sort()).toEqual(["purge", "ward"]);
+  it("finds nothing in today's content", () => {
+    // It once found `purge` and `ward`, the two pod kinds that were built and
+    // hung in no wave; THE PURGE and THE WARD were written for them and this
+    // line was flipped in the same commit. It is deliberately an equality
+    // against nothing rather than a claim about which two are missing: the
+    // tool is worth running only while the catalogue is expected to be clean,
+    // and a red line here is the whole point of the tool.
+    expect(unreachedMechanics()).toEqual([]);
   });
 
   it("refuses to report a run-wide switch, rather than silently drop it", () => {
