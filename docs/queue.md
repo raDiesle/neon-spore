@@ -182,38 +182,6 @@ Model `sonnet`, effort `think hard`. **Think hard about `elsewhere`** — it is 
 
 Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
 
-## AN INTERLUDE IS AUTHORED LIKE A BOSS AND EDITED LIKE NOTHING AT ALL
-_claude/burn-interlude-panel-d3 · tools/director/src/interlude-panel.ts tools/director/src/interlude-serialize.ts tools/director/src/roster.ts packages/content/src/interludes.ts_
-
-THE GAUGE is a playable round and there is no way to reach it from the
-director: no panel, no info, no way to play it, and no way to say which gap it
-sits in. `GAPS` in `packages/content/src/interludes.ts` is a
-`Record<number, InterludeEntry>` keyed by the wave it opens in front of —
-authored data, exactly like the boss a wave carries, and the boss has a panel
-(`tools/director/src/boss.ts`) that reads the code's own table and writes back
-through `serialize.ts`.
-
-The owner wants the same four things a boss panel gives: reach it, read what
-it is, **play it**, and change which wave it comes before. Playing is the part
-with a seam already cut for it — `stage-touch.ts` is the stage played rather
-than edited, with the game's own controls, and `world.interlude` is a mode the
-existing `World` enters (`docs/decisions.md` #20), so the stage does not need
-a second kind of round to know about.
-
-**And it is currently listed as unbuilt, which is worse than absent.** The NOT
-BUILT YET sheet shows "INTERLUDES — 12 unbuilt" and THE GAUGE is one of the
-twelve. `isBuilt` in `tools/director/src/roster.ts` knows `CREATURES` and
-`BOSS_KINDS` and nothing else, so no interlude can ever read as built however
-many are finished. Fix that in this lane: a built round must leave the backlog
-by being built, the same way a creature does.
-
-**Behind `claude/burn-director-see-d2`, not beside it.** Both mount a panel
-into `tools/director/src/main.ts` and `index.html`, and that lane is also
-deciding where the pair-only switches are controlled from — which this panel
-needs, since an interlude cannot be watched in a world built from
-`DEFAULT_CONFIG`. Starting early means authoring against a layout about to
-change.
-
 ## THE ROUND THREE ARE ROUND IN THE SAME WAY, AND ONE OF THEM CAN STOP BEING
 _claude/burn-body-bulb-c1 · packages/content/src/silhouettes.ts tools/shape-sheet/shape-sheet.svg tools/shape-sheet/motion-sheet.svg_
 
