@@ -180,23 +180,6 @@ on it.
 Not done there because adding a row means editing a shared test file that
 another lane was in at the time. It is one row.
 
-## The shape sheet cannot see a creature that exists
-
-2026-08-27 · claude/burn-creatures-b3
-
-`bun run shapes:report` prints the geometry of a hardcoded list of subjects in
-`tools/shape-sheet/src/subjects.ts`, so the Runt and the Throb — both in
-`CREATURES`, both on the field, both carrying an outstanding check about how
-they read at 26 px — do not appear in the tool whose whole purpose is
-answering that question. The director's brush palette derives itself from the
-bestiary and does not have this problem.
-
-Not done there because the sheet's subjects are functions of time and not
-merely names: deriving them from `CREATURES` means deriving own-motion too,
-which is `tools/shape-sheet/src/motions.ts` and a lane of its own. Start by
-asking what the sheet needs that `CREATURES` plus `own-motion.ts` cannot give
-it — the answer may be nothing, in which case the hardcoded list is simply old.
-
 ## Two new creatures move like a slick because there is nothing else to move like
 
 2026-08-27 · claude/burn-creatures-b3

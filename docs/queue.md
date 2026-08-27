@@ -44,6 +44,20 @@ director's boss panel reads, and a replay test pins a full cycle. Whether the
 arm reads as a mechanism sweeping the top rather than as a weapon is an eye's
 question and already has an outstanding check against it.
 
+## THE SHAPE SHEET CANNOT SEE HALF THE BESTIARY
+_claude/burn-shapesheet-b8 · tools/shape-sheet/src/subjects.ts tools/shape-sheet/src/catalogue.ts tools/shape-sheet/src/motions.ts_
+
+`bun run shapes:report` prints the geometry of a hardcoded list, so the Runt
+and the Throb — landed today, both carrying an outstanding check about how
+they read at 26 px — do not appear in the one tool built to answer that
+question. The director's brush palette derives itself from the bestiary and
+has never had this problem.
+
+Taken off `docs/parked.md`, where the creature lane filed it. Finished when a
+creature added to `CREATURES` appears in `bun run shapes:report` without
+anybody editing the sheet, and the two outstanding creature checks can
+actually be run. Deliberately in `tools/`, away from the two lanes in `sim`.
+
 ## THE OTHER HAND
 _claude/burn-other-hand-b5 · packages/render/src/other-hand.ts docs/spec/roles.md_
 
