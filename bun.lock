@@ -14,6 +14,7 @@
       "name": "@neon-spore/game",
       "version": "0.0.0",
       "dependencies": {
+        "@neon-spore/audio": "workspace:*",
         "@neon-spore/content": "workspace:*",
         "@neon-spore/net": "workspace:*",
         "@neon-spore/render": "workspace:*",
@@ -28,6 +29,13 @@
       },
       "devDependencies": {
         "@cloudflare/workers-types": "^4.20250803.0",
+      },
+    },
+    "packages/audio": {
+      "name": "@neon-spore/audio",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/sim": "workspace:*",
       },
     },
     "packages/content": {
@@ -64,6 +72,7 @@
       "name": "@neon-spore/director",
       "version": "0.0.0",
       "dependencies": {
+        "@neon-spore/audio": "workspace:*",
         "@neon-spore/content": "workspace:*",
         "@neon-spore/render": "workspace:*",
         "@neon-spore/shape-sheet": "workspace:*",
@@ -107,6 +116,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.10", "", { "os": "win32", "cpu": "x64" }, "sha512-M+2dgBsl3lXRiTfgPVc2p3anS4Tocojke4rzFLScZ2Y/wmF+36dRb1iHCLiyGqOzQGyTplZH1HnEYviiAqi3nA=="],
 
     "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20260702.1", "", {}, "sha512-mOhf5TUEB1m2vPrxtqoIGfz0fUC9xyxRDx5gWHy5s+OCo6dcV+g7wI1R7gYCMFohhqF/2y2xeKVwMwCJjfn/WA=="],
+
+    "@neon-spore/audio": ["@neon-spore/audio@workspace:packages/audio"],
 
     "@neon-spore/content": ["@neon-spore/content@workspace:packages/content"],
 
