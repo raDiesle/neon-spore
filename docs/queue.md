@@ -394,3 +394,65 @@ The counter-evidence is in the file itself: `drawMeteor` builds a linear gradien
 Finished when `bun run check` is green, `frame.test.ts` passes with the new fills through the strict canvas stub, no gradient or halo sprite is allocated after the first frame, and the commit carries `Check: does the interior gradient survive 26 px, or is the spec right that it does not — desaturated shape sheet at 26 px, rim peak at least 2.5x the interior peak`.
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
+
+## NOTHING KNOWS WHAT MECHANICS EXIST, SO NOTHING CAN SAY ONE IS UNUSED
+_claude/burn-mechanics-registry-m1 · packages/content/src/mechanics.ts_
+
+Three things the owner asked for need the same missing list: a warning when a
+mechanic is implemented and reachable from no wave, a per-wave switch for a
+mechanic, and one demonstration wave per feature. None of them can be built
+until something in the repository can answer *what mechanics are there*.
+
+So: a closed registry. One entry per mechanic that a wave can contain or turn
+on — the fork, the briefing card, the shot wind-up, the lance, the grip, the
+torch, each interlude, each boss, each creature — carrying what it is in one
+sentence, which `SimConfig` field turns it on where one does, and how to tell
+from a `Wave` whether that wave reaches it.
+
+**Closed, and a `Record` over it**, which is the guardrail this repository has
+now proved three times: `BRIEFING_SUBJECTS` made a creature without a card a
+type error and caught two separate lanes; `effects-spark.ts` made an event
+without a burst a type error after a silent gap had already cost a particle
+burst. A mechanic that lands without a registry entry must not typecheck.
+
+Finished when the list exists, is exhaustive over what is built today, and
+cannot be added to by accident. It is the first of three lanes; the other two
+are unbuildable before it.
+
+## A FEATURE THAT NO WAVE REACHES SHOULD SAY SO, LOUDLY
+_claude/burn-orphans-m2 · tools/checks/orphans.ts tools/director/src/orphans-panel.ts_
+
+The owner's words: if a feature is implemented but connected to nothing, the
+director must warn about it, and it should not happen. He is right that it
+should not, and it does — THE GAUGE is playable and sits in no gap the game
+plays through, the Runt and the Throb cannot be placed at all, and neither
+fact announced itself.
+
+Derive it, the way `bun run checks` derives the outstanding list from the
+`Check:` trailers rather than keeping one by hand: walk the mechanics registry
+against every authored wave and report what nothing reaches. A command for the
+machine and a panel for the person, and the panel is not a quiet row — an
+orphan is a defect, not a note.
+
+**Behind `claude/burn-mechanics-registry-m1`.** It is that list, read.
+
+## EVERY FEATURE SHOULD HAVE A WAVE THAT DEMONSTRATES IT
+_claude/burn-demo-waves-m3 · packages/content/src/waves-demo.ts_
+
+One authored wave per landed feature, playable without configuring anything —
+the owner should be able to open the game, pick a wave, and see the mechanic
+it exists to show. Where a mechanic is a global switch today (the fork, the
+briefing card, the wind-up), the wave has to be able to turn it on itself, so
+this lane decides whether `Wave` carries a config override, and if it does,
+that override is world state and belongs in `hashWorld`.
+
+Not a substitute for the teaching waves in `docs/teaching.md`: those are for a
+pair learning the game, this is for one person checking a feature works.
+Different audiences, different content, and mixing them would serve neither.
+
+Finished when `bun run orphans` reports nothing unreachable, which is the
+honest definition of "every feature".
+
+**Behind both lanes above.**
+
+
