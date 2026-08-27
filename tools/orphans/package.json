@@ -1,0 +1,12 @@
+{
+  "name": "@neon-spore/orphans",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "orphans": "bun run ./run.ts"
+  },
+  "dependencies": {
+    "@neon-spore/content": "workspace:*"
+  }
+}

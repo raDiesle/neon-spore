@@ -175,6 +175,8 @@ history if the wording of a rejected idea is ever needed.
 | `tools/shape-sheet/src/forms.ts` | contour forms the game has no creature for yet |
 | `tools/shape-sheet/src/motions.ts` | the spare motions, unclaimed by anything |
 | `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |
+| `tools/orphans/orphans.ts` | a mechanic that is built and reached by nothing, with where to fix it |
+| `tools/director/src/orphans-panel.ts` | the ORPHANS sheet, painted red the moment the count leaves zero |
 | `tools/checks/trailers.ts` | the `Check:` trailer: what a commit says nobody has looked at |
 | `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
 | `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |

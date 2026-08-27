@@ -351,6 +351,34 @@
         cursor: pointer; color: var(--dim); font-size: 10px; letter-spacing: 2px; margin: 12px 0;
       }
 
+      /* ORPHANS. Same full-screen shell as TO CHECK, but its header button is
+         red rather than gold the moment the count leaves zero — a check
+         waiting for a human eye is normal; a built mechanic nothing reaches
+         is the thing the owner said should not happen at all. */
+      #orphans { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
+      #orphans.on { display: flex; flex-direction: column; }
+      #orphans > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #orphans .title { color: var(--red); letter-spacing: 4px; font-size: 13px; }
+      #orphans .sub { color: var(--dim); font-size: 10px; }
+      #orphans > header button { margin-left: auto; }
+      #orphansOpen.danger { color: var(--red); border-color: var(--red); }
+      #orphansBody {
+        flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px;
+        max-width: 700px;
+      }
+      .orphan {
+        border: 1px solid var(--red); border-radius: 6px; padding: 8px 10px; margin: 0 0 12px;
+      }
+      .orphan-head { display: flex; align-items: center; gap: 8px; }
+      .orphan-head .mark { color: var(--red); }
+      .orphan-head .id { flex: 1 1 auto; letter-spacing: 2px; font-size: 12px; color: var(--ink); }
+      .orphan-head .stamp { color: var(--dim); font-size: 9px; letter-spacing: 1px; }
+      .orphan .what { font-size: 11px; margin: 6px 0 0; }
+      .orphan .fix { color: var(--cyan); font-size: 10px; margin: 4px 0 0; }
+
       /* The sound catalogue's own sheet, built like the backlog's for the
          same reason: a row carrying a contour, a paragraph and a plot does not
          fit in a 300px authoring column. */
@@ -526,6 +554,7 @@
       <span id="status">loading…</span>
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
+      <button type="button" id="orphansOpen">☠ ORPHANS 0</button>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
       <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
@@ -668,6 +697,22 @@
         <span class="note" id="checksCount" style="margin: 0"></span>
       </div>
       <div id="checksBody"></div>
+    </div>
+
+    <!-- ORPHANS: a mechanic that is built and that no wave and no gap
+         reaches — the owner's own words are that this should not happen, so
+         it gets a sheet of its own rather than a line inside NOT BUILT YET.
+         Read straight out of `packages/content/src/mechanics.ts`'s registry;
+         nothing here can go stale independently of that file. -->
+    <div id="orphans">
+      <header>
+        <span class="title">ORPHANS</span>
+        <span class="sub">
+          built, and reached by no wave and no gap — a defect, not a note
+        </span>
+        <button type="button" id="orphansClose">✕ CLOSE</button>
+      </header>
+      <div id="orphansBody"></div>
     </div>
 
     <div id="states">

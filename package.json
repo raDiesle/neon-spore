@@ -17,6 +17,7 @@
     "preview:once": "bun run --cwd apps/game preview:once",
     "delegate": "bun run tools/delegate/run.ts",
     "checks": "bun run tools/checks/run.ts",
+    "orphans": "bun run tools/orphans/run.ts",
     "handoff": "bun run tools/handoff/run.ts",
     "burn": "bun run tools/burn/run.ts",
     "land": "bun run tools/land/run.ts",

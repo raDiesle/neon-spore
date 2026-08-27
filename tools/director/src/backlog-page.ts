@@ -16,6 +16,7 @@
 import { drawCards, mountCardTab } from "./card-page.js";
 import { conceptArt, draftFor } from "./concept-art.js";
 import { detailBox, inline } from "./markdown.js";
+import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
 import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
@@ -178,6 +179,12 @@ async function load(): Promise<void> {
  * work a session that never opens this page should pay for.
  */
 export function bindBacklog(): void {
+  // ORPHANS is its own sheet and header button, not a tab of this one — see
+  // `orphans-panel.ts`. Bound alongside the backlog rather than from
+  // `main.ts` because this file is where a lane not touching the wave editor
+  // proper gets to add a sheet without another file to wire it through.
+  bindOrphans();
+
   const sheet = document.getElementById("backlog");
   const open = document.getElementById("backlogOpen");
   const close = document.getElementById("backlogClose");
