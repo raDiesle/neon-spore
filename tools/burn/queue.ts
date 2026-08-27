@@ -29,11 +29,20 @@ export interface Lane {
   brief: string;
 }
 
-/** What git says about a lane's branch. Everything here is derived, not stored. */
+/**
+ * What git says about a lane's branch. Everything here is derived, not stored.
+ *
+ * `atTip` rather than "is an ancestor of the trunk", and the difference is the
+ * whole of why the board can be trusted. A lane that has just been opened —
+ * `git switch -c lane main`, nothing committed yet — has a tip that *is* an
+ * ancestor of the trunk, so ancestry alone reports an agent which has not
+ * written a line as finished. Landing is a fast-forward, so a lane that landed
+ * sits exactly *on* the tip; one that was merely opened sits behind it.
+ */
 export interface LaneFact {
   exists: boolean;
-  /** Its tip is an ancestor of the trunk: the work is in. */
-  landed: boolean;
+  /** Its tip is the trunk's tip — which is what a fast-forward leaves behind. */
+  atTip: boolean;
   /** Commits it has that the trunk has not. */
   ahead: number;
   /** The worktree holding it, or "" — a lane with none has not been started. */
@@ -74,9 +83,10 @@ export function parseQueue(md: string): Lane[] {
 
 export function statusOf(fact: LaneFact | undefined): Status {
   if (!fact?.exists) return "waiting";
-  if (fact.landed) return "landed";
+  // Asked before "landed", because a lane cannot be both: commits the trunk
+  // has not got are commits that have not landed.
   if (fact.ahead > 0) return "flying";
-  return "opened";
+  return fact.atTip ? "landed" : "opened";
 }
 
 /**

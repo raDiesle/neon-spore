@@ -18,7 +18,7 @@ Depth behind the grid.
 `;
 
 function fact(over: Partial<LaneFact> = {}): LaneFact {
-  return { exists: true, landed: false, ahead: 2, worktree: "", ...over };
+  return { exists: true, atTip: false, ahead: 2, worktree: "", ...over };
 }
 
 describe("parseQueue", () => {
@@ -48,11 +48,20 @@ describe("statusOf", () => {
     expect(statusOf(undefined)).toBe("waiting");
     expect(statusOf(fact({ exists: false }))).toBe("waiting");
   });
-  test("landed beats in flight", () => {
-    expect(statusOf(fact({ landed: true }))).toBe("landed");
+  test("a lane sitting on the trunk's tip with nothing of its own has landed", () => {
+    expect(statusOf(fact({ ahead: 0, atTip: true }))).toBe("landed");
   });
-  test("a branch with nothing on it has only been opened", () => {
-    expect(statusOf(fact({ ahead: 0 }))).toBe("opened");
+
+  // The bug this replaced: `git switch -c lane main` leaves a tip that is an
+  // ancestor of the trunk, so ancestry alone reported an agent which had not
+  // yet written a line as finished. Landing is a fast-forward, so a landed
+  // lane sits *on* the tip and an opened one sits behind it.
+  test("a lane opened at an older trunk has not landed, it is empty", () => {
+    expect(statusOf(fact({ ahead: 0, atTip: false }))).toBe("opened");
+  });
+
+  test("commits the trunk has not got outrank both", () => {
+    expect(statusOf(fact({ ahead: 3, atTip: false }))).toBe("flying");
   });
 });
 
@@ -92,7 +101,7 @@ describe("nextLane", () => {
 describe("render", () => {
   test("counts the three states in its heading", () => {
     const lanes = parseQueue(QUEUE);
-    const facts = new Map([["claude/burn-briefings-a1", fact({ landed: true })]]);
+    const facts = new Map([["claude/burn-briefings-a1", fact({ ahead: 0, atTip: true })]]);
     expect(render(lanes, facts)).toContain("1 landed, 0 in flight, 1 waiting");
   });
 
@@ -107,7 +116,7 @@ describe("render", () => {
     const lanes = parseQueue(
       "## A\n_a · packages/render_\n\nx\n\n## B\n_b · packages/render_\n\ny\n",
     );
-    const facts = new Map([["a", fact({ landed: true })]]);
+    const facts = new Map([["a", fact({ ahead: 0, atTip: true })]]);
     expect(render(lanes, facts)).not.toContain("ownership clash");
   });
 });

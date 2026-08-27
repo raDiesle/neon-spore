@@ -53,12 +53,13 @@ async function worktrees(): Promise<Map<string, string>> {
 
 async function factsFor(lanes: readonly Lane[]): Promise<Map<string, LaneFact>> {
   const held = await worktrees();
+  const tip = await git(["rev-parse", TRUNK]);
   const facts = new Map<string, LaneFact>();
   for (const lane of lanes) {
     const exists = await ok(["rev-parse", "--verify", "--quiet", lane.branch]);
     facts.set(lane.branch, {
       exists,
-      landed: exists && (await ok(["merge-base", "--is-ancestor", lane.branch, TRUNK])),
+      atTip: exists && (await git(["rev-parse", lane.branch])) === tip,
       ahead: exists
         ? Number(await git(["rev-list", "--count", `${TRUNK}..${lane.branch}`])) || 0
         : 0,
