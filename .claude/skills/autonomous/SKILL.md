@@ -83,6 +83,10 @@ must carry, every time:
 - `bun run check` green, then commit, staging **only its own paths**;
 - a `Check:` trailer for anything only an eye can settle — a wave at tempo, a
   silhouette at 26 px, a colour against the field;
+- **after any amend, re-read the message and confirm the trailers are still
+  in it** (`git log -1 --format=%B`). A lane reported two, amended during a
+  rebase, and the trailers went with the amendment — the obligations vanished
+  and were repeated to the user as though they were on the list;
 - anything noticed and not done comes back in its **report**, not in
   `docs/parked.md` — that file is shared, and three lanes appending to the end
   of it is three rebase conflicts in the one file whose content nobody would
@@ -97,6 +101,11 @@ In the lane's worktree:
 ```bash
 bun run land
 ```
+
+If the check goes red on a file the lane never touched, with `Cannot find
+module '@neon-spore/…'`, the workspace graph moved under it — a landed lane
+added a dependency between packages. `bun install` in that worktree, then land
+again. It reads like a rebase disaster and is thirteen milliseconds of work.
 
 Replay onto `main`, `bun run check` on the result, fast-forward. It refuses
 rather than merging. A rebase conflict comes back as a refusal with the files
@@ -174,9 +183,17 @@ at all.
 
 ## When the tokens run out
 
-Expected, and nothing is lost: the queue is on `main` and every lane's state
-is its branch. If the window ends mid-batch, the lanes' worktrees stay where
-they are and the next session's `bun run burn` shows them in flight.
+Expected, and nothing is lost. This has now happened for real, mid-batch, with
+two lanes live: one had committed and was rebasing, the other had four
+uncommitted files and was about to run its check. Both were resumable — the
+board named the first as in flight with its worktree path, and `git status` in
+the second's worktree found its work exactly where it left it.
+
+The resume is `bun run burn`, and then a message to each live lane telling it
+what moved while it was gone. Say `bun install` in that message: a lane coming
+back after a long gap is the most likely thing in this arrangement to meet a
+changed workspace graph, and the error it gets names a file it has never
+opened.
 
 To come back automatically rather than waiting for the user, schedule a
 wakeup at the reset (`ScheduleWakeup`, or a scheduled task for a longer gap)
