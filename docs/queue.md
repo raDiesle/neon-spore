@@ -41,6 +41,21 @@ Finished when a wave cannot start with one thumb down, and the wait is visible
 on both devices. It sits next to the briefing card on purpose — the card is
 what the pause is *for*.
 
+## THE VANE — THE BOSS THAT BENDS THE FIELD
+_claude/burn-vane-b7 · packages/sim/src/vane.ts packages/render/src/vane-draw.ts docs/spec/transfers-bosses.md_
+
+The one boss whose body is already drawn and whose mechanic nothing has spent:
+an open contour with no inside, a pendulum arm sweeping the top of the field,
+bending where a column *lands* rather than when it arrives. Every other boss
+argues with the beat; this one argues with the geometry, which is the one
+axis the pair has no vocabulary for yet.
+
+`docs/spec/transfers-bosses.md` has the body and `docs/spec/bosses.md` the act
+slot. Finished when a wave can carry it, its cycle is a table in code that the
+director's boss panel reads, and a replay test pins a full cycle. Whether the
+arm reads as a mechanism sweeping the top rather than as a weapon is an eye's
+question and already has an outstanding check against it.
+
 ## THE OTHER HAND
 _claude/burn-other-hand-b5 · packages/render/src/other-hand.ts docs/spec/roles.md_
 
@@ -52,6 +67,10 @@ shape has and this one does not.
 Finished when holding a control on one device brightens a lobe on the other.
 Whether it reads as *them* rather than as one more indicator is an eye's
 question and gets a trailer.
+
+**Behind THE FORK, not beside it.** "Whose thumb is down" is the state the
+fork lane is putting in the world, and two lanes inventing it separately would
+land two answers to one question.
 
 ## THE GAUGE — THE FIRST ROUND THAT IS NOT THE FIELD
 _claude/burn-gauge-b6 · packages/sim/src/interlude.ts packages/sim/src/gauge.ts packages/render/src/gauge.ts docs/spec/interludes.md_
