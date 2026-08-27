@@ -296,3 +296,48 @@ Not done there or here because nobody has looked at why. Start by running
 a plausible first guess is that it is slow or throwing on a repository with
 this many branches, rather than that the route is wrong.
 
+## The gap table is content and lives in the app
+
+2026-08-27 · claude/burn-gauge-b6
+
+`GAPS` — nine gaps between waves, one of them filled by THE GAUGE before wave
+10 — sits in `apps/game/src/interlude.ts` because the lane that wrote it could
+add no new file under `packages/content`. Everything else about it is already
+right: `InterludeEntry` is data, and the direction of travel is content to sim
+like every other authored thing here.
+
+Not done there for lack of a path rather than for a reason, so this is a
+`git mv` and an export rather than a decision. The session that builds the
+second interlude should do it first, because two rounds authored in the app
+is the point where it stops looking like an accident.
+
+## A round that is not the field makes no sound at all
+
+2026-08-27 · claude/burn-gauge-b6
+
+THE GAUGE adds no `SimEvent`. Half of that is deliberate — the picture derives
+from state, the way THE FORK's does — and half is that `packages/audio` was
+another lane's ground and `bind.test.ts` is exhaustive over the event union,
+so a new event fails until a cue names it. The metronome runs through a round
+and nothing else does.
+
+A mark landing and a call missing are the two moments that want a sound, and
+they are the two the pair will be talking across. Start by reading what the
+audio lane decided today about binding a spare cue rather than writing a new
+sound; the argument applies here unchanged.
+
+## Whether the no-travel rule is about the field or about the game
+
+2026-08-27 · claude/burn-gauge-b6
+
+`CLAUDE.md` says nothing the players control travels the field, and
+`docs/spec/interludes.md` asks for a `docs/decisions.md` entry saying whether
+that scopes to the field or to the whole game. THE GAUGE did not need it — a
+needle is a number in thousandths, not a thing that travels — and the lane
+said so in the spec rather than treating the silence as settlement.
+
+It is still open, and it is not open in the abstract: THE CLAW, THE BELT and
+THE WELL all move something, and each is cheaper to design after the rule is
+written than to design twice. Whoever takes the second interlude should settle
+it first, in `docs/decisions.md`, before choosing which one to build.
+

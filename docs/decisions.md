@@ -442,3 +442,46 @@ belongs anyway, because a moved hash says only that something is different.
 **Reconsider if:** two devices ever have to interoperate across versions. Then
 cross-build stability becomes a correctness requirement rather than a nicety,
 and a pinned corpus earns its maintenance.
+
+## 20. An interlude is a mode the world enters, not a world of its own
+
+*August 2026.* THE GAUGE is the first round that is not the field, and eleven
+more are designed behind it, so the seam it cut is inherited rather than
+chosen again. Both shapes were defensible and the deciding argument was not
+about rules.
+
+**Two worlds need a supervisor holding the switch between them, and that
+supervisor is the one piece of state no fingerprint covers.** Two devices
+could agree about everything inside a round while disagreeing about which
+round they are in — which is the worst desync available, because every
+per-round hash would say the two were fine. One `World` keeps one `step`, one
+`hashWorld`, one replay format and one command stream, and `world.interlude`
+and `world.interludeDone` are both in the fingerprint.
+
+The price is that "round" now means two things, and it is paid where it is
+cheapest: `step` returns before it reaches any rule of the field, so
+`bullets.ts`, `beat.ts` and `hull.ts` never learn the word.
+
+Three consequences follow, and they are the answers the other eleven inherit.
+
+**The field is gone during a round, not dimmed.** That is free only because of
+where the seam sits: a round opens at a gap where the field is already empty,
+so it never has to answer what happens to a rock in the air. The metronome
+keeps running — the ear would notice ninety seconds of silence, and drift is
+counted in beats — while `world.waveBeat` stands still.
+
+**Lead, play, verdict, and failing costs time only.** The shell owns the
+three-phase clock; each interlude answers one question inside `play`. Both
+endings leave by the same door. No hull, no score, no scar. What a round may
+*give* is deliberately unbuilt: pods are wave content and `startWave` replaces
+the pod queue wholesale, so that seam belongs to the first round with
+something to hand over.
+
+**Its own controls, different per seat, and the seat check is a rule rather
+than paint.** Neither band is reused. Both devices must agree exactly which
+presses counted, so the check lives in the simulation.
+
+**Reconsider if:** a round ever has to run *over* a live field, or has to hand
+something back to the wave that follows it. Either would reopen the seam, and
+the second is the likelier.
+
