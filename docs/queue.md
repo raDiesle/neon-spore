@@ -17,18 +17,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## TWO CREATURES THE WAVES DO NOT HAVE
-_claude/burn-creatures-b3 · packages/content/src/creatures.ts packages/sim/src/creature-rules.ts docs/spec/bestiary.md_
-
-Three of twenty are built. Add the **Runt** — the one you must *not* shoot,
-which turns a reflex into a decision — and the **Throb**, which answers to
-timing rather than to a snap call. Both are in `docs/spec/bestiary.md` 10.1
-and both are cheap: a control-visibility entry and a state machine.
-
-Follow `.claude/skills/new-creature` exactly, including the communication test
-and the replay test. Finished when both appear in an authored wave and
-`bun run check` is green.
-
 ## THE FORK — A RUN THAT WAITS FOR BOTH THUMBS
 _claude/burn-fork-b4 · packages/sim/src/fork.ts docs/spec/systems.md_
 

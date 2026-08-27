@@ -179,3 +179,49 @@ on it.
 
 Not done there because adding a row means editing a shared test file that
 another lane was in at the time. It is one row.
+
+## The shape sheet cannot see a creature that exists
+
+2026-08-27 · claude/burn-creatures-b3
+
+`bun run shapes:report` prints the geometry of a hardcoded list of subjects in
+`tools/shape-sheet/src/subjects.ts`, so the Runt and the Throb — both in
+`CREATURES`, both on the field, both carrying an outstanding check about how
+they read at 26 px — do not appear in the tool whose whole purpose is
+answering that question. The director's brush palette derives itself from the
+bestiary and does not have this problem.
+
+Not done there because the sheet's subjects are functions of time and not
+merely names: deriving them from `CREATURES` means deriving own-motion too,
+which is `tools/shape-sheet/src/motions.ts` and a lane of its own. Start by
+asking what the sheet needs that `CREATURES` plus `own-motion.ts` cannot give
+it — the answer may be nothing, in which case the hardcoded list is simply old.
+
+## Two new creatures move like a slick because there is nothing else to move like
+
+2026-08-27 · claude/burn-creatures-b3
+
+`packages/content/src/own-motion.ts` falls back to `TILT_RIPPLE` for anything
+that is not a bulb, so the Runt twitches like a slick and the Throb tilts like
+a slick. Both want their own: the Runt is meant to read as small and helpless,
+the Throb as breathing, and the Throb's is nearly load-bearing — its swell is
+what tells the pair when to fire, and a body that also tilts is a body saying
+two things at once.
+
+Not done there because `own-motion.ts` is the one copy of how a body sways and
+the lane did not own it. It is a short file and this is two entries in it.
+
+## Shooting the Runt looks exactly like shooting anything else
+
+2026-08-27 · claude/burn-creatures-b3
+
+The Runt is the creature you must not hit, and hitting it spends the ordinary
+`destroy` event and the ordinary effect — so the only tell that the pair got it
+wrong is the score moving the wrong way, which is the one place neither of them
+is looking during a wave. A mistake that announces itself is what makes "leave
+that one" a rule they learn in one wave instead of five.
+
+Not done there because a new `SimEvent` fails `packages/audio/test/bind.test.ts`
+until `packages/audio/src/bind.ts` names a cue for it, and the audio package was
+another lane's ground. Start there; the catalogue already has spare sounds
+(`bun run dev`, ♪ SOUND) and this is one of the things they were kept for.
