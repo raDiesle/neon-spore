@@ -30,6 +30,15 @@ there is a how. A backticked command that is one of this repository's own
 (`bun run …`, `bun test …`) becomes a button; anything else is refused, which
 is why the tail is prose the rest of the time.
 
+**Wrap it if it runs long.** A `Check:` continues onto the next line and the
+next, to the first blank line or the next trailer — indented or not. It used
+to need the indent, and the failure was silent: a session wrapping at the
+margin, the way it wraps every line it writes, landed a check whose second half
+was simply not on the list, and the half that went missing was usually the
+`bun run …` that would have settled it. What this costs is one rule: leave a
+blank line between the last `Check:` and any ordinary prose after it, or the
+prose is read as the rest of the sentence.
+
 Write one for anything the sandbox could not settle: a wave's timing, a
 silhouette, a sound, a colour, motion of any kind, the relay, anything that
 needed a browser someone was watching. Do not write one for what `bun run

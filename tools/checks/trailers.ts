@@ -63,24 +63,47 @@ export function argvOf(command: string): string[] | null {
 }
 
 /**
- * Trailers out of one commit body. A folded continuation — a line indented
- * under a `Check:` — belongs to the trailer above it, so a sentence that ran
+ * Any other trailer: `Co-Authored-By:`, `Signed-off-by:`, a second `Check:`.
+ * A line that opens one ends whatever `Check:` came before it.
+ */
+const TRAILER = /^[A-Za-z][A-Za-z-]*:\s/;
+
+/**
+ * Trailers out of one commit body. A continuation — the rest of a sentence on
+ * the following line — belongs to the trailer above it, so a sentence that ran
  * long does not become a second check.
+ *
+ * **A continuation does not have to be indented, and that is not laxity.** It
+ * used to, and the failure mode was silent and total: a session that wrapped a
+ * `Check:` at the margin, the way it wraps every other line it writes, landed
+ * a check whose second half — often the `bun run …` that would settle it —
+ * simply was not on the list. Nothing said so. The commit looked right, the
+ * sheet showed a sentence that stopped mid-clause, and the command was gone.
+ *
+ * So the fold runs to the end of the block instead: a blank line closes a
+ * trailer, and so does the next line that opens one. Which means a `Check:`
+ * must be followed by a blank line before any ordinary prose — but a trailer
+ * block sits at the end of a message, where there is none.
  */
 export function checksIn(body: string, sha: string): Check[] {
   const checks: Check[] = [];
+  let open: Check | null = null;
   for (const raw of body.split("\n")) {
     const opened = /^Check:\s*(.*)$/.exec(raw);
     if (opened) {
       const text = (opened[1] ?? "").trim();
-      if (text) checks.push({ sha, text, command: commandOf(text) });
+      open = text ? { sha, text, command: commandOf(text) } : null;
+      if (open) checks.push(open);
       continue;
     }
-    const last = checks.at(-1);
-    if (last && /^\s+\S/.test(raw)) {
-      last.text = `${last.text} ${raw.trim()}`;
-      last.command = commandOf(last.text);
+    // A blank line, or somebody else's trailer, closes the one being written.
+    if (!raw.trim() || TRAILER.test(raw)) {
+      open = null;
+      continue;
     }
+    if (!open) continue;
+    open.text = `${open.text} ${raw.trim()}`;
+    open.command = commandOf(open.text);
   }
   return checks;
 }

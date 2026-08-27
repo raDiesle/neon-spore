@@ -22,6 +22,48 @@ describe("checksIn", () => {
     expect(checks[0]?.text).toBe("the flank torches do not clip the hull");
   });
 
+  test("an unindented continuation belongs to it too", () => {
+    // The one that was silently losing half a sentence: a session wraps a long
+    // `Check:` at the margin the way it wraps every other line it writes, and
+    // the second half — often the command that would settle it — never reached
+    // the list. Nothing said so; the sheet just showed a sentence that stopped.
+    const checks = checksIn(
+      "Check: the flank torches do not clip the hull\nat 26 px — `bun run shapes`\n",
+      "abc",
+    );
+    expect(checks).toHaveLength(1);
+    expect(checks[0]?.text).toBe(
+      "the flank torches do not clip the hull at 26 px — `bun run shapes`",
+    );
+    expect(checks[0]?.command).toBe("bun run shapes");
+  });
+
+  test("a blank line closes it, so a paragraph after one is not folded in", () => {
+    const checks = checksIn("Check: the hole reads at 26 px\n\nAnd then some prose.\n", "abc");
+    expect(checks).toHaveLength(1);
+    expect(checks[0]?.text).toBe("the hole reads at 26 px");
+  });
+
+  test("somebody else's trailer closes it as well", () => {
+    const checks = checksIn(
+      "Check: the hole reads at 26 px\nCo-Authored-By: Somebody <nobody@example.com>\n",
+      "abc",
+    );
+    expect(checks).toHaveLength(1);
+    expect(checks[0]?.text).toBe("the hole reads at 26 px");
+  });
+
+  test("two wrapped checks stay two checks", () => {
+    const checks = checksIn(
+      "Check: the first one\nran long\nCheck: the second one\nran long too\n",
+      "abc",
+    );
+    expect(checks.map((c) => c.text)).toEqual([
+      "the first one ran long",
+      "the second one ran long too",
+    ]);
+  });
+
   test("a body with no trailer yields nothing", () => {
     expect(checksIn("Checked the hull. Checks: two.\n", "abc")).toEqual([]);
   });
