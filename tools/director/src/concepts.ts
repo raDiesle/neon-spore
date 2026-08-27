@@ -71,12 +71,18 @@ function stripLinks(text: string): string {
  * the idea store.
  *
  * `###` sub-headings inside the section are read as the bullet's group and do
- * not end it; only the next `##` does.
+ * not end it; only the next `##` does. They do close the bullet above them,
+ * though: a group's own introduction is prose about the group, and before this
+ * it was swallowed by whichever bullet happened to be last — the Bosses
+ * heading's "three encounters worked out far enough" arrived on the page as
+ * the tail of the Wave gate.
  */
 function parseBullets(text: string, headingContains: string, file: string): Idea[] {
   const ideas: Idea[] = [];
   let inSection = false;
   let group = "";
+  /** The bullet a continuation line belongs to, or null under a fresh heading. */
+  let open: Idea | null = null;
   for (const line of text.split(/\r?\n/)) {
     if (!inSection) {
       if (/^##\s/.test(line) && line.includes(headingContains)) inSection = true;
@@ -84,6 +90,7 @@ function parseBullets(text: string, headingContains: string, file: string): Idea
     }
     if (/^###\s/.test(line)) {
       group = line.replace(/^###\s*/, "").trim();
+      open = null;
       continue;
     }
     if (line.startsWith("##")) break;
@@ -94,18 +101,18 @@ function parseBullets(text: string, headingContains: string, file: string): Idea
     // the store quietly showed one fewer idea than it holds.
     const bullet = line.match(/^-\s+\*\*(.+?)\*\*\s*(?:—\s*)?(.*)$/);
     if (bullet) {
-      ideas.push({
+      open = {
         name: bullet[1]!.trim(),
         note: stripLinks(bullet[2] ?? "").trim(),
         ref: file,
         group,
-      });
+      };
+      ideas.push(open);
       continue;
     }
     const trimmed = line.trim();
-    const last = ideas.at(-1);
-    if (last && trimmed !== "" && !trimmed.startsWith("-")) {
-      last.note = `${last.note} ${stripLinks(trimmed)}`.trim();
+    if (open && trimmed !== "" && !trimmed.startsWith("-")) {
+      open.note = `${open.note} ${stripLinks(trimmed)}`.trim();
     }
   }
   return ideas;

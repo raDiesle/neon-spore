@@ -182,6 +182,26 @@ One device today.
     ]);
   });
 
+  test("a group's own introduction does not become the tail of the bullet above it", () => {
+    const withIntro = `
+## Accepted, not yet worked out
+
+### Creatures
+
+- **Wave gate** — never removed by reaching the hull
+
+### Bosses
+
+Three encounters worked out far enough to be worth keeping.
+
+- **THE CHOIR** — warding turned into a weapon
+`;
+    const sheet = parseConcepts("", "", "", withIntro);
+    const gate = sheet.ideas.find((i) => i.name === "Wave gate");
+    expect(gate?.note).toBe("never removed by reaching the hull");
+    expect(sheet.ideas.map((i) => i.group)).toEqual(["Creatures", "Bosses"]);
+  });
+
   test("parses the real spec files without throwing", async () => {
     const root = new URL("../../../", import.meta.url);
     const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, root))).text();
