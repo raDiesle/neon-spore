@@ -428,57 +428,6 @@ the queue and the design documents needs no registry at all — they are files,
 and none of them claims to know what is built. Do that half first and land it;
 hiding what is already built is a second commit once the registry exists.
 
-## A CHECK SAYS WHAT TO LOOK AT AND NEVER WHERE TO STAND
-_claude/burn-checks-hint-h1 · tools/checks/hint.ts tools/checks/checks.ts_
-
-The outstanding list gives a sentence and a date. A person coming back to it
-cold — which is the only way anybody comes back to it — has to work out for
-themselves which tool opens the thing being asked about, and for most of the
-fifty-five rows that is a guess.
-
-Two additions, both generic, neither written by hand.
-
-**The time, not just the day.** Twenty-odd checks landed within one afternoon
-and they all read `2026-08-27`. Ordering them by when they were incurred is
-most of what makes a long list walkable, and git already knows.
-
-**Where to stand, derived from the commit's own paths.** A check on a commit
-that touched `packages/render/` wants `bun run preview`; one touching
-`tools/shape-sheet/` or `packages/content/src/silhouettes.ts` wants
-`bun run shapes:page`; `packages/audio/` wants the director's ♪ SOUND sheet;
-`packages/net/` wants `bun run relay:check`; a briefing wants the CARDS tab.
-That mapping is a small table in one place, and it is derived from `git show
---stat` rather than typed per check — a hint kept by hand would go stale
-exactly like the brushes did.
-
-**Say nothing when there is nothing to add.** Sixteen checks already name
-their own command; a generic hint under those is noise, and noise is what
-stops a list being read.
-
-**And show the picture when there is one.** The skill now asks a lane that
-changes something visual to commit a before and an after frame under
-`docs/checks/` and name them in the trailer. The sheet must render those
-inline, side by side, at a size worth deciding from — a check with a picture
-should be settleable without leaving the page, which is the difference between
-a list that gets worked through and one that gets scrolled past.
-
-**And the fifty-five that already exist have to be reachable too.** Their text
-lives in commit messages on a pushed, linear `main` and is not editable — so
-the clearer reading is *added* beside them, keyed by sha and text exactly the
-way `docs/verified.md` already keys its decisions. For each existing check the
-sheet should be able to show: what the subject is (which creature, which wave,
-which boss, which sheet), where in the director it is looked at, and the
-original sentence unchanged underneath. The addition is a restatement, never a
-replacement — the trailer stays the record.
-
-Number the rows, too. A person deciding fifty-five of them needs to be able to
-say "3, 7 and 12 passed" rather than quoting sentences back.
-
-Finished when a cold reader can act on any row without asking, when no row
-says something they already knew, when a row with frames attached can be
-decided from the sheet alone, and when the fifty-five that predate this lane
-read as well as the ones that come after it.
-
 ## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
 _claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
 
