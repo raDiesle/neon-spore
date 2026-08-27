@@ -71,6 +71,46 @@ describe("joinChecks", () => {
   });
 });
 
+describe("joinChecks — numbers and hints", () => {
+  // Numbered oldest first, so a check keeps its own number as long as the
+  // trunk it sits on does not change — a newer commit landing above it only
+  // appends new numbers past the current highest one.
+  test("numbers count from the oldest commit, not from the top of the log", () => {
+    const states = joinChecks(COMMITS, []);
+    const bySha2222222 = states.find((s) => s.sha === "2222222");
+    const first1111111 = states.find((s) => s.sha === "1111111" && s.text.includes("26 px"));
+    const second1111111 = states.find((s) => s.sha === "1111111" && s.command);
+    expect(bySha2222222?.n).toBe(1);
+    expect(first1111111?.n).toBe(2);
+    expect(second1111111?.n).toBe(3);
+  });
+
+  test("the same commits and checks always land on the same numbers", () => {
+    expect(joinChecks(COMMITS, []).map((s) => s.n)).toEqual(
+      joinChecks(COMMITS, []).map((s) => s.n),
+    );
+  });
+
+  test("no paths given, no hint said", () => {
+    const states = joinChecks(COMMITS, []);
+    expect(states.every((s) => s.hint === null)).toBe(true);
+  });
+
+  test("a check whose trailer already names a command gets no hint — nothing to add", () => {
+    const paths = new Map([[COMMITS[0]!.full, ["packages/render/src/hull.ts"]]]);
+    const states = joinChecks(COMMITS, [], paths);
+    const withCommand = states.find((s) => s.command);
+    expect(withCommand?.hint).toBeNull();
+  });
+
+  test("a check with no command reads its hint off the commit's own paths", () => {
+    const paths = new Map([[COMMITS[0]!.full, ["packages/render/src/hull.ts"]]]);
+    const states = joinChecks(COMMITS, [], paths);
+    const withoutCommand = states.find((s) => s.sha === "1111111" && !s.command);
+    expect(withoutCommand?.hint).toBe("open `bun run preview`");
+  });
+});
+
 describe("outstanding", () => {
   test("a failure is decided, not outstanding — it wants a commit, not a look", () => {
     const failed: Decision[] = [{ ...DECIDED[0]!, verdict: "FAIL", note: "it clips" }];

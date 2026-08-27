@@ -66,6 +66,10 @@ function renderCheck(check: CheckState): HTMLElement {
   const row = el("div", `check${check.verdict ? " is-done" : ""}`);
   const head = el("div", "check-head");
   head.appendChild(el("span", "mark", check.verdict === "FAIL" ? "✗" : check.verdict ? "✓" : "▢"));
+  // A stable handle on the row — "3, 7 and 12 passed" beats quoting a
+  // sentence back, and the number holds while the trunk does even once other
+  // checks around it get decided. See `tools/checks/checks.ts`.
+  head.appendChild(el("span", "n", `#${check.n}`));
   const text = el("span", "what");
   inline(text, check.text);
   head.appendChild(text);
@@ -102,6 +106,9 @@ function renderCheck(check: CheckState): HTMLElement {
   }
 
   row.appendChild(head);
+  // The trailer stays the record — this is a restatement beside it, never a
+  // replacement, and it is silent whenever it has nothing to add.
+  if (check.hint) row.appendChild(el("p", "hint", check.hint));
   if (check.note) row.appendChild(el("p", "note", check.note));
   return row;
 }

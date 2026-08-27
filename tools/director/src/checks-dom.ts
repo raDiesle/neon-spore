@@ -15,6 +15,10 @@ export interface CheckState {
   verdict: "PASS" | "FAIL" | null;
   decidedOn: string;
   note: string;
+  /** A stable handle on this one check — see `tools/checks/checks.ts`. */
+  n: number;
+  /** `hint.ts`'s restatement of `text`, or null when it has nothing to add. */
+  hint: string | null;
 }
 
 export interface Branch {

@@ -11,11 +11,12 @@ import {
   branchReady,
   type CheckState,
   joinChecks,
+  type PathsByCommit,
   reachableAlong,
   undecidedOn,
 } from "./checks.js";
 import { appendDecision, type Decision, parseLedger } from "./ledger.js";
-import { argvOf, LOG_FORMAT, parseLog } from "./trailers.js";
+import { argvOf, type CheckCommit, LOG_FORMAT, parseLog } from "./trailers.js";
 
 export const LEDGER = "docs/verified.md";
 
@@ -86,8 +87,45 @@ export async function writeDecision(root: string, decision: Decision): Promise<v
 
 export async function readChecks(root: string): Promise<CheckState[]> {
   const { ref } = await trunk(root);
-  const log = await git(root, ["log", `--format=${LOG_FORMAT}`, "--date=short", ref]);
-  return joinChecks(parseLog(log), await readLedger(root));
+  // The time, not just the day: every recent check landed on the same date,
+  // and without it the order they were incurred in is only what `git log`
+  // still remembers, not what the list says.
+  const log = await git(root, [
+    "log",
+    `--format=${LOG_FORMAT}`,
+    "--date=format:%Y-%m-%d %H:%M",
+    ref,
+  ]);
+  const commits = parseLog(log);
+  return joinChecks(commits, await readLedger(root), await pathsByCommit(root, commits));
+}
+
+/**
+ * The paths each check-carrying commit actually changed, for `hint.ts` to
+ * read "where to stand" off. One `diff-tree` per commit rather than folding
+ * `--name-only` into the log above: `LOG_FORMAT` already leans on `\x1e` and
+ * `\x1f` as its own record and field separators, and git's `--name-only`
+ * output has none of its own to fold in without risking a filename that
+ * collides with one.
+ */
+async function pathsByCommit(
+  root: string,
+  commits: readonly CheckCommit[],
+): Promise<PathsByCommit> {
+  const found = new Map<string, readonly string[]>();
+  await Promise.all(
+    commits.map(async (commit) => {
+      const out = await git(root, [
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "-r",
+        commit.full,
+      ]);
+      found.set(commit.full, out.split("\n").filter(Boolean));
+    }),
+  );
+  return found;
 }
 
 /**

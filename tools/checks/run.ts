@@ -54,7 +54,11 @@ function report(): void {
       commit = check.full;
       console.log(`\n  ${check.sha}  ${check.date}  ${check.subject}`);
     }
-    console.log(`    ▢ ${check.text}`);
+    console.log(`    ▢ #${check.n}  ${check.text}`);
+    // Read off the commit's own changed paths, not written here — silent
+    // when the trailer already names a command, so it adds nothing to the
+    // sixteen that already say where to stand.
+    if (check.hint) console.log(`        → ${check.hint}`);
   }
 
   const failed = states.filter((s) => s.verdict === "FAIL");

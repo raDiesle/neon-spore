@@ -178,6 +178,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/checks/trailers.ts` | the `Check:` trailer: what a commit says nobody has looked at |
 | `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
 | `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |
+| `tools/checks/hint.ts` | a check's subject and where to stand, read off its own commit, never kept |
 | `tools/checks/repo.ts` | the git and file calls behind it |
 | `tools/burn/queue.ts` | `docs/queue.md` parsed, and whether two lanes own the same path |
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
