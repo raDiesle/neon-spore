@@ -155,7 +155,24 @@ in its tree. Git cannot tell the two apart on its own, because a lane that has
 not committed yet points at whatever `main` was when it started, which is an
 ancestor of `main`, which reads as landed.
 
-## 4. Go back to 0
+## 4. Drain before deciding anything else
+
+**Designing is cheaper than building, so a run does more of it than it means
+to.** Every plan feels like progress, and none of it is on the trunk. The
+first run this skill drove ended an evening with more than twenty lanes
+decided and two being worked — which is not a plan, it is a debt with a table
+of contents.
+
+`bun run burn` says so when the ratio goes wrong: eight or more waiting behind
+fewer than two in flight. The ratio is the tell, not the length — ten behind
+three is a healthy pipe.
+
+When it fires, the rule is simple and it overrides the interesting work:
+**open no new design pass, and start a lane instead.** A design pass is
+justified when a thing genuinely cannot be specified without one. It is not
+justified because it is the more enjoyable half.
+
+## 5. Go back to 0
 
 Until the queue is empty or the budget is gone. Refill from `--candidates`
 when it empties; keep a `/loop`-style wakeup only if the user asked for one.

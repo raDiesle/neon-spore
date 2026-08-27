@@ -6,6 +6,7 @@ import {
   nextLane,
   parseQueue,
   render,
+  stalling,
   statusOf,
 } from "../queue.js";
 
@@ -163,5 +164,21 @@ z
   test("one lane owning two files in a package does not crowd itself", () => {
     const one = parseQueue("## A\n_a · packages/sim/src/fork.ts packages/sim/src/vane.ts_\n\nx\n");
     expect(crowding(one)).toEqual([]);
+  });
+});
+
+describe("stalling", () => {
+  // Designing is cheaper than building, so an unattended run does more of it
+  // than it means to — every plan feels like progress and none is on the trunk.
+  test("a long queue behind one lane is a run that has stopped shipping", () => {
+    expect(stalling(23, 1)).toContain("drain before deciding");
+  });
+
+  test("a long queue behind a full pipe is just a long queue", () => {
+    expect(stalling(23, 3)).toBeNull();
+  });
+
+  test("a short queue is never stalling, however little is running", () => {
+    expect(stalling(4, 0)).toBeNull();
   });
 });

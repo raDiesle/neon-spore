@@ -169,6 +169,24 @@ const GLYPH: Record<Status, string> = {
   waiting: "▢",
 };
 
+/**
+ * A queue growing faster than it drains, said out loud.
+ *
+ * Designing is cheaper than building, and an unattended run will therefore do
+ * more of it than it means to — every plan feels like progress and none of it
+ * is on the trunk. The first run this skill drove ended an evening with more
+ * than twenty lanes decided and two being worked, which is not a plan, it is a
+ * debt with a table of contents.
+ *
+ * The ratio is the tell, not the length: ten waiting behind three in flight is
+ * a healthy pipe, and twenty behind one is a run that has stopped shipping.
+ */
+export function stalling(waiting: number, flying: number): string | null {
+  if (waiting < 8) return null;
+  if (flying >= 2) return null;
+  return `${waiting} waiting and ${flying} in flight — drain before deciding anything else`;
+}
+
 export function render(lanes: readonly Lane[], facts: ReadonlyMap<string, LaneFact>): string {
   if (lanes.length === 0) {
     return "the queue is empty — bun run burn --candidates for what could go in it";
@@ -191,9 +209,11 @@ export function render(lanes: readonly Lane[], facts: ReadonlyMap<string, LaneFa
     );
   }
   const head = `QUEUE — ${counted.landed} landed, ${counted.flying} in flight, ${counted.waiting} waiting`;
+  const stall = stalling(counted.waiting, counted.flying);
   const clash = clashes(lanes.filter((lane) => statusOf(facts.get(lane.branch)) !== "landed"));
   return [
     head,
+    ...(stall ? [`  ⚑ ${stall}`] : []),
     "",
     ...rows,
     ...(clash.length ? ["", "  ⚠ ownership clash:"] : []),
