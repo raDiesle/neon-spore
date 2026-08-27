@@ -215,3 +215,51 @@ Bias the first slots to what is on screen in every frame of every wave and needs
 **When do the lifting commits happen, and are they worth it?** `drawDetails`'s `isBulb` if/else, `layout.ts`'s two literal button arrays, `Sparks.burst`'s inline gravity and life, `drawTorchTail`'s retyped `rgba(255,122,47,…)` where it means `PALETTE.ember` — each becomes votable only by moving a constant or a function onto an exported record in its own prior commit, changing shipped code, reviewed on its own terms. Each leaves the codebase better and the repo has already made this move twice (`livingSilhouette`, `livingMotion`) and written down why. But it means "add a candidate" is sometimes two sessions, and the owner should decide whether to pay for any of them before the mechanism has proved itself on the three slots that need none.
 
 **One thing the design accepts and cannot fix.** A vote cast and never pasted is gone — someone who does the expensive half, the looking, and then loses the clipboard has spent it for nothing. All three proposals argued for this from the same premises and I think they are right, but it is a trade with a losing side rather than a free win, and the mitigation is only that pressing and pasting are one gesture apart and the person is already at a terminal.
+
+## Candidates already written, waiting for the mechanism
+
+A lane that reaches two defensible answers should not pick one and delete the
+other — the second answer is the whole input this page exists to consume. But
+an unclaimed candidate does not belong in `packages/content` either, which is
+what ships. Until `tools/versus/candidates/` exists, they are written here, in
+numbers, so that the mechanism has something real to compare on its first day
+and so that nothing is recovered from a transcript.
+
+### `creature:throb`
+
+**A — HOLD.** Committed, and what the game draws today. A slow single-axis
+drift and nothing else: `dx: sin(t * 0.6) * 0.04, dy: 0, rot: 0, sx: 1, sy: 1`.
+Deliberately the smallest motion in `own-motion.ts`, so that `throbOpen`'s
+beat-driven swell is the only thing the body is saying.
+
+**B — REST.** Zero own-motion at all. The beat's scale pulse carries the whole
+tell alone.
+
+The question between them is whether a body that is *completely* still until
+the beat reads as waiting or as broken. That is an eye's question, and it is
+the one the outstanding check about the Throb's swell is really asking.
+
+### `creature:runt`
+
+**A — TREMBLE.** Committed. Three incommensurate frequencies, no drift, no
+scale change — it never completes a clean rock the way the slick and the bulb
+do, which is what says "too small to glide".
+
+**B — STARTLE.** A settle pattern rather than a continuous shiver:
+`period 1.8`, `k = p < 0.72 ? 0 : exp(-(p - 0.72) * 16) * sin((p - 0.72) * 50)`,
+then `dx: k * 0.05, rot: k * 0.16`.
+
+The lane favoured A and said why: B reads as *alert and waiting* rather than
+as *helpless*, and helpless is the whole job — the Runt has to make a player
+hesitate. Worth putting to a vote anyway, because "which of these two is more
+pitiable at 26 px" is exactly the kind of question an argument cannot settle.
+
+### One thing neither sheet can show
+
+`bun run shapes:report` and `bun run shapes` are byte-identical before and
+after that lane, and that is not a bug in the lane. Both sample the contour
+wobble in `SUBJECTS` and never call `livingMotion`, so own-motion is invisible
+to them entirely; only the director's `bun run shapes:page` draws it. Anyone
+comparing these candidates on the still sheet will see no difference at all
+and conclude, wrongly, that there is none.
+
