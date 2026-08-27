@@ -182,22 +182,6 @@ Model `sonnet`, effort `think hard`. **Think hard about `elsewhere`** — it is 
 
 Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
 
-## THE BRUSHES ARE NOT THE BESTIARY, AND THE INDEX SAYS THEY ARE
-_claude/burn-brushes-d1 · tools/director/src/brushes.ts tools/director/src/state.ts_
-
-`docs/INDEX.md` describes `tools/director/src/palette.ts` as "the creature
-palette — the brushes are the bestiary". They are not: `brushes.ts` names
-`slick` and `bulb` by hand, so the Runt and the Throb landed today and cannot
-be placed in a wave at all. A documented promise the code does not keep is
-worse than an undocumented gap, because it stops anybody checking.
-
-Finished when a creature added to `CREATURES` has a brush without anybody
-editing the director — and, more importantly, when a creature that somehow
-*has no* brush fails a test rather than going unnoticed. The closed-list
-guardrail in `packages/sim/src/briefing.ts` is the shape to copy: a creature
-shipping without a card is a type error there, and it caught two separate
-lanes today. Being correct now is worth much less than being unable to drift.
-
 ## THE DIRECTOR PLAYS A DIFFERENT GAME THAN THE GAME
 _claude/burn-director-see-d2 · tools/director/src/ship.ts tools/director/src/config-panel.ts_
 
@@ -520,5 +504,3 @@ a list that gets worked through and one that gets scrolled past.
 Finished when a cold reader can act on any row without asking, when no row
 says something they already knew, and when a row with frames attached can be
 decided from the sheet alone.
-
-
