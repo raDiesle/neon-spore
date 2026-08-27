@@ -5,6 +5,14 @@
  * next to the shape they are about.
  */
 
+/** `docs/checks/restated.md`'s entry for one check — see `tools/checks/restated.ts`. */
+export interface Restated {
+  subject: string;
+  changed: string;
+  decide: string;
+  where: string;
+}
+
 export interface CheckState {
   sha: string;
   full: string;
@@ -19,6 +27,8 @@ export interface CheckState {
   n: number;
   /** `hint.ts`'s restatement of `text`, or null when it has nothing to add. */
   hint: string | null;
+  /** The hand-written restatement, beside the trailer — null for most checks. */
+  restated: Restated | null;
 }
 
 export interface Branch {
@@ -39,6 +49,11 @@ export interface ChecksView {
   runnable: number;
   /** Commits on origin's main this checkout has not pulled. */
   behind: number;
+}
+
+/** One line per field, in reading order — the hand-written half beside the trailer. */
+export function restatedLines(r: Restated): string[] {
+  return [r.subject, `changed — ${r.changed}`, `decide — ${r.decide}`, `where — ${r.where}`];
 }
 
 export function el(tag: string, cls = "", text = ""): HTMLElement {

@@ -19,10 +19,12 @@ import {
   deleteBranch,
   readBranches,
   readChecks,
+  readRestated,
   runCommand,
   trunk,
   writeDecision,
 } from "./repo.js";
+import { orphanedRestated } from "./restated.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const flags = new Set(process.argv.slice(2));
@@ -33,6 +35,11 @@ const states = await readChecks(root);
 const left = outstanding(states);
 const branches = await readBranches(root, states);
 const spent = branches.filter(branchReady);
+// Whichever entries in `docs/checks/restated.md` matched nothing on `main`
+// right now — a stale sha, or a quote a trailer no longer says word for word.
+// `states` (not `left`) so a restatement written for an already-decided check
+// still counts as attached.
+const orphaned = orphanedRestated(await readRestated(root), states);
 
 if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behind === 0) {
   process.exit(0);
@@ -59,12 +66,29 @@ function report(): void {
     // when the trailer already names a command, so it adds nothing to the
     // sixteen that already say where to stand.
     if (check.hint) console.log(`        → ${check.hint}`);
+    // The hand-written half, beside the trailer — never replacing it, and
+    // silent for the great majority of checks that have none.
+    if (check.restated) {
+      const r = check.restated;
+      console.log(`        restated — ${r.subject}`);
+      console.log(`          changed  ${r.changed}`);
+      console.log(`          decide   ${r.decide}`);
+      console.log(`          where    ${r.where}`);
+    }
   }
 
   const failed = states.filter((s) => s.verdict === "FAIL");
   if (failed.length > 0) {
     console.log(`\n  ${failed.length} looked at and found wrong — they need a commit, not a look:`);
     for (const check of failed) console.log(`    ✗ ${check.sha} ${check.text}`);
+  }
+
+  if (orphaned.length > 0) {
+    console.log(
+      `\n  ${orphaned.length} entr${orphaned.length === 1 ? "y" : "ies"} in docs/checks/restated.md ` +
+        "match nothing on main — a stale sha, or a quote a trailer no longer says word for word:",
+    );
+    for (const entry of orphaned) console.log(`    ? ${entry.sha} ${entry.text}`);
   }
 
   if (branches.length > 0) {

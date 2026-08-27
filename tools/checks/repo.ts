@@ -16,9 +16,11 @@ import {
   undecidedOn,
 } from "./checks.js";
 import { appendDecision, type Decision, parseLedger } from "./ledger.js";
+import { parseRestated, type Restated } from "./restated.js";
 import { argvOf, type CheckCommit, LOG_FORMAT, parseLog } from "./trailers.js";
 
 export const LEDGER = "docs/verified.md";
+export const RESTATED = "docs/checks/restated.md";
 
 const LEDGER_HEADER = `# Verified
 
@@ -85,6 +87,17 @@ export async function writeDecision(root: string, decision: Decision): Promise<v
   await Bun.write(path, appendDecision(before, decision));
 }
 
+/**
+ * `docs/checks/restated.md` — content, not generated, and owned by whoever
+ * wrote the checks it restates rather than by this file. Empty when the
+ * repository has none yet, the same way `readLedger` reads an empty ledger.
+ */
+export async function readRestated(root: string): Promise<Restated[]> {
+  const file = Bun.file(join(root, RESTATED));
+  if (!(await file.exists())) return [];
+  return parseRestated(await file.text());
+}
+
 export async function readChecks(root: string): Promise<CheckState[]> {
   const { ref } = await trunk(root);
   // The time, not just the day: every recent check landed on the same date,
@@ -97,7 +110,12 @@ export async function readChecks(root: string): Promise<CheckState[]> {
     ref,
   ]);
   const commits = parseLog(log);
-  return joinChecks(commits, await readLedger(root), await pathsByCommit(root, commits));
+  return joinChecks(
+    commits,
+    await readLedger(root),
+    await pathsByCommit(root, commits),
+    await readRestated(root),
+  );
 }
 
 /**

@@ -14,7 +14,7 @@
  */
 
 import { renderBranches } from "./checks-branches.js";
-import { button, type CheckState, type ChecksView, el, post } from "./checks-dom.js";
+import { button, type CheckState, type ChecksView, el, post, restatedLines } from "./checks-dom.js";
 import { inline } from "./markdown.js";
 
 let view: ChecksView | null = null;
@@ -109,6 +109,12 @@ function renderCheck(check: CheckState): HTMLElement {
   // The trailer stays the record — this is a restatement beside it, never a
   // replacement, and it is silent whenever it has nothing to add.
   if (check.hint) row.appendChild(el("p", "hint", check.hint));
+  // The hand-written half of the same idea — what changed, and the question
+  // with a yes and a no — from `docs/checks/restated.md`. Silent for the
+  // great majority of checks, which have none.
+  if (check.restated) {
+    for (const line of restatedLines(check.restated)) row.appendChild(el("p", "hint", line));
+  }
   if (check.note) row.appendChild(el("p", "note", check.note));
   return row;
 }

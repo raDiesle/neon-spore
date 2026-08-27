@@ -188,6 +188,37 @@ sat longest on this list are all ones where the reader would have had to build
 the comparison themselves. Do not do this for a change with no visual half,
 and do not fake it with a diagram — the value is that it is the real frame.
 
+**Write the same two things again, by hand, into `docs/checks/restated.md`, in
+the same commit.** `hint.ts` derives *where to stand* from the commit's own
+changed paths, and that half was right to derive — a mapping kept by hand goes
+stale exactly like the director's brushes did. What changed and what to decide
+cannot be derived from anything; they exist only in the head of the session
+that just did the work, and that session is gone by the time anyone reads the
+check. Writing them later, cold, from the diff alone, is not the same
+exercise — so it happens now or not at all. One `##` heading per commit
+(`` ## `sha` — a few words ``), one `> ` quote of the `Check:` trailer's own
+text underneath it — exact, word for word, because that quote is the key a
+later reader's tooling matches on — and the same three fields under it:
+
+```markdown
+## `d5df018` — the swallow
+
+> the wider mouth still reads as swallowing rather than as a flash, not merely smaller
+
+- **subject** the cannon's fire opening while it takes a pod in
+- **changed** the opening used to stretch downwards, past the edge of the
+  field; it now widens sideways and rounds out inside
+- **decide** does the wider shape still read as *effort*, or does it read as
+  a flash that happens to be bigger?
+- **where** `bun run preview`, any wave with a pod
+```
+
+If the trailer's own wording changes after this is written — a later edit, a
+rebase that reworded it — the quote and the trailer drift apart and
+`bun run checks` says so once, by name, rather than silently losing the
+restatement. Keep them matching instead: copy the trailer's text in, do not
+paraphrase it.
+
 ## 4. Drain before deciding anything else
 
 **Designing is cheaper than building, so a run does more of it than it means

@@ -15,6 +15,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/alive.md` | you are making a body read as living rather than as drawn |
 | `docs/teaching.md` | you are working on the first minutes: the three waves that teach a new pair |
 | `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
+| `docs/checks/restated.md` | a `Check:` trailer needs its what-changed and its yes/no written out by hand |
 | `docs/parked.md` | you had an idea you are not acting on, or want one to act on |
 | `docs/queue.md` | you are picking the next thing to build, or resuming an unattended run |
 | `docs/autonomous.md` | you are running for hours without a person, in parallel lanes |
@@ -185,6 +186,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
 | `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |
 | `tools/checks/hint.ts` | a check's subject and where to stand, read off its own commit, never kept |
+| `tools/checks/restated.ts` | `docs/checks/restated.md` parsed and keyed onto a check, the hand-written half |
 | `tools/checks/repo.ts` | the git and file calls behind it |
 | `tools/burn/queue.ts` | `docs/queue.md` parsed, and whether two lanes own the same path |
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
