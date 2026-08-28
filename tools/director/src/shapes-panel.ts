@@ -161,6 +161,13 @@ function fill(id: string, entries: CatalogueEntry[]): void {
  * Rebuilding every card is the whole of switching: a figure's fill, aura and
  * clip are decided when it is constructed, and mutating them in place would be
  * a second copy of `buildSkin` that has to agree with the first.
+ *
+ * That rebuild once cost seven to twelve seconds, which made a comparison —
+ * the one thing this page is for — something nobody did twice. Rebuilding was
+ * never what was expensive: sixty `buildSkin` calls and sixty fresh subtrees
+ * are 114 ms of it. The rest was the frame fit, rescanned per card per switch
+ * for an answer that had not changed. `shape-figure.ts` remembers it now and a
+ * switch costs 214 ms, so nothing here need be cleverer about which cards.
  */
 function skinBar(): void {
   const host = document.getElementById("shapesSkin");
