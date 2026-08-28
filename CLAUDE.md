@@ -319,6 +319,35 @@ when it is not yet that concrete. `docs/versus.md` has the mechanism.
 is a second lane and an owner decision, not a tidy-up on the way past. Put it
 in the report.
 
+## Showing the owner something
+
+**Send the picture. Do not describe it and do not ask them to open anything.**
+This holds for every session on this project, not only an unattended run: when
+work changes something visible, attach the frame to the reply and say in one
+sentence what to look at. It is never a question they have to answer — a
+verdict costs them a sentence if they feel like giving one, and nothing if they
+do not.
+
+The reason it works is that it inverts the effort. A list, a path or a command
+asks them to go and look; a picture has already been looked at by the time they
+read the line under it.
+
+**PNG, always. Never SVG.** They read on an Android phone, where an SVG
+attachment is a file to open rather than a picture to glance at — and a picture
+that has to be opened is not a glance, which was the whole point. `bun run
+frames <sha>` writes PNG and works from a sha alone. The shape sheets write
+SVG, which is right for the tool and wrong for the chat, so rasterise them
+first:
+
+```
+bun run png tools/shape-sheet/shape-sheet.svg out.png
+```
+
+**One picture at a time, and none when nothing visible moved.** A screenshot of
+an unchanged field teaches nothing and trains the eye to skip the next one. And
+it is always the real frame — never a diagram, a mock or a reconstruction. The
+whole value is that it is what the game actually drew.
+
 ## Commands
 
 ```

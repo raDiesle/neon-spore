@@ -23,6 +23,7 @@
     "land": "bun run tools/land/run.ts",
     "versus": "bun run tools/versus/run.ts",
     "frames": "bun run tools/frames/run.ts",
+    "png": "bun run tools/frames/svg.ts",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "relay:check": "bun run --cwd tools/relay-check check",
