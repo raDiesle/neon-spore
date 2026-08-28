@@ -48,6 +48,56 @@ fetches a URL and no lane vendors a third-party file** — that carries a
 licence, which is the owner's call and not a lane's. If those are ever wanted
 in the tree, that is its own entry with its own licence line.
 
+## TWO LANES ARE WRITTEN AGAINST A KEY LIGHT THAT NOTHING DEFINES
+_claude/burn-skin-light-s0b · tools/director/src/skins/light.ts_
+
+Behind s0, and **in front of s2 and s4** — both are already written against this and neither can supply it. s2 says to pair the turn with "a fixed key light"; s4 asks for "a bright edge on the lit side" of each plate. There is no light in this repository: not in `skins.ts`, not in `packages/render`, not anywhere. Six lanes will each invent one, and the page will end up showing twelve bodies lit from twelve directions — which is the one mistake that reads as *wrong* rather than as *plain*. An eye forgives a flat shape. It does not forgive two shapes on one page disagreeing about where the sun is.
+
+The owner asked for bodies that look dimensional without the game becoming 3D, and no skin below answers that. **The reference sheet's twenty spheres are one lighting model applied twenty times.** Take the light away and every one of them is a circle with a pattern on it. The pattern lanes are the cheap half of that sheet; this is the other half, and it is the half that does the work.
+
+One module, one exported light, five constructs the other skins compose.
+
+**The direction, as one constant.** Upper left, written down once with the reason beside it — it is where the hull's own aura does not sit, so a lit shoulder never fights the glow. Everything below derives from it and nothing else in the tree may name an angle.
+
+**TERMINATOR** — the body's value ramp, and the one place a mistake is fatal. A radial gradient centred on the shape is a glow; the same gradient with its focal point pushed toward the light is a sphere. Four stops, not two: the lit shoulder, the turn into shadow, a core shadow *darker than the base*, and a faint bounce coming back up off the shadowed rim. The bounce is what separates a ball from a disc with a smudge on it, and it is the stop everyone leaves out.
+
+**RIM** — a narrow bright stroke on the side *away* from the light, fading to nothing before it reaches the terminator. It is the opposite of the aura `glow.ts` draws, which is uniform by design, and the two have to sit on one body without becoming one smear: the rim is thin, hard and asymmetric where the aura is wide, soft and even. If they cannot coexist, that is a finding and it goes in the commit — it is not resolved by quietly dropping one.
+
+**CONTACT** — a dark inner shadow hugging the contour on the **lit** side, and only there. Counter-intuitive and correct: the terminator makes a body round, this makes it solid, because a surface curving away from a light darkens fractionally right at the silhouette. Without it the lit shoulder runs off the edge of the shape and the body reads as translucent.
+
+**SPECULAR** — one highlight, small, soft, offset *from* the gradient's focal point rather than sitting on it. On it, it reads as a decal; beside it, as a wet surface. One, never two.
+
+**And the hue split, which is the whole trick and is not about brightness.** The lit stops go warm, the shadow stops go cool, both by a few degrees rather than a few hues. This is why the reference sheet reads as lit and why a pure value ramp never does. It is also the thing `docs/alive.md` refuses for a body in a wave, so the header says the same sentence s6 says about iridescence: this is a card, it is not a promise about creatures, and here is the ammunition-colour constraint a shipped version would have to clear first. Do not weaken `alive.md`.
+
+Finished when `bun run check` is green, when LINE, MEMBRANE, CORE and VEIN draw exactly as they did, when a new skin can be lit in one line without naming an angle, and when the switcher can take the light off every card at once — because the only way to know whether the light is doing the work is to remove it and look. The commit carries a `Check:` asking whether a lit body at card size reads as volume or as a shape with a gradient on it, and a second asking whether rim and aura can share one body.
+
+Model `opus`, effort `ultrathink`. Nothing allocates per frame, every `<defs>` id is keyed on `uid`, and the light is a constant rather than a parameter — twelve angles is the failure this lane exists to prevent, and a parameter is exactly how it would happen. Read `core()` in `tools/director/src/skins.ts` first: its outward-falling gradient is the honest baseline this has to beat.
+
+## TWO LANES ARE WRITTEN AGAINST A KEY LIGHT THAT NOTHING DEFINES
+_claude/burn-skin-light-s0b · tools/director/src/skins/light.ts_
+
+s0 has landed, so this is ready — and it goes **in front of s2 and s4**, both of which are already written against it and neither of which can supply it. s2 says to pair the turn with "a fixed key light"; s4 asks for "a bright edge on the lit side" of each plate. There is no light in this repository: not in `skins/`, not in `packages/render`, not anywhere. Six lanes will each invent one, and the page will end up showing twelve bodies lit from twelve directions — which is the one mistake that reads as *wrong* rather than as *plain*. An eye forgives a flat shape. It does not forgive two shapes on one page disagreeing about where the sun is.
+
+The owner asked for bodies that look dimensional without the game becoming 3D, and no skin below answers that. **The reference sheet's twenty spheres are one lighting model applied twenty times.** Take the light away and every one of them is a circle with a pattern on it. The pattern lanes are the cheap half of that sheet; this is the other half, and it is the half that does the work.
+
+One module, one exported light, five constructs the other skins compose.
+
+**The direction, as one constant.** Upper left, written down once with the reason beside it — it is where the hull's own aura does not sit, so a lit shoulder never fights the glow. Everything below derives from it and nothing else in the tree may name an angle.
+
+**TERMINATOR** — the body's value ramp, and the one place a mistake is fatal. A radial gradient centred on the shape is a glow; the same gradient with its focal point pushed toward the light is a sphere. Four stops, not two: the lit shoulder, the turn into shadow, a core shadow *darker than the base*, and a faint bounce coming back up off the shadowed rim. The bounce is what separates a ball from a disc with a smudge on it, and it is the stop everyone leaves out.
+
+**RIM** — a narrow bright stroke on the side *away* from the light, fading to nothing before it reaches the terminator. It is the opposite of the aura `glow.ts` draws, which is uniform by design, and the two have to sit on one body without becoming one smear: the rim is thin, hard and asymmetric where the aura is wide, soft and even. If they cannot coexist, that is a finding and it goes in the commit — it is not resolved by quietly dropping one.
+
+**CONTACT** — a dark inner shadow hugging the contour on the **lit** side, and only there. Counter-intuitive and correct: the terminator makes a body round, this makes it solid, because a surface curving away from a light darkens fractionally right at the silhouette. Without it the lit shoulder runs off the edge of the shape and the body reads as translucent.
+
+**SPECULAR** — one highlight, small, soft, offset *from* the gradient's focal point rather than sitting on it. On it, it reads as a decal; beside it, as a wet surface. One, never two.
+
+**And the hue split, which is the whole trick and is not about brightness.** The lit stops go warm, the shadow stops go cool, both by a few degrees rather than a few hues. This is why the reference sheet reads as lit and why a pure value ramp never does. It is also the thing `docs/alive.md` refuses for a body in a wave, so the header carries the sentence s6 carries about iridescence: this is a card, it is not a promise about creatures, and here is the ammunition-colour constraint a shipped version would have to clear first. Do not weaken `alive.md`.
+
+Finished when `bun run check` is green, when LINE, MEMBRANE, CORE and VEIN draw exactly as they did, when a new skin can be lit in one line without naming an angle, and when the switcher can take the light off every card at once — because the only way to know whether the light is doing the work is to remove it and look. The commit carries a `Check:` asking whether a lit body at card size reads as volume or as a shape with a gradient on it, and a second asking whether rim and aura can share one body.
+
+Model `opus`, effort `ultrathink`. Nothing allocates per frame, every `<defs>` id is keyed on `uid`, and the light is a constant rather than a parameter — twelve angles is the failure this lane exists to prevent, and a parameter is exactly how it would happen. Read `core()` in `tools/director/src/skins/core.ts` first: its outward-falling gradient is the honest baseline this has to beat.
+
 ## THE VEINS ARE UNDER THE SKIN AND A HEART IS NOT A TEXTURE
 _claude/burn-skin-vein2-s1 · tools/director/src/skins/vein-pulse.ts_
 
