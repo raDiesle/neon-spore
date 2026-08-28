@@ -169,19 +169,6 @@ Model `sonnet`, effort `think hard`. **Think hard about `elsewhere`** — it is 
 
 Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
 
-## THE ROUND THREE ARE ROUND IN THE SAME WAY, AND ONE OF THEM CAN STOP BEING
-_claude/burn-body-bulb-c1 · packages/content/src/silhouettes.ts tools/shape-sheet/shape-sheet.svg tools/shape-sheet/motion-sheet.svg_
-
-Three numbers, and they go first because everything after this treats the six contour parameters as frozen. `BULB.depth` 0.1 -> 0.13, `SLICK.wobble` 0.02 -> 0.045, `RUNT.wobble` 0.02 -> 0.03. Nothing else in the file moves — not `lobes`, not `rx`/`ry`, not `seed`, and specifically not `BULB.wobble`, which D1 wanted at 0.075 and which is refused here on the record: depth 0.1 with nine lobes against a time-varying 3rd and 5th harmonic at comparable magnitude makes the bulb's lobe count ambiguous between frames, and that is the second failure the brief names.
-
-The argument for the bulb is measurement, not taste. `bun run shapes:report` has BULB at 117.3 x 111.7 and THROB at 102.5 x 103.2 — two round bodies at aspect ~1.0, separated only by area and by `throbOpen`'s swell — and bulb-versus-throb is the pair a voice callout across a two-second delay most needs separated. Run the report before and after and put both tables in the commit; the ceilings are BULB.depth 0.15 (past which nine lobes read as a gear) and SLICK.wobble 0.07 (past which the 5th harmonic reads as extra lobes), and SLICK's lobe extent must come back unchanged, because `depth: 0.38` is what carries the two-lobe read and a radius modulation must not touch it.
-
-Two traps. `silhouettes.ts` is **exactly 250 lines**, at CLAUDE.md's ceiling — this is a one-for-one number change and must not add a line; if a doc comment above BULB becomes false, rewrite the clause in place rather than adding one. And `bun run shapes` rewrites two **committed** SVGs: `tools/shape-sheet/shape-sheet.svg` contains the literal string `9 lobes` for BULB, which stays true here since `lobes` is untouched, but the geometry changes and a committed derived artefact goes stale in silence because nothing in `bun run check` can see it. Run it and stage whatever it rewrites. Check that `tools/shape-sheet/test/drafts.test.ts` reads `docs/asset-catalogue.md` and not the SVG before assuming it is unaffected.
-
-Finished when `bun run check` is green, the two sheets are regenerated and staged, and the commit carries the before/after report plus `Check: the bulb's lobes still count at 26 px on a phone — beside a throb`.
-
-Model `sonnet`, effort `think`. Read `docs/alive.md` first — it is the design this lane implements.
-
 ## THREE KINDS ARE ALREADY THE SAME ASPECT, SO THE GUARD AS DESIGNED PASSES NOTHING
 _claude/burn-body-gate-c2 · tools/shape-sheet/src/metrics.ts tools/shape-sheet/src/report.ts tools/shape-sheet/test/nameability.test.ts_
 
