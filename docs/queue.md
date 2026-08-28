@@ -383,7 +383,9 @@ that outlives the code that wrote it; the storage is arithmetic. Read
 `tools/director/src/main.ts` and `bindTabs` first.
 
 ## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
-_claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts_
+_claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts tools/checks/run.ts tools/director/src/checks-page.ts_
+
+**Behind `claude/burn-director-session-s15`**, which puts the director's place in the URL — a link cannot point at a tab until a tab has an address.
 
 `docs/checks/restated.md` is a single file that every lane appends to, at the
 end, in the same commit shape — so two lanes landing in one evening conflict
@@ -426,6 +428,14 @@ exist.
 - **If either names a file under `docs/checks/`, print it as an image path**,
   so a lane that captured the same frame either side of its change has
   somewhere to put the pair.
+- **`where` becomes a link, and the director renders it as one.** The owner
+  reads this list to decide what to go and look at, so the row that says where
+  should *take them there*: once `s15` has put the tab and the wave in the URL,
+  a `where` naming a director place is a URL, and `⚑ TO CHECK` prints it as an
+  anchor with `target="_blank"` so a click opens the thing beside the list
+  rather than instead of it. A `where` that is a shell command stays a command
+  — not everything is a page — so the field holds one or the other and the
+  renderer tells them apart rather than guessing.
 - **The report gets shorter, not longer.** Today it prints the trailer, a
   derived hint and five restatement fields for every one of fifty-odd entries.
   Lead with the question and where to stand; put the rest behind a flag. Say in
