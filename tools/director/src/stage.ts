@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bindKeys, type Keys } from "./keys.js";
+import { bindStageInterlude } from "./stage-interlude.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { currentWave, type Store } from "./state.js";
 
@@ -71,6 +72,16 @@ export function bindStage(
   new ResizeObserver(resize).observe(canvas);
   resize();
 
+  // A round that is not the field draws its own three slabs, which no control
+  // set contains — so `touchDown` below cannot answer them. See
+  // `stage-interlude.ts`.
+  bindStageInterlude({
+    canvas,
+    layout: () => computeLayout(viewport, cfg, role),
+    role: () => role,
+    world: () => world,
+    push: (player, command) => keys.push(player, command),
+  });
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),

@@ -82,6 +82,22 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
         if (target !== NO_GRIP) push(2, { kind: "grip", id: target });
         break;
       }
+      // An interlude's own three. A round that is not the field does not
+      // borrow the field's verbs (`docs/spec/interludes.md`), so these are its
+      // own commands and mean nothing while a wave runs — which is why they
+      // cost nothing to send unconditionally. Z and X hold the pilot's valve
+      // and are let go on the keyup below, because nothing in the simulation
+      // lets go of it; C is the navigator's call, the half the mouse is not
+      // holding. Same keys as the game (`apps/game/src/keys.ts`).
+      case "KeyZ":
+        push(1, { kind: "valve", on: true, dir: -1 });
+        break;
+      case "KeyX":
+        push(1, { kind: "valve", on: true, dir: 1 });
+        break;
+      case "KeyC":
+        push(2, { kind: "call" });
+        break;
       default:
         break;
     }
@@ -89,6 +105,8 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
     if (e.code === "KeyG") push(2, { kind: "grip", id: NO_GRIP });
+    if (e.code === "KeyZ") push(1, { kind: "valve", on: false, dir: -1 });
+    if (e.code === "KeyX") push(1, { kind: "valve", on: false, dir: 1 });
   });
 
   return {
