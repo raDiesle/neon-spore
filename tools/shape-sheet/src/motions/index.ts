@@ -13,15 +13,19 @@ import {
   TURN,
   TWITCH,
 } from "./plane.js";
+import { BEAT, HEART, PERISTALSIS } from "./pulse.js";
 
 export { pose } from "./pose.js";
 export {
   APPROACH,
+  BEAT,
   CANT,
   CRAWL,
   DRIFT,
+  HEART,
   HEAVE,
   LURCH,
+  PERISTALSIS,
   PITCH,
   SAG,
   SHIVER,
@@ -45,6 +49,7 @@ export {
  * | `pose.ts` | the five-number helper both groups end in |
  * | `plane.ts` | the eleven that move a body about a flat page |
  * | `depth.ts` | the four that project a body moving in depth onto it |
+ * | `pulse.ts` | the three that put an attack in a swell, beside SWELL |
  *
  * `MOTIONS` below is the **only** place that knows which motions exist — the
  * drafts panel iterates it, and `tools/shape-sheet/src/index.ts` re-exports
@@ -66,6 +71,9 @@ export const MOTIONS: OwnMotion[] = [
   TOLL,
   SWELL,
   APPROACH,
+  BEAT,
+  HEART,
+  PERISTALSIS,
   LURCH,
   HEAVE,
   SLITHER,
