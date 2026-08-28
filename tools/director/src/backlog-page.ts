@@ -13,6 +13,7 @@
  * does that grouping on the server, out of the spec's own headings.
  */
 
+import { renderBorrowed } from "./borrowed.js";
 import { drawCards, mountCardTab } from "./card-page.js";
 import { conceptArt, draftFor } from "./concept-art.js";
 import { detailBox, inline } from "./markdown.js";
@@ -174,6 +175,7 @@ async function load(): Promise<void> {
   fill("backlogParked", backlog.parked);
   fill("backlogQueue", backlog.queue);
   fill("backlogDesigns", backlog.designs);
+  void renderBorrowed();
   void renderSpec();
   loaded = true;
 }

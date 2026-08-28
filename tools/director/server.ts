@@ -36,6 +36,7 @@ const treeId = treeKey(repoRootPath);
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
 const interludesFile = new URL("../../packages/content/src/interludes.ts", import.meta.url);
 const specDir = new URL("../../docs/spec/", import.meta.url);
+const borrowedFile = new URL("../../docs/borrowed.md", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
@@ -259,6 +260,18 @@ const server = Bun.serve({
      * it: the directory is read, so a new file appears here without being
      * added to a list.
      */
+    /**
+     * `docs/borrowed.md`, whole. A study of two other co-op games and whether
+     * each of their mechanics can reach this one — see `borrowed.ts` for why
+     * it is served as text rather than parsed into entries like the rest.
+     */
+    "/api/borrowed": {
+      GET: withIdle(async () => {
+        const text = await Bun.file(borrowedFile).text();
+        return Response.json({ text }, { headers: noCache });
+      }),
+    },
+
     "/api/spec": {
       GET: withIdle(async () => {
         const dir = Bun.fileURLToPath(specDir);
