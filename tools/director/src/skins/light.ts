@@ -120,9 +120,9 @@ function bodyStroke(ctx: SkinContext, paint: string, width: number): SVGPathElem
 }
 
 /**
- * A group clipped to the body with its own id — not `parts.ts`'s `clipGroup`,
- * whose `${uid}-clip` a skin composing this light *and* its own clipped texture
- * would collide with, silently trimming one path with the other.
+ * A group clipped to the body with its own id, so a skin composing this light
+ * *and* its own clipped texture does not put two clip paths under one id.
+ * `clipGroup(ctx, "lit")` is now this; swapping it waits on the open check.
  */
 function insideBody(ctx: SkinContext): SVGGElement {
   const clip = document.createElementNS(SVG, "clipPath");

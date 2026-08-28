@@ -61,6 +61,21 @@ Finished when `bun run check` is green, both skins are on the switcher, a featur
 
 Model `opus`, effort `ultrathink`. This is the hardest lane in the block and the only one whose failure mode is invisible in a still: both skins look correct in a screenshot and wrong in motion. Think about the foreshortening before you draw anything.
 
+## THE LIGHT CAN BE TAKEN OFF TODAY ONLY BECAUSE NOTHING USES IT YET
+_claude/burn-skin-lightswitch-s2c · tools/director/src/shapes-panel.ts_
+
+Behind s2 and s4, and queued now because the lane that built the light asked for it by name rather than guessing.
+
+The switcher on the SHAPES tab is exclusive: one button per entry in `SKINS`, and picking one unpicks the rest. That is why "take the light off every card at once and see whether it was doing the work" is satisfied **today** by clicking CORE — LIGHT is a skin like any other, and CORE is the honest comparison anyway, being the outward-falling gradient the light has to beat.
+
+It stops being true the moment TURN or PLATE composes `litPass` into itself. Then the light is no longer a button, it is inside other buttons, and there is no way to remove it — so the one experiment that says whether any of it earned its place becomes impossible exactly when there is finally enough on the page to judge. The switcher needs a separate lit/unlit control, orthogonal to the skin choice.
+
+`shapes-panel.ts` is owned by nobody and this is the lane that owns it. Keep the change small: one control, one piece of state threaded to `buildSkin`, no rework of the bar.
+
+Finished when `bun run check` is green, every skin that composes the light can be seen with it and without it, and the commit carries `Check: with the light off, does the page lose depth or only lose brightness — the SHAPES tab, the same skin toggled, on a round body and a long one`.
+
+Model `sonnet`, effort `think`. Read `tools/director/src/skins/light.ts` and `shapes-panel.ts` first.
+
 ## ELEVEN ANIMATIONS, AND EVERY ONE OF THEM HAPPENS IN THE PICTURE PLANE
 _claude/burn-skin-depth-motion-s2b · tools/shape-sheet/src/motions/ tools/shape-sheet/src/motions.ts docs/dimensional.md_
 

@@ -67,14 +67,25 @@ export function corePass(ctx: SkinContext): SVGPathElement {
  * Hands back the group to fill; the clip path wears the contour like every
  * other, so the texture is trimmed by the shape as it breathes rather than by
  * the shape as it stood still.
+ *
+ * `name` distinguishes one clip from another **within a single skin**, and a
+ * skin that wants two must pass it. The id used to be `${uid}-clip` and
+ * nothing else, so calling this twice put two clip paths under one id and
+ * silently trimmed one group with the other's shape — a wrong picture with no
+ * error anywhere. Two skins hit it independently and each hand-rolled a
+ * private copy of this function rather than change a shared file; the second
+ * time a workaround is written is when the helper is wrong. `uid` still keys
+ * one card apart from the next, which is the other collision and the reason
+ * every id here carries it.
  */
-export function clipGroup(ctx: SkinContext): SVGGElement {
+export function clipGroup(ctx: SkinContext, name = "clip"): SVGGElement {
+  const id = `${ctx.uid}-${name}`;
   const clip = document.createElementNS(SVG, "clipPath");
-  clip.setAttribute("id", `${ctx.uid}-clip`);
+  clip.setAttribute("id", id);
   clip.appendChild(ctx.contourPath());
   ctx.defs.appendChild(clip);
   const g = document.createElementNS(SVG, "g");
-  g.setAttribute("clip-path", `url(#${ctx.uid}-clip)`);
+  g.setAttribute("clip-path", `url(#${id})`);
   ctx.body.appendChild(g);
   return g;
 }

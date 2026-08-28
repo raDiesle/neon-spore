@@ -153,10 +153,10 @@ function strand(ctx: SkinContext, d: string, opacity: number, width: number): SV
 }
 
 /**
- * A second clip on the body, for the strands drawn above the rim. `clipGroup` in
- * `parts.ts` is the shared one, keyed `${uid}-clip`; calling it twice would put
- * two clip paths under one id and silently give the surfaced strands the wrong
- * shape. So this one is keyed apart, and is otherwise the same thing.
+ * A second clip on the body, for the strands drawn above the rim, keyed apart
+ * so two clip paths do not land under one id and silently give the surfaced
+ * strands the wrong shape. `clipGroup(ctx, "proud")` is now exactly this;
+ * swapping it changes a picture still waiting on an eye, so it waits for that.
  */
 function proudGroup(ctx: SkinContext): SVGGElement {
   const clip = document.createElementNS(SVG, "clipPath");
