@@ -644,3 +644,73 @@ Worth doing only if the page turns out to be slow in motion, which nobody has
 been able to see yet: `requestAnimationFrame` has not fired once in the
 sandbox all day, so every performance number in this block is a count or a
 synchronous timing and never a frame rate.
+
+## A skin is told its reach and never its shape
+
+2026-08-28 · claude/burn-skin-wind-s8, claude/burn-skin-fringe-s3
+
+`shape-figure.ts` computes `reach = max(w, h) / 2` and throws the aspect away,
+so `SkinContext` carries no extent. Two skins have now had to reach around the
+interface for something about their own body:
+
+- WIND needs to know which way a body is long, so it looks the subject back up
+  in `CATALOGUE` by `ctx.name` — and falls back silently to "tall" for any
+  contour the catalogue does not reach.
+- CILIA needs the body's velocity to lean its fringe, so it reads
+  `ctx.body.transform.baseVal.getItem(0).matrix` and differences it, which
+  assumes `shape-figure.ts` writes a translate as the first transform item.
+
+Neither is wrong and both were the right call under their ownership, but twice
+is a pattern. One optional `extent: { w, h }` on `SkinContext` removes WIND's
+lookup entirely, and a velocity field removes CILIA's. Add them when a third
+skin wants either — the iridescence lane will want the velocity, because its
+shift has to ride the body's motion.
+
+## TURN and WIND draw two surfaces where one would prove more
+
+2026-08-28 · claude/burn-skin-wind-s8
+
+`turn.ts` keeps `surface()` — its meridian bands and patches — private, so
+WIND drew its own banded surface rather than reach into a file it did not own.
+The two skins therefore differ in their surface *and* in their phase, which is
+one difference too many for the comparison they exist to support.
+
+Exporting `surface()` would let WIND and TURN share literally the same marks
+and differ in exactly one `sin`. Then the check — *does it read as one body
+twisting, or as two halves disagreeing* — is answered against a genuine
+control instead of against a second drawing. `turn.ts` has about 129 lines of
+headroom while four skins sit on the ceiling, so there is room to do it there.
+
+Small, and worth its own lane rather than a footnote, because it strengthens
+an outstanding check rather than adding a look.
+
+## The cold pass, and the frame loop, are the two costs left on the shapes tab
+
+2026-08-28 · claude/burn-shapes-rebuild-s11
+
+Memoising the frame fit took a skin switch from ~6.5 s to ~240 ms. What
+remains, measured by the same lane and deliberately left alone:
+
+Opening the tab still costs about 5.5 s once, and the first press of each of
+the fifteen motion buttons about 4.7 s — those are fits nobody has computed
+yet, and a second press of the same motion is 209 ms. A cheap halving is
+available and named: `transformedBounds` in `shapes-motion.ts` scans `pointsAt`
+over the same 133 samples **twice** when a motion is present, once to find
+`still` and once for the main loop, and `still` is already computed by the
+caller and passed in as `tile`/`centre`. Passing the box too would roughly
+halve the cold fit.
+
+And `tick()` in `shape-figure.ts` calls `contourAt` for all sixty figures every
+frame — about 13.5 ms a pass measured headless — including cards scrolled far
+off screen. **That** is where an `IntersectionObserver` would actually pay, and
+it pays in frame rate rather than in switch latency. It needs a machine that
+composites to judge, which this sandbox is not.
+
+## `bun --hot` in the director breaks after a git stash
+
+2026-08-28 · claude/burn-shapes-rebuild-s11
+
+Twice, a `git stash` under a running director left the hot reload in a broken
+state — `renderShapes is not a function`, blank tab — and only a full server
+restart cleared it. Worth knowing for any lane that stashes while previewing,
+which is a normal thing to do when measuring before and after.
