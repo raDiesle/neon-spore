@@ -1054,3 +1054,101 @@ commit carries
 Model `sonnet`, effort `think`. Read `tools/frames/run.ts` and its wave test.
 The trap is that every existing test passes today — they all resolve against
 one list, which is the assumption being broken.
+
+## THE MOUSE IS ONE HAND, AND THE TETHER BELONGS TO THE OTHER ONE
+_claude/burn-pc-mouse-and-keys · tools/director/src/stage.ts tools/director/src/stage-touch.ts tools/director/src/keys.ts tools/director/src/key-help.ts tools/director/index.html tools/director/test/keys.test.ts_
+**Asked for by the owner.**
+
+Their words, whole:
+
+> "the warden": seems like i cannot pull on the tether on pc and director. it
+> says pull, but when i click with mouse and move mouse, nothing happens, only
+> when its near the ship somehow. unclear for me.
+>
+> can we have full support for pc with mouse?
+>
+> the "g" button works, but its hard to use and understand for pc user.
+>
+> can you also give some hints in some way, what are the keybindings for special
+> director testing mode ( alternative configuration) not sure yet, maybe we keep
+> keyboard for pc users for some actions.
+>
+> if pc, maybe we should show for the time being the keybindings somewhere: can
+> be below the game screen in director for now! i press button, then i can see
+> them in some modal
+
+**Behind `claude/burn-director-sheet-close` and `claude/burn-director-layout`,**
+which own `stage.ts` and `index.html` between them. This is last of the three
+and replays over both.
+
+### The bug is already diagnosed — verify it, do not re-derive it
+
+`packages/render/src/touch.ts`'s `touchDown` **does** answer a grab above the
+band: `y < l.bandTop` finds a creature and returns
+`{ player: field.seat, command: { kind: "grip", ... } }`. So a pointer can pull
+a tether. The seat it pulls as is whatever `field()` hands it, and
+`tools/director/src/stage.ts:88` hard-wires that to player 1, with the reason
+written on the line above it: *"Player 1's seat, because a mouse is one hand. G
+is the other player's."*
+
+THE WARDEN's tether is player 2's grip. So the click lands, the grab resolves,
+and the command is issued for the wrong seat. **"Only when its near the ship
+somehow" is the other half of the same fact:** below `bandTop` the cannon and
+shield strips answer by explicit player number rather than by `field.seat`, so
+those work no matter which seat the pointer is called. Confirm both by reading
+the code and say in the commit that the report was accurate, because a fix
+aimed at the wrong cause here would look like it worked.
+
+**The director already has role buttons.** `stage.ts` carries a `ViewRole` that
+starts at `"test"` and a `button.role` bar that switches it, and `computeLayout`
+already takes it. The seat the pointer speaks for should follow that role
+rather than being a constant — which is most of the repair and is not a design
+decision.
+
+**The one decision it does need.** In `"test"` the director is showing both
+seats at once, and a grab above the band then has no unambiguous owner. Pick
+one and say why in the commit: the grab could go to the seat that can actually
+act on the thing grabbed (the warden's tether is player 2's, so a pull is
+player 2's), or `"test"` could keep player 1 and require the role bar for the
+other seat. The first is what the owner is asking for and the second is what
+the current comment defends; the entry does not decide it, but it does require
+the commit to argue it.
+
+**`G` stays.** They said it works. A pointer that also works is an addition,
+not a replacement, and the keyboard is what a PC user reaches for once they
+know it exists — which is the other half of this entry.
+
+### The keybindings, shown rather than remembered
+
+They asked for a button below the game screen that opens a modal listing them,
+and said "for the time being" — so it is a small honest thing, not a settings
+system.
+
+**Derive it, do not type it out.** `keys.ts` is the one place the director's
+key map lives, and a second hand-written copy in `index.html` is a list that
+goes stale the first time somebody adds a key. Export the map from `keys.ts`
+as data — code, key, seat, what it does in words — and have both the binding
+and the modal read it. That is the whole reason this is worth doing properly
+rather than as a paragraph of markup.
+
+**Say which seat each key is.** The owner's confusion is a seat confusion, so a
+list that groups by player 1 and player 2 answers the original complaint as
+well as the one they asked about. `G` in particular reads as a mystery until it
+says *player 2 — grab the creature nearest the hull*.
+
+**`keys.ts`'s header says the game is right if the two disagree.** That stays
+true; this entry does not import `apps/game/src/input.ts` and does not make the
+director the source of truth for the phone's layout.
+
+Finished when `bun run check` is green, a test proves the pointer's seat
+follows the role, the modal's list is derived from the same map the bindings
+use, and the commit carries
+
+`Check: on a PC, can you pull THE WARDEN's tether with the mouse — press, drag, and does the tether actually follow`
+
+`Check: does the keybindings button below the stage tell you what G does and whose hand it is, without you asking anybody`
+
+Model `sonnet`, effort `think hard`. Read `packages/render/src/touch.ts`,
+`tools/director/src/stage.ts` and `tools/director/src/keys.ts` in full. The
+thinking goes on the seat question in `"test"` — every other part of this is
+already decided by code that exists.
