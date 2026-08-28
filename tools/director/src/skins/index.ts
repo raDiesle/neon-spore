@@ -5,6 +5,7 @@ import { CRATER } from "./crater.js";
 import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
+import { NACRE } from "./nacre.js";
 import { MOUNTED_PORE, PORE } from "./pore.js";
 import { MOUNTED_SCALE, SCALE } from "./scale.js";
 import { MOUNTED_SUCKER, SUCKER } from "./sucker.js";
@@ -52,6 +53,7 @@ export const SKINS = [
   CILIA,
   PORE,
   SUCKER,
+  NACRE,
   // The mounted four, kept together at the end rather than each next to its
   // flat original. They are one block and answer one question — whether a
   // texture on a turning body goes round the far side or slides across a face —
