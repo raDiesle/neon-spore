@@ -15,6 +15,7 @@ records the answers. See `docs/verification.md`.
 - `a30c565` 2026-08-27 PASS — LEFT and RIGHT are reachable by one thumb on a phone in portrait
 - `cf34c47` 2026-08-27 PASS — ship.forkOpen reads as a room going quiet, not a chime or an alarm
 - `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
+- `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
 - `cf34c47` 2026-08-27 PASS — the runt's grey burst reads as wrong beside a real destroy burst, on a real screen
 - `c28a893` 2026-08-27 PASS — a body thrown by the arm reads as thrown, and not as a wave that was authored that way — the flick along the arm is a beat and a half and nothing else marks it
 - `c28a893` 2026-08-27 PASS — the split housing is findable at boss size on a phone, one column off centre and hard against the radar strip above it
@@ -171,6 +172,8 @@ records the answers. See `docs/verification.md`.
   - closed unlooked-at in the sweep that reset this list
 - `9730f81` 2026-08-28 PASS — does CILIA's fringe still hug the body exactly as it did, now that it is drawn without asking the browser where the contour is?
 - `6868bd5` 2026-08-28 PASS — on the SHAPES page, can you tell what can be combined with what without being told?
+- `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
+  - in director testing game mode, still every wave has the "lance" control for player 1
 - `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
   - in director testing game mode, still every wave has the "lance" control for player 1
 - `dff2c76` 2026-08-28 FAIL — on the wave that does ask for it, does the panel read as its own set rather than as the usual one with a button added?
