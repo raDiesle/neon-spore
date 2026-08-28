@@ -18,6 +18,7 @@
 
 import { join } from "node:path";
 import { parseQueue } from "../burn/queue.js";
+import { settle } from "../checks/run.js";
 import { LOG_FORMAT, parseLog } from "../checks/trailers.js";
 import { describe, type LandState, plan } from "./land.js";
 
@@ -28,6 +29,7 @@ const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const wantsPush = argv.includes("--push");
 const TRUNK = "main";
+const today = new Date().toISOString().slice(0, 10);
 
 async function git(args: string[], cwd = root): Promise<string> {
   const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
@@ -150,6 +152,57 @@ if (carried.length > 0) {
 } else {
   console.log("  0 checks — nothing here needs an eye, or a rebase ate the trailers");
 }
+
+/**
+ * Settle, right here, whichever of the checks this landing just added name a
+ * repository command — `docs/queue.md`, "A check a command can settle should
+ * never reach the list". `--run` today sweeps every outstanding runnable
+ * check in the backlog; doing that on every landing would re-run the same
+ * handful of commands on every fast-forward, so this only ever touches the
+ * checks `carried` above just created.
+ *
+ * It runs against `state.trunkTree` when one exists — the working copy of
+ * `main` a PASS's ledger entry can actually be committed into — and falls
+ * back to this worktree otherwise; its content is byte-identical to `main`
+ * right after the fast-forward either way. A FAIL is never written to the
+ * ledger: that would close the check, and what a failing command asks for is
+ * a fix, not a second look. It stays loud in this output and outstanding on
+ * `bun run checks` instead. Nothing here can unwind the landing above — the
+ * fast-forward has already happened by the time this runs, and `settle`'s own
+ * timeout keeps a hung command from hanging the landing with it.
+ */
+async function settleLanding(): Promise<void> {
+  const jobs = carried.filter((c) => c.command !== null);
+  if (jobs.length === 0) return;
+  const settleRoot = state.trunkTree || root;
+  let recorded = false;
+  for (const check of jobs) {
+    console.log(`\n$ ${check.command}   (${check.sha} — ${check.text})`);
+    const outcome = await settle(settleRoot, check, today);
+    if (outcome.status === "PASS") {
+      console.log("  PASS — recorded in docs/verified.md");
+      recorded = true;
+    } else if (outcome.status === "FAIL") {
+      console.log(outcome.detail.split("\n").slice(-25).join("\n"));
+      console.log(`  ✗ FAIL — ${check.command} — left on the list for a person`);
+    } else {
+      console.log(`  · not run — ${outcome.detail}`);
+    }
+  }
+  if (!recorded) return;
+  if (!state.trunkTree) {
+    console.log("  ⚑ commit docs/verified.md by hand — nothing has main checked out");
+    return;
+  }
+  await gitOrDie(["add", "docs/verified.md"], state.trunkTree);
+  await gitOrDie(
+    ["commit", "-q", "-m", "Checks a command could settle, settled at landing"],
+    state.trunkTree,
+  );
+  console.log("  committed docs/verified.md");
+}
+
+await settleLanding();
 
 /**
  * Retiring the entry is part of landing, not tidying afterwards.

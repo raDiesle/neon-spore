@@ -15,6 +15,7 @@
  */
 
 import { branchReady, branchReason, outstanding, runnable, staleStops } from "./checks.js";
+import type { Decision } from "./ledger.js";
 import {
   deleteBranch,
   readBranches,
@@ -25,34 +26,120 @@ import {
   writeDecision,
 } from "./repo.js";
 import { orphanedRestated } from "./restated.js";
+import type { Check } from "./trailers.js";
 
-const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
-const flags = new Set(process.argv.slice(2));
-const today = new Date().toISOString().slice(0, 10);
+/** How long a settled check is allowed to run before it counts as "not run". */
+export const SETTLE_TIMEOUT_MS = 120_000;
 
-const here = await trunk(root);
-const states = await readChecks(root);
-const left = outstanding(states);
-const branches = await readBranches(root, states);
-const spent = branches.filter(branchReady);
-// Whichever entries in `docs/checks/restated.md` matched nothing on `main`
-// right now — a stale sha, or a quote a trailer no longer says word for word.
-// `states` (not `left`) so a restatement written for an already-decided check
-// still counts as attached.
-const orphaned = orphanedRestated(await readRestated(root), states);
-
-if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behind === 0) {
-  process.exit(0);
+/** What a single settled check decided. */
+export interface Settled {
+  status: "PASS" | "FAIL" | "not run";
+  /** Command output, or the reason it never started / timed out. */
+  detail: string;
 }
 
-const acting = flags.has("--run") || flags.has("--clean");
-stale(acting);
-if (staleStops(here.behind, acting)) process.exit(1);
-if (flags.has("--run")) await runAll();
-if (flags.has("--clean")) await cleanAll();
-if (!acting) report();
+/**
+ * Run one command-naming check and record a `PASS` in the ledger when it goes
+ * green. Shared by `bun run checks --run` (every outstanding runnable check)
+ * and `bun run land` (only the ones a landing just added) — see
+ * `docs/queue.md`, "A check a command can settle should never reach the
+ * list".
+ *
+ * A red exit is `FAIL` and is left outstanding, same as before: what it asks
+ * for is a fix, and writing it off here would take away the chance for the
+ * same check to go green once the fix lands.
+ *
+ * Two things are folded into `"not run"` rather than `FAIL`, because neither
+ * one is the code answering "no" — the command never got to answer at all.
+ * The spawn itself can throw (the binary the check names is not on this
+ * machine), and a command can hang (`bun run relay:check` wants a wrangler on
+ * a port that may not exist here) — landing must survive that rather than
+ * inherit it, so it races the command against `timeoutMs` and gives up loudly
+ * instead of hanging.
+ */
+export async function settle(
+  root: string,
+  check: Pick<Check, "sha" | "text" | "command">,
+  today: string,
+  opts: {
+    timeoutMs?: number;
+    run?: (root: string, command: string) => Promise<{ ok: boolean; output: string }>;
+    record?: (root: string, decision: Decision) => Promise<void>;
+  } = {},
+): Promise<Settled> {
+  const command = check.command;
+  if (!command) return { status: "not run", detail: "does not name a repository command" };
+  const timeoutMs = opts.timeoutMs ?? SETTLE_TIMEOUT_MS;
+  const run = opts.run ?? runCommand;
+  const record = opts.record ?? writeDecision;
 
-function report(): void {
+  let result: { ok: boolean; output: string };
+  try {
+    const timedOut = Symbol("timed out");
+    // Cleared as soon as one side wins — an uncleared timer is otherwise a
+    // pending event a fast, green command would sit behind for the rest of
+    // `timeoutMs`, which for `bun run check` at the default is two minutes
+    // the process has already finished waiting for.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const raced = await Promise.race([
+      run(root, command),
+      new Promise<typeof timedOut>((resolve) => {
+        timer = setTimeout(() => resolve(timedOut), timeoutMs);
+      }),
+    ]);
+    clearTimeout(timer);
+    if (raced === timedOut) return { status: "not run", detail: `timed out after ${timeoutMs}ms` };
+    result = raced;
+  } catch (error) {
+    return { status: "not run", detail: String(error instanceof Error ? error.message : error) };
+  }
+
+  if (!result.ok) return { status: "FAIL", detail: result.output };
+  await record(root, { sha: check.sha, date: today, verdict: "PASS", text: check.text, note: "" });
+  return { status: "PASS", detail: result.output };
+}
+
+const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
+
+// Guarded so a test can import `settle` above without running the CLI —
+// `run.ts` is a script, not a library, everywhere except this one export.
+if (import.meta.main) await main();
+
+async function main(): Promise<void> {
+  const flags = new Set(process.argv.slice(2));
+  const today = new Date().toISOString().slice(0, 10);
+
+  const here = await trunk(root);
+  const states = await readChecks(root);
+  const left = outstanding(states);
+  const branches = await readBranches(root, states);
+  const spent = branches.filter(branchReady);
+  // Whichever entries in `docs/checks/restated.md` matched nothing on `main`
+  // right now — a stale sha, or a quote a trailer no longer says word for word.
+  // `states` (not `left`) so a restatement written for an already-decided check
+  // still counts as attached.
+  const orphaned = orphanedRestated(await readRestated(root), states);
+
+  if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behind === 0) {
+    process.exit(0);
+  }
+
+  const acting = flags.has("--run") || flags.has("--clean");
+  stale(here, acting);
+  if (staleStops(here.behind, acting)) process.exit(1);
+  if (flags.has("--run")) await runAll(states, today);
+  if (flags.has("--clean")) await cleanAll(spent);
+  if (!acting) report(left, states, branches, spent, orphaned, here);
+}
+
+function report(
+  left: ReturnType<typeof outstanding>,
+  states: Awaited<ReturnType<typeof readChecks>>,
+  branches: Awaited<ReturnType<typeof readBranches>>,
+  spent: Awaited<ReturnType<typeof readBranches>>,
+  orphaned: ReturnType<typeof orphanedRestated>,
+  here: Awaited<ReturnType<typeof trunk>>,
+): void {
   console.log(left.length === 0 ? "nothing to check on main." : `${left.length} to check on main:`);
 
   let commit = "";
@@ -120,7 +207,7 @@ function report(): void {
  * misreads the branches the same way — every landed branch as "still ahead
  * of main". So the warning is the whole story only while nothing acts on it.
  */
-function stale(acting: boolean): void {
+function stale(here: Awaited<ReturnType<typeof trunk>>, acting: boolean): void {
   if (here.behind === 0) return;
   const n = here.behind;
   console.log(`main is ${n} commit${n === 1 ? "" : "s"} behind origin — git pull first.`);
@@ -129,7 +216,10 @@ function stale(acting: boolean): void {
   console.log("");
 }
 
-async function runAll(): Promise<void> {
+async function runAll(
+  states: Awaited<ReturnType<typeof readChecks>>,
+  today: string,
+): Promise<void> {
   const jobs = runnable(states);
   if (jobs.length === 0) {
     console.log("no outstanding check names a command.");
@@ -137,24 +227,19 @@ async function runAll(): Promise<void> {
   }
   for (const check of jobs) {
     console.log(`\n$ ${check.command}   (${check.sha} — ${check.text})`);
-    const result = await runCommand(root, check.command ?? "");
-    if (result.ok) {
-      await writeDecision(root, {
-        sha: check.sha,
-        date: today,
-        verdict: "PASS",
-        text: check.text,
-        note: "",
-      });
+    const outcome = await settle(root, check, today);
+    if (outcome.status === "PASS") {
       console.log("  PASS — recorded in docs/verified.md");
-    } else {
-      console.log(result.output.split("\n").slice(-25).join("\n"));
+    } else if (outcome.status === "FAIL") {
+      console.log(outcome.detail.split("\n").slice(-25).join("\n"));
       console.log("  FAILED — left outstanding, because a fix is what it wants");
+    } else {
+      console.log(`  not run — ${outcome.detail}`);
     }
   }
 }
 
-async function cleanAll(): Promise<void> {
+async function cleanAll(spent: Awaited<ReturnType<typeof readBranches>>): Promise<void> {
   if (spent.length === 0) {
     console.log("no branch is spent yet.");
     return;
