@@ -63,6 +63,60 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## SIXTY BODIES IN ONE SKIN, AND NO WAY TO SEE ONE BODY IN ALL OF THEM
+_claude/burn-shapes-allskins-s19 · tools/director/src/shapes-all.ts tools/director/src/shapes-pair.ts_
+
+The SHAPES tab draws sixty bodies wearing one skin. The owner wants the
+transpose: **one body, drawn once per skin, all of them on the screen at
+once** — THE WEIGHT by default, the sagging sac from `drafts/bosses.ts`.
+
+This is the third and last thing decision 24 asks for and the only one still
+missing. The skin bar shows one, the B-picker shows two, and there are now
+**twenty**. Choosing between twenty by flipping through them in pairs is not
+choosing; it is a tournament nobody runs to the end.
+
+**Make the body pickable and default it to THE WEIGHT.** The owner named one
+body, and a view that can only ever show that one will be wrong the first time
+they want the same grid on a bulb — which will be immediately, because a sac
+on a stalk and a round nine-lobed body ask a skin completely different
+questions. One picker, defaulting where they asked.
+
+**Everything on it shares one clock.** Twenty figures on twenty `t` values is
+twenty phases of the same animation, and what you would be reading is the
+phase rather than the skin. `shape-figure.ts`'s single `tick` already hands one
+`t` to every figure on the page; take that and do not start a second loop.
+
+**The size floor decides the layout, and for once it can be answered before
+the work rather than after.** Twenty cards at once means smaller cards, and
+`docs/spec/graphics.md` puts the floor at 20–26 px for a body to stay
+nameable. `bun run shapes:report` now prints drawn size against that floor at
+a frame size you give it — that landed today for exactly this class of
+question. **Run it for THE WEIGHT at the frame sizes a twenty-up grid allows,
+put the numbers in the commit, and let them pick the layout.** If twenty
+cannot clear the floor on one screen, say so and scroll instead of shrinking:
+a grid of twenty unreadable bodies answers nothing, and the paired-cards lane
+already refused the same trade for the same reason.
+
+**Cost is not the problem here and it is worth saying so**, because the number
+looks alarming and is not. Twenty figures of one body is a third of the sixty
+this page already draws, and the frame fit — which was 96% of a skin switch
+until it was memoised today — is *the same fit* for all twenty, since it
+depends only on the entry and the motion. One fit, twenty `buildSkin` calls.
+
+The motion bar and `LIT` apply here as they do everywhere: a grid of twenty
+skins with the light off is exactly the experiment the light lane's own check
+asks for, on one screen instead of twenty flips.
+
+Finished when `bun run check` is green, one body is drawn in every registered
+skin on one screen with each named, the body is pickable and starts on THE
+WEIGHT, every figure shares one clock, the drawn size at the chosen layout is
+in the commit against the floor, and the commit carries `Check: with twenty
+skins on one body at once, is it obvious which ones are worth keeping?`
+
+Model `sonnet`, effort `think hard`. Read `shapes-pair.ts` — it already owns
+what a card is wearing and is the natural place for a third arrangement — then
+`shapes-report`'s drawn-size columns before choosing the grid.
+
 ## CILIA ASKS THE BROWSER WHERE THE CONTOUR IS, SIX THOUSAND TIMES A FRAME
 _claude/burn-skin-cilia-fast-s18 · tools/director/src/skins/cilia.ts_
 
