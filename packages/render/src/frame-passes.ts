@@ -1,0 +1,116 @@
+import { hullPercent, type World } from "@neon-spore/sim";
+import { drawBand } from "./band.js";
+import { drawBoss } from "./boss-draw.js";
+import { drawBriefing } from "./briefing.js";
+import { drawBullets } from "./bullets.js";
+import { drawCastShadows } from "./cast-shadow.js";
+import { drawContactShadows } from "./contact-shadow.js";
+import { drawCreatures } from "./creatures.js";
+import type { Effects } from "./effects.js";
+import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { drawGrips } from "./grip.js";
+import { drawHud, drawOverlay } from "./hud.js";
+import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
+import { drawLanceMark } from "./lance.js";
+import type { Layout } from "./layout.js";
+import { drawOtherHand } from "./other-hand.js";
+import { PALETTE } from "./palette.js";
+import { drawPods } from "./pods.js";
+import type { ViewState } from "./renderer.js";
+import { drawTorchAlarm } from "./torch-alarm.js";
+
+/**
+ * The four passes `Canvas2DRenderer.draw` assembles a frame from, in the
+ * order a reader looks for them: the field's back, the bodies on it, the
+ * ship and its controls, and the overlays on top of a finished frame. Every
+ * call here is one this file's caller used to make directly — the split
+ * moves lines, not behaviour, so nothing about what is drawn or when may
+ * change without also changing `packages/render/test/frame.test.ts`.
+ */
+
+/** The empty field: fill, backdrop, radar and the grid the columns sit on. */
+export function drawFieldBack(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  view: ViewState,
+  flash: number,
+): void {
+  ctx.fillStyle = PALETTE.background;
+  ctx.fillRect(0, 0, l.width, l.height);
+  drawBackground(ctx, l, world.wave, view.time);
+  drawRadar(ctx, l, world, view.time);
+  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase);
+}
+
+/** Everything that lives on the field between the two hulls. */
+export function drawBodies(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  view: ViewState,
+  effects: Effects,
+): void {
+  // Under the creatures: the mark is on the column, not on anything in it.
+  drawLanceMark(ctx, l, world);
+  drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
+  // Over the creatures because it darkens them, and clipped to each body it falls on.
+  drawCastShadows(ctx, l, world.cfg, world.creatures, view.beatPhase);
+  // Over the creatures, under everything the ship does: a hand on something
+  // is not an effect this file owns — it is world state, read fresh.
+  drawGrips(ctx, l, world, view.beatPhase, view.time);
+  drawBoss(ctx, l, view, effects);
+  drawPods(ctx, l, world.pods, view.time);
+  drawBullets(ctx, l, world.bullets);
+  effects.draw(ctx);
+}
+
+/** The player's own hull, its controls, and the transients glued to them. */
+export function drawShip(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  view: ViewState,
+  effects: Effects,
+  mood: HullMood,
+  at: LobePositions,
+): void {
+  drawHull(
+    ctx,
+    l,
+    world.scars,
+    view.time,
+    mood,
+    hullPercent(world),
+    at,
+    (x) => !effects.rockCoversCrater(x, l.tile),
+    (col, beat) => effects.hasArrived(col, beat),
+  );
+  drawContactShadows(ctx, l, world.cfg, world.creatures, world.scars, view.beatPhase);
+  // A hand on the lance, read straight off the world both devices share (other-hand.ts).
+  drawOtherHand(ctx, l, world, view.time, mood, at);
+  // In front of the hull, unlike the rest of Effects.draw() — see Effects.drawRockImpact.
+  effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
+  effects.drawBanner(ctx, l);
+  if (world.boss?.kind === "mirror") {
+    effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
+  }
+}
+
+/** What sits on top of a finished frame: HUD, alarms and cards. */
+export function drawOverlays(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  view: ViewState,
+  isArmed: boolean,
+  isOpen: boolean,
+): void {
+  drawHud(ctx, l, view);
+  drawTorchAlarm(ctx, l, world, view.time);
+  drawBand(ctx, l, world, isArmed, isOpen);
+  drawOverlay(ctx, l, view);
+  // Over the pause overlay and everything else: while a card is up the world
+  // is not ticking, so nothing under it is doing anything worth seeing.
+  drawBriefing(ctx, l, world, view.role);
+}
