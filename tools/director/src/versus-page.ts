@@ -74,12 +74,21 @@ export function mountVersusTab(): void {
   const body = document.getElementById("backlogBody");
   if (!tabs || !body || document.getElementById(`sheet-${TAB_ID}`)) return;
 
-  const tab = button("VERSUS");
+  const tab = button("ALTERNATIVES");
   tab.dataset.tab = TAB_ID;
   tabs.appendChild(tab);
 
   const page = el("div", "sheetpage");
   page.id = `sheet-${TAB_ID}`;
+  page.appendChild(
+    el(
+      "p",
+      "pagewhat",
+      "A second answer to something the game already draws or plays — a colour, " +
+        "a shape, a motion, a sound — put beside the shipped one on two phones " +
+        "at tempo, and voted on.",
+    ),
+  );
   page.appendChild(
     el(
       "p",

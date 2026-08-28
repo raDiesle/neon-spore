@@ -496,6 +496,18 @@
       .sheetpage { display: none; }
       .sheetpage.on { display: block; }
       .sheetpage > .note { max-width: 620px; }
+      /* The answer to "what is this page", pulled out of the `.note` fog:
+         `.note` is 9px and #574d84 everywhere else in this file too, so a
+         page's own explanation read as just another caption among dozens and
+         the eye went straight past it to the cards. Sticky keeps it in view
+         under the tab bar while the wall of cards scrolls under it, instead
+         of losing it above the fold on the first scroll. */
+      .sheetpage > .pagewhat {
+        position: sticky; top: 0; z-index: 1; background: var(--bg);
+        max-width: 620px; margin: 0 0 14px; padding: 10px 0 12px;
+        font-size: 12px; line-height: 1.6; color: var(--ink);
+        border-bottom: 1px solid var(--line-soft);
+      }
       .sheetpage h2 { color: var(--cyan); letter-spacing: 3px; font-size: 11px; margin: 18px 0 2px; }
 
       /* VERSUS — two phones, one world. See `versus-page.ts` for the sheet and
@@ -902,7 +914,7 @@
       </div>
       <div id="backlogBody">
         <div class="sheetpage on" id="sheet-bestiary">
-          <p class="note">
+          <p class="pagewhat">
             Every creature the design has a name for and the simulation does
             not: the first thirteen, everything argued into the spec since, and
             the creature ideas that are accepted but not worked out. The frame
@@ -916,7 +928,7 @@
           <div id="backlogBestiary" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-shapes">
-          <p class="note">
+          <p class="pagewhat">
             Every contour the project has, in three states. A DRAFT was drawn
             for a named idea in the store and offered to it. A FREE shape has
             nothing behind it — tuned in legacy/style-guide.html and never
@@ -975,7 +987,7 @@
           </div>
         </div>
         <div class="sheetpage" id="sheet-mechanics">
-          <p class="note">
+          <p class="pagewhat">
             Rules the field would play by. The couplings are the patterns
             everything else follows from, the assist forms cushion a difference
             in ability, and the systems are the machinery underneath. Anything
@@ -985,7 +997,7 @@
           <div id="backlogMechanics" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-controls">
-          <p class="note">
+          <p class="pagewhat">
             What a player's own hands would do differently. The control scheme
             that exists is in the game itself and in its KEYS screen; this is
             the queue of changes to it.
@@ -993,7 +1005,7 @@
           <div id="backlogControls" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-bosses">
-          <p class="note">
+          <p class="pagewhat">
             One boss every ten waves. Only a few have a worked-out design; the
             rest are names holding a slot in the act structure.
           </p>
@@ -1001,7 +1013,7 @@
           <div id="backlogBosses" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-interludes">
-          <p class="note">
+          <p class="pagewhat">
             Rounds that are not the field: their own rules, their own controls
             and their own picture, over in about ninety seconds. THE MIRROR is
             one already and is filed as a boss, because it is one; these have
@@ -1012,14 +1024,14 @@
           <div id="backlogInterludes" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-parked">
-          <p class="note">
+          <p class="pagewhat">
             Not queued: deferred on purpose, or examined and turned down with a
             reason. Here so that the same idea does not get proposed twice.
           </p>
           <div id="backlogParked" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-queue">
-          <p class="note">
+          <p class="pagewhat">
             Decided, not yet done: the ordered work an unattended run walks,
             each entry carrying the branch it is built on and the paths it
             owns. The stamp says where it stands — WAITING has no branch yet,
@@ -1031,7 +1043,7 @@
           <div id="backlogQueue" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-designs">
-          <p class="note">
+          <p class="pagewhat">
             Worked-out plans, already carrying column numbers, beat tables and
             parameter values — argued further than a parked idea and not
             itself a lane. docs/queue.md is what turns a section of one of
@@ -1041,7 +1053,7 @@
           <div id="backlogDesigns" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-spec">
-          <p class="note">
+          <p class="pagewhat">
             Every file in docs/spec/, read off disk. The tabs beside this one
             group the design into entries, and a group is a choice about what
             to keep — the naming rules, the categories and the ceiling on how
