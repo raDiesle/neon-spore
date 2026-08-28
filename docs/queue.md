@@ -115,23 +115,6 @@ Model `opus`, effort `think hard`. The judgement is what to defer and what
 must stay eager; the observer is arithmetic. Read `shapes-panel.ts`'s own
 comment on why it rebuilds, and `shape-figure.ts`'s `tick`, before anything.
 
-## NINE TEXTURES SIT PERFECTLY STILL ON A BODY THAT IS SUPPOSED TO BE TURNING
-_claude/burn-skin-mounted-s7 · tools/director/src/skins/mounted.ts tools/director/src/skins/scale.ts tools/director/src/skins/carapace.ts tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
-
-The owner's ask, and it is the one thing the block has been circling all day without landing: **a body that turns should carry its surface round with it, so what was at the back comes to the front.**
-
-Exactly one skin does this today. `turn.ts` gives a feature a *longitude* rather than a position, hides the far hemisphere, narrows a feature to nothing at the limb and brings it back at the other side — and `crater.ts` already imports `mount`, `spin`, `stops` and `Mounted` from it rather than restating the cosine, which is the proof the machinery generalises. Every other texture is a flat decal: SCALE, CARAPACE, PORE and SUCKER are seeded scatters clipped to the contour, and when the body turns they squash. A scale on the far side of a turning body should disappear round the edge and come back; today it slides.
-
-So: lift the projection into `mounted.ts` — one module owning `Mounted`, `mount`, `spin` and the limb behaviour, imported by `turn.ts` and `crater.ts` as well, so there is one copy and not three. Then give each of the four scatter skins a mounted form: every element gets a longitude and a latitude instead of an `x` and a `y`, and the shared turn phase carries it around. **The scatter itself does not change** — the same seeded distribution, the same density field, the same look at rest. What changes is that a position becomes a place *on a sphere* rather than a place on a picture.
-
-**The judgement, and it is the whole lane.** A scale is not a dot: it has extent and an orientation, so it must also *turn away* as it goes round — foreshortened across its width, its long axis rotating toward the limb — or it reads as a sticker that shrinks. `turn.ts`'s patches are ellipses and got this for free; a scale's arc and a sucker's rings do not. Say in the commit what each of the four does at 60°, 80° and at the limb.
-
-**Do not touch the existing unmounted skins' look at rest.** Whether a mounted skin replaces its flat original or sits beside it on the switcher is this lane's call — argue it in the commit. Beside is the safer answer and doubles the switcher; replacing is cleaner and destroys the comparison. Prefer beside unless the flat one is strictly worse in every pose.
-
-Finished when `bun run check` is green, every file under 250, one copy of the projection, and the commit carries `Check: on a turning body, does a scale go round the far side and come back, or does it slide across a face — the SHAPES tab, SCALE beside MOUNTED SCALE, with LIT on`.
-
-Model `opus`, effort `ultrathink`. Read `tools/director/src/skins/turn.ts` first, then `crater.ts` to see how it already reuses it, then `docs/dimensional.md` for why the pose cannot do this alone.
-
 ## A WORM DOES NOT SPIN, IT WINDS
 _claude/burn-skin-wind-s8 · tools/director/src/skins/wind.ts_
 
