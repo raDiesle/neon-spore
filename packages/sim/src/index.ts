@@ -18,6 +18,7 @@ export {
   currentBriefing,
   forgetBriefings,
   MAX_BRIEFING_SUBJECTS,
+  openBriefings,
   subjectIndex,
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";

@@ -82,6 +82,7 @@
       #waveList .n { color: #4b4177; margin-right: 6px; }
       #waveList .boss-mark { color: var(--gold); }
       #waveList .control-mark { color: var(--cyan); }
+      #waveList .card-mark { color: #7dffb0; }
       .rail-actions { display: flex; flex-wrap: wrap; gap: 4px; }
 
       main > section.brush-col { display: flex; gap: 14px; align-items: flex-start; }
@@ -679,6 +680,25 @@
       .control-set-col ul { margin: 0; padding-left: 15px; }
       .control-set-col li { margin: 0 0 5px; color: var(--dim); line-height: 1.4; font-size: 10px; }
       .control-set-col li b { color: var(--ink); font-weight: 400; letter-spacing: 1px; }
+
+      /* CARDS: every briefing card, grouped by the wave that first raises it
+         — the documented half of what NOT BUILT YET's own CARDS tab now
+         calls a proposal (`card-page.ts`). Same full-screen shell as CONTROL
+         SETS; `.scenes`/`.scene`/`.note` are the same classes the backlog's
+         own scene frames already use, so a wave's group of cards needs only
+         its own heading style. */
+      #cardsSheet { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #cardsSheet.on { display: flex; flex-direction: column; }
+      #cardsSheet > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #cardsSheet .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #cardsSheet .sub { color: var(--dim); font-size: 10px; max-width: 720px; }
+      #cardsSheet > header button { margin-left: auto; }
+      #cardsSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      #cardsSheetBody section { margin-bottom: 22px; }
+      .card-wave-head { color: var(--cyan); font-size: 10px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 400; }
     </style>
   </head>
   <body>
@@ -694,6 +714,7 @@
       <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
       <button type="button" id="controlSetsOpen">⎈ CONTROL SETS</button>
+      <button type="button" id="cardsOpen">✎ CARDS</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
@@ -1095,6 +1116,20 @@
         <button type="button" id="controlSetsClose">✕ CLOSE</button>
       </header>
       <div id="controlSetsBody"></div>
+    </div>
+
+    <!-- CARDS: a card that has a wave stops being a proposal — see
+         `card-page.ts`'s doc comment. Same full-screen shell as CONTROL SETS,
+         one heading per wave that raises a card, in wave order. -->
+    <div id="cardsSheet">
+      <header>
+        <span class="title">CARDS</span>
+        <span class="sub">
+          every briefing card, assigned to the wave that first raises it for a pair playing in order
+        </span>
+        <button type="button" id="cardsSheetClose">✕ CLOSE</button>
+      </header>
+      <div id="cardsSheetBody"></div>
     </div>
 
     <script type="module" src="./src/main.ts"></script>

@@ -1,5 +1,6 @@
 import { BRIEFINGS } from "@neon-spore/content";
 import { BRIEFING_SUBJECTS, type BriefingId } from "@neon-spore/sim";
+import { subjectWorld } from "./card-gallery.js";
 import { AUTHORED_WAVE_COUNT, waveBriefingWorld, waveLabel } from "./card-waves.js";
 import { frameWorld, PHONE } from "./pose-art.js";
 
@@ -36,6 +37,16 @@ function cardFrame(world: ReturnType<typeof waveBriefingWorld>, seat: string): H
   label.textContent = seat;
   box.appendChild(label);
   return box;
+}
+
+/**
+ * One subject, drawn as the single unredacted `"test"`-role frame `cardFrame`
+ * already draws for a wave's own sequence — offered for one subject at a time
+ * instead. `card-page.ts`'s documented CARDS sheet groups these by the wave
+ * that first raises them (`card-waves.ts`'s `cardFirstWave`).
+ */
+export function subjectCardFrame(id: BriefingId, label: string): HTMLElement {
+  return cardFrame(subjectWorld(id), label);
 }
 
 function render(mount: HTMLElement, waveIndex: number): void {

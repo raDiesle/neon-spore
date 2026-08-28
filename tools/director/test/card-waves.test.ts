@@ -1,5 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { AUTHORED_WAVE_COUNT, waveBriefingOrder, waveBriefingWorld } from "../src/card-waves.js";
+import { BRIEFING_SUBJECTS } from "@neon-spore/sim";
+import {
+  AUTHORED_WAVE_COUNT,
+  cardFirstWave,
+  subjectsWithNoWave,
+  waveBriefingOrder,
+  waveBriefingWorld,
+  wavesWithCards,
+} from "../src/card-waves.js";
 
 /**
  * The derivation the ORDER section draws, tested the way `poses.test.ts`
@@ -34,5 +42,41 @@ describe("waveBriefingOrder", () => {
   test("a fresh world reaches this without ending its own run", () => {
     const world = waveBriefingWorld(0);
     expect(world.over).toBe(false);
+  });
+});
+
+describe("cardFirstWave", () => {
+  test("wave 1 is where THE OPENING and THE SLICK are first raised — same premise as waveBriefingOrder's own", () => {
+    const first = cardFirstWave();
+    expect(first.get("opening")).toBe(0);
+    expect(first.get("slick")).toBe(0);
+  });
+
+  test("every assigned subject's wave is a real, authored wave", () => {
+    const first = cardFirstWave();
+    for (const [id, waveIndex] of first) {
+      expect(waveIndex, id).toBeGreaterThanOrEqual(0);
+      expect(waveIndex, id).toBeLessThan(AUTHORED_WAVE_COUNT);
+    }
+  });
+
+  test("every subject it names is a real briefing subject, and none is named twice", () => {
+    const first = cardFirstWave();
+    expect(new Set(first.keys()).size).toBe(first.size);
+    for (const id of first.keys()) {
+      expect(BRIEFING_SUBJECTS.includes(id), id).toBe(true);
+    }
+  });
+
+  test("wavesWithCards is exactly the set of waves cardFirstWave assigns something to", () => {
+    const expected = new Set(cardFirstWave().values());
+    expect(wavesWithCards()).toEqual(expected);
+  });
+
+  test("a subject in cardFirstWave is never also in subjectsWithNoWave, and the two cover every subject", () => {
+    const assigned = new Set(cardFirstWave().keys());
+    const orphans = subjectsWithNoWave();
+    for (const id of orphans) expect(assigned.has(id), id).toBe(false);
+    expect(assigned.size + orphans.length).toBe(BRIEFING_SUBJECTS.length);
   });
 });

@@ -4,6 +4,7 @@ import {
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
+import { wavesWithCards } from "./card-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -42,6 +43,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     }
   }
 
+  const cardWaves = wavesWithCards();
   const renderList = (): void => {
     if (!list) return;
     list.replaceChildren();
@@ -71,6 +73,17 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
         mark.className = "control-mark";
         mark.textContent = "⎈ ";
         mark.title = set.name;
+        button.append(mark);
+      }
+      // A third mark. `cardWaves` reads the shipped `WAVES` the same way
+      // `wavesUsingSet` (`control-sets.ts`) already does for the mark above —
+      // this list is one editing session's unsaved draft, and the derivation
+      // is over the wave order that ships, not that draft. See `card-waves.ts`.
+      if (cardWaves.has(i)) {
+        const mark = document.createElement("span");
+        mark.className = "card-mark";
+        mark.textContent = "✎ ";
+        mark.title = "opens on at least one briefing card";
         button.append(mark);
       }
       button.append(document.createTextNode(wave.name || "— unnamed —"));

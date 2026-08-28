@@ -1,5 +1,7 @@
+import { BRIEFINGS } from "@neon-spore/content";
 import { renderGallery } from "./card-gallery.js";
 import { bindOrderPicker } from "./card-order.js";
+import { subjectsWithNoWave } from "./card-waves.js";
 
 /**
  * A CARDS tab, added to the NOT BUILT YET sheet.
@@ -22,6 +24,19 @@ import { bindOrderPicker } from "./card-order.js";
  * step with the first. `mountCardTab` only asks the sheet's existing tab bar
  * for one more button, the same way a tenth spec file asks the SPEC tab for
  * one more file rather than a tab of its own.
+ *
+ * **A card that has a wave is not a proposal any more.** `docs/queue.md`'s
+ * card-assignment lane derives, for every subject, the wave that first raises
+ * it (`card-waves.ts`'s `cardFirstWave`) — and once that fact exists, showing
+ * the card here, under NOT BUILT YET, alongside a genuine proposal like a
+ * creature nothing draws yet, is the wrong claim. So this tab now only
+ * carries what stays a proposal — a card whose subject no wave reaches — and
+ * the two review tools below it, which are working aids for any card rather
+ * than a listing of unbuilt ones. Every assigned card moved to its own
+ * top-level sheet, `card-catalogue.ts`'s `bindCardsPage` — the same shape
+ * STATES and CONTROL SETS already use for "built, and here is the proof" —
+ * grouped by the wave that teaches it, which is the fact a reader of the wave
+ * list actually wants once they see the new mark `rail.ts` puts there.
  */
 
 const TAB_ID = "cards";
@@ -71,9 +86,35 @@ export function mountCardTab(): void {
     "confusing here is too long, too small or confusing in the game.";
   page.appendChild(how);
 
+  page.appendChild(unassignedSection());
   page.appendChild(gallerySection());
   page.appendChild(orderSection());
   body.appendChild(page);
+}
+
+/**
+ * The one thing left that is genuinely "not built yet": a card whose subject
+ * `cardFirstWave` cannot find in any wave. Empty is the expected state — see
+ * `test/card-waves.test.ts` for what pins that down — and reads the same way
+ * every other empty backlog group already does (`backlog-page.ts`'s own
+ * "nothing here — all of it is built.").
+ */
+function unassignedSection(): HTMLElement {
+  const section = document.createElement("section");
+  const h2 = document.createElement("h2");
+  h2.textContent = "NOT REACHED BY ANY WAVE";
+  section.appendChild(h2);
+
+  const orphans = subjectsWithNoWave();
+  const note = document.createElement("p");
+  note.className = "note";
+  note.textContent =
+    orphans.length === 0
+      ? "nothing here — every card is reached by some wave. The assigned list is under 🗎 CARDS."
+      : `${orphans.length} card${orphans.length === 1 ? "" : "s"} name something no wave contains: ` +
+        `${orphans.map((id) => `${BRIEFINGS[id].title} (${id})`).join(", ")}.`;
+  section.appendChild(note);
+  return section;
 }
 
 function gallerySection(): HTMLElement {

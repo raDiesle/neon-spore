@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { bindCardsPage } from "./card-catalogue.js";
 import { bindChecks } from "./checks-page.js";
 import { bindControlSetsPage } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
@@ -228,6 +229,7 @@ bindChecks();
 bindStates();
 bindSoundPage();
 bindControlSetsPage();
+bindCardsPage();
 bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {

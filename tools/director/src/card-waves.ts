@@ -4,6 +4,7 @@ import {
   type BriefingId,
   createWorld,
   DEFAULT_CONFIG,
+  openBriefings,
   startWave,
   type World,
 } from "@neon-spore/sim";
@@ -57,4 +58,57 @@ export function waveBriefingWorld(waveIndex: number): World {
 /** The subjects a fresh pair owes at the start of a wave, in reading order. */
 export function waveBriefingOrder(waveIndex: number): BriefingId[] {
   return waveBriefingWorld(waveIndex).brief.due.map((i) => BRIEFING_SUBJECTS[i]!);
+}
+
+/**
+ * Which wave first raises each card, for a pair playing the whole queue in
+ * order — a different question from `waveBriefingOrder`'s own, and the one
+ * `docs/queue.md`'s card-assignment lane actually asks: not "what does wave i
+ * send a pair who skipped straight to it", but "where does a pair who played
+ * every wave before it first meet this".
+ *
+ * Derived by calling `openBriefings` — the same function `startWave` calls —
+ * against one `World` carried across every wave in campaign order, marking
+ * each wave's own due subjects met before moving to the next. That is exactly
+ * what a real run does one card at a time; nothing here re-summarizes a
+ * wave's queue, pods or boss by hand; a hand-kept table is the thing this
+ * lane exists to replace. Cached, since `WAVES` does not change at runtime
+ * and this is asked from three different places (`rail.ts`, `card-page.ts`).
+ */
+let firstWaveCache: ReadonlyMap<BriefingId, number> | null = null;
+
+export function cardFirstWave(): ReadonlyMap<BriefingId, number> {
+  if (firstWaveCache) return firstWaveCache;
+  const world = createWorld({ ...CARD_CFG }, 0);
+  const map = new Map<BriefingId, number>();
+  for (let i = 0; i < WAVES.length; i++) {
+    openBriefings(
+      world,
+      buildQueue(i, CARD_CFG.cols),
+      buildPods(i, CARD_CFG.cols),
+      buildBoss(i, CARD_CFG.cols),
+    );
+    for (const idx of world.brief.due) {
+      const id = BRIEFING_SUBJECTS[idx]!;
+      if (!map.has(id)) map.set(id, i);
+      world.brief.met |= 1 << idx;
+    }
+  }
+  firstWaveCache = map;
+  return map;
+}
+
+/** Wave indices that introduce at least one card — what `rail.ts` marks. */
+export function wavesWithCards(): ReadonlySet<number> {
+  return new Set(cardFirstWave().values());
+}
+
+/**
+ * Every card `BRIEFINGS` has that no wave ever raises. Not a row to invent —
+ * see `docs/queue.md` — but a fact worth surfacing, since it is exactly what
+ * stays a proposal once every reachable card has an assignment.
+ */
+export function subjectsWithNoWave(): BriefingId[] {
+  const raised = cardFirstWave();
+  return BRIEFING_SUBJECTS.filter((id) => !raised.has(id));
 }
