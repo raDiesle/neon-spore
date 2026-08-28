@@ -519,6 +519,14 @@ rest standing.
 - what is still in flight and where its worktree is;
 - any question a lane stopped on.
 
+**PNG, never SVG.** The owner reads these on an Android phone, where an SVG
+attachment is a file to open rather than a picture to glance at, and a picture
+that has to be opened is not a glance. `bun run frames` already writes PNG. A
+shape sheet does not — it writes SVG, which is right for the tool and wrong for
+the chat — so rasterise it before sending: load the file in the headless Chrome
+`tools/frames` already depends on and screenshot the `<svg>` element. Twenty
+lines, no new dependency.
+
 **Send pictures instead.** The owner asked for them: *you can send me
 screenshots of some results and I could optional already review and give
 feedback.* That is the opposite of the list — a list asks them to go and look,
