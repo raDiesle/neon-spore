@@ -1,4 +1,12 @@
-import { type Creature, isGrippable, isMeteorKind, spanCenterCol } from "@neon-spore/sim";
+import {
+  type Creature,
+  DEFAULT_CONFIG,
+  isGrippable,
+  isMeteorKind,
+  type SimConfig,
+  spanCenterCol,
+} from "@neon-spore/sim";
+import { depthScale, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./torch.js";
 
@@ -13,17 +21,36 @@ export function creatureCenter(
   c: Creature,
   beatPhase: number,
 ): { x: number; y: number } {
-  // One tile per beat, linear. No easing: the movement must read as an even
-  // glide so that "it lands on the four" is a statement both players can act on.
-  const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
+  // One tile per beat, linear (`drawnRow`). No easing: the movement must read
+  // as an even glide so that "it lands on the four" is a statement both
+  // players can act on. Exactly linear, and it stays that way — the depth cues
+  // in `depth.ts` change how big a body draws, never where it is.
+  const row = drawnRow(c, beatPhase);
   // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
   // sim/types.ts) — every kind is drawn at its visual centre.
   return { x: tileCX(l, spanCenterCol(c.kind, c.col)), y: tileCY(l, row) };
 }
 
-/** How big it draws. A rock has its own sizes; everything living is one tile. */
-export function creatureRadius(l: Layout, c: Creature): number {
-  return isMeteorKind(c.kind) ? rockRadius(l, c.kind) : l.tile * 0.4;
+/**
+ * How big it draws. A rock has its own sizes; everything living is one tile —
+ * both then times the row's perspective scale, because a ring drawn around a
+ * body that grew is a ring that has to grow with it.
+ *
+ * `beatPhase` and `cfg` are optional so that a caller with neither still gets
+ * the shape the game actually draws rather than the flat one: phase 0 puts the
+ * body on the row it left, 0.9% of a radius from where it is mid-glide, and
+ * `DEFAULT_CONFIG` is what every device runs. `grip.ts` is the one such
+ * caller; a quarter of a pixel is under what its own `RING_MUL` spends, and it
+ * is worth passing properly the next time that file is open.
+ */
+export function creatureRadius(
+  l: Layout,
+  c: Creature,
+  beatPhase = 0,
+  cfg: SimConfig = DEFAULT_CONFIG,
+): number {
+  const flat = isMeteorKind(c.kind) ? rockRadius(l, c.kind) : l.tile * 0.4;
+  return flat * depthScale(cfg, l, drawnRow(c, beatPhase));
 }
 
 /**
@@ -50,7 +77,7 @@ export function creatureAt(
   for (const c of creatures) {
     if (!isGrippable(c.kind)) continue;
     const { x: cx, y: cy } = creatureCenter(l, c, beatPhase);
-    const reach = creatureRadius(l, c) * 1.6;
+    const reach = creatureRadius(l, c, beatPhase) * 1.6;
     const d =
       c.kind === "tether"
         ? lineDistance(x, y, cx, tileCY(l, wardenRow), cy)

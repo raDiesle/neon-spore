@@ -127,6 +127,23 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
+  /**
+   * Perspective by row: how much larger a body draws on the hull row than on
+   * the top row. 1 is the flat field. Read by render/ (`depth.ts`) and by
+   * nothing else — `hashWorld` leaves `cfg` out, so two devices may disagree
+   * about it and still agree about the world. Never below 1: the direction is
+   * a constraint, because a shrinking far row walks through the 20–26 px
+   * nameability floor. `render/src/depth.ts` derives 1.125 twice, and
+   * `render/test/depth.test.ts` keeps it from being raised past either.
+   */
+  depthNearScale: number;
+  /**
+   * Atmospheric perspective: how far a body on the *top* row has its colours
+   * mixed toward the field's far colour, 0 to 1, falling to 0 at the hull.
+   * One mix pays for dimmer, cooler and lower contrast at once. Read by
+   * render/ (`depth.ts`).
+   */
+  depthHaze: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -185,6 +202,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   bandPct: 37,
   bandSoloPct: 27,
   radarHeightPx: 34,
+  depthNearScale: 1.125,
+  depthHaze: 0.3,
   queenEggGrowShare: 0.5,
   briefings: false,
 };

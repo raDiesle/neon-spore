@@ -5,9 +5,16 @@ import {
   livingSilhouette,
   poseClock,
 } from "@neon-spore/content";
-import { type Creature, isBossBody, isMeteorKind, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  isBossBody,
+  isMeteorKind,
+  type SimConfig,
+  type World,
+} from "@neon-spore/sim";
 import { drawDetails } from "./creature-detail.js";
 import { creatureCenter } from "./creature-place.js";
+import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawMeteor } from "./meteor.js";
@@ -38,15 +45,30 @@ export function drawCreatures(
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
-  for (const c of world.creatures) {
+  // Farthest first: which of two overlapping bodies is in front used to be
+  // decided by spawn order, which is not a fact about the picture. See
+  // `byDepth` — it copies rather than sorting the simulation's own array.
+  for (const c of byDepth(world.creatures, beatPhase)) {
     // A boss body is drawn by `boss-draw.ts`, because its picture depends on
     // `world.boss` and not on the creature alone — and so is the tether, which
     // is a line down a column rather than a thing standing on a tile.
     if (isBossBody(c.kind) || c.kind === "tether") continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
+    const row = drawnRow(c, beatPhase);
+    const near = nearness(l, row);
+    // Perspective as one transform about the body's own centre, rather than a
+    // radius threaded through three drawing files: it takes the rock and the
+    // torch with it, and it scales their line weights by the same factor, so
+    // the style guide's "1.2–1.8 px at 26 px object size" survives the growth.
+    const k = depthScale(world.cfg, l, row);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(k, k);
+    ctx.translate(-x, -y);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
-    else drawLiving(ctx, l, c, x, y, beats, time, blocked.get(c.id) ?? 0);
+    else drawLiving(ctx, l, c, x, y, beats, time, blocked.get(c.id) ?? 0, world.cfg, near);
+    ctx.restore();
   }
 }
 
@@ -59,6 +81,8 @@ function drawLiving(
   beats: number,
   time: number,
   blocked: number,
+  cfg: SimConfig,
+  near: number,
 ): void {
   const isBulb = c.kind === "bulb";
   const shape = livingSilhouette(c.kind);
@@ -66,9 +90,17 @@ function drawLiving(
   // a colour match) — the red/cyan ternary below would otherwise read a null
   // colour as cyan, painting a decoy in one of the two ammunition colours.
   const neutral = c.color === null;
-  const rim = neutral ? PALETTE.sparkDim : c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-  const hex = neutral ? PALETTE.dim : c.color === "red" ? PALETTE.red : PALETTE.cyan;
-  const dark = neutral ? PALETTE.rockDark : c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
+  // Every colour goes through `hazed`: distance is spent on the palette here
+  // and nowhere else, so the far rows come out dimmer, cooler and at lower
+  // contrast in one operation instead of three.
+  const haze = (h: string): string => hazed(cfg, h, near);
+  const rim = haze(
+    neutral ? PALETTE.sparkDim : c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim,
+  );
+  const hex = haze(neutral ? PALETTE.dim : c.color === "red" ? PALETTE.red : PALETTE.cyan);
+  const dark = haze(
+    neutral ? PALETTE.rockDark : c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark,
+  );
 
   // Variation without randomness in the simulation: the id is deterministic on
   // both devices, so two screens shake the same creature the same way.
@@ -117,7 +149,7 @@ function drawLiving(
   if (blocked > 0) {
     // Wrong colour: no resonance, so the light organ stays shut. Grey outline
     // only — the shot is spent and the creature keeps coming.
-    ctx.strokeStyle = PALETTE.sparkDim;
+    ctx.strokeStyle = haze(PALETTE.sparkDim);
     ctx.lineWidth = 2 / scale;
     ctx.stroke(path);
   } else {
