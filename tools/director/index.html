@@ -553,6 +553,18 @@
       }
       .skinbar .skin:hover { color: var(--ink); border-color: var(--dim); }
       .skinbar .skin.is-on { color: var(--bg); background: var(--cyan); border-color: var(--cyan); }
+      /* Three named axes — skin, motion, light — each its own heading, its
+         own line of prose, and its own row of buttons, stacked rather than
+         run together in the one row `.skinbar` alone lays out. */
+      .skinbar.control-bar { display: flex; flex-direction: column; gap: 14px; }
+      .skinbar.control-bar .control-group { display: flex; flex-direction: column; gap: 4px; }
+      .skinbar.control-bar .control-heading {
+        font: 12px "Courier New", monospace; letter-spacing: 3px; color: var(--ink); margin: 0;
+      }
+      .skinbar.control-bar .control-desc {
+        font-size: 10px; color: var(--dim); line-height: 1.45; margin: 0; max-width: 640px;
+      }
+      .skinbar.control-bar .control-row { display: flex; gap: 6px; flex-wrap: wrap; }
       .shape {
         display: flex; gap: 10px; align-items: flex-start; width: 330px;
         padding: 8px; border: 1px solid var(--line-soft); border-radius: 8px; font-size: 10px;

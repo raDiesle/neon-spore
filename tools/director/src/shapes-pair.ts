@@ -16,14 +16,15 @@
  * — a skin grid is read against whatever light and motion the bar is set to,
  * same as a motion grid is read against whatever skin is picked — so the
  * three getters at the bottom are exported for it. Nothing else outside this
- * file may write these three; the control row below is the only place they
- * change.
+ * file may write these three; the three setters just below them are the only
+ * way, and `controlBar` — now in `shapes-controls.ts`, re-exported here so
+ * `shapes-panel.ts` keeps importing it from this file — is the only caller.
  */
 
 import type { OwnMotion } from "@neon-spore/content";
-import { type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
+import type { CatalogueEntry } from "@neon-spore/shape-sheet";
 import { shapeFigure } from "./shape-figure.js";
-import { SKINS, type SkinId } from "./skins/index.js";
+import type { SkinId } from "./skins/index.js";
 
 /**
  * Which skin every card is wearing. MEMBRANE rather than LINE, because the
@@ -68,78 +69,29 @@ export function currentMotion(): OwnMotion | undefined {
   return motion;
 }
 
-function button(host: HTMLElement, label: string, on: boolean, hint: string, pick: () => void) {
-  const b = document.createElement("button");
-  b.className = on ? "skin is-on" : "skin";
-  b.textContent = label;
-  b.title = hint;
-  b.addEventListener("click", pick);
-  host.appendChild(b);
-  return b;
+/** Sets the whole page's skin. The only writer besides `controlBar` itself. */
+export function setSkin(id: SkinId): void {
+  skinA = id;
 }
 
-function tag(host: HTMLElement, body: string): void {
-  const s = document.createElement("span");
-  s.textContent = body;
-  s.style.cssText =
-    "font:10px 'Courier New',monospace;letter-spacing:2px;color:var(--dim);align-self:center;margin-left:10px";
-  host.appendChild(s);
+/** Flips the key light for the whole page. */
+export function toggleLit(): void {
+  lit = !lit;
+}
+
+/** Forces (or, given `undefined`, releases back to OWN) the motion driving
+ * every card. */
+export function setMotion(m: OwnMotion | undefined): void {
+  motion = m;
 }
 
 /**
- * The whole control row, built once above the drafts.
- *
- * Rebuilding every card is the whole of switching: a figure's fill, aura and
- * clip are decided when it is constructed, and mutating them in place would be
- * a second copy of `buildSkin` that has to agree with the first. That rebuild
- * once cost seven to twelve seconds; almost none of it was the rebuild. It was
- * the frame fit, rescanned per card per switch for an answer that had not
- * changed — `shape-figure.ts` remembers it now, and a switch costs about a
- * fifth of a second, so nothing here need be cleverer about which cards.
+ * The whole control row, built once above the drafts and read by
+ * `shapes-all.ts`'s three grids besides. Its own file, `shapes-controls.ts`,
+ * because the group headings and independence-of-the-other-axes wording it
+ * needs are a page concern, not a "what is this card wearing" one.
  */
-export function controlBar(host: HTMLElement, rerender: () => void): void {
-  host.replaceChildren();
-  tag(host, "SKIN");
-  for (const s of SKINS)
-    button(host, s.label, s.id === skinA, s.hint, () => {
-      skinA = s.id;
-      rerender();
-    });
-
-  // Orthogonal to the skins: it unpicks none of them and none of them touch
-  // it. One button because there is one light.
-  tag(host, "·");
-  button(
-    host,
-    "LIT",
-    lit,
-    "the key light, on top of whichever skin composes it — off shows the same skin without it",
-    () => {
-      lit = !lit;
-      rerender();
-    },
-  );
-
-  // Same host again: the skin is picked for the whole page and so is the
-  // motion, so they read as one row of controls rather than two panels that
-  // happen to sit near each other.
-  tag(host, "MOTION");
-  button(
-    host,
-    "OWN",
-    motion === undefined,
-    "each card keeps whatever motion its own catalogue entry was authored with",
-    () => {
-      motion = undefined;
-      rerender();
-    },
-  );
-  for (const m of MOTIONS)
-    button(host, m.name, motion === m, m.note, () => {
-      motion = m;
-      rerender();
-    });
-}
+export { controlBar } from "./shapes-controls.js";
 
 export interface PictureOptions {
   box: number;
