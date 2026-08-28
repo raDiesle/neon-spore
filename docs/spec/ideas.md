@@ -518,7 +518,7 @@ teach is used again. The category comes from reading Hazelight's two co-op
 games — see [transfers-hazelight](transfers-hazelight.md) — and what an
 interlude is allowed to be is [interludes](interludes.md). THE MIRROR
 ([bosses](bosses.md) 11.4) is the one the game already has without calling it
-that, and a snake is being built in a session running beside this one.
+that, and it is the only one.
 
 Each entry says whether it needs the no-travel rule relaxed. Most do not, and
 that is deliberate: an interlude that survives either answer to
@@ -686,8 +686,13 @@ is worth more than a better one that is waiting on it.
   answering before the drawing starts; whether both devices flip or only one,
   where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
   hat; whether the radar strip survives a polar field at all
-- **SNAKE** — being built in a session running beside this one, so this entry
-  claims no design and exists to record what the category asks of it. A snake
+- **SNAKE** — **not built, and this entry said otherwise for weeks.** It read
+  *being built in a session running beside this one*; that session either never
+  existed or never landed, and nothing in the tree moves left and right under a
+  control of its own — a control-set lane went looking and said so in
+  `control-sets.ts`'s own header. A status written in the present tense goes
+  stale silently, which is why this now says what is true instead. The entry
+  claims no design and records what the category asks of it. A snake
   is one body that travels, which is the one shape this game's central rule
   forbids on the field, so it is also the first real test of
   [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on):
