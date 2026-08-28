@@ -63,58 +63,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## COMPARING TWO SKINS COSTS TEN SECONDS, AND COMPARING IS THE ONLY THING THE PAGE IS FOR
-_claude/burn-shapes-rebuild-s11 · tools/director/src/shapes-panel.ts tools/director/src/shape-figure.ts_
-
-**In front of the rest of the skin block**, because it is the lane that makes
-the rest answerable.
-
-Switching skins rebuilds all sixty cards and takes **7.7 to 11.8 seconds**,
-measured, regardless of which skin. That was tolerable with four skins and is
-not with seventeen — and it lands on exactly the wrong activity. Forty-six
-outstanding checks ask a person to put two looks side by side and decide;
-`docs/asset-catalogue.md` says the switch is page-wide *on purpose*, because a
-comparison needs every shape to change at once or you are reading which cards
-somebody clicked. All of that is right, and all of it assumes flipping back
-and forth is cheap. At ten seconds a flip nobody flips, and a look that is
-never compared is a look nobody has judged.
-
-**The rebuild itself is not the mistake and must not be "fixed" by mutating in
-place.** `shapes-panel.ts` says why in its own comment: a figure's fill, aura
-and clip are decided when it is constructed, so mutating them would be a
-second copy of `buildSkin` that has to agree with the first, forever. That
-reasoning holds. The cost is not that a card is rebuilt; it is that **sixty**
-are, synchronously, when a handful are on screen.
-
-So: build what is visible and defer the rest. An `IntersectionObserver` over
-the card hosts, cards built on entry and rebuilt on a switch only if they are
-showing, everything else marked stale and built when it scrolls in. The
-switch stays page-wide in meaning — every card *will* be the new skin — while
-costing what is actually being looked at. `shape-figure.ts` already skips
-disconnected figures in its own `tick`, so the idea that a card can be absent
-and catch up is not new here.
-
-**Measure before and after, and put both numbers in the commit.** The claim
-is a time, so the evidence is a time: switch skin with the page at rest, at
-the top, and after scrolling to the middle. If the win is smaller than it
-looks — if most of the cost turns out to be one thing that is not the sixty —
-say so, because that is a more useful finding than a partial speedup.
-
-**One trap.** A card built late must arrive already in step: `beat` is shared
-page-wide precisely so the catalogue pulses together, so a card that starts
-its own clock on entry breaks the one property PULSE and the pulse motions
-depend on. The clock is `t`, not an offset from when a card appeared.
-
-Finished when `bun run check` is green, a skin switch at the top of the page
-is under a second, every card is the chosen skin by the time it is looked at,
-a late card is in step with the others, and the commit carries `Check: does
-flipping between two skins now feel like a comparison rather than a page
-load — the SHAPES tab, LINE against MOUNTED SCALE, back and forth five times`.
-
-Model `opus`, effort `think hard`. The judgement is what to defer and what
-must stay eager; the observer is arithmetic. Read `shapes-panel.ts`'s own
-comment on why it rebuilds, and `shape-figure.ts`'s `tick`, before anything.
-
 ## THE SWITCHER SHOWS ONE SKIN, AND ONE SKIN IS NOT A COMPARISON
 _claude/burn-shapes-pair-s12 · tools/director/src/shapes-pair.ts tools/director/src/shapes-panel.ts_
 
