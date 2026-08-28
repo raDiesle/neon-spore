@@ -157,6 +157,22 @@ in its tree. Git cannot tell the two apart on its own, because a lane that has
 not committed yet points at whatever `main` was when it started, which is an
 ancestor of `main`, which reads as landed.
 
+**Sweep only when no lane is live, because that protection has a hole at the
+start of every lane's life.** "Uncommitted files" is a good signal from a
+lane's first write onward, and it says nothing at all before it. A lane that
+has run `bun install`, renamed its branch and spent ten minutes reading has
+written nothing: its tree is clean, its branch is an ancestor of `main`, and
+it is byte-for-byte indistinguishable from a lane that landed an hour ago.
+`--clean` deletes it, and the agent survives with no filesystem — every tool
+refusing, correctly, to fall back to the shared checkout.
+
+That is not hypothetical and it is not the tool's fault. It happened to an
+`ultrathink` lane whose thinking window is exactly the vulnerable one, run by
+an orchestrator that had already listed the lane as live and swept anyway. So
+the rule is the orchestrator's, not the tool's: **`--clean` waits until the
+board shows nothing in flight.** Worktrees are cheap to leave standing for
+another twenty minutes; a lane is not cheap to run twice.
+
 ## What a `Check:` has to contain
 
 The person reading it has not seen the code, does not remember the lane, and
