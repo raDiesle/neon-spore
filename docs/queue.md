@@ -180,45 +180,6 @@ and a setting, and it is now decided — spend the thinking on stating it so the
 next lane cannot cross it by accident. Read `tools/director/src/main.ts`,
 `bindTabs` and `tools/director/src/tuning.ts` first.
 
-## A PIECE COMES OFF A BODY AND NOTHING DRAWS THE BREAK
-_claude/burn-creature-shell-draw-g2 · packages/render/src/shell-draw.ts packages/render/test/shell-draw.test.ts_
-**Asked for by the owner.**
-
-Behind g1, which owns the state this reads.
-
-Two pieces come off, and the break is the whole feel of the creature and the sim cannot express it: a
-piece leaves, an edge is raw where it left, and there is a burst at the
-break. The owner's reference is a meteorite striking the ship — but with no
-fixed form, the shot *loosens a chunk* rather than punching a neat hole.
-
-`packages/render/src/craters.ts` already draws pits with lit rims and shadowed
-floors, `rock-impact.ts` already draws a strike, and `effects-spark.ts` and
-`sparks.ts` already throw particles. Read all four before drawing anything —
-§5.6 asks for splinters and a broken edge that *glows briefly*, and three of
-those four already do a version of it. Do not import the meteor's own
-functions if it means changing them; a creature is not a rock and the two
-should be able to diverge.
-
-**The state that outlives a frame goes in `Effects` and is cleared in
-`Effects.reset()`** — `packages/render/test/restart.test.ts` fails if a field
-is added and not cleared, and that is correct rather than an obstacle:
-`world.beat`, `world.tick` and `world.nextId` all restart at 0, which is how a
-crack once came to show before the rock that made it.
-
-**The thing to get right is the raw edge, not the burst.** A burst is cheap
-and every game has one; what says *a piece came off this body* is that the
-silhouette is now wrong in a specific place — the contour is interrupted, and
-the interruption keeps its shape as the body sways. A body that loses a piece
-and stays a clean closed blob has lost nothing.
-
-Finished when `bun run check` is green, `frame.test.ts` passes through the
-strict canvas stub, `restart.test.ts` passes unweakened, and the commit
-carries `Check: does a piece coming off read as broken away, or as a hole
-appearing — one at 26 px on a phone, and again beside a meteor for contrast`.
-
-Model `sonnet`, effort `think hard`. Read `craters.ts`, `rock-impact.ts` and
-`docs/spec/graphics.md` first.
-
 ## THREE MOUTHS ABOVE THE SHIP, ONE OF THEM GOES SOMEWHERE
 _claude/burn-boss-maze-b1 · packages/sim/src/maze.ts packages/sim/src/maze-round.ts packages/sim/test/maze.test.ts packages/content/src/maze-rounds.ts_
 **Asked for by the owner.**
