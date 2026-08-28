@@ -45,6 +45,10 @@
       }
       textarea { resize: vertical; }
       label.field { display: block; font-size: 9px; letter-spacing: 2px; color: var(--dim); margin: 9px 0 3px; }
+      #fControlSet {
+        font: 11px "Courier New", monospace; color: var(--ink); background: #0a0719;
+        border: 1px solid var(--line); border-radius: 5px; padding: 4px 6px; width: 100%;
+      }
 
       /* Below ~1160px the four columns no longer fit side by side. Rather than
          clip one of them off-screen — the tabs used to vanish silently on a
@@ -77,6 +81,7 @@
       #waveList button.on { border-color: var(--gold); }
       #waveList .n { color: #4b4177; margin-right: 6px; }
       #waveList .boss-mark { color: var(--gold); }
+      #waveList .control-mark { color: var(--cyan); }
       .rail-actions { display: flex; flex-wrap: wrap; gap: 4px; }
 
       main > section.brush-col { display: flex; gap: 14px; align-items: flex-start; }
@@ -636,6 +641,32 @@
       .simon-add { display: flex; flex-wrap: wrap; gap: 3px; opacity: .65; }
       .simon-add button { padding: 1px 5px; font-size: 9px; }
       .simon-add:hover { opacity: 1; }
+
+      /* CONTROL SETS. Same full-screen shell as SOUND, one card per registered
+         panel — the drawn band, then the two seats' controls in one line each. */
+      #controlSets { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #controlSets.on { display: flex; flex-direction: column; }
+      #controlSets > header {
+        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
+        padding: 12px 20px; border-bottom: 1px solid var(--line);
+      }
+      #controlSets .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #controlSets .sub { color: var(--dim); font-size: 10px; }
+      #controlSets > header button { margin-left: auto; }
+      #controlSetsBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      .control-set-card {
+        max-width: 700px; margin: 0 0 26px; padding: 0 0 16px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .control-set-card h2 { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin: 0 0 4px; }
+      .control-set-shot { margin: 8px 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #05040b; width: fit-content; }
+      .control-set-shot canvas { display: block; }
+      .control-set-cols { display: flex; gap: 20px; flex-wrap: wrap; margin: 8px 0 0; }
+      .control-set-col { flex: 1 1 220px; }
+      .control-set-col h3 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 4px; font-weight: 400; }
+      .control-set-col ul { margin: 0; padding-left: 15px; }
+      .control-set-col li { margin: 0 0 5px; color: var(--dim); line-height: 1.4; font-size: 10px; }
+      .control-set-col li b { color: var(--ink); font-weight: 400; letter-spacing: 1px; }
     </style>
   </head>
   <body>
@@ -650,6 +681,7 @@
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
       <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
+      <button type="button" id="controlSetsOpen">⎈ CONTROL SETS</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
@@ -689,6 +721,10 @@
           <textarea id="fSentence" rows="2"></textarea>
           <label class="field" for="fHint">HINT — shown to both players</label>
           <textarea id="fHint" rows="2"></textarea>
+
+          <label class="field" for="fControlSet">CONTROL SET — this wave is not the ordinary thing</label>
+          <select id="fControlSet"></select>
+          <p class="note" id="fControlSetWhy"></p>
 
           <div id="bossPanel"></div>
 
@@ -1021,6 +1057,21 @@
       </header>
       <div id="soundTabs"></div>
       <div id="soundBody"></div>
+    </div>
+
+    <!-- CONTROL SETS: one card per registered panel, the picker in the WAVE
+         tab reads its options off the same list. Its own sheet for the same
+         reason SOUND has one — a card carries a drawn panel and two columns
+         of prose, which does not fit in the authoring column. -->
+    <div id="controlSets">
+      <header>
+        <span class="title">CONTROL SETS</span>
+        <span class="sub">
+          every panel a wave can name — what is on it, and which waves are played on it
+        </span>
+        <button type="button" id="controlSetsClose">✕ CLOSE</button>
+      </header>
+      <div id="controlSetsBody"></div>
     </div>
 
     <script type="module" src="./src/main.ts"></script>

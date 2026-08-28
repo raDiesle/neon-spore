@@ -4,6 +4,7 @@ import { bindBacklog } from "./backlog-page.js";
 import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
+import { bindControlSetsPage } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindInterludePanel, type InterludePanel } from "./interlude-panel.js";
@@ -226,6 +227,7 @@ bindBacklog();
 bindChecks();
 bindStates();
 bindSoundPage();
+bindControlSetsPage();
 bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {

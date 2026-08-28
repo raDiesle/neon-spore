@@ -1,11 +1,24 @@
+import {
+  CONTROL_SETS,
+  type ControlSetId,
+  controlSet,
+  DEFAULT_CONTROL_SET_ID,
+} from "@neon-spore/content";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
- * The wave list and the three fields every wave must carry.
+ * The wave list and the fields every wave must carry.
  *
  * `sentence` sits directly under `name` and above the grid on purpose. It is
  * the test a wave has to pass, and a field you scroll past is a field nobody
  * fills in.
+ *
+ * The control set sits at the same level as `name` and `sentence` for the
+ * same reason `boss.ts` gets its own panel rather than a cell in the grid:
+ * *this wave is not the ordinary thing*. Unlike the boss it needs no panel of
+ * its own — every set is a name in `CONTROL_SETS`, so a `<select>` says the
+ * whole of it, and `controlsets-page.ts` is where a name turns into the panel
+ * it stands for.
  */
 export interface RailPanel {
   render(): void;
@@ -16,6 +29,18 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const name = document.getElementById("fName") as HTMLInputElement | null;
   const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
   const hint = document.getElementById("fHint") as HTMLTextAreaElement | null;
+  const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
+  const controlsWhy = document.getElementById("fControlSetWhy");
+
+  if (controlsField) {
+    controlsField.replaceChildren();
+    for (const set of CONTROL_SETS) {
+      const opt = document.createElement("option");
+      opt.value = set.id;
+      opt.textContent = set.name;
+      controlsField.appendChild(opt);
+    }
+  }
 
   const renderList = (): void => {
     if (!list) return;
@@ -36,6 +61,18 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
         mark.textContent = wave.boss.kind === "mirror" ? "◑ " : "♛ ";
         button.append(mark);
       }
+      // A second mark, not folded into the one above: the boss and the panel
+      // are independent choices, and the card-assignment lane is due a third
+      // of these — each stays its own span and its own glyph so a fourth mark
+      // is one more `if`, not a rewrite of what is already here.
+      const set = controlSet(wave.controls);
+      if (set.id !== DEFAULT_CONTROL_SET_ID) {
+        const mark = document.createElement("span");
+        mark.className = "control-mark";
+        mark.textContent = "⎈ ";
+        mark.title = set.name;
+        button.append(mark);
+      }
       button.append(document.createTextNode(wave.name || "— unnamed —"));
       button.addEventListener("click", () => {
         store.index = i;
@@ -50,6 +87,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     if (name) name.value = wave?.name ?? "";
     if (sentence) sentence.value = wave?.sentence ?? "";
     if (hint) hint.value = wave?.hint ?? "";
+    const active = controlSet(wave?.controls);
+    if (controlsField) controlsField.value = active.id;
+    if (controlsWhy) controlsWhy.textContent = active.why;
   };
 
   const render = (): void => {
@@ -79,6 +119,19 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       onEdit();
     });
   }
+
+  // A control set is a shape choice, the same weight as the boss: it changes
+  // what the band would draw, not just what a wave says about itself. So it
+  // goes through `onSelect` (the caller's full refresh) rather than `onEdit`
+  // the way `name`, `sentence` and `hint` do.
+  controlsField?.addEventListener("change", () => {
+    const wave = currentWave(store);
+    if (!wave || !controlsField) return;
+    const picked = controlsField.value as ControlSetId;
+    wave.controls = picked === DEFAULT_CONTROL_SET_ID ? undefined : picked;
+    store.dirty = true;
+    onSelect();
+  });
 
   bindAction("waveAdd", () => {
     store.waves.push(emptyWave());
