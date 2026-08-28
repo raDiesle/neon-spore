@@ -96,61 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## A WAVE THAT TEACHES SOMETHING SHOULD SAY SO IN THE LIST
-_claude/burn-cards-assign-x6 · packages/content/src/card-waves.ts tools/director/src/card-waves.ts_
-**Asked for by the owner.**
-
-Three asks from the owner about the guide cards, and they are one lane because
-they are one question: which wave does a card belong to?
-
-> in the wave list, make some clear visual, which waves have a guide
-> introduction explanation "card" assigned. do some automatic card assignment
-> for everything what is implemented already and assign it automatically to
-> the wave, with its first occurence. by default in game preview (director) i
-> want the card to be enabled. I can disable it so when level is restarted it
-> is not shown again.
-
-**First occurrence is the rule, and it is derivable rather than authored.** A
-card explaining a creature, a control or a mechanic belongs on the first wave
-in the queue where that thing appears. That is a fact about `waves.ts` and can
-be computed from it, so compute it — a hand-kept table of card-to-wave goes
-stale exactly the way the director's brushes did. Where a card names something
-no wave contains, that is a finding worth reporting, not a row to invent.
-
-**The list marking joins the two already there.** A wave carrying a boss is
-marked, and a wave carrying a non-default control set is about to be
-(`claude/burn-controlsets-page-x3`). This is a third, and the three must be
-distinguishable at a glance rather than being three similar dots.
-
-**And a card that has a wave stops being a proposal.** The owner: *the cards we
-assigned, we can move from "not built yet" to another place where we document
-everything in director.* NOT BUILT YET is where a thing lives while nothing in
-the game reaches it — that is exactly what an assignment ends. So a card with a
-wave moves out of it and into the documented half of the director, and the
-mechanism must be the assignment itself rather than a second list somebody
-remembers to update: a card is a proposal precisely as long as no wave shows
-it. Where the documented half should be is this lane's call — say in the commit
-which page took them and why, and follow whatever the catalogue already does
-with a draft that gets claimed.
-
-**The preview default flips, and the toggle has to survive a restart.** In the
-director's game preview the card shows by default; turning it off means it
-stays off when the wave restarts. Note that this is a preview control and not
-the game's own already-seen rule, which lives in world state on purpose — read
-`packages/sim/src/briefing.ts`'s header before touching anything near it, and
-do not move that decision into storage.
-
-Finished when `bun run check` is green, every implemented card is assigned to a
-wave by first occurrence and the assignment is derived rather than listed, the
-wave list marks the three kinds distinguishably, the preview shows the card by
-default and a disabled card stays disabled across a restart, and the commit
-carries `Check: looking at the wave list, can you tell at a glance which waves
-teach something, which carry a boss, and which change the controls?`
-
-Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
-`tools/director/src/card-waves.ts` and `card-order.ts` first. The derivation is
-the lane; the marking is a dot.
-
 ## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
 _claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
 **Asked for by the owner.**
@@ -863,4 +808,3 @@ same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
 and how much of the fifty-five it can actually answer, since a check about a
 sound or about two devices cannot be photographed at all. Report that number
 honestly before capturing anything in bulk.
-
