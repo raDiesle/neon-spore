@@ -604,3 +604,43 @@ which is the case it exists to catch.
 The fix is to sample all five components of the pose rather than three. It is
 small, and it is not urgent, because the failure mode is a false pass rather
 than a false failure — nothing is blocked by it today.
+
+## Four skin files sit exactly on the 250-line ceiling at once
+
+2026-08-28 · claude/burn-skin-mounted-s7
+
+`pore.ts`, `light.ts` and `vein-pulse.ts` are at exactly 250 lines and
+`mounted.ts` at 248, with `packages/sim/test/limits.test.ts` enforcing the
+ceiling. The next lane to touch any of them pays a split before it can add a
+line, and it will discover that at the moment it is trying to do something
+else.
+
+The obvious extraction is already visible: `poissonScatter` and
+`ScatterOptions` live in `pore.ts` and are used by `sucker.ts` as well. They
+are a shared scatter engine with a pluggable density field, not a property of
+pores, and they belong in a file of their own beside `parts.ts` and `seed.ts`.
+That alone takes `pore.ts` well clear.
+
+Not queued on its own because it is the kind of work that should ride along
+with whichever lane next needs the room, rather than being a commit that moves
+code and changes nothing.
+
+## `spin` writes an opacity every frame that has usually not changed
+
+2026-08-28 · claude/burn-skin-mounted-s7
+
+One `spin`-shaped pass over the whole SHAPES tab under MOUNTED PORE is 6,227
+groups and 5.72 ms of attribute writes — inside a frame, with repaint
+unaccounted for. Most of those writes are the same value again: a feature's
+opacity does not change materially during the 0.26x dwell at each end of the
+turn's sweep, which is where the motion spends much of its time.
+
+Skipping a write when the value has not materially changed would roughly halve
+the per-frame writes. It was not done because it needs a mutable field per
+feature and the file had no line budget left — which is the same finding as
+the ceiling note above, arriving from a different direction.
+
+Worth doing only if the page turns out to be slow in motion, which nobody has
+been able to see yet: `requestAnimationFrame` has not fired once in the
+sandbox all day, so every performance number in this block is a count or a
+synchronous timing and never a frame rate.
