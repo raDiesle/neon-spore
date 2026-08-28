@@ -517,6 +517,41 @@ the centre a slick or a bulb — who knows that?** If both see it, the colour
 choice is free and the round loses half its point. Put both questions in the
 report and stop if they are unanswered; do not pick and build.
 
+### Both questions are answered, and the answers are not the recommendation
+
+Put to the owner on 28 August 2026 and decided by them. The recommendation
+above was **not** taken; it stays in the entry because a rejected option with
+its reasoning is worth more than a tidy brief, and because the objection it
+raises is now this lane's problem to solve rather than to avoid.
+
+**The split: both players see the light, and only the pilot can turn.** So the
+entrance lighting up is on both screens, and player 1 holds the string alone.
+
+**The centre: neither knows.** Both entrances look alike, the middle's contents
+are hidden from both, and the shot finds out — the first attempt is a probe
+rather than a choice, and the pair learns from where it dead-ends.
+
+**What this costs, and it is the lane's real work.** With the light on both
+screens the pilot can self-serve — turn until they see their own light — and
+`maze.ts`'s second paragraph names exactly that as the failure to avoid. The
+owner has decided it anyway, so the round has to earn the conversation
+somewhere other than the alignment. Two places it can come from, and the lane
+picks and says which in the commit:
+
+- **From the probe.** Neither knows which entrance reaches the middle, so what
+  the pair actually talks about is *what the last shot did* — where it stopped,
+  which ring it turned into, whether that rules the other entrance in or out.
+  That is a real exchange and it is per-attempt rather than per-moment.
+- **From the shot's travel.** If what the shot meets inside is visible to one
+  seat and not the other, the probe only pays off when it is described. That is
+  a split the owner did not rule on either way, and it is inside what they did
+  decide rather than around it.
+
+**Do not reintroduce a split on the alignment to get the talking back.** They
+looked at that and said no. If the round still cannot be talked through after
+both of the above, that is a finding for the report, not a licence to overturn
+the answer.
+
 ### What is settled, and can be built once the split is
 
 **Two entrances, one of them a dead end.** The owner asked for the simple case
