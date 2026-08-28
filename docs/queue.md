@@ -63,6 +63,71 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THREE THINGS THAT DRAW A BODY HAVE HAD TO GUESS AT IT
+_claude/burn-body-context-s14 · packages/content/src/own-motion.ts tools/director/src/skins/types.ts tools/director/src/shape-figure.ts tools/shape-sheet/src/motions/index.ts_
+
+Not a look, an interface — and it is queued because it has now been found
+three times by three lanes that each worked around it correctly and separately.
+
+**A skin is told its reach and never its shape.** `shape-figure.ts` computes
+`reach = max(w, h) / 2` and throws the aspect away. So `WIND`, needing to know
+which way a body is long, looks the subject back up in `CATALOGUE` by
+`ctx.name` — and falls back silently to "tall" for anything the catalogue does
+not reach.
+
+**A skin is told the time and never the motion.** `CILIA`, needing the body's
+velocity to lean its fringe against the direction of travel, reads
+`ctx.body.transform.baseVal.getItem(0).matrix` and differences it frame to
+frame — which assumes `shape-figure.ts` writes a translate as the *first*
+transform item. True today, promised nowhere; if that write changes shape the
+fringe stops leaning and no test fails.
+
+**A motion is told the clock and nothing else at all.** `poseAt(t: Beats)`
+cannot see its carrier, so `PERISTALSIS` had to *declare* the long axis as x.
+That lane measured the cost rather than hiding it: over the sixty catalogue
+entries, **25 are wide** and x is right, **27 are round** and any direction is
+fine, and **8 are tall** — TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE CLAW,
+POD and both HUSKs — where the swell squeezes *across* the body instead of
+along it. That is wrong rather than arbitrary.
+
+Three lanes, three workarounds, one missing thing: **what is drawn does not
+know what it is drawing.**
+
+So: an optional `extent: { w, h }` on `SkinContext`, an optional velocity or
+pose beside it, and an optional `axis` on `OwnMotion` — or, if it reads better,
+one small shape handed to both. Decide which and say why; the judgement is
+whether a motion should be handed its subject at all, since `poseAt` being a
+pure function of a clock is what makes `MOTIONS` a table anyone can read and
+`drafts.test.ts` able to sample it blind. **An `axis` field is data and keeps
+that property; a subject argument does not.** Prefer the field unless you can
+argue otherwise.
+
+**Then remove the three workarounds**, which is the point: WIND stops looking
+up the catalogue, CILIA stops reading a transform matrix, PERISTALSIS stops
+declaring. Prove the pictures did not change — `WIND`'s own lane hashed every
+catalogue entry at four poses to show its memo changed nothing, and that is the
+technique.
+
+**Two things to be careful of.** `own-motion.ts` is described in `docs/INDEX.md`
+as *"how a body sways while going nowhere — the one copy of it"*, so adding a
+field there touches the shipped game as well as the tool; nothing about this may
+alter what the game draws, and `frame.test.ts` plus the replay tests are the
+proof. And `packages/content` may not use `Math.random`, `Date.now` or the DOM
+— an extent and an axis are constants, which is fine, but derive them at
+authoring time and never at draw time.
+
+Finished when `bun run check` and `bun run test:determinism` are green, none of
+the three workarounds remains, a test proves the catalogue draws identically
+before and after, and the eight tall bodies get a swell that runs along them.
+
+No `Check:` trailer if the pictures are proven identical — and if the eight
+tall bodies now look different, that *is* a visual change and needs one.
+
+Model `opus`, effort `think hard`. The judgement is the field-versus-argument
+question and everything else is a move. Read `WIND`'s `isWideBody`, `CILIA`'s
+lean, `pulse.ts`'s header, and `docs/parked.md`'s two entries on this before
+starting.
+
 ## THE 26 PX FLOOR IS ARGUED ABOUT AND HAS NEVER BEEN PRINTED
 _claude/burn-shapes-floor-s13 · tools/shape-sheet/src/drawn-size.ts tools/shape-sheet/src/report.ts tools/shape-sheet/test/drawn-size.test.ts_
 

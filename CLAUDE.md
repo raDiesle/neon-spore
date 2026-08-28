@@ -68,6 +68,13 @@ copied from the main tree: the workspace links inside it point at the main
 tree's `packages/*` by absolute path, so a test there would run against
 someone else's code.
 
+That `bun install` does **not** put `@neon-spore/*` in a root `node_modules` —
+the workspace links land under each package's own. So a scratch script written
+at the repository root cannot `import "@neon-spore/shape-sheet"` and has to
+use a relative path. `bun test` and the packages themselves are unaffected;
+this only bites the throwaway measuring script, which is exactly the thing a
+lane writes when it is about to prove something with a number.
+
 **Commit when the work is done, without being asked.** Finishing a task
 includes committing it. Do not ask permission, and do not leave finished work
 sitting in the working tree.
