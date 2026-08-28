@@ -1,7 +1,9 @@
+import { CARAPACE } from "./carapace.js";
 import { CORE } from "./core.js";
 import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
+import { SCALE } from "./scale.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
 import { VEIN } from "./vein.js";
 import { VEIN_PULSE } from "./vein-pulse.js";
@@ -29,7 +31,7 @@ import { VEIN_PULSE } from "./vein-pulse.js";
  * card can show an interior nobody can vote on whether an interior is worth
  * having. `docs/skins.md` has the four rules an author works to.
  */
-export const SKINS = [LINE, MEMBRANE, CORE, VEIN, VEIN_PULSE, LIGHT] as const;
+export const SKINS = [LINE, MEMBRANE, CORE, VEIN, VEIN_PULSE, LIGHT, SCALE, CARAPACE] as const;
 
 // LIGHT goes last and stands apart from the four before it. Those are one
 // picture with one thing added each time; this one is the same contour under a
