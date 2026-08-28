@@ -86,21 +86,6 @@ Finished when `bun run check` is green, every file is under 250 lines, each vari
 
 Model `opus`, effort `ultrathink`. The apparent-speed asymmetry and the light pairing are the two things that decide whether this lane produced anything at all; the rest is arithmetic. Read `tools/shape-sheet/src/motions.ts` and `docs/skins.md` first.
 
-## A BODY CAN BE SOFT AND NOTHING ON THIS PAGE IS
-_claude/burn-skin-soft-s5 · tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
-
-Behind s0. The soft group — where the tiling group is all hard edges, this is none.
-
-**PORE** — a frog's skin: bumps of varying size scattered without a lattice, each a small radial highlight with a shadow under it, dense in places and sparse in others so it reads as grown rather than as a pattern. The absence of a grid is the whole difference from SCALE and it is easy to lose: a Poisson-ish scatter, not a jittered grid, and a jittered grid is what you get if you are not careful.
-
-**SUCKER** — an octopus's arm: concentric rings, largest along a spine and falling off to either side, each ring a bright annulus with a dark centre. This one has an axis where PORE has none, and that is what keeps the two apart.
-
-Both clipped, both seeded, both re-evaluated against the wobbling contour.
-
-Finished when `bun run check` is green, both are on the switcher, and the commit carries a `Check:` on whether PORE reads as skin or as spots.
-
-Model `sonnet`, effort `think hard`. Read `docs/skins.md` first.
-
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
