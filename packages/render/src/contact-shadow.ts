@@ -1,4 +1,5 @@
 import { type Creature, isBossBody, occupiesCol, type Scar, type SimConfig } from "@neon-spore/sim";
+import { SHADOW_DIR } from "./cast-shadow.js";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { drawnRow, nearness } from "./depth.js";
 import type { Layout } from "./layout.js";
@@ -39,6 +40,22 @@ import type { Layout } from "./layout.js";
  * call every frame, the same way `hull.ts`'s own body-fill gradient is — nothing
  * here is cached, so nothing here needs to be. Its darkness (`alpha`, below)
  * is free to vary continuously with distance.
+ *
+ * **It leans, because the light is somewhere.** This file used to drop its
+ * ellipse straight underneath the body, which said the lamp was directly
+ * overhead — fine while nothing on the field claimed otherwise, and the only
+ * surface disagreeing with `content`'s `KEY` once the light lane landed. A
+ * contact shadow and a cast shadow are the same fact at two distances, so the
+ * lean comes from `cast-shadow.ts`'s `SHADOW_DIR` and no angle is named here.
+ *
+ * **Only the x component of it, and that is the derivation rather than a
+ * simplification.** The hull is drawn as a flat band at `l.hullY`. For a
+ * receiving plane, the part of the light along the plane's normal decides
+ * *whether* a shadow lands on it and the part in the plane decides *where*;
+ * the band's normal is up the screen, so the in-plane direction is x and the
+ * downward half of `SHADOW_DIR` is what puts the shadow on the hull at all.
+ * Displacing by it as well would be sliding the shadow off the surface it is
+ * lying on.
  */
 
 /** Flat ellipse, not a disc: a shadow lying on a surface reads as wide and
@@ -54,6 +71,19 @@ const END_MUL = 0.6;
 /** `PALETTE.background` (#07060F) as an rgb triple, for the alpha-graded
  * gradient — the same pattern `torch-alarm.ts`'s `ROCK_RGB` already uses. */
 const SHADOW_RGB = "7,6,15";
+/**
+ * How far the ellipse leans along the light, in body radii, at the far edge of
+ * the lead window — and 0 at contact, because at contact the body is on the
+ * hull and its shadow is under its own foot.
+ *
+ * It stays *contact* rather than turning into a second body, and the number is
+ * what decides which: 0.9 radii along a 45° light is 0.64 of a radius of
+ * sideways lean, against an ellipse 1.15 radii wide, so the shadow still
+ * covers the point directly under the body for the whole of its travel. There
+ * is never a gap between the two for an eye to read as two things.
+ * `contact-shadow.test.ts` asserts that, so this cannot be raised quietly.
+ */
+const LEAN = 0.9;
 
 export interface ContactShadow {
   x: number;
@@ -105,7 +135,8 @@ export function contactShadowFor(
   const { x } = creatureCenter(l, c, beatPhase);
   const bodyR = creatureRadius(l, c, beatPhase, cfg);
   const rx = bodyR * (START_MUL + (END_MUL - START_MUL) * t);
-  return { x, y: l.hullY, rx, ry: rx * ASPECT, alpha: t * cfg.contactShadowMaxAlpha };
+  const lean = SHADOW_DIR.x * bodyR * LEAN * (1 - t);
+  return { x: x + lean, y: l.hullY, rx, ry: rx * ASPECT, alpha: t * cfg.contactShadowMaxAlpha };
 }
 
 function drawOne(ctx: CanvasRenderingContext2D, s: ContactShadow): void {

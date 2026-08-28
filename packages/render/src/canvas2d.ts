@@ -3,6 +3,7 @@ import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBriefing } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
+import { drawCastShadows } from "./cast-shadow.js";
 import { drawContactShadows } from "./contact-shadow.js";
 import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
@@ -114,8 +115,7 @@ export class Canvas2DRenderer implements Renderer {
   draw(view: ViewState): void {
     const { ctx } = this;
     const { world } = view;
-    // The stage depends on the band, and the band on the role, so it is sized
-    // per frame like the layout rather than at resize.
+    // The stage depends on the band, and the band on the role: sized per frame, like the layout.
     const stage = computeStage(this.viewport, world.cfg, view.role);
     // A hidden tab reports a zero-sized window, and a field with no width
     // divides by zero on its way into the hull contour. There is nothing to
@@ -186,6 +186,8 @@ export class Canvas2DRenderer implements Renderer {
     // Under the creatures: the mark is on the column, not on anything in it.
     drawLanceMark(ctx, l, world);
     drawCreatures(ctx, l, world, view.beatPhase, view.time, this.effects.blocked);
+    // Over the creatures because it darkens them, and clipped to each body it falls on.
+    drawCastShadows(ctx, l, world.cfg, world.creatures, view.beatPhase);
     // Over the creatures, under everything the ship does: a hand on something
     // is not an effect this file owns — it is world state, read fresh.
     drawGrips(ctx, l, world, view.beatPhase, view.time);
@@ -216,11 +218,9 @@ export class Canvas2DRenderer implements Renderer {
       (col, beat) => this.effects.hasArrived(col, beat),
     );
     drawContactShadows(ctx, l, world.cfg, world.creatures, world.scars, view.beatPhase);
-    // A hand on the lance, read straight off the world both devices share —
-    // see other-hand.ts for why this is the only control that can say so.
+    // A hand on the lance, read straight off the world both devices share (other-hand.ts).
     drawOtherHand(ctx, l, world, view.time, mood, at);
-    // In front of the hull, unlike the rest of Effects.draw() — see
-    // Effects.drawRockImpact.
+    // In front of the hull, unlike the rest of Effects.draw() — see Effects.drawRockImpact.
     this.effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
     this.effects.drawBanner(ctx, l);
 

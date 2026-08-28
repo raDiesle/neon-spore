@@ -1,5 +1,13 @@
 export { drawBriefing } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
+export {
+  CAST_MAX_ALPHA,
+  type CastShadow,
+  castShadows,
+  drawCastShadows,
+  SHADOW_DIR,
+  shadedColour,
+} from "./cast-shadow.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
 export { type Dial, type DialView, drawGauge } from "./gauge.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
