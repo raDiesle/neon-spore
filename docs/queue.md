@@ -77,6 +77,63 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
+_claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
+
+The owner asked whether alternative animations exist for things the game
+already does — *how the cannon shoots, how the deflect shield works* — and how
+to see and test them. The answer today is **no, and there is nowhere to look**,
+which is worth writing down because three pages come close enough to be
+mistaken for it. POSES draws the shipped cannon and the shipped guard, frozen
+at authored moments, by the real renderer — that is the current answer, not a
+choice between answers. SHAPES now shows one body against every skin and every
+motion, but those are *creature* looks; nothing on that page is the ship.
+VERSUS is the machinery built for exactly this question and holds one
+candidate, a warm hull colour.
+
+So the mechanism exists and the two things a player actually stares at all game
+are not in it.
+
+**Two slots, `cannon:shot` and `shield:ward`.** Two candidates each, beside
+whatever ships. They must differ in *kind* rather than in degree: the
+catalogue's NOTCH pair is the model, where one answer says the thing with a
+feature small enough to vanish at 26 px and the other says it with the whole
+mass, so the vote is a measurement whichever way it goes. Two candidates that
+fail the same way teach nothing and are one candidate with a rounding error.
+Each `claim` passes the one-sentence test `.claude/skills/new-wave` applies to
+a wave.
+
+**First find out whether the look is even patchable, and say so before
+building.** A `Variant` patches fields onto an exported record the draw path
+reads every call — including a whole function, which is how a candidate
+`OwnMotion` works. If the shot and the ward are drawn from numbers written
+inline in the draw call, there is no record to patch and no vote to hold. Then
+the lifting is the first commit: pull those numbers into one exported record
+per mechanic, change nothing on screen, prove it with `frame.test.ts`, and land
+that before a single candidate exists. Say in the report which of the two it
+was, because *the answer is the interesting half of this lane* — it is the same
+question for every future mechanic slot.
+
+**What the two slots are arguing about, so the candidates are not decoration.**
+The shot is a thing leaving the ship and arriving somewhere; the failure it can
+have is reading as a flash at the muzzle with no travel. The ward is a thing
+*catching* something; its failure is reading as a wall that was always there,
+so the catch is invisible unless you were already watching what hit it. Aim
+each pair at its own failure.
+
+Finished when `bun run check` is green, `bun run versus` lists both slots with
+their readers, each slot draws two moving phones that differ visibly at 380 px
+in the director's VERSUS tab, no lifted record changes what the game draws, and
+the commit carries `Check: versus cannon:shot — does either alternative read as
+something leaving the ship, rather than as a brighter flash where it started?`
+and `Check: versus shield:ward — can you tell the shield caught something
+without watching the thing that hit it?`
+
+Model `opus`, effort `think hard`. Whether the look is a record or is inline is
+the decision, and it is worth more than the candidates. Read `docs/versus.md`,
+`tools/versus/variant.ts` and `tools/versus/candidates/ship-hull.warm/` first,
+then whatever in `packages/render` draws the shot and the guard.
+
 ## THE CONTROL BAR IS ONE LONG RUN OF BUTTONS AND SAYS NOTHING ABOUT ITSELF
 _claude/burn-shapes-controls-s20 · tools/director/src/shapes-controls.ts_
 
@@ -905,7 +962,7 @@ _claude/burn-versus-docs-v4 · docs/verification.md docs/asset-catalogue.md CLAU
 Model `sonnet`, effort `think`. Read `docs/versus.md` first — it is the design this lane implements.
 
 ## THE HULL IS ON SCREEN EVERY FRAME AND HAS ONLY EVER HAD ONE ANSWER
-_claude/burn-versus-slots-v5 · tools/versus/candidates/_
+_claude/burn-versus-slots-v5 · tools/versus/candidates/ship-hull.* tools/versus/candidates/creature-bulb/ tools/versus/candidates/creature-slick/ tools/versus/candidates/palette-ammo/_
 
 The mechanism now exists and has been looked through once, so this is the lane that fills it — and it goes last on purpose, because a candidate authored before anybody has watched the pair run is a candidate authored blind. Three slots, all of them things a player looks at constantly and none of them needing a lifting commit: a second candidate in `ship:hull-skin` so the first vote is a genuine three-way (current, warm, and one more), `creature:bulb` and `creature:slick` as separate slots each patching the silhouette record and its own-motion together, and `palette:ammo-pair` patching `PALETTE`'s six red and cyan tokens as one slot because a vote on cyan alone is a vote on something nobody ever sees alone. Think hard about what makes two candidates a real choice rather than a nudge and its twin: each `claim` has to pass the one-sentence test `.claude/skills/new-wave` already applies to a wave, and two candidates whose failure modes are the *same* failure mode teach nothing — the catalogue's own NOTCH pair is the model, where one says the direction with a feature small enough to vanish at 26 px and the other says it with the whole mass, so whichever way it goes the result is a measurement. Every candidate is a directory under `tools/versus/candidates/` holding `variant.ts`, so removal is `git rm -r` regardless of what it grew. Finished when each slot draws two moving phones that differ visibly at 380 px, `bun run versus` lists three open slots with their readers, and the landing commit carries one `Check: versus <slot> — …` per slot pointing at the director's VERSUS tab. Do not open a slot that patches `SWAY_PUMP` or `TILT_RIPPLE` until `claude/burn-own-motion-b10` has landed — that lane owns `own-motion.ts` and a vote taken against a record about to move is a vote against nothing.
 
