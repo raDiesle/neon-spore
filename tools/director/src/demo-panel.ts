@@ -101,6 +101,14 @@ export function bindDemoPanel(store: Store, cfg: SimConfig, onOpen: () => void):
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
     });
+    // The list is capped at 700px (`#demosBody`'s own `max-width`) while the
+    // sheet behind it fills the screen, so on any desktop wider than that
+    // there is a real backdrop to click — this was the one route missing.
+    // `e.target === sheet` only fires on that backdrop: a click that lands on
+    // the header or a row hits that element first and never reaches here.
+    sheet.addEventListener("click", (e) => {
+      if (e.target === sheet) show(false);
+    });
   }
 
   return { render };
