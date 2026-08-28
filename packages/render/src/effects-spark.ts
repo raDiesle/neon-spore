@@ -68,6 +68,18 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // felt (`docs/spec/audio.md` makes the same call for the ear).
     case "runtHit":
       return at(l, e.col, e.row, 8, PALETTE.sparkDim);
+    // A piece coming off THE SHELL: an ordinary burst in the armour's own
+    // material colour. The raw edge it leaves behind is not drawn here —
+    // that outlives the burst and is redrawn fresh every frame straight off
+    // `Creature.shell`, in `shell-draw.ts`, which needs no state of its own.
+    case "shellBreak":
+      return at(l, e.col, e.row, 8, PALETTE.ember);
+    // The last piece: the body's colour exists from this event onward and
+    // never before it (`shell-round.ts`'s `bareTheCore`) — the biggest burst
+    // this file throws for anything short of a boss going down, because this
+    // is the one moment the pair has no way to have seen coming.
+    case "shellBare":
+      return at(l, e.col, e.row, 20, e.color === "red" ? PALETTE.red : PALETTE.cyan);
 
     // Everything below is drawn some other way, or not drawn as a burst at
     // all, and says so rather than falling through a default that could not
@@ -89,13 +101,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "mirrorVerdict":
     case "mirrorDown":
     case "forkWait": // The fork's whole picture is `hud.ts`'s `drawFork`, driven by state.
-    // A piece coming off THE SHELL, and the last one coming off. Deliberately
-    // not a generic burst here: what says *a piece came off this body* is the
-    // raw edge left behind, which is a thing that outlives the frame and has
-    // to be drawn against the body's own contour. `shell-draw.ts` owns both,
-    // and until it exists these are silent rather than borrowing a rock's.
-    case "shellBreak":
-    case "shellBare":
       return null;
     default:
       return assertNever(e);

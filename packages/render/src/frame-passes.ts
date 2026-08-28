@@ -17,6 +17,7 @@ import { drawOtherHand } from "./other-hand.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import type { ViewState } from "./renderer.js";
+import { drawShellDamage } from "./shell-draw.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 
 /**
@@ -54,6 +55,11 @@ export function drawBodies(
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
+  // Over the same bodies drawCreatures just drew, and nowhere else: the
+  // missing-piece wound recomputes fresh from world.creatures every frame
+  // (see shell-draw.ts), so it belongs beside the pass that owns bodies, not
+  // inside Effects with the transients.
+  drawShellDamage(ctx, l, world, view.beatPhase, view.time);
   // Over the creatures because it darkens them, and clipped to each body it falls on.
   drawCastShadows(ctx, l, world.cfg, world.creatures, view.beatPhase);
   // Over the creatures, under everything the ship does: a hand on something
