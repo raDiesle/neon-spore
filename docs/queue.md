@@ -96,6 +96,49 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THE FILE EVERY DRAW CALL PASSES THROUGH IS FULL
+_claude/burn-canvas2d-split-y7 · packages/render/src/canvas2d.ts_
+**Asked for by the owner.** — the half the cast-shadow lane could not reach.
+
+`packages/render/src/canvas2d.ts` is at **exactly 250 lines**, which is the
+ceiling `packages/sim/test/limits.test.ts` enforces. The cast-shadow lane paid
+for its two lines by re-wrapping three comments to the configured column width,
+said so, and flagged that the next lane adding a draw call hits the same wall
+with nothing left to fold.
+
+That lane is the owner's light shafts, which is queued and needs one call here.
+
+**This is a restructure, so it runs alone**, between batches, with nothing else
+live in `packages/render`. It is the one file every drawing lane eventually
+adds a line to — the reason it is owned by nobody — and a split under two lanes
+at once is a rebase in the file that would hurt most.
+
+**Nothing it draws changes.** Not the order, not a value, not a call. If a
+single pixel would move, the split has gone wrong: this is the same frame,
+assembled from more than one file. `frame.test.ts` runs whole frames through a
+canvas that refuses what a real one refuses, and it is the proof — it must pass
+untouched, not adjusted to suit the new shape.
+
+**Split along what a reader would look for**, not to make two files of 125
+lines. The field's back, the bodies, the ship and its controls, the overlays
+that sit on top of a finished frame — those are the seams a person reading this
+file is already looking for. Say in the commit which seam you chose and why,
+because the next lane adds its call to whichever half you decided owns its
+subject, and a seam nobody can predict costs more than a full file.
+
+Leave real headroom. A split that lands two files at 240 lines has bought
+nothing.
+
+Finished when `bun run check` is green, `frame.test.ts` passes unmodified, no
+drawn output changed, every resulting file is comfortably under the ceiling,
+and the commit names the seam. **No `Check:` trailer** — nothing here is
+visible, and a list is only worth reading if every row on it is something a
+person can go and see.
+
+Model `sonnet`, effort `think hard`. The judgement is the seam; the moving is
+mechanical. Read `canvas2d.ts` end to end and `packages/render/test/frame.test.ts`
+before cutting anything.
+
 ## LIGHT FALLS INTO DEEP WATER, AND THE BACK OF THE FIELD SHOULD SHOW IT
 _claude/burn-backdrop-shafts-y6 · packages/render/src/light-shafts.ts_
 **Asked for by the owner.**
