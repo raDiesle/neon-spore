@@ -17,21 +17,11 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * `SkinContext` for that (rule (b)/(d) keep a skin from touching the subject
  * directly), but there does not need to be one: `ctx.contourPath()` hands back
  * a real `<path>` that `shape-figure.ts` re-writes with the current `d` before
- * every `onFrame`. So one extra, invisible contour path is kept purely as a
- * ruler.
- *
- * That ruler used to be asked for a hundred independent points a frame — each
- * strand its own `getPointAtLength`, `<path>`'s most expensive method, called
- * on a `d` just rewritten that same frame, so nothing was cached between the
- * hundred calls either — six thousand calls a frame over sixty cards, CILIA's
- * own cost and not the page's. `SkinContext` has no lower-level access to the
- * contour's points yet — `claude/burn-body-context-s14` closes that gap; once
- * it lands, delete the sample path below and the table it feeds, in favour of
- * whatever that lane hands a skin directly. Until then the ruler is sampled
- * **once** a frame into a small table (`TABLE_SIZE` points, arc-length even),
- * and every strand interpolates out of it with two multiplies — finer than a
- * hundred strands can show as a kink. Hashing every catalogue entry's DOM at
- * several poses proved this draws the same fringe the DOM ruler did.
+ * every `onFrame`, and a `<path>`'s own geometry methods read whatever `d` it
+ * currently has. So one extra, invisible contour path is kept purely as a
+ * ruler — `getPointAtLength` on it *is* "sampled along the contour and
+ * re-sampled every frame", using the one channel a skin already has rather
+ * than a second one invented for this file alone.
  *
  * **The ripple, not the unison.** Each rim strand's phase comes from `u`, its
  * own fraction of the way around the perimeter, so the sway is a wave that
@@ -43,14 +33,16 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * to frame gives a velocity; the fringe leans opposite that velocity, smoothed
  * so it does not chatter, and reverses the instant the velocity does — drag,
  * not wind. `ctx.tile` puts it in the contour units everything else here is
- * measured in. This used to read `ctx.body.transform.baseVal.getItem(0).matrix`
- * instead and difference that, which assumed a translate was the first
- * transform item — true, promised nowhere, and silent if it ever stopped.
+ * measured in — the direction would survive without that, but `MOVING` is a
+ * speed and a threshold has to be in the units it was chosen for.
+ *
+ * This used to read `ctx.body.transform.baseVal.getItem(0).matrix` instead and
+ * difference that, which assumed `shape-figure.ts` writes a translate as the
+ * first transform item — true, promised nowhere, and silent if it ever stopped
+ * being true: the fringe would simply stop leaning.
  */
 
 const RIM_COUNT = 100;
-/** Points sampled from the DOM ruler once a frame, see the header. */
-const TABLE_SIZE = 64;
 const INTERIOR_COUNT = 16;
 const RIM_LEN = 0.16;
 const RIM_LEN_JITTER = 0.5;
@@ -66,7 +58,8 @@ const CURVE_AMOUNT = 0.16;
  * so a sign flip in the velocity takes a few frames to read, not one jolt. */
 const LEAN_SMOOTH = 0.12;
 const LEAN_BEND = 0.55;
-/** Below this, in contour units a second, travel is noise, not a direction. */
+/** Below this, in contour units a second, the body is standing still and the
+ * direction of travel is noise rather than a direction. */
 const MOVING = 1e-4;
 
 interface Strand {
@@ -95,8 +88,9 @@ function newStrandPath(ctx: SkinContext, opacity: number, width: number): SVGPat
   return el;
 }
 
-/** Base point and tip, curved toward its own sway — what keeps a hundred of
- * these from reading as a hundred identical spokes. */
+/** Base point and tip, written as a slight curve rather than a straight
+ * line — `curve` bends it toward its own sway, which is what keeps a hundred
+ * of these from reading as a hundred identical spokes. */
 function draw(
   s: Strand,
   bx: number,
@@ -184,10 +178,6 @@ function cilia(ctx: SkinContext): void {
   let prevX = 0;
   let prevY = 0;
   let prevT: number | null = null;
-  // Reused, filled fresh each frame — `onFrame`'s "allocate nothing" rule
-  // applies to a table as much as a gradient.
-  const tableX = new Float64Array(TABLE_SIZE);
-  const tableY = new Float64Array(TABLE_SIZE);
 
   ctx.onFrame(({ t, pose }) => {
     const x = pose.dx * ctx.tile;
@@ -210,23 +200,10 @@ function cilia(ctx: SkinContext): void {
 
     const total = sample.getTotalLength();
     if (total > 0) {
-      for (let i = 0; i < TABLE_SIZE; i++) {
-        const p = sample.getPointAtLength((i / TABLE_SIZE) * total);
-        tableX[i] = p.x;
-        tableY[i] = p.y;
-      }
-      // `u` is a fraction around a closed contour, so the table wraps.
       for (const s of rim) {
-        const pos = s.u * TABLE_SIZE;
-        const i0 = Math.floor(pos) % TABLE_SIZE;
-        const i1 = (i0 + 1) % TABLE_SIZE;
-        const frac = pos - Math.floor(pos);
-        const x0 = tableX[i0] as number;
-        const y0 = tableY[i0] as number;
-        const px = x0 + ((tableX[i1] as number) - x0) * frac;
-        const py = y0 + ((tableY[i1] as number) - y0) * frac;
-        const r = Math.hypot(px, py) || 1;
-        draw(s, px, py, px / r, py / r, t, leanX, leanY);
+        const p = sample.getPointAtLength(s.u * total);
+        const r = Math.hypot(p.x, p.y) || 1;
+        draw(s, p.x, p.y, p.x / r, p.y / r, t, leanX, leanY);
       }
     }
     for (const s of interior) {
