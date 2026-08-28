@@ -152,6 +152,23 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mirrorDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    case "mazeCommit":
+      // The shot going into a mouth. `mirror.handover` is the cue written for
+      // "your turn is over, the answer is out of your hands now", which is
+      // exactly what committing to a mouth is.
+      return { id: "mirror.handover", pan: panForCol(e.col, cols) };
+    case "mazeProbe":
+      // One node further down, and a step higher each time, so a strand still
+      // travelling is heard to be getting somewhere without anyone saying so.
+      return { id: "mirror.echo", pitch: 1 + e.row * 0.06 };
+    case "mazeVerdict":
+      if (e.right) return { id: "mirror.verdictRight", pan: panForCol(e.col, cols) };
+      return {
+        id: e.reason === "silence" ? "mirror.silence" : "mirror.verdictWrong",
+        pan: panForCol(e.col, cols),
+      };
+    case "mazeDown":
+      return { id: "mirror.down", pan: panForCol(e.col, cols) };
     case "forkWait":
       // No column — the fork belongs to the whole field, not a tile in it.
       return { id: "ship.forkOpen" };

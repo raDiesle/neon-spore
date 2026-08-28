@@ -1,3 +1,4 @@
+import type { MazeState } from "./maze-round.js";
 import type { MirrorState } from "./simon.js";
 import type { Color } from "./types.js";
 
@@ -129,4 +130,4 @@ export interface VaneState {
  * `tellColor` off a mirror and get `undefined` at runtime with a clean type
  * check behind it.
  */
-export type BossState = QueenState | MirrorState | WardenState | VaneState;
+export type BossState = QueenState | MirrorState | WardenState | VaneState | MazeState;

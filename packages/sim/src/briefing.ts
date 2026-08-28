@@ -52,6 +52,7 @@ export const BRIEFING_SUBJECTS = [
   "mend",
   "purge",
   "ward",
+  "maze",
 ] as const;
 
 export type BriefingId = (typeof BRIEFING_SUBJECTS)[number];

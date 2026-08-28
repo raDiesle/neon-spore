@@ -128,6 +128,12 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
     p1: "Say every step out loud as it happens. Neither of you can hold six of them alone.",
     p2: "Nothing you press counts while it is still showing. Wait for it to finish.",
   },
+  maze: {
+    title: "THE MAZE",
+    both: "Three mouths open above the ship and only one of them goes anywhere.",
+    p1: "You see the forks. Each node offers two ways out and you cannot tell which is fused.",
+    p2: "You see the walls. Each node has one direction shut and you cannot tell what was there.",
+  },
   vane: {
     title: "THE VANE",
     both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",

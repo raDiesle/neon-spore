@@ -22,7 +22,7 @@ const LIMIT = 250;
  * costs ten lines and this is where that is recorded rather than excused.
  */
 const KNOWN_LONG: Record<string, number> = {
-  "packages/content/src/waves.ts": 259,
+  "packages/content/src/waves.ts": 267,
 };
 function sourceFiles(): string[] {
   const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");

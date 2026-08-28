@@ -93,6 +93,17 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
+    if (wave.boss.kind === "maze") {
+      const blurbZ = document.createElement("p");
+      blurbZ.className = "note";
+      blurbZ.textContent =
+        "Three mouths, one tangle behind them, and the two screens each carry " +
+        "half of it. The lattice is authored in packages/content/src/maze-rounds.ts " +
+        "and is not editable here yet.";
+      panel.appendChild(blurbZ);
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
     if (wave.boss.kind === "vane") {
       renderVane(panel, wave.boss, () => {
         store.dirty = true;

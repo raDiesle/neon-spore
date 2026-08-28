@@ -5,6 +5,7 @@ import { closeFork } from "./fork.js";
 import { clearGrips } from "./grip.js";
 import { clearInterlude } from "./interlude.js";
 import { endPrime } from "./lance.js";
+import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
 import { NO_SHELL } from "./shell.js";
 import { WARDEN_COLS } from "./types.js";
@@ -54,6 +55,11 @@ export function startWave(
 
   if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
+  } else if (boss?.kind === "maze") {
+    // No creature and no row either. THE MAZE is three mouths in the sky and a
+    // tangle behind them, so there is nothing of it for the fall loop or a
+    // hand to find — the same shape THE VANE has, one branch down.
+    world.boss = installMaze(world, boss.rounds);
   } else if (boss?.kind === "vane") {
     // No creature and no row. THE VANE hangs off the top edge rather than
     // standing on the grid, so there is nothing of it for the fall loop, the

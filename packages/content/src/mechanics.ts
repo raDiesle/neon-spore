@@ -127,6 +127,7 @@ export const MECHANICS = {
   warden: { what: BRIEFINGS.warden.both, reach: "spawn" },
   tether: { what: BRIEFINGS.tether.both, reach: "spawn", carriedBy: "warden" },
   mirror: { what: BRIEFINGS.mirror.both, reach: "spawn" },
+  maze: { what: BRIEFINGS.maze.both, reach: "spawn" },
   vane: { what: BRIEFINGS.vane.both, reach: "spawn" },
   mend: { what: BRIEFINGS.mend.both, reach: "spawn" },
   purge: { what: BRIEFINGS.purge.both, reach: "spawn" },

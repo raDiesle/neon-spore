@@ -253,6 +253,26 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The one way out of a node in THE MAZE's tangle. Two screens each hold
+    // half of this intersection and a third copy of it — in the draw path, in
+    // a tool, in a test — is how the strand a player is shown stops being the
+    // strand the shot takes. Neither picture would show that, which is exactly
+    // the class of defect this table exists for.
+    call: "mazeWayOut",
+    owner: "packages/sim/src/maze.ts",
+    pattern: /branches\s*&\s*~\s*(?:node\s*\.\s*)?blocked/,
+    strip: false,
+  },
+  {
+    // Where a mouth hangs. It is derived from the width of the field, so a
+    // hand-written copy would be right on an eleven-column field and quietly
+    // wrong on any other — including the seven the waves are authored against.
+    call: "mazeMouthCol",
+    owner: "packages/sim/src/maze.ts",
+    pattern: /\(\s*2\s*\*\s*mouth\s*\+\s*1\s*\)/,
+    strip: false,
+  },
+  {
     call: "fallTilesPerBeat",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,

@@ -79,6 +79,9 @@ export function drawBoss(
   // The mirror is a whole ship, so it is drawn here rather than among the
   // effects — and its ghost shots under it, the way the player's shots are
   // drawn under the player's own hull.
+  // THE MAZE has no picture yet — a lane behind this one draws the tangle —
+  // and a boss that is not the mirror must not be handed to `drawMirror`.
+  if (boss.kind !== "mirror") return;
   const fx = effects.mirror;
   drawMirror(ctx, l, world.cfg, boss, world.shieldCol, view.time, {
     armed: fx.armed,

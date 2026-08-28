@@ -30,6 +30,7 @@ export type GroupName =
   | "WARDEN"
   | "VANE"
   | "MIRROR"
+  | "MAZE"
   | "QUEEN"
   | "PLUMBING — not a dial a person turns";
 
@@ -52,11 +53,16 @@ export const GROUP_ORDER: GroupName[] = [
   "WARDEN",
   "VANE",
   "MIRROR",
+  "MAZE",
   "QUEEN",
   "PLUMBING — not a dial a person turns",
 ];
 
 export const GROUP_NOTE: Record<GroupName, string> = {
+  MAZE:
+    "Three mouths above the ship and a tangle behind them, split so that player 1 " +
+    "sees which ways out each node has and player 2 sees which are walled. The " +
+    "lattice itself is authored in packages/content/src/maze-rounds.ts.",
   "AIM — colour and column":
     "Player 2 fires the colour, player 1 holds the column. Both or nothing.",
   "GUARD — the shared defence":
@@ -158,6 +164,10 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   damageEcho: "MIRROR",
   scoreMirrorRound: "MIRROR",
   scoreMirrorDown: "MIRROR",
+  mazeRow: "MAZE",
+  damageMaze: "MAZE",
+  scoreMazeRound: "MAZE",
+  scoreMazeDown: "MAZE",
   vanePins: "VANE",
   scoreVanePin: "VANE",
   scoreVaneDown: "VANE",
@@ -200,6 +210,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   warden: "WARDEN",
   mirror: "MIRROR",
   vane: "VANE",
+  maze: "MAZE",
 };
 
 /**
@@ -214,6 +225,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "WARDEN",
   "VANE",
   "MIRROR",
+  "MAZE",
   "QUEEN",
   "THE GAUGE — an interlude's own round",
 ]);

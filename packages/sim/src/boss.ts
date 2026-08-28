@@ -1,5 +1,6 @@
 import type { QueenState } from "./boss-state.js";
 import { hullRow, type SimConfig } from "./config.js";
+import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import {
   announce,
@@ -85,6 +86,10 @@ export function stepBoss(world: World): void {
   }
   if (boss.kind === "vane") {
     stepVane(world, boss);
+    return;
+  }
+  if (boss.kind === "maze") {
+    stepMaze(world, boss);
     return;
   }
   if (boss.scratch.length === 0) boss.scratch = [0, 1];

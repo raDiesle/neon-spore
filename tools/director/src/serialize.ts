@@ -66,6 +66,13 @@ function serializeBoss(boss: BossEntry): string {
     const pins = boss.pins === undefined ? "" : `, pins: ${boss.pins}`;
     return `{ kind: "vane"${pins} }`;
   }
+  if (boss.kind === "maze") {
+    // The tangles are authored in `packages/content/src/maze-rounds.ts`, where
+    // a node is written as two arms and the fused one. Emitting them here as
+    // raw bitmasks would round-trip correctly and be unreadable, so the wave
+    // keeps naming the list and the director leaves the lattice alone.
+    return '{ kind: "maze", rounds: MAZE_ROUNDS }';
+  }
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

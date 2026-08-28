@@ -1,3 +1,4 @@
+import type { MazeVerdictReason } from "./maze-round.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 import type { Color, Creature, PodKind } from "./types.js";
 import type { WardenControl } from "./warden-cycle.js";
@@ -73,6 +74,21 @@ export type SimEvent =
   /** A round is settled — right or wrong, why, and where it landed. */
   | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
   | { type: "mirrorDown"; col: number }
+  /**
+   * The pair fired into one of THE MAZE's three mouths. `col` is the column
+   * that mouth hangs over, which is where the shot went in and — if the strand
+   * behind it goes nowhere — where the answer comes back out.
+   */
+  | { type: "mazeCommit"; mouth: number; col: number }
+  /**
+   * The shot stands on one more node of the tangle. `row` counts from the
+   * mouths down and `lane` is across, both in the tangle's own coordinates and
+   * never the field's: the lattice is not on the grid.
+   */
+  | { type: "mazeProbe"; row: number; lane: number; of: number }
+  /** A round is settled — right or wrong, why, and the mouth it landed in. */
+  | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
+  | { type: "mazeDown"; col: number }
   /**
    * THE FORK opened: the rest between waves ran out and the run has stopped,
    * waiting on both thumbs (`fork.ts`). No column — it belongs to the whole

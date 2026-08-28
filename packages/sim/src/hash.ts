@@ -1,5 +1,6 @@
 import { BOSS_KINDS } from "./entries.js";
 import { INTERLUDE_KINDS, INTERLUDE_PHASES } from "./interlude.js";
+import { mazeHashParts } from "./maze.js";
 import { MIRROR_PHASES } from "./simon.js";
 import type { World } from "./world.js";
 
@@ -215,6 +216,11 @@ export function hashWorld(world: World): number {
     push(boss.spentOpening);
     push(boss.throwBeat);
     push(boss.throwCol);
+  }
+  if (boss !== null && boss.kind === "maze") {
+    // Gathered beside the boss rather than spelled out here: `mazeHashParts`
+    // says what is in it and why, the authored tangle included.
+    for (const n of mazeHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     push(boss.round);

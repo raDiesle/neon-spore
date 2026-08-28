@@ -3,6 +3,7 @@ import { closeFork, forkFire } from "./fork.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { clearInterlude } from "./interlude.js";
 import { endPrime, startPrime } from "./lance.js";
+import { mazeHeard } from "./maze-round.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
@@ -100,6 +101,10 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       if (forkFire(world)) break;
       fire(world, c.color);
       mirrorHeard(world, fireStep(c.color));
+      // And THE MAZE hears it too. The shot itself is an ordinary one and goes
+      // up an empty field; what the boss takes from it is the column, which is
+      // which of its three mouths the pair just chose (`maze-round.ts`).
+      mazeHeard(world);
       break;
     case "grip": {
       // Either seat may send this one, so it is the player on the command

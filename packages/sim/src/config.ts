@@ -1,9 +1,9 @@
-import type { BossConfig } from "./config-boss.js";
+import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 
-export type { BossConfig } from "./config-boss.js";
+export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
@@ -163,11 +163,11 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
+  ...BOSS_DEFAULTS,
   ...GAUGE_DEFAULTS,
   ...SHOT_DEFAULTS,
   cols: 11,
   rows: 15,
-  queenRow: 2,
   bpm: 96,
   tickHz: 120,
   inputDelayTicks: 12,
@@ -184,20 +184,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   hullInvulnerable: false,
   damageCreature: 12,
   damageMeteor: 20,
-  wardenRow: 2,
-  wardenCycleBeats: 12,
-  wardenPullBeats: 2,
-  wardenPlates: 5,
-  damageWarden: 16,
-  scoreWardenPlate: 500,
-  scoreWardenDown: 2500,
-  vanePins: 5,
-  scoreVanePin: 500,
-  scoreVaneDown: 2500,
-  mirrorRow: 3,
-  damageEcho: 15,
-  scoreMirrorRound: 500,
-  scoreMirrorDown: 2500,
   maxHoles: 10,
   maxScars: 30,
   waveRestBeats: 3,
@@ -212,8 +198,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreShellPiece: 120,
   throbPeriodBeats: 4,
   throbOpenBeats: 1,
-  scoreQueenPetal: 400,
-  scoreQueenDown: 2000,
   radarLead: 6,
   bulletGlideMs: 130,
   bandPct: 37,
@@ -223,7 +207,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   depthHaze: 0.3,
   contactShadowLeadRows: 3,
   contactShadowMaxAlpha: 0.4,
-  queenEggGrowShare: 0.5,
   briefings: false,
 };
 

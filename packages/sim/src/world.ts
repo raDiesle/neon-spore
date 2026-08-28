@@ -11,7 +11,14 @@ import { createRng, type Rng } from "./rng.js";
 import type { ShotCharge } from "./shot-charge.js";
 import { startWave } from "./wave-start.js";
 
-export type { BossEntry, MirrorEntry, PodEntry, QueenEntry, SpawnEntry } from "./entries.js";
+export type {
+  BossEntry,
+  MazeEntry,
+  MirrorEntry,
+  PodEntry,
+  QueenEntry,
+  SpawnEntry,
+} from "./entries.js";
 export type { SimEvent } from "./events.js";
 
 import type { PodEntry, SpawnEntry } from "./entries.js";

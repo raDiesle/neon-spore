@@ -82,6 +82,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   warden: { wave: "THE WARDEN" },
   tether: { wave: "THE WARDEN" },
   mirror: { wave: "THE MIRROR" },
+  maze: { wave: "THE MAZE" },
   vane: { wave: "THE VANE" },
   mend: { wave: "SALVAGE" },
   purge: { wave: "THE PURGE" },

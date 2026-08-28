@@ -1,3 +1,4 @@
+import { MAZE_ROUNDS } from "./maze-rounds.js";
 import type { Wave } from "./wave-types.js";
 
 export type { Wave, WaveEntry } from "./wave-types.js";
@@ -166,6 +167,13 @@ export const WAVES: Wave[] = [
         ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
       ],
     },
+  },
+  {
+    name: "THE MAZE",
+    sentence: "The one where only the two of you together can see which mouth goes anywhere.",
+    hint: "Three mouths, one tangle. He sees the forks, she sees the walls — name every node out loud, then fire down the mouth you agreed on.",
+    entries: [],
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
   },
   {
     name: "THE WARDEN",

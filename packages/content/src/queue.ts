@@ -99,6 +99,9 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   // THE VANE hangs dead centre off the top edge, so it has no authored column
   // to remap either.
   if (boss.kind === "vane") return { ...boss };
+  // THE MAZE has no authored column either: `mazeMouthCol` spreads its three
+  // mouths across whatever field it is played on.
+  if (boss.kind === "maze") return { ...boss, rounds: boss.rounds.map((t) => ({ ...t })) };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

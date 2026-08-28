@@ -100,6 +100,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "mirrorEcho":
     case "mirrorVerdict":
     case "mirrorDown":
+    // THE MAZE, all four of them: the shot going down the tangle is the whole
+    // picture and it is not a spark on the field. Silent until the lane that
+    // draws the lattice says otherwise.
+    case "mazeCommit":
+    case "mazeProbe":
+    case "mazeVerdict":
+    case "mazeDown":
     case "forkWait": // The fork's whole picture is `hud.ts`'s `drawFork`, driven by state.
       return null;
     default:

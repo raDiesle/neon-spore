@@ -38,6 +38,7 @@ export {
 export { GAPS } from "./interludes.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
+export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   MECHANIC_IDS,
   MECHANICS,

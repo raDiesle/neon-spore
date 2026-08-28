@@ -60,6 +60,39 @@ export {
   primeTicks,
   priming,
 } from "./lance.js";
+export {
+  MAZE_DIRS,
+  MAZE_LANES,
+  MAZE_MOUTHS,
+  MAZE_PHASES,
+  type MazeDir,
+  type MazeNode,
+  type MazePhase,
+  type MazeTangle,
+  mazeDirBit,
+  mazeDirsOf,
+  mazeFault,
+  mazeGoodMouth,
+  mazeMouthAt,
+  mazeMouthCol,
+  mazeMouthLane,
+  mazeMouthsFor,
+  mazeNode,
+  mazeOnBoard,
+  mazePath,
+  mazeReach,
+  mazeSeatMask,
+  mazeWayOut,
+} from "./maze.js";
+export {
+  MAZE_LEAD_BEATS,
+  MAZE_TRAVEL_BEATS,
+  MAZE_VERDICT_BEATS,
+  type MazeState,
+  type MazeVerdictReason,
+  mazeCurrent,
+  mazeReadBeats,
+} from "./maze-round.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";
@@ -168,6 +201,7 @@ export {
 export {
   type BossEntry,
   createWorld,
+  type MazeEntry,
   type MirrorEntry,
   type PodEntry,
   type QueenEntry,
