@@ -745,3 +745,57 @@ themselves hold at 92 px because `.shape svg` is `flex: 0 0 auto`, so the
 nameability floor is not at risk — only the reading is. The fix is
 `flex-shrink: 0` in `tools/director/index.html`, which the lane that found it
 did not own.
+
+## The nameability gate cannot be failed by a size change alone
+
+2026-08-28 · claude/burn-depth-field-d1
+
+The gate has three axes — aspect, lobe count and effective drawn radius — and
+`confusable` requires an overlap on **all three at once**, which was the right
+fix for a guard that was otherwise unsatisfiable. The depth lane then measured
+what that costs: **no uniform row multiplier turns the gate red at any value.**
+Not at 1.125, not at 1.25, not at 2x, not at 100x.
+
+The reason is that every pair on the living roster is disjoint on the *lobe*
+axis as well, so the size axis is load-bearing for no pair today. A change that
+moves only drawn size therefore cannot be refused, however far it moves it —
+the axis it touches is exactly the one the pass/fail is not watching.
+
+That is not an argument for weakening the conjunction, which exists because
+three kinds are already the same aspect. It is an argument for the report
+saying *which* axis is holding each pair apart and by how much, so a change
+that erodes the margin on the one axis that matters is visible before it
+becomes a collision. `TOLD APART BY` already names the axis; what it does not
+do is apply a proposed multiplier and print the gap that would remain.
+
+## Adding a `SimConfig` field is never a one-file change
+
+2026-08-28 · claude/burn-depth-field-d1
+
+`docs/queue.md`'s own header calls `config.ts` a file "owned by nobody" that a
+lane adds to in one contiguous region. True as far as it goes, and incomplete:
+`FIELD_GROUP` in `tools/director/src/ship-fields.ts` is a
+`Record<keyof SimConfig, GroupName>`, so **a new config field is a hard
+typecheck failure until the director is told which group it belongs to.**
+
+The depth lane discovered this by hitting it and added two lines as
+`PLUMBING`. It is a good coupling — it means no tunable can be added and left
+unreachable in the tool that tunes it — but it should be known before a lane
+plans its ownership rather than after, because it drags a director file into
+what looked like a `packages/sim` change.
+
+## Rocks and torches recede in size and order, but not in colour
+
+2026-08-28 · claude/burn-depth-field-d1
+
+The row haze is applied to living bodies only. `torch.ts` sets
+`globalAlpha = 1` mid-draw, so an outer alpha is clobbered, and hazing the
+inert bodies properly means editing their own files. So a rock on the top row
+is relatively *brighter* than a creature on the same row — the one place the
+new depth is inconsistent with itself.
+
+Also from the same lane: `grip.ts` calls `creatureRadius` without the new
+optional `beatPhase`/`cfg`, so the grip ring lands about 0.9% — a quarter of a
+pixel — off the body it circles, which is under what its own `RING_MUL`
+spends. It has `world` in scope, so `creatureRadius(l, c, beatPhase, world.cfg)`
+fixes it whenever that file is next open.
