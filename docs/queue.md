@@ -12,6 +12,20 @@ here is ticked, and nothing here records progress — a lane is done when its
 branch is an ancestor of the trunk, which git can be asked and a file cannot.
 `bun run burn` asks. `docs/autonomous.md` has the rest.
 
+**What the owner asked for outranks what a run decided to do next.** The
+order is not a judgement about which work is better; it is about where the
+work came from. A brief that can point at something the owner said — *CILIA is
+slow*, *shadow and light in the game*, *I cannot tell what combines with what*
+— goes above one derived from a spec file, a `--candidates` sweep or a session
+noticing a gap while it was passing. Both are legitimate work and the second
+kind is often the more interesting, which is exactly why it drifts to the top
+on its own if nothing holds it down.
+
+So a run refilling this file sorts on that first and on everything else
+second, and a new entry that cannot name an owner ask is filed below every one
+that can, however obvious it feels while writing it. A lane whose brief does
+not say where it came from is a lane nobody can sort later.
+
 The italic line under each heading is `branch · the paths that lane owns`. Two
 lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
@@ -976,6 +990,30 @@ Model `sonnet`, effort `think hard`. Read `docs/spec/graphics.md`,
 `packages/render/src/mirror.ts` and the SPLICE entry in
 `docs/asset-catalogue.md` first.
 
+## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
+_claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
+
+The owner wants a before and after picture, or an animation, beside a check —
+and for anything landing from now on the skill already asks the lane to
+capture both while it still has the tree in front of it. The fifty-five that
+already landed have no such thing, and it looks at first as though they never
+can.
+
+They can. Every one of them names a commit, every commit has a parent, and a
+headless preview can be built and driven at either. So: `bun run frames <sha>`
+checks the parent out into a scratch worktree, builds, drives the real loop to
+an agreed frame, captures it, does the same at the commit itself, and writes
+the pair under `docs/checks/`. For anything whose question is about *motion* —
+and most of them are — the same run captures a short strip of frames rather
+than one.
+
+Two things decide whether this is worth building, and both should be settled
+before it is: whether a frame can be made **comparable** across two builds (the
+same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
+and how much of the fifty-five it can actually answer, since a check about a
+sound or about two devices cannot be photographed at all. Report that number
+honestly before capturing anything in bulk.
+
 ## FIVE HUNDRED LINES IN ONE FILE, AND THE DOCUMENT THAT NAMES ITS NEIGHBOURS
 _claude/burn-versus-promptsplit-v3b · tools/versus/prompt.ts tools/versus/text.ts docs/versus.md_
 
@@ -1199,30 +1237,6 @@ The counter-evidence is in the file itself: `drawMeteor` builds a linear gradien
 Finished when `bun run check` is green, `frame.test.ts` passes with the new fills through the strict canvas stub, no gradient or halo sprite is allocated after the first frame, and the commit carries `Check: does the interior gradient survive 26 px, or is the spec right that it does not — desaturated shape sheet at 26 px, rim peak at least 2.5x the interior peak`.
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
-
-## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
-_claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
-
-The owner wants a before and after picture, or an animation, beside a check —
-and for anything landing from now on the skill already asks the lane to
-capture both while it still has the tree in front of it. The fifty-five that
-already landed have no such thing, and it looks at first as though they never
-can.
-
-They can. Every one of them names a commit, every commit has a parent, and a
-headless preview can be built and driven at either. So: `bun run frames <sha>`
-checks the parent out into a scratch worktree, builds, drives the real loop to
-an agreed frame, captures it, does the same at the commit itself, and writes
-the pair under `docs/checks/`. For anything whose question is about *motion* —
-and most of them are — the same run captures a short strip of frames rather
-than one.
-
-Two things decide whether this is worth building, and both should be settled
-before it is: whether a frame can be made **comparable** across two builds (the
-same wave, the same tick, the same seed, no wall-clock anywhere in the shot),
-and how much of the fifty-five it can actually answer, since a check about a
-sound or about two devices cannot be photographed at all. Report that number
-honestly before capturing anything in bulk.
 
 ## ONE PREDICATE STANDS BETWEEN THIRTEEN CREATURES AND A PICTURE
 _claude/burn-drafts-suggest-p1 · tools/shape-sheet/test/drafts.test.ts tools/shape-sheet/src/drafts/index.ts_
