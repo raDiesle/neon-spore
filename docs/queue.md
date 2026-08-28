@@ -96,64 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
-_claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
-**Asked for by the owner.**
-
-The owner, having used the one-body grids for an afternoon:
-
-> all filters or view buttons should be on top of page "shapes", such as "The
-> transpose of the page above:". I want that this view is the first viewed by
-> default and on top of page. and if i want i can toggle to see all shapes and
-> change its combination. (maybe call it Advanced and the overview of all
-> shapes.)
-
-**The page has two views and it is arranged as though it has one.** The
-catalogue — sixty bodies wearing one skin — is the page, and the transpose —
-one body wearing every skin, then every motion — sits underneath it behind a
-sentence beginning *The transpose of the page above*. That ordering was right
-when the transpose was new and had to be explained in terms of what it was
-transposing. It is wrong now: the question the owner actually opens this page
-to ask is *which of these twenty skins is worth keeping*, and that is the
-lower half.
-
-**So the transpose becomes the page, and the catalogue becomes ADVANCED.** The
-owner named it. Opening SHAPES shows one body in every skin; a toggle at the
-top switches to the sixty-card catalogue where the combinations are set. Keep
-both — the catalogue is the only place a skin is seen against sixty different
-contours, which is a different question and still worth asking.
-
-**Every control moves to the top, above whichever view is showing.** The skin,
-motion and light groups landed this morning as three named axes; they belong in
-one band at the head of the page, with the view toggle beside them, so that
-what is being shown and what is controlling it are read in one glance instead
-of two scrolls.
-
-**The controls are shared and the two views must not fight over them.**
-Switching view keeps the picked skin, motion and light exactly as they were —
-switching what you are looking at is not switching what it is wearing. Say in
-the commit what the toggle does to scroll position; landing at the top of a
-sixty-card grid after leaving the middle of it is a small thing that will
-irritate every single time.
-
-**Nothing about any figure changes.** No skin, no motion, no fit, no card size.
-This is which view is first, and where the controls sit.
-
-**Do not remove the sentence, move it.** *The transpose of the page above* has
-to stop saying "above" once the thing it names is first — one clause, rewritten
-to say what the view is rather than where the other one is.
-
-Finished when `bun run check` is green, SHAPES opens on the one-body view, a
-toggle at the top reaches the catalogue under a name the owner would use, all
-three control groups sit above the view, the picks survive a switch, and the
-commit carries `Check: opening SHAPES, is the first thing you see the one you
-came to look at?`
-
-Model `sonnet`, effort `think hard`. Read `shapes-page-app.ts`, then
-`shapes-all.ts` and `shapes-controls.ts`. **A performance lane owns
-`shape-figure.ts` and `skins/cilia.ts` right now — do not touch either**, and
-expect to replay over its work if it lands first.
-
 ## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
 _claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts packages/render/src/rock-impact.ts_
 **Asked for by the owner.**
