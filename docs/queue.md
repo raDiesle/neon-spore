@@ -95,6 +95,74 @@ Finished when `bun run check` is green, a wind and a rigid spin are both on the 
 
 Model `opus`, effort `think hard`. The bounded offset is the judgement; the wave itself is a term. Read `turn.ts`'s `spin` and `turnAngle` first.
 
+## THE ONE PULSE ON THE PAGE IS A SINE, AND A SINE IS A BELLOWS
+_claude/burn-skin-pulse-s10 · tools/shape-sheet/src/motions/pulse.ts_
+
+Behind s8, because a travelling pulse and a travelling twist are the same
+term with a different quantity in it, and doing them in one order is cheaper
+than merging them.
+
+The owner asked for pulsing movement. There is exactly one today and it is
+`SWELL`: `1 + sin(t * 0.71875) * 0.16`, uniform, symmetric, both scales
+together. That is a body **breathing** — and breathing is a fine thing for a
+body to do, which is why SWELL stays exactly as it is. It is not a pulse.
+
+**A sine is a bellows. A heart is asymmetric**, and that one difference is
+this lane the way the tanh sweep was `turn.ts`'s: sharp attack, slower
+release, and the eye reads the *attack* as the event. A symmetric envelope
+has no instant in it, so there is nothing to feel a beat against. Anything
+here whose envelope is a sine has failed regardless of its amplitude.
+
+Time in `poseAt` is **beats**, not seconds — `plane.ts` says so at the top —
+so being on the clock costs nothing and the whole page pulses together, which
+is the same reason PULSE's brightness front runs on two beats.
+
+Three that are genuinely different from each other, not one at three
+amplitudes:
+
+**BEAT** — one sharp swell per beat, asymmetric, uniform in both axes. The
+plainest possible statement of the clock in a body, and the control the other
+two are judged against.
+
+**HEART** — *lub-dub*: two swells at uneven spacing inside one beat, the
+second smaller and closer than the gap before the next pair. This is the one
+most likely to read as alive rather than as machinery, and the spacing is the
+whole of it — a `0.5` split is two beats, not a heartbeat.
+
+**PERISTALSIS** — the swell travels along the long axis instead of the body
+inflating at once, so a ring of thickening runs end to end. The owner's worm
+again, from the other side: `s8` twists a body and this squeezes along it, and
+the two should be picked together with the new motion bar to see whether they
+add or fight. Derive the long axis from the contour's own extent — SLICK is
+147 x 86 and BULB is 120 x 115, so a round body must not peristalt sideways
+for no reason.
+
+**Volume-preserving or not is a real choice and both belong here.** A body
+that grows in both axes reads as inflating; one that widens as it shortens
+reads as squeezing. Say which each of the three does and why in the commit.
+
+**And the rule this lane is most likely to break, so it is named up front.**
+`docs/alive.md`'s throb rule, restated in the queue: *`throbOpen` is a
+gameplay signal telling the pair when to fire, so the throb keeps a monopoly
+on beat-synchronous scale change and no other body may express the beat in
+size.* Every motion here is beat-synchronous scale change. On a catalogue card
+that is fine and nothing votes it into a wave — but a header comment must say
+so in the same words the iridescence skin uses: **this is a card, it is not a
+promise about creatures**, and what a shipped version would clear first is the
+throb's monopoly. Do not weaken `alive.md`, and do not quietly ship a pulse to
+a creature.
+
+Finished when `bun run check` is green, all three sit in `MOTIONS` beside
+SWELL and are reachable from the motion bar, no envelope is a plain sine, and
+the commit carries `Check: does the sharp attack read as a pulse against
+SWELL's breathing, or only as a faster sine — the SHAPES tab, the motion bar,
+BEAT and HEART and SWELL on one round body`.
+
+Model `opus`, effort `think hard`. The envelope is the lane; the amplitude is
+arithmetic. Read `plane.ts`'s `SWELL` and `LURCH` first — LURCH is already
+asymmetric ("up fast and down slow") and is the nearest thing in the file to
+what this needs.
+
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
