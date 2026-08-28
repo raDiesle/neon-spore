@@ -93,7 +93,7 @@ export function buildSkin(
   skin: SkinId,
   body: SVGGElement,
   defs: SVGDefsElement,
-  opts: { colour: string; weight: number; uid: string; name: string; reach: number },
+  opts: { colour: string; weight: number; uid: string; name: string; reach: number; lit: boolean },
 ): SkinBuild {
   const contour: SVGPathElement[] = [];
   const frames: ((f: SkinFrame) => void)[] = [];

@@ -75,6 +75,14 @@ export interface SkinContext {
   /** Half the shape's extent, in contour units. */
   readonly reach: number;
   /**
+   * Whether the key light is switched on. Orthogonal to which skin is picked —
+   * `light.ts`'s passes read this and draw nothing when it is false, which is
+   * what keeps "take the light off and look" possible once a skin composes it
+   * rather than being it (TURN, CRATER). Everything else a skin draws is
+   * unaffected: this is a light going off, not a different skin.
+   */
+  readonly lit: boolean;
+  /**
    * A path that will be handed the contour's `d` every frame. It is not
    * appended anywhere — the caller decides where it goes, and in what order.
    */

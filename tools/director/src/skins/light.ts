@@ -5,9 +5,8 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * The key light: one direction, four constructs, one line that hangs them on a
  * body. Other skins are written against a light and none can supply one, and
  * six each inventing one puts twelve bodies on a page lit from twelve
- * directions — the mistake an eye reads as *wrong* rather than as plain. So the
- * direction is a **constant and never a parameter**.
- *
+ * directions — the mistake an eye reads as *wrong*. So the direction is a
+ * **constant and never a parameter**, and whether it is on at all is `ctx.lit`.
  * **This is a card and it is not a promise about creatures.** The hue split is
  * what `docs/alive.md` refuses for a body in a wave, and that refusal is about
  * the field, not this page. Nothing here weakens it. What a shipped version
@@ -16,9 +15,9 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  */
 
 /**
- * Upper left, with the reason: the hull's own aura sits low and even, so a lit
- * shoulder up and left is where a bright edge argues with the glow least. Screen
- * axes, y down, from the body toward the light; nothing else may name an angle.
+ * Upper left: the hull's own aura sits low and even, so a lit shoulder up and
+ * left is where a bright edge argues with the glow least. Screen axes, y down,
+ * from the body toward the light; nothing else may name an angle.
  */
 export const KEY = { x: -Math.SQRT1_2, y: -Math.SQRT1_2 } as const;
 
@@ -26,7 +25,6 @@ export const KEY = { x: -Math.SQRT1_2, y: -Math.SQRT1_2 } as const;
  * The body as `objectBoundingBox` sees it, how far the gradient's focus is
  * pushed toward the light, and the gradient circle. Bbox units, like
  * `corePass`, so no pixel scale reaches in here.
- *
  * `SPAN` at 2.4 R is a choice about **margin**, not a threshold. The lit
  * silhouette must stay brighter than the core shadow — `(R−d)/(SPAN−d) <
  * (d+R/2)/(SPAN+d)` — which holds for any `SPAN > 1.29 R`, where the two are
@@ -122,7 +120,6 @@ function bodyStroke(ctx: SkinContext, paint: string, width: number): SVGPathElem
 /**
  * A group clipped to the body with its own id, so a skin composing this light
  * *and* its own clipped texture does not put two clip paths under one id.
- * `clipGroup(ctx, "lit")` is now this; swapping it waits on the open check.
  */
 function insideBody(ctx: SkinContext): SVGGElement {
   const clip = document.createElementNS(SVG, "clipPath");
@@ -145,6 +142,7 @@ function insideBody(ctx: SkinContext): SVGGElement {
  * separating a ball from a disc with a smudge on it.
  */
 export function terminatorPass(ctx: SkinContext): SVGPathElement {
+  if (!ctx.lit) return document.createElementNS(SVG, "path");
   const grad = document.createElementNS(SVG, "radialGradient");
   grad.setAttribute("id", `${ctx.uid}-term`);
   grad.setAttribute("r", String(SPAN));
@@ -168,6 +166,7 @@ export function terminatorPass(ctx: SkinContext): SVGPathElement {
  * as translucent. Clipped inward, gone by 0.34 — before the terminator at 0.5.
  */
 export function contactPass(ctx: SkinContext): SVGPathElement {
+  if (!ctx.lit) return document.createElementNS(SVG, "path");
   const paint = keyAxis(ctx, "contact", [
     [0, CONTACT_DARK, 0.55],
     [0.14, CONTACT_DARK, 0.5],
@@ -184,6 +183,7 @@ export function contactPass(ctx: SkinContext): SVGPathElement {
  * sitting on it**. On it, a decal; beside it, a wet surface. One, never two.
  */
 export function specularPass(ctx: SkinContext): SVGPathElement {
+  if (!ctx.lit) return document.createElementNS(SVG, "path");
   const tilt = 0.21;
   const dx = KEY.x * Math.cos(tilt) - KEY.y * Math.sin(tilt);
   const dy = KEY.x * Math.sin(tilt) + KEY.y * Math.cos(tilt);
@@ -208,10 +208,10 @@ export function specularPass(ctx: SkinContext): SVGPathElement {
  * and neither is width: the rim is **cooler and brighter than the body colour**
  * where the aura is the body colour exactly, and it is one hard stroke where
  * the aura is three soft ones. Drawn last, over the outline, since a rim light
- * lies on the silhouette — which puts its outer half inside the aura's inner
- * pass, and whether that reads as two is this commit's `Check:`.
+ * lies on the silhouette.
  */
 export function rimLightPass(ctx: SkinContext): SVGPathElement {
+  if (!ctx.lit) return document.createElementNS(SVG, "path");
   const paint = keyAxis(ctx, "rimlight", [
     [0, RIM_COOL, 0],
     [0.62, RIM_COOL, 0],

@@ -98,6 +98,12 @@ export interface FigureOptions {
    * `skins/` says what each of the rest adds and why, one file each.
    */
   skin?: SkinId;
+  /**
+   * Whether the key light is on, default true. Orthogonal to `skin` — LIGHT,
+   * TURN and CRATER all read it, so any of them can be seen with the light
+   * and without it without switching to a different look.
+   */
+  lit?: boolean;
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
@@ -141,6 +147,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     uid: `sk${uid}`,
     name: entry.subject.name,
     reach: Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2,
+    lit: opts.lit ?? true,
   });
   frame.appendChild(body);
   svg.appendChild(frame);

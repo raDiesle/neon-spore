@@ -50,6 +50,17 @@ const STROKE: Record<CatalogueEntry["status"], string> = {
  */
 let skin: SkinId = "membrane";
 
+/**
+ * Whether the key light is on, for every card at once — orthogonal to `skin`.
+ * It started as one button among ten, satisfied by clicking CORE: LIGHT was a
+ * skin like any other, so removing the light and picking the honest baseline
+ * were the same click. TURN and CRATER end that — they compose the light
+ * into a different base texture, so switching away from them to look at them
+ * without it compares two textures, not the light. A separate toggle keeps
+ * "does the light earn its place" answerable for any skin that carries one.
+ */
+let lit = true;
+
 const STAMP: Record<CatalogueEntry["status"], string> = {
   draft: "DRAFT",
   free: "FREE",
@@ -74,7 +85,13 @@ function card(entry: CatalogueEntry): HTMLElement {
   const wide = isWide(entry);
   if (wide) div.classList.add("is-wide");
   div.appendChild(
-    shapeFigure(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status], skin }),
+    shapeFigure(entry, {
+      box: BOX,
+      width: wide ? WIDE : BOX,
+      stroke: STROKE[entry.status],
+      skin,
+      lit,
+    }),
   );
 
   const side = document.createElement("div");
@@ -134,6 +151,21 @@ function skinBar(): void {
     });
     host.appendChild(b);
   }
+
+  // Orthogonal to the skin buttons above: it does not unpick any of them, and
+  // picking one of them does not touch it. One button because there is one
+  // light — see `lit`.
+  const litBtn = document.createElement("button");
+  litBtn.className = lit ? "skin is-on" : "skin";
+  litBtn.style.marginLeft = "10px";
+  litBtn.textContent = "LIT";
+  litBtn.title =
+    "the key light, on top of whichever skin composes it — off shows the same skin without it";
+  litBtn.addEventListener("click", () => {
+    lit = !lit;
+    renderShapes();
+  });
+  host.appendChild(litBtn);
 }
 
 export function renderShapes(): void {
