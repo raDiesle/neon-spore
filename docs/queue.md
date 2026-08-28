@@ -271,23 +271,6 @@ Model `sonnet`, effort `think hard`. **Think hard about `elsewhere`** — it is 
 
 Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
 
-## THREE KINDS ARE ALREADY THE SAME ASPECT, SO THE GUARD AS DESIGNED PASSES NOTHING
-_claude/burn-body-gate-c2 · tools/shape-sheet/src/metrics.ts tools/shape-sheet/src/report.ts tools/shape-sheet/test/nameability.test.ts_
-
-The build check that has to exist before any amplitude does, because every amplitude in this batch is one somebody will want to raise once it is on a phone, and "a reviewer remembers the rule" is not a mechanism.
-
-D3 designed it as: sample each living kind's pose across one beat under the worst simultaneous drive and fail when two kinds' ranges overlap. **That gate is unsatisfiable today and this lane's whole judgement is fixing it.** The report has SLICK at 146.7/87.0 ~ 1.69 and BULB, THROB and RUNT all at ~1.0, so three ranges already overlap before a line of this batch is written; as written the check either fails on the current build or gets quietly weakened to slick-versus-everything, which is the one pair that was never in danger. Aspect cannot separate the round three, and the round three are where the vocabulary risk actually lives.
-
-So: three axes, and a kind collides with another only when it overlaps on **all three at once**. (a) Aspect range `(rx*sx)/(ry*sy)` sampled across a beat. (b) A lobe / harmonic-energy measure derived from `blobRadiusMul` — **called, not re-derived**; a second copy of where the contour is drifts the first time a wobble constant changes, and this lane adds a `COPIES` row for it if `purity.test.ts` does not already cover the call. (c) Effective drawn radius including `sizeMul` and `throbMul`, which is what actually separates RUNT (sizeMul 0.55, ~10 px on screen) from everything else and is the number that says why no interior work belongs on it. Print all three in `bun run shapes:report` as new columns beside W/H/AREA/LENGTH/TRAVEL/BREATH%, and assert the no-collision rule in a test, so the numbers are readable in a diff and the rule is refused by the build.
-
-The test must be **green on the current tree** and on lane 1's deepened bulb. If it is not, the axes are wrong, not the shapes — say so and fix the axes.
-
-Finished when `bun run check` is green, the report prints the three new columns for every living kind, and deliberately widening any pose amplitude past its stated cap turns the test red.
-
-Model `opus` because this is the metric that licenses or refuses every later change in the batch: the unpick cost of a gate measuring the wrong thing is every amplitude that got past it. Think hard about **which axes actually carry the word at 26 px** — that is the part D3 got wrong, and it got it wrong by picking the axis that was easiest to compute.
-
-Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
-
 ## EVERY BODY MOVES A ROW ON THE SAME INSTANT AND NONE OF THEM ARRIVES
 _claude/burn-body-land-c5 · packages/content/src/drive.ts packages/content/test/drive.test.ts_
 
