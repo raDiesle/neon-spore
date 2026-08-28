@@ -108,6 +108,14 @@ function serializeWave(wave: Wave): string {
     lines.push(`    boss: ${serializeBoss(wave.boss)},`);
   }
 
+  // Last, and only when the wave asks for a panel that is not the ordinary
+  // one. A wave that names nothing is played on `DEFAULT_CONTROL_SET_ID`, so
+  // writing the default out would put a line in the file that means nothing —
+  // and the round trip would then disagree with a `waves.ts` nobody edited.
+  if (wave.controls) {
+    lines.push(`    controls: "${wave.controls}",`);
+  }
+
   lines.push("  },");
   return lines.join("\n");
 }

@@ -1,5 +1,20 @@
 export { BRIEFINGS, type BriefingCard } from "./briefings.js";
 export {
+  CONTROL_SETS,
+  CONTROLS,
+  type ControlDef,
+  type ControlId,
+  type ControlSet,
+  type ControlSetId,
+  control,
+  controlSet,
+  controlSetForWave,
+  DEFAULT_CONTROL_SET_ID,
+  setControls,
+  setHas,
+  wavesUsingSet,
+} from "./control-sets.js";
+export {
   type ControlGroup,
   CREATURES,
   type CreatureCategory,

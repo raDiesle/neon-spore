@@ -57,6 +57,16 @@ const KEY_REPEAT_INTERVAL_TICKS = 8;
  * F and G are the two keys that are *held* rather than pressed: the lance and
  * the grip. Both send a second command on the keyup, because nothing in the
  * simulation ends either on its own.
+ *
+ * **The keyboard is not gated by the wave's control set, and that is the same
+ * decision the view switch already made.** A wave names one whole panel and
+ * the band draws that panel and nothing else (`packages/content/src/control-sets.ts`),
+ * so on an ordinary wave there is no lance on screen and no thumb can reach
+ * one. This file is the desk rig: one person driving both seats, in every view,
+ * including the halves this screen is not showing. Gating it would mean a
+ * tester could not open the lance without first finding the wave that carries
+ * it, which is the opposite of what the rig is for. What is *shown* and what a
+ * single tester can reach have never been the same list here.
  */
 export function bindKeys({
   buffer,
@@ -117,6 +127,10 @@ export function bindKeys({
       // F holds the lance, as player 1. Held, not tapped: the lobe fills for
       // as long as the key is down and empties on the keyup below, which is
       // the same contract the thumb on the band has (`sim/lance.ts`).
+      //
+      // On a phone this key's button is on one panel only — the LANCE PANEL,
+      // which a wave has to name. At a desk it is always here; see the note
+      // above `bindKeys`.
       case "KeyF":
         buffer.push(1, { kind: "prime", on: true });
         break;

@@ -112,6 +112,17 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // Which panel a wave is played on. The rule is that a wave naming nothing
+    // is played on the default set, and it is one `??` — which is exactly the
+    // size of thing a second reader writes out again rather than importing.
+    // Two copies of it is how a director page and the band come to disagree
+    // about which buttons a wave has.
+    call: "controlSetForWave",
+    owner: "packages/content/src/control-sets.ts",
+    pattern: /\bcontrols\s*\?\?/,
+    strip: false,
+  },
+  {
     call: "mapCol",
     owner: "packages/content/src/queue.ts",
     pattern: /\bAUTHORED_COLS\s*-\s*1\b/,

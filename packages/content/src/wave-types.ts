@@ -1,4 +1,5 @@
 import type { BossEntry, Color, PodEntry } from "@neon-spore/sim";
+import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
 
 /**
@@ -61,4 +62,19 @@ export interface Wave {
    * (`bossFillsWave`).
    */
   boss?: BossEntry;
+  /**
+   * Which panel the pair plays this wave on, if not the ordinary one.
+   *
+   * A **whole** panel, both players at once, and never a combination — that is
+   * the entire content of `control-sets.ts` and the reason this is one name
+   * rather than a list of buttons. A wave that says nothing is played on
+   * `DEFAULT_CONTROL_SET_ID`, so the field stays the field unless a wave has a
+   * reason to be something else.
+   *
+   * Beside `boss` on purpose. Both fields say the same kind of thing — this
+   * wave is not the ordinary thing — and both are read before the wave starts,
+   * identically on both devices, so neither costs the tick or the hash
+   * anything.
+   */
+  controls?: ControlSetId;
 }

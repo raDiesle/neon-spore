@@ -1,18 +1,33 @@
+import {
+  type ControlDef,
+  type ControlId,
+  type ControlSet,
+  controlSetForWave,
+  DEFAULT_CONTROL_SET_ID,
+  setControls,
+} from "@neon-spore/content";
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { halo } from "./glow.js";
 import { drawLanceButton } from "./lance.js";
-import { type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
+import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
  * centres, plus the trigger and the two colours.
  *
- * The split is the game: player 1 slides the cannon, triggers the shield, opens
- * the maw and holds the lance; player 2 slides the shield and fires. Neither
- * can carry a defence alone, and the band shows that by never giving one player
- * both halves of anything.
+ * The split is the game: player 1 slides the cannon and triggers the shield,
+ * player 2 slides the shield and fires. Neither can carry a defence alone, and
+ * the band shows that by never giving one player both halves of anything.
+ *
+ * **What is on it is the wave's decision, not this file's.** The wave names a
+ * control set — the whole panel, both players, and never a combination — and
+ * `packages/content/src/control-sets.ts` says what is in it. This file walks
+ * that list. It does not know that the lance exists, only that a set may
+ * contain a lobe called `lance` and that `layout.ts` has somewhere to put it.
+ * That is what makes a panel something a person can be shown and argued with
+ * rather than something implied by the order of the `if`s down here.
  *
  * A screen only draws the half it owns. The test view owns both, which is why
  * the five buttons have to fit beside each other at all.
@@ -31,6 +46,7 @@ export function drawBand(
   // the band is drawn dead and says so: a control that quietly does nothing
   // is indistinguishable from a control that is broken.
   const locked = mirrorHoldsControls(world);
+  const set = controlSetForWave(world.wave);
   ctx.save();
   ctx.fillStyle = "#0E0A22";
   ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
@@ -44,50 +60,132 @@ export function drawBand(
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
-  if (showsCannon(l.role)) {
-    strip(
-      ctx,
-      l,
-      l.cannonStrip.y,
-      l.cannonStrip.height,
-      world.cannonCol,
-      PALETTE.hull,
-      "PLAYER 1 · CANNON",
-    );
-    // The first two are lit for exactly as long as their window is open, so
-    // player 1 can see what they are spending.
-    const g = l.guardButton;
-    const m = l.intakeButton;
-    const n = l.lanceButton;
-    drawActionButton(ctx, g.x, g.y, g.r, armed, PALETTE.shield, "#08131A", "SHIELD");
-    drawActionButton(ctx, m.x, m.y, m.r, open, PALETTE.pod, "#2C1C05", "SUCK");
-    // Not a `drawActionButton`: the other two are lit or not, and this one has
-    // a length. See `drawLanceButton`.
-    drawLanceButton(ctx, n.x, n.y, n.r, world);
-  }
-  if (!showsShield(l.role)) {
-    ctx.restore();
-    if (locked) drawLock(ctx, l);
-    ctx.textAlign = "left";
-    return;
-  }
+  if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open);
+  if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open);
+  if (set.id !== DEFAULT_CONTROL_SET_ID) drawSetName(ctx, l, set);
 
-  strip(
-    ctx,
-    l,
-    l.shieldStrip.y,
-    l.shieldStrip.height,
-    world.shieldCol,
-    PALETTE.shield,
-    "PLAYER 2 · SHIELD",
-  );
-
-  for (const b of l.fireButtons) {
-    drawFireButton(ctx, b.circle.x, b.circle.y, b.circle.r, b.color);
-  }
   ctx.restore();
   if (locked) drawLock(ctx, l);
   ctx.textAlign = "left";
+}
+
+/**
+ * One seat's half of the panel, in the order the set lists it.
+ *
+ * `armed` and `open` are handed down rather than read here for the reason they
+ * always were: they are windows the host is counting, not world state.
+ */
+function drawHalf(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  set: ControlSet,
+  player: 1 | 2,
+  armed: boolean,
+  open: boolean,
+): void {
+  for (const c of setControls(set, player)) {
+    if (c.form === "strip") {
+      drawStripFor(ctx, l, world, c);
+      continue;
+    }
+    const circle = lobeCircle(l, c.id);
+    if (circle) drawLobe(ctx, circle, c, world, armed, open);
+  }
+}
+
+/**
+ * Where a lobe goes. The only `switch` in here, and it is a *lookup* rather
+ * than a rule: `layout.ts` owns the geometry and `touch.ts` answers a finger
+ * against the very same circles, so a control drawn through this function is
+ * drawn exactly where it is answered. Which controls are on the panel is the
+ * set's business, one call above.
+ */
+function lobeCircle(l: Layout, id: ControlId): Circle | null {
+  switch (id) {
+    case "guard":
+      return l.guardButton;
+    case "intake":
+      return l.intakeButton;
+    case "lance":
+      return l.lanceButton;
+    case "fireRed":
+      return l.fireButtons.find((b) => b.color === "red")?.circle ?? null;
+    case "fireCyan":
+      return l.fireButtons.find((b) => b.color === "cyan")?.circle ?? null;
+    default:
+      return null;
+  }
+}
+
+function drawLobe(
+  ctx: CanvasRenderingContext2D,
+  circle: Circle,
+  c: ControlDef,
+  world: World,
+  armed: boolean,
+  open: boolean,
+): void {
+  const { x, y, r } = circle;
+  // The first two are lit for exactly as long as their window is open, so
+  // player 1 can see what they are spending.
+  if (c.id === "guard") {
+    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label);
+    return;
+  }
+  if (c.id === "intake") {
+    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, c.label);
+    return;
+  }
+  // Not a `drawActionButton`: the other two are lit or not, and this one has
+  // a length. See `drawLanceButton`.
+  if (c.id === "lance") {
+    drawLanceButton(ctx, x, y, r, world);
+    return;
+  }
+  drawFireButton(ctx, x, y, r, c.id === "fireRed" ? "red" : "cyan");
+}
+
+function drawStripFor(ctx: CanvasRenderingContext2D, l: Layout, world: World, c: ControlDef): void {
+  const cannon = c.id === "cannon";
+  const s = cannon ? l.cannonStrip : l.shieldStrip;
+  strip(
+    ctx,
+    l,
+    s.y,
+    s.height,
+    cannon ? world.cannonCol : world.shieldCol,
+    cannon ? PALETTE.hull : PALETTE.shield,
+    c.label,
+  );
+}
+
+/**
+ * The panel says its own name, but only when it is not the ordinary one.
+ *
+ * A set is a whole panel and not a button that got added, and the surest way
+ * for that to read wrong is for it to read as the usual band with something
+ * swapped in while nobody was looking. A named plate on the seam answers that
+ * before the first beat. The default stays anonymous on purpose: a label that
+ * is always there is furniture, and furniture is not read.
+ *
+ * Left-aligned against the edge, so it never collides with the strip captions,
+ * which are centred.
+ */
+function drawSetName(ctx: CanvasRenderingContext2D, l: Layout, set: ControlSet): void {
+  const y = l.bandTop;
+  ctx.font = '700 8px "Courier New",monospace';
+  ctx.textAlign = "left";
+  const w = ctx.measureText(set.name).width + 12;
+  ctx.fillStyle = "#0E0A22";
+  ctx.fillRect(4, y - 6, w, 12);
+  ctx.strokeStyle = PALETTE.pod;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(4.5, y - 5.5, Math.max(1, w - 1), 11);
+  ctx.fillStyle = PALETTE.pod;
+  ctx.fillText(set.name, 10, y + 3);
+  ctx.font = '9px "Courier New",monospace';
+  ctx.textAlign = "center";
 }
 
 /**

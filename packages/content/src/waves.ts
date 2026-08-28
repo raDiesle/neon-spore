@@ -219,6 +219,7 @@ export const WAVES: Wave[] = [
       { beat: 1, col: 2, color: "red" },
       { beat: 2, col: 2, color: "red" },
     ],
+    controls: "lance",
   },
   {
     name: "THE PURGE",
