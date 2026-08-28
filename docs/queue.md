@@ -157,13 +157,6 @@ Finished when `bun run check` is green, the skin is on the switcher, the header 
 
 Model `opus`, effort `think hard`. The judgement is where iridescence stops being a material and starts being a rainbow, and the answer is a narrow hue range rather than a wide one. Read `docs/alive.md` and `docs/skins.md` first.
 
-## THE PROMPT IS THE ONLY THING A VOTE LEAVES BEHIND
-_claude/burn-versus-prompt-v3 · tools/versus/prompt.ts tools/versus/test/prompt.test.ts_
-
-A vote writes no file, no git, no localStorage and no server call — the code is the record, and after the prompt runs `main` holds one version and no candidates. So the whole decision rides on one string, and this lane builds it: a pure function from a `Variant`, the current values read off the live records before any patch is applied, the head sha, and the sentence a person typed, to the literal text in this plan's template. It lives in `tools/versus/` rather than the director because it is string-shaped, needs no DOM, and is the part most worth testing. The hard part to think about is a session pasting this three weeks late: every field carries its own `old -> new` so a left-hand value that has drifted stops the whole prompt instead of silently reverting somebody's later edit to `rx`, and the instruction is to name which value disagreed rather than to work out which is newer. Three derivations rather than three sentences somebody remembers: any patch whose `where.file` starts with `packages/content/` appends `bun run shapes` to the check step and both committed sheets to the staging list — `tools/shape-sheet/shape-sheet.svg` is committed and says `9 lobes` for BULB today, and nothing in `bun run check` would notice it becoming a lie; every patched symbol emits a `git grep -n "\bSYMBOL\b" -- packages apps tools` **with no predicted result**, because the one place proposal 3's prompt was wrong was a sentence claiming what that grep would return; and deletion is always `git rm -r` on the candidate's whole directory plus the named import line and the named array entry, never on the file you can see. Finished when `tools/versus/test/prompt.test.ts` asserts the adopt and keep forms for a fixture variant, that the keep form differs from the adopt form only in the five ways the template names, that a content-targeting patch carries the shapes step and a render-targeting one does not, and that no emitted prompt ever contains the words `packages/sim`.
-
-Model `opus`, effort `think hard`. Read `docs/versus.md` first — it is the design this lane implements.
-
 ## THE CATALOGUE'S ARROW POINTS ONE WAY, AND A TAKEN SHAPE CAN STILL BE WRONG
 _claude/burn-versus-docs-v4 · docs/verification.md docs/asset-catalogue.md CLAUDE.md_
 
