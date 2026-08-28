@@ -455,13 +455,30 @@ raise a timeout to get past it, and never force the landing.** If it still fails
 quiet, it is not load, and that is a real finding to report rather than route
 around.
 
-**Never rewrite a file the owner writes by hand.** `docs/verified.md` is CRLF
-and `bun run checks` matches a verdict to a trailer on the line as written. A
-text round trip through a script converted the whole file to LF, matched
-nothing, and took the outstanding list from twelve to a hundred and
-twenty-eight. If such a file must be edited, append in the same encoding and
-diff the result before committing. Duplicate rows in it are a defect in
+**Never rewrite a file the owner writes by hand.** `docs/verified.md` is
+appended to, never round-tripped through a script: one that rewrote the whole
+file matched nothing afterwards and took the outstanding list from twelve to a
+hundred and twenty-eight. Append, then `git diff --numstat` and check the
+deletions column reads zero before committing. Duplicate rows are a defect in
 whatever wrote them — fix that, do not tidy the file.
+
+**It fails silently in two ways, and neither of them errors.** `bun run checks`
+joins a decision to a check on **sha and text together** (`sameCommit` and
+`d.text === check.text` in `checks.ts`), so a row that does not parse, or whose
+text is off by one character, is not a warning — it is a check that simply
+stays open, in a file whose whole job is closing them.
+
+- **The text runs to the end of the line, so nothing may follow it.** A note
+  appended after the check's own words makes the text unequal and the decision
+  matches nothing. Notes go on their own indented `  - ` line underneath, which
+  is what `ledger.ts` documents and what the `FAIL` example there shows.
+- **The file is LF.** `a9f4755` added `.gitattributes` with `eol=lf`, so this
+  is no longer the CRLF file older guidance describes — and writing a CRLF row
+  now breaks it, because `ledger.ts`'s `(.*)$` cannot reach the end of a line
+  ending in a carriage return: in JavaScript `.` does not match ``. The row
+  parses as nothing at all.
+
+Both were hit for real on 28 August 2026, in that order, on one row.
 
 **A speed claim is a distribution, never a mean.** A lane measured a frame's
 work at 940 ms → 84 ms on a synthetic harness, landed, and the owner's browser
