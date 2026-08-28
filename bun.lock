@@ -82,6 +82,9 @@
     "tools/frames": {
       "name": "@neon-spore/frames",
       "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+      },
       "devDependencies": {
         "playwright-core": "^1.62.1",
       },

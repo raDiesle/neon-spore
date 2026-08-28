@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@neon-spore/content": "workspace:*"
+  },
   "devDependencies": {
     "playwright-core": "^1.62.1"
   }

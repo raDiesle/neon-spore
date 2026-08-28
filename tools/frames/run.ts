@@ -20,16 +20,32 @@
  * place a picture could settle (`bun run preview`, a wave, a seat) against how
  * many name something a camera cannot reach.
  *
- *   bun run frames <sha>                       one still, wave 1, one second in
- *   bun run frames <sha> --wave 2 --ticks 240   a different wave, two seconds in
- *   bun run frames <sha> --frames 6 --stride 4  a short strip, for motion
+ * A sha alone is enough. `docs/checks/<sha>.md` carries a `where` field
+ * naming the place a person should stand for that check, and most of them
+ * name a wave — by number, by name, or "any wave". This reads that field and
+ * opens the wave it names, the same one a human would walk to. `where` naming
+ * a director page instead of the game (SHAPES, VERSUS, the wave list, NOT
+ * BUILT YET) has no frame here — the tool says so and refuses rather than
+ * screenshotting the field. `--wave` overrides the derivation for the checks
+ * `where` cannot express as one wave.
+ *
+ *   bun run frames <sha>                        the wave its own `where` names
+ *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
+ *   bun run frames <sha> --wave "THE THIRD SHOT" a wave by name — what a person has in hand
+ *   bun run frames <sha> --ticks 240             a different point in the wave
+ *   bun run frames <sha> --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --out docs/checks/frames/<sha>
- *   bun run frames --report                     how many restated checks a frame could answer
+ *   bun run frames --report                      how many restated checks a frame could answer
+ *
+ * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
+ * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to
+ * the 0-based index `jumpToWave` and `world.wave` actually use.
  */
 
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { WAVES } from "@neon-spore/content";
 import { captureFrames, type FrameSpec } from "./capture.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -146,6 +162,179 @@ async function report(): Promise<void> {
   );
 }
 
+/**
+ * One entry of `WAVES`, reduced to the two things a `where` field can name a
+ * wave by. Kept narrow so `resolveWaveText` and its tests do not need the
+ * whole `Wave` shape from `@neon-spore/content`.
+ */
+export interface WaveName {
+  name: string;
+}
+
+/** Regex-escapes a wave name so `SHIELD, THEN CANNON` can be searched for
+ * literally instead of as a character class. */
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export type WaveResolution =
+  | { kind: "hud"; hudNumber: number; reason: string }
+  | { kind: "name"; name: string; index: number; reason: string }
+  | { kind: "director"; reason: string }
+  | { kind: "unknown"; reason: string };
+
+/**
+ * Phrases that name a director page rather than the running game — the
+ * places `bun run frames` cannot stand in, because it only builds and serves
+ * `apps/game`. Substring, case-insensitive: `DIRECTOR_HOST` matches on
+ * `director` the same way a spelled-out "director" would.
+ */
+const DIRECTOR_MARKERS = [
+  "director",
+  "not built yet",
+  "shapes",
+  "versus",
+  "parked",
+  "backlog",
+  "music tab",
+  "to check",
+  "control sets",
+  "demos",
+  "wave list",
+  "checks sheet",
+];
+
+/**
+ * What a `where` field's own text names, read the way a person reading it
+ * would: a wave by the HUD's number (`wave 21` is `W21`, not `jumpToWave`'s
+ * 0-based 21), a wave by its own name (`THE THIRD SHOT`), "any wave" (nothing
+ * turns on which one), a director page with no single wave to stand at, or
+ * nothing this can place at all.
+ *
+ * Order matters: a named or numbered wave wins even where a director marker
+ * also appears (`docs/checks/18036b0.md`'s "`bun run dev` → THE THIRD SHOT
+ * wave" names a real wave despite naming the wave editor to find it in), and
+ * a `bun run frames <sha> --wave N` example embedded in a `where` field
+ * (`docs/checks/943c4f4.md`, about the tool itself) is deliberately not read
+ * as an instruction to this run — a check about `bun run frames` is not a
+ * place to stand.
+ */
+export function resolveWaveText(text: string, waves: readonly WaveName[]): WaveResolution {
+  if (/\bbun run frames\b/i.test(text)) {
+    return {
+      kind: "unknown",
+      reason: "where describes running `bun run frames` itself, not a place to stand",
+    };
+  }
+
+  const numbered = text.match(/\bwave\s*#?\s*(\d{1,3})\b/i);
+  if (numbered) {
+    const hudNumber = Number(numbered[1]);
+    return { kind: "hud", hudNumber, reason: `"wave ${hudNumber}" in the where field` };
+  }
+
+  let earliest: { index: number; name: string; waveIndex: number } | null = null;
+  waves.forEach((w, waveIndex) => {
+    const m = text.match(new RegExp(`\\b${escapeRegExp(w.name)}\\b`));
+    if (m && m.index !== undefined && (!earliest || m.index < earliest.index)) {
+      earliest = { index: m.index, name: w.name, waveIndex };
+    }
+  });
+  if (earliest) {
+    const found = earliest as { index: number; name: string; waveIndex: number };
+    return {
+      kind: "name",
+      name: found.name,
+      index: found.waveIndex,
+      reason: `"${found.name}" named in the where field`,
+    };
+  }
+
+  if (/\bany wave\b/i.test(text)) {
+    return { kind: "hud", hudNumber: 1, reason: '"any wave" said — using wave 1' };
+  }
+
+  const marker = DIRECTOR_MARKERS.find((m) => text.toLowerCase().includes(m));
+  if (marker) {
+    return { kind: "director", reason: `where names a director page ("${marker}"), not the game` };
+  }
+
+  return { kind: "unknown", reason: "no wave named in the where field" };
+}
+
+/** `docs/checks/<sha>.md` names its file after the short sha, but a caller
+ * may pass a full sha or a longer abbreviation — match either direction. */
+async function findChecksFile(sha: string): Promise<string | null> {
+  const dir = join(root, "docs/checks");
+  const names = await readdir(dir);
+  return (
+    names.find((n) => {
+      const stem = n.replace(/\.md$/, "");
+      return stem !== "restated" && (sha.startsWith(stem) || stem.startsWith(sha));
+    }) ?? null
+  );
+}
+
+/**
+ * Reads `docs/checks/<sha>.md`, if there is one, and resolves the first
+ * `where` entry that names an actual wave. An entry naming only a director
+ * page or nothing placeable is skipped in favour of a later entry that does
+ * name a wave (`docs/checks/16efb33.md` carries two, and the first already
+ * resolves); if none of them do, the first non-"unknown" reason is reported
+ * so the refusal explains itself instead of just saying "no wave".
+ */
+export async function deriveWaveFromChecks(sha: string): Promise<WaveResolution> {
+  const file = await findChecksFile(sha);
+  if (!file) {
+    return { kind: "unknown", reason: `no docs/checks/<sha>.md found for ${sha}` };
+  }
+  const text = await Bun.file(join(root, "docs/checks", file)).text();
+  let fallback: WaveResolution | null = null;
+  for (const entry of splitEntries(text)) {
+    const where = entry.match(/\*\*where\*\*\s*(.*)/)?.[1] ?? "";
+    if (!where) continue;
+    const resolved = resolveWaveText(where, WAVES);
+    if (resolved.kind === "hud" || resolved.kind === "name") return resolved;
+    if (!fallback) fallback = resolved;
+  }
+  return fallback ?? { kind: "unknown", reason: `${file} has no where field` };
+}
+
+/** `--wave` on the command line: the HUD's own number (`21` is `W21`) or a
+ * wave's own name, either converted to the 0-based index `jumpToWave` takes. */
+export function resolveWaveFlag(value: string, waves: readonly WaveName[]): number {
+  const asNumber = Number(value);
+  if (Number.isInteger(asNumber)) {
+    if (asNumber < 1) {
+      throw new Error(`--wave ${value}: wave numbers start at 1, matching the HUD's W1`);
+    }
+    return asNumber - 1;
+  }
+  const index = waves.findIndex((w) => w.name.toLowerCase() === value.toLowerCase());
+  if (index === -1) {
+    throw new Error(
+      `--wave "${value}": no wave with that name. Known names: ${waves.map((w) => w.name).join(", ")}`,
+    );
+  }
+  return index;
+}
+
+/** Byte-identical, frame for frame, in order — the guard against writing an
+ * honest, comparable, completely useless pair. */
+export async function framesIdentical(before: string[], after: string[]): Promise<boolean> {
+  if (before.length !== after.length) return false;
+  for (let i = 0; i < before.length; i++) {
+    const beforePath = before[i] as string;
+    const afterPath = after[i] as string;
+    const [a, b] = await Promise.all([
+      Bun.file(beforePath).arrayBuffer(),
+      Bun.file(afterPath).arrayBuffer(),
+    ]);
+    if (Buffer.compare(Buffer.from(a), Buffer.from(b)) !== 0) return false;
+  }
+  return true;
+}
+
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   if (argv[0] === "--report" || argv.length === 0) {
@@ -154,7 +343,9 @@ async function main(): Promise<void> {
   }
 
   const sha = argv[0];
-  if (!sha) throw new Error("usage: bun run frames <sha> [--wave N] [--ticks N] [--out DIR]");
+  if (!sha) {
+    throw new Error('usage: bun run frames <sha> [--wave N|"NAME"] [--ticks N] [--out DIR]');
+  }
   const flag = (name: string, fallback: number): number => {
     const i = argv.indexOf(`--${name}`);
     return i === -1 ? fallback : Number(argv[i + 1]);
@@ -163,8 +354,32 @@ async function main(): Promise<void> {
   const out = outFlag === -1 ? join(root, "docs/checks/frames", sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
 
+  const waveFlagIndex = argv.indexOf("--wave");
+  let waveIndex: number;
+  if (waveFlagIndex !== -1) {
+    const value = argv[waveFlagIndex + 1];
+    if (!value) throw new Error("--wave needs a number or a wave name");
+    waveIndex = resolveWaveFlag(value, WAVES);
+    console.log(
+      `wave: ${value} → index ${waveIndex} (${WAVES[waveIndex]?.name ?? "beyond the authored waves"})`,
+    );
+  } else {
+    const resolution = await deriveWaveFromChecks(sha);
+    if (resolution.kind === "director") {
+      throw new Error(
+        `${resolution.reason} — nothing to screenshot here. Pass --wave to point this at a wave instead.`,
+      );
+    }
+    if (resolution.kind === "unknown") {
+      throw new Error(`${resolution.reason} — pass --wave N or --wave "NAME" explicitly.`);
+    }
+    waveIndex = resolution.kind === "hud" ? resolution.hudNumber - 1 : resolution.index;
+    const name = WAVES[waveIndex]?.name ?? "beyond the authored waves";
+    console.log(`wave: ${resolution.reason} → index ${waveIndex} (${name})`);
+  }
+
   const spec: FrameSpec = {
-    wave: flag("wave", 1),
+    wave: waveIndex,
     ticks: flag("ticks", 120),
     frames: flag("frames", 1),
     strideTicks: flag("stride", 4),
@@ -173,15 +388,37 @@ async function main(): Promise<void> {
   const parent = await git(["rev-parse", `${sha}^`]);
   const full = await git(["rev-parse", sha]);
 
+  const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
   const start = Date.now();
-  console.log(`before: ${parent.slice(0, 7)}`);
-  const before = await captureAt(parent, spec, join(out, "before"));
-  console.log(`after: ${full.slice(0, 7)}`);
-  const after = await captureAt(full, spec, join(out, "after"));
-  const seconds = Math.round((Date.now() - start) / 1000);
+  try {
+    console.log(`before: ${parent.slice(0, 7)}`);
+    const before = await captureAt(parent, spec, join(scratchOut, "before"));
+    console.log(`after: ${full.slice(0, 7)}`);
+    const after = await captureAt(full, spec, join(scratchOut, "after"));
+    const seconds = Math.round((Date.now() - start) / 1000);
 
-  console.log(`wrote ${before.length + after.length} frame(s) to ${out} in ${seconds}s`);
-  for (const p of [...before, ...after]) console.log(`  ${p}`);
+    if (await framesIdentical(before, after)) {
+      console.log(
+        `identical: before and after look the same at this wave and tick (${seconds}s) — nothing written to ${out}. A picture of an unchanged field teaches nothing; try a different --wave or --ticks.`,
+      );
+      return;
+    }
+
+    await mkdir(out, { recursive: true });
+    const written: string[] = [];
+    for (const p of [...before, ...after]) {
+      const rel = p.slice(scratchOut.length + 1);
+      const dest = join(out, rel);
+      await mkdir(dirname(dest), { recursive: true });
+      await Bun.write(dest, Bun.file(p));
+      written.push(dest);
+    }
+
+    console.log(`wrote ${written.length} frame(s) to ${out} in ${seconds}s`);
+    for (const p of written) console.log(`  ${p}`);
+  } finally {
+    await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
+  }
 }
 
 if (import.meta.main)
