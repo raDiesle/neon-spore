@@ -125,64 +125,6 @@ down from one nobody has started?`
 Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts`'s group
 note and `docs/spec/ideas.md`'s deferred section first.
 
-## NINETEEN GROUPS OF DIALS SIT BESIDE THE ONE WAVE YOU ARE EDITING
-_claude/burn-director-ship-split-s16 · tools/director/src/ship.ts tools/director/src/ship-fields.ts tools/director/index.html_
-**Asked for by the owner.**
-
-The left column runs WAVE, then SHIP, and SHIP is the whole of `SimConfig` —
-nineteen groups from AIM down to PLUMBING, one of which is literally labelled
-*not a dial a person turns*. None of it belongs to the wave in front of you.
-`aimMillis` is the same number on wave 3 and wave 30; so is the hull's repair
-rate, the beat, the score. They are beside the wave because that is where the
-panel was built, not because that is where they are needed.
-
-**The cost is not space, it is attention.** A column that shows everything all
-the time teaches you to scroll past it, and then the thing you actually needed
-is scrolled past too. The owner edits a wave and reads nineteen headings that
-have nothing to do with it, every time.
-
-**So the column holds what belongs to this wave, and the rest moves behind a
-button on the topbar.** The split is not by taste; ask of each group *does
-changing this change the wave in front of me, or the game everywhere?*
-
-- **Stays** — the wave's own entries and its metadata, and any group that is
-  about something the current wave actually contains. If the wave has a warden,
-  WARDEN belongs beside it; if it has none, those dials are noise. The same for
-  VANE, MIRROR, QUEEN, and for THE GAUGE, which is an interlude's round and
-  only matters in a gap that carries one. **Show a boss's group when the wave
-  holds that boss**, and the panel stops being a list and starts being an
-  answer.
-- **Moves** — everything global: AIM, GUARD, MAW, POD, LANCE, GRIP, HULL,
-  RADAR, THE BEAT, THE FORK, BRIEFING, THROB, SCORE. These are the ship, and
-  the ship is the same ship on every wave.
-- **Moves and stays moved** — PLUMBING. Its own label says nobody turns it.
-
-**One thing must not be lost in the move.** `FIELD_GROUP` is a
-`Record<keyof SimConfig, GroupName>`, which is why adding a config field is a
-hard typecheck failure until the director is told where it goes — a lane
-discovered that today by hitting it. That exhaustiveness is the reason no
-tunable can be added and left unreachable in the tool that tunes it, so
-**whatever shape the split takes, every field must still be reachable and the
-Record must stay exhaustive.** A group that is hidden is not a group that is
-gone, and a "show everything" escape hatch has to exist for the day something
-is missing.
-
-**And the topbar is getting crowded**, so this is a place to be careful rather
-than quick: the director already has tabs, a checks sheet, a backlog sheet and
-a states control. One more button is fine; a second row is a different
-problem, and if this needs one, say so instead of building it.
-
-Finished when `bun run check` is green, the left column shows the wave and only
-what the wave contains, the ship's global dials are one click away and all of
-them are reachable, `FIELD_GROUP` is still exhaustive, and the commit carries
-`Check: with a wave open, is everything in the left column about that wave?`
-
-Model `sonnet`, effort `think hard`. The judgement is which groups are about a
-wave and which are about the ship, and the boss groups are the interesting
-case — they are global numbers that only matter contextually, which is exactly
-the line this lane is drawing. Read `ship-fields.ts`'s `GROUP_ORDER` and
-`ship.ts` first.
-
 ## A RELOAD KEEPS THE PLACE AND FORGETS EVERYTHING ELSE
 _claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
 **Asked for by the owner.**
