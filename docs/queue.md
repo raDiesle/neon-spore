@@ -138,49 +138,6 @@ Model `opus`, effort `think hard`. The diagnosis is the lane; read
 follow the value from `Wave.controls` to the pixel and find where it is
 dropped.
 
-## THE WAVE EDITOR CANNOT SET A CONTROL SET, OR SHOW WHICH ONE IS ON
-_claude/burn-controlset-editor-y2 · tools/director/src/controlsets-page.ts tools/director/src/ship-fields.ts_
-**Asked for by the owner.**
-
-The owner, marking the same lane's second check FAIL:
-
-> i dont see in wave configuration where to configure the control set for the
-> wave and what is active one.
-
-Correct, and it was never built: the lane put `controls?` on `Wave` and taught
-`serialize.ts` to keep it through a save, which means the field survives being
-set and there is nothing that sets it. A field only an editor of files can
-reach is a field the owner does not have.
-
-**One control, where the wave's other choices already are.** The wave editor
-already carries the boss, and a control set sits at exactly the same level —
-*this wave is not the ordinary thing*. Put it there, defaulting to the standard
-set, listing every registered set by the name a person reads, and saying which
-is active without being opened.
-
-**And the page per set, which is the lane this replaces.** The earlier brief
-asked for a director page documenting each set — what is in it, which waves use
-it, what each control does in one line, and the panel drawn as it will appear
-rather than described. Keep that; it is what makes the picker mean anything,
-because a name in a dropdown does not say what the pair will have in their
-hands.
-
-**The rail marking too.** A wave carrying a non-default set is marked in the
-wave list, in the same vocabulary as the boss mark and distinguishable from it
-at a glance. The card-assignment lane will add a third; leave room for it
-rather than taking the only remaining shape.
-
-Finished when `bun run check` is green, a wave's control set is picked in the
-wave editor and visible without opening anything, every registered set has a
-page showing its panel and its waves, the wave list marks a wave that uses one,
-a save round-trips the choice, and the commit carries `Check: looking at a wave
-in the editor, can you tell which controls the pair will have without starting
-it?`
-
-Model `sonnet`, effort `think hard`. Read how the boss is picked in the wave
-editor and copy that shape exactly; the lane is one field, one page and one
-mark, and inventing a new interaction for it would be the mistake.
-
 ## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
 _claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
 **Asked for by the owner.**
