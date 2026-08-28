@@ -218,3 +218,12 @@ other's wave number.
 - **changed** nothing stops a MOVE from overwriting a second gap already sitting at the target wave number — today there is exactly one entry in `GAPS` so it cannot happen yet
 - **decide** should a second interlude ever be added, does moving one onto an occupied wave silently drop the one that was there, or does the panel need to refuse it?
 - **where** add a second entry to `INTERLUDE_DEFAULTS` in `interlude-panel.ts`, place two gaps, try moving one onto the other's wave number
+
+## `4daad39` — the bulb's lobes deepen
+
+> the bulb's lobes still count at 26 px on a phone — beside a throb
+
+- **subject** `BULB` in `packages/content/src/silhouettes.ts`, the nine-lobe contour
+- **changed** `BULB.depth` moved from 0.1 to 0.13, deepening the lobe amplitude while `lobes: 9` stays untouched; measured at ~2.1 px of lobe amplitude at ~11 px spacing rather than the near-circle depth 0.1 gave
+- **decide** at 26 px on a phone, does the bulb's nine lobes still count as nine, distinct from THROB's six, rather than downsampling to a shared round blob?
+- **where** `bun run shapes:report` for the numbers; `bun run shapes` or the director's SHAPES tab for the eye, BULB beside THROB
