@@ -30,23 +30,38 @@ share `tools/director/src/skins/index.ts`, which is owned by nobody and gets
 one line from each — a contiguous region, replayed over, exactly like
 `config.ts`.
 
-**On the reference sheet.** `docs/reference/20-surface-designs.svg` is the
-owner's own file, handed over for this block and committed so a lane in a
-fresh clone can actually open it. It is worth reading rather than glancing at:
-it defines no `<pattern>` at all, and draws each of its twenty surfaces as
-explicit geometry inside a clipped group, `c0` through `c19` — which is the
-same thing every lane here has to do, so it is technique and not just a mood.
-Its eight gradients are worth reading twice.
+**On the reference sheets, and there are two of them on purpose.**
 
-It is reference for *structure* — how scales overlap, how a wing's cells
-divide, how a spiral's chambers fall — and **not** art to copy in. A fixed
-illustration cannot wrap a contour that wobbles every frame and is re-sampled
-from `contourAt`; every skin here is generated in contour space or it slides
-off its body within a second. The owner also linked three svgrepo files (fish
-scales, a butterfly wing, a nautilus shell) as further reference. **No lane
-fetches a URL and no lane vendors a third-party file** — that carries a
-licence, which is the owner's call and not a lane's. If those are ever wanted
-in the tree, that is its own entry with its own licence line.
+`docs/reference/20-surface-designs-concept.png` is the target: twenty surfaces
+as they should read — fish scale, reptile armour, beetle shell, butterfly
+wing, octopus, frog, snake, sea urchin, coral, nautilus, jellyfish, diatom,
+dragonfly eye, lobster, starfish, perlmutt, pinecone, sand dollar,
+caterpillar, spore pod. Each carries three words naming what it is made of
+(*thick plates · irregular · natural*), and those words are the brief for a
+skin more than the picture is.
+
+`docs/reference/20-surface-designs.svg` is the same twenty attempted in SVG,
+and **the distance between the two files is the most useful thing in either.**
+The SVG version is honest about where a vector surface falls down: most of its
+spheres are one uniform lattice tiled across a circle, with a single glow laid
+over the top. The concept sheet is not tiled at all — its plates change size
+across the body, thin toward the rim, catch the light individually, and break
+their own pattern. Compare 09 CORAL in the two files: branching structure in
+one, wavy stripes in the other. Or 10 NAUTILUS: a chambered spiral, against a
+plain sphere with a swoosh on it.
+
+So the failure mode has a picture now, and it is the one every lane in this
+block is warned about in its own words — *one lattice at two scales* is not
+two materials. A surface reads when its elements vary with position on the
+body and are lit individually. That is what the light lane exists for, and it
+is why a pattern lane that composes `litPass` will beat one that does not.
+
+Neither file is art to copy in: a fixed illustration cannot wrap a contour
+re-sampled from `contourAt` every frame, so every skin here is generated in
+contour space or it slides off its body within a second. The owner also linked
+three svgrepo files as further reference. **No lane fetches a URL and no lane
+vendors a third-party file** — that carries a licence, which is the owner's
+call and not a lane's.
 
 ## EVERY BODY ON THE PAGE IS A FLAT SHAPE SEEN FROM EXACTLY ONE ANGLE
 _claude/burn-skin-volume-s2 · tools/director/src/skins/turn.ts tools/director/src/skins/crater.ts_
