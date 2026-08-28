@@ -464,4 +464,24 @@ other's wave number.
 - **subject** the lean of CILIA's hundred rim strands, and the slide of NACRE's two interference films
 - **changed** both used to take the body's displacement by reading the translate back out of the group's own transform and differencing it. That transform is printed with `toFixed(2)`, so what they differenced was the displacement quantised to a hundredth of a contour unit — and on a slow body the quantum is a large fraction of one frame's step. Replayed over three thousand frames, the lean computed from the printed number and the lean computed from the pose behind it agree on most of the catalogue and diverge near a reversal, where the true velocity is small: worst 1.04 of a unit vector on THROB, and over 0.05 for a tenth of its frames; 0.43 on THE CONDUCTOR, 0.38 on THE VANE, 0.24 on BULB, 0.22 on RUNT; exactly zero on twenty of the twenty-seven bodies that have a motion at all. NACRE's phase is an accumulator, so its two versions drift a whole band cycle apart over the same run. Both now read `f.pose`, the pose the transform was printed from
 - **decide** does the fringe still reverse *late*, the way something dragged through water does, or does the unquantised velocity make it snap round at the turn — yes if the lean still visibly lags the sway on BULB and THROB; no if it now flips at the top of the swing, in which case `LEAN_SMOOTH` comes down from 0.12. And for NACRE, whether the bands still stop dead at the end of a sway rather than creeping through it
+
+## `fca8dac` — one body, every skin, every motion
+
+> with twenty skins on one body at once, is it obvious which ones are worth keeping?
+
+- **subject** the new grid on the SHAPES tab that puts one body in every skin at once
+- **changed** SHAPES used to show one skin at a time, worn by sixty different bodies. It now also shows one body — THE WEIGHT by default, or any other name you pick from the row above it — wearing all nineteen skins side by side, at the same size as the cards above
+- **decide** looking at all nineteen skins on the same body at once, is it obvious which ones are worth keeping and which are a weaker copy of another one, or do they blur into one texture?
+- **before** nothing — the skin bar has only ever been able to show one skin on the whole page at a time
+- **after** the "EVERY SKIN, ONE BODY" row, under the body picker at the foot of the SHAPES tab
+- **where** `bun run dev`, NOT BUILT YET → SHAPES, scroll past TAKEN to "EVERY SKIN, ONE BODY"
+
+> with every motion on one body at once, can you tell two of them apart without reading the labels?
+
+- **subject** the new grid on the SHAPES tab that puts one body through every motion at once
+- **changed** there was no page where the eighteen spare motions stood beside each other — seeing one meant forcing it on the whole catalogue and remembering what the last one looked like. THE WEIGHT (or whichever body is picked) now performs all eighteen at once, each labelled underneath
+- **decide** covering the labels, can you tell which figure is doing which motion — do enough of the eighteen read as visibly different movements, or do several of them collapse into the same wobble?
+- **before** nothing — the motion bar could only ever force one motion on the whole page at a time
+- **after** the "EVERY MOTION, ONE BODY" row, below the skins grid on the SHAPES tab
+- **where** `bun run dev`, NOT BUILT YET → SHAPES, scroll to "EVERY MOTION, ONE BODY"
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev` — in a worktree, `tools/director/server.ts` by absolute path, confirming the tree in its startup line — then SHAPES, `CILIA` on the skin bar. THROB first, which is the extreme case and the slowest drift in the catalogue, then BULB and RUNT; then `NACRE`, same three. `requestAnimationFrame` does not fire in a headless pane, so this one needs a real browser
