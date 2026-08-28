@@ -421,3 +421,49 @@ Not queued, because nothing has decided that the game wants interior detail at
 all; `docs/spec/graphics.md` says the opposite, and `burn-body-skin-c8` is the
 lane that argues with it. Pick this up only after that argument is settled by
 an eye, and only if the answer was yes.
+
+## The versus pair shows one slot, one role, and cannot be told otherwise
+
+2026-08-28 · claude/burn-versus-pair-v2
+
+The VERSUS tab draws the first open slot and no other. The page names how many
+there are, so a reader can see that it is holding something back, but there is
+no switcher — and the moment a second slot exists, half the mechanism is
+unreachable through the interface built for it.
+
+Two smaller ones came off the same lane. The pose is fixed to
+`pose.role ?? "p1"`, so a candidate that reads differently from the two seats
+can only ever be judged from one of them — which matters for anything touching
+the hull, since the pilot and the navigator are looking at different halves of
+it. And both `versus-page.ts` and `versus-pair.ts` sit at exactly the 250-line
+ceiling `packages/sim/test/limits.test.ts` enforces, so the vote box wants its
+own file before either grows again.
+
+Not queued because a slot switcher is only worth building once there is more
+than one slot to switch to, and today there is exactly one. The lane that
+opens the second is the lane that should carry this.
+
+## The contour is written twice, and the game and the sheet each read a different copy
+
+2026-08-28 · claude/burn-body-gate-c2
+
+`blobRadiusMul` and `hullRadiusMul` are byte-identical. The game strokes one
+and the shape sheet measures the other, so every judgement made on the sheet
+is a judgement about a copy of the thing that ships. Nothing keeps them equal;
+they are equal because nobody has edited one yet.
+
+That is the exact failure `packages/sim/test/purity.test.ts`'s COPIES table
+exists to refuse — a rule spelled out twice drifts the first time somebody
+changes the copy in front of them — and it is not covered, because the two are
+in different packages and neither is a re-derivation of a *rule*, only of a
+formula.
+
+Second, smaller: `packages/render` exports no `throbSwell`, so the shape
+sheet's nameability axes transcribe the 1.3 / 0.7 swell by hand. The lane that
+found it deliberately added no COPIES row, on the grounds that any pattern
+loose enough to catch a bare `[0.7, 1.3]` would be a guard in name only. It is
+still a second copy of a number the game owns.
+
+Not queued because the fix is a decision about which package owns the contour
+and which imports it, and that is a bigger question than either lane had room
+for.
