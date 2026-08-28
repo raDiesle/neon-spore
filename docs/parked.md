@@ -541,3 +541,36 @@ The answer is a velocity or pose field on `SkinFrame`, added once and read by
 CILIA and by anything after it — the iridescence lane will want the same
 thing, since its shift has to ride the body's motion. Do it when a second skin
 needs it, which is the next lane that does.
+
+## The catalogue page is now tens of thousands of SVG elements, and nobody has felt it
+
+2026-08-28 · the burn-skin block
+
+Element counts over the sixty cards, as each lane measured them: CILIA 123 per
+card; CARAPACE about 1,600 page-wide; SCALE about 10,600; SUCKER about 15,600;
+**PORE about 38,200**. PORE is roughly 640 elements per card, three and a half
+times SCALE and three hundred times LINE.
+
+Every one of those was verified as a *count*, never as a frame rate, because
+`requestAnimationFrame` has not fired once in the sandbox's browser pane all
+day — a lane proved it by awaiting a frame that timed out. So the page has
+grown two orders of magnitude in DOM size across one session and no session
+has watched it move.
+
+The risk is not that one skin is slow. It is that the SHAPES tab becomes
+sluggish enough to distort the judgement of *every* skin, including the ones
+that are cheap — a fringe that stutters reads as a bad fringe rather than as a
+busy page, and the whole point of the tab is comparing looks fairly. That
+would quietly invalidate a dozen outstanding checks rather than failing
+anything.
+
+Cheap things to try first, in order, if it does drag on a phone or a laptop:
+draw the scatter skins at a lower count for the small cards and full count
+only for the one being looked at; or render a skin's static texture once to a
+`<pattern>` or an offscreen canvas and reuse it per card, since the bumps do
+not move with the contour the way the clipped groups do. Neither is worth
+building before somebody says the page is slow.
+
+Not queued, because it may be nothing — sixty small SVGs is not obviously too
+much for a desktop browser, and the numbers above are the only evidence there
+is. The first person to open the tab settles it in five seconds.
