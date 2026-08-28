@@ -96,60 +96,62 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THE STONES SHOULD SHAKE BEFORE ONE OF THEM COMES DOWN
-_claude/burn-mother-telegraph-y5 · packages/render/src/boss-telegraph.ts docs/spec/bosses.md_
+## THE QUEEN'S TWO TORCHES SHOULD SHAKE BEFORE ONE OF THEM COMES DOWN
+_claude/burn-queen-telegraph-y5 · packages/render/src/queen.ts_
 **Asked for by the owner.**
 
-The owner, in their own words:
+The owner, in their own words, and then the boss named:
 
 > the stones left and right for mother boss should shake while it's deciding
 > where it will fall down, so it indicates that it's going to fall down on any
 > side soon.
+> i meant bulb queen, just to add this animation, that's all.
 
-**A telegraph, and the right one.** A thing that falls without warning is a
-thing the pair cannot talk about, and talking is the control scheme. A shake on
-*both* stones says *one of these is coming and I have not chosen yet*, which is
-exactly the sentence a pair needs a beat before the choice is made — the
-navigator can say *it is winding up* before they can say *which*. That is a
-different and better telegraph than shaking the one that will fall, which would
-give the answer away and remove the round.
+So this is **THE BULB QUEEN**, `docs/spec/bosses.md` 11.0, and the stones are
+the two flank torches she carries on her wing tips — the same rock a torch is
+anywhere else in the game. One of them breaks off and falls; the other stays.
 
-**First, settle which boss this is, and do it before anything else.** THE
-MOTHER is `docs/spec/bosses.md` 11.1 and **is not built** — her spec is about
-reacting to what the previous act destroyed, and says nothing about stones, a
-side, or a fall. So one of two things is true and the lane must find out which:
-either the owner means the unbuilt Mother and this is her first piece of
-choreography, in which case it is written into 11.1 as the telegraph her
-falling half will need; or they mean something they watched on screen, in which
-case it is one of the bosses that *is* built — the Bulb Queen, THE MIRROR, THE
-WARDEN, THE VANE — and the shake belongs to that one. **Say which in the
-commit**, and if the answer cannot be established from the tree, stop and ask
-rather than guessing: a telegraph attached to the wrong boss is worse than
-none, because it will be looked for on a body that never falls.
+**Both shake, never the one that is going to fall.** A shake on both says *one
+of these is coming and you are not being told which*, which is the sentence the
+navigator can say a beat before they can say the side. Shaking the chosen one
+would hand over the answer and remove the round. This matters more here than in
+most places, because the side is *already decided in state before it is shown*:
+`boss.ts` rolls `dropSide` from the seeded `Rng` at the same moment it sets
+`releaseSide`, well before `spit` pushes the torch. **A render that reads
+`dropSide` to decide what to shake would leak the answer on both devices.** Read
+only *that a drop is scheduled*, never which side.
 
-**What the shake has to be.** Both stones, together, starting far enough ahead
-of the drop that a sentence fits in the gap — a beat is the unit here, not
-milliseconds, because the pair's clock is the beat. Small: a tremor, not a
-lurch, and it must not read as damage or as the body being hit. It ends the
-instant the side is chosen, because from then on the picture says something
-different and the two must not overlap.
+**The window is already in the state and needs no new field.** Between the beat
+`dropSide` is rolled and the beat `spit` runs, the queen is deciding and the
+picture has nothing to say. That gap is the shake. Work out what it is in beats
+and put the number in the commit — if it is shorter than a sentence, say so,
+because then the telegraph does not fit and that is a finding about the boss
+rather than about this animation.
 
-**Where it lives.** The choice of side is the simulation's and stays there;
-`hashWorld` sees no new field for a tremor. The shake is drawing, read off the
-same authored beat the drop is scheduled on, so both devices show it without
-agreeing about anything new. Anything cached across frames goes in `Effects`
-and is cleared in `Effects.reset()`.
+**A tremor, not a lurch.** It must not read as damage, as a hit landing, or as
+the body being shot — she is armoured everywhere but the mark, and a shudder
+that reads as a wound would say something false. It stops the instant the torch
+breaks off, because from that beat the picture says something different and the
+two must not overlap.
+
+**Drawing only.** Nothing in `packages/sim` moves, no `SimConfig` field decides
+an amplitude, and `hashWorld` sees nothing new — two devices already agree
+about the beat, which is all the shake needs. Anything cached across frames
+goes in `Effects` and is cleared in `Effects.reset()`;
+`packages/render/test/restart.test.ts` fails if a new field is added and not
+cleared.
 
 Finished when `bun run check` is green, `frame.test.ts` passes through the
-strict canvas stub, both stones shake a stated number of beats before a drop
-and stop when the side is chosen, the commit names which boss this was and why,
-and it carries `Check: do both stones shaking tell you a drop is coming without
-telling you which side it lands on?`
+strict canvas stub, both torches shake through the window and stop when one
+breaks off, no code path reads `dropSide` to decide the picture, the window's
+length in beats is in the commit, and it carries `Check: do the queen's two
+torches shaking tell you a drop is coming without telling you which side it
+lands on?`
 
-Model `sonnet`, effort `think hard`. The identification is the risky half and
-the tremor is arithmetic. Read `docs/spec/bosses.md` 11.1 and the built bosses'
-own telegraphs first — several already announce themselves, and this should
-look like a member of that family rather than a new idiom.
+Model `sonnet`, effort `think hard`. The trap is leaking the side; the tremor
+is arithmetic. Read `packages/sim/src/boss.ts` around `dropSide` and `spit`,
+then how the queen and her flank torches are drawn, then a built boss's
+existing telegraph so this reads as a member of that family.
 
 ## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
 _claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
