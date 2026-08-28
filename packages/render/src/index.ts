@@ -13,6 +13,7 @@ export {
   showsGaugeMarks,
   showsGaugeValve,
 } from "./interlude.js";
+export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
   type Circle,
   colFromX,

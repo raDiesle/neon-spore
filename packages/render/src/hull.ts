@@ -1,4 +1,4 @@
-import { openSmoothPath } from "@neon-spore/content";
+import { LIGHT_HALF, openSmoothPath } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
 import { drawLay } from "./cannon-maw.js";
 import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
@@ -11,6 +11,7 @@ import {
   skin,
   surface,
 } from "./hull-frame.js";
+import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
@@ -139,6 +140,14 @@ export function drawHull(
   iridescence(ctx, body, filled, l, time);
   sweep(ctx, body, filled, l, time);
   dither(ctx, filled);
+  // WHERE THE LIGHT IS. Everything above this line implies one — the vertical
+  // body ramp, the inner glow, the sweep — and none of them names it, which is
+  // why the ship read flat however good each pass was on its own. The key
+  // light goes over all of them and under the outline, because a rim light
+  // lies on the silhouette and the outline *is* the silhouette here. The
+  // direction is `@neon-spore/content`'s `KEY`, the one constant the director's
+  // skins and this renderer both read; nothing in this file names an angle.
+  litBox(ctx, filled, l.gridLeft, top, l.gridWidth, l.bandTop - top, LIGHT_HALF.hull);
   // Every crater's geometry, whether or not its hole is open yet — a crack's
   // *position* (`scars.ts`'s `crackOrigin`) reads this unconditional list, so
   // it never moves once drawn. The rim goes round every OPEN crater, not

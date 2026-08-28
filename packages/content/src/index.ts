@@ -21,6 +21,7 @@ export {
   hullRadiusMul,
 } from "./hull-shape.js";
 export { GAPS } from "./interludes.js";
+export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export {
   MECHANIC_IDS,

@@ -1,6 +1,7 @@
-import { crystalPath, METEOR } from "@neon-spore/content";
+import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { rockRadius } from "./torch.js";
@@ -35,16 +36,24 @@ export function drawMeteor(
   );
   const path = new Path2D(d);
 
+  const turn = spin + time * 0.12;
   ctx.save();
   ctx.translate(x + wobble, y);
-  ctx.rotate(spin + time * 0.12);
+  ctx.rotate(turn);
 
-  const rg = ctx.createLinearGradient(-r, -r, r, r);
-  rg.addColorStop(0, "#9DA3B0");
-  rg.addColorStop(0.55, "#6B707E");
-  rg.addColorStop(1, PALETTE.rockDark);
-  ctx.fillStyle = rg;
+  // The rock's volume used to come from a linear gradient built in this
+  // rotated frame, which meant its light turned with the rock: a stone whose
+  // bright side is glued to the stone is a painted stone. The value range is
+  // the same range; what changed is that it now comes from the key light and
+  // `turn` is handed back to it, so the light stays where it is while the rock
+  // rolls under it. The base is the unlit mid-tone between `PALETTE.rock` and
+  // `rockDark` — the light supplies the ends, so nothing paints a second set.
+  ctx.fillStyle = "#8A8F9C";
   ctx.fill(path);
+  ctx.save();
+  ctx.clip(path);
+  litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
+  ctx.restore();
   ctx.strokeStyle = PALETTE.rock;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(path);

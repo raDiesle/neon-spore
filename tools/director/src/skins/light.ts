@@ -1,3 +1,4 @@
+import { KEY as KEY_LIGHT } from "@neon-spore/content";
 import { auraPass, fillPass, rimPass } from "./parts.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
 
@@ -14,12 +15,10 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * move a red body toward cyan, because the colour *is* the callout.
  */
 
-/**
- * Upper left: the hull's own aura sits low and even, so a lit shoulder up and
- * left is where a bright edge argues with the glow least. Screen axes, y down,
- * from the body toward the light; nothing else may name an angle.
- */
-export const KEY = { x: -Math.SQRT1_2, y: -Math.SQRT1_2 } as const;
+/** Upper left, and it lives in `packages/content` now — the only package this
+ * file and `packages/render` can both read, so one angle serves the page and
+ * the game and neither can drift. The reasoning for upper left went with it. */
+export const KEY = KEY_LIGHT;
 
 /**
  * The body as `objectBoundingBox` sees it, how far the gradient's focus is
