@@ -245,3 +245,21 @@ other's wave number.
 - **changed** there was no VERSUS tab; there is now one showing one open slot as two `Canvas2DRenderer`s at 380 × 820 uncapped, stepping a single `World` and sharing a single `ViewState`, with `Math.random` seeded the same on both sides — measured as byte-identical everywhere except the hull band at y 533–615
 - **decide** do the two sides read as one picture drawn twice with only the hull's colour differing, and does BLINK at 1 Hz hold still enough that the amber is what jumps out rather than the whole frame?
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, the backlog sheet's VERSUS tab, `ship:hull-skin` on the SLICK · FALLING pose, then the BLINK button
+
+## `b859b08` — the veins surface and beat
+
+> PULSE draws VEIN's filaments twice — the whole tree dim under the membrane as before, and a seeded third of the segments again above the rim, brighter and wider, lifting hardest as a front of light crosses the body every two beats. Does that second copy read as a strand standing proud of the skin and going under again, or does it just read as two line weights on one texture? Stand at `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, and press the PULSE button in the skin bar, flipping back to VEIN to compare.
+
+- **subject** `PULSE`, a fifth skin in `tools/director/src/skins/vein-pulse.ts`, sitting beside VEIN rather than replacing it
+- **changed** VEIN clips every filament flat under the membrane at one opacity and never moves; PULSE draws the same seeded tree twice — all of it dim under the membrane, and a depth-weighted subset again above the aura and rim, brighter and 0.7×weight wide — and runs a front of brightness out along the strands by arc length once every two beats (1.25 s), crossing the tree in 0.40 s and dark again by 0.79 s
+- **decide** does the second, brighter copy read as a strand standing proud of the skin and going under again, or merely as two line weights printed on one texture?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the PULSE button in the skin bar, flipping back to VEIN to compare
+
+## `b859b08` — the pulse's front is a time, not a speed
+
+> the pulse's front is a fixed *time* rather than a fixed speed — 0.40 s to cross whatever body it is on — so it covers about 30 px on a 92 px creature card and about 165 px on the 620 px hull card, roughly 75 px/s against 410 px/s. On the largest cards, does the front still read as something travelling out along the veins, or does it become a wipe passing over the whole body at once? If it is a wipe, the fix is not a slower `TRAVEL` — that would put the small cards' fronts out of step with the big ones — but a longer `LEAD` and `TAIL`, so more of the tree is lit at once. Stand at `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, PULSE in the skin bar, and compare a wide hull card against a creature card in the same page.
+
+- **subject** `TRAVEL` in `tools/director/src/skins/vein-pulse.ts`, and what it does to the widest cards
+- **changed** the front's crossing is held at 0.40 s for every card, so that the whole page lights and darkens together the way the shared `beat` intends; the consequence is that its pixel speed scales with the body — about 75 px/s on a 92 px creature card and about 410 px/s on the 620 px hull card
+- **decide** on the largest cards, does the front still read as travelling out along the veins, or does it flatten into a wipe over the whole body at once?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, PULSE in the skin bar, a wide hull card beside a creature card
