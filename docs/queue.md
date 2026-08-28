@@ -16,6 +16,130 @@ The italic line under each heading is `branch · the paths that lane owns`. Two
 lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
+**The seven `burn-skin-*` lanes below are one block and they are first.** The
+owner asked for richer looks — more skins, more animation, offered *beside*
+the ones the catalogue already has rather than replacing them. They all draw
+on the NOT BUILT YET → SHAPES cards in the director and **none of them touches
+`packages/render`**, which is the doctrine `tools/director/src/skins.ts`
+already states in its own header: a card is where a look is decided before the
+game learns to draw it. That is also why no lane in this block can break a
+wave.
+
+`skins/split-s0` is the enabling lane and the other six sit behind it. They
+share `tools/director/src/skins/index.ts`, which is owned by nobody and gets
+one line from each — a contiguous region, replayed over, exactly like
+`config.ts`.
+
+**On the reference images and the SVG links.** The owner supplied a sheet of
+twenty surface designs and three svgrepo files (fish scales, a butterfly wing,
+a nautilus shell). They are reference for *structure* — how scales overlap,
+how a wing's cells divide, how a spiral's chambers fall — and they are not
+assets to vendor. Two reasons, and both are load-bearing. A fixed illustration
+cannot wrap a contour that wobbles every frame and is re-sampled from
+`contourAt`; every skin here has to be generated in contour space or it slides
+off the body within a second. And a third-party file carries a licence, which
+is the owner's decision to make and not a lane's. No lane fetches a URL. If
+those files are ever to be vendored, that is its own entry with its own
+licence line.
+
+## TWELVE SKINS ARE COMING AND THE FILE THAT HOLDS FOUR IS AT THE CEILING
+_claude/burn-skin-split-s0 · tools/director/src/skins/ tools/director/src/skins.ts tools/director/src/shape-figure.ts tools/director/src/shapes-panel.ts docs/skins.md_
+
+The enabling lane, and every skin lane below sits behind it. `tools/director/src/skins.ts` is 236 lines against the ~250 ceiling and holds four skins in one `buildSkin` with a chain of `if (skin === …)`. Twelve more will not fit in it and would not be readable if they did.
+
+Two changes, and no new picture. **Split** into `tools/director/src/skins/`, one file per skin, assembled by `skins/index.ts` the way `tools/shape-sheet/src/drafts/index.ts` assembles DRAFTS — `skins.ts` stays as the re-export so `shape-figure.ts` and `shapes-panel.ts` need not move, or move them; say which in the commit. Each skin exports its own `{ id, label, hint, build }` and the registry is the only place that knows the list, so a new skin is one file and one line in `index.ts`.
+
+**And give a skin a frame.** Today `SkinBuild` returns only `contour`, the paths that get the contour's `d` written on them by `tick()` in `shape-figure.ts`; a skin cannot animate anything of its own, which is why every existing one is static. Add an optional `onFrame(t, beat)` to `SkinBuild`, called from that same loop for every connected figure. `beat` is a page-wide phase derived from `t` — **shared** is the requirement, not a detail: twelve cards pulsing on twelve private clocks reads as noise, and the whole value of a heartbeat is that the page does it together. Put the tempo in one named constant with the game's own beat beside it in a comment.
+
+Finished when `bun run check` is green, every file is under 250 lines, the four existing skins draw exactly as they did (LINE, MEMBRANE, CORE and VEIN unchanged — this lane invents no picture), a skin can move something without touching `shape-figure.ts`, and `docs/skins.md` says what a skin is, how to add one, and the four rules below. Do **not** touch `docs/asset-catalogue.md`: another lane owns it, and the orchestrator updates its skin paragraph once these land.
+
+**The four rules, and they go in `docs/skins.md` where an author will read them.** (a) Nothing here imports or edits `packages/render` — a card is where a look is decided *before* the game learns to draw it, which is `skins.ts`'s own doctrine and the reason none of this can break a wave. (b) Every skin is seeded from the shape's name, so a card looks the same on every reload and two shapes never share a texture. (c) Every `<defs>` id is keyed on `uid`, because several cards draw at once and a collision silently gives two shapes one texture. (d) Nothing allocates per frame — no gradient, no filter, no path built inside `onFrame`; build in `build()`, mutate attributes in `onFrame`.
+
+Model `opus`, effort `think hard`. Read `tools/director/src/skins.ts` and `shape-figure.ts` first. The judgement is the `onFrame` signature, because six lanes are written against it.
+
+## THE VEINS ARE UNDER THE SKIN AND A HEART IS NOT A TEXTURE
+_claude/burn-skin-vein2-s1 · tools/director/src/skins/vein-pulse.ts_
+
+The owner's own idea, and the sharpest one on the list: VEIN drawn again as something with a pulse. Behind s0.
+
+Two changes to what VEIN does now. **The veins break the surface.** Today every filament is clipped flat under the membrane, which is why it reads as a texture printed on a body rather than as something inside one. Let a strand surface: where a segment crosses out of the clip it is drawn again, brighter and slightly wider, as though it stands proud of the skin for a stretch and then goes under again. Interrupted, not continuous — the gaps are what make it read as *under*, and a strand visible along its whole length is just a line on a body.
+
+**And every second beat it beats.** A wave of brightness leaves the origin the trunks grow from and travels outward along the filaments — not the whole texture flashing, which is a light being switched on, but a front moving out at a speed the eye can follow, each segment lighting as the front reaches its distance and falling back behind it. The strands that surface light hardest, so the heartbeat is read on the parts standing out of the skin. The period is two beats, taken from `onFrame`'s shared phase, so the whole page beats together.
+
+Finished when `bun run check` is green, the pulse is one `onFrame` mutating opacity and width on paths built once, the origin and the branch structure are still seeded from the name, and the commit carries a `Check:` asking whether the surfacing reads as *under the skin* or merely as two line weights.
+
+Model `opus`, effort `think hard`. Think about the speed of the front before anything else — too fast is a flash, too slow is a worm crawling, and this is the one card on the page that has to read as alive with no body moving. Read `docs/skins.md` (lane s0) and the existing `filaments()` first.
+
+## EVERY BODY ON THE PAGE IS A FLAT SHAPE SEEN FROM EXACTLY ONE ANGLE
+_claude/burn-skin-volume-s2 · tools/director/src/skins/turn.ts tools/director/src/skins/crater.ts_
+
+Volume, and the turn that proves it. Behind s0.
+
+**TURN** puts surface features on a body and moves them across it so the body reads as rotating rather than as a picture sliding. One thing separates the two: a feature must compress toward the silhouette edge and vanish at it, then reappear at the other, on a cosine of its own longitude — a feature that keeps its width as it crosses is a sticker, and the eye knows. Pair it with a fixed key light, so the lit side stays put while the surface moves under it. The owner asks for this on a worm turning left and right, so the rotation is not a constant spin but a slow oscillation that reverses — which is harder and better, because a reversal is exactly where a sticker gives itself away.
+
+**CRATER** is the same machinery with a different surface: a meteorite's pitted landscape, rims catching the key light and floors in shadow, the whole field rotating with the body. `packages/render/src/craters.ts` already draws craters for the game's rock — read it for the shape of the idea and then write this one in SVG in the director. Do not import it.
+
+Finished when `bun run check` is green, both skins are on the switcher, a feature crossing the silhouette edge narrows to nothing rather than clipping, and the commit carries a `Check:` for each asking whether it reads as a body turning or as a texture sliding under a hole.
+
+Model `opus`, effort `ultrathink`. This is the hardest lane in the block and the only one whose failure mode is invisible in a still: both skins look correct in a screenshot and wrong in motion. Think about the foreshortening before you draw anything.
+
+## A SPORE HAS A HUNDRED SMALL THINGS ON ITS EDGE AND EVERY BODY HERE HAS A CLEAN OUTLINE
+_claude/burn-skin-fringe-s3 · tools/director/src/skins/cilia.ts_
+
+Behind s0.
+
+Many small feelers at the rim and over the body, moving. The owner's word is *Fühler*, and the game is called Neon Spore, so this sits close to the fiction's centre: a body whose edge is not a line but a hundred short strands, each swaying, the whole fringe leaning against the direction the body is travelling so the motion reads as drag rather than as wind.
+
+The strands are sampled along the contour and re-sampled every frame — the contour wobbles, so a fringe anchored to fixed coordinates slides off the body within a second. Each strand carries its own phase offset taken from its position along the contour, which gives a travelling ripple around the rim rather than a fringe flapping in unison; unison is a grass field, offset is something alive. A second, sparser set stands on the body's interior rather than its edge.
+
+Finished when `bun run check` is green, the fringe stays welded to a wobbling contour with no slide, the lean reverses when the card's own motion reverses, and the commit carries a `Check:` on whether a hundred strands at card size read as a fringe or as fur — and whether the count is right.
+
+Model `sonnet`, effort `think hard`. The hard part is anchoring to a contour that changes shape every frame, not the sway. Read `docs/skins.md` and `contourAt` first.
+
+## SIX ANIMALS SOLVE THE SAME PROBLEM WITH THE SAME TRICK AND WE HAVE NONE OF IT
+_claude/burn-skin-tessellate-s4 · tools/director/src/skins/scale.ts tools/director/src/skins/carapace.ts_
+
+Behind s0. The tiling group: one machinery, two skins, because the hard part — laying a lattice over an arbitrary blob and making it follow the lobes instead of ignoring them — is shared, and is the whole job.
+
+**SCALE** — overlapping plates, each a rounded arc, laid in offset rows that follow the contour's own curvature and shrink toward the rim. Fish scales and snake scales are the same skin at two densities; pick the one that reads and say why in the commit rather than shipping both.
+
+**CARAPACE** — larger, harder, fewer: a beetle's or a turtle's back, plates separated by dark seams with a bright edge on the lit side of each. Where SCALE is many and soft, this is few and geometric, and the two must not converge — if they end up looking like one skin at two sizes, that is a finding and it goes in the commit.
+
+The plates are clipped to the body and must survive the wobble, so the lattice is generated in contour space and re-evaluated, never baked into fixed coordinates. Seeded from the name.
+
+Finished when `bun run check` is green, both are on the switcher, neither allocates per frame, and the commit carries a `Check:` asking whether the two read as different materials or as one lattice at two scales.
+
+Model `sonnet`, effort `think hard`. Read `docs/skins.md` first.
+
+## A BODY CAN BE SOFT AND NOTHING ON THIS PAGE IS
+_claude/burn-skin-soft-s5 · tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
+
+Behind s0. The soft group — where the tiling group is all hard edges, this is none.
+
+**PORE** — a frog's skin: bumps of varying size scattered without a lattice, each a small radial highlight with a shadow under it, dense in places and sparse in others so it reads as grown rather than as a pattern. The absence of a grid is the whole difference from SCALE and it is easy to lose: a Poisson-ish scatter, not a jittered grid, and a jittered grid is what you get if you are not careful.
+
+**SUCKER** — an octopus's arm: concentric rings, largest along a spine and falling off to either side, each ring a bright annulus with a dark centre. This one has an axis where PORE has none, and that is what keeps the two apart.
+
+Both clipped, both seeded, both re-evaluated against the wobbling contour.
+
+Finished when `bun run check` is green, both are on the switcher, and the commit carries a `Check:` on whether PORE reads as skin or as spots.
+
+Model `sonnet`, effort `think hard`. Read `docs/skins.md` first.
+
+## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
+_claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
+
+Behind s0, and last of the block on purpose — it is the one whose premise needs stating before it is drawn.
+
+Iridescence: mother-of-pearl, a butterfly's wing, a nautilus. Colour that shifts across the surface and with the body's own motion, rather than one hue at several brightnesses, which is what every skin above does.
+
+**`docs/alive.md` refuses iridescence, and that refusal is about the field, not about this page.** In a wave a creature's red-or-cyan is a gameplay fact the pair says out loud across a two-second delay, and a third colour on it is worse than a body that is merely less alive. A catalogue card is not in a wave and nothing votes it into one. So this skin is allowed here and **is not a promise about creatures** — say exactly that in the file's header, name the constraint it would have to clear before it could ship to a body that carries ammunition colour, and do not weaken `alive.md`.
+
+The shift must ride the body's own motion, so it changes as the card moves and holds still when the card does. A hue that cycles on a timer regardless of the shape is a screensaver.
+
+Finished when `bun run check` is green, the skin is on the switcher, the header carries the paragraph above, and the commit carries a `Check:` asking whether the shift reads as a surface catching light or as a colour animation.
+
+Model `opus`, effort `think hard`. The judgement is where iridescence stops being a material and starts being a rainbow, and the answer is a narrow hue range rather than a wide one. Read `docs/alive.md` and `docs/skins.md` first.
 
 ## TWO PHONES, ONE WORLD, ONE FRAME
 _claude/burn-versus-pair-v2 · tools/director/src/versus-page.ts tools/director/src/versus-pair.ts tools/director/src/backlog-page.ts tools/director/src/checks-api.ts tools/director/index.html_
