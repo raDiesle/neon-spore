@@ -16,7 +16,27 @@ to do. Keeping the two in one place would make the outstanding list somewhere
 that some rows matter and some do not, which is how a list stops being read.
 
 **The format.** One `##` per idea, the date and the branch it came off under
-it, then two or three sentences: what it is, why it was not done then, and where to start.
+it, then one line labelling what kind of thing it is and how far along —
+`Kind · Stage` — then two or three sentences: what it is, why it was not
+done then, and where to start.
+
+**Kind** is one of a closed list, picked by hand — nothing here can be
+derived, the category lives in the prose and nowhere else: Mechanic,
+Creature (a new or existing creature or boss), Graphics, Sound, Tool (or the
+director), Performance, Correctness, Documentation. Eight is deliberate — a
+ninth invented for one entry is the flat list again with an extra word, so a
+genuine misfit is the nearest of these eight rather than a new one.
+
+**Stage** is one of three: Idea (nobody has designed a solution yet),
+Designed (a design worked out and unbuilt), or Implemented (something
+already built that wants improving). The two axes are independent — a
+Graphics entry can be any of the three stages, and the difference decides
+whether picking it up is a session or a week.
+
+Anything labelled Creature is not scattered through the file: it moves to
+the bottom, under `### Postponed: creatures and bosses`, which says why.
+New enemies and bosses are the least relevant thing to continue right now,
+so they wait there rather than sit beside the technical debt above.
 
 An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
@@ -25,6 +45,8 @@ reads to the bottom of.
 ## No shape is drawn at any of the twelve interludes
 
 2026-08-27 · claude/game-in-game-mechanics-uxmysp
+
+Tool · Designed
 
 Every idea in the store has a contour offered to it on the director's SHAPES
 tab, joined by name through `suggests` in `tools/shape-sheet/src/drafts/`. The
@@ -41,6 +63,8 @@ task. Start there, with THE GAUGE, which is one needle and two marks.
 ## The one-screen tester cannot pull half of THE WARDEN's tethers
 
 2026-08-27 · claude/boss-concepts-implementation-4hri7c
+
+Tool · Idea
 
 A finger on the field is signed with the seat this device holds, and in the
 `test` role that seat is player 1. Half the Warden's cycles clamp player 1, and
@@ -59,6 +83,8 @@ which is a rule that exists only in a view nobody ships. Start at
 
 2026-08-27 · claude/boss-concepts-implementation-4hri7c
 
+Correctness · Designed
+
 `WARDEN_PHASES` in `packages/sim/src/warden-cycle.ts` and the table in
 `docs/spec/bosses.md` 11.4 carry the same three rows. The director's boss panel
 already renders the code's copy rather than a third one, so the tool is honest;
@@ -75,6 +101,8 @@ already reads `bosses.md`.
 ## Rendering a theme to a file, so it can be heard away from the director
 
 2026-08-27 · claude/game-music-creation-dzjb8r
+
+Sound · Idea
 
 The six music candidates can only be listened to by running `bun run dev` and
 opening the SOUND sheet, which means the person choosing between them has to be
@@ -94,6 +122,8 @@ one synthesiser and makes the rendering a harness rather than a rewrite.
 
 2026-08-27 · claude/burn-backdrop-b2
 
+Graphics · Idea
+
 `packages/render/src/backdrop.ts` picks its wash and horizon tint from
 `world.wave % 5`, because the wave is the finest-grained thing the world
 tracks and there is no `Act` anywhere in `sim` or `content` — the spec talks
@@ -110,6 +140,8 @@ a field on the wave or a grouping around the bosses; the tint table in
 ## The grip and the lance are controls no wave contains, so no card can find them
 
 2026-08-27 · claude/burn-briefings-b1
+
+Mechanic · Idea
 
 A briefing's subjects are derived from what `startWave` was handed — the spawn
 queue, the pods, the boss — which is what stops a card going stale when a
@@ -128,6 +160,8 @@ make a control visible is derivable too, and that may be the hook.
 
 2026-08-27 · claude/burn-briefings-b1
 
+Correctness · Idea
+
 A card freezes the field until both seats dismiss it, and one player reading
 theirs while the other has already tapped looks, to `packages/net`, exactly
 like a device that has stopped sending — so the network indicator is expected
@@ -143,6 +177,8 @@ file allowed to say what the indicator may show.
 
 2026-08-27 · claude/burn-briefings-b1
 
+Correctness · Implemented
+
 `world.brief.met` is a bitmask over `BRIEFING_SUBJECTS`, and anything that
 wants to know whether a subject has been met computes its bit from its index.
 `packages/sim/test/purity.test.ts` keeps a table of rules that must be called
@@ -155,6 +191,8 @@ another lane was in at the time. It is one row.
 ## The Throb's swell cannot be judged in the tool built for judging swells
 
 2026-08-27 · claude/burn-shapesheet-b8
+
+Tool · Idea
 
 The shape sheet now derives its subjects from `CREATURES`, so the Throb is on
 it — with the fallback tilt every non-bulb gets, and not with the swell that
@@ -174,6 +212,8 @@ toggle — the second is much smaller and may answer the check on its own.
 
 2026-08-27 · claude/burn-other-hand-b5
 
+Mechanic · Idea
+
 THE OTHER HAND shows a partner's thumb on the lance and says nothing about the
 other player's, because `prime` is the only control the band emits both a
 press and a lift for — the shield strip sends no release, so a resting finger
@@ -189,6 +229,8 @@ and a second holdable control is a second thing that could.
 ## The roll wants to be a wave before it is ever a boss
 
 2026-08-27 · claude/burn-vane-b7
+
+Mechanic · Designed
 
 `docs/spec/transfers-bosses.md` proposed THE VANE as a render-only column
 *roll* — one player's column order reversed, so column four on one device is
@@ -206,6 +248,8 @@ let a boss claim it afterwards if it survives.
 
 2026-08-27 · claude/burn-vane-b7
 
+Mechanic · Idea
+
 THE VANE folds an arrival about the arm's column, and it does it at row 0
 precisely so a thrown body is *born* in its landing column and is never seen
 to jump. That was the cheap way out of a gap: `Creature` has no `fromCol`, so
@@ -217,23 +261,11 @@ Not done there because it is a wide edit — every construction site of a
 that wants something to *drift* across columns will, and THE BELT in
 `docs/spec/interludes.md` is the one most likely to ask.
 
-## THE CONDUCTOR's slot is spent and the beat is still unbent
-
-2026-08-27 · claude/burn-vane-b7
-
-THE VANE took the act slot that `docs/spec/transfers-bosses.md` drew the
-pendulum arm for, and bent the field's geometry rather than its tempo. The
-original worry about bending the shared *beat* — that the beat is the one
-thing surviving a two-second voice delay, so a boss that moves it attacks the
-pair's only reliable ground — is untouched and still deferred.
-
-Worth writing down because the arm is now spent, and the next session reaching
-for THE CONDUCTOR will find its picture already in use and should know that is
-deliberate rather than an oversight.
-
 ## THE VANE is silent
 
 2026-08-27 · claude/burn-vane-b7
+
+Sound · Designed
 
 A pin coming out and a body being thrown report nothing to `packages/audio`.
 The events want to be `pin`, `vaneThrow` and `vaneDown`, and each costs
@@ -248,6 +280,8 @@ rather than write a new sound applies here identically.
 ## An exhaustive switch has just been proved here, and three others have not been looked at
 
 2026-08-27 · claude/burn-audio-b9
+
+Correctness · Idea
 
 `packages/render/src/effects-spark.ts` now covers every `SimEvent` variant
 explicitly and ends in `assertNever`, so an event added without a burst fails
@@ -267,6 +301,8 @@ look first. Start by grepping for `default:` in a `switch` on a `.type` or a
 
 2026-08-27 · claude/burn-card-panel-b13
 
+Tool · Implemented
+
 The CARDS tab's wave picker builds a fresh pair for whichever wave is chosen,
 so wave 1 is exactly right and wave 9 shows what a pair *skipping straight to
 wave 9* would be told — not what a pair who played one to eight would still
@@ -284,6 +320,8 @@ is the question an author asks, and the sheet answers a different one.
 
 2026-08-27 · claude/burn-gauge-b6
 
+Sound · Idea
+
 THE GAUGE adds no `SimEvent`. Half of that is deliberate — the picture derives
 from state, the way THE FORK's does — and half is that `packages/audio` was
 another lane's ground and `bind.test.ts` is exhaustive over the event union,
@@ -299,6 +337,8 @@ sound; the argument applies here unchanged.
 
 2026-08-27 · claude/burn-gauge-b6
 
+Documentation · Idea
+
 `CLAUDE.md` says nothing the players control travels the field, and
 `docs/spec/interludes.md` asks for a `docs/decisions.md` entry saying whether
 that scopes to the field or to the whole game. THE GAUGE did not need it — a
@@ -313,6 +353,8 @@ it first, in `docs/decisions.md`, before choosing which one to build.
 ## A swept worktree can survive its own removal on Windows
 
 2026-08-27 · claude/pull-remote-master-132f48
+
+Tool · Implemented
 
 `bun run checks --clean` unregisters a worktree and then deletes its
 directory, and on Windows the delete can half-succeed: `node_modules` holds
@@ -332,6 +374,8 @@ dirty, it is litter, and the two want different sentences.
 ## Laser barriers, and a thing pushed up between them
 
 2026-08-27 · main
+
+Mechanic · Idea
 
 Beams strung across the field, each one anchored between two emitters, and
 something the pair has to get from the hull to the top edge without letting it
@@ -356,6 +400,8 @@ sheet has.
 
 2026-08-27 · main
 
+Mechanic · Idea
+
 Peggle's verb, borrowed: the cannon launches a ball instead of a bolt, and
 from then on the pair only watches — it falls, bounces off what it hits,
 breaks what it touches, and comes to rest somewhere on the hull to be
@@ -379,6 +425,8 @@ already a raster.
 
 2026-08-27 · main
 
+Graphics · Idea
+
 The mobile shooters draw a timed pickup as a soft glowing sphere with one flat
 symbol floating inside it and a countdown written on the rim — the sphere says
 "catch me", the symbol says which one it is, and the rim says how long is
@@ -397,6 +445,8 @@ the hull contour rather than a bubble, so a sphere here would not collide with
 it visually.
 
 ## Per-pixel surface shading without a second renderer
+
+Graphics · Designed
 
 If surface detail is ever wanted on a body *in the game* rather than on a
 catalogue card, the reflex is WebGL and the reflex is wrong here.
@@ -426,6 +476,8 @@ an eye, and only if the answer was yes.
 
 2026-08-28 · claude/burn-versus-pair-v2
 
+Tool · Idea
+
 The VERSUS tab draws the first open slot and no other. The page names how many
 there are, so a reader can see that it is holding something back, but there is
 no switcher — and the moment a second slot exists, half the mechanism is
@@ -446,6 +498,8 @@ opens the second is the lane that should carry this.
 ## The contour is written twice, and the game and the sheet each read a different copy
 
 2026-08-28 · claude/burn-body-gate-c2
+
+Correctness · Idea
 
 `blobRadiusMul` and `hullRadiusMul` are byte-identical. The game strokes one
 and the shape sheet measures the other, so every judgement made on the sheet
@@ -471,6 +525,8 @@ for.
 ## Three skins carry a private copy of something `parts.ts` should own
 
 2026-08-28 · claude/burn-skin-volume-s2
+
+Graphics · Implemented
 
 `clipGroup` gained a `name` parameter after two skins had already hand-rolled
 private copies of it — `insideBody` in `light.ts` and `proudGroup` in
@@ -498,6 +554,8 @@ group or the fringe, both of which will want a second clip.
 
 2026-08-28 · the burn-skin block
 
+Tool · Idea
+
 `tools/director/src/skins/index.ts` holds an import line and a `SKINS` entry
 for every skin. Each lane adds one of each, at the same end, and by the fourth
 skin lane that had produced three rebase conflicts in a row — SCALE/CARAPACE
@@ -524,6 +582,8 @@ rebase is a message to a lane and about a minute.
 
 2026-08-28 · claude/burn-skin-fringe-s3
 
+Graphics · Implemented
+
 `SkinFrame` carries `{ t, beat }` and no pose, deliberately — `docs/skins.md`
 leaves it for whichever skin needs it first. CILIA needed the body's velocity
 to lean its fringe against the direction of travel, and rather than add a
@@ -545,6 +605,8 @@ needs it, which is the next lane that does.
 ## The catalogue page is now tens of thousands of SVG elements, and nobody has felt it
 
 2026-08-28 · the burn-skin block
+
+Performance · Idea
 
 Element counts over the sixty cards, as each lane measured them: CILIA 123 per
 card; CARAPACE about 1,600 page-wide; SCALE about 10,600; SUCKER about 15,600;
@@ -579,6 +641,8 @@ is. The first person to open the tab settles it in five seconds.
 
 2026-08-28 · claude/burn-skin-depth-motion-s2b
 
+Correctness · Implemented
+
 `tools/director/shapes-page.ts:159` says *"nine ways a body moves"* under the
 Spare motions heading. There were eleven when the lane found it and there are
 fifteen now, so the sentence has been false for two separate reasons without
@@ -594,6 +658,8 @@ cheaper and cannot go stale at all.
 
 2026-08-28 · claude/burn-skin-depth-motion-s2b
 
+Correctness · Implemented
+
 The "actually moves" assertion samples `dx`, `rot` and `sx`. A motion whose
 whole signature is vertical — a body pivoting on its base, or one receding —
 reads as not moving at all. PITCH tripped it and now passes honestly, because
@@ -608,6 +674,8 @@ than a false failure — nothing is blocked by it today.
 ## Four skin files sit exactly on the 250-line ceiling at once
 
 2026-08-28 · claude/burn-skin-mounted-s7
+
+Graphics · Implemented
 
 `pore.ts`, `light.ts` and `vein-pulse.ts` are at exactly 250 lines and
 `mounted.ts` at 248, with `packages/sim/test/limits.test.ts` enforcing the
@@ -629,6 +697,8 @@ code and changes nothing.
 
 2026-08-28 · claude/burn-skin-mounted-s7
 
+Performance · Implemented
+
 One `spin`-shaped pass over the whole SHAPES tab under MOUNTED PORE is 6,227
 groups and 5.72 ms of attribute writes — inside a frame, with repaint
 unaccounted for. Most of those writes are the same value again: a feature's
@@ -648,6 +718,8 @@ synchronous timing and never a frame rate.
 ## A skin is told its reach and never its shape
 
 2026-08-28 · claude/burn-skin-wind-s8, claude/burn-skin-fringe-s3
+
+Graphics · Implemented
 
 `shape-figure.ts` computes `reach = max(w, h) / 2` and throws the aspect away,
 so `SkinContext` carries no extent. Two skins have now had to reach around the
@@ -670,6 +742,8 @@ shift has to ride the body's motion.
 
 2026-08-28 · claude/burn-skin-wind-s8
 
+Graphics · Implemented
+
 `turn.ts` keeps `surface()` — its meridian bands and patches — private, so
 WIND drew its own banded surface rather than reach into a file it did not own.
 The two skins therefore differ in their surface *and* in their phase, which is
@@ -687,6 +761,8 @@ an outstanding check rather than adding a look.
 ## The cold pass, and the frame loop, are the two costs left on the shapes tab
 
 2026-08-28 · claude/burn-shapes-rebuild-s11
+
+Performance · Implemented
 
 Memoising the frame fit took a skin switch from ~6.5 s to ~240 ms. What
 remains, measured by the same lane and deliberately left alone:
@@ -710,6 +786,8 @@ composites to judge, which this sandbox is not.
 
 2026-08-28 · claude/burn-shapes-rebuild-s11
 
+Tool · Idea
+
 Twice, a `git stash` under a running director left the hot reload in a broken
 state — `renderShapes is not a function`, blank tab — and only a full server
 restart cleared it. Worth knowing for any lane that stashes while previewing,
@@ -718,6 +796,8 @@ which is a normal thing to do when measuring before and after.
 ## Three more places show one look at a time
 
 2026-08-28 · claude/burn-shapes-pair-s12
+
+Tool · Idea
 
 Decision 24 says every alternative is comparable in the director at once. The
 SHAPES tab now is. Three other surfaces are not, and each is a separate small
@@ -739,6 +819,8 @@ lane rather than one big one:
 
 2026-08-28 · claude/burn-shapes-pair-s12
 
+Tool · Implemented
+
 `.shape` has the default `flex-shrink: 1`, so below about 900 px the card
 squeezes to ~250 px and the text column stretches to 700 px tall. The frames
 themselves hold at 92 px because `.shape svg` is `flex: 0 0 auto`, so the
@@ -749,6 +831,8 @@ did not own.
 ## The nameability gate cannot be failed by a size change alone
 
 2026-08-28 · claude/burn-depth-field-d1
+
+Tool · Implemented
 
 The gate has three axes — aspect, lobe count and effective drawn radius — and
 `confusable` requires an overlap on **all three at once**, which was the right
@@ -772,6 +856,8 @@ do is apply a proposed multiplier and print the gap that would remain.
 
 2026-08-28 · claude/burn-depth-field-d1
 
+Documentation · Designed
+
 `docs/queue.md`'s own header calls `config.ts` a file "owned by nobody" that a
 lane adds to in one contiguous region. True as far as it goes, and incomplete:
 `FIELD_GROUP` in `tools/director/src/ship-fields.ts` is a
@@ -788,6 +874,8 @@ what looked like a `packages/sim` change.
 
 2026-08-28 · claude/burn-depth-field-d1
 
+Graphics · Implemented
+
 The row haze is applied to living bodies only. `torch.ts` sets
 `globalAlpha = 1` mid-draw, so an outer alpha is clobbered, and hazing the
 inert bodies properly means editing their own files. So a rock on the top row
@@ -803,6 +891,8 @@ fixes it whenever that file is next open.
 ## The fit lives in the director and the shape sheet now reaches up for it
 
 2026-08-28 · claude/burn-shapes-floor-s13
+
+Tool · Implemented
 
 `tools/shape-sheet/src/drawn-size.ts` imports `FIT_TIMES` and `isWide` from
 `tools/director/src/shape-figure.ts`, and `tilePixels`/`transformedBounds` from
@@ -831,6 +921,8 @@ been missed by measuring either pose alone.
 
 2026-08-28 · claude/burn-body-context-s14
 
+Correctness · Idea
+
 The frame fit samples a wobble at five moments (`FIT_TIMES`); WIND's extent
 measurement used six. ECHO is the one catalogue entry the two disagree about —
 wide under one set, round under the other. The lane kept both rather than
@@ -847,6 +939,8 @@ affected, which is why it is parked rather than queued.
 
 2026-08-28 · claude/burn-body-context-s14
 
+Correctness · Idea
+
 `OwnMotion.axis` declares how a motion was written, and `poseOn(motion, t,
 long)` does the turning at the drawing site. But `poseAt(t)` still exists and
 still answers, so a caller that forgets gets a pose that quietly ignores the
@@ -858,3 +952,27 @@ re-derived" and would catch it. It cannot be added today: `render/creatures.ts`
 calls `poseAt` directly and that call is correct, because no shipped motion
 declares an axis. The row becomes possible the day one does — and that is
 also the day it starts mattering.
+
+### Postponed: creatures and bosses
+
+Grouped here, and last, because the owner asked to postpone them: continuing
+the bestiary and the act order the game already ships is less urgent right
+now than the technical debt and open design questions above, so anything
+whose subject is a new or existing creature or boss goes at the bottom
+rather than sitting scattered through the file — postponed, not dropped.
+
+## THE CONDUCTOR's slot is spent and the beat is still unbent
+
+2026-08-27 · claude/burn-vane-b7
+
+Creature · Idea
+
+THE VANE took the act slot that `docs/spec/transfers-bosses.md` drew the
+pendulum arm for, and bent the field's geometry rather than its tempo. The
+original worry about bending the shared *beat* — that the beat is the one
+thing surviving a two-second voice delay, so a boss that moves it attacks the
+pair's only reliable ground — is untouched and still deferred.
+
+Worth writing down because the arm is now spent, and the next session reaching
+for THE CONDUCTOR will find its picture already in use and should know that is
+deliberate rather than an oversight.

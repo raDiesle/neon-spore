@@ -49,18 +49,28 @@ export interface Backlog {
    * Decided, not yet done — `docs/queue.md`, joined to what git knows about
    * each lane. Built in `queue-panel.ts`, which needs git and so cannot live
    * in this file: everything here is a pure function of the markdown handed
-   * to it. Passed in already built; empty where nobody supplied it, which
-   * keeps every existing caller of `buildBacklog` compiling unchanged.
+   * to it. Passed in already built; empty where nobody supplied it.
    */
   queue: BacklogGroup[];
   /**
    * Worked-out design documents — `docs/versus.md`, `docs/teaching.md`,
-   * `docs/alive.md` — each already carrying numbers a queued lane is meant to
-   * build. Built in `design-docs.ts`, out of the same reasoning `queue` is:
-   * a plan with parameter values in it is a different thing from an idea
-   * nobody has argued with, which is what `parked` above is for.
+   * `docs/alive.md` — each carrying numbers a queued lane is meant to build.
+   * Built in `design-docs.ts`: a plan with numbers in it is a different thing
+   * from an idea nobody has argued with, which is what `parked` is for.
    */
   designs: BacklogGroup[];
+}
+
+// The `Kind · Stage` line under each entry's date and branch in
+// `docs/parked.md` — see that file's header for the vocabularies.
+const PARKED_LABEL =
+  /^(?:Mechanic|Creature|Graphics|Sound|Tool|Performance|Correctness|Documentation) · (?:Idea|Designed|Implemented)$/;
+
+function parkedLabels(md: string): string[] {
+  return md
+    .split(/\n(?=## )/)
+    .slice(1)
+    .map((section) => section.split("\n").find((l) => PARKED_LABEL.test(l.trim())) ?? "");
 }
 
 /** A built entry is not backlog. It is in the brush palette, or on the field. */
@@ -82,9 +92,8 @@ function fromRoster(title: string, note: string, rows: Planned[]): BacklogGroup 
  *
  * Not a string equality test, because the spec does not write the tail the
  * same way twice: "built", but also "the pod, built" and "keep watch, built".
- * Those two got listed as backlog while sitting in the game. "not built" and
- * "partly built" contain the word and are the opposite claim, so they are
- * ruled out first.
+ * "not built" and "partly built" contain the word and are the opposite claim,
+ * so they are ruled out first.
  */
 function claimsBuilt(tail: string): boolean {
   const t = tail.toLowerCase();
@@ -145,6 +154,7 @@ export function buildBacklog(
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
+  const parkedKinds = parkedLabels(parkedMd);
 
   return {
     bestiary: [
@@ -199,17 +209,16 @@ export function buildBacklog(
       ),
     ],
     parked: [
-      // The file the tab is named after, and which it did not show until
-      // somebody asked where today's notes had gone. The two groups below it
-      // are the spec's own deferrals and rejections — a different thing with
-      // the same word on it, which is why this went unnoticed for so long.
+      // The file the tab is named after. The two groups below it are the
+      // spec's own deferrals and rejections — a different thing with the
+      // same word on it, which is why this went unnoticed for so long.
       {
         title: "PARKED BY A SESSION",
         note: "noticed and not done, with where to start — docs/parked.md",
         builtHidden: 0,
-        entries: parseParked(parkedMd).map((e) => ({
+        entries: parseParked(parkedMd).map((e, i) => ({
           name: e.title,
-          kind: "",
+          kind: parkedKinds[i] ?? "",
           note: e.origin,
           detail: "",
           ref: "parked.md",
