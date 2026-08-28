@@ -7,13 +7,18 @@ seen the code.
 
 Each entry is keyed by the commit's sha and the trailer's own text, exactly the
 way `docs/verified.md` keys its decisions, so a restatement cannot drift onto
-the wrong check. Three fields, and none of them replaces the trailer:
+the wrong check. None of the fields replace the trailer:
 
-- **subject** — the thing being judged, named: a creature, a wave, a boss, a sheet.
-- **changed** — what is new, in a clause, so the difference from *before* is imaginable.
+- **badge** — `concept` or `implementation`, one word, first.
+- **subject** — the thing being judged, named: a creature, a wave, a boss, a sheet. 15 words.
+- **changed** — what is new, in a clause, so the difference from *before* is imaginable. 25 words.
 - **decide** — the question, with a yes and a no. A check whose failure cannot be
-  pictured never gets ticked either.
-- **where** — the command, and the wave or tab inside it.
+  pictured never gets ticked either. 25 words.
+- **where** — the command, and the wave or tab inside it, as a phrase.
+
+Every field is capped — read standing up, in two minutes — per
+`.claude/skills/autonomous`. An entry written before the cap existed is
+shortened in place rather than left as the paragraph it was.
 
 ---
 
@@ -454,45 +459,24 @@ other's wave number.
 
 > the swell runs along TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE CLAW, POD and both HUSKs now rather than across them — the drafts panel, PERISTALSIS on each of the eight
 
-- **subject** PERISTALSIS, the travelling swell on the director's motion bar, worn by the eight catalogue bodies that are taller than they are wide
-- **changed** the motion is written with its bulge running along x, and until now it ran along x whatever body it was on. Twenty-four catalogue bodies are wide, so x was right; twenty-eight are round to within a quarter and have no long axis to be wrong about; the remaining eight are tall, and on those the swell squeezed *across* the body instead of travelling down it. `OwnMotion` now carries `axis: "long"` and `poseOn` turns the whole gesture a quarter turn on a tall carrier, so the bulge travels head to tail and the widening is sideways. The card's frame is fitted to the turned pose too, so nothing clips. The other seventeen spare motions, and all four the game itself draws, are untouched — they never claimed an axis
-- **decide** does a bulge travelling the length of a long thin body read as peristalsis at all, or does an affine pose reduced to centre-plus-width only ever read as a body sliding while it fattens — yes if the eight now read as something swallowed and pushed along; no if the turn merely moved the same unconvincing squeeze onto the other axis, in which case what is wrong is the reduction rather than the axis, and PERISTALSIS is a card that cannot be built out of a pose
-- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev` — in a worktree, `tools/director/server.ts` by absolute path, and confirm the tree in its startup line — then SHAPES, `PERISTALSIS` on the motion bar. RIBBON and THE NEEDLE first, since they are the longest; then SLICK, which is wide, to see the same motion the way it always was; then a round body, which is unchanged by construction
+- **badge** implementation
+- **subject** PERISTALSIS, the travelling swell, on the eight tall catalogue bodies
+- **changed** on the eight tall bodies, the swell used to run sideways across them; it now turns to run along their length instead
+- **decide** does the travelling bulge read as peristalsis, or does the body just look like it's sliding while it fattens?
+- **before** swell running sideways across a tall body
+- **after** swell running along the body's length (quarter-turned pose)
+- **where** `bun run dev`, SHAPES, PERISTALSIS on the motion bar — RIBBON and THE NEEDLE first
 
 > CILIA's fringe and NACRE's bands read the pose instead of its two-decimal printed form, so the drift near a reversal is no longer quantisation noise — worst on THROB, BULB, RUNT, THE CONDUCTOR and THE VANE
 
-- **subject** the lean of CILIA's hundred rim strands, and the slide of NACRE's two interference films
-- **changed** both used to take the body's displacement by reading the translate back out of the group's own transform and differencing it. That transform is printed with `toFixed(2)`, so what they differenced was the displacement quantised to a hundredth of a contour unit — and on a slow body the quantum is a large fraction of one frame's step. Replayed over three thousand frames, the lean computed from the printed number and the lean computed from the pose behind it agree on most of the catalogue and diverge near a reversal, where the true velocity is small: worst 1.04 of a unit vector on THROB, and over 0.05 for a tenth of its frames; 0.43 on THE CONDUCTOR, 0.38 on THE VANE, 0.24 on BULB, 0.22 on RUNT; exactly zero on twenty of the twenty-seven bodies that have a motion at all. NACRE's phase is an accumulator, so its two versions drift a whole band cycle apart over the same run. Both now read `f.pose`, the pose the transform was printed from
-- **decide** does the fringe still reverse *late*, the way something dragged through water does, or does the unquantised velocity make it snap round at the turn — yes if the lean still visibly lags the sway on BULB and THROB; no if it now flips at the top of the swing, in which case `LEAN_SMOOTH` comes down from 0.12. And for NACRE, whether the bands still stop dead at the end of a sway rather than creeping through it
+- **badge** implementation
+- **subject** CILIA's lean and NACRE's slide, near a motion reversal
+- **changed** both read displacement from a transform rounded to two decimals, so velocity near a reversal was mostly rounding noise; both now read the exact pose
+- **decide** does the fringe still lag late at a reversal like something dragged through water, or does it now snap round at the turn?
+- **before** lean/slide computed from a rounded (two-decimal) transform
+- **after** lean/slide computed from the exact pose
+- **where** `bun run dev`, SHAPES, CILIA then NACRE — THROB, BULB, RUNT first
 
-## `fca8dac` — one body, every skin, every motion
-
-> with twenty skins on one body at once, is it obvious which ones are worth keeping?
-
-- **subject** the new grid on the SHAPES tab that puts one body in every skin at once
-- **changed** SHAPES used to show one skin at a time, worn by sixty different bodies. It now also shows one body — THE WEIGHT by default, or any other name you pick from the row above it — wearing all nineteen skins side by side, at the same size as the cards above
-- **decide** looking at all nineteen skins on the same body at once, is it obvious which ones are worth keeping and which are a weaker copy of another one, or do they blur into one texture?
-- **before** nothing — the skin bar has only ever been able to show one skin on the whole page at a time
-- **after** the "EVERY SKIN, ONE BODY" row, under the body picker at the foot of the SHAPES tab
-- **where** `bun run dev`, NOT BUILT YET → SHAPES, scroll past TAKEN to "EVERY SKIN, ONE BODY"
-
-> with every motion on one body at once, can you tell two of them apart without reading the labels?
-
-- **subject** the new grid on the SHAPES tab that puts one body through every motion at once
-- **changed** there was no page where the eighteen spare motions stood beside each other — seeing one meant forcing it on the whole catalogue and remembering what the last one looked like. THE WEIGHT (or whichever body is picked) now performs all eighteen at once, each labelled underneath
-- **decide** covering the labels, can you tell which figure is doing which motion — do enough of the eighteen read as visibly different movements, or do several of them collapse into the same wobble?
-- **before** nothing — the motion bar could only ever force one motion on the whole page at a time
-- **after** the "EVERY MOTION, ONE BODY" row, below the skins grid on the SHAPES tab
-- **where** `bun run dev`, NOT BUILT YET → SHAPES, scroll to "EVERY MOTION, ONE BODY"
-- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev` — in a worktree, `tools/director/server.ts` by absolute path, confirming the tree in its startup line — then SHAPES, `CILIA` on the skin bar. THROB first, which is the extreme case and the slowest drift in the catalogue, then BULB and RUNT; then `NACRE`, same three. `requestAnimationFrame` does not fire in a headless pane, so this one needs a real browser
-
-## `b07f480` — water, or only slow
-
-> does TIDE read as water, or only as slow — the director, TIDE then deepCurrent, with the game's own wave sound over it
-
-- **subject** TIDE, the first of three new pieces of music sitting beside the six that were already there. None of them plays in the game; they exist to be chosen between
-- **changed** every piece of music here until now put its notes on a beat, so all six could sound *deep* and none of them could sound *fluid* — a thing on a beat is a thing you can count along with, and water is not countable. TIDE is built out of two slow swells whose rhythms are 7 beats and 4.5 beats apart: those two only meet once every 63 beats and the piece is only 22 long, so within one playing they never once land together. There are eighteen notes in thirty-three seconds and each one lasts six, so something is nearly always sounding and nearly nothing ever *arrives*. There are two heartbeats in the whole piece, eleven beats apart, so even the pulse misses. It is also the first piece whose end runs past its own beginning: the last swell is still fading when the piece starts again, so there is no silent moment to hear the join at. Everything in it is either far below a speaking voice or far above one, with an empty middle — which is both what the game's sound rules demand and what deep water actually sounds like
-- **decide** does it read as water, or is it just a slow version of the same thing the others do — yes if you stop being able to say where the beat is and start hearing something moving; no if it still feels like a piece with a very slow pulse you could nod to, in which case the two rates are too close together and the answer is to pull them further apart rather than to slow the piece down further
-- **before** `deepCurrent`, the existing piece nearest this one in mood: a four-note bass turning over on a strict grid, where you can count along from the second bar
-- **after** TIDE, which has no bar to count from at all. Play them back to back, in that order and then the other way round
-- **where** the director's MUSIC tab, TIDE then `deepCurrent`. Then play a wave in the game at the same time, so the game's own sounds are over the top of it — the real question is whether TIDE still reads as water when there is something else happening, or whether it disappears
+`fca8dac` (one body, every skin/motion) and `b07f480` (TIDE) moved to their
+own files, `docs/checks/fca8dac.md` and `docs/checks/b07f480.md` — this file
+no longer carries a second, uncapped copy of either.

@@ -70,7 +70,11 @@ function report(): void {
     // silent for the great majority of checks that have none.
     if (check.restated) {
       const r = check.restated;
-      console.log(`        restated — ${r.subject}`);
+      // The badge goes first and on its own, ahead of the subject it labels —
+      // the owner asked for it by name, and a missing one prints as `?`
+      // rather than defaulting to either word, so an entry written before
+      // this field existed reads as a thing to notice, not a guess.
+      console.log(`        [${r.badge ?? "?"}] restated — ${r.subject}`);
       console.log(`          changed  ${r.changed}`);
       console.log(`          decide   ${r.decide}`);
       console.log(`          where    ${r.where}`);

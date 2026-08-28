@@ -18,6 +18,13 @@ export interface Restated {
   sha: string;
   /** The trailer's own text, quoted in full — the key, not a summary. */
   text: string;
+  /**
+   * `concept` or `implementation`, one word — which frame of mind the check
+   * wants: *is this worth building* against *is this better than what we
+   * had*. Optional so an entry written before this field existed is read as
+   * missing, never guessed at as either word.
+   */
+  badge?: string;
   subject: string;
   changed: string;
   decide: string;
@@ -26,12 +33,12 @@ export interface Restated {
 
 const HEADING = /^##\s+`([0-9a-f]+)`/;
 const QUOTE = /^>\s?(.+)$/;
-const FIELD = /^-\s+\*\*(subject|changed|decide|where)\*\*\s+(.+)$/;
+const FIELD = /^-\s+\*\*(badge|subject|changed|decide|where)\*\*\s+(.+)$/;
 
 /**
  * One entry per `> quoted text`, carrying the sha of the `##` heading above
- * it and whichever of the four fields follow before the next quote or
- * heading. A quote with none of the four fields filled in is still kept —
+ * it and whichever of the five fields follow before the next quote or
+ * heading. A quote with none of the five fields filled in is still kept —
  * an incomplete entry is still a key that should not silently vanish from
  * `orphanedRestated`'s count the moment a field goes missing.
  */
@@ -85,7 +92,7 @@ export function parseRestated(md: string): Restated[] {
     }
     lastWasQuote = false;
     if (field && pending) {
-      const key = field[1] as "subject" | "changed" | "decide" | "where";
+      const key = field[1] as "badge" | "subject" | "changed" | "decide" | "where";
       pending[key] = (field[2] ?? "").trim();
     }
   }
