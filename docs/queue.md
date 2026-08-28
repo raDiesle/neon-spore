@@ -63,57 +63,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THE SWITCHER SHOWS ONE SKIN, AND ONE SKIN IS NOT A COMPARISON
-_claude/burn-shapes-pair-s12 · tools/director/src/shapes-pair.ts tools/director/src/shapes-panel.ts_
-
-Behind s11, which makes a card cheap enough to draw twice.
-
-Decision 24 is the owner's and this lane is the first half of it: **every
-alternative is comparable in the director, at the same time, without leaving
-the application.** The skin bar is exclusive — pick MOUNTED SCALE and SCALE is
-gone. So the one question every skin lane landed a `Check:` about (*does the
-mounted one go round, or does the flat one already read?*) can only be
-answered by flipping, from memory, across a rebuild. Memory is not a
-comparison; it is a preference for whichever you saw last.
-
-The catalogue already knows this. `docs/asset-catalogue.md` runs NOTCH 1
-beside NOTCH 2 **on one clock** and says in its own words that a single draft
-in that position quietly becomes the answer by being the only thing on the
-page. The VERSUS tab makes the same argument for a shipped look and goes
-further, hashing both canvases to prove the two sides differ only by the
-patch. Both were built because one-at-a-time is not a comparison. The skin
-switcher never got the same treatment.
-
-**So: a second skin, and each card drawn twice.** A B-skin picker beside the
-A-skin bar; each card becomes two figures side by side, same contour, same
-motion, **same `t`** — one clock, or the two halves drift and the difference
-you are reading is phase. Default is B off, so the page is exactly what it is
-today until a second skin is picked.
-
-**One judgement, and it is the whole lane.** Two figures side by side on a
-card halves the width, and `docs/spec/graphics.md`'s floor is that a body stays
-nameable at 20–26 px. If halving takes a card under that, the pair is a worse
-comparison than flipping, because you are then judging two things you cannot
-read. Measure the drawn size before deciding the layout — the honest
-alternatives are a wider card, a taller one with the pair stacked, or fewer
-cards per row, and picking one on measurement rather than on taste is what
-this lane is for. Say the numbers in the commit.
-
-Prefer this over a blink toggle. Blink is already the right answer where two
-things must occupy the *same* pixels — the VERSUS pair does it for a hull
-whose difference is a colour — but these differ in structure and at card
-size, and structure is read side by side.
-
-Finished when `bun run check` is green, any two of the seventeen skins can be
-seen on one card at one time, the default is unchanged behaviour, both halves
-share one clock, and the commit carries `Check: at the size a paired card
-leaves, can both halves still be read — the SHAPES tab, SCALE against MOUNTED
-SCALE, then LINE against VEIN on the smallest card on the page`.
-
-Model `opus`, effort `think hard`. The size floor is the judgement; the second
-picker is arithmetic. Read `shapes-panel.ts`, `shape-figure.ts` and
-`docs/spec/graphics.md` first.
-
 ## THE VERSUS TAB HOLDS SEVERAL SLOTS AND SHOWS THE FIRST
 _claude/burn-versus-slotpick-v2b · tools/director/src/versus-page.ts_
 
