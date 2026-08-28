@@ -141,56 +141,6 @@ Model `sonnet`, effort `think hard`. Read `shapes-page-app.ts`, then
 `shape-figure.ts` and `skins/cilia.ts` right now — do not touch either**, and
 expect to replay over its work if it lands first.
 
-## THE CHECK LIST IS PARAGRAPHS WHERE IT SHOULD BE A LINE, AND SAYS NOTHING ABOUT KIND
-_claude/burn-checks-short-x11 · docs/checks tools/checks/restated.ts_
-
-The owner, twice, reading `⚑ TO CHECK`:
-
-> have much shorter explanations in the "to check" list.
-> show me label badge of every "to check" list item, if its just "concept" or
-> "implementation".
-
-**The list is read standing up, in two minutes, before a laptop closes.** Two
-of the six entries on it run to a full paragraph in `changed` and another in
-`decide` — one of them quotes six per-body drift figures and a smoothing
-constant. Every sentence is true and every sentence was written by somebody who
-had just spent an hour on the thing. That belongs in the commit message, which
-is where whoever later fixes it will be standing; a paragraph here is a row
-that gets skipped rather than answered.
-
-**The cap is now in the skill and this lane applies it to what already exists.**
-`changed` and `decide` at most 25 words each, `subject` at most 15, `before`,
-`after` and `where` as phrases rather than sentences. **Shorten, do not
-summarise away**: the question in `decide` must still have a yes and a no, and
-if a field cannot survive 25 words then the check itself was two checks. Say so
-in the report rather than truncating one into nonsense.
-
-**The badge is one word and it goes first.** `implementation` for something the
-game or a tool now does differently — looking at it means looking at the thing.
-`concept` for a check on a proposal nothing ships yet: a card, a candidate, a
-draft shape beside the built ones. They are answered in different frames of
-mind — *is this better than what we had* against *is this worth building at
-all* — and a list that mixes them silently is a list where every row is read
-twice before it is understood.
-
-**The renderer shows it, and shows it before the sentence.** Whatever prints
-`⚑ TO CHECK` and `bun run checks` puts the badge where the eye lands first, and
-a missing badge is visible as missing rather than defaulting to either word —
-an entry written before this lane is a thing to notice, not a thing to guess
-about.
-
-**Nothing here decides a check.** No entry is ticked, removed or moved to
-`docs/verified.md`; that is the owner's, by looking.
-
-Finished when `bun run check` is green, every entry under `docs/checks/` carries
-a badge and fits the cap, no question lost its yes and its no, `bun run checks`
-prints the badge first, and the commit carries `Check: is every row of the check
-list now short enough to answer while standing up?`
-
-Model `sonnet`, effort `think hard`. Read `.claude/skills/autonomous/SKILL.md`'s
-restatement section for the cap and the badge, then two existing files under
-`docs/checks/` — one long, one already short — before rewriting anything.
-
 ## CILIA IS REVERTED, AND THE PAGE STILL HAS TO BECOME FLUENT
 _claude/burn-shapes-fluent-x10 · tools/director/src/skins/cilia.ts tools/director/src/shape-figure.ts_
 
