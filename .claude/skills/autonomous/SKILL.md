@@ -179,21 +179,48 @@ The person reading it has not seen the code, does not remember the lane, and
 is deciding in the two minutes before they close the laptop. A trailer that
 assumes any of that back is a trailer that stays on the list forever.
 
-Three parts, in one or two plain sentences:
+**One sentence. A question, with a yes and a no.** That is the whole trailer.
 
-**What changed, in a clause** — so the reader knows what "before" was. "The
-motes are new" is worth more than any amount of describing what to look for,
-because without it they cannot tell the change from the thing.
+    Check: does the wash stay under the creatures, or does it compete with them?
 
-**What to decide, as a question with a yes and a no.** Not "check the
-backdrop". *Does the wash stay under the creatures, or does it compete with
-them?* A check whose failure is not imaginable cannot be failed, so it never
-gets ticked either.
+Not two sentences, not a paragraph, and **never the reasoning** — a lane that
+has just spent an hour on a thing wants to explain it, and the list is not
+where that goes. The commit message is. Trailers written this year have run to
+a thousand characters and been read by nobody; the ones that get ticked are the
+ones a person can answer while standing up.
 
-**Where to stand.** The command, and the wave or tab within it — `bun run
-preview`, wave 3; the director's CARDS tab; `bun run shapes:page`. If a
-repository command settles it outright, put it in backticks and
-`bun run checks --run` will run it without a person at all.
+**A check whose failure is not imaginable cannot be failed**, so it never gets
+ticked either. "Check the backdrop" is not a check. If you cannot phrase the
+"no", there is nothing to look at.
+
+**The detail goes in the restatement, in fields, not in prose.** Five of them,
+each one line, each answering exactly one thing:
+
+- **subject** — the thing, and where it lives. Four or five words.
+- **changed** — what it was before. A clause, not a history.
+- **decide** — the same question as the trailer, in the reader's terms.
+- **before / after** — *what to put beside what.* This is the field that
+  actually gets a check answered, and it is the one lanes leave out: a look
+  judged alone is judged against memory, and memory prefers whatever it saw
+  last. Name the control by the button that selects it — `before: SCALE`,
+  `after: MOUNTED SCALE` — or say `before: nothing, this is new` when there
+  genuinely is no other side. The page can now show two skins at once, two
+  motions on one clock and a candidate beside the shipped look, so "there is
+  no way to compare" is no longer true anywhere.
+- **where** — the command and the tab, in backticks. `DIRECTOR_HOST=127.0.0.1
+  bun run dev`, SHAPES, then the button by name. Not a sentence about where; a
+  path a thumb can follow. If a repository command settles it outright, put it
+  in backticks in the **trailer** and `bun run checks --run` will run it
+  without a person at all.
+
+**And a picture, when the change is visual and one is cheap.** A lane driving a
+headless preview can capture a frame; capturing the same frame before the
+change costs one `git stash` and a second capture. Commit both under
+`docs/checks/` and name them in the restatement's `before` and `after`. A still
+that shows the difference converts a check from a task into a glance, and the
+ones that have sat longest on the list are all ones where the reader would have
+had to build the comparison themselves. Do not fake it with a diagram — the
+value is that it is the real frame.
 
 **The restatement is a second commit, and it gets its own file.** Write
 `docs/checks/<sha>.md`, where the sha is the commit carrying the trailer —

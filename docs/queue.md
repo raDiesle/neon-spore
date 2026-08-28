@@ -63,6 +63,62 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
+_claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts_
+
+`docs/checks/restated.md` is a single file that every lane appends to, at the
+end, in the same commit shape — so two lanes landing in one evening conflict
+there by construction. That is the exact failure this repository diagnosed
+this morning about `docs/parked.md` and fixed by taking the writing away from
+lanes; the skill then recreated it here an hour later.
+
+The fix is not to take the writing away again — a restatement has to be
+written by the session that knows what changed. It is to remove the shared
+append point: one file per commit, `docs/checks/<sha>.md`, which is how the
+entries are keyed anyway. Two lanes then never touch the same path, and the
+reader gains nothing to merge.
+
+**And a sha is not stable, which is the other half of the problem.** A lane
+that lands behind another one is replayed, so the commit it keyed its
+restatement to no longer exists — the drafts lane was rebased twice tonight
+and said so: its key is only correct while the landing stays a fast-forward,
+and nothing would notice it going stale except the orphan report. Splitting
+the file does not fix that on its own.
+
+`bun run land` is where it can be fixed, because that is the one place both
+shas are known: it rebases, so it can see what each commit was and what it
+became, and rewrite the key as part of landing — the same way it already
+retires the queue entry. Do that, and prove it by landing something behind
+another lane and watching the key follow.
+
+**And while the parser is being rewritten, it gains the two fields the owner
+asked for and loses the length nobody asked for.** The list is read on a phone,
+in the two minutes before a laptop closes, and trailers written this year have
+run to a thousand characters. The skill's `Check:` section now demands one
+sentence and puts the detail in fields; this is the half that makes the fields
+exist.
+
+- **`before` and `after` become real fields**, parsed and printed beside
+  `subject` / `changed` / `decide` / `where`. They are *what to put beside
+  what* — `before: SCALE`, `after: MOUNTED SCALE`, naming the buttons that
+  select each — because a look judged alone is judged against memory, and
+  memory prefers whatever it saw last. `before: nothing, this is new` is a
+  legitimate value and must be accepted rather than read as missing.
+- **If either names a file under `docs/checks/`, print it as an image path**,
+  so a lane that captured the same frame either side of its change has
+  somewhere to put the pair.
+- **The report gets shorter, not longer.** Today it prints the trailer, a
+  derived hint and five restatement fields for every one of fifty-odd entries.
+  Lead with the question and where to stand; put the rest behind a flag. Say in
+  the commit what the default prints now and why that is the half a person
+  actually acts on.
+
+Finished when the parser reads a directory rather than a document, when the
+existing entries are split without losing their keying, when a replayed commit
+carries its restatement with it, when `before`/`after` are parsed and printed,
+when the default report is materially shorter than today's, and when the skill
+tells a lane to write `docs/checks/<sha>.md` in its second commit. The keying
+stays exact — sha plus trailer text, word for word.
 ## THREE THINGS THAT DRAW A BODY HAVE HAD TO GUESS AT IT
 _claude/burn-body-context-s14 · packages/content/src/own-motion.ts tools/director/src/skins/types.ts tools/director/src/shape-figure.ts tools/shape-sheet/src/motions/index.ts_
 
@@ -792,36 +848,3 @@ new contour offered to one of the thirteen. The rule that has to survive: a
 `suggests` pointing at nothing must remain an error, because the whole value of
 the field is that a drawn shape is joined to the idea it serves.
 
-## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
-_claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts_
-
-`docs/checks/restated.md` is a single file that every lane appends to, at the
-end, in the same commit shape — so two lanes landing in one evening conflict
-there by construction. That is the exact failure this repository diagnosed
-this morning about `docs/parked.md` and fixed by taking the writing away from
-lanes; the skill then recreated it here an hour later.
-
-The fix is not to take the writing away again — a restatement has to be
-written by the session that knows what changed. It is to remove the shared
-append point: one file per commit, `docs/checks/<sha>.md`, which is how the
-entries are keyed anyway. Two lanes then never touch the same path, and the
-reader gains nothing to merge.
-
-**And a sha is not stable, which is the other half of the problem.** A lane
-that lands behind another one is replayed, so the commit it keyed its
-restatement to no longer exists — the drafts lane was rebased twice tonight
-and said so: its key is only correct while the landing stays a fast-forward,
-and nothing would notice it going stale except the orphan report. Splitting
-the file does not fix that on its own.
-
-`bun run land` is where it can be fixed, because that is the one place both
-shas are known: it rebases, so it can see what each commit was and what it
-became, and rewrite the key as part of landing — the same way it already
-retires the queue entry. Do that, and prove it by landing something behind
-another lane and watching the key follow.
-
-Finished when the parser reads a directory rather than a document, when the
-existing entries are split without losing their keying, when a replayed commit
-carries its restatement with it, and when the skill tells a lane to write
-`docs/checks/<sha>.md` in its second commit. The keying stays exact — sha plus
-trailer text, word for word.
