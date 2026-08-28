@@ -263,3 +263,21 @@ other's wave number.
 - **changed** the front's crossing is held at 0.40 s for every card, so that the whole page lights and darkens together the way the shared `beat` intends; the consequence is that its pixel speed scales with the body — about 75 px/s on a 92 px creature card and about 410 px/s on the 620 px hull card
 - **decide** on the largest cards, does the front still read as travelling out along the veins, or does it flatten into a wipe over the whole body at once?
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, PULSE in the skin bar, a wide hull card beside a creature card
+
+## `533ff82` — the light gives a body volume, or does not
+
+> LIGHT gives each card a focal-point sphere ramp — four stops with a core shadow darker than the base and a bounce off the shadowed rim — where CORE gave a gradient falling evenly outward; at 92 px does a lit body read as volume, or as a flat shape with a gradient on it? `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button in the skin bar, flipping back to CORE to compare
+
+- **subject** `terminatorPass` in `tools/director/src/skins/light.ts`, and the LIGHT skin it is the first pass of
+- **changed** CORE fills the body with a radial gradient centred on the shape and falling outward in two steps; LIGHT pushes the focus 0.60 R toward a fixed upper-left key light and runs four stops off it, derived from the geometry rather than typed — 0% at the focus, 31.98% halfway from the centre to the terminator, 43.96% at the terminator, 53.33% at the shadow rim. Composited over a card those measure 106 / 50 / 19 / 57 in luminance against a base of 35, so the core shadow is darker than the base and the bounce comes back above it without passing the mid-tone
+- **decide** at 92 px, does a lit body read as volume, or as a flat shape with a gradient painted on it?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button in the skin bar, flipping back to CORE to compare
+
+## `533ff82` — the rim light and the aura on one body
+
+> the rim light is one thin cool stroke over the outline on the shadow side while `auraPass` draws three wide soft strokes of the body colour around the whole contour; do those read as two things on one body, or as one smear that would be better with the aura dropped under LIGHT? `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button, on a wide hull card where the shadow-side stroke is longest
+
+- **subject** `rimLightPass` in `tools/director/src/skins/light.ts`, sitting on the same contour as `auraPass` in `parts.ts`
+- **changed** LIGHT draws the aura and outline exactly as the other skins do and then adds a stroke 0.9× the line weight over the top, painted by a gradient along the key axis that is nothing until 62% and full by 88% — so it exists only on the shadow half and fades out before the terminator at 50%. Neither width nor position separates it from the aura: what does is that it is cool and brighter than the body colour where the aura is the body colour exactly, and hard where the aura is soft
+- **decide** do the rim and the aura read as two things on one body, or as one smear — and if the latter, should LIGHT drop the aura rather than thin the rim?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button, on a wide hull card where the shadow-side stroke is longest
