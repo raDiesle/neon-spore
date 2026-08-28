@@ -32,7 +32,7 @@ export interface HullSilhouette {
 export const SLICK: CreatureSilhouette = {
   lobes: 2,
   depth: 0.38,
-  wobble: 0.02,
+  wobble: 0.045,
   rx: 68,
   ry: 34,
   seed: 2.0,
@@ -41,7 +41,7 @@ export const SLICK: CreatureSilhouette = {
 /** Bulb: many fine lobes around a round body. Pumps and sways. */
 export const BULB: CreatureSilhouette = {
   lobes: 9,
-  depth: 0.1,
+  depth: 0.13,
   wobble: 0.055,
   rx: 52,
   ry: 52,
@@ -52,7 +52,7 @@ export const BULB: CreatureSilhouette = {
 export const RUNT: CreatureSilhouette = {
   lobes: 4,
   depth: 0.22,
-  wobble: 0.02,
+  wobble: 0.03,
   rx: 30,
   ry: 30,
   seed: 6.0,
