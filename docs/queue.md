@@ -145,68 +145,6 @@ them becomes a plaster in the file every future mechanic reads. Read
 `packages/sim/src/hull.ts`, `world.ts`'s `guardTick`/`wardUntilTick`,
 `grip.ts` and `docs/spec/systems.md` 5.8 first.
 
-## A CONTROL SET IS THE WHOLE PANEL FOR BOTH PLAYERS, AND A WAVE PICKS ONE
-_claude/burn-controlsets-x2 · packages/content/src/control-sets.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/render/src/band.ts apps/game/src/keys.ts packages/content/test/control-sets.test.ts_
-
-The owner, in their own words, and this is the concept rather than a tidy-up:
-
-> the lance control should be removed in default controls. it should only be
-> set if i configure the controls variant to be activated for a specific wave.
-> a control set is full controls of player 1 and player 2 altogether. they
-> cannot be combined e.g. lance to add to default control. it's then a new
-> control set with either 3 controls or lance only.
-
-So a **control set** is a named, whole panel — everything both players have in
-front of them for that wave — and sets do not compose. There is no "default
-plus the lance". There is a default set, and there is another set that happens
-to contain the lance, and a wave names exactly one of them. Today the lance is
-simply always there: `band.ts` draws SHIELD, SUCK and the lance for player 1
-unconditionally, and `keys.ts` binds F for it. That is the thing being taken
-apart.
-
-**The default set loses the lance.** After this lane, a wave that names nothing
-gets the panel without it.
-
-**A wave names its set.** One optional field on `Wave`, beside `boss` — which
-is the precedent for "this wave is not the ordinary thing" and should be
-followed rather than invented around. Absent means the default set.
-
-**Every set must have at least one wave, and this lane writes the missing
-ones.** A control set no wave uses is a panel nobody can reach, which is the
-same failure as a creature with no wave. If the lance set has no wave, author
-one, and it passes `.claude/skills/new-wave`'s one-sentence test like any
-other — a wave that exists only to demonstrate a panel is padding, so the
-sentence has to be about what the pair *does* with that panel.
-
-**The bosses and the special mechanics are the good examples**, and the owner
-names them: the snake that moves left and right, the gauge. Those already have
-their own controls in the tree. Do not rebuild them — look at what they
-already do and check whether they are, in fact, control sets that predate the
-concept. Say so in the commit either way; if two of them are the same set under
-different names, that is the finding.
-
-**Nothing here is a rendering experiment.** The panel already draws every
-control it needs; this lane decides *which* of them are on screen for a given
-wave, and the layout of a set with fewer buttons has to not look like a panel
-with a hole in it.
-
-`hashWorld`, the tick and determinism are untouched: which panel is on screen
-is a fact about the wave, decided identically on both devices before it starts.
-
-Finished when `bun run check` is green, the lance is absent from the default
-panel, at least one named set exists that has it, every set names at least one
-wave and every one of those waves exists, a wave with no set gets the default,
-and the commit carries `Check: on a wave that does not ask for it, is the lance
-button gone from player 1's panel?` and `Check: on the wave that does ask for
-it, does the panel read as its own set rather than as the usual one with a
-button added?`
-
-Model `opus`, effort `ultrathink`. What a set *is* — and whether the gauge and
-the snake are already two of them — is the whole lane; the field on `Wave` is
-five minutes. Read `packages/content/src/wave-types.ts`,
-`packages/render/src/band.ts`, `apps/game/src/keys.ts`,
-`packages/sim/src/gauge.ts` and `docs/spec/couplings.md` first.
-
 ## EVERY CONTROL SET GETS A PAGE, AND A WAVE THAT USES ONE SAYS SO ON THE RAIL
 _claude/burn-controlsets-page-x3 · tools/director/src/controlsets-page.ts_
 
