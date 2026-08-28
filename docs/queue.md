@@ -63,29 +63,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## ELEVEN ANIMATIONS, AND EVERY ONE OF THEM HAPPENS IN THE PICTURE PLANE
-_claude/burn-skin-depth-motion-s2b · tools/shape-sheet/src/motions/ tools/shape-sheet/src/motions.ts docs/dimensional.md_
-
-Behind s0b, because the finding this lane exists to prove is that **motion alone cannot sell depth** — and beside s2, which is the other half of the same question. The owner asked for existing animations improved until they give an impression of three dimensions, offered in the catalogue to be picked from later. So the deliverable is variants to look at, not an essay: a written finding with nothing on a card is the trap this queue is already carrying a warning about.
-
-**What the stack actually gives you, and it is less than it looks.** A pose is `{ dx, dy, rot, sx, sy }` — a flat affine transform with no z anywhere. So every impression of depth here is manufactured from four numbers and whatever the skin does underneath. `TURN` is the sharpest case: it is `rot: t * 0.34375`, a spin in the picture plane, which reads as a pinwheel. Nothing in the list rotates in depth, because nothing can, directly.
-
-**The one that does work is `sx` against a fixed light, and that is why this sits behind s0b.** A body whose horizontal scale runs on a cosine while its vertical holds is, on its own, a coin flipping — or worse, a body being squashed. Add s0b's key light, which stays where it is while the body turns under it, and the same four numbers read as rotation. That pairing is the finding, and it is worth writing down precisely because each half looks like a failure alone.
-
-**Take the existing eleven and offer a dimensional counterpart to those that have one.** Not all of them do, and saying which do not is half the result. The obvious candidates: `TURN` becomes a turn *in depth* — `sx` on a cosine with the sign of the surface crossing handled, rather than `rot`; `SWELL` becomes an approach, uniform scale with a little `dy`, which differs from inflation exactly in that an inflating body keeps its footing and an approaching one does not; `TOLL` and `CANT` become a pitch, `sy` compressing with `dy`, a body tipping away rather than leaning; `SLITHER` becomes the worm the owner asked for, a travelling `sx` wave rather than a lateral wander. Each variant sits **beside** its original in `MOTIONS`, never replacing it, because the whole point is picking between them on one page and on one clock.
-
-**The asymmetry that sells a rotation and is always left out:** a body turning at constant angular speed does not move at constant *apparent* speed. The near half crosses fast and the far half crawls, because what you see is the cosine. A variant that eases uniformly reads as an oscillation however good its scale curve is. Get that wrong and none of the rest matters.
-
-`motions.ts` is 234 lines against the ~250 ceiling and cannot hold eleven more, so it splits into `tools/shape-sheet/src/motions/` with a registry, the way `skins/` did and `drafts/index.ts` did before it. That is mechanical; do it first and keep it separate in the diff from anything new.
-
-**Two things this must not quietly break.** `MOTIONS` feeds the drafts panel, so every new entry is something a person will see and has to be worth the row. And a variant that ever ships to a creature would face the nameability gate that landed as `fa0fc2a`, whose first axis is drawn aspect across a beat — an `sx` cosine takes aspect far off, so a turn is a *card* motion until something proves otherwise. Say so in `docs/dimensional.md` rather than leaving it to be discovered.
-
-**`docs/dimensional.md` is written from what was drawn, not before it.** What the Canvas2D and SVG stack can do for depth, what it cannot, what each technique costs, and which of the eleven have no dimensional reading at all and why. One page. It is the answer to "how far can we take this without a second renderer", and it should be honest about the ceiling rather than optimistic.
-
-Finished when `bun run check` is green, every file is under 250 lines, each variant sits beside its original on the SHAPES tab turning on the same clock, and the commit carries `Check: with the light on, does the turned body read as rotating in depth or as being squashed flat — the SHAPES tab, TURN beside TURN IN DEPTH, and then the same pair with the light off`.
-
-Model `opus`, effort `ultrathink`. The apparent-speed asymmetry and the light pairing are the two things that decide whether this lane produced anything at all; the rest is arithmetic. Read `tools/shape-sheet/src/motions.ts` and `docs/skins.md` first.
-
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
