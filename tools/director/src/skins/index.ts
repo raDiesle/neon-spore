@@ -1,4 +1,5 @@
 import { CARAPACE } from "./carapace.js";
+import { CILIA } from "./cilia.js";
 import { CORE } from "./core.js";
 import { CRATER } from "./crater.js";
 import { LIGHT } from "./light.js";
@@ -44,6 +45,7 @@ export const SKINS = [
   CARAPACE,
   TURN,
   CRATER,
+  CILIA,
 ] as const;
 
 // LIGHT goes last and stands apart from the four before it. Those are one
