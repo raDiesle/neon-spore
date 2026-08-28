@@ -2,7 +2,6 @@ import { bossFromWave, controlSetForWave, podsFromWave, queueFromWave } from "@n
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
-  endRun,
   type SimConfig,
   type SimEvent,
   startWave,
@@ -11,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bindKeys, type Keys } from "./keys.js";
+import { bindStageAfterRun } from "./stage-afterrun.js";
 import { bindStageInterlude } from "./stage-interlude.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { currentWave, type Store } from "./state.js";
@@ -112,6 +112,7 @@ export function bindStage(
     );
     lastBeat = 0;
     onBeat(0);
+    afterRun.paint(); // a fresh world is never over
   };
 
   /**
@@ -203,13 +204,12 @@ export function bindStage(
     keys.push(1, { kind: "brief" });
     keys.push(2, { kind: "brief" });
   });
-  // The director holds the hull, so no run here ever ends on its own. The
-  // after-run screen is a screen, and a screen that cannot be reached cannot
-  // be judged — this is the way in.
-  document.getElementById("endRun")?.addEventListener("click", () => {
-    endRun(world);
-    running = false;
-    paintPlay();
+  const afterRun = bindStageAfterRun({
+    canvas,
+    world: () => world,
+    rebuild,
+    setRunning: (r) => (running = r),
+    paintPlay,
   });
 
   for (const button of document.querySelectorAll<HTMLElement>("button.role")) {
