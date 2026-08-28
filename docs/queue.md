@@ -181,45 +181,6 @@ Model `sonnet`, effort `think hard`. Read how the boss is picked in the wave
 editor and copy that shape exactly; the lane is one field, one page and one
 mark, and inventing a new interaction for it would be the mistake.
 
-## THE ROCK STILL GOES INTO THE SHIP, AFTER THE RULE SAYS IT SHOULD NOT
-_claude/burn-deflect-draw-y3 · packages/render/src/deflect.ts packages/render/src/creatures.ts_
-**Asked for by the owner.**
-
-The owner, on the shield fix, marking one check PASS and the other FAIL:
-
-> I still see the rock goes into the ship (on cannon position). i can handle
-> myself later.
-
-**The rule is right and the picture is not, which is now provable.** The
-simulation answers a rock at `shieldRow`, one row above the hull, and the
-owner's other check — the cannon's column having no bearing — passed. So what
-is left is drawing: the rock is still painted arriving at the ship before, or
-while, the deflect is shown.
-
-**Where to look, in order.** Whether the creature is drawn at its row for the
-tick it is removed on; whether the deflect effect starts from the hull rather
-than from the shield's surface; and whether the last drawn position of a
-deflected rock is interpolated toward the hull by a smoothing that does not
-know the rock stopped. One of those three is it.
-
-**The owner said they can handle it later, which is not a reason to leave it.**
-It is a reason not to gold-plate it: fix the position the rock is drawn at,
-prove it, and leave the rubber-bounce animation to its own lane, which is
-already queued behind this one.
-
-**Drawing only.** Nothing in `packages/sim` moves. If the diagnosis turns out
-to be in the rule after all, stop and report it rather than editing a file this
-lane does not own.
-
-Finished when `bun run check` is green, `frame.test.ts` passes through the
-strict canvas stub, a deflected rock is never drawn below the shield's surface,
-and the commit carries `Check: watching a rock get deflected, does it turn back
-before it touches the ship?`
-
-Model `sonnet`, effort `think hard`. Read the shield-fix commit for where
-`shieldRow` is, then how a creature's row becomes a y coordinate, then
-`deflect.ts`.
-
 ## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
 _claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
 **Asked for by the owner.**
