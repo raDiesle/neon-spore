@@ -30,17 +30,23 @@ share `tools/director/src/skins/index.ts`, which is owned by nobody and gets
 one line from each — a contiguous region, replayed over, exactly like
 `config.ts`.
 
-**On the reference images and the SVG links.** The owner supplied a sheet of
-twenty surface designs and three svgrepo files (fish scales, a butterfly wing,
-a nautilus shell). They are reference for *structure* — how scales overlap,
-how a wing's cells divide, how a spiral's chambers fall — and they are not
-assets to vendor. Two reasons, and both are load-bearing. A fixed illustration
-cannot wrap a contour that wobbles every frame and is re-sampled from
-`contourAt`; every skin here has to be generated in contour space or it slides
-off the body within a second. And a third-party file carries a licence, which
-is the owner's decision to make and not a lane's. No lane fetches a URL. If
-those files are ever to be vendored, that is its own entry with its own
-licence line.
+**On the reference sheet.** `docs/reference/20-surface-designs.svg` is the
+owner's own file, handed over for this block and committed so a lane in a
+fresh clone can actually open it. It is worth reading rather than glancing at:
+it defines no `<pattern>` at all, and draws each of its twenty surfaces as
+explicit geometry inside a clipped group, `c0` through `c19` — which is the
+same thing every lane here has to do, so it is technique and not just a mood.
+Its eight gradients are worth reading twice.
+
+It is reference for *structure* — how scales overlap, how a wing's cells
+divide, how a spiral's chambers fall — and **not** art to copy in. A fixed
+illustration cannot wrap a contour that wobbles every frame and is re-sampled
+from `contourAt`; every skin here is generated in contour space or it slides
+off its body within a second. The owner also linked three svgrepo files (fish
+scales, a butterfly wing, a nautilus shell) as further reference. **No lane
+fetches a URL and no lane vendors a third-party file** — that carries a
+licence, which is the owner's call and not a lane's. If those are ever wanted
+in the tree, that is its own entry with its own licence line.
 
 ## TWELVE SKINS ARE COMING AND THE FILE THAT HOLDS FOUR IS AT THE CEILING
 _claude/burn-skin-split-s0 · tools/director/src/skins/ tools/director/src/skins.ts tools/director/src/shape-figure.ts tools/director/src/shapes-panel.ts docs/skins.md_
@@ -285,6 +291,8 @@ A new pure file in `content`, so nothing here reads a world: `Drive` (a struct o
 **The elliptical pen, and nobody in three design proposals noticed it.** `drawLiving` composes `ctx.scale(scale * sx, scale * sy)`, so a non-uniform pose strokes the outline with an elliptical pen: apparent line weight varies by direction at exactly the instant the squash peaks. This is already true today at SWAY_PUMP's +/-10%; this lane takes it to 18%, a swing `docs/spec/graphics.md` pins at 1.2-1.8 px cannot absorb. Fix it in the one contiguous region this lane adds to `creatures.ts` — compensate `lineWidth` against the geometric mean of `sx` and `sy`, or stroke outside the non-uniform transform. Say in the commit which, and that it changes the resting look slightly because the bug predates the batch.
 
 The gate from lane 2 must be green with `landGain` at these values and red if any of them is doubled; that is the acceptance test, not an eye.
+
+**That gate has since been built, and it says these values are red on arrival.** `claude/burn-body-gate-c2` landed the three-axis nameability test, and its finding is specifically about this lane: BULB and THROB are held apart by the **lobe axis alone**, and the lobe axis answers to the pose, because a squash is a second harmonic that competes with the nine bumps. The bulb's pump sits exactly on its ceiling — 0.10 passes, 0.11 fails — so the 0.18 squash written above fails the moment it is applied to the bulb. This is not a reason to weaken the gate; the gate is the thing that caught it. Run `bun run shapes:report` and read the TOLD APART BY block before choosing a number. The brief's own fallback is the likely answer and it lands under the ceiling: **halve every `landGain`** — bulb 0.5, slick 0.3, runt 0.2, throb still 0.0 — giving a ~0.09 squash, and let the directional gather carry the beat. If a halved gain reads as nothing, that is the finding, and the choice between a legible landing and nine countable lobes is a decision for the orchestrator, not something to resolve by widening a cap.
 
 Finished when `bun run check` is green, `drive.test.ts` proves every impulse decays to under 1% by mid-beat and that `sx * sy` stays within 1% of 1 at every sample, and the commit carries `Check: does the unison landing read as tempo or as twelve metronomes — a full wave at tempo, then a two-body wave`.
 
