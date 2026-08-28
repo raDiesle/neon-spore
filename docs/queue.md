@@ -504,6 +504,52 @@ looked at that and said no. If the round still cannot be talked through after
 both of the above, that is a finding for the report, not a licence to overturn
 the answer.
 
+
+### Three more answers, and what they add up to
+
+Put to the owner in the same session as the two above, and decided by them.
+
+**The shot is watched by both.** The interior is on both screens; the pair sees
+where a shot went and what it met. Not the shooter alone and not the pilot
+alone.
+
+**A dead end costs hull**, the same as a rock getting through. The amount is a
+named field in `SimConfig` and the owner's to tune later; do not spend the lane
+arguing its value.
+
+**Each round is one wheel, several to a boss.** Hitting the middle finishes a
+wheel and the next comes up — more entrances, deeper rings. The authored
+`maze-rounds.ts` structure stays, and the two-entrance wheel is round one
+rather than the whole encounter.
+
+### Say this plainly in the commit, because it is a real change of kind
+
+Both the light and the shot's journey are now on both screens, and only the
+pilot can turn. **So nothing in this round is knowledge one player has and the
+other does not** — which is the split `maze.ts`'s second paragraph calls the
+thing to avoid, and `docs/spec/structure.md` 7.3 calls the only thing that
+should stay random.
+
+The owner was told that objection when the first two answers were put to them
+and they have now decided the same way three times running. **That is a
+decision, not an oversight, and the lane builds it.** What the lane must not do
+is quietly reintroduce a knowledge split to win the conversation back — that
+has been declined, explicitly, twice.
+
+**What the round runs on instead, and this is what to get right.** With no
+hidden knowledge, the co-operation is in the *verbs*: one player turns and
+cannot shoot, the other shoots and cannot turn, and neither can do the other's
+half. The talking that remains is about **what to do next** rather than about
+what one of them can see — *try the left one*, *no, that one dead-ended, go
+round*. The hull cost is what makes that exchange worth having, because a probe
+that costs nothing is a probe you take without discussing.
+
+So the lane's job is to make the *decision between attempts* sharp enough to be
+worth a sentence: how much a wrong entrance costs, how long a re-aim takes, and
+how legible the last shot's failure was. If after building it the round plays
+fine in silence, say so in the report — plainly, as a finding, with what you
+saw. Do not fix it by re-splitting the screens.
+
 ### What is settled, and can be built once the split is
 
 **Two entrances, one of them a dead end.** The owner asked for the simple case
