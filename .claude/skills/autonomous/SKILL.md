@@ -217,7 +217,13 @@ check. Writing them later, cold, from the diff alone, is not the same
 exercise — so it happens now or not at all. One `##` heading per commit
 (`` ## `sha` — a few words ``), one `> ` quote of the `Check:` trailer's own
 text underneath it — exact, word for word, because that quote is the key a
-later reader's tooling matches on — and the same three fields under it:
+later reader's tooling matches on — and the same three fields under it.
+
+The quote is the trailer's text and **not** the `Check: ` that introduces it.
+A lane read "word for word" the other way, quoted the whole line, and its
+restatement came back from `bun run checks` as an entry matching nothing —
+which is the one failure mode this file cannot afford, because an orphaned
+restatement looks exactly like a check nobody has restated.
 
 ```markdown
 ## `d5df018` — the swallow
