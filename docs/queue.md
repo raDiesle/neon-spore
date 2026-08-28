@@ -96,48 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THE PANEL STILL HAS THE LANCE ON EVERY WAVE, WHICH IS THE THING THAT LANDED
-_claude/burn-controlset-apply-y1 · packages/render/src/band.ts packages/render/src/layout.ts packages/render/src/touch.ts_
-**Asked for by the owner.**
-
-The owner, testing the control-set lane an hour after it landed, and marking
-its check FAIL:
-
-> in director testing game mode, still every wave has the "lance" control for
-> player 1.
-
-**The registry landed and nothing reads it.** `control-sets.ts` exists, `Wave`
-carries `controls?`, `band.ts` was rewritten to walk a set — and the panel the
-owner is looking at still draws three buttons on every wave. So the set is not
-reaching the drawing, and the first job is to find out where it stops: the wave
-not naming one, the world not carrying the wave's choice, the director's
-testing mode building its own world by another route, or `band.ts` falling back
-to a default that happens to include the lance. **Find the break before writing
-anything**, and say in the commit which of those it was.
-
-**Then finish the half the lane refused, because it is the same half.** That
-lane stopped deliberately: with the lance gone, player 1's panel is two lobes
-in three slots and reads left-weighted, and centring them means `layout.ts`
-computing the circles from the set while `touch.ts` reads those same circles.
-Drawing a button off its hit region is the failure both files exist to prevent,
-so they move together — and they are yours, together, here.
-
-**A wrong panel is worse than an ugly one.** A test has to prove that what is
-drawn and what is touchable are the same set, for every registered set, not
-just for the two that exist today.
-
-Finished when `bun run check` is green, a wave with no set shows a panel with
-no lance in the director's testing game mode, the lance wave shows its own,
-every set's buttons are centred and hit where they are drawn, a test ties the
-drawing to the hit regions, and the commit carries `Check: playing a wave that
-does not ask for the lance, is player 1's panel two centred buttons with no
-gap where a third used to be?`
-
-Model `opus`, effort `think hard`. The diagnosis is the lane; read
-`packages/content/src/control-sets.ts` and the commit that landed it, then
-follow the value from `Wave.controls` to the pixel and find where it is
-dropped.
-
 ## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
 _claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
 **Asked for by the owner.**
