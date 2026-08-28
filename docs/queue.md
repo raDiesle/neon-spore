@@ -96,62 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
-_claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts packages/render/src/rock-impact.ts_
-**Asked for by the owner.**
-
-The owner's wish, once the rule is right:
-
-> it would be nice if we improve animation, so it slightly bounces in the ship
-> and then back away from the ship. so the new thing that it slightly stretches
-> inside of the shield ship area (like a gummi)
-
-A rock that reverses on one tick reads as a rock that teleported. What is being
-asked for is the moment of contact having a *shape*: the rock presses a little
-way into the shield, the shield gives like rubber, and both spring back. Small
-— the owner said *slightly* twice.
-
-**This one lands on the field rather than being offered as an alternative**,
-and the reason is the first exemption in CLAUDE.md's *A look is offered, never
-replaced*: the owner asked for this animation in these words. It is their
-decision already made, not a session deciding a look is better. Everything
-around it in this file is not: a lane that finds itself improving some *other*
-part of the deflect while it is in there stops and reports it.
-
-**And it inherits half a fix.** The lane that moved the bounce up found the
-cause and could only reach part of it: `DeflectFx.spawn` was handed a point
-that always aimed at the hull's own skin, so the bounce began where an
-undeflected rock sinks in rather than where the shield is. That is corrected.
-What is not is the falling rock's *own* sprite — `rock-impact.ts` still
-replays it all the way down to the same hull point before it vanishes, so for
-about a frame the rock is drawn almost touching the ship and the corrected
-bounce appears above it. That file is yours here. Make a deflected rock's
-arrival target the shield's row, and the two halves will agree.
-
-**Drawing only.** The rule is `hull.ts`'s and the lane in front of this one owns
-it. Nothing here may change when a deflect happens, what it scores, or anything
-`hashWorld` sees; the simulation says *deflected, this column, this kind, this
-tick* and this lane decides what that looks like. If the give must be visible
-for longer than the rule allows, that is a finding for the report, not a reason
-to touch the rule.
-
-**It outlives a frame, so it belongs in `Effects` and is cleared in
-`Effects.reset()`** — `packages/render/test/restart.test.ts` fails if a new
-field is added and not cleared, and `world.tick` restarts at 0, so a squash
-cached against it is read by the next run as its own.
-
-**Behind `claude/burn-guard-bug-x1`**, which is moving where a deflect happens.
-An animation authored against the old contact point is an animation authored
-against a bug.
-
-Finished when `bun run check` is green, `frame.test.ts` passes through the
-strict canvas stub, the give is cleared on every restart, and the commit
-carries `Check: does the rock press into the shield and spring back like
-rubber, or does it just stop and reverse?`
-
-Model `sonnet`, effort `think`. Read `packages/render/src/deflect.ts`,
-`effects.ts` and `docs/spec/graphics.md` first.
-
 ## THE SHEET AND THE RESTART PROMPT OPEN AND CANNOT BE CLOSED
 _claude/burn-director-overlay-x5 · tools/director/src/demo-panel.ts_
 **Asked for by the owner.**
