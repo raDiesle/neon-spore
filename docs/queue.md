@@ -73,19 +73,6 @@ Finished when `bun run check` is green, when LINE, MEMBRANE, CORE and VEIN draw 
 
 Model `opus`, effort `ultrathink`. Nothing allocates per frame, every `<defs>` id is keyed on `uid`, and the light is a constant rather than a parameter — twelve angles is the failure this lane exists to prevent, and a parameter is exactly how it would happen. Read `core()` in `tools/director/src/skins/core.ts` first: its outward-falling gradient is the honest baseline this has to beat.
 
-## THE VEINS ARE UNDER THE SKIN AND A HEART IS NOT A TEXTURE
-_claude/burn-skin-vein2-s1 · tools/director/src/skins/vein-pulse.ts_
-
-The owner's own idea, and the sharpest one on the list: VEIN drawn again as something with a pulse. Behind s0.
-
-Two changes to what VEIN does now. **The veins break the surface.** Today every filament is clipped flat under the membrane, which is why it reads as a texture printed on a body rather than as something inside one. Let a strand surface: where a segment crosses out of the clip it is drawn again, brighter and slightly wider, as though it stands proud of the skin for a stretch and then goes under again. Interrupted, not continuous — the gaps are what make it read as *under*, and a strand visible along its whole length is just a line on a body.
-
-**And every second beat it beats.** A wave of brightness leaves the origin the trunks grow from and travels outward along the filaments — not the whole texture flashing, which is a light being switched on, but a front moving out at a speed the eye can follow, each segment lighting as the front reaches its distance and falling back behind it. The strands that surface light hardest, so the heartbeat is read on the parts standing out of the skin. The period is two beats, taken from `onFrame`'s shared phase, so the whole page beats together.
-
-Finished when `bun run check` is green, the pulse is one `onFrame` mutating opacity and width on paths built once, the origin and the branch structure are still seeded from the name, and the commit carries a `Check:` asking whether the surfacing reads as *under the skin* or merely as two line weights.
-
-Model `opus`, effort `think hard`. Think about the speed of the front before anything else — too fast is a flash, too slow is a worm crawling, and this is the one card on the page that has to read as alive with no body moving. Read `docs/skins.md` (lane s0) and the existing `filaments()` first.
-
 ## EVERY BODY ON THE PAGE IS A FLAT SHAPE SEEN FROM EXACTLY ONE ANGLE
 _claude/burn-skin-volume-s2 · tools/director/src/skins/turn.ts tools/director/src/skins/crater.ts_
 
