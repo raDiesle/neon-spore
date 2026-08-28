@@ -1,6 +1,8 @@
-import { KEY } from "./light.js";
+import { contactPass, KEY, rimLightPass, specularPass, terminatorPass } from "./light.js";
+import { lift, type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
+import { turnAngle } from "./turn.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
 
 /**
@@ -8,22 +10,17 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * sparse in others, each a small radial highlight over a shadow.
  *
  * The whole difference from SCALE and CARAPACE is the absence of a grid, and a
- * jittered grid is what you get if you are not careful — rows still visible
- * under the noise. So there are no rows here: `poissonScatter` below throws
- * darts inside the body's own disc and rejects one that lands too close to a
- * bump already placed, the way real pores crowd in one spot and thin out in
- * another rather than tiling. `SUCKER` in `./sucker.js` reuses this exact
- * engine with a different density field — a line, not a handful of points —
- * which is the one thing meant to keep the two skins apart; if it stops being
- * the only thing, that is a finding, not a detail to quietly fix here.
+ * jittered grid is what you get if you are not careful. So there are no rows
+ * here: `poissonScatter` below throws darts inside the body's own disc and
+ * rejects one landing too close to a bump already placed, the way real pores
+ * crowd in one spot and thin out in another. `SUCKER` in `./sucker.js` reuses
+ * this exact engine with a different density field — a line, not a handful of
+ * points — which is the one thing meant to keep the two skins apart.
  *
- * Each bump is a plain filled circle plus, only when `ctx.lit`, a small bright
- * disc offset toward `KEY` and a small dark disc offset away from it — a
- * highlight and the shadow under it, at the size of one pore rather than the
- * body-wide ramp `light.ts` draws. Both discs paint from a gradient shared by
- * every bump on the card: `objectBoundingBox` units mean the same two stops
- * read correctly on a bump of any size or position, so hundreds of highlights
- * cost two `<defs>` entries and not one each.
+ * Each bump is a filled circle plus, only when `ctx.lit`, a bright disc offset
+ * toward `KEY` and a dark one away from it, both painting from a gradient
+ * shared by every bump on the card — `objectBoundingBox` units, so hundreds of
+ * highlights cost two `<defs>` entries and not one each.
  */
 
 /** One placed dart: a body-relative position and its own radius. */
@@ -33,10 +30,13 @@ export interface ScatterPoint {
   readonly r: number;
 }
 
+/** What a bump's highlight and shadow paint from, or `null` under no light. */
+type BumpPaint = { hi: string; sh: string } | null;
+
 export interface ScatterOptions {
-  /** How many darts to try to land before giving up. */
+  /** How many darts to land, and a hard cap on candidates drawn so that a
+   * dense band cannot spin forever. */
   readonly target: number;
-  /** A hard cap on candidates drawn, so a dense band can't spin forever. */
   readonly attempts: number;
   /** Sample disc radius, as a multiple of `reach` — `clipGroup` trims it. */
   readonly cover: number;
@@ -46,24 +46,20 @@ export interface ScatterOptions {
    * closeness 1 and closeness 0 — the two ends of the density field. */
   readonly spacingDense: number;
   readonly spacingSparse: number;
-  /** A candidate below this closeness is discarded outright, before spacing
-   * is even checked — the way a region stays genuinely bare. */
+  /** A candidate below this closeness is discarded outright, before spacing is
+   * even checked — the way a region stays genuinely bare. */
   readonly minCloseness: number;
   /** 0 (bare) .. 1 (densest) at a body-relative point. The only thing that
    * tells two scatters apart is what this function measures against. */
   closeness(x: number, y: number): number;
-  /** Optional multiplier on `rMax`/`rMin`'s pick, driven by closeness — unset
-   * for a scatter with no size gradient, set for one with an axis. */
+  /** Optional multiplier on the radius pick, driven by closeness. */
   sizeBias?(closeness: number): number;
 }
 
-/**
- * Dart-throwing, not a jittered lattice: a candidate is a uniformly-random
- * point in the disc (`sqrt(rand())` for area, not radius, so it isn't
- * centre-heavy), rejected if the local density field says so or if it lands
- * too near a dart already kept. Nothing here allocates per frame — this runs
- * once in `build()`, like every other skin's lattice.
- */
+/** Dart-throwing, not a jittered lattice: a candidate is a uniformly-random
+ * point in the disc (`sqrt(rand())` for area, so it isn't centre-heavy),
+ * rejected if the local density field says so or if it lands too near a dart
+ * already kept. Runs once in `build()`, like every other skin's lattice. */
 export function poissonScatter(
   rand: () => number,
   reach: number,
@@ -100,14 +96,10 @@ const HOTSPOTS = 4;
 const WARM = "#FFF2DC";
 const SHADOW = "#04030C";
 
-interface Hotspot {
-  readonly x: number;
-  readonly y: number;
-  readonly spread: number;
-}
+type Hotspot = { readonly x: number; readonly y: number; readonly spread: number };
 
-/** A handful of seeded centres where pores crowd — never on a grid of their
- * own, just a few points whose influence overlaps and fades. */
+/** A handful of seeded centres where pores crowd — not a grid, just a few
+ * points whose influence overlaps and fades. */
 function hotspots(rand: () => number, reach: number): Hotspot[] {
   return Array.from({ length: HOTSPOTS }, () => {
     const a = rand() * Math.PI * 2;
@@ -134,45 +126,31 @@ function circle(cx: number, cy: number, r: number, fill: string): SVGCircleEleme
   return c;
 }
 
-/** The two gradients every bump's highlight and shadow share — bbox units, so
- * one definition each reads correctly on a circle of any size or position. */
+/** The two gradients every bump's highlight and shadow share. */
 function bumpPaint(ctx: SkinContext): { hi: string; sh: string } {
   const hi = document.createElementNS(SVG, "radialGradient");
   hi.setAttribute("id", `${ctx.uid}-pore-hi`);
   const sh = document.createElementNS(SVG, "radialGradient");
   sh.setAttribute("id", `${ctx.uid}-pore-sh`);
-  for (const [offset, colour, alpha] of [
+  stops(hi, [
     [0, WARM, 0.85],
     [0.5, WARM, 0.22],
     [1, WARM, 0],
-  ] as const) {
-    const s = document.createElementNS(SVG, "stop");
-    s.setAttribute("offset", `${offset * 100}%`);
-    s.setAttribute("stop-color", colour);
-    s.setAttribute("stop-opacity", String(alpha));
-    hi.appendChild(s);
-  }
-  for (const [offset, colour, alpha] of [
+  ]);
+  stops(sh, [
     [0, SHADOW, 0.7],
     [0.6, SHADOW, 0.22],
     [1, SHADOW, 0],
-  ] as const) {
-    const s = document.createElementNS(SVG, "stop");
-    s.setAttribute("offset", `${offset * 100}%`);
-    s.setAttribute("stop-color", colour);
-    s.setAttribute("stop-opacity", String(alpha));
-    sh.appendChild(s);
-  }
+  ]);
   ctx.defs.appendChild(hi);
   ctx.defs.appendChild(sh);
   return { hi: `url(#${ctx.uid}-pore-hi)`, sh: `url(#${ctx.uid}-pore-sh)` };
 }
 
-function pores(ctx: SkinContext): void {
-  const g = clipGroup(ctx, "pore");
-  const rand = streamFor(ctx.name);
+/** The scatter itself, so the mounted skin runs the identical field. */
+function poreField(ctx: SkinContext, rand: () => number): ScatterPoint[] {
   const hs = hotspots(rand, ctx.reach);
-  const field = poissonScatter(rand, ctx.reach, {
+  return poissonScatter(rand, ctx.reach, {
     target: TARGET,
     attempts: ATTEMPTS,
     cover: COVER,
@@ -183,15 +161,36 @@ function pores(ctx: SkinContext): void {
     minCloseness: 0,
     closeness: (x, y) => closenessFromHotspots(hs, x, y),
   });
+}
+
+/** One bump: the base disc, and — only under the light — the highlight and the
+ * shadow beside it. The offsets are along `KEY`, which in the mounted skin means
+ * along `KEY` in the *tangent plane*: the first-order term of a light whose
+ * direction there rotates as the surface turns away, `crater.ts`'s
+ * approximation and for its reason. */
+function bump(
+  g: SVGGElement,
+  b: ScatterPoint,
+  x: number,
+  y: number,
+  colour: string,
+  rand: () => number,
+  paint: BumpPaint,
+): void {
+  const base = circle(x, y, b.r, colour);
+  base.setAttribute("fill-opacity", (0.14 + rand() * 0.12).toFixed(3));
+  g.appendChild(base);
+  if (!paint) return;
+  g.appendChild(circle(x + KEY.x * b.r * 0.32, y + KEY.y * b.r * 0.32, b.r * 0.55, paint.hi));
+  g.appendChild(circle(x - KEY.x * b.r * 0.3, y - KEY.y * b.r * 0.3, b.r * 0.62, paint.sh));
+}
+
+function pores(ctx: SkinContext): void {
+  const g = clipGroup(ctx, "pore");
+  const rand = streamFor(ctx.name);
+  const field = poreField(ctx, rand);
   const paint = ctx.lit ? bumpPaint(ctx) : null;
-  for (const b of field) {
-    const base = circle(b.x, b.y, b.r, ctx.colour);
-    base.setAttribute("fill-opacity", (0.14 + rand() * 0.12).toFixed(3));
-    g.appendChild(base);
-    if (!paint) continue;
-    g.appendChild(circle(b.x + KEY.x * b.r * 0.32, b.y + KEY.y * b.r * 0.32, b.r * 0.55, paint.hi));
-    g.appendChild(circle(b.x - KEY.x * b.r * 0.3, b.y - KEY.y * b.r * 0.3, b.r * 0.62, paint.sh));
-  }
+  for (const b of field) bump(g, b, b.x, b.y, ctx.colour, rand, paint);
 }
 
 export const PORE: Skin<"pore"> = {
@@ -203,5 +202,49 @@ export const PORE: Skin<"pore"> = {
     pores(ctx);
     auraPass(ctx);
     rimPass(ctx);
+  },
+};
+
+/**
+ * The same scatter, read as places on a ball. `poreField` is untouched — same
+ * hotspots, same darts, same rejections — and `lift` reads each point off the
+ * picture through the equal-area map `mounted.ts` describes, so the crowded
+ * places crowd on the surface rather than on the screen. A bump is a disc with
+ * no long axis, so `scale(cos α, cos lat)` is exact for it; what the eye reads
+ * is the *count* changing at the edges as the far hemisphere's bumps arrive,
+ * which a squashed decal cannot fake — its bumps at the limb are its bumps.
+ */
+function mountedPores(ctx: SkinContext): Mounted[] {
+  const rand = streamFor(ctx.name);
+  const g = clipGroup(ctx, "pore-mounted");
+  const paint = ctx.lit ? bumpPaint(ctx) : null;
+  const dim = ctx.lit ? 0.3 : 1;
+  const out: Mounted[] = [];
+  for (const b of poreField(ctx, rand)) {
+    const place = lift(b.x, b.y, ctx.reach * COVER);
+    if (!place) continue;
+    const el = document.createElementNS(SVG, "g");
+    bump(el, b, 0, 0, ctx.colour, rand, paint);
+    g.appendChild(el);
+    out.push(mount(el, place.lon, place.lat, ctx.reach, dim));
+  }
+  return out;
+}
+
+export const MOUNTED_PORE: Skin<"pore-mounted"> = {
+  id: "pore-mounted",
+  label: "MOUNTED PORE",
+  hint: "the same scatter of bumps, crowding on a turning surface not on the screen",
+  build(ctx) {
+    fillPass(ctx);
+    terminatorPass(ctx);
+    contactPass(ctx);
+    const skin = mountedPores(ctx);
+    specularPass(ctx);
+    auraPass(ctx);
+    rimPass(ctx);
+    rimLightPass(ctx);
+    spin(skin, turnAngle(0));
+    ctx.onFrame(({ t }) => spin(skin, turnAngle(t)));
   },
 };

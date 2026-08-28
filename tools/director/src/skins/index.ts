@@ -1,13 +1,13 @@
-import { CARAPACE } from "./carapace.js";
+import { CARAPACE, MOUNTED_CARAPACE } from "./carapace.js";
 import { CILIA } from "./cilia.js";
 import { CORE } from "./core.js";
 import { CRATER } from "./crater.js";
 import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
-import { PORE } from "./pore.js";
-import { SCALE } from "./scale.js";
-import { SUCKER } from "./sucker.js";
+import { MOUNTED_PORE, PORE } from "./pore.js";
+import { MOUNTED_SCALE, SCALE } from "./scale.js";
+import { MOUNTED_SUCKER, SUCKER } from "./sucker.js";
 import { TURN } from "./turn.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
 import { VEIN } from "./vein.js";
@@ -50,6 +50,16 @@ export const SKINS = [
   CILIA,
   PORE,
   SUCKER,
+  // The mounted four, kept together at the end rather than each next to its
+  // flat original. They are one block and answer one question — whether a
+  // texture on a turning body goes round the far side or slides across a face —
+  // and the pairs are read by switching, not by sitting side by side, so
+  // interleaving them would only scatter the block and lengthen the diff of a
+  // file that already collides on every lane.
+  MOUNTED_SCALE,
+  MOUNTED_CARAPACE,
+  MOUNTED_PORE,
+  MOUNTED_SUCKER,
 ] as const;
 
 // LIGHT goes last and stands apart from the four before it. Those are one

@@ -1,13 +1,13 @@
 import { contactPass, KEY, rimLightPass, specularPass, terminatorPass } from "./light.js";
+import { type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
-import { type Mounted, mount, spin, stops } from "./turn.js";
 import { BEAT_SECONDS, type Skin, type SkinContext, SVG } from "./types.js";
 
 /**
  * TURN's machinery over a meteorite: a pitted landscape, rims catching the key
  * light and floors in shadow, the whole field carried round the body. The
- * projection, the shading and the vanishing at the limb are `turn.ts`'s and are
+ * projection, the shading and the vanishing at the limb are `mounted.ts`'s and are
  * imported rather than restated — two copies of a cosine drift, and the point
  * of putting these two skins on one switcher is that only the *surface* differs.
  *

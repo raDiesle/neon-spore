@@ -1,6 +1,8 @@
-import { KEY } from "./light.js";
+import { contactPass, KEY, rimLightPass, specularPass, terminatorPass } from "./light.js";
+import { mountPlate, type Plate, spinPlates } from "./mounted.js";
 import { auraPass, clipGroup, corePass, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
+import { turnAngle } from "./turn.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
 
 /**
@@ -127,5 +129,106 @@ export const CARAPACE: Skin<"carapace"> = {
     carapacePlates(ctx);
     auraPass(ctx);
     rimPass(ctx);
+  },
+};
+
+/** How finely a gore's four edges are sampled. Seven is where the outline stops
+ * visibly faceting at a boss-sized card; the cost is a `d` of 28 points. */
+const GORE_STEPS = 7;
+/**
+ * The cap becomes three gores rather than one plate, and that is forced rather
+ * than chosen. A spherical cap's boundary is a ring of **constant** latitude,
+ * which orthographic projection collapses onto a line segment — its far half
+ * folds onto the same two limb points as its near half, and the polygon comes
+ * out with no area at all. A gore that reaches the pole has meridian edges,
+ * whose latitudes vary, so its far run traces the limb properly. See
+ * `spinPlates`. Three keeps the crown reading as a crown and not as a ring.
+ */
+const CAP_SECTORS = 3;
+
+/** One plate's outline, walked inner arc → meridian → outer arc → meridian, in
+ * `[lon, lat]`. A degenerate end (`c0 = 0`, `c1 = π`) is a run of repeated pole
+ * points, which costs a few zero-length segments and no special case. */
+function gore(c0: number, c1: number, a0: number, a1: number): [number, number][] {
+  const v: [number, number][] = [];
+  const at = (c: number, a: number): void => {
+    v.push([a, Math.PI / 2 - c]);
+  };
+  for (let i = 0; i <= GORE_STEPS; i++) at(c0, a0 + ((a1 - a0) * i) / GORE_STEPS);
+  for (let i = 1; i <= GORE_STEPS; i++) at(c0 + ((c1 - c0) * i) / GORE_STEPS, a1);
+  for (let i = 1; i <= GORE_STEPS; i++) at(c1, a1 - ((a1 - a0) * i) / GORE_STEPS);
+  for (let i = 1; i < GORE_STEPS; i++) at(c1 - ((c1 - c0) * i) / GORE_STEPS, a0);
+  return v;
+}
+
+/**
+ * The same three courses, on a ball instead of on a picture.
+ *
+ * `CAP_R`, `MID_R` and `OUT_R` were radii out from the picture's centre; here
+ * they are **colatitudes** out from the pole the body turns about, on the same
+ * scale — `OUT_R` reached the corner of the card and now reaches the far pole,
+ * so the three courses wrap the whole ball with nothing left bare. A shell of a
+ * cap and two courses of segments, which is what the flat one draws too.
+ *
+ * This is the one skin here that cannot be a `Mounted`. Its plates span fifty
+ * degrees of arc and more, and a single `scale(cos α, cos lat)` about a plate's
+ * centre is the tangent plane *at that centre* — right for a scale, and for a
+ * plate this size a flat card glued to a ball, visibly wrong at its own edges
+ * and worst exactly where the plate crosses the limb. So each outline is
+ * carried round vertex by vertex by `spinPlates`, and a plate straddling the
+ * silhouette comes out cut along it.
+ *
+ * The flat skin's bright outer edge is not reproduced, and dropping it is the
+ * argument: on a still body the lit edge is a fixed subset of plates and can be
+ * drawn once, but on a turning one it is whichever edge faces `KEY` *now*. The
+ * per-plate lambert `spinPlates` applies is the honest form of the same claim,
+ * and like every other light on the page it goes off with `ctx.lit`.
+ */
+function mountedGores(ctx: SkinContext): Plate[] {
+  const g = clipGroup(ctx, "carapace-mounted");
+  const rand = streamFor(ctx.name);
+  const midPhase = rand() * Math.PI * 2;
+  const outPhase = midPhase + Math.PI / OUT_SECTORS;
+  const dim = ctx.lit ? 0.25 : 1;
+  const courses: readonly (readonly [number, number, number, number])[] = [
+    [0, (Math.PI * CAP_R) / OUT_R, CAP_SECTORS, midPhase],
+    [(Math.PI * CAP_R) / OUT_R, (Math.PI * MID_R) / OUT_R, MID_SECTORS, midPhase],
+    [(Math.PI * MID_R) / OUT_R, Math.PI, OUT_SECTORS, outPhase],
+  ];
+  const out: Plate[] = [];
+  for (const [c0, c1, sectors, phase] of courses) {
+    const step = (Math.PI * 2) / sectors;
+    for (let i = 0; i < sectors; i++) {
+      const a0 = i * step + phase + SEAM_GAP;
+      const a1 = (i + 1) * step + phase - SEAM_GAP;
+      const p = document.createElementNS(SVG, "path");
+      p.setAttribute("fill", ctx.colour);
+      p.setAttribute("fill-opacity", "0.2");
+      p.setAttribute("stroke", SEAM_COLOUR);
+      p.setAttribute("stroke-width", String(ctx.weight * 1.3));
+      g.appendChild(p);
+      const centre = [(a0 + a1) / 2, Math.PI / 2 - (c0 + c1) / 2] as const;
+      out.push(mountPlate(p, gore(c0, c1, a0, a1), centre, ctx.reach, dim));
+    }
+  }
+  return out;
+}
+
+export const MOUNTED_CARAPACE: Skin<"carapace-mounted"> = {
+  id: "carapace-mounted",
+  label: "MOUNTED CARAPACE",
+  hint: "the same courses of plates, cut by the silhouette as the body turns",
+  build(ctx) {
+    fillPass(ctx);
+    corePass(ctx);
+    terminatorPass(ctx);
+    contactPass(ctx);
+    const shell = mountedGores(ctx);
+    specularPass(ctx);
+    auraPass(ctx);
+    rimPass(ctx);
+    rimLightPass(ctx);
+    spinPlates(shell, turnAngle(0));
+    ctx.onFrame(({ t }) => spinPlates(shell, turnAngle(t)));
   },
 };

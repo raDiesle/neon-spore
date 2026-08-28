@@ -1,5 +1,8 @@
+import { contactPass, rimLightPass, specularPass, terminatorPass } from "./light.js";
+import { type Mounted, mount, spin } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
+import { turnAngle } from "./turn.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
 
 /**
@@ -130,5 +133,92 @@ export const SCALE: Skin<"scale"> = {
     scalePlates(ctx);
     auraPass(ctx);
     rimPass(ctx);
+  },
+};
+
+/**
+ * The same rows, on a ball instead of on a picture.
+ *
+ * A row above is a circle of *radius* about the picture's centre; a row here is
+ * a circle of *latitude* about the axis the body turns on, half a row in from
+ * either pole. That is the one honest reading of "the same lattice" — the
+ * alternative, keeping the rosette and putting its crown on the point facing
+ * the viewer, has a singular antipode where a whole row's worth of plates
+ * collapses onto one point, and `SWING` is wide enough to bring that point into
+ * view. Latitude rows have no such knot, and `count` from the ring's
+ * circumference stops being an approximation and becomes exactly right.
+ *
+ * **A scale is not a dot, and this is where that is paid for.** Its plates are
+ * drawn about their own origin in tangent coordinates — east right, south down
+ * — pointing at the south pole, so `mounted.ts`'s `scale(cos α, cos lat)` acts
+ * on a shape with an orientation rather than on a disc. `ASPECT` is 1.2, so a
+ * plate is *wider than it is long*: its long axis lies east–west, exactly the
+ * axis the projection eats. Past `cos α < 1/1.2`, which is 33.6° from the
+ * facing meridian, the long axis flips to north–south and the plate reads as a
+ * vertical spike narrowing to nothing at the limb. A flat decal squashed by one
+ * body-wide `sx` keeps its proportions and its axis the whole way across, which
+ * is what "it slides" looks like.
+ */
+function mountedRows(
+  name: string,
+  reach: number,
+): { lon: number; lat: number; len: number; width: number }[] {
+  const rand = streamFor(name);
+  const out: { lon: number; lat: number; len: number; width: number }[] = [];
+  const widest = Math.sin(Math.PI / 2 - Math.PI / (2 * ROWS));
+  for (let i = 0; i < ROWS; i++) {
+    const lat = Math.PI / 2 - (Math.PI * (i + 0.5)) / ROWS;
+    const frac = Math.abs(Math.sin(lat)) / widest;
+    const len = Math.max(LEN_MIN, LEN_START * (1 - frac * LEN_SHRINK)) * reach;
+    const width = len * ASPECT;
+    const spacing = Math.max(width * 0.8, reach * 0.05);
+    const count = Math.max(6, Math.round((2 * Math.PI * reach * Math.cos(lat)) / spacing));
+    const stagger = (i % 2) * (Math.PI / count);
+    const jitter = rand() * (Math.PI / count) * 0.6;
+    for (let j = 0; j < count; j++) {
+      out.push({ lon: (j / count) * Math.PI * 2 + stagger + jitter, lat, len, width });
+    }
+  }
+  return out;
+}
+
+function mountedPlates(ctx: SkinContext): Mounted[] {
+  const g = clipGroup(ctx, "scale-mounted");
+  const rand = streamFor(ctx.name);
+  // The per-feature lambert is a light, so it goes off with the light. The
+  // vanishing at the limb is not, and stays either way.
+  const dim = ctx.lit ? 0.22 : 1;
+  const out: Mounted[] = [];
+  for (const s of mountedRows(ctx.name, ctx.reach)) {
+    const p = document.createElementNS(SVG, "path");
+    p.setAttribute("d", scalePath({ cx: 0, cy: 0, dx: 0, dy: 1, len: s.len, width: s.width }));
+    p.setAttribute("fill", ctx.colour);
+    p.setAttribute("fill-opacity", (0.16 + rand() * 0.1).toFixed(3));
+    p.setAttribute("stroke", ctx.colour);
+    p.setAttribute("stroke-opacity", "0.35");
+    p.setAttribute("stroke-width", String(ctx.weight * 0.35));
+    const el = document.createElementNS(SVG, "g");
+    el.appendChild(p);
+    g.appendChild(el);
+    out.push(mount(el, s.lon, s.lat, ctx.reach, dim));
+  }
+  return out;
+}
+
+export const MOUNTED_SCALE: Skin<"scale-mounted"> = {
+  id: "scale-mounted",
+  label: "MOUNTED SCALE",
+  hint: "the same rows of plates, carried round a turning body instead of laid on it",
+  build(ctx) {
+    fillPass(ctx);
+    terminatorPass(ctx);
+    contactPass(ctx);
+    const skin = mountedPlates(ctx);
+    specularPass(ctx);
+    auraPass(ctx);
+    rimPass(ctx);
+    rimLightPass(ctx);
+    spin(skin, turnAngle(0));
+    ctx.onFrame(({ t }) => spin(skin, turnAngle(t)));
   },
 };
