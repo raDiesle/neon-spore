@@ -184,64 +184,6 @@ down from one nobody has started?`
 Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts`'s group
 note and `docs/spec/ideas.md`'s deferred section first.
 
-## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
-_claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
-**Asked for by the owner.**
-
-The owner asked whether alternative animations exist for things the game
-already does — *how the cannon shoots, how the deflect shield works* — and how
-to see and test them. The answer today is **no, and there is nowhere to look**,
-which is worth writing down because three pages come close enough to be
-mistaken for it. POSES draws the shipped cannon and the shipped guard, frozen
-at authored moments, by the real renderer — that is the current answer, not a
-choice between answers. SHAPES now shows one body against every skin and every
-motion, but those are *creature* looks; nothing on that page is the ship.
-VERSUS is the machinery built for exactly this question and holds one
-candidate, a warm hull colour.
-
-So the mechanism exists and the two things a player actually stares at all game
-are not in it.
-
-**Two slots, `cannon:shot` and `shield:ward`.** Two candidates each, beside
-whatever ships. They must differ in *kind* rather than in degree: the
-catalogue's NOTCH pair is the model, where one answer says the thing with a
-feature small enough to vanish at 26 px and the other says it with the whole
-mass, so the vote is a measurement whichever way it goes. Two candidates that
-fail the same way teach nothing and are one candidate with a rounding error.
-Each `claim` passes the one-sentence test `.claude/skills/new-wave` applies to
-a wave.
-
-**First find out whether the look is even patchable, and say so before
-building.** A `Variant` patches fields onto an exported record the draw path
-reads every call — including a whole function, which is how a candidate
-`OwnMotion` works. If the shot and the ward are drawn from numbers written
-inline in the draw call, there is no record to patch and no vote to hold. Then
-the lifting is the first commit: pull those numbers into one exported record
-per mechanic, change nothing on screen, prove it with `frame.test.ts`, and land
-that before a single candidate exists. Say in the report which of the two it
-was, because *the answer is the interesting half of this lane* — it is the same
-question for every future mechanic slot.
-
-**What the two slots are arguing about, so the candidates are not decoration.**
-The shot is a thing leaving the ship and arriving somewhere; the failure it can
-have is reading as a flash at the muzzle with no travel. The ward is a thing
-*catching* something; its failure is reading as a wall that was always there,
-so the catch is invisible unless you were already watching what hit it. Aim
-each pair at its own failure.
-
-Finished when `bun run check` is green, `bun run versus` lists both slots with
-their readers, each slot draws two moving phones that differ visibly at 380 px
-in the director's VERSUS tab, no lifted record changes what the game draws, and
-the commit carries `Check: versus cannon:shot — does either alternative read as
-something leaving the ship, rather than as a brighter flash where it started?`
-and `Check: versus shield:ward — can you tell the shield caught something
-without watching the thing that hit it?`
-
-Model `opus`, effort `think hard`. Whether the look is a record or is inline is
-the decision, and it is worth more than the candidates. Read `docs/versus.md`,
-`tools/versus/variant.ts` and `tools/versus/candidates/ship-hull.warm/` first,
-then whatever in `packages/render` draws the shot and the guard.
-
 ## A BODY SHADES THE HULL AND NOTHING ELSE, INCLUDING THE BODY BELOW IT
 _claude/burn-depth-cast-d4 · packages/render/src/cast-shadow.ts packages/render/test/cast-shadow.test.ts_
 **Asked for by the owner.**
