@@ -1,3 +1,5 @@
+import { CATALOGUE } from "./catalogue.js";
+import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "./drawn-size.js";
 import { measure } from "./metrics.js";
 import { type Nameability, nameability, overlaps, type Span } from "./nameability.js";
 import { livingKinds, SUBJECTS } from "./subjects.js";
@@ -106,3 +108,60 @@ for (let i = 0; i < names.length; i++) {
 console.log(lines.join("\n"));
 console.log("\nTOLD APART BY");
 console.log(pairs.join("\n"));
+
+/**
+ * The 20–26 px floor `docs/spec/graphics.md` sets for a body to stay
+ * nameable — printed instead of measured by hand, per the queue entry this
+ * replaced. `bun run shapes:report -- 92 46` asks the same question the
+ * paired-cards lane did before widening the card instead of halving it: at a
+ * 92 px card, does 46 px width still hold every square body above the floor?
+ *
+ * The frame is CLI input rather than a hardcoded 92: `argv[2]` is the card's
+ * height and pad basis (`shapeFigure`'s `box`), `argv[3]` its width, default
+ * equal — the square every card gets unless `isWide` widens it. A `bun run`
+ * flag needs `--`, so the args land after it: `bun run report -- 92 46`.
+ */
+const argBox = Number(process.argv[2]);
+const box = Number.isFinite(argBox) && argBox > 0 ? argBox : 92;
+const argWidth = Number(process.argv[3]);
+const width = Number.isFinite(argWidth) && argWidth > 0 ? argWidth : box;
+
+const dCols = ["SHAPE", "LONG px", "SHORT px", "FLOOR"] as const;
+const dWidths = [22, 9, 10, 24];
+function dRow(cells: string[]): string {
+  return cells
+    .map((c, i) => c.padEnd(dWidths[i]!))
+    .join("")
+    .trimEnd();
+}
+
+const dLines = [dRow([...dCols]), dRow(dWidths.map((w) => "-".repeat(w - 1)))];
+let under26 = 0;
+let under20 = 0;
+let wide = 0;
+
+for (const entry of CATALOGUE) {
+  if (isWide(entry)) {
+    wide++;
+    dLines.push(
+      dRow([entry.subject.name.replace(" · ", "·"), "·", "·", "WIDE — not modelled here"]),
+    );
+    continue;
+  }
+  const d = drawnSize(entry, box, width);
+  const mark =
+    d.long < FLOOR_LO ? `under ${FLOOR_LO}` : d.long < FLOOR_HI ? `under ${FLOOR_HI}` : "";
+  if (d.long < FLOOR_HI) under26++;
+  if (d.long < FLOOR_LO) under20++;
+  dLines.push(
+    dRow([entry.subject.name.replace(" · ", "·"), d.long.toFixed(1), d.short.toFixed(1), mark]),
+  );
+}
+
+console.log(`\nDRAWN SIZE at box ${box} px, width ${width} px (floor ${FLOOR_LO}-${FLOOR_HI} px)`);
+console.log(dLines.join("\n"));
+const square = CATALOGUE.length - wide;
+console.log(
+  `\n${under26} of ${square} square cards under ${FLOOR_HI} px, ${under20} under ${FLOOR_LO} px` +
+    (wide ? ` (${wide} wide entries not modelled)` : ""),
+);

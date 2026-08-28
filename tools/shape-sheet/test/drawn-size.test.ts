@@ -1,0 +1,69 @@
+import { describe, expect, it } from "bun:test";
+import { CATALOGUE } from "../src/catalogue.js";
+import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
+
+/**
+ * Pins the arithmetic in `drawn-size.ts` to the numbers the paired-cards lane
+ * found by hand and threw away (`docs/queue.md`'s "THE 26 PX FLOOR..." entry,
+ * and the comment atop `tools/director/src/shapes-panel.ts`): at the 92 px
+ * card every square body clears the 26 px floor, and halving a card's width
+ * to 46 — the alternative to widening it that the paired-cards lane rejected —
+ * would have put 32 of the 49 square catalogue entries under 26 px and 17
+ * under 20, with the Bulb specifically landing at about 16 px.
+ *
+ * If `shapeFigure`'s fit ever changes, this is the test that notices: it goes
+ * through `drawnSize`, which calls the director's own `FIT_TIMES`, `isWide`,
+ * `tilePixels` and `transformedBounds` rather than re-deriving them, so a
+ * changed fit changes these numbers here too, not silently.
+ */
+
+const SQUARE = CATALOGUE.filter((e) => !isWide(e));
+
+describe("drawn size against the 20-26 px floor", () => {
+  it("has the 49 square cards the paired-cards lane measured", () => {
+    expect(SQUARE.length).toBe(49);
+  });
+
+  it("clears the floor for every square card at the 92 px frame it actually gets", () => {
+    for (const entry of SQUARE) {
+      const d = drawnSize(entry, 92);
+      expect(d.long).toBeGreaterThanOrEqual(FLOOR_HI);
+    }
+  });
+
+  it("stays inside the range the paired-cards lane read off the 92 px card (41-70 px)", () => {
+    const longs = SQUARE.map((e) => drawnSize(e, 92).long);
+    expect(Math.min(...longs)).toBeGreaterThan(41);
+    expect(Math.max(...longs)).toBeLessThan(70);
+  });
+
+  it("reproduces the paired-cards lane's finding at a halved 46 px width", () => {
+    // `box` stays 92 — the card's height, and the basis `shapeFigure` pads
+    // from — while only `width` halves, the same question the paired-cards
+    // lane asked before widening the card instead of halving it.
+    let under26 = 0;
+    let under20 = 0;
+    for (const entry of SQUARE) {
+      const d = drawnSize(entry, 92, 46);
+      if (d.long < FLOOR_HI) under26++;
+      if (d.long < FLOOR_LO) under20++;
+    }
+    expect(under26).toBe(32);
+    expect(under20).toBe(17);
+  });
+
+  it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {
+    const bulb = SQUARE.find((e) => e.subject.name === "BULB");
+    expect(bulb).toBeDefined();
+    const d = drawnSize(bulb!, 92, 46);
+    expect(d.long).toBeGreaterThan(15);
+    expect(d.long).toBeLessThan(17);
+  });
+
+  it("never reports a short axis longer than the long one", () => {
+    for (const entry of SQUARE) {
+      const d = drawnSize(entry, 92);
+      expect(d.short).toBeLessThanOrEqual(d.long);
+    }
+  });
+});
