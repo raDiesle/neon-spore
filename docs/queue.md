@@ -190,3 +190,81 @@ Model `sonnet`, effort `think`. Read `tools/director/src/stage.ts` and
 `packages/render/src/balance.ts`. This is a tool fix, not a look: nothing the
 game draws changes.
 
+## THE DIRECTOR'S CONTROLS SIT AWAY FROM THE THING THEY CHANGE
+_claude/burn-director-layout · tools/director/index.html tools/director/src/stage.ts tools/director/src/pair-panel.ts tools/director/test/stage.test.ts_
+**Asked for by the owner.**
+
+Their words, all five, kept whole because the ordering between them is theirs:
+
+> i expect the briefing configuration to be placed below the game screen
+> allowing me to toggle it.
+>
+> make sure when i press "reset" wave, and "card" is enabled and "briefing" i
+> will see the game in order and timings as the players will see it.
+>
+> i suggest "card" should be a checkbox like "briefings". and card/briefing is
+> shown at the beginning of wave reset.
+>
+> Also "Balance" button should go below the player screen.
+>
+> "ship" button content should go inside bottom of "Wave" button content.
+
+**One lane, not five.** They share `index.html` and `stage.ts`, and two lanes
+may not own the same path. Do them in the owner's order.
+
+**Where things are today**, so the lane does not spend its first hour finding
+out. The editor column carries five tabs — WAVE, SHIP, TUNING, BALANCE,
+INTERLUDE. `Briefings` is a checkbox inside TUNING → PAIR (`#pairPanel`,
+`pair-panel.ts`), which is two clicks from the stage it changes. `tab-balance`
+holds `#balanceSheet`. `tab-ship` holds one heading and `#caps`. Under the
+stage, `.transport` carries `⏸`, `↺ WAVE` (`#restart`), `▣ SHEET` (`#endRun`),
+`✓ CARD` (`#ackBrief`) and the three role buttons.
+
+**`✓ CARD` is not the checkbox the owner thinks it is, and that is the crux of
+the ask.** It is an *acknowledge*: it pushes `{kind: "brief"}` for both seats,
+and its comment in `stage.ts` says why it has to exist — without it, turning
+`briefings` on freezes the stage on the first wave forever, because
+`startWave` opens the card and nothing else in the director can put it away.
+So "make CARD a checkbox" means **two** controls where there is one: a toggle
+saying whether cards are shown, and a way to dismiss the card that is up. Do
+not delete the dismiss. The stage is the card's own button on a phone
+(`apps/game/src/briefing.ts`) and here the canvas pointer is already spent on
+the cannon, which is the whole reason the button exists.
+
+**The order-and-timings half is a real question, not a layout one.** `↺ WAVE`
+calls `rebuild()` (`stage.ts:91`), which builds a fresh world and calls
+`startWave`. Whether the card then opens the way a *pair* meets it depends on
+`met` — and `wave-briefing.ts:28` is the file that already got this right for
+the CARDS gallery: it forces `briefings: true` and `met` at zero **regardless
+of the run's own toggle**, precisely so a fresh pair is what you see. Find out
+what `rebuild()` does with `met` before changing anything, and say the answer
+in the commit. If the director is showing a card a pair would have already
+dismissed, or skipping one they would have met, that is the defect the owner is
+describing and it is worth more than the four layout moves put together.
+
+**The timings are the second half of it and they are cheap to get wrong.** A
+card that appears instantly on reset, or that the stage runs behind, is not
+what the players see. The wave's opening beat, the card, the banner and the
+first arrival happen in an order and at a tempo; the reset must replay that
+order, not approximate it.
+
+Folding SHIP into the bottom of WAVE retires the SHIP tab — it is one heading
+and `#caps`, and the topbar's `⚙ SHIP` already carries the ship's own dials, so
+nothing is lost. BALANCE moving under the stage puts it beside `▣ SHEET`, which
+is the button its own note already talks about.
+
+Finished when `bun run check` is green, a test covers the reset sequence with
+both toggles on, and the commit carries
+`Check: with card and briefing both on, does ↺ WAVE replay the wave's opening
+in the order and at the speed a pair would meet it`
+and
+`Check: is every control now beside the thing it changes — briefing and balance
+under the field, ship at the bottom of wave`.
+
+Model `sonnet`, effort `think hard`. Read `tools/director/src/stage.ts`,
+`tools/director/src/wave-briefing.ts`, `apps/game/src/briefing.ts` and
+`tools/director/README.md`. This is the director, not the game: nothing the
+game draws changes, so no look is being replaced. Think about the two-controls
+problem before moving a single element — the layout is easy and the card
+lifecycle is where this lane can go wrong.
+
