@@ -435,5 +435,8 @@ Kill the wrangler process when the check is done.
   over. `packages/render/test/restart.test.ts` fails if a new field is added
   and not cleared; it is not optional bookkeeping.
 - Files stay under ~250 lines. Split rather than grow.
-- Code, identifiers and commits in English. The design vocabulary
-  (hull, lobe, beat, guard) is fixed — do not invent synonyms.
+- **Everything in the repository is in English** — code, identifiers, commits,
+  comments, documentation, and every word the director or the game puts on a
+  screen. A session may be held in another language; nothing it writes down is.
+  The design vocabulary (hull, lobe, beat, guard) is fixed — do not invent
+  synonyms.
