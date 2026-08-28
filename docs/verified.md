@@ -188,3 +188,5 @@ records the answers. See `docs/verification.md`.
 - `58fa7f5` 2026-08-28 PASS — with every motion on one body at once, can you tell two of them apart without reading the labels?
 - `5642f5e` 2026-08-28 PASS — the swell runs along TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE CLAW, POD and both HUSKs now rather than across them — the drafts panel, PERISTALSIS on each of the eight
 - `5642f5e` 2026-08-28 PASS — CILIA's fringe and NACRE's bands read the pose instead of its two-decimal printed form, so the drift near a reversal is no longer quantisation noise — worst on THROB, BULB, RUNT, THE CONDUCTOR and THE VANE
+- `7ddfe14` 2026-08-28 PASS — of COLLAR, CRANE and CRADLE, which one makes the torch look like it belongs to her — NOT BUILT YET, HOLDERS
+  - the owner chose CRADLE. The other two stay on the page as the record of what it was chosen against.
