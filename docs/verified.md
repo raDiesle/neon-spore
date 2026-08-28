@@ -190,3 +190,11 @@ records the answers. See `docs/verification.md`.
 - `5642f5e` 2026-08-28 PASS — CILIA's fringe and NACRE's bands read the pose instead of its two-decimal printed form, so the drift near a reversal is no longer quantisation noise — worst on THROB, BULB, RUNT, THE CONDUCTOR and THE VANE
 - `7ddfe14` 2026-08-28 PASS — of COLLAR, CRANE and CRADLE, which one makes the torch look like it belongs to her — NOT BUILT YET, HOLDERS
   - the owner chose CRADLE. The other two stay on the page as the record of what it was chosen against.
+- `4aff421` 2026-08-28 PASS — at phone size, is the tangle unfollowable by eye, or can you trace a mouth to the target without talking — the director, the maze round, at 380 px
+- `916f811` 2026-08-28 PASS — in the director, does clicking and holding LEFT or RIGHT under the gauge actually turn the needle, and does CALL score a mark
+- `2230f71` 2026-08-28 PASS — does bun run frames work on a commit that landed yesterday?
+- `2230f71` 2026-08-28 PASS — does bun run frames work on a commit that landed yesterday?
+- `001952d` 2026-08-28 PASS — does bun run frames, given only a sha, put the change in the picture?
+- `26c20c4` 2026-08-28 PASS — does the pair actually have to talk, or does one of them just read it out — play a round from both seats and try to solve it in silence
+- `26c20c4` 2026-08-28 PASS — is 44 beats enough to read a three-row tangle out loud over a voice channel, or does the clock turn a conversation into a race
+- `357806b` 2026-08-28 PASS — after a reload, are you back on the same tab and wave with every setting back at its default?
