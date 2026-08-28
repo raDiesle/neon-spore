@@ -151,6 +151,35 @@ Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
 `tools/director/src/card-waves.ts` and `card-order.ts` first. The derivation is
 the lane; the marking is a dot.
 
+## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
+_claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
+**Asked for by the owner.**
+
+The half the ideas lane could not reach, and it reached the right conclusion
+about it. 's deferred entries now carry a real paragraph
+each — what the idea was, what it collided with, what survives. But the
+director files that whole section under PARKED as *DELIBERATELY DEFERRED* with
+a group note reading *not rejected, not queued*, sitting in the same tab as
+'s backlog. So a decision somebody made and closed reads as a
+thing nobody has got to yet.
+
+The owner called them refused; the page says the opposite in its own note. One
+of the two is wrong and the file is the authority: these were looked at and
+turned down. THE CONDUCTOR is the nuance — deferred rather than rejected, and
+its own paragraph says so — so the group cannot simply be relabelled REFUSED
+either. What is needed is a status a reader can tell apart from *waiting*, with
+room for *turned down* and *deferred for a stated reason* to differ.
+
+Nothing in  changes; that lane just finished it.
+
+Finished when Checked 464 files in 699ms. No fixes applied.
+bun test v1.4.0 (34cbb9a40) is green, a refused idea is visibly not a backlog
+item, the deferred-rather-than-rejected case is still distinguishable, and the
+commit carries 
+
+Model , effort . Read 's group
+note and 's deferred section first.
+
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
 **Asked for by the owner.**
