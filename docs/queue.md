@@ -200,55 +200,6 @@ conversion itself is mechanical. Read `docs/spec/interludes.md` in full,
 `docs/decisions.md` #20 and #21, `packages/content/src/control-sets.ts` in full,
 and `packages/sim/src/interlude.ts`.
 
-## A METEOR SHOULD LOOK LIKE A ROCK, AND THIS ONE IS PINK
-_claude/burn-meteor-look · packages/render/src/meteor.ts packages/render/test/meteor.test.ts_
-**Asked for by the owner.**
-
-Their words: *i want you improve the meteor visuals. it should look like a
-meteor. maybe you want to use existing crater skin and improve further. also
-the shape of meteor has a lot of pinks, its not natural for a meteor.*
-
-**The pink is a defect, and the first job is to find it rather than to paint
-over it.** The body's own fill is `#8A8F9C` and `PALETTE.rock` is `#C7CBD6` —
-both cool greys, neither of them pink. The prime suspect is one line in
-`packages/content/src/light.ts`: `rock: "value+hue"`, which makes the rock the
-one thing on the field whose *hue* the key light is allowed to move. Every
-other body is `"value"`, and `key-light.ts` explains why that keeps a red body
-red. Confirm it before changing it — take a frame, sample the pixels, and say
-in the commit which pass actually put the pink there. The `halo` call at the
-bottom of `meteor.ts` is the second suspect.
-
-Under CLAUDE.md's *A look is offered, never replaced* this is the **third
-exemption**: a meteor reading as pink is wrong rather than unlovely, so it is
-repaired on the field and not offered beside itself. The commit says that
-sentence in its own words — that is the guard against the exemption eating the
-rule.
-
-**The improvement half is the other exemption — the owner asked by name.** They
-point at `tools/director/src/skins/crater.ts`, which already draws lit-rim,
-dark-floor craters that vary across the body and are lit individually. That is
-the reference. It is not a file to import: a skin card is not the field, and
-`meteor.ts` draws at field size on a rolling body. What transfers is the
-*approach* — pits that vary with position and catch the key light — against
-what is there now, which is `c.holes` flat dark circles at a fixed radius with
-a half-alpha stroke.
-
-Do not touch the silhouette. The contour is what the pair calls out, and
-`docs/spec/graphics.md` is the constraint on how much a rock may read as
-anything else.
-
-Finished when `bun run check` is green, `frame.test.ts` still passes through
-the strict canvas stub, and the commit carries two trailers:
-`Check: is the meteor grey now, at speed, against the field's own violet`
-and
-`Check: does the meteor read as a rock rather than as a circle with dots on it
-— at 26 px on a phone, beside a bulb for contrast`.
-
-Model `sonnet`, effort `think hard`. Read `packages/render/src/key-light.ts`,
-`packages/content/src/light.ts` and `tools/director/src/skins/crater.ts`.
-Behind the shadow lane if both run: they do not share a path, but they share
-the frame the owner will judge.
-
 ## THE DIRECTOR DRAWS "TAP TO RESTART" AND NOTHING IS LISTENING
 _claude/burn-director-sheet-close · tools/director/src/stage.ts tools/director/test/stage.test.ts_
 **Asked for by the owner.**
