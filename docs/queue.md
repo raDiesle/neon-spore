@@ -200,49 +200,6 @@ conversion itself is mechanical. Read `docs/spec/interludes.md` in full,
 `docs/decisions.md` #20 and #21, `packages/content/src/control-sets.ts` in full,
 and `packages/sim/src/interlude.ts`.
 
-## A METEOR THROWS A SHADOW ONTO THE SHIP, AND IT GATHERS AS IT FALLS
-_claude/burn-meteor-shadow · packages/render/src/contact-shadow.ts packages/render/test/contact-shadow.test.ts_
-**Asked for by the owner.**
-
-Their words: *i was expecting that meteor around last 1/4 of screen falling
-down let a shadow fall down which can be seen on the ship surface skin. and the
-more it reaches the ship, the natural shadow behavior let the shadow move more
-and more in vertical direction right below the meteor.*
-
-**This is an extension, not a new system.** `contact-shadow.ts` already puts
-one soft ellipse on `l.hullY` for a body about to hit, already sizes it off
-`depth.ts` rather than duplicating the arithmetic, already leans it because
-`KEY` is upper left, and already refuses a column that carries a scar. Read its
-header before writing a line: every one of those is a decision with a reason,
-and none of them is up for renegotiation here.
-
-What the owner is asking for is the **offset**, and it is the one part real
-light gets right and this file currently does not: a caster far from a surface
-throws its shadow far to the side, and a caster about to touch throws it
-directly underneath. So the lean is not a constant — it is proportional to the
-gap, and it goes to zero at contact. That is the whole lane.
-
-Two things to get right and to say the numbers for in the commit. **Where it
-starts**: the owner says the last quarter of the screen, so the shadow appears
-as the body enters that band rather than at the top of the field, and it should
-not pop — it fades in over the entry. **What it does at the end**: at contact
-the ellipse is directly under the body, smallest and darkest, which is what
-sells the distance.
-
-Nothing here may read `hull-frame.ts`'s lobes — the header says why, and the
-answer is still no.
-
-Finished when `bun run check` is green, `contact-shadow.test.ts` covers the
-offset at both ends of the fall (far → leaning, contact → centred) and still
-proves the scar exclusion, and the commit carries
-`Check: does the shadow sliding under the meteor as it falls read as the rock
-getting closer, or just as a shadow moving`.
-
-Model `sonnet`, effort `think hard`. Read `packages/render/src/cast-shadow.ts`,
-`packages/render/src/depth.ts` and `docs/spec/graphics.md`. Think about the
-gap-to-offset curve before the code: linear is the obvious guess and is
-probably wrong at the near end, which is the end the eye is on.
-
 ## A METEOR SHOULD LOOK LIKE A ROCK, AND THIS ONE IS PINK
 _claude/burn-meteor-look · packages/render/src/meteor.ts packages/render/test/meteor.test.ts_
 **Asked for by the owner.**
