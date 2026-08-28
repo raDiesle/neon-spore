@@ -19,6 +19,7 @@
 
 import { air, chime, glint, metal, soft, spore, sub, swell, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
+import { DEEP_CELLS } from "./deep-cells.js";
 
 const cell = (id: string, blurb: string, use: string, level: number, layers: SoundDef["layers"]) =>
   ({ id: `music.${id}`, family: "music", blurb, status: "spare", use, level, layers }) as SoundDef;
@@ -133,4 +134,5 @@ export const CELLS: readonly SoundDef[] = [
   WASH,
   GRIND,
   ALIVE,
+  ...DEEP_CELLS,
 ];

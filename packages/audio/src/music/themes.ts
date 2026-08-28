@@ -19,6 +19,7 @@
  */
 
 import { ALIVE, BELL, BREATH, DUST, GRIND, HEART, PLUCK, STAR, STEP, WASH } from "./cells.js";
+import { DEEP_THEMES } from "./deep.js";
 import { again, line, type Note, pulse, type Theme } from "./model.js";
 
 const join = (...parts: Note[][]): Note[] => parts.flat();
@@ -136,6 +137,7 @@ export const THEMES: readonly Theme[] = [
   glassRain,
   pressure,
   ember,
+  ...DEEP_THEMES,
 ];
 
 export function theme(id: string): Theme {
