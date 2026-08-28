@@ -352,6 +352,61 @@ Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
 `tools/director/src/card-waves.ts` and `card-order.ts` first. The derivation is
 the lane; the marking is a dot.
 
+## EVERY PAGE ALREADY SAYS WHAT IT IS FOR, AND NOBODY IS READING IT
+_claude/burn-director-blurbs-x7 · tools/director/src/versus-page.ts_
+
+The owner, having spent a day in the director: *add for every page on NOT BUILT
+YET some brief explanation what the page is about.* And, about VERSUS: *I
+assume that is another colour for the ship, right?*
+
+**Both halves of that are worth taking seriously, and the first one is already
+built.** All ten pages under NOT BUILT YET carry a `p.note` at the top saying
+exactly what the page is — BESTIARY's names the thirteen creatures with no
+picture, QUEUE's says decided-not-yet-done, PARKED's says deferred-on-purpose.
+They are good sentences. The owner asked for them anyway, which means they are
+not being seen: they are set in the page's dimmest colour at note size, above
+the fold of a page that opens on a wall of cards, and the eye goes to the
+cards. **So this lane is not "write the blurbs". It is: find out why the ones
+that exist do not read as the answer to "what am I looking at", and fix
+that** — weight, position, colour, or being under the tab rather than above the
+content. Do not delete a single existing sentence; they were argued over.
+
+**Then audit for the ones that genuinely are missing.** VERSUS is not one of
+the ten tabs — it is its own sheet, and the owner's guess about what it does is
+the evidence. Sweep every sheet the director opens and give any that lacks one
+the same one-line answer in the same place. A page that cannot be described in
+one line is a finding for the report.
+
+**The rename, and a fact that changes it.** The owner suggests *Ship
+alternatives*, on the reasoning that it is about alternative graphics,
+animations and sounds for the ship. The reasoning is right and the name is too
+narrow: VERSUS holds one candidate today and it *is* a hull colour, but the
+queue already has slots for THE BULB and SLICK, for the ammunition palette's
+six red and cyan tokens, and for the cannon's shot and the shield's ward. A
+name that says "ship" will be wrong within a week of that landing.
+
+**So: `ALTERNATIVES`, and the sub-line does the work the name cannot.** One
+sentence, in the owner's own terms: *a second answer to something the game
+already draws or plays — a colour, a shape, a motion, a sound — put beside the
+shipped one on two phones at tempo, and voted on.* That sentence is the whole
+page, and it is what the owner did not have when they guessed. If the owner
+says *Ship alternatives* again after reading this, use it and note in the
+commit that the name was theirs and the scope is wider than it.
+
+Nothing about what any page *draws* changes. This is the words and their
+placement.
+
+Finished when `bun run check` is green, the "what is this page" line on every
+sheet the director opens is legible without hunting for it, VERSUS is renamed
+with a sub-line saying what a candidate can be, no existing explanation was
+deleted, and the commit carries `Check: opening a director page you have never
+used, does the first thing you read tell you what it is for?`
+
+Model `sonnet`, effort `think hard`. The lane is typography and one name; the
+thinking goes on why a sentence that was already there did not get read. Read
+`tools/director/index.html`'s `backlogBody`, `docs/versus.md` and
+`tools/director/src/versus-page.ts` first.
+
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
 
