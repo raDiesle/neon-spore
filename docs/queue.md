@@ -12,6 +12,18 @@ here is ticked, and nothing here records progress — a lane is done when its
 branch is an ancestor of the trunk, which git can be asked and a file cannot.
 `bun run burn` asks. `docs/autonomous.md` has the rest.
 
+**Every entry says who wanted it, on its own line under the branch.** Either
+**Asked for by the owner.** or **Proposed by the run.**, those two words and no
+third option — a run that has read a spec file and found a gap is proposing,
+however obvious the gap. That label is the first sort key: the owner asks are
+worked before anything the run thought of, and a new entry that cannot honestly
+carry the first label is filed below every entry that can.
+
+The label is not a ranking of quality. Several of the proposed entries below
+are better ideas than the reports above them, and that is exactly why the
+labelling exists — designing is more enjoyable than fixing, so work the run
+invented rises on its own unless something holds it down.
+
 **A lane may not change what the game already draws.** CLAUDE.md's *A look is
 offered, never replaced* binds every entry in this file: a new colour, a new
 animation or a different shape is written as an alternative on the NOT BUILT
@@ -86,6 +98,7 @@ call and not a lane's.
 
 ## THE PANEL STILL HAS THE LANCE ON EVERY WAVE, WHICH IS THE THING THAT LANDED
 _claude/burn-controlset-apply-y1 · packages/render/src/band.ts packages/render/src/layout.ts packages/render/src/touch.ts_
+**Asked for by the owner.**
 
 The owner, testing the control-set lane an hour after it landed, and marking
 its check FAIL:
@@ -127,6 +140,7 @@ dropped.
 
 ## THE WAVE EDITOR CANNOT SET A CONTROL SET, OR SHOW WHICH ONE IS ON
 _claude/burn-controlset-editor-y2 · tools/director/src/controlsets-page.ts tools/director/src/ship-fields.ts_
+**Asked for by the owner.**
 
 The owner, marking the same lane's second check FAIL:
 
@@ -169,6 +183,7 @@ mark, and inventing a new interaction for it would be the mistake.
 
 ## THE ROCK STILL GOES INTO THE SHIP, AFTER THE RULE SAYS IT SHOULD NOT
 _claude/burn-deflect-draw-y3 · packages/render/src/deflect.ts packages/render/src/creatures.ts_
+**Asked for by the owner.**
 
 The owner, on the shield fix, marking one check PASS and the other FAIL:
 
@@ -207,6 +222,7 @@ Model `sonnet`, effort `think hard`. Read the shield-fix commit for where
 
 ## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
 _claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
+**Asked for by the owner.**
 
 The owner, having used the one-body grids for an afternoon:
 
@@ -264,6 +280,7 @@ expect to replay over its work if it lands first.
 
 ## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
 _claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts_
+**Asked for by the owner.**
 
 The owner's wish, once the rule is right:
 
@@ -309,6 +326,7 @@ Model `sonnet`, effort `think`. Read `packages/render/src/deflect.ts`,
 
 ## THE SHEET AND THE RESTART PROMPT OPEN AND CANNOT BE CLOSED
 _claude/burn-director-overlay-x5 · tools/director/src/demo-panel.ts_
+**Asked for by the owner.**
 
 The owner, on the director's GAME sheet: clicking **sheet** and **tap to
 restart** opens something with no way out of it. An overlay a person cannot
@@ -337,6 +355,7 @@ whatever it opens first.
 
 ## A WAVE THAT TEACHES SOMETHING SHOULD SAY SO IN THE LIST
 _claude/burn-cards-assign-x6 · packages/content/src/card-waves.ts tools/director/src/card-waves.ts_
+**Asked for by the owner.**
 
 Three asks from the owner about the guide cards, and they are one lane because
 they are one question: which wave does a card belong to?
@@ -391,6 +410,7 @@ the lane; the marking is a dot.
 
 ## EVERY PAGE ALREADY SAYS WHAT IT IS FOR, AND NOBODY IS READING IT
 _claude/burn-director-blurbs-x7 · tools/director/src/versus-page.ts_
+**Asked for by the owner.**
 
 The owner, having spent a day in the director: *add for every page on NOT BUILT
 YET some brief explanation what the page is about.* And, about VERSUS: *I
@@ -446,6 +466,7 @@ thinking goes on why a sentence that was already there did not get read. Read
 
 ## A REFUSED IDEA IS ONE CLAUSE, AND THE READER GOES LOOKING FOR THE REST
 _claude/burn-deferred-expand-x9 · docs/spec/ideas.md_
+**Asked for by the owner.**
 
 The owner, in the director:
 
@@ -506,6 +527,7 @@ these entries.
 
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
+**Asked for by the owner.**
 
 The owner asked whether alternative animations exist for things the game
 already does — *how the cannon shoots, how the deflect shield works* — and how
@@ -563,6 +585,7 @@ then whatever in `packages/render` draws the shot and the guard.
 
 ## A BODY SHADES THE HULL AND NOTHING ELSE, INCLUDING THE BODY BELOW IT
 _claude/burn-depth-cast-d4 · packages/render/src/cast-shadow.ts packages/render/test/cast-shadow.test.ts_
+**Asked for by the owner.**
 
 **The light lane has landed, and it left one thing pointing the wrong way.**
 `KEY` now lives in `packages/content/src/light.ts` and the hull and the rocks
@@ -641,6 +664,7 @@ bodies the pair most needs to read. Read `packages/render/src/contact-shadow.ts`
 
 ## A CHECK A COMMAND CAN SETTLE SHOULD NEVER REACH THE LIST
 _claude/burn-land-autorun-s17 · tools/land/run.ts tools/checks/run.ts_
+**Asked for by the owner.**
 
 `bun run checks --run` exists, and the director has a `▶ RUN THE COMMANDS`
 button beside it, and both are manual. That is the mistake: a check whose
@@ -697,6 +721,7 @@ Model `sonnet`, effort `think hard`. Read `tools/land/run.ts` around its
 
 ## NINETEEN GROUPS OF DIALS SIT BESIDE THE ONE WAVE YOU ARE EDITING
 _claude/burn-director-ship-split-s16 · tools/director/src/ship.ts tools/director/src/ship-fields.ts tools/director/index.html_
+**Asked for by the owner.**
 
 The left column runs WAVE, then SHIP, and SHIP is the whole of `SimConfig` —
 nineteen groups from AIM down to PLUMBING, one of which is literally labelled
@@ -754,6 +779,7 @@ the line this lane is drawing. Read `ship-fields.ts`'s `GROUP_ORDER` and
 
 ## A RELOAD KEEPS THE PLACE AND FORGETS EVERYTHING ELSE
 _claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
+**Asked for by the owner.**
 
 The owner works in the director while lanes land behind them, so the page
 reloads under them several times an hour — and every reload costs them the tab
@@ -837,6 +863,7 @@ next lane cannot cross it by accident. Read `tools/director/src/main.ts`,
 
 ## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
 _claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts tools/checks/run.ts tools/director/src/checks-page.ts_
+**Proposed by the run.**
 
 **Behind `claude/burn-director-session-s15`**, which puts the director's place in the URL — a link cannot point at a tab until a tab has an address.
 
@@ -913,6 +940,7 @@ tells a lane to write `docs/checks/<sha>.md` in its second commit. The keying
 stays exact — sha plus trailer text, word for word.
 ## A SHELL THAT COMES OFF IN PIECES, AND A COLOUR NOBODY KNEW UNTIL IT DOES
 _claude/burn-creature-shell-g1 · packages/sim/src/shell.ts packages/sim/src/shell-round.ts packages/sim/test/shell.test.ts packages/content/src/creatures.ts packages/content/src/briefings.ts packages/content/src/waves.ts_
+**Asked for by the owner.**
 
 The owner's creature, and most of it is already agreed and half of it is
 already built. `docs/spec/systems.md` §5.6 asks for exactly this — *hits cut
@@ -1003,6 +1031,7 @@ and `packages/sim/src/bullet-hit.ts` first.
 
 ## A PIECE COMES OFF A BODY AND NOTHING DRAWS THE BREAK
 _claude/burn-creature-shell-draw-g2 · packages/render/src/shell-draw.ts packages/render/test/shell-draw.test.ts_
+**Asked for by the owner.**
 
 Behind g1, which owns the state this reads.
 
@@ -1041,6 +1070,7 @@ Model `sonnet`, effort `think hard`. Read `craters.ts`, `rock-impact.ts` and
 
 ## THREE MOUTHS ABOVE THE SHIP, ONE OF THEM GOES SOMEWHERE
 _claude/burn-boss-maze-b1 · packages/sim/src/maze.ts packages/sim/src/maze-round.ts packages/sim/test/maze.test.ts packages/content/src/maze-rounds.ts_
+**Asked for by the owner.**
 
 The owner's boss. Three entrances open above the ship, one path through the
 tangle behind them actually reaches the thing worth hitting, and the pair has
@@ -1119,6 +1149,7 @@ absorb. Read `docs/spec/couplings.md`, `docs/spec/bosses.md`, `mirror.ts` and
 
 ## A TANGLE IS ONLY A PUZZLE IF IT CANNOT BE TRACED BY EYE
 _claude/burn-boss-maze-draw-b2 · packages/render/src/maze-draw.ts packages/render/test/maze-draw.test.ts_
+**Asked for by the owner.**
 
 Behind b1, which owns the state this reads.
 
@@ -1155,6 +1186,7 @@ Model `sonnet`, effort `think hard`. Read `docs/spec/graphics.md`,
 
 ## A CHECK THAT LANDED YESTERDAY HAS NO "BEFORE" AND COULD HAVE
 _claude/burn-frames-f1 · tools/frames/capture.ts tools/frames/run.ts_
+**Asked for by the owner.**
 
 The owner wants a before and after picture, or an animation, beside a check —
 and for anything landing from now on the skill already asks the lane to
@@ -1179,6 +1211,7 @@ honestly before capturing anything in bulk.
 
 ## FIVE HUNDRED LINES IN ONE FILE, AND THE DOCUMENT THAT NAMES ITS NEIGHBOURS
 _claude/burn-versus-promptsplit-v3b · tools/versus/prompt.ts tools/versus/text.ts docs/versus.md_
+**Proposed by the run.**
 
 `tools/versus/prompt.ts` landed at 511 lines against CLAUDE.md's ~250, and it landed that way deliberately: the lane that wrote it could not split it, because the seam files are enumerated by name in `docs/versus.md` **and** inside the prompt's own step 4, and it owned neither. This lane owns both, which is the whole reason it exists.
 
@@ -1194,6 +1227,7 @@ Model `sonnet`, effort `think`. This is a move with a documentation tail, not a 
 
 ## THE VOTE BUTTONS COPY A RECORD, AND THE PROMPT THEY SHOULD COPY NOW EXISTS
 _claude/burn-versus-wire-v3c · tools/director/src/versus-page.ts_
+**Proposed by the run.**
 
 Behind v3b, so the split settles before this reads from it.
 
@@ -1209,6 +1243,7 @@ Model `sonnet`, effort `think hard`. The one thing to get right is the ordering 
 
 ## THE CATALOGUE'S ARROW POINTS ONE WAY, AND A TAKEN SHAPE CAN STILL BE WRONG
 _claude/burn-versus-docs-v4 · docs/verification.md docs/asset-catalogue.md CLAUDE.md_
+**Proposed by the run.**
 
 `docs/asset-catalogue.md` says the direction of travel is one way — a draft that is claimed becomes taken, and nothing goes back — which was true while the only open question was what to draw. It is not true any more: the same page already runs NOTCH 1 against NOTCH 2 on one clock and says a single draft in that position quietly becomes the answer by being the only thing on the page, and that argument applies with more force to a shape the game has been drawing for months. Write decision **25** in `docs/decisions.md` (23 and 24 are taken — 24 is the owner's rule that nothing is deleted for being undecided, and this lane must not contradict it) (why a candidate is a patch in `tools/`, why the game's import graph is the enforcement rather than a rule anyone follows, why the vote persists as nothing, and a `Reconsider if:` that names the case where it breaks — more than one person voting, or a look whose difference only shows on a device this machine is not), one `##` section in `docs/asset-catalogue.md` on where a vote sits beside DRAFT / FREE / TAKEN, one paragraph in `docs/verification.md` giving the `Check: versus <slot> — …` trailer its shape at both ends, and in `CLAUDE.md` one `bun run versus` row in Commands plus a short Conventions paragraph saying a replacement look is voted on before it is adopted. Two rules that must land here or they land nowhere. **A slot that is not decided simply stays open** — decision 24 reverses the original design here, so do not write the session-scoped deletion the older draft of this brief asked for: a variant persists until the owner says adopt, keep, reuse or delete, and a session ending is not an event in their day. And a session landing candidates writes the opening `Check:` naming the slot, so a slot's whole life sits on `bun run checks` and `⚑ TO CHECK` rather than on a second list. Finished when `bun run check` is green — and be careful with `asset-catalogue.md`: `tools/shape-sheet/test/drafts.test.ts` reads its status sentence and counts the catalogue, so add a section and touch neither the blockquote nor the counts.
 
@@ -1216,6 +1251,7 @@ Model `sonnet`, effort `think`. Read `docs/versus.md` first — it is the design
 
 ## THE HULL IS ON SCREEN EVERY FRAME AND HAS ONLY EVER HAD ONE ANSWER
 _claude/burn-versus-slots-v5 · tools/versus/candidates/ship-hull.* tools/versus/candidates/creature-bulb/ tools/versus/candidates/creature-slick/ tools/versus/candidates/palette-ammo/_
+**Proposed by the run.**
 
 The mechanism now exists and has been looked through once, so this is the lane that fills it — and it goes last on purpose, because a candidate authored before anybody has watched the pair run is a candidate authored blind. Three slots, all of them things a player looks at constantly and none of them needing a lifting commit: a second candidate in `ship:hull-skin` so the first vote is a genuine three-way (current, warm, and one more), `creature:bulb` and `creature:slick` as separate slots each patching the silhouette record and its own-motion together, and `palette:ammo-pair` patching `PALETTE`'s six red and cyan tokens as one slot because a vote on cyan alone is a vote on something nobody ever sees alone. Think hard about what makes two candidates a real choice rather than a nudge and its twin: each `claim` has to pass the one-sentence test `.claude/skills/new-wave` already applies to a wave, and two candidates whose failure modes are the *same* failure mode teach nothing — the catalogue's own NOTCH pair is the model, where one says the direction with a feature small enough to vanish at 26 px and the other says it with the whole mass, so whichever way it goes the result is a measurement. Every candidate is a directory under `tools/versus/candidates/` holding `variant.ts`, so removal is `git rm -r` regardless of what it grew. Finished when each slot draws two moving phones that differ visibly at 380 px, `bun run versus` lists three open slots with their readers, and the landing commit carries one `Check: versus <slot> — …` per slot pointing at the director's VERSUS tab. Do not open a slot that patches `SWAY_PUMP` or `TILT_RIPPLE` until `claude/burn-own-motion-b10` has landed — that lane owns `own-motion.ts` and a vote taken against a record about to move is a vote against nothing.
 
@@ -1228,6 +1264,7 @@ Model `sonnet`, effort `think hard`. Read `docs/versus.md` first — it is the d
 
 ## THE SPEC SAYS TO BUILD EIGHT PANEL SCENES, AND NOBODY SHOULD
 _claude/burn-teach-spec-t3 · docs/spec/calls.md docs/spec/briefings.md docs/parked.md docs/INDEX.md_
+**Proposed by the run.**
 
 Write the design down before it is built, because the thing it replaces is currently an instruction sitting in the spec.
 
@@ -1247,6 +1284,7 @@ Model `sonnet`, effort `think`. Read `docs/teaching.md` first — it is the desi
 
 ## THE FIELD STOPS ON AN AUTHORED BEAT AND THE CLOCK DOES NOT
 _claude/burn-teach-call-t4 · packages/sim/src/call.ts packages/sim/src/commands.ts packages/sim/src/hull.ts packages/sim/src/briefing.ts packages/sim/src/events.ts packages/sim/test/call.test.ts packages/audio/src/bind.ts packages/audio/src/catalogue.ts packages/audio/test/bind.test.ts_
+**Proposed by the run.**
 
 The mechanism. Sixteen files, but nine of them are one or two lines each and the mechanism itself is one new file — `packages/sim/src/call.ts`. Read `docs/spec/calls.md` (lane 3) first; it is the design this implements.
 
@@ -1279,6 +1317,7 @@ Model `opus`, effort `ultrathink`. Read `docs/teaching.md` first — it is the d
 
 ## SEVEN WORDS A SCREEN, AND THE THREE WAVES THEY BELONG TO
 _claude/burn-teach-script-t5 · packages/content/src/calls.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/queue.ts packages/content/src/index.ts packages/content/test/calls.test.ts apps/game/src/waves.ts tools/director/src/serialize.ts tools/director/src/rail.ts tools/director/src/stage.ts tools/director/test/serialize.test.ts_
+**Proposed by the run.**
 
 The words and the waves. `theThreeWaves` in the plan this lane came from has every entry, every call, every beat and every line already decided — author them, do not re-decide them.
 
@@ -1302,6 +1341,7 @@ Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the
 
 ## A BRACKET, FIVE WORDS, AND A CHEVRON POINTING AT THE OTHER PHONE
 _claude/burn-teach-draw-t6 · packages/render/src/call.ts packages/render/src/redact.ts packages/render/src/briefing.ts packages/render/src/canvas2d.ts packages/render/src/index.ts packages/render/test/call.test.ts_
+**Proposed by the run.**
 
 The picture, and it is small on purpose: **nothing here animates anything the game does not already draw.** The blip hanging on the strip is `drawRadar` with `waveBeat` frozen — `field.ts:135` derives height as `q.beat - (world.waveBeat - 1)`, so the animation *is* the radar, held still, and this lane writes none of it. The lobe sliding under the target is the real membrane, the real `Glide`, the real `blobPath`. The shot, the pop, the crater, the deflection flash and the crack are all real events through the existing `Effects`, because bullets and the hull keep working during a freeze. What this lane draws is the pointer.
 
@@ -1325,6 +1365,7 @@ Model `sonnet`, effort `think hard`. Read `docs/teaching.md` first — it is the
 
 ## EVERY BODY MOVES A ROW ON THE SAME INSTANT AND NONE OF THEM ARRIVES
 _claude/burn-body-land-c5 · packages/content/src/drive.ts packages/content/test/drive.test.ts_
+**Proposed by the run.**
 
 The beat arriving in a body, and the hull's approach arriving with it. Behind lanes 3 and 4.
 
@@ -1348,6 +1389,7 @@ Model `opus`, effort `think hard`. Read `docs/alive.md` first — it is the desi
 
 ## A THING DIES AND EVERYTHING AROUND IT CARRIES ON EXACTLY AS BEFORE
 _claude/burn-body-shock-c6 · packages/render/src/shock.ts packages/render/test/shock.test.ts_
+**Proposed by the run.**
 
 The only change in the batch that makes one creature react to something that happened to another, and the largest visible motion proposed anywhere — up to 0.35 tiles, about 12 px of whole-body translation, at the most-watched instant in the game. Behind lanes 4 and 5.
 
@@ -1367,6 +1409,7 @@ Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the de
 
 ## A BODY UNDER A HAND SWAYS EXACTLY LIKE A FREE ONE
 _claude/burn-body-held-c7 · packages/render/src/creature-drive.ts packages/render/test/creature-drive.test.ts_
+**Proposed by the run.**
 
 What the two players do to a body, drawn on the body. Behind lanes 4 and 5.
 
@@ -1386,6 +1429,7 @@ Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the de
 
 ## THE ONE BODY THE FICTION FORBIDS FROM LOOKING ALIVE IS THE ONLY ONE WITH VOLUME
 _claude/burn-body-skin-c8 · packages/render/src/creature-skin.ts packages/render/src/glow.ts packages/render/src/palette.ts_
+**Proposed by the run.**
 
 Last on purpose, and **conditional**: build it only if the field still looks flat once the bodies are behaving. Everything before this is behaviour; this is the only lane that is decoration, and it is also the only one whose premise a judge argued might be wrong — `docs/spec/graphics.md` says liveliness at 20-26 px comes from motion with overshoot and not from detail, and the flat swatch may be a deliberate reading of that line rather than the omission three readers took it for.
 
@@ -1403,6 +1447,7 @@ Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the de
 
 ## ONE PREDICATE STANDS BETWEEN THIRTEEN CREATURES AND A PICTURE
 _claude/burn-drafts-suggest-p1 · tools/shape-sheet/test/drafts.test.ts tools/shape-sheet/src/drafts/index.ts_
+**Proposed by the run.**
 
 A draft shape names the idea it is offered to through `suggests`, and
 `drafts.test.ts` resolves that name against `docs/spec/ideas.md` and
