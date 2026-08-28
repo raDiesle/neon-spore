@@ -741,3 +741,173 @@ Model `sonnet`, effort `think`. Read `packages/render/src/queen.ts` in full and
 goes on the third check — a shake that costs the pair any confidence about which
 column they are on is a shake that has to come back down, however good it looks
 standing still.
+
+## THREE WHOLE-BODY VARIANTS FOR BULB QUEEN, AND THE PAGE GETS HER NAME
+_claude/burn-queen-variants · tools/director/src/holders tools/director/src/holders-panel.ts tools/director/index.html_
+**Asked for by the owner.** **Low priority — worked after everything above it.**
+
+> for "bulb queen". based on collected new "holders" animation and graphic. I
+> guess "cradle" looks best of the three of the variants. i want you to draft 3
+> new improved visuals for the full bulb queen, but keep the logics and
+> mechanics. put them on the "not build yet" - "Holders" page. rename page to
+> "Bulb Queen variants"
+
+**CRADLE won**, and `docs/verified.md` records it against `7ddfe14`. The other
+two stay on the page as the record of what it was chosen against — a winner
+with nothing beside it is a winner nobody can re-judge later.
+
+### What the page becomes
+
+`HOLDERS` is renamed **BULB QUEEN VARIANTS** — the tab button, the sheet id,
+the page's own paragraph, and the file names if the lane thinks they should
+follow. It carries two sections now: the three holders as decided, CRADLE
+marked as chosen, and below them the three new whole-body drafts.
+
+### What a variant may change, and what it may not
+
+The owner said it: *keep the logics and mechanics*. That is not a vague
+instruction here, because her picture is load-bearing in five specific ways and
+a variant that breaks any of them is a different boss rather than a new look.
+`queen.ts` and `queen-egg.ts` say all five in their own headers; read them
+first.
+
+1. **Two marks, and only one is real.** Both go through the same call, in the
+   same colour, on the same clock. Player 1's picture never says which — the
+   side shows only in the pulsing ring, and that ring is player 2's alone
+   (`showsQueenHint`). A variant that makes the real one legible on both
+   screens has deleted the boss.
+2. **The marks sit on the columns either side of her own.** They are placed at
+   `tileCX(l, queen.col + side)`, and the pair calls columns out loud. A
+   variant that moves a mark off a column centre breaks the callout, however
+   good it looks.
+3. **She sinks a tile per petal lost.** Health is petals and petals are
+   position — `queenRow` in `boss.ts`. The drawn body has to keep reading as
+   *lower* rather than merely as *fewer*.
+4. **The torch in the socket is the rock that drops.** `drawEgg` draws it at
+   the torch's own radius and facing, in the column it will be pushed into, so
+   the beat it breaks off the creature takes over the picture with nothing
+   moving, changing size or turning. A variant that draws a *representation* of
+   a torch reintroduces the doubling that file exists to have removed.
+5. **A socket grows its replacement back** over `queenEggGrowShare` of a beat.
+   Whatever holds the torch has to have an empty state and a growing state.
+
+Everything else is open: her outline, the shell's material, how the petals
+read, how the marks are cradled, the colour relationships, the sinking.
+
+### Three, spread rather than three of one thing
+
+The holders page worked because its three sat on one axis — how much of the
+holder was machine and how much was her — so choosing between them decided
+something rather than picking a favourite. Do that again, and **name the axis
+on the page** so the owner is choosing a principle and not a picture. The axis
+is the lane's to propose; what is not acceptable is three tunings of the
+shipped silhouette, which is a preference poll rather than a decision.
+
+CRADLE is the baseline holder in all three, since it has been chosen. If a
+variant genuinely wants a different holder, it says why on its own card.
+
+### The rules that bind this lane
+
+**Nothing here touches `packages/render`.** The shipped queen is unchanged and
+keeps being drawn exactly as she is; these are drafts beside her, and the owner
+decides. That is *A look is offered, never replaced*, and it is the whole
+reason this is a page and not a commit. The one exception already taken —
+`drawTorchRock` exported so a card can draw the real rock — stands, and any
+further export is a pure re-export of an existing drawing function or it does
+not happen.
+
+**One clock.** Every card takes the same beat and the same release, the way
+`holders-panel.ts` already does it, because a comparison between things pulsing
+on private clocks is not a comparison.
+
+**Show her doing something.** A queen standing still is three silhouettes. At
+minimum each card cycles the drop: holding, releasing, the empty socket, the
+regrowth. That is the animation the owner already liked about the holders page.
+
+Finished when `bun run check` is green, the tab reads BULB QUEEN VARIANTS, the
+holders section says CRADLE was chosen, three whole-body drafts sit below it on
+one clock, and the commit carries
+
+`Check: of the three BULB QUEEN variants, does any of them read better than the one the game draws — and can you still tell which mark is the real one from player 2's screen alone`
+
+Model `sonnet`, effort `think`. Read `packages/render/src/queen.ts`,
+`queen-egg.ts` and `queen-weakpoint.ts` before drawing anything — the five
+constraints above are all stated in those files, in their own words, with the
+reasons attached. The drawing is the easy half; the trap is a variant that
+looks better and quietly costs player 2 the one thing only they can see.
+
+## A RELOAD SHOULD LEAVE YOU WHERE YOU WERE, ON EVERY PAGE AND NOT JUST ONE
+_claude/burn-director-place-everywhere · tools/director/src/session.ts tools/director/test/session.test.ts tools/director/src/tabs.ts tools/director/src/backlog-page.ts tools/director/src/checks-page.ts tools/director/src/sound-page.ts tools/director/src/states-page.ts tools/director/src/controlsets-page.ts tools/director/src/card-page.ts_
+**Asked for by the owner.**
+
+Their words: *i want basically every view/page on director to stay opened when
+its reloading page.*
+
+**The line this depends on is already drawn, and it is not being moved.**
+`session.ts`'s header says a value belongs in the URL when it changes *what you
+are looking at* and belongs nowhere when it changes *what it looks like* or
+*what would ship* — a TUNING dial, a picked skin, an edited wave's fields are
+settings and are still forgotten on every load, because the director starting
+from what ships is the thing that makes a judgement made here about the right
+thing. Read that header before writing a line. The owner is not asking to
+remember settings. They are asking why *place* only means one bar out of six.
+
+**What is remembered today**, and it is the whole of it: `tab` and `wave`, for
+the main editor's `#tabs` — WAVE, SHIP, TUNING, BALANCE, INTERLUDE.
+
+**What is forgotten and should not be.** Every overlay page, and the tab open
+inside it. They all work the same way — an `<id>Open` button, an `<id>Close`
+button, `Escape`, and a `.on` class on the sheet — so this is one shape
+repeated, not six problems:
+
+- the backlog sheet (`#backlog`) and its own bar `#backlogTabs`, which is
+  twelve pages wide: BESTIARY, SHAPES, MECHANICS, CONTROLS, BOSSES,
+  INTERLUDES, PARKED, QUEUE, DESIGNS, HOLDERS, BORROWED, SPEC;
+- CHECKS, STATES, SOUND (and its `#soundTabs` bar), CONTROL SETS, CARDS.
+
+A reload inside the twelfth page of the sheet currently lands on the wave
+editor, which is the reload the owner actually does.
+
+**Restore through the click path, the way the tab already does.** `main.ts`
+clicks `initialTab`'s button rather than setting a class, so a restored tab is
+indistinguishable from a clicked one and every side effect a bar's click
+carries — `drawShapes`, `drawCards`, `drawVersus` all hang off theirs — runs
+exactly once and in the right order. Opening a sheet by adding `.on` to it
+would skip all of that and the page would come back blank in ways nobody would
+reproduce by clicking. Do it through the same door.
+
+**Still `replaceState`, never `pushState`, and still read exactly once.** A
+chain of clicks must not grow a history entry per click. And the fallback rule
+holds for every new key: an unknown sheet name or an unknown inner tab opens
+the page it can rather than throwing, because a URL outlives the code that
+wrote it.
+
+**One judgement to make and to say in the commit.** At most one overlay is open
+at a time, so the sheet is one key rather than five booleans — but each sheet's
+inner tab has to survive being closed and reopened, and whether *that* lives in
+the URL or is simply the sheet's own last state is the call. Say which, and
+why, in a sentence.
+
+**And fix the header while you are in the file.** It points at a `docs/queue.md`
+entry that has landed and been deleted, so it cites a document that is not
+there; this entry will be deleted too, on the same rule. Make the argument
+self-contained in `session.ts` rather than pointing anywhere, and note that the
+paragraph is the reason a later module must not reach for this one to remember
+a dial.
+
+This is a tool fix, not a look: nothing the game draws changes, and *A look is
+offered, never replaced* does not apply.
+
+Finished when `bun run check` is green, `session.test.ts` covers the round trip
+and the fallback for every new key the URL learns, and the commit carries
+
+`Check: open the backlog sheet on SPEC, reload, and does the director come back on SPEC rather than on the wave editor`
+
+`Check: after a reload restores a page, is everything on it drawn — or is something blank that fills in when you click the tab yourself`
+
+Model `sonnet`, effort `think hard`. Read `tools/director/src/session.ts` in
+full and `tools/director/src/tabs.ts`, then one of the overlay pages —
+`backlog-page.ts` is the widest — to see the shape all six share. The thinking
+goes on the place-versus-setting boundary: this lane widens what counts as a
+place, and the next module that wants to smuggle a dial across a reload will
+cite it.
