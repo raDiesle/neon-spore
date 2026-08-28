@@ -12,6 +12,7 @@ import { TURN } from "./turn.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
 import { VEIN } from "./vein.js";
 import { VEIN_PULSE } from "./vein-pulse.js";
+import { WIND } from "./wind.js";
 
 /**
  * Every way to draw the same contour, so the question `docs/alive.md` sends to
@@ -46,6 +47,7 @@ export const SKINS = [
   SCALE,
   CARAPACE,
   TURN,
+  WIND,
   CRATER,
   CILIA,
   PORE,
