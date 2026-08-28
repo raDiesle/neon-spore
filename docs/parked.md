@@ -493,3 +493,51 @@ before means an unanswered check whose subject has moved underneath it.
 Not queued as its own lane because it is fifteen minutes of work that wants to
 ride along with whichever lane next opens `parts.ts` — most likely the soft
 group or the fringe, both of which will want a second clip.
+
+## The skin registry is a shared append point, and it has cost a rebase per lane
+
+2026-08-28 · the burn-skin block
+
+`tools/director/src/skins/index.ts` holds an import line and a `SKINS` entry
+for every skin. Each lane adds one of each, at the same end, and by the fourth
+skin lane that had produced three rebase conflicts in a row — SCALE/CARAPACE
+against TURN/CRATER, TURN/CRATER against the trunk, then CILIA against both.
+Every one resolved by keeping everything, which is the tell: there is no
+disagreement here, only a file two writers touch in the same place.
+
+This is the same disease `docs/checks/restated.md` has, and that one already
+has a lane against it (`burn-restated-split-p2`, a file per commit instead of
+a line in a shared one). The registry cannot take that exact cure — something
+has to enumerate the skins — but the append point can move. Options worth
+weighing rather than one worth committing to now: one entry per line already
+helps and Biome has forced that; a directory read at build time removes the
+list entirely but the director is bundled, so it would need a generated file;
+or each skin file self-registers on import and `index.ts` becomes imports
+only, which halves the conflict surface rather than removing it.
+
+Not queued because the block is nearly finished — three skin lanes remain —
+and the cure costs more than the remaining disease. Worth doing before the
+next block of skins, not during this one. The cost is real but bounded: a
+rebase is a message to a lane and about a minute.
+
+## CILIA reads a transform nothing promises it
+
+2026-08-28 · claude/burn-skin-fringe-s3
+
+`SkinFrame` carries `{ t, beat }` and no pose, deliberately — `docs/skins.md`
+leaves it for whichever skin needs it first. CILIA needed the body's velocity
+to lean its fringe against the direction of travel, and rather than add a
+field outside its owned paths it read
+`ctx.body.transform.baseVal.getItem(0).matrix`, differencing the translate
+frame to frame.
+
+It works, and it avoided a second copy of `poseAtSecond`, which was the right
+instinct. But it couples the fringe to `shape-figure.ts` writing a translate
+as the *first* transform item on that group — true today, promised nowhere. If
+that write ever changes shape, the fringe stops leaning, no test fails, and
+the failure is a skin that looks slightly less alive.
+
+The answer is a velocity or pose field on `SkinFrame`, added once and read by
+CILIA and by anything after it — the iridescence lane will want the same
+thing, since its shift has to ride the body's motion. Do it when a second skin
+needs it, which is the next lane that does.
