@@ -77,6 +77,281 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THE SHIELD BUTTON DOES NOT SHIELD, AND A DEFLECTED ROCK ARRIVES BEFORE IT LEAVES
+_claude/burn-guard-bug-x1 · packages/sim/src/hull.ts packages/sim/test/guard.test.ts_
+
+Two reports from the owner, filed as one lane because they may be one cause
+and two lanes each landing half a diagnosis is the worst available outcome.
+
+**One: pressing SHIELD no longer shields.** Nothing else was said, which means
+the symptom is total rather than intermittent — the button is pressed and the
+rock is not deflected.
+
+**Two: a deflected meteor behaves strangely, and the owner suspects it happens
+when the cannon and the shield are in the same column.** Sometimes it is not
+reflected at all and sticks to the ship at the cannon; sometimes it travels
+*into or past* the shield and is reflected from inside it.
+
+**Here is what is already visible in `resolveHull`, and it is a starting point
+rather than the answer.** Nothing about a meteor is resolved until it reaches
+`hullRow(world.cfg)` — the deflect, the miss and the damage are all decided on
+the hull row itself. The shield is drawn as a surface *above* that row. So a
+rock that will be deflected still travels the whole way down to the ship before
+anything happens to it, which is exactly the "it goes inside the shield and
+then comes back" the owner describes, and it is a rule about where the
+collision is tested rather than a glitch. **What the owner expects is stated
+plainly: the rock turns at the moment it touches the shield surface.** That is
+a change to where the test happens, not to whether it passes.
+
+The timing gate is the other half: `world.tick - world.guardTick <=
+windowTicks` opens a window *after* a press, and `world.tick <=
+world.wardUntilTick` is the ward's exemption. A total failure to shield is one
+of: the press never reaching `guardTick`, the window being computed to zero or
+negative, `shieldCol` not being where the player sees it, or the row test
+firing a tick after the rock was already removed. **Reproduce it before
+changing anything** — a failing test that fails for the reported reason, then
+the fix. A fix with no red test in front of it is a guess with a commit
+message.
+
+**The determinism rules bind all of this.** Sub-tile values live in
+thousandths, the surface row is an integer or a thousandth and never a float,
+`hashWorld` must still agree across two devices, and if the deflect now happens
+a row earlier that is a simulation change both devices make identically.
+Anything that would need a wall clock is out.
+
+**Say whether the two reports were one bug.** If they were not, the report
+names both causes separately. If the second turns out to be a *drawing* lag
+rather than a rule — the rock turning on the right tick and being painted a
+frame late — say that too, and leave it to the lane behind this one.
+
+Finished when `bun run check` is green, a test reproduces each reported symptom
+and fails before the fix, a meteor turns at the shield surface rather than at
+the hull row, pressing SHIELD in the rock's column deflects it, the cannon's
+column has no bearing on any of it, and the commit carries `Check: does a
+deflected rock turn away at the shield's surface, instead of reaching the ship
+first?` and `Check: with the cannon parked in the same column as the shield,
+does the shield still deflect every rock that comes down it?`
+
+Model `opus`, effort `ultrathink`. The diagnosis is the lane and the fix is
+small; the two symptoms disagree with each other, and the wrong story about
+them becomes a plaster in the file every future mechanic reads. Read
+`packages/sim/src/hull.ts`, `world.ts`'s `guardTick`/`wardUntilTick`,
+`grip.ts` and `docs/spec/systems.md` 5.8 first.
+
+## A CONTROL SET IS THE WHOLE PANEL FOR BOTH PLAYERS, AND A WAVE PICKS ONE
+_claude/burn-controlsets-x2 · packages/content/src/control-sets.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/render/src/band.ts apps/game/src/keys.ts packages/content/test/control-sets.test.ts_
+
+The owner, in their own words, and this is the concept rather than a tidy-up:
+
+> the lance control should be removed in default controls. it should only be
+> set if i configure the controls variant to be activated for a specific wave.
+> a control set is full controls of player 1 and player 2 altogether. they
+> cannot be combined e.g. lance to add to default control. it's then a new
+> control set with either 3 controls or lance only.
+
+So a **control set** is a named, whole panel — everything both players have in
+front of them for that wave — and sets do not compose. There is no "default
+plus the lance". There is a default set, and there is another set that happens
+to contain the lance, and a wave names exactly one of them. Today the lance is
+simply always there: `band.ts` draws SHIELD, SUCK and the lance for player 1
+unconditionally, and `keys.ts` binds F for it. That is the thing being taken
+apart.
+
+**The default set loses the lance.** After this lane, a wave that names nothing
+gets the panel without it.
+
+**A wave names its set.** One optional field on `Wave`, beside `boss` — which
+is the precedent for "this wave is not the ordinary thing" and should be
+followed rather than invented around. Absent means the default set.
+
+**Every set must have at least one wave, and this lane writes the missing
+ones.** A control set no wave uses is a panel nobody can reach, which is the
+same failure as a creature with no wave. If the lance set has no wave, author
+one, and it passes `.claude/skills/new-wave`'s one-sentence test like any
+other — a wave that exists only to demonstrate a panel is padding, so the
+sentence has to be about what the pair *does* with that panel.
+
+**The bosses and the special mechanics are the good examples**, and the owner
+names them: the snake that moves left and right, the gauge. Those already have
+their own controls in the tree. Do not rebuild them — look at what they
+already do and check whether they are, in fact, control sets that predate the
+concept. Say so in the commit either way; if two of them are the same set under
+different names, that is the finding.
+
+**Nothing here is a rendering experiment.** The panel already draws every
+control it needs; this lane decides *which* of them are on screen for a given
+wave, and the layout of a set with fewer buttons has to not look like a panel
+with a hole in it.
+
+`hashWorld`, the tick and determinism are untouched: which panel is on screen
+is a fact about the wave, decided identically on both devices before it starts.
+
+Finished when `bun run check` is green, the lance is absent from the default
+panel, at least one named set exists that has it, every set names at least one
+wave and every one of those waves exists, a wave with no set gets the default,
+and the commit carries `Check: on a wave that does not ask for it, is the lance
+button gone from player 1's panel?` and `Check: on the wave that does ask for
+it, does the panel read as its own set rather than as the usual one with a
+button added?`
+
+Model `opus`, effort `ultrathink`. What a set *is* — and whether the gauge and
+the snake are already two of them — is the whole lane; the field on `Wave` is
+five minutes. Read `packages/content/src/wave-types.ts`,
+`packages/render/src/band.ts`, `apps/game/src/keys.ts`,
+`packages/sim/src/gauge.ts` and `docs/spec/couplings.md` first.
+
+## EVERY CONTROL SET GETS A PAGE, AND A WAVE THAT USES ONE SAYS SO ON THE RAIL
+_claude/burn-controlsets-page-x3 · tools/director/src/controlsets-page.ts_
+
+The other half of the owner's ask, and it is a director lane rather than a game
+one:
+
+> every control variant should also be documented in separate director page to
+> look up and test and see. come up with another marking like you did for
+> bosses, so its clear that lane has special type of controlset configured.
+
+**A page per set is not a table of sets.** The ask is *look up, test, and see*:
+what is in the set, which waves use it, what each control does in one line, and
+the panel itself drawn as it will appear — not described. The BOSSES tab is the
+model for the shape.
+
+**The rail marking follows the boss marking exactly.** A wave carrying a boss
+is already marked on the rail; a wave carrying a non-default control set gets
+its own mark in the same vocabulary, distinct enough that the two do not read
+as one thing at a glance. Do not invent a second marking system beside the
+existing one.
+
+**This sits behind `claude/burn-controlsets-x2`** and cannot start before it:
+there is nothing to draw a page of until sets exist. Read whatever that lane
+landed rather than the brief above it.
+
+Finished when `bun run check` is green, every registered set has a page showing
+its panel and its waves, a wave using one is marked on the rail, and the commit
+carries `Check: from the control-set page alone, can you tell what the pair can
+do on that wave without opening the game?`
+
+Model `sonnet`, effort `think hard`. Read the BOSSES tab and `rail.ts` first.
+
+## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
+_claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts_
+
+The owner's wish, once the rule is right:
+
+> it would be nice if we improve animation, so it slightly bounces in the ship
+> and then back away from the ship. so the new thing that it slightly stretches
+> inside of the shield ship area (like a gummi)
+
+A rock that reverses on one tick reads as a rock that teleported. What is being
+asked for is the moment of contact having a *shape*: the rock presses a little
+way into the shield, the shield gives like rubber, and both spring back. Small
+— the owner said *slightly* twice.
+
+**Drawing only.** The rule is `hull.ts`'s and the lane in front of this one owns
+it. Nothing here may change when a deflect happens, what it scores, or anything
+`hashWorld` sees; the simulation says *deflected, this column, this kind, this
+tick* and this lane decides what that looks like. If the give must be visible
+for longer than the rule allows, that is a finding for the report, not a reason
+to touch the rule.
+
+**It outlives a frame, so it belongs in `Effects` and is cleared in
+`Effects.reset()`** — `packages/render/test/restart.test.ts` fails if a new
+field is added and not cleared, and `world.tick` restarts at 0, so a squash
+cached against it is read by the next run as its own.
+
+**Behind `claude/burn-guard-bug-x1`**, which is moving where a deflect happens.
+An animation authored against the old contact point is an animation authored
+against a bug.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, the give is cleared on every restart, and the commit
+carries `Check: does the rock press into the shield and spring back like
+rubber, or does it just stop and reverse?`
+
+Model `sonnet`, effort `think`. Read `packages/render/src/deflect.ts`,
+`effects.ts` and `docs/spec/graphics.md` first.
+
+## THE SHEET AND THE RESTART PROMPT OPEN AND CANNOT BE CLOSED
+_claude/burn-director-overlay-x5 · tools/director/src/demo-panel.ts_
+
+The owner, on the director's GAME sheet: clicking **sheet** and **tap to
+restart** opens something with no way out of it. An overlay a person cannot
+dismiss is worse than one that never opened, because the page behind it is
+still the page they were working in.
+
+Find out which of the two it is before fixing either — they may be one overlay
+with one missing handler, or two. Whatever the cause, the fix is the same
+shape: every overlay this page opens closes by the three routes a person will
+actually try, in this order — clicking outside it, pressing Escape, and a
+visible close control on the overlay itself. A close that exists only as a
+keyboard shortcut is a close nobody finds.
+
+**Say in the commit whether the overlay was ever meant to close.** If it is the
+balance sheet at the end of a run and the intended exit was restarting the
+wave, then the bug is that the page offers no other door, and that is worth
+one line rather than a silent redesign.
+
+Finished when `bun run check` is green, both overlays close by clicking
+outside, by Escape and by a visible control, the page behind is exactly as it
+was, and the commit carries `Check: with the sheet open in the director, can
+you get back to the page you were on without reloading?`
+
+Model `sonnet`, effort `think`. Read `tools/director/src/demo-panel.ts` and
+whatever it opens first.
+
+## A WAVE THAT TEACHES SOMETHING SHOULD SAY SO IN THE LIST
+_claude/burn-cards-assign-x6 · packages/content/src/card-waves.ts tools/director/src/card-waves.ts_
+
+Three asks from the owner about the guide cards, and they are one lane because
+they are one question: which wave does a card belong to?
+
+> in the wave list, make some clear visual, which waves have a guide
+> introduction explanation "card" assigned. do some automatic card assignment
+> for everything what is implemented already and assign it automatically to
+> the wave, with its first occurence. by default in game preview (director) i
+> want the card to be enabled. I can disable it so when level is restarted it
+> is not shown again.
+
+**First occurrence is the rule, and it is derivable rather than authored.** A
+card explaining a creature, a control or a mechanic belongs on the first wave
+in the queue where that thing appears. That is a fact about `waves.ts` and can
+be computed from it, so compute it — a hand-kept table of card-to-wave goes
+stale exactly the way the director's brushes did. Where a card names something
+no wave contains, that is a finding worth reporting, not a row to invent.
+
+**The list marking joins the two already there.** A wave carrying a boss is
+marked, and a wave carrying a non-default control set is about to be
+(`claude/burn-controlsets-page-x3`). This is a third, and the three must be
+distinguishable at a glance rather than being three similar dots.
+
+**And a card that has a wave stops being a proposal.** The owner: *the cards we
+assigned, we can move from "not built yet" to another place where we document
+everything in director.* NOT BUILT YET is where a thing lives while nothing in
+the game reaches it — that is exactly what an assignment ends. So a card with a
+wave moves out of it and into the documented half of the director, and the
+mechanism must be the assignment itself rather than a second list somebody
+remembers to update: a card is a proposal precisely as long as no wave shows
+it. Where the documented half should be is this lane's call — say in the commit
+which page took them and why, and follow whatever the catalogue already does
+with a draft that gets claimed.
+
+**The preview default flips, and the toggle has to survive a restart.** In the
+director's game preview the card shows by default; turning it off means it
+stays off when the wave restarts. Note that this is a preview control and not
+the game's own already-seen rule, which lives in world state on purpose — read
+`packages/sim/src/briefing.ts`'s header before touching anything near it, and
+do not move that decision into storage.
+
+Finished when `bun run check` is green, every implemented card is assigned to a
+wave by first occurrence and the assignment is derived rather than listed, the
+wave list marks the three kinds distinguishably, the preview shows the card by
+default and a disabled card stays disabled across a restart, and the commit
+carries `Check: looking at the wave list, can you tell at a glance which waves
+teach something, which carry a boss, and which change the controls?`
+
+Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
+`tools/director/src/card-waves.ts` and `card-order.ts` first. The derivation is
+the lane; the marking is a dot.
+
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
 
