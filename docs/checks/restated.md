@@ -316,3 +316,12 @@ other's wave number.
 - **changed** a hundred rim strands and a sparser sixteen interior strands are drawn as short curved paths whose *base* is read every frame off an invisible extra contour path via `getPointAtLength` — never a fixed coordinate — so the fringe stays welded to the wobbling outline; each rim strand's phase comes from its own fraction of the perimeter, giving a travelling ripple rather than unison sway; and every strand leans against a velocity read by differencing `translate(dx, dy)` off `ctx.body.transform.baseVal` frame to frame, the own-motion transform `shape-figure.ts` already writes onto the skin's own group — no second `poseAtSecond` and no change to `SkinFrame`
 - **decide** do a hundred strands at card size read as a fringe or as fur, and is the count right?
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the CILIA button in the skin bar
+
+## `d8b2859` — depth or only brightness, with the light off
+
+> with the light off, does the page lose depth or only lose brightness — the SHAPES tab, the same skin toggled, on a round body and a long one
+
+- **subject** the new LIT toggle beside the skin switcher in `tools/director/src/shapes-panel.ts`, and the four `light.ts` passes it gates
+- **changed** the switcher stays exclusive for the skin choice; LIT is a second, independent button in the same bar, so any skin that composes the light — LIGHT itself, and now TURN and CRATER — can be seen with it and without it without switching to a different look. Measured, not judged: on TURN and on CRATER the page goes from 360 gradient elements to 120 when LIT is switched off; a round body and a long one on TURN both go from 6 gradients to 2, the 2 left being TURN's own surface texture rather than the light's. MEMBRANE, which composes no light, drew 0 gradients in both states — the toggle reaches only what actually uses it
+- **decide** does the body still read as round with the light off, or does it flatten to a silhouette — i.e. is the terminator/contact/specular/rim combination carrying real depth information, or is it only adding brightness on top of a shape that was already reading fine?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIT button beside the skin switcher, on TURN and CRATER, on a round card and a wide one
