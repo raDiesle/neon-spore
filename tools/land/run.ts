@@ -249,6 +249,50 @@ async function retire(branch: string): Promise<void> {
 
 await retire(branch);
 
+/**
+ * Sweeping the lane is part of landing too, for the same reason retiring is.
+ *
+ * The owner asked for it in those words — *after merge, you can also cleanup
+ * branches after merge to main, when we work on the autonomous skill mode* —
+ * and the run had been doing it by hand after every single landing, four
+ * commands at a time, which is exactly the shape of thing that gets forgotten
+ * once and then leaves twenty-seven worktrees standing.
+ *
+ * **The branch goes here and the worktree cannot.** After a fast-forward the
+ * lane's branch is an ancestor of the trunk, so `git branch -d` is safe by
+ * construction: it refuses anything unmerged, and it is not argued with. The
+ * worktree is a different matter — this process is *standing in it*, and an
+ * operating system will not let a directory be removed while it is somebody's
+ * working directory. So the removal is handed to the trunk tree as a printed
+ * command rather than attempted and failed noisily.
+ *
+ * Deleting a branch does not delete the worktree holding it, and git will not
+ * delete a branch that a worktree still has checked out — so the order is
+ * forced: detach the lane's worktree from the branch first (`git -C <tree>
+ * checkout --detach`), then delete the branch, then remove the tree.
+ */
+async function sweep(branch: string): Promise<void> {
+  if (!state.trunkTree) return;
+
+  // Detach here so the branch stops being "checked out somewhere" — otherwise
+  // `branch -d` refuses, correctly, and the sweep reads as a failure when it
+  // is only an ordering problem.
+  await git(["checkout", "--detach", "--quiet"], root);
+
+  const gone = await git(["branch", "-d", branch], state.trunkTree);
+  console.log(
+    gone
+      ? `  swept    ${branch}`
+      : `  ⚑ ${branch} still holds something git will not lose — left standing`,
+  );
+
+  if (root === state.trunkTree) return;
+  console.log(`  worktree ${root}`);
+  console.log(`           git worktree remove "${root}" — run it from ${state.trunkTree}`);
+}
+
+await sweep(branch);
+
 if (wantsPush) {
   const pushed = await git(["push", "origin", `${TRUNK}:${TRUNK}`]);
   console.log(pushed ? `  pushed   origin/${TRUNK}` : `  ⚠ push to origin/${TRUNK} failed`);
