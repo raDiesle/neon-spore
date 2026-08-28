@@ -80,6 +80,33 @@ describe("contactShadowFor", () => {
     expect(at.x).toBeCloseTo(under, 6);
   });
 
+  it("leans on a quadratic curve in the gap, not a linear one", () => {
+    // At the window's own far edge (t≈0) the lean is at its fullest; at the
+    // row exactly halfway through the window (t=0.5) a linear curve would
+    // have halved it, but the quadratic curve (1 - t²) has only shed a
+    // quarter of it — most of the lean survives into the second half of the
+    // fall, and the eye-catching collapse is saved for the stretch right
+    // before contact.
+    const start = CFG.rows - 1 - CFG.contactShadowLeadRows + 0.001;
+    const hull = CFG.rows - 1;
+    const mid = start + (hull - start) * 0.5;
+    const col = 5;
+    const far = contactShadowFor(CFG, L, creature(start, col), 0, []);
+    const halfway = contactShadowFor(CFG, L, creature(mid, col), 0, []);
+    expect(far).not.toBeNull();
+    expect(halfway).not.toBeNull();
+    if (!far || !halfway) return;
+    const footFar = creatureCenter(L, creature(start, col), 0).x;
+    const footMid = creatureCenter(L, creature(mid, col), 0).x;
+    const leanFar = far.x - footFar;
+    const leanMid = halfway.x - footMid;
+    // Both leaning the same way, and the midpoint clearly more than half of
+    // the far lean — a linear curve would land it at (very close to) half.
+    expect(leanFar).toBeGreaterThan(0);
+    expect(leanMid).toBeGreaterThan(leanFar * 0.6);
+    expect(leanMid).toBeLessThan(leanFar);
+  });
+
   it("stays a contact shadow: it never leaves the point under the body", () => {
     // The lean is what could turn this into a second body lying beside the
     // first. It does not, because it never exceeds the ellipse's own

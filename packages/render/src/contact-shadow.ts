@@ -82,6 +82,21 @@ const SHADOW_RGB = "7,6,15";
  * covers the point directly under the body for the whole of its travel. There
  * is never a gap between the two for an eye to read as two things.
  * `contact-shadow.test.ts` asserts that, so this cannot be raised quietly.
+ *
+ * **The gap-to-lean curve is quadratic, not linear, in `t`.** A directional
+ * light offsets a raised point by `height * tan(angle)`, which is linear in
+ * height and was this file's first guess. But `t` is not height — it is
+ * `nearness`, and a body's *actual* clearance over the hull for a given `t`
+ * is not a fixed fraction of the frame either: `depthScale` already dilates
+ * everything near the hull, which is the same fact stated the other way
+ * round — a step near contact reads as more of the remaining gap than the
+ * same step does far out. Scaling the lean by `1 - t²` instead of `1 - t`
+ * keeps it near its full value while the body is still mostly gap, so the
+ * two obvious cues (bigger, darker) carry the early fall, and lets it
+ * collapse sharply only in the last stretch — which is also where the eye
+ * already is, watching the body about to land. `1 - t` would have spent that
+ * same visible collapse gradually across the whole window instead of saving
+ * it for the moment that reads as the rock closing the last of the distance.
  */
 const LEAN = 0.9;
 
@@ -135,7 +150,7 @@ export function contactShadowFor(
   const { x } = creatureCenter(l, c, beatPhase);
   const bodyR = creatureRadius(l, c, beatPhase, cfg);
   const rx = bodyR * (START_MUL + (END_MUL - START_MUL) * t);
-  const lean = SHADOW_DIR.x * bodyR * LEAN * (1 - t);
+  const lean = SHADOW_DIR.x * bodyR * LEAN * (1 - t * t);
   return { x: x + lean, y: l.hullY, rx, ry: rx * ASPECT, alpha: t * cfg.contactShadowMaxAlpha };
 }
 
