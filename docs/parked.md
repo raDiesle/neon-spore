@@ -826,3 +826,35 @@ Worth knowing alongside it: the lane found that the reported drawn size is the
 sways wide is fitted small, so its resting body reads smaller than its frame
 suggests — which is exactly the case the floor exists to catch, and would have
 been missed by measuring either pose alone.
+
+## Two wobble sample sets disagree about one body
+
+2026-08-28 · claude/burn-body-context-s14
+
+The frame fit samples a wobble at five moments (`FIT_TIMES`); WIND's extent
+measurement used six. ECHO is the one catalogue entry the two disagree about —
+wide under one set, round under the other. The lane kept both rather than
+merging them, because reusing `FIT_TIMES` for the extent would have changed
+ECHO's picture, and a lane proving that nothing changed is not the place to
+change something.
+
+So there are two sample sets, and either that is right — the fit and the
+classification are different questions and may honestly want different
+samples — or one of them is wrong. Nobody has decided which. One body is
+affected, which is why it is parked rather than queued.
+
+## `poseAt` stays callable, which is how `axis` can be ignored
+
+2026-08-28 · claude/burn-body-context-s14
+
+`OwnMotion.axis` declares how a motion was written, and `poseOn(motion, t,
+long)` does the turning at the drawing site. But `poseAt(t)` still exists and
+still answers, so a caller that forgets gets a pose that quietly ignores the
+axis — the one failure mode the design leaves open, and the lane said so
+rather than leaving it to be found.
+
+A `COPIES` row in `purity.test.ts` is the mechanism for "called, not
+re-derived" and would catch it. It cannot be added today: `render/creatures.ts`
+calls `poseAt` directly and that call is correct, because no shipped motion
+declares an axis. The row becomes possible the day one does — and that is
+also the day it starts mattering.
