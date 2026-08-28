@@ -112,21 +112,6 @@ Finished when `bun run check` is green, the fringe stays welded to a wobbling co
 
 Model `sonnet`, effort `think hard`. The hard part is anchoring to a contour that changes shape every frame, not the sway. Read `docs/skins.md` and `contourAt` first.
 
-## SIX ANIMALS SOLVE THE SAME PROBLEM WITH THE SAME TRICK AND WE HAVE NONE OF IT
-_claude/burn-skin-tessellate-s4 · tools/director/src/skins/scale.ts tools/director/src/skins/carapace.ts_
-
-Behind s0. The tiling group: one machinery, two skins, because the hard part — laying a lattice over an arbitrary blob and making it follow the lobes instead of ignoring them — is shared, and is the whole job.
-
-**SCALE** — overlapping plates, each a rounded arc, laid in offset rows that follow the contour's own curvature and shrink toward the rim. Fish scales and snake scales are the same skin at two densities; pick the one that reads and say why in the commit rather than shipping both.
-
-**CARAPACE** — larger, harder, fewer: a beetle's or a turtle's back, plates separated by dark seams with a bright edge on the lit side of each. Where SCALE is many and soft, this is few and geometric, and the two must not converge — if they end up looking like one skin at two sizes, that is a finding and it goes in the commit.
-
-The plates are clipped to the body and must survive the wobble, so the lattice is generated in contour space and re-evaluated, never baked into fixed coordinates. Seeded from the name.
-
-Finished when `bun run check` is green, both are on the switcher, neither allocates per frame, and the commit carries a `Check:` asking whether the two read as different materials or as one lattice at two scales.
-
-Model `sonnet`, effort `think hard`. Read `docs/skins.md` first.
-
 ## A BODY CAN BE SOFT AND NOTHING ON THIS PAGE IS
 _claude/burn-skin-soft-s5 · tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
 
