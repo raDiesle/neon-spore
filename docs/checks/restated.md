@@ -236,3 +236,12 @@ other's wave number.
 - **changed** `tools/versus/candidates/ship-hull.warm` now patches `OWN_SKIN`'s four body stops, rim, edge and muzzle from violet to amber — the shipped record is untouched, and nothing outside the tool knows the candidate exists
 - **decide** at 26 px, with red creatures falling down the field, does an amber hull read as the player's own ship, or do the ship and the ammunition it is being shot with become one colour?
 - **where** the director's VERSUS tab, `ship:hull-skin`, once the pair lands — until then `bun run versus` names the slot and greps every reader of `OWN_SKIN`
+
+## `0063231` — the versus pair draws
+
+> the VERSUS tab draws two 380 x 820 phones side by side where before there was no tab at all — do the two phones read as one picture drawn twice, so the only thing an eye finds is the hull's colour, and does BLINK at 1 Hz sit still enough that the amber jumps out rather than the whole frame flickering? `DIRECTOR_HOST=127.0.0.1 bun run dev`, the backlog sheet's VERSUS tab, `ship:hull-skin` on SLICK · FALLING, then the BLINK button.
+
+- **subject** the VERSUS tab on the director's backlog sheet, and the pair of live phones it draws for the `ship:hull-skin` slot
+- **changed** there was no VERSUS tab; there is now one showing one open slot as two `Canvas2DRenderer`s at 380 × 820 uncapped, stepping a single `World` and sharing a single `ViewState`, with `Math.random` seeded the same on both sides — measured as byte-identical everywhere except the hull band at y 533–615
+- **decide** do the two sides read as one picture drawn twice with only the hull's colour differing, and does BLINK at 1 Hz hold still enough that the amber is what jumps out rather than the whole frame?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, the backlog sheet's VERSUS tab, `ship:hull-skin` on the SLICK · FALLING pose, then the BLINK button
