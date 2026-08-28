@@ -63,6 +63,71 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## A RELOAD PUTS YOU BACK AT THE TOP AND ASKS IF YOU MEANT IT
+_claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
+
+The owner works in the director while lanes land behind them, so the page
+reloads under them several times an hour — and every reload costs them the tab
+they were on, the wave they were looking at, and a dialog asking whether they
+meant to lose changes. Fifty-odd checks are waiting on that person looking at
+things. Friction here is not a nicety; it is the tax on the one activity
+nothing else in this repository can do.
+
+**`bun --hot` cannot fix this and it is worth saying why.** It re-evaluates
+`server.ts` in the same process — that is *server* state, and the comment in
+that file says so. A browser page load is a fresh document either way, so
+anything held only in a module-level variable is gone by construction. The fix
+is not a bun flag; it is to stop keeping the state only in memory.
+
+**Put the place in the URL.** Which tab, and which wave index. `location.hash`
+or a query string, written with `history.replaceState` on every change so it
+never grows a history entry per click, and read once on load. That buys three
+things and only one of them was asked for: a reload returns you where you
+were; back and forward start working; and a link now names a place, so
+`?tab=shapes&wave=7` can be sent to a phone or pasted into a `Check:`
+trailer's *where* row. That last one compounds — every check written from now
+on could point at exactly the thing rather than describing the route to it.
+
+Keep the vocabulary small and stable: a tab name and an index, nothing that
+needs escaping, nothing that breaks when a panel is renamed. **An unknown or
+malformed value must fall back silently to the default** rather than throwing —
+a URL outlives the code that wrote it, and a link from three weeks ago should
+open the page rather than a blank screen.
+
+**Then the dialog, which is a different problem wearing the same coat.**
+`main.ts` guards `beforeunload` on `store.dirty`, which is honest — the store
+holds `WAVES` cloned for editing and `dirty` means real unsaved work. The
+warning is not wrong; it is just the *only* thing offered, and "warn and lose
+it" is the weakest of the available answers.
+
+So save the draft instead. `store.waves` and `store.index` to `localStorage`
+on change, debounced; on load, if a draft differs from the shipped `WAVES`,
+**say so visibly and let the owner choose** — a small line at the top of the
+editor naming what was recovered, with restore and discard. Then `beforeunload`
+can go entirely, because nothing is lost by reloading.
+
+**Restoring silently is the trap, and it is worse than the dialog.** A draft
+recovered without saying so means the owner is editing yesterday's unfinished
+change while believing they are looking at what ships, and every judgement they
+make from that page is about the wrong thing. Visible, dismissable, and it
+names the wave it belongs to.
+
+**Scope, deliberately.** The SHAPES skin/motion/LIT state and the VERSUS slot
+live in their own panels and are *not* in this lane — they would drag four
+files two other lanes are working in. Design the URL vocabulary so they can be
+added later without changing what this lane writes, and say in the commit what
+the next key would be called.
+
+Finished when `bun run check` is green, a reload returns to the same tab and
+wave, back and forward work, an unknown URL value opens the default page
+rather than failing, an unsaved wave edit survives a reload behind a visible
+prompt, and `beforeunload` is gone. The commit carries `Check: after a lane
+lands and the page reloads under you, are you still where you were?`
+
+Model `sonnet`, effort `think hard`. The judgement is what belongs in a URL
+that outlives the code that wrote it; the storage is arithmetic. Read
+`tools/director/src/main.ts` and `bindTabs` first.
+
 ## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
 _claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts_
 
