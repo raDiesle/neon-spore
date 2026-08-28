@@ -45,7 +45,7 @@
 import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { WAVES } from "@neon-spore/content";
+import { pathToFileURL } from "node:url";
 import { findRestatedForCommit, parseRestated, type Restated } from "../checks/restated.js";
 import { checksIn } from "../checks/trailers.js";
 import { captureFrames, type FrameSpec } from "./capture.js";
@@ -293,6 +293,35 @@ async function readdirSafe(dir: string): Promise<string[]> {
 }
 
 /**
+ * The wave list as it stood at `rev`, read out of *that* commit's own
+ * `packages/content/src/waves.ts` — not the working tree's copy.
+ *
+ * `docs/queue.md`, "FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS THE
+ * RIGHT NAME WHILE IT DOES": a name only lived at the index it held in the
+ * tree that named it. `captureAt` already makes a scratch worktree and runs
+ * `bun install` in it to build the game at a historical commit; this makes
+ * the same kind of checkout to answer the name → index question inside it,
+ * so the answer and the build it feeds are never talking about two different
+ * lists. `bun install` is needed because `waves.ts` reaches `@neon-spore/sim`
+ * through `maze-rounds.ts`, and that import only resolves once the workspace
+ * link exists in this checkout's own `node_modules`.
+ */
+export async function waveNamesAt(rev: string): Promise<WaveName[]> {
+  const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-waves-"));
+  await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
+  await git(["worktree", "add", "--detach", scratch, rev]);
+  try {
+    await run(["bun", "install"], scratch);
+    const url = pathToFileURL(join(scratch, "packages/content/src/waves.ts")).href;
+    const mod = (await import(url)) as { WAVES: readonly WaveName[] };
+    return mod.WAVES.map((w) => ({ name: w.name }));
+  } finally {
+    await git(["worktree", "remove", "--force", scratch]).catch(() => {});
+    await rm(scratch, { recursive: true, force: true }).catch(() => {});
+  }
+}
+
+/**
  * Resolves a commit's own `Check:` trailers — read straight off the commit,
  * not guessed from a filename — to whichever restated entries quote them,
  * and picks the first `where` among those that names an actual wave.
@@ -309,8 +338,17 @@ async function readdirSafe(dir: string): Promise<string[]> {
  * first already resolves); if none of them do, the first non-"unknown"
  * reason is reported so the refusal explains itself instead of just saying
  * "no wave".
+ *
+ * `waves` is the caller's to supply, and must be the list as it stood at
+ * `sha` — see `waveNamesAt` — not today's `WAVES`. A "name" resolution's
+ * `.index` is a position in whichever list is passed in, so passing the
+ * wrong one is exactly the fault `docs/queue.md`'s "FRAMES PUTS THE WRONG
+ * WAVE IN THE PICTURE" describes.
  */
-export async function deriveWaveFromChecks(sha: string): Promise<WaveResolution> {
+export async function deriveWaveFromChecks(
+  sha: string,
+  waves: readonly WaveName[],
+): Promise<WaveResolution> {
   const full = await git(["rev-parse", sha]).catch(() => null);
   if (!full) return { kind: "unknown", reason: `no commit found for ${sha}` };
   const body = await git(["log", "-1", "--format=%B", full]);
@@ -333,7 +371,7 @@ export async function deriveWaveFromChecks(sha: string): Promise<WaveResolution>
   let fallback: WaveResolution | null = null;
   for (const r of restated) {
     if (!r.where) continue;
-    const resolved = resolveWaveText(r.where, WAVES);
+    const resolved = resolveWaveText(r.where, waves);
     if (resolved.kind === "hud" || resolved.kind === "name") return resolved;
     if (!fallback) fallback = resolved;
   }
@@ -394,17 +432,24 @@ async function main(): Promise<void> {
   const out = outFlag === -1 ? join(root, "docs/checks/frames", sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
 
+  const parent = await git(["rev-parse", `${sha}^`]);
+  const full = await git(["rev-parse", sha]);
+
+  // The name → index answer belongs to `full`'s own tree, not the working
+  // tree's — a wave inserted since `full` shifts everything after it.
+  const historicalWaves = await waveNamesAt(full);
+
   const waveFlagIndex = argv.indexOf("--wave");
   let waveIndex: number;
   if (waveFlagIndex !== -1) {
     const value = argv[waveFlagIndex + 1];
     if (!value) throw new Error("--wave needs a number or a wave name");
-    waveIndex = resolveWaveFlag(value, WAVES);
+    waveIndex = resolveWaveFlag(value, historicalWaves);
     console.log(
-      `wave: ${value} → index ${waveIndex} (${WAVES[waveIndex]?.name ?? "beyond the authored waves"})`,
+      `wave: ${value} → index ${waveIndex} (${historicalWaves[waveIndex]?.name ?? "beyond the authored waves"})`,
     );
   } else {
-    const resolution = await deriveWaveFromChecks(sha);
+    const resolution = await deriveWaveFromChecks(sha, historicalWaves);
     if (resolution.kind === "director") {
       throw new Error(
         `${resolution.reason} — nothing to screenshot here. Pass --wave to point this at a wave instead.`,
@@ -414,7 +459,7 @@ async function main(): Promise<void> {
       throw new Error(`${resolution.reason} — pass --wave N or --wave "NAME" explicitly.`);
     }
     waveIndex = resolution.kind === "hud" ? resolution.hudNumber - 1 : resolution.index;
-    const name = WAVES[waveIndex]?.name ?? "beyond the authored waves";
+    const name = historicalWaves[waveIndex]?.name ?? "beyond the authored waves";
     console.log(`wave: ${resolution.reason} → index ${waveIndex} (${name})`);
   }
 
@@ -424,9 +469,6 @@ async function main(): Promise<void> {
     frames: flag("frames", 1),
     strideTicks: flag("stride", 4),
   };
-
-  const parent = await git(["rev-parse", `${sha}^`]);
-  const full = await git(["rev-parse", sha]);
 
   const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
   const start = Date.now();

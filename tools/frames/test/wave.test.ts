@@ -3,7 +3,13 @@ import { mkdtemp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
-import { deriveWaveFromChecks, framesIdentical, resolveWaveFlag, resolveWaveText } from "../run.js";
+import {
+  deriveWaveFromChecks,
+  framesIdentical,
+  resolveWaveFlag,
+  resolveWaveText,
+  waveNamesAt,
+} from "../run.js";
 
 /**
  * `docs/queue.md`, "A FRAME OF THE WRONG WAVE PROVES NOTHING" — three faults
@@ -108,26 +114,26 @@ describe("resolveWaveFlag", () => {
 
 describe("deriveWaveFromChecks", () => {
   it("resolves docs/checks/4e577db.md's `wave 21` the same way resolveWaveText does", async () => {
-    const r = await deriveWaveFromChecks("4e577db");
+    const r = await deriveWaveFromChecks("4e577db", WAVES);
     expect(r).toMatchObject({ kind: "hud", hudNumber: 21 });
   });
 
   it("resolves docs/checks/18036b0.md to THE THIRD SHOT by name", async () => {
-    const r = await deriveWaveFromChecks("18036b0");
+    const r = await deriveWaveFromChecks("18036b0", WAVES);
     expect(r).toMatchObject({ kind: "name", name: "THE THIRD SHOT" });
   });
 
   it("refuses docs/checks/00c0d87.md — a director-only where field", async () => {
-    const r = await deriveWaveFromChecks("00c0d87");
+    const r = await deriveWaveFromChecks("00c0d87", WAVES);
     expect(r.kind).toBe("director");
   });
 
   it("falls through 16efb33.md's first 'any wave' entry rather than its second, name-less one", async () => {
-    const r = await deriveWaveFromChecks("16efb33");
+    const r = await deriveWaveFromChecks("16efb33", WAVES);
     expect(r).toMatchObject({ kind: "hud", hudNumber: 1 });
   });
 
-  it("finds the restatement by trailer text for a commit whose file is named after a different, pre-rebase sha", async () => {
+  it("finds the restatement by trailer text for a commit whose file is named after a different, pre-rebase sha, and resolves the index against that commit's OWN wave list", async () => {
     // docs/queue.md, "THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER
     // A COMMIT THAT NEVER LANDED" — 35d59d4 is on `main` right now; its
     // restatement was written before `bun run land` rebased it, and sits
@@ -135,13 +141,34 @@ describe("deriveWaveFromChecks", () => {
     // docs/checks/35d59d4.md finds nothing — this is the exact repro the
     // brief gives (`bun run frames 35d59d4`), and the fix is a join on the
     // trailer's own text, not on the filename.
-    const r = await deriveWaveFromChecks("35d59d4");
-    expect(r).toMatchObject({ kind: "name", name: "THE THIRD SHOT" });
+    //
+    // docs/queue.md, "FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS THE
+    // RIGHT NAME WHILE IT DOES" — this is the trap the brief warns about:
+    // every test above passes against today's `WAVES`, which is exactly the
+    // assumption being broken. At `35d59d4` there were 24 authored waves and
+    // THE THIRD SHOT sat at index 19; today there are 25 (THE MAZE was
+    // inserted ahead of it) and it sits at 20. Passing `WAVES` here would
+    // pass this test while reproducing the bug — the historical list from
+    // `waveNamesAt` is what makes the index assertion actually catch it.
+    const historical = await waveNamesAt("35d59d4");
+    expect(historical.length).toBe(24);
+    const r = await deriveWaveFromChecks("35d59d4", historical);
+    expect(r).toMatchObject({ kind: "name", name: "THE THIRD SHOT", index: 19 });
   });
 
   it("reports unknown for a sha with no docs/checks file", async () => {
-    const r = await deriveWaveFromChecks("0000000");
+    const r = await deriveWaveFromChecks("0000000", WAVES);
     expect(r.kind).toBe("unknown");
+  });
+});
+
+describe("waveNamesAt", () => {
+  it("reads today's WAVES from the working tree's own HEAD commit", async () => {
+    const head = await Bun.$`git rev-parse HEAD`
+      .cwd(join(import.meta.dir, "..", "..", ".."))
+      .text();
+    const names = await waveNamesAt(head.trim());
+    expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
   });
 });
 
