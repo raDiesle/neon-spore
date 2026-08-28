@@ -96,6 +96,49 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## A FRAME OF THE WRONG WAVE PROVES NOTHING, AND IT TOOK THREE TRIES TO AVOID
+_claude/burn-frames-aim-y8 · tools/frames/run.ts tools/frames/capture.ts_
+**Asked for by the owner.** — the half the frames lane could not reach.
+
+`bun run frames <sha>` works and costs about twelve seconds a pair. Using it on
+the shell creature the day it landed took **three runs**, and the first two
+produced honest, comparable, completely useless pictures: the default is wave
+1, so the pair showed a wave the change could not appear in. A tool whose
+output is a real frame of the wrong thing is worse than one that refuses,
+because the picture looks like evidence.
+
+**Two separate faults, and the second is the one that wasted the tries.**
+
+**It does not know where to look.** The commit knows: `docs/checks/<sha>.md`
+carries a `where` field naming the place a person should stand, and most of
+them name a wave or a page. Read it. If `where` names a wave, open that wave;
+if it names a director page, say so and refuse rather than screenshotting the
+game. A `--wave` flag stays for the cases the field cannot express.
+
+**`--wave N` is off by one against every other way a wave is named.** Passing
+`--wave 20` opened the wave the HUD calls **W21**. Whichever end is wrong, a
+number that means something different here than in the wave list, the director
+and the HUD is a trap for every future use. Fix it so one wave has one number,
+and **take a name too** — `--wave "THE THIRD SHOT"` is what a person actually
+has in hand, and it cannot be off by one.
+
+**And say when nothing moved.** If the two frames are identical, the tool
+should say so instead of writing them. That single line would have caught both
+wasted runs at once, and it is also the guard for the rule the run works to: a
+picture of an unchanged field teaches nothing and trains the eye to skip the
+next one.
+
+Finished when `bun run check` is green, a commit whose restatement names a wave
+is captured on that wave with no flag at all, a wave can be given by name, the
+number agrees with the HUD, an identical pair is reported rather than written,
+and the commit carries `Check: does bun run frames, given only a sha, put the
+change in the picture?`
+
+Model `sonnet`, effort `think hard`. Read `docs/checks/` for what `where`
+actually contains across two dozen entries before deciding how to parse it —
+the field is prose, and a parser that only understands one phrasing is the same
+trap in a new place.
+
 ## A RELOAD KEEPS THE PLACE AND FORGETS EVERYTHING ELSE
 _claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
 **Asked for by the owner.**
