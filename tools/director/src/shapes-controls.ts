@@ -1,6 +1,15 @@
 /**
- * The control row above the SHAPES catalogue and its `shapes-all.ts` cousin:
- * a skin, a motion and a light, each picked once for the whole page.
+ * The control row above whichever of SHAPES's two views is showing: which
+ * view, a skin, a motion and a light, each picked once for the whole page.
+ *
+ * VIEW was added when the owner asked for the transpose — one body walked
+ * across every skin, every motion and both lights — to be the page's default,
+ * with the sixty-body catalogue behind a toggle they named ADVANCED. It sits
+ * beside the three axis groups rather than among them: SKIN, MOTION and
+ * LIGHT say what a body is wearing, and VIEW says which half of the page is
+ * showing it. The two `shapes-view-*` elements it switches live in
+ * `index.html`; this file only sets their `display` and does not own the
+ * markup inside either.
  *
  * It used to be one undivided run of buttons — twenty skins, then the light,
  * then OWN and every spare motion, separated only by a one-character tag set
@@ -40,6 +49,38 @@ import {
   toggleLit,
 } from "./shapes-pair.js";
 import { SKINS } from "./skins/index.js";
+
+export type ShapesView = "transpose" | "advanced";
+
+/** Which of the two views is showing. TRANSPOSE, because that is the default
+ * the owner asked for — see this file's header. */
+let view: ShapesView = "transpose";
+
+/**
+ * Shows the picked view's element and hides the other. Called on every
+ * `controlBar` build (not only on a VIEW click) so the two stay in step with
+ * `view` even if something else rebuilt the page around them.
+ */
+function applyView(): void {
+  const transpose = document.getElementById("shapes-view-transpose");
+  const advanced = document.getElementById("shapes-view-advanced");
+  if (transpose) transpose.style.display = view === "transpose" ? "" : "none";
+  if (advanced) advanced.style.display = view === "advanced" ? "" : "none";
+}
+
+/**
+ * Switches the view and, only when it actually changed, scrolls the sheet
+ * back to the top. Landing in the middle of a sixty-card grid after leaving
+ * the middle of the transpose is a small thing that would irritate every
+ * single time, so a switch always opens on what it switched to rather than
+ * wherever the reader had scrolled the other view to.
+ */
+function setView(next: ShapesView): void {
+  if (next === view) return;
+  view = next;
+  applyView();
+  document.getElementById("backlogBody")?.scrollTo({ top: 0 });
+}
 
 function button(host: HTMLElement, label: string, on: boolean, hint: string, pick: () => void) {
   const b = document.createElement("button");
@@ -86,12 +127,46 @@ function group(
 }
 
 /**
- * The whole control row, built once above the drafts (and, through
- * `shapes-all.ts`'s three grids, read again at the foot of the page).
+ * The whole control row, built once above whichever of the two views is
+ * showing — VIEW picks between them, and SKIN, MOTION and LIGHT are read by
+ * both: `shapes-panel.ts`'s catalogue cards and, through `shapes-all.ts`'s
+ * three grids, the transpose.
  */
 export function controlBar(host: HTMLElement, rerender: () => void): void {
   host.replaceChildren();
   host.classList.add("control-bar");
+  applyView();
+
+  group(
+    host,
+    "VIEW",
+    `Which half of the page is showing — independent of the skin, motion and ` +
+      `light below; either view can show any combination of them. TRANSPOSE ` +
+      `walks one body across every option; ADVANCED is the sixty-body ` +
+      `catalogue where the combinations get set. Now: ${view === "transpose" ? "TRANSPOSE" : "ADVANCED"}.`,
+    (row) => {
+      button(
+        row,
+        "TRANSPOSE",
+        view === "transpose",
+        "one body, drawn once per skin, once per motion, once per light state",
+        () => {
+          setView("transpose");
+          rerender();
+        },
+      );
+      button(
+        row,
+        "ADVANCED",
+        view === "advanced",
+        "the sixty-body catalogue, where a shape and an idea meet",
+        () => {
+          setView("advanced");
+          rerender();
+        },
+      );
+    },
+  );
 
   group(
     host,

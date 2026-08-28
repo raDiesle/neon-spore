@@ -2,6 +2,14 @@
  * The transpose of the SHAPES tab: one body, drawn once per option, on one
  * screen — the third and last thing `docs/decisions.md` #24 asked for.
  *
+ * This is what SHAPES opens on now. The owner used the sixty-body catalogue
+ * beside this grid for an afternoon and said the question they actually open
+ * the page to ask is the one this file answers, not that one — so `index.html`
+ * shows this grid first and holds the catalogue behind `shapes-controls.ts`'s
+ * ADVANCED toggle. Nothing below changed for that: this file still just fills
+ * `shapesAllBody`/`shapesAllSkins`/`shapesAllMotions`/`shapesAllLight`
+ * whenever `renderShapes` runs, whether or not they are the visible half.
+ *
  * SHAPES draws sixty bodies wearing one skin, which answers "does this skin
  * work on the catalogue." It cannot answer the other question the owner
  * actually has now that there are twenty skins to choose among: does *this*
