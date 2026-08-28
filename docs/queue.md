@@ -50,6 +50,156 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## THE INTERLUDE STOPS BEING A CATEGORY AND BECOMES TWELVE BOSSES
+_claude/burn-interludes-to-bosses · packages/sim/src/interlude.ts packages/sim/src/gauge.ts packages/content/src/interludes.ts packages/content/src/control-sets.ts packages/render/src/interlude.ts packages/render/src/gauge.ts docs/spec/interludes.md docs/decisions.md_
+**Asked for by the owner.** **This is the next thing done.**
+
+> ich schlage vor, dass wir alles zu "the gauge" in eine boss wave umwandeln.
+> keine konfiguration für einzelne waves. das passt viel besser.
+>
+> yes, convert all related "interludes" to be a boss wave instead. and this boss
+> wave comes with special control sets. so we need to convert to boss wave and a
+> control set, which we assign to its boss wave. later on we might reuse the
+> controls.
+>
+> so remove completely the interlude principle and implementation pattern
+
+**Decided, not open.** Three questions were put to the owner and all three are
+answered. Nothing below is a proposal; the lane builds it.
+
+1. **The round keeps its own screen.** The field is still gone during one — no
+   grid, no hull drawn, nothing falling, the round's own picture over the whole
+   stage. What is deleted is only *how the round is reached*.
+2. **The pair can die in one.** The old rule that an interlude may never end the
+   run is retired by name.
+3. **The run grows more acts.** Twelve rounds become twelve bosses, and the act
+   table grows to hold them rather than the rounds squeezing between numbers.
+
+### What is deleted
+
+The whole reaching mechanism, and every trace of the category:
+
+- `GAPS` in `packages/content/src/interludes.ts`, keyed by the wave it precedes.
+- The `cfg.interludes` toggle and every place that reads it, including the
+  director's PAIR panel row and `DEMONSTRATIONS`' `config: { interludes: true }`.
+- The **second meaning of `needWave`** — `enterInterludeIfDue`,
+  `world.interludeDone`, and the host asking whether the gap in front of the
+  next wave carries a round before it builds one.
+- `docs/spec/interludes.md` as a description of a category, and
+  `docs/decisions.md` #20 and #21 as statements about a thing that no longer
+  exists. **Rewrite them, do not delete them.** #21 in particular carries the
+  reasoning about why the no-travel rule binds the field and not the game, and
+  that reasoning survives its subject: a boss that draws its own screen is
+  exactly as free of the column vocabulary as an interlude was. A decision
+  removed without its argument is an argument somebody makes again in six
+  months.
+
+### What survives, unchanged
+
+`gauge.ts`'s arithmetic — the needle, the drifting band, the call and its rest,
+`gaugeMarks`, `gaugeRoundBeats`. The two role predicates `showsGaugeMarks` and
+`showsGaugeValve`. The three phases, if they are still wanted as a shape; they
+belong to the round now rather than to a shell. None of it cares what reaches
+it, and none of it should change in this lane.
+
+### The controls become a real control set, and that is the interesting half
+
+`control-sets.ts`'s header currently refuses to register the gauge's controls,
+and **it refuses on the exact ground this change removes**:
+
+> It is deliberately not registered here, because the thing that reaches for it
+> is a *round*, not a wave, and every set in this file must be reachable by
+> naming it on a wave.
+
+Make the round a wave and the objection dissolves. That paragraph is also the
+one that already worked out the shape — *"whole, per-seat, enumerable, and
+un-composable with the band"* — and it says the layout below it is what the
+gauge's panel would take if a later lane ever wanted both lists on one page.
+This is that lane. Read it before designing anything.
+
+**The one thing to work out.** A set in that file today describes the *band* —
+the strip of buttons the field is played on. The gauge's three slabs are not a
+band: they replace it entirely, they are per-seat, and `interludeControls`
+lays them out geometrically by dividing the width by however many that seat
+has. So a set has to be able to say *"I am not a band, I am my own panel"*, and
+`control-sets.ts` has to carry both kinds without the field's own sets learning
+anything new. Get that boundary right and the other eleven cost one entry each;
+get it wrong and every future round re-invents a panel.
+
+The three readers of `interludeControls` follow it wherever it goes: the draw,
+the game's hit test, and — since `916f811` — the director's. All three read one
+layout on purpose, so a control is never drawn where it is not answered. Keep
+that property; it is worth more than the file it currently lives in.
+
+### The per-boss configuration already exists, twice, and no third is wanted
+
+The owner: *"every boss wave might need then a special configuration. but this
+concept we already have, i guess"* — correct, and the lane must use what is
+there rather than inventing a place to put a round's settings.
+
+**Two mechanisms, and the line between them is already drawn.**
+
+`SimConfig` is the **run's tuning**, split into per-subject blocks that it
+extends flatly — `config-boss.ts`, `config-pair.ts`, and `config-gauge.ts`,
+which holds THE GAUGE's six numbers today. Every call site still reads
+`cfg.gaugeMarks`; the split is only about how much of one file a reader holds
+at once. Tuning is never written to `waves.ts`.
+
+The wave's own `boss:` entry is the **authored content** — `{ kind: "queen",
+col: 3, petals: 9 }`, `{ kind: "maze", rounds: MAZE_ROUNDS }`. That is where a
+particular encounter's shape lives.
+
+`config-gauge.ts`'s header has already thought this through and says so:
+
+> an interlude is a round of its own, and the next eleven will each want a
+> block like this rather than another twenty lines in the middle of the field's
+> own tunables.
+
+So the answer for each of the twelve is: a `config-<round>.ts` block for its
+numbers, a `boss:` entry for its authored content, and nothing else. If a round
+seems to need a third home, that is a sign its data is on the wrong side of the
+line — say so in the report rather than adding one.
+
+### The pair can die, and the field is gone — both at once
+
+These look contradictory and are not, but the lane must implement one specific
+reading and say so in the commit. **The round does not draw a hull and the hull
+is still at stake:** the field's picture is absent, `world.hull` persists
+underneath, and failing the round costs it. A run can therefore end in a round.
+The old sentence in `interludes.md` — *"A run ends on the field, on a hull that
+reached zero, in the coordinate system the pair has been naming out loud all
+evening"* — is retired, and the commit says it is retired rather than leaving
+two documents disagreeing.
+
+What failure costs is a number and it is the owner's to tune later, so put it in
+`SimConfig` as a named field and do not spend the lane arguing about its value.
+
+### Order of work
+
+**Do the gauge first and land it before touching the other eleven.** It is the
+only one built, so it is the only one that can prove the new arrangement runs.
+The remaining eleven are spec entries and become queue entries once the gauge
+has landed as a boss — one each, and the report says so rather than this lane
+trying to carry twelve rounds that do not exist yet.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes,
+`grep -ri interlude` finds nothing outside the rewritten decisions and the
+spec's own history, THE GAUGE is reachable as `boss: { kind: "gauge" }` on a
+wave with a named control set, and the commit carries
+
+`Check: played as a boss wave, does THE GAUGE still feel like a break from the field, or like a wave you are not allowed to shoot`
+
+`Check: can the pair actually lose the run inside a round now, and does losing it read as losing rather than as a bug`
+
+Model `opus`, effort `ultrathink`. This removes a category the game was
+organised around and the unpick test is unambiguous: eleven unbuilt rounds are
+specced against what is being deleted, and the control-set boundary decided here
+is the one every one of them will inherit. Spend the thinking on **the
+control-set boundary and on what the rewritten #20/#21 should say** — the
+conversion itself is mechanical. Read `docs/spec/interludes.md` in full,
+`docs/decisions.md` #20 and #21, `packages/content/src/control-sets.ts` in full,
+and `packages/sim/src/interlude.ts`.
+
 ## A METEOR THROWS A SHADOW ONTO THE SHIP, AND IT GATHERS AS IT FALLS
 _claude/burn-meteor-shadow · packages/render/src/contact-shadow.ts packages/render/test/contact-shadow.test.ts_
 **Asked for by the owner.**
@@ -591,96 +741,3 @@ Model `sonnet`, effort `think`. Read `packages/render/src/queen.ts` in full and
 goes on the third check — a shake that costs the pair any confidence about which
 column they are on is a shake that has to come back down, however good it looks
 standing still.
-
-## THE GAUGE BECOMES A BOSS, AND THE INTERLUDE SHELL LOSES ITS ONLY TENANT
-_claude/burn-gauge-boss · packages/sim/src/gauge.ts packages/sim/src/interlude.ts packages/content/src/interludes.ts packages/render/src/gauge.ts packages/render/src/interlude.ts packages/sim/test/gauge.test.ts_
-**Asked for by the owner.**
-
-> ich schlage vor, dass wir alles zu "the gauge" in eine boss wave umwandeln.
-> keine konfiguration für einzelne waves. das passt viel besser.
-
-*(THE GAUGE becomes a boss wave; no per-wave configuration.)*
-
-**What they are asking to delete is real and worth deleting.** Today THE GAUGE
-is reached through three separate things: `GAPS` in
-`packages/content/src/interludes.ts`, keyed by the wave it precedes; a
-`cfg.interludes` toggle; and the second meaning of `needWave`, where the host
-asks whether the gap in front of the next wave carries a round before it builds
-one. A boss needs none of that — `boss: { kind: "gauge" }` on a wave, the same
-line THE MIRROR and THE MAZE already have, and the wave list is the only place
-that says where it happens.
-
-### The thing this costs, which the owner should decide with open eyes
-
-`docs/spec/interludes.md` is explicit about why THE GAUGE was built first:
-
-> THE GAUGE still went first, and for a better reason than caution: it is the
-> smallest, so the shell it dragged in was the visible part of the work.
-
-**The gauge was the tenant; the shell was the point.** `interlude.ts` in `sim`
-and in `render`, the three phases, `closeInterlude`, the `needWave` seam — all
-of it exists to carry *twelve* rounds, of which eleven are specced and unbuilt
-(THE CLAW, THE BELT, THE WELL, THE VAULT, THE ACCORD, THE DUET, THE SPLICE, THE
-REPRISE, THE EDGE, THE LATHE, SNAKE). Move the gauge out and the shell has no
-built round in it at all.
-
-So the lane must ask, and must not answer: **does the interlude shell stay
-standing with no tenant, or does it go too?**
-
-- **Stays.** The gauge becomes a boss, the shell keeps its tests and waits for
-  the first of the eleven. Cheap now, and the risk is a machine nobody
-  exercises — an untenanted shell rots, and the next round to want it finds it
-  broken in ways no test caught.
-- **Goes.** The eleven come back as bosses as well, and `docs/decisions.md` #20
-  and #21 are rewritten rather than left saying something the code no longer
-  does. That is the honest version of "das passt viel besser" and it is much
-  more than one lane.
-
-**There is a real argument that the owner is right**, and the brief says so
-rather than defending the existing shape out of habit. Decision #21 exists
-because the no-travel rule blocked THE CLAW, THE BELT and THE WELL, and it
-settled that the rule binds the *field*. But a boss already suspends the field's
-ordinary business — THE MIRROR takes every control away for a few beats
-(`mirrorHoldsControls`), which is the same move an interlude makes, done inside
-the boss machinery that already exists. If a boss can hold the controls, a boss
-can hold a round; and then the shell is a second way to do one thing.
-
-**What it costs the run's shape, and this is the part not to skip.** An
-interlude sits *between* numbered waves on purpose — `docs/spec/interludes.md`
-says a numbered interlude would shift every save point in the game by one per
-act, and a boss holds the tenth slot of an act. So a gauge that becomes a boss
-is a gauge that takes an act slot from a boss, in a game whose acts are already
-laid out. Say what happens to the act structure, in the report, before writing
-code: this is the question the German sentence does not answer and the one that
-decides whether the change is small or large.
-
-### If it is built
-
-Everything about the round itself survives untouched. `gauge.ts`'s arithmetic,
-the needle, the drifting band, the call and its rest, the two role predicates
-`showsGaugeMarks` and `showsGaugeValve` — none of that cares what shell calls
-it, and none of it should change. What changes is only how the round is
-reached: a `kind` on a wave's `boss` field, and `GAPS`, `cfg.interludes` and the
-`needWave` second meaning removed with everything that referenced them.
-
-The controls come with it. `interludeControls` builds the three slabs and is
-read by the draw, by the game's hit test and — since `916f811` — by the
-director's. All three follow the round wherever it goes; none of them is a
-control set in `control-sets.ts` and none should become one, for the reason that
-file's header already gives.
-
-Finished when `bun run check` is green, `bun run test:determinism` passes,
-nothing in `docs/spec/` or `docs/decisions.md` still describes a mechanism the
-code no longer has, and the commit carries
-
-`Check: played as a boss, does THE GAUGE still feel like a break from the field, or does it now feel like a wave you cannot shoot`
-
-Model `opus`, effort `think harder` — this restructures how a round is reached
-and the unpick test is unambiguous: `needWave`'s second meaning, `GAPS` and the
-interlude shell are premises other work is specced against, and unpicking them
-later costs whoever comes to build THE WELL. Spend the thinking on **what
-happens to the eleven, and to the act structure**, before touching `gauge.ts` —
-the conversion itself is mechanical and the consequences are not. Read
-`docs/spec/interludes.md` in full, `docs/decisions.md` #20 and #21, and
-`packages/sim/src/interlude.ts`. Stop and report if the answer to either
-question is not obvious; do not decide the fate of eleven rounds inside a lane.
