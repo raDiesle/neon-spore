@@ -251,6 +251,77 @@ Finished when `bun run check` is green, `frame.test.ts` still passes through the
 
 Model `opus`, effort `think hard`. Think hard about the gate interaction before you pick a number; it is the part that turns this from three multipliers into a decision. Read `docs/spec/graphics.md` and `packages/render/src/layout.ts` first.
 
+## THE GAME HAS A SHEEN, A RIM AND A CRATER, AND NO IDEA WHERE THE LIGHT IS
+_claude/burn-depth-light-d3 · packages/render/src/key-light.ts packages/render/test/key-light.test.ts packages/content/src/light.ts_
+
+The owner asked for shadow and light in the game itself, and the gap is exact:
+**the key light exists only in the tool.** `tools/director/src/skins/light.ts`
+has the direction, the terminator, the contact shadow, the specular and the
+rim, and by the skin block's own doctrine nothing in that directory may touch
+`packages/render`. Meanwhile the game draws a hull sheen, a rimmed crater and a
+glow on every body — all of which imply a light, and none of which names one.
+A grep for a light direction across `packages/render` returns prose.
+
+So the field is lit from nowhere in particular, and that is why it reads flat
+however good each individual effect is: five things each implying a slightly
+different source is exactly the twelve-directions failure the card lane was
+built to prevent, arriving in the shipping renderer instead.
+
+**The first decision is where the direction lives, and it is a real one.** The
+director's skins may not import `packages/render`, and `packages/render` may
+not import `tools/`. So one constant now has to be readable from two places
+that are forbidden to reach each other. Two honest answers: put it in
+`packages/content`, which both already read and which is data rather than code
+— a unit vector breaks no purity rule; or duplicate it and add a `COPIES` row
+to `packages/sim/test/purity.test.ts`, which exists precisely for a rule that
+must be called rather than re-derived. **Prefer content.** Say which and why in
+the commit, and if it is content, note that this is the first drawing fact to
+live there and argue that it belongs.
+
+**What gets lit, and what deliberately does not.** The hull first: it is on
+screen every frame, it is the player's own ship, and it carries no ammunition
+colour. Then rocks and the meteor, which are inert by fiction and are the one
+body whose volume is already better than the creatures' — `drawMeteor` builds a
+linear gradient today, so it has an implied direction that should become the
+shared one, and if its current implied direction disagrees with `KEY` that
+disagreement is already on screen and worth naming.
+
+**Creatures are held back, and the reason is a rule rather than caution.**
+`docs/alive.md` refuses a hue split on a body in a wave, because a creature's
+red-or-cyan is a gameplay fact the pair says out loud across a two-second
+delay, and `light.ts`'s own header already records what a shipped version would
+have to clear: at 26 px the tint may never move a red body toward cyan, because
+the colour *is* the callout. So a creature may take the *value* half of this
+light — a terminator and a contact shadow, which are brightness — and not the
+hue half. Build it so that split is expressible rather than a comment, and put
+a test on it: a lit red body must not measurably shift toward cyan.
+
+**Nothing here changes the simulation.** Lighting is a drawing decision;
+`hashWorld` is untouched, no `SimConfig` field decides an angle, and two
+devices that disagree about a highlight still agree about the world. And
+nothing may allocate a gradient per frame — `glow.ts`'s `haloSprite` caches on
+`${color}@${radius}` and `sheen.ts` rounds its radius to avoid exactly that,
+so follow the pattern already in the file rather than inventing a cache.
+
+**It sits behind the card version being looked at.** Five lanes are built on
+`light.ts` and nobody has yet seen a lit body move; the outstanding check asks
+whether a lit card reads as volume or as a shape with a gradient on it. If the
+answer there is no, this lane is building on sand. Do not start it before that
+check is decided — and if it is decided against, this entry is deleted rather
+than reduced.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, the hull and the rocks are lit from one named direction
+that nothing else in the tree contradicts, a test proves a lit red body does
+not shift toward cyan, and the commit carries `Check: does the field read as
+lit from one place, or do the hull, the rocks and the glow disagree about where
+the light is — a full wave at tempo, watching the hull and a rock together`.
+
+Model `opus`, effort `think hard`. Where the constant lives is the decision and
+the drawing is the easy half. Read `tools/director/src/skins/light.ts`,
+`packages/render/src/sheen.ts`, `glow.ts`, `meteor.ts` and `docs/alive.md`
+first.
+
 ## A BODY ABOUT TO HIT THE HULL CASTS NOTHING ON IT
 _claude/burn-depth-shadow-d2 · packages/render/src/contact-shadow.ts packages/render/test/contact-shadow.test.ts_
 
