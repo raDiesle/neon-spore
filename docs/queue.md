@@ -63,19 +63,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## EVERY BODY ON THE PAGE IS A FLAT SHAPE SEEN FROM EXACTLY ONE ANGLE
-_claude/burn-skin-volume-s2 · tools/director/src/skins/turn.ts tools/director/src/skins/crater.ts_
-
-Volume, and the turn that proves it. Behind s0.
-
-**TURN** puts surface features on a body and moves them across it so the body reads as rotating rather than as a picture sliding. One thing separates the two: a feature must compress toward the silhouette edge and vanish at it, then reappear at the other, on a cosine of its own longitude — a feature that keeps its width as it crosses is a sticker, and the eye knows. Pair it with a fixed key light, so the lit side stays put while the surface moves under it. The owner asks for this on a worm turning left and right, so the rotation is not a constant spin but a slow oscillation that reverses — which is harder and better, because a reversal is exactly where a sticker gives itself away.
-
-**CRATER** is the same machinery with a different surface: a meteorite's pitted landscape, rims catching the key light and floors in shadow, the whole field rotating with the body. `packages/render/src/craters.ts` already draws craters for the game's rock — read it for the shape of the idea and then write this one in SVG in the director. Do not import it.
-
-Finished when `bun run check` is green, both skins are on the switcher, a feature crossing the silhouette edge narrows to nothing rather than clipping, and the commit carries a `Check:` for each asking whether it reads as a body turning or as a texture sliding under a hole.
-
-Model `opus`, effort `ultrathink`. This is the hardest lane in the block and the only one whose failure mode is invisible in a still: both skins look correct in a screenshot and wrong in motion. Think about the foreshortening before you draw anything.
-
 ## THE LIGHT CAN BE TAKEN OFF TODAY ONLY BECAUSE NOTHING USES IT YET
 _claude/burn-skin-lightswitch-s2c · tools/director/src/shapes-panel.ts_
 
