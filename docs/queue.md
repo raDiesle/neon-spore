@@ -370,3 +370,144 @@ Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
 Nothing the game draws changes; nothing in `packages/sim` changes without the
 owner answering first.
 
+
+## THE MAZE BECOMES A WHEEL THE PILOT TURNS AND THE NAVIGATOR READS
+_claude/burn-maze-wheel · packages/sim/src/maze.ts packages/sim/src/maze-round.ts packages/content/src/maze-rounds.ts packages/render/src/maze-draw.ts packages/sim/test/maze.test.ts packages/render/test/maze-draw.test.ts_
+**Asked for by the owner.**
+
+> rework the maze, I expect something like image attached. start with a simpler
+> rounded maze with only 2 entrances, where only one reaches the middle.
+>
+> The idea is the following: player 1 must pull on some string/s on the maze
+> otherwise the player 2 is not able to shoot in a straight line vertical to hit
+> an entrance to the maze. player 1 must find the right angle so the maze
+> rotates in a way, that its possible to shoot vertical. it should help in some
+> range of angle to lock entrance to stay vertical. it should have a visual
+> effect that light shines out of the entrance, indicating that player 2 can now
+> shoot.
+>
+> same for other entrance. player 1 has to find right angle on the one pull
+> string, which is always visible for both players, so the round maze rotates
+> again that the second entrance is vertical to ship and other player can shoot
+> it.
+>
+> either in the center of maze its a "slick" or a "bulk", so the right choice
+> has to be taken.
+>
+> when player 2 shoots and the entrance was locked to be vertical to ship in a
+> straight line, the shoot cannon, once it enters the maze entrance, moves
+> around the maze, and find its way to the middle or dead end.
+>
+> the objective is to hit the middle. the maze should be almost full size of the
+> screen (around maybe 6/7), but enough space between maze and ship.
+
+The reference is a concentric ring maze with numbered entrances round its rim.
+**It is a stock image with a watermark on it. It is a thing to look at and not
+a file to commit** — the rule about vendoring a third-party file applies, and a
+fixed illustration could not be rotated or re-sampled anyway. The wheel is
+generated, in ring-and-sector space, or it is not this round.
+
+### Read the file you are replacing before you replace it
+
+`maze.ts`'s header is the design being thrown away and it argues its own case.
+Three things in it are load-bearing, and the commit says what happened to each.
+
+**The split is by layer, and that is the boss.** Today the pilot sees which
+ways out a node has and nothing about which are fused; the navigator sees which
+direction is walled and nothing about whether an arm was there to wall. The way
+out is the arm that is not walled, so *every node on the path needs a sentence
+from each of them*. The header also records what was rejected: a split by
+region hands each half a self-contained stretch and one relay ends the round; a
+split by end is THE SPLICE in a different coat.
+
+**The tangle deliberately does not move.** *"the voice channel carries half a
+second to two (`docs/spec/latency.md`), and a lattice that changes between her
+sentence and his thumb makes the sentence wrong on arrival."* The new round
+turns the maze, so this objection has to be met rather than stepped over.
+
+**It is probably met, and here is the argument to check.** The stale-sentence
+problem comes from a *discrete* fact going out of date in flight — "left at the
+third node" is wrong if the lattice re-tangled. A continuously held control
+with live feedback carries no such fact: it is *"more — more — stop"*, which is
+THE GAUGE, which already works at this latency and is already in the game. If
+that argument does not hold, the round is wrong and the lane says so rather
+than shipping a boss the pair cannot talk through.
+
+**Rounds are authored, not generated** — `maze-rounds.ts`, nothing from the
+rng, the same as THE MIRROR. Rotation does not change that: the wheel's
+*layout* stays authored. If a starting angle is drawn at all it comes from the
+seeded `Rng`, and only under `docs/spec/structure.md` 7.3 — the only thing that
+stays random is what one player knows and the other does not.
+
+### The question this lane may not answer on its own
+
+**Who sees what?** The owner's description says the string is visible to both
+and says nothing else about the split. Without one this is a solo puzzle with
+an audience — the exact failure `maze.ts` names in its second paragraph. It has
+to be settled before a line is written, and the round is worth nothing if it is
+settled wrong.
+
+**The recommendation, to be put to the owner rather than assumed.** The pilot
+holds the string and sees the wheel *turning* but not the alignment; the
+navigator sees the light come up in the entrance as it crosses the column, and
+can turn nothing. Then the round is *"more — a bit more — there"*, both halves
+are per-moment rather than a fact that can be read out once, and the light the
+owner asked for lives on the navigator's screen rather than on both.
+
+The second question rides on it: **which entrance reaches the middle, and is
+the centre a slick or a bulb — who knows that?** If both see it, the colour
+choice is free and the round loses half its point. Put both questions in the
+report and stop if they are unanswered; do not pick and build.
+
+### What is settled, and can be built once the split is
+
+**Two entrances, one of them a dead end.** The owner asked for the simple case
+first and it is the right first case: the smallest wheel that still needs both
+verbs and both screens.
+
+**The lock is what keeps the game's vocabulary.** The pair talks in columns,
+and an angle is not a column. So the snap is not a convenience, it is the
+bridge: within some range the entrance pulls to the column it is nearest and
+holds there, and the pair goes back to saying *"column four"*. Get the range
+wrong either way and the round breaks — too wide and the wheel has no positions
+between snaps, too narrow and the pilot can never hold one.
+
+**The shot travels the corridors.** Precedent exists: `mazePath` and the
+picture lane already send a shot down a strand and back out. It enters at the
+locked entrance, follows the ring-and-sector path, and arrives at the middle or
+at a dead end. **Where it goes wrong must be legible** — the same sentence the
+last maze lane was given, and for the same reason: a shot that simply fails to
+arrive teaches nothing.
+
+**Integers, in thousandths.** Rule 3, and rotation is exactly where a float
+gets in. The angle is an integer, the snap is integer arithmetic, and two
+devices must never disagree about a rounding step. `purity.test.ts` is not the
+only guard here — `bun run test:determinism` is.
+
+**Size.** About six sevenths of the field's width, centred, with real clearance
+between the rim and the hull. The cannon still has to slide under it. Say the
+measured numbers in the commit.
+
+**Nothing here travels.** The wheel turns in place, the cannon slides on the
+hull as it always did, and a shot is a shot. `CLAUDE.md`'s field rule is not in
+play; say so in the commit so the next reader does not re-derive it.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, the
+frame test passes through the strict canvas stub, `restart.test.ts` still
+passes with anything new in `Effects` cleared, and the commit carries
+
+`Check: with the wheel turned so an entrance sits under the cannon, does the lit entrance read as an invitation to shoot, or just as a bright spot`
+
+`Check: can the pilot hold an entrance on a column, or does the wheel slip off it — at phone size`
+
+`Check: when the shot takes the wrong entrance, can you see where it went wrong, or does it only fail to arrive`
+
+Model `opus`, effort `ultrathink` — the owner asked for the highest, and the
+unpick test agrees: this is a premise baked into a boss, and a split chosen
+wrong is expensive to discover months later. Spend the thinking on **the
+information split and the latency argument, before any geometry**. The wheel,
+the snap and the path are the easy half, and a lane that thinks hard about
+ring-and-sector arithmetic and lightly about who sees what will produce a solo
+puzzle that runs. Read `packages/sim/src/maze.ts` in full,
+`docs/spec/latency.md`, `docs/spec/structure.md` 7.3, `packages/sim/src/gauge.ts`
+for a held control that already survives this latency, and `docs/spec/bosses.md`.
