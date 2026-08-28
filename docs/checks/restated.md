@@ -227,3 +227,12 @@ other's wave number.
 - **changed** `BULB.depth` moved from 0.1 to 0.13, deepening the lobe amplitude while `lobes: 9` stays untouched; measured at ~2.1 px of lobe amplitude at ~11 px spacing rather than the near-circle depth 0.1 gave
 - **decide** at 26 px on a phone, does the bulb's nine lobes still count as nine, distinct from THROB's six, rather than downsampling to a shared round blob?
 - **where** `bun run shapes:report` for the numbers; `bun run shapes` or the director's SHAPES tab for the eye, BULB beside THROB
+
+## `93d3f24` — the first versus slot opens
+
+> versus ship:hull-skin is open — an amber `warm` candidate now sits beside the shipped violet OWN_SKIN, so does a warm hull still read as the player's own ship with red ammunition falling onto it, or does it merge into the red? Decide at the director's VERSUS tab once the pair lands; `bun run versus` names the slot and every reader of OWN_SKIN meanwhile.
+
+- **subject** `ship:hull-skin`, the first VERSUS slot, and the amber candidate offered against the ship the game draws today
+- **changed** `tools/versus/candidates/ship-hull.warm` now patches `OWN_SKIN`'s four body stops, rim, edge and muzzle from violet to amber — the shipped record is untouched, and nothing outside the tool knows the candidate exists
+- **decide** at 26 px, with red creatures falling down the field, does an amber hull read as the player's own ship, or do the ship and the ammunition it is being shot with become one colour?
+- **where** the director's VERSUS tab, `ship:hull-skin`, once the pair lands — until then `bun run versus` names the slot and greps every reader of `OWN_SKIN`
