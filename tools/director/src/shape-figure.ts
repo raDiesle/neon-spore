@@ -53,11 +53,49 @@ interface Drawn {
    * so. Written here each tick and read by the skin, never kept by it.
    */
   frame: { t: number; beat: number; pose: Pose };
+  /** The figure's own `<svg>`, the box `watch` observes. */
+  svg: SVGSVGElement;
+  /**
+   * Whether any of this figure is within sight. Starts true so a card draws on
+   * the frame it is added, before the observer has said anything about it.
+   */
+  seen: boolean;
 }
 
 const drawn: Drawn[] = [];
 let running = false;
 let uid = 0;
+
+/**
+ * A card nobody can see does not get a frame.
+ *
+ * The SHAPES tab holds ninety-nine figures in a column ten screens long, and
+ * three to six of them are in sight. The rest were being animated into a
+ * scroll container that clips them away — not a small saving on the page's
+ * cost but most of it.
+ *
+ * `rootMargin` gives a card a little warning before it arrives. Nothing here
+ * needs the warning to *look* right: every figure is a pure function of the
+ * clock, so one scrolled into view is in exactly the phase it would have been
+ * had it never stopped. A skin that smooths across frames gets a few frames to
+ * settle, which is what the margin is actually for.
+ */
+const observed = new WeakMap<Element, Drawn>();
+const watch =
+  typeof IntersectionObserver === "function"
+    ? new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            const d = observed.get(e.target);
+            if (d) d.seen = e.isIntersecting;
+          }
+        },
+        { rootMargin: "120px" },
+      )
+    : null;
+
+/** Reused across frames: `clear()` on a `Map` keeps its table. See `tick`. */
+const shapeCache = new Map<CatalogueEntry["subject"], string>();
 
 /**
  * Every figure on the page, redrawn. One loop rather than one per card: a
@@ -71,12 +109,25 @@ function tick(): void {
   // the whole value of a heartbeat is that the page does it together.
   // `BEAT_SECONDS` is the game's own tempo — see `skins/types.ts`.
   const beat = (t / BEAT_SECONDS) % 1;
+  // A contour at one moment depends on the subject and the clock, nothing
+  // else, so the forty cells of `shapes-all.ts` — one body walked across every
+  // skin, motion and light — are forty identical strings. THE CAIRN's costs
+  // three milliseconds to build.
+  shapeCache.clear();
   let live = 0;
   for (const d of drawn) {
     const first = d.paths[0];
-    if (!first?.isConnected) continue;
+    if (!first?.isConnected) {
+      watch?.unobserve(d.svg);
+      continue;
+    }
     drawn[live++] = d;
-    const shape = contourAt(d.entry.subject, t);
+    if (!d.seen) continue;
+    let shape = shapeCache.get(d.entry.subject);
+    if (shape === undefined) {
+      shape = contourAt(d.entry.subject, t);
+      shapeCache.set(d.entry.subject, shape);
+    }
     for (const p of d.paths) p.setAttribute("d", shape);
     // One pose, used twice: it is what the group is transformed by and what a
     // skin that leans or slides is told. Two derivations of it would be two
@@ -168,7 +219,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({
+  const record: Drawn = {
     entry,
     paths: contour,
     onFrame,
@@ -178,7 +229,12 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     motion,
     long: still.long,
     frame: { t: 0, beat: 0, pose: REST },
-  });
+    svg,
+    seen: true,
+  };
+  drawn.push(record);
+  observed.set(svg, record);
+  watch?.observe(svg);
   if (!running) {
     running = true;
     requestAnimationFrame(tick);

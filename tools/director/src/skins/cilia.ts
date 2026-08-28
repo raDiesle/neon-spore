@@ -1,3 +1,4 @@
+import { newRuler } from "./contour-ruler.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
@@ -17,11 +18,19 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * `SkinContext` for that (rule (b)/(d) keep a skin from touching the subject
  * directly), but there does not need to be one: `ctx.contourPath()` hands back
  * a real `<path>` that `shape-figure.ts` re-writes with the current `d` before
- * every `onFrame`, and a `<path>`'s own geometry methods read whatever `d` it
- * currently has. So one extra, invisible contour path is kept purely as a
- * ruler — `getPointAtLength` on it *is* "sampled along the contour and
- * re-sampled every frame", using the one channel a skin already has rather
- * than a second one invented for this file alone.
+ * every `onFrame`. So one extra, invisible contour path is kept purely as a
+ * ruler, using the one channel a skin already has rather than a second one
+ * invented for this file alone.
+ *
+ * What is *read* off that path is the `d` string, not the browser's answer
+ * about it. `getPointAtLength` costs 0.58 ms a call — a hundred strands is
+ * 65 ms a frame for a single card on an otherwise empty page, so one card
+ * could not hold twenty frames a second, let alone sixty of them. The lane
+ * that was reverted took a shortcut through that (64 samples, the rest
+ * interpolated, up to 1.6 units of drift against strands 6 to 9 units long);
+ * `contour-ruler.ts` instead measures the same curve the same way the browser
+ * would, in a table allocated once and written into. Its header carries the
+ * measurement and the drift.
  *
  * **The ripple, not the unison.** Each rim strand's phase comes from `u`, its
  * own fraction of the way around the perimeter, so the sway is a wave that
@@ -178,6 +187,9 @@ function cilia(ctx: SkinContext): void {
   let prevX = 0;
   let prevY = 0;
   let prevT: number | null = null;
+  // Both allocated once and written into every frame — see `contour-ruler.ts`.
+  const ruler = newRuler();
+  const base = { x: 0, y: 0 };
 
   ctx.onFrame(({ t, pose }) => {
     const x = pose.dx * ctx.tile;
@@ -198,12 +210,12 @@ function cilia(ctx: SkinContext): void {
     prevY = y;
     prevT = t;
 
-    const total = sample.getTotalLength();
+    const total = ruler.measure(sample.getAttribute("d") ?? "");
     if (total > 0) {
       for (const s of rim) {
-        const p = sample.getPointAtLength(s.u * total);
-        const r = Math.hypot(p.x, p.y) || 1;
-        draw(s, p.x, p.y, p.x / r, p.y / r, t, leanX, leanY);
+        ruler.at(s.u, base);
+        const r = Math.hypot(base.x, base.y) || 1;
+        draw(s, base.x, base.y, base.x / r, base.y / r, t, leanX, leanY);
       }
     }
     for (const s of interior) {
