@@ -149,21 +149,6 @@ two slots open, is it obvious that the page holds more than the one on screen
 Model `sonnet`, effort `think hard`. Read `tools/director/src/versus-page.ts`
 and `tools/versus/variant.ts` first.
 
-## A WORM DOES NOT SPIN, IT WINDS
-_claude/burn-skin-wind-s8 · tools/director/src/skins/wind.ts_
-
-Behind s7, and the owner's word is *winden* — regularly, rhythmically, the way a worm does.
-
-`turnAngle(t)` is one phase for a whole body, so a body under it rotates rigidly: every point turns through the same angle at the same instant. That is a planet. A worm is the other thing — **the phase varies along the body's long axis**, so one end is already coming round while the other has not started, and the twist travels. That single change is the difference between a spinning object and a living one, and it costs a term.
-
-So: a `wind(list, t)` beside `spin(list, theta)`, taking each element's position along the long axis and offsetting its longitude by a fraction of a turn. The travelling wave runs on the shared beat — the owner asked for *regelmäßig* and the page already has one clock, so the whole catalogue winds together rather than each card on its own timer.
-
-**Two things to get right.** The offset must be bounded: past about a third of a turn end-to-end the near and far halves of one body are showing opposite faces and the silhouette stops being readable as one object. And the long axis is not always the tall one — SLICK is 147 × 86 and BULB is 120 × 115, so derive the axis from the contour's own extent rather than assuming vertical, or a round body winds sideways for no reason.
-
-Finished when `bun run check` is green, a wind and a rigid spin are both on the switcher so the difference can be seen, and the commit carries `Check: does the winding read as one body twisting, or as two halves disagreeing — the SHAPES tab, a long body and a round one, WIND beside TURN`.
-
-Model `opus`, effort `think hard`. The bounded offset is the judgement; the wave itself is a term. Read `turn.ts`'s `spin` and `turnAngle` first.
-
 ## THE ONE PULSE ON THE PAGE IS A SINE, AND A SINE IS A BELLOWS
 _claude/burn-skin-pulse-s10 · tools/shape-sheet/src/motions/pulse.ts_
 
