@@ -470,6 +470,66 @@ what a paragraph is really about; nothing about it is mechanical, and a lane
 that labels them all "graphics" has done nothing. Read `docs/parked.md` end to
 end before writing a single label, and `tools/director/src/backlog.ts` after.
 
+## A REFUSED IDEA IS ONE CLAUSE, AND THE READER GOES LOOKING FOR THE REST
+_claude/burn-deferred-expand-x9 · docs/spec/ideas.md_
+
+The owner, in the director:
+
+> do we have more information about "Spread shot — too close to the standard
+> weapon". i have no idea what it is about. Same with "Freighter". I want to
+> see more infos here. i cant find them on any other page on director app.
+
+**They could not find it because there is none.** Both live in
+`docs/spec/ideas.md` under `## Deliberately deferred`, and both are exactly one
+line long — a name, an em dash, and a clause of objection. That line is the
+entire record: nothing in `docs/spec/`, nothing in the bestiary, nothing in the
+director. The reader is not missing a page. They are reading a decision whose
+reasoning was never written down, presented with the same weight as the entries
+around it that *were*.
+
+**The list is seven entries and it is two different things.** Three of them —
+THE CONDUCTOR, *A "without words" mode*, *Cracks in the cockpit* — carry a real
+paragraph: what it was, what it collided with, and what survives the objection.
+Four are a clause. The clause entries are the bug, and the paragraph entries
+are the model sitting directly beside them in the same file.
+
+**What each of the four needs is small and specific.** Not a design — these
+were turned down. What was it, in one sentence a person who has played the game
+would understand; what did it collide with, named so it can be checked; and
+does anything of it survive the objection. *Freighter — overlaps with the runt*
+is checkable: the runt is a built creature with an entry in `creatures.ts` and
+a row in the bestiary, so the objection can be stated in terms of what the runt
+actually does. *Spread shot — too close to the standard weapon* is the same:
+the cannon's ordinary shot is defined and can be pointed at.
+
+**Do not invent history, and say so where you cannot recover it.** If nothing
+in the repository grounds what "Freighter" meant beyond *a big slow one*, then
+the entry says that a big slow one was proposed and refused because the runt
+already is one, and it does not manufacture a stat block to fill the space. An
+entry that admits the record is thin is worth more than a plausible
+reconstruction that a later session mistakes for a decision somebody made.
+Where you do reconstruct from surrounding design rather than from a written
+statement, mark it as such in the text.
+
+**Refused is a status, and the page should carry it.** These are not parked and
+not queued: somebody looked at them and said no. Check whether that reads
+clearly where the director renders this list, and if a reader cannot tell a
+refusal from a backlog item, say so in the report — the fix may belong to the
+page rather than to this file.
+
+Finished when `bun run check` is green, each of the four one-clause entries
+says what it was, what it collided with and what survives, nothing is invented
+without being marked as reconstruction, `tools/director/test/backlog.test.ts`
+and `concepts.test.ts` still pass — both assert against these exact entries —
+and the commit carries `Check: reading a refused idea in the director, can you
+tell what it was and why it was turned down, without opening the repository?`
+
+Model `sonnet`, effort `think hard`. The lane is four short pieces of honest
+archaeology and the temptation is to write four good designs instead. Read
+`docs/spec/ideas.md`'s deferred list, then `docs/spec/bestiary.md` on the runt
+and whatever defines the ordinary shot, then the two director tests that name
+these entries.
+
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
 
