@@ -1,3 +1,4 @@
+import type { ControlSet } from "@neon-spore/content";
 import {
   type Field,
   type Hold,
@@ -45,6 +46,11 @@ export interface Bindings {
   player: () => 1 | 2;
   /** The numbers the hit test needs — today, the row a tether hangs from. */
   cfg: SimConfig;
+  /**
+   * The panel this wave is played on, read fresh: a control the wave's set does
+   * not name has no button and must not answer a thumb (`render/touch.ts`).
+   */
+  controls: () => ControlSet;
   /** The field, for hit-testing a finger against what is falling. */
   creatures: () => readonly Creature[];
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
@@ -69,6 +75,7 @@ export function bindControls({
   isOver,
   player,
   cfg,
+  controls,
   creatures,
   beatPhase,
   onPauseToggle,
@@ -81,6 +88,7 @@ export function bindControls({
     beatPhase: beatPhase(),
     seat: player(),
     wardenRow: cfg.wardenRow,
+    controls: controls(),
   });
 
   const down = (id: number, x: number, y: number): void => {

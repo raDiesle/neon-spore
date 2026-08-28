@@ -1,7 +1,8 @@
 import { describe, expect, it } from "bun:test";
+import { CONTROL_SETS, type ControlSet, controlSet, setControls } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, NO_GRIP, step } from "@neon-spore/sim";
 import { creatureCenter } from "../src/creature-place.js";
-import { computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
+import { bandLobes, computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
 
 /**
@@ -14,10 +15,32 @@ import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
 const CFG = DEFAULT_CONFIG;
 const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
-function field(seat: 1 | 2 = 1): Field {
+const STANDARD = controlSet("default");
+const LANCE = controlSet("lance");
+const ROLES: ViewRole[] = ["p1", "p2", "test"];
+
+function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
   const world = createWorld(CFG, 2, [{ beat: 0, col: 4, kind: "slick", color: "red" }]);
   for (let i = 0; i < 200; i++) step(world, []);
-  return { creatures: world.creatures, beatPhase: 0.5, seat, wardenRow: CFG.wardenRow };
+  return {
+    creatures: world.creatures,
+    beatPhase: 0.5,
+    seat,
+    wardenRow: CFG.wardenRow,
+    controls,
+  };
+}
+
+/** Whether a role's screen carries a seat's half at all. */
+const shows = (role: ViewRole, player: 1 | 2): boolean => role === "test" || role === `p${player}`;
+
+/** Where the band draws one control on a panel, or null if it is not on it. */
+function drawnAt(role: ViewRole, set: ControlSet, id: string): { x: number; y: number } | null {
+  for (const player of [1, 2] as const) {
+    const found = bandLobes(layout(role), set, player).find((b) => b.control.id === id);
+    if (found) return found.circle;
+  }
+  return null;
 }
 
 describe("a press on the band", () => {
@@ -33,41 +56,79 @@ describe("a press on the band", () => {
   });
 
   it("gives the trigger to player 1 and the colours to player 2", () => {
-    const guard = touchDown(l, l.guardButton.x, l.guardButton.y, field());
-    expect(guard).toEqual({ player: 1, command: { kind: "guard" }, hold: null });
-    const red = l.fireButtons[0];
-    if (!red) throw new Error("no fire buttons");
-    expect(touchDown(l, red.circle.x, red.circle.y, field())).toEqual({
+    const guard = drawnAt("test", STANDARD, "guard");
+    if (!guard) throw new Error("the standard panel has no trigger");
+    expect(touchDown(l, guard.x, guard.y, field())).toEqual({
+      player: 1,
+      command: { kind: "guard" },
+      hold: null,
+    });
+    const red = drawnAt("test", STANDARD, "fireRed");
+    if (!red) throw new Error("the standard panel has no red");
+    expect(touchDown(l, red.x, red.y, field())).toEqual({
       player: 2,
-      command: { kind: "fire", color: red.color },
+      command: { kind: "fire", color: "red" },
       hold: null,
     });
   });
 
-  it("gives player 1 a third button that is held rather than tapped", () => {
-    const down = touchDown(l, l.lanceButton.x, l.lanceButton.y, field());
-    expect(down).toEqual({ player: 1, command: { kind: "prime", on: true }, hold: "lance" });
+  it("gives the lance panel a button that is held rather than tapped", () => {
+    const lance = drawnAt("test", LANCE, "lance");
+    if (!lance) throw new Error("the lance panel has no lance");
+    expect(touchDown(l, lance.x, lance.y, field(1, LANCE))).toEqual({
+      player: 1,
+      command: { kind: "prime", on: true },
+      hold: "lance",
+    });
     // The lift is the other half: nothing in the simulation empties a lobe on
     // its own, so a thumb coming off has to be sent.
-    expect(touchUp("lance", field())).toEqual({
+    expect(touchUp("lance", field(1, LANCE))).toEqual({
       player: 1,
       command: { kind: "prime", on: false },
       hold: null,
     });
   });
 
-  it("keeps player 1's five buttons out of each other's rings", () => {
+  /**
+   * The one the owner caught. When the lance came off the ordinary panel the
+   * button stopped being drawn and went on being *pressable*: the layout still
+   * handed out a fixed circle for it and this file still answered that circle,
+   * so every wave in the game had a lance under an empty patch of band.
+   */
+  it("answers nothing where a control this wave did not ask for would be", () => {
+    for (const role of ["p1", "test"] as const) {
+      const lance = drawnAt(role, LANCE, "lance");
+      if (!lance) throw new Error("the lance panel has no lance");
+      const answered = touchDown(layout(role), lance.x, lance.y, field(1, STANDARD));
+      expect(answered?.command.kind).not.toBe("prime");
+    }
+  });
+
+  it("keeps every set's buttons out of each other's rings", () => {
     // `hitCircle` answers a ring 30% wider than the circle drawn, so buttons
     // that merely do not overlap on screen can still both claim a touch.
-    const circles = [
-      l.guardButton,
-      l.intakeButton,
-      l.lanceButton,
-      ...l.fireButtons.map((b) => b.circle),
-    ];
-    for (const a of circles) {
-      const claimed = circles.filter((c) => hitCircle(c, a.x, a.y));
-      expect(claimed).toHaveLength(1);
+    for (const set of CONTROL_SETS) {
+      for (const role of ROLES) {
+        const l = layout(role);
+        const circles = ([1, 2] as const)
+          .filter((p) => shows(role, p))
+          .flatMap((p) => bandLobes(l, set, p).map((b) => b.circle));
+        for (const a of circles) {
+          expect(circles.filter((c) => hitCircle(c, a.x, a.y))).toHaveLength(1);
+        }
+      }
+    }
+  });
+
+  it("centres a seat's buttons on the middle of its share of the band", () => {
+    // Two buttons where there used to be three sit either side of the same
+    // middle, not in the first two of three slots with a hole after them.
+    for (const role of ["p1", "test"] as const) {
+      const mid = (set: ControlSet): number => {
+        const xs = bandLobes(layout(role), set, 1).map((b) => b.circle.x);
+        return (xs[0]! + xs[xs.length - 1]!) / 2;
+      };
+      expect(mid(STANDARD)).toBeCloseTo(mid(LANCE), 6);
     }
   });
 
@@ -75,8 +136,60 @@ describe("a press on the band", () => {
     const p1 = layout("p1");
     // p1's screen has no shield strip and no colours at all.
     expect(touchDown(p1, p1.width * 0.5, p1.shieldStrip.y, field())?.player).not.toBe(2);
-    const p2 = layout("p2");
-    expect(touchDown(p2, p2.guardButton.x, p2.guardButton.y, field())).toBeNull();
+    expect(drawnAt("p2", STANDARD, "guard")).toBeNull();
+  });
+});
+
+/**
+ * The drawing and the hit regions are the same list, for **every** registered
+ * set rather than the two that happen to exist today — both come from
+ * `bandLobes` with the wave's own set, so a set added later is covered the day
+ * it is added and a set nobody drew for cannot appear.
+ */
+describe("what is drawn and what is touchable", () => {
+  it("are the same buttons, in the same order, for every set and role", () => {
+    for (const set of CONTROL_SETS) {
+      for (const role of ROLES) {
+        const l = layout(role);
+        const answered: string[] = [];
+        for (const player of [1, 2] as const) {
+          // The other seat's half is not on this screen, so it has no circles
+          // at all — not circles standing on top of this seat's.
+          if (!shows(role, player)) expect(bandLobes(l, set, player)).toEqual([]);
+          for (const lobe of bandLobes(l, set, player)) {
+            const t = touchDown(l, lobe.circle.x, lobe.circle.y, field(1, set));
+            expect(t).not.toBeNull();
+            expect(t?.player).toBe(player);
+            answered.push(lobe.control.id);
+          }
+        }
+        const drawn = ([1, 2] as const)
+          .filter((p) => shows(role, p))
+          .flatMap((p) => setControls(set, p))
+          .filter((c) => c.form === "lobe")
+          .map((c) => c.id);
+        expect(answered).toEqual(drawn);
+      }
+    }
+  });
+
+  it("leaves no control of another set answering on this one", () => {
+    for (const set of CONTROL_SETS) {
+      for (const other of CONTROL_SETS) {
+        if (other.id === set.id) continue;
+        const missing = [...setControls(other, 1), ...setControls(other, 2)].filter(
+          (c) => c.form === "lobe" && !set.controls.includes(c.id),
+        );
+        for (const c of missing) {
+          const at = drawnAt("test", other, c.id);
+          if (!at) throw new Error(`${c.id} is drawn nowhere on ${other.id}`);
+          const t = touchDown(layout("test"), at.x, at.y, field(1, set));
+          // Whatever else is at that point, it is never the absent control's
+          // own command — the lance's is `prime`, the maw's is `intake`.
+          expect(t?.command.kind).not.toBe(c.id === "lance" ? "prime" : c.id);
+        }
+      }
+    }
   });
 });
 

@@ -1,3 +1,4 @@
+import { type ControlDef, type ControlSet, setControls } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { Viewport } from "./renderer.js";
 
@@ -33,16 +34,25 @@ export interface Layout {
   hullY: number;
   cannonStrip: Strip;
   shieldStrip: Strip;
-  guardButton: Circle;
-  /** Player 1's second action: the maw. Sits next to the trigger, never alone. */
-  intakeButton: Circle;
   /**
-   * Player 1's third: the lance, held rather than tapped. Last in the row
-   * because it is the one that is not an instant — the two beside it spend a
-   * window that is already open, and this one opens over three beats.
+   * The row every lobe stands on, and how big one is. Both seats share them,
+   * and they are fields rather than something `bandLobes` works out again from
+   * `bandTop` because a second copy of "where the buttons are" is exactly how a
+   * button comes to be drawn off its own hit region.
    */
-  lanceButton: Circle;
-  fireButtons: { color: "red" | "cyan"; circle: Circle }[];
+  lobeY: number;
+  lobeR: number;
+}
+
+/**
+ * A round button on the band, and the control it is. There is no `guardButton`
+ * on the layout any more, and that is the point: a control the wave's set does
+ * not name has no circle at all, so nothing can hit-test one that was never
+ * drawn. See `bandLobes`.
+ */
+export interface Lobe {
+  control: ControlDef;
+  circle: Circle;
 }
 
 export interface Strip {
@@ -145,19 +155,10 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
   const rowCannon = bandTop + bandHeight * (solo ? 0.28 : 0.2);
   const rowShield = bandTop + bandHeight * (solo ? 0.28 : 0.48);
   const rowButton = bandTop + bandHeight * (solo ? 0.72 : 0.8);
-  // Five buttons share the test view — player 1's three and player 2's two —
-  // and `hitCircle` answers a ring 30% wider than the circle drawn, so they
-  // have to be smaller there than on a screen carrying one role's half.
+  // Both seats' lobes share the test view — and `hitCircle` answers a ring 30%
+  // wider than the circle drawn, so they have to be smaller there than on a
+  // screen carrying one role's half.
   const r = Math.min(bandHeight * (solo ? 0.19 : 0.14), width * (solo ? 0.068 : 0.056));
-
-  // Player 1 has three buttons, so none of them sits in the middle. They stay
-  // side by side and in a fixed order — trigger, maw, lance — because a control
-  // that moves between screens is a control that gets pressed by mistake under
-  // time pressure.
-  const p1Buttons =
-    role === "p1"
-      ? [width * 0.22, width * 0.5, width * 0.78]
-      : [width * 0.08, width * 0.23, width * 0.38];
 
   return {
     role,
@@ -177,20 +178,54 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     hullY: gridTop + (cfg.rows - 1) * tile,
     cannonStrip: { y: rowCannon, height: Math.min(bandHeight * 0.24, 32) },
     shieldStrip: { y: rowShield, height: Math.min(bandHeight * 0.24, 32) },
-    guardButton: { x: p1Buttons[0]!, y: rowButton, r },
-    intakeButton: { x: p1Buttons[1]!, y: rowButton, r },
-    lanceButton: { x: p1Buttons[2]!, y: rowButton, r },
-    fireButtons:
-      role === "p2"
-        ? [
-            { color: "red" as const, circle: { x: width * 0.34, y: rowButton, r } },
-            { color: "cyan" as const, circle: { x: width * 0.66, y: rowButton, r } },
-          ]
-        : [
-            { color: "red" as const, circle: { x: width * 0.6, y: rowButton, r } },
-            { color: "cyan" as const, circle: { x: width * 0.84, y: rowButton, r } },
-          ],
+    lobeY: rowButton,
+    lobeR: r,
   };
+}
+
+/**
+ * Where one seat's lobes sit, and there is a row here for every seat on every
+ * screen rather than a fixed list of named circles.
+ *
+ * A seat owns a share of the band and its lobes are **centred in that share**,
+ * however many the wave's control set gives it — the same rule
+ * `interludeControls` already uses for the round that is not the field. That
+ * is what the fixed list could not do: with the lance off the panel, player 1
+ * had two buttons standing in the first two of three slots and a hole where
+ * the third had been, which reads as a control that failed to draw rather than
+ * as a panel with two controls on it.
+ *
+ * `maxPitch` is what keeps the ordinary panels where they have always been.
+ * Spreading two buttons evenly across a whole share would fling them to its
+ * edges, so the spacing is capped: at the sizes the game actually ships —
+ * three lobes for player 1 in the test view, two for player 2 — the cap wins
+ * and every circle lands on the pixel it landed on before. It only gives way
+ * for a set with more lobes than a row can hold at that spacing.
+ *
+ * It is a function of the *set* rather than a field of `Layout` because the
+ * panel changes with the wave and the layout does not: the wave is known where
+ * the band is drawn and where a finger is answered, and both ask here.
+ */
+export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
+  // A seat this screen does not carry has no buttons on it at all — not
+  // buttons somewhere off to one side. A solo view gives its one seat the
+  // whole width, so the absent seat's circles would otherwise land on top of
+  // the present one's and both would claim the same thumb.
+  if (player === 1 ? !showsCannon(l.role) : !showsShield(l.role)) return [];
+  const controls = setControls(set, player).filter((c) => c.form === "lobe");
+  if (controls.length === 0) return [];
+  const solo = l.role !== "test";
+  // Each seat's share of the width, and the middle of it. In the test view the
+  // two seats stand side by side and neither may reach into the other's half.
+  const centre = solo ? 0.5 : player === 1 ? 0.23 : 0.72;
+  const maxPitch = solo ? (player === 1 ? 0.28 : 0.32) : player === 1 ? 0.15 : 0.24;
+  const share = solo ? 1 : 0.46;
+  const pitch = Math.min(maxPitch, share / controls.length);
+  const first = centre - ((controls.length - 1) / 2) * pitch;
+  return controls.map((control, i) => ({
+    control,
+    circle: { x: l.width * (first + i * pitch), y: l.lobeY, r: l.lobeR },
+  }));
 }
 
 export function tileCX(l: Layout, col: number): number {

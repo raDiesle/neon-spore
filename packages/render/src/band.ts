@@ -1,6 +1,5 @@
 import {
   type ControlDef,
-  type ControlId,
   type ControlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
@@ -10,7 +9,7 @@ import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { halo } from "./glow.js";
 import { drawLanceButton } from "./lance.js";
-import { type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
+import { bandLobes, type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -85,36 +84,13 @@ function drawHalf(
   open: boolean,
 ): void {
   for (const c of setControls(set, player)) {
-    if (c.form === "strip") {
-      drawStripFor(ctx, l, world, c);
-      continue;
-    }
-    const circle = lobeCircle(l, c.id);
-    if (circle) drawLobe(ctx, circle, c, world, armed, open);
+    if (c.form === "strip") drawStripFor(ctx, l, world, c);
   }
-}
-
-/**
- * Where a lobe goes. The only `switch` in here, and it is a *lookup* rather
- * than a rule: `layout.ts` owns the geometry and `touch.ts` answers a finger
- * against the very same circles, so a control drawn through this function is
- * drawn exactly where it is answered. Which controls are on the panel is the
- * set's business, one call above.
- */
-function lobeCircle(l: Layout, id: ControlId): Circle | null {
-  switch (id) {
-    case "guard":
-      return l.guardButton;
-    case "intake":
-      return l.intakeButton;
-    case "lance":
-      return l.lanceButton;
-    case "fireRed":
-      return l.fireButtons.find((b) => b.color === "red")?.circle ?? null;
-    case "fireCyan":
-      return l.fireButtons.find((b) => b.color === "cyan")?.circle ?? null;
-    default:
-      return null;
+  // The lobes come from `bandLobes` rather than from named fields of the
+  // layout, and `touchDown` asks it the same question with the same set — so
+  // there is one answer to "where is this button", not two that have to agree.
+  for (const lobe of bandLobes(l, set, player)) {
+    drawLobe(ctx, lobe.circle, lobe.control, world, armed, open);
   }
 }
 

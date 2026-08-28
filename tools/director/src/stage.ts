@@ -1,4 +1,4 @@
-import { bossFromWave, podsFromWave, queueFromWave } from "@neon-spore/content";
+import { bossFromWave, controlSetForWave, podsFromWave, queueFromWave } from "@neon-spore/content";
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
@@ -81,6 +81,9 @@ export function bindStage(
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: 1,
       wardenRow: cfg.wardenRow,
+      // The stage answers a finger the way the phone does, which now includes
+      // answering only the controls this wave's panel actually carries.
+      controls: controlSetForWave(world.wave),
     }),
     push: keys.push,
   });

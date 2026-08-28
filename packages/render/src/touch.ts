@@ -1,6 +1,7 @@
+import type { ControlId, ControlSet } from "@neon-spore/content";
 import { type Command, type Creature, NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
-import { colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
+import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -51,6 +52,21 @@ export interface Field {
    * config here because `touch.ts` is handed a field, never a world.
    */
   wardenRow: number;
+  /**
+   * The whole panel this wave is played on — both seats at once, never a
+   * combination (`packages/content/src/control-sets.ts`).
+   *
+   * It is on the field for the same reason `wardenRow` is: this file is handed
+   * a field, never a world, and which panel is up is a fact about the wave.
+   *
+   * It is **required** rather than defaulted, and that is the whole repair.
+   * The band learned to walk a set and this file did not, so it went on
+   * answering a fixed `l.lanceButton` whatever the wave said — the lance was
+   * invisible on every ordinary wave and still primed under the thumb. A
+   * default would put that back the first time a caller forgot to pass one;
+   * a required field makes the compiler ask.
+   */
+  controls: ControlSet;
 }
 
 /** A press. Null where nothing is. */
@@ -67,26 +83,59 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
       return { player: 1, command: { kind: "cannonCol", col: colFromX(l, x) }, hold: "cannon" };
     }
-    if (hitCircle(l.guardButton, x, y))
-      return { player: 1, command: { kind: "guard" }, hold: null };
-    if (hitCircle(l.intakeButton, x, y)) {
-      return { player: 1, command: { kind: "intake" }, hold: null };
-    }
-    if (hitCircle(l.lanceButton, x, y)) {
-      return { player: 1, command: { kind: "prime", on: true }, hold: "lance" };
-    }
+    const lobe = lobeUnder(l, field.controls, 1, x, y);
+    if (lobe) return lobe;
   }
   if (showsShield(l.role)) {
     if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
       return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold: "shield" };
     }
-    for (const b of l.fireButtons) {
-      if (hitCircle(b.circle, x, y)) {
-        return { player: 2, command: { kind: "fire", color: b.color }, hold: null };
-      }
-    }
+    const lobe = lobeUnder(l, field.controls, 2, x, y);
+    if (lobe) return lobe;
   }
   return null;
+}
+
+/**
+ * A finger against one seat's lobes, and there is no list of them in here.
+ *
+ * `bandLobes` is asked for the circles with the wave's own set, which is the
+ * same call `band.ts` makes to draw them — so a button is answered exactly
+ * where it was drawn, and a control the set left out has no circle to be
+ * answered at. That is the whole reason this is a call and not five `if`s
+ * against named fields of the layout: five `if`s were a second, older list of
+ * what is on a panel, and it went on including the lance after the panel
+ * stopped.
+ */
+function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: number): Touch | null {
+  for (const lobe of bandLobes(l, set, player)) {
+    if (!hitCircle(lobe.circle, x, y)) continue;
+    const said = lobeMeans(lobe.control.id);
+    if (said) return { player: lobe.control.player, ...said };
+  }
+  return null;
+}
+
+/**
+ * What pressing a lobe says. A lookup, not a rule — every entry is the command
+ * that control has always sent, and the two strips are not lobes so they say
+ * nothing here.
+ */
+function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | null {
+  switch (id) {
+    case "guard":
+      return { command: { kind: "guard" }, hold: null };
+    case "intake":
+      return { command: { kind: "intake" }, hold: null };
+    case "lance":
+      return { command: { kind: "prime", on: true }, hold: "lance" };
+    case "fireRed":
+      return { command: { kind: "fire", color: "red" }, hold: null };
+    case "fireCyan":
+      return { command: { kind: "fire", color: "cyan" }, hold: null };
+    default:
+      return null;
+  }
 }
 
 /**

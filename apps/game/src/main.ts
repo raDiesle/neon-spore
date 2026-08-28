@@ -1,4 +1,4 @@
-import { buildPods, buildQueue } from "@neon-spore/content";
+import { buildPods, buildQueue, controlSetForWave } from "@neon-spore/content";
 import { Canvas2DRenderer } from "@neon-spore/render";
 import {
   createWorld,
@@ -70,6 +70,9 @@ const tickKeys = bindControls({
   // halves on one screen, so it grips as player 1 and G grips as player 2.
   player: () => (view.role() === "p2" ? 2 : 1),
   cfg: world.cfg,
+  // Which panel is up follows from the wave, so a control the wave did not
+  // ask for has no button and answers no thumb (`content/control-sets.ts`).
+  controls: () => controlSetForWave(world.wave),
   creatures: () => world.creatures,
   beatPhase,
   onPauseToggle: () => setRunning(!running),
