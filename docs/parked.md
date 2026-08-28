@@ -467,3 +467,29 @@ still a second copy of a number the game owns.
 Not queued because the fix is a decision about which package owns the contour
 and which imports it, and that is a bigger question than either lane had room
 for.
+
+## Three skins carry a private copy of something `parts.ts` should own
+
+2026-08-28 · claude/burn-skin-volume-s2
+
+`clipGroup` gained a `name` parameter after two skins had already hand-rolled
+private copies of it — `insideBody` in `light.ts` and `proudGroup` in
+`vein-pulse.ts`. Both are now byte-identical to `clipGroup(ctx, name)` and both
+say so in a comment. They were left alone deliberately: swapping them edits
+pictures that are still waiting on an eye, and both files carry `Check:`
+trailers nobody has answered.
+
+The third is newer and has no such excuse. `light.ts` keeps `addStops`
+private, so `turn.ts` exported a second one rather than reach into a file it
+did not own. That is a helper for writing gradient stops — the least
+skin-specific thing in the directory — and it belongs in `parts.ts` with one
+caller each.
+
+All three go together in one pass, and the right moment is the day the PULSE
+and LIGHT checks are decided: after that the pictures are settled, and a
+change that cannot alter them is safe to make and easy to review. Doing it
+before means an unanswered check whose subject has moved underneath it.
+
+Not queued as its own lane because it is fifteen minutes of work that wants to
+ride along with whichever lane next opens `parts.ts` — most likely the soft
+group or the fringe, both of which will want a second clip.
