@@ -477,11 +477,16 @@ stays open, in a file whose whole job is closing them.
   appended after the check's own words makes the text unequal and the decision
   matches nothing. Notes go on their own indented `  - ` line underneath, which
   is what `ledger.ts` documents and what the `FAIL` example there shows.
-- **The file is LF.** `a9f4755` added `.gitattributes` with `eol=lf`, so this
-  is no longer the CRLF file older guidance describes — and writing a CRLF row
-  now breaks it, because `ledger.ts`'s `(.*)$` cannot reach the end of a line
-  ending in a carriage return: in JavaScript `.` does not match ``. The row
-  parses as nothing at all.
+- **The file is LF, and the parser used to assume it.** `a9f4755` added
+  `.gitattributes` with `eol=lf`; `git cat-file -p HEAD:docs/verified.md` and
+  a fresh `git checkout --` of it both confirm the blob carries no CR byte, and
+  the file is clean the moment it is checked out. But `ledger.ts`'s
+  `(.*)$` could not reach past one anyway, because in JavaScript `.` does
+  not match a carriage return: a row that somehow arrived CRLF parsed as
+  nothing at all rather than as itself, silently. That gap is closed now —
+  `ENTRY` and `NOTE` both accept an optional trailing carriage return, and
+  `tools/checks/test/ledger.test.ts` pins both endings so this cannot
+  regress unnoticed a third time.
 
 Both were hit for real on 28 August 2026, in that order, on one row.
 

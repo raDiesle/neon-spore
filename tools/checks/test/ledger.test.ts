@@ -96,6 +96,51 @@ describe("appendDecision", () => {
   });
 });
 
+describe("line endings", () => {
+  // `docs/verified.md` is LF on disk (`.gitattributes` sets `eol=lf`, and a
+  // fresh `git checkout` of the file reproduces that with no diff). But the
+  // parser reads whatever bytes it is handed, so it is pinned against both
+  // forms rather than against the one the file happens to be today — the
+  // failure mode if it silently regressed was a row that parses as nothing.
+  const lf = "- `abc1234` 2026-08-28 PASS — a line ending in LF\n";
+  const crlf = "- `abc1234` 2026-08-28 PASS — a line ending in CRLF\r\n";
+  const crlfWithNote =
+    "- `abc1234` 2026-08-28 FAIL — a line ending in CRLF\r\n  - a note also CRLF\r\n";
+
+  test("an LF row parses", () => {
+    expect(parseLedger(lf)).toEqual([
+      {
+        sha: "abc1234",
+        date: "2026-08-28",
+        verdict: "PASS",
+        text: "a line ending in LF",
+        note: "",
+      },
+    ]);
+  });
+
+  test("a CRLF row round-trips the same as an LF row, carriage return dropped", () => {
+    expect(parseLedger(crlf)).toEqual([
+      {
+        sha: "abc1234",
+        date: "2026-08-28",
+        verdict: "PASS",
+        text: "a line ending in CRLF",
+        note: "",
+      },
+    ]);
+  });
+
+  test("a CRLF note attaches without carrying its carriage return into the text", () => {
+    const decisions = parseLedger(crlfWithNote);
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]?.text).toBe("a line ending in CRLF");
+    expect(decisions[0]?.note).toBe("a note also CRLF");
+    expect(decisions[0]?.text.endsWith("\r")).toBe(false);
+    expect(decisions[0]?.note.endsWith("\r")).toBe(false);
+  });
+});
+
 describe("sameCommit", () => {
   test("an abbreviation matches the sha it abbreviates, either way round", () => {
     expect(sameCommit("2e06e07", "2e06e07a9")).toBe(true);

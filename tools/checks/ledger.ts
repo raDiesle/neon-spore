@@ -45,8 +45,13 @@ export interface Decision {
   note: string;
 }
 
-const ENTRY = /^- `([0-9a-f]+)` (\d{4}-\d{2}-\d{2}) (PASS|FAIL|CLEARED) — (.*)$/;
-const NOTE = /^ {2}- (.*)$/;
+// `.` does not match a carriage return, so a line split from a CRLF file
+// still carries a trailing `\r` here — an unanchored `(.*)$` fails to match
+// it at all, and the row parses as nothing rather than as itself. `\r?$`
+// consumes that leftover byte instead of tripping on it, so a CRLF row and
+// an LF row parse the same way. See tools/checks/test/ledger.test.ts.
+const ENTRY = /^- `([0-9a-f]+)` (\d{4}-\d{2}-\d{2}) (PASS|FAIL|CLEARED) — (.*)\r?$/;
+const NOTE = /^ {2}- (.*)\r?$/;
 
 export function parseLedger(md: string): Decision[] {
   const decisions: Decision[] = [];
