@@ -1,4 +1,5 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
+import { DEFLECT_LOOK } from "./deflect-look.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
 
@@ -12,7 +13,7 @@ interface Particle {
   vs: number;
   life: number;
   /** Seconds into the press-and-release that opens every bounce (capped at
-   * `PRESS_LIFE`); ordinary flight (`vx`, `vy`, gravity) is held off until it
+   * `DEFLECT_LOOK.pressLife`); ordinary flight (`vx`, `vy`, gravity) is held off until it
    * elapses, so the rock reads as pressing into the shield before it leaves
    * rather than reversing on one tick. */
   pressT: number;
@@ -32,21 +33,6 @@ interface Shock {
    * to before its ordinary growth (`update`'s `r += ...`) takes over. */
   baseR: number;
 }
-
-const DEFLECT_LIFE = 1.1;
-const SHOCK_LIFE = 0.5;
-/** How long the press-and-release before a bounce takes, in seconds. Short
- * on purpose — the owner asked for "slightly" twice, and a press that reads
- * as its own event rather than a hitch in the bounce has to be over before
- * the eye catches up to it. */
-const PRESS_LIFE = 0.08;
-/** How far into the shield the rock presses, as a fraction of `tile`. */
-const PRESS_DEPTH_FRAC = 0.16;
-/** Squash/stretch scale swing at the peak of the press — 18%, not more. */
-const SQUASH_AMOUNT = 0.18;
-/** How compressed the shockwave ring starts, as a fraction of its resting
- * radius — the shield giving before it springs back out to `baseR`. */
-const RING_COMPRESS_FRAC = 0.78;
 
 /**
  * Standard "back" ease-out: rises past 1 before settling exactly there. Used
@@ -96,13 +82,13 @@ export class DeflectFx {
    *
    * Both the crystal and the ring open with a short press-and-release before
    * the crystal's ordinary flight and the ring's ordinary growth begin — see
-   * `PRESS_LIFE` — so the moment of contact reads as the rock pressing into
+   * `DEFLECT_LOOK.pressLife` — so the moment of contact reads as the rock pressing into
    * the shield and the shield giving like rubber, not as a reversal on one
    * tick.
    */
   spawn(x: number, y: number, tile: number, span = 1): void {
     const sy = y - tile;
-    const shockR = tile * 0.4 * span;
+    const shockR = tile * DEFLECT_LOOK.ringSpanFrac * span;
     this.particles.push({
       x,
       y: sy,
@@ -111,11 +97,18 @@ export class DeflectFx {
       vy: -260 - Math.random() * 80,
       spin: Math.random() * 6.28,
       vs: (Math.random() - 0.5) * 7,
-      life: DEFLECT_LIFE,
+      life: DEFLECT_LOOK.life,
       pressT: 0,
-      pressDepth: tile * PRESS_DEPTH_FRAC,
+      pressDepth: tile * DEFLECT_LOOK.pressDepthFrac,
     });
-    this.shocks.push({ x, y: sy, r: shockR, life: SHOCK_LIFE, pressT: 0, baseR: shockR });
+    this.shocks.push({
+      x,
+      y: sy,
+      r: shockR,
+      life: DEFLECT_LOOK.shockLife,
+      pressT: 0,
+      baseR: shockR,
+    });
   }
 
   update(dt: number, tile: number): void {
@@ -126,7 +119,7 @@ export class DeflectFx {
       // put (the visible dip is `draw`'s alone) so the rock reads as leaving
       // from exactly where it pressed in, with no jump onto a trajectory
       // already carrying it away.
-      if (d.pressT < PRESS_LIFE) {
+      if (d.pressT < DEFLECT_LOOK.pressLife) {
         d.pressT += dt;
       } else {
         d.x += d.vx * dt;
@@ -141,10 +134,10 @@ export class DeflectFx {
       const s = this.shocks[i]!;
       // Same idea: the ring holds at `baseR` through its own press-and-
       // release (drawn, not stored) and only starts growing once that ends.
-      if (s.pressT < PRESS_LIFE) {
+      if (s.pressT < DEFLECT_LOOK.pressLife) {
         s.pressT += dt;
       } else {
-        s.r += tile * 4.5 * dt;
+        s.r += tile * DEFLECT_LOOK.ringGrowTiles * dt;
       }
       s.life -= dt;
       if (s.life <= 0) this.shocks.splice(i, 1);
@@ -154,17 +147,19 @@ export class DeflectFx {
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
   draw(ctx: CanvasRenderingContext2D): void {
     for (const d of this.particles) {
-      // A single in-and-back bump over `PRESS_LIFE`: 0 at the moment of
+      // A single in-and-back bump over `DEFLECT_LOOK.pressLife`: 0 at the moment of
       // contact, peaking mid-press, back to 0 exactly when the ordinary
       // bounce (`update`) takes over — so the dip and the squash both
       // resolve to nothing right where the flight trajectory picks up,
       // rather than leaving a seam between the two.
-      const pt = d.pressT < PRESS_LIFE ? Math.sin((d.pressT / PRESS_LIFE) * Math.PI) : 0;
+      const pressLife = DEFLECT_LOOK.pressLife;
+      const pt = d.pressT < pressLife ? Math.sin((d.pressT / pressLife) * Math.PI) : 0;
       ctx.save();
       // The dip reads as pressing into the shield regardless of the rock's
       // own spin, so it is added in screen space, ahead of `rotate`.
       ctx.translate(d.x, d.y + pt * d.pressDepth);
-      if (pt > 0) ctx.scale(1 + pt * SQUASH_AMOUNT, 1 - pt * SQUASH_AMOUNT);
+      const squash = DEFLECT_LOOK.squashAmount;
+      if (pt > 0) ctx.scale(1 + pt * squash, 1 - pt * squash);
       ctx.globalAlpha = Math.min(1, d.life / 0.5);
       ctx.rotate(d.spin);
       const path = new Path2D(
@@ -185,24 +180,33 @@ export class DeflectFx {
 
     for (const s of this.shocks) {
       // The shield's own give: the ring starts compressed to
-      // `RING_COMPRESS_FRAC` of its rest size and eases out past `baseR`
+      // `ringCompressFrac` of its rest size and eases out past `baseR`
       // before settling there — the small rubber-band snap `backEaseOut`
       // exists for — then, once `update` takes over, grows from that same
       // resting point as before.
+      const k = DEFLECT_LOOK;
+      const compress = k.ringCompressFrac;
       const r =
-        s.pressT < PRESS_LIFE
-          ? s.baseR *
-            (RING_COMPRESS_FRAC + (1 - RING_COMPRESS_FRAC) * backEaseOut(s.pressT / PRESS_LIFE))
+        s.pressT < k.pressLife
+          ? s.baseR * (compress + (1 - compress) * backEaseOut(s.pressT / k.pressLife))
           : s.r;
-      const a = Math.max(0, s.life / SHOCK_LIFE);
-      ctx.globalAlpha = a * 0.85;
+      const a = Math.max(0, s.life / k.shockLife);
       ctx.strokeStyle = PALETTE.shieldRim;
-      ctx.lineWidth = 3 * a + 1;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, r, Math.PI, 0);
-      ctx.stroke();
+      // One arc as shipped; a candidate that answers the catch with a ripple
+      // asks for more, each one a share of the radius further in and fainter.
+      for (let i = 0; i < Math.max(1, Math.round(k.rings)); i++) {
+        const ri = r * (1 - i * k.ringGap);
+        if (ri <= 0) break;
+        const ai = a * (1 - i * 0.3);
+        if (ai <= 0) break;
+        ctx.globalAlpha = ai * k.ringAlpha;
+        ctx.lineWidth = k.ringWidth * ai + k.ringWidthFloor;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, ri, Math.PI, 0);
+        ctx.stroke();
+      }
       ctx.globalAlpha = 1;
-      halo(ctx, s.x, s.y, r * 0.5, PALETTE.shield, a * 0.4);
+      halo(ctx, s.x, s.y, r * k.haloMul, PALETTE.shield, a * k.haloAlpha);
     }
   }
 }

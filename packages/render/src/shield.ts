@@ -115,6 +115,58 @@ export class ShieldBody {
 }
 
 /**
+ * How the armed rim reads, as a record rather than as numbers typed into the
+ * draw call.
+ *
+ * It was the second kind until this file was lifted. The ward is one of the
+ * two things a player watches all game and it had exactly one answer, with
+ * nowhere for a second one to sit — see `docs/versus.md` and
+ * `tools/versus/candidates/shield-ward/`. Nothing here changes what the game
+ * draws; the values are the ones the literals held.
+ *
+ * The shimmer is two sines rather than one so the band never settles into a
+ * period an eye can predict, which is most of what stops a lit rim reading as
+ * a painted stripe.
+ */
+export interface WardLook {
+  /** Half width of the bright stretch beyond the outermost segment, in tiles. */
+  halfMul: number;
+  /** Resting brightness of the shimmer, and the two swings around it. */
+  shimmerBase: number;
+  shimmerA: number;
+  shimmerHzA: number;
+  shimmerB: number;
+  shimmerHzB: number;
+  /** Floor under `armed * shimmer`, so a passive rim is still a rim. */
+  glowFloor: number;
+  /** Opacity: a constant plus the glow's share of it. */
+  alphaBase: number;
+  alphaGlow: number;
+  /** Stroke width at rest, and what a full arm adds. */
+  widthBase: number;
+  widthArmed: number;
+  /** `strokeGlow` intensity at rest, and what a full arm adds. */
+  intensityBase: number;
+  intensityArmed: number;
+}
+
+export const WARD_LOOK: WardLook = {
+  halfMul: 0.8,
+  shimmerBase: 0.72,
+  shimmerA: 0.16,
+  shimmerHzA: 2.6,
+  shimmerB: 0.12,
+  shimmerHzB: 1.15,
+  glowFloor: 0.34,
+  alphaBase: 0.3,
+  alphaGlow: 0.7,
+  widthBase: 2.4,
+  widthArmed: 5.6,
+  intensityBase: 0.5,
+  intensityArmed: 1,
+};
+
+/**
  * The rim-thickening variant on top of the plate: over the shield's segment the
  * edge of the membrane brightens and thickens. Armed and passive then differ in
  * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a
@@ -132,10 +184,14 @@ export function drawShieldRim(
   surface: (x: number) => Point,
 ): void {
   if (at.shield.length === 0) return;
+  const w = WARD_LOOK;
   const cols = at.shield.map((s) => s.col);
-  const shimmer = 0.72 + 0.16 * Math.sin(time * 2.6) + 0.12 * Math.sin(time * 1.15 + 1.7);
-  const glow = Math.max(0.34, armed * shimmer);
-  const half = l.tile * 0.8;
+  const shimmer =
+    w.shimmerBase +
+    w.shimmerA * Math.sin(time * w.shimmerHzA) +
+    w.shimmerB * Math.sin(time * w.shimmerHzB + 1.7);
+  const glow = Math.max(w.glowFloor, armed * shimmer);
+  const half = l.tile * w.halfMul;
   const from = tileCX(l, Math.min(...cols)) - half;
   const to = tileCX(l, Math.max(...cols)) + half;
   const pts: Point[] = [];
@@ -143,7 +199,13 @@ export function drawShieldRim(
   for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));
 
   const seg = new Path2D(openSmoothPath(pts));
-  ctx.globalAlpha = 0.3 + 0.7 * glow;
-  strokeGlow(ctx, seg, PALETTE.shieldRim, 2.4 + 5.6 * armed, 0.5 + armed);
+  ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow;
+  strokeGlow(
+    ctx,
+    seg,
+    PALETTE.shieldRim,
+    w.widthBase + w.widthArmed * armed,
+    w.intensityBase + w.intensityArmed * armed,
+  );
   ctx.globalAlpha = 1;
 }
