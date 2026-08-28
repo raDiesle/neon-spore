@@ -701,10 +701,58 @@ is worth more than a better one that is waiting on it.
 ## Deliberately deferred
 
 - **Cracks in the cockpit** — a downward spiral
-- **Freighter** — overlaps with the runt
-- **Chain reaction** — overlaps with the bearing waves
-- **Spread shot** — too close to the standard weapon
-- **A voice channel inside the game** — stays external
+- **Freighter** — overlaps with the runt. Refused, and the record that
+  survives the refusal is thin: only the name and the one-clause objection,
+  no stats, shape or motion, here or in `legacy/`. *Reconstruction:* the name
+  itself reads as a big, slow body — cargo-ship, not creature — dropping down
+  the field, and that is a guess from the word, not a recovered fact. The runt
+  it is said to overlap with (`packages/content/src/creatures.ts`,
+  `docs/spec/bestiary.md` 10.1) is its opposite in size — "tiny and helpless,"
+  built, `aim`-only, no colour — but the same in *role*: a body whose whole
+  point is that not shooting it is a real restraint, and shooting it costs the
+  pair points. Read for role rather than size, the objection holds — a second
+  do-not-shoot body would teach the same restraint twice under a different
+  silhouette. Nothing is recorded as surviving it; the slot is empty
+- **Chain reaction** — overlaps with the bearing waves. Refused, and almost
+  nothing of what it was is written down: no mechanism, target or shape
+  survives anywhere in the repository, only the clause and the neighbour it
+  was measured against. *Reconstruction, and a thin one:* Bearing waves, an
+  entry under "Accepted, not yet worked out" earlier in this file, is the
+  only other idea on this page about how positions on the field relate
+  to each other — a ring that renames a column rather than the counted grid in
+  use today. Read against that neighbour, Chain reaction most plausibly
+  proposed some rule that also depended on one position on the field acting on
+  another, and lost on covering ground Bearing waves already claims rather
+  than by colliding with anything built. That is the best the record supports,
+  not a recovered decision, and nothing is recorded as surviving it. Bearing
+  waves is under "Accepted, not yet worked out," above, in this file
+- **Spread shot** — too close to the standard weapon. What it was, read off
+  the name alone since nothing else survives: a shot landing across more than
+  one column at once. *Reconstruction:* the standard weapon
+  (`docs/spec/systems.md` 5.5) is already a single bubble in a single column,
+  and the whole discipline of aiming is standing the cannon in the *one*
+  column an announcement names before the shot goes up — "it slides along the
+  hull and never aims sideways… standing in the column is the whole of
+  aiming" (`docs/spec/briefings.md`, step 3). A shot that lands across several
+  columns does not sit beside the standard one as a second, wider option; it
+  removes the reason the standard one is exact, because the pair no longer has
+  to agree on a single column, only on being near it. Nothing is recorded as
+  surviving the objection
+- **A voice channel inside the game** — stays external. What it was: building
+  the pair's talk — the whole mechanism this game is built around — as a
+  feature of the game itself, rather than assuming it happens elsewhere. What
+  it collided with is written down plainly, just not on this page: the
+  founding argument for the raster control model (`docs/decisions.md` #2) is
+  that the two players already talk over an *external* channel — Discord or a
+  phone call, 0.5–2 s of delay — and the creature-naming rule, the audio
+  design and every announced sentence in the game are tuned to that existing
+  delay rather than to one the game would own. The briefings say the same
+  thing directly: "the voice channel itself is not explained here — that
+  belongs to the menu, before a room is even joined, and is being written
+  separately" (`docs/spec/briefings.md`, step 3). Building one inside the game
+  would mean re-deriving all of that against a channel the design no longer
+  has to assume, for no stated gain. Nothing is recorded as surviving the
+  objection
 - **THE CONDUCTOR, bending the tempo** — a boss drawn as a pendulum arm
   sweeping the top of the field, an open contour rather than a body, whose arm
   position *is* the tempo: it speeds the beat up and slows it down, and the grid
