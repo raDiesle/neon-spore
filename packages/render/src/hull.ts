@@ -97,6 +97,14 @@ export function drawHull(
   craterVisible: (x: number) => boolean = () => true,
   crackArrived: (col: number, beat: number) => boolean = () => true,
   skin_: HullSkin = OWN_SKIN,
+  // Render-only, and off by default: nothing here moves the hull's own
+  // coordinate math, only where the finished picture lands on the canvas.
+  // The offset itself is a boss's business — `queen.ts`'s `hullShake` is the
+  // one shape of it that exists today — so this file stays boss-agnostic and
+  // only asks for the two numbers. See queen.ts `hullShake` for the signal
+  // this is meant to carry, and `docs/queue.md`'s tremor lane for why a shake
+  // here is a decision the owner made rather than one this file invented.
+  shake: { x: number; y: number } = { x: 0, y: 0 },
 ): void {
   const f = frame(l, time, mood, at);
   // High resolution: the swelling has to read as one unbroken transition, not
@@ -119,6 +127,13 @@ export function drawHull(
   // negative lift (the maw, inverted past the hull line) draws into the
   // buttons instead of stopping at the skin around it.
   ctx.save();
+  // The shake translates the whole hull pass — clip included, so the clipped
+  // window shudders with the ship rather than cropping it against a window
+  // that held still. Scoped to this `save`/`restore` alone: nothing drawn
+  // outside this function (the other hand, the rock-impact overlay, contact
+  // shadows) reads this offset, so it never reaches a hit region or anything
+  // `packages/sim` believes.
+  ctx.translate(shake.x, shake.y);
   ctx.beginPath();
   ctx.rect(l.gridLeft, 0, l.gridWidth, l.bandTop);
   ctx.clip();

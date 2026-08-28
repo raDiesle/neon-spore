@@ -16,6 +16,7 @@ import type { Layout } from "./layout.js";
 import { drawOtherHand } from "./other-hand.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
+import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawShellDamage } from "./shell-draw.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
@@ -81,6 +82,13 @@ export function drawShip(
   mood: HullMood,
   at: LobePositions,
 ): void {
+  // Queen boss only: the ship's own render-only echo of her torch tremor
+  // (queen.ts's `hullShake`); undefined everywhere else, so `drawHull` falls
+  // back to its own no-shake default.
+  const shake =
+    world.boss?.kind === "queen"
+      ? hullShake(torchTremor(l.tile, world.boss, world.beat, view.time))
+      : undefined;
   drawHull(
     ctx,
     l,
@@ -91,6 +99,8 @@ export function drawShip(
     at,
     (x) => !effects.rockCoversCrater(x, l.tile),
     (col, beat) => effects.hasArrived(col, beat),
+    undefined,
+    shake,
   );
   drawContactShadows(ctx, l, world.cfg, world.creatures, world.scars, view.beatPhase);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).

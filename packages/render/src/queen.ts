@@ -10,6 +10,7 @@ import { drawMark, markGlow } from "./queen-weakpoint.js";
 const OUTER_WOBBLE_BONUS = 1.5;
 /** How hard the queen shudders per tile of her own size, at full shake. */
 const SHAKE_TILES = 0.06;
+export const QUEEN_SHUDDER_HZ: readonly [number, number] = [13, 17]; // was [40, 53] — same buzz as TORCH_TREMOR_HZ below
 /**
  * How hard both flank torches tremble, per tile of the torch's own footprint,
  * while a drop is pending. Smaller than `SHAKE_TILES` and on its own pair of
@@ -17,8 +18,8 @@ const SHAKE_TILES = 0.06;
  * hit-reaction shudder, never as the same event.
  */
 const TORCH_TREMOR_TILES = 0.045;
-/** The two out-of-step frequencies the tremor rides — asked to look shaky, not spun. */
-const TORCH_TREMOR_HZ: readonly [number, number] = [47, 61];
+// Was [47, 61] — fast enough to blur into a disc, the "rotating meteors" complaint. Slowed by four, kept mismatched so it stays a shudder, not an orbit.
+export const TORCH_TREMOR_HZ: readonly [number, number] = [11, 14];
 
 /**
  * Her whole figure, in tiles from the centre of the tile she stands on. A
@@ -80,8 +81,8 @@ export function drawQueen(
   // A local shudder, not a screen shake: mismatched frequencies so it reads as
   // a shudder rather than a spin, decaying with `shake` as the timer runs out.
   const jitter = tile * SHAKE_TILES * shake;
-  const ox = Math.sin(time * 40) * jitter;
-  const oy = Math.cos(time * 53) * jitter;
+  const ox = Math.sin(time * QUEEN_SHUDDER_HZ[0]) * jitter;
+  const oy = Math.cos(time * QUEEN_SHUDDER_HZ[1]) * jitter;
   const x = baseX + ox;
   const y = baseY + oy;
 
@@ -173,7 +174,8 @@ export function torchTremor(
   const [hx, hy] = TORCH_TREMOR_HZ;
   return { x: Math.sin(time * hx) * jitter, y: Math.cos(time * hy) * jitter };
 }
-
+// The hull's echo of an already-computed torch tremor, at roughly a fifth of its size — quiet on the same beat, and pure, like `torchTremor`: nothing for `Effects.reset()` to clear.
+export const hullShake = (t: { x: number; y: number }) => ({ x: t.x * 0.22, y: t.y * 0.22 });
 /**
  * The armoured shell — the same angular rock her torches are made of rather
  * than a living contour. Faceted and gradient-shaded like `drawTorchRock`,
