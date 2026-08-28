@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
 import { createWorld, DEFAULT_CONFIG, hashWorld, startWave, step } from "@neon-spore/sim";
-import { GAPS } from "../src/interludes.js";
 import { MECHANIC_IDS, mechanic, mechanicOn, mechanicsInWave } from "../src/mechanics.js";
 import { buildBoss, buildPods, buildQueue } from "../src/queue.js";
 import { WAVES } from "../src/waves.js";
@@ -38,14 +37,6 @@ describe("demonstrations", () => {
         mechanicsInWave(demonstrationWave(id)),
         `${DEMONSTRATIONS[id].wave} has no ${id}`,
       ).toContain(id);
-    }
-  });
-
-  it("names, for a gap mechanic, the wave the gap opens in front of", () => {
-    for (const id of MECHANIC_IDS) {
-      if (mechanic(id).reach !== "gap") continue;
-      const gap: string | undefined = GAPS[demonstrationIndex(id)]?.kind;
-      expect(gap, `no ${id} gap in front of that wave`).toBe(id);
     }
   });
 

@@ -3,7 +3,6 @@ import {
   chargeDueTick,
   chargeMilli,
   chargePartTicks,
-  clearInterlude,
   createWorld,
   DEFAULT_CONFIG,
   forkOpen,
@@ -15,7 +14,6 @@ import {
   type SimConfig,
   type SimEvent,
   type SpawnEntry,
-  startInterlude,
   startWave,
   step,
   type TimedCommand,
@@ -294,19 +292,26 @@ describe("a charge nobody can deliver", () => {
 
 describe("a world that stops", () => {
   it("holds the charge exactly where it was, the way a bullet in flight waits", () => {
-    const w = world({ ...LAID, interludes: true });
+    const w = world();
     play(w, 10, [aim(0, COL), shoot(1)]);
     const left = w.charge?.left;
     expect(left).toBeGreaterThan(0);
 
-    startInterlude(w, { kind: "gauge" }, 0);
+    // A briefing card. It used to be an interlude here, which was the other
+    // world that stops; THE GAUGE is a boss wave now and `startWave` empties
+    // the charge on the way in, so a shot can no longer be owed into one. What
+    // the rule is about did not change: the countdown is only ever stepped
+    // from inside a running field, so a field that is not running holds it —
+    // the shot is owed, not late.
+    //
+    // The card is raised by hand rather than by a wave, because a wave is what
+    // clears the charge. `briefingHolds` reads nothing but the length.
+    w.brief.due = [0];
     play(w, TPB * 20);
-    // A round that is not the field has no field to fire into, and the wait
-    // does not consume the wind-up: the shot is owed, not late.
     expect(w.charge?.left).toBe(left as number);
     expect(w.bullets).toHaveLength(0);
 
-    clearInterlude(w);
+    w.brief.due = [];
     const seen = play(w, w.tick + PART + 2);
     expect(fired(seen)).toHaveLength(1);
   });

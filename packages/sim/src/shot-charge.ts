@@ -54,8 +54,8 @@ import { MILLI, type World } from "./world.js";
 
 /**
  * A shot that has been pressed and has not left the muzzle yet. One object
- * rather than three fields on the world, for the reason `boss` and `interlude`
- * are objects: it is one thing with parts, and every part of it is settled at
+ * rather than three fields on the world, for the reason `boss` is an object:
+ * it is one thing with parts, and every part of it is settled at
  * the press. There is deliberately no column in it — the muzzle's column is
  * read when the shot goes, so a second copy could only ever disagree.
  */
@@ -131,8 +131,8 @@ export function endCharge(world: World): void {
  * Count this tick off the charge, and say whether the shot goes out on it.
  *
  * A countdown rather than a due tick on purpose: it is only ever stepped from
- * inside a running field, so a world that stops — a briefing card, an
- * interlude, a run that is over — holds the charge exactly where it was,
+ * inside a running field, so a world that stops — a briefing card, THE GAUGE,
+ * a run that is over — holds the charge exactly where it was,
  * which is what every bullet already in the air does. Nothing has to notice
  * that the clock stood still, because for the charge it did.
  */

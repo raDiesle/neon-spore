@@ -4,9 +4,9 @@ import { advanceBullets, releaseShot } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
 import { restEnded } from "./fork.js";
+import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
-import { interludeHeard, interludeHolds, stepInterlude } from "./interlude.js";
 import { noteLanceFull } from "./lance.js";
 import { advancePods } from "./pods.js";
 import type { TimedCommand } from "./types.js";
@@ -29,19 +29,23 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     return;
   }
-  // A round that is not the field has the world: no spawn, no fall, no shot,
-  // no hull. The spec's "the field is gone" as an early return rather than a
-  // coat of paint (`interlude.ts`). Two things still get through — `restart`,
-  // so a run is leavable from anywhere, and the metronome, because the beat is
-  // the game's heartbeat and the round's own drift hangs off it.
-  if (interludeHolds(world)) {
+  // THE GAUGE has the world: no spawn, no fall, no shot, no hull resolved.
+  // "The field is gone" as an early return rather than a coat of paint
+  // (`gauge-round.ts`). Two things still get through — `restart`, so a run is
+  // leavable from anywhere, and the metronome, because the beat is the game's
+  // heartbeat and the round's own drift hangs off it.
+  //
+  // It is the one boss that gets its tick here rather than its beat in
+  // `stepBoss`: the needle answers a held valve on the tick, and a wave whose
+  // whole picture is the round has no field for `onBeat` to advance.
+  if (gaugeHolds(world)) {
     for (const c of commands) {
       if (c.command.kind === "restart") applyCommand(world, c);
-      else interludeHeard(world, c.player, c.command);
+      else gaugeRoundHeard(world, c.player, c.command);
     }
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepInterlude(world);
+    stepGaugeRound(world);
     return;
   }
   // Commands are read even when the hull is through — otherwise `restart`

@@ -1,4 +1,4 @@
-import { GAPS, type Wave } from "@neon-spore/content";
+import type { Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import {
   BOSS_GROUP,
@@ -18,7 +18,7 @@ import {
  * sentence — `VALUE` — and falls back to the raw field for everything else, so
  * a tunable that lands today shows up as `fieldName: 12` tomorrow rather than
  * not at all. Five fields landed on 27 Aug 2026 (`briefings`,
- * `forkBetweenWaves`, `interludes`, the six `gauge*` fields, `shotChargeBeats`)
+ * `forkBetweenWaves`, the `gauge*` fields, `shotChargeBeats`)
  * and none of them appeared here — that gap is what this file is now built to
  * refuse.
  *
@@ -26,7 +26,7 @@ import {
  * asked for: `aimMillis` is the same number on every wave, so it does not
  * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
  * SHIP card with only what the current wave actually contains — its boss, if
- * it has one, and THE GAUGE if the gap in front of it carries a round — and
+ * it has one, THE GAUGE included, since that is a boss now — and
  * `renderShipSheet` paints the topbar sheet with the ship's own dials, the
  * same on every wave, one click away.
  */
@@ -50,7 +50,7 @@ const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
   "THE BEAT": (cfg) => `${cfg.bpm} BPM`,
   "THE FORK — the seam between waves": (cfg) => (cfg.forkBetweenWaves ? "ON" : "off"),
   "BRIEFING — the card a wave opens on": (cfg) => (cfg.briefings ? "ON" : "off"),
-  "THE GAUGE — an interlude's own round": (cfg) => (cfg.interludes ? "ON" : "off"),
+  "THE GAUGE — a round with no field in it": (cfg) => `${cfg.gaugeMarks} marks`,
 };
 
 /** Every field of `group`, as `name: value`, for the ones `VALUE` does not word by hand. */
@@ -83,17 +83,14 @@ function capEl(cap: Capability): HTMLElement {
 }
 
 /**
- * Which groups belong to the wave open right now: its own boss, if it has
- * one, and THE GAUGE if the gap in front of it carries a round. `GAPS` is the
- * saved shape (`packages/content/src/interludes.ts`), the same source the
- * bundled waves come from — an edit made in the gap sheet and not yet saved
- * is not yet true of the wave either, the same as everything else this panel
- * reads off `Store`.
+ * Which groups belong to the wave open right now: its own boss, if it has one.
+ * THE GAUGE used to need a second question here — whether the gap in front of
+ * this wave carried a round — and it does not any more, because the round is a
+ * boss and `wave.boss` is the whole answer.
  */
-function groupsForWave(wave: Wave | undefined, waveIndex: number): GroupName[] {
+function groupsForWave(wave: Wave | undefined): GroupName[] {
   const present = new Set<GroupName>();
   if (wave?.boss) present.add(BOSS_GROUP[wave.boss.kind]);
-  if (GAPS[waveIndex]) present.add("THE GAUGE — an interlude's own round");
   return GROUP_ORDER.filter((g) => present.has(g));
 }
 
@@ -103,11 +100,11 @@ function groupsForWave(wave: Wave | undefined, waveIndex: number): GroupName[] {
  * that emptiness is the point rather than a bug to paper over with the ship's
  * global dials, which is what used to sit here.
  */
-export function renderShip(cfg: SimConfig, wave: Wave | undefined, waveIndex: number): void {
+export function renderShip(cfg: SimConfig, wave: Wave | undefined): void {
   const caps = document.getElementById("caps");
   if (!caps) return;
   caps.replaceChildren();
-  const groups = groupsForWave(wave, waveIndex);
+  const groups = groupsForWave(wave);
   if (groups.length === 0) {
     const note = document.createElement("p");
     note.className = "note";

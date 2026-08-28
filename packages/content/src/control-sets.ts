@@ -1,3 +1,4 @@
+import { type ControlDef, type ControlId, control, type PanelForm } from "./controls.js";
 import { WAVES } from "./waves.js";
 
 /**
@@ -15,17 +16,23 @@ import { WAVES } from "./waves.js";
  * two additions are four panels nobody ever drew or played. A named set is a
  * thing a person can be shown, argued with, and told to remove a button from.
  *
- * **The gauge is one of these already, under another name.** The interlude
- * draws no band at all: `interludeControls` in `packages/render/src/interlude.ts`
- * builds the round's own three slabs, LEFT and RIGHT for the pilot and CALL for
- * the navigator, and divides the width by however many that seat has — so a
- * seat with one button gets one wide button rather than a gap where two others
- * used to be. That is a control set in every respect except the name: whole,
- * per-seat, enumerable, and un-composable with the band. It is deliberately not
- * registered here, because the thing that reaches for it is a *round*, not a
- * wave, and every set in this file must be reachable by naming it on a wave.
- * The shape below is the shape the gauge's panel would take if a later lane
- * ever wants both lists on one page.
+ * **A set is not always a band, and `gauge` is the proof.** THE GAUGE's panel
+ * used to be built by hand in render/, outside this file, on the ground that
+ * the thing reaching for it was a *round* and not a wave. It is a wave now, so
+ * that objection is gone and the set is registered like any other — but its
+ * three controls are not strips and lobes, they are **slabs**: they replace the
+ * band instead of sitting in it, they are laid out by dividing a seat's width
+ * by however many that seat has, and a seat with one gets one wide button
+ * rather than a gap where two others used to be.
+ *
+ * So a set carries a `PanelForm`, and it is **derived from the controls rather
+ * than declared beside them** (`panelForm`). That is the whole boundary, and it
+ * is one function: the field's own sets say nothing new and never learn the
+ * word, a round's set is a slab panel by virtue of what is in it, and a set
+ * that mixed the two would be a panel nobody could draw — so it throws, and
+ * `test/control-sets.test.ts` is what makes that a failure rather than an
+ * opinion. The eleven rounds still to come cost one `ControlDef` per button
+ * and one entry in `CONTROL_SETS`; none of them re-invents a panel.
  *
  * **The snake is not one, because there is no snake.** Nothing in the tree
  * moves left and right under a control of its own: THE WARDEN's pupil slides a
@@ -37,85 +44,7 @@ import { WAVES } from "./waves.js";
  * is.
  */
 
-/** Every control either player can be given. One name per thing on a panel. */
-export type ControlId = "cannon" | "guard" | "intake" | "lance" | "shield" | "fireRed" | "fireCyan";
-
-export interface ControlDef {
-  id: ControlId;
-  /** Whose half of the band it is drawn in. The split is never crossed. */
-  player: 1 | 2;
-  /** A strip snaps to a column across the width; a lobe is a round button. */
-  form: "strip" | "lobe";
-  /** What the panel says, or would say — the fire lobes are named by colour. */
-  label: string;
-  /** One line, for somebody reading a list of panels rather than the code. */
-  does: string;
-}
-
-/**
- * The controls themselves, listed rather than switched on. A page that wants
- * to show a set reads this; nothing has to know the drawing code to say what a
- * panel contains.
- */
-export const CONTROLS: readonly ControlDef[] = [
-  {
-    id: "cannon",
-    player: 1,
-    form: "strip",
-    label: "PLAYER 1 · CANNON",
-    does: "Slides the cannon along the hull. It only ever fires straight up.",
-  },
-  {
-    id: "guard",
-    player: 1,
-    form: "lobe",
-    label: "SHIELD",
-    does: "Triggers the shield wherever player 2 has left it. Half of every ward.",
-  },
-  {
-    id: "intake",
-    player: 1,
-    form: "lobe",
-    label: "SUCK",
-    does: "Opens the maw, which takes in a pod and whatever is falling with it.",
-  },
-  {
-    id: "lance",
-    player: 1,
-    form: "lobe",
-    label: "LANCE",
-    does: "Held, not tapped. Fills the cannon lobe for as long as the cannon stays still.",
-  },
-  {
-    id: "shield",
-    player: 2,
-    form: "strip",
-    label: "PLAYER 2 · SHIELD",
-    does: "Slides the shield along the hull. It does nothing until player 1 triggers it.",
-  },
-  {
-    id: "fireRed",
-    player: 2,
-    form: "lobe",
-    label: "RED",
-    does: "Fires red up whichever column player 1 is standing in.",
-  },
-  {
-    id: "fireCyan",
-    player: 2,
-    form: "lobe",
-    label: "CYAN",
-    does: "Fires cyan up whichever column player 1 is standing in.",
-  },
-];
-
-export function control(id: ControlId): ControlDef {
-  const found = CONTROLS.find((c) => c.id === id);
-  if (!found) throw new Error(`no control named ${id}`);
-  return found;
-}
-
-export type ControlSetId = "default" | "lance";
+export type ControlSetId = "default" | "lance" | "gauge";
 
 export interface ControlSet {
   id: ControlSetId;
@@ -156,7 +85,29 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     why: "The maw traded for the lance, because they are the same opening and one empties the other.",
     controls: ["cannon", "guard", "lance", "shield", "fireRed", "fireCyan"],
   },
+  {
+    id: "gauge",
+    name: "THE GAUGE",
+    why: "The field is gone, so the band is too: two held slabs for the valve, one for the call.",
+    controls: ["gaugeLeft", "gaugeRight", "gaugeCall"],
+  },
 ];
+
+/**
+ * Which kind of panel a set is, read off the controls in it.
+ *
+ * Derived rather than declared, because a declaration is a second copy of
+ * something already written down and two copies drift. A set that mixed a slab
+ * with a strip has no drawing — the slab panel replaces the band the strip
+ * lives in — so it is not a panel with a mistake in it, it is not a panel, and
+ * this throws rather than picking one.
+ */
+export function panelForm(set: ControlSet): PanelForm {
+  const forms = new Set(set.controls.map((id) => control(id).form));
+  const slabs = forms.has("slab");
+  if (slabs && forms.size > 1) throw new Error(`control set ${set.id} mixes slabs with a band`);
+  return slabs ? "slabs" : "band";
+}
 
 /** What a wave gets when it names nothing at all. */
 export const DEFAULT_CONTROL_SET_ID: ControlSetId = "default";

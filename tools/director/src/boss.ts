@@ -112,6 +112,10 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       return;
     }
     const boss = wave.boss;
+    // THE GAUGE has nothing to author: no column, no health, no rounds. Its
+    // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
+    // this panel's.
+    if (boss.kind === "gauge") return;
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

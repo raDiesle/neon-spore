@@ -443,54 +443,88 @@ belongs anyway, because a moved hash says only that something is different.
 cross-build stability becomes a correctness requirement rather than a nicety,
 and a pinned corpus earns its maintenance.
 
-## 20. An interlude is a mode the world enters, not a world of its own
+## 20. A round that is not the field is a boss wave, not a category
 
-*August 2026.* THE GAUGE is the first round that is not the field, and eleven
-more are designed behind it, so the seam it cut is inherited rather than
-chosen again. Both shapes were defensible and the deciding argument was not
-about rules.
+*August 2026, revised.* THE GAUGE was built as an **interlude**: a fourth kind
+of thing beside the wave, the boss and the pod, reached from a table of gaps
+keyed by the wave each sat in front of, behind a `cfg.interludes` switch, and
+forbidden by rule from ever ending a run. Eleven more were designed behind it.
+The owner retired the category before the second one was built:
 
-**Two worlds need a supervisor holding the switch between them, and that
-supervisor is the one piece of state no fingerprint covers.** Two devices
-could agree about everything inside a round while disagreeing about which
-round they are in — which is the worst desync available, because every
-per-round hash would say the two were fine. One `World` keeps one `step`, one
-`hashWorld`, one replay format and one command stream, and `world.interlude`
-and `world.interludeDone` are both in the fingerprint.
+> ich schlage vor, dass wir alles zu "the gauge" in eine boss wave umwandeln.
+> keine konfiguration für einzelne waves. das passt viel besser. […] so remove
+> completely the interlude principle and implementation pattern
 
-The price is that "round" now means two things, and it is paid where it is
+**What was wrong with it was the second door, not the round.** Every part of a
+category is a part the rest of the game has to learn about. `needWave` grew a
+second meaning and the host had to ask, before building a wave, whether the gap
+in front of it carried something else. `world.interludeDone` existed only to
+stop that question looping. `Reach` grew a third value, `gap`, so the mechanic
+registry could say where a thing was played from. The director grew a tab, an
+API route and a serializer for one `Record<number, InterludeEntry>`. None of
+that was about a needle, two marks and two people who cannot see the same
+screen — and all of it would have been paid eleven more times.
+
+A wave already reaches a boss, and a boss already *is* the wave it stands in.
+`boss: { kind: "gauge" }` is the whole of the reaching mechanism now, and the
+eleven rounds still to come cost one wave entry, one `config-<round>.ts` block
+and one control set each.
+
+**What survives, because it was never about how the round was reached.**
+
+**A mode of one world, not a world of its own.** The round is still a field on
+`World` — `world.boss` — and still an early return in `step`, not a second
+`World` with its own loop. Two worlds need a supervisor holding the switch
+between them, and that supervisor is the one piece of state no fingerprint
+covers: two devices could agree about everything inside a round while
+disagreeing about *which* round they are in, which is the worst desync
+available, because every per-round hash would say the two were fine. One
+`World` keeps one `step`, one `hashWorld`, one replay format and one command
+stream. The price is that "round" means two things, and it is paid where it is
 cheapest: `step` returns before it reaches any rule of the field, so
-`bullets.ts`, `beat.ts` and `hull.ts` never learn the word.
+`bullets.ts`, `beat.ts` and `hull.ts` never learn this round exists.
 
-Three consequences follow, and they are the answers the other eleven inherit.
+**The field is gone during a round, not dimmed.** That is free because a gauge
+wave carries no queue and no pods, so there is never a rock in the air to
+answer for. The metronome keeps running — the ear would notice ninety seconds
+of silence, and drift is counted in beats — while `world.waveBeat` stands
+still.
 
-**The field is gone during a round, not dimmed.** That is free only because of
-where the seam sits: a round opens at a gap where the field is already empty,
-so it never has to answer what happens to a rock in the air. The metronome
-keeps running — the ear would notice ninety seconds of silence, and drift is
-counted in beats — while `world.waveBeat` stands still.
+**Lead, play, verdict.** The three phases belong to the round now rather than
+to a shell, which is where they should have been: they were never shared with
+anything, because nothing else was ever built.
 
-**Lead, play, verdict, and failing costs time only.** The shell owns the
-three-phase clock; each interlude answers one question inside `play`. Both
-endings leave by the same door. No hull, no score, no scar. What a round may
-*give* is deliberately unbuilt: pods are wave content and `startWave` replaces
-the pod queue wholesale, so that seam belongs to the first round with
-something to hand over.
+**Its own controls, different per seat.** Neither band is reused. What changed
+is that they are a **control set** — `gauge` in `control-sets.ts` — instead of
+geometry invented inside render/. A set's `panelForm` is derived from what is
+in it: a set of slabs is a panel that replaces the band, a set of strips and
+lobes is a band, and a set that mixed them is not a panel and throws. The
+field's own sets learned nothing. One layout function answers the draw, the
+game's hit test and the director's, so a control is never drawn where it is not
+answered.
 
-**Its own controls, different per seat, and the seat check is a rule rather
-than paint.** Neither band is reused. Both devices must agree exactly which
-presses counted, so the check lives in the simulation.
+**And one rule was retired by name: the pair can lose the run in here.** The
+old sentence was "a run ends on the field, on a hull that reached zero, in the
+coordinate system the pair has been naming out loud all evening". It was a good
+sentence about a category that no longer exists. A boss that costs nothing is
+not a boss, it is a screen you wait out — and a round nobody can fail is a round
+nobody plays twice. So: **the round does not draw a hull and the hull is still
+at stake.** The field's picture is absent, `world.hullMilli` persists
+underneath, and running out of time breaks it by `cfg.damageGauge` in the
+middle column, leaving a scar that is still there when the field comes back.
+A run can therefore end in a round.
 
 **Reconsider if:** a round ever has to run *over* a live field, or has to hand
 something back to the wave that follows it. Either would reopen the seam, and
-the second is the likelier.
+the second is the likelier — a round that gives the pair a pod for the act
+ahead is the obvious next ask, and `startWave` replaces `podQueue` wholesale.
 
 ## 21. The no-travel rule is about the field, not about the game
 
 *August 2026.* `CLAUDE.md` said "nothing the players control travels the
 field", and every reader took the sentence to bind the whole game — including
-`docs/spec/interludes.md`, which asked for this entry before any round that
-moves something could be built. The owner has settled it: the rule is scoped
+the twelve rounds designed in `docs/spec/interludes.md`, three of which could
+not be built until this was settled. The owner settled it: the rule is scoped
 to the field, and it was incorrect as a rule about the game.
 
 What it is actually for is keeping the field a place where two people talk
@@ -500,15 +534,26 @@ exists so that "column four, on the three" is a complete instruction. Free
 movement would replace that with a shared reflex, which is the argument
 `docs/decisions.md` #2 already made when the raster model beat free flight.
 
-None of that reasoning reaches an interlude. A round that is not the field has
-its own rules, its own controls and its own picture (`#20`), and a claw on a
-rail, a belt that carries things sideways or a well the creatures fall into is
-not a violation of anything — those three are THE CLAW, THE BELT and THE WELL
-in `docs/spec/interludes.md`, and all three were blocked on this sentence.
+**None of that reasoning reaches a round that draws its own screen**, and that
+is the part worth keeping now that the *category* the entry was written about
+is gone. This entry used to say "none of it reaches an interlude". The word has
+changed and the argument has not, because the argument was never about how the
+round was reached — it was about there being no columns in it. A boss wave with
+no grid, no hull drawn and its own picture is exactly as free of the column
+vocabulary as an interlude was. A claw on a rail, a belt that carries things
+sideways or a well the creatures fall into is not a violation of anything: THE
+CLAW, THE BELT and THE WELL are three of the eleven rounds still to build, and
+all three were blocked on this sentence rather than on any rule of their own.
 
-**Reconsider if:** an interlude's movement starts leaking back into how the
-field is described — if a round teaches a gesture the field then has to
-refuse, the two halves have stopped being different rounds and are competing.
+The reading has to be stated rather than assumed precisely because the rounds
+are bosses now. A boss wave looks, from `waves.ts`, like every other wave — so
+a reader who found one moving a claw along a rail and reached for `CLAUDE.md`
+would find a sentence that appears to forbid it. What decides is not what the
+thing is called in the wave list; it is whether the pair are naming columns.
+
+**Reconsider if:** a round's movement starts leaking back into how the field is
+described — if a round teaches a gesture the field then has to refuse, the two
+halves have stopped being different rounds and are competing.
 
 ## 22. A branch is swept as soon as its work is on main, and main is pushed
 

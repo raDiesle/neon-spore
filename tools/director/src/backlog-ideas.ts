@@ -22,8 +22,8 @@ export function fromIdeas(
 }
 
 /**
- * A group, minus whatever `isBuilt` already covers by name. Only Interludes
- * asks for this: THE GAUGE ends in `gauge`, in `INTERLUDE_KINDS`. The other
+ * A group, minus whatever `isBuilt` already covers by name. Only the rounds
+ * ask for this: THE GAUGE ends in `gauge`, in `BOSS_KINDS`. The other
  * idea groups stay as `fromIdeas` leaves them — a boss idea like THE VANE
  * keeps appearing after being built, because a concept-art scene still points
  * a suggestion at it (`concept-art.test.ts`).

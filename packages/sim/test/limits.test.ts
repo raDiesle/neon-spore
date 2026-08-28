@@ -20,9 +20,14 @@ const LIMIT = 250;
  * anybody saved a wave in the editor, silently. Splitting it is a change to
  * the director and belongs to a lane that owns `tools/`; until then a wave
  * costs ten lines and this is where that is recorded rather than excused.
+ *
+ * It went from 267 to 275 when THE GAUGE stopped being a category and became a
+ * boss wave, and it is about to go a great deal further: eleven more rounds
+ * are designed and each of them is a wave. The split is now owed rather than
+ * merely available, and this number is the receipt for that.
  */
 const KNOWN_LONG: Record<string, number> = {
-  "packages/content/src/waves.ts": 267,
+  "packages/content/src/waves.ts": 275,
 };
 function sourceFiles(): string[] {
   const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");

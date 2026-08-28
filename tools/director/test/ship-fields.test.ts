@@ -58,7 +58,7 @@ describe("ship-fields", () => {
     }
   });
 
-  test("THE GAUGE is wave-only — it only matters in a gap that carries one", () => {
-    expect(WAVE_ONLY_GROUPS.has("THE GAUGE — an interlude's own round")).toBe(true);
+  test("THE GAUGE is wave-only — it only matters on the wave that carries it", () => {
+    expect(WAVE_ONLY_GROUPS.has("THE GAUGE — a round with no field in it")).toBe(true);
   });
 });

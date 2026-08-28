@@ -2,16 +2,13 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  type GaugeState,
+  gaugeHolds,
+  gaugeRound,
   gaugeSeated,
   hashWorld,
-  type InterludeState,
-  interludeDue,
-  interludeHolds,
-  NO_INTERLUDE,
-  PAIR_ON,
   type SimConfig,
   type SimEvent,
-  startInterlude,
   startWave,
   step,
   type TimedCommand,
@@ -20,19 +17,28 @@ import {
 } from "../src/index.js";
 
 /**
- * THE GAUGE, and through it the shell every other interlude will enter by.
+ * THE GAUGE as a boss wave.
  *
- * Most of what is asserted here is about the shell rather than the round: that
- * the field is gone while one is up, that the beat is not, that failing costs
- * nothing, and that the way out is the same door the way in used. The round
- * itself is one needle and two marks, and the only interesting thing about it
- * is that neither seat can play it alone — which is two of the tests below and
- * not a matter of taste.
+ * It used to be an *interlude*: a round reached from a table of gaps, behind a
+ * `cfg.interludes` switch, that could never end a run. All three are gone, and
+ * most of this file is about what replaced them — a wave carries it the way a
+ * wave carries the queen, the field is gone while it stands, and running out
+ * of time breaks the hull like anything else that gets through.
+ *
+ * The round itself is one needle and two marks, and the only interesting thing
+ * about it is that neither seat can play it alone — which is two of the tests
+ * below and not a matter of taste.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG, ...PAIR_ON };
+/**
+ * No `PAIR_ON`. The round needed the pair's switch when it was a category
+ * reached between waves; a boss wave needs nothing turned on, which is most of
+ * what this change bought and is worth saying in the rig rather than only in a
+ * comment.
+ */
+const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-/** The gap these rounds are opened in front of. Any wave above zero. */
+/** The wave THE GAUGE is installed on. Any number: it is a wave like any other. */
 const WAVE = 4;
 
 type Bot = (world: World) => TimedCommand[];
@@ -40,8 +46,14 @@ const SILENT: Bot = () => [];
 
 function open(seed = 5): World {
   const world = createWorld(CFG, seed);
-  startInterlude(world, { kind: "gauge" }, WAVE);
+  startWave(world, WAVE, [], [], { kind: "gauge" });
   return world;
+}
+
+function round(world: World): GaugeState {
+  const g = gaugeRound(world);
+  if (g === null) throw new Error("no round running");
+  return g;
 }
 
 function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): TimedCommand {
@@ -55,7 +67,7 @@ function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): Tim
  * a sentence.
  */
 function talking(world: World): TimedCommand[] {
-  const gauge = world.interlude;
+  const gauge = gaugeRound(world);
   if (gauge === null || gauge.phase !== "play") return [];
   const out: TimedCommand[] = [];
   const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
@@ -82,57 +94,52 @@ function runToEnd(
   world: World,
   cap: number,
   bot: Bot = SILENT,
-): { events: SimEvent[]; round: InterludeState } {
+): { events: SimEvent[]; result: GaugeState } {
   const events: SimEvent[] = [];
-  const round = world.interlude;
-  if (round === null) throw new Error("no round to run");
-  for (let i = 0; i < cap && world.interlude !== null; i++) {
+  const result = round(world);
+  for (let i = 0; i < cap && gaugeHolds(world); i++) {
     step(world, bot(world));
     events.push(...world.events);
   }
-  return { events, round };
+  return { events, result };
 }
 
-describe("entering a round that is not the field", () => {
-  it("is due in a gap and never in front of the first wave of a run", () => {
-    const world = createWorld(CFG, 1);
-    expect(interludeDue(world, 0)).toBe(false);
-    expect(interludeDue(world, WAVE)).toBe(true);
+describe("reaching the round", () => {
+  it("is a wave's own boss, and needs nothing switched on", () => {
+    const world = open();
+    expect(world.boss?.kind).toBe("gauge");
+    expect(gaugeHolds(world)).toBe(true);
+    expect(world.wave).toBe(WAVE);
   });
 
-  it("is never due with the switch off, and never opens if one is tried", () => {
-    const world = createWorld(DEFAULT_CONFIG, 1);
-    expect(interludeDue(world, WAVE)).toBe(false);
-    startInterlude(world, { kind: "gauge" }, WAVE);
-    expect(interludeHolds(world)).toBe(false);
+  it("is not there on a wave that does not carry it", () => {
+    const world = createWorld(CFG, 1);
+    startWave(world, WAVE, []);
+    expect(gaugeHolds(world)).toBe(false);
+    expect(gaugeRound(world)).toBeNull();
   });
 
   it("draws a band the needle is not already sitting in", () => {
     for (let seed = 0; seed < 12; seed++) {
       const world = open(seed);
-      const gauge = world.interlude;
-      expect(gauge).not.toBeNull();
-      expect(gaugeSeated(world, gauge as InterludeState)).toBe(false);
+      expect(gaugeSeated(world, round(world))).toBe(false);
     }
   });
 });
 
-describe("while a round is up", () => {
+describe("while the round is up", () => {
   it("the field is gone: nothing spawns, falls or reaches the hull", () => {
     const world = createWorld(CFG, 3);
-    startWave(world, 1, [{ beat: 0, col: 2, kind: "meteor", color: null }]);
-    // Past the wave's own card, so the field really is running when it stops.
-    run(world, TPB * 3, (w) =>
-      w.brief.due.length > 0 ? [cmd(w, 1, { kind: "brief" }), cmd(w, 2, { kind: "brief" })] : [],
-    );
-    const row = world.creatures[0]?.row ?? -1;
-    const waveBeat = world.waveBeat;
-    expect(row).toBeGreaterThan(0);
-
-    startInterlude(world, { kind: "gauge" }, WAVE);
+    // A queue on a gauge wave is a thing no author would write, and that is
+    // the point of handing one over: `step` returns before it reaches the beat
+    // that would read it, so nothing arrives however long the round runs.
+    startWave(world, WAVE, [{ beat: 0, col: 2, kind: "meteor", color: null }], [], {
+      kind: "gauge",
+    });
     run(world, TPB * 20);
-    expect(world.creatures[0]?.row).toBe(row);
-    expect(world.waveBeat).toBe(waveBeat);
+    expect(world.creatures.length).toBe(0);
+    expect(world.spawned).toBe(0);
+    expect(world.waveBeat).toBe(0);
     expect(world.hullMilli).toBe(100_000);
   });
 
@@ -146,10 +153,10 @@ describe("while a round is up", () => {
 
   it("holds the round for its lead-in before anything can be turned", () => {
     const world = open();
-    const needle = world.interlude?.needleMilli ?? -1;
+    const needle = round(world).needleMilli;
     run(world, TPB * 2, (w) => [cmd(w, 1, { kind: "valve", on: true, dir: 1 })]);
-    expect(world.interlude?.phase).toBe("lead");
-    expect(world.interlude?.needleMilli).toBe(needle);
+    expect(round(world).phase).toBe("lead");
+    expect(round(world).needleMilli).toBe(needle);
   });
 });
 
@@ -157,74 +164,82 @@ describe("the two halves", () => {
   it("the reading player cannot turn", () => {
     const world = open();
     run(world, TPB * 10, (w) => [cmd(w, 2, { kind: "valve", on: true, dir: 1 })]);
-    expect(world.interlude?.phase).toBe("play");
-    expect(world.interlude?.valve).toBe(0);
-    expect(world.interlude?.needleMilli).toBe(500);
+    expect(round(world).phase).toBe("play");
+    expect(round(world).valve).toBe(0);
+    expect(round(world).needleMilli).toBe(500);
   });
 
   it("the turning player cannot call", () => {
     const world = open();
     run(world, TPB * 30, (w) => {
-      const gauge = w.interlude;
+      const gauge = gaugeRound(w);
       if (gauge === null || gauge.phase !== "play") return [];
       const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
       const out = [cmd(w, 1, { kind: "valve", on: true, dir: want })];
       if (gaugeSeated(w, gauge)) out.push(cmd(w, 1, { kind: "call" }));
       return out;
     });
-    expect(world.interlude?.marks).toBe(0);
-    expect(world.interlude?.misses).toBe(0);
+    expect(round(world).marks).toBe(0);
+    expect(round(world).misses).toBe(0);
   });
 
   it("costs a call the same rest whether it landed or not", () => {
     const world = open();
     run(world, TPB * 5);
-    const gauge = world.interlude;
-    expect(gauge?.phase).toBe("play");
+    const gauge = round(world);
+    expect(gauge.phase).toBe("play");
     // Two calls on the same beat, both wide of a band the pilot never moved
     // towards: the second is not heard at all, so it is not even a miss.
     step(world, [cmd(world, 2, { kind: "call" }), cmd(world, 2, { kind: "call" })]);
-    expect(gauge?.misses).toBe(1);
+    expect(gauge.misses).toBe(1);
     step(world, [cmd(world, 2, { kind: "call" })]);
-    expect(gauge?.misses).toBe(1);
+    expect(gauge.misses).toBe(1);
   });
 });
 
-describe("leaving a round", () => {
-  it("is passed by talking, and hands the wave back that was waiting", () => {
+describe("leaving the round", () => {
+  it("is passed by talking, and the wave then clears like any other", () => {
     const world = open();
-    const { events, round } = runToEnd(world, TPB * 200, talking);
-    expect(round.marks).toBe(CFG.gaugeMarks);
-    expect(round.passed).toBe(true);
-    expect(events.some((e) => e.type === "needWave" && e.wave === WAVE)).toBe(true);
-    expect(world.interludeDone).toBe(WAVE);
-    // The wave that was behind it starts, and the round is not offered again.
-    expect(interludeDue(world, WAVE)).toBe(false);
-    startWave(world, WAVE, []);
-    expect(world.interludeDone).toBe(NO_INTERLUDE);
+    const { result } = runToEnd(world, TPB * 200, talking);
+    expect(result.marks).toBe(CFG.gaugeMarks);
+    expect(result.passed).toBe(true);
+    expect(world.hullMilli).toBe(100_000);
+    expect(world.scars.length).toBe(0);
+    // The boss is gone, so the field behind it is an empty wave — it clears on
+    // the next beat and asks for the one after, through the ordinary door.
+    expect(world.boss).toBeNull();
+    const after = run(world, TPB * (CFG.waveRestBeats + 4));
+    expect(after.some((e) => e.type === "needWave" && e.wave === WAVE + 1)).toBe(true);
   });
 
-  it("is failed by saying nothing, and that costs time and nothing else", () => {
+  it("is failed by saying nothing, and that breaks the hull", () => {
     const world = open();
     world.score = 700;
-    world.scars = [{ col: 2, beat: 1, kind: "meteor" }];
     world.hullMilli = 61_000;
-    const { events, round } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
-    expect(round.passed).toBe(false);
-    expect(round.marks).toBe(0);
-    expect(events.some((e) => e.type === "needWave" && e.wave === WAVE)).toBe(true);
+    const { result } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
+    expect(result.passed).toBe(false);
+    expect(result.marks).toBe(0);
+    // Time is still what a *call* costs; the round costs the hull.
     expect(world.score).toBe(700);
+    expect(world.hullMilli).toBe(61_000 - CFG.damageGauge * 1000);
     expect(world.scars.length).toBe(1);
-    expect(world.hullMilli).toBe(61_000);
     expect(world.over).toBe(false);
   });
 
-  it("is left by a restart, which forgets the gaps as well as the round", () => {
+  it("can end the run, which an interlude was never allowed to do", () => {
+    const world = open();
+    world.hullMilli = 5_000;
+    runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
+    expect(world.hullMilli).toBe(0);
+    expect(world.over).toBe(true);
+  });
+
+  it("is left by a restart, from inside the round", () => {
     const world = open();
     run(world, TPB * 8);
     const events = run(world, 1, (w) => [cmd(w, 1, { kind: "restart" })]);
-    expect(world.interlude).toBeNull();
-    expect(world.interludeDone).toBe(NO_INTERLUDE);
+    expect(world.boss).toBeNull();
+    expect(gaugeHolds(world)).toBe(false);
     expect(events.some((e) => e.type === "needWave" && e.wave === 0)).toBe(true);
   });
 });
@@ -232,14 +247,15 @@ describe("leaving a round", () => {
 describe("the fingerprint", () => {
   it("covers the round, so two devices cannot disagree about it silently", () => {
     const plain = createWorld(CFG, 9);
-    const round = open(9);
-    expect(hashWorld(round)).not.toBe(hashWorld(plain));
+    startWave(plain, WAVE, []);
+    const gauge = open(9);
+    expect(hashWorld(gauge)).not.toBe(hashWorld(plain));
 
     const moved = open(9);
     run(moved, TPB * 8, (w) => [cmd(w, 1, { kind: "valve", on: true, dir: 1 })]);
     const still = open(9);
     run(still, TPB * 8);
-    expect(moved.interlude?.needleMilli).not.toBe(still.interlude?.needleMilli);
+    expect(round(moved).needleMilli).not.toBe(round(still).needleMilli);
     expect(hashWorld(moved)).not.toBe(hashWorld(still));
   });
 
@@ -250,7 +266,7 @@ describe("the fingerprint", () => {
     for (let tick = 0; tick < TPB * 60; tick++) {
       step(a, talking(a));
       step(b, talking(b));
-      seen = Math.max(seen, a.interlude?.marks ?? seen);
+      seen = Math.max(seen, gaugeRound(a)?.marks ?? seen);
       if (tick % TPB === 0) expect(hashWorld(a)).toBe(hashWorld(b));
     }
     // Assert what the round did before asserting that two of them agree — a

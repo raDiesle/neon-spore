@@ -188,7 +188,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxScars: 30,
   waveRestBeats: 3,
   forkBetweenWaves: false,
-  interludes: false,
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,

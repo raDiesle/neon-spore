@@ -68,14 +68,6 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     },
   );
   add(
-    "Interludes (THE GAUGE)",
-    "The gaps between acts may carry a round that is not the field.",
-    () => cfg.interludes,
-    (on) => {
-      cfg.interludes = on;
-    },
-  );
-  add(
     "Cannon wind-up",
     "shotChargeBeats: a press waits for the next half-beat instead of firing on the tick.",
     () => cfg.shotChargeBeats > 0,

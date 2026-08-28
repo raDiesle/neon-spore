@@ -188,8 +188,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
  * screen rather than a fixed list of named circles.
  *
  * A seat owns a share of the band and its lobes are **centred in that share**,
- * however many the wave's control set gives it — the same rule
- * `interludeControls` already uses for the round that is not the field. That
+ * however many the wave's control set gives it — the same rule `slabPanel`
+ * uses for a panel that is slabs rather than a band. That
  * is what the fixed list could not do: with the lance off the panel, player 1
  * had two buttons standing in the first two of three slots and a hole where
  * the third had been, which reads as a control that failed to draw rather than

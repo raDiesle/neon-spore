@@ -93,10 +93,10 @@ describe("buildBacklog", () => {
     expect(names(backlog.interludes)).toContain("THE LATHE");
     expect(names(backlog.interludes)).toContain("THE VAULT");
 
-    // THE GAUGE is built — `packages/sim/src/gauge.ts`, `INTERLUDE_KINDS` —
-    // and a built round leaves the backlog by being built, the same way a
-    // creature or a boss does. It used to stay listed forever: `isBuilt`
-    // only asked `CREATURES` and `BOSS_KINDS`, and an interlude was neither.
+    // THE GAUGE is built — `packages/sim/src/gauge.ts`, and `BOSS_KINDS` now
+    // carries it — and a built round leaves the backlog by being built, the
+    // same way a creature or a boss does. It used to need a third table beside
+    // those two, because a round was in neither of them; it does not any more.
     expect(names(backlog.interludes)).not.toContain("THE GAUGE");
     expect(backlog.interludes[0]!.builtHidden).toBe(1);
 

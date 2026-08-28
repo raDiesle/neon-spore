@@ -82,7 +82,7 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
         if (target !== NO_GRIP) push(2, { kind: "grip", id: target });
         break;
       }
-      // An interlude's own three. A round that is not the field does not
+      // THE GAUGE's own three. A round that is not the field does not
       // borrow the field's verbs (`docs/spec/interludes.md`), so these are its
       // own commands and mean nothing while a wave runs — which is why they
       // cost nothing to send unconditionally. Z and X hold the pilot's valve

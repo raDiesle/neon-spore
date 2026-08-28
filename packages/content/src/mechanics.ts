@@ -1,6 +1,5 @@
-import type { BossEntry, CreatureKind, InterludeKind, PodKind, SimConfig } from "@neon-spore/sim";
+import type { BossEntry, CreatureKind, PodKind, SimConfig } from "@neon-spore/sim";
 import { BRIEFINGS } from "./briefings.js";
-import { GAPS } from "./interludes.js";
 import { AUTHORED_COLS, bossFromWave, podsFromWave, queueFromWave } from "./queue.js";
 import type { Wave } from "./wave-types.js";
 import { WAVES } from "./waves.js";
@@ -12,14 +11,14 @@ import { WAVES } from "./waves.js";
  * Three questions were being asked and none of them could be: whether a
  * mechanic that is built is reachable from any wave, whether a wave may turn
  * one on, and whether each has a wave that demonstrates it. `CREATURES` knows
- * creatures, `BOSS_KINDS` knows bosses, `GAPS` knows interludes, and THE FORK
- * and the shot wind-up are switches in config files known to nobody. Nothing
- * knew the union, so nothing could say a member of it was unused.
+ * creatures, `BOSS_KINDS` knows bosses, and THE FORK and the shot wind-up are
+ * switches in config files known to nobody. Nothing knew the union, so nothing
+ * could say a member of it was unused.
  *
  * **What counts as one.** A mechanic is a rule the pair has to learn *that the
  * game can be played without*. Take it away and there is still a game — one
- * that is missing something. That line puts the thirteen creatures, the four
- * bosses, the three pods and the one interlude in, and it keeps the substrate
+ * that is missing something. That line puts the thirteen creatures, the six
+ * bosses and the three pods in, and it keeps the substrate
  * out: the cannon, the shield, the beat, the hull, the score and the radar are
  * not mechanics, because a game without any of them is not a smaller game, it
  * is no game. THE GRIP and THE LANCE pass the test — a wave plays perfectly
@@ -29,17 +28,17 @@ import { WAVES } from "./waves.js";
  *
  * **Nothing here is a second copy.** Every sentence about a creature, a pod or
  * a boss is the one its briefing card already carries; the kinds themselves
- * come from the sim's unions, so a creature, a boss or an interlude added there
+ * come from the sim's unions, so a creature, a boss or a pod added there
  * is a type error here until it has a row. What a wave contains is read by
  * running content's own translation (`queueFromWave` and its siblings) rather
  * than by re-resolving colours to silhouettes a second time.
  */
 
 /**
- * A mechanic no wave contains and no gap carries — it is on for the whole run
- * or for none of it. They are named by hand because they are the only ones with
- * nowhere else to be named; everything else on the list comes from a union the
- * simulation already publishes.
+ * A mechanic no wave contains — it is on for the whole run or for none of it.
+ * They are named by hand because they are the only ones with nowhere else to be
+ * named; everything else on the list comes from a union the simulation already
+ * publishes.
  */
 export type RunMechanicId = "fork" | "briefing" | "windup" | "lance" | "grip";
 
@@ -52,7 +51,6 @@ export type MechanicId =
   | CreatureKind
   | PodKind
   | Exclude<BossEntry["kind"], CreatureKind>
-  | InterludeKind
   | RunMechanicId;
 
 /**
@@ -60,14 +58,18 @@ export type MechanicId =
  * question does not fit.
  *
  * - `spawn`: the wave puts it on the field. `mechanicsInWave` answers.
- * - `gap`: content puts it in a gap *between* waves, so no wave contains it
- *   and `GAPS` is where it is reached from. `mechanicsInGaps` answers.
  * - `run`: one switch decides for the whole run, so every wave reaches it or
  *   none does. Asking which wave is asking the wrong question, and a caller
  *   that wants a warning about unused mechanics must leave these out rather
  *   than force an answer — `unreachedMechanics` does.
+ *
+ * There used to be a third, `gap`: a round that sat *between* two waves and
+ * was reached from a table of its own rather than from any wave. Twelve of
+ * those were designed and one was built, and all twelve are bosses now — so
+ * the class went with the table, and THE GAUGE is a `spawn` like every other
+ * boss. `docs/decisions.md` #20 has the argument.
  */
-export type Reach = "spawn" | "gap" | "run";
+export type Reach = "spawn" | "run";
 
 /**
  * The `SimConfig` field that turns a mechanic on, and the value that means off.
@@ -132,11 +134,7 @@ export const MECHANICS = {
   mend: { what: BRIEFINGS.mend.both, reach: "spawn" },
   purge: { what: BRIEFINGS.purge.both, reach: "spawn" },
   ward: { what: BRIEFINGS.ward.both, reach: "spawn" },
-  gauge: {
-    what: "One needle and two marks, with the pilot holding the valve and the navigator the only one who can see what to aim at.",
-    reach: "gap",
-    switch: { field: "interludes", off: false },
-  },
+  gauge: { what: BRIEFINGS.gauge.both, reach: "spawn" },
   fork: {
     what: "The rest between waves ends in a wait, crossed only while player 1 holds the lance and player 2 presses a colour.",
     reach: "run",
@@ -229,21 +227,13 @@ function addCarried(found: Set<MechanicId>): void {
   }
 }
 
-/** Every mechanic content has put in a gap between waves. */
-export function mechanicsInGaps(): Set<MechanicId> {
-  const found = new Set<MechanicId>();
-  for (const entry of Object.values(GAPS)) found.add(entry.kind);
-  return found;
-}
-
 /**
- * The mechanics that are built and that nothing in the game plays through — no
- * wave contains them and no gap carries them. The `run` mechanics are left out
- * rather than reported as unreached: they are on for every wave or for none,
- * so their answer is `mechanicOn`, not a wave.
+ * The mechanics that are built and that no wave in the game plays through. The
+ * `run` mechanics are left out rather than reported as unreached: they are on
+ * for every wave or for none, so their answer is `mechanicOn`, not a wave.
  */
 export function unreachedMechanics(waves: readonly Wave[] = WAVES): MechanicId[] {
-  const reached = mechanicsInGaps();
+  const reached = new Set<MechanicId>();
   for (const wave of waves) for (const id of mechanicsInWave(wave)) reached.add(id);
   return MECHANIC_IDS.filter((id) => mechanic(id).reach !== "run" && !reached.has(id));
 }

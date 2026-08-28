@@ -33,19 +33,6 @@ export interface PairConfig {
    * omission.
    */
   forkBetweenWaves: boolean;
-  /**
-   * Whether the gaps between acts may carry an interlude — a round that is not
-   * the field, with its own rules, its own controls and its own picture
-   * (`interlude.ts`, `docs/spec/interludes.md`).
-   *
-   * The third switch of the same shape, and it earns its place here for the
-   * reason the first two do rather than by resembling them: an interlude stops
-   * the run and hands it to two people who hold different halves of it. A
-   * headless caller has one thumb at most — the director's loop answers its own
-   * `needWave`, a replay walks recorded input, a determinism run wants the wave
-   * — and every one of them would sit at a dial nobody can turn.
-   */
-  interludes: boolean;
 }
 
 /**
@@ -65,5 +52,4 @@ export interface PairConfig {
 export const PAIR_ON: PairConfig = {
   briefings: true,
   forkBetweenWaves: true,
-  interludes: true,
 };

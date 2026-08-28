@@ -173,8 +173,8 @@ export function bindKeys({
         buffer.push(1, { kind: "brief" });
         buffer.push(2, { kind: "brief" });
         break;
-      // An interlude's own three, and they are its own on purpose: a round
-      // that is not the field does not borrow the field's verbs
+      // THE GAUGE's own three, and they are its own on purpose: a round that
+      // is not the field does not borrow the field's verbs
       // (`docs/spec/interludes.md`). Z and X hold the valve as player 1 — held
       // like F, and ended on the keyup below, because nothing in the
       // simulation lets go of it. C calls, as player 2. All three mean nothing

@@ -1,5 +1,5 @@
 import { BOSS_KINDS } from "./entries.js";
-import { INTERLUDE_KINDS, INTERLUDE_PHASES } from "./interlude.js";
+import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
 import { MIRROR_PHASES } from "./simon.js";
 import type { World } from "./world.js";
@@ -62,7 +62,7 @@ export function hashWorld(world: World): number {
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the
   // field. Its colour and its lance only when there is one, the same way an
-  // interlude's fields are pushed only when a round is open.
+  // boss's fields are pushed only when there is one.
   const shot = world.charge;
   push(shot === null ? -1 : shot.left);
   if (shot !== null) {
@@ -87,7 +87,7 @@ export function hashWorld(world: World): number {
   // wave has begun.
   push(world.forkBeat);
 
-  // Where the wave is. `beat` does not cover this: an interlude holds
+  // Where the wave is. `beat` does not cover this: THE GAUGE holds
   // `waveBeat` still while `beat` keeps counting, and a warden's clamp, a
   // vane's opening and a queen's tell are all read off `waveBeat` — so two
   // devices agreeing about `beat` and not about `waveBeat` play different
@@ -105,32 +105,6 @@ export function hashWorld(world: World): number {
   // world ticks at all: a device that thinks a card is still up is a device
   // holding a wave the other one is already playing, and that is a desync
   // whichever way it is spelled.
-  // The interlude, and the same argument one more time: a device that thinks
-  // the pair is at a dial is a device that is not running the field the other
-  // one is running. `interludeDone` is in for a narrower reason — it decides
-  // whether the wave a `needWave` asks for is answered with the wave or with
-  // the round in front of it, so two devices disagreeing about it would deal
-  // themselves different rounds without ever disagreeing about a tick.
-  const round = world.interlude;
-  push(round === null ? 0 : INTERLUDE_KINDS.indexOf(round.kind) + 1);
-  push(world.interludeDone);
-  if (round !== null) {
-    push(round.wave);
-    push(INTERLUDE_PHASES.indexOf(round.phase));
-    push(round.phaseBeat);
-    push(round.openBeat);
-    push(round.passed ? 1 : 0);
-    push(round.needleMilli);
-    push(round.valve);
-    push(round.markMilli);
-    push(round.driftDir);
-    push(round.marks);
-    push(round.misses);
-    push(round.calledBeat);
-    push(round.calledMilli);
-    push(round.calledGood ? 1 : 0);
-  }
-
   push(world.brief.met);
   push(world.brief.ack);
   push(world.brief.due.length);
@@ -221,6 +195,25 @@ export function hashWorld(world: World): number {
     // Gathered beside the boss rather than spelled out here: `mazeHashParts`
     // says what is in it and why, the authored tangle included.
     for (const n of mazeHashParts(boss)) push(n);
+  }
+  // THE GAUGE, and the same argument one more time: a device that thinks the
+  // pair is at a dial is a device that is not running the field the other one
+  // is running — and that is exactly what the boss tag a few lines up already
+  // says, so what is left here is the dial itself.
+  if (boss !== null && boss.kind === "gauge") {
+    push(GAUGE_PHASES.indexOf(boss.phase));
+    push(boss.phaseBeat);
+    push(boss.openBeat);
+    push(boss.passed ? 1 : 0);
+    push(boss.needleMilli);
+    push(boss.valve);
+    push(boss.markMilli);
+    push(boss.driftDir);
+    push(boss.marks);
+    push(boss.misses);
+    push(boss.calledBeat);
+    push(boss.calledMilli);
+    push(boss.calledGood ? 1 : 0);
   }
   if (boss !== null && boss.kind === "mirror") {
     push(boss.round);

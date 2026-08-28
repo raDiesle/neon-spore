@@ -87,9 +87,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   mend: { wave: "SALVAGE" },
   purge: { wave: "THE PURGE" },
   ward: { wave: "THE WARD" },
-  // The gap in front of this wave is the one `GAPS` fills, so this is the wave
-  // to ask for: the round comes up in front of it and the wave waits behind.
-  gauge: { wave: "IN ITS SHADOW", config: { interludes: true } },
+  gauge: { wave: "THE GAUGE" },
   // The rest between this wave and the next is where the wait opens.
   fork: { wave: "FIRST STEP", config: { forkBetweenWaves: true } },
   // A fresh pair meeting the slick, which is the first card the game ever

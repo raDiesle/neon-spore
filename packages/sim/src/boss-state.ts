@@ -1,3 +1,4 @@
+import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-round.js";
 import type { MirrorState } from "./simon.js";
 import type { Color } from "./types.js";
@@ -125,9 +126,13 @@ export interface VaneState {
 
 /**
  * The boss a wave installed, whichever one it is. A tagged union rather than
- * one widening interface: the four bosses share the slot and nothing else,
+ * one widening interface: the six bosses share the slot and nothing else,
  * and a single struct carrying every set of fields would let `boss.ts` read a
  * `tellColor` off a mirror and get `undefined` at runtime with a clean type
  * check behind it.
+ *
+ * `GaugeState` is in here and its fields are in `gauge.ts` rather than beside
+ * the other four, for the reason the maze's and the mirror's are in theirs:
+ * one file owns a fight's state and nothing else writes it.
  */
-export type BossState = QueenState | MirrorState | WardenState | VaneState | MazeState;
+export type BossState = QueenState | MirrorState | WardenState | VaneState | MazeState | GaugeState;

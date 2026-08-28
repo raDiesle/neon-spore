@@ -24,7 +24,7 @@ export type GroupName =
   | "THE BEAT"
   | "THE FORK — the seam between waves"
   | "BRIEFING — the card a wave opens on"
-  | "THE GAUGE — an interlude's own round"
+  | "THE GAUGE — a round with no field in it"
   | "THROB — open for one beat in every few"
   | "SCORE"
   | "WARDEN"
@@ -47,7 +47,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BEAT",
   "THE FORK — the seam between waves",
   "BRIEFING — the card a wave opens on",
-  "THE GAUGE — an interlude's own round",
+  "THE GAUGE — a round with no field in it",
   "THROB — open for one beat in every few",
   "SCORE",
   "WARDEN",
@@ -87,11 +87,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "Off for the same reason THE FORK is. On, a wave opens on a card for " +
     "anything the pair has not met yet, and holds the field until both seats " +
     "put it away. See briefing.ts.",
-  "THE GAUGE — an interlude's own round":
-    "`interludes` is the general switch — off for the same reason as the two " +
+  "THE GAUGE — a round with no field in it":
+    "A boss wave with no field under it — off for the same reason as the two " +
     "above, since a headless caller has no second thumb to answer it with. On, " +
     "the gaps between acts may carry a round that is not the field: a needle " +
-    "walked by drift and corrected by a valve. See gauge.ts, interlude.ts.",
+    "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
   "THROB — open for one beat in every few": "A Throb can only be hit while it is open.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
@@ -174,16 +174,16 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scoreQueenPetal: "QUEEN",
   scoreQueenDown: "QUEEN",
   // GaugeConfig
-  gaugeTurnMilli: "THE GAUGE — an interlude's own round",
-  gaugeDriftMilli: "THE GAUGE — an interlude's own round",
-  gaugeSpanMilli: "THE GAUGE — an interlude's own round",
-  gaugeMarks: "THE GAUGE — an interlude's own round",
-  gaugeRoundBeats: "THE GAUGE — an interlude's own round",
-  gaugeCallRestBeats: "THE GAUGE — an interlude's own round",
+  gaugeTurnMilli: "THE GAUGE — a round with no field in it",
+  gaugeDriftMilli: "THE GAUGE — a round with no field in it",
+  gaugeSpanMilli: "THE GAUGE — a round with no field in it",
+  gaugeMarks: "THE GAUGE — a round with no field in it",
+  gaugeRoundBeats: "THE GAUGE — a round with no field in it",
+  gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
+  damageGauge: "THE GAUGE — a round with no field in it",
   // PairConfig
   briefings: "BRIEFING — the card a wave opens on",
   forkBetweenWaves: "THE FORK — the seam between waves",
-  interludes: "THE GAUGE — an interlude's own round",
   // ShotConfig
   bulletTilesPerBeat: "AIM — colour and column",
   lancePrimeBeats: "LANCE — a column marked, then spent",
@@ -211,6 +211,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   mirror: "MIRROR",
   vane: "VANE",
   maze: "MAZE",
+  gauge: "THE GAUGE — a round with no field in it",
 };
 
 /**
@@ -227,7 +228,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "MIRROR",
   "MAZE",
   "QUEEN",
-  "THE GAUGE — an interlude's own round",
+  "THE GAUGE — a round with no field in it",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */

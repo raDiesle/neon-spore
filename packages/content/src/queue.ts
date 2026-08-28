@@ -102,6 +102,8 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   // THE MAZE has no authored column either: `mazeMouthCol` spreads its three
   // mouths across whatever field it is played on.
   if (boss.kind === "maze") return { ...boss, rounds: boss.rounds.map((t) => ({ ...t })) };
+  // THE GAUGE has no field to have a column on. Its wave is its own screen.
+  if (boss.kind === "gauge") return { ...boss };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

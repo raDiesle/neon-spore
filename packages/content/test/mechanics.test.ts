@@ -1,20 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import {
-  BOSS_KINDS,
-  type CreatureKind,
-  DEFAULT_CONFIG,
-  INTERLUDE_KINDS,
-  isBossBody,
-} from "@neon-spore/sim";
+import { BOSS_KINDS, type CreatureKind, DEFAULT_CONFIG, isBossBody } from "@neon-spore/sim";
 import { CREATURES, categoryOf } from "../src/creatures.js";
-import { GAPS } from "../src/interludes.js";
 import {
   MECHANIC_IDS,
   MECHANICS,
   type MechanicId,
   mechanic,
   mechanicOn,
-  mechanicsInGaps,
   mechanicsInWave,
   unreachedMechanics,
 } from "../src/mechanics.js";
@@ -23,12 +15,11 @@ import { WAVES } from "../src/waves.js";
 const POD_KINDS = ["mend", "purge", "ward"] as const;
 
 describe("the registry is closed over what already exists", () => {
-  it("has a row for every creature, pod, boss and interlude", () => {
+  it("has a row for every creature, pod and boss", () => {
     const ids = new Set<string>(MECHANIC_IDS);
     for (const kind of Object.keys(CREATURES)) expect(ids.has(kind)).toBe(true);
     for (const kind of POD_KINDS) expect(ids.has(kind)).toBe(true);
     for (const kind of BOSS_KINDS) expect(ids.has(kind)).toBe(true);
-    for (const kind of INTERLUDE_KINDS) expect(ids.has(kind)).toBe(true);
   });
 
   it("says something about every one of them", () => {
@@ -122,9 +113,12 @@ describe("what a wave reaches", () => {
     expect(queen.has("torch")).toBe(true);
   });
 
-  it("reads an interlude out of the gap table, not out of a wave", () => {
-    expect([...mechanicsInGaps()]).toEqual(Object.values(GAPS).map((g) => g.kind));
-    for (const wave of WAVES) expect(mechanicsInWave(wave).has("gauge")).toBe(false);
+  it("reads THE GAUGE out of a wave, the same as any other boss", () => {
+    // It used to be read out of a table of gaps and out of no wave at all,
+    // which is exactly what stopped being true — one wave carries it now.
+    const carrying = WAVES.filter((w) => mechanicsInWave(w).has("gauge"));
+    expect(carrying).toHaveLength(1);
+    expect(carrying[0]?.name).toBe("THE GAUGE");
   });
 });
 

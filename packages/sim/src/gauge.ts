@@ -1,4 +1,3 @@
-import type { InterludeRound } from "./interlude.js";
 import { nextInt } from "./rng.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -6,7 +5,7 @@ import type { World } from "./world.js";
 /**
  * THE GAUGE: one needle, two marks, one of you reading and the other turning.
  *
- * The smallest of the twelve interludes, and the whole of it is an asymmetry.
+ * The smallest of the twelve rounds, and the whole of it is an asymmetry.
  * The pilot holds the valve and can move the needle; his screen shows the dial
  * with nothing on it to aim at. The navigator sees the two marks and cannot
  * move anything; her one verb is the call. So the round is ninety seconds of
@@ -16,8 +15,9 @@ import type { World } from "./world.js";
  * between the marks would leave the navigator with information and no verb: a
  * player watching. The call is the moment she commits to what she has been
  * saying, and it is the only thing in the round that can be wrong. It costs
- * `gaugeCallRestBeats` whether it lands or not, which is the whole of what
- * failing costs anywhere in this category — time.
+ * `gaugeCallRestBeats` whether it lands or not. Time is what a call costs; what
+ * the *round* costs when it is not finished in time is the hull, in
+ * `gauge-round.ts` — this file is only its arithmetic.
  *
  * **Why the band drifts.** Without it the round ends the first time the pilot
  * happens to stop in the right place and the pair never has to keep talking.
@@ -35,8 +35,33 @@ import type { World } from "./world.js";
 /** The dial, end to end, in thousandths. Everything here is a share of this. */
 export const GAUGE_FULL = 1000;
 
-export interface GaugeState extends InterludeRound {
+/**
+ * The three parts of the round. They used to belong to a shell every round of
+ * this kind entered through; the shell is gone and they are the round's own —
+ * a lead-in so the pair can read two screens that have just stopped being the
+ * field, the play, and a verdict that stands before the field comes back.
+ *
+ * Choreography rather than difficulty, which is why the beat counts beside
+ * them in `gauge-round.ts` are constants and not `SimConfig` fields — the same
+ * argument `mirror.ts` makes about `SHOW_BEATS`.
+ */
+export const GAUGE_PHASES = ["lead", "play", "verdict"] as const;
+export type GaugePhase = (typeof GAUGE_PHASES)[number];
+
+/**
+ * Everything the round remembers between ticks. A `BossState` like the other
+ * five: THE GAUGE is a boss wave now, so the fight *is* the wave and there is
+ * no gap number to carry — `boss-state.ts` has the union.
+ */
+export interface GaugeState {
   kind: "gauge";
+  phase: GaugePhase;
+  /** `world.beat` the current phase began on. */
+  phaseBeat: number;
+  /** `world.beat` the round opened on — the round's own clock. */
+  openBeat: number;
+  /** How it went. Only meaningful once the phase is `verdict`. */
+  passed: boolean;
   /** Where the needle stands, 0..`GAUGE_FULL`. */
   needleMilli: number;
   /** Which way the pilot's valve is pushing: -1, 0 or 1. */
@@ -60,10 +85,13 @@ export interface GaugeState extends InterludeRound {
 /** Far enough before any call was made that the first one is never blocked. */
 const NEVER_CALLED = -1_000_000;
 
-export function openGauge(world: World, round: InterludeRound): GaugeState {
+export function openGauge(world: World): GaugeState {
   const gauge: GaugeState = {
-    ...round,
     kind: "gauge",
+    phase: "lead",
+    phaseBeat: world.beat,
+    openBeat: world.beat,
+    passed: false,
     needleMilli: Math.floor(GAUGE_FULL / 2),
     valve: 0,
     markMilli: Math.floor(GAUGE_FULL / 2),

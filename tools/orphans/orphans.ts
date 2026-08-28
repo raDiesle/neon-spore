@@ -29,7 +29,6 @@ export interface Orphan {
 
 const FIX: Record<OrphanReach, string> = {
   spawn: "place it in a wave — packages/content/src/waves.ts",
-  gap: "put it in a gap between waves — packages/content/src/interludes.ts",
 };
 
 /**

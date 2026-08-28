@@ -92,6 +92,10 @@ export function stepBoss(world: World): void {
     stepMaze(world, boss);
     return;
   }
+  // THE GAUGE never reaches this. It is stepped on the tick from `step`'s own
+  // early return, and the field's beat does not run while it stands — so the
+  // branch is here to say that out loud rather than to do anything.
+  if (boss.kind === "gauge") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

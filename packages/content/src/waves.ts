@@ -176,6 +176,14 @@ export const WAVES: Wave[] = [
     boss: { kind: "maze", rounds: MAZE_ROUNDS },
   },
   {
+    name: "THE GAUGE",
+    sentence: "The one where the field is gone and neither of you has more than half a dial.",
+    hint: "He holds the valve and cannot see the marks. She sees them and cannot turn anything. Five between the marks, or the hull pays for it.",
+    entries: [],
+    boss: { kind: "gauge" },
+    controls: "gauge",
+  },
+  {
     name: "THE WARDEN",
     sentence:
       "The one where it holds one of your controls and only the other one of you can get it back.",

@@ -197,7 +197,7 @@ export type Command =
    */
   | { kind: "brief" }
   /**
-   * An interlude's own controls, and the reason they are here rather than
+   * THE GAUGE's own controls, and the reason they are here rather than
    * reusing the ship's: a round that is not the field has its own verbs, and a
    * pair told to "fire" at a dial would be learning that the words mean
    * whatever the screen currently needs (`docs/spec/interludes.md`).

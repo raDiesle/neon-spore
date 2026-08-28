@@ -1,9 +1,9 @@
 import { chargeMilli, ticksPerBeat, type World } from "@neon-spore/sim";
 import { Effects } from "./effects.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
+import { drawGaugeRound } from "./gauge-round.js";
 import { type Glide, glideTo } from "./glide.js";
 import type { HullMood } from "./hull.js";
-import { drawInterlude } from "./interlude.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
@@ -128,13 +128,12 @@ export class Canvas2DRenderer implements Renderer {
       this.resetPose();
     }
 
-    // A round that is not the field takes the whole stage and this method ends
-    // here. Not a panel over the grid and not a dimmed field behind one — the
-    // spec's first condition for an interlude being one at all is that the
-    // field is *gone* (`interlude.ts`), and the cheapest way to be sure of
-    // that is for none of the code below to run.
-    if (world.interlude !== null) {
-      drawInterlude(ctx, l, view);
+    // THE GAUGE takes the whole stage and this method ends here. Not a panel
+    // over the grid and not a dimmed field behind one — the round's first
+    // condition is that the field is *gone* (`gauge-round.ts`), and the
+    // cheapest way to be sure of that is for none of the code below to run.
+    if (world.boss !== null && world.boss.kind === "gauge") {
+      drawGaugeRound(ctx, l, view);
       ctx.restore();
       return;
     }

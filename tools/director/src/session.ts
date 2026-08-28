@@ -21,7 +21,7 @@
  */
 
 /** The main editor's own tab bar — `#tabs` in `index.html`, wired by `bindTabs` in `tabs.ts`. */
-const KNOWN_TABS = ["wave", "ship", "tuning", "balance", "interlude"] as const;
+const KNOWN_TABS = ["wave", "ship", "tuning", "balance"] as const;
 export type Tab = (typeof KNOWN_TABS)[number];
 const DEFAULT_TAB: Tab = "wave";
 

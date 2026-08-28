@@ -1,19 +1,23 @@
 export { BRIEFINGS, type BriefingCard } from "./briefings.js";
 export {
   CONTROL_SETS,
-  CONTROLS,
-  type ControlDef,
-  type ControlId,
   type ControlSet,
   type ControlSetId,
-  control,
   controlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
+  panelForm,
   setControls,
   setHas,
   wavesUsingSet,
 } from "./control-sets.js";
+export {
+  CONTROLS,
+  type ControlDef,
+  type ControlId,
+  control,
+  type PanelForm,
+} from "./controls.js";
 export {
   type ControlGroup,
   CREATURES,
@@ -35,7 +39,6 @@ export {
   hullPointAtX,
   hullRadiusMul,
 } from "./hull-shape.js";
-export { GAPS } from "./interludes.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
@@ -47,7 +50,6 @@ export {
   type MechanicSwitch,
   mechanic,
   mechanicOn,
-  mechanicsInGaps,
   mechanicsInWave,
   type Reach,
   type RunMechanicId,

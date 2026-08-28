@@ -20,7 +20,7 @@ export { startWave } from "./wave-start.js";
  */
 /**
  * The metronome on its own: the shared clock ticking over, and nothing about a
- * field. Separate because an interlude is a round with no field in it and the
+ * field. Separate because THE GAUGE is a round with no field in it and the
  * beat still runs through one — the ear would notice ninety seconds of silence
  * and the round's own drift is counted in beats. Call it rather than writing
  * the two lines again.

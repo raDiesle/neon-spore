@@ -2,8 +2,8 @@ import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openBriefings } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
 import { closeFork } from "./fork.js";
+import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
-import { clearInterlude } from "./interlude.js";
 import { endPrime } from "./lance.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
@@ -53,7 +53,12 @@ export function startWave(
   world.shieldCol = mid;
   world.boss = null;
 
-  if (boss?.kind === "mirror") {
+  if (boss?.kind === "gauge") {
+    // No creature, no row and no field at all. THE GAUGE replaces the whole
+    // picture for as long as it stands, and `step` returns before a rule of
+    // the field runs — so there is nothing of it anywhere but its own screen.
+    world.boss = installGauge(world);
+  } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {
     // No creature and no row either. THE MAZE is three mouths in the sky and a
@@ -113,10 +118,6 @@ export function startWave(
   // It is also the order the two gates run in: the pair commits, and then the
   // card tells them what they committed to.
   closeFork(world);
-  // And any interlude, for the same reason: a wave that has started is not a
-  // round waiting in front of it. The record of which gap was played lives
-  // only from the round's end to here, so it goes too (`interlude.ts`).
-  clearInterlude(world);
 
   // Last, so it can read the boss that was just installed: whatever this wave
   // asks of the pair for the first time is a card it opens on, and the field

@@ -92,14 +92,29 @@ export interface MazeEntry {
   rounds: MazeTangle[];
 }
 
+/**
+ * What a wave authors when it wants THE GAUGE, which is nothing at all.
+ *
+ * No column, no health and no rounds: the whole encounter is one dial, and how
+ * long it lasts, how far the band walks and how many marks pass it are tuning
+ * rather than content (`config-gauge.ts`). It is the shortest entry in this
+ * file on purpose — the eleven rounds behind it are eleven more bosses, and
+ * the point of the shape is that a round with nothing to author costs one line
+ * here and one line in `waves.ts`.
+ */
+export interface GaugeEntry {
+  kind: "gauge";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
-export type BossEntry = QueenEntry | MirrorEntry | WardenEntry | VaneEntry | MazeEntry;
+export type BossEntry = QueenEntry | MirrorEntry | WardenEntry | VaneEntry | MazeEntry | GaugeEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
  *
- * Three of the four are the whole encounter and a creature placed beside one is
- * a wave nobody designed; THE VANE is the opposite — it spawns nothing at all,
+ * All but one are the whole encounter and a creature placed beside one is
+ * a wave nobody designed — THE GAUGE most of all, which does not draw a field
+ * for a creature to stand on. THE VANE is the opposite — it spawns nothing at all,
  * and a wave without arrivals for it to throw is a mechanism turning over an
  * empty field. So the director's guard against a creature brush on a boss wave
  * asks this rather than `wave.boss !== undefined`, and there is one place the
@@ -121,4 +136,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "warden",
   "vane",
   "maze",
+  "gauge",
 ];

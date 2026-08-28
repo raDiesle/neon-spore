@@ -16,13 +16,28 @@ import { PALETTE } from "./palette.js";
  * is the ship's; the band is `pod` amber, which is already what this game
  * spends on "here, this is the thing"; a call that landed is `good` green and
  * one that did not is `sparkDim`, which are already right and wrong everywhere
- * else. An interlude that invented a third pair would be teaching a colour
+ * else. A round that invented a third pair would be teaching a colour
  * vocabulary for ninety seconds.
  *
  * Stateless, like every other draw in this package: everything it shows is on
  * the world, so nothing here outlives a frame and `Effects.reset` has nothing
  * of it to clear.
  */
+
+/**
+ * The navigator reads the marks. The pilot's dial is the same dial without
+ * them — not a different picture, which is what makes "I cannot see it, tell
+ * me" the obvious thing for him to say.
+ *
+ * A role predicate in render/ for the same reason `showsQueenHint` is: the
+ * information split is a fact about a *screen*, not about the world. It is not
+ * the same question as which buttons a seat has — that is the control set's,
+ * and `slabs.ts` answers it — and keeping the two apart is what lets a later
+ * round hand one seat information without also handing it a verb.
+ */
+export const showsGaugeMarks = (role: ViewRole): boolean => role !== "p1";
+/** The pilot turns it. Nobody else has a valve drawn at all. */
+export const showsGaugeValve = (role: ViewRole): boolean => role !== "p2";
 
 export interface Dial {
   cx: number;

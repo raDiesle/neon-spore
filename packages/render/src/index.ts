@@ -9,18 +9,16 @@ export {
   shadedColour,
 } from "./cast-shadow.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
-export { type Dial, type DialView, drawGauge } from "./gauge.js";
-export { halo, haloSprite, strokeGlow } from "./glow.js";
-export { gripLabel } from "./grip.js";
 export {
-  drawInterlude,
-  hitSlab,
-  type InterludeControls,
-  interludeControls,
-  type Slab,
+  type Dial,
+  type DialView,
+  drawGauge,
   showsGaugeMarks,
   showsGaugeValve,
-} from "./interlude.js";
+} from "./gauge.js";
+export { drawGaugeRound } from "./gauge-round.js";
+export { halo, haloSprite, strokeGlow } from "./glow.js";
+export { gripLabel } from "./grip.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
   type Circle,
@@ -40,6 +38,7 @@ export {
 export { PALETTE, STROKE } from "./palette.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
+export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 // The torch's own rock, so a tool drafting what *holds* one can draw the real
 // thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
 // it takes a radius and a time and reads no world.

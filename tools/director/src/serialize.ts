@@ -73,6 +73,9 @@ function serializeBoss(boss: BossEntry): string {
     // keeps naming the list and the director leaves the lattice alone.
     return '{ kind: "maze", rounds: MAZE_ROUNDS }';
   }
+  // THE GAUGE authors nothing at all — the wave names it and everything else
+  // about it is tuning (`config-gauge.ts`).
+  if (boss.kind === "gauge") return '{ kind: "gauge" }';
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

@@ -4,8 +4,6 @@ import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { NO_FORK } from "./fork.js";
 import { NO_GRIP } from "./grip.js";
-import type { InterludeState } from "./interlude.js";
-import { NO_INTERLUDE } from "./interlude.js";
 import { NO_PRIME } from "./lance.js";
 import { createRng, type Rng } from "./rng.js";
 import type { ShotCharge } from "./shot-charge.js";
@@ -103,16 +101,6 @@ export interface World {
    */
   forkBeat: number;
 
-  /**
-   * The round that is not the field, or null while the field is the game — and
-   * the wave the most recent one was played in front of, which is what stops a
-   * gap being played twice. World state for the briefing card's reason: they
-   * decide whether the world ticks at all. Ask `interlude.ts` about either
-   * rather than comparing them here.
-   */
-  interlude: InterludeState | null;
-  interludeDone: number;
-
   wave: number;
   waveBeat: number;
   spawned: number;
@@ -164,8 +152,6 @@ export function createWorld(
     boss: null,
     brief: newBriefings(),
     forkBeat: NO_FORK,
-    interlude: null,
-    interludeDone: NO_INTERLUDE,
     wave: 0,
     waveBeat: 0,
     spawned: 0,

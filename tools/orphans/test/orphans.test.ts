@@ -18,15 +18,15 @@ describe("orphanReport", () => {
     }
   });
 
-  it("points a spawn mechanic at a wave and a gap mechanic at an interlude", () => {
+  it("points every spawn mechanic at a wave, THE GAUGE included", () => {
+    // It used to point THE GAUGE at a table of gaps instead, and that class of
+    // reach is gone: a round is a boss wave, so there is one place to put one.
     const rows = orphanReport(["purge", "gauge"] as MechanicId[]);
     expect(rows).toHaveLength(2);
-    const [spawnRow, gapRow] = rows as [(typeof rows)[0], (typeof rows)[0]];
-    expect(spawnRow.reach).toBe("spawn");
-    expect(spawnRow.fix).toContain("waves.ts");
-    expect(gapRow.reach).toBe("gap");
-    expect(gapRow.fix).toContain("interludes.ts");
-    expect(spawnRow.fix).not.toBe(gapRow.fix);
+    for (const row of rows) {
+      expect(row.reach).toBe("spawn");
+      expect(row.fix).toContain("waves.ts");
+    }
   });
 
   it("finds nothing in today's content", () => {

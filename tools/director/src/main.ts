@@ -8,7 +8,6 @@ import { bindChecks } from "./checks-page.js";
 import { bindControlSetsPage } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
-import { bindInterludePanel, type InterludePanel } from "./interlude-panel.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
@@ -80,7 +79,7 @@ const boss: BossPanel = bindBossPanel(store, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
-  renderShip(cfg, currentWave(store), store.index);
+  renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();
 });
@@ -88,20 +87,11 @@ bindTuning(cfg, () => {
 // `pair-panel.ts`. Same shape as `bindTuning` above: a flip replays the wave
 // being edited under the new run.
 const pair = bindPairPanel(cfg, () => {
-  renderShip(cfg, currentWave(store), store.index);
+  renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();
 });
-// The gap in front of the wave being edited — see `interlude-panel.ts`. Reads
-// `store.index` rather than `Store`, because `GAPS` is keyed by wave number.
-const interlude: InterludePanel = bindInterludePanel(
-  () => store.index,
-  () => store.waves.length,
-  () => stage.world(),
-  cfg,
-  () => pair.render(),
-);
-renderShip(cfg, currentWave(store), store.index);
+renderShip(cfg, currentWave(store));
 renderShipSheet(cfg);
 bindShipSheet(cfg);
 // One wave and one set of switches per mechanic, opened in one click — see
@@ -112,7 +102,7 @@ bindShipSheet(cfg);
 bindDemoPanel(store, cfg, () => {
   refreshAll();
   pair.render();
-  renderShip(cfg, currentWave(store), store.index);
+  renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
 });
 
@@ -158,8 +148,7 @@ function onShape(): void {
   stage.rebuild();
   paintStatus();
   paintBriefing();
-  interlude.render();
-  renderShip(cfg, currentWave(store), store.index);
+  renderShip(cfg, currentWave(store));
 }
 
 /** Which cards the wave on the stage raises for a fresh pair — see `wave-briefing.ts`. */
@@ -182,8 +171,7 @@ function refreshAll(): void {
   stage.rebuild();
   paintStatus();
   paintBriefing();
-  interlude.render();
-  renderShip(cfg, currentWave(store), store.index);
+  renderShip(cfg, currentWave(store));
 }
 
 function paintStatus(): void {

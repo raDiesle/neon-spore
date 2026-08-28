@@ -134,6 +134,12 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
     p1: "You see the forks. Each node offers two ways out and you cannot tell which is fused.",
     p2: "You see the walls. Each node has one direction shut and you cannot tell what was there.",
   },
+  gauge: {
+    title: "THE GAUGE",
+    both: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
+    p1: "You hold the valve and you cannot see the marks. Turn it where she tells you, and stop when she says stop.",
+    p2: "You can see the marks and you cannot turn anything. Say where it has to go, then call it — and the marks move.",
+  },
   vane: {
     title: "THE VANE",
     both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",

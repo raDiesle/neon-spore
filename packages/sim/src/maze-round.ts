@@ -25,7 +25,7 @@ import { MILLI, type World } from "./world.js";
  * step the same way and for the same reason (`mirror-round.ts`) — a boss that
  * invented a second kind of damage would be teaching the pair a second
  * vocabulary for the one thing they already understand. It is also why this is
- * a boss and not an interlude: an interlude may cost time and nothing else.
+ * a boss and not a round the pair only waits out.
  *
  * **The column is the mouth, not wherever the cannon has wandered since.** The
  * pair chose that mouth out loud, together, and the thing that comes back

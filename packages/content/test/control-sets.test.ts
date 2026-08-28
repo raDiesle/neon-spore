@@ -6,6 +6,7 @@ import {
   controlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
+  panelForm,
   setControls,
   setHas,
   WAVES,
@@ -101,5 +102,51 @@ describe("control sets", () => {
 
   it("refuses a set nobody defined", () => {
     expect(() => controlSet("nonsense" as ControlSetId)).toThrow();
+  });
+});
+
+/**
+ * The other kind of panel. A round that is not the field replaces the band
+ * rather than sitting in it, and a set says which kind it is by what is in it
+ * rather than by a field beside it — see `panelForm`.
+ */
+describe("a panel that is slabs rather than a band", () => {
+  it("reads the form off the controls, so the two cannot disagree", () => {
+    expect(panelForm(controlSet(DEFAULT_CONTROL_SET_ID))).toBe("band");
+    expect(panelForm(controlSet("gauge"))).toBe("slabs");
+  });
+
+  it("refuses a set that mixes the two, because there is no way to draw one", () => {
+    expect(() =>
+      panelForm({
+        id: "default",
+        name: "N",
+        why: "W",
+        controls: ["cannon", "gaugeCall"],
+      }),
+    ).toThrow();
+  });
+
+  it("gives every slab panel both seats, so neither sits and watches", () => {
+    for (const set of CONTROL_SETS) {
+      if (panelForm(set) !== "slabs") continue;
+      expect(setControls(set, 1).length).toBeGreaterThan(0);
+      expect(setControls(set, 2).length).toBeGreaterThan(0);
+    }
+  });
+
+  /**
+   * The one thing that can silently go wrong now that a round is a wave: the
+   * boss is installed and the wave forgets to name the panel, so the round
+   * draws itself over a screen with no buttons on it. `controlSetForWave` is
+   * what the draw and both hit tests ask, and it answers from the wave.
+   */
+  it("gives every wave whose boss is a round a panel of slabs", () => {
+    const rounds = WAVES.filter((w) => w.boss?.kind === "gauge");
+    expect(rounds.length).toBeGreaterThan(0);
+    for (const w of rounds) {
+      const index = WAVES.indexOf(w);
+      expect(panelForm(controlSetForWave(index)), w.name).toBe("slabs");
+    }
   });
 });

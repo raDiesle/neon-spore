@@ -1,7 +1,7 @@
 import { fire } from "./bullets.js";
 import { closeFork, forkFire } from "./fork.js";
+import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
-import { clearInterlude } from "./interlude.js";
 import { endPrime, startPrime } from "./lance.js";
 import { mazeHeard } from "./maze-round.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
@@ -46,10 +46,11 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // be continued, and a fork still open would be one asking two people for
     // permission to start the wave they just asked for (`fork.ts`).
     closeFork(world);
-    // And any interlude, for the third time the same argument: a run being
-    // left is not a run standing at a dial. This one also forgets which gaps
-    // have been played, because the next run is a fresh set of them.
-    clearInterlude(world);
+    // And THE GAUGE, for the third time the same argument: a run being left is
+    // not a run standing at a dial. Only that one — every other boss goes when
+    // `startWave` installs the next wave's, and none of the others holds the
+    // whole of `step` in the ticks before it gets there.
+    closeGauge(world);
     world.events.push({ type: "needWave", wave: 0 });
     return;
   }

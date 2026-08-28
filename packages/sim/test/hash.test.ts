@@ -43,7 +43,7 @@ describe("the fingerprint", () => {
     w.lastFireTick = 12;
   });
 
-  // Where the wave is. `waveBeat` is not `beat`: an interlude holds one still
+  // Where the wave is. `waveBeat` is not `beat`: THE GAUGE holds one still
   // while the other counts, and a warden's clamp and a vane's opening are read
   // off `waveBeat` alone.
   noticed("wave", (w) => {

@@ -4,7 +4,7 @@
  * `bun run orphans` — what is built and reached by nothing.
  *
  * A feature the game plays through says so through `bun test`; a feature
- * that is only *reachable* — a creature nothing spawns, an interlude no gap
+ * that is only *reachable* — a creature nothing spawns, a boss no wave
  * carries — passed every one of those and still never showed up in front of a
  * pair. `packages/content/src/mechanics.ts` is the closed registry that can
  * finally be asked, and this is that question asked out loud, in the shape of
