@@ -574,3 +574,33 @@ building before somebody says the page is slow.
 Not queued, because it may be nothing — sixty small SVGs is not obviously too
 much for a desktop browser, and the numbers above are the only evidence there
 is. The first person to open the tab settles it in five seconds.
+
+## A count of motions is typed into a heading, and it has been wrong twice
+
+2026-08-28 · claude/burn-skin-depth-motion-s2b
+
+`tools/director/shapes-page.ts:159` says *"nine ways a body moves"* under the
+Spare motions heading. There were eleven when the lane found it and there are
+fifteen now, so the sentence has been false for two separate reasons without
+anybody noticing either.
+
+`MOTIONS.length` is right there and the heading should derive from it. This is
+the same failure `docs/asset-catalogue.md`'s draft count already had — two
+sessions each incrementing the number they found instead of counting — and
+that one was fixed by making a test read the sentence. A derived heading is
+cheaper and cannot go stale at all.
+
+## `drafts.test.ts` calls a motion still when it moves only in `dy` and `sy`
+
+2026-08-28 · claude/burn-skin-depth-motion-s2b
+
+The "actually moves" assertion samples `dx`, `rot` and `sx`. A motion whose
+whole signature is vertical — a body pivoting on its base, or one receding —
+reads as not moving at all. PITCH tripped it and now passes honestly, because
+a body going over does recede and that is a real uniform-scale term; but the
+test would let a genuinely motionless motion through in the other direction,
+which is the case it exists to catch.
+
+The fix is to sample all five components of the pose rather than three. It is
+small, and it is not urgent, because the failure mode is a false pass rather
+than a false failure — nothing is blocked by it today.

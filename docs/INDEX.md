@@ -14,6 +14,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/versus.md` | you are offering a second answer to something already drawn, or judging one |
 | `docs/alive.md` | you are making a body read as living rather than as drawn |
 | `docs/skins.md` | you are adding a way to draw a catalogue card's body, or animating one |
+| `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are working on the first minutes: the three waves that teach a new pair |
 | `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
 | `docs/checks/restated.md` | a `Check:` trailer needs its what-changed and its yes/no written out by hand |

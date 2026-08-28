@@ -63,6 +63,43 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## A CHECK LANDED THIS MORNING THAT NOBODY CAN CARRY OUT
+_claude/burn-motion-oncard-s2d · tools/shape-sheet/src/drafts/motion-depth.ts tools/shape-sheet/src/drafts/index.ts_
+
+The motion lane landed four dimensional counterparts and a `Check:` that asks
+the only question worth asking about them — *with the light on, does the
+turned body read as rotating in depth or as being squashed flat* — and then
+found the question cannot be put.
+
+`LIT` and the skin bar live on the director's SHAPES tab, which draws
+`CATALOGUE` entries. `MOTIONS` cards live on the standalone `shapes.html`,
+which has no skin switcher. So TURN can be seen lit and unlit, and TURN IN
+DEPTH cannot be seen either way — which means the one comparison the whole
+lane was built to enable is the one comparison the page cannot show. The lane
+said so in `docs/dimensional.md` and in its restated *where* row rather than
+landing quietly and letting somebody lose an evening to it.
+
+That honesty is why this is a small lane rather than a rescue. Give the four
+new motions a home on the tab that has the light: a draft entry naming each
+one, so they appear as catalogue cards and the skin bar and `LIT` reach them
+like anything else. `tools/shape-sheet/src/drafts/` is where a draft is
+declared and `suggests` is how a shape is joined to an idea by name.
+
+The judgement is small but real: a draft is *a picture offered to an idea*,
+and these are motions rather than shapes, so pick the subject each one is
+demonstrated on deliberately — a round body for TURN IN DEPTH and PITCH, a
+long one for CRAWL — and say why in the commit. The wrong body makes a correct
+motion look broken.
+
+Finished when `bun run check` is green, all four new motions appear on the
+SHAPES tab with the skin bar and `LIT` reaching them, and the outstanding
+check on `8487648` becomes answerable exactly as its *where* row describes it.
+Do not weaken that check's wording to match what the page can do; make the
+page do what the check asks.
+
+Model `sonnet`, effort `think`. Read `docs/dimensional.md` and
+`tools/shape-sheet/src/drafts/index.ts` first.
+
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
