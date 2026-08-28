@@ -144,6 +144,19 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
    * render/ (`depth.ts`).
    */
   depthHaze: number;
+  /**
+   * Rows out from the hull a falling body starts casting a shadow on it, 0 to
+   * disable. Read by render/ (`contact-shadow.ts`), which derives the shape
+   * and darkness from this one distance rather than adding a second field for
+   * either — see that file's header for why.
+   */
+  contactShadowLeadRows: number;
+  /**
+   * How dark the shadow gets at the instant of contact, 0 to 1. Ramps from 0
+   * at `contactShadowLeadRows` out, so a shield player never sees a shadow
+   * appear at full strength with nothing to explain it.
+   */
+  contactShadowMaxAlpha: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -204,6 +217,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   radarHeightPx: 34,
   depthNearScale: 1.125,
   depthHaze: 0.3,
+  contactShadowLeadRows: 3,
+  contactShadowMaxAlpha: 0.4,
   queenEggGrowShare: 0.5,
   briefings: false,
 };

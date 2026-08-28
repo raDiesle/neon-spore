@@ -141,6 +141,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   radarHeightPx: "PLUMBING — not a dial a person turns",
   depthNearScale: "PLUMBING — not a dial a person turns",
   depthHaze: "PLUMBING — not a dial a person turns",
+  contactShadowLeadRows: "PLUMBING — not a dial a person turns",
+  contactShadowMaxAlpha: "PLUMBING — not a dial a person turns",
   // BossConfig
   queenRow: "QUEEN",
   queenEggGrowShare: "QUEEN",

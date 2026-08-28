@@ -3,6 +3,7 @@ import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBriefing } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
+import { drawContactShadows } from "./contact-shadow.js";
 import { drawCreatures } from "./creatures.js";
 import { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
@@ -161,7 +162,6 @@ export class Canvas2DRenderer implements Renderer {
     glideTo(this.cannon, world.cannonCol, view.dt);
     this.shield.update(world.shieldCol, view.dt);
     const at = { cannon: this.cannon.value, shield: this.shield.segments };
-
     this.effects.ingest(
       view.events,
       l,
@@ -215,6 +215,7 @@ export class Canvas2DRenderer implements Renderer {
       (x) => !this.effects.rockCoversCrater(x, l.tile),
       (col, beat) => this.effects.hasArrived(col, beat),
     );
+    drawContactShadows(ctx, l, world.cfg, world.creatures, world.scars, view.beatPhase);
     // A hand on the lance, read straight off the world both devices share —
     // see other-hand.ts for why this is the only control that can say so.
     drawOtherHand(ctx, l, world, view.time, mood, at);
