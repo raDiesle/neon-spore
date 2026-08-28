@@ -16,6 +16,16 @@ const BOSS_TAG = BOSS_KINDS;
  * must produce the same value on every tick; a replay test pins it down.
  * FNV-1a over a canonical field order — never over JSON.stringify, whose key
  * order is an implementation detail.
+ *
+ * Three fields of `World` are deliberately outside it, and only three.
+ * `cfg` is agreed before beat zero and never mutated mid-run, so hashing it
+ * every tick would only restate the handshake. `queue` and `podQueue` are the
+ * wave's script, handed in from `content/` the same way — they are read by
+ * index and never rewritten, and `spawned`/`podSpawned` below carry how far
+ * that reading has got. `events` is cleared every tick and derived from the
+ * step that just ran, so it is a consequence of the state and not part of it.
+ * Everything else is here. A field outside the hash is a field that can
+ * desync two devices silently (docs/architecture.md).
  */
 export function hashWorld(world: World): number {
   let h = 0x811c9dc5;
@@ -33,6 +43,20 @@ export function hashWorld(world: World): number {
   push(world.gripP1);
   push(world.gripP2);
   push(world.primeTick);
+  // The four ticks the hull remembers. Cosmetic while nothing branched on
+  // them, and not cosmetic any more: a call whose `need` is `guard` or
+  // `fire(color)` is released by reading them, so a device that disagrees
+  // about `guardTick` disagrees about whether the field advanced — a desync
+  // that reads like a network bug. `wardUntilTick` was already here, further
+  // down, for its own half of the same argument (a ward pod arms the shield
+  // with no command, so two devices could run the same inputs and the same
+  // tick count and still disagree about whether a rock is deflected); it
+  // moves up so the four read as the one group they are, in the order
+  // `World` declares them.
+  push(world.guardTick);
+  push(world.intakeTick);
+  push(world.wardUntilTick);
+  push(world.lastFireTick);
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the
@@ -45,12 +69,6 @@ export function hashWorld(world: World): number {
     push(shot.lance ? 1 : 0);
   }
   push(world.hullMilli);
-  // A ward pod arms the shield without a guard command until this tick — a
-  // fact about the world exactly like `hullMilli`, and missing here the same
-  // way a bug could miss it: two devices could run the same inputs and the
-  // same tick count and still disagree about whether a rock gets deflected,
-  // with nothing above catching it.
-  push(world.wardUntilTick);
   push(world.rng.state);
   push(world.guard.tries);
   push(world.guard.deflected);
@@ -67,6 +85,20 @@ export function hashWorld(world: World): number {
   // world, and two devices that disagree about it disagree about whether a
   // wave has begun.
   push(world.forkBeat);
+
+  // Where the wave is. `beat` does not cover this: an interlude holds
+  // `waveBeat` still while `beat` keeps counting, and a warden's clamp, a
+  // vane's opening and a queen's tell are all read off `waveBeat` — so two
+  // devices agreeing about `beat` and not about `waveBeat` play different
+  // bosses. `spawned` and `podSpawned` are how much of the script has been
+  // read, `restBeat` is when the next wave gets asked for, and `nextId` is
+  // the name the next creature will be given.
+  push(world.wave);
+  push(world.waveBeat);
+  push(world.spawned);
+  push(world.podSpawned);
+  push(world.restBeat);
+  push(world.nextId);
 
   // The briefing. It is in the fingerprint because it decides whether the
   // world ticks at all: a device that thinks a card is still up is a device
