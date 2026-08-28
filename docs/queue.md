@@ -535,7 +535,7 @@ case — they are global numbers that only matter contextually, which is exactly
 the line this lane is drawing. Read `ship-fields.ts`'s `GROUP_ORDER` and
 `ship.ts` first.
 
-## A RELOAD PUTS YOU BACK AT THE TOP AND ASKS IF YOU MEANT IT
+## A RELOAD KEEPS THE PLACE AND FORGETS EVERYTHING ELSE
 _claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
 
 The owner works in the director while lanes land behind them, so the page
@@ -545,20 +545,23 @@ meant to lose changes. Fifty-odd checks are waiting on that person looking at
 things. Friction here is not a nicety; it is the tax on the one activity
 nothing else in this repository can do.
 
-**`bun --hot` cannot fix this and it is worth saying why.** It re-evaluates
-`server.ts` in the same process — that is *server* state, and the comment in
-that file says so. A browser page load is a fresh document either way, so
-anything held only in a module-level variable is gone by construction. The fix
-is not a bun flag; it is to stop keeping the state only in memory.
+**And the owner has drawn the line through the middle of it, so read this
+before the rest:** *whenever I reload, I don't want my director settings stored
+without me having saved them — it should ignore and reset what it was before.*
+Asked which half of this lane that killed, they said: **keep the place, drop
+the state.**
 
-**Put the place in the URL.** Which tab, and which wave index. `location.hash`
-or a query string, written with `history.replaceState` on every change so it
-never grows a history entry per click, and read once on load. That buys three
-things and only one of them was asked for: a reload returns you where you
-were; back and forward start working; and a link now names a place, so
-`?tab=shapes&wave=7` can be sent to a phone or pasted into a `Check:`
-trailer's *where* row. That last one compounds — every check written from now
-on could point at exactly the thing rather than describing the route to it.
+So the lane is two rules and they point in opposite directions on purpose.
+
+**Where you were is navigation, and it survives.** Which tab, and which wave
+index, in `location.hash` or a query string, written with
+`history.replaceState` on every change so it never grows a history entry per
+click, and read once on load. That buys three things and only one of them was
+asked for: a reload returns you where you were; back and forward start working;
+and a link now names a place, so `?tab=shapes&wave=7` can be sent to a phone or
+pasted into a `Check:` trailer's *where* row. That last one compounds — every
+check written from now on could point at exactly the thing rather than
+describing the route to it.
 
 Keep the vocabulary small and stable: a tab name and an index, nothing that
 needs escaping, nothing that breaks when a panel is renamed. **An unknown or
@@ -566,39 +569,54 @@ malformed value must fall back silently to the default** rather than throwing �
 a URL outlives the code that wrote it, and a link from three weeks ago should
 open the page rather than a blank screen.
 
-**Then the dialog, which is a different problem wearing the same coat.**
-`main.ts` guards `beforeunload` on `store.dirty`, which is honest — the store
-holds `WAVES` cloned for editing and `dirty` means real unsaved work. The
-warning is not wrong; it is just the *only* thing offered, and "warn and lose
-it" is the weakest of the available answers.
+**Everything else is a setting, and it resets.** The director starts from what
+ships, every single load: default dials, default skin, default motion, LIT off,
+no recovered draft, nothing carried over from the last session by any route.
+Not a prompt offering yesterday's work back — *nothing*. The reason is that a
+page which quietly hands back state the owner did not save is a page whose
+every judgement is about the wrong thing, and this director exists almost
+entirely to be judged from. A wave that looks wrong has to be a wave that is
+wrong, not one still wearing an experiment from Tuesday.
 
-So save the draft instead. `store.waves` and `store.index` to `localStorage`
-on change, debounced; on load, if a draft differs from the shipped `WAVES`,
-**say so visibly and let the owner choose** — a small line at the top of the
-editor naming what was recovered, with restore and discard. Then `beforeunload`
-can go entirely, because nothing is lost by reloading.
+**A place is not a setting, and the boundary is worth stating in the file.**
+The test is whether the value changes what is drawn or what would ship. A tab
+name and a wave index say *which thing you are looking at*; a dial value, a
+skin pick and an edited wave say *what it looks like*. The first goes in the
+URL. The second does not go anywhere. Write that sentence into
+`session.ts`'s header, because the next lane that wants to remember the SHAPES
+skin bar across a reload will read it and stop.
 
-**Restoring silently is the trap, and it is worse than the dialog.** A draft
-recovered without saying so means the owner is editing yesterday's unfinished
-change while believing they are looking at what ships, and every judgement they
-make from that page is about the wrong thing. Visible, dismissable, and it
-names the wave it belongs to.
+**Explicit save already has a shape in this tree, and it is the only shape.**
+`tuning.ts`'s preset bar writes to `localStorage` on a `+ SAVE` press and
+restores only when a named preset is clicked — the owner's rule, already
+implemented, before it was stated. Nothing in this lane adds a second
+mechanism, and nothing in it writes storage at all.
 
-**Scope, deliberately.** The SHAPES skin/motion/LIT state and the VERSUS slot
-live in their own panels and are *not* in this lane — they would drag four
-files two other lanes are working in. Design the URL vocabulary so they can be
-added later without changing what this lane writes, and say in the commit what
-the next key would be called.
+**So `beforeunload` stays, and the old brief was wrong to plan its removal.**
+It was going to go because a recovered draft meant nothing was lost by
+reloading. Drafts are not recovered any more, so the warning is once again the
+only thing between a reload and a lost edit, and `store.dirty` is honest about
+when it fires. Leave it exactly as it is.
+
+**Audit while you are in there, and report rather than fix.** Grep the whole
+director for `localStorage` and `sessionStorage` and say in the commit what
+each remaining call is and whether it is behind an explicit press. Two are
+known — the tuning presets, which are, and the brush-hints toggle in
+`main.ts`, which is a UI preference set by a deliberate click. If a third
+turns up that restores editable state on its own, name it in the report; it is
+somebody's lane, not a thing to fix inside this one.
 
 Finished when `bun run check` is green, a reload returns to the same tab and
 wave, back and forward work, an unknown URL value opens the default page
-rather than failing, an unsaved wave edit survives a reload behind a visible
-prompt, and `beforeunload` is gone. The commit carries `Check: after a lane
-lands and the page reloads under you, are you still where you were?`
+rather than failing, every dial and every picked skin or motion is back at its
+default after a reload, no new storage key exists anywhere in the director,
+`beforeunload` is untouched, and the commit carries `Check: after a reload, are
+you back on the same tab and wave with every setting back at its default?`
 
-Model `sonnet`, effort `think hard`. The judgement is what belongs in a URL
-that outlives the code that wrote it; the storage is arithmetic. Read
-`tools/director/src/main.ts` and `bindTabs` first.
+Model `sonnet`, effort `think hard`. The judgement is the line between a place
+and a setting, and it is now decided — spend the thinking on stating it so the
+next lane cannot cross it by accident. Read `tools/director/src/main.ts`,
+`bindTabs` and `tools/director/src/tuning.ts` first.
 
 ## A RESTATEMENT IS A FILE PER COMMIT, NOT A LINE IN A SHARED ONE
 _claude/burn-restated-split-p2 · docs/checks tools/checks/restated.ts tools/checks/run.ts tools/director/src/checks-page.ts_
