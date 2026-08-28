@@ -121,6 +121,13 @@ most places, because the side is *already decided in state before it is shown*:
 `dropSide` to decide what to shake would leak the answer on both devices.** Read
 only *that a drop is scheduled*, never which side.
 
+**In phase, both sides at once.** The owner said so explicitly: one tremor
+driven by one value, applied to both torches — not two independent wobbles and
+not one leading the other. If the two drift apart the eye reads the difference
+as meaning something, and the only thing it could mean is which side is about
+to fall. A test belongs on this: at any tick inside the window the two offsets
+are equal.
+
 **The window is already in the state and needs no new field.** Between the beat
 `dropSide` is rolled and the beat `spit` runs, the queen is deciding and the
 picture has nothing to say. That gap is the shake. Work out what it is in beats
