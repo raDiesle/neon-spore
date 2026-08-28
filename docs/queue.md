@@ -136,6 +136,51 @@ Model `sonnet`, effort `think hard`. Read `shapes-pair.ts` — it already owns
 what a card is wearing and is the natural place for a third arrangement — then
 `shapes-report`'s drawn-size columns before choosing the grid.
 
+## THE CONTROL BAR IS ONE LONG RUN OF BUTTONS AND SAYS NOTHING ABOUT ITSELF
+_claude/burn-shapes-controls-s20 · tools/director/src/shapes-controls.ts_
+
+The owner, looking at the SHAPES page: *the combinations should be grouped
+better, maybe with headings saying what is what — it is not clear what I can
+combine.* That is a finding about the control bar and not about any skin on it.
+
+`controlBar` in `shapes-pair.ts` emits one undivided run of buttons: twenty
+skins, then the light, then OWN and every spare motion, separated only by
+one-character tags — `A`, `·`, `MOTION` — set in the same small type as
+everything around them. A tag that short is a bullet, not a heading. So the
+page shows sixty-odd buttons in a row and never says that they are **three
+independent axes**: a skin, a motion, and a light that composes over whichever
+skin is picked. Everything combines with everything, which is the one fact the
+page most needs to state and the only one it leaves entirely to be inferred.
+
+**Group them, name them in words, and say the axes are free.** Each group gets
+a heading a person reads as a heading — its own line or a clearly heavier label
+— naming what it picks: the surface, how the body moves, the light. One short
+line per group in the page's own voice saying what it does and that it is
+independent of the others; `SKIN` and `MOTION` in particular, because `OWN` and
+`LIT` are the two buttons whose meaning is currently carried only by a tooltip.
+What is currently picked must be readable without hovering anything.
+
+**This sits behind `burn-shapes-allskins-s19`**, which removes the B picker and
+takes a third of the bar out with it. Do not start it beside that lane. Move
+`controlBar` out of `shapes-pair.ts` into `shapes-controls.ts` — that file is
+already carrying two jobs, the doc comment says so, and the control row is the
+separable one — and leave `shapes-pair.ts` re-exporting so nothing else moves.
+That edit is an addition to a file this lane does not own: one contiguous
+region, replayed over.
+
+**Nothing about what a card draws changes.** No skin, no motion, no fit, no
+card width. If the diff touches a figure, the lane has gone somewhere else.
+
+Finished when `bun run check` is green, the bar reads as three named groups
+rather than one row, each group says in a line what it picks and that it
+combines freely with the rest, the current pick of each is legible without
+hovering, and the commit carries `Check: on the SHAPES page, can you tell what
+can be combined with what without being told?`
+
+Model `sonnet`, effort `think hard`. Read `shapes-pair.ts`'s `controlBar` and
+the page's stylesheet first; the work is the wording and the hierarchy, not the
+mechanism.
+
 ## CILIA ASKS THE BROWSER WHERE THE CONTOUR IS, SIX THOUSAND TIMES A FRAME
 _claude/burn-skin-cilia-fast-s18 · tools/director/src/skins/cilia.ts_
 
