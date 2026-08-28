@@ -46,6 +46,8 @@ import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { WAVES } from "@neon-spore/content";
+import { findRestatedForCommit, parseRestated, type Restated } from "../checks/restated.js";
+import { checksIn } from "../checks/trailers.js";
 import { captureFrames, type FrameSpec } from "./capture.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -262,42 +264,80 @@ export function resolveWaveText(text: string, waves: readonly WaveName[]): WaveR
   return { kind: "unknown", reason: "no wave named in the where field" };
 }
 
-/** `docs/checks/<sha>.md` names its file after the short sha, but a caller
- * may pass a full sha or a longer abbreviation — match either direction. */
-async function findChecksFile(sha: string): Promise<string | null> {
+/**
+ * Every restatement under `docs/checks/`, from every `.md` file there — one
+ * `readdir` and one parse, shared by every call this run makes rather than
+ * one per commit. `tools/checks/repo.ts`'s `readRestated` reads the same
+ * directory for the same reason (a restatement can live in any file since
+ * three lanes collided writing one shared document); this is deliberately
+ * not imported from there, because `tools/checks` is owned by nobody in this
+ * task and this file's brief is not to restructure it, only to stop guessing
+ * a filename from a sha.
+ */
+async function readAllRestated(): Promise<Restated[]> {
   const dir = join(root, "docs/checks");
-  const names = await readdir(dir);
-  return (
-    names.find((n) => {
-      const stem = n.replace(/\.md$/, "");
-      return stem !== "restated" && (sha.startsWith(stem) || stem.startsWith(sha));
-    }) ?? null
-  );
+  const names = await readdirSafe(dir);
+  const all: Restated[] = [];
+  for (const name of names.filter((n) => n.endsWith(".md")).sort()) {
+    all.push(...parseRestated(await Bun.file(join(dir, name)).text()));
+  }
+  return all;
+}
+
+async function readdirSafe(dir: string): Promise<string[]> {
+  try {
+    return await readdir(dir);
+  } catch {
+    return [];
+  }
 }
 
 /**
- * Reads `docs/checks/<sha>.md`, if there is one, and resolves the first
- * `where` entry that names an actual wave. An entry naming only a director
- * page or nothing placeable is skipped in favour of a later entry that does
- * name a wave (`docs/checks/16efb33.md` carries two, and the first already
- * resolves); if none of them do, the first non-"unknown" reason is reported
- * so the refusal explains itself instead of just saying "no wave".
+ * Resolves a commit's own `Check:` trailers — read straight off the commit,
+ * not guessed from a filename — to whichever restated entries quote them,
+ * and picks the first `where` among those that names an actual wave.
+ *
+ * `docs/queue.md`, "THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER A
+ * COMMIT THAT NEVER LANDED": this used to open `docs/checks/<sha>.md`, which
+ * only exists for the pre-rebase sha a lane committed under — `bun run land`
+ * rebases, so the sha this function is actually called with (a commit on
+ * `main`) is a different one, and the file is gone. The join that survives a
+ * rebase is the one `bun run checks` already uses: the trailer's own text,
+ * via `findRestatedForCommit`. A trailer with several `Check:` lines, or a
+ * restatement naming only a director page, is skipped in favour of a later
+ * one that does name a wave (`docs/checks/16efb33.md` carries two, and the
+ * first already resolves); if none of them do, the first non-"unknown"
+ * reason is reported so the refusal explains itself instead of just saying
+ * "no wave".
  */
 export async function deriveWaveFromChecks(sha: string): Promise<WaveResolution> {
-  const file = await findChecksFile(sha);
-  if (!file) {
-    return { kind: "unknown", reason: `no docs/checks/<sha>.md found for ${sha}` };
+  const full = await git(["rev-parse", sha]).catch(() => null);
+  if (!full) return { kind: "unknown", reason: `no commit found for ${sha}` };
+  const body = await git(["log", "-1", "--format=%B", full]);
+  const checks = checksIn(body, sha);
+  if (checks.length === 0) {
+    return { kind: "unknown", reason: `${sha} carries no Check: trailer` };
   }
-  const text = await Bun.file(join(root, "docs/checks", file)).text();
+  const entries = await readAllRestated();
+  const restated = findRestatedForCommit(
+    entries,
+    full,
+    checks.map((c) => c.text),
+  );
+  if (restated.length === 0) {
+    return {
+      kind: "unknown",
+      reason: `no restatement quotes any of ${sha}'s Check: trailer(s) word for word`,
+    };
+  }
   let fallback: WaveResolution | null = null;
-  for (const entry of splitEntries(text)) {
-    const where = entry.match(/\*\*where\*\*\s*(.*)/)?.[1] ?? "";
-    if (!where) continue;
-    const resolved = resolveWaveText(where, WAVES);
+  for (const r of restated) {
+    if (!r.where) continue;
+    const resolved = resolveWaveText(r.where, WAVES);
     if (resolved.kind === "hud" || resolved.kind === "name") return resolved;
     if (!fallback) fallback = resolved;
   }
-  return fallback ?? { kind: "unknown", reason: `${file} has no where field` };
+  return fallback ?? { kind: "unknown", reason: `restatement(s) for ${sha} have no where field` };
 }
 
 /** `--wave` on the command line: the HUD's own number (`21` is `W21`) or a

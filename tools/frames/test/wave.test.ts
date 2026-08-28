@@ -127,6 +127,18 @@ describe("deriveWaveFromChecks", () => {
     expect(r).toMatchObject({ kind: "hud", hudNumber: 1 });
   });
 
+  it("finds the restatement by trailer text for a commit whose file is named after a different, pre-rebase sha", async () => {
+    // docs/queue.md, "THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER
+    // A COMMIT THAT NEVER LANDED" — 35d59d4 is on `main` right now; its
+    // restatement was written before `bun run land` rebased it, and sits
+    // under docs/checks/18036b0.md, the pre-rebase sha. Looking up
+    // docs/checks/35d59d4.md finds nothing — this is the exact repro the
+    // brief gives (`bun run frames 35d59d4`), and the fix is a join on the
+    // trailer's own text, not on the filename.
+    const r = await deriveWaveFromChecks("35d59d4");
+    expect(r).toMatchObject({ kind: "name", name: "THE THIRD SHOT" });
+  });
+
   it("reports unknown for a sha with no docs/checks file", async () => {
     const r = await deriveWaveFromChecks("0000000");
     expect(r.kind).toBe("unknown");

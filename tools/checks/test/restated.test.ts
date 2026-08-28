@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import {
   asImagePath,
   findRestated,
+  findRestatedForCommit,
   isDirectorLink,
   orphanedRestated,
   parseRestated,
@@ -99,6 +100,39 @@ describe("findRestated", () => {
 
   test("a sha with nothing in the file matches nothing", () => {
     expect(findRestated(entries, "0000000", "anything")).toBeNull();
+  });
+});
+
+describe("findRestatedForCommit", () => {
+  const entries = parseRestated(SAMPLE);
+
+  test("finds one entry per trailer text, in trailer order, even under a sha the file was never named after", () => {
+    // The whole point of the join: `d5df018` here stands in for a commit
+    // that landed under a *different* sha after a rebase — the lookup does
+    // not touch the sha at all except to break a tie, so it still finds
+    // both entries under the heading's own sha.
+    const found = findRestatedForCommit(entries, "totally-different-sha", [
+      "the wider mouth still reads as swallowing rather than as a flash, not merely smaller",
+      "whether losing a pod reads as a cost",
+    ]);
+    expect(found).toHaveLength(2);
+    expect(found[0]?.subject).toBe("the cannon's fire opening while it takes a pod in");
+    expect(found[1]?.subject).toBe("the moment a pod is lost");
+  });
+
+  test("skips a trailer nobody wrote a restatement for, rather than failing the whole lookup", () => {
+    const found = findRestatedForCommit(entries, "d5df018", [
+      "the wider mouth still reads as swallowing rather than as a flash, not merely smaller",
+      "a trailer with no restatement at all",
+    ]);
+    expect(found).toHaveLength(1);
+    expect(found[0]?.text).toBe(
+      "the wider mouth still reads as swallowing rather than as a flash, not merely smaller",
+    );
+  });
+
+  test("no trailers, no entries", () => {
+    expect(findRestatedForCommit(entries, "d5df018", [])).toEqual([]);
   });
 });
 

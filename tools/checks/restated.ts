@@ -146,6 +146,36 @@ export function findRestated(
 }
 
 /**
+ * The lookup `bun run frames` needs and `docs/checks/<sha>.md` cannot give
+ * it: every restatement for a commit's own `Check:` trailers, found by what
+ * they say rather than by what the file that once held them was called.
+ *
+ * `docs/queue.md`, "THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER A
+ * COMMIT THAT NEVER LANDED" — a lane commits `docs/checks/<sha>.md` and
+ * `bun run land` rebases it onto `main`, so the sha in the filename is the
+ * pre-rebase one and the commit that actually lands has a different sha.
+ * Guessing a path from the landed sha therefore misses 31 of 33 restated
+ * files; this instead does what `findRestated` above already does for
+ * `checks.ts` — key on the trailer's own text, which a rebase does not
+ * touch — and does it for every trailer a commit carries, in trailer order,
+ * so a caller with several `Check:` lines gets back whichever of them have a
+ * restatement, skipping any that do not rather than failing the whole
+ * lookup for one trailer nobody wrote a restatement for yet.
+ */
+export function findRestatedForCommit(
+  entries: readonly Restated[],
+  sha: string,
+  checkTexts: readonly string[],
+): Restated[] {
+  const found: Restated[] = [];
+  for (const text of checkTexts) {
+    const r = findRestated(entries, sha, text);
+    if (r) found.push(r);
+  }
+  return found;
+}
+
+/**
  * Entries that attach to nothing on the trunk right now — a sha the log no
  * longer carries, or a quote that no longer matches a trailer's exact text
  * word for word.
