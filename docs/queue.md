@@ -90,7 +90,17 @@ fine, and **8 are tall** — TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE CLAW,
 POD and both HUSKs — where the swell squeezes *across* the body instead of
 along it. That is wrong rather than arbitrary.
 
-Three lanes, three workarounds, one missing thing: **what is drawn does not
+**And a third skin has since used CILIA's technique.** `NACRE` differences the
+same transform matrix to slide its interference bands, because its shift has to
+ride the body's own motion or it is a screensaver. So the cleanup below removes
+**three** callers, not two. That lane also left the strongest argument for this
+one existing: interference tracks the surface *normal*, so `p.rot` would drive
+NACRE better than `p.dx`/`p.dy` — and reading rotation would mean a *second*
+assumption about the transform list (that item 1 is the rotate), which is the
+point at which working around the gap stops being reasonable. `TREMBLE`, which
+has more rotation than drift, is the concrete case to test against.
+
+Four lanes, four workarounds, one missing thing: **what is drawn does not
 know what it is drawing.**
 
 So: an optional `extent: { w, h }` on `SkinContext`, an optional velocity or
@@ -117,7 +127,7 @@ proof. And `packages/content` may not use `Math.random`, `Date.now` or the DOM
 authoring time and never at draw time.
 
 Finished when `bun run check` and `bun run test:determinism` are green, none of
-the three workarounds remains, a test proves the catalogue draws identically
+the four workarounds remains, a test proves the catalogue draws identically
 before and after, and the eight tall bodies get a swell that runs along them.
 
 No `Check:` trailer if the pictures are proven identical — and if the eight
