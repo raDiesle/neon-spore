@@ -712,6 +712,15 @@
       #shipSheet .sub { color: var(--dim); font-size: 10px; }
       #shipSheet > header button { margin-left: auto; }
       #shipSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      /* HOLDERS: three drafts side by side, each a canvas on the page's own
+         beat. A row rather than the backlog's column, because the whole
+         question is a comparison and a comparison read by scrolling is not
+         one. */
+      .holder-row { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+      .holder-card { flex: 1 1 300px; max-width: 340px; border-bottom: none; }
+      .holder-shot { display: block; margin: 8px 0; background: #0a0719; border-radius: 6px; }
+      .holder-card .blurb { color: var(--ink); font-size: 11px; margin-bottom: 4px; }
+      .holder-card .note { font-size: 10px; line-height: 1.5; }
     </style>
   </head>
   <body>
@@ -950,6 +959,7 @@
         <button type="button" data-tab="parked">PARKED</button>
         <button type="button" data-tab="queue">QUEUE</button>
         <button type="button" data-tab="designs">DESIGNS</button>
+        <button type="button" data-tab="holders">HOLDERS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
         <button type="button" data-tab="spec">SPEC</button>
       </div>
@@ -1092,6 +1102,18 @@
           </p>
           <button type="button" class="expand" data-expand="#backlogDesigns">EXPAND ALL</button>
           <div id="backlogDesigns" class="columns"></div>
+        </div>
+        <div class="sheetpage" id="sheet-holders">
+          <p class="pagewhat">
+            BULB QUEEN's flanking torches are drawn today with nothing holding
+            them — a bare rock in the flank column, and the picture never says
+            why it stays there. Three drafts for what could, spread on one
+            axis: how much of the holder is machine and how much is her. None
+            of them is wired into the game; the shipped queen is unchanged.
+            All three run on one clock, holding for three beats and letting go
+            on the fourth, because how each one lets go is half the question.
+          </p>
+          <div id="holderCards" class="holder-row"></div>
         </div>
         <div class="sheetpage" id="sheet-borrowed">
           <p class="pagewhat">

@@ -16,6 +16,7 @@
 import { renderBorrowed } from "./borrowed.js";
 import { drawCards, mountCardTab } from "./card-page.js";
 import { conceptArt, draftFor } from "./concept-art.js";
+import { renderHolders } from "./holders-panel.js";
 import { detailBox, inline } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
@@ -176,6 +177,7 @@ async function load(): Promise<void> {
   fill("backlogQueue", backlog.queue);
   fill("backlogDesigns", backlog.designs);
   void renderBorrowed();
+  renderHolders();
   void renderSpec();
   loaded = true;
 }

@@ -40,5 +40,9 @@ export {
 export { PALETTE, STROKE } from "./palette.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
+// The torch's own rock, so a tool drafting what *holds* one can draw the real
+// thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
+// it takes a radius and a time and reads no world.
+export { drawTorchRock, torchRadius } from "./torch.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
 export { drawVane } from "./vane-draw.js";
