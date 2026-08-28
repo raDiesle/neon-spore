@@ -63,8 +63,8 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## SIXTY BODIES IN ONE SKIN, AND NO WAY TO SEE ONE BODY IN ALL OF THEM
-_claude/burn-shapes-allskins-s19 · tools/director/src/shapes-all.ts tools/director/src/shapes-pair.ts_
+## ONE SKIN BELONGS ON EVERY SHAPE, AND EVERY SKIN BELONGS ON ONE SHAPE
+_claude/burn-shapes-allskins-s19 · tools/director/src/shapes-all.ts tools/director/src/shapes-pair.ts tools/director/src/shapes-panel.ts_
 
 The SHAPES tab draws sixty bodies wearing one skin. The owner wants the
 transpose: **one body, drawn once per skin, all of them on the screen at
@@ -74,6 +74,25 @@ This is the third and last thing decision 24 asks for and the only one still
 missing. The skin bar shows one, the B-picker shows two, and there are now
 **twenty**. Choosing between twenty by flipping through them in pairs is not
 choosing; it is a tournament nobody runs to the end.
+
+**And the SHAPES page gives the comparison up, because this view takes it
+over.** The B-skin picker landed today and the owner has since said plainly
+that it is not what they want there: on SHAPES they want to click a skin and
+see it on **all the shapes**, with nothing else on the card. So `B OFF` and the
+second picker come out, and the page goes back to one skin at a time.
+
+That is a product decision and not a defect — the paired card was checked and
+passed on the day it landed, and it did exactly what it said. It is being
+removed because a better home for the same job exists here: comparing twenty
+skins belongs on a page built for it, not as a second half squeezed onto every
+one of sixty cards.
+
+**Take the card width back with it.** The paired lane widened the square card
+from 330 to 428 px so two halves could sit side by side at full size, which
+dropped a row from four cards to three. With the pair gone that reason is gone,
+and the owner's ask — *see it with all the shapes* — is served by more shapes
+per screen, not fewer. Restore 330 and confirm with `bun run shapes:report`
+that the drawn size still clears the floor, which it did before the widening.
 
 **Make the body pickable and default it to THE WEIGHT.** The owner named one
 body, and a view that can only ever show that one will be wrong the first time
