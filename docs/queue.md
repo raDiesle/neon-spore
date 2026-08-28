@@ -299,7 +299,7 @@ divide. Read `packages/audio/src/music/themes.ts`, `cells.ts`, `band.ts` and
 `packages/audio`, so it can run beside any graphics lane without a rebase.
 
 ## A SHELL THAT COMES OFF IN PIECES, AND A COLOUR NOBODY KNEW UNTIL IT DOES
-_claude/burn-creature-shell-g1 · packages/sim/src/shell.ts packages/sim/test/shell.test.ts packages/content/src/creatures.ts_
+_claude/burn-creature-shell-g1 · packages/sim/src/shell.ts packages/sim/src/shell-round.ts packages/sim/test/shell.test.ts packages/content/src/creatures.ts packages/content/src/briefings.ts packages/content/src/waves.ts_
 
 The owner's creature, and most of it is already agreed and half of it is
 already built. `docs/spec/systems.md` §5.6 asks for exactly this — *hits cut
@@ -359,7 +359,21 @@ named the only four exceptions. A shell segment count that two devices
 disagree about is a desync that reads like a network bug.
 
 Follow `.claude/skills/new-creature`, which carries the control-visibility
-entry, the state machine and the replay test this needs.
+entry, the state machine and the replay test this needs — **including its §5,
+which is new: a creature gets one wave that is about it and one briefing card
+before that wave.** Both are this lane's, not a follow-up's.
+
+The wave's sentence names the **mistake the creature exists to punish**, never
+the creature: THE RUNT is *"The one where a shot that lands is the mistake."*
+Here that sentence is about the reversal — an arrival that starts as *anyone,
+keep hitting it* and becomes *you, now, and only you* — and if the sentence
+cannot be written, the reversal is not landing and the creature is not ready.
+
+The card is three texts. `both` says what the thing is; `p1` and `p2` say what
+each seat does about it, and **they must differ**, because for most of this
+creature's life neither player knows which of them will have to finish it. That
+asymmetry is the card's job: it is the one place the pair is told that the
+answer is currently unknown to both of them.
 
 Finished when `bun run check` and `bun run test:determinism` are green, a
 replay test kills one from both seats and proves the colour lock only applies

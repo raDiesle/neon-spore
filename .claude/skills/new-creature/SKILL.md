@@ -57,7 +57,41 @@ from becoming visible to impact, better 5–6. At the default config a creature
 takes `rows` beats, roughly 9 s. Anything faster must work without an
 announcement.
 
-## 5. Replay test
+## 5. A wave of its own, and a card before it
+
+**A creature nobody is introduced to is a creature nobody learns.** Every kind
+on the field today arrives this way and the pattern is not written down
+anywhere else, so it is written here: a new creature gets **one wave that is
+about it** and **one briefing card shown before that wave**.
+
+**The wave.** One entry in `packages/content/src/waves.ts`, passing the
+one-sentence test the way any wave must — THE RUNT is *"The one where a shot
+that lands is the mistake"*, ON THE BEAT is *"The one where firing on sight is
+the miss."* Both name the **mistake the creature exists to punish**, not the
+creature. That is the test: if the sentence describes the body rather than what
+the pair now has to do differently, the wave is a display case and not a
+lesson.
+
+A wave about one creature is usually one entry, and not always. THE RUNT
+carries a second, ordinary target beside it, because a body defined by *not*
+shooting it teaches nothing with nothing else on the field to shoot. Ask what
+the creature is defined **against**, and put that in the wave if the answer is
+not "the empty field".
+
+**The card.** One entry in `packages/content/src/briefings.ts`, and it is
+**three texts, not one**: `both` for what the thing is, then `p1` and `p2` for
+what each seat now does about it — the split is the point, and a card whose
+`p1` and `p2` say the same thing is a card that has not understood the game.
+THE THROB's are worth copying as a shape: *"Call the beat it swells on, out
+loud, the way you call a column"* against *"Fire on the count, not on sight."*
+
+**Nothing enforces this, so check it by hand.** `BriefingId` is its own list in
+`packages/sim/src/briefing.ts` rather than being derived from `CreatureKind`,
+so a creature can ship with no card and nothing will fail. `BRIEFINGS` is a
+`Record` over that list, so once the id exists a missing card *is* a type
+error — the gap is only between adding a kind and adding the id.
+
+## 6. Replay test
 
 Add a replay in `packages/sim/test/` that spawns the creature and plays the
 inputs that beat it. Assert what the creature *does* — it died on the beat it
