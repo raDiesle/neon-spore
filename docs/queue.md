@@ -200,54 +200,6 @@ conversion itself is mechanical. Read `docs/spec/interludes.md` in full,
 `docs/decisions.md` #20 and #21, `packages/content/src/control-sets.ts` in full,
 and `packages/sim/src/interlude.ts`.
 
-## THE DIRECTOR DRAWS "TAP TO RESTART" AND NOTHING IS LISTENING
-_claude/burn-director-sheet-close · tools/director/src/stage.ts tools/director/test/stage.test.ts_
-**Asked for by the owner.**
-
-Their words: *when on desktop pc in director, i open "sheet", i cannot close it
-again. the click on the screen seems not to work. also i guess my expectation
-is, if i click "sheet" again, it toggles to hide.*
-
-**Already diagnosed — do not re-derive it, verify it and fix it.** `▣ SHEET`
-(`#endRun`, bound at `tools/director/src/stage.ts:198`) calls `endRun(world)`,
-sets `running = false` and paints once. The after-run screen that comes up is
-the game's own, drawn by `packages/render/src/balance.ts`, and line 65 of that
-file writes **"tap to restart"** onto it.
-
-In the game there is an input layer that honours those words. In the director
-there is not: `stage.ts` binds `click` on `#playBtn`, `#restart`, `#ackBrief`,
-`#endRun` and the role buttons, and **binds nothing on the stage canvas at
-all**. So the screen instructs the reader to do something the director never
-listens for. It is not a mouse-versus-touch problem and it is not desktop-only;
-the handler is absent, so no pointer of any kind can dismiss it.
-
-Two fixes and the owner named both, so do both.
-
-**The canvas honours its own instruction.** A click on `#stage` while the run
-is over restarts it — the same thing `#restart` already does. That is the
-literal repair: the text stops lying.
-
-**And `▣ SHEET` toggles.** Pressed once it ends the run and shows the sheet;
-pressed again it puts it away and the stage comes back. Today the second press
-re-ends an already-ended run, which is why the button reads as dead. The label
-may want to say which way it will go, the way the other toggles on this page
-do — that part is a judgement, and the commit says which way it went and why.
-
-Neither half touches the game. `balance.ts` is drawing exactly what it should
-and is not edited here; this is the director failing to wire a screen it chose
-to show. Say that sentence in the commit — it is what keeps the fix out of
-`packages/render`.
-
-Finished when `bun run check` is green, a test covers both dismissals (a click
-on the stage after the run ends, and a second press of `▣ SHEET`), and the
-commit carries
-`Check: after ▣ SHEET, does clicking the stage bring the field back, and does a
-second press of ▣ SHEET do the same`.
-
-Model `sonnet`, effort `think`. Read `tools/director/src/stage.ts` and
-`packages/render/src/balance.ts`. This is a tool fix, not a look: nothing the
-game draws changes.
-
 ## THE DIRECTOR'S CONTROLS SIT AWAY FROM THE THING THEY CHANGE
 _claude/burn-director-layout · tools/director/index.html tools/director/src/stage.ts tools/director/src/pair-panel.ts tools/director/test/stage.test.ts_
 **Asked for by the owner.**
