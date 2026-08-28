@@ -1104,3 +1104,124 @@ Model `sonnet`, effort `think hard`. Read `packages/render/src/touch.ts`,
 `tools/director/src/stage.ts` and `tools/director/src/keys.ts` in full. The
 thinking goes on the seat question in `"test"` — every other part of this is
 already decided by code that exists.
+
+## THE DIRECTOR'S STAGE READS THE SHIPPED WAVES, NOT THE ONES YOU ARE EDITING
+_claude/burn-director-wave-identity · tools/director/src/stage.ts tools/director/src/rail.ts tools/director/test/rail.test.ts_
+**Asked for by the owner.** Two `FAIL` verdicts on `dff2c76`, which is what an
+owner ask looks like when they have already gone and looked.
+
+> in director testing game mode, still every wave has the "lance" control for
+> player 1
+
+> i dont see in wave configuration where to configure the control set for the
+> wave and what is active one
+
+**Behind `claude/burn-interludes-to-bosses` and `claude/burn-director-layout`.**
+The first is rewriting `packages/content/src/control-sets.ts` whole; the second
+owns `stage.ts`. This replays over both.
+
+### The cause is located — confirm it, do not re-derive it
+
+`tools/director/src/stage.ts` builds the world with `createWorld(cfg,
+store.index)`, so `world.wave` is an index into **`store.waves`** — the waves
+the director is editing, loaded from its own server. It then asks for the panel
+with `controlSetForWave(world.wave)`, and that function
+(`packages/content/src/control-sets.ts`) resolves it as
+`WAVES[waveIndex]?.controls` — an index into the **shipped** `WAVES` array
+imported from `@neon-spore/content`.
+
+**Two different arrays, indexed by the same number.** The panel the stage draws
+is whatever the *shipped* wave at that position happens to name, and it has
+nothing to do with the wave on screen. Both failures fall out of that one fact:
+
+- Picking a set in the `CONTROL SET` field writes `store.waves[n].controls` and
+  the stage never reads it, so the panel does not change. From the outside that
+  is exactly *"still every wave has the lance control"*.
+- And *"what is the active one"* is unanswerable because the field and the
+  stage genuinely disagree — the field is right about the draft and the stage
+  is right about nothing.
+
+**The picker is not missing.** It is in `index.html`, in the WAVE tab, under
+the label *CONTROL SET — this wave is not the ordinary thing*, and `rail.ts`
+fills it from `CONTROL_SETS` and writes the choice back. The owner did not find
+it, which is a real finding and belongs to `claude/burn-director-layout`;
+**this** lane's point is that finding it would not have helped.
+
+**`controlsets-page.ts` already knows the trap and documents it** — its
+`setWorld` comment explains that the band reads the wave index, so that page
+poses a *real shipped wave* on purpose. Correct for the catalogue, and exactly
+the assumption the stage cannot make.
+
+### What to fix, and the boundary to respect
+
+The stage must resolve the panel from **the wave object it is playing**, not
+from an index into a different array. `controlSet(id)` already takes an id
+directly, which is most of the answer; whether `controlSetForWave` keeps its
+index signature for the shipped callers, gains a sibling that takes a wave, or
+is left alone is the lane's call, and the commit says which and why.
+
+**`packages/content/src/control-sets.ts` is not this lane's to rewrite** — the
+interlude lane is restructuring that file to carry per-seat panels, and this
+lane lands after it. If the fix genuinely needs a change there, **stop and
+report it** rather than reaching in.
+
+**Nothing in `packages/sim` changes.** The shipped game reads the shipped waves
+and is not wrong; this is the director playing a draft.
+
+This is a tool fix, not a look.
+
+Finished when `bun run check` is green, a test proves that a wave whose draft
+names a set is played on that set rather than on the shipped wave at the same
+index, and the commit carries
+
+`Check: pick LANCE PANEL on one wave and STANDARD on the next — does the panel under the stage actually change when you switch between them`
+
+Model `sonnet`, effort `think hard`. Read `tools/director/src/stage.ts`,
+`tools/director/src/rail.ts` and `packages/content/src/control-sets.ts`. The
+thinking goes on where the wave-to-panel lookup belongs now that there are two
+wave arrays in play — a fix that only patches the call site leaves the next
+reader the same trap.
+
+## A DEFLECTED ROCK STILL REACHES THE SHIP, AND THE OWNER WATCHED IT HAPPEN
+_claude/burn-shield-deflect-surface · packages/sim/src/shield.ts packages/sim/test/shield.test.ts_
+**Asked for by the owner.** A `FAIL` verdict on `bacca00`, whose own subject
+was *"The shield answers a rock where the shield is, not where the ship is"* —
+so the fix that commit made did not do what it says.
+
+> I still see the rock goes into the ship ( on cannon position). i can handle
+> myself later
+
+**Their "i can handle myself later" is not a reason to leave it queued
+forever.** It is them declining to *chase* it, not declining the fix. It does
+set the priority: this sits below the entries above it and is not worth
+interrupting anything for.
+
+**The verdict is evidence and its wording matters.** *On cannon position* is
+the specific case — and the same commit's other check, *with the cannon parked
+in the same column as the shield, does the shield still deflect every rock that
+comes down it*, was marked **PASS**. So either one of the two was misread, or
+the deflection holds in the case that was looked for and fails in a
+neighbouring one. Reproduce it before changing a line, and say in the commit
+which of those it turned out to be — a fix aimed at the wrong one would pass
+its own test and fail the owner again.
+
+**Where the rock ends up is the tell.** *Goes into the ship* means it reached
+the hull rather than turning at the shield's surface, so the question is
+whether the deflection is tested at the wrong height, tested a tick too late,
+or not tested at all in whatever configuration they were in.
+
+**If the cause is outside `packages/sim/src/shield.ts`, stop and report it**
+rather than reaching for it — the last lane in this area fixed a symptom in the
+file it happened to own.
+
+Finished when `bun run check` is green, a test reproduces the owner's case as
+described — a rock coming down the cannon's own column with the shield on it —
+and fails without the fix, and the commit carries
+
+`Check: with the cannon parked under it, does a rock now turn away at the shield rather than carrying on into the ship`
+
+Model `sonnet`, effort `think hard`. Read `packages/sim/src/shield.ts` in full
+and the commit `bacca00` that claimed this. The thinking goes on reproducing
+the owner's exact case first: the PASS and the FAIL on the same commit are the
+most informative thing here, and a lane that starts by editing has thrown that
+away.
