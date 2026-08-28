@@ -5,7 +5,9 @@ import { CRATER } from "./crater.js";
 import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
+import { PORE } from "./pore.js";
 import { SCALE } from "./scale.js";
+import { SUCKER } from "./sucker.js";
 import { TURN } from "./turn.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
 import { VEIN } from "./vein.js";
@@ -46,6 +48,8 @@ export const SKINS = [
   TURN,
   CRATER,
   CILIA,
+  PORE,
+  SUCKER,
 ] as const;
 
 // LIGHT goes last and stands apart from the four before it. Those are one
