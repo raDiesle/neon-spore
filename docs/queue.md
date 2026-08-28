@@ -521,6 +521,120 @@ appearing — one at 26 px on a phone, and again beside a meteor for contrast`.
 Model `sonnet`, effort `think hard`. Read `craters.ts`, `rock-impact.ts` and
 `docs/spec/graphics.md` first.
 
+## THREE MOUTHS ABOVE THE SHIP, ONE OF THEM GOES SOMEWHERE
+_claude/burn-boss-maze-b1 · packages/sim/src/maze.ts packages/sim/src/maze-round.ts packages/sim/test/maze.test.ts packages/content/src/maze-rounds.ts_
+
+The owner's boss. Three entrances open above the ship, one path through the
+tangle behind them actually reaches the thing worth hitting, and the pair has
+to find which before the clock runs out and then fire into it. A shot down the
+right mouth travels the path and lands; a shot down a wrong one finds something
+it should not have, and the ship pays for it.
+
+**It is a boss and not an interlude, and that is decided rather than open.**
+The owner called it a boss and the rules agree: `docs/spec/interludes.md` says
+in its own words that passing and failing leave by the same door — *no hull, no
+score, no scar* — and that the one thing an interlude must never do is end the
+run. A round whose failure damages the ship cannot be an interlude. It can be a
+boss, and there is a precedent that is almost exactly this shape: **THE
+MIRROR** replaces the field with its own choreography, and answers a wrong
+input with a rock out of its own body into whichever column the cannon is
+standing in — *the ordinary hull breach every missed rock already is: a crater,
+a crack, and damage that stays.* Read `mirror.ts` and `mirror-round.ts` before
+designing anything; this round's failure should arrive through the same door
+rather than inventing a second kind of damage.
+
+**The one thing that decides whether this is worth building.** A labyrinth both
+players can see is a solo puzzle with an audience — one person traces the path,
+says "left one", and the other presses. That is not this game. **The tangle has
+to be split across the two screens**, so neither can trace it alone and the
+answer only exists in the sentence between them. Three ways it could split, and
+picking one *is* the design work:
+
+- by **region** — each sees half the tangle, and the path crosses the seam, so
+  one reads the first half and the other must recognise where it comes out;
+- by **layer** — one sees the walls and the other sees which junctions are
+  open, so both are looking at the same place and neither sees a path;
+- by **end** — one sees the three mouths, the other sees the target and what
+  lies beside it, so the pilot knows where to shoot and only the navigator
+  knows what happens next.
+
+The third is the closest to `THE SPLICE` in `docs/spec/ideas.md` — *a nest of
+tangled cable, two ends, and the colour on the wrong device* — so read that
+entry and say in the commit whether this is a different round or that one
+wearing a different coat. If it is that one, say so and build it under its own
+name rather than shipping a near-duplicate.
+
+**And one ambiguity that must be settled, not guessed.** "The shooting moves
+the path" reads two ways: either the shot *travels* an existing fixed path, or
+firing *shifts* the tangle so the path changes under the pair. The first is a
+quiz; the second is a system, and much better — but it is also a different
+round, because a maze that moves cannot be memorised and the pressure comes
+from tracking rather than from reading. Decide it, write down which and why,
+and note the other in the commit for the orchestrator to park.
+
+**The rules that are not negotiable.** `sim` never imports `render`; no
+`Math.random`, no `Date.now`, no DOM; integers, sub-tile values in thousandths.
+The tangle, the chosen mouth and the shot's position along the path all go into
+`hashWorld` — decision 23 made hashed the default and named the only
+exceptions, and two devices that disagree about which mouth is open are two
+devices playing different bosses. The rounds are **authored, not generated**:
+`mirror.ts` says *nothing here is random — the rounds are authored in the
+director, so the whole fight is the same fight on both devices*, and that is
+the pattern to copy.
+
+The no-travel rule does not forbid the shot. `docs/decisions.md` #21 says that
+rule is about the field, and this is a boss with its own picture — the same
+licence THE MIRROR already takes.
+
+Finished when `bun run check` and `bun run test:determinism` are green, a
+replay test plays a round from both seats and proves neither can find the path
+alone, a wrong mouth breaches the hull through the existing door, and the
+commit carries `Check: does the pair actually have to talk, or does one of
+them just read it out — play a round from both seats and try to solve it in
+silence`.
+
+Model `opus`, effort `ultrathink`. The split is the whole design and the maze
+is arithmetic; a labyrinth that one player can solve alone is a boss that
+teaches the pair to stop talking, which is the one failure this game cannot
+absorb. Read `docs/spec/couplings.md`, `docs/spec/bosses.md`, `mirror.ts` and
+`docs/spec/ideas.md`'s `THE SPLICE` first.
+
+## A TANGLE IS ONLY A PUZZLE IF IT CANNOT BE TRACED BY EYE
+_claude/burn-boss-maze-draw-b2 · packages/render/src/maze-draw.ts packages/render/test/maze-draw.test.ts_
+
+Behind b1, which owns the state this reads.
+
+The picture is the round. Three mouths above the hull, a tangle behind them,
+and — on whichever screen the split gives it to — the thing worth hitting.
+
+**The drawn difficulty is the real difficulty, and it is measurable.** The
+catalogue already carries this exact problem and its answer: THE SPLICE's card
+in `docs/asset-catalogue.md` has an outstanding check asking whether its tangle
+is *genuinely unfollowable, or whether you can get from one end to the other by
+eye* — and it says the round dies if a player can trace the strand anyway. Same
+here, and worse, because there are three strands and only one matters. Count
+the crossings and say the number in the commit; a tangle that reads as a tangle
+at card size may be a diagram at phone size, which is the size that counts.
+
+The shot travelling the path is the moment the round pays off, so it is drawn
+rather than teleported: it enters a mouth, is out of sight inside, and either
+arrives or does not. **Where it goes wrong must be legible** — a shot that
+simply fails to arrive teaches nothing, and the pair has to learn something
+from a wrong answer or the round is a coin toss with extra steps.
+
+State that outlives a frame goes in `Effects` and is cleared in
+`Effects.reset()`; `packages/render/test/restart.test.ts` fails if a field is
+added and not cleared, which is correct rather than an obstacle.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, `restart.test.ts` passes unweakened, and the commit carries
+`Check: at phone size, is the tangle unfollowable by eye, or can you trace a
+mouth to the target without talking — the director, the maze round, at 380 px`.
+
+Model `sonnet`, effort `think hard`. Read `docs/spec/graphics.md`,
+`packages/render/src/mirror.ts` and the SPLICE entry in
+`docs/asset-catalogue.md` first.
+
 ## FIVE HUNDRED LINES IN ONE FILE, AND THE DOCUMENT THAT NAMES ITS NEIGHBOURS
 _claude/burn-versus-promptsplit-v3b · tools/versus/prompt.ts tools/versus/text.ts docs/versus.md_
 
