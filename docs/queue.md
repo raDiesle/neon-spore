@@ -156,11 +156,11 @@ _claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
 **Asked for by the owner.**
 
 The half the ideas lane could not reach, and it reached the right conclusion
-about it. 's deferred entries now carry a real paragraph
+about it. `docs/spec/ideas.md`'s deferred entries now carry a real paragraph
 each — what the idea was, what it collided with, what survives. But the
 director files that whole section under PARKED as *DELIBERATELY DEFERRED* with
 a group note reading *not rejected, not queued*, sitting in the same tab as
-'s backlog. So a decision somebody made and closed reads as a
+`docs/parked.md`'s backlog. So a decision somebody made and closed reads as a
 thing nobody has got to yet.
 
 The owner called them refused; the page says the opposite in its own note. One
@@ -170,15 +170,15 @@ its own paragraph says so — so the group cannot simply be relabelled REFUSED
 either. What is needed is a status a reader can tell apart from *waiting*, with
 room for *turned down* and *deferred for a stated reason* to differ.
 
-Nothing in  changes; that lane just finished it.
+Nothing in `docs/spec/ideas.md` changes; that lane just finished it.
 
-Finished when Checked 464 files in 699ms. No fixes applied.
-bun test v1.4.0 (34cbb9a40) is green, a refused idea is visibly not a backlog
+Finished when `bun run check` is green, a refused idea is visibly not a backlog
 item, the deferred-rather-than-rejected case is still distinguishable, and the
-commit carries 
+commit carries `Check: in the director, can you tell an idea that was turned
+down from one nobody has started?`
 
-Model , effort . Read 's group
-note and 's deferred section first.
+Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts`'s group
+note and `docs/spec/ideas.md`'s deferred section first.
 
 ## THE TWO THINGS A PLAYER WATCHES ALL GAME HAVE EACH HAD EXACTLY ONE ANSWER
 _claude/burn-versus-mechanics-v6 · tools/versus/candidates/cannon-shot/ tools/versus/candidates/shield-ward/_
