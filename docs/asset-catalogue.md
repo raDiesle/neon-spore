@@ -39,8 +39,9 @@ one that actually answers the question.
 The switch is page-wide on purpose: a comparison needs every shape to change
 at once, or what you are reading is which cards somebody clicked.
 
-`tools/director/src/skins.ts` is the whole of it, and it draws into the DOM —
-so the static sheet `bun run shapes` writes is still LINE-only. That is a gap,
+`tools/director/src/skins/` is the whole of it — one file per skin behind a
+registry, and `docs/skins.md` says how to add one. It draws into the DOM, so
+the static sheet `bun run shapes` writes is still LINE-only. That is a gap,
 not a decision.
 
 `bun run shapes:page` writes the same catalogue to
