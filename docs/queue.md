@@ -96,50 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER A COMMIT THAT NEVER LANDED
-_claude/burn-checks-key-y9 · tools/frames/run.ts tools/checks/restated.ts_
-**Asked for by the owner.** — the half two landings could not reach.
-
-A lane writes its work, reads the sha, and commits `docs/checks/<sha>.md`. Then
-the orchestrator lands it, **and `bun run land` rebases** — so the commit that
-reaches `main` has a different sha, and the file is named after one that no
-longer exists. Counted just now: **2 of 33 filenames name a commit on `main`.
-The other 31 name nothing.**
-
-**This has been harmless for exactly as long as nothing looked the file up by
-name.** `bun run checks` joins a restatement to its trailer on the *quoted
-sentence*, which is why the list has always rendered correctly and why nobody
-noticed. The doctrine even records the reason — a lane that lands behind
-another is replayed and its sha stops existing — it simply never followed the
-thought as far as the filename.
-
-**Then `bun run frames` landed and looked one up by name.** Given a sha from
-`main` it says *no docs/checks/<sha>.md found* and refuses, which is correct
-behaviour on top of a broken key. The feature that was just built to read
-`where` cannot reach `where` for any commit on the trunk. It was proved against
-the two files whose shas happen to match, which is exactly the sample that
-hides this.
-
-**Fix the join, not the filenames.** Renaming 31 files fixes today and breaks
-again on the next rebase. The key that survives is the one `checks` already
-uses: **the trailer's own text.** Give `restated.ts` a lookup that takes a
-commit, reads its `Check:` trailers, and finds the restatement quoting them —
-then `frames` asks that instead of guessing a path. A filename becomes a
-convenience, and a wrong one stops mattering.
-
-**Say what should happen to the 31 stale names.** Leaving them is defensible if
-nothing reads them; renaming them at land time is defensible too. Pick one,
-argue it in the commit, and do not do both.
-
-Finished when `bun run check` is green, `bun run frames <sha>` finds the
-restatement for a commit on `main` with no flag, a test proves the lookup works
-for a commit whose file is named after a different sha, and the commit carries
-`Check: does bun run frames work on a commit that landed yesterday?`
-
-Model `sonnet`, effort `think hard`. The trap is subtle and the fix is small;
-spend the thinking on the sample, because the reason this shipped is that both
-test files happened to be the two that match.
-
 ## A TANGLE IS ONLY A PUZZLE IF IT CANNOT BE TRACED BY EYE
 _claude/burn-boss-maze-draw-b2 · packages/render/src/maze-draw.ts packages/render/test/maze-draw.test.ts_
 **Asked for by the owner.**
