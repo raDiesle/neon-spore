@@ -115,6 +115,92 @@ Model `opus`, effort `think hard`. The judgement is what to defer and what
 must stay eager; the observer is arithmetic. Read `shapes-panel.ts`'s own
 comment on why it rebuilds, and `shape-figure.ts`'s `tick`, before anything.
 
+## THE SWITCHER SHOWS ONE SKIN, AND ONE SKIN IS NOT A COMPARISON
+_claude/burn-shapes-pair-s12 · tools/director/src/shapes-pair.ts tools/director/src/shapes-panel.ts_
+
+Behind s11, which makes a card cheap enough to draw twice.
+
+Decision 24 is the owner's and this lane is the first half of it: **every
+alternative is comparable in the director, at the same time, without leaving
+the application.** The skin bar is exclusive — pick MOUNTED SCALE and SCALE is
+gone. So the one question every skin lane landed a `Check:` about (*does the
+mounted one go round, or does the flat one already read?*) can only be
+answered by flipping, from memory, across a rebuild. Memory is not a
+comparison; it is a preference for whichever you saw last.
+
+The catalogue already knows this. `docs/asset-catalogue.md` runs NOTCH 1
+beside NOTCH 2 **on one clock** and says in its own words that a single draft
+in that position quietly becomes the answer by being the only thing on the
+page. The VERSUS tab makes the same argument for a shipped look and goes
+further, hashing both canvases to prove the two sides differ only by the
+patch. Both were built because one-at-a-time is not a comparison. The skin
+switcher never got the same treatment.
+
+**So: a second skin, and each card drawn twice.** A B-skin picker beside the
+A-skin bar; each card becomes two figures side by side, same contour, same
+motion, **same `t`** — one clock, or the two halves drift and the difference
+you are reading is phase. Default is B off, so the page is exactly what it is
+today until a second skin is picked.
+
+**One judgement, and it is the whole lane.** Two figures side by side on a
+card halves the width, and `docs/spec/graphics.md`'s floor is that a body stays
+nameable at 20–26 px. If halving takes a card under that, the pair is a worse
+comparison than flipping, because you are then judging two things you cannot
+read. Measure the drawn size before deciding the layout — the honest
+alternatives are a wider card, a taller one with the pair stacked, or fewer
+cards per row, and picking one on measurement rather than on taste is what
+this lane is for. Say the numbers in the commit.
+
+Prefer this over a blink toggle. Blink is already the right answer where two
+things must occupy the *same* pixels — the VERSUS pair does it for a hull
+whose difference is a colour — but these differ in structure and at card
+size, and structure is read side by side.
+
+Finished when `bun run check` is green, any two of the seventeen skins can be
+seen on one card at one time, the default is unchanged behaviour, both halves
+share one clock, and the commit carries `Check: at the size a paired card
+leaves, can both halves still be read — the SHAPES tab, SCALE against MOUNTED
+SCALE, then LINE against VEIN on the smallest card on the page`.
+
+Model `opus`, effort `think hard`. The size floor is the judgement; the second
+picker is arithmetic. Read `shapes-panel.ts`, `shape-figure.ts` and
+`docs/spec/graphics.md` first.
+
+## THE VERSUS TAB HOLDS SEVERAL SLOTS AND SHOWS THE FIRST
+_claude/burn-versus-slotpick-v2b · tools/director/src/versus-page.ts_
+
+The second half of decision 24, and it was already known: the lane that built
+the VERSUS tab said so in its own report, and it sits in `docs/parked.md`
+waiting for a second slot to exist.
+
+The page draws the first open slot and no other. It names how many there are,
+so a reader can see it is holding something back, but there is no way to reach
+the rest — which means the moment a second candidate exists, half the
+mechanism is unreachable through the interface built for it. Decision 24 says
+every alternative is comparable without leaving the application; a slot you
+cannot navigate to fails that on the simplest reading.
+
+A slot picker on the page, built the way the skin bar is built. Two smaller
+things the same lane named, and they belong here rather than in their own
+lanes: the pose is fixed to `pose.role ?? "p1"`, so a candidate that reads
+differently from the two seats can only be judged from one of them — which
+matters for anything touching the hull, since the pilot and the navigator see
+different halves of it; and both director files sit at the 250-line ceiling,
+so the vote box wants its own file before either grows.
+
+**Nothing here deletes a slot.** Decision 24 reverses the session-scoped
+deletion the original design called for: an undecided slot stays open until
+the owner says adopt, keep, reuse or delete. If the page ever wants to say how
+long a slot has been open, that is information rather than pressure.
+
+Finished when `bun run check` is green, every open slot is reachable, a
+candidate can be judged from either seat, and the commit carries `Check: with
+two slots open, is it obvious that the page holds more than the one on screen
+— the director's VERSUS tab`.
+
+Model `sonnet`, effort `think hard`. Read `tools/director/src/versus-page.ts`
+and `tools/versus/variant.ts` first.
+
 ## A WORM DOES NOT SPIN, IT WINDS
 _claude/burn-skin-wind-s8 · tools/director/src/skins/wind.ts_
 
@@ -396,7 +482,7 @@ Model `sonnet`, effort `think hard`. The one thing to get right is the ordering 
 ## THE CATALOGUE'S ARROW POINTS ONE WAY, AND A TAKEN SHAPE CAN STILL BE WRONG
 _claude/burn-versus-docs-v4 · docs/verification.md docs/asset-catalogue.md CLAUDE.md_
 
-`docs/asset-catalogue.md` says the direction of travel is one way — a draft that is claimed becomes taken, and nothing goes back — which was true while the only open question was what to draw. It is not true any more: the same page already runs NOTCH 1 against NOTCH 2 on one clock and says a single draft in that position quietly becomes the answer by being the only thing on the page, and that argument applies with more force to a shape the game has been drawing for months. Write decision 23 in `docs/decisions.md` (why a candidate is a patch in `tools/`, why the game's import graph is the enforcement rather than a rule anyone follows, why the vote persists as nothing, and a `Reconsider if:` that names the case where it breaks — more than one person voting, or a look whose difference only shows on a device this machine is not), one `##` section in `docs/asset-catalogue.md` on where a vote sits beside DRAFT / FREE / TAKEN, one paragraph in `docs/verification.md` giving the `Check: versus <slot> — …` trailer its shape at both ends, and in `CLAUDE.md` one `bun run versus` row in Commands plus a short Conventions paragraph saying a replacement look is voted on before it is adopted. Two rules that must land here or they land nowhere: a slot not decided by the end of the session that opened it goes to `docs/parked.md` as three sentences and its candidate directories are `git rm`'d — nobody incurred an obligation by opening a slot, so nothing else forces the decision; and a session landing candidates writes the opening `Check:` naming the slot, so a slot's whole life sits on `bun run checks` and `⚑ TO CHECK` rather than on a second list. Finished when `bun run check` is green — and be careful with `asset-catalogue.md`: `tools/shape-sheet/test/drafts.test.ts` reads its status sentence and counts the catalogue, so add a section and touch neither the blockquote nor the counts.
+`docs/asset-catalogue.md` says the direction of travel is one way — a draft that is claimed becomes taken, and nothing goes back — which was true while the only open question was what to draw. It is not true any more: the same page already runs NOTCH 1 against NOTCH 2 on one clock and says a single draft in that position quietly becomes the answer by being the only thing on the page, and that argument applies with more force to a shape the game has been drawing for months. Write decision **25** in `docs/decisions.md` (23 and 24 are taken — 24 is the owner's rule that nothing is deleted for being undecided, and this lane must not contradict it) (why a candidate is a patch in `tools/`, why the game's import graph is the enforcement rather than a rule anyone follows, why the vote persists as nothing, and a `Reconsider if:` that names the case where it breaks — more than one person voting, or a look whose difference only shows on a device this machine is not), one `##` section in `docs/asset-catalogue.md` on where a vote sits beside DRAFT / FREE / TAKEN, one paragraph in `docs/verification.md` giving the `Check: versus <slot> — …` trailer its shape at both ends, and in `CLAUDE.md` one `bun run versus` row in Commands plus a short Conventions paragraph saying a replacement look is voted on before it is adopted. Two rules that must land here or they land nowhere. **A slot that is not decided simply stays open** — decision 24 reverses the original design here, so do not write the session-scoped deletion the older draft of this brief asked for: a variant persists until the owner says adopt, keep, reuse or delete, and a session ending is not an event in their day. And a session landing candidates writes the opening `Check:` naming the slot, so a slot's whole life sits on `bun run checks` and `⚑ TO CHECK` rather than on a second list. Finished when `bun run check` is green — and be careful with `asset-catalogue.md`: `tools/shape-sheet/test/drafts.test.ts` reads its status sentence and counts the catalogue, so add a section and touch neither the blockquote nor the counts.
 
 Model `sonnet`, effort `think`. Read `docs/versus.md` first — it is the design this lane implements.
 

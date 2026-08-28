@@ -574,3 +574,41 @@ have been a migration instead of a comment.
 derived — a cache, a spatial index, a memo. The rule as written would hash it
 every tick for nothing. The answer then is a named exception with its reason
 beside the other four, not a quiet omission.
+
+## 24. A variant stays until it is decided, and every variant is comparable at once
+
+*August 2026.* The owner's rule, and it reverses one that was written before
+anybody had used the arrangement for a day.
+
+`docs/versus.md` was designed around a vote that happens inside the session
+that opens it: two looks side by side, a decision, a prompt, and a slot that
+is `git rm`'d if nothing is decided by the end — on the reasoning that nobody
+incurred an obligation by opening a slot, so nothing should force the
+decision. That is coherent and it is wrong about who decides. One person owns
+this repository, they look at the work on their own machine and on their own
+schedule, and a session ending is not an event in their day. A slot deleted
+for being undecided is a look thrown away for the sole reason that a machine
+stopped running.
+
+So, two rules.
+
+**Nothing is deleted for being undecided.** A variant persists — as a
+candidate directory, as a skin beside its original, as a motion beside the one
+it answers — until the owner says what happens to it. The outcomes are adopt,
+keep the current one, use it somewhere else, or delete; all four are theirs,
+and none of them has a deadline.
+
+**Every alternative is comparable in the director, at the same time, without
+leaving the application.** No branch switching, no rebuild, no reading two
+screenshots against each other. If two things are alternatives, the director
+can show them together on one clock — which is what the DRAFTS pair and the
+VERSUS pair already do and what the skin switcher, being exclusive, does not.
+An arrangement where comparing means flipping is one where nothing gets
+compared: it was measured at seven to twelve seconds a flip, and a comparison
+that costs that is a comparison nobody makes.
+
+The cost of persistence is clutter, and the honest answer to clutter is
+grouping rather than deletion. **Reconsider if:** the number of undecided
+variants makes a switcher unreadable — at which point the fix is that the
+director learns to organise them, not that the repository starts throwing them
+away on a timer.
