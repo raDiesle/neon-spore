@@ -171,19 +171,19 @@ export class RockImpactFx {
       const x = currentX(im);
       const surfaceY = skinAt(x);
       const stuckY = surfaceY - im.r * 0.5;
-      // Duration of the replayed step, fixed on its first drawn frame:
-      // whatever the fall's own speed needs to close the gap. Speed is the
-      // thing held constant, never the time.
-      if (im.fallLife === 0) im.fallLife = Math.max(0.001, (stuckY - im.y0) / im.fallSpeed);
+      // A deflected rock never sinks — the rule, and `DeflectFx`'s bounce
+      // (`deflect.ts`'s `y - tile`), stop it a `tile` short of the hull's
+      // skin, or the two halves of one motion would disagree.
+      const arriveY = im.embed ? stuckY : surfaceY - l.tile;
+      if (im.fallLife === 0) im.fallLife = Math.max(0.001, (arriveY - im.y0) / im.fallSpeed);
       const stuckAt = stickStart(im);
 
-      // Still falling: the last step the sim itself never got to render,
-      // replayed here at the same speed and with no easing — matching the
-      // plain, even glide every earlier beat of the fall had — so it reads
-      // as the same fall finishing, not a new one starting.
+      // Still falling: the last step the sim never got to render, replayed
+      // at the same speed so it reads as the same fall finishing.
       const falling = im.t < im.fallLife;
       if (!falling && !im.arrived) {
         im.arrived = true;
+        // `surfaceY`: `DeflectFx.spawn` shifts up a `tile` itself.
         im.onArrive(x, surfaceY);
       }
 

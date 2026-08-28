@@ -64,3 +64,68 @@ describe("DeflectFx.spawn", () => {
     for (const y of arcYs) expect(y).toBeCloseTo(1130 - TILE, 5);
   });
 });
+
+/**
+ * The owner's ask (`docs/queue.md`, "A DEFLECTED ROCK SHOULD PRESS INTO THE
+ * SHIELD BEFORE IT LEAVES"): a rock that reverses on one tick reads as a rock
+ * that teleported, so the moment of contact needs a shape — the rock presses
+ * a little way into the shield and the shield gives, and both spring back,
+ * before the ordinary bounce carries them on. "Slightly", said twice.
+ */
+describe("DeflectFx press-and-release", () => {
+  it("presses the rock into the shield before it springs away", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 1);
+    const spawnY = 1130 - TILE;
+    const { ctx } = stubCanvas();
+    const { translateYs } = trackY(ctx);
+    // Covers the whole press window (`PRESS_LIFE`) and well beyond it, at a
+    // frame-sized step.
+    for (let i = 0; i < 20; i++) {
+      fx.update(0.01, TILE);
+      fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    }
+    // Some frame during the press reads as deeper into the hull (greater
+    // screen y) than where it was handed — that is the press.
+    expect(Math.max(...translateYs)).toBeGreaterThan(spawnY);
+    // By the last sampled frame the ordinary bounce has taken over and
+    // carried it back up past where it started — the spring-back and leave.
+    expect(translateYs[translateYs.length - 1]).toBeLessThan(spawnY);
+  });
+
+  it("keeps the press slight — a fraction of a tile, not a lurch", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 1);
+    const spawnY = 1130 - TILE;
+    const { ctx } = stubCanvas();
+    const { translateYs } = trackY(ctx);
+    for (let i = 0; i < 5; i++) {
+      fx.update(0.02, TILE);
+      fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    }
+    const maxDip = Math.max(...translateYs) - spawnY;
+    expect(maxDip).toBeGreaterThan(0);
+    expect(maxDip).toBeLessThan(TILE * 0.2);
+  });
+
+  it("starts the shockwave ring compressed, then springs it back out", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 1);
+    const baseR = TILE * 0.4;
+    const { ctx } = stubCanvas();
+    const arcRs: number[] = [];
+    const origArc = ctx.arc.bind(ctx);
+    ctx.arc = (x: number, y: number, r: number, from: number, to: number) => {
+      arcRs.push(r);
+      return origArc(x, y, r, from, to);
+    };
+    // The moment of contact: no time has passed, so the ring reads as the
+    // shield having already given, not yet sprung back.
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    expect(arcRs[0]).toBeLessThan(baseR);
+    // Past the press window and well into ordinary growth.
+    for (let i = 0; i < 10; i++) fx.update(0.02, TILE);
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    expect(arcRs[1]).toBeGreaterThan(baseR);
+  });
+});
