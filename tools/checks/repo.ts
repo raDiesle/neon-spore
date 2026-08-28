@@ -48,6 +48,27 @@ async function ok(root: string, args: string[]): Promise<boolean> {
   return (await proc.exited) === 0;
 }
 
+/**
+ * Whether a worktree has uncommitted files — and **true** when it cannot be
+ * asked at all.
+ *
+ * That asymmetry is the whole point. This answer is what stops `--clean`
+ * deleting a lane that is still working, because git cannot otherwise tell a
+ * finished branch from one that has not committed yet. So a tree that is
+ * registered but unreadable is reported as dirty and survives the sweep: the
+ * cost of being wrong that way is a worktree left standing, and the cost of
+ * being wrong the other way is somebody's afternoon.
+ */
+async function isDirty(root: string, worktree: string): Promise<boolean> {
+  const proc = Bun.spawn(["git", "-C", worktree, "status", "--porcelain"], {
+    cwd: root,
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
+  return code === 0 ? out.trim() !== "" : true;
+}
+
 export interface Trunk {
   /** `main` if it is here, `origin/main` in a clone that only fetched it. */
   ref: string;
@@ -264,7 +285,14 @@ export async function readBranches(root: string, states: readonly CheckState[]):
     // worktree are the only difference, and this is what stops a sweep taking
     // a running lane's tree out from under it.
     if (row.worktree && !row.dirty) {
-      row.dirty = (await git(root, ["-C", row.worktree, "status", "--porcelain"])).trim() !== "";
+      // A registered worktree whose directory is not there cannot be asked,
+      // and the answer that fails safe is **dirty**. Reading it as clean would
+      // hand the sweep a lane it cannot see inside — exactly the tree the
+      // paragraph above exists to protect. It happens for real: an agent's
+      // worktree is registered before its files land, so between those two
+      // moments `git -C` on it exits non-zero, and this used to throw and take
+      // the whole outstanding list down with it.
+      row.dirty = await isDirty(root, row.worktree);
     }
     rows.set(found.name, row);
   }
