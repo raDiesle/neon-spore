@@ -38,14 +38,28 @@ export class DeflectFx {
   }
 
   /**
+   * `x, y` is where `rock-impact.ts` last saw the rock — the hull's own
+   * breathing skin (`hullSkinY`), the same point a rock that was *not*
+   * deflected sinks into. That is a row too low for a rock that was: the rule
+   * answers a meteor at `shieldRow`, one whole row above the hull
+   * (`hull.ts`), and the skin only bulges toward it while the shield is
+   * freshly armed — by the time the fall's replay actually reaches `y`, the
+   * arm has almost always eased back off (`canvas2d.ts`'s `armed`, an eight
+   * -per-second ease against a window a few beats shorter than the replay
+   * takes), so `y` reads as the plain hull surface regardless. Shifting up by
+   * one `tile` — exactly the row `shieldRow` stands off `hullRow` by — is the
+   * one correction that holds without knowing any of that: it is a fixed
+   * fact about the rule, not a read of the skin's current mood.
+   *
    * `span` is the deflected creature's `colSpan` — 3 for a torch, 1 for a
    * plain rock — so the shockwave draws as wide as the thing it came off,
    * rather than a single-tile ring for a three-tile impact.
    */
   spawn(x: number, y: number, tile: number, span = 1): void {
+    const sy = y - tile;
     this.particles.push({
       x,
-      y,
+      y: sy,
       r: tile * 0.4,
       vx: (Math.random() - 0.5) * 90,
       vy: -260 - Math.random() * 80,
@@ -53,7 +67,7 @@ export class DeflectFx {
       vs: (Math.random() - 0.5) * 7,
       life: DEFLECT_LIFE,
     });
-    this.shocks.push({ x, y, r: tile * 0.4 * span, life: SHOCK_LIFE });
+    this.shocks.push({ x, y: sy, r: tile * 0.4 * span, life: SHOCK_LIFE });
   }
 
   update(dt: number, tile: number): void {
