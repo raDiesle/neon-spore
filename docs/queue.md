@@ -773,65 +773,6 @@ goes on the place-versus-setting boundary: this lane widens what counts as a
 place, and the next module that wants to smuggle a dial across a reload will
 cite it.
 
-## FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS THE RIGHT NAME WHILE IT DOES
-_claude/burn-frames-historic-wave · tools/frames/run.ts tools/frames/capture.ts tools/frames/test/wave.test.ts_
-**Proposed by the run.**
-
-`bun run frames <sha>` resolves the wave **name** against the working tree's
-`WAVES`, then hands the resulting **index** to a game built at the historical
-commit. Any commit older than a wave insertion therefore gets a different wave
-than the one it names, and the tool reports success either way.
-
-**Reproduced on `35d59d4`.** It prints
-`wave: "THE THIRD SHOT" named in the where field → index 20 (THE THIRD SHOT)`
-and the captured frame is **W21 · THE VANE**. At `35d59d4` there were 24
-authored waves and THE THIRD SHOT sat at index 19; today there are 25 and it
-sits at 20, because a wave was inserted ahead of it. Index 20 in that older
-build is THE VANE.
-
-`--wave` does not escape it either: `bun run frames 35d59d4 --wave 20` resolves
-against today's list as well and reports `index 19 (ON THE BEAT)`. There is no
-invocation from the CLI that reaches the historical index, so this is not a
-mis-use.
-
-**Why it matters more than a wrong picture.** The frames are committed under
-`docs/checks/frames/<sha>/` and named in a restatement's `before` and `after`,
-which is the mechanism that turns a check from a task into a glance. A pair of
-frames showing a wave the commit never touched is worse than no frames: the
-reader glances, sees no difference, and closes the check. The committed pair
-for `35d59d4` is wrong today for exactly this reason — it shows W2 · TWO
-COLOURS, from the older tool, and the current tool would replace it with THE
-VANE. Neither is THE THIRD SHOT.
-
-**Where the fault is.** `tools/frames/run.ts:48` imports `WAVES` from
-`@neon-spore/content` — the working tree's copy — and `deriveWaveFromChecks`
-resolves the restatement's `where` field against it. The capture then builds
-and runs the app at `sha` and at `sha^`. The resolution and the build disagree
-about which list they are talking about, and nothing checks that they agree.
-
-**The fix is to resolve inside the checkout, not outside it.** The tool already
-makes a historical checkout and runs `bun install` in it; that tree has its own
-`packages/content`, and the name → index answer belongs there. Alternatively
-hand the *name* to the page and let the historical build resolve it — but
-`jumpToWave` takes an index today, so that is a change to the game's own test
-hook rather than to the tool, and the tool-side fix is smaller.
-
-Whichever is chosen, **the tool must refuse rather than guess** when the name
-is not in the historical list: a wave that did not exist at that commit has no
-right answer, and printing a confident index for it is how this defect stayed
-invisible.
-
-Finished when `bun run check` is green, a test covers a commit whose wave list
-differs from today's, `bun run frames 35d59d4` captures THE THIRD SHOT, the
-committed pair under `docs/checks/frames/35d59d4/` is regenerated, and the
-commit carries
-
-`Check: does bun run frames on an old commit now show the wave its check actually names`
-
-Model `sonnet`, effort `think`. Read `tools/frames/run.ts` and its wave test.
-The trap is that every existing test passes today — they all resolve against
-one list, which is the assumption being broken.
-
 ## THE MOUSE IS ONE HAND, AND THE TETHER BELONGS TO THE OTHER ONE
 _claude/burn-pc-mouse-and-keys · tools/director/src/stage.ts tools/director/src/stage-touch.ts tools/director/src/keys.ts tools/director/src/key-help.ts tools/director/index.html tools/director/test/keys.test.ts_
 **Asked for by the owner.**
