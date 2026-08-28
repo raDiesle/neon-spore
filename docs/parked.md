@@ -395,3 +395,29 @@ Start at `packages/render/src/pods.ts` and `POD` in
 `packages/content/src/silhouettes.ts`, and note that the shield is a lobe of
 the hull contour rather than a bubble, so a sphere here would not collide with
 it visually.
+
+## Per-pixel surface shading without a second renderer
+
+If surface detail is ever wanted on a body *in the game* rather than on a
+catalogue card, the reflex is WebGL and the reflex is wrong here.
+
+Bake a height or normal map once at load, run the lambert dot product in a
+single `ImageData` pass, cache the result as a sprite and blit it — exactly the
+way `glow.ts`'s `haloSprite` already caches. That is genuine per-pixel shading
+with no second renderer, no second code path, and nothing new for
+`packages/render/test/frame.test.ts` to fail to cover, because the output is
+still a sprite drawn onto a 2D context.
+
+The cost is that the light direction freezes into the bake. That is free under
+the arrangement the skin block is building, where the light is a constant by
+design and a parameter is the named failure mode.
+
+WebGL earns its keep only in two cases, and neither is here yet: the light has
+to move per frame, or iridescence ships to the field — and `docs/alive.md`
+currently forbids the second, because a creature's red-or-cyan is a gameplay
+fact the pair says out loud.
+
+Not queued, because nothing has decided that the game wants interior detail at
+all; `docs/spec/graphics.md` says the opposite, and `burn-body-skin-c8` is the
+lane that argues with it. Pick this up only after that argument is settled by
+an eye, and only if the answer was yes.

@@ -157,6 +157,72 @@ Finished when `bun run check` is green, the skin is on the switcher, the header 
 
 Model `opus`, effort `think hard`. The judgement is where iridescence stops being a material and starts being a rainbow, and the answer is a narrow hue range rather than a wide one. Read `docs/alive.md` and `docs/skins.md` first.
 
+## THE FIELD IS A GRID SEEN FROM NOWHERE, AND THREE MULTIPLIERS WOULD FIX IT
+_claude/burn-depth-field-d1 · packages/render/src/depth.ts packages/render/src/creature-place.ts packages/render/test/depth.test.ts_
+
+Game-side, and the first of two lanes that are **not** in the skin block: those draw catalogue cards and may not touch `packages/render`, while these change what a player sees. Three cues, one lane, because they are one system and shipping any one alone reads as a trick.
+
+**Perspective by row.** A body scales up as it descends, so the field has a near edge and a far one. The scale is **1.0 at the top row and grows downward** — never the reverse, and that direction is a constraint rather than a preference: `docs/spec/graphics.md`'s floor is that a body stays nameable at 20–26 px, so nothing may end up smaller than it is today. A starting value of ~1.15 at the hull was suggested and is explicitly **not** a decision — derive it against `layout.ts`'s own tile maths and say in the commit what you chose and why.
+
+**Atmospheric perspective.** Rows near the top draw dimmer, cooler and at lower contrast than rows near the hull. This composes for free with the wash `backdrop.ts` already lays down, and it serves the brightness budget `backdrop.ts`'s own header defends — creatures stay the brightest thing on the field, and now brightest *where it matters*, which is the row about to cost the pair something.
+
+**Draw-order occlusion.** `drawCreatures` in `creatures.ts` iterates `world.creatures` in list order, so two bodies overlapping is currently decided by spawn order. Sort by row, nearest last. On its own it is nothing; with the two above it is what makes them read as one space rather than three effects.
+
+**The hard part, and nobody has named it yet: this lane collides with the nameability gate that landed as `fa0fc2a`.** That gate's third axis is *effective drawn radius including `sizeMul`* — the number that separates RUNT from everything else — and a row multiplier changes exactly that number, continuously, for every body on the field. So the gate must be evaluated **against the scaled radius across the whole row range**, not against the resting one, and a scale that makes a bulb at the hull collide with a throb three rows up is a scale that fails. Run `bun run shapes:report` and read the TOLD APART BY block before and after. If the gate refuses the value you want, the gate is right and the value is wrong; if the gate cannot see the row at all, that is a finding about the gate and it goes in the commit.
+
+Everything here is render-side and must change no simulation state: a scale is a drawing decision, `creatureCenter` stays exactly linear, and nothing may enter `hashWorld`. Tunables are named fields in `SimConfig` — `config.ts` is owned by nobody, so add in one contiguous region and expect to replay. Add to `creatures.ts` the same way.
+
+Finished when `bun run check` is green, `frame.test.ts` still passes through the strict canvas stub, a test proves the top row is unscaled and the hull row is not, the gate is green against the scaled range, and the commit carries `Check: does the field read as receding, or do the creatures just get bigger — a full wave at tempo, watching one column top to bottom`.
+
+Model `opus`, effort `think hard`. Think hard about the gate interaction before you pick a number; it is the part that turns this from three multipliers into a decision. Read `docs/spec/graphics.md` and `packages/render/src/layout.ts` first.
+
+## A BODY ABOUT TO HIT THE HULL CASTS NOTHING ON IT
+_claude/burn-depth-shadow-d2 · packages/render/src/contact-shadow.ts packages/render/test/contact-shadow.test.ts_
+
+Behind d1, so it inherits the row scale rather than duplicating it.
+
+A body near the hull throws a soft dark ellipse onto it, tightening and darkening as it closes. The hull sits at a known fixed `layout.hullY`, so the geometry is arithmetic and not projection.
+
+**It is worth more than it looks, and the second reason is the real one.** A cast shadow is the strongest "these objects exist in a space" cue available in 2D — but it is also a *gameplay* read, and one aimed at the seat that has the least information. The shield player is told how close something is, on the hull itself, where they are already looking, before it arrives. Nothing else on that screen says it. So this is judged twice: does it read as contact, and does it tell the shield player something they did not already have.
+
+That double duty sets the constraint. It must never be mistaken for damage already taken — `scars.ts` draws on the same surface, and a soft dark ellipse and a scar competing for the same pixels is the one failure that misinforms rather than merely looking wrong. Keep it soft, keep it moving, and let a scar always win where they overlap.
+
+Add to `canvas2d.ts` in one contiguous region — it is owned by nobody and another lane is queued to add to it. Nothing here outlives a frame, so nothing belongs in `Effects`; if that turns out to be false, whatever is cached goes in `Effects` and is cleared in `Effects.reset()`, which `restart.test.ts` will fail on if it is not.
+
+Finished when `bun run check` is green, `frame.test.ts` passes, a test proves the ellipse tightens monotonically as the row falls and is absent when nothing is near, and the commit carries two trailers: `Check: does the shadow read as a body about to arrive, or as damage already taken — a wave with a scarred hull` and `Check: from the shield seat, does the shadow say anything the player did not already know`.
+
+Model `sonnet`, effort `think hard`. Read `packages/render/src/layout.ts` and `scars.ts` first.
+
+## FIVE HUNDRED LINES IN ONE FILE, AND THE DOCUMENT THAT NAMES ITS NEIGHBOURS
+_claude/burn-versus-promptsplit-v3b · tools/versus/prompt.ts tools/versus/text.ts docs/versus.md_
+
+`tools/versus/prompt.ts` landed at 511 lines against CLAUDE.md's ~250, and it landed that way deliberately: the lane that wrote it could not split it, because the seam files are enumerated by name in `docs/versus.md` **and** inside the prompt's own step 4, and it owned neither. This lane owns both, which is the whole reason it exists.
+
+The seam is already there and needs no invention. `votePrompt` begins at line 195; everything above it — `wrap`, `row`, `named`, `count`, `list`, `quoted`, `show`, `block` — is text formatting that knows nothing about votes, and belongs in `tools/versus/text.ts`. What is left is the template and `changes`, which is the part worth reading as one piece.
+
+Two things this must not break, and both are tested already, so the test suite is the acceptance: the adopt and keep forms still differ in exactly the five ways the template names, and `votePrompt` still throws on a patch under `packages/sim/`. Do not weaken a test to fit a split.
+
+Then update the two places that enumerate the directory — `docs/versus.md` and step 4's own file list — so the prompt keeps telling the truth about the tree it is describing. That is the actual risk here: a prompt that lists files which are no longer there teaches a cold session to distrust it.
+
+Finished when `bun run check` is green, every file is under 250 lines, and no test was changed to make it so.
+
+Model `sonnet`, effort `think`. This is a move with a documentation tail, not a design.
+
+## THE VOTE BUTTONS COPY A RECORD, AND THE PROMPT THEY SHOULD COPY NOW EXISTS
+_claude/burn-versus-wire-v3c · tools/director/src/versus-page.ts_
+
+Behind v3b, so the split settles before this reads from it.
+
+The pair renderer landed while `prompt.ts` did not yet exist, so its vote buttons put a *record* on the clipboard — slot, winner, loser, the typed reason, every field `old -> new` — under a header saying in plain words that it is not the adoption prompt. That was the right call at the time and it is the wrong thing to ship: it is the expensive half of the vote kept warm, waiting for the cheap half.
+
+`votePrompt(vote)` and `readCurrent(v)` are now on `main`. Replace the record with the real thing, and delete the header that apologises for it. **`readCurrent` must be called before any patch is applied** — the whole refusal mechanism rests on the left-hand values being what the shipped record actually says right now, so reading them off a patched record would emit a prompt that cheerfully reverts nothing and claims it reverted something.
+
+Nothing else in the page changes. The vote box may want its own file — both new director files sit at exactly the 250-line ceiling — and if it does, that is this lane's to make, contiguous and small.
+
+Finished when `bun run check` is green, a vote copies a prompt a cold session could paste, and the commit says which values `readCurrent` was called against.
+
+Model `sonnet`, effort `think hard`. The one thing to get right is the ordering of the read against the patch. Read `tools/versus/prompt.ts` and `variant.ts` first.
+
 ## THE CATALOGUE'S ARROW POINTS ONE WAY, AND A TAKEN SHAPE CAN STILL BE WRONG
 _claude/burn-versus-docs-v4 · docs/verification.md docs/asset-catalogue.md CLAUDE.md_
 
