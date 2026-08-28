@@ -23,7 +23,8 @@
  * answer to "does this card clip".
  */
 
-import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
+import type { OwnMotion } from "@neon-spore/content";
+import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
 import { SKINS, type SkinId } from "./skins/index.js";
@@ -61,6 +62,27 @@ let skin: SkinId = "membrane";
  */
 let lit = true;
 
+/**
+ * Which own-motion drives every card, overriding each one's own catalogue
+ * motion — orthogonal to `skin` and `lit` the same way those are orthogonal
+ * to each other, so all three compose.
+ *
+ * `undefined` is a real choice ("OWN") and not the absence of one: it is the
+ * behaviour before this bar existed, a card keeps whatever motion its
+ * catalogue entry was authored with, and it is the default so nothing changes
+ * on this page until something is picked — a catalogue where every card
+ * suddenly shares one motion is a different page than the one the drafts were
+ * judged on.
+ *
+ * This is the second half of the pairing `docs/dimensional.md` names as the
+ * whole finding: a skin can already be forced onto every card and the light
+ * switched on it, but until this existed there was no way to put a chosen
+ * motion under that chosen skin — TURN IN DEPTH could be seen unlit on the
+ * standalone motion sheet, or TURN lit here, never the pair the question
+ * asks for.
+ */
+let motion: OwnMotion | undefined;
+
 const STAMP: Record<CatalogueEntry["status"], string> = {
   draft: "DRAFT",
   free: "FREE",
@@ -91,6 +113,7 @@ function card(entry: CatalogueEntry): HTMLElement {
       stroke: STROKE[entry.status],
       skin,
       lit,
+      motion,
     }),
   );
 
@@ -105,9 +128,12 @@ function card(entry: CatalogueEntry): HTMLElement {
   if (entry.suggests) text(side, "suggest", `for **${entry.suggests}**`);
   text(side, "blurb", entry.owner);
 
-  const figures = entry.motion
-    ? `${entry.subject.note} · moves: ${entry.motion.note}`
-    : entry.subject.note;
+  // The forced motion, if one is picked, is what actually drives the body —
+  // see the `motion` argument above — so the caption names that one rather
+  // than the catalogue's, or the two would disagree the moment a motion is
+  // forced.
+  const driving = motion ?? entry.motion;
+  const figures = driving ? `${entry.subject.note} · moves: ${driving.note}` : entry.subject.note;
   text(side, "figures", figures);
 
   div.appendChild(side);
@@ -166,6 +192,35 @@ function skinBar(): void {
     renderShapes();
   });
   host.appendChild(litBtn);
+
+  // A second bar, same host: the skin is picked for the whole page and the
+  // motion is picked for the whole page, so they read as one row of controls
+  // rather than two panels that happen to sit near each other. "OWN" is a
+  // button like any other rather than an implicit fallback, so the default —
+  // each card keeping its own catalogue motion — is a choice visibly made,
+  // not the absence of one.
+  const ownBtn = document.createElement("button");
+  ownBtn.className = motion === undefined ? "skin is-on" : "skin";
+  ownBtn.style.marginLeft = "10px";
+  ownBtn.textContent = "OWN";
+  ownBtn.title = "each card keeps whatever motion its own catalogue entry was authored with";
+  ownBtn.addEventListener("click", () => {
+    motion = undefined;
+    renderShapes();
+  });
+  host.appendChild(ownBtn);
+
+  for (const m of MOTIONS) {
+    const b = document.createElement("button");
+    b.className = motion === m ? "skin is-on" : "skin";
+    b.textContent = m.name;
+    b.title = m.note;
+    b.addEventListener("click", () => {
+      motion = m;
+      renderShapes();
+    });
+    host.appendChild(b);
+  }
 }
 
 export function renderShapes(): void {

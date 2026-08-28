@@ -1,3 +1,4 @@
+import type { OwnMotion } from "@neon-spore/content";
 import { boundsOver, type CatalogueEntry, contourAt, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
 import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
 import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/index.js";
@@ -52,6 +53,8 @@ interface Drawn {
   body: SVGGElement;
   centre: { x: number; y: number };
   tile: number;
+  /** `entry.motion` unless a forced motion overrode it. See `FigureOptions.motion`. */
+  motion?: OwnMotion;
 }
 
 const drawn: Drawn[] = [];
@@ -77,7 +80,7 @@ function tick(): void {
     drawn[live++] = d;
     const shape = contourAt(d.entry.subject, t);
     for (const p of d.paths) p.setAttribute("d", shape);
-    d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
+    d.body.setAttribute("transform", motionTransform(d.motion, t, d.centre, d.tile));
     d.onFrame?.(frame);
   }
   drawn.length = live;
@@ -104,12 +107,22 @@ export interface FigureOptions {
    * and without it without switching to a different look.
    */
   lit?: boolean;
+  /**
+   * Which own-motion drives the body, overriding `entry.motion`. Undefined —
+   * the default — means the card keeps its own catalogue motion, same as
+   * before this option existed: nothing may change until a caller passes one.
+   * Orthogonal to `skin` and `lit` the same way those are orthogonal to each
+   * other, so all three compose. See `docs/dimensional.md` for why a chosen
+   * motion under a chosen skin is the pairing that was missing.
+   */
+  motion?: OwnMotion;
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
 export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGElement {
   const { box, stroke } = opts;
   const w = opts.width ?? box;
+  const motion = opts.motion ?? entry.motion;
 
   const svg = document.createElementNS(SVG, "svg");
   svg.setAttribute("viewBox", `0 0 ${w} ${box}`);
@@ -122,7 +135,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   // and the transform written every frame turn about this same point, or the
   // two disagree and the card clips whatever the frame did not know was coming.
   const pivot = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
-  const b = transformedBounds(entry.subject, entry.motion, FIT_TIMES, tile, pivot);
+  const b = transformedBounds(entry.subject, motion, FIT_TIMES, tile, pivot);
   const pad = Math.max(6, box * 0.18);
   const scale = Math.min((w - pad) / (b.x1 - b.x0), (box - pad) / (b.y1 - b.y0));
   const cx = (b.x0 + b.x1) / 2;
@@ -152,7 +165,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({ entry, paths: contour, onFrame, body, centre: pivot, tile });
+  drawn.push({ entry, paths: contour, onFrame, body, centre: pivot, tile, motion });
   if (!running) {
     running = true;
     requestAnimationFrame(tick);
