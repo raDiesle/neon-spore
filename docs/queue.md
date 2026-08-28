@@ -63,42 +63,54 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## A CHECK LANDED THIS MORNING THAT NOBODY CAN CARRY OUT
-_claude/burn-motion-oncard-s2d · tools/shape-sheet/src/drafts/motion-depth.ts tools/shape-sheet/src/drafts/index.ts_
+## NINE TEXTURES SIT PERFECTLY STILL ON A BODY THAT IS SUPPOSED TO BE TURNING
+_claude/burn-skin-mounted-s7 · tools/director/src/skins/mounted.ts tools/director/src/skins/scale.ts tools/director/src/skins/carapace.ts tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
 
-The motion lane landed four dimensional counterparts and a `Check:` that asks
-the only question worth asking about them — *with the light on, does the
-turned body read as rotating in depth or as being squashed flat* — and then
-found the question cannot be put.
+The owner's ask, and it is the one thing the block has been circling all day without landing: **a body that turns should carry its surface round with it, so what was at the back comes to the front.**
 
-`LIT` and the skin bar live on the director's SHAPES tab, which draws
-`CATALOGUE` entries. `MOTIONS` cards live on the standalone `shapes.html`,
-which has no skin switcher. So TURN can be seen lit and unlit, and TURN IN
-DEPTH cannot be seen either way — which means the one comparison the whole
-lane was built to enable is the one comparison the page cannot show. The lane
-said so in `docs/dimensional.md` and in its restated *where* row rather than
-landing quietly and letting somebody lose an evening to it.
+Exactly one skin does this today. `turn.ts` gives a feature a *longitude* rather than a position, hides the far hemisphere, narrows a feature to nothing at the limb and brings it back at the other side — and `crater.ts` already imports `mount`, `spin`, `stops` and `Mounted` from it rather than restating the cosine, which is the proof the machinery generalises. Every other texture is a flat decal: SCALE, CARAPACE, PORE and SUCKER are seeded scatters clipped to the contour, and when the body turns they squash. A scale on the far side of a turning body should disappear round the edge and come back; today it slides.
 
-That honesty is why this is a small lane rather than a rescue. Give the four
-new motions a home on the tab that has the light: a draft entry naming each
-one, so they appear as catalogue cards and the skin bar and `LIT` reach them
-like anything else. `tools/shape-sheet/src/drafts/` is where a draft is
-declared and `suggests` is how a shape is joined to an idea by name.
+So: lift the projection into `mounted.ts` — one module owning `Mounted`, `mount`, `spin` and the limb behaviour, imported by `turn.ts` and `crater.ts` as well, so there is one copy and not three. Then give each of the four scatter skins a mounted form: every element gets a longitude and a latitude instead of an `x` and a `y`, and the shared turn phase carries it around. **The scatter itself does not change** — the same seeded distribution, the same density field, the same look at rest. What changes is that a position becomes a place *on a sphere* rather than a place on a picture.
 
-The judgement is small but real: a draft is *a picture offered to an idea*,
-and these are motions rather than shapes, so pick the subject each one is
-demonstrated on deliberately — a round body for TURN IN DEPTH and PITCH, a
-long one for CRAWL — and say why in the commit. The wrong body makes a correct
-motion look broken.
+**The judgement, and it is the whole lane.** A scale is not a dot: it has extent and an orientation, so it must also *turn away* as it goes round — foreshortened across its width, its long axis rotating toward the limb — or it reads as a sticker that shrinks. `turn.ts`'s patches are ellipses and got this for free; a scale's arc and a sucker's rings do not. Say in the commit what each of the four does at 60°, 80° and at the limb.
 
-Finished when `bun run check` is green, all four new motions appear on the
-SHAPES tab with the skin bar and `LIT` reaching them, and the outstanding
-check on `8487648` becomes answerable exactly as its *where* row describes it.
-Do not weaken that check's wording to match what the page can do; make the
-page do what the check asks.
+**Do not touch the existing unmounted skins' look at rest.** Whether a mounted skin replaces its flat original or sits beside it on the switcher is this lane's call — argue it in the commit. Beside is the safer answer and doubles the switcher; replacing is cleaner and destroys the comparison. Prefer beside unless the flat one is strictly worse in every pose.
 
-Model `sonnet`, effort `think`. Read `docs/dimensional.md` and
-`tools/shape-sheet/src/drafts/index.ts` first.
+Finished when `bun run check` is green, every file under 250, one copy of the projection, and the commit carries `Check: on a turning body, does a scale go round the far side and come back, or does it slide across a face — the SHAPES tab, SCALE beside MOUNTED SCALE, with LIT on`.
+
+Model `opus`, effort `ultrathink`. Read `tools/director/src/skins/turn.ts` first, then `crater.ts` to see how it already reuses it, then `docs/dimensional.md` for why the pose cannot do this alone.
+
+## A WORM DOES NOT SPIN, IT WINDS
+_claude/burn-skin-wind-s8 · tools/director/src/skins/wind.ts_
+
+Behind s7, and the owner's word is *winden* — regularly, rhythmically, the way a worm does.
+
+`turnAngle(t)` is one phase for a whole body, so a body under it rotates rigidly: every point turns through the same angle at the same instant. That is a planet. A worm is the other thing — **the phase varies along the body's long axis**, so one end is already coming round while the other has not started, and the twist travels. That single change is the difference between a spinning object and a living one, and it costs a term.
+
+So: a `wind(list, t)` beside `spin(list, theta)`, taking each element's position along the long axis and offsetting its longitude by a fraction of a turn. The travelling wave runs on the shared beat — the owner asked for *regelmäßig* and the page already has one clock, so the whole catalogue winds together rather than each card on its own timer.
+
+**Two things to get right.** The offset must be bounded: past about a third of a turn end-to-end the near and far halves of one body are showing opposite faces and the silhouette stops being readable as one object. And the long axis is not always the tall one — SLICK is 147 × 86 and BULB is 120 × 115, so derive the axis from the contour's own extent rather than assuming vertical, or a round body winds sideways for no reason.
+
+Finished when `bun run check` is green, a wind and a rigid spin are both on the switcher so the difference can be seen, and the commit carries `Check: does the winding read as one body twisting, or as two halves disagreeing — the SHAPES tab, a long body and a round one, WIND beside TURN`.
+
+Model `opus`, effort `think hard`. The bounded offset is the judgement; the wave itself is a term. Read `turn.ts`'s `spin` and `turnAngle` first.
+
+## THE SKIN CAN BE PICKED AND THE MOTION CANNOT
+_claude/burn-skin-motionpick-s9 · tools/director/src/shapes-panel.ts_
+
+**This replaces `claude/burn-motion-oncard-s2d`, which is deleted from this queue by the same commit that adds this — it was the smaller half of this.**
+
+The owner asked to see animation and skin *combinations*. Today half of that exists: the skin bar picks any of thirteen skins and `LIT` takes the light off them, and both apply to every card at once. The other half does not — a card's motion is whatever its catalogue entry was authored with, so there is no way to put TURN IN DEPTH under SCALE, or CRAWL under CILIA, which is exactly the pairing `docs/dimensional.md` says is the whole finding.
+
+A motion bar beside the skin bar, built the same way, defaulting to **each card's own motion** so nothing changes until something is picked. Then any of the fifteen can be forced onto every card, and the three controls compose: skin × motion × lit.
+
+That also closes an outstanding check honestly. `8487648` asks whether a turned body reads as rotating or as squashed, *TURN beside TURN IN DEPTH, with the light on and off* — and it landed unanswerable, because the new motions are on the standalone page and `LIT` is on this one. A motion picker makes the question askable exactly as written. **Do not weaken that check's wording to fit the page; make the page do what it asks.**
+
+Keep it small: one bar, one piece of state, no rework. The state threads to `shapeFigure` beside `lit`.
+
+Finished when `bun run check` is green, any skin can be seen under any motion, the default is unchanged behaviour, and `8487648`'s check can be carried out as its own *where* row describes it.
+
+Model `sonnet`, effort `think hard`. Read `shapes-panel.ts` — the `lit` state landed there today and is the pattern to follow — then `tools/shape-sheet/src/motions/index.ts`.
 
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
