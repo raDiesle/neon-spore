@@ -3,6 +3,7 @@ import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
 import { VEIN } from "./vein.js";
+import { VEIN_PULSE } from "./vein-pulse.js";
 
 /**
  * Every way to draw the same contour, so the question `docs/alive.md` sends to
@@ -27,7 +28,7 @@ import { VEIN } from "./vein.js";
  * card can show an interior nobody can vote on whether an interior is worth
  * having. `docs/skins.md` has the four rules an author works to.
  */
-export const SKINS = [LINE, MEMBRANE, CORE, VEIN] as const;
+export const SKINS = [LINE, MEMBRANE, CORE, VEIN, VEIN_PULSE] as const;
 
 /** The id of a skin that exists, derived from the registry and never typed. */
 export type SkinId = (typeof SKINS)[number]["id"];
