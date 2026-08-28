@@ -1008,13 +1008,64 @@ wave arrays in play — a fix that only patches the call site leaves the next
 reader the same trap.
 
 ## A DEFLECTED ROCK STILL REACHES THE SHIP, AND THE OWNER WATCHED IT HAPPEN
-_claude/burn-shield-deflect-surface · packages/sim/src/shield.ts packages/sim/test/shield.test.ts_
+_claude/burn-shield-deflect-where · packages/render/src/shield.ts packages/render/src/deflect.ts packages/render/test/shield-column.test.ts_
 **Asked for by the owner.** A `FAIL` verdict on `bacca00`, whose own subject
 was *"The shield answers a rock where the shield is, not where the ship is"* —
 so the fix that commit made did not do what it says.
 
 > I still see the rock goes into the ship ( on cannon position). i can handle
 > myself later
+
+
+### A lane looked and the simulation is not where the fault is
+
+Run on 28 August 2026 and stopped without editing, which was the right call.
+What it established, so nobody spends the same hour again:
+
+- **`packages/sim/src/shield.ts` does not exist**, and never did. The entry
+  named it out of thin air; the deflection lives in `packages/sim/src/hull.ts`
+  as `resolveHull` and `shieldRow`.
+- **The owner's exact case is already a passing test.**
+  `packages/sim/test/guard.test.ts`, added by `bacca00` itself, contains *does
+  not hold a rock at the ship when it is parked under one* — cannon and shield
+  both aimed at the rock's column, guard pressed in time — and it passes, with
+  the whole file green.
+- **`resolveHull` never reads `cannonCol` at all.** It tests the shield at
+  `shieldRow`, one row above the hull, before falling through to the hull row,
+  and `occupiesCol` checks the shield's column against the rock's full span.
+  There is no reachable path in `sim` that puts a rock into the ship because
+  the cannon happened to be there.
+
+So the simulation deflects correctly and the owner watched something else.
+**This lane is now about where the fault actually is, and it is a looking
+problem rather than a rules problem.**
+
+### The two live hypotheses, in the order worth trying
+
+**One: the shield is drawn somewhere other than where it is.** If the render
+puts the shield's arc a column off, or a row off, the pair aims by what they
+see and the sim answers by what it holds — and the rock passes a shield that
+looked like it was in the way. That is exactly *"I still see the rock goes into
+the ship"* from a player's seat, with a sim that is behaving. Start at
+`packages/render/src/shield.ts` and `deflect.ts` and compare the column and row
+they draw against `shieldRow` and the shield's own column in `hull.ts`. A test
+that pins the drawn column to the simulated one is the deliverable either way.
+
+**Two: they could not put the shield where they thought.** The owner was in the
+director, on a PC, with a mouse. `claude/burn-pc-mouse-and-keys` establishes
+that the director's pointer speaks for **player 1** only, and the shield is
+**player 2's** control — so a mouse aimed at the shield strip may not have
+moved the shield at all. If that is it, the rock went into the ship because the
+shield was never in that column, the sim was right the whole time, and the fix
+belongs to that other lane rather than to this one.
+
+**Try two first if it is cheap**, because it costs one run in the director and
+would retire this entry outright. Say in the report which hypothesis it turned
+out to be. If it is the second, **do not fix it here** — report it, and the
+entry is deleted against the mouse lane instead.
+
+**If the fault is outside `packages/render`, stop and report it.** That rule
+has now paid for itself twice in this area.
 
 **Their "i can handle myself later" is not a reason to leave it queued
 forever.** It is them declining to *chase* it, not declining the fix. It does
