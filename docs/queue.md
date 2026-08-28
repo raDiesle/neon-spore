@@ -126,11 +126,31 @@ The motion bar and `LIT` apply here as they do everywhere: a grid of twenty
 skins with the light off is exactly the experiment the light lane's own check
 asks for, on one screen instead of twenty flips.
 
-Finished when `bun run check` is green, one body is drawn in every registered
-skin on one screen with each named, the body is pickable and starts on THE
-WEIGHT, every figure shares one clock, the drawn size at the chosen layout is
-in the commit against the floor, and the commit carries `Check: with twenty
-skins on one body at once, is it obvious which ones are worth keeping?`
+**And one grid per category, not one grid.** The owner has asked for the same
+overview for *every* category, each on one body rather than on all of them: the
+skins are the first of them and the motions are the obvious second — one body,
+drawn once per motion, all of them on screen at once, which is a question
+nobody can answer today at all, because a motion can only be seen by forcing it
+on the whole catalogue and remembering the last one. The light is a third and
+is two cards wide, so it costs almost nothing to stand beside them. **Write the
+grid once and give it the axis it walks** rather than writing the skin one and
+copying it: the card, the clock, the body picker and the size floor are the
+same in all three, and only the list of options and what each option is handed
+differ.
+
+Each grid varies its own axis and holds the other two at whatever the page's
+controls currently say. A body demonstrating PERISTALSIS while wearing nothing
+is a contour rather than a look, and a skin shown on a body standing still is
+half of what a skin is, so neither axis can be shown against a blank.
+
+Finished when `bun run check` is green, one body is drawn once per skin and
+once per motion on one screen with each named, the body is pickable and starts
+on THE WEIGHT, every figure on a grid shares one clock, the grid is written
+once and walked per axis rather than copied, the drawn size at the chosen
+layout is in the commit against the floor, and the commit carries `Check: with
+twenty skins on one body at once, is it obvious which ones are worth keeping?`
+and `Check: with every motion on one body at once, can you tell two of them
+apart without reading the labels?`
 
 Model `sonnet`, effort `think hard`. Read `shapes-pair.ts` — it already owns
 what a card is wearing and is the natural place for a third arrangement — then
