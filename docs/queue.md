@@ -57,19 +57,6 @@ a guess.
 
 Model `sonnet`, effort `think hard`. Read `docs/versus.md` first — it is the design this lane implements.
 
-## TWO FILES AT THE CEILING, AND EVERYTHING WANTS TO ADD TO THEM
-_claude/burn-teach-split-t1 · packages/sim/src/world.ts packages/sim/src/beat.ts packages/sim/src/step.ts packages/sim/src/wave-start.ts packages/sim/src/index.ts_
-
-`packages/sim/src/world.ts` and `packages/sim/src/beat.ts` are both **exactly 249 lines** against CLAUDE.md's ~250 ceiling, and every lane after this one edits both. Split them first, with no behaviour change at all.
-
-Two cuts, each with a precedent in the file's own history. `beat.ts` splits along the seam it already has a comment for: `onBeat` is the shape of a beat, `startWave` (and its private `installWarden`) is the shape of a wave beginning — move the second pair into `packages/sim/src/wave-start.ts`, which leaves `beat.ts` around 145 lines. `world.ts` splits the way `commands.ts` was already split out of it ("`step` is the shape of a tick and this is the shape of a command"): `step`, `regenerateHull` and `progressWave` go to `packages/sim/src/step.ts`, and `world.ts` keeps the `World` interface, `MILLI`, `createWorld` and `hullPercent`. Re-export from the old paths so no import site in `sim`, `render`, `content`, `apps` or `tools` has to move, or move them all — either is fine, but say which in the commit.
-
-The one judgement is where to cut and it has a precedent, so behaviour must not change: this is a constraint, not a decision. Finished when `bun run check` is green, every file is under 250 lines, and `git diff --stat` shows no line of logic altered — only moved.
-
-Model `sonnet`, effort `think`. Think about which callers import `startWave` and `step` by name before you move anything; a missed re-export is the only way this lane can cost a second turn.
-
-Model `sonnet`, effort `think`. Read `docs/teaching.md` first — it is the design this lane implements.
-
 ## FOUR FIELDS THE FINGERPRINT HAS NEVER SEEN, AND THE ONE ABOUT TO BE BRANCHED ON
 _claude/burn-teach-hash-t2 · packages/sim/src/hash.ts packages/sim/test/hash.test.ts_
 
