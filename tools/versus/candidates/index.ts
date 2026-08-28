@@ -1,5 +1,11 @@
 import type { Variant } from "../variant.js";
+// region: candidates
+import { SHOT_PIP } from "./cannon-shot/pip/index.js";
+import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
+import { WARD_HEAVE } from "./shield-ward/heave/index.js";
+import { WARD_TICK } from "./shield-ward/tick/index.js";
 import { HULL_WARM } from "./ship-hull.warm/index.js";
+// endregion
 
 /**
  * Every candidate currently offered, in the order the pair should show them.
@@ -17,4 +23,4 @@ import { HULL_WARM } from "./ship-hull.warm/index.js";
  * `run.ts` and this file all stay whether or not a slot is open. They are the
  * seam, the way `Effects` stays whether or not anything is exploding.
  */
-export const VARIANTS: Variant[] = [HULL_WARM];
+export const VARIANTS: Variant[] = [HULL_WARM, SHOT_STREAK, SHOT_PIP, WARD_HEAVE, WARD_TICK];
