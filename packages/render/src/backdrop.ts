@@ -1,4 +1,5 @@
 import type { Layout } from "./layout.js";
+import { drawLightShafts } from "./light-shafts.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -148,6 +149,10 @@ export function drawBackdrop(
   time: number,
 ): void {
   drawWash(ctx, l, wave, time);
+  // Light reaching the water, over the wash and under the horizon band and
+  // the motes — a suggestion under the field's other back layers, never on
+  // top of them. Its own file: `light-shafts.ts` has the why and the geometry.
+  drawLightShafts(ctx, l, time);
   drawHorizon(ctx, l, wave);
   drawMotes(ctx, l, time, FAR);
   drawMotes(ctx, l, time, NEAR);

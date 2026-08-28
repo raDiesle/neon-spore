@@ -1,7 +1,13 @@
-import { describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { drawBackdrop, hash01 } from "../src/backdrop.js";
 import { computeLayout } from "../src/layout.js";
+import { installCanvasGlobals } from "./canvas-stub.js";
+
+// `light-shafts.ts` reaches for `document.createElement("canvas")` for its
+// sprite cache, same as `glow.ts` — the global `frame.test.ts` and
+// `restart.test.ts` already install for that reason.
+beforeAll(installCanvasGlobals);
 
 /**
  * The backdrop's whole risk is the opposite of the rest of render/: instead of
@@ -40,6 +46,28 @@ class Recorder {
   fillRect(x: number, y: number, w: number, h: number): void {
     this.log.push(
       `rect ${String(this._fillStyle)} a=${this._globalAlpha} ${x.toFixed(3)},${y.toFixed(3)},${w.toFixed(3)},${h.toFixed(3)}`,
+    );
+  }
+
+  // `light-shafts.ts` rotates the canvas to `KEY`'s angle and blits a cached
+  // sprite rather than filling rects — this records the same shape of thing
+  // frame.test.ts's real canvas accepts, so the determinism checks below see
+  // it too.
+  save(): void {
+    this.log.push("save");
+  }
+  restore(): void {
+    this.log.push("restore");
+  }
+  translate(x: number, y: number): void {
+    this.log.push(`translate ${x.toFixed(3)},${y.toFixed(3)}`);
+  }
+  rotate(angle: number): void {
+    this.log.push(`rotate ${angle.toFixed(6)}`);
+  }
+  drawImage(_img: unknown, dx: number, dy: number, dw: number, dh: number): void {
+    this.log.push(
+      `image a=${this._globalAlpha} ${dx.toFixed(3)},${dy.toFixed(3)},${dw.toFixed(3)},${dh.toFixed(3)}`,
     );
   }
 
