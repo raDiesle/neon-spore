@@ -193,11 +193,32 @@ ones a person can answer while standing up.
 ticked either. "Check the backdrop" is not a check. If you cannot phrase the
 "no", there is nothing to look at.
 
+**Write it for somebody who only plays the game.** The reader is not the
+author's colleague and does not have the code open — treat them as QA: they
+know the game well and the repository not at all. So the check is in the
+vocabulary of *looking at the thing*, never in the vocabulary of changing it.
+No identifiers, no file paths, no parameters. `BULB.depth moved from 0.1 to
+0.13` is a diff, not a check; *the bulb's bumps are deeper than they were* is
+the same fact in the only language that can be checked by looking.
+
+A measurement is fine when it is about what you see — *at 26 px on a phone* is
+where to stand, not jargon. The file and the number still matter to whoever
+later fixes it, and they belong in the commit message, which is where that
+person will be.
+
+**And this is a test, not a style note.** If the change cannot be described to
+somebody who only plays the game, **it is not a check** — it is a refactor, a
+hashed field, a split file, and the right number of trailers for it is zero. A
+list is only worth reading if every row on it is a thing a person can go and
+see.
+
 **The detail goes in the restatement, in fields, not in prose.** Five of them,
 each one line, each answering exactly one thing:
 
-- **subject** — the thing, and where it lives. Four or five words.
-- **changed** — what it was before. A clause, not a history.
+- **subject** — the thing, named the way a player would name it. *The bulb —
+  the round one with many small bumps.* Not a symbol, not a path.
+- **changed** — what was different before, in what a player would notice. A
+  clause, not a history and not a parameter.
 - **decide** — the same question as the trailer, in the reader's terms.
 - **before / after** — *what to put beside what.* This is the field that
   actually gets a check answered, and it is the one lanes leave out: a look
