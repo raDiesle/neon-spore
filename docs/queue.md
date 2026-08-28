@@ -138,50 +138,6 @@ question and everything else is a move. Read `WIND`'s `isWideBody`, `CILIA`'s
 lean, `pulse.ts`'s header, and `docs/parked.md`'s two entries on this before
 starting.
 
-## THE 26 PX FLOOR IS ARGUED ABOUT AND HAS NEVER BEEN PRINTED
-_claude/burn-shapes-floor-s13 · tools/shape-sheet/src/drawn-size.ts tools/shape-sheet/src/report.ts tools/shape-sheet/test/drawn-size.test.ts_
-
-`docs/spec/graphics.md` puts the floor at 20–26 px for a body to stay nameable,
-and that number has decided real work all day: a row multiplier had to grow
-downward rather than shrink upward because of it, a paired card was *not*
-halved because of it, and a runt at about 10 px is the reason no interior
-detail belongs on one. Every one of those was settled by a session writing a
-throwaway script, reading a number, and deleting the script.
-
-The paired-cards lane did exactly that and said so: it computed drawn body
-pixels over all sixty entries — fit scale times still bounds, the same
-arithmetic `shapeFigure` runs — found **32 of 49 square cards would fall under
-26 px if halved and 17 under 20**, widened the card instead, and threw the
-measurement away. The next layout question starts from nothing.
-
-So make it a command. Print, per catalogue entry, the drawn body's long and
-short axis in pixels at the frame it actually gets, beside the 20–26 px floor,
-with anything under it marked. `bun run shapes:report` already prints W/H/AREA/
-LENGTH/TRAVEL/BREATH% and the nameability axes, so this is a column group
-rather than a new tool — and `tools/shape-sheet/src/nameability.ts` is the
-precedent for where the arithmetic lives.
-
-**Two things make it worth more than the script it replaces.** It must read
-the *same* fit the director uses rather than a second copy of it — a floor
-measured against a re-derivation is a floor about nothing, and `purity.test.ts`
-carries a `COPIES` table for exactly this class of mistake; add a row if the
-fit has to be called rather than restated. And it must take the frame size as
-an input, because the question is never "is this body big enough" but "is it
-big enough *at that layout*" — the paired lane's whole finding was a number
-that changed when the frame did.
-
-Finished when `bun run check` is green, `bun run shapes:report` prints a drawn
-size against the floor for every catalogue entry at a given frame, a test
-pins the arithmetic to the director's own fit rather than to a copy, and the
-report reproduces the paired lane's finding: 32 of 49 square cards under 26 px
-at a 46 px frame, 17 under 20.
-
-No `Check:` trailer — this prints numbers and a test proves them.
-
-Model `sonnet`, effort `think hard`. Read `tools/shape-sheet/src/report.ts`,
-`nameability.ts`, `tools/director/src/shape-figure.ts`'s fitting and
-`docs/spec/graphics.md` first.
-
 ## THE GAME HAS A SHEEN, A RIM AND A CRATER, AND NO IDEA WHERE THE LIGHT IS
 _claude/burn-depth-light-d3 · packages/render/src/key-light.ts packages/render/test/key-light.test.ts packages/content/src/light.ts_
 
