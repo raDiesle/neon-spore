@@ -227,8 +227,16 @@ is built and shipped, for rocks. This lane gives it to a creature and adds the
 one thing rocks do not have: something alive underneath.
 
 **The shape of it.** A body that takes several shots. Each hit breaks a piece
-out where it was struck, with a small burst at the break. Three pieces. When
-the last is gone the core is exposed — a plain creature in a plain colour,
+out where it was struck, with a small burst at the break. **Two pieces**, and
+the owner is right that two beats three. The pieces are column-wide slices, so
+their number *is* the body's width on a seven-column field — three is a lot of
+the field spoken for, two is proportionate. Two hits also brings the phase
+reversal sooner, which matters because the reversal is the design and a shell
+phase that outlasts the pair's interest in it has buried its own point. And
+two has a virtue three does not: the players can take one slice each, so they
+are symmetric right up to the instant the shell is gone and one of them
+becomes the only one who can finish it. When the last is gone the core is
+exposed — a plain creature in a plain colour,
 which **nobody knew until the shell came off**, and which then needs the
 matching shot like any other body.
 
@@ -282,12 +290,12 @@ to unpick months later. Think about the two-phase reversal before any code —
 the code is the easy half. Read `docs/spec/systems.md` §5.6, `docs/spec/bestiary.md`
 and `packages/sim/src/bullet-hit.ts` first.
 
-## THREE PIECES COME OFF A BODY AND NOTHING DRAWS THE BREAK
+## A PIECE COMES OFF A BODY AND NOTHING DRAWS THE BREAK
 _claude/burn-creature-shell-draw-g2 · packages/render/src/shell-draw.ts packages/render/test/shell-draw.test.ts_
 
 Behind g1, which owns the state this reads.
 
-The break is the whole feel of the creature and the sim cannot express it: a
+Two pieces come off, and the break is the whole feel of the creature and the sim cannot express it: a
 piece leaves, an edge is raw where it left, and there is a burst at the
 break. The owner's reference is a meteorite striking the ship — but with no
 fixed form, the shot *loosens a chunk* rather than punching a neat hole.
