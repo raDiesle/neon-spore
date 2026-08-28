@@ -71,3 +71,102 @@ records the answers. See `docs/verification.md`.
 - `dbd327e` 2026-08-28 PASS — with two slots open, is it obvious that the page holds more than the one on screen — the director's VERSUS tab
 - `33f1020` 2026-08-28 PASS — does the sharp attack read as a pulse against SWELL's breathing, or only as a faster sine — the SHAPES tab, the motion bar, BEAT and HEART and SWELL on one round body
 - `d4ecf64` 2026-08-28 PASS — a paired card keeps both frames at 92 px and widens instead of halving, on the reasoning that halving puts 32 of 49 cards under the 26 px floor — is a wider card with two full-size halves the right trade, or is three cards to a row too few to scan the catalogue; the director's SHAPES tab, SCALE against MOUNTED SCALE and then LINE against VEIN, on the smallest card on the page
+- `c761cad` 2026-08-28 CLEARED — 49 checks were closed unlooked-at in one sweep, at the owner's word, and their individual entries removed rather than archived. The code every one of them was about is on `main` and reachable in the director; what is gone is only the list of questions nobody was going to answer. The backlog had grown past reading, which makes it furniture rather than a to-do list — and the format it was written in has since changed, so restarting it was cheaper than draining it.
+- `85d1410` 2026-08-28 CLEARED — the winding runs on a bounded travelling phase rather than one rigid angle — does it read as one body twisting, or as two halves disagreeing — the SHAPES tab in the director, a long body and a round one, WIND beside TURN
+  - closed unlooked-at in the sweep that reset this list
+- `b34b6c8` 2026-08-28 CLEARED — switching skin on the SHAPES tab now redraws in about a fifth of a second instead of seven, and every card still lands in the same frame it had — does flipping between two skins now feel like a comparison rather than a page load, or does something still read as a reload; the director's SHAPES tab, LINE against MOUNTED SCALE, back and forth five times, at the top and scrolled
+  - closed unlooked-at in the sweep that reset this list
+- `8190280` 2026-08-28 CLEARED — on a turning body, does a scale go round the far side and come back, or does it slide across a face — the SHAPES tab, SCALE beside MOUNTED SCALE, with LIT on
+  - closed unlooked-at in the sweep that reset this list
+- `8190280` 2026-08-28 CLEARED — MOUNTED PORE keeps tempo on a full SHAPES tab, or its 420 bumps a card have to come down — DIRECTOR_HOST=127.0.0.1 bun run dev, SHAPES, PORE then MOUNTED PORE, watch for stutter
+  - closed unlooked-at in the sweep that reset this list
+- `bfebee6` 2026-08-28 CLEARED — a motion bar now sits beside the skin bar on the SHAPES tab, so 8487648's question — does a turned body read as rotating or as squashed, TURN beside TURN IN DEPTH, with the light on and off — can finally be asked as its own where row describes; does it hold up when looked at (yes, the pairing reads as intended — no, one of the two reads as a coin or a squash even under the light)? Stand at DIRECTOR_HOST=127.0.0.1 bun run dev, open SHAPES, force TURN and then TURN IN DEPTH with LIT on and off.
+  - closed unlooked-at in the sweep that reset this list
+- `8487648` 2026-08-28 CLEARED — with the light on, does the turned body read as rotating in depth or as being squashed flat — the SHAPES tab, TURN beside TURN IN DEPTH, and then the same pair with the light off
+  - closed unlooked-at in the sweep that reset this list
+- `ea4fdfc` 2026-08-28 CLEARED — PORE and SUCKER are both wired into the switcher and LIT correctly gates PORE's per-bump highlight — the open question is whether PORE reads as grown skin or as spots scattered on a circle, yes it holds together or no it needs the hotspots pulled tighter; stand at DIRECTOR_HOST=127.0.0.1 bun run dev, NOT BUILT YET → SHAPES, and toggle the PORE and SUCKER buttons on the switcher to look.
+  - closed unlooked-at in the sweep that reset this list
+- `fc76eec` 2026-08-28 CLEARED — with the light off, does the page lose depth or only lose brightness — the SHAPES tab, the same skin toggled, on a round body and a long one
+  - closed unlooked-at in the sweep that reset this list
+- `63420be` 2026-08-28 CLEARED — CILIA adds a hundred-strand rim fringe, re-sampled off the live contour every frame with getPointAtLength, plus a sparser interior set, both leaning against a velocity read off the body's own motion transform. Do a hundred strands at card size read as a fringe or as fur, and is the count right? The build was confirmed clean — no console errors, the expected path count on the card — but the sway, the travelling ripple and the lean itself are unverified: the headless pane never composited a frame while backgrounded, so requestAnimationFrame never ran even once and no motion was actually seen. Stand at DIRECTOR_HOST=127.0.0.1 bun run dev, NOT BUILT YET → SHAPES, and press CILIA in the skin bar.
+  - closed unlooked-at in the sweep that reset this list
+- `da3a199` 2026-08-28 CLEARED — a surface feature now narrows to nothing at the silhouette and reappears at the other edge, on a cosine of its own longitude, over a worm that swings left and right and hangs at each reversal — does the body read as turning, or as a texture sliding under a hole? Yes if a band crossing the middle visibly outruns one near the edge; no if the whole field drifts at one pace. DIRECTOR_HOST=127.0.0.1 bun run dev, NOT BUILT YET → SHAPES, the TURN button on the skin switcher.
+  - closed unlooked-at in the sweep that reset this list
+- `da3a199` 2026-08-28 CLEARED — the same projection carries a field of lit-rim, dark-floor craters round a body tumbling one way at constant angular speed — does it read as a meteorite rotating, or as a pitted texture sliding under a hole? Yes if a pit crawls for a long time near either edge and crosses the middle quickly; no if it travels evenly and keeps its width to the edge. DIRECTOR_HOST=127.0.0.1 bun run dev, NOT BUILT YET → SHAPES, the CRATER button on the skin switcher.
+  - closed unlooked-at in the sweep that reset this list
+- `bdfa2c0` 2026-08-28 CLEARED — SCALE lays many soft rounded petals in shrinking offset rows; CARAPACE lays a handful of hard straight-edged wedges in three seamed rings with a KEY-lit edge on each. Do the two read as different materials, or as one lattice repeated at two scales? Stand at DIRECTOR_HOST=127.0.0.1 bun run dev, NOT BUILT YET → SHAPES, and press SCALE then CARAPACE in the skin bar to compare them directly.
+  - closed unlooked-at in the sweep that reset this list
+- `cb4dade` 2026-08-28 CLEARED — LIGHT gives each card a focal-point sphere ramp — four stops with a core shadow darker than the base and a bounce off the shadowed rim — where CORE gave a gradient falling evenly outward; at 92 px does a lit body read as volume, or as a flat shape with a gradient on it? `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button in the skin bar, flipping back to CORE to compare
+  - closed unlooked-at in the sweep that reset this list
+- `cb4dade` 2026-08-28 CLEARED — the rim light is one thin cool stroke over the outline on the shadow side while `auraPass` draws three wide soft strokes of the body colour around the whole contour; do those read as two things on one body, or as one smear that would be better with the aura dropped under LIGHT? `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button, on a wide hull card where the shadow-side stroke is longest
+  - closed unlooked-at in the sweep that reset this list
+- `a34bc0d` 2026-08-28 CLEARED — PULSE draws VEIN's filaments twice — the whole tree dim under the membrane as before, and a seeded third of the segments again above the rim, brighter and wider, lifting hardest as a front of light crosses the body every two beats. Does that second copy read as a strand standing proud of the skin and going under again, or does it just read as two line weights on one texture? Stand at `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, and press the PULSE button in the skin bar, flipping back to VEIN to compare.
+  - closed unlooked-at in the sweep that reset this list
+- `a34bc0d` 2026-08-28 CLEARED — the pulse's front is a fixed *time* rather than a fixed speed — 0.40 s to cross whatever body it is on — so it covers about 30 px on a 92 px creature card and about 165 px on the 620 px hull card, roughly 75 px/s against 410 px/s. On the largest cards, does the front still read as something travelling out along the veins, or does it become a wipe passing over the whole body at once? If it is a wipe, the fix is not a slower `TRAVEL` — that would put the small cards' fronts out of step with the big ones — but a longer `LEAD` and `TAIL`, so more of the tree is lit at once. Stand at `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, PULSE in the skin bar, and compare a wide hull card against a creature card in the same page.
+  - closed unlooked-at in the sweep that reset this list
+- `11daac4` 2026-08-28 CLEARED — the VERSUS tab draws two 380 x 820 phones side by side where before there was no tab at all — do the two phones read as one picture drawn twice, so the only thing an eye finds is the hull's colour, and does BLINK at 1 Hz sit still enough that the amber jumps out rather than the whole frame flickering? `DIRECTOR_HOST=127.0.0.1 bun run dev`, the backlog sheet's VERSUS tab, `ship:hull-skin` on SLICK · FALLING, then the BLINK button.
+  - closed unlooked-at in the sweep that reset this list
+- `1448c78` 2026-08-28 CLEARED — versus ship:hull-skin is open — an amber `warm` candidate now sits beside the shipped violet OWN_SKIN, so does a warm hull still read as the player's own ship with red ammunition falling onto it, or does it merge into the red? Decide at the director's VERSUS tab once the pair lands; `bun run versus` names the slot and every reader of OWN_SKIN meanwhile.
+  - closed unlooked-at in the sweep that reset this list
+- `f4fa26a` 2026-08-28 CLEARED — the bulb's lobes still count at 26 px on a phone — beside a throb
+  - closed unlooked-at in the sweep that reset this list
+- `ba9889b` 2026-08-28 CLEARED — the dial itself was only read from World state (needleMilli, markMilli) through the headless bridge, never seen drawn — does the needle and band actually read on the stage canvas the way THE MIRROR and the bosses already do, in both the navigator's and the pilot's role? Where to stand: `DIRECTOR_HOST=127.0.0.1 bun run dev`, INTERLUDE tab, wave 10, ▶ PLAY, then P1 and P2 role buttons.
+  - closed unlooked-at in the sweep that reset this list
+- `ba9889b` 2026-08-28 CLEARED — the moveField's number input has no bound tying it to the wave actually holding the entry once two interludes exist — does adding a second kind ever let one gap's MOVE collide with another's key silently? Where to stand: add a second entry in INTERLUDE_DEFAULTS, try moving one onto the other's wave number.
+  - closed unlooked-at in the sweep that reset this list
+- `7490495` 2026-08-28 CLEARED — the four hull marks are new — nothing was ever drawn on the membrane before except the shield. The ship raises a lobe for exactly one thing today. Does HULL · HELD's lobe (6.0 px, a full column wide) read as a *different* claim from HULL · ARMED's shield (7.5 px, two thirds of a column), or does any lump on the hull just mean "shield"? Yes and both ideas are cheap; no and The Other Hand needs a mark somewhere off the membrane. `bun run dev`, NOT BUILT YET → SHAPES.
+  - closed unlooked-at in the sweep that reset this list
+- `7490495` 2026-08-28 CLEARED — HULL · MENDED's welt is flat-topped with shoulders a fifth of a column, against the shield's long-shouldered swelling — that contrast is the whole margin and it was chosen, not measured against an eye. Does a held seam read as *made* beside a shield that reads as *grown*, at card size? `bun run dev`, SHAPES, with HULL · ARMED in view at the same time.
+  - closed unlooked-at in the sweep that reset this list
+- `7490495` 2026-08-28 CLEARED — HULL · TORN is the first shape in the catalogue drawn as two open strokes instead of one. Does a 23 px hole in a 150 px line read as a breach, or as the hull having been drawn badly? `bun run dev`, SHAPES.
+  - closed unlooked-at in the sweep that reset this list
+- `7490495` 2026-08-28 CLEARED — THE CLAW and THE SPLICE are the first interlude bodies, and an interlude is meant to be legible as *not the field* from the first frame. Put them beside the creature cards: do they read as machinery, or as two more organisms? `bun run dev`, SHAPES.
+  - closed unlooked-at in the sweep that reset this list
+- `7490495` 2026-08-28 CLEARED — THE SPLICE crosses itself between one and four times, which is measured, and the round dies if a player can trace the strand by eye anyway. At card size, is the tangle genuinely unfollowable, or can you get from one end to the other? `bun run dev`, SHAPES.
+  - closed unlooked-at in the sweep that reset this list
+- `c6f9cbc` 2026-08-28 CLEARED — the runt's tremor now runs on the beat clock and its three frequencies moved to 8.3/12.7/5.9 — does it still read as debris caught in the wave rather than as something moving with it? `bun run preview`, the wave named THE RUNT.
+  - closed unlooked-at in the sweep that reset this list
+- `c6f9cbc` 2026-08-28 CLEARED — every body's phase is now a hash of its id spread over eight beats rather than one of seven fixed values — does a full row read as in time but not in step, or does it now read as merely scattered? `bun run preview`, the wave named CROWDED.
+  - closed unlooked-at in the sweep that reset this list
+- `237aac6` 2026-08-28 CLEARED — whether VEIN survives the 92 px card it actually ships at — it was looked at here at 240 px, where it reads clearly, and graphics.md's whole claim is that it will not
+  - closed unlooked-at in the sweep that reset this list
+- `237aac6` 2026-08-28 CLEARED — whether CORE reads as a lit body or as a smudge, beside MEMBRANE
+  - closed unlooked-at in the sweep that reset this list
+- `237aac6` 2026-08-28 CLEARED — which of the four the bosses want and which the creatures want — they may not be the same answer, and the switch is currently page-wide
+  - closed unlooked-at in the sweep that reset this list
+- `b7857ad` 2026-08-28 CLEARED — whether MASS at 259 px wide reads as one poured body or as four circles that failed to merge — the necks are measured, not looked at
+  - closed unlooked-at in the sweep that reset this list
+- `9697ea8` 2026-08-28 CLEARED — a demonstration opened from the game's own menu reads as landing on a wave that was always going to open that way, not as a jump with something flipped behind it — bun run preview:once, ?menu=1, DEMOS, any row
+  - closed unlooked-at in the sweep that reset this list
+- `9697ea8` 2026-08-28 CLEARED — the director's DEMOS sheet and its OPEN button read as belonging beside the pair panel and wave rail rather than as a bolted-on modal — DIRECTOR_HOST=127.0.0.1 bun run dev, then click DEMOS
+  - closed unlooked-at in the sweep that reset this list
+- `2b5c697` 2026-08-28 CLEARED — whether THE MOTHER reads as a mouth at boss size or as a ring with spikes — the arms are skewed spikes rather than true curls, and a contour sampled per angle cannot offset a tip sideways
+  - closed unlooked-at in the sweep that reset this list
+- `2b5c697` 2026-08-28 CLEARED — whether THE BREACH still says "a hole with something in it" once the rim's lift is only 0.3 of ry — it was tuned by arithmetic, not by an eye
+  - closed unlooked-at in the sweep that reset this list
+- `2b5c697` 2026-08-28 CLEARED — whether MASS at 204 px wide reads as one poured body or as four circles that failed to merge — open the director's SHAPES tab
+  - closed unlooked-at in the sweep that reset this list
+- `fd12d08` 2026-08-28 CLEARED — THE WARD at 96 BPM — free the pod on the first beat and take it in; do the four fast rocks all land inside the six armed beats, or does the last of them arrive after the ward has run out. Stand in the director on THE WARD, or open the wave in the game and watch the shield ring.
+  - closed unlooked-at in the sweep that reset this list
+- `fd12d08` 2026-08-28 CLEARED — THE LANCE at 96 BPM — three slicks one beat apart in one column; is the lobe full while all three are still stacked, or has the first passed the muzzle by the time the shot goes. Play it in the game with the lance held from beat 0.
+  - closed unlooked-at in the sweep that reset this list
+- `fd12d08` 2026-08-28 CLEARED — THE PURGE — is the field visibly worth clearing at the moment the pod reaches the hull, or has it already thinned out to two bodies. Watch it at tempo in the director.
+  - closed unlooked-at in the sweep that reset this list
+- `9447724` 2026-08-28 CLEARED — the ORPHANS button's red is legible against the header at normal brightness, not just in the DOM's computed style — a screenshot was not available in this sandbox to look at it
+  - closed unlooked-at in the sweep that reset this list
+- `b046978` 2026-08-28 CLEARED — the hint text reads as a help and not as clutter, at the width the sheet actually opens at on a laptop — looked at once here in a headless Chromium at 649px, not on a phone
+  - closed unlooked-at in the sweep that reset this list
+- `5f7bfc1` 2026-08-28 CLEARED — THE GAUGE was not opened — packages/content/src/interludes.ts only places one at gap 10, far down the wave list, and reaching it was out of scope for this pass. The switch is real and typechecked; nobody has watched it turn a corner into a round yet.
+  - closed unlooked-at in the sweep that reset this list
+- `d5df018` 2026-08-28 CLEARED — the wider mouth still reads as swallowing rather than as a flash, not merely smaller — looked at one catch in preview, not the shape sheet
+  - closed unlooked-at in the sweep that reset this list
+- `d5df018` 2026-08-28 CLEARED — whether activating at the centre (already instant) still feels like a reward arriving now that the mouth reads wider and shallower
+  - closed unlooked-at in the sweep that reset this list
+- `ada7090` 2026-08-28 CLEARED — the wind-up reads as laying rather than as lag — the mouth working, not the trigger answering late
+  - closed unlooked-at in the sweep that reset this list
+- `ada7090` 2026-08-28 CLEARED — at 0, 0.125, 0.25, 0.5, 0.75 and 1 beat on the Shot lay slider, which values feel like rhythm and which like a dead trigger
+  - closed unlooked-at in the sweep that reset this list
+- `ada7090` 2026-08-28 CLEARED — a maw held open while a shot is laid still reads as one mouth rather than two effects fighting — worth looking at beside the reshaped swallow
+  - closed unlooked-at in the sweep that reset this list
+- `ada7090` 2026-08-28 CLEARED — whether losing a laid shot by sliding the cannon during the wind-up reads as a mistake the pair made or as the game eating a press
+  - closed unlooked-at in the sweep that reset this list

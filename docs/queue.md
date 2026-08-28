@@ -436,6 +436,16 @@ exist.
   rather than instead of it. A `where` that is a shell command stays a command
   — not everything is a page — so the field holds one or the other and the
   renderer tells them apart rather than guessing.
+- **Two bulk buttons on `⚑ TO CHECK`, and they must not look alike.** The
+  owner asked for a *tested all* button, and it is the right tool for a page
+  read in one sitting: you look at eight cards, they are all fine, and ticking
+  them one at a time is the reason none of them get ticked. It writes `PASS`,
+  and it must say how many it is about to pass. Beside it a second, plainer
+  control writes `CLEARED` — the verdict that means *nobody looked and this is
+  closed anyway*, which the ledger gained when a backlog of forty-nine was
+  reset in one sweep. **Do not let one button do both.** `PASS` is a claim
+  about the game and `CLEARED` is a decision about the list, and a control that
+  blurs them fills `docs/verified.md` with sentences that are not true.
 - **The report gets shorter, not longer.** Today it prints the trailer, a
   derived hint and five restatement fields for every one of fifty-odd entries.
   Lead with the question and where to stand; put the rest behind a flag. Say in

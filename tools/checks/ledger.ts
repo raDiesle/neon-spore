@@ -20,7 +20,19 @@
  * carries em dashes of its own; put it last and nothing after it is parseable.
  */
 
-export type Verdict = "PASS" | "FAIL";
+/**
+ * `PASS` and `FAIL` mean somebody looked. **`CLEARED` means nobody did, and
+ * the check is closed anyway** — the owner has decided the matter is over
+ * without it being answered.
+ *
+ * The third value exists because writing `PASS` for something unlooked-at is
+ * a lie in a file whose whole job is recording answers, and a ledger that
+ * lies is worth less than no ledger. Closing a check is legitimate: a backlog
+ * that has grown past reading is not a to-do list, it is furniture, and
+ * clearing it is a real decision an owner is allowed to make. It is simply
+ * not the same decision as having looked.
+ */
+export type Verdict = "PASS" | "FAIL" | "CLEARED";
 
 export interface Decision {
   /** The commit the check was written on, as the trailer had it. */
@@ -29,11 +41,11 @@ export interface Decision {
   verdict: Verdict;
   /** The check's text, stored in full so the log reads without the history. */
   text: string;
-  /** Why it failed. Empty for a pass. */
+  /** Why it failed, or why it was cleared unlooked-at. Empty for a pass. */
   note: string;
 }
 
-const ENTRY = /^- `([0-9a-f]+)` (\d{4}-\d{2}-\d{2}) (PASS|FAIL) — (.*)$/;
+const ENTRY = /^- `([0-9a-f]+)` (\d{4}-\d{2}-\d{2}) (PASS|FAIL|CLEARED) — (.*)$/;
 const NOTE = /^ {2}- (.*)$/;
 
 export function parseLedger(md: string): Decision[] {

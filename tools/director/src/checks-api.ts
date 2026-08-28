@@ -95,7 +95,8 @@ export async function checksDecide(root: string, req: Request): Promise<Response
       verdict: Verdict;
       note?: string;
     };
-    if (body.verdict !== "PASS" && body.verdict !== "FAIL") throw new Error("PASS or FAIL");
+    if (body.verdict !== "PASS" && body.verdict !== "FAIL" && body.verdict !== "CLEARED")
+      throw new Error("PASS, FAIL or CLEARED");
     await writeDecision(root, {
       sha: body.sha,
       date: today(),
