@@ -1,4 +1,5 @@
 import { CORE } from "./core.js";
+import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
@@ -28,7 +29,21 @@ import { VEIN_PULSE } from "./vein-pulse.js";
  * card can show an interior nobody can vote on whether an interior is worth
  * having. `docs/skins.md` has the four rules an author works to.
  */
-export const SKINS = [LINE, MEMBRANE, CORE, VEIN, VEIN_PULSE] as const;
+export const SKINS = [LINE, MEMBRANE, CORE, VEIN, VEIN_PULSE, LIGHT] as const;
+
+// LIGHT goes last and stands apart from the four before it. Those are one
+// picture with one thing added each time; this one is the same contour under a
+// key light, and it is on the switcher so the light can be taken *off* — CORE
+// is the honest baseline it has to beat, and the only way to know whether a
+// light does the work is to remove it and look.
+export {
+  contactPass,
+  KEY,
+  litPass,
+  rimLightPass,
+  specularPass,
+  terminatorPass,
+} from "./light.js";
 
 /** The id of a skin that exists, derived from the registry and never typed. */
 export type SkinId = (typeof SKINS)[number]["id"];
