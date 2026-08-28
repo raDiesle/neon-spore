@@ -519,6 +519,20 @@ rest standing.
 - what is still in flight and where its worktree is;
 - any question a lane stopped on.
 
+**Send pictures instead.** The owner asked for them: *you can send me
+screenshots of some results and I could optional already review and give
+feedback.* That is the opposite of the list — a list asks them to go and look,
+a picture is already looked at by the time they read the line under it. So when
+a landing changed something visible and a frame can be captured, attach it to
+the report and say in one sentence what to look at. Optional for them, never a
+question they have to answer.
+
+Two rules keep it useful rather than noisy. **One picture per landing at most**,
+and none at all when nothing visible moved — a refactor with a screenshot of an
+unchanged field teaches nothing and trains the eye to skip them. And **it is the
+real frame**, never a diagram or a mock: the whole value is that it is what the
+game actually drew.
+
 **Do not raise the outstanding checks.** Not as a list, not as a closing line,
 not as a suggestion that four of them could be settled in one pass. The owner
 said so: *don't remind me or block you about missing checks any longer.* They
