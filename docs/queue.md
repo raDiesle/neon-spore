@@ -84,6 +84,127 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THE PANEL STILL HAS THE LANCE ON EVERY WAVE, WHICH IS THE THING THAT LANDED
+_claude/burn-controlset-apply-y1 · packages/render/src/band.ts packages/render/src/layout.ts packages/render/src/touch.ts_
+
+The owner, testing the control-set lane an hour after it landed, and marking
+its check FAIL:
+
+> in director testing game mode, still every wave has the "lance" control for
+> player 1.
+
+**The registry landed and nothing reads it.** `control-sets.ts` exists, `Wave`
+carries `controls?`, `band.ts` was rewritten to walk a set — and the panel the
+owner is looking at still draws three buttons on every wave. So the set is not
+reaching the drawing, and the first job is to find out where it stops: the wave
+not naming one, the world not carrying the wave's choice, the director's
+testing mode building its own world by another route, or `band.ts` falling back
+to a default that happens to include the lance. **Find the break before writing
+anything**, and say in the commit which of those it was.
+
+**Then finish the half the lane refused, because it is the same half.** That
+lane stopped deliberately: with the lance gone, player 1's panel is two lobes
+in three slots and reads left-weighted, and centring them means `layout.ts`
+computing the circles from the set while `touch.ts` reads those same circles.
+Drawing a button off its hit region is the failure both files exist to prevent,
+so they move together — and they are yours, together, here.
+
+**A wrong panel is worse than an ugly one.** A test has to prove that what is
+drawn and what is touchable are the same set, for every registered set, not
+just for the two that exist today.
+
+Finished when `bun run check` is green, a wave with no set shows a panel with
+no lance in the director's testing game mode, the lance wave shows its own,
+every set's buttons are centred and hit where they are drawn, a test ties the
+drawing to the hit regions, and the commit carries `Check: playing a wave that
+does not ask for the lance, is player 1's panel two centred buttons with no
+gap where a third used to be?`
+
+Model `opus`, effort `think hard`. The diagnosis is the lane; read
+`packages/content/src/control-sets.ts` and the commit that landed it, then
+follow the value from `Wave.controls` to the pixel and find where it is
+dropped.
+
+## THE WAVE EDITOR CANNOT SET A CONTROL SET, OR SHOW WHICH ONE IS ON
+_claude/burn-controlset-editor-y2 · tools/director/src/controlsets-page.ts tools/director/src/ship-fields.ts_
+
+The owner, marking the same lane's second check FAIL:
+
+> i dont see in wave configuration where to configure the control set for the
+> wave and what is active one.
+
+Correct, and it was never built: the lane put `controls?` on `Wave` and taught
+`serialize.ts` to keep it through a save, which means the field survives being
+set and there is nothing that sets it. A field only an editor of files can
+reach is a field the owner does not have.
+
+**One control, where the wave's other choices already are.** The wave editor
+already carries the boss, and a control set sits at exactly the same level —
+*this wave is not the ordinary thing*. Put it there, defaulting to the standard
+set, listing every registered set by the name a person reads, and saying which
+is active without being opened.
+
+**And the page per set, which is the lane this replaces.** The earlier brief
+asked for a director page documenting each set — what is in it, which waves use
+it, what each control does in one line, and the panel drawn as it will appear
+rather than described. Keep that; it is what makes the picker mean anything,
+because a name in a dropdown does not say what the pair will have in their
+hands.
+
+**The rail marking too.** A wave carrying a non-default set is marked in the
+wave list, in the same vocabulary as the boss mark and distinguishable from it
+at a glance. The card-assignment lane will add a third; leave room for it
+rather than taking the only remaining shape.
+
+Finished when `bun run check` is green, a wave's control set is picked in the
+wave editor and visible without opening anything, every registered set has a
+page showing its panel and its waves, the wave list marks a wave that uses one,
+a save round-trips the choice, and the commit carries `Check: looking at a wave
+in the editor, can you tell which controls the pair will have without starting
+it?`
+
+Model `sonnet`, effort `think hard`. Read how the boss is picked in the wave
+editor and copy that shape exactly; the lane is one field, one page and one
+mark, and inventing a new interaction for it would be the mistake.
+
+## THE ROCK STILL GOES INTO THE SHIP, AFTER THE RULE SAYS IT SHOULD NOT
+_claude/burn-deflect-draw-y3 · packages/render/src/deflect.ts packages/render/src/creatures.ts_
+
+The owner, on the shield fix, marking one check PASS and the other FAIL:
+
+> I still see the rock goes into the ship (on cannon position). i can handle
+> myself later.
+
+**The rule is right and the picture is not, which is now provable.** The
+simulation answers a rock at `shieldRow`, one row above the hull, and the
+owner's other check — the cannon's column having no bearing — passed. So what
+is left is drawing: the rock is still painted arriving at the ship before, or
+while, the deflect is shown.
+
+**Where to look, in order.** Whether the creature is drawn at its row for the
+tick it is removed on; whether the deflect effect starts from the hull rather
+than from the shield's surface; and whether the last drawn position of a
+deflected rock is interpolated toward the hull by a smoothing that does not
+know the rock stopped. One of those three is it.
+
+**The owner said they can handle it later, which is not a reason to leave it.**
+It is a reason not to gold-plate it: fix the position the rock is drawn at,
+prove it, and leave the rubber-bounce animation to its own lane, which is
+already queued behind this one.
+
+**Drawing only.** Nothing in `packages/sim` moves. If the diagnosis turns out
+to be in the rule after all, stop and report it rather than editing a file this
+lane does not own.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, a deflected rock is never drawn below the shield's surface,
+and the commit carries `Check: watching a rock get deflected, does it turn back
+before it touches the ship?`
+
+Model `sonnet`, effort `think hard`. Read the shield-fix commit for where
+`shieldRow` is, then how a creature's row becomes a y coordinate, then
+`deflect.ts`.
+
 ## THE PAGE OPENS ON SIXTY BODIES WHEN THE QUESTION IS ONE BODY
 _claude/burn-shapes-default-x12 · tools/director/src/shapes-page-app.ts tools/director/src/shapes-all.ts_
 
@@ -140,38 +261,6 @@ Model `sonnet`, effort `think hard`. Read `shapes-page-app.ts`, then
 `shapes-all.ts` and `shapes-controls.ts`. **A performance lane owns
 `shape-figure.ts` and `skins/cilia.ts` right now — do not touch either**, and
 expect to replay over its work if it lands first.
-
-## EVERY CONTROL SET GETS A PAGE, AND A WAVE THAT USES ONE SAYS SO ON THE RAIL
-_claude/burn-controlsets-page-x3 · tools/director/src/controlsets-page.ts_
-
-The other half of the owner's ask, and it is a director lane rather than a game
-one:
-
-> every control variant should also be documented in separate director page to
-> look up and test and see. come up with another marking like you did for
-> bosses, so its clear that lane has special type of controlset configured.
-
-**A page per set is not a table of sets.** The ask is *look up, test, and see*:
-what is in the set, which waves use it, what each control does in one line, and
-the panel itself drawn as it will appear — not described. The BOSSES tab is the
-model for the shape.
-
-**The rail marking follows the boss marking exactly.** A wave carrying a boss
-is already marked on the rail; a wave carrying a non-default control set gets
-its own mark in the same vocabulary, distinct enough that the two do not read
-as one thing at a glance. Do not invent a second marking system beside the
-existing one.
-
-**This sits behind `claude/burn-controlsets-x2`** and cannot start before it:
-there is nothing to draw a page of until sets exist. Read whatever that lane
-landed rather than the brief above it.
-
-Finished when `bun run check` is green, every registered set has a page showing
-its panel and its waves, a wave using one is marked on the rail, and the commit
-carries `Check: from the control-set page alone, can you tell what the pair can
-do on that wave without opening the game?`
-
-Model `sonnet`, effort `think hard`. Read the BOSSES tab and `rail.ts` first.
 
 ## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
 _claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts_
