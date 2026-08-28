@@ -141,68 +141,6 @@ Model `sonnet`, effort `think hard`. Read `shapes-page-app.ts`, then
 `shape-figure.ts` and `skins/cilia.ts` right now — do not touch either**, and
 expect to replay over its work if it lands first.
 
-## CILIA IS REVERTED, AND THE PAGE STILL HAS TO BECOME FLUENT
-_claude/burn-shapes-fluent-x10 · tools/director/src/skins/cilia.ts tools/director/src/shape-figure.ts_
-
-The owner, on the lane that landed and was reverted within the hour:
-
-> the "cilia" change made it worse. it looks like its stucking, updating the
-> screens like every 3 seconds freezing. find other ways to improve performance
-> so it looks fluent and doesnt kill cpu/gpu/memory.
-> the "cilia" page is crashing my browser. i suggest you work on it on a single
-> shape.
-
-**`main` is back on the DOM ruler.** The revert has landed, so the tab is slow
-again and usable again, and this lane starts from the original problem rather
-than from the broken fix. Read that reverted commit before starting: it is one
-way this can be done, it was eleven times faster in a harness, and it crashed a
-browser. Both halves of that are information.
-
-**The measurement was of the wrong thing, and that is the lesson.** A mean
-frame cost over sixty synthetic cards went from 940 ms to 84 ms. A page that
-hitches every three seconds and then dies is not described by a mean — it is a
-distribution with a tail, and the tail was never looked at. **Never land a
-speed claim on an average again**: the longest frame, the 95th percentile, and
-how often a frame goes over 16 ms.
-
-**A pause on a schedule followed by a crash is memory, not arithmetic.** Sixty
-cards each building a fresh sixty-four-point table sixty times a second is a
-quarter of a million short-lived objects a second; that is a garbage collector
-running on a timer, and a page that also holds tens of thousands of live SVG
-nodes is one that eventually cannot. Prove it from a real trace before fixing
-it, but that is where to look first, and *allocated once and written into* is
-the shape of the answer.
-
-**Work on one shape, because the owner said so and because it is right.** One
-card, one body, one fringe — get a steady frame there and understand exactly
-what each frame costs, before anything is asked to do it sixty times. A change
-validated on one card and then measured on sixty is the honest order; the
-reverted lane did the opposite and never looked at a real page at all.
-
-**Then look past CILIA, because the ask is a fluent page.** Sixty bodies
-animate every frame whether or not they are on screen — a parked entry has
-recorded this tab's element count since before any of this, and nobody had felt
-it until today. A card nobody can see does not need a frame; an
-`IntersectionObserver` is the obvious tool. Say what fraction of the sixty are
-typically visible, because that number decides whether this is the answer or a
-footnote.
-
-**Reverting again is allowed and is not a defeat.** If an interpolated fringe
-cannot be made smooth, leave the ruler in place and take the cost out
-elsewhere. The complaint was never a hundred `getPointAtLength` calls; it was a
-page that does not move.
-
-Finished when `bun run check` is green, one card holds a steady frame and the
-full tab holds one too, the commit carries a before-and-after frame-time
-*distribution* measured on the real page at `DIRECTOR_HOST=127.0.0.1 bun run
-dev` rather than a mean, nothing about the fringe's look changed, and it
-carries `Check: with every card on the SHAPES tab moving, does the page run
-smoothly instead of catching every few seconds?`
-
-Model `opus`, effort `think harder`. The lane before this one optimised the
-thing it had already decided was the problem, measured that thing, and shipped
-a page that crashes. Read the frame-time trace before reading any code.
-
 ## EVERY CONTROL SET GETS A PAGE, AND A WAVE THAT USES ONE SAYS SO ON THE RAIL
 _claude/burn-controlsets-page-x3 · tools/director/src/controlsets-page.ts_
 
