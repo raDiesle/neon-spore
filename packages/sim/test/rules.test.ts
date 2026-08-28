@@ -115,7 +115,11 @@ describe("the shield", () => {
 
   it("counts the right column at the wrong moment separately", () => {
     // The interesting failure: they agreed on where and missed on when.
-    const early = IMPACT_TICK - Math.round((CFG.guardWindowMs / 1000) * CFG.tickHz) - 30;
+    // Measured back from the beat the rock meets the *shield*, one row above
+    // the hull — that is the moment the trigger is judged against now, so a
+    // press 30 ticks past the edge of the window has to be 30 ticks past
+    // that edge and not the ship's (`shieldRow`, sim/hull.ts).
+    const early = IMPACT_TICK - TPB - Math.round((CFG.guardWindowMs / 1000) * CFG.tickHz) - 30;
     const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 5), guard(early)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);

@@ -1,23 +1,52 @@
 import { markMoment } from "./balance.js";
-import { hullRow } from "./config.js";
+import { hullRow, type SimConfig } from "./config.js";
 import { forkOpen } from "./fork.js";
 import { type Creature, colSpan, isMeteorKind, occupiesCol, spanCenterCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
+
+/**
+ * The row the shield answers a rock on: one above the ship's own.
+ *
+ * The shield is not painted on the hull, it stands off it — a closed dome
+ * whose crown sits about a third of a tile above the hull row's centre, which
+ * is roughly where a rock's underside first touches something. So a rock that
+ * is only tested when it stands *on* the ship has already gone through the
+ * thing that was supposed to turn it, and both of the things the owner
+ * reported follow from that: the trigger does nothing at the moment the rock
+ * meets the shield, and a rock that is turned turns from inside it.
+ *
+ * A rule rather than `hullRow(cfg) - 1` written out where it is needed —
+ * that shape is a second copy of where the shield is, and it will drift.
+ */
+export function shieldRow(cfg: SimConfig): number {
+  return Math.max(0, hullRow(cfg) - 1);
+}
 
 /**
  * Check for impacts at the hull. Creatures that reach the hull row either
  * damage it (normal creatures and undeflected meteors) or are deflected
  * (meteors when the shield is in column and player 1 triggered it in time).
  *
- * Guard tries always increments for a meteor. Deflected, mistimed count the
- * two failure states that matter for learning (docs/spec/systems.md 5.8).
+ * A rock is asked the shield's question a row early, at `shieldRow` — that is
+ * where the shield is, and a rock nobody answers there sinks into it and is
+ * asked again on the ship's own row, which is the last beat there is. So
+ * nothing that used to be saveable stops being saveable; what changes is that
+ * a rock answered in time now turns at the surface instead of at the plating.
+ *
+ * Guard tries always increments for a meteor, once, on the beat it leaves the
+ * field — turned away or not. Deflected and mistimed count the two failure
+ * states that matter for learning (docs/spec/systems.md 5.8).
  */
 export function resolveHull(world: World): void {
   const survivors: Creature[] = [];
   const shipRow = hullRow(world.cfg);
+  const guardRow = shieldRow(world.cfg);
 
   for (const c of world.creatures) {
-    if (c.row < shipRow) {
+    // A rock is in reach of the shield a row before it is in reach of the
+    // hull. Nothing else is: the shield has nothing to say to a slick, a
+    // tether or a boss, so those are still only resolved on the ship's row.
+    if (c.row < (isMeteorKind(c.kind) ? guardRow : shipRow)) {
       survivors.push(c);
       continue;
     }
@@ -41,9 +70,9 @@ export function resolveHull(world: World): void {
       const inTime =
         (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
         world.tick <= world.wardUntilTick;
-      world.guard.tries += 1;
 
       if (inColumn && inTime) {
+        world.guard.tries += 1;
         world.guard.deflected += 1;
         markMoment(world, true);
         world.score += world.cfg.scoreDeflect;
@@ -56,6 +85,18 @@ export function resolveHull(world: World): void {
         });
         continue;
       }
+      // Nobody turned it at the surface, so it is inside the shield now. That
+      // is not the end of it: the ship's own row is still a beat away for a
+      // rock that falls one tile a beat, and a trigger that arrives in that
+      // beat still saves the hull, exactly as it did before this row moved.
+      // Nothing that used to be answerable stopped being answerable.
+      if (c.row < shipRow) {
+        survivors.push(c);
+        continue;
+      }
+      // It leaves the field here, so this is where it counts as a try — once,
+      // whichever of the two rows it was finally answered on.
+      world.guard.tries += 1;
       if (inColumn) world.guard.mistimed += 1;
       markMoment(world, false);
       damageSpan(world, c, world.cfg.damageMeteor);
