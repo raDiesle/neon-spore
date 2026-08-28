@@ -36,6 +36,31 @@ export interface ChecksView {
   runnable: number;
   /** Commits on origin's main this checkout has not pulled. */
   behind: number;
+  /** `git rev-parse --short HEAD` — what a VERSUS vote was cast against. */
+  head: string;
+  /** Whether anything is uncommitted. A vote against a dirty tree names a
+   * state nobody else can get back to, so the pair says so on the record. */
+  dirty: boolean;
+}
+
+/**
+ * The two facts the VERSUS tab needs and no route of its own exists for.
+ *
+ * `docs/versus.md` refused a `GET /api/versus` on the grounds that
+ * `/api/checks` is already fetched by a page that is already open — so these
+ * are two more fields on the view it answers with, rather than a second
+ * endpoint doing one `git` call each. Neither is fatal to miss: a checkout
+ * with no git at all still gets a page, and the record says `unknown`.
+ */
+async function headOf(root: string): Promise<{ head: string; dirty: boolean }> {
+  const read = async (args: string[]): Promise<string | null> => {
+    const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "ignore" });
+    const out = await new Response(proc.stdout).text();
+    return (await proc.exited) === 0 ? out : null;
+  };
+  const head = await read(["rev-parse", "--short", "HEAD"]);
+  const status = await read(["status", "--porcelain"]);
+  return { head: head?.trim() || "unknown", dirty: status === null || status.trim() !== "" };
 }
 
 async function view(root: string): Promise<ChecksView> {
@@ -44,6 +69,7 @@ async function view(root: string): Promise<ChecksView> {
   return {
     checks,
     branches,
+    ...(await headOf(root)),
     behind: (await trunk(root)).behind,
     left: outstanding(checks).length,
     ready: branches.filter(branchReady).length,

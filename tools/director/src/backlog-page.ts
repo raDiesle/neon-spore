@@ -22,6 +22,7 @@ import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
 import { renderSpec } from "./spec.js";
 import { bindTabs } from "./tabs.js";
+import { drawVersus, mountVersusTab } from "./versus-page.js";
 
 interface BacklogEntry {
   name: string;
@@ -198,6 +199,9 @@ export function bindBacklog(): void {
   // `card-page.ts`. It has to be mounted before `bindTabs` runs, so a click
   // on it is wired the same way a click on BESTIARY or SPEC is.
   mountCardTab();
+  // VERSUS is a third such tab — see `versus-page.ts`. Two live renderers
+  // against one stepped world, so it is lazy for the same reason CARDS is.
+  mountVersusTab();
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 
   /**
@@ -217,6 +221,7 @@ export function bindBacklog(): void {
   for (const tab of document.querySelectorAll<HTMLElement>("#backlogTabs button")) {
     if (tab.dataset.tab === "shapes") tab.addEventListener("click", drawShapes);
     if (tab.dataset.tab === "cards") tab.addEventListener("click", drawCards);
+    if (tab.dataset.tab === "versus") tab.addEventListener("click", drawVersus);
   }
 
   const show = (on: boolean): void => {

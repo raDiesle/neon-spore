@@ -493,6 +493,47 @@
       .sheetpage > .note { max-width: 620px; }
       .sheetpage h2 { color: var(--cyan); letter-spacing: 3px; font-size: 11px; margin: 18px 0 2px; }
 
+      /* VERSUS — two phones, one world. See `versus-page.ts` for the sheet and
+         `versus-pair.ts` for the invariant it exists to hold. One rule governs
+         every length here: neither canvas is ever scaled to fit. 380 CSS
+         pixels is the phone, and a pair that shrank to suit the window would
+         answer the 26 px question by making it unanswerable — so the stage
+         scrolls sideways instead. */
+      .versus-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 6px; }
+      .versus-bar select { width: auto; min-width: 92px; }
+      .versus-patch { display: flex; flex-direction: column; gap: 2px; color: var(--dim); font-size: 9px; margin: 0 0 10px; }
+      .versus-stage { position: relative; display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px; }
+      .versus-side { flex: 0 0 auto; }
+      /* The name stays above its own phone and keeps its height whichever
+         candidate is up, so the reason field below does not walk up the page
+         while somebody is typing into it. */
+      .versus-name { max-width: 380px; min-height: 26px; margin-bottom: 4px; color: var(--ink); font-size: 9px; letter-spacing: 1px; line-height: 1.4; }
+      .versus-side canvas { display: block; border: 1px solid var(--line); border-radius: 8px; background: #05040b; }
+      /* BLINK: both canvases in one grid cell — perfect registration, both
+         still drawn every frame, one of them transparent. A grid rather than
+         absolute positioning so the stage keeps the pictures' own height and
+         2x does not have to be told about it. */
+      .versus-stage.is-blink { display: grid; justify-content: start; }
+      .versus-stage.is-blink .versus-side { grid-area: 1 / 1; }
+      .versus-stage.is-blink .versus-name { display: none; }
+      .versus-tag { display: none; }
+      .versus-stage.is-blink .versus-tag {
+        display: block; position: absolute; top: 10px; left: 10px; z-index: 2;
+        padding: 3px 7px; border: 1px solid var(--gold); border-radius: 5px;
+        background: rgba(7, 6, 15, 0.82); color: var(--gold);
+        letter-spacing: 3px; font-size: 10px;
+      }
+      .versus-vote { margin-top: 14px; max-width: 620px; }
+      .versus-vote textarea { min-height: 52px; resize: vertical; }
+      .versus-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .versus-cast { color: var(--gold); border-color: var(--gold); }
+      .versus-banner { display: none; }
+      .versus-banner.on {
+        display: block; margin-top: 10px; padding: 10px 12px;
+        border: 1px solid var(--red); border-radius: 6px;
+        color: var(--red); letter-spacing: 2px; font-size: 11px; line-height: 1.5;
+      }
+
       /* One group per column, kept whole — and a column width rather than the
          full screen, because a 1600px line of prose is unreadable however
          much room there is. */
