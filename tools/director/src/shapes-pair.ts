@@ -1,36 +1,23 @@
 /**
- * What every card on the SHAPES tab is wearing, and — the point of this file —
- * the option of wearing two things at once.
+ * What every card on the SHAPES tab is wearing: one skin, one light, one
+ * forced motion, for the whole page rather than per card.
  *
- * The skin bar is exclusive: pick MOUNTED SCALE and SCALE is gone. So the one
- * question every skin lane landed a `Check:` about — *does the mounted one go
- * round, or does the flat one already read?* — could only be answered by
- * flipping, from memory, one look at a time. Memory is not a comparison; it is
- * a preference for whichever was seen last. `docs/decisions.md` #24 is the
- * owner's rule against exactly that: every alternative comparable in the
- * director, at the same time, without leaving the application.
+ * This file briefly held a second skin — B, beside A — so a card could draw
+ * its contour twice and answer `docs/decisions.md` #24's question: does the
+ * mounted texture read differently from the flat one, side by side rather
+ * than by flipping. It did that job and was checked. It comes out now because
+ * the owner has since said plainly what SHAPES is for: click a skin, see it
+ * on all the shapes, nothing else on the card. Comparing twenty skins on one
+ * body is `shapes-all.ts`'s job, on its own page — a second half squeezed
+ * onto every one of sixty cards was never the right home for it, and now that
+ * the real home exists the half comes off.
  *
- * So there is a B skin beside the A skin, and a card wearing both draws its
- * contour twice. Not a blink toggle — blink is right where two looks occupy
- * the *same* pixels and differ by a colour, which is what the VERSUS pair is
- * for. Two skins differ in structure, and structure is read side by side.
- *
- * **Both halves are on one clock without arranging anything.** Every figure on
- * the page is driven by the single loop in `shape-figure.ts`, which reads
- * `performance.now()` once per frame and hands the same `t` to all of them. A
- * pair drawn from the same entry with the same motion is therefore in phase by
- * construction — if it were not, the difference being read would be phase.
- *
- * **Neither half is shrunk to make room.** Measured over the whole catalogue
- * at the 92 px card: every one of the 49 square cards draws a body at least
- * 26 px on its long axis, and halving the frame to 46 px puts 32 of those 49
- * under 26 px and 17 of them under 20 px — under the floor
- * `docs/spec/graphics.md` sets for a body to stay nameable. A pair of
- * unreadable halves is a confident answer to the wrong question, so the card
- * gets wider instead and the row fits fewer of them. The long shapes — hulls
- * and arcs, already on a 620 px frame — stack their pair instead of splitting
- * it, which costs height nobody is short of and aligns the two along the same
- * axis, where a difference along a span is easiest to see.
+ * `shapes-all.ts` still needs to know what the page's controls currently say
+ * — a skin grid is read against whatever light and motion the bar is set to,
+ * same as a motion grid is read against whatever skin is picked — so the
+ * three getters at the bottom are exported for it. Nothing else outside this
+ * file may write these three; the control row below is the only place they
+ * change.
  */
 
 import type { OwnMotion } from "@neon-spore/content";
@@ -39,19 +26,10 @@ import { shapeFigure } from "./shape-figure.js";
 import { SKINS, type SkinId } from "./skins/index.js";
 
 /**
- * Which skin every card is wearing, for the whole page rather than per card:
- * the question is a comparison, and a page where three cards are lit and the
- * rest are wireframes says which cards somebody clicked. MEMBRANE rather than
- * LINE, because the outline is the control and a control is switched *to*.
+ * Which skin every card is wearing. MEMBRANE rather than LINE, because the
+ * outline is the control and a control is switched *to*.
  */
 let skinA: SkinId = "membrane";
-
-/**
- * The second skin, or none. `undefined` is the default and it has to be: with
- * B off the page is exactly the page that was there before this existed, and
- * pairing is something a reader turns on for one question.
- */
-let skinB: SkinId | undefined;
 
 /**
  * Whether the key light is on, for every card at once — orthogonal to the
@@ -66,8 +44,7 @@ let lit = true;
  * Which own-motion drives every card, overriding each card's own. `undefined`
  * is a real choice ("OWN") and not the absence of one — it is the behaviour
  * before this bar existed, and it is the default so nothing moves differently
- * until something is picked. Both halves of a pair take it, or the two would
- * differ by motion as well as by skin.
+ * until something is picked.
  */
 let motion: OwnMotion | undefined;
 
@@ -76,9 +53,19 @@ export function driving(entry: CatalogueEntry): OwnMotion | undefined {
   return motion ?? entry.motion;
 }
 
-/** Whether a second skin is picked — the card is wider when it is. */
-export function paired(): boolean {
-  return skinB !== undefined;
+/** The skin the whole page is currently wearing. */
+export function currentSkin(): SkinId {
+  return skinA;
+}
+
+/** Whether the key light is currently on. */
+export function currentLit(): boolean {
+  return lit;
+}
+
+/** The motion currently forced on every card, or `undefined` for OWN. */
+export function currentMotion(): OwnMotion | undefined {
+  return motion;
 }
 
 function button(host: HTMLElement, label: string, on: boolean, hint: string, pick: () => void) {
@@ -112,24 +99,10 @@ function tag(host: HTMLElement, body: string): void {
  */
 export function controlBar(host: HTMLElement, rerender: () => void): void {
   host.replaceChildren();
-  tag(host, "A");
+  tag(host, "SKIN");
   for (const s of SKINS)
     button(host, s.label, s.id === skinA, s.hint, () => {
       skinA = s.id;
-      rerender();
-    });
-
-  // The second skin, its own segment. OFF first and default: a page that
-  // silently drew everything twice would be answering a question nobody asked,
-  // and the pair costs a card a hundred pixels of width.
-  tag(host, "B");
-  button(host, "OFF", skinB === undefined, "one skin per card, as before", () => {
-    skinB = undefined;
-    rerender();
-  });
-  for (const s of SKINS)
-    button(host, s.label, s.id === skinB, `${s.hint} — drawn beside the A skin`, () => {
-      skinB = s.id;
       rerender();
     });
 
@@ -168,44 +141,22 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
     });
 }
 
-function half(entry: CatalogueEntry, box: number, width: number, stroke: string, skin: SkinId) {
-  const col = document.createElement("div");
-  col.style.cssText = "display:flex;flex-direction:column;gap:2px;flex:0 0 auto;min-width:0";
-  col.appendChild(shapeFigure(entry, { box, width, stroke, skin, lit, motion }));
-  const label = document.createElement("span");
-  label.textContent = SKINS.find((s) => s.id === skin)?.label ?? skin;
-  label.style.cssText = "font-size:8px;letter-spacing:1px;color:#574d84;text-align:center";
-  col.appendChild(label);
-  return col;
-}
-
 export interface PictureOptions {
   box: number;
   /** The frame's width — `box` for a square card, wider for a long shape. */
   width: number;
   stroke: string;
-  /** A long shape stacks its pair rather than splitting the width. See above. */
-  wide: boolean;
 }
 
-/**
- * The card's picture: one figure, or two of them at the same size when a B
- * skin is picked. Neither is scaled down — see the measurement at the top.
- */
+/** The card's picture: one figure, at the skin, light and motion the page's
+ * controls currently say. */
 export function picture(entry: CatalogueEntry, o: PictureOptions): Element {
-  if (skinB === undefined) {
-    return shapeFigure(entry, {
-      box: o.box,
-      width: o.width,
-      stroke: o.stroke,
-      skin: skinA,
-      lit,
-      motion,
-    });
-  }
-  const wrap = document.createElement("div");
-  wrap.style.cssText = `display:flex;gap:6px;flex:0 0 auto;flex-direction:${o.wide ? "column" : "row"}`;
-  wrap.appendChild(half(entry, o.box, o.width, o.stroke, skinA));
-  wrap.appendChild(half(entry, o.box, o.width, o.stroke, skinB));
-  return wrap;
+  return shapeFigure(entry, {
+    box: o.box,
+    width: o.width,
+    stroke: o.stroke,
+    skin: skinA,
+    lit,
+    motion,
+  });
 }

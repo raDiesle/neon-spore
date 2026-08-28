@@ -20,33 +20,31 @@
  * The fitting and the animation are `shape-figure.ts`'s. They were this file's
  * until the backlog page needed the same picture beside the idea each draft
  * was drawn for, and a second copy of a frame-fitting algorithm is a second
- * answer to "does this card clip". What a card is *wearing* — the A skin, the
- * B skin it is compared against, the light and the forced motion — is
- * `shapes-pair.ts`'s, and so is the control row that picks them. This file is
- * left with the catalogue's own business: which cards, in which order, with
- * what written beside them.
+ * answer to "does this card clip". What a card is *wearing* — the skin, the
+ * light and the forced motion — is `shapes-pair.ts`'s, and so is the control
+ * row that picks them. This file is left with the catalogue's own business:
+ * which cards, in which order, with what written beside them — plus, at the
+ * foot of the page, the three grids `shapes-all.ts` draws: the transpose of
+ * this page's sixty-bodies-one-skin, one body in every skin, every motion and
+ * both light states at once. See that file for why it is a separate page
+ * rather than a fourth column on every card here.
  */
 
 import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { isWide } from "./shape-figure.js";
-import { controlBar, driving, paired, picture } from "./shapes-pair.js";
+import { renderShapesAll } from "./shapes-all.js";
+import { controlBar, driving, picture } from "./shapes-pair.js";
 
 const BOX = 92;
 /** The frame a long shape gets instead of the square one — see `isWide`. */
 const WIDE = 620;
 
-/**
- * A square card, and the same card once it is drawing its contour twice.
- *
- * The pair is not made by halving: measured over the catalogue, halving the
- * 92 px frame puts 32 of the 49 square cards under the 26 px the spec asks for
- * and 17 of them under 20 px, which is a comparison of two things neither of
- * which can be read. So the card grows by a second frame and a gap, the row
- * fits fewer of them, and both halves stay the size they are judged at.
- */
-const CARD = 330;
-const PAIRED_CARD = CARD + BOX + 6;
+// The square card's width is 330px, set in the stylesheet (`.shape`). It
+// briefly grew to 428px (330 + BOX + 6) when a second skin was picked beside
+// the first — see `shapes-pair.ts`'s history — and is 330 again now that the
+// pair is gone, so a row holds a card more than it did while the pair
+// existed.
 
 const STROKE: Record<CatalogueEntry["status"], string> = {
   draft: "var(--cyan)",
@@ -77,12 +75,8 @@ function card(entry: CatalogueEntry): HTMLElement {
   // the middle of it and six inches of nothing either side.
   const wide = isWide(entry);
   if (wide) div.classList.add("is-wide");
-  // A long card is already 686 px and stacks its pair, so only the square one
-  // has to grow. Set here rather than in the stylesheet because whether a card
-  // is paired is a page state, not a kind of card.
-  else if (paired()) div.style.width = `${PAIRED_CARD}px`;
   div.appendChild(
-    picture(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status], wide }),
+    picture(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status] }),
   );
 
   const side = document.createElement("div");
@@ -140,4 +134,6 @@ export function renderShapes(): void {
     "shapesTaken",
     CATALOGUE.filter((e) => e.status === "taken"),
   );
+
+  renderShapesAll();
 }
