@@ -14,7 +14,18 @@
  */
 
 import { renderBranches } from "./checks-branches.js";
-import { button, type CheckState, type ChecksView, el, post, restatedLines } from "./checks-dom.js";
+import {
+  button,
+  type CheckState,
+  type ChecksView,
+  decideAllButtons,
+  decideAllClick,
+  el,
+  failRow,
+  post,
+  restatedRows,
+  runAllCommand,
+} from "./checks-dom.js";
 import { inline } from "./markdown.js";
 
 let view: ChecksView | null = null;
@@ -41,25 +52,6 @@ function take(result: Record<string, unknown>): void {
     paintCount();
     render();
   }
-}
-
-/** Asking why it failed inline, because a FAIL with no reason is a shrug. */
-function failRow(row: HTMLElement, check: CheckState): void {
-  const box = el("div", "check-fail");
-  const input = document.createElement("input");
-  input.placeholder = "what was wrong?";
-  const confirm = button("RECORD FAIL", "primary");
-  confirm.addEventListener("click", () => {
-    void post("/api/checks/decide", {
-      sha: check.sha,
-      text: check.text,
-      verdict: "FAIL",
-      note: input.value,
-    }).then(take);
-  });
-  box.append(input, confirm);
-  row.appendChild(box);
-  input.focus();
 }
 
 function renderCheck(check: CheckState): HTMLElement {
@@ -101,7 +93,7 @@ function renderCheck(check: CheckState): HTMLElement {
       }).then(take);
     });
     const fail = button("✗ FAILED");
-    fail.addEventListener("click", () => failRow(row, check));
+    fail.addEventListener("click", () => failRow(row, check, take));
     head.append(pass, fail);
   }
 
@@ -110,10 +102,12 @@ function renderCheck(check: CheckState): HTMLElement {
   // replacement, and it is silent whenever it has nothing to add.
   if (check.hint) row.appendChild(el("p", "hint", check.hint));
   // The hand-written half of the same idea — what changed, and the question
-  // with a yes and a no — from `docs/checks/restated.md`. Silent for the
-  // great majority of checks, which have none.
+  // with a yes and a no — from `docs/checks/<sha>.md`. Silent for the great
+  // majority of checks, which have none.
   if (check.restated) {
-    for (const line of restatedLines(check.restated)) row.appendChild(el("p", "hint", line));
+    const r = check.restated;
+    if (r.badge) row.appendChild(el("p", "hint restated-badge", `[${r.badge}]`));
+    for (const node of restatedRows(r)) row.appendChild(node);
   }
   if (check.note) row.appendChild(el("p", "note", check.note));
   return row;
@@ -165,6 +159,12 @@ function render(): void {
     );
   }
 
+  const { pass, clear } = decideAllButtons();
+  pass.textContent = `✓ TESTED ALL (${left.length})`;
+  pass.disabled = left.length === 0;
+  clear.textContent = `CLEARED (${left.length})`;
+  clear.disabled = left.length === 0;
+
   renderCommits(body, left);
 
   const done = view.checks.filter((c) => c.verdict !== null);
@@ -196,22 +196,15 @@ function next(): void {
   }
 }
 
-/**
- * Every outstanding check that names a command, in order. This is the half of
- * getting back to the machine that can look which does not need looking at —
- * the relay, a shape report, a suite the sandbox could not run — so it is one
- * button rather than a list of things to remember to type.
- */
 async function runAll(bar: HTMLButtonElement): Promise<void> {
-  bar.disabled = true;
   const jobs = (view?.checks ?? []).filter((c) => c.verdict === null && c.command);
-  for (const check of jobs) {
-    bar.textContent = `running ${check.command}…`;
-    const result = await post("/api/checks/run", { sha: check.sha, text: check.text });
-    take(result);
-  }
-  bar.textContent = "▶ RUN THE COMMANDS";
-  bar.disabled = false;
+  await runAllCommand(bar, jobs, take);
+  render();
+}
+
+async function decideAll(bar: HTMLButtonElement, verdict: "PASS" | "CLEARED"): Promise<void> {
+  const jobs = (view?.checks ?? []).filter((c) => c.verdict === null);
+  await decideAllClick(bar, jobs, verdict, take);
   render();
 }
 
@@ -239,6 +232,9 @@ export function bindChecks(): void {
   document.getElementById("checksNext")?.addEventListener("click", next);
   const all = document.getElementById("checksRunAll");
   if (all instanceof HTMLButtonElement) all.addEventListener("click", () => void runAll(all));
+  const { pass, clear } = decideAllButtons();
+  pass.addEventListener("click", () => void decideAll(pass, "PASS"));
+  clear.addEventListener("click", () => void decideAll(clear, "CLEARED"));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
   });

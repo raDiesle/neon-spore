@@ -28,12 +28,22 @@ export interface Restated {
   subject: string;
   changed: string;
   decide: string;
+  /**
+   * What to put beside `after` — the button that selects the shipped state,
+   * named so a look judged alone is not judged against memory. Optional for
+   * the same reason `badge` is: an entry written before the field existed is
+   * read as missing, not guessed at. `before: nothing, this is new` is a
+   * legitimate value and is kept as written, never read as absent.
+   */
+  before?: string;
+  /** The button that selects the changed state, paired with `before`. */
+  after?: string;
   where: string;
 }
 
 const HEADING = /^##\s+`([0-9a-f]+)`/;
 const QUOTE = /^>\s?(.+)$/;
-const FIELD = /^-\s+\*\*(badge|subject|changed|decide|where)\*\*\s+(.+)$/;
+const FIELD = /^-\s+\*\*(badge|subject|changed|decide|before|after|where)\*\*\s+(.+)$/;
 
 /**
  * One entry per `> quoted text`, carrying the sha of the `##` heading above
@@ -92,7 +102,14 @@ export function parseRestated(md: string): Restated[] {
     }
     lastWasQuote = false;
     if (field && pending) {
-      const key = field[1] as "badge" | "subject" | "changed" | "decide" | "where";
+      const key = field[1] as
+        | "badge"
+        | "subject"
+        | "changed"
+        | "decide"
+        | "before"
+        | "after"
+        | "where";
       pending[key] = (field[2] ?? "").trim();
     }
   }
@@ -155,4 +172,30 @@ export function orphanedRestated(
   // Orphaned means no check says this sentence at all — not that the sha
   // moved, which is what a rebase does to every lane that lands second.
   return entries.filter((e) => !checks.some((c) => c.text === e.text));
+}
+
+const IMAGE_PATH = /^docs\/checks\/.+\.(png|jpe?g|gif|webp|svg)$/i;
+
+/**
+ * `before`/`after` as a captured frame under `docs/checks/`, or null when the
+ * field is prose (`before: nothing, this is new`, `after: mounted on the
+ * shoulder`). A lane that grabbed the same shot either side of its change has
+ * somewhere to put the pair — this is what tells the renderer which of the
+ * two it is looking at, without guessing off content it has not opened.
+ */
+export function asImagePath(value: string): string | null {
+  const v = value.trim();
+  return IMAGE_PATH.test(v) ? v : null;
+}
+
+/**
+ * A `where` naming a director place rather than a shell command. Once the
+ * director carries its tab and its wave in the URL, a restatement can point
+ * straight at the thing to look at — `/?tab=cards`, or a full origin — and
+ * this is the one test that tells that apart from `` `bun run dev`, the wave
+ * list on the left `` without guessing at prose that happens to start with a
+ * slash: a director place is a URL, everything else is a command.
+ */
+export function isDirectorLink(where: string): boolean {
+  return /^(https?:\/\/|\/|\?)/.test(where.trim());
 }

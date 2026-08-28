@@ -164,6 +164,10 @@ function report(
       console.log(`        [${r.badge ?? "?"}] restated — ${r.subject}`);
       console.log(`          changed  ${r.changed}`);
       console.log(`          decide   ${r.decide}`);
+      // Only when a lane actually wrote them — most restatements have none,
+      // and a blank pair here would be two lines of nothing on every check.
+      if (r.before) console.log(`          before   ${r.before}`);
+      if (r.after) console.log(`          after    ${r.after}`);
       console.log(`          where    ${r.where}`);
     }
   }

@@ -1,5 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { findRestated, orphanedRestated, parseRestated } from "../restated.js";
+import {
+  asImagePath,
+  findRestated,
+  isDirectorLink,
+  orphanedRestated,
+  parseRestated,
+} from "../restated.js";
 
 const SAMPLE = `# Checks, in plainer words
 
@@ -124,5 +130,73 @@ describe("orphanedRestated", () => {
 
   test("a sha that fell off the trunk leaves its restatements orphaned", () => {
     expect(orphanedRestated(entries, [])).toEqual(entries);
+  });
+});
+
+describe("parseRestated — before/after", () => {
+  const WITH_BEFORE_AFTER = `## \`0980374\` — the mark
+
+> can you tell at a glance which waves carry a boss?
+
+- **badge** implementation
+- **subject** wave list gets a third mark
+- **changed** a card-first wave now carries its own mark
+- **decide** does the mark read as a fourth fact or blur into one dot?
+- **before** two marks in the list: gold boss glyph, cyan control glyph
+- **after** a third, mint card mark on any wave that opens on a briefing
+- **where** \`bun run dev\`, the wave list on the left
+`;
+
+  test("before and after are read as real fields, not folded into prose", () => {
+    const [entry] = parseRestated(WITH_BEFORE_AFTER);
+    expect(entry?.before).toBe("two marks in the list: gold boss glyph, cyan control glyph");
+    expect(entry?.after).toBe("a third, mint card mark on any wave that opens on a briefing");
+  });
+
+  test("an entry with neither field leaves them undefined, not empty strings", () => {
+    const [entry] = parseRestated(SAMPLE);
+    expect(entry?.before).toBeUndefined();
+    expect(entry?.after).toBeUndefined();
+  });
+
+  test("`before: nothing, this is new` is kept as written, not read as missing", () => {
+    const md = WITH_BEFORE_AFTER.replace(
+      "- **before** two marks in the list: gold boss glyph, cyan control glyph",
+      "- **before** nothing, this is new",
+    );
+    expect(parseRestated(md)[0]?.before).toBe("nothing, this is new");
+  });
+});
+
+describe("asImagePath", () => {
+  test("a path under docs/checks/ ending in an image extension is kept", () => {
+    expect(asImagePath("docs/checks/0980374-before.png")).toBe("docs/checks/0980374-before.png");
+  });
+
+  test("prose is not mistaken for a path", () => {
+    expect(asImagePath("nothing, this is new")).toBeNull();
+  });
+
+  test("a path outside docs/checks/ is not treated as a captured frame", () => {
+    expect(asImagePath("apps/game/dist/frame.png")).toBeNull();
+  });
+
+  test("a docs/checks/ file with no image extension is not a frame", () => {
+    expect(asImagePath("docs/checks/0980374.md")).toBeNull();
+  });
+});
+
+describe("isDirectorLink", () => {
+  test("a full URL is a link", () => {
+    expect(isDirectorLink("http://localhost:4174/?tab=cards")).toBe(true);
+  });
+
+  test("a path relative to the director's own origin is a link", () => {
+    expect(isDirectorLink("/?tab=cards")).toBe(true);
+    expect(isDirectorLink("?tab=cards")).toBe(true);
+  });
+
+  test("a shell command in backticks is not a link", () => {
+    expect(isDirectorLink("`bun run dev`, the wave list on the left")).toBe(false);
   });
 });
