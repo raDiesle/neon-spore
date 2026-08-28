@@ -66,6 +66,18 @@ export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
 export {
+  NO_SHELL,
+  SHELL_COLS,
+  SHELL_INTACT,
+  shellHasPiece,
+  shellIsBare,
+  shellOnSpawn,
+  shellPieceAt,
+  shellPiecesLeft,
+  shellWithout,
+} from "./shell.js";
+export { shellStruck } from "./shell-round.js";
+export {
   chargeDueTick,
   chargeMilli,
   chargePartTicks,

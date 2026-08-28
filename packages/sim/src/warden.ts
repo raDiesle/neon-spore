@@ -1,5 +1,6 @@
 import type { WardenState } from "./boss-state.js";
 import { gripsCreature } from "./grip.js";
+import { NO_SHELL } from "./shell.js";
 import { type Creature, WARDEN_COLS } from "./types.js";
 import {
   NO_TETHER,
@@ -146,6 +147,7 @@ function attach(world: World, b: WardenState): void {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   });
   b.tetherId = id;
   world.events.push({ type: "tether", col, control, color: wardenColor(cycle) });
@@ -219,6 +221,7 @@ function ventRock(world: World, b: WardenState, phase: WardenPhase): void {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   });
   world.events.push({ type: "vent", col: b.pupilCol, kind: phase.vent });
 }

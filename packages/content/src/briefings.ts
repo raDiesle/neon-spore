@@ -62,6 +62,12 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
     p1: "Call the beat it swells on, out loud, the way you call a column.",
     p2: "Fire on the count, not on sight — a shot on the wrong beat does nothing.",
   },
+  shell: {
+    title: "THE SHELL",
+    both: "Two columns wide, with a piece of shell in front of each. Any colour chips a piece. Under the last one is a body in a colour neither of you has seen yet.",
+    p1: "Two pieces, two columns. Say which one still has armour and stand under it — then say the colour the moment it shows.",
+    p2: "Fire anything at all while the shell is on. The moment it cracks open, stop: only one colour lands now, and it is new to you both.",
+  },
   meteor: {
     title: "THE ROCK",
     both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",

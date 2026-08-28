@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Creature, DEFAULT_CONFIG, type Scar } from "@neon-spore/sim";
+import { type Creature, DEFAULT_CONFIG, NO_SHELL, type Scar } from "@neon-spore/sim";
 import { contactShadowFor, drawContactShadows } from "../src/contact-shadow.js";
 import { creatureCenter } from "../src/creature-place.js";
 import { computeLayout } from "../src/layout.js";
@@ -27,6 +27,7 @@ function creature(row: number, col = 3): Creature {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   } as Creature;
 }
 

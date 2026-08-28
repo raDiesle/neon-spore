@@ -13,11 +13,17 @@ import { Glob } from "bun";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const LIMIT = 250;
 /**
- * Nothing is over the limit any more: `shapes.ts` and `input.ts` were both
- * split by the work that needed them. The map stays because the next file to
- * outgrow the limit will want somewhere to be recorded rather than excused.
+ * `waves.ts` is the one file here that cannot be split by the lane that fills
+ * it. The director rewrites the `WAVES` array in place — `serialize.ts` finds
+ * `export const WAVES: Wave[] = [` and regenerates everything after it — so an
+ * array spread across two files would be flattened back into one the next time
+ * anybody saved a wave in the editor, silently. Splitting it is a change to
+ * the director and belongs to a lane that owns `tools/`; until then a wave
+ * costs ten lines and this is where that is recorded rather than excused.
  */
-const KNOWN_LONG: Record<string, number> = {};
+const KNOWN_LONG: Record<string, number> = {
+  "packages/content/src/waves.ts": 259,
+};
 function sourceFiles(): string[] {
   const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");
   return [...glob.scanSync(ROOT)]

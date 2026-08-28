@@ -132,6 +132,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scorePod: "SCORE",
   scoreRuntPenalty: "SCORE",
   scoreThrobHit: "SCORE",
+  scoreShellPiece: "SCORE",
   throbPeriodBeats: "THROB — open for one beat in every few",
   throbOpenBeats: "THROB — open for one beat in every few",
   radarLead: "RADAR — what is coming",

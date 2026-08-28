@@ -1,3 +1,4 @@
+import { SHELL_COLS } from "./shell.js";
 import type { Color, Creature, CreatureKind } from "./types.js";
 
 /**
@@ -91,6 +92,11 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
  */
 export function colSpan(kind: CreatureKind): number {
   if (kind === "warden") return WARDEN_COLS;
+  // THE SHELL's width and its number of pieces are the same number, and
+  // `shell.ts` owns it: every column of the body carries exactly one piece, so
+  // a width set here and a count set there could disagree and leave a column
+  // with nothing in front of it -- or a piece with no column to be shot in.
+  if (kind === "shell") return SHELL_COLS;
   return kind === "torch" ? 2 : 1;
 }
 

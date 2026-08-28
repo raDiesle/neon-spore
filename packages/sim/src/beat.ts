@@ -3,6 +3,7 @@ import { throbIsOpen } from "./creature-rules.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
+import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, fallTilesPerBeat, isBossBody } from "./types.js";
 import type { World } from "./world.js";
 
@@ -72,6 +73,12 @@ export function onBeat(world: World): void {
       petals: 0,
       dragMilli: 0,
       throbOpen: entry.kind === "throb" && throbIsOpen(world.cfg, world.beat),
+      // Every piece on, for the one kind that wears any. The colour under
+      // them is deliberately *not* settled here: a shelled body arrives with
+      // `color` null and gets one only when the last piece comes off, so
+      // there is no instant at which anything — render included — could have
+      // shown the pair something they were not meant to know yet.
+      shell: shellOnSpawn(entry.kind),
     });
     world.spawned += 1;
   }

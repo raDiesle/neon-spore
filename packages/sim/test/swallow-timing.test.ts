@@ -11,6 +11,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "../src/index.js";
+import { NO_SHELL } from "../src/shell.js";
 
 /**
  * Complaint 3 of the swallow: a power-up must count as taken the moment it
@@ -123,6 +124,7 @@ describe("a pod's effect lands the instant it is swallowed", () => {
       petals: 0,
       dragMilli: 0,
       throbOpen: false,
+      shell: NO_SHELL,
     });
     const byTick = new Map<number, TimedCommand[]>();
     for (const i of hold(POD_COL)) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);

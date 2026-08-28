@@ -1,4 +1,6 @@
 import { markMoment } from "./balance.js";
+import { shellIsBare } from "./shell.js";
+import { shellStruck } from "./shell-round.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
 import { wardenEyeOpen } from "./warden.js";
 import { wardenColor, wardenCycle } from "./warden-cycle.js";
@@ -43,6 +45,16 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
+    return false;
+  }
+  if (hit.kind === "shell" && !shellIsBare(hit)) {
+    // Armour, and armour has no colour: either shot chips it, so while the
+    // shell is on this arrival is answered by the column alone. The moment the
+    // last piece goes the body acquires a colour and falls through to the
+    // branch below on the *next* shot — deliberately the same branch a slick
+    // is killed by, so "then it needs the matching shot like any other body"
+    // is one code path and not a second copy of one.
+    shellStruck(world, b, hit);
     return false;
   }
   if (hit.color !== b.color) {

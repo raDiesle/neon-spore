@@ -103,6 +103,7 @@ export {
   POD,
   QUEEN_SHELL,
   RUNT,
+  SHELL,
   SHIELD_LOBE,
   SLICK,
   THROB,

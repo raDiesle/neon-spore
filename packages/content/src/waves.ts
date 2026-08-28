@@ -191,6 +191,16 @@ export const WAVES: Wave[] = [
     entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
   },
   {
+    name: "THE THIRD SHOT",
+    sentence: "The one where the shot that worked twice is the miss.",
+    hint: "Any colour chips a piece off, and there are two of them, one per column. Under the last piece is a colour neither of you has seen — say it before you fire.",
+    entries: [
+      { beat: 0, col: 1, kind: "shell", color: null },
+      { beat: 4, col: 5, color: "red" },
+      { beat: 10, col: 4, kind: "shell", color: null },
+    ],
+  },
+  {
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     hint: "The arm folds every arrival about the column it is standing in. Count from the arm, not from the edge.",

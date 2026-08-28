@@ -142,6 +142,20 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Swells and shrinks on the shared beat and carries no colour. Only a shot while it is swollen lands — a miss on the beat it is shut is just a miss.",
   },
+  shell: {
+    kind: "shell",
+    // Only ever the cannon. Both phases are answered by a shot — what changes
+    // is whether the colour is part of the question, and control visibility
+    // has nothing to say about that.
+    controls: ["aim"],
+    // No colour, and that is the entry doing real work rather than a blank:
+    // the body under the armour has one, but it does not exist until the last
+    // piece comes off, so there is nothing here for a bestiary page to print.
+    color: null,
+    radar: "p2",
+    blurb:
+      "Armoured, two columns wide, one piece of shell in front of each. Any colour chips a piece off. Under the last piece is a body in a colour neither of you has seen — and only that colour finishes it.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is

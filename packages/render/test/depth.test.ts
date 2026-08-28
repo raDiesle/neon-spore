@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type Creature, DEFAULT_CONFIG, NO_SHELL } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "../src/creature-place.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "../src/depth.js";
 import { computeLayout } from "../src/layout.js";
@@ -33,6 +33,7 @@ function creature(row: number, kind: Creature["kind"] = "bulb"): Creature {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   } as Creature;
 }
 

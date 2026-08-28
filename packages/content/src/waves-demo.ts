@@ -71,6 +71,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   bulb: { wave: "TWO COLOURS" },
   runt: { wave: "THE RUNT" },
   throb: { wave: "ON THE BEAT" },
+  shell: { wave: "THE THIRD SHOT" },
   meteor: { wave: "THE ROCK" },
   meteorMedium: { wave: "THE WARD" },
   meteorFast: { wave: "THE WARD" },

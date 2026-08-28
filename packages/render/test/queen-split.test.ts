@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { type Creature, DEFAULT_CONFIG, type QueenState } from "@neon-spore/sim";
+import { type Creature, DEFAULT_CONFIG, NO_SHELL, type QueenState } from "@neon-spore/sim";
 import { computeLayout, showsQueenHint, showsQueenShape, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { innerQuestionRadius, markOutline } from "../src/queen-glyph.js";
@@ -57,6 +57,7 @@ function queenAt(color: Creature["color"]): Creature {
     petals: 9,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   };
 }
 

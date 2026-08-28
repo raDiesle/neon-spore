@@ -51,6 +51,8 @@ const SAMPLES: Record<string, SimEvent> = {
   mirrorDown: { type: "mirrorDown", col: 3 },
   forkWait: { type: "forkWait" },
   runtHit: { type: "runtHit", col: 3, row: 4 },
+  shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
+  shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
 };
 
 describe("bindings", () => {

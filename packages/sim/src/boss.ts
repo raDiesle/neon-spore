@@ -11,6 +11,7 @@ import {
   ROCK_CYCLE,
 } from "./queen-mark.js";
 import { nextInt } from "./rng.js";
+import { NO_SHELL } from "./shell.js";
 import { type Creature, colSpan } from "./types.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
@@ -192,5 +193,6 @@ function spit(world: World, queen: Creature, col: number): void {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   });
 }

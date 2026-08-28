@@ -40,7 +40,14 @@ export type CreatureKind =
    * on — see `throbIsOpen` in `creature-rules.ts`, which is the only place
    * that cycle is decided.
    */
-  | "throb";
+  | "throb"
+  /**
+   * Armoured, two columns wide, and wearing one piece of shell in front of
+   * each. Any colour chips a piece off; the body underneath has no colour at
+   * all until the last one goes, and then it has one neither player has ever
+   * seen. `shell.ts` holds the arithmetic and `shell-round.ts` the two phases.
+   */
+  | "shell";
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:
@@ -80,6 +87,17 @@ export interface Creature {
    * about the same instant without either owning the cycle.
    */
   throbOpen: boolean;
+  /**
+   * Pieces of shell still on, one bit each, bit `k` for the piece in front of
+   * column `col + k`. `NO_SHELL` on every other kind, and on a shell whose
+   * last piece is off — which is exactly when `color` stops being null.
+   *
+   * A mask and not a count, because which of them is gone is what the pair has
+   * to say out loud. Never read by hand: `shellHasPiece`, `shellPiecesLeft`
+   * and `shellIsBare` in `shell.ts` are the rules, and purity.test.ts holds
+   * everything else to calling them.
+   */
+  shell: number;
 }
 
 export interface Bullet {

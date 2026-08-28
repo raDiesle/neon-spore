@@ -37,6 +37,7 @@ export const BRIEFING_SUBJECTS = [
   "bulb",
   "runt",
   "throb",
+  "shell",
   "meteor",
   "meteorMedium",
   "meteorFast",

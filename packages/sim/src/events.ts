@@ -87,4 +87,18 @@ export type SimEvent =
    * wrong here, and a sound identical to a kill is the one that would hide
    * that from the pair.
    */
-  | { type: "runtHit"; col: number; row: number };
+  | { type: "runtHit"; col: number; row: number }
+  /**
+   * A piece of THE SHELL came off, in the column it was struck. `left` is how
+   * many are still on, which is what the pair now has to name: after the first
+   * break the two columns of one body stop being interchangeable.
+   */
+  | { type: "shellBreak"; col: number; row: number; left: number }
+  /**
+   * The last piece went and the body under it carries a colour for the first
+   * time. `col` is the body's own leftmost column rather than the struck one,
+   * because this is about the whole arrival and not about the tile a shot
+   * landed in. Nothing knew this colour a tick ago — it is drawn at the break
+   * (`shell-round.ts`), which is the only honest way to say so.
+   */
+  | { type: "shellBare"; col: number; row: number; color: Color };

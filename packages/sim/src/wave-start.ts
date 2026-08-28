@@ -6,6 +6,7 @@ import { clearGrips } from "./grip.js";
 import { clearInterlude } from "./interlude.js";
 import { endPrime } from "./lance.js";
 import { installMirror } from "./mirror.js";
+import { NO_SHELL } from "./shell.js";
 import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
@@ -75,6 +76,7 @@ export function startWave(
       petals: boss.petals,
       dragMilli: 0,
       throbOpen: false,
+      shell: NO_SHELL,
     });
     world.boss = {
       kind: "queen",
@@ -142,6 +144,7 @@ function installWarden(world: World, entry: WardenEntry): void {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   });
   world.boss = {
     kind: "warden",

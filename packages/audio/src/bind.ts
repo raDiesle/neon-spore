@@ -155,6 +155,26 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "forkWait":
       // No column — the fork belongs to the whole field, not a tile in it.
       return { id: "ship.forkOpen" };
+    case "shellBreak":
+      // A crack and two halves ringing — the sound was written for a crystal
+      // coming apart and this is the same event, a piece leaving a body that
+      // is still there afterwards.
+      return {
+        id: "impact.split",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "shellBare":
+      // The one moment this creature exists for, so it gets the one cue that
+      // was written for it and never spent: a skin coming off, and something
+      // underneath. Deliberately not a second `impact.split` — the ear has to
+      // be able to tell "another piece" from "that was the last piece, and
+      // now only one colour lands", because that is the whole reversal.
+      return {
+        id: "creature.moult",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "runtHit":
       // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
       // the right thing, and this is the one hit that must not be mistaken

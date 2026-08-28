@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { KEY } from "@neon-spore/content";
-import { type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type Creature, DEFAULT_CONFIG, NO_SHELL } from "@neon-spore/sim";
 import {
   CAST_MAX_ALPHA,
   castShadows,
@@ -48,6 +48,7 @@ function creature(id: number, col: number, row: number): Creature {
     petals: 0,
     dragMilli: 0,
     throbOpen: false,
+    shell: NO_SHELL,
   } as Creature;
 }
 

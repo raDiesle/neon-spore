@@ -233,6 +233,26 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // Which piece of THE SHELL a shot in a column meets. It is one
+    // subtraction, which is exactly the size of thing a second reader writes
+    // out again — and the second reader here is render/, drawing the gap where
+    // a piece used to be. A shot that breaks piece 0 and a picture that opens
+    // the contour at piece 1 is a creature the pair cannot talk about at all.
+    call: "shellPieceAt",
+    owner: "packages/sim/src/shell.ts",
+    pattern: /\bcol\s*-\s*c\s*\.\s*col\b/,
+    strip: false,
+  },
+  {
+    // Whether the core is exposed. The rule is that *every* piece has to be
+    // gone, and a hand-written `shell === 0` beside a mask that grew a third
+    // bit is how "one piece off is enough" arrives without anyone deciding it.
+    call: "shellIsBare",
+    owner: "packages/sim/src/shell.ts",
+    pattern: /\bshell\s*===\s*0\b/,
+    strip: false,
+  },
+  {
     call: "fallTilesPerBeat",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,

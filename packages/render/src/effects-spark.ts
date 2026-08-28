@@ -89,6 +89,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "mirrorVerdict":
     case "mirrorDown":
     case "forkWait": // The fork's whole picture is `hud.ts`'s `drawFork`, driven by state.
+    // A piece coming off THE SHELL, and the last one coming off. Deliberately
+    // not a generic burst here: what says *a piece came off this body* is the
+    // raw edge left behind, which is a thing that outlives the frame and has
+    // to be drawn against the body's own contour. `shell-draw.ts` owns both,
+    // and until it exists these are silent rather than borrowing a rock's.
+    case "shellBreak":
+    case "shellBare":
       return null;
     default:
       return assertNever(e);

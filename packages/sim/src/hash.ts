@@ -145,6 +145,14 @@ export function hashWorld(world: World): number {
     push(c.petals);
     push(c.dragMilli);
     push(c.throbOpen ? 1 : 0);
+    // Which pieces of THE SHELL are still on. In for the plainest possible
+    // version of the rule above: two devices that disagree about a piece
+    // disagree about whether the next shot chips armour or has to carry a
+    // colour, and one of them is playing a body the other one has already
+    // opened. The colour underneath needs no field of its own — it is drawn
+    // into `c.color` at the break, and `rng.state` a few lines up is what
+    // makes both devices draw the same one.
+    push(c.shell);
   }
 
   push(world.bullets.length);

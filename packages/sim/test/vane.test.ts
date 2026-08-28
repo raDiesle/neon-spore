@@ -22,6 +22,7 @@ import {
   vaneWeakCol,
   type World,
 } from "../src/index.js";
+import { NO_SHELL } from "../src/shell.js";
 
 /**
  * THE VANE: the boss that bends the field instead of the beat.
@@ -219,6 +220,7 @@ describe("the bearing", () => {
       petals: 0,
       dragMilli: 0,
       throbOpen: false,
+      shell: NO_SHELL,
     });
     shoot(world, col, vaneColor(vaneOpening(world.waveBeat)));
     expect(vane(world).pins).toBe(CFG.vanePins);

@@ -101,6 +101,9 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
   scoreRuntPenalty: number;
   /** Score for hitting a Throb while it is open. */
   scoreThrobHit: number;
+  /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
+   * armour is work either colour can do, and the kill is still to come. */
+  scoreShellPiece: number;
   /** Beats in one Throb swell-shrink cycle — `throbIsOpen`'s whole state
    * machine is `beat % throbPeriodBeats` against `throbOpenBeats`. */
   throbPeriodBeats: number;
@@ -206,6 +209,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   scorePod: 250,
   scoreRuntPenalty: 150,
   scoreThrobHit: 200,
+  scoreShellPiece: 120,
   throbPeriodBeats: 4,
   throbOpenBeats: 1,
   scoreQueenPetal: 400,

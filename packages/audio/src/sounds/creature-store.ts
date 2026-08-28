@@ -91,8 +91,8 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     id: "creature.moult",
     family: "creature",
     blurb: "A skin coming off, and something smaller and harder underneath.",
-    status: "spare",
-    use: "Moulting (ideas.md).",
+    status: "bound",
+    use: "THE SHELL's last piece coming off, and the colour underneath (`shellBare`).",
     level: 0.32,
     layers: [
       {

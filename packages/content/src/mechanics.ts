@@ -116,6 +116,7 @@ export const MECHANICS = {
   bulb: { what: BRIEFINGS.bulb.both, reach: "spawn" },
   runt: { what: BRIEFINGS.runt.both, reach: "spawn", waveNames: true },
   throb: { what: BRIEFINGS.throb.both, reach: "spawn", waveNames: true },
+  shell: { what: BRIEFINGS.shell.both, reach: "spawn", waveNames: true },
   meteor: { what: BRIEFINGS.meteor.both, reach: "spawn", waveNames: true },
   meteorMedium: { what: BRIEFINGS.meteorMedium.both, reach: "spawn", waveNames: true },
   meteorFast: { what: BRIEFINGS.meteorFast.both, reach: "spawn", waveNames: true },

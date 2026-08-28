@@ -11,6 +11,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "../src/index.js";
+import { NO_SHELL } from "../src/shell.js";
 
 /**
  * The pod is the only thing on the field that is *taken* rather than cleared,
@@ -232,6 +233,7 @@ describe("what a pod gives", () => {
         petals: 0,
         dragMilli: 0,
         throbOpen: false,
+        shell: NO_SHELL,
       },
       {
         id: world.nextId++,
@@ -244,6 +246,7 @@ describe("what a pod gives", () => {
         petals: 0,
         dragMilli: 0,
         throbOpen: false,
+        shell: NO_SHELL,
       },
     );
     const inputs = hold(3, true);
@@ -286,6 +289,7 @@ describe("what a pod gives", () => {
       petals: 0,
       dragMilli: 0,
       throbOpen: false,
+      shell: NO_SHELL,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {
@@ -314,6 +318,7 @@ describe("what a pod gives", () => {
       petals: 0,
       dragMilli: 0,
       throbOpen: false,
+      shell: NO_SHELL,
     });
     const events2: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {

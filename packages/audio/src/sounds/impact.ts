@@ -144,8 +144,8 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.split",
     family: "impact",
     blurb: "A crack, then two halves ringing at once and slightly out of tune.",
-    status: "spare",
-    use: "The crystal breaking into two halves (bestiary 10.1).",
+    status: "bound",
+    use: "A piece of THE SHELL coming off (`shellBreak`).",
     level: 0.42,
     layers: [
       tick(0.6, 0, 5200),

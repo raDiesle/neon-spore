@@ -69,6 +69,12 @@ const BY_ID: Record<string, Subject> = {
   "impact.deflect": ARMED,
   "impact.petal": QUEEN,
   "impact.wrongTarget": shape("SLICK"),
+  // Both of THE SHELL's moments are about the same body: a piece coming off
+  // it, and the last piece coming off it. Neither is a picture of armour on
+  // its own, because there is no separate contour for a piece — the pieces are
+  // slices of this one.
+  "impact.split": shape("SHELL"),
+  "creature.moult": shape("SHELL"),
 
   "boss.arrive": QUEEN,
   "boss.queenStep": QUEEN,
