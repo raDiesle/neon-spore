@@ -10,6 +10,15 @@ import { drawMark, markGlow } from "./queen-weakpoint.js";
 const OUTER_WOBBLE_BONUS = 1.5;
 /** How hard the queen shudders per tile of her own size, at full shake. */
 const SHAKE_TILES = 0.06;
+/**
+ * How hard both flank torches tremble, per tile of the torch's own footprint,
+ * while a drop is pending. Smaller than `SHAKE_TILES` and on its own pair of
+ * frequencies (`TORCH_TREMOR_HZ`) so it reads as its own thing next to the
+ * hit-reaction shudder, never as the same event.
+ */
+const TORCH_TREMOR_TILES = 0.045;
+/** The two out-of-step frequencies the tremor rides — asked to look shaky, not spun. */
+const TORCH_TREMOR_HZ: readonly [number, number] = [47, 61];
 
 /**
  * Her whole figure, in tiles from the centre of the tile she stands on. A
@@ -103,10 +112,66 @@ export function drawQueen(
     healthShare,
   );
 
-  drawEgg(ctx, l, queen, boss, -1, ox, oy, beat, beatPhase, time, eggGrowShare);
-  drawEgg(ctx, l, queen, boss, 1, ox, oy, beat, beatPhase, time, eggGrowShare);
+  // One offset, read by both calls below — never one seeded per side. The two
+  // torches must move as a single tremor, or the eye reads whichever one
+  // moves differently as the answer to "which side", which is the one thing
+  // this is not allowed to say. See `torchTremor`.
+  const tremor = torchTremor(tile, boss, beat, time);
+  drawEgg(
+    ctx,
+    l,
+    queen,
+    boss,
+    -1,
+    ox + tremor.x,
+    oy + tremor.y,
+    beat,
+    beatPhase,
+    time,
+    eggGrowShare,
+  );
+  drawEgg(
+    ctx,
+    l,
+    queen,
+    boss,
+    1,
+    ox + tremor.x,
+    oy + tremor.y,
+    beat,
+    beatPhase,
+    time,
+    eggGrowShare,
+  );
 
   drawPetals(ctx, x, y + f.petalCy * tile, f.bodyRx * tile, queen.petals, boss.startPetals);
+}
+
+/**
+ * The offset both flank torches share while she is deciding which one falls —
+ * a tell that a drop is coming without a hint of which side, because it never
+ * reads `boss.dropSide`. That value is already sitting in state the instant a
+ * rock lands (`spitCycle` in sim/boss.ts rolls it for the *next* drop right
+ * then), so any code path that lets it steer the picture would answer the
+ * question on both screens at once. This asks only "is a drop pending" —
+ * which is every beat except the one a torch just broke off on.
+ *
+ * That span is the whole rock cycle, `ROCK_CYCLE` beats (8, at the default
+ * 96 bpm five seconds — longer than a spoken sentence, so the telegraph has
+ * room to be said out loud). It needs no field of its own: `boss.releaseBeat`
+ * already marks the one beat a cycle the tremor has to sit out, and this is a
+ * pure function of it, so there is nothing for `Effects.reset()` to clear.
+ */
+export function torchTremor(
+  tile: number,
+  boss: QueenState,
+  beat: number,
+  time: number,
+): { x: number; y: number } {
+  if (beat === boss.releaseBeat) return { x: 0, y: 0 };
+  const jitter = tile * TORCH_TREMOR_TILES;
+  const [hx, hy] = TORCH_TREMOR_HZ;
+  return { x: Math.sin(time * hx) * jitter, y: Math.cos(time * hy) * jitter };
 }
 
 /**
