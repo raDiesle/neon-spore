@@ -212,9 +212,32 @@ hashed field, a split file, and the right number of trailers for it is zero. A
 list is only worth reading if every row on it is a thing a person can go and
 see.
 
-**The detail goes in the restatement, in fields, not in prose.** Five of them,
+**Every field is one line, and one line means one line.** The owner, reading
+the list this morning: *have much shorter explanations in the "to check" list.*
+Two entries on it had run to a paragraph apiece in `changed` and another
+paragraph in `decide` — every sentence of it true, every sentence of it written
+by somebody who had just spent an hour on the thing and wanted to explain. That
+is what the commit message is for. **A hard cap, and it is not a style note:
+`changed` and `decide` are at most 25 words each, `subject` at most 15, and
+`before`, `after` and `where` are phrases rather than sentences.** A field that
+needs more is a field carrying the reasoning, and the reasoning does not go
+here — the reader is standing up, deciding, in two minutes, and a wall of text
+is a row that gets skipped forever rather than a row that gets answered.
+
+**And one badge, first, on its own: `concept` or `implementation`.** The owner
+asked for it by name. `implementation` is the ordinary case — something the
+game or the tool now does differently, and looking at it means looking at the
+thing. `concept` is a check on a proposal that nothing ships yet: a card, a
+candidate, a draft shape offered beside the built ones. The two are answered in
+completely different frames of mind — one asks *is this better than what we
+had*, the other asks *is this worth building at all* — and a list that mixes
+them without saying which is a list where every row is read twice before it is
+understood.
+
+**The detail goes in the restatement, in fields, not in prose.** Six of them,
 each one line, each answering exactly one thing:
 
+- **badge** — `concept` or `implementation`, one word, nothing else.
 - **subject** — the thing, named the way a player would name it. *The bulb —
   the round one with many small bumps.* Not a symbol, not a path.
 - **changed** — what was different before, in what a player would notice. A
