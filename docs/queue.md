@@ -95,23 +95,6 @@ Finished when `bun run check` is green, a wind and a rigid spin are both on the 
 
 Model `opus`, effort `think hard`. The bounded offset is the judgement; the wave itself is a term. Read `turn.ts`'s `spin` and `turnAngle` first.
 
-## THE SKIN CAN BE PICKED AND THE MOTION CANNOT
-_claude/burn-skin-motionpick-s9 · tools/director/src/shapes-panel.ts_
-
-**This replaces `claude/burn-motion-oncard-s2d`, which is deleted from this queue by the same commit that adds this — it was the smaller half of this.**
-
-The owner asked to see animation and skin *combinations*. Today half of that exists: the skin bar picks any of thirteen skins and `LIT` takes the light off them, and both apply to every card at once. The other half does not — a card's motion is whatever its catalogue entry was authored with, so there is no way to put TURN IN DEPTH under SCALE, or CRAWL under CILIA, which is exactly the pairing `docs/dimensional.md` says is the whole finding.
-
-A motion bar beside the skin bar, built the same way, defaulting to **each card's own motion** so nothing changes until something is picked. Then any of the fifteen can be forced onto every card, and the three controls compose: skin × motion × lit.
-
-That also closes an outstanding check honestly. `8487648` asks whether a turned body reads as rotating or as squashed, *TURN beside TURN IN DEPTH, with the light on and off* — and it landed unanswerable, because the new motions are on the standalone page and `LIT` is on this one. A motion picker makes the question askable exactly as written. **Do not weaken that check's wording to fit the page; make the page do what it asks.**
-
-Keep it small: one bar, one piece of state, no rework. The state threads to `shapeFigure` beside `lit`.
-
-Finished when `bun run check` is green, any skin can be seen under any motion, the default is unchanged behaviour, and `8487648`'s check can be carried out as its own *where* row describes it.
-
-Model `sonnet`, effort `think hard`. Read `shapes-panel.ts` — the `lit` state landed there today and is the pattern to follow — then `tools/shape-sheet/src/motions/index.ts`.
-
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
