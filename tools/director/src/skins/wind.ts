@@ -12,25 +12,22 @@ import { BEAT_SECONDS, type Skin, type SkinContext, SVG } from "./types.js";
  * `turnAngle(t)` is one number for a whole body, so everything mounted under
  * `spin` turns through the same angle at the same instant. That is a planet. A
  * worm is the other thing: one end is already coming round while the other has
- * not started, and the twist *travels*. The difference costs exactly one term,
- * and this file is that term plus the two questions it raises — how far apart
- * the ends may get, and which way along the body "along" is.
- *
- * It sits beside TURN in the switcher on purpose: the two draw the same kind of
- * surface and differ in one line of arithmetic, so the comparison is the
- * question and not a difference of decoration.
+ * not started, and the twist *travels*. It costs exactly one term, and this file
+ * is that term plus the two questions it raises — how far apart the ends may
+ * get, and which way along the body "along" is. It sits beside TURN in the
+ * switcher on purpose: the two draw the same kind of surface and differ in one
+ * line of arithmetic, so the comparison is the question and not decoration.
  */
 
 /**
  * How far apart the two ends may be, and why there is a ceiling at all.
  *
  * Past about a third of a turn end to end, the near and far halves of one body
- * are showing opposite faces: the marks on one half are sweeping left while the
- * marks on the other sweep right, and what the eye assembles is two objects
- * that happen to touch. `SPREAD_LIMIT` is that third of a turn and is never
- * approached — `SPREAD` sits at 60% of it, which is 72°, and the amplitude
- * below is derived from it rather than typed, so the bound is the number a
- * reader changes and the amplitude follows.
+ * show opposite faces: the marks on one half sweep left while the marks on the
+ * other sweep right, and what the eye assembles is two objects that happen to
+ * touch. `SPREAD_LIMIT` is that third and is never approached — `SPREAD` sits
+ * at 60% of it, 72°, and the amplitude below is derived from it rather than
+ * typed, so the bound is the number a reader changes.
  */
 const SPREAD_LIMIT = (2 * Math.PI) / 3;
 const SPREAD = SPREAD_LIMIT * 0.6;
@@ -38,23 +35,23 @@ const SPREAD = SPREAD_LIMIT * 0.6;
  * A band's offset is `AMP·sin(phase − ψ)`, and ψ runs over a range of `2·TWIST`
  * across the body. For any `TWIST` of `π/2` or more that range covers both a
  * crest and a trough, so the end-to-end difference is `2·AMP` — flat in time,
- * not a peak that is occasionally reached — and `2·AMP` is `SPREAD` by
- * construction. Sampled at 97 moments over a whole swing it comes out 1.2566
- * rad at every one of them, 20.0% of a turn against a 33.3% ceiling.
+ * not a peak occasionally reached — and `2·AMP` is `SPREAD` by construction.
+ * Sampled at 97 moments over a whole swing it is 1.2566 rad at every one of
+ * them: 20.0% of a turn, against a 33.3% ceiling.
  */
 const TWIST = Math.PI;
 const AMP = SPREAD / 2;
 
 /**
- * The wave runs on the page clock, like the swing it is added to, because the
- * owner asked for *regelmäßig* and the page already has one clock — every card
- * winds together rather than each on a private timer. Four beats a cycle
- * against the swing's twelve, so the whole motion closes after twelve and the
- * wind is plainly a faster rhythm riding a slower one, not a wobble in it.
+ * The wave runs on the page clock, like the swing it is added to: the owner
+ * asked for *regelmäßig* and the page already has one clock, so every card winds
+ * together rather than each on a private timer. Four beats a cycle against the
+ * swing's twelve, so the motion closes after twelve and the wind reads as a
+ * faster rhythm riding a slower one, not a wobble in it.
  */
 const WIND_PERIOD = BEAT_SECONDS * 4;
 
-/** Bands across the body, and marks around each band. */
+/** Bands across the body, and marks around each. */
 const SEGMENTS = 9;
 const MARKS = 7;
 /** Inside `LAT_LIMIT` rather than on it: a mark at the limit is a hairline
@@ -66,9 +63,9 @@ const LAT_INSET = 0.94;
  *
  * Not 1.0. BULB is 123 × 118 and RUNT is 41 × 42 — a body round to within a few
  * percent has no long axis, and a bare `w > h` hands it one on a 4% margin and
- * winds it sideways for no reason. A quarter again as wide is a claim; 4% is
- * noise. SLICK at 152 × 89 clears it easily; the hull spans clear it by an
- * order of magnitude. Twenty-four of the sixty catalogue entries are wide.
+ * winds it sideways for no reason. A quarter again as wide is a claim, 4% is
+ * noise. SLICK at 152 × 89 clears it easily and the hull spans by an order of
+ * magnitude; twenty-four of the sixty catalogue entries are wide.
  */
 const WIDE_ENOUGH = 1.25;
 
@@ -79,30 +76,36 @@ const TIMES = [0, 1, 2, 3, 4, 5].map((i) => (i / 6) * WOBBLE_PERIOD);
 /**
  * Which way this body is long, from its own contour.
  *
- * The long axis is emphatically not always the tall one. Assuming vertical
- * winds SLICK — 152 wide, 89 tall — across its short dimension, which is a
- * wave crammed into the part of the body that has no room for it. The lookup
- * is by name because a skin is told `ctx.name` and nothing else about the
- * shape it is dressing; an unknown name (a contour drawn somewhere the
- * catalogue does not reach) falls back to the tall reading, which is the one
- * that is right for every round body and most of the rest.
+ * The long axis is emphatically not always the tall one. Assuming vertical winds
+ * SLICK — 152 wide, 89 tall — across its short dimension, a wave crammed into
+ * the part of the body with no room for it. The lookup is by name because a
+ * skin is told `ctx.name` and nothing else about the shape it is dressing; an
+ * unknown name falls back to the tall reading, right for every round body.
+ *
+ * Kept, because it is not free and `13d76b6` has just spent a lane on this exact
+ * cost: `boundsOver` across the sixty entries at six times each measures 47–50
+ * ms, against a skin switch that lane brought down to about 200. Answering once
+ * a shape rather than once a card takes that straight back off the flip.
  */
+const wideness = new Map<string, boolean>();
+
 function isWideBody(name: string): boolean {
+  const had = wideness.get(name);
+  if (had !== undefined) return had;
   const entry = CATALOGUE.find((e) => e.subject.name === name);
-  if (!entry) return false;
-  const b = boundsOver(entry.subject, TIMES);
-  return b.x1 - b.x0 > (b.y1 - b.y0) * WIDE_ENOUGH;
+  const b = entry && boundsOver(entry.subject, TIMES);
+  const wide = b ? b.x1 - b.x0 > (b.y1 - b.y0) * WIDE_ENOUGH : false;
+  wideness.set(name, wide);
+  return wide;
 }
 
 /**
- * One band: the marks that share a place along the long axis, and the phase
- * that place is given.
- *
- * A band is the unit rather than a mark because a band is a worm's annulus:
- * everything at one place along the body turns together, which makes the shear
- * between neighbours legible instead of a fog of disagreeing dots. It is also
- * what lets this run through `spin` unchanged — one call per band, no second
- * copy of the projection here.
+ * One band: the marks sharing a place along the long axis, and that place's
+ * phase. A band is the unit rather than a mark because a band is a worm's
+ * annulus — everything at one place along the body turns together, which makes
+ * the shear between neighbours legible instead of a fog of disagreeing dots. It
+ * is also what lets this run through `spin` unchanged: one call per band, no
+ * second copy of the projection here.
  */
 interface Band {
   readonly list: Mounted[];
@@ -120,11 +123,10 @@ export function wind(bands: readonly Band[], t: number): void {
 }
 
 /**
- * The travelling term on its own: what a band at phase `ψ` is offset by. It is
- * split out because it is the whole of the claim and the whole of the risk —
- * `ψ` runs over `±TWIST` across a body, so `max−min` of this over that range is
- * the end-to-end spread the ceiling is about, and it can be sampled without a
- * document. Its largest value over every `ψ` and every `t` is `SPREAD`.
+ * The travelling term on its own: what a band at phase `ψ` is offset by. Split
+ * out because it is the whole of the claim and the whole of the risk — `ψ` runs
+ * over `±TWIST` across a body, so `max−min` of this over that range is the
+ * end-to-end spread the ceiling is about, sampled without a document.
  */
 export function windOffset(psi: number, t: number): number {
   return AMP * Math.sin((2 * Math.PI * t) / WIND_PERIOD - psi);
@@ -143,10 +145,9 @@ function shade(ctx: SkinContext): string {
 }
 
 /**
- * One mark, drawn about its own origin in tangent units — east right, south
- * down — which is the frame `spin` foreshortens in. It is elongated *along* its
- * band, so the band reads as a line of dashes rather than a row of dots, and
- * the shear between two bands is a visible offset between two lines.
+ * One mark, about its own origin in tangent units — east right, south down, the
+ * frame `spin` foreshortens in. Elongated *along* its band, so a band reads as a
+ * line of dashes and the shear between two is an offset between two lines.
  */
 function mark(g: SVGGElement, rx: number, ry: number, paint: string): SVGGElement {
   const el = document.createElementNS(SVG, "g");
@@ -163,14 +164,14 @@ function mark(g: SVGGElement, rx: number, ry: number, paint: string): SVGGElemen
  * Bands at constant latitude, for a body that is longer than it is wide.
  *
  * Latitude is the coordinate the rotation does not touch, so a band's place
- * along the body is fixed and its phase with it — the twist travels up the
- * body and stays where it is put. One whole wave end to end (`TWIST = π`, so ψ
- * runs over 2π), which is deliberate rather than the smallest thing that would
- * work: half a wave puts the two ends in antiphase with a single node in the
- * middle, and a body split once down the middle is exactly the "two halves
- * disagreeing" reading this is trying not to produce. A whole wave brings the
- * ends back into phase and puts the crest and the trough at the quarters, so
- * what travels is a bulge along the body rather than a hinge in it.
+ * along the body is fixed and its phase with it — the twist travels up the body
+ * and stays where it is put. One whole wave end to end (`TWIST = π`, so ψ runs
+ * over 2π), which is deliberate rather than the smallest thing that would work:
+ * half a wave puts the ends in antiphase with a single node in the middle, and
+ * a body split once down its centre is exactly the "two halves disagreeing"
+ * reading this is trying not to produce. A whole wave brings the ends back into
+ * phase and puts crest and trough at the quarters, so what travels is a bulge
+ * along the body rather than a hinge in it.
  */
 function tallBands(ctx: SkinContext, rand: () => number, g: SVGGElement, dim: number): Band[] {
   const paint = shade(ctx);
@@ -195,10 +196,9 @@ function tallBands(ctx: SkinContext, rand: () => number, g: SVGGElement, dim: nu
  * The rotation axis stays vertical, because `spin`'s does and a second
  * projection here would be the copy `CLAUDE.md` forbids. What changes is which
  * body-fixed coordinate indexes the phase: longitude, so the wave travels round
- * the girth — on a wide body, the direction the eye already reads as its
- * length, front face to limb and on round the back. `ψ` is the longitude
- * itself, so the wave closes on itself exactly and there is no seam where two
- * neighbouring bands would be handed opposite phases.
+ * the girth — on a wide body, the direction the eye already reads as its length,
+ * front face to limb and on round the back. `ψ` is the longitude itself, so the
+ * wave closes exactly and no two neighbouring bands are handed opposite phases.
  *
  * The other way is to turn the whole mounted group on its side and spin about a
  * horizontal axis, which is what a worm actually does. Not done here because
