@@ -160,6 +160,65 @@ is arithmetic. Read `packages/sim/src/boss.ts` around `dropSide` and `spit`,
 then how the queen and her flank torches are drawn, then a built boss's
 existing telegraph so this reads as a member of that family.
 
+## LIGHT FALLS INTO DEEP WATER, AND THE BACK OF THE FIELD SHOULD SHOW IT
+_claude/burn-backdrop-shafts-y6 · packages/render/src/light-shafts.ts_
+**Asked for by the owner.**
+
+The owner, having watched the key light land:
+
+> we could also combine shadows and have a small sun stripes across background
+> screen according to light source, which looks like sun falling into the ocean
+> deep.
+
+**Shafts, raked to `KEY`, in the back of the field.** Not a texture and not a
+gradient: a few slow bands of slightly brighter water, parallel, leaning at the
+same angle everything else is now lit from, drifting. The reference the owner
+gave is exact — light entering deep water from above, arriving in stripes
+because something at the surface broke it up.
+
+**This is the pay-off of the light lane and must read as the same light.**
+`KEY` lives in `packages/content/src/light.ts`; the hull and the rocks are lit
+from it, and the shafts lean to it. Read it, do not re-derive it —
+`packages/sim/test/purity.test.ts` fails a second copy on purpose. If the
+shafts and the hull's bright side disagree by even a little, the field gains a
+thirteenth direction and the whole point is lost.
+
+**Deliberately dim, and that file already says why in its own words.**
+`backdrop.ts`'s header: the creatures are the brightest thing on the field, and
+a backdrop bright enough to compete with them breaks the one thing that has to
+read at 26 px on a phone. A shaft is a *suggestion* of brightness — the owner
+said *small stripes* — and if it ever competes with a body it has failed
+regardless of how good it looks alone. Judge it against a red body and a cyan
+body on the same frame, because the callout colour is the thing it must not
+touch.
+
+**Stateless, like everything else back there.** Every value in `backdrop.ts` is
+a pure function of `time` or of `wave`, which is why `Effects.reset()` has
+nothing to forget about it. Keep that: shafts derived from the clock and the
+wave, nothing accumulated, nothing cached across a restart. And nothing
+allocated per frame — follow `glow.ts`'s sprite cache rather than building a
+gradient in the loop.
+
+**Its own file.** `backdrop.ts` is 154 lines and the ceiling is 250; the shafts
+are their own idea with their own reason to exist, so they get
+`light-shafts.ts` and `backdrop.ts` calls into it in one place.
+
+**Nothing about the simulation moves.** `hashWorld` sees nothing, no
+`SimConfig` field decides an angle, and two devices already agree about the
+clock and the wave.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, the shafts lean to `KEY` without a second copy of it, they
+are stateless across a restart, and the commit carries `Check: do the light
+shafts read as sunlight reaching down into deep water, or as stripes drawn over
+the field?` and `Check: with the shafts on, is a red body still obviously red
+and a cyan one obviously cyan at 26 px?`
+
+Model `sonnet`, effort `think hard`. The risk is a backdrop that competes with
+the creatures; the geometry is a lean and a drift. Read `backdrop.ts`'s header
+first, then `packages/content/src/light.ts`, then `docs/spec/graphics.md` on
+what the field's brightness budget is.
+
 ## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
 _claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
 **Asked for by the owner.**
