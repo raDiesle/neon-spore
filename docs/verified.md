@@ -198,3 +198,41 @@ records the answers. See `docs/verification.md`.
 - `26c20c4` 2026-08-28 PASS — does the pair actually have to talk, or does one of them just read it out — play a round from both seats and try to solve it in silence
 - `26c20c4` 2026-08-28 PASS — is 44 beats enough to read a three-row tangle out loud over a voice channel, or does the clock turn a conversation into a race
 - `357806b` 2026-08-28 PASS — after a reload, are you back on the same tab and wave with every setting back at its default?
+- `3855d5e` 2026-08-28 PASS — the motion trail dropped from four samples at 0.3 tile spacing to two at 0.26 — a fast body should still read as moving, not as stationary and redrawn — `bun run preview`, wave FINALE, where several coloured creatures descend at once.
+- `7490495` 2026-08-28 PASS — the four hull marks are new — nothing was ever drawn on the membrane before except the shield. The ship raises a lobe for exactly one thing today. Does HULL · HELD's lobe (6.0 px, a full column wide) read as a *different* claim from HULL · ARMED's shield (7.5 px, two thirds of a column), or does any lump on the hull just mean "shield"? Yes and both ideas are cheap; no and The Other Hand needs a mark somewhere off the membrane. `bun run dev`, NOT BUILT YET → SHAPES.
+- `7490495` 2026-08-28 PASS — HULL · MENDED's welt is flat-topped with shoulders a fifth of a column, against the shield's long-shouldered swelling — that contrast is the whole margin and it was chosen, not measured against an eye. Does a held seam read as *made* beside a shield that reads as *grown*, at card size? `bun run dev`, SHAPES, with HULL · ARMED in view at the same time.
+- `7490495` 2026-08-28 PASS — HULL · TORN is the first shape in the catalogue drawn as two open strokes instead of one. Does a 23 px hole in a 150 px line read as a breach, or as the hull having been drawn badly? `bun run dev`, SHAPES.
+- `7490495` 2026-08-28 PASS — THE CLAW and THE SPLICE are the first interlude bodies, and an interlude is meant to be legible as *not the field* from the first frame. Put them beside the creature cards: do they read as machinery, or as two more organisms? `bun run dev`, SHAPES.
+- `7490495` 2026-08-28 PASS — THE SPLICE crosses itself between one and four times, which is measured, and the round dies if a player can trace the strand by eye anyway. At card size, is the tangle genuinely unfollowable, or can you get from one end to the other? `bun run dev`, SHAPES.
+- `35d59d4` 2026-08-28 PASS — does a piece coming off read as broken away, or as a hole appearing — one at 26 px on a phone, and again beside a meteor for contrast
+- `2ae07c2` 2026-08-28 PASS — in the director, can you tell an idea that was turned down from one nobody has started?
+- `668a72e` 2026-08-28 PASS — does the switch from "anyone hit it" to "only you, now" land as a moment, or does the pair miss that it happened — a wave with one, played from both seats
+- `b688df7` 2026-08-28 PASS — does the light-shaft pair above actually read as an obvious difference to a human, not just to me — `bun run frames 16efb33 --wave 1 --ticks 300`
+- `b07d709` 2026-08-28 PASS — from the check list, does one tap take you to the exact thing you are meant to look at?
+- `8fea510` 2026-08-28 PASS — with a wave open, is everything in the left column about that wave?
+- `f737252` 2026-08-28 PASS — do the light shafts read as sunlight reaching down into deep water, or as stripes drawn over the field?
+- `f737252` 2026-08-28 PASS — with the shafts on, is a red body still obviously red and a cyan one obviously cyan at 26 px?
+- `99deff3` 2026-08-28 PASS — after a landing, is anything left on the list that the machine could have answered?
+- `595c89a` 2026-08-28 PASS — does a body in another's shadow still read as the colour it is?
+- `fbe1a70` 2026-08-28 PASS — versus cannon:shot — does either alternative read as something leaving the ship, rather than as a brighter flash where it started?
+- `fbe1a70` 2026-08-28 PASS — versus shield:ward — can you tell the shield caught something without watching the thing that hit it?
+- `fba4f75` 2026-08-28 PASS — do the queen's two torches shaking tell you a drop is coming without telling you which side it lands on?
+- `0629277` 2026-08-28 PASS — looking at the wave list, can you tell at a glance which waves teach something, which carry a boss, and which change the controls?
+- `c3f665f` 2026-08-28 PASS — reading a refused idea in the director, can you tell what it was and why it was turned down, without opening the repository?
+- `5a60302` 2026-08-28 PASS — opening a director page you have never used, does the first thing you read tell you what it is for?
+- `4404186` 2026-08-28 PASS — with the sheet open in the director, can you get back to the page you were on without reloading?
+- `e74d010` 2026-08-28 PASS — does the rock press into the shield and spring back like rubber, or does it just stop and reverse?
+- `f87070f` 2026-08-28 PASS — opening SHAPES, is the first thing you see the one you came to look at?
+- `5cf05dc` 2026-08-28 PASS — playing a wave that does not ask for the lance, is player 1's panel two centred buttons with no gap where a third used to be?
+- `80a1138` 2026-08-28 PASS — looking at a wave in the editor, can you tell which controls the pair will have without starting it?
+- `de8fb42` 2026-08-28 PASS — watching a rock get deflected, does it turn back before it touches the ship?
+- `ddf4623` 2026-08-28 PASS — with every card on the SHAPES tab moving, does the page run smoothly instead of catching every few seconds?
+- `f28db15` 2026-08-28 PASS — is every row of the check list now short enough to answer while standing up?
+- `d0a534d` 2026-08-28 PASS — is every row of the check list now short enough to answer while standing up?
+- `c6f9cbc` 2026-08-28 PASS — the runt's tremor now runs on the beat clock and its three frequencies moved to 8.3/12.7/5.9 — does it still read as debris caught in the wave rather than as something moving with it? `bun run preview`, the wave named THE RUNT.
+- `c6f9cbc` 2026-08-28 PASS — every body's phase is now a hash of its id spread over eight beats rather than one of seven fixed values — does a full row read as in time but not in step, or does it now read as merely scattered? `bun run preview`, the wave named CROWDED.
+- `237aac6` 2026-08-28 PASS — whether VEIN survives the 92 px card it actually ships at — it was looked at here at 240 px, where it reads clearly, and graphics.md's whole claim is that it will not
+- `237aac6` 2026-08-28 PASS — whether CORE reads as a lit body or as a smudge, beside MEMBRANE
+- `237aac6` 2026-08-28 PASS — which of the four the bosses want and which the creatures want — they may not be the same answer, and the switch is currently page-wide
+- `b7857ad` 2026-08-28 PASS — whether MASS at 259 px wide reads as one poured body or as four circles that failed to merge — the necks are measured, not looked at
+- `9697ea8` 2026-08-28 PASS — a demonstration opened from the game's own menu reads as landing on a wave that was always going to open that way, not as a jump with something flipped behind it — bun run preview:once, ?menu=1, DEMOS, any row
