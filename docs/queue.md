@@ -182,25 +182,6 @@ Model `sonnet`, effort `think hard`. Read `tools/shape-sheet/src/report.ts`,
 `nameability.ts`, `tools/director/src/shape-figure.ts`'s fitting and
 `docs/spec/graphics.md` first.
 
-## THE FIELD IS A GRID SEEN FROM NOWHERE, AND THREE MULTIPLIERS WOULD FIX IT
-_claude/burn-depth-field-d1 · packages/render/src/depth.ts packages/render/src/creature-place.ts packages/render/test/depth.test.ts_
-
-Game-side, and the first of two lanes that are **not** in the skin block: those draw catalogue cards and may not touch `packages/render`, while these change what a player sees. Three cues, one lane, because they are one system and shipping any one alone reads as a trick.
-
-**Perspective by row.** A body scales up as it descends, so the field has a near edge and a far one. The scale is **1.0 at the top row and grows downward** — never the reverse, and that direction is a constraint rather than a preference: `docs/spec/graphics.md`'s floor is that a body stays nameable at 20–26 px, so nothing may end up smaller than it is today. A starting value of ~1.15 at the hull was suggested and is explicitly **not** a decision — derive it against `layout.ts`'s own tile maths and say in the commit what you chose and why.
-
-**Atmospheric perspective.** Rows near the top draw dimmer, cooler and at lower contrast than rows near the hull. This composes for free with the wash `backdrop.ts` already lays down, and it serves the brightness budget `backdrop.ts`'s own header defends — creatures stay the brightest thing on the field, and now brightest *where it matters*, which is the row about to cost the pair something.
-
-**Draw-order occlusion.** `drawCreatures` in `creatures.ts` iterates `world.creatures` in list order, so two bodies overlapping is currently decided by spawn order. Sort by row, nearest last. On its own it is nothing; with the two above it is what makes them read as one space rather than three effects.
-
-**The hard part, and nobody has named it yet: this lane collides with the nameability gate that landed as `fa0fc2a`.** That gate's third axis is *effective drawn radius including `sizeMul`* — the number that separates RUNT from everything else — and a row multiplier changes exactly that number, continuously, for every body on the field. So the gate must be evaluated **against the scaled radius across the whole row range**, not against the resting one, and a scale that makes a bulb at the hull collide with a throb three rows up is a scale that fails. Run `bun run shapes:report` and read the TOLD APART BY block before and after. If the gate refuses the value you want, the gate is right and the value is wrong; if the gate cannot see the row at all, that is a finding about the gate and it goes in the commit.
-
-Everything here is render-side and must change no simulation state: a scale is a drawing decision, `creatureCenter` stays exactly linear, and nothing may enter `hashWorld`. Tunables are named fields in `SimConfig` — `config.ts` is owned by nobody, so add in one contiguous region and expect to replay. Add to `creatures.ts` the same way.
-
-Finished when `bun run check` is green, `frame.test.ts` still passes through the strict canvas stub, a test proves the top row is unscaled and the hull row is not, the gate is green against the scaled range, and the commit carries `Check: does the field read as receding, or do the creatures just get bigger — a full wave at tempo, watching one column top to bottom`.
-
-Model `opus`, effort `think hard`. Think hard about the gate interaction before you pick a number; it is the part that turns this from three multipliers into a decision. Read `docs/spec/graphics.md` and `packages/render/src/layout.ts` first.
-
 ## THE GAME HAS A SHEEN, A RIM AND A CRATER, AND NO IDEA WHERE THE LIGHT IS
 _claude/burn-depth-light-d3 · packages/render/src/key-light.ts packages/render/test/key-light.test.ts packages/content/src/light.ts_
 
