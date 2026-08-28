@@ -182,21 +182,6 @@ Model `sonnet`, effort `think hard`. Read `tools/shape-sheet/src/report.ts`,
 `nameability.ts`, `tools/director/src/shape-figure.ts`'s fitting and
 `docs/spec/graphics.md` first.
 
-## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
-_claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
-
-Behind s0, and last of the block on purpose — it is the one whose premise needs stating before it is drawn.
-
-Iridescence: mother-of-pearl, a butterfly's wing, a nautilus. Colour that shifts across the surface and with the body's own motion, rather than one hue at several brightnesses, which is what every skin above does.
-
-**`docs/alive.md` refuses iridescence, and that refusal is about the field, not about this page.** In a wave a creature's red-or-cyan is a gameplay fact the pair says out loud across a two-second delay, and a third colour on it is worse than a body that is merely less alive. A catalogue card is not in a wave and nothing votes it into one. So this skin is allowed here and **is not a promise about creatures** — say exactly that in the file's header, name the constraint it would have to clear before it could ship to a body that carries ammunition colour, and do not weaken `alive.md`.
-
-The shift must ride the body's own motion, so it changes as the card moves and holds still when the card does. A hue that cycles on a timer regardless of the shape is a screensaver.
-
-Finished when `bun run check` is green, the skin is on the switcher, the header carries the paragraph above, and the commit carries a `Check:` asking whether the shift reads as a surface catching light or as a colour animation.
-
-Model `opus`, effort `think hard`. The judgement is where iridescence stops being a material and starts being a rainbow, and the answer is a narrow hue range rather than a wide one. Read `docs/alive.md` and `docs/skins.md` first.
-
 ## THE FIELD IS A GRID SEEN FROM NOWHERE, AND THREE MULTIPLIERS WOULD FIX IT
 _claude/burn-depth-field-d1 · packages/render/src/depth.ts packages/render/src/creature-place.ts packages/render/test/depth.test.ts_
 
