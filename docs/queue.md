@@ -101,19 +101,6 @@ Finished when `bun run check` is green, every file is under 250 lines, each vari
 
 Model `opus`, effort `ultrathink`. The apparent-speed asymmetry and the light pairing are the two things that decide whether this lane produced anything at all; the rest is arithmetic. Read `tools/shape-sheet/src/motions.ts` and `docs/skins.md` first.
 
-## A SPORE HAS A HUNDRED SMALL THINGS ON ITS EDGE AND EVERY BODY HERE HAS A CLEAN OUTLINE
-_claude/burn-skin-fringe-s3 · tools/director/src/skins/cilia.ts_
-
-Behind s0.
-
-Many small feelers at the rim and over the body, moving. The owner's word is *Fühler*, and the game is called Neon Spore, so this sits close to the fiction's centre: a body whose edge is not a line but a hundred short strands, each swaying, the whole fringe leaning against the direction the body is travelling so the motion reads as drag rather than as wind.
-
-The strands are sampled along the contour and re-sampled every frame — the contour wobbles, so a fringe anchored to fixed coordinates slides off the body within a second. Each strand carries its own phase offset taken from its position along the contour, which gives a travelling ripple around the rim rather than a fringe flapping in unison; unison is a grass field, offset is something alive. A second, sparser set stands on the body's interior rather than its edge.
-
-Finished when `bun run check` is green, the fringe stays welded to a wobbling contour with no slide, the lean reverses when the card's own motion reverses, and the commit carries a `Check:` on whether a hundred strands at card size read as a fringe or as fur — and whether the count is right.
-
-Model `sonnet`, effort `think hard`. The hard part is anchoring to a contour that changes shape every frame, not the sway. Read `docs/skins.md` and `contourAt` first.
-
 ## A BODY CAN BE SOFT AND NOTHING ON THIS PAGE IS
 _claude/burn-skin-soft-s5 · tools/director/src/skins/pore.ts tools/director/src/skins/sucker.ts_
 
