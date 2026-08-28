@@ -208,9 +208,25 @@ Their words, all five, kept whole because the ordering between them is theirs:
 > Also "Balance" button should go below the player screen.
 >
 > "ship" button content should go inside bottom of "Wave" button content.
+>
+> Also "Interlude" should be first section in the "wave" content area, as its
+> logical in order to be first.
+>
+> I also think it should be regrouped. configuring the card, should also be
+> part of "Interlude" as it comes first in order for players.
 
-**One lane, not five.** They share `index.html` and `stage.ts`, and two lanes
+**One lane, not seven.** They share `index.html` and `stage.ts`, and two lanes
 may not own the same path. Do them in the owner's order.
+
+**They gave the sorting rule, and it is the useful part of this entry.** The
+last two asks are not two more moves — they are the *principle* the other five
+were reaching for: **the editor is ordered by when a pair meets the thing.** An
+interlude runs in the gap *in front of* a wave, so it is the first section of
+WAVE and not a tab beside it. A card opens the wave, so it belongs with the
+interlude at the top. The ship is what the wave leaves behind, so it is the
+bottom. Sort by that rule and every one of the seven asks falls out of it; a
+lane that moves seven elements without holding the rule will get the eighth
+wrong.
 
 **Where things are today**, so the lane does not spend its first hour finding
 out. The editor column carries five tabs — WAVE, SHIP, TUNING, BALANCE,
@@ -248,18 +264,33 @@ what the players see. The wave's opening beat, the card, the banner and the
 first arrival happen in an order and at a tempo; the reset must replay that
 order, not approximate it.
 
-Folding SHIP into the bottom of WAVE retires the SHIP tab — it is one heading
-and `#caps`, and the topbar's `⚙ SHIP` already carries the ship's own dials, so
-nothing is lost. BALANCE moving under the stage puts it beside `▣ SHEET`, which
-is the button its own note already talks about.
+**So the WAVE tab ends up in play order**: the gap in front of it first
+(`tab-interlude`'s heading and `#interludePanel`, moved whole), the card that
+opens it next, the wave itself, and what it adds to the ship last. Two of the
+five tabs are retired by this — SHIP is one heading and `#caps`, and the
+topbar's `⚙ SHIP` already carries the ship's own dials; INTERLUDE is one
+heading and `#interludePanel`, and its note already says it is keyed by the
+wave it precedes, which is the argument for it living in that wave's page.
+BALANCE moving under the stage puts it beside `▣ SHEET`, which is the button
+its own note already talks about.
+
+**One tension in the asks, and it is the owner's to settle rather than the
+lane's to quietly pick.** *"the briefing configuration ... below the game
+screen"* and *"configuring the card should be part of Interlude"* pull opposite
+ways. The reading that satisfies both is that they are two different controls:
+the **toggle** goes under the field, where it is one click from the stage it
+changes, and the **configuration** — which card this wave raises, what it says —
+groups with the interlude at the top of WAVE. If the lane finds that reading
+does not survive contact with the code, it stops and asks rather than choosing
+one of the two.
 
 Finished when `bun run check` is green, a test covers the reset sequence with
 both toggles on, and the commit carries
 `Check: with card and briefing both on, does ↺ WAVE replay the wave's opening
 in the order and at the speed a pair would meet it`
 and
-`Check: is every control now beside the thing it changes — briefing and balance
-under the field, ship at the bottom of wave`.
+`Check: does the WAVE tab now read in the order a pair meets it — the gap, the
+card, the wave, then what it adds to the ship`.
 
 Model `sonnet`, effort `think hard`. Read `tools/director/src/stage.ts`,
 `tools/director/src/wave-briefing.ts`, `apps/game/src/briefing.ts` and
