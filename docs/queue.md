@@ -248,6 +248,16 @@ and `pointsAt` first, then `s14`'s branch if it has landed.
 ## A BODY SHADES THE HULL AND NOTHING ELSE, INCLUDING THE BODY BELOW IT
 _claude/burn-depth-cast-d4 · packages/render/src/cast-shadow.ts packages/render/test/cast-shadow.test.ts_
 
+**The light lane has landed, and it left one thing pointing the wrong way.**
+`KEY` now lives in `packages/content/src/light.ts` and the hull and the rocks
+are lit from it — read it, do not re-derive it. But `contact-shadow.ts` still
+drops its ellipse straight underneath a body, which implies a lamp directly
+overhead, and that is now the only surface on the field disagreeing with the
+one direction. It is a thirteenth direction in a tree that just spent a lane
+getting to one. Fix it in this lane, since a contact shadow and a cast shadow
+are the same fact at two distances, and say in the commit whether the offset
+ellipse still reads as *contact* or starts reading as a second body.
+
 Behind `burn-depth-light-d3`, which brings the light into the game — you
 cannot cast a shadow without a direction, and the direction must be the one
 constant everything else uses.
