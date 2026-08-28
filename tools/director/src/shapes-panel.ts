@@ -20,68 +20,39 @@
  * The fitting and the animation are `shape-figure.ts`'s. They were this file's
  * until the backlog page needed the same picture beside the idea each draft
  * was drawn for, and a second copy of a frame-fitting algorithm is a second
- * answer to "does this card clip".
+ * answer to "does this card clip". What a card is *wearing* — the A skin, the
+ * B skin it is compared against, the light and the forced motion — is
+ * `shapes-pair.ts`'s, and so is the control row that picks them. This file is
+ * left with the catalogue's own business: which cards, in which order, with
+ * what written beside them.
  */
 
-import type { OwnMotion } from "@neon-spore/content";
-import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
+import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
-import { isWide, shapeFigure } from "./shape-figure.js";
-import { SKINS, type SkinId } from "./skins/index.js";
+import { isWide } from "./shape-figure.js";
+import { controlBar, driving, paired, picture } from "./shapes-pair.js";
 
 const BOX = 92;
 /** The frame a long shape gets instead of the square one — see `isWide`. */
 const WIDE = 620;
+
+/**
+ * A square card, and the same card once it is drawing its contour twice.
+ *
+ * The pair is not made by halving: measured over the catalogue, halving the
+ * 92 px frame puts 32 of the 49 square cards under the 26 px the spec asks for
+ * and 17 of them under 20 px, which is a comparison of two things neither of
+ * which can be read. So the card grows by a second frame and a gap, the row
+ * fits fewer of them, and both halves stay the size they are judged at.
+ */
+const CARD = 330;
+const PAIRED_CARD = CARD + BOX + 6;
 
 const STROKE: Record<CatalogueEntry["status"], string> = {
   draft: "var(--cyan)",
   free: "var(--gold)",
   taken: "var(--dim)",
 };
-
-/**
- * Which skin every card on the page is wearing.
- *
- * One setting for the whole page rather than one per card, because the
- * question it exists to answer is a comparison and a comparison needs every
- * shape to change at once — a page where three cards are lit and the rest are
- * wireframes tells you which cards somebody clicked, not which look wins.
- * It starts on MEMBRANE rather than on LINE: the outline is the control, and a
- * control is a thing you switch *to*.
- */
-let skin: SkinId = "membrane";
-
-/**
- * Whether the key light is on, for every card at once — orthogonal to `skin`.
- * It started as one button among ten, satisfied by clicking CORE: LIGHT was a
- * skin like any other, so removing the light and picking the honest baseline
- * were the same click. TURN and CRATER end that — they compose the light
- * into a different base texture, so switching away from them to look at them
- * without it compares two textures, not the light. A separate toggle keeps
- * "does the light earn its place" answerable for any skin that carries one.
- */
-let lit = true;
-
-/**
- * Which own-motion drives every card, overriding each one's own catalogue
- * motion — orthogonal to `skin` and `lit` the same way those are orthogonal
- * to each other, so all three compose.
- *
- * `undefined` is a real choice ("OWN") and not the absence of one: it is the
- * behaviour before this bar existed, a card keeps whatever motion its
- * catalogue entry was authored with, and it is the default so nothing changes
- * on this page until something is picked — a catalogue where every card
- * suddenly shares one motion is a different page than the one the drafts were
- * judged on.
- *
- * This is the second half of the pairing `docs/dimensional.md` names as the
- * whole finding: a skin can already be forced onto every card and the light
- * switched on it, but until this existed there was no way to put a chosen
- * motion under that chosen skin — TURN IN DEPTH could be seen unlit on the
- * standalone motion sheet, or TURN lit here, never the pair the question
- * asks for.
- */
-let motion: OwnMotion | undefined;
 
 const STAMP: Record<CatalogueEntry["status"], string> = {
   draft: "DRAFT",
@@ -106,15 +77,12 @@ function card(entry: CatalogueEntry): HTMLElement {
   // the middle of it and six inches of nothing either side.
   const wide = isWide(entry);
   if (wide) div.classList.add("is-wide");
+  // A long card is already 686 px and stacks its pair, so only the square one
+  // has to grow. Set here rather than in the stylesheet because whether a card
+  // is paired is a page state, not a kind of card.
+  else if (paired()) div.style.width = `${PAIRED_CARD}px`;
   div.appendChild(
-    shapeFigure(entry, {
-      box: BOX,
-      width: wide ? WIDE : BOX,
-      stroke: STROKE[entry.status],
-      skin,
-      lit,
-      motion,
-    }),
+    picture(entry, { box: BOX, width: wide ? WIDE : BOX, stroke: STROKE[entry.status], wide }),
   );
 
   const side = document.createElement("div");
@@ -128,12 +96,11 @@ function card(entry: CatalogueEntry): HTMLElement {
   if (entry.suggests) text(side, "suggest", `for **${entry.suggests}**`);
   text(side, "blurb", entry.owner);
 
-  // The forced motion, if one is picked, is what actually drives the body —
-  // see the `motion` argument above — so the caption names that one rather
-  // than the catalogue's, or the two would disagree the moment a motion is
-  // forced.
-  const driving = motion ?? entry.motion;
-  const figures = driving ? `${entry.subject.note} · moves: ${driving.note}` : entry.subject.note;
+  // The forced motion, if one is picked, is what actually drives the body, so
+  // the caption names that one rather than the catalogue's — or the two would
+  // disagree the moment a motion is forced.
+  const drives = driving(entry);
+  const figures = drives ? `${entry.subject.note} · moves: ${drives.note}` : entry.subject.note;
   text(side, "figures", figures);
 
   div.appendChild(side);
@@ -155,85 +122,11 @@ function fill(id: string, entries: CatalogueEntry[]): void {
   for (const el2 of built) el.appendChild(el2);
 }
 
-/**
- * The skin switcher, built once above the drafts.
- *
- * Rebuilding every card is the whole of switching: a figure's fill, aura and
- * clip are decided when it is constructed, and mutating them in place would be
- * a second copy of `buildSkin` that has to agree with the first.
- *
- * That rebuild once cost seven to twelve seconds, which made a comparison —
- * the one thing this page is for — something nobody did twice. Rebuilding was
- * never what was expensive: sixty `buildSkin` calls and sixty fresh subtrees
- * are 114 ms of it. The rest was the frame fit, rescanned per card per switch
- * for an answer that had not changed. `shape-figure.ts` remembers it now and a
- * switch costs 214 ms, so nothing here need be cleverer about which cards.
- */
-function skinBar(): void {
-  const host = document.getElementById("shapesSkin");
-  if (!host) return;
-  host.replaceChildren();
-  for (const s of SKINS) {
-    const b = document.createElement("button");
-    b.className = s.id === skin ? "skin is-on" : "skin";
-    b.textContent = s.label;
-    b.title = s.hint;
-    b.addEventListener("click", () => {
-      skin = s.id;
-      renderShapes();
-    });
-    host.appendChild(b);
-  }
-
-  // Orthogonal to the skin buttons above: it does not unpick any of them, and
-  // picking one of them does not touch it. One button because there is one
-  // light — see `lit`.
-  const litBtn = document.createElement("button");
-  litBtn.className = lit ? "skin is-on" : "skin";
-  litBtn.style.marginLeft = "10px";
-  litBtn.textContent = "LIT";
-  litBtn.title =
-    "the key light, on top of whichever skin composes it — off shows the same skin without it";
-  litBtn.addEventListener("click", () => {
-    lit = !lit;
-    renderShapes();
-  });
-  host.appendChild(litBtn);
-
-  // A second bar, same host: the skin is picked for the whole page and the
-  // motion is picked for the whole page, so they read as one row of controls
-  // rather than two panels that happen to sit near each other. "OWN" is a
-  // button like any other rather than an implicit fallback, so the default —
-  // each card keeping its own catalogue motion — is a choice visibly made,
-  // not the absence of one.
-  const ownBtn = document.createElement("button");
-  ownBtn.className = motion === undefined ? "skin is-on" : "skin";
-  ownBtn.style.marginLeft = "10px";
-  ownBtn.textContent = "OWN";
-  ownBtn.title = "each card keeps whatever motion its own catalogue entry was authored with";
-  ownBtn.addEventListener("click", () => {
-    motion = undefined;
-    renderShapes();
-  });
-  host.appendChild(ownBtn);
-
-  for (const m of MOTIONS) {
-    const b = document.createElement("button");
-    b.className = motion === m ? "skin is-on" : "skin";
-    b.textContent = m.name;
-    b.title = m.note;
-    b.addEventListener("click", () => {
-      motion = m;
-      renderShapes();
-    });
-    host.appendChild(b);
-  }
-}
-
 export function renderShapes(): void {
   if (!document.getElementById("shapesFree")) return;
 
-  skinBar();
+  const host = document.getElementById("shapesSkin");
+  if (host) controlBar(host, renderShapes);
 
   fill(
     "shapesDrafts",
