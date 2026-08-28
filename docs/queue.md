@@ -214,6 +214,112 @@ Finished when `bun run check` is green, `frame.test.ts` passes, a test proves th
 
 Model `sonnet`, effort `think hard`. Read `packages/render/src/layout.ts` and `scars.ts` first.
 
+## A SHELL THAT COMES OFF IN PIECES, AND A COLOUR NOBODY KNEW UNTIL IT DOES
+_claude/burn-creature-shell-g1 · packages/sim/src/shell.ts packages/sim/test/shell.test.ts packages/content/src/creatures.ts_
+
+The owner's creature, and most of it is already agreed and half of it is
+already built. `docs/spec/systems.md` §5.6 asks for exactly this — *hits cut
+real pieces out of it*, *3–6 splinters fly off*, and **the meteor craters to a
+hard core that further hits only spark against**. `holes` exists in
+`packages/sim`: `bullet-hit.ts` increments it against `cfg.maxHoles`,
+`hash.ts` pushes it, and render places crater `k` from the id. That machinery
+is built and shipped, for rocks. This lane gives it to a creature and adds the
+one thing rocks do not have: something alive underneath.
+
+**The shape of it.** A body that takes several shots. Each hit breaks a piece
+out where it was struck, with a small burst at the break. Three pieces. When
+the last is gone the core is exposed — a plain creature in a plain colour,
+which **nobody knew until the shell came off**, and which then needs the
+matching shot like any other body.
+
+**The two phases divide the work differently, and that is the point of it.**
+Breaking the shell is colour-blind: either shot chips it, so either player can
+work on it and neither has to be told which. Killing the core is
+colour-locked: one specific player must finish it, and until the shell is off
+nobody knows which. So an arrival that starts as *anyone, keep hitting it*
+turns into *you, now, and only you* — and the turn happens at a moment the
+pair cannot plan for. Read `docs/spec/couplings.md` before settling the
+timings; that reversal is the whole design and everything else serves it.
+
+**The constraint the owner found, and it is the sharp one.** The cannon fires
+straight up, so a bullet meets whatever is lowest in its column first. A shell
+stacked in rows would make its upper pieces permanently unreachable — the
+lower ones would armour them, and the creature would be unkillable rather than
+hard. **So the pieces divide the body vertically, not horizontally**: each is
+a full-height slice, and every column of the body has exactly one piece in
+front of it. Getting this wrong produces a creature that passes every test and
+cannot be killed on a phone, so put the reasoning in the commit and make the
+test prove it — fire up each column in turn and assert every piece is
+reachable.
+
+**Explicitly not in this lane**, and both are good ideas that belong after it:
+a broken piece that keeps falling as a rock (the `Moulting` idea in
+`docs/spec/ideas.md` proposes exactly that, and it turns one arrival into
+cannon-then-shield in that order — real, and a second mechanic); and any
+change to the meteor's own cratering. Do not touch `rock-impact.ts`.
+
+**The rules that are not negotiable**, and this is the first lane of the run
+inside `packages/sim`, so read `CLAUDE.md` twice: no `Math.random`, no
+`Date.now`, no DOM, integers only with sub-tile values in thousandths, and
+`sim` never imports `render`. Every new field on the creature goes into
+`hashWorld` — see `docs/decisions.md` #23, which made *hashed* the default and
+named the only four exceptions. A shell segment count that two devices
+disagree about is a desync that reads like a network bug.
+
+Follow `.claude/skills/new-creature`, which carries the control-visibility
+entry, the state machine and the replay test this needs.
+
+Finished when `bun run check` and `bun run test:determinism` are green, a
+replay test kills one from both seats and proves the colour lock only applies
+after the shell is gone, the reachability test above passes, and the commit
+carries `Check: does the switch from "anyone hit it" to "only you, now" land
+as a moment, or does the pair miss that it happened — a wave with one, played
+from both seats`.
+
+Model `opus`, effort `ultrathink`. The unpick test says so: this is a premise
+about how a creature can be layered, it goes in the hash, and it is expensive
+to unpick months later. Think about the two-phase reversal before any code —
+the code is the easy half. Read `docs/spec/systems.md` §5.6, `docs/spec/bestiary.md`
+and `packages/sim/src/bullet-hit.ts` first.
+
+## THREE PIECES COME OFF A BODY AND NOTHING DRAWS THE BREAK
+_claude/burn-creature-shell-draw-g2 · packages/render/src/shell-draw.ts packages/render/test/shell-draw.test.ts_
+
+Behind g1, which owns the state this reads.
+
+The break is the whole feel of the creature and the sim cannot express it: a
+piece leaves, an edge is raw where it left, and there is a burst at the
+break. The owner's reference is a meteorite striking the ship — but with no
+fixed form, the shot *loosens a chunk* rather than punching a neat hole.
+
+`packages/render/src/craters.ts` already draws pits with lit rims and shadowed
+floors, `rock-impact.ts` already draws a strike, and `effects-spark.ts` and
+`sparks.ts` already throw particles. Read all four before drawing anything —
+§5.6 asks for splinters and a broken edge that *glows briefly*, and three of
+those four already do a version of it. Do not import the meteor's own
+functions if it means changing them; a creature is not a rock and the two
+should be able to diverge.
+
+**The state that outlives a frame goes in `Effects` and is cleared in
+`Effects.reset()`** — `packages/render/test/restart.test.ts` fails if a field
+is added and not cleared, and that is correct rather than an obstacle:
+`world.beat`, `world.tick` and `world.nextId` all restart at 0, which is how a
+crack once came to show before the rock that made it.
+
+**The thing to get right is the raw edge, not the burst.** A burst is cheap
+and every game has one; what says *a piece came off this body* is that the
+silhouette is now wrong in a specific place — the contour is interrupted, and
+the interruption keeps its shape as the body sways. A body that loses a piece
+and stays a clean closed blob has lost nothing.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, `restart.test.ts` passes unweakened, and the commit
+carries `Check: does a piece coming off read as broken away, or as a hole
+appearing — one at 26 px on a phone, and again beside a meteor for contrast`.
+
+Model `sonnet`, effort `think hard`. Read `craters.ts`, `rock-impact.ts` and
+`docs/spec/graphics.md` first.
+
 ## FIVE HUNDRED LINES IN ONE FILE, AND THE DOCUMENT THAT NAMES ITS NEIGHBOURS
 _claude/burn-versus-promptsplit-v3b · tools/versus/prompt.ts tools/versus/text.ts docs/versus.md_
 
