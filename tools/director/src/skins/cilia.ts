@@ -28,16 +28,18 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * travels around the rim once every few seconds rather than a hundred strands
  * flexing on the same clock — grass is unison, something alive is offset.
  *
- * **The lean.** `SkinFrame` carries no pose yet (`docs/skins.md` says the
- * field waits for the first skin that needs it, added with nothing else
- * touched) — but the pose is not the only way to it. `shape-figure.ts` writes
- * the own-motion transform onto the very group a skin draws into, every frame,
- * *before* calling `onFrame`. `translate(dx, dy)` is that transform's first
- * component, so `ctx.body.transform.baseVal.getItem(0).matrix` is the pose's
- * own offset, already computed, read rather than re-derived. Differencing it
- * frame to frame gives a velocity; the fringe leans opposite that velocity,
- * smoothed so it does not chatter, and reverses the instant the velocity does
- * — drag, not wind, and it costs no second copy of `poseAtSecond`.
+ * **The lean.** `f.pose` is where the own-motion has put this body, in tiles,
+ * the same pose `shape-figure.ts` writes onto the group. Differencing it frame
+ * to frame gives a velocity; the fringe leans opposite that velocity, smoothed
+ * so it does not chatter, and reverses the instant the velocity does — drag,
+ * not wind. `ctx.tile` puts it in the contour units everything else here is
+ * measured in — the direction would survive without that, but `MOVING` is a
+ * speed and a threshold has to be in the units it was chosen for.
+ *
+ * This used to read `ctx.body.transform.baseVal.getItem(0).matrix` instead and
+ * difference that, which assumed `shape-figure.ts` writes a translate as the
+ * first transform item — true, promised nowhere, and silent if it ever stopped
+ * being true: the fringe would simply stop leaning.
  */
 
 const RIM_COUNT = 100;
@@ -56,6 +58,9 @@ const CURVE_AMOUNT = 0.16;
  * so a sign flip in the velocity takes a few frames to read, not one jolt. */
 const LEAN_SMOOTH = 0.12;
 const LEAN_BEND = 0.55;
+/** Below this, in contour units a second, the body is standing still and the
+ * direction of travel is noise rather than a direction. */
+const MOVING = 1e-4;
 
 interface Strand {
   readonly el: SVGPathElement;
@@ -174,26 +179,24 @@ function cilia(ctx: SkinContext): void {
   let prevY = 0;
   let prevT: number | null = null;
 
-  ctx.onFrame(({ t }) => {
-    const list = ctx.body.transform.baseVal;
-    if (list.numberOfItems > 0) {
-      const m = list.getItem(0).matrix;
-      if (prevT !== null) {
-        const dt = t - prevT;
-        if (dt > 0.0001) {
-          const vx = (m.e - prevX) / dt;
-          const vy = (m.f - prevY) / dt;
-          const speed = Math.hypot(vx, vy);
-          if (speed > 1e-4) {
-            leanX += (-vx / speed - leanX) * LEAN_SMOOTH;
-            leanY += (-vy / speed - leanY) * LEAN_SMOOTH;
-          }
+  ctx.onFrame(({ t, pose }) => {
+    const x = pose.dx * ctx.tile;
+    const y = pose.dy * ctx.tile;
+    if (prevT !== null) {
+      const dt = t - prevT;
+      if (dt > 0.0001) {
+        const vx = (x - prevX) / dt;
+        const vy = (y - prevY) / dt;
+        const speed = Math.hypot(vx, vy);
+        if (speed > MOVING) {
+          leanX += (-vx / speed - leanX) * LEAN_SMOOTH;
+          leanY += (-vy / speed - leanY) * LEAN_SMOOTH;
         }
       }
-      prevX = m.e;
-      prevY = m.f;
-      prevT = t;
     }
+    prevX = x;
+    prevY = y;
+    prevT = t;
 
     const total = sample.getTotalLength();
     if (total > 0) {

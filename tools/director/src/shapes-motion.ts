@@ -1,5 +1,12 @@
-import { beatsFromSeconds, type OwnMotion, type Pose } from "@neon-spore/content";
-import type { Bounds, Subject } from "@neon-spore/shape-sheet";
+import {
+  beatsFromSeconds,
+  type LongAxis,
+  longAxis,
+  type OwnMotion,
+  type Pose,
+  poseOn,
+} from "@neon-spore/content";
+import { type Bounds, boundsOver, type Subject, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
@@ -29,6 +36,31 @@ export function tilePixels(b: Bounds): number {
 }
 
 /**
+ * The moments a body's own extent is asked over.
+ *
+ * Six, not the five a frame is fitted over, and the difference is load-bearing
+ * rather than tidy: seven of the sixty catalogue entries change which way they
+ * are longer as they breathe, so the answer depends on when it is asked, and
+ * ECHO is a body the two sample sets genuinely disagree about — round over
+ * these six, wide over the fit's five. WIND has wound every body against this
+ * set since it was written, so this is that set, kept.
+ */
+export const EXTENT_TIMES = [0, 1, 2, 3, 4, 5].map((i) => (i / 6) * WOBBLE_PERIOD);
+
+/**
+ * A body's own extent, over a whole wobble: the thing `reach` throws away by
+ * taking a maximum, and the one input `longAxis` needs.
+ */
+export function extentOf(subject: Subject): Bounds {
+  return boundsOver(subject, EXTENT_TIMES);
+}
+
+/** Which way a measured body is long. `longAxis` holds the threshold. */
+export function longAxisOf(b: Bounds): LongAxis {
+  return longAxis(b.x1 - b.x0, b.y1 - b.y0);
+}
+
+/**
  * A pose at a moment on the card's clock, which is seconds.
  *
  * The field's pose clock is `world.beat + beatPhase`, so that two phones agree
@@ -37,9 +69,14 @@ export function tilePixels(b: Bounds): number {
  * caller here goes through it — a card that converted at its own rate would be
  * showing a sway the game does not have, which is the failure `own-motion.ts`
  * exists to prevent.
+ *
+ * `long` is the carrier's own long axis, and it is the second thing this
+ * boundary exists to hold: a motion written along the body has to be turned to
+ * face the body it is on, and `poseOn` is where that turn lives. Everything
+ * with the default screen axis is unaffected whatever is passed.
  */
-function poseAtSecond(motion: OwnMotion, t: number): Pose {
-  return motion.poseAt(beatsFromSeconds(t, DEFAULT_CONFIG.bpm));
+export function poseAtSecond(motion: OwnMotion, t: number, long: LongAxis = null): Pose {
+  return poseOn(motion, beatsFromSeconds(t, DEFAULT_CONFIG.bpm), long);
 }
 
 export interface Centre {
@@ -57,9 +94,14 @@ export function motionTransform(
   t: number,
   centre: Centre,
   tile: number,
+  long: LongAxis = null,
 ): string {
   if (!motion) return "";
-  const p = poseAtSecond(motion, t);
+  return poseTransform(poseAtSecond(motion, t, long), centre, tile);
+}
+
+/** The same transform, for a caller that has already worked the pose out. */
+export function poseTransform(p: Pose, centre: Centre, tile: number): string {
   const dx = centre.x + p.dx * tile;
   const dy = centre.y + p.dy * tile;
   const deg = ((p.rot * 180) / Math.PI).toFixed(2);
@@ -101,6 +143,7 @@ export function transformedBounds(
   times: number[],
   tile: number,
   centre: Centre,
+  long: LongAxis = null,
 ): Bounds {
   const b: Bounds = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
   // The wobble's three layers have no common period, so the extremes are found
@@ -136,7 +179,7 @@ export function transformedBounds(
     // frequencies chosen not to divide into each other, and its widest excursion
     // is a beat the two of them only share once every half minute.
     for (let t = 0; t < 64; t += 0.01) {
-      const pose = poseAtSecond(motion, t);
+      const pose = poseAtSecond(motion, t, long);
       for (const c of corners) {
         const q = move(c.x, c.y, pose, centre, tile);
         if (q.x < b.x0) b.x0 = q.x;
@@ -161,7 +204,7 @@ export function transformedBounds(
     // The same centre the drawn transform turns about — the still shape's, not
     // the moving one's. A box measured about a centre that chases the sway is
     // a box the drawing does not agree with, which is how a card clips.
-    const pose = poseAtSecond(motion, t);
+    const pose = poseAtSecond(motion, t, long);
     for (const p of pts) {
       const q = move(p.x, p.y, pose, centre, tile);
       if (q.x < b.x0) b.x0 = q.x;

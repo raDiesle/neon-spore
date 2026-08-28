@@ -35,11 +35,16 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * so the slide is one too — the bands breathe rather than march, which is what a
  * surface catching light does and a colour animation does not.
  *
- * `SkinContext` carries no velocity, so the displacement is CILIA's technique:
- * `ctx.body.transform.baseVal.getItem(0).matrix`, which `shape-figure.ts` writes
- * before every `onFrame`. That assumes a translate is the first transform item —
- * true today, promised nowhere. `docs/parked.md` already wants a proper field,
- * and this is the third caller waiting for it.
+ * The displacement is `f.pose`, the body's own-motion pose, times `ctx.tile` to
+ * put it in the contour units `reach` is measured in. It used to be CILIA's
+ * technique — `ctx.body.transform.baseVal.getItem(0).matrix`, differenced —
+ * which assumed a translate was the first transform item, and read it rounded
+ * to two decimals on the way past.
+ *
+ * The pose also carries `rot`, which is the thing this skin would rather have:
+ * interference tracks the surface *normal*, so a body that turns more than it
+ * drifts — TREMBLE is the case — has a shift the drift does not describe. Not
+ * taken here, because that is a different picture and this lane changed none.
  *
  * No angle is named here. The two layers take `KEY` and one tilt off it, the
  * way `specularPass` already does.
@@ -171,13 +176,20 @@ function nacre(ctx: SkinContext): void {
   let prevY = 0;
   let seen = false;
 
-  ctx.onFrame(() => {
-    const list = ctx.body.transform.baseVal;
-    if (list.numberOfItems === 0) return;
-    const m = list.getItem(0).matrix;
+  ctx.onFrame(({ pose }) => {
+    const x = pose.dx * ctx.tile;
+    const y = pose.dy * ctx.tile;
     if (seen && ctx.reach > 0) {
-      const dx = (m.e - prevX) / ctx.reach;
-      const dy = (m.f - prevY) / ctx.reach;
+      const dx = (x - prevX) / ctx.reach;
+      const dy = (y - prevY) / ctx.reach;
+      // Nothing moved, so nothing slid: a body with no own-motion at all never
+      // writes a gradient transform, and the phase it would have written is
+      // the phase already on the element.
+      if (dx === 0 && dy === 0) {
+        prevX = x;
+        prevY = y;
+        return;
+      }
       for (let i = 0; i < layers.length; i++) {
         const l = layers[i];
         if (!l) continue;
@@ -188,8 +200,8 @@ function nacre(ctx: SkinContext): void {
         l.grad.setAttribute("gradientTransform", `translate(${tx.toFixed(5)} ${ty.toFixed(5)})`);
       }
     }
-    prevX = m.e;
-    prevY = m.f;
+    prevX = x;
+    prevY = y;
     seen = true;
   });
 }

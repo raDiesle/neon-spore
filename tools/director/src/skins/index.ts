@@ -102,7 +102,9 @@ export interface SkinBuild {
  * an id collision silently gives two shapes one texture. `reach` is half the
  * shape's own extent, in contour units, which is what a texture and the
  * gradient are sized against — a card's pixel scale is applied above this by
- * the fitting, so nothing here has to know about it.
+ * the fitting, so nothing here has to know about it. `extent` is the two
+ * numbers `reach` takes a maximum of, for a skin that has to know which way
+ * the body is long; `tile` turns a `SkinFrame` pose into those same units.
  *
  * A skin cannot forget to register a contour path, because it has no way to
  * make one except `ctx.contourPath()`, and that is what collects them.
@@ -111,7 +113,16 @@ export function buildSkin(
   skin: SkinId,
   body: SVGGElement,
   defs: SVGDefsElement,
-  opts: { colour: string; weight: number; uid: string; name: string; reach: number; lit: boolean },
+  opts: {
+    colour: string;
+    weight: number;
+    uid: string;
+    name: string;
+    reach: number;
+    extent: { w: number; h: number };
+    tile: number;
+    lit: boolean;
+  },
 ): SkinBuild {
   const contour: SVGPathElement[] = [];
   const frames: ((f: SkinFrame) => void)[] = [];

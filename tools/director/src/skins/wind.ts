@@ -1,4 +1,4 @@
-import { boundsOver, CATALOGUE, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
+import { longAxis } from "@neon-spore/content";
 import { contactPass, rimLightPass, specularPass, terminatorPass } from "./light.js";
 import { LAT_LIMIT, type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
@@ -57,47 +57,6 @@ const MARKS = 7;
 /** Inside `LAT_LIMIT` rather than on it: a mark at the limit is a hairline
  * before the rotation touches it. */
 const LAT_INSET = 0.94;
-
-/**
- * How much wider than tall a body has to be before it is treated as a wide one.
- *
- * Not 1.0. BULB is 123 × 118 and RUNT is 41 × 42 — a body round to within a few
- * percent has no long axis, and a bare `w > h` hands it one on a 4% margin and
- * winds it sideways for no reason. A quarter again as wide is a claim, 4% is
- * noise. SLICK at 152 × 89 clears it easily and the hull spans by an order of
- * magnitude; twenty-four of the sixty catalogue entries are wide.
- */
-const WIDE_ENOUGH = 1.25;
-
-/** Asked over a whole wobble, not at rest: seven of the sixty entries change
- * which way they are longer as they breathe. */
-const TIMES = [0, 1, 2, 3, 4, 5].map((i) => (i / 6) * WOBBLE_PERIOD);
-
-/**
- * Which way this body is long, from its own contour.
- *
- * The long axis is emphatically not always the tall one. Assuming vertical winds
- * SLICK — 152 wide, 89 tall — across its short dimension, a wave crammed into
- * the part of the body with no room for it. The lookup is by name because a
- * skin is told `ctx.name` and nothing else about the shape it is dressing; an
- * unknown name falls back to the tall reading, right for every round body.
- *
- * Kept, because it is not free and `13d76b6` has just spent a lane on this exact
- * cost: `boundsOver` across the sixty entries at six times each measures 47–50
- * ms, against a skin switch that lane brought down to about 200. Answering once
- * a shape rather than once a card takes that straight back off the flip.
- */
-const wideness = new Map<string, boolean>();
-
-function isWideBody(name: string): boolean {
-  const had = wideness.get(name);
-  if (had !== undefined) return had;
-  const entry = CATALOGUE.find((e) => e.subject.name === name);
-  const b = entry && boundsOver(entry.subject, TIMES);
-  const wide = b ? b.x1 - b.x0 > (b.y1 - b.y0) * WIDE_ENOUGH : false;
-  wideness.set(name, wide);
-  return wide;
-}
 
 /**
  * One band: the marks sharing a place along the long axis, and that place's
@@ -222,12 +181,25 @@ function wideBands(ctx: SkinContext, rand: () => number, g: SVGGElement, dim: nu
   return out;
 }
 
-/** The surface, whichever way round the body is long. */
+/**
+ * The surface, whichever way round the body is long.
+ *
+ * The long axis is emphatically not always the tall one. Assuming vertical
+ * winds SLICK — 152 wide, 89 tall — across its short dimension, a wave crammed
+ * into the part of the body with no room for it. This used to be answered by
+ * looking `ctx.name` back up in `CATALOGUE` and measuring the entry, because a
+ * skin was told its reach and never its shape; a name the catalogue did not
+ * reach fell silently back to the tall reading. `ctx.extent` is that
+ * measurement, taken once by the thing that was already measuring the body,
+ * and `longAxis` is the threshold, held in one place rather than two. A round
+ * body has no long axis and is wound the tall way, as before.
+ */
 function surface(ctx: SkinContext): Band[] {
   const rand = streamFor(ctx.name);
   const g = clipGroup(ctx, "wind");
   const dim = ctx.lit ? 0.28 : 1;
-  return isWideBody(ctx.name) ? wideBands(ctx, rand, g, dim) : tallBands(ctx, rand, g, dim);
+  const wide = longAxis(ctx.extent.w, ctx.extent.h) === "x";
+  return wide ? wideBands(ctx, rand, g, dim) : tallBands(ctx, rand, g, dim);
 }
 
 export const WIND: Skin<"wind"> = {

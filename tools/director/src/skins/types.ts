@@ -1,3 +1,4 @@
+import type { Pose } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
@@ -38,21 +39,27 @@ export const BEAT_SECONDS = 60 / DEFAULT_CONFIG.bpm;
  *   as noise, and a heartbeat is only a heartbeat because the page does it
  *   together.
  *
- * What is out, and why: the body's own pose. A fringe that leans against the
- * direction of travel and an iridescence that rides the movement both want it,
- * and both would want it in the body's own units — which is
- * `shapes-motion.ts`'s `poseAtSecond`, currently private to that file. Adding
- * it means exporting that one function, not re-deriving the seconds-to-beats
- * conversion here: a card that converted at its own rate would show a sway the
- * game does not have. So the field is not guessed at now; the lane that first
- * needs it exports the pose, adds `pose?: Pose` here, and touches no other
- * skin, which is exactly what the object shape above is for.
+ * - `pose` — where the own-motion has put the body this instant, in the tiles
+ *   `content/own-motion.ts` measures a sway in. Unlike `beat` it is **per
+ *   card**, because it is a fact about one body rather than about the page.
+ *   It comes from `shapes-motion.ts`'s `poseAtSecond`, which is also what
+ *   writes the transform on the group — one pose, computed once, used twice —
+ *   rather than a seconds-to-beats conversion re-derived inside a skin, which
+ *   would show a sway the game does not have. A figure with no own-motion is
+ *   handed `REST`.
+ *
+ * Two skins used to reach for the pose through the DOM instead, differencing
+ * `ctx.body.transform.baseVal.getItem(0).matrix` frame to frame. That read a
+ * translate rounded to two decimals and assumed it was written first, which
+ * was true and promised nowhere; the field is the promise.
  */
 export interface SkinFrame {
   /** Seconds on the page clock. */
   readonly t: number;
   /** Beat phase 0..1, shared page-wide. */
   readonly beat: number;
+  /** This body's own-motion pose, in tiles. `REST` when it has no motion. */
+  readonly pose: Pose;
 }
 
 /** Everything a skin is given to build itself into one figure. */
@@ -74,6 +81,25 @@ export interface SkinContext {
   readonly name: string;
   /** Half the shape's extent, in contour units. */
   readonly reach: number;
+  /**
+   * The body's own width and height, in contour units — what `reach` throws
+   * away by taking the larger of the two.
+   *
+   * A skin that needs to know which way its subject is *long* asks
+   * `longAxis(extent.w, extent.h)` and never re-derives the threshold. WIND
+   * used to look the subject back up in `CATALOGUE` by `ctx.name` to get this,
+   * and fell silently back to "tall" for any name the catalogue did not reach.
+   *
+   * Measured over a whole wobble rather than at rest, because seven of the
+   * sixty entries change which way they are longer as they breathe.
+   */
+  readonly extent: { readonly w: number; readonly h: number };
+  /**
+   * Contour units to one tile — the unit a `Pose` offset is measured in. A
+   * skin that wants the frame's pose as a distance on its own drawing
+   * multiplies by this, the way the game multiplies by `layout.tile`.
+   */
+  readonly tile: number;
   /**
    * Whether the key light is switched on. Orthogonal to which skin is picked —
    * `light.ts`'s passes read this and draw nothing when it is false, which is

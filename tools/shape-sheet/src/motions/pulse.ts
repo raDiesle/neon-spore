@@ -127,19 +127,18 @@ export const HEART: OwnMotion = {
  * *body* preserves its volume and the *drawing* does not, because a box is
  * fitted to the widest point rather than to the mean.
  *
- * **The axis is declared, not derived, and that is a real cost.** `WIND` asks
- * `boundsOver` across a whole wobble and takes the long axis from the contour,
- * because a skin is handed the body. `poseAt(t: Beats)` is handed a clock and
- * nothing else, so no motion in this folder can see which way its carrier is
- * longer. Measured over the sixty catalogue entries at WIND's own 1.25
- * threshold: 25 are wide, so x is right; 27 are round to within a quarter, so
- * by WIND's own reasoning they have no long axis and any direction is as good
- * as another; and 8 are tall — TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE
- * CLAW, POD and the two HUSKs — where this runs across the body instead of
- * along it. On those eight it is a squeeze that travels the short way, which
- * is wrong rather than merely arbitrary. Fixing it needs an axis on
- * `OwnMotion` or a pose handed its subject, and both are edits to
- * `packages/content` rather than to this file.
+ * **The axis is declared and then turned.** The pose below is written with x
+ * running along the body, and `axis: "long"` is that written down where a
+ * caller can read it: `poseOn` turns the whole gesture a quarter turn on a
+ * body whose long axis is vertical, so the squeeze runs along the body rather
+ * than across it. It used to be a declaration and nothing else, because
+ * `poseAt(t: Beats)` is handed a clock and no motion in this folder can see
+ * its carrier. Measured over the sixty catalogue entries at the shared 1.25
+ * threshold, 24 are wide and x was already right, 28 are round to within a
+ * quarter and have no long axis to be wrong about — and 8 are tall: TENDRIL,
+ * THE NEEDLE, RIBBON, THE SPLICE, THE CLAW, POD and the two HUSKs, where the
+ * swell used to travel the short way across the body. Those eight are the
+ * whole of what the field changes, and `long-axis.ts` argues the shape of it.
  *
  * Three beats of traverse, then a beat of rest. The bulge arrives over 15% of
  * the traverse and leaves over 30%, so it is swallowed and then dissipates —
@@ -164,6 +163,7 @@ function ramp(x: number): number {
 export const PERISTALSIS: OwnMotion = {
   name: "PERISTALSIS",
   note: "a bulge swallowed at one end and squeezed to the other — width travels, length does not",
+  axis: "long",
   poseAt(t) {
     const p = t % PERISTALSIS_PERIOD;
     if (p >= TRAVERSE) return pose(0, 0, 0, 1, 1);

@@ -1,12 +1,7 @@
-import type { OwnMotion } from "@neon-spore/content";
-import {
-  type Bounds,
-  boundsOver,
-  type CatalogueEntry,
-  contourAt,
-  WOBBLE_PERIOD,
-} from "@neon-spore/shape-sheet";
-import { type Centre, motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
+import { type LongAxis, type OwnMotion, type Pose, REST } from "@neon-spore/content";
+import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
+import { fitOf, stillOf } from "./shape-fit.js";
+import { poseAtSecond, poseTransform } from "./shapes-motion.js";
 import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/index.js";
 
 /**
@@ -29,87 +24,7 @@ import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/in
 
 const SVG = "http://www.w3.org/2000/svg";
 
-/** The moments a frame is fitted over: one whole wobble, sampled. */
-export const FIT_TIMES = [0, 0.2, 0.4, 0.6, 0.8].map((f) => f * WOBBLE_PERIOD);
-
-/**
- * The hull is six times as wide as it is tall, and a span of it far more.
- * Fitted into a square such a shape becomes a hairline across the middle, so
- * anything this long gets a wide frame and everything else stays square.
- */
-export const WIDE_RATIO = 3;
-
-/**
- * The rest pose's box, and the two numbers derived from it. Depends on the
- * contour and on nothing else — not on the frame it will be drawn into, not
- * on the skin, not on the light.
- */
-interface Still {
-  bounds: Bounds;
-  tile: number;
-  /**
-   * The still shape's middle. Both the frame and the transform written every
-   * frame turn about this same point, or the two disagree and the card clips
-   * whatever the frame did not know was coming.
-   */
-  pivot: Centre;
-}
-
-/**
- * The fit, remembered.
- *
- * A card's frame is found by scanning: a hundred and thirty contour samples,
- * each a metaball bisection, and then six thousand poses over the sixty-four
- * seconds `DRIFT` takes to reach its widest excursion. That is the honest
- * price of a frame that never clips, and it is nearly the whole price of a
- * card — measured on the SHAPES tab, 6130 ms of a 6376 ms skin switch, against
- * 112 ms for every `buildSkin` on the page and 2 ms for every element.
- *
- * None of it depends on the skin, the light, or the frame the answer is drawn
- * into. So switching skin used to re-derive sixty identical numbers and throw
- * the old ones away — the rebuild was never the cost, recomputing the fit
- * sixty times for no new information was. The catalogue is a fixed table and
- * `FIT_TIMES` a constant, so the answer for a given contour and a given
- * own-motion is the same answer forever; it is worked out once and kept.
- *
- * Keyed on the entry and the motion because those are the only two inputs.
- * The stored boxes are handed out by reference and read, never written.
- */
-const stills = new Map<CatalogueEntry, Still>();
-const fits = new Map<CatalogueEntry, Map<OwnMotion | undefined, Bounds>>();
-
-function stillOf(entry: CatalogueEntry): Still {
-  const had = stills.get(entry);
-  if (had) return had;
-  const bounds = boundsOver(entry.subject, FIT_TIMES);
-  const still: Still = {
-    bounds,
-    tile: tilePixels(bounds),
-    pivot: { x: (bounds.x0 + bounds.x1) / 2, y: (bounds.y0 + bounds.y1) / 2 },
-  };
-  stills.set(entry, still);
-  return still;
-}
-
-/** The box the shape needs once its own-motion is counted in. */
-function fitOf(entry: CatalogueEntry, motion: OwnMotion | undefined, still: Still): Bounds {
-  let byMotion = fits.get(entry);
-  if (!byMotion) {
-    byMotion = new Map();
-    fits.set(entry, byMotion);
-  }
-  const had = byMotion.get(motion);
-  if (had) return had;
-  const b = transformedBounds(entry.subject, motion, FIT_TIMES, still.tile, still.pivot);
-  byMotion.set(motion, b);
-  return b;
-}
-
-/** Whether this shape needs the wide frame rather than the square one. */
-export function isWide(entry: CatalogueEntry): boolean {
-  const b = stillOf(entry).bounds;
-  return (b.x1 - b.x0) / (b.y1 - b.y0) > WIDE_RATIO;
-}
+export { FIT_TIMES, isWide, WIDE_RATIO } from "./shape-fit.js";
 
 interface Drawn {
   entry: CatalogueEntry;
@@ -127,6 +42,17 @@ interface Drawn {
   tile: number;
   /** `entry.motion` unless a forced motion overrode it. See `FigureOptions.motion`. */
   motion?: OwnMotion;
+  /** Which way this body is long, for a motion written along one. */
+  long: LongAxis;
+  /**
+   * This card's own frame, reused rather than rebuilt.
+   *
+   * `t` and `beat` are the same on every card and could be one shared object;
+   * `pose` is this body's alone, so the frame has to be per card, and a page
+   * of sixty cards must not allocate sixty objects sixty times a second to say
+   * so. Written here each tick and read by the skin, never kept by it.
+   */
+  frame: { t: number; beat: number; pose: Pose };
 }
 
 const drawn: Drawn[] = [];
@@ -140,11 +66,11 @@ let uid = 0;
  */
 function tick(): void {
   const t = performance.now() / 1000;
-  // One phase, built once and handed to every card. Not per figure: a page of
-  // cards each pulsing on its own clock reads as noise, and the whole value of
-  // a heartbeat is that the page does it together. `BEAT_SECONDS` is the
-  // game's own tempo — see `skins/types.ts`.
-  const frame: SkinFrame = { t, beat: (t / BEAT_SECONDS) % 1 };
+  // One phase, worked out once and written onto every card's frame. Not per
+  // figure: a page of cards each pulsing on its own clock reads as noise, and
+  // the whole value of a heartbeat is that the page does it together.
+  // `BEAT_SECONDS` is the game's own tempo — see `skins/types.ts`.
+  const beat = (t / BEAT_SECONDS) % 1;
   let live = 0;
   for (const d of drawn) {
     const first = d.paths[0];
@@ -152,8 +78,15 @@ function tick(): void {
     drawn[live++] = d;
     const shape = contourAt(d.entry.subject, t);
     for (const p of d.paths) p.setAttribute("d", shape);
-    d.body.setAttribute("transform", motionTransform(d.motion, t, d.centre, d.tile));
-    d.onFrame?.(frame);
+    // One pose, used twice: it is what the group is transformed by and what a
+    // skin that leans or slides is told. Two derivations of it would be two
+    // answers, and the fringe would lean against a sway the body is not doing.
+    const pose = d.motion ? poseAtSecond(d.motion, t, d.long) : REST;
+    d.body.setAttribute("transform", d.motion ? poseTransform(pose, d.centre, d.tile) : "");
+    d.frame.t = t;
+    d.frame.beat = beat;
+    d.frame.pose = pose;
+    d.onFrame?.(d.frame);
   }
   drawn.length = live;
   requestAnimationFrame(tick);
@@ -228,12 +161,24 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     uid: `sk${uid}`,
     name: entry.subject.name,
     reach: Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2,
+    extent: { w: still.extent.x1 - still.extent.x0, h: still.extent.y1 - still.extent.y0 },
+    tile,
     lit: opts.lit ?? true,
   });
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({ entry, paths: contour, onFrame, body, centre: pivot, tile, motion });
+  drawn.push({
+    entry,
+    paths: contour,
+    onFrame,
+    body,
+    centre: pivot,
+    tile,
+    motion,
+    long: still.long,
+    frame: { t: 0, beat: 0, pose: REST },
+  });
   if (!running) {
     running = true;
     requestAnimationFrame(tick);

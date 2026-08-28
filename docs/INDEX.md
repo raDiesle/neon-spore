@@ -97,6 +97,7 @@ history if the wording of a rejected idea is ever needed.
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
 | `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
+| `packages/content/src/long-axis.ts` | which way a body is long, and the quarter turn a motion written along one takes |
 | `packages/audio/src/types.ts` | what a sound is made of: layers, families, `bound` or `spare` |
 | `packages/audio/src/grain.ts` | the grains — the instruments every sound is stacked from |
 | `packages/audio/src/band.ts` | the speech band, kept clear, as something that can fail |

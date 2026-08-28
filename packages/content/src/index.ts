@@ -21,6 +21,7 @@ export {
   hullRadiusMul,
 } from "./hull-shape.js";
 export { GAPS } from "./interludes.js";
+export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export {
   MECHANIC_IDS,
   MECHANICS,
@@ -42,6 +43,7 @@ export {
   beatsFromSeconds,
   bodyPhase,
   livingMotion,
+  type MotionAxis,
   type OwnMotion,
   type Pose,
   poseClock,

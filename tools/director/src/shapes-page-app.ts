@@ -13,7 +13,7 @@
  * anything: it is a look, not an editor.
  */
 
-import type { OwnMotion } from "@neon-spore/content";
+import type { LongAxis, OwnMotion } from "@neon-spore/content";
 import {
   boundsOver,
   CATALOGUE,
@@ -24,7 +24,13 @@ import {
   WOBBLE_PERIOD,
 } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
-import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
+import {
+  extentOf,
+  longAxisOf,
+  motionTransform,
+  tilePixels,
+  transformedBounds,
+} from "./shapes-motion.js";
 
 const SVG = "http://www.w3.org/2000/svg";
 const BOX = 132;
@@ -36,6 +42,8 @@ const FIT_TIMES = [0, 0.2, 0.4, 0.6, 0.8].map((f) => f * WOBBLE_PERIOD);
 interface Drawn {
   subject: Subject;
   motion: OwnMotion | undefined;
+  /** Which way this body is long — a motion written along one is turned to it. */
+  long: LongAxis;
   path: SVGPathElement;
   body: SVGGElement;
   centre: { x: number; y: number };
@@ -65,7 +73,8 @@ function panel(subject: Subject, motion: OwnMotion | undefined, stroke: string):
 
   const tile = tilePixels(still);
   const centre = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
-  const b = transformedBounds(subject, motion, FIT_TIMES, tile, centre);
+  const long = longAxisOf(extentOf(subject));
+  const b = transformedBounds(subject, motion, FIT_TIMES, tile, centre, long);
   const scale = Math.min((w - 16) / (b.x1 - b.x0), (BOX - 16) / (b.y1 - b.y0));
   const cx = (b.x0 + b.x1) / 2;
   const cy = (b.y0 + b.y1) / 2;
@@ -87,7 +96,7 @@ function panel(subject: Subject, motion: OwnMotion | undefined, stroke: string):
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({ subject, motion, path, body, centre, tile });
+  drawn.push({ subject, motion, long, path, body, centre, tile });
   return svg;
 }
 
@@ -186,7 +195,7 @@ function tick(): void {
   const t = performance.now() / 1000;
   for (const d of drawn) {
     d.path.setAttribute("d", contourAt(d.subject, t));
-    d.body.setAttribute("transform", motionTransform(d.motion, t, d.centre, d.tile));
+    d.body.setAttribute("transform", motionTransform(d.motion, t, d.centre, d.tile, d.long));
   }
 }
 

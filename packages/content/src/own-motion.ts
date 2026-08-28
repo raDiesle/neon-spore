@@ -75,11 +75,27 @@ export interface Pose {
   sy: number;
 }
 
+/**
+ * Which axis a motion's pose is written along. `"screen"` — the default, and
+ * what every motion in this file assumes — means `dx` is sideways and `sx` is
+ * width whatever the body looks like. `"long"` means x runs *along the body*.
+ * `long-axis.ts` holds the quarter turn that costs, and the argument for a
+ * field rather than an argument to `poseAt`.
+ */
+export type MotionAxis = "screen" | "long";
+
 /** A named motion: a pose as a pure function of beats. */
 export interface OwnMotion {
   name: string;
   /** One line, the way a silhouette's note is one line. */
   note: string;
+  /**
+   * Which way the pose below is written. Absent means `"screen"`. A motion
+   * that sets `"long"` **must** be drawn through `poseOn` — see
+   * `long-axis.ts`, and `own-motion.test.ts`, which holds the game's own four
+   * to `"screen"` because `render/creatures.ts` calls `poseAt` directly.
+   */
+  axis?: MotionAxis;
   poseAt(t: Beats): Pose;
 }
 

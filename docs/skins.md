@@ -68,7 +68,7 @@ rebuilds every card, so nothing has to be undone.
 ## The frame
 
 ```ts
-ctx.onFrame(({ t, beat }) => { … });
+ctx.onFrame(({ t, beat, pose }) => { … });
 ```
 
 `t` is seconds on the page clock — the same number the contour is sampled at.
@@ -82,14 +82,28 @@ it is `60 / DEFAULT_CONFIG.bpm`, the game's own beat. A card has no world and
 cannot read `world.beat`, but a page pulsing at a tempo the field does not have
 would be answering a question about a look nobody will ever see.
 
-The body's own pose is deliberately **not** in `SkinFrame` yet. A fringe that
-leans against the direction of travel and an iridescence that rides the
-movement both want it; both should have it from `shapes-motion.ts`'s
-`poseAtSecond`, exported, rather than from a second copy of the
-seconds-to-beats conversion written inside a skin — a card that converted at
-its own rate would show a sway the game does not have. `SkinFrame` is an object
-and not a pair of arguments precisely so that the lane which first needs the
-pose adds a field and touches no other skin.
+`pose` is where the own-motion has put this body this instant, in tiles, and it
+is the one field that is **per card** rather than page-wide: it is a fact about
+one body. It comes from `shapes-motion.ts`'s `poseAtSecond`, which is also what
+writes the transform on the group — one pose, worked out once and used twice,
+rather than a seconds-to-beats conversion re-derived inside a skin, which would
+show a sway the game does not have. A figure with no own-motion gets `REST`.
+`ctx.tile` converts it to the contour units everything else in a skin is drawn
+in, the way the game multiplies by `layout.tile`.
+
+CILIA and NACRE used to reach for it through the DOM instead, differencing
+`ctx.body.transform.baseVal.getItem(0).matrix` frame to frame — which assumed
+`shape-figure.ts` writes a translate as the *first* transform item. That was
+true, promised nowhere, and would have failed silently: the fringe would simply
+stop leaning. `SkinFrame` being an object and not a pair of arguments is what
+let the field arrive without touching the other seventeen skins.
+
+`ctx.extent` is the other half of the same gap, on the context rather than the
+frame because a body's proportions do not change from frame to frame. A skin
+that needs to know which way its subject is long asks
+`longAxis(ctx.extent.w, ctx.extent.h)`; WIND used to look the subject back up
+in `CATALOGUE` by `ctx.name`, and fell silently back to "tall" for a name the
+catalogue did not reach.
 
 ## The four rules
 
