@@ -281,3 +281,12 @@ other's wave number.
 - **changed** LIGHT draws the aura and outline exactly as the other skins do and then adds a stroke 0.9× the line weight over the top, painted by a gradient along the key axis that is nothing until 62% and full by 88% — so it exists only on the shadow half and fades out before the terminator at 50%. Neither width nor position separates it from the aura: what does is that it is cool and brighter than the body colour where the aura is the body colour exactly, and hard where the aura is soft
 - **decide** do the rim and the aura read as two things on one body, or as one smear — and if the latter, should LIGHT drop the aura rather than thin the rim?
 - **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the LIGHT button, on a wide hull card where the shadow-side stroke is longest
+
+## `f031ecd` — scale and carapace, one lattice trick or two materials
+
+> SCALE lays many soft rounded petals in shrinking offset rows; CARAPACE lays a handful of hard straight-edged wedges in three seamed rings with a KEY-lit edge on each. Do the two read as different materials, or as one lattice repeated at two scales? Stand at `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, and press SCALE then CARAPACE in the skin bar to compare them directly.
+
+- **subject** `SCALE` and `CARAPACE`, the two new skins in `tools/director/src/skins/scale.ts` and `carapace.ts`
+- **changed** both lay their lattice once in polar coordinates — an angle and a fraction of `ctx.reach` — and clip the whole group to a path that is handed a fresh `d` every frame, so neither allocates per frame nor drifts off the body as it wobbles. SCALE places many small rounded petals (roughly ten thousand path segments on a large card) in six offset rows, shrinking from the centre toward the rim. CARAPACE places a small number of hard, straight-edged wedges (well under two thousand path segments on the same card) in three rings — a cap and two staggered bands — each seamed in dark stroke and given a bright outer-edge highlight only where that edge's own direction agrees with `KEY`, the same key-light constant `light.ts` uses everywhere else
+- **decide** do the two read as different materials — soft and many against hard and few — or does CARAPACE end up looking like SCALE's lattice repeated at a second, coarser scale?
+- **where** `DIRECTOR_HOST=127.0.0.1 bun run dev`, NOT BUILT YET → SHAPES, the SCALE and CARAPACE buttons in the skin bar
