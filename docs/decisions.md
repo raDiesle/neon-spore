@@ -538,3 +538,39 @@ pushed when it has landed something.
 rules assume the pusher is also the only reviewer, and a sweep that deletes a
 branch someone else is reading is a different thing entirely.
 
+
+## 23. Everything in the world is in the fingerprint, and the exceptions are named
+
+*August 2026.* `hashWorld` had grown by addition: a field went in when
+somebody noticed it could desync, which meant the set of fields outside it was
+whatever nobody had thought about yet. A lane sent to add four found that one
+of the four was already there and that six others were not — among them
+`waveBeat`, which an interlude holds still while `beat` keeps counting, and
+which a warden's clamp, a vane's opening and a queen's tell are all read off.
+Two devices agreeing about `beat` and disagreeing about `waveBeat` play
+different bosses and nothing above would have caught it.
+
+So the rule is inverted. **Every field of `World` is hashed unless it is one
+of the named exceptions**, and the exceptions live in a comment at the top of
+`hash.ts` with the reason each one is out:
+
+- `cfg` is agreed before beat zero and never mutated mid-run — hashing it
+  every tick restates the handshake.
+- `queue` and `podQueue` are the wave's script, handed in from `content/`,
+  read by index and never rewritten; `spawned` and `podSpawned` carry how far
+  that reading has got, and they *are* hashed.
+- `events` is cleared every tick and derived from the step that just ran, so
+  it is a consequence of the state rather than part of it.
+
+Three inputs and one output. Anything else that is added to `World` and left
+out of `hashWorld` is a bug, and the burden is on leaving it out.
+
+This is only affordable because #19 holds: replay tests compare two runs and
+never pin a number, so reordering the pushes or adding to them costs nothing.
+Had a single fingerprint value been written down in a test, this entry would
+have been a migration instead of a comment.
+
+**Reconsider if:** `World` grows a field that is genuinely large and genuinely
+derived — a cache, a spatial index, a memo. The rule as written would hash it
+every tick for nothing. The answer then is a named exception with its reason
+beside the other four, not a quiet omission.
