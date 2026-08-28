@@ -3,7 +3,6 @@ import {
   MAZE_MOUTHS,
   type MazePhase,
   type MazeTangle,
-  mazeGoodMouth,
   mazeMouthAt,
   mazeMouthCol,
   mazeMouthLane,
