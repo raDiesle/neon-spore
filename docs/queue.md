@@ -410,69 +410,6 @@ thinking goes on why a sentence that was already there did not get read. Read
 `tools/director/index.html`'s `backlogBody`, `docs/versus.md` and
 `tools/director/src/versus-page.ts` first.
 
-## FORTY-FIVE PARKED IDEAS IN ONE FLAT LIST, AND NO WAY TO TELL WHAT ANY OF THEM IS
-_claude/burn-parked-sort-x8 · docs/parked.md tools/director/src/backlog.ts_
-
-The owner, reading the PARKED tab:
-
-> try to categorize "Parked" items — not clear for me what every item is about
-> — also if its concepts or already implementation for each. is it category of
-> graphic improvement or new mechanics or what — i want to categorize and read.
-> all new enemies and bosses, group them. they current ones should be least
-> relevant to continue and should be postponed.
-
-Forty-five `##` sections over 860 lines, every one of them three paragraphs of
-prose written by the session that noticed it, in the order they happened to be
-noticed. Each entry is well written on its own and the file as a whole cannot
-be read, which is the exact failure `docs/queue.md` was given a sort key for
-this morning.
-
-**Two axes, and the owner named both.** *What kind of thing is it* — a new
-mechanic, a new creature or boss, a graphics improvement, a sound, a tool or
-the director, a performance finding, a correctness worry, a documentation gap.
-And *how far along is it* — an idea nobody has designed, a design that is
-worked out and unbuilt, or something already implemented that wants improving.
-Those are independent: a graphics entry can be either, and the difference
-decides whether picking it up is a session or a week.
-
-**Derive nothing here.** Unlike the wave-to-card assignment, this cannot be
-computed — the category lives in the prose and nowhere else. So it is read and
-labelled by hand, all forty-five, which is the lane.
-
-**The labels go on the entry, not in a table of contents.** A separate index
-drifts from the list the moment anybody appends, and appending is the one thing
-this file is for. One line under each heading, beside the date and branch that
-are already there.
-
-**Creatures and bosses group, and the group goes last.** The owner is explicit:
-group them, and treat them as the least relevant to continue right now, so they
-are postponed rather than deleted. Postponed means they sit at the bottom of
-the file under a heading that says why, not that they are marked in some way
-that still leaves them scattered through it.
-
-**Keep every word.** Nothing is rewritten, shortened or merged. An entry's
-prose is the argument the session made for it, and a lane summarising
-forty-five of those would be a lane replacing the file with its own opinion of
-it. Labels and order only.
-
-**The director reads this file, so check it still does.** `backlog.ts` parses
-`docs/parked.md` for the PARKED tab. If a label line breaks the parse, the
-parser is yours to update — and if the labels can be shown as something better
-than a line of text, that is worth doing while you are in there, since the tab
-is where the owner was standing when they asked.
-
-Finished when `bun run check` is green, every one of the forty-five entries
-carries its kind and its stage, creatures and bosses are one group at the
-bottom under a heading saying they are postponed rather than dropped, no
-entry's prose was altered, the PARKED tab still renders, and the commit carries
-`Check: scrolling the PARKED tab, can you tell what kind of thing each idea is
-without reading its paragraphs?`
-
-Model `sonnet`, effort `think hard`. The lane is forty-five judgements about
-what a paragraph is really about; nothing about it is mechanical, and a lane
-that labels them all "graphics" has done nothing. Read `docs/parked.md` end to
-end before writing a single label, and `tools/director/src/backlog.ts` after.
-
 ## A REFUSED IDEA IS ONE CLAUSE, AND THE READER GOES LOOKING FOR THE REST
 _claude/burn-deferred-expand-x9 · docs/spec/ideas.md_
 
