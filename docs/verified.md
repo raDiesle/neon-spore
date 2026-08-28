@@ -236,3 +236,30 @@ records the answers. See `docs/verification.md`.
 - `237aac6` 2026-08-28 PASS — which of the four the bosses want and which the creatures want — they may not be the same answer, and the switch is currently page-wide
 - `b7857ad` 2026-08-28 PASS — whether MASS at 259 px wide reads as one poured body or as four circles that failed to merge — the necks are measured, not looked at
 - `9697ea8` 2026-08-28 PASS — a demonstration opened from the game's own menu reads as landing on a wave that was always going to open that way, not as a jump with something flipped behind it — bun run preview:once, ?menu=1, DEMOS, any row
+- `9697ea8` 2026-08-28 PASS — the director's DEMOS sheet and its OPEN button read as belonging beside the pair panel and wave rail rather than as a bolted-on modal — DIRECTOR_HOST=127.0.0.1 bun run dev, then click DEMOS
+- `2b5c697` 2026-08-28 PASS — whether THE MOTHER reads as a mouth at boss size or as a ring with spikes — the arms are skewed spikes rather than true curls, and a contour sampled per angle cannot offset a tip sideways
+- `2b5c697` 2026-08-28 PASS — whether THE BREACH still says "a hole with something in it" once the rim's lift is only 0.3 of ry — it was tuned by arithmetic, not by an eye
+- `2b5c697` 2026-08-28 PASS — whether MASS at 204 px wide reads as one poured body or as four circles that failed to merge — open the director's SHAPES tab
+- `fd12d08` 2026-08-28 PASS — THE WARD at 96 BPM — free the pod on the first beat and take it in; do the four fast rocks all land inside the six armed beats, or does the last of them arrive after the ward has run out. Stand in the director on THE WARD, or open the wave in the game and watch the shield ring.
+- `fd12d08` 2026-08-28 PASS — THE LANCE at 96 BPM — three slicks one beat apart in one column; is the lobe full while all three are still stacked, or has the first passed the muzzle by the time the shot goes. Play it in the game with the lance held from beat 0.
+- `fd12d08` 2026-08-28 PASS — THE PURGE — is the field visibly worth clearing at the moment the pod reaches the hull, or has it already thinned out to two bodies. Watch it at tempo in the director.
+- `9447724` 2026-08-28 PASS — the ORPHANS button's red is legible against the header at normal brightness, not just in the DOM's computed style — a screenshot was not available in this sandbox to look at it
+- `b046978` 2026-08-28 PASS — the hint text reads as a help and not as clutter, at the width the sheet actually opens at on a laptop — looked at once here in a headless Chromium at 649px, not on a phone
+- `5f7bfc1` 2026-08-28 PASS — THE GAUGE was not opened — packages/content/src/interludes.ts only places one at gap 10, far down the wave list, and reaching it was out of scope for this pass. The switch is real and typechecked; nobody has watched it turn a corner into a round yet.
+- `d5df018` 2026-08-28 PASS — the wider mouth still reads as swallowing rather than as a flash, not merely smaller — looked at one catch in preview, not the shape sheet
+- `d5df018` 2026-08-28 PASS — whether activating at the centre (already instant) still feels like a reward arriving now that the mouth reads wider and shallower
+- `ada7090` 2026-08-28 PASS — the wind-up reads as laying rather than as lag — the mouth working, not the trigger answering late
+- `ada7090` 2026-08-28 PASS — at 0, 0.125, 0.25, 0.5, 0.75 and 1 beat on the Shot lay slider, which values feel like rhythm and which like a dead trigger
+- `ada7090` 2026-08-28 PASS — a maw held open while a shot is laid still reads as one mouth rather than two effects fighting — worth looking at beside the reshaped swallow
+- `ada7090` 2026-08-28 PASS — whether losing a laid shot by sliding the cannon during the wind-up reads as a mistake the pair made or as the game eating a press
+- `a30c565` 2026-08-28 PASS — the dial reads as machinery and not as a wave with a costume on
+- `a30c565` 2026-08-28 PASS — ninety seconds is the right length for one needle and two marks
+- `a30c565` 2026-08-28 PASS — the pilot can act on "left, less, now" across the voice delay — `bun run relay:check`
+- `a30c565` 2026-08-28 PASS — LEFT and RIGHT are reachable by one thumb on a phone in portrait
+- `cf34c47` 2026-08-28 PASS — ship.forkOpen reads as a room going quiet, not a chime or an alarm
+- `cf34c47` 2026-08-28 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
+- `cf34c47` 2026-08-28 PASS — the runt's grey burst reads as wrong beside a real destroy burst, on a real screen
+- `c28a893` 2026-08-28 PASS — a body thrown by the arm reads as thrown, and not as a wave that was authored that way — the flick along the arm is a beat and a half and nothing else marks it
+- `c28a893` 2026-08-28 PASS — the split housing is findable at boss size on a phone, one column off centre and hard against the radar strip above it
+- `c28a893` 2026-08-28 PASS — the arm at SEIZE reach still reads as one mechanism and not as a line drawn across the top of the screen
+- `c28a893` 2026-08-28 PASS — a pair at tempo can actually fold a column and say it before the thing lands — this is the number the whole boss stands on and only two people on a real voice channel can settle it
