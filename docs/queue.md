@@ -227,63 +227,6 @@ down from one nobody has started?`
 Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts`'s group
 note and `docs/spec/ideas.md`'s deferred section first.
 
-## A CHECK A COMMAND CAN SETTLE SHOULD NEVER REACH THE LIST
-_claude/burn-land-autorun-s17 · tools/land/run.ts tools/checks/run.ts_
-**Asked for by the owner.**
-
-`bun run checks --run` exists, and the director has a `▶ RUN THE COMMANDS`
-button beside it, and both are manual. That is the mistake: a check whose
-trailer names a repository command needs no person at all, so it should be
-**decided at the landing** and never appear on a list a person reads.
-
-The owner said it plainly, and the code agrees — `bun run land` already
-imports `parseLog` from `tools/checks/trailers.js` and prints
-*"N check(s) landed with it"*, so at the moment of the fast-forward it knows
-exactly which checks it just created. `runCommand` in `tools/checks/repo.ts`
-already runs one and `run.ts` already records a `PASS`. Everything needed is
-built; the two halves have simply never been joined.
-
-So: after the fast-forward, run the runnable ones **among the checks this
-landing added**, record their verdicts, and print what happened.
-
-**Only the new ones, and that distinction is the whole design.** `--run` today
-runs every outstanding runnable check in the backlog. Doing that on every
-landing would re-run the same eight commands thirty times an afternoon, and a
-step that slow gets skipped, which is how it stops being automatic. The
-landing settles what the landing created; the backlog stays a manual sweep.
-
-**What this changes about the list is the point of it.** `bun run checks`
-becomes purely *things that need an eye* — no mixed list, no scanning past
-eight rows a machine could have answered. That directly serves the shorter,
-clearer report the restatement lane is already queued to build, and the two
-should be read together.
-
-**A failure must not block the landing, and must be loud.** The tree was green
-before the fast-forward; a `relay:check` that fails afterwards is a finding
-about the code, not a reason to unwind a landing that has already happened.
-Record the `FAIL`, say so in the closing lines with the command that failed,
-and leave it on the list where a person will see it. Never silently pass, and
-never leave a failure looking like it was not run.
-
-**Two things to be careful of.** A command may take a long time or need
-something the machine has not got — `bun run relay:check` wants a wrangler on
-a port — so a command that cannot start is *not run* rather than failed, and
-must say which of the two it was. And landing is the one step in this
-arrangement that must stay reliable: if running a check can hang, it needs a
-timeout, and the landing has to survive the timeout rather than inherit it.
-
-Finished when `bun run check` is green, landing a commit whose trailer names a
-command settles that check without anybody asking, a failing command is
-reported loudly and does not unwind the landing, an unrunnable one is
-distinguished from a failing one, and `bun run checks` afterwards lists only
-what still needs a person.
-
-No `Check:` trailer — the whole lane is about things a command decides.
-
-Model `sonnet`, effort `think hard`. Read `tools/land/run.ts` around its
-`parseLog` call, `runCommand` in `tools/checks/repo.ts`, and `runAll` in
-`tools/checks/run.ts` first — all three halves exist and this joins them.
-
 ## NINETEEN GROUPS OF DIALS SIT BESIDE THE ONE WAVE YOU ARE EDITING
 _claude/burn-director-ship-split-s16 · tools/director/src/ship.ts tools/director/src/ship-fields.ts tools/director/index.html_
 **Asked for by the owner.**
