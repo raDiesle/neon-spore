@@ -799,3 +799,30 @@ optional `beatPhase`/`cfg`, so the grip ring lands about 0.9% — a quarter of a
 pixel — off the body it circles, which is under what its own `RING_MUL`
 spends. It has `world` in scope, so `creatureRadius(l, c, beatPhase, world.cfg)`
 fixes it whenever that file is next open.
+
+## The fit lives in the director and the shape sheet now reaches up for it
+
+2026-08-28 · claude/burn-shapes-floor-s13
+
+`tools/shape-sheet/src/drawn-size.ts` imports `FIT_TIMES` and `isWide` from
+`tools/director/src/shape-figure.ts`, and `tilePixels`/`transformedBounds` from
+`shapes-motion.ts`. That is backwards: the director depends on the shape sheet,
+not the other way round.
+
+It was the right call anyway, and the alternative was worse. The lane's whole
+purpose was a floor that cannot drift from the thing it describes, and a
+re-derived fit is a floor about nothing. Importing is honest; copying would
+have been a second copy of a rule, which is what `purity.test.ts`'s COPIES
+table exists to refuse.
+
+The proper fix is to move the fitting *down* — into `tools/shape-sheet`, where
+the contours and the metrics already live — and let the director import it like
+everything else. Confined to one file today and no runtime cycle, so it is not
+urgent; it becomes urgent the moment a second thing wants the fit, or the
+director's fit code moves.
+
+Worth knowing alongside it: the lane found that the reported drawn size is the
+*whole-sway* fit scale applied to the *still* rest-pose bounds. A shape that
+sways wide is fitted small, so its resting body reads smaller than its frame
+suggests — which is exactly the case the floor exists to catch, and would have
+been missed by measuring either pose alone.
