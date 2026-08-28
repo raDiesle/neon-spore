@@ -299,3 +299,74 @@ game draws changes, so no look is being replaced. Think about the two-controls
 problem before moving a single element — the layout is easy and the card
 lifecycle is where this lane can go wrong.
 
+## A WAVE'S CARD IS DERIVED, AND THE OWNER WANTS TO SEE IT AND PICK IT
+_claude/burn-director-card-pick · tools/director/src/wave-panel.ts tools/director/src/card-waves.ts tools/director/test/card-waves.test.ts_
+**Asked for by the owner.**
+
+> I think i misunderstood the behavior and purpose of "Briefings" checkbox.
+> I suggest i can in dropdown select available briefings/cards, which are not
+> taken by any other wave, yet. it should also give me a small tooltip or link,
+> which i can see all available briefings/cards and their distribution to
+> waves.
+>
+> So i want exactly to see the name of the briefing/card chosen for the current
+> wave and not automatically assign it.
+
+**Behind `claude/burn-director-layout`**, which is moving the same editor
+column. It owns `index.html` and `stage.ts`; this lane adds to them in one
+contiguous region and replays over that one, exactly as the preamble describes
+for a file owned by nobody.
+
+**Nothing assigns a card to a wave, anywhere, and that is the thing to
+understand before touching it.** `openBriefings` in
+`packages/sim/src/briefing.ts:135` builds the due list out of the wave's own
+contents: it walks the queue, the pods and the boss, turns each kind into a
+subject index, and keeps the ones the pair has not met — `world.brief.met`, a
+bitmask carried across waves. So a card is raised by *the first wave that
+contains the thing it teaches*, and "which wave owns the meteor card" is a
+consequence of authoring, not a field anybody set. `BRIEFING_SUBJECTS` is
+twenty-one entries and the creature kinds are spelled the same as their kinds
+on purpose, so no second table can drift.
+
+**Half of the ask already exists and the owner has not found it.** *"a link
+which i can see all available briefings/cards and their distribution to
+waves"* is `◇ NOT BUILT YET → CARDS` — its own subtitle reads "every briefing
+card, assigned to the wave that first raises it for a pair playing in order".
+So that half is **a link, not a build**: put it next to the wave's card row
+where they are looking for it. Do this half first; it is small and it may be
+most of what was actually wanted.
+
+**Showing the name is free and should land regardless.** `card-waves.ts`
+already builds a world at the moment a wave starts and carries that wave's real
+`world.brief.due`. The WAVE tab can name the cards this wave raises without any
+model change at all — read-only, derived, always correct.
+
+**The dropdown is a design decision and this lane may not make it.** *"select
+available briefings/cards which are not taken by any other wave"* and *"not
+automatically assign it"* mean a wave would carry an authored card id that
+overrides the derivation. That reaches into `packages/sim`, which is lockstep
+and hashed, and it retires the invariant that every mechanic is taught exactly
+once at the moment it first appears — an invariant nobody has to maintain today
+because it is a consequence rather than a rule. It may well be worth it: the
+owner is the one authoring waves and being unable to say *this* wave teaches
+*that* card is a real limit.
+
+**So: stop after the first two halves and ask.** The question for the owner is
+narrow — *should an authored card override the derivation, or only annotate
+it?* Override means a wave can teach a card early, or withhold one, and the
+"taught exactly once, in order" guarantee becomes theirs to keep. Annotate
+means the dropdown is a filter on what the derivation already chose, sim does
+not change, and "not taken by another wave" stays a computed fact rather than a
+stored one. Put the question in the report and do not guess.
+
+Finished — for the part this lane may do — when `bun run check` is green, the
+WAVE tab names the cards the current wave raises and links to `◇ NOT BUILT YET
+→ CARDS`, and the commit carries
+`Check: does the wave editor now say which card this wave raises, by name,
+without you opening another sheet`.
+
+Model `sonnet`, effort `think hard`. Read `packages/sim/src/briefing.ts`,
+`tools/director/src/card-waves.ts` and `tools/director/src/wave-briefing.ts`.
+Nothing the game draws changes; nothing in `packages/sim` changes without the
+owner answering first.
+
