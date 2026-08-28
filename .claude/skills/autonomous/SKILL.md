@@ -25,61 +25,52 @@ prints the brief of the first unopened lane.
 
 Never plan from memory. The board is derived from git and cannot be stale.
 
-## 1. Fill the queue
+## 1. The queue is given to you
 
-```bash
-bun run burn --candidates
-```
+**This skill does not decide what is worth doing.** `docs/queue.md` is the
+owner's file. You read it top to bottom and work it in order; you do not add to
+it because a spec file is ahead of the code, because a lane noticed something
+adjacent, or because the interesting work is further down.
 
-Everything the design has agreed to and the game has not got, parsed out of
-`docs/spec/` — creatures, mechanics, controls, bosses, interludes, parked.
-Pick against what the user asked the run to buy, then write `docs/queue.md`:
+That used to be step 1 of this skill and it is now
+`.claude/skills/fill-queue`, invoked **only** when the owner says so — *find me
+candidates*, *fill the queue*. The split is not bureaucracy. Designing is
+cheaper and more enjoyable than fixing, so a run that may do both does more of
+the first than it means to: the first run this skill drove ended an evening
+with more than twenty lanes decided and two being worked. The owner fills the
+queue as a matter of course now, and the run's job is to empty it.
 
-```markdown
-## THE BRIEFING BEFORE A WAVE
-_claude/burn-briefings-a1 · packages/sim/src/briefing.ts packages/content/src/briefings.ts_
+**Three things are still yours to write into it, and only these three.**
 
-What it is, in two or three sentences. What finished looks like, concretely
-enough that a session which has read only this and the spec can tell.
-Which spec file to read first.
-```
+- **What the owner said this session.** A bug they report, a feature they ask
+  for, a change of mind about something queued — that is transcription, not
+  invention, and it happens in the same turn they say it. Label it *Asked for
+  by the owner.* and put it in their half of the file.
+- **The half a landing could not reach.** A lane that fixes a symptom and
+  reports that the rest of the cause lives in a file it did not own leaves work
+  behind. Queue it, against the lane that will do it, in the landing commit.
+- **A follow-up the owner's own verdict creates.** A `FAIL` on a check is an
+  owner ask by definition — they looked and said no.
 
-Ordered: the first thing in the file is the next thing done. Six to ten lanes
-is a queue; thirty is a wish. Commit it before spawning anything — a plan that
-exists only in the transcript is not a plan.
+Everything else a lane noticed comes back in its report and goes to
+`docs/parked.md` in one commit after landing, which is where an idea nobody has
+decided on belongs.
 
-**`packages/sim/test/purity.test.ts` is never owned by a lane either.** It is
-the table of rules that must be called rather than re-derived, so it is the
-file every lane eventually adds a row to — which makes it exactly like
-`config.ts` and `hashWorld`: owned by nobody, added to in one contiguous
-region, and replayed over.
+**An empty queue ends the run.** Say so, say what landed, and stop. Do not
+refill it.
 
-**`docs/decisions.md` is never owned by a lane.** A decision is the
-orchestrator's to record, and two lanes each appending an entry is two
-conflicting numberings of the same list. A lane that reaches a decision worth
-keeping says so in its report and its commit; the run writes the entry.
+## 1a. Order
 
-**A clash the board reports may be an *ordering* rather than a conflict.** A
-lane built on another one legitimately edits what the first reshapes — it adds
-to those files, it does not own them. Trim the later lane's ownership to what
-it exclusively owns and say in its brief which lane it sits behind, because
-the queue's order alone does not say it: the order is also just the order.
+The file is ordered and the order is the plan: the first entry is the next
+thing done. Two keys, in this order.
 
-**Ownership is most of the safety mechanism, and it is not all of it.** Two
-lanes may not own the same path, and `bun run burn` refuses to be quiet about
-two that do. But disjoint ownership was never the same claim as disjoint work:
-three lanes with perfectly separate files, all inside `packages/sim`, all add
-a line to `config.ts`, `types.ts` and `hashWorld` — the files owned by nobody
-precisely because everybody needs them. That is a rebase apiece, and the third
-lane pays for the two before it. `bun run burn` warns about it as *crowded*,
-which is a warning and not a refusal: two lanes in one package is often right
-and the replay is cheap. Three is where it stops being cheap. Prefer a batch
-that spans packages — one in `sim`, one in `render`, one in `tools` — over
-three good lanes that happen to live together. The files everything wants —
-`config.ts`, `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by
-nobody: a lane may add to one in a single contiguous region and will replay
-over somebody else's addition. A lane that would *restructure* one runs alone,
-between batches.
+**Who asked for it.** Every entry carries *Asked for by the owner.* or
+*Proposed by the run.* on its own line. Every owner ask is worked before
+anything the run proposed, however much better the proposal looks. That is
+exactly why the label exists.
+
+**Then the file's own order**, which the owner may rearrange at any time
+without telling you. Re-read it rather than remembering it.
 
 ## 2. Run a batch
 
@@ -294,23 +285,24 @@ sat longest on this list are all ones where the reader would have had to build
 the comparison themselves. Do not do this for a change with no visual half,
 and do not fake it with a diagram — the value is that it is the real frame.
 
-**Write the same two things again, by hand, into `docs/checks/restated.md`, in
-the same commit.** `hint.ts` derives *where to stand* from the commit's own
-changed paths, and that half was right to derive — a mapping kept by hand goes
-stale exactly like the director's brushes did. What changed and what to decide
-cannot be derived from anything; they exist only in the head of the session
-that just did the work, and that session is gone by the time anyone reads the
-check. Writing them later, cold, from the diff alone, is not the same
-exercise — so it happens now or not at all. One `##` heading per commit
-(`` ## `sha` — a few words ``), one `> ` quote of the `Check:` trailer's own
-text underneath it — exact, word for word, because that quote is the key a
-later reader's tooling matches on — and the same three fields under it.
+**Never append to `docs/checks/restated.md`. The per-commit file is the whole
+mechanism.** That shared file was the original home and it is now legacy: it
+still parses, so an entry written into it is a *second* copy of a restatement
+that `bun run checks` already found in `docs/checks/<sha>.md`, and two lanes
+appending to its end is a rebase conflict in the one file nobody thinks to
+check. This was proved by a landing that wrote no entry there at all and whose
+restatement rendered correctly anyway. Say it in every lane prompt, because a
+lane that has read an old commit will copy what it sees.
 
-The quote is the trailer's text and **not** the `Check: ` that introduces it.
-A lane read "word for word" the other way, quoted the whole line, and its
-restatement came back from `bun run checks` as an entry matching nothing —
-which is the one failure mode this file cannot afford, because an orphaned
-restatement looks exactly like a check nobody has restated.
+The quote inside `docs/checks/<sha>.md` is the trailer's text and **not** the
+`Check: ` that introduces it. A lane read "word for word" the other way, quoted
+the whole line, and its restatement came back from `bun run checks` as an entry
+matching nothing — which is the one failure mode this file cannot afford,
+because an orphaned restatement looks exactly like a check nobody has restated.
+The join is on that sentence rather than on the sha, because a lane that lands
+behind another is replayed and its sha stops existing.
+
+
 
 ```markdown
 ## `d5df018` — the swallow
@@ -450,12 +442,70 @@ wakeup at the reset (`ScheduleWakeup`, or a scheduled task for a longer gap)
 whose prompt is `/autonomous`. A wakeup that fires while still over the limit
 costs nothing and the next one picks up. Do **not** poll every minute.
 
+## What this arrangement has already got wrong
+
+Every item here cost a landing or a browser. None of it is theoretical.
+
+**A landing refuses under load, and the refusal is right.** `bun run land` runs
+`bun run check` after the replay. With two lanes compiling on the same machine
+the suite takes twice as long and tests near a per-test timeout start failing —
+one file went from 63 s to 127 s and three CAIRN tests blew a 5000 ms limit that
+they clear in 6 s when run alone. **Retry when the machine is quiet. Never
+raise a timeout to get past it, and never force the landing.** If it still fails
+quiet, it is not load, and that is a real finding to report rather than route
+around.
+
+**Never rewrite a file the owner writes by hand.** `docs/verified.md` is CRLF
+and `bun run checks` matches a verdict to a trailer on the line as written. A
+text round trip through a script converted the whole file to LF, matched
+nothing, and took the outstanding list from twelve to a hundred and
+twenty-eight. If such a file must be edited, append in the same encoding and
+diff the result before committing. Duplicate rows in it are a defect in
+whatever wrote them — fix that, do not tidy the file.
+
+**A speed claim is a distribution, never a mean.** A lane measured a frame's
+work at 940 ms → 84 ms on a synthetic harness, landed, and the owner's browser
+crashed. The real page's median frame was 3.3 seconds; the fix was 1.5× and the
+page was worse. Require the longest frame, the 95th percentile, and the share
+of frames over 16 ms, **measured on the real page**. And require the guess to
+be proved: that lane's successor found the true cost was 0.58 ms per
+`getPointAtLength` call, not the garbage collector everybody assumed.
+
+**Reverting is cheap and is the right first move.** When something landed makes
+the owner's tool unusable, revert it on `main` immediately and queue the work
+again. They cannot use the page while a fix is being written, and a revert is
+one commit.
+
+**A lane's ownership is a guess about where the fault is.** Twice in one run it
+was wrong: one lane found the break in a file it happened to own, another could
+not reach the file the fault was in and landed half a fix. Tell every diagnosis
+lane to **stop and report** if the cause is outside its paths rather than
+reaching for it, and queue the remainder against the lane that owns it, in the
+landing commit.
+
+**The owner's `FAIL` is the most valuable thing in the run**, and its wording is
+evidence. *Still every wave has the lance* **control** turned out to mean the
+button was gone and its hit region was not: an invisible control that still
+answered a press. Read a failed check literally before deciding what it means.
+
+**Do not sweep worktrees while any lane is live.** `--clean` cannot distinguish
+a lane that landed an hour ago from a lane that has spent ten minutes reading
+and written nothing — both have a clean tree and a branch that is an ancestor
+of `main`. Sweep the specific worktree you just landed, by path, and leave the
+rest standing.
+
 ## What this mode may not do
 
 - **Decide that something was looked at.** No session can watch a wave at
   tempo. That is a `Check:` trailer, every time.
 - **Go quiet on a question.** A blocked lane stops and says so; the run moves
   on to the next one rather than building on a guess.
+- **Fill the queue.** That is `.claude/skills/fill-queue`, and only when the
+  owner asks for it by name. Transcribing what they said this session is not
+  filling it.
+- **Change a look.** CLAUDE.md's *A look is offered, never replaced* binds
+  every lane: an alternative goes beside the shipped thing on the NOT BUILT YET
+  pages and the owner decides by looking. The three exemptions are named there.
 - **Land red.** `bun run land` runs `bun run check` after the replay for
   exactly this reason. Never talk it out of a refusal.
 - **Leave `main` unpushed.** Push it when it has landed something. An
