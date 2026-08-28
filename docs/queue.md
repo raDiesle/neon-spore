@@ -57,21 +57,6 @@ a guess.
 
 Model `sonnet`, effort `think hard`. Read `docs/versus.md` first — it is the design this lane implements.
 
-## FOUR FIELDS THE FINGERPRINT HAS NEVER SEEN, AND THE ONE ABOUT TO BE BRANCHED ON
-_claude/burn-teach-hash-t2 · packages/sim/src/hash.ts packages/sim/test/hash.test.ts_
-
-`world.guardTick`, `world.intakeTick`, `world.wardUntilTick` and `world.lastFireTick` are not in `hashWorld`. Check it: `hash.ts` pushes `cannonCol`, `shieldCol`, the grips and `primeTick`, and none of the four. That is cosmetic today, because nothing branches world evolution on them. It stops being cosmetic in the next lane, where a call's `need` is `guard` or `fire(color)` and the **simulation decides whether the field advances** by reading them — a device that disagrees about `guardTick` then disagrees about whether the world ticked, which is a desync that reads like a network bug.
-
-Push all four, in canonical order, beside `primeTick`. Then a test that two worlds differing only in one of the four differ in fingerprint — the shape `briefing.test.ts` already has for the card. Check as you go that nothing pins a hash number: `docs/decisions.md` #19 says replay tests compare two runs and never pin a number, so this should break nothing, and if something does pin one, that is the real finding and it goes in the commit message.
-
-Why `opus` on five lines: `docs/choosing-a-model.md` §5 names "a field added to a hash two devices compare" as the expensive-to-unpick category by name. The cost of being wrong here is not the five lines, it is the ordering and the omission.
-
-Finished when `bun test` and `bun run test:determinism` are green and the new test fails if any one of the four pushes is deleted.
-
-Model `opus`, effort `think hard`. Think hard about whether the four are the whole list — walk `World` field by field and say in the commit which fields are deliberately still out and why.
-
-Model `opus`, effort `think hard`. Read `docs/teaching.md` first — it is the design this lane implements.
-
 ## THE SPEC SAYS TO BUILD EIGHT PANEL SCENES, AND NOBODY SHOULD
 _claude/burn-teach-spec-t3 · docs/spec/calls.md docs/spec/briefings.md docs/parked.md docs/INDEX.md_
 
