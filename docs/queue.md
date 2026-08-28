@@ -96,35 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## THE SHEET AND THE RESTART PROMPT OPEN AND CANNOT BE CLOSED
-_claude/burn-director-overlay-x5 · tools/director/src/demo-panel.ts_
-**Asked for by the owner.**
-
-The owner, on the director's GAME sheet: clicking **sheet** and **tap to
-restart** opens something with no way out of it. An overlay a person cannot
-dismiss is worse than one that never opened, because the page behind it is
-still the page they were working in.
-
-Find out which of the two it is before fixing either — they may be one overlay
-with one missing handler, or two. Whatever the cause, the fix is the same
-shape: every overlay this page opens closes by the three routes a person will
-actually try, in this order — clicking outside it, pressing Escape, and a
-visible close control on the overlay itself. A close that exists only as a
-keyboard shortcut is a close nobody finds.
-
-**Say in the commit whether the overlay was ever meant to close.** If it is the
-balance sheet at the end of a run and the intended exit was restarting the
-wave, then the bug is that the page offers no other door, and that is worth
-one line rather than a silent redesign.
-
-Finished when `bun run check` is green, both overlays close by clicking
-outside, by Escape and by a visible control, the page behind is exactly as it
-was, and the commit carries `Check: with the sheet open in the director, can
-you get back to the page you were on without reloading?`
-
-Model `sonnet`, effort `think`. Read `tools/director/src/demo-panel.ts` and
-whatever it opens first.
-
 ## A WAVE THAT TEACHES SOMETHING SHOULD SAY SO IN THE LIST
 _claude/burn-cards-assign-x6 · packages/content/src/card-waves.ts tools/director/src/card-waves.ts_
 **Asked for by the owner.**
