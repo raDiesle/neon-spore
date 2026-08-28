@@ -240,7 +240,7 @@ Model `sonnet`, effort `think hard`. Read `shapes-page-app.ts`, then
 expect to replay over its work if it lands first.
 
 ## A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT LEAVES
-_claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts_
+_claude/burn-deflect-bounce-x4 · packages/render/src/deflect.ts packages/render/src/rock-impact.ts_
 **Asked for by the owner.**
 
 The owner's wish, once the rule is right:
@@ -260,6 +260,16 @@ replaced*: the owner asked for this animation in these words. It is their
 decision already made, not a session deciding a look is better. Everything
 around it in this file is not: a lane that finds itself improving some *other*
 part of the deflect while it is in there stops and reports it.
+
+**And it inherits half a fix.** The lane that moved the bounce up found the
+cause and could only reach part of it: `DeflectFx.spawn` was handed a point
+that always aimed at the hull's own skin, so the bounce began where an
+undeflected rock sinks in rather than where the shield is. That is corrected.
+What is not is the falling rock's *own* sprite — `rock-impact.ts` still
+replays it all the way down to the same hull point before it vanishes, so for
+about a frame the rock is drawn almost touching the ship and the corrected
+bounce appears above it. That file is yours here. Make a deflected rock's
+arrival target the shield's row, and the two halves will agree.
 
 **Drawing only.** The rule is `hull.ts`'s and the lane in front of this one owns
 it. Nothing here may change when a deflect happens, what it scores, or anything
