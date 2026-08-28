@@ -96,6 +96,61 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
+## THE STONES SHOULD SHAKE BEFORE ONE OF THEM COMES DOWN
+_claude/burn-mother-telegraph-y5 · packages/render/src/boss-telegraph.ts docs/spec/bosses.md_
+**Asked for by the owner.**
+
+The owner, in their own words:
+
+> the stones left and right for mother boss should shake while it's deciding
+> where it will fall down, so it indicates that it's going to fall down on any
+> side soon.
+
+**A telegraph, and the right one.** A thing that falls without warning is a
+thing the pair cannot talk about, and talking is the control scheme. A shake on
+*both* stones says *one of these is coming and I have not chosen yet*, which is
+exactly the sentence a pair needs a beat before the choice is made — the
+navigator can say *it is winding up* before they can say *which*. That is a
+different and better telegraph than shaking the one that will fall, which would
+give the answer away and remove the round.
+
+**First, settle which boss this is, and do it before anything else.** THE
+MOTHER is `docs/spec/bosses.md` 11.1 and **is not built** — her spec is about
+reacting to what the previous act destroyed, and says nothing about stones, a
+side, or a fall. So one of two things is true and the lane must find out which:
+either the owner means the unbuilt Mother and this is her first piece of
+choreography, in which case it is written into 11.1 as the telegraph her
+falling half will need; or they mean something they watched on screen, in which
+case it is one of the bosses that *is* built — the Bulb Queen, THE MIRROR, THE
+WARDEN, THE VANE — and the shake belongs to that one. **Say which in the
+commit**, and if the answer cannot be established from the tree, stop and ask
+rather than guessing: a telegraph attached to the wrong boss is worse than
+none, because it will be looked for on a body that never falls.
+
+**What the shake has to be.** Both stones, together, starting far enough ahead
+of the drop that a sentence fits in the gap — a beat is the unit here, not
+milliseconds, because the pair's clock is the beat. Small: a tremor, not a
+lurch, and it must not read as damage or as the body being hit. It ends the
+instant the side is chosen, because from then on the picture says something
+different and the two must not overlap.
+
+**Where it lives.** The choice of side is the simulation's and stays there;
+`hashWorld` sees no new field for a tremor. The shake is drawing, read off the
+same authored beat the drop is scheduled on, so both devices show it without
+agreeing about anything new. Anything cached across frames goes in `Effects`
+and is cleared in `Effects.reset()`.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, both stones shake a stated number of beats before a drop
+and stop when the side is chosen, the commit names which boss this was and why,
+and it carries `Check: do both stones shaking tell you a drop is coming without
+telling you which side it lands on?`
+
+Model `sonnet`, effort `think hard`. The identification is the risky half and
+the tremor is arithmetic. Read `docs/spec/bosses.md` 11.1 and the built bosses'
+own telegraphs first — several already announce themselves, and this should
+look like a member of that family rather than a new idiom.
+
 ## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
 _claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
 **Asked for by the owner.**
