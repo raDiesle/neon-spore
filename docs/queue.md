@@ -12,6 +12,13 @@ here is ticked, and nothing here records progress — a lane is done when its
 branch is an ancestor of the trunk, which git can be asked and a file cannot.
 `bun run burn` asks. `docs/autonomous.md` has the rest.
 
+**A lane may not change what the game already draws.** CLAUDE.md's *A look is
+offered, never replaced* binds every entry in this file: a new colour, a new
+animation or a different shape is written as an alternative on the NOT BUILT
+YET pages, beside the shipped one, and the owner decides by looking. A brief
+that would replace a look outright is a brief that has been written wrong, and
+the three narrow exemptions are named there rather than here.
+
 **What the owner asked for outranks what a run decided to do next.** The
 order is not a judgement about which work is better; it is about where the
 work came from. A brief that can point at something the owner said — *CILIA is
@@ -245,6 +252,13 @@ A rock that reverses on one tick reads as a rock that teleported. What is being
 asked for is the moment of contact having a *shape*: the rock presses a little
 way into the shield, the shield gives like rubber, and both spring back. Small
 — the owner said *slightly* twice.
+
+**This one lands on the field rather than being offered as an alternative**,
+and the reason is the first exemption in CLAUDE.md's *A look is offered, never
+replaced*: the owner asked for this animation in these words. It is their
+decision already made, not a session deciding a look is better. Everything
+around it in this file is not: a lane that finds itself improving some *other*
+part of the deflect while it is in there stops and reports it.
 
 **Drawing only.** The rule is `hull.ts`'s and the lane in front of this one owns
 it. Nothing here may change when a deflect happens, what it scores, or anything
