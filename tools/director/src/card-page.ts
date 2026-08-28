@@ -49,11 +49,27 @@ export function mountCardTab(): void {
   const intro = document.createElement("p");
   intro.className = "note";
   intro.textContent =
-    "Every briefing card the game ships, seen the way a fresh pair sees it — " +
-    "which the game itself can only do once. Nothing here is a mock-up: each " +
-    "frame is the shipping renderer against a real World, at the phone's own " +
-    "380 CSS-pixel width, uncapped.";
+    "A briefing card is how the game teaches a new pair one thing — a creature, " +
+    "a control — on the screen just before the wave that needs it. Each player " +
+    "gets their own half, and neither half is the whole instruction.";
   page.appendChild(intro);
+
+  const why = document.createElement("p");
+  why.className = "note";
+  why.textContent =
+    "This page exists because the game will only show you a card once. A fresh " +
+    "pair meets each one on its wave and never again, so checking a card on a " +
+    "phone means starting a run over, and checking all of them means starting " +
+    "over several times. Here they can be read as often as they need reading.";
+  page.appendChild(why);
+
+  const how = document.createElement("p");
+  how.className = "note";
+  how.textContent =
+    "Nothing here is a mock-up. Every frame is drawn by the game's own renderer " +
+    "at the phone's real width, so a card that is too long, too small or " +
+    "confusing here is too long, too small or confusing in the game.";
+  page.appendChild(how);
 
   page.appendChild(gallerySection());
   page.appendChild(orderSection());
@@ -69,10 +85,10 @@ function gallerySection(): HTMLElement {
   const note = document.createElement("p");
   note.className = "note";
   note.textContent =
-    "P1's screen and P2's screen for the same subject, at the same layout: the " +
-    "redacted half on one sits beside the plain half it stands for on the " +
-    "other, and the two plain halves read side by side as one instruction or " +
-    "they do not.";
+    "Both players' screens for the same subject, side by side. Each is missing " +
+    "what the other has, on purpose — that is what makes them talk. Read the " +
+    "two together: do they add up to one instruction, or does a pair holding " +
+    "these two screens still not know what to do?";
   section.appendChild(note);
 
   const mount = document.createElement("div");
@@ -90,9 +106,10 @@ function orderSection(): HTMLElement {
   const note = document.createElement("p");
   note.className = "note";
   note.textContent =
-    "Not the catalogue — one wave's real due list, for a pair who has met " +
-    "nothing yet, in the order and the count `openBriefings` actually raises " +
-    "it. Wave 1 is the one the outstanding check names.";
+    "The same cards, but as a pair actually meets them: one wave, everything " +
+    "that wave introduces, in the order it comes and with the counter they " +
+    'will see ("NEW — 2 TO READ", then "NEW"). Above is what exists; this ' +
+    "is how much is asked of somebody at once.";
   section.appendChild(note);
 
   const mount = document.createElement("div");
