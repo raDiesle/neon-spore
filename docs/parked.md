@@ -714,3 +714,34 @@ Twice, a `git stash` under a running director left the hot reload in a broken
 state — `renderShapes is not a function`, blank tab — and only a full server
 restart cleared it. Worth knowing for any lane that stashes while previewing,
 which is a normal thing to do when measuring before and after.
+
+## Three more places show one look at a time
+
+2026-08-28 · claude/burn-shapes-pair-s12
+
+Decision 24 says every alternative is comparable in the director at once. The
+SHAPES tab now is. Three other surfaces are not, and each is a separate small
+lane rather than one big one:
+
+- `tools/director/src/shapes-page-app.ts` — the self-contained catalogue
+  written by `bun run shapes:page` and mailed to a phone. It carries its own
+  copy of the fitting and drawing and still shows one skin at a time. This is
+  the reader who most needs pairing, because they are the one who *cannot*
+  flip: they have a file, not an application.
+- `tools/director/src/concept-art.ts` — draft figures beside their idea, fixed
+  skin, no pairing. The same problem in a second place.
+- The control row is now 58 buttons. Decision 24 anticipated this and named the
+  answer: the director learns to organise them, rather than the repository
+  throwing variants away. Three tagged segments helped; real grouping is its
+  own lane.
+
+## A narrow window squeezes a paired card's prose
+
+2026-08-28 · claude/burn-shapes-pair-s12
+
+`.shape` has the default `flex-shrink: 1`, so below about 900 px the card
+squeezes to ~250 px and the text column stretches to 700 px tall. The frames
+themselves hold at 92 px because `.shape svg` is `flex: 0 0 auto`, so the
+nameability floor is not at risk — only the reading is. The fix is
+`flex-shrink: 0` in `tools/director/index.html`, which the lane that found it
+did not own.
