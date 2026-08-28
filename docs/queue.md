@@ -172,41 +172,6 @@ Model `sonnet`, effort `think hard`. Read `tools/shape-sheet/src/report.ts`,
 `nameability.ts`, `tools/director/src/shape-figure.ts`'s fitting and
 `docs/spec/graphics.md` first.
 
-## THE VERSUS TAB HOLDS SEVERAL SLOTS AND SHOWS THE FIRST
-_claude/burn-versus-slotpick-v2b · tools/director/src/versus-page.ts_
-
-The second half of decision 24, and it was already known: the lane that built
-the VERSUS tab said so in its own report, and it sits in `docs/parked.md`
-waiting for a second slot to exist.
-
-The page draws the first open slot and no other. It names how many there are,
-so a reader can see it is holding something back, but there is no way to reach
-the rest — which means the moment a second candidate exists, half the
-mechanism is unreachable through the interface built for it. Decision 24 says
-every alternative is comparable without leaving the application; a slot you
-cannot navigate to fails that on the simplest reading.
-
-A slot picker on the page, built the way the skin bar is built. Two smaller
-things the same lane named, and they belong here rather than in their own
-lanes: the pose is fixed to `pose.role ?? "p1"`, so a candidate that reads
-differently from the two seats can only be judged from one of them — which
-matters for anything touching the hull, since the pilot and the navigator see
-different halves of it; and both director files sit at the 250-line ceiling,
-so the vote box wants its own file before either grows.
-
-**Nothing here deletes a slot.** Decision 24 reverses the session-scoped
-deletion the original design called for: an undecided slot stays open until
-the owner says adopt, keep, reuse or delete. If the page ever wants to say how
-long a slot has been open, that is information rather than pressure.
-
-Finished when `bun run check` is green, every open slot is reachable, a
-candidate can be judged from either seat, and the commit carries `Check: with
-two slots open, is it obvious that the page holds more than the one on screen
-— the director's VERSUS tab`.
-
-Model `sonnet`, effort `think hard`. Read `tools/director/src/versus-page.ts`
-and `tools/versus/variant.ts` first.
-
 ## THE GAME REFUSES A THIRD COLOUR ON A BODY AND A CARD IS NOT A BODY
 _claude/burn-skin-nacre-s6 · tools/director/src/skins/nacre.ts_
 
