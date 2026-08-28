@@ -15,7 +15,6 @@ records the answers. See `docs/verification.md`.
 - `a30c565` 2026-08-27 PASS — LEFT and RIGHT are reachable by one thumb on a phone in portrait
 - `cf34c47` 2026-08-27 PASS — ship.forkOpen reads as a room going quiet, not a chime or an alarm
 - `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
-- `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
 - `cf34c47` 2026-08-27 PASS — the runt's grey burst reads as wrong beside a real destroy burst, on a real screen
 - `c28a893` 2026-08-27 PASS — a body thrown by the arm reads as thrown, and not as a wave that was authored that way — the flick along the arm is a beat and a half and nothing else marks it
 - `c28a893` 2026-08-27 PASS — the split housing is findable at boss size on a phone, one column off centre and hard against the radar strip above it
@@ -174,5 +173,15 @@ records the answers. See `docs/verification.md`.
 - `6868bd5` 2026-08-28 PASS — on the SHAPES page, can you tell what can be combined with what without being told?
 - `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
   - in director testing game mode, still every wave has the "lance" control for player 1
-- `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
-  - in director testing game mode, still every wave has the "lance" control for player 1
+- `dff2c76` 2026-08-28 FAIL — on the wave that does ask for it, does the panel read as its own set rather than as the usual one with a button added?
+  - i dont see in wave configuration where to configure the control set for the wave and what is active one
+- `bacca00` 2026-08-28 FAIL — does a deflected rock turn away at the shield's surface, instead of reaching the ship first?
+  - I still see the rock goes into the ship ( on cannon position). i can handle myself later
+- `bacca00` 2026-08-28 PASS — with the cannon parked in the same column as the shield, does the shield still deflect every rock that comes down it?
+- `15ab8ce` 2026-08-28 PASS — scrolling the PARKED tab, can you tell what kind of thing each idea is without reading its paragraphs?
+- `3d15c8b` 2026-08-28 PASS — does the field read as lit from one place, or do the hull, the rocks and the glow disagree about where the light is — a full wave at tempo, watching the hull and a rock together
+- `8fad901` 2026-08-28 PASS — does TIDE read as water, or only as slow — the director, TIDE then deepCurrent, with the game's own wave sound over it
+- `58fa7f5` 2026-08-28 PASS — with twenty skins on one body at once, is it obvious which ones are worth keeping?
+- `58fa7f5` 2026-08-28 PASS — with every motion on one body at once, can you tell two of them apart without reading the labels?
+- `5642f5e` 2026-08-28 PASS — the swell runs along TENDRIL, THE NEEDLE, RIBBON, THE SPLICE, THE CLAW, POD and both HUSKs now rather than across them — the drafts panel, PERISTALSIS on each of the eight
+- `5642f5e` 2026-08-28 PASS — CILIA's fringe and NACRE's bands read the pose instead of its two-decimal printed form, so the drift near a reversal is no longer quantisation noise — worst on THROB, BULB, RUNT, THE CONDUCTOR and THE VANE
