@@ -499,6 +499,10 @@
          pixels is the phone, and a pair that shrank to suit the window would
          answer the 26 px question by making it unanswerable — so the stage
          scrolls sideways instead. */
+      /* One button per open slot, built the way the SHAPES skin bar is — every
+         slot reachable at once, never a dropdown, because the whole point of
+         decision 24 is that nothing here needs to be found first. */
+      .versus-slots { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
       .versus-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 6px; }
       .versus-bar select { width: auto; min-width: 92px; }
       .versus-patch { display: flex; flex-direction: column; gap: 2px; color: var(--dim); font-size: 9px; margin: 0 0 10px; }

@@ -1,27 +1,23 @@
+import type { ViewRole } from "@neon-spore/render";
 import { VARIANTS } from "../../versus/candidates/index.js";
-import {
-  currentValues,
-  declaration,
-  patchedFields,
-  type Slot,
-  slots,
-  type Variant,
-} from "../../versus/variant.js";
+import { patchedFields, type Slot, slots, type Variant } from "../../versus/variant.js";
 import { button, el } from "./checks-dom.js";
 import type { Pose } from "./pose-kit.js";
 import { POSE_GROUPS } from "./poses.js";
+import type { Pair } from "./versus-pair.js";
 import { startPair } from "./versus-pair.js";
+import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
 
 /**
- * A VERSUS tab on the backlog sheet: one open slot, drawn as two phones.
+ * A VERSUS tab on the backlog sheet: every open slot, drawn as two phones.
  *
  * A shape the game already draws got one card on SHAPES, forever. This is
  * where its second answer stands beside it, at 380 × 820 uncapped and moving,
  * so `docs/versus.md`'s question can be asked at all: does it read at 26 px,
  * and does it read at tempo. `versus-pair.ts` is the engine and the invariant;
- * this file is the sheet around it, riding the backlog sheet's own header,
- * close button and Esc the way `card-page.ts` does and drawn lazily on first
- * click for the same reason.
+ * this file is the sheet around it, and `versus-vote.ts` is the vote box
+ * inside it. Decision 24 is why a second slot is a switch, never a deletion —
+ * every alternative has to be comparable in this one page, at the same time.
  */
 
 const TAB_ID = "versus";
@@ -29,6 +25,7 @@ const TAB_ID = "versus";
 const DEFAULT_POSE = "SLICK · FALLING";
 const RATES = [0.25, 0.5, 1, 2];
 const ALL_POSES: Pose[] = POSE_GROUPS.flatMap((g) => g.poses);
+const SEATS: readonly ViewRole[] = ["p1", "p2"];
 
 function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement {
   const b = button(label);
@@ -57,6 +54,20 @@ function picker<T>(items: readonly T[], name: (x: T) => string, on: (x: T) => vo
   return sel;
 }
 
+/** One button per slot, active one lit — built the way `shapes-pair.ts`'s
+ * skin bar is built: a row of exclusive buttons, not a dropdown, because the
+ * whole point is that every slot is one click away, visible at once. */
+function slotSwitcher(open: Slot[], active: Slot, onPick: (s: Slot) => void): HTMLElement {
+  const bar = el("div", "versus-slots");
+  for (const s of open) {
+    const b = button(`${s.slot} (${s.candidates.length})`);
+    b.classList.toggle("on", s === active);
+    b.addEventListener("click", () => onPick(s));
+    bar.appendChild(b);
+  }
+  return bar;
+}
+
 /** The tab button and its empty page, appended before `bindTabs` runs. */
 export function mountVersusTab(): void {
   const tabs = document.getElementById("backlogTabs");
@@ -73,7 +84,7 @@ export function mountVersusTab(): void {
     el(
       "p",
       "note",
-      "One open slot, two phones, one world. Left is what the game draws today; " +
+      "Every open slot, two phones, one world. Left is what the game draws today; " +
         "right is the same code with the candidate's patch held for one draw. " +
         "Both at 380 × 820 CSS pixels, uncapped — a picture that shrinks to fit " +
         "the window answers the 26 px question by making it unanswerable.",
@@ -86,6 +97,7 @@ export function mountVersusTab(): void {
 }
 
 let drawn = false;
+let activePair: Pair | null = null;
 
 /** Built on first sight of the tab. See `card-page.ts` for the same lazy draw. */
 export function drawVersus(): void {
@@ -94,8 +106,7 @@ export function drawVersus(): void {
   const mount = document.getElementById("versusMount");
   if (!mount) return;
   const open = slots(VARIANTS);
-  const first = open[0];
-  if (!first) {
+  if (open.length === 0) {
     const none =
       "No slot is open, which is a correct state and not a broken one. A slot " +
       "is a shape the game already draws and a second answer to it: write one " +
@@ -103,32 +114,38 @@ export function drawVersus(): void {
     mount.appendChild(el("p", "note", none));
     return;
   }
-  mount.appendChild(renderSlot(first, open.length));
+
+  const switcherHost = el("div");
+  const body = el("div");
+  mount.append(switcherHost, body);
+
+  const show = (slot: Slot): void => {
+    activePair?.stop();
+    body.replaceChildren();
+    switcherHost.replaceChildren(slotSwitcher(open, slot, show));
+    activePair = renderSlot(body, slot, open.length);
+  };
+  const first = open[0];
+  if (first) show(first);
 }
 
-/** What a vote was cast against — two fields on the `/api/checks` view. */
-interface Head {
-  head: string;
-  dirty: boolean;
-}
-
-async function readHead(): Promise<Head> {
-  const res = await fetch("/api/checks");
-  if (!res.ok) throw new Error(res.statusText);
-  const v = (await res.json()) as Partial<Head>;
-  return { head: v.head ?? "unknown", dirty: v.dirty !== false };
-}
-
-function renderSlot(slot: Slot, openCount: number): HTMLElement {
-  const root = el("div", "versus");
+function renderSlot(root: HTMLElement, slot: Slot, openCount: number): Pair | null {
   const opening = slot.candidates[0];
-  if (!opening) return root;
+  if (!opening) return null;
   let candidate: Variant = opening;
 
-  const pose = ALL_POSES.find((p) => p.name === DEFAULT_POSE) ?? ALL_POSES[0];
-  if (!pose) return root;
-  const heading = openCount > 1 ? `${openCount} slots open; this is ` : "slot ";
-  root.appendChild(el("p", "note", heading + slot.slot));
+  const startPose = ALL_POSES.find((p) => p.name === DEFAULT_POSE) ?? ALL_POSES[0];
+  if (!startPose) return null;
+  let pose: Pose = startPose;
+  let seat: ViewRole = startPose.role ?? "p1";
+
+  root.appendChild(
+    el(
+      "p",
+      "note",
+      openCount > 1 ? `${openCount} slots open — this is ${slot.slot}` : `slot ${slot.slot}`,
+    ),
+  );
 
   const bar = el("div", "versus-bar");
   const patch = el("p", "versus-patch");
@@ -141,33 +158,33 @@ function renderSlot(slot: Slot, openCount: number): HTMLElement {
   rightBox.appendChild(rightName);
   stage.append(leftBox, rightBox, tag);
 
-  const why = document.createElement("textarea");
-  why.placeholder = "why — the sentence that outlives the vote";
-  const buttons = el("div", "versus-buttons");
-  const banner = el("div", "versus-banner");
-  const vote = el("div", "versus-vote");
-  vote.append(why, buttons, banner);
-  root.append(bar, patch, stage, vote);
   const head: Head = { head: "unknown", dirty: true };
   readHead()
     .then((h) => Object.assign(head, h))
     .catch(() => undefined);
+  const vote = buildVoteBox(slot, head);
+  root.append(bar, patch, stage, vote.root);
 
-  const pair = startPair(pose, {
-    // The guard. Two byte-identical sides under a non-empty patch mean the
-    // swap did not take, and a confident vote on a difference nobody intended
-    // is worse than no pair at all — so the buttons go, and say why.
-    onSettled(identical) {
-      banner.textContent = identical
-        ? "THE SWAP DID NOT TAKE — or this candidate is the current one"
-        : "";
-      banner.classList.toggle("on", identical);
-      buttons.style.display = identical ? "none" : "";
+  // The seat the pair is drawn for, independent of whatever role the pose
+  // itself carries. A patch that touches the hull can read differently from
+  // the pilot's half and the navigator's half, and a fixed `pose.role ?? "p1"`
+  // meant it could only ever be judged from one of them.
+  const applyPose = (): void => pair.setPose({ ...pose, role: seat });
+
+  const pair = startPair(
+    { ...pose, role: seat },
+    {
+      // The guard. Two byte-identical sides under a non-empty patch mean the
+      // swap did not take, and a confident vote on a difference nobody intended
+      // is worse than no pair at all — so the buttons go, and say why.
+      onSettled(identical) {
+        vote.setSwapOk(identical);
+      },
+      onBlink(side) {
+        tag.textContent = side === "left" ? "CURRENT" : candidate.name.toUpperCase();
+      },
     },
-    onBlink(side) {
-      tag.textContent = side === "left" ? "CURRENT" : candidate.name.toUpperCase();
-    },
-  });
+  );
   leftBox.appendChild(pair.left);
   rightBox.appendChild(pair.right);
 
@@ -180,15 +197,29 @@ function renderSlot(slot: Slot, openCount: number): HTMLElement {
       ),
     );
     pair.setVariant(next);
-    buttons.replaceChildren(
-      cast("KEEP CURRENT", () => emit(slot, null, why.value, head)),
-      cast(`ADOPT ${next.name.toUpperCase()}`, () => emit(slot, next, why.value, head)),
-    );
+    vote.setCandidate(next);
   };
 
   bar.append(
     picker(slot.candidates, (c) => c.name, show),
-    picker(ALL_POSES, (p) => p.name, pair.setPose, ALL_POSES.indexOf(pose)),
+    picker(
+      ALL_POSES,
+      (p) => p.name,
+      (p) => {
+        pose = p;
+        applyPose();
+      },
+      ALL_POSES.indexOf(pose),
+    ),
+    picker(
+      SEATS,
+      (r) => (r === "p1" ? "P1'S SCREEN" : r === "p2" ? "P2'S SCREEN" : r.toUpperCase()),
+      (r) => {
+        seat = r;
+        applyPose();
+      },
+      SEATS.indexOf(seat),
+    ),
     toggle("⏸", (paused) => pair.setRunning(!paused)),
     picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1)),
     toggle("BLINK", (on) => {
@@ -200,51 +231,5 @@ function renderSlot(slot: Slot, openCount: number): HTMLElement {
     toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1)),
   );
   show(candidate);
-  return root;
-}
-
-function cast(label: string, on: () => void): HTMLButtonElement {
-  const b = button(label, "versus-cast");
-  b.addEventListener("click", () => {
-    on();
-    b.textContent = `${label} — COPIED`;
-    setTimeout(() => {
-      b.textContent = label;
-    }, 1600);
-  });
-  return b;
-}
-
-/**
- * A vote, on the clipboard.
- *
- * Deliberately **not** the adoption prompt `docs/versus.md` specifies —
- * `tools/versus/prompt.ts` is not built yet, and a half-written text that
- * looks like the real one is worse than none. This says it is a record, so
- * the looking is not lost meanwhile. Every value is `old -> new`, the
- * left-hand column read off the live record and never copied into a tool.
- */
-function emit(slot: Slot, won: Variant | null, why: string, head: Head): void {
-  const lost = slot.candidates.filter((c) => c !== won).map((c) => c.name);
-  const lines = [
-    "VERSUS — a vote, recorded. Not the adoption prompt: `tools/versus/prompt.ts`",
-    "is not built yet, and this is the decision, so that the looking is not lost.",
-    "",
-    `    slot    ${slot.slot}`,
-    `    won     ${won ? `${won.name} — "${won.sentence}"` : "current — nothing shipped changes"}`,
-    `    lost    ${lost.join(", ") || "current"}`,
-    `    why     ${why.trim() || "(not typed)"}`,
-    `    voted   ${new Date().toISOString().slice(0, 10)}, against ${head.head}, tree ${head.dirty ? "dirty" : "clean"}`,
-    "",
-  ];
-  for (const p of won?.patches ?? []) {
-    const was = currentValues(p);
-    const fields = p.fields as Record<string, unknown>;
-    lines.push(`    patch   ${declaration(p.where)}`);
-    for (const f of patchedFields(p)) {
-      lines.push(`            ${f}  ${JSON.stringify(was[f])}  ->  ${JSON.stringify(fields[f])}`);
-    }
-  }
-  lines.push("", 'docs/versus.md, "The prompt a vote emits", says what to do with this.');
-  void navigator.clipboard?.writeText(lines.join("\n"));
+  return pair;
 }
