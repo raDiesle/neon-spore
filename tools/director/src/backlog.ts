@@ -6,9 +6,8 @@
  * file, built and unbuilt mixed in each. That is the wrong axis for the one
  * question the page exists to answer: *what is there left to build, and what
  * could it be made of.* So a creature idea sits with the creatures whether it
- * was written in `bestiary.md` or in `ideas.md`, a rule the field plays by sits
- * with the mechanics, and anything the simulation already has is not here at
- * all — that is what the brush palette and the SHIP tab are for.
+ * was written in `bestiary.md` or in `ideas.md`, and anything the simulation
+ * already has is not here at all — see the brush palette and the SHIP tab.
  *
  * Nothing is classified twice. Which section an idea belongs to is a `###`
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.
@@ -16,7 +15,7 @@
 
 import { parseParked } from "../../handoff/parked.js";
 import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
-import { type Concept, parseConcepts } from "./concepts.js";
+import { type Concept, type Idea, parseConcepts } from "./concepts.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 
@@ -45,19 +44,13 @@ export interface Backlog {
   bosses: BacklogGroup[];
   interludes: BacklogGroup[];
   parked: BacklogGroup[];
-  /**
-   * Decided, not yet done — `docs/queue.md`, joined to what git knows about
-   * each lane. Built in `queue-panel.ts`, which needs git and so cannot live
-   * in this file: everything here is a pure function of the markdown handed
-   * to it. Passed in already built; empty where nobody supplied it.
-   */
+  // Decided, not yet done — `docs/queue.md`, joined to what git knows about
+  // each lane. Built in `queue-panel.ts`, which needs git and so cannot live
+  // here. Passed in already built; empty where nobody supplied it.
   queue: BacklogGroup[];
-  /**
-   * Worked-out design documents — `docs/versus.md`, `docs/teaching.md`,
-   * `docs/alive.md` — each carrying numbers a queued lane is meant to build.
-   * Built in `design-docs.ts`: a plan with numbers in it is a different thing
-   * from an idea nobody has argued with, which is what `parked` is for.
-   */
+  // Worked-out design documents — `docs/versus.md` and friends — each
+  // carrying numbers a queued lane is meant to build. Built in
+  // `design-docs.ts`, a different thing from an idea nobody has argued with.
   designs: BacklogGroup[];
 }
 
@@ -73,39 +66,58 @@ function parkedLabels(md: string): string[] {
     .map((section) => section.split("\n").find((l) => PARKED_LABEL.test(l.trim())) ?? "");
 }
 
-/** A built entry is not backlog. It is in the brush palette, or on the field. */
-function unbuilt(rows: Planned[]): BacklogEntry[] {
-  return rows.filter((r) => !r.built).map(({ built: _built, ...rest }) => rest);
+/**
+ * "Deliberately deferred" in `ideas.md` argues most entries down ("Refused,
+ * and…"). One, THE CONDUCTOR, says the opposite — "Deferred rather than
+ * rejected" — the only signal the prose gives, and what splits the group.
+ */
+function deferredGroups(deferred: Idea[]): BacklogGroup[] {
+  const isDeferred = (i: Idea) => /deferred rather than reject/i.test(i.note);
+  const toEntry = (i: Idea): BacklogEntry => ({
+    name: i.name,
+    kind: "",
+    note: i.note,
+    detail: "",
+    ref: i.ref,
+  });
+  return [
+    {
+      title: "IDEAS TURNED DOWN",
+      note: "looked at and refused, with the objection written out — ideas.md",
+      builtHidden: 0,
+      entries: deferred.filter((i) => !isDeferred(i)).map(toEntry),
+    },
+    {
+      title: "DEFERRED, NOT REFUSED",
+      note: "set aside for a stated reason, not turned down — ideas.md",
+      builtHidden: 0,
+      entries: deferred.filter(isDeferred).map(toEntry),
+    },
+  ];
 }
 
+// A built entry is not backlog. It is in the brush palette, or on the field.
 function fromRoster(title: string, note: string, rows: Planned[]): BacklogGroup {
   return {
     title,
     note,
-    entries: unbuilt(rows),
+    entries: rows.filter((r) => !r.built).map(({ built: _built, ...rest }) => rest),
     builtHidden: rows.filter((r) => r.built).length,
   };
 }
 
-/**
- * Whether a section's heading tail claims the thing exists.
- *
- * Not a string equality test, because the spec does not write the tail the
- * same way twice: "built", but also "the pod, built" and "keep watch, built".
- * "not built" and "partly built" contain the word and are the opposite claim,
- * so they are ruled out first.
- */
+// Whether a section's heading tail claims the thing exists. Not a string
+// equality test — "built", but also "the pod, built" — and "not built" /
+// "partly built" are ruled out first, since they contain the word but mean
+// its opposite.
 function claimsBuilt(tail: string): boolean {
   const t = tail.toLowerCase();
   if (t.includes("not built") || t.includes("partly built")) return false;
   return /\bbuilt\b/.test(t);
 }
 
-/**
- * A section counts as backlog unless its heading claims it exists. Which keeps
- * "partly built", and deliberately: a system half in the game is a thing with
- * work left, and the tail says which half on every row.
- */
+// A section counts as backlog unless its heading claims it exists — which
+// keeps "partly built", a system half in the game with work left.
 function fromConcepts(title: string, note: string, concepts: Concept[]): BacklogGroup {
   const open = concepts.filter((c) => !claimsBuilt(c.status));
   return {
@@ -122,7 +134,7 @@ function fromConcepts(title: string, note: string, concepts: Concept[]): Backlog
   };
 }
 
-/** A whole spec section as one entry — for prose that never became a list. */
+// A whole spec section as one entry — for prose that never became a list.
 function fromSection(
   title: string,
   note: string,
@@ -135,8 +147,7 @@ function fromSection(
     title,
     note,
     builtHidden: 0,
-    // No name of its own: the group heading already carries it, and a row
-    // that repeats its own heading reads as an entry called after the list.
+    // No name of its own: the group heading already carries it.
     entries: body ? [{ name: "", kind: "", note: "", detail: body, ref }] : [],
   };
 }
@@ -209,9 +220,9 @@ export function buildBacklog(
       ),
     ],
     parked: [
-      // The file the tab is named after. The two groups below it are the
-      // spec's own deferrals and rejections — a different thing with the
-      // same word on it, which is why this went unnoticed for so long.
+      // The file the tab is named after. Below it are the spec's own
+      // deferrals and rejections — a different thing with the same word
+      // on it, which is why this went unnoticed for so long.
       {
         title: "PARKED BY A SESSION",
         note: "noticed and not done, with where to start — docs/parked.md",
@@ -224,18 +235,7 @@ export function buildBacklog(
           ref: "parked.md",
         })),
       },
-      {
-        title: "DELIBERATELY DEFERRED",
-        note: "not rejected, not queued — ideas.md",
-        builtHidden: 0,
-        entries: sheet.deferred.map((i) => ({
-          name: i.name,
-          kind: "",
-          note: i.note,
-          detail: "",
-          ref: i.ref,
-        })),
-      },
+      ...deferredGroups(sheet.deferred),
       fromSection(
         "EXAMINED AND REJECTED",
         "names that were considered and turned down, with the reason",

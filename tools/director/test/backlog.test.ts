@@ -124,6 +124,25 @@ describe("buildBacklog", () => {
     expect(rejected?.entries[0]?.detail).toContain("The Fogger");
   });
 
+  // The group used to say "not rejected, not queued" of a section that mostly
+  // reads as refused — the owner's own word for it — with one entry, THE
+  // CONDUCTOR, that genuinely is deferred rather than rejected. A reader has
+  // to be able to tell those two apart, and tell both apart from something
+  // nobody has looked at yet (PARKED BY A SESSION, above).
+  test("a refused idea is not filed beside the one that was only deferred", async () => {
+    const backlog = await realBacklog();
+    const turnedDown = backlog.parked.find((g) => g.title === "IDEAS TURNED DOWN");
+    const deferred = backlog.parked.find((g) => g.title === "DEFERRED, NOT REFUSED");
+
+    expect(turnedDown?.entries.map((e) => e.name)).toContain("Freighter");
+    expect(turnedDown?.entries.map((e) => e.name)).not.toContain(
+      "THE CONDUCTOR, bending the tempo",
+    );
+
+    expect(deferred?.entries.map((e) => e.name)).toContain("THE CONDUCTOR, bending the tempo");
+    expect(deferred?.entries.map((e) => e.name)).not.toContain("Freighter");
+  });
+
   // The tab is called PARKED and showed the spec's deferrals and rejections,
   // which are a different thing wearing the same word — so what a session
   // actually parked was nowhere, and stayed nowhere until somebody asked.
