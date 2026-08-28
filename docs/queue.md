@@ -48,21 +48,6 @@ fetches a URL and no lane vendors a third-party file** — that carries a
 licence, which is the owner's call and not a lane's. If those are ever wanted
 in the tree, that is its own entry with its own licence line.
 
-## TWELVE SKINS ARE COMING AND THE FILE THAT HOLDS FOUR IS AT THE CEILING
-_claude/burn-skin-split-s0 · tools/director/src/skins/ tools/director/src/skins.ts tools/director/src/shape-figure.ts tools/director/src/shapes-panel.ts docs/skins.md_
-
-The enabling lane, and every skin lane below sits behind it. `tools/director/src/skins.ts` is 236 lines against the ~250 ceiling and holds four skins in one `buildSkin` with a chain of `if (skin === …)`. Twelve more will not fit in it and would not be readable if they did.
-
-Two changes, and no new picture. **Split** into `tools/director/src/skins/`, one file per skin, assembled by `skins/index.ts` the way `tools/shape-sheet/src/drafts/index.ts` assembles DRAFTS — `skins.ts` stays as the re-export so `shape-figure.ts` and `shapes-panel.ts` need not move, or move them; say which in the commit. Each skin exports its own `{ id, label, hint, build }` and the registry is the only place that knows the list, so a new skin is one file and one line in `index.ts`.
-
-**And give a skin a frame.** Today `SkinBuild` returns only `contour`, the paths that get the contour's `d` written on them by `tick()` in `shape-figure.ts`; a skin cannot animate anything of its own, which is why every existing one is static. Add an optional `onFrame(t, beat)` to `SkinBuild`, called from that same loop for every connected figure. `beat` is a page-wide phase derived from `t` — **shared** is the requirement, not a detail: twelve cards pulsing on twelve private clocks reads as noise, and the whole value of a heartbeat is that the page does it together. Put the tempo in one named constant with the game's own beat beside it in a comment.
-
-Finished when `bun run check` is green, every file is under 250 lines, the four existing skins draw exactly as they did (LINE, MEMBRANE, CORE and VEIN unchanged — this lane invents no picture), a skin can move something without touching `shape-figure.ts`, and `docs/skins.md` says what a skin is, how to add one, and the four rules below. Do **not** touch `docs/asset-catalogue.md`: another lane owns it, and the orchestrator updates its skin paragraph once these land.
-
-**The four rules, and they go in `docs/skins.md` where an author will read them.** (a) Nothing here imports or edits `packages/render` — a card is where a look is decided *before* the game learns to draw it, which is `skins.ts`'s own doctrine and the reason none of this can break a wave. (b) Every skin is seeded from the shape's name, so a card looks the same on every reload and two shapes never share a texture. (c) Every `<defs>` id is keyed on `uid`, because several cards draw at once and a collision silently gives two shapes one texture. (d) Nothing allocates per frame — no gradient, no filter, no path built inside `onFrame`; build in `build()`, mutate attributes in `onFrame`.
-
-Model `opus`, effort `think hard`. Read `tools/director/src/skins.ts` and `shape-figure.ts` first. The judgement is the `onFrame` signature, because six lanes are written against it.
-
 ## THE VEINS ARE UNDER THE SKIN AND A HEART IS NOT A TEXTURE
 _claude/burn-skin-vein2-s1 · tools/director/src/skins/vein-pulse.ts_
 
