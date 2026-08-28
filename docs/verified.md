@@ -170,3 +170,9 @@ records the answers. See `docs/verification.md`.
   - closed unlooked-at in the sweep that reset this list
 - `ada7090` 2026-08-28 CLEARED — whether losing a laid shot by sliding the cannon during the wind-up reads as a mistake the pair made or as the game eating a press
   - closed unlooked-at in the sweep that reset this list
+- `9730f81` 2026-08-28 PASS — does CILIA's fringe still hug the body exactly as it did, now that it is drawn without asking the browser where the contour is?
+- `6868bd5` 2026-08-28 PASS — on the SHAPES page, can you tell what can be combined with what without being told?
+- `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
+  - in director testing game mode, still every wave has the "lance" control for player 1
+- `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
+  - in director testing game mode, still every wave has the "lance" control for player 1

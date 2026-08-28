@@ -85,7 +85,7 @@ vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
 ## THE CHECK LIST IS PARAGRAPHS WHERE IT SHOULD BE A LINE, AND SAYS NOTHING ABOUT KIND
-_claude/burn-checks-short-x11 · docs/checks tools/checks/render.ts_
+_claude/burn-checks-short-x11 · docs/checks tools/checks/restated.ts_
 
 The owner, twice, reading `⚑ TO CHECK`:
 
