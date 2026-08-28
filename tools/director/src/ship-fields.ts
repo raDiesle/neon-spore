@@ -1,4 +1,4 @@
-import type { SimConfig } from "@neon-spore/sim";
+import type { BossEntry, SimConfig } from "@neon-spore/sim";
 
 /**
  * Every `SimConfig` field, sorted into the card that explains it to a person
@@ -187,3 +187,35 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
 export function fieldsIn(group: GroupName): (keyof SimConfig)[] {
   return (Object.keys(FIELD_GROUP) as (keyof SimConfig)[]).filter((k) => FIELD_GROUP[k] === group);
 }
+
+/**
+ * The boss group each `BossEntry` kind shows — a wave that carries `warden`
+ * shows WARDEN, and nothing else here changes because of it. `ship.ts` reads
+ * this to decide what belongs beside the wave being edited rather than beside
+ * the ship, which is the split `docs/queue.md`'s SHIP-column brief asks for.
+ */
+export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
+  queen: "QUEEN",
+  warden: "WARDEN",
+  mirror: "MIRROR",
+  vane: "VANE",
+};
+
+/**
+ * Groups that describe the wave in front of you rather than the ship — the
+ * four boss groups above, plus THE GAUGE, which only matters in a gap that
+ * carries one. Every other group is the same ship on every wave; `SHIP_GROUPS`
+ * below is the complement, so a group added to `GROUP_ORDER` and left off this
+ * set defaults to the ship sheet rather than vanishing — the "show everything"
+ * escape hatch the brief asks for is this default, not a separate view.
+ */
+export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
+  "WARDEN",
+  "VANE",
+  "MIRROR",
+  "QUEEN",
+  "THE GAUGE — an interlude's own round",
+]);
+
+/** The ship's own dials — the same on every wave, and one click away on the topbar. */
+export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GROUPS.has(g));

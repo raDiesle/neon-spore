@@ -1,5 +1,13 @@
+import { GAPS, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
-import { fieldsIn, GROUP_NOTE, GROUP_ORDER } from "./ship-fields.js";
+import {
+  BOSS_GROUP,
+  fieldsIn,
+  GROUP_NOTE,
+  GROUP_ORDER,
+  type GroupName,
+  SHIP_GROUPS,
+} from "./ship-fields.js";
 
 /**
  * What the ship can do, read off `SimConfig` rather than described.
@@ -13,6 +21,14 @@ import { fieldsIn, GROUP_NOTE, GROUP_ORDER } from "./ship-fields.js";
  * `forkBetweenWaves`, `interludes`, the six `gauge*` fields, `shotChargeBeats`)
  * and none of them appeared here — that gap is what this file is now built to
  * refuse.
+ *
+ * `renderShip` and `renderShipSheet` are the split `docs/queue.md`'s brief
+ * asked for: `aimMillis` is the same number on every wave, so it does not
+ * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
+ * SHIP card with only what the current wave actually contains — its boss, if
+ * it has one, and THE GAUGE if the gap in front of it carries a round — and
+ * `renderShipSheet` paints the topbar sheet with the ship's own dials, the
+ * same on every wave, one click away.
  */
 
 interface Capability {
@@ -44,29 +60,87 @@ function rawLine(cfg: SimConfig, group: Parameters<typeof fieldsIn>[0]): string 
     .join(", ");
 }
 
-function capabilities(cfg: SimConfig): Capability[] {
-  return GROUP_ORDER.map((group) => ({
+function capability(cfg: SimConfig, group: GroupName): Capability {
+  return {
     name: group,
     value: VALUE[group]?.(cfg) ?? rawLine(cfg, group),
     note: GROUP_NOTE[group],
-  }));
+  };
 }
 
-export function renderShip(cfg: SimConfig): void {
+function capEl(cap: Capability): HTMLElement {
+  const el = document.createElement("div");
+  el.className = "cap";
+  const head = document.createElement("b");
+  head.textContent = cap.name;
+  const num = document.createElement("span");
+  num.className = "num";
+  num.textContent = cap.value;
+  const body = document.createElement("p");
+  body.textContent = cap.note;
+  el.append(num, head, body);
+  return el;
+}
+
+/**
+ * Which groups belong to the wave open right now: its own boss, if it has
+ * one, and THE GAUGE if the gap in front of it carries a round. `GAPS` is the
+ * saved shape (`packages/content/src/interludes.ts`), the same source the
+ * bundled waves come from — an edit made in the gap sheet and not yet saved
+ * is not yet true of the wave either, the same as everything else this panel
+ * reads off `Store`.
+ */
+function groupsForWave(wave: Wave | undefined, waveIndex: number): GroupName[] {
+  const present = new Set<GroupName>();
+  if (wave?.boss) present.add(BOSS_GROUP[wave.boss.kind]);
+  if (GAPS[waveIndex]) present.add("THE GAUGE — an interlude's own round");
+  return GROUP_ORDER.filter((g) => present.has(g));
+}
+
+/**
+ * The WAVE tab's SHIP card: only what the wave in front of you contains. Empty
+ * far more often than not — most waves carry no boss and open on no gap — and
+ * that emptiness is the point rather than a bug to paper over with the ship's
+ * global dials, which is what used to sit here.
+ */
+export function renderShip(cfg: SimConfig, wave: Wave | undefined, waveIndex: number): void {
   const caps = document.getElementById("caps");
   if (!caps) return;
   caps.replaceChildren();
-  for (const cap of capabilities(cfg)) {
-    const el = document.createElement("div");
-    el.className = "cap";
-    const head = document.createElement("b");
-    head.textContent = cap.name;
-    const num = document.createElement("span");
-    num.className = "num";
-    num.textContent = cap.value;
-    const body = document.createElement("p");
-    body.textContent = cap.note;
-    el.append(num, head, body);
-    caps.appendChild(el);
+  const groups = groupsForWave(wave, waveIndex);
+  if (groups.length === 0) {
+    const note = document.createElement("p");
+    note.className = "note";
+    note.textContent =
+      "Nothing here is specific to this wave — no boss, no gap that carries a round. " +
+      "The ship's own dials are the same on every wave; open ⚙ SHIP on the topbar for those.";
+    caps.appendChild(note);
+    return;
   }
+  for (const group of groups) caps.appendChild(capEl(capability(cfg, group)));
+}
+
+/** The topbar sheet: the ship's own dials, the same on every wave, all of them reachable. */
+export function renderShipSheet(cfg: SimConfig): void {
+  const body = document.getElementById("shipSheetBody");
+  if (!body) return;
+  body.replaceChildren();
+  for (const group of SHIP_GROUPS) body.appendChild(capEl(capability(cfg, group)));
+}
+
+/** Wires the ⚙ SHIP button and its full-screen sheet — the same shell `checks-page.ts` and the rest use. */
+export function bindShipSheet(cfg: SimConfig): void {
+  const sheet = document.getElementById("shipSheet");
+  const open = document.getElementById("shipSheetOpen");
+  const close = document.getElementById("shipSheetClose");
+  if (!sheet || !open || !close) return;
+  const show = (on: boolean): void => {
+    sheet.classList.toggle("on", on);
+    if (on) renderShipSheet(cfg);
+  };
+  open.addEventListener("click", () => show(true));
+  close.addEventListener("click", () => show(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
+  });
 }

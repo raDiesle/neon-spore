@@ -699,6 +699,19 @@
       #cardsSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
       #cardsSheetBody section { margin-bottom: 22px; }
       .card-wave-head { color: var(--cyan); font-size: 10px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 400; }
+
+      /* SHIP: the global dials moved off the WAVE column — see ship.ts. Same
+         full-screen shell as CONTROL SETS and CARDS. */
+      #shipSheet { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
+      #shipSheet.on { display: flex; flex-direction: column; }
+      #shipSheet > header {
+        display: flex; align-items: baseline; gap: 12px; padding: 14px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      #shipSheet .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #shipSheet .sub { color: var(--dim); font-size: 10px; }
+      #shipSheet > header button { margin-left: auto; }
+      #shipSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
     </style>
   </head>
   <body>
@@ -715,6 +728,7 @@
       <button type="button" id="soundOpen">♪ SOUND</button>
       <button type="button" id="controlSetsOpen">⎈ CONTROL SETS</button>
       <button type="button" id="cardsOpen">✎ CARDS</button>
+      <button type="button" id="shipSheetOpen">⚙ SHIP</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
@@ -765,7 +779,12 @@
           <p class="note" id="waveBriefing"></p>
         </div>
         <div class="tabpage" id="tab-ship">
-          <h2>WHAT THE SHIP CAN DO</h2>
+          <h2>WHAT THIS WAVE ADDS TO THE SHIP</h2>
+          <p class="note">
+            Its boss, if it has one, and THE GAUGE if the gap in front of it
+            carries a round. The ship's own dials — AIM, HULL, THE BEAT and
+            the rest — are the same on every wave; see ⚙ SHIP on the topbar.
+          </p>
           <div id="caps"></div>
         </div>
         <div class="tabpage" id="tab-tuning">
@@ -1130,6 +1149,22 @@
         <button type="button" id="cardsSheetClose">✕ CLOSE</button>
       </header>
       <div id="cardsSheetBody"></div>
+    </div>
+
+    <!-- SHIP: the global dials that used to sit on the WAVE tab's SHIP card
+         regardless of what wave was open — AIM, GUARD, HULL, THE BEAT and the
+         rest are the same ship on every wave, so they moved here and left the
+         WAVE tab to show only what the wave in front of you actually
+         contains. See ship.ts. -->
+    <div id="shipSheet">
+      <header>
+        <span class="title">SHIP</span>
+        <span class="sub">
+          the ship's own dials — the same on every wave, whatever wave is open
+        </span>
+        <button type="button" id="shipSheetClose">✕ CLOSE</button>
+      </header>
+      <div id="shipSheetBody"></div>
     </div>
 
     <script type="module" src="./src/main.ts"></script>

@@ -1,6 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { FIELD_GROUP, GROUP_NOTE, GROUP_ORDER } from "../src/ship-fields.js";
+import { BOSS_KINDS, DEFAULT_CONFIG } from "@neon-spore/sim";
+import {
+  BOSS_GROUP,
+  FIELD_GROUP,
+  GROUP_NOTE,
+  GROUP_ORDER,
+  SHIP_GROUPS,
+  WAVE_ONLY_GROUPS,
+} from "../src/ship-fields.js";
 
 /**
  * The runtime half of the guard `ship-fields.ts` argues for. TypeScript
@@ -31,5 +38,27 @@ describe("ship-fields", () => {
 
   test("GROUP_ORDER has no group twice", () => {
     expect(new Set(GROUP_ORDER).size).toBe(GROUP_ORDER.length);
+  });
+
+  // The split `docs/queue.md`'s SHIP-column brief asks for: WAVE_ONLY_GROUPS
+  // is what stays beside the wave being edited, SHIP_GROUPS is what moved
+  // behind the topbar's ⚙ SHIP. Together they must be every group there is,
+  // with none counted twice — that is the "every field stays reachable"
+  // guarantee, checked at runtime rather than only argued in a comment.
+  test("WAVE_ONLY_GROUPS and SHIP_GROUPS partition GROUP_ORDER exactly", () => {
+    const union = new Set([...WAVE_ONLY_GROUPS, ...SHIP_GROUPS]);
+    expect([...union].sort()).toEqual([...GROUP_ORDER].sort());
+    for (const group of SHIP_GROUPS) expect(WAVE_ONLY_GROUPS.has(group), group).toBe(false);
+  });
+
+  test("BOSS_GROUP has an entry for every boss kind, and each points at a wave-only group", () => {
+    for (const kind of BOSS_KINDS) {
+      expect(BOSS_GROUP[kind], kind).toBeDefined();
+      expect(WAVE_ONLY_GROUPS.has(BOSS_GROUP[kind]), kind).toBe(true);
+    }
+  });
+
+  test("THE GAUGE is wave-only — it only matters in a gap that carries one", () => {
+    expect(WAVE_ONLY_GROUPS.has("THE GAUGE — an interlude's own round")).toBe(true);
   });
 });
