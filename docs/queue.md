@@ -209,23 +209,6 @@ the drawing is the easy half. Read `tools/director/src/skins/light.ts`,
 `packages/render/src/sheen.ts`, `glow.ts`, `meteor.ts` and `docs/alive.md`
 first.
 
-## A BODY ABOUT TO HIT THE HULL CASTS NOTHING ON IT
-_claude/burn-depth-shadow-d2 · packages/render/src/contact-shadow.ts packages/render/test/contact-shadow.test.ts_
-
-Behind d1, so it inherits the row scale rather than duplicating it.
-
-A body near the hull throws a soft dark ellipse onto it, tightening and darkening as it closes. The hull sits at a known fixed `layout.hullY`, so the geometry is arithmetic and not projection.
-
-**It is worth more than it looks, and the second reason is the real one.** A cast shadow is the strongest "these objects exist in a space" cue available in 2D — but it is also a *gameplay* read, and one aimed at the seat that has the least information. The shield player is told how close something is, on the hull itself, where they are already looking, before it arrives. Nothing else on that screen says it. So this is judged twice: does it read as contact, and does it tell the shield player something they did not already have.
-
-That double duty sets the constraint. It must never be mistaken for damage already taken — `scars.ts` draws on the same surface, and a soft dark ellipse and a scar competing for the same pixels is the one failure that misinforms rather than merely looking wrong. Keep it soft, keep it moving, and let a scar always win where they overlap.
-
-Add to `canvas2d.ts` in one contiguous region — it is owned by nobody and another lane is queued to add to it. Nothing here outlives a frame, so nothing belongs in `Effects`; if that turns out to be false, whatever is cached goes in `Effects` and is cleared in `Effects.reset()`, which `restart.test.ts` will fail on if it is not.
-
-Finished when `bun run check` is green, `frame.test.ts` passes, a test proves the ellipse tightens monotonically as the row falls and is absent when nothing is near, and the commit carries two trailers: `Check: does the shadow read as a body about to arrive, or as damage already taken — a wave with a scarred hull` and `Check: from the shield seat, does the shadow say anything the player did not already know`.
-
-Model `sonnet`, effort `think hard`. Read `packages/render/src/layout.ts` and `scars.ts` first.
-
 ## SIX PIECES, AND EVERY ONE OF THEM IS ON THE GRID
 _claude/burn-music-deep-m1 · packages/audio/src/music/deep.ts packages/audio/test/deep.test.ts_
 
