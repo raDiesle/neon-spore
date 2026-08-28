@@ -92,7 +92,8 @@ must carry, every time:
 - a `Check:` trailer for anything only an eye can settle — a wave at tempo, a
   silhouette at 26 px, a colour against the field — written to the shape
   below, because a check is read cold, weeks later, by somebody who was not
-  there;
+  there. One trailer per landing, not one per thing the lane touched —
+  `docs/verification.md` has the procedure for finding the wider subject;
 - **after any amend, re-read the message and confirm the trailers are still
   in it** (`git log -1 --format=%B`). A lane reported two, amended during a
   rebase, and the trailers went with the amendment — the obligations vanished
@@ -165,6 +166,10 @@ board shows nothing in flight.** Worktrees are cheap to leave standing for
 another twenty minutes; a lane is not cheap to run twice.
 
 ## What a `Check:` has to contain
+
+How many trailers a landing gets is answered in `docs/verification.md`
+("One check per landing"), not here — find the wider subject before writing
+anything. What follows is the shape of the one sentence once you have it.
 
 The person reading it has not seen the code, does not remember the lane, and
 is deciding in the two minutes before they close the laptop. A trailer that

@@ -14,7 +14,7 @@ the same reason the commit messages here are sentences.
 
 ## The trailer
 
-A commit that leaves something unlooked-at says so, once per thing:
+A commit that leaves something unlooked-at says so:
 
 ```
 The Warden gets a body: the first contour with a hole through it
@@ -22,13 +22,15 @@ The Warden gets a body: the first contour with a hole through it
 ...
 
 Check: the hole still reads at 26 px on a phone
-Check: the flank torches do not clip the hull — `bun run shapes`
 ```
 
 Prose, not a ticket. It says what to look at, and after an em dash how, when
 there is a how. A backticked command that is one of this repository's own
 (`bun run …`, `bun test …`) becomes a button; anything else is refused, which
 is why the tail is prose the rest of the time.
+
+**One commit, one trailer, by default.** The next section is the procedure
+for finding it when a commit touched more than one thing.
 
 **Wrap it if it runs long.** A `Check:` continues onto the next line and the
 next, to the first blank line or the next trailer — indented or not. It used
@@ -38,6 +40,46 @@ was simply not on the list, and the half that went missing was usually the
 `bun run …` that would have settled it. What this costs is one rule: leave a
 blank line between the last `Check:` and any ordinary prose after it, or the
 prose is read as the rest of the sentence.
+
+## One check per landing
+
+The owner opens the list to answer one question about each row: *did this
+landing come out right when I look at it?* A lane that writes one trailer per
+thing it touched turns three decisions into nine rows, and nine rows reads as
+a log of everything that landed rather than a short list of decisions still
+open. The unit the list is built from is the **landing** — one commit — not
+the count of things the diff changed.
+
+**The procedure, before writing any trailer at all:** name the thing a player
+would say changed, in their own words — the sentence someone who only plays
+the game would say if asked what's different, not a file, not a mechanism,
+not the lane's own account of what it did. Everything in the commit that
+shares that same answer is one check, however many files moved to produce it.
+A commit that touched three files in service of one thing a player would
+notice gets one trailer. Do this before drafting a single `Check:` line, or
+the habit of writing one per thing looked at wins by default.
+
+**A second trailer on one commit is the exception, and it has to earn
+itself.** Write one only when two parts of the landing could truthfully come
+back with different verdicts — a wave's timing and a sound cue that plays
+during it are not the same question, and either can pass while the other
+fails. Say so in the commit message when you do it; a second trailer that
+shows up without that sentence reads as the old habit, not a judgment call.
+
+**Widen the subject; never weld two questions onto one line with "and".** *Does
+the shadow gather and is the meteor grey* cannot be answered as one row,
+because half of it can pass while the other half fails and the verdict has
+nowhere to go. The fix is not to drop a half, it's to ask the question that
+already contains both: *does a falling rock read as a rock getting closer to
+the ship* covers the shadow and the body, and it has one answer. A combined
+check is recognised by a bigger subject, not by a shared line.
+
+Nothing about the shape of a check changes underneath this: still one
+sentence, still a question with an imaginable "no", still written for
+somebody who only plays the game, still no identifiers or paths. And if a
+landing genuinely changed nothing a player could look at, the right number of
+trailers is still zero — this rule asks for a wider question, never a softer
+one.
 
 Write one for anything the sandbox could not settle: a wave's timing, a
 silhouette, a sound, a colour, motion of any kind, the relay, anything that

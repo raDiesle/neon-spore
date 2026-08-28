@@ -161,13 +161,18 @@ now, but still written.
 
 The report says it, and so does the commit. A report is read once, on a phone,
 and scrolled past; by the time there is a machine that can open a shape sheet,
-the list of what to open is four sessions up the transcript. So each thing gets
-a trailer, one line, prose:
+the list of what to open is four sessions up the transcript. So the landing
+gets a trailer, one line, prose:
 
 ```
 Check: the hole still reads at 26 px on a phone
-Check: the flank torches do not clip the hull — `bun run shapes`
 ```
+
+One trailer per landing by default, not one per thing that changed to produce
+it — nine rows for three decisions is a list the owner stops reading, and the
+unit here is the commit, not the diff. `docs/verification.md` has the
+procedure for naming the one wider question a whole landing should be judged
+by, and says when a second trailer on the same commit is actually warranted.
 
 `bun run checks` and the director's `⚑ TO CHECK` derive the outstanding list
 from those trailers, and `docs/verified.md` records what has actually been
