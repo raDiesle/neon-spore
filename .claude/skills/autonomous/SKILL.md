@@ -517,5 +517,19 @@ rest standing.
 
 - what landed, one line each;
 - what is still in flight and where its worktree is;
-- **what to open first** — the checks worth a person's eye, named, in order;
 - any question a lane stopped on.
+
+**Do not raise the outstanding checks.** Not as a list, not as a closing line,
+not as a suggestion that four of them could be settled in one pass. The owner
+said so: *don't remind me or block you about missing checks any longer.* They
+know the list exists, they know where it is, and a run that ends every report
+by pointing at it is nagging a person who has already decided when they will
+look.
+
+Nothing else changes. Trailers are still written on every landing, restatements
+are still filed, and `bun run checks` still derives the list — the record is
+the point and it stays. What stops is the reminding.
+
+And nothing waits on a check. A check has never blocked a landing and must not
+start: the queue is worked in order, and an entry is never held back because
+something earlier is unlooked at.
