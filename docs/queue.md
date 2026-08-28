@@ -96,35 +96,6 @@ three svgrepo files as further reference. **No lane fetches a URL and no lane
 vendors a third-party file** — that carries a licence, which is the owner's
 call and not a lane's.
 
-## A REFUSAL AND A BACKLOG ITEM LOOK THE SAME IN THE DIRECTOR
-_claude/burn-refused-status-y4 · tools/director/src/backlog.ts_
-**Asked for by the owner.**
-
-The half the ideas lane could not reach, and it reached the right conclusion
-about it. `docs/spec/ideas.md`'s deferred entries now carry a real paragraph
-each — what the idea was, what it collided with, what survives. But the
-director files that whole section under PARKED as *DELIBERATELY DEFERRED* with
-a group note reading *not rejected, not queued*, sitting in the same tab as
-`docs/parked.md`'s backlog. So a decision somebody made and closed reads as a
-thing nobody has got to yet.
-
-The owner called them refused; the page says the opposite in its own note. One
-of the two is wrong and the file is the authority: these were looked at and
-turned down. THE CONDUCTOR is the nuance — deferred rather than rejected, and
-its own paragraph says so — so the group cannot simply be relabelled REFUSED
-either. What is needed is a status a reader can tell apart from *waiting*, with
-room for *turned down* and *deferred for a stated reason* to differ.
-
-Nothing in `docs/spec/ideas.md` changes; that lane just finished it.
-
-Finished when `bun run check` is green, a refused idea is visibly not a backlog
-item, the deferred-rather-than-rejected case is still distinguishable, and the
-commit carries `Check: in the director, can you tell an idea that was turned
-down from one nobody has started?`
-
-Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts`'s group
-note and `docs/spec/ideas.md`'s deferred section first.
-
 ## A RELOAD KEEPS THE PLACE AND FORGETS EVERYTHING ELSE
 _claude/burn-director-session-s15 · tools/director/src/session.ts tools/director/src/main.ts tools/director/index.html_
 **Asked for by the owner.**
