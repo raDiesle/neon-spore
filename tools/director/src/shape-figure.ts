@@ -1,6 +1,6 @@
 import { boundsOver, type CatalogueEntry, contourAt, WOBBLE_PERIOD } from "@neon-spore/shape-sheet";
 import { motionTransform, tilePixels, transformedBounds } from "./shapes-motion.js";
-import { buildSkin, type SkinId } from "./skins.js";
+import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/index.js";
 
 /**
  * One contour, fitted into a frame and animated.
@@ -46,6 +46,8 @@ interface Drawn {
    * the skin never lags its own rim by a frame.
    */
   paths: SVGPathElement[];
+  /** The skin's own animation, if it has one. See `skins/types.ts`. */
+  onFrame?: (f: SkinFrame) => void;
   /** The group the own-motion is written onto, inside the fitted frame. */
   body: SVGGElement;
   centre: { x: number; y: number };
@@ -63,6 +65,11 @@ let uid = 0;
  */
 function tick(): void {
   const t = performance.now() / 1000;
+  // One phase, built once and handed to every card. Not per figure: a page of
+  // cards each pulsing on its own clock reads as noise, and the whole value of
+  // a heartbeat is that the page does it together. `BEAT_SECONDS` is the
+  // game's own tempo — see `skins/types.ts`.
+  const frame: SkinFrame = { t, beat: (t / BEAT_SECONDS) % 1 };
   let live = 0;
   for (const d of drawn) {
     const first = d.paths[0];
@@ -71,6 +78,7 @@ function tick(): void {
     const shape = contourAt(d.entry.subject, t);
     for (const p of d.paths) p.setAttribute("d", shape);
     d.body.setAttribute("transform", motionTransform(d.entry.motion, t, d.centre, d.tile));
+    d.onFrame?.(frame);
   }
   drawn.length = live;
   requestAnimationFrame(tick);
@@ -87,7 +95,7 @@ export interface FigureOptions {
   /**
    * How the body is drawn. `line` is the bare outline the cards had before
    * skins existed and is still the control the others are judged against;
-   * `skins.ts` says what each of the rest adds and why.
+   * `skins/` says what each of the rest adds and why, one file each.
    */
   skin?: SkinId;
 }
@@ -127,7 +135,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   // same shape is on screen twice the moment the backlog page draws a draft
   // beside the idea it was offered to.
   uid += 1;
-  const { contour } = buildSkin(opts.skin ?? "line", body, defs, {
+  const { contour, onFrame } = buildSkin(opts.skin ?? "line", body, defs, {
     colour: stroke,
     weight: (opts.weight ?? 2) / scale,
     uid: `sk${uid}`,
@@ -137,7 +145,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   frame.appendChild(body);
   svg.appendChild(frame);
 
-  drawn.push({ entry, paths: contour, body, centre: pivot, tile });
+  drawn.push({ entry, paths: contour, onFrame, body, centre: pivot, tile });
   if (!running) {
     running = true;
     requestAnimationFrame(tick);

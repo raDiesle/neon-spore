@@ -26,7 +26,7 @@
 import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
-import { SKINS, type SkinId } from "./skins.js";
+import { SKINS, type SkinId } from "./skins/index.js";
 
 const BOX = 92;
 /** The frame a long shape gets instead of the square one — see `isWide`. */
