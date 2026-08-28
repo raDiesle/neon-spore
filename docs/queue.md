@@ -196,67 +196,6 @@ Model `opus`, effort `think harder`. The lane before this one optimised the
 thing it had already decided was the problem, measured that thing, and shipped
 a page that crashes. Read the frame-time trace before reading any code.
 
-## THE SHIELD BUTTON DOES NOT SHIELD, AND A DEFLECTED ROCK ARRIVES BEFORE IT LEAVES
-_claude/burn-guard-bug-x1 · packages/sim/src/hull.ts packages/sim/test/guard.test.ts_
-
-Two reports from the owner, filed as one lane because they may be one cause
-and two lanes each landing half a diagnosis is the worst available outcome.
-
-**One: pressing SHIELD no longer shields.** Nothing else was said, which means
-the symptom is total rather than intermittent — the button is pressed and the
-rock is not deflected.
-
-**Two: a deflected meteor behaves strangely, and the owner suspects it happens
-when the cannon and the shield are in the same column.** Sometimes it is not
-reflected at all and sticks to the ship at the cannon; sometimes it travels
-*into or past* the shield and is reflected from inside it.
-
-**Here is what is already visible in `resolveHull`, and it is a starting point
-rather than the answer.** Nothing about a meteor is resolved until it reaches
-`hullRow(world.cfg)` — the deflect, the miss and the damage are all decided on
-the hull row itself. The shield is drawn as a surface *above* that row. So a
-rock that will be deflected still travels the whole way down to the ship before
-anything happens to it, which is exactly the "it goes inside the shield and
-then comes back" the owner describes, and it is a rule about where the
-collision is tested rather than a glitch. **What the owner expects is stated
-plainly: the rock turns at the moment it touches the shield surface.** That is
-a change to where the test happens, not to whether it passes.
-
-The timing gate is the other half: `world.tick - world.guardTick <=
-windowTicks` opens a window *after* a press, and `world.tick <=
-world.wardUntilTick` is the ward's exemption. A total failure to shield is one
-of: the press never reaching `guardTick`, the window being computed to zero or
-negative, `shieldCol` not being where the player sees it, or the row test
-firing a tick after the rock was already removed. **Reproduce it before
-changing anything** — a failing test that fails for the reported reason, then
-the fix. A fix with no red test in front of it is a guess with a commit
-message.
-
-**The determinism rules bind all of this.** Sub-tile values live in
-thousandths, the surface row is an integer or a thousandth and never a float,
-`hashWorld` must still agree across two devices, and if the deflect now happens
-a row earlier that is a simulation change both devices make identically.
-Anything that would need a wall clock is out.
-
-**Say whether the two reports were one bug.** If they were not, the report
-names both causes separately. If the second turns out to be a *drawing* lag
-rather than a rule — the rock turning on the right tick and being painted a
-frame late — say that too, and leave it to the lane behind this one.
-
-Finished when `bun run check` is green, a test reproduces each reported symptom
-and fails before the fix, a meteor turns at the shield surface rather than at
-the hull row, pressing SHIELD in the rock's column deflects it, the cannon's
-column has no bearing on any of it, and the commit carries `Check: does a
-deflected rock turn away at the shield's surface, instead of reaching the ship
-first?` and `Check: with the cannon parked in the same column as the shield,
-does the shield still deflect every rock that comes down it?`
-
-Model `opus`, effort `ultrathink`. The diagnosis is the lane and the fix is
-small; the two symptoms disagree with each other, and the wrong story about
-them becomes a plaster in the file every future mechanic reads. Read
-`packages/sim/src/hull.ts`, `world.ts`'s `guardTick`/`wardUntilTick`,
-`grip.ts` and `docs/spec/systems.md` 5.8 first.
-
 ## EVERY CONTROL SET GETS A PAGE, AND A WAVE THAT USES ONE SAYS SO ON THE RAIL
 _claude/burn-controlsets-page-x3 · tools/director/src/controlsets-page.ts_
 
