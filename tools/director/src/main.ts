@@ -12,6 +12,7 @@ import { bindInterludePanel, type InterludePanel } from "./interlude-panel.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
+import { bindPlace, type PlaceSession } from "./session.js";
 import { bindShipSheet, renderShip, renderShipSheet } from "./ship.js";
 import { bindSoundPage } from "./sound-page.js";
 import { bindStage } from "./stage.js";
@@ -45,6 +46,10 @@ const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 // The bundled waves are the fallback, not the source. The server reads the
 // file from disk, so an editor opened after a hand edit shows the hand edit.
 const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };
+
+// Where you were, read once — see `session.ts`. `load()` re-clamps below.
+const place: PlaceSession = bindPlace("#tabs", store.waves.length);
+store.index = place.initialWave;
 
 const status = document.getElementById("status");
 const setStatus = (text: string, cls = ""): void => {
@@ -80,17 +85,15 @@ bindTuning(cfg, () => {
   stage.rebuild();
 });
 // The pair's own switches, plus the cannon's wind-up beside them — see
-// `pair-panel.ts`. Same shape as `bindTuning` above: one `cfg`, one stage, so
-// a flip here replays the wave being edited under the new run rather than
-// asking which of several stages it meant.
+// `pair-panel.ts`. Same shape as `bindTuning` above: a flip replays the wave
+// being edited under the new run.
 const pair = bindPairPanel(cfg, () => {
   renderShip(cfg, currentWave(store), store.index);
   renderShipSheet(cfg);
   stage.rebuild();
 });
 // The gap in front of the wave being edited — see `interlude-panel.ts`. Reads
-// `store.index` rather than `Store` itself, because `GAPS` is keyed by wave
-// number and is not a field on the `Wave` the way `boss` is.
+// `store.index` rather than `Store`, because `GAPS` is keyed by wave number.
 const interlude: InterludePanel = bindInterludePanel(
   () => store.index,
   () => store.waves.length,
@@ -102,13 +105,10 @@ renderShip(cfg, currentWave(store), store.index);
 renderShipSheet(cfg);
 bindShipSheet(cfg);
 // One wave and one set of switches per mechanic, opened in one click — see
-// `demo-panel.ts`. `refreshAll` is what every other jump to a wave already
-// runs through (`rail.ts`'s own selection), so a demo lands the stage, the
-// rail highlight and the briefing card in the same state a manual click would.
-// `pair.render()` and `renderShip` are added on top of that because a demo is
-// the one caller that changes `cfg`'s switches from outside `pair-panel.ts`
-// and `tuning.ts` — the two checkboxes and the ship sheet would otherwise go
-// on showing whatever they last painted.
+// `demo-panel.ts`. `refreshAll` is what every other jump to a wave runs
+// through, so a demo lands the stage, rail and briefing the same way a click
+// would; `pair.render()` and `renderShip` follow because a demo is the one
+// caller that flips `cfg`'s switches from outside `pair-panel.ts`/`tuning.ts`.
 bindDemoPanel(store, cfg, () => {
   refreshAll();
   pair.render();
@@ -117,11 +117,10 @@ bindDemoPanel(store, cfg, () => {
 });
 
 /**
- * The brush description text (`.hint`, e.g. a blurb like "Dead rock. Cannot
- * be shot…") defaults to hidden — the palette is grouped by category now, so
- * the name alone is usually enough, and the full bestiary blurb is one click
- * away in the CREATURES tab. Persisted the same way the tuning presets are:
- * plain `localStorage`, read once at startup.
+ * The brush description text (`.hint`) defaults to hidden — the palette is
+ * grouped by category, so the name alone is usually enough, and the full
+ * blurb is one click away in CREATURES. Persisted like the tuning presets:
+ * plain `localStorage`, set only by this toggle, read once at startup.
  */
 const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";
 
@@ -174,6 +173,8 @@ function onProse(): void {
 }
 
 function refreshAll(): void {
+  // Every mover of `store.index` calls `refreshAll` to redraw — see `session.ts`.
+  place.persist(store.index);
   rail.render();
   grid?.render();
   boss.render();
@@ -231,6 +232,8 @@ async function load(): Promise<void> {
 }
 
 bindTabs("#tabs");
+// Restores the URL's tab through the click path itself — see `session.ts`.
+document.querySelector<HTMLButtonElement>(`#tabs button[data-tab="${place.initialTab}"]`)?.click();
 bindBacklog();
 bindChecks();
 bindStates();
