@@ -1,6 +1,7 @@
 import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { POSE_GROUPS } from "./poses.js";
+import { mountSheet } from "./session.js";
 
 /**
  * The STATES sheet: every state the game can be held in, drawn.
@@ -106,14 +107,5 @@ export function bindStates(): void {
   const close = document.getElementById("statesClose");
   if (!sheet || !open || !close) return;
 
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (on) renderStates();
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
+  mountSheet({ name: "states", sheet, open, close, onOpen: renderStates });
 }

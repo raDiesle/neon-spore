@@ -15,6 +15,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { frameWorld } from "./pose-art.js";
+import { mountSheet } from "./session.js";
 
 /**
  * THE CONTROL SETS: every registered panel, drawn.
@@ -124,14 +125,5 @@ export function bindControlSetsPage(): void {
   const close = document.getElementById("controlSetsClose");
   if (!sheet || !open || !close) return;
 
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (on) renderControlSets();
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
+  mountSheet({ name: "controlSets", sheet, open, close, onOpen: renderControlSets });
 }

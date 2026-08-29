@@ -23,6 +23,7 @@ import {
   THEMES,
 } from "@neon-spore/audio";
 import { bindMusicPage } from "./music-page.js";
+import { mountSheet } from "./session.js";
 import { subjectArt } from "./sound-art.js";
 import { NO_SUBJECT, subjectFor, triggerFor } from "./sound-link.js";
 import { plotLegend, plotSound } from "./sound-plot.js";
@@ -195,26 +196,26 @@ export function bindSoundPage(): void {
 
   let drawn = false;
   let hush: () => void = () => {};
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (!on) {
-      hush();
-      return;
-    }
-    if (!drawn) {
-      drawn = true;
-      renderAll();
-      hush = bindMusicPage(engine);
-    }
-    // A browser will not start audio before a gesture, and opening the sheet
-    // is one. Doing it here means the first ▶ plays rather than arming.
-    engine.unlock();
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
+  // `mountSheet` (`session.ts`) wires open/close/Escape, the family bar built
+  // above and the restoring click to the URL — `onOpen`/`onClose` are this
+  // sheet's own one-time draw and its running player.
+  mountSheet({
+    name: "sound",
+    sheet,
+    open,
+    close,
+    innerBar: "#soundTabs",
+    onOpen: () => {
+      if (!drawn) {
+        drawn = true;
+        renderAll();
+        hush = bindMusicPage(engine);
+      }
+      // A browser will not start audio before a gesture, and opening the
+      // sheet is one. Doing it here means the first ▶ plays rather than arms.
+      engine.unlock();
+    },
+    onClose: () => hush(),
   });
 }
 

@@ -27,6 +27,7 @@ import {
   runAllCommand,
 } from "./checks-dom.js";
 import { inline } from "./markdown.js";
+import { mountSheet } from "./session.js";
 
 let view: ChecksView | null = null;
 
@@ -214,32 +215,32 @@ export function bindChecks(): void {
   const close = document.getElementById("checksClose");
   if (!sheet || !open || !close) return;
 
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (!on) return;
-    load()
-      .then(render)
-      .catch(() => {
-        const body = document.getElementById("checksBody");
-        body?.replaceChildren(
-          el("p", "note", "no server — this list is read out of git, so it needs one."),
-        );
-      });
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
   document.getElementById("checksNext")?.addEventListener("click", next);
   const all = document.getElementById("checksRunAll");
   if (all instanceof HTMLButtonElement) all.addEventListener("click", () => void runAll(all));
   const { pass, clear } = decideAllButtons();
   pass.addEventListener("click", () => void decideAll(pass, "PASS"));
   clear.addEventListener("click", () => void decideAll(clear, "CLEARED"));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
 
   // Read once at startup, unlike the backlog: the whole point is to be told
   // there is something waiting without having to ask.
   void load().catch(() => {});
+
+  // `mountSheet` (`session.ts`) wires open/close/Escape and the restoring
+  // click to the URL; the reload below is this sheet's own `onOpen`.
+  mountSheet({
+    name: "checks",
+    sheet,
+    open,
+    close,
+    onOpen: () =>
+      load()
+        .then(render)
+        .catch(() => {
+          const body = document.getElementById("checksBody");
+          body?.replaceChildren(
+            el("p", "note", "no server — this list is read out of git, so it needs one."),
+          );
+        }),
+  });
 }

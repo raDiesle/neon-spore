@@ -20,6 +20,7 @@ import { renderHolders } from "./holders-panel.js";
 import { detailBox, inline } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
+import { mountSheet } from "./session.js";
 import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
 import { renderSpec } from "./spec.js";
@@ -228,9 +229,11 @@ export function bindBacklog(): void {
     if (tab.dataset.tab === "versus") tab.addEventListener("click", drawVersus);
   }
 
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (!on) return;
+  // `mountSheet` (`session.ts`) wires open/close/Escape/inner-tab and the
+  // restoring click to the URL; the load below is this sheet's own `onOpen`.
+  mountSheet({ name: "backlog", sheet, open, close, innerBar: "#backlogTabs", onOpen: onceOpen });
+
+  function onceOpen(): void {
     load().catch(() => {
       const failed = document.getElementById("backlogBestiary");
       if (!failed) return;
@@ -240,11 +243,5 @@ export function bindBacklog(): void {
       msg.textContent = "no server — the backlog is read off the spec files, so it needs one.";
       failed.appendChild(msg);
     });
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
+  }
 }
