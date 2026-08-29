@@ -1,3 +1,4 @@
+import { brushTooltip } from "./brush-tooltip.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
 
@@ -47,6 +48,11 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
         const button = document.createElement("button");
         button.type = "button";
         button.className = b.brush === brush ? "brush on" : "brush";
+        // Hovering names the wave that first introduces what the brush
+        // paints — see `brush-tooltip.ts`. A brush that paints nothing
+        // (`ERASE`) gets no answer and no attribute.
+        const tooltip = brushTooltip(b.brush);
+        if (tooltip) button.title = tooltip;
 
         for (const subject of b.subjects) {
           button.appendChild(silhouette(subject, b.stroke, 34));
