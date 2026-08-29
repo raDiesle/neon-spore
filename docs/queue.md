@@ -386,6 +386,41 @@ the entry done, and the owner's report is still standing. That is the one way a
   `packages/render/test/shield-column.test.ts` now pins the drawn column to the
   simulated one so this cannot drift later.
 
+
+### A third possibility, sharper than the two that were tested
+
+Read out of `resolveHull` rather than guessed. **Deflection needs two things at
+once**, and only one of them is the shield's column:
+
+- **aiming**, player 2's — the shield occupies the rock's column;
+- **timing**, player 1's — the guard was triggered within `cfg.guardWindowMs`
+  of the rock arriving, or a ward is up.
+
+**The guard is a momentary trigger with an expiry, not a state that is held.**
+`resolveHull` compares `world.tick - world.guardTick` against the window. So a
+player who sees a rock coming, presses guard early and *keeps holding it*, has
+a press that has already expired by the time the rock arrives. The shield is in
+the right column, the button is down, and the rock goes through into the ship —
+in whatever column they were on, which is usually the cannon's, because that is
+where they were looking.
+
+That matches the owner's report exactly, including *on cannon position*, and it
+is **the rule working as written**. If it is this, the entry is not a defect
+report: it is evidence that an expired guard is indistinguishable from a broken
+shield while you are playing, which is a design finding worth more than a fix.
+Whether the guard should re-arm on hold, or say something when it expires, is
+then an owner question rather than a repair.
+
+**And the second half of the same reading:** the early shield check applies to
+**meteors only** — `isMeteorKind` gates it, and the comment says why (the
+shield has nothing to say to a slick, a tether or a boss, so those resolve on
+the ship's row alone). If what the owner watched was not a meteor, nothing was
+ever going to turn it at the shield.
+
+So a detector, if one is built, must record three things and not one: the kind
+that hit, the shield's column at that tick, and the gap between `guardTick` and
+the tick of the hit. One of those three separates *the rule is wrong* from *the
+rule is right and reads as wrong* from *that was never deflectable*.
 ### What is left, and why the next step is not another lane
 
 **Every cheap explanation is gone.** What remains is a condition nobody has
