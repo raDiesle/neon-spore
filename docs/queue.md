@@ -51,7 +51,7 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 to one in a single contiguous region and expect to replay over somebody else.
 
 ## A WAVE'S CARD IS DERIVED, AND THE OWNER WANTS TO SEE IT AND PICK IT
-_claude/burn-director-card-pick · tools/director/src/wave-panel.ts tools/director/src/card-waves.ts tools/director/test/card-waves.test.ts_
+_claude/burn-director-card-pick · tools/director/src/rail.ts tools/director/src/card-waves.ts tools/director/test/card-waves.test.ts_
 **Asked for by the owner.**
 
 > I think i misunderstood the behavior and purpose of "Briefings" checkbox.
