@@ -27,7 +27,7 @@ import { PALETTE } from "./palette.js";
  */
 
 /** Room a guide has to leave under itself for the circles, their names and READY. */
-export const READY_FOOT_H = 96;
+export const READY_FOOT_H = 108;
 /** Half the distance between the two rings, from the panel's centre. */
 const RING_GAP = 46;
 const RING_R = 22;
@@ -57,7 +57,7 @@ export function drawReadyGate(
   ctx.textAlign = "center";
   ctx.font = '600 10px "Courier New",monospace';
   ctx.fillStyle = mineReady ? PALETTE.dim : PALETTE.hullRim;
-  ctx.fillText(mineReady ? "WAITING FOR THEM" : "HOLD ANYWHERE WHEN READ", cx, bottom - 10);
+  ctx.fillText(mineReady ? "WAITING FOR THEM" : "HOLD ANYWHERE WHEN READ", cx, bottom - 8);
   // Nothing else on the stage means anything right now; say so under the guide.
   ctx.font = '9px "Courier New",monospace';
   ctx.fillStyle = PALETTE.dim;

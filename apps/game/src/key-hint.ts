@@ -25,7 +25,8 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
   }
   const hint = document.createElement("div");
   hint.textContent =
-    "Keyboard — A/D move · Q/W/E fire · S intake · F lance · G grip" +
+    "Keyboard — A/D move · Q/W/E fire · S intake · F lance · G grip\n" +
+    "On a guide — hold F and G, one seat each, or Space for both" +
     "   Mouse — drag a strip, click a lobe";
   Object.assign(hint.style, {
     position: "fixed",

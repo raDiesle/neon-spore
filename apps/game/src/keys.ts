@@ -5,8 +5,7 @@ import type { InputBuffer } from "./input.js";
 /**
  * The keyboard, for playing both roles alone at a desk. Its own file rather
  * than the tail of `input.ts`: touch is the game's input and this is the test
- * rig's, and the two only ever met in the same file because they push into the
- * same buffer.
+ * rig's, and the two only met because they push into the same buffer.
  */
 
 export interface KeyBindings {
@@ -16,11 +15,10 @@ export interface KeyBindings {
   /** The field, for G — the grip needs something to take hold of. */
   creatures: () => readonly Creature[];
   /**
-   * Whether the guide is up — the only state Space is allowed to put away.
-   * The introduction before it passes on its own timer, and a `brief`
-   * command sent while it stands is indistinguishable from that timer
-   * firing (`sim/step.ts`), which is exactly why the touch dismiss in
-   * `briefing.ts` already guards on this before pushing.
+   * Whether the guide is up — the only state the desk's three gate keys answer.
+   * The introduction before it passes on its own timer, and a `brief` sent
+   * while it stands is indistinguishable from that timer firing
+   * (`sim/step.ts`); the touch dismiss guards on this for the same reason.
    */
   guideHolds: () => boolean;
   onPauseToggle: () => void;
@@ -35,8 +33,7 @@ export interface KeyBindings {
  * the only thing on the field a hand is the *only* answer to: a rock a hand
  * misses is still a rock the shield can meet, and a line nobody pulls costs
  * the hull and the plate both. On one screen this key is the whole of player
- * 2's half of that fight — the finger on the field is signed with this
- * device's seat, and half the cycles hold that seat's own control.
+ * 2's half of that fight.
  */
 function nearestHull(creatures: readonly Creature[]): number {
   const tether = creatures.find((c) => c.kind === "tether");
@@ -59,22 +56,21 @@ const KEY_REPEAT_INTERVAL_TICKS = 8;
 /**
  * A/D slide the cannon *and* the shield together, J/L move the shield alone.
  * Holding any of them keeps sliding: one step on keydown, then steps on a
- * repeat timer driven by `tick()` — the sim tick, not wall-clock time, so a
- * held key is exactly as reproducible as everything else in `sim`.
+ * repeat timer driven by `tick()` — the sim tick, not wall-clock time.
  *
  * F and G are the two keys that are *held* rather than pressed: the lance and
  * the grip. Both send a second command on the keyup, because nothing in the
- * simulation ends either on its own.
+ * simulation ends either on its own. Behind a wave's guide those same two keys
+ * are the ready gate's two halves — one seat each — and Space is both at once
+ * for the desk player who is both seats.
  *
- * **The keyboard is not gated by the wave's control set, and that is the same
- * decision the view switch already made.** A wave names one whole panel and
- * the band draws that panel and nothing else (`packages/content/src/control-sets.ts`),
- * so on an ordinary wave there is no lance on screen and no thumb can reach
- * one. This file is the desk rig: one person driving both seats, in every view,
- * including the halves this screen is not showing. Gating it would mean a
- * tester could not open the lance without first finding the wave that carries
- * it, which is the opposite of what the rig is for. What is *shown* and what a
- * single tester can reach have never been the same list here.
+ * **The keyboard is not gated by the wave's control set**, the same decision
+ * the view switch already made. A wave names one panel and the band draws that
+ * and nothing else (`packages/content/src/control-sets.ts`), so no thumb can
+ * reach a lance on an ordinary wave. This file is the desk rig: one person
+ * driving both seats, in every view. Gating it would mean a tester could not
+ * open the lance without first finding the wave that carries it, which is the
+ * opposite of what the rig is for.
  */
 export function bindKeys({
   buffer,
@@ -141,6 +137,13 @@ export function bindKeys({
       // which a wave has to name. At a desk it is always here; see the note
       // above `bindKeys`.
       case "KeyF":
+        // Behind a guide, F is player 1's half of the ready gate instead:
+        // nothing else reaches the ship there (`sim/step.ts`), so the key is
+        // free, and it is already that seat's one *held* key.
+        if (guideHolds()) {
+          buffer.push(1, { kind: "brief", on: true });
+          break;
+        }
         buffer.push(1, { kind: "prime", on: true });
         break;
       case "KeyW":
@@ -169,23 +172,31 @@ export function bindKeys({
       // at a desk this is the only way to see the half of it that matters —
       // the other player's hand, and the word on the field that names it.
       case "KeyG": {
+        // And G is player 2's half, for the same reason F is player 1's.
+        if (guideHolds()) {
+          buffer.push(2, { kind: "brief", on: true });
+          break;
+        }
         const target = nearestHull(creatures());
         if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
         break;
       }
-      // Space puts the guide away, as both seats at once — but only while the
-      // guide is actually up. The introduction ahead of it passes on its own
-      // timer and is not a thing to dismiss (the owner's own answer), and a
-      // `brief` command sent while it stands is indistinguishable from that
-      // timer firing (`sim/step.ts`'s `briefingHolds` reads both states the
-      // same way), so pressing Space early would skip the introduction before
-      // it had been read. `guideHolds` is the same guard the touch dismiss
-      // already plays by (`briefing.ts`), just read here instead of there.
+      // Space is both seats at once, for the person at a desk playing both of
+      // them — the same answer the director's stage gives in `TEST`. F and G
+      // above are the two seats separately, for a desk beside a phone.
+      //
+      // **Held, not tapped.** All three send `on: true` here and `on: false`
+      // on the keyup below, so a key tapped and let go empties its circle the
+      // way a thumb lifted off the glass does (`sim/briefing.ts`).
+      //
+      // Only while the guide is up: the introduction passes on its own timer
+      // and is not a thing to dismiss (the owner's own answer), so Space
+      // pressed early would skip the wave's name before it had been read.
       case "Space":
         e.preventDefault();
         if (!guideHolds()) break;
-        buffer.push(1, { kind: "brief" });
-        buffer.push(2, { kind: "brief" });
+        buffer.push(1, { kind: "brief", on: true });
+        buffer.push(2, { kind: "brief", on: true });
         break;
       // THE GAUGE's own three, and they are its own on purpose: a round that
       // is not the field does not borrow the field's verbs
@@ -213,6 +224,12 @@ export function bindKeys({
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
     repeatTicks.delete(e.code);
+    // Unconditionally: a release arriving after the wave started is a no-op in
+    // the simulation, while one skipped because the guide had *just* gone
+    // would leave a thumb pressed on nobody's screen (`sim/briefing.ts`).
+    const off = { kind: "brief", on: false } as const;
+    if (e.code === "Space" || e.code === "KeyF") buffer.push(1, off);
+    if (e.code === "Space" || e.code === "KeyG") buffer.push(2, off);
     if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
     if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
     if (e.code === "KeyZ") buffer.push(1, { kind: "valve", on: false, dir: -1 });
