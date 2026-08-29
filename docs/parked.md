@@ -1031,6 +1031,55 @@ The two go together: hold-to-tear is the control, and the ceiling is the reason
 to reach for it. Start by asking what the pair is doing with the *other* three
 hands while one of them holds, because that is the whole content of it.
 
+## Cannon wind-up is an animation question, not a balance one
+
+2026-08-29 · claude/burn-windup-alternative
+
+Mechanic · Idea
+
+The owner's own words: "so 'Cannon wind-up' idea is just for a cool
+animation, so half a beat is too much probably. can be less, maybe 1/4
+beat. you could give me control input to play around for testing only. so
+keep delay for 'not build yet' for the time being and keep current as it is
+for now." So `shotChargeBeats` (`packages/sim/src/config-shot.ts`) is not up
+for a side-by-side vote yet — it is a number to feel out by hand first, and
+`pair-panel.ts`'s TUNING → PAIR panel now carries a "Shot lay (testing)"
+slider for exactly that, in eighth-beat steps from 0 to 0.75. Nothing shipped
+moves: `DEFAULT_CONFIG` stays at 0 and `apps/game`'s own `0.5` is untouched;
+the slider only ever reaches the director's own live `cfg`.
+
+Two forces pull on the number in opposite directions, and both are the
+owner's own. Too long and the shot itself feels sluggish — a press that
+takes a noticeable while to become a bullet. Too short and the *animation*
+the delay was bought to show cannot be seen at all: "for sure the best is to
+have this nice animation to poop out an egg like a chicken. if its too fast,
+the player might not see it." A lane built that egg-laying animation today
+as the `mouth` candidate — the mouth strains, the egg emerges, the mouth
+relaxes — and that sequence, not the bullet, is the thing a value this short
+has to leave room for.
+
+So the question the slider answers is about the *mouth*, not the shot:
+watch the egg candidate's own laying while dragging, not the bullet's
+departure, and find the shortest value at which the eye can still follow the
+whole sequence — that is the floor `1/4 beat` was a guess at, not a number
+to reason out in the abstract.
+
+And the third force, which is the one nobody watching the animation will
+think to weigh: the delay was not put there for looks in the first place.
+`shot-charge.ts`'s own reasoning is a two-device one — a shot laid over half
+a beat is a press player 1 can *see happening*, where a press that was
+instantly a bullet reached him only as a result. Shortening it for the
+animation's sake is trading against that tell, and whoever picks a final
+value should know that is the trade being made, not just the framerate one.
+
+Not done as a versus candidate because a config value that changes when a
+bullet starts existing is simulation, not a draw-time patch, and the honest
+way to show it side by side is two independently stepped worlds — real
+work, and premature before the owner has even settled on a value to compare
+against 0.5. Start by dragging the slider through 0.125 and 0.25 with the
+`mouth` candidate's egg running, watching the mouth rather than the bullet,
+and only reach for VERSUS once a number is worth arguing for.
+
 ### Postponed: creatures and bosses
 
 Grouped here, and last, because the owner asked to postpone them: continuing

@@ -18,11 +18,22 @@ import type { SimConfig } from "@neon-spore/sim";
  * not two waves, which is the comparison a determinism argument already makes
  * for `guardWindowMs` in `tuning.ts`'s own presets.
  *
- * `shotChargeBeats` sits beside the three booleans rather than inside
- * `PairConfig`, for the reason `config-shot.ts` gives: it stops nothing and
- * blocks no headless caller, so it is not one of the three switches — but it
- * is the fourth invisible thing the brief named (the cannon's wind-up), so it
- * gets a row here rather than a fifth place in the editor to look for it.
+ * `shotChargeBeats` sits beside the booleans rather than inside `PairConfig`,
+ * for the reason `config-shot.ts` gives: it stops nothing and blocks no
+ * headless caller, so it is not a switch at all. It is a slider rather than a
+ * checkbox for the same reason — the owner asked to *play with* the number,
+ * not flip it: "so 'Cannon wind-up' idea is just for a cool animation, so
+ * half a beat is too much probably. can be less, maybe 1/4 beat. you could
+ * give me control input to play around for testing only." A checkbox can
+ * only ever offer 0 or `apps/game`'s own 0.5; this row is a range input in
+ * eighth-beat steps so 0.125 and 0.25 are both one drag away, labelled
+ * **(testing)** because that is exactly what it is for. It does not touch
+ * `DEFAULT_CONFIG` or `apps/game/src/main.ts`'s own `shotChargeBeats: 0.5` —
+ * both stay exactly as shipped; this only ever moves the director's own
+ * live `cfg`, the same object `bindTuning`'s sliders already move. Whether a
+ * shorter wind-up is worth shipping is not decided here — see
+ * `docs/parked.md`'s "Cannon wind-up is an animation question, not a balance
+ * one" for what this slider is for and what it is not.
  *
  * `render()` exists because this is no longer the only writer of `cfg`'s
  * switches: `demo-panel.ts` sets them too, straight from `DEMONSTRATIONS`,
@@ -58,21 +69,7 @@ export interface PairPanel {
 export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   const pairMount = document.getElementById("pairPanel");
   const briefButton = document.getElementById("briefToggle");
-  const rows: { box: HTMLInputElement; get: () => boolean }[] = [];
   pairMount?.replaceChildren();
-
-  const add = (
-    mount: HTMLElement | null,
-    label: string,
-    note: string,
-    get: () => boolean,
-    set: (on: boolean) => void,
-  ): void => {
-    if (!mount) return;
-    const { row, box } = toggleRow(label, note, get, set, onChange);
-    rows.push({ box, get });
-    mount.appendChild(row);
-  };
 
   briefButton?.classList.toggle("on", cfg.briefings);
   briefButton?.addEventListener("click", () => {
@@ -81,52 +78,79 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     onChange();
   });
 
-  add(
-    pairMount,
-    "Cannon wind-up",
-    "shotChargeBeats: a press waits for the next half-beat instead of firing on the tick.",
-    () => cfg.shotChargeBeats > 0,
-    (on) => {
-      cfg.shotChargeBeats = on ? 0.5 : 0;
-    },
-  );
+  const shotLay = pairMount
+    ? sliderRow(
+        pairMount,
+        "Shot lay (testing)",
+        "shotChargeBeats — a press waits this many beats before the shot leaves, " +
+          "on a grid measured from the start of the beat. Testing only: this dial " +
+          "never touches DEFAULT_CONFIG or apps/game's own 0.5.",
+        { min: 0, max: 0.75, step: 0.125, unit: " beats" },
+        () => cfg.shotChargeBeats,
+        (n) => {
+          cfg.shotChargeBeats = n;
+        },
+        onChange,
+      )
+    : null;
 
   return {
     render: () => {
-      for (const { box, get } of rows) box.checked = get();
       // `demo-panel.ts` sets `cfg.briefings` from outside this file, the same
       // reason `render()` exists at all — see the class doc above.
       briefButton?.classList.toggle("on", cfg.briefings);
+      shotLay?.show();
     },
   };
 }
 
-function toggleRow(
+/** A labelled range input, the same row shape `toggleRow` used to draw for a
+ * checkbox — `tuning.ts`'s own sliders are the pattern this borrows. */
+function sliderRow(
+  mount: HTMLElement,
   label: string,
   note: string,
-  get: () => boolean,
-  set: (on: boolean) => void,
+  range: { min: number; max: number; step: number; unit: string },
+  get: () => number,
+  set: (n: number) => void,
   onChange: () => void,
-): { row: HTMLElement; box: HTMLInputElement } {
-  const row = document.createElement("label");
+): { show(): void } {
+  const row = document.createElement("div");
   row.className = "pair-row";
 
-  const box = document.createElement("input");
-  box.type = "checkbox";
-  box.checked = get();
-  box.addEventListener("change", () => {
-    set(box.checked);
-    onChange();
-  });
+  const input = document.createElement("input");
+  input.type = "range";
+  input.min = String(range.min);
+  input.max = String(range.max);
+  input.step = String(range.step);
+  input.value = String(get());
 
   const text = document.createElement("span");
   const b = document.createElement("b");
-  b.textContent = label;
+  const value = document.createElement("span");
+  const showValue = (): void => {
+    value.textContent = `${get()}${range.unit}`;
+  };
+  b.append(`${label} `, value);
+  showValue();
   const p = document.createElement("p");
   p.className = "note";
   p.textContent = note;
   text.append(b, p);
 
-  row.append(box, text);
-  return { row, box };
+  input.addEventListener("input", () => {
+    set(Number(input.value));
+    showValue();
+    onChange();
+  });
+
+  row.append(input, text);
+  mount.appendChild(row);
+
+  return {
+    show: () => {
+      input.value = String(get());
+      showValue();
+    },
+  };
 }
