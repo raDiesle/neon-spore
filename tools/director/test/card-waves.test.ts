@@ -3,6 +3,7 @@ import { BRIEFING_SUBJECTS } from "@neon-spore/sim";
 import {
   AUTHORED_WAVE_COUNT,
   cardFirstWave,
+  cardsForWave,
   subjectsWithNoWave,
   waveBriefingOrder,
   waveBriefingWorld,
@@ -78,5 +79,25 @@ describe("cardFirstWave", () => {
     const orphans = subjectsWithNoWave();
     for (const id of orphans) expect(assigned.has(id), id).toBe(false);
     expect(assigned.size + orphans.length).toBe(BRIEFING_SUBJECTS.length);
+  });
+});
+
+describe("cardsForWave", () => {
+  test("wave 1 carries THE OPENING and THE SLICK, the same pair cardFirstWave assigns to it", () => {
+    expect(cardsForWave(0)).toEqual(["opening", "slick"]);
+  });
+
+  test("is cardFirstWave read the other way round — every wave it names agrees with the map", () => {
+    const first = cardFirstWave();
+    for (let i = 0; i < AUTHORED_WAVE_COUNT; i++) {
+      for (const id of cardsForWave(i)) expect(first.get(id), id).toBe(i);
+    }
+  });
+
+  test("a wave wavesWithCards does not list carries no cards", () => {
+    const withCards = wavesWithCards();
+    for (let i = 0; i < AUTHORED_WAVE_COUNT; i++) {
+      if (!withCards.has(i)) expect(cardsForWave(i)).toEqual([]);
+    }
   });
 });

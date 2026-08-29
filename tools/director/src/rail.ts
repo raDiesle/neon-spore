@@ -1,10 +1,11 @@
 import {
+  BRIEFINGS,
   CONTROL_SETS,
   type ControlSetId,
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
-import { wavesWithCards } from "./card-waves.js";
+import { cardsForWave, wavesWithCards } from "./card-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -79,11 +80,23 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       // `wavesUsingSet` (`control-sets.ts`) already does for the mark above —
       // this list is one editing session's unsaved draft, and the derivation
       // is over the wave order that ships, not that draft. See `card-waves.ts`.
+      //
+      // A span, not a nested button — `button` already is one, and a button
+      // inside a button is invalid markup. The click still needs its own
+      // stop: without it, opening the sheet also re-selects the row, which
+      // reads as two actions firing off one tap.
       if (cardWaves.has(i)) {
         const mark = document.createElement("span");
         mark.className = "card-mark";
         mark.textContent = "✎ ";
-        mark.title = "opens on at least one briefing card";
+        const names = cardsForWave(i)
+          .map((id) => BRIEFINGS[id].title)
+          .join(", ");
+        mark.title = `opens on: ${names} — click to see every card and its wave`;
+        mark.addEventListener("click", (e) => {
+          e.stopPropagation();
+          document.getElementById("cardsOpen")?.dispatchEvent(new MouseEvent("click"));
+        });
         button.append(mark);
       }
       button.append(document.createTextNode(wave.name || "— unnamed —"));

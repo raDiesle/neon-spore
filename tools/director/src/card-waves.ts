@@ -104,6 +104,18 @@ export function wavesWithCards(): ReadonlySet<number> {
 }
 
 /**
+ * The cards one wave first raises, for a pair playing the whole queue in
+ * order — the same fact `cardFirstWave` carries, read the other way round so
+ * `rail.ts` can name them on the row that already marks a wave has one,
+ * rather than only saying that it does.
+ */
+export function cardsForWave(waveIndex: number): BriefingId[] {
+  const ids: BriefingId[] = [];
+  for (const [id, i] of cardFirstWave()) if (i === waveIndex) ids.push(id);
+  return ids;
+}
+
+/**
  * Every card `BRIEFINGS` has that no wave ever raises. Not a row to invent —
  * see `docs/queue.md` — but a fact worth surfacing, since it is exactly what
  * stays a proposal once every reachable card has an assignment.
