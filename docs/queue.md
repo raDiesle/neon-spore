@@ -592,13 +592,13 @@ own `README.md`, where it already is. Cutting it is not losing it.
 **Labels, renamed exactly as given** (`guide-fields.ts` and `index.html`):
 
 - `BOTH SCREENS — what the thing is, never the whole instruction` → **`Player 1 & Player 2`**
-- `PLAYER ONE — the cannon, the shield's trigger, the maw` → **`PLAYER 1`**
+- `PLAYER ONE — the cannon, the shield's trigger, the maw` → **`Player 1`**
 - `PLAYER TWO — the shield itself, and the two colours` → **`Player 2`**
 - `CONTROL SET — this wave is not the ordinary thing` → **`Control Set`**
 
-Use their capitalisation as written, including its inconsistency; it is their
-tool and a lane tidying it into a scheme has changed something it was not asked
-to change. If that looks wrong once built, say so in the report.
+The owner first wrote `PLAYER 1` in capitals and has since said that was a
+slip rather than a choice: *"PLAYER 1" inconsistency was not on purpose. fix.*
+So all four read as title case, as above.
 
 **Prose to remove outright:**
 
@@ -621,15 +621,11 @@ The owner: *if there is nothing special, just say "nothing special" and remove
 the boring rest.* So on an ordinary wave that section is two words and no
 list.
 
-**One item where the intent is not certain, and the lane must not guess wide.**
-They also quoted *"The field as it is taught: slide, trigger, swallow, fire."*
-That is `why` on the **default** control set in
-`packages/content/src/control-sets.ts` — content, not the director, and the
-same field carries a genuinely useful sentence on every *other* set. Read the
-ask narrowly: **stop explaining the ordinary case**, so hide or drop it for the
-default set only. **Do not strip `why` from the sets that are not ordinary**,
-and do not edit `control-sets.ts` if hiding it in the director is enough. If
-neither reading is clean, leave it and say so.
+**The selected control set keeps its sentence.** They also quoted *"The field
+as it is taught: slide, trigger, swallow, fire."*, which is `why` on the
+default control set in `packages/content/src/control-sets.ts`. Asked whether it
+should go, the owner said to **keep it**: *ok, keep text for selected control
+set.* So it stays exactly as it is, and `control-sets.ts` is not touched.
 
 ### A button instead of empty fields
 
