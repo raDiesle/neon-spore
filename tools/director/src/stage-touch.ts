@@ -10,6 +10,7 @@ import {
 import {
   briefingHolds,
   type Command,
+  guideHolds,
   type SimConfig,
   type World,
   wardenCycle,
@@ -50,14 +51,18 @@ export function pointerSeat(role: ViewRole, world: World, cfg: SimConfig): 1 | 2
 }
 
 /**
- * What `test` mode should actually be drawn as while a card is up: stepped
- * through player one's half, then player two's, before ever falling back to
- * the dual view `role` alone would ask for (`packages/render/src/briefing.ts`
- * draws that whenever it is handed `"test"`). `cardStep` is the only thing
- * that ever moves — see the pointerdown handler below — this only reads it.
+ * What `test` mode should actually be drawn as while a wave's guide is up:
+ * stepped through player one's half, then player two's, before ever falling
+ * back to the dual view `role` alone would ask for
+ * (`packages/render/src/briefing.ts` draws that whenever it is handed
+ * `"test"`). `cardStep` is the only thing that ever moves — see the
+ * pointerdown handler below — this only reads it.
+ *
+ * The introduction before the guide is not stepped: it is the same three lines
+ * on both screens, so there are no halves to walk through.
  */
 export function cardRenderRole(role: ViewRole, world: World, cardStep: 0 | 1 | 2): ViewRole {
-  if (role === "test" && briefingHolds(world)) {
+  if (role === "test" && guideHolds(world)) {
     if (cardStep === 1) return "p1";
     if (cardStep === 2) return "p2";
   }
@@ -108,19 +113,26 @@ export function bindStageTouch({
   };
 
   canvas.addEventListener("pointerdown", (e) => {
-    // A card is up: the press is its step, not the cannon's. This has to run
-    // before `touchDown` below ever sees the press — the same order the
-    // phone plays by, where nothing but the dismissal reaches the ship while
-    // a card holds (`step.ts`) — so the first press after the card is gone
-    // is the first one that can move anything.
+    // The wave has not started: the press belongs to its opening, not to the
+    // cannon. This has to run before `touchDown` below ever sees the press —
+    // the same order the phone plays by, where nothing but the ack reaches the
+    // ship while the wave is held (`step.ts`) — so the first press after the
+    // opening is gone is the first one that can move anything.
+    //
+    // The phone would not take a press on the introduction at all: it stands
+    // for five and a half seconds and passes on its own. Here it does, because
+    // this is the tool somebody restarts a wave on twenty times in an
+    // afternoon, and making them wait out the timer each time is the thing
+    // that would get the whole opening switched off.
     if (briefingHolds(world())) {
       e.preventDefault();
-      if (role() === "test" && cardStep() < 2) {
+      if (role() === "test" && guideHolds(world()) && cardStep() < 2) {
         setCardStep((cardStep() + 1) as 1 | 2);
         return;
       }
-      // Third press in `test`, or the only press `p1`/`p2` ever need — that
-      // screen already shows just the one half, so there is nothing to step.
+      // The introduction, the third press on a guide in `test`, or the only
+      // press `p1`/`p2` ever need — that screen already shows just the one
+      // half, so there is nothing to step.
       setCardStep(0);
       push(1, { kind: "brief" });
       push(2, { kind: "brief" });

@@ -10,16 +10,16 @@ export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "
 export type { BossState, QueenState, VaneState, WardenState } from "./boss-state.js";
 export {
   ackBriefing,
-  BRIEFING_SUBJECTS,
-  type BriefingId,
   type Briefings,
   briefingAcked,
   briefingHolds,
-  currentBriefing,
-  forgetBriefings,
-  MAX_BRIEFING_SUBJECTS,
-  openBriefings,
-  subjectIndex,
+  guideHolds,
+  introHolds,
+  OPENING_GUIDE,
+  OPENING_INTRO,
+  OPENING_PLAY,
+  type OpeningPhase,
+  openWave,
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
 export { throbIsOpen } from "./creature-rules.js";

@@ -108,7 +108,7 @@ export function mountVersusTab(): void {
 let drawn = false;
 let activePair: Pair | null = null;
 
-/** Built on first sight of the tab. See `card-page.ts` for the same lazy draw. */
+/** Built on first sight of the tab. See `guide-page.ts` for the same lazy draw. */
 export function drawVersus(): void {
   if (drawn) return;
   drawn = true;

@@ -12,9 +12,20 @@ import { page } from "../shapes-page.js";
  * whoever opened it reads the gap as the catalogue being smaller than it is.
  */
 describe("the shapes page", () => {
+  /**
+   * Case-insensitively, because the page is a *bundle*: a name a subject
+   * computes with `kind.toUpperCase()` is in it as the lower-case kind the
+   * catalogue holds, and never as the label a reader will see. Matching case
+   * here looked stricter and was not — every living kind's name was passing on
+   * an unrelated string that happened to contain it, and the day that string
+   * went, "SHELL" turned out never to have been checked at all.
+   */
   it("carries every shape and every spare motion", () => {
-    for (const entry of CATALOGUE) expect(page).toContain(entry.subject.name);
-    for (const motion of MOTIONS) expect(page).toContain(motion.name);
+    const carried = page.toLowerCase();
+    for (const entry of CATALOGUE) {
+      expect(carried, entry.subject.name).toContain(entry.subject.name.toLowerCase());
+    }
+    for (const motion of MOTIONS) expect(carried, motion.name).toContain(motion.name.toLowerCase());
   });
 
   it("says which idea each draft is offered to", () => {

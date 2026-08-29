@@ -1,5 +1,5 @@
 import type { BossEntry, CreatureKind, PodKind, SimConfig } from "@neon-spore/sim";
-import { BRIEFINGS } from "./briefings.js";
+import { MECHANICS } from "./mechanics-table.js";
 import { AUTHORED_COLS, bossFromWave, podsFromWave, queueFromWave } from "./queue.js";
 import type { Wave } from "./wave-types.js";
 import { WAVES } from "./waves.js";
@@ -26,10 +26,16 @@ import { WAVES } from "./waves.js";
  * uncomfortable thing out loud: implemented, always available, demanded by no
  * wave.
  *
- * **Nothing here is a second copy.** Every sentence about a creature, a pod or
- * a boss is the one its briefing card already carries; the kinds themselves
- * come from the sim's unions, so a creature, a boss or a pod added there
- * is a type error here until it has a row. What a wave contains is read by
+ * **One sentence each, and this is where it lives.** These sentences used to
+ * be read out of the briefing catalogue, which was a record over a closed list
+ * of card subjects. That catalogue is gone — help belongs to the wave that
+ * needs it (`packages/content/src/wave-types.ts`, `docs/spec/briefings.md`) —
+ * and a wave's guide speaks about *that wave*, which is a different sentence
+ * from "what is a slick". So the recognisable one-liner is written here, where
+ * the bestiary and the mechanic sheet read it, and the guide is written where
+ * it is played. The kinds themselves come from the sim's unions, so a
+ * creature, a boss or a pod added there is a type error here until it has a
+ * row. What a wave contains is read by
  * running content's own translation (`queueFromWave` and its siblings) rather
  * than by re-resolving colours to silhouettes a second time.
  */
@@ -106,59 +112,7 @@ export interface Mechanic {
   waveNames?: true;
 }
 
-/**
- * One row per mechanic. `as const satisfies` rather than a type annotation on
- * purpose: `satisfies` still fails the type check when a kind is added to the
- * simulation and not to this table — the guard `BRIEFINGS` already proved twice
- * in one afternoon — while `as const` keeps `waveNames` a literal `true`, which
- * is what lets `WaveKind` be read back out of it.
- */
-export const MECHANICS = {
-  slick: { what: BRIEFINGS.slick.both, reach: "spawn" },
-  bulb: { what: BRIEFINGS.bulb.both, reach: "spawn" },
-  runt: { what: BRIEFINGS.runt.both, reach: "spawn", waveNames: true },
-  throb: { what: BRIEFINGS.throb.both, reach: "spawn", waveNames: true },
-  shell: { what: BRIEFINGS.shell.both, reach: "spawn", waveNames: true },
-  meteor: { what: BRIEFINGS.meteor.both, reach: "spawn", waveNames: true },
-  meteorMedium: { what: BRIEFINGS.meteorMedium.both, reach: "spawn", waveNames: true },
-  meteorFast: { what: BRIEFINGS.meteorFast.both, reach: "spawn", waveNames: true },
-  meteorFaster: { what: BRIEFINGS.meteorFaster.both, reach: "spawn", waveNames: true },
-  meteorFastest: { what: BRIEFINGS.meteorFastest.both, reach: "spawn", waveNames: true },
-  torch: { what: BRIEFINGS.torch.both, reach: "spawn", carriedBy: "queen", waveNames: true },
-  queen: { what: BRIEFINGS.queen.both, reach: "spawn" },
-  warden: { what: BRIEFINGS.warden.both, reach: "spawn" },
-  tether: { what: BRIEFINGS.tether.both, reach: "spawn", carriedBy: "warden" },
-  mirror: { what: BRIEFINGS.mirror.both, reach: "spawn" },
-  maze: { what: BRIEFINGS.maze.both, reach: "spawn" },
-  vane: { what: BRIEFINGS.vane.both, reach: "spawn" },
-  mend: { what: BRIEFINGS.mend.both, reach: "spawn" },
-  purge: { what: BRIEFINGS.purge.both, reach: "spawn" },
-  ward: { what: BRIEFINGS.ward.both, reach: "spawn" },
-  gauge: { what: BRIEFINGS.gauge.both, reach: "spawn" },
-  fork: {
-    what: "The rest between waves ends in a wait, crossed only while player 1 holds the lance and player 2 presses a colour.",
-    reach: "run",
-    switch: { field: "forkBetweenWaves", off: false },
-  },
-  briefing: {
-    what: "A wave opens on a split card for anything the pair has not met, and holds the field until both seats have put it away.",
-    reach: "run",
-    switch: { field: "briefings", off: false },
-  },
-  windup: {
-    what: "A press does not fire; the shot leaves on the next point of a grid measured in beats, where player 1 can watch it happen.",
-    reach: "run",
-    switch: { field: "shotChargeBeats", off: 0 },
-  },
-  lance: {
-    what: "Player 1 holds the cannon still until the lobe fills, and player 2's next shot leaves slower and passes through bodies of its own colour.",
-    reach: "run",
-  },
-  grip: {
-    what: "A finger held on something falling drags at it, and it falls slower for as long as the finger stays.",
-    reach: "run",
-  },
-} as const satisfies Record<MechanicId, Mechanic>;
+export { MECHANICS } from "./mechanics-table.js";
 
 /** Every id, in table order. */
 export const MECHANIC_IDS = Object.keys(MECHANICS) as MechanicId[];

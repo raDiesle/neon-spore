@@ -82,7 +82,6 @@ describe("what a wave reaches", () => {
     const found = mechanicsInWave({
       name: "T",
       sentence: "s",
-      hint: "h",
       entries: [
         { beat: 0, col: 1, color: "red" },
         { beat: 1, col: 2, color: "cyan" },
@@ -97,7 +96,6 @@ describe("what a wave reaches", () => {
     const warden = mechanicsInWave({
       name: "T",
       sentence: "s",
-      hint: "h",
       entries: [],
       boss: { kind: "warden" },
     });
@@ -106,7 +104,6 @@ describe("what a wave reaches", () => {
     const queen = mechanicsInWave({
       name: "T",
       sentence: "s",
-      hint: "h",
       entries: [],
       boss: { kind: "queen", col: 3, petals: 9 },
     });

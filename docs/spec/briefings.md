@@ -1,128 +1,172 @@
 # Briefings
 
-> **Status: the card is built; the animation is not.** A wave opens on a split
-> card for anything the pair has not met, and the field waits behind it until
-> both of them have put it away. What §3.2 asks for — the demonstration drawn
-> with the game's own geometry — is still a plan, and so is the director panel
-> in §3.7.
+> **Status: the introduction and the guide are built; the animation is not.** A
+> wave opens on its number, its name and its sentence — plain text on the
+> field, no panel — and then, if it carries one, on a split **guide** that
+> waits for both seats. What §3.2 asks for, the demonstration drawn with the
+> game's own geometry, is still a plan.
 >
-> Two decisions below were overturned on the way in, and the paragraphs that
-> made them have been rewritten rather than left standing beside the code that
-> contradicts them: a briefing is **derived**, not placed, and the "already
-> seen" set is **world state**, not `localStorage`. The arguments are in place.
+> **Three decisions below have been overturned on the way in**, and the
+> paragraphs that made them are rewritten rather than left standing beside code
+> that contradicts them: help is **placed, not derived** (and this file said the
+> opposite for a while — see the next section, which is about why it changed its
+> mind twice); the "already seen" set is **gone**, having been world state and
+> before that `localStorage`; and a wave now opens on something *before* any
+> help at all.
 
-A **briefing** is a demonstration with words, shown before a wave that asks
-something new of the pair. It stops the field, says what the thing is and what
-each of the two devices has to do about it, and gets out of the way when both
-of them say so.
+A wave's **opening** is what stands between the pair pressing play and the
+first creature falling. It has two states and the second is optional:
 
-## The rule it is built on
+1. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
+   text on the field — no panel, no border, nothing to press. It stands for a
+   few seconds and passes on its own. Every wave has one, because every wave
+   has a name and a sentence.
+2. **The guide.** A concrete instruction about the control or the concept the
+   pair is about to meet: what the thing is, what he does about it, what she
+   does about it. Split across the two screens, and it holds the field until
+   *both* seats have put it away. Only a wave that introduces something new
+   carries one — sixteen of twenty-six today.
 
-A briefing is **derived, never placed**. The card follows from what the wave
-actually contains: the simulation reads the queue it was handed, the pods, and
-the boss, and asks which of those subjects the pair has never met.
+Then the wave.
 
-This was the other way round in the first draft of this file, and the argument
-for placing it was that a wave dragged around in the director should take its
-teaching with it — otherwise the rock gets taught on wave 9, three waves after
-the rock arrived. That is the right worry and the wrong fix. A hand-kept list
-beside a wave is *itself* the thing that goes stale; deriving the subject from
-the wave's own entries cannot, and a new creature gets its card the first time
-it appears without anybody remembering to arrange it. `packages/sim/src/briefing.ts`
-holds the closed subject list, and it is closed so that a creature shipping
-without a card is a type error rather than a blank card in front of a new pair.
+## The rule it is built on, which is the opposite of the rule it used to be
 
-What the derivation cannot reach is a subject no wave *contains* — the grip,
-the lance, the split itself. The split is handled by being a subject that comes
-due before the pair's first wave and never again. The other two are not built.
+Help is **placed, not derived**. A guide is written inside the wave that plays
+it, in `packages/content/src/waves/act-*.ts`, directly under `sentence`.
 
-The second rule is the game's own: **neither player is told the other's half.**
-Every card carries three lines — one both screens read, and one for each
-device. A card that put all of it on both screens would have taught the pair,
-in the first ten seconds, that they do not need to talk to each other, which is
-the one thing the game cannot survive. So this screen gets its own half in
-words and the other player's half as blocks: visibly there, plainly not yours
-to read.
+This file has now argued both sides, so both arguments belong here.
+
+**The first draft placed it**, on the reasoning that a wave dragged around in
+the director should take its teaching with it — otherwise the rock is taught on
+wave 9, three waves after the rock arrived.
+
+**The build derived it**, on the reasoning that a hand-kept list beside a wave
+is itself the thing that goes stale, and that reading the subject off the
+wave's own entries cannot be forgotten. That was true, and it produced a closed
+list of subjects in `packages/sim/src/briefing.ts` and a catalogue in
+`packages/content/src/briefings.ts` that was a `Record` over it.
+
+**It is placed again now, and the reason is not that the derivation broke.** It
+is that a derived card can only ever be about a *creature*, in the abstract,
+because a subject is a kind and not a wave. The owner asked for the help to be
+part of the wave's own configuration, under its sentence, and the thing that
+buys is a guide that can speak about *this wave* — the three rocks and the pod
+that arrive together, not "a rock is dead rock". It also gives the help
+somewhere to grow: a guide is an object with named parts, so a picture, a scene
+or a step list is a key added beside the words rather than a new table
+somewhere else.
+
+**And the staleness the derivation guarded against has a stronger guard than
+the derivation was.** The owner's own answer to "who writes the guide for a new
+creature", translated:
+
+> Every creature gets its guide automatically, because Claude has to know that
+> a new enemy needs a new wave — so the thing is visible and can be tested at
+> once. And in that same moment Claude should know to author a guide briefing
+> for that wave, because that wave is the first one carrying the new enemy or
+> mechanic.
+
+That is stronger, not weaker. The derivation could only put a card in front of
+a wave that already existed; this says the wave and its guide are part of what
+shipping a creature *means*. It is written into `.claude/skills/new-creature`
+and `.claude/skills/new-wave`, and the half that can be enforced is enforced:
+`packages/content/test/waves.test.ts` fails when the first wave to carry
+anything new has no guide, and fails the other way too, when a wave that
+introduces nothing carries one.
+
+The second rule is unchanged and is the game's own: **neither player is told
+the other's half.** Every guide carries three lines — one both screens read,
+and one for each device. A guide that put all of it on both screens would have
+taught the pair, in the first ten seconds, that they do not need to talk to
+each other, which is the one thing the game cannot survive. So this screen gets
+its own half in words and the other player's half as blocks: visibly there,
+plainly not yours to read.
 
 ---
 
 ## 1 · What has to be taught
 
-Everything below is *built* today. The right-hand column is no longer an
-instruction — a card arrives at the first wave that contains its subject, and
-the wave list is `packages/content/src/waves.ts` — but it is still worth
-reading as a record of where each block was expected to land, and as the check
-that the derivation puts it there.
+Everything below is *built*. The right-hand column is a record of where each
+block was expected to land, and it is now also where its guide actually is —
+the two can be compared by opening the wave.
 
-| # | Block | What is new | Who holds what | Before wave |
+| # | Block | What is new | Who holds what | Wave |
 |---|---|---|---|---|
-| 1 | **The opening** | two devices, one ship; the beat; the cannon | see §2 | 1 · FIRST STEP |
+| 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
 | 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed | p1 the column, p2 the colour | 2 · TWO COLOURS |
 | 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 4 · THE ROCK |
-| 4 | **The grip** | a finger held on anything falling drags at it; two hands compound; the price is the hand itself | either player, on either half — the only gesture that is not split | 6 · THE HAND |
-| 5 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 7 · TORCH |
-| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 13 · SALVAGE |
-| 7 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 15 · BULB QUEEN |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 7 · TORCH |
+| 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 13 · SALVAGE |
+| 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 15 · BULB QUEEN |
+| 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 16–19, 23 |
+| 8 | **The rest of the bestiary** | the runt, the throb, the shell, the pods, the rock speed tiers | one guide each | 20–26 |
 
-Seven blocks, fourteen or so steps. That is the whole built game.
+**The grip and the lance are still the odd ones out**, and neither has a guide.
+They are controls no wave *contains*, so no wave is the first to carry them and
+nothing places them. That was true when help was derived and it is still true
+now: placing a guide did not solve it, it only moved where the hole is. It is
+written up in `docs/parked.md`.
 
-**The grip is the odd one out**, and its block has to say so in one line: it is
-the only thing in the game both players can do, on the same part of the screen,
-at the same time. Every other block teaches a split. This one teaches that
-there is a third pair of hands and it costs whichever control that hand was
-on — which is why its two waves are a pair. `THE HAND` is the arithmetic
-(three rocks, one shield, one beat), and `IN ITS SHADOW` is the one that only
-makes sense once: a rock stops your own shot too, so the way to shoot the thing
-behind it is to hold that thing back until the rock is gone.
+### The gap the merge left
 
-### Gaps this list exposes
-
-Worth knowing before authoring, not worth blocking on:
-
-- **Pod kinds.** `mend`, `purge` and `ward` land three different receipts
-  (`+HULL`, `SWEPT`, `WARDED`) and no wave places anything but `mend`. When a
-  wave places one, it needs a block.
-- **Rock speed tiers.** `meteorMedium` … `meteorFastest` are brushes in the
-  director and appear in no wave. A tier that ships needs one line, not a block.
-- **The hull, the score, the balance sheet.** Never explained anywhere. The
-  opening should name the hull bar; the sheet is after the run and is its own
-  question.
+Where two or more subjects first landed on the *same* wave, their words were
+merged into that wave's single guide rather than dropped: `THE WARDEN` carries
+the ring and its line, `THE VANE` carries the arm and the quicker rock, `THE
+WARD` carries the pod and all three rock speed tiers, and `FIRST STEP` carries
+the split itself and the slick. Nothing was deleted; four moments were.
+`docs/parked.md` names it, and the fix if it turns out to matter is a wave
+each, not a second guide on one wave.
 
 ---
 
 ## 2 · The opening, in detail
 
-The one that matters most, because it is the only one shown to a pair who have
-never played. Three steps.
+### The introduction
 
-**Step 1 — "Neither of you sees all of it."**
-Picture: two phone outlines side by side, showing genuinely different things —
-a mark on the left one's strip, a shield and two colour buttons on the right
-one's. A pulse travels from one to the other.
+Three lines, and it is the same on both screens because all three are the same
+on both devices:
+
+```
+WAVE 4
+THE ROCK
+The one where neither of you can do it alone.
+```
+
+Plain text, centred in the play area, nothing behind it and nothing around it.
+A frame says "press me"; text on the field says "read this, it is about to
+start". Nothing *is* pressed: it passes on a timer.
+
+**The timer is counted in the app, and the world is what holds the wave.**
+`packages/sim` may not read a wall clock — that is what makes lockstep
+possible — so the introduction is a state in `world.brief` like the guide, and
+`apps/game/src/waves.ts` counts the five and a half seconds and then sends the
+same `brief` command a thumb sends, one per seat. Two devices leave the
+introduction a few frames apart and agree about it anyway, because the acks
+travel the wire every other press travels.
+
+The director's stage is the one place a press *does* carry the introduction
+past, and that is a tool decision rather than a game one: it is where somebody
+restarts a wave twenty times in an afternoon, and making them sit out the timer
+each time is what would get the whole opening switched off.
+
+### Wave 1's guide, which is about the split
+
+`FIRST STEP` carries the guide the old catalogue called `opening` — the one
+subject that was in no wave's contents, raised before the pair's first wave and
+never again. It is a wave's guide now like any other, which is one special case
+gone:
+
 Both: *One ship, two screens — and the two screens do not show the same thing.
-What is coming is on one of them; the control that answers it is on the other.*
-P1: *Yours is the cannon, the shield's trigger and the maw.*
-P2: *Yours is the shield itself, and the two colours.*
+What is coming is on one of them; the control that answers it is on the other.
+This first one is flat, wide and always red.*
+P1: *Yours is the cannon, the shield's trigger and the maw. Slide your strip
+until the cannon stands in its column, and say which column.*
+P2: *Yours is the shield itself, and the two colours. Press red — nothing
+leaves the hull until you do.*
 
-**Step 2 — "Everything falls on the beat."**
-Picture: the field, creatures stepping down one row per beat, the four HUD dots
-lighting in time, the hull bar at the top right.
-Both: *One row per beat, on the four dots you both watch. That is what makes a
-sentence like "it lands on the fourth" something the other one can act on.*
-P1: *Dead rock announces itself on your strip, before it is on the field.*
-P2: *Living creatures announce themselves on yours.*
-
-**Step 3 — "The cannon fires straight up."**
-Picture: a red slick in a column; a hand drags the cannon strip until the lobe
-is under it; a colour button presses; the shot goes up; it pops.
-Both: *It slides along the hull and never aims sideways. Standing in the column
-is the whole of aiming — and the one who stands there is not the one who
-shoots.*
-P1: *Drag your strip until the cannon is under it. Say the column.*
-P2: *Press a colour. Nothing leaves the hull until you do.*
-
-The voice channel itself is **not** explained here — that belongs to the menu,
-before a room is even joined, and is being written separately.
+The beat, the hull bar and the score are still explained nowhere. The voice
+channel is deliberately not explained here either — that belongs to the menu,
+before a room is even joined.
 
 ---
 
@@ -130,31 +174,37 @@ before a room is even joined, and is being written separately.
 
 ### 3.1 Data — `packages/content` · built
 
-- `briefings.ts`: the catalogue. A `BriefingCard` is `{ title, both, p1, p2 }`,
-  and `BRIEFINGS` is a `Record` over the closed subject list in
-  `packages/sim/src/briefing.ts` — so every subject has a card and no card
-  belongs to nothing.
-- The eleven creature kinds and the three pod kinds are spelled exactly as
-  their kinds are, so a wave's own entries name their subjects and nothing
-  keeps a second table of names in step. `opening` is the only id that is not
-  also a kind.
-- Ids are stable: renaming one is a migration, because the id's *index* is the
-  bit the met set remembers.
-- There is no `Wave.briefings` field. See "derived, never placed" above.
+- `wave-types.ts`: a `WaveGuide` is `{ both, p1, p2 }`, and `Wave.guide` is an
+  optional one, written directly under `sentence`.
+- **It is an object with named parts, and that is the whole point.** Never
+  three loose fields on `Wave` and never a bare string. The owner has said
+  plainly that a guide may one day be more than words — a guidance animation,
+  built step by step — and an object is the shape that takes a `scene`, a
+  `picture` or a `steps` key without a single wave file moving. Anything added
+  is optional, so the sixteen waves that carry words keep carrying only words.
+  §3.2 is what would add the first one.
+- The heading a guide is drawn under is the wave's own `name`. A guide has no
+  title of its own; it belongs to one wave and that wave is already named on
+  the introduction the pair read ten seconds ago.
+- There is no catalogue and no subject list. `BRIEFING_SUBJECTS`,
+  `MAX_BRIEFING_SUBJECTS`, `subjectIndex`, `BRIEFINGS` and `BriefingCard` are
+  all gone, and so is `Wave.card`, which named one of them.
+- `Wave.hint` is gone too. It was a line under the wave's name in a banner over
+  a *running* field; the introduction says what it said, before the field runs.
+- The one-sentence recognisable description of each creature, pod and boss
+  survives, in `packages/content/src/mechanics-table.ts`, where the bestiary
+  and the mechanic sheet read it. That is a different sentence from a guide: it
+  says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-A card is not authored as steps, because it does not animate yet. When §3.2
-lands, a step is what carries a scene, and the card becomes the first step.
+### 3.2 The animations — `packages/render` · not built
 
-### 3.2 The animations — `packages/render/src/briefing/` · not built
-
-`packages/render/src/briefing.ts` today draws the card and nothing that moves.
-The rest of this section stands as written.
-
+`packages/render/src/briefing.ts` draws the guide and nothing that moves;
+`wave-intro.ts` draws the introduction and nothing that moves either.
 
 The load-bearing requirement: **the demonstration is drawn with the game's own
-geometry, not a diagram of it.** A briefing that shows a simplified hull teaches
-a shape the game does not have, and goes on being wrong until somebody changes
+geometry, not a diagram of it.** A guide that shows a simplified hull teaches a
+shape the game does not have, and goes on being wrong until somebody changes
 the lobe.
 
 Concretely, that means splitting the tile-and-hull part of `Layout` out as a
@@ -167,129 +217,155 @@ Each scene is a pure function of `(ctx, panel, t, role)`. No state, so the same
 scene can be stepped by the game loop, by the director's preview, and by a
 test, and look the same in all three.
 
-Scenes needed: `hail`, `field`, `cannon`, `colour`, `rock`, `torch`, `pod`,
-`queen`.
+**Where it goes when it arrives:** a key on `WaveGuide`, beside the three
+strings, on the waves that want one. Not every wave, not a second table, and
+not a replacement for the words — a guide with a scene still says its three
+lines, because the split is what makes the pair talk and a picture is not
+split.
 
 ### 3.3 Playback · built, without the player
 
-There is no `BriefingPlayer` and no presentation state at all: which card is
-showing is `world.brief.due[0]`, and whether it has been read is
-`world.brief.ack`. `drawBriefing` is a pure function of the world and the role,
-so it survives a restart by having nothing to survive — `Effects.reset()` has
-nothing of its own to clear, and §3.8 says that must stay true.
+There is no player and no presentation state: which state a wave is in is
+`world.brief.phase` (`OPENING_INTRO`, `OPENING_GUIDE`, `OPENING_PLAY`), whether
+the wave carries a guide at all is `world.brief.guide`, and who has acked the
+state that is up is `world.brief.ack`. `drawWaveOpening` is a pure function of
+the world and the role, so it survives a restart by having nothing to survive —
+`Effects.reset()` has nothing of its own to clear, and §3.8 says that must stay
+true.
 
-The hit area is the whole stage. With a card up there is exactly one thing to
-do and nowhere else to press, so a target the size of the screen is one nobody
-has to look for. Keyboard: space, as both seats at once, for a desk.
+The hit area is the whole stage, and it answers only the **guide**. A press
+during the introduction is dropped, because the introduction is not a thing to
+dismiss and a player who has just picked the phone up is exactly the person who
+would tap through the wave's name. Keyboard: space, as both seats at once, for
+a desk.
 
-There is no SKIP. "Either player can skip it" was written before the card was
-split; a card one player skips past is a sentence the pair never finished
-reading, so both seats have to dismiss it and neither can do it for the other.
+There is no SKIP. A guide one player skips past is a sentence the pair never
+finished reading, so both seats have to put it away and neither can do it for
+the other.
 
 ### 3.4 Where it hooks into the game · built
 
-`startWave` opens the cards last, after the boss is installed, so it can read
-what the wave actually contains. `step` then refuses everything but the
-dismissal — the same rule THE MIRROR plays by while it is presenting — and the
-wave stands frozen on its first beat behind the card.
+`startWave` opens the wave last, after the boss is installed, and is told
+whether the wave carries a guide — a boolean, not the words: the simulation
+decides how many states hold the field and never reads one of them. `step` then
+refuses everything but the ack — the same rule THE MIRROR plays by while it is
+presenting — and the wave stands frozen on its first beat behind the opening.
 
 **The clock is not what stands still.** A press is scheduled `inputDelayTicks`
 into the future on both devices at once, so a world that froze its tick counter
-would be waiting for a dismissal it had arranged never to reach itself. The
-tick counts; the wave does not.
+would be waiting for an ack it had arranged never to reach itself. The tick
+counts; the wave does not.
 
-The gate is `cfg.briefings`, off in `DEFAULT_CONFIG` and on in `apps/game`. A
-determinism run, a shape sheet, `relay:check` and the director all want the
-wave rather than the lesson, and the game is the only caller with two people in
-front of it.
+The gate is `cfg.briefings`, off in `DEFAULT_CONFIG` and on in `apps/game`, and
+it gates the **whole opening**, introduction included. That is why it kept the
+name: it is the switch on a feature that wants two people, not on one card. A
+determinism run, a shape sheet, `relay:check` and every sim test play with it
+off, and none of them has anything that would send the two acks a held wave
+waits for.
 
 ### 3.5 Two devices · built
 
-`docs/spec/structure.md` calls for a "both ready" signal, and this is it,
-spelled out: a `brief` command from each seat, no protocol change. Leaning on
-delayed lockstep instead — a device holding a card simply sends nothing — was
-the first plan and is not enough, because it says nothing about *whether the
-card was read*; it only says a device is quiet.
+`docs/spec/structure.md` calls for a "both ready" signal, and this is it: a
+`brief` command from each seat, no protocol change, and the same command for
+both states. Leaning on delayed lockstep instead — a device holding a guide
+simply sends nothing — was the first plan and is not enough, because it says
+nothing about *whether it was read*; it only says a device is quiet.
 
 Both devices push both acks and let the lockstep scheduler drop the half this
 device is not sitting in, which is the contract the keyboard already plays by.
 Solo, both land, and one tap is the whole of it.
 
-The card shows two pips, one per seat, lit as each dismissal lands. Without
-them a player who has tapped is looking at a card that did nothing and has no
-way to tell whether it is their screen that is stuck or their partner.
+The guide shows two pips, one per seat, lit as each ack lands. Without them a
+player who has tapped is looking at a guide that did nothing and has no way to
+tell whether it is their screen that is stuck or their partner.
+
+One ack does not carry from the introduction into the guide. The bits are
+cleared when a state passes, or a fast device would put away a screen its
+player never looked at.
 
 Still open: the link chip reads `STALLED` while one player is reading. Worth
-suppressing while a card is up.
+suppressing while the wave is held.
 
-### 3.6 Seen once · built, and not where this said
+### 3.6 Seen once · retired, and it was wrong twice
 
-**World state, not `localStorage`.** The set cannot live in the app: the card
-stops the wave, so two devices that disagree about whether one is up disagree
-about whether the world ticked at all. It is a bitmask in `World`, one bit per
-subject index, and it is in `hashWorld` — the desync ledger watches it like
-everything else. Spec 7.1's "the previews already seen" is a save-file
-question, and a save file will write this integer out rather than a second
-list beside it.
+There is no memory. A wave shows its opening on **every** start.
 
-The consequence to know: **a restart does not forget.** `resetRun` leaves the
-met set alone, because a run restarted after the hull went is the same two
-people and re-teaching them the rock is an insult with a tap attached. The one
-thing that forgets is two devices agreeing to start together at beat zero,
-which is the only moment in the game that is a genuinely fresh pair. A reload
-does too, by building a fresh `World`.
+It began as `localStorage`, which could not work: the wave is held, so two
+devices that disagree about whether it is up disagree about whether the world
+ticked at all. It became a bitmask in `World`, one bit per subject index, in
+`hashWorld` and watched by the desync ledger. That was correct and it is now
+gone with the subjects it was over.
 
-### 3.7 The director · not built
+Three reasons, and none of them is that the bitmask was broken:
 
-The original request here was **a fixed block of category description you can
-move to the right place before a specific wave**, and half of it has gone away:
-there is nothing to move, because a wave's cards follow from its contents. What
-is left is looking at them.
+- A wave carries its own help, so "have they met this" is not a question with
+  an answer any more. The question would be "have they played wave 19", which
+  is a different fact and nobody has asked for it.
+- The director restarts a wave twenty times an afternoon and wants to see the
+  opening every time. Under the met set it saw it once per rebuilt world, which
+  worked only because the director rebuilds the world.
+- A run restarted after the hull went costs one press. That is the whole price.
 
-- **A PREVIEW button on the stage.** The director is where these get judged, so
-  it has to be able to show one. Without it every review is a round trip
-  through the game, and the game shows a card exactly once per fresh pair.
-- A mark in the wave rail, the way `♛` marks a boss wave, so a reviewer can see
-  which waves *will* open on a card without stepping through them. Derived, not
-  stored: the director already builds the queue, and that is all it takes.
-- No `serialize.ts` change and nothing for `refuse()` to reject. There is no
-  hand-editable field, which is one fewer way for a wave to teach nothing.
+If it turns out to grate, the answer is a memory over *wave indices* — and that
+is its own decision, with a save file behind it (spec 7.1), rather than a field
+added quietly back here.
+
+### 3.7 The director · built, except the animation
+
+- **The GUIDE section**, three fields, in the WAVE tab directly under
+  SENTENCE — the owner's own placement. `guide-fields.ts` builds it;
+  `serialize.ts` writes it back out under `sentence` in the act file.
+- **A mark in the wave rail**, the way `♛` marks a boss wave: `✎` on every wave
+  that carries a guide. It is a lookup now rather than a derivation, which is
+  the whole of what moving the help into the wave bought.
+- **A note above the fields** saying what the pair will actually meet — the
+  introduction, and then the guide or nothing.
+- **`✎ GUIDES`**, a full-screen sheet of every wave that carries one, drawn by
+  the game's own renderer at the phone's real width.
+- **`◇ NOT BUILT YET → GUIDES`**, which holds both halves of every guide side
+  by side and a wave picker that shows the introduction and the guide in order.
+  What it no longer holds is a list of help nothing reaches: a guide lives in a
+  wave, so a guide with no wave cannot be expressed.
+- `refuse()` rejects a wave with no name and no sentence, and does **not**
+  reject a wave with no guide. A wave that introduces nothing is supposed to
+  have none; the test in `content` is what holds the other direction, because
+  it is the only place that can see the whole list in order.
 
 ### 3.8 Tests · built
 
-- `packages/sim/test/briefing.test.ts`: the field holds, both seats are needed,
-  the met set does not teach twice, and two worlds that disagree about a card
-  disagree about their fingerprints. Also that the subject list still fits in
-  the 31 bits the met set has.
-- `packages/render/test/briefing.test.ts`: every card, every role, through the
-  strict canvas stub, including a screen too narrow for a word — plus the
-  catalogue itself, which may not hold an empty line or tell both players the
-  same thing.
-- `render/test/restart.test.ts` is unaffected, and must stay that way: the card
-  is drawn from the world and holds no state of its own.
-- `serialize.test.ts`: nothing to do. There is no wave field to round-trip.
+- `packages/content/test/waves.test.ts`: the first wave to carry anything new
+  has a guide, a wave that carries nothing new has none, and every guide it
+  does carry writes all three halves. This is the guarantee that replaced the
+  derivation, and it is the reason placing the help is safe.
+- `packages/sim/test/briefing.test.ts`: the three states in order, the field
+  holds behind the first two, both seats are needed for each, an ack does not
+  carry from one state to the next, and two worlds in different states disagree
+  about their fingerprints.
+- `packages/render/test/briefing.test.ts`: both states of every wave, every
+  role, through the strict canvas stub, including a screen too narrow for a
+  word — plus the prose itself, which may not tell both players the same thing.
+- `render/test/restart.test.ts` is unaffected, and must stay that way: the
+  opening is drawn from the world and holds no state of its own.
+- `tools/director/test/serialize.test.ts`: the round trip now has a guide in
+  it, so a wave saved from the director has to come back byte for byte.
 
 ---
 
 ## 4 · Order of work
 
-1. ~~The machinery, with one block only~~ — **done, as a card rather than a
-   demonstration.** All sixteen subjects are authored, because a `Record` over
-   a closed list is authored in full or it does not type-check; what is not
-   built is the picture.
-2. **Look at it.** This is still the step the plan is shaped around: the card
-   is what decides what the animated version looks like, and nothing in §3.2
-   should be started until a pair has read one on two phones.
-3. **The animation** — §3.2's `Field` split, the eight scenes, and the step
-   structure that turns a card into the first of several.
-4. **The director panel** (§3.7), which becomes worth building once there is
-   something to preview that a `bun test` cannot judge.
-
-Two subjects the derivation cannot reach and nobody has placed: **the grip**
-and **the lance**. Both are controls no wave *contains*, so neither has a card
-today. They are the case the placed version of this file existed to serve, and
-whatever answers them should be a third thing rather than a `briefings:` list
-grown back onto `Wave`.
+1. ~~The machinery, with one block only~~ — **done, as an introduction and a
+   guide rather than a demonstration.** Every wave that introduces something
+   carries words; what is not built is the picture.
+2. **Look at it.** Still the step the plan is shaped around: how the
+   introduction reads at tempo, and whether the guide behind it still lands as
+   two halves that have to be spoken across, is what decides what the animated
+   version looks like. Nothing in §3.2 should be started until a pair has read
+   one on two phones.
+3. **The animation** — §3.2's `Field` split, the scenes, and the key on
+   `WaveGuide` that carries one.
+4. **The gaps**, if looking at it says they matter: the grip and the lance,
+   which no wave contains, and the four waves whose guides carry two subjects'
+   words at once.
 
 Deliberately not in scope: figures (`wave-design.md` 8.1), an unlockable
 bestiary screen, and anything that reads a microphone — rule 4 stands.

@@ -72,7 +72,6 @@ function layFrames(role: ViewRole, ticks: number) {
       dt: 2 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }

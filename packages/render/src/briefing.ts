@@ -1,34 +1,51 @@
-import { BRIEFINGS } from "@neon-spore/content";
-import { briefingAcked, currentBriefing, type World } from "@neon-spore/sim";
+import { WAVES } from "@neon-spore/content";
+import { briefingAcked, guideHolds, introHolds, type World } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawIntroduction } from "./wave-intro.js";
+import { wrapText } from "./wrap-text.js";
 
 /**
- * The card a wave opens on, over everything else.
+ * How a wave opens, drawn: first its introduction, then its guide.
  *
- * It is drawn split, because it *is* split: this screen gets its own half in
- * words and the other player's half as blocks — visibly there, plainly not
- * yours to read. That is the whole design. A card that simply omitted the
- * other half would read as a card with three lines; one that showed both would
- * teach a pair, in the first ten seconds, that they never have to say anything
- * to each other.
+ * **The introduction is plain text on the field.** No panel, no border, no
+ * card — the wave's number, its name and its sentence, standing on the field
+ * the pair is about to play. It is the same on both screens, because all three
+ * lines are the same on both devices, and nothing is pressed: it passes on a
+ * timer the app counts (`apps/game/src/waves.ts`).
  *
- * Stateless, like every other draw here: everything it shows is on the world,
- * so nothing survives a frame and `Effects.reset` has nothing to clear.
+ * **The guide is split, because it *is* split**: this screen gets its own half
+ * in words and the other player's half as blocks — visibly there, plainly not
+ * yours to read. That is the whole design. A guide that simply omitted the
+ * other half would read as a guide with three lines; one that showed both
+ * would teach a pair, in the first ten seconds, that they never have to say
+ * anything to each other.
+ *
+ * Stateless, like every other draw here: everything shown is on the world or
+ * on the wave, so nothing survives a frame and `Effects.reset` has nothing to
+ * clear.
  *
  * The hit area is the whole screen. There is exactly one thing to do with a
- * card up and nowhere else to press, and a target the size of the stage is one
- * nobody has to look for.
+ * guide up and nowhere else to press, and a target the size of the stage is
+ * one nobody has to look for.
  */
-export function drawBriefing(
+export function drawWaveOpening(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   role: ViewRole,
 ): void {
-  const subject = currentBriefing(world);
-  if (!subject) return;
-  const card = BRIEFINGS[subject];
+  if (introHolds(world)) {
+    drawIntroduction(ctx, l, world);
+    return;
+  }
+  if (guideHolds(world)) drawGuide(ctx, l, world, role);
+}
+
+function drawGuide(ctx: CanvasRenderingContext2D, l: Layout, world: World, role: ViewRole): void {
+  const wave = WAVES[world.wave];
+  const guide = wave?.guide;
+  if (!guide) return;
   const both = role === "test";
 
   const padX = 16;
@@ -37,9 +54,9 @@ export function drawBriefing(
   const inner = panelW - padX * 2;
 
   ctx.font = BODY;
-  const lead = wrap(ctx, card.both, inner);
-  const mine = wrap(ctx, role === "p2" ? card.p2 : card.p1, inner);
-  const other = wrap(ctx, role === "p2" ? card.p1 : card.p2, inner);
+  const lead = wrapText(ctx, guide.both, inner);
+  const mine = wrapText(ctx, role === "p2" ? guide.p2 : guide.p1, inner);
+  const other = wrapText(ctx, role === "p2" ? guide.p1 : guide.p2, inner);
 
   const height =
     TITLE_H +
@@ -64,10 +81,12 @@ export function drawBriefing(
   ctx.textAlign = "left";
   ctx.font = '600 9px "Courier New",monospace';
   ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(counter(world), x + padX, cy);
+  ctx.fillText("GUIDE", x + padX, cy);
+  // The heading is the wave's own name: the guide belongs to this wave, and
+  // the pair read that name ten seconds ago on the introduction.
   ctx.font = '600 15px "Courier New",monospace';
   ctx.fillStyle = PALETTE.hullRim;
-  ctx.fillText(card.title, x + padX, cy + 18);
+  ctx.fillText(wave?.name ?? "", x + padX, cy + 18);
   cy = y + TITLE_H;
 
   ctx.font = BODY;
@@ -110,7 +129,7 @@ export function drawBriefing(
 }
 
 const BODY = '11px "Courier New",monospace';
-/** Header block: the counter, then the title. */
+/** Header block: the label, then the wave's name. */
 const TITLE_H = 52;
 const LINE = 15;
 const RULE_H = 16;
@@ -129,12 +148,6 @@ function section(
   ctx.fillStyle = hex;
   ctx.fillText(label, x, y);
   return y + LABEL_H;
-}
-
-/** Which card of how many, so a pair reading three of them knows there are three. */
-function counter(world: World): string {
-  const left = world.brief.due.length;
-  return left > 1 ? `NEW — ${left} TO READ` : "NEW";
 }
 
 /**
@@ -158,7 +171,7 @@ function redact(ctx: CanvasRenderingContext2D, line: string, x: number, y: numbe
 /**
  * Two pips and a prompt. The pips are the only place the pair can see that the
  * other one is still reading — without them, a player who has tapped is
- * looking at a card that did nothing and has no way to tell whether it is
+ * looking at a guide that did nothing and has no way to tell whether it is
  * their screen that is stuck or their partner.
  */
 function drawFoot(
@@ -188,27 +201,10 @@ function drawFoot(
   ctx.fillStyle = mineDone ? PALETTE.dim : PALETTE.hullRim;
   ctx.fillText(mineDone ? "WAITING FOR THEM" : "TAP WHEN READ", x + panelW - padX, y + 4);
   ctx.textAlign = "left";
-  // Nothing else on the stage means anything right now; say so under the card.
+  // Nothing else on the stage means anything right now; say so under the guide.
   ctx.font = '9px "Courier New",monospace';
   ctx.fillStyle = PALETTE.dim;
   ctx.textAlign = "center";
   ctx.fillText("read your half out loud", l.width / 2, bottom + 18);
   ctx.textAlign = "left";
-}
-
-/** Greedy wrap against the measured width. `ctx.font` must already be set. */
-function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
-  const out: string[] = [];
-  let line = "";
-  for (const word of text.split(" ")) {
-    const next = line ? `${line} ${word}` : word;
-    if (line && ctx.measureText(next).width > maxWidth) {
-      out.push(line);
-      line = word;
-    } else {
-      line = next;
-    }
-  }
-  if (line) out.push(line);
-  return out;
 }

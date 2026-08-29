@@ -1,191 +1,134 @@
-import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
 import type { World } from "./world.js";
 
 /**
- * The card a wave opens on the first time it contains something the pair has
- * never met.
+ * How a wave opens, and the only part of it the simulation owns.
  *
- * Two decisions are load-bearing here, and both cut against
- * `docs/spec/briefings.md` as it was first written.
+ * A wave now opens in three states, in this order, and the field is still
+ * behind the first two:
  *
- * **Derived, not placed.** The spec asked for a wave to *name* the blocks that
- * run before it, so that reordering a wave moved its teaching with it. Deriving
- * the subjects from what the wave actually contains does the same thing more
- * reliably and cannot go stale: a rock taught on wave 9 because someone forgot
- * to move a list is exactly the failure the placed version was guarding
- * against, and the guard was itself a hand-kept list.
+ * 1. **The introduction.** `WAVE 4`, the wave's name, its sentence — plain
+ *    text on the field, no panel and no card. Nothing is pressed: it stands
+ *    for a few seconds and passes on its own.
+ * 2. **The guide, if the wave carries one.** Split across the two screens, and
+ *    it holds until *both* seats have put it away. That rule is not
+ *    negotiable — a guide one player skips past is a sentence the pair never
+ *    finished reading.
+ * 3. **The wave.**
  *
- * **World state, not `localStorage`.** The spec put the "already seen" set in
- * the app. It cannot live there: the card stops the wave, so two devices that
- * disagree about whether a card is up disagree about whether the world ticked.
- * The set is a bitmask in `World`, it is in `hashWorld`, and the desync ledger
- * watches it like everything else.
+ * **Placed, not derived — and this file has now changed its mind twice.** It
+ * used to derive the subjects of a wave's cards from what the wave contained,
+ * against a hand-written catalogue of subjects, precisely so that a hand-kept
+ * list beside a wave could not go stale. That argument was good and it lost to
+ * a better one: the help belongs to the wave, in the wave, where it is read
+ * and edited, so it can speak about *this* wave rather than about a creature
+ * in the abstract, and so it has somewhere to grow a picture. The staleness
+ * the derivation guarded against has a stronger guard now — a creature ships
+ * with the wave that carries it, that wave carries a guide, and
+ * `packages/content/test/waves.test.ts` fails when it does not.
+ * `docs/spec/briefings.md` has the argument in full.
+ *
+ * **World state, not `localStorage`.** Both states stop the wave, so two
+ * devices that disagree about whether one is up disagree about whether the
+ * world ticked. The phase is in `hashWorld` and the desync ledger watches it
+ * like everything else.
+ *
+ * **The seconds are not counted here.** The introduction passes on a timer,
+ * and a timer is a wall clock — which nothing in `sim` may read. So the app
+ * counts them (`apps/game/src/waves.ts`) and sends the same `brief` command a
+ * thumb sends, one per seat. That is not a loophole: it is exactly the shape
+ * the guide already had, with a clock where the thumb was, and the lockstep
+ * scheduler carries it between two devices unchanged.
  */
+
+/** The field is playing: nothing is holding it. */
+export const OPENING_PLAY = 0;
+/** The introduction stands — number, name, sentence — and the wave waits. */
+export const OPENING_INTRO = 1;
+/** The guide is up, and stays up until both seats have acked it. */
+export const OPENING_GUIDE = 2;
 
 /**
- * Every subject a card can be about. Closed on purpose — the catalogue in
- * `packages/content` is a record over exactly this list, so a creature that
- * ships without a card fails the type check rather than opening a blank card.
- *
- * The thirteen creature kinds and the three pod kinds are spelled the same as
- * their kinds, so `subjectIndex` takes either straight off the wave's own
- * entries and nothing has to keep a second table of names in step.
+ * Which of the three states a wave's opening is in. A small integer rather
+ * than a string because it goes through `hashWorld`, which is a fold over
+ * numbers — and because the order is meaningful: an opening only ever counts
+ * downwards, towards playing.
  */
-export const BRIEFING_SUBJECTS = [
-  "opening",
-  "slick",
-  "bulb",
-  "runt",
-  "throb",
-  "shell",
-  "meteor",
-  "meteorMedium",
-  "meteorFast",
-  "meteorFaster",
-  "meteorFastest",
-  "torch",
-  "queen",
-  "warden",
-  "tether",
-  "mirror",
-  "vane",
-  "mend",
-  "purge",
-  "ward",
-  "maze",
-  "gauge",
-] as const;
+export type OpeningPhase = typeof OPENING_PLAY | typeof OPENING_INTRO | typeof OPENING_GUIDE;
 
-export type BriefingId = (typeof BRIEFING_SUBJECTS)[number];
-
-/**
- * The most subjects the met set can hold. It is a single integer with one bit
- * per subject, and JavaScript's bitwise operators work on 32-bit signed
- * integers — bit 31 is the sign, so 31 subjects is where it stops. A 32nd
- * would set `met` negative and hash as something else on the other device.
- * `briefing.test.ts` fails before that happens; the answer then is a second
- * word, not a wider shift.
- */
-export const MAX_BRIEFING_SUBJECTS = 31;
-
-/** Bit 1 is player 1's dismissal, bit 2 is player 2's. Both, and the card goes. */
+/** Bit 1 is player 1's ack, bit 2 is player 2's. Both, and the state passes. */
 const ACK_P1 = 1;
 const ACK_P2 = 2;
 const ACK_BOTH = ACK_P1 | ACK_P2;
 
 export interface Briefings {
-  /** Subject indices this wave still owes, lowest first. Empty means play. */
-  due: number[];
-  /** Which seats have dismissed the card on top — see `ACK_P1`. */
+  /** Where in the opening this wave is — see `OPENING_PLAY` and its siblings. */
+  phase: OpeningPhase;
+  /** Whether this wave carries a guide, which is where the introduction goes next. */
+  guide: boolean;
+  /** Which seats have acked the state that is up — see `ACK_P1`. */
   ack: number;
-  /** One bit per `BRIEFING_SUBJECTS` index, set when its card was dismissed. */
-  met: number;
 }
 
 export function newBriefings(): Briefings {
-  return { due: [], ack: 0, met: 0 };
+  return { phase: OPENING_PLAY, guide: false, ack: 0 };
 }
 
-export function subjectIndex(id: BriefingId): number {
-  const i = BRIEFING_SUBJECTS.indexOf(id);
-  if (i < 0) throw new Error(`${id} is not a briefing subject`);
-  return i;
-}
-
-/** Whether a card is up, which is the whole of whether the wave is frozen. */
+/** Whether anything is holding the wave, which is the whole of whether it is frozen. */
 export function briefingHolds(world: World): boolean {
-  return world.brief.due.length > 0;
+  return world.brief.phase !== OPENING_PLAY;
 }
 
-/** The subject of the card on top, or null when the field is playing. */
-export function currentBriefing(world: World): BriefingId | null {
-  const i = world.brief.due[0];
-  return i === undefined ? null : (BRIEFING_SUBJECTS[i] ?? null);
+/** Whether the introduction is the thing standing in front of the wave. */
+export function introHolds(world: World): boolean {
+  return world.brief.phase === OPENING_INTRO;
 }
 
-/** Whether this seat has already put the current card away. */
+/** Whether the guide is up. Only then does a press on the stage mean anything. */
+export function guideHolds(world: World): boolean {
+  return world.brief.phase === OPENING_GUIDE;
+}
+
+/** Whether this seat has already put the state that is up away. */
 export function briefingAcked(world: World, player: 1 | 2): boolean {
   return (world.brief.ack & (player === 1 ? ACK_P1 : ACK_P2)) !== 0;
 }
 
 /**
- * One seat dismisses the card. The card only goes when both have, which is the
- * point: the two halves are not the same sentence, so a card one player skips
- * past is a sentence the pair never finished reading.
+ * One seat is done with what is on its screen. The state only passes when both
+ * are: the guide's two halves are not the same sentence, and the introduction
+ * is timed on each device separately, so in both cases the pair moves on
+ * together or not at all.
  */
 export function ackBriefing(world: World, player: 1 | 2): void {
   const b = world.brief;
-  if (b.due.length === 0) return;
+  if (b.phase === OPENING_PLAY) return;
   b.ack |= player === 1 ? ACK_P1 : ACK_P2;
   if (b.ack !== ACK_BOTH) return;
-  const subject = b.due.shift();
-  // Met on dismissal rather than on opening: a run abandoned with the card
-  // still up has not been taught anything.
-  if (subject !== undefined) b.met |= 1 << subject;
   b.ack = 0;
+  b.phase = b.phase === OPENING_INTRO && b.guide ? OPENING_GUIDE : OPENING_PLAY;
 }
 
 /**
- * What a wave is about to ask of the pair, minus everything they have already
- * been asked. Called by `startWave` from the queue it was handed, so a wave
- * teaches what it actually contains and nothing has to be authored beside it —
- * unless the wave names `card`, which overrides which of its own subjects is
- * the one taught here (`docs/queue.md`, "a wave may name the card it teaches").
+ * Put a wave's opening in front of the pair. Called by `startWave`, which is
+ * handed `hasGuide` by whoever knows what a wave is — the sim never reads
+ * `content`, so it is told rather than asking.
  *
- * The opening is the one subject that is not in any queue: it is about the
- * split itself, so it comes due before the first wave of a run and never again.
+ * `cfg.briefings` gates the whole opening, introduction included. It is the
+ * switch on a feature that wants two people: a headless replay, a determinism
+ * run and every sim test play with it off, and nothing there would ever send
+ * the two acks that let a held wave start.
  *
- * **Override narrows, it does not invent.** `card` only ever picks among what
- * `queue`, `podQueue` and `boss` already put in `wanted` — a name for
- * something the wave does not carry is silently dropped rather than raised,
- * and a name for something already met never comes back. Holding an author to
- * "the card must be one of this wave's own subjects" is `content`'s job
- * (`packages/content/test/briefings.test.ts`), not this function's; this
- * function only has to be safe against being handed a name that is wrong.
+ * **No memory, and the opening shows on every start of its wave.** There used
+ * to be a bitmask of subjects the pair had met; there are no subjects any
+ * more. A wave carries its own help, the director restarts a wave twenty times
+ * an afternoon and wants to see it every time, and a run restarted after the
+ * hull went costs one press. If that grates, the answer is a memory over wave
+ * indices, and that is its own decision rather than a field added quietly
+ * here.
  */
-export function openBriefings(
-  world: World,
-  queue: readonly SpawnEntry[],
-  podQueue: readonly PodEntry[],
-  boss: BossEntry | null,
-  card?: BriefingId | null,
-): void {
+export function openWave(world: World, hasGuide: boolean): void {
   const b = world.brief;
-  b.due = [];
   b.ack = 0;
-  if (!world.cfg.briefings) return;
-
-  const wanted = new Set<number>([subjectIndex("opening")]);
-  for (const e of queue) wanted.add(subjectIndex(e.kind));
-  for (const p of podQueue) wanted.add(subjectIndex(p.kind ?? "mend"));
-  if (boss) {
-    wanted.add(subjectIndex(boss.kind));
-    // THE WARDEN's tether never sits in `queue`, `podQueue` or `boss` itself —
-    // it comes down mid-fight, spawned by the boss rather than authored — so
-    // nothing above would ever raise a card for it. Content's own carry-through
-    // (`packages/content/src/mechanics.ts`, `MECHANICS.tether.carriedBy`) says
-    // the same thing for a different question; this is the one place it also
-    // has to be said for briefings, or `tether` is a subject no wave can teach.
-    if (boss.kind === "warden") wanted.add(subjectIndex("tether"));
-  }
-
-  // No override: raise everything the wave introduces, same as always. An
-  // override raises only the opening (on the very first wave) and the named
-  // subject, so a wave with several new things is taught the one the author
-  // chose and nothing else — the other stays due wherever it next appears.
-  const raise = card ? new Set<number>([subjectIndex("opening"), subjectIndex(card)]) : wanted;
-
-  // Catalogue order, so two devices deal the same cards in the same order and
-  // the opening — index 0 — is always the first thing a pair reads.
-  b.due = [...raise].filter((i) => wanted.has(i) && (b.met & (1 << i)) === 0).sort((x, y) => x - y);
-}
-
-/**
- * Forget everything the pair has met. Not part of `resetRun`: a run restarted
- * after the hull went is the same two people, and re-teaching them the rock is
- * an insult with a tap attached. This is for a genuinely fresh pair — the game
- * calls it at beat zero, when two devices agree to start together.
- */
-export function forgetBriefings(world: World): void {
-  world.brief = newBriefings();
+  b.guide = hasGuide && world.cfg.briefings;
+  b.phase = world.cfg.briefings ? OPENING_INTRO : OPENING_PLAY;
 }

@@ -2,11 +2,11 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
-import { bindCardsPage } from "./card-catalogue.js";
 import { bindChecks } from "./checks-page.js";
 import { bindControlSetsPage } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
+import { bindCardsPage } from "./guide-sheet.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
@@ -25,7 +25,7 @@ import {
 import { bindStates } from "./states-page.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
-import { renderWaveBriefing } from "./wave-briefing.js";
+import { renderWaveOpening } from "./wave-opening.js";
 
 /**
  * The director: one screen where a wave is placed, played and judged.
@@ -151,9 +151,9 @@ function onShape(): void {
   renderShip(cfg, currentWave(store));
 }
 
-/** Which cards the wave on the stage raises for a fresh pair — see `wave-briefing.ts`. */
+/** Which cards the wave on the stage raises for a fresh pair — see `wave-opening.ts`. */
 function paintBriefing(): void {
-  renderWaveBriefing(currentWave(store), store.index, cfg.cols);
+  renderWaveOpening(currentWave(store));
 }
 
 /** Only the prose changed. Replaying the wave for a typed letter would be rude. */

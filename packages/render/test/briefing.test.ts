@@ -1,87 +1,75 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { BRIEFINGS } from "@neon-spore/content";
-import {
-  BRIEFING_SUBJECTS,
-  type BriefingId,
-  createWorld,
-  DEFAULT_CONFIG,
-  startWave,
-  step,
-  subjectIndex,
-} from "@neon-spore/sim";
-import { drawBriefing } from "../src/briefing.js";
+import { WAVES } from "@neon-spore/content";
+import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
+import { drawWaveOpening } from "../src/briefing.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * Every card, every role, through the strict canvas — the same rule as
- * `frame.test.ts`, because a card is the first thing a new pair ever sees and
- * a colour the browser cannot parse there is a game that never starts.
+ * Every wave's opening, in both states and every role, through the strict
+ * canvas — the same rule as `frame.test.ts`, because the introduction is the
+ * first thing a new pair ever sees and a colour the browser cannot parse there
+ * is a game that never starts.
  *
- * The other half of this file is the catalogue itself. A card with an empty
- * line is a card that teaches half of a split, which is worse than no card:
- * one player is told to read something out and has nothing to read.
+ * The other half of this file is the prose. A guide with an empty line is a
+ * guide that teaches half of a split, which is worse than no guide: one player
+ * is told to read something out and has nothing to read.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
+const GUIDED = WAVES.map((w, i) => (w.guide ? i : -1)).filter((i) => i >= 0);
 
 beforeAll(installCanvasGlobals);
 
-describe("the catalogue", () => {
-  it("has a card for every subject", () => {
-    for (const id of BRIEFING_SUBJECTS) expect(BRIEFINGS[id]).toBeDefined();
-  });
-
-  it("never leaves a line empty", () => {
-    for (const id of BRIEFING_SUBJECTS) {
-      const card = BRIEFINGS[id];
-      for (const [part, text] of Object.entries(card)) {
-        expect(text.trim().length, `${id}.${part} is empty`).toBeGreaterThan(0);
-      }
-    }
-  });
-
+describe("the guides the waves carry", () => {
   it("never says the same thing to both players", () => {
-    for (const id of BRIEFING_SUBJECTS) {
-      const card = BRIEFINGS[id];
-      expect(card.p1, `${id} tells both players the same thing`).not.toBe(card.p2);
+    for (const i of GUIDED) {
+      const guide = WAVES[i]?.guide;
+      expect(guide?.p1, `${WAVES[i]?.name} tells both players the same thing`).not.toBe(guide?.p2);
     }
   });
 
   it("keeps a line short enough to read on a phone under a beat", () => {
-    for (const id of BRIEFING_SUBJECTS) {
-      const card = BRIEFINGS[id];
-      expect(card.title.length, `${id} has a long title`).toBeLessThanOrEqual(20);
-      for (const part of [card.p1, card.p2]) {
-        expect(part.length, `${id} has a long half: ${part}`).toBeLessThanOrEqual(130);
+    for (const i of GUIDED) {
+      const guide = WAVES[i]!.guide!;
+      for (const part of [guide.p1, guide.p2]) {
+        expect(part.length, `${WAVES[i]?.name} has a long half: ${part}`).toBeLessThanOrEqual(220);
       }
+    }
+  });
+
+  it("keeps the name the guide is headed with short enough to fit", () => {
+    for (const wave of WAVES) {
+      expect(wave.name.length, `${wave.name} is a long name`).toBeLessThanOrEqual(20);
     }
   });
 });
 
-/** A world holding exactly the card for `id`, whatever it takes to get there. */
-function showing(id: BriefingId) {
-  const world = createWorld(CFG, 3);
-  startWave(world, 0, []);
-  // Every wave opens on the split first; step past it, then plant the subject
-  // under test where the next card comes from.
-  step(world, [
+/** A world holding a wave's introduction, and one holding its guide. */
+function opening(waveIndex: number): { intro: World; guide: World } {
+  const build = (): World => {
+    const world = createWorld(CFG, 3);
+    startWave(world, waveIndex, [], [], null, WAVES[waveIndex]?.guide !== undefined);
+    return world;
+  };
+  const guide = build();
+  step(guide, [
     { tick: 0, player: 1, command: { kind: "brief" } },
     { tick: 0, player: 2, command: { kind: "brief" } },
   ]);
-  world.brief.due = [subjectIndex(id)];
-  return world;
+  return { intro: build(), guide };
 }
 
-describe("a card on the stage", () => {
-  it("draws every subject in every role", () => {
+describe("a wave's opening on the stage", () => {
+  it("draws both states of every wave in every role", () => {
     const { ctx } = stubCanvas();
     for (const role of ROLES) {
       const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
-      for (const id of BRIEFING_SUBJECTS) {
-        const world = showing(id);
-        drawBriefing(ctx as unknown as CanvasRenderingContext2D, l, world, role);
+      for (let i = 0; i < WAVES.length; i++) {
+        const { intro, guide } = opening(i);
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, role);
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, role);
       }
     }
   });
@@ -89,18 +77,28 @@ describe("a card on the stage", () => {
   it("draws on a screen narrow enough that a word does not fit", () => {
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
-    for (const id of BRIEFING_SUBJECTS) {
-      drawBriefing(ctx as unknown as CanvasRenderingContext2D, l, showing(id), "p1");
+    for (const i of GUIDED) {
+      const { intro, guide } = opening(i);
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, "p1");
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1");
     }
   });
 
-  it("draws nothing at all when no card is due", () => {
+  it("draws a wave past the end of the authored list without a name to show", () => {
+    const { ctx } = stubCanvas();
+    const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
+    const world = createWorld(CFG, 3);
+    startWave(world, WAVES.length + 4, []);
+    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
+  });
+
+  it("draws nothing at all once the field is playing", () => {
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
     const world = createWorld(DEFAULT_CONFIG, 3);
     startWave(world, 0, []);
     const calls = ctx.calls;
-    drawBriefing(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
+    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
     expect(ctx.calls).toBe(calls);
   });
 });

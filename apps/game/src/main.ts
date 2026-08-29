@@ -52,7 +52,7 @@ const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
 const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
-const progression = createWaveProgression({ world, cfg, audio });
+const progression = createWaveProgression({ world, cfg, audio, buffer });
 const jumpToWave = progression.jumpToWave;
 
 let running = true;
@@ -138,8 +138,6 @@ if (menuRequested(location.href)) {
  */
 function startTogether(): void {
   resetClock(world, 0);
-  // The one moment that is a genuinely fresh pair, so the one that forgets.
-  brief.forget();
   jumpToWave(0);
   running = true;
 }
@@ -159,7 +157,6 @@ const paint = (dt: number): void => {
     dt,
     events: frameEvents,
     running,
-    banner: progression.banner(),
   });
   frameEvents = [];
 };
@@ -173,7 +170,7 @@ const paint = (dt: number): void => {
 (window as unknown as { neonSpore: unknown }).neonSpore = {
   world,
   jumpToWave,
-  // A headless check has no thumbs, and a card waits for two of them.
+  // A headless check has no thumbs, and a guide waits for two of them.
   dismissBriefing: brief.dismiss,
   advance(ticks: number) {
     for (let i = 0; i < ticks; i++) {
@@ -213,8 +210,9 @@ startLoop(
     const dt = Math.min(0.05, (now - lastFrame) / 1000);
     lastFrame = now;
     link.frame(dt * 1000);
-    // The wave name waits behind the card; five seconds is less than reading it.
-    progression.tickBanner(dt, brief.holds());
+    // The wave's name and sentence stand for a few seconds and pass on their
+    // own — counted here, because nothing in `sim` may read a clock.
+    progression.tickOpening(dt);
     paint(dt);
   },
 );

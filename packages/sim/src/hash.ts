@@ -101,14 +101,13 @@ export function hashWorld(world: World): number {
   push(world.restBeat);
   push(world.nextId);
 
-  // The briefing. It is in the fingerprint because it decides whether the
-  // world ticks at all: a device that thinks a card is still up is a device
-  // holding a wave the other one is already playing, and that is a desync
-  // whichever way it is spelled.
-  push(world.brief.met);
+  // The wave's opening. It is in the fingerprint because it decides whether
+  // the world ticks at all: a device that thinks the introduction or the guide
+  // is still up is a device holding a wave the other one is already playing,
+  // and that is a desync whichever way it is spelled.
+  push(world.brief.phase);
+  push(world.brief.guide ? 1 : 0);
   push(world.brief.ack);
-  push(world.brief.due.length);
-  for (const n of world.brief.due) push(n);
 
   push(world.creatures.length);
   for (const c of world.creatures) {

@@ -109,7 +109,7 @@ export function bindStage(
   // `createWorld` always returns a fresh `Briefings` (`met: 0`, see
   // `newBriefings` in `packages/sim/src/briefing.ts`), and `rebuild` throws the
   // old `world` away rather than reusing it. So every `↺ WAVE` already asks
-  // `openBriefings` the same question `wave-briefing.ts`'s `FRESH_PAIR_CFG`
+  // `openBriefings` the same question `wave-opening.ts`'s `FRESH_PAIR_CFG`
   // asks for the CARDS gallery — "what would a pair who has met nothing see",
   // never "what has this run already taught" — which is also why editing
   // wave 9 alone can show a card wave 2 already raised: there is no `met`
@@ -173,7 +173,6 @@ export function bindStage(
       dt,
       events: frameEvents,
       running,
-      banner: null,
     });
     frameEvents = [];
     onFrame();

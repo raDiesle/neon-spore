@@ -714,7 +714,7 @@
 
       /* CARDS: every briefing card, grouped by the wave that first raises it
          — the documented half of what NOT BUILT YET's own CARDS tab now
-         calls a proposal (`card-page.ts`). Same full-screen shell as CONTROL
+         calls a proposal (`guide-page.ts`). Same full-screen shell as CONTROL
          SETS; `.scenes`/`.scene`/`.note` are the same classes the backlog's
          own scene frames already use, so a wave's group of cards needs only
          its own heading style. */
@@ -771,7 +771,7 @@
       <button type="button" id="statesOpen">▣ STATES</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
       <button type="button" id="controlSetsOpen">⎈ CONTROL SETS</button>
-      <button type="button" id="cardsOpen">✎ CARDS</button>
+      <button type="button" id="cardsOpen">✎ GUIDES</button>
       <button type="button" id="shipSheetOpen">⚙ SHIP</button>
       <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
@@ -815,8 +815,14 @@
           <input id="fName" />
           <label class="field" for="fSentence">SENTENCE — the one where…</label>
           <textarea id="fSentence" rows="2"></textarea>
-          <label class="field" for="fHint">HINT — shown to both players</label>
-          <textarea id="fHint" rows="2"></textarea>
+
+          <!-- GUIDE sits directly under SENTENCE because that is where it is
+               read: a wave's prose is its name, why it exists, and what the
+               pair has to be told before it starts. `rail.ts` builds the three
+               fields; leaving them out of the markup keeps the empty case
+               (a wave that introduces nothing) from looking like a form
+               somebody forgot to fill in. -->
+          <div id="guideFields"></div>
 
           <label class="field" for="fControlSet">CONTROL SET — this wave is not the ordinary thing</label>
           <select id="fControlSet"></select>
@@ -1212,14 +1218,14 @@
       <div id="controlSetsBody"></div>
     </div>
 
-    <!-- CARDS: a card that has a wave stops being a proposal — see
-         `card-page.ts`'s doc comment. Same full-screen shell as CONTROL SETS,
-         one heading per wave that raises a card, in wave order. -->
+    <!-- GUIDES: the help each wave carries, written inside the wave itself —
+         see `guide-page.ts`'s doc comment. Same full-screen shell as CONTROL
+         SETS, one heading per wave that has a guide, in wave order. -->
     <div id="cardsSheet">
       <header>
-        <span class="title">CARDS</span>
+        <span class="title">GUIDES</span>
         <span class="sub">
-          every briefing card, assigned to the wave that first raises it for a pair playing in order
+          every wave that carries a guide, in the order a pair plays them
         </span>
         <button type="button" id="cardsSheetClose">✕ CLOSE</button>
       </header>

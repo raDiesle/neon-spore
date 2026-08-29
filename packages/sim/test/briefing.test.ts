@@ -1,278 +1,189 @@
 import { describe, expect, it } from "bun:test";
 import {
   ackBriefing,
-  BRIEFING_SUBJECTS,
+  briefingAcked,
   briefingHolds,
   createWorld,
-  currentBriefing,
   DEFAULT_CONFIG,
-  forgetBriefings,
+  guideHolds,
   hashWorld,
-  MAX_BRIEFING_SUBJECTS,
-  openBriefings,
+  introHolds,
+  OPENING_GUIDE,
+  OPENING_INTRO,
+  OPENING_PLAY,
   type PodEntry,
   type SimConfig,
   type SpawnEntry,
   startWave,
   step,
-  subjectIndex,
   type TimedCommand,
   type World,
 } from "../src/index.js";
 
 /**
- * The card is the one thing in the game that can stop the world, so the two
- * questions here are the two that break a room: does it stop on both devices,
- * and does it start again only when both of them say so.
+ * A wave's opening is the one thing in the game that can stop the world, so
+ * the two questions here are the two that break a room: does it stop on both
+ * devices, and does it start again only when both of them say so.
+ *
+ * The states are the introduction (number, name, sentence — passed by a timer
+ * the app runs) and then the guide, if the wave carries one. Both hold the
+ * field; neither is derived from anything.
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG, briefings: true };
 
 const SLICK: SpawnEntry[] = [{ beat: 0, col: 3, kind: "slick", color: "red" }];
-const ROCK: SpawnEntry[] = [{ beat: 0, col: 3, kind: "meteor", color: null }];
 
-function open(queue: SpawnEntry[] = SLICK, pods: PodEntry[] = []): World {
+function open(hasGuide: boolean, queue: SpawnEntry[] = SLICK, pods: PodEntry[] = []): World {
   const world = createWorld(CFG, 1);
-  startWave(world, 0, queue, pods);
+  startWave(world, 0, queue, pods, null, hasGuide);
   return world;
 }
 
-/** One tick's worth of a seat tapping the card. */
+/** One tick's worth of a seat saying it is done with what is on its screen. */
 function tap(world: World, ...players: (1 | 2)[]): TimedCommand[] {
   return players.map((player) => ({ tick: world.tick, player, command: { kind: "brief" } }));
 }
 
-function dismiss(world: World): void {
-  while (briefingHolds(world)) step(world, tap(world, 1, 2));
-}
-
-describe("the subject list", () => {
-  it("fits in the bitmask the met set is", () => {
-    expect(BRIEFING_SUBJECTS.length).toBeLessThanOrEqual(MAX_BRIEFING_SUBJECTS);
+describe("the order a wave opens in", () => {
+  it("stands on its introduction first, whether or not it has a guide", () => {
+    expect(introHolds(open(false))).toBe(true);
+    expect(introHolds(open(true))).toBe(true);
+    expect(guideHolds(open(true))).toBe(false);
   });
 
-  it("names each subject once", () => {
-    expect(new Set(BRIEFING_SUBJECTS).size).toBe(BRIEFING_SUBJECTS.length);
-  });
-});
-
-describe("a wave the pair has never seen", () => {
-  it("opens on the split before anything the wave contains", () => {
-    const world = open();
-    expect(currentBriefing(world)).toBe("opening");
-    expect(world.brief.due).toEqual([subjectIndex("opening"), subjectIndex("slick")]);
+  it("goes introduction, guide, field when the wave carries one", () => {
+    const world = open(true);
+    step(world, tap(world, 1, 2));
+    expect(world.brief.phase).toBe(OPENING_GUIDE);
+    step(world, tap(world, 1, 2));
+    expect(world.brief.phase).toBe(OPENING_PLAY);
   });
 
-  it("holds the field until the cards are gone", () => {
-    const world = open();
-    for (let i = 0; i < 400; i++) step(world, []);
-    expect(world.beat).toBe(0);
-    expect(world.creatures).toHaveLength(0);
-    // The clock is not what stands still — a press is scheduled ticks ahead,
-    // so a frozen tick counter could never receive its own dismissal.
-    expect(world.tick).toBe(400);
-  });
-
-  it("takes both seats to put one card away", () => {
-    const world = open();
-    step(world, tap(world, 1));
-    expect(currentBriefing(world)).toBe("opening");
-    step(world, tap(world, 1));
-    expect(currentBriefing(world)).toBe("opening");
-    step(world, tap(world, 2));
-    expect(currentBriefing(world)).toBe("slick");
-  });
-
-  it("plays the wave once the last card is gone", () => {
-    const world = open();
-    dismiss(world);
-    for (let i = 0; i < 400; i++) step(world, []);
-    expect(world.beat).toBeGreaterThan(0);
-    expect(world.creatures.length + world.score).toBeGreaterThan(0);
-  });
-});
-
-describe("the met set", () => {
-  it("does not teach the same creature twice", () => {
-    const world = open();
-    dismiss(world);
-    startWave(world, 2, SLICK);
+  it("goes introduction, field when it does not", () => {
+    const world = open(false);
+    step(world, tap(world, 1, 2));
+    expect(world.brief.phase).toBe(OPENING_PLAY);
     expect(briefingHolds(world)).toBe(false);
   });
 
-  it("still teaches something new in a later wave", () => {
-    const world = open();
-    dismiss(world);
-    startWave(world, 3, ROCK);
-    expect(currentBriefing(world)).toBe("meteor");
-  });
-
-  it("counts a pod by what the pod gives", () => {
-    const world = open(SLICK, [{ beat: 0, col: 3, row: 3, kind: "ward" }]);
-    expect(world.brief.due).toContain(subjectIndex("ward"));
-    expect(world.brief.due).not.toContain(subjectIndex("mend"));
-  });
-
-  it("counts the boss a wave installs", () => {
-    const world = open();
-    dismiss(world);
-    startWave(world, 15, [], [], { kind: "warden" });
-    expect(currentBriefing(world)).toBe("warden");
-  });
-
-  it("remembers a card across a wave abandoned half-read", () => {
-    const world = open();
-    step(world, tap(world, 1, 2)); // the opening, and only the opening
-    expect(currentBriefing(world)).toBe("slick");
-    startWave(world, 1, SLICK);
-    expect(world.brief.due).toEqual([subjectIndex("slick")]);
-  });
-
-  it("is forgotten only when asked", () => {
-    const world = open();
-    dismiss(world);
-    forgetBriefings(world);
-    startWave(world, 0, SLICK);
-    expect(currentBriefing(world)).toBe("opening");
+  it("opens on nothing at all when briefings are off", () => {
+    const world = createWorld({ ...DEFAULT_CONFIG, briefings: false }, 1);
+    startWave(world, 0, SLICK, [], null, true);
+    expect(world.brief.phase).toBe(OPENING_PLAY);
+    expect(world.brief.guide).toBe(false);
   });
 });
 
-describe("an authored card overrides the derivation", () => {
-  const BOTH: SpawnEntry[] = [
-    { beat: 0, col: 3, kind: "slick", color: "red" },
-    { beat: 4, col: 5, kind: "meteor", color: null },
-  ];
-
-  it("raises only the named subject, not everything the wave introduces", () => {
-    const world = createWorld(CFG, 1);
-    openBriefings(world, BOTH, [], null, "meteor");
-    expect(world.brief.due).toEqual([subjectIndex("opening"), subjectIndex("meteor")]);
+describe("both seats, or neither", () => {
+  it("keeps the guide up while only one has acked", () => {
+    const world = open(true);
+    step(world, tap(world, 1, 2));
+    expect(guideHolds(world)).toBe(true);
+    step(world, tap(world, 1));
+    expect(guideHolds(world)).toBe(true);
+    expect(briefingAcked(world, 1)).toBe(true);
+    expect(briefingAcked(world, 2)).toBe(false);
+    step(world, tap(world, 2));
+    expect(guideHolds(world)).toBe(false);
   });
 
-  it("behaves exactly as derivation when nothing is named", () => {
-    const world = createWorld(CFG, 1);
-    openBriefings(world, BOTH, [], null);
-    expect(world.brief.due).toEqual([
-      subjectIndex("opening"),
-      subjectIndex("slick"),
-      subjectIndex("meteor"),
-    ]);
+  it("does not carry one seat's ack from the introduction into the guide", () => {
+    const world = open(true);
+    step(world, tap(world, 1));
+    step(world, tap(world, 2));
+    expect(guideHolds(world)).toBe(true);
+    // Both bits were spent getting past the introduction; the guide starts
+    // clean, or player 1 would put away a screen they never looked at.
+    expect(briefingAcked(world, 1)).toBe(false);
+    expect(briefingAcked(world, 2)).toBe(false);
   });
 
-  it("drops a name for something the wave does not contain, rather than inventing it", () => {
-    const world = createWorld(CFG, 1);
-    openBriefings(world, [{ beat: 0, col: 3, kind: "slick", color: "red" }], [], null, "meteor");
-    expect(world.brief.due).toEqual([subjectIndex("opening")]);
+  it("takes the same ack twice as one", () => {
+    const world = open(true);
+    ackBriefing(world, 1);
+    ackBriefing(world, 1);
+    expect(introHolds(world)).toBe(true);
   });
 
-  it("cannot resurrect a subject the pair has already met", () => {
-    const world = createWorld(CFG, 1);
-    openBriefings(world, BOTH, [], null);
-    dismiss(world);
-    openBriefings(world, BOTH, [], null, "slick");
-    expect(world.brief.due).toEqual([]);
-  });
-
-  it("leaves the other new thing due for whenever it next appears", () => {
-    const world = createWorld(CFG, 1);
-    openBriefings(world, BOTH, [], null, "meteor");
-    dismiss(world);
-    openBriefings(world, BOTH, [], null);
-    expect(world.brief.due).toEqual([subjectIndex("slick")]);
+  it("ignores an ack once the field is playing", () => {
+    const world = open(false);
+    step(world, tap(world, 1, 2));
+    ackBriefing(world, 1);
+    expect(world.brief.ack).toBe(0);
+    expect(world.brief.phase).toBe(OPENING_PLAY);
   });
 });
 
-describe("two devices", () => {
-  it("disagreeing about the card disagree about the fingerprint", () => {
-    const a = open();
-    const b = open();
-    expect(hashWorld(a)).toBe(hashWorld(b));
-    step(a, tap(a, 1));
-    step(b, []);
+describe("the field behind it", () => {
+  it("spawns nothing and ticks the clock anyway", () => {
+    const world = open(true);
+    const before = world.tick;
+    for (let i = 0; i < 200; i++) step(world, []);
+    expect(world.creatures).toHaveLength(0);
+    expect(world.beat).toBe(0);
+    // The clock has to keep counting: a press is scheduled ticks ahead on both
+    // devices, so a frozen counter would be waiting for an ack it arranged
+    // never to reach itself.
+    expect(world.tick).toBeGreaterThan(before);
+  });
+
+  it("takes nothing but the ack while it holds", () => {
+    const world = open(true);
+    const col = world.cannonCol;
+    step(world, [{ tick: world.tick, player: 1, command: { kind: "cannonCol", col: col + 2 } }]);
+    expect(world.cannonCol).toBe(col);
+  });
+
+  it("starts the field once the last state has passed", () => {
+    const world = open(false);
+    step(world, tap(world, 1, 2));
+    for (let i = 0; i < 400; i++) step(world, []);
+    expect(world.creatures.length).toBeGreaterThan(0);
+  });
+});
+
+describe("the opening in the fingerprint", () => {
+  it("hashes differently in each of the three states", () => {
+    const world = open(true);
+    const atIntro = hashWorld(world);
+    step(world, tap(world, 1, 2));
+    const atGuide = hashWorld(world);
+    step(world, tap(world, 1, 2));
+    const playing = hashWorld(world);
+    expect(new Set([atIntro, atGuide, playing]).size).toBe(3);
+  });
+
+  it("hashes differently when only one seat has acked", () => {
+    const a = open(true);
+    const b = open(true);
+    ackBriefing(a, 1);
     expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
-
-  it("that both dismissed it agree again", () => {
-    const a = open();
-    const b = open();
-    step(a, tap(a, 1));
-    step(a, tap(a, 2));
-    step(b, tap(b, 2));
-    step(b, tap(b, 1));
-    expect(hashWorld(a)).toBe(hashWorld(b));
-  });
 });
 
-describe("the field behind the card", () => {
-  it("takes no command but the dismissal", () => {
-    const world = open();
-    const col = world.cannonCol;
-    step(world, [{ tick: 0, player: 1, command: { kind: "cannonCol", col: 0 } }]);
-    expect(world.cannonCol).toBe(col);
-    expect(world.bullets).toHaveLength(0);
-  });
-
-  it("is not opened at all when the config leaves it off", () => {
-    const world = createWorld(DEFAULT_CONFIG, 1);
-    startWave(world, 0, SLICK);
+describe("no memory", () => {
+  it("shows the opening again every time the same wave starts", () => {
+    const world = open(true);
+    step(world, tap(world, 1, 2));
+    step(world, tap(world, 1, 2));
     expect(briefingHolds(world)).toBe(false);
-    expect(world.brief.met).toBe(0);
-  });
-});
-
-describe("ackBriefing", () => {
-  it("does nothing when no card is up", () => {
-    const world = createWorld(DEFAULT_CONFIG, 1);
-    ackBriefing(world, 1);
-    expect(world.brief).toEqual({ due: [], ack: 0, met: 0 });
-  });
-});
-
-describe("startWave threads an authored card through to play", () => {
-  const BOTH2: SpawnEntry[] = [
-    { beat: 0, col: 3, kind: "slick", color: "red" },
-    { beat: 4, col: 5, kind: "meteor", color: null },
-  ];
-
-  it("is bit-for-bit unchanged when no card is named", () => {
-    const withoutArg = createWorld(CFG, 1);
-    startWave(withoutArg, 0, BOTH2, [], null);
-    const withUndefined = createWorld(CFG, 1);
-    startWave(withUndefined, 0, BOTH2, [], null, undefined);
-    expect(hashWorld(withoutArg)).toBe(hashWorld(withUndefined));
-    expect(withoutArg.brief).toEqual(withUndefined.brief);
+    // The met set is gone with the subjects it was over. A wave carries its
+    // own help, and the director restarts a wave twenty times an afternoon.
+    startWave(world, 0, SLICK, [], null, true);
+    expect(world.brief.phase).toBe(OPENING_INTRO);
+    expect(world.brief.guide).toBe(true);
   });
 
-  it("reaches play: an authored card changes what the wave opens on", () => {
-    const derived = createWorld(CFG, 1);
-    startWave(derived, 0, BOTH2, [], null);
-    expect(derived.brief.due).toEqual([
-      subjectIndex("opening"),
-      subjectIndex("slick"),
-      subjectIndex("meteor"),
-    ]);
-
-    const overridden = createWorld(CFG, 1);
-    startWave(overridden, 0, BOTH2, [], null, "meteor");
-    expect(overridden.brief.due).toEqual([subjectIndex("opening"), subjectIndex("meteor")]);
-  });
-
-  it("keeps catalogue order under an override — membership changes, order does not", () => {
+  it("starts a fresh world playing nothing", () => {
     const world = createWorld(CFG, 1);
-    // meteor (a later index) is authored ahead of slick in the wave's own
-    // entries, and named as the card, yet the due list still comes out
-    // lowest-index-first — the same `sort` runs whether or not `card` is set.
-    startWave(
-      world,
-      0,
-      [
-        { beat: 0, col: 3, kind: "meteor", color: null },
-        { beat: 4, col: 5, kind: "slick", color: "red" },
-      ],
-      [],
-      null,
-      "slick",
-    );
-    expect(world.brief.due).toEqual([subjectIndex("opening"), subjectIndex("slick")]);
+    expect(world.brief).toEqual({ phase: OPENING_PLAY, guide: false, ack: 0 });
+  });
+
+  it("leaves no guide behind when the next wave has none", () => {
+    const world = open(true);
+    startWave(world, 1, SLICK, [], null, false);
+    step(world, tap(world, 1, 2));
+    expect(briefingHolds(world)).toBe(false);
   });
 });

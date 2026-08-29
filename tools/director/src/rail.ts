@@ -1,12 +1,11 @@
 import {
-  BRIEFINGS,
   CONTROL_SETS,
   type ControlSetId,
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
-import { bindCardPicker } from "./card-picker.js";
-import { cardsForWave, wavesWithCards } from "./card-waves.js";
+import { bindGuideFields } from "./guide-fields.js";
+import { wavesWithGuides } from "./guide-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -31,14 +30,14 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const list = document.getElementById("waveList");
   const name = document.getElementById("fName") as HTMLInputElement | null;
   const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
-  const hint = document.getElementById("fHint") as HTMLTextAreaElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
   const controlsWhy = document.getElementById("fControlSetWhy");
 
-  // `docs/queue.md` puts this beside CONTROL SET, the other field that says
-  // "this wave is not the ordinary thing" — see `card-picker.ts` for why it
-  // is built there rather than declared in `index.html`.
-  const cardPicker = bindCardPicker(controlsWhy);
+  // Directly under SENTENCE, which is where the owner asked for it: a wave's
+  // prose is its name, why it exists, and what the pair has to be told before
+  // it starts. See `guide-fields.ts` for why the three fields are built rather
+  // than declared in `index.html`.
+  const guideFields = bindGuideFields(document.getElementById("guideFields"));
 
   if (controlsField) {
     controlsField.replaceChildren();
@@ -50,7 +49,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     }
   }
 
-  const cardWaves = wavesWithCards();
+  const guideWaves = new Set(wavesWithGuides());
   const renderList = (): void => {
     if (!list) return;
     list.replaceChildren();
@@ -82,23 +81,19 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
         mark.title = set.name;
         button.append(mark);
       }
-      // A third mark. `cardWaves` reads the shipped `WAVES` the same way
-      // `wavesUsingSet` (`control-sets.ts`) already does for the mark above —
-      // this list is one editing session's unsaved draft, and the derivation
-      // is over the wave order that ships, not that draft. See `card-waves.ts`.
+      // A third mark: this wave carries a guide. Read off the wave itself
+      // rather than derived from the campaign, which is the whole of what
+      // moving the help into the wave bought.
       //
       // A span, not a nested button — `button` already is one, and a button
       // inside a button is invalid markup. The click still needs its own
       // stop: without it, opening the sheet also re-selects the row, which
       // reads as two actions firing off one tap.
-      if (cardWaves.has(i)) {
+      if (guideWaves.has(i)) {
         const mark = document.createElement("span");
         mark.className = "card-mark";
         mark.textContent = "✎ ";
-        const names = cardsForWave(i)
-          .map((id) => BRIEFINGS[id].title)
-          .join(", ");
-        mark.title = `opens on: ${names} — click to see every card and its wave`;
+        mark.title = "carries a guide — click to see every wave's guide";
         mark.addEventListener("click", (e) => {
           e.stopPropagation();
           document.getElementById("cardsOpen")?.dispatchEvent(new MouseEvent("click"));
@@ -118,12 +113,11 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     const wave = currentWave(store);
     if (name) name.value = wave?.name ?? "";
     if (sentence) sentence.value = wave?.sentence ?? "";
-    if (hint) hint.value = wave?.hint ?? "";
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;
 
-    cardPicker.render(wave, store.index);
+    guideFields.render(wave);
   };
 
   const render = (): void => {
@@ -141,23 +135,18 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     renderList();
     onEdit();
   });
-  for (const [field, key] of [
-    [sentence, "sentence"],
-    [hint, "hint"],
-  ] as const) {
-    field?.addEventListener("input", () => {
-      const wave = currentWave(store);
-      if (!wave || !field) return;
-      wave[key] = field.value;
-      store.dirty = true;
-      onEdit();
-    });
-  }
+  sentence?.addEventListener("input", () => {
+    const wave = currentWave(store);
+    if (!wave || !sentence) return;
+    wave.sentence = sentence.value;
+    store.dirty = true;
+    onEdit();
+  });
 
   // A control set is a shape choice, the same weight as the boss: it changes
   // what the band would draw, not just what a wave says about itself. So it
   // goes through `onSelect` (the caller's full refresh) rather than `onEdit`
-  // the way `name`, `sentence` and `hint` do.
+  // the way `name`, `sentence` and the guide do.
   controlsField?.addEventListener("change", () => {
     const wave = currentWave(store);
     if (!wave || !controlsField) return;
@@ -167,15 +156,15 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     onSelect();
   });
 
-  // Also through `onSelect`: which card a wave raises is not drawn on the
-  // stage, but it is exactly what the card sheet (`card-page.ts`) reads next,
-  // and `onSelect` is what keeps every panel that reads `store` in step.
-  cardPicker.onChange((card) => {
+  // Through `onEdit`, not `onSelect`: a guide is prose like `name` and
+  // `sentence`, and restarting the stage on every keystroke of it would make
+  // the wave unwritable. What reads it next is the wave note above the fields.
+  guideFields.onChange((guide) => {
     const wave = currentWave(store);
     if (!wave) return;
-    wave.card = card;
+    wave.guide = guide;
     store.dirty = true;
-    onSelect();
+    onEdit();
   });
 
   bindAction("waveAdd", () => {

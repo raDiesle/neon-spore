@@ -142,16 +142,16 @@ describe("the stage answers its own after-run screen", () => {
  * both PAIR_ON toggles lit — briefings and THE FORK, the two switches the
  * owner's "card and briefing" both refers to — resetting a wave is never
  * "what has this run already taught", it is always "what would a pair who
- * has met nothing see", the same fresh-pair rule `wave-briefing.ts` already
+ * has met nothing see", the same fresh-pair rule `wave-opening.ts` already
  * uses on purpose for the CARDS gallery. This test does the same two calls
  * `rebuild()` makes, without a DOM, and checks the card opens immediately
  * and reopens identically on the next reset rather than staying dismissed.
  */
-describe("a fresh reset opens the wave's card, every time", () => {
+describe("a fresh reset opens the wave, every time", () => {
   const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
   const queue = [{ beat: 0, col: 0, kind: "slick" as const, color: null }];
 
-  it("the card is up the instant the wave starts, not after a delay", () => {
+  it("the opening is up the instant the wave starts, not after a delay", () => {
     const world = createWorld(cfg, 0);
     startWave(world, 0, queue);
     expect(briefingHolds(world)).toBe(true);
@@ -160,8 +160,8 @@ describe("a fresh reset opens the wave's card, every time", () => {
   it("dismissing it does not survive a rebuild — the next world is fresh again", () => {
     const first = createWorld(cfg, 0);
     startWave(first, 0, queue);
-    // "opening" is due on every first wave alongside "slick" (`briefing.ts`),
-    // so this wave opens two cards — both dismissed here, one pair at a time.
+    // The introduction, and then the guide if the wave carries one — acked
+    // here one state at a time, the way two seats would.
     while (briefingHolds(first)) {
       ackBriefing(first, 1);
       ackBriefing(first, 2);
@@ -169,7 +169,7 @@ describe("a fresh reset opens the wave's card, every time", () => {
     expect(briefingHolds(first)).toBe(false);
 
     // `rebuild()` never reuses `first` — it builds a new `World`, exactly as
-    // `stage.ts:112` does, so `met` cannot have carried anything forward.
+    // `stage.ts` does, and nothing remembers a wave was ever read anyway.
     const second = createWorld(cfg, 0);
     startWave(second, 0, queue);
     expect(briefingHolds(second)).toBe(true);
@@ -193,7 +193,7 @@ describe("a fresh reset opens the wave's card, every time", () => {
  * `packages/sim/test/briefing.test.ts` already owns whether `ackBriefing`
  * itself is correct.
  */
-describe("bindStageTouch steps a `test`-mode card and swallows the press until it is gone", () => {
+describe("bindStageTouch steps a `test`-mode guide and swallows the press until it is gone", () => {
   const VIEWPORT = { width: 400, height: 800, dpr: 1 };
   const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
   // A single creature keeps this to exactly two cards due: "opening" (every
@@ -232,7 +232,10 @@ describe("bindStageTouch steps a `test`-mode card and swallows the press until i
 
   function armed(role: ViewRole) {
     const world = createWorld(cfg, 0);
-    startWave(world, 0, queue);
+    // A guide as well as an introduction, because the stepping under test is
+    // the guide's: the introduction is the same on both screens and takes one
+    // press whatever the role.
+    startWave(world, 0, queue, [], null, true);
     let step: 0 | 1 | 2 = 0;
     const sent: { player: 1 | 2; command: Command }[] = [];
     const stub = stubCanvas();
@@ -272,6 +275,8 @@ describe("bindStageTouch steps a `test`-mode card and swallows the press until i
 
   it("presses one and two swallow, revealing nothing the sim ever hears about", () => {
     const s = armed("test");
+    s.press(); // the introduction, which is not stepped
+    s.sent.length = 0;
     s.press();
     expect(s.step()).toBe(1);
     expect(s.sent).toEqual([]);
@@ -281,25 +286,24 @@ describe("bindStageTouch steps a `test`-mode card and swallows the press until i
     expect(briefingHolds(s.world)).toBe(true);
   });
 
-  it("the third press dismisses the card up, and the next one starts its own step over", () => {
+  it("the guide's third press puts it away, and the field is then playing", () => {
     const s = armed("test");
+    s.press(); // the introduction
+    s.sent.length = 0;
     s.press();
     s.press();
-    s.press(); // dismiss "opening"
+    s.press(); // the guide
     expect(s.sent).toEqual([
       { player: 1, command: { kind: "brief" } },
       { player: 2, command: { kind: "brief" } },
     ]);
     expect(s.step()).toBe(0);
-    expect(briefingHolds(s.world)).toBe(true); // "slick" is still due
-
-    s.press(); // "slick"'s own player one, not player two
-    expect(s.step()).toBe(1);
+    expect(briefingHolds(s.world)).toBe(false);
   });
 
-  it("only the press that empties the queue lets the next one reach the cannon", () => {
+  it("only the press that ends the opening lets the next one reach the cannon", () => {
     const s = armed("test");
-    for (let i = 0; i < 6; i++) s.press(); // both cards, three presses each
+    for (let i = 0; i < 4; i++) s.press(); // the introduction, then the guide's three
     expect(briefingHolds(s.world)).toBe(false);
     s.sent.length = 0;
 

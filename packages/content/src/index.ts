@@ -1,4 +1,3 @@
-export { BRIEFINGS, type BriefingCard } from "./briefings.js";
 export {
   CONTROL_SETS,
   type ControlSet,
@@ -114,7 +113,7 @@ export {
   xToHullAngle,
 } from "./silhouettes.js";
 export { type RingSilhouette, WARDEN_PUPIL_OPEN, WARDEN_RING } from "./warden-shape.js";
-export { WAVES, type Wave, type WaveEntry } from "./waves.js";
+export { WAVES, type Wave, type WaveEntry, type WaveGuide } from "./waves.js";
 export {
   DEMONSTRATIONS,
   type Demonstration,

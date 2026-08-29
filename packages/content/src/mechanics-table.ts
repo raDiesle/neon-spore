@@ -1,0 +1,132 @@
+import type { Mechanic, MechanicId } from "./mechanics.js";
+
+/**
+ * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
+ * 250-line limit. What stayed there is the shape of a mechanic and the four
+ * questions asked of the set; this is the data. The split is along the same
+ * seam `wave-types.ts` and `waves/act-*.ts` already use — the list is the half
+ * that grows, and it is the half nobody reads top to bottom.
+ */
+/**
+ * One row per mechanic. `as const satisfies` rather than a type annotation on
+ * purpose: `satisfies` still fails the type check when a kind is added to the
+ * simulation and not to this table — a guard the retired briefing catalogue
+ * proved twice in one afternoon — while `as const` keeps `waveNames` a literal
+ * `true`, which is what lets `WaveKind` be read back out of it.
+ */
+export const MECHANICS = {
+  slick: {
+    what: "Flat, wide, and always red. It holds its lane and steps down one row on every beat.",
+    reach: "spawn",
+  },
+  bulb: {
+    what: "Round, swollen, and always cyan. Same fall, same lane — the colour is the whole of the difference.",
+    reach: "spawn",
+  },
+  runt: {
+    what: "Tiny, and carries no colour at all. A shot that lands on it is the mistake — it costs points, whatever colour was fired.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  throb: {
+    what: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  shell: {
+    what: "Two columns wide, with a piece of shell in front of each. Any colour chips a piece. Under the last one is a body in a colour neither of you has seen yet.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  meteor: {
+    what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  meteorMedium: {
+    what: "The same rock, falling two rows a beat instead of one.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  meteorFast: { what: "The same rock again, three rows a beat.", reach: "spawn", waveNames: true },
+  meteorFaster: {
+    what: "Four rows a beat. It crosses the field in the time a bulb takes to fall a quarter of it.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  meteorFastest: {
+    what: "Five rows a beat, and nothing in the field is quicker except a torch.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  torch: {
+    what: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
+    reach: "spawn",
+    carriedBy: "queen",
+    waveNames: true,
+  },
+  queen: {
+    what: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
+    reach: "spawn",
+  },
+  warden: {
+    what: "A ring five columns wide with a hole you can see the field through. It never moves, and it takes one of your two sliding controls at a time.",
+    reach: "spawn",
+  },
+  tether: {
+    what: "A line out of the rim onto one of your sliding controls. It cannot be shot and it cannot be warded.",
+    reach: "spawn",
+    carriedBy: "warden",
+  },
+  mirror: {
+    what: "The boss is your own ship. It performs a sequence of your own moves, then asks for the whole of it back.",
+    reach: "spawn",
+  },
+  maze: {
+    what: "A wheel of rings turns above the ship. Ways in are cut round its rim and only one of them reaches the middle — neither of you is told which.",
+    reach: "spawn",
+  },
+  vane: {
+    what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
+    reach: "spawn",
+  },
+  mend: {
+    what: "It hangs where it was left. Shooting it loose is only half of getting it — after that it sinks and drifts.",
+    reach: "spawn",
+  },
+  purge: {
+    what: "The same pod with different cargo: taking this one in clears the field of everything that is falling.",
+    reach: "spawn",
+  },
+  ward: {
+    what: "This one holds the shield armed for six beats with no trigger at all.",
+    reach: "spawn",
+  },
+  gauge: {
+    what: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
+    reach: "spawn",
+  },
+  fork: {
+    what: "The rest between waves ends in a wait, crossed only while player 1 holds the lance and player 2 presses a colour.",
+    reach: "run",
+    switch: { field: "forkBetweenWaves", off: false },
+  },
+  briefing: {
+    what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and the field waits behind both.",
+    reach: "run",
+    switch: { field: "briefings", off: false },
+  },
+  windup: {
+    what: "A press does not fire; the shot leaves on the next point of a grid measured in beats, where player 1 can watch it happen.",
+    reach: "run",
+    switch: { field: "shotChargeBeats", off: 0 },
+  },
+  lance: {
+    what: "Player 1 holds the cannon still until the lobe fills, and player 2's next shot leaves slower and passes through bodies of its own colour.",
+    reach: "run",
+  },
+  grip: {
+    what: "A finger held on something falling drags at it, and it falls slower for as long as the finger stays.",
+    reach: "run",
+  },
+} as const satisfies Record<MechanicId, Mechanic>;

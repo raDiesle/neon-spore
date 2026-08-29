@@ -4,10 +4,10 @@ import {
   ackBriefing,
   briefingHolds,
   createWorld,
-  currentBriefing,
   DEFAULT_CONFIG,
   forkHeld,
   forkOpen,
+  introHolds,
   PAIR_ON,
   type SimConfig,
   type SimEvent,
@@ -56,7 +56,7 @@ function briefingFrames(
   const { canvas, ctx } = stubCanvas();
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize(viewport);
-  // One seat has already put the card away: the footer's "WAITING FOR THEM"
+  // One seat is already done: the footer's "WAITING FOR THEM"
   // and one filled pip are only reached with the two seats disagreeing.
   if (acked === 1) ackBriefing(world, 1);
 
@@ -74,20 +74,19 @@ function briefingFrames(
       dt: 4 / CFG_PAIR.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
   return { world, ctx };
 }
 
-describe("the briefing card", () => {
+describe("a wave's opening", () => {
   for (const role of ROLES) {
-    it(`draws the split card for ${role} without the canvas refusing a value`, () => {
+    it(`draws the introduction for ${role} without the canvas refusing a value`, () => {
       const { world, ctx } = briefingFrames(role, ticksPerBeat(CFG_PAIR) * 6);
       // It really was up for every one of those frames, or this proves
-      // nothing about `drawBriefing` at all.
-      expect(currentBriefing(world)).toBe("opening");
+      // nothing about `drawWaveOpening` at all.
+      expect(introHolds(world)).toBe(true);
       expect(ctx.calls).toBeGreaterThan(500);
     });
 
@@ -100,7 +99,7 @@ describe("the briefing card", () => {
 
   it("never opens under `DEFAULT_CONFIG` — only `PAIR_ON` reaches it", () => {
     const world = createWorld(DEFAULT_CONFIG, 7, buildQueue(0, DEFAULT_CONFIG.cols));
-    expect(currentBriefing(world)).toBeNull();
+    expect(briefingHolds(world)).toBe(false);
   });
 });
 
@@ -143,7 +142,6 @@ function forkFrames(
       dt: 4 / CFG_PAIR.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }

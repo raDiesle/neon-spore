@@ -115,7 +115,6 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
     dt: 0,
     events,
     running,
-    banner: null,
   };
 
   const rebuild = (): void => {

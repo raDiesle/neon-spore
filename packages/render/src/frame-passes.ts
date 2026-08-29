@@ -1,7 +1,7 @@
 import { hullPercent, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
-import { drawBriefing } from "./briefing.js";
+import { drawWaveOpening } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
 import { drawCastShadows } from "./cast-shadow.js";
 import { drawContactShadows } from "./contact-shadow.js";
@@ -113,7 +113,7 @@ export function drawShip(
   }
 }
 
-/** What sits on top of a finished frame: HUD, alarms and cards. */
+/** What sits on top of a finished frame: HUD, alarms and the wave's opening. */
 export function drawOverlays(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -126,7 +126,8 @@ export function drawOverlays(
   drawTorchAlarm(ctx, l, world, view.time);
   drawBand(ctx, l, world, isArmed, isOpen);
   drawOverlay(ctx, l, view);
-  // Over the pause overlay and everything else: while a card is up the world
-  // is not ticking, so nothing under it is doing anything worth seeing.
-  drawBriefing(ctx, l, world, view.role);
+  // Over the pause overlay and everything else: while a wave's introduction or
+  // its guide is up the world is not ticking, so nothing under it is doing
+  // anything worth seeing.
+  drawWaveOpening(ctx, l, world, view.role);
 }

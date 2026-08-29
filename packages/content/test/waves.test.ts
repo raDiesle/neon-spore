@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { buildPods, buildQueue, WAVES } from "../src/index.js";
+import { buildPods, buildQueue, mechanic, mechanicsInWave, WAVES } from "../src/index.js";
 
 const beatSeconds = 60 / DEFAULT_CONFIG.bpm;
 const secondsToHull = DEFAULT_CONFIG.rows * beatSeconds;
@@ -19,6 +19,76 @@ describe("wave content", () => {
         wave.sentence.split(".").length,
         `${wave.name}: more than one sentence`,
       ).toBeLessThanOrEqual(2);
+    }
+  });
+
+  /**
+   * The guarantee that replaced the derivation. Help used to be a catalogue
+   * beside the waves, keyed by subject, and the wave that raised each card was
+   * computed by replaying the campaign; that could not go stale, and it also
+   * could not say anything about the wave it appeared on. A guide lives in its
+   * wave now (`docs/spec/briefings.md`), which means it *can* go stale in the
+   * one way that matters — somebody ships a creature, gives it a wave, and
+   * says nothing about it. This is the thing that catches them.
+   *
+   * The same computation the old lookup used, pointed at a different question:
+   * not "where does this card go" but "did anybody write it". Run over the
+   * whole list in order, because the first wave to carry something is a fact
+   * about the order and not about any one wave.
+   */
+  it("gives the first wave that carries anything new a guide", () => {
+    const seen = new Set<string>();
+    for (const [i, wave] of WAVES.entries()) {
+      const introduced: string[] = [];
+      for (const id of mechanicsInWave(wave)) {
+        // A `run` mechanic is on for the whole game or for none of it, so no
+        // wave introduces one and no wave can be asked to teach it.
+        if (mechanic(id).reach === "run") continue;
+        if (seen.has(id)) continue;
+        seen.add(id);
+        introduced.push(id);
+      }
+      if (introduced.length === 0) continue;
+      expect(
+        wave.guide,
+        `wave ${i + 1} · ${wave.name} is the first to carry ${introduced.join(", ")} and says nothing about it`,
+      ).toBeDefined();
+    }
+  });
+
+  /**
+   * The other half, and the reason the first half is not enough: a guide on a
+   * wave that introduces nothing is padding, and padding a wave with a guide
+   * is the same failure as padding it with entries. Both halves are also
+   * written into `.claude/skills/new-wave`, where a session reads them.
+   */
+  it("gives a guide only to a wave that introduces something", () => {
+    const seen = new Set<string>();
+    for (const [i, wave] of WAVES.entries()) {
+      let introduces = false;
+      for (const id of mechanicsInWave(wave)) {
+        if (mechanic(id).reach === "run") continue;
+        if (seen.has(id)) continue;
+        seen.add(id);
+        introduces = true;
+      }
+      // Wave 1 is the exception, and it is the only one: its guide is about
+      // the split itself — two screens, two halves of one ship — which is not
+      // a creature and belongs to no wave's contents.
+      if (i === 0 || introduces) continue;
+      expect(
+        wave.guide,
+        `wave ${i + 1} · ${wave.name} carries a guide and introduces nothing`,
+      ).toBeUndefined();
+    }
+  });
+
+  it("writes all three halves of every guide it does carry", () => {
+    for (const wave of WAVES) {
+      if (!wave.guide) continue;
+      for (const part of ["both", "p1", "p2"] as const) {
+        expect(wave.guide[part], `${wave.name}: guide has no ${part}`).toMatch(/\S/);
+      }
     }
   });
 

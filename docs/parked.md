@@ -137,24 +137,25 @@ render lane is the wrong place to decide it. Start by asking whether an act is
 a field on the wave or a grouping around the bosses; the tint table in
 `backdrop.ts` is then two lines.
 
-## The grip and the lance are controls no wave contains, so no card can find them
+## The grip and the lance are controls no wave contains, so no wave teaches them
 
-2026-08-27 · claude/burn-briefings-b1
+2026-08-29 · claude/burn-wave-guide
 
 Mechanic · Idea
 
-A briefing's subjects are derived from what `startWave` was handed — the spawn
-queue, the pods, the boss — which is what stops a card going stale when a
-creature is swapped out of a wave. THE GRIP and THE LANCE are not in any of
-those lists: they are controls the pair has, not things the wave contains, so
-the derivation cannot reach them and the two hardest couplings in the game are
-the two nobody is taught.
+THE GRIP and THE LANCE are controls the pair has rather than things a wave
+puts on the field, so no wave is the first to carry either — and the test that
+makes every other mechanic get a guide (`packages/content/test/waves.test.ts`)
+cannot see them. The two hardest couplings in the game are the two nobody is
+taught. The move from derived cards to placed guides did not fix this and did
+not make it worse; it only moved the hole from "the derivation cannot reach
+them" to "no wave introduces them".
 
-Not done there because the obvious fix is the one `docs/decisions.md` #18 just
-argued against — a `briefings:` list grown back onto `Wave` is the placed
-version returning through the back door. Start by asking what a control's
-first *use* looks like from the sim's side: the first wave whose creatures
-make a control visible is derivable too, and that may be the hook.
+Not done there because the honest answer is probably a wave apiece — THE LANCE
+already has one, wave 24, and it carries no guide because `lance` is a `run`
+mechanic that every wave technically reaches. Start by asking whether a wave
+may *name* the run mechanic it is about, which is one optional field and would
+let the existing test cover both.
 
 ## The link chip says STALLED while a player is reading
 
@@ -296,25 +297,6 @@ are indistinguishable afterwards. `packages/audio/src/bind.ts`,
 `packages/render/src/boss-draw.ts` and the mixer are the obvious places to
 look first. Start by grepping for `default:` in a `switch` on a `.type` or a
 `.kind` and asking, of each, whether a missing case would be visible.
-
-## The card sheet shows a wave as if nobody had played the ones before it
-
-2026-08-27 · claude/burn-card-panel-b13
-
-Tool · Implemented
-
-The CARDS tab's wave picker builds a fresh pair for whichever wave is chosen,
-so wave 1 is exactly right and wave 9 shows what a pair *skipping straight to
-wave 9* would be told — not what a pair who played one to eight would still
-have left to learn. The difference is the whole point of the "has met" set,
-and the sheet currently has no memory of it.
-
-Not done there because carrying a cumulative `met` set across the picker is a
-different question from drawing a card, and the lane was scoped to the second.
-Start at `waveBriefingOrder` in `tools/director/src/card-waves.ts`: it already
-builds a real world per wave, so the change is to thread one bitmask through
-the loop rather than to reset it. Worth doing — "what does wave 9 actually add"
-is the question an author asks, and the sheet answers a different one.
 
 ## A round that is not the field makes no sound at all
 
@@ -1335,3 +1317,22 @@ weigh rather than assume:
 
 Whoever picks this up should read all four together before moving anything;
 four separate splits would be four seams nobody chose.
+
+## Four waves teach two things at once, because their guides were merged
+
+2026-08-29 · claude/burn-wave-guide
+
+Mechanic · Idea
+
+Moving the help into the wave gave each wave exactly one guide, and four waves
+had been raising two or more cards apiece: FIRST STEP taught the split and the
+slick, THE WARDEN teaches the ring and its line, THE VANE the arm and the
+quicker rock, and THE WARD the pod and all three rock speed tiers at once. The
+words were merged rather than dropped — nothing was deleted — but four separate
+teaching moments became one, and THE WARD's is now a long paragraph carrying
+four ideas to a pair who have to say half of it out loud.
+
+Not done there because splitting a wave in two is a wave-design decision and
+the lane was a data move. Start by reading THE WARD's guide out loud at tempo:
+if it is too much, the fix is a wave apiece for the three rock tiers, each with
+the one line it already has, rather than anything in the code.

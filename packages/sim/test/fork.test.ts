@@ -3,13 +3,13 @@ import {
   briefingHolds,
   type Color,
   createWorld,
-  currentBriefing,
   DEFAULT_CONFIG,
   forkHeld,
   forkOpen,
   hashWorld,
   hullPercent,
   hullRow,
+  introHolds,
   type Replay,
   record,
   runReplay,
@@ -196,8 +196,8 @@ describe("the fork and the card", () => {
     let cardAfterCommit: boolean | null = null;
     for (let t = 0; t < FORK_TICK + TPB * 8; t++) {
       const cmds: TimedCommand[] = [];
-      // Two people who read every card as soon as it goes up, and cross the
-      // fork once the field has been quiet for a beat.
+      // Two people who read every opening as soon as it goes up, and cross
+      // the fork once the field has been quiet for a beat.
       if (briefingHolds(world)) cmds.push(brief(t, 1), brief(t, 2));
       else if (forkOpen(world) && t >= FORK_TICK) {
         if (!forkHeld(world)) cmds.push(hold(t, true));
@@ -220,20 +220,21 @@ describe("the fork and the card", () => {
     // The commit came out of a clear field: nothing was being read when the
     // pair said go.
     expect(cardBeforeCommit).toBe(false);
-    // And the `mend` pod is new to this pair, so what the commit bought them
-    // was a card. Fork first, lesson second — the order under test.
+    // And the wave that starts opens on its own name before anything else, so
+    // what the commit bought them was an opening. Fork first, lesson second —
+    // the order under test.
     expect(cardAfterCommit).toBe(true);
   });
 
-  it("never opens a fork under a card, because the wave cannot progress", () => {
+  it("never opens a fork under an opening, because the wave cannot progress", () => {
     const world = createWorld({ ...BOTH }, 0);
     startWave(world, 0, []);
-    // An empty wave clears immediately, so without the card this world would
-    // be at a fork within `waveRestBeats`. The card is up, so nothing moves.
+    // An empty wave clears immediately, so without the opening this world
+    // would be at a fork within `waveRestBeats`. It is up, so nothing moves.
     for (let t = 0; t < TPB * 60; t++) step(world, []);
     expect(briefingHolds(world)).toBe(true);
     expect(forkOpen(world)).toBe(false);
-    expect(currentBriefing(world)).toBe("opening");
+    expect(introHolds(world)).toBe(true);
   });
 
   it("closes a fork the moment a wave starts, whatever route asked for it", () => {

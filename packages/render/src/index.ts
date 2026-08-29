@@ -1,4 +1,4 @@
-export { drawBriefing } from "./briefing.js";
+export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export {
   CAST_MAX_ALPHA,

@@ -57,15 +57,17 @@ from becoming visible to impact, better 5–6. At the default config a creature
 takes `rows` beats, roughly 9 s. Anything faster must work without an
 announcement.
 
-## 5. A wave of its own, and a card before it
+## 5. A wave of its own, and a guide inside it
 
 **A creature nobody is introduced to is a creature nobody learns.** Every kind
 on the field today arrives this way and the pattern is not written down
 anywhere else, so it is written here: a new creature gets **one wave that is
-about it** and **one briefing card shown before that wave**.
+about it** and **a guide written inside that wave**. Shipping a creature means
+both. A creature nobody can play is not shipped, and a wave that introduces
+something with nothing said about it is a wave the pair reads by guessing.
 
-**The wave.** One entry in `packages/content/src/waves.ts`, passing the
-one-sentence test the way any wave must — THE RUNT is *"The one where a shot
+**The wave.** One entry in one of `packages/content/src/waves/act-*.ts`,
+passing the one-sentence test the way any wave must — THE RUNT is *"The one where a shot
 that lands is the mistake"*, ON THE BEAT is *"The one where firing on sight is
 the miss."* Both name the **mistake the creature exists to punish**, not the
 creature. That is the test: if the sentence describes the body rather than what
@@ -78,18 +80,26 @@ shooting it teaches nothing with nothing else on the field to shoot. Ask what
 the creature is defined **against**, and put that in the wave if the answer is
 not "the empty field".
 
-**The card.** One entry in `packages/content/src/briefings.ts`, and it is
-**three texts, not one**: `both` for what the thing is, then `p1` and `p2` for
-what each seat now does about it — the split is the point, and a card whose
-`p1` and `p2` say the same thing is a card that has not understood the game.
-THE THROB's are worth copying as a shape: *"Call the beat it swells on, out
-loud, the way you call a column"* against *"Fire on the count, not on sight."*
+**The guide.** A `guide` on that same wave, written directly under
+`sentence`, and it is **three texts, not one**: `both` for what the thing is,
+then `p1` and `p2` for what each seat now does about it — the split is the
+point, and a guide whose `p1` and `p2` say the same thing is a guide that has
+not understood the game. ON THE BEAT's are worth copying as a shape: *"Call
+the beat it swells on, out loud, the way you call a column"* against *"Fire on
+the count, not on sight."*
 
-**Nothing enforces this, so check it by hand.** `BriefingId` is its own list in
-`packages/sim/src/briefing.ts` rather than being derived from `CreatureKind`,
-so a creature can ship with no card and nothing will fail. `BRIEFINGS` is a
-`Record` over that list, so once the id exists a missing card *is* a type
-error — the gap is only between adding a kind and adding the id.
+Say what the *wave* is about, not what the creature is in the abstract. The
+abstract sentence has its own home — the `what` row in
+`packages/content/src/mechanics-table.ts`, which the bestiary reads — and a
+guide that repeats it has spent the pair's attention saying something the
+field is about to say by itself.
+
+**This one is enforced.** `packages/content/test/waves.test.ts` walks the wave
+list in order and fails when the first wave to carry a new kind has no guide.
+It fails the other way too, so do not add a guide to a wave that introduces
+nothing — that is padding, and it is the same failure as padding a wave with
+entries. `mechanics-table.ts` is the other half: a kind added to the
+simulation and not to that table is a type error there.
 
 ## 6. Replay test
 

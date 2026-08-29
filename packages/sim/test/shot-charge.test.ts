@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  briefingHolds,
   chargeDueTick,
   chargeMilli,
   chargePartTicks,
@@ -9,6 +10,8 @@ import {
   hashWorld,
   lanceReady,
   laying,
+  OPENING_INTRO,
+  OPENING_PLAY,
   PAIR_ON,
   priming,
   type SimConfig,
@@ -265,14 +268,14 @@ describe("a charge nobody can deliver", () => {
     expect(fired(seen)).toHaveLength(0);
   });
 
-  it("is never in the muzzle while a briefing card is up", () => {
-    // A card is only ever raised by `startWave`, and `startWave` throws the
-    // charge away — so "a card comes up mid-charge" is a state the world
-    // cannot hold, rather than one that is handled.
+  it("is never in the muzzle while a wave's opening is up", () => {
+    // An opening is only ever raised by `startWave`, and `startWave` throws
+    // the charge away — so "the introduction comes up mid-charge" is a state
+    // the world cannot hold, rather than one that is handled.
     const w = createWorld({ ...LAID, ...PAIR_ON }, 0, [
       { beat: 0, col: COL, kind: "slick", color: "red" },
     ]);
-    expect(w.brief.due.length).toBeGreaterThan(0);
+    expect(briefingHolds(w)).toBe(true);
     expect(w.charge).toBeNull();
     // And nothing reaches the ship while it holds, so none is laid either.
     play(w, TPB * 2, [shoot(1), shoot(TPB)]);
@@ -297,21 +300,21 @@ describe("a world that stops", () => {
     const left = w.charge?.left;
     expect(left).toBeGreaterThan(0);
 
-    // A briefing card. It used to be an interlude here, which was the other
+    // A wave's opening. It used to be an interlude here, which was the other
     // world that stops; THE GAUGE is a boss wave now and `startWave` empties
     // the charge on the way in, so a shot can no longer be owed into one. What
     // the rule is about did not change: the countdown is only ever stepped
     // from inside a running field, so a field that is not running holds it —
     // the shot is owed, not late.
     //
-    // The card is raised by hand rather than by a wave, because a wave is what
-    // clears the charge. `briefingHolds` reads nothing but the length.
-    w.brief.due = [0];
+    // The opening is raised by hand rather than by a wave, because a wave is
+    // what clears the charge. `briefingHolds` reads nothing but the phase.
+    w.brief.phase = OPENING_INTRO;
     play(w, TPB * 20);
     expect(w.charge?.left).toBe(left as number);
     expect(w.bullets).toHaveLength(0);
 
-    w.brief.due = [];
+    w.brief.phase = OPENING_PLAY;
     const seen = play(w, w.tick + PART + 2);
     expect(fired(seen)).toHaveLength(1);
   });

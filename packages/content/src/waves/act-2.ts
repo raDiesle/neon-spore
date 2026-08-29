@@ -10,7 +10,11 @@ export const WAVES_ACT_2: Wave[] = [
   {
     name: "BULB QUEEN",
     sentence: "The one where she opens for two beats, and drops a torch on a clock of its own.",
-    hint: "Two marks, one real. P1 sees what is coming, P2 sees where — say both.",
+    guide: {
+      both: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
+      p1: "You see what is coming — the shape and the colour. Say both.",
+      p2: "You see where — which of the two marks is real, and which wing drops. Say the side.",
+    },
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4 }],
     boss: { kind: "queen", col: 3, petals: 9 },
@@ -18,7 +22,11 @@ export const WAVES_ACT_2: Wave[] = [
   {
     name: "THE MIRROR",
     sentence: "The one where the boss is your own ship, and it asks for your moves back.",
-    hint: "Watch, then do the same. Say every step out loud — the pod is bait.",
+    guide: {
+      both: "The boss is your own ship. It performs a sequence of your own moves, then asks for the whole of it back.",
+      p1: "Say every step out loud as it happens. Neither of you can hold six of them alone.",
+      p2: "Nothing you press counts while it is still showing. Wait for it to finish.",
+    },
     entries: [],
     boss: {
       kind: "mirror",
@@ -32,14 +40,22 @@ export const WAVES_ACT_2: Wave[] = [
   {
     name: "THE MAZE",
     sentence: "The one where he turns the wheel and she fires, and neither can do the other half.",
-    hint: "Pull the string until a way in clicks onto a column and lights, park the cannon there, fire. Nobody knows which reaches the middle, and a dead end costs the hull — say which to try next.",
+    guide: {
+      both: "A wheel of rings turns above the ship. Ways in are cut round its rim and only one of them reaches the middle — neither of you is told which.",
+      p1: "You pull the string. The wheel turns until a way in clicks onto a column and lights up, and you cannot fire.",
+      p2: "You fire, and you cannot turn anything. A shot only counts up the column the light is standing on — and a dead end costs the hull.",
+    },
     entries: [],
     boss: { kind: "maze", rounds: MAZE_ROUNDS },
   },
   {
     name: "THE GAUGE",
     sentence: "The one where the field is gone and neither of you has more than half a dial.",
-    hint: "He holds the valve and cannot see the marks. She sees them and cannot turn anything. Five between the marks, or the hull pays for it.",
+    guide: {
+      both: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
+      p1: "You hold the valve and you cannot see the marks. Turn it where she tells you, and stop when she says stop.",
+      p2: "You can see the marks and you cannot turn anything. Say where it has to go, then call it — and the marks move.",
+    },
     entries: [],
     boss: { kind: "gauge" },
     controls: "gauge",
@@ -48,7 +64,11 @@ export const WAVES_ACT_2: Wave[] = [
     name: "THE WARDEN",
     sentence:
       "The one where it holds one of your controls and only the other one of you can get it back.",
-    hint: "It takes the cannon, then the shield, then the cannon. Whoever is free pulls the line — and the rim's colour is the shot.",
+    guide: {
+      both: "A ring five columns wide with a hole you can see the field through. It never moves, it takes one of your two sliding controls at a time, and the line it puts out can neither be shot nor warded.",
+      p1: "Only a shot of the rim's own colour, in the hole's own column, takes a plate off it. Whichever of you the line is holding cannot slide at all until it is off.",
+      p2: "The core only stands still for two beats after a line comes free — that is the whole window. Only the one the line is not holding can pull it, and pulling costs that hand.",
+    },
     entries: [],
     boss: { kind: "warden" },
   },

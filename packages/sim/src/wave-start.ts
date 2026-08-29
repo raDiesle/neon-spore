@@ -1,5 +1,5 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
-import { type BriefingId, openBriefings } from "./briefing.js";
+import { openWave } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
 import { closeFork } from "./fork.js";
 import { installGauge } from "./gauge-round.js";
@@ -23,10 +23,10 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * carry across waves, exactly as in the prototype: damage is permanent and the
  * balance is the record of the whole run.
  *
- * `card` is content's authored override on `Wave`, passed straight through
- * to `openBriefings` and read nowhere else here — this function does not
- * know what a wave is, only what one hands it. A caller that leaves it out
- * gets the plain derivation, unchanged.
+ * `hasGuide` is whether content wrote a `guide` on this wave. It is a boolean
+ * and not the guide itself on purpose: the sim decides *whether* the field is
+ * held and for how many states, and it never reads a word of what is on the
+ * screen. A caller that leaves it out gets an introduction and then the wave.
  */
 export function startWave(
   world: World,
@@ -34,7 +34,7 @@ export function startWave(
   queue: SpawnEntry[],
   podQueue: PodEntry[] = [],
   boss: BossEntry | null = null,
-  card?: BriefingId | null,
+  hasGuide = false,
 ): void {
   const mid = Math.floor(world.cfg.cols / 2);
   world.wave = waveIndex;
@@ -122,13 +122,12 @@ export function startWave(
   // A wave that has started is not a wave waiting to start, so THE FORK closes
   // here and nowhere else can leave one open behind a running field (`fork.ts`).
   // It is also the order the two gates run in: the pair commits, and then the
-  // card tells them what they committed to.
+  // wave tells them what they committed to.
   closeFork(world);
 
-  // Last, so it can read the boss that was just installed: whatever this wave
-  // asks of the pair for the first time is a card it opens on, and the field
-  // holds still behind it until both of them have put it away.
-  openBriefings(world, queue, podQueue, boss, card);
+  // Last: the wave's name and sentence stand on the field, then its guide if
+  // it has one, and the field holds still behind both of them.
+  openWave(world, hasGuide);
 
   world.events.push({ type: "waveStart", wave: waveIndex });
 }

@@ -174,7 +174,6 @@ function drawFrames(ticks: number): number {
       dt: 4 / CFG.tickHz,
       events: world.events.slice(),
       running: true,
-      banner: null,
     });
   }
   return ctx.calls;

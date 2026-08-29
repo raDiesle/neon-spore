@@ -212,14 +212,14 @@ function copyBoss(boss: Wave["boss"]): Wave["boss"] {
  * the wave is made rather than in review.
  */
 export function emptyWave(): Wave {
-  return { name: "", sentence: "", hint: "", entries: [] };
+  return { name: "", sentence: "", entries: [] };
 }
 
 export function copyWave(wave: Wave): Wave {
   return {
     name: `${wave.name} COPY`,
     sentence: wave.sentence,
-    hint: wave.hint,
+    guide: wave.guide ? { ...wave.guide } : undefined,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
     boss: copyBoss(wave.boss),
@@ -231,7 +231,6 @@ export function refuse(waves: Wave[]): string | null {
   for (const [i, w] of waves.entries()) {
     if (!w.name.trim()) return `wave ${i + 1} has no name`;
     if (!w.sentence.trim()) return `wave ${i + 1} has no sentence — it is padding`;
-    if (!w.hint.trim()) return `wave ${i + 1} has no hint`;
     // A boss wave is the boss: it is the whole wave, not an entry in it.
     if (!w.entries.length && !w.boss) return `wave ${i + 1} is empty`;
     // THE MIRROR is nothing but its rounds, and a round nobody can answer

@@ -17,13 +17,14 @@ import type { World } from "./world.js";
 /** Advance exactly one tick. The only way the world ever changes. */
 export function step(world: World, commands: readonly TimedCommand[]): void {
   world.events.length = 0;
-  // A card is up. Nothing reaches the ship — the same rule THE MIRROR plays by
-  // while it is presenting — and the only command that means anything is the
-  // one that puts the card away.
+  // The wave has not started yet: its introduction is standing, or its guide
+  // is up. Nothing reaches the ship — the same rule THE MIRROR plays by while
+  // it is presenting — and the only command that means anything is the one
+  // that says a seat is done reading (`briefing.ts`).
   //
   // The tick still counts, and that is not a detail: a press is scheduled
   // `inputDelayTicks` into the future on both devices at once, so a world that
-  // froze its tick counter would be waiting for a dismissal it had arranged to
+  // froze its tick counter would be waiting for an ack it had arranged to
   // never reach itself. The wave is what stands still, not the clock.
   if (briefingHolds(world)) {
     for (const c of commands) if (c.command.kind === "brief") ackBriefing(world, c.player);

@@ -14,8 +14,8 @@
  */
 
 import { renderBorrowed } from "./borrowed.js";
-import { drawCards, mountCardTab } from "./card-page.js";
 import { conceptArt, draftFor } from "./concept-art.js";
+import { drawCards, mountCardTab } from "./guide-page.js";
 import { renderHolders } from "./holders-panel.js";
 import { detailBox, inline } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
@@ -201,7 +201,7 @@ export function bindBacklog(): void {
   if (!sheet || !open || !close) return;
 
   // CARDS is a tab of this sheet rather than a sheet of its own — see
-  // `card-page.ts`. It has to be mounted before `bindTabs` runs, so a click
+  // `guide-page.ts`. It has to be mounted before `bindTabs` runs, so a click
   // on it is wired the same way a click on BESTIARY or SPEC is.
   mountCardTab();
   // VERSUS is a third such tab — see `versus-page.ts`. Two live renderers
@@ -215,7 +215,7 @@ export function bindBacklog(): void {
    * every contour over a minute of its own wobble — a third of a second of
    * arithmetic, which is nothing to wait for when you asked for shapes and a
    * visible stall when you asked for the bestiary. CARDS is lazy the same way,
-   * for the same reason — see `card-page.ts`.
+   * for the same reason — see `guide-page.ts`.
    */
   let shapesDrawn = false;
   const drawShapes = (): void => {

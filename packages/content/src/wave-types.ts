@@ -1,4 +1,4 @@
-import type { BossEntry, BriefingId, Color, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, Color, PodEntry } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
 
@@ -41,12 +41,59 @@ export interface WaveEntry {
   color: Color | null;
 }
 
+/**
+ * The help a wave carries: a concrete instruction about a control or a concept
+ * the pair is about to meet for the first time.
+ *
+ * **An object with named parts, and that is the whole point of it being one.**
+ * The owner has said plainly that a guide may one day be more than words — a
+ * guidance animation, a picture, a scene stepped through — and that it will be
+ * built one piece at a time. So a guide is never three loose fields on `Wave`
+ * and never a bare string: motion arrives here as *another key beside these
+ * three*, and no wave file has to move to make room for it. Anything added is
+ * optional, so the sixteen waves that carry words today keep carrying only
+ * words.
+ *
+ * **Every guide is split, and the split is the point.** Three lines: one both
+ * screens carry, and one each. A guide that put all of it on both screens
+ * would teach the pair, in the first ten seconds of the game, that they do not
+ * need to talk to each other — which is the one thing this game cannot survive
+ * (`docs/spec/roles.md`). So neither half is ever a restatement of the other,
+ * and neither is optional: `both` says what the thing *is*, and the two halves
+ * say what each player does about it. Read alone, a guide is half an
+ * instruction.
+ *
+ * Keep the lines short. They are read on a phone, under a beat, by someone who
+ * is about to have to say them out loud. The heading is the wave's own `name`,
+ * so a guide never carries a title of its own.
+ */
+export interface WaveGuide {
+  /** The line both screens carry. Never the whole of it. */
+  both: string;
+  /** Player 1's half: the cannon, the shield's trigger, the maw. */
+  p1: string;
+  /** Player 2's half: the shield itself, and the two colours. */
+  p2: string;
+}
+
 export interface Wave {
   name: string;
   /** The one-sentence test. Not flavour text — the reason the wave exists. */
   sentence: string;
-  /** Shown to both players on first play. */
-  hint: string;
+  /**
+   * The help this wave opens on, after its introduction, or nothing.
+   *
+   * Written directly under `sentence` because that is where it is read: a
+   * wave's three lines of prose are its name, why it exists, and what the pair
+   * has to be told before it starts. A wave that introduces nothing new writes
+   * no guide at all, and padding one with a guide is the same failure as
+   * padding it with entries.
+   *
+   * The first wave to carry a creature, a pod kind, a boss or a mechanic must
+   * have one — `packages/content/test/waves.test.ts` is the invariant, and
+   * `.claude/skills/new-creature` is where the next session is told so.
+   */
+  guide?: WaveGuide;
   entries: WaveEntry[];
   /**
    * Pods left hanging in the field. Their own list, because a pod is not an
@@ -77,27 +124,4 @@ export interface Wave {
    * anything.
    */
   controls?: ControlSetId;
-  /**
-   * Which card this wave raises when it first teaches something, overriding
-   * `openBriefings`'s own derivation from `entries`, `pods` and `boss`.
-   *
-   * A wave that names nothing is unaffected — it still raises whatever it
-   * actually contains, exactly as before `card` existed. A wave that names one
-   * raises *only* that subject (plus the opening, on the very first wave)
-   * instead of everything it introduces, so an author who wants a specific
-   * teaching moment on a wave that happens to carry several new things can
-   * choose which one gets the card.
-   *
-   * Never `"opening"` — that subject is not tied to any wave's contents, so
-   * naming it here would be naming a thing this field cannot affect.
-   *
-   * **The named subject must be something this wave actually contains.** A
-   * card for a subject the wave does not carry teaches the pair something they
-   * are not about to meet, and `packages/content/test/briefings.test.ts` is
-   * the invariant that catches it — along with the same subject named twice,
-   * and a subject no wave, named or derived, ever reaches. Reachable only by
-   * running the whole list in order, because "contains" and "not already met
-   * by an earlier wave" are two different questions.
-   */
-  card?: Exclude<BriefingId, "opening">;
 }

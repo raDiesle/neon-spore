@@ -59,7 +59,6 @@ function frames(role: ViewRole, ticks: number, viewport = { width: 900, height: 
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: tick < 60 ? { title: "Wave", hint: "hint", remaining: 1.2 } : null,
     });
     events = [];
   }
@@ -118,7 +117,6 @@ function queenFrames(
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: tick < 60 ? { title: "Wave", hint: "hint", remaining: 1.2 } : null,
     });
     events = [];
   }
@@ -157,7 +155,6 @@ function torchFrames(
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
@@ -213,7 +210,6 @@ function lanceFrames(
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
@@ -340,7 +336,6 @@ function mirrorFrames(role: ViewRole, ticks: number) {
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
@@ -401,7 +396,6 @@ function wardenFrames(role: ViewRole, ticks: number) {
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
@@ -456,7 +450,6 @@ function vaneFrames(role: ViewRole, ticks: number) {
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }
@@ -513,7 +506,6 @@ describe("the balance sheet", () => {
         dt: 1 / 15,
         events: [],
         running: true,
-        banner: null,
       });
     }
     return ctx;
@@ -556,7 +548,6 @@ describe("the balance sheet", () => {
       dt: 1 / 60,
       events: [],
       running: true,
-      banner: null,
     });
     expect(ctx.calls).toBeGreaterThan(20);
   });
@@ -604,7 +595,6 @@ function gripFrames(role: ViewRole, ticks: number) {
       dt: 4 / CFG.tickHz,
       events,
       running: true,
-      banner: null,
     });
     events = [];
   }

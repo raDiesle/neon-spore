@@ -3,7 +3,7 @@ import { WAVES_ACT_1 } from "./waves/act-1.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
 
-export type { Wave, WaveEntry } from "./wave-types.js";
+export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
 
 /**
  * Every wave in the game, in order. This file used to be the list itself, and

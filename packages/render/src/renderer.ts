@@ -29,8 +29,6 @@ export interface ViewState {
   events: readonly SimEvent[];
   /** False while paused, so the field can dim without the loop stopping. */
   running: boolean;
-  /** Wave name and hint, shown for a moment when a wave opens. */
-  banner: { title: string; hint: string; remaining: number } | null;
 }
 
 /**

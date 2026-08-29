@@ -11,7 +11,7 @@
  * `waves.ts` is only the barrel that concatenates the three and is never
  * itself a save target.
  */
-import type { Wave, WaveEntry } from "@neon-spore/content";
+import type { Wave, WaveEntry, WaveGuide } from "@neon-spore/content";
 import type { BossEntry, PodEntry } from "@neon-spore/sim";
 
 function escapeString(s: string): string {
@@ -43,6 +43,36 @@ function textField(name: string, value: string): string[] {
   const wrapped = `      "${escapeString(value)}",`;
   if (wrapped.length > LINE_WIDTH) return [one];
   return [`    ${name}:`, wrapped];
+}
+
+/**
+ * The wave's guide, always over several lines even when three short strings
+ * would fit on one. Biome keeps an object literal expanded once its author put
+ * a newline after the brace, so "always expanded" is the only shape that round
+ * trips — and a guide is about to grow keys for a picture or a scene, which is
+ * not something to read off one long line.
+ */
+function serializeGuide(guide: WaveGuide): string[] {
+  return [
+    "    guide: {",
+    ...guideLine("both", guide.both),
+    ...guideLine("p1", guide.p1),
+    ...guideLine("p2", guide.p2),
+    "    },",
+  ];
+}
+
+/**
+ * One line of a guide, and it is always exactly one line however long it is —
+ * which is *not* the rule `textField` follows a level up. Biome breaks after
+ * `sentence:` when that gets the string under the width, and leaves the same
+ * string alone one level deeper inside `guide: {`. The formatter is the only
+ * authority on this and `serialize.test.ts` is what proves the two agree, so
+ * this is written as the two separate rules it turned out to be rather than as
+ * one rule with an indent parameter that quietly disagreed at 103 characters.
+ */
+function guideLine(name: string, value: string): string[] {
+  return [`      ${name}: "${escapeString(value)}",`];
 }
 
 function serializeEntry(entry: WaveEntry): string {
@@ -96,7 +126,10 @@ function serializeWave(wave: Wave): string {
   lines.push("  {");
   lines.push(...textField("name", wave.name));
   lines.push(...textField("sentence", wave.sentence));
-  lines.push(...textField("hint", wave.hint));
+  // Directly under `sentence`, which is where the owner asked for it and where
+  // it is read: a wave's prose is its name, why it exists, and what the pair
+  // has to be told before it starts.
+  if (wave.guide) lines.push(...serializeGuide(wave.guide));
 
   if (wave.entries.length === 0) {
     lines.push("    entries: [],");

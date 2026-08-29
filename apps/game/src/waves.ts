@@ -1,38 +1,68 @@
 import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
-import { resetRun, type SimConfig, type SimEvent, startWave, type World } from "@neon-spore/sim";
+import {
+  introHolds,
+  resetRun,
+  type SimConfig,
+  type SimEvent,
+  startWave,
+  type World,
+} from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
+import type { InputBuffer } from "./input.js";
 
 /**
- * Wave progression: the two ways a wave starts, and the banner that names it.
+ * Wave progression: the two ways a wave starts, and the clock that carries its
+ * introduction past.
  *
  * The simulation asks for a queue when it needs one; it cannot fetch one
  * itself, because waves live in `content/` and nothing points back into the
  * sim. The test rig and the main menu ask for a wave directly, jumping there
  * instead of waiting for the sim to ask. Both end in the same four calls into
- * `content` — queue, pods, boss, and now the wave's own `card` — because a
- * wave is content's idea and the sim only knows its number. `card` is read
- * straight off `WAVES`, not run through a `build*` helper of its own: unlike
- * the other three it needs no remap onto the real field, so there is nothing
- * for a helper to do.
+ * `content` — queue, pods, boss, and whether the wave carries a guide —
+ * because a wave is content's idea and the sim only knows its number. The
+ * guide is passed as a plain boolean, not as its words: the simulation decides
+ * how many states hold the field and never reads one of them.
+ *
+ * **The introduction's seconds are counted here, and this is the only place
+ * they could be.** `packages/sim` may not read a wall clock — that is what
+ * makes lockstep possible — so the wave's opening is held in the world and let
+ * go by a command, exactly like the guide's. Where the guide's command comes
+ * from a thumb, the introduction's comes from this countdown, one seat's worth
+ * per device. Two devices therefore leave the introduction a few frames apart
+ * and the world agrees about it anyway, because the acks travel the same wire
+ * every other press does.
  */
 
 /**
- * How long the wave's name and hint stand. Long enough to read a short one
- * twice: at 2.6 s the hint was gone before anyone had finished it, which made
- * every wave feel like it started mid-sentence.
+ * How long the introduction stands. Long enough to read a short sentence
+ * twice: at 2.6 s the old banner's hint was gone before anyone had finished
+ * it, which made every wave feel like it started mid-sentence.
  */
-const BANNER_SECONDS = 5.5;
+const INTRO_SECONDS = 5.5;
 
-export interface Banner {
-  title: string;
-  hint: string;
-  remaining: number;
-}
+/**
+ * How long to wait, **in world ticks**, before asking again when the
+ * introduction is somehow still standing.
+ *
+ * Ticks and not seconds, and that is the whole of what makes the retry safe.
+ * An ack is scheduled `inputDelayTicks` into the future, so for a moment after
+ * it is sent the introduction is legitimately still up — a retry on a wall
+ * clock fires into that gap, the world moves on to the guide, and the second
+ * pair of acks arrives to put away a guide nobody has read. That is not a race
+ * that showed up under load: it happened on the first frame anybody looked at.
+ *
+ * Counting the world's own ticks fixes both halves at once. It cannot fire
+ * before the first ack has had time to land, and it cannot fire while the game
+ * is paused — which is the one case a retry exists for, since a paused loop
+ * throws buffered commands away — because a paused world does not tick either.
+ */
+const RETRY_TICKS = 60;
 
 export interface WaveProgressionOptions {
   world: World;
   cfg: SimConfig;
   audio: GameAudio;
+  buffer: InputBuffer;
 }
 
 export interface WaveProgression {
@@ -40,68 +70,73 @@ export interface WaveProgression {
   handle(events: readonly SimEvent[]): void;
   /** Jump to a wave in the test build: a fresh run, not a continuation. */
   jumpToWave(wave: number): void;
-  banner(): Banner;
-  /** Counts the banner down. A briefing card holds it — see `briefing.ts`. */
-  tickBanner(dtSeconds: number, held: boolean): void;
+  /** Counts the introduction down, and lets it go when it runs out. */
+  tickOpening(dtSeconds: number): void;
 }
 
 export function createWaveProgression({
   world,
   cfg,
   audio,
+  buffer,
 }: WaveProgressionOptions): WaveProgression {
-  let banner = openingBanner(0);
+  /** Seconds left on the introduction that is up, or 0 when none is. */
+  let left = 0;
+  /** The world tick the acks were sent on, or -1 while none has been sent. */
+  let sentAtTick = -1;
 
-  function openingBanner(wave: number): Banner {
-    const w = WAVES[wave];
-    return w
-      ? { title: w.name, hint: w.hint, remaining: BANNER_SECONDS }
-      : {
-          title: `WAVE ${wave + 1}`,
-          hint: "Beyond the authored waves.",
-          remaining: BANNER_SECONDS,
-        };
-  }
+  const open = (wave: number): void => {
+    startWave(
+      world,
+      wave,
+      buildQueue(wave, cfg.cols),
+      buildPods(wave, cfg.cols),
+      buildBoss(wave, cfg.cols),
+      WAVES[wave]?.guide !== undefined,
+    );
+    left = INTRO_SECONDS;
+    sentAtTick = -1;
+  };
 
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
       if (e.type !== "needWave") continue;
-      startWave(
-        world,
-        e.wave,
-        buildQueue(e.wave, cfg.cols),
-        buildPods(e.wave, cfg.cols),
-        buildBoss(e.wave, cfg.cols),
-        WAVES[e.wave]?.card,
-      );
-      banner = openingBanner(e.wave);
+      open(e.wave);
     }
   };
 
   const jumpToWave = (wave: number): void => {
-    const target = Math.max(0, wave);
     resetRun(world);
     // The tick counter goes back to zero with the run, so anything remembered
     // against it — in render/ and in audio/ alike — is about to be read as this
     // run's own. See CLAUDE.md on `world.beat` not being monotonic.
     audio.restarted();
-    startWave(
-      world,
-      target,
-      buildQueue(target, cfg.cols),
-      buildPods(target, cfg.cols),
-      buildBoss(target, cfg.cols),
-      WAVES[target]?.card,
-    );
-    banner = openingBanner(target);
+    open(Math.max(0, wave));
   };
 
   return {
     handle,
     jumpToWave,
-    banner: () => banner,
-    tickBanner: (dtSeconds, held) => {
-      if (banner.remaining > 0 && !held) banner.remaining -= dtSeconds;
+    tickOpening: (dtSeconds) => {
+      // The world is the authority on whether the introduction is still up: a
+      // headless check that acked it by hand, or a partner who was slower than
+      // this device, both show up here as the phase having moved on.
+      if (!introHolds(world)) {
+        sentAtTick = -1;
+        return;
+      }
+      if (sentAtTick >= 0) {
+        // Already asked once. Ask again only when the world has ticked far
+        // enough past that for the answer to have been lost rather than merely
+        // to be in flight — see `RETRY_TICKS`, which is why this counts ticks.
+        if (world.tick - sentAtTick < RETRY_TICKS) return;
+      } else {
+        left -= dtSeconds;
+        if (left > 0) return;
+      }
+      buffer.push(1, { kind: "brief" });
+      buffer.push(2, { kind: "brief" });
+      sentAtTick = world.tick;
     },
   };
 }
