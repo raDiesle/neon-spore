@@ -120,53 +120,6 @@ Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
 — the input is inherited. Read `packages/sim/src/warden.ts` whole and
 `docs/spec/bosses.md` §11.4 before deciding anything.
 
-## AN EXPIRED GUARD LOOKS EXACTLY LIKE A BROKEN SHIELD
-_claude/burn-guard-lapse · packages/render/src/band.ts packages/render/src/shield.ts packages/render/test/frame.test.ts_
-**Asked for by the owner.** Their decision on a finding from the shield
-investigation: *show when it lapses*, and leave the timing alone.
-
-**What is true today.** Deflection needs two things at once — the shield in the
-rock's column, player 2's job, and the guard triggered within
-`cfg.guardWindowMs`, player 1's. `resolveHull` compares `world.tick -
-world.guardTick` against that window. **The guard is a press with an expiry,
-not a state that is held.**
-
-So a player who sees a rock coming, presses guard early and keeps holding, has
-a press that lapsed before the rock arrived. The shield is in the right column,
-the button is down, and the rock goes through. Nothing on screen distinguishes
-that from a shield that simply did not work.
-
-**The timing is not being changed and that is the owner's decision.** They were
-offered a held guard that stays armed and declined it: the window is the skill.
-What they asked for is that a lapse be *visible*. So this lane adds no
-mechanic, changes no rule, and must not touch `packages/sim`.
-
-**What to work out, and it is the whole lane.** The guard is armed for a window
-measured in milliseconds — long enough to act on, short enough that a bar
-draining would be noise on every press. So the question is what a player needs
-to see and when: that it is armed *now*, that it has lapsed, or both. Watch a
-wave before designing it, because the answer depends on how often the state
-changes at tempo, and a signal that flickers is worse than none.
-
-**It has to read without being looked at.** The pair is calling columns to each
-other; player 1 is not studying their own button. Whatever this is, it works in
-peripheral vision or it does not work.
-
-**Nothing else may change.** This is a defect in what the game *says*, not in
-what it does — a state the rules already have and the picture never showed. Say
-that in the commit; it is what keeps this from becoming a look nobody asked
-for.
-
-Finished when `bun run check` is green, `frame.test.ts` passes through the
-strict canvas stub, nothing in `packages/sim` is touched, and the commit carries
-
-`Check: holding the guard too early, can you now tell it has lapsed before the rock arrives, rather than finding out when the ship takes the hit`
-
-Model `sonnet`, effort `think hard`. Read `resolveHull` in
-`packages/sim/src/hull.ts` for the window's meaning, then
-`packages/render/src/band.ts` for how a control already shows its own state.
-The thinking goes on what a player can notice while not looking at it.
-
 ## THE GAME SHOULD BE PLAYABLE ON A PC, NOT ONLY TESTABLE
 _claude/burn-game-on-pc · apps/game/src/input.ts apps/game/src/main.ts packages/render/src/touch.ts apps/game/test_
 **Asked for by the owner.** Asked what *"full support for pc with mouse"* meant,
