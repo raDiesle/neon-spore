@@ -9,6 +9,7 @@ import {
   touchUp,
 } from "@neon-spore/render";
 import type { Command, Creature, MazeState, SimConfig } from "@neon-spore/sim";
+import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
 
 /**
@@ -118,6 +119,25 @@ export function bindControls({
   };
 
   /**
+   * Every hold this device is carrying, let go at once. A finger that leaves
+   * the glass always fires `pointerup` — the OS delivers it to the page that
+   * owns the touch. A mouse dragged off the *window* is not the same: once the
+   * cursor is over another application (or another monitor with no browser
+   * under it), this page stops receiving pointer events altogether, capture or
+   * not, and a held cannon or a held lance would stay held forever. This is
+   * the phone's `up`, called for every id still down, from whichever of the
+   * two ways a PC actually loses a pointer this way (`window.blur` and the
+   * pointer crossing the edge of the document) fires first.
+   */
+  const releaseAll = (): void => {
+    for (const [id, hold] of holding) {
+      holding.delete(id);
+      const t = touchUp(hold, field());
+      if (t) buffer.push(t.player, t.command);
+    }
+  };
+
+  /**
    * Screen to stage. The game is drawn into a phone-shaped rectangle, so on a
    * wide window a touch is offset by the same amount the picture is — and a
    * touch beside the rectangle belongs to nothing.
@@ -156,6 +176,15 @@ export function bindControls({
   canvas.addEventListener("pointerup", up);
   canvas.addEventListener("pointercancel", up);
   canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  // The window losing focus (alt-tab, a click on another application) and the
+  // pointer crossing the outer edge of the document (dragged past the browser
+  // chrome) are the two ways a held mouse button actually goes silent on a PC.
+  // Neither can happen with a finger, which is why nothing above already
+  // covers this.
+  window.addEventListener("blur", releaseAll);
+  document.documentElement.addEventListener("pointerleave", releaseAll);
+
+  showKeyHint(canvas);
 
   /**
    * Keyboard, for playing both roles alone at a desk. A/D slide the cannon
