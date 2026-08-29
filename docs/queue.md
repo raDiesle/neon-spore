@@ -445,3 +445,59 @@ THE MAZE as it no longer is.
 
 Model `sonnet`, effort `think`. Small, but `events.ts` is in `packages/sim` —
 read the rename's callers before making it.
+
+## THE ROCK THAT WENT INTO THE SHIP IS STILL UNEXPLAINED
+_claude/burn-shield-deflect-repro · needs a repro before it needs paths_
+**Asked for by the owner.** A `FAIL` on `bacca00`, re-queued because two lanes
+have now looked and neither found it. **The entry it replaces was retired by a
+landing that did not fix it** — the branch landed a guard test, the tool marked
+the entry done, and the owner's report is still standing. That is the one way a
+`FAIL` disappears, and it nearly did.
+
+> I still see the rock goes into the ship ( on cannon position). i can handle
+> myself later
+
+### What is ruled out, with evidence. Do not re-check any of it.
+
+- **The simulation deflects correctly.** `resolveHull` never reads `cannonCol`.
+  It tests the shield at `shieldRow`, a row above the hull, before falling
+  through to the hull row, and `occupiesCol` checks the shield's column against
+  the rock's full span.
+- **The owner's exact case is already a passing test.**
+  `packages/sim/test/guard.test.ts`, added by `bacca00` itself, has cannon and
+  shield both aimed at the rock's column with the guard pressed in time. Green.
+- **A mouse does move the shield.** This one was my own hypothesis and it was
+  wrong, in a way worth recording: the director hard-wires the *pointer's seat*
+  to player 1, but `touch.ts`'s cannon and shield strips answer by **explicit
+  player number** rather than by that seat, so a PC mouse on the shield strip
+  issues `shieldCol` for player 2 regardless. My two queue entries contradicted
+  each other on this and a lane caught it.
+- **The shield is drawn where it is held.** Column mapping matches exactly. The
+  armed dome's crown sits a quarter to three quarters of a tile above the hull
+  rather than the full tile `shieldRow` stands off by — but that is deliberate
+  and documented, because a rock's drawn radius reaches the crown before its
+  tracked row does, and `deflect.test.ts` already guards the correction.
+  `packages/render/test/shield-column.test.ts` now pins the drawn column to the
+  simulated one so this cannot drift later.
+
+### What is left, and why the next step is not another lane
+
+**Every cheap explanation is gone.** What remains is a condition nobody has
+reproduced: a timing, a particular wave, the guard pressed late, a boss round,
+a second rock in the same column, or something the owner did that nobody has
+guessed. Two lanes have now spent themselves reasoning from the code, and a
+third would be a third guess.
+
+**So this needs a repro before it needs a fix, and the owner is the only person
+who has seen it.** The useful next move is one of:
+
+- the owner says which wave and what they were doing — a wave name and "the
+  guard was already held" would probably settle it in ten minutes; or
+- a lane drives the real page in a headless browser through a run and watches
+  for a rock crossing `shieldRow` in a column the shield occupies, which is a
+  detector rather than a guess and would catch it whatever the condition is.
+
+**Do not open this as an ordinary fix lane.** A lane told to fix a defect that
+three investigations could not locate will find something adjacent and change
+it, which is how the last two attempts in this area went. Queue the detector,
+or wait for the owner's answer.
