@@ -1077,6 +1077,76 @@ Exempt from *a look is offered, never replaced* under the first named
 exemption — the owner asked for it by name, in the words above, and it covers
 this and nothing else.
 
+### The eye, the colour, and who fires — the owner's answers
+
+> a) wer schießt: nur spieler 2, weil er ja die control panel zu beiden
+> schüssen hat. das auge ist dann in einer der beiden farben der schüsse und
+> jeweils verwundbar dagegen. das auge muss als auge erkennbar sein, das sich
+> mit cooler animation öffnet und schließt. ich schlage vor, die lieder vom Auge
+> öffnen sich zeitgleich mit der falltür und schließen sich zusammen mit den
+> tor, wenn das auge beschädigt wurde. das lässt dann auch das seil an den
+> anfang zurückschnellen.
+>
+> b) alte halten soll im code bleiben und testbar bzw. dokumentiert sein in
+> "not build yet" - "controls"
+
+*a) Who shoots: only player 2, because he has the control panel with both
+shots. The eye is then in one of the two shot colours and vulnerable only to
+that one. The eye must be recognisable as an eye, opening and closing with a
+cool animation. I suggest the eyelids open at the same time as the trapdoor and
+close together with the gate when the eye has been damaged — which also snaps
+the rope back to the start.*
+
+*b) The old hold should stay in the code and be testable and documented in "not
+built yet" → "controls".*
+
+**Half of (a) is already the rule, and the lane must not rebuild it.** The rim
+already carries a colour — red on a cycle that clamps the cannon, cyan on one
+that clamps the shield (`wardenColor` in `warden-cycle.ts`) — and
+`resolveWarden` in `bullet-hit.ts` already rejects a bullet of the wrong colour
+as a *colour miss*. So "the eye is in one of the two shot colours and only that
+one wounds it" describes what the code does today. Confirm it and leave it
+alone.
+
+**The eyelids are the new part and they are tied to the hatch, not to a clock.**
+They open with the trapdoor and close with it, and they close when the eye is
+damaged — the same moment the gate shuts. So the eye's openness is the *same
+quantity* as the hatch's: one number, drawn twice. That keeps the promise made
+above about the picture not drifting from the rule, and it means there is
+nothing to synchronise, because there are not two things.
+
+**And the rope snaps back to the start on a hit.** That is not decoration —
+it is what tells the puller their partner landed the shot, without either of
+them saying so. It also answers, on its own, the question of whether a pair can
+slacken and re-tension for a second plate on the same opening: the tension is
+taken away from them at the moment of the hit.
+
+**The eye must read as an eye**, drawn with the care that implies. It is a
+lidded thing that opens and shuts, not a coloured circle that appears.
+
+### One conflict the owner has not seen yet, and it must not be papered over
+
+**`wardenClampedControl` alternates strictly: cannon, shield, cannon.** The
+clamped seat is the one the rim has hold of, and today's rule is that *the
+player it is not holding* is the one who pulls it free. So the seats swap every
+cycle — and "only player 2 shoots" cannot hold on a cycle where player 1's
+cannon is the thing clamped, because there is nobody left to fire.
+
+Three readings and the lane may pick none of them:
+
+- The alternation goes, and the Warden always clamps player 1 while player 2
+  always fires. Simplest, and it throws away a rhythm somebody designed.
+- The alternation stays and the shooter alternates with it, which contradicts
+  what the owner just said.
+- The alternation means something other than who pulls — worth checking before
+  assuming, since `wardenClampedControl` is about which *control* is frozen and
+  that is not obviously the same question.
+
+**Check the third reading first, then ask.** If the clamp and the pull turn out
+to be independent, the owner's answer holds as written and there is no conflict
+at all. If they are the same thing, this is a design question and the entry
+waits.
+
 ### The old mechanic is kept, not deleted
 
 > behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo fest.
