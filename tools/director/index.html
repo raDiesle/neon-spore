@@ -1351,5 +1351,14 @@
     </div>
 
     <script type="module" src="./src/main.ts"></script>
+    <!--
+      Hovering a brush names the wave that first introduces what it paints —
+      the native `title` attribute, wired here rather than in palette.ts,
+      which is outside this feature's paths. `attachBrushTooltips` watches
+      #brushes and keeps every button's title current across re-renders. A
+      second `src` script, not an inline one, so Bun's HTML bundler resolves
+      its import the same way it resolves `main.ts`'s.
+    -->
+    <script type="module" src="./src/brush-tooltip-init.ts"></script>
   </body>
 </html>

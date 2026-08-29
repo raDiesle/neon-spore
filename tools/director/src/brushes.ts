@@ -156,7 +156,7 @@ export const BRUSHES: {
  * the rock tiers need a table at all, since `"rock"` and `"meteor"` are not
  * the same string.
  */
-const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
+export const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
   ...Object.fromEntries(LIVING_BRUSH_KINDS.map((kind) => [kind, kind])),
   rock: "meteor",
   rockMedium: "meteorMedium",
