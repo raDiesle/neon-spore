@@ -230,58 +230,6 @@ Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
 — the input is inherited. Read `packages/sim/src/warden.ts` whole and
 `docs/spec/bosses.md` §11.4 before deciding anything.
 
-## THE GAME SHOULD BE PLAYABLE ON A PC, NOT ONLY TESTABLE
-_claude/burn-game-on-pc · apps/game/src/input.ts apps/game/src/main.ts packages/render/src/touch.ts apps/game/test_
-**Asked for by the owner.** Asked what *"full support for pc with mouse"* meant,
-they chose the larger reading: **the game itself, fully playable on a PC** —
-not only the director.
-
-**The concern was put to them and they decided anyway, so this is built.** It is
-recorded here once because a later session will meet it and should know it was
-seen rather than missed: the game is two people on two devices, and the control
-scheme *is* the conversation. Two players at one keyboard are not two devices —
-they can see each other's screen, which retires the one thing the design is
-built on. So the honest shape of this is **a PC is a device**: one player at a
-PC, one on a phone, playing the same room. Not two players sharing a keyboard.
-
-Build that, and say in the commit that it is what was built.
-
-**What exists already.** `apps/game/src/input.ts` is the desk layout the
-director's `keys.ts` deliberately copies rather than imports — and `keys.ts`'s
-header says *if the two ever disagree, the game is right*. So the game already
-has keys; what it does not have is a mouse, and it does not have a way to tell
-a player what any of it is.
-
-**Three things, and the third is the one that gets forgotten.**
-
-- **The mouse drives what a finger drives.** `packages/render/src/touch.ts` is
-  already the one path the game and the director share, so a pointer should
-  reach it rather than growing a second control scheme beside it.
-- **A held control has to survive a mouse leaving the window.** A finger that
-  leaves the glass sends an up event; a mouse dragged off the page may not, and
-  a cannon that stays held because the pointer left is a bug that only appears
-  on a PC.
-- **The player has to be told the keys exist.** `claude/burn-pc-mouse-and-keys`
-  is building this for the director; the game needs its own answer, and it is
-  not the same answer, because the game has no room for a panel and the pair is
-  mid-wave.
-
-**Sequence: after `claude/burn-pc-mouse-and-keys` and after
-`claude/burn-grab-and-drag`.** Both touch the same input path, and this one is
-the largest of the three. It inherits their decisions rather than making them
-twice.
-
-Finished when `bun run check` is green, a wave can be played through at a PC
-with mouse and keyboard, a held control releases when the pointer leaves the
-window, and the commit carries
-
-`Check: sitting at a PC with a phone beside you, can the two of you play a wave through without either of you being told which key is which`
-
-Model `sonnet`, effort `think hard`. Read `apps/game/src/input.ts` in full and
-`packages/render/src/touch.ts`. The thinking goes on what a PC player is told
-and when — the input mapping is the easy half, and a player who cannot find
-their own controls has no game whatever the mapping is.
-
 ## THE CANNON LAYS THE SHOT LIKE A HEN LAYS AN EGG
 _claude/burn-cannon-egg · tools/versus/candidates/cannon-shot packages/render/test_
 **Asked for by the owner.** Said in German; translated here, because everything
