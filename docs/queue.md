@@ -555,9 +555,9 @@ turn it into a tab that opens an empty body; put it where a reader looking for
 
 ### The name
 
-The owner suggested **GAME DOCUMENTATION** and said *something like*. Use their
-words unless a shorter one is clearly better on a crowded bar — and if it is
-shortened, say in the commit what and why. It is renamed everywhere it appears:
+**GAME MECHANICS.** The owner first said *something like game documentation*
+and then chose this instead, so it is decided rather than suggested: use it
+exactly, and do not shorten it. It is renamed everywhere it appears:
 the button, the page header, and any prose in `index.html` or the director's
 `README.md` that calls it STATES.
 
@@ -598,7 +598,7 @@ move.
 **One honest tension, named and not resolved by the lane.** The other four
 sections are reference — they describe what the game *is*. Tuning is a live
 control that changes the run underneath you. Putting a control inside a page
-called GAME DOCUMENTATION is a slight lie, and the lane may not rename the page
+called GAME MECHANICS is a slight lie, and the lane may not rename the page
 to fix it, because the owner chose that name. Give tuning its own tab, keep the
 note that says what it is, and if the mismatch still reads badly once it is
 built, **say so in the report** rather than inventing a different name.
@@ -706,16 +706,44 @@ something to have read, which is what makes it mean anything.
 
 ### The two integrations that will be missed
 
-**The director's test role puts one person in both seats.** A landing this week
-made the stage step a card p1 → p2 → play on presses of the field. Two circles
-held by one pair of hands needs an answer there — held one after the other, or
-one hand standing for both. Decide, say which, and make sure the director can
-still start a wave without two people.
+~~The director's test role puts one person in both seats.~~ **Answered by the
+owner below: in test mode one press completes both circles.** Left here so the
+question is visible with its answer beside it rather than looking unasked.
 
 **A desk has no thumb to hold.** The keyboard path already sends the guide's
 dismissal; a hold-to-fill needs a key held rather than pressed, per seat, and
 the game and the director copy each other's layout deliberately. Do not leave
 the PC unable to start a wave.
+
+### The owner's three clarifications, given after the rest of this entry
+
+**The press target is the whole screen, not the circle.** Their words: *the
+circles should start completing if player presses anywhere on the screen.* So
+the circle is an **indicator**, never a button — it shows how far your hold has
+got and it is not a thing you have to hit. That matches what the guide already
+does today, whose *hit area is the whole screen* for the reason
+`packages/render/src/briefing.ts` gives in as many words: there is exactly one
+thing to do here and nowhere else to press, so a target the size of the stage
+is one nobody has to look for. Do not shrink that target to the drawn circle —
+it would be a regression dressed as precision.
+
+**In test mode one press completes both circles.** Their words: *in test mode,
+it completes both circles.* One person at a desk is both seats, so the gate
+must not ask them for two simultaneous holds. This settles the question this
+entry raised about the director's test role — it is answered, not open.
+
+**A wave with no guide gets the breath and nothing else.** Their words: *In
+case there is a wave with no guide card, yes there is just the automatic
+breath, where its showing wave name description and number - then the wave
+sequences start.* So the introduction alone, on its timer, and straight into
+play. **No circles appear on a wave that carries no guide** — the gate exists
+because there was something to read.
+
+**And the rest between waves is not lost**, which was the worry that prompted
+the question: the owner pointed out that wave 13 carries a guide, so the pause
+is still there wherever a wave teaches something. Where a wave teaches nothing,
+the breath is the pause, and that is the intended shape rather than an
+oversight.
 
 ### What is retired
 
