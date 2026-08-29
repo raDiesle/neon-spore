@@ -263,3 +263,21 @@ records the answers. See `docs/verification.md`.
 - `c28a893` 2026-08-28 PASS — the split housing is findable at boss size on a phone, one column off centre and hard against the radar strip above it
 - `c28a893` 2026-08-28 PASS — the arm at SEIZE reach still reads as one mechanism and not as a line drawn across the top of the screen
 - `c28a893` 2026-08-28 PASS — a pair at tempo can actually fold a column and say it before the thing lands — this is the number the whole boss stands on and only two people on a real voice channel can settle it
+- `4806a86` 2026-08-29 PASS — of the three BULB QUEEN variants, does any of them read better than the one the game draws — and can you still tell which mark is the real one from player 2's screen alone
+- `bf4c72d` 2026-08-29 FAIL — does hovering the wave list's mark now name its cards, and does clicking it show every wave's cards at once
+  - the tooltip for all cards should not be on the list of waves, but on the waves configurationi suggest to have it on the "card" button below the game screen.
+- `bc4d0d3` 2026-08-29 PASS — pulling the string until a way in lights on a column — does it click into place and hold, or does the wheel feel like it slips past
+- `bc4d0d3` 2026-08-29 PASS — when the shot takes the wrong way in, can you see where it stopped and why, or does it only fail to arrive
+- `8ffc779` 2026-08-29 PASS — reload after opening a sheet on one of its inner tabs — does the director return there, fully drawn, not the wave editor
+- `78b50b0` 2026-08-29 PASS — does the editor now read in the order you meet things -- the card, the wave, then what it adds to the ship -- with the controls beside what they change
+- `98b2a40` 2026-08-29 PASS — played as a boss wave, does THE GAUGE still feel like a break from the field, or like a wave you are not allowed to shoot
+- `98b2a40` 2026-08-29 PASS — can the pair actually lose the run inside a round now, and does losing it read as losing rather than as a bug
+- `e27228b` 2026-08-29 PASS — does bun run frames on an old commit now show the wave its check actually names
+- `222b39a` 2026-08-29 PASS — do the queen's torches and the ship's shake read as one thing she is doing, rather than as a spinning blur or a camera wobble
+- `222b39a` 2026-08-29 PASS — with the ship shaking, can you still put the cannon on a named column without hesitating
+- `744b003` 2026-08-29 PASS — opening the check list, does it read as a short list of decisions you could make in one sitting, rather than as a log of everything that landed
+- `c90e891` 2026-08-29 PASS — after ▣ SHEET, does clicking the stage bring the field back, and does a second press of ▣ SHEET do the same
+- `f35e489` 2026-08-29 PASS — is the meteor grey now, at speed, against the field's own violet
+- `f35e489` 2026-08-29 PASS — does the meteor read as a rock rather than as a circle with dots on it — at 26 px on a phone, beside a bulb for contrast
+- `d892bae` 2026-08-29 FAIL — does the shadow sliding under the meteor as it falls read as the rock getting closer, or just as a shadow moving
+  - i still dont see it, add some screenshots on the "States" section for docu
