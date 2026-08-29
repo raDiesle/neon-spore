@@ -302,6 +302,42 @@ lasts exactly as long as the finger and nothing in the simulation decays it.
 today a grip is a *hold*: the finger's position after the press is thrown away.
 That single omission is this whole lane.
 
+
+### The owner's second clarification, and the correction it needs
+
+> the drag/pull from screen works like the existing pull: you click (touch) it,
+> then you drag somewhere
+
+**The gesture they describe is right and the premise is not.** There is no
+existing drag. `grip.ts` is explicit about what a hand on the field does today:
+*"A finger held on something falling drags at it, and it falls slower for as
+long as the finger stays. Nothing travels, nothing is destroyed and no column
+changes — the rule is only a fall rate."* The word *drags* there means
+resistance, not the finger's motion. `setGrip` takes an id and nothing else —
+no position, no origin — and `touchMove` answers only the cannon and shield
+strips.
+
+So **nothing in the game responds to where a finger moves after a grab**, and
+this lane adds that for the first time. From the pilot's side it is the gesture
+they already know — touch the circle, then move — which is exactly why it is
+the right shape. Underneath it is new.
+
+**Build it as direct manipulation**: the handle follows the finger, so the point
+you grabbed stays under it and the wheel turns to keep up. That is what *drag
+it somewhere* means and it is the reading the rest of this entry assumes.
+
+**This probably explains half of the tether report too.** The owner said of THE
+WARDEN: *"it says pull, but when i click with mouse and move mouse, nothing
+happens"*. Moving was never going to do anything — the game only hears the
+press, and what holding does is slow the fall, which is easy to miss when you
+are watching for motion. So `claude/burn-pc-mouse-and-keys` and this lane are
+two halves of one complaint: the seat that issues the grab, and the fact that
+the grab ignores where the hand goes.
+
+**Whether THE WARDEN's tether should also become draggable is not decided
+here.** This lane gives the wheel a drag and leaves the tether exactly as it
+behaves. If the owner wants the tether to follow a finger too, that is one more
+entry and one sentence from them — do not take it as implied.
 ### What to build
 
 **Make a held grip carry where the finger has moved to.** Then the wheel turns
