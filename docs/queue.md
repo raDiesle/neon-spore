@@ -217,21 +217,60 @@ same way the game does. That is simpler, not harder, but it means the shipped
 director shows what was **built**, not what is on disk — say so on the page,
 once, so nobody mistakes it for an editor.
 
-### On a phone
+### On a phone it is one view at a time, and a toggle between three
 
-**The director is desktop-shaped**, and this is the larger half of the work. It
-assumes a wide window with several columns; the owner is asking for it to be
-*good to look at and to operate* on a phone, which is not the same as fitting.
+The owner, extending this entry after it was written:
 
-**`claude/burn-director-minimize` is the natural companion** and is already
-queued — every panel collapsible, addressable without a mouse. A phone is the
-case where collapsing stops being a convenience. Do not build that here; if it
-has landed, use it, and if it has not, say in the report whether this lane
-should have waited for it.
+> What i need is a toggle to switch from one view to another depending on what
+> i want to do, I suggest those are the actions and views to switch on mobile:
+>
+> 1. select and edit wave
+> 2. play the game with buttons below
+> 3. map editor with brushes
 
-**Touch, not hover.** Anything that only reveals itself on hover is invisible
-on a phone. The stage already accepts pointer events and the game itself is
-portrait-first, so the field is the easy part; the panels are not.
+**This replaces "make the layout fit" with something much more definite, and it
+is a better answer.** The director is three columns beside each other, and a
+phone cannot hold three columns — but it does not need to, because those three
+columns are three *activities*, and nobody does two of them at the same instant.
+Choosing a wave, playing it, and painting it are separate minutes.
+
+**So on a phone the director shows one of three views, and a toggle moves
+between them:**
+
+1. **The wave** — the list and the wave's own fields. Choosing and editing.
+2. **The game** — the stage with its controls below it. Playing what you chose.
+3. **The map** — the grid and the brushes. Painting entries into beats.
+
+**The toggle must be reachable from all three**, and it must not scroll away.
+The one way this fails is a mode you can enter and not leave, and on a phone
+that is a reload.
+
+**Say what happens on a wide screen, and prefer nothing.** This is a phone
+arrangement; a desktop already shows all three columns at once and that is
+better than any toggle. If the same mechanism happens to be useful at a middle
+width, say so, but do not take the three columns away from a machine that has
+room for them.
+
+**A view should survive a reload**, the way a collapsed panel already does —
+somebody testing on a phone reloads constantly, and being thrown back to the
+wave list every time is its own small tax.
+
+**And a view must be addressable without a mouse.** The panel work landed
+`?closed=…` for exactly this reason: a session driving the page headlessly
+wants to screenshot a particular view, and cannot press a toggle. Give the mode
+the same treatment and say so in the commit — the two parameters should read as
+one idea, not as two conventions.
+
+**What this does not change:** the read-only boundary above still holds. Saving
+a wave cannot work in a shipped build whatever view it is in, and the view
+toggle must not make an unavailable control look available. A phone showing
+*the wave* view with a dead save button is exactly the failure this entry
+already forbids.
+
+**And it sits with the panel work rather than beside it.** `panels.ts` collapses
+sections within a view; this chooses between views. Two mechanisms, one page —
+say in the commit how they compose, because a collapsed panel inside a hidden
+view is a state somebody will hit.
 
 ### The owner has answered the question this entry used to hold open
 
@@ -260,12 +299,13 @@ rather than living only in a lane's memory. And the game-only path must still
 be exercised, not merely present: a path nobody runs is a path that has rotted
 by the time it is needed.
 
-Finished when `bun run build` produces the director beside the game, the
+Finished when `bun run build` produces the director beside the game, a phone
+shows one of the three views with a toggle that is always reachable, the
 shipped director opens on a phone and can be read and operated, nothing that
 cannot work is offered, and the page says once that it shows what was built
 rather than what is on disk.
 
-`Check: open the shipped build's director on your phone — can you read a wave and move around it, and is it clear which things you cannot change from there`
+`Check: on your phone, can you switch between choosing a wave, playing it, and painting it — and is it clear which things you cannot change from there?`
 
 Model `sonnet`, effort `think hard`, spent on the read-only boundary before any
 layout: which pages survive, and what happens to the controls that do not. Read
