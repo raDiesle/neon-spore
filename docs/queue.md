@@ -50,6 +50,45 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## SPACE SKIPS THE INTRODUCTION THE OWNER JUST ASKED FOR
+_claude/burn-intro-space-keys · apps/game/src/keys.ts apps/game/test docs/teaching.md docs/INDEX.md docs/skins.md_
+**Asked for by the owner.** The half `claude/burn-wave-guide` could not reach:
+it does not own `keys.ts`, said so, and stopped rather than reaching for it.
+
+A wave now opens on its number, name and sentence — plain text on the field,
+on a timer, with nothing to press. `apps/game/src/keys.ts:167` pushes a `brief`
+command for **both seats at once** when Space is pressed, unconditionally, and
+it has no idea the introduction is not a card. So one keypress at a desk skips
+the thing the owner asked for, before it has been read, and does it for both
+players.
+
+The introduction is not dismissible. That is decided — the owner's third
+answer in the brief above this one: *the introduction runs on a timer and
+passes on its own. It is not a thing to dismiss.* So Space must be inert while
+the introduction is up and keep doing exactly what it does once the guide is,
+which is the state the world already distinguishes.
+
+Check the same question for every other key the desk binds, rather than only
+this one. Space is the one that was found by reading; a second key that pushes
+a command the introduction cannot refuse is the same bug wearing a different
+hat.
+
+**And the words the rename left behind.** `docs/teaching.md`, `docs/INDEX.md`
+and `docs/skins.md` still call a guide a briefing card, and a session reading
+them will build against a model that no longer exists. Rename what they say.
+
+**`docs/verified.md` is not in scope and must not be edited.** Its mentions of
+cards are rows recording what somebody actually looked at, on the day they
+looked at it. A verdict is a historical record, not documentation, and
+rewriting one is the failure `docs/autonomous.md` names by name.
+
+Finished when `bun run check` is green, Space does not shorten the
+introduction, and no document outside `docs/verified.md` and `docs/parked.md`
+teaches the retired vocabulary.
+
+Model `sonnet`, effort `think`. Read `packages/sim/src/briefing.ts` for the
+state the world holds before touching the key handler.
+
 ## THE DIRECTOR'S STAGE READS THE SHIPPED WAVES, NOT THE ONES YOU ARE EDITING
 _claude/burn-director-wave-identity · tools/director/src/stage.ts tools/director/src/rail.ts tools/director/test/rail.test.ts_
 **Asked for by the owner.** Two `FAIL` verdicts on `dff2c76`, which is what an
