@@ -442,6 +442,84 @@ the styling. Read `tools/director/index.html`'s `<style>` block and the stage
 column before writing, and see `docs/verification.md` for how the earlier two
 space fixes were judged.
 
+## A BOSS BELONGS TO ITS WAVE, AND NEITHER CAN BE ADDED OR TAKEN AWAY
+_claude/burn-boss-fixed · tools/director/src/boss.ts tools/director/src/rail.ts tools/director/test packages/content/test/waves.test.ts_
+**Asked for by the owner**, of the wave configuration:
+
+> the wave configuration: we dont need the option to add a boss or remove it.
+> instead a boss wave is not deletable or duplicates of boss cannot exist.
+
+**The rule under both halves: a boss exists exactly once, and the wave it is
+on is the wave it is.** A boss is not a thing placed on a wave the way a rock
+is — `boss.ts` says so already, in its own words: *she is not placed at a beat,
+she is the whole wave.* The editor contradicts that by offering to add one to
+any wave and take it off again, and the wave list contradicts it by letting a
+boss wave be copied or deleted like any other.
+
+### What is there now
+
+`bindBossPanel` (`tools/director/src/boss.ts`) draws a bar of buttons —
+`REMOVE BOSS`, and `+ BULB QUEEN`, `+ THE MIRROR`, `+ THE WARDEN`, `+ THE VANE`
+for whichever the wave is not carrying. `setBoss` writes or clears
+`wave.boss` outright. In the wave list, `rail.ts:177` duplicates the current
+wave with `copyWave` and `rail.ts:184` deletes it, neither asking what the wave
+is.
+
+So today a session or a slip can produce two waves both carrying THE WARDEN, or
+none carrying it at all, and nothing anywhere says that is wrong.
+
+### What it becomes
+
+**The bar of add/remove buttons goes.** What stays is everything below it —
+the boss's own editor, its cycles, THE MIRROR's rounds, the queen's petals.
+Editing a boss is the point of that panel; choosing whether the wave has one is
+not a question the tool should be asking.
+
+**A boss wave cannot be deleted**, and **duplicating one may not produce a
+second copy of that boss.** The second has two honest answers and the lane
+picks one, saying which in the commit: refuse the duplication outright, or copy
+the wave *without* the boss so the copy is an ordinary wave. Refusing is
+simpler and matches the owner's sentence most closely; copying-without is
+kinder to somebody who wanted the wave's spawn pattern. Either is defensible —
+what is not defensible is a second wave carrying the same boss.
+
+**Say what happens to the control that is now gone, on screen.** A button
+vanishing is fine; a button vanishing and leaving a person wondering how to
+make a boss wave is not. One line in the panel saying a boss belongs to its
+wave costs nothing and answers it.
+
+### Where the invariant actually belongs
+
+**A disabled button is not an invariant.** The tool is one way to edit these
+waves and the files are another, so the rule wants a test where the data is:
+in `packages/content/test/waves.test.ts`, beside the one-sentence test and the
+guide test it already has — **every boss kind appears on at most one wave.**
+That is the assertion that survives somebody editing a wave file by hand, and
+it is what makes the buttons' removal a statement rather than a preference.
+
+**And if a new boss is ever added, it arrives with its wave**, the same way
+`.claude/skills/new-creature` now says a creature arrives with a wave and a
+guide. Worth one line in that skill if the shape fits; if it does not, say so
+rather than forcing it.
+
+### What must not change
+
+Nothing about how a boss *plays*, nothing in `packages/sim`, and no wave's
+content. This is the editor being made to agree with a rule the game already
+lives by — say that in the commit, because it is what keeps it from reading as
+a feature removal.
+
+Finished when `bun run check` is green, the boss panel offers no way to add or
+remove a boss, a boss wave cannot be deleted, duplicating one cannot produce a
+second copy of that boss, and a test in `content` fails if two waves ever carry
+the same one.
+
+`Check: in the wave list, try to delete or duplicate a boss wave — does the tool stop you, and does the boss panel still let you edit the boss itself`
+
+Model `sonnet`, effort `think`. Read `tools/director/src/boss.ts` and
+`rail.ts`'s duplicate and delete before writing. The thinking goes on where the
+rule lives — the buttons are the symptom and the test in `content` is the fix.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
