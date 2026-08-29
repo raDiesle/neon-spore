@@ -434,6 +434,71 @@ Model `sonnet`, effort `think hard`. Read `apps/game/src/input.ts` in full and
 and when — the input mapping is the easy half, and a player who cannot find
 their own controls has no game whatever the mapping is.
 
+## THE CANNON LAYS THE SHOT LIKE A HEN LAYS AN EGG
+_claude/burn-cannon-egg · tools/versus/candidates/cannon-shot packages/render/test_
+**Asked for by the owner.** Said in German; translated here, because everything
+written down in this repository is English:
+
+> It should look as though a hen is pressing out an egg. So the shot should be
+> pushed out somewhat slowly as it is expelled, so that you can see the
+> animation. The round circle on top of the cannon is obsolete — instead it
+> should look like a bulge towards the ship, like a chicken's bottom/cloaca,
+> where the egg is pressed out and pops free.
+
+**And they said where it goes, in the same breath: not onto the field.** This
+is a candidate, offered beside the shipped shot, and the owner decides by
+looking. `tools/versus/candidates/cannon-shot` already holds `pip` and
+`streak`, so this is a third one beside them and the vote is the mechanism —
+`docs/versus.md` has it. Nothing in `packages/render/src` changes. A lane that
+finds itself editing `muzzle.ts` or `cannon-maw.ts` has misread this entry.
+
+### The two halves, and they are separable
+
+**The bulge.** The round circle sitting on top of the cannon goes, and what
+replaces it is a swelling on the side that faces the ship — a cloaca rather
+than a port. It is not a hole the shot comes out of; it is a body part that
+distends. So it is *not* symmetrical, it has a direction, and the direction is
+towards the ship. Draw it as the contour it is: this repository's whole visual
+grammar is closed contours with lobes (`blobPath`, `hullRadiusMul`), and a
+bulge is exactly a lobe that grows.
+
+**The laying.** The shot does not appear, it is pressed. Slowly enough that a
+player sees it happen — the owner said so explicitly, and *slowly* is the whole
+request, so a candidate that is merely a different shape has answered half of
+it. The arc worth building is the one an egg actually has: the bulge swells and
+strains while nothing leaves, the shot emerges gradually and stretches the
+contour around itself, then it clears and the bulge relaxes. The interesting
+beat is the relaxation, which is the part that says *effort* rather than
+*flash*, and it is the part a first attempt leaves out.
+
+### The one thing that would make this a different entry
+
+**It is a render candidate and may not change when the shot becomes live.**
+`packages/sim/src/shot-charge.ts` decides that, two devices have to agree on
+it, and a candidate cannot touch it. So the laying is drawn over the timing
+the game already has: the shot leaves when it leaves, and the animation is what
+is drawn around that moment.
+
+If the animation turns out to need the shot to genuinely leave later — if
+drawing it over today's timing looks like a fast shot with a slow decoration
+glued to it — **stop and report that**, because slowing the shot itself is a
+balance decision the owner has not made, and it is a separate entry with the
+sim in it. Say which of the two it turned out to be. That sentence is the most
+useful thing this lane can produce.
+
+Finished when `bun run check` is green, the candidate stands beside `pip` and
+`streak` in the versus tool, and neither the shipped cannon nor anything in
+`packages/render/src` has moved.
+
+`Check:` write one, badged `concept`, and make it a comparison — the owner is
+being asked whether this is worth building, not whether it is correct. `before`
+is the shipped shot, `after` is the candidate by the name you give it.
+
+Model `sonnet`, effort `think hard`, spent on the timing rather than the
+outline: read `docs/versus.md` and both existing candidates first, and get the
+strain-then-release arc right before drawing anything, because a bulge with no
+effort in it is a circle in a different place.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
