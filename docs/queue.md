@@ -617,3 +617,42 @@ Model `sonnet`, effort `think hard`. Read `apps/game/src/input.ts` in full and
 `packages/render/src/touch.ts`. The thinking goes on what a PC player is told
 and when — the input mapping is the easy half, and a player who cannot find
 their own controls has no game whatever the mapping is.
+
+## THE WHEEL IS STILL TYPED AS A TANGLE
+_claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
+**Proposed by the run.** The last thread of the maze conversion, reported by
+`claude/burn-maze-probe-rename` as outside its five files.
+
+`packages/sim/src/maze-wheel.ts` ends with `export type MazeTangle =
+MazeWheel;` — a compatibility alias named after the thing the wheel replaced —
+and the callers still speak of tangles: `entries.ts` types a wave's rounds as
+`MazeTangle[]` and its comment calls them *the tangles, in order*, with
+`hash.ts` and `wave-start.ts` carrying the same word in prose.
+
+**This is the same defect one level up from the one just fixed.** `mazeProbe`'s
+`row` and `lane` were renamed because a name describing the old shape reads as
+correct and is therefore worse than no name. The type is that, for the whole
+authored round.
+
+**Rename it and delete the alias.** An alias kept "for compatibility" inside a
+repository with one author and a linear history is compatibility with nobody —
+it is only a second name for the same type, which is exactly what the rename is
+trying to remove.
+
+**Read each sentence before rewriting it.** Some of the prose about tangles is
+describing the old lattice's behaviour and has no subject any more; that goes
+rather than gets reworded. `packages/sim/src/maze.ts`'s header deliberately
+keeps its own history of what it replaced — **leave that alone**, it is the
+argument, not a leftover.
+
+`packages/sim` is lockstep, so `bun run test:determinism` passes before this
+lands. A type rename should not touch the hash, and if it appears to, stop.
+
+Nothing a player could look at changes: **zero `Check:` trailers**.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes,
+`MazeTangle` does not exist, and the word *tangle* survives only in
+`packages/sim/src/maze.ts`'s deliberate account of what the wheel replaced.
+
+Model `sonnet`, effort `think`. Read `packages/sim/src/maze-wheel.ts` and
+`entries.ts`. Small; the care is in telling live prose from history.
