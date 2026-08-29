@@ -50,51 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## `bun run frames` CANNOT GET PAST THE WAVE'S OWN OPENING
-_claude/burn-frames-opening · tools/frames/capture.ts tools/frames/run.ts tools/frames/test apps/game/src/main.ts_
-**Asked for by the owner.** Not in words this time — this is the tool that
-makes *send the picture, do not describe it* possible, and it stopped working
-the moment the opening landed. It was found by trying to photograph the
-landing for the owner and getting a stack trace instead.
-
-Two breaks, and the second is the interesting one.
-
-**It reads a stack that no longer exists.** `tools/frames/capture.ts:132` loops
-on `ns.world.brief.due.length`, from back when a wave could owe several cards
-and a dismiss acked the one on top. `world.brief` is now a phase — play,
-introduction, guide — and `due` is gone, so every capture dies with
-`Cannot read properties of undefined`.
-
-**And it has no way to let the introduction pass.** The introduction is counted
-in the app, in the animation frame (`progression.tickOpening`), because nothing
-in `sim` may read a clock — that is right and stays. But the testing handle on
-`window.neonSpore` only exposes `advance`, which steps the *world*, and
-`dismissBriefing`, which the introduction is explicitly not supposed to answer.
-So a headless capture can neither wait the introduction out nor skip it: it
-stands in front of the field forever and every screenshot is of the opening.
-
-Decide, and say which in the commit: the handle almost certainly grows a verb
-that advances the opening's clock by a given number of seconds, which lets a
-capture do **both** things a caller wants — sit on the introduction on purpose,
-because that is a picture somebody will want, and step past it to photograph
-the wave. A flag that only skips would foreclose the first, and the first is
-what this whole entry was born from.
-
-**Name the coverage gap while you are in there.** `bun run check` was green
-across the landing that broke this. Whatever cheap test would have gone red —
-one that drives the handle the way a capture does — is worth more than the fix,
-because the fix is ten lines and the gap is why nobody knew for a day.
-
-`apps/game/src/main.ts` is owned by nobody and wanted by everybody: add to it
-in one contiguous region and expect to replay over somebody else.
-
-Finished when `bun run check` is green and `bun run frames f6be23b` writes a
-picture of the field rather than throwing.
-
-Model `sonnet`, effort `think`. Read `packages/sim/src/briefing.ts` for the
-phase, and the testing handle at the bottom of `apps/game/src/main.ts`, before
-touching the capture loop.
-
 ## THE DIRECTOR'S STAGE READS THE SHIPPED WAVES, NOT THE ONES YOU ARE EDITING
 _claude/burn-director-wave-identity · tools/director/src/stage.ts tools/director/src/rail.ts tools/director/test/rail.test.ts_
 **Asked for by the owner.** Two `FAIL` verdicts on `dff2c76`, which is what an
