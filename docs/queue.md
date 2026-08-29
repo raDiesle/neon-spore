@@ -755,3 +755,71 @@ account of what was replaced.
 Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts` around
 `fromIdeas` and `docs/spec/ideas.md` from line 513 to the next heading. Small,
 and the care is in not emptying the tab silently.
+
+## THE CARD TOOLTIP IS ON THE WRONG THING
+_claude/burn-card-tooltip-place · tools/director/src/rail.ts tools/director/src/card-waves.ts tools/director/index.html tools/director/src/stage-transport.ts_
+**Asked for by the owner.** A `FAIL` on `bf4c72d` with the fix named in it.
+
+> the tooltip for all cards should not be on the list of waves, but on the
+> waves configuration i suggest to have it on the "card" button below the game
+> screen.
+
+**What landed and what they rejected.** A lane put the card names on the wave
+*list's* mark — hover a row, see its cards, click to open the CARDS sheet. The
+owner does not want it on the list. They want it on the **wave's own
+configuration**, and they name where: the `✓ CARD` button in the transport row
+under the field.
+
+**So this is a move, not an addition.** Take it off the list row and put it on
+the card control. `cardsForWave(waveIndex)` already exists and is the right
+call; only its reader changes.
+
+**Mind what `✓ CARD` already is.** It is a *dismiss* — it pushes `{kind:
+"brief"}` for both seats, and the stage freezes on the first wave without it.
+Hanging a tooltip on it is fine; changing what pressing it does is not.
+
+**Note the neighbouring entry.** `THE STAGE IS THE BUTTON, AND ✓ CARD IS ONE
+CONTROL TOO MANY` proposes retiring that button entirely. If both are worked,
+this one is meaningless afterwards — read that entry first and say in the
+report whether these should be one lane.
+
+Finished when `bun run check` is green, the wave list's rows no longer carry the
+card tooltip, the card control names the current wave's cards, and the commit
+carries
+
+`Check: with a wave open, does the card button under the field tell you which cards this wave raises, without you opening a sheet`
+
+Model `sonnet`, effort `think`. Read `tools/director/src/rail.ts`'s mark and
+`card-waves.ts`. Small; the care is in not disturbing the dismiss.
+
+## THE FALLING SHADOW STILL DOES NOT READ, AND THE STATES PAGE SHOULD SHOW IT
+_claude/burn-shadow-states · tools/director/src/states-page.ts packages/render/src/contact-shadow.ts docs/checks/_
+**Asked for by the owner.** A `FAIL` on `d892bae`, and the second half is a
+request for tooling rather than for the effect.
+
+> i still dont see it, add some screenshots on the "States" section for docu
+
+**Two things, and the second may explain the first.** The lane that landed this
+made the shadow's lean proportional to the gap so it gathers under the rock as
+it falls. The owner cannot see it. Either the effect is too subtle at tempo, or
+it is right and there is no way to look at it — a shadow mid-fall is one frame
+out of a fall nobody can pause.
+
+**Do the second half first.** The STATES page exists to show a thing in each of
+its states side by side, which is exactly what a shadow through a fall needs:
+the same rock at the top of its last quarter, halfway, and at contact, in one
+row. If the effect is working, that picture proves it and the check can be
+answered. If it is not, the same picture is the evidence for changing it.
+
+**Only then touch the effect, and only if the picture says to.** If the three
+frames show a shadow that does gather and the owner still cannot see it in
+play, that is a finding about tempo rather than about the curve — report it.
+
+Finished when `bun run check` is green, the STATES page shows a falling
+shadow's stages side by side, and the commit carries
+
+`Check: on the STATES page, do the three stages of a falling shadow show it gathering under the rock — and now that you can see it side by side, does it read in play?`
+
+Model `sonnet`, effort `think hard`. Read `tools/director/src/states-page.ts`
+and `packages/render/src/contact-shadow.ts`'s header. The thinking goes on
+choosing the three moments — the wrong three make a working effect look broken.
