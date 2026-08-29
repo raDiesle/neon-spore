@@ -43,6 +43,14 @@ function shipped(v: Variant): Map<string, unknown> {
  */
 function same(a: unknown, b: unknown): boolean {
   if (typeof a === "function" && typeof b === "function") {
+    // Only a *curve* can be compared by what it computes, and a curve is a
+    // function of one number. A record may also carry a whole drawing —
+    // `MouthLook.draw` takes a context, a frame and a skin — and probing one
+    // of those with a number crashes inside somebody's candidate rather than
+    // reporting anything. Two drawings are two drawings; identity is the only
+    // honest answer, and it is the right one, because a candidate that reuses
+    // the shipped function is not a candidate.
+    if (a.length !== 1 || b.length !== 1) return Object.is(a, b);
     const f = a as (n: number) => number;
     const g = b as (n: number) => number;
     for (let t = 0; t <= 1; t += 0.05) {
