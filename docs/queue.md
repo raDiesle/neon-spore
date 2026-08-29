@@ -274,8 +274,8 @@ Model `sonnet`, effort `think`. Read `packages/content/src/waves.ts` and
 `tools/director/src/serialize.ts` together before deciding the seam — the two
 have to agree, and the second is the reason the first was never split.
 
-## A GRIP IS A HOLD, AND THE WHEEL NEEDS IT TO BE A DRAG
-_claude/burn-grip-drag · packages/render/src/touch.ts packages/sim/src/commands.ts packages/sim/src/maze-round.ts packages/sim/src/maze-controls.ts packages/render/src/maze-draw.ts packages/render/test/touch.test.ts packages/sim/test/maze.test.ts_
+## GRAB AND DRAG BECOMES A SECOND GESTURE, AND THE HOLD STAYS WHAT IT IS
+_claude/burn-grab-and-drag · packages/render/src/touch.ts packages/sim/src/grip.ts packages/sim/src/commands.ts packages/render/src/tether.ts packages/sim/src/maze-round.ts packages/sim/src/maze-controls.ts packages/render/src/maze-draw.ts packages/render/test/touch.test.ts packages/sim/test/grip.test.ts packages/sim/test/maze.test.ts_
 **Asked for by the owner.** This **replaces** an earlier entry that proposed a
 panel control for the wheel. They corrected it:
 
@@ -303,6 +303,45 @@ today a grip is a *hold*: the finger's position after the press is thrown away.
 That single omission is this whole lane.
 
 
+
+### The owner settles it: two gestures on one grab, and the hold is unchanged
+
+> yes pull for me is drag and drop, i guess. and touch/click would be what is
+> current behavior to slow down a meteorite. i suggest we keep meteorite
+> behavior and introduce/extend the grab and drag, to be applied for warden and
+> maze. Make sure it works for pc (mouse) and mobile - and in director gameplay
+
+**So there are two gestures on the same grab, and which one you get is decided
+by what you grabbed.**
+
+- **Press and hold** is exactly what it is today, and it does not change: a
+  hand on a falling thing slows it, for as long as the hand stays. The
+  meteorite case is the whole reason `grip.ts` exists — a rock cannot be shot,
+  so buying the shield another beat is the only thing a second pair of hands
+  could ever do about one. **Do not touch this.**
+- **Grab and drag** is new, and applies to **THE WARDEN's tether and THE MAZE's
+  wheel**. Grab the circle, move, and the thing follows.
+
+That is a clean line and it is worth stating in the code: a *draggable* element
+answers where the hand went; everything else answers only that a hand is there.
+Whether that is a property of the creature kind, of the grip, or of the thing
+being drawn is the lane's decision — but it has to be one decision, not two
+special cases, because the eleven remaining rounds will each want to know which
+kind of grab they have.
+
+**It must work on all three, and this is not a footnote.** A phone (touch), a
+PC (mouse), and the director's own stage. The director is the one that catches
+the others: it is where the owner plays, and its pointer path is
+`stage-touch.ts` rather than the game's. A drag that works in the game and not
+in the director is a drag nobody can judge — and one that works in the director
+and not on a phone is worse.
+
+**Scope note.** This entry now covers the tether as well as the wheel, so the
+tether's `PULL` circle becomes a real pull. The tether is a boss's mechanic
+with its own rules; read `packages/render/src/tether.ts` and the warden's own
+files before deciding what dragging it *does*, and if dragging it turns out to
+need a rule change rather than an input change, **stop and report** rather than
+inventing one — the owner asked for the gesture, not for a new tether.
 ### The owner's second clarification, and the correction it needs
 
 > the drag/pull from screen works like the existing pull: you click (touch) it,
@@ -513,3 +552,102 @@ full, `packages/content/src/wave-types.ts`'s `controls` field and its comment,
 and `packages/content/test/control-sets.test.ts` for the invariant pattern. The
 thinking goes on the invariant test, not on the field — the field is four
 lines and the test is what stops the owner breaking their own run order.
+
+## AN EXPIRED GUARD LOOKS EXACTLY LIKE A BROKEN SHIELD
+_claude/burn-guard-lapse · packages/render/src/band.ts packages/render/src/shield.ts packages/render/test/frame.test.ts_
+**Asked for by the owner.** Their decision on a finding from the shield
+investigation: *show when it lapses*, and leave the timing alone.
+
+**What is true today.** Deflection needs two things at once — the shield in the
+rock's column, player 2's job, and the guard triggered within
+`cfg.guardWindowMs`, player 1's. `resolveHull` compares `world.tick -
+world.guardTick` against that window. **The guard is a press with an expiry,
+not a state that is held.**
+
+So a player who sees a rock coming, presses guard early and keeps holding, has
+a press that lapsed before the rock arrived. The shield is in the right column,
+the button is down, and the rock goes through. Nothing on screen distinguishes
+that from a shield that simply did not work.
+
+**The timing is not being changed and that is the owner's decision.** They were
+offered a held guard that stays armed and declined it: the window is the skill.
+What they asked for is that a lapse be *visible*. So this lane adds no
+mechanic, changes no rule, and must not touch `packages/sim`.
+
+**What to work out, and it is the whole lane.** The guard is armed for a window
+measured in milliseconds — long enough to act on, short enough that a bar
+draining would be noise on every press. So the question is what a player needs
+to see and when: that it is armed *now*, that it has lapsed, or both. Watch a
+wave before designing it, because the answer depends on how often the state
+changes at tempo, and a signal that flickers is worse than none.
+
+**It has to read without being looked at.** The pair is calling columns to each
+other; player 1 is not studying their own button. Whatever this is, it works in
+peripheral vision or it does not work.
+
+**Nothing else may change.** This is a defect in what the game *says*, not in
+what it does — a state the rules already have and the picture never showed. Say
+that in the commit; it is what keeps this from becoming a look nobody asked
+for.
+
+Finished when `bun run check` is green, `frame.test.ts` passes through the
+strict canvas stub, nothing in `packages/sim` is touched, and the commit carries
+
+`Check: holding the guard too early, can you now tell it has lapsed before the rock arrives, rather than finding out when the ship takes the hit`
+
+Model `sonnet`, effort `think hard`. Read `resolveHull` in
+`packages/sim/src/hull.ts` for the window's meaning, then
+`packages/render/src/band.ts` for how a control already shows its own state.
+The thinking goes on what a player can notice while not looking at it.
+
+## THE GAME SHOULD BE PLAYABLE ON A PC, NOT ONLY TESTABLE
+_claude/burn-game-on-pc · apps/game/src/input.ts apps/game/src/main.ts packages/render/src/touch.ts apps/game/test_
+**Asked for by the owner.** Asked what *"full support for pc with mouse"* meant,
+they chose the larger reading: **the game itself, fully playable on a PC** —
+not only the director.
+
+**The concern was put to them and they decided anyway, so this is built.** It is
+recorded here once because a later session will meet it and should know it was
+seen rather than missed: the game is two people on two devices, and the control
+scheme *is* the conversation. Two players at one keyboard are not two devices —
+they can see each other's screen, which retires the one thing the design is
+built on. So the honest shape of this is **a PC is a device**: one player at a
+PC, one on a phone, playing the same room. Not two players sharing a keyboard.
+
+Build that, and say in the commit that it is what was built.
+
+**What exists already.** `apps/game/src/input.ts` is the desk layout the
+director's `keys.ts` deliberately copies rather than imports — and `keys.ts`'s
+header says *if the two ever disagree, the game is right*. So the game already
+has keys; what it does not have is a mouse, and it does not have a way to tell
+a player what any of it is.
+
+**Three things, and the third is the one that gets forgotten.**
+
+- **The mouse drives what a finger drives.** `packages/render/src/touch.ts` is
+  already the one path the game and the director share, so a pointer should
+  reach it rather than growing a second control scheme beside it.
+- **A held control has to survive a mouse leaving the window.** A finger that
+  leaves the glass sends an up event; a mouse dragged off the page may not, and
+  a cannon that stays held because the pointer left is a bug that only appears
+  on a PC.
+- **The player has to be told the keys exist.** `claude/burn-pc-mouse-and-keys`
+  is building this for the director; the game needs its own answer, and it is
+  not the same answer, because the game has no room for a panel and the pair is
+  mid-wave.
+
+**Sequence: after `claude/burn-pc-mouse-and-keys` and after
+`claude/burn-grab-and-drag`.** Both touch the same input path, and this one is
+the largest of the three. It inherits their decisions rather than making them
+twice.
+
+Finished when `bun run check` is green, a wave can be played through at a PC
+with mouse and keyboard, a held control releases when the pointer leaves the
+window, and the commit carries
+
+`Check: sitting at a PC with a phone beside you, can the two of you play a wave through without either of you being told which key is which`
+
+Model `sonnet`, effort `think hard`. Read `apps/game/src/input.ts` in full and
+`packages/render/src/touch.ts`. The thinking goes on what a PC player is told
+and when — the input mapping is the easy half, and a player who cannot find
+their own controls has no game whatever the mapping is.
