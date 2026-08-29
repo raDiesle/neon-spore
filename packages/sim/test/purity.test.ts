@@ -108,7 +108,7 @@ const COPIES: Copy[] = [
     // where the mouth used to be is what a second copy buys.
     call: "muzzleCenterY",
     owner: "packages/render/src/muzzle.ts",
-    pattern: /MUZZLE_DROP\s*\*\s*\(\s*1\s*-\s*intake\s*\)/,
+    pattern: /MOUTH_LOOK\.drop\s*\*\s*\(\s*1\s*-\s*intake\s*\)/,
     strip: false,
   },
   {

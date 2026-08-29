@@ -1,6 +1,7 @@
 import { colSpan, isMeteorKind, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
+import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
 import { burstFor } from "./effects-spark.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -49,6 +50,9 @@ export class Effects {
    * `boss-draw.ts`, not as a handful of particles here.
    */
   readonly warden = new WardenFx();
+  /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
+   * `HullMood.lay`, the way it reads `armed` off the mirror. */
+  readonly layEcho = new LayEcho();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -97,6 +101,9 @@ export class Effects {
         }
         case "petal":
           this.queenShakeUntil = QUEEN_SHAKE_LIFE;
+          break;
+        case "fire":
+          this.layEcho.start(beatSeconds);
           break;
         case "breach": {
           // A rock is still visibly falling when the sim resolves the hit, so
@@ -165,6 +172,7 @@ export class Effects {
     this.guardHit = Math.max(0, this.guardHit - dt);
     this.swallow.update(dt);
     this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
+    this.layEcho.update(dt);
     this.mirror.update(dt);
     this.warden.update(dt);
   }
@@ -220,6 +228,7 @@ export class Effects {
     this.guardHit = 0;
     this.swallow.clear();
     this.queenShakeUntil = 0;
+    this.layEcho.clear();
     this.mirror.clear();
     this.warden.reset();
   }

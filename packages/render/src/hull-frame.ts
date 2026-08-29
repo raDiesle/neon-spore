@@ -70,12 +70,17 @@ export interface HullMood {
   /** 0..1 the light that goes through the ship once the pod is inside. */
   charge: number;
   /**
-   * 0..1 towards the shot that has been pressed leaving the muzzle
-   * (`cannon-maw.ts`). The one field here that is *not* eased and not this
-   * package's invention: the world fixes the tick the shot goes, to the tick,
-   * on both devices, so easing it would put the two cannons out of step with
-   * each other. Absent on a ship with no trigger of its own — THE MIRROR's
-   * copy performs shots rather than firing them.
+   * The laying phase, 0 → 2 (`cannon-maw.ts`'s `LayState`, which defines it).
+   *
+   * Its first half — 0..1, towards the shot that has been pressed leaving the
+   * muzzle — is the one field here that is *not* eased and not this package's
+   * invention: the world fixes the tick the shot goes, to the tick, on both
+   * devices, so easing it would put the two cannons out of step with each
+   * other. Its second half, 1..2, is the opposite kind of thing and is here
+   * only because there was nowhere else to put it: the world stops saying
+   * anything the moment the shot leaves, so the mouth's follow-through is the
+   * renderer's, out of `Effects`. Absent on a ship with no trigger of its own
+   * — THE MIRROR's copy performs shots rather than firing them.
    */
   lay?: number;
 }

@@ -165,15 +165,19 @@ export class Canvas2DRenderer implements Renderer {
     drawFieldBack(ctx, l, world, view, flash);
     drawBodies(ctx, l, world, view, this.effects);
 
+    // Straight off the world, and the only one of the five that is: the tick
+    // the shot leaves is fixed for both devices, so an ease here would have
+    // one cannon working ahead of the other (`shot-charge.ts`). Past the
+    // departure the world has nothing left to say — `chargeMilli` snaps to 0 —
+    // so the far side of the phase is the renderer's own follow-through, which
+    // no two devices need to agree about to the tick. See `LayState`.
+    const laying = chargeMilli(world) / 1000;
     const mood: HullMood = {
       armed: this.armed,
       intake: this.intake,
       chew: this.effects.chew,
       charge: this.effects.charge,
-      // Straight off the world, and the only one of the five that is: the tick
-      // the shot leaves is fixed for both devices, so an ease here would have
-      // one cannon working ahead of the other (`shot-charge.ts`).
-      lay: chargeMilli(world) / 1000,
+      lay: laying > 0 ? laying : this.effects.layEcho.phase,
     };
     drawShip(ctx, l, world, view, this.effects, mood, at);
     drawOverlays(ctx, l, world, view, isArmed, isOpen);
