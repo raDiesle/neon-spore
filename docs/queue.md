@@ -525,3 +525,55 @@ Finished when `bun run check` is green, `bun run test:determinism` passes,
 
 Model `sonnet`, effort `think`. Read `packages/sim/src/maze-wheel.ts` and
 `entries.ts`. Small; the care is in telling live prose from history.
+
+## THE BACKLOG STILL HAS AN INTERLUDES TAB FOR A CATEGORY THAT IS GONE
+_claude/burn-interlude-tab · docs/spec/ideas.md tools/director/src/backlog.ts tools/director/src/backlog-page.ts tools/director/index.html tools/director/test/backlog.test.ts_
+**Proposed by the run.** The third item of `THE GAUGE'S CONVERSION LEFT THREE
+THINGS IT COULD NOT REACH`, which its lane correctly stopped on and which the
+landing then retired along with the two halves that *were* done. Re-queued so it
+does not vanish — that is the second time today a landing has retired an entry
+whose work was not finished.
+
+**The word survives in four coupled places** and they have to move together:
+
+- `docs/spec/ideas.md:513` has the heading `### Interludes`.
+- `tools/director/src/backlog.ts:218` passes the literal string `"Interludes"`
+  to `fromIdeas`, beside the label `INTERLUDE IDEAS` and a subtitle reading
+  *"rounds that are not the field, each with its own controls and picture"*.
+- `backlog-page.ts` builds the tab from that group.
+- `tools/director/index.html` carries the `INTERLUDES` tab button and its
+  `sheet-interludes` page.
+
+**A spec heading is an interface here, not a label.** `sections.ts` parses spec
+headings by shape and `fromIdeas` matches this one by exact text, so renaming
+the heading alone silently empties the tab rather than erroring. That is why
+the previous lane stopped: at the time, `index.html` belonged to a concurrent
+lane. It is free now.
+
+**The subtitle is already right and says what the new word should be** —
+*rounds that are not the field, each with its own controls and picture*. That is
+a description of a **round**, which is what these became. So the rename is
+mostly deciding between *rounds* and *bosses*, and the honest answer is probably
+*rounds*: they are bosses now in how they are reached, but the ideas in that
+section are about what a round *is*.
+
+**Read the ideas under the heading before renaming it.** If any of them
+describe the reaching mechanism rather than the round — a thing that happens
+*between* waves — that idea has lost its subject and goes, rather than getting
+reworded into something that no longer makes sense.
+
+**Check nothing else parses that heading.** `grep -rn "Interludes" tools docs`
+before you start; the group key, the label, the subtitle and the tab id are four
+different strings and only some of them are load-bearing.
+
+This is a tool and a spec fix: nothing the game draws changes, so **zero
+`Check:` trailers**.
+
+Finished when `bun run check` is green, the tab is named for what the section
+now contains, the tab is not empty, and `grep -rn "nterlude" tools docs/spec`
+finds nothing outside `docs/decisions.md`'s rewritten entries and the spec's own
+account of what was replaced.
+
+Model `sonnet`, effort `think`. Read `tools/director/src/backlog.ts` around
+`fromIdeas` and `docs/spec/ideas.md` from line 513 to the next heading. Small,
+and the care is in not emptying the tab silently.
