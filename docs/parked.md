@@ -1043,10 +1043,10 @@ beat. you could give me control input to play around for testing only. so
 keep delay for 'not build yet' for the time being and keep current as it is
 for now." So `shotChargeBeats` (`packages/sim/src/config-shot.ts`) is not up
 for a side-by-side vote yet — it is a number to feel out by hand first, and
-`pair-panel.ts`'s TUNING → PAIR panel now carries a "Shot lay (testing)"
-slider for exactly that, in eighth-beat steps from 0 to 0.75. Nothing shipped
+`apps/game/src/testing.ts`'s own test panel already carries a "Shot lay"
+slider for exactly that, in eighth-beat steps from 0 to 1. Nothing shipped
 moves: `DEFAULT_CONFIG` stays at 0 and `apps/game`'s own `0.5` is untouched;
-the slider only ever reaches the director's own live `cfg`.
+the slider only ever reaches that panel's own live `cfg`, the same one `apps/game/src/main.ts` builds — no second control was added beside it.
 
 Two forces pull on the number in opposite directions, and both are the
 owner's own. Too long and the shot itself feels sluggish — a press that
