@@ -520,8 +520,8 @@ Model `sonnet`, effort `think`. Read `tools/director/src/boss.ts` and
 `rail.ts`'s duplicate and delete before writing. The thinking goes on where the
 rule lives — the buttons are the symptom and the test in `content` is the fix.
 
-## FOUR TOPBAR BUTTONS FOLD INTO ONE PAGE, AND STATES IS RENAMED FOR WHAT IT HOLDS
-_claude/burn-topbar-fold · tools/director/index.html tools/director/src/states-page.ts tools/director/src/controlsets-page.ts tools/director/src/ship.ts tools/director/src/demo-panel.ts tools/director/src/main.ts tools/director/test_
+## THE TOPBAR AND THE WAVE PANEL BOTH SHED INTO ONE RENAMED PAGE
+_claude/burn-topbar-fold · tools/director/index.html tools/director/src/states-page.ts tools/director/src/controlsets-page.ts tools/director/src/ship.ts tools/director/src/demo-panel.ts tools/director/src/main.ts tools/director/src/tuning.ts tools/director/src/rail.ts tools/director/test_
 **Asked for by the owner:**
 
 > topbar:
@@ -577,9 +577,41 @@ report.
 and still read as a row. If the point was room, the commit should be able to
 say how much room was won.
 
+### And TUNING leaves the wave panel for the same page
+
+Added by the owner after the rest of this entry, in the same breath as it:
+
+> move the "tuning" configuration away from wave panel to "topbar" -
+> "states"/"game documentation"
+
+**It is folded into this lane rather than queued separately** because it is the
+same file, the same page and the same tab shell, and two lanes restructuring
+`index.html` at once is a conflict nobody would enjoy.
+
+**Its own note already argues for the move.** Under the sliders, `index.html`
+says: *Tuning is the run, not the wave. It is never written to waves.ts — saved
+presets live in this browser.* So it has been sitting in the wave panel while
+telling the reader it has nothing to do with the wave. Moving it is the panel
+finally agreeing with its own footnote, and that sentence should survive the
+move.
+
+**One honest tension, named and not resolved by the lane.** The other four
+sections are reference — they describe what the game *is*. Tuning is a live
+control that changes the run underneath you. Putting a control inside a page
+called GAME DOCUMENTATION is a slight lie, and the lane may not rename the page
+to fix it, because the owner chose that name. Give tuning its own tab, keep the
+note that says what it is, and if the mismatch still reads badly once it is
+built, **say so in the report** rather than inventing a different name.
+
+**And expect wind-up to be gone.** `claude/burn-windup-alternative` takes
+cannon wind-up out of these sliders and moves it to the alternatives page. If
+that lane has landed first, do not go looking for the slider; if it has not,
+move what is there and let it replay.
+
 Finished when `bun run check` is green, the topbar no longer carries CONTROL
-SETS, SHIP, DEMOS or MAIN MENU, all four are reachable from the renamed page,
-nothing they draw has changed, and no text anywhere still calls the page STATES.
+SETS, SHIP, DEMOS or MAIN MENU, the wave panel no longer carries TUNING, all
+five are reachable from the renamed page, nothing they draw has changed, and no
+text anywhere still calls the page STATES.
 
 `Check: with four buttons gone from the top bar, can you still find the control sets, the ship's dials, the demos and the way into the game — and does the bar read as less crowded`
 
