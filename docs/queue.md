@@ -50,63 +50,60 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## YOU CANNOT FIND THE WAVE THAT CARRIES A GIVEN CREATURE
-_claude/burn-find-by-creature · tools/director/src/roster.ts tools/director/src/rail.ts tools/director/index.html tools/director/test_
-**Asked for by the owner:**
+## A BRUSH SAYS WHICH WAVE FIRST INTRODUCES WHAT IT PAINTS
+_claude/burn-brush-first-wave · tools/director/src/brushes.ts tools/director/index.html tools/director/test_
+**Asked for by the owner**, twice — first as a problem and then as its own
+answer:
 
 > i dont see a wave where i can test "Throb". create wave to easily find it for
 > testing. same for "Shell"
 
-**The waves exist, and that is the finding.** THE THROB is on wave 21,
-`ON THE BEAT`; THE SHELL is on wave 22, `THE THIRD SHOT`. Both are in
-`packages/content/src/waves/act-3.ts` and both have been there all along. The
-owner looked down a list of twenty-six names and could not tell which one held
-the creature they wanted, because **a wave's name says what it is about, not
-what is in it** — and that is right for a wave and useless for finding one.
+> just give me a tooltip hover on the brushes, which tell me the number of wave
+> its first introduced.
 
-**So the fix is discovery, not content.** Creating a wave apiece would pad the
-game: `.claude/skills/new-wave`'s one-sentence test exists precisely to stop a
-wave that has no reason to be played, and two waves whose reason is *so a
-developer can find this creature* would fail it. The owner wants to reach a
-creature, and the tool should take them there.
-
-**If they would rather have dedicated sandbox waves after all, that is one
-sentence from them and a different entry.** Do not build both.
+**Their second message replaces the first, and it is a smaller and better
+answer.** The waves already exist — THE THROB is on wave 21, `ON THE BEAT`, and
+THE SHELL on wave 22, `THE THIRD SHOT`. Nothing needs creating, and an earlier
+draft of this entry proposed a whole link from the bestiary to the wave list.
+The owner wants a number on hover. **Build that, and nothing more.**
 
 ### What to build
 
-**From a creature, get to a wave that carries it, in one press.** The director
-already lists every creature — `roster.ts` reads the bestiary — so the missing
-half is the link: for each creature, which waves contain it, and a way to open
-the first of them on the stage. That is a derivation over `WAVES`, not a list
-anybody maintains, so it cannot go stale.
+**Hovering a brush names the wave that first introduces the thing it paints** —
+a number, and the wave's name is worth having beside it since a number alone is
+hard to hold. The brush palette is the right place because it is where somebody
+already is when they are thinking about a creature.
 
-**Say what happens for a creature no wave carries.** Some kinds are in the
-bestiary and in no wave — that is a real state and it was written down as a gap
-once already. The honest answer is to say so plainly where the link would be,
-because *this creature is in no wave* is exactly the fact somebody looking for
-it needs. **Do not hide those; a silent absence reads as a broken button.**
+**Derive it, never keep a list.** `WAVES` already says which waves contain what,
+and the first wave carrying a kind is a computation the repository performs
+elsewhere — `packages/content/test/waves.test.ts` asserts against exactly that
+derivation. **Call it rather than writing a second copy**; two copies of *which
+wave introduces this* is the class of mistake `packages/sim/test/purity.test.ts`
+keeps a table about, and if you find yourself writing it a second time, add the
+row.
 
-**And prefer showing every wave that carries it, not only the first.** The owner
-asked to test a creature; the second wave that carries it is often the more
-interesting one, because it is the wave where the creature is no longer new.
+**A kind no wave carries must say so.** Some brushes paint things no wave
+contains today — that is a real state and it has been written down as a gap
+before. *No wave carries this yet* is exactly what somebody hovering needs to
+know, and it is the answer that would otherwise look like a broken tooltip.
 
-### Where it goes
+### What not to do
 
-The bestiary is on NOT BUILT YET; the wave list is the stage's own rail. Decide
-which end the link belongs on and say why in the commit — from the creature to
-the wave is the direction the owner asked for, but the reverse (this wave
-contains these creatures) may fall out of the same derivation for free, and if
-it does, say so rather than building it twice.
+**Not a link, not a jump, not a panel.** An earlier draft of this entry had all
+three. The owner asked for a tooltip; a tooltip is the whole feature.
 
-Finished when `bun run check` is green, a creature names the waves that carry
-it, a creature carried by no wave says so, and getting from THE THROB to a wave
-that contains one takes a single press.
+**And do not put it anywhere else on the way past.** A lane removed a tooltip
+from the wave list earlier today because the owner said it did not belong there.
+The brush is where they asked for one.
 
-`Check: pick THE THROB out of the creature list — does it tell you which wave to open, and does one press get you there?`
+Finished when `bun run check` is green, hovering any brush names the first wave
+that introduces what it paints, and a brush no wave carries says so.
 
-Model `sonnet`, effort `think`. Read `tools/director/src/roster.ts` and the wave
-rail first. The derivation is small; the care is in the empty case.
+`Check: hover the brush for THE THROB — does it tell you which wave first has one, without you opening anything?`
+
+Model `sonnet`, effort `think`. Small. Read `tools/director/src/brushes.ts` and
+the first-wave derivation in `packages/content` before writing, so the number
+comes from the same computation the tests use.
 
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
