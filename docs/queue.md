@@ -591,6 +591,129 @@ before moving anything.
 by the panel-minimize entry; both were written before this one and neither
 works in the topbar.
 
+## THE FORK RETIRES, AND EVERY GUIDE ENDS ON TWO CIRCLES HELD UNTIL READY
+_claude/burn-ready-circles · packages/sim/src/fork.ts packages/sim/src/briefing.ts packages/sim/src/commands.ts packages/sim/src/step.ts packages/sim/src/world.ts packages/sim/src/hash.ts packages/sim/src/events.ts packages/sim/src/wave-start.ts packages/sim/src/config-pair.ts packages/sim/src/config.ts packages/sim/src/index.ts packages/sim/src/hull.ts packages/sim/test packages/render/src/briefing.ts packages/render/src/hud.ts packages/render/test packages/content/src/mechanics.ts packages/content/src/mechanics-table.ts packages/content/src/waves-demo.ts packages/audio/src/bind.ts apps/game/src/briefing.ts tools/director/src/pair-panel.ts tools/director/src/ship-fields.ts tools/director/src/ship.ts docs/spec/briefings.md docs/spec/systems.md_
+**Asked for by the owner:**
+
+> remove "the fork" logic and state in the flow. I dont need this to be a
+> separate config.
+>
+> Instead i want its idea to be there for every wave in the step when a guide
+> card is shown. players must hold down a circle in the middle. they will see
+> also circle for other player. when one player is hoding the circle, it fills
+> up like a loading indicator. when it reaches full for one player it says
+> inside of circle or above below "ready". when both players tapped long enough
+> so circles are both ready, the wave will start playing.
+>
+> like that players can say if they read the guide description ( had enough
+> time) and are ready to start playing the wave.
+>
+> this mechanic should be consistent for all waves, which have a guide/card
+> enabled.
+
+**This is a replacement, not a deletion.** THE FORK's idea — *the pair decides
+when to go, and no clock decides it for them* — is kept and moved to where it
+belongs, which is the end of the thing the pair is actually reading. What goes
+is a second gate at the same seam with its own config switch.
+
+### What THE FORK is today, so the lane knows what it is dismantling
+
+A gate between waves, crossed only while player 1 holds the lance and player 2
+presses a colour, behind `cfg.forkBetweenWaves`. `packages/sim/src/fork.ts`
+argues three things and **two of them survive the move**:
+
+- **There is no timeout, deliberately.** *A clock that eventually started the
+  wave anyway would make the wait decorative — the pair would learn its length
+  and stop committing.* The ready gate inherits this exactly: it waits forever.
+- **It is not a free repair bay.** The hull stops regenerating while a fork is
+  open (`regenerateHull` in `world.ts`), so standing and talking is not the
+  cheapest way to play. **This is the rule most likely to be dropped by
+  accident.** Decide whether the ready gate pauses regeneration too, and say
+  which in the commit — a guide the pair can sit behind while the hull heals is
+  the same exploit through a new door.
+- **THE FORK first, then the card**, with a long argument about not stacking two
+  "both of you press something" gates back to back. That argument dies with the
+  fork, and its dying *is* the point of this entry: there is now one gate, at
+  the end of the reading, which is what the second half of that comment wished
+  for.
+
+`fork.ts` is deleted, not emptied, and its two surviving paragraphs move into
+whichever file now owns the gate. Do not lose that prose — it is the reasoning
+somebody will otherwise re-derive.
+
+### What replaces the guide's dismissal
+
+Today a guide holds until both seats have acked, one press each. That becomes:
+**each seat holds a circle, the circle fills, it says READY when full, and the
+wave starts when both are ready.**
+
+**Each screen shows both circles — yours and theirs.** The owner asked for this
+in as many words, and it is the part that makes the gesture two-player rather
+than two solo ones: you can see your partner is still reading, or that they
+finished a while ago and are waiting on you. A screen that draws only its own
+circle has built the same feature with the meaning taken out.
+
+**The fill lives in the simulation, in the hash, counted in ticks.** It decides
+when the wave starts, so two devices must agree on it to the tick — unlike the
+introduction's few seconds, which the app counts precisely because nothing
+depends on them. Integers, rule 3, and `bun run test:determinism` is the guard.
+
+**Does letting go reset the fill, or pause it?** Not settled by what the owner
+said, and it is the one real design question in the lane. There is a precedent
+pulling one way: THE WARDEN's pull **accumulates**, and `config-boss.ts` says
+why — *the question the fight asks is when the other player can spare their
+hand, never whether they can hold it steady on a phone.* That reasoning is
+about a fight, and this is not one; a reset is arguably right here, because the
+gesture means *I have read it* and a slip costs nothing but a second. **Follow
+the warden unless there is a reason not to, and write the reason down either
+way** — this is exactly the kind of choice that is invisible six months later.
+
+**Only waves that carry a guide.** A wave with none runs its introduction and
+begins. The owner said so, and it also means the gate appears where there is
+something to have read, which is what makes it mean anything.
+
+### The two integrations that will be missed
+
+**The director's test role puts one person in both seats.** A landing this week
+made the stage step a card p1 → p2 → play on presses of the field. Two circles
+held by one pair of hands needs an answer there — held one after the other, or
+one hand standing for both. Decide, say which, and make sure the director can
+still start a wave without two people.
+
+**A desk has no thumb to hold.** The keyboard path already sends the guide's
+dismissal; a hold-to-fill needs a key held rather than pressed, per seat, and
+the game and the director copy each other's layout deliberately. Do not leave
+the PC unable to start a wave.
+
+### What is retired
+
+`forkBetweenWaves` in both configs, `fork.ts`, the `forkWait` event, the `fork`
+entry in `mechanics.ts` and `mechanics-table.ts`, its switch in the director's
+ship fields, its sound in `packages/audio`, and whatever `waves-demo.ts` uses
+it for. `tools/orphans` and `bun run check` are the guards against leaving a
+corpse. **Several files matching "fork" are false positives** — a forked
+*shape* in `scars.ts`, `contact-shadow.ts` and the vein skins has nothing to do
+with this. Check before touching.
+
+### The rule this is exempt from
+
+It changes what a player sees, which *a look is offered, never replaced* would
+normally send to a candidate page. Exempt under the first named exemption: the
+owner asked for it by name, in the words above. That covers this gesture and
+nothing else — do not improve any other look on the way past.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes,
+nothing named `fork` remains outside the false positives, every wave carrying a
+guide ends it on two circles that fill and say READY, both circles are visible
+on both screens, and the wave starts only when both are full.
+
+`Check: at the end of a guide, do two circles fill as you and your partner each hold one — can you see theirs filling as well as your own, and does the wave wait until both say READY`
+
+Model `opus`, effort `ultrathink`, spent on the gate's rules before any
+drawing: what the fill is counted in, what letting go does, and what the
+single-handed director does. Read `packages/sim/src/fork.ts` whole — including
+the comment — then `packages/sim/src/briefing.ts`, before deleting anything.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
