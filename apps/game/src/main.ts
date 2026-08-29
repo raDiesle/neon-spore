@@ -177,6 +177,17 @@ const paint = (dt: number): void => {
   jumpToWave,
   // A headless check has no thumbs, and a guide waits for two of them.
   dismissBriefing: brief.dismiss,
+  // The introduction passes on a timer this world does not read (`briefing.ts`
+  // on why), so a headless caller cannot wait it out and cannot press it away
+  // either — it is explicitly not the guide's dismiss. This drives the same
+  // clock `progression.tickOpening` drives every frame, in one jump: pass a
+  // small number to sit on the introduction on purpose and photograph it
+  // mid-count, or enough to exhaust `INTRO_SECONDS` to let it go. Either way
+  // it only pushes the acks into the buffer — `advance` still has to run a
+  // tick for them to land, exactly as a dismissed guide already does.
+  advanceOpening(seconds: number) {
+    progression.tickOpening(seconds);
+  },
   advance(ticks: number) {
     for (let i = 0; i < ticks; i++) {
       step(world, buffer.drain(world.tick));
