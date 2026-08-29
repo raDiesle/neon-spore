@@ -130,9 +130,9 @@ export const BRIEFINGS: Record<BriefingId, BriefingCard> = {
   },
   maze: {
     title: "THE MAZE",
-    both: "Three mouths open above the ship and only one of them goes anywhere.",
-    p1: "You see the forks. Each node offers two ways out and you cannot tell which is fused.",
-    p2: "You see the walls. Each node has one direction shut and you cannot tell what was there.",
+    both: "A wheel of rings turns above the ship. Ways in are cut round its rim and only one of them reaches the middle — neither of you is told which.",
+    p1: "You pull the string. The wheel turns until a way in clicks onto a column and lights up, and you cannot fire.",
+    p2: "You fire, and you cannot turn anything. A shot only counts up the column the light is standing on — and a dead end costs the hull.",
   },
   gauge: {
     title: "THE GAUGE",

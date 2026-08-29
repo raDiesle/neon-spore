@@ -74,8 +74,27 @@ export interface BossConfig {
    * the field and starts falling, the same job `mirrorRow` does.
    */
   mazeRow: number;
-  /** Damage a shot down a mouth that goes nowhere costs. */
+  /** Damage a shot down a way in that goes nowhere costs. */
   damageMaze: number;
+  /**
+   * How wide THE MAZE's wheel stands across the field, in thousandths of the
+   * field's width. About six sevenths, so the rim clears the hull and the
+   * cannon still slides under it.
+   */
+  mazeSpanMilli: number;
+  /**
+   * How far the wheel turns in a tick while the string is pulled, in
+   * thousandths of a degree. A whole turn at 200 is twenty-four beats.
+   */
+  mazeTurnMilli: number;
+  /**
+   * How near a column's centre a way in has to come before it clicks onto it,
+   * in thousandths of a column. It has to be wider than the furthest the rim
+   * moves in one tick or a column could be turned straight past, and narrow
+   * enough that a lit mouth reads as standing on the column — `test/maze.test.ts`
+   * holds both ends of that against these two numbers.
+   */
+  mazeSnapMilli: number;
   /** Score for finding the mouth that reaches the core. */
   scoreMazeRound: number;
   /** Score for bringing THE MAZE down. */
@@ -114,6 +133,9 @@ export const BOSS_DEFAULTS: BossConfig = {
   scoreVaneDown: 2500,
   mazeRow: 3,
   damageMaze: 15,
+  mazeSpanMilli: 857,
+  mazeTurnMilli: 600,
+  mazeSnapMilli: 180,
   scoreMazeRound: 500,
   scoreMazeDown: 2500,
 };

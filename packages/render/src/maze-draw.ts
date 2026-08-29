@@ -1,77 +1,74 @@
 import {
-  MAZE_LANES,
-  MAZE_MOUTHS,
-  MAZE_VERDICT_BEATS,
-  type MazeDir,
+  MAZE_TURN,
+  type MazeCell,
   type MazeState,
-  type MazeTangle,
+  type MazeWheel,
+  mazeCenterMilli,
   mazeCurrent,
-  mazeDirsOf,
-  mazeMouthCol,
-  mazeSeatMask,
+  mazeEntranceAngle,
+  mazeEntranceCol,
+  mazeRadiusMilli,
   type SimConfig,
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout, ViewRole } from "./layout.js";
-import { tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * THE MAZE's picture: three mouths above the hull, and behind them the
- * lattice each seat reads its own half of.
+ * THE MAZE's picture: a closed drum of rings turning over the ship, with the
+ * mouth that has clicked onto a column lit up.
  *
- * `packages/sim/src/maze.ts` carries the one rule that matters —
- * `mazeSeatMask` is what a seat can see at a node, and this file draws
- * exactly that mask, nothing computed a second time. The split is by
- * *layer*, not by region: both screens draw every node of the same lattice,
- * so nobody learns anything by counting how many nodes the other side got.
- * Player 1, the pilot, draws a node's **arms** — the two ways out, with no
- * hint which is fused. Player 2, the navigator, draws its **wall** — the one
- * direction shut, with no hint an arm was ever there. `test` draws both, the
- * solo view holding both halves at once (`showsQueenShape`/`showsQueenHint`).
+ * **The interior is drawn shut, and that is the round.** Rings and mouths, no
+ * corridors — neither player is told which way in reaches the middle, so there
+ * is nothing on the rim to trace and the shot is the only thing that finds
+ * out. What the drum gives back is the *route it has already spent*: the cells
+ * a shot walked stay lit behind it, and the ones from failed attempts stay on
+ * dim. That is what the pair is looking at when they decide where to go next,
+ * and it is why a dead end teaches something instead of only costing.
  *
- * The shot is drawn at its current node and nowhere else — no trail, because
- * a trail would retrace the very path the split keeps off one screen. Only
- * `MazeState` is read, so the file is stateless: nothing outlives a frame and
- * `Effects.reset()` has nothing of it to clear, as `gauge.ts`/`mirror.ts` are.
+ * **Both screens draw the same frame.** With the light, the shot and the
+ * middle all on both of them there is no seat to draw for, so `role` decides
+ * nothing here — `packages/sim/src/maze.ts` has why, and it is a decision the
+ * owner made three times rather than an omission.
+ *
+ * Where the wheel stands, which column a mouth has taken and how wide the drum
+ * is are all read out of `sim` rather than worked out again — a picture that
+ * lit a column the shot does not go up would be the one defect nobody could
+ * see. Only `MazeState` is read, so nothing outlives a frame and
+ * `Effects.reset()` has nothing of this to clear.
  */
 
-const TOP_FRAC = 0.05;
-const ROW_FRAC = 0.065;
-const NODE_R_TILE = 0.09;
-/** How far an arm reaches toward the next row, and how far a wall's stub does. */
-const ARM_REACH = 0.92;
-const WALL_REACH = 0.4;
+/** How far the rim sits below the top of the field, in tiles. */
+const CLEAR_TILES = 0.6;
 
-function seatOf(role: ViewRole): 0 | 1 | 2 {
-  if (role === "p1") return 1;
-  if (role === "p2") return 2;
-  return 0;
+/** The wheel's centre and rim, in pixels, from the numbers the simulation uses. */
+function drum(l: Layout, cfg: SimConfig): { cx: number; cy: number; r: number } {
+  const r = (mazeRadiusMilli(cfg) * l.tile) / 1000;
+  return {
+    cx: l.gridLeft + (mazeCenterMilli(cfg) * l.tile) / 1000,
+    cy: l.gridTop + r + l.tile * CLEAR_TILES,
+    r,
+  };
 }
 
-/** The x every mouth and every lane in between sits on, tied to the real
- * columns the cannon fires from — never a width guessed independently of it. */
-function mouthXs(l: Layout, cfg: SimConfig): number[] {
-  const xs: number[] = [];
-  for (let mouth = 0; mouth < MAZE_MOUTHS; mouth++) xs.push(tileCX(l, mazeMouthCol(cfg, mouth)));
-  return xs;
+/** The radius of a ring, ring 0 being the middle. */
+function ringR(r: number, wheel: MazeWheel, ring: number): number {
+  return (r * (ring + 1)) / wheel.rings;
 }
 
-/** A lane's x, piecewise-linear between the mouths it sits between or on. */
-function laneX(mouths: number[], lane: number): number {
-  const half = (MAZE_LANES - 1) / 2;
-  const t = lane <= half ? lane / half : (lane - half) / half;
-  const [a, b] = lane <= half ? [mouths[0]!, mouths[1]!] : [mouths[1]!, mouths[2]!];
-  return a + (b - a) * t;
-}
-
-const rowY = (l: Layout, row: number) =>
-  l.gridTop + l.gridHeight * (TOP_FRAC + ROW_FRAC * (row + 1));
-const mouthY = (l: Layout) => l.gridTop + l.gridHeight * TOP_FRAC;
-
-/** Where the arm or wall leaving `(row, lane)` toward `dir` points at. */
-function nextPoint(l: Layout, mouths: number[], row: number, lane: number, dir: MazeDir) {
-  return { nx: laneX(mouths, lane + dir), ny: rowY(l, row + 1) };
+/** Where a cell sits, in pixels, with the wheel where it currently stands. */
+function cellXY(
+  l: Layout,
+  cfg: SimConfig,
+  wheel: MazeWheel,
+  angleMilli: number,
+  cell: MazeCell,
+): { x: number; y: number } {
+  const d = drum(l, cfg);
+  const rad = ringR(d.r, wheel, cell.ring) - d.r / (2 * wheel.rings);
+  const theta =
+    ((angleMilli + (cell.sector * MAZE_TURN) / wheel.sectors) / MAZE_TURN) * Math.PI * 2;
+  return { x: d.cx + rad * Math.sin(theta), y: d.cy + rad * Math.cos(theta) };
 }
 
 export function drawMaze(
@@ -79,161 +76,160 @@ export function drawMaze(
   l: Layout,
   cfg: SimConfig,
   m: MazeState,
-  role: ViewRole,
+  _role: ViewRole,
   beat: number,
   beatPhase: number,
 ): void {
-  const tangle = mazeCurrent(m);
-  if (tangle === null) return;
-  const mouths = mouthXs(l, cfg);
-
-  drawMouths(ctx, l, mouths);
-  drawLattice(ctx, l, mouths, tangle, seatOf(role));
-  drawShot(ctx, l, mouths, m, beat, beatPhase);
+  const wheel = mazeCurrent(m);
+  if (wheel === null) return;
+  drawDrum(ctx, l, cfg, wheel);
+  drawSpent(ctx, l, cfg, m, wheel);
+  drawMouths(ctx, l, cfg, m, wheel, beat, beatPhase);
+  drawShot(ctx, l, cfg, m, wheel, beat, beatPhase);
 }
 
-/** The three openings above the hull. A shot into any other column is not an
- * answer at all (`mazeHeard`), so only these three columns get a mouth. */
-function drawMouths(ctx: CanvasRenderingContext2D, l: Layout, mouths: number[]): void {
-  const y = mouthY(l);
-  const r = l.tile * NODE_R_TILE * 1.6;
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = 1.6;
-  for (const x of mouths) {
+/** The rings themselves, closed, with the middle a disc nobody can see into. */
+function drawDrum(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  wheel: MazeWheel,
+): void {
+  const d = drum(l, cfg);
+  for (let ring = wheel.rings - 1; ring >= 0; ring--) {
     ctx.beginPath();
-    ctx.arc(x, y, r, Math.PI, 0);
+    ctx.arc(d.cx, d.cy, ringR(d.r, wheel, ring), 0, Math.PI * 2);
+    ctx.strokeStyle = ring === wheel.rings - 1 ? PALETTE.hullRim : PALETTE.dim;
+    ctx.lineWidth = ring === wheel.rings - 1 ? 2.2 : 1.2;
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.arc(d.cx, d.cy, ringR(d.r, wheel, 0) * 0.55, 0, Math.PI * 2);
+  ctx.fillStyle = PALETTE.grid;
+  ctx.fill();
+  ctx.strokeStyle = PALETTE.dim;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+}
+
+/**
+ * Every cell a shot has already stood in, this attempt bright and the failed
+ * ones dim. The drum remembers what it cost to learn, which is the only thing
+ * either player can reason from.
+ */
+function drawSpent(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  m: MazeState,
+  wheel: MazeWheel,
+): void {
+  const r = drum(l, cfg).r / (wheel.rings * 3);
+  for (const way of m.tried) {
+    const route = wheel.entrances[way]?.route ?? [];
+    const live = way === m.way;
+    const last = live ? m.step : route.length - 1;
+    for (const [i, cell] of route.entries()) {
+      if (i > last) break;
+      const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, cell);
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = live ? PALETTE.pod : PALETTE.sparkDim;
+      ctx.globalAlpha = live ? 0.55 : 0.3;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    // The cell a failed attempt stopped in gets a cap, so a dead end reads as
+    // a wall rather than as a route that merely stopped being drawn.
+    const end = route.at(-1);
+    if (live || end === undefined || end.ring === 0) continue;
+    const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, end);
+    ctx.beginPath();
+    ctx.arc(x, y, r * 1.4, 0, Math.PI * 2);
+    ctx.strokeStyle = PALETTE.red;
+    ctx.lineWidth = 1.6;
     ctx.stroke();
   }
 }
 
 /**
- * Every node of the lattice, drawn with only the one seat's half of it —
- * `mazeSeatMask` for the pilot's arms and `node.blocked` directly for the
- * navigator's wall, which is stored data rather than anything computed.
+ * The ways in, on the rim, and the one that has clicked onto a column lit.
+ *
+ * The light is the invitation to fire and it is on both screens. It breathes
+ * on the beat rather than on a stored clock, so there is nothing here for a
+ * restart to leave behind.
  */
-function drawLattice(
+function drawMouths(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  mouths: number[],
-  tangle: MazeTangle,
-  seat: 0 | 1 | 2,
+  cfg: SimConfig,
+  m: MazeState,
+  wheel: MazeWheel,
+  beat: number,
+  beatPhase: number,
 ): void {
-  const showArms = seat !== 2;
-  const showWalls = seat !== 1;
-
-  tangle.nodes.forEach((row, r) => {
-    row.forEach((node, lane) => {
-      const cx = laneX(mouths, lane);
-      const cy = rowY(l, r);
-
-      if (showArms) {
-        for (const dir of mazeDirsOf(mazeSeatMask(node, lane, 1))) {
-          drawArm(ctx, l, mouths, r, lane, cx, cy, dir);
-        }
-      }
-      if (showWalls) {
-        for (const dir of mazeDirsOf(node.blocked)) {
-          drawWall(ctx, l, mouths, r, lane, cx, cy, dir);
-        }
-      }
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, l.tile * NODE_R_TILE, 0, Math.PI * 2);
-      ctx.fillStyle = PALETTE.grid;
-      ctx.fill();
-      ctx.strokeStyle = PALETTE.dim;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    });
-  });
-}
-
-/** One line from a node toward the row below — an arm, drawn plainly. */
-function drawArm(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  mouths: number[],
-  row: number,
-  lane: number,
-  cx: number,
-  cy: number,
-  dir: MazeDir,
-): void {
-  const { nx, ny } = nextPoint(l, mouths, row, lane, dir);
-  ctx.beginPath();
-  ctx.moveTo(cx, cy);
-  ctx.lineTo(cx + (nx - cx) * ARM_REACH, cy + (ny - cy) * ARM_REACH);
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = 1.4;
-  ctx.stroke();
+  const d = drum(l, cfg);
+  const pulse = 0.6 + 0.4 * Math.sin((beat + beatPhase) * Math.PI);
+  for (const [way] of wheel.entrances.entries()) {
+    const theta = (mazeEntranceAngle(wheel, m.angleMilli, way) / MAZE_TURN) * Math.PI * 2;
+    const x = d.cx + d.r * Math.sin(theta);
+    const y = d.cy + d.r * Math.cos(theta);
+    const lit = m.lockedWay === way && mazeEntranceCol(cfg, wheel, m.angleMilli, way) >= 0;
+    const r = l.tile * (lit ? 0.3 : 0.22);
+    if (lit) halo(ctx, x, y, r * 4, PALETTE.good, 0.5 * pulse);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = lit ? PALETTE.good : PALETTE.grid;
+    ctx.fill();
+    ctx.strokeStyle = lit ? PALETTE.good : PALETTE.hullRim;
+    ctx.lineWidth = lit ? 2.4 : 1.4;
+    ctx.stroke();
+    // A lit mouth draws the line the shot will take, straight down its column,
+    // so the invitation is to a *column* and not merely to a bright spot.
+    if (!lit) continue;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, l.hullY);
+    ctx.strokeStyle = PALETTE.good;
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.25 * pulse;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
 }
 
 /**
- * A short gate glyph across the one direction this node shuts — a stub of the
- * would-be arm capped by a plug, so it reads as *closed* rather than as a
- * shorter version of the pilot's open line. Deliberately fewer strokes than
- * an arm: one stub and one plug against two full-length lines, so a navigator
- * frame never simply looks like a pilot frame with less reach.
- */
-function drawWall(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  mouths: number[],
-  row: number,
-  lane: number,
-  cx: number,
-  cy: number,
-  dir: MazeDir,
-): void {
-  const { nx, ny } = nextPoint(l, mouths, row, lane, dir);
-  const tx = cx + (nx - cx) * WALL_REACH;
-  const ty = cy + (ny - cy) * WALL_REACH;
-
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.lineWidth = 1.2;
-  ctx.beginPath();
-  ctx.moveTo(cx, cy);
-  ctx.lineTo(tx, ty);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(tx, ty, l.tile * 0.05, 0, Math.PI * 2);
-  ctx.fillStyle = PALETTE.red;
-  ctx.fill();
-}
-
-/**
- * The shot, at its current node only — never a trail. `probeLane` sits at
- * `-1` while nothing is travelling, which is also true in `lead` and `read`,
- * so this quietly draws nothing until the pair has actually fired.
+ * The shot itself, at the cell it stands in, and what it found once it has
+ * stopped. `way` is -1 whenever nothing is travelling, which is also true
+ * through `lead` and `read`, so this quietly draws nothing until the pair has
+ * actually fired.
  */
 function drawShot(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  mouths: number[],
+  cfg: SimConfig,
   m: MazeState,
+  wheel: MazeWheel,
   beat: number,
   beatPhase: number,
 ): void {
-  if (m.phase !== "travel" && m.phase !== "verdict") return;
-  if (m.probeLane < 0) return;
-
-  const x = laneX(mouths, m.probeLane);
-  const y = rowY(l, m.probeRow);
-  const r = l.tile * NODE_R_TILE * 2.4;
+  if (m.way < 0 || (m.phase !== "travel" && m.phase !== "verdict")) return;
+  const cell = wheel.entrances[m.way]?.route[m.step];
+  if (cell === undefined) return;
+  const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, cell);
+  const r = drum(l, cfg).r / (wheel.rings * 2.2);
 
   // Right in the one colour this game ever calls a success, wrong in the one
-  // it already spends on "not what you wanted" (`PALETTE.good`, `effects-spark.ts`).
+  // it already spends on "not what you wanted" (`effects-spark.ts`).
   let hex: string = PALETTE.pod;
   let alpha = 0.85;
   if (m.phase === "verdict") {
     const age = beat - m.phaseBeat + beatPhase;
-    alpha = Math.max(0, 1 - age / MAZE_VERDICT_BEATS);
+    alpha = Math.max(0, 1 - age / 3);
     if (alpha <= 0) return;
     hex = m.verdict === 1 ? PALETTE.good : PALETTE.sparkDim;
   }
-
-  halo(ctx, x, y, r * 2.6, hex, alpha);
+  halo(ctx, x, y, r * 3, hex, alpha);
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fillStyle = hex;

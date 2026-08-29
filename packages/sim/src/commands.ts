@@ -3,7 +3,7 @@ import { closeFork, forkFire } from "./fork.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { endPrime, startPrime } from "./lance.js";
-import { mazeHeard } from "./maze-round.js";
+import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";

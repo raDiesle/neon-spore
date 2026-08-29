@@ -1,4 +1,4 @@
-import type { MazeTangle } from "./maze.js";
+import type { MazeTangle } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
 

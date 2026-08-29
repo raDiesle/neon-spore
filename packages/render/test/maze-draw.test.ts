@@ -2,22 +2,31 @@ import { beforeAll, describe, expect, it } from "bun:test";
 import {
   DEFAULT_CONFIG,
   type MazeState,
-  type MazeTangle,
-  mazeGoodMouth,
-  mazeNode,
-  mazePath,
+  type MazeWheel,
+  mazeCoreEntrance,
+  mazeEntranceCol,
+  mazeFault,
+  mazeRadiusMilli,
+  mazeRoute,
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMaze } from "../src/maze-draw.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * THE MAZE's split lives entirely in what each screen draws: the pilot's
- * frame names the arms a node has, the navigator's names the wall, and
- * neither role may draw enough of the other's half to answer the round
- * alone. These cases hold that shut, the way `queen-split.test.ts` holds the
- * Bulb Queen's split shut — by counting what actually reaches the canvas
- * rather than trusting the source to keep meaning what it says.
+ * THE MAZE's picture, held to the three things a player would notice.
+ *
+ * The drum is **closed**: whatever is drawn of a route is drawn only where a
+ * shot has already been, because neither player is told which way in reaches
+ * the middle and a picture that gave it away would be the whole round gone.
+ *
+ * The lit mouth is an **invitation to a column**, so a frame with a click in
+ * it puts something down the column the shot will take, and a frame without
+ * one does not.
+ *
+ * And **both screens draw the same thing** — there is no seat split left in
+ * this round (`packages/sim/src/maze.ts`), so a frame that differed by role
+ * would be a split arriving by the back door.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -28,39 +37,51 @@ function layoutFor(role: ViewRole) {
   return computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
 }
 
-const n = (arms: readonly (-1 | 0 | 1)[], shut: -1 | 0 | 1) => mazeNode(arms, shut);
-
-/**
- * One small tangle — two rows is enough to prove the split without dragging
- * the full authored content into a unit test. `core` is derived from mouth
- * 0's own forced path rather than picked by hand, so the fixture is always
- * answerable and these cases never quietly test an unwinnable round.
- */
-function tangle(): MazeTangle {
-  const nodes = [
-    [n([0, 1], 0), n([-1, 1], 1), n([-1, 1], -1), n([0, 1], 1), n([-1, 0], 0)],
-    [n([0, 1], 1), n([-1, 1], 1), n([-1, 1], -1), n([-1, 1], -1), n([-1, 0], 0)],
-  ];
-  const draft: MazeTangle = { core: 0, nodes };
-  return { ...draft, core: mazePath(draft, 0).at(-1) ?? 0 };
+/** One small wheel — two ways in and three rings is the round-one shape. */
+function wheel(): MazeWheel {
+  const shape = { rings: 3, sectors: 12 };
+  const draft: MazeWheel = {
+    ...shape,
+    startMilli: 15_000,
+    entrances: [
+      { sector: 0, route: mazeRoute(shape, 0, ["cw", "in", "cw", "in"]) },
+      { sector: 5, route: mazeRoute(shape, 5, ["ccw", "in", "ccw", "ccw"]) },
+    ],
+  };
+  return draft;
 }
 
 function bossState(overrides: Partial<MazeState> = {}): MazeState {
   const base: MazeState = {
     kind: "maze",
-    rounds: [tangle()],
+    rounds: [wheel()],
     round: 0,
     phase: "lead",
     phaseBeat: 0,
-    mouth: -1,
-    probeRow: 0,
-    probeLane: -1,
+    angleMilli: 15_000,
+    turn: 0,
+    armed: true,
+    lockedCol: -1,
+    lockedWay: -1,
+    way: -1,
+    step: 0,
+    tried: [],
     hullMilli: 100000,
     scars: [],
     verdict: 0,
     verdictCol: -1,
   };
   return { ...base, ...overrides };
+}
+
+/** An angle at which the first way in is standing on a column. */
+function clicked(): { angleMilli: number; col: number } {
+  const w = wheel();
+  for (let a = 0; a < 360_000; a += 25) {
+    const col = mazeEntranceCol(CFG, w, a, 0);
+    if (col >= 0) return { angleMilli: a, col };
+  }
+  throw new Error("the wheel never reaches a column");
 }
 
 /** Draws counted by shape: one line per `moveTo`, one dot per `arc`. Colours
@@ -71,6 +92,7 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
   let lines = 0;
   let arcs = 0;
   const colours: string[] = [];
+  const points: { x: number; y: number }[] = [];
   const spy = new Proxy(ctx, {
     get(target, prop, receiver) {
       if (prop === "moveTo") {
@@ -79,7 +101,10 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
       }
       if (prop === "arc") {
         arcs++;
-        return Reflect.get(target, prop, receiver);
+        return (x: number, y: number, ...rest: number[]) => {
+          points.push({ x, y });
+          return (target.arc as (...a: number[]) => void)(x, y, ...rest);
+        };
       }
       return Reflect.get(target, prop, receiver);
     },
@@ -91,96 +116,75 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
     },
   }) as unknown as CanvasRenderingContext2D;
   drawMaze(spy, l, CFG, m, role, beat, beatPhase);
-  return { lines, arcs, colours };
+  return { lines, arcs, colours, points, l };
 }
 
-describe("THE MAZE's split", () => {
-  const m = bossState({ phase: "read", phaseBeat: 0 });
-
-  it("draws something on all three roles — nobody gets an empty frame", () => {
-    for (const role of ["p1", "p2", "test"] as const) {
-      const { lines, arcs } = watch(role, m, 3);
-      expect(lines + arcs).toBeGreaterThan(0);
-    }
+describe("THE MAZE's wheel", () => {
+  it("draws the same frame for both seats, because there is nothing to split", () => {
+    const m = bossState({ phase: "read", ...clicked(), lockedWay: 0 });
+    const one = watch("p1", m, 3);
+    const two = watch("p2", m, 3);
+    expect(one.arcs).toBe(two.arcs);
+    expect(one.lines).toBe(two.lines);
+    expect(one.colours).toEqual(two.colours);
   });
 
-  it("gives the pilot more lines than the navigator — arms outnumber a single wall tick", () => {
-    // Every node offers exactly two arms and shuts exactly one direction, so
-    // a pilot frame draws two ticks per node where a navigator frame draws
-    // one gate — the asymmetry the round depends on has to show up as a
-    // difference in what is actually stroked, not just in a comment.
-    const pilot = watch("p1", m, 3);
-    const navigator = watch("p2", m, 3);
-    expect(pilot.lines).toBeGreaterThan(navigator.lines);
+  it("keeps the drum shut until a shot has been down it", () => {
+    const shut = watch("p1", bossState({ phase: "read" }), 3);
+    const spent = watch("p1", bossState({ phase: "read", tried: [1], way: -1 }), 3);
+    // A route only appears once it has been paid for.
+    expect(spent.arcs).toBeGreaterThan(shut.arcs);
   });
 
-  it("draws the test role with at least as much as either single seat", () => {
-    // `test` holds both halves at once, same as `showsQueenShape`/`showsQueenHint`.
-    const pilot = watch("p1", m, 3);
-    const navigator = watch("p2", m, 3);
-    const solo = watch("test", m, 3);
-    expect(solo.lines).toBeGreaterThanOrEqual(pilot.lines);
-    expect(solo.lines).toBeGreaterThanOrEqual(navigator.lines);
-  });
-
-  it("never paints red — the ammunition colour — on the pilot's own frame", () => {
-    // Red is spent by this file as the navigator's wall glyph, never as an
-    // arm. A pilot screen naming it would be a leak of the other seat's half.
-    const pilot = watch("p1", m, 3);
-    expect(pilot.colours).not.toContain("#FF3B6B");
-  });
-
-  it("draws no travelling shot before the pair has fired", () => {
-    const lead = bossState({ phase: "lead", phaseBeat: 0 });
-    const before = watch("p1", lead, 1);
-    const read = bossState({ phase: "read", phaseBeat: 0 });
-    const during = watch("p1", read, 3);
-    // Both phases draw the lattice; neither should add a shot marker, so the
-    // two frames spend the same number of arcs.
-    expect(before.arcs).toBeGreaterThan(0);
-    expect(during.arcs).toBe(before.arcs);
-  });
-
-  it("draws a shot marker once travel starts, on top of the lattice", () => {
-    const idle = watch("p1", bossState({ phase: "read", phaseBeat: 0 }), 3);
-    const travelling = watch(
+  it("puts a line down the column a lit mouth is standing on", () => {
+    const { angleMilli, col } = clicked();
+    const dark = watch("p1", bossState({ phase: "read", angleMilli }), 3);
+    const lit = watch(
       "p1",
-      bossState({ phase: "travel", phaseBeat: 3, probeRow: 0, probeLane: 1 }),
+      bossState({ phase: "read", angleMilli, lockedWay: 0, lockedCol: col }),
       3,
     );
-    expect(travelling.arcs).toBeGreaterThan(idle.arcs);
+    expect(lit.lines).toBeGreaterThan(dark.lines);
   });
 
-  it("fades the verdict mark to nothing after its own beats are up", () => {
-    const fresh = watch(
-      "p1",
-      bossState({ phase: "verdict", phaseBeat: 0, verdict: 1, probeRow: 2, probeLane: 1 }),
-      0,
-    );
-    const stale = watch(
-      "p1",
-      bossState({ phase: "verdict", phaseBeat: 0, verdict: 1, probeRow: 2, probeLane: 1 }),
-      50,
-    );
-    expect(fresh.arcs).toBeGreaterThan(stale.arcs);
+  it("stands about six sevenths of the field wide, clear of the hull", () => {
+    const l = layoutFor("p1");
+    const r = (mazeRadiusMilli(CFG) * l.tile) / 1000;
+    expect((2 * r) / l.gridWidth).toBeGreaterThan(0.83);
+    expect((2 * r) / l.gridWidth).toBeLessThan(0.87);
+    // The rim's lowest point still leaves the cannon room to slide under it.
+    const bottom = l.gridTop + 2 * r + l.tile * 0.6;
+    expect(l.hullY - bottom).toBeGreaterThan(l.tile * 2);
   });
 
-  it("never throws at the field widths the game actually ships", () => {
-    for (const cols of [7, 9, 12]) {
-      const cfg = { ...CFG, cols };
-      const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, cfg, "p1");
-      const { ctx } = stubCanvas();
-      const spy = ctx as unknown as CanvasRenderingContext2D;
-      expect(() => drawMaze(spy, l, cfg, m, "p1", 3, 0)).not.toThrow();
+  it("lights the corridor up behind the shot, and keeps it inside the drum", () => {
+    const early = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 0 }), 3);
+    const going = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 3 }), 3);
+    expect(going.arcs).toBeGreaterThan(early.arcs);
+    const l = layoutFor("p1");
+    const r = (mazeRadiusMilli(CFG) * l.tile) / 1000;
+    const cx = l.gridLeft + l.gridWidth / 2;
+    const cy = l.gridTop + r + l.tile * 0.6;
+    for (const p of going.points) {
+      expect(Math.hypot(p.x - cx, p.y - cy)).toBeLessThan(r * 4.1);
     }
-    // And the fixture tangle is answerable — otherwise the cases above are
-    // proving something about a round nobody could ever win.
-    expect(mazeGoodMouth(m.rounds[0]!)).toBeGreaterThanOrEqual(0);
   });
 
-  it("draws nothing at all once the round is past its last authored tangle", () => {
-    const done = bossState({ round: 1 });
-    const { lines, arcs } = watch("p1", done, 3);
-    expect(lines + arcs).toBe(0);
+  it("survives every phase and a field of any width without throwing", () => {
+    for (const phase of ["lead", "read", "travel", "verdict"] as const) {
+      for (const cols of [7, 9, 11, 13]) {
+        const cfg = { ...CFG, cols };
+        const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, cfg, "p1");
+        const { ctx } = stubCanvas();
+        const m = bossState({ phase, tried: [0, 1], way: 0, step: 1, verdict: -1 });
+        const c = ctx as unknown as CanvasRenderingContext2D;
+        expect(() => drawMaze(c, l, cfg, m, "p1", 3, 0)).not.toThrow();
+      }
+    }
+  });
+
+  it("is drawn against a wheel that is a legal wheel", () => {
+    expect(mazeFault(wheel())).toBeNull();
+    expect(mazeCoreEntrance(wheel())).toBeGreaterThanOrEqual(0);
   });
 });

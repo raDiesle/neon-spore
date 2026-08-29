@@ -253,23 +253,24 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
-    // The one way out of a node in THE MAZE's tangle. Two screens each hold
-    // half of this intersection and a third copy of it — in the draw path, in
-    // a tool, in a test — is how the strand a player is shown stops being the
-    // strand the shot takes. Neither picture would show that, which is exactly
-    // the class of defect this table exists for.
-    call: "mazeWayOut",
+    // Where a way into THE MAZE's wheel stands, across the field. Both screens
+    // draw the lit mouth and the simulation decides which column the shot goes
+    // up, so a second copy of this is a picture lighting a column the shot does
+    // not take — and neither picture would show it, which is exactly the class
+    // of defect this table exists for. It replaced `mazeWayOut` and
+    // `mazeMouthCol` when the lattice became a wheel; both are gone.
+    call: "mazeEntranceX",
     owner: "packages/sim/src/maze.ts",
-    pattern: /branches\s*&\s*~\s*(?:node\s*\.\s*)?blocked/,
+    pattern: /mazeRadiusMilli\s*\(\s*cfg\s*\)\s*\*\s*mazeSinMilli/,
     strip: false,
   },
   {
-    // Where a mouth hangs. It is derived from the width of the field, so a
-    // hand-written copy would be right on an eleven-column field and quietly
+    // How wide the wheel stands. It is derived from the width of the field, so
+    // a hand-written copy would be right on an eleven-column field and quietly
     // wrong on any other — including the seven the waves are authored against.
-    call: "mazeMouthCol",
+    call: "mazeRadiusMilli",
     owner: "packages/sim/src/maze.ts",
-    pattern: /\(\s*2\s*\*\s*mouth\s*\+\s*1\s*\)/,
+    pattern: /cfg\s*\.\s*cols\s*\*\s*cfg\s*\.\s*mazeSpanMilli/,
     strip: false,
   },
   {

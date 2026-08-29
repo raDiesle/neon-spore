@@ -170,8 +170,8 @@ export const WAVES: Wave[] = [
   },
   {
     name: "THE MAZE",
-    sentence: "The one where only the two of you together can see which mouth goes anywhere.",
-    hint: "Three mouths, one tangle. He sees the forks, she sees the walls — name every node out loud, then fire down the mouth you agreed on.",
+    sentence: "The one where he turns the wheel and she fires, and neither can do the other half.",
+    hint: "Pull the string until a way in clicks onto a column and lights, park the cannon there, fire. Nobody knows which reaches the middle, and a dead end costs the hull — say which to try next.",
     entries: [],
     boss: { kind: "maze", rounds: MAZE_ROUNDS },
   },

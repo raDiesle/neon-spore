@@ -64,28 +64,18 @@ export {
   priming,
 } from "./lance.js";
 export {
-  MAZE_DIRS,
-  MAZE_LANES,
-  MAZE_MOUTHS,
   MAZE_PHASES,
-  type MazeDir,
-  type MazeNode,
+  MAZE_TURN,
   type MazePhase,
-  type MazeTangle,
-  mazeDirBit,
-  mazeDirsOf,
-  mazeFault,
-  mazeGoodMouth,
-  mazeMouthAt,
-  mazeMouthCol,
-  mazeMouthLane,
-  mazeMouthsFor,
-  mazeNode,
-  mazeOnBoard,
-  mazePath,
-  mazeReach,
-  mazeSeatMask,
-  mazeWayOut,
+  mazeCenterMilli,
+  mazeClickAngle,
+  mazeCosMilli,
+  mazeEntranceAngle,
+  mazeEntranceCol,
+  mazeEntranceX,
+  mazeRadiusMilli,
+  mazeSinMilli,
+  mazeWrap,
 } from "./maze.js";
 export {
   MAZE_LEAD_BEATS,
@@ -96,6 +86,17 @@ export {
   mazeCurrent,
   mazeReadBeats,
 } from "./maze-round.js";
+export {
+  type MazeCell,
+  type MazeEntrance,
+  type MazeMove,
+  type MazeTangle,
+  type MazeWheel,
+  mazeCoreEntrance,
+  mazeFault,
+  mazeReachesCore,
+  mazeRoute,
+} from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";

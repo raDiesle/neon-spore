@@ -1,128 +1,145 @@
 import { breachHull } from "./hull.js";
-import {
-  MAZE_MOUTHS,
-  type MazePhase,
-  type MazeTangle,
-  mazeMouthAt,
-  mazeMouthCol,
-  mazeMouthLane,
-  mazePath,
-} from "./maze.js";
+import { type MazePhase, mazeWrap } from "./maze.js";
+import { type MazeWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
  * The round the pair plays against THE MAZE, and what it costs them.
  *
- * `maze.ts` next door is the tangle as arithmetic and knows nothing about a
- * world; everything here is the fight — the four phases, the shot going down
- * the lattice, and the two ways a round can end.
+ * `maze.ts` next door is the wheel as arithmetic and knows nothing about a
+ * world; everything here is the fight — the four phases, the string, the shot
+ * walking the corridor, and the two ways an attempt can end.
  *
- * **Failure arrives through the door that already exists.** A shot into a
- * mouth that does not reach the core finds something that comes back out of
- * the same mouth: `breachHull`, in that mouth's column, which is the ordinary
- * crater-and-crack every missed rock already is. THE MIRROR answers a wrong
- * step the same way and for the same reason (`mirror-round.ts`) — a boss that
- * invented a second kind of damage would be teaching the pair a second
- * vocabulary for the one thing they already understand. It is also why this is
- * a boss and not a round the pair only waits out.
+ * **Nothing in this round travels.** The wheel turns in place and the cannon
+ * slides on the hull as it always did, so `CLAUDE.md`'s field rule is not in
+ * play and the next reader does not have to re-derive that.
  *
- * **The column is the mouth, not wherever the cannon has wandered since.** The
- * pair chose that mouth out loud, together, and the thing that comes back
- * comes back out of it — a verdict under the cannon would punish a thumb.
+ * **The string is `valve`, THE GAUGE's own control** (`maze-controls.ts`). A
+ * press sets the wheel turning and it turns until a way in clicks onto a
+ * column, where it stops itself — so the pair counts clicks rather than
+ * describing an angle, which is the only thing that survives half a second to
+ * two of voice delay (`docs/spec/latency.md`).
  *
- * **A missed round is asked again, exactly as it was.** THE MIRROR's rule, and
- * the same argument: the pair failed to read the tangle, not to keep up with
- * it. Guessing is therefore possible and bounded — three mouths, and the two
- * wrong ones cost `damageMaze` each, which is most of a run for a pair who
- * would rather not talk.
+ * **Failure arrives through the door that already exists.** A shot down a way
+ * in that dead-ends comes back out of the column it went up: `breachHull`, the
+ * ordinary crater-and-crack every missed rock already is, which is how THE
+ * MIRROR answers a wrong step. It is also what makes the *next* attempt worth
+ * a sentence.
+ *
+ * **A dead end does not end the round.** The wheel stands, the failed route
+ * stays drawn, and the pair goes again with one way in ruled out. Only the
+ * middle finishes a wheel, and the next comes up harder.
  */
 
-/** Why a round was lost: the wrong mouth, or no mouth at all. */
+/** Why an attempt was lost: a dead end, or nothing fired at all. */
 export type MazeVerdictReason = "mouth" | "silence";
 
-/** Beats of quiet before a fresh tangle is up. Three beats, three numbers. */
+/** Beats of quiet before a fresh wheel is up. */
 export const MAZE_LEAD_BEATS = 3;
 
 /**
- * How long the pair has to read the tangle: this much per row, plus a flat
- * allowance. Generous for the reason THE MIRROR's clock is — the fight is a
- * conversation over a channel carrying half a second to two
- * (`docs/spec/latency.md`), and a pair still saying "no, the *left* arm" has
- * not failed at anything the boss is testing.
+ * How long the pair has for one attempt: this much per way in, plus a flat
+ * allowance. Generous for the reason THE MIRROR's clock is — a pair still
+ * saying "no, the *other* one" has not failed at what the boss is testing.
  */
-export const MAZE_READ_PER_ROW = 10;
+export const MAZE_READ_PER_WAY = 10;
 export const MAZE_READ_SLACK = 14;
 
-export function mazeReadBeats(rows: number): number {
-  return rows * MAZE_READ_PER_ROW + MAZE_READ_SLACK;
+export function mazeReadBeats(ways: number): number {
+  return ways * MAZE_READ_PER_WAY + MAZE_READ_SLACK;
 }
 
-/** Beats the shot spends on each node. Two, so it is a journey and not a jump. */
-export const MAZE_TRAVEL_BEATS = 2;
+/** Beats the shot spends on each cell. One, so the walk reads at tempo. */
+export const MAZE_TRAVEL_BEATS = 1;
 
-/** Beats the verdict stands before the next round begins. */
+/** Beats the verdict stands before the pair may go again. */
 export const MAZE_VERDICT_BEATS = 3;
 
 /**
- * Everything THE MAZE remembers between beats. It carries a hull and scars for
- * the reason THE MIRROR does: a round answered breaks it exactly as a round
- * missed breaks the ship, out of the two fields `render/` already draws damage
- * from.
+ * Everything THE MAZE remembers between ticks. It carries a hull and scars for
+ * the reason THE MIRROR does: a wheel finished breaks it exactly as an attempt
+ * missed breaks the ship, out of two fields `render/` already draws from.
  */
 export interface MazeState {
   kind: "maze";
-  /** The authored tangles, one per round. */
-  rounds: MazeTangle[];
+  /** The authored wheels, one per round. */
+  rounds: MazeWheel[];
   round: number;
   phase: MazePhase;
   /** The beat the current phase began on. */
   phaseBeat: number;
-  /** The mouth the pair fired into, -1 while they have not. */
-  mouth: number;
-  /** Rows the shot has already travelled, 0 while nothing is travelling. */
-  probeRow: number;
-  /** The lane it stands on, -1 while nothing is travelling. */
-  probeLane: number;
+  /** Where the wheel stands, in thousandths of a degree. */
+  angleMilli: number;
+  /** Which way the string is pulling: -1, 0 or 1. Cleared by a click. */
+  turn: -1 | 0 | 1;
+  /** False from a click being broken until the rim is clear of every column,
+   * so a fresh pull carries the mouth *on* rather than dropping straight back
+   * into the detent it was just pulled out of. */
+  armed: boolean;
+  /** The column a way in has clicked onto, -1 for none. */
+  lockedCol: number;
+  /** Which way in is the one clicked, -1 for none. */
+  lockedWay: number;
+  /** The way in the shot went down, -1 while nothing is travelling. */
+  way: number;
+  /** How many cells it has walked, 0 while nothing is travelling. */
+  step: number;
+  /** Ways in already probed this wheel, in the order they were tried. */
+  tried: number[];
   /** Its hull, in thousandths, 0..100000. The ship's own field again. */
   hullMilli: number;
   scars: Scar[];
   /** The last verdict: 1 right, -1 wrong, 0 none yet. */
   verdict: -1 | 0 | 1;
-  /** The column that verdict landed in — the mouth it came back out of. */
+  /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
 }
 
-/** The tangle of the round being played, or nothing past the last one. */
-export function mazeCurrent(m: MazeState): MazeTangle | null {
+/** The wheel of the round being played, or nothing past the last one. */
+export function mazeCurrent(m: MazeState): MazeWheel | null {
   return m.rounds[m.round] ?? null;
 }
-
-/** Move to a phase and start its clock. `lead` is where a round is wiped. */
+/** Move to a phase and start its clock. `lead` is where a wheel is wiped. */
 export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): void {
   m.phase = phase;
   m.phaseBeat = beat;
-  if (phase === "lead") {
-    m.mouth = -1;
-    m.probeRow = 0;
-    m.probeLane = -1;
-  }
+  if (phase !== "lead") return;
+  m.angleMilli = mazeWrap(mazeCurrent(m)?.startMilli ?? 0);
+  m.turn = 0;
+  m.armed = true;
+  m.lockedCol = -1;
+  m.lockedWay = -1;
+  m.way = -1;
+  m.step = 0;
+  m.tried = [];
 }
 
 /** A fresh maze, at full hull, on the round it is authored to open with. */
-export function installMaze(world: World, rounds: MazeTangle[]): MazeState {
+export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
+  const copies = rounds.map((w) => ({
+    rings: w.rings,
+    sectors: w.sectors,
+    startMilli: w.startMilli,
+    entrances: w.entrances.map((e) => ({
+      sector: e.sector,
+      route: e.route.map((c) => ({ ...c })),
+    })),
+  }));
   return {
     kind: "maze",
-    rounds: rounds.map((t) => ({
-      core: t.core,
-      nodes: t.nodes.map((r) => r.map((n) => ({ ...n }))),
-    })),
+    rounds: copies,
     round: 0,
     phase: "lead",
     phaseBeat: world.beat,
-    mouth: -1,
-    probeRow: 0,
-    probeLane: -1,
+    angleMilli: mazeWrap(copies[0]?.startMilli ?? 0),
+    turn: 0,
+    armed: true,
+    lockedCol: -1,
+    lockedWay: -1,
+    way: -1,
+    step: 0,
+    tried: [],
     hullMilli: 100 * MILLI,
     scars: [],
     verdict: 0,
@@ -130,15 +147,13 @@ export function installMaze(world: World, rounds: MazeTangle[]): MazeState {
   };
 }
 
-/**
- * One beat of the boss. A phase that ends on this beat hands it straight to
- * the next one rather than to the next beat, so the beat a shot sets off on is
- * the beat it takes its first node — the same off-by-one `stepMirror` avoids,
- * and the same at-most-one-transition-per-hop loop that makes it safe.
- */
+/** One beat of the boss. A phase that ends on this beat hands it straight to
+ * the next rather than to the next beat, so the beat a shot sets off on is the
+ * beat it takes its first cell — the same off-by-one `stepMirror` avoids, and
+ * the same at-most-one-transition-per-hop loop that makes it safe. */
 export function stepMaze(world: World, m: MazeState): void {
-  const tangle = mazeCurrent(m);
-  if (tangle === null) return;
+  const wheel = mazeCurrent(m);
+  if (wheel === null) return;
 
   for (let hop = 0; hop < 4; hop++) {
     const since = world.beat - m.phaseBeat;
@@ -150,19 +165,21 @@ export function stepMaze(world: World, m: MazeState): void {
     }
     if (m.phase === "read") {
       // Silence is an answer too, and it is the wrong one.
-      if (since >= mazeReadBeats(tangle.nodes.length)) wrong(world, m, "silence");
+      if (since >= mazeReadBeats(wheel.entrances.length)) wrong(world, m, "silence");
       return;
     }
     if (m.phase === "travel") {
-      const path = mazePath(tangle, m.mouth);
+      const route = wheel.entrances[m.way]?.route ?? [];
       const step = Math.floor(since / MAZE_TRAVEL_BEATS);
-      if (step >= path.length) {
-        // The end of the strand: the core, or whatever else was down there.
-        if (path.at(-1) === tangle.core) right(world, m);
+      if (step >= route.length) {
+        // The end of the corridor: the middle, or whatever else was down there.
+        if (mazeReachesCore(wheel.entrances[m.way]!)) right(world, m);
         else wrong(world, m, "mouth");
         continue;
       }
-      if (since % MAZE_TRAVEL_BEATS === 0) advance(world, m, path, step);
+      // Cell 0 is the mouth, and the shot took it on the beat it was fired
+      // (`mazeHeard`); this clock picks it up from the one after.
+      if (step > 0 && since % MAZE_TRAVEL_BEATS === 0) advance(world, m, wheel, step);
       return;
     }
     if (since < MAZE_VERDICT_BEATS) return;
@@ -171,39 +188,18 @@ export function stepMaze(world: World, m: MazeState): void {
   }
 }
 
-/** The shot, one node further down. The lane it stands on is what both see. */
-function advance(world: World, m: MazeState, path: number[], step: number): void {
-  m.probeRow = step;
-  m.probeLane = path[step] ?? -1;
-  world.events.push({ type: "mazeProbe", row: step, lane: m.probeLane, of: path.length - 1 });
+/** The shot, one cell further in. Where it stands is what both of them see. */
+function advance(world: World, m: MazeState, wheel: MazeWheel, step: number): void {
+  const route = wheel.entrances[m.way]?.route ?? [];
+  const cell = route[step];
+  if (cell === undefined) return;
+  m.step = step;
+  world.events.push({ type: "mazeProbe", row: cell.ring, lane: cell.sector, of: route.length });
 }
 
-/**
- * The pair fired. Called from `applyCommand` for every shot, whether or not the
- * ship let one out — a shot swallowed by the cooldown was still a shot they
- * meant to take, and judging the ship's reaction instead of the players' intent
- * would end a round for a reason nobody at either screen can see. THE MIRROR
- * makes the same argument in `mirrorHeard`.
- *
- * A shot from a column between the mouths is not a wrong answer and not an
- * answer at all: there is nothing above the cannon for it to go into, and the
- * only pressure in this round is the clock.
- */
-export function mazeHeard(world: World): void {
-  const m = world.boss;
-  if (m === null || m.kind !== "maze" || m.phase !== "read") return;
-  const mouth = mazeMouthAt(world.cfg, world.cannonCol);
-  if (mouth < 0 || mouth >= MAZE_MOUTHS) return;
-  m.mouth = mouth;
-  m.probeRow = 0;
-  m.probeLane = mazeMouthLane(mouth);
-  enterMazePhase(m, "travel", world.beat);
-  world.events.push({ type: "mazeCommit", mouth, col: mazeMouthCol(world.cfg, mouth) });
-}
-
-/** The wrong mouth, or none. It comes back out of the mouth it went down. */
+/** A dead end, or nothing at all. It comes back out of the column it went up. */
 function wrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
-  const col = m.mouth < 0 ? world.cannonCol : mazeMouthCol(world.cfg, m.mouth);
+  const col = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
   m.verdict = -1;
   m.verdictCol = col;
   enterMazePhase(m, "verdict", world.beat);
@@ -211,13 +207,11 @@ function wrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
 }
 
-/**
- * The shot reached the core. It takes its share of the maze's hull — one share
- * per authored round, so the last round is the one that brings it down however
- * many rounds there are, exactly as THE MIRROR's arithmetic works.
- */
+/** The shot reached the middle. It takes its share of the maze's hull — one
+ * share per authored wheel, so the last wheel is the one that brings it down
+ * however many there are, exactly as THE MIRROR's arithmetic works. */
 function right(world: World, m: MazeState): void {
-  const col = mazeMouthCol(world.cfg, m.mouth);
+  const col = m.lockedCol;
   m.verdict = 1;
   m.verdictCol = col;
   enterMazePhase(m, "verdict", world.beat);
@@ -231,16 +225,26 @@ function right(world: World, m: MazeState): void {
   world.events.push({ type: "mazeVerdict", right: true, col, reason: "mouth" });
 }
 
-/** The verdict is over. Answered moves on; missed asks the same tangle again. */
+/**
+ * The verdict is over. The middle moves the fight to the next wheel; a dead
+ * end goes back to the same one, which is standing exactly where it was left
+ * with the route that failed still on it. That is the whole difference between
+ * this boss and one the pair only waits out.
+ */
 function settle(world: World, m: MazeState): void {
-  if (m.verdict === 1) {
-    if (m.hullMilli <= 0) {
-      world.score += world.cfg.scoreMazeDown;
-      world.boss = null;
-      world.events.push({ type: "mazeDown", col: m.verdictCol });
-      return;
-    }
-    m.round += 1;
+  if (m.verdict !== 1) {
+    m.way = -1;
+    m.step = 0;
+    m.phase = "read";
+    m.phaseBeat = world.beat;
+    return;
   }
+  if (m.hullMilli <= 0) {
+    world.score += world.cfg.scoreMazeDown;
+    world.boss = null;
+    world.events.push({ type: "mazeDown", col: m.verdictCol });
+    return;
+  }
+  m.round += 1;
   enterMazePhase(m, "lead", world.beat);
 }

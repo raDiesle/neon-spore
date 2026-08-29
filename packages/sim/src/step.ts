@@ -8,6 +8,7 @@ import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
+import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { advancePods } from "./pods.js";
 import type { TimedCommand } from "./types.js";
 import { pullTether } from "./warden.js";
@@ -51,6 +52,13 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // Commands are read even when the hull is through — otherwise `restart`
   // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);
+  // THE MAZE's string, and the wheel it turns. Read here rather than in
+  // `applyCommand` for the reason THE GAUGE's needle is stepped here: the
+  // wheel answers a held thumb on the *tick*, and `stepBoss` runs on the beat
+  // (`maze-round.ts`). `valve` is deliberately the same command THE GAUGE
+  // turns with — one held verb, one seat, one vocabulary.
+  for (const c of commands) mazeStringHeard(world, c.player, c.command);
+  stepMazeTurn(world);
   if (world.over) return;
   // Exactly where `fire` used to push the bullet, so a shot laid half a beat
   // ago is indistinguishable from one pressed now by the time anything else
