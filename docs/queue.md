@@ -50,6 +50,80 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## A CANDIDATE THAT CHANGES THE SAME THING FOR BOTH SEATS GETS ONE SCREEN, NOT TWO
+_claude/burn-seat-band-blind · tools/director/src/versus-seat.ts tools/director/src/versus-page.ts tools/director/test_
+**Asked for by the owner**, sharpening an ask they made earlier and which was
+built more literally than they meant:
+
+> so there was a task, that in the "alternatives" page, i dont want to see both
+> player screens, if the related change is the same for both players, only one
+> screen is enough.
+>
+> this means, if only controls panel is different (because they are different
+> for player 1 and player 2), but the alternative visual is the color of ship,
+> then i only want to see current and new - two screens. not 4.
+
+**The rule stated plainly: the control panel is never a reason for a second
+screen.** It differs between the seats on every wave the game has ever drawn,
+has nothing to do with any candidate, and the owner does not want to be shown
+four screens because of it. A pair is two screens — current and new — unless the
+*candidate itself* draws something different for the two seats.
+
+### What is there now, and why it very nearly works
+
+`versus-seat.ts` already refuses the naive answer, and its reasoning is right:
+it does not compare p1's whole frame to p2's, because the band always differs.
+It compares **the difference the patch makes** — current minus candidate — at
+p1 and again at p2, and asks whether those two difference-pictures match. Four
+of five candidates come back seat-identical on that test, which is the owner's
+rule working.
+
+**One does not, and the file already explains why in its own header.**
+`cannon:shot`'s `streak` grows a translucent tail long enough to reach the strip
+where the band begins. Alpha compositing is not linear in what sits behind it,
+so the same tail prints a slightly different difference over p1's band content
+than over p2's — even though the patch never reads which seat it is drawing
+for. The header calls that *a real second screen, not a false one*.
+
+**By the measurement it is real. By the owner's rule it is false.** They are
+looking at a shot's tail, they can see it is the same tail on both sides, and
+the only thing that differs is a strip of panel they were never comparing. The
+measurement is answering *do these two difference-pictures match* when the
+question is *is the candidate's own change the same for both seats*. Those come
+apart exactly where a translucent thing overlaps the band.
+
+### What to build
+
+**Make the test blind to the band.** The comparison should look at what the
+candidate changes on **the field**, and treat the control panel as not part of
+the comparison. Whether that is a mask, a crop, or a difference computed against
+a fixed background rather than a live one is the lane's choice — say which and
+why in the commit, and say what it costs.
+
+**But do not make it blind to a candidate that is genuinely about the panel.**
+A candidate that changes how a control lobe is drawn is a real seat difference
+and must still get two screens. So the test cannot simply ignore that region: it
+has to distinguish *the candidate drew something different there* from *the band
+underneath was different there anyway*. Name in the commit how it tells those
+apart, because that is the whole correctness of this lane.
+
+**Keep the honesty of what is there.** The existing file refuses to assume its
+answer and says so at length; do not replace a careful measurement with a
+hardcoded list of which candidates need two screens. If the honest answer turns
+out to need something this lane cannot reach, **stop and report** rather than
+special-casing `streak` by name.
+
+Finished when `bun run check` is green, a candidate whose change is the same for
+both seats shows two screens rather than four, `streak` is one of them, and a
+candidate that genuinely draws differently per seat still shows both.
+
+`Check: on the alternatives page, does a change that looks the same to both players now show just two screens — and does one that really differs per player still show four?`
+
+Model `sonnet`, effort `think hard`, spent on telling a real per-seat difference
+from the band showing through. Read `tools/director/src/versus-seat.ts` whole,
+including its header, before changing anything — it argues the current answer
+carefully and you are overturning one line of that argument, not all of it.
+
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
 **Asked for by the owner**, for the alternatives page:
