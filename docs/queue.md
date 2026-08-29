@@ -50,6 +50,70 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## A FALLING BODY IS TAKEN OFF THE FIELD ONE TICK BEFORE IT ARRIVES
+_claude/burn-last-tick · packages/sim/src/hull.ts packages/sim/test packages/render/test_
+**Asked for by the owner.** Not in words — this is the cause behind their
+`FAIL` on `d892bae`, *"i still dont see it"*, found by the lane that built the
+stages page rather than by reasoning.
+
+**What was found, and it is not about the shadow.** `resolveHull` in
+`packages/sim/src/hull.ts` removes a falling body the same tick its row would
+reach the hull, **before that beat's interpolation ever draws it there**. So
+the last frame anybody sees of a falling thing is roughly two thirds of the way
+through its final row. `contact-shadow.ts` computes a shadow that tightens and
+darkens towards `t = 1`, and **`t = 1` is a state the screen has never once
+shown**. The most legible part of the effect — the moment the shadow is
+smallest, darkest and directly under the rock — is drawn by nobody.
+
+**And it is not only the shadow.** Every falling creature loses its last frames
+the same way, whatever is drawn on it. Anything that reads *arrival* — a
+squash, a brightening, a contact spark, a shape settling — is being cut off at
+the same place. That is why this is its own entry rather than a note on a
+shadow: the shadow is one symptom of a rule about when a body stops existing.
+
+### What to work out, and it is a rule question rather than a drawing one
+
+**A body's removal and a body's last drawn frame are two different moments, and
+today they are the same one.** The fix is to let the picture reach the hull
+before the simulation forgets the body — but *how* is a decision with real
+constraints on it:
+
+- **The simulation may not soften.** A rock that arrives on tick *n* must still
+  damage the hull on tick *n*, on both devices. Nothing about damage, timing or
+  the hash may drift, and `bun run test:determinism` is the guard. If a fix
+  would move when a hit lands, it is the wrong fix.
+- **So this is probably about giving render one more frame of a body the sim
+  has already resolved**, rather than about keeping the body alive longer. That
+  is a real distinction and the commit should say which was chosen and why.
+- **Anything render keeps that outlives a frame belongs in `Effects` and is
+  cleared in `Effects.reset()`.** `world.beat` and `world.tick` restart at zero,
+  so state cached against them is read by the next run as its own —
+  `packages/render/test/restart.test.ts` fails if a new field is added and not
+  cleared, and it is not optional bookkeeping.
+
+**If the honest fix reaches outside `hull.ts`, stop and report it** rather than
+growing. This entry is deliberately scoped to the rule; whatever draws the extra
+frame is a second conversation.
+
+### How to know it worked
+
+The stages page built alongside this finding already shows three moments of a
+falling shadow, and its third is labelled honestly as *the last tick the rock
+exists*. **When this lands, that third frame should be able to show contact
+instead.** Use the same page as the evidence, and say in the commit what
+changed between the two pictures.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes,
+nothing about when a hit lands has moved, and a falling body is drawn arriving
+rather than vanishing a tick short.
+
+`Check: watch a rock come down — does it arrive at the hull, or does it wink out just above it?`
+
+Model `opus`, effort `think hard`, spent on the seam between the simulation
+forgetting a body and the picture showing it. Read `resolveHull` in
+`packages/sim/src/hull.ts` whole, and `packages/render/src/contact-shadow.ts`'s
+header, before changing anything.
+
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
 **Asked for by the owner**, for the alternatives page:
