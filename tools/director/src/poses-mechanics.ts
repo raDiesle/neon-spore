@@ -1,6 +1,7 @@
 import { lanceReady, laying, type World } from "@neon-spore/sim";
 import {
   aim,
+  EVENT_CADENCE_SECONDS,
   fresh,
   guard,
   hold,
@@ -75,6 +76,13 @@ const MECHANICS: Pose[] = [
     name: "SHOT · BEING LAID",
     note: "The press has landed and the bolt has not. The opening dilates, the skin beside it parts and the shot leaves on the next half beat — the one thing player 1 gets to see player 2 do, and the only picture on this sheet that needs a rule the default config ships switched off.",
     crop: "ship",
+    // Event-shaped: the whole difference between two `cannon:shot` or
+    // `cannon:mouth` candidates lives in the instant the shot leaves, so the
+    // pair must replay it rather than show it once and go still.
+    // `versus-pair.ts` reads this and replays `build()` on its own two-second
+    // clock instead of waiting on `waveRestBeats` below, which is timed for
+    // play — see `EVENT_CADENCE_SECONDS`.
+    cadenceSeconds: EVENT_CADENCE_SECONDS,
     build: () => {
       // Three departures from every other pose here, and each one is the
       // difference between a picture and a loop.
@@ -121,6 +129,13 @@ const MECHANICS: Pose[] = [
     name: "WARD · DEFLECTED",
     note: "Right column and right moment, both halves arriving. This is the only frame in the game where a rock leaves without a scar.",
     crop: "ship",
+    // Event-shaped, the queue entry this cadence was written for: the whole
+    // difference between two `shield:ward` candidates is one instant of
+    // impact, and the rock's own fall to the shield already takes several
+    // times longer than the pause the owner asked for — `waveRestBeats`
+    // alone cannot be trusted to land near two seconds. `cadenceSeconds`
+    // makes `versus-pair.ts` replay this `build()` on its own clock instead.
+    cadenceSeconds: EVENT_CADENCE_SECONDS,
     build: () => {
       const w = fresh([ROCK]);
       // The trigger goes in on every beat, so whichever beat the rock lands on

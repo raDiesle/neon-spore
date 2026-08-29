@@ -2,37 +2,31 @@ import { Canvas2DRenderer, type ViewRole, type ViewState } from "@neon-spore/ren
 import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
-import type { Pose } from "./pose-kit.js";
+import { cadenceElapsed, type Pose } from "./pose-kit.js";
 
 /**
- * One phone pair, one world, one frame — the engine half of the ALTERNATIVES
- * sheet.
+ * One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet.
  *
- * Everything here serves one claim: **the two sides differ only by the
- * patch.** One `World`, stepped once per frame — two worlds from the same
- * seed are two objects that agree until the day they do not. One `ViewState`,
- * literally the same object handed to both renderers, so the tick, the beat
- * phase, the clock own-motion runs on, `dt` and the events are the same
- * values by construction. And one seeded `Math.random` per side per frame,
- * restored in a `finally`: `sparks.ts` and `deflect.ts` randomise per spawn,
- * so without this two *identical* looks draw two different pictures — fatal
- * for the claim, and fatal for BLINK, where noise moving is all the eye sees.
+ * Everything here serves one claim: **the two sides differ only by the patch.** One `World`,
+ * stepped once per frame, and one `ViewState` — literally the same object handed to both
+ * renderers — keep the tick, beat phase, clock own-motion, `dt` and events identical by
+ * construction. One seeded `Math.random` per side per frame, restored in a `finally`, does the
+ * same for `sparks.ts` and `deflect.ts`'s per-spawn randomness: without it two *identical*
+ * looks would draw different pictures — fatal for the claim, and for BLINK, where noise moving
+ * is all the eye sees.
  *
- * `onSettled` hashes both canvases once the frame has settled: two byte-equal
- * sides under a non-empty patch mean the swap did not take, and the page says
- * so instead of offering a vote on a difference nobody made.
+ * `onSettled` hashes both canvases once settled: two byte-equal sides under a non-empty patch
+ * mean the swap did not take, rather than a vote offered on a difference nobody made.
  *
- * A pair is built for exactly one pose, one seat and one candidate — the slot
- * picker, the seat dropdown and the candidate dropdown are gone, and with them
- * the reason this file used to expose `setPose`/`setVariant`. `versus-page.ts`
- * decides all three before a `Pair` starts; `versus-seat.ts` decides the seat.
+ * A pair is built for exactly one pose, one seat and one candidate — no slot, seat or candidate
+ * picker, and with them no `setPose`/`setVariant`. `versus-page.ts` decides all three before a
+ * `Pair` starts; `versus-seat.ts` decides the seat.
  */
 
 /** The phone both sides are drawn at — uncapped, never fitted to a column. */
 const PAIR_PHONE = { width: 380, height: 820 } as const;
 
-/** Frames before the sides are hashed: the renderer eases, so an immediate
- * hash compares two pictures both still on their way somewhere. */
+/** Frames before hashing — the renderer eases, so an immediate hash compares two unsettled pictures. */
 const SETTLE = 40;
 
 /** How long each side is showing in BLINK, in seconds. One flip per second. */
@@ -67,8 +61,7 @@ function makeSide(dpr: number): Side {
   renderer.resize({ ...PAIR_PHONE, dpr });
   return { canvas, renderer };
 }
-/** FNV-1a over every byte. Not a cryptographic claim — the question is only
- * whether two renders of one world came out the same. */
+/** FNV-1a over every byte — not a cryptographic claim, only "did two renders match". */
 export function hashCanvas(canvas: HTMLCanvasElement): string {
   const ctx = canvas.getContext("2d");
   if (!ctx) return "";
@@ -90,11 +83,13 @@ export function hashCanvas(canvas: HTMLCanvasElement): string {
  * no lasting body. Handing back `[]` here, as this file used to on every
  * rebuild and the first frame, is why that shockwave never played: the event
  * that would have started it was thrown away before a renderer saw it.
- * `test/versus-loop.test.ts` pins the fix with no canvas needed.
+ * `test/versus-loop.test.ts` pins the fix with no canvas needed. `pose`, given, matters only
+ * if `cadenceSeconds` is set: `needWave` is left unhandled rather than racing `startPair`.
  */
-export function advance(world: World, build: () => World): { world: World; events: SimEvent[] } {
+type StepResult = { world: World; events: SimEvent[] };
+export function advance(world: World, build: () => World, pose?: Pose): StepResult {
   step(world, []);
-  if (world.events.some((e) => e.type === "needWave")) {
+  if (pose?.cadenceSeconds === undefined && world.events.some((e) => e.type === "needWave")) {
     const rebuilt = build();
     return { world: rebuilt, events: [...rebuilt.events] };
   }
@@ -129,6 +124,14 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   let frames = 0;
   let sinceChange = 0;
   let raf = 0;
+  /** A rebuilt world resets its events, the settle window, side-noise seed and cadence clock. */
+  const rebuiltTo = (w: World): void => {
+    world = w;
+    events = [...w.events];
+    frames = 0;
+    sinceChange = 0;
+    clock = 0;
+  };
 
   // One object, handed to both. Its fields are rewritten in place every frame:
   // a fresh literal per side would be two objects that happen to agree.
@@ -189,16 +192,13 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       carry += dt * world.cfg.tickHz;
       const steps = Math.min(Math.floor(carry), world.cfg.tickHz);
       for (let i = 0; i < steps; i++) {
-        const next = advance(world, () => pose.build());
-        if (next.world !== world) {
-          world = next.world;
-          frames = 0;
-          sinceChange = 0;
-          clock = 0;
-        }
+        const next = advance(world, () => pose.build(), pose);
+        if (next.world !== world) rebuiltTo(next.world);
         events = next.events;
       }
       carry -= steps;
+      // The one place a cadenced pose ever rebuilds.
+      if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
     } else {
       events = [];
     }

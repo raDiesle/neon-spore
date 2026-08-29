@@ -34,6 +34,17 @@ import { POSE_GROUPS } from "./poses.js";
  * anything, which was the complaint: two candidates that differ only while a
  * shot is being fired cannot be told apart on a page where no shot is ever
  * fired.
+ *
+ * **Event-shaped vs. continuous, for the slots this map actually reaches.**
+ * `cannon:shot`, `cannon:mouth` and `shield:ward` are event-shaped — their
+ * whole difference lives in one instant (a shot leaving, a ward deflecting),
+ * so `SHOT · BEING LAID` and `WARD · DEFLECTED` (`poses-mechanics.ts`) both
+ * carry `cadenceSeconds`, and `versus-pair.ts` replays them on that clock.
+ * `ship:hull-skin` is continuous — it is on every frame regardless of what
+ * else happens, so `DEFAULT_POSE` needs no rhythm and carries none. The next
+ * event-shaped slot (a hull crack, a plate coming off, a guard lapsing)
+ * inherits the cadence the same way: name its pose here, and give that pose
+ * `cadenceSeconds` in `poses-mechanics.ts`.
  */
 const SLOT_POSE: Record<string, string> = {
   "cannon:shot": "SHOT · BEING LAID",

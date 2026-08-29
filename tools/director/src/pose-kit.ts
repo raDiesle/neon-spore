@@ -74,6 +74,36 @@ export interface Pose {
    * a frame fitted to a slick cuts her marks off, which are the fight.
    */
   span?: number;
+  /**
+   * Seconds between replays of this pose's built moment — set on a pose
+   * whose whole difference lives in one instant (a shot leaving, a ward
+   * deflecting, a hull cracking), left undefined on a *continuous* one (a
+   * hull skin, a hover — already on screen, nothing to re-trigger).
+   *
+   * A property of the pose, not of any candidate shown through it: the pair
+   * (`versus-pair.ts`, `advanceCadenced`/`cadenceElapsed`) replays whatever
+   * pose it is handed on that pose's own clock, so the next event pose
+   * inherits the rhythm by setting this one field. Deliberately not
+   * `waveRestBeats` — that beat count is timed for play, and a ward's own
+   * fall to the shield alone already dwarfs two seconds, while a shot's
+   * default rest lands under it. See `EVENT_CADENCE_SECONDS`.
+   */
+  cadenceSeconds?: number;
+}
+
+/**
+ * The owner's number: *"the meteorite must repeatingly hit the shield with
+ * around 2 seconds pause between"* — long enough that the eye re-reads the
+ * unchanged field before the next impact, short enough to watch several
+ * candidates without waiting. The pause is what makes the repeat legible.
+ */
+export const EVENT_CADENCE_SECONDS = 2;
+
+/** Whether a cadenced pose's own clock says it is time to replay from
+ * scratch — the `>=` and the `undefined` guard, provable without a canvas.
+ * `versus-pair.ts`'s `startPair` is the only caller. */
+export function cadenceElapsed(pose: Pose, elapsedSeconds: number): boolean {
+  return pose.cadenceSeconds !== undefined && elapsedSeconds >= pose.cadenceSeconds;
 }
 
 export interface PoseGroup {
