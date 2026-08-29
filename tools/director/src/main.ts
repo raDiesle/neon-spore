@@ -1,7 +1,6 @@
 import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
-import { type BalancePanel, bindBalance } from "./balance.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindCardsPage } from "./card-catalogue.js";
 import { bindChecks } from "./checks-page.js";
@@ -58,15 +57,7 @@ const setStatus = (text: string, cls = ""): void => {
 };
 
 let grid: GridPanel | null = null;
-// Bound after the stage, because it reads the stage's world — see below.
-let balance: BalancePanel | null = null;
-const stage = bindStage(
-  store,
-  cfg,
-  (beat) => grid?.mark(beat),
-  () => balance?.render(),
-);
-balance = bindBalance(() => stage.world());
+const stage = bindStage(store, cfg, (beat) => grid?.mark(beat));
 const palette = bindPalette(() => {}, hiddenBrushes);
 grid = bindGrid(
   store,

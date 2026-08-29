@@ -1,23 +1,27 @@
-import { type BalanceSheet, share, type World } from "@neon-spore/sim";
+import { type BalanceSheet, share } from "@neon-spore/sim";
 
 /**
  * The balance sheet, as numbers.
  *
- * `▤ LEDGER` used to fold a live copy of this sheet into the transport row,
- * moving as the wave was played, next to `▣ SHEET` — the button that ends the
- * run and shows the real after-run screen the phone draws. The owner looked
- * at both and asked for one: LEDGER read the same numbers SHEET already
- * shows, one live and one after the run, and a second button to hide a thing
- * that says what the button beside it already says was one control too many.
- * `bindBalance` no longer mounts a panel; `sheetLines` and `sheetMemories`
- * stay because the arithmetic on the way to a label is still worth testing
- * on its own, in `test/balance.test.ts`.
+ * This file drew a live panel once. `▤ LEDGER` folded a copy of this sheet
+ * into the transport row, moving as the wave was played, next to `▣ SHEET` —
+ * the button that ends the run and shows the real after-run screen the phone
+ * draws. The owner looked at both, an hour after LEDGER landed, and asked for
+ * one: LEDGER read the same numbers SHEET already shows, one live and one
+ * after the run, and a second button to hide a thing that says what the
+ * button beside it already says was one control too many.
+ *
+ * So the panel is gone, and so is everything that only existed to mount it —
+ * `bindBalance`, `BalancePanel`, the `#ledgerToggle` on-state wiring, and the
+ * DOM-building helpers that turned a `BalanceSheet` into rows. What is left
+ * is the pure half: `sheetLines` and `sheetMemories` turn a `BalanceSheet`
+ * into the labels and numbers a screen would show, without needing a screen
+ * to do it on. That is still a real job — `test/balance.test.ts` (not owned
+ * here) drives both directly, pinning the one case that is easy to get
+ * wrong: a wave that has just started has asked nothing of the pair yet, and
+ * a row that showed 0/0 as 0% would read as a failure nobody committed.
+ * Nothing in this file talks to `document` any more.
  */
-
-export interface BalancePanel {
-  /** No-op: kept so `main.ts` can still hold and call one. */
-  render(): void;
-}
 
 interface Line {
   label: string;
@@ -53,13 +57,4 @@ export function sheetMemories(sheet: BalanceSheet): [string, string][] {
 
 function count(good: number, of: number): string {
   return of === 0 ? "—" : `${good}/${of}`;
-}
-
-/**
- * `main.ts` (not owned here) still holds one of these and calls `render()`
- * every frame — that costs nothing, since there is no longer a panel to
- * repaint. `World` stays imported only for this signature.
- */
-export function bindBalance(_world: () => World): BalancePanel {
-  return { render() {} };
 }
