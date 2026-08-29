@@ -122,6 +122,40 @@ quite asked for.
 - **How far is far enough**, in thousandths of a tile, as a named field in
   `SimConfig` — never a literal.
 
+### And the pull has to be readable, which is not polish
+
+The owner, added while the lane was working:
+
+> es muss visuell deutlich werden, das man zuerst den Kreis halten muss, dann
+> ziehen und dass mehr ziehen zu mehr Spannung führt und das Tor je nach
+> Spannung mehr und mehr aufgeht
+
+*It must be visually clear that you first have to hold the circle, then pull,
+and that more pulling leads to more tension, and that the gate opens further
+and further according to the tension.*
+
+**Four things legible, in order, with nobody told anything:** the circle reads
+as something to take hold of; the moment it is held is visible; pulling builds
+tension and more pulling builds more, continuously rather than at a silent
+threshold; and **the hatch opens by degrees in proportion to that tension** —
+*mehr und mehr*, never a snap from shut to open.
+
+**The fourth one carries the mechanic.** Player 2 has to know when to fire and
+is not the one holding the string, so they cannot feel the pull. A hatch that
+opens proportionally *is* their readout: how far it has opened says how hard
+their partner is pulling and whether there is a shot yet. Binary would make the
+gate a lamp and force the pair to narrate a number out loud instead of reading
+the field — which is the failure this game is built to avoid.
+
+So the hatch's openness is a direct function of the tension the simulation
+holds. Easing or smoothing that makes the picture say something the rule does
+not is how a readout starts lying; if it comes to that, stop rather than ship
+it.
+
+Exempt from *a look is offered, never replaced* under the first named
+exemption — the owner asked for it by name, in the words above, and it covers
+this and nothing else.
+
 ### The old mechanic is kept, not deleted
 
 > behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo fest.
