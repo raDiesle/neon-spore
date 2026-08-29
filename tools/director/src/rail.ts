@@ -87,6 +87,13 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       // rather than derived from the campaign, which is the whole of what
       // moving the help into the wave bought.
       //
+      // No `title`: a tooltip here is the exact thing the owner rejected —
+      // "the tooltip for all cards should not be on the list of waves". The
+      // guide's actual text already sits in the wave configuration, directly
+      // under SENTENCE (`guideFields.render`, below); this mark is only a
+      // glance-level flag and a shortcut into the GUIDES sheet, not a second
+      // place carrying the words themselves.
+      //
       // A span, not a nested button — `button` already is one, and a button
       // inside a button is invalid markup. The click still needs its own
       // stop: without it, opening the sheet also re-selects the row, which
@@ -95,7 +102,6 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
         const mark = document.createElement("span");
         mark.className = "card-mark";
         mark.textContent = "✎ ";
-        mark.title = "carries a guide — click to see every wave's guide";
         mark.addEventListener("click", (e) => {
           e.stopPropagation();
           document.getElementById("cardsOpen")?.dispatchEvent(new MouseEvent("click"));
