@@ -931,7 +931,7 @@ and `packages/render/src/contact-shadow.ts`'s header. The thinking goes on
 choosing the three moments — the wrong three make a working effect look broken.
 
 ## THE TETHER IS PULLED, AND A LONG PULL OPENS THE WARDEN UP
-_claude/burn-tether-pull · packages/sim/src/warden.ts packages/sim/src/warden-cycle.ts packages/sim/src/config-boss.ts packages/render/src/tether.ts packages/render/src/warden-fx.ts packages/sim/test/warden.test.ts docs/spec/bosses.md_
+_claude/burn-tether-pull · packages/sim/src/warden.ts packages/sim/src/warden-cycle.ts packages/sim/src/config-boss.ts packages/render/src/tether.ts packages/render/src/warden-fx.ts packages/sim/test/warden.test.ts packages/content/src/waves/act-2.ts docs/parked.md docs/spec/bosses.md_
 **Waiting on the owner, and moved here by them so it can wait.** They asked for
 it to go to the end of the queue while they answer the questions below — three
 in the lane's own list, and whichever of the notes above still need a word. It
@@ -1124,7 +1124,96 @@ taken away from them at the moment of the hit.
 **The eye must read as an eye**, drawn with the care that implies. It is a
 lidded thing that opens and shuts, not a coloured circle that appears.
 
-### One conflict the owner has not seen yet, and it must not be papered over
+### The clamping goes, the threat goes, and the shot is the rescue
+
+The owner, answering the conflict above and the question under it:
+
+> 1. das alte konzept, was du beschreibst, gefällt mir nicht und war nicht klar
+> verständlich - es gab dazu kein visual, damit das klar wird, und das klemmen
+> war nicht lange genug. also entferne die alte mechanik, aber verschiebe sie zu
+> "not done yet" und verbessere sie anhand meines inputs. vielleicht eine art
+> blitz oder ein greifarm der vom objekt zum schiff geht, damit klar ist, dass er
+> manipuliert. dann muss auch irgendwie ein schadensmodell an den control panels
+> deutlich sein, muss einer roten farbe links rechts an den control panel z.b.
+> vielleicht verwende ich es für einen anderen boss später
+>
+> 2. keine bedrohung mehr. aber behalte das konzept von: etwas fällt und muss
+> gehalten werden, sonst beschädigt es das schiff in "not done yet". aber
+> entferne es vom boss und von anderen waves für den moment.
+>
+> 3. "Der Treffer aufs Auge entfernt sie — das Seil schnellt zurück und ist
+> erledigt. Dann ist Schießen die Rettung und der Angriff in einem."
+
+**The clamping is removed from the Warden**, and the owner says why it failed
+rather than merely that it did: *there was no visual to make it clear, and the
+clamping was not long enough.* Both are worth carrying into the note, because
+they are what a later attempt has to fix.
+
+**The falling line is no longer a threat**, and the whole *something falls and
+must be held or it damages the ship* concept comes off the boss and off every
+other wave for now.
+
+**And a hit on the eye ends the line.** The rope snaps back and is gone, so
+firing is the rescue and the attack in one motion.
+
+### What the Warden becomes, stated plainly
+
+A ring that never moves, lowering a line. One seat grabs the line and pulls it
+taut; the hatch and the eyelids open by degrees with the tension; the other
+seat fires the matching colour into the open eye; a hit takes a plate, shuts
+the eye and the hatch together, and snaps the line back. Repeat until the
+plates are gone. **No clamped control, no tear, and nothing falling on you.**
+
+**This resolves the conflict above outright.** With the clamping gone there is
+no alternation of who is held, so *only player 2 fires* holds exactly as the
+owner said it, and player 1 always pulls. Do not go looking for the conflict —
+it has been dissolved rather than answered.
+
+**But the rim's colour was derived from the clamped control** (`wardenColor`
+reads `wardenClampedControl`). The colour must survive — it is what makes
+player 2 use both buttons rather than one — so it needs its own source, still
+alternating by cycle. Say in the commit what it is now derived from.
+
+### The wave's own words are now wrong, and they are content
+
+`packages/content/src/waves/act-2.ts` describes the old fight in its
+`sentence` and in all three parts of its `guide` — *"it holds one of your
+controls and only the other one of you can get it back"*, the two-beat window,
+*"pulling costs that hand"*. Every line of that is about a mechanic being
+removed. **The wave needs a new sentence and a new guide**, written to what the
+fight now is, and that file is added to this lane's paths for exactly that. It
+is not a licence to change anything else in it.
+
+### Two concepts are preserved rather than deleted, and both get written up
+
+**The clamp, improved.** Not as it was: the owner's own diagnosis is that it
+had no visual and held too briefly. So the note describes what it should
+become — *maybe a kind of lightning bolt or a grabbing arm running from the
+object to the ship, so it is clear that it is manipulating you* — and a way to
+show the harm at the panel itself, *a red colour at the left or right of the
+control panel*, so a player can see which of their hands has been taken. They
+may want it for a different boss later. Write it as a design somebody could
+pick up, not as a tombstone.
+
+**The falling thing that must be held.** The concept survives, off the field
+for now: something descends, a hand on it holds it back, and letting it through
+costs the ship. That is `grip.ts`'s reason for existing, so the note should
+carry its reasoning rather than re-deriving it.
+
+Both go where the backlog already keeps ideas nobody has decided on, which is
+the PARKED tab of NOT BUILT YET, fed by `docs/parked.md`. **One entry each**,
+in their own words. If `claude/burn-controls-page` has landed by then, the
+hold-only tether note belongs in its CONTROLS section instead — the owner
+placed it there by name.
+
+### ~~One conflict the owner has not seen yet~~ — dissolved by the answers above
+
+**Kept for the reasoning, not as an open question.** The clamping is gone, so
+nothing alternates and nobody is held; the paragraphs below describe a fight
+that no longer exists. Read them only for what the colour used to be derived
+from.
+
+
 
 **`wardenClampedControl` alternates strictly: cannon, shield, cannon.** The
 clamped seat is the one the rim has hold of, and today's rule is that *the
