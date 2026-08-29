@@ -1,27 +1,31 @@
 import { Canvas2DRenderer, type ViewRole, type ViewState } from "@neon-spore/render";
-import { type SimEvent, step, ticksPerBeat } from "@neon-spore/sim";
+import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
 
 /**
- * Two phones, one world, one frame — the engine half of the VERSUS tab.
+ * One phone pair, one world, one frame — the engine half of the ALTERNATIVES
+ * sheet.
  *
  * Everything here serves one claim: **the two sides differ only by the
- * patch.** Three mechanisms hold it, and none is optional. One `World`,
- * stepped once per frame — two worlds from the same seed are two objects that
- * agree until the day they do not. One `ViewState`, literally the same object
- * handed to both renderers, so the tick, the beat phase, the wall-clock `time`
- * own-motion runs on, the `dt` and the events are the same values by
- * construction. And one seeded `Math.random` per side per frame, restored in a
- * `finally`: `sparks.ts` and `deflect.ts` randomise four values per spawn each,
- * so without it two *identical* looks draw two different pictures — fatal for
- * the claim, and fatal for BLINK, where noise moving is all the eye would see.
+ * patch.** One `World`, stepped once per frame — two worlds from the same
+ * seed are two objects that agree until the day they do not. One `ViewState`,
+ * literally the same object handed to both renderers, so the tick, the beat
+ * phase, the clock own-motion runs on, `dt` and the events are the same
+ * values by construction. And one seeded `Math.random` per side per frame,
+ * restored in a `finally`: `sparks.ts` and `deflect.ts` randomise per spawn,
+ * so without this two *identical* looks draw two different pictures — fatal
+ * for the claim, and fatal for BLINK, where noise moving is all the eye sees.
  *
- * Then the guard that proves none of it quietly failed: `onSettled` hashes both
- * canvases once the frame has settled. Two byte-equal sides under a non-empty
- * patch mean the swap did not take, and the page says so instead of offering a
- * vote on a difference nobody made.
+ * `onSettled` hashes both canvases once the frame has settled: two byte-equal
+ * sides under a non-empty patch mean the swap did not take, and the page says
+ * so instead of offering a vote on a difference nobody made.
+ *
+ * A pair is built for exactly one pose, one seat and one candidate — the slot
+ * picker, the seat dropdown and the candidate dropdown are gone, and with them
+ * the reason this file used to expose `setPose`/`setVariant`. `versus-page.ts`
+ * decides all three before a `Pair` starts; `versus-seat.ts` decides the seat.
  */
 
 /** The phone both sides are drawn at — uncapped, never fitted to a column. */
@@ -41,8 +45,6 @@ export interface Pair {
   /** Left is what the game draws today; right is the same code, patched. */
   readonly left: HTMLCanvasElement;
   readonly right: HTMLCanvasElement;
-  setPose(pose: Pose): void;
-  setVariant(variant: Variant | null): void;
   setRunning(on: boolean): void;
   setRate(rate: number): void;
   /** CSS pixels per phone pixel: 1 is true size, 2 is a magnifier. */
@@ -53,7 +55,7 @@ export interface Pair {
 
 export interface PairHooks {
   /** `true` when the two sides came back byte-identical. Called once per
-   * settle, and again after every pose or candidate change. */
+   * settle, and again after every rebuild. */
   onSettled(identical: boolean): void;
   /** Which side BLINK shows, so a corner tag can name it. */
   onBlink(side: "left" | "right"): void;
@@ -67,7 +69,7 @@ function makeSide(dpr: number): Side {
 }
 /** FNV-1a over every byte. Not a cryptographic claim — the question is only
  * whether two renders of one world came out the same. */
-function hash(canvas: HTMLCanvasElement): string {
+export function hashCanvas(canvas: HTMLCanvasElement): string {
   const ctx = canvas.getContext("2d");
   if (!ctx) return "";
   const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -79,57 +81,65 @@ function hash(canvas: HTMLCanvasElement): string {
   return (h >>> 0).toString(16);
 }
 
+/**
+ * One tick, rebuilding on `needWave` rather than discarding what the fresh
+ * world carries. `pose-kit.ts`'s `runUntil` returns on the exact tick its
+ * named state arrives, so a rebuilt world's own `events` already holds the
+ * `fire` or `deflect` that moment produced — a shield candidate's shockwave
+ * is drawn from that event alone, since the rock it caught left no scar and
+ * no lasting body. Handing back `[]` here, as this file used to on every
+ * rebuild and the first frame, is why that shockwave never played: the event
+ * that would have started it was thrown away before a renderer saw it.
+ * `test/versus-loop.test.ts` pins the fix with no canvas needed.
+ */
+export function advance(world: World, build: () => World): { world: World; events: SimEvent[] } {
+  step(world, []);
+  if (world.events.some((e) => e.type === "needWave")) {
+    const rebuilt = build();
+    return { world: rebuilt, events: [...rebuilt.events] };
+  }
+  return { world, events: [...world.events] };
+}
+
+export interface PairOptions {
+  pose: Pose;
+  /** Overrides `pose.role` — a pair is drawn for one named seat. */
+  role: ViewRole;
+  variant: Variant;
+}
+
 /** Start the loop. Both canvases are drawn every frame, BLINK or not. */
-export function startPair(pose: Pose, hooks: PairHooks): Pair {
+export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
+  const { pose, role, variant } = opts;
   const dpr = Math.min(3, window.devicePixelRatio || 1);
   const left = makeSide(dpr);
   const right = makeSide(dpr);
 
-  let current = pose;
-  let world = current.build();
-  let variant: Variant | null = null;
+  let world = pose.build();
   let running = true;
   let rate = 1;
   let blink = false;
   let showing: "left" | "right" = "left";
-  let events: SimEvent[] = [];
+  // Seeded from the world `build()` handed back, not from `[]` — see `advance`.
+  let events: SimEvent[] = [...world.events];
   /** Own-motion's clock, advanced by the loop rather than read off the wall,
    * so pausing freezes the wobble and the rate slows it. */
   let clock = 0;
   let blinkAt = 0;
   let frames = 0;
-  /** Counted from the last change, so a new candidate is hashed again rather
-   * than keeping the verdict of the one before it. */
   let sinceChange = 0;
   let raf = 0;
-
-  const role = (): ViewRole => current.role ?? "p1";
 
   // One object, handed to both. Its fields are rewritten in place every frame:
   // a fresh literal per side would be two objects that happen to agree.
   const view: ViewState = {
     world,
     beatPhase: 0,
-    role: role(),
+    role,
     time: 0,
     dt: 0,
     events,
     running,
-  };
-
-  const rebuild = (): void => {
-    world = current.build();
-    events = [];
-    frames = 0;
-    sinceChange = 0;
-    clock = 0;
-  };
-  /** A cleared wave starts over rather than ending — the pair is a loop. */
-  const stepOnce = (): void => {
-    step(world, []);
-    if (world.events.length === 0) return;
-    events.push(...world.events);
-    for (const e of world.events) if (e.type === "needWave") rebuild();
   };
 
   /** One side, with the patch held for exactly the length of `draw` and put
@@ -138,7 +148,7 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
     const unseed = seedRandom(seed);
     let applied: Applied | null = null;
     try {
-      if (patched && variant) applied = apply(variant);
+      if (patched) applied = apply(variant);
       side.renderer.draw(view);
     } finally {
       if (applied) restore(applied);
@@ -150,7 +160,6 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
     const tpb = ticksPerBeat(world.cfg);
     view.world = world;
     view.beatPhase = (world.tick % tpb) / tpb;
-    view.role = role();
     view.time = clock;
     view.dt = dt;
     view.events = events;
@@ -159,12 +168,11 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
     const seed = frames + 1;
     drawSide(left, false, seed);
     drawSide(right, true, seed);
-    events = [];
 
     frames++;
     sinceChange++;
     if (sinceChange === SETTLE) {
-      hooks.onSettled(variant !== null && hash(left.canvas) === hash(right.canvas));
+      hooks.onSettled(hashCanvas(left.canvas) === hashCanvas(right.canvas));
     }
   };
 
@@ -180,8 +188,19 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
       clock += dt;
       carry += dt * world.cfg.tickHz;
       const steps = Math.min(Math.floor(carry), world.cfg.tickHz);
-      for (let i = 0; i < steps; i++) stepOnce();
+      for (let i = 0; i < steps; i++) {
+        const next = advance(world, () => pose.build());
+        if (next.world !== world) {
+          world = next.world;
+          frames = 0;
+          sinceChange = 0;
+          clock = 0;
+        }
+        events = next.events;
+      }
       carry -= steps;
+    } else {
+      events = [];
     }
     paint(dt);
 
@@ -196,16 +215,6 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
   };
   raf = requestAnimationFrame(frame);
 
-  // Handle for headless checks. A hidden tab suspends requestAnimationFrame,
-  // so a check that wants a settled pair has to be able to ask for one — the
-  // same handle `stage.ts` carries, for the same reason.
-  (window as unknown as { neonSporeVersus: unknown }).neonSporeVersus = {
-    advance: (ticks: number) => {
-      for (let i = 0; i < ticks; i++) stepOnce();
-    },
-    paint: () => paint(1 / 60),
-  };
-
   const zoom = (n: number): void => {
     for (const side of [left, right]) {
       side.canvas.style.width = `${PAIR_PHONE.width * n}px`;
@@ -216,14 +225,6 @@ export function startPair(pose: Pose, hooks: PairHooks): Pair {
   return {
     left: left.canvas,
     right: right.canvas,
-    setPose(next) {
-      current = next;
-      rebuild();
-    },
-    setVariant(next) {
-      variant = next;
-      sinceChange = 0;
-    },
     setRunning(on) {
       running = on;
     },

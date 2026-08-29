@@ -553,21 +553,31 @@
       }
       .sheetpage h2 { color: var(--cyan); letter-spacing: 3px; font-size: 11px; margin: 18px 0 2px; }
 
-      /* VERSUS — two phones, one world. See `versus-page.ts` for the sheet and
-         `versus-pair.ts` for the invariant it exists to hold. One rule governs
-         every length here: neither canvas is ever scaled to fit. 380 CSS
-         pixels is the phone, and a pair that shrank to suit the window would
-         answer the 26 px question by making it unanswerable — so the stage
-         scrolls sideways instead. */
-      /* One button per open slot, built the way the SHAPES skin bar is — every
-         slot reachable at once, never a dropdown, because the whole point of
-         decision 24 is that nothing here needs to be found first. */
-      .versus-slots { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
-      .versus-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 6px; }
+      /* ALTERNATIVES — a contact sheet, not an instrument. See `versus-page.ts`
+         for the sheet, `versus-pair.ts` for the invariant it exists to hold,
+         and `versus-seat.ts` for why a row sometimes carries a second screen.
+         One rule governs every length here: neither canvas is ever scaled to
+         fit. 380 CSS pixels is the phone, and a pair that shrank to suit the
+         window would answer the 26 px question by making it unanswerable —
+         so the stage scrolls sideways instead. */
+      /* One row per candidate, flat down the page — no slot tree, no seat
+         dropdown, nothing to pick before a difference is visible. */
+      .versus-row { margin: 18px 0 26px; padding-bottom: 22px; border-bottom: 1px solid var(--line-soft); }
+      /* Two screens sit side by side only where `seatsDiffer` found a real
+         one; wrapping rather than a fixed two-column grid, so a single screen
+         does not stretch to fill room a second one would have used. */
+      .versus-screens { display: flex; flex-wrap: wrap; gap: 28px; }
+      .versus-screen-label { margin: 0 0 4px; color: var(--gold); font-size: 9px; letter-spacing: 2px; }
+      .versus-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 6px; }
       .versus-bar select { width: auto; min-width: 92px; }
-      .versus-patch { display: flex; flex-direction: column; gap: 2px; color: var(--dim); font-size: 9px; margin: 0 0 10px; }
+      .versus-patch { display: block; color: var(--dim); font-size: 9px; margin: 2px 0 10px; }
       .versus-stage { position: relative; display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px; }
       .versus-side { flex: 0 0 auto; }
+      /* BLINK explains itself here rather than on the button — the queue
+         entry's rule is that it either does or it goes, and a four-letter
+         label on a row that scrolls past four others cannot carry the
+         explanation itself. */
+      .versus-blink-note { max-width: 380px; margin: 4px 0 0; color: var(--dim); font-size: 9px; line-height: 1.5; }
       /* The name stays above its own phone and keeps its height whichever
          candidate is up, so the reason field below does not walk up the page
          while somebody is typing into it. */

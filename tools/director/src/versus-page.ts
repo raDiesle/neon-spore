@@ -3,29 +3,27 @@ import { VARIANTS } from "../../versus/candidates/index.js";
 import { patchedFields, type Slot, slots, type Variant } from "../../versus/variant.js";
 import { button, el } from "./checks-dom.js";
 import type { Pose } from "./pose-kit.js";
-import { POSE_GROUPS } from "./poses.js";
-import type { Pair } from "./versus-pair.js";
 import { startPair } from "./versus-pair.js";
+import { poseForSlot } from "./versus-pose.js";
+import { seatsDiffer } from "./versus-seat.js";
 import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
 
 /**
- * A VERSUS tab on the backlog sheet: every open slot, drawn as two phones.
+ * The ALTERNATIVES sheet: a contact sheet, not an instrument.
  *
- * A shape the game already draws got one card on SHAPES, forever. This is
- * where its second answer stands beside it, at 380 × 820 uncapped and moving,
- * so `docs/versus.md`'s question can be asked at all: does it read at 26 px,
- * and does it read at tempo. `versus-pair.ts` is the engine and the invariant;
- * this file is the sheet around it, and `versus-vote.ts` is the vote box
- * inside it. Decision 24 is why a second slot is a switch, never a deletion —
- * every alternative has to be comparable in this one page, at the same time.
+ * `docs/queue.md`'s "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" is this
+ * file's whole brief, in the owner's own words. Everything open is rendered
+ * at once, flat, with no control touched: every candidate of every slot gets
+ * its own row, the shipped thing on the left and that one candidate on the
+ * right, repeated down the page — never a matrix, never a slot switcher,
+ * never a seat dropdown. `versus-pose.ts` picks the pose that puts a slot's
+ * own animation on screen, `versus-seat.ts` decides — honestly, by rendering
+ * and comparing, not by guessing — whether a row needs the other seat drawn
+ * beside it, and `versus-pair.ts` is the engine underneath each screen.
  */
 
 const TAB_ID = "versus";
-/** The pose the pair opens on — red creatures falling past the player's hull. */
-const DEFAULT_POSE = "SLICK · FALLING";
 const RATES = [0.25, 0.5, 1, 2];
-const ALL_POSES: Pose[] = POSE_GROUPS.flatMap((g) => g.poses);
-const SEATS: readonly ViewRole[] = ["p1", "p2"];
 
 function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement {
   const b = button(label);
@@ -54,20 +52,6 @@ function picker<T>(items: readonly T[], name: (x: T) => string, on: (x: T) => vo
   return sel;
 }
 
-/** One button per slot, active one lit — built the way `shapes-pair.ts`'s
- * skin bar is built: a row of exclusive buttons, not a dropdown, because the
- * whole point is that every slot is one click away, visible at once. */
-function slotSwitcher(open: Slot[], active: Slot, onPick: (s: Slot) => void): HTMLElement {
-  const bar = el("div", "versus-slots");
-  for (const s of open) {
-    const b = button(`${s.slot} (${s.candidates.length})`);
-    b.classList.toggle("on", s === active);
-    b.addEventListener("click", () => onPick(s));
-    bar.appendChild(b);
-  }
-  return bar;
-}
-
 /** The tab button and its empty page, appended before `bindTabs` runs. */
 export function mountVersusTab(): void {
   const tabs = document.getElementById("backlogTabs");
@@ -84,19 +68,20 @@ export function mountVersusTab(): void {
     el(
       "p",
       "pagewhat",
-      "A second answer to something the game already draws or plays — a colour, " +
-        "a shape, a motion, a sound — put beside the shipped one on two phones " +
-        "at tempo, and voted on.",
+      "Every open candidate, beside the shipped thing it would replace, at once — " +
+        "a colour, a shape, a motion put on two phones at tempo and voted on.",
     ),
   );
   page.appendChild(
     el(
       "p",
       "note",
-      "Every open slot, two phones, one world. Left is what the game draws today; " +
-        "right is the same code with the candidate's patch held for one draw. " +
-        "Both at 380 × 820 CSS pixels, uncapped — a picture that shrinks to fit " +
-        "the window answers the 26 px question by making it unanswerable.",
+      "Left is what the game draws today; right is the same code with the " +
+        "candidate's patch held for one draw. Both at 380 × 820 CSS pixels, " +
+        "uncapped — a picture that shrinks to fit the window answers the 26 px " +
+        "question by making it unanswerable. A second screen appears only where " +
+        "the two seats genuinely draw something different; the page decides that " +
+        "itself.",
     ),
   );
   const mount = el("div");
@@ -106,7 +91,6 @@ export function mountVersusTab(): void {
 }
 
 let drawn = false;
-let activePair: Pair | null = null;
 
 /** Built on first sight of the tab. See `guide-page.ts` for the same lazy draw. */
 export function drawVersus(): void {
@@ -124,70 +108,100 @@ export function drawVersus(): void {
     return;
   }
 
-  const switcherHost = el("div");
-  const body = el("div");
-  mount.append(switcherHost, body);
+  const totalScreens = open.reduce((n, s) => n + s.candidates.length, 0);
+  if (totalScreens > 10) {
+    mount.appendChild(
+      el(
+        "p",
+        "note",
+        `${totalScreens} candidates are open — past what this page tries to keep ` +
+          "animating at once. Nothing here throttles it; that is the honest report " +
+          "rather than a quiet stutter, and the next lane to add a slot should read it.",
+      ),
+    );
+  }
 
-  const show = (slot: Slot): void => {
-    activePair?.stop();
-    body.replaceChildren();
-    switcherHost.replaceChildren(slotSwitcher(open, slot, show));
-    activePair = renderSlot(body, slot, open.length);
-  };
-  const first = open[0];
-  if (first) show(first);
+  readHead()
+    .then((head) => {
+      for (const slot of open) mount.appendChild(renderSlot(slot, head));
+    })
+    .catch(() => {
+      const head: Head = { head: "unknown", dirty: true };
+      for (const slot of open) mount.appendChild(renderSlot(slot, head));
+    });
 }
 
-function renderSlot(root: HTMLElement, slot: Slot, openCount: number): Pair | null {
-  const opening = slot.candidates[0];
-  if (!opening) return null;
-  let candidate: Variant = opening;
+/** One slot: its heading, and one row per candidate — never a switcher. */
+function renderSlot(slot: Slot, head: Head): HTMLElement {
+  const section = el("div");
+  section.appendChild(el("h2", "", slot.slot.toUpperCase()));
+  const pose = poseForSlot(slot.slot);
+  for (const candidate of slot.candidates) {
+    section.appendChild(renderRow(slot, candidate, pose, head));
+  }
+  return section;
+}
 
-  const startPose = ALL_POSES.find((p) => p.name === DEFAULT_POSE) ?? ALL_POSES[0];
-  if (!startPose) return null;
-  let pose: Pose = startPose;
-  let seat: ViewRole = startPose.role ?? "p1";
-
-  root.appendChild(
+/** One candidate against the shipped thing — one or two screens, decided by
+ * `seatsDiffer`, never by a picker. */
+function renderRow(slot: Slot, candidate: Variant, pose: Pose, head: Head): HTMLElement {
+  const row = el("div", "versus-row");
+  row.appendChild(
+    el("p", "versus-name", `${candidate.name.toUpperCase()} — ${candidate.sentence}`),
+  );
+  row.appendChild(
     el(
       "p",
-      "note",
-      openCount > 1 ? `${openCount} slots open — this is ${slot.slot}` : `slot ${slot.slot}`,
+      "versus-patch",
+      candidate.patches
+        .map((p) => `${p.where.file} · ${p.where.symbol} — ${patchedFields(p).join(", ")}`)
+        .join("  ·  "),
     ),
   );
 
-  const bar = el("div", "versus-bar");
-  const patch = el("p", "versus-patch");
+  const screens = seatsDiffer(pose, candidate) ? (["p1", "p2"] as const) : (["p1"] as const);
+  const screensHost = el("div", "versus-screens");
+  for (const role of screens) {
+    screensHost.appendChild(renderScreen(pose, role, candidate, screens.length > 1));
+  }
+  row.append(screensHost);
+
+  const vote = buildVoteBox(slot, head);
+  vote.setCandidate(candidate);
+  row.appendChild(vote.root);
+  return row;
+}
+
+/** One current-vs-candidate screen at one seat. */
+function renderScreen(
+  pose: Pose,
+  role: ViewRole,
+  candidate: Variant,
+  labelled: boolean,
+): HTMLElement {
+  const screen = el("div", "versus-screen");
+  if (labelled) {
+    screen.appendChild(
+      el("p", "versus-screen-label", role === "p1" ? "P1'S SCREEN" : "P2'S SCREEN"),
+    );
+  }
   const stage = el("div", "versus-stage");
   const tag = el("div", "versus-tag");
   const leftBox = el("div", "versus-side");
   const rightBox = el("div", "versus-side");
-  const rightName = el("div", "versus-name");
   leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
-  rightBox.appendChild(rightName);
+  rightBox.appendChild(el("div", "versus-name", " "));
   stage.append(leftBox, rightBox, tag);
 
-  const head: Head = { head: "unknown", dirty: true };
-  readHead()
-    .then((h) => Object.assign(head, h))
-    .catch(() => undefined);
-  const vote = buildVoteBox(slot, head);
-  root.append(bar, patch, stage, vote.root);
-
-  // The seat the pair is drawn for, independent of whatever role the pose
-  // itself carries. A patch that touches the hull can read differently from
-  // the pilot's half and the navigator's half, and a fixed `pose.role ?? "p1"`
-  // meant it could only ever be judged from one of them.
-  const applyPose = (): void => pair.setPose({ ...pose, role: seat });
-
+  const banner = el("div", "versus-banner");
   const pair = startPair(
-    { ...pose, role: seat },
+    { pose, role, variant: candidate },
     {
-      // The guard. Two byte-identical sides under a non-empty patch mean the
-      // swap did not take, and a confident vote on a difference nobody intended
-      // is worse than no pair at all — so the buttons go, and say why.
       onSettled(identical) {
-        vote.setSwapOk(identical);
+        banner.textContent = identical
+          ? "THE SWAP DID NOT TAKE — or this candidate is the current one"
+          : "";
+        banner.classList.toggle("on", identical);
       },
       onBlink(side) {
         tag.textContent = side === "left" ? "CURRENT" : candidate.name.toUpperCase();
@@ -197,48 +211,26 @@ function renderSlot(root: HTMLElement, slot: Slot, openCount: number): Pair | nu
   leftBox.appendChild(pair.left);
   rightBox.appendChild(pair.right);
 
-  const show = (next: Variant): void => {
-    candidate = next;
-    rightName.textContent = `${next.name.toUpperCase()} — ${next.sentence}`;
-    patch.replaceChildren(
-      ...next.patches.map((p) =>
-        el("span", "", `${p.where.file} · ${p.where.symbol} — ${patchedFields(p).join(", ")}`),
-      ),
-    );
-    pair.setVariant(next);
-    vote.setCandidate(next);
-  };
-
+  const bar = el("div", "versus-bar");
   bar.append(
-    picker(slot.candidates, (c) => c.name, show),
-    picker(
-      ALL_POSES,
-      (p) => p.name,
-      (p) => {
-        pose = p;
-        applyPose();
-      },
-      ALL_POSES.indexOf(pose),
-    ),
-    picker(
-      SEATS,
-      (r) => (r === "p1" ? "P1'S SCREEN" : r === "p2" ? "P2'S SCREEN" : r.toUpperCase()),
-      (r) => {
-        seat = r;
-        applyPose();
-      },
-      SEATS.indexOf(seat),
-    ),
     toggle("⏸", (paused) => pair.setRunning(!paused)),
     picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1)),
     toggle("BLINK", (on) => {
       stage.classList.toggle("is-blink", on);
       pair.setBlink(on);
     }),
-    // Named on the button rather than in a note beside it: a magnified pair
-    // left on by accident is a claim about 26 px never made at 26 px.
     toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1)),
   );
-  show(candidate);
-  return pair;
+  screen.append(
+    stage,
+    el(
+      "p",
+      "versus-blink-note",
+      "BLINK superimposes the two sides and flips between them once a second — " +
+        "the astronomer's trick for a difference too small to catch side by side.",
+    ),
+    bar,
+    banner,
+  );
+  return screen;
 }
