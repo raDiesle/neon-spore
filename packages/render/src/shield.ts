@@ -5,6 +5,7 @@ import { strokeGlow } from "./glow.js";
 import type { LobePositions } from "./hull.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawShieldSparks } from "./shield-spark.js";
 
 /**
  * The shield, as a body rather than a plate.
@@ -209,6 +210,9 @@ export function drawShieldRim(
     w.intensityBase + w.intensityArmed * armed,
   );
   ctx.globalAlpha = 1;
+  // Ambient presence, not the catch — see `shield-spark.ts`. Not passed
+  // `armed` on purpose: charged, not deflecting.
+  drawShieldSparks(ctx, l, time, cols, surface);
 }
 
 /**
