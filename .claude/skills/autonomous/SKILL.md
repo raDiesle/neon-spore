@@ -1,6 +1,6 @@
 ---
 name: autonomous
-description: Run Neon Spore unattended for hours — pick the work, run two or three lanes in parallel worktrees, land each on main linearly, and resume from cold after a token window runs out. Use when the user says to spend remaining budget, work on their own judgement, keep going without them, or asks to continue an autonomous run.
+description: Run Neon Spore unattended for hours — pick the work, run one lane at a time in an isolated worktree, land each on main linearly, and resume from cold after a token window runs out. Use when the user says to spend remaining budget, work on their own judgement, keep going without them, or asks to continue an autonomous run.
 ---
 
 # Running unattended
@@ -72,14 +72,40 @@ exactly why the label exists.
 **Then the file's own order**, which the owner may rearrange at any time
 without telling you. Re-read it rather than remembering it.
 
-## 2. Run a batch
+## 2. Run a lane
 
-Two or three lanes, never more. The limit is the landing, not the machine:
-`main` is linear, so lane four rebases over the three before it.
+**One lane at a time is the default.** Two only when they are plainly disjoint
+and something is genuinely waiting; three or more only when the owner asks for
+them by name.
+
+The owner set this on 29 August 2026, after a day of three-lane batches:
+
+> be more defensive and not run so much in parallel, because it might cause
+> issues or burn tokens heavier
+
+and, in the same breath, *we have time*. **Throughput is not what this is
+optimising.** Two costs, and both were visible that day rather than theorised:
+lanes stepping on each other — rebase refusals, lanes sent back, a conflict
+surfacing where the work was expensive rather than where it was cheap — and
+token burn, since a crowded batch is also a batch of long reports and diff
+reviews landing in the orchestrator's context at once.
+
+There is a third gain that is easy to miss. `bun run land` runs `bun run check`
+after the replay, and on a loaded machine tests near a per-test timeout start
+failing for no reason — one file went from 63 s to 127 s. Every one of those
+retries is a place a genuine failure can hide. **On a quiet machine a timeout is
+a real finding**, which is worth more than the wall-clock a second lane saves.
+
+When a lane stops on an owner question, prefer reporting and waiting over
+starting a second lane to fill the gap. The queue is not going anywhere.
+
+The older rule here read *two or three lanes, never more*, and justified itself
+on the landing being serial — `main` is linear, so lane four rebases over the
+three before it. That reasoning is still true and is now the second reason
+rather than the first.
 
 Each lane is one `Agent` call with `isolation: "worktree"`, spawned in the
-background, all of a batch in **one message** so they run at once. The prompt
-must carry, every time:
+background. The prompt must carry, every time:
 
 - the brief, verbatim from the queue;
 - the paths it owns, and that it may touch nothing else;

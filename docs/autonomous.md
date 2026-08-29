@@ -34,10 +34,25 @@ safe to run at once, so it is checked before a batch starts rather than
 discovered when the second one tries to land: `bun run burn` refuses to be
 quiet about two lanes that own the same path.
 
-Two or three at a time, not six. The limit is not the machine, it is the
-**landing** — `main` is linear, so every lane rebases onto a trunk that moved
-under it, and the fourth one pays for the three before it. `CLAUDE.md` says
-the same thing about cloud sessions and for the same reason.
+**One at a time, by default.** The owner set that on 29 August 2026 — *"be more
+defensive and not run so much in parallel, because it might cause issues or
+burn tokens heavier"*, and *we have time*. Two lanes only when they are plainly
+disjoint and something is waiting; more only when asked for by name.
+
+Three reasons, and the first is the one that used to be the only one. The
+**landing** is serial: `main` is linear, so every lane rebases onto a trunk
+that moved under it, and the fourth pays for the three before it. `CLAUDE.md`
+says the same about cloud sessions.
+
+The second is **cost**. A crowded batch is a batch of long reports and diff
+reviews arriving in the orchestrator's context at once, and the orchestrator's
+context is the scarcest thing in a run.
+
+The third is the quiet one. `bun run land` runs `bun run check` after the
+replay, and on a loaded machine tests near a per-test timeout fail for no
+reason — one file went from 63 s to 127 s in a three-lane batch. Every retry
+that follows is a place a genuine failure can hide. **On a quiet machine, a
+timeout is a real finding.**
 
 Files that everything wants — `packages/sim/src/config.ts`,
 `packages/sim/src/world.ts`, `packages/render/src/canvas2d.ts`,
