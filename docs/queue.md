@@ -213,6 +213,76 @@ full, then `packages/render/src/tether.ts` for the circle, then
 on the drag's origin — absolute-versus-relative is the decision every later
 draggable element inherits.
 
+## THE TETHER IS PULLED, AND A LONG PULL OPENS THE WARDEN UP
+_claude/burn-tether-pull · packages/sim/src/warden.ts packages/sim/src/warden-cycle.ts packages/sim/src/config-boss.ts packages/render/src/tether.ts packages/render/src/warden-fx.ts packages/sim/test/warden.test.ts docs/spec/bosses.md_
+**Asked for by the owner.** Asked whether THE WARDEN's tether should follow a
+finger too, since the entry above deliberately left it alone:
+
+> yes. you click it then drag in a direction. if the string is pulled a longer
+> distance the warden can be attacked
+
+**Behind `claude/burn-grab-and-drag`, which must land first.** That lane builds
+the displacement a grab reports — the origin resolved on the device whose
+finger it is, the distance crossing the wire as thousandths of a tile — and
+this entry is the second thing to use it. Do not invent a parallel one.
+
+### What the tether does today, because the ask lands on top of it
+
+A line hangs from the rim and falls at a named rock's speed. Only the player it
+is **not** holding can pull it free, and the way they do it is to hold: the
+hold **accumulates** over ticks (`wardenPullBeats`, `packages/sim/src/warden.ts`),
+a thumb that slips loses that moment and no more, and tearing it in time takes
+a plate off the ring. `config-boss.ts` says in as many words why it is time and
+not steadiness:
+
+> the question the fight asks is *when* the other player can spare their hand,
+> never whether they can hold it steady on a phone
+
+That sentence is the one thing this entry must not run over by accident. A
+pull measured in distance is a pull that can be *fumbled*, and fumbling on a
+phone is exactly what the current rule was written to keep out of the fight.
+Whatever this lane builds, the fight must still be about the other seat's
+attention rather than about their aim.
+
+### The question the owner still has to answer, and it is the whole lane
+
+**Does distance replace the accumulated hold, or sit beyond it?** Two readings,
+both consistent with what they said, and they are different games:
+
+- **Distance replaces time.** Tearing the tether becomes: grab it and drag it
+  far enough. `wardenPullBeats` retires. Simplest to explain, and it overturns
+  the decision quoted above rather than extending it.
+- **Distance is a second, further threshold.** Holding still tears the line as
+  it does now; dragging it *further than that* is an extra thing a player can
+  choose to do, and the reward is the new one — the ring opens to attack.
+
+The second reading is the one the owner's sentence most nearly says: *if the
+string is pulled a longer distance* implies a shorter distance that already
+does something. **Do not decide this alone.** If the owner has answered by the
+time this is picked up, the answer is in the queue; if not, stop and ask.
+
+### And what "can be attacked" means is the second question
+
+The ring already loses a plate per opened eye and a plate never grows back. So
+*attacked* may mean the existing plate coming off, or a window in which the
+ring is shootable when it otherwise is not — today a tether is explicitly not
+shootable and does not stop a shot (`packages/sim/src/bullets.ts`). Those are
+different mechanics, one of them is new, and the difference is a boss's
+choreography rather than a parameter. Same rule: ask rather than pick.
+
+**Everything the drag needs is integers.** Rule 3, and `bun run
+test:determinism` is the guard — a pull distance is exactly where a float gets
+in. Both devices must agree on the tick a threshold is crossed.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, the
+tether follows the finger that grabbed it, a long pull does what the owner's
+answer said it does, and `docs/spec/bosses.md` §11.4 describes the fight that
+now exists rather than the one that used to.
+
+Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
+— the input is inherited. Read `packages/sim/src/warden.ts` whole and
+`docs/spec/bosses.md` §11.4 before deciding anything.
+
 ## AN EXPIRED GUARD LOOKS EXACTLY LIKE A BROKEN SHIELD
 _claude/burn-guard-lapse · packages/render/src/band.ts packages/render/src/shield.ts packages/render/test/frame.test.ts_
 **Asked for by the owner.** Their decision on a finding from the shield
