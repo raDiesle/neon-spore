@@ -1,15 +1,13 @@
 /**
- * `cannon:mouth` / `egg` — the timing, on its own, with no canvas anywhere
- * near it.
+ * The cannon's wind-up, as pure arithmetic — no canvas anywhere near it.
  *
- * It is a separate file because **the timing is the candidate**. The owner's
- * request was not a shape, it was a *slowness*: "the shot should be pushed out
- * somewhat slowly as it is expelled, so that you can see the animation." A
- * bulge with no effort in it is a circle in a different place, so the three
- * numbers below are the thing being offered and the drawing beside them is
- * only how they are shown. Pure arithmetic can also be asserted, which is what
- * `packages/render/test/egg-curve.test.ts` does to the shape of the curve
- * rather than to the picture.
+ * The owner's request was not a shape, it was a *slowness*: "the shot should
+ * be pushed out somewhat slowly as it is expelled, so that you can see the
+ * animation." A bulge with no effort in it is a circle in a different place,
+ * so the three beats below are the thing that was asked for and
+ * `cannon-maw.ts`'s drawing is only how they are shown. Pure arithmetic can
+ * also be asserted, which is what `test/egg-curve.test.ts` does to the shape
+ * of the curve rather than to the picture.
  *
  * **The three beats, and the third is the point.**
  *
@@ -32,9 +30,12 @@
  *    to rest does not read as having done anything.
  *
  * **It is drawn over the timing the game already has and does not touch it.**
- * `phase` 0..1 is `chargeMilli / 1000`, which is `packages/sim`'s and settled
+ * `phase` 0..1 is `chargeMilli / 1000` (`packages/sim`'s `LayState`), settled
  * to the tick on both devices; 1..2 is the renderer's own follow-through
- * (`LayEcho`). Nothing here can move when a shot becomes live.
+ * (`LayEcho`, in `cannon-maw.ts`). Nothing here can move when a shot becomes
+ * live, and nothing here changes `shotChargeBeats` — see the comment on it in
+ * `apps/game/src/main.ts` for why the length of the wind-up is a separate
+ * question from the shape of it.
  */
 
 /** Where in the wind-up the egg starts to come through. */

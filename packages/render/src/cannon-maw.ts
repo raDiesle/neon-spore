@@ -1,4 +1,6 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
+import { eggContour, REST_RY } from "./egg-contour.js";
+import { eggBeats } from "./egg-curve.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { type MouthFrame, muzzleCenterY } from "./muzzle.js";
@@ -8,17 +10,19 @@ import { PALETTE } from "./palette.js";
  * Laying the shot: `maw.ts` run backwards.
  *
  * Swallowing a pod is three movements — the inhale, the skin coming apart, the
- * flash. Laying is the last two of those with the direction reversed, and that
- * is deliberate rather than convenient: the ship has exactly one opening, and a
- * second visual vocabulary for it would teach the pair that the same hole means
- * two unrelated things. So the muzzle dilates, the membrane beside it parts
- * with the gaps travelling *outward* instead of inward, and something bright
- * grows behind the opening until it goes. A hen laying an egg, only alien.
+ * flash. Laying is the body doing the middle one in reverse — a cloaca that
+ * swells towards the ship, presses the shot out through a vent at its crown
+ * and then goes slack — rather than a second visual vocabulary for the one
+ * opening the ship has. A hen laying an egg, only alien; `egg-curve.ts` is
+ * the timing, `egg-contour.ts` the shape it strains into, and `LAY_LOOK.draw`
+ * below is only where the two meet a canvas.
  *
  * **It is a tell, and it belongs to the other player.** Player 1 has no fire
  * buttons; until now a press by player 2 reached him only as a bolt already
  * halfway up the field. This is the cannon visibly working before the shot
- * exists, in the one place he is already watching.
+ * exists, in the one place he is already watching — and, now, working for
+ * long enough to actually watch: the strain, the crowning, the slack
+ * afterwards, not a rim that merely tightens and cuts.
  *
  * **It says the moment and not the colour.** The colour is player 2's half of
  * the split (docs/spec/systems.md 5.1), and a wind-up that leaked it would
@@ -33,12 +37,6 @@ import { PALETTE } from "./palette.js";
  * departure has no clock but the renderer's. It lives in `Effects` and is
  * cleared in `Effects.reset()`, like everything else that outlives a frame.
  */
-
-/** How far either side of the muzzle the skin parts, in tiles. A fifth of the
- * chew's reach: this is one bolt leaving, not a whole pod going through. */
-const PART_TILES = 0.5;
-/** Pieces the parted stretch is drawn in. Fewer reads as a dashed border. */
-const PART_STEPS = 10;
 
 /**
  * Where the shot is in the act of leaving — the whole clock this file draws
@@ -114,36 +112,75 @@ export interface LayLook {
   draw(ctx: CanvasRenderingContext2D, m: MouthFrame, s: LayState): void;
 }
 
-/** The wind-up the ship has always had: a gathering bolt, a parting seam, a
- * tightening rim — and nothing at all once the shot is gone. */
+/**
+ * The body itself, laying: a cloaca that strains, presses the shot out and
+ * then goes slack — `egg-curve.ts`'s three beats, drawn.
+ *
+ * This draws on every frame the maw is not busy swallowing a pod
+ * (`m.intake > 0.4`), rest included: the egg shape is a body part, and unlike
+ * the old wind-up it does not vanish once the shot has gone, it *relaxes* —
+ * `eggBeats`'s `relief` beat is exactly that follow-through, easing past rest
+ * into slack before settling. Nothing here says which colour is coming: the
+ * whole thing is drawn in the hull's own light, same as the wind-up it
+ * replaces, because the colour is player 2's half of the split.
+ */
 export const LAY_LOOK: LayLook = {
   draw(ctx, m, s) {
-    // Everything past the departure is somebody else's idea. This mouth stops
-    // at the moment the shot leaves, exactly as it did when `phase` could not
-    // go above 1 at all.
-    const lay = s.phase > 1 ? 0 : s.phase;
-    if (lay <= 0.02) return;
+    // One hole, one thing at a time — the throat above takes over past this.
+    if (m.intake > 0.4) return;
     const { l } = m;
+    const b = eggBeats(s.phase, s.time);
+    const cy = m.y;
 
-    // Behind the opening first, so the parting skin and the rim draw over it: a
-    // bolt gathering *inside* the ship, not a light stuck on the outside of it.
-    halo(ctx, m.x, m.y, l.tile * (0.12 + 0.3 * lay), PALETTE.hullRim, 0.2 + 0.6 * lay);
+    // Light gathering behind it, and only while something is actually being
+    // pressed — the slack half of the follow-through is dark, because nothing
+    // is in there any more.
+    if (b.strain > 0 && b.relief === 0) {
+      halo(ctx, m.x, cy, l.tile * (0.16 + 0.34 * b.strain), PALETTE.hullRim, 0.15 + 0.5 * b.strain);
+    }
 
-    partSkin(ctx, l, lay, s.time, m.x, m.surface);
-
-    // The opening itself, dilating. `drawMuzzle` has already filled it dark and
-    // run the ship's own edge round it; this is that edge tightening and
-    // brightening as the moment arrives, and it is the part that reads at arm's
-    // length on a phone.
+    const path = eggContour(m.x, cy, l.tile, s.time, b);
     ctx.save();
-    ctx.beginPath();
-    ctx.arc(m.x, m.y, l.tile * (0.15 + 0.16 * lay), 0, Math.PI * 2);
-    ctx.strokeStyle = PALETTE.hullRim;
-    ctx.lineWidth = 1.2 + 1.6 * lay;
-    ctx.globalAlpha = 0.3 + 0.7 * lay;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    ctx.fillStyle = "rgba(28,10,52,0.85)";
+    ctx.fill(path);
+    // The rim tightens and brightens under load and slackens after: the line
+    // weight is doing as much of the reading as the shape is.
+    const load = Math.max(0, b.bulge);
+    strokeGlow(ctx, path, PALETTE.hullRim, 1.3 + 2.2 * load, 0.45 + 0.55 * load);
     ctx.restore();
+
+    // The vent, at the top of the contour, open only while something is
+    // coming through it.
+    if (b.vent > 0.01) {
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, 0.35 + 0.65 * b.vent);
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.beginPath();
+      ctx.ellipse(
+        m.x,
+        cy - l.tile * REST_RY * (1 + b.bulge * 0.3),
+        l.tile * 0.13 * b.vent,
+        l.tile * 0.05 * b.vent,
+        0,
+        0,
+        Math.PI * 2,
+      );
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // The shot itself, on its way through. It rides up out of the body and is
+    // handed over to `drawBullets` at the tick it becomes live, so this is
+    // only ever the part of its travel that is still inside the ship.
+    if (b.crown > 0 && b.relief === 0) {
+      const ey = cy + l.tile * 0.06 - b.crown * l.tile * 0.44;
+      const er = l.tile * 0.12 * (0.45 + 0.55 * b.crown);
+      halo(ctx, m.x, ey, er * 2.4, PALETTE.hullRim, 0.35 + 0.5 * b.crown);
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.beginPath();
+      ctx.arc(m.x, ey, er, 0, Math.PI * 2);
+      ctx.fill();
+    }
   },
 };
 
@@ -170,41 +207,4 @@ export function drawLay(
     surface,
   };
   LAY_LOOK.draw(ctx, m, { phase: lay, time });
-}
-
-/**
- * The membrane on either side of the muzzle coming apart — `drawChew`'s
- * technique with two things changed. The gaps travel away from the mouth
- * rather than towards it (the sign on `i` in the phase), because something is
- * being pushed out and not drawn in; and it is the hull's own light rather
- * than the pod's amber, because nothing foreign is passing through.
- */
-function partSkin(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  lay: number,
-  time: number,
-  cannonX: number,
-  surface: (x: number) => Point,
-): void {
-  const half = l.tile * PART_TILES;
-  const from = cannonX - half;
-  const to = cannonX + half;
-
-  ctx.save();
-  ctx.lineCap = "round";
-  for (let i = 0; i < PART_STEPS; i++) {
-    if (Math.sin(time * 11 - i * 1.7) < -0.2) continue;
-    const a = from + ((to - from) * i) / PART_STEPS;
-    const b = from + ((to - from) * (i + 0.7)) / PART_STEPS;
-    const pts: Point[] = [surface(a), surface((a + b) / 2), surface(b)];
-    // Nearest the mouth is brightest, and the whole thing brightens as the
-    // shot comes due — the seam opens rather than simply being open.
-    const near = Math.max(0, 1 - Math.abs((a + b) / 2 - cannonX) / half);
-    const heat = near * lay;
-    ctx.globalAlpha = 0.2 + 0.8 * heat;
-    strokeGlow(ctx, new Path2D(openSmoothPath(pts)), PALETTE.hullRim, 1.2 + 2.6 * heat, 0.8);
-  }
-  ctx.globalAlpha = 1;
-  ctx.restore();
 }

@@ -1,25 +1,23 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { CROWN_AT, eggBeats } from "../../../tools/versus/candidates/cannon-shot/egg/curve.js";
-import { MOUTH_EGG } from "../../../tools/versus/candidates/cannon-shot/egg/index.js";
-import { apply, restore } from "../../../tools/versus/variant.js";
 import { LAY_LOOK } from "../src/cannon-maw.js";
+import { CROWN_AT, eggBeats } from "../src/egg-curve.js";
 import { OWN_SKIN } from "../src/hull.js";
 import { computeLayout } from "../src/layout.js";
 import { MOUTH_LOOK, type MouthFrame } from "../src/muzzle.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * The `egg` candidate's timing, asserted as arithmetic, and its drawing put
+ * The egg-laying mouth's timing, asserted as arithmetic, and its drawing put
  * through the canvas that refuses what a real one refuses.
  *
- * It is here rather than in `tools/versus/test` because that suite asks
- * structural questions of every candidate — does it restore, does it reach the
- * object the game draws — and this one asks whether *this* candidate says what
- * it claims to say. The claim is a curve with three beats in it, and the third
- * beat is the whole request: a mouth that fades back to rest has not done any
- * work, and the only difference between "effort" and "a brighter flash" is
- * that a body which has strained goes slack afterwards.
+ * Adopted from `tools/versus/candidates/cannon-shot/egg` — the owner asked
+ * for it by name, so it shipped rather than sitting on the ALTERNATIVES page
+ * beside itself. This asks whether the shipped mouth says what it claims to:
+ * a curve with three beats in it, and the third beat is the whole point — a
+ * mouth that fades back to rest has not done any work, and the only
+ * difference between "effort" and "a brighter flash" is that a body which
+ * has strained goes slack afterwards.
  *
  * Nothing here can pass by accident. `bulge` going negative is a fact about
  * `exp(-3r) cos(4.4r)` and nothing else in the file could produce it.
@@ -114,40 +112,30 @@ describe("beat three: it clears and the body goes slack", () => {
   });
 });
 
-describe("the candidate drawn", () => {
+describe("the shipped mouth drawn", () => {
   it("survives every phase, at rest, laying and slack", () => {
-    const applied = apply(MOUTH_EGG);
-    try {
-      let calls = 0;
-      for (let phase = 0; phase <= 2; phase += 0.02) {
-        for (const intake of [0, 0.3, 0.8]) {
-          const { ctx } = stubCanvas();
-          const c = ctx as unknown as CanvasRenderingContext2D;
-          MOUTH_LOOK.draw(c, mouth(intake), OWN_SKIN);
-          LAY_LOOK.draw(c, mouth(intake), { phase, time: phase * 3.1 });
-          calls += ctx.calls;
-        }
+    let calls = 0;
+    for (let phase = 0; phase <= 2; phase += 0.02) {
+      for (const intake of [0, 0.3, 0.8]) {
+        const { ctx } = stubCanvas();
+        const c = ctx as unknown as CanvasRenderingContext2D;
+        MOUTH_LOOK.draw(c, mouth(intake), OWN_SKIN);
+        LAY_LOOK.draw(c, mouth(intake), { phase, time: phase * 3.1 });
+        calls += ctx.calls;
       }
-      expect(calls).toBeGreaterThan(1000);
-    } finally {
-      restore(applied);
     }
+    expect(calls).toBeGreaterThan(1000);
   });
 
   it("draws no round hole at rest, and still opens a throat for a pod", () => {
-    const applied = apply(MOUTH_EGG);
-    try {
-      const at = (intake: number): number => {
-        const { ctx } = stubCanvas();
-        MOUTH_LOOK.draw(ctx as unknown as CanvasRenderingContext2D, mouth(intake), OWN_SKIN);
-        return ctx.calls;
-      };
-      // The owner's first half: the circle on top of the cannon is gone.
-      expect(at(0)).toBe(0);
-      // And the swallow is not collateral damage.
-      expect(at(0.8)).toBeGreaterThan(0);
-    } finally {
-      restore(applied);
-    }
+    const at = (intake: number): number => {
+      const { ctx } = stubCanvas();
+      MOUTH_LOOK.draw(ctx as unknown as CanvasRenderingContext2D, mouth(intake), OWN_SKIN);
+      return ctx.calls;
+    };
+    // The owner's first half: the circle on top of the cannon is gone.
+    expect(at(0)).toBe(0);
+    // And the swallow is not collateral damage.
+    expect(at(0.8)).toBeGreaterThan(0);
   });
 });

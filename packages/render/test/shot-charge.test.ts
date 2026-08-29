@@ -17,8 +17,10 @@ import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * The shot being laid, drawn — the muzzle dilating, the skin beside it parting
- * and the bolt gathering behind the opening (`cannon-maw.ts`).
+ * The shot being laid, drawn — the cloaca straining, the egg crowning and the
+ * body going slack afterwards (`cannon-maw.ts`, adopted from the `egg`
+ * candidate; `mouth-look.test.ts` and `egg-curve.test.ts` hold the shapes and
+ * the timing, this file holds the tick-driven picture end to end).
  *
  * None of it is reachable from `frame.test.ts`: every world there is built
  * from `DEFAULT_CONFIG`, where `shotChargeBeats` is zero and a press is a
@@ -99,7 +101,10 @@ describe("the opening itself", () => {
   const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
   const surface = (x: number) => ({ x, y: L.hullY });
 
-  it("draws nothing at all when no shot is being laid", () => {
+  it("still draws the resting body when no shot is being laid", () => {
+    // Since the `egg` adoption the cloaca is a body part rather than a rim
+    // that only appears while a shot is in flight — see `mouth-look.test.ts`
+    // — so `lay: 0` no longer means zero canvas calls.
     const { ctx } = stubCanvas();
     drawLay(
       ctx as unknown as CanvasRenderingContext2D,
@@ -111,7 +116,7 @@ describe("the opening itself", () => {
       0,
       surface,
     );
-    expect(ctx.calls).toBe(0);
+    expect(ctx.calls).toBeGreaterThan(0);
   });
 
   it("draws more of itself the closer the shot is to going", () => {

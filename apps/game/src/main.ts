@@ -34,13 +34,16 @@ if (!canvas) throw new Error("canvas #stage missing");
 // `PAIR_ON` is the other switch: the wave opening, on here and off by
 // default, because it wants two people. See `config-pair.ts`.
 //
-// `shotChargeBeats` sits beside it rather than inside it. It is on here for a
-// two-device reason — a shot that is laid over half a beat is a press player 1
-// can *see*, where a press that was instantly a bullet reached him only as a
-// result (`shot-charge.ts`) — but unlike those switches it stops nothing
-// and blocks no headless caller. It is off in `DEFAULT_CONFIG` so that every
-// replay keeps its timing to the tick, which is a different argument from
-// needing two thumbs, and a different argument belongs in a different place.
+// `shotChargeBeats` sits beside it rather than inside it. Two forces set this
+// number now. The original, two-device one still holds: a shot laid over half
+// a beat is a press player 1 can *see happening*, not one that reaches him
+// only as a result (`shot-charge.ts`). And since the mouth was adopted as a
+// cloaca that strains, crowns and goes slack (`cannon-maw.ts`, `egg-curve.ts`)
+// rather than a rim that merely tightened and cut, this is also the window
+// that animation needs to read in — too short and the sequence goes by before
+// an eye can follow it. Shortening it trades against both; feel out a smaller
+// value on the director's TUNING → PAIR "Shot lay (testing)" slider rather
+// than here. Off in `DEFAULT_CONFIG` so every replay keeps its timing exact.
 const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true, shotChargeBeats: 0.5 };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);

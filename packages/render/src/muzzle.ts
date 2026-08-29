@@ -61,16 +61,27 @@ export interface MouthLook {
 }
 
 /**
- * The opening the ship has always had: a dark ellipse with the hull's bright
- * edge round it, widening into a throat as the maw opens and taking the pod's
- * amber rim once it is more open than shut.
+ * The throat a pod is taken in through — no round hole at rest any more.
+ *
+ * There used to be a dark ellipse sitting on the hull whether or not anything
+ * was happening at all, which is what a *port* looks like: a hole cut in a
+ * body. The mouth is a cloaca now (`cannon-maw.ts`'s `LAY_LOOK` draws the body
+ * itself), and a body part does not appear until it is used — this draws
+ * nothing at rest and only opens into the throat a swallow needs. `drop`
+ * moved further below the tip for the same reason: the mouth belongs to the
+ * ship's side of the lobe now, not to its peak.
  */
 export const MOUTH_LOOK: MouthLook = {
-  drop: 0.12,
+  drop: 0.26,
   ry: 0.13,
   rxRest: 0.13,
   rxOpen: 0.94,
   draw(ctx, m, skin) {
+    // At rest there is no opening to draw: the round circle is gone and the
+    // body itself is the feature. The throat still opens for a pod — a
+    // candidate for the *shot* has no business breaking the swallow, and
+    // `swallow-bounds.test.ts` holds this exactly as it always did.
+    if (m.intake <= 0.01) return;
     const rx = m.l.tile * (this.rxRest + (this.rxOpen - this.rxRest) * m.intake);
     const ry = m.l.tile * this.ry;
     ctx.fillStyle = skin.muzzle;

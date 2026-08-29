@@ -14,9 +14,18 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * was proved once, outside the tree, by tracing every canvas call `drawHull`
  * and a whole renderer make over every mood the mouth can be in — 363,260
  * calls, byte-identical before and after. A trace cannot be committed and
- * would rot if it were, so what stays here is the part of the claim that can
- * go stale: the numbers the ellipse is drawn from, and the rule that keeps the
- * shipped mouth out of the half of the phase that was added under it.
+ * would rot if it were, so what stayed here was the part of the claim that
+ * could go stale: the numbers the ellipse was drawn from, and the rule that
+ * kept the shipped mouth out of the half of the phase that was added under it.
+ *
+ * A frame *did* move after that: the owner asked for the `egg` candidate by
+ * name (`docs/queue.md`'s exemption for a look asked for directly), and
+ * `MOUTH_LOOK`/`LAY_LOOK` are the adopted cloaca rather than the old round
+ * port and tightening rim. What is pinned below is the new shipped truth —
+ * the numbers the egg strains from, and the rule that the body itself is now
+ * drawn on every frame the maw is not busy swallowing a pod, follow-through
+ * included, because the whole point of the adoption was a mouth that relaxes
+ * rather than one that cuts.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -37,11 +46,13 @@ function mouth(intake = 0): MouthFrame {
 }
 
 describe("the opening's own numbers", () => {
-  it("are the ones the ship has always had", () => {
-    // Read off `drawMuzzle` before the lift. A candidate is welcome to change
-    // any of them for the length of one `draw()`; the shipped record is not,
-    // and a silent edit here is a look changed with nobody asked.
-    expect(MOUTH_LOOK.drop).toBe(0.12);
+  it("are the ones the game ships now", () => {
+    // `drop` moved from 0.12 to 0.26 with the `egg` adoption: the mouth
+    // belongs to the ship's side of the lobe now, not to its peak. A
+    // candidate is welcome to change any of these for the length of one
+    // `draw()`; the shipped record is not, and a silent edit here is a look
+    // changed with nobody asked.
+    expect(MOUTH_LOOK.drop).toBe(0.26);
     expect(MOUTH_LOOK.ry).toBe(0.13);
     expect(MOUTH_LOOK.rxRest).toBe(0.13);
     expect(MOUTH_LOOK.rxOpen).toBe(0.94);
@@ -63,16 +74,20 @@ describe("the shipped mouth and the half of the phase added under it", () => {
     return ctx.calls;
   };
 
-  it("draws the wind-up, all the way to the departure", () => {
-    expect(calls(0)).toBe(0);
+  it("draws the body at rest, the wind-up and the departure", () => {
+    // Unlike the old rim, the cloaca is a body part and is drawn whether or
+    // not anything is happening — `egg-curve.test.ts`'s "draws no round hole
+    // at rest" is `MOUTH_LOOK`'s half of that claim, this is `LAY_LOOK`'s.
+    expect(calls(0)).toBeGreaterThan(0);
     expect(calls(0.15)).toBeGreaterThan(0);
     expect(calls(1)).toBeGreaterThan(0);
   });
 
-  it("draws nothing at all in the follow-through", () => {
-    // This is why the phase could grow a second half without moving a pixel.
-    // A mouth that wants to relax after a shot is a candidate, not this one.
-    for (const phase of [1.01, 1.3, 1.7, 2]) expect(calls(phase)).toBe(0);
+  it("keeps drawing through the follow-through, going slack rather than cutting", () => {
+    // The whole point of the adoption: the old rim stopped the instant the
+    // shot left, which is why the phase could grow a second half without
+    // moving a pixel. The egg does not — it relaxes, and relaxing is drawn.
+    for (const phase of [1.01, 1.3, 1.7, 2]) expect(calls(phase)).toBeGreaterThan(0);
   });
 });
 
