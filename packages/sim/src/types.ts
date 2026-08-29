@@ -210,7 +210,36 @@ export type Command =
    */
   | { kind: "valve"; on: boolean; dir: -1 | 1 }
   | { kind: "call" }
+  /**
+   * A hand that grabbed something and moved: the second gesture, beside the
+   * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
+   * contract `prime` and `valve` have — true for the grab and every move after
+   * it, false for the lift.
+   *
+   * **An absolute control names a place, a draggable control names a
+   * displacement, both in simulation units, never pixels.** `cannonCol` is the
+   * first kind: the finger's x is a column and where the press began does not
+   * matter. A string is the second: what turns a wheel is how far the hand has
+   * come from where it grabbed, so `fromMilli` is that distance in
+   * **thousandths of a tile** — two phones of different widths share no pixel
+   * and do share a tile. The origin never crosses at all, being resolved on the
+   * device whose finger it is (`touchDown`, `packages/render/src/touch.ts`).
+   *
+   * **Cumulative from the grab, never an increment since the last one.** A move
+   * coalesced away or lost has to heal itself, and only a distance from a fixed
+   * origin does: the next supersedes it and says the same thing. An increment
+   * that never arrived is gone for good and leaves the wheel a step out of true
+   * — the same property that makes `cannonCol` send a column and not "one to the
+   * left". `target` names the element: the eleven rounds to come add a name here.
+   */
+  | { kind: "drag"; target: DragTarget; on: boolean; fromMilli: number }
   | { kind: "restart" };
+
+/** The draggable elements: one name per thing a hand may take hold of. A closed
+ * list rather than a creature id, because THE MAZE's string is not a creature
+ * and never will be — a drag that could only name one could not reach the first
+ * thing that wanted it. */
+export type DragTarget = "mazeString";
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

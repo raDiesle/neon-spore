@@ -2,6 +2,7 @@ import { bossFromWave, controlSet, podsFromWave, queueFromWave } from "@neon-spo
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
+  mazeRound,
   type SimConfig,
   type SimEvent,
   startWave,
@@ -77,12 +78,11 @@ export function bindStage(
   resize();
 
   // The stage plays `store.waves` (the draft), not the shipped `WAVES` — the
-  // panel comes from the wave's own `controls` field, the one `rail.ts`'s
-  // picker writes, never from an index. Read fresh, since the picker changes it.
+  // panel comes from the wave's own `controls` field, the one `rail.ts`'s picker
+  // writes, never an index. Read fresh, since the picker changes it under us.
   const currentControlSet = () => controlSet(currentWave(store)?.controls);
 
-  // THE GAUGE draws slabs rather than a band, which `touchDown` below cannot
-  // answer — see `stage-gauge.ts`.
+  // THE GAUGE draws slabs, which `touchDown` cannot answer (`stage-gauge.ts`).
   bindStageGauge({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
@@ -94,13 +94,13 @@ export function bindStage(
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
-    // The seat follows the role bar — see `pointerSeat` for "test"'s grab.
+    // The seat follows the role bar (`pointerSeat` has "test"'s grab).
     field: () => ({
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: pointerSeat(role, world, cfg),
-      wardenRow: cfg.wardenRow,
-      // Only the controls this wave's panel actually carries.
+      cfg,
+      maze: mazeRound(world),
       controls: currentControlSet(),
     }),
     push: keys.push,

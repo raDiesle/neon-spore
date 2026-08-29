@@ -4,6 +4,7 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   guideHolds,
+  mazeRound,
   PAIR_ON,
   resetClock,
   type SimEvent,
@@ -71,6 +72,9 @@ const tickKeys = bindControls({
   // halves on one screen, so it grips as player 1 and G grips as player 2.
   player: () => (view.role() === "p2" ? 2 : 1),
   cfg: world.cfg,
+  // THE MAZE's string is answered on the field like any other handle, so the
+  // hit test has to know whether a wheel is up (`render/touch.ts`).
+  maze: () => mazeRound(world),
   // Which panel is up follows from the wave, so a control the wave did not
   // ask for has no button and answers no thumb (`content/control-sets.ts`).
   controls: () => controlSetForWave(world.wave),

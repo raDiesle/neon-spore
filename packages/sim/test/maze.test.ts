@@ -14,13 +14,10 @@ import {
   mazeEntranceX,
   mazeRadiusMilli,
   mazeSinMilli,
+  mazeWrap,
 } from "../src/maze.js";
-import {
-  MAZE_LEAD_BEATS,
-  MAZE_TRAVEL_BEATS,
-  type MazeState,
-  mazeReadBeats,
-} from "../src/maze-round.js";
+import { MAZE_LEAD_BEATS, MAZE_TRAVEL_BEATS, mazeReadBeats } from "../src/maze-clock.js";
+import { type MazeState, mazeCurrent } from "../src/maze-round.js";
 import { type MazeWheel, mazeCoreEntrance, mazeFault } from "../src/maze-wheel.js";
 import type { Command, TimedCommand } from "../src/types.js";
 import { createWorld, type SimEvent, type World } from "../src/world.js";
@@ -338,4 +335,173 @@ test("two worlds turning the same wheel the same way agree about where it is", (
   const c = install([MAZE_ROUNDS[0]!]);
   const d = install([MAZE_ROUNDS[1]!]);
   expect(hashWorld(c)).not.toBe(hashWorld(d));
+});
+/**
+ * The second gesture: the pilot's hand on the handle rather than the thumb on
+ * `valve`. Everything here is about the wheel keeping up with a *displacement*
+ * — how far the hand has come from where it grabbed — because that is the one
+ * thing a string needs and a column cannot give it (`Command` in `types.ts`).
+ */
+
+/** Grab the handle, then report the hand at each of these displacements. */
+function drag(world: World, ...fromMilli: number[]): void {
+  send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });
+  for (const f of fromMilli) {
+    send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
+  }
+}
+
+/**
+ * A tenth of a tile: far enough to move the wheel plainly and short of the
+ * nearest detent, so these cases are about the arithmetic and not about the
+ * click. The cases that *are* about the click pull much further.
+ */
+const SHORT = 100;
+
+test("the wheel follows the hand, by the distance it has come from the grab", () => {
+  const world = install();
+  untilReading(world);
+  const from = mazeOf(world).angleMilli;
+  drag(world, SHORT);
+  expect(mazeOf(world).lockedWay).toBe(-1);
+  expect(mazeOf(world).angleMilli).toBe(mazeWrap(from + (SHORT * CFG.mazeDragMilliPerTile) / 1000));
+  // And back to the grab is back where it started: the hand names a place on
+  // the string, so a pull undone is a wheel undone.
+  drag(world, SHORT, 0);
+  expect(mazeOf(world).angleMilli).toBe(from);
+});
+
+test("a hand that pulls the other way turns it the other way", () => {
+  const right = install();
+  const left = install();
+  untilReading(right);
+  untilReading(left);
+  const from = mazeOf(right).angleMilli;
+  drag(right, SHORT);
+  drag(left, -SHORT);
+  // Only the sides, not the exact angles: this wheel opens with a way in close
+  // enough to its left that a short pull clicks straight into it, which is the
+  // detent doing its job rather than the arithmetic doing something else.
+  expect(mazeOf(right).angleMilli).toBeGreaterThan(from);
+  expect(mazeOf(left).angleMilli).toBeLessThan(from);
+});
+
+/**
+ * The whole reason the command carries a distance from the grab rather than a
+ * step since the last message. A move that never arrived has to cost nothing:
+ * the next one says where the hand is, not how far it moved, so the wheel ends
+ * up in the same place either way.
+ */
+test("a drag that lost half its messages lands where one that lost none did", () => {
+  const every = install();
+  const some = install();
+  untilReading(every);
+  untilReading(some);
+  drag(every, 20, 40, 60, 80, 100);
+  drag(some, 40, 100);
+  expect(mazeOf(some).angleMilli).toBe(mazeOf(every).angleMilli);
+});
+
+test("an entrance settles onto a column rather than drifting past it", () => {
+  const world = install();
+  untilReading(world);
+  // A slow pull, the way a hand actually moves, until something clicks.
+  for (let f = 0; f < 40_000 && mazeOf(world).lockedWay < 0; f += 40) {
+    send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
+  }
+  const m = mazeOf(world);
+  expect(m.lockedWay).toBeGreaterThanOrEqual(0);
+  expect(m.lockedCol).toBeGreaterThanOrEqual(0);
+  // Standing *on* the column, not merely near it, which is what lets the pair
+  // say a number out loud.
+  const wheel = mazeCurrent(m);
+  if (wheel === null) throw new Error("no wheel");
+  expect(mazeEntranceCol(CFG, wheel, m.angleMilli, m.lockedWay)).toBe(m.lockedCol);
+
+  // And it holds there while the hand carries on, instead of being pulled
+  // straight off again by the very next message. The snapped angle is the new
+  // zero, so the pull has to be worth a step before anything moves at all.
+  const settled = m.angleMilli;
+  const col = m.lockedCol;
+  const caught = m.dragFromMilli;
+  for (const nudge of [1, 20, CFG.mazeDragBreakMilli - 1]) {
+    send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: caught + nudge });
+    expect(mazeOf(world).angleMilli).toBe(settled);
+    expect(mazeOf(world).lockedCol).toBe(col);
+  }
+  // Carrying on past the break lets go of it, which is the other half.
+  send(world, 1, {
+    kind: "drag",
+    target: "mazeString",
+    on: true,
+    fromMilli: caught + CFG.mazeDragBreakMilli,
+  });
+  expect(mazeOf(world).angleMilli).not.toBe(settled);
+});
+
+test("carrying on past a detent pulls out of it and into the next", () => {
+  const world = install();
+  untilReading(world);
+  let f = 0;
+  const stopAt = (want: number): number => {
+    for (let i = 0; i < 4000; i++) {
+      f += 40;
+      send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
+      if (mazeOf(world).lockedWay >= 0 && mazeOf(world).angleMilli !== want) {
+        return mazeOf(world).angleMilli;
+      }
+    }
+    throw new Error("nothing clicked");
+  };
+  const first = stopAt(-1);
+  const second = stopAt(first);
+  expect(second).not.toBe(first);
+});
+
+test("the hand takes the wheel off the thumb, and the lift does not undo it", () => {
+  const world = install();
+  untilReading(world);
+  send(world, 1, { kind: "valve", on: true, dir: 1 });
+  expect(mazeOf(world).turn).toBe(1);
+  send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });
+  expect(mazeOf(world).turn).toBe(0);
+  const held = mazeOf(world).angleMilli;
+  send(world, 1, { kind: "drag", target: "mazeString", on: false, fromMilli: 0 });
+  expect(mazeOf(world).dragging).toBe(false);
+  for (let i = 0; i < TPB * 4; i++) step(world, []);
+  expect(mazeOf(world).angleMilli).toBe(held);
+});
+
+test("only the pilot may pull it", () => {
+  const world = install();
+  untilReading(world);
+  const from = mazeOf(world).angleMilli;
+  send(world, 2, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });
+  send(world, 2, { kind: "drag", target: "mazeString", on: true, fromMilli: 4000 });
+  expect(mazeOf(world).angleMilli).toBe(from);
+});
+
+test("a fresh grab measures from where the wheel now stands, not from the last one", () => {
+  const world = install();
+  untilReading(world);
+  drag(world, 1000);
+  const after = mazeOf(world).angleMilli;
+  send(world, 1, { kind: "drag", target: "mazeString", on: false, fromMilli: 0 });
+  // The hand comes back at the same displacement it let go at. Nothing should
+  // move: a grab is its own origin.
+  send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 1000 });
+  expect(mazeOf(world).angleMilli).toBe(after);
+});
+
+test("two worlds dragged the same way agree about where the wheel is", () => {
+  const a = install();
+  const b = install();
+  for (const world of [a, b]) {
+    untilReading(world);
+    for (let f = 0; f <= 3000; f += 37) {
+      send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
+    }
+  }
+  expect(hashWorld(a)).toBe(hashWorld(b));
+  expect(Number.isInteger(mazeOf(a).angleMilli)).toBe(true);
 });

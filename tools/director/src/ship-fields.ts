@@ -168,6 +168,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   damageMaze: "MAZE",
   mazeSpanMilli: "MAZE",
   mazeTurnMilli: "MAZE",
+  mazeDragMilliPerTile: "MAZE",
+  mazeDragBreakMilli: "MAZE",
   mazeSnapMilli: "MAZE",
   scoreMazeRound: "MAZE",
   scoreMazeDown: "MAZE",

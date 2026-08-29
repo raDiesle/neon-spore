@@ -8,7 +8,7 @@ import {
   touchMove,
   touchUp,
 } from "@neon-spore/render";
-import type { Command, Creature, SimConfig } from "@neon-spore/sim";
+import type { Command, Creature, MazeState, SimConfig } from "@neon-spore/sim";
 import { bindKeys } from "./keys.js";
 
 /**
@@ -44,8 +44,14 @@ export interface Bindings {
    * strips below can be told apart by where they are, and this cannot.
    */
   player: () => 1 | 2;
-  /** The numbers the hit test needs — today, the row a tether hangs from. */
+  /** The numbers the hit test needs: a tether's row, a drum's width. */
   cfg: SimConfig;
+  /**
+   * THE MAZE, if it is the boss running. Read fresh and stated rather than
+   * defaulted, for the reason `Field` gives: without it the handle on the
+   * wheel's string is drawn and answers nothing.
+   */
+  maze: () => MazeState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).
@@ -81,6 +87,7 @@ export function bindControls({
   isOver,
   player,
   cfg,
+  maze,
   controls,
   creatures,
   beatPhase,
@@ -94,7 +101,8 @@ export function bindControls({
     creatures: creatures(),
     beatPhase: beatPhase(),
     seat: player(),
-    wardenRow: cfg.wardenRow,
+    cfg,
+    maze: maze(),
     controls: controls(),
   });
 

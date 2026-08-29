@@ -79,12 +79,18 @@ export {
 } from "./maze.js";
 export {
   MAZE_LEAD_BEATS,
+  MAZE_READ_PER_WAY,
+  MAZE_READ_SLACK,
   MAZE_TRAVEL_BEATS,
   MAZE_VERDICT_BEATS,
+  mazeReadBeats,
+} from "./maze-clock.js";
+export { mazeRound } from "./maze-controls.js";
+export {
+  installMaze,
   type MazeState,
   type MazeVerdictReason,
   mazeCurrent,
-  mazeReadBeats,
 } from "./maze-round.js";
 export {
   type MazeCell,
@@ -139,6 +145,7 @@ export type {
   Command,
   Creature,
   CreatureKind,
+  DragTarget,
   GuardStats,
   Pod,
   PodKind,

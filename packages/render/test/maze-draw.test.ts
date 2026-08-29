@@ -60,6 +60,8 @@ function bossState(overrides: Partial<MazeState> = {}): MazeState {
     phaseBeat: 0,
     angleMilli: 15_000,
     turn: 0,
+    dragging: false,
+    dragFromMilli: 0,
     armed: true,
     lockedCol: -1,
     lockedWay: -1,
@@ -120,13 +122,26 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
 }
 
 describe("THE MAZE's wheel", () => {
-  it("draws the same frame for both seats, because there is nothing to split", () => {
+  /**
+   * The round itself is on both screens — the light, the shot, the middle —
+   * so the two seats see the same drum in the same places. The one thing that
+   * is not shared is the word under the string's handle, because only the
+   * pilot may turn the wheel: he is told PULL and she is told whose it is.
+   * That is a colour and nothing else, which is what these three assertions
+   * separate.
+   */
+  it("draws the same frame for both seats, bar the word on the string", () => {
     const m = bossState({ phase: "read", ...clicked(), lockedWay: 0 });
     const one = watch("p1", m, 3);
     const two = watch("p2", m, 3);
     expect(one.arcs).toBe(two.arcs);
     expect(one.lines).toBe(two.lines);
-    expect(one.colours).toEqual(two.colours);
+    expect(one.points).toEqual(two.points);
+    expect(one.colours).not.toEqual(two.colours);
+    expect(one.colours.length).toBe(two.colours.length);
+    // Exactly one of them differs, and it is the one the word is written in.
+    const apart = one.colours.filter((c, i) => c !== two.colours[i]);
+    expect(apart.length).toBe(1);
   });
 
   it("keeps the drum shut until a shot has been down it", () => {

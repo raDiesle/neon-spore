@@ -1,5 +1,11 @@
 import { breachHull } from "./hull.js";
 import { type MazePhase, mazeWrap } from "./maze.js";
+import {
+  MAZE_LEAD_BEATS,
+  MAZE_TRAVEL_BEATS,
+  MAZE_VERDICT_BEATS,
+  mazeReadBeats,
+} from "./maze-clock.js";
 import { type MazeWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -15,11 +21,12 @@ import { MILLI, type World } from "./world.js";
  * slides on the hull as it always did, so `CLAUDE.md`'s field rule is not in
  * play and the next reader does not have to re-derive that.
  *
- * **The string is `valve`, THE GAUGE's own control** (`maze-controls.ts`). A
- * press sets the wheel turning and it turns until a way in clicks onto a
- * column, where it stops itself — so the pair counts clicks rather than
- * describing an angle, which is the only thing that survives half a second to
- * two of voice delay (`docs/spec/latency.md`).
+ * **The string has two gestures and one detent** (`maze-controls.ts`). The
+ * pilot drags the handle on it, or holds `valve` — THE GAUGE's own control, and
+ * the keyboard's. Either way the wheel turns until a way in clicks onto a
+ * column, where it stops itself, so the pair counts clicks rather than
+ * describing an angle — the only thing that survives half a second to two of
+ * voice delay (`docs/spec/latency.md`).
  *
  * **Failure arrives through the door that already exists.** A shot down a way
  * in that dead-ends comes back out of the column it went up: `breachHull`, the
@@ -34,27 +41,6 @@ import { MILLI, type World } from "./world.js";
 
 /** Why an attempt was lost: a dead end, or nothing fired at all. */
 export type MazeVerdictReason = "mouth" | "silence";
-
-/** Beats of quiet before a fresh wheel is up. */
-export const MAZE_LEAD_BEATS = 3;
-
-/**
- * How long the pair has for one attempt: this much per way in, plus a flat
- * allowance. Generous for the reason THE MIRROR's clock is — a pair still
- * saying "no, the *other* one" has not failed at what the boss is testing.
- */
-export const MAZE_READ_PER_WAY = 10;
-export const MAZE_READ_SLACK = 14;
-
-export function mazeReadBeats(ways: number): number {
-  return ways * MAZE_READ_PER_WAY + MAZE_READ_SLACK;
-}
-
-/** Beats the shot spends on each cell. One, so the walk reads at tempo. */
-export const MAZE_TRAVEL_BEATS = 1;
-
-/** Beats the verdict stands before the pair may go again. */
-export const MAZE_VERDICT_BEATS = 3;
 
 /**
  * Everything THE MAZE remembers between ticks. It carries a hull and scars for
@@ -77,6 +63,17 @@ export interface MazeState {
    * so a fresh pull carries the mouth *on* rather than dropping straight back
    * into the detent it was just pulled out of. */
   armed: boolean;
+  /**
+   * A hand on the string's handle, and how far it has come from where it
+   * grabbed, in thousandths of a tile (`Command` in `types.ts`). One number
+   * rather than an origin and a distance: the wheel moves by the change in it
+   * between two messages, so a click leaves the snapped angle standing as the
+   * new zero with nothing to re-anchor. It is also what puts the handle under
+   * the finger on **both** screens, which is how the navigator watches the
+   * pilot pull.
+   */
+  dragging: boolean;
+  dragFromMilli: number;
   /** The column a way in has clicked onto, -1 for none. */
   lockedCol: number;
   /** Which way in is the one clicked, -1 for none. */
@@ -108,6 +105,8 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   m.angleMilli = mazeWrap(mazeCurrent(m)?.startMilli ?? 0);
   m.turn = 0;
   m.armed = true;
+  m.dragging = false;
+  m.dragFromMilli = 0;
   m.lockedCol = -1;
   m.lockedWay = -1;
   m.way = -1;
@@ -135,6 +134,8 @@ export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
     angleMilli: mazeWrap(copies[0]?.startMilli ?? 0),
     turn: 0,
     armed: true,
+    dragging: false,
+    dragFromMilli: 0,
     lockedCol: -1,
     lockedWay: -1,
     way: -1,
@@ -197,7 +198,7 @@ function advance(world: World, m: MazeState, wheel: MazeWheel, step: number): vo
   world.events.push({ type: "mazeProbe", ring: cell.ring, sector: cell.sector, of: route.length });
 }
 
-/** A dead end, or nothing at all. It comes back out of the column it went up. */
+/** A dead end, or nothing at all. Out of the column it went up. */
 function wrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   const col = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
   m.verdict = -1;
@@ -207,9 +208,8 @@ function wrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
 }
 
-/** The shot reached the middle. It takes its share of the maze's hull — one
- * share per authored wheel, so the last wheel is the one that brings it down
- * however many there are, exactly as THE MIRROR's arithmetic works. */
+/** The shot reached the middle. It takes its share of the maze's hull — one per
+ * authored wheel, so the last one brings it down however many there are. */
 function right(world: World, m: MazeState): void {
   const col = m.lockedCol;
   m.verdict = 1;

@@ -1,7 +1,9 @@
 import type { ControlId, ControlSet } from "@neon-spore/content";
-import { type Command, type Creature, NO_GRIP } from "@neon-spore/sim";
+import type { Command, Creature, DragTarget, MazeState, SimConfig } from "@neon-spore/sim";
+import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
+import { mazeStringCircle } from "./maze-string.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -23,11 +25,31 @@ import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield }
 /**
  * What a drag and a lift continue to mean, after the press that started them.
  *
+ * **A value and not a name, and that is the decision the eleven rounds still
+ * to come inherit.** The press is the only moment anything knows *where* it
+ * landed, so what a later move needs has to be handed back by it. `drag`
+ * carries its origin for that reason: a string is turned by how far the hand
+ * has come from where it grabbed, and once the hand has moved there is nothing
+ * left to ask.
+ *
+ * So being draggable is a property of **the hold**, settled at the press — not
+ * of the creature kind, since THE MAZE's string is not a creature, and not of
+ * the drawing, which does not get to decide the control scheme. A draggable
+ * element answers where the hand went; everything else answers only that a
+ * hand is there. Whoever owns the canvas keeps this between the press and the
+ * lift and hands it back untouched, so none of them learns what any of it
+ * means and a new draggable element costs them nothing.
+ *
  * `lance` follows nothing sideways — it is here because the *lift* matters:
  * the lobe fills for exactly as long as the thumb stays down, and nothing in
  * the simulation empties it on its own (`sim/lance.ts`).
  */
-export type Hold = "cannon" | "shield" | "grip" | "lance";
+export type Hold =
+  | { kind: "cannon" }
+  | { kind: "shield" }
+  | { kind: "grip" }
+  | { kind: "lance" }
+  | { kind: "drag"; target: DragTarget; player: 1 | 2; originX: number };
 
 export interface Touch {
   player: 1 | 2;
@@ -47,11 +69,19 @@ export interface Field {
    */
   seat: 1 | 2;
   /**
-   * The row THE WARDEN's rim sits on, so a hand anywhere along a tether counts
-   * as a hand on it (`creatureAt`). It is on the field rather than read off a
-   * config here because `touch.ts` is handed a field, never a world.
+   * The numbers a hit test needs: the row THE WARDEN's rim hangs its tether
+   * from (`creatureAt`), and how wide THE MAZE's drum stands. The whole config
+   * rather than the one number picked out of it, which is what this was — the
+   * second thing to want one would have been a second field to copy across.
    */
-  wardenRow: number;
+  cfg: SimConfig;
+  /**
+   * THE MAZE, if it is the boss running, `null` otherwise. **Required, and
+   * stated rather than defaulted**, for the reason the comment under
+   * `controls` gives: a caller that quietly meant `null` would leave the pilot
+   * pressing a handle that is drawn and answers nothing.
+   */
+  maze: MazeState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).
@@ -74,21 +104,33 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   // Above the band is the field, and the field answers both players: a finger
   // held on something falling drags at it (`grip` in sim/grip.ts).
   if (y < l.bandTop) {
-    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.wardenRow);
+    // Asked first, because the handle hangs over the field the creatures fall
+    // through and a hand on it is not a hand on whatever is behind it.
+    const string = stringUnder(l, x, y, field);
+    if (string) return string;
+    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.cfg.wardenRow);
     if (!held) return null;
-    return { player: field.seat, command: { kind: "grip", id: held.id }, hold: "grip" };
+    return { player: field.seat, command: { kind: "grip", id: held.id }, hold: { kind: "grip" } };
   }
 
   if (showsCannon(l.role)) {
     if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
-      return { player: 1, command: { kind: "cannonCol", col: colFromX(l, x) }, hold: "cannon" };
+      return {
+        player: 1,
+        command: { kind: "cannonCol", col: colFromX(l, x) },
+        hold: { kind: "cannon" },
+      };
     }
     const lobe = lobeUnder(l, field.controls, 1, x, y);
     if (lobe) return lobe;
   }
   if (showsShield(l.role)) {
     if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
-      return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold: "shield" };
+      return {
+        player: 2,
+        command: { kind: "shieldCol", col: colFromX(l, x) },
+        hold: { kind: "shield" },
+      };
     }
     const lobe = lobeUnder(l, field.controls, 2, x, y);
     if (lobe) return lobe;
@@ -117,6 +159,23 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
 }
 
 /**
+ * A hand on THE MAZE's string, and only the pilot's: the wheel is the half of
+ * the round player 2 cannot reach (`mazeStringHeard`), so a press from her
+ * seat falls through to whatever is behind the handle. The grab reports zero —
+ * it *is* the origin — and the origin stays here, in the hold, on the device
+ * whose finger it is (`Command` in `packages/sim/src/types.ts` has why).
+ */
+function stringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  if (field.maze === null || field.maze.phase !== "read" || field.seat !== 1) return null;
+  if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
+  return {
+    player: 1,
+    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
+    hold: { kind: "drag", target: "mazeString", player: 1, originX: x },
+  };
+}
+
+/**
  * What pressing a lobe says. A lookup, not a rule — every entry is the command
  * that control has always sent, and the two strips are not lobes so they say
  * nothing here.
@@ -128,7 +187,7 @@ function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | nul
     case "intake":
       return { command: { kind: "intake" }, hold: null };
     case "lance":
-      return { command: { kind: "prime", on: true }, hold: "lance" };
+      return { command: { kind: "prime", on: true }, hold: { kind: "lance" } };
     case "fireRed":
       return { command: { kind: "fire", color: "red" }, hold: null };
     case "fireCyan":
@@ -139,27 +198,53 @@ function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | nul
 }
 
 /**
- * The same finger, moved. Only the two strips follow it, and only sideways —
- * a grip stays on the creature it took hold of, which is falling away from the
- * finger anyway, so there is no field to test against and no `y` to read.
+ * The same finger, moved, and the two kinds of answer it can have.
+ *
+ * The strips are **absolute**: the finger's x is a column and where the press
+ * began does not matter. A drag is a **displacement**, and this is the last
+ * place a pixel is legal, so it becomes thousandths of a tile before it goes
+ * anywhere — the tile being the only length two phones share.
+ *
+ * A grip still answers nothing, deliberately: a hand on something falling only
+ * slows it, and THE WARDEN's tether is held exactly as it was (`sim/grip.ts`).
+ * Nothing that cared only that a hand was there has to learn that some hands
+ * now report where they went. And there is still no `y`, because nothing is
+ * dragged up the screen yet.
  */
 export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
-  if (hold === "cannon") {
+  if (hold.kind === "cannon") {
     return { player: 1, command: { kind: "cannonCol", col: colFromX(l, x) }, hold };
   }
-  if (hold === "shield") {
+  if (hold.kind === "shield") {
     return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold };
+  }
+  if (hold.kind === "drag") {
+    const fromMilli = Math.round(((x - hold.originX) * 1000) / l.tile);
+    return {
+      player: hold.player,
+      command: { kind: "drag", target: hold.target, on: true, fromMilli },
+      hold,
+    };
   }
   return null;
 }
 
 /**
- * The finger lifted. Only the two holds that are *held* have anything to say:
- * both last exactly as long as the finger does and nothing in the simulation
- * decays either, so the lift has to be sent.
+ * The finger lifted. Only the holds that are *held* have anything to say, and
+ * all three of them are: each lasts exactly as long as the finger does and
+ * nothing in the simulation decays any of them, so the lift has to be sent.
  */
 export function touchUp(hold: Hold, field: Field): Touch | null {
-  if (hold === "lance") return { player: 1, command: { kind: "prime", on: false }, hold: null };
-  if (hold !== "grip") return null;
+  if (hold.kind === "lance") {
+    return { player: 1, command: { kind: "prime", on: false }, hold: null };
+  }
+  if (hold.kind === "drag") {
+    return {
+      player: hold.player,
+      command: { kind: "drag", target: hold.target, on: false, fromMilli: 0 },
+      hold: null,
+    };
+  }
+  if (hold.kind !== "grip") return null;
   return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };
 }

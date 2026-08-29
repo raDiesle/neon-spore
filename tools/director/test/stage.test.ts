@@ -7,6 +7,7 @@ import {
   type Command,
   createWorld,
   DEFAULT_CONFIG,
+  mazeRound,
   PAIR_ON,
   startWave,
 } from "@neon-spore/sim";
@@ -246,7 +247,8 @@ describe("bindStageTouch steps a `test`-mode guide and swallows the press until 
         creatures: world.creatures,
         beatPhase: 0,
         seat: pointerSeat(role, world, cfg),
-        wardenRow: cfg.wardenRow,
+        cfg,
+        maze: mazeRound(world),
         controls: controlSetForWave(world.wave),
       }),
       push: (player, command) => {

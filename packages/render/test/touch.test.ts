@@ -1,9 +1,23 @@
 import { describe, expect, it } from "bun:test";
-import { CONTROL_SETS, type ControlSet, controlSet, setControls } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, NO_GRIP, step } from "@neon-spore/sim";
+import {
+  CONTROL_SETS,
+  type ControlSet,
+  controlSet,
+  MAZE_ROUNDS,
+  setControls,
+} from "@neon-spore/content";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  installMaze,
+  type MazeState,
+  NO_GRIP,
+  step,
+} from "@neon-spore/sim";
 import { creatureCenter } from "../src/creature-place.js";
 import { bandLobes, computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
-import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
+import { mazeStringCircle } from "../src/maze-string.js";
+import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 
 /**
  * The control scheme, which has two callers now — the game and the director's
@@ -26,9 +40,21 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     creatures: world.creatures,
     beatPhase: 0.5,
     seat,
-    wardenRow: CFG.wardenRow,
+    cfg: CFG,
+    maze: null,
     controls,
   };
+}
+
+/**
+ * The same field with THE MAZE up and its wheel turnable. `installMaze` rather
+ * than a literal, so the state under test is the one the round actually builds.
+ */
+function mazeField(seat: 1 | 2 = 1): Field & { maze: MazeState } {
+  const world = createWorld(CFG, 2, []);
+  const maze = installMaze(world, [...MAZE_ROUNDS]);
+  maze.phase = "read";
+  return { ...field(seat), maze };
 }
 
 /** Whether a role's screen carries a seat's half at all. */
@@ -49,9 +75,9 @@ describe("a press on the band", () => {
   it("puts the cannon and the shield in different hands", () => {
     const cannon = touchDown(l, l.width * 0.5, l.cannonStrip.y, field());
     const shield = touchDown(l, l.width * 0.5, l.shieldStrip.y, field());
-    expect(cannon).toMatchObject({ player: 1, hold: "cannon" });
+    expect(cannon).toMatchObject({ player: 1, hold: { kind: "cannon" } });
     expect(cannon?.command.kind).toBe("cannonCol");
-    expect(shield).toMatchObject({ player: 2, hold: "shield" });
+    expect(shield).toMatchObject({ player: 2, hold: { kind: "shield" } });
     expect(shield?.command.kind).toBe("shieldCol");
   });
 
@@ -78,11 +104,11 @@ describe("a press on the band", () => {
     expect(touchDown(l, lance.x, lance.y, field(1, LANCE))).toEqual({
       player: 1,
       command: { kind: "prime", on: true },
-      hold: "lance",
+      hold: { kind: "lance" },
     });
     // The lift is the other half: nothing in the simulation empties a lobe on
     // its own, so a thumb coming off has to be sent.
-    expect(touchUp("lance", field(1, LANCE))).toEqual({
+    expect(touchUp({ kind: "lance" }, field(1, LANCE))).toEqual({
       player: 1,
       command: { kind: "prime", on: false },
       hold: null,
@@ -204,7 +230,7 @@ describe("a press on the field", () => {
     expect(touchDown(l, at.x, at.y, f)).toEqual({
       player: 2,
       command: { kind: "grip", id: c.id },
-      hold: "grip",
+      hold: { kind: "grip" },
     });
   });
 
@@ -214,13 +240,13 @@ describe("a press on the field", () => {
   });
 
   it("lets go when the finger lifts, and only then", () => {
-    expect(touchUp("grip", field(2))).toEqual({
+    expect(touchUp({ kind: "grip" }, field(2))).toEqual({
       player: 2,
       command: { kind: "grip", id: NO_GRIP },
       hold: null,
     });
-    expect(touchUp("cannon", field())).toBeNull();
-    expect(touchUp("shield", field())).toBeNull();
+    expect(touchUp({ kind: "cannon" }, field())).toBeNull();
+    expect(touchUp({ kind: "shield" }, field())).toBeNull();
   });
 });
 
@@ -228,9 +254,111 @@ describe("a finger that moves", () => {
   const l = layout("test");
 
   it("drags the strip it started on, and nothing else", () => {
-    expect(touchMove(l, "cannon", l.gridLeft + l.tile / 2)).toMatchObject({ player: 1 });
-    expect(touchMove(l, "shield", l.gridLeft + l.tile / 2)).toMatchObject({ player: 2 });
+    expect(touchMove(l, { kind: "cannon" }, l.gridLeft + l.tile / 2)).toMatchObject({ player: 1 });
+    expect(touchMove(l, { kind: "shield" }, l.gridLeft + l.tile / 2)).toMatchObject({ player: 2 });
     // A grip stays on its creature: the finger is not steering anything.
-    expect(touchMove(l, "grip", l.width * 0.9)).toBeNull();
+    expect(touchMove(l, { kind: "grip" }, l.width * 0.9)).toBeNull();
+  });
+});
+
+/**
+ * The second gesture. Everything here is about the press deciding what a move
+ * will mean, because that is the whole of the decision: a hold is a value, and
+ * a draggable one carries the origin nothing else can recover afterwards.
+ */
+describe("a hand on THE MAZE's string", () => {
+  const l = layout("test");
+  const handle = () => mazeStringCircle(l, CFG);
+
+  const grab = (f: Field) => {
+    const c = handle();
+    return touchDown(l, c.x, c.y, f);
+  };
+
+  it("grabs the handle, and the grab is its own origin", () => {
+    const t = grab(mazeField(1));
+    expect(t).toEqual({
+      player: 1,
+      command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
+      hold: { kind: "drag", target: "mazeString", player: 1, originX: handle().x },
+    });
+  });
+
+  /**
+   * The point of the whole lane. A move reports how far the hand has come from
+   * where it grabbed, in thousandths of a tile — not where it is on the screen,
+   * which is what the two strips answer and what a wheel cannot use.
+   */
+  it("reports the distance from the grab, in thousandths of a tile", () => {
+    const hold = grab(mazeField(1))?.hold;
+    if (hold?.kind !== "drag") throw new Error("the handle was not grabbed");
+    expect(touchMove(l, hold, hold.originX + l.tile * 2)?.command).toEqual({
+      kind: "drag",
+      target: "mazeString",
+      on: true,
+      fromMilli: 2000,
+    });
+    expect(touchMove(l, hold, hold.originX - l.tile / 2)?.command).toEqual({
+      kind: "drag",
+      target: "mazeString",
+      on: true,
+      fromMilli: -500,
+    });
+    // Back where it started is zero again, however it got there: the origin is
+    // fixed at the press, so a move can never accumulate.
+    expect(touchMove(l, hold, hold.originX)?.command).toMatchObject({ fromMilli: 0 });
+  });
+
+  it("is an integer at every position across the field", () => {
+    const hold: Hold = { kind: "drag", target: "mazeString", player: 1, originX: 0 };
+    for (let x = 0; x <= l.width; x += 1) {
+      const c = touchMove(l, hold, x)?.command;
+      if (c?.kind !== "drag") throw new Error("a drag answered something else");
+      expect(Number.isInteger(c.fromMilli)).toBe(true);
+    }
+  });
+
+  it("lets go, and says so", () => {
+    const hold = grab(mazeField(1))?.hold;
+    if (!hold) throw new Error("the handle was not grabbed");
+    expect(touchUp(hold, mazeField(1))).toEqual({
+      player: 1,
+      command: { kind: "drag", target: "mazeString", on: false, fromMilli: 0 },
+      hold: null,
+    });
+  });
+
+  /** Only the pilot turns the wheel, so only the pilot's seat may grab it. */
+  it("answers nothing from the navigator's seat", () => {
+    expect(grab(mazeField(2))?.command.kind).not.toBe("drag");
+  });
+
+  it("answers nothing on a wave with no wheel, and none while a shot walks", () => {
+    expect(grab(field(1))?.command.kind).not.toBe("drag");
+    const travelling = mazeField(1);
+    travelling.maze.phase = "travel";
+    expect(grab(travelling)?.command.kind).not.toBe("drag");
+  });
+
+  /**
+   * The handle hangs over the field, so it has to be asked before the
+   * creatures behind it — and it must not eat a grab anywhere else.
+   */
+  it("does not swallow a grip that was aimed at a creature", () => {
+    const f = mazeField(1);
+    const c = f.creatures[0];
+    if (!c) throw new Error("the field is empty");
+    const at = creatureCenter(l, c, f.beatPhase);
+    expect(hitCircle(handle(), at.x, at.y)).toBe(false);
+    expect(touchDown(l, at.x, at.y, f)?.command).toEqual({ kind: "grip", id: c.id });
+  });
+
+  /** The handle has to be reachable: above the band, below the drum's rim. */
+  it("hangs where a thumb can get at it", () => {
+    const c = handle();
+    expect(c.y).toBeLessThan(l.bandTop);
+    expect(c.y).toBeLessThan(l.hullY);
+    expect(c.y).toBeGreaterThan(l.gridTop);
+    expect(c.r * 2).toBeGreaterThan(20);
   });
 });

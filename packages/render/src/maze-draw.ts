@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawMazeString } from "./maze-string.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -26,10 +27,12 @@ import { PALETTE } from "./palette.js";
  * dim. That is what the pair is looking at when they decide where to go next,
  * and it is why a dead end teaches something instead of only costing.
  *
- * **Both screens draw the same frame.** With the light, the shot and the
- * middle all on both of them there is no seat to draw for, so `role` decides
- * nothing here — `packages/sim/src/maze.ts` has why, and it is a decision the
- * owner made three times rather than an omission.
+ * **Both screens draw the same frame, and `role` decides one word in it.**
+ * With the light, the shot and the middle all on both of them there is no seat
+ * to draw the *round* for — `packages/sim/src/maze.ts` has why, and it is a
+ * decision the owner made three times rather than an omission. The string is
+ * the exception and not a breach of it: only the pilot may turn the wheel, so
+ * the handle has to say whose it is, the same way the tether's does.
  *
  * Where the wheel stands, which column a mouth has taken and how wide the drum
  * is are all read out of `sim` rather than worked out again — a picture that
@@ -41,8 +44,12 @@ import { PALETTE } from "./palette.js";
 /** How far the rim sits below the top of the field, in tiles. */
 const CLEAR_TILES = 0.6;
 
-/** The wheel's centre and rim, in pixels, from the numbers the simulation uses. */
-function drum(l: Layout, cfg: SimConfig): { cx: number; cy: number; r: number } {
+/**
+ * The wheel's centre and rim, in pixels, from the numbers the simulation uses.
+ * Exported because `maze-string.ts` hangs the handle off the bottom of it and
+ * `touch.ts` answers a press there — three files, one circle.
+ */
+export function mazeDrum(l: Layout, cfg: SimConfig): { cx: number; cy: number; r: number } {
   const r = (mazeRadiusMilli(cfg) * l.tile) / 1000;
   return {
     cx: l.gridLeft + (mazeCenterMilli(cfg) * l.tile) / 1000,
@@ -64,7 +71,7 @@ function cellXY(
   angleMilli: number,
   cell: MazeCell,
 ): { x: number; y: number } {
-  const d = drum(l, cfg);
+  const d = mazeDrum(l, cfg);
   const rad = ringR(d.r, wheel, cell.ring) - d.r / (2 * wheel.rings);
   const theta =
     ((angleMilli + (cell.sector * MAZE_TURN) / wheel.sectors) / MAZE_TURN) * Math.PI * 2;
@@ -76,7 +83,7 @@ export function drawMaze(
   l: Layout,
   cfg: SimConfig,
   m: MazeState,
-  _role: ViewRole,
+  role: ViewRole,
   beat: number,
   beatPhase: number,
 ): void {
@@ -84,6 +91,7 @@ export function drawMaze(
   if (wheel === null) return;
   drawDrum(ctx, l, cfg, wheel);
   drawSpent(ctx, l, cfg, m, wheel);
+  drawMazeString(ctx, l, cfg, m, role);
   drawMouths(ctx, l, cfg, m, wheel, beat, beatPhase);
   drawShot(ctx, l, cfg, m, wheel, beat, beatPhase);
 }
@@ -95,7 +103,7 @@ function drawDrum(
   cfg: SimConfig,
   wheel: MazeWheel,
 ): void {
-  const d = drum(l, cfg);
+  const d = mazeDrum(l, cfg);
   for (let ring = wheel.rings - 1; ring >= 0; ring--) {
     ctx.beginPath();
     ctx.arc(d.cx, d.cy, ringR(d.r, wheel, ring), 0, Math.PI * 2);
@@ -124,7 +132,7 @@ function drawSpent(
   m: MazeState,
   wheel: MazeWheel,
 ): void {
-  const r = drum(l, cfg).r / (wheel.rings * 3);
+  const r = mazeDrum(l, cfg).r / (wheel.rings * 3);
   for (const way of m.tried) {
     const route = wheel.entrances[way]?.route ?? [];
     const live = way === m.way;
@@ -168,7 +176,7 @@ function drawMouths(
   beat: number,
   beatPhase: number,
 ): void {
-  const d = drum(l, cfg);
+  const d = mazeDrum(l, cfg);
   const pulse = 0.6 + 0.4 * Math.sin((beat + beatPhase) * Math.PI);
   for (const [way] of wheel.entrances.entries()) {
     const theta = (mazeEntranceAngle(wheel, m.angleMilli, way) / MAZE_TURN) * Math.PI * 2;
@@ -217,7 +225,7 @@ function drawShot(
   const cell = wheel.entrances[m.way]?.route[m.step];
   if (cell === undefined) return;
   const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, cell);
-  const r = drum(l, cfg).r / (wheel.rings * 2.2);
+  const r = mazeDrum(l, cfg).r / (wheel.rings * 2.2);
 
   // Right in the one colour this game ever calls a success, wrong in the one
   // it already spends on "not what you wanted" (`effects-spark.ts`).

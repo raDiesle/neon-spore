@@ -88,6 +88,28 @@ export interface BossConfig {
    */
   mazeTurnMilli: number;
   /**
+   * How far the wheel turns for one tile of hand travel while the string's
+   * handle is dragged, in thousandths of a degree. Forty-five degrees: the
+   * handle can be pulled about a third of the field's width in one gesture and
+   * carry a way in the whole distance between two of them, so a pull is one
+   * hand movement rather than a series of them.
+   *
+   * It is the drag's counterpart to `mazeTurnMilli`, which is per *tick* and
+   * belongs to the thumb — the two are the two gestures and neither replaces
+   * the other (`maze-controls.ts`).
+   */
+  mazeDragMilliPerTile: number;
+  /**
+   * How far the hand has to carry on past a click before it breaks, in
+   * thousandths of a tile. The detent needs hysteresis and a thumb does not: a
+   * press under `valve` is a decision, while a hand resting on the handle
+   * jitters by a pixel a frame, and without this the click a pair had just
+   * agreed on came off again before either of them said the column out loud.
+   * Wider than the snap window is worth in hand travel, narrow enough that
+   * pulling on is still one movement.
+   */
+  mazeDragBreakMilli: number;
+  /**
    * How near a column's centre a way in has to come before it clicks onto it,
    * in thousandths of a column. It has to be wider than the furthest the rim
    * moves in one tick or a column could be turned straight past, and narrow
@@ -135,6 +157,8 @@ export const BOSS_DEFAULTS: BossConfig = {
   damageMaze: 15,
   mazeSpanMilli: 857,
   mazeTurnMilli: 600,
+  mazeDragMilliPerTile: 45_000,
+  mazeDragBreakMilli: 80,
   mazeSnapMilli: 180,
   scoreMazeRound: 500,
   scoreMazeDown: 2500,
