@@ -714,6 +714,89 @@ drawing: what the fill is counted in, what letting go does, and what the
 single-handed director does. Read `packages/sim/src/fork.ts` whole — including
 the comment — then `packages/sim/src/briefing.ts`, before deleting anything.
 
+## CANNON WIND-UP LEAVES THE TUNING SLIDERS AND BECOMES AN ALTERNATIVE
+_claude/burn-windup-alternative · tools/versus/candidates tools/director/src/ship-fields.ts tools/director/src/ship.ts packages/content/src/mechanics-table.ts docs/versus.md_
+**Asked for by the owner:**
+
+> wave - "tuning" - "Cannon wind-up" should be moved to "not build yet" -
+> "alternatives". once decided it will always be the new animation of shooting
+> with its delay.
+
+**Read the second sentence as the decision it is.** Wind-up stops being a dial
+somebody might set per run and becomes a *proposal*: either the game's shots
+work this way from now on, or they do not. That is exactly what the
+alternatives page is for — the owner looks at both and picks — and it is why a
+slider was the wrong home. A slider says *choose a value for today*; this is
+one question with one answer.
+
+### What wind-up is, and why it is not like the other candidates
+
+`shotChargeBeats` (`packages/sim/src/config-shot.ts`, default `0`, off). With
+it set, a press does not fire: the shot leaves on the next point of a grid
+measured in beats, and player 1 can watch it happen. It is exposed as a run
+tuning slider in the director's TUNING section and as the `windup` mechanic in
+`mechanics-table.ts`.
+
+**And here is the difficulty this whole entry turns on.** Every candidate in
+`tools/versus/candidates` today — `pip`, `streak`, `heave`, `tick`, `warm` — is
+a **patch to a record the draw path reads**. Wind-up is not. It changes *when
+the shot leaves*, which is simulation: it is in the hash, two devices must
+agree on it, and it changes the game's timing rather than its picture. So it
+cannot be dropped into the candidates folder beside the others and be shown by
+the same machinery.
+
+**That is the lane's real question, and it must not be answered by force.**
+Roughly two shapes, and there may be a third:
+
+- **The versus page learns to carry a candidate that is a config value**, drawn
+  as two live worlds run with different configs rather than two draw records.
+  Honest, and more work than it sounds — two worlds mean two simulations at
+  tempo, side by side, both firing.
+- **Wind-up is shown some other way** and the alternatives page only carries
+  looks. Then the entry is about where an owner decides a *rule*, which the
+  repository may not have a home for yet.
+
+**Read `docs/versus.md` before choosing, and if neither shape fits, stop and
+report rather than bending the candidates folder around a thing it was not
+built for.** A candidates mechanism that quietly handles two unrelated kinds of
+thing is worse than a second mechanism honestly named.
+
+### Its neighbour, which is not a coincidence
+
+`claude/burn-cannon-egg` puts the hen-and-egg shot animation in the same
+candidates folder, and that entry forbids the candidate from slowing the shot
+— because the shot's timing is a balance decision the owner had not made.
+**This entry may be that decision arriving.** If wind-up is adopted, a shot
+that leaves on the next grid point is a shot with a sanctioned delay in front
+of it, which is exactly the room an egg being pressed out needs.
+
+Do not merge the two lanes and do not make either depend on the other. But say
+in the commit whether the two candidates can be looked at together, because the
+owner will want to judge the egg *with* the delay if the delay is going to
+exist.
+
+### What must not change
+
+**No default moves.** `shotChargeBeats` stays `0` until the owner decides by
+looking; this lane offers the alternative, it does not adopt it. The game as
+shipped fires exactly as it does today.
+
+**The mechanic entry stays honest.** `windup` in `mechanics-table.ts` describes
+a run mechanic with a switch; if it is no longer a run tuning, that entry says
+what it now is rather than being left describing a slider that has gone.
+
+Finished when `bun run check` is green, the TUNING sliders no longer offer
+cannon wind-up, the alternatives page offers it as a thing to decide, the
+shipped default is untouched, and the commit says how a rule-shaped candidate is
+shown differently from a look-shaped one.
+
+`Check: on the alternatives page, can you see a shot with the wind-up beside a shot without it, both firing, and tell which one you want the game to have`
+
+Model `sonnet`, effort `think hard`, spent on where a rule-shaped alternative
+lives rather than on the drawing. Read `docs/versus.md`,
+`tools/versus/candidates/index.ts` and `packages/sim/src/shot-charge.ts` whole
+before deciding anything.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
