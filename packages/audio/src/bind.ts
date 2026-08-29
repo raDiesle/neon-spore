@@ -158,9 +158,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // exactly what committing to a mouth is.
       return { id: "mirror.handover", pan: panForCol(e.col, cols) };
     case "mazeProbe":
-      // One node further down, and a step higher each time, so a strand still
+      // One cell further in, and a step higher each time, so a shot still
       // travelling is heard to be getting somewhere without anyone saying so.
-      return { id: "mirror.echo", pitch: 1 + e.row * 0.06 };
+      return { id: "mirror.echo", pitch: 1 + e.ring * 0.06 };
     case "mazeVerdict":
       if (e.right) return { id: "mirror.verdictRight", pan: panForCol(e.col, cols) };
       return {

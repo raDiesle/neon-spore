@@ -106,5 +106,10 @@ export function mazeHeard(world: World): void {
   enterMazePhase(m, "travel", world.beat);
   // The shot is in the mouth on the beat it was fired. The beats after it are
   // the round's clock (`stepMaze`); this one belongs to the trigger.
-  world.events.push({ type: "mazeProbe", row: mouth.ring, lane: mouth.sector, of: route.length });
+  world.events.push({
+    type: "mazeProbe",
+    ring: mouth.ring,
+    sector: mouth.sector,
+    of: route.length,
+  });
 }

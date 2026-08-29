@@ -50,7 +50,7 @@ const SAMPLES: Record<string, SimEvent> = {
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },
   mirrorDown: { type: "mirrorDown", col: 3 },
   mazeCommit: { type: "mazeCommit", mouth: 1, col: 5 },
-  mazeProbe: { type: "mazeProbe", row: 1, lane: 2, of: 3 },
+  mazeProbe: { type: "mazeProbe", ring: 1, sector: 2, of: 3 },
   mazeVerdict: { type: "mazeVerdict", right: false, col: 5, reason: "silence" },
   mazeDown: { type: "mazeDown", col: 5 },
   forkWait: { type: "forkWait" },

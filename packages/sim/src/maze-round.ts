@@ -194,7 +194,7 @@ function advance(world: World, m: MazeState, wheel: MazeWheel, step: number): vo
   const cell = route[step];
   if (cell === undefined) return;
   m.step = step;
-  world.events.push({ type: "mazeProbe", row: cell.ring, lane: cell.sector, of: route.length });
+  world.events.push({ type: "mazeProbe", ring: cell.ring, sector: cell.sector, of: route.length });
 }
 
 /** A dead end, or nothing at all. It comes back out of the column it went up. */
