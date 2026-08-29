@@ -1,13 +1,5 @@
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
-export {
-  CAST_MAX_ALPHA,
-  type CastShadow,
-  castShadows,
-  drawCastShadows,
-  SHADOW_DIR,
-  shadedColour,
-} from "./cast-shadow.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
 export {
   type Dial,

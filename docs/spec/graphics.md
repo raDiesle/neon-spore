@@ -34,6 +34,30 @@ maths lives in `packages/content/src/shapes.ts` so the canvas and the SVG test
 sheet (`tools/shape-sheet`) draw from one source. The two-screen split is
 designed but not built — one device today.
 
+### Cast and contact shadows — built, looked at, taken out
+
+The field once threw two kinds of shadow: a body darkening the body below it
+on the diagonal (`cast-shadow.ts`), and a body about to land throwing a soft
+ellipse onto the hull ahead of contact (`contact-shadow.ts`). Both existed for
+the reason a shadow usually earns its place — depth, and for the contact one, a
+warning the shield player could read straight off the hull. Both are gone.
+
+**The owner changed their mind, and the reason is the useful part.** A shadow
+needs a lit surface to fall on. This game is a glowing hull in dark space —
+there is no lit ground for anything to darken, so a shadow read as a smudge
+rather than as depth, however carefully the curve was tuned. That is why it
+never worked, and it is worth saying so here rather than leaving a gap that a
+future session reads as an oversight and tries to fill again.
+
+**This is not the key light, the glow, the light shafts or a skin's own
+modelling.** `key-light.ts`'s ramp, `crater.ts`'s pits, `pore.ts`'s bumps and
+`mounted.ts`'s panels use the word *shadow* for the dark side of a body's own
+form — that is what makes a lobe read as round rather than flat, and none of
+it was touched. What left the field was only the shadow one body casts onto
+another surface. `docs/checks/1bb7160-after.png` and its restatement in
+`docs/checks/restated.md` are the record of the last version of this, kept in
+place on purpose.
+
 ## The forms
 
 Blobs and slimes: closed contours built from a Catmull-Rom spline through

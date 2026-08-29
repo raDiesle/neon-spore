@@ -3,8 +3,6 @@ import { drawBand } from "./band.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawWaveOpening } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
-import { drawCastShadows } from "./cast-shadow.js";
-import { drawContactShadows } from "./contact-shadow.js";
 import { drawCreatures } from "./creatures.js";
 import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
@@ -61,8 +59,6 @@ export function drawBodies(
   // (see shell-draw.ts), so it belongs beside the pass that owns bodies, not
   // inside Effects with the transients.
   drawShellDamage(ctx, l, world, view.beatPhase, view.time);
-  // Over the creatures because it darkens them, and clipped to each body it falls on.
-  drawCastShadows(ctx, l, world.cfg, world.creatures, view.beatPhase);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);
@@ -102,7 +98,6 @@ export function drawShip(
     undefined,
     shake,
   );
-  drawContactShadows(ctx, l, world.cfg, world.creatures, world.scars, view.beatPhase);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at);
   // In front of the hull, unlike the rest of Effects.draw() — see Effects.drawRockImpact.

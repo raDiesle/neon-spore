@@ -130,9 +130,9 @@ export function drawHull(
   // The shake translates the whole hull pass — clip included, so the clipped
   // window shudders with the ship rather than cropping it against a window
   // that held still. Scoped to this `save`/`restore` alone: nothing drawn
-  // outside this function (the other hand, the rock-impact overlay, contact
-  // shadows) reads this offset, so it never reaches a hit region or anything
-  // `packages/sim` believes.
+  // outside this function (the other hand, the rock-impact overlay) reads
+  // this offset, so it never reaches a hit region or anything `packages/sim`
+  // believes.
   ctx.translate(shake.x, shake.y);
   ctx.beginPath();
   ctx.rect(l.gridLeft, 0, l.gridWidth, l.bandTop);

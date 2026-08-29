@@ -6,17 +6,17 @@ import { PALETTE } from "./palette.js";
 /**
  * SUN FALLING INTO DEEP WATER.
  *
- * The owner, having watched the key light land on the hull, the rocks and now
- * the cast shadows: "small sun stripes across background screen according to
- * light source, which looks like sun falling into the ocean deep." This is
- * that — a few slow bands of slightly brighter water in the back of the
- * field, parallel, leaning at the angle everything else is now lit from, and
- * drifting the way light does when the surface above keeps moving.
+ * The owner, having watched the key light land on the hull and the rocks:
+ * "small sun stripes across background screen according to light source,
+ * which looks like sun falling into the ocean deep." This is that — a few
+ * slow bands of slightly brighter water in the back of the field, parallel,
+ * leaning at the angle everything else is now lit from, and drifting the way
+ * light does when the surface above keeps moving.
  *
  * **The same light, not a second one.** `KEY` points from a body toward the
- * light — upper left — so the light itself travels the other way, same as
- * `cast-shadow.ts`'s `SHADOW_DIR` derives it: negate and nothing else. No
- * angle is named here; if `KEY` ever moves, these lean with it for free.
+ * light — upper left — so the light itself travels the other way: negate and
+ * nothing else. No angle is named here; if `KEY` ever moves, these lean with
+ * it for free.
  *
  * **Deliberately dim.** `backdrop.ts`'s header says why: the creatures are the
  * brightest thing on the field, and this has to lose that contest on purpose.
@@ -27,8 +27,8 @@ import { PALETTE } from "./palette.js";
  * restart because nothing here is stored anywhere.
  *
  * **No gradient in the loop.** One soft bar is rendered to an offscreen
- * canvas once per size, the `glow.ts` / `cast-shadow.ts` sprite-cache pattern,
- * and every frame only rotates, translates and blits it.
+ * canvas once per size, the `glow.ts` sprite-cache pattern, and every frame
+ * only rotates, translates and blits it.
  */
 
 interface ShaftStyle {
@@ -52,9 +52,9 @@ const SHAFT_STYLES: readonly ShaftStyle[] = [
 ];
 
 /** The light's own travel direction: away from where `KEY` says it comes
- * from, same negation `cast-shadow.ts`'s `SHADOW_DIR` uses. Not a re-derived
- * angle — `packages/sim/test/purity.test.ts` exists to catch exactly that
- * kind of second copy, even though this file sits outside what it scans. */
+ * from, negate and nothing else. Not a re-derived angle —
+ * `packages/sim/test/purity.test.ts` exists to catch exactly that kind of
+ * second copy, even though this file sits outside what it scans. */
 const RAY = { x: -KEY.x, y: -KEY.y } as const;
 const RAY_ANGLE = Math.atan2(RAY.y, RAY.x);
 
@@ -63,8 +63,8 @@ const spriteCache = new Map<number, HTMLCanvasElement>();
 /**
  * One soft bar, long enough to cross the sky at any rotation, cached by its
  * quantised thickness so a run only ever builds a handful of these — the
- * `haloSprite` / `cast-shadow.ts` pattern, never a `createLinearGradient`
- * inside the per-frame loop.
+ * `haloSprite` pattern, never a `createLinearGradient` inside the per-frame
+ * loop.
  */
 function shaftSprite(length: number, thickness: number): HTMLCanvasElement {
   const key = Math.round(thickness);
