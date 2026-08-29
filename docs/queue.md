@@ -534,3 +534,81 @@ entries and in the spec's own history of itself.
 Model `sonnet`, effort `think`. Read `packages/content/src/waves.ts` and
 `tools/director/src/serialize.ts` together before deciding the seam — the two
 have to agree, and the second is the reason the first was never split.
+
+## THE PILOT TURNS THE WHEEL WITH A BUTTON THAT IS NOT THERE
+_claude/burn-maze-turn-control · packages/content/src/controls.ts packages/content/src/control-sets.ts packages/render/src/band.ts packages/render/src/touch.ts packages/content/test/control-sets.test.ts_
+**Proposed by the run.** Reported by `claude/burn-maze-wheel` on landing, as the
+half its own paths could not cover.
+
+**The round is not playable on a phone, which is the only device it ships on.**
+THE MAZE's wheel is turned by the pilot holding a string. There is no control
+for it: the lane routed the pull through THE GAUGE's `valve` command, and at a
+desk Z and X drive it. On a phone, player 1 has nothing to hold.
+
+Everything else about the round is built and landed — the wheel turns, the snap
+holds, the shot travels the rings, a dead end costs hull. This is the one thing
+between it and being played.
+
+**The mechanism to use already exists and was landed the same day.** A control
+set now carries a `PanelForm` — `band` or `slabs` — **derived from its controls
+rather than declared beside them**, and `packages/content/src/control-sets.ts`
+carries both kinds without the field's own sets learning anything. THE GAUGE is
+the worked example: three slabs, per-seat, laid out by one function that the
+draw, the game's hit test and the director all read. **Do not invent a second
+mechanism**; if the maze's TURN does not fit that one, say why in the report
+rather than adding a third.
+
+**One thing to work out, and it is the whole lane.** The gauge's slabs are
+*pressed*; the wheel's string is **held**, and held for a length of time the
+pilot chooses — the report measures one click at 0.17 to 0.7 of a beat. A
+control that is held is not the same shape as a control that is pressed, and
+whether that is a property of the control, of the set, or of neither is the
+decision here. Get it right and the eleven remaining rounds inherit it; get it
+wrong and the next held control invents its own.
+
+**Both seats, and the asymmetry is the point.** Only the pilot can turn, and
+player 2 has the trigger and nothing else — so the panel is per-seat and the
+navigator's half stays as it is. Do not give player 2 a turn button to balance
+the panel; the split of verbs is what the round runs on.
+
+**Keep the `valve` routing working while you do it.** Z and X at a desk are how
+the round is tested in the director, and a lane that replaces the command
+outright breaks the only way anybody can currently play it.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, the
+control is reachable in `CONTROL_SETS` on THE MAZE's own wave, the draw and the
+hit test read one layout so a control is never drawn where it is not answered,
+and the commit carries
+
+`Check: on a phone, can player 1 hold the string and turn the wheel without being told which button it is`
+
+Model `sonnet`, effort `think hard`. Read `packages/content/src/control-sets.ts`
+in full — its header argues the shape — then `packages/render/src/band.ts` and
+`packages/render/src/touch.ts`. The thinking goes on held-versus-pressed; the
+rest is one entry in a table.
+
+## THE WHEEL LEFT THREE PIECES OF STALE PROSE AND A PAIR OF WRONG FIELD NAMES
+_claude/burn-maze-leftovers · tools/director/src/boss.ts tools/director/src/ship-fields.ts packages/sim/src/events.ts_
+**Proposed by the run.** Reported by `claude/burn-maze-wheel`, outside its paths.
+
+The lattice is gone and three places still describe it:
+
+- **`tools/director/src/boss.ts`** and **`tools/director/src/ship-fields.ts`**
+  still explain the maze as a tangle of nodes and branches. Read what each
+  sentence was actually saying before rewriting it — a blind substitution of
+  "wheel" for "lattice" produces sentences that parse and mean nothing.
+- **`mazeProbe`'s fields are named `row` and `lane`** in `packages/sim/src/events.ts`
+  and now carry a ring and a sector. A name that describes the old shape is
+  worse than no name, because it reads as correct. Rename them, and check every
+  reader — this is a hashed, lockstep package, so `bun run test:determinism`
+  is the guard rather than an optional extra.
+
+This is a naming and prose fix, not a look: nothing the game draws changes, so
+the right number of `Check:` trailers is **zero**.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, and
+`grep -ri "lattice\|way out\|tangle" packages tools` finds nothing describing
+THE MAZE as it no longer is.
+
+Model `sonnet`, effort `think`. Small, but `events.ts` is in `packages/sim` —
+read the rename's callers before making it.
