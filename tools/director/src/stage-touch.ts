@@ -5,8 +5,15 @@ import {
   touchDown,
   touchMove,
   touchUp,
+  type ViewRole,
 } from "@neon-spore/render";
-import type { Command } from "@neon-spore/sim";
+import {
+  type Command,
+  type SimConfig,
+  type World,
+  wardenCycle,
+  wardenRescuer,
+} from "@neon-spore/sim";
 
 /**
  * The stage answers a finger the way the phone does — the same `touch.ts` the
@@ -18,6 +25,28 @@ import type { Command } from "@neon-spore/sim";
  * Placing belongs to the beat grid beside it, where a column and a beat are
  * both already visible — and where it always worked anyway.
  */
+
+/**
+ * Whose hand a grab on the field speaks for. `p1` and `p2` are unambiguous —
+ * the role bar has already picked a seat, and the mouse is that seat's only
+ * hand. `test` shows both seats on the one screen, so a grab there needs its
+ * own answer, and the one real case where it matters is THE WARDEN's tether:
+ * only the player who is *not* clamped this cycle may pull it
+ * (`wardenRescuer`, `packages/sim/src/warden.ts`), and which player that is
+ * flips every cycle — a seat fixed to player 1 would be right half the time
+ * and silently refused the other half, which is exactly "only when it's near
+ * the ship somehow." Every other grip has no such exclusivity
+ * (`packages/sim/src/grip.ts`, either hand may hold anything), so outside the
+ * tether the choice is arbitrary; player 1 keeps today's default and leaves
+ * `G` — bound to player 2 in `keys.ts` — as the deliberate way to act as the
+ * other seat.
+ */
+export function pointerSeat(role: ViewRole, world: World, cfg: SimConfig): 1 | 2 {
+  if (role === "p1") return 1;
+  if (role === "p2") return 2;
+  if (world.boss?.kind === "warden") return wardenRescuer(wardenCycle(cfg, world.waveBeat));
+  return 1;
+}
 export interface StageTouch {
   canvas: HTMLCanvasElement;
   /** Read fresh: the panel is resizable and the role switches under it. */

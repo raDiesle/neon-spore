@@ -9,10 +9,11 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { bindStageGauge } from "./stage-gauge.js";
-import { bindStageTouch } from "./stage-touch.js";
+import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { currentWave, type Store } from "./state.js";
 
@@ -85,12 +86,12 @@ export function bindStage(
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
-    // Player 1's seat, because a mouse is one hand. G is the other player's —
-    // see `keys.ts`.
+    // The seat follows the role bar — see `pointerSeat` in `stage-touch.ts`
+    // for what "test" does with a grab that has no single owner.
     field: () => ({
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
-      seat: 1,
+      seat: pointerSeat(role, world, cfg),
       wardenRow: cfg.wardenRow,
       // The stage answers a finger the way the phone does, which now includes
       // answering only the controls this wave's panel actually carries.
@@ -215,6 +216,7 @@ export function bindStage(
       role = r;
     },
   });
+  bindKeyHelp();
 
   const seek = (beat: number): void => {
     rebuild();

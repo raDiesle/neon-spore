@@ -168,6 +168,28 @@
          of the column with no growable sibling below it to push it further. */
       .transport { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
 
+      /* KEYBINDINGS: "for the time being" — a modal over the field, not a
+         settings page and not the full-screen shell CARDS/SHIP/CONTROL SETS
+         use, because there is nothing here to navigate, only to read. Closed
+         by its own button or by a click on the backdrop, same as those. */
+      #keyHelpModal {
+        display: none; position: fixed; inset: 0; z-index: 30;
+        background: rgba(5, 4, 12, 0.72); align-items: center; justify-content: center;
+      }
+      #keyHelpModal.on { display: flex; }
+      #keyHelpModal .sheet {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+        width: 90%; max-width: 420px; max-height: 80vh; overflow-y: auto; padding: 16px 20px;
+      }
+      #keyHelpModal header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+      #keyHelpModal .title { color: var(--gold); letter-spacing: 4px; font-size: 12px; }
+      #keyHelpModal header button { margin-left: auto; }
+      #keyHelpBody h3 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 12px 0 4px; font-weight: 400; }
+      #keyHelpBody h3:first-child { margin-top: 0; }
+      #keyHelpBody ul { list-style: none; margin: 0; padding: 0; }
+      #keyHelpBody li { display: flex; gap: 8px; padding: 3px 0; font-size: 11px; color: var(--ink); }
+      #keyHelpBody .key { flex: 0 0 20px; color: var(--gold); font-weight: 600; }
+
       #tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
       .tabpage { display: none; }
       .tabpage.on { display: block; }
@@ -859,6 +881,9 @@
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>
+            <button type="button" id="keyHelpOpen" title="What the keyboard does, and whose hand it is">
+              ⌨ KEYS
+            </button>
           </div>
         </div>
       </section>
@@ -1216,6 +1241,19 @@
         <button type="button" id="shipSheetClose">✕ CLOSE</button>
       </header>
       <div id="shipSheetBody"></div>
+    </div>
+
+    <!-- KEYBINDINGS: rendered by key-help.ts from keys.ts's own KEY_BINDINGS
+         table — no key is ever typed out twice. See the CSS above for why
+         this is a modal rather than another full-screen sheet. -->
+    <div id="keyHelpModal">
+      <div class="sheet">
+        <header>
+          <span class="title">KEYBOARD</span>
+          <button type="button" data-close>✕ CLOSE</button>
+        </header>
+        <div id="keyHelpBody"></div>
+      </div>
     </div>
 
     <script type="module" src="./src/main.ts"></script>

@@ -18,6 +18,40 @@ export interface Keys {
   push(player: 1 | 2, command: Command): void;
 }
 
+/** Whose hand a key is, for the help modal to group by. `"both"` is one press
+ * that reaches both seats at once (A/D move both slides; W fires and guards). */
+export type KeySeat = 1 | 2 | "both";
+
+export interface KeyBinding {
+  /** `KeyboardEvent.code`, matched in the switch below. */
+  code: string;
+  /** The letter shown on the key, for the help modal. */
+  key: string;
+  seat: KeySeat;
+  /** What pressing it does, in words a player would use. */
+  does: string;
+}
+
+/**
+ * The one table this file's `switch` is a hand-written copy of. `key-help.ts`
+ * renders this rather than a second list, so a key added to the switch and
+ * forgotten here is a key the modal cannot lie about — it just won't show.
+ */
+export const KEY_BINDINGS: readonly KeyBinding[] = [
+  { code: "KeyA", key: "A", seat: "both", does: "slide the cannon and the shield left" },
+  { code: "KeyD", key: "D", seat: "both", does: "slide the cannon and the shield right" },
+  { code: "KeyJ", key: "J", seat: 2, does: "slide the shield left, on its own" },
+  { code: "KeyL", key: "L", seat: 2, does: "slide the shield right, on its own" },
+  { code: "KeyI", key: "I", seat: 1, does: "guard" },
+  { code: "KeyS", key: "S", seat: 1, does: "open the maw" },
+  { code: "KeyW", key: "W", seat: "both", does: "fire red, and guard, together" },
+  { code: "KeyE", key: "E", seat: 2, does: "fire cyan" },
+  { code: "KeyG", key: "G", seat: 2, does: "grab the creature nearest the hull" },
+  { code: "KeyZ", key: "Z", seat: 1, does: "hold THE GAUGE's valve one way" },
+  { code: "KeyX", key: "X", seat: 1, does: "hold THE GAUGE's valve the other way" },
+  { code: "KeyC", key: "C", seat: 2, does: "call — THE GAUGE's own signal" },
+];
+
 export function bindKeys(cols: () => number, creatures: () => readonly Creature[]): Keys {
   let pending: { player: 1 | 2; command: Command }[] = [];
   let cannon = -1;
