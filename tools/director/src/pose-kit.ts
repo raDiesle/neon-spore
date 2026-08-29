@@ -103,13 +103,24 @@ export const rock = (col: number, kind: SpawnEntry["kind"] = "meteor", beat = 0)
   color: null,
 });
 
-/** A world at the start of a wave, with whatever the pose needs in it. */
+/**
+ * A world at the start of a wave, with whatever the pose needs in it.
+ *
+ * `cfg` is for the poses that exist to show a *rule* rather than a body, and
+ * it is deliberately per-pose rather than a change to `POSE_CONFIG`. A mechanic
+ * that ships switched off — `shotChargeBeats` is the one this was added for —
+ * cannot be posed at all out of the default config, and turning it on for
+ * every pose would quietly re-time the shot in every other picture on the
+ * sheet, including the ones a candidate hull skin is being judged in. A pose
+ * that needs a rule turned on says so itself.
+ */
 export function fresh(
   queue: SpawnEntry[] = [],
   pods: PodEntry[] = [],
   boss: BossEntry | null = null,
+  cfg: Partial<SimConfig> = {},
 ): World {
-  const world = createWorld({ ...POSE_CONFIG }, 11);
+  const world = createWorld({ ...POSE_CONFIG, ...cfg }, 11);
   startWave(world, 0, queue, pods, boss);
   return world;
 }

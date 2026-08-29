@@ -18,9 +18,26 @@ import { POSE_GROUPS } from "./poses.js";
  *
  * `ship:hull-skin` has no entry and takes `DEFAULT_POSE`: the hull is on
  * every frame of every pose, so no slot showing it needs a dedicated one.
+ *
+ * **Both cannon slots take `SHOT · BEING LAID` rather than `SHOT · IN
+ * FLIGHT`, and the difference is the whole point of this map.** A pose is
+ * built and then *stepped* by the pair with nobody pressing anything, so what
+ * a slot gets to show is only what its world does on its own from the tick it
+ * was handed over. `IN FLIGHT` is held thirty ticks after the press, so the
+ * press, the opening working and the departure had all happened inside
+ * `build` — the sheet showed a bolt already six tiles up a column and never
+ * showed a shot *leaving*, which is the thing both cannon slots are about.
+ * `BEING LAID` is held on the tick the charge lands in the muzzle instead,
+ * with an empty queue and a one-beat rest, so the pair sees the mouth work,
+ * the shot go and the bolt run the column, and then the wave clears and the
+ * whole thing happens again roughly every 1.97 beats. Nobody triggers
+ * anything, which was the complaint: two candidates that differ only while a
+ * shot is being fired cannot be told apart on a page where no shot is ever
+ * fired.
  */
 const SLOT_POSE: Record<string, string> = {
-  "cannon:shot": "SHOT · IN FLIGHT",
+  "cannon:shot": "SHOT · BEING LAID",
+  "cannon:mouth": "SHOT · BEING LAID",
   "shield:ward": "WARD · DEFLECTED",
 };
 

@@ -1,4 +1,4 @@
-import { lanceReady, type World } from "@neon-spore/sim";
+import { lanceReady, laying, type World } from "@neon-spore/sim";
 import {
   aim,
   fresh,
@@ -68,6 +68,39 @@ const MECHANICS: Pose[] = [
     build: () => {
       const w = fresh();
       run(w, 30, [aim(0, COL), shoot(1, "red")]);
+      return w;
+    },
+  },
+  {
+    name: "SHOT · BEING LAID",
+    note: "The press has landed and the bolt has not. The opening dilates, the skin beside it parts and the shot leaves on the next half beat — the one thing player 1 gets to see player 2 do, and the only picture on this sheet that needs a rule the default config ships switched off.",
+    crop: "ship",
+    build: () => {
+      // Three departures from every other pose here, and each one is the
+      // difference between a picture and a loop.
+      //
+      // `shotChargeBeats` first: it is 0 in `DEFAULT_CONFIG`, so out of the
+      // ordinary config a press *is* a bullet and there is no wind-up to pose
+      // at all. `apps/game` runs it at a half beat, so this is the game as it
+      // is actually played rather than as the defaults describe it.
+      //
+      // Then the frame this stops on. `runUntil` returns on the tick the
+      // charge lands in the muzzle rather than after it has gone, so the
+      // ALTERNATIVES pair — which steps a pose forward and never presses
+      // anything — takes the world over *before* the shot leaves and watches
+      // the whole act: the opening working, the departure, the bolt, and the
+      // mouth afterwards. Held one tick later, as this pose's neighbour above
+      // is, all of that has already happened inside `build` where nobody sees
+      // it, which is exactly why a candidate for the mouth could not be
+      // compared against anything.
+      //
+      // And `waveRestBeats`: with an empty queue the wave is clear on its
+      // first beat, so the rest is the whole loop. One beat puts a press every
+      // 148 ticks — 1.97 beats, about a second and a quarter — which is often
+      // enough to compare two mouths and slow enough that each lay is watched
+      // rather than strobed.
+      const w = fresh([], [], null, { shotChargeBeats: 0.5, waveRestBeats: 1 });
+      runUntil(w, "a shot in the muzzle", [aim(0, COL), shoot(1, "red")], laying);
       return w;
     },
   },

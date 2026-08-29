@@ -106,9 +106,16 @@ const COPIES: Copy[] = [
     // the moment the swallow was reshaped and the offset began easing to zero.
     // Two things draw into this opening now; a wind-up gathering its bolt
     // where the mouth used to be is what a second copy buys.
+    //
+    // Two spellings, because the offset moved from a module constant onto
+    // `MOUTH_LOOK` and either name is a copy worth catching. `MUZZLE_DROP` no
+    // longer exists, so nothing can match it by accident — but a file that
+    // declares its own and multiplies it out is the same defect under the old
+    // name, and dropping the alternative would have narrowed this rule by
+    // exactly that case for no gain.
     call: "muzzleCenterY",
     owner: "packages/render/src/muzzle.ts",
-    pattern: /MOUTH_LOOK\.drop\s*\*\s*\(\s*1\s*-\s*intake\s*\)/,
+    pattern: /(MUZZLE_DROP|MOUTH_LOOK\.drop)\s*\*\s*\(\s*1\s*-\s*intake\s*\)/,
     strip: false,
   },
   {
