@@ -106,13 +106,8 @@ export const MECHANICS = {
     what: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
     reach: "spawn",
   },
-  fork: {
-    what: "The rest between waves ends in a wait, crossed only while player 1 holds the lance and player 2 presses a colour.",
-    reach: "run",
-    switch: { field: "forkBetweenWaves", off: false },
-  },
   briefing: {
-    what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and the field waits behind both.",
+    what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
     reach: "run",
     switch: { field: "briefings", off: false },
   },

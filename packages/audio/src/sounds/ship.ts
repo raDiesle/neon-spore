@@ -136,21 +136,4 @@ export const SHIP_SOUNDS: SoundDef[] = [
       },
     ],
   },
-  {
-    id: "ship.forkOpen",
-    family: "ship",
-    blurb: "Everything letting go at once: one soft settling click and nothing after it.",
-    status: "bound",
-    use: "THE FORK opening — the rest ran out and the run has stopped, waiting on both thumbs.",
-    // Deliberately not a chime and not an alarm: `fork.ts` has no timeout, so
-    // nothing here may read as a countdown or a summons. Every other ship
-    // sound is the mechanism doing something; this is the one moment it does
-    // nothing, so the sound is a single dry settle rather than a tone that
-    // holds — a room going quiet is heard once, at the edge of it, not sat in.
-    level: 0.2,
-    layers: [
-      { source: "sine", freq: 90, toFreq: 48, gain: 0.4, attack: 0.01, hold: 0.05, release: 0.5 },
-      soft(0.35, tick(0.25, 0, 3200)),
-    ],
-  },
 ];

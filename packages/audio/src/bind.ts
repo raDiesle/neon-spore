@@ -164,9 +164,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mazeDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
-    case "forkWait":
-      // No column — the fork belongs to the whole field, not a tile in it.
-      return { id: "ship.forkOpen" };
     case "shellBreak":
       // A crack and two halves ringing — the sound was written for a crystal
       // coming apart and this is the same event, a piece leaving a body that

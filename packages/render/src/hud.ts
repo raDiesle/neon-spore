@@ -1,6 +1,6 @@
-import { forkHeld, forkOpen, hullPercent } from "@neon-spore/sim";
+import { hullPercent } from "@neon-spore/sim";
 import { drawBalanceSheet } from "./balance.js";
-import type { Layout, ViewRole } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 
@@ -59,10 +59,6 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
     // lines of "wave N · score" for as long as nobody had wired up the
     // numbers the world was already counting.
     drawBalanceSheet(ctx, l, view);
-  } else if (forkOpen(world)) {
-    // Before the pause: a pause is something one player did to the game, and
-    // THE FORK is something the game is doing to both of them.
-    drawFork(ctx, l, view);
   } else if (!view.running) {
     ctx.fillStyle = "rgba(7,4,15,.55)";
     ctx.fillRect(0, 0, l.width, l.height);
@@ -74,42 +70,6 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
     ctx.fillText("P or the button to continue", l.width / 2, l.height * 0.46 + 20);
   }
   ctx.textAlign = "left";
-}
-
-/**
- * THE FORK: the run has stopped between waves and is waiting for both thumbs.
- *
- * It dims the field and not the band, because the band is where the answer
- * has to come from. There is no bar filling and no number counting down —
- * there is nothing to count to (`sim/fork.ts`), and a shape that looked like a
- * timer would be read as one and would quietly turn the wait into a countdown.
- *
- * Both devices show whether player 1's thumb is down. That is the one row of
- * the information split that is deliberately not split (docs/spec/systems.md
- * 5.2), and it is what makes the fork answerable when the voice channel drops
- * rather than a place a pair can be stuck at.
- */
-function drawFork(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
-  const held = forkHeld(view.world);
-  ctx.fillStyle = "rgba(7,4,15,.5)";
-  ctx.fillRect(0, 0, l.width, l.bandTop);
-
-  const y = l.playHeight * 0.44;
-  ctx.fillStyle = PALETTE.hull;
-  ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("THE FORK", l.width / 2, y);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.font = '11px "Courier New",monospace';
-  ctx.fillText("the next wave waits for both of you", l.width / 2, y + 20);
-  ctx.fillStyle = held ? PALETTE.pod : PALETTE.text;
-  ctx.fillText(forkLine(l.role, held), l.width / 2, y + 40);
-}
-
-/** What this screen's own half of the commit is, in the second person. */
-function forkLine(role: ViewRole, held: boolean): string {
-  if (role === "p1") return held ? "HOLDING — SAY SO" : "HOLD THE LANCE";
-  if (role === "p2") return held ? "THEY ARE HOLDING — FIRE" : "WAIT FOR THEIR HOLD";
-  return held ? "HOLDING — FIRE" : "HOLD THE LANCE, THEN FIRE";
 }
 
 /** A small filled heart, for labelling the hull bar as what a `mend` pod feeds. */

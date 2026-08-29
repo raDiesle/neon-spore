@@ -1,9 +1,8 @@
 import { beatMetronome, onBeat } from "./beat.js";
-import { ackBriefing, briefingHolds } from "./briefing.js";
+import { briefHeard, briefingHolds, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
-import { restEnded } from "./fork.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
@@ -20,15 +19,24 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // The wave has not started yet: its introduction is standing, or its guide
   // is up. Nothing reaches the ship — the same rule THE MIRROR plays by while
   // it is presenting — and the only command that means anything is the one
-  // that says a seat is done reading (`briefing.ts`).
+  // that says a seat is reading, or done (`briefing.ts`).
   //
   // The tick still counts, and that is not a detail: a press is scheduled
   // `inputDelayTicks` into the future on both devices at once, so a world that
   // froze its tick counter would be waiting for an ack it had arranged to
-  // never reach itself. The wave is what stands still, not the clock.
+  // never reach itself. The wave is what stands still, not the clock. It is
+  // also what the ready gate is counted in, so `stepReady` runs after the
+  // counter moves, the way `noteLanceFull` does further down.
+  //
+  // And nothing below this line runs, `regenerateHull` included. That is the
+  // whole of THE FORK's "not a free repair bay" rule, inherited by the shape
+  // of the tick rather than by a check anybody has to remember.
   if (briefingHolds(world)) {
-    for (const c of commands) if (c.command.kind === "brief") ackBriefing(world, c.player);
+    for (const c of commands) {
+      if (c.command.kind === "brief") briefHeard(world, c.player, c.command.on ?? true);
+    }
     world.tick += 1;
+    stepReady(world);
     return;
   }
   // THE GAUGE has the world: no spawn, no fall, no shot, no hull resolved.
@@ -93,12 +101,12 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
  * The rest between waves is over — and mark it spent, so the question is not
  * asked again on every following tick while the host gets around to it.
  *
- * What happens next is `restEnded`'s and not this file's: either the host is
- * asked for the next queue, as it always was, or the run stops and waits for
- * both thumbs. See `fork.ts`.
+ * It used to be able to stop here instead and wait for two thumbs (THE FORK).
+ * It cannot any more, and nothing was lost: the pair's moment moved to the end
+ * of the guide, where there is something to have been reading (`briefing.ts`).
  */
 function progressWave(world: World): void {
   if (world.restBeat <= 0 || world.beat < world.restBeat) return;
   world.restBeat = -1;
-  restEnded(world);
+  world.events.push({ type: "needWave", wave: world.wave + 1 });
 }

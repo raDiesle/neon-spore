@@ -104,7 +104,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "mazeProbe":
     case "mazeVerdict":
     case "mazeDown":
-    case "forkWait": // The fork's whole picture is `hud.ts`'s `drawFork`, driven by state.
       return null;
     default:
       return assertNever(e);

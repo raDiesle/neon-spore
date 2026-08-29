@@ -84,13 +84,6 @@ export type SimEvent =
   | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
   | { type: "mazeDown"; col: number }
   /**
-   * THE FORK opened: the rest between waves ran out and the run has stopped,
-   * waiting on both thumbs (`fork.ts`). No column — it belongs to the whole
-   * field, not a tile in it — and no timeout follows it, so this fires once
-   * on the way in and nothing repeats it while the pair stands there.
-   */
-  | { type: "forkWait" }
-  /**
    * The Runt was shot — a mistake, not a kill (`resolveRunt`, bullet-hit.ts).
    * Its own event because the ear has to tell this apart from an ordinary
    * `destroy`: the same reflex that pays off everywhere else on the field is

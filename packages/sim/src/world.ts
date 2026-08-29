@@ -2,7 +2,6 @@ import { emptyRunStats, type RunStats } from "./balance.js";
 import type { BossState } from "./boss-state.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import { NO_FORK } from "./fork.js";
 import { NO_GRIP } from "./grip.js";
 import { NO_PRIME } from "./lance.js";
 import { createRng, type Rng } from "./rng.js";
@@ -93,14 +92,6 @@ export interface World {
    */
   brief: Briefings;
 
-  /**
-   * The beat THE FORK opened on, or `NO_FORK` while a wave is running. Ask
-   * `fork.ts` rather than comparing it here — whether the run is waiting, whose
-   * thumb is in and how long the breath has been are that file's business, and
-   * it is deliberately never compared with a deadline.
-   */
-  forkBeat: number;
-
   wave: number;
   waveBeat: number;
   spawned: number;
@@ -151,7 +142,6 @@ export function createWorld(
     balance: emptyRunStats(),
     boss: null,
     brief: newBriefings(),
-    forkBeat: NO_FORK,
     wave: 0,
     waveBeat: 0,
     spawned: 0,

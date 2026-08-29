@@ -22,12 +22,10 @@ import { WAVES, type Wave } from "./waves.js";
  * wave list could still tick differently — that much is only a cost, and a
  * payable one.
  *
- * It is a switch on the wrong noun. THE FORK lives in the rest *between* two
- * waves, so a wave that turns it on is a wave claiming a gap it does not own:
- * the one in front of it, or the one behind? A briefing is derived from what
- * the pair has already met (`docs/decisions.md` 18) — run state, not wave
- * state — so a per-wave briefing switch either raises a card for something met
- * three waves ago or hides one for something never seen.
+ * It is a switch on the wrong noun. A wave's opening is a property of the run
+ * being played with two people in front of it, not of the wave: `briefings`
+ * off is a headless caller with no thumbs, and a per-wave override would put
+ * the pair's gate in front of one of those in a place it cannot see coming.
  *
  * And it would put the two-thumb gate back where `DEFAULT_CONFIG` exists to
  * keep it out of. `config-pair.ts` says it plainly: those switches are off by
@@ -88,8 +86,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   purge: { wave: "THE PURGE" },
   ward: { wave: "THE WARD" },
   gauge: { wave: "THE GAUGE" },
-  // The rest between this wave and the next is where the wait opens.
-  fork: { wave: "FIRST STEP", config: { forkBetweenWaves: true } },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "FIRST STEP", config: { briefings: true } },

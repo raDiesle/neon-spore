@@ -65,7 +65,8 @@ function drawEdge(ctx: CanvasRenderingContext2D, l: Layout): void {
 /**
  * Marks made, as pips, and the time left as a bar that empties.
  *
- * THE FORK refuses a bar on purpose — there is nothing there to count to. Here
+ * A wave's ready gate has a bar because there is something to count to; a
+ * pause has none, for the opposite reason. Here
  * there is, and the bar now costs something: the beats running out break the
  * hull, so a pair who cannot see them spending are being charged for a thing
  * nobody showed them.

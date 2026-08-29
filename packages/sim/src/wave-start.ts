@@ -1,7 +1,6 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
-import { closeFork } from "./fork.js";
 import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
@@ -118,12 +117,6 @@ export function startWave(
       scratch: [],
     };
   }
-
-  // A wave that has started is not a wave waiting to start, so THE FORK closes
-  // here and nowhere else can leave one open behind a running field (`fork.ts`).
-  // It is also the order the two gates run in: the pair commits, and then the
-  // wave tells them what they committed to.
-  closeFork(world);
 
   // Last: the wave's name and sentence stand on the field, then its guide if
   // it has one, and the field holds still behind both of them.

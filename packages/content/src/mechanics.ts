@@ -11,7 +11,7 @@ import { WAVES } from "./waves.js";
  * Three questions were being asked and none of them could be: whether a
  * mechanic that is built is reachable from any wave, whether a wave may turn
  * one on, and whether each has a wave that demonstrates it. `CREATURES` knows
- * creatures, `BOSS_KINDS` knows bosses, and THE FORK and the shot wind-up are
+ * creatures, `BOSS_KINDS` knows bosses, and the wave opening and wind-up are
  * switches in config files known to nobody. Nothing knew the union, so nothing
  * could say a member of it was unused.
  *
@@ -46,7 +46,7 @@ import { WAVES } from "./waves.js";
  * named; everything else on the list comes from a union the simulation already
  * publishes.
  */
-export type RunMechanicId = "fork" | "briefing" | "windup" | "lance" | "grip";
+export type RunMechanicId = "briefing" | "windup" | "lance" | "grip";
 
 /**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at

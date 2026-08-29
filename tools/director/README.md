@@ -40,7 +40,7 @@ through a `Record<keyof SimConfig, GroupName>`, so this cuts both ways now —
 a mechanic that is *removed* takes its field with it and the list stops
 typechecking, the way it always did, and a field that *lands* and is left out
 of that map fails the same build rather than landing invisible. That second
-half is why this file exists: `briefings`, `forkBetweenWaves`, `interludes` and
+half is why this file exists: `briefings`, `interludes` and
 `shotChargeBeats` shipped and stayed invisible here for a day before anyone
 noticed.
 
@@ -379,13 +379,13 @@ by side instead of edited into the source.
 ## Pair
 
 `PAIR`, at the top of the `TUNING` tab, is `packages/sim/src/config-pair.ts`'s
-three switches — `briefings`, `forkBetweenWaves`, `interludes` — plus
+two switches — `briefings`, `interludes` — plus
 `shotChargeBeats` beside them for the reason `config-shot.ts` gives it its own
 line rather than a place inside `PairConfig`. All four are off or zero in
 `DEFAULT_CONFIG`, on purpose: a determinism run, a shape sheet and
 `relay:check` all want the wave rather than the lesson (docs/decisions.md).
 Nobody had carried that decision through to the one caller that is a person
-looking at the game, so the wave's opening, THE FORK, THE GAUGE and the
+looking at the game, so the wave's opening, its ready gate, THE GAUGE and the
 cannon's wind-up were all built, tested, and invisible here.
 
 One `cfg`, so the checkboxes are global rather than per-panel — `src/pair-panel.ts`
@@ -395,9 +395,9 @@ wave is open until its opening has been read: a press on the stage carries the
 introduction past, and then steps the guide — player one's half, player two's,
 away — so one screen walks through what two phones show at once. On the phone
 the introduction is not pressed at all; here it is, because this is where a
-wave is restarted twenty times in an afternoon. THE FORK's own lance button is already live in the `TEST` role
-(`touch.ts` — the director never had to add it), so priming it with the mouse
-and firing with `E` crosses the fork the same way a phone would.
+wave is restarted twenty times in an afternoon. A press on a guide in the
+`TEST` role fills **both** ready circles at once, because one person at a desk
+is both seats — the owner's own answer to the question that raised it.
 
 The `WAVE` tab's own `BRIEFING` line answers the other half of the same
 question: what the wave being edited actually puts in front of a pair — its

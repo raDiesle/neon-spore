@@ -82,10 +82,14 @@ export function hashWorld(world: World): number {
   push(world.balance.streak);
   push(world.balance.bestStreak);
   push(world.balance.wavesCleared);
-  // THE FORK. Whether the run is waiting for both thumbs is a fact about the
-  // world, and two devices that disagree about it disagree about whether a
-  // wave has begun.
-  push(world.forkBeat);
+  // The ready gate at the end of a guide. How full each circle is decides when
+  // the wave starts, so two devices that disagree about a tick of it disagree
+  // about whether the wave has begun (`briefing.ts`). The holds go in beside
+  // the fills: a thumb lifting is what empties a circle that is not full yet.
+  push(world.brief.fillP1);
+  push(world.brief.fillP2);
+  push(world.brief.holdP1 ? 1 : 0);
+  push(world.brief.holdP2 ? 1 : 0);
 
   // Where the wave is. `beat` does not cover this: THE GAUGE holds
   // `waveBeat` still while `beat` keeps counting, and a warden's clamp, a

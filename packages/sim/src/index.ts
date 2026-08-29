@@ -20,6 +20,11 @@ export {
   OPENING_PLAY,
   type OpeningPhase,
   openWave,
+  readyFill,
+  readyFraction,
+  readyHeld,
+  readyHoldTicks,
+  seatReady,
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
 export { throbIsOpen } from "./creature-rules.js";
@@ -30,7 +35,6 @@ export {
   type VaneEntry,
   type WardenEntry,
 } from "./entries.js";
-export { closeFork, forkBeats, forkHeld, forkOpen, NO_FORK } from "./fork.js";
 export {
   GAUGE_FULL,
   GAUGE_PHASES,

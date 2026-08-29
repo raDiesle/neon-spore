@@ -12,6 +12,7 @@ import {
   OPENING_INTRO,
   OPENING_PLAY,
   type PodEntry,
+  readyHoldTicks,
   type SimConfig,
   type SpawnEntry,
   startWave,
@@ -40,9 +41,19 @@ function open(hasGuide: boolean, queue: SpawnEntry[] = SLICK, pods: PodEntry[] =
   return world;
 }
 
-/** One tick's worth of a seat saying it is done with what is on its screen. */
+/**
+ * One tick's worth of a seat's thumb down. On the introduction that is an ack;
+ * on the guide it is the hold, and it stays down until an `on: false` says
+ * otherwise, so a caller that sends it once and then steps is a thumb left on
+ * the screen (`briefing.ts`).
+ */
 function tap(world: World, ...players: (1 | 2)[]): TimedCommand[] {
   return players.map((player) => ({ tick: world.tick, player, command: { kind: "brief" } }));
+}
+
+/** Step until nothing is holding the wave any more, with both thumbs down. */
+function holdBoth(world: World): void {
+  for (let i = 0; i < 5000 && briefingHolds(world); i++) step(world, tap(world, 1, 2));
 }
 
 describe("the order a wave opens in", () => {
@@ -56,7 +67,10 @@ describe("the order a wave opens in", () => {
     const world = open(true);
     step(world, tap(world, 1, 2));
     expect(world.brief.phase).toBe(OPENING_GUIDE);
+    // The guide does not pass on a press: both circles have to fill first.
     step(world, tap(world, 1, 2));
+    expect(world.brief.phase).toBe(OPENING_GUIDE);
+    holdBoth(world);
     expect(world.brief.phase).toBe(OPENING_PLAY);
   });
 
@@ -76,15 +90,18 @@ describe("the order a wave opens in", () => {
 });
 
 describe("both seats, or neither", () => {
-  it("keeps the guide up while only one has acked", () => {
+  it("keeps the guide up while only one circle is full", () => {
     const world = open(true);
     step(world, tap(world, 1, 2));
     expect(guideHolds(world)).toBe(true);
-    step(world, tap(world, 1));
+    const full = readyHoldTicks(CFG);
+    for (let i = 0; i < full; i++) step(world, tap(world, 1));
     expect(guideHolds(world)).toBe(true);
     expect(briefingAcked(world, 1)).toBe(true);
     expect(briefingAcked(world, 2)).toBe(false);
-    step(world, tap(world, 2));
+    // Player 1's circle stays full with no thumb on it — READY latches — so
+    // player 2 filling theirs alone is what starts the wave.
+    for (let i = 0; i < full; i++) step(world, tap(world, 2));
     expect(guideHolds(world)).toBe(false);
   });
 
@@ -149,7 +166,7 @@ describe("the opening in the fingerprint", () => {
     const atIntro = hashWorld(world);
     step(world, tap(world, 1, 2));
     const atGuide = hashWorld(world);
-    step(world, tap(world, 1, 2));
+    holdBoth(world);
     const playing = hashWorld(world);
     expect(new Set([atIntro, atGuide, playing]).size).toBe(3);
   });
@@ -165,8 +182,7 @@ describe("the opening in the fingerprint", () => {
 describe("no memory", () => {
   it("shows the opening again every time the same wave starts", () => {
     const world = open(true);
-    step(world, tap(world, 1, 2));
-    step(world, tap(world, 1, 2));
+    holdBoth(world);
     expect(briefingHolds(world)).toBe(false);
     // The met set is gone with the subjects it was over. A wave carries its
     // own help, and the director restarts a wave twenty times an afternoon.
@@ -177,7 +193,15 @@ describe("no memory", () => {
 
   it("starts a fresh world playing nothing", () => {
     const world = createWorld(CFG, 1);
-    expect(world.brief).toEqual({ phase: OPENING_PLAY, guide: false, ack: 0 });
+    expect(world.brief).toEqual({
+      phase: OPENING_PLAY,
+      guide: false,
+      ack: 0,
+      fillP1: 0,
+      fillP2: 0,
+      holdP1: false,
+      holdP2: false,
+    });
   });
 
   it("leaves no guide behind when the next wave has none", () => {

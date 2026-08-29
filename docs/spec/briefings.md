@@ -23,11 +23,14 @@ first creature falling. It has two states and the second is optional:
    has a name and a sentence.
 2. **The guide.** A concrete instruction about the control or the concept the
    pair is about to meet: what the thing is, what he does about it, what she
-   does about it. Split across the two screens, and it holds the field until
-   *both* seats have put it away. Only a wave that introduces something new
-   carries one — sixteen of twenty-six today.
+   does about it. Split across the two screens, and it ends on **the ready
+   gate**: two circles, one per seat, each filling while that seat holds and
+   saying READY when it is full. The wave starts when both say READY. Only a
+   wave that introduces something new carries one — sixteen of twenty-six
+   today, and a wave with no guide has no circles either.
 
-Then the wave.
+Then the wave. [systems](systems.md) 5.9 has the gate's own rules — no
+timeout, no free repair bay, and what letting go does.
 
 ## The rule it is built on, which is the opposite of the rule it used to be
 
@@ -227,8 +230,10 @@ split.
 
 There is no player and no presentation state: which state a wave is in is
 `world.brief.phase` (`OPENING_INTRO`, `OPENING_GUIDE`, `OPENING_PLAY`), whether
-the wave carries a guide at all is `world.brief.guide`, and who has acked the
-state that is up is `world.brief.ack`. `drawWaveOpening` is a pure function of
+the wave carries a guide at all is `world.brief.guide`, who has acked the
+introduction is `world.brief.ack`, and how far each circle of the ready gate
+has filled is `world.brief.fillP1` / `fillP2`, in ticks, in the hash.
+`drawWaveOpening` is a pure function of
 the world and the role, so it survives a restart by having nothing to survive —
 `Effects.reset()` has nothing of its own to clear, and §3.8 says that must stay
 true.
@@ -236,12 +241,21 @@ true.
 The hit area is the whole stage, and it answers only the **guide**. A press
 during the introduction is dropped, because the introduction is not a thing to
 dismiss and a player who has just picked the phone up is exactly the person who
-would tap through the wave's name. Keyboard: space, as both seats at once, for
-a desk.
+would tap through the wave's name.
+
+**The circles are indicators, never buttons.** A thumb anywhere on the screen
+fills this seat's own — shrinking the target to the drawn ring would be a
+regression dressed as precision. Both circles are drawn on both screens, which
+is what makes it a two-player gesture rather than two solo ones: you can see
+your partner is still reading.
+
+Keyboard: space, as both seats at once, for a desk — one person at a desk is
+both seats, so it fills both circles, which is the same answer the director's
+`TEST` role gives.
 
 There is no SKIP. A guide one player skips past is a sentence the pair never
-finished reading, so both seats have to put it away and neither can do it for
-the other.
+finished reading, so both seats have to hold their own circle and neither can
+do it for the other.
 
 ### 3.4 Where it hooks into the game · built
 
@@ -250,6 +264,8 @@ whether the wave carries a guide — a boolean, not the words: the simulation
 decides how many states hold the field and never reads one of them. `step` then
 refuses everything but the ack — the same rule THE MIRROR plays by while it is
 presenting — and the wave stands frozen on its first beat behind the opening.
+It is also what keeps the ready gate from being a repair bay: `step` returns
+before it reaches the hull's regeneration, so nothing mends behind an opening.
 
 **The clock is not what stands still.** A press is scheduled `inputDelayTicks`
 into the future on both devices at once, so a world that froze its tick counter
@@ -261,7 +277,7 @@ it gates the **whole opening**, introduction included. That is why it kept the
 name: it is the switch on a feature that wants two people, not on one card. A
 determinism run, a shape sheet, `relay:check` and every sim test play with it
 off, and none of them has anything that would send the two acks a held wave
-waits for.
+waits for. `cfg.readyHoldMs` beside it is how long a circle takes to fill.
 
 ### 3.5 Two devices · built
 

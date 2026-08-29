@@ -154,8 +154,8 @@ describe("whether a run has a mechanic at all", () => {
   });
 
   it("reads the switch where there is one", () => {
-    expect(mechanicOn(DEFAULT_CONFIG, "fork")).toBe(false);
-    expect(mechanicOn({ ...DEFAULT_CONFIG, forkBetweenWaves: true }, "fork")).toBe(true);
+    expect(mechanicOn(DEFAULT_CONFIG, "briefing")).toBe(false);
+    expect(mechanicOn({ ...DEFAULT_CONFIG, briefings: true }, "briefing")).toBe(true);
   });
 
   it("knows the wind-up's off value is a zero grid and not a false", () => {

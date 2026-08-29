@@ -18,7 +18,7 @@ import {
  * sentence — `VALUE` — and falls back to the raw field for everything else, so
  * a tunable that lands today shows up as `fieldName: 12` tomorrow rather than
  * not at all. Five fields landed on 27 Aug 2026 (`briefings`,
- * `forkBetweenWaves`, the `gauge*` fields, `shotChargeBeats`)
+ * `readyHoldMs`, the `gauge*` fields, `shotChargeBeats`)
  * and none of them appeared here — that gap is what this file is now built to
  * refuse.
  *
@@ -52,8 +52,8 @@ const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
   "HULL — damage and repair": (cfg) => `${cfg.maxScars} scars kept`,
   "RADAR — what is coming": (cfg) => `${cfg.radarLead} beats`,
   "THE BEAT": (cfg) => `${cfg.bpm} BPM`,
-  "THE FORK — the seam between waves": (cfg) => (cfg.forkBetweenWaves ? "ON" : "off"),
-  "BRIEFING — the card a wave opens on": (cfg) => (cfg.briefings ? "ON" : "off"),
+  "OPENING — the introduction, the guide and the ready gate": (cfg) =>
+    cfg.briefings ? "ON" : "off",
   "THE GAUGE — a round with no field in it": (cfg) => `${cfg.gaugeMarks} marks`,
 };
 

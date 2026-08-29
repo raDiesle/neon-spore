@@ -40,6 +40,6 @@ describe("orphanReport", () => {
   });
 
   it("refuses to report a run-wide switch, rather than silently drop it", () => {
-    expect(() => orphanReport(["fork"])).toThrow();
+    expect(() => orphanReport(["briefing"])).toThrow();
   });
 });

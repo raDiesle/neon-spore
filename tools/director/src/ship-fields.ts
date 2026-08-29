@@ -22,8 +22,7 @@ export type GroupName =
   | "HULL — damage and repair"
   | "RADAR — what is coming"
   | "THE BEAT"
-  | "THE FORK — the seam between waves"
-  | "BRIEFING — the card a wave opens on"
+  | "OPENING — the introduction, the guide and the ready gate"
   | "THE GAUGE — a round with no field in it"
   | "THROB — open for one beat in every few"
   | "SCORE"
@@ -45,8 +44,7 @@ export const GROUP_ORDER: GroupName[] = [
   "HULL — damage and repair",
   "RADAR — what is coming",
   "THE BEAT",
-  "THE FORK — the seam between waves",
-  "BRIEFING — the card a wave opens on",
+  "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
   "THROB — open for one beat in every few",
   "SCORE",
@@ -78,17 +76,15 @@ export const GROUP_NOTE: Record<GroupName, string> = {
   "RADAR — what is coming":
     "The strip above the grid is how far ahead either player can talk about.",
   "THE BEAT": "The shared clock everything else in this list is measured against.",
-  "THE FORK — the seam between waves":
+  "OPENING — the introduction, the guide and the ready gate":
     "Off by default so a determinism run, a shape sheet and relay:check all get " +
-    "the wave rather than the wait — docs/decisions.md. On, the rest between " +
-    "waves ends in a hold that only two thumbs can cross: player 1 primes the " +
-    "lance, player 2 fires while he holds it. See fork.ts.",
-  "BRIEFING — the card a wave opens on":
-    "Off for the same reason THE FORK is. On, a wave opens on a card for " +
-    "anything the pair has not met yet, and holds the field until both seats " +
-    "put it away. See briefing.ts.",
+    "the wave rather than the lesson — a headless caller has no thumbs. On, a " +
+    "wave opens on its number, name and sentence, then on its guide if it " +
+    "carries one, and that guide ends on two circles the pair hold until both " +
+    "say READY. THE FORK used to be a second gate in the gap beside this one; " +
+    "it retired into this one. See briefing.ts.",
   "THE GAUGE — a round with no field in it":
-    "A boss wave with no field under it — off for the same reason as the two " +
+    "A boss wave with no field under it — off for the same reason as the one " +
     "above, since a headless caller has no second thumb to answer it with. On, " +
     "the gaps between acts may carry a round that is not the field: a needle " +
     "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
@@ -117,6 +113,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   tickHz: "PLUMBING — not a dial a person turns",
   inputDelayTicks: "PLUMBING — not a dial a person turns",
   guardWindowMs: "GUARD — the shared defence",
+  readyHoldMs: "OPENING — the introduction, the guide and the ready gate",
   intakeWindowMs: "MAW — taking a pod in",
   podFallTilesPerBeat: "POD — shot loose, then caught",
   podDriftTilesPerBeat: "POD — shot loose, then caught",
@@ -131,7 +128,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   damageMeteor: "HULL — damage and repair",
   maxHoles: "HULL — damage and repair",
   maxScars: "HULL — damage and repair",
-  waveRestBeats: "THE FORK — the seam between waves",
+  waveRestBeats: "THE BEAT",
   scoreDestroy: "SCORE",
   scoreDeflect: "SCORE",
   scoreWave: "SCORE",
@@ -187,8 +184,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
   damageGauge: "THE GAUGE — a round with no field in it",
   // PairConfig
-  briefings: "BRIEFING — the card a wave opens on",
-  forkBetweenWaves: "THE FORK — the seam between waves",
+  briefings: "OPENING — the introduction, the guide and the ready gate",
   // ShotConfig
   bulletTilesPerBeat: "AIM — colour and column",
   lancePrimeBeats: "LANCE — a column marked, then spent",

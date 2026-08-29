@@ -6,7 +6,6 @@ import {
   chargePartTicks,
   createWorld,
   DEFAULT_CONFIG,
-  forkOpen,
   hashWorld,
   lanceReady,
   laying,
@@ -279,15 +278,6 @@ describe("a charge nobody can deliver", () => {
     expect(w.charge).toBeNull();
     // And nothing reaches the ship while it holds, so none is laid either.
     play(w, TPB * 2, [shoot(1), shoot(TPB)]);
-    expect(w.charge).toBeNull();
-    expect(w.bullets).toHaveLength(0);
-  });
-
-  it("is not laid at a fork, where a colour is a commit and not a shot", () => {
-    const w = world({ ...LAID, forkBetweenWaves: true }, []);
-    play(w, TPB * 6);
-    expect(forkOpen(w)).toBe(true);
-    play(w, TPB * 7, [shoot(TPB * 6 + 1)]);
     expect(w.charge).toBeNull();
     expect(w.bullets).toHaveLength(0);
   });

@@ -1,6 +1,5 @@
 import { markMoment } from "./balance.js";
 import { hullRow, type SimConfig } from "./config.js";
-import { forkOpen } from "./fork.js";
 import { type Creature, colSpan, isMeteorKind, occupiesCol, spanCenterCol } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -149,10 +148,12 @@ export function hullPercent(world: World): number {
  * place — one file for what the hull loses and what it gets back.
  */
 export function regenerateHull(world: World): void {
-  // A fork is a wait with no end on it, so a hull that healed through one
-  // would make standing at it the cheapest move in the game. Nothing mends
-  // while the run belongs to the pair (`fork.ts`).
-  if (world.over || forkOpen(world)) return;
+  // Nothing mends while the run belongs to the pair. That rule used to name
+  // THE FORK here; the gate that replaced it needs no line of its own, because
+  // `step` returns before this function for as long as a wave's opening holds
+  // the field (`briefing.ts`). A guide the pair can sit behind while the hull
+  // heals would be the same exploit through a new door, and it is shut.
+  if (world.over) return;
   const perTick = Math.round((world.cfg.hullRegenPerSecond * MILLI) / world.cfg.tickHz);
   world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
 }

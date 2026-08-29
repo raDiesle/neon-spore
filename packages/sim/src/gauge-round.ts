@@ -26,7 +26,7 @@ import type { World } from "./world.js";
  * carries no queue and no pods: there is never a rock in the air to answer for.
  *
  * **The clock keeps running, the wave does not.** `world.beat` advances
- * through the round exactly as it does through THE FORK — the metronome is the
+ * through the round exactly as it does through a wave's opening — the metronome is the
  * game's heartbeat and the ear would notice ninety seconds of silence — but
  * `onBeat`'s field work does not run, so nothing spawns, falls or reaches the
  * hull. `world.waveBeat` stands still.

@@ -57,7 +57,6 @@ describe("events with nothing to burst", () => {
     const noBurst = [
       { type: "beat", beat: 0 },
       { type: "needWave", wave: 1 },
-      { type: "forkWait" },
       { type: "breach", col: 0, damage: 0, span: 1, kind: "meteor", fromRow: 0, beat: 0 },
       { type: "tether", col: 0, control: "shield", color: "red" },
       { type: "mirrorDown", col: 0 },

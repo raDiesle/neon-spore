@@ -140,7 +140,7 @@ describe("the stage answers its own after-run screen", () => {
  *
  * `stage.ts`'s `rebuild()` calls `createWorld` before every `startWave`, and
  * `createWorld` always hands back a fresh `Briefings` (`met: 0`). So with
- * both PAIR_ON toggles lit — briefings and THE FORK, the two switches the
+ * the PAIR_ON switch lit — briefings, which is the switch the
  * owner's "card and briefing" both refers to — resetting a wave is never
  * "what has this run already taught", it is always "what would a pair who
  * has met nothing see", the same fresh-pair rule `wave-opening.ts` already

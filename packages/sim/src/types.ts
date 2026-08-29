@@ -187,15 +187,15 @@ export type Command =
    */
   | { kind: "prime"; on: boolean }
   /**
-   * This seat has read the briefing card that is up and is done with it. Both
-   * seats have to send one before the card goes and the wave starts moving —
-   * neither of them was shown the whole of it, so one player skipping ahead
-   * skips a sentence the pair never finished (`briefing.ts`).
-   *
-   * Handled in `step` rather than in `applyCommand`, because while a card is
-   * up nothing else reaches the ship at all.
+   * This seat's thumb on the wave's opening. Both seats have to be done before
+   * the wave moves — neither was shown the whole guide (`briefing.ts`).
+   * `on` is the hold, the contract `prime` and `valve` have: at the ready gate
+   * ending a guide the circle fills while the thumb is down and empties if it
+   * lifts early. It is **optional**: a command without it is a plain press —
+   * all the introduction needed, and what a caller with no thumbs sends (its
+   * timer in `waves.ts`, the director's loop, a replay).
    */
-  | { kind: "brief" }
+  | { kind: "brief"; on?: boolean }
   /**
    * THE GAUGE's own controls, and the reason they are here rather than
    * reusing the ship's: a round that is not the field has its own verbs, and a

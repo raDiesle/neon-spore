@@ -7,7 +7,14 @@ import type { InputBuffer } from "./input.js";
  * world state and belongs to `sim/briefing.ts`; this is only the press.
  */
 export interface BriefingBinding {
-  /** Both seats say they have read it. Nothing happens when no guide is up. */
+  /**
+   * Put both seats' thumbs down and leave them down, so both circles fill and
+   * the wave starts a moment later. Nothing happens when no guide is up. It is
+   * what a caller with no thumbs has — a headless check, `window.neonSpore` —
+   * and it is deliberately the *hold*, not a skip: the gate is what it is
+   * because the fill takes real ticks, and a caller that jumped it would be
+   * testing something the pair never sees.
+   */
   dismiss(): void;
   /** Whether a guide is holding the wave. */
   holds(): boolean;
@@ -22,7 +29,13 @@ export interface BriefingOptions {
 /**
  * The whole stage is the guide's button. There is exactly one thing to do
  * while a guide is up and nowhere else to press, so a target the size of the
- * screen is one nobody has to look for.
+ * screen is one nobody has to look for — and the two circles it fills are
+ * indicators, never buttons: a thumb anywhere fills this seat's own.
+ *
+ * **It is a hold, not a tap.** The circle fills for as long as the thumb is
+ * down and empties if it lifts before READY (`sim/briefing.ts` says why), so
+ * this listens for the lift as well as the press — on the window, because a
+ * thumb dragged off the canvas has still let go.
  *
  * **Only while the guide is up.** The introduction before it passes on a timer
  * and is not a thing to dismiss (the owner's own answer), so a tap during it
@@ -40,14 +53,25 @@ export interface BriefingOptions {
  * of the same touch is dropped before it reaches the ship.
  */
 export function bindBriefing({ canvas, buffer, world }: BriefingOptions): BriefingBinding {
-  const dismiss = (): void => {
+  const send = (on: boolean): void => {
     if (!guideHolds(world)) return;
-    buffer.push(1, { kind: "brief" });
-    buffer.push(2, { kind: "brief" });
+    buffer.push(1, { kind: "brief", on });
+    buffer.push(2, { kind: "brief", on });
   };
-  canvas.addEventListener("pointerdown", dismiss);
+  let down = false;
+  canvas.addEventListener("pointerdown", () => {
+    down = true;
+    send(true);
+  });
+  const lift = (): void => {
+    if (!down) return;
+    down = false;
+    send(false);
+  };
+  window.addEventListener("pointerup", lift);
+  window.addEventListener("pointercancel", lift);
   return {
-    dismiss,
+    dismiss: () => send(true),
     holds: () => guideHolds(world),
   };
 }

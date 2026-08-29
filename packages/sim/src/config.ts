@@ -34,6 +34,17 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
   /** How long after player 1 triggers the shield it stays armed, in milliseconds. */
   guardWindowMs: number;
   /**
+   * How long a seat has to hold at the ready gate before its circle says READY
+   * and the wave may start, in milliseconds. Milliseconds here and ticks in
+   * the world: `readyHoldTicks` converts it once, so the rule two devices have
+   * to agree on is an integer count of ticks (`briefing.ts`).
+   *
+   * It is not one of the pair's switches and needs no `PAIR_ON`: `briefings`
+   * already gates the whole opening, so under `DEFAULT_CONFIG` there is never
+   * a circle for this number to describe.
+   */
+  readyHoldMs: number;
+  /**
    * How long after player 1 opens the maw it stays open, in milliseconds. The
    * sibling of `guardWindowMs`, and deliberately not the same number: the pod
    * falls slowly and is caught by the cannon the player is already holding, so
@@ -187,7 +198,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxHoles: 10,
   maxScars: 30,
   waveRestBeats: 3,
-  forkBetweenWaves: false,
+  readyHoldMs: 1200,
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,

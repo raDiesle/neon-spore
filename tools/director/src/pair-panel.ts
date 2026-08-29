@@ -8,7 +8,7 @@ import type { SimConfig } from "@neon-spore/sim";
  * off: a determinism run, a shape sheet and `relay:check` all want the wave
  * rather than the lesson, and every one of them would sit at a dial nobody can
  * turn. That default is correct. What was missing was the dial itself — the
- * director built `THE FORK`, the briefing card and THE GAUGE and then built
+ * director built the wave opening and THE GAUGE and then built
  * from a config where all three are off, so the reasonable conclusion from
  * outside was that none of them existed.
  *
@@ -81,15 +81,6 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     onChange();
   });
 
-  add(
-    pairMount,
-    "THE FORK",
-    "The rest between waves ends in a wait only two thumbs can cross.",
-    () => cfg.forkBetweenWaves,
-    (on) => {
-      cfg.forkBetweenWaves = on;
-    },
-  );
   add(
     pairMount,
     "Cannon wind-up",

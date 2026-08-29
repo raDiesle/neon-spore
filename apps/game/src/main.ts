@@ -31,13 +31,13 @@ if (!canvas) throw new Error("canvas #stage missing");
 // The hull holds by default here, and only here: this is the test build, and a
 // wave that is being looked at should be allowed to finish. The switch is in
 // the test panel; `packages/sim` still ships with the hull breakable.
-// `PAIR_ON` is the other switch: briefings and THE FORK, on here and off by
-// default, because both want two people. See `config-pair.ts`.
+// `PAIR_ON` is the other switch: the wave opening, on here and off by
+// default, because it wants two people. See `config-pair.ts`.
 //
 // `shotChargeBeats` sits beside it rather than inside it. It is on here for a
 // two-device reason — a shot that is laid over half a beat is a press player 1
 // can *see*, where a press that was instantly a bullet reached him only as a
-// result (`shot-charge.ts`) — but unlike those three switches it stops nothing
+// result (`shot-charge.ts`) — but unlike those switches it stops nothing
 // and blocks no headless caller. It is off in `DEFAULT_CONFIG` so that every
 // replay keeps its timing to the tick, which is a different argument from
 // needing two thumbs, and a different argument belongs in a different place.

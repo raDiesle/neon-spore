@@ -1,5 +1,4 @@
 import { fire } from "./bullets.js";
-import { closeFork, forkFire } from "./fork.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { endPrime, startPrime } from "./lance.js";
@@ -41,10 +40,6 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // and the host does not answer `needWave` on the same tick it is asked, so
     // there are ticks in between for a charge to go out into (`shot-charge.ts`).
     endCharge(world);
-    // And it takes THE FORK with it. A run being left is not a run waiting to
-    // be continued, and a fork still open would be one asking two people for
-    // permission to start the wave they just asked for (`fork.ts`).
-    closeFork(world);
     // And THE GAUGE, for the third time the same argument: a run being left is
     // not a run standing at a dial. Only that one — every other boss goes when
     // `startWave` installs the next wave's, and none of the others holds the
@@ -90,10 +85,6 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       else endPrime(world);
       break;
     case "fire":
-      // At THE FORK a colour is not a shot: it is player 2's half of "go", and
-      // it is answered by the wave starting or by nothing at all. Asked first,
-      // because there is no field to fire into between waves (`fork.ts`).
-      if (forkFire(world)) break;
       fire(world, c.color);
       mirrorHeard(world, fireStep(c.color));
       // And THE MAZE hears it too. The shot itself is an ordinary one and goes

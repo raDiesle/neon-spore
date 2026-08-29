@@ -1,7 +1,7 @@
 # Systems
 
 > **Status: mixed.** Control visibility, the beat, damage, power-ups, the grid
-> behaviour and the fork are built. The information split, weapons and
+> behaviour and the ready gate are built. The information split, weapons and
 > destruction are design only. Each section says which.
 
 ## 5.1 Control visibility (Principle A) — built
@@ -296,89 +296,74 @@ your own cannon column.
 model: slowing something down would mean skipping a beat here. The mechanic
 would have to be re-thought rather than badly translated.
 
-## 5.9 THE FORK — the pause that belongs to the pair — built
+## 5.9 THE READY GATE — the pause that belongs to the pair — built
 
 Everywhere else in this game the clock decides. A creature arrives on its beat,
 the guard window opens for 900 ms, the rest between waves runs `waveRestBeats`
-and the next wave begins whether or not anybody was ready. THE FORK is the one
-place that is not true: **the rest ends in a wait, and the run continues only
-when both thumbs are down.** Spaceteam's warp jump, arriving here from
+and the next wave begins whether or not anybody was ready. The end of a guide
+is the one place that is not true: **each seat holds a circle, it fills like a
+loading indicator, it says READY when full, and the wave starts when both are
+ready.** Spaceteam's warp jump, arriving here from
 [transfers](transfers.md#the-fork).
 
-It is four lines of rule and it changes the shape of a session. Every other
-announcement in the game is made under a falling object; this is the only gap
-with nothing in it, which makes it the only place a pair can say anything that
-is not an instruction — and the place the first-appearance briefing card
-([briefings](briefings.md)) has to live, because a card nobody has time to read
-is a card. The pause is what the card is for.
+**It used to be a gate of its own, called THE FORK**, standing in the rest
+between two waves and crossed only while player 1 held the lance and player 2
+pressed a colour. The owner retired it and asked for its idea to be moved to
+the end of the thing the pair is actually reading — which is also what the old
+entry's own worst argument was about, since a fork *and* a card at the same
+seam stacked two "both of you press something" gates back to back with nothing
+between them. There is one gate now, and it is where the reading ends.
 
-**Whose thumb, and on what.** Player 1 holds the lance; player 2 presses a
-colour while he holds. Neither is a new button — they are the two the band
-already draws, and `touch.ts` already signs the lance with player 1 and the
-colours with player 2, so **one person cannot hold both halves** whatever they
-do with their own screen.
+**Both circles are on both screens.** Yours and theirs, side by side under the
+guide: you can see your partner is still reading, or that they finished a while
+ago and are waiting on you. A screen drawing only its own circle would be the
+same feature with the meaning taken out. It is the same argument the mark row
+of the information split (5.2) makes — the one row deliberately not split.
 
-The two acts have to overlap in time. Nothing latches: a thumb put down and
-taken away again leaves the run exactly where it was, and a colour pressed
-before the hold arrives does nothing and costs nothing. That overlap is the
-whole design — player 1 puts his thumb down and says so, two seconds of voice
-delay later player 2 hears it and fires, and **the hold has to have survived
-the trip**. It is [the game's signature constraint](latency.md) with the timing
-skill taken out.
+**The press target is the whole screen.** The circle is an indicator, never a
+button. There is exactly one thing to do with a guide up and nowhere else to
+press, so a target the size of the stage is one nobody has to look for.
 
-And it is [couplings](couplings.md) 2 inverted. During a wave player 2 must
-**not** fire while the lobe fills; at the fork she must fire *because* it is
-filling. Same two thumbs, opposite instruction, and the only way to know which
-one you are in is to say it out loud.
-
-**A part-filled lobe crosses it exactly as well as a full one.** The fork is
-not a skill check and there is nothing to get wrong: the thumb being down is
-the whole of player 1's half. A colour pressed at the fork is not a shot
-either — nothing leaves the cannon, because there is no field to fire into and
-a commit that sometimes came out as a weapon would be a commit nobody trusted.
+**Letting go empties the fill; READY latches.** THE WARDEN's pull accumulates
+across a fight, and the reason it does is about a fight. This fill is made of
+something else: it is the only evidence that time passed with the guide on the
+screen, and one that survived the lift could be reached by tapping ten times
+instead of waiting once — which is the pair skipping the reading the gate
+exists to buy. Once a circle *is* full it stays full with no thumb on it, so
+the two seats never have to be holding in the same instant. That would be a
+coordination test the gate is not about, and an unfair one across two seconds
+of voice delay.
 
 **There is no timeout, and that is the mechanic.** A clock that eventually
 started the wave anyway would make the wait decorative: the pair would learn
 its length within three waves and stop committing at all, and the one moment
-that belongs to them would belong to the clock again like everything else. So a
-fork stays open forever. The only ways out are the two thumbs and leaving the
-run.
+that belongs to them would belong to the clock again like everything else. So
+the gate stays open forever. The only ways out are the two holds and leaving
+the run.
 
-**Nor is it a repair bay.** The hull stops regenerating while a fork is open.
-Otherwise the cheapest way to play would be to stand at one and talk about
-nothing for a minute. The beat keeps running, as it does through every pause
-(5.3) — it is the shared clock, not a countdown.
+**Nor is it a repair bay.** The hull does not mend behind it — otherwise the
+cheapest way to play would be to sit on a guide and talk about nothing for a
+minute. It needs no rule of its own: the whole opening freezes the world before
+the hull's regeneration is reached. The beat keeps running, as it does through
+every pause (5.3) — it is the shared clock, not a countdown.
 
-**Both devices show whether player 1's thumb is down.** That is the mark row of
-the information split (5.2), which is deliberately not split, and it is what
-keeps a fork from being a place a pair can be stuck at when the voice channel
-drops.
+**Only waves that carry a guide.** A wave with none runs its introduction —
+number, name, sentence, on its own timer — and then plays. The gate exists
+because there was something to have read, and the rest between waves is still
+there wherever a wave teaches something.
 
-**The fork comes first, then the briefing card.** A wave that opens on a card
-([briefings](briefings.md)) puts two gates at the same seam. The fork is the
-pair deciding to go; the card is what they are told on the way in. The other
-order was considered and is worse: it hands a pair a lesson about a wave they
-have not agreed to yet, and — since the commit has no *no* in it until the
-route choice is built — the information changes nothing about the decision it
-precedes. It would also stack two "both of you press something" gates back to
-back with nothing between them, which is how a gesture stops meaning anything.
+**The fill is counted in ticks, in the world, in the hash.** It decides when
+the wave starts, so two devices must agree on it to the tick. That is the whole
+difference between it and the introduction's few seconds, which the app counts
+on a wall clock precisely because nothing depends on where they land.
 
-The order needs no code to arrange, which is the sign the seams were cut in the
-right places: a card is only ever opened by `startWave`, `startWave` is only
-reached through `needWave`, and between waves `needWave` comes only from a fork
-being crossed. **They cannot deadlock**, from either end: no card can be raised
-while a fork is open, because raising one requires the fork to have been
-crossed; and no fork can open while a card is up, because the world freezes
-before it reaches the wave's progress. `startWave` closes any fork it finds, so
-"waiting to start" and "started" are states a world cannot hold at once.
+In the code: `packages/sim/src/briefing.ts`, hashed as `world.brief.fillP1` and
+its siblings, drawn by `packages/render/src/ready-circles.ts`. It is behind
+`SimConfig.briefings` with the rest of the opening, **off in `DEFAULT_CONFIG`
+and on in the game** — it needs two people, and the director's loop, the
+replays and the frame tests all clear a wave alone. `SimConfig.readyHoldMs` is
+how long the hold is.
 
-In the code: `packages/sim/src/fork.ts`, hashed as `world.forkBeat`, drawn by
-`drawFork` in `packages/render/src/hud.ts`. It is behind
-`SimConfig.forkBetweenWaves`, **off in `DEFAULT_CONFIG` and on in the game** —
-a fork needs two people, and the director's loop, the replays and the frame
-tests all clear a wave alone.
-
-**Still open:** what a fork does to wave numbering and the save points
-([structure](structure.md) 7.1), and the larger half of the transfer — a
-*choice* of two routes with half the knowledge each, which is what makes it a
-fork rather than a gate. Neither is built; this is the commit on its own.
+**Still open:** the larger half of the transfer — a *choice* of two routes with
+half the knowledge each, which is what made THE FORK a fork rather than a gate.
+Not built; this is the commit on its own.
