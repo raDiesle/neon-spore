@@ -39,7 +39,16 @@ import { renderWaveBriefing } from "./wave-briefing.js";
 // The hull holds while a wave is being looked at, the same choice `apps/game`
 // makes in its test build and for the same reason: a wave that is being judged
 // should be allowed to reach its end. The damage is still drawn.
-const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+//
+// `briefings: true` is the queue's own correction: `DEFAULT_CONFIG` ships it
+// off (`packages/sim/src/config-pair.ts` says why — a determinism run, a
+// shape sheet and `relay:check` all want the wave rather than the lesson),
+// and the director built the card and then opened from a config where it was
+// off, so the tool where these are judged was the one place that never
+// showed one. `#briefToggle` (`pair-panel.ts`) stays exactly where it is —
+// pressed once it turns the card off, for iterating on a wave's timing
+// without reading its card for the fortieth time today.
+const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
 
 // The bundled waves are the fallback, not the source. The server reads the
 // file from disk, so an editor opened after a hand edit shows the hand edit.
