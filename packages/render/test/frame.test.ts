@@ -248,6 +248,39 @@ describe("the torch", () => {
   }
 });
 
+describe("the guard lapsing", () => {
+  for (const role of ROLES) {
+    it(`draws armed, lapsing and idle-again for ${role} without the canvas refusing a value`, () => {
+      const world = createWorld(CFG, 11, buildQueue(0, CFG.cols));
+      const { canvas, ctx } = stubCanvas();
+      const renderer = new Canvas2DRenderer(canvas);
+      renderer.resize({ width: 900, height: 1600, dpr: 2 });
+      const tpb = ticksPerBeat(CFG);
+      // One press and nothing after it: no rock ever reaches the shield's
+      // column, so the window has to close unarmed rather than on a deflect.
+      // That is the exact case the fading guard button exists for, and the
+      // run is long enough to pass through armed, the fade, and back to idle.
+      const ticks = Math.round((CFG.guardWindowMs / 1000) * CFG.tickHz) + 60;
+      let events: SimEvent[] = [];
+      for (let tick = 0; tick < ticks; tick++) {
+        step(world, tick === 5 ? [{ tick, player: 1, command: { kind: "guard" } }] : []);
+        if (world.events.length) events.push(...world.events);
+        renderer.draw({
+          world,
+          beatPhase: (world.tick % tpb) / tpb,
+          role,
+          time: tick / CFG.tickHz,
+          dt: 1 / CFG.tickHz,
+          events,
+          running: true,
+        });
+        events = [];
+      }
+      expect(ctx.calls).toBeGreaterThan(500);
+    });
+  }
+});
+
 describe("a frame", () => {
   for (const role of ROLES) {
     it(`draws a wave for ${role} without the canvas refusing a value`, () => {

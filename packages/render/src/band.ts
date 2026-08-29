@@ -11,6 +11,7 @@ import { halo } from "./glow.js";
 import { drawLanceButton } from "./lance.js";
 import { bandLobes, type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { guardLapse } from "./shield.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -116,6 +117,15 @@ function drawLobe(
   // player 1 can see what they are spending.
   if (c.id === "guard") {
     drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label);
+    // A press that outlives its own window looks, on this button, exactly
+    // like a press that never happened — same dark fill, same outline. Once
+    // `armed` drops there is nothing left on screen saying the guard used to
+    // be lit a moment ago, which is the whole defect: the button cannot tell
+    // "just went out" from "was never on". This fades the same glow the
+    // armed button was just showing, so the transition itself becomes the
+    // signal, without moving `guardWindowMs` or touching `packages/sim`.
+    const lapse = guardLapse(world);
+    if (lapse > 0) halo(ctx, x, y, r * 1.8, PALETTE.shield, lapse * 0.55);
     return;
   }
   if (c.id === "intake") {
