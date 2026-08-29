@@ -134,7 +134,7 @@ top of the canvas's own `pointerdown`, and what it takes out of `index.html` is
 one button. Neither is where those two lanes work.
 
 ## A WAVE OPENS ON ITS NAME, AND ITS HELP IS CALLED A GUIDE
-_claude/burn-wave-guide · packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/briefings.ts packages/content/src/index.ts packages/content/test/briefings.test.ts packages/sim/src/briefing.ts packages/sim/src/wave-start.ts packages/sim/src/step.ts packages/sim/src/hash.ts packages/sim/src/index.ts packages/sim/test/briefing.test.ts packages/render/src/briefing.ts packages/render/src/hud.ts packages/render/src/renderer.ts packages/render/src/frame-passes.ts packages/render/test/briefing.test.ts apps/game/src/briefing.ts apps/game/src/waves.ts tools/director/src/card-catalogue.ts tools/director/src/card-gallery.ts tools/director/src/card-order.ts tools/director/src/card-page.ts tools/director/src/card-picker.ts tools/director/src/card-waves.ts tools/director/src/wave-briefing.ts tools/director/src/rail.ts docs/spec/briefings.md_
+_claude/burn-wave-guide · packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/briefings.ts packages/content/src/index.ts packages/content/test/briefings.test.ts packages/sim/src/briefing.ts packages/sim/src/wave-start.ts packages/sim/src/step.ts packages/sim/src/hash.ts packages/sim/src/index.ts packages/sim/test/briefing.test.ts packages/render/src/briefing.ts packages/render/src/hud.ts packages/render/src/renderer.ts packages/render/src/frame-passes.ts packages/render/test/briefing.test.ts apps/game/src/briefing.ts apps/game/src/waves.ts tools/director/src/card-catalogue.ts tools/director/src/card-gallery.ts tools/director/src/card-order.ts tools/director/src/card-page.ts tools/director/src/card-picker.ts tools/director/src/card-waves.ts tools/director/src/wave-briefing.ts tools/director/src/rail.ts docs/spec/briefings.md packages/content/test/waves.test.ts .claude/skills/new-creature/SKILL.md .claude/skills/new-wave/SKILL.md_
 **Asked for by the owner.** Their ask, translated:
 
 > I suggest we move all "cards" into the briefing configuration of a wave. A
@@ -203,12 +203,57 @@ type's doc comment, so the next session adding motion knows where it goes.
 and the lane rewrites both rather than leaving the reasoning standing beside
 code that contradicts it. The argument for deriving was that a hand-kept list
 beside a wave goes stale — a rock taught on wave 9 because nobody moved the
-list. That cost is real and the owner is taking it knowingly: the trade is that
-a guide is now written where it is read, in the wave, can speak about *this*
-wave rather than about a creature in the abstract, and has somewhere to grow a
-picture. Write that paragraph honestly in the spec. It is the second time that
-file has changed its mind, and the next session needs to know why rather than
-which way.
+list. The trade is that a guide is now written where it is read, in the wave,
+can speak about *this* wave rather than about a creature in the abstract, and
+has somewhere to grow a picture. Write that paragraph honestly in the spec. It
+is the second time that file has changed its mind, and the next session needs
+to know why rather than which way.
+
+### The staleness the derivation guarded against has a better guard
+
+The owner's answer to "who writes the guide for a new creature", in their own
+words, translated:
+
+> Every creature gets its guide automatically, because Claude has to know that
+> a new enemy needs a new wave — so the thing is visible and can be tested at
+> once. And in that same moment Claude should know to author a guide briefing
+> for that wave, because that wave is the first one carrying the new enemy or
+> mechanic.
+
+That is a stronger guarantee than the derivation gave, not a weaker one. The
+derivation could only put a card in front of a wave that already existed; this
+says the wave and its guide are part of what shipping a creature *means*. A
+creature nobody can play is not shipped, and a wave that introduces something
+with nothing said about it is a wave the pair reads by guessing.
+
+**So write it down in the two places a session actually reads**, and enforce
+the half that can be:
+
+- `.claude/skills/new-creature` gains the step: the creature gets a wave that
+  carries it, and that wave carries a `guide` naming what is new and which
+  seat holds what. It sits beside the existing preview and replay-test steps,
+  not as a footnote.
+- `.claude/skills/new-wave` gains the other half: a wave that is the first to
+  carry a creature, a pod kind, a boss or a mechanic writes a guide; a wave
+  that carries nothing new does not, and padding one with a guide is the same
+  failure as padding it with entries.
+- **A test, because this repository does not run on good intentions.** In
+  `packages/content/test/waves.test.ts`, beside the one-sentence test it
+  already has: for every subject any wave carries, the first wave that carries
+  it must have a `guide`. That is `cardFirstWave`'s derivation used as an
+  assertion instead of as a lookup — the same computation, pointed at the
+  question "did anybody write it" rather than "where does it go".
+
+The kinds no wave carries at all today — the rock speed tiers, `purge` and
+`ward` — are outside that test, because a subject with no wave has no first
+wave. Do not make the test red over them and do not invent waves to satisfy
+it: write the list into `docs/parked.md` as the gap it already is, named as
+such, and `docs/spec/briefings.md` keeps saying so.
+
+Add the rule to `packages/sim/test/purity.test.ts`'s table of rules that must
+be called rather than re-derived only if the lane finds itself writing the
+first-wave computation a second time; two copies of "which wave introduces
+this" is exactly what that table exists to catch.
 
 **The migration is derivable, not a guess.** `tools/director/src/card-waves.ts`
 already computes `cardFirstWave` — which wave first raises each subject for a
@@ -268,8 +313,9 @@ no-clock, no-randomness, no-DOM guarantee, and the introduction's few seconds
 are counted the way the banner's already are, in the app, not on the world.
 
 Finished when `bun run check` is green, no wave carries `hint`, every wave that
-used to raise a card carries the same words as a `guide`, and a wave opens on
-its number, name and sentence.
+used to raise a card carries the same words as a `guide`, a wave opens on its
+number, name and sentence, and both skills tell the next session to bring a
+wave and a guide with every new creature — with the test that says so passing.
 
 `Check: does a wave now open on its number, name and sentence as plain text on the field — long enough to read, without a panel around it — and does the guide that follows still read as two halves that have to be spoken across`
 
