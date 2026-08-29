@@ -50,38 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE FALLING SHADOW STILL DOES NOT READ, AND THE STATES PAGE SHOULD SHOW IT
-_claude/burn-shadow-states · tools/director/src/states-page.ts packages/render/src/contact-shadow.ts docs/checks/_
-**Asked for by the owner.** A `FAIL` on `d892bae`, and the second half is a
-request for tooling rather than for the effect.
-
-> i still dont see it, add some screenshots on the "States" section for docu
-
-**Two things, and the second may explain the first.** The lane that landed this
-made the shadow's lean proportional to the gap so it gathers under the rock as
-it falls. The owner cannot see it. Either the effect is too subtle at tempo, or
-it is right and there is no way to look at it — a shadow mid-fall is one frame
-out of a fall nobody can pause.
-
-**Do the second half first.** The STATES page exists to show a thing in each of
-its states side by side, which is exactly what a shadow through a fall needs:
-the same rock at the top of its last quarter, halfway, and at contact, in one
-row. If the effect is working, that picture proves it and the check can be
-answered. If it is not, the same picture is the evidence for changing it.
-
-**Only then touch the effect, and only if the picture says to.** If the three
-frames show a shadow that does gather and the owner still cannot see it in
-play, that is a finding about tempo rather than about the curve — report it.
-
-Finished when `bun run check` is green, the STATES page shows a falling
-shadow's stages side by side, and the commit carries
-
-`Check: on the STATES page, do the three stages of a falling shadow show it gathering under the rock — and now that you can see it side by side, does it read in play?`
-
-Model `sonnet`, effort `think hard`. Read `tools/director/src/states-page.ts`
-and `packages/render/src/contact-shadow.ts`'s header. The thinking goes on
-choosing the three moments — the wrong three make a working effect look broken.
-
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
 **Asked for by the owner**, for the alternatives page:
