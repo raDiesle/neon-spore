@@ -50,45 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE WHEEL IS STILL TYPED AS A TANGLE
-_claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
-**Proposed by the run.** The last thread of the maze conversion, reported by
-`claude/burn-maze-probe-rename` as outside its five files.
-
-`packages/sim/src/maze-wheel.ts` ends with `export type MazeTangle =
-MazeWheel;` — a compatibility alias named after the thing the wheel replaced —
-and the callers still speak of tangles: `entries.ts` types a wave's rounds as
-`MazeTangle[]` and its comment calls them *the tangles, in order*, with
-`hash.ts` and `wave-start.ts` carrying the same word in prose.
-
-**This is the same defect one level up from the one just fixed.** `mazeProbe`'s
-`row` and `lane` were renamed because a name describing the old shape reads as
-correct and is therefore worse than no name. The type is that, for the whole
-authored round.
-
-**Rename it and delete the alias.** An alias kept "for compatibility" inside a
-repository with one author and a linear history is compatibility with nobody —
-it is only a second name for the same type, which is exactly what the rename is
-trying to remove.
-
-**Read each sentence before rewriting it.** Some of the prose about tangles is
-describing the old lattice's behaviour and has no subject any more; that goes
-rather than gets reworded. `packages/sim/src/maze.ts`'s header deliberately
-keeps its own history of what it replaced — **leave that alone**, it is the
-argument, not a leftover.
-
-`packages/sim` is lockstep, so `bun run test:determinism` passes before this
-lands. A type rename should not touch the hash, and if it appears to, stop.
-
-Nothing a player could look at changes: **zero `Check:` trailers**.
-
-Finished when `bun run check` is green, `bun run test:determinism` passes,
-`MazeTangle` does not exist, and the word *tangle* survives only in
-`packages/sim/src/maze.ts`'s deliberate account of what the wheel replaced.
-
-Model `sonnet`, effort `think`. Read `packages/sim/src/maze-wheel.ts` and
-`entries.ts`. Small; the care is in telling live prose from history.
-
 ## THE BACKLOG STILL HAS AN INTERLUDES TAB FOR A CATEGORY THAT IS GONE
 _claude/burn-interlude-tab · docs/spec/ideas.md tools/director/src/backlog.ts tools/director/src/backlog-page.ts tools/director/index.html tools/director/test/backlog.test.ts_
 **Proposed by the run.** The third item of `THE GAUGE'S CONVERSION LEFT THREE
