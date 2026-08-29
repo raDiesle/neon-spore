@@ -1,15 +1,22 @@
 import { drawTorchRock, PALETTE, STROKE } from "@neon-spore/render";
 import { BEAT_SECONDS, CYCLE_BEATS, HOLDERS, type HolderContext } from "./holders/index.js";
+import { drawQueenFrame, mountQueenVariants, type QueenShot } from "./holders/queen-panel.js";
 
 /**
- * The HOLDERS tab: three ways for BULB QUEEN to be holding a torch, side by
- * side, on one clock.
+ * The BULB QUEEN VARIANTS tab. Two sections, one clock:
  *
- * **One clock, not three.** Every card is handed the same `beat` and the same
- * release, computed once per frame — three cards letting go at three private
- * moments reads as noise, and the thing being compared is how each *holds* and
- * how each *lets go*, which can only be judged if they do it together. This is
- * the same rule `skins/types.ts` states for its own page.
+ * - Three ways for her to be holding a torch — the original HOLDERS
+ *   question, kept here as the record of what CRADLE was chosen against.
+ * - Three whole-body drafts, CRADLE at both flanks in all three, spread on a
+ *   second axis: how much of her condition the body itself admits. See
+ *   `holders/queen-panel.ts` and `holders/queen-shared.ts`.
+ *
+ * **One clock, not six.** Every card — torch or whole body — is handed the
+ * same `t` this file's own loop computes, never a clock of its own. Three (or
+ * six) cards letting go, or blooming, at private moments reads as noise; the
+ * thing being compared is how each *holds* and how each *lets go*, which can
+ * only be judged if they do it together. This is the same rule
+ * `skins/types.ts` states for its own page.
  *
  * Nothing here writes anything and nothing here is wired into the game. The
  * shipped queen still draws a bare rock in the flank column; these are the
@@ -82,6 +89,11 @@ export function renderHolders(): void {
     shots.push({ canvas, index: i });
   }
 
+  // Same page, one clock: the three whole-body drafts below the torch cards
+  // are handed the very `t` this loop already computes, never a clock of
+  // their own — see `queen-panel.ts`.
+  const queenShots: QueenShot[] | null = mountQueenVariants();
+
   const start = performance.now();
 
   // The loop ends itself when the mount is gone: the sheet rebuilds its cards
@@ -133,6 +145,8 @@ export function renderHolders(): void {
       flank(ctx, c);
       holder.draw(c, { t, beat, release });
     }
+
+    if (queenShots) drawQueenFrame(queenShots, t);
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);

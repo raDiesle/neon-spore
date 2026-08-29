@@ -1,7 +1,11 @@
 import { COLLAR } from "./collar.js";
 import { CRADLE } from "./cradle.js";
 import { CRANE } from "./crane.js";
+import { HAIRLINE } from "./hairline.js";
+import type { QueenVariant } from "./queen-shared.js";
 import type { Holder } from "./types.js";
+import { UNDERGLOW } from "./underglow.js";
+import { WITHDRAWAL } from "./withdrawal.js";
 
 /**
  * Three answers to one question the game does not currently answer at all.
@@ -19,10 +23,10 @@ import type { Holder } from "./types.js";
  * - `CRANE` is a mechanism bolted to her. The owner's own suggestion.
  * - `CRADLE` is her own body doing the holding, and nothing else.
  *
- * A spread beats three variations of one idea: the question worth putting to a
- * pair of eyes is not "which collar" but "is she a creature that grew a socket
- * or a creature carrying a machine", and the answer to that decides what every
- * later boss is allowed to have.
+ * **CRADLE won** — `docs/verified.md` records it against `7ddfe14` — and it is
+ * the baseline holder the three whole-body drafts below use for both flanks.
+ * COLLAR and CRANE stay listed: a winner with nothing beside it is a winner
+ * nobody can re-judge later.
  *
  * This list is the only place that knows which drafts exist — a fourth is one
  * file beside this one and one line here. **Nothing in this folder touches
@@ -33,5 +37,19 @@ import type { Holder } from "./types.js";
  */
 export const HOLDERS: readonly Holder[] = [COLLAR, CRANE, CRADLE];
 
+/**
+ * Three whole-body drafts for BULB QUEEN herself, CRADLE at both flanks in
+ * all three, spread on a second axis: **how much of her condition the body
+ * itself admits, before the petal row or the sink confirm it.** `HAIRLINE`
+ * says all of it, permanently, in the shell. `UNDERGLOW` says it as light
+ * without touching the outline. `WITHDRAWAL` says it as posture alone. Each
+ * carries the five load-bearing properties `queen.ts` and `queen-egg.ts`
+ * state — see `queen-shared.ts`, which every one of them calls into rather
+ * than re-deriving.
+ */
+export const QUEEN_VARIANTS: readonly QueenVariant[] = [HAIRLINE, UNDERGLOW, WITHDRAWAL];
+
+export { type QueenCycle, queenCycleAt } from "./queen-cycle.js";
+export type { QueenVariant } from "./queen-shared.js";
 export type { Holder, HolderContext, HolderFrame } from "./types.js";
 export { BEAT_SECONDS, CYCLE_BEATS } from "./types.js";
