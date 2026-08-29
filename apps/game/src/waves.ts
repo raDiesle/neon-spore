@@ -8,9 +8,12 @@ import type { GameAudio } from "./audio.js";
  * The simulation asks for a queue when it needs one; it cannot fetch one
  * itself, because waves live in `content/` and nothing points back into the
  * sim. The test rig and the main menu ask for a wave directly, jumping there
- * instead of waiting for the sim to ask. Both end in the same three calls
- * into `content` — queue, pods, boss — because a wave is content's idea and
- * the sim only knows its number.
+ * instead of waiting for the sim to ask. Both end in the same four calls into
+ * `content` — queue, pods, boss, and now the wave's own `card` — because a
+ * wave is content's idea and the sim only knows its number. `card` is read
+ * straight off `WAVES`, not run through a `build*` helper of its own: unlike
+ * the other three it needs no remap onto the real field, so there is nothing
+ * for a helper to do.
  */
 
 /**
@@ -69,6 +72,7 @@ export function createWaveProgression({
         buildQueue(e.wave, cfg.cols),
         buildPods(e.wave, cfg.cols),
         buildBoss(e.wave, cfg.cols),
+        WAVES[e.wave]?.card,
       );
       banner = openingBanner(e.wave);
     }
@@ -87,6 +91,7 @@ export function createWaveProgression({
       buildQueue(target, cfg.cols),
       buildPods(target, cfg.cols),
       buildBoss(target, cfg.cols),
+      WAVES[target]?.card,
     );
     banner = openingBanner(target);
   };

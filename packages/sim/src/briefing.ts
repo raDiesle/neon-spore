@@ -128,16 +128,27 @@ export function ackBriefing(world: World, player: 1 | 2): void {
 /**
  * What a wave is about to ask of the pair, minus everything they have already
  * been asked. Called by `startWave` from the queue it was handed, so a wave
- * teaches what it actually contains and nothing has to be authored beside it.
+ * teaches what it actually contains and nothing has to be authored beside it —
+ * unless the wave names `card`, which overrides which of its own subjects is
+ * the one taught here (`docs/queue.md`, "a wave may name the card it teaches").
  *
  * The opening is the one subject that is not in any queue: it is about the
  * split itself, so it comes due before the first wave of a run and never again.
+ *
+ * **Override narrows, it does not invent.** `card` only ever picks among what
+ * `queue`, `podQueue` and `boss` already put in `wanted` — a name for
+ * something the wave does not carry is silently dropped rather than raised,
+ * and a name for something already met never comes back. Holding an author to
+ * "the card must be one of this wave's own subjects" is `content`'s job
+ * (`packages/content/test/briefings.test.ts`), not this function's; this
+ * function only has to be safe against being handed a name that is wrong.
  */
 export function openBriefings(
   world: World,
   queue: readonly SpawnEntry[],
   podQueue: readonly PodEntry[],
   boss: BossEntry | null,
+  card?: BriefingId | null,
 ): void {
   const b = world.brief;
   b.due = [];
@@ -147,11 +158,26 @@ export function openBriefings(
   const wanted = new Set<number>([subjectIndex("opening")]);
   for (const e of queue) wanted.add(subjectIndex(e.kind));
   for (const p of podQueue) wanted.add(subjectIndex(p.kind ?? "mend"));
-  if (boss) wanted.add(subjectIndex(boss.kind));
+  if (boss) {
+    wanted.add(subjectIndex(boss.kind));
+    // THE WARDEN's tether never sits in `queue`, `podQueue` or `boss` itself —
+    // it comes down mid-fight, spawned by the boss rather than authored — so
+    // nothing above would ever raise a card for it. Content's own carry-through
+    // (`packages/content/src/mechanics.ts`, `MECHANICS.tether.carriedBy`) says
+    // the same thing for a different question; this is the one place it also
+    // has to be said for briefings, or `tether` is a subject no wave can teach.
+    if (boss.kind === "warden") wanted.add(subjectIndex("tether"));
+  }
+
+  // No override: raise everything the wave introduces, same as always. An
+  // override raises only the opening (on the very first wave) and the named
+  // subject, so a wave with several new things is taught the one the author
+  // chose and nothing else — the other stays due wherever it next appears.
+  const raise = card ? new Set<number>([subjectIndex("opening"), subjectIndex(card)]) : wanted;
 
   // Catalogue order, so two devices deal the same cards in the same order and
   // the opening — index 0 — is always the first thing a pair reads.
-  b.due = [...wanted].filter((i) => (b.met & (1 << i)) === 0).sort((x, y) => x - y);
+  b.due = [...raise].filter((i) => wanted.has(i) && (b.met & (1 << i)) === 0).sort((x, y) => x - y);
 }
 
 /**

@@ -1,4 +1,4 @@
-import type { BossEntry, Color, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, BriefingId, Color, PodEntry } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
 
@@ -77,4 +77,27 @@ export interface Wave {
    * anything.
    */
   controls?: ControlSetId;
+  /**
+   * Which card this wave raises when it first teaches something, overriding
+   * `openBriefings`'s own derivation from `entries`, `pods` and `boss`.
+   *
+   * A wave that names nothing is unaffected — it still raises whatever it
+   * actually contains, exactly as before `card` existed. A wave that names one
+   * raises *only* that subject (plus the opening, on the very first wave)
+   * instead of everything it introduces, so an author who wants a specific
+   * teaching moment on a wave that happens to carry several new things can
+   * choose which one gets the card.
+   *
+   * Never `"opening"` — that subject is not tied to any wave's contents, so
+   * naming it here would be naming a thing this field cannot affect.
+   *
+   * **The named subject must be something this wave actually contains.** A
+   * card for a subject the wave does not carry teaches the pair something they
+   * are not about to meet, and `packages/content/test/briefings.test.ts` is
+   * the invariant that catches it — along with the same subject named twice,
+   * and a subject no wave, named or derived, ever reaches. Reachable only by
+   * running the whole list in order, because "contains" and "not already met
+   * by an earlier wave" are two different questions.
+   */
+  card?: Exclude<BriefingId, "opening">;
 }

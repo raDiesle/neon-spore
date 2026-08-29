@@ -1,5 +1,5 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
-import { openBriefings } from "./briefing.js";
+import { type BriefingId, openBriefings } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
 import { closeFork } from "./fork.js";
 import { installGauge } from "./gauge-round.js";
@@ -22,6 +22,11 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * Only wave-local state is reset. Hull, scars, score and the guard balance
  * carry across waves, exactly as in the prototype: damage is permanent and the
  * balance is the record of the whole run.
+ *
+ * `card` is content's authored override on `Wave`, passed straight through
+ * to `openBriefings` and read nowhere else here — this function does not
+ * know what a wave is, only what one hands it. A caller that leaves it out
+ * gets the plain derivation, unchanged.
  */
 export function startWave(
   world: World,
@@ -29,6 +34,7 @@ export function startWave(
   queue: SpawnEntry[],
   podQueue: PodEntry[] = [],
   boss: BossEntry | null = null,
+  card?: BriefingId | null,
 ): void {
   const mid = Math.floor(world.cfg.cols / 2);
   world.wave = waveIndex;
@@ -122,7 +128,7 @@ export function startWave(
   // Last, so it can read the boss that was just installed: whatever this wave
   // asks of the pair for the first time is a card it opens on, and the field
   // holds still behind it until both of them have put it away.
-  openBriefings(world, queue, podQueue, boss);
+  openBriefings(world, queue, podQueue, boss, card);
 
   world.events.push({ type: "waveStart", wave: waveIndex });
 }

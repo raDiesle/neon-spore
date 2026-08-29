@@ -9,6 +9,7 @@ import {
   forgetBriefings,
   hashWorld,
   MAX_BRIEFING_SUBJECTS,
+  openBriefings,
   type PodEntry,
   type SimConfig,
   type SpawnEntry,
@@ -136,6 +137,51 @@ describe("the met set", () => {
   });
 });
 
+describe("an authored card overrides the derivation", () => {
+  const BOTH: SpawnEntry[] = [
+    { beat: 0, col: 3, kind: "slick", color: "red" },
+    { beat: 4, col: 5, kind: "meteor", color: null },
+  ];
+
+  it("raises only the named subject, not everything the wave introduces", () => {
+    const world = createWorld(CFG, 1);
+    openBriefings(world, BOTH, [], null, "meteor");
+    expect(world.brief.due).toEqual([subjectIndex("opening"), subjectIndex("meteor")]);
+  });
+
+  it("behaves exactly as derivation when nothing is named", () => {
+    const world = createWorld(CFG, 1);
+    openBriefings(world, BOTH, [], null);
+    expect(world.brief.due).toEqual([
+      subjectIndex("opening"),
+      subjectIndex("slick"),
+      subjectIndex("meteor"),
+    ]);
+  });
+
+  it("drops a name for something the wave does not contain, rather than inventing it", () => {
+    const world = createWorld(CFG, 1);
+    openBriefings(world, [{ beat: 0, col: 3, kind: "slick", color: "red" }], [], null, "meteor");
+    expect(world.brief.due).toEqual([subjectIndex("opening")]);
+  });
+
+  it("cannot resurrect a subject the pair has already met", () => {
+    const world = createWorld(CFG, 1);
+    openBriefings(world, BOTH, [], null);
+    dismiss(world);
+    openBriefings(world, BOTH, [], null, "slick");
+    expect(world.brief.due).toEqual([]);
+  });
+
+  it("leaves the other new thing due for whenever it next appears", () => {
+    const world = createWorld(CFG, 1);
+    openBriefings(world, BOTH, [], null, "meteor");
+    dismiss(world);
+    openBriefings(world, BOTH, [], null);
+    expect(world.brief.due).toEqual([subjectIndex("slick")]);
+  });
+});
+
 describe("two devices", () => {
   it("disagreeing about the card disagree about the fingerprint", () => {
     const a = open();
@@ -179,5 +225,54 @@ describe("ackBriefing", () => {
     const world = createWorld(DEFAULT_CONFIG, 1);
     ackBriefing(world, 1);
     expect(world.brief).toEqual({ due: [], ack: 0, met: 0 });
+  });
+});
+
+describe("startWave threads an authored card through to play", () => {
+  const BOTH2: SpawnEntry[] = [
+    { beat: 0, col: 3, kind: "slick", color: "red" },
+    { beat: 4, col: 5, kind: "meteor", color: null },
+  ];
+
+  it("is bit-for-bit unchanged when no card is named", () => {
+    const withoutArg = createWorld(CFG, 1);
+    startWave(withoutArg, 0, BOTH2, [], null);
+    const withUndefined = createWorld(CFG, 1);
+    startWave(withUndefined, 0, BOTH2, [], null, undefined);
+    expect(hashWorld(withoutArg)).toBe(hashWorld(withUndefined));
+    expect(withoutArg.brief).toEqual(withUndefined.brief);
+  });
+
+  it("reaches play: an authored card changes what the wave opens on", () => {
+    const derived = createWorld(CFG, 1);
+    startWave(derived, 0, BOTH2, [], null);
+    expect(derived.brief.due).toEqual([
+      subjectIndex("opening"),
+      subjectIndex("slick"),
+      subjectIndex("meteor"),
+    ]);
+
+    const overridden = createWorld(CFG, 1);
+    startWave(overridden, 0, BOTH2, [], null, "meteor");
+    expect(overridden.brief.due).toEqual([subjectIndex("opening"), subjectIndex("meteor")]);
+  });
+
+  it("keeps catalogue order under an override — membership changes, order does not", () => {
+    const world = createWorld(CFG, 1);
+    // meteor (a later index) is authored ahead of slick in the wave's own
+    // entries, and named as the card, yet the due list still comes out
+    // lowest-index-first — the same `sort` runs whether or not `card` is set.
+    startWave(
+      world,
+      0,
+      [
+        { beat: 0, col: 3, kind: "meteor", color: null },
+        { beat: 4, col: 5, kind: "slick", color: "red" },
+      ],
+      [],
+      null,
+      "slick",
+    );
+    expect(world.brief.due).toEqual([subjectIndex("opening"), subjectIndex("slick")]);
   });
 });

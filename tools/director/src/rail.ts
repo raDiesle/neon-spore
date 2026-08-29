@@ -5,6 +5,7 @@ import {
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
+import { bindCardPicker } from "./card-picker.js";
 import { cardsForWave, wavesWithCards } from "./card-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
@@ -33,6 +34,11 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const hint = document.getElementById("fHint") as HTMLTextAreaElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
   const controlsWhy = document.getElementById("fControlSetWhy");
+
+  // `docs/queue.md` puts this beside CONTROL SET, the other field that says
+  // "this wave is not the ordinary thing" — see `card-picker.ts` for why it
+  // is built there rather than declared in `index.html`.
+  const cardPicker = bindCardPicker(controlsWhy);
 
   if (controlsField) {
     controlsField.replaceChildren();
@@ -116,6 +122,8 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;
+
+    cardPicker.render(wave, store.index);
   };
 
   const render = (): void => {
@@ -155,6 +163,17 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     if (!wave || !controlsField) return;
     const picked = controlsField.value as ControlSetId;
     wave.controls = picked === DEFAULT_CONTROL_SET_ID ? undefined : picked;
+    store.dirty = true;
+    onSelect();
+  });
+
+  // Also through `onSelect`: which card a wave raises is not drawn on the
+  // stage, but it is exactly what the card sheet (`card-page.ts`) reads next,
+  // and `onSelect` is what keeps every panel that reads `store` in step.
+  cardPicker.onChange((card) => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    wave.card = card;
     store.dirty = true;
     onSelect();
   });

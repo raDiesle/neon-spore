@@ -51,6 +51,7 @@ export function waveBriefingWorld(waveIndex: number): World {
     buildQueue(waveIndex, CARD_CFG.cols),
     buildPods(waveIndex, CARD_CFG.cols),
     buildBoss(waveIndex, CARD_CFG.cols),
+    WAVES[waveIndex]?.card,
   );
   return world;
 }
@@ -69,11 +70,13 @@ export function waveBriefingOrder(waveIndex: number): BriefingId[] {
  *
  * Derived by calling `openBriefings` — the same function `startWave` calls —
  * against one `World` carried across every wave in campaign order, marking
- * each wave's own due subjects met before moving to the next. That is exactly
- * what a real run does one card at a time; nothing here re-summarizes a
- * wave's queue, pods or boss by hand; a hand-kept table is the thing this
- * lane exists to replace. Cached, since `WAVES` does not change at runtime
- * and this is asked from three different places (`rail.ts`, `card-page.ts`).
+ * each wave's own due subjects met before moving to the next, and passing
+ * each wave's own `card` through so an authored override is what this map
+ * reflects, not the plain derivation underneath it. That is exactly what a
+ * real run does one card at a time; nothing here re-summarizes a wave's
+ * queue, pods or boss by hand; a hand-kept table is the thing this lane
+ * exists to replace. Cached, since `WAVES` does not change at runtime and
+ * this is asked from three different places (`rail.ts`, `card-page.ts`).
  */
 let firstWaveCache: ReadonlyMap<BriefingId, number> | null = null;
 
@@ -87,6 +90,7 @@ export function cardFirstWave(): ReadonlyMap<BriefingId, number> {
       buildQueue(i, CARD_CFG.cols),
       buildPods(i, CARD_CFG.cols),
       buildBoss(i, CARD_CFG.cols),
+      WAVES[i]?.card,
     );
     for (const idx of world.brief.due) {
       const id = BRIEFING_SUBJECTS[idx]!;
