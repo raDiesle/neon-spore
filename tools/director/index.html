@@ -72,7 +72,13 @@
          below), rounded up. */
       main { display: grid; grid-template-columns: 186px 320px minmax(320px, 1fr) minmax(480px, max-content); min-height: 0; overflow-x: auto; }
       main > section { border-right: 1px solid var(--line); overflow-y: auto; padding: 10px; min-height: 0; }
-      main > section.stage-col { overflow: hidden; }
+      /* A flex column, not the plain scrolling box every other section is:
+         the canvas needs a definite height to measure itself against
+         (`resize()` reads `canvas.getBoundingClientRect()`), so it keeps the
+         3-of-5 share and `#stageBelow` — the note and the live balance sheet
+         moved here from the retired BALANCE tab — takes the rest and scrolls
+         on its own rather than being clipped the way it silently was before. */
+      main > section.stage-col { display: flex; flex-direction: column; overflow: hidden; }
       main > section:last-child { border-right: 0; }
       h2 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 8px; font-weight: 400; }
 
@@ -136,7 +142,7 @@
       .pod-row { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--dim); }
       .pod-row input { width: 46px; }
 
-      #stageWrap { height: 100%; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+      #stageWrap { flex: 3 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; align-items: center; }
       /* The canvas would otherwise size itself from its own width attribute, which
          the renderer sets from its measured width — a loop that settles at zero. */
       #stageBox { flex: 1 1 auto; min-height: 0; width: 100%; display: flex; justify-content: center; }
@@ -147,6 +153,10 @@
         cursor: crosshair;
       }
       .transport { flex: 0 0 auto; display: flex; gap: 4px; }
+      #briefToggle { flex: 0 0 auto; width: 100%; }
+      /* Everything below the field: shares the column with #stageWrap rather
+         than overflowing it, and scrolls on its own when it doesn't fit. */
+      #stageBelow { flex: 2 1 0; min-height: 0; overflow-y: auto; width: 100%; }
 
       #tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
       .tabpage { display: none; }
@@ -765,11 +775,17 @@
       <section>
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
-          <button type="button" data-tab="ship">SHIP</button>
           <button type="button" data-tab="tuning">TUNING</button>
-          <button type="button" data-tab="balance">BALANCE</button>
         </div>
+        <!-- Ordered by when a pair meets the thing: the card that opens the
+             wave first, the wave's own fields next, and what the wave leaves
+             on the ship last. SHIP and BALANCE used to be tabs of their own;
+             SHIP is folded in at the bottom here, BALANCE now lives under the
+             field below instead — see docs/queue.md's director-layout entry. -->
         <div class="tabpage on" id="tab-wave">
+          <h2>BRIEFING</h2>
+          <p class="note" id="waveBriefing"></p>
+
           <label class="field" for="fName">NAME</label>
           <input id="fName" />
           <label class="field" for="fSentence">SENTENCE — the one where…</label>
@@ -783,11 +799,7 @@
 
           <div id="bossPanel"></div>
 
-          <h2 style="margin-top: 14px">BRIEFING</h2>
-          <p class="note" id="waveBriefing"></p>
-        </div>
-        <div class="tabpage" id="tab-ship">
-          <h2>WHAT THIS WAVE ADDS TO THE SHIP</h2>
+          <h2 style="margin-top: 14px">WHAT THIS WAVE ADDS TO THE SHIP</h2>
           <p class="note">
             Its boss, if it has one, and THE GAUGE if the gap in front of it
             carries a round. The ship's own dials — AIM, HULL, THE BEAT and
@@ -800,7 +812,8 @@
           <p class="note">
             Off by default so a determinism run, a shape sheet and
             relay:check all get the wave rather than the wait — see
-            docs/decisions.md. On here, only for this run.
+            docs/decisions.md. On here, only for this run. Briefings itself
+            toggles below the field, one click from the stage it changes.
           </p>
           <div id="pairPanel"></div>
           <h2 style="margin-top: 14px">PRESET</h2>
@@ -810,22 +823,6 @@
           <p class="note">
             Tuning is the run, not the wave. It is never written to waves.ts —
             saved presets live in this browser.
-          </p>
-        </div>
-        <div class="tabpage" id="tab-balance">
-          <h2>THE BALANCE SHEET — live</h2>
-          <div id="balanceSheet"></div>
-          <p class="note">
-            The same numbers the screen after the run draws, moving as the
-            wave is played. Every one of them takes both players to move, and
-            none can be read backwards to say who missed — that is the rule
-            docs/spec/structure.md 7.2 puts on this screen, not a style
-            choice.
-          </p>
-          <p class="note">
-            SHEET under the field ends the run, so the drawn version appears
-            on the stage. The director holds the hull, so nothing else here
-            ever ends a run. ↺ WAVE starts it over and clears the sheet.
           </p>
         </div>
       </section>
@@ -844,13 +841,34 @@
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>
           </div>
+          <!-- The toggle for whether a card shows at all, one click from the
+               stage it changes; ✓ CARD above dismisses the one that is up.
+               `pair-panel.ts` mounts the "Briefings" row here and its other
+               two rows into TUNING → PAIR. -->
+          <div id="briefToggle"></div>
         </div>
-        <p class="note">
-          The field is the phone-shaped rectangle the game draws into, not the
-          panel it sits in — computeStage, the same call the device makes. Click
-          the field to place the current brush at the held beat, in the nearest
-          of the seven authored columns.
-        </p>
+        <div id="stageBelow">
+          <p class="note">
+            The field is the phone-shaped rectangle the game draws into, not the
+            panel it sits in — computeStage, the same call the device makes. Click
+            the field to place the current brush at the held beat, in the nearest
+            of the seven authored columns.
+          </p>
+          <h2 style="margin-top: 10px">THE BALANCE SHEET — live</h2>
+          <div id="balanceSheet"></div>
+          <p class="note">
+            The same numbers the screen after the run draws, moving as the
+            wave is played. Every one of them takes both players to move, and
+            none can be read backwards to say who missed — that is the rule
+            docs/spec/structure.md 7.2 puts on this screen, not a style
+            choice.
+          </p>
+          <p class="note">
+            SHEET under the field ends the run, so the drawn version appears
+            on the stage. The director holds the hull, so nothing else here
+            ever ends a run. ↺ WAVE starts it over and clears the sheet.
+          </p>
+        </div>
       </section>
 
       <section class="brush-col">

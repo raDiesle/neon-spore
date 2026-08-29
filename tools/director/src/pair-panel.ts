@@ -29,29 +29,41 @@ import type { SimConfig } from "@neon-spore/sim";
  * and a checkbox painted once at `bindPairPanel` time would go on showing
  * whatever it opened with. `main.ts` calls it after every demo, the same way
  * it already calls `renderShip`.
+ *
+ * Two mounts, not one: "Briefings" toggles whether the field ever opens on a
+ * card at all, and the owner asked for that to sit under the stage — one
+ * click from what it changes — rather than two tabs away. `#briefToggle`
+ * (in the stage column) takes that row; `#pairPanel` (in TUNING → PAIR) keeps
+ * the other two, which are not about the stage in the same direct way. It is
+ * still the dial for `cfg.briefings`, the same field `openBriefings` reads —
+ * moving where the checkbox is drawn does not touch what it means.
  */
 export interface PairPanel {
   render(): void;
 }
 
 export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
-  const mount = document.getElementById("pairPanel");
+  const pairMount = document.getElementById("pairPanel");
+  const briefMount = document.getElementById("briefToggle");
   const rows: { box: HTMLInputElement; get: () => boolean }[] = [];
-  if (!mount) return { render: () => {} };
-  mount.replaceChildren();
+  pairMount?.replaceChildren();
+  briefMount?.replaceChildren();
 
   const add = (
+    mount: HTMLElement | null,
     label: string,
     note: string,
     get: () => boolean,
     set: (on: boolean) => void,
   ): void => {
+    if (!mount) return;
     const { row, box } = toggleRow(label, note, get, set, onChange);
     rows.push({ box, get });
     mount.appendChild(row);
   };
 
   add(
+    briefMount,
     "Briefings",
     "A wave opens on a card for anything the pair has not met yet.",
     () => cfg.briefings,
@@ -60,6 +72,7 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     },
   );
   add(
+    pairMount,
     "THE FORK",
     "The rest between waves ends in a wait only two thumbs can cross.",
     () => cfg.forkBetweenWaves,
@@ -68,6 +81,7 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     },
   );
   add(
+    pairMount,
     "Cannon wind-up",
     "shotChargeBeats: a press waits for the next half-beat instead of firing on the tick.",
     () => cfg.shotChargeBeats > 0,

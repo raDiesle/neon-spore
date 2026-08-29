@@ -1,5 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
+import {
+  ackBriefing,
+  briefingHolds,
+  createWorld,
+  DEFAULT_CONFIG,
+  PAIR_ON,
+  startWave,
+} from "@neon-spore/sim";
 
 /**
  * THE DIRECTOR DRAWS "TAP TO RESTART" AND NOTHING IS LISTENING.
@@ -120,5 +127,47 @@ describe("the stage answers its own after-run screen", () => {
     s.world().over = true;
     s.handle.paint();
     expect(s.endRunBtn.el.textContent).toBe("▣ FIELD");
+  });
+});
+
+/**
+ * `↺ WAVE` REPLAYS THE WAVE'S OPENING THE WAY A FRESH PAIR MEETS IT.
+ *
+ * `stage.ts`'s `rebuild()` calls `createWorld` before every `startWave`, and
+ * `createWorld` always hands back a fresh `Briefings` (`met: 0`). So with
+ * both PAIR_ON toggles lit — briefings and THE FORK, the two switches the
+ * owner's "card and briefing" both refers to — resetting a wave is never
+ * "what has this run already taught", it is always "what would a pair who
+ * has met nothing see", the same fresh-pair rule `wave-briefing.ts` already
+ * uses on purpose for the CARDS gallery. This test does the same two calls
+ * `rebuild()` makes, without a DOM, and checks the card opens immediately
+ * and reopens identically on the next reset rather than staying dismissed.
+ */
+describe("a fresh reset opens the wave's card, every time", () => {
+  const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
+  const queue = [{ beat: 0, col: 0, kind: "slick" as const, color: null }];
+
+  it("the card is up the instant the wave starts, not after a delay", () => {
+    const world = createWorld(cfg, 0);
+    startWave(world, 0, queue);
+    expect(briefingHolds(world)).toBe(true);
+  });
+
+  it("dismissing it does not survive a rebuild — the next world is fresh again", () => {
+    const first = createWorld(cfg, 0);
+    startWave(first, 0, queue);
+    // "opening" is due on every first wave alongside "slick" (`briefing.ts`),
+    // so this wave opens two cards — both dismissed here, one pair at a time.
+    while (briefingHolds(first)) {
+      ackBriefing(first, 1);
+      ackBriefing(first, 2);
+    }
+    expect(briefingHolds(first)).toBe(false);
+
+    // `rebuild()` never reuses `first` — it builds a new `World`, exactly as
+    // `stage.ts:112` does, so `met` cannot have carried anything forward.
+    const second = createWorld(cfg, 0);
+    startWave(second, 0, queue);
+    expect(briefingHolds(second)).toBe(true);
   });
 });

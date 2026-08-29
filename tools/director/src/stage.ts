@@ -13,6 +13,7 @@ import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { bindStageGauge } from "./stage-gauge.js";
 import { bindStageTouch } from "./stage-touch.js";
+import { bindStageTransport } from "./stage-transport.js";
 import { currentWave, type Store } from "./state.js";
 
 /**
@@ -98,6 +99,16 @@ export function bindStage(
     push: keys.push,
   });
 
+  // `createWorld` always returns a fresh `Briefings` (`met: 0`, see
+  // `newBriefings` in `packages/sim/src/briefing.ts`), and `rebuild` throws the
+  // old `world` away rather than reusing it. So every `↺ WAVE` already asks
+  // `openBriefings` the same question `wave-briefing.ts`'s `FRESH_PAIR_CFG`
+  // asks on purpose for the CARDS gallery — "what would a pair who has met
+  // nothing see" — never "what has this run already taught". That is right
+  // for a wave edited in isolation, and it is also why editing wave 9 alone
+  // can show a card wave 2 already raised: the director never plays 0..8
+  // first, so there is no `met` bitmask to carry forward even if `rebuild`
+  // wanted to keep one.
   const rebuild = (): void => {
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
@@ -186,23 +197,6 @@ export function bindStage(
   const paintPlay = (): void => {
     if (playBtn) playBtn.textContent = running ? "⏸" : "▶";
   };
-  playBtn?.addEventListener("click", () => {
-    running = !running;
-    paintPlay();
-  });
-  document.getElementById("restart")?.addEventListener("click", rebuild);
-  // The whole stage is the card's button on a phone (`apps/game/src/briefing.ts`);
-  // here it is one button instead, since `bindStageTouch` above already spends
-  // the canvas's own pointerdown on the cannon. Both acks unconditionally,
-  // exactly like the game's own Space key — the command means nothing when no
-  // card is up, so it costs nothing to send it whether or not one is. Without
-  // this, turning `briefings` on (`pair-panel.ts`) freezes the stage on the
-  // first wave forever: `startWave` opens the card and nothing else in the
-  // director could ever put it away.
-  document.getElementById("ackBrief")?.addEventListener("click", () => {
-    keys.push(1, { kind: "brief" });
-    keys.push(2, { kind: "brief" });
-  });
   const afterRun = bindStageAfterRun({
     canvas,
     world: () => world,
@@ -210,15 +204,17 @@ export function bindStage(
     setRunning: (r) => (running = r),
     paintPlay,
   });
-
-  for (const button of document.querySelectorAll<HTMLElement>("button.role")) {
-    button.addEventListener("click", () => {
-      role = (button.dataset.role as ViewRole) ?? "test";
-      for (const other of document.querySelectorAll("button.role")) {
-        other.classList.toggle("on", other === button);
-      }
-    });
-  }
+  bindStageTransport({
+    push: keys.push,
+    rebuild,
+    onPlayToggle: () => {
+      running = !running;
+      paintPlay();
+    },
+    setRole: (r) => {
+      role = r;
+    },
+  });
 
   const seek = (beat: number): void => {
     rebuild();
