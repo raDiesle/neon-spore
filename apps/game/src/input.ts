@@ -8,7 +8,7 @@ import {
   touchMove,
   touchUp,
 } from "@neon-spore/render";
-import type { Command, Creature, MazeState, SimConfig } from "@neon-spore/sim";
+import type { Command, Creature, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
 
@@ -54,6 +54,12 @@ export interface Bindings {
    */
   maze: () => MazeState | null;
   /**
+   * THE WARDEN, if it is the boss running. Read fresh and stated rather than
+   * defaulted, for the same reason `maze` is: without it the handle on its rope
+   * is drawn and answers nothing.
+   */
+  warden: () => WardenState | null;
+  /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).
    */
@@ -90,6 +96,7 @@ export function bindControls({
   cfg,
   maze,
   controls,
+  warden,
   creatures,
   beatPhase,
   guideHolds,
@@ -104,6 +111,7 @@ export function bindControls({
     seat: player(),
     cfg,
     maze: maze(),
+    warden: warden(),
     controls: controls(),
   });
 

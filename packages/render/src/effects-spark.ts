@@ -49,8 +49,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // the rim's own colour — which is the colour that took it.
     case "plate":
       return at(l, e.col, e.row, 14, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    case "tetherTorn":
-      return at(l, e.col, e.row, 10, PALETTE.rock);
     case "petal":
       return at(l, e.col, e.row, 12, PALETTE.hullRim);
     case "queenDown":
@@ -94,8 +92,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "podTaken": // `effects.ts` throws sparks inward directly — see `swallow.ts`.
     case "breach": // `effects.ts` waits for a falling rock before it bursts anything.
     case "tether": // The rim's own colour is read off the world every frame.
-    case "eyeOpen": // The pupil's dilation is derived from `openBeat`, not an event.
-    case "vent": // The rock leaving the socket is the boss's own draw, not a spark.
+    case "eyeOpen": // The hatch's openness is the rope's tension, not an event.
     case "mirrorShow": // THE MIRROR's ghost shot — `simon-fx.ts` owns the whole sequence.
     case "mirrorEcho":
     case "mirrorVerdict":

@@ -138,9 +138,9 @@ export function startWave(
  * a ring placed off centre is a ring with a short side — so the only thing a
  * wave says about it is how many plates it wears.
  *
- * The pupil starts in the middle of the body, which is also the column the two
- * controls start in: the first cycle's line comes down over the pupil, and the
- * pair's first move in the fight is to get out from under their own eye.
+ * The pupil starts in the middle of the body, which is the column the line
+ * comes down in: the first thing the pair see is the rope standing in front of
+ * the eye, which is exactly what pulling it aside is for.
  */
 function installWarden(world: World, entry: WardenEntry): void {
   const id = world.nextId++;
@@ -165,9 +165,9 @@ function installWarden(world: World, entry: WardenEntry): void {
     pupilCol: col + Math.floor(WARDEN_COLS / 2),
     pupilDir: 1,
     plates: entry.plates ?? world.cfg.wardenPlates,
-    tornBeat: -1,
-    openBeat: -1,
     eyeSpent: false,
-    pullTicks: 0,
+    pulling: false,
+    pullOriginMilli: 0,
+    pullMilli: 0,
   };
 }

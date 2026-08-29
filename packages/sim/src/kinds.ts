@@ -76,10 +76,12 @@ export function isMeteorKind(kind: CreatureKind): boolean {
  */
 export function fallTilesPerBeat(kind: CreatureKind): number {
   if (kind === "torch") return fallTilesPerBeat("meteorFastest") + 8;
-  // The Warden's tether comes down at a named rock's speed rather than at a
-  // number of its own — that is what lets `bosses.md` 11.4 say "reaching the
-  // hull on cycle beat 6" and have it stay true if the tier is ever retuned.
-  if (kind === "tether") return fallTilesPerBeat("meteorMedium");
+  // The Warden's line is lowered once, by `attach`, and then hangs. It used to
+  // come down at `meteorMedium`'s speed and break the hull at the bottom; the
+  // whole "something falls and has to be held" concept came off the boss with
+  // the clamp (docs/spec/bosses.md 11.4, docs/parked.md). Zero, not a small
+  // number: a line that crept would eventually arrive.
+  if (kind === "tether") return 0;
   const tier = METEOR_TIER_KINDS.indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
@@ -123,13 +125,17 @@ export function isBossBody(kind: CreatureKind): boolean {
 }
 
 /**
- * Whether a hand may be put on this kind at all. The tether is the reason it
- * exists as a rule rather than as one exclusion in `setGrip`: it is the first
- * thing in the game that is *only* answered by a hand, and it stands beside a
- * boss body that may never be held.
+ * Whether a hand may be put on this kind at all — meaning the grip, which is
+ * only ever a brake on a fall (`grip.ts`).
+ *
+ * The tether is refused for the queen's own reason: it does not fall, so a hand
+ * on it would drag at nothing while showing every sign of working. It is still
+ * the one thing in the game a hand is the only answer to — it is *dragged*
+ * rather than held now, by its handle, and that is a different verb with its
+ * own hit test (`render/src/tether.ts`).
  */
 export function isGrippable(kind: CreatureKind): boolean {
-  return !isBossBody(kind);
+  return !isBossBody(kind) && kind !== "tether";
 }
 
 /**

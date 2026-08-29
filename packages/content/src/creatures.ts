@@ -159,8 +159,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is
-    // the only thing that touches it, so it carries no control group at all
-    // and a wave containing one shows the band its other creatures ask for.
+    // the only thing that touches it — dragged rather than gripped — so it
+    // carries no control group at all and a wave containing one shows the band
+    // its other creatures ask for.
     controls: [],
     color: null,
     // Nobody's strip. It is installed by the boss rather than arriving from
@@ -169,7 +170,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // to say what is coming.
     radar: "none",
     blurb:
-      "A line out of THE WARDEN's rim, holding one of your two sliding controls. Cannot be shot and cannot be warded — only the player it is *not* holding can pull it off, and that costs them their own hand.",
+      "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",
   },
 };
 

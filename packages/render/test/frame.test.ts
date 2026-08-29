@@ -10,16 +10,16 @@ import {
 import {
   createWorld,
   DEFAULT_CONFIG,
-  gripsCreature,
+  NO_TETHER,
   type SimEvent,
   type SpawnEntry,
   startWave,
   step,
   type TimedCommand,
   ticksPerBeat,
+  wardenColor,
   wardenCycle,
-  wardenRescuer,
-  wardenTether,
+  wardenEyeOpen,
 } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { creatureAt, creatureCenter } from "../src/creature-place.js";
@@ -396,10 +396,10 @@ describe("the mirror", () => {
 });
 
 /**
- * THE WARDEN over a whole cycle, driven rather than watched: the line has to
- * be *torn* for the pupil to open, and the two beats it stands open are the
- * only frames the core is ever drawn in. Left alone, this wave would never
- * draw the half of the boss that matters.
+ * THE WARDEN over a whole cycle, driven rather than watched: the rope has to be
+ * *pulled taut* before the hatch opens at all, and the eye behind it is drawn
+ * only while it is. Left alone, this wave would show a shut door for a minute
+ * and never draw the half of the boss that matters.
  */
 function wardenFrames(role: ViewRole, ticks: number) {
   const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
@@ -414,15 +414,36 @@ function wardenFrames(role: ViewRole, ticks: number) {
   const all: SimEvent[] = [];
   let events: SimEvent[] = [];
   for (let tick = 0; tick < ticks; tick++) {
-    // The rescuing player's hand goes on the line as soon as there is one, and
-    // stays until it comes away — a held line, a torn one, the whip after it
-    // and the open pupil are four separate pictures.
-    const tether = wardenTether(world);
-    const rescuer = wardenRescuer(wardenCycle(CFG, world.waveBeat));
-    const commands: TimedCommand[] =
-      tether && !gripsCreature(world, rescuer, tether.id)
-        ? [{ tick: world.tick, player: rescuer, command: { kind: "grip", id: tether.id } }]
-        : [];
+    // Player 1 grabs the handle the moment a rope is there and hauls it all the
+    // way over; player 2 fires into the pupil as soon as the hatch is open. A
+    // slack rope, a taut one, an open eye and the snap-back after a hit are
+    // four separate pictures and none of them happens on its own.
+    const b = world.boss?.kind === "warden" ? world.boss : null;
+    const commands: TimedCommand[] = [];
+    if (b && b.tetherId !== NO_TETHER) {
+      commands.push({
+        tick: world.tick,
+        player: 1,
+        command: {
+          kind: "drag",
+          target: "wardenTether",
+          on: true,
+          fromMilli: b.pulling ? CFG.wardenTautMilli : 0,
+        },
+      });
+      if (wardenEyeOpen(world, b)) {
+        commands.push({
+          tick: world.tick,
+          player: 1,
+          command: { kind: "cannonCol", col: b.pupilCol },
+        });
+        commands.push({
+          tick: world.tick,
+          player: 2,
+          command: { kind: "fire", color: wardenColor(wardenCycle(CFG, world.waveBeat)) },
+        });
+      }
+    }
     step(world, commands);
     if (world.events.length) events.push(...world.events);
     all.push(...world.events);
@@ -444,20 +465,20 @@ function wardenFrames(role: ViewRole, ticks: number) {
 
 describe("the warden", () => {
   for (const role of ROLES) {
-    it(`draws the ring, a held line and an open pupil for ${role}`, () => {
+    it(`draws the ring, a pulled rope and an open eye for ${role}`, () => {
       const { ctx } = wardenFrames(role, ticksPerBeat(CFG) * (CFG.wardenCycleBeats + 2));
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
 
-  it("really did tear a line and open the pupil, or the frames proved nothing", () => {
-    // The state is no help here: the next cycle's attach puts `openBeat` back
-    // to -1, so by the last frame there is nothing left to look at. What the
-    // run reported is the record.
+  it("really did open the hatch and land a shot, or the frames proved nothing", () => {
+    // The state is no help here: a landed shot cuts the rope in the same tick,
+    // so by the last frame there is nothing left to look at. What the run
+    // reported is the record.
     const { events } = wardenFrames("test", ticksPerBeat(CFG) * (CFG.wardenCycleBeats + 2));
-    expect(events.some((e) => e.type === "tetherTorn")).toBe(true);
+    expect(events.some((e) => e.type === "tether")).toBe(true);
     expect(events.some((e) => e.type === "eyeOpen")).toBe(true);
-    expect(events.some((e) => e.type === "vent")).toBe(true);
+    expect(events.some((e) => e.type === "plate")).toBe(true);
   });
 });
 
@@ -677,7 +698,7 @@ describe("a finger on the field", () => {
   it("finds what it is pointing at, mid-glide", () => {
     for (const c of world.creatures) {
       const at = creatureCenter(L, c, 0.5);
-      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, CFG.wardenRow)?.id).toBe(c.id);
+      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5)?.id).toBe(c.id);
     }
   });
 
@@ -685,7 +706,7 @@ describe("a finger on the field", () => {
     const c = world.creatures[0];
     if (!c) throw new Error("the field is empty");
     const at = creatureCenter(L, c, 0.5);
-    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5, CFG.wardenRow)).toBeNull();
+    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5)).toBeNull();
   });
 
   it("never offers the queen, who cannot be gripped", () => {
@@ -695,7 +716,7 @@ describe("a finger on the field", () => {
     const queen = boss.creatures.find((c) => c.kind === "queen");
     if (!queen) throw new Error("no queen");
     const at = creatureCenter(L, queen, 0);
-    expect(creatureAt(L, boss.creatures, at.x, at.y, 0, CFG.wardenRow)).toBeNull();
+    expect(creatureAt(L, boss.creatures, at.x, at.y, 0)).toBeNull();
   });
 });
 

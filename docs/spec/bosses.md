@@ -190,16 +190,16 @@ is the same fight on both devices without a single draw from the rng.
 If the act structure ever wants it, its slot is The Echoes (90): a boss whose
 whole subject is repetition is the one the ninth pillar is already reaching for.
 
-## 11.4 The Warden — the eye that takes a hand off you
+## 11.4 The Warden — the gate one of you holds open
 
-> The one where it holds one of your controls and only the other one of you can
-> get it back.
+> The one where he holds the door open and she has to be quick enough to shoot
+> through it.
 
 A third boss for a third question. The Queen is about **what you know** and THE
-MIRROR about **what you remember**; the Warden is about **what your hands are
-free to do**. It splits no information at all — both screens show everything it
-does — because the Queen already owns that coupling and a second boss built on
-it would be a re-skin.
+MIRROR about **what you remember**; the Warden is about **what your two hands
+can do between them**. It splits no information at all — both screens show
+everything it does — because the Queen already owns that coupling and a second
+boss built on it would be a re-skin.
 
 **A ring with a hole in it.** Five columns wide, at `wardenRow`, dead centre,
 and it never walks: it is a fixture, not an arrival. What moves is the **pupil**
@@ -208,153 +208,144 @@ that matters changes while the body does not. Through the hole you see the
 field, the grid pulse and the stars behind it: the only object in the game you
 can see past.
 
-**The tether.** Every `wardenCycleBeats`, on beat 0, a line comes out of the rim
-and takes hold of one control — cannon, shield, cannon, strictly alternating, so
-the pair always knows whose turn it is to be helpless. A held control is
-**frozen**: a clamped cannon takes no `cannonCol`, a clamped shield no
-`shieldCol`, and those commands are *dropped rather than queued*, so the release
-cannot teleport the control to wherever a thumb wandered. The trigger and the
-maw keep working; it is the sliding that stops.
+**The rope.** Every `wardenCycleBeats`, on beat 0, a line is lowered out of the
+**middle** of the rim, with a handle on the end of it, and it hangs there. It
+does not fall, it cannot be shot, it cannot be warded, and it cannot cost the
+hull anything: `fallTilesPerBeat("tether")` is zero and `resolveHull` has
+nothing to say about it. The middle is deliberate — that is the column the hatch
+is behind, so the rope starts standing in the shot lane and the pull that opens
+the hatch is the same movement that clears it.
 
-It takes the control **where it stands**, and the line then runs straight down
-that column — so the column the pair will be stuck in, and the column the scar
-lands in if the rescue fails, is one they chose a cycle earlier. There is no
-homing and nothing to outrun: a control cannot be walked out from under a
-tether, only pulled free of one.
+**Player 1 pulls; player 2 fires; neither can reach the other's half.** The
+pilot takes the handle and carries it aside, and the **hatch in the middle of
+the ring, with the eyelids behind it, opens by degrees in proportion to the
+tension**. The navigator fires the rim's colour into the pupil's column while it
+is open. A hit takes a plate, shuts eye and hatch together, and snaps the rope
+back. Repeat until the plates are gone.
 
-**Only the player it is not holding may pull it.** That is the fight in one
-line. You get no leverage on your own tether, so the rescue falls to the other
-one every cycle and costs them their hand — a thumb on the line is a thumb off
-the strip below it. For those beats one of you is clamped and the other is
-holding, and between you there is one working control.
+That is the game's central shape appearing in a boss, and it is why this one
+exists. The seat holding the rope cannot fire. The seat firing cannot feel the
+pull — how far the hatch has come open is their whole readout of a hand they
+cannot see. The talking is not decoration on the mechanic, it **is** the
+mechanic.
 
-`wardenPullBeats` of hold tears it out of the rim, and the hold **accumulates**
-rather than having to be unbroken: a slip on a phone should not cost a cycle.
-The line is its own progress bar, going white and thin from the rim down.
+**How far is far enough** is `wardenTautMilli`, thousandths of a tile of hand
+travel, and the pull is a **distance rather than a duration**. Sideways, because
+the handle is one-to-one with the finger and the rope swinging aside is the
+picture. The **sign** is kept so the rope can be drawn going the way the hand
+went; the **rule** takes the magnitude, because a gate on a block and tackle
+does not care which way you lean.
 
-**The clock never moves — only your choice of when to start.** The tether falls
-at `meteorMedium`'s speed, reaching the hull from `wardenRow` on cycle beat 6,
-and a hand slows it by `gripSlowPermille`, the same number every grip uses. So a
-late pull is a real trade rather than a mistake: the slowing still saves the
-hull, but the tear lands after beat 6 and the cycle opens nothing.
+**Nothing but the tension holds it open.** There is no tear and no clock. Keep
+pulling and it stays open; slacken and it shuts; land a shot and the rope is
+taken away. A hand held perfectly still sends no messages at all, which is why
+the tension is *stored* on `WardenState` rather than recomputed from the last
+command — a gate that shut every time somebody stopped moving would be
+unplayable.
 
-| Cycle beat | What happens |
-|---|---|
-| 0 | the tether attaches, that control freezes, the rim takes the cycle's colour |
-| 0–6 | it draws straight down that column. Not shootable, not wardable |
-| 6–8 | **only if torn by 6:** the pupil snaps wide and the core stands in it |
-| 8 | the pupil shuts and **vents one rock** from its column, torn or not |
-| 12 | the next cycle, the other control |
+**One rope per cycle, hit or not**, and the rim's colour alternates with the
+cycle: red, cyan, red. The colour used to follow which control was clamped; with
+the clamp gone it is the cycle's own parity, and it had to survive because it is
+the only reason player 2 reaches for both buttons rather than resting a thumb on
+one. A cycle that was scored has no second rope — the pair gets the rest of it
+to say the next colour out loud. A cycle that was not gets its rope replaced
+under whatever hand is on it, and that hand has to pull again from where it now
+stands (`pulling` goes false at every attach).
 
-**One hit per opened eye**, in the pupil's column, in the colour the rim has
-carried all cycle — and the colour follows the clamp: a cannon cycle is red, a
-shield cycle cyan. One alternating parameter runs the whole fight. A second shot
-inside the same window does nothing; a spray must not be allowed to skip a
-plate.
+**One hit per rope**, in the pupil's column, in the rim's colour. A second shot
+inside the same opening does nothing; a spray must not be allowed to skip a
+plate. The plate is the whole cost of a hit and nothing else changed to make
+room for the new gesture.
 
-**A tether that reaches the hull costs `damageWarden` and a scar** at its
-column, then lets go. Nothing compounds — losing hull and losing the plate you
-would have taken is punishment enough without a spiral.
+**The pupil keeps drifting while the hatch is open**, on purpose. A gate the
+pair can hold open for as long as they like would otherwise ask nothing of
+player 2 at all; with the eye still walking, the shot is a column the two of
+them have to name to each other across a voice delay while one of them holds the
+rope.
 
-**The vent is what keeps the shield honest.** A plain meteor takes twelve beats
-from `wardenRow` to the hull, exactly one cycle, so every rock the eye exhales
-arrives on beat 8 of the *following* cycle — during the next clamp, which on
-half the cycles is the shield's. The shield has to be parked in the vent's
-column before it is taken, and that is planned out loud a cycle ahead: "it's in
-six, put it there now, it comes for you next." Fixed and learnable from the
-first cycle, as 11.1 demands of The Mother.
+**Phases follow the plates and nothing else.** The ring wears `wardenPlates` and
+drops one per hit, leaving a gap that never fills, so the silhouette says how far
+in you are without a bar. Only how hard the pupil is to name and reach tightens;
+the rope, the pull and the hatch never do.
 
-**Phases follow the plates and nothing else.** The ring wears `wardenPlates`
-and drops one per hit, leaving a gap that never fills, so the silhouette says
-how far in you are without a bar. Only how hard the pupil is to name and reach
-tightens; the timing never does.
-
-| Phase | Plates left | Pupil drift | Vent |
-|---|---|---|---|
-| WATCH | 5–4 | a column a beat | meteor |
-| NARROW | 3–2 | two a beat | meteor |
-| GLARE | 1 | two a beat | meteorMedium |
+| Phase | Plates left | Pupil drift |
+|---|---|---|
+| WATCH | 5–4 | a column a beat |
+| NARROW | 3–2 | two a beat |
+| GLARE | 1 | two a beat |
 
 **Nothing about it is random.** Like THE MIRROR it never draws from the rng —
-alternation, drift, colour and vent all follow from the cycle count.
+colour and phase both follow from counters both devices already agree about.
 
-**The tether is the first `special` creature.** The bestiary reserves that
-category for something answered by neither cannon nor shield and says to leave
-it empty until one is designed ([bestiary](bestiary.md#categories)); a thing you
-can only put a hand on is exactly that. It carries no control group, so the band
-still shows `aim` and `guard` from the Warden itself, whose radar owner is
-`"p2"` and never fires — it is installed by a wave, not announced as an arrival.
-The vented rocks are ordinary meteors on P1's strip like every other rock.
+**Nothing in this fight can hurt the pair, and that is known.** The clamped
+control, the falling line and the vented rock all came off together, and with
+them went every way the Warden could cost the hull. The owner has seen that and
+is solving it separately; do not invent a clock or a hazard to fill the gap. The
+two retired concepts are written up in `docs/parked.md` as designs somebody
+could pick up.
 
-**Neither boss may be gripped, and that has to be one rule.** `setGrip` excludes
-the queen by naming her kind; a second name beside it is a second copy, and the
-next fixture makes it three. It becomes `isGrippable(kind)` in `types.ts`,
-called and not re-derived. What is clamped stays derived too — `cycle % 2`,
-never a stored field.
+**The rope is the first `special` creature.** The bestiary reserves that category
+for something answered by neither cannon nor shield and says to leave it empty
+until one is designed ([bestiary](bestiary.md#categories)); a thing you can only
+put a hand on is exactly that. It carries no control group, so the band still
+shows `aim` and `guard` from the Warden itself.
+
+**It is dragged, not gripped, and that is a different verb.** The grip is only
+ever a brake on a fall (`grip.ts`), so a hand on a rope that does not fall would
+drag at nothing while showing every sign of working — the queen's own reason for
+being excluded. `isGrippable` refuses the tether for it, and the rope is answered
+instead by the circle its handle is drawn in: `tetherHandleCircle` in
+`render/src/tether.ts`, beside the code that draws it, and asked from
+`render/src/handles.ts` along with THE MAZE's string. The resting circle, never
+the swung one — by the time it has swung the pointer is captured.
 
 **How it is drawn — and this part is built.** The body is two lobed contours
 under different seeds, cut with an even-odd fill, the trick `circleSubpath`
-already plays for the hull's fire opening; nothing had to be invented and
-nothing has to be wound a particular way. The pupil sits off-centre and slides,
+already plays for the hull's fire opening. The pupil sits off-centre and slides,
 bunching the material on one side and thinning it on the other: an eye looking
-sideways. The two loops deliberately disagree — eight shallow lobes and almost
-no wobble on the body, five deeper ones with three times the wobble on the
-pupil, so the edge you look *through* is the one that moves. It is tuned in
-`tools/shape-sheet/src/catalogue.ts` and shows in the director's SHAPES tab.
+sideways. The two loops deliberately disagree — eight shallow lobes and almost no
+wobble on the body, five deeper ones with three times the wobble on the pupil, so
+the edge you look *through* is the one that moves.
 
-**The pupil cannot keep growing, and that is a measurement.** `ringClearance`
-scans the narrowest the body ever gets between its two loops across the whole
-wobble window, and past about 0.66 of the radius the pupil breaches the rim: the
-shape stops being a ring and becomes a crescent, at some moment three seconds
-into a wobble rather than at rest, which is why an eye alone cannot catch it.
-`tools/shape-sheet/test/ring.test.ts` holds the floor at 12% of the radius.
+Inside the hole, at `HATCH` of its radius, sits the **trapdoor**: two plates that
+meet when the rope is slack and part as it comes taut. It covers two thirds of
+the hole and no more, so the ring keeps the one thing it says about itself.
+Behind the door the **eye** opens on the same number — a lens whose lids come
+apart, an iris in the rim's colour, and a pupil that goes from a slit to a disc.
+Both are one quantity, so there are not two things to keep in step.
 
-That settles what GLARE looks like. It is **not** a wider opening — there is no
-room for one. It is the open pupil *at rest*: by the last phase the eye is
-permanently as wide as it used to get for two beats, which is the hollowing-out
-this section already asks for, drawn as a silhouette instead of a bar. Anything
-that wants to dilate further has to thin the body from the outside.
+**The four things that have to be legible, in order, with nobody told
+anything**, which the owner asked for by name: the handle reads as something to
+take hold of; the moment it is held is visible; pulling builds tension and more
+pulling builds more, **continuously**; and the hatch opens further and further
+with it. The fourth one carries the mechanic, and nothing between the rule and
+the picture may be eased — an openness that lagged the tension would lie at
+exactly the moment somebody is deciding to fire.
 
-The tether is the game's first **open** contour, `openSmoothPath`, taut, a slow
-wave travelling down it — and a hand on it **bows the line toward the finger**,
-stops the wave into a shiver, thins and brightens the stretch under tension, and
-snaps back with an overshoot when the hand lifts. The tear parts it at the rim;
-it whips down, lies limp across the field for a beat, goes out. The ring's
-recoil is what opens the pupil. The vented rock is drawn full size behind the
-closing iris and emerges as the aperture crosses it, so it reads as squeezed out
-rather than spawned.
+Everything held between frames lives in `Effects` and is cleared in
+`Effects.reset()`. There is one thing: the **snap-back** after a hit, because the
+rope stops existing in the same tick the plate comes off and the world has
+nothing left to derive it from. It is not decoration — the pulling seat cannot
+see the plate go, and the rope leaping back up into the rim is how they learn
+their partner scored.
 
-Everything held between frames — bow, tension, whip, dilation — lives in
-`Effects` and is cleared in `Effects.reset()`: `world.beat` is not monotonic
-across a restart, and `restart.test.ts` fails on a field that is not.
+**Where it lives.** `WardenState` in the `BossState` union, a `warden` kind with
+`colSpan` 5 and a `tether` kind beside it, and two files: the arithmetic in
+`packages/sim/src/warden-cycle.ts` — the colour and the phase, both *derived* —
+and the rope and the clock in `packages/sim/src/warden.ts`. Every number above
+is a named field of `BossConfig`.
 
-**Where it lives.** `WardenState` in the `BossState` union, a `warden` kind
-with `colSpan` 5 and a `tether` kind beside it, and two files: the cycle's
-arithmetic in `packages/sim/src/warden-cycle.ts` — which control this cycle
-clamps, which colour the rim carries, which phase the plates put it in, all
-*derived* and none of it stored — and the choreography that moves state in
-`packages/sim/src/warden.ts`, dispatched from `stepBoss`. Every number above is
-a named field of `BossConfig`.
-
-Two things did not survive contact with the code exactly as written above, and
-both are worth saying because the page they contradict is this one.
-
-**The hold is measured in ticks, not beats, and so it has its own call in
-`step`.** Everything else a boss does happens on a beat; a hold that
-accumulates cannot, or a thumb that slipped for a third of a beat would lose
-the whole beat. `pullTether` runs once a tick, after `dropLostGrips`.
-
-**The pupil keeps drifting through the opening.** The two beats the core is
-exposed are too few to *find* a column in across the voice delay, so the aim
-has to be a prediction the pair agreed on beforehand — which is what the drift
-is for. Freezing it for the window would have made the drift decorative.
+**The rope answers on the tick, not the beat**, and so it has its own call in
+`step` beside THE MAZE's string. A gate that only opened on the beat would feel
+like a queue rather than a hand on something. `stepWardenTether` runs in the same
+tick, straight after `advanceBullets`, so the snap-back is in the same breath as
+the hit.
 
 Its wave is `THE WARDEN` and its sentence is the epigraph. What has *not* been
-looked at by a human is how the ring reads at phone size: the hole is genuinely
-cut (the field and the grid pulse show through it, which nothing else in the
-game does), but whether a body in `rockDark` reads as solid enough against the
-field for that to land is a question a still cannot answer and a test cannot
-either.
+looked at by a human is whether the hatch reads as a proportion at phone size —
+whether a partner watching it can tell "nearly there" from "there" without being
+told a number, which is the whole of player 2's half of this fight and is a
+question no test can answer.
 
 ## 11.5 THE VANE — the arm that decides where you are hit
 

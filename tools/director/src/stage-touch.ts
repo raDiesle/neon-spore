@@ -7,15 +7,7 @@ import {
   touchUp,
   type ViewRole,
 } from "@neon-spore/render";
-import {
-  briefingHolds,
-  type Command,
-  guideHolds,
-  type SimConfig,
-  type World,
-  wardenCycle,
-  wardenRescuer,
-} from "@neon-spore/sim";
+import { briefingHolds, type Command, guideHolds, type World } from "@neon-spore/sim";
 
 /**
  * The stage answers a finger the way the phone does — the same `touch.ts` the
@@ -32,22 +24,23 @@ import {
  * Whose hand a grab on the field speaks for. `p1` and `p2` are unambiguous —
  * the role bar has already picked a seat, and the mouse is that seat's only
  * hand. `test` shows both seats on the one screen, so a grab there needs its
- * own answer, and the one real case where it matters is THE WARDEN's tether:
- * only the player who is *not* clamped this cycle may pull it
- * (`wardenRescuer`, `packages/sim/src/warden.ts`), and which player that is
- * flips every cycle — a seat fixed to player 1 would be right half the time
- * and silently refused the other half, which is exactly "only when it's near
- * the ship somehow." Every other grip has no such exclusivity
- * (`packages/sim/src/grip.ts`, either hand may hold anything), so outside the
- * tether the choice is arbitrary; player 1 keeps today's default and leaves
- * `G` — bound to player 2 in `keys.ts` — as the deliberate way to act as the
- * other seat.
+ * own answer, and player 1 is it.
+ *
+ * It used to ask THE WARDEN whose turn it was, because that boss clamped one of
+ * the two controls and only the *other* seat could pull its line. Nothing
+ * alternates any more: the rope is player 1's every cycle and player 2 fires,
+ * which is the whole coupling (`packages/sim/src/warden.ts`). Every other grip
+ * has no exclusivity at all (`packages/sim/src/grip.ts`, either hand may hold
+ * anything), so player 1 is simply the default and `G` — bound to player 2 in
+ * `keys.ts` — stays the deliberate way to act as the other seat.
+ *
+ * So it is the role and nothing else now. It kept a `world` and a `cfg` for as
+ * long as a boss had something to say about it; both are gone rather than left
+ * unread, because a parameter nobody looks at is the next reader's wrong guess
+ * about what decides this.
  */
-export function pointerSeat(role: ViewRole, world: World, cfg: SimConfig): 1 | 2 {
-  if (role === "p1") return 1;
-  if (role === "p2") return 2;
-  if (world.boss?.kind === "warden") return wardenRescuer(wardenCycle(cfg, world.waveBeat));
-  return 1;
+export function pointerSeat(role: ViewRole): 1 | 2 {
+  return role === "p2" ? 2 : 1;
 }
 
 /**

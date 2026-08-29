@@ -31,17 +31,24 @@ export interface BossConfig {
   wardenRow: number;
   /** Beats between one tether and the next. One cycle is one whole encounter in miniature. */
   wardenCycleBeats: number;
+  /** Rows below the rim the line's handle hangs. It is lowered once and then
+   * hangs there: nothing about this line falls, and nothing about it can hurt
+   * the ship (docs/spec/bosses.md 11.4). Far enough down that the rope reads as
+   * a rope rather than as a stub under the ring. */
+  wardenHangRows: number;
   /**
-   * Beats of hold — accumulated, not unbroken — that tear a tether out of the
-   * rim. Deliberately well under the six the line takes to reach the hull: the
-   * question the fight asks is *when* the other player can spare their hand,
-   * never whether they can hold it steady on a phone.
+   * How far the hand has to carry the handle before the line is fully taut, in
+   * thousandths of a tile. It is a **distance**, not a duration, and that is
+   * the fight: the hatch opens in proportion to how far the handle has come, so
+   * the pulling seat's hand is a dial the other seat can read off the picture.
+   *
+   * Sideways, because the handle hangs under the middle of the ring and swinging
+   * it aside is what clears the shot lane it was standing in. Roughly a quarter
+   * of the field's width: one thumb movement, not a series of them.
    */
-  wardenPullBeats: number;
+  wardenTautMilli: number;
   /** Plates the ring wears. One comes off per opened eye, and the gap never fills. */
   wardenPlates: number;
-  /** Damage a tether that reaches the hull costs. */
-  damageWarden: number;
   /** Score for taking a plate off the Warden. */
   scoreWardenPlate: number;
   /** Score for bringing the Warden down. */
@@ -141,9 +148,9 @@ export const BOSS_DEFAULTS: BossConfig = {
   scoreQueenDown: 2000,
   wardenRow: 2,
   wardenCycleBeats: 12,
-  wardenPullBeats: 2,
+  wardenHangRows: 5,
+  wardenTautMilli: 2500,
   wardenPlates: 5,
-  damageWarden: 16,
   scoreWardenPlate: 500,
   scoreWardenDown: 2500,
   mirrorRow: 3,

@@ -44,20 +44,12 @@ export function resolveHull(world: World): void {
 
   for (const c of world.creatures) {
     // A rock is in reach of the shield a row before it is in reach of the
-    // hull. Nothing else is: the shield has nothing to say to a slick, a
-    // tether or a boss, so those are still only resolved on the ship's row.
+    // hull. Nothing else is: the shield has nothing to say to a slick or a
+    // boss, so those are still only resolved on the ship's row. THE WARDEN's
+    // line never arrives here at all — it hangs where the rim puts it and
+    // falls no further (docs/spec/bosses.md 11.4).
     if (c.row < (isMeteorKind(c.kind) ? guardRow : shipRow)) {
       survivors.push(c);
-      continue;
-    }
-
-    if (c.kind === "tether") {
-      // Not shootable and not wardable — the shield has nothing to do with it
-      // and it is not a guard try. A line that gets all the way down breaks
-      // the hull in the column the pair chose a cycle ago, and lets go. What
-      // it does *not* do is also take the plate that would have opened: this
-      // fight has no spiral in it (docs/spec/bosses.md 11.4).
-      breachHull(world, c.col, c.kind, c.fromRow, world.cfg.damageWarden);
       continue;
     }
 

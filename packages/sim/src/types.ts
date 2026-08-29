@@ -230,16 +230,16 @@ export type Command =
    * origin does: the next supersedes it and says the same thing. An increment
    * that never arrived is gone for good and leaves the wheel a step out of true
    * — the same property that makes `cannonCol` send a column and not "one to the
-   * left". `target` names the element: the eleven rounds to come add a name here.
+   * left". `target` names the element, and the rounds to come add to that list.
    */
   | { kind: "drag"; target: DragTarget; on: boolean; fromMilli: number }
   | { kind: "restart" };
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
- * list rather than a creature id, because THE MAZE's string is not a creature
- * and never will be — a drag that could only name one could not reach the first
- * thing that wanted it. */
-export type DragTarget = "mazeString";
+ * list rather than a creature id, because THE MAZE's string is not a creature —
+ * a drag that could only name one could not reach the first thing that wanted
+ * it, and THE WARDEN's rope is one that is. */
+export type DragTarget = "mazeString" | "wardenTether";
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

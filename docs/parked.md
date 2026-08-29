@@ -935,6 +935,102 @@ calls `poseAt` directly and that call is correct, because no shipped motion
 declares an axis. The row becomes possible the day one does — and that is
 also the day it starts mattering.
 
+## Something on the field takes one of your controls, and you can see it doing it
+
+2026-08-29 · claude/burn-tether-pull
+
+Mechanic · Designed
+
+THE WARDEN used to **clamp** a control. Every cycle a line came out of its rim
+and froze one of the pair's two sliding controls — a clamped cannon took no
+`cannonCol`, a clamped shield no `shieldCol`, and the commands were dropped
+rather than queued so a release could not teleport the control to wherever a
+thumb had wandered. Only the player it was *not* holding could pull it free, at
+the cost of their own hand: for those beats there was one working control
+between two people. It alternated strictly, cannon then shield, so the pair
+always knew whose turn it was to be helpless a cycle before it happened.
+
+The owner's own diagnosis of why it failed, which is the part worth keeping:
+
+> das alte konzept, was du beschreibst, gefällt mir nicht und war nicht klar
+> verständlich - es gab dazu kein visual, damit das klar wird, und das klemmen
+> war nicht lange genug.
+
+*There was no visual to make it clear, and the clamping did not hold long
+enough.* So the mechanic was correct on paper and invisible in play: a player
+whose strip stopped answering had no way to learn *why* it had stopped, and by
+the time they might have worked it out it was over.
+
+Both halves of the fix are theirs too, and they are what a second attempt has to
+build. **Something visibly reaching from the object to the ship** — *vielleicht
+eine art blitz oder ein greifarm der vom objekt zum schiff geht, damit klar ist,
+dass er manipuliert*: a bolt of lightning or a grabbing arm, so it is obvious
+that the thing up there is doing this to you. And **the harm shown at the panel
+itself** — *muss einer roten farbe links rechts an den control panel z.b.* — a
+red edge on the left or right of the control panel, so a player can see at a
+glance which of their two hands has been taken rather than discovering it by
+pressing.
+
+They may want it for a different boss later, and it is a better idea than the
+version that shipped. Start with the two visuals, not with the rule: the rule
+was never the thing that was wrong.
+
+## Something falls, and a hand has to hold it back or it costs the ship
+
+2026-08-29 · claude/burn-tether-pull
+
+Mechanic · Designed
+
+The concept behind `grip.ts`, off the field for now. Something descends at its
+own speed; either player can put a finger on it and it falls slower for as long
+as the finger stays; letting it through breaks the hull. The cost is the hand —
+a thumb on the field is a thumb off the strip below it, so holding something for
+your partner means not moving your own control. That is what makes it an assist
+rather than a brake on the whole game, and it is why it can apply to every
+creature in every wave, rocks included: a rock cannot be shot, so the only thing
+a second pair of hands could ever do about one is buy the shield another beat to
+reach its column.
+
+THE WARDEN's line was the sharpest version of it — a thing you could *only* put
+a hand on, answered by neither cannon nor shield — and the owner took it off the
+boss and off every other wave:
+
+> keine bedrohung mehr. aber behalte das konzept von: etwas fällt und muss
+> gehalten werden, sonst beschädigt es das schiff.
+
+*No more threat — but keep the concept.* The grip itself is still in the code
+and still works on anything that falls; what is gone is a wave that asks for it.
+Picking this up is a creature or a boss that makes holding the interesting
+choice, not new machinery: `grippedFallTiles` and `gripSlowPermille` are already
+there and already deterministic.
+
+## Hold something long enough and it tears — a window somebody closes by succeeding
+
+2026-08-29 · claude/burn-tether-pull
+
+Mechanic · Implemented
+
+The control THE WARDEN was played with before the pull replaced it: **hold, and
+only hold**. A thumb on the line accumulated `wardenPullBeats` of hold across
+ticks rather than needing it unbroken, and when the total was reached the line
+tore out of the rim. Accumulated on purpose — a thumb that slips for a moment on
+a phone loses that moment and nothing else, so the question the fight asked was
+*when* the other player could spare their hand, never whether they could hold it
+steady. It is worth remembering as an in-screen control that was tried and works.
+
+Beside it, the argument for the tear that the owner heard and decided against.
+A gate held open purely by tension is **unbounded**: nothing ends the window
+except letting go, so "when can you spare a hand" quietly becomes "how long can
+you hold". A line that tears after enough tension puts a ceiling back on it and
+ends the window by *succeeding* rather than by giving up. The owner chose the
+block and tackle for THE WARDEN — *nicht das loslassen, und auch nicht das
+reißen, sondern das bloße halten gespannt (wie ein tor mit flaschenzug)* — and
+kept this to be tested, probably on another wave or boss.
+
+The two go together: hold-to-tear is the control, and the ceiling is the reason
+to reach for it. Start by asking what the pair is doing with the *other* three
+hands while one of them holds, because that is the whole content of it.
+
 ### Postponed: creatures and bosses
 
 Grouped here, and last, because the owner asked to postpone them: continuing

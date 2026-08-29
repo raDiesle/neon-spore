@@ -4,9 +4,7 @@ import {
   createRng,
   createWorld,
   DEFAULT_CONFIG,
-  fallTilesPerBeat,
   hullRow,
-  NO_GRIP,
   type SimConfig,
   type SimEvent,
   startWave,
@@ -16,35 +14,36 @@ import {
   WARDEN_COLS,
   type WardenState,
   type World,
-  wardenClamp,
-  wardenClampedControl,
   wardenColor,
-  wardenCycleBeat,
   wardenEyeOpen,
-  wardenReachBeats,
-  wardenRescuer,
+  wardenPullMilli,
   wardenTether,
 } from "../src/index.js";
 
 /**
- * THE WARDEN: the boss that takes a hand off you.
+ * THE WARDEN: the boss that is a gate on a block and tackle.
  *
- * The whole fight is one cycle repeated, so most of what is checked here is
- * that cycle keeping its promises — the ones `docs/spec/bosses.md` 11.4 makes
- * in a table and that a pair has to be able to learn on their first turn:
- * the line lands where the control was standing, the clamp alternates, the
- * clock never moves, the vent arrives exactly one cycle later.
+ * The whole fight is one rope repeated, so most of what is checked here is that
+ * rope keeping its promises — the ones `docs/spec/bosses.md` 11.4 makes and that
+ * a pair has to be able to learn on their first pull: the handle hangs under the
+ * middle of the ring, the hatch opens *in proportion* to the tension and by
+ * nothing else, only the pilot may pull, and a landed shot takes the rope away.
+ *
+ * The proportionality is the one that matters most and is the easiest to lose.
+ * Player 2 cannot feel the rope; how far the hatch has come open is the only
+ * thing they have, so a hatch that snapped from shut to open at a threshold
+ * would turn the fight into two people reading a number out loud.
  */
 
 /**
  * The defaults with the hull's trickle of regeneration switched off. Every
- * assertion below about what something cost is then an exact number rather
- * than one that drifts by whatever fraction of a second the run took.
+ * assertion below about what something cost is then an exact number rather than
+ * one that drifts by whatever fraction of a second the run took.
  */
 const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
 const TPB = ticksPerBeat(CFG);
-const REACH = wardenReachBeats(CFG);
-const CENTRE = Math.floor(CFG.cols / 2);
+const TAUT = CFG.wardenTautMilli;
+const MIDDLE = Math.floor((CFG.cols - WARDEN_COLS) / 2) + Math.floor(WARDEN_COLS / 2);
 
 interface Run {
   world: World;
@@ -68,6 +67,16 @@ function beats(run: Run, n: number, inputs: TimedCommand[] = []): Run {
   return run;
 }
 
+/** One tick, carrying exactly these commands. The rope answers on the tick. */
+function tick(run: Run, ...commands: Omit<TimedCommand, "tick">[]): Run {
+  step(
+    run.world,
+    commands.map((c) => ({ ...c, tick: run.world.tick })),
+  );
+  run.events.push(...run.world.events);
+  return run;
+}
+
 const warden = (world: World): WardenState => {
   const b = world.boss;
   if (b === null || b.kind !== "warden") throw new Error("no warden on the field");
@@ -80,39 +89,143 @@ const at = (beat: number, player: 1 | 2, command: TimedCommand["command"]): Time
   command,
 });
 
-/** A hand on whatever line is hanging, held from `beat` for `hold` beats. */
-function pull(run: Run, beat: number, player: 1 | 2, hold: number): TimedCommand[] {
-  beats(run, beat);
-  const tether = wardenTether(run.world);
-  if (!tether) throw new Error(`no tether at beat ${beat}`);
-  return [
-    at(beat, player, { kind: "grip", id: tether.id }),
-    at(beat + hold, player, { kind: "grip", id: NO_GRIP }),
-  ];
+/** A hand on the handle, `fromMilli` from where it grabbed. */
+const drag = (player: 1 | 2, on: boolean, fromMilli: number): Omit<TimedCommand, "tick"> => ({
+  player,
+  command: { kind: "drag", target: "wardenTether", on, fromMilli },
+});
+
+/** Grab the handle and haul it `milli` thousandths of a tile aside. Two ticks. */
+function haul(run: Run, milli: number, player: 1 | 2 = 1): Run {
+  tick(run, drag(player, true, 0));
+  tick(run, drag(player, true, milli));
+  return run;
 }
 
-describe("the cycle", () => {
-  it("puts a line on the control where it stands, and nowhere else", () => {
+/** A rope down, grabbed and pulled fully taut, with the hatch standing open. */
+function taut(plates?: number): Run {
+  const run = open(plates);
+  beats(run, 1);
+  return haul(run, TAUT);
+}
+
+describe("the rope", () => {
+  it("comes down out of the middle of the rim, and nowhere else", () => {
     const run = open();
     beats(run, 1);
-    const tether = wardenTether(run.world);
-    // Cycle 0 clamps the cannon, and the cannon starts in the middle.
-    expect(wardenClampedControl(0)).toBe("cannon");
-    expect(tether?.col).toBe(CENTRE);
-    expect(wardenClamp(run.world)).toBe("cannon");
+    expect(wardenTether(run.world)?.col).toBe(MIDDLE);
+    // Lowered rather than dropped: it starts at the rim and hangs where it is
+    // put, which is what render/ glides over the attach beat.
+    expect(wardenTether(run.world)?.fromRow).toBe(CFG.wardenRow);
+    expect(wardenTether(run.world)?.row).toBe(CFG.wardenRow + CFG.wardenHangRows);
   });
 
-  it("alternates cannon, shield, cannon — so the pair always knows whose turn it is", () => {
+  it("never falls, never reaches the hull and costs nothing at all", () => {
     const run = open();
-    const seen: (string | null)[] = [];
-    for (let cycle = 0; cycle < 3; cycle++) {
-      beats(run, cycle === 0 ? 1 : CFG.wardenCycleBeats);
-      seen.push(wardenClamp(run.world));
-    }
-    expect(seen).toEqual(["cannon", "shield", "cannon"]);
+    beats(run, CFG.wardenCycleBeats - 1);
+    expect(wardenTether(run.world)?.row).toBe(CFG.wardenRow + CFG.wardenHangRows);
+    expect(hullRow(CFG) - wardenTether(run.world)!.row).toBeGreaterThan(0);
+    expect(run.world.hullMilli).toBe(100_000);
+    expect(run.world.scars).toHaveLength(0);
+    // And it is not a guard try either — the shield has nothing to do with it.
+    expect(run.world.guard.tries).toBe(0);
   });
 
-  it("stands the ring dead centre and never moves it", () => {
+  it("is replaced once a cycle, in the other colour", () => {
+    const run = open();
+    beats(run, 1);
+    const first = wardenTether(run.world)!.id;
+    expect(wardenColor(0)).toBe("red");
+    beats(run, CFG.wardenCycleBeats);
+    expect(wardenTether(run.world)!.id).not.toBe(first);
+    expect(wardenColor(1)).toBe("cyan");
+  });
+
+  it("cannot be shot, and does not stop a shot going up its column", () => {
+    const run = open();
+    beats(run, 1);
+    const rope = wardenTether(run.world)!;
+    beats(run, 2, [at(1, 2, { kind: "fire", color: "red" })]);
+    expect(wardenTether(run.world)?.id).toBe(rope.id);
+    expect(wardenTether(run.world)?.holes).toBe(0);
+    expect(run.events.some((e) => e.type === "reject")).toBe(true);
+  });
+});
+
+describe("the pull", () => {
+  it("opens the hatch by degrees, in proportion and with nothing eased", () => {
+    const run = open();
+    beats(run, 1);
+    tick(run, drag(1, true, 0));
+    expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
+    for (const share of [0.25, 0.5, 0.75, 1]) {
+      tick(run, drag(1, true, Math.round(TAUT * share)));
+      expect(wardenPullMilli(run.world, warden(run.world))).toBe(Math.round(share * 1000));
+    }
+  });
+
+  it("opens the eye only when the rope is fully taut, and not a step before", () => {
+    const run = open();
+    beats(run, 1);
+    tick(run, drag(1, true, 0));
+    tick(run, drag(1, true, TAUT - 1));
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
+    tick(run, drag(1, true, TAUT));
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
+    expect(run.events.some((e) => e.type === "eyeOpen")).toBe(true);
+  });
+
+  it("does not care which way the hand went", () => {
+    const run = open();
+    beats(run, 1);
+    haul(run, -TAUT);
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
+  });
+
+  it("shuts the moment the hand lifts", () => {
+    const run = taut();
+    tick(run, drag(1, false, 0));
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
+    expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
+  });
+
+  it("refuses player 2, who is the one who fires", () => {
+    const run = open();
+    beats(run, 1);
+    haul(run, TAUT, 2);
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
+    expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
+  });
+
+  it("measures from the grab, so the hand's own starting place is nothing", () => {
+    // The origin is resolved on the pulling device and never crosses the wire;
+    // what arrives is a displacement, and a grab far off centre must pull
+    // exactly as far as one under the handle (`Command` in `types.ts`).
+    const run = open();
+    beats(run, 1);
+    tick(run, drag(1, true, 9_000));
+    expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
+    tick(run, drag(1, true, 9_000 + TAUT));
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
+  });
+
+  it("is stored rather than recomputed, so a hand that stops moving holds", () => {
+    // A finger held perfectly still sends nothing at all. The gate must stay
+    // open across every one of those ticks or the fight is unplayable.
+    const run = taut();
+    beats(run, 3);
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
+  });
+
+  it("draws nothing from the rng — the same fight on both devices", () => {
+    const run = taut();
+    beats(run, CFG.wardenCycleBeats * 2);
+    expect(run.world.rng.state).toBe(createRng(1).state);
+  });
+});
+
+describe("the ring", () => {
+  it("stands dead centre and never moves", () => {
     const run = open();
     const col = () => run.world.creatures.find((c) => c.kind === "warden")?.col;
     const start = col();
@@ -121,151 +234,66 @@ describe("the cycle", () => {
     expect(col()).toBe(start);
   });
 
-  it("drifts the pupil inside the rim and never out of it", () => {
-    const run = open();
+  it("drifts the pupil inside the rim and never out of it, open or shut", () => {
+    const run = taut();
     const body = () => run.world.creatures.find((c) => c.kind === "warden")!;
-    for (let b = 0; b < CFG.wardenCycleBeats * 2; b++) {
+    for (let b = 0; b < CFG.wardenCycleBeats; b++) {
       beats(run, 1);
-      const lo = body().col;
-      expect(warden(run.world).pupilCol).toBeGreaterThanOrEqual(lo);
-      expect(warden(run.world).pupilCol).toBeLessThanOrEqual(lo + WARDEN_COLS - 1);
+      expect(warden(run.world).pupilCol).toBeGreaterThanOrEqual(body().col);
+      expect(warden(run.world).pupilCol).toBeLessThanOrEqual(body().col + WARDEN_COLS - 1);
     }
   });
-
-  it("draws nothing from the rng — the same fight on both devices", () => {
-    const run = open();
-    beats(run, CFG.wardenCycleBeats * 3);
-    expect(run.world.rng.state).toBe(createRng(1).state);
-  });
 });
 
-describe("a clamped control", () => {
-  it("takes no column, and does not queue the one it refused", () => {
-    const run = open();
-    beats(run, 1);
-    beats(run, 2, [at(1, 1, { kind: "cannonCol", col: 0 })]);
-    expect(run.world.cannonCol).toBe(CENTRE);
-    // The line reaches the hull on the reach beat and lets go; the cannon is
-    // still where it was, not where the thumb wandered while it was held.
-    beats(run, REACH);
-    expect(wardenClamp(run.world)).toBeNull();
-    expect(run.world.cannonCol).toBe(CENTRE);
-  });
-
-  it("leaves the other control alone", () => {
-    const run = open();
-    beats(run, 2, [at(1, 2, { kind: "shieldCol", col: 1 })]);
-    expect(run.world.shieldCol).toBe(1);
-  });
-
-  it("leaves the trigger and the maw working — it is the sliding that stops", () => {
-    const run = open();
-    beats(run, 2, [at(1, 1, { kind: "guard" })]);
-    expect(run.world.guardTick).toBeGreaterThan(0);
-  });
-});
-
-describe("the rescue", () => {
-  it("refuses the hand of the player it is holding", () => {
-    const run = open();
-    const held = pull(run, 1, 1, 4); // cycle 0 clamps the cannon, so player 1
-    beats(run, 4, held);
-    expect(warden(run.world).tornBeat).toBe(-1);
-    expect(wardenTether(run.world)).not.toBeNull();
-  });
-
-  it("tears on `wardenPullBeats` of hold by the other player, and opens the eye", () => {
-    const run = open();
-    expect(wardenRescuer(0)).toBe(2);
-    const held = pull(run, 1, 2, CFG.wardenPullBeats);
-    beats(run, REACH - 1, held);
-    expect(wardenTether(run.world)).toBeNull();
-    expect(run.events.some((e) => e.type === "tetherTorn")).toBe(true);
-    // The clock never moves: torn early or late, the pupil opens on the same
-    // beat it always opens on.
-    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
-    beats(run, 1);
-    expect(wardenCycleBeat(CFG, run.world.waveBeat)).toBe(REACH);
-    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
-  });
-
-  it("accumulates the hold rather than demanding it unbroken", () => {
-    const run = open();
-    beats(run, 1);
-    const id = wardenTether(run.world)!.id;
-    const half = CFG.wardenPullBeats / 2;
-    beats(run, 4, [
-      at(1, 2, { kind: "grip", id }),
-      at(1 + half, 2, { kind: "grip", id: NO_GRIP }),
-      at(2 + half, 2, { kind: "grip", id }),
-      at(2 + CFG.wardenPullBeats, 2, { kind: "grip", id: NO_GRIP }),
-    ]);
-    expect(warden(run.world).tornBeat).not.toBe(-1);
-  });
-
-  it("saves the hull but opens nothing when the pull lands late", () => {
-    // A hold longer than the line's whole fall, so the hand is still on it
-    // when the pupil would have opened. The hand slows the line all the way
-    // (`gripSlowPermille`), which is what makes a late pull a real trade: the
-    // hull is saved and the cycle opens nothing.
-    const slow: SimConfig = { ...CFG, wardenPullBeats: REACH + 2 };
-    const run = open(undefined, slow);
-    const held = pull(run, 1, 2, REACH + 2);
-    beats(run, REACH + 1, held);
-    expect(run.world.hullMilli).toBe(100_000);
-    expect(warden(run.world).tornBeat).toBe(-1);
-    expect(warden(run.world).openBeat).toBe(-1);
-    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
-  });
-
-  it("costs the hull and a scar when it gets all the way down, and nothing else", () => {
-    const run = open();
-    beats(run, REACH + 1);
-    expect(run.world.hullMilli).toBe((100 - CFG.damageWarden) * 1000);
-    expect(run.world.scars.map((s) => s.kind)).toEqual(["tether"]);
-    // No compounding: the plate the opening would have taken is simply not
-    // taken, and the guard balance never saw a try it could not have answered.
-    expect(warden(run.world).plates).toBe(CFG.wardenPlates);
-    expect(run.world.guard.tries).toBe(0);
-  });
-});
-
-describe("the open eye", () => {
-  /** Tear the line and stand the cannon under the pupil, ready to fire. */
-  function opened(plates?: number): Run {
-    const run = open(plates);
-    const held = pull(run, 1, 2, CFG.wardenPullBeats);
-    beats(run, REACH, held);
-    return run;
-  }
-
+describe("the shot into the eye", () => {
   const rimColor = (): Color => wardenColor(0);
 
   function shoot(run: Run, col: number, color: Color): void {
-    const beat = Math.round(run.world.tick / TPB);
-    beats(run, 2, [at(beat, 1, { kind: "cannonCol", col }), at(beat, 2, { kind: "fire", color })]);
+    tick(
+      run,
+      { player: 1, command: { kind: "cannonCol", col } },
+      { player: 2, command: { kind: "fire", color } },
+    );
+    beats(run, 2);
   }
 
   it("takes a plate for the rim's colour in the pupil's column", () => {
-    const run = opened();
+    const run = taut();
     const before = warden(run.world).plates;
     shoot(run, warden(run.world).pupilCol, rimColor());
     expect(warden(run.world).plates).toBe(before - 1);
     expect(run.events.some((e) => e.type === "plate")).toBe(true);
   });
 
+  it("snaps the rope back, in the same breath as the plate", () => {
+    const run = taut();
+    shoot(run, warden(run.world).pupilCol, rimColor());
+    expect(wardenTether(run.world)).toBeNull();
+    expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
+    expect(warden(run.world).pulling).toBe(false);
+  });
+
+  it("makes a hand that never lifted pull again from where it is", () => {
+    // The finger is still on the glass after the hit, so its `fromMilli` is
+    // still enormous. The next rope must not arrive already taut under it.
+    const run = taut();
+    shoot(run, warden(run.world).pupilCol, rimColor());
+    beats(run, CFG.wardenCycleBeats);
+    expect(wardenTether(run.world)).not.toBeNull();
+    tick(run, drag(1, true, TAUT));
+    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
+  });
+
   it("spends the opening on one shot — a spray may not skip a plate", () => {
-    const run = opened();
+    const run = taut();
     const before = warden(run.world).plates;
     shoot(run, warden(run.world).pupilCol, rimColor());
     shoot(run, warden(run.world).pupilCol, rimColor());
     expect(warden(run.world).plates).toBe(before - 1);
   });
 
-  it("reads a wrong colour as a colour miss and a shut iris as neither", () => {
-    const wrong = open();
-    const held = pull(wrong, 1, 2, CFG.wardenPullBeats);
-    beats(wrong, REACH, held);
+  it("reads a wrong colour as a colour miss and a shut hatch as neither", () => {
+    const wrong = taut();
     shoot(wrong, warden(wrong.world).pupilCol, rimColor() === "red" ? "cyan" : "red");
     expect(wrong.world.balance.colorMisses).toBe(1);
     expect(warden(wrong.world).plates).toBe(CFG.wardenPlates);
@@ -278,8 +306,8 @@ describe("the open eye", () => {
     expect(warden(shut.world).plates).toBe(CFG.wardenPlates);
   });
 
-  it("goes down on its last plate, and takes its line with it", () => {
-    const run = opened(1);
+  it("goes down on its last plate, and takes its rope with it", () => {
+    const run = taut(1);
     shoot(run, warden(run.world).pupilCol, rimColor());
     expect(run.world.boss).toBeNull();
     expect(run.world.creatures.filter((c) => c.kind === "tether")).toHaveLength(0);
@@ -288,68 +316,15 @@ describe("the open eye", () => {
   });
 });
 
-describe("the vent", () => {
-  it("squeezes a rock out of the pupil's column whether the line was torn or not", () => {
+describe("nothing in this fight can hurt the pair", () => {
+  it("puts nothing on the field and takes nothing off the hull, all fight", () => {
+    // The clamp, the falling line and the vented rock all came off together
+    // (docs/parked.md). The room that leaves is the owner's to fill.
     const run = open();
-    beats(run, REACH + 3);
-    expect(wardenCycleBeat(CFG, run.world.waveBeat)).toBe(REACH + 2);
-    const rock = run.world.creatures.find((c) => c.kind === "meteor");
-    // The column the iris shut on, which is where the rock was standing all
-    // along — it is squeezed out, not spawned above the field.
-    expect(rock?.col).toBe(warden(run.world).pupilCol);
-    expect(rock?.row).toBe(CFG.wardenRow);
-    expect(rock?.fromRow).toBe(CFG.wardenRow);
-  });
-
-  it("lands on the vent beat of the next cycle — a whole cycle of warning", () => {
-    const run = open();
-    beats(run, REACH + 3);
-    const rocks = (): SimEvent[] =>
-      run.events.filter((e) => e.type === "breach" && e.kind === "meteor");
-    // A whole cycle in the air, and nothing of it lands early. The next
-    // cycle's own tether comes down in the middle of that, which is the point:
-    // the pair has to have parked the shield in this column a cycle ago while
-    // one of them was busy being held.
-    beats(run, CFG.wardenCycleBeats - 1);
-    expect(rocks()).toHaveLength(0);
-    beats(run, 1);
-    expect(wardenCycleBeat(CFG, run.world.waveBeat)).toBe(REACH + 2);
-    expect(rocks()).toHaveLength(1);
-  });
-});
-
-describe("the line itself", () => {
-  it("cannot be shot, and does not stop a shot going up its column", () => {
-    const run = open();
-    beats(run, 1);
-    const tether = wardenTether(run.world)!;
-    beats(run, 2, [at(1, 2, { kind: "fire", color: "red" })]);
-    // Still hanging, no crater on it, and the shot went past it to the ring.
-    expect(wardenTether(run.world)?.id).toBe(tether.id);
-    expect(wardenTether(run.world)?.holes).toBe(0);
-    expect(run.events.some((e) => e.type === "reject")).toBe(true);
-  });
-
-  it("is not a guard try — the shield has nothing to do with it", () => {
-    const run = open();
-    beats(run, REACH + 1, [
-      at(1, 2, { kind: "shieldCol", col: CENTRE }),
-      at(REACH, 1, { kind: "guard" }),
-    ]);
-    expect(run.world.guard.tries).toBe(0);
-    expect(run.world.hullMilli).toBe((100 - CFG.damageWarden) * 1000);
-  });
-
-  it("reaches the hull from the rim in exactly the beats the table says", () => {
-    const run = open();
-    beats(run, 1);
-    expect(wardenTether(run.world)?.row).toBe(CFG.wardenRow);
-    // One beat short of the reach it is still one step above the hull; on the
-    // reach beat it arrives, and `resolveHull` takes it off the field.
-    beats(run, REACH - 1);
-    expect(hullRow(CFG) - wardenTether(run.world)!.row).toBe(fallTilesPerBeat("tether"));
-    beats(run, 1);
-    expect(wardenTether(run.world)).toBeNull();
-    expect(run.world.hullMilli).toBe((100 - CFG.damageWarden) * 1000);
+    beats(run, CFG.wardenCycleBeats * 3);
+    expect(run.world.hullMilli).toBe(100_000);
+    expect(run.world.creatures.filter((c) => c.kind !== "warden" && c.kind !== "tether")).toEqual(
+      [],
+    );
   });
 });

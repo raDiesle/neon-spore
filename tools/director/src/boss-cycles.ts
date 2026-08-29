@@ -7,9 +7,7 @@ import {
   vanePivotCol,
   vaneStageStart,
   WARDEN_PHASES,
-  wardenClampedControl,
   wardenColor,
-  wardenReachBeats,
 } from "@neon-spore/sim";
 
 /**
@@ -62,8 +60,9 @@ export function placementNote(): HTMLElement {
 
 /**
  * THE WARDEN's panel. Its one authored number is the plate count; everything
- * else about it is fixed — it stands dead centre, and its cycle follows from
- * `wardenRow` and how fast a tether falls.
+ * else about it is fixed — it stands dead centre, and the fight is the rope
+ * rather than a clock, so the table below says what the pair does rather than
+ * what beat it happens on.
  */
 export function renderWarden(
   panel: HTMLElement,
@@ -86,26 +85,26 @@ export function renderWarden(
   blurb.textContent = CREATURES.warden.blurb;
   panel.appendChild(blurb);
 
-  const reach = wardenReachBeats(cfg);
   const cycle = document.createElement("table");
   cycle.className = "boss-phases";
   cycle.innerHTML =
     "<tr><th>cycle beat</th><th>what happens</th></tr>" +
-    `<tr><td>0</td><td>a line takes the ${wardenClampedControl(0)} (${wardenColor(0)} rim), ` +
-    `then the ${wardenClampedControl(1)} (${wardenColor(1)}) next cycle</td></tr>` +
-    `<tr><td>0–${reach}</td><td>it draws down that column. Only the other player may pull it</td></tr>` +
-    `<tr><td>${reach}–${reach + 2}</td><td>torn in time: the pupil snaps wide, one shot counts</td></tr>` +
-    `<tr><td>${reach + 2}</td><td>the iris shuts and vents a rock, torn or not</td></tr>` +
-    `<tr><td>${cfg.wardenCycleBeats}</td><td>the next line, on the other control</td></tr>`;
+    `<tr><td>0</td><td>a rope is lowered from the middle of the rim, ` +
+    `${wardenColor(0)} on this cycle and ${wardenColor(1)} on the next</td></tr>` +
+    "<tr><td>any</td><td>player 1 pulls the handle aside. The hatch and the " +
+    "eyelids open in proportion to the tension, and nothing else opens them</td></tr>" +
+    "<tr><td>any</td><td>fully taut: player 2 fires the rim's colour into the " +
+    "pupil's column. One shot per rope</td></tr>" +
+    "<tr><td>on a hit</td><td>a plate goes, the hatch shuts and the rope snaps back</td></tr>" +
+    `<tr><td>${cfg.wardenCycleBeats}</td><td>the next rope, in the other colour</td></tr>`;
   panel.appendChild(cycle);
 
   const phases = document.createElement("table");
   phases.className = "boss-phases";
   phases.innerHTML =
-    "<tr><th></th><th>plates above</th><th>pupil drift</th><th>vent</th></tr>" +
+    "<tr><th></th><th>plates above</th><th>pupil drift</th></tr>" +
     WARDEN_PHASES.map(
-      (p) =>
-        `<tr><td>${p.name}</td><td>${p.above}</td><td>${p.drift}/beat</td><td>${p.vent}</td></tr>`,
+      (p) => `<tr><td>${p.name}</td><td>${p.above}</td><td>${p.drift}/beat</td></tr>`,
     ).join("");
   panel.appendChild(phases);
 }

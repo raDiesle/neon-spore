@@ -63,11 +63,11 @@ export const WAVES_ACT_2: Wave[] = [
   {
     name: "THE WARDEN",
     sentence:
-      "The one where it holds one of your controls and only the other one of you can get it back.",
+      "The one where he holds the door open and she has to be quick enough to shoot through it.",
     guide: {
-      both: "A ring five columns wide with a hole you can see the field through. It never moves, it takes one of your two sliding controls at a time, and the line it puts out can neither be shot nor warded.",
-      p1: "Only a shot of the rim's own colour, in the hole's own column, takes a plate off it. Whichever of you the line is holding cannot slide at all until it is off.",
-      p2: "The core only stands still for two beats after a line comes free — that is the whole window. Only the one the line is not holding can pull it, and pulling costs that hand.",
+      both: "A ring five columns wide with a hole you can see the field through. It never moves. A rope hangs out of the middle of it, and the hatch behind that rope is the only way to its eye.",
+      p1: "You take the handle on the rope and pull it aside, and you keep pulling. The further you pull, the further the hatch opens — and you cannot fire. Tell her when it is all the way over.",
+      p2: "You fire, and you cannot touch the rope. Only a shot of the rim's own colour, in the eye's own column, and only while he has it fully open. A hit takes a plate and the rope snaps back.",
     },
     entries: [],
     boss: { kind: "warden" },

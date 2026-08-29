@@ -42,6 +42,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     seat,
     cfg: CFG,
     maze: null,
+    warden: null,
     controls,
   };
 }

@@ -68,7 +68,7 @@ export const BOSS_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A door in something enormous, opening once and shutting once.",
     status: "bound",
-    use: "The Warden's pupil snapping wide after a tether is torn.",
+    use: "The Warden's hatch coming fully open as the rope is pulled taut.",
     level: 0.42,
     layers: [
       metal(44, 0.9, 0.55, 130),
@@ -81,7 +81,7 @@ export const BOSS_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A cable going taut, and something heavy taking up the slack behind it.",
     status: "bound",
-    use: "A tether attaching, and one of the pair's two sliding controls freezing.",
+    use: "The Warden lowering a rope out of the middle of its rim.",
     level: 0.4,
     layers: [
       metal(58, 0.5, 0.42, 200),

@@ -179,10 +179,12 @@ export function hashWorld(world: World): number {
     push(boss.pupilCol);
     push(boss.pupilDir);
     push(boss.plates);
-    push(boss.tornBeat);
-    push(boss.openBeat);
     push(boss.eyeSpent ? 1 : 0);
-    push(boss.pullTicks);
+    // The rope. Two devices that disagree about how taut it is disagree about
+    // whether the hatch is open, which is whether the next shot counts.
+    push(boss.pulling ? 1 : 0);
+    push(boss.pullOriginMilli);
+    push(boss.pullMilli);
   }
   if (boss !== null && boss.kind === "vane") {
     push(boss.pins);

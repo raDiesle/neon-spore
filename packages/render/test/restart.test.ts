@@ -31,7 +31,7 @@ const BUSY: SimEvent[] = [
   { type: "podTaken", col: 4, kind: "mend" },
   { type: "reject", col: 1, row: 4 },
   { type: "petal", col: 5, row: 2, left: 3 },
-  { type: "tetherTorn", col: 4, row: 7, player: 2 },
+  { type: "tether", col: 4, color: "red" },
   { type: "plate", col: 6, row: 2, left: 2, color: "cyan" },
 ];
 

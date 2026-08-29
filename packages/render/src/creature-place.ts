@@ -55,14 +55,14 @@ export function creatureRadius(
 
 /**
  * The creature under a finger, or null. Generous — a thumb covers more than a
- * silhouette and a falling target is not a button — and never a boss body,
- * which cannot be gripped (`isGrippable` in sim/types.ts). The nearest wins
- * when two overlap.
+ * silhouette and a falling target is not a button — and never a boss body or
+ * THE WARDEN's rope, neither of which can be gripped (`isGrippable` in
+ * sim/kinds.ts). The nearest wins when two overlap.
  *
- * The tether is the one thing here that is not a blob on a tile: it is a line
- * from the rim down to its own head, and a hand anywhere along it is a hand on
- * it. Measuring that from its head alone would make the only creature in the
- * game you *have* to grab the hardest one to hit.
+ * The rope used to be answered here, along its whole length, because a hand was
+ * the only thing that touched it. It is now *dragged* by a handle rather than
+ * held, and a handle is a circle rather than a line: `tetherHandleCircle` in
+ * `tether.ts` owns that hit test, beside the code that draws it.
  */
 export function creatureAt(
   l: Layout,
@@ -70,7 +70,6 @@ export function creatureAt(
   x: number,
   y: number,
   beatPhase: number,
-  wardenRow: number,
 ): Creature | null {
   let best: Creature | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
@@ -78,19 +77,10 @@ export function creatureAt(
     if (!isGrippable(c.kind)) continue;
     const { x: cx, y: cy } = creatureCenter(l, c, beatPhase);
     const reach = creatureRadius(l, c, beatPhase) * 1.6;
-    const d =
-      c.kind === "tether"
-        ? lineDistance(x, y, cx, tileCY(l, wardenRow), cy)
-        : Math.hypot(x - cx, y - cy);
+    const d = Math.hypot(x - cx, y - cy);
     if (d > reach || d >= bestDist) continue;
     best = c;
     bestDist = d;
   }
   return best;
-}
-
-/** Distance from a point to a vertical segment — the whole of a tether's reach. */
-function lineDistance(x: number, y: number, cx: number, topY: number, headY: number): number {
-  const clamped = Math.max(Math.min(topY, headY), Math.min(Math.max(topY, headY), y));
-  return Math.hypot(x - cx, y - clamped);
 }

@@ -1,9 +1,4 @@
-import {
-  catmullRomToBezierPath,
-  circleSubpath,
-  hullRadiusMul,
-  type Point,
-} from "@neon-spore/content";
+import { catmullRomToBezierPath, hullRadiusMul, type Point } from "@neon-spore/content";
 import {
   type Creature,
   type SimConfig,
@@ -15,6 +10,7 @@ import {
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
 
 /**
  * THE WARDEN, drawn: a ring with a hole you can see the field through.
@@ -61,26 +57,6 @@ function loop(
     pts.push({ x: cx + Math.cos(a) * r * m, y: cy + Math.sin(a) * r * m });
   }
   return pts;
-}
-
-/**
- * How wide the pupil stands right now, 0 at rest and 1 fully open. It runs on
- * the beat rather than on wall-clock seconds so both screens dilate together,
- * and it goes wide fast and shuts slowly: a recoil, then an iris closing on a
- * rock (`ventRock` in sim/warden.ts).
- */
-export function pupilOpenness(
-  b: WardenState,
-  beat: number,
-  beatPhase: number,
-  open: number,
-): number {
-  if (b.openBeat === -1) return 0;
-  const since = beat - b.openBeat + beatPhase;
-  if (since < 0 || since > open + 1) return 0;
-  if (since < 0.35) return since / 0.35;
-  if (since <= open) return 1;
-  return Math.max(0, 1 - (since - open));
 }
 
 /** How far the ring reaches from its own centre, in screen pixels. */
@@ -149,7 +125,8 @@ export function drawWarden(
   );
 
   drawPlates(ctx, cx, cy, r, b, cfg, time);
-  if (openness > 0) drawCore(ctx, cx + dx, cy, pupilR, hex, rim, openness, beat + beatPhase);
+  drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
+  if (openness > 0) drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, openness, beat + beatPhase);
 }
 
 /**
@@ -181,26 +158,5 @@ function drawPlates(
     ctx.arc(cx, cy, r * 0.94, a0, a0 + arc * 0.76);
     ctx.stroke();
   }
-  ctx.restore();
-}
-
-/** The core, standing in the open hole. Two beats, one shot. */
-function drawCore(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  pupilR: number,
-  hex: string,
-  rim: string,
-  openness: number,
-  t: number,
-): void {
-  const pulse = 0.8 + 0.2 * Math.sin(t * Math.PI * 2);
-  const core = new Path2D(circleSubpath(cx, cy, pupilR * 0.42 * openness * pulse));
-  ctx.save();
-  ctx.globalAlpha = openness;
-  ctx.fillStyle = hex;
-  ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 1.2 * openness);
   ctx.restore();
 }

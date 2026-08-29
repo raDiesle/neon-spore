@@ -1,7 +1,6 @@
 import type { MazeVerdictReason } from "./maze-round.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 import type { Color, Creature, PodKind } from "./types.js";
-import type { WardenControl } from "./warden-cycle.js";
 
 /**
  * Everything the simulation reports about a tick, and the whole of what it
@@ -48,18 +47,13 @@ export type SimEvent =
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number }
   /**
-   * THE WARDEN put a line on one of the pair's controls. `control` says which
-   * of them is helpless for the next few beats and `color` is what the rim
-   * will carry until it lets go — the same colour the one shot at the core
-   * has to be.
+   * THE WARDEN lowered a line out of the middle of its rim. `color` is what the
+   * rim will carry until the line goes — the same colour the one shot into the
+   * eye has to be.
    */
-  | { type: "tether"; col: number; control: WardenControl; color: Color }
-  /** The other player pulled it out of the rim, and which of them did. */
-  | { type: "tetherTorn"; col: number; row: number; player: 1 | 2 }
-  /** The recoil snapped the pupil wide. Two beats, one shot. */
+  | { type: "tether"; col: number; color: Color }
+  /** The line came fully taut and the hatch stands open. One shot counts. */
   | { type: "eyeOpen"; col: number; color: Color }
-  /** The iris shut and squeezed a rock out of the column it shut on. */
-  | { type: "vent"; col: number; kind: Creature["kind"] }
   /** A plate off the rim. `color` is the rim's, which is what took it. */
   | { type: "plate"; col: number; row: number; left: number; color: Color }
   | { type: "wardenDown"; col: number; row: number }

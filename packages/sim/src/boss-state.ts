@@ -59,14 +59,15 @@ export interface QueenState {
 
 /**
  * Everything the Warden encounter remembers between beats — which is
- * deliberately little. Its cycle number, which control is clamped, the rim's
- * colour and the phase are all *derived* from `world.waveBeat` and the plates
- * (`warden.ts`), because a fight with nothing random in it should have nothing
- * to disagree about either.
+ * deliberately little. Its cycle number, the rim's colour and the phase are all
+ * *derived* from `world.waveBeat` and the plates (`warden-cycle.ts`), because a
+ * fight with nothing random in it should have nothing to disagree about either.
  *
- * What is left here is the three things that cannot be derived: which line is
- * live, where the pupil has drifted to, and how much of a hold has gone into
- * the line so far.
+ * What is left is what cannot be derived: which line is live, where the pupil
+ * has drifted to, and where the pulling hand is. The last of those is stored
+ * rather than derived for a reason a phone makes plain — a finger held perfectly
+ * still sends no messages at all, so tension that was recomputed from the last
+ * command would go slack every time somebody stopped moving.
  */
 export interface WardenState {
   kind: "warden";
@@ -81,21 +82,30 @@ export interface WardenState {
   /** Plates left on the rim. The silhouette is the health bar. */
   plates: number;
   /**
-   * The beat this cycle's tether was torn out of the rim, or -1 if it has not
-   * been. Reset at every attach, so it only ever answers for the line that is
-   * hanging now.
+   * Whether this line's opening has already taken its one hit. It is also what
+   * `stepWardenTether` reads to snap the rope back, so it is cleared at the
+   * attach that replaces the line and nowhere else.
    */
-  tornBeat: number;
-  /** The beat the pupil last snapped wide, or -1 if it has not this cycle. */
-  openBeat: number;
-  /** Whether this opening has already taken its one hit. */
   eyeSpent: boolean;
+  /** Whether a hand is on the handle at all. */
+  pulling: boolean;
   /**
-   * Ticks of hold the rescuing player has put into the line. Ticks rather than
-   * beats because the hold accumulates and a slip on a phone must not cost a
-   * cycle — see `wardenPullBeats`.
+   * Where that hand was when it grabbed, in thousandths of a tile of its own
+   * device's displacement. The origin never crosses the wire (`Command` in
+   * `types.ts`); this is the sim's copy of the one the pulling device resolved.
    */
-  pullTicks: number;
+  pullOriginMilli: number;
+  /**
+   * How far the handle has been carried off its column, in thousandths of a
+   * tile, clamped to `wardenTautMilli` either way.
+   *
+   * **Signed**, and the sign is the picture rather than the rule: the tension
+   * is its magnitude, so a gate on a block and tackle does not care which way
+   * you lean — but the rope has to be drawn swinging the way the hand actually
+   * went, or the one thing player 2 can see about their partner's hand is a
+   * mirror image of it.
+   */
+  pullMilli: number;
 }
 
 /**

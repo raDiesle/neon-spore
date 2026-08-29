@@ -11,7 +11,7 @@ import { noteLanceFull } from "./lance.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { advancePods } from "./pods.js";
 import type { TimedCommand } from "./types.js";
-import { pullTether } from "./warden.js";
+import { stepWardenTether, wardenTetherHeard } from "./warden.js";
 import type { World } from "./world.js";
 
 /** Advance exactly one tick. The only way the world ever changes. */
@@ -60,6 +60,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // turns with — one held verb, one seat, one vocabulary.
   for (const c of commands) mazeStringHeard(world, c.player, c.command);
   stepMazeTurn(world);
+  // THE WARDEN's rope, read on the tick for the same reason: how far the hand
+  // has carried the handle is how far the hatch stands open, and a gate that
+  // only answered on the beat would feel like a queue (`warden.ts`).
+  for (const c of commands) wardenTetherHeard(world, c.player, c.command);
   if (world.over) return;
   // Exactly where `fire` used to push the bullet, so a shot laid half a beat
   // ago is indistinguishable from one pressed now by the time anything else
@@ -77,9 +81,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // After the shots, before anything else asks who is holding what: a hand
   // stays on a creature until the creature stops existing.
   dropLostGrips(world);
-  // The Warden's rescue is the one hold measured in ticks rather than beats,
-  // because it accumulates: see `wardenPullBeats`.
-  pullTether(world);
+  // Straight after the shots, so a line whose eye was just hit snaps back in
+  // the same tick the plate came off (`stepWardenTether`).
+  stepWardenTether(world);
   advancePods(world);
   regenerateHull(world);
   progressWave(world);

@@ -1,68 +1,28 @@
 import { describe, expect, test } from "bun:test";
-import { createWorld, DEFAULT_CONFIG, type WardenState } from "@neon-spore/sim";
 import { bindKeyHelp } from "../src/key-help.js";
 import { KEY_BINDINGS } from "../src/keys.js";
 import { pointerSeat } from "../src/stage-touch.js";
 
 /**
- * THE MOUSE IS ONE HAND, AND THE TETHER BELONGS TO THE OTHER ONE.
+ * THE MOUSE IS ONE HAND, AND IT IS THE ROLE BAR THAT SAYS WHOSE.
  *
- * `pointerSeat` is the whole repair: `p1`/`p2` follow the role bar directly,
- * and `test` — the one case with no unambiguous owner — follows THE WARDEN's
- * own rule for who may pull its tether (`wardenRescuer`), because that rule
- * already alternates by cycle and a seat fixed to player 1 would have been
- * right only half the time. See the doc comment on `pointerSeat` for the
- * argument in full.
+ * This used to ask THE WARDEN whose turn it was, because that boss clamped one
+ * of the two sliding controls and only the *other* seat could pull its line. It
+ * no longer clamps anything: the rope is player 1's every cycle and player 2
+ * fires, so there is nothing left to alternate with and `pointerSeat` is the
+ * role and nothing else.
  */
-
-const CFG = DEFAULT_CONFIG;
-
-function wardenState(): WardenState {
-  return {
-    kind: "warden",
-    creatureId: 1,
-    tetherId: 2,
-    pupilCol: 0,
-    pupilDir: 1,
-    plates: CFG.wardenPlates,
-    tornBeat: -1,
-    openBeat: -1,
-    eyeSpent: false,
-    pullTicks: 0,
-  };
-}
 
 describe("pointerSeat", () => {
   test("p1 and p2 are unambiguous: the pointer is that seat's only hand", () => {
-    const world = createWorld(CFG, 1);
-    expect(pointerSeat("p1", world, CFG)).toBe(1);
-    expect(pointerSeat("p2", world, CFG)).toBe(2);
-    // Whichever seat is boss-clamped changes nothing for p1/p2 — the role
-    // already answered the question the warden cycle answers for "test".
-    world.boss = wardenState();
-    expect(pointerSeat("p1", world, CFG)).toBe(1);
-    expect(pointerSeat("p2", world, CFG)).toBe(2);
+    expect(pointerSeat("p1")).toBe(1);
+    expect(pointerSeat("p2")).toBe(2);
   });
 
-  test("test, with no warden up, keeps today's default of player 1", () => {
-    const world = createWorld(CFG, 1);
-    expect(pointerSeat("test", world, CFG)).toBe(1);
-  });
-
-  test("test, with THE WARDEN up, follows the cycle's own rescuer", () => {
-    const world = createWorld(CFG, 1);
-    world.boss = wardenState();
-
-    // Cycle 0 clamps the cannon — player 1 — so player 2 is the rescuer and
-    // the one whose grab on the tether is not refused (`wardenRefusesGrip`).
-    world.waveBeat = 1;
-    expect(pointerSeat("test", world, CFG)).toBe(2);
-
-    // Cycle 1 clamps the shield — player 2 — flipping the rescuer to player 1.
-    // A seat fixed at player 1 would have been right on this cycle and wrong
-    // on the one above it, which is "only when it's near the ship somehow."
-    world.waveBeat = 1 + CFG.wardenCycleBeats;
-    expect(pointerSeat("test", world, CFG)).toBe(1);
+  test("test shows both halves on one screen, and grabs as player 1", () => {
+    // Which is also the seat THE WARDEN's rope belongs to, so the one boss
+    // that ever had an opinion about this agrees with the default.
+    expect(pointerSeat("test")).toBe(1);
   });
 });
 

@@ -94,13 +94,13 @@ export function bindStage(
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
-    // The seat follows the role bar (`pointerSeat` has "test"'s grab).
     field: () => ({
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
-      seat: pointerSeat(role, world, cfg),
+      seat: pointerSeat(role),
       cfg,
       maze: mazeRound(world),
+      warden: world.boss?.kind === "warden" ? world.boss : null,
       controls: currentControlSet(),
     }),
     push: keys.push,

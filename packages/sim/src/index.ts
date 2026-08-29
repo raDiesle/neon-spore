@@ -186,28 +186,15 @@ export {
   vaneTipCol,
   vaneWeakCol,
 } from "./vane-cycle.js";
-export {
-  wardenClamp,
-  wardenEyeOpen,
-  wardenPullMilli,
-  wardenRefusesGrip,
-  wardenTether,
-} from "./warden.js";
+export { wardenEyeOpen, wardenPullMilli, wardenTether } from "./warden.js";
 export {
   NO_TETHER,
-  WARDEN_OPEN_BEATS,
   WARDEN_PHASES,
-  type WardenControl,
   type WardenPhase,
-  wardenClampedControl,
-  wardenClampedPlayer,
   wardenColor,
   wardenCycle,
   wardenCycleBeat,
   wardenPhase,
-  wardenPullTicks,
-  wardenReachBeats,
-  wardenRescuer,
 } from "./warden-cycle.js";
 export {
   type BossEntry,

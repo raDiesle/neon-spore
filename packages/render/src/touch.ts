@@ -1,9 +1,16 @@
 import type { ControlId, ControlSet } from "@neon-spore/content";
-import type { Command, Creature, DragTarget, MazeState, SimConfig } from "@neon-spore/sim";
+import type {
+  Command,
+  Creature,
+  DragTarget,
+  MazeState,
+  SimConfig,
+  WardenState,
+} from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
+import { handleUnder } from "./handles.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
-import { mazeStringCircle } from "./maze-string.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -83,6 +90,14 @@ export interface Field {
    */
   maze: MazeState | null;
   /**
+   * THE WARDEN, if it is the boss running, `null` otherwise. **Required, and
+   * stated rather than defaulted**, for the same reason `maze` is: a caller
+   * that quietly meant `null` would leave the pilot pressing a handle that is
+   * drawn and answers nothing, which is the one failure this whole file exists
+   * to prevent.
+   */
+  warden: WardenState | null;
+  /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).
    *
@@ -104,11 +119,12 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   // Above the band is the field, and the field answers both players: a finger
   // held on something falling drags at it (`grip` in sim/grip.ts).
   if (y < l.bandTop) {
-    // Asked first, because the handle hangs over the field the creatures fall
-    // through and a hand on it is not a hand on whatever is behind it.
-    const string = stringUnder(l, x, y, field);
-    if (string) return string;
-    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.cfg.wardenRow);
+    // Asked first, because a handle hangs over the field the creatures fall
+    // through and a hand on it is not a hand on whatever is behind it
+    // (`handles.ts`).
+    const handle = handleUnder(l, x, y, field);
+    if (handle) return handle;
+    const held = creatureAt(l, field.creatures, x, y, field.beatPhase);
     if (!held) return null;
     return { player: field.seat, command: { kind: "grip", id: held.id }, hold: { kind: "grip" } };
   }
@@ -159,23 +175,6 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
 }
 
 /**
- * A hand on THE MAZE's string, and only the pilot's: the wheel is the half of
- * the round player 2 cannot reach (`mazeStringHeard`), so a press from her
- * seat falls through to whatever is behind the handle. The grab reports zero —
- * it *is* the origin — and the origin stays here, in the hold, on the device
- * whose finger it is (`Command` in `packages/sim/src/types.ts` has why).
- */
-function stringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  if (field.maze === null || field.maze.phase !== "read" || field.seat !== 1) return null;
-  if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
-  return {
-    player: 1,
-    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
-    hold: { kind: "drag", target: "mazeString", player: 1, originX: x },
-  };
-}
-
-/**
  * What pressing a lobe says. A lookup, not a rule — every entry is the command
  * that control has always sent, and the two strips are not lobes so they say
  * nothing here.
@@ -206,10 +205,11 @@ function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | nul
  * anywhere — the tile being the only length two phones share.
  *
  * A grip still answers nothing, deliberately: a hand on something falling only
- * slows it, and THE WARDEN's tether is held exactly as it was (`sim/grip.ts`).
- * Nothing that cared only that a hand was there has to learn that some hands
- * now report where they went. And there is still no `y`, because nothing is
- * dragged up the screen yet.
+ * slows it, and that is all a grip has ever been (`sim/grip.ts`). Nothing that
+ * cared only that a hand was there has to learn that some hands now report
+ * where they went. And there is still no `y`, because nothing is dragged up the
+ * screen yet — THE WARDEN's rope is pulled *aside*, which is what clears the
+ * shot lane its own column was standing in.
  */
 export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
   if (hold.kind === "cannon") {

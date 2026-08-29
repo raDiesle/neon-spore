@@ -246,9 +246,10 @@ describe("bindStageTouch steps a `test`-mode guide and swallows the press until 
       field: () => ({
         creatures: world.creatures,
         beatPhase: 0,
-        seat: pointerSeat(role, world, cfg),
+        seat: pointerSeat(role),
         cfg,
         maze: mazeRound(world),
+        warden: world.boss?.kind === "warden" ? world.boss : null,
         controls: controlSetForWave(world.wave),
       }),
       push: (player, command) => {

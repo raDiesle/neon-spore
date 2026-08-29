@@ -75,6 +75,10 @@ const tickKeys = bindControls({
   // THE MAZE's string is answered on the field like any other handle, so the
   // hit test has to know whether a wheel is up (`render/touch.ts`).
   maze: () => mazeRound(world),
+  // And THE WARDEN's rope, for the same reason: its handle is a control drawn
+  // on the field, and a hit test that did not know the boss was up would leave
+  // the pilot pressing something that answers nothing.
+  warden: () => (world.boss?.kind === "warden" ? world.boss : null),
   // Which panel is up follows from the wave, so a control the wave did not
   // ask for has no button and answers no thumb (`content/control-sets.ts`).
   controls: () => controlSetForWave(world.wave),
