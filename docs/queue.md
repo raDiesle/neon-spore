@@ -641,6 +641,35 @@ report rather than bending the candidates folder around a thing it was not
 built for.** A candidates mechanism that quietly handles two unrelated kinds of
 thing is worse than a second mechanism honestly named.
 
+### It is already on in the real game, which the ask does not know
+
+`apps/game/src/main.ts:44` builds its config with `shotChargeBeats: 0.5`. So
+**every player of the actual game already shoots with the wind-up**, and has
+been. It is off in `DEFAULT_CONFIG` for a stated and good reason — every
+headless replay keeps its timing to the tick — and on in the app for a stated
+and good reason, which the comment above that line gives: *a shot that is laid
+over half a beat is a press player 1 can see, where a press that was instantly
+a bullet reached him only as a result.*
+
+**This changes what the entry is asking for and the lane must not paper over
+it.** The owner wrote *once decided it will always be the new animation of
+shooting with its delay*, which reads as though wind-up is a thing not yet
+switched on. It is switched on. So the honest options are different from the
+ones above:
+
+- **Tell the owner and stop.** They may simply not have known, in which case
+  the ask may dissolve — there is nothing to decide, only a slider to remove
+  from a place it does not belong.
+- **Or the alternative is the other direction**: the page offers the shot
+  *without* the wind-up beside the shipped one *with* it, which is a real
+  comparison and the reverse of what the entry assumed.
+
+**Whichever, the tuning slider still leaves the wave panel**, because the owner
+is right that it is not a per-run dial. That half of the ask holds either way.
+
+Found by the lane building the cannon candidate, which needed to know how long
+the shot's window actually is.
+
 ### Its neighbour, which is not a coincidence
 
 `claude/burn-cannon-egg` puts the hen-and-egg shot animation in the same
