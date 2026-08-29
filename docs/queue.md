@@ -50,6 +50,153 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## THE READY CIRCLES NEVER APPEAR IN THE DIRECTOR
+_claude/burn-ready-in-director · tools/director/src/stage.ts tools/director/src/stage-touch.ts tools/director/src/stage-transport.ts packages/render/src/ready-circles.ts tools/director/test_
+**Asked for by the owner.** A `FAIL` on `966b5dc`, with what they expect
+written into the verdict:
+
+> I dont see it in director. what i expect: i want that when "briefings" button
+> in director below game screen is enabled, the guide card is shown, then i can
+> click and hold mouse on the screen with "test" view and it continues with the
+> circles after to the wave name and description
+
+**Two landings collided and nobody noticed, because each was checked alone.**
+
+`10dda25` made the director's test role **step** a card: press once for player
+1's half, again for player 2's, a third time to play. `966b5dc` then replaced
+the guide's dismissal with **two circles that fill while a seat holds**, and
+settled the director's case as *one press completes both circles* — which the
+owner had asked for when the gate was a press.
+
+Put together, a press in the director now satisfies the gate outright, so **the
+circles are drawn for no time at all and the owner has never seen them.** Every
+test passed: the stepping test presses, the circles test holds, and neither
+runs in the other's world.
+
+### What the owner wants instead
+
+**Hold, not press, and the circles are visible while it fills.** With
+`BRIEFINGS` on: the introduction, then the guide card, then a click **held** on
+the stage fills the circles, and the wave starts when they are full. The
+gesture in the director should be the gesture on a phone, because that is the
+only reason to look at it there.
+
+**Say what a step means now.** The p1 → p2 stepping was built so one person at
+a desk can read both halves — that reason still stands and must not be lost.
+Decide how stepping and holding compose: whether the steps happen on press and
+the *last* one is the hold, or the two halves show together once the circles are
+up, or something better. **Say which and why in the commit** — a lane that makes
+the hold work and quietly drops the stepping has traded one owner ask for
+another.
+
+**And whichever it is, one pair of hands must be able to finish it.** The
+director is one screen and one mouse; if both circles must fill, one hand fills
+both. That was settled and does not reopen.
+
+### What this is really about
+
+**A check that only ever ran on one surface.** The circles were driven through
+the game's own preview and through tests; the director was covered by an
+argument rather than by looking. The commit should say so plainly — it is the
+second time this run that two landings agreed separately and disagreed
+together, and naming it is worth more than the fix.
+
+Finished when `bun run check` is green, the director shows the introduction,
+then the guide, then circles that fill under a held click, and the reason the
+stepping exists still holds.
+
+`Check: in the director with BRIEFINGS on, hold the mouse on the stage after the guide — do the circles fill where you can see them, and does the wave start when they are full?`
+
+Model `sonnet`, effort `think hard`, spent on how stepping and holding compose
+rather than on the fill. Read `tools/director/src/stage-touch.ts` and the
+test-role card stepping before changing anything.
+
+## COPY AND DELETE STILL DO NOTHING ON A BOSS WAVE
+_claude/burn-boss-buttons-visible · tools/director/src/rail.ts tools/director/test_
+**Asked for by the owner.** A `FAIL` on `ba352ba` — the very commit that was
+supposed to fix this:
+
+> yes it does nothing. i prefer you disable or hide the button, if boss wave is
+> currently actively selected
+
+**The landing claimed to have done exactly that.** `ba352ba` set `.disabled`
+and a `title` on COPY and DELETE whenever the current wave carries a boss, and
+its lane verified it in a browser: *BULB QUEEN — both greyed out with
+explanatory titles; FIRST STEP — both plain and live.* The owner then pressed
+them on a boss wave and got silence.
+
+**So the interesting question is not what to build — it is why the verification
+disagreed with the owner.** Find that before changing anything, and say it in
+the commit. Two candidates worth checking first:
+
+- **The buttons are not re-evaluated when the selection changes.** If
+  `disabled` is set where the row is built rather than where the wave is
+  chosen, then whichever wave was current when the bar was drawn decides the
+  state forever, and clicking through to a boss wave leaves live buttons.
+- **The disable landed but the refusal is what the owner met.** The guards in
+  `bindAction` refuse regardless, by design, so a live-looking button on a boss
+  wave does nothing — which is precisely the *silent no-op* this was meant to
+  end, arriving through the half that was supposed to be the belt rather than
+  the braces.
+
+**The owner has named the acceptable outcomes: disabled or hidden.** Pick one
+and say why. Given a boss wave is a state you sit in rather than pass through,
+disabled with a reason reads better than a control that vanishes and reappears
+— but that is a judgement and the commit should carry it.
+
+**Keep the refusal underneath.** A disabled button is a hint, not a guarantee;
+the functions must still refuse. That was right and stays.
+
+Finished when `bun run check` is green, selecting a boss wave visibly disables
+both controls the moment it is selected, and the commit says why the earlier
+verification passed while the owner's did not.
+
+`Check: click onto a boss wave in the list — do COPY and DELETE go grey the moment you land on it, and tell you why?`
+
+Model `sonnet`, effort `think`, spent on reproducing the owner's failure before
+touching the fix. Read `rail.ts`'s button binding and where the selection
+changes.
+
+
+## THE TOPBAR TYPES OUT THE KEYS A SECOND TIME
+_claude/burn-topbar-keys-note · tools/director/index.html tools/director/src/key-help.ts tools/director/test_
+**Asked for by the owner:**
+
+> i can see on top right topbar "A/D cannon · J/L shield · I guard · S maw ·
+> W/E fire · G grip (as P2) · or play the stage with the mouse". move and merge
+> into "keys" button popup. if its already there, just remove it.
+
+**It is already there, so it is a deletion.** `⌨ KEYS` renders `KEY_BINDINGS`
+from `tools/director/src/keys.ts` — the one place the director's key map lives
+— grouped by seat. The topbar line at `index.html:851` is a hand-typed second
+copy of the same facts, which is exactly the drift `key-help.ts`'s own header
+warns about: *a hand-kept copy in this file would go stale the moment a key is
+added to the switch in `keys.ts` and not to a markup list beside it.* The
+markup list it was worried about is sitting in the topbar.
+
+**So: delete the line.** Do not move it, do not reformat it into the modal, and
+do not add a shorter version somewhere else. The modal is the answer and it
+already answers.
+
+**One clause needs checking before it goes with the rest.** *"or play the stage
+with the mouse"* is not a key binding and may not be represented in the modal
+at all. Look. If it is missing, add it to the modal — **once, in the same
+derived structure or plainly beside it** — because it is a real thing somebody
+needs to know and the topbar was the only place saying it. If it is already
+there, the whole line goes and nothing is added.
+
+**And check what the deletion frees.** The topbar shed four buttons recently and
+the row was measured before and after; this is the last long thing in it. Say in
+the commit what the bar measures now.
+
+Finished when `bun run check` is green, the topbar carries no key list, and
+everything it used to say is in the modal — including the mouse.
+
+`Check: open the director — is the key list gone from the top bar, and does the KEYS button still tell you everything it used to say, including that you can play the stage with the mouse?`
+
+Model `sonnet`, effort `think`. Small. Read `tools/director/src/key-help.ts`'s
+header first — it explains why this line should never have existed.
+
 ## TO CHECK SHOWS CONCEPTS THE OWNER DID NOT ASK TO BE SHOWN
 _claude/burn-checks-implementation-only · tools/checks tools/checks/test tools/director/src/checks-page.ts tools/director/src/checks-dom.ts docs/verification.md_
 **Asked for by the owner:**
