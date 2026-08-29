@@ -513,32 +513,6 @@ full, then `packages/render/src/tether.ts` for the circle, then
 on the drag's origin — absolute-versus-relative is the decision every later
 draggable element inherits.
 
-## THE WHEEL LEFT THREE PIECES OF STALE PROSE AND A PAIR OF WRONG FIELD NAMES
-_claude/burn-maze-leftovers · tools/director/src/boss.ts tools/director/src/ship-fields.ts packages/sim/src/events.ts_
-**Proposed by the run.** Reported by `claude/burn-maze-wheel`, outside its paths.
-
-The lattice is gone and three places still describe it:
-
-- **`tools/director/src/boss.ts`** and **`tools/director/src/ship-fields.ts`**
-  still explain the maze as a tangle of nodes and branches. Read what each
-  sentence was actually saying before rewriting it — a blind substitution of
-  "wheel" for "lattice" produces sentences that parse and mean nothing.
-- **`mazeProbe`'s fields are named `row` and `lane`** in `packages/sim/src/events.ts`
-  and now carry a ring and a sector. A name that describes the old shape is
-  worse than no name, because it reads as correct. Rename them, and check every
-  reader — this is a hashed, lockstep package, so `bun run test:determinism`
-  is the guard rather than an optional extra.
-
-This is a naming and prose fix, not a look: nothing the game draws changes, so
-the right number of `Check:` trailers is **zero**.
-
-Finished when `bun run check` is green, `bun run test:determinism` passes, and
-`grep -ri "lattice\|way out\|tangle" packages tools` finds nothing describing
-THE MAZE as it no longer is.
-
-Model `sonnet`, effort `think`. Small, but `events.ts` is in `packages/sim` —
-read the rename's callers before making it.
-
 ## A WAVE MAY NAME THE CARD IT TEACHES, AND THE DERIVATION STAYS THE DEFAULT
 _claude/burn-authored-card · packages/sim/src/briefing.ts packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/test/briefings.test.ts packages/sim/test/briefing.test.ts tools/director/src/rail.ts tools/director/src/card-waves.ts_
 **Asked for by the owner.** This **supersedes** the dropdown half of the
