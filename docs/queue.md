@@ -701,3 +701,40 @@ Model `sonnet`, effort `think hard`. Read `apps/game/src/input.ts` in full and
 `packages/render/src/touch.ts`. The thinking goes on what a PC player is told
 and when — the input mapping is the easy half, and a player who cannot find
 their own controls has no game whatever the mapping is.
+
+## A RING IS CALLED A ROW AND A SECTOR IS CALLED A LANE
+_claude/burn-maze-probe-rename · packages/sim/src/events.ts packages/sim/src/maze-round.ts packages/sim/src/maze-controls.ts packages/audio/src/bind.ts packages/audio/test/bind.test.ts_
+**Proposed by the run.** The half `claude/burn-maze-leftovers` could not reach,
+reported on landing with the file list already worked out.
+
+`mazeProbe` carries where a shot got to inside the wheel. Its fields are named
+`row` and `lane` — from the lattice, which no longer exists — and they now hold
+a **ring** and a **sector**. A name that describes the old shape is worse than
+no name at all, because it reads as correct.
+
+**The previous lane established exactly what a rename touches**, and it is five
+files rather than one: the declaration in `packages/sim/src/events.ts`, the two
+constructors in `maze-round.ts` and `maze-controls.ts`, and one reader in
+`packages/audio/src/bind.ts` with its test. That reader is the reason this is
+its own lane — `packages/audio` was not in anybody's paths and nobody had
+noticed it consumes maze probes.
+
+**It also left the doc comment alone on purpose**, and was right to: fixing the
+prose without renaming the fields makes a new inconsistency instead of removing
+one. So the comment and the names move together, in this lane, or not at all.
+
+**The determinism question was asked and answered: the hash is not at risk.**
+The previous lane checked before stopping. Confirm it yourself rather than
+taking it on trust — `bun run test:determinism` is the guard — but do not spend
+the lane re-deriving it.
+
+This is a rename and a comment: nothing a player could look at changes, so the
+right number of `Check:` trailers is **zero**.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, and
+`grep -rn "lattice\|tangle" packages/sim packages/audio` finds nothing
+describing the wheel as what it was.
+
+Model `sonnet`, effort `think`. Small, and `packages/sim` is lockstep — find
+every reader before renaming rather than after. If a sixth file turns up, stop
+and report it rather than widening the lane a second time.
