@@ -1,7 +1,11 @@
 # Director Mode
 
-One screen where a wave is placed, played and judged. Desktop only — it is not
-the game, and it carries controls no player's phone has.
+One screen where a wave is placed, played and judged. It carries controls no
+player's phone has, but it is no longer desktop-only: on a narrow screen the
+four columns become three views — WAVE, GAME, MAP — switched by a toggle that
+never scrolls away. `?view=wave`/`game`/`map` addresses one without a mouse,
+the same treatment `?closed=` gives a collapsed panel; a click persists in
+`localStorage` instead.
 
 ```bash
 bun run dev
@@ -367,6 +371,48 @@ reproduces the file exactly.
 A wave without a name, a sentence, a hint or a single entry does not save. The
 sentence is the one-sentence test from `docs/spec/wave-design.md`, applied at
 the moment the wave is made rather than in review.
+
+## Shipping
+
+`server.ts` is a live process with write routes — none of that survives
+`bun build ./index.html --outdir=dist`, the way `apps/game` ships, because
+there is no repository behind a static bundle. `tools/director/build.ts` is
+that build: it bundles the client exactly like the game's own build, then
+bakes every *read* route the client already calls (`/api/waves`, from
+`@neon-spore/content`, the same compiled source the game itself reads;
+`/api/backlog`, `/api/borrowed`, `/api/spec`, `/api/checks`) into a plain
+file at the same path under `dist/api/`. A static host answering
+`GET /api/backlog` with a file looks identical to `server.ts` answering it
+with a handler, so none of `backlog-page.ts`, `spec.ts`, `borrowed.ts` or
+`versus-vote.ts` needed to change.
+
+`PUT` and `POST` have no file to land on. Saving a wave, deciding or running
+a check, and sweeping a worktree are exactly the controls a shipped build
+cannot offer — so `main.ts` hides `SAVE`, `⚑ TO CHECK` and `▶ MAIN MENU`
+(which points at a route only the live server answers) rather than leave a
+control that looks live and fails on a press. It knows which build it is
+from `dist/__director`, a static file at the same path `server.ts`'s own
+`/__director` answers, carrying `shipped: true` where the live route always
+says `false` — one flag, one route, read the same way regardless of which of
+the two is running underneath it. The header says once, next to the status
+line, that a shipped build shows what was built rather than what is on disk.
+
+Everything else that only ever reads — the wave list, GAME MECHANICS,
+CONTROLS, SOUND, the shape catalogue, the whole of NOT BUILT YET including
+VERSUS — is either baked the way waves are or was never networked in the
+first place (`ORPHANS`, `GAME MECHANICS` and the rest compute straight from
+`@neon-spore/content` and `@neon-spore/sim`), and keeps working, including
+editing and painting in memory: nothing but the actual write survives a
+reload, but nothing stops you exploring one before it does.
+
+`bun run build` (repository root) runs both builds, game then director, so
+the director ships beside the game as the owner asked. The game-only build —
+the deploy mechanism this replaces, for when someone other than the owner is
+looking — is `bun run build:game` alone, unchanged and still what
+`bun run preview`/`preview:once` run on every check, so it stays exercised
+rather than rotting behind the new default. Switching back to shipping the
+game alone is naming that one script in the deploy configuration instead of
+`bun run build`; there is nothing else to undo.
 
 ## Tuning
 

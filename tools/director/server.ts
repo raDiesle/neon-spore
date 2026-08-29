@@ -127,6 +127,24 @@ async function readWaves(): Promise<Wave[]> {
 }
 
 /**
+ * `docs/borrowed.md`, whole — shared with `build.ts` so the shipped
+ * director's static snapshot and this server's live route read the file the
+ * same way rather than carrying two copies of one `Bun.file().text()` call.
+ */
+export async function readBorrowedText(): Promise<string> {
+  return await Bun.file(borrowedFile).text();
+}
+
+/** Every spec file, verbatim — see `readBorrowedText` for why this is exported. */
+export async function readSpecFiles(): Promise<{ name: string; text: string }[]> {
+  const dir = Bun.fileURLToPath(specDir);
+  const names = (await readdir(dir)).filter((n) => n.endsWith(".md")).sort();
+  return await Promise.all(
+    names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
+  );
+}
+
+/**
  * Write the array back across the three act files, then let Biome have the
  * last word on formatting. The serializer already aims at Biome's output —
  * the round-trip test holds it to that — but a wave nobody has written yet
@@ -181,8 +199,17 @@ const server = Bun.serve({
      */
     "/game": gameHtml,
 
+    /**
+     * `shipped` is always false here — the live dev server, never the
+     * production bundle. `build.ts` bakes a static file at this same path
+     * with `shipped: true`, so `main.ts` reads one flag from one route
+     * regardless of which of the two answered it — see the queue's
+     * burn-director-ship entry for why the two must read as one idea.
+     */
     "/__director": {
-      GET: withIdle(() => Response.json({ app: marker, pid: process.pid, port, tree: treeId })),
+      GET: withIdle(() =>
+        Response.json({ app: marker, pid: process.pid, port, tree: treeId, shipped: false }),
+      ),
     },
 
     "/__director/quit": {
@@ -258,21 +285,15 @@ const server = Bun.serve({
      * it is served as text rather than parsed into entries like the rest.
      */
     "/api/borrowed": {
-      GET: withIdle(async () => {
-        const text = await Bun.file(borrowedFile).text();
-        return Response.json({ text }, { headers: noCache });
-      }),
+      GET: withIdle(async () =>
+        Response.json({ text: await readBorrowedText() }, { headers: noCache }),
+      ),
     },
 
     "/api/spec": {
-      GET: withIdle(async () => {
-        const dir = Bun.fileURLToPath(specDir);
-        const names = (await readdir(dir)).filter((n) => n.endsWith(".md")).sort();
-        const files = await Promise.all(
-          names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
-        );
-        return Response.json({ files }, { headers: noCache });
-      }),
+      GET: withIdle(async () =>
+        Response.json({ files: await readSpecFiles() }, { headers: noCache }),
+      ),
     },
   },
   fetch() {

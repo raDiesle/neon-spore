@@ -798,6 +798,36 @@
       .holder-card .note { font-size: 10px; line-height: 1.5; }
       .queen-row .holder-card { flex-basis: 320px; max-width: 380px; }
       .queen-axis { color: var(--cyan); letter-spacing: 2px; font-size: 11px; margin: 18px 0 2px; }
+      /* On a phone the four desktop columns become three *views* — choosing
+         a wave, playing it, painting it — because nobody does two of them at
+         the same instant (docs/queue.md, burn-director-ship). Below the
+         breakpoint `main` drops to one column and every section but the one
+         named by `main[data-view]` is hidden; above it none of this matches,
+         so a desktop keeps all four columns exactly as it always has — this
+         is a phone arrangement, not a redesign. Placed last in the sheet so
+         its specificity ties with `.stage-col`/`.brush-col` above resolve in
+         its favour rather than by accident of selector shape.
+         `#viewToggle` is the toggle: rendered once, outside every section, so
+         it is reachable from whichever of the three is showing and a mode
+         can never be entered without a way back out. */
+      #viewToggle { display: none; }
+      @media (max-width: 700px) {
+        body { grid-template-rows: auto 1fr; }
+        header { flex-wrap: wrap; height: auto; padding: 8px 12px; }
+        main { grid-template-columns: 1fr; overflow-x: hidden; }
+        main > section, main > section.stage-col, main > section.brush-col { display: none; }
+        main[data-view="wave"] > section[data-view="wave"] { display: block; }
+        main[data-view="game"] > section.stage-col[data-view="game"] { display: flex; }
+        main[data-view="map"] > section.brush-col[data-view="map"] { display: flex; }
+        main > section.brush-col { flex-direction: column; }
+        main > section.brush-col > #brushCol,
+        main > section.brush-col > #mapCol { flex: 0 0 auto; width: 100%; }
+        #viewToggle {
+          display: flex; position: sticky; bottom: 0; z-index: 5; gap: 4px;
+          padding: 6px; background: var(--panel); border-top: 1px solid var(--line);
+        }
+        #viewToggle button { flex: 1 1 0; }
+      }
     </style>
   </head>
   <body>
@@ -805,6 +835,11 @@
       <h1>NEON SPORE — DIRECTOR</h1>
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
+      <!-- Set once, from `/__director`'s own `shipped` flag — see build.ts.
+           A shipped build reads the waves it was built with, not the disk,
+           so this says so once rather than letting a stale field pass for a
+           live one. -->
+      <span id="shippedNote" class="note" hidden>shows what was built, not what is on disk — read only</span>
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="orphansOpen">☠ ORPHANS 0</button>
@@ -818,8 +853,18 @@
       >
     </header>
 
-    <main>
-      <section>
+    <!-- Reachable from all three views because it sits outside every one of
+         them — see main.ts's bindViewToggle. Hidden on a wide screen, which
+         keeps its three columns and needs no toggle; see docs/queue.md's
+         burn-director-ship entry. -->
+    <nav id="viewToggle">
+      <button type="button" data-view="wave">WAVE</button>
+      <button type="button" data-view="game">GAME</button>
+      <button type="button" data-view="map">MAP</button>
+    </nav>
+
+    <main data-view="wave">
+      <section data-view="wave">
         <h2 data-panel="waves">WAVES</h2>
         <div id="waveList"></div>
         <div class="rail-actions">
@@ -835,7 +880,7 @@
         </p>
       </section>
 
-      <section>
+      <section data-view="wave">
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
         </div>
@@ -884,7 +929,7 @@
         </div>
       </section>
 
-      <section class="stage-col">
+      <section class="stage-col" data-view="game">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
           <p class="note" id="stageNote">
@@ -919,7 +964,7 @@
         </div>
       </section>
 
-      <section class="brush-col">
+      <section class="brush-col" data-view="map">
         <div id="brushCol">
           <h2 data-panel="brush">BRUSH</h2>
           <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
@@ -991,7 +1036,9 @@
           what a mechanic looks like demonstrated, every state the game can be
           held in — and TUNING, the one live control kept alongside them
         </span>
-        <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
+        <a id="mainMenuLink" class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
+          >▶ MAIN MENU</a
+        >
         <button type="button" id="statesClose">✕ CLOSE</button>
       </header>
       <div id="statesTabs">

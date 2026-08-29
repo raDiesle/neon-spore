@@ -106,7 +106,7 @@ describe("which headings are marked data-panel, in the real markup", () => {
   });
 
   it("never marks anything inside the stage column — the field and the transport row stay put", () => {
-    const stageColMatch = html.match(/<section class="stage-col">[\s\S]*?<\/section>/);
+    const stageColMatch = html.match(/<section class="stage-col"[^>]*>[\s\S]*?<\/section>/);
     expect(stageColMatch).not.toBeNull();
     expect(stageColMatch?.[0]).not.toContain("data-panel");
   });

@@ -28,40 +28,57 @@ import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 import { renderWaveOpening } from "./wave-opening.js";
 
-/**
- * The director: one screen where a wave is placed, played and judged.
- *
- * Desktop only, and it is not the game — it has controls no player's phone
- * carries. What it must not do is show a different field from the one the
- * phone shows, which is why the stage runs the shipping renderer through
- * `computeStage` rather than drawing the grid a second time.
- */
-
-// The hull holds while a wave is being looked at, the same choice `apps/game`
-// makes in its test build and for the same reason: a wave that is being judged
-// should be allowed to reach its end. The damage is still drawn.
-//
-// `briefings: true` is the queue's own correction: `DEFAULT_CONFIG` ships it
-// off (`packages/sim/src/config-pair.ts` says why — a determinism run, a
-// shape sheet and `relay:check` all want the wave rather than the lesson),
-// and the director built the card and then opened from a config where it was
-// off, so the tool where these are judged was the one place that never
-// showed one. `#briefToggle` (`pair-panel.ts`) stays exactly where it is —
-// pressed once it turns the card off, for iterating on a wave's timing
-// without reading its card for the fortieth time today.
+// The director: one screen where a wave is placed, played and judged — not
+// the game, and the stage runs the shipping renderer through `computeStage`.
+// The hull holds while a wave is judged; `briefings: true` corrects
+// `DEFAULT_CONFIG`'s own default (off, for determinism and shape sheets —
+// see `config-pair.ts`), and `#briefToggle` (`pair-panel.ts`) turns it off
+// again per session.
 const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
 
-// Every editing panel gets a collapse handle by virtue of being one — see
-// `panels.ts`. Run before anything below queries a panel's own elements by
-// id: wrapping moves nodes, not ids, so those lookups keep working either way,
-// but doing this first keeps the structural pass ahead of the content pass.
+// Every panel gets a collapse handle via `[data-panel]` — see `panels.ts`.
 initPanels();
+// Phone: the four columns become three views, toggled by #viewToggle —
+// `?view=` overrides once (like panels.ts's `?closed=`); a click persists to
+// localStorage. docs/queue.md, burn-director-ship.
+const VIEWS = ["wave", "game", "map"] as const;
+type MobileView = (typeof VIEWS)[number];
+const isMobileView = (v: string | null): v is MobileView =>
+  v !== null && (VIEWS as readonly string[]).includes(v);
+(() => {
+  const main = document.querySelector("main");
+  const buttons = document.querySelectorAll<HTMLButtonElement>("#viewToggle button[data-view]");
+  if (!main || buttons.length === 0) return;
+  const forced = new URLSearchParams(location.search).get("view");
+  const stored = localStorage.getItem("neon-spore-director-view");
+  const apply = (v: MobileView): void => {
+    main.setAttribute("data-view", v);
+    for (const b of buttons) b.classList.toggle("on", b.dataset.view === v);
+  };
+  apply(isMobileView(forced) ? forced : isMobileView(stored) ? stored : "wave");
+  for (const b of buttons)
+    b.addEventListener("click", () => {
+      apply(b.dataset.view as MobileView);
+      localStorage.setItem("neon-spore-director-view", b.dataset.view as MobileView);
+    });
+})();
 
-// The bundled waves are the fallback, not the source. The server reads the
-// file from disk, so an editor opened after a hand edit shows the hand edit.
+// A shipped build has no write route — hide what would fail rather than
+// offer it; a route that cannot be reached at all reads the same way.
+void fetch("/__director")
+  .then((r) => r.json())
+  .then((b: { shipped?: boolean }) => b.shipped !== false)
+  .catch(() => true)
+  .then((shipped) => {
+    if (!shipped) return;
+    for (const id of ["save", "checksOpen", "mainMenuLink"])
+      document.getElementById(id)?.setAttribute("hidden", "");
+    document.getElementById("shippedNote")?.removeAttribute("hidden");
+  });
+
+// The bundled waves are the fallback — the server reads the file from disk.
 const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };
 
-// Where you were, read once — see `session.ts`. `load()` re-clamps below.
 const place: PlaceSession = bindPlace("#tabs", store.waves.length);
 store.index = place.initialWave;
 
@@ -90,9 +107,7 @@ bindTuning(cfg, () => {
   renderShipSheet(cfg);
   stage.rebuild();
 });
-// The pair's own switches, plus the cannon's wind-up beside them — see
-// `pair-panel.ts`. Same shape as `bindTuning` above: a flip replays the wave
-// being edited under the new run.
+// The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`.
 const pair = bindPairPanel(cfg, () => {
   renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
@@ -100,12 +115,9 @@ const pair = bindPairPanel(cfg, () => {
 });
 renderShip(cfg, currentWave(store));
 renderShipSheet(cfg);
-// One wave and one set of switches per mechanic, opened in one click — see
-// `demo-panel.ts`. `refreshAll` is what every other jump to a wave runs
-// through, so a demo lands the stage, rail and briefing the same way a click
-// would; `pair.render()` and `renderShip` follow because a demo is the one
-// caller that flips `cfg`'s switches from outside `pair-panel.ts`/`tuning.ts`.
-// `closeMechanicsSheet` dismisses GAME MECHANICS after — DEMOS is a tab there now.
+// One wave and one set of switches per mechanic — see `demo-panel.ts`.
+// `refreshAll` is what every other jump to a wave runs through; `pair.render`
+// and `renderShip` follow because a demo flips `cfg` from outside their files.
 bindDemoPanel(
   store,
   cfg,
@@ -118,25 +130,19 @@ bindDemoPanel(
   closeMechanicsSheet,
 );
 
-/**
- * The brush description text (`.hint`) defaults to hidden — the palette is
- * grouped by category, so the name alone is usually enough, and the full
- * blurb is one click away in CREATURES. Persisted like the tuning presets:
- * plain `localStorage`, set only by this toggle, read once at startup.
- */
+// `.hint` text defaults to hidden — the name is usually enough, and the full
+// blurb is one click away in CREATURES. Persisted like the tuning presets.
 const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";
 
 function bindBrushHints(): void {
   const brushes = document.getElementById("brushes");
   const toggle = document.getElementById("brushHintToggle");
   let show = window.localStorage.getItem(BRUSH_HINTS_KEY) === "1";
-
   const apply = (): void => {
     brushes?.classList.toggle("hide-hints", !show);
     if (toggle) toggle.textContent = show ? "HIDE DESCRIPTIONS" : "SHOW DESCRIPTIONS";
   };
   apply();
-
   toggle?.addEventListener("click", () => {
     show = !show;
     window.localStorage.setItem(BRUSH_HINTS_KEY, show ? "1" : "0");
@@ -145,14 +151,13 @@ function bindBrushHints(): void {
 }
 bindBrushHints();
 
-/** Brushes the current wave has no use for, so the palette knows what to hide. */
+// Brushes the current wave has no use for, so the palette knows what to hide.
 function hiddenBrushes(): ReadonlySet<Brush> {
   const wave = currentWave(store);
   if (!wave || !isCreaturePlacementBlocked(wave)) return new Set();
   return new Set(CREATURE_BRUSHES);
 }
-
-/** A wave changed shape: redraw the grid, the boss panel, and replay from the top. */
+// A wave changed shape: redraw the grid, the boss panel, and replay from the top.
 function onShape(): void {
   grid?.render();
   boss.render();
@@ -162,19 +167,16 @@ function onShape(): void {
   paintBriefing();
   renderShip(cfg, currentWave(store));
 }
-
-/** Which cards the wave on the stage raises for a fresh pair — see `wave-opening.ts`. */
+// Which cards the wave on the stage raises for a fresh pair — see `wave-opening.ts`.
 function paintBriefing(): void {
   renderWaveOpening(currentWave(store));
 }
-
-/** Only the prose changed. Replaying the wave for a typed letter would be rude. */
+// Only the prose changed — replaying the wave for a typed letter would be rude.
 function onProse(): void {
   paintStatus();
 }
 
 function refreshAll(): void {
-  // Every mover of `store.index` calls `refreshAll` to redraw — see `session.ts`.
   place.persist(store.index);
   rail.render();
   grid?.render();
@@ -223,8 +225,7 @@ async function load(): Promise<void> {
     if (!res.ok) throw new Error(res.statusText);
     store.waves = (await res.json()) as Wave[];
   } catch {
-    // Opened without the server — the bundled copy is still worth editing,
-    // it just cannot be saved.
+    // No server — the bundled copy is still worth editing, just not saving.
     setStatus("no server — read only", "bad");
   }
   store.index = Math.min(store.index, store.waves.length - 1);
@@ -232,7 +233,6 @@ async function load(): Promise<void> {
 }
 
 bindTabs("#tabs");
-// Restores the URL's tab through the click path itself — see `session.ts`.
 document.querySelector<HTMLButtonElement>(`#tabs button[data-tab="${place.initialTab}"]`)?.click();
 bindBacklog();
 bindChecks();
