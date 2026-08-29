@@ -1336,29 +1336,3 @@ Not done there because splitting a wave in two is a wave-design decision and
 the lane was a data move. Start by reading THE WARD's guide out loud at tempo:
 if it is too much, the fix is a wave apiece for the three rock tiers, each with
 the one line it already has, rather than anything in the code.
-
-## `docs/teaching.md` describes a way of teaching that the game no longer uses
-
-2026-08-29 · claude/burn-intro-space-keys
-
-Documentation · Idea
-
-THE CALL was designed on 27 August 2026 from three independent shapes and
-scored by three judges, and none of it was built. What shipped instead is the
-introduction and the guide: a wave opens on its number, name and sentence, then
-carries its own help inline, and there are no subjects, no dealing order and no
-memory of what a pair has already been taught. The document still describes the
-other thing, in the present tense, next to code that contradicts every noun in
-it.
-
-Not done there because the two honest options are opposite and only the owner
-can pick. Retire it — move it under a heading that says it is a design nobody
-built, so the next session reads it as history — or reconcile it, which means
-deciding which of THE CALL's ideas survive the move to placed guides and
-rewriting the rest. A rename of its vocabulary is the one thing that must not
-happen: it would turn a design document into a false description of a shipped
-feature, which is worse than either.
-
-Found by a lane sent to rename the retired words in three documents. Two of the
-three were false alarms — `docs/INDEX.md` and `docs/skins.md` say "card" about
-the shape sheet's catalogue cards — and this was the third.

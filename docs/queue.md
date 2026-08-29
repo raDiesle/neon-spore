@@ -284,6 +284,77 @@ outline: read `docs/versus.md` and both existing candidates first, and get the
 strain-then-release arc right before drawing anything, because a bulge with no
 effort in it is a circle in a different place.
 
+## THE TEACHING DOCUMENT DESCRIBES A GAME THAT WAS NEVER BUILT
+_claude/burn-teaching-reconcile · docs/teaching.md docs/INDEX.md_
+**Asked for by the owner.** Asked whether to retire it or reconcile it, and
+they chose:
+
+> yes reconcile teaching.md
+>
+> In the future, i plan to create nicer guide introduction in waves with nice
+> animations and less text.
+
+**So this is not a rename and it is not a deletion.** `docs/teaching.md`
+specifies THE CALL — designed 27 August 2026, scored by three judges, dealt
+subject cards, a `taught` memory, an ordering — and none of it was built. What
+shipped is the introduction and the guide: a wave opens on its number, name and
+sentence, then carries its own help inline, and there are no subjects, no
+dealing order and no memory. The document still describes the other thing, in
+the present tense, beside code that contradicts every noun in it.
+
+### The three things the rewrite has to keep apart
+
+**What the game does.** Written as what it is, in the vocabulary that shipped —
+introduction, guide, the two halves, both seats acking. `docs/spec/briefings.md`
+is the spec and already says this; teaching.md must not become a second,
+drifting copy of it. Cross-reference rather than restate, and say which file
+owns which question.
+
+**What was designed and not built.** THE CALL's reasoning is worth keeping —
+three shapes scored by three judges is work nobody should redo — but it must be
+unmistakably marked as a design that was not taken, with one honest sentence
+about *why* the game went the other way. The next session reading this file has
+to be unable to mistake it for a description of the game.
+
+**Where the owner is going.** Quoted above and it is the load-bearing part: the
+guide becomes animation and short text rather than paragraphs. Write that down
+as the direction, because it is already why `Wave.guide` is an object with
+named parts rather than three strings — an animation arrives as a key beside
+the words and no wave file has to move. Say that connection explicitly; it is
+the difference between a doc that dates and one that tells the next session
+where the room was left for them.
+
+**And the words that shipped are a placeholder.** Today's guides are prose
+because prose is what the cards were. Under the owner's direction they are the
+first draft of something shorter with a picture beside it, and the document
+should say so rather than presenting the current wording as settled.
+
+### Two things this lane may not do
+
+**It may not rename the vocabulary and call it done.** That was the original
+queue entry and it was wrong: renaming THE CALL's nouns to the shipped ones
+would turn a design document into a false description of a shipped feature,
+which is worse than either honest option.
+
+**It may not change any wave's guide text.** Shortening the words is the
+owner's own step-by-step work, said in as many words, and a lane that improves
+the prose on the way past has spent a decision that was not its to spend.
+
+`docs/INDEX.md` is included so the row describing this file can say what it now
+is. Nothing else in the repository changes.
+
+Finished when `bun run check` is green, `docs/teaching.md` cannot be mistaken
+for a description of the shipped game, the design that was not taken is
+preserved and marked as such, and the owner's direction is written down where
+the next session will read it.
+
+**No `Check:` trailer.** This is a document, and there is no half of it a
+player could go and look at. Do not invent one.
+
+Model `sonnet`, effort `think`. Read `docs/spec/briefings.md` and
+`packages/content/src/wave-types.ts`'s `guide` doc comment before rewriting
+anything, so the two files agree and neither restates the other.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
