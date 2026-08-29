@@ -50,69 +50,85 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## A FALLING BODY IS TAKEN OFF THE FIELD ONE TICK BEFORE IT ARRIVES
-_claude/burn-last-tick · packages/sim/src/hull.ts packages/sim/test packages/render/test_
-**Asked for by the owner.** Not in words — this is the cause behind their
-`FAIL` on `d892bae`, *"i still dont see it"*, found by the lane that built the
-stages page rather than by reasoning.
+## THE SHADOWS COME OUT OF THE GAME
+_claude/burn-shadow-remove · packages/render/src packages/render/test packages/sim/src/config.ts tools/director/src/states-page.ts tools/director/src/ship-fields.ts docs/spec/graphics.md_
+**Asked for by the owner**, and it reverses a decision they made earlier:
 
-**What was found, and it is not about the shadow.** `resolveHull` in
-`packages/sim/src/hull.ts` removes a falling body the same tick its row would
-reach the hull, **before that beat's interpolation ever draws it there**. So
-the last frame anybody sees of a falling thing is roughly two thirds of the way
-through its final row. `contact-shadow.ts` computes a shadow that tightens and
-darkens towards `t = 1`, and **`t = 1` is a state the screen has never once
-shown**. The most legible part of the effect — the moment the shadow is
-smallest, darkest and directly under the rock — is drawn by nobody.
+> I changed my mind, it was not a good idea and doesnt help the game to look
+> better. shadow is seen not good enough, because ship is glowing and the space
+> is dark: i want that you completely remove all shadow related graphics and
+> animations from the game.
 
-**And it is not only the shadow.** Every falling creature loses its last frames
-the same way, whatever is drawn on it. Anything that reads *arrival* — a
-squash, a brightening, a contact spark, a shape settling — is being cut off at
-the same place. That is why this is its own entry rather than a note on a
-shadow: the shadow is one symptom of a rule about when a body stops existing.
+**Their reasoning is the useful part and belongs in the commit.** A shadow needs
+a lit surface to fall on. This game is a glowing hull in dark space — there is
+no lit ground, so a shadow has nothing to darken and reads as a smudge rather
+than as depth. That is why it never worked, and it is why no amount of tuning
+the curve would have made it work. Say that, so nobody proposes shadows again
+in two months without knowing it was tried and why it failed.
 
-### What to work out, and it is a rule question rather than a drawing one
+### The boundary, and it is the whole risk in this lane
 
-**A body's removal and a body's last drawn frame are two different moments, and
-today they are the same one.** The fix is to let the picture reach the hull
-before the simulation forgets the body — but *how* is a decision with real
-constraints on it:
+**Remove: a shadow one body casts onto another surface.** `cast-shadow.ts` and
+`contact-shadow.ts` and everything that calls them — the shadow under a falling
+rock, the shadow the ship throws, their tests, their config, their panels on the
+states page, and the three stage panels a lane added yesterday.
 
-- **The simulation may not soften.** A rock that arrives on tick *n* must still
-  damage the hull on tick *n*, on both devices. Nothing about damage, timing or
-  the hash may drift, and `bun run test:determinism` is the guard. If a fix
-  would move when a hit lands, it is the wrong fix.
-- **So this is probably about giving render one more frame of a body the sim
-  has already resolved**, rather than about keeping the body alive longer. That
-  is a real distinction and the commit should say which was chosen and why.
-- **Anything render keeps that outlives a frame belongs in `Effects` and is
-  cleared in `Effects.reset()`.** `world.beat` and `world.tick` restart at zero,
-  so state cached against them is read by the next run as its own —
-  `packages/render/test/restart.test.ts` fails if a new field is added and not
-  cleared, and it is not optional bookkeeping.
+**Do not remove: shading that is part of a body's own surface.** The key light,
+the glow, the light shafts, and the skins' own modelling (`crater`, `pore`,
+`mounted`, `light`) use the word *shadow* for the dark side of their own form.
+That is not a shadow falling on anything — it is how a lobe reads as round
+rather than flat. **Ripping that out would flatten every creature in the game**,
+which is not what was asked and would be much harder to put back than to leave.
 
-**If the honest fix reaches outside `hull.ts`, stop and report it** rather than
-growing. This entry is deliberately scoped to the rule; whatever draws the extra
-frame is a second conversation.
+**When a mention is genuinely ambiguous, keep it and list it in the report.** An
+over-wide deletion here is expensive and quiet: the owner would see a flatter
+game and not know which change did it. Under-deleting shows up as one leftover
+smudge and costs one commit.
 
-### How to know it worked
+### What goes with it
 
-The stages page built alongside this finding already shows three moments of a
-falling shadow, and its third is labelled honestly as *the last tick the rock
-exists*. **When this lands, that third frame should be able to show contact
-instead.** Use the same page as the evidence, and say in the commit what
-changed between the two pictures.
+- `packages/sim/src/config.ts` carries shadow tunables. Removing a `SimConfig`
+  field is a data change — `bun run test:determinism` must pass, and say in the
+  commit that nothing about the world's own timing moved.
+- `tools/director/src/ship-fields.ts` names every config key and will need the
+  same removals.
+- The states page's shadow panels go, including the three stages of a falling
+  shadow committed yesterday as `docs/checks/1bb7160-after.png`. **Leave the
+  picture file and its restatement in place** — they are the record of why this
+  decision was made, and deleting the evidence for a decision is how the same
+  idea comes back.
+- `docs/spec/graphics.md` argues for shadows. Rewrite the section to say they
+  were built, looked at, and taken out, with the owner's reason. Do not simply
+  delete the paragraphs; a spec that has changed its mind should say so.
+- **`tools/orphans` and `bun run check` are the guards against leaving a
+  corpse.** A helper nobody calls is the usual residue of a removal this wide.
 
-Finished when `bun run check` is green, `bun run test:determinism` passes,
-nothing about when a hit lands has moved, and a falling body is drawn arriving
-rather than vanishing a tick short.
+### Two consequences worth naming
 
-`Check: watch a rock come down — does it arrive at the hull, or does it wink out just above it?`
+**The check on the stages page can no longer be answered**, since its subject is
+being deleted. Say so in the commit; do not write a verdict into
+`docs/verified.md`, which is the owner's file and records what a person actually
+looked at.
 
-Model `opus`, effort `think hard`, spent on the seam between the simulation
-forgetting a body and the picture showing it. Read `resolveHull` in
-`packages/sim/src/hull.ts` whole, and `packages/render/src/contact-shadow.ts`'s
-header, before changing anything.
+**And the entry this replaces is obsolete.** `A FALLING BODY IS TAKEN OFF THE
+FIELD ONE TICK BEFORE IT ARRIVES` was queued because a falling body's last
+frames are never drawn, which is why the shadow's best moment never appeared.
+With shadows gone there is no visible symptom left, so it is removed from the
+queue in the same commit as this entry is added. **The underlying fact stays
+true** — every falling creature still loses its arrival — so if anything is ever
+drawn that reads as landing, a squash or a spark or a flash, it will surface
+again and this paragraph is the note that explains it.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, no
+body casts a shadow onto anything, every creature still reads as round rather
+than flat, and nothing dead is left behind.
+
+`Check: with the shadows gone, does the field read as cleaner — and does anything look flat that used to look round?`
+
+Model `sonnet`, effort `think hard`, spent entirely on the boundary between a
+cast shadow and a body's own shading. Capture a before and after frame of the
+same wave and commit both under `docs/checks/`; this is a removal, and the only
+way to show a removal is a pair.
 
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
