@@ -165,7 +165,7 @@ happens*: a phone-shaped frame at 380 × 820, the tile a device actually gets,
 with the unbuilt body standing in a lane at the size the game would draw it.
 
 The frame is the game. It is `frameWorld` — `Canvas2DRenderer` against a real
-`World`, the same arrangement STATES makes — so the hull, the band, the radar
+`World`, the same arrangement GAME MECHANICS makes — so the hull, the band, the radar
 strip and every creature the scene *spawns* are the shipping renderer's, not an
 impression of one. Only the unbuilt bodies are drawn on top, in bone rather
 than in any of the field's own colours, because cyan is a bulb and red is a
@@ -207,10 +207,13 @@ from the original draft" stays attached to The Blind One.
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
 
-## STATES
+## GAME MECHANICS
 
-`▣ STATES` is the third full-screen sheet, and the only one that is pictures
-rather than prose.
+`▣ GAME MECHANICS` is the third full-screen sheet, and the only one whose own
+tab is pictures rather than prose. It also holds the four things that used to
+have topbar buttons of their own — CONTROL SETS, SHIP, DEMOS — and TUNING,
+which used to sit in the wave panel while its own note said it was the run and
+not the wave.
 
 The other two are lists of sentences, and a sentence is the slowest possible
 way to learn what something looks like. Most of what the spec argues about is
@@ -337,7 +340,8 @@ already visible.
 
 ## The game, and its main menu
 
-`▶ MAIN MENU` in the header opens the game — this tree's source, bundled by
+`▶ MAIN MENU`, in GAME MECHANICS' own header rather than the topbar, opens the
+game — this tree's source, bundled by
 this same server on `/game`, so it needs no preview running beside it — with
 `?menu` set. That flag is the whole arrangement: the game itself opens straight
 onto the field, because a title screen in front of a wave somebody wants to
