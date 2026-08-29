@@ -718,9 +718,35 @@
       .simon-add button { padding: 1px 5px; font-size: 9px; }
       .simon-add:hover { opacity: 1; }
 
-      /* CONTROL SETS. A tab of GAME MECHANICS now, not its own sheet — one
-         card per registered panel: the drawn band, then the two seats'
-         controls in one line each. */
+      /* CONTROLS. A tab of GAME MECHANICS now, not its own sheet — renamed
+         from CONTROL SETS so it can hold both kinds of control the pair
+         touches, not only the panel below the field. Three inner tabs:
+         PANELS (one card per registered panel, unchanged below),
+         ON THE FIELD (`.field-control`, new) and TRIED AND SET ASIDE
+         (`.tried-control`, new). See docs/queue.md's
+         claude/burn-controls-page entry and docs/spec/controls.md. */
+      .ctltabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 16px; }
+      .ctlpage { display: none; }
+      .ctlpage.on { display: block; }
+      .field-control {
+        max-width: 700px; margin: 0 0 16px; padding: 0 0 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .field-control h3 { color: var(--gold); font-size: 11px; letter-spacing: 2px; margin: 0 0 4px; font-weight: 400; }
+      .field-control .stamp {
+        color: var(--cyan); font-size: 9px; letter-spacing: 1px; margin-right: 8px;
+      }
+      .field-control dl { margin: 6px 0 0; font-size: 10px; line-height: 1.5; }
+      .field-control dt { color: var(--cyan); letter-spacing: 1px; float: left; width: 74px; clear: left; }
+      .field-control dd { margin: 0 0 3px 78px; color: var(--dim); }
+      .field-control dd.does { color: var(--ink); }
+      .tried-control {
+        max-width: 700px; margin: 0 0 16px; padding: 0 0 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .tried-control h3 { color: var(--gold); font-size: 11px; letter-spacing: 2px; margin: 0 0 4px; font-weight: 400; }
+      .tried-control p { font-size: 10px; line-height: 1.5; color: var(--dim); margin: 4px 0; }
+      .tried-control .ref { color: var(--cyan); }
       .control-set-card {
         max-width: 700px; margin: 0 0 26px; padding: 0 0 16px;
         border-bottom: 1px solid var(--line-soft);
@@ -736,7 +762,7 @@
       .control-set-col li b { color: var(--ink); font-weight: 400; letter-spacing: 1px; }
 
       /* SHIP: the ship's own dials, a tab of GAME MECHANICS now — see
-         ship.ts. Capped like DEMOS and CONTROL SETS so a row of `.cap`s does
+         ship.ts. Capped like DEMOS and CONTROLS so a row of `.cap`s does
          not stretch the width the sheet itself would happily give it. */
       #shipSheetBody { max-width: 700px; }
 
@@ -970,7 +996,7 @@
       </header>
       <div id="statesTabs">
         <button type="button" data-tab="states" class="on">STATES</button>
-        <button type="button" data-tab="controlsets">CONTROL SETS</button>
+        <button type="button" data-tab="controlsets">CONTROLS</button>
         <button type="button" data-tab="ship">SHIP</button>
         <button type="button" data-tab="demos">DEMOS</button>
         <button type="button" data-tab="tuning">TUNING</button>
@@ -986,11 +1012,44 @@
         </div>
         <div class="sheetpage" id="mech-controlsets">
           <p class="pagewhat">
-            Every panel a wave can name — what is on it, and which waves are
-            played on it. The WAVE tab's own CONTROL SET picker says a set by
-            name; this is what the name means.
+            How the pair touches the game — both kinds. PANELS is the strip
+            below the field: what the WAVE tab's own CONTROL SET picker means
+            by a name. ON THE FIELD is everything touched on the field
+            itself — no name of its own until now, read out of
+            `packages/render/src/touch.ts`. TRIED AND SET ASIDE is what was
+            played this way before and was asked to be kept rather than
+            deleted. See `docs/spec/controls.md`.
           </p>
-          <div id="controlSetsBody"></div>
+          <div id="controlsInnerTabs" class="ctltabs">
+            <button type="button" data-tab="panels" class="on">PANELS</button>
+            <button type="button" data-tab="field">ON THE FIELD</button>
+            <button type="button" data-tab="tried">TRIED AND SET ASIDE</button>
+          </div>
+          <div class="ctlpage on" id="ctl-panels">
+            <div id="controlSetsBody"></div>
+          </div>
+          <div class="ctlpage" id="ctl-field">
+            <p class="note">
+              Nothing here is a button on a panel — each is grabbed, held or
+              pressed directly on the field, and none has a `ControlSet` entry
+              because none is picked by wave. Derived by hand against
+              `touch.ts` (and, for the guide's hold, against
+              `apps/game/src/briefing.ts`, which is deliberately outside
+              it) — `tools/director/test/on-field-controls.test.ts` fails to
+              typecheck if `touch.ts` gains a `Hold` kind or a `DragTarget`
+              this list does not cover.
+            </p>
+            <div id="fieldControlsBody"></div>
+          </div>
+          <div class="ctlpage" id="ctl-tried">
+            <p class="note">
+              Mechanics that were played this way and set aside — kept here
+              rather than deleted, in case the pair wants one back on a
+              different wave or boss. The full write-up for each stays in
+              `docs/parked.md`; this only names it and says where to look.
+            </p>
+            <div id="controlsTriedBody"></div>
+          </div>
         </div>
         <div class="sheetpage" id="mech-ship">
           <p class="pagewhat">

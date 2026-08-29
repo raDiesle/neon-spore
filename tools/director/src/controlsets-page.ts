@@ -14,18 +14,32 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
+import { renderFieldControls, renderTriedControls } from "./field-controls-page.js";
 import { frameWorld } from "./pose-art.js";
+import { bindTabs } from "./tabs.js";
 
 /**
- * CONTROL SETS: every registered panel, drawn. A tab of GAME MECHANICS
- * (`states-page.ts` owns the sheet itself) rather than a sheet of its own —
- * see `docs/queue.md`'s `claude/burn-topbar-fold` entry.
+ * CONTROLS: every registered panel, drawn, plus the things the pair touches
+ * on the field itself. A tab of GAME MECHANICS (`states-page.ts` owns the
+ * sheet itself) rather than a sheet of its own — see `docs/queue.md`'s
+ * `claude/burn-topbar-fold` entry.
+ *
+ * Renamed from CONTROL SETS, which only ever covered the strip below the
+ * field. The owner named the gap: `packages/render/src/touch.ts` answers a
+ * finger on THE MAZE's string, THE WARDEN's tether or a falling creature the
+ * same way it answers a press on a lobe, and none of those three has a name,
+ * a page or a test — each was built by whichever lane needed it. Three inner
+ * tabs, one for each half of that sentence and one for what was played this
+ * way before: PANELS (this file's original card-per-set body), ON THE FIELD
+ * and TRIED AND SET ASIDE — both built by `field-controls-page.ts`, split
+ * out on line count. `docs/spec/controls.md` is the same list in prose, for
+ * a reader who is not looking at this page.
  *
  * The wave editor's own picker (`rail.ts`) says a set by name, and a name in
- * a dropdown does not say what the pair will have in their hands — this page
- * is what makes the picker mean anything. One card per entry in
- * `CONTROL_SETS`: what it is for, the panel itself as `band.ts` would draw
- * it, each control in it in one line, and which waves are played on it.
+ * a dropdown does not say what the pair will have in their hands — PANELS is
+ * what makes the picker mean anything. One card per entry in `CONTROL_SETS`:
+ * what it is for, the panel itself as `band.ts` would draw it, each control
+ * in it in one line, and which waves are played on it.
  *
  * Built like `states-page.ts`: a real frame of the shipping renderer against
  * a real `World`, not a description of one. The world is posed on whichever
@@ -118,6 +132,8 @@ export function renderControlSets(): void {
   drawn = true;
   body.replaceChildren();
   for (const set of CONTROL_SETS) body.appendChild(setCard(set));
+  renderFieldControls();
+  renderTriedControls();
 }
 
 /**
@@ -126,9 +142,15 @@ export function renderControlSets(): void {
  * it. `renderControlSets`'s own `drawn` flag makes a second click free, and a
  * restore straight to this tab (`?sheet=states&inner=controlsets`) fires the
  * same click `mountSheet` already drives for every inner tab.
+ *
+ * The three inner tabs (PANELS/ON THE FIELD/TRIED AND SET ASIDE) are wired
+ * here too, with the same `bindTabs` every other nested bar in this director
+ * uses (`sound-page.ts`, `states-page.ts`, `backlog-page.ts`) — a different
+ * selector from theirs, so a click here cannot touch their own restored tab.
  */
 export function bindControlSetsTab(): void {
   document
     .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="controlsets"]')
     ?.addEventListener("click", renderControlSets);
+  bindTabs("#controlsInnerTabs", "ctlpage", "ctl-");
 }
