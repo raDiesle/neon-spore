@@ -173,13 +173,21 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   });
   bindAction("waveCopy", () => {
     const wave = currentWave(store);
-    if (!wave) return;
+    // A boss exists exactly once. Duplicating a boss wave would produce a
+    // second wave carrying the same boss, so the action refuses outright
+    // rather than quietly stripping the boss from the copy — the owner's
+    // sentence was "duplicates of boss cannot exist", not "copies lose it".
+    if (!wave || wave.boss) return;
     store.waves.splice(store.index + 1, 0, copyWave(wave));
     store.index += 1;
   });
   bindAction("waveUp", () => move(store, -1));
   bindAction("waveDown", () => move(store, 1));
   bindAction("waveDel", () => {
+    const wave = currentWave(store);
+    // A boss wave is not one entry among several: deleting it would delete
+    // the only place its boss exists, so it is not deletable.
+    if (!wave || wave.boss) return;
     if (store.waves.length <= 1) return;
     store.waves.splice(store.index, 1);
     store.index = Math.min(store.index, store.waves.length - 1);

@@ -23,6 +23,25 @@ describe("wave content", () => {
   });
 
   /**
+   * A boss is not placed on a wave the way a rock is — she is the whole
+   * wave — so a wave file that carries the same boss kind twice is not two
+   * designs, it is one design duplicated by accident. This is the assertion
+   * that survives a hand edit to a wave file; the director's boss panel no
+   * longer offers to add or remove a boss, and its wave list refuses to
+   * delete or duplicate a boss wave, but neither of those stops somebody
+   * editing `waves.ts` by hand.
+   */
+  it("gives every boss kind at most one wave", () => {
+    const seen = new Map<string, string>();
+    for (const wave of WAVES) {
+      if (!wave.boss) continue;
+      const owner = seen.get(wave.boss.kind);
+      expect(owner, `${wave.boss.kind} is on both ${owner} and ${wave.name}`).toBeUndefined();
+      seen.set(wave.boss.kind, wave.name);
+    }
+  });
+
+  /**
    * The guarantee that replaced the derivation. Help used to be a catalogue
    * beside the waves, keyed by subject, and the wave that raised each card was
    * computed by replaying the campaign; that could not go stale, and it also

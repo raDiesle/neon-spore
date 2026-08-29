@@ -1,7 +1,6 @@
-import { AUTHORED_COL_MAX, CREATURES, type Wave } from "@neon-spore/content";
-import type { BossEntry, QueenEntry } from "@neon-spore/sim";
+import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
-import { MIRROR_DEFAULT, renderSimonEditor } from "./simon-editor.js";
+import { renderSimonEditor } from "./simon-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
 /**
@@ -16,30 +15,16 @@ import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js"
  *
  * This file is the queen's form and the choice between the four. The two
  * panels that are mostly a rendered cycle live in `boss-cycles.ts`.
+ *
+ * There used to be a bar of buttons here — REMOVE BOSS, and one `+` per kind
+ * the wave was not carrying — that added a boss to any wave and took one off
+ * again. That contradicted the sentence two paragraphs up: a boss is not
+ * placed on a wave the way a rock is, she is the whole wave, authored where
+ * the wave is authored (`packages/content/src/waves.ts`). This panel edits
+ * the boss a wave already has; it does not decide whether the wave has one.
  */
 export interface BossPanel {
   render(): void;
-}
-
-/** Column and petal count a freshly-added queen starts with. */
-const QUEEN_DEFAULT: QueenEntry = {
-  kind: "queen",
-  col: Math.floor(AUTHORED_COL_MAX / 2),
-  petals: 9,
-};
-
-/**
- * Give the wave a boss, or take it away. The counterpart of `paintPod`/
- * `removePod` in state.ts for the one thing on a wave that is not a cell in
- * the grid. A wave carries one boss, so choosing the other replaces it — a
- * wave with two bosses is not a wave anybody has designed.
- */
-function setBoss(wave: Wave, kind: BossEntry["kind"] | null): void {
-  if (kind === null) wave.boss = undefined;
-  else if (kind === "queen") wave.boss = { ...QUEEN_DEFAULT };
-  else if (kind === "warden") wave.boss = { kind: "warden" };
-  else if (kind === "vane") wave.boss = { kind: "vane" };
-  else wave.boss = { kind: "mirror", rounds: MIRROR_DEFAULT.rounds.map((r) => [...r]) };
 }
 
 export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
@@ -51,28 +36,15 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     panel.replaceChildren();
     if (!wave) return;
 
-    const pick = (label: string, kind: BossEntry["kind"] | null): HTMLButtonElement => {
-      const el = document.createElement("button");
-      el.type = "button";
-      el.textContent = label;
-      el.addEventListener("click", () => {
-        setBoss(wave, kind);
-        store.dirty = true;
-        onEdit();
-      });
-      return el;
-    };
-
-    const bar = document.createElement("div");
-    bar.className = "boss-pick";
-    if (wave.boss) bar.appendChild(pick("REMOVE BOSS", null));
-    if (wave.boss?.kind !== "queen") bar.appendChild(pick("+ BULB QUEEN", "queen"));
-    if (wave.boss?.kind !== "mirror") bar.appendChild(pick("+ THE MIRROR", "mirror"));
-    if (wave.boss?.kind !== "warden") bar.appendChild(pick("+ THE WARDEN", "warden"));
-    if (wave.boss?.kind !== "vane") bar.appendChild(pick("+ THE VANE", "vane"));
-    panel.appendChild(bar);
-
-    if (!wave.boss) return;
+    if (!wave.boss) {
+      const note = document.createElement("p");
+      note.className = "note";
+      note.textContent =
+        "This wave has no boss. A boss belongs to its wave and is not added " +
+        "or removed here — it is authored in packages/content/src/waves.ts.";
+      panel.appendChild(note);
+      return;
+    }
     if (wave.boss.kind === "mirror") {
       const blurbM = document.createElement("p");
       blurbM.className = "note";
