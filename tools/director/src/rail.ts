@@ -32,6 +32,8 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
   const controlsWhy = document.getElementById("fControlSetWhy");
+  const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
+  const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
 
   // Directly under SENTENCE, which is where the owner asked for it: a wave's
   // prose is its name, why it exists, and what the pair has to be told before
@@ -118,6 +120,23 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     if (controlsWhy) controlsWhy.textContent = active.why;
 
     guideFields.render(wave);
+
+    // A boss wave cannot be copied or deleted (see the two guards in
+    // `bindAction` below, which are the actual enforcement). Disabling the
+    // buttons here is the other half: a control that is present and does
+    // nothing on press is worse than one that is absent, because the person
+    // who pressed it cannot tell a refusal from a broken tool. The boss
+    // panel's own note explains why; the disabled state is the same fact
+    // read off the button instead of read after the fact.
+    const hasBoss = Boolean(wave?.boss);
+    if (waveCopyBtn) {
+      waveCopyBtn.disabled = hasBoss;
+      waveCopyBtn.title = hasBoss ? "A boss wave cannot be duplicated." : "";
+    }
+    if (waveDelBtn) {
+      waveDelBtn.disabled = hasBoss;
+      waveDelBtn.title = hasBoss ? "A boss wave cannot be deleted." : "";
+    }
   };
 
   const render = (): void => {
