@@ -74,11 +74,11 @@
       main > section { border-right: 1px solid var(--line); overflow-y: auto; padding: 10px; min-height: 0; }
       /* A flex column, not the plain scrolling box every other section is:
          the canvas needs a definite height to measure itself against
-         (`resize()` reads `canvas.getBoundingClientRect()`), so it keeps the
-         3-of-5 share and `#stageBelow` — the note and the balance sheet moved
-         here from the retired BALANCE tab, the latter now folded behind
-         `#ledgerToggle` — takes the rest and scrolls on its own rather than
-         being clipped the way it silently was before. */
+         (`resize()` reads `canvas.getBoundingClientRect()`). The field takes
+         the whole column and the transport row sits at its bottom — the
+         column used to split 3-of-5 with a note-and-balance-sheet block below
+         it, which left the field too small to judge whether the cannon has
+         time to reach a column. */
       main > section.stage-col { display: flex; flex-direction: column; overflow: hidden; }
       main > section:last-child { border-right: 0; }
       h2 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 8px; font-weight: 400; }
@@ -143,7 +143,13 @@
       .pod-row { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--dim); }
       .pod-row input { width: 46px; }
 
-      #stageWrap { flex: 3 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+      /* Fills the whole column — the field is the reason the tool exists,
+         and the transport row below is `flex: 0 0 auto`, so it is pinned to
+         the bottom of the screen rather than floating in a shared column.
+         `align-items: center` centers `.transport` and `#stageNote`, which
+         are narrower than the column; `#stageBox` overrides it with its own
+         `width: 100%`. */
+      #stageWrap { flex: 1 1 0; min-height: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; align-items: center; }
       /* The canvas would otherwise size itself from its own width attribute, which
          the renderer sets from its measured width — a loop that settles at zero. */
       #stageBox { flex: 1 1 auto; min-height: 0; width: 100%; display: flex; justify-content: center; }
@@ -153,18 +159,14 @@
         background: #05040c; border: 1px solid var(--line); border-radius: 8px; display: block;
         cursor: crosshair;
       }
+      /* The one line explaining what the field is — kept to a sentence so it
+         does not compete with the field for height. */
+      #stageNote { flex: 0 0 auto; margin: 0; max-width: 420px; text-align: center; }
       /* One row of the same kind of control — wraps rather than clipping or
-         scrolling sideways once BRIEFINGS and LEDGER joined the four buttons
-         that were already here. */
+         scrolling sideways once BRIEFINGS joined the buttons that were
+         already here. Last child of `#stageWrap`, so it sits at the bottom
+         of the column with no growable sibling below it to push it further. */
       .transport { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
-      /* Everything below the field: shares the column with #stageWrap rather
-         than overflowing it, and scrolls on its own when it doesn't fit. */
-      #stageBelow { flex: 2 1 0; min-height: 0; overflow-y: auto; width: 100%; }
-      /* The balance sheet's own content, folded away until #ledgerToggle is
-         pressed — see balance.ts. Default hidden: a live panel nobody asked
-         to see yet is exactly what "hidden behind a button" means. */
-      #balanceSheetPanel { display: none; }
-      #balanceSheetPanel.on { display: block; }
 
       #tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
       .tabpage { display: none; }
@@ -626,17 +628,6 @@
       .spec-file details.more > summary { color: var(--ink); font-size: 11px; letter-spacing: 1px; }
       .spec-file .blurb { margin: 3px 0 0; color: var(--dim); font-size: 10px; line-height: 1.45; }
 
-      #balanceSheet .sync { text-align: center; padding: 6px 0 12px; border-bottom: 1px solid var(--line-soft); }
-      #balanceSheet .sync-value { font-size: 34px; letter-spacing: 2px; color: var(--gold); line-height: 1.2; }
-      #balanceSheet .sync-label { font-size: 9px; letter-spacing: 1px; color: var(--dim); }
-      .sheet-row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
-      .sheet-label { flex: 0 0 54px; color: var(--ink); letter-spacing: 1px; }
-      .sheet-track { flex: 1; height: 6px; background: #2a1f4e; border-radius: 3px; overflow: hidden; }
-      .sheet-fill { display: block; height: 100%; background: var(--cyan); }
-      .sheet-count { flex: 0 0 46px; text-align: right; color: var(--dim); }
-      .sheet-memory { display: flex; justify-content: space-between; font-size: 10px; color: var(--dim); margin: 3px 0; }
-      .sheet-memory span:last-child { color: var(--ink); }
-
       .row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 10px; }
       .row label { flex: 0 0 96px; color: var(--dim); }
       .row span { flex: 0 0 62px; text-align: right; }
@@ -842,6 +833,13 @@
       <section class="stage-col">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
+          <p class="note" id="stageNote">
+            The field is the phone-shaped rectangle the game draws into —
+            computeStage, the same call the device makes. Click it to place
+            the current brush at the held beat, nearest of the seven columns.
+            ▣ SHEET below ends the run and draws the after-run screen; ↺ WAVE
+            starts over.
+          </p>
           <div class="transport">
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>
@@ -858,42 +856,9 @@
             <button type="button" id="briefToggle" title="Whether a wave opens on a briefing card at all">
               BRIEFINGS
             </button>
-            <!-- The live balance sheet, folded away until pressed — bound in
-                 balance.ts. Named LEDGER rather than a second "sheet": SHEET
-                 above already means the after-run screen, and a row with two
-                 buttons called the same thing is a row nobody can read at a
-                 glance. -->
-            <button type="button" id="ledgerToggle" title="Show or hide the live balance sheet">
-              ▤ LEDGER
-            </button>
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>
-          </div>
-        </div>
-        <div id="stageBelow">
-          <p class="note">
-            The field is the phone-shaped rectangle the game draws into, not the
-            panel it sits in — computeStage, the same call the device makes. Click
-            the field to place the current brush at the held beat, in the nearest
-            of the seven authored columns.
-          </p>
-          <!-- LEDGER above shows and hides this whole block. -->
-          <div id="balanceSheetPanel">
-            <h2 style="margin-top: 10px">THE BALANCE SHEET — live</h2>
-            <div id="balanceSheet"></div>
-            <p class="note">
-              The same numbers the screen after the run draws, moving as the
-              wave is played. Every one of them takes both players to move, and
-              none can be read backwards to say who missed — that is the rule
-              docs/spec/structure.md 7.2 puts on this screen, not a style
-              choice.
-            </p>
-            <p class="note">
-              SHEET under the field ends the run, so the drawn version appears
-              on the stage. The director holds the hull, so nothing else here
-              ever ends a run. ↺ WAVE starts it over and clears the sheet.
-            </p>
           </div>
         </div>
       </section>
