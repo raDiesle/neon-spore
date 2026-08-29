@@ -75,9 +75,10 @@
       /* A flex column, not the plain scrolling box every other section is:
          the canvas needs a definite height to measure itself against
          (`resize()` reads `canvas.getBoundingClientRect()`), so it keeps the
-         3-of-5 share and `#stageBelow` — the note and the live balance sheet
-         moved here from the retired BALANCE tab — takes the rest and scrolls
-         on its own rather than being clipped the way it silently was before. */
+         3-of-5 share and `#stageBelow` — the note and the balance sheet moved
+         here from the retired BALANCE tab, the latter now folded behind
+         `#ledgerToggle` — takes the rest and scrolls on its own rather than
+         being clipped the way it silently was before. */
       main > section.stage-col { display: flex; flex-direction: column; overflow: hidden; }
       main > section:last-child { border-right: 0; }
       h2 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 8px; font-weight: 400; }
@@ -152,11 +153,18 @@
         background: #05040c; border: 1px solid var(--line); border-radius: 8px; display: block;
         cursor: crosshair;
       }
-      .transport { flex: 0 0 auto; display: flex; gap: 4px; }
-      #briefToggle { flex: 0 0 auto; width: 100%; }
+      /* One row of the same kind of control — wraps rather than clipping or
+         scrolling sideways once BRIEFINGS and LEDGER joined the four buttons
+         that were already here. */
+      .transport { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
       /* Everything below the field: shares the column with #stageWrap rather
          than overflowing it, and scrolls on its own when it doesn't fit. */
       #stageBelow { flex: 2 1 0; min-height: 0; overflow-y: auto; width: 100%; }
+      /* The balance sheet's own content, folded away until #ledgerToggle is
+         pressed — see balance.ts. Default hidden: a live panel nobody asked
+         to see yet is exactly what "hidden behind a button" means. */
+      #balanceSheetPanel { display: none; }
+      #balanceSheetPanel.on { display: block; }
 
       #tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
       .tabpage { display: none; }
@@ -841,15 +849,27 @@
             <button type="button" id="ackBrief" title="Dismiss the briefing card, as both seats">
               ✓ CARD
             </button>
+            <!-- Whether a wave opens on a card at all, one click from the
+                 stage it changes; ✓ CARD above dismisses the one that is up.
+                 Bound in pair-panel.ts, which still mounts the other two PAIR
+                 rows into TUNING → PAIR. A button, not a checkbox: pressed
+                 once it stays on until pressed again, same as the role
+                 buttons below, and the `on` class is how both say so. -->
+            <button type="button" id="briefToggle" title="Whether a wave opens on a briefing card at all">
+              BRIEFINGS
+            </button>
+            <!-- The live balance sheet, folded away until pressed — bound in
+                 balance.ts. Named LEDGER rather than a second "sheet": SHEET
+                 above already means the after-run screen, and a row with two
+                 buttons called the same thing is a row nobody can read at a
+                 glance. -->
+            <button type="button" id="ledgerToggle" title="Show or hide the live balance sheet">
+              ▤ LEDGER
+            </button>
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>
           </div>
-          <!-- The toggle for whether a card shows at all, one click from the
-               stage it changes; ✓ CARD above dismisses the one that is up.
-               `pair-panel.ts` mounts the "Briefings" row here and its other
-               two rows into TUNING → PAIR. -->
-          <div id="briefToggle"></div>
         </div>
         <div id="stageBelow">
           <p class="note">
@@ -858,20 +878,23 @@
             the field to place the current brush at the held beat, in the nearest
             of the seven authored columns.
           </p>
-          <h2 style="margin-top: 10px">THE BALANCE SHEET — live</h2>
-          <div id="balanceSheet"></div>
-          <p class="note">
-            The same numbers the screen after the run draws, moving as the
-            wave is played. Every one of them takes both players to move, and
-            none can be read backwards to say who missed — that is the rule
-            docs/spec/structure.md 7.2 puts on this screen, not a style
-            choice.
-          </p>
-          <p class="note">
-            SHEET under the field ends the run, so the drawn version appears
-            on the stage. The director holds the hull, so nothing else here
-            ever ends a run. ↺ WAVE starts it over and clears the sheet.
-          </p>
+          <!-- LEDGER above shows and hides this whole block. -->
+          <div id="balanceSheetPanel">
+            <h2 style="margin-top: 10px">THE BALANCE SHEET — live</h2>
+            <div id="balanceSheet"></div>
+            <p class="note">
+              The same numbers the screen after the run draws, moving as the
+              wave is played. Every one of them takes both players to move, and
+              none can be read backwards to say who missed — that is the rule
+              docs/spec/structure.md 7.2 puts on this screen, not a style
+              choice.
+            </p>
+            <p class="note">
+              SHEET under the field ends the run, so the drawn version appears
+              on the stage. The director holds the hull, so nothing else here
+              ever ends a run. ↺ WAVE starts it over and clears the sheet.
+            </p>
+          </div>
         </div>
       </section>
 

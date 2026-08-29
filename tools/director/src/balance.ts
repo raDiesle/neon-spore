@@ -11,6 +11,13 @@ import { type BalanceSheet, balanceSheet, share, type World } from "@neon-spore/
  *
  * SHEET in the transport ends the run, which is how the drawn version is
  * reached without waiting for a hull that the director deliberately holds.
+ *
+ * The panel itself folds behind `#ledgerToggle`, a button in the same
+ * `.transport` row as `▣ SHEET` and `✓ CARD` — pressed once it shows
+ * `#balanceSheetPanel` (the heading, this panel and the notes below it) and
+ * stays shown until pressed again. It is called LEDGER rather than a second
+ * "sheet": `▣ SHEET` already names the after-run screen, and a row holding
+ * two buttons called the same thing is not a row anyone reads at a glance.
  */
 
 export interface BalancePanel {
@@ -56,7 +63,15 @@ function count(good: number, of: number): string {
 
 export function bindBalance(world: () => World): BalancePanel {
   const host = document.getElementById("balanceSheet");
+  const panel = document.getElementById("balanceSheetPanel");
+  const toggle = document.getElementById("ledgerToggle");
   let last = "";
+
+  toggle?.addEventListener("click", () => {
+    const shown = !panel?.classList.contains("on");
+    panel?.classList.toggle("on", shown);
+    toggle.classList.toggle("on", shown);
+  });
 
   const render = (): void => {
     if (!host) return;

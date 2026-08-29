@@ -32,11 +32,21 @@ import type { SimConfig } from "@neon-spore/sim";
  *
  * Two mounts, not one: "Briefings" toggles whether the field ever opens on a
  * card at all, and the owner asked for that to sit under the stage — one
- * click from what it changes — rather than two tabs away. `#briefToggle`
- * (in the stage column) takes that row; `#pairPanel` (in TUNING → PAIR) keeps
- * the other two, which are not about the stage in the same direct way. It is
- * still the dial for `cfg.briefings`, the same field `openBriefings` reads —
- * moving where the checkbox is drawn does not touch what it means.
+ * click from what it changes, in the same row as `↺ WAVE`, `▣ SHEET` and
+ * `✓ CARD` rather than in a checkbox of its own below them. It is bound
+ * directly to `#briefToggle` (a plain `<button>` in `index.html`'s
+ * `.transport`, not a mount this file fills), because it works the way those
+ * buttons do — pressed once it stays on until pressed again, shown with the
+ * `on` class the role buttons already use for exactly that, not a checkbox.
+ * `#pairPanel` (in TUNING → PAIR) keeps the other two rows, which are not
+ * about the stage in the same direct way and read fine as the checkbox rows
+ * they always were. Wherever it is drawn, this is still the dial for
+ * `cfg.briefings`, the same field `openBriefings` reads.
+ *
+ * `#briefToggle` is not `✓ CARD` (`stage-transport.ts`) and the two must stay
+ * apart: this says whether a card can open at all, `✓ CARD` dismisses the one
+ * that is up right now. Merging them would mean turning briefings on had no
+ * way to get the first card off the stage.
  */
 export interface PairPanel {
   render(): void;
@@ -44,10 +54,9 @@ export interface PairPanel {
 
 export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   const pairMount = document.getElementById("pairPanel");
-  const briefMount = document.getElementById("briefToggle");
+  const briefButton = document.getElementById("briefToggle");
   const rows: { box: HTMLInputElement; get: () => boolean }[] = [];
   pairMount?.replaceChildren();
-  briefMount?.replaceChildren();
 
   const add = (
     mount: HTMLElement | null,
@@ -62,15 +71,13 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     mount.appendChild(row);
   };
 
-  add(
-    briefMount,
-    "Briefings",
-    "A wave opens on a card for anything the pair has not met yet.",
-    () => cfg.briefings,
-    (on) => {
-      cfg.briefings = on;
-    },
-  );
+  briefButton?.classList.toggle("on", cfg.briefings);
+  briefButton?.addEventListener("click", () => {
+    cfg.briefings = !cfg.briefings;
+    briefButton.classList.toggle("on", cfg.briefings);
+    onChange();
+  });
+
   add(
     pairMount,
     "THE FORK",
@@ -93,6 +100,9 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   return {
     render: () => {
       for (const { box, get } of rows) box.checked = get();
+      // `demo-panel.ts` sets `cfg.briefings` from outside this file, the same
+      // reason `render()` exists at all — see the class doc above.
+      briefButton?.classList.toggle("on", cfg.briefings);
     },
   };
 }
