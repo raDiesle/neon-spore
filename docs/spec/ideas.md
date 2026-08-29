@@ -510,18 +510,18 @@ Each names the slot it would fit.
   which is a question a prototype answers and a paragraph does not
 
 
-### Interludes
+### Rounds
 
 Twelve short rounds that are not the field: their own rules, their own
 controls, their own picture, over in about ninety seconds, and nothing they
 teach is used again. The category comes from reading Hazelight's two co-op
-games — see [transfers-hazelight](transfers-hazelight.md) — and what an
-interlude is allowed to be is [interludes](interludes.md). THE MIRROR
+games — see [transfers-hazelight](transfers-hazelight.md) — and what a
+round is allowed to be is [interludes](interludes.md). THE MIRROR
 ([bosses](bosses.md) 11.4) is the one the game already has without calling it
 that, and it is the only one.
 
 Each entry says whether it needs the no-travel rule relaxed. Most do not, and
-that is deliberate: an interlude that survives either answer to
+that is deliberate: a round that survives either answer to
 [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on)
 is worth more than a better one that is waiting on it.
 
@@ -663,7 +663,7 @@ is worth more than a better one that is waiting on it.
   giving the two players genuinely different cameras on one room. **No
   relaxation needed.** Unworked out: whether brightness can carry fifteen rows
   legibly, which is an eye's question and probably answers "no, so use fewer";
-  whether this is an interlude at all or is a *veil* — a way of showing the
+  whether this is a round at all or is a *veil* — a way of showing the
   ordinary field, which would make it a system rather than a round, and
   [systems](systems.md) 5.2 already governs what may be disturbed and what may
   never be absent; what the pair is doing in it, which like THE REPRISE is not
@@ -678,7 +678,7 @@ is worth more than a better one that is waiting on it.
   pair that has spent four acts building one vocabulary discovers it was
   building a vocabulary about a picture rather than about a game. **No
   relaxation needed**, and it is the cheapest large change in the store. It
-  also plainly **fails the first test of an interlude** — the field is not
+  also plainly **fails the first test of a round** — the field is not
   gone, it is re-drawn — and that failure is the useful part: its real home may
   be the modifier slot that [wave-design](wave-design.md) already reserves for
   waves 8 and 9 of an act, where inverting something is the point. Unworked
@@ -696,7 +696,7 @@ is worth more than a better one that is waiting on it.
   is one body that travels, which is the one shape this game's central rule
   forbids on the field, so it is also the first real test of
   [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on):
-  either an interlude is outside that rule or a snake cannot be one. And a
+  either a round is outside that rule or a snake cannot be one. And a
   snake is famously a game for one person, so the thing that makes it a Neon
   Spore round is whatever makes it unplayable alone — the head answering to one
   player and the turn to the other, or the food visible on one device and the

@@ -90,15 +90,15 @@ describe("buildBacklog", () => {
     // what a hand does on a wave. Before this group existed the whole heading
     // was parsed and then dropped, which is the failure a spec-derived page is
     // supposed to make impossible.
-    expect(names(backlog.interludes)).toContain("THE LATHE");
-    expect(names(backlog.interludes)).toContain("THE VAULT");
+    expect(names(backlog.rounds)).toContain("THE LATHE");
+    expect(names(backlog.rounds)).toContain("THE VAULT");
 
     // THE GAUGE is built — `packages/sim/src/gauge.ts`, and `BOSS_KINDS` now
     // carries it — and a built round leaves the backlog by being built, the
     // same way a creature or a boss does. It used to need a third table beside
     // those two, because a round was in neither of them; it does not any more.
-    expect(names(backlog.interludes)).not.toContain("THE GAUGE");
-    expect(backlog.interludes[0]!.builtHidden).toBe(1);
+    expect(names(backlog.rounds)).not.toContain("THE GAUGE");
+    expect(backlog.rounds[0]!.builtHidden).toBe(1);
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
@@ -111,7 +111,7 @@ describe("buildBacklog", () => {
       ...names(backlog.bestiary),
       ...names(backlog.mechanics),
       ...names(backlog.controls),
-      ...names(backlog.interludes),
+      ...names(backlog.rounds),
     ];
     expect(new Set(everywhere).size).toBe(everywhere.length);
   });

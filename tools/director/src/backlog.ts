@@ -42,7 +42,7 @@ export interface Backlog {
   mechanics: BacklogGroup[];
   controls: BacklogGroup[];
   bosses: BacklogGroup[];
-  interludes: BacklogGroup[];
+  rounds: BacklogGroup[];
   parked: BacklogGroup[];
   // Decided, not yet done — `docs/queue.md`, joined to what git knows about
   // each lane. Built in `queue-panel.ts`, which needs git and so cannot live
@@ -209,13 +209,13 @@ export function buildBacklog(
         "Bosses",
       ),
     ],
-    interludes: [
+    rounds: [
       dropBuilt(
         fromIdeas(
-          "INTERLUDE IDEAS",
+          "ROUND IDEAS",
           "rounds that are not the field, each with its own controls and picture — ideas.md",
           sheet,
-          "Interludes",
+          "Rounds",
         ),
       ),
     ],
