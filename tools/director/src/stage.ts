@@ -1,4 +1,4 @@
-import { bossFromWave, controlSetForWave, podsFromWave, queueFromWave } from "@neon-spore/content";
+import { bossFromWave, controlSet, podsFromWave, queueFromWave } from "@neon-spore/content";
 import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
@@ -33,9 +33,8 @@ export interface StagePanel {
   /** The beat the field is holding, for a placement to land on. */
   beat(): number;
   /**
-   * The world being played. A panel that reads the run — the balance sheet —
-   * needs the live object, and `rebuild` swaps it for a new one, so the handle
-   * has to be a call rather than a reference handed out once.
+   * The world being played. `rebuild` swaps it for a new one, so a panel
+   * reading the run needs a call rather than a reference handed out once.
    */
   world(): World;
 }
@@ -77,6 +76,11 @@ export function bindStage(
   new ResizeObserver(resize).observe(canvas);
   resize();
 
+  // The stage plays `store.waves` (the draft), not the shipped `WAVES` — the
+  // panel comes from the wave's own `controls` field, the one `rail.ts`'s
+  // picker writes, never from an index. Read fresh, since the picker changes it.
+  const currentControlSet = () => controlSet(currentWave(store)?.controls);
+
   // THE GAUGE draws slabs rather than a band, which `touchDown` below cannot
   // answer — see `stage-gauge.ts`.
   bindStageGauge({
@@ -84,20 +88,20 @@ export function bindStage(
     layout: () => computeLayout(viewport, cfg, role),
     role: () => role,
     world: () => world,
+    controls: currentControlSet,
     push: (player, command) => keys.push(player, command),
   });
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
-    // The seat follows the role bar — see `pointerSeat` for what "test" does
-    // with a grab that has no single owner.
+    // The seat follows the role bar — see `pointerSeat` for "test"'s grab.
     field: () => ({
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: pointerSeat(role, world, cfg),
       wardenRow: cfg.wardenRow,
       // Only the controls this wave's panel actually carries.
-      controls: controlSetForWave(world.wave),
+      controls: currentControlSet(),
     }),
     push: keys.push,
     world: () => world,
@@ -106,14 +110,11 @@ export function bindStage(
     setCardStep: (s) => (cardStep = s),
   });
 
-  // `createWorld` always returns a fresh `Briefings` (`met: 0`, see
-  // `newBriefings` in `packages/sim/src/briefing.ts`), and `rebuild` throws the
-  // old `world` away rather than reusing it. So every `↺ WAVE` already asks
-  // `openBriefings` the same question `wave-opening.ts`'s `FRESH_PAIR_CFG`
-  // asks for the CARDS gallery — "what would a pair who has met nothing see",
-  // never "what has this run already taught" — which is also why editing
-  // wave 9 alone can show a card wave 2 already raised: there is no `met`
-  // bitmask carried forward, because the director never plays 0..8 first.
+  // `createWorld` always returns a fresh `Briefings` (`met: 0`), and `rebuild`
+  // throws the old `world` away rather than reusing it — so every `↺ WAVE`
+  // asks "what would a pair who has met nothing see", never "what has this
+  // run already taught", which is also why editing wave 9 alone can show a
+  // card wave 2 already raised: no `met` bitmask carries forward.
   const rebuild = (): void => {
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
@@ -173,6 +174,7 @@ export function bindStage(
       dt,
       events: frameEvents,
       running,
+      controls: currentControlSet(),
     });
     frameEvents = [];
     onFrame();
@@ -186,8 +188,7 @@ export function bindStage(
     const dt = Math.min(0.25, (now - last) / 1000);
     last = now;
     carry += dt * cfg.tickHz;
-    // A whole number of ticks, and never more than a second's worth: a tab
-    // that was away comes back to the wave, not to a burst of catch-up.
+    // Never more than a second's catch-up, so an away tab does not burst.
     const steps = Math.min(Math.floor(carry), cfg.tickHz);
     for (let i = 0; i < steps; i++) advance();
     carry -= steps;

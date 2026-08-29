@@ -40,12 +40,21 @@ export function drawBand(
   world: World,
   armed: boolean,
   open: boolean,
+  controls?: ControlSet,
 ): void {
   // A boss can take the controls away (`mirrorHoldsControls`). When it has,
   // the band is drawn dead and says so: a control that quietly does nothing
   // is indistinguishable from a control that is broken.
   const locked = mirrorHoldsControls(world);
-  const set = controlSetForWave(world.wave);
+  // `world.wave` is an index, and `controlSetForWave` reads it against the
+  // shipped `WAVES` — correct for the phone, where the two always agree, and
+  // wrong for a host playing a wave that is not in that array (the director's
+  // own draft). `controls` is how such a host says which panel it actually
+  // means; left unset, this falls back to the old inference, which is exactly
+  // the game's behaviour today. Not `??`: that spelling is the pattern
+  // `purity.test.ts` reserves for a *re-derivation* of `controlSetForWave`'s
+  // own default, and this is a call to it, not a copy of it.
+  const set = controls === undefined ? controlSetForWave(world.wave) : controls;
   ctx.save();
   ctx.fillStyle = "#0E0A22";
   ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);

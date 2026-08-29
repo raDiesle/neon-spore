@@ -1,3 +1,4 @@
+import type { ControlSet } from "@neon-spore/content";
 import type { SimEvent, World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 
@@ -29,6 +30,22 @@ export interface ViewState {
   events: readonly SimEvent[];
   /** False while paused, so the field can dim without the loop stopping. */
   running: boolean;
+  /**
+   * The panel this wave is played on, stated rather than inferred.
+   *
+   * `world.wave` is a bare index, and it means two different things depending
+   * on who holds the `World`: for the shipped game it indexes the shipped
+   * `WAVES`, and the two were always built to agree. A host that plays a wave
+   * from a *different* array at the same index — the director, editing a
+   * draft that has not shipped — has no way to recover the right panel from
+   * that number alone, no matter how the lookup is written.
+   *
+   * So the renderer no longer guesses: leave this unset only when `world.wave`
+   * truly does index `WAVES` (that is what `band.ts` and `gauge-round.ts` fall
+   * back to), and state it everywhere else. A host that finds itself needing
+   * this and skipping it has reintroduced the bug this field exists to close.
+   */
+  controls?: ControlSet;
 }
 
 /**

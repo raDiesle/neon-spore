@@ -1,4 +1,4 @@
-import { controlSetForWave } from "@neon-spore/content";
+import type { ControlSet } from "@neon-spore/content";
 import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import type { Command } from "@neon-spore/sim";
 import { gaugeHolds, type World } from "@neon-spore/sim";
@@ -8,7 +8,7 @@ import { gaugeHolds, type World } from "@neon-spore/sim";
  *
  * `stage-touch.ts` next door routes the canvas through the game's own
  * `touchDown`, and that file knows about the field and nothing else — it is
- * handed a `Field`, whose controls come from `controlSetForWave`. THE GAUGE
+ * handed a `Field`, whose controls come from the caller's own control set. THE GAUGE
  * draws slabs instead of a band, which `touchDown` cannot answer, so every
  * click on the valve landed there, matched nothing, and returned null. The
  * round was drawn and nothing was listening — the owner reported it as "i
@@ -38,10 +38,17 @@ export interface StageGauge {
   role: () => ViewRole;
   /** The live world, for `gaugeHolds` — `rebuild` swaps the object. */
   world: () => World;
+  /**
+   * The panel this wave is played on. `world().wave` is not enough to answer
+   * that on its own — see `ViewState.controls` in `packages/render` for why —
+   * so the caller, which knows which wave object is actually playing, states
+   * it directly.
+   */
+  controls: () => ControlSet;
   push: (player: 1 | 2, command: Command) => void;
 }
 
-export function bindStageGauge({ canvas, layout, role, world, push }: StageGauge): void {
+export function bindStageGauge({ canvas, layout, role, world, controls, push }: StageGauge): void {
   /** Which way each held pointer is pushing the valve. */
   const turning = new Map<number, -1 | 1>();
 
@@ -50,7 +57,7 @@ export function bindStageGauge({ canvas, layout, role, world, push }: StageGauge
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
-  const panel = () => slabPanel(layout(), controlSetForWave(world().wave), role());
+  const panel = () => slabPanel(layout(), controls(), role());
 
   const release = (id: number): void => {
     const dir = turning.get(id);

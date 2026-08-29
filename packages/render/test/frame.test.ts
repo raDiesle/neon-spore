@@ -1,5 +1,12 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue, WAVES, type Wave } from "@neon-spore/content";
+import {
+  buildBoss,
+  buildQueue,
+  CONTROL_SETS,
+  controlSetForWave,
+  WAVES,
+  type Wave,
+} from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -656,5 +663,55 @@ describe("a finger on the field", () => {
     if (!queen) throw new Error("no queen");
     const at = creatureCenter(L, queen, 0);
     expect(creatureAt(L, boss.creatures, at.x, at.y, 0, CFG.wardenRow)).toBeNull();
+  });
+});
+
+/**
+ * THE PANEL DRAWN IS THE ONE THE CALLER NAMES, NOT THE ONE `world.wave` HAPPENS
+ * TO INDEX IN THE SHIPPED `WAVES`.
+ *
+ * `world.wave` means two different things depending on who holds the world:
+ * for the shipped game it indexes `WAVES`, and the two were built to agree.
+ * The director plays a draft at the same index and they do not — which is why
+ * `ViewState.controls` exists at all. This is the proof: a world at wave 0,
+ * whose shipped wave is not on the lance panel, is drawn with the lance panel
+ * the moment `controls` says so, and drawn without it the moment `controls`
+ * is left unset — the same object, the same `world.wave`, two different frames.
+ */
+describe("the band draws the panel it is handed", () => {
+  const lance = CONTROL_SETS.find((s) => s.id === "lance");
+  if (!lance) throw new Error("no lance set registered");
+
+  function drawnNames(world: ReturnType<typeof createWorld>, controls?: typeof lance) {
+    const { canvas, ctx } = stubCanvas();
+    const renderer = new Canvas2DRenderer(canvas);
+    renderer.resize({ width: 900, height: 1600, dpr: 2 });
+    const seen: string[] = [];
+    const original = ctx.fillText.bind(ctx);
+    ctx.fillText = (text: string, x: number, y: number) => {
+      seen.push(text);
+      original(text, x, y);
+    };
+    renderer.draw({
+      world,
+      beatPhase: 0,
+      role: "test",
+      time: 0,
+      dt: 1 / 60,
+      events: [],
+      running: true,
+      controls,
+    });
+    return seen;
+  }
+
+  it("follows an explicit override rather than the shipped wave at the same index", () => {
+    const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
+    // world.wave is 0, and the shipped wave there is not the lance panel —
+    // proof that a match below cannot be `controlSetForWave` agreeing by luck.
+    expect(controlSetForWave(world.wave).id).not.toBe(lance.id);
+
+    expect(drawnNames(world)).not.toContain(lance.name);
+    expect(drawnNames(world, lance)).toContain(lance.name);
   });
 });

@@ -124,7 +124,7 @@ export function drawOverlays(
 ): void {
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
-  drawBand(ctx, l, world, isArmed, isOpen);
+  drawBand(ctx, l, world, isArmed, isOpen, view.controls);
   drawOverlay(ctx, l, view);
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing

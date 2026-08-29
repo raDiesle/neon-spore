@@ -9,7 +9,7 @@ import { bindStageGauge } from "../src/stage-gauge.js";
  *
  * The owner reported it as "i cannot test the gauge": a click on the valve did
  * nothing, because `stage-touch.ts` routes the canvas through `touchDown`,
- * which is handed a `Field` whose controls come from `controlSetForWave` — and
+ * which is handed a `Field` whose controls come from the caller's own set — and
  * a round's own three slabs are in none of them. The keyboard had no valve or
  * call either, so there was no way into the round at all.
  *
@@ -55,9 +55,9 @@ const VIEWPORT = { width: 400, height: 800, dpr: 1 };
 const SET = controlSet("gauge");
 /**
  * The real wave, found by name rather than written as a number. The binding
- * asks `controlSetForWave` which panel the wave is played on — the same call
- * the draw makes — so a rig that installed the boss on some other wave would
- * be testing a round nobody had given any buttons to.
+ * is handed the panel the wave is played on — the same call the draw makes —
+ * so a rig that installed the boss on some other wave would be testing a
+ * round nobody had given any buttons to.
  */
 const WAVE = WAVES.findIndex((w) => w.boss?.kind === "gauge");
 
@@ -73,6 +73,7 @@ function armed(role: "test" | "p1" | "p2") {
     layout: () => layout,
     role: () => role,
     world: () => world,
+    controls: () => SET,
     push: (player, command) => sent.push({ player, command }),
   });
   return { stub, sent, slabs: slabPanel(layout, SET, role), world };
@@ -148,6 +149,7 @@ describe("the director answers a round's own controls", () => {
       layout: () => layout,
       role: () => "test",
       world: () => world,
+      controls: () => SET,
       push: (player, command) => sent.push({ player, command }),
     });
     press(stub, slabPanel(layout, SET, "test")[0]!);
