@@ -50,6 +50,236 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## THE STAGE IS THE BUTTON, AND ✓ CARD IS ONE CONTROL TOO MANY
+_claude/burn-stage-steps-card · tools/director/index.html tools/director/src/stage.ts tools/director/src/stage-transport.ts tools/director/src/pair-panel.ts tools/director/test/transport.test.ts tools/director/test/stage.test.ts_
+**Asked for by the owner.** **This is the next thing done.** Said in German;
+translated here, because everything written down in this repository is English:
+
+> I do not need a "card" button to click a card away. Instead I want to click
+> the screen in the director's test mode: then player 1's help comes up.
+> Clicking the screen again brings player 2's help. Clicking once more starts
+> the wave.
+>
+> And make sure that in test mode I see the full sequence. Right now the
+> sentence and description state is never shown in the director unless I
+> configure it — below the game screen, buttons to skip.
+
+**This is the first of two lanes** and it deliberately changes nothing about
+the data. The one below moves the text into the wave and renames it; this one
+only fixes how a card is stepped through in the director, on today's model, so
+the clicking is in the owner's hands before the bigger change starts.
+
+### What is there now
+
+`✓ CARD` (`#ackBrief`, `stage-transport.ts`) pushes a `brief` command for both
+seats at once, because `bindStageTouch` already spends the canvas's own
+`pointerdown` on the cannon — that is the whole reason the button exists. On a
+phone there is no button: the stage *is* the target (`apps/game/src/briefing.ts`).
+In the director the card is drawn once with `role === "test"`, which shows both
+halves in words at the same time.
+
+### What it becomes
+
+The stage is the target here too, and in test mode the card is stepped rather
+than shown whole: **first press shows player 1's half, second press player 2's,
+third press puts the card away and the wave plays.** Where the game shows two
+people one screen each, one person at a desk gets the same two screens one
+after the other — which is the only way a reviewer can see what each seat
+actually reads.
+
+- The press is the canvas's, not a button's. `bindStageTouch` owns
+  `pointerdown` for the cannon, so the card's step has to come first and
+  swallow the press while a card is up — the same order the game plays by,
+  where the simulation refuses everything but the dismissal.
+- Which half is showing is **director state, not world state.** The world only
+  knows a card is up and who has acked; the sim may not learn that one screen
+  is being read in two turns. Keep it beside the stage's own view role.
+- The third press is the existing both-seats `brief` command, unchanged.
+- `✓ CARD` goes, with its wiring and its case in `transport.test.ts`.
+- The note under the field in `index.html` that names `✓ CARD` goes with it.
+
+### The sequence is on by default, and the toggle is the way past it
+
+The reason the owner has never seen a card in the director is `cfg.briefings`:
+off in `DEFAULT_CONFIG`, on in `apps/game`, and a checkbox nobody had reason to
+find in the director. The tool where these are *judged* is the one place that
+was not showing them.
+
+So the director opens with it **on**. `#briefToggle` stays exactly where it is
+in the transport row, one press from the field, and becomes what it is for:
+the way to skip the opening when you are iterating on a wave's timing and have
+read its card forty times today. The `BRIEFINGS` case in `transport.test.ts`
+stays and must keep passing; it is a different control from `✓ CARD` and
+`pair-panel.ts` says why in as many words — that comment survives the deletion
+and needs its second half rewritten, since the thing it contrasts against is
+gone.
+
+Nothing else reads the default: the shape sheets, `relay:check` and the
+determinism run all build their own config and are unaffected.
+
+Finished when `bun run check` is green, the transport row has no `✓ CARD`, a
+fresh director shows the first wave's card without anybody turning anything on,
+and a card steps p1 → p2 → play on three presses of the field.
+
+`Check: in the director, does clicking the field step a card through player 1's half, then player 2's, then start the wave — and does the first click after that move the cannon rather than the card`
+
+Model `sonnet`, effort `think`. Read `tools/director/src/stage-touch.ts` before
+`stage-transport.ts`: the whole difficulty is press ordering on one canvas.
+
+**Path overlap, on purpose.** THE MOUSE IS ONE HAND below owns
+`tools/director/src/stage.ts` and `index.html` too, and THE DIRECTOR'S STAGE
+READS THE SHIPPED WAVES owns `stage.ts` after it. This lane goes first and both
+replay over it: what it adds to `stage.ts` is one press-ordering guard at the
+top of the canvas's own `pointerdown`, and what it takes out of `index.html` is
+one button. Neither is where those two lanes work.
+
+## A WAVE OPENS ON ITS NAME, AND ITS HELP IS CALLED A GUIDE
+_claude/burn-wave-guide · packages/content/src/wave-types.ts packages/content/src/waves.ts packages/content/src/briefings.ts packages/content/src/index.ts packages/content/test/briefings.test.ts packages/sim/src/briefing.ts packages/sim/src/wave-start.ts packages/sim/src/step.ts packages/sim/src/hash.ts packages/sim/src/index.ts packages/sim/test/briefing.test.ts packages/render/src/briefing.ts packages/render/src/hud.ts packages/render/src/renderer.ts packages/render/src/frame-passes.ts packages/render/test/briefing.test.ts apps/game/src/briefing.ts apps/game/src/waves.ts tools/director/src/card-catalogue.ts tools/director/src/card-gallery.ts tools/director/src/card-order.ts tools/director/src/card-page.ts tools/director/src/card-picker.ts tools/director/src/card-waves.ts tools/director/src/wave-briefing.ts tools/director/src/rail.ts docs/spec/briefings.md_
+**Asked for by the owner.** Their ask, translated:
+
+> I suggest we move all "cards" into the briefing configuration of a wave. A
+> wave can have a piece of help or not. Help, for me, is a concrete
+> instruction: how the controls or a new concept work. `name, sentence` of a
+> wave is required text which I want to see first on the game screen — no card
+> layout. If a guide card is configured for that wave it shows after that first
+> introduction text (name, sentence, wave number). So I want a wave state we
+> probably do not have yet, visible in the director as well: wave number, name
+> and sentence as text on the screen, before the wave's sequence starts, and
+> optionally a card in between. The card text I want to configure as part of
+> the wave configuration, below `sentence`, in a section called `Guide` — so we
+> had better rename "card" to "Guide", because in future I might replace it
+> with a guidance animation and text.
+>
+> So I do not need a separate card configuration any longer. It should be part
+> of the wave configuration, where later on a wave's guidance might become more
+> complex — guide animations, which are more than text to configure. That has
+> to be built uniquely, step by step.
+
+Four questions were put to the owner before this was written, and their answers
+are the parts of the brief that cannot be derived from the code:
+
+1. **On two phones nothing about the split changes.** Each seat still sees its
+   own half in words and the other seat's as blocks, at the same time. Only the
+   director's `test` role steps one screen through both halves, and the lane
+   above builds that.
+2. **The guide text lives in the wave**, inline under `sentence`. The catalogue
+   goes.
+3. **The introduction runs on a timer** and passes on its own. It is not a
+   thing to dismiss.
+4. **`hint` is retired.** The introduction says what the fading banner said.
+
+### The order a wave now opens in
+
+1. **The introduction.** `WAVE 4`, the name, the sentence — plain text on the
+   field, no panel, no border, no card. It stands for a few seconds and goes;
+   nothing is pressed. Both seats see the same three lines, because all three
+   are the same on both devices.
+2. **The guide, if the wave has one.** Unchanged in shape from today's card:
+   split, drawn over the field, and it holds the wave until *both* seats have
+   put it away. That rule is not up for negotiation — a card one player skips
+   past is a sentence the pair never finished reading.
+3. **The wave.**
+
+So on a phone the first press a player makes after the introduction is the
+guide's, and on the director's stage the presses are the lane above's p1 → p2 →
+play. The director shows all three states, in order, on every wave start,
+because the lane above turned the opening on there by default.
+
+### What changes in the data
+
+`Wave` gains an optional `guide` written under `sentence`, and loses `hint`.
+`card?: BriefingId` goes with the catalogue it pointed into.
+
+**Shape it so an animation can arrive later without moving it again.** The
+owner has said plainly that a guide may one day be more than three strings, and
+that it will be built step by step. So `guide` is an *object with named parts*
+— today `{ both, p1, p2 }` — and never three loose fields on `Wave` and never a
+bare string. A scene, a picture or a step list is then a key added beside the
+words, and no wave file has to be touched to make room for it. Say that in the
+type's doc comment, so the next session adding motion knows where it goes.
+
+**This overturns "derived, never placed",** which is the decision
+`packages/sim/src/briefing.ts` and `docs/spec/briefings.md` are both built on,
+and the lane rewrites both rather than leaving the reasoning standing beside
+code that contradicts it. The argument for deriving was that a hand-kept list
+beside a wave goes stale — a rock taught on wave 9 because nobody moved the
+list. That cost is real and the owner is taking it knowingly: the trade is that
+a guide is now written where it is read, in the wave, can speak about *this*
+wave rather than about a creature in the abstract, and has somewhere to grow a
+picture. Write that paragraph honestly in the spec. It is the second time that
+file has changed its mind, and the next session needs to know why rather than
+which way.
+
+**The migration is derivable, not a guess.** `tools/director/src/card-waves.ts`
+already computes `cardFirstWave` — which wave first raises each subject for a
+pair playing in order. That mapping says exactly which wave each of today's 22
+cards belongs to. Move the text there, keep the words, and let any that map to
+no authored wave go with a line in `docs/parked.md` naming them, so the words
+are not simply deleted.
+
+**What is retired:** `BRIEFING_SUBJECTS`, `MAX_BRIEFING_SUBJECTS`,
+`subjectIndex`, `BRIEFINGS`, `world.brief.met`, `forgetBriefings`, and
+`openBriefings`'s derivation from `queue`/`podQueue`/`boss`. What survives is
+smaller and does the same job: a wave opens, `wave-start.ts` reads
+`wave.guide`, and `world.brief` holds whether one is up and which seats have
+acked. It stays in `hashWorld` — the guide still freezes the field, so two
+devices must agree it is there.
+
+**The guide has no memory, and shows on every start of its wave.** The met set
+was a bitmask over subjects, and there are no subjects any more. A wave carries
+its own help, the director restarts a wave twenty times an afternoon and wants
+to see it every time, and a run restarted after the hull went costs one press.
+If that turns out to grate, the answer is a memory over wave indices, and it is
+a second lane rather than a field added quietly here.
+
+**The opening is now wave 1's guide.** `opening` was the one subject in no
+queue, raised before the first wave and never again. Its three steps are about
+the split itself, so they become the guide on `1 · FIRST STEP` and the special
+case in `openBriefings` goes.
+
+### The director follows the data
+
+The CARDS sheet, its picker, its gallery and its wave ordering all read
+`BRIEFINGS` and `cardFirstWave`. After this they read `WAVES` and each wave's
+own `guide`, which makes most of them shorter: the "which wave first raises
+this" derivation is the thing that no longer has to be computed. The mark in
+`rail.ts` that says a wave opens on a card becomes `wave.guide != null`. Rename
+what is user-facing to **GUIDE**, sheet heading included, and rename the files
+if the split still makes sense afterwards.
+
+`#briefToggle` keeps its name in the code (`cfg.briefings` is the gate on a
+whole feature, not on one card) but the button under the field says what the
+thing it turns on is now called — decide between BRIEFINGS and GUIDES and say
+in the commit which and why.
+
+### The rule this lane is exempt from, and the one it is not
+
+This changes what a player sees in a frame, which CLAUDE.md's *a look is
+offered, never replaced* would normally send to a NOT BUILT YET card. It is
+exempt under the first of the three named exemptions: **the owner asked for it
+by name**, in the words quoted above. That is the whole exemption — the lane
+may build the introduction and the guide as described, and may not improve any
+other look it passes on the way. If the introduction's typography turns out to
+be the interesting question, that is a second lane and a decision for the
+owner, not a tidy-up.
+
+The purity rules are not relaxed for any of it: `content` and `sim` keep their
+no-clock, no-randomness, no-DOM guarantee, and the introduction's few seconds
+are counted the way the banner's already are, in the app, not on the world.
+
+Finished when `bun run check` is green, no wave carries `hint`, every wave that
+used to raise a card carries the same words as a `guide`, and a wave opens on
+its number, name and sentence.
+
+`Check: does a wave now open on its number, name and sentence as plain text on the field — long enough to read, without a panel around it — and does the guide that follows still read as two halves that have to be spoken across`
+
+Model `opus`, effort `think hard`, and read before writing:
+`packages/sim/src/briefing.ts` whole, `docs/spec/briefings.md` §3.1 and §3.6,
+and `tools/director/src/card-waves.ts` for the migration mapping. This is a
+deletion with a small addition in it — `tools/orphans` and `bun run check` are
+the guards against leaving a corpse. Expect the spec rewrite to be a third of
+the work and do not skip it.
+
 ## THE MOUSE IS ONE HAND, AND THE TETHER BELONGS TO THE OTHER ONE
 _claude/burn-pc-mouse-and-keys · tools/director/src/stage.ts tools/director/src/stage-touch.ts tools/director/src/keys.ts tools/director/src/key-help.ts tools/director/index.html tools/director/test/keys.test.ts_
 **Asked for by the owner.**
