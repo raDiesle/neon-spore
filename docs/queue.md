@@ -562,3 +562,98 @@ rather than what is on disk.
 Model `sonnet`, effort `think hard`, spent on the read-only boundary before any
 layout: which pages survive, and what happens to the controls that do not. Read
 `tools/director/server.ts` whole and `apps/game/package.json` first.
+
+## THE WAVE EDITOR EXPLAINS ITSELF AT LENGTH, AND THE FIELDS ARE TOO SMALL TO WRITE IN
+_claude/burn-wave-editor-tidy · tools/director/index.html tools/director/src/guide-fields.ts tools/director/src/wave-opening.ts tools/director/src/boss.ts tools/director/src/rail.ts tools/director/src/ship.ts tools/director/test_
+**Asked for by the owner**, as one list. Every item is theirs; nothing here was
+inferred.
+
+### One functional change
+
+**A text area grows to fit what is in it.** The owner:
+
+> in the wave editor, i want that text size in textarea grows to the length of
+> lines of text that it fits. so i want not to scroll text to edit or expand the
+> textarea section.
+
+No scrolling inside a field and no dragging a corner to see the rest. A guide's
+three parts are paragraphs, and a field that shows two lines of a five-line
+paragraph makes editing them a chore. There are four text areas in
+`index.html`; the behaviour should belong to all of them by being general
+rather than applied one at a time.
+
+### The rest is words, and there is one principle under all of it
+
+**The editor explains itself in prose that was written when these concepts were
+new, and is now clutter to somebody who uses the tool every day.** A label
+should name the thing. The reasoning belongs in the spec and in the director's
+own `README.md`, where it already is. Cutting it is not losing it.
+
+**Labels, renamed exactly as given** (`guide-fields.ts` and `index.html`):
+
+- `BOTH SCREENS — what the thing is, never the whole instruction` → **`Player 1 & Player 2`**
+- `PLAYER ONE — the cannon, the shield's trigger, the maw` → **`PLAYER 1`**
+- `PLAYER TWO — the shield itself, and the two colours` → **`Player 2`**
+- `CONTROL SET — this wave is not the ordinary thing` → **`Control Set`**
+
+Use their capitalisation as written, including its inconsistency; it is their
+tool and a lane tidying it into a scheme has changed something it was not asked
+to change. If that looks wrong once built, say so in the report.
+
+**Prose to remove outright:**
+
+- The Guide blurb — *"What the pair is told after this wave's introduction and
+  before it starts. Leave all three blank for a wave that introduces nothing
+  new — padding a wave with a guide is the same failure as padding it with
+  entries."*
+- The boss line in `boss.ts` — *"This wave has no boss. A boss belongs to its
+  wave and is not added or removed here — it is authored in
+  `packages/content/src/waves.ts`."* **This was added today, at the
+  orchestrator's request**, to explain a button that had just vanished. The
+  owner has seen it and does not want it. Their tool, their call.
+- The opening line in `wave-opening.ts` — *"Opens on \"WAVE n · …\" and its
+  sentence, then on its guide — which waits for both seats."* Remove both
+  branches of it, the guide one and the no-guide one, since they are the same
+  sentence twice.
+
+**`WHAT THIS WAVE ADDS TO THE SHIP` collapses when there is nothing to say.**
+The owner: *if there is nothing special, just say "nothing special" and remove
+the boring rest.* So on an ordinary wave that section is two words and no
+list.
+
+**One item where the intent is not certain, and the lane must not guess wide.**
+They also quoted *"The field as it is taught: slide, trigger, swallow, fire."*
+That is `why` on the **default** control set in
+`packages/content/src/control-sets.ts` — content, not the director, and the
+same field carries a genuinely useful sentence on every *other* set. Read the
+ask narrowly: **stop explaining the ordinary case**, so hide or drop it for the
+default set only. **Do not strip `why` from the sets that are not ordinary**,
+and do not edit `control-sets.ts` if hiding it in the director is enough. If
+neither reading is clean, leave it and say so.
+
+### A button instead of empty fields
+
+> if there is no guide data for a wave, a "add guide" button is shown, if
+> clicked the fields appear related replacing the button.
+
+So a wave that teaches nothing shows one button, not three empty boxes. The
+button is also the answer to a question the removed blurb used to answer —
+*what do I do if this wave introduces nothing* — which is why the blurb can go
+without leaving a hole: the interface says it instead of explaining it.
+
+Decide what pressing it does to the data and say so in the commit: whether it
+writes an empty guide immediately or only shows the fields until something is
+typed. **A wave must not end up carrying an empty guide it never wanted** —
+`packages/content/test/waves.test.ts` asserts that a wave introducing nothing
+does not have one, and that test must stay green.
+
+Finished when `bun run check` is green, a text area grows to its content, the
+four labels read as the owner wrote them, the four pieces of prose are gone, an
+ordinary wave's ship section says nothing special, and a wave without a guide
+offers a button rather than three empty fields.
+
+`Check: open a wave with a long guide and one with none — does every field show all of its text without scrolling, and does the empty one offer a single button instead of blank boxes`
+
+Model `sonnet`, effort `think`, spent on making the growing text area general
+rather than on the words. Read `tools/director/index.html`'s four text areas and
+`guide-fields.ts` before starting.
