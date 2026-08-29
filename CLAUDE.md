@@ -63,6 +63,36 @@ director, and an autonomous run does it without being asked. Nothing is
 forced even so — `git worktree remove` and `git branch -d` both refuse to lose
 work, and neither is argued with. `docs/verification.md` has the loop.
 
+**A `FAIL` is new work, and new work gets a new branch from `main`.** When a
+check comes back wrong, the lane that built the thing is over: its branch is on
+the trunk and the trunk has moved on. Do not reopen it, do not check it out
+again, and do not push a fix onto it. The verdict becomes a queue entry, the
+entry becomes a lane, and that lane starts the way every lane starts — a fresh
+worktree cut from the current `main`, with everything that landed in between
+already underneath it.
+
+The alternative is the tempting one and it is wrong twice over: a revived branch
+is missing every landing since, so its `bun run check` is answering a question
+nobody asked, and the fix arrives as a second commit on a branch whose first
+commit is already on the trunk. The rebase that follows is pure cost, incurred
+for the convenience of not typing a branch name.
+
+**And the sweep is not optional bookkeeping — it is what makes the next lane
+correct.** A branch whose work is on `main` has nothing left to protect, so it
+goes the moment the landing does, along with its worktree. Twenty-two
+directories left standing is not merely untidy: each one is a full checkout at
+some earlier state of the trunk, and a path into one of them looks exactly like
+a path into the repository. A session that follows a stale path reads code that
+has been superseded and reports a result about it.
+
+**On Windows the removal often fails and the failure is quiet.** `git worktree
+remove` refuses while anything holds a handle inside the tree — `node_modules`
+after a `bun install` is the usual culprit — and the tool moves on. The
+directory survives with no entry in `git worktree list`, which is the worst of
+both: git thinks it is gone and the filesystem disagrees. Sweeping means
+checking that the directory is actually absent afterwards, not that the command
+was issued.
+
 A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
 copied from the main tree: the workspace links inside it point at the main
 tree's `packages/*` by absolute path, so a test there would run against
