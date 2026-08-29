@@ -120,6 +120,64 @@ on the loop itself. Read `tools/director/src/versus-pose.ts` and
 `versus-pair.ts`'s `advance` whole first — a lane rebuilt both recently and left
 the per-slot pose mechanism you should extend rather than replace.
 
+## YOU CANNOT FIND THE WAVE THAT CARRIES A GIVEN CREATURE
+_claude/burn-find-by-creature · tools/director/src/roster.ts tools/director/src/rail.ts tools/director/index.html tools/director/test_
+**Asked for by the owner:**
+
+> i dont see a wave where i can test "Throb". create wave to easily find it for
+> testing. same for "Shell"
+
+**The waves exist, and that is the finding.** THE THROB is on wave 21,
+`ON THE BEAT`; THE SHELL is on wave 22, `THE THIRD SHOT`. Both are in
+`packages/content/src/waves/act-3.ts` and both have been there all along. The
+owner looked down a list of twenty-six names and could not tell which one held
+the creature they wanted, because **a wave's name says what it is about, not
+what is in it** — and that is right for a wave and useless for finding one.
+
+**So the fix is discovery, not content.** Creating a wave apiece would pad the
+game: `.claude/skills/new-wave`'s one-sentence test exists precisely to stop a
+wave that has no reason to be played, and two waves whose reason is *so a
+developer can find this creature* would fail it. The owner wants to reach a
+creature, and the tool should take them there.
+
+**If they would rather have dedicated sandbox waves after all, that is one
+sentence from them and a different entry.** Do not build both.
+
+### What to build
+
+**From a creature, get to a wave that carries it, in one press.** The director
+already lists every creature — `roster.ts` reads the bestiary — so the missing
+half is the link: for each creature, which waves contain it, and a way to open
+the first of them on the stage. That is a derivation over `WAVES`, not a list
+anybody maintains, so it cannot go stale.
+
+**Say what happens for a creature no wave carries.** Some kinds are in the
+bestiary and in no wave — that is a real state and it was written down as a gap
+once already. The honest answer is to say so plainly where the link would be,
+because *this creature is in no wave* is exactly the fact somebody looking for
+it needs. **Do not hide those; a silent absence reads as a broken button.**
+
+**And prefer showing every wave that carries it, not only the first.** The owner
+asked to test a creature; the second wave that carries it is often the more
+interesting one, because it is the wave where the creature is no longer new.
+
+### Where it goes
+
+The bestiary is on NOT BUILT YET; the wave list is the stage's own rail. Decide
+which end the link belongs on and say why in the commit — from the creature to
+the wave is the direction the owner asked for, but the reverse (this wave
+contains these creatures) may fall out of the same derivation for free, and if
+it does, say so rather than building it twice.
+
+Finished when `bun run check` is green, a creature names the waves that carry
+it, a creature carried by no wave says so, and getting from THE THROB to a wave
+that contains one takes a single press.
+
+`Check: pick THE THROB out of the creature list — does it tell you which wave to open, and does one press get you there?`
+
+Model `sonnet`, effort `think`. Read `tools/director/src/roster.ts` and the wave
+rail first. The derivation is small; the care is in the empty case.
+
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
 **Asked for by the owner**, for the alternatives page:
