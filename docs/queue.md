@@ -225,55 +225,6 @@ thinking goes on where the wave-to-panel lookup belongs now that there are two
 wave arrays in play — a fix that only patches the call site leaves the next
 reader the same trap.
 
-## THE GAUGE'S CONVERSION LEFT THREE THINGS IT COULD NOT REACH
-_claude/burn-interlude-leftovers · packages/content/src/waves.ts tools/director/src/serialize.ts tools/shape-sheet/src/drafts docs/spec/ideas.md packages/sim/test/limits.test.ts_
-**Proposed by the run.** Reported by `claude/burn-interludes-to-bosses` on
-landing, as the half its own paths could not cover.
-
-**One: `waves.ts` is owed a split, and the debt is about to get much worse.**
-It went from 267 lines to 275 when THE GAUGE became a wave, and the entry in
-`packages/sim/test/limits.test.ts` was raised to match with a note saying the
-split is now owed rather than merely available. That note is a receipt, not a
-fix. **Eleven more rounds are designed and each of them is a wave**, so the
-file grows every time one lands, and each landing will raise the number again
-unless somebody stops it.
-
-The reason it was not split already is that `tools/director/src/serialize.ts`
-reads it, so the split needs a lane owning both — which the conversion lane did
-not. That is this lane. Split by act, or by field, or however the file's own
-shape suggests once it is read; the constraint is that the director still round
--trips a wave through `serialize.ts` unchanged, and `bun run check` proves it.
-
-**Do not raise the cap again as part of this.** If the split lands, the number
-comes *down* and the note that called the split owed is replaced by one that
-says what the shape now is. A cap raised twice is a cap nobody believes.
-
-**Two: `tools/shape-sheet/src/drafts/*` still says "interlude" in its prose.**
-The category does not exist any more, so the word now points at nothing. This
-is a wording sweep, not a rename with consequences — read what each sentence
-was actually saying and put the right word there, which is usually *round* or
-*boss*. A blind find-and-replace would produce sentences that parse and mean
-nothing.
-
-**Three: the director's "Interludes" backlog group is named from
-`docs/spec/ideas.md`'s own heading**, so the group is renamed by renaming the
-heading, not by editing the director. Check that nothing else parses that
-heading before changing it — `sections.ts` reads spec headings by shape, and a
-heading is an interface here rather than a label.
-
-This is a tool and content fix, not a look: nothing the game draws changes, so
-the right number of `Check:` trailers is **zero**.
-
-Finished when `bun run check` is green, `packages/content/src/waves.ts` is
-under the ordinary limit with its `limits.test.ts` entry removed rather than
-raised, a wave still round-trips through the director unchanged, and
-`grep -ri interlude` finds the word only in `docs/decisions.md`'s rewritten
-entries and in the spec's own history of itself.
-
-Model `sonnet`, effort `think`. Read `packages/content/src/waves.ts` and
-`tools/director/src/serialize.ts` together before deciding the seam — the two
-have to agree, and the second is the reason the first was never split.
-
 ## GRAB AND DRAG BECOMES A SECOND GESTURE, AND THE HOLD STAYS WHAT IT IS
 _claude/burn-grab-and-drag · packages/render/src/touch.ts packages/sim/src/grip.ts packages/sim/src/commands.ts packages/render/src/tether.ts packages/sim/src/maze-round.ts packages/sim/src/maze-controls.ts packages/render/src/maze-draw.ts packages/render/test/touch.test.ts packages/sim/test/grip.test.ts packages/sim/test/maze.test.ts_
 **Asked for by the owner.** This **replaces** an earlier entry that proposed a
