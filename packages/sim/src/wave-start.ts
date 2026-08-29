@@ -67,7 +67,7 @@ export function startWave(
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {
     // No creature and no row either. THE MAZE is three mouths in the sky and a
-    // tangle behind them, so there is nothing of it for the fall loop or a
+    // wheel behind them, so there is nothing of it for the fall loop or a
     // hand to find — the same shape THE VANE has, one branch down.
     world.boss = installMaze(world, boss.rounds);
   } else if (boss?.kind === "vane") {

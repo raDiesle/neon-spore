@@ -46,9 +46,6 @@ export interface MazeWheel {
   entrances: MazeEntrance[];
 }
 
-/** What `entries.ts` and the director still call it. One wheel, one round. */
-export type MazeTangle = MazeWheel;
-
 /**
  * A route, written as moves rather than as cells. Content calls this instead
  * of listing coordinates: a hand-listed route is a second copy of where the

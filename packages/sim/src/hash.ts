@@ -198,7 +198,7 @@ export function hashWorld(world: World): number {
   }
   if (boss !== null && boss.kind === "maze") {
     // Gathered beside the boss rather than spelled out here: `mazeHashParts`
-    // says what is in it and why, the authored tangle included.
+    // says what is in it and why, the authored wheel included.
     for (const n of mazeHashParts(boss)) push(n);
   }
   // THE GAUGE, and the same argument one more time: a device that thinks the

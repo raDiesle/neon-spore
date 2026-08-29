@@ -1,4 +1,4 @@
-import type { MazeTangle } from "./maze-wheel.js";
+import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
 
@@ -80,16 +80,16 @@ export interface VaneEntry {
 }
 
 /**
- * What a wave authors when it wants THE MAZE: the tangles, in order, one per
+ * What a wave authors when it wants THE MAZE: the wheels, in order, one per
  * round. No column and no health, for the same two reasons THE MIRROR has
  * neither — the mouths are spread across the field by `mazeMouthCol` rather
  * than placed, and how much of it a round takes off follows from how many
  * rounds there are (`maze-round.ts`). The author sets the fight by writing the
- * lattice out, and `mazeFault` says whether what they wrote is a round at all.
+ * wheel out, and `mazeFault` says whether what they wrote is a round at all.
  */
 export interface MazeEntry {
   kind: "maze";
-  rounds: MazeTangle[];
+  rounds: MazeWheel[];
 }
 
 /**

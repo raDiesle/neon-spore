@@ -100,7 +100,6 @@ export {
   type MazeCell,
   type MazeEntrance,
   type MazeMove,
-  type MazeTangle,
   type MazeWheel,
   mazeCoreEntrance,
   mazeFault,
