@@ -2,8 +2,8 @@ import { openSmoothPath, type Point } from "@neon-spore/content";
 import { linePath, type Subject } from "../contour.js";
 
 /**
- * The two bodies an interlude is allowed to be made of that the sheet could not
- * draw yet.
+ * The two bodies a boss round is allowed to be made of that the sheet could
+ * not draw yet.
  *
  * `docs/spec/interludes.md` fixes the material — **slabs and glyphs, never
  * blobs** — and the catalogue already has `slab` and `glyphed`, which is why
@@ -13,9 +13,9 @@ import { linePath, type Subject } from "../contour.js";
  * arm there hangs from a pivot and sweeps.
  *
  * Both are walked corner to corner or drawn as one open stroke. Nothing here
- * goes through `blobRadiusMul`: an interlude that breathed would be the field
- * wearing a costume, and the first frame is where the pair is supposed to know
- * it is not.
+ * goes through `blobRadiusMul`: a round like this that breathed would be the
+ * field wearing a costume, and the first frame is where the pair is supposed
+ * to know it is not.
  */
 
 export interface ClawOpts {

@@ -6,13 +6,13 @@ import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
 import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
-import { serializeWaves } from "./src/serialize.js";
+import { serializeWaveArray } from "./src/serialize.js";
 
 /**
  * The director's server. It exists for one reason the game's preview does not
  * have: a browser cannot write a file, and the whole point of the editor is
- * that what you place ends up in `packages/content/src/waves.ts` as a diff you
- * can read.
+ * that what you place ends up in `packages/content/src/waves/act-*.ts` as a
+ * diff you can read.
  *
  * It borrows the preview server's hygiene, and for the same reasons: a port
  * fixed per tree so a second start in the same tree collides instead of
@@ -29,9 +29,36 @@ const repoRoot = new URL("../../", import.meta.url);
 const repoRootPath = Bun.fileURLToPath(repoRoot);
 const given =
   process.env.DIRECTOR_PORT === undefined ? undefined : Number(process.env.DIRECTOR_PORT);
-/** Which checkout's `waves.ts` this one reads and writes. */
+/** Which checkout's wave-act files this one reads and writes. */
 const treeId = treeKey(repoRootPath);
+/**
+ * The barrel — read for the current wave list, never written to. It only
+ * concatenates the three acts below, so a save never touches it.
+ */
 const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
+/**
+ * The three acts, in order. A save splits the incoming flat list back across
+ * them at each act's *current* length, except the last, which takes whatever
+ * is left over — so a wave appended in the editor lands in the newest act
+ * without either act needing to say which waves are its own.
+ */
+const actFiles = [
+  {
+    file: new URL("../../packages/content/src/waves/act-1.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-1.ts",
+    exportName: "WAVES_ACT_1",
+  },
+  {
+    file: new URL("../../packages/content/src/waves/act-2.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-2.ts",
+    exportName: "WAVES_ACT_2",
+  },
+  {
+    file: new URL("../../packages/content/src/waves/act-3.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-3.ts",
+    exportName: "WAVES_ACT_3",
+  },
+] as const;
 const specDir = new URL("../../docs/spec/", import.meta.url);
 const borrowedFile = new URL("../../docs/borrowed.md", import.meta.url);
 const marker = "neon-spore-director";
@@ -100,18 +127,31 @@ async function readWaves(): Promise<Wave[]> {
 }
 
 /**
- * Write the array back into the file, then let Biome have the last word on
- * formatting. The serializer already aims at Biome's output — the round-trip
- * test holds it to that — but a wave nobody has written yet may wrap in a way
- * the test never saw, and a save that turns the tree red is not a save.
+ * Write the array back across the three act files, then let Biome have the
+ * last word on formatting. The serializer already aims at Biome's output —
+ * the round-trip test holds it to that — but a wave nobody has written yet
+ * may wrap in a way the test never saw, and a save that turns the tree red is
+ * not a save.
  */
 async function writeWaves(waves: Wave[]): Promise<string | null> {
-  const source = await Bun.file(wavesFile).text();
-  const next = serializeWaves(source, waves);
-  await Bun.write(wavesFile, next);
+  let offset = 0;
+  for (let i = 0; i < actFiles.length; i++) {
+    const act = actFiles[i]!;
+    const isLast = i === actFiles.length - 1;
+    const mod = (await import(`${act.file.href}?t=${Date.now()}`)) as Record<string, Wave[]>;
+    const currentLen = mod[act.exportName]?.length ?? 0;
+    const remaining = waves.length - offset;
+    const count = isLast ? remaining : Math.min(currentLen, remaining);
+    const slice = waves.slice(offset, offset + count);
+    offset += slice.length;
 
-  const rel = "packages/content/src/waves.ts";
-  const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", rel], {
+    const source = await Bun.file(act.file).text();
+    const next = serializeWaveArray(source, slice, act.exportName);
+    await Bun.write(act.file, next);
+  }
+
+  const rels = actFiles.map((act) => act.rel);
+  const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", ...rels], {
     cwd: repoRootPath,
     stdout: "pipe",
     stderr: "pipe",

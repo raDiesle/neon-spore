@@ -13,22 +13,21 @@ import { Glob } from "bun";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const LIMIT = 250;
 /**
- * `waves.ts` is the one file here that cannot be split by the lane that fills
- * it. The director rewrites the `WAVES` array in place — `serialize.ts` finds
- * `export const WAVES: Wave[] = [` and regenerates everything after it — so an
- * array spread across two files would be flattened back into one the next time
- * anybody saved a wave in the editor, silently. Splitting it is a change to
- * the director and belongs to a lane that owns `tools/`; until then a wave
- * costs ten lines and this is where that is recorded rather than excused.
+ * `waves.ts` used to be the one file here that could not be split by the lane
+ * that fills it: the director rewrote the `WAVES` array in place, and
+ * `serialize.ts` found `export const WAVES: Wave[] = [` and regenerated
+ * everything after it, so an array spread across two files would have been
+ * flattened back into one the next time anybody saved a wave in the editor.
  *
- * It went from 267 to 275 when THE GAUGE stopped being a category and became a
- * boss wave, and it is about to go a great deal further: eleven more rounds
- * are designed and each of them is a wave. The split is now owed rather than
- * merely available, and this number is the receipt for that.
+ * It is split now, by act, into `packages/content/src/waves/act-*.ts` —
+ * `act-1.ts` is the tutorial arc, `act-2.ts` is the first five bosses,
+ * `act-3.ts` is everything after them. `waves.ts` itself is only the barrel
+ * that concatenates the three, so it stays short no matter how many waves the
+ * acts hold; `tools/director/src/serialize.ts` regenerates one act file at a
+ * time. There is currently nothing left in `KNOWN_LONG` — an act file that
+ * fills up in its own turn gets a fourth act beside it, not an entry here.
  */
-const KNOWN_LONG: Record<string, number> = {
-  "packages/content/src/waves.ts": 275,
-};
+const KNOWN_LONG: Record<string, number> = {};
 function sourceFiles(): string[] {
   const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");
   return [...glob.scanSync(ROOT)]

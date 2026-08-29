@@ -3,7 +3,7 @@ import { LURCH } from "../motions.js";
 import { cable, claw } from "./machined.js";
 
 /**
- * The two interlude bodies the sheet could not draw.
+ * The two boss bodies the sheet could not draw.
  *
  * Twelve rounds are designed and none of them had a picture, and the first
  * thing drawing them says is that most of them do not need one:
@@ -36,7 +36,7 @@ export const ROUND_DRAFTS: CatalogueEntry[] = [
     slot: "field",
     suggests: "THE CLAW",
     owner:
-      "the strongest argument that this category is cheap, and it needed one shape nobody had drawn: a thing that grips. The pilot slides it along a rail with the cannon's exact verb, so the motion is a travel with a destination and the gape is in the contour — an own-motion can move a body about and cannot close a hand. What it must not be read as is THE MOTHER, which is also arms around an opening: hers is a hole with the field showing through the middle of a body, and this has no inside at all below the shaft",
+      "the strongest argument that a round like this is cheap, and it needed one shape nobody had drawn: a thing that grips. The pilot slides it along a rail with the cannon's exact verb, so the motion is a travel with a destination and the gape is in the contour — an own-motion can move a body about and cannot close a hand. What it must not be read as is THE MOTHER, which is also arms around an opening: hers is a hole with the field showing through the middle of a body, and this has no inside at all below the shaft",
   },
   {
     subject: cable("THE SPLICE", "one strand, two free ends, and a crossing in between", {

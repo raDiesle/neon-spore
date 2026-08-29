@@ -18,7 +18,7 @@ import { SYSTEM_DRAFTS } from "./systems.js";
  *
  * The ship and the rounds are the two newest, and both are a seam rather than
  * an overflow. `ship.ts` is the four ideas that turned out to be marks on the
- * membrane rather than bodies; `rounds.ts` is what an interlude needs that the
+ * membrane rather than bodies; `rounds.ts` is what a boss round needs that the
  * field does not have, which is almost nothing.
  */
 export const DRAFTS: CatalogueEntry[] = [
