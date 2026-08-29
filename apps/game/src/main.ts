@@ -3,6 +3,7 @@ import { Canvas2DRenderer } from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  guideHolds,
   PAIR_ON,
   resetClock,
   type SimEvent,
@@ -75,6 +76,10 @@ const tickKeys = bindControls({
   controls: () => controlSetForWave(world.wave),
   creatures: () => world.creatures,
   beatPhase,
+  // Space at the keyboard must not be able to do what a tap on the field
+  // already can't: put the introduction away before its timer does. See the
+  // guard in `keys.ts`.
+  guideHolds: () => guideHolds(world),
   onPauseToggle: () => setRunning(!running),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });

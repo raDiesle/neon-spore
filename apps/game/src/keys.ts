@@ -15,6 +15,14 @@ export interface KeyBindings {
   isOver: () => boolean;
   /** The field, for G — the grip needs something to take hold of. */
   creatures: () => readonly Creature[];
+  /**
+   * Whether the guide is up — the only state Space is allowed to put away.
+   * The introduction before it passes on its own timer, and a `brief`
+   * command sent while it stands is indistinguishable from that timer
+   * firing (`sim/step.ts`), which is exactly why the touch dismiss in
+   * `briefing.ts` already guards on this before pushing.
+   */
+  guideHolds: () => boolean;
   onPauseToggle: () => void;
   onWaveStep: (delta: number) => void;
 }
@@ -73,6 +81,7 @@ export function bindKeys({
   layout,
   isOver,
   creatures,
+  guideHolds,
   onPauseToggle,
   onWaveStep,
 }: KeyBindings): () => void {
@@ -164,12 +173,17 @@ export function bindKeys({
         if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
         break;
       }
-      // Space puts a briefing card away, as both seats at once. The command
-      // means nothing when no card is up — the simulation only reads it while
-      // one is — so it costs nothing to send it unconditionally, and at a desk
-      // there is no second thumb to wait for.
+      // Space puts the guide away, as both seats at once — but only while the
+      // guide is actually up. The introduction ahead of it passes on its own
+      // timer and is not a thing to dismiss (the owner's own answer), and a
+      // `brief` command sent while it stands is indistinguishable from that
+      // timer firing (`sim/step.ts`'s `briefingHolds` reads both states the
+      // same way), so pressing Space early would skip the introduction before
+      // it had been read. `guideHolds` is the same guard the touch dismiss
+      // already plays by (`briefing.ts`), just read here instead of there.
       case "Space":
         e.preventDefault();
+        if (!guideHolds()) break;
         buffer.push(1, { kind: "brief" });
         buffer.push(2, { kind: "brief" });
         break;

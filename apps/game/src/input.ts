@@ -56,6 +56,12 @@ export interface Bindings {
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
    * it stood on the last beat. */
   beatPhase: () => number;
+  /**
+   * Whether the guide is up — passed straight through to the keyboard rig,
+   * which needs it to keep Space from skipping the introduction ahead of the
+   * guide (`keys.ts`).
+   */
+  guideHolds: () => boolean;
   onPauseToggle: () => void;
   /** Wave step, for the test keys. Positive is forwards. */
   onWaveStep: (delta: number) => void;
@@ -78,6 +84,7 @@ export function bindControls({
   controls,
   creatures,
   beatPhase,
+  guideHolds,
   onPauseToggle,
   onWaveStep,
 }: Bindings): () => void {
@@ -155,5 +162,5 @@ export function bindControls({
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
    */
-  return bindKeys({ buffer, layout, isOver, creatures, onPauseToggle, onWaveStep });
+  return bindKeys({ buffer, layout, isOver, creatures, guideHolds, onPauseToggle, onWaveStep });
 }
