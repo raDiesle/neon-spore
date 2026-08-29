@@ -122,6 +122,41 @@ quite asked for.
 - **How far is far enough**, in thousandths of a tile, as a named field in
   `SimConfig` — never a literal.
 
+### The owner settled what holds the hatch open, and it is nothing but the tension
+
+> ich schlage vor, nicht das loslassen, und auch nicht das reißen, sondern das
+> bloße halten gespannt (wie ein tor mit flaschenzug). [...] die luke ist der
+> alleinige weg zum Auge, damit man vertikal dann draufschießen kann, wenn die
+> luke offen ist. andere alte mechanik kannst du nach "not build yet"
+> verschieben und wird momentan nicht gebraucht.
+
+*Not the letting-go, and not the tearing either, but simply holding it taut —
+like a gate with a block and tackle. [...] The hatch is the only way to the
+eye, so that you can shoot vertically into it when the hatch is open. The other
+old mechanic can move to "not built yet"; it is not needed at the moment.*
+
+**There is no tear.** The hatch is held by the string being kept taut and by
+nothing else: keep pulling and it stays open, slacken and it closes. A lane
+proposed ending the window by tearing the line, on the argument that an
+unbounded window turns a question of *when* into one of *how long*; the owner
+heard that and chose the gate-and-tackle. **That proposal is kept**, in "not
+built yet", to be tested and probably used on another wave or boss — with its
+reasoning intact, because the reasoning is the part worth keeping.
+
+**And the hatch is the only way to the eye.** Whatever opened the eye on its
+own clock retires with the tear, into "not built yet" rather than into nothing.
+The pull becomes the sole source of the opening.
+
+**What this does not change**: the cost of a hit is still the ring's own
+existing rule — a plate, spent once per opening — so no balance number is
+invented and the bullet path is not touched. That finding was made before this
+message and survives it.
+
+**And it strengthens the visual requirement above** rather than complicating
+it: a gate held open by tension, closing the moment the tension goes, is
+already what *opens by degrees* describes. The picture and the rule are the
+same thing here.
+
 ### And the pull has to be readable, which is not polish
 
 The owner, added while the lane was working:
