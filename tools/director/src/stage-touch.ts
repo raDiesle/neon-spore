@@ -8,6 +8,7 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import {
+  briefingHolds,
   type Command,
   type SimConfig,
   type World,
@@ -47,6 +48,22 @@ export function pointerSeat(role: ViewRole, world: World, cfg: SimConfig): 1 | 2
   if (world.boss?.kind === "warden") return wardenRescuer(wardenCycle(cfg, world.waveBeat));
   return 1;
 }
+
+/**
+ * What `test` mode should actually be drawn as while a card is up: stepped
+ * through player one's half, then player two's, before ever falling back to
+ * the dual view `role` alone would ask for (`packages/render/src/briefing.ts`
+ * draws that whenever it is handed `"test"`). `cardStep` is the only thing
+ * that ever moves — see the pointerdown handler below — this only reads it.
+ */
+export function cardRenderRole(role: ViewRole, world: World, cardStep: 0 | 1 | 2): ViewRole {
+  if (role === "test" && briefingHolds(world)) {
+    if (cardStep === 1) return "p1";
+    if (cardStep === 2) return "p2";
+  }
+  return role;
+}
+
 export interface StageTouch {
   canvas: HTMLCanvasElement;
   /** Read fresh: the panel is resizable and the role switches under it. */
@@ -54,9 +71,36 @@ export interface StageTouch {
   /** The field a grab is tested against, and whose hand it is. */
   field: () => Field;
   push: (player: 1 | 2, command: Command) => void;
+  /** The world a card is read off — whether one is up at all right now. */
+  world: () => World;
+  /** Which seat's screen the role bar is holding, the same value `field()`
+   * already answers `pointerSeat` with — a card up under `test` has to be
+   * stepped in words, one under `p1`/`p2` is already just the one screen the
+   * phone would show, so a press dismisses it the way the phone's own
+   * `bindBriefing` does. */
+  role: () => ViewRole;
+  /**
+   * Which half of the card `test` mode is showing right now: 0 before either
+   * press, 1 once player one's half is up, 2 once player two's is. Director
+   * state, not world state — the sim only knows a card is up and who has
+   * acked it (`Briefings.ack` in `packages/sim/src/briefing.ts`), never that
+   * one screen is reading it in two turns instead of one. Kept beside `role`
+   * in `stage.ts`, which is also director state about the same stage.
+   */
+  cardStep: () => 0 | 1 | 2;
+  setCardStep: (step: 0 | 1 | 2) => void;
 }
 
-export function bindStageTouch({ canvas, layout, field, push }: StageTouch): void {
+export function bindStageTouch({
+  canvas,
+  layout,
+  field,
+  push,
+  world,
+  role,
+  cardStep,
+  setCardStep,
+}: StageTouch): void {
   const holding = new Map<number, Hold>();
   const at = (e: PointerEvent): { x: number; y: number } => {
     const rect = canvas.getBoundingClientRect();
@@ -64,6 +108,24 @@ export function bindStageTouch({ canvas, layout, field, push }: StageTouch): voi
   };
 
   canvas.addEventListener("pointerdown", (e) => {
+    // A card is up: the press is its step, not the cannon's. This has to run
+    // before `touchDown` below ever sees the press — the same order the
+    // phone plays by, where nothing but the dismissal reaches the ship while
+    // a card holds (`step.ts`) — so the first press after the card is gone
+    // is the first one that can move anything.
+    if (briefingHolds(world())) {
+      e.preventDefault();
+      if (role() === "test" && cardStep() < 2) {
+        setCardStep((cardStep() + 1) as 1 | 2);
+        return;
+      }
+      // Third press in `test`, or the only press `p1`/`p2` ever need — that
+      // screen already shows just the one half, so there is nothing to step.
+      setCardStep(0);
+      push(1, { kind: "brief" });
+      push(2, { kind: "brief" });
+      return;
+    }
     const p = at(e);
     const t = touchDown(layout(), p.x, p.y, field());
     if (!t) return;

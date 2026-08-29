@@ -9,7 +9,9 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
  * checkbox — pressed once it stays lit until pressed again, using the `on`
  * class the role buttons already carry (`stage-transport.ts`). This file
  * pins that "stays on until you press it again" is actually true, and that
- * the button does not step on `✓ CARD`, which stays a separate dismiss.
+ * the button holds no reference to a card at all — dismissing one is now the
+ * stage's own click (`bindStageTouch` in `stage-touch.ts`), not a button, and
+ * `✓ CARD`'s old case here went with it.
  *
  * `▤ LEDGER` briefly sat beside it, folding the live balance sheet behind the
  * same kind of button — this file used to pin that toggle too. The owner
@@ -94,9 +96,9 @@ describe("BRIEFINGS stays on until pressed again", () => {
     elements.delete("briefToggle");
   });
 
-  it("✓ CARD's dismiss (stage-transport.ts) is unrelated code and never reads cfg.briefings", () => {
-    // `bindStageTransport` pushes `{kind: "brief"}` unconditionally on click —
-    // it holds no reference to `cfg` at all, so there is nothing here for a
+  it("the dismiss (now bindStageTouch in stage-touch.ts) is unrelated code and never reads cfg.briefings", () => {
+    // A press on the stage while a card is up pushes `{kind: "brief"}` — it
+    // holds no reference to `cfg` at all, so there is nothing here for a
     // Briefings press to disturb. Documented rather than driven through a
     // real click: exercising it needs `Keys["push"]` and a running `World`,
     // which is `stage.ts`'s wiring, not `pair-panel.ts`'s — see the class doc

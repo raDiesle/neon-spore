@@ -866,11 +866,10 @@
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>
             <button type="button" id="endRun">▣ SHEET</button>
-            <button type="button" id="ackBrief" title="Dismiss the briefing card, as both seats">
-              ✓ CARD
-            </button>
             <!-- Whether a wave opens on a card at all, one click from the
-                 stage it changes; ✓ CARD above dismisses the one that is up.
+                 stage it changes; the stage itself now steps and dismisses
+                 the one that is up (stage-touch.ts) — clicking the field is
+                 the card's whole control, the same target the phone answers.
                  Bound in pair-panel.ts, which still mounts the other two PAIR
                  rows into TUNING → PAIR. A button, not a checkbox: pressed
                  once it stays on until pressed again, same as the role

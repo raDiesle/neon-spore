@@ -13,7 +13,7 @@ import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { bindStageGauge } from "./stage-gauge.js";
-import { bindStageTouch, pointerSeat } from "./stage-touch.js";
+import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { currentWave, type Store } from "./state.js";
 
@@ -56,6 +56,9 @@ export function bindStage(
   );
   let world: World = createWorld(cfg, store.index);
   let role: ViewRole = "test";
+  // Which half of a `test`-mode card is up — director state beside `role`,
+  // never the world's; stepped by `bindStageTouch`, read by `cardRenderRole`.
+  let cardStep: 0 | 1 | 2 = 0;
   let running = true;
   let frameEvents: SimEvent[] = [];
   let lastBeat = -1;
@@ -86,33 +89,35 @@ export function bindStage(
   bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
-    // The seat follows the role bar — see `pointerSeat` in `stage-touch.ts`
-    // for what "test" does with a grab that has no single owner.
+    // The seat follows the role bar — see `pointerSeat` for what "test" does
+    // with a grab that has no single owner.
     field: () => ({
       creatures: world.creatures,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: pointerSeat(role, world, cfg),
       wardenRow: cfg.wardenRow,
-      // The stage answers a finger the way the phone does, which now includes
-      // answering only the controls this wave's panel actually carries.
+      // Only the controls this wave's panel actually carries.
       controls: controlSetForWave(world.wave),
     }),
     push: keys.push,
+    world: () => world,
+    role: () => role,
+    cardStep: () => cardStep,
+    setCardStep: (s) => (cardStep = s),
   });
 
   // `createWorld` always returns a fresh `Briefings` (`met: 0`, see
   // `newBriefings` in `packages/sim/src/briefing.ts`), and `rebuild` throws the
   // old `world` away rather than reusing it. So every `↺ WAVE` already asks
   // `openBriefings` the same question `wave-briefing.ts`'s `FRESH_PAIR_CFG`
-  // asks on purpose for the CARDS gallery — "what would a pair who has met
-  // nothing see" — never "what has this run already taught". That is right
-  // for a wave edited in isolation, and it is also why editing wave 9 alone
-  // can show a card wave 2 already raised: the director never plays 0..8
-  // first, so there is no `met` bitmask to carry forward even if `rebuild`
-  // wanted to keep one.
+  // asks for the CARDS gallery — "what would a pair who has met nothing see",
+  // never "what has this run already taught" — which is also why editing
+  // wave 9 alone can show a card wave 2 already raised: there is no `met`
+  // bitmask carried forward, because the director never plays 0..8 first.
   const rebuild = (): void => {
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
+    cardStep = 0; // unstepped, the same as a fresh `role`
     if (!wave) return;
     startWave(
       world,
@@ -163,7 +168,7 @@ export function bindStage(
     renderer.draw({
       world,
       beatPhase: (world.tick % tpb) / tpb,
-      role,
+      role: cardRenderRole(role, world, cardStep),
       time: performance.now() / 1000,
       dt,
       events: frameEvents,
@@ -174,9 +179,8 @@ export function bindStage(
     onFrame();
   };
 
-  // A local fixed-timestep loop rather than the game's: `apps/game` is an
-  // application, not a package, and a tool reaching into its source would be a
-  // dependency the workspace boundaries deliberately do not offer.
+  // A local fixed-timestep loop rather than the game's: reaching into
+  // `apps/game`'s would cross a boundary the workspace deliberately refuses.
   let last = performance.now();
   let carry = 0;
   const frame = (now: number): void => {
@@ -206,7 +210,6 @@ export function bindStage(
     paintPlay,
   });
   bindStageTransport({
-    push: keys.push,
     rebuild,
     onPlayToggle: () => {
       running = !running;

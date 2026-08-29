@@ -32,21 +32,24 @@ import type { SimConfig } from "@neon-spore/sim";
  *
  * Two mounts, not one: "Briefings" toggles whether the field ever opens on a
  * card at all, and the owner asked for that to sit under the stage — one
- * click from what it changes, in the same row as `↺ WAVE`, `▣ SHEET` and
- * `✓ CARD` rather than in a checkbox of its own below them. It is bound
- * directly to `#briefToggle` (a plain `<button>` in `index.html`'s
- * `.transport`, not a mount this file fills), because it works the way those
- * buttons do — pressed once it stays on until pressed again, shown with the
- * `on` class the role buttons already use for exactly that, not a checkbox.
+ * click from what it changes, in the same row as `↺ WAVE` and `▣ SHEET`
+ * rather than in a checkbox of its own below them. It is bound directly to
+ * `#briefToggle` (a plain `<button>` in `index.html`'s `.transport`, not a
+ * mount this file fills), because it works the way those buttons do —
+ * pressed once it stays on until pressed again, shown with the `on` class
+ * the role buttons already use for exactly that, not a checkbox.
  * `#pairPanel` (in TUNING → PAIR) keeps the other two rows, which are not
  * about the stage in the same direct way and read fine as the checkbox rows
  * they always were. Wherever it is drawn, this is still the dial for
  * `cfg.briefings`, the same field `openBriefings` reads.
  *
- * `#briefToggle` is not `✓ CARD` (`stage-transport.ts`) and the two must stay
- * apart: this says whether a card can open at all, `✓ CARD` dismisses the one
- * that is up right now. Merging them would mean turning briefings on had no
- * way to get the first card off the stage.
+ * `#briefToggle` is not the stage's own click, which `bindStageTouch`
+ * (`stage-touch.ts`) now answers directly, and the two must stay apart: this
+ * says whether a card can open at all, a press on the field steps through
+ * the one that is up right now and puts it away. Merging them would mean
+ * turning briefings on had no way to get the first card off the stage.
+ * `✓ CARD` used to be the third control here and is gone — the field is the
+ * button now, on the phone and in the director alike.
  */
 export interface PairPanel {
   render(): void;

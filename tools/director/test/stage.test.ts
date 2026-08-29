@@ -1,12 +1,16 @@
 import { describe, expect, it } from "bun:test";
+import { controlSetForWave } from "@neon-spore/content";
+import { computeLayout, type ViewRole } from "@neon-spore/render";
 import {
   ackBriefing,
   briefingHolds,
+  type Command,
   createWorld,
   DEFAULT_CONFIG,
   PAIR_ON,
   startWave,
 } from "@neon-spore/sim";
+import { bindStageTouch, pointerSeat } from "../src/stage-touch.js";
 
 /**
  * THE DIRECTOR DRAWS "TAP TO RESTART" AND NOTHING IS LISTENING.
@@ -169,5 +173,150 @@ describe("a fresh reset opens the wave's card, every time", () => {
     const second = createWorld(cfg, 0);
     startWave(second, 0, queue);
     expect(briefingHolds(second)).toBe(true);
+  });
+});
+
+/**
+ * THE STAGE IS THE BUTTON, AND A CARD IN `test` STEPS THROUGH IT.
+ *
+ * `bindStageTouch`'s own `pointerdown` listener now answers a card the way
+ * `apps/game/src/briefing.ts` answers one on the phone — the press, not a
+ * separate `✓ CARD` button (now gone from `stage-transport.ts`). The one
+ * thing the phone never had to decide is which half to show, because a phone
+ * only ever holds one seat; `test` holds both, so the field is stepped:
+ * first press reveals player one's half, second player two's, third puts the
+ * card away — and only then does a press reach the cannon.
+ *
+ * `push` here plays the sim's own part for a `brief` command
+ * (`ackBriefing`, `packages/sim/src/step.ts`) rather than pulling in the
+ * whole scheduler: this file is testing the director's wiring, and
+ * `packages/sim/test/briefing.test.ts` already owns whether `ackBriefing`
+ * itself is correct.
+ */
+describe("bindStageTouch steps a `test`-mode card and swallows the press until it is gone", () => {
+  const VIEWPORT = { width: 400, height: 800, dpr: 1 };
+  const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
+  // A single creature keeps this to exactly two cards due: "opening" (every
+  // first wave) and "slick" (what the queue actually contains) — enough to
+  // prove a card that opens right behind the one just dismissed starts its
+  // own step over from player one, not from wherever the last card left off.
+  const queue = [{ beat: 0, col: 0, kind: "slick" as const, color: null }];
+
+  type Listener = (e: unknown) => void;
+
+  function stubCanvas() {
+    const on = new Map<string, Listener[]>();
+    const add =
+      (map: Map<string, Listener[]>) =>
+      (type: string, fn: Listener): void => {
+        const list = map.get(type) ?? [];
+        list.push(fn);
+        map.set(type, list);
+      };
+    (globalThis as { window?: unknown }).window = { addEventListener: add(on) };
+    return {
+      canvas: {
+        addEventListener: add(on),
+        getBoundingClientRect: () => ({
+          left: 0,
+          top: 0,
+          width: VIEWPORT.width,
+          height: VIEWPORT.height,
+        }),
+      } as unknown as HTMLCanvasElement,
+      fire(type: string, e: unknown): void {
+        for (const fn of on.get(type) ?? []) fn(e);
+      },
+    };
+  }
+
+  function armed(role: ViewRole) {
+    const world = createWorld(cfg, 0);
+    startWave(world, 0, queue);
+    let step: 0 | 1 | 2 = 0;
+    const sent: { player: 1 | 2; command: Command }[] = [];
+    const stub = stubCanvas();
+    bindStageTouch({
+      canvas: stub.canvas,
+      layout: () => computeLayout(VIEWPORT, cfg, role),
+      field: () => ({
+        creatures: world.creatures,
+        beatPhase: 0,
+        seat: pointerSeat(role, world, cfg),
+        wardenRow: cfg.wardenRow,
+        controls: controlSetForWave(world.wave),
+      }),
+      push: (player, command) => {
+        sent.push({ player, command });
+        // Stand-in for `step()`: the sim only acks a `brief` while a card
+        // holds, and only that command means anything then (`step.ts`).
+        if (command.kind === "brief") ackBriefing(world, player);
+      },
+      world: () => world,
+      role: () => role,
+      cardStep: () => step,
+      setCardStep: (s) => {
+        step = s;
+      },
+    });
+    const layout = computeLayout(VIEWPORT, cfg, role);
+    const press = (): void =>
+      stub.fire("pointerdown", {
+        pointerId: 1,
+        clientX: VIEWPORT.width / 2,
+        clientY: layout.cannonStrip.y,
+        preventDefault: () => {},
+      });
+    return { press, sent, world, step: () => step };
+  }
+
+  it("presses one and two swallow, revealing nothing the sim ever hears about", () => {
+    const s = armed("test");
+    s.press();
+    expect(s.step()).toBe(1);
+    expect(s.sent).toEqual([]);
+    s.press();
+    expect(s.step()).toBe(2);
+    expect(s.sent).toEqual([]);
+    expect(briefingHolds(s.world)).toBe(true);
+  });
+
+  it("the third press dismisses the card up, and the next one starts its own step over", () => {
+    const s = armed("test");
+    s.press();
+    s.press();
+    s.press(); // dismiss "opening"
+    expect(s.sent).toEqual([
+      { player: 1, command: { kind: "brief" } },
+      { player: 2, command: { kind: "brief" } },
+    ]);
+    expect(s.step()).toBe(0);
+    expect(briefingHolds(s.world)).toBe(true); // "slick" is still due
+
+    s.press(); // "slick"'s own player one, not player two
+    expect(s.step()).toBe(1);
+  });
+
+  it("only the press that empties the queue lets the next one reach the cannon", () => {
+    const s = armed("test");
+    for (let i = 0; i < 6; i++) s.press(); // both cards, three presses each
+    expect(briefingHolds(s.world)).toBe(false);
+    s.sent.length = 0;
+
+    s.press();
+    expect(s.sent).toEqual([
+      { player: 1, command: { kind: "cannonCol", col: expect.any(Number) } },
+    ]);
+  });
+
+  it("a single seat's own screen (p1/p2) is dismissed on the one press it gets, unstepped", () => {
+    const s = armed("p1");
+    s.press();
+    expect(s.sent).toEqual([
+      { player: 1, command: { kind: "brief" } },
+      { player: 2, command: { kind: "brief" } },
+    ]);
+    // `cardStep` never left 0 — `role() !== "test"` never steps at all.
+    expect(s.step()).toBe(0);
   });
 });
