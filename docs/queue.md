@@ -1034,3 +1034,75 @@ Model `sonnet`, effort `think`, spent on the rhythm rather than the shape: how
 often an arc fires, and how briefly, is what decides between *a pylon* and
 *static on a screen*. Read `docs/versus.md` and one existing candidate before
 writing.
+
+## THE DIRECTOR SHIPS WITH THE GAME, AND HAS TO WORK ON A PHONE
+_claude/burn-director-ship · apps/game/package.json tools/director/build.ts tools/director/index.html tools/director/server.ts tools/director/src/main.ts tools/director/test package.json_
+**Asked for by the owner:**
+
+> wenn die production app/build ausgeführt wird, möchte ich auch dass die
+> director app version ausgeliefert wird. sie soll auch auf mobile gut
+> anschaubar und bedienbar sein.
+
+*When the production app/build is run, I want the director app version to be
+shipped too. It should also be good to look at and to operate on mobile.*
+
+### The thing that decides this entry: half the director cannot ship
+
+`bun run build` is `bun build ./index.html --outdir=dist` in `apps/game` — a
+static bundle. The director is not that. `tools/director/server.ts` is a live
+server with **POST routes that write to the working copy**: saving `waves.ts`,
+deciding a check, running a check, sweeping worktrees. None of that can exist
+in a shipped build, because there is no repository behind it.
+
+**So a shipped director is a read-only director, and the entry is mostly about
+saying which half that is.** Go through the pages and decide, for each, whether
+it survives: the stage and the wave list, the shapes, the alternatives, the
+backlog, GAME MECHANICS — these read data and should work. Saving, the check
+ledger's decide-and-run, the worktree sweep — these cannot.
+
+**A control that is present and does nothing is worse than one that is
+absent.** Whatever cannot work must not be drawn, or must say plainly that it
+is read-only. A save button that silently fails on a phone is the single worst
+outcome available here, because the owner will believe a wave was saved.
+
+**And its data comes from a different place.** In development the director
+reads waves from its own server; shipped, it reads the compiled content the
+same way the game does. That is simpler, not harder, but it means the shipped
+director shows what was **built**, not what is on disk — say so on the page,
+once, so nobody mistakes it for an editor.
+
+### On a phone
+
+**The director is desktop-shaped**, and this is the larger half of the work. It
+assumes a wide window with several columns; the owner is asking for it to be
+*good to look at and to operate* on a phone, which is not the same as fitting.
+
+**`claude/burn-director-minimize` is the natural companion** and is already
+queued — every panel collapsible, addressable without a mouse. A phone is the
+case where collapsing stops being a convenience. Do not build that here; if it
+has landed, use it, and if it has not, say in the report whether this lane
+should have waited for it.
+
+**Touch, not hover.** Anything that only reveals itself on hover is invisible
+on a phone. The stage already accepts pointer events and the game itself is
+portrait-first, so the field is the easy part; the panels are not.
+
+### One thing to put to the owner rather than decide
+
+**Shipping the director publishes what it shows.** It surfaces the queue, the
+parked ideas, the outstanding checks, the specification and the backlog — the
+project's own working material. That is very likely fine, since it is their
+project and their build, but it is a door being opened and they should open it
+knowingly rather than discover it. **Say it in the report, do not act on it,
+and do not add authentication nobody asked for.**
+
+Finished when `bun run build` produces the director beside the game, the
+shipped director opens on a phone and can be read and operated, nothing that
+cannot work is offered, and the page says once that it shows what was built
+rather than what is on disk.
+
+`Check: open the shipped build's director on your phone — can you read a wave and move around it, and is it clear which things you cannot change from there`
+
+Model `sonnet`, effort `think hard`, spent on the read-only boundary before any
+layout: which pages survive, and what happens to the controls that do not. Read
+`tools/director/server.ts` whole and `apps/game/package.json` first.
