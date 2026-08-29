@@ -281,3 +281,34 @@ records the answers. See `docs/verification.md`.
 - `f35e489` 2026-08-29 PASS — does the meteor read as a rock rather than as a circle with dots on it — at 26 px on a phone, beside a bulb for contrast
 - `d892bae` 2026-08-29 FAIL — does the shadow sliding under the meteor as it falls read as the rock getting closer, or just as a shadow moving
   - i still dont see it, add some screenshots on the "States" section for docu
+- `3ee8117` 2026-08-29 PASS — hover the brush for THE THROB — does it tell you which wave first has one, without you opening anything?
+- `2bbc5e9` 2026-08-29 PASS — beside today's shield, does the sparking one read as charged and hold its energy — or does it just look busy over a field you are trying to watch
+- `3aa6cc7` 2026-08-29 PASS — on the alternatives page, does the rock hit the shield over and over with a pause between — long enough that you can see what the two sides do differently?
+- `526adc0` 2026-08-29 PASS — on the alternatives page, does a change that looks the same to both players now show just two screens — and does one that really differs per player still show four?
+- `4f3ee5c` 2026-08-29 PASS — with the shadows gone, does the field read as cleaner — and does anything look flat that used to look round?
+- `1bb7160` 2026-08-29 PASS — on the STATES page, do the three stages of a falling shadow show it gathering under the rock — and now that you can see it side by side, does it read in play?
+- `a8f7fc9` 2026-08-29 PASS — on the controls page, can you find every thing you can touch on the field itself — what it looks like, whose it is, and whether you press it, hold it or drag it
+- `9ee6fce` 2026-08-29 PASS — on your phone, can you switch between choosing a wave, playing it, and painting it — and is it clear which things you cannot change from there?
+- `6a8ba92` 2026-08-29 PASS — does the laying read at tempo in the game — strain, crown and the slack afterwards, not only a shot arriving
+- `966b5dc` 2026-08-29 FAIL — at the end of a guide, do two circles fill as you and your partner each hold one — can you see theirs filling as well as your own, and does the wave wait until both say READY
+  - I dont see it in director. what i expect: i want that when "briefings" button in director below game screen is enabled, the guide card is shown, then i can click and hold mouse on the screen with "test" view and it continues with the circles after to the wave name and description
+- `3203a65` 2026-08-29 PASS — with four buttons gone from the top bar, can you still find the control sets, the ship's dials, the demos and the way into the game — and does the bar read as less crowded
+- `ba352ba` 2026-08-29 FAIL — in the wave list, try to delete or duplicate a boss wave — does the tool stop you, and does the boss panel still let you edit the boss itself
+  - yes it does nothing. i prefer you disable or hide the button, if boss wave is currently actively selected
+- `8a9939d` 2026-08-29 PASS — in the wave list, try to delete or duplicate a boss wave — does the tool stop you, and does the boss panel still let you edit the boss itself
+- `d295769` 2026-08-29 PASS — with the editing panels put away, is the director's field big enough to judge a wave — and does anything shift under you when you open one again
+- `1bf8482` 2026-08-29 PASS — beside the shipped opening's dilating circle, does the cannon straining and going slack around an egg read as effort worth building?
+- `9ea65d8` 2026-08-29 PASS — watching somebody pull, can the other player tell "nearly open" from "open" without being told a number
+- `7372960` 2026-08-29 PASS — open the alternatives page and touch nothing — can you see every alternative beside the shipped thing, with the shots and wards actually firing, and tell which pairs differ between the two seats
+- `49861e5` 2026-08-29 PASS — sitting at a PC with a phone beside you, can the two of you play a wave through without either of you being told which key is which
+- `62a65ff` 2026-08-29 PASS — holding the guard too early, can you now tell it has lapsed before the rock arrives, rather than finding out when the ship takes the hit
+- `d8ccd6c` 2026-08-29 PASS — on a phone, does dragging the circle on the wheel's string turn it, and does an entrance still settle onto a column rather than drifting past
+- `a57a076` 2026-08-29 PASS — pick LANCE PANEL on one wave and STANDARD on the next — does the panel under the stage actually change when you switch between them
+- `9b7b01a` 2026-08-29 PASS — does pressing the space bar the instant a wave starts skip past its title and description before you've had a chance to read them
+- `f6be23b` 2026-08-29 PASS — does a wave now open on its number, name and sentence as plain text on the field — long enough to read, without a panel around it — and does the guide that follows still read as two halves that have to be spoken across
+- `10dda25` 2026-08-29 PASS — in the director, does clicking the field step a card through player 1's half, then player 2's, then start the wave — and does the first click after that move the cannon rather than the card
+- `676f2b0` 2026-08-29 PASS — on a PC, can you pull THE WARDEN's tether with the mouse — press, drag, and does the tether actually follow
+- `676f2b0` 2026-08-29 PASS — does the keybindings button below the stage tell you what G does and whose hand it is, without you asking anybody
+- `8719a42` 2026-08-29 PASS — on your own screen, is the field now big enough to judge whether the cannon reaches a column in time, with the buttons sitting along the bottom
+- `0b2e8e6` 2026-08-29 PASS — set one wave to teach a card it did not used to, and play from the start — does that card come up on that wave and nowhere else
+- `4aa770e` 2026-08-29 PASS — below the game screen, do the buttons now read as one row of the same kind of control, and do briefings and the balance sheet each stay put until you press them again
