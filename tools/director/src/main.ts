@@ -3,7 +3,7 @@ import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
-import { bindControlSetsPage } from "./controlsets-page.js";
+import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindCardsPage } from "./guide-sheet.js";
@@ -12,7 +12,7 @@ import { bindPalette } from "./palette.js";
 import { initPanels } from "./panels.js";
 import { bindRail } from "./rail.js";
 import { bindPlace, type PlaceSession } from "./session.js";
-import { bindShipSheet, renderShip, renderShipSheet } from "./ship.js";
+import { renderShip, renderShipSheet } from "./ship.js";
 import { bindSoundPage } from "./sound-page.js";
 import { bindStage } from "./stage.js";
 import {
@@ -23,7 +23,7 @@ import {
   refuse,
   type Store,
 } from "./state.js";
-import { bindStates } from "./states-page.js";
+import { bindStates, closeMechanicsSheet } from "./states-page.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 import { renderWaveOpening } from "./wave-opening.js";
@@ -100,18 +100,23 @@ const pair = bindPairPanel(cfg, () => {
 });
 renderShip(cfg, currentWave(store));
 renderShipSheet(cfg);
-bindShipSheet(cfg);
 // One wave and one set of switches per mechanic, opened in one click — see
 // `demo-panel.ts`. `refreshAll` is what every other jump to a wave runs
 // through, so a demo lands the stage, rail and briefing the same way a click
 // would; `pair.render()` and `renderShip` follow because a demo is the one
 // caller that flips `cfg`'s switches from outside `pair-panel.ts`/`tuning.ts`.
-bindDemoPanel(store, cfg, () => {
-  refreshAll();
-  pair.render();
-  renderShip(cfg, currentWave(store));
-  renderShipSheet(cfg);
-});
+// `closeMechanicsSheet` dismisses GAME MECHANICS after — DEMOS is a tab there now.
+bindDemoPanel(
+  store,
+  cfg,
+  () => {
+    refreshAll();
+    pair.render();
+    renderShip(cfg, currentWave(store));
+    renderShipSheet(cfg);
+  },
+  closeMechanicsSheet,
+);
 
 /**
  * The brush description text (`.hint`) defaults to hidden — the palette is
@@ -233,7 +238,7 @@ bindBacklog();
 bindChecks();
 bindStates();
 bindSoundPage();
-bindControlSetsPage();
+bindControlSetsTab();
 bindCardsPage();
 bindExpanders();
 

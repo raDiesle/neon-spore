@@ -27,8 +27,12 @@ import {
  * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
  * SHIP card with only what the current wave actually contains — its boss, if
  * it has one, THE GAUGE included, since that is a boss now — and
- * `renderShipSheet` paints the topbar sheet with the ship's own dials, the
- * same on every wave, one click away.
+ * `renderShipSheet` paints GAME MECHANICS' SHIP tab with the ship's own
+ * dials, the same on every wave. `renderShipSheet` needs no lazy render or
+ * open/close wiring of its own: `main.ts` already calls it every time `cfg`
+ * changes (tuning, the pair panel, a demo), so `#shipSheetBody` stays current
+ * whether or not that tab is the one on screen — see `docs/queue.md`'s
+ * `claude/burn-topbar-fold` entry for why that made its own sheet redundant.
  */
 
 interface Capability {
@@ -117,27 +121,10 @@ export function renderShip(cfg: SimConfig, wave: Wave | undefined): void {
   for (const group of groups) caps.appendChild(capEl(capability(cfg, group)));
 }
 
-/** The topbar sheet: the ship's own dials, the same on every wave, all of them reachable. */
+/** GAME MECHANICS' SHIP tab: the ship's own dials, the same on every wave, all of them reachable. */
 export function renderShipSheet(cfg: SimConfig): void {
   const body = document.getElementById("shipSheetBody");
   if (!body) return;
   body.replaceChildren();
   for (const group of SHIP_GROUPS) body.appendChild(capEl(capability(cfg, group)));
-}
-
-/** Wires the ⚙ SHIP button and its full-screen sheet — the same shell `checks-page.ts` and the rest use. */
-export function bindShipSheet(cfg: SimConfig): void {
-  const sheet = document.getElementById("shipSheet");
-  const open = document.getElementById("shipSheetOpen");
-  const close = document.getElementById("shipSheetClose");
-  if (!sheet || !open || !close) return;
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (on) renderShipSheet(cfg);
-  };
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
 }

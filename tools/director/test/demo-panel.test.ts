@@ -1,40 +1,33 @@
 import { describe, expect, it } from "bun:test";
 
 /**
- * The DEMOS sheet has to close three ways — a click outside it, Escape, and
- * its own CLOSE button — because a modal a person cannot dismiss is worse
- * than one that never opened at all: the page behind it is still the page
- * they were working in. `bindDemoPanel` is `document.getElementById` end to
- * end, so there is nothing here for `bun test` to drive the way
- * `balance.test.ts` drives `sheetLines` — this repo has no DOM in its test
- * runner (no jsdom, no happy-dom). What is left to prove is that the wiring
- * for all three routes is actually in the source, the same shape
- * `sheet.test.ts` already uses for the backlog: a route a later edit deletes
- * by accident fails this test instead of waiting for someone to notice a
- * sheet with no way out.
- *
- * `#demosBody` carries its own `max-width: 700px` while `#demos` behind it
- * fills the screen, so on any desktop wider than that there is a real
- * backdrop — a click that lands there hits `#demos` itself before it hits
- * anything the sheet drew, which is what `e.target === sheet` catches.
+ * DEMOS is a tab of GAME MECHANICS now, not a sheet of its own — see
+ * `docs/queue.md`'s `claude/burn-topbar-fold` entry. It used to carry its own
+ * Escape/backdrop/CLOSE wiring, checked here the same way `sheet.test.ts`
+ * checks the backlog's: `bindDemoPanel` is `document.getElementById` end to
+ * end, and this repo's test runner carries no real DOM (no jsdom, no
+ * happy-dom), so there is nothing for `bun test` to drive directly. What is
+ * left to prove is that the wiring the fold depends on is actually in the
+ * source: the tab's own click lazily builds the list, and picking a demo
+ * closes the sheet that now owns it rather than a sheet of its own.
  */
 
 const source = await Bun.file(
   Bun.fileURLToPath(new URL("../src/demo-panel.ts", import.meta.url)),
 ).text();
 
-describe("the demos sheet", () => {
-  it("closes on a click that lands on the backdrop, not a descendant", () => {
-    expect(source).toMatch(
-      /sheet\.addEventListener\("click", \(e\) => \{\s*if \(e\.target === sheet\) show\(false\);/,
-    );
+describe("the DEMOS tab", () => {
+  it("builds its list lazily, on the tab's own click", () => {
+    expect(source).toMatch(/tab\?\.addEventListener\("click", render\)/);
   });
 
-  it("closes on Escape", () => {
-    expect(source).toMatch(/e\.key === "Escape"[\s\S]{0,40}show\(false\)/);
+  it("closes GAME MECHANICS, not a sheet of its own, once a demo is picked", () => {
+    expect(source).toMatch(/onOpen\(\);\s*closeMechanics\(\);/);
   });
 
-  it("closes on its own CLOSE button", () => {
-    expect(source).toMatch(/close\.addEventListener\("click", \(\) => show\(false\)\)/);
+  it("takes closeMechanics as its own argument rather than wiring a CLOSE button", () => {
+    expect(source).not.toContain("demosClose");
+    expect(source).not.toContain('getElementById("demos")');
+    expect(source).toMatch(/closeMechanics: \(\) => void/);
   });
 });

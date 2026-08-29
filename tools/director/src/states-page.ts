@@ -2,16 +2,24 @@ import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { POSE_GROUPS } from "./poses.js";
 import { mountSheet } from "./session.js";
+import { bindTabs } from "./tabs.js";
 
 /**
- * The STATES sheet: every state the game can be held in, drawn.
+ * GAME MECHANICS: the topbar's four reference doors — STATES, CONTROL SETS,
+ * SHIP and DEMOS — folded into one full-screen sheet, plus TUNING out of the
+ * wave panel, one tab per room. This file owns the sheet itself (the tab bar,
+ * the open/close/Escape wiring, and the lazy renders the other three rooms
+ * need); `controlsets-page.ts`, `ship.ts` and `demo-panel.ts` still own what
+ * each room draws. See `docs/queue.md`'s `claude/burn-topbar-fold` entry.
  *
- * The other two sheets are lists of prose. This one exists because prose is
- * the slowest possible way to learn what something looks like, and most of
- * what the spec argues about is visual — the shield is *passively useless*,
- * one of the queen's two marks is a *lie that looks identical*, a rock full of
- * craters is *no closer to breaking*. Every one of those is a sentence a
- * person has to build a picture from, and two people build two pictures.
+ * STATES is the room this file draws directly: every state the game can be
+ * held in. The other three sheets used to be lists of prose; this one exists
+ * because prose is the slowest possible way to learn what something looks
+ * like, and most of what the spec argues about is visual — the shield is
+ * *passively useless*, one of the queen's two marks is a *lie that looks
+ * identical*, a rock full of craters is *no closer to breaking*. Every one of
+ * those is a sentence a person has to build a picture from, and two people
+ * build two pictures.
  *
  * So each row is a real frame of the shipping renderer against a real world
  * that was run into that state, cut down to the part of the phone it is about.
@@ -67,10 +75,10 @@ function card(pose: Pose): HTMLElement {
 
 let drawn = false;
 
-/** Build the sheet, once. */
+/** Build the STATES tab's own cards, once. */
 export function renderStates(): void {
   if (drawn) return;
-  const body = document.getElementById("statesBody");
+  const body = document.getElementById("statesCards");
   if (!body) return;
   drawn = true;
   body.replaceChildren();
@@ -97,9 +105,16 @@ export function renderStates(): void {
 }
 
 /**
- * Read on first open, like the other two sheets. The editor's own job is the
- * wave in front of it, and sixteen simulated worlds are not work a session
- * that never opens this page should pay for.
+ * Wires the sheet itself: the tab bar (`#statesTabs`, the same shape
+ * `#backlogTabs` already has) and the open/close/Escape/inner-tab plumbing
+ * `mountSheet` gives every such sheet. STATES is drawn eagerly on first open
+ * — it is the default tab — the same way it always was; sixteen simulated
+ * worlds are not work a session that never opens this page should pay for,
+ * but they are work every session that does open it pays for once. The other
+ * three rooms bind their own lazy renders to their own tab buttons —
+ * `controlsets-page.ts`'s `bindControlSetsTab`, `demo-panel.ts`'s
+ * `bindDemoPanel` — for the same reason `backlog-page.ts` defers SHAPES,
+ * CARDS and VERSUS: a room nobody has clicked yet should cost nothing.
  */
 export function bindStates(): void {
   const sheet = document.getElementById("states");
@@ -107,5 +122,18 @@ export function bindStates(): void {
   const close = document.getElementById("statesClose");
   if (!sheet || !open || !close) return;
 
-  mountSheet({ name: "states", sheet, open, close, onOpen: renderStates });
+  bindTabs("#statesTabs", "sheetpage", "mech-");
+
+  mountSheet({ name: "states", sheet, open, close, innerBar: "#statesTabs", onOpen: renderStates });
+}
+
+/**
+ * Closes GAME MECHANICS the same way its own CLOSE button would — a real
+ * click, so the URL place clears the same way it does for any other close.
+ * DEMOS calls this once a demo is picked: there is no sheet of its own left
+ * for it to close, only this one's DEMOS tab.
+ */
+export function closeMechanicsSheet(): void {
+  const close = document.getElementById("statesClose");
+  if (close instanceof HTMLElement) close.click();
 }

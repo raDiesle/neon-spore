@@ -41,10 +41,11 @@ describe("ship-fields", () => {
   });
 
   // The split `docs/queue.md`'s SHIP-column brief asks for: WAVE_ONLY_GROUPS
-  // is what stays beside the wave being edited, SHIP_GROUPS is what moved
-  // behind the topbar's ⚙ SHIP. Together they must be every group there is,
-  // with none counted twice — that is the "every field stays reachable"
-  // guarantee, checked at runtime rather than only argued in a comment.
+  // is what stays beside the wave being edited, SHIP_GROUPS is what moved to
+  // the SHIP tab of GAME MECHANICS (`▣`, folded off the topbar). Together
+  // they must be every group there is, with none counted twice — that is the
+  // "every field stays reachable" guarantee, checked at runtime rather than
+  // only argued in a comment.
   test("WAVE_ONLY_GROUPS and SHIP_GROUPS partition GROUP_ORDER exactly", () => {
     const union = new Set([...WAVE_ONLY_GROUPS, ...SHIP_GROUPS]);
     expect([...union].sort()).toEqual([...GROUP_ORDER].sort());

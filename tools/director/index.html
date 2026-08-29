@@ -323,8 +323,11 @@
 
       /* The backlog sheet. Covers the editor rather than sitting beside it:
          a paragraph does not fit in a 300px authoring column. */
-      /* The same shell as the other two sheets — full screen over the editor,
-         the stage still running behind it. */
+      /* GAME MECHANICS. Same full-screen shell as the other sheets, and now
+         the same tab-over-one-body shape #backlog uses — #statesTabs plays
+         the part #backlogTabs does, #statesBody the part #backlogBody does.
+         Folded in from four other doors: see docs/queue.md's
+         claude/burn-topbar-fold entry. */
       #states { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
       #states.on { display: flex; flex-direction: column; }
       #states > header {
@@ -333,8 +336,15 @@
       }
       #states .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
       #states .sub { color: var(--dim); font-size: 10px; max-width: 720px; }
-      #states > header button { margin-left: auto; }
-      #statesBody { flex: 1; overflow-y: auto; padding: 14px 20px 40px; }
+      /* MAIN MENU rides the same `margin-left: auto` every other sheet gives
+         its CLOSE button, so it — not CLOSE — is what the growing `.sub`
+         pushes toward the end of the row; CLOSE then sits flush after it. */
+      #states > header a.linkbtn { margin-left: auto; }
+      #statesTabs {
+        display: flex; flex-wrap: wrap; gap: 4px; flex: 0 0 auto;
+        padding: 10px 20px 0;
+      }
+      #statesBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
       #statesBody section { margin-bottom: 26px; }
       #statesBody .note { color: var(--dim); font-size: 10px; margin: 0 0 10px; }
       .states-row { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -448,22 +458,12 @@
       .orphan-head .stamp { color: var(--dim); font-size: 9px; letter-spacing: 1px; }
       .orphan .what { font-size: 11px; margin: 6px 0 0; }
 
-      /* DEMOS. Same full-screen shell again — a mechanic whose named wave has
-         gone missing turns its row the same red an orphan gets, since both
-         are a registry claiming something the catalogue no longer has. */
-      #demos { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
-      #demos.on { display: flex; flex-direction: column; }
-      #demos > header {
-        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
-        padding: 12px 20px; border-bottom: 1px solid var(--line);
-      }
-      #demos .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
-      #demos .sub { color: var(--dim); font-size: 10px; }
-      #demos > header button { margin-left: auto; }
-      #demosBody {
-        flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px;
-        max-width: 700px;
-      }
+      /* DEMOS. A tab of GAME MECHANICS now, not its own sheet — the shell
+         above already gives it the scroll and the padding; this is only what
+         its own rows need. A mechanic whose named wave has gone missing
+         turns its row the same red an orphan gets, since both are a registry
+         claiming something the catalogue no longer has. */
+      #demosBody { max-width: 700px; }
       .demo { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; margin: 0 0 12px; }
       .demo.broken { border-color: var(--red); }
       .demo-head { display: flex; align-items: center; gap: 8px; }
@@ -718,18 +718,9 @@
       .simon-add button { padding: 1px 5px; font-size: 9px; }
       .simon-add:hover { opacity: 1; }
 
-      /* CONTROL SETS. Same full-screen shell as SOUND, one card per registered
-         panel — the drawn band, then the two seats' controls in one line each. */
-      #controlSets { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
-      #controlSets.on { display: flex; flex-direction: column; }
-      #controlSets > header {
-        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
-        padding: 12px 20px; border-bottom: 1px solid var(--line);
-      }
-      #controlSets .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
-      #controlSets .sub { color: var(--dim); font-size: 10px; }
-      #controlSets > header button { margin-left: auto; }
-      #controlSetsBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
+      /* CONTROL SETS. A tab of GAME MECHANICS now, not its own sheet — one
+         card per registered panel: the drawn band, then the two seats'
+         controls in one line each. */
       .control-set-card {
         max-width: 700px; margin: 0 0 26px; padding: 0 0 16px;
         border-bottom: 1px solid var(--line-soft);
@@ -744,12 +735,17 @@
       .control-set-col li { margin: 0 0 5px; color: var(--dim); line-height: 1.4; font-size: 10px; }
       .control-set-col li b { color: var(--ink); font-weight: 400; letter-spacing: 1px; }
 
+      /* SHIP: the ship's own dials, a tab of GAME MECHANICS now — see
+         ship.ts. Capped like DEMOS and CONTROL SETS so a row of `.cap`s does
+         not stretch the width the sheet itself would happily give it. */
+      #shipSheetBody { max-width: 700px; }
+
       /* CARDS: every briefing card, grouped by the wave that first raises it
          — the documented half of what NOT BUILT YET's own CARDS tab now
-         calls a proposal (`guide-page.ts`). Same full-screen shell as CONTROL
-         SETS; `.scenes`/`.scene`/`.note` are the same classes the backlog's
-         own scene frames already use, so a wave's group of cards needs only
-         its own heading style. */
+         calls a proposal (`guide-page.ts`). Same full-screen shell as SOUND;
+         `.scenes`/`.scene`/`.note` are the same classes the backlog's own
+         scene frames already use, so a wave's group of cards needs only its
+         own heading style. */
       #cardsSheet { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
       #cardsSheet.on { display: flex; flex-direction: column; }
       #cardsSheet > header {
@@ -763,18 +759,6 @@
       #cardsSheetBody section { margin-bottom: 22px; }
       .card-wave-head { color: var(--cyan); font-size: 10px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 400; }
 
-      /* SHIP: the global dials moved off the WAVE column — see ship.ts. Same
-         full-screen shell as CONTROL SETS and CARDS. */
-      #shipSheet { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
-      #shipSheet.on { display: flex; flex-direction: column; }
-      #shipSheet > header {
-        display: flex; align-items: baseline; gap: 12px; padding: 14px 20px;
-        border-bottom: 1px solid var(--line);
-      }
-      #shipSheet .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
-      #shipSheet .sub { color: var(--dim); font-size: 10px; }
-      #shipSheet > header button { margin-left: auto; }
-      #shipSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
       /* BULB QUEEN VARIANTS: the torch-only holder drafts and the whole-body
          drafts below them, each a canvas on the page's own beat. A row
          rather than the backlog's column, because the whole question is a
@@ -798,14 +782,10 @@
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="orphansOpen">☠ ORPHANS 0</button>
-      <button type="button" id="demosOpen">▶ DEMOS</button>
       <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
-      <button type="button" id="statesOpen">▣ STATES</button>
+      <button type="button" id="statesOpen">▣ GAME MECHANICS</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
-      <button type="button" id="controlSetsOpen">⎈ CONTROL SETS</button>
       <button type="button" id="cardsOpen">✎ GUIDES</button>
-      <button type="button" id="shipSheetOpen">⚙ SHIP</button>
-      <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
       <span class="note" style="margin: 0"
         >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
         with the mouse</span
@@ -832,13 +812,18 @@
       <section>
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
-          <button type="button" data-tab="tuning">TUNING</button>
         </div>
         <!-- Ordered by when a pair meets the thing: the card that opens the
              wave first, the wave's own fields next, and what the wave leaves
              on the ship last. SHIP and BALANCE used to be tabs of their own;
              SHIP is folded in at the bottom here, BALANCE now lives under the
-             field below instead — see docs/queue.md's director-layout entry. -->
+             field below instead — see docs/queue.md's director-layout entry.
+             TUNING was the second tab here — PAIR, PRESET and the sliders
+             together, the numbers a run is judged against rather than
+             anything saved to the wave. It left for GAME MECHANICS' own
+             TUNING tab (see docs/queue.md's topbar-fold entry), which is why
+             only WAVE remains and this bar no longer needs to switch
+             anything. -->
         <div class="tabpage on" id="tab-wave">
           <h2 data-panel="briefing">BRIEFING</h2>
           <p class="note" id="waveBriefing"></p>
@@ -866,27 +851,10 @@
           <p class="note">
             Its boss, if it has one, and THE GAUGE if the gap in front of it
             carries a round. The ship's own dials — AIM, HULL, THE BEAT and
-            the rest — are the same on every wave; see ⚙ SHIP on the topbar.
+            the rest — are the same on every wave; see ▣ GAME MECHANICS'
+            SHIP tab.
           </p>
           <div id="caps"></div>
-        </div>
-        <div class="tabpage" id="tab-tuning">
-          <h2 data-panel="pair">PAIR</h2>
-          <p class="note">
-            Off by default so a determinism run, a shape sheet and
-            relay:check all get the wave rather than the wait — see
-            docs/decisions.md. On here, only for this run. Briefings itself
-            toggles below the field, one click from the stage it changes.
-          </p>
-          <div id="pairPanel"></div>
-          <h2 data-panel="preset">PRESET</h2>
-          <div class="rail-actions" id="presets"></div>
-          <h2 data-panel="tuning">TUNING</h2>
-          <div id="sliders"></div>
-          <p class="note">
-            Tuning is the run, not the wave. It is never written to waves.ts —
-            saved presets live in this browser.
-          </p>
         </div>
       </section>
 
@@ -977,33 +945,93 @@
       <div id="orphansBody"></div>
     </div>
 
-    <!-- DEMOS: one row per mechanic, read straight out of
-         `packages/content/src/waves-demo.ts`'s `DEMONSTRATIONS` table. OPEN
-         sets the wave and the config switches together — the same pair-panel
-         `cfg` this screen already plays — so seeing a mechanic never means
-         knowing its wave number or its switches by hand. -->
-    <div id="demos">
-      <header>
-        <span class="title">DEMOS</span>
-        <span class="sub">
-          one wave and one set of switches per mechanic — a name to click, not a wave number to know
-        </span>
-        <button type="button" id="demosClose">✕ CLOSE</button>
-      </header>
-      <div id="demosBody"></div>
-    </div>
+    <!-- GAME MECHANICS: the topbar's four reference doors — CONTROL SETS,
+         SHIP, DEMOS and STATES — folded into one full-screen sheet, one tab
+         per room, the same shell #backlog already uses (#backlogTabs over
+         #backlogBody). TUNING joined them from the wave panel's own TUNING
+         tab: the one live control kept alongside four reference rooms — see
+         its own tab below for the note that says so.
 
+         MAIN MENU is not a room — it is a link out to the running game, with
+         no content of its own to fold in — so it sits in this sheet's own
+         header, next to CLOSE, reachable from whichever tab is open rather
+         than living behind one of them. See docs/queue.md's
+         claude/burn-topbar-fold entry. -->
     <div id="states">
       <header>
-        <span class="title">STATES</span>
+        <span class="title">GAME MECHANICS</span>
         <span class="sub">
-          every state the game can be held in, drawn — a real frame of the
-          shipping renderer against a world run into that state, not a
-          screenshot somebody took
+          reference: what a control set contains, what the ship's dials are,
+          what a mechanic looks like demonstrated, every state the game can be
+          held in — and TUNING, the one live control kept alongside them
         </span>
+        <a class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer">▶ MAIN MENU</a>
         <button type="button" id="statesClose">✕ CLOSE</button>
       </header>
-      <div id="statesBody"></div>
+      <div id="statesTabs">
+        <button type="button" data-tab="states" class="on">STATES</button>
+        <button type="button" data-tab="controlsets">CONTROL SETS</button>
+        <button type="button" data-tab="ship">SHIP</button>
+        <button type="button" data-tab="demos">DEMOS</button>
+        <button type="button" data-tab="tuning">TUNING</button>
+      </div>
+      <div id="statesBody">
+        <div class="sheetpage on" id="mech-states">
+          <p class="pagewhat">
+            Every state the game can be held in, drawn — a real frame of the
+            shipping renderer against a world run into that state, not a
+            screenshot somebody took.
+          </p>
+          <div id="statesCards"></div>
+        </div>
+        <div class="sheetpage" id="mech-controlsets">
+          <p class="pagewhat">
+            Every panel a wave can name — what is on it, and which waves are
+            played on it. The WAVE tab's own CONTROL SET picker says a set by
+            name; this is what the name means.
+          </p>
+          <div id="controlSetsBody"></div>
+        </div>
+        <div class="sheetpage" id="mech-ship">
+          <p class="pagewhat">
+            The ship's own dials — AIM, GUARD, HULL, THE BEAT and the rest —
+            the same on every wave, whatever wave is open.
+          </p>
+          <div id="shipSheetBody"></div>
+        </div>
+        <div class="sheetpage" id="mech-demos">
+          <p class="pagewhat">
+            One wave and one set of switches per mechanic — a name to click,
+            not a wave number to know.
+          </p>
+          <div id="demosBody"></div>
+        </div>
+        <!-- TUNING: the numbers a run is judged against, moved here whole
+             from the wave panel's own TUNING tab — PAIR, PRESET and the
+             sliders together. The other four tabs describe what the game
+             is; this one changes the run underneath you while you look at
+             it, which is a slight lie to tell under a heading that otherwise
+             means "reference" — named rather than hidden, per
+             docs/queue.md. -->
+        <div class="sheetpage" id="mech-tuning">
+          <h2 data-panel="pair">PAIR</h2>
+          <p class="note">
+            Off by default so a determinism run, a shape sheet and
+            relay:check all get the wave rather than the wait — see
+            docs/decisions.md. On here, only for this run. Briefings itself
+            toggles below the field, one click from the stage it changes.
+          </p>
+          <div id="pairPanel"></div>
+          <h2 data-panel="preset">PRESET</h2>
+          <div class="rail-actions" id="presets"></div>
+          <h2 data-panel="tuning">TUNING</h2>
+          <div id="sliders"></div>
+          <p class="note">
+            Tuning is the run, not the wave. It is never written to waves.ts —
+            saved presets live in this browser.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div id="backlog">
@@ -1236,21 +1264,6 @@
       <div id="soundBody"></div>
     </div>
 
-    <!-- CONTROL SETS: one card per registered panel, the picker in the WAVE
-         tab reads its options off the same list. Its own sheet for the same
-         reason SOUND has one — a card carries a drawn panel and two columns
-         of prose, which does not fit in the authoring column. -->
-    <div id="controlSets">
-      <header>
-        <span class="title">CONTROL SETS</span>
-        <span class="sub">
-          every panel a wave can name — what is on it, and which waves are played on it
-        </span>
-        <button type="button" id="controlSetsClose">✕ CLOSE</button>
-      </header>
-      <div id="controlSetsBody"></div>
-    </div>
-
     <!-- GUIDES: the help each wave carries, written inside the wave itself —
          see `guide-page.ts`'s doc comment. Same full-screen shell as CONTROL
          SETS, one heading per wave that has a guide, in wave order. -->
@@ -1263,22 +1276,6 @@
         <button type="button" id="cardsSheetClose">✕ CLOSE</button>
       </header>
       <div id="cardsSheetBody"></div>
-    </div>
-
-    <!-- SHIP: the global dials that used to sit on the WAVE tab's SHIP card
-         regardless of what wave was open — AIM, GUARD, HULL, THE BEAT and the
-         rest are the same ship on every wave, so they moved here and left the
-         WAVE tab to show only what the wave in front of you actually
-         contains. See ship.ts. -->
-    <div id="shipSheet">
-      <header>
-        <span class="title">SHIP</span>
-        <span class="sub">
-          the ship's own dials — the same on every wave, whatever wave is open
-        </span>
-        <button type="button" id="shipSheetClose">✕ CLOSE</button>
-      </header>
-      <div id="shipSheetBody"></div>
     </div>
 
     <!-- KEYBINDINGS: rendered by key-help.ts from keys.ts's own KEY_BINDINGS

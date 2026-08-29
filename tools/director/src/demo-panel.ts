@@ -11,6 +11,10 @@ import type { Store } from "./state.js";
 
 /**
  * DEMOS — one wave and one set of switches per mechanic, opened in one click.
+ * A tab of GAME MECHANICS (`states-page.ts` owns the sheet itself) rather
+ * than a sheet of its own — see `docs/queue.md`'s `claude/burn-topbar-fold`
+ * entry. Its own Escape/backdrop/CLOSE routes went with the sheet: the outer
+ * one already covers all three, since a tab has nothing of its own to close.
  *
  * `DEMONSTRATIONS` (`packages/content/src/waves-demo.ts`) is total over
  * `MECHANIC_IDS`, so this panel renders that table rather than restating it: a
@@ -21,9 +25,9 @@ import type { Store } from "./state.js";
  * `demonstrationWave` throws when a demonstration's name has fallen out of
  * `WAVES`. That throw is not swallowed into an empty row — a broken entry
  * marks the row itself broken (red, `OPEN` disabled) both at render and, in
- * case a wave is deleted while the sheet is open, again on the click that
- * would have opened it. The mechanic stays visible either way: a demo that
- * cannot be opened is a defect on screen, not a hole in the list.
+ * case a wave is deleted while the tab is open, again on the click that would
+ * have opened it. The mechanic stays visible either way: a demo that cannot
+ * be opened is a defect on screen, not a hole in the list.
  *
  * `cfg` is the one the stage already plays, the same object `bindPairPanel`
  * and `bindTuning` mutate in place — opening a demo is switching that same
@@ -41,16 +45,21 @@ function el(tag: string, cls = "", text = ""): HTMLElement {
   return node;
 }
 
-export function bindDemoPanel(store: Store, cfg: SimConfig, onOpen: () => void): DemoPanel {
+/**
+ * `onOpen` lands the demo's wave and config on the stage the same way any
+ * other jump to a wave does; `closeMechanics` then dismisses GAME MECHANICS
+ * entirely — the one thing this tab's own CLOSE button used to do, now that
+ * it has none of its own. `states-page.ts`'s `closeMechanicsSheet` is what
+ * `main.ts` passes in.
+ */
+export function bindDemoPanel(
+  store: Store,
+  cfg: SimConfig,
+  onOpen: () => void,
+  closeMechanics: () => void,
+): DemoPanel {
   const body = document.getElementById("demosBody");
-  const sheet = document.getElementById("demos");
-  const open = document.getElementById("demosOpen");
-  const close = document.getElementById("demosClose");
-
-  const show = (on: boolean): void => {
-    sheet?.classList.toggle("on", on);
-    if (on) render();
-  };
+  const tab = document.querySelector<HTMLButtonElement>('#statesTabs button[data-tab="demos"]');
 
   function openDemo(id: MechanicId): void {
     const wave = demonstrationWave(id); // throws if the name has gone missing
@@ -63,7 +72,7 @@ export function bindDemoPanel(store: Store, cfg: SimConfig, onOpen: () => void):
     Object.assign(cfg, demonstrationConfig(id, cfg));
     store.index = index;
     onOpen();
-    show(false);
+    closeMechanics();
   }
 
   function render(): void {
@@ -95,21 +104,13 @@ export function bindDemoPanel(store: Store, cfg: SimConfig, onOpen: () => void):
     }
   }
 
-  if (sheet && open && close) {
-    open.addEventListener("click", () => show(true));
-    close.addEventListener("click", () => show(false));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-    });
-    // The list is capped at 700px (`#demosBody`'s own `max-width`) while the
-    // sheet behind it fills the screen, so on any desktop wider than that
-    // there is a real backdrop to click — this was the one route missing.
-    // `e.target === sheet` only fires on that backdrop: a click that lands on
-    // the header or a row hits that element first and never reaches here.
-    sheet.addEventListener("click", (e) => {
-      if (e.target === sheet) show(false);
-    });
-  }
+  // Lazy like `backlog-page.ts`'s SHAPES tab and `controlsets-page.ts`'s own
+  // `bindControlSetsTab`: the list is cheap here, but the tab is still built
+  // on first sight of it rather than at load, so every such room follows the
+  // one rule rather than three near-identical exceptions to it. A restore
+  // straight to this tab (`?sheet=states&inner=demos`) fires the same click
+  // `mountSheet` already drives for every inner tab.
+  tab?.addEventListener("click", render);
 
   return { render };
 }

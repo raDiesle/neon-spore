@@ -15,10 +15,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { frameWorld } from "./pose-art.js";
-import { mountSheet } from "./session.js";
 
 /**
- * THE CONTROL SETS: every registered panel, drawn.
+ * CONTROL SETS: every registered panel, drawn. A tab of GAME MECHANICS
+ * (`states-page.ts` owns the sheet itself) rather than a sheet of its own —
+ * see `docs/queue.md`'s `claude/burn-topbar-fold` entry.
  *
  * The wave editor's own picker (`rail.ts`) says a set by name, and a name in
  * a dropdown does not say what the pair will have in their hands — this page
@@ -109,7 +110,7 @@ function setCard(set: ControlSet): HTMLElement {
 
 let drawn = false;
 
-/** Every registered set, once. Built on first open and kept, like the STATES sheet. */
+/** Every registered set, once. Built on first sight of the tab and kept. */
 export function renderControlSets(): void {
   if (drawn) return;
   const body = document.getElementById("controlSetsBody");
@@ -119,11 +120,15 @@ export function renderControlSets(): void {
   for (const set of CONTROL_SETS) body.appendChild(setCard(set));
 }
 
-export function bindControlSetsPage(): void {
-  const sheet = document.getElementById("controlSets");
-  const open = document.getElementById("controlSetsOpen");
-  const close = document.getElementById("controlSetsClose");
-  if (!sheet || !open || !close) return;
-
-  mountSheet({ name: "controlSets", sheet, open, close, onOpen: renderControlSets });
+/**
+ * Lazy like `backlog-page.ts`'s SHAPES tab: a card per set poses a world and
+ * draws a canvas, so a session that never opens this tab should not pay for
+ * it. `renderControlSets`'s own `drawn` flag makes a second click free, and a
+ * restore straight to this tab (`?sheet=states&inner=controlsets`) fires the
+ * same click `mountSheet` already drives for every inner tab.
+ */
+export function bindControlSetsTab(): void {
+  document
+    .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="controlsets"]')
+    ?.addEventListener("click", renderControlSets);
 }
