@@ -520,6 +520,77 @@ Model `sonnet`, effort `think`. Read `tools/director/src/boss.ts` and
 `rail.ts`'s duplicate and delete before writing. The thinking goes on where the
 rule lives — the buttons are the symptom and the test in `content` is the fix.
 
+## FOUR TOPBAR BUTTONS FOLD INTO ONE PAGE, AND STATES IS RENAMED FOR WHAT IT HOLDS
+_claude/burn-topbar-fold · tools/director/index.html tools/director/src/states-page.ts tools/director/src/controlsets-page.ts tools/director/src/ship.ts tools/director/src/demo-panel.ts tools/director/src/main.ts tools/director/test_
+**Asked for by the owner:**
+
+> topbar:
+> move "control sets", "Ship", "Demos", "Main Menu" buttons and contents into
+> "States" page. rename "States" to be something like "Game Documentation"
+
+**The topbar has nine buttons and is the third place this month that ran out of
+room** — the field lost LEDGER for the same reason, and a whole entry below
+this one asks for every panel to be collapsible. This is the same pressure with
+a different answer: four of the nine are not *tools*, they are **reference** —
+what a control set contains, what the ship's dials are, what a mechanic looks
+like demonstrated, and the game itself. They belong together behind one door.
+
+### What is there now
+
+`▣ STATES` is a full-screen shell (`#states`, `statesBody`, `states-page.ts`)
+whose subtitle already describes reference material: *every state the game can
+be held in, drawn — a real frame of the shipping renderer*. The four to fold in
+are `⎈ CONTROL SETS` (`controlsets-page.ts`), `⚙ SHIP` (`ship.ts`),
+`▶ DEMOS` (`demo-panel.ts`), and `▶ MAIN MENU`.
+
+**`NOT BUILT YET` already has the shape to copy** — `#backlogTabs`, a row of
+tab buttons over one body. The renamed page becomes the same thing with a tab
+per section, so nothing has to be invented and the two big pages behave alike.
+
+**MAIN MENU is the odd one and needs a decision.** It is not a panel — it is an
+`<a href="/game?menu=1" target="_blank">`, a link out to the running game. There
+is no content to move, so folding it in means the page carries the link. Do not
+turn it into a tab that opens an empty body; put it where a reader looking for
+*how do I just play it* would find it, and say in the commit where that was.
+
+### The name
+
+The owner suggested **GAME DOCUMENTATION** and said *something like*. Use their
+words unless a shorter one is clearly better on a crowded bar — and if it is
+shortened, say in the commit what and why. It is renamed everywhere it appears:
+the button, the page header, and any prose in `index.html` or the director's
+`README.md` that calls it STATES.
+
+### What must not change
+
+**Every folded page keeps working exactly as it does**, including the one trap
+`controlsets-page.ts` documents in its own `setWorld` comment: it poses a real
+*shipped* wave on purpose, because the band reads the wave index. That comment
+must survive the move, and the behaviour with it.
+
+**Nothing about what any of those pages draws changes.** This is four doors
+becoming one door with four rooms behind it. A lane that improves a page while
+moving it has spent a decision that was not its to spend — put it in the
+report.
+
+**And the topbar keeps five buttons**, so check the ones that remain still fit
+and still read as a row. If the point was room, the commit should be able to
+say how much room was won.
+
+Finished when `bun run check` is green, the topbar no longer carries CONTROL
+SETS, SHIP, DEMOS or MAIN MENU, all four are reachable from the renamed page,
+nothing they draw has changed, and no text anywhere still calls the page STATES.
+
+`Check: with four buttons gone from the top bar, can you still find the control sets, the ship's dials, the demos and the way into the game — and does the bar read as less crowded`
+
+Model `sonnet`, effort `think`. Read `tools/director/index.html`'s `#backlog`
+block for the tab pattern to copy, and each of the four pages' own entry point
+before moving anything.
+
+**Expect to replay.** `index.html` is wanted by the alternatives lane above and
+by the panel-minimize entry; both were written before this one and neither
+works in the topbar.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
