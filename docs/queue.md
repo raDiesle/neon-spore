@@ -124,6 +124,76 @@ from the band showing through. Read `tools/director/src/versus-seat.ts` whole,
 including its header, before changing anything — it argues the current answer
 carefully and you are overturning one line of that argument, not all of it.
 
+## A CANDIDATE YOU CAN ONLY SEE AT THE MOMENT OF IMPACT MUST BE SHOWN HITTING, AGAIN AND AGAIN
+_claude/burn-versus-cadence · tools/director/src/versus-pose.ts tools/director/src/versus-pair.ts tools/versus/pose-kit.ts tools/director/src/poses-mechanics.ts tools/director/test_
+**Asked for by the owner:**
+
+> on the "alternatives", its hard for me to see the difference, because some
+> diffs only happen in the moment the meteorite hits the shield to reflect. so
+> the meteorite must repeatingly hit the shield with around 2 seconds pause
+> between.
+
+**This is the third time the same defect has been found on this page**, and it
+is worth saying so in the commit, because the pattern is the finding. First the
+page showed every slot in one fixed pose, so a shot candidate sat beside a
+shipped shot with **no shot ever fired** — measured at zero fire events across
+420 frames. Then a shot candidate turned out to be shown in a pose whose world
+ran with the wind-up switched off, so the laying could not happen either. Now
+the ward: **a candidate whose whole difference is one instant of impact, shown
+in a world where the impact is not recurring.**
+
+Every time, the shape is the same: **the page draws a world, and a candidate
+lives in an event.** A still world compares two pictures of nothing happening.
+
+### What to build
+
+**The impact recurs, with about two seconds of quiet between.** The owner named
+the cadence and it is a good one — long enough that the eye returns to the
+unchanged field and takes a fresh look, short enough to watch several without
+waiting. Do not make it faster because more repetitions seem better: **the pause
+is what makes the repetition legible**, because a difference is only visible
+against a baseline the eye has just re-read.
+
+**Make the cadence a property of the pose, not of the candidate.** Three
+candidates have now been invisible for three different reasons, and each was
+fixed where it was found. A pose already carries its own config override and
+its own choice per slot; a *rhythm* belongs beside those. Then the next
+event-shaped candidate — a hull crack, a plate coming off, a guard lapsing —
+inherits it rather than being discovered broken by the owner.
+
+**Do it for every event-shaped slot, not only the ward.** Go through the
+candidates as they stand and say, in the commit, which are event-shaped and
+which are continuous. A hull skin is continuous — it is always on screen and
+needs no rhythm. A ward, a shot, a deflection are events. The list is short and
+writing it down is what stops the fourth instance of this.
+
+### How to know it worked, and it is measurable
+
+Do not judge this by looking. **Count.** An earlier lane on this page proved its
+fix by measuring frames-with-a-shot and departures-seen over a fixed window —
+zero before, 113 and 6 after. Do the same here: over a fixed number of frames,
+how many impacts occur, and how far apart. **Put those numbers in the commit.**
+If the cadence drifts because the world's own timing does not divide evenly by
+two seconds, say so and say what you did — near enough is fine, silently
+irregular is not.
+
+**And watch the cost.** The ALTERNATIVES page is a flat contact sheet with every
+candidate animating at once, and nothing throttles past ten. A world that must
+keep producing impacts is a world that cannot be paused between them. If the
+page stutters, say so rather than shipping it — a stuttering comparison is a
+false one, which is the same trap in a new place.
+
+Finished when `bun run check` is green, every event-shaped candidate on the page
+shows its event repeating with roughly two seconds between, the cadence lives in
+the pose rather than in each candidate, and the commit carries the counts.
+
+`Check: on the alternatives page, does the rock hit the shield over and over with a pause between — long enough that you can see what the two sides do differently?`
+
+Model `sonnet`, effort `think hard`, spent on where the rhythm lives rather than
+on the loop itself. Read `tools/director/src/versus-pose.ts` and
+`versus-pair.ts`'s `advance` whole first — a lane rebuilt both recently and left
+the per-slot pose mechanism you should extend rather than replace.
+
 ## THE SHIELD THROWS SPARKS OUTWARD, SO YOU CAN SEE IT IS CHARGED
 _claude/burn-shield-arcs · tools/versus/candidates/shield-charge packages/render/test_
 **Asked for by the owner**, for the alternatives page:
