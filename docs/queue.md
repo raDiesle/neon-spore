@@ -50,173 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE TETHER IS PULLED, AND A LONG PULL OPENS THE WARDEN UP
-_claude/burn-tether-pull · packages/sim/src/warden.ts packages/sim/src/warden-cycle.ts packages/sim/src/config-boss.ts packages/render/src/tether.ts packages/render/src/warden-fx.ts packages/sim/test/warden.test.ts docs/spec/bosses.md_
-**Asked for by the owner.** Asked whether THE WARDEN's tether should follow a
-finger too, since the entry above deliberately left it alone:
-
-> yes. you click it then drag in a direction. if the string is pulled a longer
-> distance the warden can be attacked
-
-**Behind `claude/burn-grab-and-drag`, which must land first.** That lane builds
-the displacement a grab reports — the origin resolved on the device whose
-finger it is, the distance crossing the wire as thousandths of a tile — and
-this entry is the second thing to use it. Do not invent a parallel one.
-
-### What the tether does today, because the ask lands on top of it
-
-A line hangs from the rim and falls at a named rock's speed. Only the player it
-is **not** holding can pull it free, and the way they do it is to hold: the
-hold **accumulates** over ticks (`wardenPullBeats`, `packages/sim/src/warden.ts`),
-a thumb that slips loses that moment and no more, and tearing it in time takes
-a plate off the ring. `config-boss.ts` says in as many words why it is time and
-not steadiness:
-
-> the question the fight asks is *when* the other player can spare their hand,
-> never whether they can hold it steady on a phone
-
-That sentence is the one thing this entry must not run over by accident. A
-pull measured in distance is a pull that can be *fumbled*, and fumbling on a
-phone is exactly what the current rule was written to keep out of the fight.
-Whatever this lane builds, the fight must still be about the other seat's
-attention rather than about their aim.
-
-### The owner answered both questions, and they are no longer open
-
-> ziehen erweitert halten. ein Spieler muss ziehen und gezogen halten. dadurch
-> schiebt sich die Luke in der Mitte auf und der spieler 2 kann in das Auge
-> schießen um ihn zu verletzen.
-
-Translated, because everything written down here is English: *pulling extends
-holding. One player must pull and keep it pulled. That slides the hatch in the
-middle open, and player 2 can shoot into the eye to wound it.*
-
-**So the gesture is one continuous act, not two.** Grab, pull, and *keep it
-pulled*. The hold that exists today is not replaced and not bypassed — it is
-what the pull is made of. Distance is the new part and it is held rather than
-reached: letting the string go slack is letting go.
-
-**And "attacked" is the new mechanic, not the old plate.** While the string is
-held pulled, **a hatch in the middle of the ring opens and the eye behind it is
-shootable.** Today a tether is explicitly neither shootable nor an obstacle
-(`packages/sim/src/bullets.ts`), and the ring sheds a plate when an eye opens
-on its own clock. This is a different thing: a window the *pair* creates and
-holds open, and player 2 has to fire into it while player 1 keeps pulling.
-
-**That is the whole reason this is worth building**, and it should be said in
-the commit: it is the game's central shape appearing in a boss. One player
-cannot do it. Player 1 holds the string and cannot shoot; player 2 shoots and
-cannot see how much pull is left. The talking is not decoration on top of the
-mechanic, it *is* the mechanic — which is what THE WARDEN's hold-and-tear never
-quite asked for.
-
-**Three things the lane must decide, and none is a guess about intent:**
-
-- **What closes the hatch.** Letting go, plainly. But also: does the string
-  eventually tear from being held pulled, ending the window by succeeding? The
-  old mechanic tore it. Say which and why.
-- **Whether the eye takes one shot or many**, and what a hit costs the ring —
-  the existing plate, hull damage, something else. Anything that changes what
-  wounding *means* is a balance question; if the answer is not derivable from
-  what the ring already does, **stop and ask** rather than inventing a number.
-- **How far is far enough**, in thousandths of a tile, as a named field in
-  `SimConfig` — never a literal.
-
-### The owner settled what holds the hatch open, and it is nothing but the tension
-
-> ich schlage vor, nicht das loslassen, und auch nicht das reißen, sondern das
-> bloße halten gespannt (wie ein tor mit flaschenzug). [...] die luke ist der
-> alleinige weg zum Auge, damit man vertikal dann draufschießen kann, wenn die
-> luke offen ist. andere alte mechanik kannst du nach "not build yet"
-> verschieben und wird momentan nicht gebraucht.
-
-*Not the letting-go, and not the tearing either, but simply holding it taut —
-like a gate with a block and tackle. [...] The hatch is the only way to the
-eye, so that you can shoot vertically into it when the hatch is open. The other
-old mechanic can move to "not built yet"; it is not needed at the moment.*
-
-**There is no tear.** The hatch is held by the string being kept taut and by
-nothing else: keep pulling and it stays open, slacken and it closes. A lane
-proposed ending the window by tearing the line, on the argument that an
-unbounded window turns a question of *when* into one of *how long*; the owner
-heard that and chose the gate-and-tackle. **That proposal is kept**, in "not
-built yet", to be tested and probably used on another wave or boss — with its
-reasoning intact, because the reasoning is the part worth keeping.
-
-**And the hatch is the only way to the eye.** Whatever opened the eye on its
-own clock retires with the tear, into "not built yet" rather than into nothing.
-The pull becomes the sole source of the opening.
-
-**What this does not change**: the cost of a hit is still the ring's own
-existing rule — a plate, spent once per opening — so no balance number is
-invented and the bullet path is not touched. That finding was made before this
-message and survives it.
-
-**And it strengthens the visual requirement above** rather than complicating
-it: a gate held open by tension, closing the moment the tension goes, is
-already what *opens by degrees* describes. The picture and the rule are the
-same thing here.
-
-### And the pull has to be readable, which is not polish
-
-The owner, added while the lane was working:
-
-> es muss visuell deutlich werden, das man zuerst den Kreis halten muss, dann
-> ziehen und dass mehr ziehen zu mehr Spannung führt und das Tor je nach
-> Spannung mehr und mehr aufgeht
-
-*It must be visually clear that you first have to hold the circle, then pull,
-and that more pulling leads to more tension, and that the gate opens further
-and further according to the tension.*
-
-**Four things legible, in order, with nobody told anything:** the circle reads
-as something to take hold of; the moment it is held is visible; pulling builds
-tension and more pulling builds more, continuously rather than at a silent
-threshold; and **the hatch opens by degrees in proportion to that tension** —
-*mehr und mehr*, never a snap from shut to open.
-
-**The fourth one carries the mechanic.** Player 2 has to know when to fire and
-is not the one holding the string, so they cannot feel the pull. A hatch that
-opens proportionally *is* their readout: how far it has opened says how hard
-their partner is pulling and whether there is a shot yet. Binary would make the
-gate a lamp and force the pair to narrate a number out loud instead of reading
-the field — which is the failure this game is built to avoid.
-
-So the hatch's openness is a direct function of the tension the simulation
-holds. Easing or smoothing that makes the picture say something the rule does
-not is how a readout starts lying; if it comes to that, stop rather than ship
-it.
-
-Exempt from *a look is offered, never replaced* under the first named
-exemption — the owner asked for it by name, in the words above, and it covers
-this and nothing else.
-
-### The old mechanic is kept, not deleted
-
-> behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo fest.
-
-*Keep the current old mechanic — hold only — recorded somewhere in "not done
-yet".* So hold-to-tear does not simply vanish when the pull replaces it: it is
-written down as an in-screen control that was tried, on the page
-`claude/burn-controls-page` builds. **This lane does not build that page** — it
-writes the paragraph, and that entry gives it a home. If that entry has not
-landed yet, put the paragraph where the backlog already keeps control ideas and
-say where in the report.
-
-**Everything the drag needs is integers.** Rule 3, and `bun run
-test:determinism` is the guard — a pull distance is exactly where a float gets
-in. Both devices must agree on the tick a threshold is crossed.
-
-Finished when `bun run check` is green, `bun run test:determinism` passes, the
-tether follows the finger that grabbed it, holding it pulled opens the hatch and
-lets player 2 shoot the eye, the old hold-only mechanic is written down rather
-than lost, and `docs/spec/bosses.md` §11.4 describes the fight that
-now exists rather than the one that used to.
-
-Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
-— the input is inherited. Read `packages/sim/src/warden.ts` whole and
-`docs/spec/bosses.md` §11.4 before deciding anything.
-
 ## THE CANNON LAYS THE SHOT LIKE A HEN LAYS AN EGG
 _claude/burn-cannon-egg · tools/versus/candidates/cannon-shot packages/render/test_
 **Asked for by the owner.** Said in German; translated here, because everything
@@ -1096,3 +929,176 @@ shadow's stages side by side, and the commit carries
 Model `sonnet`, effort `think hard`. Read `tools/director/src/states-page.ts`
 and `packages/render/src/contact-shadow.ts`'s header. The thinking goes on
 choosing the three moments — the wrong three make a working effect look broken.
+
+## THE TETHER IS PULLED, AND A LONG PULL OPENS THE WARDEN UP
+_claude/burn-tether-pull · packages/sim/src/warden.ts packages/sim/src/warden-cycle.ts packages/sim/src/config-boss.ts packages/render/src/tether.ts packages/render/src/warden-fx.ts packages/sim/test/warden.test.ts docs/spec/bosses.md_
+**Waiting on the owner, and moved here by them so it can wait.** They asked for
+it to go to the end of the queue while they answer the questions below — three
+in the lane's own list, and whichever of the notes above still need a word. It
+is not blocked on anything in the code and not on any other lane; a lane that
+picks it up before those answers exist will stop on the first of them.
+
+**Asked for by the owner.** Asked whether THE WARDEN's tether should follow a
+finger too, since the entry above deliberately left it alone:
+
+> yes. you click it then drag in a direction. if the string is pulled a longer
+> distance the warden can be attacked
+
+**Behind `claude/burn-grab-and-drag`, which must land first.** That lane builds
+the displacement a grab reports — the origin resolved on the device whose
+finger it is, the distance crossing the wire as thousandths of a tile — and
+this entry is the second thing to use it. Do not invent a parallel one.
+
+### What the tether does today, because the ask lands on top of it
+
+A line hangs from the rim and falls at a named rock's speed. Only the player it
+is **not** holding can pull it free, and the way they do it is to hold: the
+hold **accumulates** over ticks (`wardenPullBeats`, `packages/sim/src/warden.ts`),
+a thumb that slips loses that moment and no more, and tearing it in time takes
+a plate off the ring. `config-boss.ts` says in as many words why it is time and
+not steadiness:
+
+> the question the fight asks is *when* the other player can spare their hand,
+> never whether they can hold it steady on a phone
+
+That sentence is the one thing this entry must not run over by accident. A
+pull measured in distance is a pull that can be *fumbled*, and fumbling on a
+phone is exactly what the current rule was written to keep out of the fight.
+Whatever this lane builds, the fight must still be about the other seat's
+attention rather than about their aim.
+
+### The owner answered both questions, and they are no longer open
+
+> ziehen erweitert halten. ein Spieler muss ziehen und gezogen halten. dadurch
+> schiebt sich die Luke in der Mitte auf und der spieler 2 kann in das Auge
+> schießen um ihn zu verletzen.
+
+Translated, because everything written down here is English: *pulling extends
+holding. One player must pull and keep it pulled. That slides the hatch in the
+middle open, and player 2 can shoot into the eye to wound it.*
+
+**So the gesture is one continuous act, not two.** Grab, pull, and *keep it
+pulled*. The hold that exists today is not replaced and not bypassed — it is
+what the pull is made of. Distance is the new part and it is held rather than
+reached: letting the string go slack is letting go.
+
+**And "attacked" is the new mechanic, not the old plate.** While the string is
+held pulled, **a hatch in the middle of the ring opens and the eye behind it is
+shootable.** Today a tether is explicitly neither shootable nor an obstacle
+(`packages/sim/src/bullets.ts`), and the ring sheds a plate when an eye opens
+on its own clock. This is a different thing: a window the *pair* creates and
+holds open, and player 2 has to fire into it while player 1 keeps pulling.
+
+**That is the whole reason this is worth building**, and it should be said in
+the commit: it is the game's central shape appearing in a boss. One player
+cannot do it. Player 1 holds the string and cannot shoot; player 2 shoots and
+cannot see how much pull is left. The talking is not decoration on top of the
+mechanic, it *is* the mechanic — which is what THE WARDEN's hold-and-tear never
+quite asked for.
+
+**Three things the lane must decide, and none is a guess about intent:**
+
+- **What closes the hatch.** Letting go, plainly. But also: does the string
+  eventually tear from being held pulled, ending the window by succeeding? The
+  old mechanic tore it. Say which and why.
+- **Whether the eye takes one shot or many**, and what a hit costs the ring —
+  the existing plate, hull damage, something else. Anything that changes what
+  wounding *means* is a balance question; if the answer is not derivable from
+  what the ring already does, **stop and ask** rather than inventing a number.
+- **How far is far enough**, in thousandths of a tile, as a named field in
+  `SimConfig` — never a literal.
+
+### The owner settled what holds the hatch open, and it is nothing but the tension
+
+> ich schlage vor, nicht das loslassen, und auch nicht das reißen, sondern das
+> bloße halten gespannt (wie ein tor mit flaschenzug). [...] die luke ist der
+> alleinige weg zum Auge, damit man vertikal dann draufschießen kann, wenn die
+> luke offen ist. andere alte mechanik kannst du nach "not build yet"
+> verschieben und wird momentan nicht gebraucht.
+
+*Not the letting-go, and not the tearing either, but simply holding it taut —
+like a gate with a block and tackle. [...] The hatch is the only way to the
+eye, so that you can shoot vertically into it when the hatch is open. The other
+old mechanic can move to "not built yet"; it is not needed at the moment.*
+
+**There is no tear.** The hatch is held by the string being kept taut and by
+nothing else: keep pulling and it stays open, slacken and it closes. A lane
+proposed ending the window by tearing the line, on the argument that an
+unbounded window turns a question of *when* into one of *how long*; the owner
+heard that and chose the gate-and-tackle. **That proposal is kept**, in "not
+built yet", to be tested and probably used on another wave or boss — with its
+reasoning intact, because the reasoning is the part worth keeping.
+
+**And the hatch is the only way to the eye.** Whatever opened the eye on its
+own clock retires with the tear, into "not built yet" rather than into nothing.
+The pull becomes the sole source of the opening.
+
+**What this does not change**: the cost of a hit is still the ring's own
+existing rule — a plate, spent once per opening — so no balance number is
+invented and the bullet path is not touched. That finding was made before this
+message and survives it.
+
+**And it strengthens the visual requirement above** rather than complicating
+it: a gate held open by tension, closing the moment the tension goes, is
+already what *opens by degrees* describes. The picture and the rule are the
+same thing here.
+
+### And the pull has to be readable, which is not polish
+
+The owner, added while the lane was working:
+
+> es muss visuell deutlich werden, das man zuerst den Kreis halten muss, dann
+> ziehen und dass mehr ziehen zu mehr Spannung führt und das Tor je nach
+> Spannung mehr und mehr aufgeht
+
+*It must be visually clear that you first have to hold the circle, then pull,
+and that more pulling leads to more tension, and that the gate opens further
+and further according to the tension.*
+
+**Four things legible, in order, with nobody told anything:** the circle reads
+as something to take hold of; the moment it is held is visible; pulling builds
+tension and more pulling builds more, continuously rather than at a silent
+threshold; and **the hatch opens by degrees in proportion to that tension** —
+*mehr und mehr*, never a snap from shut to open.
+
+**The fourth one carries the mechanic.** Player 2 has to know when to fire and
+is not the one holding the string, so they cannot feel the pull. A hatch that
+opens proportionally *is* their readout: how far it has opened says how hard
+their partner is pulling and whether there is a shot yet. Binary would make the
+gate a lamp and force the pair to narrate a number out loud instead of reading
+the field — which is the failure this game is built to avoid.
+
+So the hatch's openness is a direct function of the tension the simulation
+holds. Easing or smoothing that makes the picture say something the rule does
+not is how a readout starts lying; if it comes to that, stop rather than ship
+it.
+
+Exempt from *a look is offered, never replaced* under the first named
+exemption — the owner asked for it by name, in the words above, and it covers
+this and nothing else.
+
+### The old mechanic is kept, not deleted
+
+> behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo fest.
+
+*Keep the current old mechanic — hold only — recorded somewhere in "not done
+yet".* So hold-to-tear does not simply vanish when the pull replaces it: it is
+written down as an in-screen control that was tried, on the page
+`claude/burn-controls-page` builds. **This lane does not build that page** — it
+writes the paragraph, and that entry gives it a home. If that entry has not
+landed yet, put the paragraph where the backlog already keeps control ideas and
+say where in the report.
+
+**Everything the drag needs is integers.** Rule 3, and `bun run
+test:determinism` is the guard — a pull distance is exactly where a float gets
+in. Both devices must agree on the tick a threshold is crossed.
+
+Finished when `bun run check` is green, `bun run test:determinism` passes, the
+tether follows the finger that grabbed it, holding it pulled opens the hatch and
+lets player 2 shoot the eye, the old hold-only mechanic is written down rather
+than lost, and `docs/spec/bosses.md` §11.4 describes the fight that
+now exists rather than the one that used to.
+
+Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
+— the input is inherited. Read `packages/sim/src/warden.ts` whole and
+`docs/spec/bosses.md` §11.4 before deciding anything.
