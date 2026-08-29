@@ -60,9 +60,9 @@ export const GROUP_ORDER: GroupName[] = [
 
 export const GROUP_NOTE: Record<GroupName, string> = {
   MAZE:
-    "Three mouths above the ship and a tangle behind them, split so that player 1 " +
-    "sees which ways out each node has and player 2 sees which are walled. The " +
-    "lattice itself is authored in packages/content/src/maze-rounds.ts.",
+    "A wheel of rings behind the ship, with ways in round its rim. Player 1 turns " +
+    "it and clicks a way in onto a column; player 2 fires. Both screens see the " +
+    "same light — the wheel is authored in packages/content/src/maze-rounds.ts.",
   "AIM — colour and column":
     "Player 2 fires the colour, player 1 holds the column. Both or nothing.",
   "GUARD — the shared defence":
