@@ -431,14 +431,32 @@ should have waited for it.
 on a phone. The stage already accepts pointer events and the game itself is
 portrait-first, so the field is the easy part; the panels are not.
 
-### One thing to put to the owner rather than decide
+### The owner has answered the question this entry used to hold open
 
-**Shipping the director publishes what it shows.** It surfaces the queue, the
-parked ideas, the outstanding checks, the specification and the backlog — the
-project's own working material. That is very likely fine, since it is their
-project and their build, but it is a door being opened and they should open it
-knowingly rather than discover it. **Say it in the report, do not act on it,
-and do not add authentication nobody asked for.**
+Asked whether shipping the director would publish the queue, the parked ideas,
+the checks and the specification, they said yes and said why:
+
+> yes director for mobile support to ship, so I can use it in testing phase
+> until anyone else sees it. later we will switch this back, so keep the deploy
+> mechanism for game only, but unused for now
+
+**So it ships, and it ships knowingly.** No authentication, no redaction, no
+hiding of tabs — they want the whole tool on a phone while they are the only
+person looking at it.
+
+**And the second sentence is a constraint, not a caveat.** *Keep the deploy
+mechanism for game only, but unused for now.* The game-only build is not
+replaced and not deleted: it stays, working, and something chooses between the
+two. When somebody else eventually sees this, switching back must be one
+deliberate flip rather than an afternoon of undoing.
+
+So say in the commit **what the switch is and how it is thrown** — an argument,
+an environment variable, a script beside the existing one. Whatever it is, it
+must be discoverable by somebody who has forgotten this conversation, which
+means it is named in  or in the director's 
+rather than living only in a lane's memory. And the game-only path must still
+be exercised, not merely present: a path nobody runs is a path that has rotted
+by the time it is needed.
 
 Finished when `bun run build` produces the director beside the game, the
 shipped director opens on a phone and can be read and operated, nothing that
