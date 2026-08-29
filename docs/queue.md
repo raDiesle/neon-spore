@@ -81,39 +81,67 @@ phone is exactly what the current rule was written to keep out of the fight.
 Whatever this lane builds, the fight must still be about the other seat's
 attention rather than about their aim.
 
-### The question the owner still has to answer, and it is the whole lane
+### The owner answered both questions, and they are no longer open
 
-**Does distance replace the accumulated hold, or sit beyond it?** Two readings,
-both consistent with what they said, and they are different games:
+> ziehen erweitert halten. ein Spieler muss ziehen und gezogen halten. dadurch
+> schiebt sich die Luke in der Mitte auf und der spieler 2 kann in das Auge
+> schießen um ihn zu verletzen.
 
-- **Distance replaces time.** Tearing the tether becomes: grab it and drag it
-  far enough. `wardenPullBeats` retires. Simplest to explain, and it overturns
-  the decision quoted above rather than extending it.
-- **Distance is a second, further threshold.** Holding still tears the line as
-  it does now; dragging it *further than that* is an extra thing a player can
-  choose to do, and the reward is the new one — the ring opens to attack.
+Translated, because everything written down here is English: *pulling extends
+holding. One player must pull and keep it pulled. That slides the hatch in the
+middle open, and player 2 can shoot into the eye to wound it.*
 
-The second reading is the one the owner's sentence most nearly says: *if the
-string is pulled a longer distance* implies a shorter distance that already
-does something. **Do not decide this alone.** If the owner has answered by the
-time this is picked up, the answer is in the queue; if not, stop and ask.
+**So the gesture is one continuous act, not two.** Grab, pull, and *keep it
+pulled*. The hold that exists today is not replaced and not bypassed — it is
+what the pull is made of. Distance is the new part and it is held rather than
+reached: letting the string go slack is letting go.
 
-### And what "can be attacked" means is the second question
+**And "attacked" is the new mechanic, not the old plate.** While the string is
+held pulled, **a hatch in the middle of the ring opens and the eye behind it is
+shootable.** Today a tether is explicitly neither shootable nor an obstacle
+(`packages/sim/src/bullets.ts`), and the ring sheds a plate when an eye opens
+on its own clock. This is a different thing: a window the *pair* creates and
+holds open, and player 2 has to fire into it while player 1 keeps pulling.
 
-The ring already loses a plate per opened eye and a plate never grows back. So
-*attacked* may mean the existing plate coming off, or a window in which the
-ring is shootable when it otherwise is not — today a tether is explicitly not
-shootable and does not stop a shot (`packages/sim/src/bullets.ts`). Those are
-different mechanics, one of them is new, and the difference is a boss's
-choreography rather than a parameter. Same rule: ask rather than pick.
+**That is the whole reason this is worth building**, and it should be said in
+the commit: it is the game's central shape appearing in a boss. One player
+cannot do it. Player 1 holds the string and cannot shoot; player 2 shoots and
+cannot see how much pull is left. The talking is not decoration on top of the
+mechanic, it *is* the mechanic — which is what THE WARDEN's hold-and-tear never
+quite asked for.
+
+**Three things the lane must decide, and none is a guess about intent:**
+
+- **What closes the hatch.** Letting go, plainly. But also: does the string
+  eventually tear from being held pulled, ending the window by succeeding? The
+  old mechanic tore it. Say which and why.
+- **Whether the eye takes one shot or many**, and what a hit costs the ring —
+  the existing plate, hull damage, something else. Anything that changes what
+  wounding *means* is a balance question; if the answer is not derivable from
+  what the ring already does, **stop and ask** rather than inventing a number.
+- **How far is far enough**, in thousandths of a tile, as a named field in
+  `SimConfig` — never a literal.
+
+### The old mechanic is kept, not deleted
+
+> behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo fest.
+
+*Keep the current old mechanic — hold only — recorded somewhere in "not done
+yet".* So hold-to-tear does not simply vanish when the pull replaces it: it is
+written down as an in-screen control that was tried, on the page
+`claude/burn-controls-page` builds. **This lane does not build that page** — it
+writes the paragraph, and that entry gives it a home. If that entry has not
+landed yet, put the paragraph where the backlog already keeps control ideas and
+say where in the report.
 
 **Everything the drag needs is integers.** Rule 3, and `bun run
 test:determinism` is the guard — a pull distance is exactly where a float gets
 in. Both devices must agree on the tick a threshold is crossed.
 
 Finished when `bun run check` is green, `bun run test:determinism` passes, the
-tether follows the finger that grabbed it, a long pull does what the owner's
-answer said it does, and `docs/spec/bosses.md` §11.4 describes the fight that
+tether follows the finger that grabbed it, holding it pulled opens the hatch and
+lets player 2 shoot the eye, the old hold-only mechanic is written down rather
+than lost, and `docs/spec/bosses.md` §11.4 describes the fight that
 now exists rather than the one that used to.
 
 Model `opus`, effort `ultrathink`, spent on the fight rather than on the input
@@ -746,6 +774,100 @@ Model `sonnet`, effort `think hard`, spent on where a rule-shaped alternative
 lives rather than on the drawing. Read `docs/versus.md`,
 `tools/versus/candidates/index.ts` and `packages/sim/src/shot-charge.ts` whole
 before deciding anything.
+
+## THE THINGS YOU TOUCH ON THE FIELD ARE A KIND OF CONTROL, AND NOTHING NAMES THEM
+_claude/burn-controls-page · tools/director/src/controlsets-page.ts tools/director/src/backlog-page.ts tools/director/index.html docs/spec/controls.md tools/director/test_
+**Asked for by the owner**, in the same message that settled THE WARDEN's pull:
+
+> behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo
+> fest. vielleicht ein neuer Tab in control panels (wir benennen in in
+> "controls" um. dann können wir auch alternative in screen controls hier
+> dokumentieren und ggf testen.
+>
+> wichtig, dass alle in screen controllen (nicht control panels unten im
+> screen) auch in der game mechanics Seite dokumentiert werden
+
+Translated: *keep the current old mechanic — hold only — recorded somewhere in
+"not done yet". Perhaps a new tab in control panels, which we rename to
+"controls". Then we can document alternative in-screen controls there too, and
+test them if need be. Important: every in-screen control (not the control
+panels at the bottom of the screen) must also be documented on the game
+mechanics page.*
+
+### The distinction the owner is drawing, because it is the whole entry
+
+**There are two kinds of control and the repository only has a word for one.**
+
+- **Panel controls** — the buttons in the strip below the field. SHIELD, SUCK,
+  the lance, the guard. These have a name (`CONTROL_SETS`), a page, a picker on
+  the wave, and a test.
+- **In-screen controls** — the things you touch *on the field itself*. THE
+  WARDEN's PULL circle. THE MAZE's handle on its string. The grip on a falling
+  creature. The guide's whole-screen press. The ready circles that
+  `claude/burn-ready-circles` adds. **These are not written down anywhere as a
+  category.** Each was built by whichever lane needed it, and the only way to
+  find out what exists is to read `packages/render/src/touch.ts`.
+
+That is why the owner had to ask what PULL does, and why *"it says pull, but
+when i click with mouse and move mouse, nothing happens"* took two lanes to
+answer. The category is real, it is growing fast — three of them arrived this
+week — and it has no home.
+
+### What to build
+
+**Rename the CONTROL SETS page to CONTROLS**, and let it hold both kinds. The
+owner named the rename and the reason: one page about how the pair touches the
+game, rather than one page about half of it.
+
+**Add the in-screen controls to it, each named and described**: where it
+appears, which seat may use it, what the gesture is (press, hold, grab and
+drag), and what it does. Derive what you can from the code rather than
+retyping it — a hand-kept list beside a growing category is the failure mode
+`docs/spec/briefings.md` has already been through twice.
+
+**A tab for alternatives that were tried**, which is where THE WARDEN's
+hold-only tear goes when the pull replaces it. The owner asked for it to be
+kept rather than deleted, and *"ggf testen"* — possibly tested — means this is
+adjacent to the alternatives page, not a graveyard. Do not build a testing
+mechanism here; note in the report whether the versus machinery could serve it.
+
+**And every in-screen control appears on the GAME MECHANICS page too.** That is
+the owner's *wichtig*, and it is a different audience: the CONTROLS page is
+where you go to ask about controls, GAME MECHANICS is where somebody reads what
+the game is and should not have to know to ask. **One source, two readers** —
+if the same list is typed twice it will disagree with itself within a month.
+
+### The one that will be got wrong
+
+**`packages/render/src/touch.ts` is the truth about what exists**, and it is
+the file every recent lane has touched. The list must come from there or from
+something derived from it — never from a lane's memory of what it built. If
+`touch.ts` cannot be read as data, say so in the report rather than
+hand-writing the list and calling it done; a documentation page that quietly
+drifts from the code is worse than no page, because it is believed.
+
+### Sequencing
+
+**After `claude/burn-topbar-fold`**, which renames STATES to GAME MECHANICS and
+folds CONTROL SETS into it. This entry then renames and fills what that one
+moved. Expect to replay over it, and read the page as it is rather than as this
+entry describes it.
+
+**`claude/burn-tether-pull` writes one paragraph into this page** — the
+hold-only mechanic it retires. If it lands first, the paragraph is already
+somewhere in the backlog and this lane gives it its proper home.
+
+Finished when `bun run check` is green, the page is called CONTROLS and covers
+both kinds of control, every in-screen control the game has is named there and
+on the GAME MECHANICS page from one source, and the retired hold-only tether is
+recorded rather than lost.
+
+`Check: on the controls page, can you find every thing you can touch on the field itself — what it looks like, whose it is, and whether you press it, hold it or drag it`
+
+Model `sonnet`, effort `think hard`, spent on where the list comes from rather
+than on the page. Read `packages/render/src/touch.ts` whole first —
+if the in-screen controls cannot be derived from it, that is the finding and it
+changes the shape of the whole entry.
 
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
