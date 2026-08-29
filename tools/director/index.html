@@ -83,6 +83,28 @@
       main > section:last-child { border-right: 0; }
       h2 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 8px; font-weight: 400; }
 
+      /* Every editing panel can be put away — one mechanism (panels.ts),
+         applied to any <h2 data-panel> rather than hand-wired per section.
+         Spacing between panels lives here, not on the heading any more:
+         `panels.ts` strips a heading's own inline margin-top so this is the
+         only rule deciding it. The field and the transport row under it
+         carry no `data-panel` and are never wrapped, so they never move
+         when a panel beside them opens or closes — these columns are sized
+         by fixed widths and flex-basis, not by a sibling's content height. */
+      .panel { margin: 0 0 14px; }
+      .panel:last-child { margin-bottom: 0; }
+      .panel > summary {
+        display: flex; align-items: center; gap: 6px; cursor: pointer;
+        list-style: none; margin: 0 0 8px;
+      }
+      .panel:not([open]) > summary { margin-bottom: 0; }
+      .panel > summary::-webkit-details-marker { display: none; }
+      .panel > summary::before { content: "▸"; color: var(--dim); font-size: 9px; width: 8px; flex: 0 0 auto; }
+      .panel[open] > summary::before { content: "▾"; }
+      .panel > summary:hover::before { color: var(--ink); }
+      /* The heading keeps its own look; only its margin is owned by .panel now. */
+      .panel > summary h2 { margin: 0; }
+
       #waveList { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
       #waveList button { text-align: left; border-color: transparent; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       #waveList button.on { border-color: var(--gold); }
@@ -792,7 +814,7 @@
 
     <main>
       <section>
-        <h2>WAVES</h2>
+        <h2 data-panel="waves">WAVES</h2>
         <div id="waveList"></div>
         <div class="rail-actions">
           <button type="button" id="waveAdd">+ NEW</button>
@@ -818,7 +840,7 @@
              SHIP is folded in at the bottom here, BALANCE now lives under the
              field below instead — see docs/queue.md's director-layout entry. -->
         <div class="tabpage on" id="tab-wave">
-          <h2>BRIEFING</h2>
+          <h2 data-panel="briefing">BRIEFING</h2>
           <p class="note" id="waveBriefing"></p>
 
           <label class="field" for="fName">NAME</label>
@@ -840,7 +862,7 @@
 
           <div id="bossPanel"></div>
 
-          <h2 style="margin-top: 14px">WHAT THIS WAVE ADDS TO THE SHIP</h2>
+          <h2 data-panel="ship-adds">WHAT THIS WAVE ADDS TO THE SHIP</h2>
           <p class="note">
             Its boss, if it has one, and THE GAUGE if the gap in front of it
             carries a round. The ship's own dials — AIM, HULL, THE BEAT and
@@ -849,7 +871,7 @@
           <div id="caps"></div>
         </div>
         <div class="tabpage" id="tab-tuning">
-          <h2>PAIR</h2>
+          <h2 data-panel="pair">PAIR</h2>
           <p class="note">
             Off by default so a determinism run, a shape sheet and
             relay:check all get the wave rather than the wait — see
@@ -857,9 +879,9 @@
             toggles below the field, one click from the stage it changes.
           </p>
           <div id="pairPanel"></div>
-          <h2 style="margin-top: 14px">PRESET</h2>
+          <h2 data-panel="preset">PRESET</h2>
           <div class="rail-actions" id="presets"></div>
-          <h2 style="margin-top: 14px">TUNING</h2>
+          <h2 data-panel="tuning">TUNING</h2>
           <div id="sliders"></div>
           <p class="note">
             Tuning is the run, not the wave. It is never written to waves.ts —
@@ -905,11 +927,12 @@
 
       <section class="brush-col">
         <div id="brushCol">
-          <h2>BRUSH</h2>
+          <h2 data-panel="brush">BRUSH</h2>
           <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
           <div id="brushes" class="hide-hints"></div>
         </div>
         <div id="mapCol">
+          <h2 data-panel="map">MAP</h2>
           <div id="grid"></div>
           <div id="podList"></div>
           <p class="note" id="gridNote"></p>

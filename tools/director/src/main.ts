@@ -9,6 +9,7 @@ import { bindGrid, type GridPanel } from "./grid.js";
 import { bindCardsPage } from "./guide-sheet.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
+import { initPanels } from "./panels.js";
 import { bindRail } from "./rail.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { bindShipSheet, renderShip, renderShipSheet } from "./ship.js";
@@ -49,6 +50,12 @@ import { renderWaveOpening } from "./wave-opening.js";
 // pressed once it turns the card off, for iterating on a wave's timing
 // without reading its card for the fortieth time today.
 const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
+
+// Every editing panel gets a collapse handle by virtue of being one — see
+// `panels.ts`. Run before anything below queries a panel's own elements by
+// id: wrapping moves nodes, not ids, so those lookups keep working either way,
+// but doing this first keeps the structural pass ahead of the content pass.
+initPanels();
 
 // The bundled waves are the fallback, not the source. The server reads the
 // file from disk, so an editor opened after a hand edit shows the hand edit.
