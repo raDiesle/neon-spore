@@ -361,3 +361,145 @@ offers a button rather than three empty fields.
 Model `sonnet`, effort `think`, spent on making the growing text area general
 rather than on the words. Read `tools/director/index.html`'s four text areas and
 `guide-fields.ts` before starting.
+
+## THE RUNT BECOMES A LURE
+_claude/burn-lure · packages/content/src/creatures.ts packages/content/src/mechanics-table.ts packages/content/src/silhouettes.ts packages/content/src/waves-demo.ts packages/content/src/waves packages/sim/src/bullet-hit.ts packages/sim/src/creature-rules.ts packages/sim/src/config.ts packages/sim/src/events.ts packages/sim/test packages/render/src packages/render/test packages/audio tools/director/src/brushes.ts tools/shape-sheet/src/catalogue.ts tools/shape-sheet/src/subjects.ts tools/shape-sheet/src/nameability.ts docs/spec/bestiary.md docs/alive.md_
+**Asked for by the owner**, who wrote the specification themselves and pasted
+it. It is reproduced below **verbatim**, because it is theirs and because it is
+more precise than a restatement would be.
+
+> **THE SPECIFICATION AS PASTED BEGINS PART-WAY THROUGH.** It opens on
+> `Entries:` and refers twice to *the paragraph above*, which was not included.
+> **The paragraphs defining what a lure actually is — the one-sentence test, the
+> mechanic, why the runt is being replaced — are missing**, and a lane cannot
+> derive them from what follows. What can be inferred from the text below is
+> written under *What the fragment implies*; **a lane must read that as
+> inference and not as instruction**, and must stop and ask if the definition
+> matters to a decision in front of it.
+
+### The owner's specification, verbatim
+
+Entries: a lure wearing a bulb in one column, and a real slick two or three
+beats later in another, close enough that the seconds spent standing on the
+lure are the seconds the slick needed. The exact beats are the author's; the
+one-sentence test is what they must satisfy, and per the paragraph above it is
+the part of this lane that no test can check.
+
+#### The runt's shape goes to NOT BUILT YET
+
+Not deleted. `RUNT` in `packages/content/src/silhouettes.ts` — four shallow
+lobes at `sizeMul: 0.55` — moves to the NOT BUILT YET shapes section, where it
+sits as a shape nothing draws yet rather than as dead content, and stays
+available if a genuinely small creature is ever wanted. Its entries in
+`tools/shape-sheet/src/catalogue.ts`, `subjects.ts` and `nameability.ts` move
+with it; a shape in the catalogue that no kind maps to is exactly the kind of
+drift `silhouettes.ts` warns about.
+
+**And a question in `docs/alive.md` dissolves on the way past.** That file
+carries an open owner decision: the runt draws at about 10.3 px, below
+`docs/spec/graphics.md`'s own line that at 11 px nothing of a figure survives,
+and every proposal for runt interior work died on it. A lure has no small form
+— it is a slick or a bulb at full size on both screens, and the alarm is drawn
+over it rather than in it. The question stops existing rather than being
+answered. Say so in the commit, and strike it from `docs/alive.md` in the same
+pass so nobody spends a session on it later.
+
+#### Rules this lands under
+
+**A look is offered, never replaced** does not hold this back, on two of its
+three named exemptions at once: the owner asked for this drawing by name, and
+nothing shipped is being replaced — no marking like it exists today. It lands
+on the field rather than on a NOT BUILT YET card. The one part that *is* a
+replacement is the runt's body disappearing from player 1's screen, and that
+is the mechanic rather than a preference, which the commit should state in
+that word.
+
+**Check the alarm against `torch-alarm.ts` before drawing it.** There is
+already an alarm marking in this game. Two alarms that look alike are worse
+than one alarm that is ugly, and this is the check the lane owes: a white ring
+and an exclamation must not read as the thing player 2 has already learned
+means something else.
+
+#### Everything that moves in the same pass
+
+- `creatures.ts` — the kind, its `controls: ["aim"]` (unchanged, and for the
+  same reason: not firing has to be a restraint, which needs the trigger to
+  exist), its `radar: "p2"`, its blurb.
+- `mechanics-table.ts` — the row. `as const satisfies` will fail the typecheck
+  until it is there, which is the point of it.
+- `bullet-hit.ts` — `resolveRunt` becomes `resolveLure`; the score line becomes
+  a hull line; the header comment explaining *why reaching the hull is not
+  special-cased* now explains the opposite and is rewritten, not edited.
+- `creature-rules.ts` / the step that walks a creature down a row — the vanish,
+  and a `lureVanished` event for render and audio to hang off.
+- `config.ts` (owned by nobody — one contiguous region) — the hull cost and
+  `lureVanishRows`.
+- `packages/sim/test/runt.test.ts` → `lure.test.ts`: shooting it costs the hull
+  and removes it; the hull cost floors at zero; **it is gone before the hull,
+  in every wave, with the hull untouched**; and the replay fingerprint.
+- `packages/render/test/frame.test.ts` — the alarm and the vanish are drawn, so
+  they are drawn there too, both seats, plus a lure at the field edge so the
+  label's side-flip is exercised.
+- `packages/render/test/restart.test.ts` — only if the vanish caches anything
+  across frames. It should not; if it must, it belongs in `Effects` and is
+  cleared in `Effects.reset()`.
+- `packages/audio` — the cue and its speech-band assertion.
+- `waves-demo.ts`, `docs/spec/bestiary.md`, `docs/alive.md`, and the director's
+  brushes — a new authorable kind needs its brush in the same pass, not the
+  next one.
+
+#### The check this lane owes
+
+Two seats, at tempo, on two phones:
+
+> on player 1's screen, is the lure genuinely indistinguishable from a real
+> slick or bulb right up to the moment it goes — and on player 2's, does the
+> ring and the exclamation read as *stop* within the half-second before a
+> thumb moves, without being confused for the torch alarm?
+
+and a second, because it is a different question and a still cannot answer it
+either:
+
+> does the vanish read as *gone on purpose* — and does player 1, who has just
+> been told to leave a column and did not want to, feel proved right by it?
+
+Neither half of the first can be answered from one screen at all.
+
+### What the fragment implies — inference, not instruction
+
+Read only as orientation. **Where any of this decides something, stop and ask.**
+
+A **lure** replaces THE RUNT. It appears on player 1's screen as an ordinary
+creature — a slick or a bulb at full size, indistinguishable from the real
+thing. Player 2 sees it marked, with a ring and an exclamation, and has to say
+so. Shooting it **costs the hull** where the runt cost points. Left alone it
+**vanishes before it reaches the hull** (`lureVanishRows`), so restraint is
+rewarded by nothing happening. The pair's work is therefore a sentence spoken
+across the split, which is the shape the whole game is built on.
+
+### What is missing and must not be invented
+
+**The one-sentence test.** `.claude/skills/new-wave` requires it and the
+owner's own text calls it *the part of this lane that no test can check*. It
+was in the paragraph that did not arrive.
+
+**Whether THE RUNT is removed from the waves that carry it, or converted in
+place.** The text says the runt's *shape* moves to NOT BUILT YET, and lists
+`runt.test.ts` becoming `lure.test.ts`, which reads as a conversion — but no
+wave is named, and `THE RUNT` is a wave (number 20). **Do not guess.**
+
+### Two orchestrator notes
+
+**This is the largest entry on the board and it touches everything.** Nineteen
+lanes in this run stopped for scope and every one was right to; this one has
+the widest paths of any and should still stop rather than reach further.
+
+**Two things named in the text have moved today.** Shadows were removed from
+the game entirely, and `docs/checks/` now holds before/after frames for several
+landings. Read the tree as it is.
+
+`Check: on two phones, is the lure indistinguishable from a real creature on player 1's screen — and does player 2's marking read as stop, without being mistaken for the torch alarm?`
+
+Model `opus`, effort `ultrathink`, spent on the mechanic and the marking rather
+than the file list, which the owner has already written. Read
+`packages/render/src/torch-alarm.ts` before drawing anything.
