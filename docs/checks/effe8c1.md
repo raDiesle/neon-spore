@@ -1,6 +1,6 @@
 ## `effe8c1` — the WAVE tab reads in play order, and BALANCE moves under the field
 
-> does the editor now read in the order you meet things — the card, the wave, then what it adds to the ship — with the controls beside what they change
+> does the editor now read in the order you meet things -- the card, the wave, then what it adds to the ship -- with the controls beside what they change
 
 - **badge** implementation
 - **subject** the WAVE tab's layout, and where the stage's own controls sit relative to what they change
