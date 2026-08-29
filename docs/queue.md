@@ -50,42 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE CARD TOOLTIP IS ON THE WRONG THING
-_claude/burn-card-tooltip-place · tools/director/src/rail.ts tools/director/src/card-waves.ts tools/director/index.html tools/director/src/stage-transport.ts_
-**Asked for by the owner.** A `FAIL` on `bf4c72d` with the fix named in it.
-
-> the tooltip for all cards should not be on the list of waves, but on the
-> waves configuration i suggest to have it on the "card" button below the game
-> screen.
-
-**What landed and what they rejected.** A lane put the card names on the wave
-*list's* mark — hover a row, see its cards, click to open the CARDS sheet. The
-owner does not want it on the list. They want it on the **wave's own
-configuration**, and they name where: the `✓ CARD` button in the transport row
-under the field.
-
-**So this is a move, not an addition.** Take it off the list row and put it on
-the card control. `cardsForWave(waveIndex)` already exists and is the right
-call; only its reader changes.
-
-**Mind what `✓ CARD` already is.** It is a *dismiss* — it pushes `{kind:
-"brief"}` for both seats, and the stage freezes on the first wave without it.
-Hanging a tooltip on it is fine; changing what pressing it does is not.
-
-**Note the neighbouring entry.** `THE STAGE IS THE BUTTON, AND ✓ CARD IS ONE
-CONTROL TOO MANY` proposes retiring that button entirely. If both are worked,
-this one is meaningless afterwards — read that entry first and say in the
-report whether these should be one lane.
-
-Finished when `bun run check` is green, the wave list's rows no longer carry the
-card tooltip, the card control names the current wave's cards, and the commit
-carries
-
-`Check: with a wave open, does the card button under the field tell you which cards this wave raises, without you opening a sheet`
-
-Model `sonnet`, effort `think`. Read `tools/director/src/rail.ts`'s mark and
-`card-waves.ts`. Small; the care is in not disturbing the dismiss.
-
 ## THE FALLING SHADOW STILL DOES NOT READ, AND THE STATES PAGE SHOULD SHOW IT
 _claude/burn-shadow-states · tools/director/src/states-page.ts packages/render/src/contact-shadow.ts docs/checks/_
 **Asked for by the owner.** A `FAIL` on `d892bae`, and the second half is a
