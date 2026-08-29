@@ -355,6 +355,82 @@ Model `sonnet`, effort `think`. Read `docs/spec/briefings.md` and
 `packages/content/src/wave-types.ts`'s `guide` doc comment before rewriting
 anything, so the two files agree and neither restates the other.
 
+## EVERY PANEL IN THE DIRECTOR MINIMIZES, AND CLAUDE CAN DO IT TOO
+_claude/burn-director-minimize · tools/director/index.html tools/director/src/panels.ts tools/director/src/main.ts tools/director/test/panels.test.ts_
+**Asked for by the owner**, from the browser a session drives:
+
+> in the browser opened by claude i see there is not enough space for the game
+> screen. if only the game screen is relevant, and not editing functionalities,
+> I suggest we introduce minimizing to every panel of the director, which I and
+> claude can minimize - depending on what is currently relevant.
+
+**This is the third time the same pressure has shown up**, and the first two
+were solved by deleting things: `8719a42` took LEDGER out to give the field the
+room it was using, and `4aa770e` folded Briefings and the balance sheet into
+buttons. Both worked and neither generalises — the next panel that is in the
+way needs another decision from the owner. A panel that can be put away is the
+general answer, and it is why this entry is worth more than its size.
+
+### One mechanism, not fourteen
+
+The director's panels are `<h2>` headings inside sections in
+`tools/director/index.html`, styled from the one inline `<style>` block. So the
+work is a single mechanism applied to all of them, not a control added
+panel-by-panel: a heading gets a way to collapse what is under it, and every
+panel gets it by virtue of being a panel. A lane that hand-writes a toggle per
+section has built the thing that rots the first time a panel is added.
+
+**Decide what "every panel" means and say it in the commit.** The field itself
+is not a panel and must never collapse; the transport row under it probably is
+not either. Everything the owner would call an editing functionality is. Where
+that line falls is the lane's call, and the reader of the commit should be able
+to tell why a given thing did or did not get a handle.
+
+### The half that is easy to drop: Claude can do it too
+
+The owner said *which I and claude can minimize*, and the second half is not
+decoration. A session driving this page has no hands — it opens the director
+headlessly to look at one wave, and the panels it wants out of the way are in
+the way of the very screenshot it is taking. So the mechanism needs a way in
+that is not a mouse. Two obvious shapes and the lane picks, saying which:
+
+- a URL parameter, so the page opens with the right things already away and one
+  navigation is the whole gesture;
+- a named handle on the page a driver can call, the way
+  `window.neonSpore` already exists for exactly this reason in the game.
+
+A URL parameter is likely the better one — it survives a reload, it needs no
+round trip, and it is the same string a person can bookmark.
+
+**And the owner's choice has to stick.** They minimize a panel because it is
+not relevant *today*, so it should still be minimized after a reload. Persist
+it in the browser rather than in the URL for the human's case, and let the URL
+parameter override, so a session's request does not permanently rearrange the
+owner's window.
+
+### What must not happen
+
+**The field must not move when a panel collapses and reopens.** A stage that
+jumps by four pixels every time something is put away is worse than a cramped
+one, because the thing being judged is motion. If the layout cannot hold the
+field still, say so rather than shipping the jump.
+
+**No panel may become unreachable.** A collapsed panel still shows its heading
+and can be opened again — collapse is not deletion, and a panel that vanishes
+without a handle is a feature nobody can undo.
+
+Finished when `bun run check` is green, every panel that should have one has a
+handle, the owner's collapsed panels survive a reload, a session can open the
+director with panels already away without touching a mouse, and the field does
+not shift when a panel opens or closes.
+
+`Check: with the editing panels put away, is the director's field big enough to judge a wave — and does anything shift under you when you open one again`
+
+Model `sonnet`, effort `think hard`, spent on the one mechanism rather than on
+the styling. Read `tools/director/index.html`'s `<style>` block and the stage
+column before writing, and see `docs/verification.md` for how the earlier two
+space fixes were judged.
+
 ## THE WHEEL IS STILL TYPED AS A TANGLE
 _claude/burn-maze-tangle-type · packages/sim/src/maze-wheel.ts packages/sim/src/entries.ts packages/sim/src/index.ts packages/sim/src/hash.ts packages/sim/src/wave-start.ts packages/content/src/maze-rounds.ts_
 **Proposed by the run.** The last thread of the maze conversion, reported by
