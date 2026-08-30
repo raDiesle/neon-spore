@@ -218,39 +218,6 @@ left alone and named, never forced.
 
 `Check: land a lane — is its worktree folder gone from disk when the landing finishes, with no command left for you to run?`
 
-## A SHAPE SHEET THAT CANNOT SHOW A SKIN
-_claude/shapes-skin-render · tools/shape-sheet/src/main.ts tools/shape-sheet/src/svg.ts tools/shape-sheet/src/skin-still.ts tools/shape-sheet/package.json package.json tools/shape-sheet/test docs/skins.md_
-**Proposed by the run.**
-
-`bun run shapes` writes a silhouette and nothing else. Every skin lives in
-`tools/director/src/skins/`, needs a DOM to build into, and is therefore
-reachable only by starting the director, finding the SHAPES tab and clicking a
-switcher. So the one question a skin exists to answer — *does this interior
-read* — cannot be asked from a terminal at all, and cannot be asked about a
-single body ever.
-
-The lane that added `skins/chamber.ts` paid for this twice. It wrote a
-throwaway script to draw one contour large, then rebuilt the whole interior a
-second time in that script because there was no way to point the real skin at
-one shape. The commit landed with the skin **never once drawn**, which is why
-its `Check:` trailer has to ask whether a compartment still reads as a mouth —
-a question the session had already answered three times about its own scratch
-copy and could not ask about the code it shipped.
-
-Two copies of one picture is the actual cost, and they will drift.
-
-What is missing is a still: `bun run shapes --skin chamber [NAME]`, writing an
-SVG the same way `shapes` already does. The skins need a DOM, so this needs a
-`linkedom`-shaped document rather than a browser — the skins only ever call
-`createElementNS` and `setAttribute`, which is the whole of what has to be
-stood up. `onFrame` is called once at a fixed `t` and `beat`, so the still is
-deterministic and can be committed beside the others.
-
-The test that this is right: the next skin is written and looked at without
-starting a server, and no lane writes a second copy of its own picture.
-
-`Check: bun run shapes --skin chamber THE POMMEL — is the still the same picture the director draws for that card?`
-
 ## THE BURR IS A SEA URCHIN AND ITS OWN CHECK SAYS SO
 _claude/burr-or-pommel · tools/shape-sheet/src/forms/studded.ts tools/shape-sheet/src/drafts/tower-defence.ts tools/shape-sheet/src/retired.ts tools/shape-sheet/test docs/tower-defence.md_
 **Proposed by the run.**
