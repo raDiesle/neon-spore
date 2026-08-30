@@ -7,7 +7,7 @@
   "scripts": {
     "typecheck": "tsc -p . --noEmit",
     "dev": "bun run dev.ts",
-    "deploy": "npx wrangler deploy --config ../../wrangler.jsonc"
+    "deploy": "bun run --cwd ../.. deploy"
   },
   "dependencies": {
     "@neon-spore/net": "workspace:*"

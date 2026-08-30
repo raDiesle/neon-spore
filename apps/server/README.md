@@ -21,11 +21,22 @@ drift apart about what a field means.
 
 ```
 bun run --cwd apps/server dev      # wrangler dev, on 8787
-bun run --cwd apps/server deploy
+bun run deploy                     # build the game, then push the worker
+bun run deploy:dry                 # the same, stopping short of uploading
 ```
 
 Wrangler is Node-oriented and is deliberately not a dependency of this
 workspace; the scripts call it through `npx`.
+
+The deploy is a **root** script and not this package's, because one upload
+carries two things and only one of them is here: the worker's code, and the
+game's bundle as static assets. Deploying without building the game first
+ships whatever `apps/game/dist` happened to hold — an old bundle, or nothing.
+So `bun run deploy` runs `build:game` first, and
+`bun run --cwd apps/server deploy` is kept only as an alias that calls it.
+
+It needs a Cloudflare login, which wrangler asks for in a browser the first
+time (`npx wrangler login`), or a `CLOUDFLARE_API_TOKEN` in the environment.
 
 `wrangler.jsonc` lives at the repository root because one worker serves both
 things: the built game from `apps/game/dist` as static assets, and the rooms
