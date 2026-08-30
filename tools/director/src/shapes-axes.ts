@@ -19,17 +19,22 @@
 
 import { MOTIONS } from "@neon-spore/shape-sheet";
 import { GLOWS } from "./glows/index.js";
+import { HITS } from "./hits/index.js";
 import {
   clearGlows,
+  clearHits,
   currentGlows,
+  currentHits,
   currentLit,
   currentMotion,
   currentSkin,
   setMotion,
   setSkin,
   toggleGlow,
+  toggleHit,
   toggleLit,
 } from "./shapes-pair.js";
+import { autoHits, fireHit, toggleAutoHits } from "./shapes-trigger.js";
 import { SKINS } from "./skins/index.js";
 
 export function button(
@@ -187,6 +192,52 @@ export function axisGroups(axes: HTMLElement, rerender: () => void): void {
       for (const g of GLOWS)
         button(row, g.label, on.includes(g.id), g.hint, () => {
           toggleGlow(g.id);
+          rerender();
+        });
+    },
+  );
+
+  // The fifth axis, and the only one that needs something to *happen*. Its
+  // description carries the trigger as well as the stack, because a reader who
+  // ticks FLASH and sees nothing for three seconds concludes it is broken
+  // rather than that it is between hits.
+  const hitsOn = currentHits();
+  const hitWearing =
+    hitsOn.length === 0
+      ? "NONE"
+      : HITS.filter((h) => hitsOn.includes(h.id))
+          .map((h) => h.label)
+          .join(" + ");
+  group(
+    axes,
+    "HIT",
+    `What the body does at a moment — the wind-up, the impact, and what is ` +
+      `left over. Independent of the four above, and it stacks like GLOW: an ` +
+      `impact is three or four simple layers, not one. Nothing here draws ` +
+      `between hits, so one fires on its own every few beats; HIT NOW pre-` +
+      `empts the cycle and REPEAT stops it. Now: ${hitWearing}, repeat ` +
+      `${autoHits() ? "on" : "off"}.`,
+    (row) => {
+      button(row, "HIT NOW", false, "fire one immediately — its wind-up starts now", () => {
+        fireHit(performance.now() / 1000);
+      });
+      button(
+        row,
+        "REPEAT",
+        autoHits(),
+        "fire one every four beats on its own, so the axis is visible without clicking",
+        () => {
+          toggleAutoHits();
+          rerender();
+        },
+      );
+      button(row, "NONE", hitsOn.length === 0, "no hit at all", () => {
+        clearHits();
+        rerender();
+      });
+      for (const h of HITS)
+        button(row, h.label, hitsOn.includes(h.id), h.hint, () => {
+          toggleHit(h.id);
           rerender();
         });
     },

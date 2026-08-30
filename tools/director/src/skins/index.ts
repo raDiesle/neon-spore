@@ -1,4 +1,5 @@
 import { buildGlows, type GlowId } from "../glows/index.js";
+import { buildHits, type HitId } from "../hits/index.js";
 import { CARAPACE, MOUNTED_CARAPACE } from "./carapace.js";
 import { CHAMBER } from "./chamber.js";
 import { CILIA } from "./cilia.js";
@@ -132,10 +133,19 @@ export function buildSkin(
      * axis has to beat. See `glows/index.ts`.
      */
     glows?: readonly GlowId[];
+    /**
+     * Which hits are on. Like `glows` a set and unlike `skin` — an impact is
+     * three or four simple layers stacked, not one picked. See `hits/index.ts`.
+     */
+    hits?: readonly HitId[];
+    /** The group wrapping everything drawn, which a hit that moves the whole
+     * figure writes its transform onto. See `SkinContext.transform`. */
+    shell?: SVGGElement;
   },
 ): SkinBuild {
   const contour: SVGPathElement[] = [];
   const frames: ((f: SkinFrame) => void)[] = [];
+  const shifts: ((f: SkinFrame) => string)[] = [];
   const ctx: SkinContext = {
     body,
     defs,
@@ -150,6 +160,9 @@ export function buildSkin(
     onFrame(fn): void {
       frames.push(fn);
     },
+    transform(fn): void {
+      shifts.push(fn);
+    },
   };
   // Under, then the skin, then over — the order `glows/index.ts` declares and
   // never the order the reader ticked the boxes in. The skin has to be able to
@@ -158,6 +171,24 @@ export function buildSkin(
   buildGlows(glows, "under", ctx);
   (SKINS.find((s) => s.id === skin) ?? LINE).build(ctx);
   buildGlows(glows, "over", ctx);
+  // Last, and over everything: an impact is drawn in front of the body it
+  // landed on, and its debris in front of that.
+  buildHits(opts.hits ?? [], ctx);
+
+  // A figure with no transforming hit gets no per-frame string building at
+  // all, which is the common case — six of the seven hits and every glow and
+  // skin register nothing here.
+  const shell = opts.shell;
+  if (shell && shifts.length > 0) {
+    frames.push((f) => {
+      let out = "";
+      for (const fn of shifts) {
+        const part = fn(f);
+        if (part) out = out ? `${out} ${part}` : part;
+      }
+      shell.setAttribute("transform", out);
+    });
+  }
   // Nothing registered is nothing called: the four skins here are all static,
   // and a static figure should cost the loop no closure at all.
   if (frames.length === 0) return { contour };

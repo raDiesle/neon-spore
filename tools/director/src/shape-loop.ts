@@ -1,7 +1,9 @@
 import type { LongAxis, OwnMotion, Pose } from "@neon-spore/content";
 import { REST } from "@neon-spore/content";
 import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
+import type { HitMoment } from "./hits/types.js";
 import { poseAtSecond, poseTransform } from "./shapes-motion.js";
+import { hitAt } from "./shapes-trigger.js";
 import { BEAT_SECONDS, type SkinFrame } from "./skins/index.js";
 
 /**
@@ -47,7 +49,7 @@ export interface Drawn {
    * of sixty cards must not allocate sixty objects sixty times a second to say
    * so. Written here each tick and read by the skin, never kept by it.
    */
-  frame: { t: number; beat: number; pose: Pose };
+  frame: { t: number; beat: number; pose: Pose; hit: HitMoment };
   /** The figure's own `<svg>`, the box `watch` observes. */
   svg: SVGSVGElement;
   /**
@@ -103,6 +105,10 @@ function tick(): void {
   // the whole value of a heartbeat is that the page does it together.
   // `BEAT_SECONDS` is the game's own tempo — see `skins/types.ts`.
   const beat = (t / BEAT_SECONDS) % 1;
+  // Worked out once for the page, like `beat` and for the same reason: thirty
+  // bodies flinching on thirty clocks is noise, and a flinch is only legible
+  // because the page does it together. `shapes-trigger.ts` owns the clock.
+  const hit = hitAt(t);
   // A contour at one moment depends on the subject and the clock, nothing
   // else, so the forty cells of `shapes-all.ts` — one body walked across every
   // skin, motion and light — are forty identical strings. THE CAIRN's costs
@@ -131,6 +137,7 @@ function tick(): void {
     d.frame.t = t;
     d.frame.beat = beat;
     d.frame.pose = pose;
+    d.frame.hit = hit;
     d.onFrame?.(d.frame);
   }
   drawn.length = live;

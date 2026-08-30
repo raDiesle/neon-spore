@@ -3,6 +3,7 @@ import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
 import { type GlowId, glowSpread } from "./glows/index.js";
 import { figureLayout } from "./shape-fit.js";
 import { poseAtSecond, poseTransform } from "./shapes-motion.js";
+import { IDLE_HIT } from "./shapes-trigger.js";
 import { BEAT_SECONDS, buildSkin, type SkinId } from "./skins/index.js";
 import { element, type ShimElement, serialise, withDocument } from "./svg-dom.js";
 
@@ -112,7 +113,7 @@ export function skinStill(entry: CatalogueEntry, opts: StillOptions): string {
     const d = contourAt(entry.subject, o.t);
     for (const p of contour) (p as unknown as ShimElement).setAttribute("d", d);
     body.setAttribute("transform", poseTransform(pose, layout.pivot, layout.tile));
-    onFrame?.({ t: o.t, beat: (o.t / BEAT_SECONDS) % 1, pose });
+    onFrame?.({ t: o.t, beat: (o.t / BEAT_SECONDS) % 1, pose, hit: IDLE_HIT });
 
     frame.appendChild(body);
     svg.appendChild(frame);

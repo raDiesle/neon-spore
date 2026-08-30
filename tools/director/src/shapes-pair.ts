@@ -30,6 +30,7 @@
 import type { OwnMotion } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
 import type { GlowId } from "./glows/index.js";
+import type { HitId } from "./hits/index.js";
 import { shapeFigure } from "./shape-figure.js";
 import type { SkinId } from "./skins/index.js";
 
@@ -70,6 +71,18 @@ let motion: OwnMotion | undefined;
  * and NONE is the picture every value on the axis has to beat.
  */
 let glows: GlowId[] = [];
+
+/**
+ * Which hits every card wears. A set, like `glows` — an impact is three or
+ * four simple layers stacked rather than one picked, which is the received
+ * wisdom of the field and is also why this axis is ticks and not buttons.
+ *
+ * Empty by default. Unlike a glow, a hit draws nothing at all between
+ * triggers, so a card wearing the whole stack still looks untouched until
+ * `shapes-trigger.ts`'s clock fires — which means the default costs nothing
+ * either way and NONE is still the honest starting point.
+ */
+let hits: HitId[] = [];
 
 /** What actually drives a card, so a caption can name it rather than guess. */
 export function driving(entry: CatalogueEntry): OwnMotion | undefined {
@@ -128,6 +141,22 @@ export function clearGlows(): void {
   glows = [];
 }
 
+/** The hit stack every card is currently wearing, in registry order. */
+export function currentHits(): readonly HitId[] {
+  return hits;
+}
+
+/** Turns one hit on or off, leaving the rest of the stack alone. A new array
+ * rather than a splice, for the reason `toggleGlow` gives. */
+export function toggleHit(id: HitId): void {
+  hits = hits.includes(id) ? hits.filter((h) => h !== id) : [...hits, id];
+}
+
+/** Takes the whole stack off. */
+export function clearHits(): void {
+  hits = [];
+}
+
 /**
  * The whole control row, built once above the drafts and read by
  * `shapes-all.ts`'s three grids besides. Its own file, `shapes-controls.ts`,
@@ -154,5 +183,6 @@ export function picture(entry: CatalogueEntry, o: PictureOptions): Element {
     lit,
     motion,
     glows,
+    hits,
   });
 }

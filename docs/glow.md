@@ -128,10 +128,10 @@ scans for `setAttribute("d"` in any glow file, because `d` is written by
 `shape-figure.ts`'s loop onto every path `ctx.contourPath()` hands out, and a
 glow that set it too would be fighting the loop for one frame in two.
 
-The axis that *is* allowed to move the outline is HITS — `SQUASH` is the whole
-reason it is a separate axis rather than seven more values here — and when it
-lands it must be excluded from that scan deliberately rather than by the test
-failing to notice.
+The axis that *is* allowed to move the outline is HITS, below — `SQUASH` is the
+whole reason it is a separate axis rather than seven more values here. It is
+excluded from that scan deliberately: `hits.test.ts` runs the same three source
+scans and simply does not run the fourth.
 
 ## What the page does with them
 
@@ -160,3 +160,102 @@ it landed. This is the tool learning to draw a look so that the owner can
 decide by looking at it; the game learning to draw one is a separate decision
 they take afterwards. CLAUDE.md's *A look is offered, never replaced* is why
 those are not the same action, and `docs/versus.md` is how one crosses over.
+
+# Hits
+
+A **hit** is what a body does at a moment: the announcement that something is
+coming, the impact, and what is left over. The HIT row on COMPOSE ticks any
+number of them, the same way GLOW does, and `tools/director/src/hits/` is laid
+out exactly like `glows/`.
+
+Everything above about registries, stacking, seeding, `uid` keys and per-frame
+allocation holds here word for word. What follows is only the difference.
+
+## Why it is a fifth axis and not seven more glows
+
+Everything on GLOW runs forever on its own and can be judged by looking.
+Everything here needs a **moment** — there is nothing to see until something
+happens to the body.
+
+That is not a difference in mood, it is a difference in **control**: GLOW is a
+set of ticks and nothing else, HITS needs a trigger as well. One axis carrying
+two kinds of control is two axes wearing one heading, and the reader pays for
+the confusion every time they tick something and nothing happens.
+
+The second difference falls out of the first. A glow may never move the
+contour, and `glows.test.ts` enforces it; `SQUASH` moves the contour and is the
+best thing on this axis. A rule that has an exception living next door to it is
+a rule nobody trusts — so the exception lives on its own axis instead.
+
+## One event, three phases
+
+`shapes-trigger.ts` owns the clock. It fires every four beats on its own, and
+`HIT NOW` pre-empts the cycle. Both exist, for different reasons:
+
+- The **button** is how a reader fires one while watching a single card.
+  Waiting for a cycle to come round is how you miss a flash three times and
+  conclude it is too quick.
+- The **auto-repeat** is how the axis is visible to anyone who cannot click. A
+  session driving a headless browser can screenshot a page and not press a
+  button on it, and this project's whole verification loop is a person being
+  sent a picture. An axis invisible in a still is one nobody can report on.
+
+Every figure is handed the same `HitMoment`, once per frame, for the reason
+`beat` is shared: thirty bodies flinching on thirty clocks is noise. It carries
+three numbers, **derived once rather than in seven files**:
+
+| Field | What it is |
+|---|---|
+| `since` | seconds since impact, **negative while the hit is still coming** — the window TELEGRAPH lives in, and why it is signed rather than a phase |
+| `wind` | 0 before the telegraph starts, 1 at the instant of impact, then immediately 0. The snap is the point |
+| `shock` | 1 at impact, decaying to 0. Everything that happens *because* the hit landed reads this |
+
+Seven files each turning a timestamp into a ramp is seven chances to pick a
+different curve, and then TELEGRAPH and FLASH would disagree about when the hit
+landed.
+
+## The two extra fields
+
+`Hit.phase` is `"before" | "impact" | "after"`. It gates nothing — a value reads
+`wind` or `shock` itself — but it keeps an axis that is *one event in three
+parts* legible as that rather than as seven unrelated effects, and
+`hits.test.ts` fails if any phase ever empties out.
+
+`Hit.spread` is the same contract as `Glow.spread`, read by the same padding.
+`RING` reaches nearly twice as far as any glow, which is why the hit stack is
+in that calculation at all.
+
+## Moving the whole figure
+
+`SQUASH` and `SHAKE` move everything — the body, its skin, and its whole glow
+stack together. A body that flattened while its halo stayed round would read as
+the halo having come loose, which is the defect CLAUDE.md names about a
+highlight glued to a spinning rock.
+
+They do it through `ctx.transform(fn)`, which **registers** a contribution
+rather than writing one. HITS stacks, so SQUASH and SHAKE can both be on, and
+two values each setting a group's `transform` would mean whichever ran second
+won silently. The loop concatenates what is registered, in build order, onto a
+group `shape-figure.ts` puts *inside* the motion — inside, so a squash composes
+after the sway and turns about the body's own pivot rather than shearing a body
+that has already been translated somewhere else.
+
+A figure with no transforming hit builds no string at all per frame, which is
+the common case: six of the seven hits, every glow and every skin register
+nothing here.
+
+## DIM is the control, and that is the point of the axis
+
+LINE is the control for skins and NONE for glows. `DIM` is that for hits: the
+body simply goes dark for a beat. It is the cheapest possible way to say *that
+was hit*, and every other value has to beat it by looking better rather than by
+being more elaborate.
+
+If none of them does, the honest finding is that a hit does not need juice —
+a real result about this game, not a failed experiment. Say it in those words.
+
+One thing learned by looking, and kept here because it will recur: DIM's first
+version was a dark **fill**, and beside NONE it was the same picture. A fill
+covers a body's interior, and the one bright thing on a card is the *rim* — the
+stroke sits on the contour itself and survived untouched. Anything here that
+means to hide a body has to wear the outline too.

@@ -59,8 +59,16 @@
 import type { OwnMotion } from "@neon-spore/content";
 import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
 import { GLOWS, type GlowId } from "./glows/index.js";
+import { HITS, type HitId } from "./hits/index.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
-import { currentGlows, currentLit, currentMotion, currentSkin } from "./shapes-pair.js";
+import {
+  currentGlows,
+  currentHits,
+  currentLit,
+  currentMotion,
+  currentSkin,
+} from "./shapes-pair.js";
+import { bodyPicker, pickedEntry } from "./shapes-picker.js";
 import { SKINS, type SkinId } from "./skins/index.js";
 
 const BOX = 92;
@@ -71,78 +79,6 @@ const STROKE: Record<CatalogueEntry["status"], string> = {
   free: "var(--gold)",
   taken: "var(--dim)",
 };
-
-/** The body every grid is drawn from. THE WEIGHT, because it is the one the
- * owner named — see the brief this file answers. */
-let bodyName = "THE WEIGHT";
-
-function bodyEntry(): CatalogueEntry {
-  return (
-    CATALOGUE.find((e) => e.subject.name === bodyName) ??
-    CATALOGUE.find((e) => e.subject.name === "THE WEIGHT") ??
-    CATALOGUE[0]!
-  );
-}
-
-/** The frame a picker thumbnail is drawn into. Small enough that sixty of
- * them are a strip rather than a page, large enough that the lobes that tell
- * two bodies apart are still lobes: `bun run shapes:report` puts THE WEIGHT at
- * 60.5 × 49.3 px in the 92 px frame the grids use, so 56 leaves it near 37 ×
- * 30, clear of the field's 26 px floor on both axes — and this is a picker
- * rather than a thing being judged. */
-const PICK = 56;
-/** The long frame a `isWide` body gets in the picker, scaled from `WIDE` by
- * the same ratio `PICK` is scaled from `BOX`, so a hull is neither a hairline
- * nor a strip six bodies wide. */
-const PICK_WIDE = 220;
-
-/**
- * The body picker: one button per catalogue name, and the button is the body.
- *
- * These were text buttons reading THE WEIGHT, THE CAIRN and fifty-eight more,
- * which is the one thing a picker between pictures must not be — the reader
- * is choosing a shape, and a name is a shape they have to remember rather
- * than one they can see. So each button draws the contour it selects, with
- * the name kept underneath as a caption: the name is still what the grids and
- * the commit messages call it, and a picture with no name cannot be talked
- * about.
- *
- * Drawn in LINE, not in whatever skin COMPOSE last set. The picker is
- * navigation and the three grids under it are the comparison; a picker that
- * changed its own look when the skin changed would read as a fourth grid,
- * and LINE is the control every skin is judged against anyway.
- */
-function bodyPicker(host: HTMLElement, rerender: () => void): void {
-  host.replaceChildren();
-  const seen = new Set<string>();
-  for (const e of CATALOGUE) {
-    if (seen.has(e.subject.name)) continue;
-    seen.add(e.subject.name);
-
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = e.subject.name === bodyName ? "body is-on" : "body";
-    b.title = e.subject.note;
-    b.appendChild(
-      shapeFigure(e, {
-        box: PICK,
-        width: isWide(e) ? PICK_WIDE : PICK,
-        stroke: STROKE[e.status],
-        skin: "line",
-        lit: true,
-      }),
-    );
-    const label = document.createElement("span");
-    label.className = "body-name";
-    label.textContent = e.subject.name;
-    b.appendChild(label);
-    b.addEventListener("click", () => {
-      bodyName = e.subject.name;
-      rerender();
-    });
-    host.appendChild(b);
-  }
-}
 
 interface Cell {
   label: string;
@@ -155,6 +91,10 @@ interface Cell {
   /** What to leave room for, when that is not what is drawn. Only the glow
    * row sets it — see `renderShapesAll`. */
   padFor?: readonly GlowId[];
+  /** The hit stack this cell wears. Draws nothing between triggers. */
+  hits: readonly HitId[];
+  /** The hit equivalent of `padFor`. Only the hit row sets it. */
+  padForHits?: readonly HitId[];
 }
 
 function figureCell(box: number, width: number, stroke: string, entry: CatalogueEntry, c: Cell) {
@@ -170,6 +110,8 @@ function figureCell(box: number, width: number, stroke: string, entry: Catalogue
       motion: c.motion,
       glows: c.glows,
       padFor: c.padFor,
+      hits: c.hits,
+      padForHits: c.padForHits,
     }),
   );
   const label = document.createElement("span");
@@ -207,21 +149,22 @@ export function renderShapesAll(): void {
   if (!bodyHost) return;
   bodyPicker(bodyHost, renderShapesAll);
 
-  const entry = bodyEntry();
+  const entry = pickedEntry();
   const lit = currentLit();
   const motion = currentMotion();
   const skin = currentSkin();
   const glows = currentGlows();
+  const hits = currentHits();
 
   grid(
     "shapesAllSkins",
     entry,
-    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows })),
+    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows, hits })),
   );
   grid(
     "shapesAllMotions",
     entry,
-    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows })),
+    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows, hits })),
   );
   // NONE first and then one glow at a time, never the stack the bar is set to.
   // The other three grids hold their own axis against whatever the reader
@@ -239,11 +182,29 @@ export function renderShapesAll(): void {
   // effect.
   const padFor = GLOWS.map((g) => g.id);
   grid("shapesAllGlows", entry, [
-    { label: "NONE", skin, lit, motion, glows: [], padFor },
-    ...GLOWS.map((g) => ({ label: g.label, skin, lit, motion, glows: [g.id], padFor })),
+    { label: "NONE", skin, lit, motion, glows: [], padFor, hits },
+    ...GLOWS.map((g) => ({ label: g.label, skin, lit, motion, glows: [g.id], padFor, hits })),
+  ]);
+  // One hit per cell, on the page-wide clock, so the whole row flinches
+  // together and the seven can be told apart in one glance. Every cell is
+  // padded for the widest of them, for the same reason the glow row is: padded
+  // each for its own, RING's body would be two thirds the size of DIM's and
+  // the row would be comparing frames.
+  const hitPad = HITS.map((h) => h.id);
+  grid("shapesAllHits", entry, [
+    { label: "NONE", skin, lit, motion, glows, hits: [], padForHits: hitPad },
+    ...HITS.map((h) => ({
+      label: h.label,
+      skin,
+      lit,
+      motion,
+      glows,
+      hits: [h.id],
+      padForHits: hitPad,
+    })),
   ]);
   grid("shapesAllLight", entry, [
-    { label: "LIT", skin, lit: true, motion, glows },
-    { label: "UNLIT", skin, lit: false, motion, glows },
+    { label: "LIT", skin, lit: true, motion, glows, hits },
+    { label: "UNLIT", skin, lit: false, motion, glows, hits },
   ]);
 }

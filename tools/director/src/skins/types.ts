@@ -1,5 +1,6 @@
 import type { Pose } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import type { HitMoment } from "../hits/types.js";
 
 /**
  * What a skin is, and what it is told.
@@ -60,6 +61,20 @@ export interface SkinFrame {
   readonly beat: number;
   /** This body's own-motion pose, in tiles. `REST` when it has no motion. */
   readonly pose: Pose;
+  /**
+   * Where the page is in the current hit — page-wide, like `beat`, and never
+   * per card: thirty bodies flinching on thirty clocks is noise.
+   *
+   * Always present rather than `undefined` between hits, because a value that
+   * has to check whether anything is in flight before reading a number is a
+   * value that will forget to. Between hits `wind` and `shock` are both 0 and
+   * everything on the HITS axis draws nothing, which is the same code path as
+   * during one.
+   *
+   * `shapes-trigger.ts` owns the clock and says why it both repeats on its own
+   * and has a button.
+   */
+  readonly hit: HitMoment;
 }
 
 /** Everything a skin is given to build itself into one figure. */
@@ -140,6 +155,24 @@ export interface SkinContext {
    * no path built inside it.
    */
   onFrame(fn: (f: SkinFrame) => void): void;
+  /**
+   * Contribute a transform applied to the whole figure — everything the skin
+   * and every glow drew, moving together.
+   *
+   * **Only the HITS axis uses this**, and only SQUASH and SHAKE within it. It
+   * is on the shared context rather than on a fifth interface for the same
+   * reason `lit` is: one context, so a field added for one axis is a field the
+   * others can read, and `glows/types.ts` argues the case at length.
+   *
+   * Registered rather than written, because HITS stacks — SQUASH and SHAKE can
+   * both be on, and two values each setting the group's `transform` would mean
+   * whichever ran second won silently. The loop concatenates what is
+   * registered, in build order.
+   *
+   * Return an empty string for "nothing this frame"; that is the common case
+   * and costs no string building.
+   */
+  transform(fn: (f: SkinFrame) => string): void;
 }
 
 /** One skin: its name in the switcher, and how it draws. */

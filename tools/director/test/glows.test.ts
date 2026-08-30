@@ -22,6 +22,20 @@ const FILES = readdirSync(DIR).filter(
 );
 const SOURCE = new Map(FILES.map((f) => [f, readFileSync(join(DIR, f), "utf8")]));
 
+/**
+ * The file with its comments taken out.
+ *
+ * The scans below look for a forbidden *call*, and a doc comment that names
+ * the thing it is forbidding is not one. `shake.ts` says in prose that the
+ * alternative to a seeded stream is `Math.random`, which is exactly the
+ * sentence an author should write — and the first version of this test failed
+ * on it, which would have taught the next author to stop explaining rather
+ * than to stop calling.
+ */
+function code(src: string): string {
+  return src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+}
+
 describe("the glow registry", () => {
   it("has a file for every glow and a glow for every file", () => {
     // `index.ts` is the only place that knows which glows exist, which is only
@@ -88,14 +102,14 @@ describe("what a glow file may not contain", () => {
   it("never reaches for Math.random", () => {
     // Rule (b). A card must look the same on every reload, or the screenshot
     // somebody votes over is not the card anybody saw.
-    for (const [file, src] of SOURCE) expect(src, file).not.toContain("Math.random");
+    for (const [file, src] of SOURCE) expect(code(src), file).not.toContain("Math.random");
   });
 
   it("never imports the renderer", () => {
     // Rule (a), and the doctrine the whole directory rests on: a glow that
     // reached into `packages/render` would make "try a look" and "change the
     // game" the same action, and then nobody would try one.
-    for (const [file, src] of SOURCE) expect(src, file).not.toContain("@neon-spore/render");
+    for (const [file, src] of SOURCE) expect(code(src), file).not.toContain("@neon-spore/render");
   });
 
   it("never writes the contour's own path data", () => {
@@ -114,7 +128,7 @@ describe("what a glow file may not contain", () => {
      * the whole reason it is a separate axis — and when it lands it is
      * excluded here deliberately rather than by this test not noticing.
      */
-    for (const [file, src] of SOURCE) expect(src, file).not.toContain('setAttribute("d"');
+    for (const [file, src] of SOURCE) expect(code(src), file).not.toContain('setAttribute("d"');
   });
 
   it("keys every defs id on the figure's uid", () => {

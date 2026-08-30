@@ -1,8 +1,10 @@
 import { type OwnMotion, REST } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
 import { type GlowId, glowSpread } from "./glows/index.js";
+import { type HitId, hitSpread } from "./hits/index.js";
 import { figureLayout } from "./shape-fit.js";
 import { type Drawn, runFigure } from "./shape-loop.js";
+import { IDLE_HIT } from "./shapes-trigger.js";
 import { buildSkin, type SkinId } from "./skins/index.js";
 
 /**
@@ -89,6 +91,18 @@ export interface FigureOptions {
    * Defaults to `glows`, so nothing that does not ask for it changes.
    */
   padFor?: readonly GlowId[];
+  /**
+   * Which hits the body wears. A set like `glows` and unlike `skin`: an impact
+   * is three or four simple layers stacked, not one picked.
+   *
+   * They draw nothing at all between hits, so a figure wearing these looks
+   * identical to one wearing none until `shapes-trigger.ts`'s clock fires.
+   */
+  hits?: readonly HitId[];
+  /** `padFor`, for the hit axis: pad as though wearing these, draw only
+   * `hits`. The hit row on OVERVIEW passes every hit, so its eight cells come
+   * out one size and the reader compares effects rather than frames. */
+  padForHits?: readonly HitId[];
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
@@ -117,6 +131,12 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   const frame = document.createElementNS(SVG, "g");
   frame.setAttribute("transform", layout.transform);
   const body = document.createElementNS(SVG, "g");
+  // A second group inside the motion, for a hit that moves the whole figure.
+  // Inside rather than outside, so a squash composes *after* the sway and
+  // turns about the body's own pivot — outside, it would scale a body that had
+  // already been translated somewhere else and shear it off its own centre.
+  const shell = document.createElementNS(SVG, "g");
+  body.appendChild(shell);
 
   const defs = document.createElementNS(SVG, "defs");
   svg.appendChild(defs);
@@ -124,7 +144,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   // same shape is on screen twice the moment the backlog page draws a draft
   // beside the idea it was offered to.
   uid += 1;
-  const { contour, onFrame } = buildSkin(opts.skin ?? "line", body, defs, {
+  const { contour, onFrame } = buildSkin(opts.skin ?? "line", shell, defs, {
     colour: stroke,
     weight: (opts.weight ?? 2) / scale,
     uid: `sk${uid}`,
@@ -135,6 +155,8 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     lit: opts.lit ?? true,
     centre: pivot,
     glows: opts.glows,
+    hits: opts.hits,
+    shell,
   });
   frame.appendChild(body);
   svg.appendChild(frame);
@@ -148,7 +170,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     tile,
     motion,
     long: layout.long,
-    frame: { t: 0, beat: 0, pose: REST },
+    frame: { t: 0, beat: 0, pose: REST, hit: IDLE_HIT },
     svg,
     seen: true,
   };
