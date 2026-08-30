@@ -30,6 +30,9 @@
  * - `cluster` and `pile` — a field walked on a grid, for anything that comes
  *   apart; two files because they agree on the machinery and disagree about
  *   what the field is made of, which is the whole shape in both cases
+ * - `studded` — a rim of the same feature repeated: knobs, spines or hairs,
+ *   which is what almost every other game reaches for to tell one falling body
+ *   from another
  * - `walked` — an outline stepped corner to corner, for what a radius cannot
  *   say: an arm has no inside to have a radius of, and a rim of square plates
  *   is not a function of angle but a rule about one edge
@@ -41,4 +44,5 @@ export { type SacSkin, sac, slumped } from "./hanging.js";
 export { heeled, hooked } from "./hooked.js";
 export { type PileOpts, pile } from "./pile.js";
 export { bloom, glyphed, mawed, slab } from "./radial.js";
+export { type StuddedOpts, studded } from "./studded.js";
 export { arm, type PlatedOpts, plated, type VaneOpts, vane } from "./walked.js";

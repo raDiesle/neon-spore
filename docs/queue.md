@@ -50,6 +50,47 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
+## CONVERT THE REST OF THE COLLECTED BODIES INTO CONTOURS
+_claude/convert-collected-bodies · tools/shape-sheet/src/forms tools/shape-sheet/src/drafts tools/shape-sheet/test docs/tower-defence.md_
+**Asked for by the owner.** *"i expect you collect also boss screenshots and
+enemy unit screenshots. then try some to convert that they look near to their,
+but for our game."*
+
+Three are done — `THE BURR`, `THE RASP` and `THE BRISTLE`, off the Galaxy
+Defense frame, in `drafts/tower-defence.ts` and on the SHAPES tab.
+`docs/tower-defence.md` carries five more reference bodies that nobody has
+tried to redraw, and each one needs a *different* thing from the tool, which is
+why this is a lane rather than a list:
+
+- **Neon Pulsefire's ring boss** — a core inside a ring of orbiting nodes.
+  `ring.ts` already draws a contour with a hole; what is missing is nodes on
+  the ring that turn, so the gap between two of them is a moving opening. This
+  is the nearest of the five to something the game has, because it is the
+  warden, and that is the reason to be careful with it: the card exists to ask
+  whether an orbiting gap reads better than a sliding one, and it must be
+  offered beside the warden rather than instead of it.
+- **Neon Pulsefire's small bodies** — hexagons, arrowheads and four-petal
+  rosettes, all outline and no fill. `crystalPath` draws angular shapes
+  already; the open question is whether a hard polygon can stand in a bestiary
+  of grown bodies without reading as a different game.
+- **Kingdom Rush's Tyranthor** — one enormous mass, one bright mouth, the rest
+  dark. `mawed` exists and was drawn for THE MOTHER; the question is whether it
+  survives being asked for a mouth that is a *feature of a silhouette* rather
+  than the thing the body is built around.
+- **The Bloons ceramic** — a shell that visibly cracks as it is hit. This is the
+  one that is not a contour at all: it is three contours and a rule about which
+  one is showing, which is what `RIND` on the page is asking for. Read
+  `shapes-motion.ts` before deciding it is a form.
+
+Each conversion lands as a **free** contour with an `owner` line saying what
+was left behind and why, the way the three existing ones do — never as a
+`draft`, which would name an idea in `docs/spec/ideas.md` that nobody has
+accepted. Expect to move the counted assertions in `drawn-size.test.ts` and
+`long-axis.test.ts`; both say in their own headers that the denominator moves
+whenever a body is added, and both are the test noticing rather than breaking.
+
+`Check: on the SHAPES tab, does each converted body read as the thing it was converted from — and does it still read at 26 px?`
+
 ## A DISABLED BUTTON IN THE DIRECTOR HAS NO STYLE OF ITS OWN
 _claude/burn-disabled-button-style · tools/director/index.html tools/director/src/rail.ts tools/director/test_
 **Proposed by the run.** The half `015ad71` could not reach: it owned

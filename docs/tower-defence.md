@@ -60,6 +60,11 @@ drawn by somebody else. The `x10` on the bar is worth stealing on its own: it
 says "this body is ten of the ones you have been killing" without a number of
 hit points anywhere.*
 
+*And the small bodies falling around it are the second half of the frame:
+spiked discs with pale spots, and capsules wearing a fringe of fine hairs.
+Both read as microbes, both are unmistakable at a size where a face would not
+be, and neither of them is doing it with colour. All three are converted below.*
+
 ![Galaxy Defense — a level-up screen offering three cards: Thunder Boost, Piercing Bullets, Beam Intensity, above a row of five turret icons](https://play-lh.googleusercontent.com/CL6q05G7ZHyGEeb2pioRYDEpiAmo1_39NoF9ZMhA3HU6lpVLYkmUMbM9gwfbUF4f2dobznnu8fCF68ADFx36_g=w720)
 
 *Its weapon vocabulary, in one screen: gun, beam, piercing shot, chain
@@ -379,6 +384,43 @@ Three more, no picture needed because they are one sentence each:
   visible in the shape. Directly relevant to our own shield, and the honest
   place for it is a VERSUS pair beside the shield we ship — see `docs/versus.md`
   and the rule in `CLAUDE.md` about offering a look rather than replacing one.
+
+## What has been converted, and where it went
+
+Three bodies out of that one frame, redrawn in this game's vocabulary. They are
+in the catalogue as **free contours** — `tools/shape-sheet/src/drafts/tower-defence.ts` —
+so they are on the director's `◇ NOT BUILT YET` → SHAPES tab, animated, beside
+every shape the game already draws and every spare one. That is the only place
+a silhouette can actually be judged: a card here would be a picture at whatever
+size the column happened to be, and the question about all three is what they
+do at 26 px.
+
+| Converted | From | The claim | What to look at |
+|---|---|---|---|
+| `THE BURR` | the stage boss | a heavy lobed body wearing blunt knobs, with a crown of longer ones on top | does the crown read as a *front*, or only as a rim that got untidy |
+| `THE RASP` | the spiked discs | a small round body under a ring of twenty short spines | does a spine survive a phone, where it is one pixel and the slick's own wobble is already ragged |
+| `THE BRISTLE` | the capsules | a squared-off lozenge in a fringe of forty-four fine hairs | is a hair distinguishable from a spine at all, or only in the source file |
+
+**Converted, not copied.** What crosses over is the claim the outline makes.
+What is left behind is everything the source says with fill and light — the
+interior blisters, the bright pustules, the pale core inside the capsule — none
+of which reaches a phone, and all of which would make these pictures of a
+picture rather than proposals about a silhouette. The boss's bright swellings
+are the one real loss, because they are what give that body a front; `THE BURR`
+argues that length can say it instead, and that argument is the card.
+
+They are `free` rather than `draft` deliberately. A draft is drawn *at* a named
+idea in `docs/spec/ideas.md` and carries its name; nothing here is one, and
+marking one a draft would quietly promote a row off a page that says of itself
+that it is a shelf. A free contour is a picture looking for a behaviour, which
+is exactly what these are — and handing one to a bestiary entry is a decision
+somebody makes by looking at it.
+
+`forms/studded.ts` is the one piece of machinery the three needed: a rim of the
+same feature repeated, with `width` and `blunt` separate so that a club, a spine
+and a hair are three points on one axis rather than three forms. The first cut
+had them as one number and produced a cog, which is the whole reason they are
+two.
 
 ## If exactly one thing were built from this page
 

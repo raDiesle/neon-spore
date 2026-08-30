@@ -11,9 +11,13 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * would have put 32 of the 49 square catalogue entries under 26 px and 17
  * under 20, with the Bulb specifically landing at about 16 px.
  *
- * The catalogue has grown one body since — THE SHELL — so the two counts read
- * 50, 33 and 18 rather than 49, 32 and 17. The finding is the lane's; only the
- * denominator moved, and it moves again every time a creature is added.
+ * The catalogue has grown four bodies since — THE SHELL, and then the three
+ * converted off another game's screenshot in `drafts/tower-defence.ts` — so the
+ * counts read 53, 36 and 19 rather than 49, 32 and 17. The finding is the
+ * lane's; only the denominator moved, and it moves again every time a body is
+ * added. All three of the new ones fall under 26 px at the halved width, which
+ * is the finding holding rather than drifting: a rim of small features is
+ * exactly the kind of body that loses most when the frame narrows.
  *
  * If `shapeFigure`'s fit ever changes, this is the test that notices: it goes
  * through `drawnSize`, which calls the director's own `FIT_TIMES`, `isWide`,
@@ -24,8 +28,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 50 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(50);
+  it("has the 53 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(53);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -52,8 +56,8 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
-    expect(under26).toBe(33);
-    expect(under20).toBe(18);
+    expect(under26).toBe(36);
+    expect(under20).toBe(19);
   });
 
   it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {
