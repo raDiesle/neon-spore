@@ -28,10 +28,38 @@ export interface GuideFields {
 }
 
 const PARTS = [
-  ["both", "BOTH SCREENS — what the thing is, never the whole instruction"],
-  ["p1", "PLAYER ONE — the cannon, the shield's trigger, the maw"],
-  ["p2", "PLAYER TWO — the shield itself, and the two colours"],
+  ["both", "Player 1 & Player 2"],
+  ["p1", "Player 1"],
+  ["p2", "Player 2"],
 ] as const;
+
+/**
+ * A textarea that grows to fit what is typed into it: no scrollbar inside the
+ * field, no corner to drag. There are four textareas in this panel — this one
+ * plus SENTENCE, bound the same way from `rail.ts` — and the owner asked for
+ * the behaviour in general, not field by field, so it lives here once and
+ * every caller gets it by construction.
+ */
+export function autoGrowTextarea(el: HTMLTextAreaElement): void {
+  const fit = (): void => {
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
+  el.addEventListener("input", fit);
+  fit();
+}
+
+/**
+ * Setting `.value` in JavaScript fires no `input` event, so a field repainted
+ * from a newly selected wave would keep whatever height its *previous* wave's
+ * text left it at. Every programmatic write goes through this instead of a
+ * bare assignment.
+ */
+export function setGrownValue(el: HTMLTextAreaElement, value: string): void {
+  el.value = value;
+  el.style.height = "auto";
+  el.style.height = `${el.scrollHeight}px`;
+}
 
 /**
  * Built and inserted into `#guideFields` rather than declared field by field
@@ -41,6 +69,8 @@ const PARTS = [
 export function bindGuideFields(mount: HTMLElement | null): GuideFields {
   const fields = new Map<keyof WaveGuide, HTMLTextAreaElement>();
   const listeners: ((guide: WaveGuide | undefined) => void)[] = [];
+  let addBtn: HTMLButtonElement | null = null;
+  let fieldsWrap: HTMLElement | null = null;
 
   /**
    * All three or none. A guide with one half written is half an instruction on
@@ -61,13 +91,24 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
     head.textContent = "GUIDE";
     mount.appendChild(head);
 
-    const why = document.createElement("p");
-    why.className = "note";
-    why.textContent =
-      "What the pair is told after this wave's introduction and before it starts. " +
-      "Leave all three blank for a wave that introduces nothing new — padding a " +
-      "wave with a guide is the same failure as padding it with entries.";
-    mount.appendChild(why);
+    // Shown for a wave that carries no guide yet, in place of three empty
+    // boxes. Pressing it only reveals the fields — it writes nothing to the
+    // wave, so a click that is never followed by typing leaves no trace: the
+    // three fields stay blank, `readBack` stays `undefined`, and the wave
+    // never carries a guide it does not want
+    // (`packages/content/test/waves.test.ts`).
+    addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.id = "guideAdd";
+    addBtn.textContent = "ADD GUIDE";
+    addBtn.addEventListener("click", () => {
+      if (addBtn) addBtn.hidden = true;
+      if (fieldsWrap) fieldsWrap.hidden = false;
+    });
+    mount.appendChild(addBtn);
+
+    fieldsWrap = document.createElement("div");
+    mount.appendChild(fieldsWrap);
 
     for (const [key, label] of PARTS) {
       const l = document.createElement("label");
@@ -77,20 +118,28 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
       const field = document.createElement("textarea");
       field.id = `fGuide-${key}`;
       field.rows = 2;
+      autoGrowTextarea(field);
       field.addEventListener("input", () => {
         const guide = readBack();
         for (const listen of listeners) listen(guide);
       });
       fields.set(key, field);
-      mount.append(l, field);
+      fieldsWrap.append(l, field);
     }
   }
 
   return {
     render(wave) {
+      const hasGuide = Boolean(wave?.guide);
+      // Reset to the button every time a different wave is selected — only a
+      // wave that already carries a guide opens straight on the fields. The
+      // button click above is the only other way the fields show, and it
+      // only affects the wave on the stage at the time.
+      if (addBtn) addBtn.hidden = !wave || hasGuide;
+      if (fieldsWrap) fieldsWrap.hidden = !hasGuide;
       for (const [key] of PARTS) {
         const field = fields.get(key);
-        if (field) field.value = wave?.guide?.[key] ?? "";
+        if (field) setGrownValue(field, wave?.guide?.[key] ?? "");
       }
     },
     onChange(handler) {

@@ -4,7 +4,7 @@ import {
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
-import { bindGuideFields } from "./guide-fields.js";
+import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { wavesWithGuides } from "./guide-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
@@ -34,6 +34,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const controlsWhy = document.getElementById("fControlSetWhy");
   const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
   const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
+
+  // One of the four textareas that grow with their content; the other three are the guide's.
+  if (sentence) autoGrowTextarea(sentence);
 
   // Directly under SENTENCE, which is where the owner asked for it: a wave's
   // prose is its name, why it exists, and what the pair has to be told before
@@ -120,7 +123,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const renderFields = (): void => {
     const wave = currentWave(store);
     if (name) name.value = wave?.name ?? "";
-    if (sentence) sentence.value = wave?.sentence ?? "";
+    if (sentence) setGrownValue(sentence, wave?.sentence ?? "");
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;

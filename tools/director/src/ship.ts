@@ -110,11 +110,12 @@ export function renderShip(cfg: SimConfig, wave: Wave | undefined): void {
   caps.replaceChildren();
   const groups = groupsForWave(wave);
   if (groups.length === 0) {
+    // The owner: "if there is nothing special, just say 'nothing special' and
+    // remove the boring rest." Most waves land here — no boss, no gap that
+    // carries a round — so this is the common case, not an edge one.
     const note = document.createElement("p");
     note.className = "note";
-    note.textContent =
-      "Nothing here is specific to this wave — no boss, no gap that carries a round. " +
-      "The ship's own dials are the same on every wave; open ⚙ SHIP on the topbar for those.";
+    note.textContent = "nothing special";
     caps.appendChild(note);
     return;
   }

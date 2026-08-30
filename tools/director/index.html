@@ -43,7 +43,11 @@
         font: 11px "Courier New", monospace; color: var(--ink); background: #0a0719;
         border: 1px solid var(--line); border-radius: 5px; padding: 4px 6px; width: 100%;
       }
-      textarea { resize: vertical; }
+      /* Every textarea grows to fit what is typed into it instead of
+         scrolling — `autoGrowTextarea` in guide-fields.ts sets the height
+         inline on every keystroke, so there is nothing left here for a drag
+         handle to do. */
+      textarea { resize: none; overflow: hidden; }
       label.field { display: block; font-size: 9px; letter-spacing: 2px; color: var(--dim); margin: 9px 0 3px; }
       #fControlSet {
         font: 11px "Courier New", monospace; color: var(--ink); background: #0a0719;
@@ -908,19 +912,13 @@
                somebody forgot to fill in. -->
           <div id="guideFields"></div>
 
-          <label class="field" for="fControlSet">CONTROL SET — this wave is not the ordinary thing</label>
+          <label class="field" for="fControlSet">Control Set</label>
           <select id="fControlSet"></select>
           <p class="note" id="fControlSetWhy"></p>
 
           <div id="bossPanel"></div>
 
           <h2 data-panel="ship-adds">WHAT THIS WAVE ADDS TO THE SHIP</h2>
-          <p class="note">
-            Its boss, if it has one, and THE GAUGE if the gap in front of it
-            carries a round. The ship's own dials — AIM, HULL, THE BEAT and
-            the rest — are the same on every wave; see ▣ GAME MECHANICS'
-            SHIP tab.
-          </p>
           <div id="caps"></div>
         </div>
       </section>

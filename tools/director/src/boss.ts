@@ -36,15 +36,11 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     panel.replaceChildren();
     if (!wave) return;
 
-    if (!wave.boss) {
-      const note = document.createElement("p");
-      note.className = "note";
-      note.textContent =
-        "This wave has no boss. A boss belongs to its wave and is not added " +
-        "or removed here — it is authored in packages/content/src/waves.ts.";
-      panel.appendChild(note);
-      return;
-    }
+    // A wave without a boss shows nothing here. It used to carry a sentence
+    // explaining why there was no REMOVE BOSS button — added the day that
+    // button left, for a reader who had just watched it vanish. The owner
+    // has seen the explanation and does not want it kept around.
+    if (!wave.boss) return;
     if (wave.boss.kind === "mirror") {
       const blurbM = document.createElement("p");
       blurbM.className = "note";

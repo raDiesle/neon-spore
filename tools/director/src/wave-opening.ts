@@ -17,15 +17,14 @@ export function waveOpeningStates(wave: Wave | undefined): string[] {
   return wave.guide ? ["INTRODUCTION", "GUIDE"] : ["INTRODUCTION"];
 }
 
-/** Painted into `#waveBriefing` in the WAVE tab, beside the fields it is about. */
-export function renderWaveOpening(wave: Wave | undefined): void {
-  const mount = document.getElementById("waveBriefing");
-  if (!mount) return;
-  if (!wave) {
-    mount.textContent = "";
-    return;
-  }
-  mount.textContent = wave.guide
-    ? `Opens on "WAVE n · ${wave.name}" and its sentence, then on its guide — which waits for both seats.`
-    : `Opens on "WAVE n · ${wave.name}" and its sentence, then plays. No guide: this wave introduces nothing new.`;
+/**
+ * Used to paint a sentence into `#waveBriefing` describing what a wave opens
+ * on. Its guide-branch and no-guide-branch differed by one clause and read as
+ * the same sentence twice — reasoning that belonged in the spec, not a label
+ * repeated for whoever opens this panel every day. Left in place, rather than
+ * deleted along with the call, because `main.ts` still runs it on every wave
+ * switch and is outside what this task may touch.
+ */
+export function renderWaveOpening(_wave: Wave | undefined): void {
+  document.getElementById("waveBriefing")?.replaceChildren();
 }
