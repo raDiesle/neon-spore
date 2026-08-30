@@ -50,68 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE SWEEP REPORTS SUCCESS AND LEAVES THE DIRECTORY STANDING
-_claude/burn-sweep-verify · tools/checks tools/checks/test docs/verification.md_
-**Asked for by the owner**, twice over — once as a rule and once as the mess it
-was meant to prevent:
-
-> this means that once code is merged to main, we should already cleanup the
-> old worktree branch with no action on it and all code merged already.
-
-**The rule already exists and the tool already tries.** What fails is the
-removal itself, on Windows, quietly. `git worktree remove` refuses while
-anything holds a handle inside the tree — `node_modules` after a `bun install`
-is the usual culprit — and the sweep moves on to the next branch. `git worktree
-prune` then drops the registry entry because the metadata is gone, and the
-**directory survives with nothing pointing at it**. Git believes it is gone and
-the filesystem disagrees, which is the worst of the two possible wrong answers.
-
-**Measured, not supposed:** one day of this run left **22 directories** under
-`.claude/worktrees/` while `git worktree list` knew about **2**. Each orphan is
-a whole checkout at some earlier state of the trunk, several hundred megabytes
-apiece with its own `node_modules`.
-
-**Why it is worse than clutter.** A path into an orphan looks exactly like a
-path into the repository — same shape, same files, plausible in every way. A
-session that follows one reads superseded code and reports a result about it,
-and nothing anywhere says the tree is stale. That is the same class of failure
-the preview's `/__preview` handshake exists to prevent, arriving by a door
-nobody covered.
-
-### What to build
-
-**The sweep verifies rather than fires and forgets.** After removing a
-worktree, check the directory is actually gone. If it is not, retry — and if it
-still is not, **say so, by path, in the output**. A sweep that silently leaves
-things behind is how twenty-two accumulate; a sweep that names what it could
-not remove is a person's next command.
-
-**Retry sensibly rather than fighting.** The handle is usually transient. A
-short wait and a second attempt costs nothing; a loop that fights a locked file
-forever costs a session. Decide the shape and say why in the commit.
-
-**Never delete anything with uncommitted work in it.** `git worktree remove`
-without `--force` refuses to lose work and that refusal is correct — it is the
-one signal that distinguishes a live lane from a landed one. Whatever this
-lands must keep that guarantee, and must not reach for `--force` to make the
-verification pass. If a directory cannot be removed *and* holds uncommitted
-files, that is a live lane and it must be left alone and reported as such.
-
-**Clean up what is already there.** The orphans that exist now have no registry
-entry, so nothing will ever revisit them. Offer to remove directories under
-`.claude/worktrees/` that git does not know about — after the same
-uncommitted-work check, since an orphan can still hold work somebody wants.
-
-Finished when `bun run check` is green, a sweep that cannot remove a directory
-says which one, an orphan with no registry entry is offered for removal, and a
-directory holding uncommitted work is never touched.
-
-`Check: sweep after a landing — is the worktree's folder actually gone from disk, and if one could not be removed does the output name it?`
-
-Model `sonnet`, effort `think`, spent on the retry and on the uncommitted-work
-guarantee rather than on the deletion. Read `tools/checks`'s clean path and
-`docs/verification.md`'s loop first.
-
 ## THE WAVE EDITOR EXPLAINS ITSELF AT LENGTH, AND THE FIELDS ARE TOO SMALL TO WRITE IN
 _claude/burn-wave-editor-tidy · tools/director/index.html tools/director/src/guide-fields.ts tools/director/src/wave-opening.ts tools/director/src/boss.ts tools/director/src/rail.ts tools/director/src/ship.ts tools/director/test_
 **Asked for by the owner**, as one list. Every item is theirs; nothing here was
