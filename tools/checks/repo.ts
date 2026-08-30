@@ -4,7 +4,7 @@
  * is pure and tested; this file only fetches and writes.
  */
 
-import { readdir, rm } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import {
   type Branch,
@@ -18,6 +18,7 @@ import {
 import { appendDecision, type Decision, parseLedger } from "./ledger.js";
 import { parseRestated, type Restated } from "./restated.js";
 import { argvOf, type CheckCommit, LOG_FORMAT, parseLog } from "./trailers.js";
+import { removeWorktree } from "./worktree.js";
 
 export const LEDGER = "docs/verified.md";
 export const RESTATED_DIR = "docs/checks";
@@ -32,7 +33,7 @@ records the answers. See \`docs/verification.md\`.
 
 `;
 
-async function git(root: string, args: string[]): Promise<string> {
+export async function git(root: string, args: string[]): Promise<string> {
   const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
   const [out, err, code] = await Promise.all([
     new Response(proc.stdout).text(),
@@ -59,7 +60,7 @@ async function ok(root: string, args: string[]): Promise<boolean> {
  * cost of being wrong that way is a worktree left standing, and the cost of
  * being wrong the other way is somebody's afternoon.
  */
-async function isDirty(root: string, worktree: string): Promise<boolean> {
+export async function isDirty(root: string, worktree: string): Promise<boolean> {
   const proc = Bun.spawn(["git", "-C", worktree, "status", "--porcelain"], {
     cwd: root,
     stdout: "pipe",
@@ -316,39 +317,12 @@ export async function runCommand(
 }
 
 /**
- * The worktree first, then the branch, then origin's copy. `git worktree
- * remove` and `git branch -d` both refuse work that would lose something, and
- * neither is talked out of it here — a `--force` in this file would make the
- * button a different button.
+ * The worktree first, then the branch, then origin's copy. `removeWorktree`
+ * (in `worktree.ts`, alongside the retry-and-verify shape it needs) and
+ * `git branch -d` both refuse work that would lose something, and neither is
+ * talked out of it here — a `--force` in this file would make the button a
+ * different button.
  */
-/**
- * `git worktree remove`, and the one refusal worth talking it out of.
- *
- * It declines a directory that is not empty, and in this repository the thing
- * making it not empty is almost always `node_modules` — every worktree needs
- * its own (`CLAUDE.md`: the main tree's must never be linked in, because its
- * workspace links are absolute paths into another checkout). So the sweep
- * would refuse the trees that had actually been *worked* in and clear only the
- * ones nobody had installed into, which is precisely backwards.
- *
- * The refusal exists to avoid losing work, so that is what gets checked
- * instead of being assumed: an empty `git status --porcelain` means there is
- * no work in there to lose, and everything left is by definition disposable —
- * ignored, and rebuilt by one `bun install`. Anything else is rethrown, and
- * the branch stays.
- */
-async function removeWorktree(root: string, path: string): Promise<void> {
-  try {
-    await git(root, ["worktree", "remove", path]);
-    return;
-  } catch (error) {
-    const dirty = (await git(root, ["-C", path, "status", "--porcelain"])).trim();
-    if (dirty) throw error;
-  }
-  await rm(path, { recursive: true, force: true });
-  await git(root, ["worktree", "prune"]);
-}
-
 export async function deleteBranch(root: string, branch: Branch): Promise<string[]> {
   if (!branchReady(branch)) throw new Error(`${branch.name} is not ready to go`);
   const done: string[] = [];

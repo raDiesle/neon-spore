@@ -171,6 +171,30 @@ The same loop covers a worktree here. A worktree's branch is on the same list,
 under the same rule, and gets removed the same way once main has its work and
 the checks are decided.
 
+**A removed worktree is verified, not trusted.** On Windows a `node_modules`
+handle left over from `bun install` can make `git worktree remove` report
+success or failure and be wrong either way while the handle is still closing —
+measured on this machine, a second attempt seconds later went through every
+time with nothing forced and nothing killed. So `tools/checks/worktree.ts`
+asks the filesystem after every attempt rather than trusting the exit code,
+retries a few times with a short wait between, and only escalates to a plain
+`rm` once `git worktree remove` itself never gets through. `git worktree
+prune` only ever runs after the directory is confirmed gone — pruning on a
+hope is exactly how a stuck lane turns into a directory nothing can find
+again. If a directory still stands after every attempt, the sweep says so by
+path rather than reporting the branch as merely "spent" or silently moving
+on — the same is true for `bun run checks --clean`, which also names the
+worktree it could not clear.
+
+**What is already lying on disk is swept too.** `.claude/worktrees/`
+directories that `git worktree list` has never heard of are exactly the
+litter the paragraph above describes, from before this fix existed —
+`bun run checks` lists them and `--clean` removes the ones it can prove hold
+no uncommitted work. The proof is the same `git status` a registered
+worktree gets; an orphan whose `.git` link is itself gone cannot be asked at
+all, and unreadable fails safe the same way a live lane's does — left alone
+and named, not guessed at.
+
 ## The closing block
 
 `bun run handoff` is the other end of the same idea. `bun run checks` is read

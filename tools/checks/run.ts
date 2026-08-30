@@ -27,6 +27,7 @@ import {
 } from "./repo.js";
 import { orphanedRestated } from "./restated.js";
 import type { Check } from "./trailers.js";
+import { type Orphan, orphanWorktrees, removeOrphan } from "./worktree.js";
 
 /** How long a settled check is allowed to run before it counts as "not run". */
 export const SETTLE_TIMEOUT_MS = 120_000;
@@ -119,8 +120,18 @@ async function main(): Promise<void> {
   // `states` (not `left`) so a restatement written for an already-decided check
   // still counts as attached.
   const orphaned = orphanedRestated(await readRestated(root), states);
+  // `.claude/worktrees/` directories `git worktree list` has never heard of
+  // — a half-finished removal's litter, not this run's business unless it
+  // is about to act. See `docs/parked.md` and `worktree.ts`.
+  const strays = await orphanWorktrees(root);
 
-  if (flags.has("--brief") && left.length === 0 && spent.length === 0 && here.behind === 0) {
+  if (
+    flags.has("--brief") &&
+    left.length === 0 &&
+    spent.length === 0 &&
+    strays.length === 0 &&
+    here.behind === 0
+  ) {
     process.exit(0);
   }
 
@@ -128,8 +139,8 @@ async function main(): Promise<void> {
   stale(here, acting);
   if (staleStops(here.behind, acting)) process.exit(1);
   if (flags.has("--run")) await runAll(states, today);
-  if (flags.has("--clean")) await cleanAll(spent);
-  if (!acting) report(left, states, branches, spent, orphaned, here);
+  if (flags.has("--clean")) await cleanAll(spent, strays);
+  if (!acting) report(left, states, branches, spent, orphaned, here, strays);
 }
 
 function report(
@@ -139,6 +150,7 @@ function report(
   spent: Awaited<ReturnType<typeof readBranches>>,
   orphaned: ReturnType<typeof orphanedRestated>,
   here: Awaited<ReturnType<typeof trunk>>,
+  strays: readonly Orphan[],
 ): void {
   // Concepts never reach `left` at all — see `outstanding` in `checks.ts` —
   // so the count is already implementations only. Said plainly rather than
@@ -202,9 +214,30 @@ function report(
     console.log(`    ${mark} ${branch.name}  —  ${branchReason(branch)}  (${where.join(", ")})`);
   }
 
+  if (strays.length > 0) {
+    const noun = strays.length === 1 ? "directory" : "directories";
+    console.log(`\n  ${strays.length} ${noun} on disk with no git worktree entry:`);
+    for (const stray of strays) {
+      console.log(
+        stray.dirty
+          ? `    · ${stray.path}  —  uncommitted work, or unreadable: left alone`
+          : `    ✓ ${stray.path}  —  clean, safe to remove`,
+      );
+    }
+  }
+
   const commands = runnable(states).length;
+  const removableStrays = strays.filter((s) => !s.dirty).length;
   if (commands > 0) console.log(`\n  bun run checks --run    ${commands} of them name a command`);
-  if (spent.length > 0) console.log(`  bun run checks --clean  ${spent.length} branch(es) can go`);
+  if (spent.length > 0 || removableStrays > 0) {
+    const parts = [
+      spent.length > 0 ? `${spent.length} branch(es)` : "",
+      removableStrays > 0
+        ? `${removableStrays} orphaned ${removableStrays === 1 ? "directory" : "directories"}`
+        : "",
+    ].filter(Boolean);
+    console.log(`  bun run checks --clean  ${parts.join(" and ")} can go`);
+  }
 }
 
 /**
@@ -250,8 +283,11 @@ async function runAll(
   }
 }
 
-async function cleanAll(spent: Awaited<ReturnType<typeof readBranches>>): Promise<void> {
-  if (spent.length === 0) {
+async function cleanAll(
+  spent: Awaited<ReturnType<typeof readBranches>>,
+  strays: readonly Orphan[],
+): Promise<void> {
+  if (spent.length === 0 && strays.length === 0) {
     console.log("no branch is spent yet.");
     return;
   }
@@ -261,6 +297,22 @@ async function cleanAll(spent: Awaited<ReturnType<typeof readBranches>>): Promis
       console.log(`deleted ${gone.join(", ")}`);
     } catch (err) {
       console.log(`${branch.name}: ${String(err instanceof Error ? err.message : err)}`);
+    }
+  }
+  // Registered branches first, then the litter nothing points at any more —
+  // an orphan is never touched while it might hold uncommitted work, same
+  // guarantee as `deleteBranch` above, just asked a different way since
+  // there is no branch here for git to check it against.
+  for (const stray of strays) {
+    if (stray.dirty) {
+      console.log(`${stray.path}: uncommitted work, or unreadable — left alone`);
+      continue;
+    }
+    try {
+      await removeOrphan(root, stray);
+      console.log(`removed orphan ${stray.path}`);
+    } catch (err) {
+      console.log(String(err instanceof Error ? err.message : err));
     }
   }
 }
