@@ -44,6 +44,7 @@
  */
 
 export { rooted, welling } from "./anchored.js";
+export { type ClubbedOpts, clubbed } from "./clubbed.js";
 export { type ClusterOpts, cluster, moulded } from "./cluster.js";
 export { type GuardedOpts, guarded } from "./detached.js";
 export { type HaloedOpts, haloed } from "./haloed.js";

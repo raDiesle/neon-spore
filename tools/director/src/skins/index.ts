@@ -1,4 +1,5 @@
 import { CARAPACE, MOUNTED_CARAPACE } from "./carapace.js";
+import { CHAMBER } from "./chamber.js";
 import { CILIA } from "./cilia.js";
 import { CORE } from "./core.js";
 import { CRATER } from "./crater.js";
@@ -54,6 +55,7 @@ export const SKINS = [
   PORE,
   SUCKER,
   NACRE,
+  CHAMBER,
   // The mounted four, kept together at the end rather than each next to its
   // flat original. They are one block and answer one question — whether a
   // texture on a turning body goes round the far side or slides across a face —

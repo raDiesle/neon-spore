@@ -11,9 +11,9 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * would have put 32 of the 49 square catalogue entries under 26 px and 17
  * under 20, with the Bulb specifically landing at about 16 px.
  *
- * The catalogue has grown ten bodies since — THE SHELL, and then the nine
+ * The catalogue has grown eleven bodies since — THE SHELL, and then the ten
  * converted off other games' screenshots in `drafts/tower-defence.ts` — so the
- * counts read 58, 41 and 21 rather than 49, 32 and 17. The finding is the
+ * counts read 59, 42 and 21 rather than 49, 32 and 17. The finding is the
  * lane's; only the denominator moved, and it moves again every time a body is
  * added. Every one of the converted bodies falls under 26 px at
  * the halved width, which is the finding holding rather than drifting: a rim
@@ -29,8 +29,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 58 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(58);
+  it("has the 59 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(59);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -57,7 +57,7 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
-    expect(under26).toBe(41);
+    expect(under26).toBe(42);
     expect(under20).toBe(21);
   });
 

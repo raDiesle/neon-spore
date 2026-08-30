@@ -1,5 +1,5 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { guarded, haloed, shed, spanned, studded } from "../forms/index.js";
+import { clubbed, guarded, haloed, shed, spanned, studded } from "../forms/index.js";
 import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js";
 
 /**
@@ -191,5 +191,24 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "the second half of THE HOOD and useless without it: identical in every parameter except that the guard is gone. The pair of cards is the proposal, not either one of them — a guard that can be broken is worth having only if the broken state is legible on its own, and one card cannot answer that. It carries SHIVER where the whole one carries WIND, which is the same claim made in motion: the thing that was winding up has stopped",
+  },
+  {
+    subject: clubbed("THE POMMEL", "a heavy body wearing balls on stalks, no two the same", {
+      rx: 92,
+      ry: 86,
+      clubs: 12,
+      reach: 0.2,
+      cap: 0.19,
+      neck: 0.52,
+      vary: 0.2,
+      lobes: 4,
+      depth: 0.05,
+      seed: 2.4,
+    }),
+    motion: SWELL,
+    status: "free",
+    slot: "boss",
+    owner:
+      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. Judge the two side by side and retire whichever loses; they are the same proposal drawn twice, not two bodies",
   },
 ];

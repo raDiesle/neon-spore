@@ -33,11 +33,11 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits seventy bodies into wide, round and tall", () => {
+  it("splits seventy-one bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(70);
+    expect(axes.length).toBe(71);
     expect(count("x")).toBe(27);
-    expect(count(null)).toBe(35);
+    expect(count(null)).toBe(36);
     expect(count("y")).toBe(8);
   });
 
