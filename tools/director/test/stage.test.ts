@@ -9,7 +9,11 @@ import {
   DEFAULT_CONFIG,
   mazeRound,
   PAIR_ON,
+  readyHoldTicks,
+  seatReady,
   startWave,
+  step,
+  type TimedCommand,
 } from "@neon-spore/sim";
 import { bindStageTouch, pointerSeat } from "../src/stage-touch.js";
 
@@ -178,23 +182,31 @@ describe("a fresh reset opens the wave, every time", () => {
 });
 
 /**
- * THE STAGE IS THE BUTTON, AND A CARD IN `test` STEPS THROUGH IT.
+ * THE STAGE IS THE BUTTON: A HOLD FILLS THE GATE, A TAP STILL STEPS THE CARD.
  *
- * `bindStageTouch`'s own `pointerdown` listener now answers a card the way
- * `apps/game/src/briefing.ts` answers one on the phone — the press, not a
- * separate `✓ CARD` button (now gone from `stage-transport.ts`). The one
- * thing the phone never had to decide is which half to show, because a phone
- * only ever holds one seat; `test` holds both, so the field is stepped:
- * first press reveals player one's half, second player two's, third puts the
- * card away — and only then does a press reach the cannon.
+ * `bindStageTouch`'s own `pointerdown`/`pointerup` pair now answers the guide
+ * the way `apps/game/src/briefing.ts` answers it on the phone — a hold fills
+ * the ready circles (`ready-circles.ts`), and letting go before READY empties
+ * them. Two landings once disagreed here without either noticing: one made
+ * `test` step a card through two presses, the other made the gate a hold —
+ * and because each was tested against its own stub world, a single director
+ * press satisfied the gate outright and the circles were never seen. See the
+ * commit that rewrote this block for the fix and the two-surfaces failure.
  *
- * `push` here plays the sim's own part for a `brief` command
- * (`ackBriefing`, `packages/sim/src/step.ts`) rather than pulling in the
- * whole scheduler: this file is testing the director's wiring, and
- * `packages/sim/test/briefing.test.ts` already owns whether `ackBriefing`
- * itself is correct.
+ * The stepping stays, because the reason it exists stays: a phone only ever
+ * holds one seat, `test` holds both, and reading each half in turn is still
+ * worth doing at one desk. It no longer gates the fill, though — a release
+ * that did not reach READY is what steps `test` onward, so holding straight
+ * from the very first press still opens the gate, and stepping through both
+ * halves first is a choice, not a toll.
+ *
+ * `push` here plays the sim's own dispatch for real, through `step()`
+ * (`packages/sim/src/step.ts`), rather than the shortcut `ackBriefing` gives a
+ * caller with no thumbs — the whole point of this block is that a hold has to
+ * take real ticks, and `ackBriefing` would paper over exactly the bug that got
+ * past review once already.
  */
-describe("bindStageTouch steps a `test`-mode guide and swallows the press until it is gone", () => {
+describe("bindStageTouch answers the guide with a hold, and a tap with a step", () => {
   const VIEWPORT = { width: 400, height: 800, dpr: 1 };
   const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
   // A single creature keeps this to exactly two cards due: "opening" (every
@@ -237,8 +249,9 @@ describe("bindStageTouch steps a `test`-mode guide and swallows the press until 
     // the guide's: the introduction is the same on both screens and takes one
     // press whatever the role.
     startWave(world, 0, queue, [], null, true);
-    let step: 0 | 1 | 2 = 0;
+    let cardStepAt: 0 | 1 | 2 = 0;
     const sent: { player: 1 | 2; command: Command }[] = [];
+    let pending: TimedCommand[] = [];
     const stub = stubCanvas();
     bindStageTouch({
       canvas: stub.canvas,
@@ -254,75 +267,111 @@ describe("bindStageTouch steps a `test`-mode guide and swallows the press until 
       }),
       push: (player, command) => {
         sent.push({ player, command });
-        // Stand-in for `step()`: the sim only acks a `brief` while a card
-        // holds, and only that command means anything then (`step.ts`).
-        if (command.kind === "brief") ackBriefing(world, player);
+        pending.push({ tick: world.tick, player, command });
       },
       world: () => world,
       role: () => role,
-      cardStep: () => step,
+      cardStep: () => cardStepAt,
       setCardStep: (s) => {
-        step = s;
+        cardStepAt = s;
       },
     });
     const layout = computeLayout(VIEWPORT, cfg, role);
-    const press = (): void =>
+    // Real ticks, through the sim's own `step()` — a `brief` only ever fills
+    // for as long as `stepReady` has actually run, and a stub that acked it
+    // outright would hide the very bug this file exists to catch.
+    const tick = (n = 1): void => {
+      for (let i = 0; i < n; i++) {
+        step(world, pending);
+        pending = [];
+      }
+    };
+    const down = (): void =>
       stub.fire("pointerdown", {
         pointerId: 1,
         clientX: VIEWPORT.width / 2,
         clientY: layout.cannonStrip.y,
         preventDefault: () => {},
       });
-    return { press, sent, world, step: () => step };
+    const up = (): void => {
+      stub.fire("pointerup", { pointerId: 1 });
+      tick(); // the release's own `on: false` has to reach the sim too
+    };
+    /** A tap: down, one tick, straight back up. Never enough to fill a circle. */
+    const tap = (): void => {
+      down();
+      tick();
+      up();
+    };
+    /** Down, held for a full gate's worth of real ticks, then let go. */
+    const hold = (): void => {
+      down();
+      tick(readyHoldTicks(cfg));
+      up();
+    };
+    return { tap, down, up, hold, tick, sent, world, step: () => cardStepAt };
   }
 
-  it("presses one and two swallow, revealing nothing the sim ever hears about", () => {
+  it("a tap steps `test` through player one's half, then two's, filling neither circle", () => {
     const s = armed("test");
-    s.press(); // the introduction, which is not stepped
+    s.tap(); // the introduction, which is not stepped
     s.sent.length = 0;
-    s.press();
+    s.tap();
     expect(s.step()).toBe(1);
-    expect(s.sent).toEqual([]);
-    s.press();
+    s.tap();
     expect(s.step()).toBe(2);
-    expect(s.sent).toEqual([]);
     expect(briefingHolds(s.world)).toBe(true);
+    expect(seatReady(s.world, 1)).toBe(false);
+    expect(seatReady(s.world, 2)).toBe(false);
   });
 
-  it("the guide's third press puts it away, and the field is then playing", () => {
+  it("a hold from the very first press fills both circles and opens the gate — stepping is never a toll", () => {
     const s = armed("test");
-    s.press(); // the introduction
+    s.tap(); // the introduction
     s.sent.length = 0;
-    s.press();
-    s.press();
-    s.press(); // the guide
-    expect(s.sent).toEqual([
-      { player: 1, command: { kind: "brief" } },
-      { player: 2, command: { kind: "brief" } },
-    ]);
-    expect(s.step()).toBe(0);
+    s.down();
+    // Both circles fill in lockstep in `test`, so they land on `full` on the
+    // very same tick — one short of it, neither has latched READY yet.
+    s.tick(readyHoldTicks(cfg) - 1);
+    expect(seatReady(s.world, 1)).toBe(false);
+    expect(briefingHolds(s.world)).toBe(true);
+    s.tick(1); // the tick both circles complete on together
     expect(briefingHolds(s.world)).toBe(false);
+    s.up(); // the gate is already open; letting go now reaches nobody's fill
   });
 
-  it("only the press that ends the opening lets the next one reach the cannon", () => {
+  it("letting go before READY empties the circle instead of latching it", () => {
     const s = armed("test");
-    for (let i = 0; i < 4; i++) s.press(); // the introduction, then the guide's three
+    s.tap(); // the introduction
+    s.down();
+    s.tick(1); // some fill, nowhere near a full gate
+    s.up();
+    expect(seatReady(s.world, 1)).toBe(false);
+    expect(seatReady(s.world, 2)).toBe(false);
+    expect(briefingHolds(s.world)).toBe(true);
+    expect(s.step()).toBe(1); // a release that did not fill it still steps `test`
+  });
+
+  it("only a hold that opens the gate lets the next press reach the cannon", () => {
+    const s = armed("test");
+    s.tap(); // the introduction
+    s.hold(); // the guide, filled for real
     expect(briefingHolds(s.world)).toBe(false);
     s.sent.length = 0;
 
-    s.press();
+    s.tap();
     expect(s.sent).toEqual([
       { player: 1, command: { kind: "cannonCol", col: expect.any(Number) } },
     ]);
   });
 
-  it("a single seat's own screen (p1/p2) is dismissed on the one press it gets, unstepped", () => {
+  it("a hold in a single seat's own screen (p1/p2) fills only that seat, unstepped", () => {
     const s = armed("p1");
-    s.press();
-    expect(s.sent).toEqual([
-      { player: 1, command: { kind: "brief" } },
-      { player: 2, command: { kind: "brief" } },
-    ]);
+    s.tap(); // the introduction — one press, both seats ack (never stepped)
+    s.sent.length = 0;
+    s.hold();
+    expect(seatReady(s.world, 1)).toBe(true);
+    expect(seatReady(s.world, 2)).toBe(false);
     // `cardStep` never left 0 — `role() !== "test"` never steps at all.
     expect(s.step()).toBe(0);
   });

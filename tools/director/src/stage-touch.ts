@@ -7,7 +7,7 @@ import {
   touchUp,
   type ViewRole,
 } from "@neon-spore/render";
-import { briefingHolds, type Command, guideHolds, type World } from "@neon-spore/sim";
+import { briefingHolds, type Command, guideHolds, introHolds, type World } from "@neon-spore/sim";
 
 /**
  * The stage answers a finger the way the phone does — the same `touch.ts` the
@@ -45,11 +45,16 @@ export function pointerSeat(role: ViewRole): 1 | 2 {
 
 /**
  * What `test` mode should actually be drawn as while a wave's guide is up:
- * stepped through player one's half, then player two's, before ever falling
- * back to the dual view `role` alone would ask for
- * (`packages/render/src/briefing.ts` draws that whenever it is handed
- * `"test"`). `cardStep` is the only thing that ever moves — see the
- * pointerdown handler below — this only reads it.
+ * player one's half, then player two's, before ever falling back to the dual
+ * view `role` alone would ask for (`packages/render/src/briefing.ts` draws
+ * that whenever it is handed `"test"`). `cardStep` is the only thing that ever
+ * moves — see the pointerdown handler below — this only reads it.
+ *
+ * Stepping and the ready gate answer different questions and neither reaches
+ * for the other: the two circles `drawReadyGate` draws are part of every one
+ * of these views, unredacted or not, so a hold fills them from whichever half
+ * is on screen — a person can step to player two's words and still be the one
+ * holding for both. Stepping only decides which text is showing.
  *
  * The introduction before the guide is not stepped: it is the same three lines
  * on both screens, so there are no halves to walk through.
@@ -79,11 +84,15 @@ export interface StageTouch {
   role: () => ViewRole;
   /**
    * Which half of the card `test` mode is showing right now: 0 before either
-   * press, 1 once player one's half is up, 2 once player two's is. Director
-   * state, not world state — the sim only knows a card is up and who has
-   * acked it (`Briefings.ack` in `packages/sim/src/briefing.ts`), never that
-   * one screen is reading it in two turns instead of one. Kept beside `role`
-   * in `stage.ts`, which is also director state about the same stage.
+   * step, 1 once player one's half is up, 2 once player two's is. It advances
+   * on a release that did not fill a circle — a quick tap, the way it always
+   * did — never on a hold, so a person filling the gate straight from the
+   * first press is never forced through the steps to get there. Director
+   * state, not world state — the sim only knows a card is up and how full
+   * each circle is (`Briefings.fillP1`/`fillP2` in
+   * `packages/sim/src/briefing.ts`), never that one screen is reading it in
+   * turns. Kept beside `role` in `stage.ts`, which is also director state
+   * about the same stage.
    */
   cardStep: () => 0 | 1 | 2;
   setCardStep: (step: 0 | 1 | 2) => void;
@@ -100,6 +109,10 @@ export function bindStageTouch({
   setCardStep,
 }: StageTouch): void {
   const holding = new Map<number, Hold>();
+  // Which seat or seats a brief-hold in progress speaks for, keyed the same
+  // way `holding` is — a second map rather than teaching `Hold` a briefing
+  // shape it has nothing else in common with.
+  const briefHolding = new Map<number, readonly (1 | 2)[]>();
   const at = (e: PointerEvent): { x: number; y: number } => {
     const rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
@@ -119,16 +132,19 @@ export function bindStageTouch({
     // that would get the whole opening switched off.
     if (briefingHolds(world())) {
       e.preventDefault();
-      if (role() === "test" && guideHolds(world()) && cardStep() < 2) {
-        setCardStep((cardStep() + 1) as 1 | 2);
+      if (introHolds(world())) {
+        push(1, { kind: "brief" });
+        push(2, { kind: "brief" });
         return;
       }
-      // The introduction, the third press on a guide in `test`, or the only
-      // press `p1`/`p2` ever need — that screen already shows just the one
-      // half, so there is nothing to step.
-      setCardStep(0);
-      push(1, { kind: "brief" });
-      push(2, { kind: "brief" });
+      // The guide: a hold, the same gesture `apps/game/src/briefing.ts` binds
+      // on a phone, on the seat or seats this screen speaks for. `test` is
+      // both — one hand filling both circles, the owner's own answer for a
+      // desk with one mouse and two seats to read (`ready-circles.ts`) — `p1`
+      // and `p2` are the one seat that screen would be on a real device.
+      const seats: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
+      for (const seat of seats) push(seat, { kind: "brief", on: true });
+      briefHolding.set(e.pointerId, seats);
       return;
     }
     const p = at(e);
@@ -147,6 +163,17 @@ export function bindStageTouch({
   // On the window, not the canvas: a thumb that leaves the picture still has
   // to let go of what it was holding.
   const lift = (e: PointerEvent): void => {
+    const seats = briefHolding.get(e.pointerId);
+    if (seats) {
+      briefHolding.delete(e.pointerId);
+      for (const seat of seats) push(seat, { kind: "brief", on: false });
+      // A release that did not reach READY is a tap, not a hold, and a tap is
+      // what steps `test` through the two halves — the reason stepping ever
+      // existed still holds, it just no longer gates the fill.
+      if (role() === "test" && guideHolds(world()) && cardStep() < 2) {
+        setCardStep((cardStep() + 1) as 1 | 2);
+      }
+    }
     const hold = holding.get(e.pointerId);
     if (!hold) return;
     holding.delete(e.pointerId);

@@ -126,6 +126,7 @@ export function bindStage(
       queueFromWave(wave, cfg.cols),
       podsFromWave(wave, cfg.cols),
       bossFromWave(wave, cfg.cols),
+      wave.guide !== undefined,
     );
     lastBeat = 0;
     onBeat(0);
@@ -192,7 +193,6 @@ export function bindStage(
     const steps = Math.min(Math.floor(carry), cfg.tickHz);
     for (let i = 0; i < steps; i++) advance();
     carry -= steps;
-
     paint(dt);
     requestAnimationFrame(frame);
   };
