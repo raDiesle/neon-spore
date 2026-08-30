@@ -847,10 +847,6 @@
       <button type="button" id="statesOpen">▣ GAME MECHANICS</button>
       <button type="button" id="soundOpen">♪ SOUND</button>
       <button type="button" id="cardsOpen">✎ GUIDES</button>
-      <span class="note" style="margin: 0"
-        >A/D cannon · J/L shield · I guard · S maw · W/E fire · G grip (as P2) · or play the stage
-        with the mouse</span
-      >
     </header>
 
     <!-- Reachable from all three views because it sits outside every one of
@@ -1386,7 +1382,10 @@
 
     <!-- KEYBINDINGS: rendered by key-help.ts from keys.ts's own KEY_BINDINGS
          table — no key is ever typed out twice. See the CSS above for why
-         this is a modal rather than another full-screen sheet. -->
+         this is a modal rather than another full-screen sheet. The mouse note
+         below is static: it is not a key binding, so it has no row in
+         KEY_BINDINGS to be derived from, but it is the same fact the topbar
+         used to carry and belongs here rather than nowhere. -->
     <div id="keyHelpModal">
       <div class="sheet">
         <header>
@@ -1394,6 +1393,7 @@
           <button type="button" data-close>✕ CLOSE</button>
         </header>
         <div id="keyHelpBody"></div>
+        <p class="note">Or play the stage with the mouse — the same touch control the phone uses.</p>
       </div>
     </div>
 
