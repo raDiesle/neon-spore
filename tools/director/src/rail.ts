@@ -128,21 +128,12 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     guideFields.render(wave);
 
     // A boss wave cannot be copied or deleted (see the two guards in
-    // `bindAction` below, which are the actual enforcement). Disabling the
-    // buttons here is the other half: a control that is present and does
-    // nothing on press is worse than one that is absent, because the person
-    // who pressed it cannot tell a refusal from a broken tool. The boss
-    // panel's own note explains why; the disabled state is the same fact
-    // read off the button instead of read after the fact.
+    // `bindAction`, the actual enforcement). `setBossGuard`, below, is the
+    // other half — see its own comment for why `.disabled` alone was not
+    // enough to make that visible.
     const hasBoss = Boolean(wave?.boss);
-    if (waveCopyBtn) {
-      waveCopyBtn.disabled = hasBoss;
-      waveCopyBtn.title = hasBoss ? "A boss wave cannot be duplicated." : "";
-    }
-    if (waveDelBtn) {
-      waveDelBtn.disabled = hasBoss;
-      waveDelBtn.title = hasBoss ? "A boss wave cannot be deleted." : "";
-    }
+    setBossGuard(waveCopyBtn, hasBoss, "A boss wave cannot be duplicated.");
+    setBossGuard(waveDelBtn, hasBoss, "A boss wave cannot be deleted.");
   };
 
   const render = (): void => {
@@ -228,6 +219,21 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
 
   render();
   return { render };
+}
+
+// `.disabled` and `title` alone are not enough: the shared stylesheet
+// carries no `:disabled` rule, and `button` sets its own flat `color` and
+// `cursor: pointer` unconditionally, so a disabled COPY/DELETE renders
+// pixel-identical to a live, unhovered one — a browser check that only reads
+// the DOM property back would call that fixed, and pressing it would still
+// look and feel like nothing happened. Inline style is the lever available
+// from this file, which does not own the stylesheet in `index.html`.
+function setBossGuard(btn: HTMLButtonElement | null, hasBoss: boolean, why: string): void {
+  if (!btn) return;
+  btn.disabled = hasBoss;
+  btn.title = hasBoss ? why : "";
+  btn.style.opacity = hasBoss ? "0.35" : "";
+  btn.style.cursor = hasBoss ? "not-allowed" : "";
 }
 
 /** The stage is rebuilt after a move to reflect the wave's new position. */
