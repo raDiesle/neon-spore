@@ -50,57 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## TO CHECK SHOWS CONCEPTS THE OWNER DID NOT ASK TO BE SHOWN
-_claude/burn-checks-implementation-only · tools/checks tools/checks/test tools/director/src/checks-page.ts tools/director/src/checks-dom.ts docs/verification.md_
-**Asked for by the owner:**
-
-> in the "to check" page, i dont want to see type "concept", only
-> implementations
-
-**The two badges answer different questions and only one of them is a queue.**
-`implementation` means the game or the tool now does something differently, and
-looking at it is a small obligation somebody incurred by landing. `concept`
-means a proposal that nothing ships yet — a candidate beside the shipped look,
-a draft offered for a decision. The first is *go and check this*; the second is
-*decide whether you want this at all*, and it waits on the owner's appetite
-rather than on their attention. Mixing them makes the list read as longer than
-the work it represents, which is the failure the whole badge was introduced to
-fix.
-
-### What to build
-
-**The list shows implementations.** Concepts are not deleted, not marked done,
-and not silently dropped — they are simply not what this page is for. Where
-they go instead is the lane's judgement, and the commit says which: a
-separate section further down, a count with a way to reveal them, or nothing at
-all on this page because the ALTERNATIVES page is already where a candidate is
-decided. **Prefer the last if it is true** — a concept whose candidate is
-sitting on a contact sheet does not need a second home, and one fewer place is
-better than one more.
-
-**Both `bun run checks` and the director's ⚑ TO CHECK.** They read the same
-derivation and must not disagree; a filter in one and not the other is worse
-than no filter.
-
-**An unbadged entry is an implementation.** Restatements written before the
-badge existed carry none, and they are the ordinary case. Do not hide them —
-absent must not read as `concept`, or old obligations vanish from the list
-without anybody deciding they should.
-
-**Say what the counts become.** The summary line at the top is the thing the
-owner reads first; if it now counts fewer rows, it should be plain about what
-it is counting rather than appearing to have shrunk on its own.
-
-Finished when `bun run check` is green, `bun run checks` and the director's page
-both list implementations only, unbadged entries still appear, and no concept
-has been marked or lost.
-
-`Check: open TO CHECK — is every row something the game or the tool now does differently, with no proposals mixed in?`
-
-Model `sonnet`, effort `think`. Read `tools/checks/restated.ts`'s `badge` field
-and `run.ts`'s rendering first, then the director's own page — the filter
-belongs wherever the two share their derivation, not written twice.
-
 ## THE SWEEP REPORTS SUCCESS AND LEAVES THE DIRECTORY STANDING
 _claude/burn-sweep-verify · tools/checks tools/checks/test docs/verification.md_
 **Asked for by the owner**, twice over — once as a rule and once as the mess it
