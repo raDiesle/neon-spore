@@ -553,3 +553,27 @@ gone along with two `SimConfig` fields — and the director's pages were
 rearranged: `STATES` is now a tab of a sheet called `GAME MECHANICS`, and the
 `CONTROL SETS` page is now `CONTROLS` with its own inner tabs. Read the tree as
 it is.
+
+## A DISABLED BUTTON IN THE DIRECTOR HAS NO STYLE OF ITS OWN
+_claude/burn-disabled-button-style · tools/director/index.html tools/director/src/rail.ts tools/director/test_
+**Proposed by the run.** The half `015ad71` could not reach: it owned
+`rail.ts` and not the stylesheet.
+
+`015ad71` fixed COPY and DELETE looking live on a boss wave, and found the
+cause was not the guard — the guard had been right since `ba352ba`. It was
+that `tools/director/index.html` has **no `button:disabled` rule at all**,
+while `button { color: var(--dim); cursor: pointer; }` applies whatever the
+state is. A disabled button rendered pixel-identical to a live one: same
+colour, opacity 1, and a pointer cursor inviting the press that would be
+refused.
+
+Because that lane owned only `rail.ts`, it fixed the two buttons it was sent
+for by setting `style.opacity` and `style.cursor` inline. That works and is
+the wrong place for it — **every other disabled control in the director still
+looks live**, and the next one written will inherit the same trap.
+
+Move it to the stylesheet: one `button:disabled` rule, and drop the inline
+styles from `rail.ts` once it covers them. Then check the director for other
+controls that are disabled somewhere and have never looked it.
+
+`Check: with a boss wave selected, does every greyed control in the director read as unpressable before you press it?`
