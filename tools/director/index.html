@@ -196,9 +196,8 @@
       /* Fills the whole column — the field is the reason the tool exists,
          and the transport row below is `flex: 0 0 auto`, so it is pinned to
          the bottom of the screen rather than floating in a shared column.
-         `align-items: center` centers `.transport` and `#stageNote`, which
-         are narrower than the column; `#stageBox` overrides it with its own
-         `width: 100%`. */
+         `align-items: center` centers `.transport`, which is narrower than
+         the column; `#stageBox` overrides it with its own `width: 100%`. */
       #stageWrap { flex: 1 1 0; min-height: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; align-items: center; }
       /* The canvas would otherwise size itself from its own width attribute, which
          the renderer sets from its measured width — a loop that settles at zero. */
@@ -209,9 +208,6 @@
         background: #05040c; border: 1px solid var(--line); border-radius: 8px; display: block;
         cursor: crosshair;
       }
-      /* The one line explaining what the field is — kept to a sentence so it
-         does not compete with the field for height. */
-      #stageNote { flex: 0 0 auto; margin: 0; max-width: 420px; text-align: center; }
       /* One row of the same kind of control — wraps rather than clipping or
          scrolling sideways once BRIEFINGS joined the buttons that were
          already here. Last child of `#stageWrap`, so it sits at the bottom
@@ -1006,13 +1002,6 @@
       <section class="stage-col" data-view="game" data-column="game" data-column-title="GAME">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
-          <p class="note" id="stageNote">
-            The field is the phone-shaped rectangle the game draws into —
-            computeStage, the same call the device makes. Click it to place
-            the current brush at the held beat, nearest of the seven columns.
-            ▣ SHEET below ends the run and draws the after-run screen; ↺ WAVE
-            starts over.
-          </p>
           <div class="transport">
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>
