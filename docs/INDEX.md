@@ -14,6 +14,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/versus.md` | you are offering a second answer to something already drawn, or judging one |
 | `docs/alive.md` | you are making a body read as living rather than as drawn |
 | `docs/skins.md` | you are adding a way to draw a catalogue card's body, or animating one |
+| `docs/shipped-looks.md` | you need to know what the game actually draws today — every glow and tail, creature by creature, with the numbers |
 | `docs/glow.md` | you are adding a way for a catalogue card's body to throw light — or things — into the space around it, or to react to being hit |
 | `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |

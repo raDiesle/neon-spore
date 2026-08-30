@@ -6,6 +6,7 @@ import { figureLayout } from "./shape-fit.js";
 import { type Drawn, runFigure } from "./shape-loop.js";
 import { IDLE_HIT } from "./shapes-trigger.js";
 import { buildSkin, type SkinId } from "./skins/index.js";
+import { type TailId, tailReach } from "./tails/index.js";
 
 /**
  * One contour, fitted into a frame and animated.
@@ -103,6 +104,15 @@ export interface FigureOptions {
    * `hits`. The hit row on OVERVIEW passes every hit, so its eight cells come
    * out one size and the reader compares effects rather than frames. */
   padForHits?: readonly HitId[];
+  /**
+   * Which tails the body wears — what it leaves behind as it falls. A set,
+   * like `glows` and `hits`, and the one that is different in kind: a tail
+   * reaches **upward only**, so it is the sole option here that makes the
+   * frame asymmetric.
+   */
+  tails?: readonly TailId[];
+  /** `padFor`, for the tail axis. */
+  padForTails?: readonly TailId[];
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
@@ -124,7 +134,16 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     motion,
     box,
     opts.width,
-    glowSpread(opts.padFor ?? opts.glows ?? []),
+    // The widest of either even axis, not the sum: a ring and a halo overlap
+    // rather than queueing up, so padding for both would shrink every card for
+    // room nothing uses. RING reaches further than any glow, which is why the
+    // hit stack is in here at all — it was left out when this call moved into
+    // `figureLayout`, and the symptom was a shockwave cropped by its own frame.
+    Math.max(
+      glowSpread(opts.padFor ?? opts.glows ?? []),
+      hitSpread(opts.padForHits ?? opts.hits ?? []),
+    ),
+    tailReach(opts.padForTails ?? opts.tails ?? []),
   );
   const { scale, tile, pivot } = layout;
 
@@ -156,6 +175,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     centre: pivot,
     glows: opts.glows,
     hits: opts.hits,
+    tails: opts.tails,
     shell,
   });
   frame.appendChild(body);

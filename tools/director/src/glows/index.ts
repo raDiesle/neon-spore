@@ -1,8 +1,10 @@
 import type { SkinContext } from "../skins/types.js";
 import { AURA } from "./aura.js";
 import { BLOOM } from "./bloom.js";
+import { CORONA } from "./corona.js";
 import { EMISSIVE } from "./emissive.js";
 import { HALO } from "./halo.js";
+import { PULSE } from "./pulse.js";
 import { SPARKS } from "./sparks.js";
 import { SWARM } from "./swarm.js";
 import { TRAIL } from "./trail.js";
@@ -57,7 +59,14 @@ export const GLOWS = [
   BLOOM,
   EMISSIVE,
   TRAIL,
+  // The three that stand off the body, together and in order of how hard they
+  // are: a soft ring, a structured one, then rings that leave. They answer one
+  // question between them — what light around a body should look like — and
+  // are read by switching among themselves rather than against the fills
+  // above.
   AURA,
+  CORONA,
+  PULSE,
   SPARKS,
 ] as const;
 

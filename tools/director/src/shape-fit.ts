@@ -163,6 +163,7 @@ export function figureLayout(
   box: number,
   width?: number,
   spreadFraction = 0,
+  upFraction = 0,
 ): FigureLayout {
   const w = width ?? box;
   const still = stillOf(entry);
@@ -177,13 +178,30 @@ export function figureLayout(
   // the centre is untouched and only the scale moves; without it, turning on
   // HALO slices every card at its own frame edge.
   const spread = spreadFraction * reach;
+  /**
+   * The tail's room, which is **above the body and nowhere else**.
+   *
+   * Every other effect on this page reaches evenly in all directions, so
+   * `spread` pads all four sides and the centre never moves. A tail does not:
+   * it runs two or three body-heights behind and nothing at all in front, and
+   * padding evenly for it would waste exactly as much room below the body as
+   * it used above — on a 92 px card that is the difference between a legible
+   * body and a small one.
+   *
+   * So this grows the box upward alone, and the centre rises by half as much,
+   * which drops the body toward the bottom of its frame and leaves the space
+   * where the tail actually is. Measured in the body's own height rather than
+   * in `reach`, because a tail is behind a body and a long body has a longer
+   * one — a hull with a two-height tail is not a hull with a two-reach tail.
+   */
+  const up = upFraction * (b.y1 - b.y0);
   const pad = Math.max(6, box * 0.18);
   const scale = Math.min(
     (w - pad) / (b.x1 - b.x0 + spread * 2),
-    (box - pad) / (b.y1 - b.y0 + spread * 2),
+    (box - pad) / (b.y1 - b.y0 + spread * 2 + up),
   );
   const cx = (b.x0 + b.x1) / 2;
-  const cy = (b.y0 + b.y1) / 2;
+  const cy = (b.y0 + b.y1) / 2 - up / 2;
   return {
     w,
     box,

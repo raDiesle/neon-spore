@@ -55,7 +55,8 @@
  * costs about a fifth of a second regardless of which group it lands in.
  */
 
-import { axisGroups, button, group } from "./shapes-axes.js";
+import { axisGroups } from "./shapes-axes.js";
+import { button, group } from "./shapes-widgets.js";
 
 export type ShapesView = "overview" | "compose";
 

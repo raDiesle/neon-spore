@@ -60,90 +60,32 @@ import type { OwnMotion } from "@neon-spore/content";
 import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
 import { GLOWS, type GlowId } from "./glows/index.js";
 import { HITS, type HitId } from "./hits/index.js";
-import { isWide, shapeFigure } from "./shape-figure.js";
+import { grid } from "./shapes-grid.js";
 import {
   currentGlows,
   currentHits,
   currentLit,
   currentMotion,
   currentSkin,
+  currentTails,
 } from "./shapes-pair.js";
 import { bodyPicker, pickedEntry } from "./shapes-picker.js";
 import { SKINS, type SkinId } from "./skins/index.js";
-
-const BOX = 92;
-const WIDE = 620;
-
-const STROKE: Record<CatalogueEntry["status"], string> = {
-  draft: "var(--cyan)",
-  free: "var(--gold)",
-  taken: "var(--dim)",
-};
-
-interface Cell {
-  label: string;
-  skin: SkinId;
-  lit: boolean;
-  motion: OwnMotion | undefined;
-  /** The glow stack this cell wears. A set, unlike the other three, which is
-   * the whole reason GLOW is a fourth axis rather than more skins. */
-  glows: readonly GlowId[];
-  /** What to leave room for, when that is not what is drawn. Only the glow
-   * row sets it — see `renderShapesAll`. */
-  padFor?: readonly GlowId[];
-  /** The hit stack this cell wears. Draws nothing between triggers. */
-  hits: readonly HitId[];
-  /** The hit equivalent of `padFor`. Only the hit row sets it. */
-  padForHits?: readonly HitId[];
-}
-
-function figureCell(box: number, width: number, stroke: string, entry: CatalogueEntry, c: Cell) {
-  const col = document.createElement("div");
-  col.style.cssText = "display:flex;flex-direction:column;gap:2px;flex:0 0 auto;min-width:0";
-  col.appendChild(
-    shapeFigure(entry, {
-      box,
-      width,
-      stroke,
-      skin: c.skin,
-      lit: c.lit,
-      motion: c.motion,
-      glows: c.glows,
-      padFor: c.padFor,
-      hits: c.hits,
-      padForHits: c.padForHits,
-    }),
-  );
-  const label = document.createElement("span");
-  label.textContent = c.label;
-  label.style.cssText = "font-size:8px;letter-spacing:1px;color:#574d84;text-align:center";
-  col.appendChild(label);
-  return col;
-}
+import { TAILS, type TailId } from "./tails/index.js";
 
 /**
- * The one grid, walked per axis: `entry` drawn once per `cells` entry, all of
- * them at the size the page's cards already draw at, wrapping rather than
- * shrinking to fit a row.
+ * The taller card the TAIL row draws into.
+ *
+ * Every other axis draws something that surrounds the body, so the square
+ * 92 px card fits it. A tail is entirely *vertical* — two or three
+ * body-heights up and nothing sideways — and in a square frame padded for that
+ * the body came out around 25 px: right on the legibility floor
+ * `docs/spec/graphics.md` sets, and nothing like the size the field shows it
+ * at. At 190 the same body draws near 50 px with the whole tail in shot. It is
+ * the fix `isWide` already makes for a hull, turned ninety degrees.
  */
-function grid(hostId: string, entry: CatalogueEntry, cells: Cell[]): void {
-  const host = document.getElementById(hostId);
-  if (!host) return;
-  host.replaceChildren();
-  const wide = isWide(entry);
-  const stroke = STROKE[entry.status];
-  const wrap = document.createElement("div");
-  wrap.style.cssText = "display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start";
-  for (const c of cells) wrap.appendChild(figureCell(BOX, wide ? WIDE : BOX, stroke, entry, c));
-  host.appendChild(wrap);
-}
+const TAIL_BOX = 190;
 
-/**
- * The whole foot of the page: the body picker, then the three grids. Called
- * from `shapes-panel.ts`'s `renderShapes`, so a click on the skin, light or
- * motion bar above — which reruns that function — redraws these too, and the
- * two axes each grid is holding still stay in step with what the bar says.
- */
 export function renderShapesAll(): void {
   const bodyHost = document.getElementById("shapesAllBody");
   if (!bodyHost) return;
@@ -155,16 +97,17 @@ export function renderShapesAll(): void {
   const skin = currentSkin();
   const glows = currentGlows();
   const hits = currentHits();
+  const tails = currentTails();
 
   grid(
     "shapesAllSkins",
     entry,
-    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows, hits })),
+    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows, hits, tails })),
   );
   grid(
     "shapesAllMotions",
     entry,
-    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows, hits })),
+    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows, hits, tails })),
   );
   // NONE first and then one glow at a time, never the stack the bar is set to.
   // The other three grids hold their own axis against whatever the reader
@@ -182,8 +125,17 @@ export function renderShapesAll(): void {
   // effect.
   const padFor = GLOWS.map((g) => g.id);
   grid("shapesAllGlows", entry, [
-    { label: "NONE", skin, lit, motion, glows: [], padFor, hits },
-    ...GLOWS.map((g) => ({ label: g.label, skin, lit, motion, glows: [g.id], padFor, hits })),
+    { label: "NONE", skin, lit, motion, glows: [], padFor, hits, tails },
+    ...GLOWS.map((g) => ({
+      label: g.label,
+      skin,
+      lit,
+      motion,
+      glows: [g.id],
+      padFor,
+      hits,
+      tails,
+    })),
   ]);
   // One hit per cell, on the page-wide clock, so the whole row flinches
   // together and the seven can be told apart in one glance. Every cell is
@@ -192,7 +144,7 @@ export function renderShapesAll(): void {
   // the row would be comparing frames.
   const hitPad = HITS.map((h) => h.id);
   grid("shapesAllHits", entry, [
-    { label: "NONE", skin, lit, motion, glows, hits: [], padForHits: hitPad },
+    { label: "NONE", skin, lit, motion, glows, hits: [], padForHits: hitPad, tails },
     ...HITS.map((h) => ({
       label: h.label,
       skin,
@@ -201,10 +153,33 @@ export function renderShapesAll(): void {
       glows,
       hits: [h.id],
       padForHits: hitPad,
+      tails,
     })),
   ]);
+  // The one grid whose cells are not all proposals: HALOES and WEDGE are what
+  // the game draws now, captioned so, and the rest are offers against them.
+  const tailPad = TAILS.map((x) => x.id);
+  grid(
+    "shapesAllTails",
+    entry,
+    [
+      { label: "NONE", skin, lit, motion, glows, hits, tails: [], padForTails: tailPad },
+      ...TAILS.map((x) => ({
+        label: x.label,
+        skin,
+        lit,
+        motion,
+        glows,
+        hits,
+        tails: [x.id],
+        padForTails: tailPad,
+        note: x.shipped ? "IN THE GAME" : undefined,
+      })),
+    ],
+    TAIL_BOX,
+  );
   grid("shapesAllLight", entry, [
-    { label: "LIT", skin, lit: true, motion, glows, hits },
-    { label: "UNLIT", skin, lit: false, motion, glows, hits },
+    { label: "LIT", skin, lit: true, motion, glows, hits, tails },
+    { label: "UNLIT", skin, lit: false, motion, glows, hits, tails },
   ]);
 }

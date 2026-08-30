@@ -33,6 +33,7 @@ import type { GlowId } from "./glows/index.js";
 import type { HitId } from "./hits/index.js";
 import { shapeFigure } from "./shape-figure.js";
 import type { SkinId } from "./skins/index.js";
+import type { TailId } from "./tails/index.js";
 
 /**
  * Which skin every card is wearing. MEMBRANE rather than LINE, because the
@@ -83,6 +84,15 @@ let glows: GlowId[] = [];
  * either way and NONE is still the honest starting point.
  */
 let hits: HitId[] = [];
+
+/**
+ * Which tails every card wears — what it leaves behind on its way down.
+ *
+ * Empty by default like the other two stacks, and for a sharper reason here:
+ * two of the values on that axis are *what the game already draws*, so a
+ * default of anything else would be the page quietly proposing a change.
+ */
+let tails: TailId[] = [];
 
 /** What actually drives a card, so a caption can name it rather than guess. */
 export function driving(entry: CatalogueEntry): OwnMotion | undefined {
@@ -157,6 +167,21 @@ export function clearHits(): void {
   hits = [];
 }
 
+/** The tail stack every card is currently wearing, in registry order. */
+export function currentTails(): readonly TailId[] {
+  return tails;
+}
+
+/** Turns one tail on or off, leaving the rest alone. */
+export function toggleTail(id: TailId): void {
+  tails = tails.includes(id) ? tails.filter((x) => x !== id) : [...tails, id];
+}
+
+/** Takes the whole stack off. */
+export function clearTails(): void {
+  tails = [];
+}
+
 /**
  * The whole control row, built once above the drafts and read by
  * `shapes-all.ts`'s three grids besides. Its own file, `shapes-controls.ts`,
@@ -184,5 +209,6 @@ export function picture(entry: CatalogueEntry, o: PictureOptions): Element {
     motion,
     glows,
     hits,
+    tails,
   });
 }

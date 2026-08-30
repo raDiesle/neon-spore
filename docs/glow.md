@@ -259,3 +259,62 @@ version was a dark **fill**, and beside NONE it was the same picture. A fill
 covers a body's interior, and the one bright thing on a card is the *rim* — the
 stroke sits on the contour itself and survived untouched. Anything here that
 means to hide a body has to wear the outline too.
+
+# Tails
+
+A **tail** is what a body leaves behind it as it falls. The TAIL row on COMPOSE
+ticks any number of them, and `tools/director/src/tails/` is laid out like
+`glows/` and `hits/`.
+
+## Why it is a sixth axis
+
+It is the first one about the **field** rather than the body. Every creature in
+this game falls down a column — that is the whole of the motion the field has —
+and no card on this page had ever shown it. A contour on a card sways in place
+because a card has nowhere to fall to, so the axis that asks *what does this
+look like on its way down* had to be invented rather than derived from
+something already there.
+
+It is not GLOW's `TRAIL` with a different name. That value rides `frame.pose`:
+a body's own sway, a fraction of a tile, going nowhere. Measuring every motion
+in the catalogue put the largest whole excursion at 0.22 tiles. This is travel,
+in one direction, at the speed the field actually moves.
+
+## Two of them are the game
+
+`HALOES` is what a slick and a bulb wear today; `WEDGE` is what a torch wears.
+They carry `shipped`, naming the file and function they came from, and they are
+on the axis **as controls** — marked IN THE GAME under the card and with a `*`
+in the switcher. `docs/shipped-looks.md` is the long version.
+
+This is the axis where CLAUDE.md's *a look is offered, never replaced* stops
+being an abstraction. A proposal judged against a memory of the shipped look
+wins every time, because the memory is vaguer than the picture beside it.
+`tails.test.ts` fails if either marker is ever dropped.
+
+## The field that is different in kind
+
+`Tail.reachUp` is how far the tail reaches **upward**, as a multiple of the
+body's own height — not `Glow.spread`'s even padding in every direction.
+
+A tail is the one asymmetric thing on this page. It runs two or three
+body-heights behind and nothing at all in front, and padding evenly for it
+would waste exactly as much room below the body as it used above.
+`figureLayout` grows the box upward alone and moves the centre up by half as
+much, which drops the body toward the bottom of its frame.
+
+It is measured in body-heights rather than in `reach` because a tail is behind
+a body: a long body has a longer one, and a hull with a two-height tail is not
+a hull with a two-`reach` tail.
+
+**The TAIL row also draws into a taller card** — 190 px against the page's 92.
+Every other axis surrounds the body, so a square frame fits it; padded for two
+and a half body-heights of tail, a square card drew the body at about 25 px,
+right on the legibility floor and nothing like the size the field shows it at.
+It is the fix `isWide` already makes for a hull, turned ninety degrees.
+
+## Drawn first, behind everything
+
+`buildTails` runs before the glows, which run before the skin. A tail is the
+one thing on this page that is unambiguously *behind* the body rather than on
+it or around it.

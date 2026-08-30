@@ -1,5 +1,6 @@
 import { buildGlows, type GlowId } from "../glows/index.js";
 import { buildHits, type HitId } from "../hits/index.js";
+import { buildTails, type TailId } from "../tails/index.js";
 import { CARAPACE, MOUNTED_CARAPACE } from "./carapace.js";
 import { CHAMBER } from "./chamber.js";
 import { CILIA } from "./cilia.js";
@@ -138,6 +139,9 @@ export function buildSkin(
      * three or four simple layers stacked, not one picked. See `hits/index.ts`.
      */
     hits?: readonly HitId[];
+    /** Which tails are on — what the body leaves behind as it falls. Built
+     * first of everything, since a tail is unambiguously behind the body. */
+    tails?: readonly TailId[];
     /** The group wrapping everything drawn, which a hit that moves the whole
      * figure writes its transform onto. See `SkinContext.transform`. */
     shell?: SVGGElement;
@@ -167,6 +171,8 @@ export function buildSkin(
   // Under, then the skin, then over — the order `glows/index.ts` declares and
   // never the order the reader ticked the boxes in. The skin has to be able to
   // go between the two, which is why this is two calls and not one.
+  // A tail is behind everything: behind the glow that is behind the skin.
+  buildTails(opts.tails ?? [], ctx);
   const glows = opts.glows ?? [];
   buildGlows(glows, "under", ctx);
   (SKINS.find((s) => s.id === skin) ?? LINE).build(ctx);
