@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun build ./index.html --outdir=dist --minify --sourcemap",
+    "build": "bun run build.ts",
     "preview": "bun run build && bun preview.ts",
     "preview:once": "bun run build && PREVIEW_PORT=0 bun preview.ts"
   },

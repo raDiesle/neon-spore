@@ -25,6 +25,7 @@
       #status { font-size: 10px; color: var(--dim); }
       #status.dirty { color: var(--gold); }
       #status.bad { color: var(--red); }
+      #buildStamp { font-size: 10px; letter-spacing: 1px; color: #3c3468; }
 
       button {
         font: 11px "Courier New", monospace; color: var(--dim); padding: 4px 9px;
@@ -873,6 +874,9 @@
            so this says so once rather than letting a stale field pass for a
            live one. -->
       <span id="shippedNote" class="note" hidden>shows what was built, not what is on disk — read only</span>
+      <!-- Which bundle this is — see tools/build-stamp.ts. A date under a
+           dev server would be noise, so it says DEV BUILD there instead. -->
+      <span id="buildStamp"></span>
       <span class="spacer"></span>
       <button type="button" id="checksOpen">⚑ TO CHECK</button>
       <button type="button" id="orphansOpen">☠ ORPHANS 0</button>

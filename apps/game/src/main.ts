@@ -11,6 +11,7 @@ import {
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
 import { demoRows, openDemonstration } from "./demo-menu.js";
@@ -24,6 +25,8 @@ import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
 import { createWaveProgression } from "./waves.js";
+
+mountBuildStamp();
 
 const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");

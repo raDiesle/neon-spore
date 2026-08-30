@@ -89,6 +89,15 @@
       }
       #waveSkip span { font-size: 10px; color: #9c8fd6; padding: 0 3px; min-width: 22px; text-align: center; }
 
+      /* Which bundle is on the screen. A deployed page that quietly serves
+         yesterday's build looks exactly like one that worked, so the date
+         says so — small, dim, and out of every thumb's way. See
+         tools/build-stamp.ts. */
+      #buildStamp {
+        position: fixed; right: 6px; bottom: 4px; z-index: 4; pointer-events: none;
+        font: 9px/1 "Courier New", monospace; letter-spacing: 1px; color: #3c3468;
+      }
+
       #panel {
         position: fixed; inset: 0; z-index: 10; display: none; overflow-y: auto;
         background: rgba(7, 6, 15, 0.96); padding: 18px 16px 40px;
@@ -167,6 +176,7 @@
         → / ← next and previous wave · P pause.
       </p>
     </div>
+    <div id="buildStamp"></div>
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

@@ -13,6 +13,7 @@ import { initPanels } from "./panels.js";
 import { bindRail } from "./rail.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
+import { bindShipped } from "./shipped.js";
 import { bindSoundPage } from "./sound-page.js";
 import { bindStage } from "./stage.js";
 import {
@@ -63,18 +64,7 @@ const isMobileView = (v: string | null): v is MobileView =>
     });
 })();
 
-// A shipped build has no write route — hide what would fail rather than
-// offer it; a route that cannot be reached at all reads the same way.
-void fetch("/__director")
-  .then((r) => r.json())
-  .then((b: { shipped?: boolean }) => b.shipped !== false)
-  .catch(() => true)
-  .then((shipped) => {
-    if (!shipped) return;
-    for (const id of ["save", "checksOpen", "mainMenuLink"])
-      document.getElementById(id)?.setAttribute("hidden", "");
-    document.getElementById("shippedNote")?.removeAttribute("hidden");
-  });
+bindShipped();
 
 // The bundled waves are the fallback — the server reads the file from disk.
 const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };

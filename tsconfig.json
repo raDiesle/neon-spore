@@ -21,6 +21,7 @@
     "packages/*/test/**/*.ts",
     "apps/*/src/**/*.ts",
     "apps/*/test/**/*.ts",
+    "apps/game/build.ts",
     "apps/server/dev.ts",
     "tools/**/*.ts"
   ],

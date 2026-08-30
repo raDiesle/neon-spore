@@ -1,6 +1,7 @@
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
+import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
 import { checksState } from "./src/checks-api.js";
 import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./src/docs-api.js";
@@ -50,6 +51,7 @@ const result = await Bun.build({
   outdir: distDir,
   minify: true,
   sourcemap: "linked",
+  define: { __BUILD_DATE__: JSON.stringify(buildDateToday()) },
 });
 
 if (!result.success) {
@@ -84,6 +86,7 @@ await Promise.all([
       tree: "built",
       shipped: true,
       builtAt: new Date().toISOString(),
+      builtOn: buildDateToday(),
     }),
   ),
 ]);
