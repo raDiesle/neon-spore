@@ -1,6 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { studded } from "../forms/index.js";
-import { LURCH, SHIVER, SWELL } from "../motions.js";
+import { haloed, shed, spanned, studded } from "../forms/index.js";
+import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH } from "../motions.js";
 
 /**
  * Three bodies converted out of another game's frame — `docs/tower-defence.md`,
@@ -90,5 +90,74 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "nothing carries it: converted from the capsule-shaped bodies in the same frame, which wear a fringe of fine hairs all round a rounded rectangle. It is deliberately the same form as THE RASP at more than twice the count and half the width, so the two differ in exactly the numbers that separate a spine from a hair, and the body under it is squared off rather than round — and standing them beside each other is how you find out whether that difference is visible on a phone or only in the source file",
+  },
+  {
+    subject: haloed("THE CORONA", "a ring of nodes that turns, with one wide gap in it", {
+      r: 96,
+      // Wide: `ring.test.ts` holds a ring to enclosing its material rather than
+      // its opening, and a band this thin is also truer to the source, which
+      // is a small core inside a wide circle of satellites.
+      hole: 0.56,
+      nodes: 11,
+      bump: 0.2,
+      // A shade under a fifth of a turn per beat: the gap comes round in about
+      // six beats, which is long enough to be waited for and short enough that
+      // waiting is a decision rather than a delay.
+      spin: 0.19,
+      missing: 2,
+      seed: 8.3,
+    }),
+    motion: TURN,
+    status: "free",
+    slot: "boss",
+    owner:
+      "nothing carries it: converted from Neon Pulsefire's arena boss, a core inside a circle of orbiting satellites. It is very nearly THE WARDEN arrived at independently, and that is the reason to be careful with it rather than the reason to build it — what it has that ours does not is that the opening *comes round* instead of being moved, so waiting is a thing the pair can do. It belongs beside the warden in a VERSUS pair and never instead of it",
+  },
+  {
+    subject: shed("THE RIND", "three sizes, stepped down, and the rim smooths as it goes", {
+      r: 52,
+      layers: 3,
+      step: 0.19,
+      dwell: 4,
+      teeth: 9,
+    }),
+    motion: TWITCH,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing carries it: converted from the Bloons ceramic, whose shell cracks visibly so the player reads what is left off the body instead of off a bar. The conversion argues we can do better than crack — shrink — and the card is drawn to be watched rather than looked at: the size steps rather than eases, because a jump is an event and an ease is breathing, and the pair has to see an event to say the word again",
+  },
+  {
+    subject: spanned("THE CANOPY", "a faceted arc over the whole hull, with the middle spent", {
+      rx: 124,
+      rise: 64,
+      facets: 9,
+      // Two facets gone from the middle, which is where a barrier is hit
+      // first. A whole one is the other half of the card and is what the
+      // director's own pair view is for.
+      gone: 2,
+    }),
+    status: "free",
+    slot: "field",
+    owner:
+      "nothing carries it: converted from the Galaxy Defense dome, the one object on that page the ask named by hand. What is worth taking is not that it is a shield — we have a shield — but that it is *faceted*, so how much is left is a shape rather than a brightness, and a pair can say which part of it is gone. Drawn with two facets already spent, because a barrier at full strength is just an arc and says nothing about the mechanic",
+  },
+  {
+    subject: studded("THE SMART", "a rock that has been turned and is coming back onto its line", {
+      rx: 46,
+      ry: 44,
+      studs: 7,
+      reach: 0.12,
+      width: 0.62,
+      blunt: 0.4,
+      lobes: 2,
+      depth: 0.07,
+      seed: 4.4,
+    }),
+    motion: SETTLE,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing carries it, and it is the one card here whose argument is the motion rather than the contour: the body is deliberately near a meteor, because Missile Command's smart bomb is an ordinary warhead that *steers*. SETTLE is the whole proposal — it wanders off its line and snaps back — and the shape is only there so that something is carrying it. If the motion reads on this, it reads on the rock we already draw",
   },
 ];

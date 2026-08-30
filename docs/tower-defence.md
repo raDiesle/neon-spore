@@ -395,13 +395,40 @@ a silhouette can actually be judged: a card here would be a picture at whatever
 size the column happened to be, and the question about all three is what they
 do at 26 px.
 
+### The bodies
+
 | Converted | From | The claim | What to look at |
 |---|---|---|---|
-| `THE BURR` | the stage boss | a heavy lobed body wearing blunt knobs, with a crown of longer ones on top | does the crown read as a *front*, or only as a rim that got untidy |
-| `THE RASP` | the spiked discs | a small round body under a ring of twenty short spines | does a spine survive a phone, where it is one pixel and the slick's own wobble is already ragged |
-| `THE BRISTLE` | the capsules | a squared-off lozenge in a fringe of forty-four fine hairs | is a hair distinguishable from a spine at all, or only in the source file |
+| `THE BURR` | the Galaxy Defense stage boss | a heavy lobed body wearing blunt knobs, with a crown of longer ones on top | does the crown read as a *front*, or only as a rim that got untidy |
+| `THE RASP` | its small spiked discs | a small round body under a ring of twenty short spines | does a spine survive a phone, where it is one pixel and the slick's own wobble is already ragged |
+| `THE BRISTLE` | its capsules | a squared-off lozenge in a fringe of forty-four fine hairs | is a hair distinguishable from a spine at all, or only in the source file |
+| `THE CORONA` | Neon Pulsefire's ring boss | eleven nodes on a turning ring, two of them missing, so one wide opening comes round every six beats | is an opening that *arrives* better than the warden's, which is moved |
+| `THE RIND` | the Bloons ceramic | three sizes stepped down, the rim smoothing as it goes | does the step read as an event — the thing that makes a player say "again" — or as a body breathing |
+| `THE CANOPY` | the Galaxy Defense dome | a faceted arc over the whole hull with two facets spent out of the middle | can you see *which part* is gone at the width the hull gets, and is that worth more than a glow getting dimmer |
+| `THE SMART` | Missile Command's smart bomb | an ordinary rock — the argument is entirely in how it moves | see `SETTLE` below; the body is only there to carry it |
 
-**Converted, not copied.** What crosses over is the claim the outline makes.
+### The motions
+
+Three, in `motions/borrowed.ts`, on the same tab. A motion is judged in the
+motion view rather than in a still, and each of these had to earn a signature
+no existing one carries — a fourth candidate was dropped for failing that, a
+strobing invulnerability, which is `SWELL` with a harder edge and is `throb`
+besides.
+
+| Converted | From | What it does | Judge it against |
+|---|---|---|---|
+| `RECOIL` | the PvZ vault, inverted | knocked back hard, drifts down slowly, then **holds** for over half the cycle | `HEAVE`, which never stops — the hold is the whole difference and it is what reads as *coming on again* |
+| `TUMBLE` | the meteor sprite's fire tail, and Sarelgaz's legs | a slow rotation with a tremor at seventeen times its rate riding on it | `TURN`, which is the same rotation with nothing on it. The pair asks whether a second clock is visible at 26 px or is simply noise |
+| `SETTLE` | Missile Command's smart bomb | wanders off its line over four beats, then snaps back onto it in half of one | `LURCH` and `CANT`, which both travel and both stay. This is the only one that returns, and the asymmetry is the tell: eased home reads as loose, snapped home reads as steered |
+
+`TUMBLE` is the cheapest thing on this page and the one worth trying first. It
+costs nothing in silhouette, it is one extra term in a pose, and the whole
+observation behind it is that a body with one clock reads as drawn while a body
+with two reads as alive.
+
+
+**Converted, not copied.** What crosses over is the claim the outline makes,
+or the timing.
 What is left behind is everything the source says with fill and light — the
 interior blisters, the bright pustules, the pale core inside the capsule — none
 of which reaches a phone, and all of which would make these pictures of a
@@ -416,11 +443,28 @@ that it is a shelf. A free contour is a picture looking for a behaviour, which
 is exactly what these are — and handing one to a bestiary entry is a decision
 somebody makes by looking at it.
 
-`forms/studded.ts` is the one piece of machinery the three needed: a rim of the
-same feature repeated, with `width` and `blunt` separate so that a club, a spine
-and a hair are three points on one axis rather than three forms. The first cut
-had them as one number and produced a cog, which is the whole reason they are
-two.
+Three pieces of machinery were needed. `forms/studded.ts` is a rim of the same
+feature repeated, with `width` and `blunt` separate so that a club, a spine and
+a hair are three points on one axis rather than three forms — the first cut had
+them as one number and produced a cog, which is the whole reason they are two.
+`forms/haloed.ts` is a ring whose nodes travel, so the gap between two of them
+comes round rather than being moved. `forms/spanning.ts` holds the two that are
+not bodies at all: the barrier, and a shell coming off in steps.
+
+**Two things were looked at and not converted**, which is worth saying because
+a catalogue that only ever grows stops meaning anything. Neon Pulsefire's small
+bodies are hard polygons, and `crystal` in `subjects.ts` already draws every one
+of them — a meteor *is* a seven-sided crystal. What that game does that we do
+not is spend a polygon on a body that is *alive*, and that is a decision about
+the bestiary rather than a shape anybody has to draw. Kingdom Rush's Tyranthor
+is one mass with one bright mouth, and `mawed` has drawn that since THE MOTHER;
+the part that does not transfer is the contrast, which is fill and light.
+
+And one mistake is worth recording because it took a frame to catch: `THE
+CANOPY`'s spent facets were first made by dropping points out of one open path,
+which does not put a gap in it — it puts a longer straight segment in it, and
+the barrier rendered looking whole. A hole in something open has to be a break
+between two subpaths.
 
 ## If exactly one thing were built from this page
 

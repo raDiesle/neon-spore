@@ -50,44 +50,36 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## CONVERT THE REST OF THE COLLECTED BODIES INTO CONTOURS
-_claude/convert-collected-bodies · tools/shape-sheet/src/forms tools/shape-sheet/src/drafts tools/shape-sheet/test docs/tower-defence.md_
+## COLLECT AND CONVERT A SECOND GAME'S BODIES
+_claude/convert-second-game · tools/shape-sheet/src/forms tools/shape-sheet/src/drafts tools/shape-sheet/test docs/tower-defence.md_
 **Asked for by the owner.** *"i expect you collect also boss screenshots and
 enemy unit screenshots. then try some to convert that they look near to their,
 but for our game."*
 
-Three are done — `THE BURR`, `THE RASP` and `THE BRISTLE`, off the Galaxy
-Defense frame, in `drafts/tower-defence.ts` and on the SHAPES tab.
-`docs/tower-defence.md` carries five more reference bodies that nobody has
-tried to redraw, and each one needs a *different* thing from the tool, which is
-why this is a lane rather than a list:
+Seven bodies and three motions are converted off the four games
+`docs/tower-defence.md` already reads — that page's "What has been converted"
+section lists them, and they are on the SHAPES tab as free contours. The two
+that were deliberately **not** converted are named there too, with the reason,
+and that half matters: a catalogue that only grows stops meaning anything.
 
-- **Neon Pulsefire's ring boss** — a core inside a ring of orbiting nodes.
-  `ring.ts` already draws a contour with a hole; what is missing is nodes on
-  the ring that turn, so the gap between two of them is a moving opening. This
-  is the nearest of the five to something the game has, because it is the
-  warden, and that is the reason to be careful with it: the card exists to ask
-  whether an orbiting gap reads better than a sliding one, and it must be
-  offered beside the warden rather than instead of it.
-- **Neon Pulsefire's small bodies** — hexagons, arrowheads and four-petal
-  rosettes, all outline and no fill. `crystalPath` draws angular shapes
-  already; the open question is whether a hard polygon can stand in a bestiary
-  of grown bodies without reading as a different game.
-- **Kingdom Rush's Tyranthor** — one enormous mass, one bright mouth, the rest
-  dark. `mawed` exists and was drawn for THE MOTHER; the question is whether it
-  survives being asked for a mouth that is a *feature of a silhouette* rather
-  than the thing the body is built around.
-- **The Bloons ceramic** — a shell that visibly cracks as it is hit. This is the
-  one that is not a contour at all: it is three contours and a rule about which
-  one is showing, which is what `RIND` on the page is asking for. Read
-  `shapes-motion.ts` before deciding it is a form.
+What is left is a different game, not more of the same one. The four already
+read are a vertical tower defence, a bullet heaven, a lane defence and a lane
+defence with a fringe on everything — and the second and third gave up one body
+each, because their vocabulary is ours already. Pick a game whose bodies are
+built out of something this catalogue has never drawn: hard polygons carrying
+*life* (Neon Pulsefire spends them and we only spend them on rock), bodies made
+of separate parts that stay apart, or anything whose silhouette changes because
+of what it is *doing* rather than what it is.
 
-Each conversion lands as a **free** contour with an `owner` line saying what
-was left behind and why, the way the three existing ones do — never as a
-`draft`, which would name an idea in `docs/spec/ideas.md` that nobody has
-accepted. Expect to move the counted assertions in `drawn-size.test.ts` and
-`long-axis.test.ts`; both say in their own headers that the denominator moves
-whenever a body is added, and both are the test noticing rather than breaking.
+Read the existing seven first. Each carries an `owner` line saying what was
+left behind and why, and the useful pattern in them is that the conversion is
+never the picture — it is the one claim the outline makes, redrawn. A card that
+does not name what it dropped has not been converted, it has been traced.
+
+Each lands as a **free** contour, never a `draft`: a draft names an idea in
+`docs/spec/ideas.md` and nothing collected this way is one. Expect to move the
+counted assertions in `drawn-size.test.ts` and `long-axis.test.ts`; both say in
+their own headers that the denominator moves when a body is added.
 
 `Check: on the SHAPES tab, does each converted body read as the thing it was converted from — and does it still read at 26 px?`
 

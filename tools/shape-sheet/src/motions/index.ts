@@ -1,4 +1,5 @@
 import type { OwnMotion } from "@neon-spore/content";
+import { RECOIL, SETTLE, TUMBLE } from "./borrowed.js";
 import { APPROACH, CRAWL, PITCH, TURN_IN_DEPTH } from "./depth.js";
 import {
   CANT,
@@ -27,11 +28,14 @@ export {
   LURCH,
   PERISTALSIS,
   PITCH,
+  RECOIL,
   SAG,
+  SETTLE,
   SHIVER,
   SLITHER,
   SWELL,
   TOLL,
+  TUMBLE,
   TURN,
   TURN_IN_DEPTH,
   TWITCH,
@@ -50,6 +54,7 @@ export {
  * | `plane.ts` | the eleven that move a body about a flat page |
  * | `depth.ts` | the four that project a body moving in depth onto it |
  * | `pulse.ts` | the three that put an attack in a swell, beside SWELL |
+ * | `borrowed.ts` | the three read off other games — see `docs/tower-defence.md` |
  *
  * `MOTIONS` below is the **only** place that knows which motions exist — the
  * drafts panel iterates it, and `tools/shape-sheet/src/index.ts` re-exports
@@ -67,6 +72,10 @@ export const MOTIONS: OwnMotion[] = [
   TWITCH,
   TURN,
   TURN_IN_DEPTH,
+  // Immediately after TURN for the same reason a depth variant is: TUMBLE is
+  // that rotation with a second clock on it, and whether the tremor is visible
+  // at all can only be answered by the two of them on one page.
+  TUMBLE,
   DRIFT,
   TOLL,
   SWELL,
@@ -75,7 +84,9 @@ export const MOTIONS: OwnMotion[] = [
   HEART,
   PERISTALSIS,
   LURCH,
+  SETTLE,
   HEAVE,
+  RECOIL,
   SLITHER,
   CRAWL,
   CANT,

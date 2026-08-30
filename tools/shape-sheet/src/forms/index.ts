@@ -33,6 +33,10 @@
  * - `studded` — a rim of the same feature repeated: knobs, spines or hairs,
  *   which is what almost every other game reaches for to tell one falling body
  *   from another
+ * - `haloed` — a ring whose nodes travel, so the opening between two of them
+ *   comes round rather than being moved
+ * - `spanning` — the two that are not bodies: a faceted barrier over the hull,
+ *   and a shell coming off in steps
  * - `walked` — an outline stepped corner to corner, for what a radius cannot
  *   say: an arm has no inside to have a radius of, and a rim of square plates
  *   is not a function of angle but a rule about one edge
@@ -40,9 +44,11 @@
 
 export { rooted, welling } from "./anchored.js";
 export { type ClusterOpts, cluster, moulded } from "./cluster.js";
+export { type HaloedOpts, haloed } from "./haloed.js";
 export { type SacSkin, sac, slumped } from "./hanging.js";
 export { heeled, hooked } from "./hooked.js";
 export { type PileOpts, pile } from "./pile.js";
 export { bloom, glyphed, mawed, slab } from "./radial.js";
+export { type ShedOpts, type SpanOpts, shed, spanned } from "./spanning.js";
 export { type StuddedOpts, studded } from "./studded.js";
 export { arm, type PlatedOpts, plated, type VaneOpts, vane } from "./walked.js";
