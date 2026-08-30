@@ -1507,3 +1507,21 @@ now uses, rather than a number somebody already eased.
 
 Worth deciding by looking first: the button may turn out to be enough, and a
 second signal for one state would then be noise.
+
+## A sheet page's introduction sits on top of what it introduces
+
+2026-08-30 · claude/td-research
+
+Director · Defect
+
+Every `.pagewhat` in NOT BUILT YET is `position: sticky`, so scrolling a tab
+slides the page's own content underneath its introduction and the two overlap
+as unreadable text. BORROWED shows it and so does TOWER DEFENCE — the
+paragraph is longest on exactly the two tabs that render a document whole, so
+it covers the most there.
+
+Not done in that lane because the lane was a document and one new tab, and a
+sticky rule shared by nine tabs is a change to all nine. Start by asking
+whether the introduction should be sticky at all: it is read once, before the
+tab is read, and a heading that follows you down a page is only worth its room
+when it says where you are.

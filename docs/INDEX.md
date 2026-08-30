@@ -25,6 +25,8 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
 | `docs/delegation-pitfalls.md` | you turn delegation back on for more tasks — the failure modes already hit |
+| `docs/borrowed.md` | you are mining It Takes Two or Split Fiction for a mechanic — the verdict column says what can reach this game |
+| `docs/tower-defence.md` | you want a slick, a bulb or a meteor to be played differently, or a weapon or helping system — read off 2D tower defence, with pictures |
 | `docs/asset-catalogue.md` | you are looking for a shape to spend, or adding one |
 | `CONVENTIONS.md` | you change what the worker is allowed to do or must know |
 

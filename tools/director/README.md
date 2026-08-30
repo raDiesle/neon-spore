@@ -120,6 +120,8 @@ somebody wrote it down.
 | `MECHANICS` | couplings, assist forms, systems and the mechanic ideas |
 | `CONTROLS` | what a player's own hands would do differently |
 | `BOSSES` | the act order, minus the ones that exist |
+| `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
+| `TOWER DEFENCE` | the same for 2D tower defence — what else a slick, a bulb or a meteor could be, with the reference pictures linked from those games' own wikis |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
 | `SPEC` | every file in `docs/spec/`, verbatim |
 
@@ -380,10 +382,11 @@ there is no repository behind a static bundle. `tools/director/build.ts` is
 that build: it bundles the client exactly like the game's own build, then
 bakes every *read* route the client already calls (`/api/waves`, from
 `@neon-spore/content`, the same compiled source the game itself reads;
-`/api/backlog`, `/api/borrowed`, `/api/spec`, `/api/checks`) into a plain
+`/api/backlog`, `/api/borrowed`, `/api/tower-defence`, `/api/spec`,
+`/api/checks`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
-with a handler, so none of `backlog-page.ts`, `spec.ts`, `borrowed.ts` or
+with a handler, so none of `backlog-page.ts`, `spec.ts`, `whole-doc.ts` or
 `versus-vote.ts` needed to change.
 
 `PUT` and `POST` have no file to land on. Saving a wave, deciding or running

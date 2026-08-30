@@ -322,6 +322,15 @@
         border-bottom: 1px solid var(--line-soft);
       }
       table.md-table th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
+      /* The one thing the director draws that it did not make: a reference
+         picture off another game's server, on the TOWER DEFENCE tab. Capped
+         rather than fitted, because a 64 px sprite blown to the column width
+         is a worse answer than a 64 px sprite. A picture that never arrives
+         leaves its alt text, which is why those are written as sentences. */
+      img.md-img {
+        display: block; max-width: 100%; max-height: 460px; width: auto; height: auto;
+        margin: 8px 0; border: 1px solid var(--line-soft); background: #000;
+      }
 
       .expand { font-size: 9px; letter-spacing: 1px; margin: 0 0 8px; }
 
@@ -1152,6 +1161,7 @@
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
+        <button type="button" data-tab="towerdefence">TOWER DEFENCE</button>
         <button type="button" data-tab="spec">SPEC</button>
       </div>
       <div id="backlogBody">
@@ -1333,6 +1343,19 @@
             worth as much here as a yes.
           </p>
           <div id="borrowedDoc"></div>
+        </div>
+        <div class="sheetpage" id="sheet-towerdefence">
+          <p class="pagewhat">
+            The same treatment, turned on 2D tower defence — Galaxy Defense:
+            Fortress TD, Bloons, Plants vs Zombies, Kingdom Rush and Asteroids
+            — and asking one question: what else can a slick, a bulb or a
+            meteor be, without becoming a fourth creature. Their geometry is
+            ours, so almost everything transfers and the work is saying which
+            of it we already have under another name. The pictures are linked
+            from those games' own wikis and stores, never copied in: none of
+            that art is ours and this repository is public.
+          </p>
+          <div id="towerDefenceDoc"></div>
         </div>
         <div class="sheetpage" id="sheet-spec">
           <p class="pagewhat">

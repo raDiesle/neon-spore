@@ -1,7 +1,7 @@
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
-import { readBorrowedText, readSpecFiles } from "./server.js";
+import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./server.js";
 import { backlogState } from "./src/backlog-api.js";
 import { checksState } from "./src/checks-api.js";
 
@@ -16,12 +16,12 @@ import { checksState } from "./src/checks-api.js";
  * `waves.ts`, decide a check or run one — none of that survives a build,
  * because there is no repository behind a static bundle. What *can* survive
  * is everything the director only ever reads: the wave list, the backlog
- * ("NOT BUILT YET"), the spec, `docs/borrowed.md`, and the check ledger's own
+ * ("NOT BUILT YET"), the spec, `docs/borrowed.md` and `docs/tower-defence.md`, and the check ledger's own
  * state (read by VERSUS for the head it voted against — never by a decide or
  * a run, which have no route to call). Each of those is baked here, once, at
  * build time, into a plain file under `dist/api/`, at the exact path the
  * client already fetches — `main.ts`, `backlog-page.ts`, `spec.ts`,
- * `borrowed.ts` and `versus-vote.ts` need no change: a static host answering
+ * `whole-doc.ts` and `versus-vote.ts` need no change: a static host answering
  * `GET /api/backlog` with a file looks identical to `server.ts` answering it
  * with a handler. `PUT` and `POST` have no such file to land on, so saving a
  * wave or deciding a check simply has nowhere to go — which is why `main.ts`
@@ -73,6 +73,7 @@ await Promise.all([
   bake("api/backlog", await backlogRes.text()),
   bake("api/checks", await checksRes.text()),
   bake("api/borrowed", JSON.stringify({ text: await readBorrowedText() })),
+  bake("api/tower-defence", JSON.stringify({ text: await readTowerDefenceText() })),
   bake("api/spec", JSON.stringify({ files: await readSpecFiles() })),
   bake(
     "__director",

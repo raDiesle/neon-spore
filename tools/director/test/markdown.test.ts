@@ -13,6 +13,8 @@ interface Node {
   textContent: string;
   kids: Node[];
   className: string;
+  /** Only an `<img>` sets one, and whether it does is the point — see below. */
+  src?: string;
   appendChild(kid: Node): void;
 }
 
@@ -31,6 +33,7 @@ function node(tag: string): Node {
 
 function serialize(n: Node): string {
   if (n.tag === "#text") return n.textContent;
+  if (n.tag === "img") return `<img src="${n.src ?? ""}">`;
   const inner = n.textContent + n.kids.map(serialize).join("");
   return `<${n.tag}>${inner}</${n.tag}>`;
 }
@@ -99,6 +102,30 @@ describe("renderMarkdown", () => {
 
   test("a heading lands two levels down, so a spec h2 does not fight the panel's", () => {
     expect(render("## 10.2 Newly accepted")).toBe("<h4>10.2 Newly accepted</h4>");
+  });
+
+  /**
+   * The image is the only thing this renderer puts on the page that it did not
+   * build out of text, and the only attribute it sets that a browser will go
+   * and fetch. `docs/tower-defence.md` links reference pictures off other
+   * games' wikis; anything that is not `https://` falls back to the alt text,
+   * so a `javascript:` or a `data:` in a document can never become a src.
+   */
+  test("an https image becomes an img, and its alt survives", () => {
+    expect(render("![a rock](https://example.org/rock.png)")).toBe(
+      '<p><img src="https://example.org/rock.png"></p>',
+    );
+  });
+
+  test("anything that is not https falls back to the alt text", () => {
+    expect(render("![a rock](javascript:alert(1))")).toBe("<p><i>a rock</i></p>");
+    expect(render("![a rock](rock.png)")).toBe("<p><i>a rock</i></p>");
+  });
+
+  test("a url may carry one level of brackets, and the prose keeps none of it", () => {
+    expect(
+      render("see [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) now"),
+    ).toBe("<p>see Asteroids now</p>");
   });
 
   test("a section with everything in it comes out in order", () => {

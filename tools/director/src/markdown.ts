@@ -10,21 +10,67 @@
  * whose output nobody can reason about.
  */
 
-const INLINE = /\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`|\[([^\]]*)\]\([^)]*\)/g;
+/**
+ * A URL in brackets, allowing one level of parentheses inside it. Wikipedia
+ * spells half its own titles that way — `Asteroids_(video_game)` — and a
+ * pattern that stops at the first `)` leaves the other one standing in the
+ * prose as a stray character.
+ */
+const URL = String.raw`(?:[^()]|\([^()]*\))*`;
+const INLINE = new RegExp(
+  [
+    String.raw`!\[([^\]]*)\]\((${URL})\)`,
+    String.raw`\*\*([^*]+)\*\*`,
+    String.raw`\*([^*]+)\*`,
+    "`([^`]+)`",
+    String.raw`\[([^\]]*)\]\(${URL}\)`,
+  ].join("|"),
+  "g",
+);
 
-/** `**bold**`, `*italic*`, `` `code` `` and `[text](url)` — the link keeps its text. */
+/**
+ * `![alt](url)`, `**bold**`, `*italic*`, `` `code` `` and `[text](url)` — the
+ * link keeps its text.
+ *
+ * The image is the one thing here that reaches outside the repository, and
+ * `docs/tower-defence.md` is why it exists: that page is a study of other
+ * games, and a row saying *the shell cracks visibly as it takes damage* is a
+ * picture the reader has to build alone. The art is not ours and the
+ * repository is public, so it is linked rather than copied in.
+ *
+ * Only `https://` is honoured. A trusted file is the only input this renderer
+ * ever has, but the rest of it goes through `textContent` for a reason — a
+ * renderer that can be talked into markup is one nobody can reason about — and
+ * an `src` is the one attribute that would quietly reintroduce that. Anything
+ * else falls back to the alt text, which is why every caption in that file
+ * reads as a sentence rather than as a filename.
+ */
 export function inline(target: HTMLElement, text: string): void {
   let last = 0;
   for (const m of text.matchAll(INLINE)) {
     const at = m.index ?? 0;
     if (at > last) target.appendChild(document.createTextNode(text.slice(last, at)));
-    if (m[1] !== undefined) target.appendChild(tag("b", m[1]));
-    else if (m[2] !== undefined) target.appendChild(tag("i", m[2]));
-    else if (m[3] !== undefined) target.appendChild(tag("code", m[3]));
-    else target.appendChild(document.createTextNode(m[4] ?? ""));
+    if (m[2] !== undefined) target.appendChild(image(m[1] ?? "", m[2]));
+    else if (m[3] !== undefined) target.appendChild(tag("b", m[3]));
+    else if (m[4] !== undefined) target.appendChild(tag("i", m[4]));
+    else if (m[5] !== undefined) target.appendChild(tag("code", m[5]));
+    else target.appendChild(document.createTextNode(m[6] ?? ""));
     last = at + m[0].length;
   }
   target.appendChild(document.createTextNode(text.slice(last)));
+}
+
+function image(alt: string, src: string): HTMLElement {
+  if (!src.startsWith("https://")) return tag("i", alt);
+  const img = document.createElement("img");
+  img.className = "md-img";
+  img.alt = alt;
+  img.loading = "lazy";
+  // Referrer left off on purpose: these are other people's servers, and the
+  // director's own port is nothing they need to be told about.
+  img.referrerPolicy = "no-referrer";
+  img.src = src;
+  return img;
 }
 
 function tag(name: string, text: string): HTMLElement {

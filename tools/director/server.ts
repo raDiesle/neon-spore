@@ -61,6 +61,7 @@ const actFiles = [
 ] as const;
 const specDir = new URL("../../docs/spec/", import.meta.url);
 const borrowedFile = new URL("../../docs/borrowed.md", import.meta.url);
+const towerDefenceFile = new URL("../../docs/tower-defence.md", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
@@ -133,6 +134,17 @@ async function readWaves(): Promise<Wave[]> {
  */
 export async function readBorrowedText(): Promise<string> {
   return await Bun.file(borrowedFile).text();
+}
+
+/**
+ * `docs/tower-defence.md`, whole — the second study of other games, read for
+ * what a slick, a bulb or a meteor could otherwise be. Served the same way
+ * `docs/borrowed.md` is, and for the same reason: its argument is a table with
+ * a verdict column, so a parse into entries would drop the half that took the
+ * reading.
+ */
+export async function readTowerDefenceText(): Promise<string> {
+  return await Bun.file(towerDefenceFile).text();
 }
 
 /** Every spec file, verbatim — see `readBorrowedText` for why this is exported. */
@@ -287,6 +299,13 @@ const server = Bun.serve({
     "/api/borrowed": {
       GET: withIdle(async () =>
         Response.json({ text: await readBorrowedText() }, { headers: noCache }),
+      ),
+    },
+
+    /** `docs/tower-defence.md`, whole — see `readTowerDefenceText`. */
+    "/api/tower-defence": {
+      GET: withIdle(async () =>
+        Response.json({ text: await readTowerDefenceText() }, { headers: noCache }),
       ),
     },
 
