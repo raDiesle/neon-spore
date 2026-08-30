@@ -312,3 +312,4 @@ records the answers. See `docs/verification.md`.
 - `8719a42` 2026-08-29 PASS — on your own screen, is the field now big enough to judge whether the cannon reaches a column in time, with the buttons sitting along the bottom
 - `0b2e8e6` 2026-08-29 PASS — set one wave to teach a card it did not used to, and play from the start — does that card come up on that wave and nowhere else
 - `4aa770e` 2026-08-29 PASS — below the game screen, do the buttons now read as one row of the same kind of control, and do briefings and the balance sheet each stay put until you press them again
+- `ba8e906` 2026-08-30 PASS — on player 1's screen, is the lure genuinely indistinguishable from a real slick or bulb right up to the moment it goes — and on player 2's, does the ring and the exclamation read as stop within the half-second before a thumb moves, without being confused for the torch alarm?

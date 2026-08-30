@@ -330,3 +330,61 @@ remove one. The guarantee does not change: a tree with uncommitted work is
 left alone and named, never forced.
 
 `Check: land a lane — is its worktree folder gone from disk when the landing finishes, with no command left for you to run?`
+
+## A SHAPE SHEET THAT CANNOT SHOW A SKIN
+_claude/shapes-skin-render · tools/shape-sheet/src/main.ts tools/shape-sheet/src/svg.ts tools/shape-sheet/src/skin-still.ts tools/shape-sheet/package.json package.json tools/shape-sheet/test docs/skins.md_
+**Proposed by the run.**
+
+`bun run shapes` writes a silhouette and nothing else. Every skin lives in
+`tools/director/src/skins/`, needs a DOM to build into, and is therefore
+reachable only by starting the director, finding the SHAPES tab and clicking a
+switcher. So the one question a skin exists to answer — *does this interior
+read* — cannot be asked from a terminal at all, and cannot be asked about a
+single body ever.
+
+The lane that added `skins/chamber.ts` paid for this twice. It wrote a
+throwaway script to draw one contour large, then rebuilt the whole interior a
+second time in that script because there was no way to point the real skin at
+one shape. The commit landed with the skin **never once drawn**, which is why
+its `Check:` trailer has to ask whether a compartment still reads as a mouth —
+a question the session had already answered three times about its own scratch
+copy and could not ask about the code it shipped.
+
+Two copies of one picture is the actual cost, and they will drift.
+
+What is missing is a still: `bun run shapes --skin chamber [NAME]`, writing an
+SVG the same way `shapes` already does. The skins need a DOM, so this needs a
+`linkedom`-shaped document rather than a browser — the skins only ever call
+`createElementNS` and `setAttribute`, which is the whole of what has to be
+stood up. `onFrame` is called once at a fixed `t` and `beat`, so the still is
+deterministic and can be committed beside the others.
+
+The test that this is right: the next skin is written and looked at without
+starting a server, and no lane writes a second copy of its own picture.
+
+`Check: bun run shapes --skin chamber THE POMMEL — is the still the same picture the director draws for that card?`
+
+## THE BURR IS A SEA URCHIN AND ITS OWN CHECK SAYS SO
+_claude/burr-or-pommel · tools/shape-sheet/src/forms/studded.ts tools/shape-sheet/src/drafts/tower-defence.ts tools/shape-sheet/src/retired.ts tools/shape-sheet/test docs/tower-defence.md_
+**Proposed by the run.**
+
+Check `#215` asks whether THE BURR reads as the body it was converted from.
+Drawing it says no, and names the reason: `studded`'s `blunt` rounds a *tip*,
+and the thing that makes the source's rim read is its *waist* — a cap wider
+than the neck carrying it. A radius function keeps only the outer of the two
+radii a club has, so the neck is not something `studded` renders badly, it is
+something `studded` cannot represent. `forms/clubbed.ts` and THE POMMEL are
+that body converted a second time, walked instead of sampled.
+
+Two bodies now stand for one proposal, which is a state the catalogue should
+not be left in. This lane is the decision made concrete once the owner has
+looked at both: retire the loser into `retired.ts` with its reason, and leave
+one entry.
+
+It is filed as proposed rather than asked because the *verdict* is the owner's
+and is not in yet. The lane does not choose. What it may do without waiting is
+the part that is already settled either way: `studded`'s doc comment claims
+`blunt: 1` "flattens into a cap", and a caller reading that will keep expecting
+a club out of it. Say there what the form cannot do, and point at `clubbed`.
+
+`Check: on the SHAPES tab, is there one body from that screenshot rather than two — and does the retired one's reason say why it lost?`
