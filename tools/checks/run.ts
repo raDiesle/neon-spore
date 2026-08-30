@@ -140,7 +140,14 @@ function report(
   orphaned: ReturnType<typeof orphanedRestated>,
   here: Awaited<ReturnType<typeof trunk>>,
 ): void {
-  console.log(left.length === 0 ? "nothing to check on main." : `${left.length} to check on main:`);
+  // Concepts never reach `left` at all — see `outstanding` in `checks.ts` —
+  // so the count is already implementations only. Said plainly rather than
+  // left to look like the list simply shrank on its own.
+  console.log(
+    left.length === 0
+      ? "nothing to check on main."
+      : `${left.length} implementation${left.length === 1 ? "" : "s"} to check on main:`,
+  );
 
   let commit = "";
   for (const check of left) {

@@ -3,6 +3,7 @@ import {
   type Branch,
   branchReady,
   branchReason,
+  isConcept,
   joinChecks,
   outstanding,
   reachableAlong,
@@ -11,6 +12,7 @@ import {
   undecidedOn,
 } from "../checks.js";
 import type { Decision } from "../ledger.js";
+import type { Restated } from "../restated.js";
 import type { CheckCommit } from "../trailers.js";
 
 const COMMITS: CheckCommit[] = [
@@ -125,6 +127,65 @@ describe("outstanding", () => {
     expect(runnable(joinChecks(COMMITS, DECIDED)).map((s) => s.command)).toEqual([
       "bun run shapes",
     ]);
+  });
+});
+
+describe("isConcept", () => {
+  test("only the concept badge reads as a concept", () => {
+    expect(isConcept({ badge: "concept" })).toBe(true);
+    expect(isConcept({ badge: "implementation" })).toBe(false);
+  });
+
+  // The ordinary case: a restatement written before the badge existed, or a
+  // check with no restatement at all. Absent must not read as `concept`, or
+  // old obligations vanish from the list without anybody deciding they
+  // should. See docs/verification.md.
+  test("no badge, or no restatement at all, is an implementation", () => {
+    expect(isConcept({ badge: undefined })).toBe(false);
+    expect(isConcept(null)).toBe(false);
+  });
+});
+
+describe("outstanding — concepts are not a queue", () => {
+  const CONCEPT: Restated = {
+    sha: "2222222",
+    text: "the timing at 96 BPM",
+    badge: "concept",
+    subject: "a slower fall",
+    changed: "the rock falls at half speed",
+    decide: "does the slower fall read better",
+    where: "VERSUS",
+  };
+
+  test("a concept never joins the outstanding list, decided or not", () => {
+    const left = outstanding(joinChecks(COMMITS, [], new Map(), [CONCEPT]));
+    expect(left.map((s) => s.text)).toEqual([
+      "the hole reads at 26 px",
+      "the shapes — `bun run shapes`",
+    ]);
+  });
+
+  test("an unbadged restatement on the same check is unaffected — still queued", () => {
+    const unbadged: Restated = { ...CONCEPT, badge: undefined };
+    const left = outstanding(joinChecks(COMMITS, [], new Map(), [unbadged]));
+    expect(left.map((s) => s.text)).toContain("the timing at 96 BPM");
+  });
+
+  test("a concept is dropped from `runnable` too, even if it names a command", () => {
+    const runnableConcept: Restated = {
+      ...CONCEPT,
+      sha: "1111111",
+      text: "the shapes — `bun run shapes`",
+    };
+    const jobs = runnable(joinChecks(COMMITS, [], new Map(), [runnableConcept]));
+    expect(jobs.map((s) => s.text)).not.toContain("the shapes — `bun run shapes`");
+  });
+
+  test("the concept is still in the full join — not deleted, just not queued", () => {
+    const states = joinChecks(COMMITS, [], new Map(), [CONCEPT]);
+    expect(
+      states.some((s) => s.text === "the timing at 96 BPM" && s.restated?.badge === "concept"),
+    ).toBe(true);
   });
 });
 

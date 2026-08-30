@@ -23,6 +23,7 @@ import {
   el,
   failRow,
   post,
+  queued,
   restatedRows,
   runAllCommand,
 } from "./checks-dom.js";
@@ -138,12 +139,13 @@ function render(): void {
   if (!body || !view) return;
   body.replaceChildren();
 
-  const left = view.checks.filter((c) => c.verdict === null);
+  const left = queued(view.checks);
   if (count) {
     count.textContent =
       left.length === 0
-        ? "nothing outstanding — everything on main has been looked at."
-        : `${left.length} outstanding · ${view.runnable} of them name a command`;
+        ? "nothing outstanding — every implementation on main has been looked at."
+        : `${left.length} implementation${left.length === 1 ? "" : "s"} outstanding · ` +
+          `${view.runnable} of them name a command`;
   }
 
   // Said before the list, not after it: a main that has not been pulled
@@ -198,13 +200,13 @@ function next(): void {
 }
 
 async function runAll(bar: HTMLButtonElement): Promise<void> {
-  const jobs = (view?.checks ?? []).filter((c) => c.verdict === null && c.command);
+  const jobs = queued(view?.checks ?? []).filter((c) => c.command);
   await runAllCommand(bar, jobs, take);
   render();
 }
 
 async function decideAll(bar: HTMLButtonElement, verdict: "PASS" | "CLEARED"): Promise<void> {
-  const jobs = (view?.checks ?? []).filter((c) => c.verdict === null);
+  const jobs = queued(view?.checks ?? []);
   await decideAllClick(bar, jobs, verdict, take);
   render();
 }

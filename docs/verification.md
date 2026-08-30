@@ -111,6 +111,31 @@ time, which is what going through them actually looks like.
 The list comes off `main`, because that is where the testing happens. Testing
 a branch means testing something nobody will ever run again.
 
+**The list shows implementations, never concepts.** `docs/checks/<sha>.md`'s
+`badge` field answers two different questions and only one of them belongs on
+this list. `implementation` means the game or the tool now does something
+differently — a small obligation somebody incurred by landing, *go and check
+this*. `concept` means a proposal that nothing ships yet — a candidate beside
+a shipped look, offered for a decision, *decide whether you want this at
+all*. That second kind waits on the owner's appetite, not on their attention,
+and mixing it into the queue is the exact failure the badge exists to
+prevent: the list reads as longer than the work it represents.
+
+So `outstanding()` in `tools/checks/checks.ts` filters a concept-badged check
+out before either reader ever sees it — `bun run checks` and the director's
+`⚑ TO CHECK` both call it, so neither can drift from the other. A concept is
+not deleted, marked done, or dropped from `docs/checks/`: it simply never
+becomes a queue entry. Where it goes instead is wherever `CLAUDE.md`'s "A
+look is offered, never replaced" already sends a candidate — the VERSUS page,
+or a NOT BUILT YET card — which is why this list gives it no second home of
+its own.
+
+**Absent is an implementation, not a concept.** Every restatement written
+before the `badge` field existed carries none, and reading a missing badge as
+`concept` would silently drop old obligations from the list without anybody
+deciding they should. Only the literal word `concept` is filtered; anything
+else — `implementation`, or nothing at all — is queued as usual.
+
 ## The half that cannot be derived
 
 Whether somebody looked. That is `docs/verified.md`, one appended line per

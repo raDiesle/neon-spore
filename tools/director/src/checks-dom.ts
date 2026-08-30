@@ -1,9 +1,10 @@
 /**
- * The TO CHECK sheet's vocabulary and its shared actions — what the server
- * sends, and the row and bulk-decide helpers, split out of `checks-page.ts`
- * to keep both files under the line ceiling.
+ * The TO CHECK sheet's vocabulary and shared actions — what the server sends
+ * and the row/bulk-decide helpers, split out of `checks-page.ts` to keep
+ * both files under the line ceiling.
  */
 
+import { isConcept } from "../../checks/checks.js";
 import { asImagePath, isDirectorLink } from "../../checks/restated.js";
 import { inline } from "./markdown.js";
 
@@ -54,6 +55,15 @@ export interface ChecksView {
   runnable: number;
   /** Commits on origin's main this checkout has not pulled. */
   behind: number;
+}
+
+/**
+ * The undecided checks that belong on this page — `outstanding()`'s own
+ * question in `tools/checks/checks.ts`, off the same `isConcept` so the CLI
+ * and this sheet cannot disagree about what a queue is. See `docs/verification.md`.
+ */
+export function queued(checks: readonly CheckState[]): CheckState[] {
+  return checks.filter((c) => c.verdict === null && !isConcept(c.restated));
 }
 
 /** `before`/`after` as an `<img>` when it names a captured frame, prose otherwise. */
