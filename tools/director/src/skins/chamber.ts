@@ -1,6 +1,7 @@
+import { BLISTERS, crest, el, ellipse, INSIDE, place } from "./chamber-packing.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
-import { type Skin, type SkinContext, SVG } from "./types.js";
+import type { Skin, SkinContext } from "./types.js";
 
 /**
  * A body packed with compartments, each holding its own level, and a scatter of
@@ -32,102 +33,13 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * bands it draws from never overlap.
  */
 
-/** How many compartments. More than five is mush at card size. */
-const CHAMBERS = 5;
-/** How many swellings sit over them. */
-const BLISTERS = 6;
-/** Samples along one lumpy top. */
-const CREST = 26;
-
-interface Chamber {
-  cx: number;
-  cy: number;
-  rx: number;
-  ry: number;
-  rot: number;
-  top: number;
-  alpha: number;
-}
-
-/**
- * The compartments, in units of `reach`.
- *
- * Drawn from bands rather than freely, so a mass is never centred and two are
- * never the same height: the first is the wide one across the middle, then two
- * low ones at deliberately different sizes, then two small ones out at the
- * sides. Every number is jittered off the shape's own stream, so no two bodies
- * on the page are packed alike and each is the same on every reload.
- */
-function place(rnd: () => number): Chamber[] {
-  const bands: [number, number, number, number][] = [
-    // cx, cy, rx, ry — the centre of each band, before jitter.
-    [-0.12, 0.02, 0.68, 0.38],
-    [-0.44, 0.46, 0.36, 0.3],
-    [0.3, 0.58, 0.5, 0.28],
-    [0.56, 0.08, 0.26, 0.22],
-    [-0.62, -0.06, 0.22, 0.18],
-  ];
-  return bands.slice(0, CHAMBERS).map(([cx, cy, rx, ry], i) => {
-    const j = (k: number): number => (rnd() - 0.5) * k;
-    const y = cy + j(0.1);
-    return {
-      cx: cx + j(0.12),
-      cy: y,
-      rx: rx * (1 + j(0.24)),
-      ry: ry * (1 + j(0.24)),
-      rot: j(40),
-      // The level sits above the centre, so the mass reads as most of the
-      // compartment rather than as a puddle in the bottom of it.
-      top: y - ry * 0.9,
-      alpha: 0.95 - i * 0.11,
-    };
-  });
-}
-
-/** One lumpy top, closed downward. Wide enough that its ends are always clipped. */
-function crest(c: Chamber, reach: number, freq: number, phase: number): string {
-  const span = reach * 1.6;
-  let d = "";
-  for (let i = 0; i <= CREST; i++) {
-    const x = -span + (i / CREST) * span * 2;
-    const u = x / reach;
-    const y =
-      c.top * reach +
-      (Math.sin(u * freq + phase) + Math.sin(u * freq * 2.3 + phase * 1.7) * 0.4) * reach * 0.035;
-    d += `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)} `;
-  }
-  return `${d}L ${span.toFixed(1)} ${(reach * 2).toFixed(1)} L ${(-span).toFixed(1)} ${(reach * 2).toFixed(1)} Z`;
-}
-
-function el<K extends keyof SVGElementTagNameMap>(
-  tag: K,
-  attrs: Record<string, string>,
-): SVGElementTagNameMap[K] {
-  const n = document.createElementNS(SVG, tag) as SVGElementTagNameMap[K];
-  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
-  return n;
-}
-
-function ellipse(c: Chamber, reach: number, attrs: Record<string, string>): SVGEllipseElement {
-  const cx = (c.cx * reach).toFixed(1);
-  const cy = (c.cy * reach).toFixed(1);
-  return el("ellipse", {
-    cx,
-    cy,
-    rx: (c.rx * reach).toFixed(1),
-    ry: (c.ry * reach).toFixed(1),
-    transform: `rotate(${c.rot.toFixed(1)} ${cx} ${cy})`,
-    ...attrs,
-  });
-}
-
 export const CHAMBER: Skin<"chamber"> = {
   id: "chamber",
   label: "CHAMBER",
   hint: "compartments with their own levels, and blisters over them",
   build(ctx: SkinContext) {
     const rnd = streamFor(ctx.name);
-    const R = ctx.reach;
+    const R = ctx.reach * INSIDE;
 
     const pool = el("linearGradient", {
       id: `${ctx.uid}-pool`,
@@ -137,10 +49,10 @@ export const CHAMBER: Skin<"chamber"> = {
       y2: "1",
     });
     for (const [offset, alpha] of [
-      ["0%", "0.6"],
-      ["18%", "0.62"],
-      ["45%", "0.4"],
-      ["100%", "0.12"],
+      ["0%", "0.42"],
+      ["18%", "0.44"],
+      ["45%", "0.26"],
+      ["100%", "0.08"],
     ] as const) {
       pool.appendChild(el("stop", { offset, "stop-color": ctx.colour, "stop-opacity": alpha }));
     }
@@ -172,8 +84,22 @@ export const CHAMBER: Skin<"chamber"> = {
     // that heave together — the reasoning `studded.ts` uses for a rim, which is
     // the same claim about an interior.
     const levels = chambers.map((c, i) => {
-      const g = el("g", { opacity: c.alpha.toFixed(2) });
-      g.appendChild(ellipse(c, R, { fill: ctx.colour, "fill-opacity": "0.16" }));
+      // Each compartment clips its own level. Without this the wave spans the
+      // whole body and every mass shares one horizon — a waterline in a jar,
+      // which is the first of the three failures above and the one that came
+      // back: the scratch drawing had this clip and the skin was written
+      // without it, so the picture that was judged and the picture that
+      // shipped were not the same picture. That is the whole argument for
+      // `bun run shapes:still` existing.
+      const clip = el("clipPath", { id: `${ctx.uid}-ch${i}` });
+      clip.appendChild(ellipse(c, R, {}));
+      ctx.defs.appendChild(clip);
+
+      const g = el("g", {
+        opacity: c.alpha.toFixed(2),
+        "clip-path": `url(#${ctx.uid}-ch${i})`,
+      });
+      g.appendChild(ellipse(c, R, { fill: ctx.colour, "fill-opacity": "0.1" }));
       const wave = el("path", {
         d: crest(c, R, 3.4 + i * 0.9, 0.4 + i * 1.9),
         fill: `url(#${ctx.uid}-pool)`,
@@ -186,14 +112,20 @@ export const CHAMBER: Skin<"chamber"> = {
 
     // The swellings. Upper half only: that is where the source gathers them,
     // and it is what gives the body a front at all once the light is off.
+    //
+    // Clipped to the contour like the compartments are. They were not, and on
+    // a body whose rim stands off — THE POMMEL — half of them landed on the
+    // clubs instead of in the body, which reads as a fringe that has come off
+    // rather than as an interior.
+    const over = clipGroup(ctx, "blisters");
     const vents: SVGCircleElement[] = [];
     for (let i = 0; i < BLISTERS; i++) {
       const a = -Math.PI + (i + 0.5) * (Math.PI / BLISTERS) + (rnd() - 0.5) * 0.3;
-      const r = (0.28 + rnd() * 0.46) * R;
+      const r = (0.2 + rnd() * 0.4) * R;
       const s = (0.07 + rnd() * 0.09) * R;
       const x = Math.cos(a) * r;
       const y = Math.sin(a) * r * 0.94;
-      ctx.body.appendChild(
+      over.appendChild(
         el("circle", {
           cx: x.toFixed(1),
           cy: y.toFixed(1),
@@ -207,7 +139,7 @@ export const CHAMBER: Skin<"chamber"> = {
         r: (s * 0.3).toFixed(1),
         fill: ctx.colour,
       });
-      ctx.body.appendChild(dot);
+      over.appendChild(dot);
       vents.push(dot);
     }
 

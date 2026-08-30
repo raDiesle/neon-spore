@@ -65,6 +65,39 @@ rebuilds every card, so nothing has to be undone.
   returned, so a *pass* in `parts.ts` can animate itself without every skin
   repeating the plumbing.
 
+## Looking at one
+
+```
+bun run shapes:still chamber                 every body under CHAMBER
+bun run shapes:still chamber "THE POMMEL"    one body, large
+bun run shapes:still all "THE POMMEL"        one body under every skin
+```
+
+Writes `tools/shape-sheet/skin-sheet.svg`, which is gitignored because its
+content is whichever question was last asked. Rasterise it with
+`bun run png` before sending it to anybody — an SVG attachment on a phone is a
+file to open rather than a picture to glance at.
+
+It is the same fitting, the same `buildSkin` and the same pose the SHAPES tab
+uses — `figureLayout` in `shape-fit.ts` is the one copy of that arithmetic and
+both callers go through it. What it drops is the loop: `onFrame` is called once
+at a moment you name, so a skin that eases across frames is caught mid-thought.
+**A still answers whether the picture is right and says nothing about whether
+the motion reads.** The second question still needs the director and an eye.
+
+The document is a shim, `src/svg-dom.ts`, not a DOM library: the surface a skin
+touches is four methods wide. A skin that needs to *measure* rendered geometry
+cannot be drawn this way and is named in `UNDRAWABLE` with the reason — CILIA
+is the one, because it asks a path for its length. It throws rather than
+guessing, since a still that is quietly wrong is worse than one that is missing.
+
+**Write the still into the loop, not after it.** `chamber.ts` was written
+before this existed and landed never having been drawn; the first still of it
+showed three defects at once, one of which was that its compartments had lost
+their clip somewhere between the scratch drawing and the skin — so the picture
+that had been judged and the picture that shipped were not the same picture.
+`bun run check` was green throughout.
+
 ## The frame
 
 ```ts

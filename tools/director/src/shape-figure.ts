@@ -1,7 +1,7 @@
 import { type OwnMotion, REST } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
 import { type GlowId, glowSpread } from "./glows/index.js";
-import { fitOf, stillOf } from "./shape-fit.js";
+import { figureLayout } from "./shape-fit.js";
 import { type Drawn, runFigure } from "./shape-loop.js";
 import { buildSkin, type SkinId } from "./skins/index.js";
 
@@ -102,43 +102,20 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   svg.setAttribute("width", String(w));
   svg.setAttribute("height", String(box));
 
-  const still = stillOf(entry);
-  const { tile, pivot } = still;
-  const b = fitOf(entry, motion, still);
-  // The contour's own reach, taken before the glow padding and handed to the
-  // skin unchanged: a texture sizes itself against the *body*, and a body that
-  // grew because somebody ticked HALO would draw a coarser scale for it.
-  const reach = Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2;
-  /**
-   * How much room the glow stack needs past the contour.
-   *
-   * This is derived per figure rather than cached with the fit, and that is
-   * the cheaper of the two ways round. `fitOf` scans a hundred and thirty
-   * contour samples and six thousand poses, keyed on the entry and the motion
-   * — the two things a glow does not change. Keying that table on the glow
-   * stack as well would recompute the whole scan for a number that is a
-   * multiplication, and would hold a box per subset of a seven-value set.
-   *
-   * The padding is symmetric, so the centre is untouched and only the scale
-   * moves. Without it, turning on HALO or SPARKS slices every card at its own
-   * frame edge — which reads as the effect being broken rather than as the
-   * frame being small, exactly the failure the own-motion fit exists to
-   * prevent.
-   */
-  const spread = glowSpread(opts.padFor ?? opts.glows ?? []) * reach;
-  const pad = Math.max(6, box * 0.18);
-  const scale = Math.min(
-    (w - pad) / (b.x1 - b.x0 + spread * 2),
-    (box - pad) / (b.y1 - b.y0 + spread * 2),
+  // One copy of the fitting, shared with `skin-still.ts`. The glow padding
+  // goes through it too: a still that framed its subject differently from a
+  // glowing card would be a picture of the card rather than the card.
+  const layout = figureLayout(
+    entry,
+    motion,
+    box,
+    opts.width,
+    glowSpread(opts.padFor ?? opts.glows ?? []),
   );
-  const cx = (b.x0 + b.x1) / 2;
-  const cy = (b.y0 + b.y1) / 2;
+  const { scale, tile, pivot } = layout;
 
   const frame = document.createElementNS(SVG, "g");
-  frame.setAttribute(
-    "transform",
-    `translate(${w / 2} ${box / 2}) scale(${scale.toFixed(4)}) translate(${-cx} ${-cy})`,
-  );
+  frame.setAttribute("transform", layout.transform);
   const body = document.createElementNS(SVG, "g");
 
   const defs = document.createElementNS(SVG, "defs");
@@ -152,8 +129,8 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     weight: (opts.weight ?? 2) / scale,
     uid: `sk${uid}`,
     name: entry.subject.name,
-    reach,
-    extent: { w: still.extent.x1 - still.extent.x0, h: still.extent.y1 - still.extent.y0 },
+    reach: layout.reach,
+    extent: layout.extent,
     tile,
     lit: opts.lit ?? true,
     centre: pivot,
@@ -170,7 +147,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     centre: pivot,
     tile,
     motion,
-    long: still.long,
+    long: layout.long,
     frame: { t: 0, beat: 0, pose: REST },
     svg,
     seen: true,

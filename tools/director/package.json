@@ -11,6 +11,7 @@
     "@neon-spore/sim": "workspace:*"
   },
   "scripts": {
-    "shapes-page": "bun run ./shapes-page.ts"
+    "shapes-page": "bun run ./shapes-page.ts",
+    "shapes-still": "bun run ./shapes-still.ts"
   }
 }

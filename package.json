@@ -37,7 +37,8 @@
     "check": "bun run typecheck && bun run lint && bun test",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
     "shapes:report": "bun run --cwd tools/shape-sheet report",
-    "shapes:page": "bun run --cwd tools/director shapes-page"
+    "shapes:page": "bun run --cwd tools/director shapes-page",
+    "shapes:still": "bun run --cwd tools/director shapes-still"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",

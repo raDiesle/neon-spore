@@ -13,3 +13,8 @@ coverage/
 !.aiderignore
 .claude/tmp/
 .claude/settings.local.json
+
+# `bun run shapes:still` writes whatever was last asked for — one body, one
+# skin, or every skin — so its content is a question somebody asked rather than
+# a state of the tree. Committing it would be pure churn.
+tools/shape-sheet/skin-sheet.svg
