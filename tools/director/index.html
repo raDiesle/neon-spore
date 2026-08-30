@@ -670,6 +670,26 @@
         font-size: 10px; color: var(--dim); line-height: 1.45; margin: 0; max-width: 640px;
       }
       .skinbar.control-bar .control-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+      /* The body picker on OVERVIEW. The names used to be text buttons, which
+         is the one thing a shape picker must not be: the reader is choosing
+         between pictures, so the picture is the button and the name is its
+         caption. Same states as `.skin` — a border that lifts on hover and a
+         cyan one when it is the body the three grids below are drawn from. */
+      .bodybar { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; align-items: flex-start; }
+      .bodybar .body {
+        display: flex; flex-direction: column; align-items: center; gap: 2px;
+        padding: 4px 6px 3px; border-radius: 4px; cursor: pointer;
+        background: transparent; border: 1px solid var(--line);
+      }
+      .bodybar .body:hover { border-color: var(--dim); }
+      .bodybar .body:hover .body-name { color: var(--ink); }
+      .bodybar .body.is-on { border-color: var(--cyan); background: #041013; }
+      .bodybar .body.is-on .body-name { color: var(--cyan); }
+      .bodybar .body-name {
+        font: 8px "Courier New", monospace; letter-spacing: 1px; color: var(--dim);
+        white-space: nowrap;
+      }
       .shape {
         display: flex; gap: 10px; align-items: flex-start; width: 330px;
         padding: 8px; border: 1px solid var(--line-soft); border-radius: 8px; font-size: 10px;
@@ -1180,48 +1200,18 @@
           <div id="backlogBestiary" class="columns"></div>
         </div>
         <div class="sheetpage" id="sheet-shapes">
-          <p class="pagewhat">
-            Every contour the project has, in three states. A DRAFT was drawn
-            for a named idea in the store and offered to it. A FREE shape has
-            nothing behind it — tuned in legacy/style-guide.html and never
-            spent. TAKEN is what the game already draws, here so a proposal is
-            judged beside what it will stand next to.
-          </p>
-          <p class="note">
-            They animate, because whether a lobe swings or only shivers is most
-            of what tells two blobs apart at 26 px. The sway is the same data
-            the game draws with, measured in tiles, so a card shows the motion
-            the field would show and not an impression of it.
-          </p>
-          <p class="note">
-            A shape is not a name, and a suggestion is not a decision. Anything
-            that takes one still gets its own name out of the bestiary's four
-            naming rules, and the idea it was drawn for is free to refuse it.
-          </p>
-          <p class="note">
-            The skin is the same question <code>docs/alive.md</code> sends to a
-            vote: whether an interior survives at all, or whether the outline
-            is the whole of what a player reads. LINE is the control — it is
-            what these cards drew before there was a choice.
-          </p>
+          <!-- OVERVIEW is the default and first view: one body walked across
+               every skin, every motion and both light states, and nothing else
+               on screen to set. COMPOSE, behind the second tab, is the
+               sixty-body catalogue together with the three axis rows that say
+               what everything is wearing. `shapes-controls.ts`'s VIEW group
+               toggles which of the two shows, by setting the other's `display`
+               directly; the axis rows live inside COMPOSE, in `shapesAxes`,
+               because OVERVIEW is meant to open with a picture rather than a
+               control panel. -->
           <div id="shapesSkin" class="skinbar"></div>
-          <!-- TRANSPOSE is the default and first view: one body walked across
-               every skin, every motion and both light states. ADVANCED, below
-               it, is the sixty-body catalogue — hidden until picked, so what
-               opens the page is the question the owner actually comes to ask.
-               `shapes-controls.ts`'s VIEW group toggles which of the two
-               shows, by setting the other's `display` directly. -->
-          <div id="shapes-view-transpose">
-            <p class="note" style="max-width: 620px">
-              One body, drawn once per skin, once per motion and once per
-              light state, all of them on screen at once — twenty skins
-              flipped one at a time is not a comparison, it is a tournament
-              nobody runs to the end. ADVANCED, above, holds the sixty-body
-              catalogue where the combinations get set. Pick the body below;
-              the skin, light and motion bar above still says what the other
-              two axes are held at while one of them walks.
-            </p>
-            <div id="shapesAllBody" class="skinbar"></div>
+          <div id="shapes-view-overview">
+            <div id="shapesAllBody" class="bodybar"></div>
             <h2>EVERY SKIN, ONE BODY</h2>
             <div id="shapesAllSkins"></div>
             <h2 style="margin-top: 18px">EVERY MOTION, ONE BODY</h2>
@@ -1229,7 +1219,33 @@
             <h2 style="margin-top: 18px">LIT AND UNLIT, ONE BODY</h2>
             <div id="shapesAllLight"></div>
           </div>
-          <div id="shapes-view-advanced" style="display: none">
+          <div id="shapes-view-compose" style="display: none">
+            <p class="pagewhat">
+              Every contour the project has, in three states. A DRAFT was drawn
+              for a named idea in the store and offered to it. A FREE shape has
+              nothing behind it — tuned in legacy/style-guide.html and never
+              spent. TAKEN is what the game already draws, here so a proposal is
+              judged beside what it will stand next to.
+            </p>
+            <p class="note">
+              They animate, because whether a lobe swings or only shivers is
+              most of what tells two blobs apart at 26 px. The sway is the same
+              data the game draws with, measured in tiles, so a card shows the
+              motion the field would show and not an impression of it.
+            </p>
+            <p class="note">
+              A shape is not a name, and a suggestion is not a decision.
+              Anything that takes one still gets its own name out of the
+              bestiary's four naming rules, and the idea it was drawn for is
+              free to refuse it.
+            </p>
+            <p class="note">
+              The skin is the same question <code>docs/alive.md</code> sends to
+              a vote: whether an interior survives at all, or whether the
+              outline is the whole of what a player reads. LINE is the control
+              — it is what these cards drew before there was a choice.
+            </p>
+            <div id="shapesAxes" class="skinbar"></div>
             <h2>DRAFTS — drawn for something in the idea store</h2>
             <div id="shapesDrafts" class="shapes"></div>
             <h2 style="margin-top: 18px">FREE — a picture with no behaviour</h2>

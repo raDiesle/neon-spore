@@ -5,8 +5,9 @@
  * This is what SHAPES opens on now. The owner used the sixty-body catalogue
  * beside this grid for an afternoon and said the question they actually open
  * the page to ask is the one this file answers, not that one — so `index.html`
- * shows this grid first and holds the catalogue behind `shapes-controls.ts`'s
- * ADVANCED toggle. Nothing below changed for that: this file still just fills
+ * shows this grid first, as OVERVIEW, and holds the catalogue and the three
+ * axis rows behind `shapes-controls.ts`'s COMPOSE tab. Nothing below changed
+ * for that: this file still just fills
  * `shapesAllBody`/`shapesAllSkins`/`shapesAllMotions`/`shapesAllLight`
  * whenever `renderShapes` runs, whether or not they are the visible half.
  *
@@ -82,20 +83,33 @@ function bodyEntry(): CatalogueEntry {
   );
 }
 
-function button(host: HTMLElement, label: string, on: boolean, hint: string, pick: () => void) {
-  const b = document.createElement("button");
-  b.className = on ? "skin is-on" : "skin";
-  b.textContent = label;
-  b.title = hint;
-  b.addEventListener("click", pick);
-  host.appendChild(b);
-}
+/** The frame a picker thumbnail is drawn into. Small enough that sixty of
+ * them are a strip rather than a page, large enough that the lobes that tell
+ * two bodies apart are still lobes: `bun run shapes:report` puts THE WEIGHT at
+ * 60.5 × 49.3 px in the 92 px frame the grids use, so 56 leaves it near 37 ×
+ * 30, clear of the field's 26 px floor on both axes — and this is a picker
+ * rather than a thing being judged. */
+const PICK = 56;
+/** The long frame a `isWide` body gets in the picker, scaled from `WIDE` by
+ * the same ratio `PICK` is scaled from `BOX`, so a hull is neither a hairline
+ * nor a strip six bodies wide. */
+const PICK_WIDE = 220;
 
 /**
- * The body picker. Every name in the catalogue, once — a view that could only
- * ever show THE WEIGHT would be wrong the moment somebody wants the same
- * grid on a bulb, which is immediately, since a sac on a stalk and a round
- * nine-lobed body ask a skin completely different questions.
+ * The body picker: one button per catalogue name, and the button is the body.
+ *
+ * These were text buttons reading THE WEIGHT, THE CAIRN and fifty-eight more,
+ * which is the one thing a picker between pictures must not be — the reader
+ * is choosing a shape, and a name is a shape they have to remember rather
+ * than one they can see. So each button draws the contour it selects, with
+ * the name kept underneath as a caption: the name is still what the grids and
+ * the commit messages call it, and a picture with no name cannot be talked
+ * about.
+ *
+ * Drawn in LINE, not in whatever skin COMPOSE last set. The picker is
+ * navigation and the three grids under it are the comparison; a picker that
+ * changed its own look when the skin changed would read as a fourth grid,
+ * and LINE is the control every skin is judged against anyway.
  */
 function bodyPicker(host: HTMLElement, rerender: () => void): void {
   host.replaceChildren();
@@ -103,10 +117,29 @@ function bodyPicker(host: HTMLElement, rerender: () => void): void {
   for (const e of CATALOGUE) {
     if (seen.has(e.subject.name)) continue;
     seen.add(e.subject.name);
-    button(host, e.subject.name, e.subject.name === bodyName, e.subject.note, () => {
+
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = e.subject.name === bodyName ? "body is-on" : "body";
+    b.title = e.subject.note;
+    b.appendChild(
+      shapeFigure(e, {
+        box: PICK,
+        width: isWide(e) ? PICK_WIDE : PICK,
+        stroke: STROKE[e.status],
+        skin: "line",
+        lit: true,
+      }),
+    );
+    const label = document.createElement("span");
+    label.className = "body-name";
+    label.textContent = e.subject.name;
+    b.appendChild(label);
+    b.addEventListener("click", () => {
       bodyName = e.subject.name;
       rerender();
     });
+    host.appendChild(b);
   }
 }
 

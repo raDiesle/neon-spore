@@ -1,15 +1,24 @@
 /**
- * The control row above whichever of SHAPES's two views is showing: which
- * view, a skin, a motion and a light, each picked once for the whole page.
+ * The control rows on SHAPES: which view, and — on COMPOSE only — a skin, a
+ * motion and a light, each picked once for the whole page.
  *
- * VIEW was added when the owner asked for the transpose — one body walked
+ * VIEW was added when the owner asked for the one-body walk — one body drawn
  * across every skin, every motion and both lights — to be the page's default,
- * with the sixty-body catalogue behind a toggle they named ADVANCED. It sits
- * beside the three axis groups rather than among them: SKIN, MOTION and
- * LIGHT say what a body is wearing, and VIEW says which half of the page is
- * showing it. The two `shapes-view-*` elements it switches live in
- * `index.html`; this file only sets their `display` and does not own the
- * markup inside either.
+ * with the sixty-body catalogue behind a second tab. The two were called
+ * TRANSPOSE and ADVANCED; they are OVERVIEW and COMPOSE now, because the
+ * owner reads them as the page's two sections rather than as a mode switch,
+ * and because ADVANCED said "harder" when what it means is "this is where the
+ * combinations get set".
+ *
+ * **The three axis groups belong to COMPOSE and are built into its own
+ * element.** OVERVIEW is meant to open on a picture: a body picker made of
+ * the bodies themselves, and the three grids under it. A skin row, a motion
+ * row and a light row above that are twenty-odd buttons asking to be pressed
+ * before the reader has seen anything, and the walk already shows every one
+ * of their values at once — so on OVERVIEW there is nothing to set and
+ * nothing is shown. `host` here holds the VIEW tabs and only ever those; the
+ * axes go into `shapesAxes`, inside the COMPOSE half of `index.html`, and are
+ * cleared when OVERVIEW is showing.
  *
  * It used to be one undivided run of buttons — twenty skins, then the light,
  * then OWN and every spare motion, separated only by a one-character tag set
@@ -50,11 +59,11 @@ import {
 } from "./shapes-pair.js";
 import { SKINS } from "./skins/index.js";
 
-export type ShapesView = "transpose" | "advanced";
+export type ShapesView = "overview" | "compose";
 
-/** Which of the two views is showing. TRANSPOSE, because that is the default
+/** Which of the two views is showing. OVERVIEW, because that is the default
  * the owner asked for — see this file's header. */
-let view: ShapesView = "transpose";
+let view: ShapesView = "overview";
 
 /**
  * Shows the picked view's element and hides the other. Called on every
@@ -62,16 +71,16 @@ let view: ShapesView = "transpose";
  * `view` even if something else rebuilt the page around them.
  */
 function applyView(): void {
-  const transpose = document.getElementById("shapes-view-transpose");
-  const advanced = document.getElementById("shapes-view-advanced");
-  if (transpose) transpose.style.display = view === "transpose" ? "" : "none";
-  if (advanced) advanced.style.display = view === "advanced" ? "" : "none";
+  const overview = document.getElementById("shapes-view-overview");
+  const compose = document.getElementById("shapes-view-compose");
+  if (overview) overview.style.display = view === "overview" ? "" : "none";
+  if (compose) compose.style.display = view === "compose" ? "" : "none";
 }
 
 /**
  * Switches the view and, only when it actually changed, scrolls the sheet
  * back to the top. Landing in the middle of a sixty-card grid after leaving
- * the middle of the transpose is a small thing that would irritate every
+ * the middle of OVERVIEW is a small thing that would irritate every
  * single time, so a switch always opens on what it switched to rather than
  * wherever the reader had scrolled the other view to.
  */
@@ -127,10 +136,11 @@ function group(
 }
 
 /**
- * The whole control row, built once above whichever of the two views is
- * showing — VIEW picks between them, and SKIN, MOTION and LIGHT are read by
- * both: `shapes-panel.ts`'s catalogue cards and, through `shapes-all.ts`'s
- * three grids, the transpose.
+ * The VIEW tabs, and — when COMPOSE is showing — the three axis groups beside
+ * the catalogue. `host` is the strip at the top of the page and holds the tabs
+ * alone; the axes are built into `shapesAxes` inside the COMPOSE half, and
+ * that element is emptied while OVERVIEW is showing. See this file's header
+ * for why OVERVIEW carries no controls.
  */
 export function controlBar(host: HTMLElement, rerender: () => void): void {
   host.replaceChildren();
@@ -140,36 +150,42 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
   group(
     host,
     "VIEW",
-    `Which half of the page is showing — independent of the skin, motion and ` +
-      `light below; either view can show any combination of them. TRANSPOSE ` +
-      `walks one body across every option; ADVANCED is the sixty-body ` +
-      `catalogue where the combinations get set. Now: ${view === "transpose" ? "TRANSPOSE" : "ADVANCED"}.`,
+    `Which section of the page is showing. OVERVIEW walks one body across ` +
+      `every skin, every motion and both light states, with nothing to set; ` +
+      `COMPOSE is the sixty-body catalogue and the three axes that say what ` +
+      `every card there is wearing. Now: ${view === "overview" ? "OVERVIEW" : "COMPOSE"}.`,
     (row) => {
       button(
         row,
-        "TRANSPOSE",
-        view === "transpose",
+        "OVERVIEW",
+        view === "overview",
         "one body, drawn once per skin, once per motion, once per light state",
         () => {
-          setView("transpose");
+          setView("overview");
           rerender();
         },
       );
       button(
         row,
-        "ADVANCED",
-        view === "advanced",
-        "the sixty-body catalogue, where a shape and an idea meet",
+        "COMPOSE",
+        view === "compose",
+        "the sixty-body catalogue, and the skin, motion and light every card wears",
         () => {
-          setView("advanced");
+          setView("compose");
           rerender();
         },
       );
     },
   );
 
+  const axes = document.getElementById("shapesAxes");
+  if (!axes) return;
+  axes.replaceChildren();
+  axes.classList.add("control-bar");
+  if (view !== "compose") return;
+
   group(
-    host,
+    axes,
     "SKIN",
     `The surface every card is drawn with, for the whole page — independent ` +
       `of the motion and the light below; any skin combines with either. ` +
@@ -185,7 +201,7 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
 
   const driving = currentMotion();
   group(
-    host,
+    axes,
     "MOTION",
     `How every card moves, for the whole page — independent of the skin and ` +
       `the light above and below. OWN leaves each card playing whatever ` +
@@ -212,7 +228,7 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
   );
 
   group(
-    host,
+    axes,
     "LIGHT",
     `The key light, composited on top of whichever skin is picked — ` +
       `independent of the skin and the motion above. On shows the skin lit; ` +
