@@ -56,20 +56,26 @@ _claude/convert-second-game · tools/shape-sheet/src/forms tools/shape-sheet/src
 enemy unit screenshots. then try some to convert that they look near to their,
 but for our game."*
 
-Seven bodies and three motions are converted off the four games
+Nine bodies and four motions are converted off the five games
 `docs/tower-defence.md` already reads — that page's "What has been converted"
 section lists them, and they are on the SHAPES tab as free contours. The two
 that were deliberately **not** converted are named there too, with the reason,
 and that half matters: a catalogue that only grows stops meaning anything.
 
-What is left is a different game, not more of the same one. The four already
-read are a vertical tower defence, a bullet heaven, a lane defence and a lane
-defence with a fringe on everything — and the second and third gave up one body
-each, because their vocabulary is ours already. Pick a game whose bodies are
-built out of something this catalogue has never drawn: hard polygons carrying
-*life* (Neon Pulsefire spends them and we only spend them on rock), bodies made
-of separate parts that stay apart, or anything whose silhouette changes because
-of what it is *doing* rather than what it is.
+What is left is a different *kind* of source, not more games of the same kind.
+The five already read are two bullet heavens, a vertical tower defence and two
+lane defences, and the last three of them gave up one body each because their
+vocabulary is ours already — Nova Drift's whole line-up came back as things
+this catalogue draws under other names, which the page lists one by one.
+
+So the yield is falling, and the lane should say what it is fishing for rather
+than pick another shooter. The two gaps the nine did not close: a silhouette
+that changes because of **what the body is doing** rather than what it is (a
+thing that opens, digs in, or folds away — `THE LURE`'s fold is the only one we
+have), and hard polygons carrying **life** rather than rock. Pick a source that
+has one of those, from anywhere — a shmup boss's transformation phases, an
+insect, a machine. It does not have to be a tower defence and the page's title
+has already stopped being accurate.
 
 Read the existing seven first. Each carries an `owner` line saying what was
 left behind and why, and the useful pattern in them is that the conversion is
