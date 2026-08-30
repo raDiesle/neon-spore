@@ -425,3 +425,28 @@ styles from `rail.ts` once it covers them. Then check the director for other
 controls that are disabled somewhere and have never looked it.
 
 `Check: with a boss wave selected, does every greyed control in the director read as unpressable before you press it?`
+
+## LANDING PRINTS THE COMMAND THAT MAKES AN ORPHAN
+_claude/land-verified-removal · tools/land tools/land/test_
+**Proposed by the run.** The half `749911e` could not reach: it owned
+`tools/checks` and not `tools/land`.
+
+`749911e` taught the sweep to verify a removal instead of trusting it, and to
+find directories git no longer knows about. `bun run land` was not in its
+paths, and land is where the orphan is actually made.
+
+Land deletes the branch itself, then **prints `git worktree remove <path>` for
+somebody to run by hand.** That command is the one with the fault: on Windows
+it fails to delete the directory while a handle is still held, drops the
+registry entry anyway, and leaves a full checkout on disk that git believes is
+gone. Measured immediately after the sweep lane landed — the printed command
+was run verbatim, failed exactly that way, and the orphan it made was then
+found and removed by the sweep the same commit had just added. The tool
+repaired damage its sibling had told a person to cause.
+
+Land should do the removal itself, with the retry-and-verify that now lives in
+`tools/checks/sweep.ts`, and print a path only when it genuinely could not
+remove one. The guarantee does not change: a tree with uncommitted work is
+left alone and named, never forced.
+
+`Check: land a lane — is its worktree folder gone from disk when the landing finishes, with no command left for you to run?`
