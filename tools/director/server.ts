@@ -1,11 +1,10 @@
-import { readdir } from "node:fs/promises";
-import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
 import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
+import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./src/docs-api.js";
 import { serializeWaveArray } from "./src/serialize.js";
 
 /**
@@ -59,9 +58,6 @@ const actFiles = [
     exportName: "WAVES_ACT_3",
   },
 ] as const;
-const specDir = new URL("../../docs/spec/", import.meta.url);
-const borrowedFile = new URL("../../docs/borrowed.md", import.meta.url);
-const towerDefenceFile = new URL("../../docs/tower-defence.md", import.meta.url);
 const marker = "neon-spore-director";
 // Longer than the preview's 30 seconds: this one is left open while a
 // person thinks about a wave, which is not the same as an agent forgetting it.
@@ -125,35 +121,6 @@ function withIdle<T extends (req: Request) => Response | Promise<Response>>(hand
 async function readWaves(): Promise<Wave[]> {
   const mod = (await import(`${wavesFile.href}?t=${Date.now()}`)) as { WAVES: Wave[] };
   return mod.WAVES;
-}
-
-/**
- * `docs/borrowed.md`, whole — shared with `build.ts` so the shipped
- * director's static snapshot and this server's live route read the file the
- * same way rather than carrying two copies of one `Bun.file().text()` call.
- */
-export async function readBorrowedText(): Promise<string> {
-  return await Bun.file(borrowedFile).text();
-}
-
-/**
- * `docs/tower-defence.md`, whole — the second study of other games, read for
- * what a slick, a bulb or a meteor could otherwise be. Served the same way
- * `docs/borrowed.md` is, and for the same reason: its argument is a table with
- * a verdict column, so a parse into entries would drop the half that took the
- * reading.
- */
-export async function readTowerDefenceText(): Promise<string> {
-  return await Bun.file(towerDefenceFile).text();
-}
-
-/** Every spec file, verbatim — see `readBorrowedText` for why this is exported. */
-export async function readSpecFiles(): Promise<{ name: string; text: string }[]> {
-  const dir = Bun.fileURLToPath(specDir);
-  const names = (await readdir(dir)).filter((n) => n.endsWith(".md")).sort();
-  return await Promise.all(
-    names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
-  );
 }
 
 /**

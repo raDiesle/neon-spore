@@ -1,9 +1,9 @@
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
-import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./server.js";
 import { backlogState } from "./src/backlog-api.js";
 import { checksState } from "./src/checks-api.js";
+import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./src/docs-api.js";
 
 /**
  * Builds the director the way `apps/game/preview.ts` builds the game: a
