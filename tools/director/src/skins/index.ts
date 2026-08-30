@@ -1,3 +1,4 @@
+import { buildGlows, type GlowId } from "../glows/index.js";
 import { CARAPACE, MOUNTED_CARAPACE } from "./carapace.js";
 import { CHAMBER } from "./chamber.js";
 import { CILIA } from "./cilia.js";
@@ -124,6 +125,13 @@ export function buildSkin(
     extent: { w: number; h: number };
     tile: number;
     lit: boolean;
+    centre: { readonly x: number; readonly y: number };
+    /**
+     * Which glows are on, stacked under and over the skin. Empty is the
+     * default and is a real choice — it is the picture every value on that
+     * axis has to beat. See `glows/index.ts`.
+     */
+    glows?: readonly GlowId[];
   },
 ): SkinBuild {
   const contour: SVGPathElement[] = [];
@@ -143,7 +151,13 @@ export function buildSkin(
       frames.push(fn);
     },
   };
+  // Under, then the skin, then over — the order `glows/index.ts` declares and
+  // never the order the reader ticked the boxes in. The skin has to be able to
+  // go between the two, which is why this is two calls and not one.
+  const glows = opts.glows ?? [];
+  buildGlows(glows, "under", ctx);
   (SKINS.find((s) => s.id === skin) ?? LINE).build(ctx);
+  buildGlows(glows, "over", ctx);
   // Nothing registered is nothing called: the four skins here are all static,
   // and a static figure should cost the loop no closure at all.
   if (frames.length === 0) return { contour };

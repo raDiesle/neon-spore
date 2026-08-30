@@ -1,6 +1,6 @@
 /**
  * The control rows on SHAPES: which view, and — on COMPOSE only — a skin, a
- * motion and a light, each picked once for the whole page.
+ * motion, a light and a glow stack, each set once for the whole page.
  *
  * VIEW was added when the owner asked for the one-body walk — one body drawn
  * across every skin, every motion and both lights — to be the page's default,
@@ -10,10 +10,10 @@
  * and because ADVANCED said "harder" when what it means is "this is where the
  * combinations get set".
  *
- * **The three axis groups belong to COMPOSE and are built into its own
- * element.** OVERVIEW is meant to open on a picture: a body picker made of
- * the bodies themselves, and the three grids under it. A skin row, a motion
- * row and a light row above that are twenty-odd buttons asking to be pressed
+ * **The axis groups belong to COMPOSE and are built into its own element.**
+ * OVERVIEW is meant to open on a picture: a body picker made of the bodies
+ * themselves, and the grids under it. A skin row, a motion row, a light row
+ * and a glow row above that are thirty-odd buttons asking to be pressed
  * before the reader has seen anything, and the walk already shows every one
  * of their values at once — so on OVERVIEW there is nothing to set and
  * nothing is shown. `host` here holds the VIEW tabs and only ever those; the
@@ -24,17 +24,25 @@
  * then OWN and every spare motion, separated only by a one-character tag set
  * in the same small type as everything around it. A tag that short reads as
  * a bullet, not a heading, so the row never said the one thing it most needed
- * to: that these are three independent axes, and any skin, any motion and
- * either light state combine freely. This file says that in words. Each axis
- * gets a heading a reader parses as a heading, and one line under it, in the
- * page's own voice, naming what it picks, saying it does not touch the other
- * two, and spelling out the current pick — OWN and LIT most of all, since
- * they used to carry their whole meaning in a tooltip nobody had to read.
+ * to: that these are independent axes, and any skin, any motion, either light
+ * state and any glow stack combine freely. This file says that in words. Each
+ * axis gets a heading a reader parses as a heading, and one line under it, in
+ * the page's own voice, naming what it picks, saying it does not touch the
+ * others, and spelling out the current pick — OWN, LIT and NONE most of all,
+ * since those used to carry their whole meaning in a tooltip nobody had to
+ * read, or in GLOW's case in an empty row that says nothing at all.
  *
- * The state itself — which skin, whether the light is on, which motion —
- * still lives in `shapes-pair.ts`. This file only reads it through the three
+ * **GLOW is the fourth and it is the one that stacks.** The other three
+ * highlight exactly one button, which a reader parses at a glance; a row of
+ * ticks does not say whether three lit buttons are three picks or three
+ * states of one thing. So its description carries more weight than the rest:
+ * it names the whole stack in words, says the stacking order comes from the
+ * registry rather than from click order, and names NONE.
+ *
+ * The state itself — which skin, whether the light is on, which motion, which
+ * glows — still lives in `shapes-pair.ts`. This file only reads it through the
  * getters that file already exported for `shapes-all.ts`, and writes it
- * through three small setters added beside them. `shapes-pair.ts`
+ * through the small setters beside them. `shapes-pair.ts`
  * re-exports `controlBar` from here, so `shapes-panel.ts` keeps importing it
  * from the same place it always has and nothing else has to move.
  *
@@ -44,20 +52,10 @@
  * rebuild once cost seven to twelve seconds; almost none of it was the
  * rebuild, it was the frame fit, rescanned per card per switch for an answer
  * that had not changed — `shape-figure.ts` remembers it now, so a click here
- * costs about a fifth of a second regardless of which of the three groups it
- * lands in.
+ * costs about a fifth of a second regardless of which group it lands in.
  */
 
-import { MOTIONS } from "@neon-spore/shape-sheet";
-import {
-  currentLit,
-  currentMotion,
-  currentSkin,
-  setMotion,
-  setSkin,
-  toggleLit,
-} from "./shapes-pair.js";
-import { SKINS } from "./skins/index.js";
+import { axisGroups, button, group } from "./shapes-axes.js";
 
 export type ShapesView = "overview" | "compose";
 
@@ -91,52 +89,8 @@ function setView(next: ShapesView): void {
   document.getElementById("backlogBody")?.scrollTo({ top: 0 });
 }
 
-function button(host: HTMLElement, label: string, on: boolean, hint: string, pick: () => void) {
-  const b = document.createElement("button");
-  b.className = on ? "skin is-on" : "skin";
-  b.textContent = label;
-  b.title = hint;
-  b.addEventListener("click", pick);
-  host.appendChild(b);
-  return b;
-}
-
 /**
- * One named axis: a heading, a description line that says what the axis
- * picks, that it is independent of the other two, and what is currently
- * picked — then the row of buttons themselves. The description is the thing
- * that makes the current pick legible without hovering a button; the
- * highlighted button is a confirmation of it, not the only place it is said.
- */
-function group(
-  host: HTMLElement,
-  heading: string,
-  desc: string,
-  build: (row: HTMLElement) => void,
-): void {
-  const wrap = document.createElement("div");
-  wrap.className = "control-group";
-
-  const h = document.createElement("h3");
-  h.className = "control-heading";
-  h.textContent = heading;
-  wrap.appendChild(h);
-
-  const p = document.createElement("p");
-  p.className = "control-desc";
-  p.textContent = desc;
-  wrap.appendChild(p);
-
-  const row = document.createElement("div");
-  row.className = "control-row";
-  build(row);
-  wrap.appendChild(row);
-
-  host.appendChild(wrap);
-}
-
-/**
- * The VIEW tabs, and — when COMPOSE is showing — the three axis groups beside
+ * The VIEW tabs, and — when COMPOSE is showing — the four axis groups beside
  * the catalogue. `host` is the strip at the top of the page and holds the tabs
  * alone; the axes are built into `shapesAxes` inside the COMPOSE half, and
  * that element is emptied while OVERVIEW is showing. See this file's header
@@ -152,14 +106,14 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
     "VIEW",
     `Which section of the page is showing. OVERVIEW walks one body across ` +
       `every skin, every motion and both light states, with nothing to set; ` +
-      `COMPOSE is the sixty-body catalogue and the three axes that say what ` +
+      `COMPOSE is the sixty-body catalogue and the four axes that say what ` +
       `every card there is wearing. Now: ${view === "overview" ? "OVERVIEW" : "COMPOSE"}.`,
     (row) => {
       button(
         row,
         "OVERVIEW",
         view === "overview",
-        "one body, drawn once per skin, once per motion, once per light state",
+        "one body, drawn once per skin, once per motion, once per glow, once per light state",
         () => {
           setView("overview");
           rerender();
@@ -169,7 +123,7 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
         row,
         "COMPOSE",
         view === "compose",
-        "the sixty-body catalogue, and the skin, motion and light every card wears",
+        "the sixty-body catalogue, and the skin, motion, light and glow every card wears",
         () => {
           setView("compose");
           rerender();
@@ -178,72 +132,13 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
     },
   );
 
+  // The axes go into COMPOSE's own element rather than into `host`, and are
+  // simply not built while OVERVIEW is showing — see this file's header for
+  // why OVERVIEW opens on a picture and carries no controls at all.
   const axes = document.getElementById("shapesAxes");
   if (!axes) return;
   axes.replaceChildren();
   axes.classList.add("control-bar");
   if (view !== "compose") return;
-
-  group(
-    axes,
-    "SKIN",
-    `The surface every card is drawn with, for the whole page — independent ` +
-      `of the motion and the light below; any skin combines with either. ` +
-      `Now: ${currentSkin()}.`,
-    (row) => {
-      for (const s of SKINS)
-        button(row, s.label, s.id === currentSkin(), s.hint, () => {
-          setSkin(s.id);
-          rerender();
-        });
-    },
-  );
-
-  const driving = currentMotion();
-  group(
-    axes,
-    "MOTION",
-    `How every card moves, for the whole page — independent of the skin and ` +
-      `the light above and below. OWN leaves each card playing whatever ` +
-      `motion its own catalogue entry was authored with; any other choice ` +
-      `forces all of them to move the same way instead. ` +
-      `Now: ${driving === undefined ? "OWN" : driving.name}.`,
-    (row) => {
-      button(
-        row,
-        "OWN",
-        driving === undefined,
-        "each card keeps whatever motion its own catalogue entry was authored with",
-        () => {
-          setMotion(undefined);
-          rerender();
-        },
-      );
-      for (const m of MOTIONS)
-        button(row, m.name, driving === m, m.note, () => {
-          setMotion(m);
-          rerender();
-        });
-    },
-  );
-
-  group(
-    axes,
-    "LIGHT",
-    `The key light, composited on top of whichever skin is picked — ` +
-      `independent of the skin and the motion above. On shows the skin lit; ` +
-      `off shows the same skin without it. Now: ${currentLit() ? "on" : "off"}.`,
-    (row) => {
-      button(
-        row,
-        "LIT",
-        currentLit(),
-        "the key light, on top of whichever skin composes it — off shows the same skin without it",
-        () => {
-          toggleLit();
-          rerender();
-        },
-      );
-    },
-  );
+  axisGroups(axes, rerender);
 }

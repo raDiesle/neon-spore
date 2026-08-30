@@ -50,130 +50,17 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## A FOURTH AXIS ON SHAPES: GLOW
-_claude/shapes-glow · tools/director/src/glows tools/director/src/shapes-controls.ts tools/director/src/shapes-pair.ts tools/director/src/shapes-all.ts tools/director/src/shape-figure.ts tools/director/index.html tools/director/test docs/glow.md_
-**Asked for by the owner.** *"i would like to add a new category to the shapes
-page to create and compose variants […] so i want then to see for same shape
-all the lighting and post-effects on overview page and in advanced to compose
-them"* — followed by their own list of effects, which is the brief and is
-reproduced in the table below rather than paraphrased.
-
-SHAPES has three axes today: SKINS (what is drawn *on* the body), MOTIONS (how
-it moves) and LIGHT (a key light, on or off). This adds a fourth: **what the
-body throws off into the space around it.**
-
-### The name is settled and is not to be re-opened
-
-**GLOW.** A plain noun in the register of hull, lobe, beat, guard, skin,
-motion, light — and it pairs against the existing LIGHT axis exactly the way
-`docs/tower-defence.md` already frames the two: LIGHT is a body lit from
-outside, GLOW is a body lit by *being the thing that emits*. `VFX` was rejected
-as the only acronym the page would carry. `EMISSION` and `AURA` were rejected
-because each is also the name of one of the values below, and an axis may not
-be named after one of its own members — which is also why the owner's *Outer
-Glow* is called `HALO` here.
-
-### It stacks; it is not a pick
-
-Settled with the owner. GLOW is **checkboxes, not radio buttons** — BLOOM and
-TRAIL and AURA all on at once, because that is how they combine in a real
-engine and the combination is the thing the page is opened to judge. This is
-the one structural difference from SKINS and it decides the file layout:
-`currentSkin()` returns one id, `currentGlows()` returns a set.
-
-### Where it lives
-
-A new `tools/director/src/glows/`, built the way `skins/` is: one file per
-value, an `index.ts` that is the **only** place that knows which exist, a
-`GlowId` derived from the array and never typed, a `buildGlow` that looks up in
-it. A new glow is one file and one line, and nothing else.
-
-**Not** inside `skins/`. A skin is exclusive and a glow stacks; folding them
-together would make `SkinId` mean two things and would let a reader pick BLOOM
-*instead of* MEMBRANE, which is the one combination that makes no sense.
-
-The four rules in `docs/skins.md` carry over word for word, and `docs/glow.md`
-should point at them rather than restate them: nothing imports or edits
-`packages/render`; seed only from `streamFor(ctx.name)`; key every `<defs>` id
-on `ctx.uid`; allocate nothing inside `onFrame`. The last one bites harder here
-than it ever did for a skin — a particle system written the obvious way
-allocates per mote per frame, and there are thirty figures on the page.
-
-Each glow declares `layer: "under" | "over"`, and the builder draws the unders
-in registry order, then the skin, then the overs. A bloom sitting on top of its
-own outline is the effect drawn wrong, and leaving the order to the order
-somebody happened to tick the boxes in would make the page unreproducible.
-
-### The one thing a glow may never do
-
-**Change the contour.** A glow adds light around a shape and never moves a
-point of it. That is what keeps GLOW orthogonal to SKINS and MOTIONS — the
-whole premise of a compose page is that its axes are independent — and unlike
-most such claims it is testable: sample the contour with every glow on and with
-none, and assert the path data is identical. Write that test. The one value
-that wants to break the rule is SQUASH, and it is on the *other* axis for
-exactly this reason.
-
-### The seven values
-
-Four of these come out of the three Neon Pulsefire frames now read into
-`docs/tower-defence.md`'s "Three more frames, and the one thing they all say".
-Read that section first: it is short, it has the pictures, and three of its
-notes are corrections to the implementation anybody would otherwise reach for.
-
-| Value | What it is | Note |
-|---|---|---|
-| `BLOOM` | bright pixels bleed softly into what is around them — the standard engine term the owner named | `parts.ts` already has the shape of it in `PASSES`/`SPREAD`. Widen and reuse; a second copy drifts |
-| `EMISSIVE` | the body is a light source rather than a lit thing: the fill tints toward the rim colour and *upward* | deliberately the opposite direction from `corePass`, whose outer stop falls to the card's dark on purpose. Those two on one page is the argument, and it is the best card on the axis |
-| `HALO` | a soft luminous outline standing off the contour — the owner's *Outer Glow* | the `box-shadow`/`drop-shadow` idea in SVG: one blurred offset copy of the contour |
-| `AURA` | a ring standing clear of the body, pulsing — the charged-Super circle the owner described | on `frame.beat` and never a private clock; `types.ts` already argues this at length |
-| `SPARKS` | a particle system: motes on seeded paths leaving the body | seeded from `ctx.name`, so a reload draws the same card the screenshot was taken of |
-| `TRAIL` | a luminous tail that lingers behind the body as it moves | **dots, not a ribbon** — the source draws separating dots that shrink, and the gaps are what read as speed. Rides `frame.pose`, so it draws nothing on a body with no own-motion. That is correct, and the caption has to say it |
-| `SWARM` | one soft cloud under the whole figure rather than a halo per body | the source's twenty green squares are one cloud with twenty outlines punched into it. Cheapest thing on the axis *and*, in the source, the strongest — build it before the per-body ones, not after |
-
-### What each view gets
-
-OVERVIEW gets a **fourth grid**, from the same `grid()` in `shapes-all.ts` that
-already draws the other three, called a fourth time: one body, one card per
-glow value, each value drawn **alone** over whatever skin, motion and light the
-bar currently says. That is the "see all the lighting and post-effects for the
-same shape" half of the ask, literally.
-
-COMPOSE gets a fourth `group()` in `shapes-controls.ts` — a heading, a line
-saying what the axis picks and that it is independent of the other three, then
-the checkboxes. That line has to spell the stack out in words, because a set of
-ticks is harder to read back than one highlighted button; and it says NONE when
-the stack is empty. NONE is a real choice, and it is the control every other
-value on the axis has to beat.
-
-### The thing most likely to go wrong
-
-**The fit.** A glow makes a figure larger than its contour, and
-`shape-figure.ts` fits each frame to the contour over the wobble and the
-motion. Turn on HALO or SPARKS and every card clips at its edge — which reads
-as the effect being broken rather than the frame being small, the same failure
-`shapes-page-app.ts`'s header describes for own-motion. The fit has to include
-the widest enabled glow's reach, and the cached fit has to be keyed on the glow
-stack, or switching the stack shows the previous one's frame.
-
-### Scope
-
-Nothing here touches `packages/render`. This is the tool learning to draw
-something so the owner can decide by looking; the game learning to draw it is a
-separate decision they take afterwards, and CLAUDE.md's *A look is offered,
-never replaced* is why. Nothing on the field changes in this lane.
-
-`Check: on SHAPES → OVERVIEW, does the GLOW grid show seven plainly different effects on one body — and with two or three ticked on COMPOSE, does the stack read as one look or as effects fighting each other?`
-
 ## A FIFTH AXIS ON SHAPES: HITS
 _claude/shapes-hits · tools/director/src/hits tools/director/src/shapes-trigger.ts tools/director/test/hits.test.ts_
 **Asked for by the owner.** *"i guess the hitting 'juice' animations should be
 again another category on shapes page."* Yes — and the line between the two
 axes is clean.
 
-**Take the lane above first.** This one is written against the registry, the
-stacking control and the extra grid that lane builds, and reuses all three.
-Starting here means building that machinery twice and then reconciling it.
+**The lane this one waited for has landed** — `tools/director/src/glows/`,
+`docs/glow.md` and the GLOW row on COMPOSE are on `main`. Read `docs/glow.md`
+first and then build against what is there: the registry shape, the stacking
+control, the extra OVERVIEW grid and `FigureOptions.padFor` are all reusable as
+they stand, and a second copy of any of them is the mistake to avoid.
 
 ### Why it is a second axis and not seven more GLOW values
 

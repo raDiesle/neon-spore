@@ -15,14 +15,21 @@
  * `shapes-all.ts` still needs to know what the page's controls currently say
  * — a skin grid is read against whatever light and motion the bar is set to,
  * same as a motion grid is read against whatever skin is picked — so the
- * three getters at the bottom are exported for it. Nothing else outside this
- * file may write these three; the three setters just below them are the only
- * way, and `controlBar` — now in `shapes-controls.ts`, re-exported here so
+ * getters at the bottom are exported for it. Nothing else outside this file
+ * may write this state; the setters just below them are the only way, and
+ * `controlBar` — now in `shapes-controls.ts`, re-exported here so
  * `shapes-panel.ts` keeps importing it from this file — is the only caller.
+ *
+ * **Four axes now, and the fourth is the odd one.** GLOW is a *set* rather
+ * than a pick — a body wears any number of them at once — so it is the one
+ * piece of state here that is plural, and `toggleGlow` rather than a setter
+ * is how it moves. `glows/index.ts` says why an axis that stacks could not
+ * simply have been more skins.
  */
 
 import type { OwnMotion } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
+import type { GlowId } from "./glows/index.js";
 import { shapeFigure } from "./shape-figure.js";
 import type { SkinId } from "./skins/index.js";
 
@@ -48,6 +55,21 @@ let lit = true;
  * until something is picked.
  */
 let motion: OwnMotion | undefined;
+
+/**
+ * Which glows every card wears — a **set**, not a pick, and the one axis on
+ * this page whose state is plural.
+ *
+ * A skin is exclusive and a glow stacks: BLOOM and TRAIL and AURA are all on
+ * at once in any real engine, and the combination is what the owner opens the
+ * page to judge. `glows/index.ts` has the whole argument.
+ *
+ * Empty by default, and that is a real choice rather than the absence of one —
+ * the same reasoning `motion` above is `undefined` by default for. Nothing on
+ * the sixty-card catalogue may look different until somebody ticks something,
+ * and NONE is the picture every value on the axis has to beat.
+ */
+let glows: GlowId[] = [];
 
 /** What actually drives a card, so a caption can name it rather than guess. */
 export function driving(entry: CatalogueEntry): OwnMotion | undefined {
@@ -85,6 +107,27 @@ export function setMotion(m: OwnMotion | undefined): void {
   motion = m;
 }
 
+/** The glow stack every card is currently wearing, in registry order. */
+export function currentGlows(): readonly GlowId[] {
+  return glows;
+}
+
+/**
+ * Turns one glow on or off, leaving the rest of the stack alone.
+ *
+ * A new array rather than a splice in place, because `currentGlows` hands the
+ * array out and `shape-figure.ts` keeps no copy of it — mutating the one the
+ * last render read would make a rebuild the only way to tell what changed.
+ */
+export function toggleGlow(id: GlowId): void {
+  glows = glows.includes(id) ? glows.filter((g) => g !== id) : [...glows, id];
+}
+
+/** Takes the whole stack off. NONE is a choice, and it is the control. */
+export function clearGlows(): void {
+  glows = [];
+}
+
 /**
  * The whole control row, built once above the drafts and read by
  * `shapes-all.ts`'s three grids besides. Its own file, `shapes-controls.ts`,
@@ -110,5 +153,6 @@ export function picture(entry: CatalogueEntry, o: PictureOptions): Element {
     skin: skinA,
     lit,
     motion,
+    glows,
   });
 }

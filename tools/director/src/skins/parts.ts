@@ -95,13 +95,37 @@ export function clipGroup(ctx: SkinContext, name = "clip"): SVGGElement {
  * passes is `STROKE.glowPasses`, and the spread matches `STROKE.glowSpread`.
  */
 export function auraPass(ctx: SkinContext): SVGPathElement[] {
+  return bleedPass(ctx, SPREAD, PASSES, 0.1, 0.05);
+}
+
+/**
+ * The same outline several times, widest and faintest first — `auraPass` with
+ * its four numbers opened up.
+ *
+ * `glows/bloom.ts` is this at six times the spread and a fifth of the opacity,
+ * and it is the same function rather than a copy of it because `docs/glow.md`
+ * inherits `docs/skins.md`'s reason: a bleed written twice drifts, and a page
+ * comparing a skin's aura against a glow's bloom would then be comparing two
+ * implementations rather than two settings. The numbers are the difference and
+ * they are the only difference.
+ *
+ * `spread` is in contour units, like `ctx.weight` — the fit's scale is applied
+ * above this and nothing here has to know the pixel size of anything.
+ */
+export function bleedPass(
+  ctx: SkinContext,
+  spread: number,
+  passes: number,
+  base: number,
+  step: number,
+): SVGPathElement[] {
   const out: SVGPathElement[] = [];
-  for (let i = PASSES; i >= 1; i--) {
+  for (let i = passes; i >= 1; i--) {
     const g = ctx.contourPath();
     g.setAttribute("fill", "none");
     g.setAttribute("stroke", ctx.colour);
-    g.setAttribute("stroke-opacity", (0.1 + 0.05 * (PASSES - i)).toFixed(2));
-    g.setAttribute("stroke-width", String(ctx.weight + (i * SPREAD) / PASSES));
+    g.setAttribute("stroke-opacity", (base + step * (passes - i)).toFixed(3));
+    g.setAttribute("stroke-width", String(ctx.weight + (i * spread) / passes));
     ctx.body.appendChild(g);
     out.push(g);
   }

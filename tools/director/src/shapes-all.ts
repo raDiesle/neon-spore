@@ -58,8 +58,9 @@
 
 import type { OwnMotion } from "@neon-spore/content";
 import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
+import { GLOWS, type GlowId } from "./glows/index.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
-import { currentLit, currentMotion, currentSkin } from "./shapes-pair.js";
+import { currentGlows, currentLit, currentMotion, currentSkin } from "./shapes-pair.js";
 import { SKINS, type SkinId } from "./skins/index.js";
 
 const BOX = 92;
@@ -148,13 +149,28 @@ interface Cell {
   skin: SkinId;
   lit: boolean;
   motion: OwnMotion | undefined;
+  /** The glow stack this cell wears. A set, unlike the other three, which is
+   * the whole reason GLOW is a fourth axis rather than more skins. */
+  glows: readonly GlowId[];
+  /** What to leave room for, when that is not what is drawn. Only the glow
+   * row sets it — see `renderShapesAll`. */
+  padFor?: readonly GlowId[];
 }
 
 function figureCell(box: number, width: number, stroke: string, entry: CatalogueEntry, c: Cell) {
   const col = document.createElement("div");
   col.style.cssText = "display:flex;flex-direction:column;gap:2px;flex:0 0 auto;min-width:0";
   col.appendChild(
-    shapeFigure(entry, { box, width, stroke, skin: c.skin, lit: c.lit, motion: c.motion }),
+    shapeFigure(entry, {
+      box,
+      width,
+      stroke,
+      skin: c.skin,
+      lit: c.lit,
+      motion: c.motion,
+      glows: c.glows,
+      padFor: c.padFor,
+    }),
   );
   const label = document.createElement("span");
   label.textContent = c.label;
@@ -195,19 +211,39 @@ export function renderShapesAll(): void {
   const lit = currentLit();
   const motion = currentMotion();
   const skin = currentSkin();
+  const glows = currentGlows();
 
   grid(
     "shapesAllSkins",
     entry,
-    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion })),
+    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows })),
   );
   grid(
     "shapesAllMotions",
     entry,
-    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m })),
+    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows })),
   );
+  // NONE first and then one glow at a time, never the stack the bar is set to.
+  // The other three grids hold their own axis against whatever the reader
+  // already picked for the rest, which is right for them — a skin under no
+  // glow is still that skin. It is wrong here: a grid of seven cells each
+  // showing SWARM plus the one value that cell is named after would be seven
+  // pictures of SWARM, and the axis would be unreadable exactly where it is
+  // being introduced. So this grid is the one place on the page that overrides
+  // its own axis rather than composing with it.
+  //
+  // Every cell is padded for the *widest* glow rather than for its own, so the
+  // eight bodies come out the same size. Padded each for its own, SPARKS drew
+  // its body two thirds the width of NONE's and the row read as the axis
+  // shrinking things — which is the padding being compared rather than the
+  // effect.
+  const padFor = GLOWS.map((g) => g.id);
+  grid("shapesAllGlows", entry, [
+    { label: "NONE", skin, lit, motion, glows: [], padFor },
+    ...GLOWS.map((g) => ({ label: g.label, skin, lit, motion, glows: [g.id], padFor })),
+  ]);
   grid("shapesAllLight", entry, [
-    { label: "LIT", skin, lit: true, motion },
-    { label: "UNLIT", skin, lit: false, motion },
+    { label: "LIT", skin, lit: true, motion, glows },
+    { label: "UNLIT", skin, lit: false, motion, glows },
   ]);
 }

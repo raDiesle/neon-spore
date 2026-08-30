@@ -101,6 +101,20 @@ export interface SkinContext {
    */
   readonly tile: number;
   /**
+   * The middle of the body's still bounds, in contour units.
+   *
+   * Every skin so far got by without it: a texture is clipped to the contour
+   * and a gradient is in `objectBoundingBox` units, and neither needs to know
+   * where anything is. A **glow** does — AURA is an ellipse standing off the
+   * body and SWARM is a cloud under it, and neither is a function of the
+   * outline, so both need a point to be centred on.
+   *
+   * It is the same `pivot` the frame and the own-motion transform both turn
+   * about, handed down rather than re-derived. Two answers to where the middle
+   * is would put the ring somewhere the body is not.
+   */
+  readonly centre: { readonly x: number; readonly y: number };
+  /**
    * Whether the key light is switched on. Orthogonal to which skin is picked —
    * `light.ts`'s passes read this and draw nothing when it is false, which is
    * what keeps "take the light off and look" possible once a skin composes it

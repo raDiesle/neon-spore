@@ -1,8 +1,9 @@
-import { type LongAxis, type OwnMotion, type Pose, REST } from "@neon-spore/content";
-import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
+import { type OwnMotion, REST } from "@neon-spore/content";
+import type { CatalogueEntry } from "@neon-spore/shape-sheet";
+import { type GlowId, glowSpread } from "./glows/index.js";
 import { fitOf, stillOf } from "./shape-fit.js";
-import { poseAtSecond, poseTransform } from "./shapes-motion.js";
-import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/index.js";
+import { type Drawn, runFigure } from "./shape-loop.js";
+import { buildSkin, type SkinId } from "./skins/index.js";
 
 /**
  * One contour, fitted into a frame and animated.
@@ -18,130 +19,21 @@ import { BEAT_SECONDS, buildSkin, type SkinFrame, type SkinId } from "./skins/in
  * clips the sway — so the box is fitted over a whole wobble *and* a whole
  * own-motion before anything is drawn into it.
  *
- * `performance.now` is the clock and it is nowhere near the simulation: these
- * cards draw no world and hold no state a replay could disagree about.
+ * What happens to a card *after* it is built is `shape-loop.ts` — the one
+ * clock every figure on the page hangs off. The two were one file until GLOW
+ * took it past the length limit, and the seam was already written into the
+ * sentence above: this file is about building a card, that one is about
+ * running a page of them.
  */
 
 const SVG = "http://www.w3.org/2000/svg";
-
-export { FIT_TIMES, isWide, WIDE_RATIO } from "./shape-fit.js";
-
-interface Drawn {
-  entry: CatalogueEntry;
-  /**
-   * Every path that wears the contour. One for a bare outline, six or more for
-   * a skin with a fill, an aura and a clip — they all take the same `d`, so
-   * the skin never lags its own rim by a frame.
-   */
-  paths: SVGPathElement[];
-  /** The skin's own animation, if it has one. See `skins/types.ts`. */
-  onFrame?: (f: SkinFrame) => void;
-  /** The group the own-motion is written onto, inside the fitted frame. */
-  body: SVGGElement;
-  centre: { x: number; y: number };
-  tile: number;
-  /** `entry.motion` unless a forced motion overrode it. See `FigureOptions.motion`. */
-  motion?: OwnMotion;
-  /** Which way this body is long, for a motion written along one. */
-  long: LongAxis;
-  /**
-   * This card's own frame, reused rather than rebuilt.
-   *
-   * `t` and `beat` are the same on every card and could be one shared object;
-   * `pose` is this body's alone, so the frame has to be per card, and a page
-   * of sixty cards must not allocate sixty objects sixty times a second to say
-   * so. Written here each tick and read by the skin, never kept by it.
-   */
-  frame: { t: number; beat: number; pose: Pose };
-  /** The figure's own `<svg>`, the box `watch` observes. */
-  svg: SVGSVGElement;
-  /**
-   * Whether any of this figure is within sight. Starts true so a card draws on
-   * the frame it is added, before the observer has said anything about it.
-   */
-  seen: boolean;
-}
-
-const drawn: Drawn[] = [];
-let running = false;
+/** Unique per figure, and the reason a `<defs>` id never collides: the backlog
+ * page draws the same shape twice on purpose, beside the idea it was offered
+ * to. Lives here rather than with the loop because it is a fact about
+ * *building* a card, not about running one. */
 let uid = 0;
 
-/**
- * A card nobody can see does not get a frame.
- *
- * The SHAPES tab holds ninety-nine figures in a column ten screens long, and
- * three to six of them are in sight. The rest were being animated into a
- * scroll container that clips them away — not a small saving on the page's
- * cost but most of it.
- *
- * `rootMargin` gives a card a little warning before it arrives. Nothing here
- * needs the warning to *look* right: every figure is a pure function of the
- * clock, so one scrolled into view is in exactly the phase it would have been
- * had it never stopped. A skin that smooths across frames gets a few frames to
- * settle, which is what the margin is actually for.
- */
-const observed = new WeakMap<Element, Drawn>();
-const watch =
-  typeof IntersectionObserver === "function"
-    ? new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            const d = observed.get(e.target);
-            if (d) d.seen = e.isIntersecting;
-          }
-        },
-        { rootMargin: "120px" },
-      )
-    : null;
-
-/** Reused across frames: `clear()` on a `Map` keeps its table. See `tick`. */
-const shapeCache = new Map<CatalogueEntry["subject"], string>();
-
-/**
- * Every figure on the page, redrawn. One loop rather than one per card: a
- * disconnected figure is skipped and then forgotten, so a tab that is rebuilt
- * does not leave its old shapes wobbling in a detached tree forever.
- */
-function tick(): void {
-  const t = performance.now() / 1000;
-  // One phase, worked out once and written onto every card's frame. Not per
-  // figure: a page of cards each pulsing on its own clock reads as noise, and
-  // the whole value of a heartbeat is that the page does it together.
-  // `BEAT_SECONDS` is the game's own tempo — see `skins/types.ts`.
-  const beat = (t / BEAT_SECONDS) % 1;
-  // A contour at one moment depends on the subject and the clock, nothing
-  // else, so the forty cells of `shapes-all.ts` — one body walked across every
-  // skin, motion and light — are forty identical strings. THE CAIRN's costs
-  // three milliseconds to build.
-  shapeCache.clear();
-  let live = 0;
-  for (const d of drawn) {
-    const first = d.paths[0];
-    if (!first?.isConnected) {
-      watch?.unobserve(d.svg);
-      continue;
-    }
-    drawn[live++] = d;
-    if (!d.seen) continue;
-    let shape = shapeCache.get(d.entry.subject);
-    if (shape === undefined) {
-      shape = contourAt(d.entry.subject, t);
-      shapeCache.set(d.entry.subject, shape);
-    }
-    for (const p of d.paths) p.setAttribute("d", shape);
-    // One pose, used twice: it is what the group is transformed by and what a
-    // skin that leans or slides is told. Two derivations of it would be two
-    // answers, and the fringe would lean against a sway the body is not doing.
-    const pose = d.motion ? poseAtSecond(d.motion, t, d.long) : REST;
-    d.body.setAttribute("transform", d.motion ? poseTransform(pose, d.centre, d.tile) : "");
-    d.frame.t = t;
-    d.frame.beat = beat;
-    d.frame.pose = pose;
-    d.onFrame?.(d.frame);
-  }
-  drawn.length = live;
-  requestAnimationFrame(tick);
-}
+export { FIT_TIMES, isWide, WIDE_RATIO } from "./shape-fit.js";
 
 export interface FigureOptions {
   /** Height of the frame, in CSS pixels. */
@@ -172,6 +64,31 @@ export interface FigureOptions {
    * motion under a chosen skin is the pairing that was missing.
    */
   motion?: OwnMotion;
+  /**
+   * Which glows the body wears, stacked under and over the skin. Unlike
+   * `skin`, this is a *set* — a glow composes with every other one, and the
+   * combination is what the axis exists to show. Empty is the default and is
+   * a real choice: it is the picture every value has to beat.
+   *
+   * Orthogonal to the other three the same way they are to each other, with
+   * one consequence they do not have: a glow reaches past the contour, so it
+   * is the only option here that changes the *frame*. See below.
+   */
+  glows?: readonly GlowId[];
+  /**
+   * Pad the frame as though the body were wearing *these* glows, while drawing
+   * only the ones in `glows`.
+   *
+   * For one card this is never needed and is left unset — a figure is padded
+   * for what it draws. A **grid** of cards that differ only in their glow is
+   * the case it exists for: padded each for its own, the seven cells come out
+   * at seven sizes, and a reader comparing them is reading the padding rather
+   * than the effect. OVERVIEW's glow row passes every glow here, so all of its
+   * cells are the size of the widest and only the light differs.
+   *
+   * Defaults to `glows`, so nothing that does not ask for it changes.
+   */
+  padFor?: readonly GlowId[];
 }
 
 /** The fitted, animated contour. Add it to the document and it starts moving. */
@@ -188,8 +105,32 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
   const still = stillOf(entry);
   const { tile, pivot } = still;
   const b = fitOf(entry, motion, still);
+  // The contour's own reach, taken before the glow padding and handed to the
+  // skin unchanged: a texture sizes itself against the *body*, and a body that
+  // grew because somebody ticked HALO would draw a coarser scale for it.
+  const reach = Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2;
+  /**
+   * How much room the glow stack needs past the contour.
+   *
+   * This is derived per figure rather than cached with the fit, and that is
+   * the cheaper of the two ways round. `fitOf` scans a hundred and thirty
+   * contour samples and six thousand poses, keyed on the entry and the motion
+   * — the two things a glow does not change. Keying that table on the glow
+   * stack as well would recompute the whole scan for a number that is a
+   * multiplication, and would hold a box per subset of a seven-value set.
+   *
+   * The padding is symmetric, so the centre is untouched and only the scale
+   * moves. Without it, turning on HALO or SPARKS slices every card at its own
+   * frame edge — which reads as the effect being broken rather than as the
+   * frame being small, exactly the failure the own-motion fit exists to
+   * prevent.
+   */
+  const spread = glowSpread(opts.padFor ?? opts.glows ?? []) * reach;
   const pad = Math.max(6, box * 0.18);
-  const scale = Math.min((w - pad) / (b.x1 - b.x0), (box - pad) / (b.y1 - b.y0));
+  const scale = Math.min(
+    (w - pad) / (b.x1 - b.x0 + spread * 2),
+    (box - pad) / (b.y1 - b.y0 + spread * 2),
+  );
   const cx = (b.x0 + b.x1) / 2;
   const cy = (b.y0 + b.y1) / 2;
 
@@ -211,10 +152,12 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     weight: (opts.weight ?? 2) / scale,
     uid: `sk${uid}`,
     name: entry.subject.name,
-    reach: Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2,
+    reach,
     extent: { w: still.extent.x1 - still.extent.x0, h: still.extent.y1 - still.extent.y0 },
     tile,
     lit: opts.lit ?? true,
+    centre: pivot,
+    glows: opts.glows,
   });
   frame.appendChild(body);
   svg.appendChild(frame);
@@ -232,12 +175,6 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     svg,
     seen: true,
   };
-  drawn.push(record);
-  observed.set(svg, record);
-  watch?.observe(svg);
-  if (!running) {
-    running = true;
-    requestAnimationFrame(tick);
-  }
+  runFigure(record);
   return svg;
 }

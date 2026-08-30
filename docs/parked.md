@@ -1525,3 +1525,26 @@ sticky rule shared by nine tabs is a change to all nine. Start by asking
 whether the introduction should be sticky at all: it is read once, before the
 tab is read, and a heading that follows you down a page is only worth its room
 when it says where you are.
+
+## THERE IS NO WAY TO PHOTOGRAPH THE DIRECTOR
+
+CLAUDE.md's *Showing the owner something* says to send a PNG and never a path,
+and there are two tools for it: `bun run frames <sha>` for the game and
+`bun run png <in.svg> <out.png>` for the shape sheets. There is nothing for the
+**director**, which is where every look now gets decided — SHAPES, VERSUS, the
+concept pages and now the GLOW row are all in it and none of them is an SVG on
+disk.
+
+The GLOW lane wanted one four times and hand-rolled the same throwaway each
+time: launch `playwright-core` through `tools/frames/capture.ts`'s
+`findChrome`, open the running director, click through to a tab, and
+`screenshot()` one element by id. That is about twenty-five lines and it lives
+in `tools/frames/` already, because a script outside a package cannot resolve
+`playwright-core` from the repository root.
+
+`bun run shot <selector> <out.png>` — against the director on whichever port
+`tools/ports.ts` gave it, with the tab reached by name rather than by clicking
+coordinates. The awkward part is navigation: the sheet is behind
+`◇ NOT BUILT YET` and then a tab button, so either the tool learns that path or
+the director grows a deep link the way the game has `?menu`. The second is
+probably the better half of the idea and is worth doing first.
