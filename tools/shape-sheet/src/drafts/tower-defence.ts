@@ -1,6 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { haloed, shed, spanned, studded } from "../forms/index.js";
-import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH } from "../motions.js";
+import { guarded, haloed, shed, spanned, studded } from "../forms/index.js";
+import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js";
 
 /**
  * Three bodies converted out of another game's frame — `docs/tower-defence.md`,
@@ -159,5 +159,37 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "nothing carries it, and it is the one card here whose argument is the motion rather than the contour: the body is deliberately near a meteor, because Missile Command's smart bomb is an ordinary warhead that *steers*. SETTLE is the whole proposal — it wanders off its line and snaps back — and the shape is only there so that something is carrying it. If the motion reads on this, it reads on the rock we already draw",
+  },
+  {
+    subject: guarded("THE HOOD", "a body under an arc that is not attached to it", {
+      r: 46,
+      span: 1.5,
+      sweep: 2.5,
+      thick: 0.22,
+      held: 1,
+      lobes: 3,
+      seed: 9.2,
+    }),
+    motion: WIND,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing carries it: converted from Nova Drift's enemy line-up, which is drawn as white silhouettes on dark and is therefore the strictest test of the only thing that matters here. Almost all of that line-up is already in this catalogue under other names; the one arrangement that is not is a body with a detached piece standing over it, touching nothing. It is the only way this catalogue can draw protection that is a separate object rather than a thickness — and the state worth judging is `held: 0`, where the arc is gone and the body has to read as exposed rather than merely as smaller",
+  },
+  {
+    subject: guarded("THE HOOD — BROKEN", "the same body with the arc gone", {
+      r: 46,
+      span: 1.5,
+      sweep: 2.5,
+      thick: 0.22,
+      held: 0,
+      lobes: 3,
+      seed: 9.2,
+    }),
+    motion: SHIVER,
+    status: "free",
+    slot: "creature",
+    owner:
+      "the second half of THE HOOD and useless without it: identical in every parameter except that the guard is gone. The pair of cards is the proposal, not either one of them — a guard that can be broken is worth having only if the broken state is legible on its own, and one card cannot answer that. It carries SHIVER where the whole one carries WIND, which is the same claim made in motion: the thing that was winding up has stopped",
   },
 ];

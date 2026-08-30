@@ -5,10 +5,9 @@ import { pose } from "./pose.js";
  * The spare motions read off other games — `docs/tower-defence.md`.
  *
  * `plane.ts` and `depth.ts` were written forward from this game's own
- * questions. These three were written *backwards*, from three moments in
- * somebody else's frame that were legible without a word of explanation, and
- * each one is here because the thing that made it legible was the timing
- * rather than the body.
+ * questions. These were written *backwards*, from moments in somebody else's
+ * frame that were legible without a word of explanation, and each one is here
+ * because the thing that made it legible was the timing rather than the body.
  *
  * The rule they are held to is `plane.ts`'s and does not soften: told apart at
  * 26 px, offsets in tiles, well inside a lane. Two motions that differ by a
@@ -95,5 +94,39 @@ export const SETTLE: OwnMotion = {
     // Out over four fifths, back over the last tenth, then flat and straight.
     const out = p < 0.8 ? Math.sin((p / 0.8) * Math.PI * 0.5) : Math.max(0, 1 - (p - 0.8) / 0.1);
     return pose(out * 0.19, 0, out * 0.22, 1, 1);
+  },
+};
+
+/**
+ * Turns, and turns faster, and faster — then lets go and starts again slow.
+ *
+ * Ikaruga's third-chapter boss spins harder as its phase closes, which is the
+ * clearest statement of *about to* that a shmup makes, and it is made entirely
+ * with rate. Nothing here says that. TURN and TUMBLE both hold one speed, so
+ * they say **machinery** and **alive**; a rate that climbs says a thing is
+ * being wound up, and a rate that drops back to nothing says it has gone off.
+ *
+ * The value for this game is not a boss's spin. It is the only honest way a
+ * silhouette can carry a countdown: `docs/spec/systems.md` puts the pair's
+ * warning in the radar strip and on the band, both of which are furniture the
+ * eye has to leave the field for. A body that is visibly winding is a warning
+ * in the place the pair are already looking.
+ *
+ * The release is the part to watch. Twelve beats of acceleration and one of
+ * standstill, so the moment it stops is unmistakable — a wind-up that eases
+ * back down reads as a body slowing, which is the opposite claim.
+ */
+export const WIND: OwnMotion = {
+  name: "WIND",
+  note: "spins faster and faster, then lets go and starts again — a body winding up",
+  poseAt(t) {
+    const period = 13;
+    const p = (((t % period) + period) % period) / period;
+    // Angle is the integral of a rate that climbs, so the *rate* is linear in
+    // p and the angle is quadratic. Writing the angle directly as a sine of
+    // anything gives a body that rocks faster, which is a different thing.
+    const wound = p < 0.92 ? (p / 0.92) ** 2 * 14 : 0;
+    const strain = p < 0.92 ? (p / 0.92) ** 2 : 0;
+    return pose(0, 0, wound, 1 + strain * 0.07, 1 - strain * 0.05);
   },
 };

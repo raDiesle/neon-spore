@@ -37,6 +37,7 @@
  *   comes round rather than being moved
  * - `spanning` — the two that are not bodies: a faceted barrier over the hull,
  *   and a shell coming off in steps
+ * - `detached` — a body and a piece that is not part of it, which can be gone
  * - `walked` — an outline stepped corner to corner, for what a radius cannot
  *   say: an arm has no inside to have a radius of, and a rim of square plates
  *   is not a function of angle but a rule about one edge
@@ -44,6 +45,7 @@
 
 export { rooted, welling } from "./anchored.js";
 export { type ClusterOpts, cluster, moulded } from "./cluster.js";
+export { type GuardedOpts, guarded } from "./detached.js";
 export { type HaloedOpts, haloed } from "./haloed.js";
 export { type SacSkin, sac, slumped } from "./hanging.js";
 export { heeled, hooked } from "./hooked.js";

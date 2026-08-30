@@ -385,6 +385,35 @@ Three more, no picture needed because they are one sentence each:
   place for it is a VERSUS pair beside the shield we ship — see `docs/versus.md`
   and the rule in `CLAUDE.md` about offering a look rather than replacing one.
 
+## Nova Drift — a line-up drawn as silhouettes
+
+[Nova Drift](https://store.steampowered.com/app/858210/Nova_Drift/) is another
+bullet-heaven roguelite and its mechanics are `NO` here for the same reasons
+Neon Pulsefire's are: it is an arena, the player moves, the build is the game.
+It earns a section for one reason, and it is a lucky one.
+
+![Nova Drift — twenty-odd enemy designs drawn as flat white silhouettes on a dark starfield: winged arrowheads, a large round body ringed with triangular spikes over a skirt of hexagonal plates, a hollow hexagonal frame with two escorts, and a small body under a detached arc](https://static.wikia.nocookie.net/nova-drift/images/7/77/Enemy_slider.png/revision/latest?cb=20190813163415)
+
+**Its own promotional line-up is drawn as flat white silhouettes on dark.** No
+colour, no fill, no light — which is the exact test this project applies to
+every body it draws, applied by somebody else to twenty-six of theirs. It is
+the single most useful reference on this page for that reason alone: a
+catalogue that has already passed the test we care about.
+
+What reading it produced was mostly a list of things we have. The winged
+arrowheads are `hooked` and `heeled`. The spiked ring is `THE RASP` at boss
+scale. The skirt of hexagonal plates is `plated`, and the hollow hexagonal
+frame is `THE CORONA` with corners. The small bodies flying in a fixed pattern
+around a larger one look like a form and are not — `cluster` already draws
+several bodies at a spread that never lets them merge, and a formation is that
+tuned rather than something new.
+
+One arrangement was genuinely absent, and it is the small body near the top
+with an arc floating over it, touching nothing. That became `THE HOOD`.
+
+Source: [the Nova Drift enemy list](https://nova-drift.fandom.com/wiki/Enemies),
+twenty-six of them, in three strengths.
+
 ## What has been converted, and where it went
 
 Three bodies out of that one frame, redrawn in this game's vocabulary. They are
@@ -406,6 +435,8 @@ do at 26 px.
 | `THE RIND` | the Bloons ceramic | three sizes stepped down, the rim smoothing as it goes | does the step read as an event — the thing that makes a player say "again" — or as a body breathing |
 | `THE CANOPY` | the Galaxy Defense dome | a faceted arc over the whole hull with two facets spent out of the middle | can you see *which part* is gone at the width the hull gets, and is that worth more than a glow getting dimmer |
 | `THE SMART` | Missile Command's smart bomb | an ordinary rock — the argument is entirely in how it moves | see `SETTLE` below; the body is only there to carry it |
+| `THE HOOD` | Nova Drift's line-up | a body with an arc standing over it, attached to nothing | is the arc plainly a *separate object* rather than a rim that has come loose |
+| `THE HOOD — BROKEN` | the same, with the guard gone | identical in every parameter except that the arc is absent | does the bare body read as *exposed*, or merely as smaller — the pair of cards is the proposal, neither one alone |
 
 ### The motions
 
@@ -420,6 +451,15 @@ besides.
 | `RECOIL` | the PvZ vault, inverted | knocked back hard, drifts down slowly, then **holds** for over half the cycle | `HEAVE`, which never stops — the hold is the whole difference and it is what reads as *coming on again* |
 | `TUMBLE` | the meteor sprite's fire tail, and Sarelgaz's legs | a slow rotation with a tremor at seventeen times its rate riding on it | `TURN`, which is the same rotation with nothing on it. The pair asks whether a second clock is visible at 26 px or is simply noise |
 | `SETTLE` | Missile Command's smart bomb | wanders off its line over four beats, then snaps back onto it in half of one | `LURCH` and `CANT`, which both travel and both stay. This is the only one that returns, and the asymmetry is the tell: eased home reads as loose, snapped home reads as steered |
+| `WIND` | Ikaruga's third-chapter boss | spins faster and faster over twelve beats, then lets go and starts again from nothing | `TURN` and `TUMBLE`, which both hold one speed. A constant rate says machinery or alive; a climbing rate says *about to*, and it is the only way a silhouette can carry a countdown without the eye leaving the field for the radar strip |
+
+One thing the cards cannot hide, and it is worth knowing before looking at
+them: a card fits its whole subject to the frame, so `THE HOOD` draws its
+*body* smaller than `THE HOOD — BROKEN` draws the same body, because the arc is
+inside the fit. That is not a bug in either card. It is the 26 px question
+arriving early — a body that has to share its frame with its own guard has less
+room to be legible in, and that is a real cost of the idea rather than an
+artefact of the sheet.
 
 `TUMBLE` is the cheapest thing on this page and the one worth trying first. It
 costs nothing in silhouette, it is one extra term in a pose, and the whole
@@ -450,6 +490,9 @@ them as one number and produced a cog, which is the whole reason they are two.
 `forms/haloed.ts` is a ring whose nodes travel, so the gap between two of them
 comes round rather than being moved. `forms/spanning.ts` holds the two that are
 not bodies at all: the barrier, and a shell coming off in steps.
+`forms/detached.ts` holds a body and a piece that is not part of it — the one
+thing in this catalogue that can draw protection as a separate object rather
+than as a thickness.
 
 **Two things were looked at and not converted**, which is worth saying because
 a catalogue that only ever grows stops meaning anything. Neon Pulsefire's small
@@ -458,7 +501,10 @@ of them — a meteor *is* a seven-sided crystal. What that game does that we do
 not is spend a polygon on a body that is *alive*, and that is a decision about
 the bestiary rather than a shape anybody has to draw. Kingdom Rush's Tyranthor
 is one mass with one bright mouth, and `mawed` has drawn that since THE MOTHER;
-the part that does not transfer is the contrast, which is fill and light.
+the part that does not transfer is the contrast, which is fill and light. And
+most of Nova Drift's line-up turned out to be this catalogue under other names,
+which the section above lists one by one — including the formation that looked
+like a form and is `cluster` at a spread that never merges.
 
 And one mistake is worth recording because it took a frame to catch: `THE
 CANOPY`'s spent facets were first made by dropping points out of one open path,

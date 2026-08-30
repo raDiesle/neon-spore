@@ -11,7 +11,7 @@ import { extentOf, longAxisOf, poseAtSecond } from "../src/shapes-motion.js";
  * catalogue moves one of the three counts, and a threshold nudged moves all of
  * them. What matters is the third — the eight tall bodies, where a swell
  * written along x used to travel across the body instead of along it. The
- * seven converted in `drafts/tower-defence.ts` moved the first two and left
+ * nine converted in `drafts/tower-defence.ts` moved the first two and left
  * that one alone, which is the useful thing this test says about them: a rim
  * of repeated features does not change which way round a body is, and the one
  * that is wide — THE CANOPY — is wide because it is a barrier over the hull
@@ -33,11 +33,11 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits sixty-eight bodies into wide, round and tall", () => {
+  it("splits seventy bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(68);
+    expect(axes.length).toBe(70);
     expect(count("x")).toBe(27);
-    expect(count(null)).toBe(33);
+    expect(count(null)).toBe(35);
     expect(count("y")).toBe(8);
   });
 
