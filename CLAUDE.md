@@ -399,7 +399,8 @@ bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
 bun run checks         # what landed on main that nobody has looked at yet
 bun run handoff        # the closing block: is anything still owed to the human
-bun run deploy         # build the game, then push the worker to Cloudflare
+bun run deploy         # build the director, then push it to Cloudflare (its own worker)
+bun run deploy:game    # build the game, then push the worker to Cloudflare
 ```
 
 ## Delegating implementation

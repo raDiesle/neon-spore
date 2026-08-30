@@ -1,0 +1,12 @@
+{
+  // A second, separate Worker from wrangler.jsonc's — the director ships as
+  // its own static site, not merged into the game's. tools/director/build.ts
+  // bakes every route the client only ever reads into a plain file under
+  // dist/api/, so there is nothing here but assets: no `main`, no Durable
+  // Object, nothing to run.
+  "name": "neon-spore-director",
+  "compatibility_date": "2026-08-24",
+  "assets": {
+    "directory": "./tools/director/dist"
+  }
+}

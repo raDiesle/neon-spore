@@ -408,14 +408,15 @@ first place (`ORPHANS`, `GAME MECHANICS` and the rest compute straight from
 editing and painting in memory: nothing but the actual write survives a
 reload, but nothing stops you exploring one before it does.
 
-`bun run build` (repository root) runs both builds, game then director, so
-the director ships beside the game as the owner asked. The game-only build —
-the deploy mechanism this replaces, for when someone other than the owner is
-looking — is `bun run build:game` alone, unchanged and still what
-`bun run preview`/`preview:once` run on every check, so it stays exercised
-rather than rotting behind the new default. Switching back to shipping the
-game alone is naming that one script in the deploy configuration instead of
-`bun run build`; there is nothing else to undo.
+It ships as its own Cloudflare Worker, separate from the game's: `bun run
+deploy` builds `tools/director/dist` and pushes it under
+`wrangler.director.jsonc`'s name, `neon-spore-director` — no `main`, no
+Durable Object, nothing but the static bundle, since every route the client
+calls is already baked into a file at build time. The game keeps its own
+deploy, unchanged, now under `bun run deploy:game` and `wrangler.jsonc`.
+`bun run build` (repository root) still runs both builds, game then
+director, for `bun test` and anything that wants both `dist` directories on
+disk; only the deploy step treats them as two separate destinations.
 
 ## Tuning
 
