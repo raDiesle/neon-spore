@@ -50,53 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## COPY AND DELETE STILL DO NOTHING ON A BOSS WAVE
-_claude/burn-boss-buttons-visible · tools/director/src/rail.ts tools/director/test_
-**Asked for by the owner.** A `FAIL` on `ba352ba` — the very commit that was
-supposed to fix this:
-
-> yes it does nothing. i prefer you disable or hide the button, if boss wave is
-> currently actively selected
-
-**The landing claimed to have done exactly that.** `ba352ba` set `.disabled`
-and a `title` on COPY and DELETE whenever the current wave carries a boss, and
-its lane verified it in a browser: *BULB QUEEN — both greyed out with
-explanatory titles; FIRST STEP — both plain and live.* The owner then pressed
-them on a boss wave and got silence.
-
-**So the interesting question is not what to build — it is why the verification
-disagreed with the owner.** Find that before changing anything, and say it in
-the commit. Two candidates worth checking first:
-
-- **The buttons are not re-evaluated when the selection changes.** If
-  `disabled` is set where the row is built rather than where the wave is
-  chosen, then whichever wave was current when the bar was drawn decides the
-  state forever, and clicking through to a boss wave leaves live buttons.
-- **The disable landed but the refusal is what the owner met.** The guards in
-  `bindAction` refuse regardless, by design, so a live-looking button on a boss
-  wave does nothing — which is precisely the *silent no-op* this was meant to
-  end, arriving through the half that was supposed to be the belt rather than
-  the braces.
-
-**The owner has named the acceptable outcomes: disabled or hidden.** Pick one
-and say why. Given a boss wave is a state you sit in rather than pass through,
-disabled with a reason reads better than a control that vanishes and reappears
-— but that is a judgement and the commit should carry it.
-
-**Keep the refusal underneath.** A disabled button is a hint, not a guarantee;
-the functions must still refuse. That was right and stays.
-
-Finished when `bun run check` is green, selecting a boss wave visibly disables
-both controls the moment it is selected, and the commit says why the earlier
-verification passed while the owner's did not.
-
-`Check: click onto a boss wave in the list — do COPY and DELETE go grey the moment you land on it, and tell you why?`
-
-Model `sonnet`, effort `think`, spent on reproducing the owner's failure before
-touching the fix. Read `rail.ts`'s button binding and where the selection
-changes.
-
-
 ## THE TOPBAR TYPES OUT THE KEYS A SECOND TIME
 _claude/burn-topbar-keys-note · tools/director/index.html tools/director/src/key-help.ts tools/director/test_
 **Asked for by the owner:**
