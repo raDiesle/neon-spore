@@ -50,45 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE TOPBAR TYPES OUT THE KEYS A SECOND TIME
-_claude/burn-topbar-keys-note · tools/director/index.html tools/director/src/key-help.ts tools/director/test_
-**Asked for by the owner:**
-
-> i can see on top right topbar "A/D cannon · J/L shield · I guard · S maw ·
-> W/E fire · G grip (as P2) · or play the stage with the mouse". move and merge
-> into "keys" button popup. if its already there, just remove it.
-
-**It is already there, so it is a deletion.** `⌨ KEYS` renders `KEY_BINDINGS`
-from `tools/director/src/keys.ts` — the one place the director's key map lives
-— grouped by seat. The topbar line at `index.html:851` is a hand-typed second
-copy of the same facts, which is exactly the drift `key-help.ts`'s own header
-warns about: *a hand-kept copy in this file would go stale the moment a key is
-added to the switch in `keys.ts` and not to a markup list beside it.* The
-markup list it was worried about is sitting in the topbar.
-
-**So: delete the line.** Do not move it, do not reformat it into the modal, and
-do not add a shorter version somewhere else. The modal is the answer and it
-already answers.
-
-**One clause needs checking before it goes with the rest.** *"or play the stage
-with the mouse"* is not a key binding and may not be represented in the modal
-at all. Look. If it is missing, add it to the modal — **once, in the same
-derived structure or plainly beside it** — because it is a real thing somebody
-needs to know and the topbar was the only place saying it. If it is already
-there, the whole line goes and nothing is added.
-
-**And check what the deletion frees.** The topbar shed four buttons recently and
-the row was measured before and after; this is the last long thing in it. Say in
-the commit what the bar measures now.
-
-Finished when `bun run check` is green, the topbar carries no key list, and
-everything it used to say is in the modal — including the mouse.
-
-`Check: open the director — is the key list gone from the top bar, and does the KEYS button still tell you everything it used to say, including that you can play the stage with the mouse?`
-
-Model `sonnet`, effort `think`. Small. Read `tools/director/src/key-help.ts`'s
-header first — it explains why this line should never have existed.
-
 ## TO CHECK SHOWS CONCEPTS THE OWNER DID NOT ASK TO BE SHOWN
 _claude/burn-checks-implementation-only · tools/checks tools/checks/test tools/director/src/checks-page.ts tools/director/src/checks-dom.ts docs/verification.md_
 **Asked for by the owner:**
