@@ -50,67 +50,6 @@ lanes may not own the same path. The files everything wants — `config.ts`,
 `world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
 to one in a single contiguous region and expect to replay over somebody else.
 
-## THE READY CIRCLES NEVER APPEAR IN THE DIRECTOR
-_claude/burn-ready-in-director · tools/director/src/stage.ts tools/director/src/stage-touch.ts tools/director/src/stage-transport.ts packages/render/src/ready-circles.ts tools/director/test_
-**Asked for by the owner.** A `FAIL` on `966b5dc`, with what they expect
-written into the verdict:
-
-> I dont see it in director. what i expect: i want that when "briefings" button
-> in director below game screen is enabled, the guide card is shown, then i can
-> click and hold mouse on the screen with "test" view and it continues with the
-> circles after to the wave name and description
-
-**Two landings collided and nobody noticed, because each was checked alone.**
-
-`10dda25` made the director's test role **step** a card: press once for player
-1's half, again for player 2's, a third time to play. `966b5dc` then replaced
-the guide's dismissal with **two circles that fill while a seat holds**, and
-settled the director's case as *one press completes both circles* — which the
-owner had asked for when the gate was a press.
-
-Put together, a press in the director now satisfies the gate outright, so **the
-circles are drawn for no time at all and the owner has never seen them.** Every
-test passed: the stepping test presses, the circles test holds, and neither
-runs in the other's world.
-
-### What the owner wants instead
-
-**Hold, not press, and the circles are visible while it fills.** With
-`BRIEFINGS` on: the introduction, then the guide card, then a click **held** on
-the stage fills the circles, and the wave starts when they are full. The
-gesture in the director should be the gesture on a phone, because that is the
-only reason to look at it there.
-
-**Say what a step means now.** The p1 → p2 stepping was built so one person at
-a desk can read both halves — that reason still stands and must not be lost.
-Decide how stepping and holding compose: whether the steps happen on press and
-the *last* one is the hold, or the two halves show together once the circles are
-up, or something better. **Say which and why in the commit** — a lane that makes
-the hold work and quietly drops the stepping has traded one owner ask for
-another.
-
-**And whichever it is, one pair of hands must be able to finish it.** The
-director is one screen and one mouse; if both circles must fill, one hand fills
-both. That was settled and does not reopen.
-
-### What this is really about
-
-**A check that only ever ran on one surface.** The circles were driven through
-the game's own preview and through tests; the director was covered by an
-argument rather than by looking. The commit should say so plainly — it is the
-second time this run that two landings agreed separately and disagreed
-together, and naming it is worth more than the fix.
-
-Finished when `bun run check` is green, the director shows the introduction,
-then the guide, then circles that fill under a held click, and the reason the
-stepping exists still holds.
-
-`Check: in the director with BRIEFINGS on, hold the mouse on the stage after the guide — do the circles fill where you can see them, and does the wave start when they are full?`
-
-Model `sonnet`, effort `think hard`, spent on how stepping and holding compose
-rather than on the fill. Read `tools/director/src/stage-touch.ts` and the
-test-role card stepping before changing anything.
-
 ## COPY AND DELETE STILL DO NOTHING ON A BOSS WAVE
 _claude/burn-boss-buttons-visible · tools/director/src/rail.ts tools/director/test_
 **Asked for by the owner.** A `FAIL` on `ba352ba` — the very commit that was
