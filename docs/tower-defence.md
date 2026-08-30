@@ -1,7 +1,9 @@
 # Tower defence, read for the three we already have
 
-Ideas read off 2D tower-defence games, aimed at one question: **what else can a
-slick, a bulb or a meteor be, without becoming a fourth creature.**
+Ideas read off 2D tower-defence games — and, for the meteor, off the two
+genres that are actually about a thing falling out of the sky — aimed at one
+question: **what else can a slick, a bulb or a meteor be, without becoming a
+fourth creature.**
 
 `docs/borrowed.md` did this for two co-op games and came back with mostly `NO`,
 because their unit of play is a character crossing a space and ours is a column.
@@ -178,8 +180,119 @@ is the thinner list and that is honest: a rock has fewer knobs than a body.
 | `SURGE` | accelerates as it falls instead of falling at one speed | gravity, which the ladder does not model | every timing the pair learned on the ladder is wrong for this one | yes | `FIELD` — and nearly free: the ladder is five constants |
 | `EMBER` | leaves its column burning for two beats after it is caught; the cannon cannot fire through a burning column | area denial, common to tower defence | player 2 loses a column to player 1's success | no | `FIELD` |
 | `ANVIL` | two columns wide and slow; a catch turns it aside rather than stopping it, and it lands one column over | knockback and deflection | "catch it *left*" — the first time the shield has a direction | no | `FIELD` |
+| `SMART` | a catch that only grazes it does not stop it: it corrects its column and comes on | the Missile Command smart bomb | "you missed, it is in four now", said in the half-second there is for it | yes | `FIELD` |
 | a rock that heals other bodies | — | tower-defence healers | — | — | `NO` — nothing on the field has hit points to heal, and giving it some is a different game |
 | a rock that must be dug out after it lands | — | burrowers | — | — | `NO` — the hull is not a surface things sit on |
+
+### Missile Command, which is the meteor's real reference
+
+![Missile Command — a dark screen with cities along the bottom, missile trails coming down from the top in long straight lines, and round explosions blooming where they have been intercepted](https://upload.wikimedia.org/wikipedia/en/thumb/8/86/A5200_Missile_Command.png/250px-A5200_Missile_Command.png)
+
+Atari, 1980, by Dave Theurer. Missiles rain down a screen at six cities that
+cannot move, and the player defends by putting an **explosion at a point in the
+sky** — anything that enters the fireball dies. You are not aiming at the
+missile. You are aiming at where it will be, early enough that the bloom is
+already there when it arrives.
+
+That is our shield, one step less abstract, and it makes this game a better
+reference for the meteor than any tower defence on this page — tower defence is
+about *what you built before the wave*, and this is about *where you put a thing
+in the next second*, which is the only question player 1 ever has.
+
+Two of its mechanics are already rows above, and it is worth saying that they
+are its rather than ours:
+
+- **MIRV splitting.** A missile breaks into several independently-aimed
+  warheads part-way down. That is `SHARD`, invented forty-six years earlier and
+  tuned by an arcade.
+- **Smart bombs**, which steer around an explosion that was not placed well
+  enough. That is `SMART`, and it is the sharper of the two for us: a shield
+  that half-works is a much more interesting failure than a shield that misses,
+  because the pair has to notice the difference and say so.
+
+One thing it has that we should not take: its cities stay dead. The hull is one
+number and a wave is a sentence; a field that is visibly two-thirds destroyed by
+beat forty is a field the pair has already stopped talking about.
+
+Source: [Missile Command](https://en.wikipedia.org/wiki/Missile_Command).
+
+## Bullet hell, and the one thing that survives it
+
+Japanese *danmaku*, "bullet curtain" — a sub-genre of vertical shooters where
+the screen fills with hundreds of slow, **patterned** projectiles and the game
+is reading the pattern rather than reacting to any one bullet. Batsugun (1993)
+started it; DoDonPachi, Ikaruga, Mushihimesama and Touhou are the names.
+
+The mechanic is `NO`, and the reason is one line: its verb is **dodging**, and
+`CLAUDE.md` forbids travel outright. There is nothing to salvage by making the
+hull narrower or the bullets slower — a bullet-hell screen answered by a shield
+that slides along a rail is a screen you cannot survive, and one answered by a
+shield that covers everything is not a screen at all.
+
+What survives is not a mechanic. It is **the way arrivals are shaped**. A wave
+here is creatures in cells; danmaku thinks in rings, spirals, walls and fans,
+and the player learns to recognise a pattern *as a named thing* and answer it
+with one decision instead of twelve. A rock formation the pair calls by name —
+"it is the fan" — is a real idea, and it is the only one in this file that lands
+in wave authoring rather than in a creature or a control. Whether seven columns
+is enough width for a pattern to be recognisable at all is the open question,
+and it is answerable by drawing four of them on paper before anything is built.
+
+Sources: [Bullet hell](https://en.wikipedia.org/wiki/Bullet_hell) and
+[Touhou Wiki on danmaku](https://en.touhouwiki.net/wiki/Danmaku). The Neon
+Pulsefire pictures in the next section are also danmaku, and are the clearest
+look at what a bullet curtain actually is.
+
+## Neon Pulsefire — for the look, not the mechanics
+
+[Neon Pulsefire](https://store.steampowered.com/app/4402170/Neon_Pulsefire/)
+(Marian Kunz, June 2026) is a bullet-heaven roguelite, and its *mechanics* are
+almost entirely `NO` here: it is an arena, the player moves, and the build is
+the game. Its **drawing** is the closest thing on this page to what this project
+is already trying to be, which is why it gets a section rather than a row.
+
+![Neon Pulsefire — a black arena over a starfield, filled with outlined neon shapes: green squares, green four-petal rosettes, magenta starbursts, a swarm of small magenta bullets, and yellow damage numbers](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/159568f45292404405619e1fb166743f9b5cdc1b/ss_159568f45292404405619e1fb166743f9b5cdc1b.1920x1080.jpg?t=1782154921)
+
+**Shapes.** Every body is an *outline with a glow and no fill*. A hexagon, a
+square, a four-petal rosette, an arrowhead. Nothing is rendered — everything is
+drawn — which is exactly the register `blobPath` works in, and it is proof at
+scale that a silhouette alone carries a creature's identity with no texture
+under it.
+
+**Colour.** Green is one kind, blue is another, magenta a third, yellow a
+fourth, and the rule never bends: one kind, one colour, one shape. That is
+`packages/content/src/creatures.ts`'s own rule, being obeyed by somebody with
+twenty kinds where we have thirteen. Worth reading as confirmation that the
+ceiling is higher than it feels from inside.
+
+![Neon Pulsefire — the same arena with a ring-shaped boss made of a core inside a circle of orbiting nodes, a red laser line cutting diagonally across the whole arena, and dense swarms of blue hexagons and yellow arrowheads](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/7dc4a3a03092b65a9ed8ea2b4c92cf8df5be0c3b/ss_7dc4a3a03092b65a9ed8ea2b4c92cf8df5be0c3b.1920x1080.jpg?t=1782154921)
+
+**Bosses.** The one in this frame is a **core inside a ring of orbiting nodes**,
+which is very nearly `warden` arrived at independently, and is the strongest
+argument on the page that the ring-with-a-hole reads. What it does that ours
+does not is let the nodes *orbit*: the ring turns, so the gap between two nodes
+is a moving opening rather than a drawn one. That is a look question for the
+warden's hole and belongs in a VERSUS pair, never straight onto the field.
+
+**The hazard beam.** The red line cutting the arena is a third thing on the
+screen that is neither enemy nor player — an area simply forbidden for a while.
+`EMBER` above is that idea at one column's width, and this is what it looks like
+drawn as a line rather than as a stain.
+
+![Neon Pulsefire — a menu screen: magenta and cyan neon outlines on black, hexagonal stat icons in a column, glowing card frames, and outlined display type](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/501924c57d6a978e9203c6f1fbe2466f7986d1b3/ss_501924c57d6a978e9203c6f1fbe2466f7986d1b3.1920x1080.jpg?t=1782154921)
+
+**Animation and interface.** Everything glows, and the glow is the whole
+lighting model — no shadow, no light source, a body lit by being the thing that
+emits. That is not what `docs/dimensional.md` is reaching for, and it is the
+honest alternative to it, so it belongs here as the other answer rather than as
+a competitor. The interface is worth reading closely for the director as much as
+for the game: outlined display type, hexagonal icons, and a strict two-colour
+split between what you have and what you could take.
+
+The one thing to **not** take is in every frame: the damage numbers. That game
+is a build, so its numbers are the point. A wave here is a sentence, and a
+number floating off a body is the fastest way to make the pair read instead of
+talk.
 
 ## What the hands get — weapons and helping systems
 
@@ -237,7 +350,10 @@ one enormous mass, one bright mouth, and everything else dark. At 380 px wide a
 boss gets about that much room, and this is what survives it.
 Source: [Kingdom Rush bosses](https://kingdomrushtd.fandom.com/wiki/Category:Bosses).
 
-And the Galaxy Defense boss further up is the closest of the three to what this
+Neon Pulsefire's ring-of-nodes boss has its own section above, and is the
+fourth worth looking at — it is the warden, drawn by somebody else.
+
+And the Galaxy Defense boss further up is the closest of the four to what this
 game would draw: a lobed blob, lit from inside, with the minions it drops
 falling around it as part of the same picture.
 
