@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Without this a phone renders the page at a desktop-width layout
+         viewport (~980px) and zooms out to fit it, so the max-width:700px
+         media query below never matches at all regardless of the device's
+         actual screen — the mobile layout was unreachable on a real phone. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Neon Spore — Director</title>
     <style>
       * { box-sizing: border-box; }
@@ -22,6 +27,11 @@
       }
       header h1 { margin: 0; font-size: 11px; letter-spacing: 3px; color: var(--gold); font-weight: 600; }
       header .spacer { flex: 1; }
+      /* Phone-only chrome — see mobile-menu.ts and the @media block below.
+         On a wide screen #menuToggle never shows and the nine `.menu-item`
+         buttons are exactly the header row this project has always had. */
+      #menuToggle { display: none; }
+      header button[data-view] { display: none; }
       #status { font-size: 10px; color: var(--dim); }
       #status.dirty { color: var(--gold); }
       #status.bad { color: var(--red); }
@@ -85,30 +95,40 @@
          it, which left the field too small to judge whether the cannon has
          time to reach a column. */
       main > section.stage-col { display: flex; flex-direction: column; overflow: hidden; }
+      /* The flex-column behaviour above lands on `.column-body` now that
+         columns.ts has put one between the section and #stageWrap — a plain
+         block child would give #stageWrap's own `flex: 1 1 0` nothing to
+         size against. */
+      main > section.stage-col > .column-body { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
       main > section:last-child { border-right: 0; }
       h2 { font-size: 9px; letter-spacing: 2px; color: var(--cyan); margin: 0 0 8px; font-weight: 400; }
 
-      /* Every editing panel can be put away — one mechanism (panels.ts),
-         applied to any <h2 data-panel> rather than hand-wired per section.
-         Spacing between panels lives here, not on the heading any more:
-         `panels.ts` strips a heading's own inline margin-top so this is the
-         only rule deciding it. The field and the transport row under it
-         carry no `data-panel` and are never wrapped, so they never move
-         when a panel beside them opens or closes — these columns are sized
-         by fixed widths and flex-basis, not by a sibling's content height. */
-      .panel { margin: 0 0 14px; }
-      .panel:last-child { margin-bottom: 0; }
-      .panel > summary {
+      /* Every column of `<main>` can be put away as one unit — `columns.ts`,
+         which wraps a `<section data-column>`'s own children in
+         `.column-body` behind a `.column-head` bar. Collapsing hides the
+         body and rewrites `main`'s grid-template-columns so the freed track
+         goes to the columns still open, not to a blank strip nothing can
+         use. */
+      section.collapsed { overflow: hidden; }
+      .column-head { display: flex; }
+      .column-toggle {
         display: flex; align-items: center; gap: 6px; cursor: pointer;
-        list-style: none; margin: 0 0 8px;
+        width: 100%; text-align: left; padding: 2px 0; margin: 0 0 8px;
+        border: none; background: none; color: var(--cyan);
+        font: 11px "Courier New", monospace; letter-spacing: 2px;
       }
-      .panel:not([open]) > summary { margin-bottom: 0; }
-      .panel > summary::-webkit-details-marker { display: none; }
-      .panel > summary::before { content: "▸"; color: var(--dim); font-size: 9px; width: 8px; flex: 0 0 auto; }
-      .panel[open] > summary::before { content: "▾"; }
-      .panel > summary:hover::before { color: var(--ink); }
-      /* The heading keeps its own look; only its margin is owned by .panel now. */
-      .panel > summary h2 { margin: 0; }
+      .column-toggle:hover { color: var(--ink); }
+      .column-toggle::before { content: "▾"; color: var(--dim); font-size: 9px; }
+      section.collapsed .column-toggle::before { content: "▸"; }
+      section.collapsed .column-toggle { margin-bottom: 0; }
+      /* Collapsed to a bare strip: the title is what has to survive at
+         36px, so it reads top-to-bottom rather than truncating sideways. */
+      section.collapsed .column-toggle {
+        writing-mode: vertical-rl; text-orientation: mixed; height: 100%;
+        justify-content: flex-start;
+      }
+      section.collapsed .column-toggle::before { transform: rotate(90deg); }
+      section.collapsed .column-body { display: none; }
 
       #waveList { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
       #waveList button { text-align: left; border-color: transparent; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -119,7 +139,10 @@
       #waveList .card-mark { color: #7dffb0; }
       .rail-actions { display: flex; flex-wrap: wrap; gap: 4px; }
 
-      main > section.brush-col { display: flex; gap: 14px; align-items: flex-start; }
+      /* The section itself now only stacks .column-head above .column-body
+         (columns.ts) — the side-by-side brush/map row moves to the body. */
+      main > section.brush-col { display: flex; flex-direction: column; }
+      main > section.brush-col > .column-body { display: flex; gap: 14px; align-items: flex-start; }
       #brushCol { flex: 0 0 200px; }
       /* Fits the grid's own width — no flex:1 here. A growing map column used
          to leave empty space to the right of the grid, with only #gridNote
@@ -841,31 +864,56 @@
          is a phone arrangement, not a redesign. Placed last in the sheet so
          its specificity ties with `.stage-col`/`.brush-col` above resolve in
          its favour rather than by accident of selector shape.
-         `#viewToggle` is the toggle: rendered once, outside every section, so
-         it is reachable from whichever of the three is showing and a mode
-         can never be entered without a way back out. */
-      #viewToggle { display: none; }
+
+         The way in is `#menuToggle` (mobile-menu.ts): tapping it turns
+         `<header>` itself into a full-screen menu of every `.menu-item` —
+         the three views and the six pages the header always had, wrapped
+         into a cramped multi-row bar before this existed. Reachable from
+         any of the three views because the header sits outside every
+         section; a page opened from the menu carries its own ✕ CLOSE back
+         to whichever view was showing underneath. */
       @media (max-width: 700px) {
         body { grid-template-rows: auto 1fr; }
+        #menuToggle { display: inline-flex; order: -1; }
         header { flex-wrap: wrap; height: auto; padding: 8px 12px; }
+        header .menu-item { display: none; }
+        body.menu-open header {
+          position: fixed; inset: 0; z-index: 50; flex-direction: column;
+          align-items: stretch; overflow-y: auto; padding: 16px; gap: 8px;
+        }
+        body.menu-open header h1,
+        body.menu-open header #save,
+        body.menu-open header #status,
+        body.menu-open header #shippedNote,
+        body.menu-open header #buildStamp,
+        body.menu-open header .spacer { display: none; }
+        body.menu-open header .menu-item {
+          display: block; width: 100%; text-align: left; padding: 12px; font-size: 12px;
+        }
         main { grid-template-columns: 1fr; overflow-x: hidden; }
         main > section, main > section.stage-col, main > section.brush-col { display: none; }
         main[data-view="wave"] > section[data-view="wave"] { display: block; }
         main[data-view="game"] > section.stage-col[data-view="game"] { display: flex; }
         main[data-view="map"] > section.brush-col[data-view="map"] { display: flex; }
-        main > section.brush-col { flex-direction: column; }
-        main > section.brush-col > #brushCol,
-        main > section.brush-col > #mapCol { flex: 0 0 auto; width: 100%; }
-        #viewToggle {
-          display: flex; position: sticky; bottom: 0; z-index: 5; gap: 4px;
-          padding: 6px; background: var(--panel); border-top: 1px solid var(--line);
-        }
-        #viewToggle button { flex: 1 1 0; }
+        main > section.brush-col > .column-body { flex-direction: column; }
+        main > section.brush-col > .column-body > #brushCol,
+        main > section.brush-col > .column-body > #mapCol { flex: 0 0 auto; width: 100%; }
+        /* A column never collapses on a phone — one section already fills
+           the screen, and columns.ts skips the relayout that would
+           otherwise fight this block's own grid-template-columns. */
+        .column-head { display: none; }
+        section.collapsed .column-body { display: block; }
       }
     </style>
   </head>
   <body>
     <header>
+      <!-- Phone only — see mobile-menu.ts. On a wide screen this never shows,
+           so the header is exactly what it always was. Tapping it toggles
+           `body.menu-open`, which turns this same header into the full-screen
+           menu: everything below becomes reachable, in one place, rather than
+           wrapping into a cramped multi-row bar. -->
+      <button type="button" id="menuToggle" aria-label="Menu">☰ MENU</button>
       <h1>NEON SPORE — DIRECTOR</h1>
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
@@ -878,27 +926,26 @@
            dev server would be noise, so it says DEV BUILD there instead. -->
       <span id="buildStamp"></span>
       <span class="spacer"></span>
-      <button type="button" id="checksOpen">⚑ TO CHECK</button>
-      <button type="button" id="orphansOpen">☠ ORPHANS 0</button>
-      <button type="button" id="backlogOpen">◇ NOT BUILT YET</button>
-      <button type="button" id="statesOpen">▣ GAME MECHANICS</button>
-      <button type="button" id="soundOpen">♪ SOUND</button>
-      <button type="button" id="cardsOpen">✎ GUIDES</button>
+      <!-- The three columns, as three phone-sized views. `menu-item` on all
+           nine buttons in this header is what makes them the phone's menu —
+           see mobile-menu.ts. A wide screen never sees this row: media query
+           only, no JS gate. -->
+      <button type="button" class="menu-item" data-view="wave">WAVE</button>
+      <button type="button" class="menu-item" data-view="game">GAME</button>
+      <button type="button" class="menu-item" data-view="map">MAP</button>
+      <button type="button" id="checksOpen" class="menu-item">⚑ TO CHECK</button>
+      <button type="button" id="orphansOpen" class="menu-item">☠ ORPHANS 0</button>
+      <button type="button" id="backlogOpen" class="menu-item">◇ NOT BUILT YET</button>
+      <button type="button" id="statesOpen" class="menu-item">▣ GAME MECHANICS</button>
+      <button type="button" id="soundOpen" class="menu-item">♪ SOUND</button>
+      <button type="button" id="cardsOpen" class="menu-item">✎ GUIDES</button>
     </header>
 
-    <!-- Reachable from all three views because it sits outside every one of
-         them — see main.ts's bindViewToggle. Hidden on a wide screen, which
-         keeps its three columns and needs no toggle; see docs/queue.md's
-         burn-director-ship entry. -->
-    <nav id="viewToggle">
-      <button type="button" data-view="wave">WAVE</button>
-      <button type="button" data-view="game">GAME</button>
-      <button type="button" data-view="map">MAP</button>
-    </nav>
-
     <main data-view="wave">
-      <section data-view="wave">
-        <h2 data-panel="waves">WAVES</h2>
+      <section data-view="wave" data-column="waves" data-column-title="WAVES">
+        <!-- No <h2>WAVES</h2> here — the column-head columns.ts inserts
+             already carries the title; a second one under it would repeat
+             itself on every load. -->
         <div id="waveList"></div>
         <div class="rail-actions">
           <button type="button" id="waveAdd">+ NEW</button>
@@ -913,7 +960,7 @@
         </p>
       </section>
 
-      <section data-view="wave">
+      <section data-view="wave" data-column="editor" data-column-title="WAVE">
         <div id="tabs">
           <button type="button" data-tab="wave" class="on">WAVE</button>
         </div>
@@ -929,7 +976,7 @@
              only WAVE remains and this bar no longer needs to switch
              anything. -->
         <div class="tabpage on" id="tab-wave">
-          <h2 data-panel="briefing">BRIEFING</h2>
+          <h2>BRIEFING</h2>
           <p class="note" id="waveBriefing"></p>
 
           <label class="field" for="fName">NAME</label>
@@ -951,12 +998,12 @@
 
           <div id="bossPanel"></div>
 
-          <h2 data-panel="ship-adds">WHAT THIS WAVE ADDS TO THE SHIP</h2>
+          <h2>WHAT THIS WAVE ADDS TO THE SHIP</h2>
           <div id="caps"></div>
         </div>
       </section>
 
-      <section class="stage-col" data-view="game">
+      <section class="stage-col" data-view="game" data-column="game" data-column-title="GAME">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
           <p class="note" id="stageNote">
@@ -991,14 +1038,14 @@
         </div>
       </section>
 
-      <section class="brush-col" data-view="map">
+      <section class="brush-col" data-view="map" data-column="map" data-column-title="BRUSH &amp; MAP">
         <div id="brushCol">
-          <h2 data-panel="brush">BRUSH</h2>
+          <h2>BRUSH</h2>
           <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
           <div id="brushes" class="hide-hints"></div>
         </div>
         <div id="mapCol">
-          <h2 data-panel="map">MAP</h2>
+          <h2>MAP</h2>
           <div id="grid"></div>
           <div id="podList"></div>
           <p class="note" id="gridNote"></p>
@@ -1147,7 +1194,7 @@
              means "reference" — named rather than hidden, per
              docs/queue.md. -->
         <div class="sheetpage" id="mech-tuning">
-          <h2 data-panel="pair">PAIR</h2>
+          <h2>PAIR</h2>
           <p class="note">
             Off by default so a determinism run, a shape sheet and
             relay:check all get the wave rather than the wait — see
@@ -1155,9 +1202,9 @@
             toggles below the field, one click from the stage it changes.
           </p>
           <div id="pairPanel"></div>
-          <h2 data-panel="preset">PRESET</h2>
+          <h2>PRESET</h2>
           <div class="rail-actions" id="presets"></div>
-          <h2 data-panel="tuning">TUNING</h2>
+          <h2>TUNING</h2>
           <div id="sliders"></div>
           <p class="note">
             Tuning is the run, not the wave. It is never written to waves.ts —

@@ -3,13 +3,14 @@ import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindChecks } from "./checks-page.js";
+import { initColumns } from "./columns.js";
 import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindCardsPage } from "./guide-sheet.js";
+import { initMobileMenu } from "./mobile-menu.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
-import { initPanels } from "./panels.js";
 import { bindRail } from "./rail.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
@@ -37,32 +38,12 @@ import { renderWaveOpening } from "./wave-opening.js";
 // again per session.
 const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
 
-// Every panel gets a collapse handle via `[data-panel]` — see `panels.ts`.
-initPanels();
-// Phone: the four columns become three views, toggled by #viewToggle —
-// `?view=` overrides once (like panels.ts's `?closed=`); a click persists to
-// localStorage. docs/queue.md, burn-director-ship.
-const VIEWS = ["wave", "game", "map"] as const;
-type MobileView = (typeof VIEWS)[number];
-const isMobileView = (v: string | null): v is MobileView =>
-  v !== null && (VIEWS as readonly string[]).includes(v);
-(() => {
-  const main = document.querySelector("main");
-  const buttons = document.querySelectorAll<HTMLButtonElement>("#viewToggle button[data-view]");
-  if (!main || buttons.length === 0) return;
-  const forced = new URLSearchParams(location.search).get("view");
-  const stored = localStorage.getItem("neon-spore-director-view");
-  const apply = (v: MobileView): void => {
-    main.setAttribute("data-view", v);
-    for (const b of buttons) b.classList.toggle("on", b.dataset.view === v);
-  };
-  apply(isMobileView(forced) ? forced : isMobileView(stored) ? stored : "wave");
-  for (const b of buttons)
-    b.addEventListener("click", () => {
-      apply(b.dataset.view as MobileView);
-      localStorage.setItem("neon-spore-director-view", b.dataset.view as MobileView);
-    });
-})();
+// Every column of `<main>` gets a collapse handle via `[data-column]` — see
+// `columns.ts`. On a phone the four columns become three views instead, and
+// the header itself becomes the menu that switches between them — see
+// `mobile-menu.ts`.
+initColumns();
+initMobileMenu();
 
 bindShipped();
 
