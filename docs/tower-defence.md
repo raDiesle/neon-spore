@@ -296,8 +296,72 @@ split between what you have and what you could take.
 
 The one thing to **not** take is in every frame: the damage numbers. That game
 is a build, so its numbers are the point. A wave here is a sentence, and a
-number floating off a body is the fastest way to make the pair read instead of
-talk.
+number floating off a body is the fastest way to make the pair read instead
+of talk.
+
+### Three more frames, and the one thing they all say
+
+Three of that game's six screenshots were not read when the section above was
+written. They are worth a subsection because the finding in them is not a
+shape, it is a rule, and it is one sentence: **the glow is not decoration, it
+is state.** Everything alive, available, close or dangerous glows; everything
+locked, spent, distant or inert is the same drawing with the glow taken off.
+That is a lighting model doing the job a colour or a label would otherwise
+have to do, and it is the argument for a `GLOW` axis on SHAPES rather than a
+brightness slider — see the queue entry `A FOURTH AXIS ON SHAPES: GLOW`.
+
+![Neon Pulsefire — an arena at speed: a small magenta ring-of-nodes at the centre inside a dashed magenta circle, a swarm of green outlined squares sitting under one soft green cloud, loose yellow arrowheads, a line of blue hexagons, a red boundary line with a hard core and a wide bloom, and distant red enemies drawn as smears of red haze with a hairline ring inside](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/9b09ed8a1a1eca7eec7065da18851dca2e838f38/ss_9b09ed8a1a1eca7eec7065da18851dca2e838f38.1920x1080.jpg?t=1782154921)
+
+Five things in this frame that the section above did not have:
+
+**The bloom belongs to the swarm, not to the body.** The twenty green squares
+are not twenty glows; they are one soft green cloud with twenty hard outlines
+punched into it. That is cheaper than a per-body halo and it reads as *a
+group* — which is the thing a column of falling slicks has never had a way to
+say. Worth knowing before anybody writes a per-creature aura: the per-body
+version of this look is the expensive one *and* the weaker one.
+
+**Distance is drawn as glow-without-outline.** The red bodies at the edges are
+almost entirely haze with a one-pixel ring inside. Near ones are almost
+entirely outline. So the same body walks a ratio between the two, and nothing
+about its shape changes. That is a depth cue this project has been reaching
+for in `docs/dimensional.md` by other means, arrived at with no shadow at all.
+
+**A trail is dots, not a ribbon.** The projectile leaving the player leaves a
+row of separating dots that shrink behind it, not a tapered stroke. It costs
+nothing to draw and it says speed better, because the *gaps* are the reading.
+
+**The telegraph is a dashed ring and it is never filled.** The magenta circle
+around the player is drawn as a dashed outline over the field, and everything
+under it stays legible. A filled indicator would have hidden the swarm it is
+warning about, which is the trap `EMBER` walks toward.
+
+**The hazard beam is a hard core inside a wide bloom**, with small ring nodes
+at the corners where it turns. The core carries the position, the bloom
+carries the threat, and they are two different widths of the same line.
+
+![Neon Pulsefire — a level-up screen: three glowing offer cards in cyan and magenta beside a fourth that is grey and unlit and reads LOCKED, a column of hexagonal stat icons, and hollow outlined display type whose fill is its own glow](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/4a0320619bbc1760cc98cb5c69c6092b07508b19/ss_4a0320619bbc1760cc98cb5c69c6092b07508b19.1920x1080.jpg?t=1782154921)
+
+![Neon Pulsefire — an achievements list: two rows lit magenta and two rows grey and unlit, each with a white line icon at the left, a glowing rule along the bottom standing in for a progress bar, and sheared parallelogram tabs above](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4402170/52c6adb6fb0688447969221ab8cbc3c8304d89bb/ss_52c6adb6fb0688447969221ab8cbc3c8304d89bb.1920x1080.jpg?t=1782154921)
+
+The two interface frames say the same rule twice, and they are the clearest
+statement of it because the drawing does not change at all: the LOCKED card
+and the unearned achievements are the identical geometry with the glow
+removed. No grey-out, no reduced opacity, no diagonal hatch. **Off is
+unlit.**
+
+Three smaller things from them, all of which are the director's business
+before they are the game's: display type drawn hollow so that its glow is its
+fill; a progress bar that is a glowing rule under a row rather than a track
+with something in it; and an icon set that is a hexagon with one line glyph
+inside — one frame, twenty meanings, which is a solved version of the problem
+`shapes-all.ts`'s body picker has.
+
+What still does not transfer is what did not transfer before: the damage
+numbers, and now also the halftone dither visible inside the green cloud. That
+dither is how that game gets a soft gradient out of a hard renderer, and a
+canvas has `createRadialGradient`, so copying it would be importing a
+workaround for a constraint we do not have.
 
 ## What the hands get — weapons and helping systems
 
