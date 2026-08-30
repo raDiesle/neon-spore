@@ -98,6 +98,16 @@ export function resolveHull(world: World): void {
   world.creatures = survivors;
 }
 
+/**
+ * Hull damage and nothing else: no scar, no `breach`, no column. Exported as
+ * `costHull` for the one thing that takes the hull without anything having
+ * arrived at it — a shot at a lure (`resolveLure`, bullet-hit.ts), which is
+ * paid for two rows up and leaves no mark on the ship to draw.
+ */
+export function costHull(world: World, amount: number): void {
+  applyHullDamage(world, amount);
+}
+
 /** Hull damage, shared by a single-column hit and a spanning one. */
 function applyHullDamage(world: World, amount: number): void {
   if (world.cfg.hullInvulnerable) return;

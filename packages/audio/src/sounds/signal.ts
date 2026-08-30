@@ -55,6 +55,24 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     layers: [{ source: "sine", freq: 4400, toFreq: 3300, gain: 0.3, attack: 0.03, release: 0.26 }],
   },
   {
+    id: "signal.lureWarn",
+    family: "signal",
+    blurb: "Two quick pips, high and close together. Small, and impossible to mistake for a body.",
+    status: "bound",
+    use: "A lure arriving, on the navigator's device only — one more indicator beside the ring and the strip, never a replacement for either.",
+    // Quiet on purpose (`docs/spec/audio.md`): the owner asked for it turned
+    // down, sitting on top of the visual indicators rather than beside them.
+    level: 0.16,
+    layers: [
+      // Both pips well above 3 kHz. A short high transient reads as an alarm
+      // without ever entering the band the two voices need, and the voices are
+      // the control scheme — this is the one sound in the game that fires
+      // exactly when one player has something to say to the other.
+      glint(5400, 0.04, 0.34),
+      after(0.09, glint(6300, 0.04, 0.3)),
+    ],
+  },
+  {
     id: "signal.announce",
     family: "signal",
     blurb: "An announcement leaving one device: a short rising call.",

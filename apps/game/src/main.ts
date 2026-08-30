@@ -48,7 +48,8 @@ const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true, shotChargeB
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
-const audio = bindAudio(canvas);
+// `view` is built below this line; the getter is read on a frame, long after.
+const audio = bindAudio(canvas, () => view.role());
 const tpb = ticksPerBeat(cfg);
 /** 0..1 within the beat. Both the picture and a finger on the field need it. */
 const beatPhase = (): number => (world.tick % tpb) / tpb;

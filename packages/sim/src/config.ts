@@ -107,9 +107,15 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
   scoreWave: number;
   /** Score for taking a pod in. */
   scorePod: number;
-  /** What a shot at a Runt costs, off the score (never below zero) — the
-   * reflex that pays off against every other aim target is wrong here. */
-  scoreRuntPenalty: number;
+  /** What a shot at a lure costs the hull. Not the score: two currencies for
+   * one mistake reads as bookkeeping, and the hull is the one the pair feels.
+   * Above `damageCreature` on purpose — a body that reached the hull cost a
+   * shot nobody fired, and this cost one that was. */
+  damageLure: number;
+  /** Rows above the hull a lure stands on before it goes (`lureVanishRow`).
+   * Two: close enough that player 1's eye is already on it, far enough that it
+   * plainly never threatened the ship. */
+  lureVanishRows: number;
   /** Score for hitting a Throb while it is open. */
   scoreThrobHit: number;
   /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
@@ -190,7 +196,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDeflect: 150,
   scoreWave: 300,
   scorePod: 250,
-  scoreRuntPenalty: 150,
+  damageLure: 15,
+  lureVanishRows: 2,
   scoreThrobHit: 200,
   scoreShellPiece: 120,
   throbPeriodBeats: 4,

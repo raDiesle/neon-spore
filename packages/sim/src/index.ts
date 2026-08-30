@@ -27,7 +27,7 @@ export {
   seatReady,
 } from "./briefing.js";
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
-export { throbIsOpen } from "./creature-rules.js";
+export { lureIsSpent, lureVanishRow, throbIsOpen, wornKind } from "./creature-rules.js";
 export {
   BOSS_KINDS,
   bossFillsWave,

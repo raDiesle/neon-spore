@@ -1,6 +1,6 @@
 # Bestiary
 
-> **Status: five of twenty built.** Slick, bulb, meteor, runt and throb exist
+> **Status: five of twenty built.** Slick, bulb, meteor, lure and throb exist
 > (`packages/content/src/creatures.ts`). Everything else on this page is
 > design.
 >
@@ -31,7 +31,7 @@ Four rules, in this order:
    standard one, and then it has to read as clearly different, not as the same
    blob in another tint.
 
-**Only `slick`, `bulb`, `meteor`, `runt` and `throb` are committed** — they are
+**Only `slick`, `bulb`, `meteor`, `lure` and `throb` are committed** — they are
 `CreatureKind` values in the simulation. Every other name on this page is a
 label on an unbuilt design and costs one edit to change.
 
@@ -44,7 +44,7 @@ cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | slick, bulb, runt, throb |
+| `cannon` | `aim` only | slick, bulb, lure, throb |
 | `shield` | `guard` only | every meteor tier, the torch |
 | `mixed` | `aim` and `guard` | the queen |
 | `special` | neither | *(reserved, empty)* |
@@ -75,22 +75,44 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
 | **Throb** | swells and shrinks on a fixed beat | timing instead of a snap call |
-| **Runt** | tiny, helpless | do *not* hit it (costs points) |
+| **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | docks on, shuts one control | inverted instruction |
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, runt, throb, torch. Slick, bulb and meteor carry
+Built: slick, bulb, meteor, lure, throb, torch. Slick, bulb and meteor carry
 the teaching waves; the torch is the meteor's own widened relative, not one of
-the original thirteen. Runt and throb are the next two of that thirteen —
+the original thirteen. Lure and throb are the next two of that thirteen —
 neither needed a new control group, only an entry and a state machine (see
-THE RUNT and ON THE BEAT waves, and `.claude/skills/new-creature`).
+THE LURE and ON THE BEAT waves, and `.claude/skills/new-creature`).
 
-Runt and throb each carry their own entry in `packages/content/src/own-motion.ts`
-now, rather than falling back to the slick's `TILT_RIPPLE`. The runt's is
-`TREMBLE` — a tight, arrhythmic shiver with no drift and no lag, so it reads as
-too small and scared to glide rather than as a slick drawn smaller. The
-throb's is `HOLD`, deliberately the smallest motion in the file: its swell on
+**THE LURE holds the slot the Runt had, and is not the same creature.** The
+Runt was small and helpless and the whole point of it was that you could see
+that. A lure is the opposite: a full-size slick or a full-size bulb, in its
+real colour, with its real contour and its real own-motion, on player 1's
+screen — and its danger is that it looks like exactly what you want. Player 2
+sees the same body inside a white ring, with an exclamation over it and the
+same mark on the radar strip; player 1 has no tell at all, right up to the
+moment it goes. That asymmetry is the creature: the one who can see it cannot
+act on it, and the one who is acting cannot see it, so a sentence has to cross
+the room — *do not move to this one position, I will not shoot it anyway.*
+
+A shot that lands costs the hull, whatever colour it was. Nothing else does:
+it never reaches the ship at all, going on its own on the beat it would step
+off the row `lureVanishRows` above the hull. So it is free to ignore, and its
+only teeth are the seconds player 1 spends standing in its column while
+something real falls elsewhere — which puts the whole weight of it on wave
+authoring rather than on the rules.
+
+The runt's own contour and its `TREMBLE` motion are not deleted. Both are
+spare, in `tools/shape-sheet/src/retired.ts`, available to the next creature
+that is genuinely small — and that creature inherits the question that killed
+every proposal for the runt's interior: at `sizeMul` 0.55 it draws at about
+10 px, and `docs/spec/graphics.md` says nothing of a figure survives below 11.
+That question is not open any more. It dissolved with the creature.
+
+The throb's own-motion is `HOLD`, deliberately the smallest motion in
+`packages/content/src/own-motion.ts`: its swell on
 the shared beat (`Creature.throbOpen`, `render/creatures.ts`) is what tells the
 pair when to fire, and a body that also tilted or pumped on its own would be
 saying two things at once. `HOLD` never rotates and never scales, so nothing
@@ -186,7 +208,7 @@ first time they see it.
 
 **Merged:** brood fibre and root are absorbed into the **Colony** · the
 Splitter is the **Crystal** · the Inverter is the **Choke** · the runt cloud is
-a later stage of the **Runt**
+a later stage of the retired **Runt**, whose slot THE LURE now holds
 
 **Name clash:** the *Echo* (a creature appears one second earlier for one
 player) is a different thing from a creature that repeats an action with a

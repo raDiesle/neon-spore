@@ -1,4 +1,5 @@
 import { markMoment } from "./balance.js";
+import { costHull } from "./hull.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
@@ -39,8 +40,8 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     resolveWarden(world, b, hit);
     return false;
   }
-  if (hit.kind === "runt") {
-    resolveRunt(world, b, hit);
+  if (hit.kind === "lure") {
+    resolveLure(world, b, hit);
     return false;
   }
   if (hit.kind === "throb") {
@@ -165,19 +166,33 @@ function resolveWarden(world: World, b: Bullet, hit: Creature): void {
 }
 
 /**
- * The Runt: tiny, helpless, and carries no colour — nothing about the shot
- * matters except that it landed. Landing it is the mistake. It turns the
- * reflex that pays off against every other aim target (match the colour,
- * pull the trigger) into a decision the pair has to make on purpose: this one
- * is not a target, whatever it looks like at a glance.
+ * THE LURE: a full-size slick or bulb in every pixel player 1 owns, and
+ * nothing about the shot matters except that it landed. Landing it is the
+ * mistake. It turns the reflex that pays off against every other aim target
+ * (match the colour, pull the trigger) into a decision the pair has to make on
+ * purpose — and only one of them can see which body to make it about, so the
+ * decision has to be spoken.
  *
- * Reaching the hull is deliberately *not* special-cased — it costs the hull
- * exactly what any other missed creature does (`hull.ts`'s generic branch),
- * because the only thing this kind changes is what happens if it is shot.
+ * The colour is deliberately not consulted. A lure wears one and a shot in it
+ * would otherwise be a kill; testing it here would make a *wrong* colour the
+ * cheaper mistake, and there is no such thing as a right shot at this body.
+ *
+ * **Reaching the hull is special-cased, and that is the reversal.** It used to
+ * be the opposite here, for the Runt: the hull was left to the generic branch
+ * because the only thing that kind changed was what a shot did to it. A lure
+ * changes the other half too. It goes on its own, `lureVanishRows` up
+ * (`lureIsSpent`, creature-rules.ts), so the hull branch never sees one — and
+ * that is the whole vindication. Player 1 was told to leave a column and did
+ * not want to; what they get back is the body disappearing by itself, which
+ * nothing else in this game does.
+ *
+ * So the only way this creature can cost the pair anything is a shot, and the
+ * hull is what it costs. Not the score: two currencies for one mistake reads
+ * as bookkeeping, and the hull is the one the pair actually feels.
  */
-function resolveRunt(world: World, _b: Bullet, hit: Creature): void {
-  world.score = Math.max(0, world.score - world.cfg.scoreRuntPenalty);
-  world.events.push({ type: "runtHit", col: hit.col, row: hit.row });
+function resolveLure(world: World, _b: Bullet, hit: Creature): void {
+  costHull(world, world.cfg.damageLure);
+  world.events.push({ type: "lureHit", col: hit.col, row: hit.row });
   world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
 }
 

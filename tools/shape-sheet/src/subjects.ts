@@ -73,10 +73,17 @@ export function blob(name: string, s: CreatureSilhouette, note?: string): Subjec
  * all). Read off `CREATURES` and the same predicates `drawCreatures` calls, so
  * a kind added to the bestiary reaches the sheet without a second list here
  * drifting from render's own branch on what to draw.
+ *
+ * **`lure` is excluded, and its exclusion is the sheet agreeing with the
+ * game.** A lure has no contour of its own: `drawLiving` resolves `wornKind`
+ * first and draws a slick or a bulb. A card for it would be a second card
+ * drawing a shape already on the sheet, and `nameability.ts` said so the
+ * moment it was let in — it found the lure and the slick identical on all
+ * three axes, which is not a defect in the shape but the whole creature.
  */
 export function livingKinds(): CreatureKind[] {
   return (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => kind !== "tether" && !isBossBody(kind) && !isMeteorKind(kind),
+    (kind) => kind !== "tether" && kind !== "lure" && !isBossBody(kind) && !isMeteorKind(kind),
   );
 }
 

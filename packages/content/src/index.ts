@@ -68,6 +68,10 @@ export {
   REST,
   SWAY_PUMP,
   TILT_RIPPLE,
+  // Spare since the runt was retired for THE LURE. Exported so the shape
+  // sheet's own retired-shapes page can put it back beside the contour it was
+  // written for (`tools/shape-sheet/src/retired.ts`).
+  TREMBLE,
 } from "./own-motion.js";
 export {
   AUTHORED_COL_MAX,
@@ -104,7 +108,6 @@ export {
   METEOR,
   POD,
   QUEEN_SHELL,
-  RUNT,
   SHELL,
   SHIELD_LOBE,
   SLICK,

@@ -25,6 +25,7 @@ export type GroupName =
   | "OPENING — the introduction, the guide and the ready gate"
   | "THE GAUGE — a round with no field in it"
   | "THROB — open for one beat in every few"
+  | "THE LURE — a body only one of you can see through"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -47,6 +48,7 @@ export const GROUP_ORDER: GroupName[] = [
   "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
   "THROB — open for one beat in every few",
+  "THE LURE — a body only one of you can see through",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -89,6 +91,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "the gaps between acts may carry a round that is not the field: a needle " +
     "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
   "THROB — open for one beat in every few": "A Throb can only be hit while it is open.",
+  "THE LURE — a body only one of you can see through":
+    "Player 1 sees a slick or a bulb; player 2 sees the same body inside a " +
+    "white ring. A shot that lands costs the hull. Left alone it goes on its " +
+    "own this many rows short of the ship, which is the only thing both " +
+    "screens ever show identically.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",
@@ -133,7 +140,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scoreDeflect: "SCORE",
   scoreWave: "SCORE",
   scorePod: "SCORE",
-  scoreRuntPenalty: "SCORE",
+  damageLure: "HULL — damage and repair",
+  lureVanishRows: "THE LURE — a body only one of you can see through",
   scoreThrobHit: "SCORE",
   scoreShellPiece: "SCORE",
   throbPeriodBeats: "THROB — open for one beat in every few",

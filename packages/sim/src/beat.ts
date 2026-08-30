@@ -1,5 +1,5 @@
 import { stepBoss } from "./boss.js";
-import { throbIsOpen } from "./creature-rules.js";
+import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
@@ -34,6 +34,28 @@ export function onBeat(world: World): void {
   beatMetronome(world);
   world.waveBeat += 1;
 
+  // A lure goes on the beat it would step off the row `lureVanishRows` above
+  // the hull — asked *before* the fall, so the beat it spent gliding into that
+  // row was in plain sight of both players and nothing about it read as
+  // different until it was not there. Collected rather than filtered in place:
+  // the loop below is still walking `world.creatures`.
+  const spent = world.creatures.filter((c) => lureIsSpent(world.cfg, c));
+  if (spent.length > 0) {
+    for (const c of spent) {
+      world.events.push({
+        type: "lureVanished",
+        col: c.col,
+        row: c.row,
+        // Not null: `resolveLure` is the only branch a lure can take with a
+        // shot in it, so a lure always carries the disguise's own colour, and
+        // that is the colour the picture that fades has to be drawn in.
+        color: c.color ?? "cyan",
+      });
+    }
+    const gone = new Set(spent.map((c) => c.id));
+    world.creatures = world.creatures.filter((c) => !gone.has(c.id));
+  }
+
   // Creatures land on tile centres each beat, all at once — most move one
   // tile, a rock may move several, but never a fraction of one.
   for (const c of world.creatures) {
@@ -59,16 +81,25 @@ export function onBeat(world: World): void {
   while (world.spawned < world.queue.length) {
     const entry = world.queue[world.spawned]!;
     if (entry.beat > world.waveBeat - 1) break;
+    const col = clampSpanCol(entry.col, world.cfg.cols, entry.kind);
+    // Said once, at the top of the field, so player 2's ear has the column
+    // before the eye has found the ring. A hit should always be player 2's
+    // haste and never player 2's surprise.
+    if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
     world.creatures.push({
       id: world.nextId++,
       kind: entry.kind,
-      col: clampSpanCol(entry.col, world.cfg.cols, entry.kind),
+      col,
       row: 0,
       // Glide onto the field at the kind's own speed, not a flat one tile —
       // a torch (`fallTilesPerBeat` far above 1) that crept in for its first
       // beat and only then jumped to full speed read as a stutter, not a fall.
       fromRow: -fallTilesPerBeat(entry.kind),
       color: entry.color,
+      // Authored by the wave, and the same value on both devices. Which of the
+      // two screens lays an alarm over the body it names is render's question
+      // and never the simulation's (`Creature.wears`).
+      ...(entry.wears ? { wears: entry.wears } : {}),
       holes: 0,
       petals: 0,
       dragMilli: 0,

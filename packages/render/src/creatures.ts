@@ -11,6 +11,7 @@ import {
   isMeteorKind,
   type SimConfig,
   type World,
+  wornKind,
 } from "@neon-spore/sim";
 import { drawDetails } from "./creature-detail.js";
 import { creatureCenter } from "./creature-place.js";
@@ -84,10 +85,17 @@ function drawLiving(
   cfg: SimConfig,
   near: number,
 ): void {
-  const isBulb = c.kind === "bulb";
-  const shape = livingSilhouette(c.kind);
-  // Runt and Throb carry no colour at all (bullet-hit.ts's own branches, not
-  // a colour match) — the red/cyan ternary below would otherwise read a null
+  // **Not `c.kind`.** A lure is drawn as the body it wears — the contour, the
+  // own-motion, the interior, the size, all of it — and this is the line that
+  // makes that true. Every appearance below reads `look`; `c.kind` decides
+  // nothing about how this body draws, on either device, right up to the beat
+  // it goes. See `wornKind` in sim/creature-rules.ts, and purity.test.ts's own
+  // row on it: one site left asking `c.kind` and player 1 has a tell.
+  const look = wornKind(c);
+  const isBulb = look === "bulb";
+  const shape = livingSilhouette(look);
+  // The Throb carries no colour at all (bullet-hit.ts's own branch, not a
+  // colour match) — the red/cyan ternary below would otherwise read a null
   // colour as cyan, painting a decoy in one of the two ammunition colours.
   const neutral = c.color === null;
   // Every colour goes through `hazed`: distance is spent on the palette here
@@ -115,14 +123,14 @@ function drawLiving(
   // true (a shot lands), smaller while it is shut (a shot does nothing) — the
   // same flag bullet-hit.ts reads, so the picture never disagrees with what a
   // shot actually does.
-  const throbMul = c.kind === "throb" ? (c.throbOpen ? 1.3 : 0.7) : 1;
+  const throbMul = look === "throb" ? (c.throbOpen ? 1.3 : 0.7) : 1;
   const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1) * throbMul;
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools
   // can animate a creature the way the game does instead of re-typing it.
   // Offsets come back in tiles, which is the only form that survives a
   // different screen.
-  const pose = livingMotion(c.kind).poseAt(poseClock(c.id, beats));
+  const pose = livingMotion(look).poseAt(poseClock(c.id, beats));
   const ox = pose.dx * l.tile;
   const oy = pose.dy * l.tile;
   const { rot, sx, sy } = pose;

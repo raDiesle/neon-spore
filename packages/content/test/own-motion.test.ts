@@ -79,16 +79,23 @@ describe("own-motion", () => {
   it("pairs each living kind with its own motion", () => {
     expect(livingMotion("bulb")).toBe(SWAY_PUMP);
     expect(livingMotion("slick")).toBe(TILT_RIPPLE);
-    expect(livingMotion("runt")).toBe(TREMBLE);
     expect(livingMotion("throb")).toBe(HOLD);
   });
 
-  it("the runt and the throb no longer borrow the slick's tilt", () => {
-    // The bug this file exists to fix: both used to fall through to
-    // TILT_RIPPLE, so the runt twitched like a slick and the throb tilted
-    // like one.
-    expect(livingMotion("runt")).not.toBe(TILT_RIPPLE);
+  it("the throb no longer borrows the slick's tilt", () => {
+    // The bug this file exists to fix: the throb used to fall through to
+    // TILT_RIPPLE and tilted like a slick. The runt had the same bug and the
+    // same fix; it was retired for THE LURE, and `TREMBLE` outlived it as a
+    // spare — which is why the motion is still imported and still sampled by
+    // the reach tests above.
     expect(livingMotion("throb")).not.toBe(TILT_RIPPLE);
+  });
+
+  it("a lure has no motion of its own to be asked for", () => {
+    // The one thing this pairing must never grow: a lure sways as the body it
+    // wears, resolved by `wornKind` before `livingMotion` is called at all. A
+    // case for it here would be a tell on player 1's screen.
+    expect(TREMBLE).not.toBe(livingMotion("slick"));
   });
 
   it("the throb's own-motion is the smallest of the four — it must not compete with the beat", () => {

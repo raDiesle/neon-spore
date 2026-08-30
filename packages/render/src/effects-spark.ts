@@ -64,7 +64,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // what you wanted" (`reject`, `podLost`), and fewer particles than a real
     // destroy, so a shot that felt satisfying to fire reads as smaller than it
     // felt (`docs/spec/audio.md` makes the same call for the ear).
-    case "runtHit":
+    case "lureHit":
       return at(l, e.col, e.row, 8, PALETTE.sparkDim);
     // A piece coming off THE SHELL: an ordinary burst in the armour's own
     // material colour. The raw edge it leaves behind is not drawn here —
@@ -82,6 +82,12 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // Everything below is drawn some other way, or not drawn as a burst at
     // all, and says so rather than falling through a default that could not
     // tell the difference between "decided" and "forgotten".
+    // A lure going is drawn *inward*, by `lure-vanish.ts`, and particles are
+    // the whole of what it must not have: every burst in this table throws
+    // material away from a body, which is the picture of something being
+    // broken. Nothing broke — it left.
+    case "lureVanished":
+    case "lureSeen": // Player 2's ear and player 2's strip; nothing on the field.
     case "beat": // The click track and the HUD dots; no tile, nothing to burst.
     case "waveStart": // The banner, not a burst — `banner.ts`, driven by the host.
     case "needWave": // Bookkeeping between the host and the sim; nothing on the field.

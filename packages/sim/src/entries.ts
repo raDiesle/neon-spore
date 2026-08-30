@@ -17,6 +17,13 @@ export interface SpawnEntry {
   col: number;
   kind: CreatureKind;
   color: Color | null;
+  /**
+   * Which body a `lure` wears, and absent on every other kind. Authored by the
+   * wave rather than rolled: random would be a second place where the trap is
+   * decided, and a wave cannot be composed against a shape its author does not
+   * know. See `Creature.wears`.
+   */
+  wears?: CreatureKind;
 }
 
 /**

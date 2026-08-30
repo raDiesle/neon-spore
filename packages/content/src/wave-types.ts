@@ -23,12 +23,19 @@ export interface WaveEntry {
   beat: number;
   col: number;
   /**
-   * Named here only for a kind that carries no colour — a rock, or one of the
-   * two kinds that carry none on purpose (`runt`, `throb`). A living creature
-   * that *has* a colour never names its kind here: it follows from the colour
-   * instead (`kindForColor`), so a wave with `color` set never also writes
-   * `kind` — naming both would be naming the same thing twice and inviting
-   * them to disagree.
+   * Named here for a kind the colour cannot name on its own. That used to be
+   * one case — a rock, or a kind that carries no colour at all (`throb`) —
+   * and this comment used to say that a kind and a colour never appear
+   * together, because naming both would be naming the same thing twice and
+   * inviting them to disagree.
+   *
+   * **THE LURE broke that, and it broke it on purpose.** A lure carries a
+   * colour and it is not the colour's own kind: the colour is the *disguise's*
+   * — what player 1 is shown, and what player 2 would have fired at if they
+   * had not looked — while the kind is what the body actually is. Two facts,
+   * not one said twice, and neither can be worked out from the other. So a
+   * lure entry names `kind`, `color` and `wears` together, and `queueFromWave`
+   * lets an explicit `kind` win over the colour rather than the reverse.
    *
    * `WaveKind` is derived from the `waveNames` flags in `mechanics.ts` rather
    * than written out here. It used to be `RockKind | "runt" | "throb"`, by
@@ -37,8 +44,25 @@ export interface WaveEntry {
    * entry naming a kind no wave could carry.
    */
   kind?: WaveKind;
-  /** A fixed colour, or null for a kind that carries none. */
+  /**
+   * A fixed colour, or null for a kind that carries none.
+   *
+   * On a lure this is the disguise's colour and never the body's — see `kind`
+   * above, and `wears` below, which are the other two thirds of the same
+   * authored trap.
+   */
   color: Color | null;
+  /**
+   * Which body a `lure` wears: `"slick"` or `"bulb"`. Absent on everything
+   * else.
+   *
+   * Authored and never rolled. Random would be a second place where the trap
+   * is decided, and a wave cannot be composed against a shape its author does
+   * not know — the whole cost of this creature is the seconds player 1 spends
+   * standing in its column, and those are only expensive if the author knows
+   * what else is arriving and when.
+   */
+  wears?: "slick" | "bulb";
 }
 
 /**

@@ -122,17 +122,24 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
   },
-  runt: {
-    kind: "runt",
-    // Same job as any other aim target — the cannon has to be in its column
-    // and player 2 has to choose whether to fire — so a wave containing only
-    // Runts still shows the controls that make not-firing a real restraint
-    // rather than an absent one.
+  lure: {
+    kind: "lure",
+    // Same job as any other aim target — the cannon in its column, player 2
+    // choosing whether to fire — so a wave of nothing but lures still shows
+    // the controls that make not-firing a restraint rather than an absence.
     controls: ["aim"],
+    // No colour *of its own*: what a lure carries is the disguise's, authored
+    // on the wave entry, and that is a fact about one arrival rather than
+    // about the kind. A colour here would be this creature claiming a body of
+    // its own — the one thing it does not have.
     color: null,
+    // Player 2's strip, like every other aim target, and this is where the
+    // alarm matters most. Player 1's carries `guard` kinds only, so the
+    // disguise cannot leak by that door at all; player 2's carries the
+    // exclamation and the name, so a hit stays haste and not surprise.
     radar: "p2",
     blurb:
-      "Tiny and helpless, and carries no colour. Do not shoot it — any shot that lands costs points, whatever colour it was.",
+      "A slick or a bulb, full size, in its real colour — and only one of you can see that it is neither. Do not shoot it: any shot that lands costs the hull. Left alone it goes on its own, two rows short of the ship.",
   },
   throb: {
     kind: "throb",

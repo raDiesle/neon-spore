@@ -34,6 +34,9 @@ const BUSY: SimEvent[] = [
   { type: "petal", col: 5, row: 2, left: 3 },
   { type: "tether", col: 4, color: "red" },
   { type: "plate", col: 6, row: 2, left: 2, color: "cyan" },
+  // A lure folding to a point. It outlives its own frame — half a second of
+  // it — so it is state, and state is what this file is for.
+  { type: "lureVanished", col: 2, row: 10, color: "cyan" },
 ];
 
 beforeAll(installCanvasGlobals);

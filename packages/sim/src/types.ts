@@ -27,13 +27,10 @@ export type CreatureKind =
   | "queen"
   | "warden"
   | "tether"
-  /**
-   * Tiny and helpless, and carries no colour — a shot of either colour costs
-   * points rather than earning them (`resolveRunt`, bullet-hit.ts). Reaching
-   * the hull is not special-cased: it costs the hull exactly what any other
-   * missed creature would, same as `damageCreature` for anything else.
-   */
-  | "runt"
+  /** A slick or a bulb on player 1's screen and a lure on player 2's: `wears`
+   * is which body, `resolveLure` what a shot costs, `lureIsSpent` when it
+   * goes. One truth here; the disguise belongs to render/ alone. */
+  | "lure"
   /**
    * Swells and shrinks on the shared beat instead of carrying a colour.
    * `throbOpen` on the `Creature` says whether this beat is one it can be hit
@@ -67,6 +64,9 @@ export interface Creature {
   fromRow: number;
   /** null for meteors, which cannot be shot. */
   color: Color | null;
+  /** The kind a `lure` is drawn as, absent otherwise. Read it via `wornKind` —
+   * the ternary by hand is how player 1 gets a tell (creature-rules.ts). */
+  wears?: CreatureKind;
   /**
    * Craters left by shots. A meteor keeps its size and stays indestructible —
    * the holes are the only trace. render/ places crater `k` from the id.

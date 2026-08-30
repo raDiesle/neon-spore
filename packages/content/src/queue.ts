@@ -47,9 +47,21 @@ export function queueFromWave(wave: Wave, cols: number): SpawnEntry[] {
   const queue: SpawnEntry[] = [];
   for (const e of wave.entries) {
     const color = e.color;
-    // The colour decides the silhouette; the wave never names both.
-    const kind = color ? kindForColor(color) : (e.kind ?? "meteor");
-    queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color });
+    // A named kind wins, and the colour decides the silhouette only when the
+    // entry does not say. That order is what THE LURE needs and no other kind
+    // has ever exercised: a lure names both, because its colour is the
+    // disguise's rather than its own (`wave-types.ts`). For everything else
+    // the two are still never written together, so the `??` never fires and
+    // this reads exactly as it always did.
+    const kind = e.kind ?? (color ? kindForColor(color) : "meteor");
+    // Which body a lure wears follows from the colour it was authored in,
+    // exactly as a real arrival's does — one call, not a second copy of the
+    // pairing. That is the whole disguise: a lure is a *correct* body in a
+    // *correct* colour, and a bulb in red would be the one tell nothing else
+    // in the game could produce. `e.wears` overrides it, and today nothing
+    // does; a wave that ever did would be authoring a mismatch on purpose.
+    const wears = kind === "lure" && color ? (e.wears ?? kindForColor(color)) : e.wears;
+    queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color, wears });
   }
   return queue.sort((a, b) => a.beat - b.beat);
 }

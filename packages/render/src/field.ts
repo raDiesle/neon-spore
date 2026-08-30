@@ -2,6 +2,7 @@ import { showsRadar } from "@neon-spore/content";
 import { colSpan, isMeteorKind, spanCenterCol, type World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop.js";
 import { type Layout, tileCX } from "./layout.js";
+import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -170,6 +171,13 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
       ctx.closePath();
       ctx.fill();
     }
+
+    // Player 2's alarm, over the blip and never instead of it: the blip's
+    // colour is still what has to be said out loud so that player 1 knows
+    // which body is meant. Player 1's strip cannot carry this at all — it
+    // shows `guard` kinds only, and a lure is an `aim` kind like the two
+    // bodies it wears (`showsRadar` above is the whole gate).
+    drawRadarLureMark(ctx, l, q.kind, x, y);
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {

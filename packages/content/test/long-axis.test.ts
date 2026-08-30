@@ -104,7 +104,7 @@ describe("the game's own motions", () => {
   });
 
   it("covers every motion a living kind can be given", () => {
-    for (const kind of ["bulb", "runt", "throb", "slick"] as const) {
+    for (const kind of ["bulb", "throb", "slick"] as const) {
       expect(GAME_MOTIONS).toContain(livingMotion(kind));
     }
   });

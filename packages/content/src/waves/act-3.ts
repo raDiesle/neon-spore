@@ -6,18 +6,51 @@ import type { Wave } from "../wave-types.js";
  * turn — `waves.ts` is the barrel that concatenates this with the other acts,
  * see it for why the list was split by act in the first place.
  */
+/**
+ * **THE LURE, in three figures.** Written here rather than beside the entries
+ * because the director rewrites the array and keeps only what stands above it
+ * (`serialize.ts`) — and this is the half of that wave no test can check. A
+ * lure costs nothing if it is ignored, so what has to bite is the
+ * *column-seconds*: player 1 standing over a body that will never pay while a
+ * real one falls somewhere they are not.
+ *
+ * 1. Beats 0–3, the shape, cheaply. One lure alone, then a real body of the
+ *    other colour across the field. There is time to be told and time to
+ *    cross, and the pair learns the sentence they will need.
+ * 2. Beats 8–9, the twin. A lure wearing a slick and a real slick two columns
+ *    apart, one beat apart, the same red. Nothing but the ring tells them
+ *    apart, so player 1 cannot guess and has to be told *which* — the moment
+ *    the disguise stops being a trick and becomes the mechanic.
+ * 3. Beats 14–20, the squeeze. Three cyan bulbs across the left half, the
+ *    middle one a lie, and two reds after them at the far edges. Every beat
+ *    spent on the middle one is a beat of the run either side of it, and by
+ *    now the field is busy enough that those beats are not spare.
+ *
+ * A lure entry names its kind and its colour and nothing else: the body it
+ * wears follows from the colour, the way every real arrival's does
+ * (`queueFromWave`). Not a shortcut — a lure has to be a correct body in a
+ * correct colour or it is not wearing anything, and a cyan slick would be the
+ * one tell in this wave that nothing else in the game could produce.
+ */
 export const WAVES_ACT_3: Wave[] = [
   {
-    name: "THE RUNT",
-    sentence: "The one where a shot that lands is the mistake.",
+    name: "THE LURE",
+    sentence: "The one where the shot you are waiting for must never come.",
     guide: {
-      both: "Tiny, and carries no colour at all. A shot that lands on it is the mistake — it costs points, whatever colour was fired.",
-      p1: "The column is still yours to hold. Say when it is not worth standing in.",
-      p2: "No colour is the right one here. Hold your fire and let it reach the hull instead.",
+      both: "One of these is not what it looks like. Only one of you can tell.",
+      p1: "You will see a body worth shooting and nothing will happen. Believe your partner and move — the column you are standing in is the one you are losing.",
+      p2: "The ringed one is a lure. Do not fire at it, and do not wait to be asked — say the column it is in and say the column to go to instead.",
     },
     entries: [
-      { beat: 0, col: 3, kind: "runt", color: null },
-      { beat: 1, col: 5, color: "cyan" },
+      { beat: 0, col: 2, kind: "lure", color: "cyan" },
+      { beat: 3, col: 5, color: "red" },
+      { beat: 8, col: 3, kind: "lure", color: "red" },
+      { beat: 9, col: 4, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 15, col: 2, kind: "lure", color: "cyan" },
+      { beat: 16, col: 4, color: "cyan" },
+      { beat: 18, col: 6, color: "red" },
+      { beat: 20, col: 1, color: "red" },
     ],
   },
   {

@@ -54,6 +54,18 @@ function livingStroke(kind: CreatureKind): string {
   return PALETTE.dim;
 }
 
+/**
+ * The shape-sheet cards a brush's own card draws. A kind's own name for every
+ * kind but one: a lure has no contour of its own — it is drawn as the body it
+ * wears — so its card draws both, the way a two-subject brush already means
+ * "this resolves to either". `livingKinds` in the sheet leaves it out for the
+ * same reason, and a card here naming "LURE" would draw a blank.
+ */
+function cardSubjects(kind: CreatureKind): string[] {
+  if (kind === "lure") return ["SLICK", "BULB"];
+  return [kind.toUpperCase()];
+}
+
 const LIVING_BRUSHES: {
   brush: Brush;
   label: string;
@@ -63,7 +75,7 @@ const LIVING_BRUSHES: {
 }[] = LIVING_BRUSH_KINDS.map((kind) => ({
   brush: kind,
   label: kind.toUpperCase(),
-  subjects: [kind.toUpperCase()],
+  subjects: cardSubjects(kind),
   stroke: livingStroke(kind),
   note: CREATURES[kind].blurb,
 }));

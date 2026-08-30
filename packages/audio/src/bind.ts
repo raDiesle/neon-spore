@@ -20,6 +20,16 @@ export interface Cue {
   /** Multiplies every frequency — how a row becomes a pitch. */
   pitch?: number;
   gain?: number;
+  /**
+   * The one seat this cue belongs to, or absent for the overwhelming majority
+   * that belong to both. Both players hear everything (`docs/spec/systems.md`
+   * 5.3) and that is still the rule — this is the exception THE LURE forced,
+   * and it exists because the two of them are in one room: a sound made on
+   * both phones is a sound the player who is not supposed to have it hears
+   * anyway. `Mixer` drops a seated cue unless it has been told which seat it
+   * is, so a device that was never told stays silent rather than leaking.
+   */
+  seat?: 1 | 2;
 }
 
 /** A column as a stereo position. The edges stop short of hard left and right. */
@@ -184,12 +194,31 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
-    case "runtHit":
+    case "lureHit":
       // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
       // the right thing, and this is the one hit that must not be mistaken
       // for one (`docs/spec/audio.md`).
       return {
         id: "impact.wrongTarget",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "lureSeen":
+      // **Player 2's device only**, and the one cue in this file that names a
+      // seat. Two people playing this game are usually sitting next to each
+      // other, so a chime both phones make is a chime player 1 hears — and
+      // player 1 knowing that *something* on the field is a lure is the whole
+      // disguise gone through the speaker. It is quiet on purpose too: the
+      // alarm is already on the body and on the strip, and this is one more
+      // indicator rather than a replacement for either.
+      return { id: "signal.lureWarn", pan: panForCol(e.col, cols), gain: 0.5, seat: 2 };
+    case "lureVanished":
+      // Both devices, because this is the one moment both screens show the
+      // same thing. Not `impact.destroyRed`/`Cyan` and not `impact.reject`:
+      // nothing was killed and nothing failed, so the ear gets the same
+      // reversal the picture does — a body closing rather than coming apart.
+      return {
+        id: "creature.lureFold",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

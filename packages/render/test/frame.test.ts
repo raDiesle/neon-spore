@@ -338,6 +338,99 @@ describe("the radar", () => {
     expect(p1.ctx.calls).toBe(0);
     expect(p2.ctx.calls).toBeGreaterThan(0);
   });
+
+  /**
+   * A lure arrives on player 2's strip carrying the exclamation and its name;
+   * on player 1's it carries nothing, because player 1's strip carries `guard`
+   * kinds only. That is the same rule the test above checks for a slick — the
+   * point here is that the alarm rides on it rather than around it.
+   */
+  it("marks a lure on p2's strip and leaves p1's as blank as a slick's", () => {
+    const queue: SpawnEntry[] = [{ beat: 2, col: 3, kind: "lure", color: "cyan", wears: "bulb" }];
+    const world = createWorld(CFG, 1, queue);
+    const layout = (role: ViewRole) =>
+      computeLayout({ width: 900, height: 1600, dpr: 1 }, CFG, role);
+
+    const p1 = stubCanvas();
+    drawRadar(p1.ctx as unknown as CanvasRenderingContext2D, layout("p1"), world);
+    expect(p1.ctx.calls).toBe(0);
+
+    // More than the plain blip a real bulb draws: the glyph and the word.
+    const bulb = stubCanvas();
+    const bulbWorld = createWorld(CFG, 1, [{ beat: 2, col: 3, kind: "bulb", color: "cyan" }]);
+    drawRadar(bulb.ctx as unknown as CanvasRenderingContext2D, layout("p2"), bulbWorld);
+    const lure = stubCanvas();
+    drawRadar(lure.ctx as unknown as CanvasRenderingContext2D, layout("p2"), world);
+    expect(lure.ctx.calls).toBeGreaterThan(bulb.ctx.calls);
+  });
+});
+
+/**
+ * THE LURE, drawn: the body player 1 sees, the alarm player 2 sees over it,
+ * and the fold both of them see when it goes.
+ *
+ * Nothing here can answer whether the disguise *reads* — that is the check
+ * this lane owes and it needs two phones. What it can hold is the shape of the
+ * arrangement: that the alarm is drawn on one seat and not the other, that
+ * neither seat's frame throws, and that a lure at either edge of the field
+ * still puts its label somewhere the canvas will accept.
+ */
+function lureFrames(role: ViewRole, col: number, ticks: number) {
+  const queue: SpawnEntry[] = [{ beat: 0, col, kind: "lure", color: "cyan", wears: "bulb" }];
+  const world = createWorld(CFG, 1, queue);
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  let vanished = 0;
+  for (let tick = 0; tick < ticks; tick++) {
+    step(world, []);
+    if (world.events.length) events.push(...world.events);
+    vanished += world.events.filter((e) => e.type === "lureVanished").length;
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+    });
+    events = [];
+  }
+  return { ctx, vanished };
+}
+
+describe("the lure", () => {
+  // Far enough to carry it past the row it goes on, so every frame this
+  // creature ever produces — body, alarm and fold — has been through the
+  // canvas that refuses what a real one refuses.
+  const TICKS = ticksPerBeat(CFG) * 20;
+
+  for (const role of ROLES) {
+    it(`draws the body, its alarm and its fold for ${role}`, () => {
+      const { ctx, vanished } = lureFrames(role, 3, TICKS);
+      expect(vanished).toBe(1);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  it("puts the alarm on player 2's screen and nothing extra on player 1's", () => {
+    // Same world, same ticks, same body — the ring, the exclamation and the
+    // label are the entire difference between the two frames.
+    const p1 = lureFrames("p1", 3, TICKS);
+    const p2 = lureFrames("p2", 3, TICKS);
+    expect(p2.ctx.calls).toBeGreaterThan(p1.ctx.calls);
+  });
+
+  it("keeps its label on screen in the first column and the last", () => {
+    for (const col of [0, CFG.cols - 1]) {
+      expect(() => lureFrames("p2", col, TICKS)).not.toThrow();
+    }
+  });
 });
 
 /**

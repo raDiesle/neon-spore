@@ -125,11 +125,36 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     ],
   },
   {
+    id: "creature.lureFold",
+    family: "creature",
+    blurb: "A body closing on itself: a short breath in, and a soft click where it ends.",
+    status: "bound",
+    use: "A lure leaving the field on its own, two rows short of the hull. Both devices hear it — it is the one moment of that creature both screens show identically.",
+    level: 0.26,
+    layers: [
+      // Downward and inward, which is the ear's half of the same reversal the
+      // picture makes: every other end-of-a-body sound in this catalogue opens
+      // outward. Body well under 300 Hz, so it never reaches the speech band.
+      {
+        source: "sine",
+        freq: 240,
+        toFreq: 90,
+        gain: 0.4,
+        attack: 0.02,
+        hold: 0.05,
+        release: 0.26,
+        filter: { type: "lowpass", freq: 280, toFreq: 150, q: 1.2 },
+      },
+      // The point it ends on, above the band rather than through it.
+      after(0.22, glint(5600, 0.03, 0.28)),
+    ],
+  },
+  {
     id: "creature.runtPeep",
     family: "creature",
     blurb: "A small, harmless, faintly pathetic pip.",
     status: "spare",
-    use: "The runt — the one you must not shoot.",
+    use: "Written for the runt, which THE LURE retired. Spare, and waiting for the next creature that is small enough to sound helpless.",
     level: 0.18,
     layers: [
       {

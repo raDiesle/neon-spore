@@ -69,7 +69,7 @@ describe("which kinds a wave may name", () => {
       "meteorFaster",
       "meteorFastest",
       "torch",
-      "runt",
+      "lure",
       "throb",
       "shell",
     ];

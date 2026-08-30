@@ -84,13 +84,30 @@ export type SimEvent =
   | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
   | { type: "mazeDown"; col: number }
   /**
-   * The Runt was shot — a mistake, not a kill (`resolveRunt`, bullet-hit.ts).
+   * A lure was shot — a mistake, not a kill (`resolveLure`, bullet-hit.ts).
    * Its own event because the ear has to tell this apart from an ordinary
    * `destroy`: the same reflex that pays off everywhere else on the field is
    * wrong here, and a sound identical to a kill is the one that would hide
    * that from the pair.
    */
-  | { type: "runtHit"; col: number; row: number }
+  | { type: "lureHit"; col: number; row: number }
+  /**
+   * A lure came onto the field. Player 2's alarm cue hangs off this and player
+   * 1's device plays nothing for it: a chime both phones make would carry the
+   * disguise straight through the speaker, in a room where the two of them are
+   * sitting next to each other.
+   */
+  | { type: "lureSeen"; col: number }
+  /**
+   * A lure left the field on its own, `lureVanishRows` short of the hull. The
+   * one moment of this creature both screens show identically, and player 1's
+   * vindication: the body they were told to leave alone resolved itself.
+   *
+   * `color` is the disguise's — the only colour either player has ever seen it
+   * in — so what fades is what was standing there, and nothing is revealed at
+   * the last instant that was hidden a moment before it.
+   */
+  | { type: "lureVanished"; col: number; row: number; color: Color }
   /**
    * A piece of THE SHELL came off, in the column it was struck. `left` is how
    * many are still on, which is what the pair now has to name: after the first

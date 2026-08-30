@@ -150,6 +150,10 @@ export const NO_SUBJECT: Record<string, string> = {
     "a hole is punched in whatever was hit. The subject is the creature, and the creature differs every time.",
   "ui.waveOpen": "a wave opening is the whole field changing, not a thing standing in it.",
   "ui.waveClear": "likewise — what it marks is an absence.",
+  "signal.lureWarn":
+    "a lure is drawn as a slick or a bulb and never as itself, so there is no picture of one to put here — which is the creature rather than a gap in this page.",
+  "creature.lureFold":
+    "the same: what folds to a point is whichever body that lure was wearing, and the sheet has no card for a shape nothing has of its own.",
 };
 
 export function subjectFor(def: SoundDef): Subject {

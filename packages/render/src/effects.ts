@@ -5,6 +5,7 @@ import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
 import { burstFor } from "./effects-spark.js";
 import { type Layout, tileCX } from "./layout.js";
+import { LureVanishFx } from "./lure-vanish.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -21,7 +22,6 @@ const QUEEN_SHAKE_LIFE = 0.35;
 /**
  * Everything transient. Effects own their own state, are fed only by
  * `SimEvent`s, and write nothing back — the world does not know they exist.
- *
  * The deflection gets the most work, deliberately: it is the one moment that
  * needs both players, and docs/spec/systems.md 5.8 says a pair that cannot see
  * it worked will never learn the timing.
@@ -38,17 +38,17 @@ export class Effects {
   private queenShakeUntil = 0;
   /** Which impacts have visibly landed — see `arrivals.ts`. */
   private arrivals = new Arrivals();
+  /** A lure folding to a point, two rows short of the hull — `lure-vanish.ts`. */
+  private lureVanish = new LureVanishFx();
   /**
    * THE MIRROR's own transients. Public because the boss is drawn as a whole
    * ship rather than as a handful of particles: `canvas2d` reads `armed` and
    * `intake` off it to build the mirror's hull mood, and calls its own draws.
    */
   readonly mirror = new MirrorFx();
-  /**
-   * THE WARDEN's one transient: the line whipping down after it is torn. Public
-   * for the same reason the mirror's is — the boss is drawn as a whole body by
-   * `boss-draw.ts`, not as a handful of particles here.
-   */
+  /** THE WARDEN's one transient: the line whipping down after it is torn.
+   * Public for the mirror's reason — the boss is drawn as a whole body by
+   * `boss-draw.ts`, not as a handful of particles here. */
   readonly warden = new WardenFx();
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
@@ -87,6 +87,7 @@ export class Effects {
   ): void {
     this.mirror.ingest(events);
     this.warden.ingest(events);
+    this.lureVanish.ingest(events, l);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);
@@ -113,8 +114,8 @@ export class Effects {
             const r = rockRadius(l, e.kind);
             const span = colSpan(e.kind);
             const loCol = Math.round(e.col - (span - 1) / 2);
-            // Two bursts flanking the crater, not one on top of it: sparks
-            // fly off the rim the rock tore, not out of thin air at its centre.
+            // Two bursts flanking the crater, not one on top of it: sparks fly
+            // off the rim the rock tore, not out of thin air at its centre.
             const arrive = (ax: number, ay: number): void => {
               this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
               this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
@@ -175,21 +176,22 @@ export class Effects {
     this.layEcho.update(dt);
     this.mirror.update(dt);
     this.warden.update(dt);
+    this.lureVanish.update(dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
   draw(ctx: CanvasRenderingContext2D): void {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
+    this.lureVanish.draw(ctx);
   }
 
   /**
    * The last step of a rock's fall, replayed until it reaches the hull, and
    * the stuck-then-rolling rock afterwards. Drawn *over* the hull, unlike the
-   * rest of this class: a rock falling or lodged has to stay in front, not
-   * half hidden behind the hull's fill. `skinAt` is the hull's real,
-   * breathing surface (`hullSkinY`), so a stuck rock rides the same motion
-   * its crater does rather than a flat approximation of it.
+   * rest of this class: a rock falling or lodged has to stay in front.
+   * `skinAt` is the hull's real, breathing surface (`hullSkinY`), so a stuck
+   * rock rides the motion its crater does rather than an approximation of it.
    */
   drawRockImpact(
     ctx: CanvasRenderingContext2D,
@@ -200,10 +202,8 @@ export class Effects {
     this.rockImpactFx.draw(ctx, l, time, skinAt);
   }
 
-  /**
-   * Whether a rock is still sitting in its own crater at this x — the hull
-   * asks before it draws that crater at all (`craters.ts`).
-   */
+  /** Whether a rock is still sitting in its own crater at this x — the hull
+   * asks before it draws that crater at all (`craters.ts`). */
   rockCoversCrater(x: number, tile: number): boolean {
     return this.rockImpactFx.coversCrater(x, tile);
   }
@@ -216,9 +216,8 @@ export class Effects {
 
   /** Forget everything transient: a wave has (re)started and none of it
    * belongs on screen now. Without this a rock from the run just abandoned
-   * keeps falling onto the new hull and latches an arrival (`arrivals.ts`)
-   * against a beat the new run is about to reuse — showing that beat's crack
-   * before its own rock ever lands. */
+   * latches an arrival (`arrivals.ts`) against a beat the new run is about to
+   * reuse — showing that beat's crack before its own rock ever lands. */
   reset(): void {
     this.sparks.clear();
     this.deflectFx.clear();
@@ -231,6 +230,7 @@ export class Effects {
     this.layEcho.clear();
     this.mirror.clear();
     this.warden.reset();
+    this.lureVanish.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

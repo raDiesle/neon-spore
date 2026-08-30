@@ -11,6 +11,7 @@ import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
+import { drawLureAlarms } from "./lure-alarm.js";
 import { drawOtherHand } from "./other-hand.js";
 import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
@@ -59,6 +60,11 @@ export function drawBodies(
   // (see shell-draw.ts), so it belongs beside the pass that owns bodies, not
   // inside Effects with the transients.
   drawShellDamage(ctx, l, world, view.beatPhase, view.time);
+  // Player 2's alarm, over the body it is about and on that device only. It is
+  // the single difference between the two screens in this whole pass, and it
+  // is drawn after the bodies rather than as part of them so that nothing in
+  // `drawCreatures` ever has to know which seat it is running on.
+  drawLureAlarms(ctx, l, world, view.beatPhase);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);

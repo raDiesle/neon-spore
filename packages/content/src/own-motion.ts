@@ -183,21 +183,20 @@ export const TILT_RIPPLE: OwnMotion = {
 };
 
 /**
- * The runt: a tight, arrhythmic tremor that never travels and never settles
- * into a rhythm. Three frequencies with no common period, so the body never
- * completes one clean rock the way the slick or the bulb does — that absence
- * of a rhythm is the whole point. A creature you must not shoot has to read
- * as *helpless* rather than as a slick drawn smaller, and a confident glide
- * or a lagging tilt both say "in control of where it is going." A tremor
- * says the opposite: too small to do anything but shake.
+ * Spare since the runt was retired for THE LURE, and kept: it is the one
+ * motion here written for a body too small to glide, and the next creature
+ * that is will want the argument below made again. A tight, arrhythmic tremor that never travels and never settles into a
+ * rhythm. Three frequencies with no common period, so the body never completes
+ * one clean rock the way the slick or the bulb does — that absence is the
+ * whole point. A creature you must not shoot has to read as *helpless*, and a
+ * glide or a lagging tilt both say "in control of where it is going." A
+ * tremor says: too small to do more than shake.
  *
  * The three are the one set of numbers here that is not a straight unit
- * conversion. On the old wall clock nothing in a tremor could be near the
- * beat, because the tremor had no idea when the beat was; on this clock it
- * can, and 5.3 rad/s sat within a few percent of the beat's own 5.03 rad/s
- * half-harmonic. Moved out to 5.9 — with 8.7 and 13.1 nudged to 8.3 and 12.7
- * to keep the trio's mutual incommensurability — the runt keeps reading as
- * debris caught in the wave rather than as part of it.
+ * conversion: 5.3 rad/s sat within a few percent of the beat's own 5.03 rad/s
+ * half-harmonic once the pose clock moved onto `world.beat`, so it went to
+ * 5.9, with 8.7 and 13.1 nudged to 8.3 and 12.7 to keep the trio
+ * incommensurable — debris caught in the wave, not part of it.
  */
 export const TREMBLE: OwnMotion = {
   name: "TREMBLE",
@@ -219,14 +218,12 @@ export const TREMBLE: OwnMotion = {
  * The throb: the smallest motion here, on purpose. `Creature.throbOpen`
  * already swells and shrinks it on the shared beat (`render/creatures.ts`),
  * and that pulse is nearly load-bearing — it is what tells the pair when to
- * fire. A tilt or a pump layered on top would still be legible on its own,
- * but next to the beat it reads as a second signal fighting the first: a
- * body saying "now" cannot also be saying "and also this." So no rotation,
- * no scale — either would move the same silhouette the beat is already
- * moving, and a player would have to separate the beat's swell from the
- * body's own sway to find the one that matters. What is left is a drift too
- * small and too slow to compete with anything, there only so the throb does
- * not read as a dead thing between beats.
+ * fire. A tilt or a pump layered on top would read as a second signal
+ * fighting the first: a body saying "now" cannot also be saying "and also
+ * this." So no rotation and no scale — either would move the silhouette the
+ * beat is already moving, and a player would have to separate the two to find
+ * the one that matters. What is left is a drift too small and too slow to
+ * compete, there only so the throb is not a dead thing between beats.
  */
 export const HOLD: OwnMotion = {
   name: "HOLD",
@@ -241,10 +238,13 @@ export const HOLD: OwnMotion = {
  * `kind === "bulb" ? SWAY_PUMP : TILT_RIPPLE` by hand, for the same reason
  * `livingSilhouette` exists: the pairing of a kind to its picture is one fact,
  * and a second copy of it is how a creature ends up swaying like the other one.
+ *
+ * `lure` is never passed in, for `livingSilhouette`'s reason with more riding
+ * on it: a lure sways as the body it wears, resolved by `wornKind` first, and
+ * a motion of its own would be a tell on player 1's screen.
  */
 export function livingMotion(kind: CreatureKind): OwnMotion {
   if (kind === "bulb") return SWAY_PUMP;
-  if (kind === "runt") return TREMBLE;
   if (kind === "throb") return HOLD;
   return TILT_RIPPLE;
 }

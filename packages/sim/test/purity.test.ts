@@ -189,6 +189,18 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The disguise, and the one rule in this table whose second copy is not a
+    // drift but a *tell*. A lure is a full-size slick or bulb in every pixel
+    // player 1 owns; every appearance derived from a kind — contour,
+    // own-motion, the bulb's interior — has to be derived from `wornKind`
+    // instead. One site left asking `c.kind` and player 1 can pick the lure
+    // out before it goes, which is the whole wave.
+    call: "wornKind",
+    owner: "packages/sim/src/creature-rules.ts",
+    pattern: /kind\s*===\s*"lure"\s*\?/,
+    strip: false,
+  },
+  {
     call: "livingSilhouette",
     owner: "packages/content/src/silhouettes.ts",
     pattern: /\?\s*BULB\s*:\s*SLICK|\?\s*SLICK\s*:\s*BULB/,

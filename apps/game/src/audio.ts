@@ -22,8 +22,22 @@ export interface GameAudio {
   toggleMute: () => boolean;
 }
 
-export function bindAudio(canvas: HTMLCanvasElement): GameAudio {
+/**
+ * `seat` is a getter rather than a value because the view switch is built
+ * after this is, and because a player can change seats without the run
+ * restarting. It is a fourth thing only the app knows: almost every cue plays
+ * on both devices, and THE LURE's alarm is the one that must not — see
+ * `Cue.seat` in `@neon-spore/audio`.
+ */
+export function bindAudio(canvas: HTMLCanvasElement, seat: () => "p1" | "p2" | "test"): GameAudio {
   const mixer = new Mixer();
+  const asSeat = (): 1 | 2 | null => {
+    const role = seat();
+    // `test` is both halves on one screen, so it hears both halves. A room
+    // with two people in it is exactly what it is not.
+    if (role === "test") return 2;
+    return role === "p2" ? 2 : 1;
+  };
 
   // Every one of these is a gesture a browser accepts as consent. `unlock` is
   // idempotent, so there is nothing to unbind and nothing to get wrong.
@@ -36,7 +50,10 @@ export function bindAudio(canvas: HTMLCanvasElement): GameAudio {
   });
 
   return {
-    frame: (world, events) => mixer.frame(world, events),
+    frame: (world, events) => {
+      mixer.setSeat(asSeat());
+      mixer.frame(world, events);
+    },
     restarted: () => mixer.reset(),
     toggleMute: () => {
       mixer.setMuted(!mixer.muted);

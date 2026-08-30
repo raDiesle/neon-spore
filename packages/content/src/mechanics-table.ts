@@ -23,8 +23,8 @@ export const MECHANICS = {
     what: "Round, swollen, and always cyan. Same fall, same lane — the colour is the whole of the difference.",
     reach: "spawn",
   },
-  runt: {
-    what: "Tiny, and carries no colour at all. A shot that lands on it is the mistake — it costs points, whatever colour was fired.",
+  lure: {
+    what: "A slick or a bulb, full size and in its real colour — and only the navigator can see that it is neither. A shot that lands on it is the mistake and costs the hull. Left alone it goes on its own, two rows short of the ship.",
     reach: "spawn",
     waveNames: true,
   },

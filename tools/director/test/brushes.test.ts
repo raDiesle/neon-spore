@@ -32,8 +32,8 @@ describe("LIVING_BRUSH_KINDS", () => {
     expect(new Set(LIVING_BRUSH_KINDS)).toEqual(new Set(expectedLivingKinds()));
   });
 
-  test("includes the Runt and the Throb, which carry no colour", () => {
-    expect(LIVING_BRUSH_KINDS).toContain("runt");
+  test("includes the Lure and the Throb, which carry no colour of their own", () => {
+    expect(LIVING_BRUSH_KINDS).toContain("lure");
     expect(LIVING_BRUSH_KINDS).toContain("throb");
   });
 

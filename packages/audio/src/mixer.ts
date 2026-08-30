@@ -36,6 +36,13 @@ export class Mixer {
   private clickTrack: boolean;
   /** Identical cues inside one frame, so twenty deaths on a beat are not twenty voices. */
   private thisFrame = new Map<string, number>();
+  /**
+   * Which seat this device is, or null while nobody has said. Only `Cue.seat`
+   * reads it, and only THE LURE's alarm sets that — see `bind.ts`. Null means
+   * *silent* rather than *both*: a device that has not been told which seat it
+   * is must not be the one that gives the disguise away.
+   */
+  private seat: 1 | 2 | null = null;
 
   constructor(opts: MixerOptions = {}) {
     this.engine = new Engine({ volume: opts.volume });
@@ -63,6 +70,15 @@ export class Mixer {
     this.clickTrack = on;
   }
 
+  /**
+   * Which seat this device is playing. Not part of `reset()`: it is a fact
+   * about the phone rather than about the run, and a restart does not move
+   * anybody to the other chair.
+   */
+  setSeat(seat: 1 | 2 | null): void {
+    this.seat = seat;
+  }
+
   /** Everything remembered about the previous frame, dropped. */
   reset(): void {
     this.mem = blankMemory();
@@ -82,6 +98,9 @@ export class Mixer {
     for (const e of events) {
       const cue = cueFor(e, cols, rows);
       if (!cue) continue;
+      // A cue that belongs to one seat, on the other seat's device or on one
+      // that has not said which it is. Silence rather than sound: see `seat`.
+      if (cue.seat !== undefined && cue.seat !== this.seat) continue;
       if (!this.clickTrack && (cue.id === "beat.tick" || cue.id === "beat.accent")) continue;
       this.play(cue.id, cue.pan, cue.pitch, cue.gain);
     }

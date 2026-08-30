@@ -20,16 +20,16 @@ import { PALETTE } from "../src/palette.js";
 const CFG = DEFAULT_CONFIG;
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
 
-describe("the runt's burst", () => {
-  it("lands where the runt was", () => {
-    const b = burstFor({ type: "runtHit", col: 3, row: 5 }, L);
+describe("the lure hit's burst", () => {
+  it("lands where the lure was", () => {
+    const b = burstFor({ type: "lureHit", col: 3, row: 5 }, L);
     expect(b).not.toBeNull();
     expect(b?.x).toBeCloseTo(tileCX(L, 3), 6);
     expect(b?.y).toBeCloseTo(tileCY(L, 5), 6);
   });
 
   it("is never red or cyan — the two colours a real kill spends", () => {
-    const b = burstFor({ type: "runtHit", col: 0, row: 0 }, L);
+    const b = burstFor({ type: "lureHit", col: 0, row: 0 }, L);
     expect(b?.hex).not.toBe(PALETTE.red);
     expect(b?.hex).not.toBe(PALETTE.cyan);
   });
@@ -37,15 +37,15 @@ describe("the runt's burst", () => {
   it("spends the same colour the game already uses for 'not what you wanted'", () => {
     // The same choice `reject` and `podLost` make, not a new one invented for
     // this — the palette already has a word for it, and it is grey.
-    const b = burstFor({ type: "runtHit", col: 0, row: 0 }, L);
+    const b = burstFor({ type: "lureHit", col: 0, row: 0 }, L);
     expect(b?.hex).toBe(PALETTE.sparkDim);
   });
 
   it("is a smaller burst than an ordinary kill, not a bigger one", () => {
-    const runt = burstFor({ type: "runtHit", col: 2, row: 2 }, L);
+    const lure = burstFor({ type: "lureHit", col: 2, row: 2 }, L);
     const destroyed = burstFor({ type: "destroy", col: 2, row: 2, color: "red" }, L);
-    expect(runt?.n ?? 0).toBeGreaterThan(0);
-    expect(runt?.n ?? Infinity).toBeLessThan(destroyed?.n ?? 0);
+    expect(lure?.n ?? 0).toBeGreaterThan(0);
+    expect(lure?.n ?? Infinity).toBeLessThan(destroyed?.n ?? 0);
   });
 });
 

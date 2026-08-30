@@ -4,6 +4,7 @@ import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
 import { moulded, rooted } from "./forms/index.js";
 import { TURN } from "./motions.js";
+import { RETIRED } from "./retired.js";
 import { blob, crystal, hullArc, livingKinds, SUBJECTS } from "./subjects.js";
 
 /**
@@ -115,7 +116,6 @@ const RING: CreatureSilhouette = {
 const OWNERS: Record<string, string> = {
   SLICK: "the slick — the flat red one",
   BULB: "the bulb — round and cyan",
-  RUNT: "the runt — tiny, colourless, and shrunk well below the rest",
   THROB: "the throb — colourless, swells and shrinks on the shared beat",
   POD: "the pod, which is not a creature",
   METEOR: "every rock tier, and the torch that spans three columns",
@@ -137,10 +137,10 @@ const OWNERS: Record<string, string> = {
  * added to `CREATURES` gets its own-motion on this page the moment it gets a
  * contour, instead of falling back to no motion until somebody edits a second
  * list. `livingMotion` itself still decides *which* motion; today that is
- * `SWAY_PUMP` for the bulb and `TILT_RIPPLE` for everything else, runt and
- * throb included — a real fallback, not a placeholder, and exactly as far as
- * this lane goes: teaching the throb a beat-driven pulse of its own is motion
- * work, not a derived list, and stays out of it.
+ * `SWAY_PUMP` for the bulb, `HOLD` for the throb and `TILT_RIPPLE` for
+ * everything else. `lure` is not in that list at all and must not be: it is
+ * drawn as the body it wears, so a card for it would be a second card drawing
+ * a shape already on the sheet (`livingKinds`, subjects.ts).
  */
 const TAKEN_MOTION: Record<string, OwnMotion> = {
   ...Object.fromEntries(livingKinds().map((kind) => [kind.toUpperCase(), livingMotion(kind)])),
@@ -164,6 +164,7 @@ const taken: CatalogueEntry[] = SUBJECTS.filter((s) => s.name !== "TORCH").map((
 }));
 
 const free: CatalogueEntry[] = [
+  ...RETIRED,
   {
     subject: blob("SPIKE", SPIKE),
     status: "free",

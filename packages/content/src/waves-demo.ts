@@ -67,7 +67,7 @@ export interface Demonstration {
 export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   slick: { wave: "FIRST STEP" },
   bulb: { wave: "TWO COLOURS" },
-  runt: { wave: "THE RUNT" },
+  lure: { wave: "THE LURE" },
   throb: { wave: "ON THE BEAT" },
   shell: { wave: "THE THIRD SHOT" },
   meteor: { wave: "THE ROCK" },

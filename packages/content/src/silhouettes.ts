@@ -40,17 +40,6 @@ export const BULB: CreatureSilhouette = {
   seed: 1.0,
 };
 
-/** Runt: few shallow lobes, and `sizeMul` shrunk well below anything else that glides. */
-export const RUNT: CreatureSilhouette = {
-  lobes: 4,
-  depth: 0.22,
-  wobble: 0.03,
-  rx: 30,
-  ry: 30,
-  seed: 6.0,
-  sizeMul: 0.55,
-};
-
 /** Throb: round, soft-lobed. render/ swells and shrinks it with `Creature.throbOpen`. */
 export const THROB: CreatureSilhouette = {
   lobes: 6,
@@ -91,11 +80,17 @@ export const SHELL: CreatureSilhouette = {
 /**
  * The silhouette a living kind is drawn with. Call this instead of writing
  * `kind === "bulb" ? BULB : SLICK` by hand — the queen's morph blends two of
- * these, and a second copy of the pairing drifts. `runt`/`throb` carry no
- * colour but get a contour, named ahead of the colour-driven fallback.
+ * these, and a second copy of the pairing drifts. `throb` carries no colour
+ * but gets a contour, named ahead of the colour-driven fallback.
+ *
+ * **`lure` is never passed in.** It has no contour of its own — it is drawn as
+ * the body it wears — so a caller resolves that first with `wornKind` and asks
+ * this about a slick or a bulb. There is deliberately no case for it: one here
+ * would be a second, silent answer to the question `wornKind` exists to be the
+ * only answer to, and what it would otherwise fall through to is the SLICK
+ * fallback, which is a wrong shape rather than an obvious failure.
  */
 export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
-  if (kind === "runt") return RUNT;
   if (kind === "throb") return THROB;
   if (kind === "shell") return SHELL;
   return kind === "bulb" ? BULB : SLICK;

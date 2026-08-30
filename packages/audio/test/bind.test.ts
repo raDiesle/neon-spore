@@ -51,7 +51,9 @@ const SAMPLES: Record<string, SimEvent> = {
   mazeProbe: { type: "mazeProbe", ring: 1, sector: 2, of: 3 },
   mazeVerdict: { type: "mazeVerdict", right: false, col: 5, reason: "silence" },
   mazeDown: { type: "mazeDown", col: 5 },
-  runtHit: { type: "runtHit", col: 3, row: 4 },
+  lureHit: { type: "lureHit", col: 3, row: 4 },
+  lureSeen: { type: "lureSeen", col: 3 },
+  lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
 };
