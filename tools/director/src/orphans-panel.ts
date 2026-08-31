@@ -34,8 +34,10 @@ function el(tag: string, cls = "", text = ""): HTMLElement {
 function paintCount(): void {
   const open = document.getElementById("orphansOpen");
   if (!open) return;
-  open.textContent = orphans.length === 0 ? "☠ ORPHANS 0" : `☠ ${orphans.length} ORPHANED`;
-  open.classList.toggle("danger", orphans.length > 0);
+  open.classList.toggle("hidden", orphans.length === 0);
+  if (orphans.length === 0) return;
+  open.textContent = `☠ ${orphans.length} ORPHANED`;
+  open.classList.add("danger");
 }
 
 function render(): void {
