@@ -1,5 +1,6 @@
 import { detectRasterCaps } from "@neon-spore/render";
 import { button, el } from "./checks-dom.js";
+import { drawGallery, gallerySection } from "./gallery-page.js";
 import { apngCard, capsTable, DEMO_W, stripCard, waysCard, webpCard } from "./raster-cards.js";
 import { hitDemo, powerupDemo } from "./raster-demos.js";
 import { drawPlay, playSection } from "./raster-play.js";
@@ -7,13 +8,15 @@ import { drawVersus, mountVersusSection } from "./versus-page.js";
 
 /**
  * The OTHER GRAPHICS tab: every look offered beside what the field already
- * draws, never in place of it. Two kinds live here together — a baked
- * animation (this file) and a candidate patch on a shipped record
- * (`versus-page.ts`'s ALTERNATIVES section) — because both answer the same
- * question, "here is a second answer, go look at it", and a second tab for
- * each one was two clicks to see one idea. See CLAUDE.md's *A look is
- * offered, never replaced* and `apps/game/src/raster.ts`'s `?raster=1`, which
- * is the same atlas installed into the same class this page drives by hand.
+ * draws, never in place of it. Three kinds live here together — a baked
+ * animation (this file), a candidate patch on a shipped record
+ * (`versus-page.ts`'s ALTERNATIVES section), and hand-painted frame
+ * sequences with no shipped counterpart at all (`gallery-page.ts`'s
+ * COLLECTED LOOKS) — because all three answer the same question, "here is a
+ * second answer, go look at it", and a second tab for each one was two
+ * clicks to see one idea. See CLAUDE.md's *A look is offered, never
+ * replaced* and `apps/game/src/raster.ts`'s `?raster=1`, which is the same
+ * atlas installed into the same class this page drives by hand.
  *
  * Mounted the way GUIDES is (`guide-page.ts`): a tab button and an empty page
  * appended to the backlog sheet's own bar before `bindTabs` runs, placed
@@ -21,9 +24,9 @@ import { drawVersus, mountVersusSection } from "./versus-page.js";
  * pages a look gets judged on. `mountRasterTab` only writes the static prose
  * and the empty mounts the sections draw into — nothing here fetches or
  * animates. That is `drawRaster`'s job, run once on first click, which also
- * triggers ALTERNATIVES' own lazy draw. The card builders and the caps table
- * live in `raster-cards.ts`, split out to keep this file under the line
- * ceiling.
+ * triggers ALTERNATIVES' and COLLECTED LOOKS' own lazy draw. The card
+ * builders and the caps table live in `raster-cards.ts`, split out to keep
+ * this file under the line ceiling.
  */
 
 const TAB_ID = "raster";
@@ -89,6 +92,7 @@ export function mountRasterTab(): void {
   page.appendChild(powerupSection());
   page.appendChild(hitSection());
   page.appendChild(capsSection());
+  page.appendChild(gallerySection());
   mountVersusSection(page);
   body.appendChild(page);
 }
@@ -194,6 +198,7 @@ export function drawRaster(): void {
   if (drawn) return;
   drawn = true;
   drawVersus();
+  drawGallery();
 
   const play = document.getElementById("rasterPlayMount");
   if (play) drawPlay(play);
