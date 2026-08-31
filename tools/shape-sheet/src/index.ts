@@ -9,6 +9,12 @@
  * `svg.ts` is deliberately not re-exported: it writes files, and a browser
  * bundle that pulled in `node:fs` for the sake of one geometry helper would be
  * paying for the wrong thing.
+ *
+ * `grown`, `PARTS` and `CATEGORIES` are exported for the same reason
+ * `CATALOGUE` is: the director's live composer (`shapes-build.ts`) builds
+ * bodies the same way `grown-bodies.ts` and `jelly-bodies.ts` do, and a
+ * second copy of the attachment machinery over there would drift from this
+ * one the first time either changed.
  */
 
 export {
@@ -28,6 +34,15 @@ export {
   WOBBLE_PERIOD,
 } from "./metrics.js";
 export { MOTIONS } from "./motions.js";
+export {
+  type Attachment,
+  CATEGORIES,
+  type GrownOpts,
+  grown,
+  PARTS,
+  type PartCategory,
+  type PartDef,
+} from "./parts/index.js";
 export { type RingSilhouette, ring } from "./ring.js";
 export type {
   Scene,

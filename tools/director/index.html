@@ -691,6 +691,23 @@
       }
       .skinbar.control-bar .control-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
+      /* BUILD: one attachment per row, with its own six nudge buttons, and
+         the recipe box underneath. `.build-row .skin` reuses the same button
+         look the rest of the page's controls have, just smaller — a nudge is
+         pressed several times in a row and six full-size buttons per
+         attachment would be most of the tab. */
+      .build-row {
+        display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+        font-size: 10px; color: var(--dim); margin: 4px 0;
+      }
+      .build-row .skin { padding: 3px 8px; font-size: 10px; }
+      .build-recipe {
+        width: 100%; max-width: 640px; min-height: 160px; resize: vertical;
+        font: 11px "Courier New", monospace; color: var(--ink);
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 4px; padding: 8px; white-space: pre;
+      }
+
       /* The body picker on OVERVIEW. The names used to be text buttons, which
          is the one thing a shape picker must not be: the reader is choosing
          between pictures, so the picture is the button and the name is its
@@ -1244,10 +1261,14 @@
                every skin, every motion, every glow and both light states, and
                nothing else on screen to set. COMPOSE, behind the second tab,
                is the sixty-body catalogue together with the four axis rows
-               that say what everything is wearing. `shapes-controls.ts`'s VIEW group
-               toggles which of the two shows, by setting the other's `display`
+               that say what everything is wearing. BUILD, behind the third,
+               is a live composer: a base blob and a click-together list of
+               parts, with a copyable recipe underneath — see
+               `shapes-build.ts`. `shapes-controls.ts`'s VIEW group toggles
+               which of the three shows, by setting the other two's `display`
                directly; the axis rows live inside COMPOSE, in `shapesAxes`,
-               because OVERVIEW is meant to open with a picture rather than a
+               and BUILD's own content lives in `shapesBuild`, because
+               OVERVIEW is meant to open with a picture rather than a
                control panel. -->
           <div id="shapesSkin" class="skinbar"></div>
           <div id="shapes-view-overview">
@@ -1298,6 +1319,25 @@
             <div id="shapesFree" class="shapes"></div>
             <h2 style="margin-top: 18px">TAKEN — spent</h2>
             <div id="shapesTaken" class="shapes"></div>
+          </div>
+          <div id="shapes-view-build" style="display: none">
+            <p class="pagewhat">
+              A base blob and a click-together list of parts, so a recipe can
+              be tried before it is written down. Nothing here is saved —
+              closing the tab or picking another view keeps the card only
+              until the next reload — and nothing it draws reaches
+              <code>packages/content</code> on its own. Build something worth
+              keeping, then copy the recipe at the bottom into
+              <code>grown-bodies.ts</code> or <code>jelly-bodies.ts</code> by
+              hand.
+            </p>
+            <p class="note">
+              Click a part under any of the five headings to attach it; each
+              new one finds its own place on the rim rather than reflowing the
+              ones already there. The six small buttons on each attachment
+              nudge only that one — rotate, resize, mirror, remove.
+            </p>
+            <div id="shapesBuild"></div>
           </div>
         </div>
         <div class="sheetpage" id="sheet-mechanics">

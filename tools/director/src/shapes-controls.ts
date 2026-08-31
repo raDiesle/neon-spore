@@ -56,24 +56,36 @@
  */
 
 import { axisGroups } from "./shapes-axes.js";
+import { renderShapesBuild } from "./shapes-build.js";
 import { button, group } from "./shapes-widgets.js";
 
-export type ShapesView = "overview" | "compose";
+export type ShapesView = "overview" | "compose" | "build";
 
-/** Which of the two views is showing. OVERVIEW, because that is the default
+/** Which of the three views is showing. OVERVIEW, because that is the default
  * the owner asked for — see this file's header. */
 let view: ShapesView = "overview";
 
 /**
- * Shows the picked view's element and hides the other. Called on every
- * `controlBar` build (not only on a VIEW click) so the two stay in step with
- * `view` even if something else rebuilt the page around them.
+ * Shows the picked view's element and hides the other two. Called on every
+ * `controlBar` build (not only on a VIEW click) so all three stay in step
+ * with `view` even if something else rebuilt the page around them.
+ *
+ * BUILD is drawn here rather than left to `renderShapes` the way OVERVIEW and
+ * COMPOSE's contents are: neither of those changes when the reader merely
+ * switches tabs, but BUILD holds its own state (`shapes-build.ts`'s
+ * `attachments`) and a click elsewhere on the page must not silently
+ * discard the card mid-build. Drawing it every time this runs is cheap — one
+ * body, not sixty — so there is no reason to make that guarantee do less than
+ * it could.
  */
 function applyView(): void {
   const overview = document.getElementById("shapes-view-overview");
   const compose = document.getElementById("shapes-view-compose");
+  const build = document.getElementById("shapes-view-build");
   if (overview) overview.style.display = view === "overview" ? "" : "none";
   if (compose) compose.style.display = view === "compose" ? "" : "none";
+  if (build) build.style.display = view === "build" ? "" : "none";
+  if (view === "build") renderShapesBuild();
 }
 
 /**
@@ -102,13 +114,15 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
   host.classList.add("control-bar");
   applyView();
 
+  const viewLabel = view === "overview" ? "OVERVIEW" : view === "compose" ? "COMPOSE" : "BUILD";
   group(
     host,
     "VIEW",
     `Which section of the page is showing. OVERVIEW walks one body across ` +
       `every skin, every motion and both light states, with nothing to set; ` +
       `COMPOSE is the sixty-body catalogue and the four axes that say what ` +
-      `every card there is wearing. Now: ${view === "overview" ? "OVERVIEW" : "COMPOSE"}.`,
+      `every card there is wearing; BUILD is a base blob and a click-together ` +
+      `list of parts, for trying a recipe before it is one. Now: ${viewLabel}.`,
     (row) => {
       button(
         row,
@@ -127,6 +141,16 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
         "the sixty-body catalogue, and the skin, motion, light and glow every card wears",
         () => {
           setView("compose");
+          rerender();
+        },
+      );
+      button(
+        row,
+        "BUILD",
+        view === "build",
+        "pick a base and click parts onto it, then copy the recipe out",
+        () => {
+          setView("build");
           rerender();
         },
       );
