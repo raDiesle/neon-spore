@@ -95,14 +95,24 @@ The burst is 16 frames of 96 px, generated on 31 August 2026:
 
 | file | bytes | what it is for |
 |---|---|---|
-| `burst-strip.webp` | 94 kB | the atlas the game draws — 16 frames side by side |
-| `burst.webp` | 98 kB | the same frames, animated, for an `<img>` |
-| `burst.apng` | 230 kB | the same again, lossless — the master, and the widest support |
+| `burst-strip.webp` | 79 kB | the atlas the game draws — 16 frames side by side |
+| `burst.webp` | 82 kB | the same frames, animated, for an `<img>` |
+| `burst.apng` | 198 kB | the same again, lossless — the master, and the widest support |
 
 A lossless PNG atlas was 383 kB at 128 px and is not committed: at this size
 PNG is four times the bytes of WebP for a soft glow nobody can tell apart, and
 the APNG built from the same frames is already the lossless master. Dropping
 the frame from 128 px to 96 px halved everything again.
+
+The numbers above dropped again on the second look, and not because anything
+was made smaller on purpose: the longest spikes at the latest ease were
+computed out to 1.28× the frame size from centre against a canvas that only
+reaches 0.5× — every one of them was being hard-clipped by the frame's own
+square edge rather than fading the way its own gradient already said it
+should. `tools/raster/src/burst-art.ts` clamps the length to what the frame
+can actually hold; the visible fix is that a spike now ends the way it was
+drawn to, and the byte drop (94 → 79 kB on the atlas) is what not drawing the
+clipped-away eighth of every spike was costing.
 
 For scale: the whole game bundle is smaller than the APNG. **One baked effect
 is not free, and four of them are a download.** That is the real budget

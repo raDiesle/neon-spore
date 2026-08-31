@@ -29,7 +29,7 @@ const TAB_ID = "raster";
  * `BURST_SHEET`; if these three numbers ever drift from `burst.json` it is
  * this comment, not a test, that is out of date.
  */
-const BYTES = { strip: 96_332, apng: 235_934, webp: 100_068 };
+const BYTES = { strip: 80_406, apng: 202_470, webp: 84_270 };
 
 const DEMO_H = 300;
 

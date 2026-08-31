@@ -56,7 +56,14 @@ export function drawBurstFrame(
     const angle = (i / spikes) * Math.PI * 2 + (random() - 0.5) * 0.42;
     const long = 0.45 + random() * 0.85;
     const late = random();
-    const length = reach * (0.8 + long * 1.35) * (0.55 + 0.45 * ease);
+    // Uncapped, the longest spikes at the latest ease reach 1.28× the frame
+    // size from centre — the canvas is only 0.5× that from centre to edge, so
+    // they were not fading out, they were being hard-clipped by the canvas
+    // boundary square. The gradient already fades every spike to alpha 0 at
+    // its own tip; the clamp only keeps that tip inside the frame that has to
+    // draw it, so what ships is the fade the gradient always intended rather
+    // than a flat cut partway through it.
+    const length = Math.min(reach * (0.8 + long * 1.35) * (0.55 + 0.45 * ease), size * 0.47);
     const width = Math.max(0.6, size * 0.028 * (1 - t * 0.72) * (0.5 + long * 0.6));
     const alpha = fade * (0.35 + late * 0.65) * (1 - t * 0.35);
     if (alpha <= 0.01) continue;
