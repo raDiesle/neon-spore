@@ -96,6 +96,17 @@
         "@neon-spore/content": "workspace:*",
       },
     },
+    "tools/raster": {
+      "name": "@neon-spore/raster",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/frames": "workspace:*",
+        "@neon-spore/render": "workspace:*",
+      },
+      "devDependencies": {
+        "playwright-core": "^1.62.1",
+      },
+    },
     "tools/relay-check": {
       "name": "@neon-spore/relay-check",
       "version": "0.0.0",
@@ -150,6 +161,8 @@
     "@neon-spore/net": ["@neon-spore/net@workspace:packages/net"],
 
     "@neon-spore/orphans": ["@neon-spore/orphans@workspace:tools/orphans"],
+
+    "@neon-spore/raster": ["@neon-spore/raster@workspace:tools/raster"],
 
     "@neon-spore/relay-check": ["@neon-spore/relay-check@workspace:tools/relay-check"],
 

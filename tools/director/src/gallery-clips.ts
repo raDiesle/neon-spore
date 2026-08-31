@@ -7,26 +7,26 @@ import a05 from "../../../assets/gallery/explosions/absorption/05.png";
 import a06 from "../../../assets/gallery/explosions/absorption/06.png";
 import a07 from "../../../assets/gallery/explosions/absorption/07.png";
 import a08 from "../../../assets/gallery/explosions/absorption/08.png";
-import s00 from "../../../assets/gallery/shield/green-shield/00.png";
-import s01 from "../../../assets/gallery/shield/green-shield/01.png";
-import s02 from "../../../assets/gallery/shield/green-shield/02.png";
-import s03 from "../../../assets/gallery/shield/green-shield/03.png";
-import s04 from "../../../assets/gallery/shield/green-shield/04.png";
-import s05 from "../../../assets/gallery/shield/green-shield/05.png";
-import s06 from "../../../assets/gallery/shield/green-shield/06.png";
-import s07 from "../../../assets/gallery/shield/green-shield/07.png";
-import s08 from "../../../assets/gallery/shield/green-shield/08.png";
-import s09 from "../../../assets/gallery/shield/green-shield/09.png";
-import s10 from "../../../assets/gallery/shield/green-shield/10.png";
-import s11 from "../../../assets/gallery/shield/green-shield/11.png";
-import s12 from "../../../assets/gallery/shield/green-shield/12.png";
-import s13 from "../../../assets/gallery/shield/green-shield/13.png";
-import s14 from "../../../assets/gallery/shield/green-shield/14.png";
-import s15 from "../../../assets/gallery/shield/green-shield/15.png";
-import s16 from "../../../assets/gallery/shield/green-shield/16.png";
-import s17 from "../../../assets/gallery/shield/green-shield/17.png";
-import s18 from "../../../assets/gallery/shield/green-shield/18.png";
-import s19 from "../../../assets/gallery/shield/green-shield/19.png";
+import s00 from "../../../assets/gallery/shield/green-shield/00.webp";
+import s01 from "../../../assets/gallery/shield/green-shield/01.webp";
+import s02 from "../../../assets/gallery/shield/green-shield/02.webp";
+import s03 from "../../../assets/gallery/shield/green-shield/03.webp";
+import s04 from "../../../assets/gallery/shield/green-shield/04.webp";
+import s05 from "../../../assets/gallery/shield/green-shield/05.webp";
+import s06 from "../../../assets/gallery/shield/green-shield/06.webp";
+import s07 from "../../../assets/gallery/shield/green-shield/07.webp";
+import s08 from "../../../assets/gallery/shield/green-shield/08.webp";
+import s09 from "../../../assets/gallery/shield/green-shield/09.webp";
+import s10 from "../../../assets/gallery/shield/green-shield/10.webp";
+import s11 from "../../../assets/gallery/shield/green-shield/11.webp";
+import s12 from "../../../assets/gallery/shield/green-shield/12.webp";
+import s13 from "../../../assets/gallery/shield/green-shield/13.webp";
+import s14 from "../../../assets/gallery/shield/green-shield/14.webp";
+import s15 from "../../../assets/gallery/shield/green-shield/15.webp";
+import s16 from "../../../assets/gallery/shield/green-shield/16.webp";
+import s17 from "../../../assets/gallery/shield/green-shield/17.webp";
+import s18 from "../../../assets/gallery/shield/green-shield/18.webp";
+import s19 from "../../../assets/gallery/shield/green-shield/19.webp";
 
 /**
  * "COLLECTED LOOKS" on the OTHER GRAPHICS tab: hand-painted frame sequences
@@ -37,8 +37,16 @@ import s19 from "../../../assets/gallery/shield/green-shield/19.png";
  * hands back its URL, nothing is decoded here.
  *
  * Adding one is: drop the frames under `assets/gallery/<category>/<id>/`,
- * import them above, and add one entry below. `gallery-page.ts` draws
- * whatever this array holds.
+ * run `bun run raster:pack` over that folder, import them above, and add one
+ * entry below. `gallery-page.ts` draws whatever this array holds.
+ *
+ * **The frames are WebP, and that is not a preference.** Hand-painted frames
+ * arrive as full-resolution PNG, which is the worst possible container for a
+ * soft gradient under an alpha plane: the twenty green-shield frames were
+ * 2.5 MB as 512 px PNGs and are 350 KB as 256 px WebPs, with nothing an eye
+ * can find on a gallery card. `raster:pack` does the conversion and writes
+ * the strip the game draws from at the same time; the masters stay in git
+ * history.
  */
 
 export type GalleryCategory = "SHIELD" | "SCAN" | "EXPLOSIONS" | "BEAM";
