@@ -1,0 +1,12 @@
+{
+  "frames": 16,
+  "frameSize": 96,
+  "frameMs": 40,
+  "spikes": 26,
+  "seed": 20260831,
+  "bytes": {
+    "strip": 96332,
+    "apng": 235934,
+    "webp": 100068
+  }
+}

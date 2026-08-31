@@ -16,6 +16,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/skins.md` | you are adding a way to draw a catalogue card's body, or animating one |
 | `docs/shipped-looks.md` | you need to know what the game actually draws today — every glow and tail, creature by creature, with the numbers |
 | `docs/glow.md` | you are adding a way for a catalogue card's body to throw light — or things — into the space around it, or to react to being hit |
+| `docs/raster.md` | you are about to add a picture the game does not compute — a sprite atlas, an APNG, an animated WebP — or you are deciding whether an effect should be baked at all |
 | `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
 | `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |

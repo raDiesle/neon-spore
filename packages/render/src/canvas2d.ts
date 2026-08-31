@@ -7,6 +7,7 @@ import type { HullMood } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
+import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
@@ -55,6 +56,15 @@ export class Canvas2DRenderer implements Renderer {
    * index — and a restart of the *same* wave changes neither, but always puts
    * `waveBeat` back to 0.
    */
+  /**
+   * The baked-burst player, for a host that wants to install an atlas into it.
+   * Exposed rather than reached for through `effects`, so the one thing a host
+   * is allowed to change about this renderer is the one thing it can see.
+   */
+  get sprites(): SpriteBursts {
+    return this.effects.spriteBursts;
+  }
+
   private waveRestarted(world: World): boolean {
     const last = this.seen;
     this.seen = { world, wave: world.wave, waveBeat: world.waveBeat };

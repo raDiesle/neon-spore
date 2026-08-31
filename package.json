@@ -29,6 +29,8 @@
     "land": "bun run tools/land/run.ts",
     "versus": "bun run tools/versus/run.ts",
     "frames": "bun run tools/frames/run.ts",
+    "raster": "bun run tools/raster/run.ts",
+    "raster:verify": "bun run tools/raster/verify.ts",
     "png": "bun run tools/frames/svg.ts",
     "shot": "bun run tools/frames/shot.ts",
     "test": "bun test",

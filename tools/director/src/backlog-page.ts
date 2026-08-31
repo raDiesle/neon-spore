@@ -13,8 +13,8 @@
  * does that grouping on the server, out of the spec's own headings.
  */
 
+import { mountLazyTabs } from "./backlog-tabs.js";
 import { conceptArt, draftFor } from "./concept-art.js";
-import { drawCards, mountCardTab } from "./guide-page.js";
 import { renderHolders } from "./holders-panel.js";
 import { detailBox, inline } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
@@ -201,34 +201,10 @@ export function bindBacklog(): void {
   const close = document.getElementById("backlogClose");
   if (!sheet || !open || !close) return;
 
-  // CARDS is a tab of this sheet rather than a sheet of its own — see
-  // `guide-page.ts`. It has to be mounted before `bindTabs` runs, so a click
-  // on it is wired the same way a click on BESTIARY or SPEC is.
-  mountCardTab();
-  // VERSUS is a third such tab — see `versus-page.ts`. Two live renderers
-  // against one stepped world, so it is lazy for the same reason CARDS is.
-  mountVersusTab();
-  bindTabs("#backlogTabs", "sheetpage", "sheet-");
-
-  /**
-   * The shape catalogue is built on first sight of its own tab, not on the
-   * first open of the sheet. Fitting thirty-odd animated cards means scanning
-   * every contour over a minute of its own wobble — a third of a second of
-   * arithmetic, which is nothing to wait for when you asked for shapes and a
-   * visible stall when you asked for the bestiary. CARDS is lazy the same way,
-   * for the same reason — see `guide-page.ts`.
-   */
-  let shapesDrawn = false;
-  const drawShapes = (): void => {
-    if (shapesDrawn) return;
-    shapesDrawn = true;
-    renderShapes();
-  };
-  for (const tab of document.querySelectorAll<HTMLElement>("#backlogTabs button")) {
-    if (tab.dataset.tab === "shapes") tab.addEventListener("click", drawShapes);
-    if (tab.dataset.tab === "cards") tab.addEventListener("click", drawCards);
-    if (tab.dataset.tab === "versus") tab.addEventListener("click", drawVersus);
-  }
+  // The tabs that cost something to draw are mounted and wired together, in
+  // `backlog-tabs.ts` — SHAPES, GUIDES, VERSUS and RASTER, each drawn on first
+  // sight of its own tab rather than on the first open of this sheet.
+  mountLazyTabs();
 
   // `mountSheet` (`session.ts`) wires open/close/Escape/inner-tab and the
   // restoring click to the URL; the load below is this sheet's own `onOpen`.

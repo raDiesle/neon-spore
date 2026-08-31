@@ -28,9 +28,12 @@ export {
   type ViewRole,
 } from "./layout.js";
 export { PALETTE, STROKE } from "./palette.js";
+export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
+export { loadAtlas } from "./raster-load.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
+export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 // The torch's own rock, so a tool drafting what *holds* one can draw the real
 // thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
 // it takes a radius and a time and reads no world.

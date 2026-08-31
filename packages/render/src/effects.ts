@@ -3,13 +3,15 @@ import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
+import { ingestBreach } from "./effects-breach.js";
 import { burstFor } from "./effects-spark.js";
-import { type Layout, tileCX } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
+import { SpriteBursts } from "./sprite-burst.js";
 import { SwallowFx } from "./swallow.js";
 import { rockRadius } from "./torch.js";
 import { WardenFx } from "./warden-fx.js";
@@ -50,6 +52,14 @@ export class Effects {
    * Public for the mirror's reason — the boss is drawn as a whole body by
    * `boss-draw.ts`, not as a handful of particles here. */
   readonly warden = new WardenFx();
+  /**
+   * The baked burst, played from an atlas over a destroyed creature. Public
+   * because installing the atlas is the *host's* decision, not the renderer's:
+   * `apps/game` does it behind `?raster=1` and the director does it on the
+   * RASTER page, and until one of them does, this draws nothing and the field
+   * looks exactly as it shipped. See `sprite-burst.ts` and `docs/raster.md`.
+   */
+  readonly spriteBursts = new SpriteBursts();
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
@@ -100,43 +110,25 @@ export class Effects {
           if (id) this.blockedUntil.set(id, 0.35);
           break;
         }
+        case "destroy":
+          // The one event this is hung on so far: a cannon shot that killed
+          // the thing it hit. The sparks still fly — the sprite is offered
+          // beside the shipped burst, not in place of it.
+          this.spriteBursts.spawn(tileCX(l, e.col), tileCY(l, e.row), l.tile * 2.4);
+          break;
         case "petal":
           this.queenShakeUntil = QUEEN_SHAKE_LIFE;
           break;
         case "fire":
           this.layEcho.start(beatSeconds);
           break;
-        case "breach": {
-          // A rock is still visibly falling when the sim resolves the hit, so
-          // its burst waits for it to arrive (rock-impact.ts). A living
-          // creature falls one tile a beat, already at the hull, and fires now.
-          if (isMeteorKind(e.kind)) {
-            const r = rockRadius(l, e.kind);
-            const span = colSpan(e.kind);
-            const loCol = Math.round(e.col - (span - 1) / 2);
-            // Two bursts flanking the crater, not one on top of it: sparks fly
-            // off the rim the rock tore, not out of thin air at its centre.
-            const arrive = (ax: number, ay: number): void => {
-              this.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
-              this.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
-              // Only now does this rock's own crack get to show.
-              this.arrivals.mark(loCol, span, e.beat);
-            };
-            this.rockImpactFx.spawn(
-              tileCX(l, e.col),
-              l,
-              time,
-              beatSeconds,
-              e.kind,
-              e.fromRow,
-              true,
-              arrive,
-            );
-          } else {
-            this.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
-          }
+        case "breach":
+          ingestBreach(e, l, time, beatSeconds, {
+            burst: (x, y, n, hex) => this.burst(x, y, n, hex),
+            rockImpactFx: this.rockImpactFx,
+            arrivals: this.arrivals,
+          });
           break;
-        }
         case "podTaken": {
           // Sparks flying *inwards*: the one moment in the game where the ship
           // takes something instead of losing it.
@@ -177,6 +169,7 @@ export class Effects {
     this.mirror.update(dt);
     this.warden.update(dt);
     this.lureVanish.update(dt);
+    this.spriteBursts.update(dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. */
@@ -184,6 +177,7 @@ export class Effects {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
     this.lureVanish.draw(ctx);
+    this.spriteBursts.draw(ctx);
   }
 
   /**
@@ -231,6 +225,7 @@ export class Effects {
     this.mirror.clear();
     this.warden.reset();
     this.lureVanish.clear();
+    this.spriteBursts.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

@@ -42,6 +42,47 @@ An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
 reads to the bottom of.
 
+## A baked burst is one colour, and this game has two
+
+2026-08-31 · claude/neon-spore-animated-graphics-1wgyyn
+
+Graphics · Implemented
+
+The atlas in `assets/raster/` is violet, and the field's whole colour rule is
+red against cyan. A hit on a red creature drawing a violet burst is the one
+thing on the RASTER page that is obviously wrong about the game rather than
+about the picture. Three ways out and none of them was this lane's to pick: a
+second and third atlas, which triples 94 kB; a greyscale atlas tinted through
+`globalCompositeOperation`, which is one file and loses the painted colour
+that was the reason for baking it; or a burst that is deliberately colourless
+because the *thing it happened to* carries the colour. Start at
+`tools/raster/src/burst-art.ts`, where the two gradients are four lines apart.
+
+## Nothing baked can be seen before it is generated
+
+2026-08-31 · claude/neon-spore-animated-graphics-1wgyyn
+
+Tool · Idea
+
+`bun run raster` writes an asset and says how many bytes it is, which is the
+wrong sense. A generator whose whole output is a look should show the look:
+sixteen frames as a contact sheet, the way `bun run shapes` does for contours,
+so that changing `spikes` from 26 to 18 is a picture rather than a number.
+`tools/frames/svg.ts` already rasterises and `bun run shot` already
+photographs an element, so the parts exist.
+
+## The frame count was chosen, not measured
+
+2026-08-31 · claude/neon-spore-animated-graphics-1wgyyn
+
+Performance · Implemented
+
+Sixteen frames of 96 px is 590 kB of texture memory decoded and 94 kB on the
+wire, and nobody has looked at whether twelve reads the same. A burst is over
+in 640 ms and the eye is not counting; if twelve holds up, every future atlas
+is a quarter cheaper for free. It wants one look at both on a phone, not an
+argument.
+
 ## No shape is drawn at any of the twelve interludes
 
 2026-08-27 · claude/game-in-game-mechanics-uxmysp

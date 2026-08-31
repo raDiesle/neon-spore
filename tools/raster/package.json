@@ -1,0 +1,13 @@
+{
+  "name": "@neon-spore/raster",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@neon-spore/frames": "workspace:*",
+    "@neon-spore/render": "workspace:*"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}

@@ -657,3 +657,38 @@ grouping rather than deletion. **Reconsider if:** the number of undecided
 variants makes a switcher unreadable — at which point the fix is that the
 director learns to organise them, not that the repository starts throwing them
 away on a timer.
+
+## 25. Baked pictures are allowed, and only one of the three ways may touch the field
+
+*August 2026.* The game had no raster asset of any kind — every pixel it drew,
+it computed. That was never a decision anybody made; it was where the code
+started, and it held because nothing had asked for a picture that code is bad
+at. The ask arrived as a question about APNG and animated WebP, and the answer
+turned out to have a hard edge in it that is worth writing down once.
+
+**Yes to baking.** A frame-by-frame effect whose information is in its pixels —
+irregular edges, off-axis bloom, grain, silhouettes that differ deliberately
+frame to frame — is cheaper to draw as an atlas than to compute, and better.
+One `drawImage` per effect, whatever was painted into it. `docs/raster.md` has
+the test for which effects those are, and it is deliberately a short list.
+
+**And only as an atlas, on the field.** An APNG or an animated WebP in an
+`<img>` is played by the browser against the wall clock. Nothing in this game
+that two devices can both see is allowed to be paced by a clock the frame loop
+cannot see, and a hit that is halfway through on one phone and finished on the
+other is exactly the split screen the lockstep exists to prevent. An atlas
+hands the frame number back: `floor(age / frameMs)`, off the same `dt` every
+other effect is stepped by. `WebCodecs`' `ImageDecoder` would give the same
+control over an animated file, and is not everywhere, and needs a secure
+context — so it is a capability the pages may use and the field may not
+depend on.
+
+The two animated formats keep a real job: the director's sheets, a briefing, a
+menu, anything in the DOM where "the browser plays it" is the feature. They
+are generated from the same frames as the atlas by `tools/raster`, which added
+no dependency — both formats are container arithmetic over stills a browser
+already encoded.
+
+**Reconsider if:** `ImageDecoder` becomes universal *and* something wants an
+animated file's own timing on the field, which is the one combination that
+would make the boundary above arbitrary rather than physical.

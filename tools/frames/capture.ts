@@ -56,6 +56,9 @@ const CHROME_CANDIDATES = [
   "/usr/bin/chromium",
   "/usr/bin/chromium-browser",
   "/opt/google/chrome/google-chrome",
+  // The cloud sandbox CLAUDE.md names: Playwright's own download, which is the
+  // only browser on that machine and is not on any of the paths above.
+  "/opt/pw-browsers/chromium",
 ] as const;
 
 /** The search, kept apart from the filesystem so a test can hand it a fake
