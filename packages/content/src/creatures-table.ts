@@ -124,13 +124,16 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // is whether the colour is part of the question, and control visibility
     // has nothing to say about that.
     controls: ["aim"],
-    // No colour, and that is the entry doing real work rather than a blank:
-    // the body under the armour has one, but it does not exist until the last
-    // piece comes off, so there is nothing here for a bestiary page to print.
+    // No colour, and that is the entry doing work rather than a blank — the
+    // same work it does on the clasp. The body inside the plating has one, and
+    // it is visible from the moment it arrives, but it belongs to the slick or
+    // the bulb this arrival *is*: red plates a slick, cyan plates a bulb, and
+    // `shellBecomes` is what pairs them. A colour here would make the armour a
+    // body in its own right, which is the one thing it is not.
     color: null,
     radar: "p2",
     blurb:
-      "Armoured, two columns wide, one piece of shell in front of each. Any colour chips a piece off. Under the last piece is a body in a colour neither of you has seen — and only that colour finishes it.",
+      "Plating a size too big for the slick or the bulb inside it, split down the middle: one piece in front of each of its two columns, and the body's own colour shining out through the cracks the whole way down. Any colour chips a piece off. A shot up a column already bared does nothing — and only once both pieces are gone does that colour finish it.",
   },
   clasp: {
     kind: "clasp",

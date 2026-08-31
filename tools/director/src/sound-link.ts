@@ -69,12 +69,13 @@ const BY_ID: Record<string, Subject> = {
   "impact.deflect": ARMED,
   "impact.petal": QUEEN,
   "impact.wrongTarget": shape("SLICK"),
-  // Both of THE SHELL's moments are about the same body: a piece coming off
-  // it, and the last piece coming off it. Neither is a picture of armour on
-  // its own, because there is no separate contour for a piece — the pieces are
-  // slices of this one.
-  "impact.split": shape("SHELL"),
-  "creature.moult": shape("SHELL"),
+  // Both of THE SHELL's moments are about the same body: a piece of plating
+  // coming off it, and the last piece coming off it. Neither is a picture of
+  // armour on its own — armour has no contour of its own at all now
+  // (`shellBecomes`), and what is underneath is a slick or a bulb. The bulb,
+  // because a Shell-Bulb is the one this act's wave opens with.
+  "impact.split": shape("BULB"),
+  "creature.moult": shape("BULB"),
 
   "boss.arrive": QUEEN,
   "boss.queenStep": QUEEN,

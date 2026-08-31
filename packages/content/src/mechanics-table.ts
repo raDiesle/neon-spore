@@ -34,7 +34,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   shell: {
-    what: "Two columns wide, with a piece of shell in front of each. Any colour chips a piece. Under the last one is a body in a colour neither of you has seen yet.",
+    what: "Plating a size too big for the slick or the bulb inside it, split down the middle: one piece in front of each of its two columns, and the body's own colour shining out through the cracks the whole way down. Any colour chips a piece off. A shot up a column already bared does nothing — and only once both pieces are gone does that colour finish it.",
     reach: "spawn",
     waveNames: true,
   },

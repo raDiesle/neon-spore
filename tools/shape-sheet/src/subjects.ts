@@ -95,6 +95,7 @@ export function livingKinds(): CreatureKind[] {
       kind !== "tether" &&
       kind !== "lure" &&
       kind !== "clasp" &&
+      kind !== "shell" &&
       !isBossBody(kind) &&
       !isMeteorKind(kind),
   );

@@ -125,6 +125,7 @@ export {
   NO_SHELL,
   SHELL_COLS,
   SHELL_INTACT,
+  shellBecomes,
   shellHasPiece,
   shellIsBare,
   shellOnSpawn,

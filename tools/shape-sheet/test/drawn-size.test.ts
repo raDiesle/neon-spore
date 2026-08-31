@@ -11,10 +11,12 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * would have put 32 of the 49 square catalogue entries under 26 px and 17
  * under 20, with the Bulb specifically landing at about 16 px.
  *
- * The catalogue has grown thirty-three bodies since — THE SHELL, the ten
- * converted off other games' screenshots in `drafts/tower-defence.ts`, the
- * fourteen grown out of `src/parts/` and the eight that swim — so the counts
- * read 82, 49 and 21 rather than 49, 32 and 17. The finding is the lane's; only the denominator moved,
+ * The catalogue has grown thirty-three bodies since — the ten converted off
+ * other games' screenshots in `drafts/tower-defence.ts`, the fourteen grown
+ * out of `src/parts/` and the eight that swim — so the counts read 81, 48
+ * and 20 rather than 49, 32 and 17. (THE SHELL was a thirty-fourth and is one
+ * no longer: a shelled body is a slick or a bulb wearing plating, so it has
+ * no contour of its own for a card to draw.) The finding is the lane's; only the denominator moved,
  * and it moves again every time a body is added. Every one of the converted
  * bodies falls under 26 px at the halved width, which is the finding holding
  * rather than drifting: a rim of small features is exactly the kind of body
@@ -49,8 +51,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 82 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(82);
+  it("has the 81 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(81);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -77,8 +79,8 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
-    expect(under26).toBe(49);
-    expect(under20).toBe(21);
+    expect(under26).toBe(48);
+    expect(under20).toBe(20);
   });
 
   it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {

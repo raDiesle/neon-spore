@@ -67,14 +67,14 @@ export const WAVES_ACT_3: Wave[] = [
     name: "THE THIRD SHOT",
     sentence: "The one where the shot that worked twice is the miss.",
     guide: {
-      both: "Two columns wide, with a piece of shell in front of each. Any colour chips a piece. Under the last one is a body in a colour neither of you has seen yet.",
-      p1: "Two pieces, two columns. Say which one still has armour and stand under it — then say the colour the moment it shows.",
-      p2: "Fire anything at all while the shell is on. The moment it cracks open, stop: only one colour lands now, and it is new to you both.",
+      both: "A slick or a bulb in plating a size too big for it, split down the middle: one piece in front of each of its two columns, and its colour showing through the cracks. Any colour chips a piece. Only when both are off does that colour finish it.",
+      p1: "Two pieces, two columns. Say which one still has armour and stand under it — the bare half is already the body, and a shot up that column does nothing.",
+      p2: "Fire anything at all while a piece is still on. When the last one goes, load the colour you have been able to see the whole way down — and not before.",
     },
     entries: [
-      { beat: 0, col: 1, kind: "shell", color: null },
+      { beat: 0, col: 1, kind: "shell", color: "cyan" },
       { beat: 4, col: 5, color: "red" },
-      { beat: 10, col: 4, kind: "shell", color: null },
+      { beat: 10, col: 4, kind: "shell", color: "red" },
     ],
   },
   {

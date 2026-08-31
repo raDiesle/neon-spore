@@ -1,3 +1,4 @@
+import { livingKindForColor } from "./kinds.js";
 import type { Creature, CreatureKind } from "./types.js";
 
 /**
@@ -13,6 +14,17 @@ import type { Creature, CreatureKind } from "./types.js";
  * So each piece is a full-height slice and **every column of the body has
  * exactly one piece in front of it**: `shellPieceAt` is that sentence, and
  * `test/shell.test.ts` fires up each column in turn to prove it.
+ *
+ * **The body under the plating is an ordinary slick or bulb, and it always
+ * was.** There is no third silhouette: a red shell is a plated slick and a
+ * cyan one a plated bulb — Shell-Slick and Shell-Bulb, one kind and two
+ * looks — and `shellBecomes` is the whole of that pairing. The colour is
+ * authored on the arrival like any other body's and both players can see it
+ * the entire way down: it shines out of the splits in the armour, and it
+ * stands bare on whichever half has already been chipped. What the armour
+ * buys is not surprise, it is *order* — player 2 can be loaded with the right
+ * colour from the moment it enters and still cannot spend it until player 1
+ * has named and cleared both columns.
  *
  * That is also why the count is not a tunable. The pieces *are* the body's
  * columns, so `SHELL_COLS` is both — two, which on a seven-column field is a
@@ -87,4 +99,24 @@ export function shellPiecesLeft(c: Creature): number {
  */
 export function shellIsBare(c: Creature): boolean {
   return c.shell === NO_SHELL;
+}
+
+/**
+ * The body a shelled arrival is drawn as, and turns out to be. Read off its
+ * own colour through the one function that owns the colour-to-silhouette
+ * pairing, never written out here — `claspBecomes` makes exactly the same
+ * call for exactly the same reason, and a second copy of the pairing is how
+ * the two would drift the first time a third colour existed.
+ *
+ * `wornKind` calls it, so the contour, the own-motion and the interior are the
+ * slick's or the bulb's for free; `shell-draw.ts` lays the plating over the
+ * top of that body rather than replacing it.
+ *
+ * A shell built without a colour is drawn as a slick, the same fallback
+ * `claspBecomes` reaches for and for the same reason: a body has to be drawn
+ * as *some* body. Nothing in the game builds one — a wave that did would be
+ * authoring a body whose splits have no light in them.
+ */
+export function shellBecomes(c: Creature): CreatureKind {
+  return c.color === null ? "slick" : livingKindForColor(c.color);
 }

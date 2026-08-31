@@ -18,7 +18,7 @@ import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
-import { drawShellDamage } from "./shell-draw.js";
+import { drawShellArmour } from "./shell-draw.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 
 /**
@@ -57,10 +57,10 @@ export function drawBodies(
   drawLanceMark(ctx, l, world);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
-  // missing-piece wound recomputes fresh from world.creatures every frame
-  // (see shell-draw.ts), so it belongs beside the pass that owns bodies, not
+  // plating recomputes fresh from world.creatures every frame (see
+  // shell-draw.ts), so it belongs beside the pass that owns bodies, not
   // inside Effects with the transients.
-  drawShellDamage(ctx, l, world, view.beatPhase, view.time);
+  drawShellArmour(ctx, l, world, view.beatPhase, view.time);
   // Player 2's alarm, over the body it is about and on that device only. It is
   // the single difference between the two screens in this whole pass, and it
   // is drawn after the bodies rather than as part of them so that nothing in

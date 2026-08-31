@@ -18,14 +18,24 @@ import type { World } from "./world.js";
  * to get wrong: the only thing that decides a hit is the column, which is
  * player 1's half. The pair's sentence is one word long — *four, keep going*.
  *
- * **The instant the last piece goes, the colour comes back and it is new.**
- * The body under the shell has no colour at all until it is uncovered — not
- * hidden from one screen, not hidden from render, *absent from the world* —
- * and it is drawn from the seeded rng at the moment of exposure. So a body
- * that was answered by anything is suddenly answered by exactly one of two
- * things, at a row much lower than the one it arrived at, and neither player
- * had any way to prepare for it. That reversal is the creature; everything
- * else here serves it.
+ * **The instant the last piece goes, the colour is the question again — and
+ * it is a colour both of them have been looking at the whole way down.** The
+ * body under the plating is an ordinary slick or bulb, authored in an
+ * ordinary colour, and the armour never hid it: it shines out of the splits,
+ * and it stands bare on whichever half has already been chipped. So a body
+ * that was answered by anything is suddenly answered by exactly one thing,
+ * at a row much lower than the one it arrived at.
+ *
+ * The colour used to be drawn from the rng at the moment of exposure, so that
+ * nobody could know it in advance. That is gone on purpose. What it bought
+ * was one beat of surprise; what it cost was the picture — a body with no
+ * colour cannot have light coming out of its cracks, and the cracks are what
+ * say *shielded, but not permanently* before either player has been told
+ * anything. What the armour buys instead is **order**: player 2 can be loaded
+ * correctly from the moment it enters and still cannot spend the shot until
+ * player 1 has named and cleared both columns. That is the same trade THE
+ * CLASP makes one wave later, and it is a trade about the pair talking rather
+ * than about one of them being ambushed.
  *
  * **And a shot into a column whose piece is already off does nothing.** It
  * sparks against the hard core, which is what `docs/spec/systems.md` 5.6 says
@@ -34,7 +44,8 @@ import type { World } from "./world.js";
  * and that is a sentence they did not have to say a beat earlier.
  */
 
-/** The two the core can turn out to be. Neither is knowable before the break. */
+/** The two a body can be, for the fallback in `bareTheCore` only. Nothing
+ * else in this file decides a colour — an arrival brings its own. */
 const CORE_COLORS: readonly Color[] = ["red", "cyan"];
 
 /**
@@ -70,23 +81,22 @@ export function shellStruck(world: World, b: Bullet, hit: Creature): void {
 }
 
 /**
- * The last piece is off. The colour exists from this line onwards and did not
- * exist before it — which is the only honest way to say that nobody knew it,
- * since a colour stored on the body at spawn is a colour something could have
- * drawn a beat early.
+ * The last piece is off. The colour was authored on the arrival and has been
+ * visible through the splits since it entered, so there is nothing to decide
+ * here — this is the announcement, not the draw.
  *
- * `world.rng` rather than a stream of its own: two devices in lockstep break
- * the same piece on the same tick, so they draw the same colour, and
- * `rng.state` is in `hashWorld` — a device that somehow did not would be
- * caught on the very next tick instead of at the end of the wave. It is the
- * same argument the pod's drift direction makes (docs/spec/structure.md): what
- * neither player may know in advance is exactly what the seeded rng is for.
+ * The rng branch is not a mechanic, it is the guard on an authoring slip: a
+ * shell entered with no colour would come out of its armour answerable by
+ * nothing at all, which is a body that cannot be killed rather than one that
+ * is hard. `world.rng` rather than a stream of its own, so two devices in
+ * lockstep pick the same one on the same tick and `rng.state` carries it into
+ * `hashWorld`.
  *
  * The event carries the body's own column rather than the struck one — it is
  * about the whole body changing hands, not about the tile the shot landed in.
  */
 function bareTheCore(world: World, hit: Creature): void {
-  const color = CORE_COLORS[nextInt(world.rng, CORE_COLORS.length)] ?? "red";
+  const color = hit.color ?? CORE_COLORS[nextInt(world.rng, CORE_COLORS.length)] ?? "red";
   hit.color = color;
   world.events.push({ type: "shellBare", col: hit.col, row: hit.row, color });
 }

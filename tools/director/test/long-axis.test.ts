@@ -54,10 +54,10 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits ninety-four bodies into wide, round and tall", () => {
+  it("splits ninety-three bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(94);
-    expect(count("x")).toBe(37);
+    expect(axes.length).toBe(93);
+    expect(count("x")).toBe(36);
     expect(count(null)).toBe(46);
     expect(count("y")).toBe(11);
   });

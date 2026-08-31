@@ -1,6 +1,7 @@
 import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
+import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
 
 /**
@@ -62,6 +63,13 @@ export function wornKind(c: Creature): CreatureKind {
   // which is what stops the thing you were looking at and the thing you get
   // from ever being two different bodies.
   if (c.kind === "clasp") return claspBecomes(c);
+  // A shelled body is the slick or the bulb inside the plating, with the
+  // armour laid over the top by render/ — the same arrangement the clasp has,
+  // and for the same reason with more riding on it: the body's colour is what
+  // shines out of the splits in the shell and stands bare on the half that has
+  // already been chipped, so it has to be that body's real colour and not a
+  // grey stand-in. `shellBecomes` is the one copy of the pairing.
+  if (c.kind === "shell") return shellBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

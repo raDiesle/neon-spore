@@ -12,17 +12,16 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
-import { drawShellDamage } from "../src/shell-draw.js";
+import { drawShellArmour } from "../src/shell-draw.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * The pass that draws the wound a bared piece leaves — see `shell-draw.ts`'s
- * own doc for why it needs no cached state at all. This file proves three
- * things a screenshot cannot: the strict canvas stub accepts every value it
- * is handed in every one of the shell's states, the pass actually draws
- * something once — and only once — a piece is off, and it stops drawing that
- * piece's bite the moment the body goes bare, when the whole picture becomes
- * the exposed core instead.
+ * The pass that draws the plating — see `shell-draw.ts`'s own doc for why it
+ * needs no cached state at all. This file proves three things a screenshot
+ * cannot: the strict canvas stub accepts every value it is handed in every one
+ * of the shell's states, the pass draws while any piece is still on, and it
+ * stops the moment the body goes bare, when `drawCreatures` alone is the whole
+ * picture.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -30,7 +29,12 @@ const TPB = ticksPerBeat(CFG);
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
 const COL = 3;
 
-const shell = (col: number): SpawnEntry => ({ beat: 0, col, kind: "shell", color: null });
+const shell = (col: number, color: "red" | "cyan" = "cyan"): SpawnEntry => ({
+  beat: 0,
+  col,
+  kind: "shell",
+  color,
+});
 const aim = (tick: number, col: number): TimedCommand => ({
   tick,
   player: 1,
@@ -69,35 +73,52 @@ function drawFrames(world: ReturnType<typeof createWorld>): number {
   for (let i = 0; i < 30; i++) {
     const beatPhase = (i % 10) / 10;
     const time = i * 0.083;
-    drawShellDamage(ctx as unknown as CanvasRenderingContext2D, L, world, beatPhase, time);
+    drawShellArmour(ctx as unknown as CanvasRenderingContext2D, L, world, beatPhase, time);
   }
   return ctx.calls;
 }
 
 beforeAll(installCanvasGlobals);
 
-describe("the shell's wound", () => {
-  it("draws nothing while every piece is still on", () => {
+describe("the shell's plating", () => {
+  it("draws both plates while every piece is still on", () => {
     const { world } = run([shell(COL)], TPB + 1);
     expect(shellPiecesLeft(world.creatures[0]!)).toBe(2);
-    expect(drawFrames(world)).toBe(0);
+    expect(drawFrames(world)).toBeGreaterThan(0);
   });
 
-  it("draws the bite once a piece is off, through the strict canvas stub", () => {
+  it("still draws once a piece is off, through the strict canvas stub", () => {
     const { world } = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, "red"));
     const body = world.creatures[0]!;
     expect(shellPiecesLeft(body)).toBe(1);
     expect(drawFrames(world)).toBeGreaterThan(0);
   });
 
-  it("draws a bite for whichever column's piece actually came off", () => {
+  it("draws less with one plate gone than with both on", () => {
+    // The one thing the count of calls can actually say about the picture:
+    // a chipped half is *absent*, not redrawn as a wound over the body.
+    const intact = run([shell(COL)], TPB + 1);
+    const chipped = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, "red"));
+    expect(drawFrames(chipped.world)).toBeLessThan(drawFrames(intact.world));
+  });
+
+  it("draws the surviving plate for whichever column still has one", () => {
     const left = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, "red"));
     const right = run([shell(COL)], TPB * 4, shot(TPB * 2, COL + 1, "cyan"));
     expect(drawFrames(left.world)).toBeGreaterThan(0);
     expect(drawFrames(right.world)).toBeGreaterThan(0);
   });
 
-  it("stops drawing a bite once the core is bare — the whole body is the wound now", () => {
+  it("cuts the armour to either body it plates, through the same stub", () => {
+    // A Shell-Slick and a Shell-Bulb are one kind and two contours
+    // (`wornKind`), so both go through the strict canvas rather than only the
+    // one the other tests happen to author.
+    for (const color of ["red", "cyan"] as const) {
+      expect(drawFrames(run([shell(COL, color)], TPB + 1).world)).toBeGreaterThan(0);
+    }
+  });
+
+  it("stops drawing once the body is bare — it is the whole picture now", () => {
     const inputs = [...shot(TPB * 2, COL, "red"), ...shot(TPB * 3, COL + 1, "red")];
     const { world } = run([shell(COL)], TPB * 5, inputs);
     const body = world.creatures[0]!;

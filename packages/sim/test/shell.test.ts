@@ -19,6 +19,7 @@ import {
   step,
   type TimedCommand,
   ticksPerBeat,
+  wornKind,
 } from "../src/index.js";
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -44,7 +45,15 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): R
   return { world, events };
 }
 
-const shell = (col: number): SpawnEntry => ({ beat: 0, col, kind: "shell", color: null });
+/** A Shell-Bulb: cyan plates a bulb, the way `shellBecomes` pairs them. The
+ * colour is authored on the arrival like any other body's — it is what shines
+ * out of the cracks, so there is nothing left for the break to draw. */
+const shell = (col: number, color: "red" | "cyan" = "cyan"): SpawnEntry => ({
+  beat: 0,
+  col,
+  kind: "shell",
+  color,
+});
 const aim = (tick: number, col: number): TimedCommand => ({
   tick,
   player: 1,
@@ -83,10 +92,23 @@ describe("the shell's pieces", () => {
     expect(shellPieceAt(body, body.col + SHELL_COLS)).toBe(-1);
   });
 
-  it("arrives with no colour, because there is nothing to know yet", () => {
-    const { world } = run([shell(COL)], TPB + 1);
-    expect(world.creatures[0]!.color).toBeNull();
-    expect(shellIsBare(world.creatures[0]!)).toBe(false);
+  it("arrives in the colour it was authored in, armour and all", () => {
+    for (const color of ["red", "cyan"] as const) {
+      const { world } = run([shell(COL, color)], TPB + 1);
+      const body = world.creatures[0]!;
+      // Visible from the first beat, which is the whole of the new picture:
+      // the light in the cracks has to be the light that finishes it.
+      expect(body.color).toBe(color);
+      expect(shellIsBare(body)).toBe(false);
+    }
+  });
+
+  it("is drawn as the body inside the plating, never as a shell of its own", () => {
+    // Shell-Slick and Shell-Bulb are one kind and two looks. `wornKind` is the
+    // only place that pairing is read, and `render/shell-plate.ts` cuts the
+    // armour to whichever contour it names.
+    expect(wornKind(run([shell(COL, "red")], TPB + 1).world.creatures[0]!)).toBe("slick");
+    expect(wornKind(run([shell(COL, "cyan")], TPB + 1).world.creatures[0]!)).toBe("bulb");
   });
 });
 
@@ -160,20 +182,23 @@ describe("once the shell is off, the colour is the only question", () => {
     return bare.color;
   }
 
-  it("hands the body a colour at the break and not one tick before it", () => {
-    const { world, events } = run([shell(COL)], TPB * 4, strip);
+  it("announces the colour it arrived in, and does not draw a new one", () => {
+    const { world, events } = run([shell(COL, "red")], TPB * 4, strip);
     const body = world.creatures[0]!;
     expect(shellIsBare(body)).toBe(true);
-    expect(body.color).toBe(coreColor(events));
+    expect(body.color).toBe("red");
+    expect(coreColor(events)).toBe("red");
     // The shot that took the last piece is spent on the piece. The body is
-    // still standing, and what kills it now is a colour nobody had a beat ago.
+    // still standing, and what kills it is the colour that was showing through
+    // the cracks the whole way down.
     expect(events.some((e) => e.type === "destroy")).toBe(false);
   });
 
   it("refuses the wrong colour, and charges it as a colour miss", () => {
-    const opened = run([shell(COL)], TPB * 4, strip);
-    const wrong = coreColor(opened.events) === "red" ? "cyan" : "red";
-    const { world, events } = run([shell(COL)], TPB * 6, [...strip, ...shot(TPB * 4, COL, wrong)]);
+    const { world, events } = run([shell(COL, "cyan")], TPB * 6, [
+      ...strip,
+      ...shot(TPB * 4, COL, "red"),
+    ]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     // Unlike every refusal while the shell was on: here the ammunition *was*
@@ -181,13 +206,25 @@ describe("once the shell is off, the colour is the only question", () => {
     expect(world.balance.colorMisses).toBe(1);
   });
 
-  it("dies to the matching colour, from either seat's lobe", () => {
-    const opened = run([shell(COL)], TPB * 4, strip);
-    const right = coreColor(opened.events);
-    const { world, events } = run([shell(COL)], TPB * 6, [...strip, ...shot(TPB * 4, COL, right)]);
-    expect(world.creatures).toHaveLength(0);
-    expect(events.some((e) => e.type === "destroy")).toBe(true);
-    expect(world.balance.colorHits).toBe(1);
+  it("dies to the matching colour, whichever body it turned out to be", () => {
+    for (const color of ["red", "cyan"] as const) {
+      const { world, events } = run([shell(COL, color)], TPB * 6, [
+        ...strip,
+        ...shot(TPB * 4, COL, color),
+      ]);
+      expect(world.creatures).toHaveLength(0);
+      expect(events.some((e) => e.type === "destroy")).toBe(true);
+      expect(world.balance.colorHits).toBe(1);
+    }
+  });
+
+  it("still comes out killable when a wave forgot to author a colour", () => {
+    // Not a mechanic — the guard on an authoring slip. A shell with no colour
+    // would otherwise be answerable by nothing at all once it was bare, which
+    // is a body that cannot be killed rather than one that is hard.
+    const colourless: SpawnEntry = { beat: 0, col: COL, kind: "shell", color: null };
+    const { world, events } = run([colourless], TPB * 4, strip);
+    expect(world.creatures[0]!.color).toBe(coreColor(events));
   });
 });
 
@@ -199,23 +236,16 @@ describe("the shell as an ordinary arrival", () => {
     expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
   });
 
-  it("replays deterministically: two pieces, then the colour that was drawn", () => {
-    const opened = run([shell(COL)], TPB * 4, [
-      ...shot(TPB * 2, COL, "red"),
-      ...shot(TPB * 3, COL + 1, "red"),
-    ]);
-    const bare = opened.events.find((e) => e.type === "shellBare");
-    if (bare === undefined || bare.type !== "shellBare") throw new Error("never bared");
-
+  it("replays deterministically: two pieces, then its own colour", () => {
     const replay = record({
       name: "shell stripped and killed",
       seed: 0,
-      queue: [shell(COL)],
+      queue: [shell(COL, "cyan")],
       ticks: TPB * 6,
       inputs: [
         ...shot(TPB * 2, COL, "red"),
         ...shot(TPB * 3, COL + 1, "red"),
-        ...shot(TPB * 4, COL, bare.color),
+        ...shot(TPB * 4, COL, "cyan"),
       ],
     });
     const world = runReplay(replay);

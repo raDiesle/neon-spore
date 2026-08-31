@@ -51,22 +51,20 @@ export const THROB: CreatureSilhouette = {
 };
 
 /**
- * Shell: the widest living body there is, and the only one that does not look
- * soft. Two columns of field are spoken for, so the contour says so — and the
- * five lobes are broad and hard-edged rather than fine, which reads as plating
- * instead of flesh. `wobble` is almost nothing on purpose: armour does not
- * ripple, and the stillness is what makes the moment it comes apart legible.
+ * Shell: **retired as a contour, kept as a shape.**
  *
- * Five is not a spare number, it is the only one left. Slick has 2, Runt 4,
- * Throb 6 and Bulb 9, and a shape that lands on a neighbour's count is a shape
- * the pair says the same word for — `bun run shapes:report`'s TOLD APART BY
- * block is where that is read, and it separates this one from the Slick by
- * three lobes and from the Throb by aspect.
+ * THE SHELL used to be a body of its own — the widest living thing there was,
+ * five broad hard-edged lobes, almost no wobble. It is not one any more. A
+ * shelled arrival is a slick or a bulb wearing plating over the top
+ * (`shellBecomes` in sim, `shell-draw.ts` in render), so the two of them are
+ * Shell-Slick and Shell-Bulb and neither has a silhouette that is not already
+ * in this file. What the armour adds is a margin outside the body's own
+ * contour and the splits in it, which is a picture rather than a shape.
  *
- * A new shape rather than a recoloured one, which is the rule
- * (`creatures.ts`): a free silhouette is spent on a creature that behaves
- * differently, and this one is answered by the column first and by the colour
- * only afterwards.
+ * The parameters stay because they are the only hard-edged *living* contour
+ * anyone has tuned — the starting point for a future creature that really is
+ * plated flesh, the way `TORCH` outlived the torch it was drawn for.
+ * `livingSilhouette` no longer names it, and nothing in the game reads it.
  */
 export const SHELL: CreatureSilhouette = {
   lobes: 5,
@@ -126,16 +124,17 @@ export const DART: CreatureSilhouette = {
  * these, and a second copy of the pairing drifts. `throb` carries no colour
  * but gets a contour, named ahead of the colour-driven fallback.
  *
- * **`lure` is never passed in.** It has no contour of its own — it is drawn as
- * the body it wears — so a caller resolves that first with `wornKind` and asks
- * this about a slick or a bulb. There is deliberately no case for it: one here
- * would be a second, silent answer to the question `wornKind` exists to be the
- * only answer to, and what it would otherwise fall through to is the SLICK
- * fallback, which is a wrong shape rather than an obvious failure.
+ * **`lure`, `clasp` and `shell` are never passed in.** None of the three has a
+ * contour of its own — each is drawn as the body inside it, with a disguise, a
+ * membrane or plating over the top — so a caller resolves that first with
+ * `wornKind` and asks this about a slick or a bulb. There is deliberately no
+ * case for any of them: one here would be a second, silent answer to the
+ * question `wornKind` exists to be the only answer to, and what it would
+ * otherwise fall through to is the SLICK fallback, which is a wrong shape
+ * rather than an obvious failure.
  */
 export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
   if (kind === "throb") return THROB;
-  if (kind === "shell") return SHELL;
   if (kind === "dart") return DART;
   return kind === "bulb" ? BULB : SLICK;
 }
