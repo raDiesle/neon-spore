@@ -9,7 +9,7 @@ import { seatsDiffer } from "./versus-seat.js";
 import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
 
 /**
- * The ALTERNATIVES sheet: a contact sheet, not an instrument.
+ * The ALTERNATIVES section: a contact sheet, not an instrument.
  *
  * `docs/queue.md`'s "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" is this
  * file's whole brief, in the owner's own words. Everything open is rendered
@@ -20,9 +20,16 @@ import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
  * own animation on screen, `versus-seat.ts` decides — honestly, by rendering
  * and comparing, not by guessing — whether a row needs the other seat drawn
  * beside it, and `versus-pair.ts` is the engine underneath each screen.
+ *
+ * No longer its own tab: folded into OTHER GRAPHICS (`raster-page.ts`) beside
+ * the baked-animation candidates, because both pages are the same kind of
+ * thing — a look offered beside what ships, never in place of it — and a
+ * separate ALTERNATIVES button was one more tab to click through to see
+ * either. `mountVersusSection` appends this section's own intro and mount
+ * point into the host page handed to it, rather than building a tab and a
+ * page of its own the way it used to.
  */
 
-const TAB_ID = "versus";
 const RATES = [0.25, 0.5, 1, 2];
 
 function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement {
@@ -52,27 +59,25 @@ function picker<T>(items: readonly T[], name: (x: T) => string, on: (x: T) => vo
   return sel;
 }
 
-/** The tab button and its empty page, appended before `bindTabs` runs. */
-export function mountVersusTab(): void {
-  const tabs = document.getElementById("backlogTabs");
-  const body = document.getElementById("backlogBody");
-  if (!tabs || !body || document.getElementById(`sheet-${TAB_ID}`)) return;
+/**
+ * Appends the ALTERNATIVES intro and its empty mount point into `host` — the
+ * OTHER GRAPHICS page — rather than building a tab and a page of its own.
+ * Idempotent the way the old `mountVersusTab` was, guarded on the mount
+ * point's own id rather than a tab-and-page id that no longer exists here.
+ */
+export function mountVersusSection(host: HTMLElement): void {
+  if (document.getElementById("versusMount")) return;
 
-  const tab = button("ALTERNATIVES");
-  tab.dataset.tab = TAB_ID;
-  tabs.appendChild(tab);
-
-  const page = el("div", "sheetpage");
-  page.id = `sheet-${TAB_ID}`;
-  page.appendChild(
+  host.appendChild(el("h2", "", "ALTERNATIVES"));
+  host.appendChild(
     el(
       "p",
-      "pagewhat",
+      "note",
       "Every open candidate, beside the shipped thing it would replace, at once — " +
         "a colour, a shape, a motion put on two phones at tempo and voted on.",
     ),
   );
-  page.appendChild(
+  host.appendChild(
     el(
       "p",
       "note",
@@ -86,8 +91,7 @@ export function mountVersusTab(): void {
   );
   const mount = el("div");
   mount.id = "versusMount";
-  page.appendChild(mount);
-  body.appendChild(page);
+  host.appendChild(mount);
 }
 
 let drawn = false;
@@ -162,7 +166,7 @@ function renderRow(slot: Slot, candidate: Variant, pose: Pose, head: Head): HTML
   const screens = seatsDiffer(pose, candidate) ? (["p1", "p2"] as const) : (["p1"] as const);
   const screensHost = el("div", "versus-screens");
   for (const role of screens) {
-    screensHost.appendChild(renderScreen(pose, role, candidate, screens.length > 1));
+    screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1));
   }
   row.append(screensHost);
 
@@ -174,6 +178,7 @@ function renderRow(slot: Slot, candidate: Variant, pose: Pose, head: Head): HTML
 
 /** One current-vs-candidate screen at one seat. */
 function renderScreen(
+  slot: Slot,
   pose: Pose,
   role: ViewRole,
   candidate: Variant,
@@ -189,6 +194,8 @@ function renderScreen(
   const tag = el("div", "versus-tag");
   const leftBox = el("div", "versus-side");
   const rightBox = el("div", "versus-side");
+  // A stable hook for `bun run shot` to grab one candidate's own screen.
+  rightBox.dataset.versusKey = `${slot.slot}/${candidate.name}/${role}`;
   leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
   rightBox.appendChild(el("div", "versus-name", " "));
   stage.append(leftBox, rightBox, tag);

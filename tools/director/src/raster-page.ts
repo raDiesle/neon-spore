@@ -3,20 +3,27 @@ import { button, el } from "./checks-dom.js";
 import { apngCard, capsTable, DEMO_W, stripCard, waysCard, webpCard } from "./raster-cards.js";
 import { hitDemo, powerupDemo } from "./raster-demos.js";
 import { drawPlay, playSection } from "./raster-play.js";
+import { drawVersus, mountVersusSection } from "./versus-page.js";
 
 /**
- * The RASTER tab: a baked animation, offered beside the field's procedural
- * sparks — never in place of them. See CLAUDE.md's *A look is offered, never
- * replaced* and `apps/game/src/raster.ts`'s `?raster=1`, which is the same
- * atlas installed into the same class this page drives by hand.
+ * The OTHER GRAPHICS tab: every look offered beside what the field already
+ * draws, never in place of it. Two kinds live here together — a baked
+ * animation (this file) and a candidate patch on a shipped record
+ * (`versus-page.ts`'s ALTERNATIVES section) — because both answer the same
+ * question, "here is a second answer, go look at it", and a second tab for
+ * each one was two clicks to see one idea. See CLAUDE.md's *A look is
+ * offered, never replaced* and `apps/game/src/raster.ts`'s `?raster=1`, which
+ * is the same atlas installed into the same class this page drives by hand.
  *
- * Mounted the way GUIDES and ALTERNATIVES are (`guide-page.ts`,
- * `versus-page.ts`): a tab button and an empty page appended to the backlog
- * sheet's own bar before `bindTabs` runs. `mountRasterTab` only writes the
- * static prose and the empty mounts the sections draw into — nothing here
- * fetches or animates. That is `drawRaster`'s job, run once on first click.
- * The card builders and the caps table live in `raster-cards.ts`, split out
- * to keep this file under the line ceiling.
+ * Mounted the way GUIDES is (`guide-page.ts`): a tab button and an empty page
+ * appended to the backlog sheet's own bar before `bindTabs` runs, placed
+ * right after SHAPES rather than at the end of the bar — the two are the
+ * pages a look gets judged on. `mountRasterTab` only writes the static prose
+ * and the empty mounts the sections draw into — nothing here fetches or
+ * animates. That is `drawRaster`'s job, run once on first click, which also
+ * triggers ALTERNATIVES' own lazy draw. The card builders and the caps table
+ * live in `raster-cards.ts`, split out to keep this file under the line
+ * ceiling.
  */
 
 const TAB_ID = "raster";
@@ -38,9 +45,13 @@ export function mountRasterTab(): void {
   const body = document.getElementById("backlogBody");
   if (!tabs || !body || document.getElementById(`sheet-${TAB_ID}`)) return;
 
-  const tab = button("RASTER");
+  const tab = button("OTHER GRAPHICS");
   tab.dataset.tab = TAB_ID;
-  tabs.appendChild(tab);
+  // Next to SHAPES, not appended at the end of the bar — the two are the
+  // pages a look gets judged on, and `insertBefore(x, null)` is `appendChild`
+  // for the case SHAPES's own tab button is somehow not there yet.
+  const shapesTab = tabs.querySelector<HTMLElement>('[data-tab="shapes"]');
+  tabs.insertBefore(tab, shapesTab?.nextSibling ?? null);
 
   const page = el("div", "sheetpage");
   page.id = `sheet-${TAB_ID}`;
@@ -78,6 +89,7 @@ export function mountRasterTab(): void {
   page.appendChild(powerupSection());
   page.appendChild(hitSection());
   page.appendChild(capsSection());
+  mountVersusSection(page);
   body.appendChild(page);
 }
 
@@ -181,6 +193,7 @@ let drawn = false;
 export function drawRaster(): void {
   if (drawn) return;
   drawn = true;
+  drawVersus();
 
   const play = document.getElementById("rasterPlayMount");
   if (play) drawPlay(play);

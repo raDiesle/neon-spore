@@ -24,7 +24,6 @@ import { isWide } from "./shape-figure.js";
 import { renderShapes } from "./shapes-panel.js";
 import { renderSpec } from "./spec.js";
 import { bindTabs } from "./tabs.js";
-import { drawVersus, mountVersusTab } from "./versus-page.js";
 import { renderWholeDoc } from "./whole-doc.js";
 
 interface BacklogEntry {
@@ -202,7 +201,7 @@ export function bindBacklog(): void {
   if (!sheet || !open || !close) return;
 
   // The tabs that cost something to draw are mounted and wired together, in
-  // `backlog-tabs.ts` — SHAPES, GUIDES, VERSUS and RASTER, each drawn on first
+  // `backlog-tabs.ts` — SHAPES, GUIDES and OTHER GRAPHICS, each drawn on first
   // sight of its own tab rather than on the first open of this sheet.
   mountLazyTabs();
 
