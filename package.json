@@ -41,6 +41,7 @@
     "format": "biome check --write .",
     "check": "bun run typecheck && bun run lint && bun test",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
+    "shapes:parts": "bun run --cwd tools/shape-sheet parts",
     "shapes:report": "bun run --cwd tools/shape-sheet report",
     "shapes:page": "bun run --cwd tools/director shapes-page",
     "shapes:still": "bun run --cwd tools/director shapes-still"

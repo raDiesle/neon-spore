@@ -125,6 +125,23 @@ being the only thing on the page, so both go up, numbered, turning on the same
 clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
 fall short says what each pair is asking.
 
+**Fifty-two parts and fourteen bodies grown out of them**, which is a second
+unit and not more shapes. Everything else on this page is a whole contour
+written for one idea; a part is a piece — a tentacle, a spore, a crystal, a fin
+— authored in its own frame and attached to somebody else's rim, so a new
+silhouette is a base blob and a sentence rather than a new radius function.
+`tools/shape-sheet/src/parts/` holds them in four categories, `grown-bodies.ts`
+spends them on fourteen `free` cards, and `bun run shapes:parts` draws the
+whole library on one sheet. [parts.md](parts.md) says how to add one, why every
+part is clamped out to the rim it stands on, and when `studded` is the right
+tool instead.
+
+The fourteen are `free` and not `draft` deliberately: a draft is a picture
+offered to a named idea, and fourteen arriving at once would spend fourteen
+decisions on a mechanism rather than on a creature. What they are for is the
+one question an eye has to settle — whether a combination moves a silhouette
+far enough to be worth having a combinator at all.
+
 **Sixteen contour forms** in `tools/shape-sheet/src/forms/`, because several
 ideas are not describable as a lobed blob or a faceted rock. They sit in seven
 files, split along seams rather than at line counts.

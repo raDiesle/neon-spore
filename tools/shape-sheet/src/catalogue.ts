@@ -3,6 +3,7 @@ import { livingMotion } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
 import { moulded, rooted } from "./forms/index.js";
+import { GROWN_BODIES } from "./grown-bodies.js";
 import { TURN } from "./motions.js";
 import { RETIRED } from "./retired.js";
 import { blob, crystal, hullArc, livingKinds, SUBJECTS } from "./subjects.js";
@@ -236,5 +237,10 @@ const free: CatalogueEntry[] = [
  * Drafts first, then the free contours, then what the game already draws. The
  * order is the reading order of the question the page asks: here is what has
  * been proposed, here is what is spare, here is what is spent.
+ *
+ * The grown bodies sit at the end of the spare ones because they are spare in
+ * a second sense: not a contour nothing has claimed, but a *combination*
+ * nothing has claimed, assembled out of `src/parts/` rather than drawn. See
+ * `grown-bodies.ts` for why fourteen of them arrive at once and as `free`.
  */
-export const CATALOGUE: CatalogueEntry[] = [...DRAFTS, ...free, ...taken];
+export const CATALOGUE: CatalogueEntry[] = [...DRAFTS, ...free, ...GROWN_BODIES, ...taken];

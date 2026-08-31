@@ -34,7 +34,44 @@ Graphics entry can be any of the three stages, and the difference decides
 whether picking it up is a session or a week.
 
 Anything labelled Creature is not scattered through the file: it moves to
-the bottom, under `### Postponed: creatures and bosses`, which says why.
+the bottom, under `## PARTS as a fifth axis on the SHAPES page
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Tool · Designed
+
+SKIN, GLOW, HIT and TAIL are each a row where one body is drawn under every
+value of an axis, and `parts/` is the same shape of thing: one base blob under
+every part in the registry, fifty-one cells, animating. The static sheet
+`bun run shapes:parts` answers what each piece looks like and cannot answer
+whether a tentacle's sway reads at tempo, which is the only question worth an
+eye on a part that moves.
+
+Not done in this lane because the lane was the library and the axes are the
+director's, and `shapes-all.ts` already walks six grids through one card
+implementation — a seventh is a change to that walk rather than a file beside
+it. Start at `shapes-effect-axes.ts` and ask whether a part axis wants the same
+`Cell` or a cell that carries a recipe.
+
+## A part is drawn in the tool and nothing in the game can wear one
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Graphics · Idea
+
+`grown()` lives in `tools/shape-sheet/` because content is what the game ships
+and a combination nothing carries is not content. The day a card is claimed,
+though, the game needs a way to draw it: `packages/render` draws a creature
+from `blobPath` and a radius function, and a body wearing three loops is not
+that. Either the parts follow into `content` as data the renderer walks, or a
+claimed recipe is baked down to a contour and loses its per-part motion.
+
+Not done because nothing has claimed one yet and the answer depends on which
+card does. Start by asking whether the claimed body's parts need to move
+independently — if they do, the renderer needs the loops; if they do not, a
+baked contour is cheaper everywhere.
+
+### Postponed: creatures and bosses`, which says why.
 New enemies and bosses are the least relevant thing to continue right now,
 so they wait there rather than sit beside the technical debt above.
 
@@ -1120,6 +1157,43 @@ work, and premature before the owner has even settled on a value to compare
 against 0.5. Start by dragging the slider through 0.125 and 0.25 with the
 `mouth` candidate's egg running, watching the mouth rather than the bullet,
 and only reach for VERSUS once a number is worth arguing for.
+
+## PARTS as a fifth axis on the SHAPES page
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Tool · Designed
+
+SKIN, GLOW, HIT and TAIL are each a row where one body is drawn under every
+value of an axis, and `parts/` is the same shape of thing: one base blob under
+every part in the registry, fifty-one cells, animating. The static sheet
+`bun run shapes:parts` answers what each piece looks like and cannot answer
+whether a tentacle's sway reads at tempo, which is the only question worth an
+eye on a part that moves.
+
+Not done in this lane because the lane was the library and the axes are the
+director's, and `shapes-all.ts` already walks six grids through one card
+implementation — a seventh is a change to that walk rather than a file beside
+it. Start at `shapes-effect-axes.ts` and ask whether a part axis wants the same
+`Cell` or a cell that carries a recipe.
+
+## A part is drawn in the tool and nothing in the game can wear one
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Graphics · Idea
+
+`grown()` lives in `tools/shape-sheet/` because content is what the game ships
+and a combination nothing carries is not content. The day a card is claimed,
+though, the game needs a way to draw it: `packages/render` draws a creature
+from `blobPath` and a radius function, and a body wearing three loops is not
+that. Either the parts follow into `content` as data the renderer walks, or a
+claimed recipe is baked down to a contour and loses its per-part motion.
+
+Not done because nothing has claimed one yet and the answer depends on which
+card does. Start by asking whether the claimed body's parts need to move
+independently — if they do, the renderer needs the loops; if they do not, a
+baked contour is cheaper everywhere.
 
 ### Postponed: creatures and bosses
 

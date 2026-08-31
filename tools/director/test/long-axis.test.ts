@@ -16,6 +16,14 @@ import { extentOf, longAxisOf, poseAtSecond } from "../src/shapes-motion.js";
  * of repeated features does not change which way round a body is, and the one
  * that is wide — THE CANOPY — is wide because it is a barrier over the hull
  * rather than a body at all.
+ *
+ * The fourteen grown out of `src/parts/` say the same thing from the other
+ * side, and it is worth reading before adding more of them: only two are tall,
+ * and both are tall because their *base* is — LANTERN at 28 by 34 and SPINDLE
+ * at 22 by 40. Not one of the other twelve was turned by what it is wearing,
+ * however far it reaches. Parts change what a body looks like; they do not
+ * change which way round it is, so a recipe that wants a tall body has to say
+ * so in `rx` and `ry` rather than by hanging something off the top of it.
  */
 
 /** By name out of the registry, which is the only list of what exists. */
@@ -33,15 +41,15 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits seventy-one bodies into wide, round and tall", () => {
+  it("splits eighty-five bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(71);
-    expect(count("x")).toBe(27);
-    expect(count(null)).toBe(36);
-    expect(count("y")).toBe(8);
+    expect(axes.length).toBe(85);
+    expect(count("x")).toBe(31);
+    expect(count(null)).toBe(44);
+    expect(count("y")).toBe(10);
   });
 
-  it("names the eight tall ones", () => {
+  it("names the ten tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
@@ -50,8 +58,10 @@ describe("the catalogue's long axes", () => {
     ).toEqual([
       "HUSK 1",
       "HUSK 2",
+      "LANTERN",
       "POD",
       "RIBBON",
+      "SPINDLE",
       "TENDRIL",
       "THE CLAW",
       "THE NEEDLE",
