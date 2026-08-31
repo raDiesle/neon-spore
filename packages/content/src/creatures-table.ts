@@ -157,6 +157,30 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A slick or a bulb inside a shield of its own, and shots simply bounce. Shield in its column, triggered at the right moment — and it does not die, it becomes the body you could see the whole time.",
   },
+  dart: {
+    kind: "dart",
+    // The cannon alone. It is answered by a shot like a slick, and everything
+    // that makes it hard is *where* the shot has to be — which is aiming, not
+    // warding.
+    controls: ["aim"],
+    // No colour of its own, and this entry does work rather than standing
+    // blank. A dart arrives red or cyan, authored on the wave, and the
+    // matching cannon is what kills it — so the colour is a fact about one
+    // arrival, the way a lure's or a clasp's is. It is the one kind where the
+    // "one kind, one colour" rule is spent the other way round on purpose:
+    // the silhouette is new because the *behaviour* is new, and both colours
+    // wear it because what the pair has to say about a dart — the side — is
+    // the same sentence in either.
+    color: null,
+    // Player 1's strip, like the clasp's, and the same rule rather than an
+    // exception to it: the seat that is shown where it is going is not the
+    // seat that can fire. Player 2 reads the arrow and says a side out loud;
+    // player 1 holds the cannon and has to be standing two columns over
+    // before the beat turns.
+    radar: "p1",
+    blurb:
+      "Never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, then hangs for a beat and picks the next side — and only the navigator is shown which.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is

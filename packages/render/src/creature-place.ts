@@ -6,7 +6,7 @@ import {
   type SimConfig,
   spanCenterCol,
 } from "@neon-spore/sim";
-import { depthScale, drawnRow } from "./depth.js";
+import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./torch.js";
 
@@ -26,9 +26,13 @@ export function creatureCenter(
   // players can act on. Exactly linear, and it stays that way — the depth cues
   // in `depth.ts` change how big a body draws, never where it is.
   const row = drawnRow(c, beatPhase);
+  // The same glide sideways, for the one kind that has one: a dart crosses two
+  // columns over the beat it moves, and `drawnCol` is where that is written
+  // down. Every other body has no `fromCol` to come from and lands on `c.col`
+  // exactly, so the lane read is untouched.
   // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
   // sim/types.ts) — every kind is drawn at its visual centre.
-  return { x: tileCX(l, spanCenterCol(c.kind, c.col)), y: tileCY(l, row) };
+  return { x: tileCX(l, spanCenterCol(c.kind, drawnCol(c, beatPhase))), y: tileCY(l, row) };
 }
 
 /**

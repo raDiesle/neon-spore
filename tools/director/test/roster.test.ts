@@ -34,7 +34,7 @@ describe("roster", () => {
     expect(meteor?.built).toBe(true);
 
     const dart = roster.creatures.find((c) => c.name === "Dart");
-    expect(dart?.built).toBe(false);
+    expect(dart?.built).toBe(true);
 
     const veil = roster.creatures.find((c) => c.name === "Veil");
     expect(veil?.built).toBe(false);
@@ -62,9 +62,14 @@ describe("roster", () => {
     expect(queen?.ref).toBe("bosses.md 11.0");
     expect(queen?.detail).toContain("A bloom has two halves");
 
-    // Nothing is attributed to a name the paragraph never mentions.
+    // A bolded paragraph goes to the creature it names: the dart's own, which
+    // arrived with the creature and says what the table row has no room for.
     const dartDetail = roster.creatures.find((c) => c.name === "Dart")?.detail;
-    expect(dartDetail).toBe("");
+    expect(dartDetail).toContain("the first body that does not hold its lane");
+
+    // Nothing is attributed to a name the paragraphs never mention.
+    const veilDetail = roster.creatures.find((c) => c.name === "Veil")?.detail;
+    expect(veilDetail).toBe("");
   });
 
   test("parses a minimal example", () => {
@@ -115,7 +120,7 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
         name: "Dart",
         kind: "small, banded",
         note: "match the colour",
-        built: false,
+        built: true,
         detail: "**The dart is fast.** Two lines,\nwrapped like the spec wraps them.",
         ref: "bestiary.md 10.1",
       },

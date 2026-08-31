@@ -1,17 +1,6 @@
 import { kindCode } from "./creature-kinds.js";
-import { BOSS_KINDS } from "./entries.js";
-import { GAUGE_PHASES } from "./gauge.js";
-import { mazeHashParts } from "./maze.js";
-import { MIRROR_PHASES } from "./simon.js";
+import { bossHashParts } from "./hash-boss.js";
 import type { World } from "./world.js";
-
-/**
- * Which boss is installed, as a number. Read off `BOSS_KINDS` rather than
- * written out as a ternary chain: a fourth boss added to that list and not to
- * a chain here would hash as the third, and two devices would agree about a
- * world they disagree about.
- */
-const BOSS_TAG = BOSS_KINDS;
 
 /**
  * A cheap, stable fingerprint of the whole world. Two devices running lockstep
@@ -139,6 +128,14 @@ export function hashWorld(world: World): number {
     // into `c.color` at the break, and `rng.state` a few lines up is what
     // makes both devices draw the same one.
     push(c.shell);
+    // Which way the dart goes next, and whether the next beat is the one it
+    // goes on. Both decide where the body will be, so two devices that
+    // disagree about either are two devices playing different fields — and
+    // one of them has player 1 standing in a column nothing arrives in.
+    // `fromCol` beside them is deliberately out, for `fromRow`'s reason: where
+    // a body came from is a fact about the picture and not about the world.
+    push(c.dartDir ?? 0);
+    push(c.dartFloat ? 1 : 0);
   }
 
   push(world.bullets.length);
@@ -166,84 +163,7 @@ export function hashWorld(world: World): number {
     push(s.beat);
   }
 
-  const boss = world.boss;
-  push(boss === null ? 0 : BOSS_TAG.indexOf(boss.kind) + 1);
-  if (boss !== null && boss.kind === "queen") {
-    push(boss.creatureId);
-    push(boss.phase);
-    push(boss.phaseBeat);
-    push(boss.tellCol);
-    push(boss.tellColor === null ? 0 : boss.tellColor === "red" ? 1 : 2);
-    push(boss.weakSide);
-    push(boss.pickBeat);
-    push(boss.spentSide);
-    push(boss.openBeat);
-    push(boss.closeBeat);
-    push(boss.dropSide);
-    push(boss.releaseBeat);
-    push(boss.releaseSide);
-    push(boss.scratch.length);
-    for (const n of boss.scratch) push(n);
-  }
-  if (boss !== null && boss.kind === "warden") {
-    push(boss.creatureId);
-    push(boss.tetherId);
-    push(boss.pupilCol);
-    push(boss.pupilDir);
-    push(boss.plates);
-    push(boss.eyeSpent ? 1 : 0);
-    // The rope. Two devices that disagree about how taut it is disagree about
-    // whether the hatch is open, which is whether the next shot counts.
-    push(boss.pulling ? 1 : 0);
-    push(boss.pullOriginMilli);
-    push(boss.pullMilli);
-  }
-  if (boss !== null && boss.kind === "vane") {
-    push(boss.pins);
-    push(boss.spentOpening);
-    push(boss.throwBeat);
-    push(boss.throwCol);
-  }
-  if (boss !== null && boss.kind === "maze") {
-    // Gathered beside the boss rather than spelled out here: `mazeHashParts`
-    // says what is in it and why, the authored wheel included.
-    for (const n of mazeHashParts(boss)) push(n);
-  }
-  // THE GAUGE, and the same argument one more time: a device that thinks the
-  // pair is at a dial is a device that is not running the field the other one
-  // is running — and that is exactly what the boss tag a few lines up already
-  // says, so what is left here is the dial itself.
-  if (boss !== null && boss.kind === "gauge") {
-    push(GAUGE_PHASES.indexOf(boss.phase));
-    push(boss.phaseBeat);
-    push(boss.openBeat);
-    push(boss.passed ? 1 : 0);
-    push(boss.needleMilli);
-    push(boss.valve);
-    push(boss.markMilli);
-    push(boss.driftDir);
-    push(boss.marks);
-    push(boss.misses);
-    push(boss.calledBeat);
-    push(boss.calledMilli);
-    push(boss.calledGood ? 1 : 0);
-  }
-  if (boss !== null && boss.kind === "mirror") {
-    push(boss.round);
-    push(MIRROR_PHASES.indexOf(boss.phase));
-    push(boss.phaseBeat);
-    push(boss.matched);
-    push(boss.shown);
-    push(boss.cannonCol);
-    push(boss.hullMilli);
-    push(boss.verdict);
-    push(boss.verdictCol);
-    push(boss.scars.length);
-    for (const s of boss.scars) {
-      push(s.col);
-      push(s.beat);
-    }
-  }
+  for (const n of bossHashParts(world.boss)) push(n);
 
   return h >>> 0;
 }

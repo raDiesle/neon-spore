@@ -47,7 +47,16 @@ export type CreatureKind =
    * underneath falls on as an ordinary slick or bulb. The kind is the whole
    * of the state; there is no `shielded` flag. See `clasp.ts`.
    */
-  | "clasp";
+  | "clasp"
+  /**
+   * The first body that does not hold its lane. It never falls straight down:
+   * every other beat it takes a diagonal two rows and two columns to one side
+   * or the other, and in between it hangs for exactly one beat with the next
+   * side already chosen. Only player 2 is shown which. `dart.ts` holds the
+   * cycle, `Creature.dartDir` and `Creature.dartFloat` are the whole of its
+   * state.
+   */
+  | "dart";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -76,6 +85,7 @@ export const CREATURE_KINDS = [
   "throb",
   "shell",
   "clasp",
+  "dart",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

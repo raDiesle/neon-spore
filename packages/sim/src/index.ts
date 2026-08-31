@@ -30,6 +30,15 @@ export { breakClaspsInColumn, claspBecomes, claspIsShielded, claspStruck } from 
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
 export { lureIsSpent, lureVanishRow, throbIsOpen, wornKind } from "./creature-rules.js";
 export {
+  DART_COLS,
+  DART_ROWS,
+  type DartDir,
+  dartFits,
+  dartHeading,
+  dartPickDir,
+  dartStepCol,
+} from "./dart.js";
+export {
   BOSS_KINDS,
   bossFillsWave,
   type GaugeEntry,

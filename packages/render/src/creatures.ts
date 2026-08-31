@@ -16,6 +16,7 @@ import {
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { drawDetails } from "./creature-detail.js";
 import { creatureCenter } from "./creature-place.js";
+import { dartFlip, dartLean, drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -68,9 +69,14 @@ export function drawCreatures(
     ctx.translate(x, y);
     ctx.scale(k, k);
     ctx.translate(-x, -y);
+    // Under the body it is pushing, so the contour sits on its own exhaust
+    // rather than inside it. Inside the perspective transform with everything
+    // else, so a jet at the bottom of the field grows the way its body does.
+    if (c.kind === "dart") drawDartJet(ctx, l, c, x, y, beatPhase);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
-    else drawLiving(ctx, l, c, x, y, beats, time, blocked.get(c.id) ?? 0, world.cfg, near);
+    else
+      drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2
@@ -99,6 +105,7 @@ function drawLiving(
   x: number,
   y: number,
   beats: number,
+  beatPhase: number,
   time: number,
   blocked: number,
   cfg: SimConfig,
@@ -152,7 +159,16 @@ function drawLiving(
   const pose = livingMotion(look).poseAt(poseClock(c.id, beats));
   const ox = pose.dx * l.tile;
   const oy = pose.dy * l.tile;
-  const { rot, sx, sy } = pose;
+  const { sx, sy } = pose;
+  // The dart's lean, on top of its own-motion rather than inside it: POISE is
+  // a pure function of the beat like every other motion and cannot know which
+  // way this body is pointing, and the direction is the whole creature. Zero
+  // for everything else, so nothing but a dart is turned by a line of this.
+  const rot = pose.rot + (look === "dart" ? dartLean(c, beatPhase) : 0);
+  // And which way round it is drawn. 1 for every other body — a contour with
+  // no point on it does not care — and the whole of how a dart's nose leads in
+  // both directions (`dartFlip`).
+  const flip = look === "dart" ? dartFlip(c) : 1;
 
   const d = blobPath(
     0,
@@ -171,7 +187,7 @@ function drawLiving(
   ctx.save();
   ctx.translate(x + ox, y + oy);
   ctx.rotate(rot);
-  ctx.scale(scale * sx, scale * sy);
+  ctx.scale(scale * sx * flip, scale * sy);
 
   if (blocked > 0) {
     // Wrong colour: no resonance, so the light organ stays shut. Grey outline

@@ -134,9 +134,16 @@ export function isBossBody(kind: CreatureKind): boolean {
  * the one thing in the game a hand is the only answer to — it is *dragged*
  * rather than held now, by its handle, and that is a different verb with its
  * own hit test (`render/src/tether.ts`).
+ *
+ * The dart is refused for the same reason arrived at from the other side. It
+ * *does* come down the field, but not by falling: `stepDart` moves it two rows
+ * on the beats it moves and none on the beats it hangs, and it never goes near
+ * `grippedFallTiles`. A brake scales a rate, and a dart has no rate to scale —
+ * a hand on one would be the tether's defect wearing a body that visibly
+ * travels, which is worse.
  */
 export function isGrippable(kind: CreatureKind): boolean {
-  return !isBossBody(kind) && kind !== "tether";
+  return !isBossBody(kind) && kind !== "tether" && kind !== "dart";
 }
 
 /**
@@ -162,8 +169,14 @@ export function clampSpanCol(col: number, cols: number, kind: CreatureKind): num
 /**
  * The tile column at a creature's visual centre, in tile units. Needed
  * anywhere a wide creature (only the torch, today) must be drawn or reported
- * as one thing rather than as its leftmost column — `col` itself is always
- * an integer, but a two-wide creature's centre sits half a tile past it.
+ * as one thing rather than as its leftmost column — a two-wide creature's
+ * centre sits half a tile past it.
+ *
+ * `col` is an integer everywhere the simulation reads it. render/ passes a
+ * fractional one on purpose, out of `drawnCol`, for a dart part-way through
+ * the diagonal it is crossing — the offset added here is a constant, so the
+ * centre of a body mid-glide is the same thing as the centre of one standing
+ * still.
  */
 export function spanCenterCol(kind: CreatureKind, col: number): number {
   return col + (colSpan(kind) - 1) / 2;

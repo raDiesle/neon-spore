@@ -41,6 +41,20 @@ export function drawnRow(c: Creature, beatPhase: number): number {
 }
 
 /**
+ * The column a creature is drawn in, mid-glide — `drawnRow`'s sideways twin,
+ * and the only reader of `Creature.fromCol`.
+ *
+ * Absent means "it is where it has always been", which is the honest answer
+ * for every kind but the dart: nothing else has ever changed lanes, so nothing
+ * else has an origin to come from, and a default of zero here would slide the
+ * whole field out of column zero on its first beat.
+ */
+export function drawnCol(c: Creature, beatPhase: number): number {
+  const from = c.fromCol ?? c.col;
+  return from + (c.col - from) * beatPhase;
+}
+
+/**
  * How much bigger a body draws for being that near. 1 at the top row, rising
  * linearly to `cfg.depthNearScale` at the hull.
  *

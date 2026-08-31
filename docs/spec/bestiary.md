@@ -44,7 +44,7 @@ cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | slick, bulb, lure, throb |
+| `cannon` | `aim` only | slick, bulb, lure, throb, dart |
 | `shield` | `guard` only | every meteor tier, the torch |
 | `mixed` | `aim` and `guard` | the queen |
 | `special` | neither | *(reserved, empty)* |
@@ -67,7 +67,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | Creature | Form | Role |
 |---|---|---|
 | **Slick** | wide flat blob, two broad lobes; tilts and ripples — always red | match the colour |
-| **Dart** | small, banded, quick | match the colour |
+| **Dart** | three deep lobes between the slick's flat two and the bulb's fine nine; never falls straight, and leans toward the diagonal it takes next | match the colour, in the column it is going to |
 | **Meteor** | matt, angular, no glow | ward only (the mirror image of the strand) |
 | **Veil** | opaque; one flash shows the core | announce the colour |
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
@@ -80,11 +80,23 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, torch. Slick, bulb and meteor carry
-the teaching waves; the torch is the meteor's own widened relative, not one of
-the original thirteen. Lure and throb are the next two of that thirteen —
-neither needed a new control group, only an entry and a state machine (see
-THE LURE and ON THE BEAT waves, and `.claude/skills/new-creature`).
+Built: slick, bulb, meteor, lure, throb, dart, torch. Slick, bulb and meteor
+carry the teaching waves; the torch is the meteor's own widened relative, not
+one of the original thirteen. Lure, throb and dart are the next three of that
+thirteen — none of them needed a new control group, only an entry and a state
+machine (see THE LURE, ON THE BEAT and THE DART waves, and
+`.claude/skills/new-creature`).
+
+**The dart is the first body that does not hold its lane**, and that is the
+whole of why it was worth a silhouette. Everything before it fell straight
+down, so a column said out loud stayed true until the thing landed; a dart
+makes that sentence expire after one beat. It moves on a two-beat cycle — a
+diagonal of two rows and two columns to one side, then one beat hanging with
+the next side already chosen — and only player 2 is shown which side, by an
+arrow over the body that player 1's screen never draws. Both colours wear the
+one silhouette, which is the "one kind, one colour" rule spent deliberately:
+the shape is new because the *behaviour* is new, and what the pair has to say
+about a dart is the same sentence in either colour.
 
 **THE LURE holds the slot the Runt had, and is not the same creature.** The
 Runt was small and helpless and the whole point of it was that you could see

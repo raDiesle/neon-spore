@@ -212,7 +212,7 @@ const COPIES: Copy[] = [
     // `performance.now()` and onto `world.beat`, so that two phones stop
     // drawing the same creature at different points in its cycle.
     call: "livingMotion",
-    owner: "packages/content/src/own-motion.ts",
+    owner: "packages/content/src/motions.ts",
     pattern: /\bt\s*\*\s*1\.1875\b|\bt\s*\*\s*0\.84375\b/,
     strip: false,
   },

@@ -38,6 +38,14 @@ export const MECHANICS = {
     reach: "spawn",
     waveNames: true,
   },
+  dart: {
+    what: "It never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, and in between it hangs for one beat with the next side already chosen — shown to one of you and not the other.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // clasp: the silhouette is the dart's and the colour is which cannon
+    // answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

@@ -97,6 +97,24 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    name: "THE DART",
+    sentence: "The one where the column you were given is the column it has already left.",
+    guide: {
+      both: "A dart never falls straight down. Every other beat it takes a diagonal — two rows down and two columns to one side — and in between it hangs for one beat, already aimed.",
+      p1: "The column under it is the wrong column. Wait for the side, take two, and be standing there before the beat turns over.",
+      p2: "Only your screen carries the arrow over it. Say the side while it is hanging, not while it is moving — by then it is your partner's eyes, not yours.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "dart", color: "red" },
+      { beat: 8, col: 6, kind: "dart", color: "cyan" },
+      { beat: 16, col: 1, kind: "dart", color: "red" },
+      { beat: 17, col: 5, kind: "dart", color: "cyan" },
+      { beat: 20, col: 3, color: "red" },
+      { beat: 26, col: 2, kind: "dart", color: "cyan" },
+      { beat: 30, col: 4, color: "cyan" },
+    ],
+  },
+  {
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     guide: {

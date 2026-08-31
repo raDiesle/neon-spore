@@ -1,4 +1,5 @@
 import type { CreatureKind } from "./creature-kinds.js";
+import type { DartDir } from "./dart.js";
 
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
@@ -28,12 +29,23 @@ export type PodKind = "mend" | "purge" | "ward";
 export interface Creature {
   id: number;
   kind: CreatureKind;
-  /** Column it occupies. The first two kinds never change lanes. */
+  /** Column it occupies. Every kind but the dart holds the one it arrived in. */
   col: number;
   /** Row after the most recent beat. Row `hullRow` means it has reached the hull. */
   row: number;
   /** Row before the most recent beat, for interpolation in render/. */
   fromRow: number;
+  /**
+   * Column before the most recent beat, for the same interpolation — absent on
+   * every kind that never changes lanes, which is every kind but the dart.
+   *
+   * Read through `drawnCol` (render/depth.ts) and nowhere else: absent means
+   * "it is where it has always been", and a site that reached for the field
+   * directly would slide every other body from column zero on its first beat.
+   * Deliberately outside `hashWorld` for `fromRow`'s reason — where a body
+   * came from is a fact about the picture, not about the world.
+   */
+  fromCol?: number;
   /** null for meteors, which cannot be shot. */
   color: Color | null;
   /** The kind a `lure` is drawn as, absent otherwise. Read it via `wornKind` —
@@ -70,6 +82,22 @@ export interface Creature {
    * everything else to calling them.
    */
   shell: number;
+  /**
+   * Which way a dart is concerned with: `-1` left, `1` right, absent on every
+   * other kind. It means the direction of travel while the body is moving and
+   * the direction of the *next* move while it hangs — `dartFloat` is which.
+   *
+   * Never read directly: `dartHeading` in `dart.ts` is the rule, because the
+   * lean, the jet and player 2's arrow are three pictures of one number and a
+   * second copy of the fallback is how they come to disagree.
+   */
+  dartDir?: DartDir;
+  /**
+   * True on the beat a dart hangs, false on the beat it travels. One bit, and
+   * it is the whole of the rhythm: a move is only ever taken out of a float,
+   * and a float only ever out of a move (`stepDart`).
+   */
+  dartFloat?: boolean;
 }
 
 export interface Bullet {

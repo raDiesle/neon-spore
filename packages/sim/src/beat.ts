@@ -1,5 +1,6 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
+import { dartPickDir, stepDart } from "./dart.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
@@ -63,6 +64,18 @@ export function onBeat(world: World): void {
     // Warden for good. `isBossBody` is the one place both are named.
     if (isBossBody(c.kind)) continue;
     c.fromRow = c.row;
+    // Where it is coming *from*, sideways. Set for every kind and moved by
+    // one, so `drawnCol` has an origin to glide a dart out of and every other
+    // body keeps drawing exactly where it stands.
+    c.fromCol = c.col;
+    // A dart does not fall. It takes a diagonal every other beat and hangs in
+    // between, and `stepDart` is the whole of that — deliberately in place of
+    // the line below rather than beside it, because a body that both stepped
+    // and fell would be moving three rows on the beats it moved.
+    if (c.kind === "dart") {
+      stepDart(world, c);
+      continue;
+    }
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);
@@ -94,7 +107,11 @@ export function onBeat(world: World): void {
       // Glide onto the field at the kind's own speed, not a flat one tile —
       // a torch (`fallTilesPerBeat` far above 1) that crept in for its first
       // beat and only then jumped to full speed read as a stutter, not a fall.
+      // A dart takes the default one tile and is right to: its two-row stride
+      // is what it does *after* it has arrived, and entering on it would put
+      // the first diagonal off the top of the field where nobody sees it.
       fromRow: -fallTilesPerBeat(entry.kind),
+      fromCol: col,
       color: entry.color,
       // Authored by the wave, and the same value on both devices. Which of the
       // two screens lays an alarm over the body it names is render's question
@@ -110,6 +127,14 @@ export function onBeat(world: World): void {
       // there is no instant at which anything — render included — could have
       // shown the pair something they were not meant to know yet.
       shell: shellOnSpawn(entry.kind),
+      // A dart arrives already aiming: it enters on a float beat, so the arrow
+      // is over it on player 2's screen for the whole of the glide in and the
+      // first diagonal comes out of a beat the pair had to talk through. The
+      // side is rolled here, from the world's own stream, which is why
+      // `rng.state` being in `hashWorld` already covers it.
+      ...(entry.kind === "dart"
+        ? { dartFloat: true, dartDir: dartPickDir(world.rng, col, world.cfg.cols) }
+        : {}),
     });
     world.spawned += 1;
   }

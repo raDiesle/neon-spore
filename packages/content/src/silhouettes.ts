@@ -78,6 +78,49 @@ export const SHELL: CreatureSilhouette = {
 };
 
 /**
+ * Dart: between the two bodies the pair already knows, because that is what
+ * the owner asked for — "a little bit of Slick and Bulb" — and because the
+ * creature is not a stranger to them, it is one of them that has learned to
+ * steer. The slick's flat proportion, the bulb's habit of carrying lobes, and
+ * one thing neither of them has: a point.
+ *
+ * **The seed is the whole shape and it is not a free number.** A contour's
+ * radius is `1 + depth · cos(lobes · a + seed)` (`hullRadiusMul`), so a lobe's
+ * apex sits wherever `lobes · a + seed` is zero. At `2π` with three lobes the
+ * apexes land at 0° and ±120° — one straight along the body's own long axis,
+ * two swept back behind it. Every other seed in this file is a phase nobody
+ * has to think about; this one is *where the point is*, and moving it turns
+ * the creature into a trefoil pointing nowhere.
+ *
+ * **`depth` and the aspect are then one decision, not two.** The nose only
+ * reads while the two rear lobes are shorter than it, and how much shorter is
+ * set by how flat the ellipse under them is — the same depth on a rounder body
+ * gives three equal arms and a propeller, on a flatter one an arrowhead so
+ * thin the drawn size falls under the 20 px floor. 0.55 on 64 × 34 is where
+ * both hold: a nose, two swept fins, and 26-29 px drawn at the card size
+ * `bun run shapes:report` measures.
+ *
+ * That nose is half of "the shape says where it is going next". The other half
+ * is `render/src/dart.ts`, which leans the body along the diagonal it is about
+ * to take and flips it about its own centre so the point leads either way.
+ *
+ * Three lobes is free. Slick has 2, Throb 6, Shell 5 and Bulb 9, and a shape
+ * landing on a neighbour's count is a shape the pair says the same word for —
+ * TOLD APART BY separates this one from the slick by the lobe count alone,
+ * which is the narrowest margin in that table. What the table cannot see is
+ * that a dart is never level: it is leaning or jetting on every beat it is
+ * alive, and the slick does neither.
+ */
+export const DART: CreatureSilhouette = {
+  lobes: 3,
+  depth: 0.55,
+  wobble: 0.03,
+  rx: 64,
+  ry: 34,
+  seed: Math.PI * 2,
+};
+
+/**
  * The silhouette a living kind is drawn with. Call this instead of writing
  * `kind === "bulb" ? BULB : SLICK` by hand — the queen's morph blends two of
  * these, and a second copy of the pairing drifts. `throb` carries no colour
@@ -93,6 +136,7 @@ export const SHELL: CreatureSilhouette = {
 export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
   if (kind === "throb") return THROB;
   if (kind === "shell") return SHELL;
+  if (kind === "dart") return DART;
   return kind === "bulb" ? BULB : SLICK;
 }
 
