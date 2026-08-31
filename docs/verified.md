@@ -15,7 +15,6 @@ records the answers. See `docs/verification.md`.
 - `a30c565` 2026-08-27 PASS — LEFT and RIGHT are reachable by one thumb on a phone in portrait
 - `cf34c47` 2026-08-27 PASS — ship.forkOpen reads as a room going quiet, not a chime or an alarm
 - `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
-- `cf34c47` 2026-08-27 PASS — impact.wrongTarget is heard as wrong beside impact.destroyRed/Cyan, not as a kill
 - `cf34c47` 2026-08-27 PASS — the runt's grey burst reads as wrong beside a real destroy burst, on a real screen
 - `c28a893` 2026-08-27 PASS — a body thrown by the arm reads as thrown, and not as a wave that was authored that way — the flick along the arm is a beat and a half and nothing else marks it
 - `c28a893` 2026-08-27 PASS — the split housing is findable at boss size on a phone, one column off centre and hard against the radar strip above it
@@ -174,7 +173,6 @@ records the answers. See `docs/verification.md`.
 - `6868bd5` 2026-08-28 PASS — on the SHAPES page, can you tell what can be combined with what without being told?
 - `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
   - in director testing game mode, still every wave has the "lance" control for player 1
-- `dff2c76` 2026-08-28 FAIL — on a wave that does not ask for it, is the lance button gone from player 1's panel?
   - in director testing game mode, still every wave has the "lance" control for player 1
 - `dff2c76` 2026-08-28 FAIL — on the wave that does ask for it, does the panel read as its own set rather than as the usual one with a button added?
   - i dont see in wave configuration where to configure the control set for the wave and what is active one
@@ -193,12 +191,10 @@ records the answers. See `docs/verification.md`.
 - `4aff421` 2026-08-28 PASS — at phone size, is the tangle unfollowable by eye, or can you trace a mouth to the target without talking — the director, the maze round, at 380 px
 - `916f811` 2026-08-28 PASS — in the director, does clicking and holding LEFT or RIGHT under the gauge actually turn the needle, and does CALL score a mark
 - `2230f71` 2026-08-28 PASS — does bun run frames work on a commit that landed yesterday?
-- `2230f71` 2026-08-28 PASS — does bun run frames work on a commit that landed yesterday?
 - `001952d` 2026-08-28 PASS — does bun run frames, given only a sha, put the change in the picture?
 - `26c20c4` 2026-08-28 PASS — does the pair actually have to talk, or does one of them just read it out — play a round from both seats and try to solve it in silence
 - `26c20c4` 2026-08-28 PASS — is 44 beats enough to read a three-row tangle out loud over a voice channel, or does the clock turn a conversation into a race
 - `357806b` 2026-08-28 PASS — after a reload, are you back on the same tab and wave with every setting back at its default?
-- `3855d5e` 2026-08-28 PASS — the motion trail dropped from four samples at 0.3 tile spacing to two at 0.26 — a fast body should still read as moving, not as stationary and redrawn — `bun run preview`, wave FINALE, where several coloured creatures descend at once.
 - `7490495` 2026-08-28 PASS — the four hull marks are new — nothing was ever drawn on the membrane before except the shield. The ship raises a lobe for exactly one thing today. Does HULL · HELD's lobe (6.0 px, a full column wide) read as a *different* claim from HULL · ARMED's shield (7.5 px, two thirds of a column), or does any lump on the hull just mean "shield"? Yes and both ideas are cheap; no and The Other Hand needs a mark somewhere off the membrane. `bun run dev`, NOT BUILT YET → SHAPES.
 - `7490495` 2026-08-28 PASS — HULL · MENDED's welt is flat-topped with shoulders a fifth of a column, against the shield's long-shouldered swelling — that contrast is the whole margin and it was chosen, not measured against an eye. Does a held seam read as *made* beside a shield that reads as *grown*, at card size? `bun run dev`, SHAPES, with HULL · ARMED in view at the same time.
 - `7490495` 2026-08-28 PASS — HULL · TORN is the first shape in the catalogue drawn as two open strokes instead of one. Does a 23 px hole in a 150 px line read as a breach, or as the hull having been drawn badly? `bun run dev`, SHAPES.
@@ -313,3 +309,27 @@ records the answers. See `docs/verification.md`.
 - `0b2e8e6` 2026-08-29 PASS — set one wave to teach a card it did not used to, and play from the start — does that card come up on that wave and nowhere else
 - `4aa770e` 2026-08-29 PASS — below the game screen, do the buttons now read as one row of the same kind of control, and do briefings and the balance sheet each stay put until you press them again
 - `ba8e906` 2026-08-30 PASS — on player 1's screen, is the lure genuinely indistinguishable from a real slick or bulb right up to the moment it goes — and on player 2's, does the ring and the exclamation read as stop within the half-second before a thumb moves, without being confused for the torch alarm?
+- `04dfd5a` 2026-08-31 PASS — in the director with BRIEFINGS on, hold the mouse on the stage after the guide — do the circles fill where you can see them, and does the wave start when they are full?
+- `015ad71` 2026-08-31 PASS — click onto a boss wave in the list — do COPY and DELETE go grey the moment you land on it, and tell you why?
+- `5b40ea3` 2026-08-31 PASS — open the director — is the key list gone from the top bar, and does the KEYS button still tell you everything it used to say, including that you can play the stage with the mouse?
+- `7ce974d` 2026-08-31 PASS — open TO CHECK — is every row something the game or the tool now does differently, with no proposals mixed in?
+- `749911e` 2026-08-31 PASS — sweep after a landing — is the worktree's folder actually gone from disk, and if one could not be removed does the output name it?
+- `513965e` 2026-08-31 PASS — open a wave with a long guide and one with none — does every field show all of its text without scrolling, and does the empty one offer a single button instead of blank boxes
+- `ba8e906` 2026-08-31 PASS — does the vanish read as gone on purpose — and does player 1, who has just been told to leave a column and did not want to, feel proved right by it?
+- `3d5b129` 2026-08-31 PASS — on the TOWER DEFENCE tab, do the pictures arrive and sit at a size that helps rather than dominates — and does the page read as a shelf of proposals rather than as a plan
+- `232651a` 2026-08-31 PASS — on TOWER DEFENCE, do the four new pictures load and do the Missile Command and Neon Pulsefire sections read as references rather than as plans
+- `519445b` 2026-08-31 PASS — on the SHAPES tab, do THE BURR, THE RASP and THE BRISTLE read as the bodies they were converted from — and does THE BURR's crown read as a front
+- `281777f` 2026-08-31 PASS — on NOT BUILT YET → RASTER, play a wave and shoot: does the baked burst read at field size with the switch on, and is the violet wrong against a red creature?
+- `8bd8609` 2026-08-31 PASS — does BUILD actually help pick a combination worth keeping, or is fifty-two buttons in five rows more friction than typing the numbers was?
+- `d268632` 2026-08-31 PASS — on SHAPES, do the eight swim — does the bell lead and the tentacles follow at 96 BPM, or does it read as one object opening and shutting?
+- `642b5ba` 2026-08-31 PASS — on SHAPES, do the fourteen grown bodies read as fourteen different creatures rather than as one blob wearing hats — and is any part on the sheet doing nothing at 26 px that a lobe would not do cheaper?
+- `44b63be` 2026-08-31 PASS — on NOT BUILT YET → RASTER and in the game at ?raster=1, does the baked burst beat the sparks it sits on top of — and is a violet burst wrong on a red creature?
+- `18afd43` 2026-08-31 PASS — on SHAPES → OVERVIEW, do the six tails read as six different ways of falling — and standing beside them, is HALOES enough of a trail for a slick, or is the shipped one the weakest thing on the row?
+- `5956627` 2026-08-31 PASS — on SHAPES → OVERVIEW, do the seven hits read as one event happening to the body — and does any of them actually beat DIM, or is a plain darkening enough?
+- `1b510d6` 2026-08-31 PASS — bun run shapes:still all "THE POMMEL" — do all nineteen cells draw, and does CHAMBER read as a packed interior rather than as a waterline
+- `9cb7c01` 2026-08-31 PASS — on SHAPES → OVERVIEW, do the seven glows read as seven different things on one body — and is TRAIL worth keeping, given it draws one dot rather than a string on every motion this catalogue has?
+- `f9fb496` 2026-08-31 PASS — bun run deploy actually reaches Cloudflare and the deployed page serves the fresh bundle
+- `3abdd35` 2026-08-31 PASS — on the SHAPES tab, does THE POMMEL read as the body it was converted from — and under the CHAMBER skin, do the compartments read as a packed interior or still as a mouth
+- `cfa6be7` 2026-08-31 PASS — on SHAPES, does the OVERVIEW picker read as a row of buttons rather than a fourth grid — and is a body still findable in it at 56 px
+- `bdce50a` 2026-08-31 PASS — on the SHAPES tab, does THE HOOD's arc read as a separate object beside THE HOOD — BROKEN — and in the motion view, does WIND read as winding up
+- `f977663` 2026-08-31 PASS — on the SHAPES tab, does THE CANOPY's gap read at the hull's own width — and in the motion view, is TUMBLE's second clock visible or is it just noise
