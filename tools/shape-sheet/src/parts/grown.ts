@@ -1,8 +1,10 @@
-import { blobRadiusMul, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { linePath, type Subject } from "../contour.js";
+import { type BaseOpts, baseLoop, clampOut, siteAt } from "./base.js";
 import { place } from "./geometry.js";
 import { partById } from "./registry.js";
-import type { PartCtx, Site } from "./types.js";
+import { contraction } from "./swim.js";
+import type { PartCtx } from "./types.js";
 
 /**
  * A body assembled out of a base contour and a list of parts.
@@ -39,70 +41,8 @@ export interface Attachment {
   stagger?: number;
 }
 
-export interface GrownOpts {
-  rx: number;
-  ry: number;
-  lobes?: number;
-  depth?: number;
-  wobble?: number;
-  seed?: number;
+export interface GrownOpts extends BaseOpts {
   parts: Attachment[];
-}
-
-/** Enough samples that the base reads as grown rather than as a polygon. */
-const N = 96;
-
-/** The base body's radius and rim point at one angle and one moment. */
-function siteAt(o: GrownOpts, a: number, t: number): Site {
-  const m = blobRadiusMul(a, o.lobes ?? 3, o.depth ?? 0.16, o.wobble ?? 0.05, t, o.seed ?? 1.5);
-  const x = Math.cos(a) * o.rx * m;
-  const y = Math.sin(a) * o.ry * m;
-  // The outward bearing is taken as the radial one rather than as the true
-  // normal. On a body this round the two differ by a few degrees, and the
-  // difference costs a derivative per site to remove — while a part rooted a
-  // few degrees off its own normal is a part rooted the way a real one is.
-  return { x, y, out: Math.atan2(y, x), scale: Math.hypot(x, y) };
-}
-
-/**
- * The parameter of the base body that lies in the direction of a point.
- *
- * The base is an ellipse before it is lobed, and an ellipse's point at
- * parameter `a` does not sit at polar angle `a` unless it is a circle. Getting
- * this wrong is invisible on a round body and puts the rim in the wrong place
- * by several degrees on SPINDLE, which is 22 by 40.
- */
-function paramTowards(o: GrownOpts, p: Point): number {
-  return Math.atan2(p.y * o.rx, p.x * o.ry);
-}
-
-/**
- * Every part point pushed out to the rim if it was inside it.
- *
- * **This is not tidiness, it is the difference between a bump and a hole.**
- * The director fills a card's contour with `fill-rule: evenodd`
- * (`tools/director/src/skins/parts.ts`), which is right for the bodies that
- * carry a mouth or come apart: a second loop inside the first is a hole, and
- * that is what those shapes mean. A part rooted *into* the body means the
- * opposite — it is the same flesh — and drawn under that rule its overlap with
- * the body would come out unfilled, so a BUMP would draw as a bite. Clamping
- * makes the two loops touch instead of cross, and then both fill rules agree
- * on the picture, which is the only version of this that survives somebody
- * drawing these cards a third way.
- *
- * A part that is *supposed* to be inside says so with `under`, and there is
- * exactly one: a vein is under the skin, and drawn as a channel through the
- * fill is what a vein looks like.
- */
-function clampOut(o: GrownOpts, t: number, loop: Point[]): Point[] {
-  return loop.map((p) => {
-    const r = Math.hypot(p.x, p.y);
-    if (r < 1e-6) return p;
-    const rim = siteAt(o, paramTowards(o, p), t);
-    const edge = Math.hypot(rim.x, rim.y);
-    if (r >= edge) return p;
-    return { x: (p.x / r) * edge, y: (p.y / r) * edge };
-  });
 }
 
 /** Twice the signed area of a loop, which is what the shoelace sum gives. */
@@ -134,13 +74,7 @@ const SLIVER = 16;
  */
 export function grown(name: string, note: string, o: GrownOpts): Subject {
   const loops = (t: number): Point[][] => {
-    const body: Point[] = [];
-    for (let i = 0; i < N; i++) {
-      const a = (i / N) * Math.PI * 2;
-      const s = siteAt(o, a, t);
-      body.push({ x: s.x, y: s.y });
-    }
-    const out: Point[][] = [body];
+    const out: Point[][] = [baseLoop(o, t)];
     for (const [k, att] of o.parts.entries()) {
       const def = partById(att.part);
       const count = att.count ?? 1;
@@ -152,6 +86,7 @@ export function grown(name: string, note: string, o: GrownOpts): Subject {
           t: t + i * (att.stagger ?? 0),
           site: siteAt(o, a, t),
           size: att.size ?? 1,
+          pulse: (lag) => contraction(o.pulse, t, lag),
           // Phase is derived from where the part is and which attachment it
           // belongs to, never from a counter: two bodies built from the same
           // recipe must draw the same picture, and a shared counter would make

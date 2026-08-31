@@ -2,7 +2,7 @@ import type { OwnMotion } from "@neon-spore/content";
 import { pose } from "./pose.js";
 
 /**
- * The three that pulse, as opposed to the one that breathes.
+ * The four that pulse, as opposed to the one that breathes.
  *
  * `SWELL` is `1 + sin(t·0.71875)·0.16` and it stays exactly as it is: a body
  * breathing is a fine thing for a body to do. It is not a pulse, and the
@@ -35,8 +35,13 @@ import { pose } from "./pose.js";
  * fast and settles slow, and which reaches exactly zero with zero slope, so a
  * stroke ends rather than being cut off. The silence after it is the point:
  * a swell that never returns to rest has nothing to be an event against.
+ *
+ * Exported because a swimming bell is the same envelope in a different place:
+ * `parts/swim.ts` drives a contour with it rather than a pose, and a second
+ * copy of "fast in, slow out" would be two answers to what an attack is. It
+ * is the only thing this file lets out.
  */
-function stroke(p: number, attack: number, release: number): number {
+export function stroke(p: number, attack: number, release: number): number {
   if (p < 0 || p >= attack + release) return 0;
   if (p < attack) return Math.sin((p / attack) * Math.PI * 0.5);
   const v = (p - attack) / release;
@@ -96,6 +101,71 @@ export const HEART: OwnMotion = {
     const e = stroke(p, 0.05, 0.26) + stroke(p - DUB_AT, 0.045, 0.22) * 0.58;
     const w = 1 + e * 0.15;
     return pose(0, 0, 0, w, 1 / w);
+  },
+};
+
+/**
+ * The swim stroke, as numbers rather than as a shape.
+ *
+ * They live here, beside `stroke`, because two things read them and neither
+ * may own them: `parts/swim.ts` squeezes a *contour* with them, and `JET`
+ * below moves a *pose* with them. That split is the whole design — a bell
+ * contracting and the same animal rising are two halves of one gesture, and
+ * only one of them is expressible as an affine transform. Sharing the
+ * constants is what makes them halves rather than two gestures that happen to
+ * look similar.
+ *
+ * The consequence is a rule, and it is not enforceable in a type: **a body
+ * whose pulse changes `period` must not also carry JET**, because the bob
+ * would then be answering a clock the bell is not keeping. Every jelly in
+ * `jelly-bodies.ts` therefore differs in depth and shape, never in period.
+ */
+export const SWIM_PERIOD = 2;
+export const SWIM_ATTACK = 0.16;
+/**
+ * Nearly all of what is left, so the cycle is a squeeze and then a recovery
+ * that lasts until the next one. It was 1.15 and that left a third of the
+ * cycle at dead rest — accurate for a struck object and wrong for this, since
+ * an animal that has just ejected water is still opening right up to the
+ * moment it shuts again. The strip in `swim-sheet.ts` is where that showed:
+ * four of its nine frames were the same picture.
+ */
+export const SWIM_RELEASE = 1.6;
+/** How far the bell narrows at full squeeze. */
+export const SWIM_DEPTH = 0.18;
+
+/**
+ * JET — the half of a swim stroke that a pose can say.
+ *
+ * A jellyfish does not travel by changing shape; it travels because changing
+ * shape moved water. So the contour squeezes (`parts/swim.ts`) and this rises,
+ * on the same envelope and the same clock, and neither is the animal on its
+ * own. It sets **no scale at all**, which is the point: a pose that also
+ * squeezed would scale the tentacles with the bell, and tentacles that squeeze
+ * with the bell is exactly the tell of a jellyfish nobody looked at.
+ *
+ * The stroke is offset by its own mean, so the body rises on the contraction
+ * and sinks back through the glide instead of drifting off the card. Peak rise
+ * is a tenth of a tile, which is well inside what an own-motion may spend
+ * (spec 5.8) and about as much as a bell this size would actually gain.
+ */
+const JET_RISE = 0.16;
+/**
+ * The mean of the stroke over its own period, which is what makes the bob
+ * level rather than a body slowly leaving the card.
+ *
+ * Worked out rather than tuned: the attack integrates to `attack·2/π` and the
+ * release to `release/3`, so over a period of 2 that is
+ * (0.16·0.6366 + 1.6/3) / 2 = 0.318.
+ */
+const JET_MEAN = 0.318;
+
+export const JET: OwnMotion = {
+  name: "JET",
+  note: "rises on the squeeze and sinks through the glide — a swim, with no scale in it",
+  poseAt(t) {
+    const c = stroke(t % SWIM_PERIOD, SWIM_ATTACK, SWIM_RELEASE);
+    return pose(0, -JET_RISE * (c - JET_MEAN), 0, 1, 1);
   },
 };
 

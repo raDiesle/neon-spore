@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { contourAt } from "./contour.js";
 import { GROWN_BODIES } from "./grown-bodies.js";
+import { JELLY_BODIES } from "./jelly-bodies.js";
 import { boundsOver } from "./metrics.js";
 import { CATEGORIES, grown, PARTS } from "./parts/index.js";
 import type { PartDef } from "./parts/types.js";
@@ -57,6 +58,11 @@ function hostFor(def: PartDef) {
     lobes: 1,
     depth: 0,
     wobble: 0,
+    // A DRIFT part is defined by what it does *after* its host squeezes, so a
+    // still of one on a host that never squeezes is a still of the one state
+    // it is not about. The host swims for those and stands still for the rest,
+    // which keeps every other cell exactly as it was.
+    pulse: def.category === "drift" ? {} : undefined,
     parts: [{ part: def.id, at: 0 }],
   });
 }
@@ -132,6 +138,16 @@ function common(): { scale: number; cx: number; cy: number } {
 
 const FIT = common();
 
+/**
+ * Every grown body, the swimmers included. They are drawn at one instant here
+ * like everything else, which for a jelly is a picture of a moment rather than
+ * of an animal — `swim-sheet.ts` is the one that shows the stroke. They are on
+ * this sheet anyway because a reader browsing the parts should be able to see
+ * everything the parts have been spent on without knowing there is a second
+ * page.
+ */
+const BODIES = [...GROWN_BODIES, ...JELLY_BODIES];
+
 function cell(
   x: number,
   y: number,
@@ -198,11 +214,11 @@ for (const category of CATEGORIES) {
 
 rows.push(
   `  <text x="40" y="${y}" fill="#FFC24B" font-family="Courier New, monospace" font-size="12" letter-spacing="2">COMBINATIONS</text>`,
-  `  <text x="${40 + 13 * 8}" y="${y}" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9">· one base blob, two or three parts · ${GROWN_BODIES.length}</text>`,
+  `  <text x="${40 + 13 * 8}" y="${y}" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9">· one base blob, two or three parts · ${BODIES.length} · the eight that swim are frozen here, and move on the swim sheet</text>`,
 );
 y += 22;
 
-GROWN_BODIES.forEach((entry, i) => {
+BODIES.forEach((entry, i) => {
   const col = i % BODY_COLS;
   const row = Math.floor(i / BODY_COLS);
   const cx = 40 + col * (BODY_CELL + 16) + BODY_CELL / 2;
@@ -213,7 +229,7 @@ GROWN_BODIES.forEach((entry, i) => {
   const body = `    <g transform="${transform}"><path d="${contourAt(entry.subject, T)}" fill="#1A1036" fill-opacity="0.6" stroke="#2FE0F0" stroke-width="${(1.8 / scale).toFixed(2)}" stroke-linejoin="round"/></g>`;
   rows.push(cell(cx, cy, BODY_CELL, BODY_CELL, entry.subject.name, entry.subject.note, body));
 });
-y += Math.ceil(GROWN_BODIES.length / BODY_COLS) * (BODY_CELL + 34) + 20;
+y += Math.ceil(BODIES.length / BODY_COLS) * (BODY_CELL + 34) + 20;
 
 await sheet({
   out: "../parts-sheet.svg",
@@ -221,5 +237,5 @@ await sheet({
   width: 40 + COLS * (CELL + 14) + 26,
   height: y,
   body: rows.join("\n"),
-  count: PARTS.length + GROWN_BODIES.length,
+  count: PARTS.length + BODIES.length,
 });

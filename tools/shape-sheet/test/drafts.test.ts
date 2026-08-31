@@ -220,7 +220,19 @@ describe("the spare motions", () => {
         expect(Math.abs(p.dy)).toBeLessThan(0.25);
         expect(p.sx).toBeGreaterThan(0.5);
         expect(p.sy).toBeGreaterThan(0.5);
-        if (Math.abs(p.dx) > 0.01 || Math.abs(p.rot) > 0.01 || Math.abs(p.sx - 1) > 0.01) {
+        // All five numbers, not the three this used to read. JET moves in `dy`
+        // alone — it lifts a bell on the squeeze and sets no scale at all —
+        // and was reported motionless by a check that looked at dx, rot and
+        // sx. A motion that only bobs, or only flattens, is a motion; the
+        // omission was a hole rather than a threshold, and a registry test
+        // that can call a working motion dead is worse than none.
+        if (
+          Math.abs(p.dx) > 0.01 ||
+          Math.abs(p.dy) > 0.01 ||
+          Math.abs(p.rot) > 0.01 ||
+          Math.abs(p.sx - 1) > 0.01 ||
+          Math.abs(p.sy - 1) > 0.01
+        ) {
           moved = true;
         }
       }

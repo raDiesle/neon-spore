@@ -24,6 +24,19 @@ import { extentOf, longAxisOf, poseAtSecond } from "../src/shapes-motion.js";
  * however far it reaches. Parts change what a body looks like; they do not
  * change which way round it is, so a recipe that wants a tall body has to say
  * so in `rx` and `ry` rather than by hanging something off the top of it.
+ *
+ * The eight that swim say it a third time and more sharply. Every one of them
+ * hangs something under itself and six carry streamers between one and two
+ * body-lengths long — and exactly one comes out tall, COMB, which is tall in
+ * the base and would have been tall carrying nothing. The reason is that a
+ * trail is *spread* as well as long: fanned across two and a half radians from
+ * the underside, the outermost threads reach sideways about as far as the
+ * innermost reach down. THIMBLE is the one to watch here — it was tall until
+ * its fringe was widened to stop the threads merging, and a body that changes
+ * which way round it is when a part is retuned is a body no motion should be
+ * written along. So "it has long tentacles" predicts nothing about a long
+ * axis, and a motion written along one will run across a jellyfish rather than
+ * down it.
  */
 
 /** By name out of the registry, which is the only list of what exists. */
@@ -41,21 +54,22 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits eighty-five bodies into wide, round and tall", () => {
+  it("splits ninety-three bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(85);
-    expect(count("x")).toBe(31);
-    expect(count(null)).toBe(44);
-    expect(count("y")).toBe(10);
+    expect(axes.length).toBe(93);
+    expect(count("x")).toBe(36);
+    expect(count(null)).toBe(46);
+    expect(count("y")).toBe(11);
   });
 
-  it("names the ten tall ones", () => {
+  it("names the eleven tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
         .map((e) => e.name)
         .sort(),
     ).toEqual([
+      "COMB",
       "HUSK 1",
       "HUSK 2",
       "LANTERN",

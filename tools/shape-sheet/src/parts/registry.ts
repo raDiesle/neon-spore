@@ -1,4 +1,5 @@
 import { ALIENS } from "./alien.js";
+import { DRIFTS } from "./drift.js";
 import { GROWTHS } from "./growth.js";
 import { LIMBS } from "./limbs.js";
 import { RIMS } from "./rim.js";
@@ -11,7 +12,7 @@ import type { PartCategory, PartDef } from "./types.js";
  * `partById` looks up in it, and a composition names its parts as strings — so
  * a part is one entry in one file and nothing else has to be told about it.
  */
-export const PARTS: PartDef[] = [...LIMBS, ...GROWTHS, ...ALIENS, ...RIMS];
+export const PARTS: PartDef[] = [...LIMBS, ...GROWTHS, ...ALIENS, ...RIMS, ...DRIFTS];
 
 /** What each category is for, in the order the sheet prints them. */
 export const CATEGORIES: Array<{ id: PartCategory; label: string; blurb: string }> = [
@@ -19,6 +20,7 @@ export const CATEGORIES: Array<{ id: PartCategory; label: string; blurb: string 
   { id: "growth", label: "GROWTH", blurb: "parts the body is turning into" },
   { id: "alien", label: "ALIEN", blurb: "parts that are not biology" },
   { id: "rim", label: "RIM", blurb: "parts that only bend the outline" },
+  { id: "drift", label: "DRIFT", blurb: "parts that trail under a swimming bell" },
 ];
 
 const BY_ID = new Map(PARTS.map((p) => [p.id, p]));

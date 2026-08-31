@@ -400,6 +400,7 @@ bun run check          # typecheck + lint + test, run this before saying "done"
 bun run checks         # what landed on main that nobody has looked at yet
 bun run handoff        # the closing block: is anything still owed to the human
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
+bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
 bun run raster         # regenerate the baked assets under assets/raster/
 bun run raster:verify  # open them in a real browser and check every frame decodes
 bun run deploy         # build the director, then push it to Cloudflare (its own worker)

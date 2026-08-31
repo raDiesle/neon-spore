@@ -13,7 +13,8 @@
     "motion": "bun run ./src/motion.ts",
     "report": "bun run ./src/report.ts",
     "sheets": "bun run ./src/main.ts && bun run ./src/motion.ts && bun run ./src/parts-sheet.ts",
-    "parts": "bun run ./src/parts-sheet.ts"
+    "parts": "bun run ./src/parts-sheet.ts",
+    "swim": "bun run ./src/swim-sheet.ts"
   },
   "dependencies": {
     "@neon-spore/content": "workspace:*",

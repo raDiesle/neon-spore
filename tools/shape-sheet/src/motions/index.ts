@@ -14,7 +14,7 @@ import {
   TURN,
   TWITCH,
 } from "./plane.js";
-import { BEAT, HEART, PERISTALSIS } from "./pulse.js";
+import { BEAT, HEART, JET, PERISTALSIS } from "./pulse.js";
 
 export { pose } from "./pose.js";
 export {
@@ -25,6 +25,7 @@ export {
   DRIFT,
   HEART,
   HEAVE,
+  JET,
   LURCH,
   PERISTALSIS,
   PITCH,
@@ -85,6 +86,10 @@ export const MOTIONS: OwnMotion[] = [
   APPROACH,
   BEAT,
   HEART,
+  // Beside the other three that pulse, and last of them, because it is the one
+  // that is only half a gesture: the other half is the contour's, and a card
+  // showing JET on a body that does not squeeze is showing a bob.
+  JET,
   PERISTALSIS,
   LURCH,
   SETTLE,

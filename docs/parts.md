@@ -1,7 +1,7 @@
 # Parts
 
 A **part** is a secondary form attached to somebody else's rim: a tentacle, a
-spore, a crystal, a fin. Fifty-two of them live in
+spore, a crystal, a fin. Sixty of them live in
 `tools/shape-sheet/src/parts/`, and `grown()` builds a body out of a base blob
 and a list of them.
 
@@ -32,8 +32,9 @@ Three properties, and they are what separate a part from a small shape:
 
 ## Adding one
 
-Write it into whichever of the four category files it belongs to —
-`limbs.ts`, `growth.ts`, `alien.ts`, `rim.ts` — and that is the whole of it:
+Write it into whichever of the five category files it belongs to —
+`limbs.ts`, `growth.ts`, `alien.ts`, `rim.ts`, `drift.ts` — and that is the
+whole of it:
 `registry.ts` assembles them, the sheet walks the registry, and a recipe names
 it by id.
 
@@ -76,6 +77,63 @@ A part clamped so far that nothing is left is **dropped** rather than drawn as
 a sliver on the rim. That is a real loss and the cure is a bigger `size` in the
 recipe, not a smaller threshold: a hairline crescent reads as a rendering
 fault, which is worse than a feature that is simply absent.
+
+## Bodies that swim
+
+Five of the sixty are in a category called DRIFT, and it is the only one
+defined by a relationship in time rather than by a shape — eight of them, and
+each reads the host's contraction rather than its own clock.
+
+A body swims by setting `pulse` on its recipe. Two things then happen, and the
+split between them is the design:
+
+- **The contour squeezes.** `parts/swim.ts` contracts the bell on the game's
+  beat, and hands every part `pulse(lag)` — the contraction as it was some
+  beats *ago*. A tentacle asks for it at a longer delay the further down itself
+  it looks, so what runs down its length is the same contraction arriving
+  later, and it goes taut after the bell has already let go.
+- **The pose rises.** `JET` in `motions/pulse.ts` lifts the body on the squeeze
+  and lets it sink through the glide, with no scale in it whatsoever. An animal
+  does not travel by changing shape; it travels because changing shape moved
+  water.
+
+Neither half is the animal. A pose alone would scale the tentacles with the
+bell, which is the standard way of drawing a jellyfish wrong: everything
+agrees, and nothing alive agrees with itself that exactly. A contour alone
+would squeeze on the spot.
+
+Both read the same four constants in `motions/pulse.ts`, so they are halves of
+one gesture rather than two that happen to look similar. **That makes a rule:
+a body that changes `period` must not carry `JET`**, because the bob would
+then keep a clock the bell is not. Nothing in a type can catch it. Vary depth,
+attack and the shape of the bell instead — the eight in `jelly-bodies.ts` all
+do, and all keep the period.
+
+There is deliberately **no per-body phase**. A field spreads its bodies across
+the cycle so a wave does not breathe as one object (`own-motion.ts`); a
+catalogue page wants the opposite, for the same reason the skin switcher is
+page-wide. Keeping one clock also makes the bell and JET synchronous by
+construction rather than by two numbers agreeing.
+
+`bell` turns the base into a dome. It is a **flat cut**, not a taper, and the
+distinction is the whole difference between a bell and an egg: fading the
+radius toward the bottom makes a body narrowest where a bell is widest. What
+the option does is pull everything below a line back along its own ray onto
+that line, which keeps the rim as the widest point and puts a corner where a
+bell has one. A truly concave underside is not available — a contour marched
+one radius per angle cannot have one — and at the size a card draws a body,
+the flat cut is what the silhouette reduces to anyway.
+
+```
+bun run shapes:swim      tools/shape-sheet/swim-sheet.svg — one cycle, nine frames a body
+```
+
+The swim sheet is a **strip**, where the motion sheet is an onion-skin, and
+the reason is what each kind of motion is. An onion-skin answers *how far does
+this breathe*, which is a question about an envelope. A swim stroke is an
+order of events — squeeze, eject, go taut, open, spread — and every one of
+those laid over the others is a smear. One scale per row, never per frame, or
+the fit would rescale away the squeeze that is the subject.
 
 ## When not to reach for one
 

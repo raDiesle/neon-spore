@@ -11,10 +11,10 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * would have put 32 of the 49 square catalogue entries under 26 px and 17
  * under 20, with the Bulb specifically landing at about 16 px.
  *
- * The catalogue has grown twenty-five bodies since — THE SHELL, the ten
- * converted off other games' screenshots in `drafts/tower-defence.ts`, and the
- * fourteen grown out of `src/parts/` — so the counts read 73, 43 and 21 rather
- * than 49, 32 and 17. The finding is the lane's; only the denominator moved,
+ * The catalogue has grown thirty-three bodies since — THE SHELL, the ten
+ * converted off other games' screenshots in `drafts/tower-defence.ts`, the
+ * fourteen grown out of `src/parts/` and the eight that swim — so the counts
+ * read 81, 48 and 21 rather than 49, 32 and 17. The finding is the lane's; only the denominator moved,
  * and it moves again every time a body is added. Every one of the converted
  * bodies falls under 26 px at the halved width, which is the finding holding
  * rather than drifting: a rim of small features is exactly the kind of body
@@ -31,6 +31,15 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * `grown-bodies.ts` was written to put in front of an eye rather than settle
  * with a number.
  *
+ * **The eight jellies go the other way, and the contrast is the useful part.**
+ * Five of them fall under 26 px at the halved width where only one grown body
+ * does, and it is the same arithmetic reaching the opposite answer: a jelly is
+ * mostly *trail*, so its box is set by streamers far longer and far thinner
+ * than the bell, and the bell — the thing anyone would name it by — is fitted
+ * to whatever is left. That is worth knowing before one is ever claimed. A
+ * body whose silhouette is dominated by what hangs off it loses its subject
+ * first when the frame tightens, and on a phone the frame is always tight.
+ *
  * If `shapeFigure`'s fit ever changes, this is the test that notices: it goes
  * through `drawnSize`, which calls the director's own `FIT_TIMES`, `isWide`,
  * `tilePixels` and `transformedBounds` rather than re-deriving them, so a
@@ -40,8 +49,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 73 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(73);
+  it("has the 81 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(81);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -68,7 +77,7 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
-    expect(under26).toBe(43);
+    expect(under26).toBe(48);
     expect(under20).toBe(21);
   });
 

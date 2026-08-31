@@ -125,16 +125,26 @@ being the only thing on the page, so both go up, numbered, turning on the same
 clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
 fall short says what each pair is asking.
 
-**Fifty-two parts and fourteen bodies grown out of them**, which is a second
+**Sixty parts and twenty-two bodies grown out of them**, which is a second
 unit and not more shapes. Everything else on this page is a whole contour
 written for one idea; a part is a piece — a tentacle, a spore, a crystal, a fin
 — authored in its own frame and attached to somebody else's rim, so a new
 silhouette is a base blob and a sentence rather than a new radius function.
-`tools/shape-sheet/src/parts/` holds them in four categories, `grown-bodies.ts`
-spends them on fourteen `free` cards, and `bun run shapes:parts` draws the
-whole library on one sheet. [parts.md](parts.md) says how to add one, why every
-part is clamped out to the rim it stands on, and when `studded` is the right
-tool instead.
+`tools/shape-sheet/src/parts/` holds them in five categories, `grown-bodies.ts`
+and `jelly-bodies.ts` spend them on twenty-two `free` cards, and
+`bun run shapes:parts` draws the whole library on one sheet. [parts.md](parts.md)
+says how to add one, why every part is clamped out to the rim it stands on, and
+when `studded` is the right tool instead.
+
+**Eight of the twenty-two swim**, and they are the first bodies here whose
+motion a pose cannot express. The owner picked the jellyfish out of the first
+fourteen, which was better information than a session could have reached on
+its own: the library's most useful direction is *a body with something hanging
+under it*. What makes them read is that the bell and the tentacles disagree
+about what time it is — the contraction lives in the contour and reaches each
+part at its own delay, while `JET` carries the rise, and the two share one set
+of constants so they are halves of a gesture rather than two gestures.
+`bun run shapes:swim` draws one cycle of each as a strip.
 
 The fourteen are `free` and not `draft` deliberately: a draft is a picture
 offered to a named idea, and fourteen arriving at once would spend fourteen

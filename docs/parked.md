@@ -71,6 +71,44 @@ card does. Start by asking whether the claimed body's parts need to move
 independently — if they do, the renderer needs the loops; if they do not, a
 baked contour is cheaper everywhere.
 
+## A bell has no hollow, because a radius cannot have one
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Graphics · Designed
+
+`bell` in `parts/base.ts` cuts a body's underside flat, and that is as far as
+a contour marched one radius per angle can go: a concave underside needs the
+ray to cross the outline twice. So the eight jellies are domes with a straight
+edge underneath, and what they cannot show is the one thing that reads as
+*hollow* — the far inside of the bell visible through the near side, which is
+most of what a photographed jellyfish looks like.
+
+Not done because it is not a bigger number, it is a second loop: an inner
+outline, drawn under `fill-rule: evenodd` so it becomes a hole, the way
+`ring.ts` already does for THE WARDEN. Start there — it is the one shape in
+the catalogue that has solved this — and ask first whether the hollow survives
+at 26 px or is a thing only the card ever sees.
+
+## The swim sheet fits every row to its own body
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Tool · Idea
+
+`swim-sheet.ts` fits each row over its own cycle, so the squeeze inside a row
+is honest and sizes *between* rows are not: THIMBLE and PARASOL are drawn the
+same height on the page and are nothing like the same size in tiles. Every
+sheet in this tool has the same property and it has never mattered, because
+the game derives a body's size from the tile rather than from the drawing.
+
+It might matter here. Whether a bell reads as a bell is partly a question of
+how big it is against the things hanging off it, and a page that normalises
+that away is answering a slightly different question from the one an eye asks.
+Start by drawing the eight at one shared scale and seeing whether the small
+ones become unreadable — if they do, the current fit is right and this entry
+is refused.
+
 ### Postponed: creatures and bosses`, which says why.
 New enemies and bosses are the least relevant thing to continue right now,
 so they wait there rather than sit beside the technical debt above.
@@ -1194,6 +1232,44 @@ Not done because nothing has claimed one yet and the answer depends on which
 card does. Start by asking whether the claimed body's parts need to move
 independently — if they do, the renderer needs the loops; if they do not, a
 baked contour is cheaper everywhere.
+
+## A bell has no hollow, because a radius cannot have one
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Graphics · Designed
+
+`bell` in `parts/base.ts` cuts a body's underside flat, and that is as far as
+a contour marched one radius per angle can go: a concave underside needs the
+ray to cross the outline twice. So the eight jellies are domes with a straight
+edge underneath, and what they cannot show is the one thing that reads as
+*hollow* — the far inside of the bell visible through the near side, which is
+most of what a photographed jellyfish looks like.
+
+Not done because it is not a bigger number, it is a second loop: an inner
+outline, drawn under `fill-rule: evenodd` so it becomes a hole, the way
+`ring.ts` already does for THE WARDEN. Start there — it is the one shape in
+the catalogue that has solved this — and ask first whether the hollow survives
+at 26 px or is a thing only the card ever sees.
+
+## The swim sheet fits every row to its own body
+
+2026-08-31 · claude/space-game-shape-variants-wlmn6m
+
+Tool · Idea
+
+`swim-sheet.ts` fits each row over its own cycle, so the squeeze inside a row
+is honest and sizes *between* rows are not: THIMBLE and PARASOL are drawn the
+same height on the page and are nothing like the same size in tiles. Every
+sheet in this tool has the same property and it has never mattered, because
+the game derives a body's size from the tile rather than from the drawing.
+
+It might matter here. Whether a bell reads as a bell is partly a question of
+how big it is against the things hanging off it, and a page that normalises
+that away is answering a slightly different question from the one an eye asks.
+Start by drawing the eight at one shared scale and seeing whether the small
+ones become unreadable — if they do, the current fit is right and this entry
+is refused.
 
 ### Postponed: creatures and bosses
 

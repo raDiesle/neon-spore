@@ -46,6 +46,17 @@ export interface PartCtx {
   size: number;
   /** Its own place in the sway, so repeats never move together. */
   phase: number;
+  /**
+   * How hard the host is squeezing right now, 0 to 1 — or how hard it was
+   * squeezing `lag` beats ago, which is the argument that matters.
+   *
+   * Zero forever on a host that does not swim, so a part may call it without
+   * asking. A part that hangs under a bell asks for it at a delay, and at a
+   * *longer* delay the further along itself it looks: the wave that runs down
+   * a tentacle is the same wave that left the bell, later. See `swim.ts` for
+   * why this is a contour's business rather than a pose's.
+   */
+  pulse: (lag?: number) => number;
   /** Mirrored along the rim: +1 as authored, -1 flipped. */
   flip: 1 | -1;
 }
@@ -58,13 +69,14 @@ export interface PartCtx {
 export type Part = (c: PartCtx) => Point[][];
 
 /**
- * What the sheet groups by. Four words rather than a finer split: the question
- * a person browsing asks is "what kind of thing do I want hanging off this",
- * and the four answers are *something that reaches*, *something that grows*,
- * *something that is not biology at all* and *something that only bends the
- * outline*.
+ * What the sheet groups by. The question a person browsing asks is "what kind
+ * of thing do I want hanging off this", and the answers are *something that
+ * reaches*, *something that grows*, *something that is not biology at all*,
+ * *something that only bends the outline* — and *something that trails behind
+ * a body that swims*, which is the one category defined by a relationship in
+ * time rather than by a shape. See `drift.ts`.
  */
-export type PartCategory = "reach" | "growth" | "alien" | "rim";
+export type PartCategory = "reach" | "growth" | "alien" | "rim" | "drift";
 
 export interface PartDef {
   id: string;

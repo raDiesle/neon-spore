@@ -46,8 +46,8 @@ describe("the parts library", () => {
 
   it("says how many parts it has in docs/parts.md, and is right about it", async () => {
     const page = await Bun.file(join(ROOT, "docs/parts.md")).text();
-    expect(page).toContain(`Fifty-two of them live`);
-    expect(PARTS.length).toBe(52);
+    expect(page).toContain(`Sixty of them live`);
+    expect(PARTS.length).toBe(60);
   });
 
   for (const def of PARTS) {

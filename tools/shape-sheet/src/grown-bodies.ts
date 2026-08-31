@@ -1,5 +1,5 @@
 import type { CatalogueEntry } from "./catalogue.js";
-import { type Attachment, grown } from "./parts/index.js";
+import { bodiesFrom, type Recipe } from "./recipe.js";
 
 /**
  * Fourteen bodies that are nothing but a base blob and a handful of parts.
@@ -22,21 +22,6 @@ import { type Attachment, grown } from "./parts/index.js";
  * proof that the composer works and tells you nothing about whether *parts*
  * work; two or three is the number a creature would actually carry.
  */
-
-interface Recipe {
-  name: string;
-  /** The recipe, in the words a person would use to ask for it. */
-  note: string;
-  /** Why nothing carries it — what a creature taking it would inherit. */
-  owner: string;
-  rx: number;
-  ry: number;
-  lobes?: number;
-  depth?: number;
-  wobble?: number;
-  seed?: number;
-  parts: Attachment[];
-}
 
 const RECIPES: Recipe[] = [
   {
@@ -230,9 +215,4 @@ const RECIPES: Recipe[] = [
   },
 ];
 
-export const GROWN_BODIES: CatalogueEntry[] = RECIPES.map((r) => ({
-  subject: grown(r.name, r.note, r),
-  status: "free",
-  slot: "creature",
-  owner: r.owner,
-}));
+export const GROWN_BODIES: CatalogueEntry[] = bodiesFrom(RECIPES);
