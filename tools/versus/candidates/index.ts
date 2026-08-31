@@ -1,10 +1,8 @@
 import type { Variant } from "../variant.js";
 // region: candidates
-import { SHOT_PIP } from "./cannon-shot/pip/index.js";
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
 import { SHIELD_CHARGE_ARCS } from "./shield-charge/index.js";
-import { WARD_HEAVE } from "./shield-ward/heave/index.js";
-import { WARD_TICK } from "./shield-ward/tick/index.js";
+import { SHIELD_CHARGE_FLASH } from "./shield-flash/index.js";
 import { HULL_WARM } from "./ship-hull.warm/index.js";
 // endregion
 
@@ -27,8 +25,6 @@ import { HULL_WARM } from "./ship-hull.warm/index.js";
 export const VARIANTS: Variant[] = [
   HULL_WARM,
   SHOT_STREAK,
-  SHOT_PIP,
-  WARD_HEAVE,
-  WARD_TICK,
   SHIELD_CHARGE_ARCS,
+  SHIELD_CHARGE_FLASH,
 ];

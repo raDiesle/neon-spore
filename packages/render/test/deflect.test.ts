@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DeflectFx } from "../src/deflect.js";
+import { DEFLECT_LOOK } from "../src/deflect-look.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -69,8 +70,10 @@ describe("DeflectFx.spawn", () => {
  * The owner's ask (`docs/queue.md`, "A DEFLECTED ROCK SHOULD PRESS INTO THE
  * SHIELD BEFORE IT LEAVES"): a rock that reverses on one tick reads as a rock
  * that teleported, so the moment of contact needs a shape — the rock presses
- * a little way into the shield and the shield gives, and both spring back,
- * before the ordinary bounce carries them on. "Slightly", said twice.
+ * into the shield and the shield gives, and both spring back, before the
+ * ordinary bounce carries them on. `DEFLECT_LOOK` is the adopted `heave`/`tick`
+ * merge (`docs/versus.md`): the give is deliberately long and deep — "a long
+ * deep heave you can arrive late to" — not the slight dip shipped before it.
  */
 describe("DeflectFx press-and-release", () => {
   it("presses the rock into the shield before it springs away", () => {
@@ -93,7 +96,7 @@ describe("DeflectFx press-and-release", () => {
     expect(translateYs[translateYs.length - 1]).toBeLessThan(spawnY);
   });
 
-  it("keeps the press slight — a fraction of a tile, not a lurch", () => {
+  it("keeps the press a fraction of a tile, not a lurch off the field", () => {
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 1);
     const spawnY = 1130 - TILE;
@@ -105,13 +108,17 @@ describe("DeflectFx press-and-release", () => {
     }
     const maxDip = Math.max(...translateYs) - spawnY;
     expect(maxDip).toBeGreaterThan(0);
-    expect(maxDip).toBeLessThan(TILE * 0.2);
+    // The adopted heave/tick merge presses deep on purpose — the ceiling is
+    // `pressDepthFrac`'s own bound, not the shipped-shallow number.
+    expect(maxDip).toBeLessThan(TILE * (DEFLECT_LOOK.pressDepthFrac + 0.1));
   });
 
   it("starts the shockwave ring compressed, then springs it back out", () => {
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 1);
-    const baseR = TILE * 0.4;
+    // The ring's resting radius — `DeflectFx.spawn`'s own `shockR`, not a
+    // copy of it, so a future look's `ringSpanFrac` cannot drift this stale.
+    const baseR = TILE * DEFLECT_LOOK.ringSpanFrac;
     const { ctx } = stubCanvas();
     const arcRs: number[] = [];
     const origArc = ctx.arc.bind(ctx);
@@ -120,12 +127,15 @@ describe("DeflectFx press-and-release", () => {
       return origArc(x, y, r, from, to);
     };
     // The moment of contact: no time has passed, so the ring reads as the
-    // shield having already given, not yet sprung back.
+    // shield having already given, not yet sprung back. `rings` draws more
+    // than one arc per call now (the adopted `heave`/`tick` merge), so the
+    // outermost of the first group — index 0 — is the one this bound is about.
+    const ringsPerDraw = Math.max(1, Math.round(DEFLECT_LOOK.rings));
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
     expect(arcRs[0]).toBeLessThan(baseR);
     // Past the press window and well into ordinary growth.
     for (let i = 0; i < 10; i++) fx.update(0.02, TILE);
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
-    expect(arcRs[1]).toBeGreaterThan(baseR);
+    expect(arcRs[ringsPerDraw]).toBeGreaterThan(baseR);
   });
 });

@@ -5,6 +5,7 @@ import { strokeGlow } from "./glow.js";
 import type { LobePositions } from "./hull.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawShieldFlashes } from "./shield-flash.js";
 import { drawShieldSparks } from "./shield-spark.js";
 
 /**
@@ -153,29 +154,27 @@ export interface WardLook {
 }
 
 export const WARD_LOOK: WardLook = {
-  halfMul: 0.8,
-  shimmerBase: 0.72,
-  shimmerA: 0.16,
-  shimmerHzA: 2.6,
-  shimmerB: 0.12,
-  shimmerHzB: 1.15,
-  glowFloor: 0.34,
-  alphaBase: 0.3,
-  alphaGlow: 0.7,
-  widthBase: 2.4,
-  widthArmed: 5.6,
-  intensityBase: 0.5,
-  intensityArmed: 1,
+  halfMul: 1.15,
+  shimmerBase: 0.62,
+  shimmerA: 0.26,
+  shimmerHzA: 1.5,
+  shimmerB: 0.16,
+  shimmerHzB: 0.7,
+  glowFloor: 0.22,
+  alphaBase: 0.22,
+  alphaGlow: 0.75,
+  widthBase: 2,
+  widthArmed: 11,
+  intensityBase: 0.35,
+  intensityArmed: 1.6,
 };
 
 /**
  * The rim-thickening variant on top of the plate: over the shield's segment the
  * edge of the membrane brightens and thickens. Armed and passive then differ in
- * both silhouette and light, which is what docs/spec/systems.md 5.8 asks for — a
- * deflection has to be unmissable or the pair never learns the timing.
- *
- * The bright stretch spans the whole body, head to tail, so a shield in motion
- * lights up as a long moving band rather than a dot with a tail behind it.
+ * both silhouette and light — docs/spec/systems.md 5.8. The bright stretch spans
+ * the whole body, head to tail, so a shield in motion lights up as a long
+ * moving band rather than a dot with a tail behind it.
  */
 export function drawShieldRim(
   ctx: CanvasRenderingContext2D,
@@ -210,9 +209,9 @@ export function drawShieldRim(
     w.intensityBase + w.intensityArmed * armed,
   );
   ctx.globalAlpha = 1;
-  // Ambient presence, not the catch — see `shield-spark.ts`. Not passed
-  // `armed` on purpose: charged, not deflecting.
+  // Ambient presence, not the catch — see shield-spark.ts, shield-flash.ts.
   drawShieldSparks(ctx, l, time, cols, surface);
+  drawShieldFlashes(ctx, l, time, cols, surface);
 }
 
 /**

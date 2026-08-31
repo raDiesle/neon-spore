@@ -16,14 +16,14 @@ export interface DeflectLook {
   /** Seconds a bounced rock is drawn for, and its shockwave ring. */
   life: number;
   shockLife: number;
-  /** How long the press-and-release before a bounce takes, in seconds. Short
-   * on purpose — the owner asked for "slightly" twice, and a press that reads
-   * as its own event rather than a hitch in the bounce has to be over before
-   * the eye catches up to it. */
+  /** How long the press-and-release before a bounce takes, in seconds. Long
+   * enough that the catch is a give you can arrive late to and still see, not
+   * a hitch in the bounce over before the eye catches up to it. */
   pressLife: number;
   /** How far into the shield the rock presses, as a fraction of `tile`. */
   pressDepthFrac: number;
-  /** Squash/stretch scale swing at the peak of the press — 18%, not more. */
+  /** Squash/stretch scale swing at the peak of the press — a third, so the
+   * shield visibly gives rather than merely flickering. */
   squashAmount: number;
   /** How compressed the shockwave ring starts, as a fraction of its resting
    * radius — the shield giving before it springs back out to `baseR`. */
@@ -37,7 +37,8 @@ export interface DeflectLook {
   ringWidthFloor: number;
   ringAlpha: number;
   /** Concentric rings drawn per catch, and the share of the radius between
-   * them. One ring and a gap of nothing is a single arc, as shipped. */
+   * them. Three, a quarter-radius apart, so the catch reads as a hard series
+   * rather than a single soft edge. */
   rings: number;
   ringGap: number;
   /** The soft light under the ring, as a share of its radius and of full. */
@@ -47,18 +48,18 @@ export interface DeflectLook {
 
 export const DEFLECT_LOOK: DeflectLook = {
   life: 1.1,
-  shockLife: 0.5,
-  pressLife: 0.08,
-  pressDepthFrac: 0.16,
-  squashAmount: 0.18,
-  ringCompressFrac: 0.78,
-  ringSpanFrac: 0.4,
-  ringGrowTiles: 4.5,
-  ringWidth: 3,
-  ringWidthFloor: 1,
-  ringAlpha: 0.85,
-  rings: 1,
-  ringGap: 0,
-  haloMul: 0.5,
-  haloAlpha: 0.4,
+  shockLife: 0.9,
+  pressLife: 0.17,
+  pressDepthFrac: 0.34,
+  squashAmount: 0.32,
+  ringCompressFrac: 0.55,
+  ringSpanFrac: 0.85,
+  ringGrowTiles: 2.6,
+  ringWidth: 7,
+  ringWidthFloor: 1.5,
+  ringAlpha: 0.9,
+  rings: 3,
+  ringGap: 0.26,
+  haloMul: 0.8,
+  haloAlpha: 0.55,
 };
