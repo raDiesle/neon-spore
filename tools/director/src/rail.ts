@@ -17,10 +17,10 @@ import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
  *
  * The control set sits at the same level as `name` and `sentence` for the
  * same reason `boss.ts` gets its own panel rather than a cell in the grid:
- * *this wave is not the ordinary thing*. Unlike the boss it needs no panel of
- * its own — every set is a name in `CONTROL_SETS`, so a `<select>` says the
- * whole of it, and `controlsets-page.ts` is where a name turns into the panel
- * it stands for.
+ * *this wave is not the ordinary thing*. Unlike the boss it needs no panel
+ * of its own — every set is a name in `CONTROL_SETS`, so a `<select>` says
+ * the whole of it, and `controlsets-page.ts` turns a name into the panel it
+ * stands for.
  */
 export interface RailPanel {
   render(): void;
@@ -86,28 +86,27 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
         mark.title = set.name;
         button.append(mark);
       }
-      // A third mark: this wave carries a guide. Read off the wave itself
-      // rather than derived from the campaign, which is the whole of what
-      // moving the help into the wave bought.
+      // A third mark: this wave carries a guide, read off the wave itself
+      // rather than derived from the campaign. No `title` — a tooltip here
+      // is what the owner rejected — and no second copy of the guide's own
+      // text, which already sits under SENTENCE (`guideFields.render`,
+      // below); this is only a glance-level flag and a shortcut into GAME
+      // MECHANICS' GUIDES tab.
       //
-      // No `title`: a tooltip here is the exact thing the owner rejected —
-      // "the tooltip for all cards should not be on the list of waves". The
-      // guide's actual text already sits in the wave configuration, directly
-      // under SENTENCE (`guideFields.render`, below); this mark is only a
-      // glance-level flag and a shortcut into the GUIDES sheet, not a second
-      // place carrying the words themselves.
-      //
-      // A span, not a nested button — `button` already is one, and a button
-      // inside a button is invalid markup. The click still needs its own
-      // stop: without it, opening the sheet also re-selects the row, which
-      // reads as two actions firing off one tap.
+      // A span, not a nested button — a button inside a button is invalid
+      // markup, and the click needs its own stop or it would also re-select
+      // the row. Two clicks: the sheet must open before its own bar has a
+      // GUIDES button.
       if (guideWaves.has(i)) {
         const mark = document.createElement("span");
         mark.className = "card-mark";
         mark.textContent = "✎ ";
         mark.addEventListener("click", (e) => {
           e.stopPropagation();
-          document.getElementById("cardsOpen")?.dispatchEvent(new MouseEvent("click"));
+          document.getElementById("statesOpen")?.dispatchEvent(new MouseEvent("click"));
+          document
+            .querySelector('#statesTabs button[data-tab="guides"]')
+            ?.dispatchEvent(new MouseEvent("click"));
         });
         button.append(mark);
       }

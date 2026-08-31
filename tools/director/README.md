@@ -216,8 +216,8 @@ design and costs one edit to change. Nothing in the simulation depends on it.
 ## GAME MECHANICS
 
 `▣ GAME MECHANICS` is the third full-screen sheet, and the only one whose own
-tab is pictures rather than prose. It also holds the four things that used to
-have topbar buttons of their own — CONTROL SETS, SHIP, DEMOS — and TUNING,
+tab is pictures rather than prose. It also holds the things that used to have
+topbar buttons of their own — CONTROL SETS, SHIP, DEMOS, GUIDES — and TUNING,
 which used to sit in the wave panel while its own note said it was the run and
 not the wave.
 
@@ -453,9 +453,10 @@ The `WAVE` tab's own `BRIEFING` line answers the other half of the same
 question: what the wave being edited actually puts in front of a pair — its
 introduction, and then the guide written in the `GUIDE` section right below,
 or nothing. `src/wave-opening.ts` reads that off the store's live entry, so an
-edit not yet saved shows there immediately. `✎ GUIDES` lists every wave that
-carries one, and `◇ NOT BUILT YET → GUIDES` holds both screens of each side by
-side — those pages ask the shipped waves, this line asks the stage.
+edit not yet saved shows there immediately. `▣ GAME MECHANICS → GUIDES` lists
+every wave that carries one, and `◇ NOT BUILT YET → GUIDES` holds both screens
+of each side by side — those pages ask the shipped waves, this line asks the
+stage.
 
 ## MUSIC
 

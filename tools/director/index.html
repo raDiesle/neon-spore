@@ -839,21 +839,11 @@
 
       /* CARDS: every briefing card, grouped by the wave that first raises it
          — the documented half of what NOT BUILT YET's own CARDS tab now
-         calls a proposal (`guide-page.ts`). Same full-screen shell as SOUND;
-         `.scenes`/`.scene`/`.note` are the same classes the backlog's own
-         scene frames already use, so a wave's group of cards needs only its
-         own heading style. */
-      #cardsSheet { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
-      #cardsSheet.on { display: flex; flex-direction: column; }
-      #cardsSheet > header {
-        display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
-        padding: 12px 20px; border-bottom: 1px solid var(--line);
-      }
-      #cardsSheet .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
-      #cardsSheet .sub { color: var(--dim); font-size: 10px; max-width: 720px; }
-      #cardsSheet > header button { margin-left: auto; }
-      #cardsSheetBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
-      #cardsSheetBody section { margin-bottom: 22px; }
+         calls a proposal (`guide-page.ts`). A tab of GAME MECHANICS now
+         (`#mech-guides`, in `#statesBody`) rather than a sheet of its own —
+         one fewer topbar button. `.scenes`/`.scene`/`.note` are the same
+         classes the backlog's own scene frames already use, so a wave's
+         group of cards needs only its own heading style. */
       .card-wave-head { color: var(--cyan); font-size: 10px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 400; }
 
       /* BULB QUEEN VARIANTS: the torch-only holder drafts and the whole-body
@@ -954,7 +944,6 @@
       <button type="button" id="backlogOpen" class="menu-item">◇ NOT BUILT YET</button>
       <button type="button" id="statesOpen" class="menu-item">▣ GAME MECHANICS</button>
       <button type="button" id="soundOpen" class="menu-item">♪ SOUND</button>
-      <button type="button" id="cardsOpen" class="menu-item">✎ GUIDES</button>
     </header>
 
     <main data-view="wave">
@@ -1104,7 +1093,10 @@
          per room, the same shell #backlog already uses (#backlogTabs over
          #backlogBody). TUNING joined them from the wave panel's own TUNING
          tab: the one live control kept alongside four reference rooms — see
-         its own tab below for the note that says so.
+         its own tab below for the note that says so. GUIDES joined them from
+         its own top-level sheet for the same reason as every other door
+         here: one less button in a topbar that had two, and nothing about
+         reading a guide needs a sheet CONTROLS or SHIP does not already have.
 
          MAIN MENU is not a room — it is a link out to the running game, with
          no content of its own to fold in — so it sits in this sheet's own
@@ -1117,7 +1109,8 @@
         <span class="sub">
           reference: what a control set contains, what the ship's dials are,
           what a mechanic looks like demonstrated, every state the game can be
-          held in — and TUNING, the one live control kept alongside them
+          held in, every guide a wave carries — and TUNING, the one live
+          control kept alongside them
         </span>
         <a id="mainMenuLink" class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
           >▶ MAIN MENU</a
@@ -1130,6 +1123,7 @@
         <button type="button" data-tab="ship">SHIP</button>
         <button type="button" data-tab="demos">DEMOS</button>
         <button type="button" data-tab="tuning">TUNING</button>
+        <button type="button" data-tab="guides">GUIDES</button>
       </div>
       <div id="statesBody">
         <div class="sheetpage on" id="mech-states">
@@ -1219,6 +1213,15 @@
             Tuning is the run, not the wave. It is never written to waves.ts —
             saved presets live in this browser.
           </p>
+        </div>
+        <!-- GUIDES: the help each wave carries, written inside the wave
+             itself — see `guide-page.ts`'s doc comment. Folded in from its
+             own top-level sheet; see the note above `#states`. -->
+        <div class="sheetpage" id="mech-guides">
+          <p class="pagewhat">
+            Every wave that carries a guide, in the order a pair plays them.
+          </p>
+          <div id="guidesBody"></div>
         </div>
       </div>
     </div>
@@ -1490,20 +1493,6 @@
       </header>
       <div id="soundTabs"></div>
       <div id="soundBody"></div>
-    </div>
-
-    <!-- GUIDES: the help each wave carries, written inside the wave itself —
-         see `guide-page.ts`'s doc comment. Same full-screen shell as CONTROL
-         SETS, one heading per wave that has a guide, in wave order. -->
-    <div id="cardsSheet">
-      <header>
-        <span class="title">GUIDES</span>
-        <span class="sub">
-          every wave that carries a guide, in the order a pair plays them
-        </span>
-        <button type="button" id="cardsSheetClose">✕ CLOSE</button>
-      </header>
-      <div id="cardsSheetBody"></div>
     </div>
 
     <!-- KEYBINDINGS: rendered by key-help.ts from keys.ts's own KEY_BINDINGS

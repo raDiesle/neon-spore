@@ -1,8 +1,8 @@
 /**
  * On a phone the director opens on a menu, not on a wave. Every reachable
- * thing — the three views (WAVE, GAME, MAP) and the six pages the header has
+ * thing — the three views (WAVE, GAME, MAP) and the five pages the header has
  * always opened (⚑ TO CHECK, ☠ ORPHANS, ◇ NOT BUILT YET, ▣ GAME MECHANICS,
- * ♪ SOUND, ✎ GUIDES) — is one `.menu-item` button in `<header>`, marked in
+ * ♪ SOUND) — is one `.menu-item` button in `<header>`, marked in
  * the markup rather than assembled here; `body.menu-open` is what turns that
  * same header into the full-screen list (see the `@media (max-width: 700px)`
  * block in index.html). Nothing is duplicated: a page still opens exactly

@@ -28,8 +28,8 @@ import { bindOrderPicker } from "./guide-order.js";
  * guide is written inside the wave that plays it now, so a guide with no wave
  * cannot be expressed; what is left are the two review tools, which are
  * working aids for any guide rather than a listing of unbuilt ones. The list
- * of every guide that ships lives on its own top-level sheet,
- * `guide-sheet.ts`'s `bindCardsPage` — the same shape STATES and CONTROL
+ * of every guide that ships lives in GAME MECHANICS' own GUIDES tab,
+ * `guide-sheet.ts`'s `bindGuidesTab` — the same shape STATES and CONTROL
  * SETS already use for "built, and here is the proof".
  */
 

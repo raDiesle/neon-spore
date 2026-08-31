@@ -2,10 +2,12 @@ import { waveGuideFrame } from "./guide-order.js";
 import { waveLabel, wavesWithGuides } from "./guide-waves.js";
 
 /**
- * The GUIDES sheet: every wave that carries a guide, in the order a pair plays
- * them. Its own file since `guide-page.ts` (the NOT BUILT YET tab, the other
- * half of the same split) crossed the 250-line limit
- * `packages/sim/test/limits.test.ts` enforces.
+ * GUIDES: every wave that carries a guide, in the order a pair plays them. A
+ * tab of GAME MECHANICS (`states-page.ts` owns the sheet itself) rather than
+ * a sheet of its own — one fewer topbar button, the same reasoning DEMOS and
+ * TUNING joined that sheet for. Its own file since `guide-page.ts` (the NOT
+ * BUILT YET tab, the other half of the same split) crossed the 250-line
+ * limit `packages/sim/test/limits.test.ts` enforces.
  *
  * Read straight off `WAVES` (`guide-waves.ts`), so a wave that gains or loses a
  * guide is reflected here without anyone updating a second list. That lookup
@@ -94,12 +96,12 @@ function waveGroup(waveIndex: number, hidden: Set<number>): HTMLElement {
   return section;
 }
 
-let guidesSheetDrawn = false;
+let guidesDrawn = false;
 
-function renderGuidesSheet(): void {
-  if (guidesSheetDrawn) return;
-  guidesSheetDrawn = true;
-  const body = document.getElementById("cardsSheetBody");
+function renderGuidesTab(): void {
+  if (guidesDrawn) return;
+  guidesDrawn = true;
+  const body = document.getElementById("guidesBody");
   if (!body) return;
   const hidden = loadHidden();
   const waves = wavesWithGuides();
@@ -114,20 +116,17 @@ function renderGuidesSheet(): void {
   }
 }
 
-export function bindCardsPage(): void {
-  const sheet = document.getElementById("cardsSheet");
-  const open = document.getElementById("cardsOpen");
-  const close = document.getElementById("cardsSheetClose");
-  if (!sheet || !open || !close) return;
-
-  const show = (on: boolean): void => {
-    sheet.classList.toggle("on", on);
-    if (on) renderGuidesSheet();
-  };
-
-  open.addEventListener("click", () => show(true));
-  close.addEventListener("click", () => show(false));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sheet.classList.contains("on")) show(false);
-  });
+/**
+ * Lazy like `demo-panel.ts`'s `bindDemoPanel` and `controlsets-page.ts`'s own
+ * `bindControlSetsTab`: the list is cheap here, but the tab is still built on
+ * first sight of it rather than at load. A restore straight to this tab
+ * (`?sheet=states&inner=guides`) fires the same click `mountSheet` already
+ * drives for every inner tab — called before `bindStates` in `main.ts`, the
+ * same ordering `bindDemoPanel` uses, so that click finds this listener
+ * already wired.
+ */
+export function bindGuidesTab(): void {
+  document
+    .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="guides"]')
+    ?.addEventListener("click", renderGuidesTab);
 }

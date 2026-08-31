@@ -7,7 +7,7 @@ import { initColumns } from "./columns.js";
 import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
-import { bindCardsPage } from "./guide-sheet.js";
+import { bindGuidesTab } from "./guide-sheet.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
@@ -100,6 +100,10 @@ bindDemoPanel(
   },
   closeMechanicsSheet,
 );
+// GUIDES joined GAME MECHANICS as a tab — see `guide-sheet.ts`. Bound before
+// `bindStates` below, the same ordering `bindDemoPanel` uses, so a restore
+// straight to this tab finds the listener already wired.
+bindGuidesTab();
 
 // `.hint` text defaults to hidden — the name is usually enough, and the full
 // blurb is one click away in CREATURES. Persisted like the tuning presets.
@@ -210,7 +214,6 @@ bindChecks();
 bindStates();
 bindSoundPage();
 bindControlSetsTab();
-bindCardsPage();
 bindExpanders();
 
 window.addEventListener("beforeunload", (e) => {
