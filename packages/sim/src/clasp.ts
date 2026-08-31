@@ -104,6 +104,7 @@ export function breakClaspsInColumn(world: World): void {
     world.score += world.cfg.scoreClaspBreak;
     world.events.push({
       type: "claspBreak",
+      id: c.id,
       col: c.col,
       row: c.row,
       kind: c.kind,

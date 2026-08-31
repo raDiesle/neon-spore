@@ -133,4 +133,16 @@ export type SimEvent =
    * told which trigger to load before the shield is anywhere near it. Absent
    * only for a colourless clasp, which nothing authors.
    */
-  | { type: "claspBreak"; col: number; row: number; kind: CreatureKind; color?: Color };
+  // `id` is the body the shield came off, and it is on this event for one
+  // reason: the picture of a shield failing is drawn *around a creature that
+  // is still falling* (`render/clasp-break.ts`), so the renderer has to be
+  // able to find that body on every later frame. A column and a row are where
+  // it was on the tick of the trigger, which is a different place one beat on.
+  | {
+      type: "claspBreak";
+      id: number;
+      col: number;
+      row: number;
+      kind: CreatureKind;
+      color?: Color;
+    };

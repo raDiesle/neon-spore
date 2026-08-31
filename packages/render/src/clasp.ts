@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { drawClaspLattice } from "./clasp-lattice.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -40,6 +41,14 @@ export const CLASP_SHEET: ClaspSheet = { frames: 20, frameSize: 128, frameMs: 70
 
 /** How far the bubble reaches past the body it holds, as a share of a tile. */
 export const CLASP_RADIUS_MUL = 0.78;
+
+/**
+ * How far the radiant glow reaches past the ball, as a multiple of its radius.
+ * The reference the owner attached is mostly this: the sphere is small in its
+ * own picture and the light around it is not.
+ */
+export const CLASP_GLOW_MUL = 2.4;
+const GLOW_MUL = CLASP_GLOW_MUL;
 
 /**
  * How lit the shield is, 0 at rest and 1 while the player's own shield stands
@@ -116,34 +125,49 @@ export function drawClaspShield(
     );
     ctx.restore();
   } else {
-    // The floor: a lit membrane. A radial gradient that is transparent at the
-    // centre and brightest just inside the rim, which is the one shape that
-    // says "a surface around something" rather than "a ball".
-    const g = ctx.createRadialGradient(x, y, r * 0.35, x, y, r);
-    g.addColorStop(0, "rgba(67,196,85,0)");
-    g.addColorStop(0.72, `rgba(67,196,85,${0.1 + 0.08 * lit})`);
-    g.addColorStop(1, `rgba(67,196,85,${0.3 + 0.22 * lit})`);
+    // The floor: a lit shell. Three layers, and each one answers a clause of
+    // the reference the owner attached — a wide radiant glow around the ball,
+    // a body that is brightest just inside its own rim, and a honeycomb on
+    // the surface of it (`clasp-lattice.ts`).
+    //
+    // It stays a *membrane* rather than becoming an orb, and that is not
+    // timidity: the colour of the body inside is the word player 2 has to
+    // hear before the pair can act, so the centre of this gradient is still
+    // near-transparent however bright the rest of it gets.
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
+    // The radiant glow, well outside the ball. Wide and faint: it is what
+    // says "this thing is energised" from across a phone screen, where the
+    // rim itself is a couple of pixels.
+    halo(ctx, x, y, r * GLOW_MUL, hazed(cfg, body, near), 0.16 + 0.2 * lit);
+    const g = ctx.createRadialGradient(x, y, r * 0.3, x, y, r);
+    g.addColorStop(0, "rgba(67,196,85,0)");
+    g.addColorStop(0.62, `rgba(67,196,85,${0.14 + 0.1 * lit})`);
+    g.addColorStop(0.92, `rgba(67,196,85,${0.34 + 0.24 * lit})`);
+    g.addColorStop(1, `rgba(182,245,192,${0.42 + 0.3 * lit})`);
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
+    drawClaspLattice(ctx, x, y, r, time, lit);
   }
 
   // The rim, both ways: it is what reads at 26 px, where the frames' painted
   // veins have dissolved into mottling and the gradient is a soft nothing.
   ctx.save();
-  ctx.globalAlpha = 0.55 + 0.35 * lit;
-  ctx.strokeStyle = hazed(cfg, lit > 0 ? rim : body, near);
-  ctx.lineWidth = 1.2 + 0.9 * lit;
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha = 0.7 + 0.3 * lit;
+  ctx.strokeStyle = hazed(cfg, rim, near);
+  ctx.lineWidth = 1.4 + 0.9 * lit;
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 
-  // And a halo while it is answering the ship's shield, so the connection is
-  // visible from the other end of the column too.
-  if (lit > 0) halo(ctx, x, y, r * 1.5, hazed(cfg, body, near), 0.3 * lit);
+  // And a second, tighter halo while it is answering the ship's shield, so
+  // the connection is visible from the other end of the column too. It sits
+  // on top of the ball's own glow rather than replacing it: what changes when
+  // the two line up is how hard this is burning, not whether it is lit.
+  if (lit > 0) halo(ctx, x, y, r * 1.6, hazed(cfg, rim, near), 0.34 * lit);
 }

@@ -9,10 +9,10 @@ import { PALETTE } from "./palette.js";
  *
  * Its own file because `shield.ts` was already at the file-length limit —
  * the same reason `deflect-look.ts` sits beside `deflect.ts`, see that
- * commit's own message. `SHIELD_SPARK_LOOK` is inert at these values
- * (`perSecond: 0`): the shipped shield never calls `drawShieldSparks` for
- * anything visible, so lifting this capability into a record changes no
- * frame. See `docs/versus.md` and `tools/versus/candidates/shield-charge/`.
+ * commit's own message. These values are the shipped
+ * ones — the shield throws a few arcs the whole time it is on the field. That
+ * was an offer under `shield:charge` until the owner asked for it by name; the
+ * record stays a record because the shape of the arc is still worth patching.
  *
  * Nothing here is stored between calls. An arc's whole life — when it is
  * born, how it bends, when it dies — is read off `time` alone, the same way
@@ -48,16 +48,37 @@ export interface ShieldSparkLook {
   intensity: number;
 }
 
-/** The shipped shield: no arcs. */
+/**
+ * The shipped shield: a few thin arcs, always.
+ *
+ * Adopted from the `shield:charge` / `arcs` candidate on the owner's word —
+ * *"Where did the small default random lightlings from shield of ship went?
+ * […] it should be there all the time."* The record shipped inert
+ * (`perSecond: 0`) while the look was still an offer; these are that
+ * candidate's own values, unchanged, and the candidate directory is gone.
+ *
+ * Two numbers were set by the owner looking at the candidate on OTHER
+ * GRAPHICS and asking for less of it — *"1/3 high and 2 of them, which spawn
+ * on random positions on the line of the shield"*. So `reachMul` is a third of
+ * what the candidate offered, and `SLOTS` is 2 rather than 3. The spawn was
+ * already what was asked for: `drawShieldSparks` picks each arc's origin
+ * anywhere along the shield's own span.
+ *
+ * The rate is deliberately low on top of that: two independent timers each
+ * firing every second or two, each arc alive for a sixth of one. A shield that
+ * crackles continuously reads as a texture; one that spits now and then reads
+ * as a thing under load. `frame.test.ts` pins that share of time rather than
+ * leaving it to the next reader's eye.
+ */
 export const SHIELD_SPARK_LOOK: ShieldSparkLook = {
-  perSecond: 0,
+  perSecond: 1.4,
   life: 0.16,
-  reachMul: 0.85,
+  reachMul: 0.3,
   segments: 4,
-  jitter: 0.16,
-  forkChance: 0.4,
-  width: 1.4,
-  intensity: 1,
+  jitter: 0.18,
+  forkChance: 0.45,
+  width: 1.5,
+  intensity: 1.1,
 };
 
 /**
@@ -65,11 +86,10 @@ export const SHIELD_SPARK_LOOK: ShieldSparkLook = {
  *
  * This is the tell the owner asked for: *"the lightning bolts of the shield
  * become much taller, indicating to user that shield reacts on their shield."*
- * The arcs already existed here, switched off at `perSecond: 0` as a
- * `shield:charge` candidate; what was missing was a reason for them to fire,
- * and a clasp in the column is one. So the ambient shield is unchanged — the
- * shipped field draws no arcs, exactly as before — and the *only* time this
- * ship throws light off its rim is when it is answering something.
+ * The arcs already existed here, thrown at an ambient rate, and what a clasp
+ * in the column changes is how far they reach. So the two states are the same
+ * effect at two settings rather than a quiet rim and a separate event: the
+ * player already knows what that light is by the time it grows.
  *
  * `reachMul` is the number that carries "much taller", and it is the largest
  * multiple here on purpose: the rest of the arc's character stays the same so
@@ -98,9 +118,9 @@ export function resonantLook(base: ShieldSparkLook, resonance: number): ShieldSp
   };
 }
 
-/** A few independent timers rather than one, so arcs do not all fire on the
- * same clock — "a few small ones, irregularly" rather than a strobe. */
-const SLOTS = 3;
+/** Two independent timers rather than one, so the arcs never fire on the same
+ * clock — the owner's "2 of them", irregularly, rather than a strobe. */
+const SLOTS = 2;
 
 /** Deterministic, not `Math.random`: two devices reading the same `time`
  * draw the same arc, the way the rim's shimmer already does. */

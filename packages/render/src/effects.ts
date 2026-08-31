@@ -1,4 +1,4 @@
-import { colSpan, isMeteorKind, type SimConfig, type SimEvent } from "@neon-spore/sim";
+import { colSpan, isMeteorKind, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
@@ -175,12 +175,14 @@ export class Effects {
     this.spriteBursts.update(dt);
   }
 
-  /** Drawn under the hull, so a deflected rock passes behind nothing. */
-  draw(ctx: CanvasRenderingContext2D): void {
+  /** Drawn under the hull, so a deflected rock passes behind nothing. The
+   * world is here for the clasp transients alone — `drawOnBodies` says why. */
+  draw(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
     this.bodies.draw(ctx);
     this.spriteBursts.draw(ctx);
+    this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
 
   /**

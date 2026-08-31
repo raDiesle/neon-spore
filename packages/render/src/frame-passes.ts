@@ -71,7 +71,11 @@ export function drawBodies(
   drawBoss(ctx, l, view, effects);
   drawPods(ctx, l, world.pods, view.time);
   drawBullets(ctx, l, world.bullets);
-  effects.draw(ctx);
+  // Last of the pass, and over every body in it. The world goes in for the
+  // ward's bolts and the shell they take off a clasp: both are drawn around a
+  // creature the world still holds, from the same `creatureCenter` the body
+  // was — not from where the event happened to fire.
+  effects.draw(ctx, l, world, view.beatPhase);
 }
 
 /** The player's own hull, its controls, and the transients glued to them. */

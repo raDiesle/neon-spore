@@ -27,7 +27,7 @@ import { drawRadar } from "../src/field.js";
 import { gripLabel } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawShieldFlashes, SHIELD_FLASH_LOOK } from "../src/shield-flash.js";
-import { drawShieldSparks, SHIELD_SPARK_LOOK } from "../src/shield-spark.js";
+import { drawShieldSparks, resonantLook, SHIELD_SPARK_LOOK } from "../src/shield-spark.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -866,63 +866,55 @@ describe("the band draws the panel it is handed", () => {
 });
 
 /**
- * `shield-spark.ts` is a lift: `drawShieldRim` calls `drawShieldSparks` on
- * every frame now, where it called nothing before. The claim that changes no
- * frame rests entirely on `SHIELD_SPARK_LOOK.perSecond` starting at 0 — this
- * is the proof, not an assertion of it. `frame.test.ts`'s stub cannot hash
- * pixels (there is no rasteriser in `bun test`), so the honest version of
- * "identical" here is "made no canvas call at all": zero calls cannot have
- * drawn anything, whatever the arguments would have been.
+ * The shield's ambient arcs ship now — the owner asked for them back by name,
+ * so `SHIELD_SPARK_LOOK.perSecond` is no longer 0 and the record's old proof
+ * ("makes no canvas call at all") has nothing left to prove.
  *
- * The second test is the rhythm the queue entry asked for spent thought on,
- * pinned as a number rather than left to a reader's eye: a candidate's arcs
- * have to be visible often enough to notice and rare enough to still read as
- * *sudden* rather than as a steady crackle over the field.
+ * What replaces it is the pair of properties that actually matter about an
+ * effect that is on the screen for the whole game, and neither is safe to
+ * leave to the next reader's eye: it draws *something* at the shipped record,
+ * and it is off far more often than on. An arc that crackles continuously is a
+ * texture on the rim rather than a shield under load, and that failure is
+ * invisible in a still.
  */
 describe("the shield's ambient arcs (shield-spark.ts)", () => {
   const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
   const cols = [3, 3.4, 3.8, 4.1];
   const surface = (x: number) => ({ x, y: L.hullY });
 
-  it("draws nothing at the shipped record — the lift changes no frame", () => {
+  it("draws at the shipped record — the shield is never a dark rim", () => {
     const { ctx } = stubCanvas();
     for (let t = 0; t < 40; t += 0.1) {
       drawShieldSparks(ctx as unknown as CanvasRenderingContext2D, L, t, cols, surface);
     }
-    expect(ctx.calls).toBe(0);
+    expect(ctx.calls).toBeGreaterThan(0);
   });
 
-  it("fires only a few, briefly, once charged — not a steady crackle", () => {
-    const before = { ...SHIELD_SPARK_LOOK };
-    Object.assign(SHIELD_SPARK_LOOK, {
-      perSecond: 1.4,
-      life: 0.16,
-      reachMul: 0.9,
-      segments: 4,
-      jitter: 0.18,
-      forkChance: 0.45,
-      width: 1.5,
-      intensity: 1.1,
-    } satisfies typeof before);
-    try {
-      const dt = 1 / 60;
-      const duration = 20;
-      let framesLit = 0;
-      let total = 0;
-      for (let t = 0; t < duration; t += dt) {
-        const { ctx } = stubCanvas();
-        drawShieldSparks(ctx as unknown as CanvasRenderingContext2D, L, t, cols, surface);
-        total++;
-        if (ctx.calls > 0) framesLit++;
-      }
-      const share = framesLit / total;
-      // "A few small ones, irregularly" (docs/queue.md) — on often enough to
-      // notice, off far more often than on.
-      expect(share).toBeGreaterThan(0.02);
-      expect(share).toBeLessThan(0.35);
-    } finally {
-      Object.assign(SHIELD_SPARK_LOOK, before);
+  it("fires only a few, briefly — not a steady crackle", () => {
+    const dt = 1 / 60;
+    const duration = 20;
+    let framesLit = 0;
+    let total = 0;
+    for (let t = 0; t < duration; t += dt) {
+      const { ctx } = stubCanvas();
+      drawShieldSparks(ctx as unknown as CanvasRenderingContext2D, L, t, cols, surface);
+      total++;
+      if (ctx.calls > 0) framesLit++;
     }
+    const share = framesLit / total;
+    // "A few small ones, irregularly" (docs/queue.md) — on often enough to
+    // notice, off far more often than on.
+    expect(share).toBeGreaterThan(0.02);
+    expect(share).toBeLessThan(0.35);
+  });
+
+  it("reaches much further while a clasp is answering in the column", () => {
+    // The resonance the owner asked for, as the one number that carries it:
+    // the arcs grow rather than a second effect arriving.
+    expect(resonantLook(SHIELD_SPARK_LOOK, 1).reachMul).toBeGreaterThan(
+      SHIELD_SPARK_LOOK.reachMul * 3,
+    );
+    expect(resonantLook(SHIELD_SPARK_LOOK, 0).reachMul).toBe(SHIELD_SPARK_LOOK.reachMul);
   });
 });
 
