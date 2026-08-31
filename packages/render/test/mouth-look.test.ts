@@ -98,7 +98,7 @@ describe("the follow-through the world cannot say", () => {
     const fx = new Effects();
     expect(fx.layEcho.phase).toBe(0);
 
-    fx.ingest(fired, L, 0, () => 0, BEAT_SECONDS);
+    fx.ingest(fired, L, 0, () => 0, CFG);
     // 1 on the tick of departure, so it joins the world's own countdown
     // exactly where that countdown stops.
     expect(fx.layEcho.phase).toBe(1);
@@ -114,16 +114,16 @@ describe("the follow-through the world cannot say", () => {
 
   it("runs out rather than sitting at 2, so a resting mouth is a resting mouth", () => {
     const fx = new Effects();
-    fx.ingest(fired, L, 0, () => 0, BEAT_SECONDS);
+    fx.ingest(fired, L, 0, () => 0, CFG);
     fx.update(BEAT_SECONDS, L);
     expect(fx.layEcho.phase).toBe(0);
   });
 
   it("starts again on the next shot", () => {
     const fx = new Effects();
-    fx.ingest(fired, L, 0, () => 0, BEAT_SECONDS);
+    fx.ingest(fired, L, 0, () => 0, CFG);
     fx.update(BEAT_SECONDS * 0.4, L);
-    fx.ingest(fired, L, 0, () => 0, BEAT_SECONDS);
+    fx.ingest(fired, L, 0, () => 0, CFG);
     expect(fx.layEcho.phase).toBe(1);
   });
 });

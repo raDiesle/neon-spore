@@ -143,6 +143,11 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   damageLure: "HULL — damage and repair",
   lureVanishRows: "THE LURE — a body only one of you can see through",
   scoreThrobHit: "SCORE",
+  scoreClaspBreak: "SCORE",
+  // Beats, not milliseconds, and it changes nothing the simulation decides —
+  // how long the broken shield goes on flying apart after the body under it
+  // is already an ordinary slick or bulb (`clasp.ts`).
+  claspBreakBeats: "GUARD — the shared defence",
   scoreShellPiece: "SCORE",
   throbPeriodBeats: "THROB — open for one beat in every few",
   throbOpenBeats: "THROB — open for one beat in every few",

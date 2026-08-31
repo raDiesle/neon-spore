@@ -63,6 +63,18 @@ export interface LobePositions {
 export interface HullMood {
   /** 0..1 towards the shield held open. */
   armed: number;
+  /**
+   * 0..1 while a clasp is standing in the shield's own column: the ship's
+   * half of the link, drawn as arcs off the shield's rim (`resonantLook` in
+   * `shield-spark.ts`).
+   *
+   * It sits beside `armed` and is a different question. `armed` is *this
+   * player pressed the trigger*; this is *there is something up the field
+   * that your shield can open*, which is true whether or not anybody has
+   * pressed anything, and is the only prompt either player gets that the two
+   * of them are lined up on the same column.
+   */
+  resonance?: number;
   /** 0..1 towards the cannon lobe turned inside out — the maw. */
   intake: number;
   /** 0..1 while the skin around the maw comes apart over a pod. */

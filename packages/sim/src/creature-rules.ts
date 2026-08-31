@@ -1,3 +1,4 @@
+import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import type { Creature, CreatureKind } from "./types.js";
@@ -54,6 +55,13 @@ export function throbIsOpen(cfg: SimConfig, beat: number): boolean {
  * builds one: `queueFromWave` fills it from the authored colour.
  */
 export function wornKind(c: Creature): CreatureKind {
+  // A clasp is drawn as the body inside it, with its shield laid over the top
+  // by render/ — so the contour, the own-motion and the interior are the
+  // slick's or the bulb's for free, and the transformation changes no pixel of
+  // the body when it lands. `claspBecomes` is the same call the break makes,
+  // which is what stops the thing you were looking at and the thing you get
+  // from ever being two different bodies.
+  if (c.kind === "clasp") return claspBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

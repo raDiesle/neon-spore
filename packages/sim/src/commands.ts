@@ -1,4 +1,5 @@
 import { fire } from "./bullets.js";
+import { breakClaspsInColumn } from "./clasp.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { endPrime, startPrime } from "./lance.js";
@@ -70,6 +71,11 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "guard":
       world.guardTick = world.tick;
       mirrorHeard(world, "guard");
+      // The same press, reaching up its own column instead of down at the
+      // hull. `resolveHull` answers rocks on one row because a rock has to
+      // arrive first; a clasp is opened wherever it stands, which is what
+      // makes the shield a column rather than a plate (`clasp.ts`).
+      breakClaspsInColumn(world);
       break;
     case "intake":
       world.intakeTick = world.tick;

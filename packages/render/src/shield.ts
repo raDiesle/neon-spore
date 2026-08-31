@@ -183,6 +183,7 @@ export function drawShieldRim(
   time: number,
   at: LobePositions,
   surface: (x: number) => Point,
+  resonance = 0,
 ): void {
   if (at.shield.length === 0) return;
   const w = WARD_LOOK;
@@ -209,8 +210,8 @@ export function drawShieldRim(
     w.intensityBase + w.intensityArmed * armed,
   );
   ctx.globalAlpha = 1;
-  // Ambient presence, not the catch — see shield-spark.ts, shield-flash.ts.
-  drawShieldSparks(ctx, l, time, cols, surface);
+  // Presence, not the catch; `resonance` is the exception — `resonantLook`.
+  drawShieldSparks(ctx, l, time, cols, surface, resonance);
   drawShieldFlashes(ctx, l, time, cols, surface);
 }
 

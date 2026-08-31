@@ -60,6 +60,44 @@ export const SHIELD_SPARK_LOOK: ShieldSparkLook = {
   intensity: 1,
 };
 
+/**
+ * The shield standing under a clasp, as a look rather than as a second effect.
+ *
+ * This is the tell the owner asked for: *"the lightning bolts of the shield
+ * become much taller, indicating to user that shield reacts on their shield."*
+ * The arcs already existed here, switched off at `perSecond: 0` as a
+ * `shield:charge` candidate; what was missing was a reason for them to fire,
+ * and a clasp in the column is one. So the ambient shield is unchanged — the
+ * shipped field draws no arcs, exactly as before — and the *only* time this
+ * ship throws light off its rim is when it is answering something.
+ *
+ * `reachMul` is the number that carries "much taller", and it is the largest
+ * multiple here on purpose: the rest of the arc's character stays the same so
+ * that what grew is legible as one property changing rather than as a
+ * different effect arriving.
+ *
+ * A boolean would have done, and the parameter is a 0..1 number so the other
+ * end of the connection can be lit by the same value — `claspResonance` in
+ * `clasp.ts` feeds both, which is what makes this read as one link forming
+ * rather than as two things separately noticing each other.
+ */
+export function resonantLook(base: ShieldSparkLook, resonance: number): ShieldSparkLook {
+  const t = Math.max(0, Math.min(1, resonance));
+  return {
+    ...base,
+    // From nothing, since the shipped ambient rate is zero and this look must
+    // work whether or not `shield:charge` is ever adopted.
+    perSecond: base.perSecond + 9 * t,
+    life: 0.2,
+    reachMul: base.reachMul + 2.2 * t,
+    segments: 5,
+    jitter: 0.2,
+    forkChance: 0.55,
+    width: base.width + 0.4 * t,
+    intensity: base.intensity,
+  };
+}
+
 /** A few independent timers rather than one, so arcs do not all fire on the
  * same clock — "a few small ones, irregularly" rather than a strobe. */
 const SLOTS = 3;
@@ -88,8 +126,9 @@ export function drawShieldSparks(
   time: number,
   cols: readonly number[],
   surface: (x: number) => Point,
+  resonance = 0,
 ): void {
-  const look = SHIELD_SPARK_LOOK;
+  const look = resonance > 0 ? resonantLook(SHIELD_SPARK_LOOK, resonance) : SHIELD_SPARK_LOOK;
   if (look.perSecond <= 0 || cols.length === 0) return;
   const colMin = Math.min(...cols);
   const colMax = Math.max(...cols);

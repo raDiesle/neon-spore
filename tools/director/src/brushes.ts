@@ -56,13 +56,20 @@ function livingStroke(kind: CreatureKind): string {
 
 /**
  * The shape-sheet cards a brush's own card draws. A kind's own name for every
- * kind but one: a lure has no contour of its own — it is drawn as the body it
- * wears — so its card draws both, the way a two-subject brush already means
- * "this resolves to either". `livingKinds` in the sheet leaves it out for the
- * same reason, and a card here naming "LURE" would draw a blank.
+ * kind but two, and both exceptions are the same fact: a lure has no contour
+ * of its own — it is drawn as the body it wears — so its card draws both, the
+ * way a two-subject brush already means "this resolves to either".
+ * `livingKinds` in the sheet leaves it out for the same reason, and a card
+ * here naming "LURE" would draw a blank.
+ *
+ * A clasp is the second. It is drawn as the slick or the bulb inside it with a
+ * shield over the top, and the shield is a membrane rather than a contour, so
+ * the sheet has no CLASP card either and a brush asking for one draws nothing.
+ * Which of the two it resolves to is the authored colour, exactly as it is for
+ * a lure — and after the ward lands it *is* one of them (`clasp.ts`).
  */
 function cardSubjects(kind: CreatureKind): string[] {
-  if (kind === "lure") return ["SLICK", "BULB"];
+  if (kind === "lure" || kind === "clasp") return ["SLICK", "BULB"];
   return [kind.toUpperCase()];
 }
 

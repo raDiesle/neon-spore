@@ -1,3 +1,4 @@
+import { kindCode } from "./creature-kinds.js";
 import { BOSS_KINDS } from "./entries.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
@@ -116,6 +117,13 @@ export function hashWorld(world: World): number {
   push(world.creatures.length);
   for (const c of world.creatures) {
     push(c.id);
+    // Which body this is. Not needed while every creature died the kind it
+    // was born: the wave's queue fixed that on both devices. THE CLASP turns
+    // into a slick or a bulb mid-fall, on a trigger (`clasp.ts`), so two
+    // devices can now hold one body at one row in one colour and disagree
+    // about whether its shield is still on. Without this the fingerprints
+    // would match while one player shoots what the other cannot hit.
+    push(kindCode(c.kind));
     push(c.col);
     push(c.row);
     push(c.color === null ? 0 : c.color === "red" ? 1 : 2);

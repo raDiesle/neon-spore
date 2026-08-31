@@ -1,4 +1,5 @@
 import { chargeMilli, ticksPerBeat, type World } from "@neon-spore/sim";
+import { claspResonanceIn } from "./clasp.js";
 import { Effects } from "./effects.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { drawGaugeRound } from "./gauge-round.js";
@@ -165,7 +166,7 @@ export class Canvas2DRenderer implements Renderer {
         const c = world.creatures.find((x) => x.col === col && x.row === row);
         return c ? c.id : 0;
       },
-      60 / world.cfg.bpm,
+      world.cfg,
     );
     this.effects.update(view.dt, l);
 
@@ -184,6 +185,10 @@ export class Canvas2DRenderer implements Renderer {
     const laying = chargeMilli(world) / 1000;
     const mood: HullMood = {
       armed: this.armed,
+      // Read straight off the world every frame rather than stored: it is a
+      // fact about where two things are standing right now, and a cached copy
+      // would be a second answer to a question the world already answers.
+      resonance: claspResonanceIn(world),
       intake: this.intake,
       chew: this.effects.chew,
       charge: this.effects.charge,

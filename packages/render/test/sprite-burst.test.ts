@@ -105,7 +105,7 @@ describe("a shot that killed what it hit", () => {
     const target = ctx as unknown as CanvasRenderingContext2D;
     const fx = new Effects();
     fx.spriteBursts.install(ATLAS);
-    fx.ingest(DESTROY, L, 0, () => 1, 60 / DEFAULT_CONFIG.bpm);
+    fx.ingest(DESTROY, L, 0, () => 1, DEFAULT_CONFIG);
     const before = ctx.calls;
     fx.spriteBursts.draw(target);
     expect(ctx.calls - before).toBe(1);
@@ -115,7 +115,7 @@ describe("a shot that killed what it hit", () => {
     const { ctx } = stubCanvas();
     const target = ctx as unknown as CanvasRenderingContext2D;
     const fx = new Effects();
-    fx.ingest(DESTROY, L, 0, () => 1, 60 / DEFAULT_CONFIG.bpm);
+    fx.ingest(DESTROY, L, 0, () => 1, DEFAULT_CONFIG);
     const before = ctx.calls;
     fx.spriteBursts.draw(target);
     expect(ctx.calls - before).toBe(0);
@@ -127,7 +127,7 @@ describe("a shot that killed what it hit", () => {
     const fx = new Effects();
     fx.spriteBursts.install(ATLAS);
     fx.spriteBursts.setEnabled(false);
-    fx.ingest(DESTROY, L, 0, () => 1, 60 / DEFAULT_CONFIG.bpm);
+    fx.ingest(DESTROY, L, 0, () => 1, DEFAULT_CONFIG);
     const before = ctx.calls;
     fx.spriteBursts.draw(target);
     expect(ctx.calls - before).toBe(0);

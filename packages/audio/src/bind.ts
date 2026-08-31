@@ -194,6 +194,17 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    case "claspBreak":
+      // The same cue THE SHELL's last piece gets, and for the same reason: a
+      // covering coming off a body that goes on falling. It is deliberately
+      // not `impact.split` — that is the sound of a piece leaving something
+      // still armoured, and a clasp has exactly one covering, so there is no
+      // "another one" for the ear to have to tell this from.
+      return {
+        id: "creature.moult",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "lureHit":
       // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
       // the right thing, and this is the one hit that must not be mistaken

@@ -1,6 +1,6 @@
 import type { MazeVerdictReason } from "./maze-round.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
-import type { Color, Creature, PodKind } from "./types.js";
+import type { Color, Creature, CreatureKind, PodKind } from "./types.js";
 
 /**
  * Everything the simulation reports about a tick, and the whole of what it
@@ -121,4 +121,16 @@ export type SimEvent =
    * landed in. Nothing knew this colour a tick ago — it is drawn at the break
    * (`shell-round.ts`), which is the only honest way to say so.
    */
-  | { type: "shellBare"; col: number; row: number; color: Color };
+  | { type: "shellBare"; col: number; row: number; color: Color }
+  /**
+   * A clasp was opened by the ward and is now the body it was hiding. `kind`
+   * is what it *became*, not what it was: by the time anything reads this the
+   * creature is already a slick or a bulb, and an event naming the old kind
+   * would be describing something that no longer exists on the field.
+   *
+   * `color` is the body's, and it was never a secret — a clasp is visibly red
+   * or cyan through its shield the whole way down, so that player 2 can be
+   * told which trigger to load before the shield is anywhere near it. Absent
+   * only for a colourless clasp, which nothing authors.
+   */
+  | { type: "claspBreak"; col: number; row: number; kind: CreatureKind; color?: Color };

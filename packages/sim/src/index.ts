@@ -26,6 +26,7 @@ export {
   readyHoldTicks,
   seatReady,
 } from "./briefing.js";
+export { breakClaspsInColumn, claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export { DEFAULT_CONFIG, hullRow, PAIR_ON, type SimConfig, ticksPerBeat } from "./config.js";
 export { lureIsSpent, lureVanishRow, throbIsOpen, wornKind } from "./creature-rules.js";
 export {

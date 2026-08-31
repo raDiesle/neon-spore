@@ -164,6 +164,17 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
    * render/ (`depth.ts`).
    */
   depthHaze: number;
+  /**
+   * Opening a clasp with the ward. Between `scoreDestroy` and `scoreDeflect`:
+   * the same joint shape as a deflection, but it only sets the kill up.
+   */
+  scoreClaspBreak: number;
+  /**
+   * Beats the broken shield goes on flying apart for. Render-only — the sim
+   * opens a clasp on the instant of the trigger — but a `SimConfig` field
+   * because it is counted in beats, and the beat is the sim's.
+   */
+  claspBreakBeats: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -196,6 +207,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDeflect: 150,
   scoreWave: 300,
   scorePod: 250,
+  scoreClaspBreak: 120,
+  claspBreakBeats: 2,
   damageLure: 15,
   lureVanishRows: 2,
   scoreThrobHit: 200,

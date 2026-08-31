@@ -13,6 +13,7 @@ import {
   type World,
   wornKind,
 } from "@neon-spore/sim";
+import { claspResonance, drawClaspShield } from "./clasp.js";
 import { drawDetails } from "./creature-detail.js";
 import { creatureCenter } from "./creature-place.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
@@ -43,6 +44,7 @@ export function drawCreatures(
   beatPhase: number,
   time: number,
   blocked: ReadonlyMap<number, number>,
+  claspImage: CanvasImageSource | null = null,
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
@@ -69,6 +71,23 @@ export function drawCreatures(
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
     else drawLiving(ctx, l, c, x, y, beats, time, blocked.get(c.id) ?? 0, world.cfg, near);
+    // The clasp's shield goes on *after* the body, because it is a membrane
+    // around one and not a substitute for one — `wornKind` has already drawn
+    // the slick or the bulb inside, in its own colour, which is what player 2
+    // has to be able to read through it (`clasp.ts`).
+    if (c.kind === "clasp") {
+      drawClaspShield(
+        ctx,
+        l,
+        world.cfg,
+        x,
+        y,
+        time,
+        near,
+        claspResonance(world.shieldCol, c.col),
+        claspImage,
+      );
+    }
     ctx.restore();
   }
 }

@@ -24,6 +24,21 @@ export const PALETTE = {
   /** The one thing in the game that goes right: a Simon round answered in
    * full. Nothing else is ever green, which is what makes it read instantly. */
   good: "#3BFF9E",
+  /**
+   * THE CLASP's shield, and the one deliberate exception to the line above.
+   *
+   * The rule was put to the owner when this creature was designed — green is
+   * the colour reserved for a Simon round answered in full, and an
+   * untouchable enemy in it is a direct collision — and the answer was that
+   * the collision is acceptable. So it stands, with the distance carried by
+   * the hue rather than by the rule: `good` is a bright mint that only ever
+   * appears as a flash on the ship's own row, and this is the deep emerald of
+   * the hand-painted frames in `assets/gallery/shield/green-shield/`, which
+   * only ever appears wrapped around a body up the field. Nothing draws both
+   * at once.
+   */
+  claspShield: "#43C455",
+  claspShieldRim: "#B6F5C0",
   goodRim: "#C7FFE4",
   sparkDim: "#8B85AB",
 } as const;

@@ -102,6 +102,15 @@ export const MECHANICS = {
     what: "This one holds the shield armed for six beats with no trigger at all.",
     reach: "spawn",
   },
+  clasp: {
+    what: "Shots bounce off it. The shield in its column, triggered, takes the shield off — and what is left is an ordinary slick or bulb that still has to be shot.",
+    reach: "spawn",
+    // A wave names this kind explicitly and gives it a colour, the way it
+    // does for a lure: the colour is the body *inside*, and it decides what
+    // the clasp becomes (`livingKindForColor`), so an entry without one would
+    // be authoring a body with no answer.
+    waveNames: true,
+  },
   gauge: {
     what: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
     reach: "spawn",

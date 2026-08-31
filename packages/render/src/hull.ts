@@ -190,7 +190,7 @@ export function drawHull(
     crackArrived,
   );
   drawCraters(ctx, openCraters);
-  drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x));
+  drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x), mood.resonance ?? 0);
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
   drawMuzzle(ctx, f, l, mood.intake, skin_);

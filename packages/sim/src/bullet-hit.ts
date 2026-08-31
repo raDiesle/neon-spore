@@ -1,4 +1,5 @@
 import { markMoment } from "./balance.js";
+import { claspIsShielded, claspStruck } from "./clasp.js";
 import { costHull } from "./hull.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
@@ -42,6 +43,10 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "lure") {
     resolveLure(world, b, hit);
+    return false;
+  }
+  if (claspIsShielded(hit)) {
+    claspStruck(world, hit);
     return false;
   }
   if (hit.kind === "throb") {

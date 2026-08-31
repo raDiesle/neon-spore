@@ -78,6 +78,15 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // is the one moment the pair has no way to have seen coming.
     case "shellBare":
       return at(l, e.col, e.row, 20, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+    // A clasp opened by the ward. The shield came apart, so the burst is the
+    // shield's own colour and not the body's — the body did not break, it was
+    // uncovered, and it is standing there in its colour a frame later for
+    // anyone who needs reminding which trigger to load. Sized between a
+    // shell piece and a bare core: bigger than chipping something, smaller
+    // than the reveal `shellBare` is, because nothing was revealed here that
+    // was not already visible through the shield the whole way down.
+    case "claspBreak":
+      return at(l, e.col, e.row, 14, PALETTE.claspShield);
 
     // Everything below is drawn some other way, or not drawn as a burst at
     // all, and says so rather than falling through a default that could not

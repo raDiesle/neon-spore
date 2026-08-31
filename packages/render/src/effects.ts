@@ -1,12 +1,12 @@
-import { colSpan, isMeteorKind, type SimEvent } from "@neon-spore/sim";
+import { colSpan, isMeteorKind, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
+import { BodyTransients } from "./effects-body.js";
 import { ingestBreach } from "./effects-breach.js";
 import { burstFor } from "./effects-spark.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { LureVanishFx } from "./lure-vanish.js";
 import { PALETTE } from "./palette.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -40,8 +40,8 @@ export class Effects {
   private queenShakeUntil = 0;
   /** Which impacts have visibly landed — see `arrivals.ts`. */
   private arrivals = new Arrivals();
-  /** A lure folding to a point, two rows short of the hull — `lure-vanish.ts`. */
-  private lureVanish = new LureVanishFx();
+  /** The two transients that belong to one body — `effects-body.ts`. */
+  private bodies = new BodyTransients();
   /**
    * THE MIRROR's own transients. Public because the boss is drawn as a whole
    * ship rather than as a handful of particles: `canvas2d` reads `armed` and
@@ -93,11 +93,14 @@ export class Effects {
     l: Layout,
     time: number,
     creatureIdAt: (col: number, row: number) => number,
-    beatSeconds: number,
+    cfg: SimConfig,
   ): void {
+    // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
+    // parameter saying the same number is how two clocks start.
+    const beatSeconds = 60 / cfg.bpm;
     this.mirror.ingest(events);
     this.warden.ingest(events);
-    this.lureVanish.ingest(events, l);
+    this.bodies.ingest(events, l, cfg, beatSeconds);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);
@@ -168,7 +171,7 @@ export class Effects {
     this.layEcho.update(dt);
     this.mirror.update(dt);
     this.warden.update(dt);
-    this.lureVanish.update(dt);
+    this.bodies.update(dt);
     this.spriteBursts.update(dt);
   }
 
@@ -176,7 +179,7 @@ export class Effects {
   draw(ctx: CanvasRenderingContext2D): void {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
-    this.lureVanish.draw(ctx);
+    this.bodies.draw(ctx);
     this.spriteBursts.draw(ctx);
   }
 
@@ -224,7 +227,7 @@ export class Effects {
     this.layEcho.clear();
     this.mirror.clear();
     this.warden.reset();
-    this.lureVanish.clear();
+    this.bodies.clear();
     this.spriteBursts.clear();
   }
 

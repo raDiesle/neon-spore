@@ -80,10 +80,23 @@ export function blob(name: string, s: CreatureSilhouette, note?: string): Subjec
  * drawing a shape already on the sheet, and `nameability.ts` said so the
  * moment it was let in — it found the lure and the slick identical on all
  * three axes, which is not a defect in the shape but the whole creature.
+ *
+ * **`clasp` is excluded for the same reason and a different creature.** It
+ * also draws through `wornKind`, so its body is a slick or a bulb; what makes
+ * it a clasp is the shield laid over the top, which `render/clasp.ts` draws
+ * after `drawLiving` has finished and which is not a contour at all. The
+ * catalogue is a sheet of *silhouettes*, and a membrane around one is not a
+ * second silhouette. `nameability.ts` found this one too, on the same three
+ * axes and within a minute of it existing.
  */
 export function livingKinds(): CreatureKind[] {
   return (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => kind !== "tether" && kind !== "lure" && !isBossBody(kind) && !isMeteorKind(kind),
+    (kind) =>
+      kind !== "tether" &&
+      kind !== "lure" &&
+      kind !== "clasp" &&
+      !isBossBody(kind) &&
+      !isMeteorKind(kind),
   );
 }
 

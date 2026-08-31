@@ -78,6 +78,25 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    name: "THE CLASP",
+    sentence: "The one where the shield opens the enemy instead of stopping it.",
+    guide: {
+      both: "A slick or a bulb inside a shield of its own. Shots bounce off it — the only thing that opens one is the ward, aimed up the field instead of down at the hull. What is left is an ordinary body in the colour you could see the whole time, and it still has to be shot.",
+      p1: "Your strip says where they come in. Trigger while the shield is under one and it comes apart. But the shield is in one column at a time and the rocks want it too — say which you are spending it on.",
+      p2: "Put the shield in the column your partner names and hold it. Do not fire until the shield is off: a shot at a shut clasp is wasted. The colour shows through, so you can be loaded before it opens.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "clasp", color: "cyan" },
+      { beat: 6, col: 1, kind: "clasp", color: "red" },
+      { beat: 12, col: 5, kind: "clasp", color: "red" },
+      { beat: 13, col: 1, kind: "meteor", color: null },
+      { beat: 20, col: 2, kind: "clasp", color: "cyan" },
+      { beat: 21, col: 6, kind: "meteorMedium", color: null },
+      { beat: 28, col: 4, kind: "clasp", color: "cyan" },
+      { beat: 28, col: 0, color: "red" },
+    ],
+  },
+  {
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     guide: {

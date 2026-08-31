@@ -1,6 +1,9 @@
+import type { CreatureKind } from "./creature-kinds.js";
+
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
+export { CREATURE_KINDS, type CreatureKind, kindCode } from "./creature-kinds.js";
 export type { RockKind } from "./kinds.js";
 export {
   clampSpanCol,
@@ -14,37 +17,6 @@ export {
   spanCenterCol,
   WARDEN_COLS,
 } from "./kinds.js";
-
-export type CreatureKind =
-  | "slick"
-  | "bulb"
-  | "meteor"
-  | "meteorMedium"
-  | "meteorFast"
-  | "meteorFaster"
-  | "meteorFastest"
-  | "torch"
-  | "queen"
-  | "warden"
-  | "tether"
-  /** A slick or a bulb on player 1's screen and a lure on player 2's: `wears`
-   * is which body, `resolveLure` what a shot costs, `lureIsSpent` when it
-   * goes. One truth here; the disguise belongs to render/ alone. */
-  | "lure"
-  /**
-   * Swells and shrinks on the shared beat instead of carrying a colour.
-   * `throbOpen` on the `Creature` says whether this beat is one it can be hit
-   * on — see `throbIsOpen` in `creature-rules.ts`, which is the only place
-   * that cycle is decided.
-   */
-  | "throb"
-  /**
-   * Armoured, two columns wide, and wearing one piece of shell in front of
-   * each. Any colour chips a piece off; the body underneath has no colour at
-   * all until the last one goes, and then it has one neither player has ever
-   * seen. `shell.ts` holds the arithmetic and `shell-round.ts` the two phases.
-   */
-  | "shell";
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:

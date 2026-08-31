@@ -1,5 +1,6 @@
+import type { CreatureKind } from "./creature-kinds.js";
 import { SHELL_COLS } from "./shell.js";
-import type { Color, Creature, CreatureKind } from "./types.js";
+import type { Color, Creature } from "./types.js";
 
 /**
  * What a `CreatureKind` *means*: which colour goes with which body, how fast

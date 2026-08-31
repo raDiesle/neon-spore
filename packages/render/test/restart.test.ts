@@ -46,7 +46,7 @@ describe("a wave restart", () => {
     const { ctx } = stubCanvas();
     const used = new Effects();
 
-    used.ingest(BUSY, L, 0, () => 42, BEAT_SECONDS);
+    used.ingest(BUSY, L, 0, () => 42, CFG);
     // Draw as well as ingest: the impacts only reach their `onArrive` — and so
     // the arrival latch — from inside `draw`, so ingesting alone would leave
     // the one collection this whole guard exists for empty.
