@@ -2,6 +2,7 @@ import { detectRasterCaps } from "@neon-spore/render";
 import { button, el } from "./checks-dom.js";
 import { apngCard, capsTable, DEMO_W, stripCard, waysCard, webpCard } from "./raster-cards.js";
 import { hitDemo, powerupDemo } from "./raster-demos.js";
+import { drawPlay, playSection } from "./raster-play.js";
 
 /**
  * The RASTER tab: a baked animation, offered beside the field's procedural
@@ -72,6 +73,7 @@ export function mountRasterTab(): void {
     ),
   );
 
+  page.appendChild(playSection());
   page.appendChild(threeWaysSection());
   page.appendChild(powerupSection());
   page.appendChild(hitSection());
@@ -179,6 +181,9 @@ let drawn = false;
 export function drawRaster(): void {
   if (drawn) return;
   drawn = true;
+
+  const play = document.getElementById("rasterPlayMount");
+  if (play) drawPlay(play);
 
   const ways = document.getElementById("rasterWaysMount");
   if (ways) {

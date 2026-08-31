@@ -47,6 +47,15 @@ export class SpriteBursts {
   private image: CanvasImageSource | null = null;
   private sheet: SpriteSheet = BURST_SHEET;
   private live: LiveBurst[] = [];
+  /**
+   * Off turns the baked burst back into what shipped, without unloading the
+   * atlas — a comparison a person makes by tapping, on a field that keeps
+   * running underneath. `docs/decisions.md` #24 asks for alternatives that are
+   * comparable *at once*, and a toggle over a live world is the closest a
+   * single phone-shaped field gets: nothing rebuilds, nothing reloads, and the
+   * wave does not go back to its first beat to answer the question.
+   */
+  private enabled = true;
 
   /**
    * Hands the renderer a decoded atlas. Until this is called the class draws
@@ -63,6 +72,12 @@ export class SpriteBursts {
     return this.image !== null;
   }
 
+  /** Whether the atlas, once installed, is actually drawn. */
+  setEnabled(on: boolean): void {
+    this.enabled = on;
+    if (!on) this.clear();
+  }
+
   /** Drop everything in flight. For a restart — see `Effects.reset`. */
   clear(): void {
     this.live.length = 0;
@@ -70,7 +85,7 @@ export class SpriteBursts {
 
   /** One burst, centred, at the size it should cover. Ignored with no atlas. */
   spawn(x: number, y: number, size: number): void {
-    if (!this.image) return;
+    if (!this.image || !this.enabled) return;
     this.live.push({ x, y, size, age: 0 });
   }
 

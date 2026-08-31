@@ -276,7 +276,20 @@ hit — beside the sparks that already shipped, not instead of them. Everything
 transient is cleared by `Effects.reset()` on a wave restart, which
 `packages/render/test/restart.test.ts` enforces.
 
+The director's RASTER tab opens on **PLAY IT**: the shipping renderer against
+a real `World`, at the real tick rate, answering a finger through the same
+`touch.ts` the phone calls — a wave picker, a restart, and a switch that puts
+the baked burst in and out live. That switch is the whole point of the
+section. A burst on a 300 px card with nothing else moving always looks good;
+the question is whether it reads at 26 px objects, over a hull, under a HUD,
+at tempo, while a rock is falling. `docs/decisions.md` #24 asks for
+alternatives that are comparable at once, and a toggle over a field that keeps
+running is as close as one phone-shaped rectangle gets.
+
 **What is still open** is the only thing a sandbox cannot answer: whether the
-burst *reads* on a phone at 26 px objects, and whether it is better than the
-sparks it sits on top of. That is the owner's call, and both are on the
-director's RASTER page and behind `?raster=1` for them to look at.
+burst *reads*, and whether it is better than the sparks it sits on top of.
+What the sandbox can say is that the chain works — a shot fired through that
+panel's own handle killed a creature and the frame that followed carried the
+burst, 821 near-white pixels against 181 with the switch off. What it cannot
+say is that a violet burst belongs on a red creature. That is the owner's
+call, on the RASTER tab or in the game at `?raster=1`.
