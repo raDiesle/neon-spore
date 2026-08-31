@@ -101,6 +101,11 @@ export const ANIMATED_WEBP_PROBE = "data:image/webp;base64,${base64(probeWebp)}"
   console.log(`burst.apng       ${kb(apng.length)}`);
   console.log(`burst.webp       ${kb(webp.length)}`);
   console.log(`probes           apng ${probeApng.length} B, webp ${probeWebp.length} B`);
+  console.log(
+    "\nrestart any running `bun run dev` / `bun run preview` — a live dev " +
+      "server caches the old bytes at this same path and will not notice " +
+      "these files changed on disk.",
+  );
 }
 
 await main();

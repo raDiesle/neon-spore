@@ -274,6 +274,15 @@ bun run raster          # regenerate assets/raster/ from the generator
 bun run raster:verify   # open them in Chromium; check every frame decodes
 ```
 
+**Restart any running `bun run dev` or `bun run preview` afterwards.** The
+files change in place, at the same path, and a live dev server's asset
+bundler — and a browser tab's own HTTP cache — have no signal that they
+changed on disk; both keep answering with whatever bytes they already served.
+`bun run raster` prints the reminder itself for exactly this reason. A cold
+`bun run build:game` or `bun run raster:verify` never has this problem: the
+production build content-hashes the filename, so a changed file is a changed
+URL and there is nothing to go stale.
+
 In the game, `?raster=1` fetches and installs the atlas; without the flag
 nothing is fetched at all. In the renderer:
 
