@@ -4,7 +4,7 @@ import { drawBoss } from "./boss-draw.js";
 import { drawWaveOpening } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
-import { drawDartArrows } from "./dart.js";
+import { drawDartGuides } from "./dart-path.js";
 import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGrips } from "./grip.js";
@@ -67,9 +67,10 @@ export function drawBodies(
   // `drawCreatures` ever has to know which seat it is running on.
   drawLureAlarms(ctx, l, world, view.beatPhase);
   // Player 2's other half-picture, on the same terms and for the same reason:
-  // the arrow says which way a dart goes next, and player 1 — who holds the
-  // cannon that has to be standing there — is never shown it.
-  drawDartArrows(ctx, l, world, view.beatPhase);
+  // the arrow, the dotted legs and the placeholder say where a dart is going
+  // and where it goes after that, and player 1 — who holds the cannon that has
+  // to be standing there — is shown none of it.
+  drawDartGuides(ctx, l, world, view.beatPhase, view.time);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);

@@ -83,21 +83,20 @@ export interface Creature {
    */
   shell: number;
   /**
-   * Which way a dart is concerned with: `-1` left, `1` right, absent on every
-   * other kind. It means the direction of travel while the body is moving and
-   * the direction of the *next* move while it hangs — `dartFloat` is which.
+   * The dart's three fields, and `dart.ts` is the whole of what they mean.
+   * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
+   * `dartNext` the side of the move after that — rolled a beat early, which is
+   * what lets a path be previewed while the body is still in the air — and
+   * `dartFloat` says which beat of the two it is on: true while it hangs.
    *
-   * Never read directly: `dartHeading` in `dart.ts` is the rule, because the
-   * lean, the jet and player 2's arrow are three pictures of one number and a
-   * second copy of the fallback is how they come to disagree.
+   * Read the two sides through `dartHeading` and `dartNextHeading`, never
+   * directly: the lean, the jet, the arrow and the previewed legs are five
+   * pictures of two numbers, and a second copy of the fallback is how they
+   * come to disagree.
    */
   dartDir?: DartDir;
-  /**
-   * True on the beat a dart hangs, false on the beat it travels. One bit, and
-   * it is the whole of the rhythm: a move is only ever taken out of a float,
-   * and a float only ever out of a move (`stepDart`).
-   */
   dartFloat?: boolean;
+  dartNext?: DartDir;
 }
 
 export interface Bullet {

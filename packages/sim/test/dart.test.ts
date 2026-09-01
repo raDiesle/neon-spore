@@ -7,6 +7,7 @@ import {
   DEFAULT_CONFIG,
   dartFits,
   dartHeading,
+  dartNextHeading,
   dartPickDir,
   dartStepCol,
   hashWorld,
@@ -154,6 +155,51 @@ describe("the dart on the field", () => {
     }
   });
 
+  it("knows the next side a whole beat before it takes it", () => {
+    // The property the arrow, the dotted legs and the placeholder all rest on:
+    // what `dartNext` says while the body is still in the air is the side the
+    // body actually leaves on, not a guess that gets re-rolled on arrival.
+    const world = createWorld({ ...CFG }, 0, [dart(5)]);
+    for (let b = 0; b < 12; b++) {
+      const c = world.creatures[0];
+      if (!c) break;
+      const promised = dartNextHeading(c);
+      const wasFloat = c.dartFloat === true;
+      const from = c.col;
+      for (let t = 0; t < TPB; t++) step(world, []);
+      const after = world.creatures[0];
+      if (!after) break;
+      if (wasFloat) {
+        // It has just moved. The side it promised is still the side it will
+        // leave on, untouched by the move.
+        expect(dartNextHeading(after)).toBe(promised);
+      } else {
+        // It has just landed and is aiming. What it is aiming is what it
+        // promised a beat ago, from this very column.
+        expect(dartHeading(after)).toBe(promised);
+        expect(after.col).toBe(from);
+      }
+    }
+  });
+
+  it("rolls the next side from the column that move will start in", () => {
+    // Which is what keeps a previewed path honest at the edge: a side rolled
+    // from the wrong column can be one `dartStepCol` then has to clamp, and
+    // the drawn leg would bend where the body will not.
+    for (const start of [0, 1, CFG.cols - 2, CFG.cols - 1]) {
+      const world = createWorld({ ...CFG }, 3, [dart(start)]);
+      for (let b = 0; b < 10; b++) {
+        const c = world.creatures[0];
+        if (!c) break;
+        const startsIn = c.dartFloat ? dartStepCol(c.col, CFG.cols, dartHeading(c)) : c.col;
+        const landsIn = dartStepCol(startsIn, CFG.cols, dartNextHeading(c));
+        // Unclamped: the roll was offered only sides that fit.
+        expect(landsIn).toBe(startsIn + DART_COLS * dartNextHeading(c));
+        for (let t = 0; t < TPB; t++) step(world, []);
+      }
+    }
+  });
+
   it("turns back inward instead of flattening against an edge", () => {
     // From column 0 there is only one whole move, so wherever the rolls fall
     // the body has to come back in — and it has to still be on the field.
@@ -272,5 +318,12 @@ describe("the dart on the field", () => {
     const c = b.creatures[0]!;
     c.dartDir = dartHeading(c) === 1 ? -1 : 1;
     expect(hashWorld(b)).not.toBe(hashWorld(a));
+
+    // And the side after it, which is a fact about the world from the moment
+    // it is rolled rather than a hint render/ keeps to itself.
+    const d = fly([dart(5)], 3);
+    const e = d.creatures[0]!;
+    e.dartNext = dartNextHeading(e) === 1 ? -1 : 1;
+    expect(hashWorld(d)).not.toBe(hashWorld(a));
   });
 });

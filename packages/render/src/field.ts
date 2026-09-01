@@ -126,6 +126,10 @@ function drawTiles(ctx: CanvasRenderingContext2D, l: Layout, flash: number): voi
  * coming. Height encodes order — the closer to the edge, the sooner. There are
  * deliberately no trajectory lines inside the field, not even for meteors
  * (docs/spec/systems.md 5.8), because reading the field out loud is the game.
+ *
+ * The dart is the one exception and it is not a loophole: its column *expires*
+ * while you are saying it, so `dart-path.ts` draws where it is going — on one
+ * screen only, and never the screen holding the cannon that has to be there.
  */
 export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World, time = 0): void {
   const lead = world.cfg.radarLead;

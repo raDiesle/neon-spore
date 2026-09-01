@@ -92,6 +92,17 @@ interface Copy {
   pattern: RegExp;
   /** Whether to strip comments and strings before testing. Defaults to true. */
   strip?: boolean;
+  /**
+   * Other files the pattern is allowed in, because they own a neighbouring
+   * rule written out of the same pieces. One entry, today: the pose clock and
+   * the contour clock are both spread by `bodyPhase`, and the file that owns
+   * the second one cannot be written without naming the first.
+   *
+   * Never a way to quiet a row. A file here is a file that *defines*
+   * something, and the reviewer's question about a new entry is which rule it
+   * owns — if the answer is "none", the row is right and the file is wrong.
+   */
+  also?: string[];
 }
 
 /**
@@ -226,6 +237,25 @@ const COPIES: Copy[] = [
     owner: "packages/content/src/own-motion.ts",
     pattern: /\bbodyPhase\s*\([^)]*\)\s*\*/,
     strip: false,
+    also: ["packages/render/src/creature-place.ts"],
+  },
+  {
+    // The contour clock, which is `poseClock`'s twin and was three copies of
+    // itself when this row was written: `time + bodyPhase(id) * 5.4` stood in
+    // `creatures.ts` and in `shell-draw.ts`, and was about to stand in
+    // `dart-path.ts` — where the outline of the tile a dart is about to land
+    // in has to wobble at exactly the moment the body does, or the body
+    // visibly does not fit the hole drawn for it.
+    //
+    // The pattern is the *call*, not the arithmetic, which is what the row
+    // above could not be: a hand-rolled clock evades `bodyPhase(...) *` by
+    // putting the spread in a local first, and that is exactly how two of the
+    // three copies were written.
+    call: "contourClock",
+    owner: "packages/render/src/creature-place.ts",
+    pattern: /\bbodyPhase\s*\(/,
+    strip: false,
+    also: ["packages/content/src/own-motion.ts"],
   },
   {
     call: "touchDown",
@@ -335,8 +365,10 @@ describe("no re-derived rules", () => {
       expect(copy.pattern.test(code)).toBe(true);
     });
 
+    const allowed = new Set([ownerPath, ...(copy.also ?? []).map((f) => join(ROOT, f))]);
+
     for (const file of files) {
-      if (file === ownerPath) continue;
+      if (allowed.has(file)) continue;
 
       const name = relative(ROOT, file).replaceAll("\\", "/");
       it(`${name} calls ${copy.call} instead of re-deriving it`, async () => {

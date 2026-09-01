@@ -1,4 +1,4 @@
-import { bodyPhase, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
+import { livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
   SHELL_COLS,
@@ -8,7 +8,7 @@ import {
   type World,
   wornKind,
 } from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
+import { contourClock, creatureCenter } from "./creature-place.js";
 import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -90,8 +90,7 @@ function drawOne(
   const row = drawnRow(c, beatPhase);
   const k = depthScale(cfg, l, row);
   const near = nearness(l, row);
-  const spread = bodyPhase(c.id);
-  const t = time + spread * 5.4;
+  const t = contourClock(c.id, time);
   const pose = livingMotion(look).poseAt(poseClock(c.id, beats));
   const ox = pose.dx * l.tile;
   const oy = pose.dy * l.tile;

@@ -136,6 +136,9 @@ export function hashWorld(world: World): number {
     // a body came from is a fact about the picture and not about the world.
     push(c.dartDir ?? 0);
     push(c.dartFloat ? 1 : 0);
+    // And the side after that one, which is rolled a beat early and is
+    // therefore already a fact about the world rather than a guess about it.
+    push(c.dartNext ?? 0);
   }
 
   push(world.bullets.length);

@@ -91,9 +91,15 @@ machine (see THE LURE, ON THE BEAT and THE DART waves, and
 whole of why it was worth a silhouette. Everything before it fell straight
 down, so a column said out loud stayed true until the thing landed; a dart
 makes that sentence expire after one beat. It moves on a two-beat cycle — a
-diagonal of two rows and two columns to one side, then one beat hanging with
-the next side already chosen — and only player 2 is shown which side, by an
-arrow over the body that player 1's screen never draws. Both colours wear the
+diagonal of two rows and two columns to one side, then one beat hanging — and
+the side of a move is rolled a whole beat before the move takes it, so the
+*next* diagonal is knowable while the current one is still being flown. Only
+player 2 is shown any of it, and player 1's screen draws none of it: an arrow
+on the tile the next move starts from, a dotted two-legged path, and the
+dart's own contour drawn hollow on the tile it is about to stand in — which
+the body lands inside, and which then steps forward to the next tile along the
+path. It is the field's only trajectory line, and it is on one screen because
+the seat that has to stand the cannon in that column is the other one. Both colours wear the
 one silhouette, which is the "one kind, one colour" rule spent deliberately:
 the shape is new because the *behaviour* is new, and what the pair has to say
 about a dart is the same sentence in either colour.

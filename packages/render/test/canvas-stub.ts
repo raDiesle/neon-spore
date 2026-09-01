@@ -75,6 +75,8 @@ export class StubContext {
   private _strokeStyle: unknown = "#000000";
   private _lineWidth = 1;
   private _globalAlpha = 1;
+  private _lineDash: number[] = [];
+  private _lineDashOffset = 0;
   font = "10px sans-serif";
   textAlign = "start";
   lineCap = "butt";
@@ -114,6 +116,31 @@ export class StubContext {
   }
   get globalAlpha(): number {
     return this._globalAlpha;
+  }
+
+  /**
+   * A dash pattern, which a browser takes silently and then draws nothing
+   * from if a number in it is not finite or is negative — the exact shape of
+   * failure this stub exists for. `lineDashOffset` is a plain number and gets
+   * the same treatment through its setter below.
+   */
+  setLineDash(pattern: number[]): void {
+    if (!Array.isArray(pattern)) fail("setLineDash", "pattern is not an array");
+    nums("setLineDash", pattern);
+    for (const v of pattern) {
+      if (v < 0) fail("setLineDash", `dash ${v} is negative`);
+    }
+    this._lineDash = pattern.slice();
+  }
+  getLineDash(): number[] {
+    return this._lineDash.slice();
+  }
+  set lineDashOffset(v: number) {
+    nums("lineDashOffset", [v]);
+    this._lineDashOffset = v;
+  }
+  get lineDashOffset(): number {
+    return this._lineDashOffset;
   }
 
   save(): void {}

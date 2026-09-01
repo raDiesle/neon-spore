@@ -1,6 +1,6 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
-import { dartPickDir, stepDart } from "./dart.js";
+import { dartOnSpawn, stepDart } from "./dart.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
@@ -127,14 +127,12 @@ export function onBeat(world: World): void {
       // there is no instant at which anything — render included — could have
       // shown the pair something they were not meant to know yet.
       shell: shellOnSpawn(entry.kind),
-      // A dart arrives already aiming: it enters on a float beat, so the arrow
-      // is over it on player 2's screen for the whole of the glide in and the
-      // first diagonal comes out of a beat the pair had to talk through. The
-      // side is rolled here, from the world's own stream, which is why
-      // `rng.state` being in `hashWorld` already covers it.
-      ...(entry.kind === "dart"
-        ? { dartFloat: true, dartDir: dartPickDir(world.rng, col, world.cfg.cols) }
-        : {}),
+      // A dart arrives already aiming, and already knowing the move after
+      // that: it enters on a float beat, so the arrow and the previewed path
+      // are over it on player 2's screen for the whole of the glide in. Both
+      // sides are rolled here, from the world's own stream, which is why
+      // `rng.state` being in `hashWorld` already covers them.
+      ...(entry.kind === "dart" ? dartOnSpawn(world, col) : {}),
     });
     world.spawned += 1;
   }

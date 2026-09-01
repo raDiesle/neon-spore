@@ -39,7 +39,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   dart: {
-    what: "It never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, and in between it hangs for one beat with the next side already chosen — shown to one of you and not the other.",
+    what: "It never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, and in between it hangs for one beat. Where it is going, and where it goes after that, is on one of your screens and not the other: an arrow, a dotted path and a hole on the tile it is about to stand in.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the dart's and the colour is which cannon

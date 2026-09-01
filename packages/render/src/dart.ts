@@ -1,5 +1,4 @@
-import { type Creature, dartHeading, type World } from "@neon-spore/sim";
-import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { type Creature, dartHeading } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -7,7 +6,9 @@ import { PALETTE } from "./palette.js";
 /**
  * Everything about a dart that is a picture rather than a rule: the lean that
  * says where it is going, the jet that says it is going now, and the arrow
- * player 2 sees and player 1 does not.
+ * player 2 sees and player 1 does not. Where those marks are *placed* — and
+ * the dotted legs and the placeholder that go with the arrow — is
+ * `dart-path.ts` next door; this file is the marks themselves.
  *
  * The rule itself is one number on the creature — `dartDir`, read through
  * `dartHeading` — and all three of these are drawn off that one call, on
@@ -23,8 +24,13 @@ import { PALETTE } from "./palette.js";
  * the other is a word, and the word is the half only player 2 has.
  */
 
-/** How far the body tips while it hangs and takes aim, in radians. */
-const LEAN_HOLD = 0.3;
+/**
+ * How far the body tips while it hangs and takes aim, in radians. Exported
+ * because `dart-path.ts` draws the placeholder in a fraction of this pose —
+ * an outline leaning at a second, hand-typed angle is an outline the body does
+ * not settle into.
+ */
+export const LEAN_HOLD = 0.3;
 /** How far it tips at the deepest point of the run. */
 const LEAN_RUN = 0.62;
 
@@ -72,7 +78,7 @@ export function dartThrust(c: Creature, beatPhase: number): number {
 }
 
 /** The body's own light, and the grey for a dart that somehow carries none. */
-function dartHex(c: Creature): string {
+export function dartHex(c: Creature): string {
   if (c.color === "red") return PALETTE.red;
   return c.color === "cyan" ? PALETTE.cyan : PALETTE.sparkDim;
 }
@@ -157,7 +163,7 @@ export function drawDartJet(
 }
 
 /**
- * Whether this screen carries the arrows. Player 1 never does — that is the
+ * Whether this screen carries the arrow, the legs and the placeholder. Player 1 never does — that is the
  * whole creature — and `test` does, because it is both seats on one screen and
  * a rig that hid half the picture would be no rig. The same shape
  * `showsLureAlarm` has, and for the same reason.
@@ -166,28 +172,9 @@ export function showsDartArrow(l: Layout): boolean {
   return l.role !== "p1";
 }
 
-export function drawDartArrows(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  beatPhase: number,
-): void {
-  if (!showsDartArrow(l)) return;
-  for (const c of world.creatures) {
-    // Only while it hangs. On the beat it runs, `dartDir` is where it is
-    // already going and the picture says so by itself — an arrow there would
-    // be labelling the present, and the pair would learn to read it one beat
-    // late.
-    if (c.kind !== "dart" || !c.dartFloat) continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    const r = creatureRadius(l, c, beatPhase, world.cfg);
-    drawArrow(ctx, x, y, r, dartHeading(c), dartHex(c));
-  }
-}
-
 /**
- * One arrow, above the body and pointing down the diagonal it will take —
- * down and to the side, never flat. The angle is the statement: "left" from
+ * One arrow, above a tile and pointing down the diagonal a move out of that
+ * tile takes — down and to the side, never flat. The angle is the statement: "left" from
  * this creature has always meant *down* and left, and an arrow lying flat
  * would be teaching the pair a different word for the same move.
  *
@@ -196,7 +183,7 @@ export function drawDartArrows(
  * white of `lure-alarm.ts` is spent and must stay spent: that marking means
  * *do not shoot*, and this one is not a warning at all.
  */
-function drawArrow(
+export function drawDartArrow(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,

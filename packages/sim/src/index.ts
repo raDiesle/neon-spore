@@ -35,6 +35,7 @@ export {
   type DartDir,
   dartFits,
   dartHeading,
+  dartNextHeading,
   dartPickDir,
   dartStepCol,
 } from "./dart.js";

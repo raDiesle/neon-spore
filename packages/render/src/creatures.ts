@@ -1,10 +1,4 @@
-import {
-  blobPath,
-  bodyPhase,
-  livingMotion,
-  livingSilhouette,
-  poseClock,
-} from "@neon-spore/content";
+import { blobPath, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
   isBossBody,
@@ -15,7 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { drawDetails } from "./creature-detail.js";
-import { creatureCenter } from "./creature-place.js";
+import { contourClock, creatureCenter } from "./creature-place.js";
 import { dartFlip, dartLean, drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
@@ -136,14 +130,14 @@ function drawLiving(
     neutral ? PALETTE.rockDark : c.color === "red" ? PALETTE.redDark : PALETTE.cyanDark,
   );
 
-  // Variation without randomness in the simulation: the id is deterministic on
-  // both devices, so two screens shake the same creature the same way.
-  const spread = bodyPhase(c.id);
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its
   // excursion is a couple of percent of a radius — a fraction of a pixel of
-  // disagreement, against the fifth of a lane the pose was worth.
-  const t = time + spread * 5.4;
+  // disagreement, against the fifth of a lane the pose was worth. Variation
+  // without randomness in the simulation lives inside `contourClock`: the id
+  // is deterministic on both devices, so two screens shake the same creature
+  // the same way.
+  const t = contourClock(c.id, time);
   const r = l.tile * 0.4;
   // The Throb's whole "swells and shrinks" tell: bigger while `throbOpen` is
   // true (a shot lands), smaller while it is shut (a shot does nothing) — the

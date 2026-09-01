@@ -1,3 +1,4 @@
+import { bodyPhase } from "@neon-spore/content";
 import {
   type Creature,
   DEFAULT_CONFIG,
@@ -33,6 +34,22 @@ export function creatureCenter(
   // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
   // sim/types.ts) — every kind is drawn at its visual centre.
   return { x: tileCX(l, spanCenterCol(c.kind, drawnCol(c, beatPhase))), y: tileCY(l, row) };
+}
+
+/**
+ * The seconds a body's contour wobble is sampled at — the wall clock, spread
+ * by the body's own phase so that two creatures on the same row are not one
+ * shape drawn twice.
+ *
+ * Not `poseClock`, which is the *beat* a body's own-motion is read at and is
+ * a rule in `content/own-motion.ts`. This is the wobble in `blobPath`, and it
+ * is here rather than at a draw site because there are now two of those: the
+ * body `creatures.ts` fills, and the outline `dart-path.ts` strokes on the
+ * tile that body is about to stand in. An outline sampled at a different
+ * moment than the body is an outline the body visibly does not fit.
+ */
+export function contourClock(id: number, time: number): number {
+  return time + bodyPhase(id) * 5.4;
 }
 
 /**

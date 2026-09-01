@@ -51,10 +51,10 @@ export type CreatureKind =
   /**
    * The first body that does not hold its lane. It never falls straight down:
    * every other beat it takes a diagonal two rows and two columns to one side
-   * or the other, and in between it hangs for exactly one beat with the next
-   * side already chosen. Only player 2 is shown which. `dart.ts` holds the
-   * cycle, `Creature.dartDir` and `Creature.dartFloat` are the whole of its
-   * state.
+   * or the other, and in between it hangs for exactly one beat. Both the side
+   * it is taking and the one after it are chosen a beat ahead, and only player
+   * 2 is shown either. `dart.ts` holds the cycle; `Creature.dartDir`,
+   * `Creature.dartNext` and `Creature.dartFloat` are the whole of its state.
    */
   | "dart";
 
