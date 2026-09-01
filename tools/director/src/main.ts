@@ -24,6 +24,7 @@ import {
   CREATURE_BRUSHES,
   currentWave,
   isCreaturePlacementBlocked,
+  paint,
   refuse,
   type Store,
 } from "./state.js";
@@ -68,26 +69,18 @@ const setStatus = (text: string, cls = ""): void => {
 
 let grid: GridPanel | null = null;
 const stage = bindStage(store, cfg, (beat) => grid?.mark(beat));
-// Which cell of the map is under the author's attention. Held here rather than
-// in `Store` because a save never carries it — see `selection.ts`.
+// Which cell of the map is under the author's attention — see `selection.ts`.
 const selection = makeSelection();
-const palette = bindPalette(() => cells.render(), hiddenBrushes);
+const palette = bindPalette({ selection, hidden: hiddenBrushes, onPaint: paintSelected });
 grid = bindGrid(
   store,
   () => cfg,
-  palette,
   onShape,
   (beat) => stage.seek(beat),
   selection,
 );
-// The panel under the map: what the selected cell holds, the two removals, and
-// the per-entry fields to come — see `cell-panel.ts`.
-const cells: CellPanel = bindCellPanel({
-  store,
-  selection,
-  brush: { current: () => palette.current(), pick: (b) => palette.pick(b) },
-  onEdit: onShape,
-});
+// The panel under the map: what the selected cell holds — see `cell-panel.ts`.
+const cells: CellPanel = bindCellPanel({ store, selection, onEdit: onShape });
 const boss: BossPanel = bindBossPanel(store, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
@@ -123,8 +116,7 @@ bindDemoPanel(
 // straight to this tab finds the listener already wired.
 bindGuidesTab();
 
-// `.hint` text defaults to hidden — the name is usually enough, and the full
-// blurb is one click away in CREATURES. Persisted like the tuning presets.
+// `.hint` text defaults to hidden — the name is usually enough, and the full blurb is one click away in CREATURES. Persisted like the tuning presets.
 const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";
 
 function bindBrushHints(): void {
@@ -144,6 +136,15 @@ function bindBrushHints(): void {
 }
 bindBrushHints();
 
+// Paint the selected cell with a brush — a no-op with nothing selected.
+function paintSelected(brush: Brush): void {
+  const wave = currentWave(store);
+  const at = selection.at();
+  if (!wave || !at) return;
+  paint(wave, at.beat, at.col, brush);
+  store.dirty = true;
+  onShape();
+}
 // Brushes the current wave has no use for, so the palette knows what to hide.
 function hiddenBrushes(): ReadonlySet<Brush> {
   const wave = currentWave(store);

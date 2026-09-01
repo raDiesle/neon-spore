@@ -1,42 +1,49 @@
+import { brushArt } from "./brush-art.js";
 import { readActiveCategory, writeActiveCategory } from "./brush-category.js";
 import { brushTooltip } from "./brush-tooltip.js";
+import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
 
 export interface Palette {
-  current(): Brush;
-  /**
-   * Hold a brush without clicking its button — the ERASE button under the map
-   * is a brush selector that is not in this bar (`cell-panel.ts` says why it
-   * moved), so it needs a way in that does not go through an element.
-   */
-  pick(brush: Brush): void;
   render(): void;
 }
 
+export interface PaletteOptions {
+  /** Which cell a brush click paints. */
+  selection: Selection;
+  /** Brushes the current wave has no use for — a boss wave has no use for the
+   * three that place a living creature or a rock. Hiding the button is the
+   * visible half of the guard; `paint` in state.ts holds the other half, so a
+   * selection carried over from another wave cannot place one either. */
+  hidden(): ReadonlySet<Brush>;
+  /** Paint the selected cell with a brush and settle everything an edit
+   * touches — a wave rebuild, the status line, the stage. A no-op when
+   * nothing is selected: a brush has nowhere to land until a tile does. */
+  onPaint(brush: Brush): void;
+}
+
 /**
- * `hidden` names brushes the current wave has no use for — a boss wave has no
- * use for the three that place a living creature or a rock. Hiding the button
- * is the visible half of the guard; `paint` in state.ts holds the other half,
- * so a selection carried over from another wave cannot place one either.
+ * The palette: a rail of category tabs and, under the one that is open, a
+ * button per brush.
+ *
+ * **A brush is not held.** Clicking one paints the tile already selected on
+ * the map and stops there — the button never stays lit, and nothing lingers
+ * to paint a second cell by accident. Selecting is the map's job (a click on
+ * a cell, `grid.ts`) and painting is the palette's; a wave author points at a
+ * tile, then names what goes in it, and that naming is exactly how the panel
+ * under the map is reached for whatever was already there — select first,
+ * and its options are already on screen, no separate "pick this thing" step
+ * required.
  */
-export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>): Palette {
+export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Palette {
   const categoryBar = document.getElementById("brushCategories");
   const brushBar = document.getElementById("brushes");
-  // The first brush in bestiary order, not a hardcoded colour — the bestiary
-  // no longer starts with a coloured kind on any guarantee.
-  let brush: Brush = BRUSHES[0]?.brush ?? "erase";
   let category: string | null = readActiveCategory();
 
   const render = (): void => {
     if (!categoryBar || !brushBar) return;
     const hide = hidden();
-    // The selection may have just become hidden by a wave switch; fall back to
-    // the first brush still on offer rather than leaving a dead one selected.
-    if (hide.has(brush)) {
-      const first = BRUSHES.find((b) => !hide.has(b.brush));
-      if (first) brush = first.brush;
-    }
 
     // A group every brush of which the current wave hides — the boss-panel
     // creature groups on a boss wave — drops out entirely, tab and all,
@@ -78,15 +85,22 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
       if (!b) continue;
       const button = document.createElement("button");
       button.type = "button";
-      button.className = b.brush === brush ? "brush on" : "brush";
-      // Hovering names the wave that first introduces what the brush
-      // paints — see `brush-tooltip.ts`. A brush that paints nothing
-      // (`ERASE`) gets no answer and no attribute.
-      const tooltip = brushTooltip(b.brush);
-      if (tooltip) button.title = tooltip;
+      button.className = "brush";
+      // The wave that first introduces what the brush paints, and the
+      // brush's own description under it — both in the tooltip, so hovering
+      // says the same thing whether or not SHOW DESCRIPTIONS is on.
+      const wave = brushTooltip(b.brush);
+      const lines = [wave, b.note].filter((l): l is string => Boolean(l));
+      if (lines.length) button.title = lines.join("\n");
 
-      for (const subject of b.subjects) {
-        button.appendChild(silhouette(subject, b.stroke, 34));
+      // The button's own picture — a settled frame of the real renderer
+      // where this module has one (`brush-art.ts`), the plain contour
+      // otherwise.
+      const art = brushArt(b.brush);
+      if (art) {
+        button.appendChild(art);
+      } else {
+        for (const subject of b.subjects) button.appendChild(silhouette(subject, b.stroke, 34));
       }
 
       const text = document.createElement("div");
@@ -100,22 +114,13 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
       button.appendChild(text);
 
       button.addEventListener("click", () => {
-        brush = b.brush;
-        render();
-        onPick();
+        if (!selection.at()) return;
+        onPaint(b.brush);
       });
       brushBar.appendChild(button);
     }
   };
 
   render();
-  return {
-    current: () => brush,
-    pick: (next) => {
-      brush = next;
-      render();
-      onPick();
-    },
-    render,
-  };
+  return { render };
 }

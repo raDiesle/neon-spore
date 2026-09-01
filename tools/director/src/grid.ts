@@ -1,7 +1,6 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import { bindGridPods, podGlyph } from "./grid-pods.js";
-import type { Palette } from "./palette.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import {
@@ -11,7 +10,6 @@ import {
   currentWave,
   entryAt,
   eraseAt,
-  paint,
   podAt,
   podBrushOf,
   type Store,
@@ -19,8 +17,8 @@ import {
 
 /**
  * How long a press has to be held before it empties the cell under it. The
- * gesture exists for the phone, where there is no `Delete` key and the ERASE
- * brush costs a trip to the panel and back for a single correction.
+ * gesture exists for the phone, where there is no `Delete` key and DELETE
+ * under the map costs a trip there and back for a single correction.
  *
  * Long enough not to fire on a tap somebody meant as a paint stroke, short
  * enough to be discovered by accident — which is the only way anybody ever
@@ -44,7 +42,6 @@ export interface GridPanel {
 export function bindGrid(
   store: Store,
   cfg: () => SimConfig,
-  palette: Palette,
   onEdit: () => void,
   onSeek: (beat: number) => void,
   selection: Selection,
@@ -174,12 +171,10 @@ export function bindGrid(
         held = false;
         return;
       }
-      // Select first: painting is what may be refused — a creature brush on a
-      // boss wave — and a cell nobody can paint is still one worth looking at.
+      // Selects and nothing more — painting is the palette's job now
+      // (`palette.ts`). A click here is how a tile is pointed at, whether
+      // that is to place something in it or to see what is already there.
       selection.set({ beat: b, col: c });
-      paint(wave, b, c, palette.current());
-      store.dirty = true;
-      onEdit();
     });
     return button;
   };
