@@ -32,11 +32,11 @@ import { renderWaveOpening } from "./wave-opening.js";
 
 // The director: one screen where a wave is placed, played and judged — not
 // the game, and the stage runs the shipping renderer through `computeStage`.
-// The hull holds while a wave is judged; `briefings: true` corrects
-// `DEFAULT_CONFIG`'s own default (off, for determinism and shape sheets —
-// see `config-pair.ts`), and `#briefToggle` (`pair-panel.ts`) turns it off
-// again per session.
-const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true };
+// The hull holds while a wave is judged; `briefings` stays at `DEFAULT_CONFIG`'s
+// own default (off, for determinism and shape sheets — see `config-pair.ts`),
+// so the stage opens straight on the wave. `#briefToggle` (`pair-panel.ts`)
+// turns it on per session for whoever is judging a wave's opening card.
+const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 
 // Every column of `<main>` gets a collapse handle via `[data-column]` — see
 // `columns.ts`. On a phone the four columns become three views instead, and
