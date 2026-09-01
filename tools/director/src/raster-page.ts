@@ -1,5 +1,5 @@
 import { detectRasterCaps } from "@neon-spore/render";
-import { button, el } from "./checks-dom.js";
+import { button, el } from "./dom.js";
 import { drawGallery, gallerySection } from "./gallery-page.js";
 import { apngCard, capsTable, DEMO_W, stripCard, waysCard, webpCard } from "./raster-cards.js";
 import { hitDemo, powerupDemo } from "./raster-demos.js";

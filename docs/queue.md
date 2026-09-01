@@ -1,54 +1,42 @@
 # Queue
 
-The ordered work an unattended run walks. First in the file is next to be done.
+Work that has been decided on and not yet done. First in the file is next.
 
-It is not the outstanding list — `bun run checks` derives that from the
-`Check:` trailers, and every row of it is an obligation somebody incurred by
-landing something. It is not `docs/parked.md` either, which is ideas nobody
-has decided on. This is the middle one: **decided, not yet done**.
+It is worked **by hand, one session at a time**: the owner picks an entry, opens
+a session on it, and deletes the entry from this file in the commit that
+finishes it. Nothing here is ticked, nothing records progress, and no tool reads
+this file to decide what to do next. There used to be one — `bun run burn` read
+this as a board and drove lanes off it — and it went with the rest of the
+unattended machinery.
 
-An entry leaves by being **deleted**, once its branch is on `main`. Nothing
-here is ticked, and nothing here records progress — a lane is done when its
-branch is an ancestor of the trunk, which git can be asked and a file cannot.
-`bun run burn` asks. `docs/autonomous.md` has the rest.
+It is not `docs/release-notes.md`, which records what already landed and is
+closed. It is not `docs/parked.md`, which is ideas nobody has decided on. This
+is the middle one: **decided, not yet done**.
 
-**Every entry says who wanted it, on its own line under the branch.** Either
-**Asked for by the owner.** or **Proposed by the run.**, those two words and no
-third option — a run that has read a spec file and found a gap is proposing,
-however obvious the gap. That label is the first sort key: the owner asks are
-worked before anything the run thought of, and a new entry that cannot honestly
-carry the first label is filed below every entry that can.
+**Every entry says who wanted it.** Either **Asked for by the owner.** or
+**Proposed by the run.**, those two words and no third option — a session that
+has read a spec file and found a gap is proposing, however obvious the gap.
+That label is the first sort key: the owner's asks are worked before anything a
+session thought of, and a new entry that cannot honestly carry the first label
+is filed below every entry that can.
 
 The label is not a ranking of quality. Several of the proposed entries below
-are better ideas than the reports above them, and that is exactly why the
-labelling exists — designing is more enjoyable than fixing, so work the run
+are better ideas than the ones above them, and that is exactly why the
+labelling exists — designing is more enjoyable than fixing, so work a session
 invented rises on its own unless something holds it down.
 
-**A lane may not change what the game already draws.** CLAUDE.md's *A look is
+**An entry may not change what the game already draws.** CLAUDE.md's *A look is
 offered, never replaced* binds every entry in this file: a new colour, a new
 animation or a different shape is written as an alternative on the NOT BUILT
 YET pages, beside the shipped one, and the owner decides by looking. A brief
 that would replace a look outright is a brief that has been written wrong, and
 the three narrow exemptions are named there rather than here.
 
-**What the owner asked for outranks what a run decided to do next.** The
-order is not a judgement about which work is better; it is about where the
-work came from. A brief that can point at something the owner said — *CILIA is
-slow*, *shadow and light in the game*, *I cannot tell what combines with what*
-— goes above one derived from a spec file, a `--candidates` sweep or a session
-noticing a gap while it was passing. Both are legitimate work and the second
-kind is often the more interesting, which is exactly why it drifts to the top
-on its own if nothing holds it down.
-
-So a run refilling this file sorts on that first and on everything else
-second, and a new entry that cannot name an owner ask is filed below every one
-that can, however obvious it feels while writing it. A lane whose brief does
-not say where it came from is a lane nobody can sort later.
-
-The italic line under each heading is `branch · the paths that lane owns`. Two
-lanes may not own the same path. The files everything wants — `config.ts`,
-`world.ts`, `canvas2d.ts`, `apps/game/src/main.ts` — are owned by nobody: add
-to one in a single contiguous region and expect to replay over somebody else.
+The italic line under a heading, where one is present, names the paths that
+entry expects to touch. It used to be `branch · the paths that lane owns`, and
+the ownership half was load-bearing when two lanes ran side by side — nothing
+runs side by side now, so it is read as prose: a note about blast radius, and a
+branch name nobody is bound by.
 
 ## COLLECT AND CONVERT A SECOND GAME'S BODIES
 _claude/convert-second-game · tools/shape-sheet/src/forms tools/shape-sheet/src/drafts tools/shape-sheet/test docs/tower-defence.md_
@@ -87,32 +75,7 @@ Each lands as a **free** contour, never a `draft`: a draft names an idea in
 counted assertions in `drawn-size.test.ts` and `long-axis.test.ts`; both say in
 their own headers that the denominator moves when a body is added.
 
-`Check: on the SHAPES tab, does each converted body read as the thing it was converted from — and does it still read at 26 px?`
-
-## LANDING PRINTS THE COMMAND THAT MAKES AN ORPHAN
-_claude/land-verified-removal · tools/land tools/land/test_
-**Proposed by the run.** The half `749911e` could not reach: it owned
-`tools/checks` and not `tools/land`.
-
-`749911e` taught the sweep to verify a removal instead of trusting it, and to
-find directories git no longer knows about. `bun run land` was not in its
-paths, and land is where the orphan is actually made.
-
-Land deletes the branch itself, then **prints `git worktree remove <path>` for
-somebody to run by hand.** That command is the one with the fault: on Windows
-it fails to delete the directory while a handle is still held, drops the
-registry entry anyway, and leaves a full checkout on disk that git believes is
-gone. Measured immediately after the sweep lane landed — the printed command
-was run verbatim, failed exactly that way, and the orphan it made was then
-found and removed by the sweep the same commit had just added. The tool
-repaired damage its sibling had told a person to cause.
-
-Land should do the removal itself, with the retry-and-verify that now lives in
-`tools/checks/sweep.ts`, and print a path only when it genuinely could not
-remove one. The guarantee does not change: a tree with uncommitted work is
-left alone and named, never forced.
-
-`Check: land a lane — is its worktree folder gone from disk when the landing finishes, with no command left for you to run?`
+_Judge it by looking: on the SHAPES tab, does each converted body read as the thing it was converted from — and does it still read at 26 px?_
 
 ## THE BURR IS A SEA URCHIN AND ITS OWN CHECK SAYS SO
 _claude/burr-or-pommel · tools/shape-sheet/src/forms/studded.ts tools/shape-sheet/src/drafts/tower-defence.ts tools/shape-sheet/src/retired.ts tools/shape-sheet/test docs/tower-defence.md_
@@ -137,4 +100,4 @@ the part that is already settled either way: `studded`'s doc comment claims
 `blunt: 1` "flattens into a cap", and a caller reading that will keep expecting
 a club out of it. Say there what the form cannot do, and point at `clubbed`.
 
-`Check: on the SHAPES tab, is there one body from that screenshot rather than two — and does the retired one's reason say why it lost?`
+_Judge it by looking: on the SHAPES tab, is there one body from that screenshot rather than two — and does the retired one's reason say why it lost?_

@@ -1,7 +1,7 @@
 import type { RasterCaps } from "@neon-spore/render";
 import apngUrl from "../../../assets/raster/burst.apng";
 import webpUrl from "../../../assets/raster/burst.webp";
-import { el } from "./checks-dom.js";
+import { el } from "./dom.js";
 import { stripDemo } from "./raster-demos.js";
 
 /**

@@ -38,11 +38,10 @@ day, because it had the widest scope.
 
 The question is about the **harness**, and this repository is an unusually
 harness-heavy one. Read what is in the tree: `CLAUDE.md` is a constitution, not
-a README; there are six project skills under `.claude/skills/`; a hook runs the
-determinism test after every edit inside `packages/sim`; `bun run handoff`
-exists because a four-line closing block is derived rather than written;
-`bun run checks` reads `Check:` trailers off commits. None of that is model
-work. All of it is harness work, and a subscription swap is a harness swap.
+a README; there are four project skills under `.claude/skills/`; a hook runs the
+determinism test after every edit inside `packages/sim`; `bun run land` rebases,
+checks, fast-forwards, writes a release note and sweeps the worktrees that are
+spent, all in one command. None of that is model work. All of it is harness work, and a subscription swap is a harness swap.
 
 ## Task by task
 
@@ -56,8 +55,8 @@ last fortnight.
 | Shape work — nudge a `blobPath` parameter | `bun run shapes:report` first, then an SVG sheet and a human look | numbers are numbers; the look is the owner's either way | **even** |
 | Render work — a glow, a tail, a hit | draw it, then *send the picture* | Codex's cloud can screenshot a browser and attach it; the CLI's story for handing a PNG into the chat is weaker | **slightly worse** |
 | Director tool work | plain TS, no framework, files under 250 lines, long comments | both fine; the ceiling is enforced by review, not by tooling | **even** |
-| Long prose — commits, docs, `Check:` trailers | paragraphs in a fixed voice, argued rather than summarised | the clearest subjective gap in Claude's favour; GPT-class models write terser and flatter by default, and this repo's history is essays | **worse** |
-| A multi-hour unattended run | worktree per lane, land linearly on `main`, sweep, resume from cold | mechanically possible; `.claude/skills/autonomous` becomes a prompt to rewrite, and the sweep is Windows-specific | **worse at first, even once ported** |
+| Long prose — commits, docs, release notes | paragraphs in a fixed voice, argued rather than summarised | the clearest subjective gap in Claude's favour; GPT-class models write terser and flatter by default, and this repo's history is essays | **worse** |
+| One session at a time, landed by hand | `bun run land`: rebase, check, fast-forward, note, sweep | a local script reading git, so it ports; the sweep is Windows-specific | **even** |
 | A session started from the phone | clone `origin`, work, rebase, land `main`, report | Codex's strongest surface — cloud tasks dispatched from the ChatGPT app are the shape it was designed for | **better** |
 | `bun run delegate` (aider + GLM) | an OpenRouter key and a spec | untouched — the worker is a third party to both | **even** |
 | Relay and determinism | `bun test`, `bun run relay:check`, wrangler | untouched | **even** |
@@ -115,7 +114,7 @@ matter.** An inventory of what a switch touches:
   wall it would have been a year ago; it is a port rather than a rewrite. The
   determinism hook is the one that must survive, and `CLAUDE.md` says why in
   its own words: *a rule in CLAUDE.md is a hint; a hook is binding.*
-- `.claude/launch.json`, the worktree tooling, `bun run handoff`. Local scripts
+- `.claude/launch.json`, the worktree tooling, `bun run land`. Local scripts
   reading git — provider-neutral, except where they name a directory with
   `.claude` in it.
 - The picture rule. *Send the picture. Do not describe it.* That is a chat

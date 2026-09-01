@@ -692,3 +692,51 @@ already encoded.
 **Reconsider if:** `ImageDecoder` becomes universal *and* something wants an
 animated file's own timing on the field, which is the one combination that
 would make the boundary above arbitrary rather than physical.
+
+## 26. A landing writes a note, not an obligation, and sweeps after itself
+
+*September 2026.* Three arrangements went at once, and they went for the same
+reason. `docs/queue.md` was driven by `bun run burn`, which read it as a board
+of parallel lanes and joined it to git. `Check:` trailers produced an
+outstanding list in `bun run checks` and a sheet in the director with a verdict
+button on every row, backed by a ledger in `docs/verified.md` and hand-written
+restatements under `docs/checks/`. `bun run handoff` derived a four-line closing
+block for a phone. All three were accurate, and all three asked the owner for
+something.
+
+**The asking is what killed them.** The owner's words: *it was too error prone
+and seems to waste my tokens.* An obligation list is read while it is short and
+abandoned once it is not, and an abandoned one is worse than none because it
+looks like coverage — twenty rows stood outstanding at the end. The queue board
+answered a question nobody asks any more: it existed so an unattended run could
+tell which of six lanes was in flight, and the work is now picked up one
+session at a time, by hand.
+
+**What replaced it takes nothing.** `bun run land` appends to
+`docs/release-notes.md` at the moment `main` moves, from the landing commit's
+own subject and first paragraph. Read-only: nothing in it is ticked, answered
+or deleted, there is no count, and the director shows it under
+`≡ RELEASE NOTES` with no buttons. It records rather than requests, which is
+the whole of the difference and the only reason it will be read.
+
+**The cleanup moved into the landing too**, which is the other half of the
+owner's ask — *cleanup of worktree branches […] should be done automatically in
+the moment its merged to main*. `bun run land` deletes the branch as it
+fast-forwards, since a tip that is an ancestor of `main` cannot lose anything,
+and sweeps spent worktrees. The branch and the worktree do not go together: a
+worktree is a workspace, and deleting the one a session is standing in destroys
+that session's working directory, which costs whole context windows in failed
+tool calls before anybody works out why. So the tree the landing ran in is kept
+and moved onto `main`'s tip; every other merged tree goes once nothing has
+happened in it for five days. Idle rather than old, so a tree worked in
+yesterday is never taken, and `LAND_KEEP_DAYS` moves the window.
+
+This supersedes the first half of **22**, which had branches outliving their
+landing until every `Check:` was decided — that reasoning was already retired
+there, and this removes the checks it was arguing about. The second half of 22,
+pushing `main`, stands.
+
+**Reconsider if:** several sessions run unattended and in parallel again, which
+is the only condition under which a board joined to git earns its cost. Not if
+the release notes go unread — that would mean they should be shorter or better
+written, not that they should ask for something back.

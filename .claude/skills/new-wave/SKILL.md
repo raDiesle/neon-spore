@@ -95,11 +95,8 @@ queue builds identically every time.
 
 Neither of them watches the wave. Whether the cannon has time to get there is
 a thing a person sees at tempo in the director, so a wave landed without that
-having happened carries the fact in its commit:
-
-```
-Check: THE WALL at 96 BPM — does the cannon reach column 6 before beat 9
-```
-
-`bun run checks` and the director's `⚑ TO CHECK` collect them. See
-`docs/verification.md`.
+having happened says so in its commit message, in a sentence — *THE WALL at 96
+BPM was never watched; whether the cannon reaches column 6 before beat 9 is
+untested.* One sentence, in the body, and then let it go: the commit message
+becomes the release note, and there is no list to put it on and nothing to tick
+afterwards.

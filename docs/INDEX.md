@@ -20,11 +20,9 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/raster.md` | you are about to add a picture the game does not compute — a sprite atlas, an APNG, an animated WebP — or you are deciding whether an effect should be baked at all |
 | `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
-| `docs/verification.md` | you land work a sandbox could not look at, or come back to look at it |
-| `docs/checks/restated.md` | a `Check:` trailer needs its what-changed and its yes/no written out by hand |
+| `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
 | `docs/parked.md` | you had an idea you are not acting on, or want one to act on |
-| `docs/queue.md` | you are picking the next thing to build, or resuming an unattended run |
-| `docs/autonomous.md` | you are running for hours without a person, in parallel lanes |
+| `docs/queue.md` | you are picking the next thing to build |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
@@ -179,8 +177,8 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/backlog.ts` | the six spec-derived groups, and where `queue`/`designs` are stitched in |
-| `tools/director/src/backlog-api.ts` | `GET /api/backlog`: nine files read, parsed and joined into one response |
-| `tools/director/src/queue-panel.ts` | `docs/queue.md` as a backlog group, joined to what git knows about each lane |
+| `tools/director/src/backlog-api.ts` | `GET /api/backlog`: ten files read, parsed and joined into one response |
+| `tools/director/src/queue.ts` | `docs/queue.md` parsed, and drawn as one backlog group |
 | `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
@@ -194,15 +192,12 @@ history if the wording of a rejected idea is ever needed.
 | `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |
 | `tools/orphans/orphans.ts` | a mechanic that is built and reached by nothing, with where to fix it |
 | `tools/director/src/orphans-panel.ts` | the ORPHANS sheet, painted red the moment the count leaves zero |
-| `tools/checks/trailers.ts` | the `Check:` trailer: what a commit says nobody has looked at |
-| `tools/checks/ledger.ts` | `docs/verified.md` — the half nothing can derive |
-| `tools/checks/checks.ts` | history joined to ledger: what is outstanding, which branches are spent |
-| `tools/checks/hint.ts` | a check's subject and where to stand, read off its own commit, never kept |
-| `tools/checks/restated.ts` | `docs/checks/restated.md` parsed and keyed onto a check, the hand-written half |
-| `tools/checks/repo.ts` | the git and file calls behind it |
-| `tools/burn/queue.ts` | `docs/queue.md` parsed, and whether two lanes own the same path |
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
-| `tools/director/src/checks-page.ts` | the TO CHECK sheet, and the buttons that decide a check |
+| `tools/land/notes.ts` | a landed commit turned into a release note, and where it goes in the file |
+| `tools/land/worktree.ts` | removing a worktree on Windows, verified rather than trusted, and when |
+| `tools/director/src/notes.ts` | `docs/release-notes.md` parsed into entries, grouped by day |
+| `tools/director/src/notes-page.ts` | the RELEASE NOTES sheet — read-only, no buttons, no count |
+| `tools/director/src/dom.ts` | `el` and `button`, the two helpers every panel builds rows out of |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
 | `tools/relay-check/check.ts` | two headless devices against a real relay |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |

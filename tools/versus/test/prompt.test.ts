@@ -230,13 +230,12 @@ describe("the keep form differs in five ways and no others", () => {
     expect(k.get("7")).toContain(subject);
   });
 
-  it("5 — no `Check:` at all, and the slot's own check settles as `current`", () => {
-    expect(adopt).toContain("Do **not** write a `Check:` for how the bulb reads on the field.");
-    expect(adopt).toContain("Do write exactly one `Check:` for each");
-    expect(adopt).toContain("record it PASS with the note `voted deep`");
-    expect(keep).toContain("Trailers. Write no `Check:` at all.");
+  it("5 — the field reading is never named, and a keep names no reader at all", () => {
+    expect(adopt).toContain("Do not name how the bulb reads on the field");
+    expect(adopt).toContain("each reader");
+    expect(adopt).toContain("The vote is the record, and nothing is left waiting on it.");
+    expect(keep).toContain("Readers. Name none.");
     expect(keep).not.toContain("Do write exactly one");
-    expect(keep).toContain("record it PASS with the note `voted current`");
   });
 
   it("steps 0, 4 and 5 are word for word the same", () => {

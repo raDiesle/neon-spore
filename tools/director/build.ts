@@ -3,13 +3,13 @@ import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
-import { checksState } from "./src/checks-api.js";
 import {
   readAssistantsText,
   readBorrowedText,
   readSpecFiles,
   readTowerDefenceText,
 } from "./src/docs-api.js";
+import { notesState } from "./src/notes-api.js";
 
 /**
  * Builds the director the way `apps/game/preview.ts` builds the game: a
@@ -70,15 +70,12 @@ async function bake(relPath: string, body: string): Promise<void> {
   await Bun.write(join(distDir, relPath), body);
 }
 
-const [backlogRes, checksRes] = await Promise.all([
-  backlogState(repoRootPath),
-  checksState(repoRootPath),
-]);
+const [backlogRes, notesRes] = await Promise.all([backlogState(), notesState(repoRootPath)]);
 
 await Promise.all([
   bake("api/waves", JSON.stringify(WAVES)),
   bake("api/backlog", await backlogRes.text()),
-  bake("api/checks", await checksRes.text()),
+  bake("api/notes", await notesRes.text()),
   bake("api/borrowed", JSON.stringify({ text: await readBorrowedText() })),
   bake("api/tower-defence", JSON.stringify({ text: await readTowerDefenceText() })),
   bake("api/claude-vs-chatgpt", JSON.stringify({ text: await readAssistantsText() })),

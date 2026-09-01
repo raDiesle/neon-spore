@@ -286,32 +286,26 @@ zero. Each pose is drawn a few dozen times with a long `dt` first and only the
 last frame is kept: the easing settled, and the last tick's events still fresh,
 so a deflection is drawn with its flash on.
 
-## TO CHECK
+## RELEASE NOTES
 
-`⚑ TO CHECK` in the header is the other full-screen sheet: what landed on
-`main` that a sandbox could not look at. It goes gold and carries a count when
-something is waiting, which is the whole point — a list nobody is told about is
-a list nobody reads.
+`≡ RELEASE NOTES` in the header is the other full-screen sheet: what landed on
+`main`, newest first, grouped by day.
 
-The list is **derived from the history**, not kept beside it. A commit that
-leaves something unlooked-at says so in a `Check:` trailer, and this page joins
-those against `docs/verified.md`, which holds the one thing nothing can derive:
-whether a person looked. `▶ RUN` appears on a check whose trailer names one of
-this repository's own commands, `✓ TESTED` and `✗ FAILED` record a verdict, and
-`▶ NEXT` steps down the list one at a time, because going through them is what
-this is for rather than reading them.
+**It has no buttons and no count, and that is the design.** What stood here was
+`⚑ TO CHECK`: an outstanding list derived from `Check:` trailers, with `▶ RUN`,
+`✓ TESTED`, `✗ FAILED` and `🗑 DELETE` on its rows, and a gold count in the
+header the moment anything was waiting. It was accurate, and it asked the owner
+for something on every visit — which is what finished it. A list you owe
+answers to stops being opened at about the length that one reached, and a list
+nobody opens is worse than none, because it looks like coverage.
 
-A green command records its own pass. A red one records nothing — what a
-failing command wants is a fix, and closing it would take away the chance for
-the same check to go green once the fix lands.
+So the same information is kept and the asking is dropped. Every row is a
+landing that already happened; there is no verdict to give and no state that
+can go stale, because `bun run land` writes `docs/release-notes.md` at the
+moment the trunk moves and nothing edits it afterwards. A count would say
+something is waiting, and nothing is.
 
-Underneath, the branches. One row per name whether it sits here, on origin or
-both; a branch whose work is on `main` and whose checks are all decided is
-spent, and `🗑 DELETE` takes the worktree, the branch and origin's copy. Nothing
-is forced, so a worktree with edits in it stops the whole thing and says so.
-
-`bun run checks` is the same list in a terminal, and `docs/verification.md` is
-the argument for the arrangement.
+`docs/release-notes.md` is the same list in a terminal, or in any editor.
 
 ## The shape catalogue
 
@@ -412,15 +406,14 @@ that build: it bundles the client exactly like the game's own build, then
 bakes every *read* route the client already calls (`/api/waves`, from
 `@neon-spore/content`, the same compiled source the game itself reads;
 `/api/backlog`, `/api/borrowed`, `/api/tower-defence`, `/api/spec`,
-`/api/checks`) into a plain
+`/api/notes`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
 with a handler, so none of `backlog-page.ts`, `spec.ts`, `whole-doc.ts` or
 `versus-vote.ts` needed to change.
 
-`PUT` and `POST` have no file to land on. Saving a wave, deciding or running
-a check, and sweeping a worktree are exactly the controls a shipped build
-cannot offer — so `main.ts` hides `SAVE`, `⚑ TO CHECK` and `▶ MAIN MENU`
+`PUT` and `POST` have no file to land on. Saving a wave is exactly the control
+a shipped build cannot offer — so `main.ts` hides `SAVE` and `▶ MAIN MENU`
 (which points at a route only the live server answers) rather than leave a
 control that looks live and fails on a press. It knows which build it is
 from `dist/__director`, a static file at the same path `server.ts`'s own

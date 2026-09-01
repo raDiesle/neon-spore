@@ -6,14 +6,13 @@ owes this file anything.
 It exists because both alternatives were worse. A suggestion made in a report
 is read once on a phone and scrolled past; a suggestion filed in
 `docs/spec/ideas.md` is filed with the design, which is the wrong shelf for
-"the director could show this list beside TO CHECK". So it goes here, in the
-commit, where a later session with nothing but the clone can pick it up.
+"the director could show this list beside the release notes". So it goes here,
+in the commit, where a later session with nothing but the clone can pick it up.
 
-It is **not** the outstanding list. `bun run checks` derives that from the
-`Check:` trailers, and every row on it is an obligation: work that landed and
-that nobody has looked at. A row here is the opposite — work nobody has decided
-to do. Keeping the two in one place would make the outstanding list somewhere
-that some rows matter and some do not, which is how a list stops being read.
+It is **not** `docs/release-notes.md`, which records what already landed and is
+closed, and it is **not** `docs/queue.md`, which is work somebody has decided to
+do. A row here is neither: an idea nobody has committed to. Keeping any two of
+the three in one place is how the one that gets absorbed stops being read.
 
 **The format.** One `##` per idea, the date and the branch it came off under
 it, then one line labelling what kind of thing it is and how far along —

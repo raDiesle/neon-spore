@@ -5,7 +5,7 @@ import { type Mechanic, type MechanicId, mechanic, unreachedMechanics } from "@n
  * file adds nothing to what a mechanic *is*, only the one thing a warning
  * needs and the registry does not carry: where a person would go to fix it.
  *
- * Pure on purpose, same as `tools/checks/checks.ts` beside it: the question
+ * Pure on purpose: the question
  * is a small transform over a list `@neon-spore/content` already computes,
  * and that is the kind of thing that should be tested without touching git or
  * a filesystem.

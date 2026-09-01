@@ -23,7 +23,7 @@ import { WITHDRAWAL } from "./withdrawal.js";
  * - `CRANE` is a mechanism bolted to her. The owner's own suggestion.
  * - `CRADLE` is her own body doing the holding, and nothing else.
  *
- * **CRADLE won** — `docs/verified.md` records it against `7ddfe14` — and it is
+ * **CRADLE won** — decided by eye against `7ddfe14` — and it is
  * the baseline holder the three whole-body drafts below use for both flanks.
  * COLLAR and CRANE stay listed: a winner with nothing beside it is a winner
  * nobody can re-judge later.

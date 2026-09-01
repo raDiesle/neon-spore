@@ -151,8 +151,8 @@ through.
 **Lane shape, against `docs/choosing-a-model.md`.** Section 10's measured fact
 is that model tier explained almost none of the spread across thirteen lanes;
 scope and repeat turns explained nearly all of it. So the batch is cut by
-seam, not by size: two pre-existing defects cleared first (each its own commit
-and its own `Check:`), then the mechanism, then the words, then the picture.
+seam, not by size: two pre-existing defects cleared first, each its own
+commit, then the mechanism, then the words, then the picture.
 The two files everything wants — `world.ts` and `beat.ts` — are **both exactly
 249 lines** against CLAUDE.md's ~250 ceiling, and all three designs edit both
 without mentioning it. That is lane 1, it lands before anything else, and §6

@@ -1,19 +1,19 @@
 /**
  * `GET /api/backlog`, on the server side — the reading half of the NOT BUILT
- * YET sheet, split out of `server.ts` the same way `checks-api.ts` already
- * carries the TO CHECK routes: a request handler is not the file where a
- * server binds its port.
+ * YET sheet, split out of `server.ts` the same way `notes-api.ts` carries the
+ * RELEASE NOTES route: a request handler is not the file where a server binds
+ * its port.
  *
- * Nine files are read on every request rather than cached: six spec files,
- * `docs/queue.md` and the three design documents, all parsed fresh for the
- * reason the roster always was — a copy kept beside the spec goes stale
- * silently. `buildQueue` additionally asks git about each lane, which is why
- * this whole thing is async where `buildBacklog` alone would not need to be.
+ * Ten files are read on every request rather than cached: six spec files,
+ * `docs/queue.md`, `docs/parked.md` and the three design documents, all parsed
+ * fresh for the reason the roster always was — a copy kept beside the spec goes
+ * stale silently. Every one of them is a pure read now that the queue no longer
+ * asks git about a lane; the reads themselves are what keep this async.
  */
 
 import { buildBacklog } from "./backlog.js";
 import { buildDesigns, type DesignFile } from "./design-docs.js";
-import { buildQueue } from "./queue-panel.js";
+import { buildQueue } from "./queue.js";
 
 const noCache = { "cache-control": "no-store, must-revalidate" } as const;
 
@@ -27,10 +27,11 @@ function docFile(base: URL, name: string): URL {
   return new URL(`../../../docs/${name}`, base);
 }
 
-export async function backlogState(repoRootPath: string): Promise<Response> {
+export async function backlogState(): Promise<Response> {
   // `import.meta.url` from here, not the caller, so a file moved does not
-  // silently start reading the wrong tree — `repoRootPath` only names *which*
-  // checkout's git this queries, for the lane facts.
+  // silently start reading the wrong tree. It takes no argument at all now that
+  // no group here asks git anything — every one of them is a read of a file
+  // this module can find on its own.
   const base = new URL(import.meta.url);
   const [bestiary, bosses, couplings, assists, systems, ideas, queueMd, parkedMd, designText] =
     await Promise.all([
@@ -49,7 +50,7 @@ export async function backlogState(repoRootPath: string): Promise<Response> {
     name,
     text: designText[i] ?? "",
   }));
-  const queue = await buildQueue(repoRootPath, queueMd);
+  const queue = buildQueue(queueMd);
   const backlog = buildBacklog(
     bestiary,
     bosses,

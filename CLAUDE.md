@@ -61,50 +61,52 @@ tree that no longer exists once `main` moves. The landing itself — fast-
 forwarding `main` to the branch tip — is the mechanical last step once that
 check is green, not a separate verification of its own.
 
-**A branch goes as soon as `main` has its work.** It used to outlive its
-landing until every `Check:` it carried had been decided, on the reasoning
-that a branch is the only handle on which landing a look belongs to. That
-reasoning was false and had been false since `tools/checks` was written: a
-check is derived from the **commit** that carries the trailer, and
-`bun run checks` lists it under that commit's own sha and subject. The branch
-rows beside it are a convenience. Nothing is lost by deleting one, and what
-was lost by keeping them was legibility — a day of lanes left twenty-seven
-worktrees standing, and a list that long is not read.
+**Landing is one command, and it cleans up after itself.** `bun run land`,
+from inside the lane's worktree: it replays the lane onto `main`, runs
+`bun run check` on the result, fast-forwards, writes the release note, deletes
+the branch and sweeps whatever worktrees are spent. None of that is a step
+somebody remembers — a cleanup that has to be remembered is a cleanup that
+leaves twenty-seven full checkouts on disk, which is what happened the first
+day anybody worked at volume. Each one is a copy of the repository at an
+earlier state of the trunk, down a path that looks exactly like a path into the
+repository, and a session that follows one reads superseded code and reports a
+result about it.
 
-So a landed lane is swept: `bun run checks --clean`, or the button in the
-director, and an autonomous run does it without being asked. Nothing is
-forced even so — `git worktree remove` and `git branch -d` both refuse to lose
-work, and neither is argued with. `docs/verification.md` has the loop.
+**The branch and the worktree do not go at the same moment, and that is
+deliberate.** A branch whose tip is an ancestor of `main` is spent by
+construction, so it goes immediately: `git branch -d` cannot lose anything, and
+it is never argued with when it refuses. A worktree is a workspace rather than
+a unit of history, and deleting the one a session is standing in destroys that
+session's working directory — every tool call after it fails, and the session
+burns whole context windows working out why. So the tree the landing ran in is
+**kept**, moved onto `main`'s tip and detached, which also means it is not a
+stale checkout anybody can wander into: its content is the trunk's. Carrying on
+there is `git switch -c <name>`.
 
-**A `FAIL` is new work, and new work gets a new branch from `main`.** When a
-check comes back wrong, the lane that built the thing is over: its branch is on
-the trunk and the trunk has moved on. Do not reopen it, do not check it out
-again, and do not push a fix onto it. The verdict becomes a queue entry, the
-entry becomes a lane, and that lane starts the way every lane starts — a fresh
-worktree cut from the current `main`, with everything that landed in between
-already underneath it.
+Every *other* merged worktree is swept once nothing has happened in it for five
+days — idle, not old, so a tree somebody worked in yesterday is never taken.
+`LAND_KEEP_DAYS` moves the window. What the delay buys is `node_modules`: the
+code in a landed tree is worth nothing, since all of it is on `main`, but its
+install is worth the minute a fresh worktree spends redoing it, and the review
+that finds something to adjust usually happens a day or two after the landing.
 
-The alternative is the tempting one and it is wrong twice over: a revived branch
-is missing every landing since, so its `bun run check` is answering a question
-nobody asked, and the fix arrives as a second commit on a branch whose first
-commit is already on the trunk. The rebase that follows is pure cost, incurred
-for the convenience of not typing a branch name.
+**A defect found after landing is new work, and new work gets a new branch from
+`main`.** The lane that built the thing is over: its branch is on the trunk and
+the trunk has moved on. Do not reopen it, do not check it out again, and do not
+push a fix onto it. The alternative is tempting and wrong twice over — a
+revived branch is missing every landing since, so its `bun run check` is
+answering a question nobody asked, and the fix arrives as a second commit on a
+branch whose first commit is already on the trunk. The rebase that follows is
+pure cost, incurred for the convenience of not typing a branch name.
 
-**And the sweep is not optional bookkeeping — it is what makes the next lane
-correct.** A branch whose work is on `main` has nothing left to protect, so it
-goes the moment the landing does, along with its worktree. Twenty-two
-directories left standing is not merely untidy: each one is a full checkout at
-some earlier state of the trunk, and a path into one of them looks exactly like
-a path into the repository. A session that follows a stale path reads code that
-has been superseded and reports a result about it.
-
-**On Windows the removal often fails and the failure is quiet.** `git worktree
-remove` refuses while anything holds a handle inside the tree — `node_modules`
-after a `bun install` is the usual culprit — and the tool moves on. The
+**On Windows a worktree removal often fails and the failure is quiet.** `git
+worktree remove` refuses while anything holds a handle inside the tree —
+`node_modules` after a `bun install` is the usual culprit — and moves on. The
 directory survives with no entry in `git worktree list`, which is the worst of
-both: git thinks it is gone and the filesystem disagrees. Sweeping means
-checking that the directory is actually absent afterwards, not that the command
-was issued.
+both: git thinks it is gone and the filesystem disagrees. So `tools/land`
+verifies rather than trusts, retries a stuck handle rather than fighting it,
+and reports by path anything still standing. It also removes the litter left by
+removals that failed this way before it existed.
 
 A fresh worktree needs `bun install`. `node_modules` must **not** be linked or
 copied from the main tree: the workspace links inside it point at the main
@@ -190,7 +192,7 @@ because it turns "not looked at" into "looked fine". If it turns out wrong,
 `main` takes the fix as its own commit; the history is linear and stays that
 way.
 
-**It cannot verify everything, and has to say which parts — in the commit.**
+**It cannot verify everything, and has to say which parts — in the report.**
 The sandbox has no wrangler, no `bun run delegate`, and no network access it
 did not arrange. It does have a headless Chromium, so a page can be opened,
 driven and screenshotted — what it cannot do is *look*, and those are
@@ -202,78 +204,35 @@ that word rather than offering a green check that covered less than usual. A
 wave whose timing was never watched is not finished, it is written — landed,
 now, but still written.
 
-The report says it, and so does the commit. A report is read once, on a phone,
-and scrolled past; by the time there is a machine that can open a shape sheet,
-the list of what to open is four sessions up the transcript. So the landing
-gets a trailer, one line, prose:
+**Say it once, in the report, and then let it go.** There used to be a second
+half to this: a `Check:` trailer on the commit, an outstanding list derived
+from those trailers, a ledger recording who had looked at what, and a sheet in
+the director with a verdict button on every row. It was accurate and it asked
+the owner for something on every visit, which is what finished it — a list you
+owe answers to stops being read at about the length that one reached, and a
+list nobody reads is worse than none, because it looks like coverage.
 
-```
-Check: the hole still reads at 26 px on a phone
-```
+What replaced it asks for nothing. `bun run land` writes an entry into
+`docs/release-notes.md` at the moment the trunk moves, derived from the commit's
+own subject and first paragraph, and that file is read-only: nothing in it is
+ticked, answered or deleted. The director shows the same thing under
+`≡ RELEASE NOTES`, with no buttons and no count — a count is a way of saying
+something is waiting, and nothing there is. Reading it is optional, which is the
+only reason it will be read.
 
-One trailer per landing by default, not one per thing that changed to produce
-it — nine rows for three decisions is a list the owner stops reading, and the
-unit here is the commit, not the diff. `docs/verification.md` has the
-procedure for naming the one wider question a whole landing should be judged
-by, and says when a second trailer on the same commit is actually warranted.
-
-`bun run checks` and the director's `⚑ TO CHECK` derive the outstanding list
-from those trailers, and `docs/verified.md` records what has actually been
-looked at. **Not** for anything `bun run check` already proved — a list is only
-worth reading if everything on it is real. `docs/verification.md` has the whole
-loop, the ledger and how a branch is retired once its checks are decided.
-
-**Every turn ends on the same four-line block, and it is derived.** The last
-thing a cloud session runs is `bun run handoff`, and the last thing its report
-carries is that command's output, verbatim. The question it answers is the only
-one worth asking from a phone: *is there anything left for me to do, or can I
-close this and go back to `main`?*
-
-```
-──────────────────────────────────────────────────────────
- ✅ NOTHING WAITING — main has this, and no answer is owed
-──────────────────────────────────────────────────────────
-  landed   every commit of claude/thing-9f2 is on origin/main
-  check    bun run check green
-  parked   the director could show the parked list beside TO CHECK
-```
-
-It is derived rather than written because prose is exactly where "I landed it"
-and "I meant to land it" look identical on a small screen. Every fact in it
-comes from git, from the `Check:` trailers or from `docs/parked.md`; the only
-part a session authors is a question, passed in:
-
-```
-bun run handoff --ask "should the barb sway with the bulb or against it"
-```
-
-A question, uncommitted files, or work still ahead of `origin/main` turn the
-head line into `⚑ YOUR MOVE` and name what by. Nothing else does.
-
-The `landed` row always names `origin/main`, never "main". A landing is worth
-something only if it is the one the next clone will see, and a local trunk five
-commits ahead of origin reads as done and is not.
-
-The outstanding `Check:` list is deliberately **not** a row. Something always
-wants an eye — that is what a sandbox leaves behind every time it runs — so a
-row saying so carries nothing from one turn to the next, and a row that is
-always there is read as furniture. It belongs in `bun run checks`, at the
-machine that can do the looking.
-
-The `parked` rows carry the ideas themselves, in their own words, up to six of
-them. A count would be the wrong thing: "1 parked idea" says a file exists,
-which the reader knew; the title says whether it is worth a session, which is
-the only question being asked at the end of a turn.
+So do not write a `Check:` trailer, do not open a file under `docs/checks/`, and
+do not ask the owner to confirm that something was tested. Write the commit
+message well instead: it is the release note, and it is the only part of this
+that anybody sees twice.
 
 **Suggestions go in `docs/parked.md`, not in the report.** Anything the session
 noticed and did not do — a refactor it stepped around, a tool that would have
 helped, an idea for the game — is written there as one `##` section in the same
 commit, and then it is in the clone forever instead of four sessions up a
-transcript. It is deliberately not the `Check:` list: a check is an obligation
-somebody incurred by landing something, a parked idea is a thing nobody has
-decided to do, and mixing them is how the obligation list stops being read.
-Picking one up later is a fresh session and a `git rm`-shaped edit to that
-file. `docs/parked.md` says the rest.
+transcript. It is deliberately not the release notes: a note records something that
+already happened and is closed, a parked idea is a thing nobody has decided to
+do and is open. Picking one up later is a fresh session and a `git rm`-shaped
+edit to that file. `docs/parked.md` says the rest.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
@@ -410,8 +369,7 @@ bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run check          # typecheck + lint + test, run this before saying "done"
-bun run checks         # what landed on main that nobody has looked at yet
-bun run handoff        # the closing block: is anything still owed to the human
+bun run land           # rebase onto main, check, fast-forward, note it, sweep
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
 bun run raster         # regenerate the baked assets under assets/raster/

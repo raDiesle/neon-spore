@@ -54,9 +54,9 @@ modelling.** `key-light.ts`'s ramp, `crater.ts`'s pits, `pore.ts`'s bumps and
 `mounted.ts`'s panels use the word *shadow* for the dark side of a body's own
 form — that is what makes a lobe read as round rather than flat, and none of
 it was touched. What left the field was only the shadow one body casts onto
-another surface. `docs/checks/1bb7160-after.png` and its restatement in
-`docs/checks/restated.md` are the record of the last version of this, kept in
-place on purpose.
+another surface. The last version of this was
+photographed and written up under `docs/checks/`, which has since been removed
+along with the `Check:` mechanic; `git log -- docs/checks` still has both.
 
 ## The forms
 

@@ -61,7 +61,7 @@ The VERSUS mechanism is already queued (`claude/burn-versus-v1` through `-v5` in
 
 **5. `creature:trail` — two halos or four.** The cheapest slot here and worth having because it is the one place the batch spends someone else's brightness: the trail smears each body's light up its own column, which works directly against "creatures are the brightest thing on the field", and the only question is whether two blits still say "this moved". A five-second vote.
 
-Not a slot, deliberately: the shock recoil. Whether a neighbour's flinch reads as sympathy or as damage is not a comparison between two looks, it is a question about what a player *assumes* and then does — it needs somebody firing into a cluster with a partner on the other phone, and a `Check:` trailer is the right instrument, not a vote.
+Not a slot, deliberately: the shock recoil. Whether a neighbour's flinch reads as sympathy or as damage is not a comparison between two looks, it is a question about what a player *assumes* and then does — it needs somebody firing into a cluster with a partner on the other phone, which is a playtest, not a vote.
 
 ## Open questions
 
@@ -75,6 +75,6 @@ Six things this plan does not decide, separated into what goes to a vote and wha
 
 *Three of the four living kinds are aspect ~1.0.* This is the thing no direction and no judge would own, and it is probably the highest-value nameability work in the codebase. BULB, THROB and (until it was retired) RUNT are separated only by lobe count (9, 6, 4) and by size, and lobe counts of that fineness are the first thing to die on a downsampled 26 px body. Everything in this batch adds light and reaction to a roster whose *silhouettes* are already crowded, and interior light is exactly what does not survive downsampling. Lane 1 deepens the bulb, which is one edit against a structural problem. Pulling the throb and the bulb apart in *shape* rather than only in size may be worth more than the other seven lanes combined — and it is a content decision with gameplay in it, not a render pass, so nobody here should make it.
 
-*Whether the shock recoil lies about the rules.* Lane 6 ships with the mitigations and a `Check:` trailer. If a player fires again because three bodies flinched, the item is worse than nothing and comes straight out; that is a playtest with two people, not a comparison of two pictures.
+*Whether the shock recoil lies about the rules.* Lane 6 ships with the mitigations. If a player fires again because three bodies flinched, the item is worse than nothing and comes straight out; that is a playtest with two people, not a comparison of two pictures.
 
 *Nothing in this plan has been measured on a phone.* The claim that `blobPath`'s string build and `Path2D` parse dominate the per-creature cost is plausible from reading `shapes.ts` — 40 points, five trig calls each, 240 `toFixed`, a ~2 KB string re-parsed — but the four strokes of a 40-segment bezier from `strokeGlow` (`STROKE.glowPasses` is 3, plus the solid stroke) are a serious rasterisation cost that no direction accounted for and that the N cut does not touch. If the batch lands and the frame rate moves, the cut order is: lane 8's membrane stroke, then lane 8 entirely, then lane 6's shock, then lane 5's landing on the meteor.

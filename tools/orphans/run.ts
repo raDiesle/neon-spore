@@ -7,12 +7,11 @@
  * that is only *reachable* — a creature nothing spawns, a boss no wave
  * carries — passed every one of those and still never showed up in front of a
  * pair. `packages/content/src/mechanics.ts` is the closed registry that can
- * finally be asked, and this is that question asked out loud, in the shape of
- * `bun run checks`.
+ * finally be asked, and this is that question asked out loud.
  *
- * No repository half: unlike `tools/checks`, nothing here touches git or a
- * ledger — the whole answer is already a pure function over content the
- * package exports, so there is nothing for an IO layer to fetch.
+ * No repository half: nothing here touches git or a file — the whole answer is
+ * already a pure function over content the package exports, so there is
+ * nothing for an IO layer to fetch.
  */
 
 import { orphanReport } from "./orphans.js";

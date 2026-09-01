@@ -3,13 +3,13 @@ import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
-import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
 import {
   readAssistantsText,
   readBorrowedText,
   readSpecFiles,
   readTowerDefenceText,
 } from "./src/docs-api.js";
+import { notesState } from "./src/notes-api.js";
 import { serializeWaveArray } from "./src/serialize.js";
 
 /**
@@ -254,36 +254,25 @@ const server = Bun.serve({
      * The backlog: what the design has agreed to and the game does not have,
      * grouped by what each thing would become — spec, queue and design
      * documents alike. See `backlog-api.ts`, split out for the same reason
-     * the TO CHECK routes below are: a request handler is not the file where
-     * a server binds its port.
+     * the RELEASE NOTES route below is: a request handler is not the file
+     * where a server binds its port.
      */
     "/api/backlog": {
-      GET: withIdle(() => backlogState(repoRootPath)),
+      GET: withIdle(() => backlogState()),
     },
 
     /**
-     * TO CHECK: what landed on `main` that only this machine can look at.
+     * RELEASE NOTES: what landed on `main`, newest first.
      *
-     * The list is derived from `Check:` trailers in the history — a cloud
-     * session cannot open a shape sheet or watch a wave at tempo, so it names
-     * what it left unlooked-at in the commit itself. `docs/verified.md` holds
-     * the other half, which nothing can derive: whether somebody looked.
+     * One route and one verb, where TO CHECK before it needed four. That list
+     * was obligations — every row had a verdict pending, so a browser had to be
+     * able to write one back. This is a record of what already happened, so
+     * there is nothing to write and nothing to go stale: `bun run land` appends
+     * to `docs/release-notes.md` at the moment the trunk moves, and this reads
+     * the file.
      */
-    "/api/checks": {
-      GET: withIdle(() => checksState(repoRootPath)),
-    },
-
-    "/api/checks/decide": {
-      POST: withIdle((req) => checksDecide(repoRootPath, req)),
-    },
-
-    "/api/checks/run": {
-      POST: withIdle((req) => checksRun(repoRootPath, req)),
-    },
-
-    /** Deleting a branch is a button, never a consequence of loading a page. */
-    "/api/checks/clean": {
-      POST: withIdle((req) => checksClean(repoRootPath, req)),
+    "/api/notes": {
+      GET: withIdle(() => notesState(repoRootPath)),
     },
 
     /**

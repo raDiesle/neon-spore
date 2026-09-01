@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run shot <#selector> <out.png> [--tab SHAPES] [--wait 2500]` — photograph
- * one element of the running director.
+ * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES]
+ * [--wait 2500]` — photograph one element of the running director.
  *
  * CLAUDE.md's *Showing the owner something* says to send a PNG and never a
  * path, and there were two tools for it: `bun run frames <sha>` for the game
@@ -41,13 +41,17 @@ const positional = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.st
 const [selector, out] = positional;
 
 if (!selector || !out) {
-  console.error("usage: bun run shot <#selector> <out.png> [--tab SHAPES] [--wait 2500]");
+  console.error(
+    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
+  );
+  console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
   process.exit(1);
 }
 
 const tab = flag("tab");
+const open = flag("open");
 const settle = Number(flag("wait") ?? 2500);
 const port = flag("port") ?? "4174";
 const url = `http://localhost:${port}`;
@@ -60,10 +64,17 @@ try {
   });
   await page.goto(url, { waitUntil: "networkidle" });
 
+  // Every full-screen sheet starts `display: none` and is only built when its
+  // header button is pressed, so a selector inside one photographs nothing
+  // until it has been. `--open` presses any of them by label; `--tab` is the
+  // NOT BUILT YET case, which additionally has a tab strip inside it.
+  if (open) {
+    await page.getByRole("button", { name: open }).click();
+    await page.waitForTimeout(600);
+  }
   if (tab) {
-    // The sheets live behind the header button; the tab strip only exists once
-    // it is open. Both waits are real: the sheet builds sixty animated figures
-    // and the tab it lands on rebuilds them again.
+    // Both waits are real: the sheet builds sixty animated figures and the tab
+    // it lands on rebuilds them again.
     await page.getByRole("button", { name: "NOT BUILT YET" }).click();
     await page.waitForTimeout(600);
     await page.getByRole("button", { name: tab, exact: true }).click();

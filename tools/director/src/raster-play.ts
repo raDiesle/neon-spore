@@ -1,5 +1,5 @@
 import { WAVES } from "@neon-spore/content";
-import { button, el } from "./checks-dom.js";
+import { button, el } from "./dom.js";
 import { bindRasterField, DEFAULT_WAVE } from "./raster-field.js";
 
 /**

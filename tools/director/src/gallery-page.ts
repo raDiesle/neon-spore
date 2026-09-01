@@ -1,4 +1,4 @@
-import { el } from "./checks-dom.js";
+import { el } from "./dom.js";
 import { GALLERY_CATEGORIES, GALLERY_CLIPS, type GalleryClip } from "./gallery-clips.js";
 
 /**

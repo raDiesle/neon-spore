@@ -187,7 +187,7 @@ function packagesOf(v: Variant): string[] {
  * The whole text, for `ADOPT <name>` when `won` is a candidate and for
  * `KEEP CURRENT` when it is null. The two forms differ in five places and no
  * others — the `won` row, the `lost` rows, steps 1 to 3 and step 6's
- * `shapes:report`, step 7's staging list, and the trailers — which is what
+ * `shapes:report`, step 7's staging list, and the readers — which is what
  * `test/prompt.test.ts` holds them to. A keep is an adoption whose file list
  * happens to be empty, and making it look like a different, easier kind of job
  * is how a decided slot survives on the sheet with a vote button still under it.
@@ -315,7 +315,7 @@ export function votePrompt(vote: Vote): string {
           "purpose. For each of the others decide only this: does it draw the " +
           `${subject} somewhere the vote did not show — a menu, a sheet, a card, a ` +
           "test that pins a number? Name what you find, in the report and in step " +
-          '7\'s trailer. Do not "fix" any of them, and do not add a second record ' +
+          '7\'s commit body. Do not "fix" any of them, and do not add a second record ' +
           "so that one of them can keep the old numbers.",
       ),
       "",
@@ -475,31 +475,29 @@ export function votePrompt(vote: Vote): string {
   if (won) {
     out.push(
       wrap(
-        `Trailers. Do **not** write a \`Check:\` for how the ${subject} reads on ` +
-          "the field. That is what the vote was: at true size, at tempo, beside " +
-          "the thing it replaces, and a trailer would put a settled thing back on " +
-          "a list whose only value is that everything on it is real. Do write " +
-          "exactly one `Check:` for each reader step 2 turned up that the vote did " +
-          "not put on either phone — a title screen, a sheet, a card. One line, " +
-          "prose, naming what to open.",
+        `Readers. Do not name how the ${subject} reads on the field — that is ` +
+          "what the vote was: at true size, at tempo, beside the thing it " +
+          "replaces. Do name, in one sentence in the commit body, each reader " +
+          "step 2 turned up that the vote did not put on either phone — a title " +
+          "screen, a sheet, a card. A place worth glancing at, not an obligation: " +
+          "the release note carries the sentence forward on its own.",
       ),
     );
   } else {
     out.push(
       wrap(
-        `Trailers. Write no \`Check:\` at all. Not for how the ${subject} reads — ` +
-          "that is what the vote was, and a trailer would put a settled thing back " +
-          "on a list whose only value is that everything on it is real — and not " +
-          `for a reader, because nothing in ${quoted(pkgs)} changed for one to read.`,
+        `Readers. Name none. Not how the ${subject} reads — that is what the ` +
+          `vote was — and not a reader, because nothing in ${quoted(pkgs)} ` +
+          "changed for one to read.",
       ),
     );
   }
   out.push(
     "",
     wrap(
-      "And if `bun run checks` lists an outstanding check naming this slot " +
-        `(\`versus ${slot}\`, written when the candidates landed), that check is ` +
-        `now settled: record it PASS with the note \`voted ${won ? won.name : "current"}\`.`,
+      "The vote is the record, and nothing is left waiting on it. `bun run land` " +
+        "writes what this commit changed into `docs/release-notes.md` like any " +
+        "other landing.",
     ),
     "",
   );

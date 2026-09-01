@@ -1,7 +1,7 @@
 import type { ViewRole } from "@neon-spore/render";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { patchedFields, type Slot, slots, type Variant } from "../../versus/variant.js";
-import { el } from "./checks-dom.js";
+import { el } from "./dom.js";
 import type { Pose } from "./pose-kit.js";
 import { controlsBar } from "./versus-controls.js";
 import { startPair } from "./versus-pair.js";

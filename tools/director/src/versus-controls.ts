@@ -1,4 +1,4 @@
-import { button, el } from "./checks-dom.js";
+import { button, el } from "./dom.js";
 import type { Pair } from "./versus-pair.js";
 
 /**

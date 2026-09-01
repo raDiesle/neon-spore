@@ -18,8 +18,9 @@ division of labour, not a limitation.
 - **`CLAUDE.md`** — loaded into every session, therefore short and stable.
   The import rule, the commands, the conventions. Anything that changes often
   belongs in `docs/`.
-- **`.claude/skills/`** — for what is needed occasionally: `new-creature` and
-  `new-wave` carry the full procedure, so it does not have to be explained.
+- **`.claude/skills/`** — for what is needed occasionally: `new-creature`,
+  `new-wave`, `delegate` and `worktree-preview` carry the full procedure, so it
+  does not have to be explained.
 - **`.claude/hooks/`** — for what must happen without exception. The
   determinism test runs after every edit inside `packages/sim`. A rule in
   CLAUDE.md is a hint; a hook is binding.

@@ -5,7 +5,7 @@ import {
   type Slot,
   type Variant,
 } from "../../versus/variant.js";
-import { button, el } from "./checks-dom.js";
+import { button, el } from "./dom.js";
 
 /**
  * The vote box: the reason field, the two buttons and the swap-guard banner.
@@ -17,14 +17,14 @@ import { button, el } from "./checks-dom.js";
  * it for what it deliberately is not yet.
  */
 
-/** What a vote was cast against — two fields on the `/api/checks` view. */
+/** What a vote was cast against — two fields on the `/api/notes` view. */
 export interface Head {
   head: string;
   dirty: boolean;
 }
 
 export async function readHead(): Promise<Head> {
-  const res = await fetch("/api/checks");
+  const res = await fetch("/api/notes");
   if (!res.ok) throw new Error(res.statusText);
   const v = (await res.json()) as Partial<Head>;
   return { head: v.head ?? "unknown", dirty: v.dirty !== false };

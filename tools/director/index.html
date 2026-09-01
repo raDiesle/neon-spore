@@ -557,62 +557,40 @@
         padding: 10px 20px 0; 
       }
       #backlogBody { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px; }
-      /* TO CHECK. Same full-screen sheet as the backlog, and for the same
-         reason: it is read between pieces of work, not beside one. */
-      #checks { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
-      #checks.on { display: flex; flex-direction: column; }
-      #checks > header {
+      /* RELEASE NOTES. Same full-screen sheet as the backlog, and for the same
+         reason: it is read between pieces of work, not beside one.
+
+         Deliberately plainer than the TO CHECK sheet it replaces. That one
+         needed a bar of buttons, a done state, a failure box and a red banner,
+         because every row was an obligation with a verdict pending. Nothing
+         here is pending, so none of that has anything to be. */
+      #notes { display: none; position: fixed; inset: 0; z-index: 21; background: var(--bg); }
+      #notes.on { display: flex; flex-direction: column; }
+      #notes > header {
         display: flex; align-items: baseline; gap: 12px; flex: 0 0 auto;
         padding: 12px 20px; border-bottom: 1px solid var(--line);
       }
-      #checks .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
-      #checks .sub { color: var(--dim); font-size: 10px; }
-      #checks > header button { margin-left: auto; }
-      #checksBar {
-        display: flex; align-items: center; gap: 8px; flex: 0 0 auto; padding: 10px 20px 0;
-      }
-      #checksBody {
+      #notes .title { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+      #notes .sub { color: var(--dim); font-size: 10px; }
+      #notes > header button { margin-left: auto; }
+      #notesBody {
         flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 20px 40px;
         max-width: 900px;
       }
-      /* A count on the button, because the whole point is being told without
-         having to ask. Gold when something is waiting. */
-      #checksOpen.waiting { color: var(--gold); border-color: var(--gold); }
-      #checksBody .commit { margin: 0 0 16px; }
-      #checksBody .commit-head {
-        display: flex; align-items: baseline; gap: 8px;
-        border-bottom: 1px solid var(--line-soft); padding-bottom: 3px; margin-bottom: 5px;
-        color: var(--cyan); font-size: 10px; letter-spacing: 2px;
+      /* The date is the only structure the list has — no count on the header
+         button, because a count says something is waiting and nothing is. */
+      .note-day {
+        color: var(--cyan); font-size: 10px; letter-spacing: 3px;
+        border-bottom: 1px solid var(--line-soft); padding-bottom: 3px; margin: 18px 0 8px;
       }
-      #checksBody .commit-head .subject { color: var(--ink); letter-spacing: 0; }
-      #checksBody .commit-head .when { margin-left: auto; color: var(--dim); }
-      .check { border: 1px solid transparent; border-radius: 6px; padding: 4px 6px; }
-      .check.now { border-color: var(--gold); background: #14102b; }
-      .check.is-done { opacity: .55; }
-      .check-head { display: flex; align-items: center; gap: 8px; }
-      .check-head .mark { color: var(--gold); width: 12px; }
-      .check.is-done .mark { color: var(--dim); }
-      .check-head .n { color: #574d84; font-size: 9px; letter-spacing: 1px; }
-      .check-head .what { flex: 1 1 auto; min-width: 0; font-size: 11px; }
-      .check-head .stamp { color: var(--dim); font-size: 9px; letter-spacing: 1px; }
-      .check .hint { color: var(--cyan); font-size: 9px; letter-spacing: .5px; margin: 2px 0 0 20px; }
-      .check-fail { display: flex; gap: 6px; margin: 4px 0 0 20px; }
-      .check-fail input { flex: 0 1 420px; }
-      .check-fail button { white-space: nowrap; }
-      .check-out {
-        margin: 4px 0 0 20px; padding: 6px 8px; background: #0a0719; border-radius: 5px;
-        color: var(--red); font-size: 9px; white-space: pre-wrap; max-height: 220px;
-        overflow-y: auto;
-      }
-      .check-stale {
-        margin: 0 0 12px; padding: 6px 9px; border-radius: 5px;
-        border: 1px solid var(--red); color: var(--red); font-size: 10px; letter-spacing: 1px;
-      }
-      #checksBody details > summary {
-        cursor: pointer; color: var(--dim); font-size: 10px; letter-spacing: 2px; margin: 12px 0;
-      }
+      .note-day:first-child { margin-top: 0; }
+      .note-entry { margin: 0 0 12px; }
+      .note-head { display: flex; align-items: baseline; gap: 8px; }
+      .note-head .sha { color: #574d84; font-size: 9px; letter-spacing: 1px; }
+      .note-head .subject { flex: 1 1 auto; min-width: 0; font-size: 11px; color: var(--ink); }
+      .note-what { color: var(--dim); font-size: 10px; margin: 3px 0 0 0; line-height: 1.5; }
 
-      /* ORPHANS. Same full-screen shell as TO CHECK, but its header button is
+      /* ORPHANS. Same full-screen shell as RELEASE NOTES, but its header button is
          red rather than gold the moment the count leaves zero — a check
          waiting for a human eye is normal; a built mechanic nothing reaches
          is the thing the owner said should not happen at all. */
@@ -1084,7 +1062,7 @@
       <button type="button" class="menu-item" data-view="wave">WAVE</button>
       <button type="button" class="menu-item" data-view="game">GAME</button>
       <button type="button" class="menu-item" data-view="map">MAP</button>
-      <button type="button" id="checksOpen" class="menu-item">⚑ TO CHECK</button>
+      <button type="button" id="notesOpen" class="menu-item">≡ RELEASE NOTES</button>
       <button type="button" id="orphansOpen" class="menu-item">☠ ORPHANS 0</button>
       <button type="button" id="backlogOpen" class="menu-item">◇ NOT BUILT YET</button>
       <button type="button" id="statesOpen" class="menu-item">▣ GAME MECHANICS</button>
@@ -1227,23 +1205,19 @@
 
     <!-- The backlog. Outside <main> because it covers it: the editor is about
          one wave, and this is about everything that is not in the game yet. -->
-    <!-- What landed on main that only this machine can look at. The list is
-         derived from `Check:` trailers in the history; the ticks are the one
-         thing written down, in docs/verified.md. -->
-    <div id="checks">
+    <!-- What landed on main, newest first. Read-only on purpose: it carries no
+         button, no count and no verdict, because every row is something that
+         already happened rather than something waiting on an answer. Written by
+         `bun run land`; see docs/release-notes.md. -->
+    <div id="notes">
       <header>
-        <span class="title">TO CHECK</span>
+        <span class="title">RELEASE NOTES</span>
         <span class="sub">
-          what landed on main that a sandbox could not look at — tick it once you have
+          what landed on main, newest first — nothing here is waiting on you
         </span>
-        <button type="button" id="checksClose">✕ CLOSE</button>
+        <button type="button" id="notesClose">✕ CLOSE</button>
       </header>
-      <div id="checksBar">
-        <button type="button" id="checksNext">▶ NEXT</button>
-        <button type="button" id="checksRunAll">▶ RUN THE COMMANDS</button>
-        <span class="note" id="checksCount" style="margin: 0"></span>
-      </div>
-      <div id="checksBody"></div>
+      <div id="notesBody"></div>
     </div>
 
     <!-- ORPHANS: a mechanic that is built and that no wave and no gap

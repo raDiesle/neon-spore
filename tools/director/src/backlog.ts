@@ -13,9 +13,9 @@
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.
  */
 
-import { parseParked } from "../../handoff/parked.js";
 import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
+import { parseParked } from "./parked.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 

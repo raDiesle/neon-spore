@@ -1,53 +1,38 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run frames <sha>` — a before-and-after picture for a landed check.
+ * `bun run frames <sha> --wave N` — a before-and-after picture for a landing.
  *
- * `docs/queue.md`, "A CHECK THAT LANDED YESTERDAY HAS NO BEFORE" — the owner
- * wants a picture beside a check, not a sentence describing one, and every
- * commit already has a parent to compare against. This checks the parent and
- * the commit itself out into two scratch worktrees, builds each, serves it
- * with `bun run preview:once` and drives the real loop with
- * `window.neonSpore` the same way `CLAUDE.md`'s testing handle describes —
- * `jumpToWave`, `dismissBriefing`, `advance`, `paint` — then screenshots
- * `#stage` at both. No wall clock, no random number, and the same wave, tick
- * count and viewport both times: that is the whole of what makes the two
- * pictures comparable at all.
+ * The owner wants a picture beside a change, not a sentence describing one, and
+ * every commit already has a parent to compare against. This checks the parent
+ * and the commit itself out into two scratch worktrees, builds each, serves it
+ * with `bun run preview:once` and drives the real loop with `window.neonSpore`
+ * the same way `CLAUDE.md`'s testing handle describes — `jumpToWave`,
+ * `dismissBriefing`, `advance`, `paint` — then screenshots `#stage` at both. No
+ * wall clock, no random number, and the same wave, tick count and viewport both
+ * times: that is the whole of what makes the two pictures comparable at all.
  *
- * Not every check can be answered this way. One about a sound, about two
- * devices agreeing, or about the relay has no frame to take — `--report`
- * counts, over the restated checks under `docs/checks/`, how many even name a
- * place a picture could settle (`bun run preview`, a wave, a seat) against how
- * many name something a camera cannot reach.
+ * **`--wave` is required.** It used to be optional: a sha alone was enough,
+ * because `docs/checks/<sha>.md` carried a `where` field naming the place a
+ * person should stand and this derived the wave from it. Those restatements are
+ * gone along with the `Check:` mechanic that produced them, and guessing a wave
+ * from a commit message would be the same trap in a new place — a frame of the
+ * wrong wave proves nothing, and proves it convincingly.
  *
- * A sha alone is enough. `docs/checks/<sha>.md` carries a `where` field
- * naming the place a person should stand for that check, and most of them
- * name a wave — by number, by name, or "any wave". This reads that field and
- * opens the wave it names, the same one a human would walk to. `where` naming
- * a director page instead of the game (SHAPES, VERSUS, the wave list, NOT
- * BUILT YET) has no frame here — the tool says so and refuses rather than
- * screenshotting the field. `--wave` overrides the derivation for the checks
- * `where` cannot express as one wave.
- *
- *   bun run frames <sha>                        the wave its own `where` names
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
  *   bun run frames <sha> --wave "THE THIRD SHOT" a wave by name — what a person has in hand
- *   bun run frames <sha> --ticks 240             a different point in the wave
- *   bun run frames <sha> --frames 6 --stride 4   a short strip, for motion
- *   bun run frames <sha> --out docs/checks/frames/<sha>
- *   bun run frames --report                      how many restated checks a frame could answer
+ *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
+ *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
+ *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
- * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to
- * the 0-based index `jumpToWave` and `world.wave` actually use.
+ * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to the
+ * 0-based index `jumpToWave` and `world.wave` actually use.
  */
-
-import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { findRestatedForCommit, parseRestated, type Restated } from "../checks/restated.js";
-import { checksIn } from "../checks/trailers.js";
 import { captureFrames, type FrameSpec } from "./capture.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -123,173 +108,12 @@ async function captureAt(rev: string, spec: FrameSpec, outPrefix: string): Promi
 }
 
 /**
- * Over the restated checks already under `docs/checks/`, how many name a
- * place `bun run frames` could point a browser at, versus how many ask about
- * something no frame holds — a sound, two devices, the relay. Printed rather
- * than assumed, because the brief this tool answers asks for the number
- * before anything is captured in bulk.
- */
-
-/** One restated `.md` file can carry more than one `- **badge**` entry
- * (see `docs/checks/16efb33.md`) — split on the marker rather than counting
- * files, so the number matches what a human counts scrolling the file. */
-export function splitEntries(text: string): string[] {
-  return text.split(/\n(?=- \*\*badge\*\*)/).filter((e) => e.includes("**badge**"));
-}
-
-const UNPHOTOGRAPHABLE = /\b(sound|audio|relay|desync|two devices|both devices|second phone)\b/i;
-
-/** Whether a check's own `where` and `decide` fields name something a frame
- * could settle at all — a sound or a second device is not in any screenshot. */
-export function isPhotographable(entry: string): boolean {
-  const where = entry.match(/\*\*where\*\*\s*(.*)/)?.[1] ?? "";
-  const decide = entry.match(/\*\*decide\*\*\s*(.*)/)?.[1] ?? "";
-  return !UNPHOTOGRAPHABLE.test(`${where} ${decide}`);
-}
-
-async function report(): Promise<void> {
-  const glob = new Bun.Glob("*.md");
-  let total = 0;
-  let photographable = 0;
-  for await (const name of glob.scan(join(root, "docs/checks"))) {
-    if (name === "restated.md") continue; // legacy, never written to
-    const text = await Bun.file(join(root, "docs/checks", name)).text();
-    for (const entry of splitEntries(text)) {
-      total++;
-      if (isPhotographable(entry)) photographable++;
-    }
-  }
-  console.log(
-    `${total} restated checks; ${photographable} name a place a frame could settle, ${total - photographable} do not (sound, a second device, the relay).`,
-  );
-}
-
-/**
  * One entry of `WAVES`, reduced to the two things a `where` field can name a
  * wave by. Kept narrow so `resolveWaveText` and its tests do not need the
  * whole `Wave` shape from `@neon-spore/content`.
  */
 export interface WaveName {
   name: string;
-}
-
-/** Regex-escapes a wave name so `SHIELD, THEN CANNON` can be searched for
- * literally instead of as a character class. */
-function escapeRegExp(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-export type WaveResolution =
-  | { kind: "hud"; hudNumber: number; reason: string }
-  | { kind: "name"; name: string; index: number; reason: string }
-  | { kind: "director"; reason: string }
-  | { kind: "unknown"; reason: string };
-
-/**
- * Phrases that name a director page rather than the running game — the
- * places `bun run frames` cannot stand in, because it only builds and serves
- * `apps/game`. Substring, case-insensitive: `DIRECTOR_HOST` matches on
- * `director` the same way a spelled-out "director" would.
- */
-const DIRECTOR_MARKERS = [
-  "director",
-  "not built yet",
-  "shapes",
-  "versus",
-  "parked",
-  "backlog",
-  "music tab",
-  "to check",
-  "control sets",
-  "demos",
-  "wave list",
-  "checks sheet",
-];
-
-/**
- * What a `where` field's own text names, read the way a person reading it
- * would: a wave by the HUD's number (`wave 21` is `W21`, not `jumpToWave`'s
- * 0-based 21), a wave by its own name (`THE THIRD SHOT`), "any wave" (nothing
- * turns on which one), a director page with no single wave to stand at, or
- * nothing this can place at all.
- *
- * Order matters: a named or numbered wave wins even where a director marker
- * also appears (`docs/checks/18036b0.md`'s "`bun run dev` → THE THIRD SHOT
- * wave" names a real wave despite naming the wave editor to find it in), and
- * a `bun run frames <sha> --wave N` example embedded in a `where` field
- * (`docs/checks/943c4f4.md`, about the tool itself) is deliberately not read
- * as an instruction to this run — a check about `bun run frames` is not a
- * place to stand.
- */
-export function resolveWaveText(text: string, waves: readonly WaveName[]): WaveResolution {
-  if (/\bbun run frames\b/i.test(text)) {
-    return {
-      kind: "unknown",
-      reason: "where describes running `bun run frames` itself, not a place to stand",
-    };
-  }
-
-  const numbered = text.match(/\bwave\s*#?\s*(\d{1,3})\b/i);
-  if (numbered) {
-    const hudNumber = Number(numbered[1]);
-    return { kind: "hud", hudNumber, reason: `"wave ${hudNumber}" in the where field` };
-  }
-
-  let earliest: { index: number; name: string; waveIndex: number } | null = null;
-  waves.forEach((w, waveIndex) => {
-    const m = text.match(new RegExp(`\\b${escapeRegExp(w.name)}\\b`));
-    if (m && m.index !== undefined && (!earliest || m.index < earliest.index)) {
-      earliest = { index: m.index, name: w.name, waveIndex };
-    }
-  });
-  if (earliest) {
-    const found = earliest as { index: number; name: string; waveIndex: number };
-    return {
-      kind: "name",
-      name: found.name,
-      index: found.waveIndex,
-      reason: `"${found.name}" named in the where field`,
-    };
-  }
-
-  if (/\bany wave\b/i.test(text)) {
-    return { kind: "hud", hudNumber: 1, reason: '"any wave" said — using wave 1' };
-  }
-
-  const marker = DIRECTOR_MARKERS.find((m) => text.toLowerCase().includes(m));
-  if (marker) {
-    return { kind: "director", reason: `where names a director page ("${marker}"), not the game` };
-  }
-
-  return { kind: "unknown", reason: "no wave named in the where field" };
-}
-
-/**
- * Every restatement under `docs/checks/`, from every `.md` file there — one
- * `readdir` and one parse, shared by every call this run makes rather than
- * one per commit. `tools/checks/repo.ts`'s `readRestated` reads the same
- * directory for the same reason (a restatement can live in any file since
- * three lanes collided writing one shared document); this is deliberately
- * not imported from there, because `tools/checks` is owned by nobody in this
- * task and this file's brief is not to restructure it, only to stop guessing
- * a filename from a sha.
- */
-async function readAllRestated(): Promise<Restated[]> {
-  const dir = join(root, "docs/checks");
-  const names = await readdirSafe(dir);
-  const all: Restated[] = [];
-  for (const name of names.filter((n) => n.endsWith(".md")).sort()) {
-    all.push(...parseRestated(await Bun.file(join(dir, name)).text()));
-  }
-  return all;
-}
-
-async function readdirSafe(dir: string): Promise<string[]> {
-  try {
-    return await readdir(dir);
-  } catch {
-    return [];
-  }
 }
 
 /**
@@ -319,63 +143,6 @@ export async function waveNamesAt(rev: string): Promise<WaveName[]> {
     await git(["worktree", "remove", "--force", scratch]).catch(() => {});
     await rm(scratch, { recursive: true, force: true }).catch(() => {});
   }
-}
-
-/**
- * Resolves a commit's own `Check:` trailers — read straight off the commit,
- * not guessed from a filename — to whichever restated entries quote them,
- * and picks the first `where` among those that names an actual wave.
- *
- * `docs/queue.md`, "THIRTY-ONE OF THIRTY-THREE CHECK FILES ARE NAMED AFTER A
- * COMMIT THAT NEVER LANDED": this used to open `docs/checks/<sha>.md`, which
- * only exists for the pre-rebase sha a lane committed under — `bun run land`
- * rebases, so the sha this function is actually called with (a commit on
- * `main`) is a different one, and the file is gone. The join that survives a
- * rebase is the one `bun run checks` already uses: the trailer's own text,
- * via `findRestatedForCommit`. A trailer with several `Check:` lines, or a
- * restatement naming only a director page, is skipped in favour of a later
- * one that does name a wave (`docs/checks/16efb33.md` carries two, and the
- * first already resolves); if none of them do, the first non-"unknown"
- * reason is reported so the refusal explains itself instead of just saying
- * "no wave".
- *
- * `waves` is the caller's to supply, and must be the list as it stood at
- * `sha` — see `waveNamesAt` — not today's `WAVES`. A "name" resolution's
- * `.index` is a position in whichever list is passed in, so passing the
- * wrong one is exactly the fault `docs/queue.md`'s "FRAMES PUTS THE WRONG
- * WAVE IN THE PICTURE" describes.
- */
-export async function deriveWaveFromChecks(
-  sha: string,
-  waves: readonly WaveName[],
-): Promise<WaveResolution> {
-  const full = await git(["rev-parse", sha]).catch(() => null);
-  if (!full) return { kind: "unknown", reason: `no commit found for ${sha}` };
-  const body = await git(["log", "-1", "--format=%B", full]);
-  const checks = checksIn(body, sha);
-  if (checks.length === 0) {
-    return { kind: "unknown", reason: `${sha} carries no Check: trailer` };
-  }
-  const entries = await readAllRestated();
-  const restated = findRestatedForCommit(
-    entries,
-    full,
-    checks.map((c) => c.text),
-  );
-  if (restated.length === 0) {
-    return {
-      kind: "unknown",
-      reason: `no restatement quotes any of ${sha}'s Check: trailer(s) word for word`,
-    };
-  }
-  let fallback: WaveResolution | null = null;
-  for (const r of restated) {
-    if (!r.where) continue;
-    const resolved = resolveWaveText(r.where, waves);
-    if (resolved.kind === "hud" || resolved.kind === "name") return resolved;
-    if (!fallback) fallback = resolved;
-  }
-  return fallback ?? { kind: "unknown", reason: `restatement(s) for ${sha} have no where field` };
 }
 
 /** `--wave` on the command line: the HUD's own number (`21` is `W21`) or a
@@ -415,21 +182,16 @@ export async function framesIdentical(before: string[], after: string[]): Promis
 
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
-  if (argv[0] === "--report" || argv.length === 0) {
-    await report();
-    return;
-  }
-
   const sha = argv[0];
-  if (!sha) {
-    throw new Error('usage: bun run frames <sha> [--wave N|"NAME"] [--ticks N] [--out DIR]');
+  if (!sha || sha.startsWith("--")) {
+    throw new Error('usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--out DIR]');
   }
   const flag = (name: string, fallback: number): number => {
     const i = argv.indexOf(`--${name}`);
     return i === -1 ? fallback : Number(argv[i + 1]);
   };
   const outFlag = argv.indexOf("--out");
-  const out = outFlag === -1 ? join(root, "docs/checks/frames", sha) : (argv[outFlag + 1] ?? "");
+  const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
 
   const parent = await git(["rev-parse", `${sha}^`]);
@@ -440,28 +202,17 @@ async function main(): Promise<void> {
   const historicalWaves = await waveNamesAt(full);
 
   const waveFlagIndex = argv.indexOf("--wave");
-  let waveIndex: number;
-  if (waveFlagIndex !== -1) {
-    const value = argv[waveFlagIndex + 1];
-    if (!value) throw new Error("--wave needs a number or a wave name");
-    waveIndex = resolveWaveFlag(value, historicalWaves);
-    console.log(
-      `wave: ${value} → index ${waveIndex} (${historicalWaves[waveIndex]?.name ?? "beyond the authored waves"})`,
+  const waveValue = waveFlagIndex === -1 ? "" : (argv[waveFlagIndex + 1] ?? "");
+  if (!waveValue) {
+    throw new Error(
+      '--wave is required: --wave N (the number the HUD prints) or --wave "NAME". A frame of ' +
+        "the wrong wave proves nothing, so this tool will not pick one for you.",
     );
-  } else {
-    const resolution = await deriveWaveFromChecks(sha, historicalWaves);
-    if (resolution.kind === "director") {
-      throw new Error(
-        `${resolution.reason} — nothing to screenshot here. Pass --wave to point this at a wave instead.`,
-      );
-    }
-    if (resolution.kind === "unknown") {
-      throw new Error(`${resolution.reason} — pass --wave N or --wave "NAME" explicitly.`);
-    }
-    waveIndex = resolution.kind === "hud" ? resolution.hudNumber - 1 : resolution.index;
-    const name = historicalWaves[waveIndex]?.name ?? "beyond the authored waves";
-    console.log(`wave: ${resolution.reason} → index ${waveIndex} (${name})`);
   }
+  const waveIndex = resolveWaveFlag(waveValue, historicalWaves);
+  console.log(
+    `wave: ${waveValue} → index ${waveIndex} (${historicalWaves[waveIndex]?.name ?? "beyond the authored waves"})`,
+  );
 
   const spec: FrameSpec = {
     wave: waveIndex,
