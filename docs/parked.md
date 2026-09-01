@@ -20,6 +20,14 @@ it, then one line labelling what kind of thing it is and how far along —
 `Kind · Stage` — then two or three sentences: what it is, why it was not
 done then, and where to start.
 
+Both of those lines are load-bearing: the director reads this file straight
+onto the PARKED page, one entry after another with its whole argument open
+under it, and an entry missing either line is an entry nobody can date or
+sort. Where the branch was never written down and cannot be recovered, the
+commit that added the entry stands in its place — `2026-08-28 · cc7a74f`.
+`tools/director/test/parked.test.ts` fails on an entry with no argument, no
+origin, no label, or a title the file already carries.
+
 **Kind** is one of a closed list, picked by hand — nothing here can be
 derived, the category lives in the prose and nowhere else: Mechanic,
 Creature (a new or existing creature or boss), Graphics, Sound, Tool (or the
@@ -34,7 +42,15 @@ Graphics entry can be any of the three stages, and the difference decides
 whether picking it up is a session or a week.
 
 Anything labelled Creature is not scattered through the file: it moves to
-the bottom, under `## Three private copies of a hex mix
+the bottom, under `### Postponed: creatures and bosses`, which says why.
+New enemies and bosses are the least relevant thing to continue right now,
+so they wait there rather than sit beside the technical debt above.
+
+An entry leaves by being **deleted** — done or refused, the history keeps it
+either way. Nothing is ticked here. A file of ticked boxes is a file nobody
+reads to the bottom of.
+
+## Three private copies of a hex mix
 
 2026-09-01 · claude/veil-ui-improvements-c66ef8
 
@@ -67,89 +83,6 @@ the tell that it should be a command. `bun run frames <sha> --seats` is the
 shape: the same capture twice with the seat set in an init script, and one
 picture out. Start in `tools/frames/capture.ts`, which already does everything
 but the seat and the stitch.
-
-## PARTS as a fifth axis on the SHAPES page
-
-2026-08-31 · claude/space-game-shape-variants-wlmn6m
-
-Tool · Designed
-
-SKIN, GLOW, HIT and TAIL are each a row where one body is drawn under every
-value of an axis, and `parts/` is the same shape of thing: one base blob under
-every part in the registry, fifty-one cells, animating. The static sheet
-`bun run shapes:parts` answers what each piece looks like and cannot answer
-whether a tentacle's sway reads at tempo, which is the only question worth an
-eye on a part that moves.
-
-Not done in this lane because the lane was the library and the axes are the
-director's, and `shapes-all.ts` already walks six grids through one card
-implementation — a seventh is a change to that walk rather than a file beside
-it. Start at `shapes-effect-axes.ts` and ask whether a part axis wants the same
-`Cell` or a cell that carries a recipe.
-
-## A part is drawn in the tool and nothing in the game can wear one
-
-2026-08-31 · claude/space-game-shape-variants-wlmn6m
-
-Graphics · Idea
-
-`grown()` lives in `tools/shape-sheet/` because content is what the game ships
-and a combination nothing carries is not content. The day a card is claimed,
-though, the game needs a way to draw it: `packages/render` draws a creature
-from `blobPath` and a radius function, and a body wearing three loops is not
-that. Either the parts follow into `content` as data the renderer walks, or a
-claimed recipe is baked down to a contour and loses its per-part motion.
-
-Not done because nothing has claimed one yet and the answer depends on which
-card does. Start by asking whether the claimed body's parts need to move
-independently — if they do, the renderer needs the loops; if they do not, a
-baked contour is cheaper everywhere.
-
-## A bell has no hollow, because a radius cannot have one
-
-2026-08-31 · claude/space-game-shape-variants-wlmn6m
-
-Graphics · Designed
-
-`bell` in `parts/base.ts` cuts a body's underside flat, and that is as far as
-a contour marched one radius per angle can go: a concave underside needs the
-ray to cross the outline twice. So the eight jellies are domes with a straight
-edge underneath, and what they cannot show is the one thing that reads as
-*hollow* — the far inside of the bell visible through the near side, which is
-most of what a photographed jellyfish looks like.
-
-Not done because it is not a bigger number, it is a second loop: an inner
-outline, drawn under `fill-rule: evenodd` so it becomes a hole, the way
-`ring.ts` already does for THE WARDEN. Start there — it is the one shape in
-the catalogue that has solved this — and ask first whether the hollow survives
-at 26 px or is a thing only the card ever sees.
-
-## The swim sheet fits every row to its own body
-
-2026-08-31 · claude/space-game-shape-variants-wlmn6m
-
-Tool · Idea
-
-`swim-sheet.ts` fits each row over its own cycle, so the squeeze inside a row
-is honest and sizes *between* rows are not: THIMBLE and PARASOL are drawn the
-same height on the page and are nothing like the same size in tiles. Every
-sheet in this tool has the same property and it has never mattered, because
-the game derives a body's size from the tile rather than from the drawing.
-
-It might matter here. Whether a bell reads as a bell is partly a question of
-how big it is against the things hanging off it, and a page that normalises
-that away is answering a slightly different question from the one an eye asks.
-Start by drawing the eight at one shared scale and seeing whether the small
-ones become unreadable — if they do, the current fit is right and this entry
-is refused.
-
-### Postponed: creatures and bosses`, which says why.
-New enemies and bosses are the least relevant thing to continue right now,
-so they wait there rather than sit beside the technical debt above.
-
-An entry leaves by being **deleted** — done or refused, the history keeps it
-either way. Nothing is ticked here. A file of ticked boxes is a file nobody
-reads to the bottom of.
 
 ## A baked burst is one colour, and this game has two
 
@@ -577,6 +510,8 @@ the hull contour rather than a bubble, so a sphere here would not collide with
 it visually.
 
 ## Per-pixel surface shading without a second renderer
+
+2026-08-28 · cc7a74f
 
 Graphics · Designed
 
@@ -1659,6 +1594,10 @@ drawn.
 
 ## Four director files sit within four lines of the limit
 
+2026-08-29 · 1bdf7aa
+
+Tool · Implemented
+
 `session.ts` 247, `backlog-page.ts` 247, `checks-page.ts` 246, `sound-page.ts`
 249 — against a cap of 250. Noticed on 29 August 2026 while landing the
 sheet-restore lane, which got all four *under* the cap by consolidating five
@@ -1732,21 +1671,3 @@ now uses, rather than a number somebody already eased.
 
 Worth deciding by looking first: the button may turn out to be enough, and a
 second signal for one state would then be noise.
-
-## A sheet page's introduction sits on top of what it introduces
-
-2026-08-30 · claude/td-research
-
-Director · Defect
-
-Every `.pagewhat` in NOT BUILT YET is `position: sticky`, so scrolling a tab
-slides the page's own content underneath its introduction and the two overlap
-as unreadable text. BORROWED shows it and so does TOWER DEFENCE — the
-paragraph is longest on exactly the two tabs that render a document whole, so
-it covers the most there.
-
-Not done in that lane because the lane was a document and one new tab, and a
-sticky rule shared by nine tabs is a change to all nine. Start by asking
-whether the introduction should be sticky at all: it is read once, before the
-tab is read, and a heading that follows you down a page is only worth its room
-when it says where you are.

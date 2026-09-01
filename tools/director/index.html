@@ -724,12 +724,18 @@
       /* The answer to "what is this page", pulled out of the `.note` fog:
          `.note` is 9px and #574d84 everywhere else in this file too, so a
          page's own explanation read as just another caption among dozens and
-         the eye went straight past it to the cards. Sticky keeps it in view
-         under the tab bar while the wall of cards scrolls under it, instead
-         of losing it above the fold on the first scroll. */
+         the eye went straight past it to the cards.
+
+         It used to be `position: sticky` as well, to keep it under the tab bar
+         while the cards scrolled. That was wrong: the paragraph has a
+         background only as wide as its own 620px column, so everything to the
+         right of it scrolled *through* the text, and on the tabs that render a
+         document whole the paragraph is longest and covered the most. It is
+         read once, before the page is read — a heading that follows you down a
+         page earns its room only when it says where you are, and this one says
+         what you already decided to open. */
       .sheetpage > .pagewhat {
-        position: sticky; top: 0; z-index: 1; background: var(--bg);
-        max-width: 620px; margin: 0 0 14px; padding: 10px 0 12px;
+        max-width: 620px; margin: 0 0 14px; padding: 0 0 12px;
         font-size: 12px; line-height: 1.6; color: var(--ink);
         border-bottom: 1px solid var(--line-soft);
       }
@@ -795,6 +801,27 @@
          much room there is. */
       .columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 8px 26px; align-items: start; }
       .columns > section { min-width: 0; max-width: 560px; }
+
+      /* A page that is read end to end rather than scanned: one column, prose
+         width, groups stacked in the file's own order. PARKED is the one tab
+         where every entry is an argument the owner has to decide on — several
+         sentences each — and side-by-side columns turn that into a wall you
+         read in vertical strips, guessing which heading a paragraph belongs
+         to. Wider than 620px because these paragraphs carry code spans and
+         file paths that break badly in a narrow measure. */
+      .columns.reading { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .columns.reading > section { max-width: 760px; }
+      .columns.reading > section + section { margin-top: 34px; }
+      .plan.is-reading { padding: 14px 0 4px; border-bottom: none; }
+      .plan.is-reading + .plan.is-reading { border-top: 1px solid var(--line-soft); }
+      .plan.is-reading .name { color: var(--ink); font-size: 12px; }
+      /* The date and the branch: provenance, not the sentence — so it sits
+         under the title in the colour of a footnote rather than of prose. */
+      .plan.is-reading .blurb { font-size: 9px; letter-spacing: 1px; color: #574d84; }
+      .plan.is-reading .md {
+        margin: 8px 0 0; border-left: none; background: transparent;
+        padding: 0; font-size: 11px; line-height: 1.65;
+      }
 
       .shapes { display: flex; flex-wrap: wrap; gap: 10px; }
       .skinbar { display: flex; gap: 6px; margin: 10px 0 14px; flex-wrap: wrap; }
@@ -1533,10 +1560,14 @@
         </div>
         <div class="sheetpage" id="sheet-parked">
           <p class="pagewhat">
-            Not queued: deferred on purpose, or examined and turned down with a
-            reason. Here so that the same idea does not get proposed twice.
+            Not queued, and read from top to bottom rather than in columns:
+            every idea a session noticed and did not act on, each with its
+            whole argument on the page — what it is, why it was skipped, and
+            where to start — so that deciding whether it is worth doing needs
+            nothing but this page. Below them, ideas already examined and
+            turned down with a reason, so the same one is not proposed twice.
           </p>
-          <div id="backlogParked" class="columns"></div>
+          <div id="backlogParked" class="columns reading"></div>
         </div>
         <div class="sheetpage" id="sheet-designs">
           <p class="pagewhat">

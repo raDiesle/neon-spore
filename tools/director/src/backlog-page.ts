@@ -14,9 +14,9 @@
  */
 
 import { mountLazyTabs } from "./backlog-tabs.js";
-import { conceptArt, draftFor } from "./concept-art.js";
+import { conceptArt, draftFor, hasConceptArt } from "./concept-art.js";
 import { renderHolders } from "./holders-panel.js";
-import { detailBox, inline } from "./markdown.js";
+import { detailBox, inline, renderMarkdown } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
 import { mountSheet } from "./session.js";
@@ -39,6 +39,8 @@ interface BacklogGroup {
   note: string;
   entries: BacklogEntry[];
   builtHidden: number;
+  /** One column at prose width, every argument open — see `backlog.ts`. */
+  reading?: boolean;
 }
 
 interface Backlog {
@@ -51,9 +53,9 @@ interface Backlog {
   designs: BacklogGroup[];
 }
 
-function renderEntry(item: BacklogEntry): HTMLElement {
+function renderEntry(item: BacklogEntry, reading = false): HTMLElement {
   const div = document.createElement("div");
-  div.className = "plan";
+  div.className = reading ? "plan is-reading" : "plan";
 
   const head = document.createElement("div");
   head.className = "head";
@@ -65,8 +67,12 @@ function renderEntry(item: BacklogEntry): HTMLElement {
   // beside the other shapes instead of beside the idea. `concept-art.ts` is
   // the join, and the empty frame is deliberate: a gap where a picture will go
   // has to look different from a picture that failed to draw.
+  //
+  // Except in a reading group, where the entry's name is a *sentence* rather
+  // than a concept's name — so nothing is ever drawn at it, and seventy-five
+  // question marks down the left margin say nothing seventy-five times.
   if (item.name) {
-    head.appendChild(conceptArt(item.name));
+    if (!reading || hasConceptArt(item.name)) head.appendChild(conceptArt(item.name));
     const name = document.createElement("span");
     name.className = "name";
     name.textContent = item.name;
@@ -109,7 +115,21 @@ function renderEntry(item: BacklogEntry): HTMLElement {
   const field = onTheField(item.name);
   if (field) div.appendChild(field);
 
-  if (item.detail) div.appendChild(detailBox(item.detail, item.ref));
+  // Open on the page in a reading group, behind an expander everywhere else.
+  // A list of a hundred entries is scanned, and an expander is right there —
+  // but `docs/parked.md` is a page somebody reads end to end to decide what is
+  // worth doing, and seventy-five closed boxes is that page with its content
+  // removed.
+  if (item.detail) {
+    if (reading) {
+      const body = document.createElement("div");
+      body.className = "md";
+      renderMarkdown(body, item.detail);
+      div.appendChild(body);
+    } else {
+      div.appendChild(detailBox(item.detail, item.ref));
+    }
+  }
   return div;
 }
 
@@ -121,6 +141,7 @@ function renderEntry(item: BacklogEntry): HTMLElement {
  */
 function renderGroup(container: HTMLElement, group: BacklogGroup): void {
   const section = document.createElement("section");
+  if (group.reading) section.className = "reading";
 
   const h2 = document.createElement("h2");
   h2.textContent = group.title;
@@ -131,7 +152,7 @@ function renderGroup(container: HTMLElement, group: BacklogGroup): void {
   note.textContent = group.note;
   section.appendChild(note);
 
-  for (const entry of group.entries) section.appendChild(renderEntry(entry));
+  for (const entry of group.entries) section.appendChild(renderEntry(entry, group.reading));
 
   if (group.entries.length === 0) {
     const empty = document.createElement("p");

@@ -15,7 +15,7 @@
 
 import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
-import { parseParked } from "./parked.js";
+import { parkedGroups } from "./parked.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 
@@ -35,6 +35,13 @@ export interface BacklogGroup {
   entries: BacklogEntry[];
   /** How many entries were left out because the simulation already has them. */
   builtHidden: number;
+  /**
+   * Read rather than scanned: one column at prose width, and every entry's
+   * argument open on the page instead of behind an expander. For the groups
+   * whose entries *are* paragraphs — a parked idea is several sentences, and a
+   * grid of collapsed headings is the one shape it cannot be read in.
+   */
+  reading?: boolean;
 }
 
 export interface Backlog {
@@ -48,18 +55,6 @@ export interface Backlog {
   // carrying numbers a queued lane is meant to build. Built in
   // `design-docs.ts`, a different thing from an idea nobody has argued with.
   designs: BacklogGroup[];
-}
-
-// The `Kind · Stage` line under each entry's date and branch in
-// `docs/parked.md` — see that file's header for the vocabularies.
-const PARKED_LABEL =
-  /^(?:Mechanic|Creature|Graphics|Sound|Tool|Performance|Correctness|Documentation) · (?:Idea|Designed|Implemented)$/;
-
-function parkedLabels(md: string): string[] {
-  return md
-    .split(/\n(?=## )/)
-    .slice(1)
-    .map((section) => section.split("\n").find((l) => PARKED_LABEL.test(l.trim())) ?? "");
 }
 
 /**
@@ -160,7 +155,6 @@ export function buildBacklog(
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
-  const parkedKinds = parkedLabels(parkedMd);
 
   return {
     bestiary: [
@@ -218,18 +212,7 @@ export function buildBacklog(
       // The file the tab is named after. Below it are the spec's own
       // deferrals and rejections — a different thing with the same word
       // on it, which is why this went unnoticed for so long.
-      {
-        title: "PARKED BY A SESSION",
-        note: "noticed and not done, with where to start — docs/parked.md",
-        builtHidden: 0,
-        entries: parseParked(parkedMd).map((e, i) => ({
-          name: e.title,
-          kind: parkedKinds[i] ?? "",
-          note: e.origin,
-          detail: "",
-          ref: "parked.md",
-        })),
-      },
+      ...parkedGroups(parkedMd),
       ...deferredGroups(sheet.deferred),
       fromSection(
         "EXAMINED AND REJECTED",
