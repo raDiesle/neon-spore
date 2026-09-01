@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-01 · 0e945fb — The boss was converted twice, and a radius function cannot draw a neck
+
+THE BURR and THE POMMEL were the same Galaxy Defense stage boss. The first conversion used `studded`, which samples one radius per angle; a ball on a stalk has two at the same angle, and the one it cannot keep is the waist. So the necks closed, the knobs ran together into a continuous spiky rim, and the body read as a sea urchin rather than as a mace. `clubbed` walks the contour instead of sampling it, which is why THE POMMEL has stalks at all.
+
 ## 2026-09-01 · 301b07b — The lists that asked for something are gone, and landing cleans up after itself
 
 Three arrangements went at once, and they went for the same reason. The queue in `docs/queue.md` was driven by `bun run burn`, which read it as a board of parallel lanes and joined it to git. `Check:` trailers produced an outstanding list in `bun run checks`, a sheet in the director with a verdict button on every row, a ledger in `docs/verified.md` and hand-written restatements under `docs/checks/`. `bun run handoff` derived a four-line closing block for a phone. All three were accurate, and all three asked the owner for something on every visit — which is what finished them. The owner's words: it was too error prone and seems to waste my tokens. Twenty rows stood outstanding at the end, and an abandoned obligation list is worse than none, because it looks like coverage.
