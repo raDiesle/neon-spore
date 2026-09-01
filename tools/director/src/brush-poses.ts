@@ -60,15 +60,6 @@ const SOURCE = 320;
 /** The square it is cut down to. Bigger than any use of it, so the hover
  * card's picture is a picture rather than a magnified thumbnail. */
 const ART = 256;
-/** `ERASE` paints nothing, so there is nothing to draw a picture of. It is
- * the only one: `THROB` used to be here too, on the grounds that its settled
- * shape said less than its outline did — which was true of a crop of the
- * field with a dim body somewhere in it, and is not true of the body drawn
- * bare and filling the frame. */
-const SKIP: ReadonlySet<Brush> = new Set(["erase"]);
-
-const cache = new Map<Brush, string | null>();
-
 function creatureAt(world: World, kind?: CreatureKind): { col: number; row: number } {
   const c = (kind ? world.creatures.find((x) => x.kind === kind) : undefined) ?? world.creatures[0];
   return c ? { col: c.col, row: c.row } : { col: COL, row: 7 };
@@ -179,7 +170,18 @@ function claspArt(): HTMLCanvasElement {
  */
 function dartArt(): HTMLCanvasElement {
   const world = fresh([{ beat: 0, col: COL, kind: "dart", color: "red" }]);
-  run(world, TPB * 2);
+  // Held on a beat it *hangs*, and that is what puts it in the frame rather
+  // than half out of the top of it. A body is drawn between the row it left
+  // and the row it is on (`drawnRow`), and at a beat boundary that is the row
+  // it left — which after a dart's diagonal is two rows up, exactly the reach
+  // this crop has, so the body sat on the crop's own edge and was cut in half.
+  // On a hanging beat `fromRow` and `row` are the same number and the question
+  // does not arise. It is also the state the creature is *about*: `dart.ts`
+  // hangs it every other beat, and that is when it is looked at.
+  until(world, "the dart hanging", (w) => {
+    const c = w.creatures.find((x) => x.kind === "dart");
+    return !!c && c.dartFloat === true && c.fromRow === c.row;
+  });
   return tile(world, creatureAt(world, "dart"), 4, "p1");
 }
 
