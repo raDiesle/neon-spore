@@ -14,14 +14,22 @@ game already has** and which of the rest are worth one wave.
 
 Nothing here is built. Nothing here is a decision. It is a shelf.
 
+**The title stopped being accurate two lanes ago and is kept anyway**, because
+`docs/INDEX.md` and a dozen commit messages point at the filename. Half of what
+is below is not tower defence, and the last section is not a game at all: the
+question the page asks turned out to outlive the genre it started in, which is
+*what can a silhouette say that ours cannot yet say*. Where a source comes from
+matters only to the extent that the answer differs.
+
 ## What the pictures are, and are not
 
 Every image below is **linked, not copied** — the repository is public and none
 of this art is ours. A picture is here because a sentence like *the shell cracks
 as it takes damage* is a picture the reader has to build alone, and two readers
 build two different ones. If one fails to load, the caption still says what it
-showed. The one exception is the OpenGameArt meteor, which is CC-BY and could
-actually be used.
+showed. The exceptions are the OpenGameArt meteor, which is CC-BY, and the
+three Wikimedia photographs in the last section, which are CC BY-SA 3.0 — all
+four could actually be used with attribution, though nothing here needs to.
 
 ## The verdict column
 
@@ -478,15 +486,104 @@ with an arc floating over it, touching nothing. That became `THE HOOD`.
 Source: [the Nova Drift enemy list](https://nova-drift.fandom.com/wiki/Enemies),
 twenty-six of them, in three strengths.
 
+## Hard, and alive — one game that is not a shooter, and two animals
+
+The five games above are two bullet heavens, a vertical tower defence and two
+lane defences, and the yield fell as the list grew: the last three gave up one
+body each, and most of Nova Drift's line-up came back as this catalogue under
+other names. That is not bad luck. A game near enough to ours to be worth
+reading is a game whose vocabulary is already ours, so the closer the source
+the less it has to give.
+
+So this lane stopped picking sources by genre and picked them by **what was
+missing**, which by then was two specific things and not a general appetite for
+more bodies:
+
+1. **A silhouette that changes because of what the body is doing** rather than
+   what it is — a thing that opens, digs in, or folds away. THE LURE's fold was
+   the only one the game had, and one is not a vocabulary.
+2. **Hard polygons carrying life rather than rock.** The section below already
+   records why Neon Pulsefire's polygons were not converted: `crystal` draws
+   every one of them. What no source had yet spent a polygon on is a body that
+   is *alive*.
+
+### Into the Breach — bodies that must read at the size of a tile
+
+![Into the Breach — a small isometric grid of city blocks with three mechs and several large insect-like Vek standing on it, each one a chunky hard-edged silhouette a few tiles across](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/590380/ss_1ac6f8ce8e81bc1b3fe9cb23f58c477cbda04a04.1920x1080.jpg?t=1755610784)
+
+[Into the Breach](https://store.steampowered.com/app/590380/Into_the_Breach/) is
+a turn-based tactics game, which is the point of choosing it: nothing about its
+*play* transfers, so there is no temptation to read it for mechanics. What it
+has is an art problem identical to ours and solved in public. Its Vek are giant
+insects drawn at the size of one grid tile, on a screen that also has to carry
+buildings, mechs and a full turn of telegraphed intent, and every one of them
+is a chunky hard-edged silhouette with no interior detail worth the name.
+
+Two things came off it and one of them is the interesting one.
+
+The **Centipede** is a chain of hard segments — a body that is unmistakably one
+creature and unmistakably made of parts, with every edge as straight as a
+meteor's. That is gap 2 in a single picture, and it became `THE CRAWLER`.
+
+**What did not convert is worth more than what did**, and it is the telegraph.
+Into the Breach's whole design is that you can see exactly what every enemy will
+do next turn — and it says so on the **ground**, in arrows and highlighted
+tiles, not on the body. We already have that surface and it is the band and the
+radar strip. Converting it would be proposing a thing the game ships. And the
+Vek that burrow, which look like the obvious answer to gap 1, need a ground
+plane to be half-under: our field has no ground, and a body drawn half-absent
+with nothing to be absent *into* is not a silhouette, it is a crop.
+
+### A woodlouse, which is gap 1 and gap 2 at once
+
+![Armadillidium vulgare walking, seen from above: an elongated grey body made of about seven overlapping armoured plates, graded from a wide head shield down to a narrow tail](https://upload.wikimedia.org/wikipedia/commons/7/76/ArmadillidiumVulgare2.jpg)
+
+![The same animal rolled into a ball, the plates now closed on each other so the outline is a hard disc with the seams still notching its rim](https://upload.wikimedia.org/wikipedia/commons/2/2b/Slater_rolled_up_for_wiki.jpg)
+
+*Both photographs are Wikimedia Commons, CC BY-SA 3.0 — so unlike almost
+everything else on this page they could actually be used, though nothing here
+needs to.*
+
+Conglobation: the animal stops being a long thing and becomes a closed one. It
+is the cleanest example there is of a silhouette that is a **state**, and it
+costs nothing that a phone cannot afford — no colour changes, no bar moves, and
+a pair looking at two different screens can both say *it shut* without agreeing
+on a word for it beforehand.
+
+It also answers gap 2 by accident, and the accident is instructive. A rolled
+woodlouse **is a hard polygon**, and it reads as alive rather than as rock for
+exactly one reason: a moment ago it was a chain. Life in a straight-edged body
+is not a property of any one outline. It is articulation — several edges that
+are allowed to disagree — plus grading, a head end that is wider than the tail.
+`forms/segmented.ts` is that argument, and `THE SLATER` and `THE SLATER — SHUT`
+are the two ends of it.
+
+### A beetle's elytra, which is the other way a body opens
+
+![A beetle with its hard wing cases raised and its flight wings extended beneath them, photographed against a plain ground](https://upload.wikimedia.org/wikipedia/commons/d/df/Pachnoda_sinuata_wings_2012_02_15_2740s.JPG)
+
+The woodlouse folds away to survive. This one opens **to do something**, and
+that is the pair of meanings worth having rather than a second drawing of the
+first. Shut, it is an unremarkable hard body; open, it is two hard halves with
+a wedge of field between them, and the wedge is the tell. `forms/hinged.ts`,
+`THE CASE` and `THE CASE — OPEN`.
+
+The interior is the part left behind, and deliberately. A real one opens onto
+folded wings and a soft abdomen — and `guarded` already draws a body beside a
+separate piece, so adding a core here would make this that card with an extra
+step. The claim that is only here is the split itself.
+
 ## What has been converted, and where it went
 
-Three bodies out of that one frame, redrawn in this game's vocabulary. They are
-in the catalogue as **free contours** — `tools/shape-sheet/src/drafts/tower-defence.ts` —
-so they are on the director's `◇ NOT BUILT YET` → SHAPES tab, animated, beside
-every shape the game already draws and every spare one. That is the only place
-a silhouette can actually be judged: a card here would be a picture at whatever
-size the column happened to be, and the question about all three is what they
-do at 26 px.
+Fourteen bodies, redrawn in this game's vocabulary. Nine of them are in
+`tools/shape-sheet/src/drafts/tower-defence.ts`, read off the games above; the
+five in `drafts/armoured.ts` were fished for against the two gaps those nine
+left open. All of them are in the catalogue as **free contours**, so they are
+on the director's `◇ NOT BUILT YET` → SHAPES tab, animated, beside every shape
+the game already draws and every spare one. That is the only place a silhouette
+can actually be judged: a card here would be a picture at whatever size the
+column happened to be, and the question about all of them is what they do at
+26 px.
 
 ### The bodies
 
@@ -501,10 +598,18 @@ do at 26 px.
 | `THE SMART` | Missile Command's smart bomb | an ordinary rock — the argument is entirely in how it moves | see `SETTLE` below; the body is only there to carry it |
 | `THE HOOD` | Nova Drift's line-up | a body with an arc standing over it, attached to nothing | is the arc plainly a *separate object* rather than a rim that has come loose |
 | `THE HOOD — BROKEN` | the same, with the guard gone | identical in every parameter except that the arc is absent | does the bare body read as *exposed*, or merely as smaller — the pair of cards is the proposal, neither one alone |
+| `THE SLATER` | a woodlouse rolling up | seven hard plates in a chain, which shut into a disc and open again | does the shut disc read as the *same creature* as the open chain, or as a second body |
+| `THE SLATER — SHUT` | the same, pinned closed | a hard seven-sided disc with the plate seams still notching its rim | it carries TUMBLE on purpose: while it rolls, is it still anything but a meteor |
+| `THE CRAWLER` | Into the Breach's Centipede | nine straight-sided plates with a flex running down them | at 26 px, can you still see that it is *jointed* — which is the whole difference between it and `RIBBON` |
+| `THE CASE` | a beetle's elytra | one hard body that splits in two and hinges open, then shuts again | the shut state has only a seam to say it can open at all; is a seam enough |
+| `THE CASE — OPEN` | the same, pinned open | two hard halves with a wedge of field between them | does it read as one body that has opened, or as two bodies standing near each other |
 
 ### The motions
 
-Three, in `motions/borrowed.ts`, on the same tab. A motion is judged in the
+Four, in `motions/borrowed.ts`, on the same tab. The armoured five added none:
+their whole argument is in the contour, and a body that changes shape is
+already carrying an event — a second one written into its pose would be two
+clocks competing for the same glance. A motion is judged in the
 motion view rather than in a still, and each of these had to earn a signature
 no existing one carries — a fourth candidate was dropped for failing that, a
 strobing invulnerability, which is `SWELL` with a harder edge and is `throb`
@@ -559,7 +664,7 @@ that it is a shelf. A free contour is a picture looking for a behaviour, which
 is exactly what these are — and handing one to a bestiary entry is a decision
 somebody makes by looking at it.
 
-Five pieces of machinery were needed. `forms/studded.ts` is a rim of the same
+Seven pieces of machinery were needed. `forms/studded.ts` is a rim of the same
 feature repeated, with `width` and `blunt` separate so that a spine and a hair
 are two points on one axis rather than two forms — the first cut had them as one
 number and produced a cog, which is the whole reason they are two. A club is
@@ -573,17 +678,47 @@ not bodies at all: the barrier, and a shell coming off in steps.
 thing in this catalogue that can draw protection as a separate object rather
 than as a thickness.
 
-**Two things were looked at and not converted**, which is worth saying because
+The last two are a seam of their own, and it is not "another shape": every form
+above draws a body, and `forms/segmented.ts` and `forms/hinged.ts` draw a body
+**doing something**, so the silhouette is the state and the state is a
+parameter. Both take that parameter as a number *or* a function of time, which
+is the whole reason a pinned card and an animated one can be the same shape —
+and a pair of cards showing two states proves nothing unless they are.
+
+Two mistakes inside `segmented.ts` are worth recording, because both drew
+something that looked deliberate. A chain curled through a whole turn has to
+get from its rim to its middle and out again between its head and its tail, and
+if those two ends stand off their own plates rather than off the joint they
+land a plate-angle apart: the first shut card had a forty-unit bite out of a
+hundred-and-twenty-unit disc, and it read as a design choice rather than as a
+bug. And offsetting the belly inward by a fixed thickness leaves an annulus,
+which is a ring — this catalogue has two of those already, and a rolled
+woodlouse is not one, because its plates slide over each other and fill the
+middle.
+
+**Five things were looked at and not converted**, which is worth saying because
 a catalogue that only ever grows stops meaning anything. Neon Pulsefire's small
 bodies are hard polygons, and `crystal` in `subjects.ts` already draws every one
 of them — a meteor *is* a seven-sided crystal. What that game does that we do
 not is spend a polygon on a body that is *alive*, and that is a decision about
-the bestiary rather than a shape anybody has to draw. Kingdom Rush's Tyranthor
+the bestiary rather than a shape anybody has to draw. That refusal still
+stands, and the gap it named has since been closed from the other side: `THE
+SLATER — SHUT` is a hard polygon that reads as alive, and it manages it not by
+being a better polygon but by having been a chain of them a beat earlier. Kingdom Rush's Tyranthor
 is one mass with one bright mouth, and `mawed` has drawn that since THE MOTHER;
 the part that does not transfer is the contrast, which is fill and light. And
 most of Nova Drift's line-up turned out to be this catalogue under other names,
 which the section above lists one by one — including the formation that looked
 like a form and is `cluster` at a spread that never merges.
+
+The two newest refusals are Into the Breach's, and they are the more useful
+kind, because that game is otherwise the best-matched source on this page. Its
+**telegraph** — every enemy's next move shown before you commit — is drawn on
+the ground rather than on the body, and the surface it is drawn on is the band
+and the radar strip, which we ship. And its **burrowing** Vek, which look like
+the obvious answer to the gap about silhouettes that change, need a ground
+plane to be half-under. Our field has none, and a body drawn half-absent with
+nothing to be absent into is not a silhouette. It is a crop.
 
 And one mistake is worth recording because it took a frame to catch: `THE
 CANOPY`'s spent facets were first made by dropping points out of one open path,

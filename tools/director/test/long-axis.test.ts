@@ -17,6 +17,16 @@ import { extentOf, longAxisOf, poseAtSecond } from "../src/shapes-motion.js";
  * that is wide — THE CANOPY — is wide because it is a barrier over the hull
  * rather than a body at all.
  *
+ * The five in `drafts/armoured.ts` say it a fourth time and from the one angle
+ * that could have broken it, because two of them change shape rather than
+ * merely breathe. THE SLATER is an elongated chain for most of its cycle and a
+ * disc for the rest, and THE CASE splits in two; a body whose extent is the
+ * union of two different shapes could easily have come out tall. Not one of
+ * the five did. `extentOf` takes that union over six moments, so a body long
+ * in one state and round in another is measured by its long state — closing is
+ * not a thing that turns a body, it only makes it rounder than it was, and the
+ * round count is where that lands.
+ *
  * The fourteen grown out of `src/parts/` say the same thing from the other
  * side, and it is worth reading before adding more of them: only two are tall,
  * and both are tall because their *base* is — LANTERN at 28 by 34 and SPINDLE
@@ -54,11 +64,11 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits ninety-three bodies into wide, round and tall", () => {
+  it("splits ninety-eight bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(93);
-    expect(count("x")).toBe(36);
-    expect(count(null)).toBe(46);
+    expect(axes.length).toBe(98);
+    expect(count("x")).toBe(38);
+    expect(count(null)).toBe(49);
     expect(count("y")).toBe(11);
   });
 

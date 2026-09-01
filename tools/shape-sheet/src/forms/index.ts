@@ -41,6 +41,15 @@
  * - `walked` — an outline stepped corner to corner, for what a radius cannot
  *   say: an arm has no inside to have a radius of, and a rim of square plates
  *   is not a function of angle but a rule about one edge
+ * - `segmented` — a chain of hard plates hinged end to end, which bends and
+ *   can close on itself: the one form here where the outline is straight
+ *   everywhere and alive anyway
+ * - `hinged` — one hard body that is two, and can swing open
+ *
+ * The last two are a seam of their own and it is worth naming, because it is
+ * not "another shape". Everything above draws a body; those two draw a body
+ * **doing something**, so the silhouette is the state and the state is a
+ * parameter. `docs/tower-defence.md` says why that was the gap worth a form.
  */
 
 export { rooted, welling } from "./anchored.js";
@@ -49,9 +58,11 @@ export { type ClusterOpts, cluster, moulded } from "./cluster.js";
 export { type GuardedOpts, guarded } from "./detached.js";
 export { type HaloedOpts, haloed } from "./haloed.js";
 export { type SacSkin, sac, slumped } from "./hanging.js";
+export { type ValvedOpts, valved } from "./hinged.js";
 export { heeled, hooked } from "./hooked.js";
 export { type PileOpts, pile } from "./pile.js";
 export { bloom, glyphed, mawed, slab } from "./radial.js";
+export { type CurledOpts, curled } from "./segmented.js";
 export { type ShedOpts, type SpanOpts, shed, spanned } from "./spanning.js";
 export { type StuddedOpts, studded } from "./studded.js";
 export { arm, type PlatedOpts, plated, type VaneOpts, vane } from "./walked.js";
