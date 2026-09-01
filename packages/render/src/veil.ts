@@ -2,9 +2,10 @@ import type { Creature, SimConfig, World } from "@neon-spore/sim";
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { drawVeilBolts, veilScatter } from "./veil-bolt.js";
-import { cloudPath, drawVeilWisps, VEIL_FLATTEN } from "./veil-shape.js";
+import { drawVeilBolts } from "./veil-bolt.js";
+import { cloudPath, drawVeilFog, VEIL_FLATTEN } from "./veil-shape.js";
 
 /**
  * THE VEIL's cloud: the thunderhead a slick or a bulb falls inside.
@@ -39,12 +40,17 @@ import { cloudPath, drawVeilWisps, VEIL_FLATTEN } from "./veil-shape.js";
  * floating downwards, which is not the same thing as one that falls: the
  * simulation already moves it a tile a beat. So the picture adds the part a
  * fall does not have — the weather riding a little below the body it carries
- * and settling back, and three wisps shed off its underside that go on sinking
- * after the cloud has left them. Something that sheds is something with a
- * direction, and the direction is down.
+ * and settling back.
  *
- * Both are sampled on the shared beat, like every other pose in this game
- * (`content/own-motion.ts` says why at length), so two phones draw one cloud.
+ * It used to shed three wisps out of its underside as well, and they are gone:
+ * blobs detaching on a cycle and sinking read as *rain*, and this creature is
+ * a container with a clock over it rather than a weather report. What stands
+ * in their place is fog (`drawVeilFog`) — which does not move on its own, and
+ * which the bolts on the rim have something to light.
+ *
+ * Everything here is sampled on the shared beat, like every other pose in this
+ * game (`content/own-motion.ts` says why at length), so two phones draw one
+ * cloud.
  */
 
 /**
@@ -125,6 +131,13 @@ export function drawVeilCloud(
   // field a fraction slower than the thing inside it.
   const sink = Math.sin(beats * 1.1 + c.id * 0.7) * l.tile * 0.05 + l.tile * 0.03;
 
+  const rim = haze(shut > 0 ? mixHex(EDGE, ANGRY_EDGE, shut) : EDGE);
+
+  // Under everything, including the contour: the air the cloud is standing in.
+  // It is what a bolt off the rim lights, so it has to be down before the rim
+  // is (`veil-shape.ts`).
+  drawVeilFog(ctx, x, y + sink, r, beats, rim, seeThrough ? 0.5 : 0.75);
+
   ctx.save();
   ctx.translate(x, y + sink);
 
@@ -132,9 +145,9 @@ export function drawVeilCloud(
 
   // The rim: the same shape a fraction larger, filled underneath rather than
   // stroked. `BILLOWS` says why — a stroke would draw the seams between the
-  // four heaps and turn one cloud into four bubbles.
+  // five heaps and turn one cloud into five bubbles.
   ctx.globalAlpha = seeThrough ? 0.5 : 0.85;
-  ctx.fillStyle = haze(shut > 0 ? mix(EDGE, ANGRY_EDGE, shut) : EDGE);
+  ctx.fillStyle = rim;
   ctx.save();
   ctx.scale(1.07, 1.09);
   ctx.fill(cloudPath(r, t), "nonzero");
@@ -144,8 +157,8 @@ export function drawVeilCloud(
   // lit from above and heavy underneath, and the dark underside is what makes
   // it read as weather instead of as a grey blob.
   const g = ctx.createLinearGradient(0, -r * 0.85, 0, r * VEIL_FLATTEN);
-  g.addColorStop(0, haze(shut > 0 ? mix(DARK, ANGRY, shut) : DARK));
-  g.addColorStop(1, haze(shut > 0 ? mix(DARKER, ANGRY, shut * 0.8) : DARKER));
+  g.addColorStop(0, haze(shut > 0 ? mixHex(DARK, ANGRY, shut) : DARK));
+  g.addColorStop(1, haze(shut > 0 ? mixHex(DARKER, ANGRY, shut * 0.8) : DARKER));
   // See-through on player 1's screen and nowhere else. Well short of half, so
   // the colour underneath is unambiguous — the pilot has to be able to say
   // "cyan" without leaning in — and well short of nothing, so the cloud is
@@ -155,38 +168,17 @@ export function drawVeilCloud(
   ctx.fill(path, "nonzero");
   ctx.globalAlpha = 1;
 
-  drawVeilBolts(ctx, path, r, beats, c.id, shut, seeThrough);
+  // Over the contour and *not* clipped to it: these break out of the border
+  // and walk outward into the fog. Still in the cloud's own space, which is
+  // what `cloudEdge` inside them is measured in.
+  drawVeilBolts(ctx, r, t, beats, c.id, shut, seeThrough);
   ctx.restore();
 
-  drawVeilWisps(ctx, l, x, y + sink, r, beats, c.id, haze(shut > 0 ? ANGRY_EDGE : EDGE));
-
-  // Outside the contour, so it is not clipped with the bolts: the whole cloud
+  // The whole cloud
   // glowing for an instant on the beat, which is what a thunderhead does and
   // what makes the count readable from across a room.
   const flash = Math.max(0, 1 - (beats % 1) * 3.2);
   if (flash > 0.02) {
     halo(ctx, x, y + sink, r * 1.9, shut > 0 ? ANGRY_EDGE : BOLT_GLOW, 0.3 * flash);
   }
-}
-
-/**
- * Two hex colours mixed, as a hex colour. Small and local: the palette has no
- * angry cloud in it, because the anger is a two-second state rather than a
- * colour the game spends anywhere else.
- *
- * **It has to come back as `#rrggbb` and not as `rgb(...)`.** The result goes
- * straight into `hazed`, which reads a hex string apart by hand — and
- * `frame.test.ts` exists because exactly this once went out in the other
- * notation and the first frame threw.
- */
-function mix(a: string, b: string, k: number): string {
-  const pa = Number.parseInt(a.slice(1), 16);
-  const pb = Number.parseInt(b.slice(1), 16);
-  const ch = (shift: number): number => {
-    const va = (pa >> shift) & 255;
-    const vb = (pb >> shift) & 255;
-    return Math.round(va + (vb - va) * Math.max(0, Math.min(1, k)));
-  };
-  const hex = (ch(16) << 16) | (ch(8) << 8) | ch(0);
-  return `#${hex.toString(16).padStart(6, "0")}`;
 }

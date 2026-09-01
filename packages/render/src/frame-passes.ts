@@ -19,6 +19,7 @@ import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawShellArmour } from "./shell-draw.js";
+import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import { drawVeilMarks } from "./veil-marks.js";
 
@@ -74,9 +75,9 @@ export function drawBodies(
   drawDartGuides(ctx, l, world, view.beatPhase, view.time);
   // The third half-picture, and the first that is *both* screens carrying one
   // each rather than one screen carrying something the other has not got: a
-  // draining clock and a shut eye over every cloud on player 1's, a question
-  // mark on player 2's. `veil-marks.ts` owns which is which, so nothing in
-  // `drawCreatures` has to know what seat it is running on.
+  // draining clock over every cloud on player 1's, a question mark on player
+  // 2's. `veil-marks.ts` owns which is which, so nothing in `drawCreatures`
+  // has to know what seat it is running on.
   drawVeilMarks(ctx, l, world, view.beatPhase);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
@@ -142,6 +143,11 @@ export function drawOverlays(
 ): void {
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
+  // Over the HUD and under the band: the one instrument that says *talk*, for
+  // every creature that needs it. It is an overlay rather than part of the
+  // field because it is about the pair rather than about anything standing in
+  // a column (`siren.ts`).
+  drawCommsSiren(ctx, l, world, view.time);
   drawBand(ctx, l, world, isArmed, isOpen, view.controls);
   drawOverlay(ctx, l, view);
   // Over the pause overlay and everything else: while a wave's introduction or

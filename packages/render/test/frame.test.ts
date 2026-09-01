@@ -22,6 +22,7 @@ import {
   wardenEyeOpen,
 } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
+import { commsCall } from "../src/comms.js";
 import { creatureAt, creatureCenter } from "../src/creature-place.js";
 import { drawRadar } from "../src/field.js";
 import { gripLabel } from "../src/grip.js";
@@ -1043,5 +1044,171 @@ describe("the shield's ambient flashes (shield-flash.ts)", () => {
     // off far more often than on, at most four flashes overlapping.
     expect(share).toBeGreaterThan(0.02);
     expect(share).toBeLessThan(0.6);
+  });
+});
+
+/**
+ * THE VEIL, drawn: the cloud both seats see, the body and the morph clock only
+ * player 1 does, and the two seconds of red a wrong colour buys.
+ *
+ * Nothing here can answer whether the cloud *reads* as weather, whether the
+ * rim bolts land hard enough to count beats by, or whether the switch mark is
+ * legible at eleven pixels. Those are the checks this lane owes and they need
+ * an eye. What it holds is that every one of those states has actually been
+ * through a canvas that refuses what a real one refuses — including the two
+ * the old test never reached, because a run with no commands in it never
+ * shuts a cloud and never tears one open.
+ */
+function veilFrames(role: ViewRole, ticks: number) {
+  const queue: SpawnEntry[] = [{ beat: 0, col: 3, kind: "veil", color: null }];
+  const world = createWorld(CFG, 1, queue);
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+  const tpb = ticksPerBeat(CFG);
+  let events: SimEvent[] = [];
+  let morphs = 0;
+  let rebuffs = 0;
+  let torn = 0;
+  for (let tick = 0; tick < ticks; tick++) {
+    const veil = world.creatures.find((c) => c.kind === "veil");
+    const inputs: TimedCommand[] = [];
+    if (tick === 1) inputs.push({ tick, player: 1, command: { kind: "cannonCol", col: 3 } });
+    // The wrong colour first — that is the whole mistake this creature
+    // punishes, and the red cloud is a picture nothing else in the game draws.
+    if (tick === tpb * 2 && veil?.color) {
+      inputs.push({
+        tick,
+        player: 2,
+        command: { kind: "fire", color: veil.color === "red" ? "cyan" : "red" },
+      });
+    }
+    // And then the right one, long after the armour has run out, so the tear
+    // and the burst are drawn too.
+    if (tick === tpb * 9 && veil?.color) {
+      inputs.push({ tick, player: 2, command: { kind: "fire", color: veil.color } });
+    }
+    step(world, inputs);
+    if (world.events.length) events.push(...world.events);
+    morphs += world.events.filter((e) => e.type === "veilMorph").length;
+    rebuffs += world.events.filter((e) => e.type === "veilRebuff").length;
+    torn += world.events.filter((e) => e.type === "veilTorn").length;
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % tpb) / tpb,
+      role,
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events,
+      running: true,
+    });
+    events = [];
+  }
+  return { ctx, morphs, rebuffs, torn };
+}
+
+describe("the veil", () => {
+  const TICKS = ticksPerBeat(CFG) * 12;
+
+  for (const role of ROLES) {
+    it(`draws the cloud, its clock and its lightning for ${role}`, () => {
+      const { ctx } = veilFrames(role, TICKS);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  it("really morphed, was rebuffed and was torn, or the frames proved nothing", () => {
+    // Without all three the run drew one open cloud for twelve beats: the
+    // switch mark never changed colour, the red never happened, and the tear
+    // was never drawn. Asserted on `test`, which carries both seats' marks.
+    const { morphs, rebuffs, torn } = veilFrames("test", TICKS);
+    expect(morphs).toBeGreaterThan(0);
+    expect(rebuffs).toBe(1);
+    expect(torn).toBe(1);
+  });
+
+  it("puts the clock on player 1's screen and the question mark on player 2's", () => {
+    // Player 1 draws the body inside the cloud as well as a ring with a switch
+    // mark in it; player 2 draws a hook and a dot over weather. The gap is the
+    // creature.
+    const p1 = veilFrames("p1", TICKS);
+    const p2 = veilFrames("p2", TICKS);
+    expect(p1.ctx.calls).toBeGreaterThan(p2.ctx.calls);
+  });
+});
+
+describe("the siren", () => {
+  const TICKS = ticksPerBeat(CFG) * 6;
+
+  function callAfter(queue: SpawnEntry[], ticks: number) {
+    const world = createWorld(CFG, 1, queue);
+    for (let tick = 0; tick < ticks; tick++) step(world, []);
+    return commsCall(world);
+  }
+
+  it("says nothing while the field holds only bodies both of them can see", () => {
+    expect(callAfter([{ beat: 0, col: 3, kind: "bulb", color: "cyan" }], TICKS)).toBeNull();
+  });
+
+  it("puts the pilot on the mouth for a veil and the navigator on the ear", () => {
+    const call = callAfter([{ beat: 0, col: 3, kind: "veil", color: null }], TICKS);
+    expect(call).toEqual({ p1: true, p2: false });
+  });
+
+  it("turns it round for a lure", () => {
+    const call = callAfter(
+      [{ beat: 0, col: 3, kind: "lure", color: "cyan", wears: "bulb" }],
+      TICKS,
+    );
+    expect(call).toEqual({ p1: false, p2: true });
+  });
+
+  it("has both of them talking when both are holding half a picture", () => {
+    const call = callAfter(
+      [
+        { beat: 0, col: 1, kind: "veil", color: null },
+        { beat: 0, col: 5, kind: "lure", color: "red", wears: "slick" },
+      ],
+      TICKS,
+    );
+    expect(call).toEqual({ p1: true, p2: true });
+  });
+
+  it("lights for a torch while it is still on the strip, and not for a meteor at all", () => {
+    // The one kind whose call starts before it arrives — it is the fastest
+    // thing in the game, so a warning that begins on impact begins too late.
+    // The rocks beside it are deliberately not on the roster: one is in nearly
+    // every wave, and a siren lit all wave is a lamp.
+    expect(callAfter([{ beat: 4, col: 1, kind: "torch", color: null }], 1)).toEqual({
+      p1: true,
+      p2: false,
+    });
+    expect(callAfter([{ beat: 4, col: 1, kind: "meteor", color: null }], 1)).toBeNull();
+  });
+
+  it("draws over a frame without the canvas refusing a value", () => {
+    for (const role of ROLES) {
+      const world = createWorld(CFG, 1, [{ beat: 0, col: 3, kind: "veil", color: null }]);
+      const { canvas, ctx } = stubCanvas();
+      const renderer = new Canvas2DRenderer(canvas);
+      renderer.resize({ width: 900, height: 1600, dpr: 2 });
+      const tpb = ticksPerBeat(CFG);
+      for (let tick = 0; tick < TICKS; tick++) {
+        step(world, []);
+        if (tick % 4 !== 0) continue;
+        renderer.draw({
+          world,
+          beatPhase: (world.tick % tpb) / tpb,
+          role,
+          time: tick / CFG.tickHz,
+          dt: 4 / CFG.tickHz,
+          events: [],
+          running: true,
+        });
+      }
+      expect(ctx.calls).toBeGreaterThan(0);
+    }
   });
 });

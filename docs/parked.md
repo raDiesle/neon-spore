@@ -34,7 +34,22 @@ Graphics entry can be any of the three stages, and the difference decides
 whether picking it up is a session or a week.
 
 Anything labelled Creature is not scattered through the file: it moves to
-the bottom, under `## Nothing can photograph the two seats side by side
+the bottom, under `## Three private copies of a hex mix
+
+2026-09-01 · claude/veil-ui-improvements-c66ef8
+
+Correctness · Implemented
+
+`mixHex` now lives in `packages/render/src/hex.ts`, and `veil.ts` and
+`siren.ts` call it. `depth.ts` and `sheen.ts` still each carry their own
+private `mix`, written before there was anywhere to put one. Nothing is broken
+— all three agree today — but they are three copies of the same arithmetic and
+the one rule this repository keeps repeating is that a second copy drifts. It
+is a five-line edit to two files; it was left out of the lane that made the
+shared one because that lane had no other business in either of them, and a
+diff that wanders is a diff nobody reviews.
+
+## Nothing can photograph the two seats side by side
 
 2026-09-01 · claude/thundercloud-enemy-morphing-g6a3it
 

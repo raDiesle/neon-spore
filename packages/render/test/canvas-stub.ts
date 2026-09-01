@@ -54,9 +54,38 @@ class StubPath {
   }
 
   /** A path can also be built by call, not only from a string — and a real
-   * `Path2D.rect` refuses a non-finite coordinate the same as a string one. */
+   * `Path2D` refuses a non-finite coordinate the same as a string one. Every
+   * builder the game uses is here; a missing one is not a silent no-op but a
+   * `TypeError` at the first frame that reaches it, which is how the veil's
+   * cloud went a whole lane without a single frame drawn over it. */
   rect(x: number, y: number, w: number, h: number): void {
     nums("Path2D.rect", [x, y, w, h]);
+  }
+  moveTo(x: number, y: number): void {
+    nums("Path2D.moveTo", [x, y]);
+  }
+  lineTo(x: number, y: number): void {
+    nums("Path2D.lineTo", [x, y]);
+  }
+  quadraticCurveTo(...a: number[]): void {
+    nums("Path2D.quadraticCurveTo", a);
+  }
+  closePath(): void {}
+  arc(x: number, y: number, r: number, from: number, to: number): void {
+    nums("Path2D.arc", [x, y, r, from, to]);
+    if (r < 0) fail("Path2D.arc", `radius ${r} is negative`);
+  }
+  ellipse(
+    x: number,
+    y: number,
+    rx: number,
+    ry: number,
+    rotation: number,
+    from: number,
+    to: number,
+  ): void {
+    nums("Path2D.ellipse", [x, y, rx, ry, rotation, from, to]);
+    if (rx < 0 || ry < 0) fail("Path2D.ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
   }
 }
 
@@ -163,6 +192,16 @@ export class StubContext {
   }
   rect(...a: number[]): void {
     nums("rect", a);
+  }
+  /** A real canvas throws `IndexSizeError` on a negative corner radius, and
+   * takes NaN nowhere — so this refuses both, like every other path call here. */
+  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void {
+    nums("arcTo", [x1, y1, x2, y2, r]);
+    if (r < 0) fail("arcTo", `radius ${r} is negative`);
+  }
+  roundRect(x: number, y: number, w: number, h: number, r: number): void {
+    nums("roundRect", [x, y, w, h, r]);
+    if (r < 0) fail("roundRect", `radius ${r} is negative`);
   }
   translate(...a: number[]): void {
     nums("translate", a);

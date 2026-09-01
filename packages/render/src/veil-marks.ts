@@ -1,20 +1,27 @@
-import { type CreatureKind, type SimConfig, veilBeatsToMorph, type World } from "@neon-spore/sim";
+import { type Creature, type SimConfig, veilBeatsToMorph, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { showsVeilCore, VEIL_RADIUS_MUL, veils } from "./veil.js";
+import { drawQuestion } from "./veil-question.js";
 import { VEIL_TOP } from "./veil-shape.js";
 
 /**
  * What stands over a cloud, and it is a different thing in each seat.
  *
- * **Player 1 gets a clock and a shut eye.** The clock is the ring that drains
- * to the morph — the pilot's whole second sentence, because "cyan" alone is
- * worth nothing to somebody who will be loading it two beats from now. The
- * shut eye says *your partner cannot see this*, which is the fact that turns
- * a pilot who is looking at an obvious answer into a pilot who says it out
- * loud. Without it the commonest failure of this creature is silence: the one
- * who can see forgets that the one who can shoot cannot.
+ * **Player 1 gets a clock and the colour it is running out into.** The clock
+ * is the ring that drains to the morph — the pilot's whole second sentence,
+ * because "cyan" alone is worth nothing to somebody who will be loading it two
+ * beats from now. Inside it is a pair of curved arrows: *this turns over*, and
+ * they are drawn in the colour it turns over **into**, so the ring answers
+ * "how long" and "into what" in one glance and the pilot never has to work the
+ * second one out from the first.
+ *
+ * It used to carry a shut eye beside it as well — *your partner cannot see
+ * this* — and that mark is gone from here. It was right and it was in the
+ * wrong place: five creatures each said it in their own hand, over their own
+ * body, so a pair had to learn five markings to learn one sentence. It is said
+ * once now, in the corner of the screen, by `siren.ts`.
  *
  * **Player 2 gets a question mark and nothing else.** Not a dimmed body, not a
  * guess, not a countdown — a countdown on the navigator's screen would be half
@@ -25,26 +32,23 @@ import { VEIL_TOP } from "./veil-shape.js";
  * that is ugly, and it now has a neighbour to be unlike:
  *
  * - *Where.* The lure's alarm is a ring **around** the body with a label out
- *   to one side. Both of these stand **above** the cloud, clear of it, in the
- *   gap the radar strip already trains the eye to read downward from.
+ *   to one side. This stands **above** the cloud, clear of it, in the gap the
+ *   radar strip already trains the eye to read downward from.
  * - *What colour.* The lure's alarm is pure white, which is the absence of a
- *   palette. These are `PALETTE.text`, the off-white the HUD is written in —
+ *   palette. This is the ammunition colour the cloud is about to want —
  *   because a mark over a veil is not an alarm. Nothing is going wrong.
  * - *What it says about time.* The lure's alarm is steady, because it is a
  *   label on a body that will resolve itself. The ring here **drains**, which
  *   is the one thing in this game that does, because the whole creature is a
  *   thing that expires.
- *
- * So the pair learns three markings that share nothing: white and still around
- * a body means leave that one alone; grey and pulsing at the top of the screen
- * means take the column; off-white and draining above a cloud means say it
- * again, it is about to be wrong.
  */
 
-/** The off-white both marks are drawn in — the HUD's own, not the lure's
- * absence-of-a-palette white. */
+/** The off-white the empty half of the ring is drawn in — the HUD's own, not
+ * the lure's absence-of-a-palette white. The part that is still to run is the
+ * *next colour* instead (`nextHex`), because that half is a sentence and this
+ * one is only a track for it. */
 const MARK = PALETTE.text;
-/** How far above the cloud's own top edge the marks sit, in units of the
+/** How far above the cloud's own top edge the mark sits, in units of the
  * cloud's radius. `VEIL_TOP` is where that edge is, so a cloud reshaped next
  * door does not leave a ring floating inside its own weather. */
 const LIFT = 0.5;
@@ -59,19 +63,45 @@ export function drawVeilMarks(
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = l.tile * 0.4 * VEIL_RADIUS_MUL;
     const top = y - r * (VEIL_TOP + LIFT);
-    if (showsVeilCore(l)) drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, top);
+    if (showsVeilCore(l)) drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, top, c);
     else drawQuestion(ctx, l.tile, x, top);
   }
 }
 
 /**
- * The morph clock: a ring that drains clockwise to the turn, filling in at its
- * centre for the last beat before it, with a blind eye beside it.
+ * The colour the body inside is about to become.
+ *
+ * A veil only ever holds one of two, and `veilMorph` swaps between them — so
+ * "the next one" is "the other one", and that is the whole of it. It is read
+ * off the creature rather than off a second copy of the swap, because the two
+ * disagreeing would put a cyan arrow over a cloud about to turn red, which is
+ * worse than no arrow at all.
+ *
+ * A veil with no colour cannot happen on the field (`veilOnSpawn` rolls one
+ * before the body arrives) and is drawn as if it were about to become cyan,
+ * the same fallback shape `veilBecomes` takes.
+ */
+function nextHex(c: Creature): string {
+  return c.color === "cyan" ? PALETTE.red : PALETTE.cyan;
+}
+
+/**
+ * The morph clock: a ring that drains clockwise to the turn, with the switch
+ * mark standing in the middle of it, both in the colour the cloud is turning
+ * *into*.
  *
  * `veilBeatsToMorph` is the whole of the arithmetic and it is called, never
  * re-derived — the modulo written out here would be a second copy of the rule
  * that decides what the body under this ring actually is, and the two would
  * disagree the first time the period changed.
+ *
+ * **There is no dot in the middle any more.** The last beat before a turn used
+ * to fill the ring's centre, on the reasoning that "it goes over on the next
+ * one" is the moment the pilot has to be talking. The dot said that and it
+ * also said *loading*, which is the one thing this ring is not — it is a
+ * countdown to a change, and a filling dot is a thing arriving. What carries
+ * the last beat instead is the ring and the mark both coming up to full
+ * strength, which says the same and does not read as a progress spinner.
  */
 function drawClock(
   ctx: CanvasRenderingContext2D,
@@ -81,6 +111,7 @@ function drawClock(
   beatPhase: number,
   x: number,
   y: number,
+  c: Creature,
 ): void {
   const left = veilBeatsToMorph(cfg, beat);
   // Beats left, minus how far into the current beat this frame is: the ring
@@ -90,6 +121,7 @@ function drawClock(
   // devices derive it from the same tick counter.
   const phase = Math.max(0, Math.min(1, (left - beatPhase) / cfg.veilMorphBeats));
   const r = tile * 0.24;
+  const hex = nextHex(c);
 
   ctx.save();
   ctx.lineWidth = Math.max(1.4, tile * 0.045);
@@ -101,129 +133,66 @@ function drawClock(
   ctx.stroke();
 
   // The remaining arc, from the top and clockwise, so it empties the way a
-  // clock hand goes round rather than the way a battery gauge does.
+  // clock hand goes round rather than the way a battery gauge does. In the
+  // colour it is running out *into*, so the ring is the sentence rather than
+  // half of it.
+  ctx.strokeStyle = hex;
   ctx.globalAlpha = left <= 1 ? 1 : 0.85;
   ctx.beginPath();
   ctx.arc(x, y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * phase);
   ctx.stroke();
 
-  // The last beat, said louder: a filled centre, because "it turns over on the
-  // next one" is the moment the pilot has to be speaking rather than reading.
-  if (left <= 1) {
-    ctx.globalAlpha = 0.9;
-    ctx.fillStyle = MARK;
-    ctx.beginPath();
-    ctx.arc(x, y, r * 0.3, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  drawBlindEye(ctx, tile, x + r * 2.1, y);
+  drawSwitch(ctx, tile, x, y, r * 0.62, hex, left <= 1 ? 1 : 0.75);
   ctx.restore();
 }
 
 /**
- * An eye with a line through it: *the other screen does not have this.*
+ * The switch mark: two arcs chasing each other round a circle, each with a
+ * head on its leading end. *This turns over into the other one.*
  *
  * Drawn rather than typed, for `lure-alarm.ts`'s reason — a glyph in a font at
- * this size is a smear, and the mark has half a second to be read in. Two arcs
- * meeting at the corners make the lid, a dot makes the pupil, and one stroke
- * corner to corner is the whole message.
+ * this size is a smear, and the mark has half a second to be read in. Two
+ * quarter-turns opposite each other read as rotation at eleven pixels across,
+ * where an arrow chasing its own tail reads as a blob.
  */
-function drawBlindEye(ctx: CanvasRenderingContext2D, tile: number, x: number, y: number): void {
-  const w = tile * 0.17;
-  const h = tile * 0.1;
-  ctx.save();
-  ctx.strokeStyle = MARK;
-  ctx.fillStyle = MARK;
-  ctx.lineWidth = Math.max(1.1, tile * 0.028);
-  ctx.globalAlpha = 0.75;
-
-  ctx.beginPath();
-  ctx.moveTo(x - w, y);
-  ctx.quadraticCurveTo(x, y - h * 1.9, x + w, y);
-  ctx.quadraticCurveTo(x, y + h * 1.9, x - w, y);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(x, y, h * 0.55, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.globalAlpha = 0.95;
-  ctx.beginPath();
-  ctx.moveTo(x - w * 1.05, y + h * 1.15);
-  ctx.lineTo(x + w * 1.05, y - h * 1.15);
-  ctx.stroke();
-  ctx.restore();
-}
-
-/**
- * Player 2's question mark, drawn as a hook and a dot rather than typed. The
- * same argument as the eye above, and the same one `lure-alarm.ts` makes about
- * its exclamation: at the size a body draws on a phone, a `?` in nine-point
- * type is three grey pixels.
- */
-function drawQuestion(ctx: CanvasRenderingContext2D, tile: number, x: number, y: number): void {
-  const s = tile * 0.2;
-  ctx.save();
-  ctx.strokeStyle = MARK;
-  ctx.fillStyle = MARK;
-  ctx.lineWidth = Math.max(1.6, tile * 0.055);
-  ctx.lineCap = "round";
-  ctx.globalAlpha = 0.92;
-
-  // The hook: three quarters of a circle, opening at the bottom left, then
-  // down into the stem.
-  ctx.beginPath();
-  ctx.arc(x, y - s * 0.45, s * 0.52, Math.PI * 0.9, Math.PI * 0.35, false);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x + s * 0.36, y - s * 0.1);
-  ctx.lineTo(x, y + s * 0.42);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(x, y + s * 0.9, s * 0.16, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-/**
- * The strip's half of the same thing: a veil is announced as a **question
- * mark**, never as a colour.
- *
- * `drawRadar` reads `q.color` off the queue entry to tint every blip, and a
- * veil's queue entry carries none — the body inside is rolled when it enters
- * the field, so there is nothing there to read and the ordinary fallback would
- * have painted it cyan. That would be worse than a leak: it would be a
- * confident announcement of a colour that is right half the time.
- *
- * docs/spec/systems.md 5.2 asked for exactly this shape — *"the veil appears on
- * the radar as a question mark"* — in the same paragraph that lists the veil
- * among the rows that were not built.
- */
-export function drawRadarVeilMark(
+function drawSwitch(
   ctx: CanvasRenderingContext2D,
-  kind: CreatureKind,
+  tile: number,
   x: number,
   y: number,
+  r: number,
+  hex: string,
   alpha: number,
 ): void {
-  if (kind !== "veil") return;
+  const w = Math.max(1.1, tile * 0.026);
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.strokeStyle = MARK;
-  ctx.fillStyle = MARK;
-  ctx.lineWidth = 1.6;
+  ctx.strokeStyle = hex;
+  ctx.fillStyle = hex;
+  ctx.lineWidth = w;
   ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.arc(x, y - 2.4, 3, Math.PI * 0.9, Math.PI * 0.35, false);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x + 2.1, y);
-  ctx.lineTo(x, y + 2.6);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(x, y + 5, 1.1, 0, Math.PI * 2);
-  ctx.fill();
+
+  for (const side of [0, Math.PI]) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, side + 0.35, side + Math.PI - 0.35);
+    ctx.stroke();
+    // The head, at the end the arc runs to: three points, so it stays a
+    // triangle at any size instead of collapsing into the stroke.
+    const a = side + Math.PI - 0.35;
+    const hx = x + Math.cos(a) * r;
+    const hy = y + Math.sin(a) * r;
+    const tx = -Math.sin(a);
+    const ty = Math.cos(a);
+    const h = r * 0.55;
+    ctx.beginPath();
+    ctx.moveTo(hx + tx * h, hy + ty * h);
+    ctx.lineTo(hx + Math.cos(a) * h * 0.7, hy + Math.sin(a) * h * 0.7);
+    ctx.lineTo(
+      hx - Math.cos(a) * h * 0.5 + tx * h * 0.1,
+      hy - Math.sin(a) * h * 0.5 + ty * h * 0.1,
+    );
+    ctx.closePath();
+    ctx.fill();
+  }
   ctx.restore();
 }

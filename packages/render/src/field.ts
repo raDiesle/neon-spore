@@ -1,10 +1,12 @@
 import { showsRadar } from "@neon-spore/content";
 import { bodyCenterCol, isMeteorKind, spanOf, type World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop.js";
+import { needsComms } from "./comms.js";
+import { drawEyeGlyph } from "./comms-glyphs.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
-import { drawRadarVeilMark } from "./veil-marks.js";
+import { drawRadarVeilMark } from "./veil-question.js";
 
 /**
  * The field itself: the background, its depth, the cannon's column marker,
@@ -205,6 +207,14 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // question mark over it instead. docs/spec/systems.md 5.2 asked for this
     // shape by name.
     drawRadarVeilMark(ctx, q.kind, x, y, a);
+
+    // And the mark that is not about this creature at all but about the two of
+    // them: an eye over every blip whose secret is split across the screens.
+    // The siren in the corner (`siren.ts`) says a call is on; this says which
+    // blip it is about, which is the half a corner instrument cannot carry.
+    // `comms.ts` owns the roster, so a creature joining it lights up here
+    // without this file learning its name.
+    if (needsComms(q.kind)) drawEyeGlyph(ctx, x, y - s - 6, 4.4, PALETTE.text, a * 0.85);
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {

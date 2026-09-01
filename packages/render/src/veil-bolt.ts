@@ -1,28 +1,38 @@
+import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
-
-/** The bolt itself, and the light it throws into the vapour around it. */
-const BOLT = "#DCE6FF";
-const BOLT_GLOW = "#9FB6FF";
+import { cloudEdge } from "./veil-shape.js";
 
 /**
- * THE VEIL's lightning, and the light it throws into the vapour around it.
+ * THE VEIL's lightning: small bolts that break out of the cloud's own border,
+ * scattered round it, each in its own neon colour.
  *
  * Its own file beside `veil.ts` for the reason `clasp-lattice.ts` sits beside
  * `clasp.ts`: the cloud is a contour with a gradient in it and does not change
  * again, while this is the half that is a *picture* and will be argued about.
- * The seam is also where the clip is — everything here is drawn inside the
- * cloud's own path, so a bolt cannot light anything that is not weather.
  *
  * **It is on the beat, and that is a mechanic rather than a flourish.** The
  * pair counts beats to the morph (`veilBeatsToMorph`), and a flash that lands
  * on the count puts the metronome inside the thing they are counting about —
  * so player 1 can say "two more" and player 2 can watch the two go by without
- * either of them looking at the HUD.
+ * either of them looking at the HUD. Every bolt in a volley therefore *starts*
+ * on the beat exactly; only how long each one lasts is spread.
  *
- * **And the cloud lights up where the bolt is**, which is what the owner asked
- * for by name. The glow is a radial gradient at the bolt's own origin, painted
- * before the bolt and under it, so the vapour brightens around a strike
- * instead of the whole shape flickering as one lamp.
+ * **Why the border rather than through the middle.** The first version drew
+ * one long fork from the top of the cloud down through it, clipped to the
+ * contour. Clipped lightning is lightning in a cutout: it cannot light
+ * anything outside the shape, so the cloud flickered as one flat lamp and the
+ * strike had no location. These start *on* the outline (`cloudEdge`) and walk
+ * outward, unclipped, over the fog `veil-shape.ts` lays down — so a strike on
+ * the left of a cloud and a strike on its right are two different pictures,
+ * which is what the owner asked for by name.
+ *
+ * **And they are not all one colour.** A bolt is the one thing on this field
+ * with every right to be the brightest object in its tile, and a white one
+ * beside a red body and a cyan body reads as neither. Cycling the palette's
+ * neons per bolt makes the weather its own thing rather than a tint of
+ * whatever is inside it — and it cannot leak the answer, because the colours
+ * are picked from the body's *id*, which both screens have, and never from its
+ * colour, which only one of them does.
  */
 
 /**
@@ -37,108 +47,151 @@ export function veilScatter(a: number, b: number): number {
 }
 
 /**
- * The bolts, clipped to the cloud so the light they throw stays inside the
- * weather. One on the beat, forking, plus a second smaller one on the offbeat
- * for the clouds whose scatter asks for it — so the rhythm is a beat and not a
- * metronome tick.
+ * The neons a bolt can be, hot core first and the light it throws second.
+ *
+ * Five, and every one of them already in the game's vocabulary — nothing here
+ * is a colour invented for weather. The two ammunition colours are in the list
+ * on purpose and are safe to be: a bolt lands for a fifth of a beat somewhere
+ * on the rim, while the body's colour is a whole silhouette in the middle, and
+ * nobody has ever read one as the other.
+ */
+const NEONS: readonly [hot: string, glow: string][] = [
+  [PALETTE.cyanRim, PALETTE.cyan],
+  [PALETTE.redRim, PALETTE.red],
+  [PALETTE.hullRim, PALETTE.hull],
+  [PALETTE.goodRim, PALETTE.good],
+  [PALETTE.podRim, PALETTE.pod],
+];
+
+/** How many break out on a beat. Enough to be scattered, few enough that the
+ * eye can still say "that one, on the left". */
+const PER_BEAT = 5;
+
+/**
+ * A volley. Drawn in the cloud's own space — the caller has already translated
+ * to its centre — and deliberately **not** clipped to the contour.
+ *
+ * `beats` is `world.beat + beatPhase`, `t` the contour clock the fill used (so
+ * a bolt starts on the outline as it is drawn this frame, not as it was drawn
+ * at rest), `shut` is 1 while a wrong colour holds the cloud closed.
  */
 export function drawVeilBolts(
   ctx: CanvasRenderingContext2D,
-  path: Path2D,
   r: number,
+  t: number,
   beats: number,
   id: number,
   shut: number,
   seeThrough: boolean,
 ): void {
-  ctx.save();
-  ctx.clip(path);
   const beat = Math.floor(beats);
   const phase = beats - beat;
-  // Two strikes per beat at most, the second at half strength and only when
-  // this cloud's own scatter says so. `k` is which of the two.
-  for (let k = 0; k < 2; k++) {
-    const at = k === 0 ? 0 : 0.5;
+  ctx.save();
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  // Two volleys per beat at most: the full one on the count, and a lighter one
+  // on the half for the clouds whose own scatter asks for it, so the rhythm is
+  // a beat rather than a metronome tick.
+  for (let v = 0; v < 2; v++) {
+    const at = v === 0 ? 0 : 0.5;
     const since = phase - at;
     if (since < 0) continue;
-    // Over roughly the first half of the beat for the main strike and a
-    // quarter for the second. Fast enough to read as lightning, slow enough
-    // that a glance at any moment usually catches one — which is the point:
-    // the pair is counting these.
-    const life = Math.max(0, 1 - since * (k === 0 ? 2.4 : 4.2));
-    if (life <= 0.02) continue;
-    const s = veilScatter(id + k * 31, beat);
-    if (k === 1 && s > 0.55) continue;
-    const strength = (k === 0 ? 1 : 0.5) * life * life;
-    strike(ctx, r, s, id + k, beat, strength, shut, seeThrough);
+    if (v === 1 && veilScatter(id * 3 + 17, beat) > 0.5) continue;
+    const count = v === 0 ? PER_BEAT : 2;
+    for (let k = 0; k < count; k++) {
+      const seed = id * 31 + v * 7 + k;
+      // Each bolt burns out at its own rate — between about a fifth and a
+      // third of a beat — so the volley arrives as one flash and frays out.
+      const life = Math.max(0, 1 - since * (3.4 + veilScatter(seed, beat) * 2.6));
+      if (life <= 0.03) continue;
+      strike(ctx, r, t, seed, beat, life * life * (v === 0 ? 1 : 0.6), shut, seeThrough);
+    }
   }
   ctx.restore();
 }
 
-/** One bolt: a jagged line down through the cloud, and the glow it throws into
- * the vapour around the point it started at — which is the thing the owner
- * asked for by name, the cloud lighting up *where* the lightning is. */
+/**
+ * One bolt: a point on the border, three short steps out from it with a jitter
+ * across the normal, and a small light in the vapour where it started.
+ */
 function strike(
   ctx: CanvasRenderingContext2D,
   r: number,
-  s: number,
+  t: number,
   seed: number,
   beat: number,
   strength: number,
   shut: number,
   seeThrough: boolean,
 ): void {
-  const hot = shut > 0 ? PALETTE.red : BOLT;
-  const glow = shut > 0 ? PALETTE.redRim : BOLT_GLOW;
-  const x0 = (s * 2 - 1) * r * 0.5;
-  const y0 = -r * 0.62;
+  // Where on the rim. The range covers the top and both flanks and stops
+  // short of straight down: a cloud's underside is the flat one, and lightning
+  // crawling along it reads as a fringe on a body rather than as weather.
+  const angle = Math.PI * (0.82 + veilScatter(seed * 9 + 3, beat) * 1.36);
+  const e = cloudEdge(r, t, angle);
 
-  // The light in the vapour first, so the bolt is drawn on top of its own
-  // glow rather than under it. This is the half the owner asked for by name:
-  // the cloud brightens *where the lightning is*, so a strike on the left of
-  // one and a strike on the right are two different pictures.
-  const lit = ctx.createRadialGradient(x0, y0 + r * 0.2, 0, x0, y0 + r * 0.2, r * 1.1);
-  lit.addColorStop(0, glow);
-  lit.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.globalAlpha = strength * (seeThrough ? 0.62 : 0.85);
-  ctx.fillStyle = lit;
-  ctx.fillRect(-r * 1.6, -r, r * 3.2, r * 2);
+  // A wrong colour has shut the cloud: the whole thing goes red, and the
+  // weather stops being pretty. It is the one state the pair has to read
+  // across a room, so it does not get a palette.
+  const pick = NEONS[Math.floor(veilScatter(seed * 13 + 7, beat) * NEONS.length) % NEONS.length]!;
+  const hot = shut > 0 ? PALETTE.redRim : pick[0];
+  const glow = shut > 0 ? PALETTE.red : pick[1];
 
-  // **Two passes, wide and soft under narrow and hot.** The first version drew
-  // one 1.5 px line at 39% alpha and it was invisible in a frame: a cloud is
-  // about 55 px across on a phone, so a hairline inside one is a hairline
-  // nobody finds. Glow comes from a soft aura around the line rather than from
-  // a thicker line (docs/spec/graphics.md), and lightning is the one thing on
-  // this field that has every right to be the brightest thing in its own tile.
-  const path = boltPath(r, x0, y0, seed, beat);
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-  ctx.globalAlpha = Math.min(1, strength * 0.5);
+  // Small: a sixth to a third of the cloud's radius, which at the size a cloud
+  // draws on a phone is seven to twelve pixels. They start *on* the outline
+  // now rather than inside it, so they no longer need the length it took to
+  // climb out of the shape — and short is the word the owner used.
+  const len = r * (0.17 + veilScatter(seed * 3 + 5, beat) * 0.16);
+  const path = boltPath(e, len, seed, beat);
+
+  // The light in the vapour first, under the bolt rather than over it, at the
+  // point it broke out of. `halo` rather than `shadowBlur`, for `glow.ts`'s
+  // reason — and it is what the fog next door exists to catch.
+  halo(ctx, e.x, e.y, len * 2.6, glow, strength * (seeThrough ? 0.45 : 0.6));
+
+  // **Two passes, wide and soft under narrow and hot.** A single hairline was
+  // invisible in a frame: a cloud is about 55 px across on a phone, so a 1.5 px
+  // line inside one is a line nobody finds. Glow comes from a soft aura around
+  // the line rather than from a thicker line (docs/spec/graphics.md).
+  ctx.globalAlpha = Math.min(1, strength * 0.7);
   ctx.strokeStyle = glow;
-  ctx.lineWidth = Math.max(3, r * 0.2);
+  ctx.lineWidth = Math.max(1.8, r * 0.09);
   ctx.stroke(path);
 
   ctx.globalAlpha = Math.min(1, strength * (seeThrough ? 0.9 : 1));
   ctx.strokeStyle = hot;
-  ctx.lineWidth = Math.max(1.4, r * 0.075);
+  ctx.lineWidth = Math.max(1, r * 0.04);
   ctx.stroke(path);
   ctx.globalAlpha = 1;
 }
 
-/** The line itself: four steps down through the cloud with one fork halfway,
- * always at the same step so it reads as a shape rather than as noise. */
-function boltPath(r: number, x0: number, y0: number, seed: number, beat: number): Path2D {
+/**
+ * The line itself: three steps out along the border's own normal, each one
+ * shoved sideways across it, and a single short fork off the middle joint so
+ * the shape is lightning rather than a scratch.
+ */
+function boltPath(
+  e: { x: number; y: number; nx: number; ny: number },
+  len: number,
+  seed: number,
+  beat: number,
+): Path2D {
+  // Across the normal, for the sideways shove and the fork.
+  const tx = -e.ny;
+  const ty = e.nx;
   const p = new Path2D();
-  p.moveTo(x0, y0);
-  let x = x0;
-  let y = y0;
-  for (let i = 1; i <= 4; i++) {
-    x += (veilScatter(seed * 7 + i, beat) * 2 - 1) * r * 0.26;
-    y += (r * 1.15) / 4;
+  p.moveTo(e.x, e.y);
+  let x = e.x;
+  let y = e.y;
+  for (let i = 1; i <= 3; i++) {
+    const jitter = (veilScatter(seed * 7 + i, beat) * 2 - 1) * len * 0.42;
+    x += (e.nx * len) / 3 + tx * jitter;
+    y += (e.ny * len) / 3 + ty * jitter;
     p.lineTo(x, y);
     if (i === 2) {
+      const fx = (veilScatter(seed * 11, beat) * 2 - 1) * len * 0.55;
       p.moveTo(x, y);
-      p.lineTo(x + (veilScatter(seed * 11, beat) * 2 - 1) * r * 0.45, y + r * 0.32);
+      p.lineTo(x + e.nx * len * 0.3 + tx * fx, y + e.ny * len * 0.3 + ty * fx);
       p.moveTo(x, y);
     }
   }
