@@ -89,7 +89,7 @@ const OPEN_TRACKS: Readonly<Record<string, string>> = {
   waves: "186px",
   editor: "320px",
   game: "minmax(320px, 1fr)",
-  map: "minmax(480px, max-content)",
+  map: "minmax(400px, max-content)",
 };
 
 /**

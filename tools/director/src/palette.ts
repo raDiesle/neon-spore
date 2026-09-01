@@ -1,4 +1,4 @@
-import { isCollapsed, setCollapsed } from "./brush-group-collapse.js";
+import { readActiveCategory, writeActiveCategory } from "./brush-category.js";
 import { brushTooltip } from "./brush-tooltip.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
@@ -21,13 +21,15 @@ export interface Palette {
  * so a selection carried over from another wave cannot place one either.
  */
 export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>): Palette {
+  const categoryBar = document.getElementById("brushCategories");
   const brushBar = document.getElementById("brushes");
   // The first brush in bestiary order, not a hardcoded colour — the bestiary
   // no longer starts with a coloured kind on any guarantee.
   let brush: Brush = BRUSHES[0]?.brush ?? "erase";
+  let category: string | null = readActiveCategory();
 
   const render = (): void => {
-    if (!brushBar) return;
+    if (!categoryBar || !brushBar) return;
     const hide = hidden();
     // The selection may have just become hidden by a wave switch; fall back to
     // the first brush still on offer rather than leaving a dead one selected.
@@ -35,60 +37,74 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
       const first = BRUSHES.find((b) => !hide.has(b.brush));
       if (first) brush = first.brush;
     }
-    brushBar.replaceChildren();
-    const byBrush = new Map(BRUSHES.map((b) => [b.brush, b] as const));
-    for (const group of BRUSH_GROUPS) {
-      const visible = group.brushes.filter((b) => !hide.has(b));
-      // A group every brush of which the current wave hides — the boss-panel
-      // creature groups on a boss wave — loses its label along with its
-      // buttons, rather than leaving a heading with nothing under it.
-      if (!visible.length) continue;
 
-      const collapsed = isCollapsed(group.label);
-      const label = document.createElement("button");
-      label.type = "button";
-      label.className = collapsed ? "brush-group-label collapsed" : "brush-group-label";
-      label.textContent = group.label;
-      label.addEventListener("click", () => {
-        setCollapsed(group.label, !collapsed);
+    // A group every brush of which the current wave hides — the boss-panel
+    // creature groups on a boss wave — drops out entirely, tab and all,
+    // rather than leaving an empty one to switch to.
+    const visibleGroups = BRUSH_GROUPS.map((group) => ({
+      group,
+      brushes: group.brushes.filter((b) => !hide.has(b)),
+    })).filter((g) => g.brushes.length > 0);
+
+    categoryBar.replaceChildren();
+    brushBar.replaceChildren();
+    if (!visibleGroups.length) return;
+
+    // The active tab may have just lost every brush it held (a wave switch),
+    // or never been chosen at all; either way, fall back to the first one on
+    // offer rather than showing no options at all.
+    if (!visibleGroups.some((g) => g.group.label === category)) {
+      category = visibleGroups[0]?.group.label ?? null;
+    }
+
+    for (const { group } of visibleGroups) {
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = group.label === category ? "brush-category on" : "brush-category";
+      tab.textContent = group.label;
+      tab.addEventListener("click", () => {
+        category = group.label;
+        writeActiveCategory(group.label);
         render();
       });
-      brushBar.appendChild(label);
-      if (collapsed) continue;
+      categoryBar.appendChild(tab);
+    }
 
-      for (const brushKind of visible) {
-        const b = byBrush.get(brushKind);
-        if (!b) continue;
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = b.brush === brush ? "brush on" : "brush";
-        // Hovering names the wave that first introduces what the brush
-        // paints — see `brush-tooltip.ts`. A brush that paints nothing
-        // (`ERASE`) gets no answer and no attribute.
-        const tooltip = brushTooltip(b.brush);
-        if (tooltip) button.title = tooltip;
+    const active = visibleGroups.find((g) => g.group.label === category);
+    if (!active) return;
+    const byBrush = new Map(BRUSHES.map((b) => [b.brush, b] as const));
+    for (const brushKind of active.brushes) {
+      const b = byBrush.get(brushKind);
+      if (!b) continue;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = b.brush === brush ? "brush on" : "brush";
+      // Hovering names the wave that first introduces what the brush
+      // paints — see `brush-tooltip.ts`. A brush that paints nothing
+      // (`ERASE`) gets no answer and no attribute.
+      const tooltip = brushTooltip(b.brush);
+      if (tooltip) button.title = tooltip;
 
-        for (const subject of b.subjects) {
-          button.appendChild(silhouette(subject, b.stroke, 34));
-        }
-
-        const text = document.createElement("div");
-        const name = document.createElement("span");
-        name.className = "name";
-        name.textContent = b.label;
-        const hint = document.createElement("span");
-        hint.className = "hint";
-        hint.textContent = b.note;
-        text.append(name, hint);
-        button.appendChild(text);
-
-        button.addEventListener("click", () => {
-          brush = b.brush;
-          render();
-          onPick();
-        });
-        brushBar.appendChild(button);
+      for (const subject of b.subjects) {
+        button.appendChild(silhouette(subject, b.stroke, 34));
       }
+
+      const text = document.createElement("div");
+      const name = document.createElement("span");
+      name.className = "name";
+      name.textContent = b.label;
+      const hint = document.createElement("span");
+      hint.className = "hint";
+      hint.textContent = b.note;
+      text.append(name, hint);
+      button.appendChild(text);
+
+      button.addEventListener("click", () => {
+        brush = b.brush;
+        render();
+        onPick();
+      });
+      brushBar.appendChild(button);
     }
   };
 
