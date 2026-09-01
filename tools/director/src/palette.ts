@@ -1,3 +1,4 @@
+import { isCollapsed, setCollapsed } from "./brush-group-collapse.js";
 import { brushTooltip } from "./brush-tooltip.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
@@ -43,10 +44,17 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
       // buttons, rather than leaving a heading with nothing under it.
       if (!visible.length) continue;
 
-      const label = document.createElement("div");
-      label.className = "brush-group-label";
+      const collapsed = isCollapsed(group.label);
+      const label = document.createElement("button");
+      label.type = "button";
+      label.className = collapsed ? "brush-group-label collapsed" : "brush-group-label";
       label.textContent = group.label;
+      label.addEventListener("click", () => {
+        setCollapsed(group.label, !collapsed);
+        render();
+      });
       brushBar.appendChild(label);
+      if (collapsed) continue;
 
       for (const brushKind of visible) {
         const b = byBrush.get(brushKind);

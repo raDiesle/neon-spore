@@ -28,6 +28,7 @@ import {
   type Store,
 } from "./state.js";
 import { bindStates, closeMechanicsSheet } from "./states-page.js";
+import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 import { renderWaveOpening } from "./wave-opening.js";
@@ -45,6 +46,9 @@ const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 // the header itself becomes the menu that switches between them — see
 // `mobile-menu.ts`.
 initColumns();
+// BRUSH and MAP, stacked inside the map column, each get their own finer
+// collapse — see `subcols.ts`.
+initSubcols();
 initMobileMenu();
 
 bindShipped();
