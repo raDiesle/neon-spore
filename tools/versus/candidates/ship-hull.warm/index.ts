@@ -29,6 +29,12 @@ export const HULL_WARM: Variant = {
   name: "warm",
   sentence: "amber where the ship is violet — does the hull still read against red ammunition",
   dir: "tools/versus/candidates/ship-hull.warm",
+  // Continuous, not an event: the hull is the same colour on every frame, so
+  // one still at one seat answers "does it read against red ammunition" as
+  // well as a running loop would, and the row shows exactly that rather than
+  // a p1/p2 pair looping forever. Any settle time works; this one is past
+  // `versus-pair.ts`'s own settle window.
+  screenshot: { freezeSeconds: 1 },
   patches: [
     patch({
       target: hull.OWN_SKIN,

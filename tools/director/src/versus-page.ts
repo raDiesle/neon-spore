@@ -1,8 +1,9 @@
 import type { ViewRole } from "@neon-spore/render";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { patchedFields, type Slot, slots, type Variant } from "../../versus/variant.js";
-import { button, el } from "./checks-dom.js";
+import { el } from "./checks-dom.js";
 import type { Pose } from "./pose-kit.js";
+import { controlsBar } from "./versus-controls.js";
 import { startPair } from "./versus-pair.js";
 import { poseForSlot } from "./versus-pose.js";
 import { seatsDiffer } from "./versus-seat.js";
@@ -29,35 +30,6 @@ import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
  * point into the host page handed to it, rather than building a tab and a
  * page of its own the way it used to.
  */
-
-const RATES = [0.25, 0.5, 1, 2];
-
-function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement {
-  const b = button(label);
-  b.addEventListener("click", () => {
-    const next = b.dataset.state !== "on";
-    b.dataset.state = next ? "on" : "off";
-    b.classList.toggle("on", next);
-    on(next);
-  });
-  return b;
-}
-
-function picker<T>(items: readonly T[], name: (x: T) => string, on: (x: T) => void, at = 0) {
-  const sel = document.createElement("select");
-  items.forEach((item, i) => {
-    const opt = document.createElement("option");
-    opt.value = String(i);
-    opt.textContent = name(item);
-    sel.appendChild(opt);
-  });
-  sel.value = String(at);
-  sel.addEventListener("change", () => {
-    const item = items[Number(sel.value)];
-    if (item) on(item);
-  });
-  return sel;
-}
 
 /**
  * Appends the ALTERNATIVES intro and its empty mount point into `host` — the
@@ -163,7 +135,13 @@ function renderRow(slot: Slot, candidate: Variant, pose: Pose, head: Head): HTML
     ),
   );
 
-  const screens = seatsDiffer(pose, candidate) ? (["p1", "p2"] as const) : (["p1"] as const);
+  // A screenshot candidate is always one seat, never both — the whole point
+  // is a still picture documenting this answer, not a seat-by-seat compare.
+  const screens = candidate.screenshot
+    ? (["p1"] as const)
+    : seatsDiffer(pose, candidate)
+      ? (["p1", "p2"] as const)
+      : (["p1"] as const);
   const screensHost = el("div", "versus-screens");
   for (const role of screens) {
     screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1));
@@ -218,26 +196,14 @@ function renderScreen(
   leftBox.appendChild(pair.left);
   rightBox.appendChild(pair.right);
 
-  const bar = el("div", "versus-bar");
-  bar.append(
-    toggle("⏸", (paused) => pair.setRunning(!paused)),
-    picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1)),
-    toggle("BLINK", (on) => {
-      stage.classList.toggle("is-blink", on);
-      pair.setBlink(on);
-    }),
-    toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1)),
-  );
-  screen.append(
-    stage,
-    el(
-      "p",
-      "versus-blink-note",
-      "BLINK superimposes the two sides and flips between them once a second — " +
-        "the astronomer's trick for a difference too small to catch side by side.",
-    ),
-    bar,
-    banner,
-  );
+  if (candidate.screenshot) {
+    // A still, not an instrument: `freeze` on the chosen frame rather than
+    // `setRunning(false)`, which would draw `hud.ts`'s "PAUSED" overlay on
+    // every frame after it — a caption a screenshot exists to not have.
+    window.setTimeout(() => pair.freeze(), candidate.screenshot.freezeSeconds * 1000);
+    screen.append(stage, banner);
+    return screen;
+  }
+  screen.append(stage, ...controlsBar(stage, pair), banner);
   return screen;
 }

@@ -105,6 +105,22 @@ export interface Variant {
   /** Repo-relative directory holding this candidate, `git rm -r`'d on a decision. */
   readonly dir: string;
   readonly patches: readonly Patch[];
+  /**
+   * When set, the director's ALTERNATIVES row shows one frozen picture
+   * instead of a live, running pair: one seat only, never both, and no
+   * pause/rate/blink/zoom bar under it — a screenshot documenting this
+   * answer rather than an instrument for judging its motion.
+   *
+   * Reach for this only when a still genuinely answers the question a loop
+   * would: a look that is on screen in every frame regardless of timing
+   * (`ship:hull-skin`), or one whose whole difference is a single instant
+   * best caught at a chosen moment (`cannon:shot`'s bolt mid-column) rather
+   * than watched as it repeats. `docs/versus.md`'s "does this read at 26 px,
+   * and does it read at tempo" is the default the mechanism exists to serve
+   * — a candidate whose motion is the very thing in question should not set
+   * this.
+   */
+  readonly screenshot?: { readonly freezeSeconds: number };
 }
 
 /** What `apply` overwrote, and what was there before. */

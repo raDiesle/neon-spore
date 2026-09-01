@@ -28,6 +28,14 @@ export const SHOT_STREAK: Variant = {
   name: "streak",
   sentence: "a constant tail two and a half tiles long, and almost no head — the shot is the line",
   dir: "tools/versus/candidates/cannon-shot/streak",
+  // Event-shaped, not continuous: `versus-pose.ts`'s `SHOT · BEING LAID`
+  // replays the press-to-departure act every `EVENT_CADENCE_SECONDS`, and the
+  // question this candidate answers is what the tail looks like while it is
+  // still travelling — not at the muzzle and not after it has struck. Frozen
+  // partway into the first replay, with the bolt mid-column, rather than left
+  // running: a picture documenting this look, not an instrument for judging
+  // its motion.
+  screenshot: { freezeSeconds: 0.48 },
   patches: [
     patch({
       target: bullets.SHOT_LOOK,

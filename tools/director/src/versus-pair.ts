@@ -3,6 +3,7 @@ import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
+import { hashCanvas } from "./versus-hash.js";
 
 /**
  * One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet.
@@ -44,6 +45,9 @@ export interface Pair {
   /** CSS pixels per phone pixel: 1 is true size, 2 is a magnifier. */
   setZoom(n: number): void;
   setBlink(on: boolean): void;
+  /** Stop advancing for good, but keep repainting the same frame — a still
+   * with no `hud.ts` "PAUSED" overlay, unlike `setRunning(false)`. No `unfreeze`. */
+  freeze(): void;
   stop(): void;
 }
 
@@ -60,18 +64,6 @@ function makeSide(dpr: number): Side {
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize({ ...PAIR_PHONE, dpr });
   return { canvas, renderer };
-}
-/** FNV-1a over every byte — not a cryptographic claim, only "did two renders match". */
-export function hashCanvas(canvas: HTMLCanvasElement): string {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return "";
-  const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  let h = 0x811c9dc5;
-  for (let i = 0; i < data.length; i++) {
-    h ^= data[i] ?? 0;
-    h = Math.imul(h, 0x01000193);
-  }
-  return (h >>> 0).toString(16);
 }
 
 /**
@@ -112,6 +104,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
 
   let world = pose.build();
   let running = true;
+  let frozen = false;
   let rate = 1;
   let blink = false;
   let showing: "left" | "right" = "left";
@@ -185,9 +178,11 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     raf = requestAnimationFrame(frame);
     const real = Math.min(0.25, (now - last) / 1000);
     last = now;
-    const dt = running ? real * rate : 0;
+    // `frozen` holds `dt` at 0 like `!running` does, but leaves `running` —
+    // and so `view.running`, and so the pause overlay — untouched.
+    const dt = running && !frozen ? real * rate : 0;
 
-    if (running) {
+    if (running && !frozen) {
       clock += dt;
       carry += dt * world.cfg.tickHz;
       const steps = Math.min(Math.floor(carry), world.cfg.tickHz);
@@ -200,6 +195,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       // The one place a cadenced pose ever rebuilds.
       if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
     } else {
+      // Not running, or frozen: replaying a non-empty `events` on every
+      // static tick would re-ingest a `fire` or `deflect` again and again.
       events = [];
     }
     paint(dt);
@@ -240,6 +237,9 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       left.canvas.style.opacity = "1";
       right.canvas.style.opacity = on ? "0" : "1";
       hooks.onBlink("left");
+    },
+    freeze() {
+      frozen = true;
     },
     stop() {
       cancelAnimationFrame(raf);

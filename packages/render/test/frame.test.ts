@@ -1006,53 +1006,42 @@ describe("the shield's ambient arcs (shield-spark.ts)", () => {
 });
 
 /**
- * `shield-flash.ts` is the same kind of lift as `shield-spark.ts`, offering a
- * second answer in the `shield:charge` slot: a soft patch of light instead of
- * a jagged arc. Same proof shape for the same reason — `SHIELD_FLASH_LOOK`
- * starts at `perSecond: 0`, so wiring `drawShieldFlashes` into `drawShieldRim`
- * changes no shipped frame, and the second test pins "at most two, briefly"
- * as a number rather than leaving it to a reader's eye.
+ * `shield-flash.ts` is the same kind of lift as `shield-spark.ts`: a soft
+ * patch of light beside `shield-spark.ts`'s jagged arc, both saying the
+ * shield is charged. Shipped, not offered — `SHIELD_FLASH_LOOK` carries its
+ * real, non-zero defaults, so the first test pins that the shipped record
+ * actually draws something, and the second pins "a few, briefly" as a number
+ * rather than leaving it to a reader's eye.
  */
 describe("the shield's ambient flashes (shield-flash.ts)", () => {
   const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
-  const cols = [3, 3.4, 3.8, 4.1];
+  const from = 200;
+  const to = 500;
   const surface = (x: number) => ({ x, y: L.hullY });
 
-  it("draws nothing at the shipped record — the lift changes no frame", () => {
+  it("draws nothing when the rim has no span", () => {
     const { ctx } = stubCanvas();
     for (let t = 0; t < 40; t += 0.1) {
-      drawShieldFlashes(ctx as unknown as CanvasRenderingContext2D, L, t, cols, surface);
+      drawShieldFlashes(ctx as unknown as CanvasRenderingContext2D, L, t, from, from, surface);
     }
     expect(ctx.calls).toBe(0);
   });
 
-  it("pops up only a little, once charged — not a steady glow", () => {
-    const before = { ...SHIELD_FLASH_LOOK };
-    Object.assign(SHIELD_FLASH_LOOK, {
-      perSecond: 1,
-      life: 0.3,
-      heightMul: 0.25,
-      radiusMul: 0.6,
-      intensity: 1,
-    } satisfies typeof before);
-    try {
-      const dt = 1 / 60;
-      const duration = 20;
-      let framesLit = 0;
-      let total = 0;
-      for (let t = 0; t < duration; t += dt) {
-        const { ctx } = stubCanvas();
-        drawShieldFlashes(ctx as unknown as CanvasRenderingContext2D, L, t, cols, surface);
-        total++;
-        if (ctx.calls > 0) framesLit++;
-      }
-      const share = framesLit / total;
-      // "Two random places, in random timings" — on often enough to notice,
-      // off far more often than on, at most two flashes overlapping.
-      expect(share).toBeGreaterThan(0.02);
-      expect(share).toBeLessThan(0.35);
-    } finally {
-      Object.assign(SHIELD_FLASH_LOOK, before);
+  it("pops up only a little, at the shipped record — not a steady glow", () => {
+    const dt = 1 / 60;
+    const duration = 20;
+    let framesLit = 0;
+    let total = 0;
+    for (let t = 0; t < duration; t += dt) {
+      const { ctx } = stubCanvas();
+      drawShieldFlashes(ctx as unknown as CanvasRenderingContext2D, L, t, from, to, surface);
+      total++;
+      if (ctx.calls > 0) framesLit++;
     }
+    const share = framesLit / total;
+    // "A few random places, in random timings" — on often enough to notice,
+    // off far more often than on, at most four flashes overlapping.
+    expect(share).toBeGreaterThan(0.02);
+    expect(share).toBeLessThan(0.6);
   });
 });

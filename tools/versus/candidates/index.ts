@@ -1,7 +1,6 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
-import { SHIELD_CHARGE_FLASH } from "./shield-flash/index.js";
 import { HULL_WARM } from "./ship-hull.warm/index.js";
 // endregion
 
@@ -21,4 +20,4 @@ import { HULL_WARM } from "./ship-hull.warm/index.js";
  * `run.ts` and this file all stay whether or not a slot is open. They are the
  * seam, the way `Effects` stays whether or not anything is exploding.
  */
-export const VARIANTS: Variant[] = [HULL_WARM, SHOT_STREAK, SHIELD_CHARGE_FLASH];
+export const VARIANTS: Variant[] = [HULL_WARM, SHOT_STREAK];

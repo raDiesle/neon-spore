@@ -212,7 +212,7 @@ export function drawShieldRim(
   ctx.globalAlpha = 1;
   // Presence, not the catch; `resonance` is the exception — `resonantLook`.
   drawShieldSparks(ctx, l, time, cols, surface, resonance);
-  drawShieldFlashes(ctx, l, time, cols, surface);
+  drawShieldFlashes(ctx, l, time, from, to, surface); // the rim's own span
 }
 
 /**
