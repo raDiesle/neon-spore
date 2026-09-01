@@ -492,7 +492,7 @@ do at 26 px.
 
 | Converted | From | The claim | What to look at |
 |---|---|---|---|
-| `THE BURR` | the Galaxy Defense stage boss | a heavy lobed body wearing blunt knobs, with a crown of longer ones on top | does the crown read as a *front*, or only as a rim that got untidy |
+| `THE POMMEL` | the Galaxy Defense stage boss | a heavy lobed body wearing balls on stalks, no two of them the same | does a neck survive a phone, or do the caps close up into a rim again at the size that decides it |
 | `THE RASP` | its small spiked discs | a small round body under a ring of twenty short spines | does a spine survive a phone, where it is one pixel and the slick's own wobble is already ragged |
 | `THE BRISTLE` | its capsules | a squared-off lozenge in a fringe of forty-four fine hairs | is a hair distinguishable from a spine at all, or only in the source file |
 | `THE CORONA` | Neon Pulsefire's ring boss | eleven nodes on a turning ring, two of them missing, so one wide opening comes round every six beats | is an opening that *arrives* better than the warden's, which is moved |
@@ -537,8 +537,20 @@ What is left behind is everything the source says with fill and light — the
 interior blisters, the bright pustules, the pale core inside the capsule — none
 of which reaches a phone, and all of which would make these pictures of a
 picture rather than proposals about a silhouette. The boss's bright swellings
-are the one real loss, because they are what give that body a front; `THE BURR`
-argues that length can say it instead, and that argument is the card.
+are the one real loss, because they are what give that body a front, and a
+silhouette has no light to spend on saying so.
+
+That boss was converted twice. The first attempt was `THE BURR`, which used
+`forms/studded.ts` and answered the lost swellings with *length* — a crown of
+longer knobs on one side. Drawn beside the second attempt it lost, and not on
+taste: `studded` samples one radius per angle, a ball on a stalk has two at the
+same angle, and the one it cannot keep is the waist. The necks closed, the
+knobs ran together into a continuous spiky rim, and the body read as a sea
+urchin rather than as a mace. `THE POMMEL` is the same boss walked instead of
+sampled, and it is the entry the catalogue carries; `THE BURR` is in
+`tools/shape-sheet/src/retired.ts` with that reason attached, because the crown
+is still an idea nothing else here makes and whatever picks it up next should
+take it to `clubbed`.
 
 They are `free` rather than `draft` deliberately. A draft is drawn *at* a named
 idea in `docs/spec/ideas.md` and carries its name; nothing here is one, and
@@ -547,10 +559,13 @@ that it is a shelf. A free contour is a picture looking for a behaviour, which
 is exactly what these are — and handing one to a bestiary entry is a decision
 somebody makes by looking at it.
 
-Three pieces of machinery were needed. `forms/studded.ts` is a rim of the same
-feature repeated, with `width` and `blunt` separate so that a club, a spine and
-a hair are three points on one axis rather than three forms — the first cut had
-them as one number and produced a cog, which is the whole reason they are two.
+Five pieces of machinery were needed. `forms/studded.ts` is a rim of the same
+feature repeated, with `width` and `blunt` separate so that a spine and a hair
+are two points on one axis rather than two forms — the first cut had them as one
+number and produced a cog, which is the whole reason they are two. A club is
+*not* a third point on that axis, which is what `THE BURR` was built on the
+assumption of: `forms/clubbed.ts` walks the outline instead of sampling it by
+angle, which is the only way this catalogue can put a cap on a neck.
 `forms/haloed.ts` is a ring whose nodes travel, so the gap between two of them
 comes round rather than being moved. `forms/spanning.ts` holds the two that are
 not bodies at all: the barrier, and a shell coming off in steps.

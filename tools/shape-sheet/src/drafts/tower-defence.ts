@@ -3,8 +3,14 @@ import { clubbed, guarded, haloed, shed, spanned, studded } from "../forms/index
 import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js";
 
 /**
- * Three bodies converted out of another game's frame — `docs/tower-defence.md`,
- * the Galaxy Defense: Fortress TD section.
+ * Bodies converted out of other games' frames — `docs/tower-defence.md`, the
+ * Galaxy Defense: Fortress TD section and the pages that grew off it.
+ *
+ * Three came out of that first screenshot: the stage boss and the two things
+ * that fall around it. The boss is at the bottom of this file as THE POMMEL,
+ * drawn with `clubbed`; it was drawn once before that with `studded`, as THE
+ * BURR, and that entry is now in `retired.ts` with the reason it lost. One
+ * body does not get two entries.
  *
  * Filed apart from `collected.ts` for the reason that file was filed apart from
  * `bosses.ts`: these did not lose a slot and were not worked forward from the
@@ -13,13 +19,14 @@ import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js"
  * legible survives being redrawn in a vocabulary of closed contours with lobes.
  *
  * **Converted, not copied.** What is taken is the claim the outline makes, and
- * in all three cases the claim is the same one: a plain body wearing a rim of
- * repeated features. What is left behind is everything the source says with
+ * in every case off that frame the claim is the same one: a plain body wearing
+ * a rim of repeated features. What is left behind is everything the source says with
  * fill and light — the interior blisters, the bright pustules, the pale core in
  * the capsule. None of that reaches a phone at 26 px, and a conversion that
  * kept it would be a picture of a picture rather than a proposal about a
- * silhouette. `forms/studded.ts` is the one thing the three needed that the
- * tool did not have.
+ * silhouette. `forms/studded.ts` is the one thing they needed that the tool did
+ * not have — and `forms/clubbed.ts` is the thing `studded` turned out not to be
+ * able to say.
  *
  * **They are `free`, not `draft`, and the distinction is the whole filing.**
  * A draft is drawn *at* a named idea and carries `suggests`; a free shape is a
@@ -32,28 +39,6 @@ import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js"
  * authority to make.
  */
 export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
-  {
-    subject: studded("THE BURR", "a heavy body wearing blunt knobs, and a crown of longer ones", {
-      rx: 88,
-      ry: 82,
-      studs: 13,
-      reach: 0.3,
-      width: 0.26,
-      blunt: 0.85,
-      lobes: 4,
-      depth: 0.06,
-      seed: 2.4,
-      // Upward on the sheet's axis, which is where the source gathers its
-      // bright swellings — so the longer knobs stand at the top of the body,
-      // over the field, rather than at whichever side the wobble favours.
-      crown: { reach: 0.56, at: -Math.PI / 2, spread: 0.75 },
-    }),
-    motion: SWELL,
-    status: "free",
-    slot: "boss",
-    owner:
-      "nothing carries it: it is the Galaxy Defense stage boss converted — a lobed blob with a knobbed rim and a cluster of bright swellings on top. Those swellings are the whole reason that body has a front, and they are light, which a silhouette cannot spend. So the conversion says it with length instead, and the question the card exists to answer is whether a crown of longer knobs reads as a front at all or only as a rim that got untidy",
-  },
   {
     subject: studded("THE RASP", "a small round body under a dense ring of short spines", {
       rx: 44,
@@ -209,6 +194,6 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     status: "free",
     slot: "boss",
     owner:
-      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. Judge the two side by side and retire whichever loses; they are the same proposal drawn twice, not two bodies",
+      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. The two were judged side by side and this is the one that stands; THE BURR is in `retired.ts` with the reason it lost",
   },
 ];

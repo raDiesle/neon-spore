@@ -23,9 +23,21 @@ import type { Subject } from "../contour.js";
  * teeth with no gap between them. They are independent claims. `width` is how
  * much of the gap between two features the feature occupies — small is a thing
  * standing off the body, large is a scallop cut into it. `blunt` is what
- * happens at the tip — 0 comes to a point, 1 flattens into a cap. A club is
- * narrow and blunt, a spine is narrow and sharp, and a lobe is wide and blunt,
- * which is what the game already draws and is why nothing here asks for it.
+ * happens at the tip — 0 comes to a point, 1 rounds it over into a cap. A
+ * spine is narrow and sharp, and a lobe is wide and blunt, which is what the
+ * game already draws and is why nothing here asks for it.
+ *
+ * **What no setting of `blunt` can give you is a neck, and `blunt: 1` is not
+ * a club.** It rounds a tip; it cannot narrow the waist under one, and the
+ * reason is the machinery rather than the tuning. This is a radius function —
+ * one radius per angle — and a ball on a stalk has two at the same angle, the
+ * near side of the cap and the far side. The near one is the one there is
+ * nowhere to put, so the waist closes, the features run together into a
+ * continuous spiky rim, and what comes back is a sea urchin rather than a
+ * mace. THE BURR is that conversion, made before this paragraph existed to
+ * warn against it. Anything wearing balls on stalks — a mace, a club, a
+ * pommel, a morning star — belongs to `clubbed.ts` instead, which walks the
+ * contour rather than sampling it and can therefore carry a waist.
  */
 export interface StuddedOpts {
   rx: number;
@@ -36,7 +48,7 @@ export interface StuddedOpts {
   reach: number;
   /** 0 a needle standing off the body, 1 a scallop filling the whole gap. */
   width: number;
-  /** 0 comes to a point, 1 flattens into a cap. */
+  /** 0 comes to a point, 1 rounds the tip over. Never a neck — see `clubbed`. */
   blunt: number;
   /**
    * Squareness of the body underneath: 2 is an ellipse, higher is a capsule

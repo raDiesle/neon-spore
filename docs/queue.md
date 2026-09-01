@@ -76,28 +76,3 @@ counted assertions in `drawn-size.test.ts` and `long-axis.test.ts`; both say in
 their own headers that the denominator moves when a body is added.
 
 _Judge it by looking: on the SHAPES tab, does each converted body read as the thing it was converted from — and does it still read at 26 px?_
-
-## THE BURR IS A SEA URCHIN AND ITS OWN CHECK SAYS SO
-_claude/burr-or-pommel · tools/shape-sheet/src/forms/studded.ts tools/shape-sheet/src/drafts/tower-defence.ts tools/shape-sheet/src/retired.ts tools/shape-sheet/test docs/tower-defence.md_
-**Proposed by the run.**
-
-Check `#215` asks whether THE BURR reads as the body it was converted from.
-Drawing it says no, and names the reason: `studded`'s `blunt` rounds a *tip*,
-and the thing that makes the source's rim read is its *waist* — a cap wider
-than the neck carrying it. A radius function keeps only the outer of the two
-radii a club has, so the neck is not something `studded` renders badly, it is
-something `studded` cannot represent. `forms/clubbed.ts` and THE POMMEL are
-that body converted a second time, walked instead of sampled.
-
-Two bodies now stand for one proposal, which is a state the catalogue should
-not be left in. This lane is the decision made concrete once the owner has
-looked at both: retire the loser into `retired.ts` with its reason, and leave
-one entry.
-
-It is filed as proposed rather than asked because the *verdict* is the owner's
-and is not in yet. The lane does not choose. What it may do without waiting is
-the part that is already settled either way: `studded`'s doc comment claims
-`blunt: 1` "flattens into a cap", and a caller reading that will keep expecting
-a club out of it. Say there what the form cannot do, and point at `clubbed`.
-
-_Judge it by looking: on the SHAPES tab, is there one body from that screenshot rather than two — and does the retired one's reason say why it lost?_
