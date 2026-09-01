@@ -1,9 +1,10 @@
-import { markMoment } from "./balance.js";
+import { metColor, missedColor } from "./balance.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { costHull } from "./hull.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
+import { veilStruck } from "./veil.js";
 import { wardenEyeOpen } from "./warden.js";
 import { wardenColor, wardenCycle } from "./warden-cycle.js";
 import type { World } from "./world.js";
@@ -48,6 +49,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   if (claspIsShielded(hit)) {
     claspStruck(world, hit);
     return false;
+  }
+  if (hit.kind === "veil") {
+    // The cloud, the body inside it and the armour a wrong colour buys — all
+    // one rule, and it lives in `veil.ts` for `claspStruck`'s reason.
+    return veilStruck(world, b, hit);
   }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
@@ -216,28 +222,4 @@ function resolveThrob(world: World, b: Bullet, hit: Creature): void {
   world.score += world.cfg.scoreThrobHit;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
   world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
-}
-
-/**
- * A shot met a creature in its own colour. A joint moment: player 2 is the
- * only one who can see the colour and player 1 is the only one who can load
- * it, so the shot is the pair agreeing out loud (docs/spec/couplings.md).
- *
- * A rock is not counted either way — it has no colour to get right.
- *
- * Exported for THE VANE, which is the one boss a shot never *meets*: its
- * bearing hangs above the field, so the shot that answers it is resolved where
- * a bullet runs out of field rather than here (`vane.ts`). It still books the
- * same two moments, and it books them by calling these rather than by writing
- * `colorHits += 1` a second time somewhere else.
- */
-export function metColor(world: World): void {
-  world.balance.colorHits += 1;
-  markMoment(world, true);
-}
-
-/** The same moment, missed: the wrong colour went up the column. */
-export function missedColor(world: World): void {
-  world.balance.colorMisses += 1;
-  markMoment(world, false);
 }

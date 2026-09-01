@@ -46,6 +46,14 @@ export const MECHANICS = {
     // answers it, so neither can be worked out from the other.
     waveNames: true,
   },
+  veil: {
+    what: "A thundercloud with a slick or a bulb inside it. Only the pilot can see which, and it turns over from one to the other every few beats — so what has to be said out loud is a colour and how long it is good for. A shot in the wrong one shuts the cloud for two seconds.",
+    reach: "spawn",
+    // A wave names this kind and never its colour: what is inside a veil is
+    // rolled at the moment it enters the field, which is the one thing about
+    // this creature nobody may compose against (`veilOnSpawn`).
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

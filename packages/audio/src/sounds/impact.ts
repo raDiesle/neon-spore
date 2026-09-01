@@ -158,8 +158,8 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.absorb",
     family: "impact",
     blurb: "The shot swallowed: it arrives and the sound closes over it.",
-    status: "spare",
-    use: "The gum, the colony's fibre — anything that takes a hit and keeps it.",
+    status: "bound",
+    use: "A wrong colour into THE VEIL (`veilRebuff`) — the cloud takes the shot and shuts over it for two seconds.",
     level: 0.32,
     layers: [
       {

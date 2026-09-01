@@ -90,7 +90,15 @@ function livingStroke(kind: CreatureKind): string {
  * the same call.
  */
 function cardSubjects(kind: CreatureKind): string[] {
-  if (kind === "lure" || kind === "clasp" || kind === "shell") return ["SLICK", "BULB"];
+  // A veil is the fourth, and the plainest case of the rule: the cloud is
+  // weather laid over a slick or a bulb (`render/veil.ts`), so the sheet has
+  // no VEIL contour to draw and the card resolves to the two bodies that can
+  // be inside one. Unlike the other three it is not the *wave* that decides
+  // which — the roll happens when the arrival enters the field — so "either"
+  // is not a shorthand here, it is the whole truth about the brush.
+  if (kind === "lure" || kind === "clasp" || kind === "shell" || kind === "veil") {
+    return ["SLICK", "BULB"];
+  }
   return [kind.toUpperCase()];
 }
 

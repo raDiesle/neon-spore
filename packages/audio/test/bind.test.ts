@@ -57,6 +57,9 @@ const SAMPLES: Record<string, SimEvent> = {
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
+  veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
+  veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
+  veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
 };
 
 describe("bindings", () => {

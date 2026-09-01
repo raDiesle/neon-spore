@@ -69,7 +69,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Slick** | wide flat blob, two broad lobes; tilts and ripples — always red | match the colour |
 | **Dart** | three deep lobes between the slick's flat two and the bulb's fine nine; never falls straight, and leans toward the diagonal it takes next | match the colour, in the column it is going to |
 | **Meteor** | matt, angular, no glow | ward only (the mirror image of the strand) |
-| **Veil** | opaque; one flash shows the core | announce the colour |
+| **Veil** | a thundercloud; the pilot sees into it, the navigator does not, and the body inside turns over every few beats | announce the body *and* how long it is good for |
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments, boring head | shoot through; warding locked out |
 | **Crystal** | facets, breaks into two halves | fast switching |
@@ -80,12 +80,25 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, torch. Slick, bulb and meteor
-carry the teaching waves; the torch is the meteor's own widened relative, not
-one of the original thirteen. Lure, throb and dart are the next three of that
-thirteen — none of them needed a new control group, only an entry and a state
-machine (see THE LURE, ON THE BEAT and THE DART waves, and
-`.claude/skills/new-creature`).
+Built: slick, bulb, meteor, lure, throb, dart, veil, torch. Slick, bulb and
+meteor carry the teaching waves; the torch is the meteor's own widened
+relative, not one of the original thirteen. Lure, throb, dart and veil are the
+next four of that thirteen — none of them needed a new control group, only an
+entry and a state machine (see THE LURE, ON THE BEAT, THE DART and THE VEIL
+waves, and `.claude/skills/new-creature`).
+
+**The veil is the lure's split turned over**, and the pair is the point: THE
+LURE hides something from the navigator's *trigger finger* by showing the pilot
+a ring, and THE VEIL hides something from the navigator's *eyes* by showing the
+pilot a window. One says "do not fire at that one"; the other says "fire that
+colour, now". Between them the pair learns that a body neither of them can
+fully see is a body they have to describe rather than react to.
+
+The shipped veil differs from the row above's original wording in one place and
+it is a deliberate substitution: the flash became a **morph**. See
+`docs/spec/systems.md` 5.2 for the argument — a flash makes the pilot catch a
+moment, a morph makes them hold one, and only the second of those is a
+sentence.
 
 **The dart is the first body that does not hold its lane**, and that is the
 whole of why it was worth a silhouette. Everything before it fell straight

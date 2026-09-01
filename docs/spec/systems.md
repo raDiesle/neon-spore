@@ -32,7 +32,7 @@ In the code: `CREATURES` and `controlsForKinds` in
 |---|---|---|
 | Position of all creatures | ✔ | ✔ |
 | Colours (normal) | ✔ | ✔ |
-| Veil: the colour inside | ✔ (only at the flash) | ✘ |
+| Veil: the body inside | ✔ (the whole way down) | ✘ |
 | Radar: rocks + torch (`guard` kinds) | ✔ | ✘ |
 | Radar: slick, bulb, queen (`aim` kinds) | ✘ | ✔ |
 | Target mix (boss "The Vessel") | ✘ | ✔ |
@@ -52,13 +52,29 @@ deliberately *not* split: the player who has to hold the fill and the player
 who has to withhold the shot are different people, so both read the same
 number.
 
-**Not built:** the veil, target mix and target-colour rows, and the "traces" idea
+**Built:** the veil row, and not quite as the table drew it. The original said
+the pilot sees the colour *only at a flash*; what shipped lets the pilot see
+into the cloud the whole way down and makes the **body change** instead —
+slick to bulb and back every `veilMorphBeats`. The owner asked for that
+version, and it is the stronger one: a flash makes the pilot's job *catching*
+a moment, which is a reflex, while a morph makes it *holding* one, which is a
+sentence. What has to be said is a colour and how long it is good for. See
+`packages/sim/src/veil.ts` and THE VEIL, and note the second half the table
+does not have a row for: a shot in the wrong colour shuts the cloud for two
+seconds rather than merely missing, so a stale call costs the pair a window as
+well as a bolt.
+
+**Not built:** the target mix and target-colour rows, and the "traces" idea
 (where something is coming from) the original table proposed for the
 navigator's half — the strip currently shows only that something is coming,
 in the colour/kind it will arrive as, at a column.
 
 Radar lines: length = remaining time until arrival; a warning before the
-creature is visible. The veil appears on the radar as a question mark.
+creature is visible. The veil appears on the radar as a question mark —
+**built**, on player 2's strip, in `PALETTE.dim` rather than in either
+ammunition colour, because a veil's queue entry carries no colour to read and
+a confident cyan blip would have been right half the time
+(`render/veil-marks.ts`).
 
 **Ground rule:** every creature's position is present for both. It may be
 incomplete or disturbed (see *The Blind One*, [bestiary](bestiary.md)), but

@@ -88,9 +88,26 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "claspBreak":
       return at(l, e.col, e.row, 14, PALETTE.claspShield);
 
+    // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
+    // because the shot did not bounce off anything — it went in and the
+    // weather shut over it (`impact.absorb` is the ear's half of the same
+    // sentence). The red cloud that follows is not a burst at all: it is
+    // world state for two seconds, read fresh every frame off
+    // `veilStruckTick` in `veil.ts`.
+    case "veilRebuff":
+      return at(l, e.col, e.row, 4, PALETTE.sparkDim);
+
     // Everything below is drawn some other way, or not drawn as a burst at
     // all, and says so rather than falling through a default that could not
     // tell the difference between "decided" and "forgotten".
+    // A cloud coming apart and the body inside it showing: `veil-tear.ts`
+    // draws the whole of it, and the ordinary `destroy` that rides beside it
+    // on the same tick is what throws the particles.
+    case "veilTorn":
+    // The body inside a cloud turning over. Nothing left the field and
+    // nothing arrived — the cloud goes on falling and its lightning goes on
+    // striking. A burst here would say something broke.
+    case "veilMorph":
     // A lure going is drawn *inward*, by `lure-vanish.ts`, and particles are
     // the whole of what it must not have: every burst in this table throws
     // material away from a body, which is the picture of something being

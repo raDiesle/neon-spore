@@ -127,6 +127,35 @@ export function markMoment(world: World, met: boolean): void {
   if (b.streak > b.bestStreak) b.bestStreak = b.streak;
 }
 
+/**
+ * A shot met a creature in its own colour. A joint moment: player 2 is the
+ * only one who can see the colour and player 1 is the only one who can load
+ * it, so the shot is the pair agreeing out loud (docs/spec/couplings.md).
+ *
+ * A rock is not counted either way — it has no colour to get right.
+ *
+ * **Here rather than in `bullet-hit.ts`, where they were written.** Three
+ * files now book these moments without meeting a body the way that file's
+ * `resolve` does — THE VANE, whose bearing hangs above the field and is
+ * answered where a bullet runs out of it, and THE VEIL, whose rule is its own
+ * file because `bullet-hit.ts` is at its length limit. The second of those
+ * would have had to import from the file that imports it, which is a cycle
+ * bought for nothing: the two counters are the balance sheet's, `markMoment`
+ * is already here, and nothing in either line is about a bullet. Every caller
+ * still calls them rather than writing `colorHits += 1` a second time
+ * somewhere else.
+ */
+export function metColor(world: World): void {
+  world.balance.colorHits += 1;
+  markMoment(world, true);
+}
+
+/** The same moment, missed: the wrong colour went up the column. */
+export function missedColor(world: World): void {
+  world.balance.colorMisses += 1;
+  markMoment(world, false);
+}
+
 /** A fresh sheet. `resetRun` and `createWorld` build the run's counters here. */
 export function emptyRunStats(): RunStats {
   return {

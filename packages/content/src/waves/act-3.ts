@@ -32,6 +32,36 @@ import type { Wave } from "../wave-types.js";
  * correct colour or it is not wearing anything, and a cyan slick would be the
  * one tell in this wave that nothing else in the game could produce.
  */
+/**
+ * **THE VEIL, in three figures.** Here for the reason the block above is: the
+ * director rewrites the array and keeps only what stands over it, so a note
+ * written between two entries is a note that survives until the next time
+ * somebody saves a wave in the editor.
+ *
+ * What has to bite is not the colour — either colour is one tap — but the
+ * *staleness* of it. A veil is easy while the pair has nothing else to say and
+ * impossible the moment saying it costs a beat they needed elsewhere.
+ *
+ * 1. Beats 0–4, the sentence. One cloud alone, then a real cyan body across
+ *    the field. The whole descent is available, so the pair finds the two
+ *    halves of the call — the body and the beats left — with nothing pressing
+ *    them; and the second arrival is there so that *which one* is already a
+ *    question the first time it is asked.
+ * 2. Beats 10–11, the pair. Two clouds four columns apart. They turn over on
+ *    the same beat, because the morph is read off the shared clock rather than
+ *    a phase of each body's own — so one count serves both, and what player 1
+ *    has to say is two colours and one number rather than two of each.
+ * 3. Beats 18–24, the squeeze. A third cloud, a rock in the middle of it and a
+ *    red body after that. The rock is the point: the shield's column is player
+ *    2's hand and the trigger is player 1's, so the two of them are already
+ *    talking about something else when a call expires. A rebuff here costs two
+ *    seconds of a body that goes on turning over while it is shut.
+ *
+ * A veil entry names its kind and *no* colour, and that is not the lure's
+ * arrangement with a field left out: what is inside a cloud is rolled when it
+ * enters the field (`veilOnSpawn`), because the only thing this game leaves
+ * random is what one player knows and the other does not.
+ */
 export const WAVES_ACT_3: Wave[] = [
   {
     name: "THE LURE",
@@ -112,6 +142,25 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 20, col: 3, color: "red" },
       { beat: 26, col: 2, kind: "dart", color: "cyan" },
       { beat: 30, col: 4, color: "cyan" },
+    ],
+  },
+  {
+    name: "THE VEIL",
+    sentence: "The one where the colour you were given goes stale while you are loading it.",
+    guide: {
+      both: "A thundercloud, and something is falling inside it. The lightning is on the beat — count it.",
+      p1: "You can see into the cloud and your partner cannot. Say the body and say how long: “cyan, two beats”. The ring over it is the clock.",
+      p2: "You have a question mark and nothing else, so ask. Fire on what you are told, not on what you last heard — a wrong colour shuts the cloud for two seconds and the answer changes while it is shut.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "veil", color: null },
+      { beat: 4, col: 6, color: "cyan" },
+      { beat: 10, col: 1, kind: "veil", color: null },
+      { beat: 11, col: 5, kind: "veil", color: null },
+      { beat: 18, col: 2, kind: "veil", color: null },
+      { beat: 20, col: 4, kind: "meteor", color: null },
+      { beat: 22, col: 6, color: "red" },
+      { beat: 24, col: 0, kind: "veil", color: null },
     ],
   },
   {

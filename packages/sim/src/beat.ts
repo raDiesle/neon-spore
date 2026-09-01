@@ -6,6 +6,7 @@ import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, isBossBody, spanOf } from "./types.js";
+import { veilMorph, veilOnSpawn } from "./veil.js";
 import type { World } from "./world.js";
 
 // `startWave` (and its private `installWarden`) is the shape of a wave
@@ -83,6 +84,11 @@ export function onBeat(world: World): void {
     // stored — bullet-hit.ts and render/ both read it off the creature rather
     // than asking `throbIsOpen` a second time at a possibly different tick.
     if (c.kind === "throb") c.throbOpen = throbIsOpen(world.cfg, world.beat);
+    // And the other body whose state is a fixed cycle read off the shared
+    // clock: a veil turns over from a slick to a bulb and back on the beats
+    // `veilMorphs` names, decided here and nowhere else, so player 1's timer
+    // and the colour a shot has to match are two readings of one number.
+    if (c.kind === "veil") veilMorph(world, c);
   }
 
   // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
@@ -143,6 +149,12 @@ export function onBeat(world: World): void {
       // sides are rolled here, from the world's own stream, which is why
       // `rng.state` being in `hashWorld` already covers them.
       ...(entry.kind === "dart" ? dartOnSpawn(world, col) : {}),
+      // Which body is inside a veil, rolled rather than authored — the one
+      // creature in the game whose contents nobody may compose against. It
+      // overrides `color` above on purpose: a wave that named one would be
+      // fixing the thing docs/spec/structure.md 7.3 puts on the random side
+      // of its own table. Same stream, same argument about `rng.state`.
+      ...(entry.kind === "veil" ? veilOnSpawn(world) : {}),
     });
     world.spawned += 1;
   }

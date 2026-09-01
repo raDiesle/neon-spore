@@ -102,7 +102,14 @@ describe("the catalogue", () => {
  * them. This is the whole reason the SOUND tab can be trusted.
  */
 describe("status", () => {
-  const wiring = ["packages/audio/src/bind.ts", "packages/audio/src/mixer.ts"]
+  // Every file that names a sound id. `bind-creatures.ts` was split out of
+  // `bind.ts` the day THE VEIL arrived, and it took nine bound ids with it —
+  // so a list of two files quietly reported eight sounds as played by nothing.
+  const wiring = [
+    "packages/audio/src/bind.ts",
+    "packages/audio/src/bind-creatures.ts",
+    "packages/audio/src/mixer.ts",
+  ]
     .map((f) => Bun.file(join(ROOT, f)))
     .map(async (f) => await f.text());
 

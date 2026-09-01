@@ -1,9 +1,11 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
+import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
+export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
@@ -12,7 +14,7 @@ export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConfig {
+export interface SimConfig extends BossConfig, CreatureConfig, GaugeConfig, PairConfig, ShotConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -107,25 +109,6 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
   scoreWave: number;
   /** Score for taking a pod in. */
   scorePod: number;
-  /** What a shot at a lure costs the hull. Not the score: two currencies for
-   * one mistake reads as bookkeeping, and the hull is the one the pair feels.
-   * Above `damageCreature` on purpose — a body that reached the hull cost a
-   * shot nobody fired, and this cost one that was. */
-  damageLure: number;
-  /** Rows above the hull a lure stands on before it goes (`lureVanishRow`).
-   * Two: close enough that player 1's eye is already on it, far enough that it
-   * plainly never threatened the ship. */
-  lureVanishRows: number;
-  /** Score for hitting a Throb while it is open. */
-  scoreThrobHit: number;
-  /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
-   * armour is work either colour can do, and the kill is still to come. */
-  scoreShellPiece: number;
-  /** Beats in one Throb swell-shrink cycle — `throbIsOpen`'s whole state
-   * machine is `beat % throbPeriodBeats` against `throbOpenBeats`. */
-  throbPeriodBeats: number;
-  /** Beats out of every cycle a Throb can be hit at all. */
-  throbOpenBeats: number;
   /**
    * How many beats ahead the radar strip shows an arrival. Read by render/.
    * A creature needs at least a 3-second floor of warning (docs/spec/latency.md)
@@ -164,21 +147,11 @@ export interface SimConfig extends BossConfig, GaugeConfig, PairConfig, ShotConf
    * render/ (`depth.ts`).
    */
   depthHaze: number;
-  /**
-   * Opening a clasp with the ward. Between `scoreDestroy` and `scoreDeflect`:
-   * the same joint shape as a deflection, but it only sets the kill up.
-   */
-  scoreClaspBreak: number;
-  /**
-   * Beats the broken shield goes on flying apart for. Render-only — the sim
-   * opens a clasp on the instant of the trigger — but a `SimConfig` field
-   * because it is counted in beats, and the beat is the sim's.
-   */
-  claspBreakBeats: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
+  ...CREATURE_DEFAULTS,
   ...GAUGE_DEFAULTS,
   ...SHOT_DEFAULTS,
   cols: 11,
@@ -207,14 +180,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   scoreDeflect: 150,
   scoreWave: 300,
   scorePod: 250,
-  scoreClaspBreak: 120,
-  claspBreakBeats: 2,
-  damageLure: 15,
-  lureVanishRows: 2,
-  scoreThrobHit: 200,
-  scoreShellPiece: 120,
-  throbPeriodBeats: 4,
-  throbOpenBeats: 1,
   radarLead: 6,
   bulletGlideMs: 130,
   bandPct: 37,

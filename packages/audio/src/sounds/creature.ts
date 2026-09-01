@@ -57,8 +57,8 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     id: "creature.veilFlash",
     family: "creature",
     blurb: "Opaque, then one bright moment where the core shows.",
-    status: "spare",
-    use: "The veil's flash — the one instant its colour can be announced.",
+    status: "bound",
+    use: "THE VEIL coming apart on a shot that matched (`veilTorn`) — the one instant player 2 sees what was in the cloud.",
     level: 0.3,
     layers: [
       air(400, 3000, 0.14, 0.2, 1.4),

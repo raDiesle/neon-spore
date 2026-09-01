@@ -56,7 +56,16 @@ export type CreatureKind =
    * 2 is shown either. `dart.ts` holds the cycle; `Creature.dartDir`,
    * `Creature.dartNext` and `Creature.dartFloat` are the whole of its state.
    */
-  | "dart";
+  | "dart"
+  /**
+   * A thundercloud with a slick or a bulb inside it, and the body morphs from
+   * one to the other every `veilMorphBeats`. Player 1 can see into the cloud
+   * and player 2 cannot — the reverse of THE LURE, and the seat that can see
+   * is the seat that cannot fire. `veil.ts` holds the whole of it:
+   * `veilBecomes` is which body, `veilMorphs` when it turns over, and
+   * `Creature.veilStruckTick` is the armour a wrong colour buys it.
+   */
+  | "veil";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -86,6 +95,7 @@ export const CREATURE_KINDS = [
   "shell",
   "clasp",
   "dart",
+  "veil",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

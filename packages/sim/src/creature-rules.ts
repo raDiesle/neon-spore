@@ -3,6 +3,7 @@ import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
+import { veilBecomes } from "./veil.js";
 
 /**
  * The state machines the bestiary asks for that are small enough to be one
@@ -70,6 +71,12 @@ export function wornKind(c: Creature): CreatureKind {
   // already been chipped, so it has to be that body's real colour and not a
   // grey stand-in. `shellBecomes` is the one copy of the pairing.
   if (c.kind === "shell") return shellBecomes(c);
+  // A veil is drawn as the body inside the cloud, with the cloud laid over the
+  // top — the clasp's arrangement again, with the one difference that render/
+  // draws the body on player 1's screen only (`render/veil.ts`). `veilBecomes`
+  // is the same call the kill makes, so what player 1 reads through the cloud
+  // and what the shot has to match are never two different bodies.
+  if (c.kind === "veil") return veilBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

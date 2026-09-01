@@ -334,6 +334,28 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // When the body inside a cloud turns over. The rule is one modulo, which
+    // is exactly the size of thing a second reader writes out again — and the
+    // second reader here is `render/veil-marks.ts`, drawing the ring that
+    // counts *down* to the same instant. A ring that emptied on a different
+    // beat from the one the body changed on would be a pilot saying "two more"
+    // about a body that had already changed, which is the whole creature
+    // failing quietly rather than loudly.
+    call: "veilMorphs",
+    owner: "packages/sim/src/veil.ts",
+    pattern: /%\s*[\w.]*\bveilMorphBeats\b/,
+  },
+  {
+    // How long a wrong colour keeps a cloud shut, in ticks. The conversion is
+    // one multiplication and it has two readers — the shot the simulation
+    // refuses and the red cloud render/ draws — so a second copy is a picture
+    // that stops being angry a few frames before or after the body stops being
+    // armoured. `veilIsArmoured` and `veilArmourPhase` are the two ways to ask.
+    call: "veilArmourTicks",
+    owner: "packages/sim/src/veil.ts",
+    pattern: /veilArmourMs\s*\/\s*1000/,
+  },
+  {
     call: "fallTilesPerBeat",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,

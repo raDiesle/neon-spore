@@ -37,7 +37,12 @@ describe("roster", () => {
     expect(dart?.built).toBe(true);
 
     const veil = roster.creatures.find((c) => c.name === "Veil");
-    expect(veil?.built).toBe(false);
+    expect(veil?.built).toBe(true);
+
+    // Still not built, and the row this assertion is really about: something
+    // in the first thirteen that the bestiary lists and `CREATURES` does not.
+    const strand = roster.creatures.find((c) => c.name === "Strand");
+    expect(strand?.built).toBe(false);
 
     // Only the three worked-out bosses carry a note off their own heading's tail.
     const queen = roster.bosses.find((b) => b.name === "Bulb Queen");
@@ -67,9 +72,16 @@ describe("roster", () => {
     const dartDetail = roster.creatures.find((c) => c.name === "Dart")?.detail;
     expect(dartDetail).toContain("the first body that does not hold its lane");
 
-    // Nothing is attributed to a name the paragraphs never mention.
+    // A paragraph under the table that names a creature is attributed to it.
+    // THE VEIL landed with one, and the two sentences it is about are the
+    // reason: it is THE LURE's split turned over, and the flash the original
+    // row described became a morph.
     const veilDetail = roster.creatures.find((c) => c.name === "Veil")?.detail;
-    expect(veilDetail).toBe("");
+    expect(veilDetail).toContain("the lure's split turned over");
+
+    // And nothing is attributed to a name the paragraphs never mention.
+    const gumDetail = roster.creatures.find((c) => c.name === "Gum")?.detail;
+    expect(gumDetail).toBe("");
   });
 
   test("parses a minimal example", () => {

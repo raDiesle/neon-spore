@@ -12,6 +12,7 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
+import { creatureCue } from "./bind-creatures.js";
 
 export interface Cue {
   id: string;
@@ -174,64 +175,21 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mazeDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    // Everything one body did — armour chipping, a covering coming off, a
+    // disguise going, a cloud shutting or opening. `bind-creatures.ts` next
+    // door, listed case by case rather than reached through a `default`: a
+    // default would have taken the exhaustiveness of this switch with it, and
+    // the exhaustiveness is what makes a new event a compile error here
+    // instead of a silence nobody hears.
     case "shellBreak":
-      // A crack and two halves ringing — the sound was written for a crystal
-      // coming apart and this is the same event, a piece leaving a body that
-      // is still there afterwards.
-      return {
-        id: "impact.split",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "shellBare":
-      // The one moment this creature exists for, so it gets the one cue that
-      // was written for it and never spent: a skin coming off, and something
-      // underneath. Deliberately not a second `impact.split` — the ear has to
-      // be able to tell "another piece" from "that was the last piece, and
-      // now only one colour lands", because that is the whole reversal.
-      return {
-        id: "creature.moult",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "claspBreak":
-      // The same cue THE SHELL's last piece gets, and for the same reason: a
-      // covering coming off a body that goes on falling. It is deliberately
-      // not `impact.split` — that is the sound of a piece leaving something
-      // still armoured, and a clasp has exactly one covering, so there is no
-      // "another one" for the ear to have to tell this from.
-      return {
-        id: "creature.moult",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "lureHit":
-      // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
-      // the right thing, and this is the one hit that must not be mistaken
-      // for one (`docs/spec/audio.md`).
-      return {
-        id: "impact.wrongTarget",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "lureSeen":
-      // **Player 2's device only**, and the one cue in this file that names a
-      // seat. Two people playing this game are usually sitting next to each
-      // other, so a chime both phones make is a chime player 1 hears — and
-      // player 1 knowing that *something* on the field is a lure is the whole
-      // disguise gone through the speaker. It is quiet on purpose too: the
-      // alarm is already on the body and on the strip, and this is one more
-      // indicator rather than a replacement for either.
-      return { id: "signal.lureWarn", pan: panForCol(e.col, cols), gain: 0.5, seat: 2 };
     case "lureVanished":
-      // Both devices, because this is the one moment both screens show the
-      // same thing. Not `impact.destroyRed`/`Cyan` and not `impact.reject`:
-      // nothing was killed and nothing failed, so the ear gets the same
-      // reversal the picture does — a body closing rather than coming apart.
-      return {
-        id: "creature.lureFold",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
+    case "veilMorph":
+    case "veilRebuff":
+    case "veilTorn":
+      return creatureCue(e, cols, rows);
   }
 }

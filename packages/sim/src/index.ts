@@ -1,6 +1,9 @@
 export {
   type BalanceSheet,
   balanceSheet,
+  markMoment,
+  metColor,
+  missedColor,
   type RunStats,
   share,
   type Tally,
@@ -205,6 +208,18 @@ export {
   vaneTipCol,
   vaneWeakCol,
 } from "./vane-cycle.js";
+export {
+  VEIL_UNSTRUCK,
+  veilArmourPhase,
+  veilArmourTicks,
+  veilBeatsToMorph,
+  veilBecomes,
+  veilIsArmoured,
+  veilMorph,
+  veilMorphs,
+  veilOnSpawn,
+  veilStruck,
+} from "./veil.js";
 export { wardenEyeOpen, wardenPullMilli, wardenTether } from "./warden.js";
 export {
   NO_TETHER,

@@ -96,6 +96,11 @@ export function livingKinds(): CreatureKind[] {
       kind !== "lure" &&
       kind !== "clasp" &&
       kind !== "shell" &&
+      // And THE VEIL, for the same reason as the three above it: the cloud is
+      // weather laid over a slick or a bulb, and weather is a picture rather
+      // than a contour (`render/veil.ts`). A VEIL card here would draw the
+      // fallback silhouette and put a slick on the sheet under another name.
+      kind !== "veil" &&
       !isBossBody(kind) &&
       !isMeteorKind(kind),
   );

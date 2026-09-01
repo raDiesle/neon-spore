@@ -109,8 +109,8 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     id: "signal.radarUnknown",
     family: "signal",
     blurb: "A pip that does not resolve. The question mark, as a sound.",
-    status: "spare",
-    use: "The veil and the armoured queen on the strip — something is coming, unnamed.",
+    status: "bound",
+    use: "THE VEIL turning over (`veilMorph`) — the call has expired and the sound will not say what replaced it.",
     level: 0.24,
     layers: [
       {

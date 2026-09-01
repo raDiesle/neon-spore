@@ -147,6 +147,12 @@ export function hashWorld(world: World): number {
     // And the side after that one, which is rolled a beat early and is
     // therefore already a fact about the world rather than a guess about it.
     push(c.dartNext ?? 0);
+    // When a veil was last struck in the wrong colour. It decides whether the
+    // next shot reaches the body at all (`veilIsArmoured`), so two devices
+    // that disagree about it disagree about whether a kill happened — and the
+    // body inside needs no field of its own, being `c.color` a few lines up,
+    // which is what the morph turns over.
+    push(c.veilStruckTick ?? 0);
   }
 
   push(world.bullets.length);

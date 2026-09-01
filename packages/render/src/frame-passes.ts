@@ -20,6 +20,7 @@ import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawShellArmour } from "./shell-draw.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
+import { drawVeilMarks } from "./veil-marks.js";
 
 /**
  * The four passes `Canvas2DRenderer.draw` assembles a frame from, in the
@@ -71,6 +72,12 @@ export function drawBodies(
   // and where it goes after that, and player 1 — who holds the cannon that has
   // to be standing there — is shown none of it.
   drawDartGuides(ctx, l, world, view.beatPhase, view.time);
+  // The third half-picture, and the first that is *both* screens carrying one
+  // each rather than one screen carrying something the other has not got: a
+  // draining clock and a shut eye over every cloud on player 1's, a question
+  // mark on player 2's. `veil-marks.ts` owns which is which, so nothing in
+  // `drawCreatures` has to know what seat it is running on.
+  drawVeilMarks(ctx, l, world, view.beatPhase);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);

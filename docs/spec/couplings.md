@@ -54,9 +54,17 @@ lance — nothing in `packages/content` stacks a column deep enough to be worth
 one yet, so today the lance is a thing the pair *can* do rather than a thing a
 wave asks for.
 
-## 3. Announcing — not built
+## 3. Announcing — partly built
 
 One piece of information sits with the person who cannot act on it: the radar,
-the veil's colour, the boss target mix. This is the whole reason for
+the veil's colour, the boss target mix. The radar is built and THE VEIL is
+built; the boss target mix is not.
+
+THE VEIL is the sharpest version of it the game has, because what it hands the
+pilot is not merely information the navigator lacks — it is information that
+**goes stale while it is being said**. `veilMorphBeats` is set at one spoken
+exchange (docs/spec/latency.md), so a call that leaves the pilot's mouth in
+time and arrives late is wrong rather than slow, which is the whole difference
+between a game about knowing and a game about saying. This is the whole reason for
 [the information split](systems.md#52-information-split--partly-built) and it needs two
 devices.

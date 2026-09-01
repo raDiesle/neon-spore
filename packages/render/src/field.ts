@@ -4,6 +4,7 @@ import { drawBackdrop } from "./backdrop.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
+import { drawRadarVeilMark } from "./veil-marks.js";
 
 /**
  * The field itself: the background, its depth, the cannon's column marker,
@@ -140,11 +141,20 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     const inBeats = q.beat - (world.waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
 
-    const hex = isMeteorKind(q.kind)
-      ? PALETTE.rock
-      : q.color === "red"
-        ? PALETTE.red
-        : PALETTE.cyan;
+    // A veil borrows no colour, and this is the one place it could have. Its
+    // queue entry carries none — the body inside is rolled when it enters the
+    // field — so the ternary below would have fallen through to cyan and made
+    // the strip announce a colour that is right half the time. `PALETTE.dim`
+    // is this game's "nothing to say about this", and `drawRadarVeilMark`
+    // puts the question mark on top of it.
+    const hex =
+      q.kind === "veil"
+        ? PALETTE.dim
+        : isMeteorKind(q.kind)
+          ? PALETTE.rock
+          : q.color === "red"
+            ? PALETTE.red
+            : PALETTE.cyan;
     // `q.col` is a wide kind's leftmost column (see `spanCenterCol` in
     // sim/types.ts) — the blip itself is drawn at the visual centre.
     const x = tileCX(l, bodyCenterCol(q, q.col));
@@ -187,6 +197,14 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // shows `guard` kinds only, and a lure is an `aim` kind like the two
     // bodies it wears (`showsRadar` above is the whole gate).
     drawRadarLureMark(ctx, l, q.kind, x, y);
+
+    // And the one blip that is not a colour at all. A veil's queue entry
+    // carries none — the body inside is rolled when it enters the field — so
+    // the tint above fell through to cyan, which would have been a confident
+    // announcement that is right half the time. `drawRadarVeilMark` paints a
+    // question mark over it instead. docs/spec/systems.md 5.2 asked for this
+    // shape by name.
+    drawRadarVeilMark(ctx, q.kind, x, y, a);
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {

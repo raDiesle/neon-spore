@@ -4,11 +4,12 @@ import {
   isBossBody,
   isMeteorKind,
   type SimConfig,
+  veilArmourPhase,
   type World,
   wornKind,
 } from "@neon-spore/sim";
 import { claspResonance, drawClaspShield } from "./clasp.js";
-import { drawDetails } from "./creature-detail.js";
+import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { dartFlip, dartLean, drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
@@ -17,6 +18,7 @@ import type { Layout } from "./layout.js";
 import { drawMeteor } from "./meteor.js";
 import { PALETTE } from "./palette.js";
 import { drawTorch } from "./torch.js";
+import { drawVeilCloud, showsVeilCore } from "./veil.js";
 
 /**
  * Creature silhouettes come from `legacy/style-guide.html` by way of
@@ -69,8 +71,21 @@ export function drawCreatures(
     if (c.kind === "dart") drawDartJet(ctx, l, c, x, y, beatPhase);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
-    else
+    // A veil is drawn as the body inside the cloud — `wornKind` again — but on
+    // player 2's screen it is drawn as *nothing*, and the cloud alone stands
+    // there. Not an opaque cloud over a hidden body: a halo, a motion trail
+    // and a glow pass all reach outside the contour they belong to, so the
+    // colour would show as a rim of light around a shape player 2 must not be
+    // able to name. `showsVeilCore` is the one gate (`veil.ts`).
+    else if (c.kind !== "veil" || showsVeilCore(l))
       drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
+    // The weather over that body, on both screens and identical on both — the
+    // clasp's arrangement below, one creature earlier in the pass.
+    if (c.kind === "veil") {
+      const seen = showsVeilCore(l);
+      const open = veilArmourPhase(world, c);
+      drawVeilCloud(ctx, l, world.cfg, c, x, y, time, beats, near, open, seen);
+    }
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2
@@ -200,25 +215,5 @@ function drawLiving(
   if (blocked <= 0) {
     drawMotionTrail(ctx, l, x, y, r, hex, t);
     halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
-  }
-}
-
-/** The pod wreck's trail (`drawWreck` in pods.ts), in the creature's own
- * colour: fading halos strung out behind — up, since row only grows toward
- * the hull. */
-function drawMotionTrail(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  x: number,
-  y: number,
-  r: number,
-  hex: string,
-  t: number,
-): void {
-  for (let k = 1; k <= 2; k++) {
-    const a = (1 - k / 5) * 0.4;
-    const ty = y - k * l.tile * 0.26;
-    const tx = x - Math.sin(t * 3 + k) * l.tile * 0.05 * k;
-    halo(ctx, tx, ty, r * (0.85 - k * 0.12), hex, a * 0.5);
   }
 }

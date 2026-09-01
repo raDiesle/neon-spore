@@ -200,6 +200,35 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, then hangs for a beat and picks the next side — and only the navigator is shown which.",
   },
+  veil: {
+    kind: "veil",
+    // The cannon alone. A cloud is opened by a shot in the right colour at the
+    // right moment, and nothing about the shield has anything to say to it.
+    controls: ["aim"],
+    // No colour of its own, and this entry does the most work of any blank in
+    // this table. A veil *has* a colour at every instant — it is the body
+    // inside the cloud — and it is neither the kind's nor the wave's: it is
+    // rolled when the arrival enters the field and turned over every few beats
+    // after that (`veilOnSpawn`, `veilMorph`). A colour here would be a body
+    // this creature does not have; an authored one would fix the one thing
+    // docs/spec/structure.md 7.3 puts on the random side of its table.
+    color: null,
+    // **Not** `authorsColor`. The other four blanks in this table are colours a
+    // wave writes down, which is why the director offers a SLICK/BULB choice
+    // under the map for exactly those. This one nobody may write down — see
+    // above — so the cell panel has nothing to offer and correctly offers it.
+    //
+    // Player 2's strip, with the aim kinds, and the rule crossing the controls
+    // for the third time rather than an exception to it. What the strip says
+    // is that something is coming and in which column; what it cannot say is
+    // *what*, so it says so — a question mark rather than a colour
+    // (`render/veil-marks.ts`, and docs/spec/systems.md 5.2, which asked for
+    // exactly that before any of this was built). The half player 2 is missing
+    // is on player 1's screen, in the field, where the cloud is see-through.
+    radar: "p2",
+    blurb:
+      "A thundercloud with a slick or a bulb inside it, and only the pilot can see which. It turns over from one to the other every few beats, so the colour you were told expires — and a shot in the wrong one shuts the cloud for two seconds rather than merely missing.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is

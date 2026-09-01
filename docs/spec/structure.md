@@ -75,7 +75,7 @@ not.**
 
 | random | fixed |
 |---|---|
-| Veil: the colour inside | positions |
+| Veil: the body inside, and which it starts as | positions |
 | Target mix (boss "The Vessel") | moments |
 | Glyph: the pattern | paths |
 | Bulb: the marking colour | order |
@@ -85,6 +85,14 @@ not.**
 inside the veil on wave 37 were always blue, the pilot would stop
 announcing it on the fourth attempt — both would know it by heart. That is
 where the game loses its core, not merely its variety.
+
+**Built, and the roll is at spawn rather than in the wave.** `veilOnSpawn`
+takes the body from the world's own seeded stream when the arrival enters the
+field, so a wave cannot author one — `CREATURES.veil` deliberately does not
+carry `authorsColor`, and the director's cell panel therefore offers no
+SLICK/BULB choice for it. That is this rule enforced by a type rather than
+remembered: the four kinds whose colour a wave *does* write down are the four
+whose colour is not a secret from anybody.
 
 \* A deliberate exception: both see the power-up, but nobody knows where it
 will fly — which forces a joint decision under incomplete knowledge. Built: a
