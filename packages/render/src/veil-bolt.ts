@@ -90,39 +90,57 @@ function strike(
 ): void {
   const hot = shut > 0 ? PALETTE.red : BOLT;
   const glow = shut > 0 ? PALETTE.redRim : BOLT_GLOW;
-  const x0 = (s * 2 - 1) * r * 0.55;
-  const y0 = -r * 0.5;
+  const x0 = (s * 2 - 1) * r * 0.5;
+  const y0 = -r * 0.62;
 
   // The light in the vapour first, so the bolt is drawn on top of its own
-  // glow rather than under it.
+  // glow rather than under it. This is the half the owner asked for by name:
+  // the cloud brightens *where the lightning is*, so a strike on the left of
+  // one and a strike on the right are two different pictures.
   const lit = ctx.createRadialGradient(x0, y0 + r * 0.2, 0, x0, y0 + r * 0.2, r * 1.1);
   lit.addColorStop(0, glow);
   lit.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.globalAlpha = strength * (seeThrough ? 0.34 : 0.5);
+  ctx.globalAlpha = strength * (seeThrough ? 0.62 : 0.85);
   ctx.fillStyle = lit;
   ctx.fillRect(-r * 1.6, -r, r * 3.2, r * 2);
 
-  ctx.globalAlpha = Math.min(1, strength * (seeThrough ? 0.7 : 1));
-  ctx.strokeStyle = hot;
-  ctx.lineWidth = Math.max(1, r * 0.055);
+  // **Two passes, wide and soft under narrow and hot.** The first version drew
+  // one 1.5 px line at 39% alpha and it was invisible in a frame: a cloud is
+  // about 55 px across on a phone, so a hairline inside one is a hairline
+  // nobody finds. Glow comes from a soft aura around the line rather than from
+  // a thicker line (docs/spec/graphics.md), and lightning is the one thing on
+  // this field that has every right to be the brightest thing in its own tile.
+  const path = boltPath(r, x0, y0, seed, beat);
   ctx.lineJoin = "round";
-  ctx.beginPath();
-  ctx.moveTo(x0, y0);
+  ctx.lineCap = "round";
+  ctx.globalAlpha = Math.min(1, strength * 0.5);
+  ctx.strokeStyle = glow;
+  ctx.lineWidth = Math.max(3, r * 0.2);
+  ctx.stroke(path);
+
+  ctx.globalAlpha = Math.min(1, strength * (seeThrough ? 0.9 : 1));
+  ctx.strokeStyle = hot;
+  ctx.lineWidth = Math.max(1.4, r * 0.075);
+  ctx.stroke(path);
+  ctx.globalAlpha = 1;
+}
+
+/** The line itself: four steps down through the cloud with one fork halfway,
+ * always at the same step so it reads as a shape rather than as noise. */
+function boltPath(r: number, x0: number, y0: number, seed: number, beat: number): Path2D {
+  const p = new Path2D();
+  p.moveTo(x0, y0);
   let x = x0;
   let y = y0;
   for (let i = 1; i <= 4; i++) {
-    x += (veilScatter(seed * 7 + i, beat) * 2 - 1) * r * 0.28;
-    y += (r * 1.1) / 4;
-    ctx.lineTo(x, y);
-    // One fork, halfway down, so the bolt has the branching a straight
-    // zigzag does not — and always at the same step, so it reads as a shape
-    // rather than as noise.
+    x += (veilScatter(seed * 7 + i, beat) * 2 - 1) * r * 0.26;
+    y += (r * 1.15) / 4;
+    p.lineTo(x, y);
     if (i === 2) {
-      ctx.moveTo(x, y);
-      ctx.lineTo(x + (veilScatter(seed * 11, beat) * 2 - 1) * r * 0.45, y + r * 0.3);
-      ctx.moveTo(x, y);
+      p.moveTo(x, y);
+      p.lineTo(x + (veilScatter(seed * 11, beat) * 2 - 1) * r * 0.45, y + r * 0.32);
+      p.moveTo(x, y);
     }
   }
-  ctx.stroke();
-  ctx.globalAlpha = 1;
+  return p;
 }

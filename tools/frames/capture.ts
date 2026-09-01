@@ -205,6 +205,26 @@ export async function captureFrames(
       await page.waitForTimeout(OPENING_POLL_MS);
     }
 
+    // **The loop stops here, and not one line earlier.** Everything this tool
+    // promises rests on the two pictures being the same instant of the same
+    // wave — and until this line the page has gone on ticking between
+    // `paint()` and the screenshot, a couple of hundred milliseconds of round
+    // trip being a few dozen ticks, so the frame that landed was at whatever
+    // beat phase the loop happened to reach and the parent and the commit
+    // reached different ones. Anything that only shows for part of a beat was
+    // caught or missed at random. THE VEIL's lightning is what found it: three
+    // captures in a row of a creature whose whole picture is a strike on the
+    // beat came back with no strike in them.
+    //
+    // Not in an init script, because the loop above *needs* the loop: a build
+    // from before `advanceOpening` existed clears its own opening on nothing
+    // but rAF and wall-clock time, which is the whole of what
+    // `OPENING_POLL_MS` is waiting for. So it runs until the opening lets go
+    // and then stops, and from here the only clock is `advance`.
+    await page.evaluate(() => {
+      window.requestAnimationFrame = () => 0;
+    });
+
     const paths: string[] = [];
     for (let i = 0; i < frames; i++) {
       const advanceBy = i === 0 ? spec.ticks : strideTicks;

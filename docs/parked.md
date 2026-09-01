@@ -34,7 +34,26 @@ Graphics entry can be any of the three stages, and the difference decides
 whether picking it up is a session or a week.
 
 Anything labelled Creature is not scattered through the file: it moves to
-the bottom, under `## PARTS as a fifth axis on the SHAPES page
+the bottom, under `## Nothing can photograph the two seats side by side
+
+2026-09-01 · claude/thundercloud-enemy-morphing-g6a3it
+
+Tool · Idea
+
+`bun run frames` takes one picture of one screen, and the game now has three
+creatures whose whole design is that the two screens differ — THE LURE, THE
+DART and THE VEIL. Judging one of those from a single frame is judging half of
+it, and the half that is *withheld* is the half nobody can see in a picture of
+the other seat. A veil was landed by writing a throwaway script that opened the
+preview twice with `localStorage["neon-spore.view"]` set to `p1` and then `p2`,
+drove both to the same tick, screenshotted `#stage` at each and stitched the two
+into one labelled PNG; it took ten minutes and was deleted afterwards, which is
+the tell that it should be a command. `bun run frames <sha> --seats` is the
+shape: the same capture twice with the seat set in an init script, and one
+picture out. Start in `tools/frames/capture.ts`, which already does everything
+but the seat and the stitch.
+
+## PARTS as a fifth axis on the SHAPES page
 
 2026-08-31 · claude/space-game-shape-variants-wlmn6m
 

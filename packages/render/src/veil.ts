@@ -165,7 +165,7 @@ export function drawVeilCloud(
   // what makes the count readable from across a room.
   const flash = Math.max(0, 1 - (beats % 1) * 3.2);
   if (flash > 0.02) {
-    halo(ctx, x, y + sink, r * 1.7, shut > 0 ? ANGRY_EDGE : BOLT_GLOW, 0.14 * flash);
+    halo(ctx, x, y + sink, r * 1.9, shut > 0 ? ANGRY_EDGE : BOLT_GLOW, 0.3 * flash);
   }
 }
 
