@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-01 · fcbb29a — The queue is gone, because a file that is empty whenever you open it is furniture
+
+Keeping `docs/queue.md` as a hand-worked list was the first cut when the machinery around it went, and it did not survive contact with a day of actual work. Four entries at breakfast, one by the afternoon, none by the evening — each picked up in a session of its own and deleted by the commit that finished it, which is exactly how it was supposed to work and exactly why there is nothing left for the file to hold.
+
 ## 2026-09-01 · 0e945fb — The boss was converted twice, and a radius function cannot draw a neck
 
 THE BURR and THE POMMEL were the same Galaxy Defense stage boss. The first conversion used `studded`, which samples one radius per angle; a ball on a stalk has two at the same angle, and the one it cannot keep is the waist. So the necks closed, the knobs ran together into a continuous spiky rim, and the body read as a sea urchin rather than as a mace. `clubbed` walks the contour instead of sampling it, which is why THE POMMEL has stalks at all.
