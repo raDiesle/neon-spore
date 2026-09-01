@@ -48,6 +48,19 @@ finished it is fast-forwarded or rebased onto `main`, then deleted along with
 the worktree. A temporary branch is never pushed — a cloud session's branch is
 the one exception, and the section after this one says why.
 
+**The rebase onto `main` happens before verification, not after.** A branch
+that has been sitting in its own worktree can fall behind `main` while it
+works, so landing it is two steps and they run in this order: first
+`git fetch` / rebase the branch onto the current `main` — never a merge
+commit, since history stays linear — which is also where a conflict with
+whatever landed elsewhere surfaces, on the branch, where there is still time
+to resolve it. Only then does `bun run check` run, on the rebased tree. A
+green result after that point is a result about the code as it will actually
+sit on `main`; a green result taken before the rebase is a result about a
+tree that no longer exists once `main` moves. The landing itself — fast-
+forwarding `main` to the branch tip — is the mechanical last step once that
+check is green, not a separate verification of its own.
+
 **A branch goes as soon as `main` has its work.** It used to outlive its
 landing until every `Check:` it carried had been decided, on the reasoning
 that a branch is the only handle on which landing a look belongs to. That
