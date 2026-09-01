@@ -178,6 +178,7 @@ async function load(): Promise<void> {
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("towerDefenceDoc", "/api/tower-defence");
+  void renderWholeDoc("assistantsDoc", "/api/claude-vs-chatgpt");
   renderHolders();
   void renderSpec();
   loaded = true;

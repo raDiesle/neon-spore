@@ -1,10 +1,11 @@
 /**
- * The three GET routes that only read a document off disk — `docs/borrowed.md`,
- * `docs/tower-defence.md` and the spec directory — split out of `server.ts`
+ * The GET routes that only read a document off disk — `docs/borrowed.md`,
+ * `docs/tower-defence.md`, `docs/claude-vs-chatgpt.md` and the spec directory —
+ * split out of `server.ts`
  * the same way `backlog-api.ts` and `checks-api.ts` were, and for a sharper
  * reason than tidiness.
  *
- * `build.ts` bakes these same three answers into `dist/api/`, so it needs the
+ * `build.ts` bakes these same answers into `dist/api/`, so it needs the
  * readers. It used to import them from `server.ts`, and importing that file
  * *runs* it: a port is claimed and `Bun.serve` binds it at module scope. The
  * build then wrote `dist/`, printed its lines, and never exited — a director
@@ -22,6 +23,7 @@ import { join } from "node:path";
 const specDir = new URL("../../../docs/spec/", import.meta.url);
 const borrowedFile = new URL("../../../docs/borrowed.md", import.meta.url);
 const towerDefenceFile = new URL("../../../docs/tower-defence.md", import.meta.url);
+const assistantsFile = new URL("../../../docs/claude-vs-chatgpt.md", import.meta.url);
 
 /**
  * `docs/borrowed.md`, whole — served rather than parsed into entries because
@@ -40,6 +42,17 @@ export async function readBorrowedText(): Promise<string> {
  */
 export async function readTowerDefenceText(): Promise<string> {
   return await Bun.file(towerDefenceFile).text();
+}
+
+/**
+ * `docs/claude-vs-chatgpt.md`, whole — the study of the two subscriptions that
+ * could pay for the agent on this project, task by task. Served rather than
+ * parsed for the same reason the other two studies are: its argument is a
+ * table with a verdict column, and a parse that kept only the names would
+ * throw away the half that took the reading.
+ */
+export async function readAssistantsText(): Promise<string> {
+  return await Bun.file(assistantsFile).text();
 }
 
 /** Every spec file, verbatim. */

@@ -4,7 +4,12 @@ import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
 import { checksClean, checksDecide, checksRun, checksState } from "./src/checks-api.js";
-import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./src/docs-api.js";
+import {
+  readAssistantsText,
+  readBorrowedText,
+  readSpecFiles,
+  readTowerDefenceText,
+} from "./src/docs-api.js";
 import { serializeWaveArray } from "./src/serialize.js";
 
 /**
@@ -273,6 +278,13 @@ const server = Bun.serve({
     "/api/tower-defence": {
       GET: withIdle(async () =>
         Response.json({ text: await readTowerDefenceText() }, { headers: noCache }),
+      ),
+    },
+
+    /** `docs/claude-vs-chatgpt.md`, whole — see `readAssistantsText`. */
+    "/api/claude-vs-chatgpt": {
+      GET: withIdle(async () =>
+        Response.json({ text: await readAssistantsText() }, { headers: noCache }),
       ),
     },
 

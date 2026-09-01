@@ -4,7 +4,12 @@ import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
 import { checksState } from "./src/checks-api.js";
-import { readBorrowedText, readSpecFiles, readTowerDefenceText } from "./src/docs-api.js";
+import {
+  readAssistantsText,
+  readBorrowedText,
+  readSpecFiles,
+  readTowerDefenceText,
+} from "./src/docs-api.js";
 
 /**
  * Builds the director the way `apps/game/preview.ts` builds the game: a
@@ -76,6 +81,7 @@ await Promise.all([
   bake("api/checks", await checksRes.text()),
   bake("api/borrowed", JSON.stringify({ text: await readBorrowedText() })),
   bake("api/tower-defence", JSON.stringify({ text: await readTowerDefenceText() })),
+  bake("api/claude-vs-chatgpt", JSON.stringify({ text: await readAssistantsText() })),
   bake("api/spec", JSON.stringify({ files: await readSpecFiles() })),
   bake(
     "__director",
