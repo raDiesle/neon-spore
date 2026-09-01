@@ -1,4 +1,5 @@
 import { mountBuildStamp } from "../../build-stamp.js";
+import { bindKeepAlive } from "./keep-alive.js";
 
 /**
  * The two things the *build* decides about the director, rather than the
@@ -18,6 +19,9 @@ export function bindShipped(): void {
     .then((b: { shipped?: boolean }) => b.shipped !== false)
     .catch(() => true)
     .then((shipped) => {
+      // The same flag, and the second thing it decides: a live server is told
+      // this page is open so it can exit soon after it is not (`keep-alive.ts`).
+      bindKeepAlive(shipped);
       if (!shipped) return;
       for (const id of ["save", "checksOpen", "mainMenuLink"])
         document.getElementById(id)?.setAttribute("hidden", "");

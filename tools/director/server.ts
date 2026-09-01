@@ -64,9 +64,29 @@ const actFiles = [
   },
 ] as const;
 const marker = "neon-spore-director";
-// Longer than the preview's 30 seconds: this one is left open while a
-// person thinks about a wave, which is not the same as an agent forgetting it.
-const idleMs = Number(process.env.DIRECTOR_IDLE_MS ?? 60 * 60 * 1000);
+/**
+ * How long the server stays up with nobody looking at it.
+ *
+ * **It used to be an hour, and the hour was measuring the wrong thing.** The
+ * window was refreshed by requests, the page made none after it had loaded,
+ * and so the number was not "how long a person may think about a wave" — it
+ * was "how long a forgotten server survives", which is a thing to make small
+ * rather than generous. An agent that starts a director and moves on leaves it
+ * holding a port for an hour; several of those in a day is what the owner
+ * found running.
+ *
+ * The page now says it is there (`keep-alive.ts`, `/__director/beat`), so the
+ * window can mean what it says: two and a half minutes since anything — a
+ * click, an edit, or an open tab beating — last spoke. A person thinking
+ * about a wave keeps it up indefinitely without touching anything, which the
+ * hour never did; a tab that is closed takes it down almost at once, which the
+ * hour never did either.
+ *
+ * Long enough to survive a background tab: Chrome throttles a hidden tab's
+ * timers to roughly one a minute, and the beat is every 25 seconds, so the
+ * worst case is a beat a minute against a window of two and a half.
+ */
+const idleMs = Number(process.env.DIRECTOR_IDLE_MS ?? 150 * 1000);
 
 interface DirectorHotState {
   booted: boolean;
@@ -194,6 +214,18 @@ const server = Bun.serve({
       GET: withIdle(() =>
         Response.json({ app: marker, pid: process.pid, port, tree: treeId, shipped: false }),
       ),
+    },
+
+    /**
+     * An open page, saying so. The only route whose whole purpose is the
+     * `withIdle` around it — the body is nothing, and `resetIdle` is the
+     * point. Kept apart from `/__director` above, which answers *who* the
+     * server is and is asked once per load and by a foreign server claiming
+     * the port; conflating the two would mean a port probe from another tree
+     * counted as somebody looking at this one.
+     */
+    "/__director/beat": {
+      GET: withIdle(() => new Response(null, { status: 204, headers: noCache })),
     },
 
     "/__director/quit": {

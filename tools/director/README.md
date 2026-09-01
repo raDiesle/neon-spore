@@ -16,7 +16,17 @@ Bundles and serves on the fly, with hot reload — editing anything under
 shows up without a restart. Runs on 4174 — next to the game preview on 4173,
 and deliberately out of the 3000s, where a `bun --hot` whose own port is taken
 will wander. It refuses to start beside a stranger on that port, retires an
-older copy of itself, and exits after an hour of silence.
+older copy of itself, and exits about two and a half minutes after the last
+page looking at it goes away.
+
+That last number used to be an hour, and the hour was measuring the wrong
+thing: the window was refreshed by requests, and an open director makes none
+while somebody reads a wave — so it was not how long a person may think, it
+was how long a *forgotten* server holds a port. The page now beats every 25
+seconds (`src/keep-alive.ts` → `/__director/beat`), which inverts it. An open
+tab keeps the server up for as long as it is open, which the hour did not; a
+closed tab takes it down almost at once, which the hour did not either. Set
+`DIRECTOR_IDLE_MS` to change the window.
 
 It moves for exactly one thing: a director serving a **different checkout**.
 That one is not a stale copy of itself — retiring it would take down an editor
