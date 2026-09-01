@@ -42,7 +42,13 @@
         border: 1px solid var(--line); border-radius: 6px; background: transparent;
         cursor: pointer; letter-spacing: 1px;
       }
-      button:hover { color: var(--ink); border-color: #3b3163; }
+      button:hover:not(:disabled) { color: var(--ink); border-color: #3b3163; }
+      /* Every disabled button in the director, not just the ones under
+         `.cell-actions`. `button` sets a flat `color` and `cursor: pointer`
+         unconditionally, so without this a disabled button renders
+         pixel-identical to a live, unhovered one and invites the press it
+         will refuse. Hover is excluded above for the same reason. */
+      button:disabled { opacity: 0.35; cursor: not-allowed; }
       button.on { background: #2a1f4e; color: var(--gold); border-color: var(--gold); }
       button.primary { color: var(--gold); border-color: var(--gold); }
       a.linkbtn {
@@ -330,7 +336,6 @@
       .cell-row .chip.on { border-color: var(--gold); color: var(--gold); }
       .cell-actions { display: flex; gap: 6px; margin: 8px 0 6px; }
       .cell-actions button { font-size: 9px; padding: 4px 9px; }
-      .cell-actions button:disabled { opacity: 0.35; cursor: default; }
 
       #podList { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
       .pod-row { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--dim); }

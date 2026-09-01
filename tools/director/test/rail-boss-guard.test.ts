@@ -12,15 +12,18 @@ import { describe, expect, it } from "bun:test";
  * check alone would have missed: `.disabled` was already being set and
  * re-evaluated correctly (`renderFields` runs on every `onSelect`, which
  * every selection click goes through) — the earlier landing's browser
- * check was right about that much. What it did not catch is that the
- * shared stylesheet carries no `button:disabled` rule, and `button` sets
- * `color` and `cursor: pointer` unconditionally, so a disabled COPY/DELETE
- * renders pixel-identical to a live, unhovered one. `.disabled` alone was
- * never going to look disabled. The fix sets the visual difference inline,
- * from this file, since the stylesheet in `index.html` is out of scope here.
+ * check was right about that much. What it did not catch is that `button`
+ * sets `color` and `cursor: pointer` unconditionally and the only
+ * `:disabled` rule was scoped to `.cell-actions`, so a disabled COPY/DELETE
+ * rendered pixel-identical to a live, unhovered one. `.disabled` alone was
+ * never going to look disabled. That is now the stylesheet's job — an
+ * unscoped `button:disabled` in `index.html`, which covers every disabled
+ * button in the director rather than the two `rail.ts` could reach — so the
+ * second test below reads the stylesheet instead of this file.
  */
 
 const source = await Bun.file(Bun.fileURLToPath(new URL("../src/rail.ts", import.meta.url))).text();
+const html = await Bun.file(Bun.fileURLToPath(new URL("../index.html", import.meta.url))).text();
 
 describe("the boss guard on COPY and DELETE", () => {
   it("still sets .disabled and a title, re-evaluated on every render", () => {
@@ -31,9 +34,15 @@ describe("the boss guard on COPY and DELETE", () => {
     expect(source).toMatch(/const render = \(\): void => \{\s*renderList\(\);\s*renderFields\(\);/);
   });
 
-  it("also sets an inline style, since the stylesheet has no :disabled rule to fall back on", () => {
-    expect(source).toMatch(/btn\.style\.opacity = hasBoss \? "[^"]+" : "";/);
-    expect(source).toMatch(/btn\.style\.cursor = hasBoss \? "not-allowed" : "";/);
+  it("leaves the look to the stylesheet rather than painting it inline", () => {
+    expect(source).not.toMatch(/btn\.style\./);
+  });
+
+  it("and the stylesheet greys every disabled button, not only .cell-actions", () => {
+    expect(html).toMatch(/^\s*button:disabled \{[^}]*opacity:[^}]*cursor:[^}]*\}/m);
+    // Hover must not brighten a button that cannot be pressed.
+    expect(html).toMatch(/button:hover:not\(:disabled\)/);
+    expect(html).not.toMatch(/\.cell-actions button:disabled/);
   });
 
   it("both buttons go through the same guard function, so they cannot drift apart", () => {

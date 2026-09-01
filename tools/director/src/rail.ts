@@ -131,8 +131,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
 
     // A boss wave cannot be copied or deleted (see the two guards in
     // `bindAction`, the actual enforcement). `setBossGuard`, below, is the
-    // other half — see its own comment for why `.disabled` alone was not
-    // enough to make that visible.
+    // other half: it makes the refusal visible before the press.
     const hasBoss = Boolean(wave?.boss);
     setBossGuard(waveCopyBtn, hasBoss, "A boss wave cannot be duplicated.");
     setBossGuard(waveDelBtn, hasBoss, "A boss wave cannot be deleted.");
@@ -223,19 +222,17 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   return { render };
 }
 
-// `.disabled` and `title` alone are not enough: the shared stylesheet
-// carries no `:disabled` rule, and `button` sets its own flat `color` and
-// `cursor: pointer` unconditionally, so a disabled COPY/DELETE renders
-// pixel-identical to a live, unhovered one — a browser check that only reads
-// the DOM property back would call that fixed, and pressing it would still
-// look and feel like nothing happened. Inline style is the lever available
-// from this file, which does not own the stylesheet in `index.html`.
+// `.disabled` and `title` are the whole guard now. They used to need inline
+// opacity and cursor beside them, because the stylesheet's only `:disabled`
+// rule was scoped to `.cell-actions` and `button` sets a flat `color` and
+// `cursor: pointer` unconditionally — so a disabled COPY/DELETE rendered
+// pixel-identical to a live one. `index.html` carries an unscoped
+// `button:disabled` now, which greys every disabled button in the director
+// rather than the two this file could reach.
 function setBossGuard(btn: HTMLButtonElement | null, hasBoss: boolean, why: string): void {
   if (!btn) return;
   btn.disabled = hasBoss;
   btn.title = hasBoss ? why : "";
-  btn.style.opacity = hasBoss ? "0.35" : "";
-  btn.style.cursor = hasBoss ? "not-allowed" : "";
 }
 
 /** The stage is rebuilt after a move to reflect the wave's new position. */
