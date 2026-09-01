@@ -46,6 +46,20 @@ export interface ViewState {
    * this and skipping it has reintroduced the bug this field exists to close.
    */
   controls?: ControlSet;
+  /**
+   * Bodies only, on flat black: no backdrop, no radar, no grid, no ship, no
+   * band and no HUD — just what `drawBodies` puts on the field.
+   *
+   * Nothing the game runs ever sets it. It exists for a tool that wants one
+   * creature's *picture* rather than a picture of the game with a creature in
+   * it — the director's brush thumbnails, which are cropped down to a couple
+   * of tiles where a starfield and two grid lines are not scenery, they are
+   * the whole of what the eye sees first. Drawing the bodies through the
+   * shipping renderer and then leaving the field out is what keeps those
+   * thumbnails the real shape in the real colour, which a hand-drawn contour
+   * never was.
+   */
+  bare?: boolean;
 }
 
 /**

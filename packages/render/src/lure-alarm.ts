@@ -59,15 +59,29 @@ export function drawLureAlarms(
   l: Layout,
   world: World,
   beatPhase: number,
+  /**
+   * A picture of the body rather than of the screen it is on (`ViewState.bare`)
+   * — the ring and the exclamation are on the body and stay; the words are as
+   * wide as a phone and are laid out against the screen's own edge, so in a
+   * crop three tiles across they arrive as a torn-off half sentence.
+   */
+  bare = false,
 ): void {
   if (!showsLureAlarm(l)) return;
   for (const c of lures(world)) {
     const { x, y } = creatureCenter(l, c, beatPhase);
-    drawOne(ctx, l, x, y, creatureRadius(l, c, beatPhase, world.cfg));
+    drawOne(ctx, l, x, y, creatureRadius(l, c, beatPhase, world.cfg), bare);
   }
 }
 
-function drawOne(ctx: CanvasRenderingContext2D, l: Layout, x: number, y: number, r: number): void {
+function drawOne(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x: number,
+  y: number,
+  r: number,
+  bare: boolean,
+): void {
   const ring = r * RING_MUL;
   ctx.save();
   ctx.strokeStyle = ALARM;
@@ -91,7 +105,7 @@ function drawOne(ctx: CanvasRenderingContext2D, l: Layout, x: number, y: number,
   ctx.arc(x, top + barW * 0.9, barW * 0.62, 0, Math.PI * 2);
   ctx.fill();
 
-  drawLabel(ctx, l, x, y, ring);
+  if (!bare) drawLabel(ctx, l, x, y, ring);
   ctx.restore();
 }
 

@@ -66,7 +66,7 @@ export function drawBodies(
   // the single difference between the two screens in this whole pass, and it
   // is drawn after the bodies rather than as part of them so that nothing in
   // `drawCreatures` ever has to know which seat it is running on.
-  drawLureAlarms(ctx, l, world, view.beatPhase);
+  drawLureAlarms(ctx, l, world, view.beatPhase, view.bare);
   // Player 2's other half-picture, on the same terms and for the same reason:
   // the arrow, the dotted legs and the placeholder say where a dart is going
   // and where it goes after that, and player 1 — who holds the cannon that has

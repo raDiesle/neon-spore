@@ -123,7 +123,7 @@ export class Canvas2DRenderer implements Renderer {
     // Outside the stage is not the game. It is painted flat and left alone, and
     // everything below draws in stage coordinates — as does input hit-testing,
     // which subtracts the same offset.
-    ctx.fillStyle = "#05040B";
+    ctx.fillStyle = view.bare ? "#000000" : "#05040B";
     ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
     ctx.save();
     ctx.beginPath();
@@ -172,6 +172,16 @@ export class Canvas2DRenderer implements Renderer {
 
     // The beat is loud at the moment of the beat and gone before the next one.
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
+
+    // A bare frame is the bodies and nothing else — see `ViewState.bare`. It
+    // returns here rather than skipping four calls one at a time, so what a
+    // thumbnail contains is one branch a reader can hold, and the hull, the
+    // band and the HUD cannot creep back into it a pass at a time.
+    if (view.bare) {
+      drawBodies(ctx, l, world, view, this.effects);
+      ctx.restore();
+      return;
+    }
 
     drawFieldBack(ctx, l, world, view, flash);
     drawBodies(ctx, l, world, view, this.effects);

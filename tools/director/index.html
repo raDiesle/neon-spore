@@ -217,11 +217,13 @@
         text-align: left; padding: 5px 7px;
       }
       button.brush svg { flex: 0 0 34px; background: #0a0719; border-radius: 5px; }
-      /* A brush's own picture (`brush-art.ts`), the same box the plain
-         contour used to sit in — background and radius so a settled-frame
-         crop reads as one more chip in the row, not a screenshot pasted
-         into it. */
-      button.brush canvas { flex: 0 0 auto; background: #0a0719; border-radius: 5px; display: block; }
+      /* A brush's own picture (`brush-art.ts`) — a bare frame of the real
+         renderer, trimmed to the body it drew, so the chip is black with the
+         creature filling it rather than a crop of starfield with something in
+         one corner. Black rather than the panel's #0a0719 because that is what
+         the frame itself is filled with, and a rounded corner over a lighter
+         box would show the join. */
+      img.brush-art { flex: 0 0 auto; background: #000; border-radius: 5px; display: block; }
       button.brush > div { display: flex; flex-direction: column; }
       .brush .name { font-size: 11px; letter-spacing: 2px; color: var(--ink); }
       .brush .hint { font-size: 9px; color: var(--dim); line-height: 1.4; }
@@ -249,6 +251,23 @@
       #grid .cell.sel { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
       #grid .cell .pod { position: absolute; right: 1px; bottom: 0; font-size: 9px; color: var(--gold); }
       #grid .cell svg { display: block; margin: auto; }
+      #grid .cell img.brush-art { margin: auto; }
+
+      /* The hover card (`brush-tooltip.ts`): the brush's picture at a size
+         worth looking at, its name, the wave it first arrives in and its own
+         sentence. Fixed rather than absolute — it is placed against the
+         window, and the palette it opens beside is inside a column that
+         scrolls. */
+      #brushTip {
+        position: fixed; z-index: 40; pointer-events: none;
+        background: #0a0719; border: 1px solid var(--line); border-radius: 8px;
+        padding: 9px; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6); max-width: 200px;
+      }
+      #brushTip[hidden] { display: none; }
+      .brush-card img.brush-art { margin: 0 auto 8px; }
+      .brush-card-name { font-size: 12px; letter-spacing: 2px; color: var(--ink); }
+      .brush-card-wave { font-size: 9px; letter-spacing: 1px; color: var(--gold); margin-top: 3px; }
+      .brush-card-note { font-size: 10px; color: var(--dim); line-height: 1.45; margin-top: 5px; }
 
       /* Capped for #gridNote's reason, one line above: a block child with no
          width cap contributes its unwrapped line length to the column's

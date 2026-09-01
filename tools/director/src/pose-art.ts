@@ -138,6 +138,12 @@ export function frameWorld(
    * claiming nothing.
    */
   cap = MAX_HEIGHT,
+  /**
+   * Draw the bodies on flat black and nothing else (`ViewState.bare`). For a
+   * crop of a couple of tiles, where the starfield and two grid lines are not
+   * scenery behind the subject — they are most of the picture.
+   */
+  bare = false,
 ): Framed {
   const cfg = world.cfg;
 
@@ -153,6 +159,7 @@ export function frameWorld(
     time: world.tick / cfg.tickHz,
     running: true,
     banner: null,
+    bare,
   };
   // Settled first, with nothing reported: a long `dt` walks the eased pose to
   // where it belongs without spending the events on frames nobody keeps.

@@ -1,6 +1,6 @@
-import { brushArt } from "./brush-art.js";
+import { brushArtImage } from "./brush-art.js";
 import { readActiveCategory, writeActiveCategory } from "./brush-category.js";
-import { brushTooltip } from "./brush-tooltip.js";
+import { bindBrushCard } from "./brush-tooltip.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
@@ -104,17 +104,17 @@ export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Pal
       const button = document.createElement("button");
       button.type = "button";
       button.className = "brush";
-      // The wave that first introduces what the brush paints, and the
-      // brush's own description under it — both in the tooltip, so hovering
-      // says the same thing whether or not SHOW DESCRIPTIONS is on.
-      const wave = brushTooltip(b.brush);
-      const lines = [wave, b.note].filter((l): l is string => Boolean(l));
-      if (lines.length) button.title = lines.join("\n");
+      // The picture at a size worth looking at, the wave it first arrives in
+      // and the brush's own sentence — on a card that opens under the pointer
+      // (`brush-tooltip.ts`), so hovering says all three whether or not SHOW
+      // DESCRIPTIONS is on. It replaces a `title` attribute, which could carry
+      // two of the three and never the one that matters most.
+      bindBrushCard(button, b.brush);
 
       // The button's own picture — a settled frame of the real renderer
       // where this module has one (`brush-art.ts`), the plain contour
       // otherwise.
-      const art = brushArt(b.brush);
+      const art = brushArtImage(b.brush, 34);
       if (art) {
         button.appendChild(art);
       } else {

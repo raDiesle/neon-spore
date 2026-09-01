@@ -1,5 +1,6 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
+import { brushArtImage } from "./brush-art.js";
 import { bindGridPods, podGlyph } from "./grid-pods.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
@@ -127,9 +128,19 @@ export function bindGrid(
 
     const entry = entryAt(wave, b, c);
     if (entry) {
-      const spec = BRUSHES.find((x) => x.brush === brushOf(entry));
-      if (spec && spec.subjects.length > 0) {
-        button.appendChild(silhouette(spec.subjects[0]!, spec.stroke, 26));
+      const brush = brushOf(entry);
+      // The same picture the palette's chip carries (`brush-art.ts`), so what
+      // a cell holds and what was clicked to put it there are one drawing and
+      // not two. The plain contour is still the fallback, for the one brush
+      // that has no picture.
+      const art = brushArtImage(brush, 26);
+      if (art) {
+        button.appendChild(art);
+      } else {
+        const spec = BRUSHES.find((x) => x.brush === brush);
+        if (spec && spec.subjects.length > 0) {
+          button.appendChild(silhouette(spec.subjects[0]!, spec.stroke, 26));
+        }
       }
     }
     const pod = podAt(wave, b, c);
