@@ -4,7 +4,7 @@ import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
-import { ingestBreach } from "./effects-breach.js";
+import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import { burstFor } from "./effects-spark.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -139,17 +139,17 @@ export class Effects {
           this.swallow.start(e.kind);
           break;
         }
-        case "deflect": {
-          const x = tileCX(l, e.col);
-          // Same lateness as a breach, so the bounce waits for the rock too.
-          // `embed: false` — a deflected rock bounces, it never sinks in.
-          this.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.fromRow, false, (ax, ay) => {
-            this.deflectFx.spawn(ax, ay, l.tile, e.span);
-            this.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
-            this.guardHit = BANNER_LIFE;
+        case "deflect":
+          ingestDeflect(e, l, time, beatSeconds, {
+            burst: (x, y, n, hex) => this.burst(x, y, n, hex),
+            rockImpactFx: this.rockImpactFx,
+            arrivals: this.arrivals,
+            deflectFx: this.deflectFx,
+            onDeflect: () => {
+              this.guardHit = BANNER_LIFE;
+            },
           });
           break;
-        }
         default:
           break;
       }

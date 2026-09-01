@@ -1,6 +1,6 @@
 import { markMoment } from "./balance.js";
 import { hullRow, type SimConfig } from "./config.js";
-import { type Creature, colSpan, isMeteorKind, occupiesCol, spanCenterCol } from "./types.js";
+import { bodyCenterCol, type Creature, isMeteorKind, occupiesCol, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -69,8 +69,8 @@ export function resolveHull(world: World): void {
         world.score += world.cfg.scoreDeflect;
         world.events.push({
           type: "deflect",
-          col: spanCenterCol(c.kind, c.col),
-          span: colSpan(c.kind),
+          col: bodyCenterCol(c, c.col),
+          span: spanOf(c),
           kind: c.kind,
           fromRow: c.fromRow,
         });
@@ -177,14 +177,17 @@ export function regenerateHull(world: World): void {
  */
 function damageSpan(world: World, c: Creature, amount: number): void {
   applyHullDamage(world, amount);
-  const span = colSpan(c.kind);
+  const span = spanOf(c);
   for (let col = c.col; col < c.col + span; col++) {
-    world.scars.push({ col, beat: world.beat, kind: c.kind });
+    // The scar carries the width too: a crater is drawn at the size of the
+    // rock that made it (`rockRadius`), and a two-wide meteor that left
+    // one-tile dents would read as two small hits rather than one big one.
+    world.scars.push({ col, beat: world.beat, kind: c.kind, ...(c.span ? { span: c.span } : {}) });
     if (world.scars.length > world.cfg.maxScars) world.scars.shift();
   }
   world.events.push({
     type: "breach",
-    col: spanCenterCol(c.kind, c.col),
+    col: bodyCenterCol(c, c.col),
     damage: amount,
     span,
     kind: c.kind,

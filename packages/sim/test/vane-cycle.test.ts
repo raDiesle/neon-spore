@@ -17,6 +17,7 @@ import {
   vaneTipCol,
   vaneWeakCol,
 } from "../src/index.js";
+import { colSpan } from "../src/types.js";
 
 /**
  * THE VANE's cycle, held to the promises `docs/spec/transfers-bosses.md` makes
@@ -141,32 +142,32 @@ describe("the phases", () => {
 
 describe("the fold", () => {
   it("puts a body as far the other side of the arm as it came in", () => {
-    expect(vaneFold(CFG, 5, 2, "meteor")).toBe(8);
-    expect(vaneFold(CFG, 5, 8, "meteor")).toBe(2);
-    expect(vaneFold(CFG, 3, 1, "slick")).toBe(5);
+    expect(vaneFold(CFG, 5, 2, colSpan("meteor"))).toBe(8);
+    expect(vaneFold(CFG, 5, 8, colSpan("meteor"))).toBe(2);
+    expect(vaneFold(CFG, 3, 1, colSpan("slick"))).toBe(5);
   });
 
   it("leaves a body that comes in under the tip exactly where it is", () => {
     for (let col = 0; col < CFG.cols; col++) {
-      expect(vaneFold(CFG, col, col, "meteor")).toBe(col);
+      expect(vaneFold(CFG, col, col, colSpan("meteor"))).toBe(col);
     }
   });
 
   it("is its own undoing, which is what makes it a sentence and not a shuffle", () => {
     for (let tip = 2; tip <= CFG.cols - 3; tip++) {
       for (let col = 2; col <= CFG.cols - 3; col++) {
-        const there = vaneFold(CFG, tip, col, "meteor");
+        const there = vaneFold(CFG, tip, col, colSpan("meteor"));
         // Only where the throw stayed on the field: a body pinned against the
         // edge has lost the distance the fold would need to send it back.
-        if (there === 2 * tip - col) expect(vaneFold(CFG, tip, there, "meteor")).toBe(col);
+        if (there === 2 * tip - col) expect(vaneFold(CFG, tip, there, colSpan("meteor"))).toBe(col);
       }
     }
   });
 
   it("pins a body against the edge rather than losing it off the field", () => {
-    expect(vaneFold(CFG, 1, 9, "meteor")).toBe(0);
-    expect(vaneFold(CFG, 9, 1, "meteor")).toBe(CFG.cols - 1);
+    expect(vaneFold(CFG, 1, 9, colSpan("meteor"))).toBe(0);
+    expect(vaneFold(CFG, 9, 1, colSpan("meteor"))).toBe(CFG.cols - 1);
     // A torch is two columns wide and its whole span has to stay on the grid.
-    expect(vaneFold(CFG, 9, 1, "torch")).toBe(CFG.cols - 2);
+    expect(vaneFold(CFG, 9, 1, colSpan("torch"))).toBe(CFG.cols - 2);
   });
 });

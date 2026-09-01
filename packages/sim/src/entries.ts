@@ -1,3 +1,4 @@
+import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
@@ -24,6 +25,20 @@ export interface SpawnEntry {
    * know. See `Creature.wears`.
    */
   wears?: CreatureKind;
+  /**
+   * How many tiles wide this rock arrives, and absent on every other kind.
+   * Two is a rock that fills a 2x2 square, which is the torch's geometry
+   * offered to the plain tiers as a choice — see `RockSize`, which says why a
+   * width is a number here rather than five more kinds.
+   *
+   * Named `span` and not `size` on purpose: the wave authors a `size`
+   * (`WaveEntry.size`) and everything downstream of `queueFromWave` — this,
+   * `Creature.span`, `Scar.span` — carries the same field under the same name,
+   * so `spanOf` answers "how wide is this" for a queue entry, a body on the
+   * field and the dent it leaves without any of the three needing its own
+   * spelling of the fallback.
+   */
+  span?: RockSize;
 }
 
 /**

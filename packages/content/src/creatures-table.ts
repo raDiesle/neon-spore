@@ -107,6 +107,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // disguise cannot leak by that door at all; player 2's carries the
     // exclamation and the name, so a hit stays haste and not surprise.
     radar: "p2",
+    // The colour is a fact about the arrival, not about the kind — see
+    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
+    // offers under the map for exactly these four.
+    authorsColor: true,
     blurb:
       "A slick or a bulb, full size, in its real colour — and only one of you can see that it is neither. Do not shoot it: any shot that lands costs the hull. Left alone it goes on its own, two rows short of the ship.",
   },
@@ -132,6 +136,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // body in its own right, which is the one thing it is not.
     color: null,
     radar: "p2",
+    // The colour is a fact about the arrival, not about the kind — see
+    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
+    // offers under the map for exactly these four.
+    authorsColor: true,
     blurb:
       "Plating a size too big for the slick or the bulb inside it, split down the middle: one piece in front of each of its two columns, and the body's own colour shining out through the cracks the whole way down. Any colour chips a piece off. A shot up a column already bared does nothing — and only once both pieces are gone does that colour finish it.",
   },
@@ -157,6 +165,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // fire cannot open it. Whichever way round the pair work it out, somebody
     // has to say a column out loud.
     radar: "p1",
+    // The colour is a fact about the arrival, not about the kind — see
+    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
+    // offers under the map for exactly these four.
+    authorsColor: true,
     blurb:
       "A slick or a bulb inside a shield of its own, and shots simply bounce. Shield in its column, triggered at the right moment — and it does not die, it becomes the body you could see the whole time.",
   },
@@ -181,6 +193,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // player 1 holds the cannon and has to be standing two columns over
     // before the beat turns.
     radar: "p1",
+    // The colour is a fact about the arrival, not about the kind — see
+    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
+    // offers under the map for exactly these four.
+    authorsColor: true,
     blurb:
       "Never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, then hangs for a beat and picks the next side — and only the navigator is shown which.",
   },

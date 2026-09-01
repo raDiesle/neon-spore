@@ -66,11 +66,24 @@ on; editing against the real eleven would let you place a creature in a column
 no authored wave can express.
 
 A brush rather than a cell that cycles: authoring means putting the same thing
-in several columns, and a cycle makes that six clicks instead of one. Painting
-what is already there removes it, so the brush is its own eraser.
+in several columns, and a cycle makes that six clicks instead of one. A click
+selects and paints and no longer takes back what it lands on; `Delete`, a held
+press and the `ERASE` brush are the one removal verb (`src/cell-panel.ts`).
 
-Only the rock names a `kind`. Everything else is named by its colour and the
-silhouette follows — the rule in `packages/content/src/creatures.ts`.
+**The brush says what a thing is; the panel under the map says what it is
+like.** There is one `METEOR` button, not five: the five speed tiers are still
+five kinds in the wave file — the tier *is* the fall speed — but a rock's speed
+is a fact about one arrival, so it is chosen for the selected cell rather than
+by reaching for a different tool. Its width is chosen the same way, and one
+tile or two is the whole of it: a `2×2` meteor is the torch's geometry without
+the torch's fiction.
+
+The same panel names the body behind the four kinds that have one — a lure's
+disguise, a shell's core, a clasp's prisoner, a dart's colour. Those arrive on
+the slick and are switched to the bulb there. Which kinds those are is read off
+`CREATURES` (`authorsBodyColor`), never listed here: the throb is the kind that
+carries no colour and is answered by the beat instead, and a tool that guessed
+"blank means pick one" would offer a choice on exactly the wrong creature.
 
 Moving a wave up or down the list rebuilds the stage to reflect its new position.
 

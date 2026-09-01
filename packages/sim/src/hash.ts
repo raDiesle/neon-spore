@@ -1,5 +1,6 @@
 import { kindCode } from "./creature-kinds.js";
 import { bossHashParts } from "./hash-boss.js";
+import { spanOf } from "./kinds.js";
 import type { World } from "./world.js";
 
 /**
@@ -114,6 +115,13 @@ export function hashWorld(world: World): number {
     // would match while one player shoots what the other cannot hit.
     push(kindCode(c.kind));
     push(c.col);
+    // How wide it is. A rock's width is authored rather than fixed by its
+    // kind now (`RockSize`), so two devices can hold one body at one column
+    // and disagree about which columns the shield has to cover — a desync
+    // that shows up as a deflection on one screen and a hull breach on the
+    // other. `spanOf` rather than `c.span`, so an unsized body is hashed as
+    // the width it actually has.
+    push(spanOf(c));
     push(c.row);
     push(c.color === null ? 0 : c.color === "red" ? 1 : 2);
     push(c.holes);

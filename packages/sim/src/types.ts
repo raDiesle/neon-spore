@@ -5,8 +5,10 @@ import type { DartDir } from "./dart.js";
 export type Color = "red" | "cyan";
 
 export { CREATURE_KINDS, type CreatureKind, kindCode } from "./creature-kinds.js";
+export type { GuardStats, Scar } from "./hull-types.js";
 export type { RockKind } from "./kinds.js";
 export {
+  bodyCenterCol,
   clampSpanCol,
   colSpan,
   fallTilesPerBeat,
@@ -14,8 +16,11 @@ export {
   isGrippable,
   isMeteorKind,
   livingKindForColor,
+  METEOR_TIER_KINDS,
   occupiesCol,
+  type RockSize,
   spanCenterCol,
+  spanOf,
   WARDEN_COLS,
 } from "./kinds.js";
 
@@ -48,6 +53,16 @@ export interface Creature {
   fromCol?: number;
   /** null for meteors, which cannot be shot. */
   color: Color | null;
+  /**
+   * Columns this body occupies, when that is not simply its kind's own width.
+   * Absent on everything a wave does not size — which is everything but a
+   * rock, whose arrival may be authored one tile wide or two (`RockSize`).
+   *
+   * Never read directly: `spanOf` is the rule, and it is in the fingerprint
+   * below because two devices that disagree about how wide a rock is disagree
+   * about which columns the shield has to cover.
+   */
+  span?: number;
   /** The kind a `lure` is drawn as, absent otherwise. Read it via `wornKind` —
    * the ternary by hand is how player 1 gets a tell (creature-rules.ts). */
   wears?: CreatureKind;
@@ -143,24 +158,6 @@ export interface Pod {
   loose: boolean;
   /** What it gives when it is swallowed. Authored, never random. */
   kind: PodKind;
-}
-
-/** A broken segment of the hull. Damage is visible and stays visible. */
-export interface Scar {
-  col: number;
-  /** Beat at which it was made, for the render fade-in. */
-  beat: number;
-  /** What hit here — a rock crater is only ever drawn for a rock kind. */
-  kind: CreatureKind;
-}
-
-export interface GuardStats {
-  /** Every meteor that reached the hull. The denominator of the HUD balance. */
-  tries: number;
-  /** Right column and right moment. */
-  deflected: number;
-  /** Right column, wrong moment — the interesting failure class. */
-  mistimed: number;
 }
 
 /** Player commands. One flat list, so a replay is just a list of these. */

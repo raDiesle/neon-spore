@@ -1,5 +1,5 @@
 import { crystalPath, crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
-import { isMeteorKind, type Scar } from "@neon-spore/sim";
+import { isMeteorKind, type Scar, spanOf } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { rockRadius, torchRotation } from "./torch.js";
 
@@ -63,12 +63,21 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
   const out: Crater[] = [];
   const used = new Set<Scar>();
 
-  // The torch first: its own two same-beat, adjacent columns pair into one
-  // crater between them, exactly as before craters existed for anything else.
+  // The wide rocks first: a two-tile rock scars both of its columns on the
+  // beat it lands (`damageSpan` in sim/hull.ts), and the pair is one hole
+  // between them rather than two dents side by side. That used to be the
+  // torch's own rule, by name; it is asked of the *span* now, so a plain tier
+  // authored two tiles wide (`RockSize`) leaves the same single wide crater
+  // instead of falling through to the narrow branch twice.
   for (const a of scars) {
-    if (used.has(a) || a.kind !== "torch") continue;
+    if (used.has(a) || spanOf(a) < 2) continue;
     const b = scars.find(
-      (s) => s !== a && s.kind === "torch" && s.beat === a.beat && Math.abs(s.col - a.col) === 1,
+      (s) =>
+        s !== a &&
+        s.kind === a.kind &&
+        spanOf(s) === spanOf(a) &&
+        s.beat === a.beat &&
+        Math.abs(s.col - a.col) === 1,
     );
     if (!b) continue;
     used.add(a);
@@ -78,7 +87,7 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
     out.push({
       x,
       top: skinAt(x),
-      r: rockRadius(l, "torch"),
+      r: rockRadius(l, spanOf(a)),
       rotation: torchRotation(x),
       cols: [a.col, b.col],
     });
@@ -94,7 +103,7 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
     out.push({
       x,
       top: skinAt(x),
-      r: rockRadius(l, s.kind),
+      r: rockRadius(l, spanOf(s)),
       rotation: torchRotation(x),
       cols: [s.col],
     });

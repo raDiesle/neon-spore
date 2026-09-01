@@ -8,7 +8,7 @@ import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
-import { spanCenterCol, type TimedCommand } from "./types.js";
+import { bodyCenterCol, type TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -107,7 +107,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
         world.events.push({
           type: "grip",
           player: timed.player,
-          col: spanCenterCol(held.kind, held.col),
+          col: bodyCenterCol(held, held.col),
           row: held.row,
         });
       }

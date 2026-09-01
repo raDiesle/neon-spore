@@ -1,5 +1,5 @@
 import { kindForColor, type Wave, type WaveEntry } from "@neon-spore/content";
-import { bossFillsWave, type Color, type PodEntry } from "@neon-spore/sim";
+import { bossFillsWave, type Color, isMeteorKind, type PodEntry } from "@neon-spore/sim";
 import { type Brush, LIVING_BRUSH_KINDS, ROCK_BRUSHES } from "./brushes.js";
 
 /**
@@ -37,10 +37,18 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
  * rock or a colourless living creature names its own kind in `entry.kind`; a
  * coloured one never does — `kindForColor` is what turns its `color` back into
  * the kind, the same rule `wave-types.ts` names on `WaveEntry.kind`.
+ *
+ * **Every meteor tier reads back as the one `METEOR` brush.** The five tiers
+ * are still five kinds in the wave file and in the bestiary — the speed *is*
+ * the kind — but they are no longer five tools: a rock's speed is a number on
+ * the arrival, set in the panel under the map (`cell-config.ts`). Asking
+ * `ROCK_BRUSHES` alone would answer `undefined` for four of the five and fall
+ * through to the line below, which would hand back `"meteorFast"` — a string
+ * that type-checks as a `Brush` and that no button, silhouette or tooltip in
+ * the tool knows anything about.
  */
 export function brushOf(entry: WaveEntry): Brush {
-  const rock = ROCK_BRUSHES.find(([, kind]) => kind === entry.kind);
-  if (rock) return rock[0];
+  if (entry.kind && isMeteorKind(entry.kind)) return entry.kind === "torch" ? "torch" : "rock";
   if (entry.kind) return entry.kind;
   return kindForColor(entry.color as Color);
 }

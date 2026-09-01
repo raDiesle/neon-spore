@@ -1,11 +1,12 @@
 import { bodyPhase } from "@neon-spore/content";
 import {
+  bodyCenterCol,
   type Creature,
   DEFAULT_CONFIG,
   isGrippable,
   isMeteorKind,
   type SimConfig,
-  spanCenterCol,
+  spanOf,
 } from "@neon-spore/sim";
 import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -33,7 +34,7 @@ export function creatureCenter(
   // exactly, so the lane read is untouched.
   // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
   // sim/types.ts) — every kind is drawn at its visual centre.
-  return { x: tileCX(l, spanCenterCol(c.kind, drawnCol(c, beatPhase))), y: tileCY(l, row) };
+  return { x: tileCX(l, bodyCenterCol(c, drawnCol(c, beatPhase))), y: tileCY(l, row) };
 }
 
 /**
@@ -70,7 +71,7 @@ export function creatureRadius(
   beatPhase = 0,
   cfg: SimConfig = DEFAULT_CONFIG,
 ): number {
-  const flat = isMeteorKind(c.kind) ? rockRadius(l, c.kind) : l.tile * 0.4;
+  const flat = isMeteorKind(c.kind) ? rockRadius(l, spanOf(c)) : l.tile * 0.4;
   return flat * depthScale(cfg, l, drawnRow(c, beatPhase));
 }
 

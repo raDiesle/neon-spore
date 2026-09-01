@@ -27,8 +27,13 @@ export function livingKindForColor(color: Color): CreatureKind {
  * The five numbered tiers, in speed order, one tile per beat apart. `torch` is
  * a rock too but is not a tier — see `fallTilesPerBeat`, which is why it is
  * not in this list.
+ *
+ * Exported because the tier *order* is the rule: tier `n` falls `n + 1` tiles
+ * a beat, so a tool offering "how fast does this rock come down" (the
+ * director's own cell panel) reads its five choices off this list rather than
+ * spelling out five kind names in an order it believes to be the speed order.
  */
-const METEOR_TIER_KINDS: readonly CreatureKind[] = [
+export const METEOR_TIER_KINDS: readonly RockKind[] = [
   "meteor",
   "meteorMedium",
   "meteorFast",
@@ -83,7 +88,7 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // the clamp (docs/spec/bosses.md 11.4, docs/parked.md). Zero, not a small
   // number: a line that crept would eventually arrive.
   if (kind === "tether") return 0;
-  const tier = METEOR_TIER_KINDS.indexOf(kind);
+  const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
 
@@ -110,6 +115,46 @@ export function colSpan(kind: CreatureKind): number {
  * either side of home is a hole that twitches, not one that looks around.
  */
 export const WARDEN_COLS = 5;
+
+/**
+ * How wide a rock arrives, in tiles. Two is a rock that fills a 2x2 square —
+ * the same geometry the torch has always had, offered to the plain tiers as an
+ * authored choice rather than as a sixth kind.
+ *
+ * A number rather than a kind on purpose. Speed *is* the kind here — five
+ * tiers, `meteor` through `meteorFastest` — and crossing that with two widths
+ * would be ten entries in the bestiary for one new fact. Size is the fact, so
+ * it is a field.
+ */
+export type RockSize = 1 | 2;
+
+/**
+ * How many columns this body actually occupies: what it was built with, or
+ * failing that its kind's own width.
+ *
+ * **Call this, never `c.span ?? colSpan(c.kind)` by hand.** `colSpan` alone
+ * answers a question about a *kind*, and since a rock's width became an
+ * authored number that is no longer the same question as how wide the thing
+ * standing in the field is — a hit test written against the kind lets a shot,
+ * a shield or a hull impact miss the second column of a big meteor while every
+ * type check passes.
+ *
+ * It takes the parts rather than a whole `Creature` so that a `Scar` and a
+ * breach event — both of which carry the same two fields and neither of which
+ * is a creature — are answered by the same rule.
+ */
+export function spanOf(body: { kind: CreatureKind; span?: number }): number {
+  return body.span ?? colSpan(body.kind);
+}
+
+/**
+ * The tile column at a body's visual centre — `spanCenterCol` for something
+ * that may be carrying a width of its own. `col` is passed separately because
+ * render/ asks about a body part-way through a move.
+ */
+export function bodyCenterCol(body: { kind: CreatureKind; span?: number }, col: number): number {
+  return col + (spanOf(body) - 1) / 2;
+}
 
 /**
  * A boss that stands where it was installed. The queen holds her row until
@@ -158,12 +203,17 @@ export function isGrippable(kind: CreatureKind): boolean {
  * number of tiles. See `spanCenterCol` for where the centre is needed.
  */
 export function occupiesCol(c: Creature, col: number): boolean {
-  return col >= c.col && col < c.col + colSpan(c.kind);
+  return col >= c.col && col < c.col + spanOf(c);
 }
 
-/** Clamp a spawn column so a wide creature's whole span stays on the field. */
-export function clampSpanCol(col: number, cols: number, kind: CreatureKind): number {
-  return Math.max(0, Math.min(cols - colSpan(kind), Math.round(col)));
+/**
+ * Clamp a spawn column so a wide body's whole span stays on the field. It
+ * takes the span rather than the kind, because a rock's width is authored
+ * now (`RockSize`) and a kind no longer answers the question on its own —
+ * `spanOf` is what the caller asks first.
+ */
+export function clampSpanCol(col: number, cols: number, span: number): number {
+  return Math.max(0, Math.min(cols - span, Math.round(col)));
 }
 
 /**

@@ -5,7 +5,7 @@ import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { shellOnSpawn } from "./shell.js";
-import { clampSpanCol, fallTilesPerBeat, isBossBody } from "./types.js";
+import { clampSpanCol, colSpan, fallTilesPerBeat, isBossBody, spanOf } from "./types.js";
 import type { World } from "./world.js";
 
 // `startWave` (and its private `installWarden`) is the shape of a wave
@@ -94,7 +94,12 @@ export function onBeat(world: World): void {
   while (world.spawned < world.queue.length) {
     const entry = world.queue[world.spawned]!;
     if (entry.beat > world.waveBeat - 1) break;
-    const col = clampSpanCol(entry.col, world.cfg.cols, entry.kind);
+    // How wide this arrival is. A rock's width is authored (`SpawnEntry.size`)
+    // rather than fixed by its kind, so the clamp that keeps a body's whole
+    // span on the field has to be told the real number — a two-wide meteor
+    // authored in the last column would otherwise hang half off the edge.
+    const span = spanOf(entry);
+    const col = clampSpanCol(entry.col, world.cfg.cols, span);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring. A hit should always be player 2's
     // haste and never player 2's surprise.
@@ -113,6 +118,11 @@ export function onBeat(world: World): void {
       fromRow: -fallTilesPerBeat(entry.kind),
       fromCol: col,
       color: entry.color,
+      // Only when the wave asked for something other than the kind's own
+      // width: `spanOf` falls back to `colSpan`, so an unsized arrival carries
+      // no field at all and every wave written before sizes existed is
+      // byte-for-byte the same world.
+      ...(span === colSpan(entry.kind) ? {} : { span }),
       // Authored by the wave, and the same value on both devices. Which of the
       // two screens lays an alarm over the body it names is render's question
       // and never the simulation's (`Creature.wears`).

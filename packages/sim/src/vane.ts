@@ -1,7 +1,7 @@
 import type { VaneState } from "./boss-state.js";
 import { metColor, missedColor } from "./bullet-hit.js";
 import type { VaneEntry } from "./entries.js";
-import type { Bullet } from "./types.js";
+import { type Bullet, spanOf } from "./types.js";
 import { vaneColor, vaneFold, vaneOpening, vaneTipCol, vaneWeakCol } from "./vane-cycle.js";
 import type { World } from "./world.js";
 
@@ -58,7 +58,7 @@ export function stepVane(world: World, b: VaneState): void {
     // drawn of it, which is why a thrown body is *born* in its landing column
     // rather than visibly jumping columns a beat later.
     if (c.fromRow >= 0) continue;
-    const to = vaneFold(cfg, tip, c.col, c.kind);
+    const to = vaneFold(cfg, tip, c.col, spanOf(c));
     if (to === c.col) continue;
     c.col = to;
     b.throwBeat = world.beat;

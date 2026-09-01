@@ -11,25 +11,29 @@ import { type CreatureKind, isBossBody, isMeteorKind, type RockKind } from "@neo
  * whatever `CREATURES` names it — not a colour. A colour-keyed brush
  * (`"red"` → slick, `"cyan"` → bulb) cannot say what a Runt or a Throb is:
  * both carry `color: null` (`packages/content/src/creatures.ts`), so the only
- * name either of them has is its kind. Rocks keep their own literal names —
- * `"rock"`, `"rockMedium"`, … — because five tiers share one kind-shape and a
- * sixth is a new row in `ROCK_BRUSHES` (state.ts), not a new kind.
+ * name either of them has is its kind. `"rock"` is the one literal left: five
+ * kinds — the five speed tiers — read back as that single brush, because the
+ * speed of one arrival is a number on the entry rather than a choice of tool
+ * (`brushOf` in query.ts, `entry-fields.ts` for the numbers themselves).
  */
-export type Brush =
-  | CreatureKind
-  | "rock"
-  | "rockMedium"
-  | "rockFast"
-  | "rockFaster"
-  | "rockFastest"
-  | "mend"
-  | "purge"
-  | "ward"
-  | "erase";
+export type Brush = CreatureKind | "rock" | "mend" | "purge" | "ward" | "erase";
 
 /**
- * The rock brushes, paired with the kind each one paints. One table instead of
- * a chain of `if`s in both directions, so a sixth tier is one row here.
+ * The rock brushes, paired with the kind each one paints *first*.
+ *
+ * **There used to be six, and five of them were one brush wearing five
+ * speeds.** `METEOR`, `METEOR ×2` … `METEOR ×5` sat in the palette as separate
+ * buttons because a tier is a `CreatureKind` and a brush is what places a
+ * kind — so the fall speed, which is a *number about one arrival*, was being
+ * chosen by picking a different tool. Five buttons that draw the same rock is
+ * a palette teaching that the five are five things, and it does not scale: the
+ * width added beside the speed would have made it ten.
+ *
+ * So the palette carries one `METEOR`, which paints the slowest tier, and the
+ * speed moves under the map to the panel that configures the cell you are
+ * pointing at (`cell-config.ts`). The torch keeps its own brush: it is not a
+ * tier — `fallTilesPerBeat` says why — and it is the one rock the pair has a
+ * different sentence for.
  *
  * It lives beside the brush list rather than with the edits that use it because
  * both halves of the director need it — `paint.ts` to make an entry from a
@@ -39,10 +43,6 @@ export type Brush =
  */
 export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
   ["rock", "meteor"],
-  ["rockMedium", "meteorMedium"],
-  ["rockFast", "meteorFast"],
-  ["rockFaster", "meteorFaster"],
-  ["rockFastest", "meteorFastest"],
   ["torch", "torch"],
 ];
 
@@ -122,35 +122,7 @@ export const BRUSHES: {
     label: "METEOR",
     subjects: ["METEOR"],
     stroke: PALETTE.rock,
-    note: CREATURES.meteor.blurb,
-  },
-  {
-    brush: "rockMedium",
-    label: "METEOR ×2",
-    subjects: ["METEOR"],
-    stroke: PALETTE.rock,
-    note: CREATURES.meteorMedium.blurb,
-  },
-  {
-    brush: "rockFast",
-    label: "METEOR ×3",
-    subjects: ["METEOR"],
-    stroke: PALETTE.rock,
-    note: CREATURES.meteorFast.blurb,
-  },
-  {
-    brush: "rockFaster",
-    label: "METEOR ×4",
-    subjects: ["METEOR"],
-    stroke: PALETTE.rock,
-    note: CREATURES.meteorFaster.blurb,
-  },
-  {
-    brush: "rockFastest",
-    label: "METEOR ×5",
-    subjects: ["METEOR"],
-    stroke: PALETTE.rock,
-    note: CREATURES.meteorFastest.blurb,
+    note: "Dead rock. Cannot be shot. Speed and size are set under the map, per rock.",
   },
   {
     brush: "torch",
@@ -198,10 +170,5 @@ export const BRUSHES: {
  */
 export const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
   ...Object.fromEntries(LIVING_BRUSH_KINDS.map((kind) => [kind, kind])),
-  rock: "meteor",
-  rockMedium: "meteorMedium",
-  rockFast: "meteorFast",
-  rockFaster: "meteorFaster",
-  rockFastest: "meteorFastest",
-  torch: "torch",
+  ...Object.fromEntries(ROCK_BRUSHES),
 };

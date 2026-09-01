@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import { cellConfig } from "./cell-config.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import {
@@ -18,16 +19,15 @@ import {
  * The panel under the map: what the selected cell holds, and what can be done
  * to it.
  *
- * **It is where per-entry configuration will live.** Everything a wave can say
- * about an arrival is currently said by *which brush* placed it — five meteor
- * brushes for five fall speeds, and no way at all to say how long one body
- * stays armoured. That does not scale: every new number would be another row
- * of buttons in a palette that is already scrolled. A selected cell with its
- * own fields underneath is one button and one number instead, and the fields
- * are per-arrival rather than per-brush.
- *
- * This lane builds the panel and the selection it reads; the fields themselves
- * arrive with the kinds that need them.
+ * **It is where per-entry configuration lives.** Everything a wave could say
+ * about an arrival used to be said by *which brush* placed it — five meteor
+ * brushes for five fall speeds, and no way at all to say what colour the body
+ * inside a shell was. That does not scale: every new number would be another
+ * row of buttons in a palette that is already scrolled, and speed crossed with
+ * width would have been ten. A selected cell with its own fields underneath is
+ * one button and one number instead, and the fields are per-arrival rather
+ * than per-brush. `cell-config.ts` draws them; the rows a given arrival has no
+ * answer for are simply not there.
  *
  * **It also holds the removals**, all three of them, because they are one
  * verb and used to be four. A click on an occupied cell used to take its
@@ -68,6 +68,21 @@ export function bindCellPanel({ store, selection, brush, onEdit }: CellPanelOpti
 
     root.appendChild(heading(at));
     if (wave && at) root.appendChild(contents(wave, at.beat, at.col));
+    // What the arrival in this cell *is* — a rock's speed and width, the body
+    // behind a shell (`cell-config.ts`). Nothing at all when the cell is empty
+    // or holds something with nothing to say about itself.
+    const config =
+      wave && at
+        ? cellConfig({
+            entry: () => entryAt(wave, at.beat, at.col),
+            onEdit: () => {
+              store.dirty = true;
+              onEdit();
+              render();
+            },
+          })
+        : null;
+    if (config) root.appendChild(config);
     root.appendChild(actions(wave, at));
     root.appendChild(note());
   };

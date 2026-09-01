@@ -61,7 +61,17 @@ export function queueFromWave(wave: Wave, cols: number): SpawnEntry[] {
     // in the game could produce. `e.wears` overrides it, and today nothing
     // does; a wave that ever did would be authoring a mismatch on purpose.
     const wears = kind === "lure" && color ? (e.wears ?? kindForColor(color)) : e.wears;
-    queue.push({ beat: e.beat, col: mapCol(e.col, cols), kind, color, wears });
+    queue.push({
+      beat: e.beat,
+      col: mapCol(e.col, cols),
+      kind,
+      color,
+      wears,
+      // The authored width, under the name everything downstream of here uses
+      // for it (`SpawnEntry.span`). Only when the wave asked for one: an
+      // absent span means "the kind's own", which is what `spanOf` answers.
+      ...(e.size === undefined ? {} : { span: e.size }),
+    });
   }
   return queue.sort((a, b) => a.beat - b.beat);
 }

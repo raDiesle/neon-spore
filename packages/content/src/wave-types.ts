@@ -1,4 +1,4 @@
-import type { BossEntry, Color, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, Color, PodEntry, RockSize } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
 
@@ -63,6 +63,20 @@ export interface WaveEntry {
    * what else is arriving and when.
    */
   wears?: "slick" | "bulb";
+  /**
+   * How many tiles wide this rock arrives: `1`, or `2` for one that fills a
+   * 2x2 square. Absent on every other kind, and absent on a rock the author
+   * left at its ordinary width — a wave written before sizes existed is the
+   * same wave.
+   *
+   * **Speed is the kind and size is a field, and the asymmetry is deliberate.**
+   * The five tiers `meteor`…`meteorFastest` already exist, are named in the
+   * bestiary and are what a wave says out loud; crossing them with two widths
+   * would be ten entries in `CREATURES` to express one new fact. So the width
+   * is the fact — see `RockSize` in `packages/sim/src/kinds.ts`, and `spanOf`,
+   * which is what everything downstream asks instead of `colSpan`.
+   */
+  size?: RockSize;
 }
 
 /**

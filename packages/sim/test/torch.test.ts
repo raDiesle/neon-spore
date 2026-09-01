@@ -82,13 +82,13 @@ describe("colSpan and occupiesCol", () => {
 
 describe("clampSpanCol", () => {
   it("keeps a torch's whole span on the field at both edges", () => {
-    expect(clampSpanCol(0, CFG.cols, "torch")).toBe(0);
-    expect(clampSpanCol(CFG.cols - 1, CFG.cols, "torch")).toBe(CFG.cols - 2);
+    expect(clampSpanCol(0, CFG.cols, colSpan("torch"))).toBe(0);
+    expect(clampSpanCol(CFG.cols - 1, CFG.cols, colSpan("torch"))).toBe(CFG.cols - 2);
   });
 
   it("leaves a one-wide kind free to sit on either edge column", () => {
-    expect(clampSpanCol(0, CFG.cols, "meteor")).toBe(0);
-    expect(clampSpanCol(CFG.cols - 1, CFG.cols, "meteor")).toBe(CFG.cols - 1);
+    expect(clampSpanCol(0, CFG.cols, colSpan("meteor"))).toBe(0);
+    expect(clampSpanCol(CFG.cols - 1, CFG.cols, colSpan("meteor"))).toBe(CFG.cols - 1);
   });
 });
 

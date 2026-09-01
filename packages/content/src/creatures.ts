@@ -29,6 +29,22 @@ export interface CreatureDef {
    * talk (docs/spec/roles.md).
    */
   radar: RadarOwner;
+  /**
+   * True for a kind that carries no colour of its own but whose *arrivals*
+   * are each authored one — the body behind the disguise, under the plating,
+   * inside the shield, or on the end of the dart's diagonal.
+   *
+   * Data rather than a rule derived from `color === null`, because the throb
+   * is the counter-example and always will be: it carries no colour and none
+   * is ever authored for it, since a throb is answered by the beat rather
+   * than by a colour at all. A tool that guessed from the blank would offer a
+   * colour picker on the one creature that must not have one.
+   *
+   * The director reads this to decide which cells get a SLICK/BULB choice
+   * under the map, and `queueFromWave` is what turns that colour back into a
+   * body (`kindForColor`, `shellBecomes`, `claspBecomes`).
+   */
+  authorsColor?: true;
   /** One sentence. This is what the first-appearance preview says. */
   blurb: string;
 }
@@ -54,6 +70,15 @@ export { CREATURES } from "./creatures-table.js";
  */
 export function kindForColor(color: Color): CreatureKind {
   return livingKindForColor(color);
+}
+
+/**
+ * Whether a wave authors this kind's colour on the arrival rather than reading
+ * it off the kind. Call this instead of testing `color === null`: a rock and a
+ * throb are blank too, and neither takes a colour (`CreatureDef.authorsColor`).
+ */
+export function authorsBodyColor(kind: CreatureKind): boolean {
+  return CREATURES[kind].authorsColor === true;
 }
 
 export function controlsForKinds(kinds: readonly CreatureKind[]): ControlGroup[] {

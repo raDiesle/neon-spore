@@ -1,5 +1,5 @@
 import { showsRadar } from "@neon-spore/content";
-import { colSpan, isMeteorKind, spanCenterCol, type World } from "@neon-spore/sim";
+import { bodyCenterCol, isMeteorKind, spanOf, type World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
@@ -147,16 +147,21 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
         : PALETTE.cyan;
     // `q.col` is a wide kind's leftmost column (see `spanCenterCol` in
     // sim/types.ts) — the blip itself is drawn at the visual centre.
-    const x = tileCX(l, spanCenterCol(q.kind, q.col));
+    const x = tileCX(l, bodyCenterCol(q, q.col));
+    // How wide the thing being warned about actually is. Asked of the entry
+    // rather than of its kind: the torch is no longer the only two-tile rock,
+    // and a blip drawn one tile wide over a rock that covers two is a warning
+    // that names the wrong number of columns out loud.
+    const span = spanOf(q);
     const y = l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead);
     const a = Math.max(0.18, 1 - inBeats / (lead + 1));
     const s = 5 + 4 * (1 - inBeats / (lead + 1));
 
-    if (q.kind === "torch") {
-      // As wide as the shape it warns about, and pulsing — the one blip on
-      // the strip that is never mistaken for a single-tile rock.
+    if (span > 1) {
+      // As wide as the shape it warns about, and pulsing — the blip on the
+      // strip that is never mistaken for a single-tile rock.
       const pulse = 0.7 + 0.3 * Math.sin(time * 6);
-      const spread = (l.tile * (colSpan("torch") - 0.4)) / 2;
+      const spread = (l.tile * (span - 0.4)) / 2;
       ctx.globalAlpha = a * pulse;
       ctx.fillStyle = hex;
       ctx.beginPath();
@@ -185,7 +190,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {
-      const width = q.kind === "torch" ? l.tile * (colSpan("torch") - 0.4) : l.tile * 0.72;
+      const width = span > 1 ? l.tile * (span - 0.4) : l.tile * 0.72;
       ctx.globalAlpha = 0.75;
       ctx.fillRect(x - width / 2, l.gridTop - 2.5, width, 2.5);
     }

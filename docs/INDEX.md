@@ -166,6 +166,8 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/stage-touch.ts` | the stage played rather than edited — the game's own controls |
 | `tools/director/src/brushes.ts` | the brush list, derived from the bestiary rather than named by hand |
 | `tools/director/src/palette.ts` | the brush bar drawn from `brushes.ts`, grouped and with `hidden` applied |
+| `tools/director/src/entry-fields.ts` | what one arrival can say about itself: a rock's speed and width, a body's colour |
+| `tools/director/src/cell-config.ts` | those fields as rows under the selected cell |
 | `tools/director/src/balance.ts` | the live balance sheet, as numbers |
 | `tools/director/src/ship.ts` | what the ship can do, read off SimConfig |
 | `tools/director/src/boss.ts` | the boss panel: which boss the wave carries, and its knobs |

@@ -1,6 +1,7 @@
-import { CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
+import { authorsBodyColor, CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
 import { type Brush, ROCK_BRUSHES } from "./brushes.js";
+import { setBody } from "./entry-fields.js";
 import {
   brushOf,
   CREATURE_BRUSHES,
@@ -99,6 +100,17 @@ function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   const kind = brush as CreatureKind;
   const color = CREATURES[kind].color;
   if (color) return { beat, col, color };
+  // A kind whose colour is a fact about the *arrival* rather than about the
+  // kind — the lure's disguise, the shell's core, the clasp's prisoner, the
+  // dart's side. It arrives on the slick, and the panel under the map is where
+  // it is turned into a bulb (`entry-fields.ts`). Placing one with no colour at
+  // all is what the palette used to do, and it authored a body the game then
+  // had to fall back to a grey stand-in for.
+  if (authorsBodyColor(kind)) {
+    const entry: WaveEntry = { beat, col, kind: kind as WaveEntry["kind"], color: null };
+    setBody(entry, "slick");
+    return entry;
+  }
   return { beat, col, kind: kind as WaveEntry["kind"], color: null };
 }
 

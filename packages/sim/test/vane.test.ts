@@ -23,6 +23,7 @@ import {
   type World,
 } from "../src/index.js";
 import { NO_SHELL } from "../src/shell.js";
+import { colSpan } from "../src/types.js";
 
 /**
  * THE VANE: the boss that bends the field instead of the beat.
@@ -87,8 +88,8 @@ describe("the arm", () => {
   it("folds an arrival about the column its tip is standing in", () => {
     // Beat 1 of the wave: held hard left, tip at PIVOT - reach.
     const tip = vaneTipCol(CFG, CFG.vanePins, 1);
-    expect(landed(0, "meteor", 0)).toBe(vaneFold(CFG, tip, 0, "meteor"));
-    expect(landed(PIVOT, "meteor", 0)).toBe(vaneFold(CFG, tip, PIVOT, "meteor"));
+    expect(landed(0, "meteor", 0)).toBe(vaneFold(CFG, tip, 0, colSpan("meteor")));
+    expect(landed(PIVOT, "meteor", 0)).toBe(vaneFold(CFG, tip, PIVOT, colSpan("meteor")));
   });
 
   it("leaves a body that comes in under the tip exactly where it was aimed", () => {
@@ -102,7 +103,7 @@ describe("the arm", () => {
     const early = landed(0, "meteor", 0);
     const late = landed(0, "meteor", 6);
     expect(late).not.toBe(early);
-    expect(late).toBe(vaneFold(CFG, vaneTipCol(CFG, CFG.vanePins, 7), 0, "meteor"));
+    expect(late).toBe(vaneFold(CFG, vaneTipCol(CFG, CFG.vanePins, 7), 0, colSpan("meteor")));
   });
 
   /**

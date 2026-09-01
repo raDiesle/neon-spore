@@ -57,3 +57,29 @@ test("serializes wave with pods correctly", async () => {
   const resultWithoutPods = serializeWaveArray(source, [waveWithoutPods], "WAVES_ACT_1");
   expect(resultWithoutPods).not.toContain("pods:");
 });
+
+/**
+ * The two per-arrival fields the editor can now write. Both are optional, and
+ * both used to be dropped on the way out — a lure read in with a `wears` came
+ * back out without one, which is the serializer quietly re-authoring a wave
+ * nobody edited.
+ */
+test("writes a rock's size and a lure's worn body, and only when they are there", async () => {
+  const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
+  const source = await Bun.file(file).text();
+
+  const wave = {
+    name: "TEST",
+    sentence: "Test wave.",
+    entries: [
+      { beat: 0, col: 1, kind: "meteorFast" as const, color: null, size: 2 as const },
+      { beat: 1, col: 2, kind: "meteor" as const, color: null },
+      { beat: 2, col: 3, kind: "lure" as const, color: "cyan" as const, wears: "bulb" as const },
+    ],
+  };
+
+  const result = serializeWaveArray(source, [wave], "WAVES_ACT_1");
+  expect(result).toContain('{ beat: 0, col: 1, kind: "meteorFast", color: null, size: 2 },');
+  expect(result).toContain('{ beat: 1, col: 2, kind: "meteor", color: null },');
+  expect(result).toContain('{ beat: 2, col: 3, kind: "lure", color: "cyan", wears: "bulb" },');
+});

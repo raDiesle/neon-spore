@@ -276,6 +276,17 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // How wide a body actually is. `colSpan` answers for a *kind*, and since a
+    // rock's width became an authored number (`RockSize`) that is no longer
+    // the same question — a hit test, a shield match or a hull impact written
+    // against the kind lets a two-wide meteor's second column go unanswered
+    // while every type check passes. `spanOf` is the one fallback.
+    call: "spanOf",
+    owner: "packages/sim/src/kinds.ts",
+    pattern: /\.span\s*\?\?\s*colSpan\s*\(/,
+    strip: false,
+  },
+  {
     call: "isGrippable",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"queen"\s*\|\|[\s\S]{0,30}"warden"/,

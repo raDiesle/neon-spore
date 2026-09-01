@@ -93,12 +93,11 @@ function currentX(im: Impact): number {
  * vanishes mid-air and reappears at the hull. `onArrive` fires only once the
  * replay actually reaches the hull's skin, not at the instant of impact.
  *
- * Every rock kind that misses sinks in and drifts off afterwards, sized by
- * its own radius (`rockRadius`); a deflected rock never embeds — `onArrive`
- * fires its bounce (`DeflectFx`) and the impact is gone the same frame.
- *
- * While stuck it rides the hull's own breathing motion via `skinAt`
- * (`craters.ts` uses the same query), not a fixed height above `Layout.hullY`.
+ * Every rock that misses sinks in and drifts off afterwards, sized by the
+ * `span` it is handed (`rockRadius`); a deflected one never embeds — `onArrive`
+ * fires its bounce (`DeflectFx`) and the impact is gone the same frame. While
+ * stuck it rides the hull's own breathing motion via `skinAt` (`craters.ts`
+ * uses the same query), not a fixed height above `Layout.hullY`.
  */
 export class RockImpactFx {
   private impacts: Impact[] = [];
@@ -120,6 +119,7 @@ export class RockImpactFx {
     time: number,
     beatSeconds: number,
     kind: CreatureKind,
+    span: number,
     fromRow: number,
     embed: boolean,
     onArrive: (x: number, y: number) => void,
@@ -132,7 +132,7 @@ export class RockImpactFx {
       x0: x,
       y0: tileCY(l, fromRow),
       fallSpeed: (fallTiles * l.tile) / beatSeconds,
-      r: rockRadius(l, kind),
+      r: rockRadius(l, span),
       dir: x < mid ? -1 : 1,
       rotation0: torchRotation(x),
       spawnTime: time,

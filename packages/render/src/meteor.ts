@@ -1,5 +1,5 @@
 import { crystalPath, KEY, LIGHT_HALF, METEOR } from "@neon-spore/content";
-import type { Creature } from "@neon-spore/sim";
+import { type Creature, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -76,7 +76,7 @@ export function drawMeteor(
   y: number,
   time: number,
 ): void {
-  const r = rockRadius(l, c.kind);
+  const r = rockRadius(l, spanOf(c));
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
   const d = crystalPath(

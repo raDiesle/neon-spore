@@ -18,15 +18,15 @@ const BEAT_SECONDS = 60 / CFG.bpm;
 
 beforeAll(installCanvasGlobals);
 
-describe.each([["torch", 2] as const, ["meteorFastest", 1] as const])(
+describe.each([["torch", 2, 2] as const, ["meteorFastest", 1, 1] as const])(
   "RockImpactFx with %s",
-  (kind, hullGap) => {
+  (kind, hullGap, span) => {
     it("does not fire onArrive before the replayed fall reaches the hull", () => {
       const fx = new RockImpactFx();
       const { ctx } = stubCanvas();
       let arrived = false;
       const fromRow = CFG.rows - 1 - hullGap;
-      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, true, () => {
+      fx.spawn(200, L, 0, BEAT_SECONDS, kind, span, fromRow, true, () => {
         arrived = true;
       });
 
@@ -53,7 +53,7 @@ describe.each([["torch", 2] as const, ["meteorFastest", 1] as const])(
       const { ctx } = stubCanvas();
       let arrivals = 0;
       const fromRow = CFG.rows - 1 - hullGap;
-      fx.spawn(200, L, 0, BEAT_SECONDS, kind, fromRow, true, () => {
+      fx.spawn(200, L, 0, BEAT_SECONDS, kind, span, fromRow, true, () => {
         arrivals += 1;
       });
 
@@ -89,7 +89,7 @@ describe("RockImpactFx deflect arrival target", () => {
     };
     let arriveY = Number.NaN;
     const fromRow = CFG.rows - 4;
-    fx.spawn(200, L, 0, BEAT_SECONDS, "meteorFastest", fromRow, false, (_x, y) => {
+    fx.spawn(200, L, 0, BEAT_SECONDS, "meteorFastest", 1, fromRow, false, (_x, y) => {
       arriveY = y;
     });
 

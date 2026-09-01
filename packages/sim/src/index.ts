@@ -165,10 +165,12 @@ export type {
   Pod,
   PodKind,
   RockKind,
+  RockSize,
   Scar,
   TimedCommand,
 } from "./types.js";
 export {
+  bodyCenterCol,
   clampSpanCol,
   colSpan,
   fallTilesPerBeat,
@@ -176,8 +178,10 @@ export {
   isGrippable,
   isMeteorKind,
   livingKindForColor,
+  METEOR_TIER_KINDS,
   occupiesCol,
   spanCenterCol,
+  spanOf,
   WARDEN_COLS,
 } from "./types.js";
 export { vaneOpen } from "./vane.js";

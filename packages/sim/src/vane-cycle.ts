@@ -205,8 +205,8 @@ export function vaneTipCol(cfg: SimConfig, pins: number, waveBeat: number): numb
  * lost. Two arrivals can therefore land in the same column, which is a thing
  * the pair can see coming and is not allowed to be surprised by.
  */
-export function vaneFold(cfg: SimConfig, tipCol: number, col: number, kind: CreatureKind): number {
-  return clampSpanCol(2 * tipCol - col, cfg.cols, kind);
+export function vaneFold(cfg: SimConfig, tipCol: number, col: number, span: number): number {
+  return clampSpanCol(2 * tipCol - col, cfg.cols, span);
 }
 
 /**

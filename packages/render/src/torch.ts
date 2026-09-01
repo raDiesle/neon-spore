@@ -1,21 +1,28 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
-import type { Creature, CreatureKind } from "@neon-spore/sim";
+import { type Creature, colSpan } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /** How far a torch's radius reaches, in tiles — shared with `rock-impact.ts` so the two never drift apart. */
 export function torchRadius(l: Layout): number {
-  return l.tile * 0.8;
+  return rockRadius(l, colSpan("torch"));
 }
 
 /**
  * A rock's own radius, torch or plain tier alike — the one place both
  * `drawMeteor` (creatures.ts) and every impact/crater visual read it from, so
  * a crater is never sized by a copy of the number its own rock draws at.
+ *
+ * It takes the **span** rather than the kind, and that is the whole of what a
+ * rock's size means on screen: a one-tile rock reaches 0.4 of a tile, a
+ * two-tile one reaches 0.8 and fills the 2x2 square. The torch used to be the
+ * only wide rock and had a number of its own here; it is now simply the rock
+ * whose span is two, and the plain tiers reach the same width whenever a wave
+ * authors them that way (`RockSize`, sim/kinds.ts).
  */
-export function rockRadius(l: Layout, kind: CreatureKind): number {
-  return kind === "torch" ? torchRadius(l) : l.tile * 0.4;
+export function rockRadius(l: Layout, span = 1): number {
+  return l.tile * 0.4 * span;
 }
 
 /**

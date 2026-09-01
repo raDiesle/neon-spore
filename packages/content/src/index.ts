@@ -18,6 +18,7 @@ export {
   type PanelForm,
 } from "./controls.js";
 export {
+  authorsBodyColor,
   type ControlGroup,
   CREATURES,
   type CreatureCategory,

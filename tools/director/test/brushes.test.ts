@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { CREATURES, categoryOf } from "@neon-spore/content";
+import { authorsBodyColor, CREATURES, categoryOf } from "@neon-spore/content";
 import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
 import { BRUSHES, LIVING_BRUSH_KINDS } from "../src/brushes.js";
 import { hasSilhouette } from "../src/silhouette.js";
@@ -82,6 +82,13 @@ describe("paint and brushOf round trip for every living brush", () => {
         // comment in packages/content/src/wave-types.ts.
         expect(entry?.color).toBe(color);
         expect(entry?.kind).toBeUndefined();
+      } else if (authorsBodyColor(kind)) {
+        // A kind whose colour is a fact about the arrival: it is placed on the
+        // slick, and the panel under the map turns it into a bulb. Placing one
+        // with no colour at all is what this used to do, and it authored a
+        // body the game then had to fall back to a grey stand-in for.
+        expect(entry?.color).toBe("red");
+        expect(entry?.kind as string).toBe(kind);
       } else {
         expect(entry?.color).toBeNull();
         // `entry?.kind`'s type is WaveEntry's narrow, hand-written union
