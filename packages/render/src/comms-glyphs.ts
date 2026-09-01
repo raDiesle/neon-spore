@@ -1,3 +1,5 @@
+import { PALETTE } from "./palette.js";
+
 /**
  * The three marks the whole game says "one of you can see this" with: an eye
  * on the strip, a speech bubble over the seat that has to talk, an ear over
@@ -17,8 +19,17 @@
  * has to be read in the half second before the beat turns.
  */
 
-/** An open eye: two arcs meeting at the corners, with a pupil. The strip's
- * half of the siren — *this blip is the one you have to talk about.* */
+/**
+ * An open eye: a filled lens with a hole punched through it. The strip's half
+ * of the siren — *this blip is the one you have to talk about.*
+ *
+ * **Filled, not outlined.** The first version drew the lid as two thin arcs
+ * with a dot between them, and at ten pixels across that is four grey strokes
+ * which read as a leaf. What makes an eye an eye at this size is the *pupil* —
+ * a dark hole with light all round it — so the lens is solid and the pupil is
+ * the field's own black cut out of it, with a smaller disc of the lens colour
+ * back inside so the hole still has something in it at four pixels.
+ */
 export function drawEyeGlyph(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -27,22 +38,25 @@ export function drawEyeGlyph(
   hex: string,
   alpha = 1,
 ): void {
-  const h = w * 0.62;
+  const h = w * 0.66;
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.strokeStyle = hex;
+
+  const lens = new Path2D();
+  lens.moveTo(x - w, y);
+  lens.quadraticCurveTo(x, y - h * 1.8, x + w, y);
+  lens.quadraticCurveTo(x, y + h * 1.8, x - w, y);
   ctx.fillStyle = hex;
-  ctx.lineWidth = Math.max(1, w * 0.16);
-  ctx.lineJoin = "round";
+  ctx.fill(lens);
 
+  ctx.fillStyle = PALETTE.background;
   ctx.beginPath();
-  ctx.moveTo(x - w, y);
-  ctx.quadraticCurveTo(x, y - h * 1.7, x + w, y);
-  ctx.quadraticCurveTo(x, y + h * 1.7, x - w, y);
-  ctx.stroke();
+  ctx.arc(x, y, h * 0.6, 0, Math.PI * 2);
+  ctx.fill();
 
+  ctx.fillStyle = hex;
   ctx.beginPath();
-  ctx.arc(x, y, h * 0.52, 0, Math.PI * 2);
+  ctx.arc(x, y, h * 0.25, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }

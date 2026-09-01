@@ -214,7 +214,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // blip it is about, which is the half a corner instrument cannot carry.
     // `comms.ts` owns the roster, so a creature joining it lights up here
     // without this file learning its name.
-    if (needsComms(q.kind)) drawEyeGlyph(ctx, x, y - s - 6, 4.4, PALETTE.text, a * 0.85);
+    if (needsComms(q.kind)) drawEyeGlyph(ctx, x, y - s - 7, 5.6, PALETTE.text, a * 0.9);
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {

@@ -1,10 +1,10 @@
 import type { World } from "@neon-spore/sim";
-import { type CommsCall, commsCall, type Seat } from "./comms.js";
-import { drawEarGlyph, drawSpeechGlyph } from "./comms-glyphs.js";
+import { commsCall } from "./comms.js";
 import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawSeat, PILL_W } from "./siren-seats.js";
 
 /**
  * The warning siren, top right of the field beside the strip, and the two
@@ -47,8 +47,8 @@ const PAD = 10;
 const R = 15;
 /** Clear of the hull bar, which ends at y = 20. */
 const TOP = 24;
-const PILL_W = 26;
-const PILL_H = 17;
+/** Between a chip and the dial. */
+const GAP = 3;
 
 export function drawCommsSiren(
   ctx: CanvasRenderingContext2D,
@@ -58,12 +58,19 @@ export function drawCommsSiren(
 ): void {
   const call = commsCall(world);
   if (!call) return;
-  const cx = l.width - PAD - PILL_W;
+  // P1 on the left of the dial and P2 on its right, which is the order the
+  // band already reads in — the cannon strip above the shield strip, player 1
+  // before player 2 everywhere else on the screen. Stacking both chips under
+  // the dial put them in a column, and a column has no left and no right, so
+  // there was nothing to line either of them up with.
+  const cx = l.width - PAD - PILL_W - GAP - R;
   const cy = TOP + R;
+  const reach = R + GAP + PILL_W / 2;
 
   ctx.save();
   drawDial(ctx, cx, cy, time);
-  drawSeats(ctx, l, call, cx, cy + R + 4, time);
+  drawSeat(ctx, l, "p1", call.p1, cx - reach, cy, time);
+  drawSeat(ctx, l, "p2", call.p2, cx + reach, cy, time);
   ctx.restore();
 }
 
@@ -168,46 +175,4 @@ function drawDial(ctx: CanvasRenderingContext2D, cx: number, cy: number, time: n
   // The glow last and outside the housing, so the corner of the screen lifts
   // with the pulse. `halo` rather than `shadowBlur`, for `glow.ts`'s reason.
   halo(ctx, cx, cy, R * 2.4, ringHex, 0.16 + 0.2 * pulse);
-}
-
-/** The two chips: seat number, and the job that seat has this frame. */
-function drawSeats(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  call: CommsCall,
-  cx: number,
-  top: number,
-  time: number,
-): void {
-  const seats: Seat[] = ["p1", "p2"];
-  // Only a talker's chip breathes. A listener has nothing to time.
-  const beat = 0.72 + 0.28 * Math.sin(time * 6);
-  for (const [i, seat] of seats.entries()) {
-    const talks = seat === "p1" ? call.p1 : call.p2;
-    // The test view is both halves on one screen, so neither chip is anybody's
-    // "own" and both are drawn lit — the same exemption `showsVeilCore` makes.
-    const mine = l.role === "test" || l.role === seat;
-    const x = cx + (i === 0 ? -PILL_W / 2 - 1 : PILL_W / 2 + 1);
-    const hex = talks ? PALETTE.text : PALETTE.dim;
-    const alpha = (mine ? 1 : 0.42) * (talks ? beat : 0.85);
-
-    ctx.globalAlpha = mine ? 0.5 : 0.24;
-    ctx.fillStyle = CASE;
-    ctx.beginPath();
-    ctx.roundRect(x - PILL_W / 2, top, PILL_W, PILL_H, 4);
-    ctx.fill();
-
-    ctx.globalAlpha = mine ? 1 : 0.5;
-    ctx.font = '600 10px "Courier New",monospace';
-    ctx.textAlign = "left";
-    ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-    ctx.fillText(seat === "p1" ? "1" : "2", x - PILL_W / 2 + 4, top + PILL_H - 5);
-
-    const gx = x + PILL_W * 0.18;
-    const gy = top + PILL_H / 2;
-    if (talks) drawSpeechGlyph(ctx, gx, gy - 0.5, 6, hex, alpha);
-    else drawEarGlyph(ctx, gx, gy - 0.5, 5.6, hex, alpha);
-  }
-  ctx.globalAlpha = 1;
-  ctx.textAlign = "left";
 }
