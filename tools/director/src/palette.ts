@@ -41,6 +41,23 @@ export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Pal
   const brushBar = document.getElementById("brushes");
   let category: string | null = readActiveCategory();
 
+  // Below the category rail rather than in it with the option list — ERASE is
+  // a tool action, not a creature to pick a category to find, and this is the
+  // one button that reads the same wherever a category has scrolled to.
+  const eraseButton = (): HTMLElement => {
+    const eraseSpec = BRUSHES.find((b) => b.brush === "erase");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = "brushErase";
+    button.title = eraseSpec?.note ?? "";
+    button.textContent = "🗑";
+    button.addEventListener("click", () => {
+      if (!selection.at()) return;
+      onPaint("erase");
+    });
+    return button;
+  };
+
   const render = (): void => {
     if (!categoryBar || !brushBar) return;
     const hide = hidden();
@@ -76,6 +93,7 @@ export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Pal
       });
       categoryBar.appendChild(tab);
     }
+    categoryBar.appendChild(eraseButton());
 
     const active = visibleGroups.find((g) => g.group.label === category);
     if (!active) return;
