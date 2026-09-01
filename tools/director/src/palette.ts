@@ -1,5 +1,5 @@
 import { brushArtImage } from "./brush-art.js";
-import { readActiveCategory, writeActiveCategory } from "./brush-category.js";
+import { readClosedCategories, writeClosedCategories } from "./brush-category.js";
 import { bindBrushCard } from "./brush-tooltip.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
@@ -24,118 +24,118 @@ export interface PaletteOptions {
 }
 
 /**
- * The palette: a rail of category tabs and, under the one that is open, a
- * button per brush.
+ * The palette: an accordion of categories, each with its own brushes directly
+ * under it in the same column.
+ *
+ * It used to be a rail of tabs beside a wide grid of options — one category
+ * on screen at a time, the buttons stretched across a track with room to
+ * spare. That cost two things the author actually wanted: seeing SHIELD and
+ * MIXED at once, and a palette narrow enough to sit *beside* the map rather
+ * than above it. Every category opens by default and folds on its own click;
+ * the buttons are as small as a 26px picture and a name allow, so the whole
+ * column is content-width.
  *
  * **A brush is not held.** Clicking one paints the tile already selected on
  * the map and stops there — the button never stays lit, and nothing lingers
  * to paint a second cell by accident. Selecting is the map's job (a click on
  * a cell, `grid.ts`) and painting is the palette's; a wave author points at a
  * tile, then names what goes in it, and that naming is exactly how the panel
- * under the map is reached for whatever was already there — select first,
+ * beside the map is reached for whatever was already there — select first,
  * and its options are already on screen, no separate "pick this thing" step
  * required.
  */
 export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Palette {
-  const categoryBar = document.getElementById("brushCategories");
   const brushBar = document.getElementById("brushes");
-  let category: string | null = readActiveCategory();
+  const closed = readClosedCategories();
 
-  // Below the category rail rather than in it with the option list — ERASE is
-  // a tool action, not a creature to pick a category to find, and this is the
-  // one button that reads the same wherever a category has scrolled to.
-  const eraseButton = (): HTMLElement => {
-    const eraseSpec = BRUSHES.find((b) => b.brush === "erase");
-    const button = document.createElement("button");
-    button.type = "button";
-    button.id = "brushErase";
-    button.title = eraseSpec?.note ?? "";
-    button.textContent = "🗑";
-    button.addEventListener("click", () => {
+  // ERASE is a tool action rather than a creature, so its button is static
+  // markup outside the list `render()` rebuilds — it reads the same wherever
+  // the categories above it have been folded to, and it is bound once.
+  const erase = document.getElementById("brushErase");
+  if (erase) {
+    erase.title = BRUSHES.find((b) => b.brush === "erase")?.note ?? "";
+    erase.addEventListener("click", () => {
       if (!selection.at()) return;
       onPaint("erase");
+    });
+  }
+
+  const brushButton = (b: (typeof BRUSHES)[number]): HTMLElement => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "brush";
+    // The picture at a size worth looking at, the wave it first arrives in
+    // and the brush's own sentence — on a card that opens under the pointer
+    // (`brush-tooltip.ts`), so hovering says all three whether or not SHOW
+    // DESCRIPTIONS is on. It replaces a `title` attribute, which could carry
+    // two of the three and never the one that matters most.
+    bindBrushCard(button, b.brush);
+
+    // The button's own picture — a settled frame of the real renderer where
+    // this module has one (`brush-art.ts`), the plain contour otherwise.
+    const art = brushArtImage(b.brush, 26);
+    if (art) {
+      button.appendChild(art);
+    } else {
+      for (const subject of b.subjects) button.appendChild(silhouette(subject, b.stroke, 26));
+    }
+
+    const text = document.createElement("div");
+    const name = document.createElement("span");
+    name.className = "name";
+    name.textContent = b.label;
+    const hint = document.createElement("span");
+    hint.className = "hint";
+    hint.textContent = b.note;
+    text.append(name, hint);
+    button.appendChild(text);
+
+    button.addEventListener("click", () => {
+      if (!selection.at()) return;
+      onPaint(b.brush);
     });
     return button;
   };
 
   const render = (): void => {
-    if (!categoryBar || !brushBar) return;
+    if (!brushBar) return;
     const hide = hidden();
 
     // A group every brush of which the current wave hides — the boss-panel
-    // creature groups on a boss wave — drops out entirely, tab and all,
-    // rather than leaving an empty one to switch to.
+    // creature groups on a boss wave — drops out entirely, header and all,
+    // rather than leaving an empty one to fold.
     const visibleGroups = BRUSH_GROUPS.map((group) => ({
       group,
       brushes: group.brushes.filter((b) => !hide.has(b)),
     })).filter((g) => g.brushes.length > 0);
 
-    categoryBar.replaceChildren();
     brushBar.replaceChildren();
-    if (!visibleGroups.length) return;
+    const byBrush = new Map(BRUSHES.map((b) => [b.brush, b] as const));
 
-    // The active tab may have just lost every brush it held (a wave switch),
-    // or never been chosen at all; either way, fall back to the first one on
-    // offer rather than showing no options at all.
-    if (!visibleGroups.some((g) => g.group.label === category)) {
-      category = visibleGroups[0]?.group.label ?? null;
-    }
+    for (const { group, brushes } of visibleGroups) {
+      const section = document.createElement("div");
+      section.className = closed.has(group.label) ? "brush-group closed" : "brush-group";
 
-    for (const { group } of visibleGroups) {
       const tab = document.createElement("button");
       tab.type = "button";
-      tab.className = group.label === category ? "brush-category on" : "brush-category";
+      tab.className = "brush-category";
       tab.textContent = group.label;
       tab.addEventListener("click", () => {
-        category = group.label;
-        writeActiveCategory(group.label);
+        if (closed.has(group.label)) closed.delete(group.label);
+        else closed.add(group.label);
+        writeClosedCategories(closed);
         render();
       });
-      categoryBar.appendChild(tab);
-    }
-    categoryBar.appendChild(eraseButton());
+      section.appendChild(tab);
 
-    const active = visibleGroups.find((g) => g.group.label === category);
-    if (!active) return;
-    const byBrush = new Map(BRUSHES.map((b) => [b.brush, b] as const));
-    for (const brushKind of active.brushes) {
-      const b = byBrush.get(brushKind);
-      if (!b) continue;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "brush";
-      // The picture at a size worth looking at, the wave it first arrives in
-      // and the brush's own sentence — on a card that opens under the pointer
-      // (`brush-tooltip.ts`), so hovering says all three whether or not SHOW
-      // DESCRIPTIONS is on. It replaces a `title` attribute, which could carry
-      // two of the three and never the one that matters most.
-      bindBrushCard(button, b.brush);
-
-      // The button's own picture — a settled frame of the real renderer
-      // where this module has one (`brush-art.ts`), the plain contour
-      // otherwise.
-      const art = brushArtImage(b.brush, 34);
-      if (art) {
-        button.appendChild(art);
-      } else {
-        for (const subject of b.subjects) button.appendChild(silhouette(subject, b.stroke, 34));
+      const list = document.createElement("div");
+      list.className = "brush-list";
+      for (const brushKind of brushes) {
+        const b = byBrush.get(brushKind);
+        if (b) list.appendChild(brushButton(b));
       }
-
-      const text = document.createElement("div");
-      const name = document.createElement("span");
-      name.className = "name";
-      name.textContent = b.label;
-      const hint = document.createElement("span");
-      hint.className = "hint";
-      hint.textContent = b.note;
-      text.append(name, hint);
-      button.appendChild(text);
-
-      button.addEventListener("click", () => {
-        if (!selection.at()) return;
-        onPaint(b.brush);
-      });
-      brushBar.appendChild(button);
+      section.appendChild(list);
+      brushBar.appendChild(section);
     }
   };
 

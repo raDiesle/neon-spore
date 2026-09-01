@@ -4,6 +4,7 @@ import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { bindChecks } from "./checks-page.js";
+import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
 import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
@@ -42,13 +43,12 @@ import { renderWaveOpening } from "./wave-opening.js";
 // turns it on per session for whoever is judging a wave's opening card.
 const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 
-// Every column of `<main>` gets a collapse handle via `[data-column]` — see
-// `columns.ts`. On a phone the four columns become three views instead, and
-// the header itself becomes the menu that switches between them — see
-// `mobile-menu.ts`.
+// Every column of `<main>` gets a collapse handle (`columns.ts`) and a drag
+// grip on its right edge (`column-resize.ts`, after initColumns, which decides
+// how wide a section measures); BRUSH and MAP inside the map column get their
+// own finer collapse (`subcols.ts`); a phone gets `mobile-menu.ts` instead.
 initColumns();
-// BRUSH and MAP, stacked inside the map column, each get their own finer
-// collapse — see `subcols.ts`.
+initColumnResize();
 initSubcols();
 initMobileMenu();
 

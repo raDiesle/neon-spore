@@ -26,6 +26,8 @@
  * back instead.
  */
 
+import { readWidth } from "./column-width.js";
+
 const STORE_PREFIX = "director-column:";
 
 /** Exported so a test can check the key without duplicating the prefix. */
@@ -85,19 +87,31 @@ export function decideOpen(id: string, forced: Forced, stored: boolean | null): 
 
 /** One `<main> > section>`'s own track, open and collapsed. */
 const COLLAPSED_TRACK = "36px";
+/** Kept in step with index.html's own `main { grid-template-columns }` by
+ * hand — this module rewrites that property wholesale, so a value here that
+ * disagrees with the stylesheet silently wins over it. They drifted once
+ * already: the game column was an `fr` here long after the CSS had capped it
+ * at 460px, so every load handed the leftover space to the preview canvas,
+ * which cannot use it, instead of to the map. */
 const OPEN_TRACKS: Readonly<Record<string, string>> = {
-  waves: "186px",
-  editor: "320px",
-  game: "minmax(320px, 1fr)",
-  map: "minmax(400px, max-content)",
+  waves: "210px",
+  editor: "minmax(340px, 1.1fr)",
+  game: "minmax(320px, 460px)",
+  map: "minmax(560px, 1.6fr)",
 };
 
 /**
- * Rebuilds `main`'s grid-template-columns from the current collapsed set, in
- * DOM order — so a column that closes gives its track back to its
- * neighbours instead of leaving a fixed-width gap nothing can use.
+ * Rebuilds `main`'s grid-template-columns from the current collapsed set and
+ * from whatever widths have been dragged (`column-width.ts`), in DOM order —
+ * so a column that closes gives its track back to its neighbours instead of
+ * leaving a fixed-width gap nothing can use, and a column the author has
+ * sized by hand keeps the width they let go of.
+ *
+ * Exported because `column-resize.ts` calls it on every pointer move: the
+ * drag writes a width and this is the one place that turns widths into
+ * tracks. Two writers of `gridTemplateColumns` would fight.
  */
-function relayout(main: HTMLElement): void {
+export function relayout(main: HTMLElement): void {
   // Below the phone breakpoint `main` is a single column by CSS (see
   // index.html's `@media (max-width: 700px)`), and only one section shows
   // at a time regardless — see mobile-menu.ts. Writing an inline
@@ -108,7 +122,9 @@ function relayout(main: HTMLElement): void {
   main.style.gridTemplateColumns = columns
     .map((s) => {
       const id = s.dataset.column as string;
-      return s.classList.contains("collapsed") ? COLLAPSED_TRACK : (OPEN_TRACKS[id] ?? "auto");
+      if (s.classList.contains("collapsed")) return COLLAPSED_TRACK;
+      const dragged = readWidth(id);
+      return dragged === null ? (OPEN_TRACKS[id] ?? "auto") : `${dragged}px`;
     })
     .join(" ");
 }

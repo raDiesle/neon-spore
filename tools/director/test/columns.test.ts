@@ -1,4 +1,5 @@
 import { describe, expect, it, test } from "bun:test";
+import { clampWidth, MIN_WIDTH, parseWidth, widthKey } from "../src/column-width.js";
 import { decideOpen, forcedClosedFromUrl, storageKey } from "../src/columns.js";
 
 /**
@@ -116,5 +117,42 @@ describe("which sections are marked data-column, in the real markup", () => {
 
   it("no data-panel survives — the per-heading mechanism this replaced is gone", () => {
     expect(html).not.toContain("data-panel");
+  });
+});
+
+/**
+ * A COLUMN IS ALSO DRAGGED, NOT ONLY COLLAPSED.
+ *
+ * `column-resize.ts` is pointer capture and inline styles end to end, so what
+ * is tested here is the half that can go wrong silently: parsing and clamping
+ * a stored width. A stored `0`, or a leftover `"auto"` from some future
+ * change of mind, must read as "no override" rather than as a zero-width
+ * column with no edge left to grab.
+ */
+describe("a dragged column width", () => {
+  it("is namespaced away from the collapse flag, so neither can read the other", () => {
+    expect(widthKey("map")).toBe("director-column-width:map");
+    expect(widthKey("map")).not.toBe(storageKey("map"));
+  });
+
+  it("reads anything unusable as no override at all", () => {
+    expect(parseWidth(null)).toBeNull();
+    expect(parseWidth("")).toBeNull();
+    expect(parseWidth("auto")).toBeNull();
+    expect(parseWidth("0")).toBeNull();
+    expect(parseWidth("-40")).toBeNull();
+  });
+
+  it("clamps what it does accept into the draggable range", () => {
+    expect(parseWidth("12")).toBe(MIN_WIDTH);
+    expect(parseWidth("420")).toBe(420);
+    expect(clampWidth(99999)).toBeLessThan(99999);
+  });
+
+  it("column-resize.ts is wired into main.ts alongside the collapse", async () => {
+    const src = await Bun.file(
+      Bun.fileURLToPath(new URL("../src/main.ts", import.meta.url)),
+    ).text();
+    expect(src).toMatch(/^initColumnResize\(\);/m);
   });
 });

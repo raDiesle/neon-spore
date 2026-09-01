@@ -88,8 +88,27 @@
          nowhere to break — and an `fr` track is sized from the available
          space instead, so the same text wraps inside whatever width the row
          gives it rather than dictating one. */
-      main { display: grid; grid-template-columns: 210px minmax(340px, 1.1fr) minmax(320px, 460px) minmax(460px, 1.6fr); min-height: 0; overflow-x: auto; }
+      main { display: grid; grid-template-columns: 210px minmax(340px, 1.1fr) minmax(320px, 460px) minmax(560px, 1.6fr); min-height: 0; overflow-x: auto; }
+      main { position: relative; }
       main > section { border-right: 1px solid var(--line); overflow-y: auto; padding: 10px; min-height: 0; }
+      /* The drag handle on a column's right edge (`column-resize.ts`). Absolute
+         inside `main` rather than a grid item of its own or a child of the
+         section: an extra track per boundary would have to be threaded through
+         columns.ts's DOM-order walk, and a handle inside a `<section>` would
+         scroll away with that section's own content. Six pixels wide, drawn as
+         a one-pixel line on hover so an undragged edge looks like the border it
+         already was. */
+      .column-grip {
+        position: absolute; top: 0; bottom: 0; width: 6px; z-index: 5;
+        cursor: col-resize; background: transparent;
+      }
+      .column-grip::after {
+        content: ""; position: absolute; inset: 0 2px; background: transparent;
+      }
+      .column-grip:hover::after, .column-grip.dragging::after { background: var(--cyan); }
+      /* While a drag is live the pointer is captured by the handle, but text
+         inside the columns it sweeps over would still select. */
+      body.resizing-columns { user-select: none; cursor: col-resize; }
       /* A flex column, not the plain scrolling box every other section is:
          the canvas needs a definite height to measure itself against
          (`resize()` reads `canvas.getBoundingClientRect()`). The field takes
@@ -148,7 +167,15 @@
          reaching a brush on a wide map never means scrolling back across the
          row (see the comment beside #brushCol/#mapCol in the markup). */
       main > section.brush-col { display: flex; flex-direction: column; }
-      main > section.brush-col > .column-body { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+      /* Two columns, not a stack: BRUSH on the left at whatever width its own
+         buttons need, MAP taking the rest — with the selected cell's panel at
+         the top of that second column, above the grid. `minmax(0, 1fr)` on the
+         map track rather than `auto`, so a wide grid scrolls inside its own
+         column instead of pushing the palette off the left edge. */
+      main > section.brush-col > .column-body {
+        display: grid; grid-template-columns: max-content minmax(262px, 1fr);
+        gap: 12px; align-items: start;
+      }
       /* #brushCol used to be capped for the reason #gridNote still is below —
          a `max-content` grid track grows to fit an unwrapped hint line — but
          `main`'s BRUSH & MAP track is an `fr` track now (see the comment
@@ -156,8 +183,14 @@
          from its content, so nothing here can pull it wide any more. Left
          uncapped, the extra room goes to the option list wrapping into more
          than one column instead of a single stack nobody asked to be narrow. */
-      #brushCol { width: 100%; }
-      #mapCol { width: 100%; }
+      /* Narrow and *fixed*, not content-width: as narrow as a picture and a
+         name allow — which is what makes room for the map beside it — and
+         three brushes to a row at this width. It was `max-content` for one
+         revision, and folding a category then narrowed the whole palette and
+         slid the map sideways under the pointer. A column that wants more can
+         be dragged wider (column-resize.ts). */
+      #brushCol { width: 250px; min-width: 0; }
+      #mapCol { width: 100%; min-width: 0; overflow-x: auto; }
       /* #gridNote must not force #mapCol wider than the grid — a block child
          with no width cap contributes its own unwrapped line length to the
          auto-sizing pass, which is exactly the leftover-space bug this column
@@ -182,41 +215,46 @@
       [data-subcol].collapsed .subcol-toggle::before { content: "▸"; }
       [data-subcol].collapsed .subcol-toggle { margin-bottom: 0; }
       [data-subcol].collapsed .subcol-body { display: none; }
-      /* CANNON, SHIELD… as a rail of tabs beside the buttons, not headings
-         above them: one category's brushes show at a time, so the palette
-         reads as two short columns rather than one long scroll — and only
-         ever one category's options are on screen, which is the accordion
-         the whole rail asks for without a second collapse state per label.
-         Selection lives in localStorage, not the DOM: palette.ts rebuilds
-         both halves on every brush pick — see brush-category.ts. */
-      .brush-panel { display: flex; gap: 10px; align-items: flex-start; }
-      #brushCategories { flex: 0 0 100px; display: flex; flex-direction: column; gap: 4px; }
-      /* A grid rather than the single stacked column this used to be — the
-         option list now sits in a track with room to spare (see the comment
-         beside `main` above), and a fixed one-wide list would leave that room
-         empty beside it. `auto-fill` rather than `auto-fit`: a wave with only
-         two or three brushes in a category should not stretch them to fill a
-         wide row, it should leave the rest of the row blank. */
-      #brushes {
-        flex: 1 1 auto; min-width: 0; display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; align-content: start;
+      /* CANNON, SHIELD… as an accordion: the category is a header button and
+         its own brushes sit directly beneath it in the same column, so two
+         categories can be read at once. It was a rail of tabs beside a wide
+         grid of options, which put exactly one category on screen and made
+         the palette as wide as the map. Every category starts open — what
+         localStorage holds is the *closed* set (brush-category.ts), so a
+         first run has nothing stored and nothing folded. palette.ts rebuilds
+         the whole list on every brush pick, which is why the fold state
+         cannot live in the DOM. */
+      #brushes { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+      .brush-group { display: flex; flex-direction: column; gap: 4px; }
+      .brush-category {
+        width: 100%; text-align: left; padding: 3px 6px; font-size: 9px;
+        display: flex; align-items: center; gap: 5px; border-color: var(--line-soft);
       }
-      .brush-category { width: 100%; text-align: left; padding: 5px 7px; }
-      /* Below the category rail, in the same column — a tool action rather
-         than one more category, so it sits apart from the tabs above it with
-         a rule of its own rather than blending into the row. */
+      .brush-category::before { content: "▾"; color: var(--dim); font-size: 8px; }
+      .brush-group.closed .brush-category::before { content: "▸"; }
+      .brush-group.closed .brush-list { display: none; }
+      /* The buttons take the smallest width and height a 26px picture and a
+         name allow, and wrap rather than stretching: a category with three
+         brushes leaves the rest of its row blank instead of three wide
+         buttons nobody asked for. */
+      .brush-list { display: flex; flex-wrap: wrap; gap: 3px; align-content: start; }
+      /* A tool action rather than one more category, and the one destructive
+         button in the column — so it is bordered like a button (three of its
+         four borders were removed, which read as a stray glyph rather than
+         something clickable), red, named, and larger than the brushes above
+         it. */
       #brushErase {
-        width: 100%; margin-top: 8px; padding-top: 9px;
-        border-top: 1px solid var(--line-soft); border-left: 0; border-right: 0; border-bottom: 0;
-        border-radius: 0; font-size: 15px; color: var(--dim);
+        width: 100%; margin-top: 10px; padding: 7px 9px;
+        border: 1px solid var(--red); border-radius: 5px;
+        font-size: 13px; letter-spacing: 2px; color: var(--red); background: #1d0a15;
       }
-      #brushErase:hover { color: var(--red); border-top-color: var(--red); }
+      #brushErase:hover { color: #fff; background: var(--red); }
       #brushHintToggle { font-size: 9px; margin: 0 0 6px; padding: 3px 7px; }
       button.brush {
-        width: 100%; display: flex; align-items: center; gap: 8px;
-        text-align: left; padding: 5px 7px;
+        display: flex; align-items: center; gap: 5px;
+        text-align: left; padding: 2px 4px; max-width: 100%;
       }
-      button.brush svg { flex: 0 0 34px; background: #0a0719; border-radius: 5px; }
+      button.brush svg { flex: 0 0 26px; background: #0a0719; border-radius: 4px; }
       /* A brush's own picture (`brush-art.ts`) — a bare frame of the real
          renderer, trimmed to the body it drew, so the chip is black with the
          creature filling it rather than a crop of starfield with something in
@@ -225,8 +263,13 @@
          box would show the join. */
       img.brush-art { flex: 0 0 auto; background: #000; border-radius: 5px; display: block; }
       button.brush > div { display: flex; flex-direction: column; }
-      .brush .name { font-size: 11px; letter-spacing: 2px; color: var(--ink); }
-      .brush .hint { font-size: 9px; color: var(--dim); line-height: 1.4; }
+      .brush .name { font-size: 10px; letter-spacing: 1px; color: var(--ink); white-space: nowrap; }
+      .brush .hint { font-size: 9px; color: var(--dim); line-height: 1.3; max-width: 190px; }
+      /* With the hints showing, a button is a paragraph rather than a chip:
+         one per row, since three of them side by side would each be too
+         narrow to read. */
+      #brushes:not(.hide-hints) .brush-list { flex-direction: column; flex-wrap: nowrap; }
+      #brushes:not(.hide-hints) .brush .name { white-space: normal; }
       /* Default: hidden. #brushHintToggle flips this class on #brushes. */
       #brushes.hide-hints .brush .hint { display: none; }
       #grid { display: inline-grid; gap: 2px; }
@@ -272,7 +315,10 @@
       /* Capped for #gridNote's reason, one line above: a block child with no
          width cap contributes its unwrapped line length to the column's
          auto-sizing pass and pushes the map column wider than its grid. */
-      #cellPanel { margin-top: 14px; max-width: 262px; border-top: 1px solid var(--line-soft); padding-top: 10px; }
+      /* Above the grid now, not below it, so the rule and the spacing that
+         separated it from the map are on its bottom edge rather than its top. */
+      #cellPanel { margin-bottom: 12px; max-width: 262px; border-bottom: 1px solid var(--line-soft); padding-bottom: 10px; }
+      #cellPanel:empty { margin: 0; padding: 0; border: 0; }
       #cellPanel h2 { margin: 0 0 6px; }
       .cell-holds { display: flex; align-items: center; gap: 8px; min-height: 28px; font-size: 10px; color: var(--dim); letter-spacing: 1px; }
       .cell-holds svg { flex: 0 0 26px; background: #0a0719; border-radius: 5px; }
@@ -1131,39 +1177,44 @@
       </section>
 
       <section class="brush-col" data-view="map" data-column="map" data-column-title="BRUSH &amp; MAP">
-        <!-- BRUSH sits above MAP, not beside it: on a wide map the two used
-             to share a row, and reaching a brush after scrolling right to the
-             map's far columns meant scrolling all the way back for every
-             stroke. Stacked, the palette is never off to one side of the
-             scroll the map itself needs. Each of the two can also close on
-             its own (subcols.ts) — see the head/body split below. -->
+        <!-- BRUSH beside MAP, not above it. It was stacked for a while,
+             because a rail-and-grid palette was as wide as the map and
+             reaching a brush after scrolling right meant scrolling back for
+             every stroke. The palette is an accordion of content-width
+             buttons now (palette.ts), so it fits in a narrow left column and
+             the map keeps the whole rest of the track — and the selected
+             cell's own panel sits at the top of the map column, where an
+             author looking at the tile they just clicked is already looking.
+             Each of the two can still close on its own (subcols.ts). -->
         <div id="brushCol" data-subcol="brush-panel">
           <button type="button" class="subcol-toggle" data-subcol-toggle>BRUSH</button>
           <div class="subcol-body">
             <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
-            <!-- Categories are a rail of tabs, not headings inline with the
-                 buttons below them — one category's brushes show at a time,
-                 so a long palette no longer has to be scrolled past to reach
-                 the next category, let alone the map below it. See
-                 palette.ts and brush-category.ts. -->
-            <div class="brush-panel">
-              <div id="brushCategories"></div>
-              <div id="brushes" class="hide-hints"></div>
-            </div>
+            <!-- One accordion, not a rail beside a grid: each category's
+                 brushes sit directly under its own button in this same
+                 column, every category open by default, each folding on its
+                 own click. See palette.ts and brush-category.ts. -->
+            <div id="brushes" class="hide-hints"></div>
+            <!-- ERASE is a tool action rather than a creature, so it is not a
+                 category and not in one: static markup at the foot of the
+                 palette, bound once by palette.ts. -->
+            <button type="button" id="brushErase">🗑 ERASE</button>
           </div>
         </div>
         <div id="mapCol" data-subcol="map-panel">
           <button type="button" class="subcol-toggle" data-subcol-toggle>MAP</button>
           <div class="subcol-body">
-            <div id="grid"></div>
-            <div id="podList"></div>
-            <p class="note" id="gridNote"></p>
             <!-- What the selected cell holds, and the two buttons that take it
                  back. This is where per-entry configuration lands — a meteor's
                  speed and size, how long a body stays armoured — so that a new
                  number is a field here rather than another brush in a palette
-                 that is already scrolled. See `cell-panel.ts`. -->
+                 that is already scrolled. Above the grid rather than below it:
+                 a fourteen-beat map pushed it off the bottom of the column.
+                 See `cell-panel.ts`. -->
             <div id="cellPanel"></div>
+            <div id="grid"></div>
+            <div id="podList"></div>
+            <p class="note" id="gridNote"></p>
           </div>
         </div>
       </section>
