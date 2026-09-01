@@ -22,7 +22,6 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
 | `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
 | `docs/parked.md` | you had an idea you are not acting on, or want one to act on |
-| `docs/queue.md` | you are picking the next thing to build |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
@@ -178,7 +177,6 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/backlog.ts` | the six spec-derived groups, and where `queue`/`designs` are stitched in |
 | `tools/director/src/backlog-api.ts` | `GET /api/backlog`: ten files read, parsed and joined into one response |
-| `tools/director/src/queue.ts` | `docs/queue.md` parsed, and drawn as one backlog group |
 | `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |

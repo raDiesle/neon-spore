@@ -48,7 +48,6 @@ interface Backlog {
   bosses: BacklogGroup[];
   rounds: BacklogGroup[];
   parked: BacklogGroup[];
-  queue: BacklogGroup[];
   designs: BacklogGroup[];
 }
 
@@ -174,7 +173,6 @@ async function load(): Promise<void> {
   fill("backlogBosses", backlog.bosses);
   fill("backlogRounds", backlog.rounds);
   fill("backlogParked", backlog.parked);
-  fill("backlogQueue", backlog.queue);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("towerDefenceDoc", "/api/tower-defence");

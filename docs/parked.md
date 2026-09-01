@@ -10,9 +10,10 @@ is read once on a phone and scrolled past; a suggestion filed in
 in the commit, where a later session with nothing but the clone can pick it up.
 
 It is **not** `docs/release-notes.md`, which records what already landed and is
-closed, and it is **not** `docs/queue.md`, which is work somebody has decided to
-do. A row here is neither: an idea nobody has committed to. Keeping any two of
-the three in one place is how the one that gets absorbed stops being read.
+closed. A row here is the other thing: an idea nobody has committed to. Keeping
+the two in one place is how the second one stops being read — there was once a
+third file between them, `docs/queue.md`, for work that had been decided on and
+not yet started, and it went when the work stopped being queued at all.
 
 **The format.** One `##` per idea, the date and the branch it came off under
 it, then one line labelling what kind of thing it is and how far along —

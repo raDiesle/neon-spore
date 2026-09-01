@@ -44,10 +44,6 @@ export interface Backlog {
   bosses: BacklogGroup[];
   rounds: BacklogGroup[];
   parked: BacklogGroup[];
-  // Decided, not yet done — `docs/queue.md`, joined to what git knows about
-  // each lane. Built in `queue-panel.ts`, which needs git and so cannot live
-  // here. Passed in already built; empty where nobody supplied it.
-  queue: BacklogGroup[];
   // Worked-out design documents — `docs/versus.md` and friends — each
   // carrying numbers a queued lane is meant to build. Built in
   // `design-docs.ts`, a different thing from an idea nobody has argued with.
@@ -159,7 +155,6 @@ export function buildBacklog(
   assists: string,
   systems: string,
   ideas: string,
-  queue: BacklogGroup[] = [],
   designs: BacklogGroup[] = [],
   parkedMd = "",
 ): Backlog {
@@ -244,7 +239,6 @@ export function buildBacklog(
         "bestiary.md 10.3",
       ),
     ],
-    queue,
     designs,
   };
 }

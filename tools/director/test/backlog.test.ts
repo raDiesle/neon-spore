@@ -13,7 +13,6 @@ async function realBacklog(): Promise<Backlog> {
     await read("docs/spec/systems.md"),
     await read("docs/spec/ideas.md"),
     [],
-    [],
     // The real file, so the "every group is populated" guard below covers the
     // tab that was named after it and did not show it until somebody asked.
     await read("docs/parked.md"),

@@ -736,6 +736,14 @@ landing until every `Check:` was decided — that reasoning was already retired
 there, and this removes the checks it was arguing about. The second half of 22,
 pushing `main`, stands.
 
+**And `docs/queue.md` itself followed, days later.** Keeping it as a
+hand-worked list was the first cut, and it did not survive contact: the entries
+emptied within the day, each one picked up in a session of its own, and a file
+that is empty whenever it is read is a file nobody opens. What it was for —
+knowing which of six lanes was in flight — stopped being a question the moment
+the work went one session at a time. Its NOT BUILT YET tab went with it; the
+PARKED tab beside it already holds the ideas nobody has started.
+
 **Reconsider if:** several sessions run unattended and in parallel again, which
 is the only condition under which a board joined to git earns its cost. Not if
 the release notes go unread — that would mean they should be shorter or better

@@ -1388,7 +1388,6 @@
         <button type="button" data-tab="bosses">BOSSES</button>
         <button type="button" data-tab="rounds">ROUNDS</button>
         <button type="button" data-tab="parked">PARKED</button>
-        <button type="button" data-tab="queue">QUEUE</button>
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
@@ -1539,24 +1538,11 @@
           </p>
           <div id="backlogParked" class="columns"></div>
         </div>
-        <div class="sheetpage" id="sheet-queue">
-          <p class="pagewhat">
-            Decided, not yet done: the ordered work an unattended run walks,
-            each entry carrying the branch it is built on and the paths it
-            owns. The stamp says where it stands — WAITING has no branch yet,
-            OPENED has one with nothing on it, FLYING is a branch ahead of
-            main right now, LANDED is on main and due to leave docs/queue.md.
-            This reads the file; nothing here is a second copy of it.
-          </p>
-          <button type="button" class="expand" data-expand="#backlogQueue">EXPAND ALL</button>
-          <div id="backlogQueue" class="columns"></div>
-        </div>
         <div class="sheetpage" id="sheet-designs">
           <p class="pagewhat">
             Worked-out plans, already carrying column numbers, beat tables and
-            parameter values — argued further than a parked idea and not
-            itself a lane. docs/queue.md is what turns a section of one of
-            these into lanes.
+            parameter values — argued further than a parked idea, and further
+            than anything anybody has started building.
           </p>
           <button type="button" class="expand" data-expand="#backlogDesigns">EXPAND ALL</button>
           <div id="backlogDesigns" class="columns"></div>

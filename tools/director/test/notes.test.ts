@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { byDay, parseNotes } from "../src/notes.js";
-import { parseQueue } from "../src/queue.js";
 
 const FILE = `# Release notes
 
@@ -60,49 +59,5 @@ describe("byDay", () => {
 
   test("no entries is no days", () => {
     expect(byDay([])).toEqual([]);
-  });
-});
-
-/**
- * The queue is read for its own sake now, not joined to git. These pin the part
- * that survived: the file still carries a heading, an optional italic line and
- * a brief, and the entries still come out in the file's order.
- */
-describe("parseQueue", () => {
-  const QUEUE = `# Queue
-
-The ordered work.
-
-## COLLECT AND CONVERT A SECOND GAME'S BODIES
-_claude/convert-second-game · tools/shape-sheet/src/forms docs/tower-defence.md_
-**Asked for by the owner.** Nine bodies and four motions.
-
-## A DISABLED BUTTON HAS NO STYLE OF ITS OWN
-**Proposed by the run.** No \`button:disabled\` rule at all.
-`;
-
-  test("one entry per heading, in the file's order", () => {
-    expect(parseQueue(QUEUE).map((l) => l.title)).toEqual([
-      "COLLECT AND CONVERT A SECOND GAME'S BODIES",
-      "A DISABLED BUTTON HAS NO STYLE OF ITS OWN",
-    ]);
-  });
-
-  test("the italic line is kept as prose, not parsed into a branch", () => {
-    expect(parseQueue(QUEUE)[0]?.meta).toBe(
-      "claude/convert-second-game · tools/shape-sheet/src/forms docs/tower-defence.md",
-    );
-  });
-
-  test("an entry without one is still an entry — the line is optional now", () => {
-    const lane = parseQueue(QUEUE)[1];
-    expect(lane?.meta).toBe("");
-    expect(lane?.brief).toContain("Proposed by the run.");
-  });
-
-  test("the brief is everything under the heading bar that line", () => {
-    expect(parseQueue(QUEUE)[0]?.brief).toBe(
-      "**Asked for by the owner.** Nine bodies and four motions.",
-    );
   });
 });

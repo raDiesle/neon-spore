@@ -3,7 +3,7 @@
 How a candidate look is offered, compared against what the game draws today,
 and adopted or refused. Designed 27 August 2026 by three independent proposals
 scored by three judges under different lenses; this file is the synthesis, and
-`docs/queue.md` carries the lanes that build it.
+The lanes that build it are picked up one session at a time.
 
 The thing it exists for is a question a still cannot answer and a card-sized
 render cannot answer either: **does this read at 26 px, and does it read at

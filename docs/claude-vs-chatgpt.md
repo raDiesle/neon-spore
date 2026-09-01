@@ -157,9 +157,12 @@ nudged, commits that are essays, one lane at a time with the owner reading each
 one — **stay.** The prose gap and the interruptibility gap both land squarely
 on that work, and the harness is already built.
 
-If the next month is queue-shaped — a filled `docs/queue.md`, ten lanes to be
-dispatched and reviewed later, most of them started from a phone — **the case
-for switching is real**, and the phone surface alone might pay for it.
+If the next month is queue-shaped — ten pieces of work dispatched and reviewed
+later, most of them started from a phone — **the case for switching is real**,
+and the phone surface alone might pay for it. That is a real reversal of how
+the work is done today, not a drift: the queue file and the machinery that
+walked it were removed in September 2026, and the owner drives one manual
+session at a time.
 
 If concept art becomes a bottleneck rather than a curiosity, that is the one
 argument that does not depend on how the coding goes at all, and the cheapest
@@ -167,8 +170,8 @@ answer to it is the cheap tier of the other subscription rather than a swap.
 
 **And it can be measured, the way delegation was.** The precedent is in the
 tree: `docs/delegation-cost.md` reversed a standing default by building one
-boss twice and writing down the arithmetic. The equivalent here is one lane off
-`docs/queue.md`, built twice — once each side — with three numbers recorded:
+boss twice and writing down the arithmetic. The equivalent here is one piece of
+work, built twice — once each side — with three numbers recorded:
 wall-clock to a green `bun run check`, how many turns the owner had to
 intervene in, and whether the commit message needed rewriting by hand. That
 last one is the prose claim above, turned into something falsifiable.
