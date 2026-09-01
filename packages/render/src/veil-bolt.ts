@@ -61,7 +61,11 @@ export function drawVeilBolts(
     const at = k === 0 ? 0 : 0.5;
     const since = phase - at;
     if (since < 0) continue;
-    const life = Math.max(0, 1 - since * (k === 0 ? 4.5 : 7));
+    // Over roughly the first half of the beat for the main strike and a
+    // quarter for the second. Fast enough to read as lightning, slow enough
+    // that a glance at any moment usually catches one — which is the point:
+    // the pair is counting these.
+    const life = Math.max(0, 1 - since * (k === 0 ? 2.4 : 4.2));
     if (life <= 0.02) continue;
     const s = veilScatter(id + k * 31, beat);
     if (k === 1 && s > 0.55) continue;

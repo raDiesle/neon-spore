@@ -3,6 +3,7 @@ import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { showsVeilCore, VEIL_RADIUS_MUL, veils } from "./veil.js";
+import { VEIL_TOP } from "./veil-shape.js";
 
 /**
  * What stands over a cloud, and it is a different thing in each seat.
@@ -43,8 +44,10 @@ import { showsVeilCore, VEIL_RADIUS_MUL, veils } from "./veil.js";
 /** The off-white both marks are drawn in — the HUD's own, not the lure's
  * absence-of-a-palette white. */
 const MARK = PALETTE.text;
-/** How far above the cloud's own edge the marks sit. */
-const LIFT = 0.42;
+/** How far above the cloud's own top edge the marks sit, in units of the
+ * cloud's radius. `VEIL_TOP` is where that edge is, so a cloud reshaped next
+ * door does not leave a ring floating inside its own weather. */
+const LIFT = 0.5;
 
 export function drawVeilMarks(
   ctx: CanvasRenderingContext2D,
@@ -55,7 +58,7 @@ export function drawVeilMarks(
   for (const c of veils(world)) {
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = l.tile * 0.4 * VEIL_RADIUS_MUL;
-    const top = y - r * (0.8 + LIFT);
+    const top = y - r * (VEIL_TOP + LIFT);
     if (showsVeilCore(l)) drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, top);
     else drawQuestion(ctx, l.tile, x, top);
   }

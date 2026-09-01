@@ -1,10 +1,10 @@
-import { blobPath } from "@neon-spore/content";
 import type { Creature, SimConfig, World } from "@neon-spore/sim";
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawVeilBolts, veilScatter } from "./veil-bolt.js";
+import { cloudPath, drawVeilWisps, VEIL_FLATTEN } from "./veil-shape.js";
 
 /**
  * THE VEIL's cloud: the thunderhead a slick or a bulb falls inside.
@@ -62,18 +62,16 @@ import { drawVeilBolts, veilScatter } from "./veil-bolt.js";
  */
 export const VEIL_RADIUS_MUL = 1.9;
 
-/** The cloud, as a contour. Many shallow lobes: a thunderhead is a stack of
- * billows rather than a blob with a waist, and the wobble is high because
- * nothing about weather is still. */
-const CLOUD = { lobes: 7, depth: 0.17, wobble: 0.075, seed: 4.6 } as const;
-
-/** How much wider than tall. A cloud spreads — and not further than this, or
- * a bulb's own height starts leaving the weather at the top and the bottom. */
-const FLATTEN = 0.8;
-
-const DARK = "#171331";
-const DARKER = "#0C0A1D";
-const EDGE = "#4A4185";
+/**
+ * A thundercloud is dark and it is still on a dark field, so its own colours
+ * are slate-blue rather than the near-black they were on the first pass. The
+ * background it stands against is `#08060F` at the hull and `#1D1547` at the
+ * top of the grid, so anything below about `#1A` in the blue channel is a
+ * silhouette nobody can find.
+ */
+const DARK = "#3B3668";
+const DARKER = "#191534";
+const EDGE = "#7E76C4";
 /** The light the whole cloud throws on the beat, once. The bolt's own colours
  * are `veil-bolt.ts`'s — this is only what leaks out through the contour. */
 const BOLT_GLOW = "#9FB6FF";
@@ -130,33 +128,37 @@ export function drawVeilCloud(
   ctx.save();
   ctx.translate(x, y + sink);
 
-  const path = new Path2D(
-    blobPath(0, 0, r, r * FLATTEN, CLOUD.lobes, CLOUD.depth, CLOUD.wobble, t, CLOUD.seed, 28),
-  );
+  const path = cloudPath(r, t);
+
+  // The rim: the same shape a fraction larger, filled underneath rather than
+  // stroked. `BILLOWS` says why — a stroke would draw the seams between the
+  // four heaps and turn one cloud into four bubbles.
+  ctx.globalAlpha = seeThrough ? 0.5 : 0.85;
+  ctx.fillStyle = haze(shut > 0 ? mix(EDGE, ANGRY_EDGE, shut) : EDGE);
+  ctx.save();
+  ctx.scale(1.07, 1.09);
+  ctx.fill(cloudPath(r, t), "nonzero");
+  ctx.restore();
 
   // The body of it. A vertical gradient rather than a flat fill — a cloud is
   // lit from above and heavy underneath, and the dark underside is what makes
   // it read as weather instead of as a grey blob.
-  const g = ctx.createLinearGradient(0, -r * FLATTEN, 0, r * FLATTEN);
+  const g = ctx.createLinearGradient(0, -r * 0.85, 0, r * VEIL_FLATTEN);
   g.addColorStop(0, haze(shut > 0 ? mix(DARK, ANGRY, shut) : DARK));
   g.addColorStop(1, haze(shut > 0 ? mix(DARKER, ANGRY, shut * 0.8) : DARKER));
   // See-through on player 1's screen and nowhere else. Well short of half, so
   // the colour underneath is unambiguous — the pilot has to be able to say
   // "cyan" without leaning in — and well short of nothing, so the cloud is
   // still plainly the thing they are looking at.
-  ctx.globalAlpha = seeThrough ? 0.62 : 1;
+  ctx.globalAlpha = seeThrough ? 0.66 : 1;
   ctx.fillStyle = g;
-  ctx.fill(path);
-
+  ctx.fill(path, "nonzero");
   ctx.globalAlpha = 1;
-  ctx.strokeStyle = haze(shut > 0 ? mix(EDGE, ANGRY_EDGE, shut) : EDGE);
-  ctx.lineWidth = Math.max(1, r * 0.05);
-  ctx.stroke(path);
 
   drawVeilBolts(ctx, path, r, beats, c.id, shut, seeThrough);
   ctx.restore();
 
-  drawWisps(ctx, l, x, y + sink, r, beats, c.id, haze(shut > 0 ? ANGRY_EDGE : EDGE));
+  drawVeilWisps(ctx, l, x, y + sink, r, beats, c.id, haze(shut > 0 ? ANGRY_EDGE : EDGE));
 
   // Outside the contour, so it is not clipped with the bolts: the whole cloud
   // glowing for an instant on the beat, which is what a thunderhead does and
@@ -165,43 +167,6 @@ export function drawVeilCloud(
   if (flash > 0.02) {
     halo(ctx, x, y + sink, r * 1.7, shut > 0 ? ANGRY_EDGE : BOLT_GLOW, 0.14 * flash);
   }
-}
-
-/**
- * What the cloud sheds. Three soft blobs off the underside, each on its own
- * third of a slow cycle: they appear at the bottom edge, sink a third of a
- * tile and fade out, so the eye is given something that is plainly falling
- * *away* from the body rather than with it.
- *
- * Under the cloud's own contour and outside the clip, which is the whole
- * point — a wisp still inside the weather is not one that has come off it.
- */
-function drawWisps(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  x: number,
-  y: number,
-  r: number,
-  beats: number,
-  id: number,
-  hex: string,
-): void {
-  ctx.save();
-  ctx.fillStyle = hex;
-  for (let k = 0; k < 3; k++) {
-    // Each wisp is a third of a cycle behind the last, and a cycle is two
-    // beats — slow enough to read as drifting rather than as a stream.
-    const phase = (((beats / 2 + k / 3 + veilScatter(id, k) * 0.3) % 1) + 1) % 1;
-    const a = Math.sin(phase * Math.PI) * 0.3;
-    if (a <= 0.01) continue;
-    const wx = x + (veilScatter(id + k * 5, k) * 2 - 1) * r * 0.5;
-    const wy = y + r * 0.55 + phase * l.tile * 0.34;
-    ctx.globalAlpha = a;
-    ctx.beginPath();
-    ctx.ellipse(wx, wy, r * 0.22 * (1 - phase * 0.4), r * 0.13, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.restore();
 }
 
 /**
