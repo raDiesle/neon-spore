@@ -58,7 +58,8 @@ export function mountVersusSection(host: HTMLElement): void {
         "uncapped — a picture that shrinks to fit the window answers the 26 px " +
         "question by making it unanswerable. A second screen appears only where " +
         "the two seats genuinely draw something different; the page decides that " +
-        "itself.",
+        "itself. A candidate shown as a screenshot (`versus-page.ts`'s `renderScreen`) " +
+        "drops the CURRENT side entirely — one picture, not a compare.",
     ),
   );
   const mount = el("div");
@@ -154,7 +155,8 @@ function renderRow(slot: Slot, candidate: Variant, pose: Pose, head: Head): HTML
   return row;
 }
 
-/** One current-vs-candidate screen at one seat. */
+/** One screen at one seat: current-vs-candidate side by side, or — for a
+ * `screenshot` candidate — the candidate alone. */
 function renderScreen(
   slot: Slot,
   pose: Pose,
@@ -170,13 +172,9 @@ function renderScreen(
   }
   const stage = el("div", "versus-stage");
   const tag = el("div", "versus-tag");
-  const leftBox = el("div", "versus-side");
   const rightBox = el("div", "versus-side");
   // A stable hook for `bun run shot` to grab one candidate's own screen.
   rightBox.dataset.versusKey = `${slot.slot}/${candidate.name}/${role}`;
-  leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
-  rightBox.appendChild(el("div", "versus-name", " "));
-  stage.append(leftBox, rightBox, tag);
 
   const banner = el("div", "versus-banner");
   const pair = startPair(
@@ -193,17 +191,24 @@ function renderScreen(
       },
     },
   );
-  leftBox.appendChild(pair.left);
   rightBox.appendChild(pair.right);
 
   if (candidate.screenshot) {
-    // A still, not an instrument: `freeze` on the chosen frame rather than
-    // `setRunning(false)`, which would draw `hud.ts`'s "PAUSED" overlay on
-    // every frame after it — a caption a screenshot exists to not have.
+    // No CURRENT side at all: `pair.left` is built but never mounted here —
+    // the whole point of a screenshot row is one picture documenting this
+    // answer, not a compare. `freeze`, not `setRunning(false)`, so the frame
+    // it holds carries no `hud.ts` "PAUSED" caption.
     window.setTimeout(() => pair.freeze(), candidate.screenshot.freezeSeconds * 1000);
+    stage.append(rightBox);
     screen.append(stage, banner);
     return screen;
   }
+
+  const leftBox = el("div", "versus-side");
+  leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
+  rightBox.prepend(el("div", "versus-name", " "));
+  leftBox.appendChild(pair.left);
+  stage.append(leftBox, rightBox, tag);
   screen.append(stage, ...controlsBar(stage, pair), banner);
   return screen;
 }
