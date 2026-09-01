@@ -2,6 +2,7 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { bindChecks } from "./checks-page.js";
 import { initColumns } from "./columns.js";
 import { bindControlSetsTab } from "./controlsets-page.js";
@@ -12,6 +13,7 @@ import { initMobileMenu } from "./mobile-menu.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { bindRail } from "./rail.js";
+import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
 import { bindShipped } from "./shipped.js";
@@ -62,14 +64,26 @@ const setStatus = (text: string, cls = ""): void => {
 
 let grid: GridPanel | null = null;
 const stage = bindStage(store, cfg, (beat) => grid?.mark(beat));
-const palette = bindPalette(() => {}, hiddenBrushes);
+// Which cell of the map is under the author's attention. Held here rather than
+// in `Store` because a save never carries it — see `selection.ts`.
+const selection = makeSelection();
+const palette = bindPalette(() => cells.render(), hiddenBrushes);
 grid = bindGrid(
   store,
   () => cfg,
   palette,
   onShape,
   (beat) => stage.seek(beat),
+  selection,
 );
+// The panel under the map: what the selected cell holds, the two removals, and
+// the per-entry fields to come — see `cell-panel.ts`.
+const cells: CellPanel = bindCellPanel({
+  store,
+  selection,
+  brush: { current: () => palette.current(), pick: (b) => palette.pick(b) },
+  onEdit: onShape,
+});
 const boss: BossPanel = bindBossPanel(store, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
@@ -137,6 +151,9 @@ function onShape(): void {
   grid?.render();
   boss.render();
   palette.render();
+  // The selection did not move, but what is under it may have just been
+  // erased or painted over — the panel names the contents, not the coordinates.
+  cells?.render();
   stage.rebuild();
   paintStatus();
   paintBriefing();
@@ -153,10 +170,14 @@ function onProse(): void {
 
 function refreshAll(): void {
   place.persist(store.index);
+  // A different wave: beat 4 column 2 is a different cell now, and pointing the
+  // panel at whatever happens to be there would be a selection nobody made.
+  selection.set(null);
   rail.render();
   grid?.render();
   boss.render();
   palette.render();
+  cells?.render();
   stage.rebuild();
   paintStatus();
   paintBriefing();

@@ -4,6 +4,12 @@ import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
 
 export interface Palette {
   current(): Brush;
+  /**
+   * Hold a brush without clicking its button — the ERASE button under the map
+   * is a brush selector that is not in this bar (`cell-panel.ts` says why it
+   * moved), so it needs a way in that does not go through an element.
+   */
+  pick(brush: Brush): void;
   render(): void;
 }
 
@@ -79,5 +85,13 @@ export function bindPalette(onPick: () => void, hidden: () => ReadonlySet<Brush>
   };
 
   render();
-  return { current: () => brush, render };
+  return {
+    current: () => brush,
+    pick: (next) => {
+      brush = next;
+      render();
+      onPick();
+    },
+    render,
+  };
 }

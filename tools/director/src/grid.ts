@@ -1,19 +1,32 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
-import type { PodEntry, SimConfig } from "@neon-spore/sim";
+import type { SimConfig } from "@neon-spore/sim";
+import { bindGridPods, podGlyph } from "./grid-pods.js";
 import type { Palette } from "./palette.js";
+import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import {
   BRUSHES,
-  type Brush,
   beatCount,
   brushOf,
   currentWave,
   entryAt,
+  eraseAt,
   paint,
   podAt,
   podBrushOf,
   type Store,
 } from "./state.js";
+
+/**
+ * How long a press has to be held before it empties the cell under it. The
+ * gesture exists for the phone, where there is no `Delete` key and the ERASE
+ * brush costs a trip to the panel and back for a single correction.
+ *
+ * Long enough not to fire on a tap somebody meant as a paint stroke, short
+ * enough to be discovered by accident — which is the only way anybody ever
+ * finds a long press.
+ */
+const HOLD_TO_ERASE_MS = 500;
 
 /**
  * The beat grid: beats down, the seven authored columns across.
@@ -34,11 +47,40 @@ export function bindGrid(
   palette: Palette,
   onEdit: () => void,
   onSeek: (beat: number) => void,
+  selection: Selection,
 ): GridPanel {
   const grid = document.getElementById("grid");
-  const podList = document.getElementById("podList");
-  const note = document.getElementById("gridNote");
+  // The pod list and the wave's arithmetic — under the map, about the wave
+  // rather than about a cell. See `grid-pods.ts`.
+  const pods = bindGridPods(store, cfg, onEdit);
   let markedBeat = 0;
+
+  /**
+   * Empty the selected cell. The `Delete` key, the `Backspace` key and the
+   * held press all arrive here, and so does the panel's own button through
+   * `eraseAt` — one verb, four ways in (`cell-panel.ts`).
+   */
+  const eraseSelected = (): void => {
+    const wave = currentWave(store);
+    const at = selection.at();
+    if (!wave || !at) return;
+    eraseAt(wave, at.beat, at.col);
+    store.dirty = true;
+    onEdit();
+  };
+
+  // Bound on the window rather than on a cell: the selection outlives the
+  // element that made it — a re-render replaces every button in the grid — so
+  // a listener on the cell would be listening for a key on a node that no
+  // longer exists. Ignored while a field has focus, or Backspace in the wave's
+  // name would delete a creature instead of a letter.
+  window.addEventListener("keydown", (e) => {
+    if (e.key !== "Delete" && e.key !== "Backspace") return;
+    if (isTyping(document.activeElement)) return;
+    if (!selection.at()) return;
+    e.preventDefault();
+    eraseSelected();
+  });
 
   const renderGrid = (): void => {
     if (!grid) return;
@@ -80,7 +122,9 @@ export function bindGrid(
   const cell = (wave: Wave, b: number, c: number): HTMLElement => {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = b === 0 ? "cell beat0" : "cell";
+    const at = selection.at();
+    const isSelected = at?.beat === b && at.col === c;
+    button.className = `cell${b === 0 ? " beat0" : ""}${isSelected ? " sel" : ""}`;
     button.dataset.beat = String(b);
     button.dataset.col = String(c);
 
@@ -101,65 +145,43 @@ export function bindGrid(
       button.appendChild(mark);
     }
 
+    // A press held down empties the cell, and cancels the click that would
+    // otherwise have painted over it on release. `held` is what carries that
+    // refusal from the timer to the click listener — the two are different
+    // events on the same button, and there is nothing else they share.
+    let held = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const startHold = (): void => {
+      held = false;
+      timer = setTimeout(() => {
+        held = true;
+        selection.set({ beat: b, col: c });
+        eraseSelected();
+      }, HOLD_TO_ERASE_MS);
+    };
+    const endHold = (): void => {
+      if (timer !== undefined) clearTimeout(timer);
+      timer = undefined;
+    };
+    button.addEventListener("pointerdown", startHold);
+    button.addEventListener("pointerup", endHold);
+    button.addEventListener("pointercancel", endHold);
+    // A finger that slid off the cell it started on never meant to hold it.
+    button.addEventListener("pointerleave", endHold);
+
     button.addEventListener("click", () => {
+      if (held) {
+        held = false;
+        return;
+      }
+      // Select first: painting is what may be refused — a creature brush on a
+      // boss wave — and a cell nobody can paint is still one worth looking at.
+      selection.set({ beat: b, col: c });
       paint(wave, b, c, palette.current());
       store.dirty = true;
       onEdit();
     });
     return button;
-  };
-
-  const renderPods = (): void => {
-    if (!podList) return;
-    podList.replaceChildren();
-    const wave = currentWave(store);
-    for (const pod of wave?.pods ?? []) {
-      podList.appendChild(podRow(pod));
-    }
-  };
-
-  const podRow = (pod: PodEntry): HTMLElement => {
-    const row = document.createElement("div");
-    row.className = "pod-row";
-    const where = document.createElement("span");
-    where.textContent = `${podGlyph(podBrushOf(pod))} beat ${pod.beat} · col ${pod.col} · row`;
-
-    // The row is the one pod coordinate the grid cannot show: the grid's
-    // vertical axis is time, and a pod's row is where in the field it hangs.
-    const input = document.createElement("input");
-    input.type = "number";
-    input.min = "1";
-    input.max = String(cfg().rows - 2);
-    input.value = String(pod.row);
-    input.addEventListener("change", () => {
-      const next = Number(input.value);
-      if (!Number.isInteger(next) || next < 1 || next > cfg().rows - 2) {
-        input.value = String(pod.row);
-        return;
-      }
-      pod.row = next;
-      store.dirty = true;
-      onEdit();
-    });
-
-    row.append(where, input);
-    return row;
-  };
-
-  const renderNote = (): void => {
-    if (!note) return;
-    const wave = currentWave(store);
-    if (!wave) {
-      note.textContent = "";
-      return;
-    }
-    const beats = beatCount(wave);
-    const seconds = ((beats * 60) / cfg().bpm).toFixed(1);
-    const pods = wave.pods?.length ?? 0;
-    note.textContent =
-      `${wave.entries.length} entries · ${pods} pods · ${beats} beats ≈ ${seconds}s at ` +
-      `${cfg().bpm} BPM. Columns are the seven a wave is authored against; the ` +
-      `field plays ${cfg().cols} and mapCol remaps them.`;
   };
 
   const mark = (beat: number): void => {
@@ -175,12 +197,24 @@ export function bindGrid(
 
   const render = (): void => {
     renderGrid();
-    renderPods();
-    renderNote();
+    pods.render();
   };
 
   render();
   return { render, mark };
+}
+
+/**
+ * Whether the keyboard currently belongs to a field rather than to the map.
+ * `Backspace` is the character the wave's name and sentence are corrected
+ * with, and a global listener that did not ask this would delete a creature
+ * every time somebody fixed a typo.
+ */
+function isTyping(el: Element | null): boolean {
+  if (!el) return false;
+  const tag = el.tagName;
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true;
+  return (el as HTMLElement).isContentEditable === true;
 }
 
 function label(cls: string, text: string): HTMLElement {
@@ -188,15 +222,4 @@ function label(cls: string, text: string): HTMLElement {
   el.className = cls;
   el.textContent = text;
   return el;
-}
-
-function podGlyph(brush: Brush): string {
-  switch (brush) {
-    case "purge":
-      return "✦";
-    case "ward":
-      return "◎";
-    default:
-      return "◇";
-  }
 }

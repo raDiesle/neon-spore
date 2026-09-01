@@ -1,6 +1,6 @@
 import { CREATURES, type CreatureCategory, categoryOf } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
+import { type CreatureKind, isBossBody, isMeteorKind, type RockKind } from "@neon-spore/sim";
 
 /**
  * What a click paints. A brush rather than a cell that cycles through six
@@ -26,6 +26,25 @@ export type Brush =
   | "purge"
   | "ward"
   | "erase";
+
+/**
+ * The rock brushes, paired with the kind each one paints. One table instead of
+ * a chain of `if`s in both directions, so a sixth tier is one row here.
+ *
+ * It lives beside the brush list rather than with the edits that use it because
+ * both halves of the director need it — `paint.ts` to make an entry from a
+ * brush, `query.ts` to read one back — and a copy in either would be the second
+ * place the pairing is decided. Putting it in one of them made the two import
+ * each other, which is a cycle a module-level `const` does not survive.
+ */
+export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
+  ["rock", "meteor"],
+  ["rockMedium", "meteorMedium"],
+  ["rockFast", "meteorFast"],
+  ["rockFaster", "meteorFaster"],
+  ["rockFastest", "meteorFastest"],
+  ["torch", "torch"],
+];
 
 /**
  * The living kinds a brush paints one-to-one: everything in `CREATURES` that
@@ -186,51 +205,3 @@ export const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
   rockFastest: "meteorFastest",
   torch: "torch",
 };
-
-const CATEGORY_LABEL: Record<CreatureCategory, string> = {
-  cannon: "CANNON",
-  shield: "SHIELD",
-  mixed: "MIXED",
-  special: "SPECIAL",
-};
-
-export interface BrushGroup {
-  label: string;
-  brushes: Brush[];
-}
-
-/**
- * Section headers for the palette. A group's membership traces back to
- * `categoryOf` — the category of the kind a brush paints — rather than being
- * retyped a second time here. Pods have no `CreatureKind` and go in their own
- * literal `SUCK` group; `ERASE` is a tool action, not a creature, and always
- * comes last, outside every category. A category with nothing in it today
- * (`special`) is left out entirely rather than shown with no buttons under
- * it — `bindPalette` in palette.ts applies the same rule again at render time
- * for a group every brush of which the current wave hides.
- */
-export const BRUSH_GROUPS: BrushGroup[] = (() => {
-  const byCategory = new Map<CreatureCategory, Brush[]>();
-  for (const { brush } of BRUSHES) {
-    const kind = BRUSH_KIND[brush];
-    if (!kind) continue;
-    const category = categoryOf(kind);
-    const list = byCategory.get(category) ?? [];
-    list.push(brush);
-    byCategory.set(category, list);
-  }
-
-  const groups: BrushGroup[] = [];
-  for (const category of [
-    "cannon",
-    "shield",
-    "mixed",
-    "special",
-  ] as const satisfies CreatureCategory[]) {
-    const brushes = byCategory.get(category);
-    if (brushes?.length) groups.push({ label: CATEGORY_LABEL[category], brushes });
-  }
-  groups.push({ label: "SUCK", brushes: ["mend", "purge", "ward"] });
-  groups.push({ label: "ERASE", brushes: ["erase"] });
-  return groups;
-})();

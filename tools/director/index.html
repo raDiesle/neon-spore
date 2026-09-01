@@ -186,8 +186,23 @@
       }
       #grid .cell:hover { border-color: #3b3163; }
       #grid .cell.now { border-color: #3b3163; background: #120c2b; }
+      /* The selected cell. Gold, and a ring rather than a border colour, so it
+         reads on top of `.now` — the marked beat and the selected cell are two
+         different questions and are regularly the same cell. */
+      #grid .cell.sel { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
       #grid .cell .pod { position: absolute; right: 1px; bottom: 0; font-size: 9px; color: var(--gold); }
       #grid .cell svg { display: block; margin: auto; }
+
+      /* Capped for #gridNote's reason, one line above: a block child with no
+         width cap contributes its unwrapped line length to the column's
+         auto-sizing pass and pushes the map column wider than its grid. */
+      #cellPanel { margin-top: 14px; max-width: 262px; border-top: 1px solid var(--line-soft); padding-top: 10px; }
+      #cellPanel h2 { margin: 0 0 6px; }
+      .cell-holds { display: flex; align-items: center; gap: 8px; min-height: 28px; font-size: 10px; color: var(--dim); letter-spacing: 1px; }
+      .cell-holds svg { flex: 0 0 26px; background: #0a0719; border-radius: 5px; }
+      .cell-actions { display: flex; gap: 6px; margin: 8px 0 6px; }
+      .cell-actions button { font-size: 9px; padding: 4px 9px; }
+      .cell-actions button:disabled { opacity: 0.35; cursor: default; }
 
       #podList { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
       .pod-row { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--dim); }
@@ -1047,6 +1062,12 @@
           <div id="grid"></div>
           <div id="podList"></div>
           <p class="note" id="gridNote"></p>
+          <!-- What the selected cell holds, and the two buttons that take it
+               back. This is where per-entry configuration lands — a meteor's
+               speed and size, how long a body stays armoured — so that a new
+               number is a field here rather than another brush in a palette
+               that is already scrolled. See `cell-panel.ts`. -->
+          <div id="cellPanel"></div>
         </div>
       </section>
     </main>
