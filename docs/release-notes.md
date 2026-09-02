@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 481177a — THE GYRE: the column you were told is right for one beat
+
+Six bodies bolted round a turning rim, alternating red and cyan. Every other creature holds one of colour and column still — a slick keeps both the whole way down, the dart moves the lane, the veil turns the colour over. This one turns them into each other: the body standing in a column *is* a different colour a beat later, so "red in four" is a true sentence with a shelf life of one beat, and the pair has to name a moment instead of a place.
+
 ## 2026-09-02 · c6800e4 — The director answers PINBALL's slabs, and a test says when it does not
 
 FIRE and SET did nothing in the director: the round shipped without a stage listener, so the needle swept straight past a click. `stage-touch.ts` routes the canvas through the game's own touchDown, which knows about the field and nothing else, so a round's own buttons are answered by nobody unless a stage-<round>.ts names them. stage-pinball.ts names all four — the bucket's two held on THE GAUGE's valve contract, the latch and the launch pressed.
