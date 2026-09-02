@@ -119,7 +119,7 @@ describe("buildBacklog", () => {
 
   test("the parked section keeps both the deferred and the rejected", async () => {
     const backlog = await realBacklog();
-    expect(names(backlog.parked)).toContain("Cracks in the cockpit");
+    expect(names(backlog.parked)).toContain("Three private copies of a hex mix");
 
     const rejected = backlog.parked.find((g) => g.title === "EXAMINED AND REJECTED");
     expect(rejected?.entries[0]?.detail).toContain("The Fogger");
@@ -135,13 +135,13 @@ describe("buildBacklog", () => {
     const turnedDown = backlog.parked.find((g) => g.title === "IDEAS TURNED DOWN");
     const deferred = backlog.parked.find((g) => g.title === "DEFERRED, NOT REFUSED");
 
-    expect(turnedDown?.entries.map((e) => e.name)).toContain("Cracks in the cockpit");
-    expect(turnedDown?.entries.map((e) => e.name)).not.toContain(
-      "THE CONDUCTOR, bending the tempo",
-    );
-
-    expect(deferred?.entries.map((e) => e.name)).toContain("THE CONDUCTOR, bending the tempo");
-    expect(deferred?.entries.map((e) => e.name)).not.toContain("Cracks in the cockpit");
+    // "Deliberately deferred" in ideas.md has been argued down to just THE
+    // CONDUCTOR — every refused entry it used to carry was either moved to
+    // the page its idea actually belongs on or dropped for cause, and none
+    // is left to stand in for "a refused one". The group still exists and
+    // still comes back empty rather than swallowing the deferred entry.
+    expect(turnedDown?.entries).toEqual([]);
+    expect(deferred?.entries.map((e) => e.name)).toEqual(["THE CONDUCTOR, bending the tempo"]);
   });
 
   // The tab is called PARKED and showed the spec's deferrals and rejections,
@@ -156,8 +156,18 @@ describe("buildBacklog", () => {
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {
     const backlog = await realBacklog();
+    // IDEAS TURNED DOWN is the one legitimate exception: "Deliberately
+    // deferred" in ideas.md has been argued down to a single entry, THE
+    // CONDUCTOR, which is deferred rather than refused — so today there is
+    // nothing left for the split to file here. A renamed heading would make
+    // this group vanish entirely rather than come back present-and-empty, so
+    // the guard below still tells the two apart.
     for (const groups of Object.values(backlog)) {
       for (const group of groups as BacklogGroup[]) {
+        if (group.title === "IDEAS TURNED DOWN") {
+          expect(group.entries).toEqual([]);
+          continue;
+        }
         expect({ title: group.title, entries: group.entries.length > 0 }).toEqual({
           title: group.title,
           entries: true,

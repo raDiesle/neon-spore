@@ -444,6 +444,22 @@ Each names the slot it would fit.
   Spaceteam's warp jump and the forking levels of Lovers in a Dangerous
   Spacetime. Unworked out: what a fork does to wave numbering and the save
   points ([structure](structure.md), open question 11)
+- **Cracks in the cockpit** — a downward spiral, moved here from "Deliberately
+  deferred" rather than deleted: nothing about it was ever argued down, it was
+  only ungrounded, written for a version of this game with an aim beam and a
+  cockpit view to crack. What survives the name is a picture rather than a
+  score — the field's own read on things going wrong deepening visibly as they
+  do, the way a windscreen spreads a new crack with every impact rather than
+  reporting one more hit as a number. The hull already has exactly this
+  machinery, `Scar` and `hullMilli`, drawn as the ship's own damage
+  ([systems](systems.md) 5.7). Unworked out, and this is most of it: whether
+  "cockpit" means anything once the field is drawn from outside the ship
+  rather than from within one, or whether the idea is really about the hull's
+  own picture and the name is the free-flight assumption that has to go;
+  what would spiral rather than accumulate, since the existing scars are a
+  flat record and a spiral wants the *rate* to worsen with the damage; and
+  whether it is a second decay track or the same `Scar`s read differently at
+  higher counts
 
 ### Controls
 
@@ -736,7 +752,6 @@ is worth more than a better one that is waiting on it.
 
 ## Deliberately deferred
 
-- **Cracks in the cockpit** — a downward spiral
 - **THE CONDUCTOR, bending the tempo** — a boss drawn as a pendulum arm
   sweeping the top of the field, an open contour rather than a body, whose arm
   position *is* the tempo: it speeds the beat up and slows it down, and the grid
@@ -752,10 +767,13 @@ is worth more than a better one that is waiting on it.
 ## Note
 
 Several of these were written for free flight and assume an aim beam or
-evasion. Two of them have been re-grounded above: **Camouflage** is now about
-the cannon's column rather than a beam, and **Bearing waves** is about the
-sentence rather than a heading to steer on. **Cracks in the cockpit** has not
-been, and stays deferred until it is. The rule holds for anything else that
-moves off this page — the communication idea inside an old entry usually
-survives the control model and the gesture does not, so it has to be re-grounded
-in the cannon, the shield and the beat before it is designed in.
+evasion. Three of them have been re-grounded above: **Camouflage** is now
+about the cannon's column rather than a beam, **Bearing waves** is about the
+sentence rather than a heading to steer on, and **Cracks in the cockpit** has
+moved up to Mechanics still mostly ungrounded, on the reasoning that an idea
+nobody has argued with belongs with the others waiting to be worked out
+rather than in a list for the ones that were turned down. The rule holds for
+anything else that moves off this page — the communication idea inside an old
+entry usually survives the control model and the gesture does not, so it has
+to be re-grounded in the cannon, the shield and the beat before it is designed
+in.
