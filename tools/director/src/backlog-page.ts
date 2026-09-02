@@ -49,7 +49,6 @@ interface Backlog {
   controls: BacklogGroup[];
   bosses: BacklogGroup[];
   rounds: BacklogGroup[];
-  parked: BacklogGroup[];
   designs: BacklogGroup[];
 }
 
@@ -117,9 +116,8 @@ function renderEntry(item: BacklogEntry, reading = false): HTMLElement {
 
   // Open on the page in a reading group, behind an expander everywhere else.
   // A list of a hundred entries is scanned, and an expander is right there —
-  // but `docs/parked.md` is a page somebody reads end to end to decide what is
-  // worth doing, and seventy-five closed boxes is that page with its content
-  // removed.
+  // but a group somebody reads end to end to decide what is worth doing is
+  // that page with its content removed once every box is closed.
   if (item.detail) {
     if (reading) {
       const body = document.createElement("div");
@@ -193,7 +191,6 @@ async function load(): Promise<void> {
   fill("backlogControls", backlog.controls);
   fill("backlogBosses", backlog.bosses);
   fill("backlogRounds", backlog.rounds);
-  fill("backlogParked", backlog.parked);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("towerDefenceDoc", "/api/tower-defence");

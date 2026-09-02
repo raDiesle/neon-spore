@@ -803,12 +803,12 @@
       .columns > section { min-width: 0; max-width: 560px; }
 
       /* A page that is read end to end rather than scanned: one column, prose
-         width, groups stacked in the file's own order. PARKED is the one tab
-         where every entry is an argument the owner has to decide on — several
-         sentences each — and side-by-side columns turn that into a wall you
-         read in vertical strips, guessing which heading a paragraph belongs
-         to. Wider than 620px because these paragraphs carry code spans and
-         file paths that break badly in a narrow measure. */
+         width, groups stacked in the file's own order — for a group whose
+         entries are arguments the owner has to decide on, several sentences
+         each, where side-by-side columns turn the page into a wall you read in
+         vertical strips, guessing which heading a paragraph belongs to. Wider
+         than 620px because these paragraphs carry code spans and file paths
+         that break badly in a narrow measure. */
       .columns.reading { grid-template-columns: minmax(0, 1fr); gap: 0; }
       .columns.reading > section { max-width: 760px; }
       .columns.reading > section + section { margin-top: 34px; }
@@ -1345,7 +1345,7 @@
               Mechanics that were played this way and set aside — kept here
               rather than deleted, in case the pair wants one back on a
               different wave or boss. The full write-up for each stays in
-              `docs/parked.md`; this only names it and says where to look.
+              the spec; this only names it and says where to look.
             </p>
             <div id="controlsTriedBody"></div>
           </div>
@@ -1414,7 +1414,6 @@
         <button type="button" data-tab="controls">CONTROLS</button>
         <button type="button" data-tab="bosses">BOSSES</button>
         <button type="button" data-tab="rounds">ROUNDS</button>
-        <button type="button" data-tab="parked">PARKED</button>
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
@@ -1558,21 +1557,10 @@
           <button type="button" class="expand" data-expand="#backlogRounds">EXPAND ALL</button>
           <div id="backlogRounds" class="columns"></div>
         </div>
-        <div class="sheetpage" id="sheet-parked">
-          <p class="pagewhat">
-            Not queued, and read from top to bottom rather than in columns:
-            every idea a session noticed and did not act on, each with its
-            whole argument on the page — what it is, why it was skipped, and
-            where to start — so that deciding whether it is worth doing needs
-            nothing but this page. Below them, ideas already examined and
-            turned down with a reason, so the same one is not proposed twice.
-          </p>
-          <div id="backlogParked" class="columns reading"></div>
-        </div>
         <div class="sheetpage" id="sheet-designs">
           <p class="pagewhat">
             Worked-out plans, already carrying column numbers, beat tables and
-            parameter values — argued further than a parked idea, and further
+            parameter values — argued further than a loose idea, and further
             than anything anybody has started building.
           </p>
           <button type="button" class="expand" data-expand="#backlogDesigns">EXPAND ALL</button>

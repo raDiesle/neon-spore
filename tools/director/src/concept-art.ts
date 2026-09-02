@@ -98,9 +98,9 @@ export function conceptArt(name: string): HTMLElement {
 /**
  * Whether there is a picture at all, so a page can leave the frame out rather
  * than draw the gap. The gap is right on a list of named concepts — a name
- * nobody has drawn anything at is a fact worth showing — and wrong on
- * `docs/parked.md`, where the heading is a sentence rather than a name and
- * every single frame would be empty.
+ * nobody has drawn anything at is a fact worth showing — and wrong on a group
+ * whose headings are sentences rather than names, where every single frame
+ * would be empty.
  */
 export function hasConceptArt(name: string): boolean {
   return draftFor(name) !== undefined || hasSilhouette(name);

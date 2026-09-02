@@ -12,10 +12,6 @@ async function realBacklog(): Promise<Backlog> {
     await read("docs/spec/assists.md"),
     await read("docs/spec/systems.md"),
     await read("docs/spec/ideas.md"),
-    [],
-    // The real file, so the "every group is populated" guard below covers the
-    // tab that was named after it and did not show it until somebody asked.
-    await read("docs/parked.md"),
   );
 }
 
@@ -117,57 +113,10 @@ describe("buildBacklog", () => {
     expect(new Set(everywhere).size).toBe(everywhere.length);
   });
 
-  test("the parked section keeps both the deferred and the rejected", async () => {
-    const backlog = await realBacklog();
-    expect(names(backlog.parked)).toContain("Three private copies of a hex mix");
-
-    const rejected = backlog.parked.find((g) => g.title === "EXAMINED AND REJECTED");
-    expect(rejected?.entries[0]?.detail).toContain("The Fogger");
-  });
-
-  // The group used to say "not rejected, not queued" of a section that mostly
-  // reads as refused — the owner's own word for it — with one entry, THE
-  // CONDUCTOR, that genuinely is deferred rather than rejected. A reader has
-  // to be able to tell those two apart, and tell both apart from something
-  // nobody has looked at yet (PARKED BY A SESSION, above).
-  test("a refused idea is not filed beside the one that was only deferred", async () => {
-    const backlog = await realBacklog();
-    const turnedDown = backlog.parked.find((g) => g.title === "IDEAS TURNED DOWN");
-    const deferred = backlog.parked.find((g) => g.title === "DEFERRED, NOT REFUSED");
-
-    // "Deliberately deferred" in ideas.md has been argued down to just THE
-    // CONDUCTOR — every refused entry it used to carry was either moved to
-    // the page its idea actually belongs on or dropped for cause, and none
-    // is left to stand in for "a refused one". The group still exists and
-    // still comes back empty rather than swallowing the deferred entry.
-    expect(turnedDown?.entries).toEqual([]);
-    expect(deferred?.entries.map((e) => e.name)).toEqual(["THE CONDUCTOR, bending the tempo"]);
-  });
-
-  // The tab is called PARKED and showed the spec's deferrals and rejections,
-  // which are a different thing wearing the same word — so what a session
-  // actually parked was nowhere, and stayed nowhere until somebody asked.
-  test("what a session parked is under the tab named after it", async () => {
-    const backlog = await realBacklog();
-    const mine = backlog.parked.find((g) => g.title === "PARKED BY A SESSION");
-    expect(mine?.entries.length ?? 0).toBeGreaterThan(0);
-    expect(mine?.entries.every((e) => e.name.length > 0)).toBe(true);
-  });
-
   test("every group is populated, so a heading renamed in the spec is caught", async () => {
     const backlog = await realBacklog();
-    // IDEAS TURNED DOWN is the one legitimate exception: "Deliberately
-    // deferred" in ideas.md has been argued down to a single entry, THE
-    // CONDUCTOR, which is deferred rather than refused — so today there is
-    // nothing left for the split to file here. A renamed heading would make
-    // this group vanish entirely rather than come back present-and-empty, so
-    // the guard below still tells the two apart.
     for (const groups of Object.values(backlog)) {
       for (const group of groups as BacklogGroup[]) {
-        if (group.title === "IDEAS TURNED DOWN") {
-          expect(group.entries).toEqual([]);
-          continue;
-        }
         expect({ title: group.title, entries: group.entries.length > 0 }).toEqual({
           title: group.title,
           entries: true,

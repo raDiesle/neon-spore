@@ -23,8 +23,8 @@ import type { SimConfig } from "@neon-spore/sim";
  * somewhere the other does not read is a bug nobody asked for. `testing.ts`'s
  * is the one kept: it sits where somebody *playing* the game reaches for it,
  * and playing is the only way to judge whether a shorter lay still reads.
- * `docs/parked.md`'s "Cannon wind-up is an animation question, not a balance
- * one" points there now instead of here.
+ * The wind-up question — whether it is an animation problem or a balance one —
+ * belongs to that slider now, not to this panel.
  *
  * One instance, global, the same as `bindTuning` — `cfg` is the run the stage
  * is playing, not a property of one panel, and there is exactly one stage.

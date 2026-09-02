@@ -349,8 +349,8 @@ question no test can answer.
 ### Retired designs from this fight
 
 Three designs were tried against this boss and set aside; they are recorded
-here, against the fight they belong to, rather than as loose entries in
-`docs/parked.md`.
+here, against the fight they belong to, which is the only place a reader
+looking at THE WARDEN would think to check.
 
 **The clamp — a control taken, and nothing shown taking it.** THE WARDEN used
 to clamp a control outright: every cycle a line came out of the rim and froze

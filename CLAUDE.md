@@ -225,32 +225,24 @@ do not ask the owner to confirm that something was tested. Write the commit
 message well instead: it is the release note, and it is the only part of this
 that anybody sees twice.
 
-**Suggestions go in the report. At most one of them also goes in
-`docs/parked.md`.** Anything the session noticed and did not do — a refactor it
-stepped around, a tool that would have helped, an idea for the game — is said
-once in the closing block, and that is enough for most of it. A session starts
-cold with nothing but `origin` and the commit messages, so the one thing worth
-keeping is written down where the next clone can find it.
+**Suggestions go in the report, and there is no file for them.** Anything the
+session noticed and did not do — a refactor it stepped around, a tool that
+would have helped, an idea for the game — is said once in the closing block,
+and then it is the owner's to keep or drop.
 
-**One is the whole rule.** The cap is what this used to lack, and the lack is
-what broke it: "write down anything you noticed" put sixty-two entries in the
-file in six days — forty-four off the parallel `burn` lanes, thirty-three on
-one day — and draining it was a job only the owner could do. That is the shape
-of the `Check:` trailers and the queue board, both retired in `decisions.md`
-#26 for exactly this, and the file nearly went the same way. A budget fixes it
-where a ban would have cost the thing the file is *for*.
+`docs/parked.md` used to be that file, and it went the way the `Check:`
+trailers and the queue board went in `decisions.md` #26: it asked the owner for
+something on every visit. Sixty-two entries arrived in six days, most off the
+parallel `burn` lanes, and draining it was a job only he could do. A cap was
+tried first and was still the wrong shape — the file's problem was never the
+rate, it was that nobody read it, and a list nobody reads is worse than none
+because it looks like coverage.
 
-So the session picks its best one, or none — none is the common answer and it
-is not a failure. What earns the heading is something a later session could not
-re-derive by reading the code: a reason, a rejected alternative, a constraint
-that is only visible from where this session was standing. A refactor anyone
-would spot on opening the file does not need a note; the argument for why it
-was not done might.
-
-Three sentences, in the format `docs/parked.md` sets out: what it is, why it
-was not done then, where to start. **Never a queue entry** — a branch name, the
-paths a lane would own, a finished-when — that is a board for a machine that
-was deleted, and it is how the last twenty-line entries got there.
+An idea worth building survives being said once. If the owner wants one kept,
+he will say so, and it goes where it belongs — a control with the boss it was
+tried on, a creature in the bestiary, a design in its own document — beside the
+thing a reader would already be looking at, rather than in a list of loose
+ideas nobody opens.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with

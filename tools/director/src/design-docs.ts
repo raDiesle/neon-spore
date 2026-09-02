@@ -2,14 +2,12 @@
  * The worked-out design documents — `docs/versus.md`, `docs/teaching.md`,
  * `docs/alive.md` — read as backlog, one group per file.
  *
- * A parked idea (`docs/parked.md`) is an offer nobody has argued with. A
- * queue entry (`docs/queue.md`) is a commitment with a branch on it. A
- * design document is the thing that sits between those two and is neither:
- * argued out already, with column numbers and parameter values decided, but
- * not itself a lane — `docs/queue.md` is what turns one into lanes, a few
- * sections at a time. Mixing it into either of the other two would make a
- * reader re-check which kind of row they were looking at before trusting it,
- * which is the exact failure `docs/parked.md`'s own header describes.
+ * An idea in `ideas.md` is accepted in principle and not worked out. A design
+ * document is the next thing along and is not the same: argued out already,
+ * with column numbers and parameter values decided, but not yet started and
+ * carrying no commitment. Mixing the two would make a reader re-check which
+ * kind of row they were looking at before trusting it, and a row that has to
+ * be re-checked is a row that gets skipped.
  *
  * Each document's `##` sections are the closest thing it has to a list of
  * items — the same division `sections.ts` reads out of the numbered spec

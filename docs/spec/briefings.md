@@ -107,8 +107,7 @@ the two can be compared by opening the wave.
 **The grip and the lance are still the odd ones out**, and neither has a guide.
 They are controls no wave *contains*, so no wave is the first to carry them and
 nothing places them. That was true when help was derived and it is still true
-now: placing a guide did not solve it, it only moved where the hole is. It is
-written up in `docs/parked.md`.
+now: placing a guide did not solve it, it only moved where the hole is.
 
 ### The gap the merge left
 
@@ -117,8 +116,8 @@ merged into that wave's single guide rather than dropped: `THE WARDEN` carries
 the ring and its line, `THE VANE` carries the arm and the quicker rock, `THE
 WARD` carries the pod and all three rock speed tiers, and `FIRST STEP` carries
 the split itself and the slick. Nothing was deleted; four moments were.
-`docs/parked.md` names it, and the fix if it turns out to matter is a wave
-each, not a second guide on one wave.
+The fix, if it turns out to matter, is a wave each rather than a second
+guide on one wave.
 
 ---
 

@@ -135,23 +135,23 @@ export function renderFieldControls(): void {
 /**
  * A control the game was played with before something else replaced it —
  * kept because the owner asked to, not because it is still reachable by any
- * wave. The write-up stays in `docs/parked.md`; this only names the heading
- * and quotes nothing beyond it, so the two cannot say different things about
+ * wave. The write-up stays in the spec; this only names the section and
+ * quotes nothing beyond it, so the two cannot say different things about
  * the same idea.
  */
 export interface TriedControlDef {
   name: string;
-  /** The exact `##` heading in `docs/parked.md`, so a reader can find it with
-   * a text search rather than a line number that will move. */
-  parkedHeading: string;
+  /** Where the write-up lives, named so a reader can find it with a text
+   * search rather than a line number that will move. */
+  specHeading: string;
   note: string;
 }
 
 export const TRIED_CONTROLS: readonly TriedControlDef[] = [
   {
     name: "HOLD-TO-TEAR",
-    parkedHeading:
-      "Hold something long enough and it tears — a window somebody closes by succeeding",
+    specHeading:
+      "bosses.md 11.4 — Hold-to-tear, a window closed by succeeding rather than by giving up",
     note:
       "THE WARDEN's tether before the pull replaced it: hold, and only hold — " +
       "no drag, no direction, a thumb on the line that accumulates ticks " +
@@ -171,7 +171,7 @@ function triedControlRow(c: TriedControlDef): HTMLElement {
   section.appendChild(note);
   const ref = document.createElement("p");
   ref.className = "ref";
-  ref.textContent = `docs/parked.md — "${c.parkedHeading}"`;
+  ref.textContent = c.specHeading;
   section.appendChild(ref);
   return section;
 }

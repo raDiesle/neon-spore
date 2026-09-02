@@ -15,7 +15,6 @@
 
 import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
-import { parkedGroups } from "./parked.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 
@@ -38,8 +37,8 @@ export interface BacklogGroup {
   /**
    * Read rather than scanned: one column at prose width, and every entry's
    * argument open on the page instead of behind an expander. For the groups
-   * whose entries *are* paragraphs — a parked idea is several sentences, and a
-   * grid of collapsed headings is the one shape it cannot be read in.
+   * whose entries *are* paragraphs — an argued-out design is several sentences,
+   * and a grid of collapsed headings is the one shape it cannot be read in.
    */
   reading?: boolean;
 }
@@ -50,7 +49,6 @@ export interface Backlog {
   controls: BacklogGroup[];
   bosses: BacklogGroup[];
   rounds: BacklogGroup[];
-  parked: BacklogGroup[];
   // Worked-out design documents — `docs/versus.md` and friends — each
   // carrying numbers a queued lane is meant to build. Built in
   // `design-docs.ts`, a different thing from an idea nobody has argued with.
@@ -58,33 +56,46 @@ export interface Backlog {
 }
 
 /**
- * "Deliberately deferred" in `ideas.md` argues most entries down ("Refused,
- * and…"). One, THE CONDUCTOR, says the opposite — "Deferred rather than
- * rejected" — the only signal the prose gives, and what splits the group.
+ * "Deliberately deferred" in `ideas.md` — set aside with the objection or the
+ * reason written out, so the same idea is not proposed twice.
+ *
+ * This used to be split in two, refused from merely deferred, because a PARKED
+ * tab stood them side by side and a reader had to tell them apart. That tab is
+ * gone and the section is down to entries that are genuinely deferred, so one
+ * group is the honest shape — and it stays reachable, because a draft shape can
+ * be drawn at one of these and an unreachable name orphans the drawing.
  */
-function deferredGroups(deferred: Idea[]): BacklogGroup[] {
-  const isDeferred = (i: Idea) => /deferred rather than reject/i.test(i.note);
-  const toEntry = (i: Idea): BacklogEntry => ({
-    name: i.name,
-    kind: "",
-    note: i.note,
-    detail: "",
-    ref: i.ref,
-  });
-  return [
-    {
-      title: "IDEAS TURNED DOWN",
-      note: "looked at and refused, with the objection written out — ideas.md",
-      builtHidden: 0,
-      entries: deferred.filter((i) => !isDeferred(i)).map(toEntry),
-    },
-    {
-      title: "DEFERRED, NOT REFUSED",
-      note: "set aside for a stated reason, not turned down — ideas.md",
-      builtHidden: 0,
-      entries: deferred.filter(isDeferred).map(toEntry),
-    },
-  ];
+function deferredGroup(deferred: Idea[]): BacklogGroup {
+  return {
+    title: "SET ASIDE IN THE SPEC",
+    note: "deferred with the reason written out — ideas.md",
+    builtHidden: 0,
+    entries: deferred.map((i) => ({
+      name: i.name,
+      kind: "",
+      note: i.note,
+      detail: "",
+      ref: i.ref,
+    })),
+  };
+}
+
+// A whole spec section as one entry — for prose that never became a list.
+function fromSection(
+  title: string,
+  note: string,
+  text: string,
+  needle: string,
+  ref: string,
+): BacklogGroup {
+  const body = sectionBody(sectionNamed(text, needle));
+  return {
+    title,
+    note,
+    builtHidden: 0,
+    // No name of its own: the group heading already carries it.
+    entries: body ? [{ name: "", kind: "", note: "", detail: body, ref }] : [],
+  };
 }
 
 // A built entry is not backlog. It is in the brush palette, or on the field.
@@ -125,24 +136,6 @@ function fromConcepts(title: string, note: string, concepts: Concept[]): Backlog
   };
 }
 
-// A whole spec section as one entry — for prose that never became a list.
-function fromSection(
-  title: string,
-  note: string,
-  text: string,
-  needle: string,
-  ref: string,
-): BacklogGroup {
-  const body = sectionBody(sectionNamed(text, needle));
-  return {
-    title,
-    note,
-    builtHidden: 0,
-    // No name of its own: the group heading already carries it.
-    entries: body ? [{ name: "", kind: "", note: "", detail: body, ref }] : [],
-  };
-}
-
 export function buildBacklog(
   bestiary: string,
   bosses: string,
@@ -151,7 +144,6 @@ export function buildBacklog(
   systems: string,
   ideas: string,
   designs: BacklogGroup[] = [],
-  parkedMd = "",
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
@@ -174,12 +166,20 @@ export function buildBacklog(
         sheet,
         "Creatures",
       ),
+      fromSection(
+        "EXAMINED AND REJECTED",
+        "names that were considered and turned down, with the reason",
+        bestiary,
+        "Examined and rejected",
+        "bestiary.md 10.3",
+      ),
     ],
     mechanics: [
       fromConcepts("COUPLINGS", "the patterns everything else follows from", sheet.couplings),
       fromConcepts("ASSIST FORMS", "how the pair cushions a difference in ability", sheet.assists),
       fromConcepts("SYSTEMS", "the rules the field plays by", sheet.systems),
       fromIdeas("MECHANIC IDEAS", "accepted in principle, not worked out", sheet, "Mechanics"),
+      deferredGroup(sheet.deferred),
     ],
     controls: [
       fromIdeas(
@@ -212,20 +212,6 @@ export function buildBacklog(
           sheet,
           "Rounds",
         ),
-      ),
-    ],
-    parked: [
-      // The file the tab is named after. Below it are the spec's own
-      // deferrals and rejections — a different thing with the same word
-      // on it, which is why this went unnoticed for so long.
-      ...parkedGroups(parkedMd),
-      ...deferredGroups(sheet.deferred),
-      fromSection(
-        "EXAMINED AND REJECTED",
-        "names that were considered and turned down, with the reason",
-        bestiary,
-        "Examined and rejected",
-        "bestiary.md 10.3",
       ),
     ],
     designs,

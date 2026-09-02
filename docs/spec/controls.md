@@ -93,13 +93,13 @@ from memory a second time.
 
 `▣ GAME MECHANICS → CONTROLS → TRIED AND SET ASIDE` names in-screen controls
 the game was played with and moved away from, kept because the owner asked
-for it rather than deleted. The full write-up for each stays in
-`docs/parked.md`, so this page and that file cannot drift apart by each
-saying a different thing about the same idea — the director tab and this
-section both name the heading and stop.
+for it rather than deleted. The full write-up for each stays with the boss
+or wave it belongs to, so this page and that section cannot drift apart by
+each saying a different thing about the same idea — the director tab and
+this section both name it and stop.
 
-- **HOLD-TO-TEAR** — `docs/parked.md`, *"Hold something long enough and it
-  tears — a window somebody closes by succeeding."* THE WARDEN's tether
+- **HOLD-TO-TEAR** — [bosses.md 11.4](bosses.md), *"Hold-to-tear — a window
+  closed by succeeding rather than by giving up."* THE WARDEN's tether
   before the pull replaced it: hold, and only hold, accumulating ticks toward
   a tear rather than answering a drag. Implemented and working, not merely
   designed. The owner asked for it kept and *possibly tested* — "ggf

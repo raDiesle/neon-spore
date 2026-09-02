@@ -88,10 +88,10 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
   });
 });
 
-describe("TRIED_CONTROLS points at docs/parked.md rather than repeating it", () => {
+describe("TRIED_CONTROLS points at the spec rather than repeating it", () => {
   test("every entry names a heading and nothing longer than a paragraph", () => {
     for (const c of TRIED_CONTROLS) {
-      expect(c.parkedHeading.length, c.name).toBeGreaterThan(0);
+      expect(c.specHeading.length, c.name).toBeGreaterThan(0);
       expect(c.note.length, c.name).toBeLessThan(600);
     }
   });

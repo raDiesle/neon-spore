@@ -93,9 +93,9 @@ marginal cost of keeping Claude beside it is a hundred or two hundred a month.
 
 **Prose is the sharpest loss and the easiest one to underrate.** Look at what
 this repository *is*: `CLAUDE.md` argues with its own earlier rules and says
-which one was wrong; commit subjects are sentences; `docs/parked.md` entries
-are paragraphs because a title alone does not say whether an idea is worth a
-session. Every one of those is a writing task with a house voice, and the house
+which one was wrong; commit subjects are sentences; an idea worth keeping is
+written as paragraphs because a title alone does not say whether it is worth
+a session. Every one of those is a writing task with a house voice, and the house
 voice was learned from a model that writes long by nature. A model that writes
 tersely by nature can be prompted into it and will drift out of it, session
 after session, because nothing checks prose. `bun run check` has no opinion

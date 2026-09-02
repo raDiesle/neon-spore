@@ -5,7 +5,7 @@
  * its port.
  *
  * Nine files are read on every request rather than cached: six spec files,
- * `docs/parked.md` and the three design documents, all parsed fresh for the
+ * the spec files and the three design documents, all parsed fresh for the
  * reason the roster always was — a copy kept beside the spec goes stale
  * silently. Every one of them is a pure read; the reads are what keep this
  * async.
@@ -32,17 +32,15 @@ export async function backlogState(): Promise<Response> {
   // no group here asks git anything — every one of them is a read of a file
   // this module can find on its own.
   const base = new URL(import.meta.url);
-  const [bestiary, bosses, couplings, assists, systems, ideas, parkedMd, designText] =
-    await Promise.all([
-      Bun.file(specFile(base, "bestiary.md")).text(),
-      Bun.file(specFile(base, "bosses.md")).text(),
-      Bun.file(specFile(base, "couplings.md")).text(),
-      Bun.file(specFile(base, "assists.md")).text(),
-      Bun.file(specFile(base, "systems.md")).text(),
-      Bun.file(specFile(base, "ideas.md")).text(),
-      Bun.file(docFile(base, "parked.md")).text(),
-      Promise.all(DESIGN_NAMES.map((name) => Bun.file(docFile(base, name)).text())),
-    ]);
+  const [bestiary, bosses, couplings, assists, systems, ideas, designText] = await Promise.all([
+    Bun.file(specFile(base, "bestiary.md")).text(),
+    Bun.file(specFile(base, "bosses.md")).text(),
+    Bun.file(specFile(base, "couplings.md")).text(),
+    Bun.file(specFile(base, "assists.md")).text(),
+    Bun.file(specFile(base, "systems.md")).text(),
+    Bun.file(specFile(base, "ideas.md")).text(),
+    Promise.all(DESIGN_NAMES.map((name) => Bun.file(docFile(base, name)).text())),
+  ]);
 
   const designs: DesignFile[] = DESIGN_NAMES.map((name, i) => ({
     name,
@@ -56,7 +54,6 @@ export async function backlogState(): Promise<Response> {
     systems,
     ideas,
     buildDesigns(designs),
-    parkedMd,
   );
   return Response.json(backlog, { headers: noCache });
 }

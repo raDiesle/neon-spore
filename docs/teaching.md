@@ -500,7 +500,7 @@ is the thing it teaches.
 lance — are untouched by this batch. Decision #18's own "Reconsider if" names
 them and says they want a third mechanism rather than a `briefings:` list
 grown back onto `Wave`. THE CALL *is* that third mechanism and could carry
-them later; it did not here, and `docs/parked.md` says so.
+them later; it did not here.
 
 **One bookkeeping consequence, and it is silent if missed.** Three waves
 inserted at index 0 shift every index by three, so `GAPS[10]` becomes
