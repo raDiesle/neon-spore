@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 4aa5a67 — The save box now says it, and the browser stopped asking on the way out
+
+The header carried the same fact twice — a gold SAVE button that looked the same either way, and a word beside it reading "saved" or "unsaved". The button carries it alone now: blue while the store is ahead of disk, green once the two agree. The status line stays for the messages a colour cannot carry — a refusal, a failed save, no server.
+
 ## 2026-09-02 · c1e35d9 — Four lists could forget a new creature, and the shape it got instead was a slick
 
 Adding a creature kind touches upwards of thirty files, and four of the lists it has to reach failed silently when it did not. Two of them decided what the thing looked like: `livingSilhouette` ended in `: SLICK` and `livingMotion` in `: TILT_RIPPLE`, so a kind that never reached either by name was drawn as a slick that swayed like one — on both phones, with no compile error and no failing test. In a game where a shape has to mean one spoken word every time, that is the most expensive silent failure there is: the pair say "slick", both of them are looking at one, and only the simulation knows better.
