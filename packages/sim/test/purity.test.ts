@@ -18,6 +18,16 @@ interface Ban {
   /** Matched against source with comments and string literals removed. */
   pattern: RegExp;
   why: string;
+  /**
+   * The guarded directories this applies to. Absent means all of them.
+   *
+   * One ban needs it, and the asymmetry it expresses is real rather than
+   * convenient: `content` computes contours with `Math.sin` and hands the
+   * result to a canvas, where a last-bit difference is a fraction of a pixel
+   * nobody can see. `sim` rounds what it computes into a stored integer, where
+   * the same difference is two devices playing different games.
+   */
+  dirs?: string[];
 }
 
 const BANS: Ban[] = [
@@ -36,6 +46,23 @@ const BANS: Ban[] = [
   {
     pattern: /\bfrom\s*["'][^"']*render[^"']*["']|\brequire\s*\(\s*["'][^"']*render/,
     why: "sim must not import render. State flows one way: sim -> render.",
+  },
+  {
+    // The rule `maze.ts` states in a comment and nothing enforced: IEEE-754
+    // does not require `sin`, `cos`, `exp`, `pow` or `log` to be correctly
+    // rounded, and V8 on Android and JavaScriptCore on iOS do not agree in the
+    // last bit. On its own that is nothing; passed through `Math.round` into a
+    // stored `Milli` field it is a half-ulp that lands on either side of a .5
+    // boundary, which is a desync that reads like a network bug and reproduces
+    // on neither phone alone.
+    //
+    // There are no call sites today — `mazeSinMilli` is a table with a
+    // bisection over it, and `mazeClickAngle` walks the same table. This exists
+    // so the next boss cannot quietly add one.
+    pattern:
+      /\bMath\s*\.\s*(sin|cos|tan|asin|acos|atan2?|exp|expm1|log2?|log10|log1p|pow|sqrt|cbrt|hypot)\b/,
+    why: "Two JS engines may round these differently in the last bit, and sim rounds the result into a stored integer. Use a table and a bisection — mazeSinMilli is the pattern.",
+    dirs: ["packages/sim/src"],
   },
 ];
 
@@ -67,17 +94,18 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe("determinism", () => {
-  const files = GUARDED.flatMap(sourceFiles);
+  const files = GUARDED.flatMap((dir) => sourceFiles(dir).map((file) => ({ dir, file })));
 
   it("guards a non-empty set of files", () => {
     expect(files.length).toBeGreaterThan(0);
   });
 
-  for (const file of files) {
+  for (const { dir, file } of files) {
     const name = relative(ROOT, file).replaceAll("\\", "/");
+    const bans = BANS.filter((ban) => ban.dirs === undefined || ban.dirs.includes(dir));
     it(`${name} uses no wall clock, no randomness, no DOM, no render`, async () => {
       const code = stripNonCode(await Bun.file(file).text());
-      const broken = BANS.filter((ban) => ban.pattern.test(code));
+      const broken = bans.filter((ban) => ban.pattern.test(code));
       expect(broken.map((ban) => ban.why)).toEqual([]);
     });
   }
@@ -359,6 +387,29 @@ const COPIES: Copy[] = [
     call: "fallTilesPerBeat",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"torch"\s*\)\s*return\s*fallTilesPerBeat\s*\(\s*"meteorFastest"\s*\)/,
+    strip: false,
+  },
+  {
+    // The contour itself. `hullRadiusMul` was a byte-identical copy of this for
+    // as long as both existed, so the game stroked one and the shape sheet
+    // measured the other — every judgement made on the sheet was a judgement
+    // about a copy of the thing that ships. They agreed because nobody had
+    // edited one yet, which is not a property, it is a coincidence with a
+    // clock on it.
+    call: "blobRadiusMul",
+    owner: "packages/content/src/shapes.ts",
+    pattern: /wobble\s*\*\s*0\.6\s*\*\s*Math\s*\.\s*sin/,
+    strip: false,
+  },
+  {
+    // The Throb's swell — the two sizes that say whether a shot lands. It stood
+    // in `creatures.ts` as a ternary and again in the shape sheet's nameability
+    // axes as `[0.7, 1.3]`, under a comment admitting where it had been copied
+    // from. A sheet judging a body at the wrong two sizes answers the one
+    // question that tool exists for, wrongly.
+    call: "THROB_SWELL",
+    owner: "packages/render/src/creatures.ts",
+    pattern: /throbOpen\s*\?\s*1\.3\s*:\s*0\.7|\[\s*0\.7\s*,\s*1\.3\s*\]/,
     strip: false,
   },
 ];

@@ -27,12 +27,41 @@ const LIMIT = 250;
  * time. There is currently nothing left in `KNOWN_LONG` — an act file that
  * fills up in its own turn gets a fourth act beside it, not an entry here.
  */
-const KNOWN_LONG: Record<string, number> = {};
+/**
+ * Files over the limit that the ratchet did not use to reach, at the length
+ * they had when it started reaching them. They may shrink and never grow.
+ *
+ * Every one is a tool's *entry point* — the file a session opens first when it
+ * lands a lane, judges a versus pair or takes a picture — which is exactly the
+ * class the old glob missed, because it only looked inside `src/` and a tool's
+ * entry point sits above one. They are seeded rather than split here: five
+ * splits in a lane that owns none of the five would be five seams nobody chose.
+ */
+const KNOWN_LONG: Record<string, number> = {
+  "tools/versus/prompt.ts": 509,
+  "tools/director/server.ts": 335,
+  "tools/land/worktree.ts": 315,
+  "tools/frames/run.ts": 261,
+  "tools/frames/capture.ts": 252,
+};
 function sourceFiles(): string[] {
-  const glob = new Glob("{packages,apps,tools}/*/src/**/*.ts");
+  // `**` rather than `*/src/**`: a file outside a `src/` directory is still a
+  // file somebody has to read, and the four longest in the repository were all
+  // outside one — `tools/versus/prompt.ts` at 509 lines went over the limit,
+  // and past twice the limit, without this test ever looking at it.
+  const glob = new Glob("{packages,apps,tools}/**/*.ts");
   return [...glob.scanSync(ROOT)]
     .map((f) => join(ROOT, f))
-    .filter((f) => !f.includes("node_modules") && !f.includes("dist") && !f.endsWith(".test.ts"));
+    .filter(
+      (f) =>
+        !f.includes("node_modules") &&
+        !f.includes("dist") &&
+        !f.endsWith(".test.ts") &&
+        // Test helpers are read the way tests are — a fixture that lists one of
+        // everything is long because the thing it lists is long, and splitting
+        // it would only hide that.
+        !f.replaceAll("\\", "/").includes("/test/"),
+    );
 }
 
 /**

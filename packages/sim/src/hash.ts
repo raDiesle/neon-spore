@@ -1,6 +1,7 @@
 import { kindCode } from "./creature-kinds.js";
 import { bossHashParts } from "./hash-boss.js";
 import { spanOf } from "./kinds.js";
+import { POD_KINDS } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -153,6 +154,11 @@ export function hashWorld(world: World): number {
     // body inside needs no field of its own, being `c.color` a few lines up,
     // which is what the morph turns over.
     push(c.veilStruckTick ?? 0);
+    // The body a lure wears. Authored rather than rolled, so it is in here for
+    // the reason the maze's wheel is: the assumption that both devices were
+    // handed the same wave is exactly the one worth checking, and a disguise
+    // that differed would put player 1 in front of a body player 2 cannot see.
+    push(c.wears === undefined ? 0 : kindCode(c.wears) + 1);
   }
 
   push(world.bullets.length);
@@ -161,6 +167,12 @@ export function hashWorld(world: World): number {
     push(b.col);
     push(b.row);
     push(b.subMilli);
+    // What it kills. `bullet-hit.ts` decides kill from miss by comparing this
+    // against the body it meets, so a shot that is red on one device and cyan
+    // on the other clears the field on one screen and bounces off on the
+    // other. The charge's colour was already hashed above; this is the same
+    // shot one tick later.
+    push(b.color === "red" ? 1 : 2);
     push(b.lance ? 1 : 0);
     push(b.pierced);
   }
@@ -172,6 +184,10 @@ export function hashWorld(world: World): number {
     push(p.rowMilli);
     push(p.driftMilli);
     push(p.loose ? 1 : 0);
+    // What it gives when it is swallowed — `pods.ts` switches on it for hull,
+    // for a swept field or for an armed shield, so two devices that disagree
+    // here disagree about the state of the ship a beat later.
+    push(POD_KINDS.indexOf(p.kind) + 1);
   }
 
   push(world.scars.length);

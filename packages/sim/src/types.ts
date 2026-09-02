@@ -36,6 +36,14 @@ export {
  */
 export type PodKind = "mend" | "purge" | "ward";
 
+/**
+ * The three, as data. `hashWorld` folds a pod's kind in by its index here
+ * rather than by a ternary chain, for `BOSS_KINDS`' reason: a fourth pod added
+ * to the type and not to a chain would hash as the third, and two devices
+ * would agree about a ship they disagree about.
+ */
+export const POD_KINDS: readonly PodKind[] = ["mend", "purge", "ward"];
+
 export interface Creature {
   id: number;
   kind: CreatureKind;

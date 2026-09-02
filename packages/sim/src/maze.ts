@@ -191,7 +191,6 @@ export type MazePhase = (typeof MAZE_PHASES)[number];
  * different drums and nothing else would say a word about it.
  */
 export function mazeHashParts(m: MazeState): number[] {
-  const wheel = m.rounds[m.round];
   const parts = [
     m.round,
     MAZE_PHASES.indexOf(m.phase),
@@ -199,6 +198,12 @@ export function mazeHashParts(m: MazeState): number[] {
     m.angleMilli,
     m.turn,
     m.armed ? 1 : 0,
+    // The hand on the string, and where it grabbed. The wheel turns by the
+    // change in this between two messages, so two devices that disagree about
+    // the origin turn it by different amounts on the very next drag — THE
+    // WARDEN's rope is hashed for this reason, field for field.
+    m.dragging ? 1 : 0,
+    m.dragFromMilli,
     m.lockedCol,
     m.lockedWay,
     m.way,
@@ -206,13 +211,18 @@ export function mazeHashParts(m: MazeState): number[] {
     m.hullMilli,
     m.verdict,
     m.verdictCol,
-    wheel === undefined ? -1 : wheel.rings,
-    wheel === undefined ? -1 : wheel.sectors,
-    wheel === undefined ? -1 : wheel.startMilli,
   ];
-  for (const entrance of wheel?.entrances ?? []) {
-    parts.push(entrance.sector, entrance.route.length);
-    for (const cell of entrance.route) parts.push(cell.ring, cell.sector);
+  // Every wheel, not only the one in front of the pair. `m.round` above says
+  // which is current; what these cover is the assumption that both devices
+  // were dealt the same drums, which is the one worth checking rather than the
+  // one that is safe.
+  parts.push(m.rounds.length);
+  for (const wheel of m.rounds) {
+    parts.push(wheel.rings, wheel.sectors, wheel.startMilli, wheel.entrances.length);
+    for (const entrance of wheel.entrances) {
+      parts.push(entrance.sector, entrance.route.length);
+      for (const cell of entrance.route) parts.push(cell.ring, cell.sector);
+    }
   }
   parts.push(m.tried.length);
   for (const way of m.tried) parts.push(way);

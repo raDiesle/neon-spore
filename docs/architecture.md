@@ -35,6 +35,12 @@ The world stores integers. Sub-tile values â€” bullet position, hull integrity â
 are kept in thousandths. Two devices can then never disagree about a rounding
 step, and `hashWorld` is an exact equality test rather than an approximate one.
 
+Every field of `World` is in `hashWorld` unless it is one of the named
+exceptions in `hash.ts` (decision 23), and that is a test rather than a habit:
+`packages/sim/test/hash-coverage.test.ts` builds a world with something in every
+field, for every boss, changes one leaf at a time and requires the fingerprint
+to notice. A field added and left out fails there by its own path.
+
 Any new field on a creature or bullet must be added to `hashWorld`. A field
 outside the hash is a field that can desync two devices silently.
 

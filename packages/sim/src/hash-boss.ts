@@ -2,7 +2,7 @@ import type { BossState } from "./boss-state.js";
 import { BOSS_KINDS } from "./entries.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
-import { MIRROR_PHASES } from "./simon.js";
+import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -51,6 +51,10 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.dropSide);
     push(boss.releaseBeat);
     push(boss.releaseSide);
+    // What she started with. `boss.ts` measures the drop against it, so two
+    // devices that disagree here shed a different number of petals for the
+    // same hit — the authored-field argument `mazeHashParts` makes.
+    push(boss.startPetals);
     push(boss.scratch.length);
     for (const n of boss.scratch) push(n);
   }
@@ -98,6 +102,16 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.calledGood ? 1 : 0);
   }
   if (boss !== null && boss.kind === "mirror") {
+    // Every sequence, not only the one being played. They are authored, which
+    // is what makes them worth checking rather than what makes them safe: two
+    // phones on two builds of `content` would ask for different steps three
+    // rounds in, and nothing else in here would say a word about it. Six
+    // rounds of six steps is thirty-odd numbers every four beats.
+    push(boss.rounds.length);
+    for (const round of boss.rounds) {
+      push(round.length);
+      for (const step of round) push(MIRROR_STEPS.indexOf(step));
+    }
     push(boss.round);
     push(MIRROR_PHASES.indexOf(boss.phase));
     push(boss.phaseBeat);
