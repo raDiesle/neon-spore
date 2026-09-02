@@ -1,6 +1,7 @@
 import { colSpan, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { SIREN_PAD } from "./siren-seats.js";
 
 /** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
  * same literal the meteor's own crater rim already uses in `creatures.ts`. */
@@ -77,11 +78,16 @@ export function drawTorchAlarm(
   ctx.fillRect(0, 0, edge, l.height);
   ctx.restore();
 
+  // Right-aligned to the siren's own right edge, directly under it. The line
+  // is the sentence the siren's chips are asking for — *this is the call, and
+  // here is what to say* — so it hangs off that cluster rather than floating
+  // at the middle of a screen with nothing else on that axis. Centring it made
+  // it a caption for the band; the band already says where.
   ctx.font = '600 10px "Courier New",monospace';
-  ctx.textAlign = "center";
+  ctx.textAlign = "right";
   ctx.fillStyle = PALETTE.rock;
   ctx.globalAlpha = 0.6 + 0.4 * pulse;
-  ctx.fillText(alarmText(l.role, warning), l.width / 2, ALARM_TOP + ALARM_HEIGHT - 2);
+  ctx.fillText(alarmText(l.role, warning), l.width - SIREN_PAD, ALARM_TOP + ALARM_HEIGHT - 2);
   ctx.globalAlpha = 1;
   ctx.textAlign = "left";
 

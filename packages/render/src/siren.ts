@@ -4,7 +4,7 @@ import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSeat, PILL_W } from "./siren-seats.js";
+import { drawSeat, PILL_W, SIREN_PAD } from "./siren-seats.js";
 
 /**
  * The warning siren, top right of the field beside the strip, and the two
@@ -40,7 +40,6 @@ const CASE = "#0D1117";
 const CASE_RIM = "#2A2547";
 const TICK = "#5B5486";
 
-const PAD = 10;
 /** Outer radius of the dial. Fixed pixels like the rest of the HUD (`hud.ts`
  * places the hull bar at 14 and the beat dots at 34), because it is furniture
  * on the screen rather than anything sized to a tile. */
@@ -63,7 +62,7 @@ export function drawCommsSiren(
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const cx = l.width - PAD - PILL_W - GAP - R;
+  const cx = l.width - SIREN_PAD - PILL_W - GAP - R;
   const cy = TOP + R;
   const reach = R + GAP + PILL_W / 2;
 

@@ -15,6 +15,12 @@ import { PALETTE } from "./palette.js";
  * twenty pixels. They are argued about separately and they change separately.
  */
 
+/** The gap between the cluster and the right edge of the screen. It lives here
+ * with the chip's own box rather than in `siren.ts`, because the torch alarm's
+ * line hangs off the same edge (`torch-alarm.ts`) and this file is the one
+ * both can read without importing the instrument. One edge, named once. */
+export const SIREN_PAD = 10;
+
 /** The chip's own box. Fixed pixels like the rest of the HUD. */
 export const PILL_W = 34;
 const PILL_H = 20;
