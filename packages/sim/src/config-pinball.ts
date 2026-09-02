@@ -28,7 +28,12 @@
 export interface PinballConfig {
   /** The table's width, in tiles. Eleven, so it is the field's own width. */
   pinballCols: number;
-  /** The table's height, in tiles. Portrait, and taller than the field. */
+  /**
+   * The table's height, in tiles. Portrait, and taller than the field — but
+   * only just: the space below the lowest piece is the ball's way home and
+   * nothing else, so a table much taller than its boards is a round spent
+   * watching a ball fall through nothing.
+   */
   pinballRows: number;
   /** The ball's radius, in thousandths of a tile. */
   pinballBallMilli: number;
@@ -90,7 +95,7 @@ export interface PinballConfig {
  */
 export const PINBALL_DEFAULTS: PinballConfig = {
   pinballCols: 11,
-  pinballRows: 18,
+  pinballRows: 14,
   pinballBallMilli: 240,
   pinballPegMilli: 200,
   pinballGravityMilli: 2,

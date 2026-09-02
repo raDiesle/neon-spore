@@ -47,14 +47,14 @@ export function pinTable(l: Layout, cfg: SimConfig): Table {
     1,
     Math.min(
       (l.width * 0.94) / (cfg.pinballCols + bezel),
-      (l.playHeight * 0.86) / (cfg.pinballRows + bezel),
+      (l.playHeight * 0.78) / (cfg.pinballRows + bezel),
     ),
   );
   const w = tile * cfg.pinballCols;
   const h = tile * cfg.pinballRows;
   return {
     x: (l.width - w) / 2,
-    y: l.playHeight * 0.52 - h / 2,
+    y: l.playHeight * 0.56 - h / 2,
     tile,
     cols: cfg.pinballCols,
     rows: cfg.pinballRows,

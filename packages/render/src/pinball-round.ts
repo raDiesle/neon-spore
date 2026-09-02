@@ -131,10 +131,10 @@ function drawTitle(
 ): void {
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("PINBALL", l.width / 2, l.playHeight * 0.055);
+  ctx.fillText("PINBALL", l.width / 2, l.playHeight * 0.09);
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '13px "Courier New",monospace';
-  ctx.fillText(waiting(role, boss), l.width / 2, l.playHeight * 0.095);
+  ctx.fillText(waiting(role, boss), l.width / 2, l.playHeight * 0.128);
 }
 
 /**
