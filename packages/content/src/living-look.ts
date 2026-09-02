@@ -1,7 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
-import { HOLD, POISE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
+import { FLICKER, HOLD, POISE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
 import type { OwnMotion } from "./own-motion.js";
-import { BULB, type CreatureSilhouette, DART, SLICK, THROB } from "./silhouettes.js";
+import { BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -41,6 +41,7 @@ const LIVING_LOOK = {
   bulb: { shape: BULB, motion: SWAY_PUMP },
   throb: { shape: THROB, motion: HOLD },
   dart: { shape: DART, motion: POISE },
+  wisp: { shape: WISP, motion: FLICKER },
   // Drawn as the body underneath — resolve with `wornKind` before asking.
   lure: null,
   clasp: null,

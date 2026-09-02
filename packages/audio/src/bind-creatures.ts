@@ -32,7 +32,8 @@ export function creatureCue(
         | "lureVanished"
         | "veilMorph"
         | "veilRebuff"
-        | "veilTorn";
+        | "veilTorn"
+        | "wispHop";
     }
   >,
   cols: number,
@@ -125,6 +126,19 @@ export function creatureCue(
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    case "wispHop":
+      // The cue that was written for a coordinate grid and never spent — two
+      // pips, one for the column and one for the row — played on both devices
+      // for the one creature that finally needs one.
+      //
+      // **No pan and no pitch, and that is the whole of the binding.** Every
+      // other cue in this file is placed by column and lifted by row, which is
+      // exactly the tile player 1 must not be able to find; and the two of them
+      // are usually sitting next to each other, so a panned pip would put it
+      // through the speaker of the phone in the wrong hand. What it is allowed
+      // to say is the one thing that seat needs and cannot see: the square you
+      // are holding has just expired.
+      return { id: "signal.bearing", gain: 0.55 };
     case "lureVanished":
       // Both devices, because this is the one moment both screens show the
       // same thing. Not `impact.destroyRed`/`Cyan` and not `impact.reject`:

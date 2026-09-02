@@ -33,6 +33,7 @@ In the code: `CREATURES` and `controlsForKinds` in
 | Position of all creatures | ✔ | ✔ |
 | Colours (normal) | ✔ | ✔ |
 | Veil: the body inside | ✔ (the whole way down) | ✘ |
+| Wisp: the body at all | ✘ | ✔ |
 | Radar: rocks + torch (`guard` kinds) | ✔ | ✘ |
 | Radar: slick, bulb, queen (`aim` kinds) | ✘ | ✔ |
 | Target mix (boss "The Vessel") | ✘ | ✔ |
@@ -76,6 +77,18 @@ ammunition colour, because a veil's queue entry carries no colour to read and
 a confident cyan blip would have been right half the time
 (`render/veil-marks.ts`).
 
+**Built:** the wisp row, and it is the one place the ground rule below is
+spent rather than merely bent. Player 1 is shown nothing of a wisp — no body,
+no mark, no tile — and that is only fair because a wisp *cannot reach the
+ship*: it never falls, so no hit can be arbitrary for the person who took it,
+because there is no hit. What it costs instead is the wave, which stays open
+until it is shot. The pair's answer is the coordinate grid: while a wisp is on
+the field both screens carry the tile lattice and its axes, so the seat that
+can see one has two characters to say and the seat holding the cannon has
+somewhere to put them. See `packages/sim/src/wisp.ts` and
+`packages/render/src/coord-grid.ts`, and the wisp's entry in
+[bestiary](bestiary.md).
+
 **Ground rule:** every creature's position is present for both. It may be
 incomplete or disturbed (see *The Blind One*, [bestiary](bestiary.md)), but
 never absent — otherwise a hit is arbitrary for the person who took it.
@@ -84,7 +97,8 @@ never absent — otherwise a hit is arbitrary for the person who took it.
 
 - ~100 beats/min, every fourth accented, keeps running through pauses
 - Sync window = the same beat, instead of an invisible 250 ms
-- Teleport jumps, the throb and countdown creatures hang off the beat
+- Teleport jumps, the throb and countdown creatures hang off the beat — all
+  three built, the first as THE WISP (`wispDwellBeats`)
 - **No soundtrack** — only a sparse click track below the speech range, so it
   does not compete with the voice
 - Separate tones for: colour loaded, locked on, manoeuvre succeeded, missed
@@ -92,8 +106,9 @@ never absent — otherwise a hit is arbitrary for the person who took it.
 - Silent mode: a pulsing screen border as a visible substitute
 
 Built: the clock itself at **96 BPM** (`bpm`, `ticksPerBeat`), the beat as
-something you can see — grid lines and crossing points light up on every beat
-and fade, four beat dots in the HUD, a ring on the shield — and, now, the beat
+something you can see — four beat dots in the HUD, a ring on the shield, and,
+on the waves that carry a wisp, the grid lines and crossing points lighting up
+on every beat and fading — and, now, the beat
 as something you can hear: `beat.tick` and `beat.accent`, with tones for the
 outcomes above. See [audio.md](audio.md), including the part where none of it
 has been listened to yet.
@@ -231,6 +246,16 @@ column — no lane changes, no turning in towards the hull. Variety is **purely
 optical**: the bulb sways in its lane and pumps, the slick glides,
 tilts and ripples, meteors drift slightly. None of it touches the tile —
 the path stays exactly readable. Lane changing is reserved for later types.
+
+**Grid lines and the two axes.** Both are drawn, and only on the waves that
+need them: while a wisp is on the field the tile lattice comes up on both
+screens with a letter over every column and a number down the left edge,
+numbers rising toward the ship. It fades in and out with the creature rather
+than standing behind every wave, because a lattice that is always there is a
+texture the pair stops seeing — and the beat pulse in it is a tenth of what
+the first draft carried, because a full-screen flash four times a bar is a lot
+to put behind a body somebody is reading a letter off. See
+`packages/render/src/coord-grid.ts`.
 
 **Damage.**
 

@@ -88,6 +88,12 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // the clamp (docs/spec/bosses.md 11.4). Zero, not a small
   // number: a line that crept would eventually arrive.
   if (kind === "tether") return 0;
+  // And the one body that neither falls nor travels: a wisp is somewhere else
+  // every `wispDwellBeats` and nowhere in between (`stepWisp`). Zero here is
+  // what makes it *arrive* rather than glide in — `onBeat` seeds `fromRow`
+  // from this number, so a wisp's first frame is already on the tile it was
+  // authored into, which is the only entrance a thing that teleports has.
+  if (kind === "wisp") return 0;
   const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
@@ -186,9 +192,15 @@ export function isBossBody(kind: CreatureKind): boolean {
  * `grippedFallTiles`. A brake scales a rate, and a dart has no rate to scale —
  * a hand on one would be the tether's defect wearing a body that visibly
  * travels, which is worse.
+ *
+ * The wisp is refused for all three reasons at once, and for a fourth that is
+ * the whole creature: player 1 cannot see one, so a hand could only ever be
+ * put on it by the seat that already knows where it is — which is a way of
+ * marking the tile for the other player without saying anything, and saying it
+ * out loud is the game.
  */
 export function isGrippable(kind: CreatureKind): boolean {
-  return !isBossBody(kind) && kind !== "tether" && kind !== "dart";
+  return !isBossBody(kind) && kind !== "tether" && kind !== "dart" && kind !== "wisp";
 }
 
 /**

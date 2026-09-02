@@ -230,6 +230,7 @@ export {
   wardenCycleBeat,
   wardenPhase,
 } from "./warden-cycle.js";
+export { wispHops, wispOnField, wispRows } from "./wisp.js";
 export {
   type BossEntry,
   createWorld,

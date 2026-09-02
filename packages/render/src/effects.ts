@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
+import { CoordGrid } from "./coord-grid.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
 import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
@@ -56,6 +57,16 @@ export class Effects {
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
+  /**
+   * The lettered grid coming up and going again. Public and driven from
+   * `canvas2d.ts` rather than fed by an event, because it is not a transient
+   * at all — it is a fade toward a fact about the world (is anything on the
+   * field named by tile), and the fact is read fresh every frame. It lives
+   * here for the one reason everything else here does: it outlives its frame,
+   * so a wave restarting with it half up would carry that into the new run
+   * (`reset`).
+   */
+  readonly coordGrid = new CoordGrid();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -200,6 +211,7 @@ export class Effects {
     this.warden.reset();
     this.bodies.clear();
     this.spriteBursts.clear();
+    this.coordGrid.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

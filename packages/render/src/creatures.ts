@@ -19,6 +19,7 @@ import { drawMeteor } from "./meteor.js";
 import { PALETTE } from "./palette.js";
 import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
+import { drawWisp, showsWisp, wispOut } from "./wisp.js";
 
 /**
  * The Throb's "swells and shrinks" tell, at rest (`shut`) and mid-pulse
@@ -85,7 +86,19 @@ export function drawCreatures(
     // and a glow pass all reach outside the contour they belong to, so the
     // colour would show as a rim of light around a shape player 2 must not be
     // able to name. `showsVeilCore` is the one gate (`veil.ts`).
-    else if (c.kind !== "veil" || showsVeilCore(l))
+    // And the body that is drawn as *nothing at all* on the other screen. The
+    // veil above hides what is inside a cloud both seats can see; this one is
+    // not on player 1's field in any form, which is why it has no branch after
+    // the draw the way the cloud does — there is no second half to lay over an
+    // empty tile. `showsWisp` is the one gate (`wisp.ts`), and the teleport is
+    // its own picture rather than `drawLiving` under a transform: it squashes,
+    // stretches into a line and leaves a ring behind on the tile.
+    else if (c.kind === "wisp") {
+      if (showsWisp(l)) {
+        const out = wispOut(world.cfg, world.beat, beatPhase);
+        drawWisp(ctx, l, world.cfg, c, x, y, time, beats, near, out);
+      }
+    } else if (c.kind !== "veil" || showsVeilCore(l))
       drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
     // The weather over that body, on both screens and identical on both — the
     // clasp's arrangement below, one creature earlier in the pass.

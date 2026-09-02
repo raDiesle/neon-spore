@@ -133,6 +133,11 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "shellBare":
     case "veilMorph":
     case "veilRebuff":
+    // A wisp hopping leaves nothing behind on the field: the ring and the beam
+    // are drawn every frame off the body itself (`wisp.ts`), so there is no
+    // transient here — and an event carrying no column could not place one
+    // anyway, which is deliberate (`events.ts`).
+    case "wispHop":
       break;
     default:
       assertNever(e);

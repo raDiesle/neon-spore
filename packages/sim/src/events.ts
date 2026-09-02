@@ -179,4 +179,17 @@ export type SimEvent =
    * its score, and this is the half-second of weather that comes off the top
    * of it (`render/veil-tear.ts`).
    */
-  | { type: "veilTorn"; col: number; row: number; color: Color; kind: CreatureKind };
+  | { type: "veilTorn"; col: number; row: number; color: Color; kind: CreatureKind }
+  /**
+   * Every wisp on the field is somewhere else. **It carries no column and no
+   * row, and that is the whole of the event**: a cue is panned by column and
+   * pitched by row (`bind.ts`), and both devices play it, so an event with a
+   * position on it would put the tile player 1 must not know into the speaker
+   * of the phone in their hand — in a room where the two of them are sitting
+   * next to each other. What it is allowed to say is the one thing player 1
+   * *needs*: the call you are holding has just expired.
+   *
+   * One event for the whole field rather than one per body, because the hop
+   * is read off the shared beat and every wisp takes it at once (`wispHops`).
+   */
+  | { type: "wispHop" };

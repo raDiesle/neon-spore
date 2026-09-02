@@ -149,4 +149,4 @@ export { livingMotion } from "./living-look.js";
 // The motions themselves live next door — see `motions.ts` for the seam. Every
 // one is re-exported here so that a reader who already says
 // `livingMotion` from `own-motion.ts` still can.
-export { HOLD, POISE, SWAY_PUMP, TILT_RIPPLE, TREMBLE } from "./motions.js";
+export { FLICKER, HOLD, POISE, SWAY_PUMP, TILT_RIPPLE, TREMBLE } from "./motions.js";

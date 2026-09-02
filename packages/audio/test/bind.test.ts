@@ -60,6 +60,7 @@ const SAMPLES: Record<string, SimEvent> = {
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
+  wispHop: { type: "wispHop" },
 };
 
 describe("bindings", () => {

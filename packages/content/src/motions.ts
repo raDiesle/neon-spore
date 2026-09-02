@@ -139,6 +139,44 @@ export const POISE: OwnMotion = {
   },
 };
 
+/**
+ * The wisp: the only body here that does not move at all, and the absence is
+ * the whole record.
+ *
+ * `POISE` makes this argument for the dart and it goes further here. A dart's
+ * one signal is which way it leans, so its own-motion must not sway; a wisp's
+ * one signal is the *tile it is standing on*, and the pair is reading that
+ * tile off a lettered grid drawn under it. A body that drifted a fifth of a
+ * lane the way the bulb does would sit visibly between two letters for half of
+ * every beat, and the one sentence this creature exists to be described by
+ * would come out as a question.
+ *
+ * So `dx` and `dy` are flat zero — the only motion in this file where both
+ * are — and what is left is a body turning slowly on the spot with a small
+ * counter-beat shiver in its size. A rotation cannot move a contour off its
+ * own centre and cannot change any radius, so it costs the tile read nothing
+ * and it is the one thing that says *alive* about something that otherwise
+ * only ever appears and disappears.
+ *
+ * The turn is deliberately slow and the two frequencies are deliberately not
+ * commensurate with the hop: a body that pulsed on the dwell would be a second
+ * clock beside the one the pair is already counting.
+ */
+export const FLICKER: OwnMotion = {
+  name: "FLICKER",
+  note: "no drift at all — a slow turn on the spot and a shiver, so the tile it stands on is never in doubt",
+  poseAt(t) {
+    const shiver = Math.sin(t * 2.6875);
+    return {
+      dx: 0,
+      dy: 0,
+      rot: t * 0.21875,
+      sx: 1 + shiver * 0.035,
+      sy: 1 - shiver * 0.035,
+    };
+  },
+};
+
 // Which kind sways with which of the motions above is *not* here: it is one
 // row per kind in `living-look.ts`, beside that kind's contour, because a body
 // and its own-motion are one fact and were two hand-kept lists over it.

@@ -65,6 +65,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   veilMorphBeats: "THE VEIL — a cloud only one of you can see into",
   veilArmourMs: "THE VEIL — a cloud only one of you can see into",
   scoreVeilKill: "SCORE",
+  wispDwellBeats: "THE WISP — a body only one of you can see at all",
+  scoreWispKill: "SCORE",
   throbPeriodBeats: "THROB — open for one beat in every few",
   throbOpenBeats: "THROB — open for one beat in every few",
   radarLead: "RADAR — what is coming",

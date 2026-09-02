@@ -16,8 +16,10 @@ describe("roster", () => {
 
     expect(roster.creatures).toHaveLength(13);
     // The Silent and The Jammer joined for the torch's radar-ownership work —
-    // docs/decisions.md #15.
-    expect(roster.accepted).toHaveLength(9);
+    // docs/decisions.md #15 — and the Wisp is the tenth: newly accepted rather
+    // than one of the first thirteen, because nothing on that list had a
+    // *position* nobody could see.
+    expect(roster.accepted).toHaveLength(10);
     // Eleven named in the act order, plus THE MIRROR, which holds no slot in
     // it and is built (docs/spec/bosses.md 11.3).
     expect(roster.bosses).toHaveLength(12);

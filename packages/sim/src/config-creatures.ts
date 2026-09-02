@@ -1,7 +1,8 @@
 /**
  * What one *creature* costs and how long its own clock runs: the lure's price
  * and the row it leaves on, the throb's cycle, the shell's chipping, the
- * clasp's break, the veil's morph and its armour.
+ * clasp's break, the veil's morph and its armour,
+ * and the wisp's dwell.
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-shot.ts` and `config-boss.ts` already give: every call site still
@@ -70,6 +71,23 @@ export interface CreatureConfig {
   /** What a veil is worth. Above `scoreThrobHit`: the timing is only half of
    * it, and the other half is a sentence that had to be said in time. */
   scoreVeilKill: number;
+  /**
+   * Beats THE WISP stands on one tile before it is somewhere else.
+   *
+   * Beats and not milliseconds, for `veilMorphBeats`' reason and rather more
+   * of it: the seat that has to answer a wisp cannot see one, so the count is
+   * the only thing either of them shares about it. Two is what the owner
+   * asked for — 1.25 s at 96 BPM, which is *under* the 2.1–3.6 s a full
+   * spoken exchange takes (docs/spec/latency.md), and deliberately so: the
+   * pair is not meant to complete a sentence per tile. What they are meant to
+   * build is the shorthand two letters and a number make possible, and a
+   * dwell long enough for a whole sentence would never force one.
+   */
+  wispDwellBeats: number;
+  /** What a wisp is worth. The highest single body in the game: it is only
+   * ever killed by a call that crossed the room and landed inside a beat and
+   * a quarter. */
+  scoreWispKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -85,4 +103,6 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   veilMorphBeats: 5,
   veilArmourMs: 2000,
   scoreVeilKill: 250,
+  wispDwellBeats: 2,
+  scoreWispKill: 300,
 };

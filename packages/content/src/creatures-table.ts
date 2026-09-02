@@ -1,5 +1,6 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
+import { ROCK_CREATURES } from "./creatures-rocks.js";
 
 /**
  * Adding a creature means adding one entry here. Waves are not touched —
@@ -28,53 +29,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     radar: "p2",
     blurb: "Round and swollen, and always cyan. Sways in its lane and pumps.",
   },
-  meteor: {
-    kind: "meteor",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb: "Dead rock. Cannot be shot. Shield in the right column, triggered at the right moment.",
-  },
-  meteorMedium: {
-    kind: "meteorMedium",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb:
-      "Dead rock, falling twice as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
-  },
-  meteorFast: {
-    kind: "meteorFast",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb:
-      "Dead rock, falling three times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
-  },
-  meteorFaster: {
-    kind: "meteorFaster",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb:
-      "Dead rock, falling four times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
-  },
-  meteorFastest: {
-    kind: "meteorFastest",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb:
-      "Dead rock, falling five times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
-  },
-  torch: {
-    kind: "torch",
-    controls: ["guard"],
-    color: null,
-    radar: "p1",
-    blurb:
-      "Same rock, same colour as a meteor, just twice as wide and the fastest thing in the field. Cannot be shot — and it is what the queen carries on each wing. Shield across both columns, triggered at the right moment.",
-  },
+  // The five speed tiers and the torch, next door in `creatures-rocks.ts`.
+  // Spread in here rather than listed, at exactly the position they have
+  // always held, so key order is untouched — the director reads its brush
+  // strip off it. See that file for why the rocks are the half that moved.
+  ...ROCK_CREATURES,
   queen: {
     kind: "queen",
     controls: ["aim", "guard"],
@@ -228,6 +187,28 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A thundercloud with a slick or a bulb inside it, and only the pilot can see which. It turns over from one to the other every few beats, so the colour you were told expires — and a shot in the wrong one shuts the cloud for two seconds rather than merely missing.",
+  },
+  wisp: {
+    kind: "wisp",
+    // The cannon alone. It is answered by a shot like a slick, and everything
+    // that makes it hard is *which tile* the shot has to be fired up — which
+    // is aiming, not warding.
+    controls: ["aim"],
+    // No colour, and this entry is doing work rather than standing blank. The
+    // throb is the precedent and the argument is the same one pointed at a
+    // different axis: a throb is answered by the beat, a wisp by the tile, and
+    // in neither case is the ammunition the question. Either colour kills one
+    // (`wispStruck`). A colour here would put a second sentence beside the
+    // only one this creature exists to make somebody say out loud.
+    color: null,
+    // Player 1's strip, and the same rule the clasp and the dart are on rather
+    // than an exception to it: the seat that is shown one coming is never the
+    // seat that can see where it went. It is the sharpest version of that
+    // split in the game — player 1 gets the *only* warning and then nothing
+    // at all, which is exactly the moment they have to start listening.
+    radar: "p1",
+    blurb:
+      "It is on one of your screens and not the other, and it is never in the same tile twice: every two beats it is somewhere else on the field. It does not fall, so it never reaches the ship and never leaves — the wave stays open until it is shot, and either colour will do it. While one is out, both screens carry the lettered grid.",
   },
   tether: {
     kind: "tether",

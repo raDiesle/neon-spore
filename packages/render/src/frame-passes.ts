@@ -33,20 +33,27 @@ import { drawVeilMarks } from "./veil-marks.js";
  * change without also changing `packages/render/test/frame.test.ts`.
  */
 
-/** The empty field: fill, backdrop, radar and the grid the columns sit on. */
+/**
+ * The empty field: fill, backdrop, radar and the grid the columns sit on.
+ *
+ * `grid` is `Effects.coordGrid.shown` — how far up the lettered lattice is.
+ * It is threaded through rather than read here, because it is a fade and this
+ * file draws, it does not remember (`coord-grid.ts`).
+ */
 export function drawFieldBack(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   view: ViewState,
   flash: number,
+  grid: number,
 ): void {
   // No flat fill here: drawBackground's radial gradient is opaque over the
   // same rect, so a fill under it never reaches the screen (canvas2d.ts's
   // own viewport fill covers the letterbox this pass does not reach).
   drawBackground(ctx, l, world.wave, view.time);
   drawRadar(ctx, l, world, view.time);
-  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase);
+  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid);
 }
 
 /** Everything that lives on the field between the two hulls. */

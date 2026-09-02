@@ -1,8 +1,8 @@
 # Bestiary
 
-> **Status: seventeen `CreatureKind` values exist**, against the twenty-odd
+> **Status: eighteen `CreatureKind` values exist**, against the twenty-odd
 > designed on this page — slick, bulb, the five meteor tiers, torch, queen,
-> warden, tether, lure, throb, shell, clasp, dart and veil
+> warden, tether, lure, throb, shell, clasp, dart, veil and wisp
 > (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
 > design.
 >
@@ -39,7 +39,7 @@ Four rules, in this order:
    blob in another tint.
 
 **A name on this page is committed only if it is a `CreatureKind`** — the
-status block above names the seventeen that are, and the roster in
+status block above names the eighteen that are, and the roster in
 `packages/sim/src/creature-kinds.ts` is the list that decides. Every other name
 here is a label on an unbuilt design and costs one edit to change. The list is
 not repeated a third time on purpose: it was repeated twice and both copies
@@ -62,7 +62,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
 | `special` | neither | `tether` |
@@ -200,6 +200,7 @@ its 5–7 segments in alternating colours.
 
 | Creature | Pillar | Description |
 |---|---|---|
+| **Wisp** | Uncertainty | on one screen and not the other at all, and never in the same tile twice — the first creature whose *position* is the secret. **Built** |
 | **Thread** | Future | a trace of its *future* movement; the navigator sees it strongly, the pilot the current position. For the first time both talk about a future rather than a state |
 | **The Shadow** | Order | invulnerable while it lies behind another creature. Forces a planned order instead of a reaction |
 | **The Whisperer** | Rhythm | reacts only when both inputs hit the same beat. Makes the beat the load-bearing system instead of a comfort feature |
@@ -209,6 +210,29 @@ its 5–7 segments in alternating colours.
 | **The Beat-breaker** | Rhythm | runs on its own offset while the global beat stays correct |
 | **The Silent** | Uncertainty | `radar: "none"` — neither strip announces it. Must be slow enough that the field itself is the only warning |
 | **The Jammer** | Uncertainty | blanks the *other* player's radar for as long as it lives — the one kind whose danger is what it does to a strip, not what it does to the hull |
+
+**THE WISP is the first body one player cannot see at all**, and the first
+whose position is the secret rather than its colour, its kind or its path. THE
+LURE hides what a body *is* from the navigator; THE VEIL hides it from the
+pilot; both draw the body on both screens with something about it withheld.
+This one is simply not on player 1's field — not dimmed, not ringed, not a
+smear where it stands. It does not fall and it does not leave: every
+`wispDwellBeats` it is somewhere else on the field, drawn from the seeded rng
+one tile at a time, and the wave stays open until it is shot. Either colour
+shoots it, for the throb's reason — the ammunition is not the question this
+creature asks.
+
+**And it is what finally turned the grid on.** `render/field.ts` has carried
+the tile lattice behind a constant since the field was first drawn, under a
+comment saying to flip it back on when a mechanic needed a player to call out
+a square. Nothing had; this does. While a wisp is on the field, both screens
+carry the lattice and its two axes — letters across, numbers down toward the
+ship — and the pair's whole vocabulary for it is two characters. That is the
+timing decision as well as the picture one: two beats is 1.25 s, *under* what
+a spoken exchange takes (`docs/spec/latency.md`), so a pair who describe the
+tile are never in time and a pair who name it are. The grid goes down again
+with the last wisp, because a lattice behind every wave is a texture the pair
+stops seeing.
 
 **The Silent — the field is the warning, or there is none.** Every other rock
 and every living kind picks a `radar` owner (`docs/decisions.md` #15); this is

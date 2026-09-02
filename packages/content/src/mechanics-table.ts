@@ -54,6 +54,13 @@ export const MECHANICS = {
     // this creature nobody may compose against (`veilOnSpawn`).
     waveNames: true,
   },
+  wisp: {
+    what: "Only one of you can see it, and it is never in the same tile twice: every two beats it stands somewhere else on the field. It does not fall and it does not leave — the wave stays open until it is shot, and either colour will do it. While one is out, both screens carry the lettered grid.",
+    reach: "spawn",
+    // A wave names this kind and never a colour: a wisp carries none at all,
+    // the way a throb does, so there is nothing on the arrival to author.
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

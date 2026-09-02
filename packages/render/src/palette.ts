@@ -41,6 +41,24 @@ export const PALETTE = {
   claspShieldRim: "#B6F5C0",
   goodRim: "#C7FFE4",
   sparkDim: "#8B85AB",
+  /**
+   * THE WISP's middle band, and the one hue in this palette that is not a
+   * thing on the field but the *gap between two of them*.
+   *
+   * A wisp carries no colour: either shot kills it, and player 2 has to name a
+   * tile rather than a trigger. Every other colourless body reaches for `dim`
+   * or `rock`, which say "nothing to report" — right for a blip on a strip
+   * and wrong for a body somebody has to describe out loud. So this one is
+   * drawn through *both* ammunition colours instead, with this violet between
+   * them: a body that is visibly cyan on one side and red on the other cannot
+   * be said as either, and it says the true thing about the shot as well.
+   *
+   * Deeper and bluer than `hull`, which is the only other violet here. The
+   * hull is an enormous shape along the bottom edge and this is a body the
+   * size of a tile up the field; nothing puts them side by side.
+   */
+  wisp: "#8A4BFF",
+  wispRim: "#DCC8FF",
 } as const;
 
 /**

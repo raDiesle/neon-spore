@@ -137,6 +137,9 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "mazeProbe":
     case "mazeVerdict":
     case "mazeDown":
+    // And the one event in the union that carries no position at all, so a
+    // spark could not be put anywhere even if this creature wanted one.
+    case "wispHop":
       return null;
     default:
       return assertNever(e);

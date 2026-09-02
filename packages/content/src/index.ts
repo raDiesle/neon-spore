@@ -64,6 +64,7 @@ export {
   beats,
   beatsFromSeconds,
   bodyPhase,
+  FLICKER,
   livingMotion,
   type MotionAxis,
   type OwnMotion,

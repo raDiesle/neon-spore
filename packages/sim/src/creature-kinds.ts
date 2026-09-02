@@ -65,7 +65,16 @@ export type CreatureKind =
    * `veilBecomes` is which body, `veilMorphs` when it turns over, and
    * `Creature.veilStruckTick` is the armour a wrong colour buys it.
    */
-  | "veil";
+  | "veil"
+  /**
+   * Drawn on player 2's screen and on nobody else's, and never in the same
+   * tile twice: every `wispDwellBeats` it stands somewhere else on the field,
+   * drawn from the seeded rng. It does not fall, so it never reaches the hull
+   * and never leaves on its own — the wave stays open until it is shot. The
+   * whole of it is in `wisp.ts`, and it carries no state of its own: where it
+   * is *is* `col` and `row`, and when it moves is the shared beat.
+   */
+  | "wisp";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -96,6 +105,7 @@ export const CREATURE_KINDS = [
   "clasp",
   "dart",
   "veil",
+  "wisp",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

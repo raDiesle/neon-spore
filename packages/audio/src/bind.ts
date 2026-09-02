@@ -190,6 +190,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "veilMorph":
     case "veilRebuff":
     case "veilTorn":
+    case "wispHop":
       return creatureCue(e, cols, rows);
   }
 }

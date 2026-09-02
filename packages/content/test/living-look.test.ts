@@ -30,8 +30,8 @@ describe("the living-look table", () => {
    * wrong answer has to walk past this list, and the person adding it has to
    * say out loud that their creature is or is not a body of its own.
    */
-  it("counts exactly the four bodies the field draws through drawLiving", () => {
-    expect(livingBodyKinds()).toEqual(["slick", "bulb", "throb", "dart"]);
+  it("counts exactly the five bodies the field draws through drawLiving", () => {
+    expect(livingBodyKinds()).toEqual(["slick", "bulb", "throb", "dart", "wisp"]);
   });
 
   it("pairs each body with the contour and the motion it had before the tables merged", () => {

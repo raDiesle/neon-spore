@@ -7,6 +7,7 @@ import { spawnPods } from "./pods.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, isBossBody, spanOf } from "./types.js";
 import { veilMorph, veilOnSpawn } from "./veil.js";
+import { stepWisp, wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
 
 // `startWave` (and its private `installWarden`) is the shape of a wave
@@ -58,6 +59,16 @@ export function onBeat(world: World): void {
     world.creatures = world.creatures.filter((c) => !gone.has(c.id));
   }
 
+  // Said once for the whole field rather than once per body: every wisp takes
+  // the hop on the same beat (`wispHops`), and what the event is for is the
+  // ear of the player who cannot see any of them — one pip means "whatever
+  // you were holding has expired", and a second pip beside it would only mean
+  // it twice. Before the loop, because after it there is nothing left to ask:
+  // the bodies have already moved.
+  if (wispHops(world.cfg, world.beat) && wispOnField(world)) {
+    world.events.push({ type: "wispHop" });
+  }
+
   // Creatures land on tile centres each beat, all at once — most move one
   // tile, a rock may move several, but never a fraction of one.
   for (const c of world.creatures) {
@@ -75,6 +86,15 @@ export function onBeat(world: World): void {
     // and fell would be moving three rows on the beats it moved.
     if (c.kind === "dart") {
       stepDart(world, c);
+      continue;
+    }
+    // A wisp does not fall either, and it does not cross the ground between
+    // two tiles: on the beats `wispHops` names it is simply somewhere else,
+    // and on the beats in between it is nowhere new. In place of the line
+    // below for the dart's reason — a body that both hopped and fell would be
+    // arriving one row lower than the tile player 2 just read out.
+    if (c.kind === "wisp") {
+      stepWisp(world, c);
       continue;
     }
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,

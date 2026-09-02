@@ -74,6 +74,10 @@ const BY_ID: Record<string, Subject> = {
   // armour on its own — armour has no contour of its own at all now
   // (`shellBecomes`), and what is underneath is a slick or a bulb. The bulb,
   // because a Shell-Bulb is the one this act's wave opens with.
+  // The wisp's hop, and the one sound in the catalogue whose whole point is
+  // that it says nothing about *where*. The body is still what it is about, so
+  // the card shows the contour.
+  "signal.bearing": shape("WISP"),
   "impact.split": shape("BULB"),
   "creature.moult": shape("BULB"),
 

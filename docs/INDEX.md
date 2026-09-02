@@ -139,6 +139,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |
 | `packages/sim/src/warden.ts` | THE WARDEN's whole choreography: a gate held open by a rope somebody is pulling |
 | `packages/sim/src/wave-start.ts` | begin playing a wave |
+| `packages/sim/src/wisp.ts` | you are changing where a wisp goes next, how long it stands there, or what a shot at one does |
 
 ### packages/content
 
@@ -168,6 +169,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-2.ts` | act two: the first five bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
+| `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
+| `packages/content/src/waves/act-4.ts` | you are adding a wave — this is the act new ones land in |
 
 ### packages/render
 
@@ -284,6 +287,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
+| `packages/render/src/coord-grid.ts` | you are changing the lettered grid, its axes, or what brings it up |
+| `packages/render/src/wisp.ts` | you are drawing a wisp, its teleport, or deciding which screen sees one |
 
 ### packages/net
 

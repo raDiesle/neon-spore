@@ -1,4 +1,4 @@
-import { chargeMilli, ticksPerBeat, type World } from "@neon-spore/sim";
+import { chargeMilli, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
 import { claspResonanceIn } from "./clasp.js";
 import { Effects } from "./effects.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
@@ -176,6 +176,11 @@ export class Canvas2DRenderer implements Renderer {
       world.cfg,
     );
     this.effects.update(view.dt, l);
+    // The lettered grid, eased toward whether anything on the field has to be
+    // named by tile. Read straight off the world every frame rather than fed
+    // by an event: a wisp arriving, being shot, or a wave being restarted
+    // underneath one are three ways in, and the world answers all three.
+    this.effects.coordGrid.update(view.dt, wispOnField(world));
 
     // The beat is loud at the moment of the beat and gone before the next one.
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
@@ -190,7 +195,7 @@ export class Canvas2DRenderer implements Renderer {
       return;
     }
 
-    drawFieldBack(ctx, l, world, view, flash);
+    drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
     drawBodies(ctx, l, world, view, this.effects);
 
     // Straight off the world, and the only one of the five that is: the tick

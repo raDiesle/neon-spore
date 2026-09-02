@@ -32,6 +32,7 @@ export type GroupName =
   | "THROB — open for one beat in every few"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
+  | "THE WISP — a body only one of you can see at all"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -56,6 +57,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THROB — open for one beat in every few",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
+  "THE WISP — a body only one of you can see at all",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -110,6 +112,14 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "one to the other every few beats, which is what makes the call expire — " +
     "and a shot in the wrong colour shuts the cloud for a moment rather than " +
     "simply missing. See veil.ts.",
+  "THE WISP — a body only one of you can see at all":
+    "The veil's split again, and the whole body this time. Player 2 sees it " +
+    "and player 1 does not — not dimmed, not ringed, simply absent — and it " +
+    "stands on a tile for this many beats before it is somewhere else. It " +
+    "never falls, so it never reaches the ship and never leaves: the wave " +
+    "stays open until it is shot, and either colour does it. While one is on " +
+    "the field both screens carry the lettered grid, which is the only way to " +
+    "say where it is. See wisp.ts.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",

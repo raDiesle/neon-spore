@@ -22,6 +22,7 @@ import { torchWarning } from "./torch-alarm.js";
  * | `dart` | the navigator sees which side it jumps to | P2 |
  * | `queen`| the navigator sees which of her two marks is real | P2 |
  * | `torch`| the pilot's strip is the only one that carries rocks | P1 |
+ * | `wisp` | the navigator is the only one it is drawn on at all | P2 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -55,6 +56,12 @@ const TALKER = {
   dart: "p2",
   queen: "p2",
   torch: "p1",
+  // The sharpest row in the table: every other creature here is a body both
+  // screens draw with something about it hidden. A wisp is not on player 1's
+  // screen at all, so there is nothing for the pilot to be looking at while
+  // they listen — which makes the siren the only thing telling them that the
+  // empty field they are staring at is not empty.
+  wisp: "p2",
   // Both screens carry these whole: nothing about them is split, so a siren
   // over one would be a lamp saying "look at the field", which is not news.
   slick: null,

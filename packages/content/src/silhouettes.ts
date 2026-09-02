@@ -116,6 +116,37 @@ export const DART: CreatureSilhouette = {
   seed: Math.PI * 2,
 };
 
+/**
+ * Wisp: four deep lobes on a round body, and the one contour in this file
+ * chosen for a *count* rather than for a proportion.
+ *
+ * Every axis but one is already crowded. Slick is flat and the other three are
+ * round, so aspect cannot separate a fifth body from Bulb and Throb; and every
+ * living kind is drawn at the same fixed footprint, so size cannot either.
+ * What is left is the lobe count — the axis `tools/shape-sheet/src/nameability.ts`
+ * says is holding the roster apart today — and 2, 3, 6 and 9 are taken. Four
+ * is free, it is far from all four of them, and at `depth` 0.3 it reads at a
+ * glance as the one thing none of the others is: a body with corners.
+ *
+ * That matters more here than for any body before it, because only one player
+ * ever sees this one. Player 2 has to say what it is *and* where, across a
+ * voice delay, to somebody who cannot check — so if the shape is not one word
+ * on its own, nothing downstream of it can be.
+ *
+ * The wobble is the highest on the roster and the reason is the same: a body
+ * that only one of them can see should not look solid. It is a hologram of a
+ * thing rather than a thing, and a contour that breathes twice as hard as a
+ * bulb's is what says so without a second colour or a second effect.
+ */
+export const WISP: CreatureSilhouette = {
+  lobes: 4,
+  depth: 0.3,
+  wobble: 0.1,
+  rx: 46,
+  ry: 46,
+  seed: 6.0,
+};
+
 // Which kind is drawn with which of the shapes above is *not* here: it is one
 // row per kind in `living-look.ts`, beside that kind's own-motion, because
 // "is this a body and which one" is a single fact and this file is a sheet of

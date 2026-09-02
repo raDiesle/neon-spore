@@ -11,6 +11,13 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * would have put 32 of the 49 square catalogue entries under 26 px and 17
  * under 20, with the Bulb specifically landing at about 16 px.
  *
+ * THE WISP is the thirty-ninth body added since, and it lands on the same
+ * side of the line: 87 square cards, 54 of them under 26 px at the halved
+ * width, 23 under 20. It is the game's own roster rather than a draft,
+ * and it falls under the 26 px floor at 46 px like every other round body
+ * fitted to a frame that narrow — which is the finding, not a fault in the
+ * shape.
+ *
  * The catalogue has grown thirty-eight bodies since — the ten converted off
  * other games' screenshots in `drafts/tower-defence.ts`, the five collected
  * against that page's own two gaps in `drafts/armoured.ts`, the fourteen grown
@@ -54,8 +61,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 86 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(86);
+  it("has the 87 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(87);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -82,8 +89,8 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
-    expect(under26).toBe(53);
-    expect(under20).toBe(22);
+    expect(under26).toBe(54);
+    expect(under20).toBe(23);
   });
 
   it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {

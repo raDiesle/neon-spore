@@ -7,6 +7,7 @@ import { type Bullet, type Creature, isMeteorKind } from "./types.js";
 import { veilStruck } from "./veil.js";
 import { wardenEyeOpen } from "./warden.js";
 import { wardenColor, wardenCycle } from "./warden-cycle.js";
+import { wispStruck } from "./wisp.js";
 import type { World } from "./world.js";
 
 /**
@@ -57,6 +58,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
+    return false;
+  }
+  if (hit.kind === "wisp") {
+    // Either colour, like an open throb: the ammunition was never the
+    // question a wisp asks. Getting a shot to the tile at all is the whole of
+    // it, and the tile came out of somebody's mouth (`wisp.ts`).
+    wispStruck(world, b, hit);
     return false;
   }
   if (hit.kind === "shell" && !shellIsBare(hit)) {
