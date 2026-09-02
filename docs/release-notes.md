@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 51f64f2 — THE ECHO: the slow one that becomes four
+
+A twentieth creature, and the first whose urgency points forwards. It comes down one row every second beat, so the hull is never what is pressing — but one beat after it lands it divides in two, and one beat after that both halves divide again, fanning two columns apart and then one so the four end up evenly spread. One shot early is four shots late, and since a kill pays for every body the one it killed would still have become, the pair is never paid for waiting, only charged for it. The wave puts an echo beside two ordinary bodies that look far more urgent, which is the sentence it exists to make somebody say: that one first.
+
 ## 2026-09-02 · 2a5ec4a — A body that never stops, and neither of you can turn a whole corner
 
 SNAKE, the second of the twelve rounds and the first control in the game that moves something. The ship folds into a snake, the snake never stops, and the one rule underneath it is that a turn only ever counts *across* the way the body is already going: player 1 has left and right, player 2 has up and down, so every corner is one seat and then the other, in an order they have to agree out loud. That is what makes a game famously played by one person a game for two — and it is the answer the idea store had been waiting for since the entry was written.
