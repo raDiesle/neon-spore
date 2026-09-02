@@ -1507,29 +1507,3 @@ Not done there because splitting a wave in two is a wave-design decision and
 the lane was a data move. Start by reading THE WARD's guide out loud at tempo:
 if it is too much, the fix is a wave apiece for the three rock tiers, each with
 the one line it already has, rather than anything in the code.
-
-## The lapse shows on the button, and the button is not where the eye is
-
-2026-08-29 · claude/burn-guard-lapse
-
-Graphics · Idea
-
-The guard's window closing is now visible: the button fades out over 300 ms
-instead of snapping to the same dark it wears when nobody pressed it. That is
-the state the rules always had and the picture never showed, and it is real.
-But the button sits at the bottom of the screen and the pair are watching the
-field — the brief for that lane said the signal has to work in peripheral
-vision, and a button is the least peripheral thing on the screen.
-
-The shield's own rim on the hull is where the eye already is, and it would say
-the same thing an inch from the rock it is about to fail to stop.
-
-Not done there because the rim's `armed` input is a pre-eased number computed
-in `canvas2d.ts` and `hull.ts`, both outside that lane's paths, and it carries
-no raw tick data to derive a lapse from. Reaching for it would have meant a
-hidden cross-instance cache, which is exactly what `Effects` exists to prevent.
-Start by asking whether the rim should be handed the same tick data the button
-now uses, rather than a number somebody already eased.
-
-Worth deciding by looking first: the button may turn out to be enough, and a
-second signal for one state would then be noise.
