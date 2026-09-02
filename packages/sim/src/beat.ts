@@ -1,6 +1,7 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { dartOnSpawn, stepDart } from "./dart.js";
+import { ghostCrosses, ghostOnSpawn, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
@@ -97,6 +98,15 @@ export function onBeat(world: World): void {
       stepWisp(world, c);
       continue;
     }
+    // A crossing ghost does not fall either: it drifts in to the row it
+    // prowls along, walks it a column a beat, and only comes down once its
+    // temper is spent (`stepGhostAcross`). In place of the fall rather than
+    // beside it, for `stepDart`'s reason — a body that both walked and fell
+    // would be moving in two directions on one beat.
+    if (ghostCrosses(c)) {
+      stepGhostAcross(world, c);
+      continue;
+    }
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);
@@ -175,6 +185,12 @@ export function onBeat(world: World): void {
       // fixing the thing docs/spec/structure.md 7.3 puts on the random side
       // of its own table. Same stream, same argument about `rng.state`.
       ...(entry.kind === "veil" ? veilOnSpawn(world) : {}),
+      // Which way a crossing ghost sets off, and a lap count at zero. Absent
+      // for a ghost the wave authored `"down"`, and the absence *is* the
+      // path — `ghostCrosses` reads it, and a falling ghost carries no field
+      // at all, so every wave written before crossing existed is byte-for-byte
+      // the same world.
+      ...(entry.path === "across" ? ghostOnSpawn(world.cfg.cols, col) : {}),
     });
     world.spawned += 1;
   }

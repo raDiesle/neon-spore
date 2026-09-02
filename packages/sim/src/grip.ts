@@ -1,3 +1,4 @@
+import { ghostCrosses } from "./ghost.js";
 import { type Creature, fallTilesPerBeat } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -29,10 +30,12 @@ export const NO_GRIP = 0;
  *
  * The queen cannot be gripped. She does not fall — she holds her row until she
  * is made to descend — so a hand on her would drag at nothing while showing
- * every sign of working.
+ * every sign of working. A crossing ghost is refused for exactly that reason
+ * arrived at from the other side: it walks its row and then dives, and neither
+ * of those is a fall rate for a brake to scale (`stepGhostAcross`).
  */
 export function setGrip(world: World, player: 1 | 2, id: number): void {
-  const target = world.creatures.some((c) => c.id === id && c.kind !== "queen") ? id : NO_GRIP;
+  const target = world.creatures.some((c) => c.id === id && canBeHeld(c)) ? id : NO_GRIP;
   if (player === 1) world.gripP1 = target;
   else world.gripP2 = target;
 }
@@ -94,4 +97,13 @@ export function grippedFallTiles(world: World, c: Creature): number {
   const tiles = Math.floor(milli / MILLI);
   c.dragMilli = milli - tiles * MILLI;
   return tiles;
+}
+
+/**
+ * Whether a hand may be put on this body at all. The two refusals are one
+ * sentence — *it is not falling, so there is nothing to drag at* — said about
+ * a boss that holds her row and about a ghost that walks its own.
+ */
+function canBeHeld(c: Creature): boolean {
+  return c.kind !== "queen" && !ghostCrosses(c);
 }

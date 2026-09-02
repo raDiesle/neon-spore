@@ -1,4 +1,4 @@
-import type { BossEntry, Color, PodEntry, RockSize } from "@neon-spore/sim";
+import type { BossEntry, Color, GhostPath, PodEntry, RockSize } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
 
@@ -77,6 +77,19 @@ export interface WaveEntry {
    * which is what everything downstream asks instead of `colSpan`.
    */
   size?: RockSize;
+  /**
+   * How a `ghost` travels: `"down"`, which is what absent means, or
+   * `"across"` for one that prowls a row sideways and dives at the ship when
+   * its temper runs out. Absent on every other kind.
+   *
+   * **The same asymmetry `size` argues for, and for the same reason.** A
+   * crossing ghost is not a second creature: the pair does exactly what it
+   * does about the plain one — one of them says a column, the other stands in
+   * it — and what changes is how long that number stays true. Two kinds in the
+   * bestiary would teach the pair two words for one sentence, and would double
+   * again the first time a third path existed. So the path is a field.
+   */
+  path?: GhostPath;
 }
 
 /**

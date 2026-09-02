@@ -226,4 +226,25 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",
   },
+  ghost: {
+    kind: "ghost",
+    // An ordinary aim target, and the panel says so. The whole difficulty is
+    // that player 1 cannot see which column to slide to, and a wave of these
+    // still shows the cannon strip — because the cannon is exactly what the
+    // pair is negotiating over.
+    controls: ["aim"],
+    // No colour *of its own*: a wave authors one per arrival, the way it does
+    // for a dart. The colour is never the question here — player 2 can see
+    // the body the whole way down and holds both triggers — so it is a fact
+    // about one arrival rather than about the kind.
+    color: null,
+    authorsColor: true,
+    // Player 2's strip, like every other aim target. Deliberately not player
+    // 1's: a strip that announced a ghost coming would be the pilot's screen
+    // saying *something is on its way* without saying where, which is a
+    // second, worse copy of the band they already get on the field.
+    radar: "p2",
+    blurb:
+      "Only one of you can see it at all. The other gets a band across the row it is in and nothing about the column — and they are the one holding the cannon. Say the number.",
+  },
 };

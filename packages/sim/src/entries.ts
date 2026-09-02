@@ -1,3 +1,4 @@
+import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
@@ -39,6 +40,17 @@ export interface SpawnEntry {
    * spelling of the fallback.
    */
   span?: RockSize;
+  /**
+   * How a `ghost` travels, and absent on every other kind. Absent on a ghost
+   * too means `"down"` — it falls and holds its lane like any other body — so
+   * every arrival written before crossing existed is byte-for-byte the same
+   * world, exactly as an unsized rock is.
+   *
+   * Authored rather than rolled, for `wears`' reason: a wave cannot be
+   * composed against a path its author does not know, and a ghost that might
+   * or might not prowl is a wave whose whole shape is decided after it starts.
+   */
+  path?: GhostPath;
 }
 
 /**

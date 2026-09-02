@@ -33,7 +33,10 @@ export function creatureCue(
         | "veilMorph"
         | "veilRebuff"
         | "veilTorn"
-        | "wispHop";
+        | "wispHop"
+        | "ghostRelease"
+        | "ghostTurn"
+        | "ghostCharge";
     }
   >,
   cols: number,
@@ -139,6 +142,35 @@ export function creatureCue(
       // to say is the one thing that seat needs and cannot see: the square you
       // are holding has just expired.
       return { id: "signal.bearing", gain: 0.55 };
+    case "ghostRelease":
+      // The one moment both screens carry this creature, so both devices play
+      // it. Rising, unlike everything else that ends a body — it is the only
+      // thing in the game that leaves upward, and the ear follows it off the
+      // top of the field alongside the picture.
+      return {
+        id: "creature.ghostRelease",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "ghostTurn":
+      // **No pan, and that is the whole of this row.** A crossing ghost turns
+      // at a wall, so a cue placed where it happened is "left edge" or "right
+      // edge" said out loud on a device that is not allowed to know either.
+      // Dead centre on both phones: what player 1 is told is that one more
+      // turn has gone by, which is time, and time was never the secret. No
+      // pitch either — the row it prowls never changes, so a pitch off it
+      // would say nothing and only make the three turns sound different.
+      return { id: "creature.ghostTurn", gain: 0.8 };
+    case "ghostCharge":
+      // It has stopped hiding on either screen (`showsGhostBody`), so this one
+      // is placed like any other event. Deliberately not another `ghostTurn`:
+      // the pair has been counting turns, and the beat the counting stops on
+      // must not sound like one more of them.
+      return {
+        id: "creature.ghostCharge",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "lureVanished":
       // Both devices, because this is the one moment both screens show the
       // same thing. Not `impact.destroyRed`/`Cyan` and not `impact.reject`:

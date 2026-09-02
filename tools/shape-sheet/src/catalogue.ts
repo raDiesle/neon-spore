@@ -69,6 +69,7 @@ const OWNERS: Record<string, string> = {
   SLICK: "the slick — the flat red one",
   BULB: "the bulb — round and cyan",
   THROB: "the throb — colourless, swells and shrinks on the shared beat",
+  GHOST: "the ghost — the body only the navigator can see",
   POD: "the pod, which is not a creature",
   METEOR: "every rock tier, and the torch that spans three columns",
   "BULB QUEEN": "the queen's shell, and her armoured marks",

@@ -1,5 +1,6 @@
 import type { CreatureKind } from "./creature-kinds.js";
 import type { DartDir } from "./dart.js";
+import type { GhostDir } from "./ghost.js";
 
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
@@ -137,6 +138,21 @@ export interface Creature {
    * red cloud render/ draws and the shot the simulation refuses are one fact.
    */
   veilStruckTick?: number;
+  /**
+   * THE GHOST's two fields, and `ghost.ts` is the whole of what they mean.
+   * `ghostDir` is which way along its row a *crossing* ghost is going (`-1`
+   * left, `1` right) and its presence is the path itself — absent means this
+   * ghost falls like every other body. `ghostLaps` is how many walls it has
+   * already turned at, which is how angry it is, and at `ghostChargeLaps` it
+   * stops prowling and comes down at the hull.
+   *
+   * Read them through `ghostCrosses`, `ghostLaps` and `ghostIsCharging`, never
+   * directly: the picture that drops the camouflage, the step that decides
+   * which way the body moves and the damage the hull takes are three readings
+   * of one count, and a second copy of the threshold is how they disagree.
+   */
+  ghostDir?: GhostDir;
+  ghostLaps?: number;
 }
 
 export interface Bullet {

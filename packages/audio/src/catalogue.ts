@@ -14,6 +14,7 @@ import { BEAT_SOUNDS } from "./sounds/beat.js";
 import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
 import { CREATURE_SOUNDS } from "./sounds/creature.js";
+import { CREATURE_GHOST_SOUNDS } from "./sounds/creature-ghost.js";
 import { CREATURE_IDEA_SOUNDS } from "./sounds/creature-ideas.js";
 import { CREATURE_STORE_SOUNDS } from "./sounds/creature-store.js";
 import { GRIP_SOUNDS } from "./sounds/grip.js";
@@ -43,6 +44,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...UI_SOUNDS,
   ...AMBIENT_SOUNDS,
   ...CREATURE_SOUNDS,
+  ...CREATURE_GHOST_SOUNDS,
   ...CREATURE_IDEA_SOUNDS,
   ...CREATURE_STORE_SOUNDS,
   ...ASSIST_SOUNDS,

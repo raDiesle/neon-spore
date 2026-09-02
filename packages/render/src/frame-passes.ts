@@ -8,6 +8,7 @@ import { drawDartGuides } from "./dart-path.js";
 import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { drawGhostRows } from "./ghost-row.js";
 import { drawGrips } from "./grip.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
@@ -92,6 +93,11 @@ export function drawBodies(
   // 2's. `veil-marks.ts` owns which is which, so nothing in `drawCreatures`
   // has to know what seat it is running on.
   drawVeilMarks(ctx, l, world, view.beatPhase);
+  // And the fourth, which is the only one that stands in for a body rather
+  // than describing one: a band across the row a ghost is in, on the screen
+  // that is not drawn the ghost. Under everything the ship does and over the
+  // grid, so the pilot reads it as a row of the field.
+  drawGhostRows(ctx, l, world, view.beatPhase, view.time);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);

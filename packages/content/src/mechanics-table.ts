@@ -61,6 +61,14 @@ export const MECHANICS = {
     // the way a throb does, so there is nothing on the arrival to author.
     waveNames: true,
   },
+  ghost: {
+    what: "A body one of you cannot see at all. The pilot gets a band across the row it is standing in — how long there is, and nothing about which column — and the pilot is the one holding the cannon, so the column has to be said out loud as a number. Shot, it lets go and climbs out of the top of the field, and both of you watch it go.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // dart: the silhouette is the ghost's and the colour is which trigger
+    // answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

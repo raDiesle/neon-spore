@@ -1,11 +1,14 @@
 import type { WaveEntry } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import type { RockSize } from "@neon-spore/sim";
+import type { GhostPath, RockSize } from "@neon-spore/sim";
 import {
   authorsBody,
   BODY_KINDS,
   bodyOf,
   colorForBody,
+  GHOST_PATHS,
+  ghostPathOf,
+  hasGhostPath,
   isTieredRock,
   METEOR_SIZES,
   METEOR_SPEEDS,
@@ -13,6 +16,7 @@ import {
   meteorSize,
   meteorSpeed,
   setBody,
+  setGhostPath,
   setMeteorSize,
   setMeteorSpeed,
 } from "./entry-fields.js";
@@ -20,8 +24,8 @@ import { silhouette } from "./silhouette.js";
 
 /**
  * The rows under the selected cell that configure the arrival in it: how fast
- * and how wide a rock comes down, and which body is behind a lure, a shell, a
- * clasp or a dart.
+ * and how wide a rock comes down, which body is behind a lure, a shell, a
+ * clasp, a dart or a ghost, and which way that ghost travels.
  *
  * **These used to be brushes.** Five meteor buttons in the palette were five
  * fall speeds, and the body under a shell was not authorable at all. Both are
@@ -69,6 +73,20 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
   if (authorsBody(e)) {
     rows.push(bodyRow(e, onEdit));
   }
+  if (hasGhostPath(e)) {
+    // THE GHOST's own row, and the second per-arrival fact in the game that
+    // changes how a body *moves* rather than what it is. DOWN is the ordinary
+    // fall; ACROSS prowls a row sideways, turns at each wall, and dives at the
+    // ship when its temper runs out (`ghost.ts`). Not two brushes, for the
+    // reason `WaveEntry.path` gives: the pair says the same sentence about
+    // both, and what changes is how long it stays true.
+    rows.push(
+      choiceRow("PATH", GHOST_PATHS, ghostPathOf(e), pathLabel, (path: GhostPath) => {
+        setGhostPath(e, path);
+        onEdit();
+      }),
+    );
+  }
   if (!rows.length) return null;
 
   const box = document.createElement("div");
@@ -81,6 +99,12 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
  * beat, which is what the tier number *is* (`fallTilesPerBeat`). */
 function speedLabel(speed: MeteorSpeed): string {
   return `×${speed}`;
+}
+
+/** The path a ghost takes, said the way the wave's guide says it: it falls,
+ * or it goes across. */
+function pathLabel(path: GhostPath): string {
+  return path === "down" ? "DOWN" : "ACROSS";
 }
 
 /** One tile or the 2x2 square. The number is the width in tiles, so the label

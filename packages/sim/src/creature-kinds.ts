@@ -74,7 +74,20 @@ export type CreatureKind =
    * whole of it is in `wisp.ts`, and it carries no state of its own: where it
    * is *is* `col` and `row`, and when it moves is the shared beat.
    */
-  | "wisp";
+  | "wisp"
+  /**
+   * The first body whose **column** is the secret. Player 2 sees it whole;
+   * player 1 is drawn a band across the row it is standing in and nothing
+   * about which lane it is in — and player 1 is the seat holding the cannon
+   * that has to be there. So the sentence the pair has to say is a number,
+   * and it is the plainest one this game has ever asked for.
+   *
+   * A wave sends it down like any other body, or **across**: `ghostDir` and
+   * `ghostLaps` are the whole of that state — which way it is prowling and how
+   * many walls it has turned at, after which it dives at the hull head first.
+   * `ghost.ts` is the whole of what either means.
+   */
+  | "ghost";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -106,6 +119,7 @@ export const CREATURE_KINDS = [
   "dart",
   "veil",
   "wisp",
+  "ghost",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

@@ -154,6 +154,15 @@ export function hashWorld(world: World): number {
     // body inside needs no field of its own, being `c.color` a few lines up,
     // which is what the morph turns over.
     push(c.veilStruckTick ?? 0);
+    // Which way a crossing ghost is walking, and how many walls it has turned
+    // at. Both decide where the body will be on the next beat — and the lap
+    // count decides more than that: at `ghostChargeLaps` it stops walking and
+    // comes down at the hull, so two devices that disagree about it disagree
+    // about whether the ship is about to be hit. `-2` for a ghost that falls,
+    // which is a value no direction can take, so "no path" and "going left"
+    // are never the same number in the fingerprint.
+    push(c.ghostDir ?? -2);
+    push(c.ghostLaps ?? 0);
     // The body a lure wears. Authored rather than rolled, so it is in here for
     // the reason the maze's wheel is: the assumption that both devices were
     // handed the same wave is exactly the one worth checking, and a disguise

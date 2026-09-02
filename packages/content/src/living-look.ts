@@ -47,6 +47,14 @@ const LIVING_LOOK = {
   clasp: null,
   shell: null,
   veil: null,
+  // A body of its own, and not a blob — so `livingSilhouette` has nothing to
+  // return for it and `drawLiving` never sees one. THE GHOST's outline is a
+  // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can
+  // describe, so it is drawn by `render/ghost.ts` the way a rock is drawn by
+  // `meteor.ts` — routed away in `drawCreatures` before the living pass. Its
+  // own-motion is there too, for the same reason: a `Pose` is applied to a
+  // body `drawLiving` is drawing, and nothing here is.
+  ghost: null,
   // No body of their own: crystals, a line down a column, and the two bosses.
   meteor: null,
   meteorMedium: null,

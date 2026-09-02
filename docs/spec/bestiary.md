@@ -1,8 +1,8 @@
 # Bestiary
 
-> **Status: eighteen `CreatureKind` values exist**, against the twenty-odd
+> **Status: nineteen `CreatureKind` values exist**, against the twenty-odd
 > designed on this page — slick, bulb, the five meteor tiers, torch, queen,
-> warden, tether, lure, throb, shell, clasp, dart, veil and wisp
+> warden, tether, lure, throb, shell, clasp, dart, veil, wisp and ghost
 > (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
 > design.
 >
@@ -39,7 +39,7 @@ Four rules, in this order:
    blob in another tint.
 
 **A name on this page is committed only if it is a `CreatureKind`** — the
-status block above names the eighteen that are, and the roster in
+status block above names the nineteen that are, and the roster in
 `packages/sim/src/creature-kinds.ts` is the list that decides. Every other name
 here is a label on an unbuilt design and costs one edit to change. The list is
 not repeated a third time on purpose: it was repeated twice and both copies
@@ -62,7 +62,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
 | `special` | neither | `tether` |
@@ -195,6 +195,47 @@ its 5–7 segments in alternating colours.
 > did too; it was re-designed rather than dropped — see above.)
 > The strand's whole point — greying out a control group — survives if it greys
 > out `guard` instead, but that has to be re-designed rather than renamed.
+
+## The ghost
+
+**The ghost is not one of the thirteen**, and the table above is left alone on
+purpose: it is a design that arrived after the original list, the way the torch
+did, and padding a table headed *the first thirteen* with a fourteenth row
+would make the count a lie about where the design came from.
+
+**It is the first creature whose secret is a *place*.** Everything split across
+the two screens until now hid a property of a body both players could see — the
+side a dart takes, the colour inside a cloud, whether a slick is really a slick.
+The ghost hides the body. Player 2 sees it whole; player 1 is drawn a band
+across the row it is standing in and nothing whatever about the column, and
+player 1 is the seat holding the cannon. So the sentence the pair has to say is
+a bare number, which nothing else in this game has ever asked for, and the
+handover is the mechanic: the number is worth nothing until the cannon is
+standing on it, and only the player who cannot check can put it there.
+
+**The camouflage is a picture, not an absence.** On player 1's screen the body
+is not drawn at all — a halo, a glow pass and a rim all reach outside the
+contour they belong to, so anything drawn at any opacity would be the column
+given away in light (`render/ghost.ts`). On player 2's it wears the disguise it
+is failing to hold: torn horizontal bands, a few of them thrown clear of the
+outline, and a dashed contour, which is the one broken line in the game.
+
+**Its silhouette is the first that is not a closed lobed blob.** A dome over a
+hem that hangs in four tails, taller than it is wide by enough that `longAxis`
+calls it tall — `content/ghost-shape.ts` is the geometry and says why no radial
+contour could describe it.
+
+**A wave may send one across instead of down.** It prowls one row sideways, a
+column a beat, turning at each wall and getting visibly angrier each time;
+after the third turn it stops hiding on both screens and comes straight down at
+the hull, head first, for more than an ordinary arrival costs. That is a
+`path` on the entry rather than a second kind (`WaveEntry.path`): the pair says
+the same sentence about both, and what changes is how long the number stays
+true.
+
+**And it leaves upward.** Shot, it lets go and climbs out of the top of the
+field like a balloon released — the only thing in this game that ever travels
+up, and the only sight player 1 gets of the body they have been firing at.
 
 ## 10.2 Newly accepted
 

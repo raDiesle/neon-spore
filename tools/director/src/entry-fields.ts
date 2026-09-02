@@ -3,6 +3,7 @@ import {
   type Color,
   type CreatureKind,
   colSpan,
+  type GhostPath,
   isMeteorKind,
   METEOR_TIER_KINDS,
   type RockSize,
@@ -67,6 +68,32 @@ export function meteorSize(entry: WaveEntry): RockSize {
  */
 export function setMeteorSize(entry: WaveEntry, size: RockSize): void {
   entry.size = size === 1 ? undefined : size;
+}
+
+/** How a ghost travels. Both, always — the choice is what this row is for. */
+export const GHOST_PATHS: readonly GhostPath[] = ["down", "across"];
+
+/** Whether this entry is a ghost, and therefore has a path to set. The one
+ * kind that does: `path` means nothing on anything else, and a row offered on
+ * a slick would be a row that writes a field the simulation never reads. */
+export function hasGhostPath(entry: WaveEntry): boolean {
+  return entry.kind === "ghost";
+}
+
+/** The path this ghost takes. Unset means it falls, which is what absent means
+ * everywhere downstream (`queueFromWave`, `SpawnEntry.path`). */
+export function ghostPathOf(entry: WaveEntry): GhostPath {
+  return entry.path ?? "down";
+}
+
+/**
+ * Set the path. `"down"` is written as *no* field rather than as
+ * `path: "down"`, so a ghost left falling serialises exactly as it always did
+ * and the diff of a wave nobody sent across is empty — the same arrangement
+ * `setMeteorSize` makes with a rock left at its ordinary width.
+ */
+export function setGhostPath(entry: WaveEntry, path: GhostPath): void {
+  entry.path = path === "down" ? undefined : path;
 }
 
 /** The bodies a colour can name. Both, always — the choice is the point. */

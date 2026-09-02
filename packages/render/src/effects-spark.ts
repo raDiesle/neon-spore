@@ -113,6 +113,17 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // the whole of what it must not have: every burst in this table throws
     // material away from a body, which is the picture of something being
     // broken. Nothing broke — it left.
+    // A ghost letting go, on the same terms as a torn cloud: `ghost-release.ts`
+    // draws the escape and the ordinary `destroy` beside it on the same tick
+    // is what throws the particles.
+    case "ghostRelease":
+    // And its other two. A burst at a wall would be the one thing this
+    // creature must never produce: player 1 is not told which column it is
+    // in, and a shower of sparks at the left edge of their own screen is that
+    // column, said in light. The anger is drawn on the body instead, where
+    // only player 2 can see it.
+    case "ghostTurn":
+    case "ghostCharge":
     case "lureVanished":
     case "lureSeen": // Player 2's ear and player 2's strip; nothing on the field.
     case "beat": // The click track and the HUD dots; no tile, nothing to burst.

@@ -89,6 +89,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   dart: { wave: "THE DART" },
   veil: { wave: "THE VEIL" },
   wisp: { wave: "THE WISP" },
+  ghost: { wave: "THE GHOST" },
   gauge: { wave: "THE GAUGE" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.

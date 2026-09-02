@@ -40,6 +40,37 @@ import type { Wave } from "../wave-types.js";
  * a throb does, and either shot kills one. The authored column is only where
  * it materialises — the first hop is two beats later and owes it nothing.
  */
+/**
+ * **THE GHOST, in three figures.** Here for the reason the block above is:
+ * the director rewrites the array and keeps only what stands over it, so a
+ * note written between two entries is a note that survives until the next
+ * time somebody saves a wave in the editor.
+ *
+ * What has to bite is neither the colour nor the timing — player 2 can see
+ * both — but the *handover*. The number is worth nothing until the cannon is
+ * standing on it, and the cannon belongs to the one player who cannot check.
+ *
+ * 1. Beats 0–5, the number. One ghost alone, then a real red slick across the
+ *    field. The whole descent is available, so the pair finds the sentence —
+ *    a column said as a digit and said back — with nothing pressing them; and
+ *    the second arrival is there so that *which one am I standing under* is
+ *    already a question the first time it is asked.
+ * 2. Beats 10–12, the two of them. A ghost and an ordinary body four columns
+ *    apart. Player 1 can see one of them, and the one they can see is the one
+ *    that is wrong to stand under — the beat where believing the partner over
+ *    your own eyes stops being advice.
+ * 3. Beats 18–26, the crossing one. The path that does not hold still: it
+ *    prowls a row, turns at each wall, and on the third turn it comes down
+ *    head first at the ship. A rock lands in the middle of it, because the
+ *    shield's column is player 2's hand and the trigger is player 1's — so
+ *    the pair is already talking about something else while a number they
+ *    agreed on is going stale one lane a beat.
+ *
+ * A ghost entry names its kind and its colour, the way a dart does: the
+ * silhouette is the ghost's and the colour is which trigger answers it.
+ * `path: "across"` is the only other thing it can say, and absent means it
+ * falls.
+ */
 export const WAVES_ACT_4: Wave[] = [
   {
     name: "THE WISP",
@@ -57,6 +88,24 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 22, col: 6, kind: "meteor", color: null },
       { beat: 28, col: 4, kind: "wisp", color: null },
       { beat: 30, col: 0, color: "cyan" },
+    ],
+  },
+  {
+    name: "THE GHOST",
+    sentence: "The one where waiting to see it is the miss.",
+    guide: {
+      both: "Something is falling that only one of your screens draws. The other gets a band across the row it is in, and nothing at all about the column.",
+      p1: "You will never see it — read the band for how long you have, and take the column you are told. Say the number back: you standing there is the only proof it was heard.",
+      p2: "You are the only one who can see it, and you cannot move the cannon. Say the column as a digit, not “there”, and say it again until they are under it. The last one crosses: call where it is going.",
+    },
+    entries: [
+      { beat: 0, col: 2, kind: "ghost", color: "cyan" },
+      { beat: 5, col: 6, color: "red" },
+      { beat: 10, col: 1, kind: "ghost", color: "red" },
+      { beat: 12, col: 5, color: "cyan" },
+      { beat: 18, col: 1, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 22, col: 4, kind: "meteor", color: null },
+      { beat: 26, col: 6, color: "red" },
     ],
   },
 ];

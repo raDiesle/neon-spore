@@ -88,6 +88,52 @@ export interface CreatureConfig {
    * ever killed by a call that crossed the room and landed inside a beat and
    * a quarter. */
   scoreWispKill: number;
+  /**
+   * What a ghost is worth. The veil's figure exactly, and that is the point
+   * rather than a coincidence: both are a body the pair can only reach by
+   * saying one thing out loud in time, and a pair that learned one of them
+   * priced above the other would be learning that one sentence is worth more
+   * than the other. The sentence is the same size — a colour and a number.
+   */
+  scoreGhostKill: number;
+  /**
+   * The row a crossing ghost prowls along. Three: far enough down that it is
+   * drawn at a size player 2 can actually read a column off, far enough up
+   * that the dive at the end of its temper is a fall the pair watches rather
+   * than an arrival.
+   */
+  ghostCrossRow: number;
+  /**
+   * Columns a crossing ghost takes each beat.
+   *
+   * Two, and the number is set by the *length of the crossing* rather than by
+   * how fast the body should look. The field is thirteen columns wide, so at
+   * one a crossing is twelve beats and three of them are twenty-two seconds —
+   * a whole wave spent on one arrival. At two it is six beats out and one
+   * standing at the wall, which is about a spoken exchange, and three of them
+   * fit inside a wave that has other things in it.
+   *
+   * It also makes the call expire properly: two lanes a beat is more than a
+   * cannon slides comfortably in one, so the column player 2 says has to be
+   * where it is *going*, which is the sentence this path exists to demand.
+   */
+  ghostCrossCols: number;
+  /**
+   * Walls a crossing ghost turns at before it gives up and dives. Three,
+   * because it is a number the pair counts out loud while doing something
+   * else, and two is over before the counting has started.
+   */
+  ghostChargeLaps: number;
+  /** Tiles a charging ghost falls each beat. `meteorFast`'s three: fast enough
+   * to read as a decision and slow enough to still be shot on the way down. */
+  ghostDiveTiles: number;
+  /**
+   * What a charging ghost costs the hull. Above `damageCreature` and below
+   * `damageMeteor`: it is the one arrival that *aimed* at the ship, so it is
+   * worse than a body that merely arrived — and it was answerable for three
+   * whole crossings, which a rock never is.
+   */
+  damageGhostDive: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -105,4 +151,10 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   scoreVeilKill: 250,
   wispDwellBeats: 2,
   scoreWispKill: 300,
+  scoreGhostKill: 250,
+  ghostCrossRow: 3,
+  ghostCrossCols: 2,
+  ghostChargeLaps: 3,
+  ghostDiveTiles: 3,
+  damageGhostDive: 18,
 };

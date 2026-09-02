@@ -79,7 +79,7 @@ function guideLine(name: string, value: string): string[] {
  * One arrival. The field order is the order `WaveEntry` declares them in, so a
  * hand-written wave and a saved one look the same.
  *
- * `wears` and `size` are written only when they are there — a lure that takes
+ * `wears`, `size` and `path` are written only when they are there — a lure that takes
  * the body its colour names, or a rock at its ordinary width, says nothing —
  * so every wave written before either field existed round-trips byte for byte.
  * Dropping them was the earlier failure: the editor read a `wears` in and
@@ -95,6 +95,7 @@ function serializeEntry(entry: WaveEntry): string {
   parts.push(`color: ${entry.color === null ? "null" : `"${entry.color}"`}`);
   if (entry.wears !== undefined) parts.push(`wears: "${entry.wears}"`);
   if (entry.size !== undefined) parts.push(`size: ${entry.size}`);
+  if (entry.path !== undefined) parts.push(`path: "${entry.path}"`);
   return `{ ${parts.join(", ")} }`;
 }
 

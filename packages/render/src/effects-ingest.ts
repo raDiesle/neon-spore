@@ -138,6 +138,14 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // transient here — and an event carrying no column could not place one
     // anyway, which is deliberate (`events.ts`).
     case "wispHop":
+    // THE GHOST's three, and all three for the same reason: none of them is a
+    // particle on the field. The escape is `ghost-release.ts`, a transient
+    // that belongs to one body; the turn at a wall and the charge that ends
+    // the prowling are read off `ghostLaps` every frame, on the body itself,
+    // on the one screen that draws it.
+    case "ghostRelease":
+    case "ghostTurn":
+    case "ghostCharge":
       break;
     default:
       assertNever(e);

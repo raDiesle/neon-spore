@@ -23,6 +23,7 @@ import { torchWarning } from "./torch-alarm.js";
  * | `queen`| the navigator sees which of her two marks is real | P2 |
  * | `torch`| the pilot's strip is the only one that carries rocks | P1 |
  * | `wisp` | the navigator is the only one it is drawn on at all | P2 |
+ * | `ghost`| the navigator is the only one the body is drawn on | P2 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -52,6 +53,11 @@ export type Seat = "p1" | "p2";
  */
 const TALKER = {
   veil: "p1",
+  // THE GHOST, and the plainest row in the table: the navigator is the only
+  // one who can see the body at all, and the pilot — who holds the cannon
+  // that has to be under it — is shown a band across its row and nothing
+  // about the column. So the navigator speaks, and what they say is a number.
+  ghost: "p2",
   lure: "p2",
   dart: "p2",
   queen: "p2",

@@ -40,6 +40,8 @@ const creature = (): Required<Creature> => ({
   dartFloat: true,
   dartNext: -1,
   veilStruckTick: 40,
+  ghostDir: -1,
+  ghostLaps: 2,
 });
 
 const bullet = (): Required<Bullet> => ({

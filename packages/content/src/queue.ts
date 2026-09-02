@@ -71,6 +71,11 @@ export function queueFromWave(wave: Wave, cols: number): SpawnEntry[] {
       // for it (`SpawnEntry.span`). Only when the wave asked for one: an
       // absent span means "the kind's own", which is what `spanOf` answers.
       ...(e.size === undefined ? {} : { span: e.size }),
+      // A ghost's path, on the same terms: only when the wave asked for
+      // something other than the fall every other body takes, so a ghost
+      // authored `"down"` — or written before crossing existed — carries no
+      // field at all and produces the identical world.
+      ...(e.path === undefined || e.path === "down" ? {} : { path: e.path }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

@@ -61,6 +61,9 @@ const SAMPLES: Record<string, SimEvent> = {
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
   wispHop: { type: "wispHop" },
+  ghostRelease: { type: "ghostRelease", col: 3, row: 4, color: "red" },
+  ghostTurn: { type: "ghostTurn", col: 0, row: 3, laps: 2 },
+  ghostCharge: { type: "ghostCharge", col: 0, row: 3 },
 };
 
 describe("bindings", () => {
@@ -80,6 +83,20 @@ describe("bindings", () => {
         true,
       );
     }
+  });
+
+  /**
+   * The one binding in the game whose *absence* of a pan is load-bearing.
+   * A crossing ghost turns at a wall, so a cue placed where it happened would
+   * tell player 1 — who is never shown the column — which edge of the field
+   * it is standing at. Nothing else here needs a test of its own for a
+   * missing field, and this one does, because the field being missing is a
+   * decision that reads exactly like an oversight.
+   */
+  it("never places a ghost's turn in the stereo field", () => {
+    const cue = cueFor({ type: "ghostTurn", col: 0, row: 3, laps: 1 }, 7, 12);
+    expect(cue?.id).toBe("creature.ghostTurn");
+    expect(cue?.pan).toBeUndefined();
   });
 
   it("tells the two colours apart in both directions", () => {

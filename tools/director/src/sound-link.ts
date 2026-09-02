@@ -102,6 +102,13 @@ const BY_ID: Record<string, Subject> = {
   "creature.meteorTumble": shape("METEOR"),
   "creature.gateHold": shape("METEOR"),
   "creature.gateLoop": shape("METEOR"),
+  // THE GHOST's three, and the one creature on this page whose sounds *do*
+  // get a picture where a lure's and a veil's cannot: it has a contour of its
+  // own (`GHOST`), even though only one of the two players will ever see it
+  // on the field. A card here is not a leak — this page is the director's.
+  "creature.ghostRelease": shape("GHOST"),
+  "creature.ghostTurn": shape("GHOST"),
+  "creature.ghostCharge": shape("GHOST"),
 
   "hull.mend": HULL,
   "hull.ward": ARMED,

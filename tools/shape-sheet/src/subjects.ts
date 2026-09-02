@@ -3,6 +3,9 @@ import {
   type CrystalSilhouette,
   catmullRomToBezierPath,
   crystalRadiusMul,
+  GHOST,
+  type GhostSilhouette,
+  ghostOutline,
   hullRadiusMul,
   livingBodyKinds,
   livingSilhouette,
@@ -89,6 +92,26 @@ export function livingKinds(): CreatureKind[] {
   return livingBodyKinds();
 }
 
+/**
+ * A dome over a hanging hem — THE GHOST, and the third contour family the
+ * sheet knows about.
+ *
+ * It samples `ghostOutline` itself rather than a radius function, which is
+ * exactly what the two builders either side of it do with theirs: the same
+ * geometry the canvas strokes, so a shape judged here is the shape that
+ * ships. There is no radial `…RadiusMul` for it to call because a ghost is
+ * not radial — `content/ghost-shape.ts` is the whole of that argument.
+ */
+export function ghost(name: string, s: GhostSilhouette, note: string): Subject {
+  return {
+    name,
+    note,
+    open: false,
+    pointsAt: (t) => ghostOutline(s.rx, s.ry, s.tails, s.skirt, s.wobble, t, s.seed),
+    path: catmullRomToBezierPath,
+  };
+}
+
 export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
   return {
     name,
@@ -132,6 +155,10 @@ const LIVING_SUBJECTS: Subject[] = livingKinds().map((kind) =>
 
 export const SUBJECTS: Subject[] = [
   ...LIVING_SUBJECTS,
+  // Not in `LIVING_SUBJECTS`, because that list is every kind `drawLiving`
+  // draws and this one is drawn by `render/ghost.ts` — the same reason the
+  // rock and the queen's shell are named by hand below.
+  ghost("GHOST", GHOST, `${GHOST.tails} tails · dome over a hanging hem`),
   blob("POD", POD),
   meteor,
   torch,

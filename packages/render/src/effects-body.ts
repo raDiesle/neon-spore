@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
+import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
 import { VeilTearFx } from "./veil-tear.js";
@@ -9,7 +10,7 @@ import { VeilTearFx } from "./veil-tear.js";
  * The transients that belong to **one body** and outlive it by less than a
  * beat: a lure folding to a point, the ward's bolts reaching up a column, a
  * clasp's shield blinking out, a veil's cloud tearing open on the body inside
- * it.
+ * it, a ghost letting go and climbing out of the top of the field.
  *
  * Split out of `effects.ts` when the second one arrived and that file went
  * over its 250-line limit — the same reason `effects-spark.ts` and
@@ -38,12 +39,14 @@ export class BodyTransients {
   private claspBreak = new ClaspBreakFx();
   private claspStrike = new ClaspStrikeFx();
   private veilTear = new VeilTearFx();
+  private ghostRelease = new GhostReleaseFx();
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig, beatSeconds: number): void {
     this.lureVanish.ingest(events, l);
     this.claspBreak.ingest(events, cfg, beatSeconds);
     this.claspStrike.ingest(events);
     this.veilTear.ingest(events, l);
+    this.ghostRelease.ingest(events, l);
   }
 
   update(dt: number): void {
@@ -51,6 +54,7 @@ export class BodyTransients {
     this.claspBreak.update(dt);
     this.claspStrike.update(dt);
     this.veilTear.update(dt);
+    this.ghostRelease.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -59,6 +63,10 @@ export class BodyTransients {
     // lure's fold is: the body is gone from the world by the time this draws,
     // so there is nothing left to redraw it around.
     this.veilTear.draw(ctx);
+    // A ghost climbing out of the top of the field, frozen to nothing but a
+    // canvas for the same reason: the body is gone from the world by the time
+    // this draws, and where it is going is the picture rather than the world.
+    this.ghostRelease.draw(ctx);
   }
 
   /** The two that are drawn around a body the world still has. */
@@ -80,5 +88,6 @@ export class BodyTransients {
     this.claspBreak.clear();
     this.claspStrike.clear();
     this.veilTear.clear();
+    this.ghostRelease.clear();
   }
 }

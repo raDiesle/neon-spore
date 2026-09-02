@@ -33,6 +33,7 @@ export type GroupName =
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
   | "THE WISP — a body only one of you can see at all"
+  | "THE GHOST — a body with no column on one screen"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -58,6 +59,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
   "THE WISP — a body only one of you can see at all",
+  "THE GHOST — a body with no column on one screen",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -120,6 +122,13 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "stays open until it is shot, and either colour does it. While one is on " +
     "the field both screens carry the lettered grid, which is the only way to " +
     "say where it is. See wisp.ts.",
+  "THE GHOST — a body with no column on one screen":
+    "Player 2 sees the body; player 1 is drawn a band across the row it is in " +
+    "and nothing about the column — and player 1 holds the cannon, so the " +
+    "column has to be said out loud as a number. A wave may also send one " +
+    "*across*: it prowls one row sideways, turns at each wall, gets visibly " +
+    "angrier each time, and after the last turn comes straight down at the " +
+    "hull head first. See ghost.ts.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",

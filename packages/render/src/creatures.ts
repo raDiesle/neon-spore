@@ -13,6 +13,7 @@ import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { dartFlip, dartLean, drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "./depth.js";
+import { drawGhost, showsGhostBody } from "./ghost.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawMeteor } from "./meteor.js";
@@ -80,6 +81,15 @@ export function drawCreatures(
     if (c.kind === "dart") drawDartJet(ctx, l, c, x, y, beatPhase);
     if (c.kind === "torch") drawTorch(ctx, l, c, x, y, time);
     else if (isMeteorKind(c.kind)) drawMeteor(ctx, l, c, x, y, time);
+    // A ghost has a contour of its own that is not a blob, so it is routed
+    // away from `drawLiving` the way a rock is — and on player 1's screen it
+    // is drawn as *nothing at all*, which is the creature. Not a faint body:
+    // a halo, a glow pass and a rim all reach outside the contour they belong
+    // to, so the colour would show as a rim of light around a column player 1
+    // must not be able to name. `showsGhostBody` is the one gate (`ghost.ts`).
+    else if (c.kind === "ghost") {
+      if (showsGhostBody(l, world.cfg, c)) drawGhost(ctx, l, world.cfg, c, x, y, time, near);
+    }
     // A veil is drawn as the body inside the cloud — `wornKind` again — but on
     // player 2's screen it is drawn as *nothing*, and the cloud alone stands
     // there. Not an opaque cloud over a hidden body: a halo, a motion trail

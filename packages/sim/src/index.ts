@@ -65,6 +65,7 @@ export {
   gaugeRound,
   gaugeRoundHeard,
 } from "./gauge-round.js";
+export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {
   clearGrips,
   gripCount,

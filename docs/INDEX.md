@@ -140,6 +140,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/warden.ts` | THE WARDEN's whole choreography: a gate held open by a rope somebody is pulling |
 | `packages/sim/src/wave-start.ts` | begin playing a wave |
 | `packages/sim/src/wisp.ts` | you are changing where a wisp goes next, how long it stands there, or what a shot at one does |
+| `packages/sim/src/ghost.ts` | THE GHOST: a body only one screen draws, and the first creature whose secret is **where it is** |
 
 ### packages/content
 
@@ -171,6 +172,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
 | `packages/content/src/waves/act-4.ts` | you are adding a wave — this is the act new ones land in |
+| `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 
 ### packages/render
 
@@ -289,6 +291,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
 | `packages/render/src/coord-grid.ts` | you are changing the lettered grid, its axes, or what brings it up |
 | `packages/render/src/wisp.ts` | you are drawing a wisp, its teleport, or deciding which screen sees one |
+| `packages/render/src/ghost-glitch.ts` | THE GHOST's camouflage: the thing it is wearing instead of being invisible |
+| `packages/render/src/ghost-release.ts` | A ghost let go of, and the one moment both screens carry this creature |
+| `packages/render/src/ghost-row.ts` | What player 1 gets instead of the body: a band across the row it is in, and nothing whatever about the column |
+| `packages/render/src/ghost.ts` | THE GHOST, drawn — a dome with a hem of tails, wearing a camouflage that is coming apart in horizontal bands |
 
 ### packages/net
 

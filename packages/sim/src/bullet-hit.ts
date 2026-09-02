@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
+import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
@@ -55,6 +56,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // The cloud, the body inside it and the armour a wrong colour buys — all
     // one rule, and it lives in `veil.ts` for `claspStruck`'s reason.
     return veilStruck(world, b, hit);
+  }
+  if (hit.kind === "ghost") {
+    // A kill that has to be *seen* by the seat that never saw the body, so it
+    // carries a picture of its own — `ghost.ts`, for `veilStruck`'s reason.
+    return ghostStruck(world, b, hit);
   }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
