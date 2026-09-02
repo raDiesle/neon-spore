@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · c1e35d9 — Four lists could forget a new creature, and the shape it got instead was a slick
+
+Adding a creature kind touches upwards of thirty files, and four of the lists it has to reach failed silently when it did not. Two of them decided what the thing looked like: `livingSilhouette` ended in `: SLICK` and `livingMotion` in `: TILT_RIPPLE`, so a kind that never reached either by name was drawn as a slick that swayed like one — on both phones, with no compile error and no failing test. In a game where a shape has to mean one spoken word every time, that is the most expensive silent failure there is: the pair say "slick", both of them are looking at one, and only the simulation knows better.
+
 ## 2026-09-02 · 3928b92 — A rulebook at the root told sessions not to commit, and the chrome hid under the notch
 
 `CONVENTIONS.md` sat beside `CLAUDE.md` at the repository root, opened with "Read this before editing. It is the whole rulebook; nothing here is optional", and then said "Do not commit." It is the aider worker's rulebook — the two disagree on purpose, because the worker's output is reviewed before it lands — but nothing in the file said so, and a session that read it obeyed the wrong one. It is now `tools/delegate/WORKER-CONVENTIONS.md`, beside the tool that feeds it to the worker, and it opens by saying who it is for.
