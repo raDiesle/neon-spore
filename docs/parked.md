@@ -1488,22 +1488,3 @@ weigh rather than assume:
 
 Whoever picks this up should read all four together before moving anything;
 four separate splits would be four seams nobody chose.
-
-## Four waves teach two things at once, because their guides were merged
-
-2026-08-29 · claude/burn-wave-guide
-
-Mechanic · Idea
-
-Moving the help into the wave gave each wave exactly one guide, and four waves
-had been raising two or more cards apiece: FIRST STEP taught the split and the
-slick, THE WARDEN teaches the ring and its line, THE VANE the arm and the
-quicker rock, and THE WARD the pod and all three rock speed tiers at once. The
-words were merged rather than dropped — nothing was deleted — but four separate
-teaching moments became one, and THE WARD's is now a long paragraph carrying
-four ideas to a pair who have to say half of it out loud.
-
-Not done there because splitting a wave in two is a wave-design decision and
-the lane was a data move. Start by reading THE WARD's guide out loud at tempo:
-if it is too much, the fix is a wave apiece for the three rock tiers, each with
-the one line it already has, rather than anything in the code.
