@@ -570,8 +570,7 @@ lead is one-sided. The calls are authored so no line ever claims otherwise —
 every line is about a strip or a control, never about a body — which removes
 the lie without touching the shipped game. The stronger fix, one body in
 FIRST STEP or TWO COLOURS made genuinely one-sided, is a change to the
-information model and needs its own decision; `docs/parked.md` is where it
-lives.
+information model and needs its own decision, which nobody has taken.
 
 **8. One thing every design shares and none names.** All three stop or steer
 the field from state two devices must agree about, and all three are

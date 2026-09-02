@@ -110,8 +110,9 @@ asserted "nothing else reads this" turned out to be wrong about five files.
 An adopted slot is removed whole, the winner's directory included: its numbers
 live in `packages/content` or `packages/render` now, and a second copy of them
 in a tool is the drift this arrangement exists to prevent. A slot left undecided
-by the end of the session that opened it goes to `docs/parked.md` and its
-directories go the same way.
+by the end of the session that opened it goes the same way: `git rm` the
+directories, and put the argument for it in the removing commit's message,
+where the history keeps it without anybody owing it an answer.
 
 `variant.ts`, `seed.ts`, `run.ts` and `candidates/index.ts` stay whether or not
 a slot is open. They are the seam, the way `Effects` stays whether or not

@@ -9,8 +9,8 @@
  *
  * There are two more copies of this arithmetic in `depth.ts` and `sheen.ts`,
  * each private to its file and each written before there was anywhere to put
- * it. They are noted in `docs/parked.md`; folding them in is a separate edit
- * to two files this one has no other business in.
+ * it. Folding them in is a separate edit to two files this one has no other
+ * business in, which is why they are still there.
  */
 export function mixHex(a: string, b: string, k: number): string {
   const pa = Number.parseInt(a.slice(1), 16);

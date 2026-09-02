@@ -68,7 +68,7 @@ group("plan", () => {
   // dirt is actually in the way. Saying so first turns a cryptic refusal
   // into an expected one.
   test("warns about a dirty trunk tree rather than refusing", () => {
-    const decided = plan(state({ trunkDirty: ["docs/parked.md"] }));
+    const decided = plan(state({ trunkDirty: ["docs/INDEX.md"] }));
     expect(decided.go).toBe(true);
     if (decided.go) expect(decided.warn.join(" ")).toContain("uncommitted");
   });

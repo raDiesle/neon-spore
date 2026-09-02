@@ -319,7 +319,7 @@ describe("the shot into the eye", () => {
 describe("nothing in this fight can hurt the pair", () => {
   it("puts nothing on the field and takes nothing off the hull, all fight", () => {
     // The clamp, the falling line and the vented rock all came off together
-    // (docs/parked.md). The room that leaves is the owner's to fill.
+    // (docs/spec/bosses.md 11.4). The room that leaves is the owner's to fill.
     const run = open();
     beats(run, CFG.wardenCycleBeats * 3);
     expect(run.world.hullMilli).toBe(100_000);

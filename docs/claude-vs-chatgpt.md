@@ -140,7 +140,7 @@ and on this project it has mostly been argument-shaped.
 Worth saying plainly, because a migration feels total and this one is not.
 `bun test`, the purity test, the determinism test, `bun run check`, the ports
 arrangement, the preview server's `__preview` identity probe, the relay check,
-`bun run delegate` and the whole `Check:` ledger are scripts in this repository
+and `bun run delegate` are scripts in this repository
 that read git and run Bun. They do not know which model called them and they
 would not notice. That is roughly the whole verification story, and it is the
 reason a switch is a real option rather than a fantasy: **what keeps this

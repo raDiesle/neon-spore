@@ -117,7 +117,7 @@ built.
 
 ## Where this shows in the director, and why it is one page
 
-Post-`claude/burn-topbar-fold`, CONTROL SETS is already a tab of the shell
+CONTROL SETS is already a tab of the shell
 titled GAME MECHANICS rather than a sheet of its own. The owner's *"wichtig,
 dass alle in screen controllen ... auch in der game mechanics Seite
 dokumentiert werden"* was written before that fold; now that the tab lives

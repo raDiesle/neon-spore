@@ -85,7 +85,7 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // The Warden's line is lowered once, by `attach`, and then hangs. It used to
   // come down at `meteorMedium`'s speed and break the hull at the bottom; the
   // whole "something falls and has to be held" concept came off the boss with
-  // the clamp (docs/spec/bosses.md 11.4, docs/parked.md). Zero, not a small
+  // the clamp (docs/spec/bosses.md 11.4). Zero, not a small
   // number: a line that crept would eventually arrive.
   if (kind === "tether") return 0;
   const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
