@@ -15,6 +15,7 @@
 
 import { readdir, rm, stat } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
+import { logGit } from "./git.js";
 
 export interface RetryOpts {
   attempts: number;
@@ -74,6 +75,7 @@ export function orphanPaths(onDisk: readonly string[], registered: readonly stri
 }
 
 async function git(root: string, args: string[]): Promise<string> {
+  logGit(args);
   const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
   const [out, err, code] = await Promise.all([
     new Response(proc.stdout).text(),

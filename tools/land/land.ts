@@ -27,6 +27,12 @@ export interface LandState {
   trunkTree: string;
   /** Uncommitted paths there: a fast-forward walks over that tree's files. */
   trunkDirty: readonly string[];
+  /** Staged paths there — the release note commit must touch only its own file. */
+  trunkStaged: readonly string[];
+  /** Whether `git remote get-url origin` resolves — nothing to push to otherwise. */
+  hasOrigin: boolean;
+  /** `--no-push` was given: land, but leave `origin` alone. */
+  noPush: boolean;
 }
 
 export interface Landing {
@@ -38,6 +44,13 @@ export interface Landing {
    * merge — which is the shape of every clone that only checks out lanes.
    */
   moveRef: boolean;
+  /**
+   * Push `origin/main` once the trunk has moved. On by default — an
+   * unpushed `main` is invisible to a cloud session, which clones `origin`
+   * and never sees this checkout — and off only when there is no `origin` to
+   * push to, or `--no-push` said so explicitly.
+   */
+  push: boolean;
   /** Things that are not refusals and are worth saying before the work starts. */
   warn: string[];
 }
@@ -75,6 +88,12 @@ export function plan(state: LandState): Plan {
   if (state.ahead === 0) {
     return { go: false, why: `${state.branch} carries nothing ${state.trunk} has not got already` };
   }
+  if (state.trunkStaged.includes("docs/release-notes.md")) {
+    return {
+      go: false,
+      why: `${state.trunkTree} has docs/release-notes.md staged — that is the file this landing writes; unstage it first`,
+    };
+  }
 
   const warn: string[] = [];
   if (state.trunkDirty.length > 0 && state.trunkTree) {
@@ -82,7 +101,18 @@ export function plan(state: LandState): Plan {
       `${state.trunkTree} has ${state.trunkDirty.length} uncommitted of its own; the fast-forward refuses if it touches one`,
     );
   }
-  return { go: true, rebase: state.behind > 0, moveRef: state.trunkTree === "", warn };
+  if (state.trunkStaged.length > 0 && state.trunkTree) {
+    warn.push(
+      `${state.trunkTree} has ${state.trunkStaged.length} staged of its own; the release-note commit will not touch them, but they will still be there afterwards`,
+    );
+  }
+  return {
+    go: true,
+    rebase: state.behind > 0,
+    moveRef: state.trunkTree === "",
+    push: state.hasOrigin && !state.noPush,
+    warn,
+  };
 }
 
 /** The pre-flight, in the order the steps will happen. */
@@ -97,5 +127,6 @@ export function describe(state: LandState, landing: Landing): string[] {
       ? `  land     move ${state.trunk} — no worktree holds it`
       : `  land     fast-forward ${state.trunk} in ${state.trunkTree}`,
   );
+  if (landing.push) lines.push(`  push     origin/${state.trunk}`);
   return [...lines, ...landing.warn.map((w) => `  ⚠ ${w}`)];
 }

@@ -21,7 +21,24 @@ if ! output=$(bun run typecheck 2>&1); then
   exit 2
 fi
 
-if ! output=$(bun test 2>&1); then
+# Which test directories a change can possibly have touched — see
+# tools/hooks/scope.ts for the table and the argument for each row. A scope
+# failure (the scoper itself broken, or bun unable to run it) must never read
+# as "nothing to test": fall back to the full suite rather than skip it.
+scope=""
+if scope=$(bun run tools/hooks/scope.ts 2>/dev/null); then
+  :
+else
+  scope=""
+fi
+
+if [ -n "$scope" ]; then
+  echo "check-on-stop: scoped run — $scope" >&2
+else
+  echo "check-on-stop: full run" >&2
+fi
+
+if ! output=$(bun test $scope 2>&1); then
   echo "bun test fails — fix before finishing:" >&2
   printf '%s\n' "$output" | tail -40 >&2
   exit 2

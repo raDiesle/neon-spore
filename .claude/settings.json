@@ -43,6 +43,10 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/worker-model-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/bash-guard.sh"
           }
         ]
       }

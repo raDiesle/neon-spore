@@ -10,6 +10,9 @@ function state(over: Partial<LandState> = {}): LandState {
     behind: 0,
     trunkTree: "/repo",
     trunkDirty: [],
+    trunkStaged: [],
+    hasOrigin: true,
+    noPush: false,
     ...over,
   };
 }
@@ -72,6 +75,39 @@ group("plan", () => {
     expect(decided.go).toBe(true);
     if (decided.go) expect(decided.warn.join(" ")).toContain("uncommitted");
   });
+
+  test("refuses when the trunk has the release note itself staged", () => {
+    const decided = plan(state({ trunkStaged: ["docs/release-notes.md"] }));
+    expect(decided.go).toBe(false);
+    if (!decided.go) expect(decided.why).toContain("release-notes.md");
+  });
+
+  test("warns rather than refuses about other staged files on the trunk", () => {
+    const decided = plan(state({ trunkStaged: ["packages/sim/src/beat.ts"] }));
+    expect(decided.go).toBe(true);
+    if (decided.go) expect(decided.warn.join(" ")).toContain("staged");
+  });
+
+  // The four combinations of "is there an origin" and "was --no-push given".
+  test("pushes when origin exists and --no-push was not given", () => {
+    const decided = plan(state({ hasOrigin: true, noPush: false }));
+    expect(decided.go && decided.push).toBe(true);
+  });
+
+  test("does not push without an origin, even without --no-push", () => {
+    const decided = plan(state({ hasOrigin: false, noPush: false }));
+    expect(decided.go && decided.push).toBe(false);
+  });
+
+  test("does not push with --no-push, even with an origin", () => {
+    const decided = plan(state({ hasOrigin: true, noPush: true }));
+    expect(decided.go && decided.push).toBe(false);
+  });
+
+  test("does not push with neither an origin nor permission", () => {
+    const decided = plan(state({ hasOrigin: false, noPush: true }));
+    expect(decided.go && decided.push).toBe(false);
+  });
 });
 
 group("describe", () => {
@@ -82,5 +118,17 @@ group("describe", () => {
     const lines = describe(s, decided).join("\n");
     expect(lines.indexOf("rebase")).toBeLessThan(lines.indexOf("check"));
     expect(lines.indexOf("check")).toBeLessThan(lines.indexOf("fast-forward"));
+  });
+
+  test("names a push when it will happen, not when it will not", () => {
+    const s = state({ hasOrigin: true, noPush: false });
+    const decided = plan(s);
+    if (!decided.go) throw new Error("expected a landing");
+    expect(describe(s, decided).join("\n")).toContain("push");
+
+    const noOrigin = state({ hasOrigin: false });
+    const skip = plan(noOrigin);
+    if (!skip.go) throw new Error("expected a landing");
+    expect(describe(noOrigin, skip).join("\n")).not.toContain("push");
   });
 });
