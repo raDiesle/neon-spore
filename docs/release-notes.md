@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 3eaaf88 — A chipped half stood there in nothing but its own soft outline
+
+THE SHELL with one plate off read as two unrelated things in adjacent columns: a hard grey-rimmed plate beside a bare body drawn in its own colour. The bared half now keeps the plating's grey rim, traced along the body's own contour rather than the armour's, so the pair see one armoured thing with one side opened — and the rim leaves with the last plate, which is what "no armour left" has to look like.
+
 ## 2026-09-02 · d49529b — The pilot could not see that a dart was the other seat's to answer
 
 Player 1 was shown a dart as a body in a column, so the cannon went to that column and the reason it was the wrong one arrived a beat later as hull. The creature was working exactly as designed and the picture never said so.
