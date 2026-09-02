@@ -70,3 +70,64 @@ describe("clock sync", () => {
     expect(clock.offsetMs).toBe(0);
   });
 });
+
+/**
+ * `link.ts` never reads `Date.now()` — it takes a `now` it was handed
+ * (`performance.now()` by default) and compares everything, beat zero
+ * included, against that. These scenarios drive the same arithmetic
+ * `link.ts`'s `frame()` and `status()` do — `clock.toLocal(startMs)` against
+ * an injected clock — without pulling `apps/game` into this package: the
+ * shape is the same, only the source of `now` is a variable this test moves
+ * by hand instead of a real clock.
+ */
+describe("link-shaped scenario: an injected, monotonic clock", () => {
+  it("follows the injected clock for its countdown, not a wall clock", () => {
+    let fakeNow = 50_000;
+    const now = () => fakeNow;
+
+    const clock = new ClockSync();
+    for (let i = 0; i < 3; i++) {
+      clock.add(trip(fakeNow, 20, 5000));
+      fakeNow += 700;
+    }
+    expect(clock.ready).toBe(true);
+
+    // Beat zero, three seconds out in server time.
+    const startMs = fakeNow + clock.offsetMs + 3000;
+    const countdown = () => Math.max(0, clock.toLocal(startMs) - now());
+
+    expect(countdown()).toBe(3000);
+    fakeNow += 1000;
+    expect(countdown()).toBe(2000);
+    fakeNow += 2000;
+    expect(countdown()).toBe(0);
+  });
+
+  it("does not move an acquired beat zero by more than the drift limit, even when a sample implies a big jump", () => {
+    let fakeNow = 0;
+    const clock = new ClockSync();
+    for (let i = 0; i < 3; i++) {
+      clock.add(trip(fakeNow, 20, 5000));
+      fakeNow += 700;
+    }
+    const startMs = fakeNow + clock.offsetMs + 10_000;
+    const beatZeroLocalBefore = clock.toLocal(startMs);
+
+    // Enough fresh samples to actually move the median (one outlier alone
+    // would not) — the shape of a real offset step, the case `settle`
+    // exists to keep from reaching a beat unannounced.
+    for (let i = 0; i < 7; i++) {
+      clock.add(trip(fakeNow, 20, 9000));
+      fakeNow += 700;
+    }
+    expect(clock.target).toBe(9000);
+    clock.settle(1000);
+
+    const beatZeroLocalAfter = clock.toLocal(startMs);
+    // MAX_DRIFT_MS_PER_SECOND in clock.ts, mirrored here rather than
+    // imported: one second of `settle` moves the applied offset by at most
+    // that much, so beat zero cannot have moved further than it either.
+    const maxDriftMs = 4;
+    expect(Math.abs(beatZeroLocalAfter - beatZeroLocalBefore)).toBeLessThanOrEqual(maxDriftMs);
+  });
+});

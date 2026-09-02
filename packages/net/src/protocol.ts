@@ -1,4 +1,5 @@
 import type { Command } from "@neon-spore/sim";
+import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
 
 /**
  * Every message that crosses the wire, in one file, so the Durable Object and
@@ -73,18 +74,16 @@ export function decodeClient(raw: string): ClientMessage | null {
   switch (m.t) {
     case "join":
       return typeof m.v === "number" ? { t: "join", v: m.v } : null;
-    case "input":
-      return isTick(m.tick) && Array.isArray(m.commands)
-        ? { t: "input", tick: m.tick, commands: m.commands as Command[] }
-        : null;
+    case "input": {
+      const commands = isTick(m.tick) ? decodeCommands(m.commands) : null;
+      return commands ? { t: "input", tick: m.tick, commands } : null;
+    }
     case "confirm":
       return isTick(m.tick) ? { t: "confirm", tick: m.tick } : null;
     case "ping":
       return typeof m.c1 === "number" ? { t: "ping", c1: m.c1 } : null;
     case "hash":
-      return isTick(m.tick) && typeof m.hash === "number"
-        ? { t: "hash", tick: m.tick, hash: m.hash }
-        : null;
+      return isTick(m.tick) && isUint32(m.hash) ? { t: "hash", tick: m.tick, hash: m.hash } : null;
     default:
       return null;
   }
@@ -106,10 +105,10 @@ export function decodeServer(raw: string): ServerMessage | null {
         : null;
     case "peers":
       return typeof m.peers === "number" ? { t: "peers", peers: m.peers } : null;
-    case "input":
-      return isPlayer(m.player) && isTick(m.tick) && Array.isArray(m.commands)
-        ? { t: "input", player: m.player, tick: m.tick, commands: m.commands as Command[] }
-        : null;
+    case "input": {
+      const commands = isPlayer(m.player) && isTick(m.tick) ? decodeCommands(m.commands) : null;
+      return commands ? { t: "input", player: m.player, tick: m.tick, commands } : null;
+    }
     case "confirm":
       return isPlayer(m.player) && isTick(m.tick)
         ? { t: "confirm", player: m.player, tick: m.tick }
@@ -119,7 +118,7 @@ export function decodeServer(raw: string): ServerMessage | null {
         ? { t: "pong", c1: m.c1, s1: m.s1, s2: m.s2 }
         : null;
     case "hash":
-      return isPlayer(m.player) && isTick(m.tick) && typeof m.hash === "number"
+      return isPlayer(m.player) && isTick(m.tick) && isUint32(m.hash)
         ? { t: "hash", player: m.player, tick: m.tick, hash: m.hash }
         : null;
     case "error":
@@ -139,5 +138,4 @@ function parse(raw: string): any | null {
   }
 }
 
-const isTick = (n: unknown): n is number => typeof n === "number" && Number.isInteger(n) && n >= 0;
 const isPlayer = (n: unknown): n is PlayerId => n === 1 || n === 2;

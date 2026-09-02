@@ -26,6 +26,13 @@ export interface RelayHandlers {
   message: (message: ServerMessage) => void;
   /** Closed, refused or errored — from the outside these are one thing. */
   dropped: () => void;
+  /**
+   * The socket is open. Optional so `tools/relay-check`, which builds a
+   * `RelayHandlers` of its own, keeps compiling without it — the callback
+   * exists so `link.ts` can fire its first clock ping the moment there is a
+   * socket to send it on, instead of waiting for the first frame's timer.
+   */
+  opened?: () => void;
 }
 
 /**
@@ -43,7 +50,9 @@ export function openRelay(code: string, on: RelayHandlers): Relay {
   // The version handshake belongs to the socket, not to the game above it: a
   // room running a different protocol should say so before anything else does.
   socket.addEventListener("open", () => {
-    if (!closed) socket.send(encode({ t: "join", v: PROTOCOL_VERSION }));
+    if (closed) return;
+    socket.send(encode({ t: "join", v: PROTOCOL_VERSION }));
+    on.opened?.();
   });
   socket.addEventListener("message", (e) => {
     if (closed || typeof e.data !== "string") return;

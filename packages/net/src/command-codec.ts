@@ -1,0 +1,106 @@
+import type { Color, Command, DragTarget } from "@neon-spore/sim";
+
+/**
+ * Every `Command` variant, checked field by field, before it ever reaches a
+ * `Lockstep` or a simulation tick. `protocol.ts` used to hand `m.commands`
+ * across with a bare cast — `{kind:"fire",color:"purple"}` or
+ * `{kind:"cannonCol",col:NaN}` would ride a wire frame all the way into the
+ * world. This is the one place that stops it, so a bad peer produces a
+ * dropped packet here rather than a desync three layers down.
+ *
+ * The colour set is spelled out here rather than imported, because
+ * `packages/sim` does not export one — this is the one place `net` spells
+ * it, and `packages/sim/test/purity.test.ts`'s COPIES table is where a
+ * second copy elsewhere would be caught.
+ */
+const COLORS = ["red", "cyan"] as const;
+const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether"];
+
+const isColor = (x: unknown): x is Color =>
+  typeof x === "string" && (COLORS as readonly string[]).includes(x);
+
+const isDragTarget = (x: unknown): x is DragTarget =>
+  typeof x === "string" && (DRAG_TARGETS as readonly string[]).includes(x);
+
+/** A finite whole number, never negative — a column or an id. */
+const isNonNegInt = (x: unknown): x is number =>
+  typeof x === "number" && Number.isInteger(x) && x >= 0;
+
+/**
+ * Capped at 2**31: comfortably past any tick this game will ever reach, and
+ * low enough that a peer sending a tick meant to overflow arithmetic
+ * downstream (a `Date.now()`-shaped number, or a deliberately huge one) is
+ * rejected here instead of doing whatever that overflow does three layers
+ * down.
+ */
+const TICK_MAX = 2 ** 31;
+export const isTick = (x: unknown): x is number => isNonNegInt(x) && x < TICK_MAX;
+
+/** A 32-bit unsigned value — the shape `hashWorld` produces. */
+export const isUint32 = (x: unknown): x is number =>
+  typeof x === "number" && Number.isInteger(x) && x >= 0 && x <= 0xffffffff;
+
+const isBool = (x: unknown): x is boolean => typeof x === "boolean";
+
+/** An optional field: either absent, or present and of the right shape. */
+const optional = <T>(x: unknown, check: (v: unknown) => v is T): boolean =>
+  x === undefined || check(x);
+
+/**
+ * One command, checked against its `kind`. An object carrying extra keys the
+ * variant does not declare still passes — a newer peer may send more than
+ * this build knows to read — but an unrecognised `kind` is rejected outright.
+ */
+export function decodeCommand(x: unknown): Command | null {
+  if (!x || typeof x !== "object") return null;
+  const c = x as Record<string, unknown>;
+  switch (c.kind) {
+    case "cannonCol":
+      return isNonNegInt(c.col) ? { kind: "cannonCol", col: c.col } : null;
+    case "shieldCol":
+      return isNonNegInt(c.col) ? { kind: "shieldCol", col: c.col } : null;
+    case "fire":
+      return isColor(c.color) ? { kind: "fire", color: c.color } : null;
+    case "guard":
+      return { kind: "guard" };
+    case "intake":
+      return { kind: "intake" };
+    case "grip":
+      return isNonNegInt(c.id) ? { kind: "grip", id: c.id } : null;
+    case "prime":
+      return isBool(c.on) ? { kind: "prime", on: c.on } : null;
+    case "brief":
+      return optional(c.on, isBool) ? { kind: "brief", on: c.on as boolean | undefined } : null;
+    case "valve":
+      return isBool(c.on) && (c.dir === -1 || c.dir === 1)
+        ? { kind: "valve", on: c.on, dir: c.dir }
+        : null;
+    case "call":
+      return { kind: "call" };
+    case "drag":
+      return isDragTarget(c.target) && isBool(c.on) && isNonNegInt(c.fromMilli)
+        ? { kind: "drag", target: c.target, on: c.on, fromMilli: c.fromMilli }
+        : null;
+    case "restart":
+      return { kind: "restart" };
+    default:
+      return null;
+  }
+}
+
+/**
+ * A whole input frame. Returns `null` if any single command in it fails —
+ * a half-applied frame (three good presses and a dropped fourth) is worse
+ * than a dropped one: the two devices would agree the frame arrived and
+ * silently disagree about what it said.
+ */
+export function decodeCommands(x: unknown): Command[] | null {
+  if (!Array.isArray(x)) return null;
+  const out: Command[] = [];
+  for (const item of x) {
+    const c = decodeCommand(item);
+    if (!c) return null;
+    out.push(c);
+  }
+  return out;
+}

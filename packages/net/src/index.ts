@@ -1,4 +1,5 @@
 export { type ClockSample, ClockSync, sampleOffset, sampleRtt } from "./clock.js";
+export { decodeCommand, decodeCommands, isTick, isUint32 } from "./command-codec.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
 export { Lockstep, type LockstepOptions } from "./lockstep.js";
 export {

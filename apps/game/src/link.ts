@@ -29,6 +29,18 @@ export interface LinkOptions {
   /** Beat zero. The run starts over here, on both devices, at the same moment. */
   onStart: (player: PlayerId) => void;
   onStatus: (status: LinkStatus) => void;
+  /**
+   * The clock this link measures itself against. Defaults to
+   * `performance.now()` — monotonic, unlike `Date.now()`, which an NTP step
+   * or a phone's owner nudging the time can move mid-countdown, taking beat
+   * zero with it on that device alone. Injectable so a test can drive the
+   * countdown and the clock-jump case without a real clock in the loop.
+   *
+   * `ClockSync`'s offset is "the server's clock minus this device's clock",
+   * whichever clock that is — `toLocal` stays comparable to whatever `now`
+   * returns as long as both sides of a comparison use the same one.
+   */
+  now?: () => number;
 }
 
 export interface Link {
@@ -58,6 +70,7 @@ export interface Link {
 export function createLink(o: LinkOptions): Link {
   const tpb = ticksPerBeat(o.cfg);
   const hashEvery = tpb * HASH_EVERY_BEATS;
+  const now = o.now ?? (() => performance.now());
 
   let relay: Relay | null = null;
   let state: LinkState = "solo";
@@ -79,7 +92,7 @@ export function createLink(o: LinkOptions): Link {
     player,
     rttMs: clock.sampleCount > 0 ? Math.round(clock.rttMs) : -1,
     slack: lockstep?.slack ?? 0,
-    countdownMs: started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - Date.now()),
+    countdownMs: started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - now()),
     desyncTick: ledger.desyncTick,
   });
 
@@ -108,7 +121,18 @@ export function createLink(o: LinkOptions): Link {
     leave();
     room = code;
     settle("connecting");
-    relay = openRelay(code, { message: receive, dropped: () => settle("lost") });
+    relay = openRelay(code, {
+      message: receive,
+      dropped: () => settle("lost"),
+      // Fire the first ping the moment the socket is open rather than
+      // waiting for `frame()`'s 700 ms timer — the three samples clock
+      // acquisition needs (2100 ms) otherwise eat into the 3000 ms countdown
+      // on a slow handshake, and can miss it outright.
+      opened: () => {
+        pingTimer = PING_EVERY_MS;
+        send({ t: "ping", c1: now() });
+      },
+    });
   };
 
   const receive = (message: ServerMessage): void => {
@@ -128,7 +152,7 @@ export function createLink(o: LinkOptions): Link {
         if (peers < 2) settle(started ? "lost" : "waiting");
         return;
       case "pong":
-        clock.add({ c1: message.c1, s1: message.s1, s2: message.s2, c2: Date.now() });
+        clock.add({ c1: message.c1, s1: message.s1, s2: message.s2, c2: now() });
         return;
       case "error":
         settle("lost");
@@ -147,7 +171,7 @@ export function createLink(o: LinkOptions): Link {
     pingTimer -= dtMs;
     if (pingTimer <= 0) {
       pingTimer = PING_EVERY_MS;
-      send({ t: "ping", c1: Date.now() });
+      send({ t: "ping", c1: now() });
     }
     if (state === "lost" || state === "desync") {
       o.onStatus(status());
@@ -160,7 +184,7 @@ export function createLink(o: LinkOptions): Link {
       settle("waiting");
     } else if (!clock.ready) {
       settle("syncing");
-    } else if (Date.now() < clock.toLocal(startMs)) {
+    } else if (now() < clock.toLocal(startMs)) {
       settle("countdown");
     } else {
       begin();

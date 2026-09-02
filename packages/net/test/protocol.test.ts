@@ -29,6 +29,28 @@ describe("protocol", () => {
   it("reads a tick of zero, which is the one that matters most", () => {
     expect(decodeClient('{"t":"confirm","tick":0}')).toEqual({ t: "confirm", tick: 0 });
   });
+
+  it("drops a whole client frame when one command in it is bad", () => {
+    const raw = encode({
+      t: "input",
+      tick: 1,
+      commands: [{ kind: "guard" }, { kind: "fire", color: "purple" }],
+    } as never);
+    expect(decodeClient(raw)).toBeNull();
+  });
+
+  it("drops a whole server frame when one command in it is bad", () => {
+    const raw = JSON.stringify({
+      t: "input",
+      player: 1,
+      tick: 1,
+      commands: [
+        { kind: "cannonCol", col: 3 },
+        { kind: "cannonCol", col: Number.NaN },
+      ],
+    });
+    expect(decodeServer(raw)).toBeNull();
+  });
 });
 
 describe("room code", () => {
