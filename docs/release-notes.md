@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 4192942 — A body one of you cannot see at all, and the other cannot aim
+
+THE GHOST is the first creature whose secret is a place. Player 2 sees it whole; player 1 is drawn a band across the row it is standing in and nothing whatever about the column — and player 1 is the seat holding the cannon. So the sentence the pair has to say is a bare number, which nothing else in this game has ever asked for, and the handover is the mechanic: the number is worth nothing until the cannon is standing on it, and only the player who cannot check can put it there. Shot, it lets go and climbs out of the top of the field like a balloon released, on both screens — the only thing in this game that ever travels upward, and the only sight player 1 gets of the body they have been firing at.
+
 ## 2026-09-02 · 84f25a5 — A body only one of you can see, and never twice in the same tile
 
 THE WISP is drawn on player 2's screen and on player 1's not at all — not dimmed, not ringed, simply absent — and every two beats it is standing somewhere else on the field, one tile drawn from the seeded rng. It does not fall, so it never reaches the hull and never leaves on its own: the wave stays open until it is shot, and either colour does it. The seat that can see it cannot aim; the seat holding the cannon is looking at an empty field. What crosses the room is a square.
