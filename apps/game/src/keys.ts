@@ -22,6 +22,8 @@ export interface KeyBindings {
    * (`sim/step.ts`); the touch dismiss guards on this for the same reason.
    */
   guideHolds: () => boolean;
+  /** Whether SNAKE has the world: the arrows are the body's while it does. */
+  snakeHolds: () => boolean;
   onPauseToggle: () => void;
   onWaveStep: (delta: number) => void;
 }
@@ -79,6 +81,7 @@ export function bindKeys({
   isOver,
   creatures,
   guideHolds,
+  snakeHolds,
   onPauseToggle,
   onWaveStep,
 }: KeyBindings): () => void {
@@ -117,6 +120,8 @@ export function bindKeys({
     if (cannon < 0) cannon = Math.floor(cols / 2);
     if (shield < 0) shield = Math.floor(cols / 2);
 
+    // Never the page's scroll: every arrow means something here.
+    if (e.code.startsWith("Arrow")) e.preventDefault();
     const moveKey = moveKeys[e.code];
     if (moveKey) {
       moveKey();
@@ -160,14 +165,6 @@ export function bindKeys({
       case "KeyE":
         buffer.push(2, { kind: "fire", color: "cyan" });
         break;
-      case "ArrowRight":
-        e.preventDefault();
-        onWaveStep(1);
-        break;
-      case "ArrowLeft":
-        e.preventDefault();
-        onWaveStep(-1);
-        break;
       // G takes hold of whatever is nearest the hull, **as player 2**. On a
       // phone the grip is a finger on the field and either player may use it;
       // at a desk this is the only way to see the half of it that matters —
@@ -209,8 +206,12 @@ export function bindKeys({
         if (isOver()) buffer.push(1, { kind: "restart" });
         break;
       default: {
-        const round = roundKeyDown(e.code);
+        // The arrows are the last word here: SNAKE takes all four while it has
+        // the world, and otherwise the sideways two step between waves.
+        const round = roundKeyDown(e.code, snakeHolds());
         if (round) buffer.push(round.player, round.command);
+        else if (e.code === "ArrowRight") onWaveStep(1);
+        else if (e.code === "ArrowLeft") onWaveStep(-1);
         break;
       }
     }

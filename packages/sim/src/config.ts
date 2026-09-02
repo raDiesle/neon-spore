@@ -4,6 +4,7 @@ import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
@@ -11,6 +12,7 @@ export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
@@ -22,7 +24,8 @@ export interface SimConfig
     FleetConfig,
     GaugeConfig,
     PairConfig,
-    ShotConfig {
+    ShotConfig,
+    SnakeConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -163,6 +166,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
   ...SHOT_DEFAULTS,
+  ...SNAKE_DEFAULTS,
   cols: 11,
   rows: 15,
   bpm: 96,

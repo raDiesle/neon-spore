@@ -9,10 +9,10 @@ import type { Hold } from "./touch.js";
  *
  * The switch is exhaustive over `ControlId`, on purpose: two strips
  * (`cannon`, `shield`) are answered directly by `touchDown` before
- * `lobeUnder` ever asks about them, and THE GAUGE's own round
- * (`gaugeLeft`/`gaugeRight`/`gaugeCall`) is read by `apps/game/src/gauge.ts`
- * instead — both say so here rather than falling through a `default` that
- * could not tell "decided" from "forgotten" apart from a real lobe.
+ * `lobeUnder` ever asks about them, and a round's own slabs — THE GAUGE's
+ * three and SNAKE's six — are read by their own listener in `apps/game`
+ * instead. All of them say so here rather than falling through a `default`
+ * that could not tell "decided" from "forgotten" apart from a real lobe.
  */
 export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | null {
   switch (id) {
@@ -46,6 +46,12 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "gaugeLeft":
     case "gaugeRight":
     case "gaugeCall":
+    case "snakeLeft":
+    case "snakeRight":
+    case "snakeFlip":
+    case "snakeUp":
+    case "snakeDown":
+    case "snakeSlow":
       return null;
     default:
       return assertNever(id);

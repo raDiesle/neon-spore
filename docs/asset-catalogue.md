@@ -321,8 +321,10 @@ Roughly in the order the work is worth doing.
    a drawing: *The Flip* is the whole field rolling over, which is a motion and
    not a contour; *The Fork* is two routes and a gate; *Call signs* is what the
    eleven columns are **called**, which is typography. Of the twelve interludes,
-   THE CLAW and THE SPLICE are drawn, THE GAUGE is built, SNAKE belongs to
-   another session, and the remaining eight are answered out of `slab`,
+   THE CLAW and THE SPLICE are drawn, THE GAUGE and SNAKE are built — the
+   snake's arena is drawn in the ship's own violet and cyan rather than the
+   arcade's green, because green is spent (`palette.ts`) and the body *is* the
+   ship — and the remaining eight are answered out of `slab`,
    `glyphed` and the blob vocabulary itself — the two that are not, THE BELT and
    THE VAULT, are cut above for the same reason.
 

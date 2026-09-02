@@ -1,3 +1,4 @@
+import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -107,5 +108,17 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 22, col: 4, kind: "meteor", color: null },
       { beat: 26, col: 6, color: "red" },
     ],
+  },
+  {
+    name: "SNAKE",
+    sentence: "The one where the ship is the body, and neither of you can turn a whole corner.",
+    guide: {
+      both: "The ship folds into a snake and it never stops. One of you has left and right, the other up and down, and a turn only counts across the way it is already going — so every corner is both of you, in order.",
+      p1: "You steer sideways and you are the only one who can see the food. Say where it is as a place, not a direction. FLIP swaps the ends when they tell you there is nowhere left to go.",
+      p2: "You steer up and down and you are the only one who can see the body. Say what is in the way before they ask. SLOW buys about a tile — use it on the corner, not on the straight.",
+    },
+    entries: [],
+    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
+    controls: "snake",
   },
 ];

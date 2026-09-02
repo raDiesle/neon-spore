@@ -1,10 +1,14 @@
 # Rounds that are not the field
 
-> **Status: one is built and it is a boss wave.** THE GAUGE is
+> **Status: two are built and both are boss waves.** THE GAUGE is
 > `packages/sim/src/gauge.ts` (the dial) and `packages/sim/src/gauge-round.ts`
 > (its clock), its picture is `packages/render/src/gauge.ts` and
 > `gauge-round.ts`, and it is reached by one line in `waves.ts`:
-> `boss: { kind: "gauge" }`. The other eleven candidates are in
+> `boss: { kind: "gauge" }`. SNAKE is `packages/sim/src/snake.ts` and its four
+> neighbours, its picture is `packages/render/src/snake-draw.ts` and
+> `snake-round.ts`, and it is reached the same way — `boss: { kind: "snake",
+> rounds: SNAKE_ROUNDS }`, with the rounds authored in
+> `packages/content/src/snake-rounds.ts`. The other ten candidates are in
 > [the idea store](ideas.md#interludes); where they came from is
 > [transfers-hazelight](transfers-hazelight.md). One thing in the game already
 > had this shape without being called it —
@@ -151,6 +155,17 @@ different, and they are role predicates in render/ for the same reason
 `showsQueenHint` is: the information split is a fact about a screen, not about
 the world. Which seat may send which command is checked in the simulation.
 
+SNAKE splits both halves at once and it is worth reading as a pattern rather
+than as a second example. The **verbs** are split by axis — player 1 has left
+and right, player 2 up and down, and a turn only counts across the way the body
+is already going, so a corner is physically two seats in an agreed order. The
+**information** is split to match: `showsSnakeFood` gives player 1 the food and
+both ends of the body, `showsSnakeBody` gives player 2 everything between those
+ends and no food. Each seat's extra button then belongs to the half it can see
+— the flip to the seat that can see the tail, the brake to the seat watching
+what the head is about to hit. A round whose two splits pointed in different
+directions would be two puzzles played at once.
+
 ## Where they sit in the run
 
 In the act table, as bosses. Ten acts is ten boss slots and twelve rounds is
@@ -252,4 +267,7 @@ the render side there is nothing to clear: the draw is stateless, so
   pair hears from a round may be the thing they did wrong.
 - **What is `damageGauge` actually worth?** Twenty points, chosen so the round
   is not free and defended no further. It is the owner's to turn once they have
-  lost one.
+  lost one. `damageSnake` is the same twenty for the same event — a round the
+  pair did not finish — and `damageSnakeCrash` is eight, which is the number
+  with the least behind it on this page: a wall has to cost enough that the
+  walls are real and little enough that the round is not over at the first one.

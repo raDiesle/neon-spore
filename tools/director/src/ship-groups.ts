@@ -29,6 +29,7 @@ export type GroupName =
   | "THE BEAT"
   | "OPENING — the introduction, the guide and the ready gate"
   | "THE GAUGE — a round with no field in it"
+  | "SNAKE — a round the ship is the body of"
   | "THROB — open for one beat in every few"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
@@ -56,6 +57,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BEAT",
   "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
+  "SNAKE — a round the ship is the body of",
   "THROB — open for one beat in every few",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
@@ -72,6 +74,14 @@ export const GROUP_ORDER: GroupName[] = [
 ];
 
 export const GROUP_NOTE: Record<GroupName, string> = {
+  "SNAKE — a round the ship is the body of":
+    "The other built round, and the first control that moves something. The " +
+    "ship folds into a snake that never stops: player 1 has left and right and " +
+    "sees the food, player 2 has up and down and sees the body, and a turn only " +
+    "counts across the way it is already going — so a corner is both of them, in " +
+    "order. A wall or a bite costs the hull and puts the body back; the clock " +
+    "running out costs it more. The rounds themselves are authored in " +
+    "packages/content/src/snake-rounds.ts. See snake.ts, snake-round.ts.",
   MAZE:
     "A wheel of rings behind the ship, with ways in round its rim. Player 1 turns " +
     "it and clicks a way in onto a column; player 2 fires. Both screens see the " +
@@ -170,6 +180,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "QUEEN",
   "THE GAUGE — a round with no field in it",
   "THE FLEET — a chart only one of you can read",
+  "SNAKE — a round the ship is the body of",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */

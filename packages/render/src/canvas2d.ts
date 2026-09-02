@@ -1,4 +1,5 @@
 import { chargeMilli, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
+import { drawWaveOpening } from "./briefing.js";
 import { claspResonanceIn } from "./clasp.js";
 import { Effects } from "./effects.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
@@ -8,6 +9,7 @@ import type { HullMood } from "./hull.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ShieldBody } from "./shield.js";
+import { drawSnakeRound } from "./snake-round.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -150,8 +152,21 @@ export class Canvas2DRenderer implements Renderer {
     // over the grid and not a dimmed field behind one — the round's first
     // condition is that the field is *gone* (`gauge-round.ts`), and the
     // cheapest way to be sure of that is for none of the code below to run.
+    // Both round branches draw the wave's opening themselves, last: that pass
+    // is one a round replaces, and without it the pair get a picture standing
+    // still with nothing saying why (`sim/step.ts` holds the world behind the
+    // ready gate either way).
     if (world.boss !== null && world.boss.kind === "gauge") {
       drawGaugeRound(ctx, l, view);
+      drawWaveOpening(ctx, l, world, view.role);
+      ctx.restore();
+      return;
+    }
+    // SNAKE, on the same terms. Two branches and not one "is this a round"
+    // question: a round's picture is its own from the first pixel.
+    if (world.boss !== null && world.boss.kind === "snake") {
+      drawSnakeRound(ctx, l, view);
+      drawWaveOpening(ctx, l, world, view.role);
       ctx.restore();
       return;
     }

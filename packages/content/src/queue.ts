@@ -138,6 +138,9 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   // straight through the middle of. So a chart passes through untouched, and
   // `FleetShip` is where that is argued.
   if (boss.kind === "fleet") return { ...boss, ships: boss.ships.map((s) => ({ ...s })) };
+  // SNAKE has an arena instead of a field, and it is the same size whatever
+  // the field would have been — so there is nothing here to remap either.
+  if (boss.kind === "snake") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

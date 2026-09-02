@@ -3,6 +3,7 @@ import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
+import type { SnakeRound } from "./snake.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
 
 /**
@@ -159,6 +160,21 @@ export interface FleetEntry {
   ships: FleetShip[];
 }
 
+/**
+ * What a wave authors when it wants SNAKE: the rounds, in order.
+ *
+ * No column, no health and no arena — the arena is the same size in every
+ * snake wave there will ever be, so it is `SnakeConfig`'s. What is authored is
+ * the only thing that changes between one round of it and the next: how many
+ * points pass, how many beats there are, and how fast the body goes. Written
+ * out rather than generated from a difficulty number, for THE MIRROR's reason
+ * — a fight the author cannot read off the page is a fight nobody designed.
+ */
+export interface SnakeEntry {
+  kind: "snake";
+  rounds: SnakeRound[];
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -167,7 +183,8 @@ export type BossEntry =
   | VaneEntry
   | MazeEntry
   | GaugeEntry
-  | FleetEntry;
+  | FleetEntry
+  | SnakeEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -198,4 +215,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "maze",
   "gauge",
   "fleet",
+  "snake",
 ];

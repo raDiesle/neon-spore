@@ -733,22 +733,26 @@ is worth more than a better one that is waiting on it.
   answering before the drawing starts; whether both devices flip or only one,
   where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
   hat; whether the radar strip survives a polar field at all
-- **SNAKE** — **not built, and this entry said otherwise for weeks.** It read
-  *being built in a session running beside this one*; that session either never
-  existed or never landed, and nothing in the tree moves left and right under a
-  control of its own — a control-set lane went looking and said so in
-  `control-sets.ts`'s own header. A status written in the present tense goes
-  stale silently, which is why this now says what is true instead. The entry
-  claims no design and records what the category asks of it. A snake
-  is one body that travels, which is the one shape this game's central rule
-  forbids on the field, so it is also the first real test of
-  [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on):
-  either a round is outside that rule or a snake cannot be one. And a
-  snake is famously a game for one person, so the thing that makes it a Neon
-  Spore round is whatever makes it unplayable alone — the head answering to one
-  player and the turn to the other, or the food visible on one device and the
-  tail on the other. Unworked out: all of it, elsewhere. When that session
-  lands, this bullet is replaced by what it actually built.
+- **SNAKE** — **built**, and this bullet is what the old one promised would
+  replace it. `packages/sim/src/snake.ts` and its four neighbours, drawn by
+  `packages/render/src/snake-draw.ts`, played on the `snake` control set, one
+  wave in `act-4.ts`. What it settled: a snake is one body that travels, which
+  is the shape the field's central rule forbids — and a round is outside that
+  rule, which
+  [the page that hung on the question](interludes.md#the-question-the-whole-page-hung-on-now-answered)
+  had already answered before this was written. So the answer was not a
+  relaxation; it was that the rule is about the field and this is not the
+  field. What makes it a Neon Spore round rather than a game for one person is
+  the axis split: player 1 has left and right, player 2 has up and down, and a
+  turn only counts *across* the way the body is already going — a corner is
+  physically two seats in an order they have to agree out loud. Both sketches
+  the old entry named are in it and they turned out to be the same idea seen
+  twice: the food is on one device and the body on the other. The two extra
+  buttons follow — the flip is player 1's because the tail is the end they can
+  see, the brake is player 2's because they are watching what the head is about
+  to hit. Three rounds, each wanting more points in less time at a shorter
+  step; a wall or a bite costs the hull and puts the body back; the clock
+  running out costs the hull more and ends it.
 
 ## Deliberately deferred
 

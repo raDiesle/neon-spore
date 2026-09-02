@@ -26,7 +26,13 @@ export type ControlId =
   | "aimLeft"
   | "aimRight"
   | "aimUp"
-  | "aimDown";
+  | "aimDown"
+  | "snakeLeft"
+  | "snakeRight"
+  | "snakeFlip"
+  | "snakeUp"
+  | "snakeDown"
+  | "snakeSlow";
 
 /**
  * What a whole panel *is*, rather than what is on it.
@@ -164,6 +170,48 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "lobe",
     label: "▶",
     does: "One square right.",
+  },
+  {
+    id: "snakeLeft",
+    player: 1,
+    form: "slab",
+    label: "◀",
+    does: "Sends the snake left. Only counts while it is going up or down — a corner is two seats.",
+  },
+  {
+    id: "snakeRight",
+    player: 1,
+    form: "slab",
+    label: "▶",
+    does: "Sends the snake right, under the same rule. Player 2 has the other axis.",
+  },
+  {
+    id: "snakeFlip",
+    player: 1,
+    form: "slab",
+    label: "FLIP",
+    does: "Swaps the ends: the tail becomes the head and the body sets off the way it came.",
+  },
+  {
+    id: "snakeUp",
+    player: 2,
+    form: "slab",
+    label: "▲",
+    does: "Sends the snake up. Only counts while it is going sideways.",
+  },
+  {
+    id: "snakeDown",
+    player: 2,
+    form: "slab",
+    label: "▼",
+    does: "Sends the snake down, under the same rule. Player 1 has the other axis.",
+  },
+  {
+    id: "snakeSlow",
+    player: 2,
+    form: "slab",
+    label: "SLOW",
+    does: "Buys about one tile of thinking time. There is a rest between two of them.",
   },
 ];
 

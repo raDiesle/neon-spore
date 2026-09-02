@@ -34,17 +34,22 @@ import { WAVES } from "./waves.js";
  * opinion. The eleven rounds still to come cost one `ControlDef` per button
  * and one entry in `CONTROL_SETS`; none of them re-invents a panel.
  *
- * **The snake is not one, because there is no snake.** Nothing in the tree
- * moves left and right under a control of its own: THE WARDEN's pupil slides a
- * column a beat and THE VANE's arm sweeps the top row, but both are things the
- * pair *reads*, answered with the ordinary panel and a hand on the field. The
- * only boss that touches the controls is THE MIRROR, and what it does is take
- * all of them away for a few beats (`mirrorHoldsControls`) — the empty set, in
- * time rather than by wave, which is a different mechanism and stays where it
- * is.
+ * **The snake is one now, and it is what the shape above was for.** This
+ * header used to say there was no snake, and it was right at the time: nothing
+ * in the tree moved left and right under a control of its own — THE WARDEN's
+ * pupil slides a column a beat and THE VANE's arm sweeps the top row, but both
+ * are things the pair *reads*, answered with the ordinary panel and a hand on
+ * the field. `snake` is the first set where a control moves a body, and it
+ * cost exactly what the paragraph above promised the eleven rounds would cost:
+ * six `ControlDef`s and one entry, and no panel re-invented.
+ *
+ * The only boss that touches the controls without a set of its own is still
+ * THE MIRROR, and what it does is take all of them away for a few beats
+ * (`mirrorHoldsControls`) — the empty set, in time rather than by wave, which
+ * is a different mechanism and stays where it is.
  */
 
-export type ControlSetId = "default" | "lance" | "gauge" | "fleet";
+export type ControlSetId = "default" | "lance" | "gauge" | "fleet" | "snake";
 
 export interface ControlSet {
   id: ControlSetId;
@@ -96,6 +101,12 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     name: "THE FLEET",
     why: "One trigger against four arrows: the seat that can see the ships cannot move the sights, and the seat that can move them is shown nothing.",
     controls: ["salvo", "aimLeft", "aimUp", "aimDown", "aimRight"],
+  },
+  {
+    id: "snake",
+    name: "SNAKE",
+    why: "One axis each and a verb beside it, because a body neither of you can turn alone is the round.",
+    controls: ["snakeLeft", "snakeRight", "snakeFlip", "snakeUp", "snakeDown", "snakeSlow"],
   },
 ];
 

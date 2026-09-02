@@ -8,6 +8,7 @@ import {
   PAIR_ON,
   resetClock,
   type SimEvent,
+  snakeHolds,
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
@@ -23,6 +24,7 @@ import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
 import { bindMainMenu, menuRequested } from "./menu.js";
 import { bindRasterBurst } from "./raster.js";
+import { bindSnake } from "./snake.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
@@ -97,6 +99,9 @@ const tickKeys = bindControls({
   // already can't: put the introduction away before its timer does. See the
   // guard in `keys.ts`.
   guideHolds: () => guideHolds(world),
+  // The arrows are the body's while it is moving, and the rig's otherwise
+  // (`keys.ts`).
+  snakeHolds: () => snakeHolds(world),
   onPauseToggle: () => setRunning(!running),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
@@ -106,6 +111,10 @@ const brief = bindBriefing({ canvas, buffer, world });
 // band is the answer, and the two seats do not get the same one
 // (`gauge.ts`, docs/spec/interludes.md).
 bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });
+// SNAKE brings its own six, on its own listener, for the same reason
+// (`snake.ts`). Neither round's listener can fire while the other is up: the
+// simulation only holds one boss at a time and each asks whether it is theirs.
+bindSnake({ canvas, buffer, world, layout, stage, role: () => view.role() });
 const testPanel = bindTestControls({
   world,
   jumpToWave,

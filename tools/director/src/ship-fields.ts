@@ -118,6 +118,20 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   gaugeRoundBeats: "THE GAUGE — a round with no field in it",
   gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
   damageGauge: "THE GAUGE — a round with no field in it",
+  // SnakeConfig
+  snakeCols: "SNAKE — a round the ship is the body of",
+  snakeRows: "SNAKE — a round the ship is the body of",
+  snakeStartTiles: "SNAKE — a round the ship is the body of",
+  snakeGrowTiles: "SNAKE — a round the ship is the body of",
+  snakePelletPoints: "SNAKE — a round the ship is the body of",
+  snakeOrbPoints: "SNAKE — a round the ship is the body of",
+  snakeOrbEveryBeats: "SNAKE — a round the ship is the body of",
+  snakeOrbBeats: "SNAKE — a round the ship is the body of",
+  snakeSlowPermille: "SNAKE — a round the ship is the body of",
+  snakeSlowRestBeats: "SNAKE — a round the ship is the body of",
+  snakeFlipRestBeats: "SNAKE — a round the ship is the body of",
+  damageSnake: "SNAKE — a round the ship is the body of",
+  damageSnakeCrash: "SNAKE — a round the ship is the body of",
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",
   // ShotConfig
@@ -156,4 +170,5 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   maze: "MAZE",
   gauge: "THE GAUGE — a round with no field in it",
   fleet: "THE FLEET — a chart only one of you can read",
+  snake: "SNAKE — a round the ship is the body of",
 };

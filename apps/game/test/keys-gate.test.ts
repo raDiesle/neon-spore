@@ -42,6 +42,8 @@ function desk(guideUp: boolean) {
     isOver: () => false,
     creatures: () => [],
     guideHolds: () => guideUp,
+    // The arrows are the wave step here: no round is running in this rig.
+    snakeHolds: () => false,
     onPauseToggle: () => {},
     onWaveStep: () => {},
   });

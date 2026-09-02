@@ -138,6 +138,10 @@ function serializeBoss(boss: BossEntry): string {
     const lines = ["{", '      kind: "fleet",', "      ships: [", ...ships, "      ],", "    }"];
     return lines.join("\n");
   }
+  // SNAKE's three numbers a round are authored in
+  // `packages/content/src/snake-rounds.ts`, for the reason THE MAZE's wheels
+  // are: the wave names the list and the list is where it can be read.
+  if (boss.kind === "snake") return '{ kind: "snake", rounds: SNAKE_ROUNDS }';
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

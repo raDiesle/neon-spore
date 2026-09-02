@@ -1,0 +1,141 @@
+import { ticksPerBeat } from "./config.js";
+import { breachHull } from "./hull.js";
+import { openSnake, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
+import { snakeHeard } from "./snake-controls.js";
+import { dropPellet } from "./snake-items.js";
+import { stepSnake } from "./snake-move.js";
+import type { Command } from "./types.js";
+import type { World } from "./world.js";
+
+/**
+ * SNAKE's clock: the three phases, the way in and the way out.
+ *
+ * The second round to be built, and it is built the way the first one is: a
+ * round that is not the field is a **boss wave**, so a wave names
+ * `boss: { kind: "snake", rounds: [...] }`, `startWave` installs it, and
+ * nothing anywhere has an opinion about when a round is reached
+ * (`docs/decisions.md` #20). Everything `gauge-round.ts` says about what that
+ * buys is true here word for word, so this header says only what is different.
+ *
+ * **The morph is a phase and not an animation.** The ship folds into the snake
+ * before the body starts moving, and the beats it takes are beats the pair
+ * spends reading two screens that have just stopped being the field — one of
+ * them holding the food and the other the body. A round that started moving on
+ * the first frame would be a round whose first crash was nobody's fault.
+ *
+ * **The field is gone, and the hull is not.** `step` returns before a rule of
+ * the field runs, so nothing spawns, falls or reaches the ship; `world.beat`
+ * keeps going, because the metronome is the game's heartbeat. What the round
+ * can still do is break the hull — a crash, in `snake-move.ts`, and the clock
+ * running out, here — so a run can end in this round, and the scars are on the
+ * hull when the field comes back.
+ */
+
+/**
+ * Beats the ship spends becoming the snake. Longer than THE GAUGE's lead,
+ * because there is more to read: two screens, four buttons and a body that is
+ * about to set off on its own.
+ */
+export const SNAKE_MORPH_BEATS = 6;
+
+/** Beats the result stands before the wave gives way to the next one. */
+export const SNAKE_VERDICT_BEATS = 5;
+
+/** Whether the round has the world — asked once, in `step`, and nowhere else. */
+export function snakeHolds(world: World): boolean {
+  return world.boss !== null && world.boss.kind === "snake";
+}
+
+/** The round, if it is the one running. Narrowing in one place rather than six. */
+export function snakeRound(world: World): SnakeState | null {
+  const boss = world.boss;
+  return boss !== null && boss.kind === "snake" ? boss : null;
+}
+
+/**
+ * Install it, from the wave's own `boss:` entry. The first pellet is dropped
+ * here rather than in `openSnake`, which is what keeps `snake.ts` from having
+ * to reach for `snake-items.ts` and the two of them from importing each other.
+ */
+export function installSnake(world: World, rounds: readonly SnakeRound[]): SnakeState {
+  const snake = openSnake(world, rounds);
+  dropPellet(world, snake);
+  return snake;
+}
+
+/**
+ * One tick of the round.
+ *
+ * Called from `step`'s own early return rather than from `stepBoss`, because
+ * the body moves on the tick and `stepBoss` runs on the beat — THE GAUGE's
+ * needle is stepped here for the same reason.
+ *
+ * A run that is already over stops the body where it stands. The hull can go
+ * through inside this round, and a snake that kept eating over the end screen
+ * would be a game still being played after it was lost.
+ */
+export function stepSnakeRound(world: World): void {
+  const round = snakeRound(world);
+  if (round === null || world.over) return;
+  const since = world.beat - round.phaseBeat;
+
+  if (round.phase === "morph") {
+    if (since < SNAKE_MORPH_BEATS) return;
+    enterPhase(round, "play", world.beat);
+    // Both clocks start when the body does, never when the picture does: the
+    // beats the first round is judged against, and the ticks until its first
+    // step. Without the second, the morph's own beats would count as a step
+    // interval and the snake's first move would be on the tick it was allowed
+    // to move at all — a tile the pair never got to talk about.
+    round.roundBeat = world.beat;
+    round.stepTick = world.tick;
+    return;
+  }
+  if (round.phase === "verdict") {
+    if (since >= SNAKE_VERDICT_BEATS) closeSnake(world);
+    return;
+  }
+
+  const onBeat = world.tick % ticksPerBeat(world.cfg) === 0;
+  const verdict = stepSnake(world, round, onBeat);
+  if (verdict === null) return;
+  round.passed = verdict;
+  if (!verdict) spendHull(world);
+  enterPhase(round, "verdict", world.beat);
+}
+
+/**
+ * What running out of time costs, and it is the hull. The middle column,
+ * because the round has no columns of its own — `gauge-round.ts` argues it,
+ * and a second round is not a second argument.
+ */
+function spendHull(world: World): void {
+  const col = Math.floor(world.cfg.cols / 2);
+  breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnake);
+}
+
+/**
+ * The round is over: the boss goes, and the wave clears on the next beat
+ * exactly as any other boss wave does. Passing and failing leave by the same
+ * door — what failing cost was taken on the beat the time ran out.
+ */
+export function closeSnake(world: World): void {
+  if (!snakeHolds(world)) return;
+  world.boss = null;
+}
+
+/**
+ * One control, as the round heard it. Nothing reaches it outside `play`: the
+ * morph is for reading two screens and the verdict for looking at one, and a
+ * press that counted during either would be a press nobody meant.
+ */
+export function snakeRoundHeard(world: World, player: 1 | 2, command: Command): void {
+  const round = snakeRound(world);
+  if (round === null || round.phase !== "play") return;
+  snakeHeard(world, round, player, command);
+}
+
+export function enterPhase(round: SnakeState, phase: SnakePhase, beat: number): void {
+  round.phase = phase;
+  round.phaseBeat = beat;
+}

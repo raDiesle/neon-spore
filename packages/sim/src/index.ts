@@ -107,6 +107,7 @@ export {
   livingKindForColor,
   METEOR_TIER_KINDS,
   occupiesCol,
+  SNAKE_TURNS,
   spanCenterCol,
   spanOf,
   WARDEN_COLS,

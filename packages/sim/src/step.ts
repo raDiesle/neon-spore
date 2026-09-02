@@ -10,6 +10,7 @@ import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { advancePods } from "./pods.js";
+import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden.js";
 import type { World } from "./world.js";
@@ -57,6 +58,22 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepGaugeRound(world);
+    return;
+  }
+  // SNAKE has it instead, and the branch is the same shape for the same
+  // reasons — the field is gone as an early return, the metronome keeps
+  // running, and the body answers a thumb on the *tick* rather than on the
+  // beat (`snake-round.ts`). Two branches rather than one that asks which
+  // round is up: the two rounds share a shape and not a verb, and a shared
+  // branch would have to switch on the boss twice to know whose press it was.
+  if (snakeHolds(world)) {
+    for (const c of commands) {
+      if (c.command.kind === "restart") applyCommand(world, c);
+      else snakeRoundHeard(world, c.player, c.command);
+    }
+    world.tick += 1;
+    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+    stepSnakeRound(world);
     return;
   }
   // Commands are read even when the hull is through — otherwise `restart`

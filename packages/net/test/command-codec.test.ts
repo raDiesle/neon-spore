@@ -14,6 +14,9 @@ const ACCEPTED: Command[] = [
   { kind: "brief", on: false },
   { kind: "valve", on: true, dir: 1 },
   { kind: "call" },
+  { kind: "snakeTurn", dir: "up" },
+  { kind: "snakeFlip" },
+  { kind: "snakeSlow" },
   { kind: "drag", target: "mazeString", on: true, fromMilli: 1500 },
   { kind: "restart" },
 ];
@@ -50,6 +53,11 @@ describe("decodeCommand: rejections", () => {
 
   it("refuses a wrong-typed optional field", () => {
     expect(decodeCommand({ kind: "brief", on: "yes" })).toBeNull();
+  });
+
+  it("refuses a turn that is not one of the four", () => {
+    expect(decodeCommand({ kind: "snakeTurn", dir: "widdershins" })).toBeNull();
+    expect(decodeCommand({ kind: "snakeTurn" })).toBeNull();
   });
 
   it("refuses an unknown kind", () => {

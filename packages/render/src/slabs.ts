@@ -39,12 +39,24 @@ function seatOn(role: ViewRole, player: 1 | 2): boolean {
 }
 
 /**
+ * How many buttons stand side by side before the next ones go underneath.
+ *
+ * Three is where a phone gives out: a fourth on the same row is a column of
+ * glass narrower than a thumb, and a label that no longer fits in it. THE
+ * GAUGE has exactly three and is drawn identically either way; SNAKE's six are
+ * the reason this number exists, and the six read as two rows of three — which
+ * is also what they *are*, a seat's two directions and its own verb.
+ */
+const PER_ROW = 3;
+
+/**
  * Where a slab panel's buttons are, in the order the set lists them.
  *
  * Not the whole band's height: a slab as tall as the control strip reads as an
  * empty column rather than as a button, so they are squared off against the
  * width and centred in what is left — still a target far bigger than anything
- * on the field.
+ * on the field. A panel of more than `PER_ROW` wraps rather than getting
+ * thinner, for the same reason.
  */
 export function slabPanel(l: Layout, set: ControlSet, role: ViewRole): Slab[] {
   const controls = [
@@ -54,10 +66,21 @@ export function slabPanel(l: Layout, set: ControlSet, role: ViewRole): Slab[] {
   if (controls.length === 0) return [];
 
   const pad = Math.max(6, l.width * 0.03);
-  const h = Math.max(1, Math.min(l.bandHeight - pad * 2, l.width * 0.42));
-  const y = l.bandTop + (l.bandHeight - h) / 2;
-  const w = Math.max(1, (l.width - pad * (controls.length + 1)) / controls.length);
-  return controls.map((control, i) => ({ control, x: pad + i * (w + pad), y, w, h }));
+  const rows = Math.ceil(controls.length / PER_ROW);
+  const perRow = Math.ceil(controls.length / rows);
+  const h = Math.max(
+    1,
+    Math.min((l.bandHeight - pad * (rows + 1)) / rows, (l.width * 0.42) / rows),
+  );
+  const top = l.bandTop + (l.bandHeight - (h * rows + pad * (rows - 1))) / 2;
+  const w = Math.max(1, (l.width - pad * (perRow + 1)) / perRow);
+  return controls.map((control, i) => ({
+    control,
+    x: pad + (i % perRow) * (w + pad),
+    y: top + Math.floor(i / perRow) * (h + pad),
+    w,
+    h,
+  }));
 }
 
 export function hitSlab(slab: Slab, x: number, y: number): boolean {

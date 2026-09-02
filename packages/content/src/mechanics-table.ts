@@ -150,6 +150,10 @@ export const MECHANICS = {
     what: "A chart of squares with ships hidden in it. Only one of you is shown where they are, and only the other one can move the sights.",
     reach: "spawn",
   },
+  snake: {
+    what: "The ship folds into a snake that never stops. One of you turns it left and right, the other up and down, and a turn only ever counts across the way it is already going.",
+    reach: "spawn",
+  },
   briefing: {
     what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
     reach: "run",

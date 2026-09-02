@@ -13,7 +13,7 @@ import {
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
-import { bindStageGauge } from "./stage-gauge.js";
+import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { currentWave, type Store } from "./state.js";
@@ -81,9 +81,8 @@ export function bindStage(
   // panel comes from the wave's own `controls` field, the one `rail.ts`'s picker
   // writes, never an index. Read fresh, since the picker changes it under us.
   const currentControlSet = () => controlSet(currentWave(store)?.controls);
-
-  // THE GAUGE draws slabs, which `touchDown` cannot answer (`stage-gauge.ts`).
-  bindStageGauge({
+  // Every round draws slabs, which `touchDown` cannot answer (`stage-rounds.ts`).
+  bindStageRounds({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
     role: () => role,

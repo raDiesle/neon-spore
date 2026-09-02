@@ -5,6 +5,7 @@ import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import { MAZE_PHASES } from "../src/maze.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "../src/simon.js";
+import { SNAKE_PHASES } from "../src/snake.js";
 import { POD_KINDS } from "../src/types.js";
 import type { World } from "../src/world.js";
 import { FIXTURE_BOSSES, populatedWorld } from "./hash-fixture.js";
@@ -74,6 +75,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   MIRROR_PHASES,
   GAUGE_PHASES,
   FLEET_DIRS,
+  SNAKE_PHASES,
 ];
 
 function otherValue(value: string): string | null {

@@ -9,7 +9,8 @@ export type Color = "red" | "cyan";
 // world is made of. It lives in `command-types.ts` now and is re-exported
 // here, the way `creature-kinds.ts` and `kinds.ts` already are, so nothing
 // that reaches for a `Command` through this file had to move.
-export type { Command, DragTarget, TimedCommand } from "./command-types.js";
+export type { Command, DragTarget, SnakeTurn, TimedCommand } from "./command-types.js";
+export { SNAKE_TURNS } from "./command-types.js";
 export { CREATURE_KINDS, type CreatureKind, kindCode } from "./creature-kinds.js";
 export type { GuardStats, Scar } from "./hull-types.js";
 export type { RockKind } from "./kinds.js";

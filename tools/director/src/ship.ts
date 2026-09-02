@@ -54,6 +54,7 @@ const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
   "OPENING — the introduction, the guide and the ready gate": (cfg) =>
     cfg.briefings ? "ON" : "off",
   "THE GAUGE — a round with no field in it": (cfg) => `${cfg.gaugeMarks} marks`,
+  "SNAKE — a round the ship is the body of": (cfg) => `${cfg.snakeCols}x${cfg.snakeRows} arena`,
 };
 
 /** Every field of `group`, as `name: value`, for the ones `VALUE` does not word by hand. */

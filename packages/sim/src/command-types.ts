@@ -82,6 +82,23 @@ export type Command =
   | { kind: "aim"; dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }
   | { kind: "salvo" }
   /**
+   * SNAKE's own four, and the same argument one round along: a round that is
+   * not the field has its own verbs.
+   *
+   * `snakeTurn` names a **direction and not an axis**, because the two seats
+   * do not share one — player 1 has `left` and `right`, player 2 has `up` and
+   * `down`, and which of them a press counts for is the round's rule rather
+   * than this file's (`snake-controls.ts`). A word rather than two integers,
+   * so a frame on the wire says what was pressed.
+   *
+   * `snakeFlip` swaps the ends: the tail becomes the head and the body sets
+   * off the way it came. `snakeSlow` buys about one tile of thinking time.
+   * Neither is held — there is nothing to let go of, so neither carries `on`.
+   */
+  | { kind: "snakeTurn"; dir: SnakeTurn }
+  | { kind: "snakeFlip" }
+  | { kind: "snakeSlow" }
+  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after
@@ -111,6 +128,15 @@ export type Command =
  * a drag that could only name one could not reach the first thing that wanted
  * it, and THE WARDEN's rope is one that is. */
 export type DragTarget = "mazeString" | "wardenTether";
+
+/**
+ * The four ways SNAKE's body can be sent. A closed list of words, split
+ * between the seats by the round rather than by this type: the split is a rule
+ * two devices have to agree about, and a type cannot be agreed about over a
+ * wire (`snake-controls.ts`).
+ */
+export const SNAKE_TURNS = ["left", "right", "up", "down"] as const;
+export type SnakeTurn = (typeof SNAKE_TURNS)[number];
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

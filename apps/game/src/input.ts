@@ -78,6 +78,12 @@ export interface Bindings {
    * guide (`keys.ts`).
    */
   guideHolds: () => boolean;
+  /**
+   * Whether SNAKE is the boss running — passed straight through to the
+   * keyboard rig, where the arrows are the body's four while it stands and the
+   * wave step otherwise (`keys-round.ts`).
+   */
+  snakeHolds: () => boolean;
   onPauseToggle: () => void;
   /** Wave step, for the test keys. Positive is forwards. */
   onWaveStep: (delta: number) => void;
@@ -103,6 +109,7 @@ export function bindControls({
   creatures,
   beatPhase,
   guideHolds,
+  snakeHolds,
   onPauseToggle,
   onWaveStep,
 }: Bindings): () => void {
@@ -210,5 +217,14 @@ export function bindControls({
    * `guard` is still player 1's command whichever key sends it: the trigger and
    * the shield being in different hands is the rule the whole defence rests on.
    */
-  return bindKeys({ buffer, layout, isOver, creatures, guideHolds, onPauseToggle, onWaveStep });
+  return bindKeys({
+    buffer,
+    layout,
+    isOver,
+    creatures,
+    guideHolds,
+    snakeHolds,
+    onPauseToggle,
+    onWaveStep,
+  });
 }

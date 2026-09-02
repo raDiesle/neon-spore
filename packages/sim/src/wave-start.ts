@@ -8,6 +8,7 @@ import { endPrime } from "./lance.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
 import { NO_SHELL } from "./shell.js";
+import { installSnake } from "./snake-round.js";
 import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
@@ -64,6 +65,11 @@ export function startWave(
     // picture for as long as it stands, and `step` returns before a rule of
     // the field runs — so there is nothing of it anywhere but its own screen.
     world.boss = installGauge(world);
+  } else if (boss?.kind === "snake") {
+    // The same nothing THE GAUGE leaves on the field, for the same reason: the
+    // arena is the round's own and the ship is in it as the snake, so there is
+    // no body here for the fall loop, the hull or a hand to find.
+    world.boss = installSnake(world, boss.rounds);
   } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {

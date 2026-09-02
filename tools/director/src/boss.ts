@@ -91,6 +91,19 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       });
       return;
     }
+    if (wave.boss.kind === "snake") {
+      const blurbS = document.createElement("p");
+      blurbS.className = "note";
+      blurbS.textContent =
+        "The ship folds into a snake that never stops. Player 1 turns it left and " +
+        "right and sees the food; player 2 turns it up and down and sees the body. " +
+        "The rounds — how many points pass, how long there is and how fast it goes — " +
+        "are authored in packages/content/src/snake-rounds.ts and are not editable " +
+        "here yet.";
+      panel.appendChild(blurbS);
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
     const boss = wave.boss;
     // THE GAUGE has nothing to author: no column, no health, no rounds. Its
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not

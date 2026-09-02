@@ -1,12 +1,12 @@
 /**
- * The six bosses, as one barrel.
+ * The seven bosses, as one barrel.
  *
  * Split out of `index.ts` when THE FLEET pushed that file past its 250-line
  * limit, and along the seam `hash.ts` and `hash-boss.ts` already cut: what is
  * left next door is the **field** — the ship, the bodies on it, the shots, the
  * wave's own clock — and everything here is whichever mechanism happens to be
  * installed above one. The field's half grows by a name at a time; this half
- * grows by a whole boss at a time, and six of them are already the larger
+ * grows by a whole boss at a time, and seven of them are already the larger
  * share.
  *
  * `index.ts` re-exports the whole of it, so nothing that already reached for a
@@ -20,6 +20,7 @@ export {
   bossFillsWave,
   type FleetEntry,
   type GaugeEntry,
+  type SnakeEntry,
   type VaneEntry,
   type WardenEntry,
 } from "./entries.js";
@@ -120,6 +121,8 @@ export {
   type MirrorVerdictReason,
   mirrorListenBeats,
 } from "./simon.js";
+export { SNAKE_PHASES, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
+export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";
 export { vaneOpen } from "./vane.js";
 export {
   VANE_CYCLE,

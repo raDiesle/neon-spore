@@ -90,12 +90,15 @@ describe("buildBacklog", () => {
     expect(names(backlog.rounds)).toContain("THE LATHE");
     expect(names(backlog.rounds)).toContain("THE VAULT");
 
-    // THE GAUGE is built — `packages/sim/src/gauge.ts`, and `BOSS_KINDS` now
-    // carries it — and a built round leaves the backlog by being built, the
-    // same way a creature or a boss does. It used to need a third table beside
-    // those two, because a round was in neither of them; it does not any more.
+    // THE GAUGE and SNAKE are both built — `packages/sim/src/gauge.ts` and
+    // `snake.ts`, and `BOSS_KINDS` carries both — and a built round leaves the
+    // backlog by being built, the same way a creature or a boss does. It used
+    // to need a third table beside those two, because a round was in neither of
+    // them; it does not any more, and the count is the proof that a second one
+    // needed nothing added here to disappear.
     expect(names(backlog.rounds)).not.toContain("THE GAUGE");
-    expect(backlog.rounds[0]!.builtHidden).toBe(1);
+    expect(names(backlog.rounds)).not.toContain("SNAKE");
+    expect(backlog.rounds[0]!.builtHidden).toBe(2);
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.

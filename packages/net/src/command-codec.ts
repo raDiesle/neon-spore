@@ -1,4 +1,4 @@
-import type { Color, Command, DragTarget } from "@neon-spore/sim";
+import { type Color, type Command, type DragTarget, SNAKE_TURNS } from "@neon-spore/sim";
 
 /**
  * Every `Command` variant, checked field by field, before it ever reaches a
@@ -21,6 +21,16 @@ const isColor = (x: unknown): x is Color =>
 
 const isDragTarget = (x: unknown): x is DragTarget =>
   typeof x === "string" && (DRAG_TARGETS as readonly string[]).includes(x);
+
+/**
+ * SNAKE's four, imported rather than spelled out — the opposite of `COLORS`
+ * above, and only because the simulation publishes this one. A second copy
+ * here would be a list that could fall behind the round it steers.
+ */
+type SnakeTurn = (typeof SNAKE_TURNS)[number];
+
+const isSnakeTurn = (x: unknown): x is SnakeTurn =>
+  typeof x === "string" && (SNAKE_TURNS as readonly string[]).includes(x);
 
 /** A finite whole number, never negative — a column or an id. */
 const isNonNegInt = (x: unknown): x is number =>
@@ -87,6 +97,12 @@ export function decodeCommand(x: unknown): Command | null {
       return isStep(c.dcol) && isStep(c.drow) ? { kind: "aim", dcol: c.dcol, drow: c.drow } : null;
     case "salvo":
       return { kind: "salvo" };
+    case "snakeTurn":
+      return isSnakeTurn(c.dir) ? { kind: "snakeTurn", dir: c.dir } : null;
+    case "snakeFlip":
+      return { kind: "snakeFlip" };
+    case "snakeSlow":
+      return { kind: "snakeSlow" };
     case "drag":
       return isDragTarget(c.target) && isBool(c.on) && isNonNegInt(c.fromMilli)
         ? { kind: "drag", target: c.target, on: c.on, fromMilli: c.fromMilli }

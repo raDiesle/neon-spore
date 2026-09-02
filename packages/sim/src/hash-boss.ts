@@ -4,6 +4,7 @@ import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
+import { SNAKE_PHASES } from "./snake.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -126,6 +127,47 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.lastCol);
     push(boss.lastRow);
     push(boss.lastHit ? 1 : 0);
+  }
+  // SNAKE, and the two lists in it are the round. The body is the whole state
+  // of the fight — where it is, how long it has got and what it is about to
+  // run into — and the authored rounds are in for THE MIRROR's reason two
+  // paragraphs down: two phones on two builds of `content` would ask for a
+  // different target three rounds in, and nothing else here would notice.
+  if (boss !== null && boss.kind === "snake") {
+    push(SNAKE_PHASES.indexOf(boss.phase));
+    push(boss.phaseBeat);
+    push(boss.openBeat);
+    push(boss.passed ? 1 : 0);
+    push(boss.round);
+    push(boss.roundBeat);
+    push(boss.points);
+    push(boss.dirCol);
+    push(boss.dirRow);
+    push(boss.turnCol);
+    push(boss.turnRow);
+    push(boss.stepTick);
+    push(boss.grow);
+    push(boss.slowTicks);
+    push(boss.slowBeat);
+    push(boss.flipBeat);
+    push(boss.pelletCol);
+    push(boss.pelletRow);
+    push(boss.orbCol);
+    push(boss.orbRow);
+    push(boss.orbBeat);
+    push(boss.crashes);
+    push(boss.crashBeat);
+    push(boss.body.length);
+    for (const tile of boss.body) {
+      push(tile.col);
+      push(tile.row);
+    }
+    push(boss.rounds.length);
+    for (const round of boss.rounds) {
+      push(round.points);
+      push(round.beats);
+      push(round.stepTicks);
+    }
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which
