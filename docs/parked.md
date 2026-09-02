@@ -1453,38 +1453,3 @@ the tree says which.
 Not a defect and not queued. It wants deciding by watching the fixed version
 played first, which is the one thing that cannot be done until the round is
 drawn.
-
-## Four director files sit within four lines of the limit
-
-2026-08-29 · 1bdf7aa
-
-Tool · Implemented
-
-`session.ts` 247, `backlog-page.ts` 247, `checks-page.ts` 246, `sound-page.ts`
-249 — against a cap of 250. Noticed on 29 August 2026 while landing the
-sheet-restore lane, which got all four *under* the cap by consolidating five
-pages' worth of open/close/Escape boilerplate into one `mountSheet` call rather
-than duplicating it. That was the right move and it is why they fit at all.
-
-The observation is what it leaves behind: **the next lane to touch any of these
-four must split before it can add a line.** That is a cost paid by whoever
-happens to arrive next, for a reason that has nothing to do with their task,
-and it is exactly the position that produces a lane trimming reasoning comments
-to make room — which has already happened once and had to be sent back.
-
-Not queued, because nobody has decided what the seam should be, and inventing
-one now would be designing without a subject. Two things a later session should
-weigh rather than assume:
-
-- `session.ts` grew by 182 lines and now does two jobs — it answers *where you
-  are* and it mounts the overlay pages. Mounting a sheet is arguably part of
-  place, so this may be right. But it was reached under an ownership
-  constraint: `main.ts` belonged to another lane, so the wiring had nowhere
-  else to go. A seam chosen because a file was unavailable deserves one look
-  from somebody who can see all of them.
-- The page modules are near the cap because each still carries its own
-  rendering beside its own wiring. If a second `mountSheet`-shaped extraction
-  exists, it is probably there.
-
-Whoever picks this up should read all four together before moving anything;
-four separate splits would be four seams nobody chose.
