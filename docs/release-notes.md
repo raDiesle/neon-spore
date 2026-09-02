@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · c6800e4 — The director answers PINBALL's slabs, and a test says when it does not
+
+FIRE and SET did nothing in the director: the round shipped without a stage listener, so the needle swept straight past a click. `stage-touch.ts` routes the canvas through the game's own touchDown, which knows about the field and nothing else, so a round's own buttons are answered by nobody unless a stage-<round>.ts names them. stage-pinball.ts names all four — the bucket's two held on THE GAUGE's valve contract, the latch and the launch pressed.
+
 ## 2026-09-02 · b282ab4 — THE RIND: the shot that lands does not close the column
 
 A twenty-first creature, and the first that does not die to the shot that hits it. It arrives three times the size of a slick or a bulb — the authored colour says which, exactly as it does for an echo — and the matching colour takes a layer off instead of killing it: three sizes, two sheds, and an ordinary body at the end that dies to an ordinary shot. Nothing about the aim changes at any point. What changes is the habit every other aim target has taught the pair, that landed and next are the same word, and the two shots in the middle are the ones nobody fires unless somebody says so out loud.
