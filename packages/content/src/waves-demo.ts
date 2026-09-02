@@ -91,6 +91,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   wisp: { wave: "THE WISP" },
   ghost: { wave: "THE GHOST" },
   gauge: { wave: "THE GAUGE" },
+  fleet: { wave: "THE FLEET" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "FIRST STEP", config: { briefings: true } },

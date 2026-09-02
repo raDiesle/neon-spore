@@ -40,6 +40,7 @@ export type GroupName =
   | "MIRROR"
   | "MAZE"
   | "QUEEN"
+  | "THE FLEET — a chart only one of you can read"
   | "PLUMBING — not a dial a person turns";
 
 /** Display order. Read top to bottom the way the old, shorter list did. */
@@ -66,6 +67,7 @@ export const GROUP_ORDER: GroupName[] = [
   "MIRROR",
   "MAZE",
   "QUEEN",
+  "THE FLEET — a chart only one of you can read",
   "PLUMBING — not a dial a person turns",
 ];
 
@@ -101,6 +103,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "above, since a headless caller has no second thumb to answer it with. On, " +
     "the gaps between acts may carry a round that is not the field: a needle " +
     "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
+  "THE FLEET — a chart only one of you can read":
+    "A lattice of squares with ships hidden in it. Player 1 sees every hull and " +
+    "holds the only trigger; player 2 walks the sights a square at a time and is " +
+    "shown nothing but water. The clock is the whole of the danger — running out " +
+    "of it breaks the hull. See fleet.ts, config-fleet.ts.",
   "THROB — open for one beat in every few": "A Throb can only be hit while it is open.",
   "THE LURE — a body only one of you can see through":
     "Player 1 sees a slick or a bulb; player 2 sees the same body inside a " +
@@ -162,6 +169,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "MAZE",
   "QUEEN",
   "THE GAUGE — a round with no field in it",
+  "THE FLEET — a chart only one of you can read",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */

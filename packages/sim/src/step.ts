@@ -3,6 +3,7 @@ import { briefHeard, briefingHolds, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
+import { fleetHeard } from "./fleet.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
@@ -72,6 +73,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // has carried the handle is how far the hatch stands open, and a gate that
   // only answered on the beat would feel like a queue (`warden.ts`).
   for (const c of commands) wardenTetherHeard(world, c.player, c.command);
+  // THE FLEET's sights and its salvo, read on the tick for the third time and
+  // the same reason: a square the pair just named out loud is answered now,
+  // not on the next beat. Its clock is the one thing about it that is on the
+  // beat, and that runs in `stepBoss` (`fleet.ts`).
+  for (const c of commands) fleetHeard(world, c.player, c.command);
   if (world.over) return;
   // Exactly where `fire` used to push the bullet, so a shot laid half a beat
   // ago is indistinguishable from one pressed now by the time anything else

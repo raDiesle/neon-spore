@@ -1,3 +1,4 @@
+import type { FleetShip } from "./fleet-board.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
@@ -140,8 +141,33 @@ export interface GaugeEntry {
   kind: "gauge";
 }
 
+/**
+ * What a wave authors when it wants THE FLEET: where the ships are, and
+ * nothing else.
+ *
+ * The placement *is* the fight — how long it lasts, how much of the chart is
+ * water, whether the pair has one long hull to walk along or five short ones
+ * scattered — so it is the only thing here, exactly as THE MIRROR's sequences
+ * are the only thing in its entry. How long the pair has and what running out
+ * costs are tuning (`config-fleet.ts`).
+ *
+ * The squares are the real field's and not the seven authored columns; see
+ * `FleetShip`, which says why a run of squares cannot survive a remap.
+ */
+export interface FleetEntry {
+  kind: "fleet";
+  ships: FleetShip[];
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
-export type BossEntry = QueenEntry | MirrorEntry | WardenEntry | VaneEntry | MazeEntry | GaugeEntry;
+export type BossEntry =
+  | QueenEntry
+  | MirrorEntry
+  | WardenEntry
+  | VaneEntry
+  | MazeEntry
+  | GaugeEntry
+  | FleetEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -171,4 +197,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "vane",
   "maze",
   "gauge",
+  "fleet",
 ];

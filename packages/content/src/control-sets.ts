@@ -44,7 +44,7 @@ import { WAVES } from "./waves.js";
  * is.
  */
 
-export type ControlSetId = "default" | "lance" | "gauge";
+export type ControlSetId = "default" | "lance" | "gauge" | "fleet";
 
 export interface ControlSet {
   id: ControlSetId;
@@ -90,6 +90,12 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     name: "THE GAUGE",
     why: "The field is gone, so the band is too: two held slabs for the valve, one for the call.",
     controls: ["gaugeLeft", "gaugeRight", "gaugeCall"],
+  },
+  {
+    id: "fleet",
+    name: "THE FLEET",
+    why: "One trigger against four arrows: the seat that can see the ships cannot move the sights, and the seat that can move them is shown nothing.",
+    controls: ["salvo", "aimLeft", "aimUp", "aimDown", "aimRight"],
   },
 ];
 

@@ -1,6 +1,7 @@
 import type { Layout } from "@neon-spore/render";
 import { type Creature, isGrippable, NO_GRIP } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 
 /**
  * The keyboard, for playing both roles alone at a desk. Its own file rather
@@ -198,27 +199,20 @@ export function bindKeys({
         buffer.push(1, { kind: "brief", on: true });
         buffer.push(2, { kind: "brief", on: true });
         break;
-      // THE GAUGE's own three, and they are its own on purpose: a round that
-      // is not the field does not borrow the field's verbs
-      // (`docs/spec/interludes.md`). Z and X hold the valve as player 1 — held
-      // like F, and ended on the keyup below, because nothing in the
-      // simulation lets go of it. C calls, as player 2. All three mean nothing
-      // while a wave is running, so they cost nothing to send unconditionally.
-      case "KeyZ":
-        buffer.push(1, { kind: "valve", on: true, dir: -1 });
-        break;
-      case "KeyX":
-        buffer.push(1, { kind: "valve", on: true, dir: 1 });
-        break;
-      case "KeyC":
-        buffer.push(2, { kind: "call" });
-        break;
+      // Whichever round has taken the panel away — THE GAUGE's valve and
+      // call, THE FLEET's sights and salvo. One table next door rather than a
+      // dozen more cases here (`keys-round.ts`).
       case "KeyP":
         onPauseToggle();
         break;
       case "Enter":
         if (isOver()) buffer.push(1, { kind: "restart" });
         break;
+      default: {
+        const round = roundKeyDown(e.code);
+        if (round) buffer.push(round.player, round.command);
+        break;
+      }
     }
   });
   window.addEventListener("keyup", (e) => {
@@ -232,8 +226,8 @@ export function bindKeys({
     if (e.code === "Space" || e.code === "KeyG") buffer.push(2, off);
     if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
     if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
-    if (e.code === "KeyZ") buffer.push(1, { kind: "valve", on: false, dir: -1 });
-    if (e.code === "KeyX") buffer.push(1, { kind: "valve", on: false, dir: 1 });
+    const round = roundKeyUp(e.code);
+    if (round) buffer.push(round.player, round.command);
   });
 
   /** Called once per sim tick to advance held-key repeats. */

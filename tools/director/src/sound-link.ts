@@ -172,6 +172,13 @@ export const NO_SUBJECT: Record<string, string> = {
     "a veil turning over is a body becoming a different body under weather neither player is looking through. There is nothing to draw that is not one of the two cards already on this page.",
   "impact.absorb":
     "a cloud shutting over a shot it took. What the picture would have to be is the two seconds afterwards, which is a state read off the world every frame and not a thing standing anywhere.",
+  "boss.fleetSplash":
+    "a salvo into open water. The subject is the absence of a subject — the whole point of the sound is that there was nothing in the square.",
+  "boss.fleetHit":
+    "a hull holed. THE FLEET's ships are drawn from a length and a heading rather than from a contour (render/fleet-hulls.ts), so there is no one card for a ship the way there is for a slick — five lengths and two headings are ten pictures of the same thing.",
+  "boss.fleetSunk": "the same hull, going under. Same argument.",
+  "boss.fleetDown":
+    "the last of them. What this marks is a chart with nothing left on it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
 };
 
 export function subjectFor(def: SoundDef): Subject {

@@ -128,6 +128,13 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   fireEveryBeats: "AIM — colour and column",
   shotChargeBeats: "AIM — colour and column",
   hitHeightMilli: "PLUMBING — not a dial a person turns",
+  fleetRows: "THE FLEET — a chart only one of you can read",
+  fleetRoundBeats: "THE FLEET — a chart only one of you can read",
+  fleetSalvoRestBeats: "THE FLEET — a chart only one of you can read",
+  damageFleet: "THE FLEET — a chart only one of you can read",
+  scoreFleetHit: "SCORE",
+  scoreFleetSunk: "SCORE",
+  scoreFleetDown: "SCORE",
 };
 
 /** Every field that belongs to `group`, in the order `SimConfig` declares them. */
@@ -148,4 +155,5 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   vane: "VANE",
   maze: "MAZE",
   gauge: "THE GAUGE — a round with no field in it",
+  fleet: "THE FLEET — a chart only one of you can read",
 };

@@ -127,6 +127,17 @@ function serializeBoss(boss: BossEntry): string {
   // THE GAUGE authors nothing at all — the wave names it and everything else
   // about it is tuning (`config-gauge.ts`).
   if (boss.kind === "gauge") return '{ kind: "gauge" }';
+  // THE FLEET is the one boss whose whole content is a placement, so it is the
+  // one the editor has to be able to write back. One ship per line, in the
+  // order they were authored, because a chart is read down the page and a
+  // fleet on one line is a diff nobody can review.
+  if (boss.kind === "fleet") {
+    const ships = boss.ships.map(
+      (s) => `        { col: ${s.col}, row: ${s.row}, len: ${s.len}, dir: "${s.dir}" },`,
+    );
+    const lines = ["{", '      kind: "fleet",', "      ships: [", ...ships, "      ],", "    }"];
+    return lines.join("\n");
+  }
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

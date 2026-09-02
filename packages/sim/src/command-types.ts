@@ -63,6 +63,25 @@ export type Command =
   | { kind: "valve"; on: boolean; dir: -1 | 1 }
   | { kind: "call" }
   /**
+   * THE FLEET's two verbs, and the same argument `valve` and `call` make one
+   * more time: a round that is not the ordinary field has its own words, and a
+   * pair told to "fire" at a chart would be learning that the words mean
+   * whatever the screen currently needs.
+   *
+   * `aim` is player 2's, one square a press — a *step* and not a place, which
+   * is the whole of why the fight is a conversation. An absolute control names
+   * a square, and a seat that could name one would not need to be told which
+   * one; a step can only be counted, and counting is a thing two people do out
+   * loud. `dcol` and `drow` are each -1, 0 or 1, and no button on the panel
+   * sends both at once.
+   *
+   * `salvo` is player 1's, and it is the only thing in the round that can be
+   * wrong. Which seat may send which is checked in `fleet.ts`, not here: the
+   * command is what was pressed, and whose press counts is the round's rule.
+   */
+  | { kind: "aim"; dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }
+  | { kind: "salvo" }
+  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after

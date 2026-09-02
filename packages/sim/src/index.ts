@@ -9,8 +9,7 @@ export {
   type Tally,
 } from "./balance.js";
 export { startWave } from "./beat.js";
-export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
-export type { BossState, QueenState, VaneState, WardenState } from "./boss-state.js";
+export * from "./bosses.js";
 export {
   ackBriefing,
   type Briefings,
@@ -42,29 +41,6 @@ export {
   dartPickDir,
   dartStepCol,
 } from "./dart.js";
-export {
-  BOSS_KINDS,
-  bossFillsWave,
-  type GaugeEntry,
-  type VaneEntry,
-  type WardenEntry,
-} from "./entries.js";
-export {
-  GAUGE_FULL,
-  GAUGE_PHASES,
-  type GaugePhase,
-  type GaugeState,
-  gaugeSeated,
-} from "./gauge.js";
-export {
-  closeGauge,
-  GAUGE_LEAD_BEATS,
-  GAUGE_VERDICT_BEATS,
-  gaugeBeats,
-  gaugeHolds,
-  gaugeRound,
-  gaugeRoundHeard,
-} from "./gauge-round.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {
   clearGrips,
@@ -82,47 +58,6 @@ export {
   primeTicks,
   priming,
 } from "./lance.js";
-export {
-  MAZE_PHASES,
-  MAZE_TURN,
-  type MazePhase,
-  mazeCenterMilli,
-  mazeClickAngle,
-  mazeCosMilli,
-  mazeEntranceAngle,
-  mazeEntranceCol,
-  mazeEntranceX,
-  mazeRadiusMilli,
-  mazeSinMilli,
-  mazeWrap,
-} from "./maze.js";
-export {
-  MAZE_LEAD_BEATS,
-  MAZE_READ_PER_WAY,
-  MAZE_READ_SLACK,
-  MAZE_TRAVEL_BEATS,
-  MAZE_VERDICT_BEATS,
-  mazeReadBeats,
-} from "./maze-clock.js";
-export { mazeRound } from "./maze-controls.js";
-export {
-  installMaze,
-  type MazeState,
-  type MazeVerdictReason,
-  mazeCurrent,
-} from "./maze-round.js";
-export {
-  type MazeCell,
-  type MazeEntrance,
-  type MazeMove,
-  type MazeWheel,
-  mazeCoreEntrance,
-  mazeFault,
-  mazeReachesCore,
-  mazeRoute,
-} from "./maze-wheel.js";
-export { mirrorHoldsControls } from "./mirror.js";
-export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
@@ -146,18 +81,6 @@ export {
   laying,
   type ShotCharge,
 } from "./shot-charge.js";
-export {
-  fireStep,
-  MIRROR_HOLD_BEATS,
-  MIRROR_LEAD_BEATS,
-  MIRROR_PHASES,
-  MIRROR_STEPS,
-  type MirrorPhase,
-  type MirrorState,
-  type MirrorStep,
-  type MirrorVerdictReason,
-  mirrorListenBeats,
-} from "./simon.js";
 export type {
   Bullet,
   Color,
@@ -188,27 +111,6 @@ export {
   spanOf,
   WARDEN_COLS,
 } from "./types.js";
-export { vaneOpen } from "./vane.js";
-export {
-  VANE_CYCLE,
-  VANE_CYCLE_BEATS,
-  VANE_PHASES,
-  type VanePhase,
-  type VaneStage,
-  vaneColor,
-  vaneCycle,
-  vaneCycleBeat,
-  vaneFold,
-  vaneOpening,
-  vanePhase,
-  vanePivotCol,
-  vaneReach,
-  vaneReachMilli,
-  vaneStageIndex,
-  vaneStageStart,
-  vaneTipCol,
-  vaneWeakCol,
-} from "./vane-cycle.js";
 export {
   VEIL_UNSTRUCK,
   veilArmourPhase,
@@ -221,16 +123,6 @@ export {
   veilOnSpawn,
   veilStruck,
 } from "./veil.js";
-export { wardenEyeOpen, wardenPullMilli, wardenTether } from "./warden.js";
-export {
-  NO_TETHER,
-  WARDEN_PHASES,
-  type WardenPhase,
-  wardenColor,
-  wardenCycle,
-  wardenCycleBeat,
-  wardenPhase,
-} from "./warden-cycle.js";
 export { wispHops, wispOnField, wispRows } from "./wisp.js";
 export {
   type BossEntry,

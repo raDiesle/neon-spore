@@ -1,11 +1,13 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
+import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
+export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
@@ -14,7 +16,13 @@ export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
  * Every tunable number of the simulation. Named values, never loose literals —
  * this object is what a comparison screen varies and what a replay pins down.
  */
-export interface SimConfig extends BossConfig, CreatureConfig, GaugeConfig, PairConfig, ShotConfig {
+export interface SimConfig
+  extends BossConfig,
+    CreatureConfig,
+    FleetConfig,
+    GaugeConfig,
+    PairConfig,
+    ShotConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -152,6 +160,7 @@ export interface SimConfig extends BossConfig, CreatureConfig, GaugeConfig, Pair
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
   ...CREATURE_DEFAULTS,
+  ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
   ...SHOT_DEFAULTS,
   cols: 11,

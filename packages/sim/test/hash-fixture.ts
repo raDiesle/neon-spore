@@ -96,6 +96,16 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // Two ships, one lying each way, neither touching the other and both well
+  // inside a chart eleven columns by ten. `fleetFault` is what says that is a
+  // fleet at all, and `fleet.test.ts` asks it of this one.
+  fleet: {
+    kind: "fleet",
+    ships: [
+      { col: 1, row: 2, len: 4, dir: "h" },
+      { col: 7, row: 5, len: 3, dir: "v" },
+    ],
+  },
 };
 
 /** Every boss kind, so the walk covers each arm of `bossHashParts`. */

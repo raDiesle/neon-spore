@@ -146,6 +146,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "ghostRelease":
     case "ghostTurn":
     case "ghostCharge":
+    // THE FLEET is drawn straight off the world every frame — the marks from
+    // `struck`, the sinking from `sunkBeat` — so nothing about it outlives a
+    // frame and there is nothing here to remember (`fleet-hulls.ts`).
+    case "fleetSplash":
+    case "fleetHit":
+    case "fleetSunk":
+    case "fleetDown":
       break;
     default:
       assertNever(e);

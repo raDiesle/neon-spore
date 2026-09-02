@@ -1,3 +1,4 @@
+import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-round.js";
 import type { MirrorState } from "./simon.js";
@@ -135,6 +136,50 @@ export interface VaneState {
 }
 
 /**
+ * Everything THE FLEET remembers between beats: an authored chart, the squares
+ * already fired at, and where the sights are standing.
+ *
+ * **`ships` never changes for the whole fight.** A hull that has been hit does
+ * not move and does not shrink — what changes is the list of squares somebody
+ * has fired into, and everything else about the fight is read off those two
+ * (`fleet-board.ts`). That is why a ship has no `hits` of its own: a count
+ * beside the placement would be a second copy of `struck` and the two would
+ * disagree the first time a salvo landed on a square that had already taken
+ * one.
+ */
+export interface FleetState {
+  kind: "fleet";
+  /** Where the ships are, as the wave authored them. Never written. */
+  ships: FleetShip[];
+  /**
+   * Every square fired at, as chart indices (`fleetIndex`), in the order they
+   * were struck. Both a hit and a splash go in: the chart is the shared record
+   * and a square nobody may spend twice.
+   */
+  struck: number[];
+  /**
+   * The beat each ship went down on, `-1` while it is still afloat. One entry
+   * per ship, in `ships` order — render/ runs the sinking off it, so the
+   * animation needs no state of its own that a restart could carry over, and
+   * the simulation needs no separate count of what is left.
+   */
+  sunkBeat: number[];
+  /** The column the sights stand in. Player 2's, and only player 2's. */
+  aimCol: number;
+  /** The row they stand in. */
+  aimRow: number;
+  /** The beat the fight opened on — the round's own clock. */
+  openBeat: number;
+  /** The beat of the most recent salvo, for the rest between two of them. */
+  firedBeat: number;
+  /** Where that salvo landed, `-1` before the first. render/ only. */
+  lastCol: number;
+  lastRow: number;
+  /** Whether it found a hull. render/ only. */
+  lastHit: boolean;
+}
+
+/**
  * The boss a wave installed, whichever one it is. A tagged union rather than
  * one widening interface: the six bosses share the slot and nothing else,
  * and a single struct carrying every set of fields would let `boss.ts` read a
@@ -145,4 +190,11 @@ export interface VaneState {
  * the other four, for the reason the maze's and the mirror's are in theirs:
  * one file owns a fight's state and nothing else writes it.
  */
-export type BossState = QueenState | MirrorState | WardenState | VaneState | MazeState | GaugeState;
+export type BossState =
+  | QueenState
+  | MirrorState
+  | WardenState
+  | VaneState
+  | MazeState
+  | GaugeState
+  | FleetState;

@@ -141,6 +141,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/wave-start.ts` | begin playing a wave |
 | `packages/sim/src/wisp.ts` | you are changing where a wisp goes next, how long it stands there, or what a shot at one does |
 | `packages/sim/src/ghost.ts` | THE GHOST: a body only one screen draws, and the first creature whose secret is **where it is** |
+| `packages/sim/src/bosses.ts` | every boss's vocabulary, re-exported by `index.ts` — the seam `hash-boss.ts` already cut |
+| `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
+| `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
+| `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
 
 ### packages/content
 
@@ -295,6 +299,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-release.ts` | A ghost let go of, and the one moment both screens carry this creature |
 | `packages/render/src/ghost-row.ts` | What player 1 gets instead of the body: a band across the row it is in, and nothing whatever about the column |
 | `packages/render/src/ghost.ts` | THE GHOST, drawn — a dome with a hem of tails, wearing a camouflage that is coming apart in horizontal bands |
+| `packages/render/src/fleet-chart.ts` | THE FLEET's chart: the lattice of squares the whole fight is named against |
+| `packages/render/src/fleet-hulls.ts` | THE FLEET's ships — the pilot's alone, until one goes down in front of both of them |
+| `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
+| `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
+| `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
 
 ### packages/net
 
@@ -355,6 +364,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |
+| `apps/game/src/keys-round.ts` | The keys that belong to a round rather than to the field |
 
 ### apps/server
 

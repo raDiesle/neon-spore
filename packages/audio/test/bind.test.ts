@@ -64,6 +64,10 @@ const SAMPLES: Record<string, SimEvent> = {
   ghostRelease: { type: "ghostRelease", col: 3, row: 4, color: "red" },
   ghostTurn: { type: "ghostTurn", col: 0, row: 3, laps: 2 },
   ghostCharge: { type: "ghostCharge", col: 0, row: 3 },
+  fleetSplash: { type: "fleetSplash", col: 4, row: 6 },
+  fleetHit: { type: "fleetHit", col: 4, row: 6 },
+  fleetSunk: { type: "fleetSunk", col: 4, row: 6, len: 3, left: 2 },
+  fleetDown: { type: "fleetDown", col: 4, row: 6 },
 };
 
 describe("bindings", () => {

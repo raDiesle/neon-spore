@@ -21,7 +21,12 @@ export type ControlId =
   | "fireCyan"
   | "gaugeLeft"
   | "gaugeRight"
-  | "gaugeCall";
+  | "gaugeCall"
+  | "salvo"
+  | "aimLeft"
+  | "aimRight"
+  | "aimUp"
+  | "aimDown";
 
 /**
  * What a whole panel *is*, rather than what is on it.
@@ -124,6 +129,41 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "slab",
     label: "CALL",
     does: "Says the needle is between the marks. The only thing in the round that can be wrong.",
+  },
+  {
+    id: "salvo",
+    player: 1,
+    form: "lobe",
+    label: "SALVO",
+    does: "Fires into whichever square of THE FLEET's chart the sights are standing in.",
+  },
+  {
+    id: "aimLeft",
+    player: 2,
+    form: "lobe",
+    label: "◀",
+    does: "Carries the sights one square left. A step, never a place — a place would need no telling.",
+  },
+  {
+    id: "aimUp",
+    player: 2,
+    form: "lobe",
+    label: "▲",
+    does: "One square up the chart.",
+  },
+  {
+    id: "aimDown",
+    player: 2,
+    form: "lobe",
+    label: "▼",
+    does: "One square down the chart.",
+  },
+  {
+    id: "aimRight",
+    player: 2,
+    form: "lobe",
+    label: "▶",
+    does: "One square right.",
   },
 ];
 

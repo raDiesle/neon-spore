@@ -1,5 +1,6 @@
 import type { BossState } from "./boss-state.js";
 import { BOSS_KINDS } from "./entries.js";
+import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
@@ -100,6 +101,31 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.calledBeat);
     push(boss.calledMilli);
     push(boss.calledGood ? 1 : 0);
+  }
+  // THE FLEET. The placement is authored and hashed for the reason THE
+  // MIRROR's rounds are: two phones on two builds of `content` would be
+  // shooting at charts with the ships in different squares, and nothing else
+  // in here would say a word about it. The list of squares already fired at is
+  // the fight itself — a device that thinks one more square is spent has a
+  // different chart in front of the player who can see it.
+  if (boss !== null && boss.kind === "fleet") {
+    push(boss.ships.length);
+    for (const ship of boss.ships) {
+      push(ship.col);
+      push(ship.row);
+      push(ship.len);
+      push(FLEET_DIRS.indexOf(ship.dir));
+    }
+    push(boss.struck.length);
+    for (const at of boss.struck) push(at);
+    for (const beat of boss.sunkBeat) push(beat);
+    push(boss.aimCol);
+    push(boss.aimRow);
+    push(boss.openBeat);
+    push(boss.firedBeat);
+    push(boss.lastCol);
+    push(boss.lastRow);
+    push(boss.lastHit ? 1 : 0);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

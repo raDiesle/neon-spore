@@ -1,5 +1,6 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
+import { renderFleetEditor } from "./fleet-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
@@ -69,6 +70,17 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
         "Both screens see the same light. The wheel is authored in " +
         "packages/content/src/maze-rounds.ts and is not editable here yet.";
       panel.appendChild(blurbZ);
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
+    // THE FLEET is the one boss whose whole content is a placement, so it is
+    // the one this panel actually edits rather than documents — see
+    // `fleet-editor.ts`, which draws the chart the pair will play it on.
+    if (wave.boss.kind === "fleet") {
+      renderFleetEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }

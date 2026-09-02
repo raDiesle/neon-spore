@@ -1,4 +1,4 @@
-import type { ControlSet } from "@neon-spore/content";
+import { type ControlSet, setHas } from "@neon-spore/content";
 import type {
   Command,
   Creature,
@@ -131,7 +131,16 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   }
 
   if (showsCannon(l.role)) {
-    if (Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75) {
+    // The strip is answered only when the wave's panel actually has one, and
+    // that is the repair the lobes already had: `bandLobes` walks the set, so
+    // a button the set left out has no circle to be answered at — while these
+    // two strips were still answered by position whatever the set said. THE
+    // FLEET is the first panel with no strip on it at all, and without this
+    // its arrows would sit under a cannon nobody can see and nothing can move.
+    if (
+      setHas(field.controls, "cannon") &&
+      Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75
+    ) {
       return {
         player: 1,
         command: { kind: "cannonCol", col: colFromX(l, x) },
@@ -142,7 +151,10 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     if (lobe) return lobe;
   }
   if (showsShield(l.role)) {
-    if (Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75) {
+    if (
+      setHas(field.controls, "shield") &&
+      Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75
+    ) {
       return {
         player: 2,
         command: { kind: "shieldCol", col: colFromX(l, x) },

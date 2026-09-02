@@ -1,10 +1,10 @@
 # Bosses
 
-> **Status: four built.** The Bulb Queen, THE MIRROR, The Warden and THE VANE
-> are in the game — the last of them holding The Conductor's slot. Of the
-> remaining seven names none are. Two of them are worked out on this page and
-> neither is buildable today: The Vessel waits on a second device and The
-> Mother on destruction tracking.
+> **Status: five built.** The Bulb Queen, THE MIRROR, The Warden, THE VANE and
+> THE FLEET are in the game — THE VANE holding The Conductor's slot, and THE
+> FLEET holding none of them. Of the remaining seven names none are. Two of
+> them are worked out on this page and neither is buildable today: The Vessel
+> waits on a second device and The Mother on destruction tracking.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -20,12 +20,12 @@ fit if one is ever given to it.
 Only four of the eleven are worked out. The rest are names holding a slot in
 the act structure.
 
-The four that exist ask four different questions. The Queen is about **what you
+The five that exist ask five different questions. The Queen is about **what you
 know**, THE MIRROR about **what you remember**, The Warden about **what your
-hands are free to do**, and THE VANE about **what you can still say when the
-words no longer line up** — which is why none of them is a re-skin of another
-and why the fifth one built should be asked the same question before it is
-started.
+hands are free to do**, THE VANE about **what you can still say when the words
+no longer line up**, and THE FLEET about **giving directions** — which is why
+none of them is a re-skin of another, and why the sixth one built should be
+asked the same question before it is started.
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
 
@@ -509,3 +509,114 @@ mechanism sweeping the top of the field or as a weapon hanging over it. That is
 the question the whole picture rests on — a vane is a thing that turns when
 something pushes it — and neither a still nor a test can answer it, because it
 is a question about motion at tempo.
+
+## 11.6 THE FLEET — one of you has the map, the other has the sights
+
+> The one where the only one who can see the ships is the one who cannot move
+> the sights.
+
+A fifth boss for a fifth question, and it is the plainest split this game has
+ever drawn. Every other coupling hands each seat **half of one action**: she
+places the shield and he triggers it, he holds the rope and she fires through
+the gate. This one hands one seat **the whole map** and the other **the whole
+vehicle**, and then asks them to hit a square.
+
+**A chart, and it is the field's own lattice.** Eleven squares across —
+`cfg.cols`, the same columns the pair have been naming all evening — by
+`cfg.fleetRows` down, counted from the top edge, with open water and the ship
+below it. It is lettered A to K across and numbered 1 to 10 down, and those
+letters are the whole reason it is drawn: every announcement this game has ever
+asked for is a column counted from the edge, and a fight over a hundred squares
+needs a name that survives being said once across a voice delay.
+
+**This is the tile grid, switched back on.** `field.ts` has carried the lattice
+[systems](systems.md) 5.8 asks for since the beginning, held off behind
+`SHOW_TILE_GRID` with a note saying to flip it on "when a mechanic needs a
+player to call out a square". This is that mechanic. It is drawn per boss
+rather than by turning the flag on for everything, because the chart covers
+only the rows the ships are in and carries an axis the ordinary field has no
+use for.
+
+**Player 1 sees every hull and holds the only trigger. Player 2 sees water and
+is the only one who can move the sights.** That is the fight in two sentences,
+and neither of them can do a single thing about the other's half. The pilot
+spends the whole encounter saying a square out loud; the navigator spends it
+counting one, one press at a time.
+
+**The sights step, they never jump**, and that line carries the whole design.
+An absolute control — a strip, or a finger on the chart — would name a square,
+and a seat that could name a square would not need to be told which one. A step
+can only be counted, and counting is the thing two people do out loud. So
+player 2's half of the panel is four arrows and nothing else, and a long walk
+across the chart costs real presses, which is exactly what makes naming the
+square worth doing rather than sweeping for it.
+
+**What both of them see is the record.** Every square already fired at is
+marked on both screens — a struck cross where a hull was found, a dashed ripple
+where there was nothing. That is not a softening of the split: a pair who could
+not remember what they had already spent would be playing a longer fight, not a
+harder one. What stays hidden is only ever *where the ships are*.
+
+**A ship going down is on both screens too, and it is the navigator's
+receipt.** They have spent the whole fight firing at squares somebody else
+named; the one moment they get to see what they were shooting at is the moment
+it rolls over and goes under. The sinking is derived from `sunkBeat` and the
+beat phase — no render state outlives a frame, so a restart draws a clear
+chart.
+
+**The clock is the whole of the danger.** Nothing THE FLEET does can reach the
+hull; what costs the hull is *not finishing*. `fleetRoundBeats` runs from the
+wave's first beat and a bar under the chart drains with it, red for its last
+eighth. Running out breaks the hull by `damageFleet` in the middle column — the
+same call THE GAUGE, THE MIRROR and THE MAZE make when a boss with no body has
+to cost the ship something — and the scar is still there when the next wave
+opens. A miss costs time and nothing else, which is the right currency: a wrong
+square is a sentence the pair got wrong, and the price of it should be having
+to say another one.
+
+**A salvo has a rest on it**, `fleetSalvoRestBeats`, so a thumb held on the
+button is slower than a pair who talk. That is THE GAUGE's call rule, and both
+exist for the same reason: a round whose fastest strategy is hammering one
+control is a round with nothing said in it.
+
+**A square already fired at answers nothing at all** — a `reject`, no rest
+spent and no mark changed. It is not a miss, it is a press that meant nothing,
+and the ear should be able to tell the two apart.
+
+**Nothing about it is random.** The placement is authored, the clock is the
+wave's own beat, and a salvo is arithmetic over a list of integers. Like THE
+MIRROR, The Warden and THE VANE it never draws from the rng: what one player
+knows and the other does not is a fact about which screen is drawing, never
+about a seed ([structure](structure.md) 7.3).
+
+**The placement is authored in the real field's squares**, and it is the one
+exception to "waves are authored for seven columns and remapped". `mapCol`
+rounds, and a rounded run of squares is not a run — a five-long hull put
+through it comes out with gaps in it, which is a ship the pair can shoot
+straight through the middle of. So a fleet says exactly where it stands on the
+chart it is played on, and `bossFromWave` hands it through untouched.
+
+**It is the one boss the director actually edits rather than documents.** Every
+other boss panel is a form with a number on it or a rendered table; this one is
+a map, because where the ships are *is* the fight and none of that is legible
+as five rows of `col`/`row`/`len`/`dir`. Two gestures and no modes: press a
+hull to take it, press water to move it there, ROTATE turns it about its own
+head. `fleetFault` says what is wrong with a placement — off the chart, two
+hulls in one square, a length outside two to five, more than five ships — and
+the panel says so under the map rather than letting something that is not a
+fleet be saved quietly.
+
+**Where it lives.** `FleetState` in the `BossState` union, with the chart's
+arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
+`packages/sim/src/fleet.ts`; its numbers are `packages/sim/src/config-fleet.ts`
+and its panel is the `fleet` control set. The picture is three files —
+`fleet-chart.ts`, `fleet-hulls.ts`, `fleet-marks.ts` — split along the line the
+fight itself is split along: the lattice both seats read, the hulls only one of
+them does, and the record they share. Its wave is `THE FLEET` and its sentence
+is the epigraph.
+
+What has **not** been looked at by a human is the shape of player 2's half of
+the panel. Four arrows in a row is what the band's existing lobe layout gives
+for free; a cross would read better under a thumb and would need a new panel
+form to place it. That is a question about a hand on glass, and no test can
+answer it.

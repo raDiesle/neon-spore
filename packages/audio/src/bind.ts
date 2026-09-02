@@ -175,6 +175,27 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mazeDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    // THE FLEET's chart. Every one of them is panned to its column and pitched
+    // to its row, which is the only place in the game where that pairing is
+    // load-bearing rather than decoration: the seat holding the sights is
+    // shown no ships at all, so where a salvo landed is a thing they hear
+    // before they see it (`fleet-hulls.ts`).
+    case "fleetSplash":
+      return {
+        id: "boss.fleetSplash",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "fleetHit":
+      return {
+        id: "boss.fleetHit",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "fleetSunk":
+      return { id: "boss.fleetSunk", pan: panForCol(e.col, cols) };
+    case "fleetDown":
+      return { id: "boss.fleetDown", pan: panForCol(e.col, cols) };
     // Everything one body did — armour chipping, a covering coming off, a
     // disguise going, a cloud shutting or opening. `bind-creatures.ts` next
     // door, listed case by case rather than reached through a `default`: a

@@ -131,6 +131,13 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   if (boss.kind === "maze") return { ...boss, rounds: boss.rounds.map((t) => ({ ...t })) };
   // THE GAUGE has no field to have a column on. Its wave is its own screen.
   if (boss.kind === "gauge") return { ...boss };
+  // THE FLEET is the one boss authored in the *real* field's squares, and it
+  // is the exception this function otherwise exists to prevent. `mapCol`
+  // rounds, and a rounded run of squares is not a run: a five-long hull put
+  // through it comes out with gaps, which is a ship the pair can shoot
+  // straight through the middle of. So a chart passes through untouched, and
+  // `FleetShip` is where that is argued.
+  if (boss.kind === "fleet") return { ...boss, ships: boss.ships.map((s) => ({ ...s })) };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

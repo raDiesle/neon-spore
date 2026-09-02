@@ -112,6 +112,85 @@ export function drawActionButton(
 }
 
 /**
+ * Player 2's four arrows, and the whole of what they say is *which way*.
+ *
+ * A triangle in a ring, turned. Deliberately the plainest button on any panel
+ * in this game: it carries no colour of its own, no fill and no silhouette,
+ * because the seat pressing it is not being told anything and a button that
+ * looked like it knew something would be a lie. `dx`/`dy` is the direction it
+ * points, one of them zero.
+ */
+export function drawAimButton(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  dx: number,
+  dy: number,
+): void {
+  ctx.save();
+  ctx.fillStyle = "#1A1338";
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = PALETTE.shield;
+  ctx.lineWidth = STROKE.outline;
+  ctx.stroke();
+
+  ctx.translate(x, y);
+  ctx.rotate(Math.atan2(dy, dx));
+  const tip = r * 0.52;
+  const back = r * 0.26;
+  ctx.beginPath();
+  ctx.moveTo(tip, 0);
+  ctx.lineTo(-back, -r * 0.4);
+  ctx.lineTo(-back, r * 0.4);
+  ctx.closePath();
+  ctx.fillStyle = PALETTE.shieldRim;
+  ctx.fill();
+  ctx.restore();
+}
+
+/**
+ * Player 1's one button on THE FLEET's panel: the salvo.
+ *
+ * It wears the same crosshair every fire button in this game wears, so the
+ * pilot's thumb is on something they already recognise as "this is the one
+ * that goes off" — and nothing inside it, because unlike a fire lobe it has
+ * no colour to be loaded with. What it is aimed at is on the chart above,
+ * where the sights are.
+ *
+ * `rest` is 0 while it is ready and rises to 1 straight after a salvo, so the
+ * beat the round makes the pair wait is a thing they can see rather than a
+ * press that quietly did nothing.
+ */
+export function drawSalvoButton(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  rest: number,
+  label: string | null,
+): void {
+  const ready = rest <= 0;
+  ctx.save();
+  if (ready) halo(ctx, x, y, r * 1.7, PALETTE.pod, 0.5);
+  ctx.fillStyle = ready ? PALETTE.pod : "#2A1F4E";
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = PALETTE.pod;
+  ctx.lineWidth = STROKE.outline;
+  ctx.stroke();
+  reticle(ctx, x, y, r, ready ? PALETTE.podDark : PALETTE.podRim);
+  if (label !== null) {
+    ctx.fillStyle = ready ? PALETTE.podDark : PALETTE.pod;
+    ctx.fillText(label, x, y + r + 10);
+  }
+  ctx.restore();
+}
+
+/**
  * The block that marks a lobe's column on its strip. Drawn as a short length
  * of strip with the block on it, so a cannon step reads as the cannon control
  * rather than as a bare arrow: `w` is how much strip to show either side.

@@ -2,9 +2,15 @@ import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act two: the first five bosses, back to back, nothing else. `waves.ts` is
+ * Act two: the first six bosses, back to back, nothing else. `waves.ts` is
  * the barrel that concatenates this with the other acts — see it for why the
  * list was split by act in the first place.
+ *
+ * THE FLEET is the sixth and it arrived here rather than in act three, where
+ * THE VANE sits among the mechanics: act three was full (`limits.test.ts`),
+ * and this is the act whose whole content is bosses back to back. A seventh
+ * that does not fit gets a fourth act beside act three, not a line in the
+ * limits table.
  */
 export const WAVES_ACT_2: Wave[] = [
   {
@@ -71,5 +77,27 @@ export const WAVES_ACT_2: Wave[] = [
     },
     entries: [],
     boss: { kind: "warden" },
+  },
+  {
+    name: "THE FLEET",
+    sentence:
+      "The one where the only one who can see the ships is the one who cannot move the sights.",
+    guide: {
+      both: "A chart of squares over the water, lettered across and numbered down, with a fleet hidden in it. Sink all five before the clock runs out or the hull pays for it.",
+      p1: "You can see every ship and you hold the only trigger. You cannot move the sights one square — so say the square, out loud, and keep saying it until it is under them.",
+      p2: "You move the sights, one square a press, and you are shown nothing but water. Read him back where you are — the letter and the number are on your screen too.",
+    },
+    entries: [],
+    boss: {
+      kind: "fleet",
+      ships: [
+        { col: 1, row: 1, len: 5, dir: "h" },
+        { col: 8, row: 0, len: 4, dir: "v" },
+        { col: 3, row: 5, len: 3, dir: "h" },
+        { col: 0, row: 6, len: 3, dir: "v" },
+        { col: 7, row: 8, len: 2, dir: "h" },
+      ],
+    },
+    controls: "fleet",
   },
 ];

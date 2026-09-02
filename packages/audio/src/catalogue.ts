@@ -17,6 +17,7 @@ import { CREATURE_SOUNDS } from "./sounds/creature.js";
 import { CREATURE_GHOST_SOUNDS } from "./sounds/creature-ghost.js";
 import { CREATURE_IDEA_SOUNDS } from "./sounds/creature-ideas.js";
 import { CREATURE_STORE_SOUNDS } from "./sounds/creature-store.js";
+import { FLEET_SOUNDS } from "./sounds/fleet.js";
 import { GRIP_SOUNDS } from "./sounds/grip.js";
 import { HULL_SOUNDS } from "./sounds/hull.js";
 import { IMPACT_SOUNDS } from "./sounds/impact.js";
@@ -39,6 +40,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...POD_SOUNDS,
   ...BOSS_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
+  ...FLEET_SOUNDS,
   ...MIRROR_SOUNDS,
   ...MIRROR_ROUND_SOUNDS,
   ...UI_SOUNDS,

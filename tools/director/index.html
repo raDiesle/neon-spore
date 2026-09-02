@@ -930,6 +930,22 @@
       table.boss-phases th { color: var(--cyan); font-weight: 400; letter-spacing: 1px; }
       table.boss-phases td:first-child { color: var(--ink); letter-spacing: 1px; }
 
+      /* THE FLEET's chart. The map is the editor: every other boss is authored
+         as a number and this one is authored as a picture, so the placement is
+         edited on the same lattice the pair will play it on. */
+      .fleet-chart { display: grid; gap: 1px; margin: 10px 0; }
+      .fleet-axis { font-size: 8px; letter-spacing: 1px; color: var(--dim); text-align: center; align-self: center; padding: 0 3px; }
+      button.fleet-cell { padding: 0; aspect-ratio: 1; min-width: 0; border-radius: 2px; border: 1px solid var(--line-soft); background: #0a0719; }
+      button.fleet-cell.on { background: #241b4f; border-color: var(--cyan); }
+      button.fleet-cell.held { background: #3a2a6b; border-color: var(--gold); }
+      .fleet-ships { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; }
+      .fleet-ship { display: flex; gap: 4px; align-items: center; }
+      .fleet-ship.held button.fleet-take { color: var(--gold); border-color: var(--gold); }
+      button.fleet-take { flex: 1; text-align: left; letter-spacing: 1px; }
+      button.fleet-len { width: 26px; }
+      button.fleet-add { width: 100%; margin-top: 4px; }
+      .fleet-fault { color: var(--red); }
+
       /* THE MIRROR's rounds. A sequence is read down the page, one round per
          block, so the editor is shaped like the thing it edits. */
       .boss-pick { display: flex; gap: 6px; }

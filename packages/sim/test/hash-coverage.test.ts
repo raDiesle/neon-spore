@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { CREATURE_KINDS } from "../src/creature-kinds.js";
+import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import { MAZE_PHASES } from "../src/maze.js";
@@ -72,6 +73,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   MAZE_PHASES,
   MIRROR_PHASES,
   GAUGE_PHASES,
+  FLEET_DIRS,
 ];
 
 function otherValue(value: string): string | null {

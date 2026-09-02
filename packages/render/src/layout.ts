@@ -2,6 +2,17 @@ import { type ControlDef, type ControlSet, setControls } from "@neon-spore/conte
 import type { SimConfig } from "@neon-spore/sim";
 import type { Viewport } from "./renderer.js";
 
+export {
+  showsCannon,
+  showsFleetHulls,
+  showsQueenHint,
+  showsQueenShape,
+  showsShield,
+  type ViewRole,
+} from "./view-role.js";
+
+import { showsCannon, showsShield, type ViewRole } from "./view-role.js";
+
 /**
  * Where everything sits on the screen. Computed once per resize and shared by
  * the renderer and by input hit-testing, so a control is never drawn in one
@@ -65,28 +76,6 @@ export interface Circle {
   y: number;
   r: number;
 }
-
-/**
- * Whose screen this is. `p1` shows the cannon and the trigger, `p2` the shield
- * and the two colours — one role per device, which is the finished game. `test`
- * is both halves at once on one screen, which is how it is played alone.
- */
-export type ViewRole = "p1" | "p2" | "test";
-
-export const showsCannon = (role: ViewRole): boolean => role !== "p2";
-export const showsShield = (role: ViewRole): boolean => role !== "p1";
-/**
- * *Where* — which side the queen's next rock drops from, and which of her two
- * marks is the real one. The navigator's read, same half as the shield.
- */
-export const showsQueenHint = (role: ViewRole): boolean => role !== "p1";
-/**
- * *What* — the creature and colour her mark is about to become. The pilot's
- * read, same half as the cannon that has to answer it: they hold the
- * ammunition, so they are the one who has to know which it needs to be.
- * Player 2 gets a question mark in its place (`queen-weakpoint.ts`).
- */
-export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
 
 /**
  * The phone-shaped rectangle the game is drawn into, centred in the window.

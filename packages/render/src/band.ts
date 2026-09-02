@@ -1,17 +1,13 @@
 import {
-  type ControlDef,
   type ControlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
   setControls,
 } from "@neon-spore/content";
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
-import { drawActionButton, drawFireButton } from "./controls.js";
-import { halo } from "./glow.js";
-import { drawLanceButton } from "./lance.js";
-import { bandLobes, type Circle, type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
+import { drawLobe, drawStripFor } from "./band-control.js";
+import { bandLobes, type Layout, showsCannon, showsShield } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { guardLapse } from "./shield.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -104,57 +100,6 @@ function drawHalf(
   }
 }
 
-function drawLobe(
-  ctx: CanvasRenderingContext2D,
-  circle: Circle,
-  c: ControlDef,
-  world: World,
-  armed: boolean,
-  open: boolean,
-): void {
-  const { x, y, r } = circle;
-  // The first two are lit for exactly as long as their window is open, so
-  // player 1 can see what they are spending.
-  if (c.id === "guard") {
-    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label);
-    // A press that outlives its own window looks, on this button, exactly
-    // like a press that never happened — same dark fill, same outline. Once
-    // `armed` drops there is nothing left on screen saying the guard used to
-    // be lit a moment ago, which is the whole defect: the button cannot tell
-    // "just went out" from "was never on". This fades the same glow the
-    // armed button was just showing, so the transition itself becomes the
-    // signal, without moving `guardWindowMs` or touching `packages/sim`.
-    const lapse = guardLapse(world);
-    if (lapse > 0) halo(ctx, x, y, r * 1.8, PALETTE.shield, lapse * 0.55);
-    return;
-  }
-  if (c.id === "intake") {
-    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, c.label);
-    return;
-  }
-  // Not a `drawActionButton`: the other two are lit or not, and this one has
-  // a length. See `drawLanceButton`.
-  if (c.id === "lance") {
-    drawLanceButton(ctx, x, y, r, world);
-    return;
-  }
-  drawFireButton(ctx, x, y, r, c.id === "fireRed" ? "red" : "cyan");
-}
-
-function drawStripFor(ctx: CanvasRenderingContext2D, l: Layout, world: World, c: ControlDef): void {
-  const cannon = c.id === "cannon";
-  const s = cannon ? l.cannonStrip : l.shieldStrip;
-  strip(
-    ctx,
-    l,
-    s.y,
-    s.height,
-    cannon ? world.cannonCol : world.shieldCol,
-    cannon ? PALETTE.hull : PALETTE.shield,
-    c.label,
-  );
-}
-
 /**
  * The panel says its own name, but only when it is not the ordinary one.
  *
@@ -213,31 +158,4 @@ function drawLock(ctx: CanvasRenderingContext2D, l: Layout): void {
   ctx.fillText("LOCKED — WATCH", l.width / 2, y + 4);
   ctx.restore();
   ctx.textAlign = "left";
-}
-
-function strip(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  y: number,
-  h: number,
-  col: number,
-  hex: string,
-  label: string,
-): void {
-  ctx.fillStyle = hex;
-  ctx.fillText(label, l.width / 2, y - h / 2 - 4);
-  ctx.fillStyle = "rgba(36,27,79,.55)";
-  ctx.fillRect(l.gridLeft, y - h / 2, l.gridWidth, h);
-
-  for (let c = 0; c < l.cols; c++) {
-    const x = tileCX(l, c);
-    if (c === col) {
-      halo(ctx, x, y, h * 1.1, hex, 0.5);
-      ctx.fillStyle = hex;
-      ctx.fillRect(x - l.tile * 0.4, y - h / 2 + 2, l.tile * 0.8, h - 4);
-    } else {
-      ctx.fillStyle = "#3B3163";
-      ctx.fillRect(x - 1, y - h * 0.22, 2, h * 0.44);
-    }
-  }
 }

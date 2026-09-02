@@ -1,5 +1,6 @@
 import type { QueenState } from "./boss-state.js";
 import { hullRow, type SimConfig } from "./config.js";
+import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import {
@@ -90,6 +91,14 @@ export function stepBoss(world: World): void {
   }
   if (boss.kind === "maze") {
     stepMaze(world, boss);
+    return;
+  }
+  // THE FLEET has exactly one thing on the beat and it is the clock. Its
+  // salvo and its sights answer a press on the tick, from `step` — a shot
+  // that waited for the next beat would put a queue between the sentence and
+  // the square it named (`fleet.ts`).
+  if (boss.kind === "fleet") {
+    stepFleet(world, boss);
     return;
   }
   // THE GAUGE never reaches this. It is stepped on the tick from `step`'s own

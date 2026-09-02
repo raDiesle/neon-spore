@@ -146,6 +146,10 @@ export const MECHANICS = {
     what: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
     reach: "spawn",
   },
+  fleet: {
+    what: "A chart of squares with ships hidden in it. Only one of you is shown where they are, and only the other one can move the sights.",
+    reach: "spawn",
+  },
   briefing: {
     what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
     reach: "run",

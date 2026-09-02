@@ -1,6 +1,7 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
 import type { WardenEntry } from "./entries.js";
+import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
@@ -70,6 +71,12 @@ export function startWave(
     // wheel behind them, so there is nothing of it for the fall loop or a
     // hand to find — the same shape THE VANE has, one branch down.
     world.boss = installMaze(world, boss.rounds);
+  } else if (boss?.kind === "fleet") {
+    // No creature and no row: a chart is not a body. Nothing of THE FLEET
+    // falls, can be warded or can be taken hold of — the ships are squares on
+    // a lattice over the field, and the only thing that ever reaches one is a
+    // salvo (`fleet.ts`).
+    world.boss = installFleet(world, boss);
   } else if (boss?.kind === "vane") {
     // No creature and no row. THE VANE hangs off the top edge rather than
     // standing on the grid, so there is nothing of it for the fall loop, the

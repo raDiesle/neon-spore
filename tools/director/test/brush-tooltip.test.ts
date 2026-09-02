@@ -11,8 +11,10 @@ import { BRUSHES } from "../src/brushes.js";
  */
 describe("brushTooltip", () => {
   test("names the wave and its name for a brush a wave carries", () => {
-    expect(brushTooltip("throb")).toBe("First in WAVE 21 · ON THE BEAT");
-    expect(brushTooltip("shell")).toBe("First in WAVE 22 · THE THIRD SHOT");
+    // The numbers move when a wave is authored ahead of these two — THE FLEET
+    // added a sixth boss to act two and pushed both on by one.
+    expect(brushTooltip("throb")).toBe("First in WAVE 22 · ON THE BEAT");
+    expect(brushTooltip("shell")).toBe("First in WAVE 23 · THE THIRD SHOT");
   });
 
   test("says nothing for ERASE, which paints nothing", () => {

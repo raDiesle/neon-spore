@@ -26,6 +26,21 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
       return { command: { kind: "fire", color: "red" }, hold: null };
     case "fireCyan":
       return { command: { kind: "fire", color: "cyan" }, hold: null };
+    // THE FLEET's five. The salvo is one press and is over the moment it
+    // happens; each arrow is one square and is over just as fast — there is
+    // nothing held here, which is why a hold would be wrong: a thumb resting
+    // on an arrow that walked the sights would take the counting out of the
+    // fight, and the counting is the fight (`sim/fleet.ts`).
+    case "salvo":
+      return { command: { kind: "salvo" }, hold: null };
+    case "aimLeft":
+      return { command: { kind: "aim", dcol: -1, drow: 0 }, hold: null };
+    case "aimRight":
+      return { command: { kind: "aim", dcol: 1, drow: 0 }, hold: null };
+    case "aimUp":
+      return { command: { kind: "aim", dcol: 0, drow: -1 }, hold: null };
+    case "aimDown":
+      return { command: { kind: "aim", dcol: 0, drow: 1 }, hold: null };
     case "cannon":
     case "shield":
     case "gaugeLeft":

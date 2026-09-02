@@ -42,6 +42,9 @@ export const isUint32 = (x: unknown): x is number =>
 
 const isBool = (x: unknown): x is boolean => typeof x === "boolean";
 
+/** One square of movement, either way, or none. THE FLEET's `aim` is two. */
+const isStep = (x: unknown): x is -1 | 0 | 1 => x === -1 || x === 0 || x === 1;
+
 /** An optional field: either absent, or present and of the right shape. */
 const optional = <T>(x: unknown, check: (v: unknown) => v is T): boolean =>
   x === undefined || check(x);
@@ -77,6 +80,13 @@ export function decodeCommand(x: unknown): Command | null {
         : null;
     case "call":
       return { kind: "call" };
+    // THE FLEET's two verbs. `aim` is a *step* and its two fields are each one
+    // of three values, so a peer that sent a column would be rejected here
+    // rather than teleporting the sights across the chart three layers down.
+    case "aim":
+      return isStep(c.dcol) && isStep(c.drow) ? { kind: "aim", dcol: c.dcol, drow: c.drow } : null;
+    case "salvo":
+      return { kind: "salvo" };
     case "drag":
       return isDragTarget(c.target) && isBool(c.on) && isNonNegInt(c.fromMilli)
         ? { kind: "drag", target: c.target, on: c.on, fromMilli: c.fromMilli }

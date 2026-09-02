@@ -1,5 +1,8 @@
 import { WARDEN_COLS, wardenPullMilli, wardenTether } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
+import { drawFleetChart } from "./fleet-chart.js";
+import { drawFleetHulls } from "./fleet-hulls.js";
+import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
@@ -82,6 +85,19 @@ export function drawBoss(
 
   if (boss.kind === "maze") {
     drawMaze(ctx, l, world.cfg, boss, view.role, world.beat, view.beatPhase);
+    return;
+  }
+
+  // THE FLEET, in the order the eye reads it: the water and its lattice, the
+  // hulls the seat is allowed to see, the record both seats share, and the
+  // sights on top of all of it. Nothing here is held between frames — the
+  // marks come off `struck` and the sinking off `sunkBeat`, so a restart draws
+  // a clear chart with no help from `Effects` (`fleet-hulls.ts`).
+  if (boss.kind === "fleet") {
+    drawFleetChart(ctx, l, world, boss, view.beatPhase);
+    drawFleetHulls(ctx, l, world, boss, view.beatPhase);
+    drawFleetMarks(ctx, l, world, boss);
+    drawFleetSights(ctx, l, world, boss, view.beatPhase);
     return;
   }
 

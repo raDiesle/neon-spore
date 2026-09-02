@@ -224,4 +224,26 @@ export type SimEvent =
    * From this moment it is drawn on both screens (`showsGhostBody`): a hull
    * hit nobody could see coming is a hull hit the pair cannot learn from.
    */
-  | { type: "ghostCharge"; col: number; row: number };
+  | { type: "ghostCharge"; col: number; row: number }
+  /**
+   * A salvo into open water on THE FLEET's chart. `col` and `row` are the
+   * square, in the chart's own coordinates — which are the field's, because
+   * the chart stands on the grid rather than beside it.
+   *
+   * Its own event and not a `reject`, because the ear has to tell "that did
+   * nothing" from "that was a square, and it was empty": a splash spends the
+   * square and the rest between two salvoes, and a press onto a square already
+   * fired at spends neither. Both seats hear it — the chart is the one thing
+   * in this fight the two of them share.
+   */
+  | { type: "fleetSplash"; col: number; row: number }
+  /** A salvo that found a hull. The square is now marked on both screens. */
+  | { type: "fleetHit"; col: number; row: number }
+  /**
+   * The last square of one ship. `len` is how long it was and `left` how many
+   * are still afloat, so the ear can say how big a thing just went down and
+   * how much of the fight is left without either screen being read.
+   */
+  | { type: "fleetSunk"; col: number; row: number; len: number; left: number }
+  /** The last ship of the fleet. The chart is clear and the wave is over. */
+  | { type: "fleetDown"; col: number; row: number };

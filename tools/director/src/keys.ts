@@ -50,6 +50,11 @@ export const KEY_BINDINGS: readonly KeyBinding[] = [
   { code: "KeyZ", key: "Z", seat: 1, does: "hold THE GAUGE's valve one way" },
   { code: "KeyX", key: "X", seat: 1, does: "hold THE GAUGE's valve the other way" },
   { code: "KeyC", key: "C", seat: 2, does: "call — THE GAUGE's own signal" },
+  { code: "KeyU", key: "U", seat: 2, does: "walk THE FLEET's sights up a square" },
+  { code: "KeyN", key: "N", seat: 2, does: "walk them down a square" },
+  { code: "KeyH", key: "H", seat: 2, does: "walk them left a square" },
+  { code: "KeyK", key: "K", seat: 2, does: "walk them right a square" },
+  { code: "KeyR", key: "R", seat: 1, does: "fire THE FLEET's salvo into the square they are on" },
 ];
 
 export function bindKeys(cols: () => number, creatures: () => readonly Creature[]): Keys {
@@ -131,6 +136,26 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
         break;
       case "KeyC":
         push(2, { kind: "call" });
+        break;
+      // THE FLEET's five, and the same argument once more: a chart is not the
+      // field, so it has its own verbs. U H N K walk the sights a square at a
+      // time as the navigator — a rough diamond round J, near enough to press
+      // without looking — and R fires the salvo as the pilot. All five mean
+      // nothing while an ordinary wave runs.
+      case "KeyU":
+        push(2, { kind: "aim", dcol: 0, drow: -1 });
+        break;
+      case "KeyN":
+        push(2, { kind: "aim", dcol: 0, drow: 1 });
+        break;
+      case "KeyH":
+        push(2, { kind: "aim", dcol: -1, drow: 0 });
+        break;
+      case "KeyK":
+        push(2, { kind: "aim", dcol: 1, drow: 0 });
+        break;
+      case "KeyR":
+        push(1, { kind: "salvo" });
         break;
       default:
         break;

@@ -98,6 +98,19 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "veilRebuff":
       return at(l, e.col, e.row, 4, PALETTE.sparkDim);
 
+    // THE FLEET's three answers, and their sizes are the whole of what the
+    // navigator learns about a square they cannot see. A chart square is a
+    // field tile — same width, same origin (`fleet-chart.ts`) — so `at` puts
+    // the burst exactly where the mark is drawn.
+    case "fleetSplash":
+      return at(l, e.col, e.row, 6, PALETTE.shield);
+    case "fleetHit":
+      return at(l, e.col, e.row, 14, PALETTE.red);
+    // A hull going under. The biggest burst on the chart, because it is the
+    // one moment both seats are looking at the same thing.
+    case "fleetSunk":
+      return at(l, e.col, e.row, 26, PALETTE.ember);
+
     // Everything below is drawn some other way, or not drawn as a burst at
     // all, and says so rather than falling through a default that could not
     // tell the difference between "decided" and "forgotten".
@@ -151,6 +164,9 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // And the one event in the union that carries no position at all, so a
     // spark could not be put anywhere even if this creature wanted one.
     case "wispHop":
+    // The last ship of a fleet. The sinking that rides beside it on the same
+    // tick is the picture, and `fleetSunk` has already thrown for it.
+    case "fleetDown":
       return null;
     default:
       return assertNever(e);
