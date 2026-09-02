@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · a248bdb — One of you can see the ships and the other one is holding the sights
+
+THE FLEET, a sixth boss and the plainest split this game has drawn. A chart of squares stands over the field with a fleet hidden in it: player 1 is shown every hull and holds the only trigger, player 2 is shown water and is the only one who can move the sights. Neither can reach the other's half, so the pilot spends the fight saying a square out loud and the navigator spends it counting one. The sights step one square a press and never jump — a control that could name a square would need no telling — and the chart is lettered A to K by 1 to 10 so a square survives being said once across a voice delay. The clock is the whole of the danger: nothing here can reach the hull, and running out of time breaks it by damageFleet in the middle column.
+
 ## 2026-09-02 · 4192942 — A body one of you cannot see at all, and the other cannot aim
 
 THE GHOST is the first creature whose secret is a place. Player 2 sees it whole; player 1 is drawn a band across the row it is standing in and nothing whatever about the column — and player 1 is the seat holding the cannon. So the sentence the pair has to say is a bare number, which nothing else in this game has ever asked for, and the handover is the mechanic: the number is worth nothing until the cannon is standing on it, and only the player who cannot check can put it there. Shot, it lets go and climbs out of the top of the field like a balloon released, on both screens — the only thing in this game that ever travels upward, and the only sight player 1 gets of the body they have been firing at.
