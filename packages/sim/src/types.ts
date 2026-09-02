@@ -168,6 +168,19 @@ export interface Creature {
    * score can disagree about which generation a body belongs to.
    */
   echoSplits?: number;
+  /**
+   * The beat THE ECHO came into being — the arrival's own, or the beat the
+   * division that made it happened on. Absent on every other kind.
+   *
+   * A moment and not a countdown, for `Creature.veilStruckTick`'s reason and
+   * rather more of it: the wait grows with each generation (`echoWaitBeats`),
+   * so a stored countdown would be a second copy of a number that is already
+   * derived, and the picture render draws of a body straining apart would be
+   * able to disagree with the beat it actually comes apart on.
+   *
+   * Read it through `echoDue` and `echoSplitPhase`, never by hand.
+   */
+  echoBeat?: number;
 }
 
 export interface Bullet {

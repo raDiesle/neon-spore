@@ -150,18 +150,39 @@ export interface CreatureConfig {
    */
   echoFallBeats: number;
   /**
-   * How many times an echo divides before it is done. Two, so one arrival is
-   * four bodies — and four is the number rather than a tuning: it is the most
-   * a pair can name left to right in one breath, and the fan it makes
-   * (`echoSpread`) is two columns wide either side of where it started, which
-   * fits a field of eleven with the cannon able to cross it.
+   * How many times an echo divides before it is done. Three, so one arrival
+   * is eight bodies — and the third is the one a pair playing well never sees,
+   * because it lands with barely a third of the field left (`echoWaitBeats`).
+   *
+   * It cannot usefully be raised past `ECHO_AXES.length`: the list of
+   * directions a division steps in is the whole rule, and a fourth generation
+   * would repeat the last axis and put two bodies on one square.
    */
   echoSplits: number;
   /**
-   * What *one* echo body is worth. A quarter of `scoreDestroy`, so a whole
-   * arrival pays exactly what a slick does however it is taken — see
-   * `echoStruck`, which multiplies this by how many bodies the one it killed
-   * would have become. The pair is never paid for letting one divide.
+   * Beats an echo waits before its **first** division. Each generation after
+   * that waits one more multiple of it — three beats, then six, then nine.
+   *
+   * Three, because it is a shade under a full spoken exchange
+   * (docs/spec/latency.md puts one at 2.1–3.6 s; three beats is 1.9 s). Taking
+   * the arrival whole is therefore a thing the pair can *just* do, and only
+   * with the shorthand they have already built — which is the difference
+   * between a creature that rewards talking and one that rewards typing fast.
+   *
+   * The growth is what stops the divisions becoming a rhythm. A fixed gap is a
+   * metronome the pair answers without looking; a gap that gets longer means
+   * the second wait feels like the body has finished, and it has not.
+   */
+  echoSplitBeats: number;
+  /**
+   * What *one* echo body is worth. `echoStruck` multiplies it by how many
+   * bodies the one it killed would still have become, so a whole arrival pays
+   * the same however it is taken and the pair is never paid for letting one
+   * divide.
+   *
+   * Eight bodies at twenty-five is two ordinary kills for one arrival, and
+   * that is right rather than generous: an echo is on the field for eighteen
+   * beats and spends all of them asking the pair for an order.
    */
   scoreEchoKill: number;
 }
@@ -188,6 +209,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   ghostDiveTiles: 3,
   damageGhostDive: 18,
   echoFallBeats: 2,
-  echoSplits: 2,
+  echoSplits: 3,
+  echoSplitBeats: 3,
   scoreEchoKill: 25,
 };

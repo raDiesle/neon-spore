@@ -70,7 +70,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   echo: {
-    what: "A small slick or bulb that comes down half as fast as anything else — and one beat after it arrives it is two, and a beat after that four, fanned two columns apart. The matching cannon kills any of them, and a shot that catches it before it divides is paid for all four.",
+    what: "A small slick or bulb that comes down half as fast as anything else, and divides while it falls: three beats, then six, then nine. Every division turns a corner — sideways, then up and down, then both at once — and the seam across it says which way and how soon. The matching cannon kills any of them, and a shot that catches one early is paid for every body it would have become.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // dart: the silhouette is a slick's or a bulb's and the colour is which

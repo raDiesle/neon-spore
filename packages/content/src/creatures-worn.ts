@@ -152,6 +152,6 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     // the pair does about it next.
     radar: "p2",
     blurb:
-      "A small slick or bulb that comes down half as fast as anything else, and one beat after it arrives it is two — and a beat after that, four, fanned two columns apart. Nothing else on the field is less urgent, and nothing else costs so much to leave.",
+      "A small slick or bulb with a seam down it, coming half as fast as anything else. It strains and parts in two — sideways, then up and down, then both at once — and each wait is longer than the last. Nothing on the field is less urgent, and nothing costs so much to leave.",
   },
 };

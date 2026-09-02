@@ -1,7 +1,8 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { dartOnSpawn, stepDart } from "./dart.js";
-import { echoFalls, echoOnSpawn, splitEchoes } from "./echo.js";
+import { echoFalls, echoOnSpawn } from "./echo.js";
+import { splitEchoes } from "./echo-split.js";
 import { ghostCrosses, ghostOnSpawn, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
@@ -208,7 +209,7 @@ export function onBeat(world: World): void {
       // How many divisions this arrival has ahead of it, and absent on every
       // other kind — so a body that never divides carries no field at all and
       // every wave written before THE ECHO is byte-for-byte the same world.
-      ...(entry.kind === "echo" ? echoOnSpawn(world.cfg) : {}),
+      ...(entry.kind === "echo" ? echoOnSpawn(world.cfg, world.beat) : {}),
     });
     world.spawned += 1;
   }

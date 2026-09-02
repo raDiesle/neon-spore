@@ -77,25 +77,30 @@ import type { Wave } from "../wave-types.js";
  * are: the director rewrites the array and keeps only what stands over it.
  *
  * Nothing is hidden in this one, which makes it the odd wave out on this page
- * — both screens draw all four bodies whole and neither player is missing a
- * colour, a column or a beat. What has to be said out loud is an *order*, and
- * the wave exists to make the obvious order the wrong one: an echo falls at
- * half speed, so it is always the thing it is reasonable to leave, and leaving
- * it is what turns one shot into four.
+ * — both screens draw every body whole, the seam on each one says which way it
+ * is about to part, and neither player is missing a colour, a column or a
+ * beat. What has to be said out loud is an *order*, and the wave exists to
+ * make the obvious order the wrong one: an echo falls at half speed, so it is
+ * always the thing it is reasonable to leave, and leaving it is what turns one
+ * shot into eight.
  *
- * 1. Beats 0–8, the doubling. One echo on an empty field, with the whole
- *    descent available. The pair is meant to watch it divide at least once —
- *    there is nothing else to shoot and no cost to being slow — because a
- *    creature nobody has seen fan out is a creature they will not believe is
- *    worth interrupting each other over.
- * 2. Beats 8–10, the choice. An echo and two ordinary bodies within two beats
+ * 1. Beats 0–10, the dividing. One echo on an empty field, with the whole
+ *    descent available. The pair is meant to watch it strain, part, and then
+ *    wait *longer* before parting again — there is nothing else to shoot and
+ *    no cost to being slow — because a creature nobody has seen come apart
+ *    twice is a creature they will not believe is worth interrupting each
+ *    other over. Three beats is also just short of a spoken exchange, so the
+ *    first thing they learn is that describing it does not fit.
+ * 2. Beats 12–14, the choice. An echo and two ordinary bodies within two beats
  *    of each other. The ordinary ones reach the hull first and look like the
  *    emergency; the echo is four bodies by the time they are dealt with. This
  *    is the whole wave, and both seats have to agree out loud to get it wrong
  *    or right together.
- * 3. Beats 16–18, the squeeze. Two echoes in opposite colours with a rock
+ * 3. Beats 20–24, the squeeze. Two echoes in opposite colours with a rock
  *    between them, so the shield's column is player 2's hand and its trigger
- *    is player 1's while eight bodies are opening across the field.
+ *    is player 1's while two knots are opening on the field. This is the
+ *    figure where the third division is on the table, and seeing it is the
+ *    point: it is what being late looks like.
  *
  * An echo entry names its kind and its colour, the way a dart does: the
  * silhouette is the slick's or the bulb's, drawn small, and the colour is
@@ -156,18 +161,18 @@ export const WAVES_ACT_4: Wave[] = [
     name: "THE ECHO",
     sentence: "The one where the slowest thing on the field is the one to take first.",
     guide: {
-      both: "Half speed down, and it divides every beat: one becomes two, two become four, fanned across four lanes. Both of you can see all of it.",
-      p1: "Have the cannon on it while it is still one. The fast bodies can wait a beat — this cannot, and two beats from now it is four columns to visit instead of one.",
-      p2: "Fire it the beat they are under it, not the beat you are free. Once it has fanned, call the four left to right and take them in that order.",
+      both: "Half speed down, and it comes apart while it falls. The seam across it says which way — sideways, then up and down — and it strains wide just before it goes. Each wait is longer than the last, so a quiet one is not a finished one.",
+      p1: "Have the cannon on it while it is still one. The fast bodies can wait a beat — this cannot, and every wait you spend on something else is another body to visit.",
+      p2: "Fire it the beat they are under it, not the beat you are free. Once it is a knot, call them by row as well as column — top or bottom — and take them in that order.",
     },
     entries: [
       { beat: 0, col: 3, kind: "echo", color: "cyan" },
-      { beat: 8, col: 3, kind: "echo", color: "red" },
-      { beat: 9, col: 6, color: "red" },
-      { beat: 10, col: 0, color: "cyan" },
-      { beat: 16, col: 2, kind: "echo", color: "cyan" },
-      { beat: 17, col: 5, kind: "meteor", color: null },
-      { beat: 18, col: 4, kind: "echo", color: "red" },
+      { beat: 12, col: 3, kind: "echo", color: "red" },
+      { beat: 13, col: 6, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 20, col: 2, kind: "echo", color: "cyan" },
+      { beat: 22, col: 5, kind: "meteor", color: null },
+      { beat: 24, col: 4, kind: "echo", color: "red" },
     ],
   },
 ];

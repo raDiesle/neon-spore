@@ -41,7 +41,14 @@ export {
   dartPickDir,
   dartStepCol,
 } from "./dart.js";
-export { echoBodies, echoFalls, echoSplitsLeft, echoSpread } from "./echo.js";
+export { echoBodies, echoFalls, echoSplitsLeft } from "./echo.js";
+export {
+  ECHO_AXES,
+  echoAxis,
+  echoGeneration,
+  echoSplitPhase,
+  echoWaitBeats,
+} from "./echo-split.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {
   clearGrips,

@@ -152,6 +152,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/snake.ts` | SNAKE: one of you drives it and the other one works it |
 | `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
+| `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
 
 ### packages/content
 
@@ -318,6 +319,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
+| `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
 
 ### packages/net
 

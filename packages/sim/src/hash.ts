@@ -171,6 +171,11 @@ export function hashWorld(world: World): number {
     // can take, so "not an echo" and "done dividing" are never the same
     // number in the fingerprint.
     push(c.echoSplits ?? -1);
+    // And the beat it started waiting from, which with the count above decides
+    // *when* it divides. Two devices that agree about how many divisions are
+    // left and disagree about the moment hold the same field a beat apart, and
+    // a beat apart is one screen with four bodies on it and one with eight.
+    push(c.echoBeat ?? -1);
     // The body a lure wears. Authored rather than rolled, so it is in here for
     // the reason the maze's wheel is: the assumption that both devices were
     // handed the same wave is exactly the one worth checking, and a disguise
