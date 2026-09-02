@@ -11,7 +11,7 @@ import { type Command, snakeHolds, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
- * The host's half of SNAKE: the six thumbs that play it.
+ * The host's half of SNAKE: the four thumbs that play it.
  *
  * A second listener on the same canvas, exactly as THE GAUGE's and the
  * briefing card's are. The presses underneath are not control presses — the
@@ -45,16 +45,14 @@ export interface SnakeBinding {
  * what stops a peer sending the other seat's verb (`snake-controls.ts`).
  */
 const SLABS: readonly {
-  id: "snakeLeft" | "snakeRight" | "snakeFlip" | "snakeUp" | "snakeDown" | "snakeSlow";
+  id: "snakeLeft" | "snakeRight" | "snakeFire" | "snakeMaw";
   player: 1 | 2;
   command: Command;
 }[] = [
-  { id: "snakeLeft", player: 1, command: { kind: "snakeTurn", dir: "left" } },
-  { id: "snakeRight", player: 1, command: { kind: "snakeTurn", dir: "right" } },
-  { id: "snakeFlip", player: 1, command: { kind: "snakeFlip" } },
-  { id: "snakeUp", player: 2, command: { kind: "snakeTurn", dir: "up" } },
-  { id: "snakeDown", player: 2, command: { kind: "snakeTurn", dir: "down" } },
-  { id: "snakeSlow", player: 2, command: { kind: "snakeSlow" } },
+  { id: "snakeLeft", player: 2, command: { kind: "snakeTurn", dir: "left" } },
+  { id: "snakeRight", player: 2, command: { kind: "snakeTurn", dir: "right" } },
+  { id: "snakeFire", player: 1, command: { kind: "snakeFire" } },
+  { id: "snakeMaw", player: 1, command: { kind: "snakeMaw" } },
 ];
 
 export function bindSnake({ canvas, buffer, world, layout, stage, role }: SnakeBinding): void {

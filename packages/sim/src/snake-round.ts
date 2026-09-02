@@ -1,8 +1,6 @@
-import { ticksPerBeat } from "./config.js";
 import { breachHull } from "./hull.js";
 import { openSnake, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
 import { snakeHeard } from "./snake-controls.js";
-import { dropPellet } from "./snake-items.js";
 import { stepSnake } from "./snake-move.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -17,18 +15,19 @@ import type { World } from "./world.js";
  * (`docs/decisions.md` #20). Everything `gauge-round.ts` says about what that
  * buys is true here word for word, so this header says only what is different.
  *
- * **The morph is a phase and not an animation.** The ship folds into the snake
- * before the body starts moving, and the beats it takes are beats the pair
- * spends reading two screens that have just stopped being the field — one of
- * them holding the food and the other the body. A round that started moving on
- * the first frame would be a round whose first crash was nobody's fault.
+ * **The morph is a phase and not an animation.** The ship shrinks into the
+ * snake before the body starts moving — the real ship, drawn by the call the
+ * field makes — and the beats it takes are beats the pair spends reading two
+ * screens that have just stopped being the field: one of them holding the
+ * arena's enemies and points, the other the body. A round that started moving
+ * on the first frame would be a round whose first repeat was nobody's fault.
  *
  * **The field is gone, and the hull is not.** `step` returns before a rule of
  * the field runs, so nothing spawns, falls or reaches the ship; `world.beat`
  * keeps going, because the metronome is the game's heartbeat. What the round
- * can still do is break the hull — a crash, in `snake-move.ts`, and the clock
- * running out, here — so a run can end in this round, and the scars are on the
- * hull when the field comes back.
+ * can still do is break the hull — a repeated attempt, in `snake-move.ts`, and
+ * the clock running out, here — so a run can end in this round, and the scars
+ * are on the hull when the field comes back.
  */
 
 /**
@@ -52,15 +51,9 @@ export function snakeRound(world: World): SnakeState | null {
   return boss !== null && boss.kind === "snake" ? boss : null;
 }
 
-/**
- * Install it, from the wave's own `boss:` entry. The first pellet is dropped
- * here rather than in `openSnake`, which is what keeps `snake.ts` from having
- * to reach for `snake-items.ts` and the two of them from importing each other.
- */
+/** Install it, from the wave's own `boss:` entry. */
 export function installSnake(world: World, rounds: readonly SnakeRound[]): SnakeState {
-  const snake = openSnake(world, rounds);
-  dropPellet(world, snake);
-  return snake;
+  return openSnake(world, rounds);
 }
 
 /**
@@ -96,8 +89,7 @@ export function stepSnakeRound(world: World): void {
     return;
   }
 
-  const onBeat = world.tick % ticksPerBeat(world.cfg) === 0;
-  const verdict = stepSnake(world, round, onBeat);
+  const verdict = stepSnake(world, round);
   if (verdict === null) return;
   round.passed = verdict;
   if (!verdict) spendHull(world);

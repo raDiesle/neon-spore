@@ -142,11 +142,11 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     name: "SNAKE",
-    sentence: "The one where the ship is the body, and neither of you can turn a whole corner.",
+    sentence: "The one where the ship is the body, and the one who can see it cannot steer it.",
     guide: {
-      both: "The ship folds into a snake and it never stops. One of you has left and right, the other up and down, and a turn only counts across the way it is already going — so every corner is both of you, in order.",
-      p1: "You steer sideways and you are the only one who can see the food. Say where it is as a place, not a direction. FLIP swaps the ends when they tell you there is nowhere left to go.",
-      p2: "You steer up and down and you are the only one who can see the body. Say what is in the way before they ask. SLOW buys about a tile — use it on the corner, not on the straight.",
+      both: "The ship shrinks into a snake and it never stops. There are things in the arena to shoot and things to swallow, and clearing both is the round — touch an enemy, or take a point with the mouth shut, and it starts again.",
+      p1: "You have FIRE and MAW and you cannot steer. Only your screen has the arena on it: say where the next thing is and which of the two it is, then shoot it or open on it.",
+      p2: "You have both turns and you drive on their word alone — your screen has the body and nothing else in it. LEFT and RIGHT are a quarter turn each, from wherever it is already pointing.",
     },
     entries: [],
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },

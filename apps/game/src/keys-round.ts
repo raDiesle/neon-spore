@@ -32,8 +32,8 @@ interface Press {
  * U H N K walk THE FLEET's sights a square at a time as the navigator — a
  * rough diamond around J, close enough together to press without looking — and
  * R fires the pilot's salvo into whichever square they are standing on. The
- * arrows are SNAKE's four turns, split by axis exactly as its slabs are, with
- * V for the pilot's flip and B for the navigator's brake.
+ * sideways arrows are SNAKE's two quarter turns — the navigator's, who does
+ * all of its driving — with V for the pilot's shot and B for his mouth.
  *
  * `snakeUp` is the one piece of state any of this asks about, and it is asked
  * for two keys only: at a desk the sideways arrows step between waves, and
@@ -58,18 +58,14 @@ export function roundKeyDown(code: string, snakeUp = false): Press | null {
       return { player: 2, command: { kind: "aim", dcol: 1, drow: 0 } };
     case "KeyR":
       return { player: 1, command: { kind: "salvo" } };
-    case "ArrowUp":
-      return { player: 2, command: { kind: "snakeTurn", dir: "up" } };
-    case "ArrowDown":
-      return { player: 2, command: { kind: "snakeTurn", dir: "down" } };
     case "ArrowLeft":
-      return snakeUp ? { player: 1, command: { kind: "snakeTurn", dir: "left" } } : null;
+      return snakeUp ? { player: 2, command: { kind: "snakeTurn", dir: "left" } } : null;
     case "ArrowRight":
-      return snakeUp ? { player: 1, command: { kind: "snakeTurn", dir: "right" } } : null;
+      return snakeUp ? { player: 2, command: { kind: "snakeTurn", dir: "right" } } : null;
     case "KeyV":
-      return { player: 1, command: { kind: "snakeFlip" } };
+      return { player: 1, command: { kind: "snakeFire" } };
     case "KeyB":
-      return { player: 2, command: { kind: "snakeSlow" } };
+      return { player: 1, command: { kind: "snakeMaw" } };
     default:
       return null;
   }

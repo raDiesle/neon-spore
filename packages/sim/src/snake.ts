@@ -1,36 +1,42 @@
 import type { World } from "./world.js";
 
 /**
- * SNAKE: one body, two axes, and neither of you owns a corner.
+ * SNAKE: one of you drives it and the other one works it.
  *
- * The ship folds into a snake and the snake never stops. Player 1 has LEFT and
- * RIGHT, player 2 has UP and DOWN, and a turn is only ever accepted across the
- * way the body is already travelling — so every corner is one seat and then
- * the other, in that order, out loud. That is the whole round, and it is why a
- * game famously played by one person is in this game at all: a snake steered
- * by one thumb pair is a snake that cannot turn a corner.
+ * The ship folds into a snake and the snake never stops. **Player 2 has the
+ * whole of the steering** — LEFT and RIGHT turn the body a quarter turn each,
+ * the way the arcade game has always been driven — and **player 1 has the two
+ * things the body does when it gets there**: a shot straight out of the head,
+ * and a mouth. The arena is authored: enemies to be shot and points to be
+ * swallowed, placed on the grid by whoever wrote the round
+ * (`packages/content/src/snake-rounds.ts`, `tools/director`). Clear both lists
+ * and the round is won.
  *
- * **What each screen is not shown.** Player 1 sees the food and both ends of
- * the body and nothing between them; player 2 sees the whole body and no food.
- * So the seat that can steer towards the pellet cannot see what is in the way,
- * and the seat that can see the way is steering on somebody else's word. The
- * two buttons follow the two halves: the flip is player 1's because the tail
- * is the end they can see, and the brake is player 2's because they are the
- * one watching the body it is about to run into. `packages/render` owns that
- * split — it is a fact about a screen, not about the world.
+ * **The split is that neither seat can see the other's half of it.** Player 1
+ * is shown the enemies and the points and both ends of the body; player 2 is
+ * shown the whole body and none of the things in the arena. So the seat with
+ * the wheel is driving on somebody's word, and the seat with the trigger
+ * cannot line a shot up on its own. That is the whole round, and it is what
+ * makes a game famously played by one person a game for two.
+ *
+ * **Getting it wrong repeats the round.** A wall, its own body, a touched
+ * enemy, or a point swallowed with the mouth shut: all four put the body back
+ * where it started with every enemy and every point standing again. The clock
+ * starts over with it and the hull pays a little, so a repeat costs something
+ * without being the end of anything.
  *
  * **Why the field's rule does not reach in here.** Nothing the players control
  * travels *on the field*, and this is not the field: there is no hull, no
  * cannon and no column to talk about (`docs/decisions.md` #21,
  * `docs/spec/interludes.md`). What is at stake is the same hull as ever —
- * `snake-move.ts` breaks it on a crash and `snake-round.ts` on the clock.
+ * `snake-move.ts` breaks it on a repeat and `snake-round.ts` on the clock.
  *
- * This file is the state and the shape of it. What stands in the arena to be
- * collected is `snake-items.ts` — which reads a body out of here, so nothing
- * here reaches back for it and the first pellet is dropped by `snake-round.ts`
- * on the way in. The step is `snake-move.ts`, the three verbs are
+ * This file is the state and the shape of it. What is standing on a given
+ * tile is `snake-arena.ts`, the step is `snake-move.ts`, the four verbs are
  * `snake-controls.ts`, and the clock the whole thing hangs off is
- * `snake-round.ts`.
+ * `snake-round.ts`. **There is no rng anywhere in the round**: every tile
+ * that matters was placed by a person, which is what makes it a thing two
+ * people can be told about.
  */
 
 /**
@@ -45,31 +51,37 @@ import type { World } from "./world.js";
 export const SNAKE_PHASES = ["morph", "play", "verdict"] as const;
 export type SnakePhase = (typeof SNAKE_PHASES)[number];
 
-/**
- * One round of the round, authored rather than tuned.
- *
- * Three numbers, and every one of them is the design: what it takes to pass,
- * how long there is, and how fast the body goes. A wave writes them out in
- * order and the pair feels the list as one thing getting harder — which is
- * what a number in `SimConfig` could never say, because it would say it about
- * every round at once.
- */
-export interface SnakeRound {
-  /** Points that pass this round. Reached, the next one opens at once. */
-  points: number;
-  /** Beats it lasts. Running out of them is how the whole round is lost. */
-  beats: number;
-  /** Ticks between two steps. Lower is faster — see `SnakeConfig` on the unit. */
-  stepTicks: number;
-}
-
 /** One tile of the arena. Never a column of the field. */
 export interface SnakeTile {
   col: number;
   row: number;
 }
 
-/** Everything the round remembers between ticks. A `BossState` like the other six. */
+/**
+ * One round of the round, authored rather than tuned.
+ *
+ * **The placement is the fight**, exactly as it is for THE FLEET: where the
+ * enemies stand decides which way the body has to be driven and how long the
+ * pair has to say it, and where the points are decides when the mouth has to
+ * open. None of that is legible as a difficulty number, so there is no
+ * difficulty number — there is a map.
+ *
+ * The two lists are read by index and never reordered: `struck` and `taken`
+ * are indices into them, so an entry moved in the middle of a round would move
+ * what has already been spent.
+ */
+export interface SnakeRound {
+  /** Tiles the body must never touch, and the only things a shot can spend. */
+  enemies: SnakeTile[];
+  /** Tiles to be swallowed with the mouth open. Shut, they cost the round. */
+  points: SnakeTile[];
+  /** Beats one attempt lasts. Running out of them is how the round is lost. */
+  beats: number;
+  /** Ticks between two steps. Lower is faster — see `SnakeConfig` on the unit. */
+  stepTicks: number;
+}
+
+/** Everything the round remembers between ticks. A `BossState` like the other seven. */
 export interface SnakeState {
   kind: "snake";
   phase: SnakePhase;
@@ -83,57 +95,54 @@ export interface SnakeState {
   rounds: SnakeRound[];
   /** Which of them is being played. */
   round: number;
-  /** `world.beat` that round opened on — the clock it is judged against. */
+  /** `world.beat` this attempt began on — the clock it is judged against. */
   roundBeat: number;
-  /** Points in *this* round. It starts again at nothing when the next one opens. */
-  points: number;
   /** The body, head first. Its length is the difficulty and the health bar at once. */
   body: SnakeTile[];
-  /** The way the last step went. A turn is judged against this, never against the queue. */
+  /** The way the last step went. */
   dirCol: number;
   dirRow: number;
   /**
-   * The way the next step will go.
+   * The quarter turn queued for the next step: -1 anticlockwise, 1 clockwise,
+   * 0 straight on.
    *
-   * Queued rather than applied, and that is not a nicety: with one axis each,
-   * two presses inside one tile could otherwise turn a body straight back into
-   * its own neck — she takes it up, he takes it left, and neither of them
-   * asked for a reversal. Judging every turn against the direction actually
-   * *travelled* makes that unreachable.
+   * Queued rather than applied, and one number rather than a heading: a turn
+   * is *relative*, so two presses inside one tile are the last one winning
+   * rather than a body that has quietly turned twice. It also makes the
+   * reversal the arcade game forbids unreachable — a quarter turn cannot be a
+   * half turn — without a rule anybody has to write.
    */
-  turnCol: number;
-  turnRow: number;
+  turn: -1 | 0 | 1;
   /** `world.tick` of the last step. The whole of the clock the body moves on. */
   stepTick: number;
-  /** Tiles still owed by a pellet already eaten. */
+  /** Tiles still owed by a point already swallowed. */
   grow: number;
-  /** Ticks player 2's brake has added to the next step, spent when it lands. */
-  slowTicks: number;
-  /** `world.beat` the brake was last used, for the rest between two of them. */
-  slowBeat: number;
-  /** `world.beat` the ends were last swapped, for the same reason. */
-  flipBeat: number;
-  /** Where the pellet is. There is always exactly one. */
-  pelletCol: number;
-  pelletRow: number;
-  /** Where the orb is, or -1 for none standing. */
-  orbCol: number;
-  orbRow: number;
-  /** `world.beat` the orb last appeared or left, whichever it last did. */
-  orbBeat: number;
-  /** Walls and bites taken. Each one cost the hull. */
-  crashes: number;
+  /** Indices into this round's `enemies` that are down. */
+  struck: number[];
+  /** Indices into this round's `points` that are swallowed. */
+  taken: number[];
+  /** `world.tick` the mouth was last opened. It stands for `snakeMawTicks`. */
+  mawTick: number;
+  /** `world.beat` of the last shot, for the rest between two and for the picture. */
+  shotBeat: number;
+  /** Where that shot stopped, so the picture can draw the line it took. */
+  shotCol: number;
+  shotRow: number;
+  /** Whether it found an enemy. Render only. */
+  shotHit: boolean;
+  /** Attempts spent on this round beyond the first. Each one cost the hull. */
+  repeats: number;
   /** `world.beat` of the last one, so the picture can flinch. -1 before the first. */
-  crashBeat: number;
+  repeatBeat: number;
 }
 
-/** Far enough back that the first flip and the first brake are never blocked. */
+/** Far enough back that the first shot and the first mouth are never blocked. */
 const LONG_AGO = -1_000_000;
 
 export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeState {
   // A wave that carries this boss and authors nothing is a round with no way
-  // to end, which is worse than a round nobody can pass: it would run its
-  // clock out on a target of `undefined` and cost the hull for it.
+  // to end, which is worse than one nobody can pass: it would run its clock
+  // out on an empty arena and cost the hull for it.
   if (rounds.length === 0) throw new Error("a snake wave with no rounds is not a round");
   const snake: SnakeState = {
     kind: "snake",
@@ -141,27 +150,29 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
     phaseBeat: world.beat,
     openBeat: world.beat,
     passed: false,
-    rounds: rounds.map((r) => ({ ...r })),
+    rounds: rounds.map((r) => ({
+      beats: r.beats,
+      stepTicks: r.stepTicks,
+      enemies: r.enemies.map((t) => ({ ...t })),
+      points: r.points.map((t) => ({ ...t })),
+    })),
     round: 0,
     roundBeat: world.beat,
-    points: 0,
     body: [],
     dirCol: 0,
     dirRow: -1,
-    turnCol: 0,
-    turnRow: -1,
+    turn: 0,
     stepTick: world.tick,
     grow: 0,
-    slowTicks: 0,
-    slowBeat: LONG_AGO,
-    flipBeat: LONG_AGO,
-    pelletCol: 0,
-    pelletRow: 0,
-    orbCol: -1,
-    orbRow: -1,
-    orbBeat: world.beat,
-    crashes: 0,
-    crashBeat: -1,
+    struck: [],
+    taken: [],
+    mawTick: LONG_AGO,
+    shotBeat: LONG_AGO,
+    shotCol: -1,
+    shotRow: -1,
+    shotHit: false,
+    repeats: 0,
+    repeatBeat: -1,
   };
   resetBody(world, snake);
   return snake;
@@ -170,12 +181,8 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
 /**
  * The body back to what it opens with: short, in the middle, at the bottom,
  * heading up. Where the ship was and the way it points, which is what the
- * morph has just finished drawing — and after a crash it is the same picture
- * again, so the pair always restarts from a place they have a word for.
- *
- * Deliberately *not* a reset of the round: points, the clock and the pellets
- * all stand. A crash costs the hull and the tiles it took to get long, and
- * nothing else.
+ * morph has just finished drawing — and after a repeat it is the same picture
+ * again, so the pair always starts from a place they have a word for.
  */
 export function resetBody(world: World, snake: SnakeState): void {
   const cfg = world.cfg;
@@ -187,12 +194,10 @@ export function resetBody(world: World, snake: SnakeState): void {
   }
   snake.dirCol = 0;
   snake.dirRow = -1;
-  snake.turnCol = 0;
-  snake.turnRow = -1;
+  snake.turn = 0;
   snake.grow = 0;
-  snake.slowTicks = 0;
-  // A fresh interval, so the first step after a crash is a whole one rather
-  // than whatever was left of the step the crash interrupted.
+  // A fresh interval, so the first step of an attempt is a whole one rather
+  // than whatever was left of the step the last one ended on.
   snake.stepTick = world.tick;
 }
 
@@ -201,25 +206,4 @@ export function snakeCurrent(snake: SnakeState): SnakeRound {
   const round = snake.rounds[Math.min(snake.round, snake.rounds.length - 1)];
   if (!round) throw new Error("a snake round with no rounds left to play");
   return round;
-}
-
-/**
- * Whether the body is on this tile. `spareTail` is the one tile that is about
- * to be vacated: the tail moves off it on the same step the head moves onto
- * it, so a body chasing its own end is a body going round a corner, not a
- * body biting itself.
- */
-export function snakeOccupies(
-  snake: SnakeState,
-  col: number,
-  row: number,
-  spareTail = false,
-): boolean {
-  const last = snake.body.length - 1;
-  for (let i = 0; i < snake.body.length; i++) {
-    if (spareTail && i === last) continue;
-    const tile = snake.body[i];
-    if (tile && tile.col === col && tile.row === row) return true;
-  }
-  return false;
 }

@@ -2,6 +2,7 @@ import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { renderFleetEditor } from "./fleet-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
+import { renderSnakeEditor } from "./snake-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
 /**
@@ -92,15 +93,10 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       return;
     }
     if (wave.boss.kind === "snake") {
-      const blurbS = document.createElement("p");
-      blurbS.className = "note";
-      blurbS.textContent =
-        "The ship folds into a snake that never stops. Player 1 turns it left and " +
-        "right and sees the food; player 2 turns it up and down and sees the body. " +
-        "The rounds — how many points pass, how long there is and how fast it goes — " +
-        "are authored in packages/content/src/snake-rounds.ts and are not editable " +
-        "here yet.";
-      panel.appendChild(blurbS);
+      renderSnakeEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }

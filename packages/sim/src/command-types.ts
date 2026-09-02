@@ -82,22 +82,19 @@ export type Command =
   | { kind: "aim"; dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }
   | { kind: "salvo" }
   /**
-   * SNAKE's own four, and the same argument one round along: a round that is
+   * SNAKE's own three, and the same argument one round along: a round that is
    * not the field has its own verbs.
    *
-   * `snakeTurn` names a **direction and not an axis**, because the two seats
-   * do not share one — player 1 has `left` and `right`, player 2 has `up` and
-   * `down`, and which of them a press counts for is the round's rule rather
-   * than this file's (`snake-controls.ts`). A word rather than two integers,
-   * so a frame on the wire says what was pressed.
-   *
-   * `snakeFlip` swaps the ends: the tail becomes the head and the body sets
-   * off the way it came. `snakeSlow` buys about one tile of thinking time.
-   * Neither is held — there is nothing to let go of, so neither carries `on`.
+   * `snakeTurn` is player 2's and it is **relative** — a quarter turn from
+   * wherever the body is already pointing, which is the one thing that can be
+   * said out loud without either of them naming a place. `snakeFire` and
+   * `snakeMaw` are player 1's: a shot straight out of the head, and the mouth
+   * open for a moment. Which seat may send which is checked in
+   * `snake-controls.ts`, not here.
    */
   | { kind: "snakeTurn"; dir: SnakeTurn }
-  | { kind: "snakeFlip" }
-  | { kind: "snakeSlow" }
+  | { kind: "snakeFire" }
+  | { kind: "snakeMaw" }
   /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
@@ -130,12 +127,12 @@ export type Command =
 export type DragTarget = "mazeString" | "wardenTether";
 
 /**
- * The four ways SNAKE's body can be sent. A closed list of words, split
- * between the seats by the round rather than by this type: the split is a rule
- * two devices have to agree about, and a type cannot be agreed about over a
- * wire (`snake-controls.ts`).
+ * The two ways SNAKE's body can be turned, and they are quarter turns rather
+ * than headings: "left" means a quarter turn anticlockwise from wherever it is
+ * already going. A closed list of words, so a frame on the wire says what was
+ * pressed (`snake-controls.ts` is where a press becomes a heading).
  */
-export const SNAKE_TURNS = ["left", "right", "up", "down"] as const;
+export const SNAKE_TURNS = ["left", "right"] as const;
 export type SnakeTurn = (typeof SNAKE_TURNS)[number];
 
 export interface TimedCommand {

@@ -324,7 +324,8 @@ Roughly in the order the work is worth doing.
    THE CLAW and THE SPLICE are drawn, THE GAUGE and SNAKE are built — the
    snake's arena is drawn in the ship's own violet and cyan rather than the
    arcade's green, because green is spent (`palette.ts`) and the body *is* the
-   ship — and the remaining eight are answered out of `slab`,
+   ship, which the round says out loud by shrinking the real hull into it —
+   and the remaining eight are answered out of `slab`,
    `glyphed` and the blob vocabulary itself — the two that are not, THE BELT and
    THE VAULT, are cut above for the same reason.
 

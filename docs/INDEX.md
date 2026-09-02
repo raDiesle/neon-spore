@@ -145,13 +145,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
 | `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
 | `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
-| `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, what a body is worth, what a crash costs |
+| `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, the mouth's window, what starting over costs |
 | `packages/sim/src/snake-controls.ts` | The four verbs of the round, and the two seats they are split between |
-| `packages/sim/src/snake-items.ts` | What is standing in the arena to be collected, and where it lands |
-| `packages/sim/src/snake-move.ts` | One step of the body, and everything that can happen on one |
+| `packages/sim/src/snake-move.ts` | One step of the body, and the four ways an attempt ends badly |
 | `packages/sim/src/snake-round.ts` | SNAKE's clock: the three phases, the way in and the way out |
-| `packages/sim/src/snake.ts` | SNAKE: one body, two axes, and neither of you owns a corner |
+| `packages/sim/src/snake.ts` | SNAKE: one of you drives it and the other one works it |
 | `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
+| `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 
 ### packages/content
 
@@ -184,7 +184,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
 | `packages/content/src/waves/act-4.ts` | you are adding a wave — this is the act new ones land in |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
-| `packages/content/src/snake-rounds.ts` | SNAKE's rounds, one per target |
+| `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 
 ### packages/render
@@ -313,10 +313,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
-| `packages/render/src/snake-body.ts` | The body: the fold it arrives as, the length it becomes, the two ends |
-| `packages/render/src/snake-draw.ts` | SNAKE's arena and everything standing in it |
+| `packages/render/src/snake-body.ts` | The body: the length, the two ends, and the mouth when it is open |
+| `packages/render/src/snake-draw.ts` | SNAKE's arena, the things standing in it, and the shot |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
+| `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 
 ### packages/net
 
@@ -378,7 +379,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |
 | `apps/game/src/keys-round.ts` | The keys that belong to a round rather than to the field |
-| `apps/game/src/snake.ts` | The host's half of SNAKE: the six thumbs that play it |
+| `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
 
 ### apps/server
 

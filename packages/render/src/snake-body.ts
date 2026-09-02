@@ -16,12 +16,11 @@ import { type Arena, arenaX, arenaY } from "./snake-draw.js";
 /**
  * The body, head first.
  *
- * Two drawings, and which one runs is the phase. While the ship is folding,
- * every segment is a hull-wide bar closing onto its tile — the ship taken
- * apart along the arena's own grid. Once it has folded, the length is a single
- * stroked path through the tile centres, because a snake drawn as separate
- * squares is a queue of boxes and this is one body: the corners are where the
- * eye reads it, and a `round` join is the only thing that draws a corner.
+ * The length is a single stroked path through the tile centres, because a
+ * snake drawn as separate squares is a queue of boxes and this is one body:
+ * the corners are where the eye reads it, and a `round` join is the only thing
+ * that draws a corner. The fold that puts it there is the ship shrinking, and
+ * that is `snake-morph.ts` — this file draws what is underneath it.
  *
  * `showBody` is the middle of it. Without it player 1 gets the two ends and
  * nothing between them, which is exactly what they are meant to have: a pair
@@ -32,13 +31,45 @@ export function drawSnakeBody(
   arena: Arena,
   snake: SnakeState,
   showBody: boolean,
-  morph01 = 1,
+  mawOpen = false,
 ): void {
-  if (morph01 < 1) drawFold(ctx, arena, snake, morph01);
-  else if (showBody) drawLength(ctx, arena, snake);
+  if (showBody) drawLength(ctx, arena, snake);
   else drawEnds(ctx, arena, snake);
   const head = snake.body[0];
-  if (head) drawEyes(ctx, arena, head.col, head.row, snake.dirCol, snake.dirRow);
+  if (!head) return;
+  if (mawOpen) drawMouth(ctx, arena, head.col, head.row, snake.dirCol, snake.dirRow);
+  else drawEyes(ctx, arena, head.col, head.row, snake.dirCol, snake.dirRow);
+}
+
+/**
+ * The mouth, open. It replaces the eyes rather than joining them, which is the
+ * cheapest way for a shape the size of a tile to say one thing at a time: a
+ * head with a hole in the front of it is open, and a head with two dots is
+ * not. Drawn on both screens — player 2 cannot see the point they are about to
+ * drive over, but they can see whether the mouth was opened for it.
+ */
+function drawMouth(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  col: number,
+  row: number,
+  dirCol: number,
+  dirRow: number,
+): void {
+  const cx = arenaX(arena, col) + arena.tile / 2;
+  const cy = arenaY(arena, row) + arena.tile / 2;
+  const out = arena.tile * 0.34;
+  const side = arena.tile * 0.22;
+  // A wedge from the middle of the head out to its leading edge.
+  const tipX = cx + dirCol * out;
+  const tipY = cy + dirRow * out;
+  ctx.fillStyle = PALETTE.pod;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(tipX + dirRow * side, tipY + dirCol * side);
+  ctx.lineTo(tipX - dirRow * side, tipY - dirCol * side);
+  ctx.closePath();
+  ctx.fill();
 }
 
 /** The centre of a tile, which is what the body's path is drawn through. */
@@ -102,31 +133,22 @@ function drawCap(
   ctx.stroke();
 }
 
-/**
- * The fold: at 0 every segment is a hull-wide bar and at 1 it is its own tile.
- * Nothing about it is stored — it is read off the round's own phase beat, so a
- * restart cannot bring half a fold into the next run.
- */
-function drawFold(
+function roundRect(
   ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  snake: SnakeState,
-  morph01: number,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
 ): void {
-  const pad = arena.tile * 0.1;
-  const wide = arena.tile * arena.cols * 0.5;
-  const w = wide + (arena.tile - pad * 2 - wide) * morph01;
-  const h = arena.tile - pad * 2;
-  for (const [i, tile] of snake.body.entries()) {
-    const head = i === 0;
-    const p = centre(arena, tile.col, tile.row);
-    ctx.fillStyle = head ? "#2A1150" : "#0C2C39";
-    ctx.strokeStyle = head ? PALETTE.hull : PALETTE.shield;
-    ctx.lineWidth = 2;
-    roundRect(ctx, p.x - w / 2, p.y - h / 2, w, h, Math.min(h / 2, arena.tile * 0.28));
-    ctx.fill();
-    ctx.stroke();
-  }
+  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
+  ctx.closePath();
 }
 
 /** Which way it is going, said by the only part of it that has a face. */
@@ -150,22 +172,4 @@ function drawEyes(
     ctx.arc(x, y, Math.max(1, arena.tile * 0.08), 0, Math.PI * 2);
     ctx.fill();
   }
-}
-
-function roundRect(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r: number,
-): void {
-  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.arcTo(x + w, y, x + w, y + h, radius);
-  ctx.arcTo(x + w, y + h, x, y + h, radius);
-  ctx.arcTo(x, y + h, x, y, radius);
-  ctx.arcTo(x, y, x + w, y, radius);
-  ctx.closePath();
 }

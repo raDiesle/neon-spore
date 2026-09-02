@@ -159,7 +159,7 @@ export const MECHANICS = {
     reach: "spawn",
   },
   snake: {
-    what: "The ship folds into a snake that never stops. One of you turns it left and right, the other up and down, and a turn only ever counts across the way it is already going.",
+    what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and can see nothing in the arena; the other has a shot and a mouth and cannot steer.",
     reach: "spawn",
   },
   briefing: {

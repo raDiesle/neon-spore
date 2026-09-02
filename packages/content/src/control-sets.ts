@@ -41,7 +41,7 @@ import { WAVES } from "./waves.js";
  * are things the pair *reads*, answered with the ordinary panel and a hand on
  * the field. `snake` is the first set where a control moves a body, and it
  * cost exactly what the paragraph above promised the eleven rounds would cost:
- * six `ControlDef`s and one entry, and no panel re-invented.
+ * four `ControlDef`s and one entry, and no panel re-invented.
  *
  * The only boss that touches the controls without a set of its own is still
  * THE MIRROR, and what it does is take all of them away for a few beats
@@ -105,8 +105,8 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "snake",
     name: "SNAKE",
-    why: "One axis each and a verb beside it, because a body neither of you can turn alone is the round.",
-    controls: ["snakeLeft", "snakeRight", "snakeFlip", "snakeUp", "snakeDown", "snakeSlow"],
+    why: "One of you drives it and the other one works it: two quarter turns against a trigger and a mouth.",
+    controls: ["snakeLeft", "snakeRight", "snakeFire", "snakeMaw"],
   },
 ];
 

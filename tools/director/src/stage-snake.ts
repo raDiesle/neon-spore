@@ -19,8 +19,8 @@ import { type Command, snakeHolds, type World } from "@neon-spore/sim";
  *
  * **Both seats, from one mouse.** Unlike THE GAUGE, where the pointer is the
  * pilot's and the keyboard holds the navigator's one verb, every slab here is
- * on screen in `test` and a mouse can reach all six — which is the only way
- * one person at a desk can drive a body that needs two seats to turn.
+ * on screen in `test` and a mouse can reach all four — which is the only way
+ * one person at a desk can both drive the body and work it.
  */
 export interface StageSnake {
   canvas: HTMLCanvasElement;
@@ -35,16 +35,14 @@ export interface StageSnake {
 }
 
 const SLABS: readonly {
-  id: "snakeLeft" | "snakeRight" | "snakeFlip" | "snakeUp" | "snakeDown" | "snakeSlow";
+  id: "snakeLeft" | "snakeRight" | "snakeFire" | "snakeMaw";
   player: 1 | 2;
   command: Command;
 }[] = [
-  { id: "snakeLeft", player: 1, command: { kind: "snakeTurn", dir: "left" } },
-  { id: "snakeRight", player: 1, command: { kind: "snakeTurn", dir: "right" } },
-  { id: "snakeFlip", player: 1, command: { kind: "snakeFlip" } },
-  { id: "snakeUp", player: 2, command: { kind: "snakeTurn", dir: "up" } },
-  { id: "snakeDown", player: 2, command: { kind: "snakeTurn", dir: "down" } },
-  { id: "snakeSlow", player: 2, command: { kind: "snakeSlow" } },
+  { id: "snakeLeft", player: 2, command: { kind: "snakeTurn", dir: "left" } },
+  { id: "snakeRight", player: 2, command: { kind: "snakeTurn", dir: "right" } },
+  { id: "snakeFire", player: 1, command: { kind: "snakeFire" } },
+  { id: "snakeMaw", player: 1, command: { kind: "snakeMaw" } },
 ];
 
 export function bindStageSnake({ canvas, layout, role, world, controls, push }: StageSnake): void {

@@ -29,10 +29,8 @@ export type ControlId =
   | "aimDown"
   | "snakeLeft"
   | "snakeRight"
-  | "snakeFlip"
-  | "snakeUp"
-  | "snakeDown"
-  | "snakeSlow";
+  | "snakeFire"
+  | "snakeMaw";
 
 /**
  * What a whole panel *is*, rather than what is on it.
@@ -173,45 +171,31 @@ export const CONTROLS: readonly ControlDef[] = [
   },
   {
     id: "snakeLeft",
-    player: 1,
+    player: 2,
     form: "slab",
     label: "◀",
-    does: "Sends the snake left. Only counts while it is going up or down — a corner is two seats.",
+    does: "Turns the snake a quarter turn anticlockwise. Player 2 does all the driving.",
   },
   {
     id: "snakeRight",
-    player: 1,
+    player: 2,
     form: "slab",
     label: "▶",
-    does: "Sends the snake right, under the same rule. Player 2 has the other axis.",
+    does: "A quarter turn clockwise, under the same hand. There is no up and down: a heading is not a place.",
   },
   {
-    id: "snakeFlip",
+    id: "snakeFire",
     player: 1,
     form: "slab",
-    label: "FLIP",
-    does: "Swaps the ends: the tail becomes the head and the body sets off the way it came.",
+    label: "FIRE",
+    does: "A shot straight out of the head. It is the only thing that takes an enemy off the arena.",
   },
   {
-    id: "snakeUp",
-    player: 2,
+    id: "snakeMaw",
+    player: 1,
     form: "slab",
-    label: "▲",
-    does: "Sends the snake up. Only counts while it is going sideways.",
-  },
-  {
-    id: "snakeDown",
-    player: 2,
-    form: "slab",
-    label: "▼",
-    does: "Sends the snake down, under the same rule. Player 1 has the other axis.",
-  },
-  {
-    id: "snakeSlow",
-    player: 2,
-    form: "slab",
-    label: "SLOW",
-    does: "Buys about one tile of thinking time. There is a rest between two of them.",
+    label: "MAW",
+    does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
   },
 ];
 

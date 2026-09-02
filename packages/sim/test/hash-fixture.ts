@@ -107,7 +107,17 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
       { col: 7, row: 5, len: 3, dir: "v" },
     ],
   },
-  snake: { kind: "snake", rounds: [{ points: 3, beats: 30, stepTicks: 80 }] },
+  snake: {
+    kind: "snake",
+    rounds: [
+      {
+        beats: 30,
+        stepTicks: 80,
+        enemies: [{ col: 2, row: 2 }],
+        points: [{ col: 6, row: 8 }],
+      },
+    ],
+  },
 };
 
 /** Every boss kind, so the walk covers each arm of `bossHashParts`. */
@@ -256,23 +266,21 @@ function patchBoss(world: World): void {
     boss.openBeat = 3;
     boss.passed = true;
     boss.roundBeat = 5;
-    boss.points = 2;
     boss.dirCol = 1;
     boss.dirRow = 0;
-    boss.turnCol = 0;
-    boss.turnRow = 1;
+    boss.turn = -1;
     boss.stepTick = 33;
     boss.grow = 1;
-    boss.slowTicks = 12;
-    boss.slowBeat = 5;
-    boss.flipBeat = 6;
-    boss.pelletCol = 7;
-    boss.pelletRow = 2;
-    boss.orbCol = 1;
-    boss.orbRow = 9;
-    boss.orbBeat = 4;
-    boss.crashes = 1;
-    boss.crashBeat = 5;
+    boss.mawTick = 29;
+    boss.shotBeat = 6;
+    boss.shotCol = 5;
+    boss.shotRow = 2;
+    boss.shotHit = true;
+    boss.repeats = 1;
+    boss.repeatBeat = 5;
+    // One of each spent, so both lists can prove their own length is hashed.
+    boss.struck = [0];
+    boss.taken = [0];
   }
   if (boss.kind === "mirror") {
     boss.round = 1;

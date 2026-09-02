@@ -1,45 +1,47 @@
 import { breachHull } from "./hull.js";
-import { resetBody, type SnakeState, snakeCurrent, snakeOccupies } from "./snake.js";
-import { clearOrb, dropOrb, dropPellet } from "./snake-items.js";
+import { resetBody, type SnakeState, snakeCurrent } from "./snake.js";
+import {
+  snakeCleared,
+  snakeEnemyAt,
+  snakeMawOpen,
+  snakeOccupies,
+  snakeOnBoard,
+  snakePointAt,
+} from "./snake-arena.js";
 import type { World } from "./world.js";
 
 /**
- * One step of the body, and everything that can happen on one.
+ * One step of the body, and the four ways an attempt ends badly.
  *
  * The body moves on the **tick** and not on the beat, which is the whole
- * reason this round has a step of its own at all: a snake that moved once a
- * beat would take seven seconds to cross the arena, and one that moved four
- * times a beat would be a reflex game two people cannot talk through. The
- * interval is authored per round (`SnakeRound.stepTicks`) and it is still the
+ * reason this round has a step of its own: a snake that moved once a beat
+ * would take seven seconds to cross the arena, and one that moved four times a
+ * beat would be a reflex game two people cannot talk through. The interval is
+ * authored per round (`SnakeRound.stepTicks`) and it is still the
  * deterministic tick counter — no wall clock reaches in here, so two devices
  * step on exactly the same tick or neither does.
  *
- * **A crash is not the end of the round.** It costs the hull and the tiles the
- * body had grown, and then the same short snake is back in the middle with the
- * clock still running. A round that ended on the first wall would be ninety
- * seconds of a pair holding still, which is the opposite of what the round is
- * for; a crash that cost nothing would make the walls scenery. The round ends
- * on the clock, in `snake-round.ts`, and that is the only place it ends.
+ * **A wall, its own back, a touched enemy and a point taken with the mouth
+ * shut all do the same thing**, and that is deliberate: one failure, one
+ * word, one picture. The round starts over — body back, everything standing
+ * again, the clock reset — and the hull pays `damageSnakeRepeat`. The round
+ * itself is only ever lost on the clock, in `snake-round.ts`.
  */
 
 /**
  * One tick of the play phase, and whether the whole round is over: `true`
- * every authored round was passed, `false` the clock ran out, `null` still
+ * every authored round was cleared, `false` the clock ran out, `null` still
  * going. The shape `stepGauge` has, for the same reason — the phases belong to
  * the file that owns the clock, and this one owns the arithmetic.
  */
-export function stepSnake(world: World, snake: SnakeState, onBeat: boolean): boolean | null {
-  if (onBeat) turnOrb(world, snake);
+export function stepSnake(world: World, snake: SnakeState): boolean | null {
   const round = snakeCurrent(snake);
-  // The target first, so a pellet eaten on the last beat of a round passes it
-  // rather than losing it by a tick.
-  if (snake.points >= round.points) return openNextRound(world, snake);
+  // Cleared first, so the last enemy shot on the last beat of an attempt wins
+  // it rather than losing it by a tick.
+  if (snakeCleared(snake)) return openNextRound(world, snake);
   if (world.beat - snake.roundBeat >= round.beats) return false;
-  if (world.tick - snake.stepTick < round.stepTicks + snake.slowTicks) return null;
+  if (world.tick - snake.stepTick < round.stepTicks) return null;
   snake.stepTick = world.tick;
-  // The brake is spent by the step it delayed, never by the beat: a press that
-  // bought a tile has bought exactly one.
-  snake.slowTicks = 0;
   advance(world, snake);
   return null;
 }
@@ -47,30 +49,41 @@ export function stepSnake(world: World, snake: SnakeState, onBeat: boolean): boo
 /**
  * The next round, or the end of them.
  *
- * Points start again and the body does not. That is the round's whole
- * progression: the target goes up, the clock stays about the same, the step
- * gets shorter — and the pair carries into it however long they have already
- * made themselves, which is the thing that actually decides whether the last
- * round is possible.
+ * The body starts over with it, because the arena does: a round is a placed
+ * map and the pair has to be able to read it from the same square every time.
  */
 function openNextRound(world: World, snake: SnakeState): boolean | null {
   if (snake.round >= snake.rounds.length - 1) return true;
   snake.round += 1;
   snake.roundBeat = world.beat;
-  snake.points = 0;
+  snake.struck = [];
+  snake.taken = [];
+  resetBody(world, snake);
   return null;
 }
 
-/** The orb, on the beat: it expires where it stands, and the next one is a wait. */
-function turnOrb(world: World, snake: SnakeState): void {
-  const cfg = world.cfg;
-  const standing = snake.orbCol >= 0;
-  const since = world.beat - snake.orbBeat;
-  if (standing && since >= cfg.snakeOrbBeats) {
-    clearOrb(world, snake);
-    return;
-  }
-  if (!standing && since >= cfg.snakeOrbEveryBeats) dropOrb(world, snake);
+/**
+ * A quarter turn, clockwise for 1 and anticlockwise for -1, in screen
+ * coordinates where a row runs down the arena.
+ *
+ * Written out rather than derived from an angle for the reason
+ * `purity.test.ts` bans `Math.sin` in this package: a heading is two integers
+ * and it stays two integers, so two devices cannot round a corner differently.
+ */
+export function turned(dirCol: number, dirRow: number, turn: number): [number, number] {
+  if (turn > 0) return [zero(-dirRow), zero(dirCol)];
+  if (turn < 0) return [zero(dirRow), zero(-dirCol)];
+  return [zero(dirCol), zero(dirRow)];
+}
+
+/**
+ * Negating a zero gives `-0`, which is the same number to every arithmetic
+ * this package does and a different one to `JSON`, to `Object.is` and to a
+ * test that reads a heading back. The simulation stores integers, and `-0` is
+ * not one of the integers anybody meant to store.
+ */
+function zero(n: number): number {
+  return n === 0 ? 0 : n;
 }
 
 /**
@@ -79,85 +92,112 @@ function turnOrb(world: World, snake: SnakeState): void {
  * The queued turn is taken *here* and nowhere else, which is what makes it a
  * queue: everything a thumb does between two steps changes where the body is
  * going next, and nothing changes where it has already been
- * (`SnakeState.turnCol`).
+ * (`SnakeState.turn`).
  */
 function advance(world: World, snake: SnakeState): void {
-  const cfg = world.cfg;
-  snake.dirCol = snake.turnCol;
-  snake.dirRow = snake.turnRow;
+  const [dirCol, dirRow] = turned(snake.dirCol, snake.dirRow, snake.turn);
+  snake.dirCol = dirCol;
+  snake.dirRow = dirRow;
+  snake.turn = 0;
   const head = snake.body[0];
   if (!head) return;
-  const col = head.col + snake.dirCol;
-  const row = head.row + snake.dirRow;
-  if (col < 0 || row < 0 || col >= cfg.snakeCols || row >= cfg.snakeRows) {
-    crash(world, snake);
+  const col = head.col + dirCol;
+  const row = head.row + dirRow;
+  if (!snakeOnBoard(world, col, row)) {
+    repeat(world, snake);
     return;
   }
-  // The tail is spared unless a pellet is still being paid out: it moves off
+  // The tail is spared unless a point is still being paid out: it moves off
   // its tile on the same step the head arrives, so a body going round its own
   // end is a corner and not a bite.
   if (snakeOccupies(snake, col, row, snake.grow === 0)) {
-    crash(world, snake);
+    repeat(world, snake);
+    return;
+  }
+  // An enemy is a hazard as well as a target, and touching one is the same
+  // mistake as a wall: the shot was player 1's to take and nobody took it.
+  if (snakeEnemyAt(snake, col, row) !== -1) {
+    repeat(world, snake);
+    return;
+  }
+
+  const point = snakePointAt(snake, col, row);
+  if (point !== -1 && !snakeMawOpen(world, snake)) {
+    // Reached with the mouth shut. This is the one failure that is nobody's
+    // reflex and both of their timing: player 2 drove them onto it and player
+    // 1 was the only one who could see it coming.
+    repeat(world, snake);
     return;
   }
 
   snake.body.unshift({ col, row });
-  eat(world, snake, col, row);
+  if (point !== -1) {
+    snake.taken.push(point);
+    snake.grow += world.cfg.snakeGrowTiles;
+  }
   if (snake.grow > 0) snake.grow -= 1;
   else snake.body.pop();
 }
 
-/** Whatever was on the tile the head just took. At most one thing ever is. */
-function eat(world: World, snake: SnakeState, col: number, row: number): void {
-  const cfg = world.cfg;
-  if (col === snake.pelletCol && row === snake.pelletRow) {
-    snake.points += cfg.snakePelletPoints;
-    snake.grow += cfg.snakeGrowTiles;
-    dropPellet(world, snake);
-    return;
-  }
-  if (col === snake.orbCol && row === snake.orbRow) {
-    snake.points += cfg.snakeOrbPoints;
-    clearOrb(world, snake);
+/**
+ * A shot, straight out of the head along the way it is pointing.
+ *
+ * Hit-scan and not a travelling bullet, and the reason is the sentence rather
+ * than the arithmetic: the head *is* the gun, so what player 1 is answering is
+ * "it is lined up now", and a shot that took three tiles to arrive would be
+ * answering where the body was when they pressed. It stops at the first
+ * standing enemy, its own body or the wall, whichever comes first.
+ *
+ * Returns whether it found something, and leaves where it stopped on the state
+ * for the picture to draw.
+ */
+export function fireSnake(world: World, snake: SnakeState): boolean {
+  const head = snake.body[0];
+  if (!head) return false;
+  let col = head.col;
+  let row = head.row;
+  snake.shotBeat = world.beat;
+  snake.shotHit = false;
+  for (;;) {
+    col += snake.dirCol;
+    row += snake.dirRow;
+    if (!snakeOnBoard(world, col, row)) {
+      snake.shotCol = col - snake.dirCol;
+      snake.shotRow = row - snake.dirRow;
+      return false;
+    }
+    const enemy = snakeEnemyAt(snake, col, row);
+    if (enemy !== -1) {
+      snake.struck.push(enemy);
+      snake.shotCol = col;
+      snake.shotRow = row;
+      snake.shotHit = true;
+      return true;
+    }
+    if (snakeOccupies(snake, col, row)) {
+      snake.shotCol = col;
+      snake.shotRow = row;
+      return false;
+    }
   }
 }
 
 /**
- * A wall, or the body's own back.
+ * Start the attempt again.
  *
  * The hull pays, in the middle column, because the round has none of its own —
  * the same call THE GAUGE, THE MIRROR and THE MAZE make when a boss with no
  * body has to cost the ship something. The scar is what makes it read: it is
- * still there when the field comes back, so a pair who crashed four times can
+ * still there when the field comes back, so a pair who repeated four times can
  * see what the round took.
  */
-function crash(world: World, snake: SnakeState): void {
-  snake.crashes += 1;
-  snake.crashBeat = world.beat;
+function repeat(world: World, snake: SnakeState): void {
+  snake.repeats += 1;
+  snake.repeatBeat = world.beat;
+  snake.roundBeat = world.beat;
+  snake.struck = [];
+  snake.taken = [];
   const col = Math.floor(world.cfg.cols / 2);
-  breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnakeCrash);
+  breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnakeRepeat);
   resetBody(world, snake);
-}
-
-/**
- * The ends swapped: the tail becomes the head and the body sets off the way it
- * came.
- *
- * Player 1's verb, and the round's one answer to a corner neither seat can
- * turn — a head sitting in front of a wall with its own body behind it has
- * nowhere to go, and every other snake game ever written would simply end
- * there. The new heading points *out of* the body, so a flip can never put the
- * head into the neck it just left; where the body is one tile long there is no
- * neck to read and the heading stands.
- */
-export function flipSnake(snake: SnakeState): void {
-  snake.body.reverse();
-  const head = snake.body[0];
-  const neck = snake.body[1];
-  if (head && neck) {
-    snake.dirCol = head.col - neck.col;
-    snake.dirRow = head.row - neck.row;
-  }
-  snake.turnCol = snake.dirCol;
-  snake.turnRow = snake.dirRow;
 }

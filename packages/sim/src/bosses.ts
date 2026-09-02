@@ -121,7 +121,13 @@ export {
   type MirrorVerdictReason,
   mirrorListenBeats,
 } from "./simon.js";
-export { SNAKE_PHASES, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
+export {
+  SNAKE_PHASES,
+  type SnakePhase,
+  type SnakeRound,
+  type SnakeState,
+  type SnakeTile,
+} from "./snake.js";
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";
 export { vaneOpen } from "./vane.js";
 export {

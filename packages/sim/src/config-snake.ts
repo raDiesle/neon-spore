@@ -7,12 +7,13 @@
  * subject of its own rather than twenty more lines in the middle of the
  * field's tunables.
  *
- * **What is here and what is authored.** How fast the snake goes, how many
- * points pass a round and how long a round lasts are *the round*, not its
- * tuning — they change per round and a wave writes them out
- * (`packages/content/src/snake-rounds.ts`). What is here is everything that is
- * the same in every round of every snake wave there will ever be: the size of
- * the arena, what a body is worth, what a crash costs.
+ * **What is here and what is authored.** Where the enemies and the points
+ * stand, how fast the body goes and how long an attempt lasts are *the round*,
+ * not its tuning — they change per round and a wave writes them out as a map
+ * (`packages/content/src/snake-rounds.ts`, and the director edits it). What is
+ * here is everything that is the same in every round of every snake wave there
+ * will ever be: the size of the arena, how long the mouth stands open, what
+ * starting over costs.
  *
  * Times are beats, except the one that cannot be: a step is faster than a beat
  * — a snake that moved once a beat would take forty seconds to cross the
@@ -23,31 +24,23 @@ export interface SnakeConfig {
   /** The arena, in tiles. Nothing to do with `cols`: the field is gone. */
   snakeCols: number;
   snakeRows: number;
-  /** Tiles the snake is long when it opens, and again after a crash. */
+  /** Tiles the snake is long when it opens, and again after a repeat. */
   snakeStartTiles: number;
-  /** Tiles a pellet adds. The body is the obstacle, so this is the difficulty. */
+  /** Tiles a point adds. The body is the obstacle, so this is the difficulty. */
   snakeGrowTiles: number;
-  /** What a pellet is worth. */
-  snakePelletPoints: number;
-  /** What the orb is worth — more, and it does not last. */
-  snakeOrbPoints: number;
-  /** Beats between one orb leaving and the next appearing. */
-  snakeOrbEveryBeats: number;
-  /** Beats an orb stands before it goes. Shorter than a spoken sentence is too short. */
-  snakeOrbBeats: number;
   /**
-   * How much of one step player 2's brake adds to the next one, in thousandths.
+   * Ticks the mouth stands open on one press.
    *
-   * A share rather than a count of ticks, because the step interval changes
-   * every round: a fixed number of ticks would be most of a step in the first
-   * round and a twitch in the last, and the button would quietly stop meaning
-   * what the pair learned it meant.
+   * The one number in this file that decides how the round *feels*, because it
+   * is measured against the step: at a shorter step the same window is a
+   * smaller share of a tile, so the mouth gets harder to time exactly as the
+   * body gets faster, with nothing authored to make it so.
    */
-  snakeSlowPermille: number;
-  /** Beats between two brakes, so a thumb held down is not a slower snake. */
-  snakeSlowRestBeats: number;
-  /** Beats between two flips, for the same reason. */
-  snakeFlipRestBeats: number;
+  snakeMawTicks: number;
+  /** Ticks between two openings, so a thumb tapping it is not a mouth left open. */
+  snakeMawRestTicks: number;
+  /** Beats between two shots, so a held trigger is not a cleared row. */
+  snakeFireRestBeats: number;
   /**
    * What running out of time takes off the hull, in whole points. The round
    * draws no hull and the hull is at stake anyway — `damageGauge`'s argument,
@@ -55,11 +48,16 @@ export interface SnakeConfig {
    */
   damageSnake: number;
   /**
-   * What one wall or one bite of the body costs. Smaller than the round, on
-   * purpose: a crash is a thing the pair can survive and talk about, and a
-   * round that ended on the first one would be ninety seconds of holding still.
+   * What starting the round over costs: a wall, the body's own back, a touched
+   * enemy, or a point taken with the mouth shut.
+   *
+   * Smaller than the round, on purpose: a repeat is a thing the pair can
+   * survive and talk about, and a round that ended on the first wall would be
+   * ninety seconds of holding still. What it must not be is free — the clock
+   * restarting is a mercy, and a mercy nobody pays for is a round with no
+   * shape.
    */
-  damageSnakeCrash: number;
+  damageSnakeRepeat: number;
 }
 
 /**
@@ -73,16 +71,15 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeCols: 9,
   snakeRows: 11,
   snakeStartTiles: 3,
-  snakeGrowTiles: 2,
-  snakePelletPoints: 1,
-  snakeOrbPoints: 3,
-  snakeOrbEveryBeats: 12,
-  snakeOrbBeats: 8,
-  snakeSlowPermille: 800,
-  snakeSlowRestBeats: 3,
-  snakeFlipRestBeats: 2,
+  snakeGrowTiles: 1,
+  // Half a second, against a step of three quarters of one in the first round
+  // and under half by the last: generous where the pair is learning what the
+  // mouth is for, and the whole difficulty of the last round.
+  snakeMawTicks: 60,
+  snakeMawRestTicks: 30,
+  snakeFireRestBeats: 1,
   // THE GAUGE's number, because it is the same event: a round the pair did not
   // finish. The owner turns one, they both move.
   damageSnake: 20,
-  damageSnakeCrash: 8,
+  damageSnakeRepeat: 8,
 };

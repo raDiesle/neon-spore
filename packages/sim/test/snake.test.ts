@@ -14,14 +14,13 @@ import {
 import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
 
 /**
- * SNAKE, and the one sentence it is built to make true: **neither seat can
- * turn a corner**.
+ * SNAKE, and the sentence it is built to make true: **one of you drives it and
+ * the other one works it**.
  *
- * Player 1 has left and right, player 2 has up and down, and a turn only ever
- * counts across the way the body is already going. Everything else in the
- * round — the pellets, the clock, the crash, the two buttons — exists to make
- * that sentence cost something, so most of what is checked here is the split
- * itself and what happens to a pair who get it wrong.
+ * Player 2 has both quarter turns and can see nothing standing in the arena;
+ * player 1 has the shot and the mouth and cannot steer. Everything checked
+ * here is either that split or what it costs to get it wrong — the four ways
+ * an attempt ends, which are one rule wearing four coats.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -30,13 +29,32 @@ const TPB = ticksPerBeat(CFG);
 const WAVE = 6;
 
 /**
- * Two rounds, and the first target is deliberately past anything one pickup
- * can reach: a target of two would be passed by the orb alone, and half the
- * tests below would then be reading a round that had already moved on.
+ * One round, placed for the rig rather than for a player: the body opens in
+ * column 4 heading up, so an enemy at (4,4) is four steps straight ahead and a
+ * point at (4,6) is two. The **second** enemy and the second point are in
+ * corners nothing here ever reaches, and they are load-bearing: without them,
+ * spending the two in the path would clear the arena and move the round on
+ * under whichever test was watching it.
  */
 const ROUNDS = [
-  { points: 6, beats: 20, stepTicks: 60 },
-  { points: 3, beats: 20, stepTicks: 30 },
+  {
+    enemies: [
+      { col: 4, row: 4 },
+      { col: 8, row: 0 },
+    ],
+    points: [
+      { col: 4, row: 6 },
+      { col: 0, row: 0 },
+    ],
+    beats: 20,
+    stepTicks: 60,
+  },
+  {
+    enemies: [{ col: 2, row: 2 }],
+    points: [{ col: 6, row: 6 }],
+    beats: 20,
+    stepTicks: 30,
+  },
 ];
 
 function open(seed = 3): World {
@@ -55,11 +73,7 @@ function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): Tim
   return { tick: world.tick, player, command };
 }
 
-/**
- * Ticks to exactly the beat the body starts moving on, and no further. The
- * step interval is counted from there, so a rig that overshot would be reading
- * a body somewhere in the middle of an interval it did not choose.
- */
+/** Ticks to exactly the beat the body starts moving on, and no further. */
 function play(world: World): void {
   for (let i = 0; i < (SNAKE_MORPH_BEATS + 2) * TPB; i++) {
     if (round(world).phase === "play") return;
@@ -68,28 +82,30 @@ function play(world: World): void {
   throw new Error("the round never started moving");
 }
 
-/** One tick with one press, and then nothing for `ticks` more. */
+/** One tick with one press, then nothing for `ticks` more. */
 function press(world: World, player: 1 | 2, command: TimedCommand["command"], ticks = 0): void {
   step(world, [cmd(world, player, command)]);
   for (let i = 0; i < ticks; i++) step(world, []);
 }
 
-/** Where the pellet cannot be reached by accident. */
-function parkPellet(snake: SnakeState): void {
-  snake.pelletCol = -5;
-  snake.pelletRow = -5;
-  snake.orbCol = -5;
-  snake.orbRow = -5;
+/**
+ * Take the two things in the straight line off the board, for a test about
+ * something else. The corner pair is deliberately left standing, so the round
+ * is still open however far the body drives.
+ */
+function clearPath(snake: SnakeState): void {
+  snake.struck = [0];
+  snake.taken = [0];
 }
 
 describe("the round opens as a picture before it opens as a game", () => {
-  it("installs a body, a heading and a pellet", () => {
+  it("installs a body pointing up, and an arena nobody has touched", () => {
     const world = open();
     const snake = round(world);
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
     expect(snake.dirRow).toBe(-1);
-    expect(snake.pelletCol).toBeGreaterThanOrEqual(0);
-    expect(snake.pelletRow).toBeGreaterThanOrEqual(0);
+    expect(snake.struck).toEqual([]);
+    expect(snake.taken).toEqual([]);
   });
 
   it("holds the body still while the ship is still becoming it", () => {
@@ -102,215 +118,181 @@ describe("the round opens as a picture before it opens as a game", () => {
 
   it("hears nothing until it does", () => {
     const world = open();
-    press(world, 1, { kind: "snakeTurn", dir: "left" });
-    expect(round(world).turnCol).toBe(0);
+    press(world, 2, { kind: "snakeTurn", dir: "left" });
+    expect(round(world).turn).toBe(0);
     play(world);
     expect(round(world).phase).toBe("play");
   });
 });
 
-describe("a corner is two seats, in order", () => {
-  it("takes player 1 across an upward body", () => {
-    const world = open();
-    play(world);
-    press(world, 1, { kind: "snakeTurn", dir: "left" });
-    expect(round(world).turnCol).toBe(-1);
-  });
-
-  it("refuses player 2 the same turn", () => {
-    const world = open();
-    play(world);
-    press(world, 2, { kind: "snakeTurn", dir: "left" });
-    expect(round(world).turnCol).toBe(0);
-  });
-
-  it("refuses player 2 an upward body's own axis, which is the 180", () => {
-    const world = open();
-    play(world);
-    press(world, 2, { kind: "snakeTurn", dir: "down" });
-    expect(round(world).turnRow).toBe(-1);
-  });
-
-  it("hands the axis over once the body has actually turned", () => {
+describe("player 2 drives, and only player 2", () => {
+  it("queues a quarter turn and takes it on the next step", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    press(world, 1, { kind: "snakeTurn", dir: "right" }, ROUNDS[0]!.stepTicks + 1);
-    expect(snake.dirCol).toBe(1);
-    // Now it is going sideways, so player 1 is the one who cannot steer.
+    clearPath(snake);
+    press(world, 2, { kind: "snakeTurn", dir: "left" });
+    expect(snake.turn).toBe(-1);
+    for (let i = 0; i < ROUNDS[0]!.stepTicks + 1; i++) step(world, []);
+    // Anticlockwise from "up" is "left" on a screen whose rows run down.
+    expect([snake.dirCol, snake.dirRow]).toEqual([-1, 0]);
+  });
+
+  it("turns the other way for the other button", () => {
+    const world = open();
+    play(world);
+    const snake = round(world);
+    clearPath(snake);
+    press(world, 2, { kind: "snakeTurn", dir: "right" }, ROUNDS[0]!.stepTicks + 1);
+    expect([snake.dirCol, snake.dirRow]).toEqual([1, 0]);
+  });
+
+  it("refuses player 1 the wheel", () => {
+    const world = open();
+    play(world);
     press(world, 1, { kind: "snakeTurn", dir: "left" });
-    expect(snake.turnCol).toBe(1);
-    press(world, 2, { kind: "snakeTurn", dir: "down" });
-    expect(snake.turnRow).toBe(1);
+    expect(round(world).turn).toBe(0);
   });
 
   /**
-   * The whole reason a turn is queued rather than applied. Two presses inside
-   * one tile, each of them legal on its own, must not add up to a body driven
-   * into its own neck — neither player asked for that and neither could see it
-   * coming.
+   * The whole reason a turn is a queued quarter and not a heading: two presses
+   * inside one tile are the last one winning, and nothing either of them can
+   * press adds up to the reversal the arcade game forbids.
    */
-  it("cannot be talked into a reversal by two legal presses", () => {
+  it("keeps only the last press of a tile, and can never be a half turn", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    press(world, 1, { kind: "snakeTurn", dir: "left" });
-    press(world, 2, { kind: "snakeTurn", dir: "down" });
-    // The second press is judged against the direction actually travelled,
-    // which is still up — so it is refused and the queued left stands.
-    expect(snake.turnCol).toBe(-1);
-    expect(snake.turnRow).toBe(0);
+    clearPath(snake);
+    press(world, 2, { kind: "snakeTurn", dir: "left" });
+    press(world, 2, { kind: "snakeTurn", dir: "right" }, ROUNDS[0]!.stepTicks + 1);
+    expect([snake.dirCol, snake.dirRow]).toEqual([1, 0]);
   });
 });
 
-describe("the body moves on its own clock", () => {
-  it("steps exactly once an authored interval", () => {
+describe("player 1 shoots, and only player 1", () => {
+  it("takes the enemy that is straight ahead", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    const head = { ...snake.body[0]! };
-    for (let i = 0; i < ROUNDS[0]!.stepTicks - 1; i++) step(world, []);
-    expect(snake.body[0]).toEqual(head);
-    step(world, []);
-    expect(snake.body[0]).toEqual({ col: head.col, row: head.row - 1 });
+    press(world, 1, { kind: "snakeFire" });
+    expect(snake.struck).toEqual([0]);
+    expect(snake.shotHit).toBe(true);
+    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({ col: 4, row: 4 });
   });
 
-  it("keeps its length until something is eaten", () => {
+  it("misses when the head is not pointing at anything", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    for (let i = 0; i < ROUNDS[0]!.stepTicks * 2; i++) step(world, []);
-    expect(snake.body.length).toBe(CFG.snakeStartTiles);
+    press(world, 2, { kind: "snakeTurn", dir: "left" }, ROUNDS[0]!.stepTicks + 1);
+    press(world, 1, { kind: "snakeFire" });
+    expect(snake.struck).toEqual([]);
+    expect(snake.shotHit).toBe(false);
   });
-});
 
-describe("player 2's brake buys about a tile, once", () => {
-  it("delays the next step and is spent by it", () => {
+  it("is nobody else's trigger", () => {
+    const world = open();
+    play(world);
+    press(world, 2, { kind: "snakeFire" });
+    expect(round(world).struck).toEqual([]);
+  });
+
+  it("rests, so a held trigger is not a cleared row", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    const head = { ...snake.body[0]! };
-    press(world, 2, { kind: "snakeSlow" });
-    expect(snake.slowTicks).toBeGreaterThan(0);
-    for (let i = 0; i < ROUNDS[0]!.stepTicks; i++) step(world, []);
-    // Still where it was: the brake pushed the step past the interval.
-    expect(snake.body[0]).toEqual(head);
-    for (let i = 0; i < snake.slowTicks + 1; i++) step(world, []);
-    expect(snake.body[0]).not.toEqual(head);
-    expect(snake.slowTicks).toBe(0);
-  });
-
-  it("is nobody else's button", () => {
-    const world = open();
-    play(world);
-    press(world, 1, { kind: "snakeSlow" });
-    expect(round(world).slowTicks).toBe(0);
-  });
-
-  it("rests, so a held thumb is not simply a slower snake", () => {
-    const world = open();
-    play(world);
-    const snake = round(world);
-    parkPellet(snake);
-    press(world, 2, { kind: "snakeSlow" });
-    snake.slowTicks = 0;
-    press(world, 2, { kind: "snakeSlow" });
-    expect(snake.slowTicks).toBe(0);
+    press(world, 1, { kind: "snakeFire" });
+    snake.struck = [];
+    press(world, 1, { kind: "snakeFire" });
+    expect(snake.struck).toEqual([]);
   });
 });
 
-describe("player 1's flip is the answer to a corner nobody can turn", () => {
-  it("swaps the ends and sets off away from the body", () => {
+describe("the mouth is player 1's, and it is a moment rather than a state", () => {
+  it("swallows a point driven over with it open", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    const tail = { ...snake.body[snake.body.length - 1]! };
-    press(world, 1, { kind: "snakeFlip" });
-    expect(snake.body[0]).toEqual(tail);
-    // The body ran up the screen, so the old tail leaves down it.
-    expect(snake.dirRow).toBe(1);
-    expect(snake.turnRow).toBe(1);
-  });
-
-  it("is nobody else's button", () => {
-    const world = open();
-    play(world);
-    const snake = round(world);
-    const head = { ...snake.body[0]! };
-    press(world, 2, { kind: "snakeFlip" });
-    expect(snake.body[0]).toEqual(head);
-  });
-});
-
-describe("what is collected, and what it costs", () => {
-  it("scores a pellet, grows by it and drops another somewhere else", () => {
-    const world = open();
-    play(world);
-    const snake = round(world);
-    const head = snake.body[0]!;
-    snake.pelletCol = head.col;
-    snake.pelletRow = head.row - 1;
-    for (let i = 0; i < ROUNDS[0]!.stepTicks + 1; i++) step(world, []);
-    expect(snake.points).toBe(CFG.snakePelletPoints);
+    // Two steps to the point at (4,6), with the enemy beyond it already down.
+    snake.struck = [0];
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 - 20; i++) step(world, []);
+    press(world, 1, { kind: "snakeMaw" }, 40);
+    expect(snake.taken).toEqual([0]);
+    expect(snake.repeats).toBe(0);
     expect(snake.body.length).toBeGreaterThan(CFG.snakeStartTiles);
-    expect({ col: snake.pelletCol, row: snake.pelletRow }).not.toEqual({
-      col: head.col,
-      row: head.row - 1,
-    });
   });
 
-  it("scores the orb without growing anything", () => {
+  it("starts the round over when the same point is reached with it shut", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    const head = snake.body[0]!;
-    snake.orbCol = head.col;
-    snake.orbRow = head.row - 1;
-    for (let i = 0; i < ROUNDS[0]!.stepTicks + 1; i++) step(world, []);
-    expect(snake.points).toBe(CFG.snakeOrbPoints);
+    snake.struck = [0];
+    const hull = world.hullMilli;
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 + 2; i++) step(world, []);
+    expect(snake.taken).toEqual([]);
+    expect(snake.repeats).toBe(1);
+    expect(world.hullMilli).toBeLessThan(hull);
+    // And the round is standing again, whole.
+    expect(snake.struck).toEqual([]);
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
-    expect(snake.orbCol).toBe(-1);
   });
 
-  it("breaks the hull on a wall and puts the body back, with the round still on", () => {
+  it("is nobody else's mouth", () => {
+    const world = open();
+    play(world);
+    press(world, 2, { kind: "snakeMaw" });
+    expect(world.tick - round(world).mawTick).toBeGreaterThan(CFG.snakeMawTicks);
+  });
+});
+
+describe("the four ways an attempt ends, which are one rule", () => {
+  it("starts over on the wall", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
+    clearPath(snake);
     const hull = world.hullMilli;
     for (let i = 0; i < ROUNDS[0]!.stepTicks * (CFG.snakeRows + 2); i++) step(world, []);
-    expect(snake.crashes).toBeGreaterThan(0);
+    expect(snake.repeats).toBeGreaterThan(0);
     expect(world.hullMilli).toBeLessThan(hull);
     expect(snake.phase).toBe("play");
-    expect(snake.body.length).toBe(CFG.snakeStartTiles);
+  });
+
+  it("starts over on an enemy nobody shot", () => {
+    const world = open();
+    play(world);
+    const snake = round(world);
+    // The point two steps ahead is already swallowed, so the straight line
+    // holds nothing but the enemy at four.
+    snake.taken = [0];
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * 4 + 2; i++) step(world, []);
+    expect(snake.repeats).toBe(1);
+    expect(snake.body[0]).toEqual({ col: 4, row: CFG.snakeRows - 3 });
   });
 });
 
 describe("the rounds, and the two ways out of them", () => {
-  it("opens the next one on its target, faster and back at nothing", () => {
+  it("opens the next one once the arena is clear", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
-    snake.points = ROUNDS[0]!.points;
+    snake.struck = [0, 1];
+    snake.taken = [0, 1];
     step(world, []);
     expect(snake.round).toBe(1);
-    expect(snake.points).toBe(0);
+    expect(snake.struck).toEqual([]);
     expect(snake.roundBeat).toBe(world.beat);
   });
 
-  it("passes when the last one is passed, and stands there before it goes", () => {
+  it("passes when the last one is cleared, and stands there before it goes", () => {
     const world = open();
     play(world);
     const snake = round(world);
     snake.round = ROUNDS.length - 1;
-    snake.points = ROUNDS[1]!.points;
+    snake.struck = [0];
+    snake.taken = [0];
+
     step(world, []);
     expect(snake.phase).toBe("verdict");
     expect(snake.passed).toBe(true);
@@ -322,7 +304,6 @@ describe("the rounds, and the two ways out of them", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    parkPellet(snake);
     const hull = world.hullMilli;
     snake.roundBeat = world.beat - ROUNDS[0]!.beats;
     step(world, []);

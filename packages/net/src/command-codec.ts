@@ -23,7 +23,7 @@ const isDragTarget = (x: unknown): x is DragTarget =>
   typeof x === "string" && (DRAG_TARGETS as readonly string[]).includes(x);
 
 /**
- * SNAKE's four, imported rather than spelled out — the opposite of `COLORS`
+ * SNAKE's two, imported rather than spelled out — the opposite of `COLORS`
  * above, and only because the simulation publishes this one. A second copy
  * here would be a list that could fall behind the round it steers.
  */
@@ -99,10 +99,10 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "salvo" };
     case "snakeTurn":
       return isSnakeTurn(c.dir) ? { kind: "snakeTurn", dir: c.dir } : null;
-    case "snakeFlip":
-      return { kind: "snakeFlip" };
-    case "snakeSlow":
-      return { kind: "snakeSlow" };
+    case "snakeFire":
+      return { kind: "snakeFire" };
+    case "snakeMaw":
+      return { kind: "snakeMaw" };
     case "drag":
       return isDragTarget(c.target) && isBool(c.on) && isNonNegInt(c.fromMilli)
         ? { kind: "drag", target: c.target, on: c.on, fromMilli: c.fromMilli }

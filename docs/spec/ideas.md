@@ -737,23 +737,23 @@ is worth more than a better one that is waiting on it.
 - **SNAKE** — **built**, and this bullet is what the old one promised would
   replace it. `packages/sim/src/snake.ts` and its four neighbours, drawn by
   `packages/render/src/snake-draw.ts`, played on the `snake` control set, one
-  wave in `act-4.ts`. What it settled: a snake is one body that travels, which
-  is the shape the field's central rule forbids — and a round is outside that
-  rule, which
+  wave in `act-4.ts`, arenas edited in the director. What it settled: a snake
+  is one body that travels, which is the shape the field's central rule
+  forbids — and a round is outside that rule, which
   [the page that hung on the question](interludes.md#the-question-the-whole-page-hung-on-now-answered)
   had already answered before this was written. So the answer was not a
   relaxation; it was that the rule is about the field and this is not the
   field. What makes it a Neon Spore round rather than a game for one person is
-  the axis split: player 1 has left and right, player 2 has up and down, and a
-  turn only counts *across* the way the body is already going — a corner is
-  physically two seats in an order they have to agree out loud. Both sketches
-  the old entry named are in it and they turned out to be the same idea seen
-  twice: the food is on one device and the body on the other. The two extra
-  buttons follow — the flip is player 1's because the tail is the end they can
-  see, the brake is player 2's because they are watching what the head is about
-  to hit. Three rounds, each wanting more points in less time at a shorter
-  step; a wall or a bite costs the hull and puts the body back; the clock
-  running out costs the hull more and ends it.
+  the split down the middle of the arcade game: **player 2 drives** — two
+  quarter turns, relative, and nothing standing in the arena is drawn on that
+  screen — and **player 1 works it**, a shot out of the head and a mouth, with
+  every enemy and every point on their screen and no way to reach one. Both
+  sketches the old entry named are in it and they turned out to be the same
+  idea seen twice: what there is to collect is on one device and the body is on
+  the other. Three authored maps; shoot everything and swallow everything to
+  clear one; a wall, your own back, a touched enemy or a point taken with the
+  mouth shut starts it over for a few points of hull; the clock running out
+  costs more and ends it.
 
 ## Deliberately deferred
 

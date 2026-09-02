@@ -7,8 +7,9 @@
 > `boss: { kind: "gauge" }`. SNAKE is `packages/sim/src/snake.ts` and its four
 > neighbours, its picture is `packages/render/src/snake-draw.ts` and
 > `snake-round.ts`, and it is reached the same way — `boss: { kind: "snake",
-> rounds: SNAKE_ROUNDS }`, with the rounds authored in
-> `packages/content/src/snake-rounds.ts`. The other ten candidates are in
+> rounds: SNAKE_ROUNDS }`, with the arenas authored in
+> `packages/content/src/snake-rounds.ts` and edited on the wave itself in the
+> director. The other ten candidates are in
 > [the idea store](ideas.md#interludes); where they came from is
 > [transfers-hazelight](transfers-hazelight.md). One thing in the game already
 > had this shape without being called it —
@@ -156,15 +157,22 @@ different, and they are role predicates in render/ for the same reason
 the world. Which seat may send which command is checked in the simulation.
 
 SNAKE splits both halves at once and it is worth reading as a pattern rather
-than as a second example. The **verbs** are split by axis — player 1 has left
-and right, player 2 up and down, and a turn only counts across the way the body
-is already going, so a corner is physically two seats in an agreed order. The
-**information** is split to match: `showsSnakeFood` gives player 1 the food and
-both ends of the body, `showsSnakeBody` gives player 2 everything between those
-ends and no food. Each seat's extra button then belongs to the half it can see
-— the flip to the seat that can see the tail, the brake to the seat watching
-what the head is about to hit. A round whose two splits pointed in different
-directions would be two puzzles played at once.
+than as a second example. The **verbs** are split by job: player 2 has the
+whole of the steering — two quarter turns, relative, the arcade game's own
+controls — and player 1 has the two things the body does when it arrives, a
+shot out of the head and a mouth. The **information** is split to match:
+`showsSnakeFood` gives player 1 the enemies, the points and both ends of the
+body, `showsSnakeBody` gives player 2 the whole length and none of the things
+in the arena. So the seat that can reach a thing cannot see it and the seat
+that can see it cannot reach it, and every verb in the round is somebody
+answering a sentence. A round whose two splits pointed in different directions
+would be two puzzles played at once.
+
+It also settles a question the first round left open: **a relative control is
+worth more here than an absolute one**. "Left" means the same thing to both
+players whatever the body is doing, where "column four" needs a screen both of
+them can read — and in a round where only one of them can see the arena, that
+is the difference between a sentence and a guess.
 
 ## Where they sit in the run
 
@@ -268,6 +276,7 @@ the render side there is nothing to clear: the draw is stateless, so
 - **What is `damageGauge` actually worth?** Twenty points, chosen so the round
   is not free and defended no further. It is the owner's to turn once they have
   lost one. `damageSnake` is the same twenty for the same event — a round the
-  pair did not finish — and `damageSnakeCrash` is eight, which is the number
-  with the least behind it on this page: a wall has to cost enough that the
-  walls are real and little enough that the round is not over at the first one.
+  pair did not finish — and `damageSnakeRepeat` is eight, which is the number
+  with the least behind it on this page: starting over has to cost enough that
+  the arena is real and little enough that a round is not over at the first
+  mistake.

@@ -128,11 +128,8 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.lastRow);
     push(boss.lastHit ? 1 : 0);
   }
-  // SNAKE, and the two lists in it are the round. The body is the whole state
-  // of the fight — where it is, how long it has got and what it is about to
-  // run into — and the authored rounds are in for THE MIRROR's reason two
-  // paragraphs down: two phones on two builds of `content` would ask for a
-  // different target three rounds in, and nothing else here would notice.
+  // SNAKE. The body is where the fight is, and everything after it is what
+  // the arena has left in it.
   if (boss !== null && boss.kind === "snake") {
     push(SNAKE_PHASES.indexOf(boss.phase));
     push(boss.phaseBeat);
@@ -140,33 +137,47 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.passed ? 1 : 0);
     push(boss.round);
     push(boss.roundBeat);
-    push(boss.points);
     push(boss.dirCol);
     push(boss.dirRow);
-    push(boss.turnCol);
-    push(boss.turnRow);
+    push(boss.turn);
     push(boss.stepTick);
     push(boss.grow);
-    push(boss.slowTicks);
-    push(boss.slowBeat);
-    push(boss.flipBeat);
-    push(boss.pelletCol);
-    push(boss.pelletRow);
-    push(boss.orbCol);
-    push(boss.orbRow);
-    push(boss.orbBeat);
-    push(boss.crashes);
-    push(boss.crashBeat);
+    push(boss.mawTick);
+    push(boss.shotBeat);
+    push(boss.shotCol);
+    push(boss.shotRow);
+    push(boss.shotHit ? 1 : 0);
+    push(boss.repeats);
+    push(boss.repeatBeat);
     push(boss.body.length);
     for (const tile of boss.body) {
       push(tile.col);
       push(tile.row);
     }
+    // What has been spent, and then the map it was spent on. The lists of
+    // indices are the fight itself — a device that thinks one more enemy is
+    // down is a device drawing a different arena for the player who can see
+    // it — and the placement is authored, so it is in for THE MIRROR's reason:
+    // two phones on two builds of `content` would be driving round different
+    // maps and nothing else here would say a word about it.
+    push(boss.struck.length);
+    for (const at of boss.struck) push(at);
+    push(boss.taken.length);
+    for (const at of boss.taken) push(at);
     push(boss.rounds.length);
     for (const round of boss.rounds) {
-      push(round.points);
       push(round.beats);
       push(round.stepTicks);
+      push(round.enemies.length);
+      for (const tile of round.enemies) {
+        push(tile.col);
+        push(tile.row);
+      }
+      push(round.points.length);
+      for (const tile of round.points) {
+        push(tile.col);
+        push(tile.row);
+      }
     }
   }
   if (boss !== null && boss.kind === "mirror") {
