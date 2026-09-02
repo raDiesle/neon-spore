@@ -41,7 +41,6 @@ const KNOWN_LONG: Record<string, number> = {
   "tools/versus/prompt.ts": 509,
   "tools/director/server.ts": 260,
   "tools/land/worktree.ts": 315,
-  "tools/frames/run.ts": 261,
   "tools/frames/capture.ts": 252,
 };
 function sourceFiles(): string[] {

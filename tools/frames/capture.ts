@@ -1,7 +1,7 @@
-import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { chromium } from "playwright-core";
+import { findChrome } from "./chrome.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -28,7 +28,22 @@ export interface FrameSpec {
   /** CSS viewport the phone is drawn at. A fixed size is part of what makes
    * two captures comparable — the layout math reads the viewport back. */
   viewport?: { width: number; height: number };
+  /**
+   * Whose screen this is. Omitted leaves the build's own default, which is the
+   * test rig showing both halves at once.
+   *
+   * A creature whose whole point is that the two devices carry two different
+   * pictures — THE VEIL, THE LURE, THE DART — cannot be photographed at all
+   * without this: the rig's frame is neither of the two frames a player sees,
+   * and it is the one this tool used to be able to take.
+   */
+  seat?: "p1" | "p2" | "test";
 }
+
+/** Which browser a capture opens. Six callers across `tools/` ask this file
+ * for it, so it is re-exported rather than moved — the subject itself lives in
+ * `chrome.ts`, out of the way of driving a frame. */
+export { findChrome, pickChrome } from "./chrome.js";
 
 export interface CaptureResult {
   /** One path per frame, in capture order. */
@@ -36,48 +51,6 @@ export interface CaptureResult {
 }
 
 const DEFAULT_VIEWPORT = { width: 390, height: 844 } as const;
-
-/**
- * Where a Chrome-family browser lives on the two machines this repository
- * runs on — this Windows box, and the cloud sandbox `CLAUDE.md` says "does
- * have a headless Chromium". `playwright-core` ships no browser of its own on
- * purpose: downloading one is a network fetch and a licence neither machine
- * needs, when both already carry a real browser on disk.
- */
-const CHROME_CANDIDATES = [
-  process.env.FRAMES_CHROME,
-  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-  "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
-  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-  "/usr/bin/google-chrome",
-  "/usr/bin/google-chrome-stable",
-  "/usr/bin/chromium",
-  "/usr/bin/chromium-browser",
-  "/opt/google/chrome/google-chrome",
-  // The cloud sandbox CLAUDE.md names: Playwright's own download, which is the
-  // only browser on that machine and is not on any of the paths above.
-  "/opt/pw-browsers/chromium",
-] as const;
-
-/** The search, kept apart from the filesystem so a test can hand it a fake
- * directory instead of depending on what happens to be installed here. */
-export function pickChrome(
-  candidates: readonly (string | undefined)[],
-  exists: (path: string) => boolean = existsSync,
-): string {
-  for (const candidate of candidates) {
-    if (candidate && exists(candidate)) return candidate;
-  }
-  throw new Error(
-    "no Chrome-family browser found for tools/frames. Set FRAMES_CHROME to an " +
-      "executable path, or install Google Chrome, Chromium or Microsoft Edge.",
-  );
-}
-
-export function findChrome(): string {
-  return pickChrome(CHROME_CANDIDATES);
-}
 
 declare global {
   interface Window {
@@ -109,6 +82,17 @@ declare global {
  * has the field".
  */
 const OPENING_PLAY = 0;
+
+/**
+ * `STORAGE_KEY` from `apps/game/src/view.ts`, copied for `OPENING_PLAY`'s
+ * reason: the line that reads it runs in the browser, before the bundle loads,
+ * where nothing this file imports exists. The view switch restores the seat
+ * from this key on startup, so writing it is the same as having pressed the
+ * button — and a key that went stale would leave every seated capture silently
+ * back on the test rig, which is why the string is named here rather than
+ * inlined at the call.
+ */
+const SEAT_KEY = "neon-spore.view";
 
 /**
  * More seconds than `INTRO_SECONDS` (`apps/game/src/waves.ts`) could ever be
@@ -161,6 +145,23 @@ export async function captureFrames(
     const page = await browser.newPage({ viewport: spec.viewport ?? DEFAULT_VIEWPORT });
     const pageErrors: string[] = [];
     page.on("pageerror", (err) => pageErrors.push(String(err)));
+
+    // Before the bundle runs, not after: the view switch reads its seat once
+    // on startup and the layout is computed from it, so a seat set afterwards
+    // would be a second frame's worth of work and a first frame of the wrong
+    // screen.
+    if (spec.seat) {
+      // A refusal to store leaves the capture on whatever the build defaults
+      // to, which is the same shape `view.ts` takes when storage says no.
+      await page.addInitScript(
+        ([key, seat]: string[]) => {
+          try {
+            localStorage.setItem(key as string, seat as string);
+          } catch {}
+        },
+        [SEAT_KEY, spec.seat],
+      );
+    }
 
     await page.goto(baseUrl, { waitUntil: "load" });
     await page.waitForFunction(() => Boolean(window.neonSpore));

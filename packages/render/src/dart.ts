@@ -163,10 +163,14 @@ export function drawDartJet(
 }
 
 /**
- * Whether this screen carries the arrow, the legs and the placeholder. Player 1 never does — that is the
- * whole creature — and `test` does, because it is both seats on one screen and
- * a rig that hid half the picture would be no rig. The same shape
- * `showsLureAlarm` has, and for the same reason.
+ * Whether this screen carries the arrow, the legs and the placeholder. Player 1
+ * never does — that is the whole creature — and `test` does, because it is both
+ * seats on one screen and a rig that hid half the picture would be no rig. The
+ * same shape `showsLureAlarm` has, and for the same reason.
+ *
+ * The seat this says no to is not shown nothing: `dart-query.ts` draws two
+ * arrows and a question mark there, which is *ask*, and it asks this same
+ * question so the two halves can never overlap or both go missing.
  */
 export function showsDartArrow(l: Layout): boolean {
   return l.role !== "p1";
@@ -190,6 +194,9 @@ export function drawDartArrow(
   r: number,
   dir: number,
   hex: string,
+  /** Full weight for the navigator's one arrow; `dart-query.ts` passes less,
+   * because its two say "either way" and must not read as two moves. */
+  alpha = 0.95,
 ): void {
   // Above the body and offset toward the side it is going, so the mark is
   // already on the half of the tile the answer is on.
@@ -203,7 +210,7 @@ export function drawDartArrow(
   ctx.fillStyle = hex;
   ctx.lineWidth = Math.max(1.6, r * 0.14);
   ctx.lineCap = "round";
-  ctx.globalAlpha = 0.95;
+  ctx.globalAlpha = alpha;
 
   const tipX = cx + ax * len * 0.5;
   const tipY = cy + ay * len * 0.5;

@@ -436,8 +436,8 @@ describe("the lure", () => {
 });
 
 /**
- * THE DART, drawn: the lean and the jet both seats see, and the arrow only
- * player 2 does.
+ * THE DART, drawn: the lean and the jet both seats see, the arrow and its legs
+ * only player 2, and the two-way arrows and the question mark only player 1.
  *
  * Nothing here can answer whether the lean *reads* as a body about to move —
  * that is the check this lane owes and it needs an eye. What it can hold is
@@ -490,9 +490,11 @@ describe("the dart", () => {
     });
   }
 
-  it("puts the arrow on player 2's screen and nothing extra on player 1's", () => {
-    // Same world, same ticks, same body: the arrow is the entire difference
-    // between the two frames, which is the whole creature.
+  it("gives the two seats two different pictures of the same body", () => {
+    // Same world, same ticks, same body. Player 2 gets the arrow, the legs and
+    // the placeholder; player 1 gets two arrows and a question mark, which is
+    // more marks and far less picture. That gap is the whole creature.
+    // Which mark lands on which screen is `dart-query.test.ts`'s to hold.
     const p1 = dartFrames("p1", 3, TICKS);
     const p2 = dartFrames("p2", 3, TICKS);
     expect(p2.ctx.calls).toBeGreaterThan(p1.ctx.calls);

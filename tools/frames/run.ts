@@ -23,6 +23,7 @@
  *   bun run frames <sha> --wave "THE THIRD SHOT" a wave by name — what a person has in hand
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
+ *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
@@ -33,79 +34,8 @@ import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { captureFrames, type FrameSpec } from "./capture.js";
-
-const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
-
-async function git(args: string[], cwd = root): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [out, code, err] = await Promise.all([
-    new Response(proc.stdout).text(),
-    proc.exited,
-    new Response(proc.stderr).text(),
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")} failed: ${err.trim() || out.trim()}`);
-  return out.trim();
-}
-
-async function run(cmd: string[], cwd: string): Promise<void> {
-  const proc = Bun.spawn(cmd, { cwd, stdout: "inherit", stderr: "inherit" });
-  const code = await proc.exited;
-  if (code !== 0) throw new Error(`${cmd.join(" ")} exited ${code} in ${cwd}`);
-}
-
-/** Reads `preview (built) on http://localhost:PORT` off the server's own stdout, rather
- * than guessing a port — the same rule `CLAUDE.md`'s verification section gives a human. */
-async function startPreview(cwd: string): Promise<{ url: string; stop: () => Promise<void> }> {
-  const proc = Bun.spawn(["bun", "run", "--cwd", "apps/game", "preview:once"], {
-    cwd,
-    env: { ...process.env, PREVIEW_HOST: "127.0.0.1" },
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-
-  const reader = proc.stdout.getReader();
-  const decoder = new TextDecoder();
-  let buffered = "";
-  const deadline = Date.now() + 30_000;
-  let url: string | null = null;
-  while (!url) {
-    if (Date.now() > deadline) throw new Error("preview:once never printed its port");
-    const { value, done } = await reader.read();
-    if (done) throw new Error("preview:once exited before printing its port");
-    buffered += decoder.decode(value, { stream: true });
-    const found = buffered.match(/preview \(built\) on (http:\/\/[^\s]+)/);
-    if (found?.[1]) url = found[1];
-  }
-  reader.releaseLock();
-
-  return {
-    url,
-    stop: async () => {
-      proc.kill();
-      await proc.exited;
-    },
-  };
-}
-
-/** One tree, built and served, screenshotted, torn down. */
-async function captureAt(rev: string, spec: FrameSpec, outPrefix: string): Promise<string[]> {
-  const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-"));
-  await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
-  await git(["worktree", "add", "--detach", scratch, rev]);
-  try {
-    await run(["bun", "install"], scratch);
-    const preview = await startPreview(scratch);
-    try {
-      return (await captureFrames(preview.url, spec, outPrefix)).paths;
-    } finally {
-      await preview.stop();
-    }
-  } finally {
-    await git(["worktree", "remove", "--force", scratch]).catch(() => {});
-    await rm(scratch, { recursive: true, force: true }).catch(() => {});
-  }
-}
+import type { FrameSpec } from "./capture.js";
+import { captureAt, git, root, run } from "./serve.js";
 
 /**
  * One entry of `WAVES`, reduced to the two things a `where` field can name a
@@ -184,12 +114,19 @@ async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   const sha = argv[0];
   if (!sha || sha.startsWith("--")) {
-    throw new Error('usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--out DIR]');
+    throw new Error(
+      'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] [--out DIR]',
+    );
   }
   const flag = (name: string, fallback: number): number => {
     const i = argv.indexOf(`--${name}`);
     return i === -1 ? fallback : Number(argv[i + 1]);
   };
+  const seatFlag = argv.indexOf("--seat");
+  const seat = seatFlag === -1 ? undefined : argv[seatFlag + 1];
+  if (seat !== undefined && seat !== "p1" && seat !== "p2" && seat !== "test") {
+    throw new Error(`--seat ${seat}: one of p1, p2 or test`);
+  }
   const outFlag = argv.indexOf("--out");
   const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
@@ -219,6 +156,7 @@ async function main(): Promise<void> {
     ticks: flag("ticks", 120),
     frames: flag("frames", 1),
     strideTicks: flag("stride", 4),
+    seat,
   };
 
   const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));

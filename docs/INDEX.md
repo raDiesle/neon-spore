@@ -283,6 +283,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
+| `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
 
 ### packages/net
 

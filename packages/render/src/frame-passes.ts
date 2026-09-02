@@ -5,6 +5,7 @@ import { drawWaveOpening } from "./briefing.js";
 import { drawBullets } from "./bullets.js";
 import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
+import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGrips } from "./grip.js";
@@ -74,6 +75,10 @@ export function drawBodies(
   // and where it goes after that, and player 1 — who holds the cannon that has
   // to be standing there — is shown none of it.
   drawDartGuides(ctx, l, world, view.beatPhase, view.time);
+  // And the other half of that same creature, on the other device: two arrows
+  // and a question mark over the body, which is the pilot being told that this
+  // column is not one they can read — only one they can be told.
+  drawDartQueries(ctx, l, world, view.beatPhase);
   // The third half-picture, and the first that is *both* screens carrying one
   // each rather than one screen carrying something the other has not got: a
   // draining clock over every cloud on player 1's, a question mark on player
