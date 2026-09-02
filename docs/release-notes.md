@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 84f25a5 — A body only one of you can see, and never twice in the same tile
+
+THE WISP is drawn on player 2's screen and on player 1's not at all — not dimmed, not ringed, simply absent — and every two beats it is standing somewhere else on the field, one tile drawn from the seeded rng. It does not fall, so it never reaches the hull and never leaves on its own: the wave stays open until it is shot, and either colour does it. The seat that can see it cannot aim; the seat holding the cannon is looking at an empty field. What crosses the room is a square.
+
 ## 2026-09-02 · ca2c05b — Every frame this tool ever took had a black box over the HUD's top corner
 
 `showKeyHint` is gated on `pointer: fine`, and headless Chrome reports fine — so the PC key toast was over the hull bar and the siren's corner for the first six seconds of every capture, which is longer than any capture takes. It runs on a real clock and `advance` is not that clock, so it cannot be waited out once rAF is frozen; it is removed outright, after the opening lets go and before the loop stops. Matched on its own text rather than an id, because a commit and its parent both come through here and an id added today is missing from the parent — a toast cleared on one side of a before/after pair is worse than one left on both.
