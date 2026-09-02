@@ -1,4 +1,5 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
+import { hash01 } from "./backdrop.js";
 import { DEFLECT_LOOK } from "./deflect-look.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
@@ -55,11 +56,16 @@ function backEaseOut(t: number): number {
 export class DeflectFx {
   private particles: Particle[] = [];
   private shocks: Shock[] = [];
+  /** Advances on every spawn, seeding `hash01` — see `clear`. Deterministic
+   * so two devices deflecting the same rock throw the same tumble. */
+  private seed = 0;
 
-  /** Drop every bounce still running. For a restart — see `Effects.reset`. */
+  /** Drop every bounce still running, and rewind the seed so the next spawn
+   * matches a fresh instance's. For a restart — see `Effects.reset`. */
   clear(): void {
     this.particles.length = 0;
     this.shocks.length = 0;
+    this.seed = 0;
   }
 
   /**
@@ -93,10 +99,10 @@ export class DeflectFx {
       x,
       y: sy,
       r: tile * 0.4,
-      vx: (Math.random() - 0.5) * 90,
-      vy: -260 - Math.random() * 80,
-      spin: Math.random() * 6.28,
-      vs: (Math.random() - 0.5) * 7,
+      vx: (hash01(this.seed++) - 0.5) * 90,
+      vy: -260 - hash01(this.seed++) * 80,
+      spin: hash01(this.seed++) * 6.28,
+      vs: (hash01(this.seed++) - 0.5) * 7,
       life: DEFLECT_LOOK.life,
       pressT: 0,
       pressDepth: tile * DEFLECT_LOOK.pressDepthFrac,

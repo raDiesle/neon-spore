@@ -45,8 +45,10 @@ export const SHIELD_FLASH_LOOK: ShieldFlashLook = {
  * they never share a clock — "a few, irregularly", not a strobe. */
 const SLOTS = 4;
 
-/** Deterministic, not `Math.random`: two devices reading the same `time`
- * draw the same flash, the way `shield-spark.ts`'s arcs already do. */
+/** Deterministic, not `Math.random`: `time` is each device's own wall clock
+ * (`apps/game/src/main.ts`), so this draws the same flash on the same device
+ * from one frame to the next, not the same flash on both devices at once —
+ * the way `shield-spark.ts`'s arcs already work. */
 function hash(n: number): number {
   const s = Math.sin(n * 12.9898) * 43758.5453;
   return s - Math.floor(s);

@@ -122,8 +122,10 @@ export function resonantLook(base: ShieldSparkLook, resonance: number): ShieldSp
  * clock — the owner's "2 of them", irregularly, rather than a strobe. */
 const SLOTS = 2;
 
-/** Deterministic, not `Math.random`: two devices reading the same `time`
- * draw the same arc, the way the rim's shimmer already does. */
+/** Deterministic, not `Math.random`: `time` is each device's own wall clock
+ * (`apps/game/src/main.ts`), so this draws the same arc on the same device
+ * from one frame to the next, not the same arc on both devices at once — the
+ * way the rim's shimmer already works. */
 function hash(n: number): number {
   const s = Math.sin(n * 12.9898) * 43758.5453;
   return s - Math.floor(s);

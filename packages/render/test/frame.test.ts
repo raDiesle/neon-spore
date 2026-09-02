@@ -27,7 +27,7 @@ import { creatureAt, creatureCenter } from "../src/creature-place.js";
 import { drawRadar } from "../src/field.js";
 import { gripLabel } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { drawShieldFlashes, SHIELD_FLASH_LOOK } from "../src/shield-flash.js";
+import { drawShieldFlashes } from "../src/shield-flash.js";
 import { drawShieldSparks, resonantLook, SHIELD_SPARK_LOOK } from "../src/shield-spark.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 

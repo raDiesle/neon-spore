@@ -7,10 +7,9 @@
  * because exactly this once went out in the other notation and the first frame
  * threw.
  *
- * There are two more copies of this arithmetic in `depth.ts` and `sheen.ts`,
- * each private to its file and each written before there was anywhere to put
- * it. Folding them in is a separate edit to two files this one has no other
- * business in, which is why they are still there.
+ * `depth.ts` used to carry a private copy of this arithmetic and now calls
+ * `mixHex` directly. `sheen.ts` still carries its own — folding it in is a
+ * separate edit to a file this one has no other business in.
  */
 export function mixHex(a: string, b: string, k: number): string {
   const pa = Number.parseInt(a.slice(1), 16);

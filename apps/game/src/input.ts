@@ -13,9 +13,12 @@ import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
 
 /**
- * Collects commands until the next tick consumes them. Later this is also where
- * the local timestamp is taken — the moment the screen is touched, never the
- * moment a packet arrives (docs/architecture.md, "Network").
+ * Collects commands until the next tick consumes them. No timestamp is taken
+ * here or needed: `drain(tick)` stamps every pending command with the tick it
+ * is drained on, which — because the loop's catch-up drains synchronously —
+ * is the first tick after the touch, and `link.ts`'s lockstep then schedules
+ * it `inputDelayTicks` further out from there. There is no separate moment
+ * of "when the screen was touched" to have captured.
  */
 export class InputBuffer {
   private pending: { player: 1 | 2; command: Command }[] = [];

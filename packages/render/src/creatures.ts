@@ -21,6 +21,14 @@ import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
 
 /**
+ * The Throb's "swells and shrinks" tell, at rest (`shut`) and mid-pulse
+ * (`open`) — see the draw site below. `tools/shape-sheet` reads this to show
+ * the same two sizes rather than a hand-typed `[0.7, 1.3]` that could drift
+ * from what the game actually draws.
+ */
+export const THROB_SWELL = { open: 1.3, shut: 0.7 } as const;
+
+/**
  * Creature silhouettes come from `legacy/style-guide.html` by way of
  * `content/shapes.ts`: one blob contour per kind, tuned by lobes, depth and
  * wobble. The wobble is time-based, so a creature is never quite still.
@@ -158,7 +166,7 @@ function drawLiving(
   // true (a shot lands), smaller while it is shut (a shot does nothing) — the
   // same flag bullet-hit.ts reads, so the picture never disagrees with what a
   // shot actually does.
-  const throbMul = look === "throb" ? (c.throbOpen ? 1.3 : 0.7) : 1;
+  const throbMul = look === "throb" ? (c.throbOpen ? THROB_SWELL.open : THROB_SWELL.shut) : 1;
   const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1) * throbMul;
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools

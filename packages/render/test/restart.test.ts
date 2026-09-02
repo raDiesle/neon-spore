@@ -1,7 +1,9 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, type SimEvent } from "@neon-spore/sim";
+import { createWorld, DEFAULT_CONFIG, type SimEvent, step } from "@neon-spore/sim";
+import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
+import { ShieldBody } from "../src/shield.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -20,7 +22,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 const CFG = DEFAULT_CONFIG;
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
-const BEAT_SECONDS = 60 / CFG.bpm;
+const _BEAT_SECONDS = 60 / CFG.bpm;
 
 /** One of everything that leaves a mark: a miss, a deflect, a swallow, a
  * blocked shot, the queen. Enough that every collection has something in it. */
@@ -62,4 +64,90 @@ describe("a wave restart", () => {
     used.reset();
     expect(used).toEqual(new Effects());
   });
+
+  it("leaves a ShieldBody indistinguishable from a fresh one", () => {
+    const used = new ShieldBody();
+    used.update(4, 1 / 60);
+    for (let i = 0; i < 60; i++) used.update(4, 1 / 60);
+    expect(used).not.toEqual(new ShieldBody());
+
+    used.reset();
+    expect(used).toEqual(new ShieldBody());
+  });
+
+  it("leaves Canvas2DRenderer's eased pose indistinguishable from a fresh one after a restart", () => {
+    const { canvas } = stubCanvas();
+    const renderer = new Canvas2DRenderer(canvas);
+    renderer.resize({ width: 900, height: 1600, dpr: 2 });
+
+    const world = createWorld(CFG, 3);
+    for (let tick = 0; tick < 60; tick++) {
+      step(
+        world,
+        tick === 5
+          ? [
+              { tick, player: 1, command: { kind: "cannonCol", col: 4 } },
+              { tick, player: 2, command: { kind: "shieldCol", col: 4 } },
+              { tick, player: 1, command: { kind: "guard" } },
+              { tick, player: 2, command: { kind: "intake" } },
+            ]
+          : [],
+      );
+      renderer.draw({
+        world,
+        beatPhase: 0,
+        role: "test",
+        time: tick / CFG.tickHz,
+        dt: 1 / CFG.tickHz,
+        events: world.events,
+        running: true,
+      });
+    }
+
+    // It really did move off a fresh renderer's pose, or the comparison below
+    // proves nothing.
+    expect(pose(renderer)).not.toEqual(pose(new Canvas2DRenderer(canvas)));
+
+    // A fresh `World`, drawn once: the same restart signal `waveRestarted`
+    // reads off two different `World` objects in the running game.
+    const restarted = createWorld(CFG, 3);
+    const restartFrame = {
+      world: restarted,
+      beatPhase: 0,
+      role: "test" as const,
+      time: 0,
+      dt: 1 / CFG.tickHz,
+      events: [],
+      running: true,
+    };
+    renderer.draw(restartFrame);
+
+    // A brand new renderer, drawing that same first frame, is what
+    // `resetPose` promises to leave `renderer` indistinguishable from.
+    const freshRenderer = new Canvas2DRenderer(canvas);
+    freshRenderer.resize({ width: 900, height: 1600, dpr: 2 });
+    freshRenderer.draw(restartFrame);
+    expect(pose(renderer)).toEqual(pose(freshRenderer));
+  });
 });
+
+/**
+ * The renderer's own eased pose — `armed`, `intake`, `cannon`, `shield` —
+ * minus everything a restart is not about (`ctx`, `canvas`, `viewport`,
+ * `seen`, `effects`, which has its own guard above). Read as
+ * `Record<string, unknown>` because these fields are private: this test
+ * exists to catch exactly the field a later change adds and forgets to
+ * clear in `resetPose`, so it has to see all of them, not just the ones an
+ * accessor happens to expose.
+ */
+function pose(renderer: Canvas2DRenderer): Record<string, unknown> {
+  const {
+    ctx: _ctx,
+    canvas: _canvas,
+    viewport: _viewport,
+    seen: _seen,
+    effects: _effects,
+    ...rest
+  } = renderer as unknown as Record<string, unknown>;
+  return rest;
+}

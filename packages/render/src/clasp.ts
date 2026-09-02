@@ -1,8 +1,8 @@
-import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import type { SimConfig, World } from "@neon-spore/sim";
 import { drawClaspLattice } from "./clasp-lattice.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**

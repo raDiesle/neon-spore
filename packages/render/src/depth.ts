@@ -1,4 +1,5 @@
 import type { Creature, SimConfig } from "@neon-spore/sim";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -110,26 +111,13 @@ const HAZE_STEPS = 6;
  */
 const FAR = PALETTE.grid;
 
-/** A `#rrggbb` mix. Hex out, because `haloSprite` appends an alpha byte to it. */
-function mix(a: string, b: string, t: number): string {
-  let out = "#";
-  for (let i = 1; i < 7; i += 2) {
-    const ca = Number.parseInt(a.slice(i, i + 2), 16);
-    const cb = Number.parseInt(b.slice(i, i + 2), 16);
-    out += Math.round(ca + (cb - ca) * t)
-      .toString(16)
-      .padStart(2, "0");
-  }
-  return out;
-}
-
 /**
  * A body's colour as it reads from that distance. `near` is `nearness`, so the
  * hull row is untouched and the top row is mixed by `cfg.depthHaze`.
  */
 export function hazed(cfg: SimConfig, hex: string, near: number): string {
   const t = (Math.round((1 - near) * HAZE_STEPS) / HAZE_STEPS) * cfg.depthHaze;
-  return t <= 0 ? hex : mix(hex, FAR, t);
+  return t <= 0 ? hex : mixHex(hex, FAR, t);
 }
 
 /**

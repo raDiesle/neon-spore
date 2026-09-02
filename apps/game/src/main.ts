@@ -178,6 +178,11 @@ const paint = (dt: number): void => {
     world,
     beatPhase: beatPhase(),
     role: view.role(),
+    // Per device by design, not a value the two phones share — own-motion
+    // (a shimmer, a wobble) is allowed to differ between them because it
+    // touches nothing about the simulation. A shared clock would instead be
+    // `(world.tick + alpha) / cfg.tickHz`, where `alpha` is the fractional
+    // tick this frame lands on.
     time: performance.now() / 1000,
     dt,
     events: frameEvents,

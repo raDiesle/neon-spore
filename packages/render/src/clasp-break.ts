@@ -67,7 +67,9 @@ export function claspBreakVisible(t: number): boolean {
 /** How many fragments tumble inside the ball while it is coming apart. */
 const SHARDS = 9;
 
-/** Deterministic, not `Math.random`: the same argument `shield-spark.ts` makes. */
+/** Deterministic, not `Math.random`: the same argument `shield-spark.ts`
+ * makes — `time` is each device's own wall clock, so this is repeatable per
+ * device, not shared between the two. */
 function hash(n: number): number {
   const s = Math.sin(n * 12.9898) * 43758.5453;
   return s - Math.floor(s);

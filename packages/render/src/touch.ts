@@ -1,4 +1,4 @@
-import type { ControlId, ControlSet } from "@neon-spore/content";
+import type { ControlSet } from "@neon-spore/content";
 import type {
   Command,
   Creature,
@@ -11,6 +11,7 @@ import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
+import { lobeMeans } from "./touch-lobe.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -172,28 +173,6 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
     if (said) return { player: lobe.control.player, ...said };
   }
   return null;
-}
-
-/**
- * What pressing a lobe says. A lookup, not a rule — every entry is the command
- * that control has always sent, and the two strips are not lobes so they say
- * nothing here.
- */
-function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | null {
-  switch (id) {
-    case "guard":
-      return { command: { kind: "guard" }, hold: null };
-    case "intake":
-      return { command: { kind: "intake" }, hold: null };
-    case "lance":
-      return { command: { kind: "prime", on: true }, hold: { kind: "lance" } };
-    case "fireRed":
-      return { command: { kind: "fire", color: "red" }, hold: null };
-    case "fireCyan":
-      return { command: { kind: "fire", color: "cyan" }, hold: null };
-    default:
-      return null;
-  }
 }
 
 /**

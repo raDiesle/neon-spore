@@ -1,4 +1,4 @@
-import type { Point } from "./shapes.js";
+import { blobRadiusMul, type Point } from "./shapes.js";
 
 /**
  * The hull's own geometry, split out of `shapes.ts` when that file hit its
@@ -38,6 +38,10 @@ export function bumpAdd(diff: number, strength: number, plateau: number, shoulde
  *
  * Bumps are deliberately *not* part of it: they lift the surface straight up
  * (`bumpLift`), not outwards along the radius. See `hullPointAtX`.
+ *
+ * The body is `blobRadiusMul`'s, unchanged: the hull is a blob's contour like
+ * any other, and the two used to carry byte-identical copies of this
+ * arithmetic before one called the other.
  */
 export function hullRadiusMul(
   a: number,
@@ -47,12 +51,7 @@ export function hullRadiusMul(
   t: number,
   seed: number,
 ): number {
-  let m = 1 + depth * Math.cos(lobes * a + seed);
-  m *= 1 + wobble * Math.sin(a * 3 + t * 0.9 + seed * 1.7);
-  m *= 1 + wobble * 0.6 * Math.sin(a * 5 - t * 0.53 + seed * 2.3);
-  m *= 1 + wobble * 0.4 * Math.sin(a * 2 + t * 0.31 + seed * 0.6);
-  m *= 1 + 0.02 * Math.sin(t * 0.6 + seed);
-  return m;
+  return blobRadiusMul(a, lobes, depth, wobble, t, seed);
 }
 
 /**

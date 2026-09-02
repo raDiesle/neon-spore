@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@neon-spore/content": "workspace:*",
+    "@neon-spore/render": "workspace:*",
     "@neon-spore/sim": "workspace:*"
   }
 }

@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -140,10 +141,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     default:
       return assertNever(e);
   }
-}
-
-function assertNever(x: never): never {
-  throw new Error(`burstFor: unhandled SimEvent ${JSON.stringify(x)}`);
 }
 
 function at(l: Layout, col: number, row: number, n: number, hex: string): Burst {

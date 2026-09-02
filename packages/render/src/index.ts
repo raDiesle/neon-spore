@@ -1,6 +1,7 @@
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
+export { THROB_SWELL } from "./creatures.js";
 export {
   type Dial,
   type DialView,

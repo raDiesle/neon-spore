@@ -1,25 +1,18 @@
-import { colSpan, isMeteorKind, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
+import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { LayEcho } from "./cannon-maw.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
-import { ingestBreach, ingestDeflect } from "./effects-breach.js";
+import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import type { Layout } from "./layout.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { SwallowFx } from "./swallow.js";
-import { rockRadius } from "./torch.js";
 import { WardenFx } from "./warden-fx.js";
-
-/** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
-const BANNER_LIFE = 0.9;
-/** How long the queen shudders after losing a petal. */
-const QUEEN_SHAKE_LIFE = 0.35;
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -105,54 +98,30 @@ export class Effects {
       const spark = burstFor(e, l);
       if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);
 
-      switch (e.type) {
-        // Everything below either remembers something past this frame or is
-        // not a burst at all. The rest is `effects-spark.ts`'s table.
-        case "reject": {
-          const id = creatureIdAt(e.col, e.row);
-          if (id) this.blockedUntil.set(id, 0.35);
-          break;
-        }
-        case "destroy":
-          // The one event this is hung on so far: a cannon shot that killed
-          // the thing it hit. The sparks still fly — the sprite is offered
-          // beside the shipped burst, not in place of it.
-          this.spriteBursts.spawn(tileCX(l, e.col), tileCY(l, e.row), l.tile * 2.4);
-          break;
-        case "petal":
-          this.queenShakeUntil = QUEEN_SHAKE_LIFE;
-          break;
-        case "fire":
-          this.layEcho.start(beatSeconds);
-          break;
-        case "breach":
-          ingestBreach(e, l, time, beatSeconds, {
-            burst: (x, y, n, hex) => this.burst(x, y, n, hex),
-            rockImpactFx: this.rockImpactFx,
-            arrivals: this.arrivals,
-          });
-          break;
-        case "podTaken": {
-          // Sparks flying *inwards*: the one moment in the game where the ship
-          // takes something instead of losing it.
-          this.sparks.implode(tileCX(l, e.col), l.hullY, 22, PALETTE.pod, l.tile * 1.9);
-          this.swallow.start(e.kind);
-          break;
-        }
-        case "deflect":
-          ingestDeflect(e, l, time, beatSeconds, {
-            burst: (x, y, n, hex) => this.burst(x, y, n, hex),
-            rockImpactFx: this.rockImpactFx,
-            arrivals: this.arrivals,
-            deflectFx: this.deflectFx,
-            onDeflect: () => {
-              this.guardHit = BANNER_LIFE;
-            },
-          });
-          break;
-        default:
-          break;
-      }
+      // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`,
+      // split out on this file's own line count. Its switch is exhaustive
+      // over `SimEvent`, not this call site — see its own comment.
+      ingestOne(e, {
+        l,
+        time,
+        beatSeconds,
+        creatureIdAt,
+        sparks: this.sparks,
+        spriteBursts: this.spriteBursts,
+        rockImpactFx: this.rockImpactFx,
+        arrivals: this.arrivals,
+        deflectFx: this.deflectFx,
+        swallow: this.swallow,
+        layEcho: this.layEcho,
+        blockedUntil: this.blockedUntil,
+        setGuardHit: (v) => {
+          this.guardHit = v;
+        },
+        setQueenShake: (v) => {
+          this.queenShakeUntil = v;
+        },
+        burst: (x, y, n, hex) => this.burst(x, y, n, hex),
+      });
     }
   }
 

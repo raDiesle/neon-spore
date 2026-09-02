@@ -1,4 +1,5 @@
 import { type Beats, beats, livingMotion, livingSilhouette, type Pose } from "@neon-spore/content";
+import { THROB_SWELL } from "@neon-spore/render";
 import { type CreatureKind, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { blob } from "./subjects.js";
 
@@ -58,14 +59,6 @@ export interface Nameability {
  * about 10 px" is an argument, "the runt draws at 0.29 tiles" is not.
  */
 const REFERENCE_BODY_PX = (390 / DEFAULT_CONFIG.cols) * 0.4;
-
-/**
- * The Throb's swell, from `render/creatures.ts`: 1.3 while `throbOpen`, 0.7
- * while shut. It is the one drawn quantity on these axes that render owns and
- * content does not, so it is transcribed here rather than called — the second
- * copy that will not hear about a third state if one is ever added.
- */
-const THROB_SWELL: readonly number[] = [0.7, 1.3];
 
 /**
  * The pose window, in beats, and the step across it.
@@ -156,7 +149,7 @@ export function nameability(kind: CreatureKind, poseAt?: (t: Beats) => Pose): Na
   const shape = livingSilhouette(kind);
   const subject = blob(kind.toUpperCase(), shape);
   const pose = poseAt ?? livingMotion(kind).poseAt;
-  const swells = kind === "throb" ? THROB_SWELL : [1];
+  const swells = kind === "throb" ? [THROB_SWELL.shut, THROB_SWELL.open] : [1];
   // The fixed footprint every living body is drawn at, times the one static
   // multiplier content owns: the Runt's `sizeMul`, its whole "tiny".
   const footprint = (REFERENCE_BODY_PX / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
