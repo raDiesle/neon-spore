@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · d49529b — The pilot could not see that a dart was the other seat's to answer
+
+Player 1 was shown a dart as a body in a column, so the cannon went to that column and the reason it was the wrong one arrived a beat later as hull. The creature was working exactly as designed and the picture never said so.
+
 ## 2026-09-02 · 4aa5a67 — The save box now says it, and the browser stopped asking on the way out
 
 The header carried the same fact twice — a gold SAVE button that looked the same either way, and a word beside it reading "saved" or "unsaved". The button carries it alone now: blue while the store is ahead of disk, green once the two agree. The status line stays for the messages a colour cannot carry — a refusal, a failed save, no server.
