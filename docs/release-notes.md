@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · e14019f — The director paints PINBALL's boards, and a save writes them back
+
+The second boss the director edits rather than documents, and for THE FLEET's reason word for word: where the pieces are is the fight — whether there is a lane back down the middle, how far a target is from a wall the ball can bank off — and none of that is legible as forty rows of coordinates. One gesture and no modes: a press on a cell walks it through empty, peg, target peg, block, target block. The grid's size is asked of pinBoardRows rather than written down, so an author cannot paint a board the game would refuse, and pinballFault says the rest under it.
+
+## 2026-09-02 · 31637be — PINBALL: shorten the table and lift the title off the status bar
+
+Two defects in the first frame, both repairs rather than offered looks. The title and the line saying whose press is next were drawn at 0.055 and 0.095 of the play height, which is under the status bar — SNAKE's own numbers are 0.09 and they are where these are now. And the table was eighteen rows against boards eleven rows tall, so a third of it was empty air below the lowest piece: it is fourteen now, which leaves the return lane and nothing more.
+
+## 2026-09-02 · ac49dcf — PINBALL: the bucket is the gun and the glove
+
+A sixth boss, and the first body in this game under an acceleration. The ship folds into a bucket at the floor of a tall table; a ball is fired upward out of it, falls back through a field of pegs and blocks, and the same bucket has to be under it when it lands or the hull pays. Three presses in one order, alternating seats: player 2 opens the aiming sweep, player 1 stops the needle, player 2 fires on the power bar. The sweep takes six and a half seconds, which is the whole of what keeps it a conversation rather than a race — a spoken exchange here runs 2.1-3.6 s and the lockstep adds a fixed 100 ms of its own.
+
 ## 2026-09-02 · f5da274 — Prove THE ECHO's tell instead of trusting it
 
 The strain was a pair of `ctx` calls, which no test can see: a tell wired to nothing looks exactly like a tell that is subtle, and the only thing that would have caught it is somebody watching a wave at tempo. `echoStretch` is the rule with a return value now — the angle, how far the body pulls along it and how far it necks across — and `echoStrain` is the four lines that apply it.
