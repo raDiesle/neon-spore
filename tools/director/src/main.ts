@@ -61,6 +61,7 @@ const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };
 const place: PlaceSession = bindPlace("#tabs", store.waves.length);
 store.index = place.initialWave;
 
+const saveButton = document.getElementById("save");
 const status = document.getElementById("status");
 const setStatus = (text: string, cls = ""): void => {
   if (!status) return;
@@ -190,17 +191,19 @@ function refreshAll(): void {
   renderShip(cfg, currentWave(store));
 }
 
+// The save button is the indicator: blue while there is something to write,
+// green once the store matches disk. Only a message the button cannot carry —
+// a refusal, a failed save, no server — still needs words beside it.
 function paintStatus(): void {
   const bad = refuse(store.waves);
-  if (bad) setStatus(bad, "bad");
-  else if (store.dirty) setStatus("unsaved", "dirty");
-  else setStatus("saved");
+  setStatus(bad ?? "", bad ? "bad" : "");
+  saveButton?.classList.toggle("saved", !bad && !store.dirty);
 }
 
 // Reading and writing the act files, and the base revision that keeps a save
 // from overwriting an edit this page never saw — see `waves-io.ts`.
 const io = bindWaveIo({ store, setStatus, repaint: paintStatus, refresh: refreshAll });
-document.getElementById("save")?.addEventListener("click", () => void io.save());
+saveButton?.addEventListener("click", () => void io.save());
 
 bindTabs("#tabs");
 document.querySelector<HTMLButtonElement>(`#tabs button[data-tab="${place.initialTab}"]`)?.click();
@@ -210,10 +213,5 @@ bindStates();
 bindSoundPage();
 bindControlSetsTab();
 bindExpanders();
-
-window.addEventListener("beforeunload", (e) => {
-  if (!store.dirty) return;
-  e.preventDefault();
-});
 
 void io.load();

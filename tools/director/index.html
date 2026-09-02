@@ -13,6 +13,7 @@
       :root {
         --bg: #07060f; --panel: #0e0a22; --line: #241b4f; --line-soft: #1a1436;
         --ink: #f2e9dc; --dim: #7a6fa8; --gold: #ffc24b; --cyan: #2fe0f0; --red: #ff5470;
+        --blue: #5b8cff; --green: #3ddc84;
       }
       html, body { margin: 0; height: 100%; }
       body {
@@ -33,7 +34,6 @@
       #menuToggle { display: none; }
       header button[data-view] { display: none; }
       #status { font-size: 10px; color: var(--dim); }
-      #status.dirty { color: var(--gold); }
       #status.bad { color: var(--red); }
       #buildStamp { font-size: 10px; letter-spacing: 1px; color: #3c3468; }
 
@@ -50,7 +50,11 @@
          will refuse. Hover is excluded above for the same reason. */
       button:disabled { opacity: 0.35; cursor: not-allowed; }
       button.on { background: #2a1f4e; color: var(--gold); border-color: var(--gold); }
-      button.primary { color: var(--gold); border-color: var(--gold); }
+      /* The save button says whether there is anything to save: blue while the
+         store is ahead of disk, green once the two agree. No words beside it. */
+      button.primary { color: var(--blue); border-color: var(--blue); }
+      button.primary.saved { color: var(--green); border-color: var(--green); }
+      button.primary:hover:not(:disabled) { color: var(--ink); border-color: var(--ink); }
       a.linkbtn {
         font: 11px "Courier New", monospace; color: var(--cyan); padding: 4px 9px;
         border: 1px solid var(--line); border-radius: 6px; text-decoration: none; letter-spacing: 1px;
