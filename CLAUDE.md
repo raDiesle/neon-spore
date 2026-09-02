@@ -225,14 +225,23 @@ do not ask the owner to confirm that something was tested. Write the commit
 message well instead: it is the release note, and it is the only part of this
 that anybody sees twice.
 
-**Suggestions go in `docs/parked.md`, not in the report.** Anything the session
+**Suggestions go in the report, and nowhere else.** Anything the session
 noticed and did not do — a refactor it stepped around, a tool that would have
-helped, an idea for the game — is written there as one `##` section in the same
-commit, and then it is in the clone forever instead of four sessions up a
-transcript. It is deliberately not the release notes: a note records something that
-already happened and is closed, a parked idea is a thing nobody has decided to
-do and is open. Picking one up later is a fresh session and a `git rm`-shaped
-edit to that file. `docs/parked.md` says the rest.
+helped, an idea for the game — is said once, in the closing block, and then it
+is the owner's to keep or drop.
+
+They used to be written into `docs/parked.md` instead, on the reasoning that a
+suggestion made in a report is read once on a phone and scrolled past, while a
+file is in the clone forever. Both halves were true and the second one was the
+problem. The rule had no budget and the file had no reader: sixty-two entries
+arrived in six days, forty-four of them off the parallel `burn` lanes, and
+draining it was a job only the owner could do — which is the same shape as the
+`Check:` trailers and the queue board, and it ended the same way. An idea worth
+picking up survives being said once; one that only survives because a rule
+filed it was never going to be built.
+
+So a session that notices something says so and lets it go. If the owner wants
+it kept, they will say so, and *then* it is worth a file.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
