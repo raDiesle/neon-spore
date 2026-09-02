@@ -80,6 +80,13 @@ export {
   TREMBLE,
 } from "./own-motion.js";
 export {
+  PIN_COLS,
+  PINBALL_ROUNDS,
+  pinBoard,
+  pinBoardRows,
+  pinPicture,
+} from "./pinball-rounds.js";
+export {
   AUTHORED_COL_MAX,
   AUTHORED_COLS,
   bossFromWave,

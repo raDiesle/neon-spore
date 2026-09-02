@@ -945,6 +945,15 @@
       button.fleet-len { width: 26px; }
       button.fleet-add { width: 100%; margin-top: 4px; }
       .fleet-fault { color: var(--red); }
+      .pin-tabs { display: flex; gap: 4px; margin: 8px 0 4px; flex-wrap: wrap; }
+      button.pin-tab { flex: 1; min-width: 54px; letter-spacing: 1px; }
+      button.pin-tab.on { color: var(--gold); border-color: var(--gold); }
+      .pin-grid { display: grid; gap: 1px; margin: 8px 0; }
+      button.pin-cell { padding: 0; aspect-ratio: 1; min-width: 0; font-size: 10px; line-height: 1; border-radius: 2px; border: 1px solid var(--line-soft); background: #0a0719; color: var(--dim); }
+      button.pin-cell.mPeg, button.pin-cell.mPegLit { border-radius: 50%; }
+      button.pin-cell.mPeg, button.pin-cell.mBlock { background: #123a44; border-color: var(--cyan); color: var(--cyan); }
+      button.pin-cell.mPegLit, button.pin-cell.mBlockLit { background: #3a2a05; border-color: var(--gold); color: var(--gold); }
+      .pin-clock { display: flex; gap: 6px; align-items: center; margin: 6px 0; }
 
       /* SNAKE's arena. One press cycles a square, so the only thing the styles
          have to say is which of the three states it is in. */

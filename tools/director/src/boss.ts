@@ -1,6 +1,7 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { renderFleetEditor } from "./fleet-editor.js";
+import { renderPinballEditor } from "./pinball-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { renderSnakeEditor } from "./snake-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
@@ -85,6 +86,17 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
+    // PINBALL is the second, and the same sentence applies: its boards are the
+    // fight, so this panel paints them rather than describing them
+    // (`pinball-editor.ts`).
+    if (wave.boss.kind === "pinball") {
+      renderPinballEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
     if (wave.boss.kind === "vane") {
       renderVane(panel, wave.boss, () => {
         store.dirty = true;
@@ -105,9 +117,6 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
-    // PINBALL's board is the fight and it is edited as a picture, not as a
-    // form — `pinball-editor.ts` next door, the way THE FLEET's chart is.
-    if (boss.kind === "pinball") return;
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

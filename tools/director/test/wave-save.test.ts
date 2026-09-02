@@ -18,9 +18,21 @@ import {
  * was overwritten without a word. These hold the guard that replaced it.
  */
 
-/** The three act files exactly as they are, to prove a refusal wrote nothing. */
+/**
+ * Every source file a save may write, exactly as it is, to prove a refusal
+ * wrote nothing and an unchanged save changed nothing.
+ *
+ * PINBALL's boards are in here beside the acts because they are the one piece
+ * of authored boss content that lives outside them — and because leaving them
+ * out cost a real regression once: the board file was silently rewritten by
+ * this very test, losing the comments beside each table, and every assertion
+ * here still passed.
+ */
+const PINBALL_FILE = new URL("../../../packages/content/src/pinball-rounds.ts", import.meta.url);
+
 async function actTexts(): Promise<string[]> {
-  return await Promise.all(ACT_FILES.map((act) => Bun.file(act.file).text()));
+  const files = [...ACT_FILES.map((act) => act.file), PINBALL_FILE];
+  return await Promise.all(files.map((file) => Bun.file(file).text()));
 }
 
 function put(body: unknown): Request {
