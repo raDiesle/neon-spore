@@ -1433,23 +1433,3 @@ nothing still fails loudly, and when `bun run shapes:report` shows at least one
 new contour offered to one of the thirteen. The rule that has to survive: a
 `suggests` pointing at nothing must remain an error, because the whole value of
 the field is that a drawn shape is joined to the idea it serves.
-
-
-## A tangle that re-forms while the pair is still reading it
-
-2026-08-28 · claude/burn-boss-maze-b1
-
-Mechanic · Idea
-
-THE MAZE fixes its tangle for the length of a round: the lattice is built once,
-the pair reads it, and the answer stays true until somebody fires. The lane
-that built it says plainly that the re-tangling version — where the forks
-reshuffle while the round runs — is the better *system*, and refused it anyway,
-because it is a different round under a 0.5–2 second voice channel. A sentence
-that was true when it was started can be false by the time it lands, and that
-is either the whole point or a way of making two people feel stupid; nothing in
-the tree says which.
-
-Not a defect and not queued. It wants deciding by watching the fixed version
-played first, which is the one thing that cannot be done until the round is
-drawn.
