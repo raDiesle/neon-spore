@@ -230,13 +230,23 @@ session noticed and did not do — a refactor it stepped around, a tool that
 would have helped, an idea for the game — is said once in the closing block,
 and then it is the owner's to keep or drop.
 
-`docs/parked.md` used to be that file, and it went the way the `Check:`
-trailers and the queue board went in `decisions.md` #26: it asked the owner for
-something on every visit. Sixty-two entries arrived in six days, most off the
-parallel `burn` lanes, and draining it was a job only he could do. A cap was
-tried first and was still the wrong shape — the file's problem was never the
-rate, it was that nobody read it, and a list nobody reads is worse than none
-because it looks like coverage.
+**Work left half-done goes in `docs/parked.md`, and only that.** The two are
+different and the file survives on the difference. A suggestion is a thing the
+game could be; a parked item is a thing already started and not finished — a
+refactor abandoned when it grew, a test skipped with a reason, a migration done
+in three files out of five. The next session clones `origin` and is told only
+what the commit messages say, and none of them say "the other half of this is
+still undone". That sentence has nowhere else to live, which is the whole case
+for the file.
+
+`docs/parked.md` used to take suggestions too, and that is what broke it — the
+way the `Check:` trailers and the queue board broke in `decisions.md` #26, by
+asking the owner for something on every visit. Sixty-two entries arrived in six
+days, most off the parallel `burn` lanes, and draining it was a job only he
+could do. A cap was tried and was still the wrong shape: the problem was never
+the rate, it was that a list of loose ideas sits away from the built things
+those ideas would sit beside, so nobody opens it, and a list nobody reads is
+worse than none because it looks like coverage.
 
 An idea worth building survives being said once. If the owner wants one kept,
 he will say so, and it goes where it belongs — a control with the boss it was

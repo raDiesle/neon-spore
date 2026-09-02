@@ -21,6 +21,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
 | `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
+| `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — work only, never ideas |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
