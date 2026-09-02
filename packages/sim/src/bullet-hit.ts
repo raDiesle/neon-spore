@@ -3,6 +3,7 @@ import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
+import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
@@ -69,6 +70,9 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // worth four fired late (`echo.ts`).
     return echoStruck(world, b, hit);
   }
+  // The matching colour, like a slick — but the first shots land on a layer
+  // rather than on the body, which is the whole creature (`rind.ts`).
+  if (hit.kind === "rind") return rindStruck(world, b, hit);
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
     return false;

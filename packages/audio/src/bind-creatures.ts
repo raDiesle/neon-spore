@@ -26,6 +26,7 @@ export function creatureCue(
       type:
         | "shellBreak"
         | "shellBare"
+        | "rindShed"
         | "claspBreak"
         | "lureHit"
         | "lureSeen"
@@ -60,6 +61,19 @@ export function creatureCue(
       // now only one colour lands", because that is the whole reversal.
       return {
         id: "creature.moult",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "rindShed":
+      // The same crack THE SHELL's pieces get, and for the same reason: a
+      // piece leaving a body that is still there afterwards. Deliberately not
+      // `impact.destroyRed`/`Cyan` — those are the sound of a column closing,
+      // and the whole of this creature is that it has not closed. Nor
+      // `creature.moult`, which is the sound of the *last* covering coming
+      // off: a rind's layers all sound alike, because "again" is the same word
+      // both times.
+      return {
+        id: "impact.split",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

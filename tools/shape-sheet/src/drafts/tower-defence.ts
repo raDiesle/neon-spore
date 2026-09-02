@@ -110,7 +110,7 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     status: "free",
     slot: "creature",
     owner:
-      "nothing carries it: converted from the Bloons ceramic, whose shell cracks visibly so the player reads what is left off the body instead of off a bar. The conversion argues we can do better than crack — shrink — and the card is drawn to be watched rather than looked at: the size steps rather than eases, because a jump is an event and an ease is breathing, and the pair has to see an event to say the word again",
+      "THE RIND is built and does not carry this: it wears the slick's contour or the bulb's, three sizes stepped down a whole body per hit (rind.ts), so this card is the shape it was not given rather than the shape it has. What it still argues, and what the built one took, is the second half — the size steps rather than eases, because a jump is an event and an ease is breathing, and the pair has to see an event to say the word again. What is on offer here is the first half: a rim that goes from toothed to smooth as the layers go, which the shipped body says nothing about",
   },
   {
     subject: spanned("THE CANOPY", "a faceted arc over the whole hull, with the middle spent", {

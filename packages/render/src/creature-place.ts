@@ -2,10 +2,10 @@ import { bodyPhase } from "@neon-spore/content";
 import {
   bodyCenterCol,
   type Creature,
-  type CreatureKind,
   DEFAULT_CONFIG,
   isGrippable,
   isMeteorKind,
+  rindLayersLeft,
   type SimConfig,
   spanOf,
 } from "@neon-spore/sim";
@@ -55,9 +55,10 @@ export function contourClock(id: number, time: number): number {
 }
 
 /**
- * How much of a living body's usual footprint this kind draws at.
+ * How much of a living body's usual footprint this one draws at.
  *
- * One today, for everything but THE ECHO. An echo is a slick or a bulb —
+ * One for everything but the two kinds whose size *is* their silhouette. An
+ * echo is a slick or a bulb —
  * `wornKind` says so, and `living-look.ts` gives it no contour of its own — so
  * the *only* thing separating it from an ordinary body on the field is that it
  * is small, which makes this number the whole of its silhouette rather than a
@@ -71,13 +72,38 @@ export function contourClock(id: number, time: number): number {
  * is hit-tested against. A body drawn at one size and grabbed at another is
  * the defect this function exists to make impossible.
  *
- * Deliberately keyed on `CreatureKind` and not on `CreatureSilhouette.sizeMul`
- * next door: `sizeMul` belongs to a *contour*, and an echo shares its contour
- * with the full-size slick and bulb it is drawn as.
+ * THE RIND is the other, and it is the echo's argument arrived at from the
+ * other side: a body one size per layer it still wears, stepping *down* to an
+ * ordinary one as it is shot. Nothing else says how much is left of it — there
+ * is no bar and no count on the field — so this number is the health readout,
+ * and `rindLayersLeft` in the simulation is the one thing it reads.
+ *
+ * A creature and not a `CreatureKind`, which it took until THE RIND to become:
+ * an echo's size is a fact about its kind, a rind's is a fact about the body
+ * standing there, and a size that could not see the body could only ever draw
+ * the first of the three.
+ *
+ * Deliberately not `CreatureSilhouette.sizeMul` next door: `sizeMul` belongs
+ * to a *contour*, and both of these share theirs with the full-size slick and
+ * bulb they are drawn as.
  */
-export function livingBodyMul(kind: CreatureKind): number {
-  return kind === "echo" ? ECHO_BODY_MUL : 1;
+export function livingBodyMul(c: Creature): number {
+  if (c.kind === "echo") return ECHO_BODY_MUL;
+  if (c.kind === "rind") return 1 + rindLayersLeft(c) * RIND_LAYER_MUL;
+  return 1;
 }
+
+/**
+ * What one of THE RIND's layers is worth in footprint. A whole body: the
+ * arrival wears two, so it comes down three times the size of a slick and each
+ * shed is a step of one, which is as plain a jump as this game can draw.
+ *
+ * A step and not an ease, and the shape sheet's own `shed` card makes the
+ * argument (`tools/shape-sheet/src/forms/spanning.ts`): a size that eases is a
+ * body breathing, which every creature here already does, and a size that
+ * jumps is an event. The pair has to see an event to say *again*.
+ */
+const RIND_LAYER_MUL = 1;
 
 /**
  * The echo's share of a body's footprint. Six tenths: small enough to read as
@@ -106,9 +132,7 @@ export function creatureRadius(
   beatPhase = 0,
   cfg: SimConfig = DEFAULT_CONFIG,
 ): number {
-  const flat = isMeteorKind(c.kind)
-    ? rockRadius(l, spanOf(c))
-    : l.tile * 0.4 * livingBodyMul(c.kind);
+  const flat = isMeteorKind(c.kind) ? rockRadius(l, spanOf(c)) : l.tile * 0.4 * livingBodyMul(c);
   return flat * depthScale(cfg, l, drawnRow(c, beatPhase));
 }
 

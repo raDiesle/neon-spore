@@ -1,8 +1,9 @@
 # Bestiary
 
-> **Status: twenty `CreatureKind` values exist**, against the twenty-odd
+> **Status: twenty-one `CreatureKind` values exist**, against the twenty-odd
 > designed on this page — slick, bulb, the five meteor tiers, torch, queen,
-> warden, tether, lure, throb, shell, clasp, dart, veil, wisp, ghost and echo
+> warden, tether, lure, throb, shell, clasp, dart, veil, wisp, ghost, echo and
+> rind
 > (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
 > design.
 >
@@ -39,7 +40,7 @@ Four rules, in this order:
    blob in another tint.
 
 **A name on this page is committed only if it is a `CreatureKind`** — the
-status block above names the twenty that are, and the roster in
+status block above names the twenty-one that are, and the roster in
 `packages/sim/src/creature-kinds.ts` is the list that decides. Every other name
 here is a label on an unbuilt design and costs one edit to change. The list is
 not repeated a third time on purpose: it was repeated twice and both copies
@@ -62,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
 | `special` | neither | `tether` |

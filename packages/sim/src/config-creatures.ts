@@ -185,6 +185,29 @@ export interface CreatureConfig {
    * beats and spends all of them asking the pair for an order.
    */
   scoreEchoKill: number;
+  /**
+   * How many layers THE RIND sheds before an ordinary shot kills it. Two, so
+   * one arrival is three shots and three sizes — and three is the number
+   * rather than a tuning: two would be a body that flinches once, and four
+   * would hold a column for so long that the wave around it stops being the
+   * thing the pair is playing.
+   *
+   * It is also how big one arrives, because the size *is* what is left:
+   * render draws one body's footprint per layer still on, so two layers is a
+   * body three times the size of a slick and every shed steps it down by one.
+   */
+  rindLayers: number;
+  /**
+   * What taking one layer off a rind is worth. Half of `scoreDestroy`, so a
+   * whole arrival pays two hundred for three shots — more than the hundred a
+   * slick pays for one, and less than the three hundred three slicks would.
+   *
+   * Deliberately not nothing. The shed is the moment this creature exists for:
+   * the pair has to say *again* out loud and keep a column they had finished
+   * with, and a mechanic that paid only at the end would teach them that the
+   * first two shots were a tax rather than the fight.
+   */
+  scoreRindShed: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -212,4 +235,6 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   echoSplits: 3,
   echoSplitBeats: 3,
   scoreEchoKill: 25,
+  rindLayers: 2,
+  scoreRindShed: 50,
 };

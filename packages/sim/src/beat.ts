@@ -7,6 +7,7 @@ import { ghostCrosses, ghostOnSpawn, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
+import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, isBossBody, spanOf } from "./types.js";
 import { veilMorph, veilOnSpawn } from "./veil.js";
@@ -210,6 +211,11 @@ export function onBeat(world: World): void {
       // other kind — so a body that never divides carries no field at all and
       // every wave written before THE ECHO is byte-for-byte the same world.
       ...(entry.kind === "echo" ? echoOnSpawn(world.cfg, world.beat) : {}),
+      // How many layers this arrival still has to shed, and absent on every
+      // other kind — so a body that wears no skin of its own carries no field
+      // at all and every wave written before THE RIND is byte-for-byte the
+      // same world.
+      ...(entry.kind === "rind" ? rindOnSpawn(world.cfg) : {}),
     });
     world.spawned += 1;
   }

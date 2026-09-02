@@ -95,7 +95,16 @@ export type CreatureKind =
    * its state: how many divisions it has left, which is also the spread of the
    * next one and what a shot at it is worth. See `echo.ts`.
    */
-  | "echo";
+  | "echo"
+  /**
+   * A slick or a bulb three times the size of one, and a shot takes a layer
+   * off it instead of killing it. Three sizes, two sheds, and the ordinary
+   * body left at the end dies to an ordinary shot — so the column the pair
+   * just closed is not closed. `Creature.rindLayers` is the whole of its
+   * state, and it is also its health bar: `rind.ts` holds the rule and
+   * render draws one body's footprint per layer still on.
+   */
+  | "rind";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -129,6 +138,7 @@ export const CREATURE_KINDS = [
   "wisp",
   "ghost",
   "echo",
+  "rind",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

@@ -181,6 +181,20 @@ export interface Creature {
    * Read it through `echoDue` and `echoSplitPhase`, never by hand.
    */
   echoBeat?: number;
+  /**
+   * How many layers THE RIND still sheds before a shot kills it, and absent on
+   * every other kind. It is the only state this creature carries, and it
+   * answers two questions at once: whether the next matching shot takes a
+   * layer or the body, and how big the thing is drawn — one body's footprint
+   * per layer still on (`livingBodyMul` in render).
+   *
+   * Read it through `rindLayersLeft`, never directly. A rind cut down to size
+   * carries no field at all — it is an ordinary body falling and nothing
+   * else — so absent and zero mean the same thing, and a site that spelled the
+   * fallback again is a site where the picture and the shot can disagree about
+   * whether this is the one that finishes it.
+   */
+  rindLayers?: number;
 }
 
 export interface Bullet {

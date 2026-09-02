@@ -89,6 +89,15 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "claspBreak":
       return at(l, e.col, e.row, 14, PALETTE.claspShield);
 
+    // A layer off THE RIND: the body's own colour, because the shot landed and
+    // the pair should feel that it did — and half the particles of a `destroy`,
+    // because the thing is still coming and the burst must not read as the end
+    // of it. The size it steps down to is not drawn here at all: that is read
+    // fresh every frame off `rindLayers` (`livingBodyMul`), which is the one
+    // thing that cannot go stale across a restart.
+    case "rindShed":
+      return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+
     // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
     // because the shot did not bounce off anything — it went in and the
     // weather shut over it (`impact.absorb` is the ear's half of the same

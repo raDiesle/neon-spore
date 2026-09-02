@@ -78,6 +78,12 @@ const TALKER = {
   // secret, and a siren over a body neither of them is missing anything about
   // would be teaching them to look instead of to decide.
   echo: null,
+  // THE RIND carries nothing hidden either, and less than any of them: both
+  // screens draw the whole body and its size says what is left of it. What the
+  // pair has to say about one is that it is not finished, which is a thing
+  // they can both already see — a siren would be teaching them to look at the
+  // strip instead of at the column they are meant to be holding.
+  rind: null,
   shell: null,
   clasp: null,
   warden: null,

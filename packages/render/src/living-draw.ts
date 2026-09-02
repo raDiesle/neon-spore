@@ -71,11 +71,12 @@ export function drawLiving(
   // is deterministic on both devices, so two screens shake the same creature
   // the same way.
   const t = contourClock(c.id, time);
-  // **`c.kind`, not `look`.** How big a body draws is a fact about what it
-  // *is* — an echo is a slick or a bulb at a fraction of the footprint — and
-  // `livingBodyMul` is the one copy of that, shared with `creatureRadius`, so
-  // the ring a thumb grips and the body it is drawn around are one size.
-  const r = l.tile * 0.4 * livingBodyMul(c.kind);
+  // **The body, not `look`.** How big it draws is a fact about what it *is* —
+  // an echo is a slick or a bulb at a fraction of the footprint, a rind is one
+  // at a whole footprint per layer it still wears — and `livingBodyMul` is the
+  // one copy of that, shared with `creatureRadius`, so the ring a thumb grips
+  // and the body it is drawn around are one size.
+  const r = l.tile * 0.4 * livingBodyMul(c);
   // The Throb's whole "swells and shrinks" tell: bigger while `throbOpen` is
   // true (a shot lands), smaller while it is shut (a shot does nothing) — the
   // same flag bullet-hit.ts reads, so the picture never disagrees with what a

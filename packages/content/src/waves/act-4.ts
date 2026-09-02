@@ -109,6 +109,34 @@ import type { Wave } from "../wave-types.js";
  * either side before it is one, so an echo against a wall piles its last two
  * bodies into the same lane, which is one body as far as a spoken count goes.
  */
+/**
+ * **THE RIND, in three figures.** Here for the reason the blocks above are:
+ * the director rewrites the array and keeps only what stands over it.
+ *
+ * Nothing is hidden in this one either, and what it takes from the pair is not
+ * information but a *habit*. Every aim target before it is answered by one
+ * call and one shot, so "landed" and "next" have become the same word. A rind
+ * is three shots in one column, and the two in the middle are the ones nobody
+ * fires unless somebody says so out loud.
+ *
+ * 1. Beats 0–6, the three shots. One rind on an empty field with the whole
+ *    descent available. There is nothing else to shoot, so the pair is free to
+ *    find out that the first hit did not kill it — and to watch it step down a
+ *    size twice, which is the only read-out this creature has.
+ * 2. Beats 8–12, the temptation. A rind, and then two ordinary bodies in other
+ *    columns a few beats behind it. The small ones die to one shot each and
+ *    look far more urgent; leaving the rind half-shed is how a pair loses the
+ *    column they had already paid two shots for. This is the wave.
+ * 3. Beats 18–21, the two colours. Two rinds in opposite colours with a rock
+ *    between them: player 2 has to reload in the middle of six shots rather
+ *    than fire six of one, and the shield's column is their hand while its
+ *    trigger is player 1's — so both seats are already saying something else.
+ *
+ * A rind entry names its kind and its colour, the way an echo does: the
+ * silhouette is the slick's or the bulb's, drawn one body's footprint per
+ * layer it still wears, and the colour is which trigger answers it — three
+ * times over, since a shed needs the same colour a kill does.
+ */
 export const WAVES_ACT_4: Wave[] = [
   {
     name: "THE WISP",
@@ -187,5 +215,23 @@ export const WAVES_ACT_4: Wave[] = [
     entries: [],
     boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
     controls: "pinball",
+  },
+  {
+    name: "THE RIND",
+    sentence: "The one where the shot that lands does not close the column.",
+    guide: {
+      both: "Three times the size of an ordinary body, and the matching colour only takes a layer off it. Three sizes, three shots — how big it is is how much is left of it.",
+      p1: "Keep the cannon in its column until the thing is gone. Two of the three shots only make it smaller, and moving off after the first is how you pay for it twice.",
+      p2: "The same colour, three times, and count the sizes down out loud — three, two, one — so both of you know which shot is the last one.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "rind", color: "red" },
+      { beat: 8, col: 1, kind: "rind", color: "cyan" },
+      { beat: 11, col: 5, color: "cyan" },
+      { beat: 12, col: 6, color: "red" },
+      { beat: 18, col: 2, kind: "rind", color: "cyan" },
+      { beat: 20, col: 4, kind: "meteor", color: null },
+      { beat: 21, col: 5, kind: "rind", color: "red" },
+    ],
   },
 ];

@@ -114,7 +114,7 @@ Player 2 holds the cannon; player 1 reads the column. Every row's real cost is
 | Name | What changes | Read off | What the pair now has to say | Solo | Verdict |
 |---|---|---|---|---|---|
 | `SPLIT` | one hit does not kill it — it becomes two half-size bodies in the two neighbouring columns | Asteroids; the Bloons ceramic | one column becomes two, mid-sentence | yes | `FIELD` — the strongest row here |
-| `RIND` | three hits, and it visibly sheds a layer and gets smaller each time | Bloons ceramic, PvZ bucket-head | "again", twice — and the size is the health bar, so no bar is drawn | yes | `FIELD` |
+| `RIND` | three hits, and it visibly sheds a layer and gets smaller each time | Bloons ceramic, PvZ bucket-head | "again", twice — and the size is the health bar, so no bar is drawn | yes | **BUILT** — `rind` in the roster, three sizes on a slick or a bulb, and the wave THE RIND |
 | `RECOIL` | a hit throws it back up two rows instead of killing it, once; it vents fire downward as it goes | the PvZ pole vault, inverted | "it is coming again" — a column you had finished is live | yes | `FIELD` |
 | `DRIFT` | changes column every four beats while it falls | the PvZ balloon zombie | the column has to be *re-said*, which is the first time a call goes stale | no — this is the co-op one | `FIELD` |
 | `FACE` | leans one way, armoured on the side it leans; only a shot from the column it is turned away from lands | the PvZ screen door | player 1 sees the lean, player 2 cannot — a second thing to say beside the column | no | `FIELD` |
@@ -140,6 +140,14 @@ in the time it takes player 2 to reload, and neither of them planned it.
 Source: [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)).
 
 ![Bloons TD — a ceramic bloon: a hard tan shell over a coloured balloon, the shell drawn with visible seams](https://static.wikia.nocookie.net/b__/images/8/8d/BTD6Ceramic.png/revision/latest?cb=20200616232120&path-prefix=bloons)
+
+**`RIND` is built** — `packages/sim/src/rind.ts`, and it took the paragraph
+below at its word: three sizes on the slick and the bulb the pair already has
+words for, stepped down a whole body per hit, with no bar anywhere. What it
+did *not* take is a contour of its own; the one drawn for it is still a free
+card on the shape sheet (`THE RIND` under [the bodies](#the-bodies)), which is
+now an alternative look for a built creature rather than a proposal for an
+unbuilt one.
 
 **`RIND`, from the Bloons ceramic.** Its shell **cracks visibly** with each hit
 and the balloon underneath starts to show, so the player reads remaining health

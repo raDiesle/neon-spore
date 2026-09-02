@@ -77,6 +77,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   echoSplits: "THE ECHO — one body that becomes eight",
   echoSplitBeats: "THE ECHO — one body that becomes eight",
   scoreEchoKill: "SCORE",
+  rindLayers: "THE RIND — one body, three sizes",
+  scoreRindShed: "SCORE",
   throbPeriodBeats: "THROB — open for one beat in every few",
   throbOpenBeats: "THROB — open for one beat in every few",
   radarLead: "RADAR — what is coming",

@@ -7,12 +7,13 @@ import type { CreatureDef } from "./creatures.js";
  * to `never` and the key becomes a build error, so this list cannot fall
  * behind a rename in `creature-kinds.ts`.
  */
-type WornKind = Extract<CreatureKind, "lure" | "shell" | "clasp" | "veil" | "echo">;
+type WornKind = Extract<CreatureKind, "lure" | "shell" | "clasp" | "veil" | "echo" | "rind">;
 
 /**
- * The five bodies that are drawn as something else: a slick or a bulb with a
- * disguise, plating, a membrane, weather, or nothing at all but a smaller
- * size over the top.
+ * The six bodies that are drawn as something else: a slick or a bulb with a
+ * disguise, plating, a membrane, weather, or nothing at all but a size that is
+ * not the usual one — smaller for THE ECHO, and larger by however much is left
+ * for THE RIND.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
  * 250-line limit, along the seam the game already reads on — these are exactly
@@ -153,5 +154,27 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A small slick or bulb with a seam down it, coming half as fast as anything else. It strains and parts in two — sideways, then up and down, then both at once — and each wait is longer than the last. Nothing on the field is less urgent, and nothing costs so much to leave.",
+  },
+  rind: {
+    kind: "rind",
+    // The cannon alone, three times over. Nothing about the shield, the beat
+    // or the column changes — what changes is that one call is not enough, and
+    // control visibility has nothing to say about a repeat.
+    controls: ["aim"],
+    // No colour of its own, the way an echo has none: a rind arrives red or
+    // cyan, authored on the wave, and the matching cannon is what sheds it and
+    // then kills it. It is the sixth blank in this table and the one with the
+    // least laid over the body — a rind simply *is* an outsized slick or bulb,
+    // so a colour here would be the kind claiming one of the two it can be.
+    color: null,
+    authorsColor: true,
+    // Player 2's strip, like every other aim target. Both players see the
+    // whole thing, including how big it still is, and that is deliberate:
+    // the count is the one number in this game neither seat has to be told,
+    // so what the pair has to agree on is whether to spend three beats of one
+    // column on it now or after the small things.
+    radar: "p2",
+    blurb:
+      "A slick or a bulb three times the size of one. The matching colour does not kill it — it takes a layer off and the body underneath is a size smaller, twice, and only then does a shot finish it. How much is left is how big it is; there is no other read-out.",
   },
 };

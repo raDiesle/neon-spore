@@ -180,6 +180,14 @@ export function hashWorld(world: World): number {
     // the reason the maze's wheel is: the assumption that both devices were
     // handed the same wave is exactly the one worth checking, and a disguise
     // that differed would put player 1 in front of a body player 2 cannot see.
+    // How many layers THE RIND still wears. It decides whether the next
+    // matching shot takes a layer or the body, so two devices that disagree
+    // about it disagree about whether the thing is still on the field — one
+    // screen with a column to keep and one with a column to leave. `-1` for a
+    // kind that never sheds, which is a value no count can take, so "not a
+    // rind" and "cut down to size" are never the same number in the
+    // fingerprint.
+    push(c.rindLayers ?? -1);
     push(c.wears === undefined ? 0 : kindCode(c.wears) + 1);
   }
 

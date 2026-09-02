@@ -43,6 +43,7 @@ const creature = (): Required<Creature> => ({
   ghostDir: -1,
   ghostLaps: 2,
   echoSplits: 2,
+  rindLayers: 1,
   echoBeat: 5,
 });
 

@@ -131,6 +131,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "lureSeen":
     case "shellBreak":
     case "shellBare":
+    // A layer off THE RIND leaves nothing behind either: the burst is thrown
+    // by `burstFor` above and the size the body steps down to is redrawn every
+    // frame straight off `rindLayers`, which needs no state here.
+    case "rindShed":
     case "veilMorph":
     case "veilRebuff":
     // A wisp hopping leaves nothing behind on the field: the ring and the beam

@@ -158,4 +158,8 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // Next door with the other four for the reason they are all there — it is
   // drawn as the body its colour names and `wornKind` is what resolves it.
   echo: WORN_CREATURES.echo,
+  // THE RIND, and the sixth: an outsized slick or bulb that is cut back to one
+  // by the shots it takes. Next door for the same reason as the other five —
+  // it is drawn as the body its colour names and `wornKind` resolves it.
+  rind: WORN_CREATURES.rind,
 };

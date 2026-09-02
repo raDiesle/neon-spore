@@ -77,6 +77,14 @@ export const MECHANICS = {
     // trigger answers it, so neither can be worked out from the other.
     waveNames: true,
   },
+  rind: {
+    what: "A slick or a bulb three times the size of one. The matching colour takes a layer off rather than killing it, twice — the body is a size smaller each time — and only the third shot finishes it. Its size is how much is left.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for an
+    // echo: the silhouette is a slick's or a bulb's and the colour is which
+    // trigger answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

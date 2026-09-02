@@ -112,11 +112,13 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the six", () => {
+  test("is exactly the seven", () => {
     // The lure's disguise, the shell's core, the clasp's prisoner, the dart's
-    // colour, the ghost's and the echo's — six bodies whose colour is a fact
-    // about one arrival rather than about the kind.
-    expect(new Set(bodied)).toEqual(new Set(["lure", "shell", "clasp", "dart", "ghost", "echo"]));
+    // colour, the ghost's, the echo's and the rind's — seven bodies whose
+    // colour is a fact about one arrival rather than about the kind.
+    expect(new Set(bodied)).toEqual(
+      new Set(["lure", "shell", "clasp", "dart", "ghost", "echo", "rind"]),
+    );
   });
 
   test("is never offered on the throb, which is answered by the beat and not a colour", () => {

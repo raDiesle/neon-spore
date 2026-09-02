@@ -37,6 +37,7 @@ export type GroupName =
   | "THE WISP — a body only one of you can see at all"
   | "THE GHOST — a body with no column on one screen"
   | "THE ECHO — one body that becomes eight"
+  | "THE RIND — one body, three sizes"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -67,6 +68,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE WISP — a body only one of you can see at all",
   "THE GHOST — a body with no column on one screen",
   "THE ECHO — one body that becomes eight",
+  "THE RIND — one body, three sizes",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -171,6 +173,13 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "well never sees. Both players watch it strain and see which way it is " +
     "about to part. A shot pays for every body the one it killed would still " +
     "have become. See echo.ts, echo-split.ts.",
+  "THE RIND — one body, three sizes":
+    "The one arrival a landed shot does not finish. It comes down three " +
+    "times the size of a slick and the matching colour takes a layer off " +
+    "instead of killing it: three sizes, two sheds, and an ordinary body at " +
+    "the end that dies to an ordinary shot. How big it is *is* how much is " +
+    "left, so nothing is drawn over it and no number is shown. What it costs " +
+    "the pair is the column they had already finished with. See rind.ts.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",

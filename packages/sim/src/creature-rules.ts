@@ -2,6 +2,7 @@ import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import { echoBecomes } from "./echo.js";
+import { rindBecomes } from "./rind.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
 import { veilBecomes } from "./veil.js";
@@ -84,6 +85,13 @@ export function wornKind(c: Creature): CreatureKind {
   // looks like, and what they have to say about one is a count and an order
   // rather than a name. `echoBecomes` is the one copy of the pairing.
   if (c.kind === "echo") return echoBecomes(c);
+  // A rind is the same arrangement again with nothing over the body and
+  // nothing taken off its footprint either: it is a slick or a bulb drawn
+  // three times the size and stepped down a body per hit (`livingBodyMul` in
+  // render). No silhouette of its own, because what the pair says about one is
+  // the same word plus a count of how many shots are left in it.
+  // `rindBecomes` is the one copy of the pairing.
+  if (c.kind === "rind") return rindBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

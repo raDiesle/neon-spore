@@ -204,6 +204,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     // instead of a silence nobody hears.
     case "shellBreak":
     case "shellBare":
+    case "rindShed":
     case "claspBreak":
     case "lureHit":
     case "lureSeen":

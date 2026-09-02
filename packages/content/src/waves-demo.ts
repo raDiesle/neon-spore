@@ -91,6 +91,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   wisp: { wave: "THE WISP" },
   ghost: { wave: "THE GHOST" },
   echo: { wave: "THE ECHO" },
+  rind: { wave: "THE RIND" },
   gauge: { wave: "THE GAUGE" },
   fleet: { wave: "THE FLEET" },
   snake: { wave: "SNAKE" },

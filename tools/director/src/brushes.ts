@@ -100,12 +100,17 @@ function cardSubjects(kind: CreatureKind): string[] {
   // is a slick or a bulb drawn small (`livingBodyMul` in render/), so the
   // sheet has no ECHO contour either and the card resolves to the two bodies
   // one can be. Which of them is the authored colour, as it is for a lure.
+  // THE RIND is the sixth, and the echo's case with the size the other way
+  // round: it is a slick or a bulb drawn one footprint per layer it still
+  // wears, so the sheet has no RIND contour either and the card resolves to
+  // the two bodies one can be. Which of them is the authored colour again.
   if (
     kind === "lure" ||
     kind === "clasp" ||
     kind === "shell" ||
     kind === "veil" ||
-    kind === "echo"
+    kind === "echo" ||
+    kind === "rind"
   ) {
     return ["SLICK", "BULB"];
   }

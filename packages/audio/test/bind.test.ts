@@ -11,13 +11,27 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
  * The `SimEvent` union, read out of the simulation rather than copied here.
  * A copied list is a list that stops being true the day someone adds an event,
  * which is exactly the day the new event silently has no sound.
+ *
+ * **Both files**, because the union is written in two: everything one body did
+ * is `CreatureEvent` in `events-creature.ts` — the same seam this package's
+ * own `bind-creatures.ts` reads on — and `SimEvent` is that arm plus the ship,
+ * the field, the pods and the bosses. Reading only the first would let a
+ * creature event ship with no sound, which is the exact failure this test was
+ * written for.
  */
 async function eventTypes(): Promise<string[]> {
-  const src = await Bun.file(join(ROOT, "packages/sim/src/events.ts")).text();
-  const start = src.indexOf("export type SimEvent =");
-  expect(start).toBeGreaterThan(-1);
-  const union = src.slice(start);
-  return [...new Set([...union.matchAll(/type:\s*"([a-zA-Z]+)"/g)].map((m) => m[1] as string))];
+  const found: string[] = [];
+  for (const [file, decl] of [
+    ["packages/sim/src/events.ts", "export type SimEvent ="],
+    ["packages/sim/src/events-creature.ts", "export type CreatureEvent ="],
+  ] as const) {
+    const src = await Bun.file(join(ROOT, file)).text();
+    const start = src.indexOf(decl);
+    expect(start, file).toBeGreaterThan(-1);
+    const union = src.slice(start);
+    found.push(...[...union.matchAll(/type:\s*"([a-zA-Z]+)"/g)].map((m) => m[1] as string));
+  }
+  return [...new Set(found)];
 }
 
 /** One of each event, filled with values a real world would carry. */
@@ -56,6 +70,7 @@ const SAMPLES: Record<string, SimEvent> = {
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
+  rindShed: { type: "rindShed", col: 3, row: 5, color: "red", left: 1 },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },

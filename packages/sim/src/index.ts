@@ -67,6 +67,7 @@ export {
   priming,
 } from "./lance.js";
 export { type Replay, record, runReplay } from "./replay.js";
+export { rindLayersLeft } from "./rind.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
 export {
