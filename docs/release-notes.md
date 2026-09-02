@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · f5da274 — Prove THE ECHO's tell instead of trusting it
+
+The strain was a pair of `ctx` calls, which no test can see: a tell wired to nothing looks exactly like a tell that is subtle, and the only thing that would have caught it is somebody watching a wave at tempo. `echoStretch` is the rule with a return value now — the angle, how far the body pulls along it and how far it necks across — and `echoStrain` is the four lines that apply it.
+
+## 2026-09-02 · 27c2119 — THE ECHO strains before it parts, and waits longer every time
+
+Three changes to a creature that was too quick, too regular and too quiet about what it was doing.
+
 ## 2026-09-02 · ce1aae3 — One of you drives the snake and the other one works it
 
 The owner played the round and said what it should be instead, and this is that round. Player 2 has the whole of the steering — LEFT and RIGHT are a quarter turn each, relative, the way the arcade game has always been driven, and there is no up and down at all. Player 1 has the two things the body does when it arrives: FIRE, a shot straight out of the head, and MAW, the mouth open for half a second. Neither of them can do any part of the other's job.
