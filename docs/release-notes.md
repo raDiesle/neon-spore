@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · b282ab4 — THE RIND: the shot that lands does not close the column
+
+A twenty-first creature, and the first that does not die to the shot that hits it. It arrives three times the size of a slick or a bulb — the authored colour says which, exactly as it does for an echo — and the matching colour takes a layer off instead of killing it: three sizes, two sheds, and an ordinary body at the end that dies to an ordinary shot. Nothing about the aim changes at any point. What changes is the habit every other aim target has taught the pair, that landed and next are the same word, and the two shots in the middle are the ones nobody fires unless somebody says so out loud.
+
 ## 2026-09-02 · ace15ba — The snake stopped ticking from tile to tile and started moving
 
 Six notes from the owner playing it, and they are one change: the round looked like a grid being edited rather than an animal being driven.
