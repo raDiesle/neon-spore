@@ -2,6 +2,7 @@ import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { chromium } from "playwright-core";
 import { findChrome } from "./chrome.js";
+import { clearOpening } from "./opening.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -73,17 +74,6 @@ declare global {
 }
 
 /**
- * `OPENING_PLAY` from `packages/sim/src/briefing.ts`, copied rather than
- * imported: this file runs in Node, but the comparison below runs inside
- * `page.evaluate`, in the browser, where only what is passed in exists. `0`
- * is the phase a wave opens into once nothing is holding it — introduction
- * and guide both count upward from there, never down (see that file's own
- * comment on `OpeningPhase`), so "not `OPENING_PLAY`" is "the opening still
- * has the field".
- */
-const OPENING_PLAY = 0;
-
-/**
  * `STORAGE_KEY` from `apps/game/src/view.ts`, copied for `OPENING_PLAY`'s
  * reason: the line that reads it runs in the browser, before the bundle loads,
  * where nothing this file imports exists. The view switch restores the seat
@@ -93,35 +83,6 @@ const OPENING_PLAY = 0;
  * inlined at the call.
  */
 const SEAT_KEY = "neon-spore.view";
-
-/**
- * More seconds than `INTRO_SECONDS` (`apps/game/src/waves.ts`) could ever be
- * tuned up to — enough that one call always exhausts the introduction's
- * countdown in a single step, rather than this file having to know the real
- * number and go stale the day that one changes.
- */
-const INTRO_SECONDS_ENOUGH = 60;
-
-/**
- * Real milliseconds given to the browser between attempts at clearing the
- * opening. `advanceOpening` clears it in one attempt on a build that has it;
- * this wait is what makes a build from *before* `advanceOpening` existed —
- * `f6be23b`'s own commit, which `bun run frames f6be23b` diffs against its
- * parent and screenshots in the same run — clear it too, off nothing but its
- * own `requestAnimationFrame` loop and real wall-clock time. Playwright does
- * not suspend rAF on a headless page the way a backgrounded real tab would,
- * so that loop is genuinely ticking between attempts; this just gives it
- * room to.
- */
-const OPENING_POLL_MS = 150;
-
-/**
- * `OPENING_POLL_MS` × this comfortably clears `INTRO_SECONDS` (5.5s) plus a
- * guide ack on a build with no `advanceOpening` at all, while still failing
- * loudly — rather than hanging the capture — on a wave whose opening
- * genuinely never lets go.
- */
-const MAX_OPENING_ATTEMPTS = 80;
 
 /**
  * Drive one preview to an agreed frame (or a strip of them) and screenshot
@@ -172,38 +133,24 @@ export async function captureFrames(
       ns.jumpToWave(wave);
     }, spec.wave);
 
-    // A commit and its own parent run through this same loop, and `due` (a
-    // stack of cards) became `phase` (introduction, then an optional guide)
-    // in the commit that added the introduction — so a parent checked out
-    // from before it still answers with the older shape. Read whichever one
-    // this build actually has, every attempt, rather than assume one.
-    const holds = () =>
-      page.evaluate((openingPlay) => {
-        const ns = window.neonSpore;
-        if (!ns) throw new Error("window.neonSpore missing mid-capture");
-        const brief = ns.world.brief;
-        return Array.isArray(brief.due) ? brief.due.length > 0 : brief.phase !== openingPlay;
-      }, OPENING_PLAY);
+    await clearOpening(page);
 
-    for (let i = 0; await holds(); i++) {
-      if (i >= MAX_OPENING_ATTEMPTS) {
-        throw new Error("wave's opening never let go — stuck open");
+    // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
+    // field for its first six seconds, and headless Chrome reports `pointer:
+    // fine` — so every frame this tool has ever taken had the hull bar and
+    // the siren's corner behind a black box. It runs on a real clock, which
+    // `advance` is not, so it cannot be waited out once rAF is frozen: it is
+    // removed outright, here, while the page is still its own.
+    //
+    // Matched on its own text rather than an id, because a commit and its
+    // parent both come through here — an id added today is missing from the
+    // parent, and a toast cleared on one side of a before/after pair is worse
+    // than one left on both.
+    await page.evaluate(() => {
+      for (const el of document.querySelectorAll("div")) {
+        if (el.textContent?.startsWith("Keyboard")) el.remove();
       }
-      // `advanceOpening` clears the introduction outright on a build that has
-      // it. `dismissBriefing` acks a guide (new shape) or pops the top card
-      // (old shape) — a no-op the rest of the time. `advance(1)` lets
-      // whichever of those just landed a command actually take effect. None
-      // of the three do anything on a build with no `advanceOpening` and
-      // nothing due yet, which is exactly when `OPENING_POLL_MS` matters.
-      await page.evaluate((introSeconds) => {
-        const ns = window.neonSpore;
-        if (!ns) throw new Error("window.neonSpore missing mid-capture");
-        ns.advanceOpening?.(introSeconds);
-        ns.dismissBriefing();
-        ns.advance(1);
-      }, INTRO_SECONDS_ENOUGH);
-      await page.waitForTimeout(OPENING_POLL_MS);
-    }
+    });
 
     // **The loop stops here, and not one line earlier.** Everything this tool
     // promises rests on the two pictures being the same instant of the same
