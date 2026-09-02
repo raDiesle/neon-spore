@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · ca2c05b — Every frame this tool ever took had a black box over the HUD's top corner
+
+`showKeyHint` is gated on `pointer: fine`, and headless Chrome reports fine — so the PC key toast was over the hull bar and the siren's corner for the first six seconds of every capture, which is longer than any capture takes. It runs on a real clock and `advance` is not that clock, so it cannot be waited out once rAF is frozen; it is removed outright, after the opening lets go and before the loop stops. Matched on its own text rather than an id, because a commit and its parent both come through here and an id added today is missing from the parent — a toast cleared on one side of a before/after pair is worse than one left on both.
+
+## 2026-09-02 · e9be3a3 — The torch's call line hung in the middle of nothing, and now it hangs off the siren
+
+`TORCH · COLUMNS 3-4 · CALL IT` was centred on the screen, which put it under the middle of the band and away from the instrument that is actually asking for it. The siren and its two seat chips sit top right and say *a call is on and whose mouth opens*; the line says *and here is the sentence*. They are one message, so the line is now right-aligned to the siren's own right edge, directly under the cluster. The band still says where.
+
 ## 2026-09-02 · 3eaaf88 — A chipped half stood there in nothing but its own soft outline
 
 THE SHELL with one plate off read as two unrelated things in adjacent columns: a hard grey-rimmed plate beside a bare body drawn in its own colour. The bared half now keeps the plating's grey rim, traced along the body's own contour rather than the armour's, so the pair see one armoured thing with one side opened — and the rim leaves with the last plate, which is what "no armour left" has to look like.
