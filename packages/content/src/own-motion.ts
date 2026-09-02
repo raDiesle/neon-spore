@@ -1,5 +1,3 @@
-import type { CreatureKind } from "@neon-spore/sim";
-
 /**
  * Own-motion: what a shape does while it is not going anywhere.
  *
@@ -142,14 +140,13 @@ export function poseClock(id: number, beat: number): Beats {
   return beats(beat + bodyPhase(id) * PHASE_SPREAD_BEATS);
 }
 
+// `livingMotion` is not one of the motions but the pairing of a kind to one,
+// and it now sits beside the contour pairing in `living-look.ts` — one row per
+// kind answering both, so a body and its sway cannot be about two different
+// creatures. Re-exported here for the same reason as the records above it:
+// nothing that already reached for it through this file had to move.
+export { livingMotion } from "./living-look.js";
 // The motions themselves live next door — see `motions.ts` for the seam. Every
 // one is re-exported here so that a reader who already says
 // `livingMotion` from `own-motion.ts` still can.
-export {
-  HOLD,
-  livingMotion,
-  POISE,
-  SWAY_PUMP,
-  TILT_RIPPLE,
-  TREMBLE,
-} from "./motions.js";
+export { HOLD, POISE, SWAY_PUMP, TILT_RIPPLE, TREMBLE } from "./motions.js";

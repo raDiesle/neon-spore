@@ -167,6 +167,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
 | `packages/content/src/waves/act-2.ts` | act two: the first five bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
+| `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 
 ### packages/render
 

@@ -24,13 +24,35 @@ The creature must do at least one of these:
 More hit points or more speed is not one of them. Write the answer into the
 `blurb` field — one sentence, in the creature's own terms.
 
-## 2. Control group
+## 2. The rows, and there are six
 
-Add the entry in `packages/content/src/creatures.ts`:
+A creature is a name in six tables before it is anything else. **Every one of
+them is enforced** — five by the compiler, one by a test — so this list is
+complete and working through it in order costs nothing but typing. Take them in
+this order, because each later one wants the name to already exist.
 
-```ts
-newkind: { kind: "newkind", controls: ["aim"], color: "red", blurb: "…" },
-```
+| # | File | What you add | What catches you |
+|---|---|---|---|
+| 1 | `packages/sim/src/creature-kinds.ts` | the name, in the union **and** appended to `CREATURE_KINDS` | `KindsAreExhaustive` |
+| 2 | `packages/content/src/creatures-table.ts` | the `CREATURES` row: `controls`, `color`, `blurb` | `Record<CreatureKind, …>` |
+| 3 | `packages/content/src/mechanics-table.ts` | the `MECHANICS` row — what the thing *is*, one sentence | `satisfies Record<MechanicId, …>` |
+| 4 | `packages/content/src/living-look.ts` | its contour and own-motion, or `null` | `satisfies Record<CreatureKind, …>` |
+| 5 | `packages/render/src/comms.ts` | its `TALKER` seat, or `null` | `satisfies Record<CreatureKind, …>` |
+| 6 | `docs/spec/bestiary.md` | its name in the Categories table | `content/test/categories.test.ts` |
+
+**`CREATURE_KINDS` is append-only.** The index *is* the wire value: reordering
+it changes what every existing replay hashes to, and two devices on different
+builds would then disagree about a world they are playing identically.
+
+**Rows 4 and 5 take `null` as a real answer, and `null` is a decision.** A kind
+gets `null` in `living-look.ts` when it is drawn as something else — a crystal,
+a boss with its own draw path, or a body it *wears* (resolve that with
+`wornKind`, never with a second silhouette; for a lure a shape of its own is a
+tell, not a drift). It gets `null` in `TALKER` when both screens see the same
+thing and neither player has to speak. Both used to be lookups ending in a
+default, so a forgotten kind was drawn as a slick that swayed like one, or
+never lit its siren, and nothing anywhere said a word. They are total now,
+which is why they are on this list at all.
 
 `controls` decides which controls a wave containing it shows. Never edit a wave
 to make a creature work — the union is computed.

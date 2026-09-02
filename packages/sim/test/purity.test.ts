@@ -240,9 +240,19 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The pairing of a kind to its body, which moved out of `silhouettes.ts`
+    // when it stopped being a ternary and became a row per kind — one table
+    // carrying the contour *and* the own-motion, so the two can no longer
+    // answer about different creatures.
+    //
+    // The pattern names both shapes on purpose. The first two branches are the
+    // re-derivation this row has always forbidden — the bulb-or-slick ternary,
+    // which now belongs nowhere at all, `living-look.ts` included. The third is
+    // what the table itself reads like, so the owner keeps containing its own
+    // pattern and this row cannot rot into a guard that matches nothing.
     call: "livingSilhouette",
-    owner: "packages/content/src/silhouettes.ts",
-    pattern: /\?\s*BULB\s*:\s*SLICK|\?\s*SLICK\s*:\s*BULB/,
+    owner: "packages/content/src/living-look.ts",
+    pattern: /\?\s*BULB\s*:\s*SLICK|\?\s*SLICK\s*:\s*BULB|bulb:\s*\{\s*shape:\s*BULB/,
     strip: false,
   },
   {

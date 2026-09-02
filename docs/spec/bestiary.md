@@ -1,11 +1,18 @@
 # Bestiary
 
-> **Status: five of twenty built.** Slick, bulb, meteor, lure and throb exist
-> (`packages/content/src/creatures.ts`). Everything else on this page is
+> **Status: seventeen `CreatureKind` values exist**, against the twenty-odd
+> designed on this page — slick, bulb, the five meteor tiers, torch, queen,
+> warden, tether, lure, throb, shell, clasp, dart and veil
+> (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
 > design.
 >
-> Adding one is one entry in `CREATURES` plus a silhouette. See
-> `.claude/skills/new-creature`.
+> **Adding one is not "one entry plus a silhouette", which this line used to
+> say.** It is a row in the roster, a row in `CREATURES`, a row in `MECHANICS`,
+> a row in `living-look.ts`, a row in render's `TALKER`, a wave that introduces
+> it and a guide written inside that wave — and more if it carries state of its
+> own. Every one of those is enforced by a compiler or a test, which is the
+> only reason the list can be trusted to be complete.
+> `.claude/skills/new-creature` walks them in order.
 
 ## Naming
 
@@ -31,9 +38,12 @@ Four rules, in this order:
    standard one, and then it has to read as clearly different, not as the same
    blob in another tint.
 
-**Only `slick`, `bulb`, `meteor`, `lure` and `throb` are committed** — they are
-`CreatureKind` values in the simulation. Every other name on this page is a
-label on an unbuilt design and costs one edit to change.
+**A name on this page is committed only if it is a `CreatureKind`** — the
+status block above names the seventeen that are, and the roster in
+`packages/sim/src/creature-kinds.ts` is the list that decides. Every other name
+here is a label on an unbuilt design and costs one edit to change. The list is
+not repeated a third time on purpose: it was repeated twice and both copies
+were years out of date.
 
 ## Categories
 
@@ -42,21 +52,32 @@ The bestiary groups into what a player does about a kind, not its shape.
 from `controls` — it is never a second, hand-maintained classification, so it
 cannot drift from the control-visibility rule in `docs/spec/systems.md` 5.1.
 
+Every member is written as a `kind` rather than in prose, and that is what
+makes the four rows below checkable: `packages/content/test/categories.test.ts`
+parses this table and fails when it disagrees with `categoryOf`. It had drifted
+in three rows of four before that test existed — `shell` and `veil` missing
+from `cannon`, `warden` and `clasp` from `mixed`, and `special` still described
+as empty a while after the tether landed in it. Nothing said a word, because a
+table in a document cannot be wrong in a way a compiler notices.
+
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | slick, bulb, lure, throb, dart |
-| `shield` | `guard` only | every meteor tier, the torch |
-| `mixed` | `aim` and `guard` | the queen |
-| `special` | neither | *(reserved, empty)* |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil` |
+| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
+| `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
+| `special` | neither | `tether` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
-`special` is not a bucket to fill on principle — nothing standard describes a
-creature that is neither aimed at nor guarded against, and the plan is to
-leave it empty until one is actually designed. It is a different axis from
-`radar`: *The Silent* and *The Jammer* (10.2) are unusual in what they tell a
-radar strip, not in what a player does about them, so they still land in
-`cannon`, `shield` or `mixed` like anything else — `special` waits for a
-creature answered by neither control at all.
+`special` was reserved and empty for a long time on the reasoning that nothing
+standard describes a creature answered by neither control. **The tether is what
+filled it**, and it did so by not being a creature in the sense the row was
+waiting for: it does not fall, it is not shot and it is not guarded against —
+it is dragged by its handle, which is a gesture with no control group at all.
+The bucket was right to exist and wrong about what would land in it.
+
+It stays a different axis from `radar`: *The Silent* and *The Jammer* (10.2)
+are unusual in what they tell a radar strip, not in what a player does about
+them, so they still land in `cannon`, `shield` or `mixed` like anything else.
 Pods are never `CreatureKind` values and were never in `CREATURES`, so they do
 not go through `categoryOf` at all — `POD_CATEGORY` names their group
 directly, `"suck"`, after what taking one in is called throughout the sim

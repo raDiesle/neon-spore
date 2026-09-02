@@ -1,5 +1,3 @@
-import type { CreatureKind } from "@neon-spore/sim";
-
 /**
  * Creature and hull parameters for the raster game. These are tuned in
  * legacy/style-guide.html and transcribed here as data.
@@ -118,26 +116,12 @@ export const DART: CreatureSilhouette = {
   seed: Math.PI * 2,
 };
 
-/**
- * The silhouette a living kind is drawn with. Call this instead of writing
- * `kind === "bulb" ? BULB : SLICK` by hand — the queen's morph blends two of
- * these, and a second copy of the pairing drifts. `throb` carries no colour
- * but gets a contour, named ahead of the colour-driven fallback.
- *
- * **`lure`, `clasp` and `shell` are never passed in.** None of the three has a
- * contour of its own — each is drawn as the body inside it, with a disguise, a
- * membrane or plating over the top — so a caller resolves that first with
- * `wornKind` and asks this about a slick or a bulb. There is deliberately no
- * case for any of them: one here would be a second, silent answer to the
- * question `wornKind` exists to be the only answer to, and what it would
- * otherwise fall through to is the SLICK fallback, which is a wrong shape
- * rather than an obvious failure.
- */
-export function livingSilhouette(kind: CreatureKind): CreatureSilhouette {
-  if (kind === "throb") return THROB;
-  if (kind === "dart") return DART;
-  return kind === "bulb" ? BULB : SLICK;
-}
+// Which kind is drawn with which of the shapes above is *not* here: it is one
+// row per kind in `living-look.ts`, beside that kind's own-motion, because
+// "is this a body and which one" is a single fact and this file is a sheet of
+// tuned numbers. `livingSilhouette` is exported from there and from the
+// package index. This file may not import it back — `living-look.ts` reads
+// SLICK and BULB from here, and the arrow only points one way.
 
 /**
  * Pod: a capsule with a core, upright and softly ribbed. Three shallow lobes,

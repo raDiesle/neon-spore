@@ -36,18 +36,48 @@ import { torchWarning } from "./torch-alarm.js";
  */
 export type Seat = "p1" | "p2";
 
-const TALKER: Partial<Record<CreatureKind, Seat>> = {
+/**
+ * **Every kind has a row, including the twelve that say nothing.** This was a
+ * `Partial<Record<…>>` with five entries, which reads as the shorter list and
+ * is the one that goes wrong: a kind whose whole point is that one screen sees
+ * it and the other does not is exactly the kind somebody adds in a hurry, and
+ * leaving it out here cost no compile error, no failing test, and no visible
+ * defect — only a siren that never lit, on the one creature that needed it.
+ * `satisfies Record<CreatureKind, …>` makes the omission a build error, so the
+ * question is asked of every new body whether or not the answer is `null`.
+ *
+ * `null` means the two of them see the same thing and neither has to speak.
+ * That is the ordinary answer and it is a decision, not a blank.
+ */
+const TALKER = {
   veil: "p1",
   lure: "p2",
   dart: "p2",
   queen: "p2",
   torch: "p1",
-};
+  // Both screens carry these whole: nothing about them is split, so a siren
+  // over one would be a lamp saying "look at the field", which is not news.
+  slick: null,
+  bulb: null,
+  throb: null,
+  shell: null,
+  clasp: null,
+  warden: null,
+  tether: null,
+  // The rocks, for the reason written above: one is in nearly every wave, and
+  // a siren lit through a whole wave stops being a warning. The torch has its
+  // own row up there because it is the one rock that cannot be answered late.
+  meteor: null,
+  meteorMedium: null,
+  meteorFast: null,
+  meteorFaster: null,
+  meteorFastest: null,
+} as const satisfies Record<CreatureKind, Seat | null>;
 
 /** The seat that has to say something about this kind, or null if the two of
  * them can both see everything there is to see about it. */
 export function commsTalker(kind: CreatureKind): Seat | null {
-  return TALKER[kind] ?? null;
+  return TALKER[kind];
 }
 
 /** Whether a blip of this kind wants the eye on the strip. */

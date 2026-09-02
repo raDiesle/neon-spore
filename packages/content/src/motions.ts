@@ -1,5 +1,4 @@
-import type { CreatureKind } from "@neon-spore/sim";
-import type { Beats, OwnMotion } from "./own-motion.js";
+import type { OwnMotion } from "./own-motion.js";
 
 /**
  * The motions themselves: one record per body that has one, and the pairing of
@@ -140,19 +139,10 @@ export const POISE: OwnMotion = {
   },
 };
 
-/**
- * The motion a living kind is drawn with. Call this rather than writing
- * `kind === "bulb" ? SWAY_PUMP : TILT_RIPPLE` by hand, for the same reason
- * `livingSilhouette` exists: the pairing of a kind to its picture is one fact,
- * and a second copy of it is how a creature ends up swaying like the other one.
- *
- * `lure` is never passed in, for `livingSilhouette`'s reason with more riding
- * on it: a lure sways as the body it wears, resolved by `wornKind` first, and
- * a motion of its own would be a tell on player 1's screen.
- */
-export function livingMotion(kind: CreatureKind): OwnMotion {
-  if (kind === "bulb") return SWAY_PUMP;
-  if (kind === "throb") return HOLD;
-  if (kind === "dart") return POISE;
-  return TILT_RIPPLE;
-}
+// Which kind sways with which of the motions above is *not* here: it is one
+// row per kind in `living-look.ts`, beside that kind's contour, because a body
+// and its own-motion are one fact and were two hand-kept lists over it.
+// `livingMotion` is exported from there, and re-exported by `own-motion.ts` and
+// the package index, so nothing that already reached for it had to move. This
+// file may not import it back — `living-look.ts` reads these records, and the
+// arrow only points one way.

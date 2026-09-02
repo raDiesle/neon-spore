@@ -1,10 +1,10 @@
 import {
-  CREATURES,
   type CreatureSilhouette,
   type CrystalSilhouette,
   catmullRomToBezierPath,
   crystalRadiusMul,
   hullRadiusMul,
+  livingBodyKinds,
   livingSilhouette,
   METEOR,
   POD,
@@ -12,7 +12,7 @@ import {
   QUEEN_SHELL,
   TORCH,
 } from "@neon-spore/content";
-import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
+import type { CreatureKind } from "@neon-spore/sim";
 import type { Subject } from "./contour.js";
 import { hull } from "./hull-subjects.js";
 import { WARDEN_POSES } from "./ring.js";
@@ -68,42 +68,25 @@ export function blob(name: string, s: CreatureSilhouette, note?: string): Subjec
 
 /**
  * Every `CreatureKind` `render/creatures.ts` draws through `drawLiving` — a
- * contour plus own-motion, as opposed to a crystal (`isMeteorKind`) or a body
- * with its own draw path (`isBossBody`, and the tether, which has no body at
- * all). Read off `CREATURES` and the same predicates `drawCreatures` calls, so
- * a kind added to the bestiary reaches the sheet without a second list here
- * drifting from render's own branch on what to draw.
+ * contour plus own-motion, as opposed to a crystal, a body with its own draw
+ * path, or one drawn as the body it wears.
  *
- * **`lure` is excluded, and its exclusion is the sheet agreeing with the
- * game.** A lure has no contour of its own: `drawLiving` resolves `wornKind`
- * first and draws a slick or a bulb. A card for it would be a second card
- * drawing a shape already on the sheet, and `nameability.ts` said so the
- * moment it was let in — it found the lure and the slick identical on all
- * three axes, which is not a defect in the shape but the whole creature.
+ * **This used to be the exclusion list, and that is the point of the change.**
+ * It named `tether`, `lure`, `clasp`, `shell` and `veil` by hand and then asked
+ * two predicates about the rest — seven clauses, kept in step with render's own
+ * branch by nothing but attention. A kind added to the bestiary and not to this
+ * list got a card drawing the fallback silhouette, which is to say a slick on
+ * the sheet under another name; `nameability.ts` caught the lure and the clasp
+ * that way, after they were already on it, and only because their shapes
+ * happened to collide with one already there.
  *
- * **`clasp` is excluded for the same reason and a different creature.** It
- * also draws through `wornKind`, so its body is a slick or a bulb; what makes
- * it a clasp is the shield laid over the top, which `render/clasp.ts` draws
- * after `drawLiving` has finished and which is not a contour at all. The
- * catalogue is a sheet of *silhouettes*, and a membrane around one is not a
- * second silhouette. `nameability.ts` found this one too, on the same three
- * axes and within a minute of it existing.
+ * It asks `living-look.ts` now, which is the same table the field draws from,
+ * so the sheet and the game cannot disagree about what has a body — and a new
+ * kind reaches the sheet, or stays off it, without anything here being edited.
+ * The reasoning for each `null` is written beside that kind's row.
  */
 export function livingKinds(): CreatureKind[] {
-  return (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) =>
-      kind !== "tether" &&
-      kind !== "lure" &&
-      kind !== "clasp" &&
-      kind !== "shell" &&
-      // And THE VEIL, for the same reason as the three above it: the cloud is
-      // weather laid over a slick or a bulb, and weather is a picture rather
-      // than a contour (`render/veil.ts`). A VEIL card here would draw the
-      // fallback silhouette and put a slick on the sheet under another name.
-      kind !== "veil" &&
-      !isBossBody(kind) &&
-      !isMeteorKind(kind),
-  );
+  return livingBodyKinds();
 }
 
 export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {

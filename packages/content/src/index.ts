@@ -40,6 +40,9 @@ export {
   hullRadiusMul,
 } from "./hull-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
+// Which kinds are bodies, and what each one looks like — the contour and the
+// own-motion out of one row per kind, so the two cannot drift apart.
+export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
@@ -104,7 +107,6 @@ export {
   HULL_GEOMETRY,
   type HullSilhouette,
   type LobeShape,
-  livingSilhouette,
   MAW,
   METEOR,
   POD,
