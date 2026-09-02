@@ -141,6 +141,15 @@ export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
   // SNAKE has an arena instead of a field, and it is the same size whatever
   // the field would have been — so there is nothing here to remap either.
   if (boss.kind === "snake") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };
+  // PINBALL has a table instead of a field, and the table is authored in its
+  // own thousandths of a tile rather than in columns — so, like the snake's
+  // arena, there is nothing here to remap.
+  if (boss.kind === "pinball") {
+    return {
+      ...boss,
+      rounds: boss.rounds.map((r) => ({ beats: r.beats, pieces: r.pieces.map((p) => ({ ...p })) })),
+    };
+  }
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

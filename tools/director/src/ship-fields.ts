@@ -132,6 +132,24 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   snakeFireRestBeats: "SNAKE — a round the ship is the body of",
   damageSnake: "SNAKE — a round the ship is the body of",
   damageSnakeRepeat: "SNAKE — a round the ship is the body of",
+  pinballCols: "PINBALL — a table the ship is the bucket of",
+  pinballRows: "PINBALL — a table the ship is the bucket of",
+  pinballBallMilli: "PINBALL — a table the ship is the bucket of",
+  pinballPegMilli: "PINBALL — a table the ship is the bucket of",
+  pinballGravityMilli: "PINBALL — a table the ship is the bucket of",
+  pinballSpeedCapMilli: "PINBALL — a table the ship is the bucket of",
+  pinballBouncePermille: "PINBALL — a table the ship is the bucket of",
+  pinballWallPermille: "PINBALL — a table the ship is the bucket of",
+  pinballLaunchMilli: "PINBALL — a table the ship is the bucket of",
+  pinballWeakPermille: "PINBALL — a table the ship is the bucket of",
+  pinballSweepMilli: "PINBALL — a table the ship is the bucket of",
+  pinballNeedleMilli: "PINBALL — a table the ship is the bucket of",
+  pinballPowerMilli: "PINBALL — a table the ship is the bucket of",
+  pinballSlideMilli: "PINBALL — a table the ship is the bucket of",
+  pinballBucketMilli: "PINBALL — a table the ship is the bucket of",
+  pinballFlightBeats: "PINBALL — a table the ship is the bucket of",
+  damagePinball: "PINBALL — a table the ship is the bucket of",
+  damagePinballDrop: "PINBALL — a table the ship is the bucket of",
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",
   // ShotConfig
@@ -163,6 +181,7 @@ export function fieldsIn(group: GroupName): (keyof SimConfig)[] {
  * the ship, which is the split the SHIP-column brief asked for.
  */
 export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
+  pinball: "PINBALL — a table the ship is the bucket of",
   queen: "QUEEN",
   warden: "WARDEN",
   mirror: "MIRROR",

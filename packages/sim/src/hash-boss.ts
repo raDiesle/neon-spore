@@ -3,6 +3,8 @@ import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze.js";
+import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
+import { pinballHashParts } from "./pinball-board.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { SNAKE_PHASES } from "./snake.js";
 
@@ -179,6 +181,13 @@ export function bossHashParts(boss: BossState | null): number[] {
         push(tile.row);
       }
     }
+  }
+  // PINBALL, gathered beside the boss rather than spelled out here — the
+  // arrangement `mazeHashParts` already has, and for its reason: a piece's
+  // fields are that file's business and a seventh one added there and not to a
+  // loop in here is a field two devices could disagree about silently.
+  if (boss !== null && boss.kind === "pinball") {
+    for (const n of pinballHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

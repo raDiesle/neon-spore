@@ -7,6 +7,7 @@ import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
+import { installPinball } from "./pinball-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { WARDEN_COLS } from "./types.js";
@@ -70,6 +71,11 @@ export function startWave(
     // arena is the round's own and the ship is in it as the snake, so there is
     // no body here for the fall loop, the hull or a hand to find.
     world.boss = installSnake(world, boss.rounds);
+  } else if (boss?.kind === "pinball") {
+    // The same nothing again: the table is the round's own picture and the
+    // ship is in it as the bucket, so no body of this boss is on the field for
+    // the fall loop, the hull or a hand to find.
+    world.boss = installPinball(world, boss.rounds);
   } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {

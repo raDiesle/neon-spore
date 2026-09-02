@@ -50,6 +50,12 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "snakeRight":
     case "snakeFire":
     case "snakeMaw":
+    // PINBALL's four, read by their own listener in `apps/game` — the bucket's
+    // two are *held*, which no lobe is, so they could not be answered here.
+    case "pinLeft":
+    case "pinRight":
+    case "pinLatch":
+    case "pinLaunch":
       return null;
     default:
       return assertNever(id);

@@ -4,6 +4,8 @@ import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import { MAZE_PHASES } from "../src/maze.js";
+import { PIN_SHOTS, PINBALL_PHASES } from "../src/pinball.js";
+import { PIN_PIECE_KINDS } from "../src/pinball-contact.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "../src/simon.js";
 import { SNAKE_PHASES } from "../src/snake.js";
 import { POD_KINDS } from "../src/types.js";
@@ -76,6 +78,9 @@ const FAMILIES: readonly (readonly string[])[] = [
   GAUGE_PHASES,
   FLEET_DIRS,
   SNAKE_PHASES,
+  PINBALL_PHASES,
+  PIN_SHOTS,
+  PIN_PIECE_KINDS,
 ];
 
 function otherValue(value: string): string | null {

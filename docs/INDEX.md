@@ -153,6 +153,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 | `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
+| `packages/sim/src/config-pinball.ts` | PINBALL's numbers — the table, the ball, and what a dropped one costs |
+| `packages/sim/src/pinball-board.ts` | The table as arithmetic: how big it is, what a legal board looks like, and what an angle and a power add up to |
+| `packages/sim/src/pinball-contact.ts` | what the ball can touch, how deep it is into one, and the integer square root that answers |
+| `packages/sim/src/pinball-controls.ts` | The three verbs of the round, and the two seats they are split between |
+| `packages/sim/src/pinball-physics.ts` | one tick of a ball on a table: gravity, the speed cap, the bounce |
+| `packages/sim/src/pinball-round.ts` | PINBALL's clock: the three phases, the shot loop inside the middle one, and the two ways the hull pays |
+| `packages/sim/src/pinball.ts` | PINBALL: the ship folds into a bucket, and the bucket is both the gun and the glove |
 
 ### packages/content
 
@@ -187,6 +194,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
+| `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
+| `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 
 ### packages/render
 
@@ -320,6 +329,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 | `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
+| `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
+| `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
+| `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
 
 ### packages/net
 
@@ -382,6 +394,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/view.ts` | the view switch, always on screen |
 | `apps/game/src/keys-round.ts` | The keys that belong to a round rather than to the field |
 | `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
+| `apps/game/src/pinball.ts` | The host's half of PINBALL: the four thumbs that play it |
 
 ### apps/server
 

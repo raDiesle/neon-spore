@@ -94,6 +94,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   gauge: { wave: "THE GAUGE" },
   fleet: { wave: "THE FLEET" },
   snake: { wave: "SNAKE" },
+  pinball: { wave: "PINBALL" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "FIRST STEP", config: { briefings: true } },

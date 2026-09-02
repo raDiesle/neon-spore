@@ -105,6 +105,9 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
+    // PINBALL's board is the fight and it is edited as a picture, not as a
+    // form — `pinball-editor.ts` next door, the way THE FLEET's chart is.
+    if (boss.kind === "pinball") return;
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

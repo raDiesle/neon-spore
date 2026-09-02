@@ -620,3 +620,129 @@ the panel. Four arrows in a row is what the band's existing lobe layout gives
 for free; a cross would read better under a thumb and would need a new panel
 form to place it. That is a question about a hand on glass, and no test can
 answer it.
+
+## 11.7 PINBALL — the thing you fire from is the thing you catch it with
+
+> The one where the bucket is both the gun and the glove.
+
+A sixth boss, and the first body in this game under an **acceleration**. Every
+other thing that has ever moved here steps: a creature falls a row on the beat,
+the cannon slides a column a press, THE VANE's arm sweeps a fixed arc. A ball
+on a table does none of that — it is a position and a velocity, integrated
+every tick, and where it goes next is arithmetic nobody authored. That is the
+whole reason to build it, and it is also the whole risk.
+
+**One ball, out of the bucket and back into it.** The ship folds into a bucket
+at the floor of a tall table. A shot is fired upward out of that bucket, falls
+back down through a field of pegs and blocks, and the *same bucket* has to be
+under it when it lands or the hull pays `damagePinballDrop`. Peggle has a
+catcher and a separate cannon; here they are one object, and the doubling is
+the design: **where you fire from is where you must not be a second later**.
+The seat holding the bucket spends every shot undoing the position they took to
+aim it.
+
+**Three presses, alternating seats, in one order.** Player 2 opens the sweep
+with FIRE; a needle walks across the arc and player 1 stops it with SET; a
+power bar then grows and shrinks and player 2 fires on it with FIRE again. One
+seat owns *where from* and *which way*, the other owns *when* and *how hard*,
+and neither half is a shot. `PinballState.armed` is what holds the order: the
+needle sweeps from the moment the shot resets so both screens show the same
+arc, and the latch does nothing until player 2 has opened it — so the pair
+cannot skip the half belonging to the seat that did not start it.
+
+**The sweep takes six and a half seconds, and that number is the round.** THE
+GAUGE's needle crosses in 2.8 s and is meant to be fought with a thumb. A
+spoken exchange in this game runs 2.1–3.6 s ([latency](latency.md)) and the
+lockstep adds a fixed 100 ms between thumb and needle (`inputDelayTicks`), so a
+needle at Peggle's speed would be decided by reaction time and nothing else — a
+reflex round, which is the thing the beat exists to prevent
+([interludes](interludes.md)). At `pinballNeedleMilli` the call lands while the
+needle is still short of where it was called, and "further… further… now" is a
+sentence rather than a race.
+
+**Both seats see the same table, and it is the one round where that is true.**
+That was the owner's decision, made against the recommendation, and it is
+recorded here rather than smoothed over: the coupling is in the verbs alone.
+`showsPinPieces` in `packages/render/src/pinball-round.ts` is written as a role
+predicate anyway, so the seam is one line — if the aim turns out to be too easy
+to agree on, the seat holding the bucket keeps the board and the seat opening
+the sweep is talked onto it, which is THE FLEET's split exactly.
+
+**Only the lit pieces have to go.** Peggle's orange rule. A board is a picture
+of pegs and blocks, a handful of them marked, and the rest is scenery that
+still bounces and still vanishes. Without it the round runs until the last peg
+in a corner happens to be struck, which is a length nobody authored.
+
+**A struck piece lights now and goes when the shot ends**, which is a physics
+decision before it is a scoring one. A piece that vanished under the ball would
+let it fly through the space it had just bounced off, so a cluster would
+collapse instead of cascading — and the cascade is the reason to have pegs at
+all.
+
+### The ball is written, not imported, and here is what that cost
+
+Every physics engine in reach integrates in floating point, and `packages/sim`
+rounds what it computes into stored integers: a last-bit difference between V8
+on Android and JavaScriptCore on iOS lands on either side of a `.5`, and two
+phones then play different tables from the third bounce onwards. `Math.sqrt`,
+`sin` and `cos` are already banned in `sim` for that reason
+(`test/purity.test.ts`). So the ball is stepped in thousandths of a tile, every
+division truncates the same way on both, `isqrt` replaces the square root a
+contact normal needs, and the launch angle's sine comes off `mazeSinMilli` —
+the table THE MAZE already carries, **called rather than copied**.
+
+It came to about two hundred lines across `pinball-contact.ts` and
+`pinball-physics.ts`, which is smaller than the smallest engine that would have
+done instead, and it is the only version that could be lockstepped at all.
+
+**One step a tick, and no substepping.** Cutting a tick into pieces in integers
+either loses a remainder or carries one, and both are state. Instead the ball
+is capped: `pinballSpeedCapMilli` is held below the ball's radius plus the
+thinnest half-thickness a piece may have (`PIN_THIN_MILLI`), so one tick's
+motion can never carry the centre past the far side of anything. `pinballFault`
+enforces the piece half of that invariant on every authored board and
+`test/pinball-physics.test.ts` enforces the config half — a tunnelled ball is
+not a defect anybody would find by playing, it happens once, at speed, and
+looks like a miss.
+
+**One bounce a tick, and it is the deepest.** A ball wedged between two pegs
+overlaps both, and reflecting off each in turn reverses the velocity twice and
+leaves it buried and travelling as before. So the deepest overlap is the one
+resolved and every overlap is reported, which is also the right answer for the
+round.
+
+### What it costs the pair, and where it lives
+
+Nothing PINBALL does can reach the hull except the pair's own two failures. A
+ball that misses the bucket takes `damagePinballDrop` off it **in the column it
+fell past** — the table is the field's own width, so the scar is still on that
+side when the field comes back, which is the one thing this round says in the
+field's vocabulary. Running out of `beats` takes `damagePinball` in the middle
+column, which is the call THE GAUGE, SNAKE, THE MAZE and THE FLEET all make. A
+ball that came to rest on top of a block costs nothing at all: it times out
+after `pinballFlightBeats` and is given back, because a stuck ball is not a
+ball anybody dropped.
+
+`PinballState` is in the `BossState` union. The table's arithmetic is
+`packages/sim/src/pinball-board.ts`, the contact geometry
+`pinball-contact.ts`, the integration `pinball-physics.ts`, the state
+`pinball.ts`, the clock `pinball-round.ts` and the three verbs
+`pinball-controls.ts`; its numbers are `config-pinball.ts` and its panel is the
+`pinball` control set. The picture is two files — `pinball-table.ts` for the
+case and everything standing in it, `pinball-round.ts` for the stage. Its
+boards are `packages/content/src/pinball-rounds.ts`, **drawn as pictures**
+rather than listed as coordinates, because forty rows of `{ kind, xMilli,
+yMilli }` is a board nobody can see. Its wave is `PINBALL` and its sentence is
+the epigraph.
+
+**The frame is thick and that is deliberate.** This is the one boss where the
+pair spend ninety seconds watching something bounce off the edges, so the table
+is a machined case with a real bezel rather than a hairline border — a wall the
+eye can see instead of one it has to infer from the ball's behaviour. The floor
+is drawn broken, because it is the one edge that is not a wall.
+
+What has **not** been looked at by a human is the feel: whether
+`pinballBouncePermille` at 880 is a lively table or a dead one, whether six and
+a half seconds of sweep is patient or tedious, and whether pegs or blocks are
+the better board. All three are questions about an eye and a hand, and no test
+can answer any of them.

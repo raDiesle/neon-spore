@@ -108,6 +108,18 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
       { col: 7, row: 5, len: 3, dir: "v" },
     ],
   },
+  pinball: {
+    kind: "pinball",
+    rounds: [
+      {
+        beats: 30,
+        pieces: [
+          { kind: "peg", xMilli: 3500, yMilli: 5500, wMilli: 200, hMilli: 200, target: true },
+          { kind: "block", xMilli: 7500, yMilli: 8500, wMilli: 440, hMilli: 150, target: false },
+        ],
+      },
+    ],
+  },
   snake: {
     kind: "snake",
     rounds: [
@@ -260,6 +272,28 @@ function patchBoss(world: World): void {
     boss.calledBeat = 6;
     boss.calledMilli = 3_100;
     boss.calledGood = true;
+  }
+  if (boss.kind === "pinball") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.roundBeat = 5;
+    boss.shot = "flight";
+    boss.armed = true;
+    boss.angleMilli = 21_000;
+    boss.angleDir = -1;
+    boss.powerMilli = 640;
+    boss.powerDir = -1;
+    boss.bucketMilli = 4300;
+    boss.slideDir = 1;
+    boss.ball = { xMilli: 5100, yMilli: 9200, vxMilli: -70, vyMilli: 130 };
+    boss.flightBeat = 6;
+    boss.drops = 1;
+    boss.dropBeat = 5;
+    boss.catchBeat = 4;
+    boss.alive = boss.pieces.map((_, i) => i !== 0);
+    boss.lit = [1];
   }
   if (boss.kind === "snake") {
     boss.phase = "play";

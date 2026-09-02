@@ -3,6 +3,7 @@ import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import type { PairConfig } from "./config-pair.js";
+import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
@@ -11,6 +12,7 @@ export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
+export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
@@ -24,6 +26,7 @@ export interface SimConfig
     FleetConfig,
     GaugeConfig,
     PairConfig,
+    PinballConfig,
     ShotConfig,
     SnakeConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
@@ -165,6 +168,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CREATURE_DEFAULTS,
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
+  ...PINBALL_DEFAULTS,
   ...SHOT_DEFAULTS,
   ...SNAKE_DEFAULTS,
   cols: 11,

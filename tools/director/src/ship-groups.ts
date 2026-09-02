@@ -30,6 +30,7 @@ export type GroupName =
   | "OPENING — the introduction, the guide and the ready gate"
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
+  | "PINBALL — a table the ship is the bucket of"
   | "THROB — open for one beat in every few"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
@@ -59,6 +60,7 @@ export const GROUP_ORDER: GroupName[] = [
   "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
+  "PINBALL — a table the ship is the bucket of",
   "THROB — open for one beat in every few",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
@@ -76,6 +78,15 @@ export const GROUP_ORDER: GroupName[] = [
 ];
 
 export const GROUP_NOTE: Record<GroupName, string> = {
+  "PINBALL — a table the ship is the bucket of":
+    "The third built round, and the first body in the game under an " +
+    "acceleration. The ship folds into a bucket that is both the gun and the " +
+    "glove: player 2 opens the aiming sweep and picks the strength, player 1 " +
+    "slides the bucket and stops the needle — and then the same bucket has to " +
+    "be under the ball when it falls back. A dropped ball costs the hull where " +
+    "it fell; the clock running out costs it more. The ball is stepped on the " +
+    "tick in thousandths of a tile, so every number here is per tick.",
+
   "SNAKE — a round the ship is the body of":
     "The other built round, and the first control that moves something. The " +
     "ship shrinks into a snake that never stops: player 2 turns it a quarter " +
@@ -195,6 +206,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE GAUGE — a round with no field in it",
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
+  "PINBALL — a table the ship is the bucket of",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */

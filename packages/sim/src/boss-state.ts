@@ -1,6 +1,7 @@
 import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-round.js";
+import type { PinballState } from "./pinball.js";
 import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
 import type { Color } from "./types.js";
@@ -199,4 +200,5 @@ export type BossState =
   | MazeState
   | GaugeState
   | FleetState
-  | SnakeState;
+  | SnakeState
+  | PinballState;

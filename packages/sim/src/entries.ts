@@ -2,6 +2,7 @@ import type { FleetShip } from "./fleet-board.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
+import type { PinballRound } from "./pinball.js";
 import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
@@ -175,6 +176,21 @@ export interface SnakeEntry {
   rounds: SnakeRound[];
 }
 
+/**
+ * What a wave authors when it wants PINBALL: the boards, in order.
+ *
+ * The board *is* the fight — where the targets are, what stands between them
+ * and the bucket, whether there is a lane back down — so it is authored, the
+ * way THE FLEET's placement is, and `pinballFault` says whether what was
+ * written is a table at all. Everything about the ball is tuning
+ * (`config-pinball.ts`): a round whose gravity was authored per board would be
+ * eleven different games with one name.
+ */
+export interface PinballEntry {
+  kind: "pinball";
+  rounds: PinballRound[];
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -184,7 +200,8 @@ export type BossEntry =
   | MazeEntry
   | GaugeEntry
   | FleetEntry
-  | SnakeEntry;
+  | SnakeEntry
+  | PinballEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -216,4 +233,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "gauge",
   "fleet",
   "snake",
+  "pinball",
 ];

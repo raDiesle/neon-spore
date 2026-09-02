@@ -1,3 +1,4 @@
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
@@ -174,5 +175,17 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 22, col: 5, kind: "meteor", color: null },
       { beat: 24, col: 4, kind: "echo", color: "red" },
     ],
+  },
+  {
+    name: "PINBALL",
+    sentence: "The one where the thing you fire from is the thing you have to catch it with.",
+    guide: {
+      both: "The ship folds into a bucket. One ball goes up out of it, comes down through the table, and the same bucket has to be under it when it lands — or the hull pays. Only the lit pieces have to go.",
+      p1: "You hold the bucket and you stop the needle. Slide to where the shot should start, then SET the moment they have talked you onto the angle — and then get back under wherever the ball is coming down.",
+      p2: "You open the sweep with FIRE and you fire with it again. The needle takes six seconds to cross, so talk them onto the angle rather than racing it, then pick the strength off the bar.",
+    },
+    entries: [],
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
+    controls: "pinball",
   },
 ];

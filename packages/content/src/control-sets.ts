@@ -49,7 +49,7 @@ import { WAVES } from "./waves.js";
  * is a different mechanism and stays where it is.
  */
 
-export type ControlSetId = "default" | "lance" | "gauge" | "fleet" | "snake";
+export type ControlSetId = "default" | "lance" | "gauge" | "fleet" | "snake" | "pinball";
 
 export interface ControlSet {
   id: ControlSetId;
@@ -107,6 +107,12 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     name: "SNAKE",
     why: "One of you drives it and the other one works it: two quarter turns against a trigger and a mouth.",
     controls: ["snakeLeft", "snakeRight", "snakeFire", "snakeMaw"],
+  },
+  {
+    id: "pinball",
+    name: "PINBALL",
+    why: "Three slabs against one: the seat that holds the bucket also stops the needle, and the seat that opens the sweep is the only one that can fire it.",
+    controls: ["pinLeft", "pinLatch", "pinRight", "pinLaunch"],
   },
 ];
 

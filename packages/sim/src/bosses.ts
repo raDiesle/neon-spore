@@ -20,6 +20,7 @@ export {
   bossFillsWave,
   type FleetEntry,
   type GaugeEntry,
+  type PinballEntry,
   type SnakeEntry,
   type VaneEntry,
   type WardenEntry,
@@ -108,6 +109,46 @@ export {
   mazeRoute,
 } from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
+export {
+  launchBall,
+  PIN_SHOTS,
+  PINBALL_PHASES,
+  type PinballPhase,
+  type PinballRound,
+  type PinballState,
+  type PinShot,
+  pinballCurrent,
+  pinRestingBall,
+  pinTargetsLeft,
+} from "./pinball.js";
+export {
+  pinballFault,
+  pinClampBucket,
+  pinFieldCol,
+  pinHeightMilli,
+  pinLaunchVelocity,
+  pinPhysics,
+  pinPower,
+  pinSweep,
+  pinWidthMilli,
+} from "./pinball-board.js";
+export {
+  hitPiece,
+  isqrt,
+  PIN_PIECE_KINDS,
+  PIN_THIN_MILLI,
+  type PinBall,
+  type PinPiece,
+  type PinPieceKind,
+} from "./pinball-contact.js";
+export { type PinPhysics, stepBall } from "./pinball-physics.js";
+export {
+  closePinball,
+  PINBALL_MORPH_BEATS,
+  PINBALL_VERDICT_BEATS,
+  pinballHolds,
+  pinballRound,
+} from "./pinball-round.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export {
   fireStep,

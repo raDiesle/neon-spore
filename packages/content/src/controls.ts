@@ -1,3 +1,5 @@
+import { ROUND_CONTROLS } from "./controls-round.js";
+
 /**
  * Every button either player can be given, one row each, listed rather than
  * switched on.
@@ -8,6 +10,11 @@
  * door is which of them a wave is played with. A page that wants to show a
  * panel reads this; nothing has to know the drawing code to say what a panel
  * contains.
+ *
+ * **A round's own buttons are next door**, in `controls-round.ts`, spread into
+ * `CONTROLS` below — the same split `keys-round.ts` made and for the same
+ * reason. `ControlId` stays whole here, because the vocabulary is one list
+ * however many files the rows live in.
  */
 
 /** Every control either player can be given. One name per thing on a panel. */
@@ -30,7 +37,11 @@ export type ControlId =
   | "snakeLeft"
   | "snakeRight"
   | "snakeFire"
-  | "snakeMaw";
+  | "snakeMaw"
+  | "pinLeft"
+  | "pinRight"
+  | "pinLatch"
+  | "pinLaunch";
 
 /**
  * What a whole panel *is*, rather than what is on it.
@@ -113,90 +124,7 @@ export const CONTROLS: readonly ControlDef[] = [
     label: "CYAN",
     does: "Fires cyan up whichever column player 1 is standing in.",
   },
-  {
-    id: "gaugeLeft",
-    player: 1,
-    form: "slab",
-    label: "LEFT",
-    does: "Held. Turns THE GAUGE's needle down the dial for as long as a thumb is on it.",
-  },
-  {
-    id: "gaugeRight",
-    player: 1,
-    form: "slab",
-    label: "RIGHT",
-    does: "Held. Turns THE GAUGE's needle up the dial for as long as a thumb is on it.",
-  },
-  {
-    id: "gaugeCall",
-    player: 2,
-    form: "slab",
-    label: "CALL",
-    does: "Says the needle is between the marks. The only thing in the round that can be wrong.",
-  },
-  {
-    id: "salvo",
-    player: 1,
-    form: "lobe",
-    label: "SALVO",
-    does: "Fires into whichever square of THE FLEET's chart the sights are standing in.",
-  },
-  {
-    id: "aimLeft",
-    player: 2,
-    form: "lobe",
-    label: "◀",
-    does: "Carries the sights one square left. A step, never a place — a place would need no telling.",
-  },
-  {
-    id: "aimUp",
-    player: 2,
-    form: "lobe",
-    label: "▲",
-    does: "One square up the chart.",
-  },
-  {
-    id: "aimDown",
-    player: 2,
-    form: "lobe",
-    label: "▼",
-    does: "One square down the chart.",
-  },
-  {
-    id: "aimRight",
-    player: 2,
-    form: "lobe",
-    label: "▶",
-    does: "One square right.",
-  },
-  {
-    id: "snakeLeft",
-    player: 2,
-    form: "slab",
-    label: "◀",
-    does: "Turns the snake a quarter turn anticlockwise. Player 2 does all the driving.",
-  },
-  {
-    id: "snakeRight",
-    player: 2,
-    form: "slab",
-    label: "▶",
-    does: "A quarter turn clockwise, under the same hand. There is no up and down: a heading is not a place.",
-  },
-  {
-    id: "snakeFire",
-    player: 1,
-    form: "slab",
-    label: "FIRE",
-    does: "A shot straight out of the head. It is the only thing that takes an enemy off the arena.",
-  },
-  {
-    id: "snakeMaw",
-    player: 1,
-    form: "slab",
-    label: "MAW",
-    does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
-  },
+  ...ROUND_CONTROLS,
 ];
 
 export function control(id: ControlId): ControlDef {

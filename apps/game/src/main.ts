@@ -23,6 +23,7 @@ import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
 import { bindMainMenu, menuRequested } from "./menu.js";
+import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
 import { bindSnake } from "./snake.js";
 import { bindTestControls } from "./testing.js";
@@ -115,6 +116,7 @@ bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });
 // (`snake.ts`). Neither round's listener can fire while the other is up: the
 // simulation only holds one boss at a time and each asks whether it is theirs.
 bindSnake({ canvas, buffer, world, layout, stage, role: () => view.role() });
+bindPinball({ canvas, buffer, world, layout, stage, role: () => view.role() });
 const testPanel = bindTestControls({
   world,
   jumpToWave,

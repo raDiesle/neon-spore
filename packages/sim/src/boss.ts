@@ -101,11 +101,11 @@ export function stepBoss(world: World): void {
     stepFleet(world, boss);
     return;
   }
-  // THE GAUGE and SNAKE never reach this. Both are stepped on the tick from
-  // `step`'s own early return, and the field's beat does not run while either
-  // stands — so the branch is here to say that out loud rather than to do
-  // anything.
-  if (boss.kind === "gauge" || boss.kind === "snake") return;
+  // THE GAUGE, SNAKE and PINBALL never reach this. All three are stepped on
+  // the tick from `step`'s own early return, and the field's beat does not run
+  // while any of them stands — so the branch is here to say that out loud
+  // rather than to do anything.
+  if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

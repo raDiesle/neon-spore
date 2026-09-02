@@ -96,6 +96,24 @@ export type Command =
   | { kind: "snakeFire" }
   | { kind: "snakeMaw" }
   /**
+   * PINBALL's three, and the same argument one round further on: a round that
+   * is not the field has its own verbs.
+   *
+   * `slide` is player 1's bucket, held rather than pressed — `valve`'s exact
+   * contract, because it is `valve`'s exact gesture: a thing that has to be
+   * *placed* under a falling ball cannot be stepped, and a pair counting
+   * presses at a ball in the air would be two people doing arithmetic instead
+   * of talking. `latch` is player 1's too and stops the sweeping needle.
+   *
+   * `launch` is player 2's, and it is one button that means two things by the
+   * phase the shot is in: it opens the sweep, and then it fires on the power
+   * bar. One slab and no mode to explain — what it is about to do is what
+   * their screen is already showing (`pinball-controls.ts`).
+   */
+  | { kind: "slide"; on: boolean; dir: -1 | 1 }
+  | { kind: "latch" }
+  | { kind: "launch" }
+  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after

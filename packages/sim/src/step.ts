@@ -9,6 +9,7 @@ import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
+import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { TimedCommand } from "./types.js";
@@ -74,6 +75,21 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepSnakeRound(world);
+    return;
+  }
+  // PINBALL has it third, and the branch is the same shape once more. What is
+  // different is why the tick matters here: the other two rounds answer a
+  // thumb on the tick, and this one *integrates a body* on it — a beat is 75
+  // ticks and a ball stepped at that rate would pass through the table
+  // (`pinball-round.ts`).
+  if (pinballHolds(world)) {
+    for (const c of commands) {
+      if (c.command.kind === "restart") applyCommand(world, c);
+      else pinballRoundHeard(world, c.player, c.command);
+    }
+    world.tick += 1;
+    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+    stepPinballRound(world);
     return;
   }
   // Commands are read even when the hull is through — otherwise `restart`

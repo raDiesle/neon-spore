@@ -66,6 +66,19 @@ export function roundKeyDown(code: string, snakeUp = false): Press | null {
       return { player: 1, command: { kind: "snakeFire" } };
     case "KeyB":
       return { player: 1, command: { kind: "snakeMaw" } };
+    // PINBALL. A and D hold the bucket, T latches the needle — all three the
+    // pilot's — and Y is the navigator's one button, which opens the sweep and
+    // then fires it. Four keys away from every other round's, because at a
+    // desk one person is playing both seats and a collision would send the
+    // wrong half.
+    case "KeyA":
+      return { player: 1, command: { kind: "slide", on: true, dir: -1 } };
+    case "KeyD":
+      return { player: 1, command: { kind: "slide", on: true, dir: 1 } };
+    case "KeyT":
+      return { player: 1, command: { kind: "latch" } };
+    case "KeyY":
+      return { player: 2, command: { kind: "launch" } };
     default:
       return null;
   }
@@ -79,5 +92,7 @@ export function roundKeyDown(code: string, snakeUp = false): Press | null {
 export function roundKeyUp(code: string): Press | null {
   if (code === "KeyZ") return { player: 1, command: { kind: "valve", on: false, dir: -1 } };
   if (code === "KeyX") return { player: 1, command: { kind: "valve", on: false, dir: 1 } };
+  if (code === "KeyA") return { player: 1, command: { kind: "slide", on: false, dir: -1 } };
+  if (code === "KeyD") return { player: 1, command: { kind: "slide", on: false, dir: 1 } };
   return null;
 }

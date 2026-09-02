@@ -162,6 +162,10 @@ export const MECHANICS = {
     what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and can see nothing in the arena; the other has a shot and a mouth and cannot steer.",
     reach: "spawn",
   },
+  pinball: {
+    what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other opens the sweep and picks the strength — and then the same bucket has to be under the ball when it comes back down.",
+    reach: "spawn",
+  },
   briefing: {
     what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
     reach: "run",
