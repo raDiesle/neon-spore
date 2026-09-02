@@ -55,14 +55,35 @@ function strainPhase(cfg: SimConfig, c: Creature, beats: number): number {
 }
 
 /**
- * Pull the body out along the axis it is about to divide on, about the point
- * the caller has already translated to. Called before the pose's own rotation
- * and scale, so the stretch is along a *field* direction — the halves step
- * along columns and rows, not along whatever way the body happens to be
- * leaning.
+ * How far the body is pulled out of shape this instant, and about which
+ * direction — or nothing at all for any other kind, and for an echo that has
+ * finished dividing.
  *
- * Does nothing at all for any other kind, and nothing for an echo that has
- * finished dividing, so the one call site needs no branch of its own.
+ * A rule with a return value rather than a pair of `ctx` calls, so the shape
+ * of the strain can be *asserted*: `echo-strain.test.ts` reads these three
+ * numbers, and a tell wired to nothing would otherwise look exactly like a
+ * tell that is subtle.
+ */
+export function echoStretch(
+  cfg: SimConfig,
+  c: Creature,
+  beats: number,
+): { angle: number; along: number; across: number } | null {
+  if (c.kind !== "echo") return null;
+  const axis = echoAxis(cfg, c);
+  if (axis === null) return null;
+  const s = STRAIN * strainPhase(cfg, c, beats);
+  return { angle: Math.atan2(axis.row, axis.col), along: 1 + s, across: 1 - s * NECK };
+}
+
+/**
+ * Apply it, about the point the caller has already translated to. Called
+ * before the pose's own rotation and scale, so the stretch is along a *field*
+ * direction — the halves step along columns and rows, not along whatever way
+ * the body happens to be leaning.
+ *
+ * Does nothing at all for any other kind, so the one call site needs no branch
+ * of its own.
  */
 export function echoStrain(
   ctx: CanvasRenderingContext2D,
@@ -70,15 +91,11 @@ export function echoStrain(
   c: Creature,
   beats: number,
 ): void {
-  if (c.kind !== "echo") return;
-  const axis = echoAxis(cfg, c);
-  if (axis === null) return;
-  const s = STRAIN * strainPhase(cfg, c, beats);
-  if (s <= 0) return;
-  const angle = Math.atan2(axis.row, axis.col);
-  ctx.rotate(angle);
-  ctx.scale(1 + s, 1 - s * NECK);
-  ctx.rotate(-angle);
+  const pull = echoStretch(cfg, c, beats);
+  if (pull === null || pull.along === 1) return;
+  ctx.rotate(pull.angle);
+  ctx.scale(pull.along, pull.across);
+  ctx.rotate(-pull.angle);
 }
 
 /**
