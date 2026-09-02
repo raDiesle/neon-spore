@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 2a5ec4a — A body that never stops, and neither of you can turn a whole corner
+
+SNAKE, the second of the twelve rounds and the first control in the game that moves something. The ship folds into a snake, the snake never stops, and the one rule underneath it is that a turn only ever counts *across* the way the body is already going: player 1 has left and right, player 2 has up and down, so every corner is one seat and then the other, in an order they have to agree out loud. That is what makes a game famously played by one person a game for two — and it is the answer the idea store had been waiting for since the entry was written.
+
 ## 2026-09-02 · a248bdb — One of you can see the ships and the other one is holding the sights
 
 THE FLEET, a sixth boss and the plainest split this game has drawn. A chart of squares stands over the field with a fleet hidden in it: player 1 is shown every hull and holds the only trigger, player 2 is shown water and is the only one who can move the sights. Neither can reach the other's half, so the pilot spends the fight saying a square out loud and the navigator spends it counting one. The sights step one square a press and never jump — a control that could name a square would need no telling — and the chart is lettered A to K by 1 to 10 so a square survives being said once across a voice delay. The clock is the whole of the danger: nothing here can reach the hull, and running out of time breaks it by damageFleet in the middle column.
