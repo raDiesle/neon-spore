@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · ce1aae3 — One of you drives the snake and the other one works it
+
+The owner played the round and said what it should be instead, and this is that round. Player 2 has the whole of the steering — LEFT and RIGHT are a quarter turn each, relative, the way the arcade game has always been driven, and there is no up and down at all. Player 1 has the two things the body does when it arrives: FIRE, a shot straight out of the head, and MAW, the mouth open for half a second. Neither of them can do any part of the other's job.
+
 ## 2026-09-02 · 51f64f2 — THE ECHO: the slow one that becomes four
 
 A twentieth creature, and the first whose urgency points forwards. It comes down one row every second beat, so the hull is never what is pressing — but one beat after it lands it divides in two, and one beat after that both halves divide again, fanning two columns apart and then one so the four end up evenly spread. One shot early is four shots late, and since a kill pays for every body the one it killed would still have become, the pair is never paid for waiting, only charged for it. The wave puts an echo beside two ordinary bodies that look far more urgent, which is the sentence it exists to make somebody say: that one first.
