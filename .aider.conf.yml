@@ -22,12 +22,13 @@ edit-format: diff
 # report is read by the orchestrator, not by a person — pin it.
 chat-language: english
 
-# The rulebook, read-only so it is cached and cannot be edited. CONVENTIONS.md
-# is written for this worker; CLAUDE.md is not, and handing it over was a
-# mistake — it instructs its reader to delegate implementation and to commit
-# when done, both of which are exactly wrong on this side of the handover.
+# The rulebook, read-only so it is cached and cannot be edited.
+# WORKER-CONVENTIONS.md is written for this worker; CLAUDE.md is not, and
+# handing it over was a mistake — it instructs its reader to delegate
+# implementation and to commit when done, both of which are exactly wrong on
+# this side of the handover.
 read:
-  - CONVENTIONS.md
+  - tools/delegate/WORKER-CONVENTIONS.md
 
 # The contract. Aider re-prompts itself with the failure output until this
 # passes, which is the entire point: the retries happen on cheap tokens.

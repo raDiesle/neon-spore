@@ -1,5 +1,12 @@
 # Conventions for Neon Spore
 
+This file is read by the worker model only — `bun run delegate` hands it to
+aider as read-only context. A Claude session follows `CLAUDE.md`, not this
+file. The two disagree on purpose about the one rule that matters most, "do
+not commit" below versus CLAUDE.md's "commit when the work is done": the
+worker's output is reviewed and committed by the session that delegated it,
+never by the worker loop itself.
+
 Read this before editing. It is the whole rulebook; nothing here is optional.
 
 Neon Spore is a two-player co-op game for portrait mobile web. A fixed hull, a

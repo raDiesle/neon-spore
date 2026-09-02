@@ -82,39 +82,18 @@ by side with *identical* input. The agent produces variants; you pick.
 
 ## Model choice
 
-Plan with a large model, execute with a fast one. See `docs/token-budget.md`.
+Delegation to the worker model is measured, not assumed: building the same
+module twice found delegating cost 6.8 times as much. See
+`docs/delegation-cost.md` for the figures and when delegation still pays for
+itself.
 
 ## Git
 
-**Straight to `main`.** No feature branches, no pull requests. One person works
-on this repo; a branch means a merge step later and a review that never comes.
-Agents default to branching before they commit on a default branch — that
-default is off here, and it is written into `CLAUDE.md` so every session sees
-it.
-
-The safety this normally buys is bought differently: `bun run check` before
-anything is called done, the determinism hook after every edit in
-`packages/sim`, and small commits that are easy to read and easy to revert.
-
-If a change really is exploratory, a branch is still allowed — but it is a
-deliberate choice to be stated, not the default.
-
-**Committing is part of finishing.** Claude commits at the end of a task
-without being asked, provided `bun run check` passes and the task is actually
-done. The four conditions are in `CLAUDE.md`; the one that matters most is
-staging by path rather than `git add -A`, because the working tree is not
-guaranteed to hold only this session's work — that happened on 2026-08-23, when
-a second session was mid-refactor and a blanket commit would have captured a
-broken state.
-
-This is deliberately *not* a hook. A hook cannot tell a finished result from an
-abandoned one, cannot write a message that explains why, and cannot decide what
-to leave out. The `Stop` hook already guards the part that is mechanical:
-typecheck and tests have to pass before the turn ends.
+Landing is one command: `bun run land`, run from inside the lane's worktree.
+It rebases onto `main`, runs `bun run check` on the result, fast-forwards, and
+cleans up after itself. `CLAUDE.md` has the full mechanics.
 
 ## House style for changes
 
 - Touch only what changed. Do not regenerate whole files.
 - Bundle change requests rather than sending them one at a time.
-- Default mode is spec mode: collect ideas, record decisions, no code, until
-  building is explicitly asked for.
