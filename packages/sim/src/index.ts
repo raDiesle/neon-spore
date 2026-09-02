@@ -57,6 +57,32 @@ export {
   NO_GRIP,
   setGrip,
 } from "./grip.js";
+export {
+  gyreMountsLeft,
+  gyreSpinPerBeat,
+  gyreSucked,
+  gyreSuckTicks,
+  isMount,
+} from "./gyre.js";
+export {
+  GYRE_CLICKS,
+  GYRE_DIAMOND,
+  GYRE_LAP_BEATS,
+  GYRE_MOUNTS,
+  GYRE_RADIUS,
+  GYRE_RING,
+  GYRE_TURN_MILLI,
+  gyreAt,
+  gyreBecomes,
+  gyreClick,
+  gyreLap,
+  gyreRestCol,
+  gyreRestRow,
+  gyreStep,
+  mountClick,
+  mountColor,
+  mountOffset,
+} from "./gyre-rim.js";
 export { hashWorld } from "./hash.js";
 export { hullPercent } from "./hull.js";
 export {

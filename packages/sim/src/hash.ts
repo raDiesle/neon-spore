@@ -1,6 +1,6 @@
 import { kindCode } from "./creature-kinds.js";
 import { bossHashParts } from "./hash-boss.js";
-import { spanOf } from "./kinds.js";
+import { spanOf } from "./span.js";
 import { POD_KINDS } from "./types.js";
 import type { World } from "./world.js";
 
@@ -176,6 +176,20 @@ export function hashWorld(world: World): number {
     // left and disagree about the moment hold the same field a beat apart, and
     // a beat apart is one screen with four bodies on it and one with eight.
     push(c.echoBeat ?? -1);
+    // THE GYRE's four. The hub's turn and its age decide where all six bodies
+    // on its rim stand on the next beat, how fast the rim is going and how far
+    // the diamond has sunk — so two devices that disagree about either are two
+    // devices firing at different columns. The mount's two are the attachment
+    // itself: `carryMounts` moves whatever names a hub, and `breakSpentGyres`
+    // counts the same field to decide whether the wheel is still there.
+    //
+    // `-1` for a body that carries none, which is a value none of the four can
+    // take, so "not a wheel" and "upright, brand new, riding slot zero" are
+    // never the same number in the fingerprint.
+    push(c.gyreTurnMilli ?? -1);
+    push(c.gyreStep ?? -1);
+    push(c.gyreId ?? -1);
+    push(c.gyreSlot ?? -1);
     // The body a lure wears. Authored rather than rolled, so it is in here for
     // the reason the maze's wheel is: the assumption that both devices were
     // handed the same wave is exactly the one worth checking, and a disguise

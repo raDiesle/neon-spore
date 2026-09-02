@@ -1,5 +1,5 @@
 import { ghostCrosses } from "./ghost.js";
-import { type Creature, fallTilesPerBeat } from "./types.js";
+import { type Creature, fallTilesPerBeat, isGrippable } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -100,10 +100,16 @@ export function grippedFallTiles(world: World, c: Creature): number {
 }
 
 /**
- * Whether a hand may be put on this body at all. The two refusals are one
+ * Whether a hand may be put on this body at all. Every refusal is one
  * sentence — *it is not falling, so there is nothing to drag at* — said about
- * a boss that holds her row and about a ghost that walks its own.
+ * a boss that holds her row, about a ghost that walks its own, and about the
+ * five kinds `isGrippable` already names.
+ *
+ * It calls that rather than repeating it, and the two together are not one
+ * list said twice: `isGrippable` answers about a *kind*, which is what render/
+ * asks before it offers a body to a thumb, and a crossing ghost is a `ghost`
+ * that happens to be walking — a fact about one body that no kind can carry.
  */
 function canBeHeld(c: Creature): boolean {
-  return c.kind !== "queen" && !ghostCrosses(c);
+  return isGrippable(c.kind) && c.kind !== "queen" && !ghostCrosses(c);
 }

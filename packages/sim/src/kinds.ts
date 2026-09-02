@@ -1,16 +1,21 @@
 import type { CreatureKind } from "./creature-kinds.js";
-import { SHELL_COLS } from "./shell.js";
-import type { Color, Creature } from "./types.js";
+import type { Color } from "./types.js";
 
 /**
  * What a `CreatureKind` *means*: which colour goes with which body, how fast
- * one falls, how wide it is, whether a hand may be put on it.
+ * one falls, whether it is a rock, whether a hand may be put on it.
  *
  * Every function here is a rule the rest of the simulation must call rather
  * than re-derive — `purity.test.ts` holds several of them to that, because
  * each row in its table is a rule somebody has already written out by hand
  * once. `types.ts` next door is the *shapes*: what a creature, a bullet, a pod
  * and a command are made of, with no arithmetic in any of them.
+ *
+ * **How wide a body is lives in `span.ts`**, which was cut out of here when
+ * THE GYRE arrived and this file was already at its limit. The seam is real
+ * rather than convenient: everything here answers a question about a *kind*,
+ * and a span stopped being one of those the day a rock's width became an
+ * authored number rather than a fact about the tier it belongs to.
  */
 
 /**
@@ -94,72 +99,12 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // from this number, so a wisp's first frame is already on the tile it was
   // authored into, which is the only entrance a thing that teleports has.
   if (kind === "wisp") return 0;
+  // THE GYRE, both halves of it: the hub walks its own route and the six on
+  // its rim are carried by it (`stepGyre`), so neither has a fall for a number
+  // here to describe.
+  if (kind === "gyre" || kind === "mount") return 0;
   const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
-}
-
-/**
- * Columns wide a kind occupies. Every kind is one tile except the torch,
- * which is two — twice a plain rock's width — and the Warden, which is five:
- * a fixture rather than an arrival, and wide enough that the column its pupil
- * is in is a thing the pair has to name (docs/spec/bosses.md 11.4).
- */
-export function colSpan(kind: CreatureKind): number {
-  if (kind === "warden") return WARDEN_COLS;
-  // THE SHELL's width and its number of pieces are the same number, and
-  // `shell.ts` owns it: every column of the body carries exactly one piece, so
-  // a width set here and a count set there could disagree and leave a column
-  // with nothing in front of it -- or a piece with no column to be shot in.
-  if (kind === "shell") return SHELL_COLS;
-  return kind === "torch" ? 2 : 1;
-}
-
-/**
- * Columns the Warden's ring covers. Odd, so the body has a whole column at its
- * centre and "dead centre" is a place rather than a rounding — and five rather
- * than three because the pupil's travel is the fight: a hole with one column
- * either side of home is a hole that twitches, not one that looks around.
- */
-export const WARDEN_COLS = 5;
-
-/**
- * How wide a rock arrives, in tiles. Two is a rock that fills a 2x2 square —
- * the same geometry the torch has always had, offered to the plain tiers as an
- * authored choice rather than as a sixth kind.
- *
- * A number rather than a kind on purpose. Speed *is* the kind here — five
- * tiers, `meteor` through `meteorFastest` — and crossing that with two widths
- * would be ten entries in the bestiary for one new fact. Size is the fact, so
- * it is a field.
- */
-export type RockSize = 1 | 2;
-
-/**
- * How many columns this body actually occupies: what it was built with, or
- * failing that its kind's own width.
- *
- * **Call this, never `c.span ?? colSpan(c.kind)` by hand.** `colSpan` alone
- * answers a question about a *kind*, and since a rock's width became an
- * authored number that is no longer the same question as how wide the thing
- * standing in the field is — a hit test written against the kind lets a shot,
- * a shield or a hull impact miss the second column of a big meteor while every
- * type check passes.
- *
- * It takes the parts rather than a whole `Creature` so that a `Scar` and a
- * breach event — both of which carry the same two fields and neither of which
- * is a creature — are answered by the same rule.
- */
-export function spanOf(body: { kind: CreatureKind; span?: number }): number {
-  return body.span ?? colSpan(body.kind);
-}
-
-/**
- * The tile column at a body's visual centre — `spanCenterCol` for something
- * that may be carrying a width of its own. `col` is passed separately because
- * render/ asks about a body part-way through a move.
- */
-export function bodyCenterCol(body: { kind: CreatureKind; span?: number }, col: number): number {
-  return col + (spanOf(body) - 1) / 2;
 }
 
 /**
@@ -198,48 +143,18 @@ export function isBossBody(kind: CreatureKind): boolean {
  * put on it by the seat that already knows where it is — which is a way of
  * marking the tile for the other player without saying anything, and saying it
  * out loud is the game.
+ *
+ * THE GYRE is refused on both halves, and it is the dart's refusal twice over:
+ * a hub walks a diamond and a mount is carried around a rim, so neither has a
+ * rate for a brake to scale. The pair's answer to a wheel is the maw, which
+ * slows the *turn* and is the coupling the creature was built around
+ * (`gyreSucked`).
+ *
+ * A list rather than a chain of `!==`, now that there are six of them: a chain
+ * that long is one somebody extends by pattern rather than by argument.
  */
+const UNGRIPPABLE: readonly CreatureKind[] = ["tether", "dart", "wisp", "gyre", "mount"];
+
 export function isGrippable(kind: CreatureKind): boolean {
-  return !isBossBody(kind) && kind !== "tether" && kind !== "dart" && kind !== "wisp";
-}
-
-/**
- * Whether a creature occupies the given column — true for every column its
- * span covers, not only `col` itself. Call this instead of `c.col === col`
- * wherever a column test decides a hit, a hull impact or a shield match: a
- * one-column comparison silently misses the torch's second column.
- *
- * `c.col` is always the *leftmost* column a creature occupies — a span wider
- * than one tile has no single integer column at its centre, so there is
- * nothing else `col` could consistently mean once a kind spans an even
- * number of tiles. See `spanCenterCol` for where the centre is needed.
- */
-export function occupiesCol(c: Creature, col: number): boolean {
-  return col >= c.col && col < c.col + spanOf(c);
-}
-
-/**
- * Clamp a spawn column so a wide body's whole span stays on the field. It
- * takes the span rather than the kind, because a rock's width is authored
- * now (`RockSize`) and a kind no longer answers the question on its own —
- * `spanOf` is what the caller asks first.
- */
-export function clampSpanCol(col: number, cols: number, span: number): number {
-  return Math.max(0, Math.min(cols - span, Math.round(col)));
-}
-
-/**
- * The tile column at a creature's visual centre, in tile units. Needed
- * anywhere a wide creature (only the torch, today) must be drawn or reported
- * as one thing rather than as its leftmost column — a two-wide creature's
- * centre sits half a tile past it.
- *
- * `col` is an integer everywhere the simulation reads it. render/ passes a
- * fractional one on purpose, out of `drawnCol`, for a dart part-way through
- * the diagonal it is crossing — the offset added here is a constant, so the
- * centre of a body mid-glide is the same thing as the centre of one standing
- * still.
- */
-export function spanCenterCol(kind: CreatureKind, col: number): number {
-  return col + (colSpan(kind) - 1) / 2;
+  return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);
 }

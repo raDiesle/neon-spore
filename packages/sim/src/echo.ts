@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
 import { livingKindForColor } from "./kinds.js";
+import { clampSpanCol } from "./span.js";
 import type { Bullet, Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
 

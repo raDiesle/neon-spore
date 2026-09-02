@@ -10,6 +10,8 @@ import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGrips } from "./grip.js";
+import { drawGyres } from "./gyre.js";
+import { drawGyreWind } from "./gyre-wind.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
 import { frame } from "./hull-frame.js";
@@ -67,6 +69,14 @@ export function drawBodies(
 ): void {
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
+  // The wind between every wheel and the mouth, under everything: it is the
+  // one picture in the pass that must never cross in front of a colour, and
+  // it reaches from the middle of the field down to the hull (`gyre-wind.ts`).
+  drawGyreWind(ctx, l, world, view.beatPhase, view.time);
+  // Then the wheels themselves, in one pass and behind their own bodies —
+  // an armature five rows tall cannot take its turn inside a loop that
+  // sorts body by body (`gyre.ts`).
+  drawGyres(ctx, l, world, view.beatPhase, view.time);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

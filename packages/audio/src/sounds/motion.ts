@@ -166,8 +166,8 @@ export const MOTION_SOUNDS: SoundDef[] = [
     id: "ruin.collapse",
     family: "ruin",
     blurb: "Something structural failing over a second and a half.",
-    status: "spare",
-    use: "A boss's body coming apart after it is already dead.",
+    status: "bound",
+    use: "THE GYRE's wheel, a beat after the last body has come off its rim.",
     level: 0.4,
     layers: [
       metal(70, 1.2, 0.5, 120),

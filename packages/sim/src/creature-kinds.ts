@@ -104,7 +104,25 @@ export type CreatureKind =
    * state, and it is also its health bar: `rind.ts` holds the rule and
    * render draws one body's footprint per layer still on.
    */
-  | "rind";
+  | "rind"
+  /**
+   * The hub of a turning wheel with six bodies on its rim. It is not a target
+   * and does not stop a shot: everything about it that can be answered is a
+   * `mount`, and when the last of those goes the wheel breaks. `gyreTurnMilli`
+   * is how far it has turned and `gyreStep` how many beats it has been up —
+   * between them they say where every mount is, how fast the rim is going and
+   * how far the diamond it walks has sunk. See `gyre.ts`.
+   */
+  | "gyre"
+  /**
+   * One of the six on that rim: an ordinary slick or bulb that does not fall,
+   * because its hub carries it. `gyreId` is which wheel and `gyreSlot` which
+   * position on it, and the colour alternates around the rim rather than being
+   * authored — which is the creature, since it makes a column's colour a thing
+   * that changes on the beat. Answered by the ordinary rule, and `wornKind`
+   * resolves the body it is drawn as (`gyre-rim.ts`).
+   */
+  | "mount";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -139,6 +157,8 @@ export const CREATURE_KINDS = [
   "ghost",
   "echo",
   "rind",
+  "gyre",
+  "mount",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

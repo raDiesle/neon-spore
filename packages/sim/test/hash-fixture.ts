@@ -45,6 +45,10 @@ const creature = (): Required<Creature> => ({
   echoSplits: 2,
   rindLayers: 1,
   echoBeat: 5,
+  gyreTurnMilli: 3400,
+  gyreStep: 9,
+  gyreId: 5,
+  gyreSlot: 3,
 });
 
 const bullet = (): Required<Bullet> => ({

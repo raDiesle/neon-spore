@@ -2,6 +2,7 @@ import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
+import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
@@ -11,6 +12,7 @@ export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
+export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
@@ -25,6 +27,7 @@ export interface SimConfig
     CreatureConfig,
     FleetConfig,
     GaugeConfig,
+    GyreConfig,
     PairConfig,
     PinballConfig,
     ShotConfig,
@@ -168,6 +171,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CREATURE_DEFAULTS,
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
+  ...GYRE_DEFAULTS,
   ...PINBALL_DEFAULTS,
   ...SHOT_DEFAULTS,
   ...SNAKE_DEFAULTS,

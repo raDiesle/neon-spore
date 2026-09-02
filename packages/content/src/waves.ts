@@ -3,6 +3,7 @@ import { WAVES_ACT_1 } from "./waves/act-1.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
 import { WAVES_ACT_4 } from "./waves/act-4.js";
+import { WAVES_ACT_5 } from "./waves/act-5.js";
 
 export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
 
@@ -22,4 +23,10 @@ export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
  * once the newest one fills up in its own turn, is one more import and one
  * more spread here — which is exactly what `act-4.ts` cost.
  */
-export const WAVES: Wave[] = [...WAVES_ACT_1, ...WAVES_ACT_2, ...WAVES_ACT_3, ...WAVES_ACT_4];
+export const WAVES: Wave[] = [
+  ...WAVES_ACT_1,
+  ...WAVES_ACT_2,
+  ...WAVES_ACT_3,
+  ...WAVES_ACT_4,
+  ...WAVES_ACT_5,
+];

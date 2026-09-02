@@ -1,6 +1,6 @@
 import { hullRow, type SimConfig } from "./config.js";
 import { echoSplitsLeft } from "./echo.js";
-import { clampSpanCol } from "./kinds.js";
+import { clampSpanCol } from "./span.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 

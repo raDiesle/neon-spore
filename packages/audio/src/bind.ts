@@ -133,6 +133,13 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    case "gyreBroke":
+      // A mechanism letting go rather than a body dying, and the one cue in
+      // the catalogue written for exactly that — "something structural
+      // failing over a second and a half". It was spare, kept for a boss
+      // coming apart after it is already dead, which is what a wheel with
+      // nothing left on its rim is.
+      return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
     case "wardenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     case "petal":

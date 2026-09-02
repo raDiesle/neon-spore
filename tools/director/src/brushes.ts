@@ -104,13 +104,21 @@ function cardSubjects(kind: CreatureKind): string[] {
   // round: it is a slick or a bulb drawn one footprint per layer it still
   // wears, so the sheet has no RIND contour either and the card resolves to
   // the two bodies one can be. Which of them is the authored colour again.
+  // THE GYRE is the seventh, and the only one that is not a body wearing
+  // something. It is an armature — a rim, six spokes and a hub, drawn by
+  // `render/gyre.ts` — so the sheet has no GYRE contour to draw either, and
+  // what the brush actually *places* is six bodies: three slicks and three
+  // bulbs, alternating round the rim (`mountColor`). So the card resolves to
+  // both for a different reason from the six above, and says the true thing
+  // about the brush rather than about the kind.
   if (
     kind === "lure" ||
     kind === "clasp" ||
     kind === "shell" ||
     kind === "veil" ||
     kind === "echo" ||
-    kind === "rind"
+    kind === "rind" ||
+    kind === "gyre"
   ) {
     return ["SLICK", "BULB"];
   }

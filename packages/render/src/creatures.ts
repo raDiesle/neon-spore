@@ -44,6 +44,13 @@ export function drawCreatures(
     // `world.boss` and not on the creature alone — and so is the tether, which
     // is a line down a column rather than a thing standing on a tile.
     if (isBossBody(c.kind) || c.kind === "tether") continue;
+    // And THE GYRE's hub, which is an armature spanning five rows rather
+    // than a body on a tile. `gyre.ts` draws every wheel in one pass before
+    // this one, because `byDepth` sorts body by body and a hub taking its
+    // turn in that order would have its spokes over the mounts above it and
+    // under the ones below. The six on its rim are `mount`s and go through
+    // the ordinary living draw below, which is the whole creature.
+    if (c.kind === "gyre") continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
     const row = drawnRow(c, beatPhase);
     const near = nearness(l, row);

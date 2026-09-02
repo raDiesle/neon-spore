@@ -56,6 +56,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 24, PALETTE.red);
     case "wardenDown":
       return at(l, e.col, e.row, 24, PALETTE.rock);
+    // THE GYRE's armature failing, a beat after the last body came off it.
+    // The rock's colour and not a body's: nothing living broke here — the six
+    // were already gone, each with its own burst — and this is a mechanism
+    // letting go. Sized with the two bosses for the reason they are: it is the
+    // end of the wave, and the pair has earned being shown one.
+    case "gyreBroke":
+      return at(l, e.col, e.row, 24, PALETTE.rock);
     case "podLoose":
       return at(l, e.col, e.row, 10, PALETTE.ember);
     case "podLost":

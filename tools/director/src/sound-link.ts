@@ -157,6 +157,8 @@ function byFamily(def: SoundDef): Subject {
  */
 export const NO_SUBJECT: Record<string, string> = {
   "beat.tick": "the beat is the grid and the HUD dots. It belongs to no column and no creature.",
+  "ruin.collapse":
+    "THE GYRE's wheel failing. What comes apart is a rim, six spokes and a hub, drawn as an armature by render/gyre.ts rather than as a contour — and the sheet's cards are silhouettes of bodies, which is exactly what a wheel is not.",
   "beat.accent": "the same — the fourth beat is a moment, not an object.",
   "impact.hole":
     "a hole is punched in whatever was hit. The subject is the creature, and the creature differs every time.",

@@ -7,13 +7,16 @@ import type { CreatureDef } from "./creatures.js";
  * to `never` and the key becomes a build error, so this list cannot fall
  * behind a rename in `creature-kinds.ts`.
  */
-type WornKind = Extract<CreatureKind, "lure" | "shell" | "clasp" | "veil" | "echo" | "rind">;
+type WornKind = Extract<
+  CreatureKind,
+  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "mount"
+>;
 
 /**
- * The six bodies that are drawn as something else: a slick or a bulb with a
- * disguise, plating, a membrane, weather, or nothing at all but a size that is
- * not the usual one — smaller for THE ECHO, and larger by however much is left
- * for THE RIND.
+ * The seven bodies that are drawn as something else: a slick or a bulb with a
+ * disguise, plating, a membrane, weather, a size that is not the usual one —
+ * smaller for THE ECHO and larger by however much is left for THE RIND — or a
+ * wheel under it carrying it round.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
  * 250-line limit, along the seam the game already reads on — these are exactly
@@ -176,5 +179,28 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A slick or a bulb three times the size of one. The matching colour does not kill it — it takes a layer off and the body underneath is a size smaller, twice, and only then does a shot finish it. How much is left is how big it is; there is no other read-out.",
+  },
+  mount: {
+    kind: "mount",
+    // Nothing at all, and it is the tether's answer rather than a new one: a
+    // mount is installed by its wheel and never authored, so a wave containing
+    // one already contains the `gyre` that put it there and already shows the
+    // cannon that entry asks for. A control group here would be the same panel
+    // named twice, and it would put a brush in the director for a body no
+    // author may place (`LIVING_BRUSH_KINDS`, tools/director/src/brushes.ts).
+    controls: [],
+    // No colour of its own — but not because a wave authors one. A mount's
+    // colour comes from *where on the rim it is* (`mountColor`), which is the
+    // whole creature: the alternation is what makes a column's colour a thing
+    // that changes on the beat. So there is deliberately no `authorsColor`
+    // either; a director offering red or cyan here would be offering to switch
+    // the mechanic off.
+    color: null,
+    // Nobody's strip, for the tether's reason: it does not arrive, the wheel
+    // does. Six more rows for six bodies that came in on one announcement
+    // would be noise on a strip that exists to say what is coming.
+    radar: "none",
+    blurb:
+      "One of the six on a wheel's rim: an ordinary slick or bulb that does not fall, because the wheel carries it. It is answered exactly like a body in a lane — the right colour, in the right column — except that both of those are only true for a beat at a time.",
   },
 };

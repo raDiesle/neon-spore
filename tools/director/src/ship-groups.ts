@@ -38,6 +38,7 @@ export type GroupName =
   | "THE GHOST — a body with no column on one screen"
   | "THE ECHO — one body that becomes eight"
   | "THE RIND — one body, three sizes"
+  | "THE GYRE — six bodies on a turning rim"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -69,6 +70,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GHOST — a body with no column on one screen",
   "THE ECHO — one body that becomes eight",
   "THE RIND — one body, three sizes",
+  "THE GYRE — six bodies on a turning rim",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -89,6 +91,14 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "it fell; the clock running out costs it more. The ball is stepped on the " +
     "tick in thousandths of a tile, so every number here is per tick.",
 
+  "THE GYRE — six bodies on a turning rim":
+    "A wheel with six bodies bolted round its rim, alternating red and cyan. " +
+    "It falls to the middle of the field and then walks a diamond there, " +
+    "turning faster every beat and sinking a row every lap until the bottom of " +
+    "it grinds along the ship. The colour standing in a column changes on the " +
+    "beat, so the pair name a moment rather than a place — and player 1's maw " +
+    "slows the turn for a few beats, from wherever the cannon is. See gyre.ts, " +
+    "gyre-rim.ts.",
   "SNAKE — a round the ship is the body of":
     "The other built round, and the first control that moves something. The " +
     "ship shrinks into a snake that never stops: player 2 turns it a quarter " +

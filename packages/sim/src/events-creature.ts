@@ -174,4 +174,11 @@ export type CreatureEvent =
    * nothing else can shed one — so the burst is the body's colour rather than
    * a grey one: this was a hit and it should feel like one.
    */
-  | { type: "rindShed"; col: number; row: number; color: Color; left: number };
+  | { type: "rindShed"; col: number; row: number; color: Color; left: number }
+  /**
+   * THE GYRE's wheel failing, a beat after the last body left its rim
+   * (`breakSpentGyres`). The hub's own tile and not the kill's: what breaks is
+   * the armature, and the sixth `destroy` threw its particles two columns away
+   * on the tick before this.
+   */
+  | { type: "gyreBroke"; col: number; row: number };

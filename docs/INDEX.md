@@ -162,6 +162,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pinball-physics.ts` | one tick of a ball on a table: gravity, the speed cap, the bounce |
 | `packages/sim/src/pinball-round.ts` | PINBALL's clock: the three phases, the shot loop inside the middle one, and the two ways the hull pays |
 | `packages/sim/src/pinball.ts` | PINBALL: the ship folds into a bucket, and the bucket is both the gun and the glove |
+| `packages/sim/src/gyre-rim.ts` | you need where a body on a wheel's rim stands, what colour it is, or where the diamond has walked to — the table and the route, with no world in it |
+| `packages/sim/src/gyre.ts` | you touch the wheel itself — how it turns, what the maw does to it, how it carries its six bodies and when it breaks |
+| `packages/sim/src/span.ts` | you need how wide a body is or which columns it covers — `spanOf`, `occupiesCol` and the clamps, cut out of `kinds.ts` |
+| `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
+| `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
+| `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 
 ### packages/content
 
@@ -198,6 +204,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 | `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
+| `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
 
 ### packages/render
 
@@ -337,6 +344,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
+| `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
+| `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — hub, rim and spokes, behind everything they carry |
 
 ### packages/net
 

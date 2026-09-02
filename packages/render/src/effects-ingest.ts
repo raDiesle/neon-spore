@@ -141,6 +141,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // are drawn every frame off the body itself (`wisp.ts`), so there is no
     // transient here — and an event carrying no column could not place one
     // anyway, which is deliberate (`events.ts`).
+    // A wheel coming apart. `burstFor` has already said what it throws, and
+    // there is nothing to carry into the next frame: the hub is off the field
+    // on the same beat, so an entry keyed to it would have nothing to look up.
+    case "gyreBroke":
     case "wispHop":
     // THE GHOST's three, and all three for the same reason: none of them is a
     // particle on the field. The escape is `ghost-release.ts`, a transient

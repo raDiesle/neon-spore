@@ -186,6 +186,12 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
     // line hanging in a column the pair still has to fire up. It is answered
     // by a hand and by nothing else (docs/spec/bosses.md 11.4).
     if (c.kind === "tether") continue;
+    // Nor is THE GYRE's hub, for the same two reasons at once: there is
+    // nothing on it to shoot, and the tile at the middle of a wheel is empty —
+    // what a shot meets in those columns is a mount or nothing (`gyre.ts`). A
+    // hub that stopped bolts would put a wall across five columns of the
+    // field with no body anywhere in it.
+    if (c.kind === "gyre") continue;
     const inCol = c.kind === "queen" ? queenOccupiesCol(c.col, b.col) : occupiesCol(c, b.col);
     if (!inCol) continue;
     const pos = creatureMilli(world, c);

@@ -223,7 +223,7 @@ const COPIES: Copy[] = [
   },
   {
     call: "occupiesCol",
-    owner: "packages/sim/src/kinds.ts",
+    owner: "packages/sim/src/span.ts",
     pattern: /c\s*\.\s*col\s*===\s*col\b/,
     strip: false,
   },
@@ -309,7 +309,7 @@ const COPIES: Copy[] = [
   },
   {
     call: "colSpan",
-    owner: "packages/sim/src/kinds.ts",
+    owner: "packages/sim/src/span.ts",
     pattern: /kind\s*===\s*"torch"\s*\?\s*2\s*:\s*1/,
     strip: false,
   },
@@ -320,7 +320,7 @@ const COPIES: Copy[] = [
     // against the kind lets a two-wide meteor's second column go unanswered
     // while every type check passes. `spanOf` is the one fallback.
     call: "spanOf",
-    owner: "packages/sim/src/kinds.ts",
+    owner: "packages/sim/src/span.ts",
     pattern: /\.span\s*\?\?\s*colSpan\s*\(/,
     strip: false,
   },

@@ -63,10 +63,10 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `gyre` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
-| `special` | neither | `tether` |
+| `special` | neither | `tether`, `mount` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -75,6 +75,13 @@ filled it**, and it did so by not being a creature in the sense the row was
 waiting for: it does not fall, it is not shot and it is not guarded against —
 it is dragged by its handle, which is a gesture with no control group at all.
 The bucket was right to exist and wrong about what would land in it.
+
+**THE GYRE's mounts are the second thing in it**, and they arrive by the
+same door. One of the six on a wheel's rim is an ordinary slick or bulb and
+is answered by `aim` like one — but it is not a body a wave places, it is a
+body a wheel brings, so it carries no control group and the `gyre` beside it
+in `cannon` is what shows the panel. Both rows say the same thing: `special`
+is where a body goes when something else on the field put it there.
 
 It stays a different axis from `radar`: *The Silent* and *The Jammer* (10.2)
 are unusual in what they tell a radar strip, not in what a player does about

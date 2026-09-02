@@ -1,10 +1,10 @@
 import type { FleetShip } from "./fleet-board.js";
 import type { GhostPath } from "./ghost.js";
-import type { RockSize } from "./kinds.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { PinballRound } from "./pinball.js";
 import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
+import type { RockSize } from "./span.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
 
 /**

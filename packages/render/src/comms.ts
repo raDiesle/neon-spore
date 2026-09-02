@@ -68,6 +68,14 @@ const TALKER = {
   // they listen — which makes the siren the only thing telling them that the
   // empty field they are staring at is not empty.
   wisp: "p2",
+  // THE GYRE, both halves, and it is the loudest `null` in the table. Both
+  // screens draw the whole wheel and every colour on it — nothing at all is
+  // hidden — and the pair still cannot stop talking, because what has to be
+  // said about one is not a secret but a *moment*: which column a rim position
+  // will have reached, and when the maw goes. A siren here would teach them to
+  // look for something withheld, and nothing is.
+  gyre: null,
+  mount: null,
   // Both screens carry these whole: nothing about them is split, so a siren
   // over one would be a lamp saying "look at the field", which is not news.
   slick: null,

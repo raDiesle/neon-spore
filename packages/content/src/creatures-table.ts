@@ -162,4 +162,30 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // by the shots it takes. Next door for the same reason as the other five —
   // it is drawn as the body its colour names and `wornKind` resolves it.
   rind: WORN_CREATURES.rind,
+  gyre: {
+    kind: "gyre",
+    // The cannon alone, and that is the panel a wave with one on it shows.
+    // What makes this creature hard is *when* the shot has to be in a column
+    // rather than whether the shield reached it — and the maw, which is on
+    // that panel already and is not a control group at all (`ControlGroup` is
+    // aim and guard, the two things a wave may be missing).
+    controls: ["aim"],
+    // The hub carries none and no arrival ever authors one, which is the
+    // throb's blank rather than the dart's: what has a colour here is each of
+    // the six on the rim, and each of those follows from its position
+    // (`mountColor`). So no `authorsColor` — the mount's own row next door
+    // says why offering one would be offering to turn the creature off.
+    color: null,
+    // Player 2's strip, like every other aim target. Both screens carry the
+    // whole wheel once it is on the field — nothing about it is split — so
+    // what the strip is doing is saying that something five columns wide is
+    // on its way, which is a thing the pilot has to have cleared a lane for.
+    radar: "p2",
+    blurb:
+      "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster and faster, sinking a row each lap until the bottom of it grinds along the ship. Open the maw and the wheel slows, wherever the cannon happens to be standing.",
+  },
+  // The six on that rim, and the sixth worn body — an ordinary slick or bulb
+  // with a wheel under it. Next door with the other five for their reason: it
+  // is drawn as the body its colour names, and `wornKind` resolves it.
+  mount: WORN_CREATURES.mount,
 };

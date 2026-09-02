@@ -85,6 +85,25 @@ export const MECHANICS = {
     // trigger answers it, so neither can be worked out from the other.
     waveNames: true,
   },
+  gyre: {
+    what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
+    reach: "spawn",
+    // A wave names this kind and never a colour: what carries one is each of
+    // the six on the rim, and each of those follows from its position rather
+    // than from anything an author could write (`mountColor`).
+    waveNames: true,
+  },
+  mount: {
+    what: "One of the six on that rim. An ordinary slick or bulb, answered by the ordinary rule — the matching colour, in the column it is standing in — except that it is only standing there for a beat.",
+    reach: "spawn",
+    // Brought by the wheel, six at a time, the way the tether is brought by
+    // THE WARDEN — so a wave reaches this without naming it, and there is no
+    // wave anywhere that could name it (`addCarried`).
+    carriedBy: "gyre",
+    // Deliberately no `waveNames`: a mount is not a thing a wave may place. It
+    // arrives because a `gyre` did, six at a time, and a brush for one would
+    // be a body an author could put on the field with no wheel under it.
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

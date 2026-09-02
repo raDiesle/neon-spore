@@ -15,36 +15,28 @@ export { CREATURE_KINDS, type CreatureKind, kindCode } from "./creature-kinds.js
 export type { GuardStats, Scar } from "./hull-types.js";
 export type { RockKind } from "./kinds.js";
 export {
-  bodyCenterCol,
-  clampSpanCol,
-  colSpan,
   fallTilesPerBeat,
   isBossBody,
   isGrippable,
   isMeteorKind,
   livingKindForColor,
   METEOR_TIER_KINDS,
+} from "./kinds.js";
+// What a pod is: lifted out beside `hull-types.ts` when this file went over
+// its limit, and re-exported here so nothing reaching for one had to move.
+export { POD_KINDS, type Pod, type PodKind } from "./pod-types.js";
+// How wide a body is: `span.ts`, cut out of `kinds.ts` when THE GYRE arrived
+// and re-exported here so nothing reaching for `spanOf` through it had to move.
+export {
+  bodyCenterCol,
+  clampSpanCol,
+  colSpan,
   occupiesCol,
   type RockSize,
   spanCenterCol,
   spanOf,
   WARDEN_COLS,
-} from "./kinds.js";
-
-/**
- * What a pod gives when it is swallowed. Every pod is one of exactly these:
- * `mend` gives hull back, `purge` sweeps the field, `ward` holds the shield
- * armed without a trigger.
- */
-export type PodKind = "mend" | "purge" | "ward";
-
-/**
- * The three, as data. `hashWorld` folds a pod's kind in by its index here
- * rather than by a ternary chain, for `BOSS_KINDS`' reason: a fourth pod added
- * to the type and not to a chain would hash as the third, and two devices
- * would agree about a ship they disagree about.
- */
-export const POD_KINDS: readonly PodKind[] = ["mend", "purge", "ward"];
+} from "./span.js";
 
 export interface Creature {
   id: number;
@@ -195,6 +187,35 @@ export interface Creature {
    * whether this is the one that finishes it.
    */
   rindLayers?: number;
+  /**
+   * THE GYRE's two hub fields, and `gyre.ts` is the whole of what they mean.
+   * `gyreTurnMilli` is how far the wheel has turned, in thousandths of a rim
+   * position, wrapped at `GYRE_TURN_MILLI` so it stays a bounded integer;
+   * `gyreStep` is how many beats it has been on the field, which is its route
+   * and its speed at once — how far it has fallen, which corner of the diamond
+   * it is walking to, how many laps it has sunk and how fast the rim is going
+   * are all read off it.
+   *
+   * Thousandths and not whole clicks, for `dragMilli`'s reason: the rim
+   * accelerates, so the turn one beat buys is a fraction of a position and the
+   * remainder has to be carried rather than rounded away, or the wheel would
+   * have three speeds. Read them through `gyreClick`, `gyreAt` and
+   * `gyreSpinPerBeat` (`gyre-rim.ts`) and never by hand — where the six bodies
+   * stand, where the spokes are drawn and which column a shot has to be fired
+   * up are four readings of the same two numbers.
+   */
+  gyreTurnMilli?: number;
+  gyreStep?: number;
+  /**
+   * A mount's two, and absent on everything that is not one. `gyreId` is the
+   * hub it rides and its presence *is* the attachment — `carryMounts` moves
+   * whatever names one and `gyreMountsLeft` counts the same field to decide
+   * when the wheel breaks — and `gyreSlot` is which of the six positions on
+   * the rim, 0..5, which fixes the mount's colour (`mountColor`) as well as
+   * its place, so the alternation around the rim is one fact and not two.
+   */
+  gyreId?: number;
+  gyreSlot?: number;
 }
 
 export interface Bullet {
@@ -215,30 +236,4 @@ export interface Bullet {
   lance: boolean;
   /** Bodies this shot has already gone through. 0 for everything but a lance. */
   pierced: number;
-}
-
-/**
- * A supply pod. It is not a creature: it does not live, does not travel of its
- * own accord and is never a target that must be cleared. It hangs where it was
- * left until a shot knocks it loose, and then falls like a burning wreck —
- * which is the only reason its position is not a plain row and column.
- *
- * Both coordinates are in thousandths of a tile, counted the way the grid is:
- * `colMilli` from the left edge, `rowMilli` down from the top.
- */
-export interface Pod {
-  id: number;
-  colMilli: number;
-  rowMilli: number;
-  /**
-   * Sideways travel per tick, in thousandths, signed. Zero while it is moored;
-   * drawn from the seeded rng the moment a shot frees it, because which way a
-   * wreck falls away is the one thing neither player may know in advance
-   * (docs/spec/structure.md).
-   */
-  driftMilli: number;
-  /** False while it hangs, true once it is falling. */
-  loose: boolean;
-  /** What it gives when it is swallowed. Authored, never random. */
-  kind: PodKind;
 }

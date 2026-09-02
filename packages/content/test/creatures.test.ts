@@ -26,7 +26,12 @@ describe("categoryOf", () => {
     const special = (Object.keys(CREATURES) as (keyof typeof CREATURES)[]).filter(
       (kind) => categoryOf(kind) === "special",
     );
-    expect(special).toEqual(["tether"]);
+    // The mount is the second, and it is the tether's case exactly: a body
+    // installed by something else rather than authored, so it carries no
+    // control group of its own and the wheel that brought it already shows
+    // the panel. Both are also what keeps them out of the director's palette
+    // (`LIVING_BRUSH_KINDS`), which is the visible half of this test.
+    expect(special).toEqual(["tether", "mount"]);
   });
 });
 

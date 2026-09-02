@@ -1,16 +1,16 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
-import { dartOnSpawn, stepDart } from "./dart.js";
-import { echoFalls, echoOnSpawn } from "./echo.js";
+import { stepDart } from "./dart.js";
+import { echoFalls } from "./echo.js";
 import { splitEchoes } from "./echo-split.js";
-import { ghostCrosses, ghostOnSpawn, stepGhostAcross } from "./ghost.js";
+import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
+import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
-import { rindOnSpawn } from "./rind.js";
-import { shellOnSpawn } from "./shell.js";
-import { clampSpanCol, colSpan, fallTilesPerBeat, isBossBody, spanOf } from "./types.js";
-import { veilMorph, veilOnSpawn } from "./veil.js";
+import { spawnArrivals } from "./spawn.js";
+import { isBossBody } from "./types.js";
+import { veilMorph } from "./veil.js";
 import { stepWisp, wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
 
@@ -62,6 +62,13 @@ export function onBeat(world: World): void {
     const gone = new Set(spent.map((c) => c.id));
     world.creatures = world.creatures.filter((c) => !gone.has(c.id));
   }
+
+  // Every wheel with nothing left on its rim, taken off before anything else
+  // this beat looks at the field. It has to be before the clear test at the
+  // bottom, or a bare hub would hold a wave open with nothing in it to shoot;
+  // and it is a whole beat after the last mount died on purpose, so the wheel
+  // is seen to come apart rather than vanishing inside one frame (`gyre.ts`).
+  breakSpentGyres(world);
 
   // Said once for the whole field rather than once per body: every wisp takes
   // the hop on the same beat (`wispHops`), and what the event is for is the
@@ -117,6 +124,18 @@ export function onBeat(world: World): void {
     // *falls*, on the beats it takes, so a hand may be put on one and slows
     // it further through the same `grippedFallTiles` every other body uses.
     if (c.kind === "echo" && !echoFalls(world.cfg, world.beat)) continue;
+    // THE GYRE's hub walks a diamond and turns its rim, and carries its six
+    // bodies with it. In place of the fall for `stepDart`'s reason — a wheel
+    // that both walked and fell would be moving in two directions on one beat.
+    if (c.kind === "gyre") {
+      stepGyre(world, c);
+      continue;
+    }
+    // And the six themselves, which are moved by the hub above rather than by
+    // anything of their own. `stepGyre` has already written their `col`, `row`
+    // and both `from` fields, so a mount stepped again here would be carried
+    // twice in one beat — once around the rim and once straight down.
+    if (c.kind === "mount") continue;
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);
@@ -137,88 +156,7 @@ export function onBeat(world: World): void {
   // it — which is the whole of "one beat later" for this creature (`echo.ts`).
   splitEchoes(world);
 
-  // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
-  // and they enter at the top (row 0) and move normally from there.
-  // "They appear when their beat has passed" means: if we're at beat 5, a
-  // creature with beat 3 should already exist, so spawn at beat >= waveBeat - 1
-  // (one beat *before* the current one, because creatures then move once and
-  // stand on beat waveBeat).
-  while (world.spawned < world.queue.length) {
-    const entry = world.queue[world.spawned]!;
-    if (entry.beat > world.waveBeat - 1) break;
-    // How wide this arrival is. A rock's width is authored (`SpawnEntry.size`)
-    // rather than fixed by its kind, so the clamp that keeps a body's whole
-    // span on the field has to be told the real number — a two-wide meteor
-    // authored in the last column would otherwise hang half off the edge.
-    const span = spanOf(entry);
-    const col = clampSpanCol(entry.col, world.cfg.cols, span);
-    // Said once, at the top of the field, so player 2's ear has the column
-    // before the eye has found the ring. A hit should always be player 2's
-    // haste and never player 2's surprise.
-    if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
-    world.creatures.push({
-      id: world.nextId++,
-      kind: entry.kind,
-      col,
-      row: 0,
-      // Glide onto the field at the kind's own speed, not a flat one tile —
-      // a torch (`fallTilesPerBeat` far above 1) that crept in for its first
-      // beat and only then jumped to full speed read as a stutter, not a fall.
-      // A dart takes the default one tile and is right to: its two-row stride
-      // is what it does *after* it has arrived, and entering on it would put
-      // the first diagonal off the top of the field where nobody sees it.
-      fromRow: -fallTilesPerBeat(entry.kind),
-      fromCol: col,
-      color: entry.color,
-      // Only when the wave asked for something other than the kind's own
-      // width: `spanOf` falls back to `colSpan`, so an unsized arrival carries
-      // no field at all and every wave written before sizes existed is
-      // byte-for-byte the same world.
-      ...(span === colSpan(entry.kind) ? {} : { span }),
-      // Authored by the wave, and the same value on both devices. Which of the
-      // two screens lays an alarm over the body it names is render's question
-      // and never the simulation's (`Creature.wears`).
-      ...(entry.wears ? { wears: entry.wears } : {}),
-      holes: 0,
-      petals: 0,
-      dragMilli: 0,
-      throbOpen: entry.kind === "throb" && throbIsOpen(world.cfg, world.beat),
-      // Every piece on, for the one kind that wears any. The colour under
-      // them is deliberately *not* settled here: a shelled body arrives with
-      // `color` null and gets one only when the last piece comes off, so
-      // there is no instant at which anything — render included — could have
-      // shown the pair something they were not meant to know yet.
-      shell: shellOnSpawn(entry.kind),
-      // A dart arrives already aiming, and already knowing the move after
-      // that: it enters on a float beat, so the arrow and the previewed path
-      // are over it on player 2's screen for the whole of the glide in. Both
-      // sides are rolled here, from the world's own stream, which is why
-      // `rng.state` being in `hashWorld` already covers them.
-      ...(entry.kind === "dart" ? dartOnSpawn(world, col) : {}),
-      // Which body is inside a veil, rolled rather than authored — the one
-      // creature in the game whose contents nobody may compose against. It
-      // overrides `color` above on purpose: a wave that named one would be
-      // fixing the thing docs/spec/structure.md 7.3 puts on the random side
-      // of its own table. Same stream, same argument about `rng.state`.
-      ...(entry.kind === "veil" ? veilOnSpawn(world) : {}),
-      // Which way a crossing ghost sets off, and a lap count at zero. Absent
-      // for a ghost the wave authored `"down"`, and the absence *is* the
-      // path — `ghostCrosses` reads it, and a falling ghost carries no field
-      // at all, so every wave written before crossing existed is byte-for-byte
-      // the same world.
-      ...(entry.path === "across" ? ghostOnSpawn(world.cfg.cols, col) : {}),
-      // How many divisions this arrival has ahead of it, and absent on every
-      // other kind — so a body that never divides carries no field at all and
-      // every wave written before THE ECHO is byte-for-byte the same world.
-      ...(entry.kind === "echo" ? echoOnSpawn(world.cfg, world.beat) : {}),
-      // How many layers this arrival still has to shed, and absent on every
-      // other kind — so a body that wears no skin of its own carries no field
-      // at all and every wave written before THE RIND is byte-for-byte the
-      // same world.
-      ...(entry.kind === "rind" ? rindOnSpawn(world.cfg) : {}),
-    });
-    world.spawned += 1;
-  }
+  spawnArrivals(world);
   // What she releases this beat has to be on the field before the hull is resolved.
   stepBoss(world);
   spawnPods(world);

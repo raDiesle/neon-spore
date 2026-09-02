@@ -92,6 +92,10 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   ghost: { wave: "THE GHOST" },
   echo: { wave: "THE ECHO" },
   rind: { wave: "THE RIND" },
+  gyre: { wave: "THE GYRE" },
+  // The six on the rim are watched in that same wave and can be watched
+  // nowhere else: nothing authors a mount, a wheel brings them.
+  mount: { wave: "THE GYRE" },
   gauge: { wave: "THE GAUGE" },
   fleet: { wave: "THE FLEET" },
   snake: { wave: "SNAKE" },

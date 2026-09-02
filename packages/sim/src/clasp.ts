@@ -1,5 +1,6 @@
 import { markMoment } from "./balance.js";
-import { livingKindForColor, occupiesCol } from "./kinds.js";
+import { livingKindForColor } from "./kinds.js";
+import { occupiesCol } from "./span.js";
 import type { Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
 

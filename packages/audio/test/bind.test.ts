@@ -83,6 +83,7 @@ const SAMPLES: Record<string, SimEvent> = {
   fleetHit: { type: "fleetHit", col: 4, row: 6 },
   fleetSunk: { type: "fleetSunk", col: 4, row: 6, len: 3, left: 2 },
   fleetDown: { type: "fleetDown", col: 4, row: 6 },
+  gyreBroke: { type: "gyreBroke", col: 3, row: 7 },
 };
 
 describe("bindings", () => {

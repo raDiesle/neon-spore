@@ -2,6 +2,7 @@ import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import { echoBecomes } from "./echo.js";
+import { gyreBecomes } from "./gyre-rim.js";
 import { rindBecomes } from "./rind.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
@@ -92,6 +93,13 @@ export function wornKind(c: Creature): CreatureKind {
   // the same word plus a count of how many shots are left in it.
   // `rindBecomes` is the one copy of the pairing.
   if (c.kind === "rind") return rindBecomes(c);
+  // One of the six on THE GYRE's rim: a slick or a bulb with nothing laid over
+  // it at all, the way an echo is, and drawn at full size. It is here rather
+  // than given a silhouette of its own because the pair already has a word for
+  // what it looks like — and because that word has to be the *same* word it is
+  // for a body in a lane, or the alternation around the rim is a new
+  // vocabulary rather than the one they already say out loud.
+  if (c.kind === "mount") return gyreBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

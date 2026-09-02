@@ -66,6 +66,16 @@ const LIVING_LOOK = {
   // own-motion is there too, for the same reason: a `Pose` is applied to a
   // body `drawLiving` is drawing, and nothing here is.
   ghost: null,
+  // The six on THE GYRE's rim are the sixth worn body: a slick or a bulb with
+  // a wheel under it, so `wornKind` resolves one and a row here would be a
+  // second shape for a body the pair already has a word for. What is different
+  // about a mount is where it is standing, and where is not a silhouette.
+  mount: null,
+  // The wheel itself has a body of its own and it is not a blob: a rim, six
+  // spokes and a hub, which no radial contour can describe. So it is drawn by
+  // `render/gyre.ts` the way THE GHOST is drawn by `ghost.ts` — routed away in
+  // `drawCreatures` before the living pass ever sees it.
+  gyre: null,
   // No body of their own: crystals, a line down a column, and the two bosses.
   meteor: null,
   meteorMedium: null,
