@@ -159,7 +159,7 @@ export const MECHANICS = {
     reach: "spawn",
   },
   snake: {
-    what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and can see nothing in the arena; the other has a shot and a mouth and cannot steer.",
+    what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and is shown only the body and the meteors; the other has a shot and a mouth and is shown everything else.",
     reach: "spawn",
   },
   pinball: {

@@ -7,6 +7,7 @@ import {
   snakeOccupies,
   snakeOnBoard,
   snakePointAt,
+  snakeRockAt,
 } from "./snake-arena.js";
 import type { World } from "./world.js";
 
@@ -21,9 +22,9 @@ import type { World } from "./world.js";
  * deterministic tick counter — no wall clock reaches in here, so two devices
  * step on exactly the same tick or neither does.
  *
- * **A wall, its own back, a touched enemy and a point taken with the mouth
- * shut all do the same thing**, and that is deliberate: one failure, one
- * word, one picture. The round starts over — body back, everything standing
+ * **A wall, its own back, a touched enemy, a struck meteor and a point taken
+ * with the mouth shut all do the same thing**, and that is deliberate: one
+ * failure, one word, one picture. The round starts over — body back, everything standing
  * again, the clock reset — and the hull pays `damageSnakeRepeat`. The round
  * itself is only ever lost on the clock, in `snake-round.ts`.
  */
@@ -116,7 +117,9 @@ function advance(world: World, snake: SnakeState): void {
   }
   // An enemy is a hazard as well as a target, and touching one is the same
   // mistake as a wall: the shot was player 1's to take and nobody took it.
-  if (snakeEnemyAt(snake, col, row) !== -1) {
+  // A meteor is the same mistake with nobody to blame but the steering —
+  // there was never anything either of them could have done to it.
+  if (snakeEnemyAt(snake, col, row) !== -1 || snakeRockAt(snake, col, row)) {
     repeat(world, snake);
     return;
   }
@@ -174,7 +177,10 @@ export function fireSnake(world: World, snake: SnakeState): boolean {
       snake.shotHit = true;
       return true;
     }
-    if (snakeOccupies(snake, col, row)) {
+    // A meteor stops the shot and takes nothing from it. That is the whole of
+    // what makes one worth *placing*: it is a wall between the trigger and its
+    // target, and the only answer to it is the steering.
+    if (snakeRockAt(snake, col, row) || snakeOccupies(snake, col, row)) {
       snake.shotCol = col;
       snake.shotRow = row;
       return false;

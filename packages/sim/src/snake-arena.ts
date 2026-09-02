@@ -33,6 +33,15 @@ export function snakePointAt(snake: SnakeState, col: number, row: number): numbe
   return -1;
 }
 
+/**
+ * Whether a meteor is standing on this tile. There is no index and no list of
+ * spent ones, because a meteor is never spent: it is the one thing in the
+ * arena that is the same at the end of an attempt as at the start.
+ */
+export function snakeRockAt(snake: SnakeState, col: number, row: number): boolean {
+  return snakeCurrent(snake).rocks.some((t) => t.col === col && t.row === row);
+}
+
 /** Whether the mouth is open on this tick. Player 1's whole timing problem. */
 export function snakeMawOpen(world: World, snake: SnakeState): boolean {
   return world.tick - snake.mawTick < world.cfg.snakeMawTicks;

@@ -126,6 +126,52 @@ export function drawSnakeItems(
   });
 }
 
+/**
+ * The meteors, on **both** screens.
+ *
+ * Every other thing in the arena is one seat's to see, and this is the
+ * exception that proves why: a meteor can be neither shot nor taken, so
+ * telling player 1 about one buys the pair nothing — the only answer to it is
+ * the steering, and the steering is player 2's. Drawn as rock, in the rock's
+ * own grey, and drawn *under* the body: the head goes over the top of one on
+ * the frame it hits it, which is the frame the pair needs to see.
+ */
+export function drawSnakeRocks(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  snake: SnakeState,
+): void {
+  const round = snake.rounds[snake.round];
+  if (!round) return;
+  for (const tile of round.rocks) {
+    const x = arenaX(arena, tile.col) + arena.tile / 2;
+    const y = arenaY(arena, tile.row) + arena.tile / 2;
+    const r = arena.tile * 0.36;
+    ctx.beginPath();
+    // Seven sides and no two the same length: a rock is the one thing here
+    // that should not look made.
+    const edges = [1, 0.82, 0.95, 0.78, 1.02, 0.86, 0.92];
+    for (const [i, mul] of edges.entries()) {
+      const a = (i / edges.length) * Math.PI * 2;
+      const px = x + Math.cos(a) * r * mul;
+      const py = y + Math.sin(a) * r * mul;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = PALETTE.rockDark;
+    ctx.fill();
+    ctx.strokeStyle = PALETTE.rock;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    // One crater, so the eye has something to hold on to at tile size.
+    ctx.fillStyle = "rgba(0,0,0,.45)";
+    ctx.beginPath();
+    ctx.arc(x + r * 0.25, y - r * 0.2, r * 0.22, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
 /** One enemy: a square with its sides bitten in, which nothing else here is. */
 function drawEnemy(ctx: CanvasRenderingContext2D, arena: Arena, col: number, row: number): void {
   const x = arenaX(arena, col) + arena.tile / 2;
@@ -170,45 +216,4 @@ function drawPoint(
   ctx.beginPath();
   ctx.arc(x, y, arena.tile * 0.09, 0, Math.PI * 2);
   ctx.fill();
-}
-
-/**
- * The shot, for the beat after it was taken: a line out of the head to
- * wherever it stopped, and a ring on the tile if it found something.
- *
- * Drawn on **both** screens, and it is the one thing in this round they see
- * the same way. Player 2 cannot see what was hit and has to be told; what they
- * can see is that the trigger was pulled, which is how they know the sentence
- * they just said was heard.
- */
-export function drawSnakeShot(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  snake: SnakeState,
-  fade: number,
-): void {
-  const head = snake.body[0];
-  if (!head || snake.shotCol < 0) return;
-  const fromX = arenaX(arena, head.col) + arena.tile / 2;
-  const fromY = arenaY(arena, head.row) + arena.tile / 2;
-  const toX = arenaX(arena, snake.shotCol) + arena.tile / 2;
-  const toY = arenaY(arena, snake.shotRow) + arena.tile / 2;
-  ctx.save();
-  ctx.globalAlpha = Math.max(0, Math.min(1, fade));
-  ctx.strokeStyle = snake.shotHit ? PALETTE.hullRim : PALETTE.dim;
-  ctx.lineWidth = 3;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(fromX, fromY);
-  ctx.lineTo(toX, toY);
-  ctx.stroke();
-  if (snake.shotHit) {
-    ctx.strokeStyle = PALETTE.ember;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(toX, toY, arena.tile * 0.36, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-  ctx.restore();
-  ctx.lineCap = "butt";
 }

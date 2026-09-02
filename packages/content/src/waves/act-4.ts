@@ -150,9 +150,9 @@ export const WAVES_ACT_4: Wave[] = [
     name: "SNAKE",
     sentence: "The one where the ship is the body, and the one who can see it cannot steer it.",
     guide: {
-      both: "The ship shrinks into a snake and it never stops. There are things in the arena to shoot and things to swallow, and clearing both is the round — touch an enemy, or take a point with the mouth shut, and it starts again.",
-      p1: "You have FIRE and MAW and you cannot steer. Only your screen has the arena on it: say where the next thing is and which of the two it is, then shoot it or open on it.",
-      p2: "You have both turns and you drive on their word alone — your screen has the body and nothing else in it. LEFT and RIGHT are a quarter turn each, from wherever it is already pointing.",
+      both: "The ship shrinks into a snake and it never stops. There are things to shoot, things to swallow, and meteors that can be neither — clearing the first two is the round. Touch anything you should not have, or take a point with the mouth shut, and it starts again.",
+      p1: "You have FIRE and MAW and you cannot steer. Only your screen has the enemies and the points on it: say where the next one is and which of the two it is, then shoot it or open on it. A shot stops dead on a meteor.",
+      p2: "You have both turns and you drive on their word alone — your screen has the body and the meteors, and nothing else. LEFT and RIGHT are a quarter turn each, from wherever it is already pointing.",
     },
     entries: [],
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },

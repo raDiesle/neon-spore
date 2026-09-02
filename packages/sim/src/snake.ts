@@ -62,9 +62,10 @@ export interface SnakeTile {
  *
  * **The placement is the fight**, exactly as it is for THE FLEET: where the
  * enemies stand decides which way the body has to be driven and how long the
- * pair has to say it, and where the points are decides when the mouth has to
- * open. None of that is legible as a difficulty number, so there is no
- * difficulty number — there is a map.
+ * pair has to say it, where the points are decides when the mouth has to open,
+ * and the meteors decide which of those two anybody can reach. None of that is
+ * legible as a difficulty number, so there is no difficulty number — there is
+ * a map.
  *
  * The two lists are read by index and never reordered: `struck` and `taken`
  * are indices into them, so an entry moved in the middle of a round would move
@@ -75,6 +76,16 @@ export interface SnakeRound {
   enemies: SnakeTile[];
   /** Tiles to be swallowed with the mouth open. Shut, they cost the round. */
   points: SnakeTile[];
+  /**
+   * Meteors: tiles that are neither. They cannot be shot, they cannot be
+   * taken, and touching one starts the attempt over — the only thing in the
+   * arena the pair can do nothing about but go round.
+   *
+   * They stop a shot as well, which is what makes them worth placing rather
+   * than merely worth avoiding: a meteor in front of an enemy is a wall
+   * between the trigger and its target, and the answer to it is the steering.
+   */
+  rocks: SnakeTile[];
   /** Beats one attempt lasts. Running out of them is how the round is lost. */
   beats: number;
   /** Ticks between two steps. Lower is faster — see `SnakeConfig` on the unit. */
@@ -155,6 +166,7 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
       stepTicks: r.stepTicks,
       enemies: r.enemies.map((t) => ({ ...t })),
       points: r.points.map((t) => ({ ...t })),
+      rocks: r.rocks.map((t) => ({ ...t })),
     })),
     round: 0,
     roundBeat: world.beat,

@@ -11,10 +11,10 @@ import { button, el } from "./dom.js";
  * legible as a list of `col`/`row` pairs, so it is a map.
  *
  * **One gesture and no modes.** A press cycles the square: empty → enemy →
- * point → empty. There is no brush to arm and nothing to put down first, which
- * is what keeps it usable on a phone — the same standard `fleet-editor.ts`
- * set, arrived at from the other end (a fleet has one kind of thing in five
- * sizes; this has two kinds and one size).
+ * point → meteor → empty. There is no brush to arm and nothing to put down
+ * first, which is what keeps it usable on a phone — the same standard
+ * `fleet-editor.ts` set, arrived at from the other end (a fleet has one kind
+ * of thing in five sizes; this has three kinds and one size).
  *
  * **One map per round**, and the rounds are a row of tabs: what makes the
  * fight is as much the order of the three as any one of them, and an author
@@ -40,7 +40,8 @@ export function renderSnakeEditor(panel: HTMLElement, boss: SnakeEntry, onEdit: 
       "The ship shrinks into a snake that never stops. Player 2 turns it a " +
         "quarter turn at a time and sees none of this; player 1 sees all of it " +
         "and can only shoot and open the mouth. Press a square to cycle it: " +
-        "empty, enemy, point.",
+        "empty, enemy, point, meteor — and a meteor is the one nobody can do " +
+        "anything about but steer around.",
     ),
   );
   panel.appendChild(tabs(boss, at, redraw));
@@ -52,7 +53,8 @@ export function renderSnakeEditor(panel: HTMLElement, boss: SnakeEntry, onEdit: 
       "p",
       "note",
       `${round.enemies.length} to shoot · ${round.points.length} to swallow · ` +
-        `${round.beats} beats · a step every ${round.stepTicks} ticks`,
+        `${round.rocks.length} to go round · ${round.beats} beats · ` +
+        `a step every ${round.stepTicks} ticks`,
     ),
   );
 }
@@ -75,6 +77,7 @@ function tabs(boss: SnakeEntry, at: number, redraw: (next?: number) => void): HT
     boss.rounds.push({
       enemies: [],
       points: [],
+      rocks: [],
       beats: last ? last.beats : 40,
       stepTicks: Math.max(20, (last ? last.stepTicks : 90) - 20),
     });
@@ -115,9 +118,11 @@ function isStart(col: number, row: number): boolean {
 function square(round: SnakeRound, col: number, row: number, redraw: () => void): HTMLElement {
   const enemy = index(round.enemies, col, row);
   const point = index(round.points, col, row);
+  const rock = index(round.rocks, col, row);
   const cell = button("", "snake-cell");
   if (enemy !== -1) cell.classList.add("enemy");
   if (point !== -1) cell.classList.add("point");
+  if (rock !== -1) cell.classList.add("rock");
   // The three tiles the body already fills are marked rather than forbidden:
   // an author may want a point one step off the start, and the only thing that
   // would actually be unplayable is a thing *under* the opening body.
@@ -129,6 +134,9 @@ function square(round: SnakeRound, col: number, row: number, redraw: () => void)
       round.points.push({ col, row });
     } else if (point !== -1) {
       round.points.splice(point, 1);
+      round.rocks.push({ col, row });
+    } else if (rock !== -1) {
+      round.rocks.splice(rock, 1);
     } else {
       round.enemies.push({ col, row });
     }

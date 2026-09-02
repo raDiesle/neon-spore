@@ -753,7 +753,9 @@ is worth more than a better one that is waiting on it.
   the other. Three authored maps; shoot everything and swallow everything to
   clear one; a wall, your own back, a touched enemy or a point taken with the
   mouth shut starts it over for a few points of hull; the clock running out
-  costs more and ends it.
+  costs more and ends it. Meteors are the third thing on a map and the one
+  neither seat can act on — they stop a shot, they cannot be taken, and they
+  are on both screens because the only answer to one is where the body goes.
 
 ## Deliberately deferred
 

@@ -1,6 +1,7 @@
 import { hullPercent, type SnakeState } from "@neon-spore/sim";
 import { drawHull } from "./hull.js";
 import type { Layout } from "./layout.js";
+import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
 
@@ -11,39 +12,40 @@ import { type Arena, arenaX, arenaY } from "./snake-draw.js";
  * said what was wrong with it in one sentence: that is not the thing they
  * steer on every other wave. So the fold draws the real hull — `drawHull`, the
  * same call `frame-passes.ts` makes on the field, with the run's own scars on
- * it — and simply *shrinks* it: at the first beat of the round the ship is
- * exactly where it always is, full width along the bottom, and by the last it
- * is one tile wide sitting on the snake's head.
+ * it — and takes it apart.
+ *
+ * **In two movements, because one was not a morph.** Scaling the ship down and
+ * fading it out is a ship going away; what the owner asked for is a ship
+ * *becoming* something. So the first half draws it in place and squeezes it —
+ * the hull narrows towards the head's column while it keeps most of its height,
+ * so the wide shallow ship turns into a tall narrow one, which is the shape of
+ * a body — and the second half carries that shape to the head tile and grows
+ * the length out behind it, tile by tile, as the ship's own outline lets go.
  *
  * Nothing about it is stored. The whole animation is one number read off the
  * round's phase beat (`morph01`), so a restart cannot bring half a fold into
  * the next run and `Effects.reset` has nothing of it to clear — the rule
  * `restart.test.ts` holds this package to.
- *
- * **A transform and not a second drawing.** Scaling the finished hull is what
- * makes it the same ship rather than a copy of one that will drift the first
- * time somebody changes a lobe. The clip `drawHull` sets is inside the
- * transform with it, so the ship crops to its own shrinking window rather than
- * to the field's.
  */
 
-/** How small the ship gets before it hands over: about one tile across. */
-function endScale(l: Layout, arena: Arena): number {
-  return Math.max(0.02, arena.tile / Math.max(1, l.gridWidth));
-}
-
-/** Ease so it hangs at full size for a moment, then goes quickly. */
+/** Ease so a movement starts and stops rather than running at one speed. */
 function ease(t: number): number {
   return t * t * (3 - 2 * t);
 }
 
+/** Where the second movement starts. The first is the squeeze, on the spot. */
+const HANDOVER = 0.45;
+
 /**
- * How much of the body is drawn under the ship: nothing until the ship is
- * mostly gone, then all of it. The two never share the frame equally — a
- * half-transparent snake under a half-transparent ship reads as neither.
+ * How much of the body is drawn under the ship, and how far along its own
+ * length: 0 until the squeeze is done, then out to the tail.
+ *
+ * The body is *extruded* rather than faded in — it grows backwards from the
+ * head — which is the difference between two pictures crossfading and one
+ * shape turning into another.
  */
-export function morphBodyAlpha(morph01: number): number {
-  return Math.max(0, Math.min(1, (morph01 - 0.55) / 0.35));
+export function morphBodyGrowth(morph01: number): number {
+  return Math.max(0, Math.min(1, (morph01 - HANDOVER) / (1 - HANDOVER)));
 }
 
 export function drawSnakeMorph(
@@ -56,20 +58,25 @@ export function drawSnakeMorph(
 ): void {
   const head = snake.body[0];
   if (!head) return;
-  const e = ease(Math.max(0, Math.min(1, morph01)));
-  const s = 1 + (endScale(l, arena) - 1) * e;
+  const squeeze = ease(Math.min(1, morph01 / HANDOVER));
+  const carry = ease(morphBodyGrowth(morph01));
 
-  // Where the ship is anchored on the field, and where it is going: the middle
-  // of the hull's own surface, and the tile the head starts on.
   const fromX = l.gridLeft + l.gridWidth / 2;
   const fromY = l.hullY;
   const toX = arenaX(arena, head.col) + arena.tile / 2;
   const toY = arenaY(arena, head.row) + arena.tile / 2;
 
+  // The two movements, as two scales. Across, the ship pulls in to a tile's
+  // width; along, it keeps more of itself for longer, so what is left in the
+  // middle of the fold is upright rather than flat — a body rather than a hull.
+  const narrow = arena.tile / Math.max(1, l.gridWidth);
+  const sx = 1 + (narrow - 1) * (squeeze * 0.7 + carry * 0.3);
+  const sy = 1 + (narrow * 2.2 - 1) * carry;
+
   ctx.save();
-  ctx.globalAlpha = Math.max(0, 1 - morphBodyAlpha(morph01));
-  ctx.translate(fromX + (toX - fromX) * e, fromY + (toY - fromY) * e);
-  ctx.scale(s, s);
+  ctx.globalAlpha = Math.max(0, 1 - carry * carry);
+  ctx.translate(fromX + (toX - fromX) * carry, fromY + (toY - fromY) * carry);
+  ctx.scale(sx, Math.max(0.02, sy));
   ctx.translate(-fromX, -fromY);
   drawHull(
     ctx,
@@ -80,11 +87,38 @@ export function drawSnakeMorph(
     hullPercent(view.world),
     // Both lobes in the middle, still: the round put them there when it
     // started (`startWave`), and a ship folding up is not a ship being flown.
-    {
-      cannon: Math.floor(view.world.cfg.cols / 2),
-      shield: [{ col: mid(view), weight: 1, halfMul: 1 }],
-    },
+    { cannon: mid(view), shield: [{ col: mid(view), weight: 1, halfMul: 1 }] },
   );
+  ctx.restore();
+
+  drawSpark(ctx, arena, toX, toY, squeeze, carry);
+}
+
+/**
+ * The seam the change happens at: a ring on the head's tile that tightens as
+ * the ship arrives and is gone by the time the body is whole.
+ *
+ * It is there because a shape that only shrinks reads as a shape going away.
+ * Something has to say *here*, and the cheapest thing that says it is a mark
+ * on the tile the ship is turning into.
+ */
+function drawSpark(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  x: number,
+  y: number,
+  squeeze: number,
+  carry: number,
+): void {
+  const show = Math.min(1, squeeze) * (1 - carry);
+  if (show <= 0.01) return;
+  ctx.save();
+  ctx.globalAlpha = show;
+  ctx.strokeStyle = PALETTE.hullRim;
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.arc(x, y, arena.tile * (0.9 - 0.35 * carry), 0, Math.PI * 2);
+  ctx.stroke();
   ctx.restore();
 }
 

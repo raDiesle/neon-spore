@@ -323,8 +323,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
-| `packages/render/src/snake-body.ts` | The body: the length, the two ends, and the mouth when it is open |
-| `packages/render/src/snake-draw.ts` | SNAKE's arena, the things standing in it, and the shot |
+| `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
+| `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
@@ -332,6 +332,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
+| `packages/render/src/snake-head.ts` | The head, shut and open |
+| `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
+| `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 
 ### packages/net
 

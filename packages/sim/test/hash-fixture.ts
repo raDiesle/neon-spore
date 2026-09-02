@@ -128,6 +128,7 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
         stepTicks: 80,
         enemies: [{ col: 2, row: 2 }],
         points: [{ col: 6, row: 8 }],
+        rocks: [{ col: 3, row: 5 }],
       },
     ],
   },

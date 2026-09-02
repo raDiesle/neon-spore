@@ -180,6 +180,11 @@ export function bossHashParts(boss: BossState | null): number[] {
         push(tile.col);
         push(tile.row);
       }
+      push(round.rocks.length);
+      for (const tile of round.rocks) {
+        push(tile.col);
+        push(tile.row);
+      }
     }
   }
   // PINBALL, gathered beside the boss rather than spelled out here — the

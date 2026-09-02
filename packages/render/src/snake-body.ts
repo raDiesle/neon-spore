@@ -1,175 +1,204 @@
 import type { SnakeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
+import { drawSnakeHead } from "./snake-head.js";
 
 /**
- * The body itself: the fold it arrives as, the length it becomes, and the two
- * ends that are all one of the two screens ever sees.
+ * The body: where it is *between* two tiles, and what it looks like.
  *
- * Its own file rather than the tail of `snake-draw.ts`, and the seam is the
- * one the round is built on: that file is the *place* — the arena, its wall,
- * and what is standing in it to be collected — and this is the thing that
- * moves through it. It is also the half that is drawn differently on the two
- * screens, which is worth being able to read on its own.
+ * **It slides.** The simulation stores whole tiles and steps between them on a
+ * tick, which is right and is not what a player should see: a body that jumped
+ * a tile every half second read as a thing stuttering rather than a thing
+ * moving. So the drawing carries an offset — how far through the current step
+ * the world is — and every segment is drawn between where it is and where the
+ * segment ahead of it is. Nothing about that is stored and nothing is guessed:
+ * `world.tick` against the round's own `stepTick` is the whole of it, so two
+ * devices draw the same body on the same tick and `Effects.reset` has nothing
+ * to clear.
+ *
+ * **It tapers.** The owner asked for a snake rather than a tube, so the width
+ * falls from behind the head to the tail and the spine carries a row of
+ * markings — the two things that read as *snake* at tile size. The colours
+ * stay the ship's violet and cyan: the body is the ship, and green is spent
+ * elsewhere (`palette.ts`).
  */
+
+/** How wide the body is at the head, and at the very end of the tail. */
+const HEAD_HALF = 0.4;
+const TAIL_HALF = 0.13;
+
+/** Where a tile's centre is, in pixels. */
+function centre(arena: Arena, col: number, row: number): { x: number; y: number } {
+  return { x: arenaX(arena, col) + arena.tile / 2, y: arenaY(arena, row) + arena.tile / 2 };
+}
+
+/**
+ * How far through the current step the body is, 0..1.
+ *
+ * Reads the world and nothing else. While the ship is still folding there is
+ * no step to be part-way through, so it is 0 and the body sits on its tiles.
+ */
+export function snakeSlide(snake: SnakeState, tick: number): number {
+  if (snake.phase !== "play") return 0;
+  const round = snake.rounds[snake.round];
+  if (!round || round.stepTicks <= 0) return 0;
+  return Math.max(0, Math.min(1, (tick - snake.stepTick) / round.stepTicks));
+}
+
+/**
+ * Every joint of the body, in pixels, slid forward by `t`.
+ *
+ * The head runs on ahead into the tile it is entering and every other segment
+ * moves towards the one in front of it, which is what a snake does: the shape
+ * flows along itself rather than every part of it jumping at once.
+ */
+export function snakeJoints(
+  arena: Arena,
+  snake: SnakeState,
+  t: number,
+): { x: number; y: number }[] {
+  const out: { x: number; y: number }[] = [];
+  for (const [i, tile] of snake.body.entries()) {
+    const here = centre(arena, tile.col, tile.row);
+    if (i === 0) {
+      out.push({
+        x: here.x + snake.dirCol * arena.tile * t,
+        y: here.y + snake.dirRow * arena.tile * t,
+      });
+      continue;
+    }
+    const ahead = snake.body[i - 1];
+    if (!ahead) continue;
+    const to = centre(arena, ahead.col, ahead.row);
+    out.push({ x: here.x + (to.x - here.x) * t, y: here.y + (to.y - here.y) * t });
+  }
+  return out;
+}
 
 /**
  * The body, head first.
  *
- * The length is a single stroked path through the tile centres, because a
- * snake drawn as separate squares is a queue of boxes and this is one body:
- * the corners are where the eye reads it, and a `round` join is the only thing
- * that draws a corner. The fold that puts it there is the ship shrinking, and
- * that is `snake-morph.ts` — this file draws what is underneath it.
- *
- * `showBody` is the middle of it. Without it player 1 gets the two ends and
- * nothing between them, which is exactly what they are meant to have: a pair
- * of landmarks to steer between and no idea what is strung across.
+ * `showBody` is the middle of it. Without it player 2's screen is all there is
+ * of the length and player 1 gets the two ends and nothing between them, which
+ * is exactly what they are meant to have: a pair of landmarks to steer between
+ * and no idea what is strung across.
  */
 export function drawSnakeBody(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   snake: SnakeState,
   showBody: boolean,
-  mawOpen = false,
+  t: number,
+  gape = 0,
 ): void {
-  if (showBody) drawLength(ctx, arena, snake);
-  else drawEnds(ctx, arena, snake);
-  const head = snake.body[0];
+  const joints = snakeJoints(arena, snake, t);
+  const head = joints[0];
   if (!head) return;
-  if (mawOpen) drawMouth(ctx, arena, head.col, head.row, snake.dirCol, snake.dirRow);
-  else drawEyes(ctx, arena, head.col, head.row, snake.dirCol, snake.dirRow);
+  if (showBody && joints.length > 1) drawLength(ctx, arena, joints);
+  else if (joints.length > 1) drawEnds(ctx, arena, joints);
+  drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, gape);
 }
 
 /**
- * The mouth, open. It replaces the eyes rather than joining them, which is the
- * cheapest way for a shape the size of a tile to say one thing at a time: a
- * head with a hole in the front of it is open, and a head with two dots is
- * not. Drawn on both screens — player 2 cannot see the point they are about to
- * drive over, but they can see whether the mouth was opened for it.
+ * The whole length, as a tapered ribbon.
+ *
+ * Built as one filled contour rather than a stroked path: a stroke is the same
+ * width everywhere, and the taper is half of what makes this read as an animal
+ * — the other half is the spine, drawn over it.
  */
-function drawMouth(
+function drawLength(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
-  col: number,
-  row: number,
-  dirCol: number,
-  dirRow: number,
+  joints: { x: number; y: number }[],
 ): void {
-  const cx = arenaX(arena, col) + arena.tile / 2;
-  const cy = arenaY(arena, row) + arena.tile / 2;
-  const out = arena.tile * 0.34;
-  const side = arena.tile * 0.22;
-  // A wedge from the middle of the head out to its leading edge.
-  const tipX = cx + dirCol * out;
-  const tipY = cy + dirRow * out;
-  ctx.fillStyle = PALETTE.pod;
-  ctx.beginPath();
-  ctx.moveTo(cx, cy);
-  ctx.lineTo(tipX + dirRow * side, tipY + dirCol * side);
-  ctx.lineTo(tipX - dirRow * side, tipY - dirCol * side);
-  ctx.closePath();
-  ctx.fill();
-}
-
-/** The centre of a tile, which is what the body's path is drawn through. */
-function centre(arena: Arena, col: number, row: number): { x: number; y: number } {
-  return { x: arenaX(arena, col) + arena.tile / 2, y: arenaY(arena, row) + arena.tile / 2 };
-}
-
-/**
- * The whole length, as one path. Cyan for the body and the hull's violet for
- * the head — the ship taken apart into the two colours the pair already steer
- * with, rather than the arcade green this game has spent elsewhere.
- */
-function drawLength(ctx: CanvasRenderingContext2D, arena: Arena, snake: SnakeState): void {
-  const width = arena.tile * 0.72;
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  for (const [i, tile] of snake.body.entries()) {
-    const p = centre(arena, tile.col, tile.row);
-    if (i === 0) ctx.moveTo(p.x, p.y);
-    else ctx.lineTo(p.x, p.y);
+  const half = (i: number): number =>
+    arena.tile * (HEAD_HALF + (TAIL_HALF - HEAD_HALF) * (i / Math.max(1, joints.length - 1)));
+  const left: { x: number; y: number }[] = [];
+  const right: { x: number; y: number }[] = [];
+  for (const [i, p] of joints.entries()) {
+    const prev = joints[i - 1] ?? p;
+    const next = joints[i + 1] ?? p;
+    // The normal of the direction the body runs in here, which for a corner is
+    // the average of the two sides — that is what rounds a turn off.
+    const dx = next.x - prev.x;
+    const dy = next.y - prev.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -(dy / len) * half(i);
+    const ny = (dx / len) * half(i);
+    left.push({ x: p.x + nx, y: p.y + ny });
+    right.push({ x: p.x - nx, y: p.y - ny });
   }
+
+  ctx.beginPath();
+  ctx.moveTo(left[0]?.x ?? 0, left[0]?.y ?? 0);
+  for (const p of left.slice(1)) ctx.lineTo(p.x, p.y);
+  const end = joints[joints.length - 1];
+  if (end) ctx.lineTo(end.x, end.y);
+  for (const p of right.slice(0, -1).reverse()) ctx.lineTo(p.x, p.y);
+  ctx.closePath();
+  ctx.fillStyle = "#0C2C39";
+  ctx.fill();
   ctx.strokeStyle = PALETTE.shield;
-  ctx.lineWidth = width;
+  ctx.lineWidth = 1.6;
   ctx.stroke();
-  ctx.strokeStyle = "#0C2C39";
-  ctx.lineWidth = Math.max(1, width - 4);
-  ctx.stroke();
-  ctx.lineJoin = "miter";
-  ctx.lineCap = "butt";
-  drawCap(ctx, arena, snake.body[0], 0.78, true);
-  if (snake.body.length > 1) drawCap(ctx, arena, snake.body[snake.body.length - 1], 0.5, false);
+  drawSpine(ctx, arena, joints);
 }
 
 /**
- * The two ends and nothing between them — player 1's whole picture of the
- * body. The tail is smaller than the head, because the one thing they have to
- * be able to say about it is which end it is.
+ * The markings down the back — one diamond a segment, shrinking with the body.
+ *
+ * The cheapest thing that turns a shape into a creature at this size, and the
+ * one the reference drawing spends the most ink on. They are drawn from the
+ * joints rather than from the tiles, so they slide with everything else.
  */
-function drawEnds(ctx: CanvasRenderingContext2D, arena: Arena, snake: SnakeState): void {
-  drawCap(ctx, arena, snake.body[0], 0.78, true);
-  if (snake.body.length > 1) drawCap(ctx, arena, snake.body[snake.body.length - 1], 0.5, false);
-}
-
-/** One end, squared off in its tile. */
-function drawCap(
+function drawSpine(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
-  tile: SnakeState["body"][number] | undefined,
-  share: number,
-  head: boolean,
+  joints: { x: number; y: number }[],
 ): void {
-  if (!tile) return;
-  const size = arena.tile * share;
-  const p = centre(arena, tile.col, tile.row);
-  ctx.fillStyle = head ? "#2A1150" : "#0C2C39";
-  ctx.strokeStyle = head ? PALETTE.hull : PALETTE.shield;
-  ctx.lineWidth = 2;
-  roundRect(ctx, p.x - size / 2, p.y - size / 2, size, size, size * 0.3);
-  ctx.fill();
-  ctx.stroke();
-}
-
-function roundRect(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r: number,
-): void {
-  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.arcTo(x + w, y, x + w, y + h, radius);
-  ctx.arcTo(x + w, y + h, x, y + h, radius);
-  ctx.arcTo(x, y + h, x, y, radius);
-  ctx.arcTo(x, y, x + w, y, radius);
-  ctx.closePath();
-}
-
-/** Which way it is going, said by the only part of it that has a face. */
-function drawEyes(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  col: number,
-  row: number,
-  dirCol: number,
-  dirRow: number,
-): void {
-  const cx = arenaX(arena, col) + arena.tile / 2;
-  const cy = arenaY(arena, row) + arena.tile / 2;
-  const out = arena.tile * 0.2;
-  const side = arena.tile * 0.17;
-  ctx.fillStyle = PALETTE.hullRim;
-  for (const sign of [-1, 1]) {
-    const x = cx + dirCol * out + (dirCol === 0 ? sign * side : 0);
-    const y = cy + dirRow * out + (dirRow === 0 ? sign * side : 0);
+  ctx.fillStyle = PALETTE.cyanRim;
+  for (const [i, p] of joints.entries()) {
+    if (i === 0) continue;
+    const share = 1 - i / Math.max(1, joints.length - 1);
+    const r = arena.tile * (0.06 + 0.06 * share);
+    ctx.globalAlpha = 0.35 + 0.25 * share;
     ctx.beginPath();
-    ctx.arc(x, y, Math.max(1, arena.tile * 0.08), 0, Math.PI * 2);
+    ctx.moveTo(p.x, p.y - r);
+    ctx.lineTo(p.x + r, p.y);
+    ctx.lineTo(p.x, p.y + r);
+    ctx.lineTo(p.x - r, p.y);
+    ctx.closePath();
     ctx.fill();
   }
+  ctx.globalAlpha = 1;
+}
+
+/**
+ * The tail alone — player 1's half of the body. A short taper at the last
+ * joint, so the end reads as an end and not as a segment that stopped.
+ */
+function drawEnds(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  joints: { x: number; y: number }[],
+): void {
+  const end = joints[joints.length - 1];
+  const before = joints[joints.length - 2];
+  if (!end || !before) return;
+  const dx = end.x - before.x;
+  const dy = end.y - before.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const half = arena.tile * 0.22;
+  const nx = -(dy / len) * half;
+  const ny = (dx / len) * half;
+  ctx.beginPath();
+  ctx.moveTo(before.x + nx, before.y + ny);
+  ctx.lineTo(end.x + dx * 0.3, end.y + dy * 0.3);
+  ctx.lineTo(before.x - nx, before.y - ny);
+  ctx.closePath();
+  ctx.fillStyle = "#0C2C39";
+  ctx.fill();
+  ctx.strokeStyle = PALETTE.shield;
+  ctx.lineWidth = 1.6;
+  ctx.stroke();
 }

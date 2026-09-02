@@ -163,9 +163,15 @@ controls — and player 1 has the two things the body does when it arrives, a
 shot out of the head and a mouth. The **information** is split to match:
 `showsSnakeFood` gives player 1 the enemies, the points and both ends of the
 body, `showsSnakeBody` gives player 2 the whole length and none of the things
-in the arena. So the seat that can reach a thing cannot see it and the seat
-that can see it cannot reach it, and every verb in the round is somebody
-answering a sentence. A round whose two splits pointed in different directions
+either of them can act on. So the seat that can reach a thing cannot see it and
+the seat that can see it cannot reach it, and every verb in the round is
+somebody answering a sentence.
+
+**The meteors are the exception, and they are what proves the rule.** They can
+be neither shot nor swallowed, and a shot stops dead on one, so the only answer
+to a meteor is the steering — which means telling player 1 about one would buy
+the pair nothing. They are drawn on *both* screens for exactly that reason: an
+information split is worth keeping only where the information is worth saying. A round whose two splits pointed in different directions
 would be two puzzles played at once.
 
 It also settles a question the first round left open: **a relative control is
