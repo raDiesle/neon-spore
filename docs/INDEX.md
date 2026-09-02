@@ -380,6 +380,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |
 | `tools/director/src/shapes-motion.ts` | a sway in tiles turned into a card that does not clip |
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
+| `tools/director/src/waves-api.ts` | `GET`/`PUT /api/waves`, and the base-revision token that refuses a clobber |
+| `tools/director/src/waves-io.ts` | the page's half of that: load, save, and the token it holds in between |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/shape-sheet/src/catalogue.ts` | drawn, spare and drafted — which shapes are spendable |
 | `tools/shape-sheet/src/forms/` | contour forms the game has no creature for yet |

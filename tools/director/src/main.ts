@@ -1,4 +1,4 @@
-import { WAVES, type Wave } from "@neon-spore/content";
+import { WAVES } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
@@ -34,6 +34,7 @@ import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
 import { renderWaveOpening } from "./wave-opening.js";
+import { bindWaveIo } from "./waves-io.js";
 
 // The director: one screen where a wave is placed, played and judged — not
 // the game, and the stage runs the shipping renderer through `computeStage`.
@@ -196,42 +197,10 @@ function paintStatus(): void {
   else setStatus("saved");
 }
 
-document.getElementById("save")?.addEventListener("click", save);
-
-async function save(): Promise<void> {
-  const bad = refuse(store.waves);
-  if (bad) {
-    setStatus(bad, "bad");
-    return;
-  }
-  setStatus("saving…");
-  try {
-    const res = await fetch("/api/waves", {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(store.waves),
-    });
-    const body = (await res.json()) as { error?: string };
-    if (!res.ok) throw new Error(body.error ?? res.statusText);
-    store.dirty = false;
-    paintStatus();
-  } catch (err) {
-    setStatus(`save failed: ${String(err)}`, "bad");
-  }
-}
-
-async function load(): Promise<void> {
-  try {
-    const res = await fetch("/api/waves");
-    if (!res.ok) throw new Error(res.statusText);
-    store.waves = (await res.json()) as Wave[];
-  } catch {
-    // No server — the bundled copy is still worth editing, just not saving.
-    setStatus("no server — read only", "bad");
-  }
-  store.index = Math.min(store.index, store.waves.length - 1);
-  refreshAll();
-}
+// Reading and writing the act files, and the base revision that keeps a save
+// from overwriting an edit this page never saw — see `waves-io.ts`.
+const io = bindWaveIo({ store, setStatus, repaint: paintStatus, refresh: refreshAll });
+document.getElementById("save")?.addEventListener("click", () => void io.save());
 
 bindTabs("#tabs");
 document.querySelector<HTMLButtonElement>(`#tabs button[data-tab="${place.initialTab}"]`)?.click();
@@ -247,4 +216,4 @@ window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
 });
 
-void load();
+void io.load();

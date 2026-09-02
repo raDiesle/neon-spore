@@ -72,7 +72,10 @@ async function bake(relPath: string, body: string): Promise<void> {
 const [backlogRes, notesRes] = await Promise.all([backlogState(), notesState(repoRootPath)]);
 
 await Promise.all([
-  bake("api/waves", JSON.stringify(WAVES)),
+  // The same `{ waves, token }` shape a live server answers with. The token is
+  // empty because a static bundle has no act files to hash and no PUT to guard
+  // — `shipped.ts` hides SAVE, and a page that cannot save never sends it.
+  bake("api/waves", JSON.stringify({ waves: WAVES, token: "" })),
   bake("api/backlog", await backlogRes.text()),
   bake("api/notes", await notesRes.text()),
   bake("api/borrowed", JSON.stringify({ text: await readBorrowedText() })),

@@ -1,4 +1,3 @@
-import type { Wave } from "@neon-spore/content";
 import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
@@ -10,7 +9,7 @@ import {
   readTowerDefenceText,
 } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
-import { serializeWaveArray } from "./src/serialize.js";
+import { saveWaves, wavesState } from "./src/waves-api.js";
 
 /**
  * The director's server. It exists for one reason the game's preview does not
@@ -35,34 +34,6 @@ const given =
   process.env.DIRECTOR_PORT === undefined ? undefined : Number(process.env.DIRECTOR_PORT);
 /** Which checkout's wave-act files this one reads and writes. */
 const treeId = treeKey(repoRootPath);
-/**
- * The barrel — read for the current wave list, never written to. It only
- * concatenates the three acts below, so a save never touches it.
- */
-const wavesFile = new URL("../../packages/content/src/waves.ts", import.meta.url);
-/**
- * The three acts, in order. A save splits the incoming flat list back across
- * them at each act's *current* length, except the last, which takes whatever
- * is left over — so a wave appended in the editor lands in the newest act
- * without either act needing to say which waves are its own.
- */
-const actFiles = [
-  {
-    file: new URL("../../packages/content/src/waves/act-1.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-1.ts",
-    exportName: "WAVES_ACT_1",
-  },
-  {
-    file: new URL("../../packages/content/src/waves/act-2.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-2.ts",
-    exportName: "WAVES_ACT_2",
-  },
-  {
-    file: new URL("../../packages/content/src/waves/act-3.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-3.ts",
-    exportName: "WAVES_ACT_3",
-  },
-] as const;
 const marker = "neon-spore-director";
 /**
  * How long the server stays up with nobody looking at it.
@@ -142,47 +113,6 @@ function withIdle<T extends (req: Request) => Response | Promise<Response>>(hand
   }) as T;
 }
 
-/** The waves as they are on disk right now, not as they were bundled. */
-async function readWaves(): Promise<Wave[]> {
-  const mod = (await import(`${wavesFile.href}?t=${Date.now()}`)) as { WAVES: Wave[] };
-  return mod.WAVES;
-}
-
-/**
- * Write the array back across the three act files, then let Biome have the
- * last word on formatting. The serializer already aims at Biome's output —
- * the round-trip test holds it to that — but a wave nobody has written yet
- * may wrap in a way the test never saw, and a save that turns the tree red is
- * not a save.
- */
-async function writeWaves(waves: Wave[]): Promise<string | null> {
-  let offset = 0;
-  for (let i = 0; i < actFiles.length; i++) {
-    const act = actFiles[i]!;
-    const isLast = i === actFiles.length - 1;
-    const mod = (await import(`${act.file.href}?t=${Date.now()}`)) as Record<string, Wave[]>;
-    const currentLen = mod[act.exportName]?.length ?? 0;
-    const remaining = waves.length - offset;
-    const count = isLast ? remaining : Math.min(currentLen, remaining);
-    const slice = waves.slice(offset, offset + count);
-    offset += slice.length;
-
-    const source = await Bun.file(act.file).text();
-    const next = serializeWaveArray(source, slice, act.exportName);
-    await Bun.write(act.file, next);
-  }
-
-  const rels = actFiles.map((act) => act.rel);
-  const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", ...rels], {
-    cwd: repoRootPath,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const code = await proc.exited;
-  if (code === 0) return null;
-  return await new Response(proc.stderr).text();
-}
-
 const server = Bun.serve({
   port,
   hostname: process.env.DIRECTOR_HOST ?? "::",
@@ -235,19 +165,14 @@ const server = Bun.serve({
       }),
     },
 
+    /**
+     * The waves, and the token that says which revision of the act files they
+     * came off. The write is guarded against that token rather than being
+     * last-write-wins — see `waves-api.ts`, where both verbs live.
+     */
     "/api/waves": {
-      GET: withIdle(async () => Response.json(await readWaves(), { headers: noCache })),
-      PUT: withIdle(async (req) => {
-        try {
-          const waves = (await req.json()) as Wave[];
-          const complaint = await writeWaves(waves);
-          if (complaint) return Response.json({ error: complaint }, { status: 500 });
-          console.log(`wrote ${waves.length} waves`);
-          return Response.json({ ok: true }, { headers: noCache });
-        } catch (err) {
-          return Response.json({ error: String(err) }, { status: 400 });
-        }
-      }),
+      GET: withIdle(() => wavesState()),
+      PUT: withIdle((req) => saveWaves(req)),
     },
 
     /**
