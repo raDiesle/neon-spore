@@ -225,23 +225,32 @@ do not ask the owner to confirm that something was tested. Write the commit
 message well instead: it is the release note, and it is the only part of this
 that anybody sees twice.
 
-**Suggestions go in the report, and nowhere else.** Anything the session
-noticed and did not do — a refactor it stepped around, a tool that would have
-helped, an idea for the game — is said once, in the closing block, and then it
-is the owner's to keep or drop.
+**Suggestions go in the report. At most one of them also goes in
+`docs/parked.md`.** Anything the session noticed and did not do — a refactor it
+stepped around, a tool that would have helped, an idea for the game — is said
+once in the closing block, and that is enough for most of it. A session starts
+cold with nothing but `origin` and the commit messages, so the one thing worth
+keeping is written down where the next clone can find it.
 
-They used to be written into `docs/parked.md` instead, on the reasoning that a
-suggestion made in a report is read once on a phone and scrolled past, while a
-file is in the clone forever. Both halves were true and the second one was the
-problem. The rule had no budget and the file had no reader: sixty-two entries
-arrived in six days, forty-four of them off the parallel `burn` lanes, and
-draining it was a job only the owner could do — which is the same shape as the
-`Check:` trailers and the queue board, and it ended the same way. An idea worth
-picking up survives being said once; one that only survives because a rule
-filed it was never going to be built.
+**One is the whole rule.** The cap is what this used to lack, and the lack is
+what broke it: "write down anything you noticed" put sixty-two entries in the
+file in six days — forty-four off the parallel `burn` lanes, thirty-three on
+one day — and draining it was a job only the owner could do. That is the shape
+of the `Check:` trailers and the queue board, both retired in `decisions.md`
+#26 for exactly this, and the file nearly went the same way. A budget fixes it
+where a ban would have cost the thing the file is *for*.
 
-So a session that notices something says so and lets it go. If the owner wants
-it kept, they will say so, and *then* it is worth a file.
+So the session picks its best one, or none — none is the common answer and it
+is not a failure. What earns the heading is something a later session could not
+re-derive by reading the code: a reason, a rejected alternative, a constraint
+that is only visible from where this session was standing. A refactor anyone
+would spot on opening the file does not need a note; the argument for why it
+was not done might.
+
+Three sentences, in the format `docs/parked.md` sets out: what it is, why it
+was not done then, where to start. **Never a queue entry** — a branch name, the
+paths a lane would own, a finished-when — that is a board for a machine that
+was deleted, and it is how the last twenty-line entries got there.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with

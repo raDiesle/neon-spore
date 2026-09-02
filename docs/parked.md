@@ -45,17 +45,19 @@ An entry leaves by being **deleted** — done or refused, the history keeps it
 either way. Nothing is ticked here. A file of ticked boxes is a file nobody
 reads to the bottom of.
 
-**Nothing adds to this file automatically any more, and that is the point.**
-A rule in `CLAUDE.md` once told every cloud session to park what it noticed
-and skipped. It had no budget: sixty-two entries arrived in six days, most of
-them off the parallel `burn` lanes, in the shape of whole queue entries rather
-than the two or three sentences asked for above — and the bottom section that
-held them, written when `docs/queue.md` and `bun run burn` still existed, was
-a board for a machine that has since been deleted. It went with them. What is
-left below is the part that was worth keeping: ideas somebody would still pick
-up, each readable on its own. A new entry is welcome and is now a decision
-rather than a reflex — the owner asking for one, or a session judging an idea
-good enough to spend a heading on.
+**A session adds at most one entry, and usually none.** `CLAUDE.md` used to
+say to park anything a session noticed and skipped, with no cap on it, and
+sixty-two entries arrived in six days — most off the parallel `burn` lanes, in
+the shape of whole queue entries rather than the two or three sentences asked
+for above. The bottom section that held them was written when `docs/queue.md`
+and `bun run burn` still existed: a board for a machine that has since been
+deleted, so it went with them.
+
+The cap is what was missing, and it is the only thing that changed. What earns
+a heading is something a later session could not re-derive by reading the
+code — a reason, a rejected alternative, a constraint visible only from where
+that session stood. Not a refactor anyone would spot on opening the file, and
+never a branch name with the paths a lane would own.
 
 ## Three private copies of a hex mix
 
