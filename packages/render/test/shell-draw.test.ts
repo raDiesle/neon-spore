@@ -11,8 +11,10 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { drawnRow, hazed, nearness } from "../src/depth.js";
 import { computeLayout } from "../src/layout.js";
 import { drawShellArmour } from "../src/shell-draw.js";
+import { PLATE_RIM } from "../src/shell-plate.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -78,6 +80,21 @@ function drawFrames(world: ReturnType<typeof createWorld>): number {
   return ctx.calls;
 }
 
+/** How many times one frame set the plating's grey — twice on an intact
+ * shell, one per plate, and the question the bare half's rim is an answer
+ * to. `beatPhase` and `time` are pinned so the hazed colour is computable
+ * here from the one row the body is on. */
+function greyStrokes(world: ReturnType<typeof createWorld>): number {
+  const { ctx } = stubCanvas();
+  const log: string[] = [];
+  ctx.log = log;
+  drawShellArmour(ctx as unknown as CanvasRenderingContext2D, L, world, 0, 0);
+  const body = world.creatures[0];
+  if (!body) return log.filter((e) => e.startsWith("set strokeStyle=")).length;
+  const grey = hazed(CFG, PLATE_RIM, nearness(L, drawnRow(body, 0)));
+  return log.filter((e) => e === `set strokeStyle=${grey}`).length;
+}
+
 beforeAll(installCanvasGlobals);
 
 describe("the shell's plating", () => {
@@ -116,6 +133,25 @@ describe("the shell's plating", () => {
     for (const color of ["red", "cyan"] as const) {
       expect(drawFrames(run([shell(COL, color)], TPB + 1).world)).toBeGreaterThan(0);
     }
+  });
+
+  it("rims the bared half in the same grey the surviving plate is rimmed in", () => {
+    // The whole of what the chipped shell has to say: one half armoured, one
+    // half opened, and both of them still edged in the armour's own grey, so
+    // the pair read one body wearing a shell rather than two unrelated things
+    // standing in adjacent columns.
+    const intact = run([shell(COL)], TPB + 1);
+    const chipped = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, "red"));
+    expect(shellPiecesLeft(chipped.world.creatures[0]!)).toBe(1);
+    expect(greyStrokes(intact.world)).toBe(2);
+    expect(greyStrokes(chipped.world)).toBe(2);
+  });
+
+  it("takes the grey away with the last plate", () => {
+    const inputs = [...shot(TPB * 2, COL, "red"), ...shot(TPB * 3, COL + 1, "red")];
+    const { world } = run([shell(COL)], TPB * 5, inputs);
+    expect(shellIsBare(world.creatures[0]!)).toBe(true);
+    expect(greyStrokes(world)).toBe(0);
   });
 
   it("stops drawing once the body is bare — it is the whole picture now", () => {

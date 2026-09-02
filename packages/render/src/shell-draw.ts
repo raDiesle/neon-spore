@@ -12,7 +12,7 @@ import { contourClock, creatureCenter } from "./creature-place.js";
 import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { crackSeed, drawPlate, PLATE, PLATE_RIM } from "./shell-plate.js";
+import { crackSeed, drawBareRim, drawPlate, PLATE, PLATE_RIM } from "./shell-plate.js";
 
 /**
  * THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`)
@@ -32,12 +32,15 @@ import { crackSeed, drawPlate, PLATE, PLATE_RIM } from "./shell-plate.js";
  *    the body it is, hard-edged where a body is soft, and lit only by three
  *    splits: one down the middle where the two pieces meet and one across each
  *    half. Shielded, and visibly not permanently.
- *  - **One half chipped** — that half is simply gone, so the body underneath
- *    stands bare at its true size and its true colour, right beside a half
- *    still wearing armour a size too big. The pair have to name *which*
- *    column, and the picture has already told them the answer is one of two.
- *  - **Bare** — nothing here draws at all. The body is the whole picture, and
- *    `drawCreatures` has already drawn it.
+ *  - **One half chipped** — the plate is gone, so the body underneath stands
+ *    bare at its true size and its true colour, right beside a half still
+ *    wearing armour a size too big — but the bared half keeps the plate's grey
+ *    rim along its own outline, so the thing still reads as one armoured body
+ *    with one side opened. The pair have to name *which* column, and the
+ *    picture has already told them the answer is one of two.
+ *  - **Bare** — nothing here draws at all: the last plate takes the grey rim
+ *    with it. The body is the whole picture, and `drawCreatures` has already
+ *    drawn it.
  *
  * **Nothing here is cached across a frame.** `Creature.shell` already answers
  * "which piece, right now" every tick on both devices, so recomputing costs
@@ -123,8 +126,14 @@ function drawOne(
   ctx.scale(scale * pose.sx, scale * pose.sy);
 
   for (let piece = 0; piece < SHELL_COLS; piece++) {
+    // A piece that is gone is not nothing: while any plate is still on, the
+    // bared half keeps the plate's own grey edge along the body's contour, so
+    // the two halves read as one armoured thing with one side opened rather
+    // than as a body with a plate stuck to it. The pass never reaches here on
+    // a bare body, which is what makes the rim leave with the last plate.
     if (shellHasPiece(c, c.col + piece))
       drawPlate(ctx, shape, piece, crackSeed(c.id, piece), t, ink);
+    else drawBareRim(ctx, shape, piece, t, ink);
   }
 
   ctx.restore();

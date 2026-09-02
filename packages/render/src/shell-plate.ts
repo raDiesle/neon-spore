@@ -65,11 +65,28 @@ function pieceAngleSpan(piece: number): { from: number; to: number } {
     : { from: -Math.PI / 2, to: Math.PI / 2 };
 }
 
-/** The plating's outer edge at one angle — the same `blobRadiusMul` call
- * `blobPath` makes for the body underneath, pushed out by `ARMOUR_MUL`. */
-function armourAt(s: CreatureSilhouette, a: number, t: number): Point {
-  const m = blobRadiusMul(a, s.lobes, s.depth, s.wobble, t, s.seed) * ARMOUR_MUL;
+/** The contour at one angle — the same `blobRadiusMul` call `blobPath` makes
+ * for the body underneath, scaled by `mul`. At `ARMOUR_MUL` it is the
+ * plating's outer edge; at 1 it is the body's own outline, which is what a
+ * bared half has to be rimmed along. */
+function contourAt(s: CreatureSilhouette, a: number, t: number, mul: number): Point {
+  const m = blobRadiusMul(a, s.lobes, s.depth, s.wobble, t, s.seed) * mul;
   return { x: Math.cos(a) * s.rx * m, y: Math.sin(a) * s.ry * m };
+}
+
+/** The plating's outer edge at one angle. */
+function armourAt(s: CreatureSilhouette, a: number, t: number): Point {
+  return contourAt(s, a, t, ARMOUR_MUL);
+}
+
+/** One piece's span of a contour, as points, ready for `openSmoothPath`. */
+function arcPoints(s: CreatureSilhouette, piece: number, t: number, mul: number): Point[] {
+  const { from, to } = pieceAngleSpan(piece);
+  const pts: Point[] = [];
+  for (let i = 0; i <= ARC_POINTS; i++) {
+    pts.push(contourAt(s, from + ((to - from) * i) / ARC_POINTS, t, mul));
+  }
+  return pts;
 }
 
 /**
@@ -151,11 +168,7 @@ export function drawPlate(
   t: number,
   ink: PlateInk,
 ): void {
-  const { from, to } = pieceAngleSpan(piece);
-  const arc: Point[] = [];
-  for (let i = 0; i <= ARC_POINTS; i++) {
-    arc.push(armourAt(s, from + ((to - from) * i) / ARC_POINTS, t));
-  }
+  const arc = arcPoints(s, piece, t, ARMOUR_MUL);
   // The arc ends where the split begins, so closing the path back along the
   // split is the plate. Piece 0's arc finishes at the top and piece 1's at the
   // bottom, which is why one of them walks the split backwards.
@@ -179,4 +192,33 @@ export function drawPlate(
   strokeGlow(ctx, new Path2D(openSmoothPath(edge)), ink.light, ink.lineWidth * 0.9, 1);
   const crack = new Path2D(openSmoothPath(crackPoints(s, piece, seed, t)));
   strokeGlow(ctx, crack, ink.light, ink.lineWidth * 0.7, 0.8);
+}
+
+/**
+ * The half that has already been chipped: no plate, but the same hard grey
+ * edge the surviving plate is rimmed with, traced along the *body's* own
+ * contour rather than the plating's — the body underneath stands at its true
+ * size, and this is a border on it, not a ghost of the armour that left.
+ *
+ * The reason it is drawn at all is the pair's problem, not a decorative one:
+ * with one plate on and one off, the two halves of a shell are a hard rim and
+ * a soft coloured outline standing side by side, and the rim on the bare half
+ * says *this body is still a shell* while the missing plate says *this is the
+ * side that is already open*. Once the last plate goes, `drawShellArmour`
+ * stops before reaching here and the body is drawn with its own outline
+ * alone — which is exactly what "no armour left" has to look like.
+ *
+ * Only the arc, never the split down the middle: the plate next door rims
+ * only its arc too, and the split is where the body's light comes out.
+ */
+export function drawBareRim(
+  ctx: CanvasRenderingContext2D,
+  s: CreatureSilhouette,
+  piece: number,
+  t: number,
+  ink: PlateInk,
+): void {
+  ctx.strokeStyle = ink.rim;
+  ctx.lineWidth = ink.lineWidth;
+  ctx.stroke(new Path2D(openSmoothPath(arcPoints(s, piece, t, 1))));
 }
