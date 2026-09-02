@@ -9,6 +9,64 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 78de4d3 — docs/parked.md comes back for the one thing it was good at: work left half-done
+
+It was deleted because it had become a backlog, and a backlog is the one thing it must not be. Scoped to what a session actually parks, it carries a sentence nothing else can: the next session clones origin knowing only what the commit messages say, and none of them say "the other half of this is still undone".
+
+## 2026-09-02 · b4c1d9d — The backlog was never the parked file, it is the spec the NOT BUILT YET sheet reads
+
+Removing docs/parked.md reads as losing the backlog, and the paragraph that replaced it named the spec files without saying why they are the right home. They are the right home because they are already the page: the director's NOT BUILT YET sheet is built from ideas.md's ### sections and the rosters in bestiary.md and bosses.md, and anything the simulation has drops off it by being built. An idea filed in the spec lands on the sheet the owner decides from, beside the built things it would sit next to — which a separate file of loose ideas could not do, and which is most of why nobody opened that file.
+
+## 2026-09-02 · 0d0d769 — Four of the five VERSUS slots were held shut by lanes that cannot land
+
+The dead-pointer sweep turned up something that was not bookkeeping. Two documents carried standing constraints naming burn lanes as their blocker — alive.md on slots 4 and 5, versus.md on the bulb and slick slots — and the lane they waited on owned own-motion.ts in a queue that was deleted with bun run burn in decisions.md #26. A constraint whose release condition is a lane nobody can run is a slot closed permanently, and the reason it stayed closed is that the sentence naming it looked like ordinary scheduling.
+
+## 2026-09-02 · d6204cd — Thirty-eight pointers at a queue file that was deleted months ago
+
+docs/queue.md went with bun run burn in decisions.md #26, and thirty-eight comments across twenty-five files went on citing it — "see docs/queue.md's claude/burn-topbar-fold entry", "the split docs/queue.md's SHIP-column brief asks for". Every one sends a reader to a file that is not there, which is worse than saying nothing: it reads as a promise that the reasoning is written down somewhere, and following it costs a session a search before it works out the file is gone.
+
+## 2026-09-02 · 6b9e43a — The parked file and its page are gone, and what was worth keeping moved to the spec
+
+The owner has no use for it. It was one list of loose ideas standing apart from the things the ideas were about, and that separation is what made it unreadable: a control was described in parked.md while the boss it was tried on was in bosses.md, so neither page was complete and the reader had to know both existed.
+
+## 2026-09-02 · c43e77e — The parked file gets a budget, which is what it was missing, not a ban
+
+The previous commit read the evidence right and drew the wrong conclusion from it. Sixty-two entries in six days is an argument about rate, not about whether a session should be able to write anything down — and "suggestions go in the report and nowhere else" throws away the one thing the file is for. A cloud session starts cold with nothing but origin and the commit messages, so a finding that lives only in a transcript is lost, which is the reasoning the original rule was built on and it was never wrong.
+
+## 2026-09-02 · b3a3cb8 — The rule that filled parked.md is gone, and so is the queue board it filled
+
+A cloud session no longer parks what it noticed and skipped. It says so in the report and lets it go, which is what the rule was competing with in the first place.
+
+## 2026-09-02 · 64d5cfc — Remove parked idea: a body under a hand sways exactly like a free one
+
+## 2026-09-02 · 3dc57d8 — Remove parked idea: the one body the fiction forbids from looking alive is the only one with volume
+
+## 2026-09-02 · 6b2e2b8 — Remove parked idea: one predicate stands between thirteen creatures and a picture
+
+## 2026-09-02 · 90a6504 — Remove the maze re-tangling entry from parked.md
+
+The owner decided against it.
+
+## 2026-09-02 · 5e3c8af — Remove the four-director-files-near-the-cap entry from parked.md
+
+Removed for now, per the owner.
+
+## 2026-09-02 · e5252d3 — Remove the merged-wave-guides entry from parked.md
+
+The owner decided against it.
+
+## 2026-09-02 · c1b755d — Remove the guard-lapse peripheral-signal entry from parked.md
+
+The owner decided against it.
+
+## 2026-09-02 · ebaaa55 — Move Cracks in the cockpit from deferred into Mechanics
+
+Nothing about it was ever argued down — it was only ungrounded, written for a version of the game with an aim beam and a cockpit view to crack — so it belongs with the other unworked-out ideas rather than in the list for ones that were turned down. Left "Deliberately deferred" with just THE CONDUCTOR, which really is deferred rather than refused.
+
+## 2026-09-02 · 878f34d — Move bestiary and boss ideas out of parked.md into the spec
+
+parked.md is for technical debt and open design questions, and its own rules already say a creature or boss idea belongs elsewhere rather than sitting scattered through the file. This moves each one to the page it actually argues about, instead of a generic parked pile, and deletes it from parked.md once it lands:
+
 ## 2026-09-01 · f2b1a4e — PARKED is read top to bottom, and every idea brings its argument with it
 
 The tab showed seventy-five headings in four side-by-side columns and left every word of prose in `docs/parked.md`. That is the one thing the page cannot afford to drop: an entry is an offer the owner has to decide on, and the sentences under the heading — what it is, why it was skipped, where to start — are the entire content of that decision. A title and a date decide nothing.
