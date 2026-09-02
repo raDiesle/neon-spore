@@ -188,6 +188,12 @@ export function buildBacklog(
         sheet,
         "Controls",
       ),
+      fromIdeas(
+        "WEAPON IDEAS",
+        "what the cannon fires, never how it is aimed — ideas.md",
+        sheet,
+        "Weapons",
+      ),
     ],
     bosses: [
       fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses),

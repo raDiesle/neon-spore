@@ -280,9 +280,8 @@ colour and phase both follow from counters both devices already agree about.
 **Nothing in this fight can hurt the pair, and that is known.** The clamped
 control, the falling line and the vented rock all came off together, and with
 them went every way the Warden could cost the hull. The owner has seen that and
-is solving it separately; do not invent a clock or a hazard to fill the gap. The
-two retired concepts are written up in `docs/parked.md` as designs somebody
-could pick up.
+is solving it separately; do not invent a clock or a hazard to fill the gap.
+The retired concepts are written up below, as designs somebody could pick up.
 
 **The rope is the first `special` creature.** The bestiary reserves that category
 for something answered by neither cannon nor shield and says to leave it empty
@@ -346,6 +345,70 @@ looked at by a human is whether the hatch reads as a proportion at phone size �
 whether a partner watching it can tell "nearly there" from "there" without being
 told a number, which is the whole of player 2's half of this fight and is a
 question no test can answer.
+
+### Retired designs from this fight
+
+Three designs were tried against this boss and set aside; they are recorded
+here, against the fight they belong to, rather than as loose entries in
+`docs/parked.md`.
+
+**The clamp — a control taken, and nothing shown taking it.** THE WARDEN used
+to clamp a control outright: every cycle a line came out of the rim and froze
+one of the pair's two sliding controls — a clamped cannon took no `cannonCol`,
+a clamped shield no `shieldCol`, commands dropped rather than queued so a
+release could not teleport the control to wherever a thumb had wandered. Only
+the player it was not holding could pull it free, at the cost of their own
+hand, alternating strictly cannon then shield. The owner's own diagnosis of
+why it failed is worth keeping over the mechanic itself:
+
+> das alte konzept, was du beschreibst, gefällt mir nicht und war nicht klar
+> verständlich - es gab dazu kein visual, damit das klar wird, und das klemmen
+> war nicht lange genug.
+
+*There was no visual to make it clear, and the clamping did not hold long
+enough.* The rule was correct on paper and invisible in play — a player whose
+strip stopped answering had no way to learn why, and by the time they worked
+it out it was over. A second attempt owes it two visuals rather than a
+different rule: something visibly reaching from the object to the ship (a
+bolt of lightning, a grabbing arm), and the harm shown at the panel itself, a
+red edge on the side of the taken control. Start with the two visuals, not
+with the rule — the rule was never the thing that was wrong.
+
+**The falling line — a hand holds something back, or it costs the ship.** The
+concept behind `grip.ts`, off the field for now: something descends at its own
+speed, either player can put a finger on it and it falls slower for as long as
+the finger stays, and letting it through breaks the hull. The cost is the
+hand — a thumb on the field is a thumb off the strip below it, so holding
+something for your partner means not moving your own control, which is what
+makes it an assist rather than a brake on the whole game, and why it can
+apply to any creature or rock. THE WARDEN's line was the sharpest version of
+it, answered by neither cannon nor shield, and the owner took it off the boss
+and off every other wave:
+
+> keine bedrohung mehr. aber behalte das konzept von: etwas fällt und muss
+> gehalten werden, sonst beschädigt es das schiff.
+
+*No more threat — but keep the concept.* `grippedFallTiles` and
+`gripSlowPermille` still work on anything that falls; what is gone is a wave
+that asks for it. Picking this up is a creature or a boss that makes holding
+the interesting choice, not new machinery.
+
+**Hold-to-tear — a window closed by succeeding rather than by giving up.**
+Before the pull above settled on the tension it now has, the control tried was
+hold-and-only-hold: a thumb on the line accumulated `wardenPullBeats` of hold
+across ticks rather than needing it unbroken — a slip on a phone lost only
+that moment — and when the total was reached the line tore out of the rim.
+The argument for it: a gate held open purely by tension is unbounded, nothing
+ends the window except letting go, so tearing after enough tension puts a
+ceiling back on it and ends the window by succeeding rather than by giving up.
+The owner chose the block-and-tackle instead —
+
+> nicht das loslassen, und auch nicht das reißen, sondern das bloße halten
+> gespannt (wie ein tor mit flaschenzug)
+
+— and kept the tear to be tried elsewhere, probably on another wave or boss.
+The two go together: hold-to-tear is the control, and the ceiling it puts on
+the window is the reason to reach for it.
 
 ## 11.5 THE VANE — the arm that decides where you are hit
 

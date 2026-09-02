@@ -119,7 +119,7 @@ describe("buildBacklog", () => {
 
   test("the parked section keeps both the deferred and the rejected", async () => {
     const backlog = await realBacklog();
-    expect(names(backlog.parked)).toContain("Freighter");
+    expect(names(backlog.parked)).toContain("Cracks in the cockpit");
 
     const rejected = backlog.parked.find((g) => g.title === "EXAMINED AND REJECTED");
     expect(rejected?.entries[0]?.detail).toContain("The Fogger");
@@ -135,13 +135,13 @@ describe("buildBacklog", () => {
     const turnedDown = backlog.parked.find((g) => g.title === "IDEAS TURNED DOWN");
     const deferred = backlog.parked.find((g) => g.title === "DEFERRED, NOT REFUSED");
 
-    expect(turnedDown?.entries.map((e) => e.name)).toContain("Freighter");
+    expect(turnedDown?.entries.map((e) => e.name)).toContain("Cracks in the cockpit");
     expect(turnedDown?.entries.map((e) => e.name)).not.toContain(
       "THE CONDUCTOR, bending the tempo",
     );
 
     expect(deferred?.entries.map((e) => e.name)).toContain("THE CONDUCTOR, bending the tempo");
-    expect(deferred?.entries.map((e) => e.name)).not.toContain("Freighter");
+    expect(deferred?.entries.map((e) => e.name)).not.toContain("Cracks in the cockpit");
   });
 
   // The tab is called PARKED and showed the spec's deferrals and rejections,
