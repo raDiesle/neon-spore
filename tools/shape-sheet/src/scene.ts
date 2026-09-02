@@ -68,7 +68,7 @@ export interface SceneBody {
    */
   turn?: number;
   /**
-   * Drawn faint: a copy, a memory, a thing that cannot be hit. The Echo's
+   * Drawn faint: a copy, a memory, a thing that cannot be hit. The Herald's
    * lagging body is the case this exists for — it is on one screen and not the
    * other, and a picture that draws both solid says the wrong thing.
    */

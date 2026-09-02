@@ -1,6 +1,7 @@
 import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
+import { echoBecomes } from "./echo.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
 import { veilBecomes } from "./veil.js";
@@ -77,6 +78,12 @@ export function wornKind(c: Creature): CreatureKind {
   // is the same call the kill makes, so what player 1 reads through the cloud
   // and what the shot has to match are never two different bodies.
   if (c.kind === "veil") return veilBecomes(c);
+  // An echo is a slick or a bulb with nothing laid over the top at all — only
+  // drawn small (`livingBodyMul` in render). It is here rather than given a
+  // silhouette of its own because the pair already has a word for what it
+  // looks like, and what they have to say about one is a count and an order
+  // rather than a name. `echoBecomes` is the one copy of the pairing.
+  if (c.kind === "echo") return echoBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

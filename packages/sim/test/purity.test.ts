@@ -418,7 +418,7 @@ const COPIES: Copy[] = [
     // from. A sheet judging a body at the wrong two sizes answers the one
     // question that tool exists for, wrongly.
     call: "THROB_SWELL",
-    owner: "packages/render/src/creatures.ts",
+    owner: "packages/render/src/living-draw.ts",
     pattern: /throbOpen\s*\?\s*1\.3\s*:\s*0\.7|\[\s*0\.7\s*,\s*1\.3\s*\]/,
     strip: false,
   },

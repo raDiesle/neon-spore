@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
+import { echoStruck } from "./echo.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
 import { shellIsBare } from "./shell.js";
@@ -61,6 +62,12 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // A kill that has to be *seen* by the seat that never saw the body, so it
     // carries a picture of its own — `ghost.ts`, for `veilStruck`'s reason.
     return ghostStruck(world, b, hit);
+  }
+  if (hit.kind === "echo") {
+    // The matching colour, like a slick — and paid for every body this one
+    // would still have become, which is the whole of why a shot fired early is
+    // worth four fired late (`echo.ts`).
+    return echoStruck(world, b, hit);
   }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);

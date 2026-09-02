@@ -48,7 +48,7 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "the idea store says nothing was drawn at a reverse wave because a direction is not a shape — this is the shape it names instead: the hole is in the picture, so what arrives is the ship's own damage rather than an arrival from off-screen with no warning edge",
   },
   {
-    subject: cluster("ECHO", "a body and its earlier self, never quite together", {
+    subject: cluster("HERALD", "a body and its earlier self, never quite together", {
       bodies: 2,
       radius: 30,
       spread: 2.2,
@@ -58,9 +58,9 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     motion: DRIFT,
     status: "draft",
     slot: "creature",
-    suggests: "Echo",
+    suggests: "Herald",
     owner:
-      "the one creature the two players do not see the same: the shape is doubled so the lagging copy is a thing on screen rather than a discrepancy",
+      "the one creature the two players do not see the same: the shape is doubled so the lagging copy is a thing on screen rather than a discrepancy. It was drawn for an idea then called the Echo; that name went to the creature that shipped, which divides rather than lags (bestiary.md, Name clash), so the draft follows the idea rather than the word",
   },
   {
     subject: blob(
@@ -73,7 +73,7 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     suggests: "Reverb",
     owner:
-      "travels, stops, waits, travels again — the delay is in the motion, which is where a repeat belongs; the contour stays plain so it is not mistaken for the Echo",
+      "travels, stops, waits, travels again — the delay is in the motion, which is where a repeat belongs; the contour stays plain so it is not mistaken for the Herald",
   },
   {
     subject: glyphed("COUNTDOWN", "a rim of marks, one fewer each pass", 42, 42, 7, 0.9),

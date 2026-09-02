@@ -87,7 +87,15 @@ export type CreatureKind =
    * many walls it has turned at, after which it dives at the hull head first.
    * `ghost.ts` is the whole of what either means.
    */
-  | "ghost";
+  | "ghost"
+  /**
+   * A small slick or bulb that comes down half as fast as anything else and
+   * divides in two on every beat until it has divided `echoSplits` times — one
+   * arrival, four bodies, four lanes. `Creature.echoSplits` is the whole of
+   * its state: how many divisions it has left, which is also the spread of the
+   * next one and what a shot at it is worth. See `echo.ts`.
+   */
+  | "echo";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -120,6 +128,7 @@ export const CREATURE_KINDS = [
   "veil",
   "wisp",
   "ghost",
+  "echo",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

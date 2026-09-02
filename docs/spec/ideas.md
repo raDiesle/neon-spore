@@ -34,7 +34,7 @@ filed rightly, and there is no second list to change.
 
 ### Creatures
 
-- **Echo** — the one creature the two players do not see at the same moment: it
+- **Herald** — the one creature the two players do not see at the same moment: it
   is drawn on the pilot's field one beat ahead of where it is, and on the
   navigator's at its true row. The pilot, who cannot fire, is the one who sees
   it first, so the only thing that kills it on time is a sentence — the
@@ -50,8 +50,9 @@ filed rightly, and there is no second list to change.
   the way down or grows as it falls
 - **Reverb** — one body that arrives twice: it takes a hit without dying and
   dies one beat later, and a second shot fired inside that beat is spent on
-  something that is already gone. A different thing from the Echo, which is
-  about *seeing* twice; see the name clash in
+  something that is already gone. A different thing from the Herald, which is
+  about *seeing* twice, and from THE ECHO, which is about becoming four; see
+  the name clash in
   [bestiary](bestiary.md#103-examined-and-rejected). The delay is in the motion
   as well — travel, stop, wait, travel — so the pair can read the rhythm before
   they have to shoot against it. Unworked out: whether a pending death still

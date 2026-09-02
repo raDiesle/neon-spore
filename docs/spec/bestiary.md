@@ -1,8 +1,8 @@
 # Bestiary
 
-> **Status: nineteen `CreatureKind` values exist**, against the twenty-odd
+> **Status: twenty `CreatureKind` values exist**, against the twenty-odd
 > designed on this page — slick, bulb, the five meteor tiers, torch, queen,
-> warden, tether, lure, throb, shell, clasp, dart, veil, wisp and ghost
+> warden, tether, lure, throb, shell, clasp, dart, veil, wisp, ghost and echo
 > (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
 > design.
 >
@@ -39,7 +39,7 @@ Four rules, in this order:
    blob in another tint.
 
 **A name on this page is committed only if it is a `CreatureKind`** — the
-status block above names the nineteen that are, and the roster in
+status block above names the twenty that are, and the roster in
 `packages/sim/src/creature-kinds.ts` is the list that decides. Every other name
 here is a label on an unbuilt design and costs one edit to change. The list is
 not repeated a third time on purpose: it was repeated twice and both copies
@@ -62,7 +62,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp` |
 | `special` | neither | `tether` |
@@ -327,9 +327,14 @@ first time they see it.
 Splitter is the **Crystal** · the Inverter is the **Choke** · the runt cloud is
 a later stage of the retired **Runt**, whose slot THE LURE now holds
 
-**Name clash:** the *Echo* (a creature appears one second earlier for one
-player) is a different thing from a creature that repeats an action with a
-delay. The latter is called **Reverb**.
+**Name clash:** *Echo* used to be the name of a creature that appears one
+second earlier for one player. **THE ECHO is built now** and it is a different
+thing — a body that comes down at half speed and divides into four — so the
+unbuilt one is the **Herald** (see [ideas](ideas.md)), by the rule under
+[Naming](#naming): a name is committed only once it is a `CreatureKind`, and
+every other name is a label on a design and costs one edit. A creature that
+repeats an *action* with a delay is a third thing again, and it is called
+**Reverb**.
 
 ## 10.4 The ceiling
 

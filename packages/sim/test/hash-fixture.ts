@@ -42,6 +42,7 @@ const creature = (): Required<Creature> => ({
   veilStruckTick: 40,
   ghostDir: -1,
   ghostLaps: 2,
+  echoSplits: 2,
 });
 
 const bullet = (): Required<Bullet> => ({

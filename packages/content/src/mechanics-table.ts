@@ -69,6 +69,14 @@ export const MECHANICS = {
     // answers it, so neither can be worked out from the other.
     waveNames: true,
   },
+  echo: {
+    what: "A small slick or bulb that comes down half as fast as anything else — and one beat after it arrives it is two, and a beat after that four, fanned two columns apart. The matching cannon kills any of them, and a shot that catches it before it divides is paid for all four.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // dart: the silhouette is a slick's or a bulb's and the colour is which
+    // trigger answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
   meteor: {
     what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     reach: "spawn",

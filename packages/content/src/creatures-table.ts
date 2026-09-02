@@ -1,6 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { ROCK_CREATURES } from "./creatures-rocks.js";
+import { WORN_CREATURES } from "./creatures-worn.js";
 
 /**
  * Adding a creature means adding one entry here. Waves are not touched —
@@ -50,29 +51,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
   },
-  lure: {
-    kind: "lure",
-    // Same job as any other aim target — the cannon in its column, player 2
-    // choosing whether to fire — so a wave of nothing but lures still shows
-    // the controls that make not-firing a restraint rather than an absence.
-    controls: ["aim"],
-    // No colour *of its own*: what a lure carries is the disguise's, authored
-    // on the wave entry, and that is a fact about one arrival rather than
-    // about the kind. A colour here would be this creature claiming a body of
-    // its own — the one thing it does not have.
-    color: null,
-    // Player 2's strip, like every other aim target, and this is where the
-    // alarm matters most. Player 1's carries `guard` kinds only, so the
-    // disguise cannot leak by that door at all; player 2's carries the
-    // exclamation and the name, so a hit stays haste and not surprise.
-    radar: "p2",
-    // The colour is a fact about the arrival, not about the kind — see
-    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
-    // offers under the map for exactly these four.
-    authorsColor: true,
-    blurb:
-      "A slick or a bulb, full size, in its real colour — and only one of you can see that it is neither. Do not shoot it: any shot that lands costs the hull. Left alone it goes on its own, two rows short of the ship.",
-  },
+  // The four bodies drawn as something else live next door, in
+  // `creatures-worn.ts` — named one by one rather than spread, so this table
+  // still reads in the order the bestiary has always had it. See that file for
+  // why the worn kinds are the half that moved.
+  lure: WORN_CREATURES.lure,
   throb: {
     kind: "throb",
     controls: ["aim"],
@@ -81,56 +64,8 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Swells and shrinks on the shared beat and carries no colour. Only a shot while it is swollen lands — a miss on the beat it is shut is just a miss.",
   },
-  shell: {
-    kind: "shell",
-    // Only ever the cannon. Both phases are answered by a shot — what changes
-    // is whether the colour is part of the question, and control visibility
-    // has nothing to say about that.
-    controls: ["aim"],
-    // No colour, and that is the entry doing work rather than a blank — the
-    // same work it does on the clasp. The body inside the plating has one, and
-    // it is visible from the moment it arrives, but it belongs to the slick or
-    // the bulb this arrival *is*: red plates a slick, cyan plates a bulb, and
-    // `shellBecomes` is what pairs them. A colour here would make the armour a
-    // body in its own right, which is the one thing it is not.
-    color: null,
-    radar: "p2",
-    // The colour is a fact about the arrival, not about the kind — see
-    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
-    // offers under the map for exactly these four.
-    authorsColor: true,
-    blurb:
-      "Plating a size too big for the slick or the bulb inside it, split down the middle: one piece in front of each of its two columns, and the body's own colour shining out through the cracks the whole way down. Any colour chips a piece off. A shot up a column already bared does nothing — and only once both pieces are gone does that colour finish it.",
-  },
-  clasp: {
-    kind: "clasp",
-    // Both, and this is the first kind that needs both for *one* body rather
-    // than for two halves of an encounter. The queen and THE WARDEN carry
-    // `guard` because something else on the field has to be warded; a clasp
-    // carries it because the shield is what opens the clasp itself.
-    controls: ["aim", "guard"],
-    // No colour of its own, and this is the entry doing work rather than a
-    // blank. The body inside has one — it is visible through the shield the
-    // whole way down, which is what lets player 2 load the trigger before the
-    // shield is anywhere near it — but it belongs to the slick or the bulb
-    // this arrival *becomes*, and `livingKindForColor` is what pairs them.
-    // A colour here would make the clasp a body in its own right, which is the
-    // one thing it is not.
-    color: null,
-    // Player 1's strip, and the first aim-answerable body on it. It is not an
-    // exception to the rule that the radar crosses the controls — it is that
-    // rule applied to a body whose *first* answer is a guard answer. The one
-    // who sees it coming holds the trigger and cannot fire; the one who can
-    // fire cannot open it. Whichever way round the pair work it out, somebody
-    // has to say a column out loud.
-    radar: "p1",
-    // The colour is a fact about the arrival, not about the kind — see
-    // `CreatureDef.authorsColor`, and the SLICK/BULB choice the director
-    // offers under the map for exactly these four.
-    authorsColor: true,
-    blurb:
-      "A slick or a bulb inside a shield of its own, and shots simply bounce. Shield in its column, triggered at the right moment — and it does not die, it becomes the body you could see the whole time.",
-  },
+  shell: WORN_CREATURES.shell,
+  clasp: WORN_CREATURES.clasp,
   dart: {
     kind: "dart",
     // The cannon alone. It is answered by a shot like a slick, and everything
@@ -159,35 +94,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, then hangs for a beat and picks the next side — and only the navigator is shown which.",
   },
-  veil: {
-    kind: "veil",
-    // The cannon alone. A cloud is opened by a shot in the right colour at the
-    // right moment, and nothing about the shield has anything to say to it.
-    controls: ["aim"],
-    // No colour of its own, and this entry does the most work of any blank in
-    // this table. A veil *has* a colour at every instant — it is the body
-    // inside the cloud — and it is neither the kind's nor the wave's: it is
-    // rolled when the arrival enters the field and turned over every few beats
-    // after that (`veilOnSpawn`, `veilMorph`). A colour here would be a body
-    // this creature does not have; an authored one would fix the one thing
-    // docs/spec/structure.md 7.3 puts on the random side of its table.
-    color: null,
-    // **Not** `authorsColor`. The other four blanks in this table are colours a
-    // wave writes down, which is why the director offers a SLICK/BULB choice
-    // under the map for exactly those. This one nobody may write down — see
-    // above — so the cell panel has nothing to offer and correctly offers it.
-    //
-    // Player 2's strip, with the aim kinds, and the rule crossing the controls
-    // for the third time rather than an exception to it. What the strip says
-    // is that something is coming and in which column; what it cannot say is
-    // *what*, so it says so — a question mark rather than a colour
-    // (`render/veil-marks.ts`, and docs/spec/systems.md 5.2, which asked for
-    // exactly that before any of this was built). The half player 2 is missing
-    // is on player 1's screen, in the field, where the cloud is see-through.
-    radar: "p2",
-    blurb:
-      "A thundercloud with a slick or a bulb inside it, and only the pilot can see which. It turns over from one to the other every few beats, so the colour you were told expires — and a shot in the wrong one shuts the cloud for two seconds rather than merely missing.",
-  },
+  veil: WORN_CREATURES.veil,
   wisp: {
     kind: "wisp",
     // The cannon alone. It is answered by a shot like a slick, and everything
@@ -247,4 +154,8 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Only one of you can see it at all. The other gets a band across the row it is in and nothing about the column — and they are the one holding the cannon. Say the number.",
   },
+  // THE ECHO, and the fifth worn body: a small slick or bulb that divides.
+  // Next door with the other four for the reason they are all there — it is
+  // drawn as the body its colour names and `wornKind` is what resolves it.
+  echo: WORN_CREATURES.echo,
 };

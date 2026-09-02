@@ -70,11 +70,11 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     ],
   },
   {
-    id: "creature.echoEarly",
+    id: "creature.heraldEarly",
     family: "creature",
     blurb: "A creature's arrival heard a second before it happens.",
     status: "spare",
-    use: "Echo (ideas.md) — it appears one second earlier for one player.",
+    use: "Herald (ideas.md) — it appears one beat earlier for one player. Not THE ECHO, which is built and divides.",
     level: 0.24,
     layers: [soft(0.4, air(2600, 5200, 0.2, 0.2, 2.4)), after(1, spore(160, 0.3, 0.4, 40))],
   },

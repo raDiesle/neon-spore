@@ -1,6 +1,7 @@
 import { stepBoss } from "./boss.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { dartOnSpawn, stepDart } from "./dart.js";
+import { echoFalls, echoOnSpawn, splitEchoes } from "./echo.js";
 import { ghostCrosses, ghostOnSpawn, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { resolveHull } from "./hull.js";
@@ -107,6 +108,13 @@ export function onBeat(world: World): void {
       stepGhostAcross(world, c);
       continue;
     }
+    // THE ECHO comes down half as fast as anything else, and the beats in
+    // between are beats it simply does not take: the simulation stores
+    // integers, so there is no half a tile for it to move. In place of the
+    // fall rather than beside it, for `stepDart`'s reason — and it still
+    // *falls*, on the beats it takes, so a hand may be put on one and slows
+    // it further through the same `grippedFallTiles` every other body uses.
+    if (c.kind === "echo" && !echoFalls(world.cfg, world.beat)) continue;
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);
@@ -120,6 +128,12 @@ export function onBeat(world: World): void {
     // and the colour a shot has to match are two readings of one number.
     if (c.kind === "veil") veilMorph(world, c);
   }
+
+  // Everything that was already standing when this beat began and still has a
+  // division left in it becomes two. Before the queue below rather than after,
+  // so an arrival entering on this beat is not walked by the pass that created
+  // it — which is the whole of "one beat later" for this creature (`echo.ts`).
+  splitEchoes(world);
 
   // Spawn creatures from the queue. Wave entries are authored to beat 0..N,
   // and they enter at the top (row 0) and move normally from there.
@@ -191,6 +205,10 @@ export function onBeat(world: World): void {
       // at all, so every wave written before crossing existed is byte-for-byte
       // the same world.
       ...(entry.path === "across" ? ghostOnSpawn(world.cfg.cols, col) : {}),
+      // How many divisions this arrival has ahead of it, and absent on every
+      // other kind — so a body that never divides carries no field at all and
+      // every wave written before THE ECHO is byte-for-byte the same world.
+      ...(entry.kind === "echo" ? echoOnSpawn(world.cfg) : {}),
     });
     world.spawned += 1;
   }

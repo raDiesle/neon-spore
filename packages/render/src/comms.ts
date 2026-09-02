@@ -73,6 +73,11 @@ const TALKER = {
   slick: null,
   bulb: null,
   throb: null,
+  // THE ECHO carries nothing hidden either — both screens draw all four bodies
+  // whole. What the pair has to say about one is an order rather than a
+  // secret, and a siren over a body neither of them is missing anything about
+  // would be teaching them to look instead of to decide.
+  echo: null,
   shell: null,
   clasp: null,
   warden: null,

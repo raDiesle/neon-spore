@@ -70,13 +70,13 @@ export const CREATURE_SCENES: Scene[] = [
     spawns: [{ what: "pod", col: 3, row: 11 }],
   },
   {
-    suggests: "Echo",
+    suggests: "Herald",
     role: "p1",
     claim:
       "the one creature the two seats do not see at the same moment: the solid body is this screen's, the faint one is where the other screen still has it",
     bodies: [
-      { shape: "ECHO", col: 5, row: 7 },
-      { shape: "ECHO", col: 5, row: 5, ghost: true, label: "the other seat" },
+      { shape: "HERALD", col: 5, row: 7 },
+      { shape: "HERALD", col: 5, row: 5, ghost: true, label: "the other seat" },
     ],
   },
   {

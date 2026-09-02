@@ -258,7 +258,7 @@ describe("the spare motions", () => {
  */
 describe("the clusters that have to come apart", () => {
   const BODIES: Array<[string, number]> = [
-    ["ECHO", 2],
+    ["HERALD", 2],
     ["SYMBIOSIS", 2],
     ["COLONY", 5],
     ["THE CHOIR", 3],

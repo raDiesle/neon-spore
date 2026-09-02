@@ -151,6 +151,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/snake-move.ts` | One step of the body, and everything that can happen on one |
 | `packages/sim/src/snake-round.ts` | SNAKE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/snake.ts` | SNAKE: one body, two axes, and neither of you owns a corner |
+| `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
 
 ### packages/content
 
@@ -184,6 +185,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-4.ts` | you are adding a wave — this is the act new ones land in |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds, one per target |
+| `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 
 ### packages/render
 
@@ -314,6 +316,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-body.ts` | The body: the fold it arrives as, the length it becomes, the two ends |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena and everything standing in it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
+| `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
 
 ### packages/net
 

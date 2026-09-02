@@ -154,6 +154,20 @@ export interface Creature {
    */
   ghostDir?: GhostDir;
   ghostLaps?: number;
+  /**
+   * How many times THE ECHO still divides, and absent on every other kind. It
+   * is the only state this creature carries, and it answers three questions at
+   * once: whether this body divides on the next beat, how far apart the two
+   * halves stand when it does (`echoSpread`), and what a shot at it is worth
+   * (`echoBodies`).
+   *
+   * Read it through `echoSplitsLeft`, never directly. An echo that has
+   * finished dividing carries no field at all — it is a small body falling and
+   * nothing else — so absent and zero mean the same thing, and a site that
+   * spelled the fallback again is a site where the picture, the fan and the
+   * score can disagree about which generation a body belongs to.
+   */
+  echoSplits?: number;
 }
 
 export interface Bullet {

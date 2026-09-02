@@ -96,7 +96,17 @@ function cardSubjects(kind: CreatureKind): string[] {
   // be inside one. Unlike the other three it is not the *wave* that decides
   // which — the roll happens when the arrival enters the field — so "either"
   // is not a shorthand here, it is the whole truth about the brush.
-  if (kind === "lure" || kind === "clasp" || kind === "shell" || kind === "veil") {
+  // THE ECHO is the fifth, and the one with nothing over the body at all: it
+  // is a slick or a bulb drawn small (`livingBodyMul` in render/), so the
+  // sheet has no ECHO contour either and the card resolves to the two bodies
+  // one can be. Which of them is the authored colour, as it is for a lure.
+  if (
+    kind === "lure" ||
+    kind === "clasp" ||
+    kind === "shell" ||
+    kind === "veil" ||
+    kind === "echo"
+  ) {
     return ["SLICK", "BULB"];
   }
   return [kind.toUpperCase()];

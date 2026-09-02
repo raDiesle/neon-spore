@@ -47,6 +47,11 @@ const LIVING_LOOK = {
   clasp: null,
   shell: null,
   veil: null,
+  // THE ECHO is the fifth, and the one with nothing laid over it at all: it is
+  // a slick or a bulb drawn small (`livingBodyMul` in render), so a contour of
+  // its own here would be a second shape for a body the pair already has one
+  // word for — and the word is what they have to say four of, fast.
+  echo: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

@@ -134,6 +134,36 @@ export interface CreatureConfig {
    * whole crossings, which a rock never is.
    */
   damageGhostDive: number;
+  /**
+   * Beats between one step down and the next for THE ECHO. Two — it is the
+   * whole of "half as fast", and it is the smallest number that is one: at
+   * three the body hangs long enough that the pair stops reading it as
+   * falling at all, and a wave with one in it would be over before the echo
+   * had left the top third of the field.
+   *
+   * Beats and not tiles, unlike every other fall in the game
+   * (`fallTilesPerBeat`), and the asymmetry is the point: the five rock tiers
+   * go *faster* than one tile a beat and a tile count is what says so, while
+   * anything slower than one tile a beat can only be said as beats between
+   * steps. The simulation stores integers, so half a tile is not a thing a
+   * body can move.
+   */
+  echoFallBeats: number;
+  /**
+   * How many times an echo divides before it is done. Two, so one arrival is
+   * four bodies — and four is the number rather than a tuning: it is the most
+   * a pair can name left to right in one breath, and the fan it makes
+   * (`echoSpread`) is two columns wide either side of where it started, which
+   * fits a field of eleven with the cannon able to cross it.
+   */
+  echoSplits: number;
+  /**
+   * What *one* echo body is worth. A quarter of `scoreDestroy`, so a whole
+   * arrival pays exactly what a slick does however it is taken — see
+   * `echoStruck`, which multiplies this by how many bodies the one it killed
+   * would have become. The pair is never paid for letting one divide.
+   */
+  scoreEchoKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -157,4 +187,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   ghostChargeLaps: 3,
   ghostDiveTiles: 3,
   damageGhostDive: 18,
+  echoFallBeats: 2,
+  echoSplits: 2,
+  scoreEchoKill: 25,
 };

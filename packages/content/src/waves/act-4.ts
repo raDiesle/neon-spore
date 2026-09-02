@@ -72,6 +72,37 @@ import type { Wave } from "../wave-types.js";
  * `path: "across"` is the only other thing it can say, and absent means it
  * falls.
  */
+/**
+ * **THE ECHO, in three figures.** Here for the reason the two blocks above
+ * are: the director rewrites the array and keeps only what stands over it.
+ *
+ * Nothing is hidden in this one, which makes it the odd wave out on this page
+ * — both screens draw all four bodies whole and neither player is missing a
+ * colour, a column or a beat. What has to be said out loud is an *order*, and
+ * the wave exists to make the obvious order the wrong one: an echo falls at
+ * half speed, so it is always the thing it is reasonable to leave, and leaving
+ * it is what turns one shot into four.
+ *
+ * 1. Beats 0–8, the doubling. One echo on an empty field, with the whole
+ *    descent available. The pair is meant to watch it divide at least once —
+ *    there is nothing else to shoot and no cost to being slow — because a
+ *    creature nobody has seen fan out is a creature they will not believe is
+ *    worth interrupting each other over.
+ * 2. Beats 8–10, the choice. An echo and two ordinary bodies within two beats
+ *    of each other. The ordinary ones reach the hull first and look like the
+ *    emergency; the echo is four bodies by the time they are dealt with. This
+ *    is the whole wave, and both seats have to agree out loud to get it wrong
+ *    or right together.
+ * 3. Beats 16–18, the squeeze. Two echoes in opposite colours with a rock
+ *    between them, so the shield's column is player 2's hand and its trigger
+ *    is player 1's while eight bodies are opening across the field.
+ *
+ * An echo entry names its kind and its colour, the way a dart does: the
+ * silhouette is the slick's or the bulb's, drawn small, and the colour is
+ * which trigger answers it. Author it near the middle — the fan is two columns
+ * either side before it is one, so an echo against a wall piles its last two
+ * bodies into the same lane, which is one body as far as a spoken count goes.
+ */
 export const WAVES_ACT_4: Wave[] = [
   {
     name: "THE WISP",
@@ -120,5 +151,23 @@ export const WAVES_ACT_4: Wave[] = [
     entries: [],
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },
     controls: "snake",
+  },
+  {
+    name: "THE ECHO",
+    sentence: "The one where the slowest thing on the field is the one to take first.",
+    guide: {
+      both: "Half speed down, and it divides every beat: one becomes two, two become four, fanned across four lanes. Both of you can see all of it.",
+      p1: "Have the cannon on it while it is still one. The fast bodies can wait a beat — this cannot, and two beats from now it is four columns to visit instead of one.",
+      p2: "Fire it the beat they are under it, not the beat you are free. Once it has fanned, call the four left to right and take them in that order.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "echo", color: "cyan" },
+      { beat: 8, col: 3, kind: "echo", color: "red" },
+      { beat: 9, col: 6, color: "red" },
+      { beat: 10, col: 0, color: "cyan" },
+      { beat: 16, col: 2, kind: "echo", color: "cyan" },
+      { beat: 17, col: 5, kind: "meteor", color: null },
+      { beat: 18, col: 4, kind: "echo", color: "red" },
+    ],
   },
 ];
