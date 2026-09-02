@@ -120,8 +120,8 @@ export interface WaveName {
  * The wave list as it stood at `rev`, read out of *that* commit's own
  * `packages/content/src/waves.ts` — not the working tree's copy.
  *
- * `docs/queue.md`, "FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS THE
- * RIGHT NAME WHILE IT DOES": a name only lived at the index it held in the
+ * The ask this answers — "FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS
+ * THE RIGHT NAME WHILE IT DOES": a name only lived at the index it held in the
  * tree that named it. `captureAt` already makes a scratch worktree and runs
  * `bun install` in it to build the game at a historical commit; this makes
  * the same kind of checkout to answer the name → index question inside it,

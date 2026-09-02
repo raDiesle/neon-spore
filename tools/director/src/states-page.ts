@@ -10,9 +10,9 @@ import { bindTabs } from "./tabs.js";
  * wave panel and GUIDES out of its own former sheet, one tab per room. This
  * file owns the sheet itself (the tab bar, the open/close/Escape wiring, and
  * the lazy renders the other rooms need); `controlsets-page.ts`, `ship.ts`,
- * `demo-panel.ts` and `guide-sheet.ts` still own what each room draws. See
- * `docs/queue.md`'s `claude/burn-topbar-fold` entry for the first four; GUIDES
- * joined later, for the same reason — one fewer topbar button.
+ * `demo-panel.ts` and `guide-sheet.ts` still own what each room draws. The
+ * first four were folded in to save topbar buttons; GUIDES joined later, for
+ * the same reason — one fewer topbar button.
  *
  * STATES is the room this file draws directly: every state the game can be
  * held in. The other three sheets used to be lists of prose; this one exists

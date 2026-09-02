@@ -12,8 +12,8 @@ import { buildVoteBox, type Head, readHead } from "./versus-vote.js";
 /**
  * The ALTERNATIVES section: a contact sheet, not an instrument.
  *
- * `docs/queue.md`'s "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" is this
- * file's whole brief, in the owner's own words. Everything open is rendered
+ * "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" is this file's whole
+ * brief, in the owner's own words. Everything open is rendered
  * at once, flat, with no control touched: every candidate of every slot gets
  * its own row, the shipped thing on the left and that one candidate on the
  * right, repeated down the page — never a matrix, never a slot switcher,

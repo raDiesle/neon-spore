@@ -40,7 +40,7 @@ describe("ship-fields", () => {
     expect(new Set(GROUP_ORDER).size).toBe(GROUP_ORDER.length);
   });
 
-  // The split `docs/queue.md`'s SHIP-column brief asks for: WAVE_ONLY_GROUPS
+  // The split the SHIP-column brief asked for: WAVE_ONLY_GROUPS
   // is what stays beside the wave being edited, SHIP_GROUPS is what moved to
   // the SHIP tab of GAME MECHANICS (`▣`, folded off the topbar). Together
   // they must be every group there is, with none counted twice — that is the

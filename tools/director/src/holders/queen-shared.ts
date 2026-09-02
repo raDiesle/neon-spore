@@ -7,8 +7,8 @@ import type { HolderContext } from "./types.js";
  * What every whole-body BULB QUEEN VARIANT shares, so the three drafts differ
  * only in the one thing each is arguing about — how her body admits damage —
  * and not in whether they got the marks, the sockets or the petal row right.
- * `docs/queue.md`'s five load-bearing properties live here rather than being
- * re-derived per file: a variant calls these, it does not redraw them.
+ * The five load-bearing properties live here rather than being re-derived
+ * per file: a variant calls these, it does not redraw them.
  */
 
 /** A whole-body draft, shown against the same clock as its two siblings. */

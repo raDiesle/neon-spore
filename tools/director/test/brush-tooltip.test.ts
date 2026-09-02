@@ -3,10 +3,10 @@ import { brushTooltip } from "../src/brush-tooltip.js";
 import { BRUSHES } from "../src/brushes.js";
 
 /**
- * `brushTooltip` is the hover text the queue entry asked for — "hovering a
+ * `brushTooltip` is the hover text the owner asked for — "hovering a
  * brush names the wave that first introduces what it paints". These pin the
- * two brushes the owner named directly (THE THROB, THE SHELL — see
- * `docs/queue.md`), so a regression in the derivation it calls shows up as a
+ * two brushes he named directly (THE THROB, THE SHELL), so a regression in
+ * the derivation it calls shows up as a
  * wrong wave number here rather than only as a wrong tooltip on screen.
  */
 describe("brushTooltip", () => {

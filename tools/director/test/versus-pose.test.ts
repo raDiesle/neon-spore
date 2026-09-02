@@ -6,7 +6,7 @@ import { poseForSlot } from "../src/versus-pose.js";
 
 /**
  * Every open slot gets a pose that actually reaches the state it patches —
- * the fix for the second half of the owner's guess in `docs/queue.md`: the
+ * the fix for the second half of the owner's guess: the
  * sheet used to open every slot on one fixed pose regardless of which one
  * was showing, so a `cannon:shot` or `shield:ward` candidate sat beside its
  * shipped look with nothing on screen to tell them apart. `poseForSlot`

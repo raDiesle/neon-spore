@@ -5,8 +5,7 @@ import type { Glow } from "./types.js";
  * One soft cloud under the whole figure, rather than a halo per body.
  *
  * This is the cheapest thing on the axis and, in the source, the strongest —
- * which is why `docs/queue.md` said to build it before the per-body ones
- * rather than after. `docs/tower-defence.md`'s "Three more frames" section
+ * which is why it was built before the per-body ones rather than after. `docs/tower-defence.md`'s "Three more frames" section
  * reads the finding: Neon Pulsefire's twenty green squares are not twenty
  * glows, they are **one** soft green cloud with twenty hard outlines punched
  * into it. The per-body version of that look is the expensive one *and* the

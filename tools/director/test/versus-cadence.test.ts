@@ -7,8 +7,7 @@ import { advance } from "../src/versus-pair.js";
  * The owner could not see a candidate's whole difference because it lives in
  * one instant — the meteorite hitting the shield — and the ALTERNATIVES page
  * showed that instant once and went quiet: *"the meteorite must repeatingly
- * hit the shield with around 2 seconds pause between."* `docs/queue.md`'s
- * `claude/burn-versus-cadence` entry.
+ * hit the shield with around 2 seconds pause between."*
  *
  * `pose-kit.ts`'s `cadenceSeconds` is what fixes it, and it is a property of
  * the *pose* (`SHOT · BEING LAID`, `WARD · DEFLECTED`), not of any candidate

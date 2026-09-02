@@ -21,8 +21,7 @@ import { bindTabs } from "./tabs.js";
 /**
  * CONTROLS: every registered panel, drawn, plus the things the pair touches
  * on the field itself. A tab of GAME MECHANICS (`states-page.ts` owns the
- * sheet itself) rather than a sheet of its own — see `docs/queue.md`'s
- * `claude/burn-topbar-fold` entry.
+ * sheet itself) rather than a sheet of its own, to save a topbar button.
  *
  * Renamed from CONTROL SETS, which only ever covered the strip below the
  * field. The owner named the gap: `packages/render/src/touch.ts` answers a

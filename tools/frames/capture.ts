@@ -5,8 +5,7 @@ import { chromium } from "playwright-core";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
- * same way `docs/queue.md`'s "A CHECK THAT LANDED YESTERDAY HAS NO BEFORE"
- * describes: `window.neonSpore.advance` and `paint`, the same handle
+ * same way "A CHECK THAT LANDED YESTERDAY HAS NO BEFORE" asked for: `window.neonSpore.advance` and `paint`, the same handle
  * `CLAUDE.md` already names for a headless loop check. Nothing here reads a
  * clock or a random number — the comparability a before/after pair needs
  * comes entirely from asking for the same wave, the same tick count and the

@@ -67,8 +67,8 @@ describe("DeflectFx.spawn", () => {
 });
 
 /**
- * The owner's ask (`docs/queue.md`, "A DEFLECTED ROCK SHOULD PRESS INTO THE
- * SHIELD BEFORE IT LEAVES"): a rock that reverses on one tick reads as a rock
+ * The owner's ask — "A DEFLECTED ROCK SHOULD PRESS INTO THE SHIELD BEFORE IT
+ * LEAVES": a rock that reverses on one tick reads as a rock
  * that teleported, so the moment of contact needs a shape — the rock presses
  * into the shield and the shield gives, and both spring back, before the
  * ordinary bounce carries them on. `DEFLECT_LOOK` is the adopted `heave`/`tick`

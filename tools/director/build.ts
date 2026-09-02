@@ -15,8 +15,7 @@ import { notesState } from "./src/notes-api.js";
  * Builds the director the way `apps/game/preview.ts` builds the game: a
  * static bundle, `bun build ./index.html --outdir=dist`, with no server
  * behind it once it ships. That is the half of the director that *can*
- * ship — see `docs/queue.md`'s burn-director-ship entry, which this file
- * exists to answer.
+ * ship, and what this file exists to answer.
  *
  * `server.ts` earns its keep in development because a browser cannot write
  * `waves.ts`, decide a check or run one — none of that survives a build,
@@ -40,8 +39,8 @@ import { notesState } from "./src/notes-api.js";
  * of the two is running underneath it.
  *
  * Run through `bun run build` at the repository root, beside the game's own
- * build — see `package.json` and `docs/queue.md` for the switch between
- * shipping both and shipping the game alone.
+ * build — see `package.json` for the switch between shipping both and
+ * shipping the game alone.
  */
 
 const here = new URL("./", import.meta.url);

@@ -102,8 +102,8 @@ export function drawHull(
   // The offset itself is a boss's business — `queen.ts`'s `hullShake` is the
   // one shape of it that exists today — so this file stays boss-agnostic and
   // only asks for the two numbers. See queen.ts `hullShake` for the signal
-  // this is meant to carry, and `docs/queue.md`'s tremor lane for why a shake
-  // here is a decision the owner made rather than one this file invented.
+  // this is meant to carry; a shake here is a decision the owner made rather
+  // than one this file invented.
   shake: { x: number; y: number } = { x: 0, y: 0 },
 ): void {
   const f = frame(l, time, mood, at);

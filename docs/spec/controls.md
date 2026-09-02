@@ -4,9 +4,8 @@
 > written down in one place.** The panel below the field has had a name, a
 > data table (`packages/content/src/controls.ts`) and a director page since
 > `CONTROL_SETS` was written. Everything touched **on the field itself** had
-> none of that — no name, no list, no page — until this entry
-> (`docs/queue.md`'s `claude/burn-controls-page`), asked for by the owner in
-> the same message that settled THE WARDEN's pull:
+> none of that — no name, no list, no page — until this section, asked for by
+> the owner in the same message that settled THE WARDEN's pull:
 >
 > > behalte die aktuelle alte Mechanik nur halten in "not done yet" irgendwo
 > > fest. vielleicht ein neuer Tab in control panels (wir benennen in in

@@ -19,7 +19,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * kept the shipped mouth out of the half of the phase that was added under it.
  *
  * A frame *did* move after that: the owner asked for the `egg` candidate by
- * name (`docs/queue.md`'s exemption for a look asked for directly), and
+ * name (CLAUDE.md's exemption for a look asked for directly), and
  * `MOUTH_LOOK`/`LAY_LOOK` are the adopted cloaca rather than the old round
  * port and tightening rim. What is pinned below is the new shipped truth —
  * the numbers the egg strains from, and the rule that the body itself is now

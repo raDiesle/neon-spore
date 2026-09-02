@@ -42,7 +42,7 @@ export function blob(name: string, s: CreatureSilhouette, note?: string): Subjec
   // `sizeMul` is the Runt's whole "tiny" — render/creatures.ts folds it into
   // the draw scale, and a subject that dropped it would show the Runt at the
   // Bulb's size on the one sheet built to answer "how big does it actually
-  // read" (docs/queue.md, THE SHAPE SHEET CANNOT SEE HALF THE BESTIARY).
+  // read" — THE SHAPE SHEET CANNOT SEE HALF THE BESTIARY, the ask this answers.
   const sizeMul = s.sizeMul ?? 1;
   return {
     name,

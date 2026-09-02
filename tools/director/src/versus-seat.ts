@@ -45,8 +45,8 @@ import { advance } from "./versus-pair.js";
  * the identical column both times. Read narrowly that used to mean "a real
  * second screen". By the owner's rule it is not: it is the same tail on both
  * sides, and the only thing that differs is a strip of panel they were never
- * looking at (`docs/queue.md`, "A CANDIDATE THAT CHANGES THE SAME THING FOR
- * BOTH SEATS GETS ONE SCREEN, NOT TWO").
+ * looking at — "A CANDIDATE THAT CHANGES THE SAME THING FOR BOTH SEATS GETS
+ * ONE SCREEN, NOT TWO".
  *
  * So below `bandTop` — the play area's own boundary, computed the same way
  * the renderer computes it, never re-derived by hand — the two

@@ -4,7 +4,7 @@ import { PALETTE } from "./palette.js";
 
 /**
  * The field's back: two depths of drifting motes, a slow wash, and the
- * horizon they sit in front of. `docs/queue.md` asked for a field that has a
+ * horizon they sit in front of. The owner asked for a field that has a
  * back instead of reading as a test rig — this is render only, it decides
  * nothing, and none of it is stored anywhere: every value below is a pure
  * function of `time` (wall-clock, own-motion — see `renderer.ts`'s `ViewState`)

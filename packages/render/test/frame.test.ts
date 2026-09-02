@@ -990,7 +990,7 @@ describe("the shield's ambient arcs (shield-spark.ts)", () => {
       if (ctx.calls > 0) framesLit++;
     }
     const share = framesLit / total;
-    // "A few small ones, irregularly" (docs/queue.md) — on often enough to
+    // "A few small ones, irregularly", the owner's ask — on often enough to
     // notice, off far more often than on.
     expect(share).toBeGreaterThan(0.02);
     expect(share).toBeLessThan(0.35);

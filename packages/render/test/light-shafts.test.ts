@@ -6,9 +6,9 @@ import { drawLightShafts } from "../src/light-shafts.js";
 import { installCanvasGlobals } from "./canvas-stub.js";
 
 /**
- * `drawLightShafts` is the one call `backdrop.ts` adds for docs/queue.md's
- * "sun falling into the ocean deep" — this checks the three things the queue
- * entry names as load-bearing: it leans to `KEY` without a second copy of the
+ * `drawLightShafts` is the one call `backdrop.ts` adds for the owner's
+ * "sun falling into the ocean deep" — this checks the three things that ask
+ * named as load-bearing: it leans to `KEY` without a second copy of the
  * angle, it is a pure function of `time` and nothing else, and it never
  * allocates a canvas per frame.
  */

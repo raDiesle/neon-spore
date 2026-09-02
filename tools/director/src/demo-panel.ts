@@ -12,8 +12,8 @@ import type { Store } from "./state.js";
 /**
  * DEMOS — one wave and one set of switches per mechanic, opened in one click.
  * A tab of GAME MECHANICS (`states-page.ts` owns the sheet itself) rather
- * than a sheet of its own — see `docs/queue.md`'s `claude/burn-topbar-fold`
- * entry. Its own Escape/backdrop/CLOSE routes went with the sheet: the outer
+ * than a sheet of its own, to save a topbar button. Its own
+ * Escape/backdrop/CLOSE routes went with the sheet: the outer
  * one already covers all three, since a tab has nothing of its own to close.
  *
  * `DEMONSTRATIONS` (`packages/content/src/waves-demo.ts`) is total over

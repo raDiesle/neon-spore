@@ -22,8 +22,7 @@ import {
  * and none of them appeared here — that gap is what this file is now built to
  * refuse.
  *
- * `renderShip` and `renderShipSheet` are the split `docs/queue.md`'s brief
- * asked for: `aimMillis` is the same number on every wave, so it does not
+ * `renderShip` and `renderShipSheet` are the split that brief asked for: `aimMillis` is the same number on every wave, so it does not
  * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
  * SHIP card with only what the current wave actually contains — its boss, if
  * it has one, THE GAUGE included, since that is a boss now — and
@@ -31,8 +30,8 @@ import {
  * dials, the same on every wave. `renderShipSheet` needs no lazy render or
  * open/close wiring of its own: `main.ts` already calls it every time `cfg`
  * changes (tuning, the pair panel, a demo), so `#shipSheetBody` stays current
- * whether or not that tab is the one on screen — see `docs/queue.md`'s
- * `claude/burn-topbar-fold` entry for why that made its own sheet redundant.
+ * whether or not that tab is the one on screen, which is why it needs no
+ * sheet of its own.
  */
 
 interface Capability {

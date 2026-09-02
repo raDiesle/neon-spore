@@ -507,8 +507,7 @@
       /* GAME MECHANICS. Same full-screen shell as the other sheets, and now
          the same tab-over-one-body shape #backlog uses — #statesTabs plays
          the part #backlogTabs does, #statesBody the part #backlogBody does.
-         Folded in from four other doors: see docs/queue.md's
-         claude/burn-topbar-fold entry. */
+         Folded in from four other doors, to save four topbar buttons. */
       #states { display: none; position: fixed; inset: 0; z-index: 20; background: var(--bg); }
       #states.on { display: flex; flex-direction: column; }
       #states > header {
@@ -947,8 +946,7 @@
          touches, not only the panel below the field. Three inner tabs:
          PANELS (one card per registered panel, unchanged below),
          ON THE FIELD (`.field-control`, new) and TRIED AND SET ASIDE
-         (`.tried-control`, new). See docs/queue.md's
-         claude/burn-controls-page entry and docs/spec/controls.md. */
+         (`.tried-control`, new). See docs/spec/controls.md. */
       .ctltabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 16px; }
       .ctlpage { display: none; }
       .ctlpage.on { display: block; }
@@ -1016,7 +1014,7 @@
       .gallery-empty { font-size: 9px; color: #574d84; margin: 0 0 10px; }
       /* On a phone the four desktop columns become three *views* — choosing
          a wave, playing it, painting it — because nobody does two of them at
-         the same instant (docs/queue.md, burn-director-ship). Below the
+         the same instant. Below the
          breakpoint `main` drops to one column and every section but the one
          named by `main[data-view]` is hidden; above it none of this matches,
          so a desktop keeps all four columns exactly as it always has — this
@@ -1123,11 +1121,11 @@
              wave first, the wave's own fields next, and what the wave leaves
              on the ship last. SHIP and BALANCE used to be tabs of their own;
              SHIP is folded in at the bottom here, BALANCE now lives under the
-             field below instead — see docs/queue.md's director-layout entry.
+             field below instead.
              TUNING was the second tab here — PAIR, PRESET and the sliders
              together, the numbers a run is judged against rather than
              anything saved to the wave. It left for GAME MECHANICS' own
-             TUNING tab (see docs/queue.md's topbar-fold entry), which is why
+             TUNING tab, which is why
              only WAVE remains and this bar no longer needs to switch
              anything. -->
         <div class="tabpage on" id="tab-wave">
@@ -1276,8 +1274,7 @@
          MAIN MENU is not a room — it is a link out to the running game, with
          no content of its own to fold in — so it sits in this sheet's own
          header, next to CLOSE, reachable from whichever tab is open rather
-         than living behind one of them. See docs/queue.md's
-         claude/burn-topbar-fold entry. -->
+         than living behind one of them. -->
     <div id="states">
       <header>
         <span class="title">GAME MECHANICS</span>
@@ -1369,8 +1366,7 @@
              sliders together. The other four tabs describe what the game
              is; this one changes the run underneath you while you look at
              it, which is a slight lie to tell under a heading that otherwise
-             means "reference" — named rather than hidden, per
-             docs/queue.md. -->
+             means "reference" — named rather than hidden. -->
         <div class="sheetpage" id="mech-tuning">
           <h2>PAIR</h2>
           <p class="note">

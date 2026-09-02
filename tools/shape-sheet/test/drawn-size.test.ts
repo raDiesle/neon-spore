@@ -4,8 +4,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 
 /**
  * Pins the arithmetic in `drawn-size.ts` to the numbers the paired-cards lane
- * found by hand and threw away (`docs/queue.md`'s "THE 26 PX FLOOR..." entry,
- * and the comment atop `tools/director/src/shapes-panel.ts`): at the 92 px
+ * found by hand and threw away (the "THE 26 PX FLOOR..." ask, and the comment
+ * atop `tools/director/src/shapes-panel.ts`): at the 92 px
  * card every square body clears the 26 px floor, and halving a card's width
  * to 46 — the alternative to widening it that the paired-cards lane rejected —
  * would have put 32 of the 49 square catalogue entries under 26 px and 17

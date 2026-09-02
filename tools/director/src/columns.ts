@@ -1,8 +1,7 @@
 /**
  * Every top-level column in the director's `<main>` can be put away as one
  * unit — a whole `<section data-column>`, not a heading inside it. That used
- * to be per-`<h2 data-panel>` (`panels.ts`, `docs/queue.md`'s
- * `claude/burn-director-minimize` entry, landed as c230bc0): a heading and
+ * to be per-`<h2 data-panel>` (`panels.ts`, landed as c230bc0): a heading and
  * the content that followed it collapsed on its own, so putting away
  * everything under WAVES still left BRIEFING and WHAT THIS WAVE ADDS TO THE
  * SHIP each taking their own strip of the column beside it. The owner's

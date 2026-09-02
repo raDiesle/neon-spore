@@ -131,7 +131,7 @@ export function fieldsIn(group: GroupName): (keyof SimConfig)[] {
  * The boss group each `BossEntry` kind shows — a wave that carries `warden`
  * shows WARDEN, and nothing else here changes because of it. `ship.ts` reads
  * this to decide what belongs beside the wave being edited rather than beside
- * the ship, which is the split `docs/queue.md`'s SHIP-column brief asks for.
+ * the ship, which is the split the SHIP-column brief asked for.
  */
 export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   queen: "QUEEN",

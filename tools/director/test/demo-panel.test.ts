@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 
 /**
- * DEMOS is a tab of GAME MECHANICS now, not a sheet of its own — see
- * `docs/queue.md`'s `claude/burn-topbar-fold` entry. It used to carry its own
+ * DEMOS is a tab of GAME MECHANICS now, not a sheet of its own, to save a
+ * topbar button. It used to carry its own
  * Escape/backdrop/CLOSE wiring, checked here the same way `sheet.test.ts`
  * checks the backlog's: `bindDemoPanel` is `document.getElementById` end to
  * end, and this repo's test runner carries no real DOM (no jsdom, no

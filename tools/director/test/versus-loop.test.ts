@@ -3,8 +3,7 @@ import { MECHANIC_POSES } from "../src/poses-mechanics.js";
 import { advance } from "../src/versus-pair.js";
 
 /**
- * The confirmed half of `docs/queue.md`'s "THE ALTERNATIVES PAGE SHOWS
- * EVERYTHING AT ONCE" — the owner's guess that the shot and the ward "do not
+ * The confirmed half of "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" — the owner's guess that the shot and the ward "do not
  * trigger" so a candidate never has anything to draw.
  *
  * `SHOT · IN FLIGHT` and `WARD · DEFLECTED` (`poses-mechanics.ts`) each build

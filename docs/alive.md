@@ -49,7 +49,7 @@ Six changes that are a different number in an existing parameter set. Every one 
 
 See `docs/versus.md` for the mechanism.
 
-The VERSUS mechanism is already queued (`claude/burn-versus-v1` through `-v5` in `docs/queue.md`) and its slot lane deliberately goes last, after somebody has watched the pair run. Five slots, in this order — and note the standing constraint, restated: **no slot may patch `SWAY_PUMP` or `TILT_RIPPLE` until lane 3 has landed.** `claude/burn-own-motion-b10` is already on `main`, but lane 3 rewrites both records onto beats, and a vote taken against a record that is about to move is a vote against nothing.
+The VERSUS mechanism is built — `tools/versus/`, with `docs/versus.md` for how a slot is opened and voted. Five slots, in this order. The constraint that used to stand over the last two — no slot may patch `SWAY_PUMP` or `TILT_RIPPLE` until the rewrite onto beats has landed, since a vote taken against a record that is about to move is a vote against nothing — is **discharged**: both records are beat-counted in `motions.ts` now, at the seconds-era frequencies divided by 1.6 so the bodies move at the rate they always did.
 
 **1. `creature:bulb` — how deep is a lobe.** `depth` at 0.10 (current), 0.13 (what lane 1 lands by argument), and the queue's own worked example, 6 lobes at 0.19. This is the highest-value vocabulary question in the game and the argument only gets it as far as "deeper than 0.10"; where exactly it sits between 0.13 and 0.19 is an eye at 26 px beside a throb, which is precisely what the pair of phones exists for. Vote it first because lane 1's number is the one thing in the batch that a later vote can cleanly overturn — it is three characters in `silhouettes.ts` plus `bun run shapes`.
 
