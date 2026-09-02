@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · ace15ba — The snake stopped ticking from tile to tile and started moving
+
+Six notes from the owner playing it, and they are one change: the round looked like a grid being edited rather than an animal being driven.
+
 ## 2026-09-02 · e14019f — The director paints PINBALL's boards, and a save writes them back
 
 The second boss the director edits rather than documents, and for THE FLEET's reason word for word: where the pieces are is the fight — whether there is a lane back down the middle, how far a target is from a wall the ball can bank off — and none of that is legible as forty rows of coordinates. One gesture and no modes: a press on a cell walks it through empty, peg, target peg, block, target block. The grid's size is asked of pinBoardRows rather than written down, so an author cannot paint a board the game would refuse, and pinballFault says the rest under it.
