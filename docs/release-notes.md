@@ -9,6 +9,34 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-02 · 3928b92 — A rulebook at the root told sessions not to commit, and the chrome hid under the notch
+
+`CONVENTIONS.md` sat beside `CLAUDE.md` at the repository root, opened with "Read this before editing. It is the whole rulebook; nothing here is optional", and then said "Do not commit." It is the aider worker's rulebook — the two disagree on purpose, because the worker's output is reviewed before it lands — but nothing in the file said so, and a session that read it obeyed the wrong one. It is now `tools/delegate/WORKER-CONVENTIONS.md`, beside the tool that feeds it to the worker, and it opens by saying who it is for.
+
+## 2026-09-02 · 9bfd959 — The Stop hook charged 32 seconds for a docs edit, and landing forgot to push
+
+Two hooks and one command, all of them costs a session pays on every turn.
+
+## 2026-09-02 · 3c00381 — The wire promised to distrust a frame and then cast its commands to Command[]
+
+`protocol.ts` opens by saying a malformed frame must fail there, where it is one dropped packet, and not three layers down where it is a desync nobody can explain. Underneath that paragraph both decoders did `m.commands as Command[]` and handed whatever arrived to the simulation. A peer on a different build, a proxy that mangled a field, or anything at all pointed at the room could send `{kind:"fire",color:"purple"}` or a column of `NaN` and watch it reach `applyCommand`.
+
+## 2026-09-02 · a728a6f — Two phones drew different sparks, and a control could be pressed that answered nothing
+
+Four things in render that were true by accident rather than by construction.
+
+## 2026-09-02 · c29d5bd — A frame paid for two fills nobody sees, five clips of one path, and eight gradients it already had
+
+Measured through the canvas stub rather than guessed at: one phone-sized frame with three creatures on the field made 66 `fillRect` calls, 7 clips against the hull's 140-segment path, 8 gradient constructions and 7 `new Path2D`, two of them from the same 6.4 KB string built twice.
+
+## 2026-09-02 · 6d91a1f — Half of CLAUDE.md was an argument every session had already accepted
+
+The file loaded into every session in this project had reached 537 lines and 31 KB — about 7,800 tokens — and two sections were 47% of it. Neither was rules. Both were the reasoning *for* rules, written well, at the length good reasoning takes: why a branch and its worktree do not go at the same moment, what happened the day twenty-seven checkouts stood on disk, why forty-seven unpushed commits were a trap rather than a saving.
+
+## 2026-09-02 · 3378c2f — Eight fields could desync two phones and nothing would have said a word
+
+`hashWorld` had grown by addition — a field went in when somebody noticed it could desync — which meant the set of fields outside it was whatever nobody had thought about yet. A throwaway script found three of them blind in one sitting: two worlds differing only in a bullet's colour, a pod's kind or the body a lure wears produced identical fingerprints. A bullet's colour decides kill from miss in `bullet-hit.ts`, so a red shot on one phone and a cyan one on the other clear different fields while both devices insist they are in step. The charge was already hashed; the same shot one tick later was not.
+
 ## 2026-09-02 · 78de4d3 — docs/parked.md comes back for the one thing it was good at: work left half-done
 
 It was deleted because it had become a backlog, and a backlog is the one thing it must not be. Scoped to what a session actually parks, it carries a sentence nothing else can: the next session clones origin knowing only what the commit messages say, and none of them say "the other half of this is still undone".
