@@ -169,6 +169,11 @@ export function hullSkinY(
   mood: HullMood,
   at: LobePositions,
   x: number,
+  // The caller usually already has this frame — `drawShip` computes it once
+  // and hands it down rather than let every reader of the skin rebuild the
+  // same lobes. Defaulted so a caller with only the four numbers above (a
+  // shape tool, a test) still gets the same answer.
+  f: HullFrame = frame(l, time, mood, at),
 ): number {
-  return skin(frame(l, time, mood, at), x).y;
+  return skin(f, x).y;
 }

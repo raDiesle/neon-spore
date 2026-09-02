@@ -1,3 +1,4 @@
+import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import type { Layout } from "./layout.js";
 import { drawLightShafts } from "./light-shafts.js";
 import { PALETTE } from "./palette.js";
@@ -110,15 +111,22 @@ function drawMotes(ctx: CanvasRenderingContext2D, l: Layout, time: number, style
 /** A soft horizontal band, fixed at `HORIZON_FRAC`, tinted per act. Static in
  * position — only the beat pulse in `drawGrid` moves — so it reads as a
  * distant skyline rather than another thing competing for attention. */
+/** Depends only on `l` (gridTop, gridHeight, width) and `wave` — never on
+ * time, so the same gradient serves every frame between two waves. */
+const horizonSlot = gradientSlot<CanvasGradient>();
+
 function drawHorizon(ctx: CanvasRenderingContext2D, l: Layout, wave: number): void {
   if (l.gridHeight <= 0 || l.width <= 0) return;
   const y = l.gridTop + l.gridHeight * HORIZON_FRAC;
   const band = Math.max(1, l.gridHeight * 0.1);
   const tint = tintFor(wave);
-  const g = ctx.createLinearGradient(0, y - band, 0, y + band);
-  g.addColorStop(0, withAlpha(tint, 0));
-  g.addColorStop(0.5, withAlpha(tint, 0.55));
-  g.addColorStop(1, withAlpha(tint, 0));
+  const g = slotGradient(ctx, horizonSlot, `${y},${band},${tint}`, () => {
+    const grad = ctx.createLinearGradient(0, y - band, 0, y + band);
+    grad.addColorStop(0, withAlpha(tint, 0));
+    grad.addColorStop(0.5, withAlpha(tint, 0.55));
+    grad.addColorStop(1, withAlpha(tint, 0));
+    return grad;
+  });
   ctx.fillStyle = g;
   ctx.fillRect(0, y - band, l.width, band * 2);
 }

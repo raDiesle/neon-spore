@@ -1,3 +1,4 @@
+import { hash01 } from "./backdrop.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -45,9 +46,18 @@ function film(at: number): string {
  * and the half that would spill into space is cut away by the clip rather than
  * by a horizontal line.
  */
-export function innerLight(ctx: CanvasRenderingContext2D, body: Path2D, filled: Path2D): void {
-  ctx.save();
-  ctx.clip(filled);
+/**
+ * Every one of the five passes below (`innerLight` here through `dither`) used
+ * to open its own `save`/`clip(filled)`/`restore` — five clips a frame against
+ * the same 140-segment hull path. `hull.ts` now opens one save/clip around all
+ * five and restores once at the end, so each pass here sets the state it
+ * needs rather than relying on a `restore` to have put the canvas back. A
+ * pass that reads state without setting it first is a bug this file no longer
+ * catches for free — see `dither`'s composite-operation reset below, the one
+ * place that matters: every other value (strokeStyle, lineCap, lineWidth,
+ * globalAlpha) each pass sets before it uses it.
+ */
+export function innerLight(ctx: CanvasRenderingContext2D, body: Path2D): void {
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineCap = "round";
   for (const [width, alpha] of [
@@ -60,7 +70,6 @@ export function innerLight(ctx: CanvasRenderingContext2D, body: Path2D, filled: 
     ctx.stroke(body);
   }
   ctx.globalAlpha = 1;
-  ctx.restore();
 }
 
 /**
@@ -71,12 +80,9 @@ export function innerLight(ctx: CanvasRenderingContext2D, body: Path2D, filled: 
 export function iridescence(
   ctx: CanvasRenderingContext2D,
   body: Path2D,
-  filled: Path2D,
   l: Layout,
   time: number,
 ): void {
-  ctx.save();
-  ctx.clip(filled);
   ctx.globalCompositeOperation = "lighter";
   ctx.lineCap = "round";
 
@@ -96,7 +102,6 @@ export function iridescence(
     ctx.stroke(body);
   }
   ctx.globalAlpha = 1;
-  ctx.restore();
 }
 
 /**
@@ -104,18 +109,10 @@ export function iridescence(
  * a bubble. It spends part of every pass outside the field, so the ship is not
  * permanently polished — the shimmer arrives, crosses, and leaves.
  */
-export function sweep(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  filled: Path2D,
-  l: Layout,
-  time: number,
-): void {
+export function sweep(ctx: CanvasRenderingContext2D, body: Path2D, l: Layout, time: number): void {
   const at = ((time * 0.075) % 1.55) - 0.3;
   if (at < -0.25 || at > 1.25) return;
 
-  ctx.save();
-  ctx.clip(filled);
   ctx.globalCompositeOperation = "lighter";
   ctx.lineCap = "round";
   const g = ctx.createLinearGradient(l.gridLeft, 0, l.gridLeft + l.gridWidth, 0);
@@ -140,7 +137,6 @@ export function sweep(
     ctx.stroke(body);
   }
   ctx.globalAlpha = 1;
-  ctx.restore();
 }
 
 /**
@@ -154,13 +150,10 @@ export function sweep(
  */
 export function bloom(
   ctx: CanvasRenderingContext2D,
-  filled: Path2D,
   l: Layout,
   time: number,
   surfaceY: (x: number) => number,
 ): void {
-  ctx.save();
-  ctx.clip(filled);
   for (let i = 0; i < 5; i++) {
     // Coprime-ish speeds, so the five never line up into a row.
     const u = (0.11 + i * 0.23 + time * (0.013 + i * 0.004)) % 1;
@@ -170,9 +163,10 @@ export function bloom(
     // A fixed colour and a radius in whole steps: `halo` caches one sprite per
     // pair, so a value that moves every frame caches a canvas every frame.
     const radius = Math.round((l.tile * (1.1 + 0.5 * breathe)) / 4) * 4;
+    // `halo` saves and restores globalCompositeOperation/globalAlpha around
+    // itself, so it needs nothing reset before it and leaves nothing behind.
     halo(ctx, x, y, radius, FILM[i] as string, 0.1 + 0.12 * breathe);
   }
-  ctx.restore();
 }
 
 /**
@@ -199,7 +193,13 @@ function grainPattern(ctx: CanvasRenderingContext2D): CanvasPattern | null {
     img.data[i] = 255;
     img.data[i + 1] = 255;
     img.data[i + 2] = 255;
-    img.data[i + 3] = Math.random() * 26;
+    // Deterministic, not `Math.random`: the same pixel index always gives the
+    // same value, so the grain is a fixed texture rather than a fresh roll
+    // per device — see `hash01` in backdrop.ts, the same pattern the motes
+    // use. It is a *different* fixed noise than the old random draw, not the
+    // same one reseeded — intentional, and the one place this lane's render
+    // output is not pixel-identical to what shipped before it.
+    img.data[i + 3] = hash01(i / 4) * 26;
   }
   g.putImageData(img, 0, 0);
   grain = ctx.createPattern(c, "repeat");
@@ -209,11 +209,14 @@ function grainPattern(ctx: CanvasRenderingContext2D): CanvasPattern | null {
 export function dither(ctx: CanvasRenderingContext2D, filled: Path2D): void {
   const pattern = grainPattern(ctx);
   if (!pattern) return;
-  ctx.save();
-  ctx.clip(filled);
+  // The one value the shared save/clip in `hull.ts` cannot guarantee: this is
+  // the last of the five passes, and `iridescence`/`sweep` before it both
+  // leave `globalCompositeOperation` at `"lighter"`. Dither is a plain fill,
+  // not an additive one — this used to come free from each pass's own
+  // `restore`, and now has to be asked for.
+  ctx.globalCompositeOperation = "source-over";
   ctx.globalAlpha = 0.55;
   ctx.fillStyle = pattern;
   ctx.fill(filled);
   ctx.globalAlpha = 1;
-  ctx.restore();
 }

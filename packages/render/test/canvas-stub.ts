@@ -22,6 +22,23 @@ function fail(where: string, detail: string): never {
   throw new StubFail(`${where}: ${detail}`);
 }
 
+/** Shared by every counted call site, including StubPath's constructor,
+ * which has no `this: StubContext` to hang a method off of. */
+let activeTally: Map<string, number> | undefined;
+let activeLog: string[] | undefined;
+
+function round(v: unknown): unknown {
+  return typeof v === "number" ? Math.round(v * 1000) / 1000 : v;
+}
+
+function hit(name: string, args?: unknown[]): void {
+  if (activeTally) activeTally.set(name, (activeTally.get(name) ?? 0) + 1);
+  if (activeLog) {
+    const rendered = args ? args.map(round).join(", ") : "";
+    activeLog.push(args ? `${name}(${rendered})` : name);
+  }
+}
+
 /** Every coordinate that reaches the canvas has to be a real number. */
 function nums(where: string, values: number[]): void {
   for (const v of values) {
@@ -51,6 +68,7 @@ class StubPath {
     if (d !== undefined && /NaN|Infinity|undefined/.test(d)) {
       fail("new Path2D", `path contains ${/NaN/.test(d) ? "NaN" : "a non-finite value"}`);
     }
+    hit("new Path2D");
   }
 
   /** A path can also be built by call, not only from a string — and a real
@@ -111,13 +129,36 @@ export class StubContext {
   lineCap = "butt";
   lineJoin = "miter";
   shadowBlur = 0;
-  globalCompositeOperation = "source-over";
   /** How many draw calls a frame made, so a test can tell a frame from nothing. */
   calls = 0;
+  /** Per-method call counts, for a test that budgets op counts rather than
+   * merely detecting a frame. Reset it (`ctx.tally.clear()`) between frames. */
+  readonly tally = new Map<string, number>();
+  /** Optional ordered log of every counted call, compact enough to diff two
+   * frames by eye. Unset by default; assign an array to start recording. */
+  private _log?: string[];
+  private _globalCompositeOperation = "source-over";
+
+  // Deliberately does *not* claim `activeTally`/`activeLog` here — a frame
+  // draws through offscreen sprite-baking canvases too (`glow.ts`'s halo
+  // sprites, `sheen.ts`'s grain and dither pattern), each its own
+  // `StubContext` created via `document.createElement("canvas")`. If the
+  // constructor claimed the module pointers, the last sprite baked before a
+  // frame's `new Path2D(...)` would silently steal its tally. Only
+  // `stubCanvas`'s caller decides which context is "the frame" — see there.
+
+  set log(v: string[] | undefined) {
+    this._log = v;
+    activeLog = v;
+  }
+  get log(): string[] | undefined {
+    return this._log;
+  }
 
   set fillStyle(v: unknown) {
     color("fillStyle", v);
     this._fillStyle = v;
+    this.mark("set fillStyle", v);
   }
   get fillStyle(): unknown {
     return this._fillStyle;
@@ -125,6 +166,7 @@ export class StubContext {
   set strokeStyle(v: unknown) {
     color("strokeStyle", v);
     this._strokeStyle = v;
+    this.mark("set strokeStyle", v);
   }
   get strokeStyle(): unknown {
     return this._strokeStyle;
@@ -133,6 +175,7 @@ export class StubContext {
     nums("lineWidth", [v]);
     if (v <= 0) fail("lineWidth", `${v} draws nothing`);
     this._lineWidth = v;
+    this.mark("set lineWidth", v);
   }
   get lineWidth(): number {
     return this._lineWidth;
@@ -142,9 +185,30 @@ export class StubContext {
     nums("globalAlpha", [v]);
     if (v < 0 || v > 1) fail("globalAlpha", `${v} is outside 0..1`);
     this._globalAlpha = v;
+    this.mark("set globalAlpha", v);
   }
   get globalAlpha(): number {
     return this._globalAlpha;
+  }
+  set globalCompositeOperation(v: string) {
+    this._globalCompositeOperation = v;
+    this.mark("set globalCompositeOperation", v);
+  }
+  get globalCompositeOperation(): string {
+    return this._globalCompositeOperation;
+  }
+
+  /** Records to this instance's tally/log, not the module-level `active*`
+   * pointers — those exist only so `StubPath`, which has no `this: StubContext`,
+   * can still tally itself against whichever context last constructed one.
+   * `value` is a setter's new value (logged as `name=value`); `args` is a
+   * method's argument list (logged as `name(args)`). At most one is given. */
+  private mark(name: string, value?: unknown, args?: unknown[]): void {
+    this.tally.set(name, (this.tally.get(name) ?? 0) + 1);
+    if (!this.log) return;
+    if (args) this.log.push(`${name}(${args.map(round).join(", ")})`);
+    else if (value !== undefined) this.log.push(`${name}=${round(value)}`);
+    else this.log.push(name);
   }
 
   /**
@@ -172,11 +236,19 @@ export class StubContext {
     return this._lineDashOffset;
   }
 
-  save(): void {}
-  restore(): void {}
-  beginPath(): void {}
+  save(): void {
+    this.mark("save");
+  }
+  restore(): void {
+    this.mark("restore");
+  }
+  beginPath(): void {
+    this.mark("beginPath");
+  }
   closePath(): void {}
-  clip(): void {}
+  clip(): void {
+    this.mark("clip");
+  }
   measureText(text: string): { width: number } {
     return { width: text.length * 6 };
   }
@@ -220,6 +292,7 @@ export class StubContext {
     nums("arc", [x, y, r, from, to]);
     if (r < 0) fail("arc", `radius ${r} is negative`);
     this.calls++;
+    this.mark("arc", undefined, [x, y, r, from, to]);
   }
   ellipse(
     x: number,
@@ -237,6 +310,7 @@ export class StubContext {
   fillRect(...a: number[]): void {
     nums("fillRect", a);
     this.calls++;
+    this.mark("fillRect", undefined, a);
   }
   strokeRect(...a: number[]): void {
     nums("strokeRect", a);
@@ -246,20 +320,25 @@ export class StubContext {
     nums("fillText", [x, y]);
     if (/NaN|undefined/.test(text)) fail("fillText", `text reads "${text}"`);
     this.calls++;
+    this.mark("fillText", undefined, [x, y]);
   }
   fill(): void {
     this.calls++;
+    this.mark("fill");
   }
   stroke(): void {
     this.calls++;
+    this.mark("stroke");
   }
   drawImage(_img: unknown, ...a: number[]): void {
     nums("drawImage", a);
     this.calls++;
+    this.mark("drawImage", undefined, a);
   }
 
   createLinearGradient(...a: number[]): StubGradient {
     nums("createLinearGradient", a);
+    this.mark("createLinearGradient", undefined, a);
     return new StubGradient();
   }
   createRadialGradient(
@@ -271,6 +350,7 @@ export class StubContext {
     r1: number,
   ): StubGradient {
     nums("createRadialGradient", [x0, y0, r0, x1, y1, r1]);
+    this.mark("createRadialGradient", undefined, [x0, y0, r0, x1, y1, r1]);
     if (r0 < 0 || r1 < 0) fail("createRadialGradient", "radius is negative");
     return new StubGradient();
   }
@@ -283,9 +363,20 @@ export class StubContext {
   putImageData(): void {}
 }
 
-/** A canvas element, enough of one for `new Canvas2DRenderer(canvas)`. */
-export function stubCanvas(): { canvas: HTMLCanvasElement; ctx: StubContext } {
+/**
+ * A canvas element, enough of one for `new Canvas2DRenderer(canvas)`.
+ *
+ * `primary` (default `true`) is what makes `new Path2D(...)` — which has no
+ * `this: StubContext` of its own to tally against — count against *this*
+ * context's `tally`/`log` rather than whatever offscreen sprite canvas a
+ * pass happened to bake last. Every caller in a test file wants the default;
+ * `installCanvasGlobals`'s own `document.createElement` is the one caller
+ * that has to say `false`, since it is standing in for exactly the kind of
+ * throwaway canvas a primary frame should not be attributed to.
+ */
+export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: StubContext } {
   const ctx = new StubContext();
+  if (primary) activeTally = ctx.tally;
   const canvas = {
     width: 0,
     height: 0,
@@ -302,7 +393,7 @@ export function installCanvasGlobals(): void {
   g.document = {
     createElement: (tag: string) => {
       if (tag !== "canvas") throw new Error(`unexpected createElement(${tag})`);
-      return stubCanvas().canvas;
+      return stubCanvas(false).canvas;
     },
   };
 }

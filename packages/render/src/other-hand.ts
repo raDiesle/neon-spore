@@ -1,6 +1,7 @@
 import { priming, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { cannonTip, type HullMood, type LobePositions } from "./hull.js";
+import type { HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -33,9 +34,13 @@ export function drawOtherHand(
   time: number,
   mood: HullMood,
   at: LobePositions,
+  // Handed down from `drawShip`'s single `frame()` call for this tick, the
+  // same as `drawHull` and `hullSkinY` take — defaulted so a caller with only
+  // the four numbers above still gets the same answer.
+  f?: HullFrame,
 ): void {
   if (!priming(world)) return;
-  const tip = cannonTip(l, time, mood, at);
+  const tip = f ? cannonTip(l, time, mood, at, f) : cannonTip(l, time, mood, at);
   // A pulse, not a fill — presence has no progress to show, and a steady glow
   // would read as paint rather than a hand that is still there.
   const pulse = 0.6 + 0.4 * Math.sin(time * 6);

@@ -122,9 +122,16 @@ export class Canvas2DRenderer implements Renderer {
 
     // Outside the stage is not the game. It is painted flat and left alone, and
     // everything below draws in stage coordinates — as does input hit-testing,
-    // which subtracts the same offset.
-    ctx.fillStyle = view.bare ? "#000000" : "#05040B";
-    ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
+    // which subtracts the same offset. A phone whose stage fills the viewport
+    // needs none of this: drawBackground's opaque radial gradient (or, on the
+    // gauge round, gauge-round.ts's own full-stage fill) covers the same rect
+    // a moment later. A bare frame skips that gradient, and a desktop window
+    // wider or taller than the stage has a letterbox nothing else paints —
+    // both still need the flat fill underneath.
+    if (view.bare || stage.width < this.viewport.width || stage.height < this.viewport.height) {
+      ctx.fillStyle = view.bare ? "#000000" : "#05040B";
+      ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
+    }
     ctx.save();
     ctx.beginPath();
     ctx.rect(stage.left, stage.top, stage.width, stage.height);

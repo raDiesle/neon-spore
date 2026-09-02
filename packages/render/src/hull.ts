@@ -80,9 +80,7 @@ function pointsAcross(f: HullFrame, l: Layout, steps: number) {
   const from = l.gridLeft - MARGIN * l.gridWidth;
   const to = l.gridLeft + (1 + MARGIN) * l.gridWidth;
   const pts = [];
-  for (let i = 0; i <= steps; i++) {
-    pts.push(surface(f, from + (to - from) * (i / steps)));
-  }
+  for (let i = 0; i <= steps; i++) pts.push(surface(f, from + (to - from) * (i / steps)));
   return pts;
 }
 
@@ -105,17 +103,17 @@ export function drawHull(
   // this is meant to carry; a shake here is a decision the owner made rather
   // than one this file invented.
   shake: { x: number; y: number } = { x: 0, y: 0 },
+  // As `hullSkinY`: usually already built this tick and handed down.
+  f: HullFrame = frame(l, time, mood, at),
 ): void {
-  const f = frame(l, time, mood, at);
   // High resolution: the swelling has to read as one unbroken transition, not
   // as a bump glued to a line.
   const pts = pointsAcross(f, l, 140);
 
   const right = l.gridLeft + l.gridWidth;
-  const body = new Path2D(openSmoothPath(pts));
-  const filled = new Path2D(
-    `${openSmoothPath(pts)} L ${right} ${l.bandTop} L ${l.gridLeft} ${l.bandTop} Z`,
-  );
+  const spline = openSmoothPath(pts);
+  const body = new Path2D(spline);
+  const filled = new Path2D(`${spline} L ${right} ${l.bandTop} L ${l.gridLeft} ${l.bandTop} Z`);
 
   // The hull is cut off at the columns, not at the window. The contour itself
   // is unchanged — it is sampled past both edges so it never ends in view — but
@@ -150,11 +148,15 @@ export function drawHull(
   ctx.fillStyle = bg;
   ctx.fill(filled);
 
-  bloom(ctx, filled, l, time, (x) => skin(f, x).y);
-  innerLight(ctx, body, filled);
-  iridescence(ctx, body, filled, l, time);
-  sweep(ctx, body, filled, l, time);
+  // One clip for all five sheen passes — see sheen.ts's header.
+  ctx.save();
+  ctx.clip(filled);
+  bloom(ctx, l, time, (x) => skin(f, x).y);
+  innerLight(ctx, body);
+  iridescence(ctx, body, l, time);
+  sweep(ctx, body, l, time);
   dither(ctx, filled);
+  ctx.restore();
   // WHERE THE LIGHT IS. Everything above this line implies one — the vertical
   // body ramp, the inner glow, the sweep — and none of them names it, which is
   // why the ship read flat however good each pass was on its own. The key
@@ -241,7 +243,7 @@ export function cannonTip(
   time: number,
   mood: HullMood,
   at: LobePositions,
+  f: HullFrame = frame(l, time, mood, at),
 ): { x: number; y: number } {
-  const f = frame(l, time, mood, at);
   return surface(f, f.cannonX);
 }

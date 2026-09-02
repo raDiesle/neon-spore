@@ -3,6 +3,7 @@ import { bodyCenterCol, isMeteorKind, spanOf, type World } from "@neon-spore/sim
 import { drawBackdrop } from "./backdrop.js";
 import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
+import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
@@ -17,22 +18,29 @@ import { drawRadarVeilMark } from "./veil-question.js";
  * across a voice delay. That lattice is written and switched off — see
  * `SHOW_TILE_GRID`.
  */
+/** Depends only on `l.width` and `l.playHeight` — one gradient per layout,
+ * not one per frame. */
+const backgroundSlot = gradientSlot<CanvasGradient>();
+
 export function drawBackground(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   wave: number,
   time: number,
 ): void {
-  const g = ctx.createRadialGradient(
-    l.width / 2,
-    l.playHeight * 0.2,
-    10,
-    l.width / 2,
-    l.playHeight * 0.2,
-    Math.max(l.width, l.playHeight),
-  );
-  g.addColorStop(0, "#1D1547");
-  g.addColorStop(1, "#08060F");
+  const g = slotGradient(ctx, backgroundSlot, `${l.width},${l.playHeight}`, () => {
+    const grad = ctx.createRadialGradient(
+      l.width / 2,
+      l.playHeight * 0.2,
+      10,
+      l.width / 2,
+      l.playHeight * 0.2,
+      Math.max(l.width, l.playHeight),
+    );
+    grad.addColorStop(0, "#1D1547");
+    grad.addColorStop(1, "#08060F");
+    return grad;
+  });
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, l.width, l.height);
   drawBackdrop(ctx, l, wave, time);
@@ -53,6 +61,10 @@ const SHOW_TILE_GRID = false;
  * `flash` is 1 on the beat and decays to 0 before the next one. It is derived
  * from `beatPhase`, never stored — the simulation has no notion of a fade.
  */
+/** Depends only on `l.gridTop` and `l.gridHeight` — the same gradient at
+ * every column, so it is keyed on neither `cannonCol` nor `flash`. */
+const cannonColumnSlot = gradientSlot<CanvasGradient>();
+
 export function drawGrid(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -67,9 +79,12 @@ export function drawGrid(
   // The cannon's own column, straight up. Spec 5.8: this is the only path
   // marker left in the field — everything else is read off the radar.
   const x = tileCX(l, cannonCol);
-  const cg = ctx.createLinearGradient(0, l.gridTop, 0, l.gridTop + l.gridHeight);
-  cg.addColorStop(0, "rgba(47,224,240,0)");
-  cg.addColorStop(1, "rgba(47,224,240,.16)");
+  const cg = slotGradient(ctx, cannonColumnSlot, `${l.gridTop},${l.gridHeight}`, () => {
+    const grad = ctx.createLinearGradient(0, l.gridTop, 0, l.gridTop + l.gridHeight);
+    grad.addColorStop(0, "rgba(47,224,240,0)");
+    grad.addColorStop(1, "rgba(47,224,240,.16)");
+    return grad;
+  });
   ctx.fillStyle = cg;
   ctx.fillRect(x - l.tile / 2, l.gridTop, l.tile, l.gridHeight);
 }

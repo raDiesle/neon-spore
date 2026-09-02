@@ -10,11 +10,11 @@ import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGrips } from "./grip.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
+import { frame } from "./hull-frame.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
 import { drawLureAlarms } from "./lure-alarm.js";
 import { drawOtherHand } from "./other-hand.js";
-import { PALETTE } from "./palette.js";
 import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
@@ -40,8 +40,9 @@ export function drawFieldBack(
   view: ViewState,
   flash: number,
 ): void {
-  ctx.fillStyle = PALETTE.background;
-  ctx.fillRect(0, 0, l.width, l.height);
+  // No flat fill here: drawBackground's radial gradient is opaque over the
+  // same rect, so a fill under it never reaches the screen (canvas2d.ts's
+  // own viewport fill covers the letterbox this pass does not reach).
   drawBackground(ctx, l, world.wave, view.time);
   drawRadar(ctx, l, world, view.time);
   drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase);
@@ -109,6 +110,10 @@ export function drawShip(
     world.boss?.kind === "queen"
       ? hullShake(torchTremor(l.tile, world.boss, world.beat, view.time))
       : undefined;
+  // Built once for the whole ship pass: `drawHull`, `drawOtherHand` and the
+  // rock-impact overlay below all sample the same breathing membrane this
+  // tick, and `frame()` is not free — see hull-frame.ts.
+  const f = frame(l, view.time, mood, at);
   drawHull(
     ctx,
     l,
@@ -121,11 +126,12 @@ export function drawShip(
     (col, beat) => effects.hasArrived(col, beat),
     undefined,
     shake,
+    f,
   );
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
-  drawOtherHand(ctx, l, world, view.time, mood, at);
+  drawOtherHand(ctx, l, world, view.time, mood, at, f);
   // In front of the hull, unlike the rest of Effects.draw() — see Effects.drawRockImpact.
-  effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x));
+  effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
   effects.drawBanner(ctx, l);
   if (world.boss?.kind === "mirror") {
     effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
