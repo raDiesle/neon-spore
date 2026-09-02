@@ -244,6 +244,20 @@ tried on, a creature in the bestiary, a design in its own document — beside th
 thing a reader would already be looking at, rather than in a list of loose
 ideas nobody opens.
 
+**That is not a loss of the backlog, it is where the backlog already was.**
+The spec is what the director's `◇ NOT BUILT YET` sheet reads: `ideas.md`'s
+`###` sections become its CREATURE, MECHANIC, CONTROL, WEAPON, BOSS and ROUND
+groups, the rosters in `bestiary.md` and `bosses.md` become the rest, and
+anything the simulation already has drops out of the page by being built. So an
+idea filed in the spec is *on* the page the owner decides from, next to the
+built things it would sit beside — which a separate file could never be.
+
+**And the owner picks from that page himself, by hand, in a session he opens.**
+Not off a queue, not on a schedule, and not because something is counted as
+outstanding. Nothing on that sheet is waiting for an answer; it is a catalogue
+of what could be built, read when he wants to choose. A session's job is to
+build the thing he chose and to say what it noticed on the way out.
+
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
 IPv6 and impossible on this one — and what Bun reports is `EADDRINUSE`, so the
