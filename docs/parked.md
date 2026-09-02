@@ -1408,28 +1408,3 @@ The counter-evidence is in the file itself: `drawMeteor` builds a linear gradien
 Finished when `bun run check` is green, `frame.test.ts` passes with the new fills through the strict canvas stub, no gradient or halo sprite is allocated after the first frame, and the commit carries `Check: does the interior gradient survive 26 px, or is the spec right that it does not — desaturated shape sheet at 26 px, rim peak at least 2.5x the interior peak`.
 
 Model `sonnet`, effort `think hard`. Read `docs/alive.md` first — it is the design this lane implements.
-
-
-## ONE PREDICATE STANDS BETWEEN THIRTEEN CREATURES AND A PICTURE
-
-2026-08-28 · claude/burn-drafts-suggest-p1
-
-Tool · Designed
-
-A draft shape names the idea it is offered to through `suggests`, and
-`drafts.test.ts` resolves that name against `docs/spec/ideas.md` and
-`docs/spec/bosses.md` only. The thirteen unbuilt creatures in the bestiary are
-table rows rather than idea-store sections, so a draft cannot legally point at
-one — which means the largest undrawn group in the repository is the one group
-nobody can draw for.
-
-Found by the lane that drew six shapes ahead of the need and then ran out of
-things it was allowed to offer them to. It called it one predicate, and it is:
-`roster.ts` already parses the bestiary table into named rows, so the
-resolution has a second source waiting for it.
-
-Finished when a draft can name a bestiary creature, when a name that matches
-nothing still fails loudly, and when `bun run shapes:report` shows at least one
-new contour offered to one of the thirteen. The rule that has to survive: a
-`suggests` pointing at nothing must remain an error, because the whole value of
-the field is that a drawn shape is joined to the idea it serves.
