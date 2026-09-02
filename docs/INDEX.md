@@ -2,12 +2,18 @@
 
 One line per file, so a session can open the two it needs instead of searching.
 Keep this current — it is the cheapest file in the repo and it saves the most.
+The Code table below is completed by `bun run index`, which adds a row for
+any in-scope source file that does not have one yet; a hand-written row is
+never overwritten, so improve one by editing its text in place.
 
 ## Decisions and architecture
 
 | File | Read it when |
 |---|---|
 | `docs/decisions.md` | you are about to change a technology or a structural rule |
+| `docs/git-and-landing.md` | a landing surprised you, or you want to argue with a Git rule in CLAUDE.md |
+| `docs/cloud-session.md` | you are a session started from the phone, or you are changing what one may do |
+| `docs/looks.md` | you are about to change something a player would see in a frame |
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/choosing-a-model.md` | you are writing a prompt and picking a model and a thinking effort |
@@ -30,7 +36,7 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 | `docs/borrowed.md` | you are mining It Takes Two or Split Fiction for a mechanic — the verdict column says what can reach this game |
 | `docs/tower-defence.md` | you want a slick, a bulb or a meteor to be played differently, or a weapon or helping system — read off 2D tower defence, with pictures |
 | `docs/asset-catalogue.md` | you are looking for a shape to spend, or adding one |
-| `CONVENTIONS.md` | you change what the worker is allowed to do or must know |
+| `tools/delegate/WORKER-CONVENTIONS.md` | you change what the worker model is allowed to do or must know |
 
 ## Specification
 
@@ -66,6 +72,16 @@ history if the wording of a rejected idea is ever needed.
 
 ## Code
 
+Every `.ts` file under `packages/*/src/**` and `apps/*/src/**` (barrels and
+tests excepted) needs a row here; `tools/index/test/index.test.ts` fails and
+names the path when one is missing or a row's file has been deleted. Run
+`bun run index` to add the missing rows, then edit the new row's text in
+place — the generator keeps whatever is there.
+
+<!-- index:code:start -->
+
+### packages/sim
+
 | Path | One line |
 |---|---|
 | `packages/sim/src/config.ts` | every tunable number, `ticksPerBeat`, `hullRow` |
@@ -76,7 +92,6 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on something falling, and how much it slows |
 | `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
-| `packages/sim/src/queen-geometry.ts` | how wide her reach is with both flank torches counted in |
 | `packages/sim/src/simon.ts` | THE MIRROR's vocabulary: what a step is, what it remembers |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
@@ -88,30 +103,75 @@ history if the wording of a rejected idea is ever needed.
 | `packages/sim/src/balance.ts` | the balance sheet: joint moments, SYNC, the streak |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
-| `packages/net/src/protocol.ts` | every message that crosses the wire, and how to distrust one |
-| `packages/net/src/lockstep.ts` | delayed lockstep: the promise each device makes to the other |
-| `packages/net/src/clock.ts` | four-timestamp clock sync, median, moved gently |
-| `packages/net/src/desync.ts` | the fingerprint ledger — where `hash.ts` finally gets used |
-| `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
-| `packages/net/src/room-code.ts` | the four characters two people read to each other |
+| `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
+| `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
+| `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
+| `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
+| `packages/sim/src/config-boss.ts` | the numbers the bosses own |
+| `packages/sim/src/config-creatures.ts` | what one creature costs and how long its own clock runs |
+| `packages/sim/src/config-gauge.ts` | THE GAUGE's numbers — the first of the twelve rounds, and its whole difficulty |
+| `packages/sim/src/config-pair.ts` | the switch that exists because the game has two people in front of it |
+| `packages/sim/src/config-shot.ts` | everything about a shot, as numbers: speed, rate, hold value, which moments it may leave on |
+| `packages/sim/src/creature-kinds.ts` | every body that can stand on the field, as a name, in the fixed order the world fingerprint writes it in |
+| `packages/sim/src/creature-rules.ts` | the state machines the bestiary asks for that are small enough to be one function each |
+| `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
+| `packages/sim/src/events.ts` | everything the simulation reports about a tick, and the whole of what it says to anybody |
+| `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
+| `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
+| `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
+| `packages/sim/src/hull-types.ts` | what the hull remembers: where it broke, and how the pair have been doing at stopping it breaking |
+| `packages/sim/src/hull.ts` | the row the shield answers a rock on: one above the ship's own |
+| `packages/sim/src/kinds.ts` | what a `CreatureKind` *means*: colour, fall speed, width, whether a hand may be put on it |
+| `packages/sim/src/maze-clock.ts` | THE MAZE's clock: how long each part of a round stands, in beats |
+| `packages/sim/src/maze-controls.ts` | THE MAZE's two verbs, and they are the whole of what the pair can do |
+| `packages/sim/src/maze-round.ts` | the round the pair plays against THE MAZE, and what it costs them |
+| `packages/sim/src/maze-wheel.ts` | THE MAZE's wheel as a *written-down thing*: what a round author types, and what is wrong if they typed it wrong |
+| `packages/sim/src/maze.ts` | THE MAZE's wheel, as arithmetic |
+| `packages/sim/src/queen-mark.ts` | the mark itself: the two vulnerable spots cradled under her middle, only one ever real |
+| `packages/sim/src/run.ts` | the run, as opposed to the beat |
+| `packages/sim/src/shell-round.ts` | the round the pair plays against THE SHELL, which is two rounds and the turn between them |
+| `packages/sim/src/shell.ts` | THE SHELL's armour, as arithmetic |
+| `packages/sim/src/shot-charge.ts` | the shot is laid, not fired |
+| `packages/sim/src/step.ts` | advance exactly one tick |
+| `packages/sim/src/vane-cycle.ts` | THE VANE's cycle, as arithmetic |
+| `packages/sim/src/vane.ts` | THE VANE's whole choreography: the boss that bends the field instead of the beat |
+| `packages/sim/src/veil.ts` | THE VEIL: a thundercloud with a body inside it, the first creature hidden from player 2 |
+| `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |
+| `packages/sim/src/warden.ts` | THE WARDEN's whole choreography: a gate held open by a rope somebody is pulling |
+| `packages/sim/src/wave-start.ts` | begin playing a wave |
+
+### packages/content
+
+| Path | One line |
+|---|---|
 | `packages/content/src/creatures.ts` | bestiary and control-visibility table |
 | `packages/content/src/waves.ts` | authored waves, 7-column coordinates |
-| `packages/content/src/interludes.ts` | which gap between waves carries an interlude, and which one |
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
 | `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
 | `packages/content/src/long-axis.ts` | which way a body is long, and the quarter turn a motion written along one takes |
-| `packages/audio/src/types.ts` | what a sound is made of: layers, families, `bound` or `spare` |
-| `packages/audio/src/grain.ts` | the grains — the instruments every sound is stacked from |
-| `packages/audio/src/band.ts` | the speech band, kept clear, as something that can fail |
-| `packages/audio/src/plan.ts` | a sound flattened to voices with absolute times — pure, so it is testable |
-| `packages/audio/src/engine.ts` | the only file with an `AudioContext` in it |
-| `packages/audio/src/catalogue.ts` | every sound in one list, and the only way to reach one |
-| `packages/audio/src/bind.ts` | one `SimEvent` to one cue: id, pan, pitch |
-| `packages/audio/src/mixer.ts` | the game's ear: events, plus the state the sim never reports |
-| `packages/audio/src/memory.ts` | the one frame of world the mixer remembers, and why clearing it matters |
-| `packages/audio/src/sounds/` | the catalogue itself, one file per family |
+| `packages/content/src/control-sets.ts` | a control set: the whole panel, both players at once, for one wave |
+| `packages/content/src/controls.ts` | every button either player can be given, one row each, listed rather than switched on |
+| `packages/content/src/creatures-table.ts` | adding a creature means adding one entry here |
+| `packages/content/src/hull-shape.ts` | the hull's own geometry, split out of `shapes.ts` when that file hit its size cap |
+| `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
+| `packages/content/src/maze-rounds.ts` | THE MAZE's wheels, one per round |
+| `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
+| `packages/content/src/mechanics.ts` | every mechanic the game has, so that something can be said about all of them at once |
+| `packages/content/src/motions.ts` | the motions themselves: one record per body that has one, and the pairing of a kind to its own |
+| `packages/content/src/ship-silhouettes.ts` | the ship's own shapes: the hull it is drawn as, the two lobes that stand on it, and the maw one turns into |
+| `packages/content/src/warden-shape.ts` | THE WARDEN's body, and the only silhouette in the game with a hole in it |
+| `packages/content/src/wave-types.ts` | what a wave is made of |
+| `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
+| `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
+| `packages/content/src/waves/act-2.ts` | act two: the first five bosses, back to back, nothing else |
+| `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
+
+### packages/render
+
+| Path | One line |
+|---|---|
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
@@ -143,6 +203,125 @@ history if the wording of a rejected idea is ever needed.
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
+| `packages/render/src/arrivals.ts` | Which impacts have actually landed, as far as the picture is concerned |
+| `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
+| `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
+| `packages/render/src/banner.ts` | The one-word receipt for what a pod just gave, and the colour it reads in |
+| `packages/render/src/briefing.ts` | How a wave opens, drawn: first its introduction, then its guide |
+| `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
+| `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
+| `packages/render/src/clasp-lattice.ts` | The honeycomb inside THE CLASP's bubble |
+| `packages/render/src/clasp-strike.ts` | The ward reaching up the column and taking a clasp's shield off it |
+| `packages/render/src/clasp.ts` | THE CLASP's shield: the bubble a slick or a bulb falls inside, and the way it comes apart when the ward opens |
+| `packages/render/src/comms-glyphs.ts` | The three marks the whole game says "one of you can see this" with: an eye on the strip, a speech bubble over |
+| `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |
+| `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
+| `packages/render/src/creature-detail.ts` | Core and trailing filaments |
+| `packages/render/src/dart-path.ts` | Where a dart is going, drawn for the seat that is allowed to know: two dotted legs and a hollow body standing |
+| `packages/render/src/dart.ts` | Everything about a dart that is a picture rather than a rule: the lean that says where it is going, the jet |
+| `packages/render/src/deflect-look.ts` | How a catch reads, as a record rather than as numbers typed into the draw call |
+| `packages/render/src/deflect.ts` | Seconds into the press-and-release that opens every bounce (capped at `DEFLECT_LOOK.pressLife`); ordinary |
+| `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
+| `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
+| `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |
+| `packages/render/src/effects-spark.ts` | The events whose whole visible answer is a handful of particles |
+| `packages/render/src/egg-contour.ts` | The cloaca's own shape, for one frame — split out of `cannon-maw.ts` so that file's `LAY_LOOK.draw` stays a |
+| `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
+| `packages/render/src/flare.ts` | A starting point for a future creature, cloned from the torch's original look before the torch itself was |
+| `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
+| `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
+| `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
+| `packages/render/src/glide.ts` | A spring that chases a value |
+| `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
+| `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
+| `packages/render/src/hull-frame.ts` | The hull's shape for one frame — split out of `hull.ts` so the geometry model (this file) and the drawing |
+| `packages/render/src/key-light.ts` | THE KEY LIGHT, ON A CANVAS |
+| `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |
+| `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
+| `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
+| `packages/render/src/lure-vanish.ts` | A lure going, and the one moment of this creature both screens show identically |
+| `packages/render/src/maze-draw.ts` | THE MAZE's picture: a closed drum of rings turning over the ship, with the mouth that has clicked onto a |
+| `packages/render/src/maze-string.ts` | THE MAZE's string, and the handle on it: the one thing in this round either player can put a hand on |
+| `packages/render/src/meteor.ts` | The rock |
+| `packages/render/src/muzzle.ts` | The fire opening — the one place on the hull that two different things now draw into |
+| `packages/render/src/other-hand.ts` | THE OTHER HAND: the cheapest presence a two-device co-op game can show — not what a control is doing, only |
+| `packages/render/src/queen-egg.ts` | Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch |
+| `packages/render/src/queen-glyph.ts` | Points around the contour — the same count `blobPath` itself walks |
+| `packages/render/src/queen-weakpoint.ts` | Breath speed at full health, out of bloom |
+| `packages/render/src/queen.ts` | How much faster the outer body's wobble gets by her last petal |
+| `packages/render/src/raster-caps.ts` | What the browser in front of us can actually do with a baked animation |
+| `packages/render/src/raster-load.ts` | Getting a baked atlas into a shape `drawImage` will take |
+| `packages/render/src/raster-probe.ts` | Two tiny images whose only job is to be decoded |
+| `packages/render/src/ready-circles.ts` | The ready gate a guide ends on: two circles, filling, and the wave waits until both say READY |
+| `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
+| `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
+| `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
+| `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
+| `packages/render/src/shell-plate.ts` | One plate of THE SHELL's armour, as geometry |
+| `packages/render/src/shield-flash.ts` | The shield's ambient flashes: a soft bright patch popping briefly above the rim, at a random spot and a |
+| `packages/render/src/shield-spark.ts` | The shield's ambient arcs: a few thin discharges thrown outward from the rim, gone almost as soon as they |
+| `packages/render/src/shield.ts` | The shield, as a body rather than a plate |
+| `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
+| `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
+| `packages/render/src/slabs.ts` | The other kind of panel: slabs, for a round that has taken the field away |
+| `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
+| `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
+| `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
+| `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
+| `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
+| `packages/render/src/veil-question.ts` | Player 2's whole half of THE VEIL: a question mark, in the field over the cloud and on the strip over the blip |
+| `packages/render/src/veil-shape.ts` | THE VEIL's *form*: the silhouette a cloud has, and the vapour standing around it |
+| `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
+| `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
+| `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
+| `packages/render/src/warden-fx.ts` | The one thing about THE WARDEN that outlives a frame |
+| `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
+| `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, its name and its sentence, as |
+| `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
+| `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
+| `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
+| `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
+| `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
+
+### packages/net
+
+| Path | One line |
+|---|---|
+| `packages/net/src/protocol.ts` | every message that crosses the wire, and how to distrust one |
+| `packages/net/src/lockstep.ts` | delayed lockstep: the promise each device makes to the other |
+| `packages/net/src/clock.ts` | four-timestamp clock sync, median, moved gently |
+| `packages/net/src/desync.ts` | the fingerprint ledger — where `hash.ts` finally gets used |
+| `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
+| `packages/net/src/room-code.ts` | the four characters two people read to each other |
+| `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
+
+### packages/audio
+
+| Path | One line |
+|---|---|
+| `packages/audio/src/types.ts` | what a sound is made of: layers, families, `bound` or `spare` |
+| `packages/audio/src/grain.ts` | the grains — the instruments every sound is stacked from |
+| `packages/audio/src/band.ts` | the speech band, kept clear, as something that can fail |
+| `packages/audio/src/plan.ts` | a sound flattened to voices with absolute times — pure, so it is testable |
+| `packages/audio/src/engine.ts` | the only file with an `AudioContext` in it |
+| `packages/audio/src/catalogue.ts` | every sound in one list, and the only way to reach one |
+| `packages/audio/src/bind.ts` | one `SimEvent` to one cue: id, pan, pitch |
+| `packages/audio/src/mixer.ts` | the game's ear: events, plus the state the sim never reports |
+| `packages/audio/src/memory.ts` | the one frame of world the mixer remembers, and why clearing it matters |
+| `packages/audio/src/sounds/` | the catalogue itself, one file per family |
+| `packages/audio/src/bind-creatures.ts` | What one **body** did, as a sound: armour chipping, a covering coming off, a disguise leaving on its own, a |
+| `packages/audio/src/music/cells.ts` | The instruments a theme is played on |
+| `packages/audio/src/music/deep-cells.ts` | The three cells the deep-water pieces added, and nothing else |
+| `packages/audio/src/music/deep.ts` | Three pieces for a deep sea underground: TIDE, CAVERN, SILT |
+| `packages/audio/src/music/drift.ts` | `line` and `pulse`, with the grid taken out |
+| `packages/audio/src/music/model.ts` | A piece of music, written the way a sound is: numbers, not a recording |
+| `packages/audio/src/music/player.ts` | Playing a theme, one second at a time |
+| `packages/audio/src/music/themes.ts` | Six pieces of music, none of which the game plays |
+
+### apps/game
+
+| Path | One line |
+|---|---|
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop |
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
@@ -156,8 +335,25 @@ history if the wording of a rejected idea is ever needed.
 | `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
 | `apps/game/src/menu.ts` | the main menu, and the rule that keeps it out of a tester's way |
 | `apps/game/src/menu-view.ts` | its three pages: the entries, the authored waves, the keys |
+| `apps/game/src/briefing.ts` | the thumb on a wave's guide |
+| `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
+| `apps/game/src/gauge.ts` | the host's half of THE GAUGE: the two thumbs that play it |
+| `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
+| `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
+| `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
+| `apps/game/src/view.ts` | the view switch, always on screen |
+
+### apps/server
+
+| Path | One line |
+|---|---|
 | `apps/server/src/index.ts` | the worker: `/room/:code` and `/net/health` |
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
+
+### tools
+
+| Path | One line |
+|---|---|
 | `tools/director/src/grid.ts` | the beat grid a wave is placed on |
 | `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
 | `tools/director/src/stage-touch.ts` | the stage played rather than edited — the game's own controls |
@@ -185,7 +381,7 @@ history if the wording of a rejected idea is ever needed.
 | `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/shape-sheet/src/catalogue.ts` | drawn, spare and drafted — which shapes are spendable |
-| `tools/shape-sheet/src/forms.ts` | contour forms the game has no creature for yet |
+| `tools/shape-sheet/src/forms/` | contour forms the game has no creature for yet |
 | `tools/shape-sheet/src/motions.ts` | the spare motions, unclaimed by anything |
 | `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |
 | `tools/orphans/orphans.ts` | a mechanic that is built and reached by nothing, with where to fix it |
@@ -201,3 +397,5 @@ history if the wording of a rejected idea is ever needed.
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |
 | `tools/delegate/mentions.ts` | the paths a spec names, handed over read-only |
 | `tools/delegate/ignored.ts` | what `.aiderignore` keeps out of the worker's reach |
+
+<!-- index:code:end -->

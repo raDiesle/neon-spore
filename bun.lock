@@ -89,6 +89,14 @@
         "playwright-core": "^1.62.1",
       },
     },
+    "tools/hooks": {
+      "name": "@neon-spore/hooks",
+      "version": "0.0.0",
+    },
+    "tools/index": {
+      "name": "@neon-spore/index",
+      "version": "0.0.0",
+    },
     "tools/orphans": {
       "name": "@neon-spore/orphans",
       "version": "0.0.0",
@@ -121,6 +129,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@neon-spore/content": "workspace:*",
+        "@neon-spore/render": "workspace:*",
         "@neon-spore/sim": "workspace:*",
       },
     },
@@ -157,6 +166,10 @@
     "@neon-spore/frames": ["@neon-spore/frames@workspace:tools/frames"],
 
     "@neon-spore/game": ["@neon-spore/game@workspace:apps/game"],
+
+    "@neon-spore/hooks": ["@neon-spore/hooks@workspace:tools/hooks"],
+
+    "@neon-spore/index": ["@neon-spore/index@workspace:tools/index"],
 
     "@neon-spore/net": ["@neon-spore/net@workspace:packages/net"],
 

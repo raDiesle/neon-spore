@@ -748,3 +748,46 @@ PARKED tab beside it already holds the ideas nobody has started.
 is the only condition under which a board joined to git earns its cost. Not if
 the release notes go unread — that would mean they should be shorter or better
 written, not that they should ask for something back.
+
+
+## 27. CLAUDE.md carries rules and commands; the argument for each lives in `docs/`
+
+*September 2026.* The file loaded into every session had reached 537 lines and
+31 KB — about 7,800 tokens — and two sections were 47% of it: Git at 108 lines
+and the cloud session at 129. Neither was rules. Both were the *reasoning* for
+rules, written well, at the length good reasoning takes: why a branch and its
+worktree do not go at the same moment, what happened the day twenty-seven
+checkouts stood on disk, why forty-seven unpushed commits were a trap rather
+than a saving.
+
+**The reasoning is worth keeping and worth not re-reading.** It was written
+because a rule with no argument behind it gets read around within a day; that is
+still true, and it is a reason to have the argument *somewhere*, not a reason to
+put it in front of every session for ever. An argument you have already accepted
+costs the same as one you have not — every turn, in every conversation, and
+again each time the file is edited, because an edit invalidates the prompt cache
+that would otherwise bill a re-read at a tenth of the price. CLAUDE.md was
+committed 44 times in fourteen days.
+
+So the split is by *kind of sentence*, not by topic. What a session must obey or
+type stays: the five non-negotiable rules, the Git rules, the cloud rules, the
+look rule and its three exemptions, the commands, the conventions, the paths. It
+went to 276 lines and 14.5 KB. Everything that explains, remembers or argues
+moved to `docs/git-and-landing.md`, `docs/cloud-session.md` and `docs/looks.md`,
+each named by the one-line pointer that ends the section it came from.
+
+**The obvious failure mode is that the moved paragraphs stop being read, and the
+answer is not to move them back.** A lesson that has to be re-read every session
+to hold is a lesson that wants to be a test. Three were converted rather than
+trimmed in the same pass: the fingerprint rule is now
+`packages/sim/test/hash-coverage.test.ts`, which walks a populated world and
+fails on a field the hash does not notice; the cross-engine rounding rule that
+had been a comment in `maze.ts` is a row in `purity.test.ts`; and the size of
+this file is `tools/test/claude-md.test.ts`, which also fails when CLAUDE.md
+names a `bun run` script or a `docs/` file that does not exist — the stale
+command being the one way a shrunken document actively costs a session a turn.
+
+**Reconsider if:** a session is observed getting a rule wrong *because* its
+argument was one hop away. That is the measurement this trade is made against,
+and it is a real risk rather than a rhetorical one. The answer then is a test
+for that rule, or one more sentence beside it — not the section back.
