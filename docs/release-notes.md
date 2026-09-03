@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 388e1ee — The eye sits in a bigger pool, and it is neon green
+
+Asked for by name, which is the exemption this lands under.
+
+## 2026-09-03 · fa9f133 — A handle stays under the hand, and the body falls away from it
+
+The handle was drawn at its cord's rest *today* plus the pull, so it walked down the screen a tile a beat as a lid fell and sideways as THE WARDEN's pupil drifted — out from under a thumb that had not moved. The anchor is frozen at the grab now, so the handle is anchor plus pull, which is exactly where the finger is, and the cord simply gets longer and re-angles as the body drops away.
+
 ## 2026-09-03 · 7334bd9 — THE RIND is crushed to its size and its skin is thrown off
 
 A layer coming off a rind was a step and ten particles: the body was one size on one frame and a smaller one on the next. It is a sentence now. The silhouette it was wearing collapses onto the body it has become — the shrinking, the shrink cannon the owner asked for — while the same outline, left where it was, is thrown outward into the space around it, breaking into plates and going out in a bloom of the body's own colour. Both start on the same frame from the same contour and go opposite ways; the split is the picture.
