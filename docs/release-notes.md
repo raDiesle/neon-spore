@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 0bb6dd5 — Queue the claim that does not hold: land sweeps other lanes' branches
+
+`bun run queue next` claims an item by creating a branch off main, and docs/queue.md says that branch is the claim. A claim branch has no commits on it, so it reads as merged and the sweep at the end of any other lane's `bun run land` deletes it. Both sessions running today lost every claim within minutes of the other landing, then did the same item twice — and one of the two commits was thrown away at the rebase.
+
 ## 2026-09-03 · 9601bcb — The BOUND paragraph stops counting the sounds it cannot draw
 
 `docs/spec/audio.md` said five bound sounds have no subject to draw. `sound-link.ts` holds fifteen, and has for some time — a lure, a veil, a salvo into open water and a holed hull all arrived with a written reason and nothing counted them. The number carried no argument the sentence did not already make, so it goes rather than being pinned: what matters is that the exception is written down each time, which the director's own test already holds.
