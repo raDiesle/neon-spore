@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · a722d57 — bun run frames can photograph a thumb that is down
+
+captureFrames drove jumpToWave, dismissBriefing, advance and paint — every verb a wave needs and none a held control needs. So the one picture of THE LID that says what the creature is, the plates parted with a hand on the cord, could not be taken with the shipped tool; the same gap covered THE WARDEN's hatch, THE MAZE's wheel mid-turn and THE LANCE's full lobe.
+
+## 2026-09-03 · 47e3ee0 — A handle is drawn once, not three times
+
+THE WARDEN's rope and THE LID's cord drew the same four things with the same numbers in two files — a ring that breathes and fills, a gauge arc closing round it, a faint rest mark, a rope on a half-sine sag — because lid-string.ts was written by reading tether.ts and changing the anchor. A fix to one handle's read was a fix to one of them. handle-draw.ts now holds the ring, the gauge, the rest mark, the sag and the PULL/PILOT'S word, and each file passes its own anchor and colour.
+
+## 2026-09-03 · 07e11f2 — CI runs the check the repository defines, on a Bun it names
+
+The workflow spelled out typecheck, lint and bun test as three steps, which is a second definition of `check` free to drift from the first. It now runs `bun run check`. bun-version was `latest`, so a Bun release could turn main red with no commit behind it — it is pinned to 1.4.0, the version in use locally. The install cache is keyed on bun.lock, and the pull_request trigger is gone: this repository takes none.
+
+## 2026-09-03 · c95dd39 — A picture taken on a Mac finds a browser
+
+tools/frames/chrome.ts listed four Windows paths and six Linux ones and no macOS path, and every command that takes a picture — frames, png, icons, raster, raster:verify, shot — comes through findChrome. On the Mac the owner alternates with, all six threw unless FRAMES_CHROME was set by hand. Chrome, Chromium and Edge under /Applications are on the list now, with one test row per machine so a platform going missing again fails here rather than on the machine that has none of them.
+
+## 2026-09-03 · 3f5f1e6 — Four subjects out of one file, and a test that runs git for real
+
+tools/land/worktree.ts held the retry policy, verified removal, the idle window and orphan directories in 315 lines, with a private git() that was gitOrDie with its arguments swapped. It is now retry.ts, worktree.ts, idle.ts and orphans.ts, every git call goes through git.ts, and orphanPaths compares paths through treeKey — on Windows git prints the case it was given and readdir prints the case on disk, so one directory reads as an orphan the sweep would then try to delete out from under a live worktree.
+
 ## 2026-09-03 · feba8a8 — One eye for THE LID and THE WARDEN, and three times the pull to open either
 
 The owner asked for four things by name, which is the exemption this lands under rather than being offered beside the shipped look.
