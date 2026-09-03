@@ -18,6 +18,7 @@ import { bindBriefing } from "./briefing.js";
 import { openDemonstration } from "./demo-menu.js";
 import { bindGauge } from "./gauge.js";
 import { installTestingHandle } from "./handle.js";
+import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { startLoop } from "./loop.js";
 import { bindPinball } from "./pinball.js";
@@ -57,6 +58,9 @@ const renderer = new Canvas2DRenderer(canvas);
 const buffer = new InputBuffer();
 // `view` is built below this line; the getter is read on a frame, long after.
 const audio = bindAudio(canvas, () => view.role());
+// The same frame's events the mixer gets, read for the two a hand should feel
+// rather than hear (`haptics.ts`). Off unless a player has asked for it.
+const haptics = bindHaptics();
 const tpb = ticksPerBeat(cfg);
 /** 0..1 within the beat. Both the picture and a finger on the field need it. */
 const beatPhase = (): number => (world.tick % tpb) / tpb;
@@ -161,6 +165,7 @@ let lastFrame = performance.now();
 
 const paint = (dt: number): void => {
   audio.frame(world, frameEvents);
+  haptics.frame(frameEvents);
   renderer.draw({
     world,
     beatPhase: beatPhase(),

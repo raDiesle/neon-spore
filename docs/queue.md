@@ -346,32 +346,3 @@ worse than no switch.
 Keep the persisted flags in a small `settings.ts` with pure get/set helpers,
 tested without a DOM. Client-only apart from the name — `bun run check` proves
 the rest.
-
-## A buzz for the two things a player must not miss
-
-- **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
-- **Taken:** 2026-09-03, claude/queue-a-buzz-for-the-two-things-a-player-must-not-miss
-- **Files:** `apps/game/src/haptics.ts`, `apps/game/src/settings.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/loop.ts`, `apps/game/test/haptics.test.ts`
-
-Asked for by the owner on 3 September 2026, alongside the settings page, and
-split out of it: the toggle is a flag like the other two, but nothing vibrates
-yet, and a switch that turns nothing on is worse than no switch.
-
-A phone buzz is a channel that survives a noisy room, which is the room this
-game is played in. `navigator.vibrate` is the whole of the platform side, and it
-is absent on desktop and on iOS — so the toggle only appears where
-`"vibrate" in navigator`, and the call is wrapped, because a browser that has it
-may still refuse it outside a gesture.
-
-Two events, and deliberately only two: **the hull taking a hit**, and **a shot
-in the wrong colour**. Both are already named in the audio catalogue, both are
-things the pair has to notice mid-sentence, and a phone that buzzes at
-everything is a phone somebody turns off. Short pulses — 40 ms for the wrong
-colour, 120 ms for the hull, so the two are told apart by length the way the
-sounds are told apart by shape. Read the events off the same `SimEvent` stream
-the mixer does rather than from a second place, and default the setting **off**.
-
-`haptics.ts` holds `pulseFor(event): number | null` — pure, and the whole of the
-decision — plus a thin caller that checks the setting and the capability.
-`bun run check` proves the mapping; whether the phone actually buzzes is a phone
-question and the report says **unverified**.
