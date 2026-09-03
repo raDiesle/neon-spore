@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · a43be30 — A lure is burning through, and says two words instead of four
+
+The corner frame and the words both sit outside the contour, so the middle of a lure — the part the eye lands on — said nothing at all. Now there is a hole through it, in the shape of the body itself: the same lobes, the same seed, the same wobble clock, filled even-odd so the field and the light shafts show through the middle of the creature. Nothing else in this game is see-through in the middle. Sparks come out of it and it flashes at the mouth, in `ember`, the colour already spent on something going wrong.
+
 ## 2026-09-03 · fb2dff5 — The pilot gets a box walking the grid while a wisp is out
 
 Player 1 had a lattice, a siren and a pip on every hop — three true things, all of them at the edges of the picture. The field in the middle was an empty grid, which is what a field with nothing on it looks like, and this is the wave where the field is not empty. The seat holding the cannon was being asked to stare at a plausible nothing.
