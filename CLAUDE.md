@@ -169,6 +169,10 @@ bun install            # once
 bun run dev            # the wave editor at 4174, hot reload — for a human
 bun run dev:once       # the same on a free port, beside one that is running
 bun run dev:game       # the game at localhost:3000, hot reload — for a human
+                       # all three restart themselves after a merge, rebase or
+                       # checkout — an incremental bundle built while git is
+                       # still writing is half of each revision and stays that
+                       # way (tools/dev/supervise.ts)
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything

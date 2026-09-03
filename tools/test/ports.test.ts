@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DIRECTOR_BAND, derivePort, PREVIEW_BAND, portFor, treeKey } from "../ports.js";
+import { DIRECTOR_BAND, derivePort, freePort, PREVIEW_BAND, portFor, treeKey } from "../ports.js";
 
 /**
  * The one property that matters: a worktree's port is its own and it is the
@@ -42,6 +42,16 @@ describe("a server's port", () => {
     const seen = new Set<number>();
     for (let i = 0; i < 40; i++) seen.add(derivePort(PREVIEW_BAND, `${TREE}-${i}`));
     expect(seen.size).toBeGreaterThan(30);
+  });
+
+  it("can be asked for a free one, settled now rather than at bind time", async () => {
+    const port = await freePort();
+    expect(port).toBeGreaterThan(1024);
+    // Free means free: it must be bindable straight afterwards, which is the
+    // whole point of settling it early and handing the number to a child.
+    const server = Bun.serve({ port, hostname: "127.0.0.1", fetch: () => new Response(null) });
+    expect(server.port).toBe(port);
+    server.stop(true);
   });
 
   it("falls back to the base port where there is no worktree to be in", () => {

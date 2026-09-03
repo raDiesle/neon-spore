@@ -74,6 +74,33 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+## A hot server and a tree that moved
+
+*Added 2026-09-03.* A hot bundler reloads the module whose file changed, which
+is exactly right while a person is saving one file at a time and exactly wrong
+the moment git rewrites two hundred of them. A pull, a rebase, a `land` from
+another worktree or a plain `git checkout -- <paths>` takes a second or two to
+write the tree; the bundler starts on the first file and finishes against a
+tree that has moved underneath it. The incremental graph it caches from that
+build is half of each revision, and it stays cached — the page reloads and
+throws on a name its neighbour no longer exports, and every edit afterwards
+rebuilds the same poisoned graph.
+
+Measured, not guessed: after one bulk checkout the served bundle referenced
+`CREATURE_DRAFTS` twice and defined it nowhere, while a server started fresh on
+the identical tree bundled it correctly, twelve kilobytes larger. Only a new
+process cured it, which is why "I restarted it and then it was fine" was the
+only advice anybody had.
+
+So `bun run dev`, `dev:once` and `dev:game` run their hot server as a child of
+`tools/dev/supervise.ts`. It watches the checkout's own git directory — a
+worktree's, not the main one's — and when `index` or one of the heads settles,
+with `index.lock` gone and the tree quiet for 800 ms, it restarts the child
+once. Ordinary editing never reaches it, so hot reload is untouched for the
+case it is good at; the open page needs no help either, because the dev client
+reconnects to the new server and reloads itself. `NO_DEV_RESTART=1` runs the
+child bare.
+
 ## Parameters, not shouting
 
 Not "make the bubble softer" but named values — stiffness, damping, elongation,

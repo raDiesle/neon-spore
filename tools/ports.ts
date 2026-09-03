@@ -83,6 +83,23 @@ export const DIRECTOR_BAND = 4300;
 export const RELAY_BAND = 8800;
 export const RELAY_BASE = 8787;
 
+/**
+ * A port the operating system is not using, settled now rather than at bind
+ * time. `port: 0` is the usual way to ask for one, and it answers a *different*
+ * number every time it is asked — which is fine for a server that starts once
+ * and wrong for one that may be restarted under an open tab. Asking here, and
+ * handing the number down, is what lets a throwaway server keep its address
+ * across a restart.
+ */
+export async function freePort(): Promise<number> {
+  const probe = Bun.serve({ port: 0, hostname: "127.0.0.1", fetch: () => new Response(null) });
+  const { port } = probe;
+  probe.stop(true);
+  // Only a server bound to a unix socket has no port, and this one is not.
+  if (port === undefined) throw new Error("asked for a free port and was given none");
+  return port;
+}
+
 /** The port this tree's relay takes. Both the server and the check call it. */
 export function relayPort(root: string): number {
   return portFor(RELAY_BASE, RELAY_BAND, root);
