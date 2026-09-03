@@ -2,7 +2,9 @@
 
 /**
  * `bun run queue` — what is waiting, and what somebody is already on.
+ * `bun run queue status` — DONE, IDLE or BUSY in one word.
  * `bun run queue next` — hand the first free item to a session of its own.
+ * `bun run queue take <n|title>` — mark an item ongoing without opening a lane.
  * `bun run queue release <n|title>` — give a handed-out item back.
  * `bun run queue done <n|title>` — take an entry out once it has landed.
  *
@@ -15,7 +17,7 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { branchFor, claimOn, promptFor, unclaimed } from "./claim.js";
+import { branchFor, claimOn, promptFor, statusLines, statusOf, unclaimed } from "./claim.js";
 import { type Item, order, parseItems, pick, problemsIn, removeItem } from "./queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
@@ -49,6 +51,29 @@ function claim(item: Item): string {
   return branch;
 }
 
+/**
+ * Gives a claim back, and says what happened to it.
+ *
+ * `git branch -d` asks the wrong question here: it wants to know whether the
+ * branch is merged into *HEAD*, and the session dropping a claim is standing on
+ * its own lane rather than on the claim. A claim carries no commits by
+ * construction, so the question worth asking is whether its tip is already on
+ * `main` — if it is, nothing can be lost. If it is not, somebody committed on
+ * the claim itself and it stays, which is a `queue next` lane mid-work.
+ */
+function drop(branch: string): { ok: boolean; note: string } {
+  if (git("rev-parse", "--abbrev-ref", "HEAD").out === branch) {
+    return { ok: true, note: `${branch} is checked out here — landing deletes it` };
+  }
+  if (!git("merge-base", "--is-ancestor", branch, "main").ok) {
+    return { ok: false, note: `${branch} holds commits that are not on main — left standing` };
+  }
+  const gone = git("branch", "-D", branch);
+  return gone.ok
+    ? { ok: true, note: `${branch} deleted` }
+    : { ok: false, note: `${branch} left standing: ${gone.err}` };
+}
+
 const [command, arg] = process.argv.slice(2);
 const items = load();
 const known = refs();
@@ -66,14 +91,17 @@ if (!command || command === "list") {
       if (held) console.log(`    taken — ${held}`);
     }
     const free = unclaimed(items, known).length;
-    console.log(`\n${items.length} waiting, ${items.length - free} taken.`);
-    console.log("`bun run queue next` hands the first free one to a session of its own.");
+    console.log(`\n${items.length} in the queue, ${free} free, ${items.length - free} taken.`);
+    console.log("`bun run queue next` hands the first free one to a session of its own,");
+    console.log("`bun run queue take <n>` marks one ongoing without opening a lane.");
   }
   const problems = problemsIn(items);
   if (problems.length > 0) {
     console.log("\nEntries a cold session could not act on:");
     for (const p of problems) console.log(`  - ${p}`);
   }
+} else if (command === "status") {
+  for (const line of statusLines(statusOf(items, known))) console.log(line);
 } else if (command === "next") {
   const free = unclaimed(items, known);
   const item = arg ? pick(items, arg) : free[0];
@@ -88,6 +116,13 @@ if (!command || command === "list") {
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
     console.log(promptFor(item, claim(item)));
   }
+} else if (command === "take") {
+  if (!arg) throw new Error("usage: bun run queue take <n|title>");
+  const item = pick(items, arg);
+  const held = claimOn(item, known);
+  if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
+  console.log(`Ongoing: ${item.title} (${claim(item)} created)`);
+  console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {
   if (!arg) throw new Error("usage: bun run queue release <n|title>");
   const item = pick(items, arg);
@@ -99,9 +134,8 @@ if (!command || command === "list") {
   if (!claimOn(item, known)) {
     console.log(`Not held: ${item.title} (no ${branch} — nobody is on it)`);
   } else {
-    const gone = git("branch", "-d", branch);
-    if (!gone.ok) throw new Error(`could not release ${JSON.stringify(item.title)}: ${gone.err}`);
-    console.log(`Released: ${item.title} (${branch} deleted)`);
+    const { ok, note } = drop(branch);
+    console.log(`${ok ? "Released" : "Still held"}: ${item.title} (${note})`);
   }
 } else if (command === "done") {
   if (!arg) throw new Error("usage: bun run queue done <n|title>");
@@ -109,6 +143,10 @@ if (!command || command === "list") {
   const path = PATHS[item.source];
   writeFileSync(path, removeItem(readFileSync(path, "utf8"), item.title));
   console.log(`Removed from docs/${item.source}.md: ${item.title}`);
+  // An entry that is out of the file is not ongoing, whichever branch did it.
+  if (claimOn(item, known)) console.log(`         ${drop(branchFor(item)).note}`);
 } else {
-  throw new Error(`unknown command ${JSON.stringify(command)} — list | next | release | done`);
+  throw new Error(
+    `unknown command ${JSON.stringify(command)} — list | status | next | take | release | done`,
+  );
 }

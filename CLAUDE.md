@@ -127,7 +127,11 @@ prompt naming it, so two sessions can never be given the same one. The session
 checks that branch out in its own worktree, does the item, removes the entry
 (`bun run queue done <n|title>`) and lands; landing deletes the branch, which
 releases the item. `bun run queue release <n|title>` gives back one that was
-handed out and never started.
+handed out and never started. A session draining several items in one sitting
+claims each with `bun run queue take <n|title>` instead, which makes the same
+branch and nothing else. `bun run queue status` answers "is anything still
+being worked on" in one word — DONE, IDLE or BUSY — which is the question to
+ask before turning the machine off.
 
 **An idea for the game is still not collected.** What the game could have and
 does not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
@@ -212,7 +216,9 @@ bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run queue          # technical work waiting, and who is already on what
+bun run queue status   # DONE, IDLE or BUSY — is anything still being worked on
 bun run queue next     # hand out the first free item: claims it, prints a prompt
+bun run queue take <n> # mark an item ongoing without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
 bun run check          # typecheck + lint + test, run this before saying "done"

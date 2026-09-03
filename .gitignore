@@ -18,3 +18,9 @@ coverage/
 # skin, or every skin — so its content is a question somebody asked rather than
 # a state of the tree. Committing it would be pure churn.
 tools/shape-sheet/skin-sheet.svg
+
+# `bun run frames` writes its PNGs here, one directory per sha. A picture taken
+# to show the owner something is a question somebody asked rather than a state
+# of the tree — and until it was ignored, every lane that took one could not
+# land, because `git status --porcelain` counts untracked files.
+docs/frames/

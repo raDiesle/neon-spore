@@ -30,6 +30,20 @@ landing deletes the branch, which releases the item at the moment the work
 reaches `main`. If a handed-out item is never started, `bun run queue release
 <n|title>` gives it back.
 
+**Marking one ongoing without opening a lane.** A session already in a worktree
+that picks an item up itself — draining several in one sitting, rather than
+being handed one — says `bun run queue take <n|title>`. That makes the same
+claim branch `next` would have made, and nothing else: no prompt, no worktree.
+`bun run queue done` drops the claim along with the entry, so an item stops
+reading as ongoing at the moment it stops being in the file.
+
+**Is anything still being worked on.** `bun run queue status` answers in one
+word — `DONE` when nothing is left at all, `IDLE` when items are waiting and
+nobody is on one, `BUSY` when somebody is, naming the items and the branches
+holding them. It exists to be asked of a machine that is about to be turned
+off: "is the queue finished" is a question about claims, not about whether the
+last command printed something.
+
 The claim is a branch rather than a mark in this file because a mark has to be
 committed to be seen, and the session that took the item has not committed
 anything yet — the moment the mark would be useful is the moment it does not
@@ -121,25 +135,6 @@ Give a wave a stable id the registry holds instead — a field the director neve
 edits — or make the director rewrite every reference as part of its save. The
 proof is the same either way: rename a wave through the director's own save
 path and watch `bun run check` stay green.
-
-## Ignore `docs/frames/`, which every `bun run frames` blocks a landing with
-
-- **Found:** 2026-09-03, claude/gyre-animation-wheel-visuals-ab2e28
-- **Files:** `.gitignore`, `tools/frames/run.ts`
-
-`bun run frames` writes its PNGs into `docs/frames/<sha>/` — inside a tracked
-directory, with no ignore rule — so the pictures land in the tree as untracked
-files. `.claude/hooks/auto-land.sh` and `bun run land` both decide a worktree is
-clean with `git status --porcelain`, which counts untracked files, so a lane that
-took a picture to show the owner cannot land until somebody deletes it by hand.
-The tool exists to be used at the end of a piece of work, which is exactly the
-moment landing happens, so this fires every time.
-
-Add `docs/frames/` to `.gitignore` beside `tools/shape-sheet/skin-sheet.svg`,
-whose entry already makes the same argument in the same words — output that is a
-question somebody asked rather than a state of the tree. Check `tools/frames`'s
-own docs and `docs/working-with-claude.md` for a sentence that says the frames
-are committed; if one exists it is the thing to fix instead.
 
 ## Give apps/game/src/link.ts room by moving the clock out of it
 

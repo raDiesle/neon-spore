@@ -1,7 +1,15 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { branchFor, claimOn, promptFor, slugFor, unclaimed } from "../claim.js";
+import {
+  branchFor,
+  claimOn,
+  promptFor,
+  slugFor,
+  statusLines,
+  statusOf,
+  unclaimed,
+} from "../claim.js";
 import { order, parseItems, pick, problemsIn, removeItem } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
@@ -126,6 +134,44 @@ ${ENTRY.replace("Split", "Finish")}`,
     );
     const free = unclaimed(items, [branchFor(items[0]!)]);
     expect(free.map((i) => i.title)).toEqual(["Finish the wave editor's cell panel"]);
+  });
+});
+
+/**
+ * The question this answers is asked of a machine that is about to be turned
+ * off — "is anything still being worked on" — so the answer has to be a word
+ * rather than a list somebody has to count.
+ */
+describe("statusOf", () => {
+  const items = parseItems(`${ENTRY}\n${ENTRY.replace("Split", "Finish")}`, "queue");
+
+  it("is DONE when there is nothing left at all", () => {
+    const status = statusOf([], []);
+    expect(status.state).toBe("done");
+    expect(statusLines(status)[0]).toStartWith("DONE");
+  });
+
+  it("is IDLE when items are waiting and nobody is on one", () => {
+    const status = statusOf(items, ["main", "claude/some-lane"]);
+    expect(status.state).toBe("idle");
+    expect(status.waiting).toBe(2);
+    expect(statusLines(status)[0]).toStartWith("IDLE");
+  });
+
+  it("is BUSY the moment one item is claimed, and names it", () => {
+    const status = statusOf(items, [branchFor(items[0]!)]);
+    expect(status.state).toBe("busy");
+    expect(status.waiting).toBe(1);
+    expect(status.ongoing.map((o) => o.item.title)).toEqual([items[0]!.title]);
+    const lines = statusLines(status);
+    expect(lines[0]).toStartWith("BUSY");
+    expect(lines.join("\n")).toContain(branchFor(items[0]!));
+  });
+
+  it("counts every claim, not just the first", () => {
+    const status = statusOf(items, items.map(branchFor));
+    expect(status.ongoing).toHaveLength(2);
+    expect(status.waiting).toBe(0);
   });
 });
 
