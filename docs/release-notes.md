@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 91997f6 — Fifty technical findings from a review of every package, filed in the queue
+
+A read-only review of sim, render, content, audio, net, the server, the game app, the director and the repo tooling, one lane per area. Nothing in the code moved; the findings went to docs/queue.md as entries a fresh session can drain alone and prove with bun run check. The ones that matter most: render and audio re-derive the guard window and disagree with the sim by one tick; a failed reconnect is counted twice, so six tries are three; a peer can fill the other phone's lockstep map without bound; the service worker caches an error page as the offline shell; the Durable Object has no test; the director's shapes-motion test spends six seconds on eleven million expects; and nineteen dead imports sit behind Biome warnings that nothing turns red on.
+
 ## 2026-09-03 · 469d9ef — The queue hands an item out, and the branch it makes is the claim
 
 Two sessions opened on the same queue asked it the same question and got the same answer, because `next` printed item one and changed nothing. The second session found out it was duplicating work by rebasing onto it.
