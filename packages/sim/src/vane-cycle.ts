@@ -1,5 +1,5 @@
 import { midCol, type SimConfig } from "./config.js";
-import { type Color, type CreatureKind, clampSpanCol } from "./types.js";
+import { type Color, clampSpanCol } from "./types.js";
 
 /**
  * THE VANE's cycle, as arithmetic.

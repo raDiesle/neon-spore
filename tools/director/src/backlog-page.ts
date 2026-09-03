@@ -21,9 +21,7 @@ import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
 import { mountSheet } from "./session.js";
 import { isWide } from "./shape-figure.js";
-import { renderShapes } from "./shapes-panel.js";
 import { renderSpec } from "./spec.js";
-import { bindTabs } from "./tabs.js";
 import { renderWholeDoc } from "./whole-doc.js";
 
 interface BacklogEntry {

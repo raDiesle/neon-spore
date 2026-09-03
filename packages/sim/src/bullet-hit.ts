@@ -4,7 +4,7 @@ import { metColor, missedColor } from "./balance.js";
 import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
-import { removeCreature, removeCreatures } from "./field.js";
+import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
 import { lidStruck } from "./lid.js";

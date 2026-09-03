@@ -1,5 +1,3 @@
-import type { SimConfig } from "@neon-spore/sim";
-
 /**
  * The cards the SHIP tab is divided into: their names, the order they are read
  * in, and the paragraph under each heading that says what the group *is*.

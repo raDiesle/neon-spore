@@ -1,14 +1,6 @@
 import type { WardenState } from "./boss-state.js";
-import { removeCreature } from "./field.js";
-import { NO_SHELL } from "./shell.js";
 import { type Creature, WARDEN_COLS } from "./types.js";
-import {
-  NO_TETHER,
-  wardenColor,
-  wardenCycle,
-  wardenCycleBeat,
-  wardenPhase,
-} from "./warden-cycle.js";
+import { NO_TETHER, wardenCycleBeat, wardenPhase } from "./warden-cycle.js";
 import { attach, cutTether, wardenTether } from "./warden-rope.js";
 import type { World } from "./world.js";
 

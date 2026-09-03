@@ -88,6 +88,7 @@ describe("what a tail file may not contain", () => {
   it("keys every defs id on the figure's uid", () => {
     for (const [file, src] of SOURCE) {
       const ids = src.match(/setAttribute\("id", `[^`]*`\)/g) ?? [];
+      // biome-ignore lint/suspicious/noTemplateCurlyInString: this reads source text, and the placeholder is the thing being looked for.
       for (const id of ids) expect(id, file).toContain("${ctx.uid}");
     }
   });

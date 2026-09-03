@@ -1,4 +1,4 @@
-import { CREATURES, type CreatureCategory, categoryOf } from "@neon-spore/content";
+import { CREATURES, categoryOf } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { type CreatureKind, isBossBody, isMeteorKind, type RockKind } from "@neon-spore/sim";
 

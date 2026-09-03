@@ -1,7 +1,7 @@
 import type { CreatureEvent } from "./events-creature.js";
 import type { MazeVerdictReason } from "./maze-round.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
-import type { Color, Creature, CreatureKind, PodKind } from "./types.js";
+import type { Color, Creature, PodKind } from "./types.js";
 
 /**
  * Everything the simulation reports about a tick, and the whole of what it

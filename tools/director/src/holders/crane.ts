@@ -1,5 +1,5 @@
 import { PALETTE, STROKE } from "@neon-spore/render";
-import type { Holder, HolderContext, HolderFrame } from "./types.js";
+import type { Holder, HolderContext } from "./types.js";
 
 /**
  * THE CRANE — the owner's own suggestion: an arm holds the rock out and lets

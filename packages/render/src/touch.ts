@@ -1,12 +1,5 @@
 import { type ControlSet, setHas } from "@neon-spore/content";
-import type {
-  Command,
-  Creature,
-  DragTarget,
-  MazeState,
-  SimConfig,
-  WardenState,
-} from "@neon-spore/sim";
+import type { Command, DragTarget } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";

@@ -17,9 +17,15 @@
     "enabled": true,
     "rules": {
       "preset": "recommended",
+      "correctness": {
+        "noUnusedImports": "error"
+      },
       "style": {
         "noNonNullAssertion": "off",
         "noDescendingSpecificity": "off"
+      },
+      "suspicious": {
+        "noTemplateCurlyInString": "error"
       }
     }
   }

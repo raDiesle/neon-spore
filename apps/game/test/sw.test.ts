@@ -70,7 +70,6 @@ function loadWorker(fetch: (request: unknown) => Promise<Response>) {
     clients: { claim: async () => {} },
     location: { origin: ORIGIN },
   };
-  // biome-ignore lint/security/noGlobalEval: running the shipped worker is the point.
   new Function("self", "caches", "fetch", SOURCE)(self, store.caches, fetch);
   return { store, handlers };
 }

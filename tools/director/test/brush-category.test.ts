@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
 import { readClosedCategories } from "../src/brush-category.js";
-import { clampWidth, MIN_WIDTH, parseWidth, widthKey } from "../src/column-width.js";
 
 /**
  * `readClosedCategories`/`writeClosedCategories` are `localStorage` end to end,

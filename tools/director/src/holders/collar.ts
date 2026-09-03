@@ -1,5 +1,5 @@
 import { PALETTE, STROKE } from "@neon-spore/render";
-import type { Holder, HolderContext, HolderFrame } from "./types.js";
+import type { Holder, HolderContext } from "./types.js";
 
 /**
  * THE COLLAR — the reference picture's own answer, turned on its side.

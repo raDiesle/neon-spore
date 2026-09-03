@@ -136,6 +136,7 @@ describe("what a glow file may not contain", () => {
     // gradient, and the backlog page draws the same shape twice on purpose.
     for (const [file, src] of SOURCE) {
       const ids = src.match(/setAttribute\("id", `[^`]*`\)/g) ?? [];
+      // biome-ignore lint/suspicious/noTemplateCurlyInString: this reads source text, and the placeholder is the thing being looked for.
       for (const id of ids) expect(id, file).toContain("${ctx.uid}");
     }
   });

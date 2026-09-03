@@ -18,21 +18,12 @@
 import { MOTIONS } from "@neon-spore/shape-sheet";
 import { effectGroups } from "./shapes-effect-axes.js";
 import {
-  clearGlows,
-  clearHits,
-  clearTails,
-  currentGlows,
-  currentHits,
   currentLit,
   currentMotion,
   currentSkin,
-  currentTails,
   setMotion,
   setSkin,
-  toggleGlow,
-  toggleHit,
   toggleLit,
-  toggleTail,
 } from "./shapes-pair.js";
 import { button, group } from "./shapes-widgets.js";
 import { SKINS } from "./skins/index.js";

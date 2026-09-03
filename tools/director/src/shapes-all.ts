@@ -56,10 +56,9 @@
  * floor, so nothing here shrinks past it.
  */
 
-import type { OwnMotion } from "@neon-spore/content";
-import { CATALOGUE, type CatalogueEntry, MOTIONS } from "@neon-spore/shape-sheet";
-import { GLOWS, type GlowId } from "./glows/index.js";
-import { HITS, type HitId } from "./hits/index.js";
+import { MOTIONS } from "@neon-spore/shape-sheet";
+import { GLOWS } from "./glows/index.js";
+import { HITS } from "./hits/index.js";
 import { grid } from "./shapes-grid.js";
 import {
   currentGlows,
@@ -70,8 +69,8 @@ import {
   currentTails,
 } from "./shapes-pair.js";
 import { bodyPicker, pickedEntry } from "./shapes-picker.js";
-import { SKINS, type SkinId } from "./skins/index.js";
-import { TAILS, type TailId } from "./tails/index.js";
+import { SKINS } from "./skins/index.js";
+import { TAILS } from "./tails/index.js";
 
 /**
  * The taller card the TAIL row draws into.
