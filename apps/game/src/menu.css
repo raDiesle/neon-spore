@@ -483,3 +483,54 @@ body.menu-open .key-hint {
     transition: none;
   }
 }
+
+/* HOW TO PLAY: two paragraphs and the two seats between them. The seats are
+   laid out like the front page's cards without being them — those are a
+   choice to make, these are a description of one already made. */
+#menu .page .lead {
+  margin: 18px 0;
+  font-size: 12px;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: #9c8fd6;
+}
+#menu .job {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 2px 12px;
+  align-items: baseline;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #2b2450;
+  border-radius: 10px;
+}
+#menu .job .tag {
+  grid-row: 1 / span 2;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #6f639f;
+}
+#menu .job .name {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: #c8bdf5;
+}
+#menu .job .s {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #8b7fc4;
+}
+
+/* The sentence HOW TO PLAY exists to say. Brighter than the prose above it and
+   boxed on its own, because a footnote is what it must not look like. */
+#menu .page .rule {
+  margin: 22px 0 8px;
+  padding: 14px 16px;
+  border: 1px solid #2f7f8f;
+  border-radius: 10px;
+  background: rgba(34, 214, 231, 0.06);
+  font-size: 12px;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: #b6ecf4;
+}

@@ -347,24 +347,6 @@ Keep the persisted flags in a small `settings.ts` with pure get/set helpers,
 tested without a DOM. Client-only apart from the name — `bun run check` proves
 the rest.
 
-## A "how to play" page: the two seats, and that talking is the control
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-a-how-to-play-page-the-two-seats-and-that-talkin
-- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu.css`
-
-A HOW TO PLAY entry on the root menu opening a short page (built like the
-CONTROLS page in `menu-pages.ts`) for the pair's first thirty seconds, before a
-wave's own briefing reaches them. It says, in English and in the game's fixed
-vocabulary (hull, cannon, shield, guard, pod, column — do not invent synonyms):
-there are two of you, on two devices, with different jobs — PILOT slides the
-cannon and opens the maw, NAVIGATOR slides the shield and fires; nothing you
-control travels; and the one rule that is the whole game, that talking to each
-other is the control scheme. Keep it to a screen. This is copy on a static
-page, so it is provable with `bun run check`; if a wording choice feels like a
-design call rather than a description, leave it plain and note it in the report
-rather than inventing flourish.
-
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three

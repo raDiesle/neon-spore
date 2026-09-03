@@ -1,7 +1,7 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
-import { buildDemos, buildKeys, buildWaves } from "./menu-pages.js";
+import { buildDemos, buildHowTo, buildKeys, buildWaves } from "./menu-pages.js";
 import { el, type MenuPage, sporeSvg } from "./menu-parts.js";
 
 /**
@@ -105,6 +105,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     waves: buildWaves((p) => show(p), h.onWave),
     demos: buildDemos((p) => show(p), h.demos, h.onDemo),
     keys: buildKeys((p) => show(p)),
+    how: buildHowTo((p) => show(p)),
   };
   const show = (page: MenuPage): void => {
     for (const [name, node] of Object.entries(pages)) node.classList.toggle("on", name === page);
@@ -130,7 +131,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const { seatBlock, paintSeat, lockSeats } = buildSeats(h.onSeat);
   rootPage.append(seatBlock);
 
-  inner.append(pages.root, pages.waves, pages.demos, pages.keys);
+  inner.append(pages.root, pages.waves, pages.demos, pages.keys, pages.how);
   document.body.append(root);
 
   return {

@@ -89,3 +89,50 @@ export function buildKeys(show: (page: MenuPage) => void): HTMLElement {
   );
   return page;
 }
+
+/**
+ * The pair's first thirty seconds, before a wave's own briefing reaches them.
+ *
+ * Description rather than persuasion: what the two seats are, what each one
+ * holds, that nothing either of them controls travels, and the one rule that
+ * is the whole game. It says the same words the rest of the game says — hull,
+ * cannon, shield, guard, maw, pod, column — because the pair has to be able to
+ * repeat them to each other across a voice delay.
+ */
+export function buildHowTo(show: (page: MenuPage) => void): HTMLElement {
+  const page = el("div", "page");
+  page.append(backButton(show), el("h2", undefined, "HOW TO PLAY"));
+  page.append(
+    el(
+      "p",
+      "lead",
+      "There are two of you, on two devices, and you are given different jobs. Neither screen shows what the other one shows.",
+    ),
+  );
+  for (const [seat, name, what] of SEAT_JOBS) {
+    const block = el("div", "job");
+    block.append(el("span", "tag", seat), el("span", "name", name), el("span", "s", what));
+    page.append(block);
+  }
+  page.append(
+    el(
+      "p",
+      "lead",
+      "Nothing you control travels. The hull runs the width of the field, the cannon slides along it, the shield slides in front of it — there is no flying, no dodging and nowhere to go. What moves is what is coming down the columns at you.",
+    ),
+    // The one rule that is the whole game, so it is not a footnote: `.foot` is
+    // for an aside, and this page exists to say this sentence.
+    el(
+      "p",
+      "rule",
+      "So talking to each other is the control scheme. One of you can see what the other one has to answer, and a column is the word you both have.",
+    ),
+  );
+  return page;
+}
+
+/** The two seats, in the words the seat cards on the front page use. */
+const SEAT_JOBS: [string, string, string][] = [
+  ["P1", "PILOT", "Slides the cannon, opens the maw for a loose pod, triggers the guard."],
+  ["P2", "NAVIGATOR", "Slides the shield, fires red and cyan."],
+];

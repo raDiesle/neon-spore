@@ -73,6 +73,12 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       run: () => a.show("demos"),
     },
     {
+      key: "how",
+      label: "HOW TO PLAY",
+      desc: "The two seats, and the one rule that is the whole game.",
+      run: () => a.show("how"),
+    },
+    {
       key: "keys",
       label: "CONTROLS",
       desc: "The keys, for one person at a desk playing both halves.",
