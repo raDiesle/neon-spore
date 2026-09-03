@@ -9,7 +9,8 @@ import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
 import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
-import { drawWisp, showsWisp, wispOut } from "./wisp.js";
+import { drawWisp, showsWisp, wispJump } from "./wisp.js";
+import { drawWispGround } from "./wisp-ground.js";
 
 /**
  * Creature silhouettes come from `legacy/style-guide.html` by way of
@@ -36,6 +37,12 @@ export function drawCreatures(
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
+  // What a jumping wisp leaves on the field: its pool of light, its arc and
+  // the tile it is coming down on. Before every body and flat — outside the
+  // per-body perspective transform below, because a mark that names a square
+  // has to be *on* that square (`wisp-ground.ts`). Behind `showsWisp` for the
+  // whole pass: the landing marker is the one thing player 1 must never have.
+  if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
   // Farthest first: which of two overlapping bodies is in front used to be
   // decided by spawn order, which is not a fact about the picture. See
   // `byDepth` — it copies rather than sorting the simulation's own array.
@@ -93,8 +100,18 @@ export function drawCreatures(
     // stretches into a line and leaves a ring behind on the tile.
     else if (c.kind === "wisp") {
       if (showsWisp(l)) {
-        const out = wispOut(world.cfg, world.beat, beatPhase);
-        drawWisp(ctx, l, world.cfg, c, x, y, time, beats, near, out);
+        drawWisp(
+          ctx,
+          l,
+          world.cfg,
+          c,
+          x,
+          y,
+          time,
+          beats,
+          near,
+          wispJump(world.cfg, world.beat, beatPhase),
+        );
       }
     } else if (c.kind !== "veil" || showsVeilCore(l))
       drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);

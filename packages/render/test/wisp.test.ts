@@ -12,7 +12,7 @@ import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { commsCall } from "../src/comms.js";
 import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
-import { showsWisp, wispOut } from "../src/wisp.js";
+import { JUMP_TILES, showsWisp, wispJump } from "../src/wisp.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -68,28 +68,69 @@ describe("showsWisp", () => {
   });
 });
 
-describe("wispOut", () => {
+describe("wispJump", () => {
   /**
-   * The two ends of the hop belong to two different beats, and that ordering
-   * is the whole reason the body is legible: the going is the tail of the beat
-   * *before* the move and the coming is the head of the one after, so the tile
-   * a letter is read off is occupied through the middle of every dwell.
+   * The flight is the whole of a hop beat and nothing else, which is what makes
+   * the arc a picture of the simulation rather than a flourish over it: the
+   * body leaves on the frame `stepWisp` moves it and touches down on the last
+   * frame before the next beat.
    */
-  it("is fully out at the top of a hop beat and standing by a third of the way in", () => {
-    expect(wispOut(CFG, 2, 0)).toBe(1);
-    expect(wispOut(CFG, 2, 0.32)).toBe(0);
-    expect(wispOut(CFG, 2, 0.5)).toBe(0);
+  it("is in the air for the whole of a hop beat and on the ground for every other", () => {
+    for (const phase of [0, 0.25, 0.5, 0.75, 0.99]) {
+      expect(wispJump(CFG, 6, phase).flying).toBe(true);
+    }
+    for (const beat of [7, 8, 9, 10, 11]) {
+      expect(wispJump(CFG, beat, 0.5).flying).toBe(false);
+    }
   });
 
-  it("goes back out at the tail of the beat before the next hop", () => {
-    expect(wispOut(CFG, 1, 0.5)).toBe(0);
-    expect(wispOut(CFG, 1, 0.68)).toBeCloseTo(0, 5);
-    expect(wispOut(CFG, 1, 0.99)).toBeGreaterThan(0.9);
+  it("leaves the ground and comes back to it, highest in the middle", () => {
+    expect(wispJump(CFG, 6, 0).lift).toBeCloseTo(0, 5);
+    expect(wispJump(CFG, 6, 0.5).lift).toBeCloseTo(JUMP_TILES, 5);
+    expect(wispJump(CFG, 6, 1).lift).toBeCloseTo(0, 5);
+    // `arc` is `lift` as a share of the apex, and the two may never part
+    // company — four sites read the height off one or the other.
+    for (const phase of [0.1, 0.4, 0.8]) {
+      const j = wispJump(CFG, 6, phase);
+      expect(j.arc * JUMP_TILES).toBeCloseTo(j.lift, 6);
+    }
   });
 
-  it("leaves the middle of every dwell standing still", () => {
-    for (const beat of [0, 1, 2, 3, 4, 5]) {
-      expect(wispOut(CFG, beat, 0.5)).toBe(0);
+  it("gathers at the tail of the beat before and absorbs at the head of the beat after", () => {
+    expect(wispJump(CFG, 5, 0.5).crouch).toBe(0);
+    expect(wispJump(CFG, 5, 0.99).crouch).toBeGreaterThan(0.9);
+    expect(wispJump(CFG, 7, 0).land).toBe(1);
+    expect(wispJump(CFG, 7, 0.5).land).toBe(0);
+  });
+
+  /**
+   * The dwell is what player 2 reads a letter and a number off, and it is why
+   * `wispDwellBeats` had to grow: one beat of the six is the jump and the
+   * gather and the landing take a third each off two more, which leaves three
+   * whole beats of a body standing plainly still. At the old two it left none.
+   */
+  it("leaves most of a dwell completely still", () => {
+    const still = [];
+    for (let beat = 6; beat < 12; beat++) {
+      for (const phase of [0.1, 0.5, 0.9]) {
+        const j = wispJump(CFG, beat, phase);
+        if (!j.flying && j.crouch === 0 && j.land === 0) still.push([beat, phase]);
+      }
+    }
+    expect(still.length).toBeGreaterThan(CFG.wispDwellBeats);
+  });
+
+  it("never gathers or lands while it is in the air, whatever the dwell", () => {
+    for (const wispDwellBeats of [1, 2, 6]) {
+      const cfg = { ...CFG, wispDwellBeats };
+      for (let beat = 0; beat < 8; beat++) {
+        for (const phase of [0, 0.3, 0.7, 0.99]) {
+          const j = wispJump(cfg, beat, phase);
+          if (!j.flying) continue;
+          expect(j.crouch).toBe(0);
+          expect(j.land).toBe(0);
+        }
+      }
     }
   });
 });

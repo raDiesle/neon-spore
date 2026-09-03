@@ -321,7 +321,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
 | `packages/render/src/coord-grid.ts` | you are changing the lettered grid, its axes, or what brings it up |
-| `packages/render/src/wisp.ts` | you are drawing a wisp, its teleport, or deciding which screen sees one |
+| `packages/render/src/wisp.ts` | you are timing a wisp's jump against the beat, or deciding which screen sees one |
 | `packages/render/src/ghost-glitch.ts` | THE GHOST's camouflage: the thing it is wearing instead of being invisible |
 | `packages/render/src/ghost-release.ts` | A ghost let go of, and the one moment both screens carry this creature |
 | `packages/render/src/ghost-row.ts` | What player 1 gets instead of the body: a band across the row it is in, and nothing whatever about the column |
@@ -346,6 +346,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
 | `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — hub, rim and spokes, behind everything they carry |
 | `packages/render/src/target-lock.ts` | THE TARGET LOCK: the one marking in this game that means *an instrument has picked this body out, and it |
+| `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
+| `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
+| `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |
+| `packages/render/src/wisp-tentacles.ts` | you are drawing the wisp's streamers — how they gather, trail and splash across a jump |
 
 ### packages/net
 

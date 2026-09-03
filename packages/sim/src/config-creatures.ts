@@ -72,21 +72,26 @@ export interface CreatureConfig {
    * it, and the other half is a sentence that had to be said in time. */
   scoreVeilKill: number;
   /**
-   * Beats THE WISP stands on one tile before it is somewhere else.
+   * Beats THE WISP stands on one tile before it is somewhere else — the whole
+   * cycle, of which the first is the jump and the rest is the standing.
    *
    * Beats and not milliseconds, for `veilMorphBeats`' reason and rather more
    * of it: the seat that has to answer a wisp cannot see one, so the count is
-   * the only thing either of them shares about it. Two is what the owner
-   * asked for — 1.25 s at 96 BPM, which is *under* the 2.1–3.6 s a full
-   * spoken exchange takes (docs/spec/latency.md), and deliberately so: the
-   * pair is not meant to complete a sentence per tile. What they are meant to
-   * build is the shorthand two letters and a number make possible, and a
-   * dwell long enough for a whole sentence would never force one.
+   * the only thing either of them shares about it.
+   *
+   * **Six, and it was two.** Two was 1.25 s at 96 BPM, chosen *under* the
+   * 2.1–3.6 s a full spoken exchange takes (docs/spec/latency.md) to force a
+   * shorthand rather than a sentence. What it actually forced was a tile that
+   * expired while it was being said: the pair had no reading at all, only a
+   * race they lost. Six is 3.75 s — one beat of it in the air and five
+   * standing, so the tile a letter is read off is still there when the cannon
+   * arrives. The shorthand is still what wins; it is no longer the only thing
+   * that survives.
    */
   wispDwellBeats: number;
   /** What a wisp is worth. The highest single body in the game: it is only
-   * ever killed by a call that crossed the room and landed inside a beat and
-   * a quarter. */
+   * ever killed by a tile that crossed the room, and the pair has one dwell
+   * to say it, hear it, aim and fire. */
   scoreWispKill: number;
   /**
    * What a ghost is worth. The veil's figure exactly, and that is the point
@@ -223,7 +228,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   veilMorphBeats: 5,
   veilArmourMs: 2000,
   scoreVeilKill: 250,
-  wispDwellBeats: 2,
+  wispDwellBeats: 6,
   scoreWispKill: 300,
   scoreGhostKill: 250,
   ghostCrossRow: 3,

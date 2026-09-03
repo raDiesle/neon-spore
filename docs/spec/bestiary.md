@@ -272,15 +272,28 @@ one tile at a time, and the wave stays open until it is shot. Either colour
 shoots it, for the throb's reason — the ammunition is not the question this
 creature asks.
 
+**It jumps, and the beat it spends in the air is the pair's whole opening.**
+The simulation puts it on its landing tile at the top of the hop beat and
+render draws it crossing the field on an arc for the length of that beat, with
+the destination square marked and a dotted line drawn to it on player 2's
+screen. So the navigator can read a square that has not happened yet, and a
+shot at that square connects while the body is still off the ground
+(`occupiesCol` is already answering for it). It used to blink instead — out of
+one tile, into another, nothing in between — which gave the navigator one tile
+at the instant it arrived and made the call a race they mostly lost. The dwell
+grew with the jump: six beats, of which one is the flight.
+
 **And it is what finally turned the grid on.** `render/field.ts` has carried
 the tile lattice behind a constant since the field was first drawn, under a
 comment saying to flip it back on when a mechanic needed a player to call out
 a square. Nothing had; this does. While a wisp is on the field, both screens
 carry the lattice and its two axes — letters across, numbers down toward the
 ship — and the pair's whole vocabulary for it is two characters. That is the
-timing decision as well as the picture one: two beats is 1.25 s, *under* what
-a spoken exchange takes (`docs/spec/latency.md`), so a pair who describe the
-tile are never in time and a pair who name it are. The grid goes down again
+timing decision as well as the picture one: six beats is 3.75 s, which is one
+full spoken exchange (`docs/spec/latency.md`) and not two, so a pair who
+describe the tile still run out and a pair who name it have room to aim. It
+was two beats and 1.25 s, which was under an exchange rather than equal to one
+— that did not force the shorthand, it forced a miss. The grid goes down again
 with the last wisp, because a lattice behind every wave is a texture the pair
 stops seeing.
 

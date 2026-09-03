@@ -140,11 +140,11 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_4: Wave[] = [
   {
     name: "THE WISP",
-    sentence: "The one where describing it takes longer than it stays.",
+    sentence: "The one where you call the square it is still falling toward.",
     guide: {
-      both: "One of you cannot see this one at all. It never falls and it never leaves — every two beats it is standing somewhere else on the field, and the lettered grid under everything is how you say where.",
-      p1: "You will not see it once. Take the letter, put the cannon on it and hold still — the number is only so you both know you are talking about the same one. Asking again costs you the tile.",
-      p2: "Only your screen has it. Two beats is not a sentence: say the square and nothing else, and say it again the moment it moves. Either colour kills it, so do not wait to pick one.",
+      both: "One of you cannot see this one at all. It never comes down at you — it jumps, and lands somewhere else on the field, and the lettered grid under everything is how you say where.",
+      p1: "You will not see it once. Take the letter, put the cannon on it and hold still. It can be shot while it is still in the air, so a square you are told early is a square you can already be under.",
+      p2: "Only your screen has it. While it is in the air the square it is coming down on is already marked, with the arc drawn to it — say that square before it lands. Either colour kills it, so do not wait to pick one.",
     },
     entries: [
       { beat: 0, col: 3, kind: "wisp", color: null },

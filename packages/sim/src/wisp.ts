@@ -14,14 +14,24 @@ import type { World } from "./world.js";
  * which is the rule every split in this game is built on
  * (docs/spec/systems.md 5.2).
  *
- * **It does not fall and it does not travel.** Every other body comes down a
- * column, so a column said out loud is true for as long as it takes to say —
- * a dart makes that expire after a beat by *moving*, and this one makes it
- * expire by not moving at all. Every `wispDwellBeats` it stands somewhere
- * else on the field, drawn from the world's own stream, and nothing about
- * where it was says anything about where it will be. So there is no path to
- * describe and no lane to hold: what player 2 has is a tile, and a tile needs
- * two words rather than one.
+ * **It does not fall, and where it goes next is not a path.** Every other body
+ * comes down a column, so a column said out loud is true for as long as it
+ * takes to say — a dart makes that expire after a beat by *moving*, and this
+ * one makes it expire by standing somewhere with no relation to where it
+ * stood. Every `wispDwellBeats` it is somewhere else on the field, drawn from
+ * the world's own stream, and nothing about where it was says anything about
+ * where it will be. So there is no lane to hold: what player 2 has is a tile,
+ * and a tile needs two words rather than one.
+ *
+ * **It arrives on the beat it leaves.** `stepWisp` writes the new tile at the
+ * top of the hop beat and the beat loop has already put the old one in
+ * `fromCol`/`fromRow`, so for the whole of that beat the simulation says the
+ * body is on the tile it is heading for while render draws it crossing the
+ * air between the two (`render/wisp.ts`). That is not a discrepancy to be
+ * tidied away — it is the mechanic: `occupiesCol` answers a shot at the
+ * landing tile from the moment the thing leaves the ground, so a tile called
+ * while it is in the air is a tile the cannon can already be on when it comes
+ * down. The jump is what buys the pair the room to say it.
  *
  * **Which is why it turns the grid on.** The lattice in `render/field.ts` has
  * been written and switched off since it was first drawn, with a comment

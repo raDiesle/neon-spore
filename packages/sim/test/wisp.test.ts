@@ -58,10 +58,12 @@ const fire = (tick: number, color: "red" | "cyan"): TimedCommand => ({
 describe("wispHops", () => {
   it("is true on every dwell boundary of the shared beat and nowhere else", () => {
     expect(wispHops(CFG, 0)).toBe(true);
-    expect(wispHops(CFG, 1)).toBe(false);
-    expect(wispHops(CFG, 2)).toBe(true);
-    expect(wispHops(CFG, 3)).toBe(false);
-    expect(wispHops(CFG, 4)).toBe(true);
+    for (let beat = 1; beat < CFG.wispDwellBeats; beat++) {
+      expect(wispHops(CFG, beat)).toBe(false);
+    }
+    expect(wispHops(CFG, CFG.wispDwellBeats)).toBe(true);
+    expect(wispHops(CFG, CFG.wispDwellBeats + 1)).toBe(false);
+    expect(wispHops(CFG, CFG.wispDwellBeats * 2)).toBe(true);
   });
 });
 
@@ -148,15 +150,15 @@ describe("the wisp", () => {
     const { world } = run([wisp(3)], TPB + 1);
     const c = world.creatures[0];
     expect(c).toBeDefined();
-    // Beat 1 is not a dwell boundary at the default of two, so nothing moved.
+    // Beat 1 is not a dwell boundary at any dwell above one, so nothing moved.
     expect(world.beat).toBe(1);
     expect(c!.row).toBe(0);
     expect(c!.col).toBe(3);
   });
 
   it("is somewhere else on the dwell boundary, and says so once for the field", () => {
-    const { world, events } = run([wisp(3), wisp(5)], TPB * 2 + 1);
-    expect(world.beat).toBe(2);
+    const { world, events } = run([wisp(3), wisp(5)], TPB * CFG.wispDwellBeats + 1);
+    expect(world.beat).toBe(CFG.wispDwellBeats);
     const moved = world.creatures.filter((c) => c.row !== 0 || (c.col !== 3 && c.col !== 5));
     expect(moved.length).toBeGreaterThan(0);
     // One pip for the whole field, not one per body: `wispHop` is read off the
@@ -165,7 +167,7 @@ describe("the wisp", () => {
   });
 
   it("carries no column or row on the hop, so the pip cannot be panned to the tile", () => {
-    const { events } = run([wisp(3)], TPB * 2 + 1);
+    const { events } = run([wisp(3)], TPB * CFG.wispDwellBeats + 1);
     const hop = events.find((e) => e.type === "wispHop");
     expect(hop).toEqual({ type: "wispHop" });
   });

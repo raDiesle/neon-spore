@@ -88,6 +88,9 @@ class StubPath {
   quadraticCurveTo(...a: number[]): void {
     nums("Path2D.quadraticCurveTo", a);
   }
+  bezierCurveTo(...a: number[]): void {
+    nums("Path2D.bezierCurveTo", a);
+  }
   closePath(): void {}
   arc(x: number, y: number, r: number, from: number, to: number): void {
     nums("Path2D.arc", [x, y, r, from, to]);
@@ -261,6 +264,12 @@ export class StubContext {
   }
   quadraticCurveTo(...a: number[]): void {
     nums("quadraticCurveTo", a);
+  }
+  /** The cubic. THE WISP's streamers are the first thing here to want one:
+   * a tentacle has a root that hangs and a tip that trails, which is two
+   * controls and not one (`render/wisp-body.ts`). */
+  bezierCurveTo(...a: number[]): void {
+    nums("bezierCurveTo", a);
   }
   rect(...a: number[]): void {
     nums("rect", a);

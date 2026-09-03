@@ -13,10 +13,20 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  *
  * THE WISP is the thirty-ninth body added since, and it lands on the same
  * side of the line: 87 square cards, 54 of them under 26 px at the halved
- * width, 23 under 20. It is the game's own roster rather than a draft,
+ * width, 22 under 20. It is the game's own roster rather than a draft,
  * and it falls under the 26 px floor at 46 px like every other round body
  * fitted to a frame that narrow — which is the finding, not a fault in the
  * shape.
+ *
+ * **The under-20 count was 23 until the wisp stopped spinning, and that is
+ * this test doing its job.** `FLICKER` used to turn the body continuously
+ * (`content/motions.ts`); `drawnSize` takes the union of a body's bounds over
+ * a cycle of its own-motion, and a contour taken all the way round is measured
+ * across its circumscribed circle, so it is fitted smaller. The wisp is a
+ * jellyfish now and rocks a tenth of a radian instead of tumbling, which
+ * shrinks that union and draws the same contour larger — past 20 px, on the
+ * card, without the shape changing at all. The number moved because a *pose*
+ * did, which is exactly the kind of drift this file exists to notice.
  *
  * The catalogue has grown thirty-eight bodies since — the ten converted off
  * other games' screenshots in `drafts/tower-defence.ts`, the five collected
@@ -90,7 +100,7 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_LO) under20++;
     }
     expect(under26).toBe(54);
-    expect(under20).toBe(23);
+    expect(under20).toBe(22);
   });
 
   it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {

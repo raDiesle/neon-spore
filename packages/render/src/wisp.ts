@@ -1,22 +1,20 @@
-import { blobPath, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import { type Creature, type SimConfig, type World, wispHops } from "@neon-spore/sim";
-import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
-import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { drawWispBody } from "./wisp-body.js";
 
 /**
- * THE WISP: a body on one screen and not on the other, going out of one tile
- * and coming back in another.
+ * THE WISP: a body on one screen and not on the other, going over the field in
+ * one arc and landing on a tile nothing about the last one predicted.
  *
  * **On player 1's screen nothing is drawn at all.** `showsWisp` is that
  * sentence and `creatures.ts` asks it before it draws anything, exactly as it
  * does for the body inside a veil. The tempting version — a dimmed shape, a
- * ghost, a smear where it is — leaks: a halo, a glow pass and a portal ring
+ * ghost, a smear where it is — leaks: a halo, a glow pass and a landing ring
  * all reach outside the contour they belong to, so the tile would show as a
  * patch of light on the one screen that must not be able to name it. Drawing
- * nothing cannot leak.
+ * nothing cannot leak. Everything in `wisp-ground.ts` is behind the same gate
+ * for the same reason, the arc and the landing marker most of all.
  *
  * There is no companion picture on that screen either, and that is the one way
  * this creature is unlike every split before it. A veil gives player 2 a
@@ -28,19 +26,32 @@ import { PALETTE } from "./palette.js";
  * (`siren.ts`) and the pip on every hop (`wispHop`) — a place to put a word,
  * a light saying somebody has one, and a sound saying the last one is spent.
  *
- * **The teleport is drawn across the beat, in the shape the owner drew it.**
- * A squash, a launch upward into a line, nothing, then the same run backwards
- * into the new tile — with a flat ring on the ground at both ends and a beam
- * standing over it. The two halves belong to two different beats: the going
- * is the *last* third of the beat before the hop and the coming is the *first*
- * third of the beat after it. That ordering is not decoration. It is what
- * leaves the body standing still and plainly on its tile through the middle of
- * every dwell, which is the part player 2 has to read a letter and a number
- * off — an animation that ran only after the move would have spent the whole
- * of the short dwell arriving.
+ * **It jumps, and the jump is a whole beat long.** It used to blink: a squash,
+ * a stretch into a line, nothing, and the same run backwards into the new
+ * tile, with two thirds of a beat unaccounted for in between. Player 2 saw a
+ * body go out and a body come in and had to *infer* that they were the same
+ * body, which is the one thing a picture is for. Now it gathers, launches,
+ * crosses the field along an arc and comes down where it is going — the going
+ * and the coming are one continuous movement, because they are one movement.
  *
- * Both ends are read off the shared beat through `wispHops`, so two devices
- * draw one hop, and neither stores a phase.
+ * The three phases sit against the beat like this, and `wispJump` is the whole
+ * of it:
+ *
+ * - the **crouch**, the tail of the beat before the hop: it gathers and the
+ *   tentacles pull in.
+ * - the **flight**, the whole of the hop beat: the simulation has already put
+ *   it on the destination tile (`sim/wisp.ts`), so the arc render draws is the
+ *   truth about where it will be and not a guess. It is off the ground for
+ *   every frame of that beat and lands exactly on the last one.
+ * - the **landing**, the head of the beat after: it flattens, the shock goes
+ *   out across the tile, and it comes back up to standing.
+ *
+ * That leaves `wispDwellBeats - 1` whole beats of a body standing plainly on
+ * its tile, which is the part player 2 reads a letter and a number off. It is
+ * also why the dwell had to grow: at two beats the jump *was* the dwell.
+ *
+ * Every end is read off the shared beat through `wispHops`, so two devices
+ * draw one jump, and neither stores a phase.
  */
 
 /**
@@ -56,41 +67,94 @@ export function showsWisp(l: Layout): boolean {
   return l.role !== "p1";
 }
 
-/** Every wisp on the field. Exported so the grid and the body pass ask the
- * same question once. */
+/** Every wisp on the field. Exported so the ground pass and the body pass ask
+ * the same question once. */
 export function wisps(world: World): Creature[] {
   return world.creatures.filter((c) => c.kind === "wisp");
 }
 
 /**
- * The share of a beat each end of the teleport takes. Roughly a third: any
- * less and the stretch is a flicker rather than a thing leaving, any more and
- * the two ends meet in the middle at the shortest dwell the config allows.
+ * The share of the beat *before* a hop spent gathering, and the share of the
+ * beat *after* one spent absorbing it.
+ *
+ * Both under a third, and they are not the same number: a jump is anticipated
+ * faster than it is absorbed. The gather is a body deciding to go and wants to
+ * read as a snap; the landing is a mass arriving and wants to read as
+ * something that took the hit. Anything longer on either end and the two would
+ * meet across the standing beats the pair has to read the tile off.
  */
-const PORT = 0.32;
+const CROUCH = 0.26;
+const LAND = 0.34;
 
 /**
- * How far *out* of its tile a wisp is this frame — 0 standing on it, 1 gone.
- *
- * One number for both ends of the hop, because they are one movement run in
- * two directions and everything below reads it the same way. Two phases with
- * two sets of easing would be two places for the going and the coming to stop
- * being the same picture.
+ * How high the arc goes, in tiles. Not a tunable in `SimConfig`, because
+ * nothing in the simulation can see it: the body is on its landing tile for
+ * the whole beat whatever this number is (`sim/wisp.ts`), so it changes the
+ * picture and nothing else.
  */
-export function wispOut(cfg: SimConfig, beat: number, beatPhase: number): number {
-  // This beat began with a hop, so the first third of it is the arrival.
-  if (wispHops(cfg, beat) && beatPhase < PORT) return 1 - beatPhase / PORT;
-  // The next beat begins with one, so the last third of this one is the going.
-  if (wispHops(cfg, beat + 1) && beatPhase > 1 - PORT) return (beatPhase - (1 - PORT)) / PORT;
-  return 0;
+export const JUMP_TILES = 2.2;
+
+/** Where a wisp is in its jump this frame. One value per question the picture
+ * asks, all four derived from the shared beat and none of them stored. */
+export interface WispJump {
+  /** Off the ground this frame: the whole of a hop beat, and nothing else. */
+  flying: boolean;
+  /** How far through the flight, 0 leaving the old tile, 1 landing on the new
+   * one. Zero when it is not in the air, which is most of a dwell. */
+  flight: number;
+  /** Height above the ground in tiles — 0 standing, `JUMP_TILES` at the apex. */
+  lift: number;
+  /** The same height as a share of the apex, 0 on the ground and 1 at the top.
+   * Carried beside `lift` rather than divided out at each of the four sites
+   * that want it: the lean, the halo, the streamers' spread and the shadow are
+   * one reading of how high it is, and a second copy of `JUMP_TILES` is how
+   * they come to disagree about it. */
+  arc: number;
+  /** The gather before it goes: 0 standing, 1 at the instant of the launch. */
+  crouch: number;
+  /** The squash after it arrives: 1 on impact, 0 back at standing. */
+  land: number;
+}
+
+/** A wisp standing still on its tile — the shape of most of a dwell, and what
+ * a rig with no beat of its own draws. */
+const STILL: WispJump = { flying: false, flight: 0, lift: 0, arc: 0, crouch: 0, land: 0 };
+
+/**
+ * The jump, read straight off the beat.
+ *
+ * The flight is the *whole* of a hop beat rather than a window inside one, and
+ * that is what makes the arc a picture of the simulation rather than a flourish
+ * over it: the body leaves the tile on the frame `stepWisp` moves it and
+ * touches down on the last frame before the next beat, so there is no instant
+ * where the thing player 2 is looking at is somewhere the world does not say
+ * it is.
+ *
+ * A body in the air is neither crouching nor landing, and the guard is not
+ * decoration: at `wispDwellBeats` of 1 every beat is a hop beat and all three
+ * windows would otherwise be open at once, which is a body gathering itself in
+ * mid-air.
+ */
+export function wispJump(cfg: SimConfig, beat: number, beatPhase: number): WispJump {
+  if (wispHops(cfg, beat)) {
+    const arc = Math.sin(Math.PI * beatPhase);
+    return { flying: true, flight: beatPhase, lift: arc * JUMP_TILES, arc, crouch: 0, land: 0 };
+  }
+  // The beat after a hop: it came down at the top of this one.
+  const land = wispHops(cfg, beat - 1) && beatPhase < LAND ? 1 - beatPhase / LAND : 0;
+  // The beat before the next one: it goes at the top of the next.
+  const crouch =
+    wispHops(cfg, beat + 1) && beatPhase > 1 - CROUCH ? (beatPhase - (1 - CROUCH)) / CROUCH : 0;
+  return { ...STILL, crouch, land };
 }
 
 /**
- * The body, and the transit it is part of the way through.
+ * The body, at the height its jump has it.
  *
- * `out` is `wispOut`. At 0 this is an ordinary living body drawn the way
- * `drawLiving` draws one; from there it squashes, stretches into a line,
- * rises and fades, and the ring and the beam come up under it.
+ * `x`/`y` are the ground position `creatureCenter` gives every body — for a
+ * wisp mid-hop that is the linear glide from the old tile to the new one, and
+ * the arc is what this adds to it. Up and not down: `lift` is subtracted,
+ * because screen y grows toward the hull.
  */
 export function drawWisp(
   ctx: CanvasRenderingContext2D,
@@ -102,136 +166,8 @@ export function drawWisp(
   time: number,
   beats: number,
   near: number,
-  out: number,
+  j: WispJump,
 ): void {
   const haze = (h: string): string => hazed(cfg, h, near);
-  // The ground at both ends of the hop. Down before the body, because the
-  // body rises out of it.
-  if (out > 0) drawPortal(ctx, l, x, y, out, haze);
-  if (out >= 1) return;
-
-  // Squash then stretch, in that order and out of one number. The tent peaks
-  // a fifth of the way out — the body gathers itself before it goes, which is
-  // what makes the line that follows read as a launch rather than as a wipe.
-  const squash = Math.max(0, 1 - Math.abs(out - 0.18) / 0.18);
-  const stretch = Math.max(0, (out - 0.25) / 0.75);
-  const alpha = 1 - Math.max(0, (out - 0.45) / 0.55);
-
-  const shape = livingSilhouette("wisp");
-  const r = l.tile * 0.4;
-  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
-  const pose = livingMotion("wisp").poseAt(poseClock(c.id, beats));
-  const t = contourClock(c.id, time);
-  const path = new Path2D(
-    blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, t, shape.seed, 28),
-  );
-
-  // Up, never down: `row` only grows toward the hull, so a body leaving the
-  // field leaves it the way the beam points.
-  const lift = -stretch * stretch * l.tile * 1.7;
-  const sx = (1 + squash * 0.45) * (1 - stretch * 0.94);
-  const sy = (1 - squash * 0.5) * (1 + stretch * 2.4);
-
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(x, y + lift);
-  ctx.rotate(pose.rot);
-  ctx.scale(scale * pose.sx * sx, scale * pose.sy * sy);
-
-  // The one body in the game filled through *both* ammunition colours at
-  // once. It carries neither, and either shot kills it, so a fill that is
-  // cyan at one edge and red at the other is the honest picture as well as
-  // the unnameable one — see `PALETTE.wisp`.
-  ctx.fillStyle = spectrum(ctx, shape.rx, shape.ry, beats, haze);
-  ctx.fill(path);
-  strokeGlow(ctx, path, haze(PALETTE.wispRim), Math.max(1, r * 0.1) / scale, 1);
-
-  // The core: a hard white point the stretch does not stretch, so there is one
-  // thing on the body holding still while the rest of it goes. Its own scale
-  // undoes the transit's, never the pose's `rot` — a point has no rotation to
-  // undo.
-  ctx.save();
-  ctx.scale(1 / (pose.sx * sx), 1 / (pose.sy * sy));
-  ctx.fillStyle = PALETTE.text;
-  ctx.globalAlpha = alpha * 0.85;
-  ctx.beginPath();
-  ctx.arc(0, 0, shape.ry * 0.13, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-
-  ctx.restore();
-  ctx.globalAlpha = 1;
-
-  halo(ctx, x, y + lift, r * 2.1, haze(PALETTE.wisp), 0.2 * alpha);
-}
-
-/**
- * The fill: cyan, violet, red, travelling across the body on the shared beat.
- *
- * A gradient built per body per frame rather than a cached one, and it is the
- * one thing in this file that costs anything. `gradientSlot` caches on a key,
- * and the key here would have to carry the phase — which changes every frame,
- * so the cache would be a map that only ever grew. There are never many wisps.
- */
-function spectrum(
-  ctx: CanvasRenderingContext2D,
-  rx: number,
-  ry: number,
-  beats: number,
-  haze: (hex: string) => string,
-): CanvasGradient {
-  // A slow drift across the body, so the band is visibly travelling without
-  // landing on anything the pair is counting.
-  const k = Math.sin(beats * 0.4);
-  const g = ctx.createLinearGradient(-rx * (1 - k * 0.3), -ry, rx * (1 + k * 0.3), ry);
-  g.addColorStop(0, haze(PALETTE.cyan));
-  g.addColorStop(0.5, haze(PALETTE.wisp));
-  g.addColorStop(1, haze(PALETTE.red));
-  return g;
-}
-
-/**
- * The ring on the tile and the beam standing over it — the picture the owner
- * drew, transposed onto a square field: a flat ellipse where the body stands,
- * flaring as it goes, and a column of light above it that the body travels up.
- *
- * Drawn at both ends of the hop, and only ever on the screen that can see the
- * body at all. It is not a mark: it is the body's own exhaust, and a screen
- * that got one without the other would be a screen that can find the tile
- * without being told.
- */
-function drawPortal(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  x: number,
-  y: number,
-  out: number,
-  haze: (hex: string) => string,
-): void {
-  const rx = l.tile * (0.42 + 0.22 * out);
-  const ry = rx * 0.26;
-  const hex = haze(PALETTE.wisp);
-  const rim = haze(PALETTE.wispRim);
-
-  // The beam first, so the ring sits on top of its own foot.
-  const height = l.tile * 2.4;
-  const g = ctx.createLinearGradient(0, y, 0, y - height);
-  g.addColorStop(0, `${rim}D0`);
-  g.addColorStop(0.3, `${hex}88`);
-  g.addColorStop(1, `${hex}00`);
-  ctx.save();
-  ctx.globalAlpha = out * 0.9;
-  ctx.fillStyle = g;
-  const w = l.tile * (0.7 - 0.36 * out);
-  ctx.fillRect(x - w / 2, y - height, w, height);
-
-  ctx.globalAlpha = Math.min(1, out * 1.2);
-  ctx.strokeStyle = rim;
-  ctx.lineWidth = Math.max(1.6, l.tile * 0.07);
-  ctx.beginPath();
-  ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-
-  halo(ctx, x, y, l.tile * (0.8 + 0.6 * out), rim, 0.45 * out);
+  drawWispBody(ctx, l, c, x, y - j.lift * l.tile, time, beats, j, haze);
 }

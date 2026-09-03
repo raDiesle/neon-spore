@@ -152,25 +152,33 @@ export const POISE: OwnMotion = {
  * would come out as a question.
  *
  * So `dx` and `dy` are flat zero — the only motion in this file where both
- * are — and what is left is a body turning slowly on the spot with a small
+ * are — and what is left is a body rocking slowly on the spot with a small
  * counter-beat shiver in its size. A rotation cannot move a contour off its
  * own centre and cannot change any radius, so it costs the tile read nothing
  * and it is the one thing that says *alive* about something that otherwise
- * only ever appears and disappears.
+ * only ever stands and jumps.
  *
- * The turn is deliberately slow and the two frequencies are deliberately not
+ * **A rock and not a turn, and that changed when the body did.** This used to
+ * be `rot: t * 0.21875` — an unbounded spin, which is the honest own-motion
+ * for a featureless blob and the wrong one for a body with a top and a hem.
+ * A wisp now hangs its tentacles downward (`render/wisp-body.ts`); a bell that
+ * rotated past a quarter turn would swing them sideways and then over itself,
+ * which reads as tumbling rather than as floating. A shallow rock keeps every
+ * frame the right way up.
+ *
+ * The rock is deliberately slow and the two frequencies are deliberately not
  * commensurate with the hop: a body that pulsed on the dwell would be a second
  * clock beside the one the pair is already counting.
  */
 export const FLICKER: OwnMotion = {
   name: "FLICKER",
-  note: "no drift at all — a slow turn on the spot and a shiver, so the tile it stands on is never in doubt",
+  note: "no drift at all — a slow rock on the spot and a shiver, so the tile it stands on is never in doubt",
   poseAt(t) {
     const shiver = Math.sin(t * 2.6875);
     return {
       dx: 0,
       dy: 0,
-      rot: t * 0.21875,
+      rot: Math.sin(t * 0.6875) * 0.1,
       sx: 1 + shiver * 0.035,
       sy: 1 - shiver * 0.035,
     };
