@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 5d12058 — The port rule says what claimPort does: the base first, the tree's own second
+
+CLAUDE.md said "in a worktree the port is not 4173", and the director's paragraph said the same of 4174. `claimPort` has never worked that way: it tries the base port first, always, so a single server in a single tree answers where every document and `curl` line says it does, and the port derived from the tree's path is the fallback taken only when another checkout's copy of the same server is already holding the base. A director started in an otherwise idle worktree announces 4174, which the rule said could not happen — and a session that believed the rule probed the derived port, found nothing, and concluded twice that its own server had failed to start.
+
 ## 2026-09-03 · 916e509 — land asks git for content, not for git's opinion of a file's stat
 
 `bun run land` refused a landing over `.claude/launch.json`, a file the lane had never touched: `git status --porcelain` reported it as ` M` while `git diff --name-only HEAD` reported nothing and `git hash-object` on the working copy gave the blob the index and HEAD both already held. Something had rewritten the file with identical bytes, which invalidates git's cached stat for that entry, and `status` reports such an entry as modified until git refreshes it — `git update-index --refresh` does not.
