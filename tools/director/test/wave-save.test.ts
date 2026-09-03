@@ -1,4 +1,4 @@
-import { expect, test } from "bun:test";
+import { beforeEach, expect, test } from "bun:test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -11,6 +11,20 @@ import {
   wavesState,
   wavesToken,
 } from "../src/waves-api.js";
+
+/**
+ * A real save commits what it wrote (`waves-commit.ts`). A test is not an
+ * afternoon of authoring, and a suite that leaves commits behind is a suite
+ * nobody can run twice — so the commit is off for every test here.
+ *
+ * Before each one rather than once at the top: `bun test` runs every file in
+ * one process, and `waves-commit.test.ts` needs the same variable *unset* to
+ * prove the commit happens at all. Neither file may depend on which of them
+ * loaded first.
+ */
+beforeEach(() => {
+  process.env.DIRECTOR_NO_COMMIT = "1";
+});
 
 /**
  * The director's save used to be last-write-wins over the whole wave list: the
