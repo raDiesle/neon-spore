@@ -775,5 +775,6 @@ place — the generator keeps whatever is there.
 | `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
+| `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 
 <!-- index:code:end -->

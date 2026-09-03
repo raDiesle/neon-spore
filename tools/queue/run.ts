@@ -92,9 +92,17 @@ if (!command || command === "list") {
   if (!arg) throw new Error("usage: bun run queue release <n|title>");
   const item = pick(items, arg);
   const branch = branchFor(item);
-  const gone = git("branch", "-d", branch);
-  if (!gone.ok) throw new Error(`could not release ${JSON.stringify(item.title)}: ${gone.err}`);
-  console.log(`Released: ${item.title} (${branch} deleted)`);
+  // Nothing to give back is not a failure, and it is the common case now that a
+  // claim can be swept out from under a session by another lane's landing: the
+  // answer wanted is "nobody is on this", not git's answer to a different
+  // question about a ref that is not there.
+  if (!claimOn(item, known)) {
+    console.log(`Not held: ${item.title} (no ${branch} — nobody is on it)`);
+  } else {
+    const gone = git("branch", "-d", branch);
+    if (!gone.ok) throw new Error(`could not release ${JSON.stringify(item.title)}: ${gone.err}`);
+    console.log(`Released: ${item.title} (${branch} deleted)`);
+  }
 } else if (command === "done") {
   if (!arg) throw new Error("usage: bun run queue done <n|title>");
   const item = pick(items, arg);

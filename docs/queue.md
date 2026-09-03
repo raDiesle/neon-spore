@@ -38,6 +38,13 @@ visible to the next `bun run queue` with no commit and no push. A cloud session
 works in its own clone, so its claim is invisible here until it pushes; two at
 once is the ceiling anyway, and locally that ceiling is enforced.
 
+A claim carries no commits, so it points at `main` and reads as fully merged.
+`bun run land` sweeps merged branches, and for one day it swept other lanes'
+claims along with its own — both sessions running on 3 September 2026 lost every
+claim they held and then did the same item twice. `partitionMerged` in
+`tools/land/claims.ts` now leaves a claim standing unless it is the branch being
+landed, which is the one case where deleting it is the release.
+
 **The format**, one `##` per item, and both fields are required because the
 session that picks it up has read nothing else:
 
@@ -53,29 +60,6 @@ say. Written for somebody who was not there.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
-
-## A queue claim is a branch, and `bun run land` sweeps other lanes' branches
-
-- **Found:** 2026-09-03, claude/categorized-task-queue-bd59d8
-- **Files:** `tools/land/sweep.ts`, `tools/queue/claim.ts`, `tools/land/test/`, `docs/queue.md`
-
-`bun run queue next` claims an item by creating `claude/queue-<slug>` off `main`,
-and `docs/queue.md` says that branch *is* the claim: two sessions cannot be given
-the same item, because the second `git branch` fails. It does not hold. A claim
-branch has no commits on it, so it points at `main` and reads as fully merged,
-and the sweep at the end of any other lane's `bun run land` deletes it. Both
-sessions running on 3 September 2026 lost every claim they held within minutes
-of the other one landing, and the two of them then did the same queue item twice
-— one of the two commits was thrown away at the rebase, along with the session
-that wrote it.
-
-Teach the sweep to leave `claude/queue-*` alone, or give a claim something the
-sweep will not delete. Whichever it is, `tools/land/test/` should hold it: the
-failure is silent, and it costs a whole session's work rather than a rebase.
-
-While there: `bun run queue release <n>` reports success by deleting a branch,
-so a claim that has already been swept fails with a git error rather than saying
-the item was never held. Either is fine to say; the git error is not.
 
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 

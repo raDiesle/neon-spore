@@ -10,6 +10,7 @@
 
 import { readdir, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
+import { partitionMerged } from "./claims.js";
 import { git, gitOrDie } from "./git.js";
 import { idleDays, KEEP_DAYS } from "./idle.js";
 import type { LandState } from "./land.js";
@@ -157,6 +158,9 @@ async function sweepSpecs(root: string): Promise<void> {
  * the repository at an earlier state of the trunk, down a path that looks
  * exactly like a path into the repository.
  *
+ * **A claim on a queue item is not a spent branch**, however merged it looks.
+ * `partitionMerged` above holds that rule and says why it cost a session's work.
+ *
  * **A kept tree keeps its branch.** The two are one thing to a person, and
  * deleting the branch out from under a worktree somebody may still be sitting
  * in buys nothing: `git branch --merged` will offer it again at the next
@@ -188,7 +192,12 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
     .map((line) => line.trim())
     .filter((name) => name && name !== TRUNK);
 
-  for (const name of merged) {
+  const { spent, claims } = partitionMerged(merged, state.branch);
+  for (const name of claims) {
+    console.log(`  kept     ${name} — a queue claim; its own landing releases it`);
+  }
+
+  for (const name of spent) {
     const path = held.get(name);
     if (path && path !== state.trunkTree && path !== root) {
       const idle = await idleDays(path);

@@ -36,6 +36,19 @@ export function branchFor(item: Item): string {
   return `${PREFIX}${slugFor(item.title)}`;
 }
 
+/**
+ * Whether a branch name is a claim on some queue item, whichever item that is.
+ *
+ * `bun run land` needs this and cannot get it from `branchFor`, which wants the
+ * item: the sweep is looking at a list of branch names with no queue in hand.
+ * It asks here rather than spelling the prefix out again, because a claim that
+ * the sweep does not recognise is a claim the sweep deletes — which is what it
+ * did on 3 September 2026, to two sessions at once.
+ */
+export function isClaimBranch(name: string): boolean {
+  return name.startsWith(PREFIX);
+}
+
 /** `origin/claude/queue-x` and `claude/queue-x` are the same claim. */
 function bare(ref: string): string {
   return ref.startsWith("origin/") ? ref.slice("origin/".length) : ref;
