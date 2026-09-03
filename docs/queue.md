@@ -265,22 +265,25 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Move the director's 1 100 lines of CSS out of index.html; lint .css and .js
+## Split director.css, which Biome's formatter turned into 2 985 lines
 
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-move-the-directors-1-100-lines-of-css-out-of-ind
-- **Files:** `tools/director/index.html`, `tools/director/src/director.css`, `biome.json`, `apps/game/public/sw.js`, `tools/hooks/format-edited.ts`
+- **Found:** 2026-09-03, claude/director-group-queue-batch-161302
+- **Files:** `tools/director/src/director.css`, `tools/director/index.html`, `tools/director/test/rail-boss-guard.test.ts`
 
-`tools/director/index.html` is 1 736 lines and its `<style>` spans lines 11 to
-1116. `biome.json` `files.includes` is `**/*.ts` only, so that stylesheet is
-neither formatted nor linted, and so is `apps/game/public/sw.js`, which
-`format-edited.ts` hands to Biome only to have it skipped silently with
-`--no-errors-on-unmatched`. `apps/game/index.html` already links `game.css`, and
-Bun's HTML bundler handles that in both `server.ts` and `build.ts`.
+Cutting the `<style>` block out of `index.html` and putting `**/*.css` into
+Biome's includes left one sheet of 2 985 lines — the compact one-liners the
+block was written in are now one declaration per line. That is twelve times the
+~250-line ceiling every other file in the repository keeps.
 
-Cut the style block into `director.css`, link it, add `**/*.css` and `**/*.js` to
-Biome's includes, and fix whatever Biome then reports. A `bun run dev:once` look
-at `/` proves the page is unchanged.
+The sheet already carries its own section comments, and they fall on the page's
+own seams: the shell (`:root`, `html`, `body`, `header`, `button`, `textarea`),
+the columns and their resize handles, BRUSH, MAP and the grid, and the
+`max-width` media blocks. Split it into `director-shell.css`,
+`director-columns.css`, `director-brush.css` and `director-map.css` (or
+whatever the comments actually divide into), link each from `index.html` — Bun's
+bundler already follows several `<link>` tags, as `apps/game/index.html` shows
+— and point `rail-boss-guard.test.ts` at whichever file keeps `button:disabled`.
+A `bun run dev:once` look at `/` proves the page is unchanged.
 
 ## Extract the shared queen shell draw and SVG fade from the director drafts
 

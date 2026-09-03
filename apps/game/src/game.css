@@ -1,40 +1,90 @@
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body {
-  margin: 0; padding: 0; height: 100%; overflow: hidden;
-  background: #07060f; color: #f2e9dc;
-  font-family: "Courier New", monospace; touch-action: none; user-select: none;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
-canvas { display: block; width: 100%; height: 100%; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #07060f;
+  color: #f2e9dc;
+  font-family: "Courier New", monospace;
+  touch-action: none;
+  user-select: none;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 /* The view switch. Always there, in every mode — it is the one piece of
    chrome that is not part of either player's device. */
 #viewSwitch {
-  position: fixed; top: calc(6px + env(safe-area-inset-top, 0px)); left: 50%;
-  transform: translateX(-50%); z-index: 6;
-  display: flex; gap: 2px; padding: 2px; border-radius: 9px;
-  border: 1px solid #2A2250; background: rgba(10, 7, 26, 0.82);
+  position: fixed;
+  top: calc(6px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  border: 1px solid #2a2250;
+  background: rgba(10, 7, 26, 0.82);
 }
 #viewSwitch button {
-  min-width: 42px; padding: 4px 7px; border: 0; border-radius: 7px;
-  background: transparent; color: #6F639F;
-  font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+  min-width: 42px;
+  padding: 4px 7px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #6f639f;
+  font:
+    10px / 1 "Courier New",
+    monospace;
+  letter-spacing: 1px;
 }
-#viewSwitch button.on { background: #2A1F4E; color: #ffc24b; }
+#viewSwitch button.on {
+  background: #2a1f4e;
+  color: #ffc24b;
+}
 
 /* The network indicator. Not test rig — it is part of the finished game, so it
    stays in every view. It is also *only* about a room: a chip reading SOLO is a
    button that reports the absence of the thing it opens, so there is nothing
    here at all until there is a room to be about. The menu is the way to one. */
 #linkChip {
-  position: fixed; top: calc(8px + env(safe-area-inset-top, 0px));
-  left: calc(8px + env(safe-area-inset-left, 0px)); z-index: 6; display: none;
-  min-width: 54px; height: 22px; padding: 0 8px; border-radius: 7px;
-  border: 1px solid #3b3163; background: rgba(20, 14, 45, 0.75); color: #6f639f;
-  font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+  position: fixed;
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  left: calc(8px + env(safe-area-inset-left, 0px));
+  z-index: 6;
+  display: none;
+  min-width: 54px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 7px;
+  border: 1px solid #3b3163;
+  background: rgba(20, 14, 45, 0.75);
+  color: #6f639f;
+  font:
+    10px / 1 "Courier New",
+    monospace;
+  letter-spacing: 1px;
 }
-#linkChip.on { display: block; }
-#linkChip.live { border-color: #2fe0f0; color: #2fe0f0; }
-#linkChip.fault { border-color: #ff5470; color: #ff5470; }
+#linkChip.on {
+  display: block;
+}
+#linkChip.live {
+  border-color: #2fe0f0;
+  color: #2fe0f0;
+}
+#linkChip.fault {
+  border-color: #ff5470;
+  color: #ff5470;
+}
 
 /* The offer of a home-screen shortcut. It is hidden until the browser says the
    page can be installed and gone again the moment it is, so on a phone that
@@ -42,151 +92,389 @@ canvas { display: block; width: 100%; height: 100%; }
    It sits beside the indicator rather than over the field: this is the one
    control on screen that is about the browser and not about the game. */
 #installChip {
-  position: fixed; top: calc(8px + env(safe-area-inset-top, 0px));
-  left: calc(70px + env(safe-area-inset-left, 0px)); z-index: 6; display: none;
-  height: 22px; padding: 0 9px; border-radius: 7px;
-  border: 1px solid #ffc24b; background: rgba(20, 14, 45, 0.75); color: #ffc24b;
-  font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+  position: fixed;
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  left: calc(70px + env(safe-area-inset-left, 0px));
+  z-index: 6;
+  display: none;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 7px;
+  border: 1px solid #ffc24b;
+  background: rgba(20, 14, 45, 0.75);
+  color: #ffc24b;
+  font:
+    10px / 1 "Courier New",
+    monospace;
+  letter-spacing: 1px;
 }
-#installChip.on { display: block; }
+#installChip.on {
+  display: block;
+}
 
 /* The room screen. One sheet, centred, over a scrim — it is the second-most
    looked-at page in the game after the menu, and it used to be a stack of five
    equal buttons with no shape to it. */
 #joinScreen {
-  position: fixed; inset: 0; z-index: 22; display: none; overflow-y: auto;
+  position: fixed;
+  inset: 0;
+  z-index: 22;
+  display: none;
+  overflow-y: auto;
   /* Opaque, unlike the menu's scrim: this page is read rather than looked
      through, and a four-character code with a wave banner behind it is a code
      somebody reads back wrong. */
-  background: #07060f; padding: 26px 18px 40px;
+  background: #07060f;
+  padding: 26px 18px 40px;
 }
-#joinScreen .sheet { max-width: 390px; margin: 0 auto; }
+#joinScreen .sheet {
+  max-width: 390px;
+  margin: 0 auto;
+}
 #joinScreen .back {
-  margin: 0 0 16px; padding: 7px 13px; border-radius: 8px;
-  border: 1px solid #2a2250; background: transparent; color: #9c8fd6;
-  font: 11px "Courier New", monospace; letter-spacing: 0.2em;
+  margin: 0 0 16px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: 1px solid #2a2250;
+  background: transparent;
+  color: #9c8fd6;
+  font:
+    11px "Courier New",
+    monospace;
+  letter-spacing: 0.2em;
 }
-#joinScreen h2 { font-size: 13px; letter-spacing: 3px; color: #ffc24b; margin: 0 0 8px; font-weight: 600; }
-#joinScreen .sub { font-size: 10px; color: #6f639f; line-height: 1.7; margin: 0 0 4px; }
+#joinScreen h2 {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #ffc24b;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+#joinScreen .sub {
+  font-size: 10px;
+  color: #6f639f;
+  line-height: 1.7;
+  margin: 0 0 4px;
+}
 #joinCode {
-  font-size: 42px; letter-spacing: 12px; text-indent: 12px; color: #2fe0f0;
-  margin: 20px 0 14px; text-align: center;
+  font-size: 42px;
+  letter-spacing: 12px;
+  text-indent: 12px;
+  color: #2fe0f0;
+  margin: 20px 0 14px;
+  text-align: center;
   text-shadow: 0 0 22px rgba(47, 224, 240, 0.4);
 }
 
 /* Who is in the room, as two seats rather than a sentence. The pair is the
    whole state of a lobby, and a player looking for "is the other one here yet"
    should not have to read for it. */
-#joinSeats { display: flex; gap: 8px; margin: 0 0 16px; }
+#joinSeats {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+}
 #joinSeats .pill {
-  flex: 1; display: grid; gap: 3px; padding: 10px 11px;
-  border: 1px solid #2a2250; border-radius: 10px; background: rgba(10, 7, 26, 0.55);
+  flex: 1;
+  display: grid;
+  gap: 3px;
+  padding: 10px 11px;
+  border: 1px solid #2a2250;
+  border-radius: 10px;
+  background: rgba(10, 7, 26, 0.55);
 }
-#joinSeats .n { font-size: 10px; letter-spacing: 0.2em; color: #4b4177; }
-#joinSeats .job { font-size: 9px; letter-spacing: 0.16em; color: #6f639f; }
-#joinSeats .who { font-size: 13px; letter-spacing: 0.16em; color: #f2e9dc; }
-#joinSeats .pill.empty .who { color: #4b4177; }
-#joinSeats .pill.mine { border-color: #ffc24b; background: rgba(42, 31, 78, 0.6); }
-#joinSeats .pill.mine .who { color: #ffc24b; }
+#joinSeats .n {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #4b4177;
+}
+#joinSeats .job {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: #6f639f;
+}
+#joinSeats .who {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: #f2e9dc;
+}
+#joinSeats .pill.empty .who {
+  color: #4b4177;
+}
+#joinSeats .pill.mine {
+  border-color: #ffc24b;
+  background: rgba(42, 31, 78, 0.6);
+}
+#joinSeats .pill.mine .who {
+  color: #ffc24b;
+}
 
-#joinState { font-size: 11px; color: #9c8fd6; line-height: 1.7; margin: 0 0 20px; min-height: 3em; }
+#joinState {
+  font-size: 11px;
+  color: #9c8fd6;
+  line-height: 1.7;
+  margin: 0 0 20px;
+  min-height: 3em;
+}
 #joinScreen input {
-  width: 100%; margin-top: 6px; padding: 11px; border-radius: 8px; border: 1px solid #3b3163;
-  background: rgba(20, 14, 45, 0.75); color: #f2e9dc; text-align: center;
-  font: 22px/1 "Courier New", monospace; letter-spacing: 8px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 11px;
+  border-radius: 8px;
+  border: 1px solid #3b3163;
+  background: rgba(20, 14, 45, 0.75);
+  color: #f2e9dc;
+  text-align: center;
+  font:
+    22px / 1 "Courier New",
+    monospace;
+  letter-spacing: 8px;
 }
-#joinScreen .acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+#joinScreen .acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
 #joinScreen .acts button {
-  flex: 1 1 40%; padding: 11px 12px; border-radius: 8px; border: 1px solid #ffc24b;
-  background: transparent; color: #ffc24b; font: 12px "Courier New", monospace; letter-spacing: 2px;
+  flex: 1 1 40%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid #ffc24b;
+  background: transparent;
+  color: #ffc24b;
+  font:
+    12px "Courier New",
+    monospace;
+  letter-spacing: 2px;
 }
-#joinScreen .acts button.quiet { border-color: #3b3163; color: #9c8fd6; }
-#joinScreen .acts button.leave { border-color: #ff5470; color: #ff5470; }
+#joinScreen .acts button.quiet {
+  border-color: #3b3163;
+  color: #9c8fd6;
+}
+#joinScreen .acts button.leave {
+  border-color: #ff5470;
+  color: #ff5470;
+}
 /* In a room the way in is over, and leaving is the only door that is not the
    BACK button — so the code box and CREATE go away rather than sit there
    offering to throw the room out from under the other player. */
-#joinSheet.in-room #joinEnter, #joinSheet.in-room .acts .enter { display: none; }
+#joinSheet.in-room #joinEnter,
+#joinSheet.in-room .acts .enter {
+  display: none;
+}
 /* And the other way: nothing to send and nothing to leave until there is one. */
-#joinSheet:not(.in-room) .acts .roomed { display: none; }
+#joinSheet:not(.in-room) .acts .roomed {
+  display: none;
+}
 
 /* A bad line, with a clock on it. It is not the room screen: the question here
    is only "wait, or stop", and the room screen is a page of choices. */
 #linkHold {
-  position: fixed; inset: 0; z-index: 23; display: none;
-  align-items: center; justify-content: center; padding: 20px;
-  background: rgba(7, 6, 15, 0.82); backdrop-filter: blur(2px);
+  position: fixed;
+  inset: 0;
+  z-index: 23;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(7, 6, 15, 0.82);
+  backdrop-filter: blur(2px);
 }
-#linkHold.on { display: flex; }
+#linkHold.on {
+  display: flex;
+}
 #linkHold .card {
-  width: 100%; max-width: 340px; padding: 20px 18px; text-align: center;
-  border: 1px solid #ff5470; border-radius: 14px; background: rgba(14, 9, 30, 0.96);
+  width: 100%;
+  max-width: 340px;
+  padding: 20px 18px;
+  text-align: center;
+  border: 1px solid #ff5470;
+  border-radius: 14px;
+  background: rgba(14, 9, 30, 0.96);
   box-shadow: 0 0 40px rgba(255, 84, 112, 0.18);
 }
 #linkHold h3 {
-  margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: #ff5470;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #ff5470;
 }
 #holdTimer {
-  margin: 12px 0 10px; font-size: 34px; letter-spacing: 4px; color: #f2e9dc;
+  margin: 12px 0 10px;
+  font-size: 34px;
+  letter-spacing: 4px;
+  color: #f2e9dc;
 }
-#holdWhat { margin: 0; font-size: 10px; line-height: 1.7; color: #9c8fd6; }
-#linkHold .acts { display: flex; gap: 8px; margin-top: 18px; }
+#holdWhat {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #9c8fd6;
+}
+#linkHold .acts {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
 #linkHold .acts button {
-  flex: 1; padding: 10px 8px; border-radius: 8px; border: 1px solid #ff5470;
-  background: transparent; color: #ff5470; font: 11px "Courier New", monospace; letter-spacing: 1.5px;
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 1px solid #ff5470;
+  background: transparent;
+  color: #ff5470;
+  font:
+    11px "Courier New",
+    monospace;
+  letter-spacing: 1.5px;
 }
-#linkHold .acts button.quiet { border-color: #3b3163; color: #9c8fd6; }
+#linkHold .acts button.quiet {
+  border-color: #3b3163;
+  color: #9c8fd6;
+}
 
 /* A player's device carries no test rig. */
 body.player-view #pauseBtn,
 body.player-view #gear,
-body.player-view #waveSkip { display: none; }
+body.player-view #waveSkip {
+  display: none;
+}
 
 /* The field is canvas; the test rig is DOM, so changing it never touches
    renderer code. See docs/decisions.md, decision 5. */
-#pauseBtn, #gear {
-  position: fixed; top: calc(8px + env(safe-area-inset-top, 0px)); z-index: 5;
-  width: 32px; height: 32px;
-  border-radius: 9px; border: 1px solid #3b3163; background: rgba(20, 14, 45, 0.75);
-  font: 14px/1 "Courier New", monospace;
+#pauseBtn,
+#gear {
+  position: fixed;
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  z-index: 5;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid #3b3163;
+  background: rgba(20, 14, 45, 0.75);
+  font:
+    14px / 1 "Courier New",
+    monospace;
 }
-#pauseBtn { right: 46px; color: #2fe0f0; }
-#gear { right: 8px; color: #9c8fd6; font-size: 13px; }
+#pauseBtn {
+  right: 46px;
+  color: #2fe0f0;
+}
+#gear {
+  right: 8px;
+  color: #9c8fd6;
+  font-size: 13px;
+}
 
 #waveSkip {
-  position: fixed; top: calc(30px + env(safe-area-inset-top, 0px));
-  left: calc(8px + env(safe-area-inset-left, 0px)); z-index: 5;
-  display: flex; align-items: center; gap: 3px;
+  position: fixed;
+  top: calc(30px + env(safe-area-inset-top, 0px));
+  left: calc(8px + env(safe-area-inset-left, 0px));
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 #waveSkip button {
-  width: 26px; height: 18px; border-radius: 5px; border: 1px solid #3b3163;
-  background: rgba(20, 14, 45, 0.75); color: #ffc24b;
-  font: 10px/1 "Courier New", monospace; padding: 0;
+  width: 26px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #3b3163;
+  background: rgba(20, 14, 45, 0.75);
+  color: #ffc24b;
+  font:
+    10px / 1 "Courier New",
+    monospace;
+  padding: 0;
 }
-#waveSkip span { font-size: 10px; color: #9c8fd6; padding: 0 3px; min-width: 22px; text-align: center; }
+#waveSkip span {
+  font-size: 10px;
+  color: #9c8fd6;
+  padding: 0 3px;
+  min-width: 22px;
+  text-align: center;
+}
 
 /* Which bundle is on the screen. A deployed page that quietly serves
    yesterday's build looks exactly like one that worked, so the date
    says so — small, dim, and out of every thumb's way. See
    tools/build-stamp.ts. */
 #buildStamp {
-  position: fixed; right: 6px; bottom: calc(4px + env(safe-area-inset-bottom, 0px));
-  z-index: 4; pointer-events: none;
-  font: 9px/1 "Courier New", monospace; letter-spacing: 1px; color: #3c3468;
+  position: fixed;
+  right: 6px;
+  bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  z-index: 4;
+  pointer-events: none;
+  font:
+    9px / 1 "Courier New",
+    monospace;
+  letter-spacing: 1px;
+  color: #3c3468;
 }
 
 #panel {
-  position: fixed; inset: 0; z-index: 10; display: none; overflow-y: auto;
-  background: rgba(7, 6, 15, 0.96); padding: 18px 16px 40px;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  overflow-y: auto;
+  background: rgba(7, 6, 15, 0.96);
+  padding: 18px 16px 40px;
 }
-#panel h2 { font-size: 13px; letter-spacing: 3px; color: #ffc24b; margin: 0 0 4px; font-weight: 600; }
-#panel .sub { font-size: 10px; color: #6f639f; margin: 0 0 18px; line-height: 1.6; }
-#panel .grp { font-size: 10px; letter-spacing: 2px; color: #2fe0f0; margin: 18px 0 8px; }
-.row { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 11px; }
-.row label { flex: 0 0 122px; color: #9c8fd6; }
-.row span { flex: 0 0 76px; text-align: right; color: #f2e9dc; }
-.row input { flex: 1; accent-color: #ffc24b; }
-.row input[type="checkbox"] { flex: 0 0 16px; height: 16px; }
+#panel h2 {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #ffc24b;
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+#panel .sub {
+  font-size: 10px;
+  color: #6f639f;
+  margin: 0 0 18px;
+  line-height: 1.6;
+}
+#panel .grp {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #2fe0f0;
+  margin: 18px 0 8px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 9px 0;
+  font-size: 11px;
+}
+.row label {
+  flex: 0 0 122px;
+  color: #9c8fd6;
+}
+.row span {
+  flex: 0 0 76px;
+  text-align: right;
+  color: #f2e9dc;
+}
+.row input {
+  flex: 1;
+  accent-color: #ffc24b;
+}
+.row input[type="checkbox"] {
+  flex: 0 0 16px;
+  height: 16px;
+}
 #panel button {
-  margin-top: 18px; padding: 9px 16px; border-radius: 8px; border: 1px solid #ffc24b;
-  background: transparent; color: #ffc24b; font: 12px "Courier New", monospace; letter-spacing: 2px;
+  margin-top: 18px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid #ffc24b;
+  background: transparent;
+  color: #ffc24b;
+  font:
+    12px "Courier New",
+    monospace;
+  letter-spacing: 2px;
 }

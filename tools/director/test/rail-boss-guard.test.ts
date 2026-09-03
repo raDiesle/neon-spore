@@ -17,13 +17,15 @@ import { describe, expect, it } from "bun:test";
  * `:disabled` rule was scoped to `.cell-actions`, so a disabled COPY/DELETE
  * rendered pixel-identical to a live, unhovered one. `.disabled` alone was
  * never going to look disabled. That is now the stylesheet's job — an
- * unscoped `button:disabled` in `index.html`, which covers every disabled
- * button in the director rather than the two `rail.ts` could reach — so the
- * second test below reads the stylesheet instead of this file.
+ * unscoped `button:disabled` in `src/director.css`, which covers every
+ * disabled button in the director rather than the two `rail.ts` could reach —
+ * so the second test below reads the stylesheet instead of this file.
  */
 
 const source = await Bun.file(Bun.fileURLToPath(new URL("../src/rail.ts", import.meta.url))).text();
-const html = await Bun.file(Bun.fileURLToPath(new URL("../index.html", import.meta.url))).text();
+const css = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/director.css", import.meta.url)),
+).text();
 
 describe("the boss guard on COPY and DELETE", () => {
   it("still sets .disabled and a title, re-evaluated on every render", () => {
@@ -39,10 +41,10 @@ describe("the boss guard on COPY and DELETE", () => {
   });
 
   it("and the stylesheet greys every disabled button, not only .cell-actions", () => {
-    expect(html).toMatch(/^\s*button:disabled \{[^}]*opacity:[^}]*cursor:[^}]*\}/m);
+    expect(css).toMatch(/^\s*button:disabled \{[^}]*opacity:[^}]*cursor:[^}]*\}/m);
     // Hover must not brighten a button that cannot be pressed.
-    expect(html).toMatch(/button:hover:not\(:disabled\)/);
-    expect(html).not.toMatch(/\.cell-actions button:disabled/);
+    expect(css).toMatch(/button:hover:not\(:disabled\)/);
+    expect(css).not.toMatch(/\.cell-actions button:disabled/);
   });
 
   it("both buttons go through the same guard function, so they cannot drift apart", () => {

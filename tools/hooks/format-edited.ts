@@ -14,10 +14,11 @@
 import { editedPath, readPayload } from "./payload.ts";
 
 /**
- * What Biome is asked to format. `.css` and `.js` are in the list and are not
- * yet in `biome.json`'s own `files.includes`, so Biome skips them quietly —
- * `--no-errors-on-unmatched` is what makes that a no-op rather than a failure,
- * and widening the config is a queue item of its own.
+ * What Biome is asked to format. Every extension here is now in `biome.json`'s
+ * own `files.includes` as well, so nothing on the list is skipped quietly.
+ * `--no-errors-on-unmatched` stays because a path can still fall outside the
+ * config — anything under `node_modules`, `dist` or `legacy` — and a hook that
+ * fails on an edit it was never meant to touch is worse than one that shrugs.
  */
 export const FORMATTED = [".ts", ".tsx", ".js", ".jsx", ".json", ".css"] as const;
 
