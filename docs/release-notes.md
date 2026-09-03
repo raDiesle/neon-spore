@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · b88474e — A claim is written on main too, where a session in its own clone can see it
+
+The claim was a branch and nothing else, on the argument that a mark has to be committed to be seen and the session that took the item has not committed anything yet. That argument was about a mark on the *lane's* branch. Committed straight to `main`, a mark is visible the moment it is made — and on 3 September 2026 two sessions did the same six items in parallel because a local ref is nothing to a checkout that only ever sees `origin`.
+
 ## 2026-09-03 · cc8d7fd — The queue loses two more: stage.test.ts and the three loops
 
 Both landed with the work above — `stage.test.ts` split into its two real subjects with its globals restored, and `runStageLoop` called by the two files that used to re-type it.
