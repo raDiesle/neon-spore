@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 07c6cea — A wave carries a stable id, so a rename cannot break what points at it
+
+`DEMONSTRATIONS` named its wave by string and the director can rename a wave from its own screen, so a save the owner made landed `main` red. It has already happened once: ON THE BEAT became THE THROB, HOLD IT OPEN became THE LID, and the four places naming those waves by string stayed where they were. The names were repaired at the time; the seam that produced them was not, and the next rename would have done it again.
+
 ## 2026-09-04 · 84e4841 — bun run frames can fire the cannon, so a hit effect can be photographed
 
 `--hold` was the only way a capture pressed anything, and all four controls it accepts are *held* — none of them is a shot. So every effect that exists only because a bullet met a body (a shed layer, a shell piece, a clasp opening, a torn veil, a bare core) could not be photographed by the tool CLAUDE.md names for showing the owner something, and the lane that wanted one hand-rolled a throwaway playwright script to get it — the fifth such script `shot.ts`'s own header counts.
