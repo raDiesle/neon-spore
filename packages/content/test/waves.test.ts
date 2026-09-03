@@ -12,6 +12,20 @@ describe("wave content", () => {
     expect(secondsToHull).toBeGreaterThanOrEqual(4);
   });
 
+  it("gives every wave that carries an id a unique one", () => {
+    // `Wave.id` is the stable handle references bind to (`DEMONSTRATIONS`), and
+    // a handle that names two waves resolves to whichever comes first — the
+    // silent breakage the id exists to prevent. Optional, so only the ids that
+    // are present are checked; every shipped wave carries one today.
+    const seen = new Map<string, string>();
+    for (const wave of WAVES) {
+      if (wave.id === undefined) continue;
+      const owner = seen.get(wave.id);
+      expect(owner, `id "${wave.id}" is on both ${owner} and ${wave.name}`).toBeUndefined();
+      seen.set(wave.id, wave.name);
+    }
+  });
+
   it("passes the one-sentence test", () => {
     for (const wave of WAVES) {
       expect(wave.sentence, `${wave.name} has no one-sentence description`).toMatch(/\S/);

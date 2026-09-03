@@ -1,5 +1,4 @@
 import {
-  DEMONSTRATIONS,
   demonstrationConfig,
   demonstrationIndex,
   demonstrationWave,
@@ -28,7 +27,7 @@ export function demoRows(): DemoRow[] {
   return MECHANIC_IDS.map((id) => ({
     id,
     what: mechanic(id).what,
-    waveName: DEMONSTRATIONS[id].wave,
+    waveName: demonstrationWave(id).name,
   }));
 }
 

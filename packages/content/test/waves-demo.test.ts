@@ -35,7 +35,7 @@ describe("demonstrations", () => {
       if (mechanic(id).reach !== "spawn") continue;
       expect(
         mechanicsInWave(demonstrationWave(id)),
-        `${DEMONSTRATIONS[id].wave} has no ${id}`,
+        `${DEMONSTRATIONS[id].waveId} has no ${id}`,
       ).toContain(id);
     }
   });
@@ -66,6 +66,24 @@ describe("demonstrations", () => {
     const before = { ...DEFAULT_CONFIG };
     for (const id of MECHANIC_IDS) demonstrationConfig(id);
     expect(DEFAULT_CONFIG).toEqual(before);
+  });
+
+  it("still finds its wave after the director renames it", () => {
+    // The whole reason a demonstration binds by `id` and not by `name`: the
+    // director edits a wave's name from its own screen (`rail.ts`), and a
+    // reference against the name would land `main` red the next save. Rename
+    // every wave in place — exactly what the director's input handler does —
+    // and each demonstration must resolve to the same wave it did before.
+    const before = MECHANIC_IDS.map((id) => demonstrationWave(id));
+    const restore = WAVES.map((w) => w.name);
+    try {
+      for (const w of WAVES) w.name = `${w.name} (RENAMED)`;
+      for (const [i, id] of MECHANIC_IDS.entries()) {
+        expect(demonstrationWave(id), `${id} lost its wave to a rename`).toBe(before[i]!);
+      }
+    } finally {
+      for (const [i, w] of WAVES.entries()) w.name = restore[i]!;
+    }
   });
 });
 

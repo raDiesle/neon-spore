@@ -82,8 +82,11 @@ export function bindDemoPanel(
     for (const id of MECHANIC_IDS) {
       const demo = DEMONSTRATIONS[id];
       let broken: string | null = null;
+      let waveLabel = demo.waveId;
       try {
-        demonstrationWave(id);
+        // The name when it resolves, so the row reads as prose; the bare id is
+        // only shown when the wave has gone and the row is already broken.
+        waveLabel = demonstrationWave(id).name;
       } catch (err) {
         broken = String(err);
       }
@@ -98,7 +101,7 @@ export function bindDemoPanel(
       button.addEventListener("click", () => openDemo(id));
       head.append(button);
       row.append(head);
-      row.append(el("p", "wave", `wave — ${demo.wave}`));
+      row.append(el("p", "wave", `wave — ${waveLabel}`));
       row.append(el("p", "what", broken ?? mechanic(id).what));
       body.append(row);
     }

@@ -79,24 +79,6 @@ Add a `--press` that takes a sequence of presses with tick offsets, e.g.
 in `captureAt`'s tick loop. Prove it with a unit test on the parser (`hold.ts`
 already has one to copy) and by capturing a frame of THE RIND mid-shed.
 
-## Bind a demonstration to its wave by something a rename cannot break
-
-- **Found:** 2026-09-03, claude/snake-svg-graphic-24d2fc
-- **Files:** `packages/content/src/waves-demo.ts`, `packages/content/src/waves.ts`, `packages/content/test/waves-demo.test.ts`, `tools/director/test/brush-tooltip.test.ts`
-
-`DEMONSTRATIONS` names its wave by a string and the director can rename a wave
-from its own screen, so a save the owner makes lands `main` red. It has already
-happened once — `ON THE BEAT` became `THE THROB` and `HOLD IT OPEN` became
-`THE LID`, and four places naming a wave by string stayed where they were.
-"The names that point at waves follow the waves that were renamed" repaired the
-names; the seam that produced them is untouched, and the next rename does it
-again.
-
-Give a wave a stable id the registry holds instead — a field the director never
-edits — or make the director rewrite every reference as part of its save. The
-proof is the same either way: rename a wave through the director's own save
-path and watch `bun run check` stay green.
-
 ## Ignore `docs/frames/`, which every `bun run frames` blocks a landing with
 
 - **Found:** 2026-09-03, claude/gyre-animation-wheel-visuals-ab2e28

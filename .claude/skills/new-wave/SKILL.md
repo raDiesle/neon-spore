@@ -23,6 +23,7 @@ field and remapped at runtime; `beat` is the offset from the start of the wave.
 
 ```ts
 {
+  id: "the-wall",
   name: "THE WALL",
   sentence: "The one where the cannon never stops moving.",
   entries: [{ beat: 0, col: 0, color: "red" }],
@@ -31,6 +32,13 @@ field and remapped at runtime; `beat` is the offset from the start of the wave.
 
 `color`: a fixed colour, or `null` with `kind: "meteor"` for the rock, which
 carries none.
+
+`id`: a stable handle in kebab-case, so anything that has to point at this wave
+survives a later rename. Write it once (the director never edits it) and match
+the name at the time. Required only if something will reference the wave — a
+`DEMONSTRATIONS` row in `waves-demo.ts`, most of all — but every shipped wave
+carries one and `test/waves.test.ts` keeps them unique. When the wave shows a
+mechanic for the first time, add its `waveId` to `DEMONSTRATIONS`.
 
 ## 2a. A guide, if and only if the wave introduces something
 

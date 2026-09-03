@@ -128,6 +128,24 @@ export interface WaveGuide {
 }
 
 export interface Wave {
+  /**
+   * A stable handle for anything that has to point *at this wave* and go on
+   * pointing at it after the owner renames it. `name` is prose the director
+   * edits from its own screen (`rail.ts`), so a reference written against the
+   * name lands `main` red the next time the name changes — which has already
+   * happened once, when ON THE BEAT became THE THROB and four places naming it
+   * by string stayed behind. An `id` is not prose and the director never edits
+   * it: it is authored once, in kebab-case of the wave's first name, and left
+   * alone. `DEMONSTRATIONS` (`waves-demo.ts`) binds by it for exactly that
+   * reason, and `test/waves-demo.test.ts` renames a wave and proves the binding
+   * survives.
+   *
+   * Optional because a fresh or copied draft has none until it needs one —
+   * nothing points at a wave the moment it is made. `test/waves.test.ts` keeps
+   * every id that *is* present unique, so a reference always resolves to one
+   * wave or throws.
+   */
+  id?: string;
   name: string;
   /** The one-sentence test. Not flavour text — the reason the wave exists. */
   sentence: string;

@@ -156,6 +156,9 @@ function serializeBoss(boss: BossEntry): string {
 function serializeWave(wave: Wave): string {
   const lines: string[] = [];
   lines.push("  {");
+  // The stable handle first, when the wave carries one. Optional, so a draft
+  // the director just made writes no id line and the round trip stays exact.
+  if (wave.id) lines.push(...textField("id", wave.id));
   lines.push(...textField("name", wave.name));
   lines.push(...textField("sentence", wave.sentence));
   // Directly under `sentence`, which is where the owner asked for it and where

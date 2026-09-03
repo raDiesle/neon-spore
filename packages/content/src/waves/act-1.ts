@@ -8,6 +8,7 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1: Wave[] = [
   {
+    id: "first-step",
     name: "FIRST STEP",
     sentence: "The one where you only have to be in the right column.",
     guide: {
@@ -18,6 +19,7 @@ export const WAVES_ACT_1: Wave[] = [
     entries: [{ beat: 0, col: 2, color: "red" }],
   },
   {
+    id: "two-colours",
     name: "TWO COLOURS",
     sentence: "The one where colour starts to matter.",
     guide: {
@@ -31,6 +33,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "alternating",
     name: "ALTERNATING",
     sentence: "The one where you never keep the same colour twice.",
     entries: [
@@ -40,6 +43,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "the-rock",
     name: "THE ROCK",
     sentence: "The one where neither of you can do it alone.",
     guide: {
@@ -50,6 +54,7 @@ export const WAVES_ACT_1: Wave[] = [
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
   },
   {
+    id: "two-rocks",
     name: "TWO ROCKS",
     sentence: "The one where the same handover has to happen twice in a row.",
     entries: [
@@ -58,6 +63,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "the-hand",
     name: "THE HAND",
     sentence: "The one where three arrive on the same beat and the shield is one column.",
     entries: [
@@ -67,6 +73,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "torch",
     name: "TORCH",
     sentence: "The one where the only warning is on the other player's screen.",
     guide: {
@@ -81,6 +88,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "shield-then-cannon",
     name: "SHIELD, THEN CANNON",
     sentence: "The one where you switch jobs mid-wave.",
     entries: [
@@ -89,6 +97,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "the-wall",
     name: "THE WALL",
     sentence: "The one where the cannon never stops moving.",
     entries: [
@@ -99,6 +108,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "shoot-and-shield",
     name: "SHOOT AND SHIELD",
     sentence: "The one that alternates between the two jobs on a fixed beat.",
     entries: [
@@ -109,6 +119,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "in-its-shadow",
     name: "IN ITS SHADOW",
     sentence: "The one where you hold back the very thing you are trying to shoot.",
     entries: [
@@ -119,6 +130,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "crowded",
     name: "CROWDED",
     sentence: "The one where the jobs overlap and you have to say what you are doing.",
     entries: [
@@ -130,6 +142,7 @@ export const WAVES_ACT_1: Wave[] = [
     ],
   },
   {
+    id: "salvage",
     name: "SALVAGE",
     sentence: "The one where shooting something is only half of getting it.",
     guide: {
@@ -144,6 +157,7 @@ export const WAVES_ACT_1: Wave[] = [
     pods: [{ beat: 0, col: 3, row: 3 }],
   },
   {
+    id: "finale",
     name: "FINALE",
     sentence: "The one where everything you have learned arrives at once.",
     entries: [
