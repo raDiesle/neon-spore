@@ -368,10 +368,21 @@ test must stay green: a ready press only exists in a room.
 Stands alone, and the two identity items below build on it — do this one first.
 The first time a device enters the room screen with no stored name, ask for one:
 a single field, kept in `localStorage` under `neon-spore.name` (wrapped in
-try/catch like `view.ts`'s store), trimmed, length-capped, everything in
-English. Once set it is shown, with a way to change it. Pure helpers in
-`nickname.ts` — `normalizeName(raw): string` and `isName(s): boolean` — tested
-the way `join-words.ts`'s functions are, so no DOM is needed to prove the rules.
+try/catch like `view.ts`'s store) and everything in English.
+
+**The rules, decided by the owner on 3 September 2026.** A name is *required* —
+the room screen does not continue without one. `normalizeName` trims the ends,
+collapses any run of inner whitespace to one space, and drops anything that is
+not a letter, a digit or one of those spaces; `isName` then holds the result to
+3 to 12 characters. Twelve because a seat pill on a narrow phone is what has to
+hold it. Drawn uppercase like the rest of the UI, by CSS rather than by storing
+it that way — what is stored is what was typed. Once set it is shown; *changing*
+it lives on the settings page (see "A settings page on the menu"), not here, so
+this screen only ever asks the first time.
+
+Pure helpers in `nickname.ts` — `normalizeName(raw): string` and
+`isName(s): boolean` — tested the way `join-words.ts`'s functions are, so no DOM
+is needed to prove the rules.
 
 The name rides the join so the other phone can show it: this is a wire change,
 so read the `net-change` skill and add the field to the `welcome`/`peers` path
@@ -393,11 +404,29 @@ small HTTP route on the worker (`apps/server/src/index.ts`) — **not** the room
 socket, which stays a dumb relay (rule 2 of `net-change`). The registry claims
 a normalized name for a device token the browser generates and keeps, answers
 "taken" when someone else holds it, and is idempotent for the same token so a
-returning device keeps its own name. Test the DO the way `apps/server/test/
-room.test.ts` tests the room — claim, re-claim by the same token, collision by
-a different one. The room screen surfaces "that name is taken" and asks for
-another. Kept out of the lockstep path entirely, so it needs no relay to prove:
-`bun test apps/server` covers it.
+returning device keeps its own name.
+
+**Decided by the owner on 3 September 2026: the global registry as written, and
+a recovery code.** A token dies with the browser's storage — a new phone,
+cleared site data, a private window — and without a way back the name is gone
+for good. So a successful claim also mints a short recovery code and shows it
+*once*, in the same breath as the name: "DAVID is yours. Write down 7K2Q."
+Entering a name and its code from another device moves the claim to that
+device's token, which is the whole of the recovery flow: no accounts, no email,
+and nothing new kept on the device but the token it already has. The code is
+generated inside the Durable Object, never on the client, stored beside the
+claim and compared there; a wrong code answers exactly as a taken name does, so
+the route cannot be used to find out which names exist. The room screen grows
+the two fields — the name, and a code that is only needed to take a name
+somebody's old device still holds — and the settings page reuses them for a
+change of name.
+
+Test the DO the way `apps/server/test/room.test.ts` tests the room — claim,
+re-claim by the same token, collision by a different one, recovery with the
+right code, refusal with the wrong one, and that the refusal is
+indistinguishable from a collision. The room screen surfaces "that name is
+taken" and asks for another. Kept out of the lockstep path entirely, so it needs
+no relay to prove: `bun test apps/server` covers it.
 
 ## The room is named for the pair, so they never re-type a code
 
@@ -424,21 +453,31 @@ recent. Client-only past the room key, so `bun run check` proves it.
 Read `net-change`. Today a seat silent for `SEAT_SILENT_MS` (10 s) is evicted
 and the peer told; a run with nobody in it simply hangs. Add a terminal step:
 when **both** seats have been silent past a longer window (30 s — the owner's
-figure), the room writes a small stats record to `ctx.storage` (waves reached,
-score, joint moments — a client sends its own tallies up periodically as a new
-`stats` message the relay stores but never reads into game state) and ends the
-run: it clears `startMs`, so the next arrival gets a fresh beat zero rather than
-rejoining a dead game. The 30-s window must be a `vars` override like
+figure), the room writes a small record to `ctx.storage` and ends the run: it
+clears `startMs`, so the next arrival gets a fresh beat zero rather than
+rejoining a dead game.
+
+**Decided by the owner on 3 September 2026: the record is the pair's furthest
+wave and last score, and the room screen reads it back.** Two fields rather than
+"waves reached, score and joint moments" — a record nothing reads is dead
+weight, and this one has a reader from the day it is written. A client sends its
+own tallies up periodically as a new `stats` message the relay stores and never
+reads into game state; the room hands them back in `welcome`, and the room
+screen shows one line when the pair returns — "you two reached wave 9 · 12 300".
+It is keyed by the room, and the room is keyed by the pair once "The room is
+named for the pair" lands, so the line follows the two people rather than the
+device. Where the two seats disagree the higher tally wins: a seat that dropped
+early holds the lower one, and neither is authoritative. The 30-s window must be a `vars` override like
 `SEAT_SILENT_MS` so the DO test can prove eviction-then-store without waiting.
 Note the trade-off in the code: a longer window also lengthens how long a dead
 pair blocks a third phone from the room. `bun test apps/server` covers the
 storage and the timing; the wire addition wants `relay:check` — say
 **unverified** if no wrangler was run.
 
-## A settings page on the menu: sound, motion, and the install offer
+## A settings page on the menu: sound, motion, your name and the way out
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/settings.ts`, `apps/game/src/audio.ts`, `apps/game/src/install.ts`, `apps/game/src/menu.css`, `apps/game/test/settings.test.ts`
+- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/settings.ts`, `apps/game/src/audio.ts`, `apps/game/src/install.ts`, `apps/game/src/nickname.ts`, `apps/game/src/progress.ts`, `apps/game/src/pairing.ts`, `apps/game/src/menu.css`, `apps/game/test/settings.test.ts`
 
 A SETTINGS entry on the root menu opening a page (built like the WAVES/DEMOS
 pages in `menu-pages.ts`) with: a sound/mute toggle — the mixer exists and only
@@ -448,10 +487,35 @@ that sets a `body` class the menu's animations already respect via
 `prefers-reduced-motion` (add a `data-motion` override so the button wins in
 both directions, the way the theme guidance does); and the home-screen install
 offer, which is a chip today (`install.ts`) and belongs here where a player
-looks for it rather than floating over the field. Keep the persisted flags in a
-small `settings.ts` with pure get/set helpers, tested without a DOM. The
-install chip may stay as the just-in-time prompt; this is the durable place for
-it. Client-only — `bun run check` proves it.
+looks for it rather than floating over the field. The chip may stay as the
+just-in-time prompt; this is the durable place for it.
+
+**Three more, decided by the owner on 3 September 2026.**
+
+- **Your name.** The nickname is asked once on the room screen and *changed*
+  here — this is the one durable place for "things about me", and it keeps the
+  room screen down to asking a first-timer. It reuses the name-and-code fields
+  from "Nicknames are unique, held server-side", including the taken-name
+  answer, so this part depends on that item and is the only part of this page
+  that touches the server.
+- **Clear this device's data.** One button that forgets the stored name, the
+  remembered partners and the progress line — for handing the phone to someone
+  else, or starting clean. It is also the only way back out of a stored name
+  today. It clears the `neon-spore.*` keys and nothing else; the server-side
+  claim is left standing, which is what the recovery code is for, and the button
+  says so in one line.
+- **The build.** A line at the bottom naming the build, so a bug report from a
+  phone can say which one it was. `apps/game/build.ts` already defines
+  `__BUILD_DATE__`, so this is reading a constant, not new machinery.
+
+A haptics toggle was asked for in the same breath and is a queue item of its own
+("A buzz for the two things a player must not miss") — the toggle is a flag like
+the others, but nothing vibrates yet, and a switch that turns nothing on is
+worse than no switch.
+
+Keep the persisted flags in a small `settings.ts` with pure get/set helpers,
+tested without a DOM. Client-only apart from the name — `bun run check` proves
+the rest.
 
 ## A "how to play" page: the two seats, and that talking is the control
 
@@ -508,9 +572,13 @@ against source, since this repo's runner has no DOM) proves it; `bun run check`.
 
 Both the room screen's `#joinLeave` and the menu's LEAVE ROOM entry call
 `link.leave()` at once, which drops the other player's game — one mis-tap ends
-it. Put a one-tap confirm in front of it: an inline two-step on the button
-("LEAVE ROOM" → "SURE? · LEAVE / CANCEL"), or a small dialog reusing the hold
-card's shape. The hold card's own LEAVE ROOM is a deliberate answer to a broken
+it. Put a one-tap confirm in front of it. **The owner chose the inline two-step
+on 3 September 2026**, over a dialog: the button becomes
+"SURE? · LEAVE / CANCEL" in place and reverts on its own after a few seconds if
+neither is pressed. No new overlay, nothing to dismiss, and nothing a thumb
+already travelling can tap through. Both doors get the same two-step.
+
+The hold card's own LEAVE ROOM is a deliberate answer to a broken
 line and stays immediate — this is only the two doors a player presses while the
 game is fine. Client-only, provable with `bun run check`.
 
@@ -566,3 +634,31 @@ why), or reduce `LATER` from 200 samples to a set chosen to cover the same
 phase space — and say in the file which, because a smaller sample is a weaker
 guarantee and the next reader will want to know it was deliberate. A memo is
 the honest one; the samples are the cheap one.
+
+## A buzz for the two things a player must not miss
+
+- **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
+- **Files:** `apps/game/src/haptics.ts`, `apps/game/src/settings.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/loop.ts`, `apps/game/test/haptics.test.ts`
+
+Asked for by the owner on 3 September 2026, alongside the settings page, and
+split out of it: the toggle is a flag like the other two, but nothing vibrates
+yet, and a switch that turns nothing on is worse than no switch.
+
+A phone buzz is a channel that survives a noisy room, which is the room this
+game is played in. `navigator.vibrate` is the whole of the platform side, and it
+is absent on desktop and on iOS — so the toggle only appears where
+`"vibrate" in navigator`, and the call is wrapped, because a browser that has it
+may still refuse it outside a gesture.
+
+Two events, and deliberately only two: **the hull taking a hit**, and **a shot
+in the wrong colour**. Both are already named in the audio catalogue, both are
+things the pair has to notice mid-sentence, and a phone that buzzes at
+everything is a phone somebody turns off. Short pulses — 40 ms for the wrong
+colour, 120 ms for the hull, so the two are told apart by length the way the
+sounds are told apart by shape. Read the events off the same `SimEvent` stream
+the mixer does rather than from a second place, and default the setting **off**.
+
+`haptics.ts` holds `pulseFor(event): number | null` — pure, and the whole of the
+decision — plus a thin caller that checks the setting and the capability.
+`bun run check` proves the mapping; whether the phone actually buzzes is a phone
+question and the report says **unverified**.
