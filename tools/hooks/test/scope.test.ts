@@ -69,8 +69,12 @@ describe("scopeFor", () => {
     expect(scopeFor(["docs/parked.md"])).toEqual(["tools/director", "tools/queue"]);
   });
 
-  it(".claude/, README.md and CLAUDE.md carry no code a test reads", () => {
-    expect(scopeFor([".claude/hooks/check-on-stop.sh"])).toEqual([]);
+  it("settings.json names the hooks, so it runs the test that checks that wiring", () => {
+    expect(scopeFor([".claude/settings.json"])).toEqual(["tools/hooks"]);
+  });
+
+  it("the rest of .claude/, README.md and CLAUDE.md carry no code a test reads", () => {
+    expect(scopeFor([".claude/launch.json"])).toEqual([]);
     expect(scopeFor(["README.md"])).toEqual([]);
     expect(scopeFor(["CLAUDE.md"])).toEqual([]);
   });

@@ -11,7 +11,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/format-edited.sh"
+            "command": "bun tools/hooks/format-edited.ts"
           }
         ]
       },
@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/after-sim-edit.sh"
+            "command": "bun tools/hooks/after-sim-edit.ts"
           }
         ]
       }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/check-on-stop.sh",
+            "command": "bun tools/hooks/check-on-stop.ts",
             "timeout": 180
           }
         ]
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/auto-land.sh",
+            "command": "bun tools/hooks/auto-land.ts",
             "timeout": 900
           }
         ]

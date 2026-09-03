@@ -83,7 +83,7 @@ describe("guard", () => {
 
   it("allows staging by path, dotfiles included", () => {
     expect(refusal("git add tools/hooks/guard.ts")).toBeNull();
-    expect(refusal("git add .claude/hooks/auto-land.sh .claude/settings.json")).toBeNull();
+    expect(refusal("git add tools/hooks/auto-land.ts .claude/settings.json")).toBeNull();
   });
 
   /**

@@ -125,7 +125,7 @@ purpose, is the one step where forgetting is expensive: the trunk moves under
 the branch, the rebase gets larger every day, and the twenty-seventh idle
 worktree is the same failure in a different shape.
 
-So the last step is taken by the machine. `.claude/hooks/auto-land.sh` runs on
+So the last step is taken by the machine. `tools/hooks/auto-land.ts` runs on
 `Stop`, when the turn is already over, and asks three questions git can answer
 without trusting anybody's account of the work:
 
@@ -139,7 +139,7 @@ is uncommitted. Everything else — is the code good, does it replay, does it
 check — is `bun run land`'s to refuse, and it already refuses on its own terms,
 before the trunk has moved.
 
-It shares the `Stop` event with `check-on-stop.sh`, and they never do the same
+It shares the `Stop` event with `check-on-stop.ts`, and they never do the same
 work twice: that one returns immediately when the tree is clean, this one
 returns immediately when it is not.
 

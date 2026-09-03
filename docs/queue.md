@@ -268,12 +268,12 @@ expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 ## Move the director's 1 100 lines of CSS out of index.html; lint .css and .js
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/index.html`, `tools/director/src/director.css`, `biome.json`, `apps/game/public/sw.js`, `.claude/hooks/format-edited.sh`
+- **Files:** `tools/director/index.html`, `tools/director/src/director.css`, `biome.json`, `apps/game/public/sw.js`, `tools/hooks/format-edited.ts`
 
 `tools/director/index.html` is 1 736 lines and its `<style>` spans lines 11 to
 1116. `biome.json` `files.includes` is `**/*.ts` only, so that stylesheet is
 neither formatted nor linted, and so is `apps/game/public/sw.js`, which
-`format-edited.sh` hands to Biome only to have it skipped silently with
+`format-edited.ts` hands to Biome only to have it skipped silently with
 `--no-errors-on-unmatched`. `apps/game/index.html` already links `game.css`, and
 Bun's HTML bundler handles that in both `server.ts` and `build.ts`.
 

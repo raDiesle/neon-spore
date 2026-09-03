@@ -56,7 +56,12 @@ const ROWS: readonly Row[] = [
   // change to their shape can break how those pages parse them.
   { prefix: "docs/spec/", dirs: ["tools/director"] },
 
-  // .claude/, README.md and CLAUDE.md carry no code a test reads.
+  // `settings.json` names every hook and how it is run, and `tools/hooks`
+  // has a test that each of those commands points at a file that exists —
+  // which is exactly the wiring that was silently wrong while four hooks
+  // were invoked through a `bash` that PowerShell does not have.
+  { prefix: ".claude/settings.json", dirs: ["tools/hooks"] },
+  // The rest of .claude/, README.md and CLAUDE.md carry no code a test reads.
   { prefix: ".claude/", dirs: [] },
   { prefix: "README.md", dirs: [] },
   { prefix: "CLAUDE.md", dirs: [] },
@@ -104,21 +109,33 @@ export function scopeFor(paths: readonly string[]): string[] {
   return [...dirs].sort();
 }
 
-if (import.meta.main) {
-  const { spawnSync } = await import("node:child_process");
-  const status = spawnSync("git", ["status", "--porcelain"], { encoding: "utf8" });
-  const diff = spawnSync("git", ["diff", "--name-only", "HEAD"], { encoding: "utf8" });
+/**
+ * Every path this turn could have touched: what is dirty now, and what already
+ * differs from `HEAD` because it was committed during the turn.
+ *
+ * Exported because `check-on-stop.ts` asks the same question and used to ask it
+ * by spawning this file and splitting its output on spaces — a second parser,
+ * and one that could not tell an empty answer from a broken scoper.
+ */
+export function changedPaths(): string[] {
+  const status = Bun.spawnSync(["git", "status", "--porcelain"]);
+  const diff = Bun.spawnSync(["git", "diff", "--name-only", "HEAD"]);
 
   const fromStatus = status.stdout
+    .toString()
     .split("\n")
     .map((line) => line.slice(3).trim())
     .filter(Boolean);
   const fromDiff = diff.stdout
+    .toString()
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
 
-  const paths = [...new Set([...fromStatus, ...fromDiff])];
-  const scope = scopeFor(paths);
+  return [...new Set([...fromStatus, ...fromDiff])];
+}
+
+if (import.meta.main) {
+  const scope = scopeFor(changedPaths());
   if (scope.length > 0) process.stdout.write(scope.join(" "));
 }
