@@ -77,6 +77,7 @@ sounds.
 | `glint` | a bare high sine; neon | over |
 | `chime` | a bell with the harmonics knocked off centre | over |
 | `air` | a band of noise sweeping | around |
+| `noise` | a hiss heard through one filter — the general case `air` is a sweep of | wherever the filter puts it |
 | `spore` | a triangle that cannot hold its pitch; something alive | under |
 | `metal` | a sawtooth with its top filtered off; hull and rock | under |
 | `swell` | the room breathing | under |
