@@ -135,6 +135,7 @@ path and watch `bun run check` stay green.
 ## Give apps/game/src/link.ts room by moving the clock out of it
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Taken:** 2026-09-03, claude/queue-give-apps-game-src-link-ts-room-by-moving-the-cl
 - **Files:** `apps/game/src/link.ts`, `apps/game/src/link-clock.ts`, `apps/game/src/link-refusal.ts`, `apps/game/test/`
 
 `link.ts` is at exactly 250 lines, which is the limit
