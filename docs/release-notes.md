@@ -9,6 +9,36 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · cc8d7fd — The queue loses two more: stage.test.ts and the three loops
+
+Both landed with the work above — `stage.test.ts` split into its two real subjects with its globals restored, and `runStageLoop` called by the two files that used to re-type it.
+
+## 2026-09-03 · 2c838f9 — The director has one fixed-timestep loop, and a test that keeps it at one
+
+`stage-loop.ts` was split out so the loop existed once. It did not: `raster-field.ts` carried a copy under a comment saying it was "the same fixed-timestep loop `stage.ts` runs", and `versus-pair.ts` a third with the rate and the freeze folded in. All three worked, which is the problem — the failure is a catch-up cap raised in one of them and left alone in the other two, and it shows up as one screen bursting after an away tab.
+
+## 2026-09-03 · c397dc9 — stage.test.ts is two files, and takes its globals back down
+
+The file was three unrelated describes under one name: `stage-afterrun.ts`, then a block that imported nothing from the director at all, then `stage-touch.ts`. It also installed a fake `document` at module scope and a fake `window` inside a helper, and removed neither — `bun test` runs every file in one process, so every file loaded after it inherited both.
+
+## 2026-09-03 · f46400c — The queue loses the five items this lane finished, and gains one it found
+
+## 2026-09-03 · 9c7ef66 — The director reads the wave list once per edit, not once per request
+
+`readWaves` imported the waves barrel with a `?t=${Date.now()}` cache-buster, and Bun keeps one ES module record per distinct URL for the life of the process. A director stays up as long as a tab beats every 25 s, so that was a leaked module per `GET /api/waves` — and wrong the other way too: two GETs in the same millisecond shared a URL and therefore a module, so one of them could answer with a list from before a save. `writeWaves` did the same once per act on every save, to learn each act's current length.
+
+## 2026-09-03 · b5705be — shape-fit.ts, the director's largest untested pure module, has a test
+
+Of the director modules no test imported, most are DOM-bound; `shape-fit.ts` is 216 lines that touch no document, and it decides how big a frame every card on the SHAPES page gets. Its neighbour `long-axis.test.ts` covers `shapes-motion.ts`, which answers a different question.
+
+## 2026-09-03 · d110985 — The director's whole-document routes are one table, served and baked from
+
+`server.ts` wrote out `/api/borrowed`, `/api/tower-defence` and `/api/claude-vs-chatgpt` by hand and `build.ts` baked the same three by hand, and the two lists had nothing holding them level. They had already drifted in the readable part: the comment above the borrowed route described `/api/spec`, whose own route two blocks down had none.
+
+## 2026-09-03 · 99972aa — The motion test parses a transform once per pose, not once per point
+
+`shapes-motion.test.ts` took 5.9 s of the director suite and made 11 473 102 `expect()` calls, four per contour point per time sample per catalogue entry. The assertions are gone — one `expect(outside).toEqual([])` per entry now, naming the point and the moment it escaped — and that turns out to have been the smaller half: it bought 0.7 s.
+
 ## 2026-09-03 · 3d54385 — Park the half of the hook migration that did not move
 
 `tools/hooks/guard.ts` took the two PreToolUse guards off bash. The other four hooks are still invoked as `bash .claude/hooks/x.sh`, so a session whose shell has no bash silently gets no formatting after an edit, no typecheck on stop and no automatic landing — the failure is that nothing happens, which is the same gap the guards were moved to close and the hardest kind to notice.
