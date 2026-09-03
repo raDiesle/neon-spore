@@ -10,16 +10,6 @@ import { MIRROR_STEPS, type MirrorEntry } from "@neon-spore/sim";
  * writes a longer sequence, which is a thing they can read back.
  */
 
-/** The sequence a freshly-added mirror starts with — one of everything, in order. */
-export const MIRROR_DEFAULT: MirrorEntry = {
-  kind: "mirror",
-  rounds: [
-    ["fireRed", "guard"],
-    ["cannonLeft", "cannonRight", "cannonRight"],
-    ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
-  ],
-};
-
 function button(label: string, hex: string | null, onClick: () => void): HTMLButtonElement {
   const el = document.createElement("button");
   el.type = "button";

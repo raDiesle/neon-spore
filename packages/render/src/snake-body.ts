@@ -52,11 +52,7 @@ export function snakeSlide(snake: SnakeState, tick: number): number {
  * moves towards the one in front of it, which is what a snake does: the shape
  * flows along itself rather than every part of it jumping at once.
  */
-export function snakeJoints(
-  arena: Arena,
-  snake: SnakeState,
-  t: number,
-): { x: number; y: number }[] {
+function snakeJoints(arena: Arena, snake: SnakeState, t: number): { x: number; y: number }[] {
   const out: { x: number; y: number }[] = [];
   for (const [i, tile] of snake.body.entries()) {
     const here = centre(arena, tile.col, tile.row);

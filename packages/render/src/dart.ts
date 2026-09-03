@@ -71,7 +71,7 @@ function smooth(p: number): number {
  * — and it is small enough that what it announces is "now", never "which
  * way", which is the arrow's word.
  */
-export function dartThrust(c: Creature, beatPhase: number): number {
+function dartThrust(c: Creature, beatPhase: number): number {
   const p = Math.max(0, Math.min(1, beatPhase));
   if (c.dartFloat) return p < 0.8 ? 0 : ((p - 0.8) / 0.2) * 0.22;
   return (1 - p) ** 1.4;

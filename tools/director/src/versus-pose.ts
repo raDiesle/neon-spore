@@ -53,7 +53,7 @@ const SLOT_POSE: Record<string, string> = {
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
-export const DEFAULT_POSE_NAME = "SLICK · FALLING";
+const DEFAULT_POSE_NAME = "SLICK · FALLING";
 
 const ALL_POSES: Pose[] = POSE_GROUPS.flatMap((g) => g.poses);
 

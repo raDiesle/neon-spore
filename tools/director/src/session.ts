@@ -94,7 +94,7 @@ export function placeToSearch(place: Place): string {
 }
 
 /** Read once, at startup — see the module header. */
-export function readPlace(): Place {
+function readPlace(): Place {
   return parsePlace(window.location.search);
 }
 
@@ -104,7 +104,7 @@ export function readPlace(): Place {
  * growing the history stack. Never touches anything but the query string —
  * the path and any hash a future tool adds are left exactly as they were.
  */
-export function writePlace(place: Place): void {
+function writePlace(place: Place): void {
   const url = `${window.location.pathname}${placeToSearch(place)}${window.location.hash}`;
   window.history.replaceState(null, "", url);
 }

@@ -109,7 +109,7 @@ export function muzzleCenterY(l: Layout, tipY: number, intake: number): number {
 }
 
 /** The mouth's place on a finished hull frame, for the pass that has one. */
-export function mouthFrame(f: HullFrame, l: Layout, intake: number): MouthFrame {
+function mouthFrame(f: HullFrame, l: Layout, intake: number): MouthFrame {
   const tip = surface(f, f.cannonX);
   return {
     x: tip.x,

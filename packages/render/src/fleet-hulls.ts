@@ -35,7 +35,7 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 
 /** Beats a sinking hull takes to go under. Long enough to be watched. */
-export const FLEET_SINK_BEATS = 3;
+const FLEET_SINK_BEATS = 3;
 
 /** The two colours a fleet is drawn in, alternating down the list. */
 const HULLS = [
@@ -52,7 +52,7 @@ const HULLS = [
  * builds a fresh world whose `sunkBeat` is all -1, so there is no way for last
  * run's sinking to be drawn over this one's chart.
  */
-export function sinkPhase(world: World, boss: FleetState, at: number, beatPhase: number): number {
+function sinkPhase(world: World, boss: FleetState, at: number, beatPhase: number): number {
   const beat = boss.sunkBeat[at] ?? -1;
   if (beat === -1) return -1;
   return Math.min(1, (world.beat - beat + beatPhase) / FLEET_SINK_BEATS);

@@ -78,7 +78,7 @@ function card(pose: Pose): HTMLElement {
 let drawn = false;
 
 /** Build the STATES tab's own cards, once. */
-export function renderStates(): void {
+function renderStates(): void {
   if (drawn) return;
   const body = document.getElementById("statesCards");
   if (!body) return;

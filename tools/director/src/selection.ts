@@ -34,7 +34,7 @@ export interface Selection {
   watch(fn: () => void): void;
 }
 
-export function sameCell(a: Cell | null, b: Cell | null): boolean {
+function sameCell(a: Cell | null, b: Cell | null): boolean {
   if (!a || !b) return a === b;
   return a.beat === b.beat && a.col === b.col;
 }

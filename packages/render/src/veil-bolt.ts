@@ -41,7 +41,7 @@ import { cloudEdge } from "./veil-shape.js";
  * with a different picture of the same beat, and the beat is what the pair is
  * counting.
  */
-export function veilScatter(a: number, b: number): number {
+function veilScatter(a: number, b: number): number {
   const n = Math.sin(a * 12.9898 + b * 78.233) * 43758.5453;
   return n - Math.floor(n);
 }

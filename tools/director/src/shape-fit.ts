@@ -82,7 +82,7 @@ export interface Still {
 const stills = new Map<CatalogueEntry, Still>();
 const fits = new Map<CatalogueEntry, Map<OwnMotion | undefined, Bounds>>();
 
-export function stillOf(entry: CatalogueEntry): Still {
+function stillOf(entry: CatalogueEntry): Still {
   const had = stills.get(entry);
   if (had) return had;
   const bounds = boundsOver(entry.subject, FIT_TIMES);
@@ -99,7 +99,7 @@ export function stillOf(entry: CatalogueEntry): Still {
 }
 
 /** The box the shape needs once its own-motion is counted in. */
-export function fitOf(entry: CatalogueEntry, motion: OwnMotion | undefined, still: Still): Bounds {
+function fitOf(entry: CatalogueEntry, motion: OwnMotion | undefined, still: Still): Bounds {
   let byMotion = fits.get(entry);
   if (!byMotion) {
     byMotion = new Map();

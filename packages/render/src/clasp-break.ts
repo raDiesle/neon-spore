@@ -122,7 +122,7 @@ function drawBlizzard(
 }
 
 /** The shield coming apart, around a body that is now an ordinary slick or bulb. */
-export function drawClaspBreak(
+function drawClaspBreak(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,

@@ -15,9 +15,9 @@ import type { EggBeats } from "./egg-curve.js";
  */
 
 /** How much fatter the contour is towards the ship than at the vent. */
-export const PEAR = 0.34;
+const PEAR = 0.34;
 /** Half width and half height at rest, in tiles. */
-export const REST_RX = 0.27;
+const REST_RX = 0.27;
 export const REST_RY = 0.23;
 /** Points round the contour. Enough that a lobe is a lobe and not a corner. */
 const STEPS = 34;

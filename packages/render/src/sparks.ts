@@ -24,7 +24,7 @@ export interface Spark {
   g: number;
 }
 
-export const SPARK_LIFE = 0.4;
+const SPARK_LIFE = 0.4;
 
 export class Sparks {
   private list: Spark[] = [];

@@ -31,7 +31,7 @@ function renderNote(note: Note): HTMLElement {
   return row;
 }
 
-export function renderNotes(body: HTMLElement, notes: readonly Note[]): void {
+function renderNotes(body: HTMLElement, notes: readonly Note[]): void {
   body.replaceChildren();
   if (notes.length === 0) {
     body.appendChild(

@@ -30,7 +30,7 @@ const cache = new Map<Brush, string | null>();
  * kind whose pose could not be built. `palette.ts` is what falls back to the
  * plain contour.
  */
-export function brushArtUrl(brush: Brush): string | null {
+function brushArtUrl(brush: Brush): string | null {
   if (SKIP.has(brush)) return null;
   if (!cache.has(brush)) {
     let url: string | null = null;

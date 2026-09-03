@@ -32,7 +32,7 @@ export function parseWidth(raw: string | null): number | null {
  * for the map at its widest, and never zero, which would leave a column with
  * no edge left to grab. */
 export const MIN_WIDTH = 140;
-export const MAX_WIDTH = 1600;
+const MAX_WIDTH = 1600;
 
 export function clampWidth(px: number): number {
   return Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, Math.round(px)));

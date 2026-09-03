@@ -115,7 +115,7 @@ const TALKER = {
 
 /** The seat that has to say something about this kind, or null if the two of
  * them can both see everything there is to see about it. */
-export function commsTalker(kind: CreatureKind): Seat | null {
+function commsTalker(kind: CreatureKind): Seat | null {
   return TALKER[kind];
 }
 

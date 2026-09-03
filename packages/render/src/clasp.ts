@@ -37,7 +37,7 @@ export interface ClaspSheet {
   frameMs: number;
 }
 
-export const CLASP_SHEET: ClaspSheet = { frames: 20, frameSize: 128, frameMs: 70 };
+const CLASP_SHEET: ClaspSheet = { frames: 20, frameSize: 128, frameMs: 70 };
 
 /** How far the bubble reaches past the body it holds, as a share of a tile. */
 export const CLASP_RADIUS_MUL = 0.78;
@@ -47,7 +47,7 @@ export const CLASP_RADIUS_MUL = 0.78;
  * The reference the owner attached is mostly this: the sphere is small in its
  * own picture and the light around it is not.
  */
-export const CLASP_GLOW_MUL = 2.4;
+const CLASP_GLOW_MUL = 2.4;
 const GLOW_MUL = CLASP_GLOW_MUL;
 
 /**

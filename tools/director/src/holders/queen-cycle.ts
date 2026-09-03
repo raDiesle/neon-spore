@@ -16,7 +16,7 @@ import { BEAT_SECONDS } from "./types.js";
  */
 
 /** Petals a demo cycle starts at — one slot per starting petal, same as `queen.ts`'s health bar. */
-export const DEMO_START_PETALS = 5;
+const DEMO_START_PETALS = 5;
 
 /** Full health-loss cycles before she is shown healed again. */
 const HEALTH_CYCLES = DEMO_START_PETALS;

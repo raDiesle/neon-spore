@@ -42,7 +42,7 @@ function line(className: string, text: string): HTMLElement {
  * as a grey box of system text a second and a half after the pointer stops,
  * and which cannot hold a picture at all.
  */
-export function brushCard(brush: Brush): HTMLElement | null {
+function brushCard(brush: Brush): HTMLElement | null {
   const spec = BRUSHES.find((b) => b.brush === brush);
   if (!spec) return null;
   const card = document.createElement("div");

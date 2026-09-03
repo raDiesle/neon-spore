@@ -56,7 +56,7 @@ export function slabAt(id: number, band: number, time: number, rage: number): nu
 }
 
 /** Whether this band is one of the few thrown clear of the body this frame. */
-export function slabIsLoose(id: number, band: number, time: number, rage: number): boolean {
+function slabIsLoose(id: number, band: number, time: number, rage: number): boolean {
   return Math.abs(slabAt(id, band, time, rage)) > 0.42 - rage * 0.2;
 }
 

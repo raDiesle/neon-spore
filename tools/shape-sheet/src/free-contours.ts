@@ -94,7 +94,7 @@ export const FREE_CONTOURS: CatalogueEntry[] = [
     status: "free",
     slot: "creature",
     owner:
-      "no creature — the live torch draws as a plain meteor, and this survives only as the shape the flare clones",
+      "no creature — the live torch draws as a plain meteor, and this survives only as a spare contour",
   },
   {
     subject: hullArc(

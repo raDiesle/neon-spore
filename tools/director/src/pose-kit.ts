@@ -38,7 +38,7 @@ import {
  */
 
 /** The hull is held: a pose must not be able to end the run it is posing. */
-export const POSE_CONFIG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+const POSE_CONFIG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 export const POSE_TPB = ticksPerBeat(POSE_CONFIG);
 
 /** Which part of the phone the picture is cut out of. */

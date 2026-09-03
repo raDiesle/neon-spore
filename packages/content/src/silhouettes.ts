@@ -207,8 +207,8 @@ export const METEOR: CrystalSilhouette = {
  * The torch's original shape — more sides and deeper facets than `METEOR`,
  * the same non-living crystal material. The live torch now draws as a plain
  * `METEOR` instead (`packages/render/src/torch.ts`); this silhouette lives on
- * as the shape `packages/render/src/flare.ts` clones from, a starting point
- * for a future creature. Judge changes with `bun run shapes:report` before
+ * as a spare shape nothing draws, a starting point for a future creature.
+ * Judge changes with `bun run shapes:report` before
  * eyeballing the sheet.
  */
 export const TORCH: CrystalSilhouette = {

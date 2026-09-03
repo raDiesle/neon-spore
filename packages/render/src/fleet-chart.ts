@@ -58,12 +58,12 @@ export function chartY(c: Chart, row: number): number {
  * Z is nothing a chart this size can reach — the field would need
  * twenty-seven columns before it did.
  */
-export function chartColName(col: number): string {
+function chartColName(col: number): string {
   return String.fromCharCode(65 + col);
 }
 
 /** A row's name. One-based, because nobody says "row zero" out loud. */
-export function chartRowName(row: number): string {
+function chartRowName(row: number): string {
   return String(row + 1);
 }
 

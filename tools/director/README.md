@@ -322,7 +322,7 @@ is what lets a concept be handed a shape.
 Free ones first, then the taken ones with the creature that carries each. Free
 today: two creature contours the setting outgrew — five sharp lobes with a
 nervous shiver, and the one contour taller than it is wide — the burning rock
-that survives only as the shape the flare clones, and three of the four shield
+that survives only as a spare contour, and three of the four shield
 ideas the style guide drew, the fourth having become the lobe of the hull the
 game actually has.
 

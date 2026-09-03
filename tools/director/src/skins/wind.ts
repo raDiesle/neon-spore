@@ -87,7 +87,7 @@ export function wind(bands: readonly Band[], t: number): void {
  * over `±TWIST` across a body, so `max−min` of this over that range is the
  * end-to-end spread the ceiling is about, sampled without a document.
  */
-export function windOffset(psi: number, t: number): number {
+function windOffset(psi: number, t: number): number {
   return AMP * Math.sin((2 * Math.PI * t) / WIND_PERIOD - psi);
 }
 

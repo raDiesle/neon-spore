@@ -32,11 +32,6 @@ export function draftFor(name: string): CatalogueEntry | undefined {
   return CATALOGUE.find((e) => e.suggests === name);
 }
 
-/** Every concept name a shape has been drawn at. The join, from the other side. */
-export function draftedNames(): string[] {
-  return [...new Set(CATALOGUE.map((e) => e.suggests).filter((s): s is string => Boolean(s)))];
-}
-
 const BOX = 46;
 const WIDE = 132;
 

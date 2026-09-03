@@ -54,28 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Drop the export keyword from symbols only their own file uses; delete flare.ts
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/render/src/flare.ts`, `packages/render/src/clasp-break.ts`, `packages/render/src/fleet-chart.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/ghost-glitch.ts`, `packages/render/src/muzzle.ts`, `packages/render/src/snake-body.ts`, `packages/render/src/veil-bolt.ts`, `packages/render/src/warden.ts`, `packages/render/src/comms.ts`, `packages/render/src/dart.ts`, `packages/render/src/clasp.ts`, `packages/render/src/egg-contour.ts`, `packages/render/src/sparks.ts`, `tools/director/src/brush-art.ts`, `tools/director/src/brush-tooltip.ts`, `tools/director/src/concept-art.ts`, `tools/director/src/holders/queen-cycle.ts`, `tools/director/src/notes-page.ts`, `tools/director/src/selection.ts`, `tools/director/src/session.ts`, `tools/director/src/shape-fit.ts`, `tools/director/src/skins/wind.ts`, `tools/director/src/states-page.ts`, `tools/director/src/waves-api.ts`, `tools/director/src/simon-editor.ts`, `tools/director/src/pose-kit.ts`, `tools/director/src/versus-pose.ts`, `tools/director/src/column-width.ts`
-
-`drawFlare` in `render/src/flare.ts` (93 lines) is imported by nothing; its own
-header says it exists to be copied from. Git keeps the copy source. Delete it and
-update the three prose mentions (`packages/content/src/silhouettes.ts` line 210,
-`tools/director/README.md` line 325, `tools/shape-sheet/README.md` line 40).
-
-Exporting a symbol hides it from unused-code lint, which is how `flare.ts` stayed
-invisible. Render symbols exported and used only in their own file:
-`drawClaspBreak`, `chartColName`, `chartRowName`, `sinkPhase`, `FLEET_SINK_BEATS`,
-`slabIsLoose`, `mouthFrame`, `snakeJoints`, `veilScatter`, `wardenRadius`,
-`commsTalker`, `dartThrust`, `CLASP_SHEET`, `CLASP_GLOW_MUL`, `PEAR`, `REST_RX`,
-`SPARK_LIFE`. Director: `brushArtUrl`, `brushCard`, `draftedNames`,
-`DEMO_START_PETALS`, `renderNotes`, `sameCell`, `readPlace`, `writePlace`,
-`stillOf`, `fitOf`, `windOffset`, `renderStates`, `writeWaves`, `MIRROR_DEFAULT`,
-`POSE_CONFIG`, `DEFAULT_POSE_NAME`, `MAX_WIDTH`. `draftedNames` and
-`MIRROR_DEFAULT` are referenced nowhere but their definition and can go entirely.
-Re-grep each name before touching it; `bun run check` proves the rest.
-
 ## Split purity.test.ts and move the authored-maze checks into content
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
