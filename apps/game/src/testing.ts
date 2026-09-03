@@ -1,4 +1,5 @@
 import type { SimConfig, World } from "@neon-spore/sim";
+import type { RunState } from "./run-state.js";
 
 /**
  * The prototype's test rig: pause, jump between waves, and sliders for the
@@ -18,8 +19,8 @@ export interface TestPanel {
 export interface TestBindings {
   world: World;
   jumpToWave: (wave: number) => void;
-  isRunning: () => boolean;
-  setRunning: (running: boolean) => void;
+  /** The four holds, and the only thing that decides whether a tick runs. */
+  run: RunState;
 }
 
 /** Only the numeric tunables can sit behind a slider. */
@@ -53,48 +54,38 @@ const SLIDERS: SliderSpec[] = [
   { key: "bandPct", label: "Control band", min: 24, max: 44, s: 1, unit: " %" },
 ];
 
-export function bindTestControls({
-  world,
-  jumpToWave,
-  isRunning,
-  setRunning,
-}: TestBindings): TestPanel {
+export function bindTestControls({ world, jumpToWave, run }: TestBindings): TestPanel {
   const el = (id: string): HTMLElement | null => document.getElementById(id);
   const panel = el("panel");
   const pauseBtn = el("pauseBtn");
   const waveLabel = el("waveLabel");
 
-  // Paused by hand is not the same as paused because the tab went away. Only
-  // the first survives coming back to the game.
-  let pausedByHand = false;
-  const panelOpen = (): boolean => panel?.style.display === "block";
-
   const refreshWave = (): void => {
     if (waveLabel) waveLabel.textContent = `W${world.wave + 1}`;
   };
+  // Paused by hand is not the same as paused because the tab went away, and
+  // neither is the same as paused because a sheet is over the field. All three
+  // are named holds now, so none of them can resume what another is holding.
   const paint = (): void => {
-    if (pauseBtn) pauseBtn.textContent = isRunning() ? "⏸" : "▶";
-  };
-  const apply = (): void => {
-    setRunning(!pausedByHand && !panelOpen() && !document.hidden);
-    paint();
+    if (pauseBtn) pauseBtn.textContent = run.running() ? "⏸" : "▶";
   };
 
+  run.onChange(paint);
+
   pauseBtn?.addEventListener("click", () => {
-    if (panelOpen()) return;
-    pausedByHand = !pausedByHand;
-    apply();
+    if (run.held("panel")) return;
+    run.hold("hand", !run.held("hand"));
   });
 
   const openPanel = (): void => {
     if (panel) panel.style.display = "block";
-    apply();
+    run.hold("panel", true);
   };
   el("gear")?.addEventListener("click", openPanel);
   el("close")?.addEventListener("click", () => {
     if (panel) panel.style.display = "none";
-    pausedByHand = false;
-    apply();
+    run.hold("panel", false);
+    run.hold("hand", false);
   });
 
   for (const btn of document.querySelectorAll<HTMLElement>("#waveSkip button")) {
@@ -128,10 +119,11 @@ export function bindTestControls({
   // Pausing when the tab goes away keeps a returning player from being buried
   // under a burst of catch-up ticks — and coming back resumes on its own,
   // unless the pause was deliberate.
-  document.addEventListener("visibilitychange", apply);
+  document.addEventListener("visibilitychange", () => run.hold("hidden", document.hidden));
 
   refreshWave();
-  apply();
+  run.hold("hidden", document.hidden);
+  paint();
   window.setInterval(refreshWave, 250);
   return { open: openPanel };
 }

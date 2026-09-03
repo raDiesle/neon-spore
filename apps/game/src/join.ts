@@ -2,24 +2,26 @@ import {
   isRoomCode,
   type LinkStatus,
   linkIsFault,
-  linkLabel,
   normalizeRoomCode,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "@neon-spore/net";
+import { chipText, explain, seatWord } from "./join-words.js";
 
 export interface JoinBindings {
   join: (room: string) => void;
   leave: () => void;
+  /** The way out of this screen, which is the menu it was opened from. */
+  back: () => void;
 }
 
 export interface JoinScreen {
   /** Called whenever the link changes; repaints the chip and the overlay. */
   update: (status: LinkStatus) => void;
   /**
-   * Show or hide the room screen. The chip is how a player reaches it; the
-   * main menu is a second door onto the same screen, so it is opened by name
-   * rather than by clicking the chip on the player's behalf.
+   * Show or hide the room screen. The chip is how a player already in a room
+   * reaches it; the main menu is the door for everybody else, so it is opened
+   * by name rather than by clicking the chip on the player's behalf.
    */
   open: (isOpen: boolean) => void;
   /**
@@ -30,25 +32,31 @@ export interface JoinScreen {
 }
 
 /**
- * The room code screen and the network indicator, which are one thing: the
- * indicator is how you get to the screen, and the screen is the only place the
- * indicator's states are spelled out in words.
+ * The room screen and the network indicator, which are one thing: the
+ * indicator is how you get back to the screen, and the screen is the only
+ * place the indicator's states are spelled out in words.
  *
  * A code is four characters and is meant to be said out loud, because the two
  * players are already talking — that is the game. It is the first sentence of
  * every session and there is no lobby, no account and no list of friends.
+ *
+ * The chip is gone entirely while there is no room. It used to sit in the
+ * corner saying SOLO, which is a button that reports the absence of the thing
+ * it opens: nobody reads "SOLO" as "press here for two devices". The way to
+ * two devices is the menu now, and the chip comes back the moment there is a
+ * room for it to be about.
  */
 export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const chip = document.getElementById("linkChip") as HTMLButtonElement | null;
   const screen = document.getElementById("joinScreen");
+  const sheet = document.getElementById("joinSheet");
   const codeEl = document.getElementById("joinCode");
   const stateEl = document.getElementById("joinState");
   const input = document.getElementById("joinInput") as HTMLInputElement | null;
-  const createBtn = document.getElementById("joinCreate");
-  const joinBtn = document.getElementById("joinGo");
-  const soloBtn = document.getElementById("joinSolo");
-  const closeBtn = document.getElementById("joinClose");
-  const shareBtn = document.getElementById("joinShare");
+  const seatEls: [1 | 2, HTMLElement | null][] = [
+    [1, document.getElementById("joinSeat1")],
+    [2, document.getElementById("joinSeat2")],
+  ];
 
   let last: LinkStatus = {
     state: "solo",
@@ -58,6 +66,8 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     slack: 0,
     countdownMs: 0,
     delayMs: 0,
+    stalledMs: 0,
+    awayMs: 0,
     desyncTick: null,
     brokenPromises: 0,
   };
@@ -66,6 +76,16 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const paint = (): void => {
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);
+    // In a room the way in is over: the code box and CREATE would only offer to
+    // throw the room away, which is what LEAVE ROOM is for and says so.
+    sheet?.classList.toggle("in-room", last.state !== "solo");
+    for (const [seat, node] of seatEls) {
+      if (!node) continue;
+      const who = node.querySelector(".who");
+      if (who) who.textContent = seatWord(last, seat);
+      node.classList.toggle("mine", last.player === seat);
+      node.classList.toggle("empty", seatWord(last, seat) === "WAITING…" || last.state === "solo");
+    }
   };
 
   const open = (isOpen: boolean): void => {
@@ -74,30 +94,34 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   };
 
   chip?.addEventListener("click", () => open(screen?.style.display !== "block"));
-  closeBtn?.addEventListener("click", () => open(false));
+  document.getElementById("joinClose")?.addEventListener("click", () => {
+    open(false);
+    b.back();
+  });
 
-  createBtn?.addEventListener("click", () => {
+  document.getElementById("joinCreate")?.addEventListener("click", () => {
     const code = freshCode();
     if (input) input.value = code;
     b.join(code);
   });
 
-  joinBtn?.addEventListener("click", () => {
+  document.getElementById("joinGo")?.addEventListener("click", () => {
     const code = normalizeRoomCode(input?.value ?? "");
     if (isRoomCode(code)) b.join(code);
     else if (stateEl) stateEl.textContent = `A code is ${ROOM_CODE_LENGTH} characters.`;
   });
 
-  soloBtn?.addEventListener("click", () => {
+  document.getElementById("joinLeave")?.addEventListener("click", () => {
     b.leave();
     open(false);
+    b.back();
   });
 
   // Reading four characters aloud is the design and stays the design — the two
   // players are already talking, and that is the game. This is for the minute
   // before they are: the room has to be got to the other phone somehow, and on
   // two handsets in two cities that is a message rather than a voice.
-  shareBtn?.addEventListener("click", () => {
+  document.getElementById("joinShare")?.addEventListener("click", () => {
     if (!last.room) return;
     void shareRoom(last.room).then((said) => {
       if (stateEl) stateEl.textContent = said;
@@ -113,6 +137,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     last = status;
     if (chip) {
       chip.textContent = chipText(status);
+      chip.classList.toggle("on", status.state !== "solo");
       chip.classList.toggle("fault", linkIsFault(status.state));
       chip.classList.toggle("live", status.state === "live");
     }
@@ -147,50 +172,6 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   return { update, open, invite };
 }
 
-function chipText(status: LinkStatus): string {
-  const label = linkLabel(status.state);
-  if (status.state === "countdown") return `${label} ${Math.ceil(status.countdownMs / 1000)}`;
-  if (status.rttMs >= 0 && (status.state === "live" || status.state === "stalled")) {
-    return `${label} ${status.rttMs}`;
-  }
-  return status.room ? `${label} ${status.room}` : label;
-}
-
-/**
- * One sentence per state. This is where open question 10 is answered for a
- * player rather than for a programmer: "the other phone has gone quiet" and
- * "the connection is gone" are different sentences, so a creature that blinds
- * you can never be mistaken for a dropped line.
- */
-function explain(status: LinkStatus): string {
-  switch (status.state) {
-    case "solo":
-      return "One device, both seats. Create a room to play it as it is meant to be played.";
-    case "connecting":
-      return "Reaching the room…";
-    case "waiting":
-      return `Room ${status.room}. Say it out loud — the other phone types it in.`;
-    case "syncing":
-      return "Both here. Agreeing on the beat.";
-    case "countdown":
-      return `Seat ${status.player}. Starting in ${Math.ceil(status.countdownMs / 1000)}.`;
-    case "live":
-      return `Seat ${status.player}, ${status.rttMs} ms round trip, ${status.delayMs} ms of lay.`;
-    case "stalled":
-      return "The other phone has gone quiet. Still connected — waiting for it.";
-    case "lost":
-      return "The connection is gone. Rejoin the room, or carry on alone.";
-    case "full":
-      return `Room ${status.room} already has two people in it. Your line is fine — the room is not free.`;
-    // Two ways here, found in two different places: a peer that broke the
-    // model, or two worlds that drifted apart. Saying which saves the next hour.
-    case "desync":
-      return status.brokenPromises > 0
-        ? `The other phone sent ${status.brokenPromises} inputs it had promised not to send. This is a bug, not a lag spike.`
-        : `The two worlds parted at tick ${status.desyncTick}. This is a bug, not a lag spike.`;
-  }
-}
-
 /** Four characters of real randomness. The browser's, never the simulation's. */
 function freshCode(): string {
   const bytes = new Uint8Array(ROOM_CODE_LENGTH);
@@ -200,7 +181,7 @@ function freshCode(): string {
 
 /**
  * The room a link was opened on, or "" for none. Pure, so the rule can be
- * tested the way `menuRequested` is.
+ * tested the way `opensOnMenu` is.
  *
  * A code is still the way in and a link is only a way to deliver one, so this
  * accepts nothing a person could not have typed: the code goes through

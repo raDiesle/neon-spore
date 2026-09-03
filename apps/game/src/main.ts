@@ -15,17 +15,15 @@ import {
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
-import { demoRows, openDemonstration } from "./demo-menu.js";
+import { openDemonstration } from "./demo-menu.js";
 import { bindGauge } from "./gauge.js";
 import { installTestingHandle } from "./handle.js";
 import { bindControls, InputBuffer } from "./input.js";
-import { bindInstall } from "./install.js";
-import { bindJoinScreen, type JoinScreen } from "./join.js";
-import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
-import { bindMainMenu, menuRequested } from "./menu.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
+import { createRunState } from "./run-state.js";
+import { bindShell } from "./shell.js";
 import { bindSnake } from "./snake.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
@@ -70,10 +68,13 @@ const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
 const progression = createWaveProgression({ world, cfg, audio, buffer });
 const jumpToWave = progression.jumpToWave;
 
-let running = true;
-const setRunning = (next: boolean): void => {
-  running = next;
-};
+/**
+ * Whether the world ticks, and who is holding it still — a thumb, the menu,
+ * the tuning panel or a tab that went away. One owner, four named holds, so
+ * that closing one of them cannot resume a game another is still covering
+ * (`run-state.ts`).
+ */
+const run = createRunState();
 
 const tickKeys = bindControls({
   canvas,
@@ -104,7 +105,7 @@ const tickKeys = bindControls({
   // The arrows are the body's while it is moving, and the rig's otherwise
   // (`keys.ts`).
   snakeHolds: () => snakeHolds(world),
-  onPauseToggle: () => setRunning(!running),
+  onPauseToggle: () => run.hold("hand", !run.held("hand")),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
 
@@ -117,56 +118,28 @@ bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });
 // simulation only holds one boss at a time and each asks whether it is theirs.
 bindSnake({ canvas, buffer, world, layout, stage, role: () => view.role() });
 bindPinball({ canvas, buffer, world, layout, stage, role: () => view.role() });
-const testPanel = bindTestControls({
-  world,
-  jumpToWave,
-  isRunning: () => running,
-  setRunning,
-});
+const testPanel = bindTestControls({ world, jumpToWave, run });
 
 /**
  * Two devices. Solo until a room is joined, and joining is the only thing that
  * changes: the same world, the same `step`, the same commands — they simply
  * arrive from two phones instead of two thumbs.
+ *
+ * The menu, the room screen and the bad-line card come up with it: they are
+ * one knot around the link and they are tied in `shell.ts`.
  */
-let joinScreen: JoinScreen | null = null;
-const link = createLink({
+const link = bindShell({
   cfg,
   world,
   buffer,
-  onStart: (player) => {
-    // The room hands out the seat, so the view follows it rather than whatever
-    // this device was last left on.
-    view.set(player === 1 ? "p1" : "p2");
-    startTogether();
-  },
-  onStatus: (status) => joinScreen?.update(status),
+  run,
+  jumpToWave,
+  seat: () => view.role(),
+  setSeat: (role) => view.set(role),
+  openTuning: () => testPanel.open(),
+  openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
+  onStart: () => startTogether(),
 });
-joinScreen = bindJoinScreen({
-  join: (room) => link.join(room),
-  leave: () => link.leave(),
-});
-
-// The home-screen shortcut (`install.ts`), and the room the address named.
-void bindInstall();
-joinScreen.invite();
-
-/**
- * The main menu, and only when it was asked for: a build that was opened to
- * look at a wave goes straight to the field. See `menu.ts`.
- */
-if (menuRequested(location.href)) {
-  bindMainMenu({
-    jumpToWave,
-    setRunning,
-    seat: () => view.role(),
-    setSeat: (role) => view.set(role),
-    openRoom: () => joinScreen?.open(true),
-    openTuning: () => testPanel.open(),
-    demos: demoRows(),
-    openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
-  });
-}
 
 // The baked burst, behind `?raster=1` — `raster.ts` and `docs/raster.md`.
 void bindRasterBurst(renderer.sprites, location.href);
@@ -179,7 +152,6 @@ void bindRasterBurst(renderer.sprites, location.href);
 function startTogether(): void {
   resetClock(world, 0);
   jumpToWave(0);
-  running = true;
 }
 
 // Events are cleared every tick and a frame covers several ticks, so they are
@@ -201,7 +173,7 @@ const paint = (dt: number): void => {
     time: performance.now() / 1000,
     dt,
     events: frameEvents,
-    running,
+    running: run.running(),
   });
   frameEvents = [];
 };
@@ -222,7 +194,7 @@ startLoop(
     // Paused: drop whatever was pressed rather than letting it pile up for the
     // moment play resumes. A finished run is not paused — its commands still
     // go through, otherwise the restart tap would never arrive.
-    if (!running && !world.over) {
+    if (!run.running() && !world.over) {
       buffer.drain(world.tick);
       return;
     }

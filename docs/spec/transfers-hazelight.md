@@ -174,7 +174,7 @@ of you are holding this minute, and on how often that changes.
   vocabulary it never lets anybody use. The interlude is where novelty goes
   precisely so that the field can stay still.
 - **A story that explains the change of round** — both games motivate every
-  swap with fiction, at length, in cutscenes. This one opens straight onto the
-  field ([the menu is behind `?menu`](../../CLAUDE.md)) and the world explains
-  itself by being played ([briefings](briefings.md)). An interlude arrives and
-  is understood, or it is the wrong interlude.
+  swap with fiction, at length, in cutscenes. This one has a menu and then the
+  field ([`?play` skips it](../../CLAUDE.md)), and no cutscene between the two:
+  the world explains itself by being played ([briefings](briefings.md)). An
+  interlude arrives and is understood, or it is the wrong interlude.

@@ -436,8 +436,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
 | `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
-| `apps/game/src/menu.ts` | the main menu, and the rule that keeps it out of a tester's way |
-| `apps/game/src/menu-view.ts` | its three pages: the entries, the authored waves, the keys |
+| `apps/game/src/menu.ts` | the main menu, which is the front door, and the `?play` flag past it |
+| `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/gauge.ts` | the host's half of THE GAUGE: the two thumbs that play it |
@@ -452,6 +452,13 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
 | `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
 | `apps/game/src/link-refusal.ts` | What a room turning this device away means, as three rules and no state |
+| `apps/game/src/hold.ts` | the card that comes up when the line goes bad, with a clock on it |
+| `apps/game/src/join-words.ts` | the words the network wears — the chip's, the room screen's, the seat pills' |
+| `apps/game/src/link-report.ts` | what the screen is told about the link, gathered in one place |
+| `apps/game/src/menu-pages.ts` | the menu's three lists: the waves, the demonstrations, the keys |
+| `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
+| `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
+| `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
 
 ### apps/server
 

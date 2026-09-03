@@ -40,23 +40,56 @@
     </button>
 
     <div id="joinScreen">
-      <h2>ROOM</h2>
-      <p class="sub" style="margin: 0">
-        Two people, two devices, one voice channel. Read the code out loud.
-      </p>
-      <div id="joinCode">————</div>
-      <p id="joinState"></p>
-      <label class="sub" for="joinInput" style="display: block; margin: 0 0 6px">JOIN A CODE</label>
-      <input id="joinInput" type="text" inputmode="latin" autocomplete="off" spellcheck="false" maxlength="4" />
-      <div class="acts">
-        <button type="button" id="joinGo">JOIN</button>
-        <button type="button" id="joinCreate">CREATE</button>
-        <button type="button" id="joinShare" class="quiet">SEND LINK</button>
-        <button type="button" id="joinSolo" class="quiet">PLAY ALONE</button>
-        <button type="button" id="joinClose" class="quiet">BACK</button>
+      <div class="sheet" id="joinSheet">
+        <button type="button" id="joinClose" class="back">← MENU</button>
+        <h2>TWO DEVICES</h2>
+        <p class="sub">
+          Two people, two devices, one voice channel. One of you opens a room and reads
+          the code out; the other types it in.
+        </p>
+        <div id="joinCode">————</div>
+        <div id="joinSeats">
+          <div class="pill empty" id="joinSeat1">
+            <span class="n">P1</span><span class="job">PILOT</span><span class="who">—</span>
+          </div>
+          <div class="pill empty" id="joinSeat2">
+            <span class="n">P2</span><span class="job">GUNNER</span><span class="who">—</span>
+          </div>
+        </div>
+        <p id="joinState"></p>
+        <div id="joinEnter">
+          <label class="sub" for="joinInput">JOIN A CODE</label>
+          <input
+            id="joinInput"
+            type="text"
+            inputmode="latin"
+            autocomplete="off"
+            spellcheck="false"
+            maxlength="4"
+          />
+        </div>
+        <div class="acts">
+          <button type="button" id="joinGo" class="enter">JOIN</button>
+          <button type="button" id="joinCreate" class="enter">CREATE ROOM</button>
+          <button type="button" id="joinShare" class="quiet roomed">SEND LINK</button>
+          <button type="button" id="joinLeave" class="quiet roomed leave">LEAVE ROOM</button>
+        </div>
       </div>
     </div>
-    <button type="button" id="menuChip" title="Main menu">☰</button>
+
+    <div id="linkHold">
+      <div class="card">
+        <h3 id="holdTitle">THE OTHER PHONE HAS GONE QUIET</h3>
+        <div id="holdTimer">0s</div>
+        <p id="holdWhat"></p>
+        <div class="acts">
+          <button type="button" id="holdWait" class="quiet">KEEP WAITING</button>
+          <button type="button" id="holdLeave">LEAVE ROOM</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="menuChip" title="Pause and open the menu">☰</button>
     <button type="button" id="pauseBtn">⏸</button>
     <button type="button" id="gear">⚙</button>
     <div id="waveSkip">

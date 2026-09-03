@@ -1,21 +1,22 @@
-import { BULB, blobPath, type MechanicId, WAVES } from "@neon-spore/content";
+import type { MechanicId } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
+import { buildDemos, buildKeys, buildWaves } from "./menu-pages.js";
+import { el, type MenuPage, sporeSvg } from "./menu-parts.js";
 
 /**
  * The menu's markup, built here rather than written into index.html.
  *
- * Two of its three pages are lists that already exist — the authored waves and
- * the keys `input.ts` binds — and a hand-typed copy of either in markup is a
- * copy that drifts. The third is five entries, which follow the same builder
- * so that the whole screen has one shape.
+ * It is the front door now: a plain address lands here, and the field is one
+ * press away rather than the other way round. So the root page has to answer
+ * three questions at a glance — what happens if I press the top button, who am
+ * I at this table, and is the other phone here — and the seat is a card with
+ * the job written on it rather than two letters in a row of three.
  */
 
-const SVG_NS = "http://www.w3.org/2000/svg";
-
-export type MenuPage = "root" | "waves" | "demos" | "keys";
-
 export interface MenuEntry {
+  /** How `setEntry` names it afterwards. Stable, and not the label. */
+  key: string;
   label: string;
   desc: string;
   run: () => void;
@@ -37,41 +38,33 @@ export interface MenuDom {
   show: (page: MenuPage) => void;
   /** The seat is the view switch's, so the menu is told rather than deciding. */
   paintSeat: (role: ViewRole) => void;
+  /**
+   * A room hands the seat out, and a device showing the other player's band is
+   * a device whose touches go nowhere — so while there is one, the cards say
+   * which seat this is instead of offering a choice that cannot be taken.
+   */
+  lockSeats: (locked: boolean, why: string) => void;
+  /** Re-label an entry, or take it off the page. Named by `key`. */
+  setEntry: (key: string, next: { label?: string; desc?: string; on?: boolean }) => void;
   /** The spore breathes only while the menu is up. */
   animate: (on: boolean) => void;
 }
 
-const SEATS: { role: ViewRole; label: string }[] = [
-  { role: "p1", label: "P1" },
-  { role: "p2", label: "P2" },
-  { role: "test", label: "TEST" },
+const SEATS: { role: ViewRole; tag: string; name: string; what: string }[] = [
+  {
+    role: "p1",
+    tag: "P1",
+    name: "PILOT",
+    what: "Slides the cannon, opens the maw, triggers the guard.",
+  },
+  { role: "p2", tag: "P2", name: "GUNNER", what: "Slides the shield, fires red and cyan." },
+  {
+    role: "test",
+    tag: "BOTH",
+    name: "ONE SCREEN",
+    what: "Both bands and the test rig, for one person at a desk.",
+  },
 ];
-
-/** Read off `bindControls`. One row per key a tester actually presses. */
-const KEYS: [string, string][] = [
-  ["A / D", "The cannon, and the shield along with it."],
-  ["J / L", "The shield on its own."],
-  ["I", "The guard trigger."],
-  ["S", "The maw, to take a loose pod in."],
-  ["F", "Hold the lance. Three beats with the cannon still, then one shot goes through three."],
-  ["W", "Fire red — and guard in the same press."],
-  ["E", "Fire cyan."],
-  ["G", "Hold the nearest creature — the grip, as the other player."],
-  ["← / →", "The previous and the next wave."],
-  ["P", "Pause."],
-  ["ESC", "This menu."],
-];
-
-function el<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  cls?: string,
-  text?: string,
-): HTMLElementTagNameMap[K] {
-  const node = document.createElement(tag);
-  if (cls) node.className = cls;
-  if (text) node.textContent = text;
-  return node;
-}
 
 export function buildMenu(h: MenuHandlers): MenuDom {
   const root = el("div");
@@ -90,16 +83,19 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     el("p", "tag", "TWO PEOPLE · TWO DEVICES · TALKING IS THE CONTROL SCHEME"),
   );
 
+  const rootPage = el("div", "page on");
   const pages: Record<MenuPage, HTMLElement> = {
-    root: el("div", "page on"),
-    waves: el("div", "page"),
-    demos: el("div", "page"),
-    keys: el("div", "page"),
+    root: rootPage,
+    waves: buildWaves((p) => show(p), h.onWave),
+    demos: buildDemos((p) => show(p), h.demos, h.onDemo),
+    keys: buildKeys((p) => show(p)),
   };
   const show = (page: MenuPage): void => {
     for (const [name, node] of Object.entries(pages)) node.classList.toggle("on", name === page);
+    scroll.scrollTop = 0;
   };
 
+  const entries = new Map<string, { root: HTMLElement; label: HTMLElement; desc: HTMLElement }>();
   h.entries.forEach((entry, i) => {
     const button = el("button", "entry");
     button.type = "button";
@@ -107,74 +103,16 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     const mark = el("span", "mark", "▸");
     // Decoration. Without this it is read out in front of the entry's name.
     mark.ariaHidden = "true";
-    button.append(mark, el("span", "label", entry.label));
-    button.append(el("span", "desc", entry.desc));
+    const label = el("span", "label", entry.label);
+    const desc = el("span", "desc", entry.desc);
+    button.append(mark, label, desc);
     button.addEventListener("click", entry.run);
-    pages.root.append(button);
+    rootPage.append(button);
+    entries.set(entry.key, { root: button, label, desc });
   });
 
-  const seatRow = el("div", "seat");
-  seatRow.append(el("span", "cap", "SEAT"));
-  const seatButtons = SEATS.map((s) => {
-    const button = el("button", undefined, s.label);
-    button.type = "button";
-    button.addEventListener("click", () => h.onSeat(s.role));
-    seatRow.append(button);
-    return { role: s.role, el: button };
-  });
-  pages.root.append(seatRow);
-  pages.root.append(
-    el(
-      "p",
-      "foot",
-      "This screen is off unless the address asks for it — the game a tester opens goes straight to the field.",
-    ),
-  );
-
-  pages.waves.append(backButton(show), el("h2", undefined, "WAVES"));
-  WAVES.forEach((wave, i) => {
-    const button = el("button", "wave");
-    button.type = "button";
-    button.append(el("span", "n", String(i + 1).padStart(2, "0")));
-    const name = el("span", "label", wave.name);
-    if (wave.boss) name.append(el("span", "boss", " ✦"));
-    button.append(name, el("span", "s", wave.sentence));
-    button.addEventListener("click", () => h.onWave(i));
-    pages.waves.append(button);
-  });
-
-  pages.demos.append(backButton(show), el("h2", undefined, "DEMOS"));
-  h.demos.forEach((row) => {
-    const button = el("button", "wave");
-    button.type = "button";
-    button.append(el("span", "n", row.id));
-    button.append(el("span", "label", row.waveName), el("span", "s", row.what));
-    button.addEventListener("click", () => h.onDemo(row.id));
-    pages.demos.append(button);
-  });
-
-  pages.keys.append(backButton(show), el("h2", undefined, "CONTROLS AT A DESK"));
-  const table = el("table", "keys");
-  for (const [key, what] of KEYS) {
-    const row = el("tr");
-    row.append(el("td", undefined, key), el("td", undefined, what));
-    table.append(row);
-  }
-  pages.keys.append(table);
-  pages.keys.append(
-    el(
-      "p",
-      "foot",
-      "On a phone the two strips answer separate thumbs — the keys are for one person at a desk playing both seats.",
-    ),
-    // The one control that is on neither strip, so a list of the strips
-    // would never mention it.
-    el(
-      "p",
-      "foot",
-      "Either of you can press and hold anything falling: it drags at it and slows it, for as long as the finger stays. Both screens are told whose hand it is.",
-    ),
-  );
+  const { seatBlock, paintSeat, lockSeats } = buildSeats(h.onSeat);
+  rootPage.append(seatBlock);
 
   inner.append(pages.root, pages.waves, pages.demos, pages.keys);
   document.body.append(root);
@@ -182,59 +120,63 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   return {
     root,
     show,
-    paintSeat: (role) => {
-      for (const s of seatButtons) s.el.classList.toggle("on", s.role === role);
+    paintSeat,
+    lockSeats,
+    setEntry: (key, next) => {
+      const found = entries.get(key);
+      if (!found) return;
+      if (next.label !== undefined) found.label.textContent = next.label;
+      if (next.desc !== undefined) found.desc.textContent = next.desc;
+      if (next.on !== undefined) found.root.classList.toggle("off", !next.on);
     },
     animate: spore.animate,
   };
 }
 
-function backButton(show: (page: MenuPage) => void): HTMLButtonElement {
-  const button = el("button", "back", "← BACK");
-  button.type = "button";
-  button.addEventListener("click", () => show("root"));
-  return button;
-}
-
 /**
- * The wordmark's spore: a bulb, through the same `blobPath` the renderer calls
- * with the same `BULB` parameters. A shape drawn twice is a shape that ends up
- * meaning two things, and the one on the title screen should be the creature
- * the game is named after rather than an impression of it.
+ * The seat, as three cards with the job written on each.
+ *
+ * It was a row of three buttons labelled P1, P2 and TEST, which is the shortest
+ * thing that could be written and says nothing at all to the person holding the
+ * phone: the whole point of two devices is that the two of you do different
+ * jobs, and the choice is which job. So the card carries the name of the job
+ * and the sentence that describes it, and the letters stay only as the tag the
+ * rest of the game already uses.
  */
-function sporeSvg(): { svg: SVGSVGElement; animate: (on: boolean) => void } {
-  const svg = document.createElementNS(SVG_NS, "svg");
-  svg.setAttribute("viewBox", "0 0 100 100");
-  svg.setAttribute("class", "spore");
+function buildSeats(onSeat: (role: ViewRole) => void): {
+  seatBlock: HTMLElement;
+  paintSeat: (role: ViewRole) => void;
+  lockSeats: (locked: boolean, why: string) => void;
+} {
+  const block = el("div", "seats");
+  block.append(el("h2", undefined, "SEAT"));
+  const note = el("p", "seat-note");
+  const buttons = SEATS.map((s) => {
+    const button = el("button", "seat-card");
+    button.type = "button";
+    button.append(el("span", "tag", s.tag));
+    button.append(el("span", "name", s.name), el("span", "what", s.what));
+    button.addEventListener("click", () => {
+      if (button.disabled) return;
+      onSeat(s.role);
+    });
+    block.append(button);
+    return { role: s.role, el: button };
+  });
+  block.append(note);
 
-  const halo = document.createElementNS(SVG_NS, "path");
-  halo.setAttribute("fill", "rgba(47, 224, 240, 0.09)");
-  const body = document.createElementNS(SVG_NS, "path");
-  body.setAttribute("fill", "rgba(10, 7, 26, 0.85)");
-  body.setAttribute("stroke", "#2fe0f0");
-  body.setAttribute("stroke-width", "2.4");
-  svg.append(halo, body);
-
-  const draw = (t: number): void => {
-    const { lobes, depth, wobble, seed } = BULB;
-    halo.setAttribute("d", blobPath(50, 50, 41, 41, lobes, depth, wobble, t * 0.7, seed));
-    body.setAttribute("d", blobPath(50, 50, 33, 33, lobes, depth, wobble, t, seed));
+  return {
+    seatBlock: block,
+    paintSeat: (role) => {
+      for (const b of buttons) b.el.classList.toggle("on", b.role === role);
+    },
+    lockSeats: (locked, why) => {
+      for (const b of buttons) {
+        b.el.disabled = locked;
+        b.el.classList.toggle("locked", locked);
+      }
+      note.textContent = why;
+      block.classList.toggle("held", locked);
+    },
   };
-  draw(0);
-
-  let frame = 0;
-  const animate = (on: boolean): void => {
-    if (!on) {
-      cancelAnimationFrame(frame);
-      frame = 0;
-      return;
-    }
-    if (frame) return;
-    const step = (ms: number): void => {
-      draw(ms / 1000);
-      frame = requestAnimationFrame(step);
-    };
-    frame = requestAnimationFrame(step);
-  };
-  return { svg, animate };
 }

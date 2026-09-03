@@ -25,6 +25,9 @@ function fakeSocket() {
       calls.surrender++;
     },
     present: true,
+    // Never away: these rules are about what the room says, not about a line
+    // that dropped.
+    awayMs: 0,
   };
   return {
     calls,

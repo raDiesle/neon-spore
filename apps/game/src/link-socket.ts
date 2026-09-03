@@ -40,6 +40,13 @@ export interface RoomSocket {
   surrender(): void;
   /** Whether a socket exists right now. */
   readonly present: boolean;
+  /**
+   * How long there has been no socket, in milliseconds, and 0 while there is
+   * one. Counted here because this is where the absence is: the reconnection
+   * is quiet by design, and this is the number that lets the screen stop being
+   * quiet about it once it has gone on too long to be a tunnel.
+   */
+  readonly awayMs: number;
 }
 
 /**
@@ -63,9 +70,11 @@ export function openRoomSocket(
   let retryIn = 0;
   let triesLeft = RECONNECT_TRIES;
   let closed = false;
+  let awayMs = 0;
 
   const open = (): void => {
     retryIn = 0;
+    awayMs = 0;
     relay = connect(room, { message: on.message, opened: on.opened, dropped: drop });
   };
 
@@ -95,6 +104,9 @@ export function openRoomSocket(
       old?.close();
     },
     frame(dtMs) {
+      // Counted before the early return: a socket that has run out of attempts
+      // has `retryIn` at 0 and is the most gone of all.
+      if (!relay) awayMs += dtMs;
       if (retryIn <= 0 || closed) return;
       retryIn -= dtMs;
       if (retryIn <= 0) open();
@@ -108,6 +120,9 @@ export function openRoomSocket(
     },
     get present() {
       return relay !== null;
+    },
+    get awayMs() {
+      return relay ? 0 : awayMs;
     },
   };
 }

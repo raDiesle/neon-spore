@@ -43,7 +43,14 @@ export interface Run {
    */
   observeLink(rttMs: number, dtMs: number): void;
   /** Once a frame, whether or not a tick ran. True when the peer has gone quiet. */
-  pump(): boolean;
+  pump(dtMs: number): boolean;
+  /**
+   * How long the peer has been quiet, in milliseconds, and 0 while it is not.
+   * A stall is the one fault a player can answer — wait it out, or leave the
+   * room and pick the game up later — and neither answer can be offered
+   * without a number to make it on.
+   */
+  readonly stalledMs: number;
   mayTick(): boolean;
   drain(): TimedCommand[];
   /** After `step`. True when the two fingerprints have parted. */
@@ -83,6 +90,7 @@ export function createRun(o: RunOptions): Run {
   let lockstep: Lockstep | null = null;
   let ledger = new HashLedger();
   let started = false;
+  let stalledMs = 0;
   /**
    * Outlives any one run on purpose. What the link costs is a fact about the
    * two phones, not about the run they happen to be on, and a rejoin should
@@ -110,6 +118,7 @@ export function createRun(o: RunOptions): Run {
 
     end() {
       started = false;
+      stalledMs = 0;
       lockstep = null;
       ledger = new HashLedger();
     },
@@ -124,10 +133,15 @@ export function createRun(o: RunOptions): Run {
       lockstep?.setDelayTicks(delay.ticks);
     },
 
-    pump() {
+    pump(dtMs) {
       if (!lockstep || !started) return false;
       lockstep.pump(o.world.tick);
-      return lockstep.stalledTicks > tpb;
+      const quiet = lockstep.stalledTicks > tpb;
+      // Wall-clock, not `stalledTicks`: that counts calls to this, which is
+      // once a frame, and a frame is not a tick — least of all during a stall,
+      // when no tick runs at all.
+      stalledMs = quiet ? stalledMs + dtMs : 0;
+      return quiet;
     },
 
     mayTick() {
@@ -168,6 +182,10 @@ export function createRun(o: RunOptions): Run {
       // about the cause. So the promise is the report, and it is immediate.
       if (lockstep && lockstep.brokenPromises > 0) return true;
       return message.t === "hash" && ledger.observe(message.tick, message.hash) === "mismatch";
+    },
+
+    get stalledMs() {
+      return stalledMs;
     },
 
     get slack() {

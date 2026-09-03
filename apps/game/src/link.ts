@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/net";
 import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
+import { report } from "./link-report.js";
 import { createRun, type Run } from "./link-run.js";
 import { openRoomSocket, type RoomSocket, type RoomSocketHandlers } from "./link-socket.js";
 import type { CommandSource } from "./relay.js";
@@ -86,17 +87,8 @@ export function createLink(o: LinkOptions): Link {
     send: (message) => socket?.send(message),
   });
 
-  const status = (): LinkStatus => ({
-    state,
-    room,
-    player,
-    rttMs: clock.sampleCount > 0 ? Math.round(clock.rttMs) : -1,
-    slack: run.slack,
-    countdownMs: run.started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - now()),
-    delayMs: run.delayMs,
-    desyncTick: run.desyncTick,
-    brokenPromises: run.brokenPromises,
-  });
+  const status = (): LinkStatus =>
+    report({ state, room, player, clock, run, socket, startMs, now });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -205,7 +197,7 @@ export function createLink(o: LinkOptions): Link {
       return;
     }
     if (run.started) {
-      settle(run.pump() ? "stalled" : "live");
+      settle(run.pump(dtMs) ? "stalled" : "live");
     } else if (peers < 2) {
       settle("waiting");
     } else if (!clock.ready) {

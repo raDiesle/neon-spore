@@ -86,7 +86,11 @@ export async function captureFrames(
       );
     }
 
-    await page.goto(baseUrl, { waitUntil: "load" });
+    // `?play` is the way past the menu, which is the game's front door now
+    // (`apps/game/src/menu.ts`). Without it every frame would be photographed
+    // through a title screen. A build from before the flag existed ignores it,
+    // which is what `bun run frames <sha>` needs it to do.
+    await page.goto(`${baseUrl}${baseUrl.includes("?") ? "&" : "?"}play=1`, { waitUntil: "load" });
     await page.waitForFunction(() => Boolean(window.neonSpore));
 
     await page.evaluate((wave) => {

@@ -53,6 +53,20 @@ export interface LinkStatus {
    * it is here beside the round trip rather than derived from it.
    */
   delayMs: number;
+  /**
+   * How long the run has been waiting on the other phone, in milliseconds, and
+   * 0 whenever it is not. A stall is the one fault a player can *do* something
+   * about — wait it out, or leave and come back later — and neither choice can
+   * be offered without a number to make it on. See `link.ts`, which counts it,
+   * and `hold.ts`, which is the card that puts the choice on the screen.
+   */
+  stalledMs: number;
+  /**
+   * How long this device has been without a socket, in milliseconds, and 0
+   * while it has one. The peer going quiet and this phone losing its own line
+   * are different sentences to the player, so they are different numbers here.
+   */
+  awayMs: number;
   /** The tick the two worlds parted, or null. */
   desyncTick: number | null;
   /**

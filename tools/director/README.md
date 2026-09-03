@@ -377,12 +377,12 @@ already visible.
 `▶ MAIN MENU`, in GAME MECHANICS' own header rather than the topbar, opens the
 game — this tree's source, bundled by
 this same server on `/game`, so it needs no preview running beside it — with
-`?menu` set. That flag is the whole arrangement: the game itself opens straight
-onto the field, because a title screen in front of a wave somebody wants to
-look at is a tap they did not ask for, and the director is the door for the
-times they do want it. From the menu: the first wave, any of the authored waves
-by the sentence it exists for, the room screen, the tuning panel, the seat, and
-the keys.
+`?menu` set, which the game has read as its default since the menu became the
+front door: a plain address lands there and `?play` is the way past it. The
+link is kept as it is because it says what it means, and because the director
+is still the door a person opens the menu from. From the menu: the first wave,
+any of the authored waves by the sentence it exists for, the demonstrations,
+the room screen, the tuning panel, the seat, and the keys.
 
 It is a hot bundle of the working tree, like `bun run dev:game` — **not** what a
 check is read off. That is still `bun run preview`, on its own port, answering

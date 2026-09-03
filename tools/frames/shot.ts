@@ -45,6 +45,7 @@ if (!selector || !out) {
   console.error(
     'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
   );
+  console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
@@ -60,12 +61,19 @@ const hold = flag("hold");
 const open = flag("open");
 const settle = Number(flag("wait") ?? 2500);
 const port = flag("port") ?? "4174";
+/**
+ * The viewport. The director is a desk tool and 1240x900 is what it is judged
+ * at, but `--port` already points this at anything the tree serves — and the
+ * game is a portrait phone. A picture of a phone screen taken 1240 px wide is
+ * a picture of a layout nobody will ever see.
+ */
+const [vw, vh] = (flag("size") ?? "1240x900").split("x").map(Number);
 const url = `http://localhost:${port}`;
 
 const browser = await chromium.launch({ executablePath: await findChrome(), headless: true });
 try {
   const page = await browser.newPage({
-    viewport: { width: 1240, height: 900 },
+    viewport: { width: vw || 1240, height: vh || 900 },
     deviceScaleFactor: 2,
   });
   await page.goto(url, { waitUntil: "networkidle" });

@@ -24,6 +24,9 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
     return;
   }
   const hint = document.createElement("div");
+  // A class as well as the inline styles, so `menu.css` can put it away while
+  // a sheet is over the field — see below.
+  hint.className = "key-hint";
   hint.textContent =
     "Keyboard — A/D move · Q/W/E fire · S intake · F lance · G grip\n" +
     "On a guide — hold F and G, one seat each, or Space for both" +
@@ -40,7 +43,10 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
     whiteSpace: "pre",
     borderRadius: "4px",
     pointerEvents: "none",
-    zIndex: "1000",
+    // Under every full-screen sheet and over everything else. It was 1000,
+    // which put a paragraph of desk-only keys across the top of the main menu
+    // the moment the menu became the front door.
+    zIndex: "8",
     transition: "opacity 0.8s",
     opacity: "1",
   });
@@ -52,6 +58,20 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
     hint.style.opacity = "0";
     setTimeout(() => hint.remove(), 800);
   };
-  setTimeout(dismiss, 6000);
+  /**
+   * The six seconds start when the toast is actually on screen, not when it is
+   * made. The menu is the front door now (`menu.ts`) and it covers this, so a
+   * countdown begun at load would spend itself behind a sheet and the one
+   * player who needs to be told the keys exist would never be told.
+   */
+  const armWhenSeen = (): void => {
+    if (dismissed) return;
+    if (hint.offsetParent === null) {
+      requestAnimationFrame(armWhenSeen);
+      return;
+    }
+    setTimeout(dismiss, 6000);
+  };
+  requestAnimationFrame(armWhenSeen);
   window.addEventListener("keydown", dismiss, { once: true });
 }

@@ -10,6 +10,10 @@
 
 #menu { position: fixed; inset: 0; z-index: 20; display: none; }
 #menu.on { display: block; }
+/* An entry that does not apply right now — RESUME before anything has been
+   played, LEAVE ROOM while there is no room. Hidden rather than disabled: a
+   greyed-out row is still a row to read past. */
+#menu .entry.off { display: none; }
 
 /* The scrim and the scanlines, under everything and answering no touch. */
 #menu .sky {
@@ -17,8 +21,8 @@
   background:
     radial-gradient(130% 70% at 50% -12%, rgba(47, 224, 240, 0.16), transparent 62%),
     radial-gradient(110% 60% at 50% 112%, rgba(255, 194, 75, 0.13), transparent 58%),
-    linear-gradient(180deg, rgba(7, 6, 15, 0.8), rgba(7, 6, 15, 0.95) 46%, rgba(7, 6, 15, 0.99));
-  backdrop-filter: blur(3px) saturate(1.35);
+    linear-gradient(180deg, rgba(7, 6, 15, 0.93), rgba(7, 6, 15, 0.985) 30%, rgba(7, 6, 15, 1));
+  backdrop-filter: blur(5px) saturate(1.35);
 }
 #menu .sky::after {
   content: ""; position: absolute; inset: -4px;
@@ -108,14 +112,41 @@
   to { opacity: 1; transform: none; }
 }
 
-#menu .seat { display: flex; align-items: center; gap: 6px; margin: 18px 0 0; }
-#menu .seat .cap { font-size: 9px; letter-spacing: 0.22em; color: #6f639f; }
-#menu .seat button {
-  flex: 1; padding: 9px 0; cursor: pointer;
-  border: 1px solid #2a2250; border-radius: 8px; background: transparent;
-  color: #6f639f; font: 11px "Courier New", monospace; letter-spacing: 0.18em;
+/* The seat, as three cards with the job written on each. Two letters in a row
+   of three said nothing to the person holding the phone, and the whole point of
+   two devices is that the two of you do different jobs. */
+#menu .seats { margin: 26px 0 0; }
+#menu .seats h2 { margin-bottom: 10px; }
+#menu .seat-card {
+  display: grid; grid-template-columns: 34px 1fr; gap: 0 10px; width: 100%;
+  margin: 0 0 6px; padding: 10px 11px; text-align: left; cursor: pointer;
+  border: 1px solid #2a2250; border-radius: 10px; background: rgba(10, 7, 26, 0.55);
+  font: 12px/1 "Courier New", monospace;
+  transition: border-color 0.16s, color 0.16s, background 0.16s;
 }
-#menu .seat button.on { border-color: #ffc24b; color: #ffc24b; background: rgba(42, 31, 78, 0.6); }
+#menu .seat-card .tag {
+  grid-row: 1 / span 2; align-self: center; text-align: center;
+  font-size: 11px; letter-spacing: 0.1em; color: #4b4177;
+}
+#menu .seat-card .name { color: #9c8fd6; letter-spacing: 0.2em; font-size: 11px; }
+#menu .seat-card .what {
+  grid-column: 2; margin-top: 6px;
+  font-size: 9px; letter-spacing: 0.04em; line-height: 1.6; color: #6f639f;
+}
+#menu .seat-card.on {
+  border-color: #ffc24b; background: rgba(42, 31, 78, 0.6);
+}
+#menu .seat-card.on .tag, #menu .seat-card.on .name { color: #ffc24b; }
+#menu .seat-card:hover:not(.locked), #menu .seat-card:focus-visible:not(.locked) {
+  outline: none; border-color: #2fe0f0;
+}
+/* The room hands the seat out, so while there is one the cards report it
+   rather than offering a choice that cannot be taken. */
+#menu .seat-card.locked { cursor: default; opacity: 0.45; }
+#menu .seats.held .seat-card.on { opacity: 1; }
+#menu .seat-note {
+  margin: 10px 0 0; font-size: 9px; line-height: 1.7; letter-spacing: 0.05em; color: #4b4177;
+}
 
 #menu .wave {
   display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; width: 100%;
@@ -148,9 +179,10 @@
   font-size: 9px; line-height: 1.8; letter-spacing: 0.06em; color: #4b4177;
 }
 
-/* The way back in, once the menu has been closed. It belongs to nobody's
-   device — but neither does the whole menu in this build, so unlike the test
-   rig it stays put in every view. */
+/* The way back in, and the pause: one control, because on a phone they are one
+   act. Pressing it stops the world (when playing alone — a room's tick is
+   shared and one device must not halt it) and puts the menu up. It belongs to
+   nobody's device, so unlike the test rig it stays put in every view. */
 #menuChip {
   position: fixed; top: 8px; right: 8px; z-index: 7; display: none;
   width: 32px; height: 32px; border-radius: 9px;
@@ -158,9 +190,26 @@
   color: #ffc24b; font: 14px/1 "Courier New", monospace; cursor: pointer;
 }
 #menuChip.on { display: block; }
+/* Above the menu rather than under it: it is the way out as well as the way
+   in, and a close button a sheet covers is a sheet with no close button. */
+#menuChip { z-index: 21; }
 /* It takes the gear's corner, so the test rig steps one place along. */
 body.has-menu #gear { right: 46px; }
 body.has-menu #pauseBtn { right: 84px; }
+
+/* While the menu is up, nothing else is. The test rig, the wave skip and the
+   view switch all sit under the scrim, where they read as ghosts of controls
+   rather than as controls — and the view switch in particular is a second
+   place to choose a seat, three inches above the cards that do it properly. */
+body.menu-open #viewSwitch,
+body.menu-open #pauseBtn,
+body.menu-open #gear,
+body.menu-open #waveSkip,
+body.menu-open #linkChip,
+body.menu-open #installChip,
+/* The PC key toast (`key-hint.ts`). It names the keys of a field that is not
+   on screen, and its six seconds do not start until it is. */
+body.menu-open .key-hint { display: none; }
 
 /* The entrances hide their own element until they run (`backwards`), so a
    browser that has been told not to animate must be given the finished state

@@ -131,12 +131,22 @@ handed out and never started.
 
 **An idea for the game is still not collected.** What the game could have and
 does not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
-decision, and a decision drains only through the owner. It goes in `docs/spec/`,
-which is what the director's `◇ NOT BUILT YET` sheet reads, next to the built
-things it would sit beside. A *look* is offered in `tools/versus/` instead,
-because the only way to choose one is to see it. Neither ever goes in the
-queue: mixing decisions into a list is what buried the last one under
-sixty-two entries only the owner could drain.
+decision, and a decision drains only through the owner. Unasked, it goes in
+`docs/spec/`, which is what the director's `◇ NOT BUILT YET` sheet reads, next
+to the built things it would sit beside. A *look* is offered in `tools/versus/`
+instead, because the only way to choose one is to see it. Neither is ever
+filed into the queue by the session that thought of it: mixing decisions into a
+list is what buried the last one under sixty-two entries only the owner could
+drain.
+
+**But it may be put to the owner, at the end of the turn that found it.** A
+session working on something else that sees a feature the game wants — a
+control, a screen, a way in, anything a player would notice — says so in the
+report: one line each, and the question of where it should go. The owner
+answers, item by item: onto `docs/queue.md`, into `docs/spec/`, or nowhere.
+That is the *only* way a user-visible feature reaches the queue, and the answer
+is his rather than a session's guess at it. Ask once, at the end, in a batch —
+never mid-task, and never as a background-task chip.
 
 **Half-done work goes in `docs/parked.md`** — work already started and not
 finished: a refactor abandoned when it grew, a test skipped with a reason, a
@@ -266,7 +276,9 @@ The director does the same from 4174.
 code with nothing erroring. Launch the server by absolute path inside your own
 tree and confirm who answered.
 
-The game opens straight onto the field; the main menu is behind `?menu=1`.
+The game opens on the main menu; `?play=1` goes straight onto the field, and
+is what `tools/frames` drives so a captured frame is the game rather than a
+title screen.
 `bun run preview:once` takes a free port for a throwaway check. Never start a
 server with a backgrounded shell command. The history behind all of this is in
 `docs/working-with-claude.md`.
