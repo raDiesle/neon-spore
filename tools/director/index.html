@@ -282,6 +282,17 @@
       #brushes:not(.hide-hints) .brush .name { white-space: normal; }
       /* Default: hidden. #brushHintToggle flips this class on #brushes. */
       #brushes.hide-hints .brush .hint { display: none; }
+      /* Ctrl (or ⌘) held: a click opens the wave that first puts the brush on
+         the field instead of painting the selected cell (`palette.ts`). The
+         palette says so before the press rather than after it — a modifier is
+         the one control nothing on screen can advertise by itself. Gold is
+         what "this is where the eye goes" already means here (`button.on`,
+         the selected cell, the beat now playing); a brush no wave carries
+         dims to the same 0.35 every refused button in the director uses. */
+      #brushes.jump button.brush.can-jump {
+        border-color: var(--gold); color: var(--ink); cursor: alias;
+      }
+      #brushes.jump button.brush:not(.can-jump) { opacity: 0.35; cursor: not-allowed; }
       #grid { display: inline-grid; gap: 2px; }
       #grid .head { color: var(--dim); font-size: 9px; display: flex; flex-direction: column; gap: 0; line-height: 1.1; align-items: center; justify-content: center; }
       #grid .head .maps { color: #4b4177; font-size: 8px; }
@@ -321,6 +332,9 @@
       .brush-card-name { font-size: 12px; letter-spacing: 2px; color: var(--ink); }
       .brush-card-wave { font-size: 9px; letter-spacing: 1px; color: var(--gold); margin-top: 3px; }
       .brush-card-note { font-size: 10px; color: var(--dim); line-height: 1.45; margin-top: 5px; }
+      /* The way to that wave, under the sentence about it. Dimmer than the
+         wave line above: it is an instruction, not a fact about the brush. */
+      .brush-card-jump { font-size: 9px; letter-spacing: 1px; color: #4b4177; margin-top: 6px; }
 
       /* Capped for #gridNote's reason, one line above: a block child with no
          width cap contributes its unwrapped line length to the column's

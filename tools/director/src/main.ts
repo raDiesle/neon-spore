@@ -2,6 +2,7 @@ import { WAVES } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
@@ -73,7 +74,13 @@ let grid: GridPanel | null = null;
 const stage = bindStage(store, cfg, (beat) => grid?.mark(beat));
 // Which cell of the map is under the author's attention — see `selection.ts`.
 const selection = makeSelection();
-const palette = bindPalette({ selection, hidden: hiddenBrushes, onPaint: paintSelected });
+const palette = bindPalette({
+  selection,
+  hidden: hiddenBrushes,
+  onPaint: paintSelected,
+  canJump: (brush) => jumpWaveIndex(store.waves, brush) !== undefined,
+  onJump: jumpToBrushWave,
+});
 grid = bindGrid(
   store,
   () => cfg,
@@ -146,6 +153,18 @@ function paintSelected(brush: Brush): void {
   paint(wave, at.beat, at.col, brush);
   store.dirty = true;
   onShape();
+}
+// Ctrl-click on a brush: open the wave that first puts it on the field and
+// let it run, so a brush can be *seen* rather than read about. The same two
+// steps DEMOS takes (`demo-panel.ts`) — `refreshAll` is what every jump to a
+// wave goes through — with the play on the end, since the transport may have
+// been left paused and a wave opened to be watched should not land held.
+function jumpToBrushWave(brush: Brush): void {
+  const index = jumpWaveIndex(store.waves, brush);
+  if (index === undefined) return;
+  store.index = index;
+  refreshAll();
+  stage.play();
 }
 // Brushes the current wave has no use for, so the palette knows what to hide.
 function hiddenBrushes(): ReadonlySet<Brush> {

@@ -21,6 +21,42 @@ export interface PaletteOptions {
    * touches — a wave rebuild, the status line, the stage. A no-op when
    * nothing is selected: a brush has nowhere to land until a tile does. */
   onPaint(brush: Brush): void;
+  /** Whether a Ctrl-click on this brush lands anywhere — whether the wave
+   * that first puts it on the field is one this director's copy still has
+   * (`jumpWaveIndex` in `brush-wave.ts`). The button lights while the key is
+   * held only if it does; a brush no wave carries says so by staying dark
+   * rather than by refusing a press nobody could have predicted. */
+  canJump(brush: Brush): boolean;
+  /** Open that wave and play it. */
+  onJump(brush: Brush): void;
+}
+
+/**
+ * A click that means "show me this" rather than "put this here". Ctrl is what
+ * the owner asked for; ⌘ answers too, because on a Mac Ctrl-click is the
+ * context menu and a shortcut the platform has already spent is no shortcut.
+ */
+function isJumpClick(e: MouseEvent): boolean {
+  return e.ctrlKey || e.metaKey;
+}
+
+/**
+ * The palette says, while the key is down, what the key would do — the
+ * brushes that lead somewhere light up and the rest go dim, so the modifier
+ * is discovered by holding it rather than by reading about it. `blur` clears
+ * the cue because a window switched away with Ctrl held never sees the keyup.
+ */
+function bindJumpCue(brushBar: HTMLElement): void {
+  const set = (on: boolean): void => {
+    brushBar.classList.toggle("jump", on);
+  };
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Control" || e.key === "Meta") set(true);
+  });
+  window.addEventListener("keyup", (e) => {
+    if (e.key === "Control" || e.key === "Meta") set(false);
+  });
+  window.addEventListener("blur", () => set(false));
 }
 
 /**
@@ -44,8 +80,15 @@ export interface PaletteOptions {
  * and its options are already on screen, no separate "pick this thing" step
  * required.
  */
-export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Palette {
+export function bindPalette({
+  selection,
+  hidden,
+  onPaint,
+  canJump,
+  onJump,
+}: PaletteOptions): Palette {
   const brushBar = document.getElementById("brushes");
+  if (brushBar) bindJumpCue(brushBar);
   const closed = readClosedCategories();
 
   // ERASE is a tool action rather than a creature, so its button is static
@@ -63,7 +106,7 @@ export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Pal
   const brushButton = (b: (typeof BRUSHES)[number]): HTMLElement => {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "brush";
+    button.className = canJump(b.brush) ? "brush can-jump" : "brush";
     // The picture at a size worth looking at, the wave it first arrives in
     // and the brush's own sentence — on a card that opens under the pointer
     // (`brush-tooltip.ts`), so hovering says all three whether or not SHOW
@@ -90,7 +133,14 @@ export function bindPalette({ selection, hidden, onPaint }: PaletteOptions): Pal
     text.append(name, hint);
     button.appendChild(text);
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
+      // The modifier is checked before the selection: seeing a brush in
+      // action is a question about the campaign, and it has an answer whether
+      // or not a tile on this wave's map happens to be pointed at.
+      if (isJumpClick(e)) {
+        if (canJump(b.brush)) onJump(b.brush);
+        return;
+      }
       if (!selection.at()) return;
       onPaint(b.brush);
     });

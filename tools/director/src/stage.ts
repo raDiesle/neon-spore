@@ -13,6 +13,8 @@ import {
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
+import { exposeStageHandle } from "./stage-handle.js";
+import { runStageLoop } from "./stage-loop.js";
 import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
@@ -31,6 +33,9 @@ export interface StagePanel {
   rebuild(): void;
   /** Replay the wave from its start up to `beat`, then hold there. */
   seek(beat: number): void;
+  /** Let the field run from where it is — what a wave opened to be *watched*
+   * needs, since the transport keeps whatever it was last left at. */
+  play(): void;
   /** The beat the field is holding, for a placement to land on. */
   beat(): number;
   /**
@@ -180,22 +185,7 @@ export function bindStage(
     onFrame();
   };
 
-  // A local fixed-timestep loop rather than the game's: reaching into
-  // `apps/game`'s would cross a boundary the workspace deliberately refuses.
-  let last = performance.now();
-  let carry = 0;
-  const frame = (now: number): void => {
-    const dt = Math.min(0.25, (now - last) / 1000);
-    last = now;
-    carry += dt * cfg.tickHz;
-    // Never more than a second's catch-up, so an away tab does not burst.
-    const steps = Math.min(Math.floor(carry), cfg.tickHz);
-    for (let i = 0; i < steps; i++) advance();
-    carry -= steps;
-    paint(dt);
-    requestAnimationFrame(frame);
-  };
-  requestAnimationFrame(frame);
+  runStageLoop({ tickHz: () => cfg.tickHz, advance, paint });
 
   const playBtn = document.getElementById("play");
   const paintPlay = (): void => {
@@ -220,6 +210,11 @@ export function bindStage(
   });
   bindKeyHelp();
 
+  const play = (): void => {
+    running = true;
+    paintPlay();
+  };
+
   const seek = (beat: number): void => {
     rebuild();
     const ticks = beat * ticksPerBeat(cfg);
@@ -231,19 +226,13 @@ export function bindStage(
   paintPlay();
   rebuild();
 
-  /**
-   * Handle for headless checks. A hidden tab suspends requestAnimationFrame,
-   * so a test that wants a picture has to be able to ask for one.
-   */
-  (window as unknown as { neonSporeDirector: unknown }).neonSporeDirector = {
-    get world() {
-      return world;
-    },
-    advance(ticks: number) {
+  exposeStageHandle({
+    world: () => world,
+    advance: (ticks) => {
       for (let i = 0; i < ticks; i++) stepOnce();
     },
     paint: () => paint(1 / 60),
-  };
+  });
 
-  return { rebuild, seek, beat: () => lastBeat, world: () => world };
+  return { rebuild, seek, play, beat: () => lastBeat, world: () => world };
 }

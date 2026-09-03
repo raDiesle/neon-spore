@@ -2,7 +2,8 @@
 
 /**
  * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES]
- * [--wait 2500]` — photograph one element of the running director.
+ * [--wait 2500] [--hold Control]` — photograph one element of the running
+ * director.
  *
  * CLAUDE.md's *Showing the owner something* says to send a PNG and never a
  * path, and there were two tools for it: `bun run frames <sha>` for the game
@@ -47,10 +48,15 @@ if (!selector || !out) {
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
+  console.error("       --hold is a modifier key held down for the shot, e.g. Control");
   process.exit(1);
 }
 
 const tab = flag("tab");
+// A state only a held key reveals cannot be photographed by pressing buttons:
+// the palette says what Ctrl-click would do only while Ctrl is down
+// (`tools/director/src/palette.ts`). One flag rather than a second script.
+const hold = flag("hold");
 const open = flag("open");
 const settle = Number(flag("wait") ?? 2500);
 const port = flag("port") ?? "4174";
@@ -79,6 +85,7 @@ try {
     await page.waitForTimeout(600);
     await page.getByRole("button", { name: tab, exact: true }).click();
   }
+  if (hold) await page.keyboard.down(hold);
   await page.waitForTimeout(settle);
 
   const target = page.locator(selector);

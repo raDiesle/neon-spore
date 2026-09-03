@@ -1,20 +1,6 @@
-import { type MechanicId, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { brushArtImage } from "./brush-art.js";
-import { BRUSH_KIND, BRUSHES, type Brush } from "./brushes.js";
-
-/**
- * The mechanic id a brush paints, for every brush that paints one at all —
- * `BRUSH_KIND` (`brushes.ts`) widened to include the three pod kinds it
- * leaves out, since its only consumer there (`categoryOf`) takes a
- * `CreatureKind` and a pod is not one. `ERASE` paints nothing and carries no
- * entry.
- */
-const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
-  ...BRUSH_KIND,
-  mend: "mend",
-  purge: "purge",
-  ward: "ward",
-};
+import { BRUSH_MECHANIC, firstWaveFor } from "./brush-wave.js";
+import { BRUSHES, type Brush } from "./brushes.js";
 
 /** How big the hover card's picture is. Large enough to be looked *at* — the
  * chip in the palette is small enough that a shell's plating and a clasp's
@@ -25,29 +11,14 @@ const CARD_ART = 148;
 const GAP = 12;
 
 /**
- * The wave that first puts a mechanic on the field, read off the exact
- * derivation `packages/content/test/waves.test.ts` asserts against — `WAVES`
- * walked in order, `mechanicsInWave` asked of each — rather than a second
- * table that could drift from it. `undefined` means no wave carries it yet,
- * which is a real answer and not a missing one.
- */
-function firstWave(id: MechanicId): { number: number; name: string } | undefined {
-  for (const [i, wave] of WAVES.entries()) {
-    if (mechanicsInWave(wave).has(id)) return { number: i + 1, name: wave.name };
-  }
-  return undefined;
-}
-
-/**
  * The hover text for a brush: the wave that first introduces what it paints,
  * named by number and by name since a number alone is hard to hold, or the
  * plain fact that no wave carries it yet. `undefined` for a brush that paints
  * nothing (`ERASE`), which has no such answer to give.
  */
 export function brushTooltip(brush: Brush): string | undefined {
-  const kind = BRUSH_MECHANIC[brush];
-  if (!kind) return undefined;
-  const wave = firstWave(kind);
+  if (!BRUSH_MECHANIC[brush]) return undefined;
+  const wave = firstWaveFor(brush);
   return wave ? `First in WAVE ${wave.number} · ${wave.name}` : "No wave carries this yet";
 }
 
@@ -82,6 +53,11 @@ export function brushCard(brush: Brush): HTMLElement | null {
   const wave = brushTooltip(brush);
   if (wave) card.appendChild(line("brush-card-wave", wave));
   if (spec.note) card.appendChild(line("brush-card-note", spec.note));
+  // The way to that wave, said where the wave is named. A modifier on a click
+  // is the one kind of control nothing on screen can advertise by itself: the
+  // palette lights the brushes it works on while the key is down
+  // (`palette.ts`), and this is the sentence that says the key exists at all.
+  if (firstWaveFor(brush)) card.appendChild(line("brush-card-jump", "Ctrl-click to open it"));
   return card;
 }
 

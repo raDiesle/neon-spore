@@ -53,7 +53,12 @@ it actually drew, by measuring the black rather than by declaring a crop
 (`src/brush-poses.ts`, `src/brush-trim.ts`). So a pod and a lure with its
 alarm ring both fill their chip, and the map's cells carry the same picture as
 the button that painted them. Hovering a brush opens a card with that picture
-large, the wave the mechanic first arrives in, and the blurb. The `SHIP` tab holds what is left of it: nine mechanics
+large, the wave the mechanic first arrives in, and the blurb. **Ctrl-click
+(or ⌘-click) that brush and the director opens that wave and plays it** — the
+shortest route from "what is a Throb" to watching one arrive, and the reason
+the card names the wave at all rather than leaving it a number to go and find.
+Hold the key and the palette says so before the press: every brush a wave
+carries frames gold, and the cursor changes. The `SHIP` tab holds what is left of it: nine mechanics
 worth a hand-written sentence, and every other `SimConfig` field grouped and
 shown beside them. `src/ship-fields.ts` sorts every field into its group
 through a `Record<keyof SimConfig, GroupName>`, so this cuts both ways now —
