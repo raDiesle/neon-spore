@@ -1,9 +1,21 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { buildPods, buildQueue, mechanic, mechanicsInWave, WAVES } from "../src/index.js";
+import { CREATURES, controlsForKinds } from "../src/creatures.js";
+import {
+  buildPods,
+  buildQueue,
+  controlSetForWave,
+  groupsCoveredBy,
+  mechanic,
+  mechanicsInWave,
+  queueFromWave,
+  WAVES,
+} from "../src/index.js";
 
 const beatSeconds = 60 / DEFAULT_CONFIG.bpm;
 const secondsToHull = DEFAULT_CONFIG.rows * beatSeconds;
+/** The field waves are authored against, and what `queueFromWave` maps from. */
+const AUTHORED_COLS = 7;
 
 describe("wave content", () => {
   it("gives every creature at least 4 seconds from entry to impact", () => {
@@ -63,6 +75,32 @@ describe("wave content", () => {
     for (const wave of WAVES) {
       if (wave.boss) continue;
       expect(wave.entries.length, `${wave.name} has no boss and no entries`).toBeGreaterThan(0);
+    }
+  });
+
+  /**
+   * The union rule, which `CLAUDE.md` and `creatures-table.ts` both state and
+   * nothing checked: **a wave shows the union of its creatures' control
+   * groups**. A creature declares which of the two groups it demands
+   * (`CreatureDef.controls`), a panel can answer some of them
+   * (`groupsCoveredBy`), and a wave that puts a guard creature on a panel with
+   * no shield on it is a creature the pair is shown and cannot answer.
+   *
+   * Both halves are *called* rather than spelled out here: a rule re-derived
+   * inside a test is a second copy of the rule, and it drifts.
+   */
+  it("shows the controls its creatures demand", () => {
+    for (const [i, wave] of WAVES.entries()) {
+      const kinds = queueFromWave(wave, AUTHORED_COLS)
+        .map((entry) => entry.kind)
+        .filter((kind) => kind in CREATURES);
+      const covered = groupsCoveredBy(controlSetForWave(i));
+      for (const group of controlsForKinds(kinds)) {
+        expect(
+          covered,
+          `${wave.name} sends something that demands ${group}, on a panel without it`,
+        ).toContain(group);
+      }
     }
   });
 

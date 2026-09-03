@@ -1,4 +1,5 @@
 import { type ControlDef, type ControlId, control, type PanelForm } from "./controls.js";
+import type { ControlGroup } from "./creatures.js";
 import { WAVES } from "./waves.js";
 
 /**
@@ -149,6 +150,30 @@ export function setControls(set: ControlSet, player: 1 | 2): readonly ControlDef
 
 export function setHas(set: ControlSet, id: ControlId): boolean {
   return set.controls.includes(id);
+}
+
+/**
+ * Which control groups this panel can answer.
+ *
+ * `ControlGroup` is aim and guard — *the two things a wave may be missing* —
+ * and a creature declares which of them it demands (`CreatureDef.controls`).
+ * The union rule is that a wave's panel covers every group its creatures
+ * demand, and this is the half of it that reads a panel; `controlsForKinds`
+ * is the half that reads the creatures, and `test/waves.test.ts` puts them
+ * together over every wave.
+ *
+ * Derived from the controls in the set rather than declared beside them,
+ * because a declaration is a second copy of something already written down.
+ * Aim is a cannon and something to fire out of it; guard is the trigger and
+ * the shield it stands behind — either half alone is a group the pair cannot
+ * actually use.
+ */
+export function groupsCoveredBy(set: ControlSet): ControlGroup[] {
+  const covered: ControlGroup[] = [];
+  const fires = setHas(set, "fireRed") || setHas(set, "fireCyan");
+  if (setHas(set, "cannon") && fires) covered.push("aim");
+  if (setHas(set, "guard") && setHas(set, "shield")) covered.push("guard");
+  return covered;
 }
 
 /**

@@ -205,31 +205,6 @@ valuable untested units; `link-socket.ts` is covered by the reconnect entry.
 state after each message. Give `startLoop` injectable `now` and `raf` (one
 parameter each) and test the cap and the stop. Keep each file under 250 lines.
 
-## Retire or enforce the control-group union rule; controlsForKinds is dead code
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-retire-or-enforce-the-control-group-union-rule-c
-- **Files:** `packages/content/src/creatures.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/index.ts`, `packages/render/src/band.ts`, `packages/content/test/waves.test.ts`, `CLAUDE.md`, `.claude/skills/new-creature/SKILL.md`
-
-`controlsForKinds` (`creatures.ts` lines 84 to 88) has no caller anywhere;
-`ControlGroup` is imported by nothing outside content. The panel a wave shows is
-decided by `controlSetForWave(world.wave)` in `render/src/band.ts`, a named
-`ControlSet` on the wave, not a union of creature groups. Yet CLAUDE.md
-("a wave shows the union of its creatures' control groups"), `creatures-table.ts`
-lines 7 to 8 and the new-creature skill all state the union rule as live.
-`CreatureDef.controls` today feeds only `categoryOf`.
-
-Decide which is true and make the code say it. Either add a content test that
-every wave's control set covers `controlsForKinds` of the kinds in
-`mechanicsInWave(wave)` so a `guard` creature on a `lance`-less panel fails, or
-delete `controlsForKinds` and `ControlGroup` from the public surface and rewrite
-the three documents to say `controls` classifies a creature and `Wave.controls`
-names the panel. The first is the smaller change and keeps the documents true.
-
-`controlsForKinds` has already left `content`'s barrel (2026-09-03, the
-barrel-trimming item), so what is left of the second option is deleting the
-function itself and the three documents. Nothing else about this entry changed.
-
 ## The room starts on a shared press, not a three-second timer
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

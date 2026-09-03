@@ -54,8 +54,13 @@ default, so a forgotten kind was drawn as a slick that swayed like one, or
 never lit its siren, and nothing anywhere said a word. They are total now,
 which is why they are on this list at all.
 
-`controls` decides which controls a wave containing it shows. Never edit a wave
-to make a creature work — the union is computed.
+`controls` names the groups a wave containing this creature must be able to
+answer — `ControlGroup` is aim and guard, *the two things a wave may be
+missing*, and a handle drawn on the field is neither. Never edit a wave to make
+a creature work: a wave names one whole panel and the union is checked against
+it. `packages/content/test/waves.test.ts` is where that check lives, so putting
+a guard creature on a shield-less panel is a red `bun run check` rather than
+something the pair is shown and cannot answer.
 
 `color` is **one** colour, and it comes with **one** silhouette: the pair say
 these things out loud across a voice delay, so a shape must mean the same word

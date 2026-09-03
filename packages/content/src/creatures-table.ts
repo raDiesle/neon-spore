@@ -5,7 +5,12 @@ import { WORN_CREATURES } from "./creatures-worn.js";
 
 /**
  * Adding a creature means adding one entry here. Waves are not touched —
- * a wave shows the union of its creatures' control groups, nothing else.
+ * a wave shows the union of its creatures' control groups, nothing else. That
+ * sentence is an invariant rather than an intention: `controlsForKinds` reads
+ * the groups a wave's creatures demand, `groupsCoveredBy` reads the groups its
+ * panel answers, and `test/waves.test.ts` puts the two together over every
+ * wave — so a guard creature dropped onto a shield-less panel is a red check
+ * rather than a creature the pair is shown and cannot answer.
  *
  * **One kind, one colour, one shape.** The pair plays across a voice channel
  * with a delay on it, so what one of them says has to be the same word every

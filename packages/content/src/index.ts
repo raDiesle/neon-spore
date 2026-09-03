@@ -5,6 +5,7 @@ export {
   controlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
+  groupsCoveredBy,
   panelForm,
   setControls,
   setHas,
