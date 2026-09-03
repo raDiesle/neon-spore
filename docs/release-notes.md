@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · adc7516 — The context map covers the tools, and notices a row that stopped being true
+
+`bun run index` walked `packages` and `apps` only, so 252 files had no row and the test that fails on a missing one could not see them: all of `tools/dev`, `tools/land`, the director's own scripts, `apps/game/build.ts`. Scope now follows where source actually lives — under `src/` in a package or an app, beside its directory in a tool — and `bun run index --check` writes nothing and exits non-zero on drift.
+
+## 2026-09-03 · bee44c4 — The command guards read arguments, in a language that has them
+
+The two PreToolUse guards were bash scripts matching globs against the whole command line, and a glob does not know an argument from a mention of one: the rule written against `--am` refused `git commit --amend`, so a plain reword became a soft reset and a fresh commit with no guard at all on what got staged, and a commit message that quoted a refused form was refused for quoting it. Both now live in `tools/hooks/guard.ts`, which splits the line into commands and each command into its arguments — quotes, escapes and heredoc bodies are text — and asks its questions of those. `bun test` no longer needs `bash` on PATH, which is what made twelve hook tests red in PowerShell.
+
 ## 2026-09-03 · 0bb6dd5 — Queue the claim that does not hold: land sweeps other lanes' branches
 
 `bun run queue next` claims an item by creating a branch off main, and docs/queue.md says that branch is the claim. A claim branch has no commits on it, so it reads as merged and the sweep at the end of any other lane's `bun run land` deletes it. Both sessions running today lost every claim within minutes of the other landing, then did the same item twice — and one of the two commits was thrown away at the rebase.
