@@ -536,6 +536,7 @@ game is fine. Client-only, provable with `bun run check`.
 ## The tuning panel still reads "TEST BUILD", from before the menu was the door
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-the-tuning-panel-still-reads-test-build-from-bef
 - **Files:** `apps/game/index.html`, `apps/game/src/testing.ts`
 
 `#panel`'s heading is "NEON SPORE — TEST BUILD" and its footer is a paragraph of
