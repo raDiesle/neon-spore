@@ -9,23 +9,12 @@ export function drawDetails(
   rx: number,
   ry: number,
   rim: string,
-  hex: string,
 ): void {
   ctx.fillStyle = rim;
   if (isBulb) {
     ctx.beginPath();
     ctx.arc(0, ry * 0.3, ry * 0.09, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = hex;
-    ctx.lineWidth = Math.max(0.6, ry * 0.035);
-    ctx.globalAlpha = 0.5;
-    ctx.beginPath();
-    ctx.moveTo(-rx * 0.28, -ry * 0.4);
-    ctx.quadraticCurveTo(-rx * 0.39, -ry * 0.68, -rx * 0.22, -ry * 0.9);
-    ctx.moveTo(rx * 0.28, -ry * 0.4);
-    ctx.quadraticCurveTo(rx * 0.39, -ry * 0.68, rx * 0.22, -ry * 0.9);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
     return;
   }
   ctx.beginPath();

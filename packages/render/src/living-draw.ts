@@ -136,7 +136,7 @@ export function drawLiving(
     ctx.fillStyle = dark;
     ctx.fill(path);
     strokeGlow(ctx, path, hex, Math.max(1, r * 0.1) / scale, 1);
-    drawDetails(ctx, isBulb, shape.rx, shape.ry, rim, hex);
+    drawDetails(ctx, isBulb, shape.rx, shape.ry, rim);
     // And the furrow it will part along, cut across that same axis. In here
     // with the details rather than outside the body, because it is a marking
     // on the contour and takes the contour's own aspect and strain with it.
