@@ -14,7 +14,7 @@ import { commsCall } from "../src/comms.js";
 import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
 import { JUMP_TILES, showsWisp, wispApexTiles, wispJump } from "../src/wisp.js";
-import { showsWispSearch, wispSearchTile } from "../src/wisp-search.js";
+import { showsWispSearch, wispSearchAt } from "../src/wisp-search.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -157,37 +157,75 @@ describe("the search on the pilot's screen", () => {
   /**
    * The rule the whole mark rests on. It is enforced by the signature —
    * nothing in `wisp-search.ts` takes a creature, a column or a row — and this
-   * is the check that the signature stays that way: the same step gives the
-   * same tile whatever is standing on the field, because there is no field in
+   * is the check that the signature stays that way: the same moment gives the
+   * same place whatever is standing on the field, because there is no field in
    * the call at all.
    */
   it("looks in the same places whether or not anything is out there", () => {
-    for (let step = 0; step < 50; step++) {
-      expect(wispSearchTile(L, CFG, step)).toEqual(wispSearchTile(L, CFG, step));
+    for (let k = 0; k < 50; k++) {
+      expect(wispSearchAt(L, CFG, k * 0.37)).toEqual(wispSearchAt(L, CFG, k * 0.37));
     }
   });
 
-  it("never looks at the hull row or past the edges of the grid", () => {
-    for (let step = 0; step < 400; step++) {
-      const { col, row } = wispSearchTile(L, CFG, step);
+  it("stays on the grid and never over the hull row", () => {
+    for (let k = 0; k < 2000; k++) {
+      const { col, row } = wispSearchAt(L, CFG, k * 0.11);
       expect(col).toBeGreaterThanOrEqual(0);
-      expect(col).toBeLessThan(CFG.cols);
+      expect(col).toBeLessThanOrEqual(CFG.cols - 1);
       expect(row).toBeGreaterThanOrEqual(0);
       // `wispRows` is where a wisp may stand, and the hull row is not in it.
-      expect(row).toBeLessThan(wispRows(CFG));
+      expect(row).toBeLessThanOrEqual(wispRows(CFG) - 1);
     }
   });
 
-  it("walks the field rather than sitting in one part of it", () => {
-    const cols = new Set<number>();
-    const rows = new Set<number>();
-    for (let step = 0; step < 200; step++) {
-      const t = wispSearchTile(L, CFG, step);
-      cols.add(t.col);
-      rows.add(t.row);
+  /**
+   * The reason the sweep is two sines at unrelated rates rather than a walk
+   * between tiles: a head that stopped square on a square would be read as
+   * *the enemy is there*, and the pilot would fire at it.
+   */
+  it("never stops, so it can never be read as pointing at a tile", () => {
+    let still = 0;
+    let last = wispSearchAt(L, CFG, 0);
+    for (let k = 1; k < 3000; k++) {
+      const at = wispSearchAt(L, CFG, k * 0.05);
+      if (Math.hypot(at.col - last.col, at.row - last.row) < 1e-3) still++;
+      last = at;
     }
-    expect(cols.size).toBe(CFG.cols);
-    expect(rows.size).toBeGreaterThan(wispRows(CFG) / 2);
+    expect(still).toBe(0);
+  });
+
+  it("almost never travels along a row or a column", () => {
+    let axial = 0;
+    let last = wispSearchAt(L, CFG, 0);
+    for (let k = 1; k < 3000; k++) {
+      const at = wispSearchAt(L, CFG, k * 0.05);
+      const dx = Math.abs(at.col - last.col);
+      const dy = Math.abs(at.row - last.row);
+      // Axis-aligned means one component is a rounding error beside the other.
+      if (dx < dy * 0.02 || dy < dx * 0.02) axial++;
+      last = at;
+    }
+    expect(axial / 3000).toBeLessThan(0.02);
+  });
+
+  it("walks the whole field rather than one part of it", () => {
+    let minCol = Number.POSITIVE_INFINITY;
+    let maxCol = Number.NEGATIVE_INFINITY;
+    let minRow = Number.POSITIVE_INFINITY;
+    let maxRow = Number.NEGATIVE_INFINITY;
+    for (let k = 0; k < 4000; k++) {
+      const at = wispSearchAt(L, CFG, k * 0.09);
+      minCol = Math.min(minCol, at.col);
+      maxCol = Math.max(maxCol, at.col);
+      minRow = Math.min(minRow, at.row);
+      maxRow = Math.max(maxRow, at.row);
+    }
+    // Within about half a tile of both edges on both axes — the inset that
+    // keeps the frame from hanging off the grid, and nothing more.
+    expect(minCol).toBeLessThan(0.7);
+    expect(maxCol).toBeGreaterThan(CFG.cols - 1.7);
+    expect(minRow).toBeLessThan(0.7);
+    expect(maxRow).toBeGreaterThan(wispRows(CFG) - 1.7);
   });
 });
 

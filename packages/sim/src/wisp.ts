@@ -91,8 +91,14 @@ export function wispTiles(cfg: SimConfig): number {
  * happens afterwards. Rolling once into the field-minus-one and stepping past
  * the hole cannot do that, and it also cannot return the tile it started on,
  * which is the thing that would read as a hop that did not happen.
+ *
+ * A tile rather than a `Creature`, because `wispOnSpawn` rolls the first one
+ * before there is a body to roll it for.
  */
-export function wispHopTo(world: World, c: Creature): { col: number; row: number } {
+export function wispHopTo(
+  world: World,
+  c: { col: number; row: number },
+): { col: number; row: number } {
   const cols = world.cfg.cols;
   const tiles = wispTiles(world.cfg);
   const here = c.row * cols + c.col;
@@ -103,17 +109,81 @@ export function wispHopTo(world: World, c: Creature): { col: number; row: number
 }
 
 /**
+ * The first `wispNext`, rolled as the body is built.
+ *
+ * `dartOnSpawn`'s arrangement, one line below it in `spawn.ts`, and here for
+ * the same reason spelled for a different creature: a wisp that arrived with
+ * no next tile would give the navigator a whole first dwell — three and three
+ * quarter seconds, the longest stretch of this creature's life — with nothing
+ * on the screen to say. The square is on the field from the frame the body is.
+ *
+ * Row zero, because that is where an arrival stands: a wisp does not fall
+ * (`fallTilesPerBeat` is zero for it), so the tile it is on when this is read
+ * is the tile it will be on until the first hop.
+ */
+export function wispOnSpawn(world: World, col: number): { wispNext: number } {
+  return { wispNext: tileIndex(world.cfg, wispHopTo(world, { col, row: 0 })) };
+}
+
+/**
+ * The tile a wisp is going to next, as a tile index, or `undefined` on a body
+ * that has not rolled one yet.
+ *
+ * A packed index and not a column and a row, for the reason every other pair
+ * of numbers in `Creature` is not packed: this one is *rolled* rather than
+ * moved to. `wispHopTo` already works in index space — one draw over the field
+ * minus the tile it stands on — so storing what came off the stream, rather
+ * than a decomposition of it, means the fingerprint hashes the roll itself and
+ * `wispTileAt` is the one place it is ever taken apart.
+ */
+export function wispNextIndex(c: Creature): number | undefined {
+  return c.wispNext;
+}
+
+/** A tile index back into a column and a row. The one place `wispNext` is
+ * decomposed, so a site that wanted the tile cannot invent a second division. */
+export function wispTileAt(cfg: SimConfig, index: number): { col: number; row: number } {
+  return { col: index % cfg.cols, row: Math.floor(index / cfg.cols) };
+}
+
+/**
  * One beat of a wisp, in place of the fall every other kind takes.
  *
  * Called from `onBeat` instead of `grippedFallTiles`, which is why a wisp is
  * not grippable (`isGrippable`): a hand on it would drag at a number this
  * function never reads, and would show every sign of working.
+ *
+ * **The tile after this one is rolled here, the moment it lands.** That is
+ * `dartNext`'s arrangement and it is here for a stronger version of the same
+ * reason. A dart rolls its next side a beat early so a path can be previewed
+ * while the body is still in the air; a wisp rolls its next *tile* on landing
+ * so the square it is going to can be marked for the whole of the dwell. The
+ * pair's problem was never seeing the body — player 2 can see it fine — it
+ * was that a square only became sayable at the instant it stopped being true.
+ * Rolled ahead, the square is on the screen from the moment the last jump
+ * ends, and the whole dwell is time to say it, hear it, and put a cannon on
+ * it. What the creature costs the pair is unchanged: it is still a tile that
+ * has to cross the room in words.
+ *
+ * The roll is the same single draw it always was, off `wispHopTo`, from the
+ * tile the body now stands on — so it can never name the tile it is already
+ * on. One draw per hop and one at the arrival (`wispOnSpawn`), which is the
+ * dart's arithmetic exactly.
  */
 export function stepWisp(world: World, c: Creature): void {
   if (!wispHops(world.cfg, world.beat)) return;
-  const to = wispHopTo(world, c);
+  // `wispOnSpawn` puts the first one on the body, so the fallback is not a
+  // case the game reaches — it is what keeps this total for a wisp built by
+  // hand in a test, and it rolls exactly the draw the stored tile cost.
+  const next = c.wispNext;
+  const to = next === undefined ? wispHopTo(world, c) : wispTileAt(world.cfg, next);
   c.col = to.col;
   c.row = to.row;
+  c.wispNext = tileIndex(world.cfg, wispHopTo(world, c));
+}
+
+function tileIndex(cfg: SimConfig, t: { col: number; row: number }): number {
+  return t.row * cfg.cols + t.col;
 }
 
 /**

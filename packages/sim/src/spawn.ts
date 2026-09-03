@@ -7,6 +7,7 @@ import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
 import { veilOnSpawn } from "./veil.js";
+import { wispOnSpawn } from "./wisp.js";
 import type { World } from "./world.js";
 
 /**
@@ -97,6 +98,11 @@ export function spawnArrivals(world: World): void {
       // fixing the thing docs/spec/structure.md 7.3 puts on the random side
       // of its own table. Same stream, same argument about `rng.state`.
       ...(entry.kind === "veil" ? veilOnSpawn(world) : {}),
+      // Where THE WISP is going after its first hop, rolled here for the
+      // dart's reason two lines up: the square has to be on the navigator's
+      // screen from the frame the body is, or the longest dwell of this
+      // creature's life is the one with nothing to say (`wispOnSpawn`).
+      ...(entry.kind === "wisp" ? wispOnSpawn(world, col) : {}),
       // Which way a crossing ghost sets off, and a lap count at zero. Absent
       // for a ghost the wave authored `"down"`, and the absence *is* the
       // path — `ghostCrosses` reads it, and a falling ghost carries no field

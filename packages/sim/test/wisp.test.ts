@@ -20,7 +20,7 @@ import {
   wispOnField,
   wispRows,
 } from "../src/index.js";
-import { wispHopTo, wispTiles } from "../src/wisp.js";
+import { wispHopTo, wispTileAt, wispTiles } from "../src/wisp.js";
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
@@ -142,6 +142,75 @@ describe("wispHopTo", () => {
       seen.add(to.row * CFG.cols + to.col);
     }
     expect(seen.size).toBe(wispTiles(CFG));
+  });
+});
+
+describe("the tile it is going to next", () => {
+  /**
+   * The whole reason `wispNext` exists. The square has to be on the
+   * navigator's screen from the moment the body lands, not from the moment it
+   * leaves — one dwell to say two characters across the room, rather than one
+   * beat, which is the length of the sentence and not of an exchange.
+   */
+  it("is already rolled by the time the body has finished arriving", () => {
+    const { world } = run([wisp(3)], TPB + 1);
+    const c = world.creatures[0];
+    expect(c).toBeDefined();
+    expect(c!.wispNext).toBeDefined();
+  });
+
+  it("is where the body actually goes on the next hop, every time", () => {
+    const world = createWorld(CFG, 11, [wisp(3)]);
+    for (let t = 0; t <= TPB; t++) step(world, []);
+    for (let hop = 0; hop < 8; hop++) {
+      const c = world.creatures[0];
+      expect(c).toBeDefined();
+      const promised = wispTileAt(CFG, c!.wispNext!);
+      for (let t = 0; t < TPB * CFG.wispDwellBeats; t++) step(world, []);
+      const after = world.creatures[0];
+      expect(after).toBeDefined();
+      expect({ col: after!.col, row: after!.row }).toEqual(promised);
+    }
+  });
+
+  it("never promises the tile the body is already standing on", () => {
+    const world = createWorld(CFG, 5, [wisp(3)]);
+    for (let t = 0; t < TPB * CFG.wispDwellBeats * 12; t++) {
+      step(world, []);
+      const c = world.creatures[0];
+      if (c?.wispNext === undefined) continue;
+      expect(c.wispNext).not.toBe(c.row * CFG.cols + c.col);
+    }
+  });
+
+  it("only ever names a tile a wisp may stand on", () => {
+    const world = createWorld(CFG, 9, [wisp(3)]);
+    for (let t = 0; t < TPB * CFG.wispDwellBeats * 12; t++) {
+      step(world, []);
+      const next = world.creatures[0]?.wispNext;
+      if (next === undefined) continue;
+      const { col, row } = wispTileAt(CFG, next);
+      expect(col).toBeGreaterThanOrEqual(0);
+      expect(col).toBeLessThan(CFG.cols);
+      expect(row).toBeGreaterThanOrEqual(0);
+      expect(row).toBeLessThan(wispRows(CFG));
+    }
+  });
+
+  /**
+   * Rule 4 in CLAUDE.md, spelled for this field: a tile the two devices could
+   * disagree about is a tile the navigator names truly and the pilot stands on
+   * falsely. `hash-coverage.test.ts` catches a field left out of the
+   * fingerprint; this catches one that is in it but folded from the wrong
+   * place.
+   */
+  it("moves the fingerprint", () => {
+    const world = createWorld(CFG, 3, [wisp(3)]);
+    for (let t = 0; t <= TPB; t++) step(world, []);
+    const before = hashWorld(world);
+    const c = world.creatures[0]!;
+    c.wispNext = (c.wispNext! + 1) % wispTiles(CFG);
+    expect(hashWorld(world)).not.toBe(before);
   });
 });
 

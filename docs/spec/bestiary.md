@@ -275,16 +275,30 @@ one tile at a time, and the wave stays open until it is shot. Either colour
 shoots it, for the throb's reason — the ammunition is not the question this
 creature asks.
 
-**It jumps, and the beat it spends in the air is the pair's whole opening.**
-The simulation puts it on its landing tile at the top of the hop beat and
-render draws it crossing the field on an arc for the length of that beat, with
-the destination square marked and a dotted line drawn to it on player 2's
-screen. So the navigator can read a square that has not happened yet, and a
-shot at that square connects while the body is still off the ground
-(`occupiesCol` is already answering for it). It used to blink instead — out of
-one tile, into another, nothing in between — which gave the navigator one tile
-at the instant it arrived and made the call a race they mostly lost. The dwell
-grew with the jump: six beats, of which one is the flight.
+**It jumps, and the square it is jumping to is on the navigator's screen the
+whole time.** `wispNext` is rolled on the beat the body *lands* — THE DART's
+arrangement, one move ahead — so from the instant one jump ends the destination
+of the next is already marked, with the arc drawn to it. The navigator has a
+whole dwell to read two characters, say them, be heard and have a cannon
+standing on the tile before anything arrives on it. It used to blink instead —
+out of one tile, into another, nothing in between — which gave them a square at
+the instant it stopped being true. The dwell grew with the jump: six beats, of
+which one is the flight, and a shot at the named tile connects from the moment
+the body leaves the ground, because the simulation has already put it there.
+
+**And the pilot gets an instrument that is visibly looking.** A target-lock
+frame (`render/target-lock.ts`) crosses the grid on two sweeps that share no
+period: it never stops, never lines up with a row or a column, and is between
+tiles almost all of the time. It knows nothing — nothing in `wisp-search.ts`
+takes a creature, a column or a row — and the motion is what says so. A box
+that settled square on a square would be read as *the enemy is there*, and a
+pilot who fires at it is a pilot who has stopped listening.
+
+**The body itself is not solid.** It is received in horizontal bands, a couple
+of which are missing on any frame, so the field shows through the one creature
+the other screen does not have at all. Transparent and not faint: a flat low
+opacity is a dim body, equally present everywhere, which an eye goes on
+treating as an object.
 
 **And it is what finally turned the grid on.** `render/field.ts` has carried
 the tile lattice behind a constant since the field was first drawn, under a

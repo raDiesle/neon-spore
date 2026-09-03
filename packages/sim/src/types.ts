@@ -120,6 +120,17 @@ export interface Creature {
   dartFloat?: boolean;
   dartNext?: DartDir;
   /**
+   * The tile THE WISP will stand on after its next hop, packed as
+   * `row * cols + col`, absent on every other kind. **Rolled on the beat it
+   * lands, not the beat it leaves** — `dartNext`'s arrangement, and `wisp.ts`
+   * carries the argument: it is what lets render mark the square from the
+   * moment the last jump ends, so the pair has a whole dwell to say two
+   * characters across the room. Packed because that is the shape it comes off
+   * the stream in, so the fingerprint hashes the roll itself; read it through
+   * `wispTileAt` and never by dividing it here.
+   */
+  wispNext?: number;
+  /**
    * The tick a wrong colour last struck THE VEIL, or absent on a cloud nobody
    * has missed and on every other kind. While it is inside `veilArmourMs` the
    * cloud is shut and no shot reaches the body inside it.

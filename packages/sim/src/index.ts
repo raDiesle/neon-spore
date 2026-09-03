@@ -159,7 +159,7 @@ export {
   veilOnSpawn,
   veilStruck,
 } from "./veil.js";
-export { wispHops, wispOnField, wispRows } from "./wisp.js";
+export { wispHops, wispNextIndex, wispOnField, wispRows, wispTileAt } from "./wisp.js";
 export {
   type BossEntry,
   createWorld,

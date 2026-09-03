@@ -143,8 +143,8 @@ export const WAVES_ACT_4: Wave[] = [
     sentence: "The one where you call the square it is still falling toward.",
     guide: {
       both: "One of you cannot see this one at all. It never comes down at you — it jumps, and lands somewhere else on the field, and the lettered grid under everything is how you say where.",
-      p1: "You will not see it once. Take the letter, put the cannon on it and hold still. It can be shot while it is still in the air, so a square you are told early is a square you can already be under.",
-      p2: "Only your screen has it. While it is in the air the square it is coming down on is already marked, with the arc drawn to it — say that square before it lands. Either colour kills it, so do not wait to pick one.",
+      p1: "You will not see it once. Take the letter, put the cannon on it and wait — the square you are told is where it is going, not where it is, so being there early is the whole game. The box hunting the grid is not it.",
+      p2: "Only your screen has it, and the square it will jump to next is marked from the moment it lands, with the arc drawn to it. Say that square immediately — they have the whole dwell to get there. Either colour kills it.",
     },
     entries: [
       { beat: 0, col: 3, kind: "wisp", color: null },

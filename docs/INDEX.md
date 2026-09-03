@@ -168,6 +168,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
+| `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
 
 ### packages/content
 
@@ -355,6 +356,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lure-hole.ts` | THE HOLE THROUGH A LURE, and what is coming out of it |
 | `packages/render/src/ghost-eyes.ts` | THE GHOST's eyes, and they are the whole of what makes the shape a face rather than a bell |
 | `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |
+| `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 
 ### packages/net
 

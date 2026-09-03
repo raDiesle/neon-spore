@@ -1,6 +1,5 @@
-import { kindCode } from "./creature-kinds.js";
 import { bossHashParts } from "./hash-boss.js";
-import { spanOf } from "./span.js";
+import { creatureHashParts } from "./hash-creature.js";
 import { POD_KINDS } from "./types.js";
 import type { World } from "./world.js";
 
@@ -17,8 +16,12 @@ import type { World } from "./world.js";
  * index and never rewritten, and `spawned`/`podSpawned` below carry how far
  * that reading has got. `events` is cleared every tick and derived from the
  * step that just ran, so it is a consequence of the state and not part of it.
- * Everything else is here. A field outside the hash is a field that can
- * desync two devices silently (docs/architecture.md).
+ * Everything else is here, in this file or in the two it hands off to:
+ * `hash-creature.ts` folds one body and `hash-boss.ts` one installed
+ * mechanism, both as flat lists this file pushes, so what is left below is the
+ * shape of the world rather than the contents of its longest lists. A field
+ * outside the hash is a field that can desync two devices silently
+ * (docs/architecture.md).
  */
 export function hashWorld(world: World): number {
   let h = 0x811c9dc5;
@@ -107,102 +110,7 @@ export function hashWorld(world: World): number {
 
   push(world.creatures.length);
   for (const c of world.creatures) {
-    push(c.id);
-    // Which body this is. Not needed while every creature died the kind it
-    // was born: the wave's queue fixed that on both devices. THE CLASP turns
-    // into a slick or a bulb mid-fall, on a trigger (`clasp.ts`), so two
-    // devices can now hold one body at one row in one colour and disagree
-    // about whether its shield is still on. Without this the fingerprints
-    // would match while one player shoots what the other cannot hit.
-    push(kindCode(c.kind));
-    push(c.col);
-    // How wide it is. A rock's width is authored rather than fixed by its
-    // kind now (`RockSize`), so two devices can hold one body at one column
-    // and disagree about which columns the shield has to cover — a desync
-    // that shows up as a deflection on one screen and a hull breach on the
-    // other. `spanOf` rather than `c.span`, so an unsized body is hashed as
-    // the width it actually has.
-    push(spanOf(c));
-    push(c.row);
-    push(c.color === null ? 0 : c.color === "red" ? 1 : 2);
-    push(c.holes);
-    push(c.petals);
-    push(c.dragMilli);
-    push(c.throbOpen ? 1 : 0);
-    // Which pieces of THE SHELL are still on. In for the plainest possible
-    // version of the rule above: two devices that disagree about a piece
-    // disagree about whether the next shot chips armour or has to carry a
-    // colour, and one of them is playing a body the other one has already
-    // opened. The colour underneath needs no field of its own — it is drawn
-    // into `c.color` at the break, and `rng.state` a few lines up is what
-    // makes both devices draw the same one.
-    push(c.shell);
-    // Which way the dart goes next, and whether the next beat is the one it
-    // goes on. Both decide where the body will be, so two devices that
-    // disagree about either are two devices playing different fields — and
-    // one of them has player 1 standing in a column nothing arrives in.
-    // `fromCol` beside them is deliberately out, for `fromRow`'s reason: where
-    // a body came from is a fact about the picture and not about the world.
-    push(c.dartDir ?? 0);
-    push(c.dartFloat ? 1 : 0);
-    // And the side after that one, which is rolled a beat early and is
-    // therefore already a fact about the world rather than a guess about it.
-    push(c.dartNext ?? 0);
-    // When a veil was last struck in the wrong colour. It decides whether the
-    // next shot reaches the body at all (`veilIsArmoured`), so two devices
-    // that disagree about it disagree about whether a kill happened — and the
-    // body inside needs no field of its own, being `c.color` a few lines up,
-    // which is what the morph turns over.
-    push(c.veilStruckTick ?? 0);
-    // Which way a crossing ghost is walking, and how many walls it has turned
-    // at. Both decide where the body will be on the next beat — and the lap
-    // count decides more than that: at `ghostChargeLaps` it stops walking and
-    // comes down at the hull, so two devices that disagree about it disagree
-    // about whether the ship is about to be hit. `-2` for a ghost that falls,
-    // which is a value no direction can take, so "no path" and "going left"
-    // are never the same number in the fingerprint.
-    push(c.ghostDir ?? -2);
-    push(c.ghostLaps ?? 0);
-    // How many divisions THE ECHO has left. It decides whether this body is
-    // two bodies on the next beat, how far apart they stand, and what a shot
-    // at it pays — so two devices that disagree about it disagree about how
-    // many things are on the field a beat later, which is the loudest desync
-    // there is. `-1` for a kind that never divides, which is a value no count
-    // can take, so "not an echo" and "done dividing" are never the same
-    // number in the fingerprint.
-    push(c.echoSplits ?? -1);
-    // And the beat it started waiting from, which with the count above decides
-    // *when* it divides. Two devices that agree about how many divisions are
-    // left and disagree about the moment hold the same field a beat apart, and
-    // a beat apart is one screen with four bodies on it and one with eight.
-    push(c.echoBeat ?? -1);
-    // THE GYRE's four. The hub's turn and its age decide where all six bodies
-    // on its rim stand on the next beat, how fast the rim is going and how far
-    // the diamond has sunk — so two devices that disagree about either are two
-    // devices firing at different columns. The mount's two are the attachment
-    // itself: `carryMounts` moves whatever names a hub, and `breakSpentGyres`
-    // counts the same field to decide whether the wheel is still there.
-    //
-    // `-1` for a body that carries none, which is a value none of the four can
-    // take, so "not a wheel" and "upright, brand new, riding slot zero" are
-    // never the same number in the fingerprint.
-    push(c.gyreTurnMilli ?? -1);
-    push(c.gyreStep ?? -1);
-    push(c.gyreId ?? -1);
-    push(c.gyreSlot ?? -1);
-    // The body a lure wears. Authored rather than rolled, so it is in here for
-    // the reason the maze's wheel is: the assumption that both devices were
-    // handed the same wave is exactly the one worth checking, and a disguise
-    // that differed would put player 1 in front of a body player 2 cannot see.
-    // How many layers THE RIND still wears. It decides whether the next
-    // matching shot takes a layer or the body, so two devices that disagree
-    // about it disagree about whether the thing is still on the field — one
-    // screen with a column to keep and one with a column to leave. `-1` for a
-    // kind that never sheds, which is a value no count can take, so "not a
-    // rind" and "cut down to size" are never the same number in the
-    // fingerprint.
-    push(c.rindLayers ?? -1);
-    push(c.wears === undefined ? 0 : kindCode(c.wears) + 1);
+    for (const n of creatureHashParts(c)) push(n);
   }
 
   push(world.bullets.length);

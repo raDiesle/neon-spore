@@ -17,10 +17,17 @@ import { drawTargetLock } from "./target-lock.js";
  * was being asked to stare at a plausible nothing.
  *
  * What it has now is an instrument visibly *looking*: one target-lock frame
- * that settles on a tile, sits a moment, and slides to another one somewhere
- * else. It is the seat's own scanner sweeping the grid, and it says the one
- * thing that is both true and safe — *something is out there and this machine
- * has not found it*.
+ * crossing the grid on two sweeps that share no period, so it never stops,
+ * never lines up with a row or a column, and is between tiles almost all of
+ * the time. It is the seat's own scanner, and it says the one thing that is
+ * both true and safe — *something is out there and this machine has not found
+ * it*.
+ *
+ * **It used to settle on tiles, and that was the bug.** A box that stopped
+ * square on a square is a box saying *here*, and the pilot reads it as the
+ * enemy's tile and fires at it — which is the one thing this mark must never
+ * be able to mean, since it knows nothing. Continuous diagonal motion cannot
+ * be misread that way: nothing about it ever picks a square out.
  *
  * **It knows nothing about where the wisp is, and that is enforced by the
  * signature rather than by care.** Nothing in this file takes a `Creature`, a
@@ -61,61 +68,74 @@ export function showsWispSearch(l: Layout): boolean {
   return l.role !== "p2";
 }
 
-/** Seconds one search step takes, and the share of it spent sitting still. A
- * box that never settled would be a thing floating; one that teleported would
- * be a thing blinking. It stops, looks, and moves on. */
-const STEP_SECONDS = 1.25;
-const HOLD = 0.6;
-
-/** How bright the frame gets while it is settled, and while it is travelling.
- * Both well under a real lock's: this instrument has found nothing, and a mark
- * at full strength saying nothing is a mark the pilot learns to distrust and
- * then cannot read when it means something. */
-const SETTLED_ALPHA = 0.5;
-const MOVING_ALPHA = 0.22;
-
 /**
- * A repeatable 0..1 off one number — `target-lock.ts`'s own `noise`, which is
- * private to that file. Copied rather than exported for once, and the reason
- * is the subject of this file: what a marking jitters by and where a scanner
- * looks are two different questions, and a shared helper between them is an
- * invitation to pass a position into one of them.
- */
-function hash(n: number): number {
-  const v = Math.sin(n * 12.9898) * 43758.5453;
-  return v - Math.floor(v);
-}
-
-/**
- * The tile the search is on at step `k` — a column and a row, off the hash and
- * nothing else.
+ * How fast the head crosses the field, in sweeps per second on each axis.
  *
- * Rows come from `wispRows`, the simulation's own rule for where a wisp may
- * stand, so the scanner looks in the region a body could actually be in rather
- * than over the hull. That is a rule and not a position: it says the same
- * thing whether or not anything is on the field, which is exactly the test a
- * mark on this screen has to pass.
+ * **Two frequencies with no common period, and that is the whole of the
+ * design.** Equal or related rates would trace a straight line or a closed
+ * figure and either one is a shape an eye learns; these never repeat, so the
+ * head is always somewhere between tiles, always moving, and almost never
+ * moving along a row or a column. Which matters more than it sounds: a box
+ * that stopped square on a tile would be read as *the enemy is on that tile*,
+ * and the pilot would fire at it. A head that never stops and never lines up
+ * with the grid cannot be read that way at all — it is plainly a thing
+ * sweeping, and the only thing that names a square is still the navigator.
+ *
+ * Sideways is the faster of the two because the field is wider than it is
+ * tall in tiles the pilot cares about, and because the cannon slides sideways:
+ * a scanner that agreed with the axis the seat's own hand moves along reads as
+ * the instrument that hand is attached to.
  */
-export function wispSearchTile(
+const SWEEP_X_HZ = 0.147;
+const SWEEP_Y_HZ = 0.0911;
+
+/** How far in from the edge the head turns, in tiles, so the frame never hangs
+ * half off the grid. */
+const MARGIN = 0.55;
+
+/** How bright the frame is. Well under a real lock's: this instrument has
+ * found nothing, and a mark at full strength saying nothing is a mark the
+ * pilot learns to distrust and then cannot read when it means something. */
+const ALPHA = 0.42;
+
+/**
+ * Where the head is, in tile coordinates, at `time`.
+ *
+ * Continuous and never on a step: there is no tile index anywhere in here and
+ * nothing rounds. The two sines are read at rates that share no period, so the
+ * head is between tiles for all but an instant at a time, and the only moments
+ * either axis is still are the turns — which never coincide, so the head
+ * itself never stops.
+ *
+ * It is also, still, the reason this mark is safe: the only inputs are the
+ * wall clock and the layout. Nothing here takes a creature, a column or a row,
+ * so there is no expression that *could* be derived from where the body is.
+ */
+export function wispSearchAt(
   l: Layout,
   cfg: SimConfig,
-  step: number,
+  time: number,
 ): { col: number; row: number } {
+  // The rows a wisp may stand on — the simulation's own rule, which says the
+  // same thing whether or not anything is on the field. The scanner looks
+  // where a body could be and not over the hull.
   const rows = Math.max(1, Math.min(l.rows, wispRows(cfg)));
   return {
-    col: Math.min(l.cols - 1, Math.floor(hash(step * 1.37 + 0.11) * l.cols)),
-    row: Math.min(rows - 1, Math.floor(hash(step * 2.71 + 0.53) * rows)),
+    col: span(l.cols, Math.sin(time * SWEEP_X_HZ * TAU + 1.31)),
+    row: span(rows, Math.sin(time * SWEEP_Y_HZ * TAU + 0.42)),
   };
 }
 
+/** A −1..1 swing onto a run of tiles, inset by `MARGIN` at both ends. */
+function span(count: number, wave: number): number {
+  const half = Math.max(0, (count - 1) / 2 - MARGIN);
+  return (count - 1) / 2 + wave * half;
+}
+
+const TAU = Math.PI * 2;
+
 /**
  * The frame, wherever the sweep has it this frame.
- *
- * Smoothstepped between two tiles rather than linear, which is the one place
- * this file deliberately does *not* copy how a body moves: every creature in
- * the game glides at a flat rate so that "it lands on the four" is a statement
- * both players can act on, and this is not a creature. It is a machine head
- * moving between two places it wants to look at, and a machine head eases.
  */
 export function drawWispSearch(
   ctx: CanvasRenderingContext2D,
@@ -123,20 +143,17 @@ export function drawWispSearch(
   cfg: SimConfig,
   time: number,
 ): void {
-  const u = time / STEP_SECONDS;
-  const step = Math.floor(u);
-  const f = u - step;
-  const move = f <= HOLD ? 0 : (f - HOLD) / (1 - HOLD);
-  const e = move * move * (3 - 2 * move);
-
-  const from = wispSearchTile(l, cfg, step);
-  const to = wispSearchTile(l, cfg, step + 1);
-  const x = tileCX(l, from.col + (to.col - from.col) * e);
-  const y = tileCY(l, from.row + (to.row - from.row) * e);
-
-  // Brightest sitting still and faint on the way, so an eye reads the *stops*
-  // rather than the travel — a scanner is a sequence of places it looked.
-  const alpha = MOVING_ALPHA + (SETTLED_ALPHA - MOVING_ALPHA) * (1 - Math.sin(e * Math.PI));
+  const at = wispSearchAt(l, cfg, time);
   const half = l.tile * 0.42;
-  drawTargetLock(ctx, x, y, half, half, PALETTE.wisp, time, alpha, 3);
+  drawTargetLock(
+    ctx,
+    tileCX(l, at.col),
+    tileCY(l, at.row),
+    half,
+    half,
+    PALETTE.wisp,
+    time,
+    ALPHA,
+    3,
+  );
 }
