@@ -9,6 +9,42 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 317d230 — Weigh player 2's frame too, so the fire buttons' cached paths stay cached
+
+The commit before this one said the budget measures both seats; it did not, because `frame-budget.test.ts` was rewritten on `main` between the measurement and the landing and this lane took `main`'s file whole rather than fighting it.
+
+## 2026-09-03 · 6791941 — Give the boss surface its own file, so the sim barrel fits again
+
+`index.ts` came back from the rebase at 255 lines: the ninety-two names that replaced `export * from "./bosses.js"` landed beside seven new exports main grew in the meantime — `midCol`, `msToTicks`, `guardArmed`, `mawOpen`, `ticksSinceGuard`, `podKindOf`, `removeCreature`.
+
+## 2026-09-03 · 77bb830 — Point the queue's own file lists at the files this lane left behind
+
+Four entries named `packages/sim/test/purity.test.ts` for the `COPIES` table, which now lives in `copies-table.ts`; a fifth said so in prose. A queue entry is read cold by a session that has read nothing else, so a path that no longer exists is the one kind of staleness that costs it a turn.
+
+## 2026-09-03 · 8ec1983 — Stop rebuilding four constant things every frame
+
+Four constant-input rebuilds, measured through the canvas stub over 30 frames of three scenarios — a busy wave on each seat and a pair of torches breaking the hull.
+
+## 2026-09-03 · b035c34 — Fold the sin-hash and smoothstep copies into src/hash.ts and src/ease.ts
+
+`Math.sin(n * 12.9898) * 43758.5453` was private to seven files in render/ and an eighth in the shape sheet, each under its own paragraph re-arguing why it is not `Rng` and not `Math.random`. `t * t * (3 - 2 * t)` was private to five files in render/ and six sites in the shape sheet, three of them clamping first and the rest trusting the caller. `sheen.ts` carried a third copy of `mixHex`, which `hex.ts` already said in a comment.
+
+## 2026-09-03 · d4ccd66 — Split purity.test.ts and maze.test.ts, and stop sim's tests reading content
+
+`purity.test.ts` was two guards in one 477-line file. The determinism bans stay there, the re-derived-rule table becomes `copies.test.ts` over `copies-table.ts` — the table grows by a row per finding and the check over it does not — and `stripNonCode` and `ROOT` move to `source-scan.ts`, so the two guards cannot drift into disagreeing about what counts as code.
+
+## 2026-09-03 · 0fc8544 — Drop the export keyword from thirty-two file-local symbols; delete flare.ts
+
+`drawFlare` was imported by nothing and its own header said it existed to be copied from; git keeps the copy source, so the file goes and the four prose mentions now describe TORCH as a spare contour instead of the flare's clone source. `draftedNames` and `MIRROR_DEFAULT` were referenced nowhere but their own definition and go with it.
+
+## 2026-09-03 · 87fb4a0 — Trim the barrel exports nobody outside the package imports
+
+Forty-nine names left the four package barrels: twenty-six from sim, eight from content, eight from audio, seven from net. Each was re-grepped across `apps/`, `packages/` and `tools/` for an importer, and the set of names any file actually pulls out of a barrel was collected mechanically rather than by eye. Three tests were reading a name through the barrel and now import it from the module that defines it — `POD_CATEGORY` from `creatures.ts`, `sampleOffset`/`sampleRtt` from `clock.ts`, `ROOM_ALPHABET` from `room-code.ts`. Module-level exports are untouched; only the barrels shrank.
+
+## 2026-09-03 · 4db182c — Correct four statements in docs/shipped-looks.md and the canvas stub header
+
+The doc still named `creatures.ts` / `drawCreature` for the slick-and-bulb pass and the `blocked > 0` branch; both moved to `living-draw.ts` / `drawLiving`. It described a bulb as one core dot plus two filament curves, where `creature-detail.ts` draws the dot and returns. It gave the trail halos as 0.85r and 0.73r, where the code computes `r * (0.85 - k * 0.12)` for k = 1 and 2 — 0.73r and 0.61r. The canvas stub's header called render the one package with no tests; it has 33 test files.
+
 ## 2026-09-03 · 9649f6f — The last five draw loops in render/ read the harness like the rest
 
 Five frame tests still typed their own step-collect-draw-clear loop, and the copies had already drifted: one drew every second tick, one every tick, one never derived a beat phase at all. Each is now a `runFrames` call, and the loop the harness holds is the only one left in the package.
