@@ -142,21 +142,20 @@ function cardSubjects(kind: CreatureKind): string[] {
  * is exactly what this table exists to keep out of it.
  */
 const SHORT_NOTE: Partial<Record<Brush, string>> = {
-  slick: "flat and wide, always red",
-  bulb: "round and swollen, always cyan",
-  lure: "a fake body — shooting it costs hull",
+  slick: "shot with the red cannon",
+  bulb: "shot with the cyan cannon",
+  lure: "do not shoot it",
   throb: "only a shot while it is swollen lands",
-  shell: "plating over two columns, chipped off a piece at a time",
-  clasp: "shots bounce — ward it open",
+  shell: "shoot the armour away first",
+  clasp: "ward it, then shoot",
   dart: "steps sideways; only p2 sees which way next",
   veil: "p2 does not see what is inside",
   wisp: "p1 cannot see it; hops tiles and never falls",
   ghost: "p1 cannot see it — say the column",
-  echo: "slow, and splits in two",
+  echo: "splits",
   rind: "starts bigger, shrinks when shot",
   gyre: "a wheel of six bodies; the maw slows it",
-  mount: "a body bolted to the gyre's rim",
-  torch: "double-wide rock, the fastest thing there is",
+  torch: "p1 calls the column, p2 wards — the fastest rock",
 };
 
 const LIVING_BRUSHES: {
@@ -192,7 +191,7 @@ export const BRUSHES: {
     label: "METEOR",
     subjects: ["METEOR"],
     stroke: PALETTE.rock,
-    note: "dead rock — cannot be shot, ward it",
+    note: "cannot be shot, ward it",
     detail: "Dead rock. Cannot be shot. Speed and size are set under the map, per rock.",
   },
   {
