@@ -140,6 +140,7 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4: Wave[] = [
   {
+    id: "theWisp",
     name: "THE WISP",
     sentence: "The one where you call the square it is still falling toward.",
     guide: {
@@ -158,6 +159,7 @@ export const WAVES_ACT_4: Wave[] = [
     ],
   },
   {
+    id: "theGhost",
     name: "THE GHOST",
     sentence: "The one where waiting to see it is the miss.",
     guide: {
@@ -176,6 +178,7 @@ export const WAVES_ACT_4: Wave[] = [
     ],
   },
   {
+    id: "snake",
     name: "SNAKE",
     sentence: "The one where the ship is the body, and the one who can see it cannot steer it.",
     guide: {
@@ -188,6 +191,7 @@ export const WAVES_ACT_4: Wave[] = [
     controls: "snake",
   },
   {
+    id: "theEcho",
     name: "THE ECHO",
     sentence: "The one where the slowest thing on the field is the one to take first.",
     guide: {
@@ -206,6 +210,7 @@ export const WAVES_ACT_4: Wave[] = [
     ],
   },
   {
+    id: "pinball",
     name: "PINBALL",
     sentence: "The one where the thing you fire from is the thing you have to catch it with.",
     guide: {
@@ -218,6 +223,7 @@ export const WAVES_ACT_4: Wave[] = [
     controls: "pinball",
   },
   {
+    id: "theRind",
     name: "THE RIND",
     sentence: "The one where the shot that lands does not close the column.",
     guide: {

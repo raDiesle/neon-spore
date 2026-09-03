@@ -14,6 +14,7 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_2: Wave[] = [
   {
+    id: "bulbQueen",
     name: "BULB QUEEN",
     sentence: "The one where she opens for two beats, and drops a torch on a clock of its own.",
     guide: {
@@ -26,6 +27,7 @@ export const WAVES_ACT_2: Wave[] = [
     boss: { kind: "queen", col: 3, petals: 9 },
   },
   {
+    id: "theMirror",
     name: "THE MIRROR",
     sentence: "The one where the boss is your own ship, and it asks for your moves back.",
     guide: {
@@ -44,6 +46,7 @@ export const WAVES_ACT_2: Wave[] = [
     },
   },
   {
+    id: "theMaze",
     name: "THE MAZE",
     sentence: "The one where he turns the wheel and she fires, and neither can do the other half.",
     guide: {
@@ -55,6 +58,7 @@ export const WAVES_ACT_2: Wave[] = [
     boss: { kind: "maze", rounds: MAZE_ROUNDS },
   },
   {
+    id: "theGauge",
     name: "THE GAUGE",
     sentence: "The one where the field is gone and neither of you has more than half a dial.",
     guide: {
@@ -67,6 +71,7 @@ export const WAVES_ACT_2: Wave[] = [
     controls: "gauge",
   },
   {
+    id: "theWarden",
     name: "THE WARDEN",
     sentence:
       "The one where he holds the door open and she has to be quick enough to shoot through it.",
@@ -79,6 +84,7 @@ export const WAVES_ACT_2: Wave[] = [
     boss: { kind: "warden" },
   },
   {
+    id: "theFleet",
     name: "THE FLEET",
     sentence:
       "The one where the only one who can see the ships is the one who cannot move the sights.",

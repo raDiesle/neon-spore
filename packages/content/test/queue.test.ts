@@ -8,7 +8,12 @@ import { AUTHORED_COLS, queueFromWave, type Wave } from "../src/index.js";
  * a queue entry that never got told about it.
  */
 
-const wave = (entries: Wave["entries"]): Wave => ({ name: "T", sentence: "t", entries });
+const wave = (entries: Wave["entries"]): Wave => ({
+  id: "test4",
+  name: "T",
+  sentence: "t",
+  entries,
+});
 
 describe("a rock's authored width", () => {
   test("arrives as the queue entry's span", () => {

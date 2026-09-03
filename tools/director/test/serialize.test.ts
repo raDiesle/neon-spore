@@ -35,6 +35,7 @@ test("serializes wave with pods correctly", async () => {
   const source = await Bun.file(file).text();
 
   const wave = {
+    id: "test5",
     name: "TEST",
     sentence: "Test wave.",
     hint: "Test hint.",
@@ -69,6 +70,7 @@ test("writes a rock's size and a lure's worn body, and only when they are there"
   const source = await Bun.file(file).text();
 
   const wave = {
+    id: "test6",
     name: "TEST",
     sentence: "Test wave.",
     entries: [
@@ -82,4 +84,49 @@ test("writes a rock's size and a lure's worn body, and only when they are there"
   expect(result).toContain('{ beat: 0, col: 1, kind: "meteorFast", color: null, size: 2 },');
   expect(result).toContain('{ beat: 1, col: 2, kind: "meteor", color: null },');
   expect(result).toContain('{ beat: 2, col: 3, kind: "lure", color: "cyan", wears: "bulb" },');
+});
+
+/**
+ * The seam that landed `main` red once, closed.
+ *
+ * The director renames a wave from its own screen, and four places pointed at
+ * waves by string: ON THE BEAT became THE THROB, HOLD IT OPEN became THE LID,
+ * and none of the four moved, so a save the owner made from a page that never
+ * mentions `waves-demo.ts` broke the check. Waves carry an `id` now and the
+ * demonstrations point at that, which only works if a save *writes the id
+ * back* — a serializer that quietly dropped it would put the whole thing back
+ * where it started on the first save anybody made.
+ *
+ * The rename happens here rather than through `saveWaves`, which writes the
+ * repository's own act files: another test in this suite reads those, and a
+ * test that renames a real wave for a few milliseconds is a test that fails
+ * its neighbour at random.
+ */
+test("a save carries a wave's id through a rename of its name", async () => {
+  const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
+  const source = await Bun.file(file).text();
+
+  const first = WAVES_ACT_1[0];
+  expect(first, "act 1 is empty").toBeDefined();
+  if (!first) return;
+  const renamed = { ...first, name: "SOMETHING ELSE ENTIRELY" };
+
+  const result = serializeWaveArray(source, [renamed], "WAVES_ACT_1");
+  expect(result).toContain('name: "SOMETHING ELSE ENTIRELY"');
+  expect(result).toContain(`id: "${first.id}"`);
+  expect(result).not.toContain(`name: "${first.name}"`);
+});
+
+test("every wave the real acts hold is written back with its id", async () => {
+  // The round trip above proves it for the files as they stand; this says why
+  // it matters, so a serializer that stopped emitting `id` fails with the
+  // reason rather than as a byte diff.
+  for (const act of ACTS) {
+    const file = new URL(act.rel, import.meta.url);
+    const source = await Bun.file(file).text();
+    const written = serializeWaveArray(source, act.waves, act.exportName);
+    for (const wave of act.waves) {
+      expect(written, `${wave.name} was written without its id`).toContain(`id: "${wave.id}"`);
+    }
+  }
 });

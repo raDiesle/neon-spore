@@ -53,6 +53,7 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_5: Wave[] = [
   {
+    id: "theGyre",
     name: "THE GYRE",
     sentence: "The one where the column you were told is the right one for a single beat.",
     guide: {
@@ -69,6 +70,7 @@ export const WAVES_ACT_5: Wave[] = [
     ],
   },
   {
+    id: "theLid",
     name: "THE LID",
     sentence: "The one where doing your half first is the same as not doing it.",
     guide: {

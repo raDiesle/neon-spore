@@ -44,10 +44,16 @@ import { WAVES, type Wave } from "./waves.js";
  */
 export interface Demonstration {
   /**
-   * The wave to open, by name rather than by index. The director reorders
-   * `WAVES` and rewrites the file, and an index written here would go on
-   * pointing somewhere plausible and wrong; a name that stops existing is a
-   * failing test.
+   * The wave to open, by its `id`.
+   *
+   * Not by index: the director reorders `WAVES` and rewrites the file, and an
+   * index written here would go on pointing somewhere plausible and wrong.
+   * And not by *name*, which is what this used to be — the director can
+   * rename a wave from its own screen, so a name here made the owner's save
+   * land `main` red. It happened: ON THE BEAT became THE THROB and HOLD IT
+   * OPEN became THE LID, and the four places naming those waves by string
+   * stayed where they were. An `id` is the one field that rename does not
+   * touch (`Wave.id`).
    */
   wave: string;
   /**
@@ -65,58 +71,58 @@ export interface Demonstration {
  * mechanic is reached, and reached is not the same as *shown to somebody*.
  */
 export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
-  slick: { wave: "FIRST STEP" },
-  bulb: { wave: "TWO COLOURS" },
-  lure: { wave: "THE LURE" },
-  throb: { wave: "THE THROB" },
-  shell: { wave: "THE THIRD SHOT" },
-  meteor: { wave: "THE ROCK" },
-  meteorMedium: { wave: "THE WARD" },
-  meteorFast: { wave: "THE WARD" },
-  meteorFaster: { wave: "THE WARD" },
-  meteorFastest: { wave: "THE WARD" },
-  torch: { wave: "TORCH" },
-  queen: { wave: "BULB QUEEN" },
-  warden: { wave: "THE WARDEN" },
-  tether: { wave: "THE WARDEN" },
-  mirror: { wave: "THE MIRROR" },
-  maze: { wave: "THE MAZE" },
-  vane: { wave: "THE VANE" },
-  mend: { wave: "SALVAGE" },
-  purge: { wave: "THE PURGE" },
-  ward: { wave: "THE WARD" },
-  clasp: { wave: "THE CLASP" },
-  dart: { wave: "THE DART" },
-  veil: { wave: "THE VEIL" },
-  lid: { wave: "THE LID" },
-  wisp: { wave: "THE WISP" },
-  ghost: { wave: "THE GHOST" },
-  echo: { wave: "THE ECHO" },
-  rind: { wave: "THE RIND" },
-  gyre: { wave: "THE GYRE" },
+  slick: { wave: "firstStep" },
+  bulb: { wave: "twoColours" },
+  lure: { wave: "theLure" },
+  throb: { wave: "theThrob" },
+  shell: { wave: "theThirdShot" },
+  meteor: { wave: "theRock" },
+  meteorMedium: { wave: "theWard" },
+  meteorFast: { wave: "theWard" },
+  meteorFaster: { wave: "theWard" },
+  meteorFastest: { wave: "theWard" },
+  torch: { wave: "torch" },
+  queen: { wave: "bulbQueen" },
+  warden: { wave: "theWarden" },
+  tether: { wave: "theWarden" },
+  mirror: { wave: "theMirror" },
+  maze: { wave: "theMaze" },
+  vane: { wave: "theVane" },
+  mend: { wave: "salvage" },
+  purge: { wave: "thePurge" },
+  ward: { wave: "theWard" },
+  clasp: { wave: "theClasp" },
+  dart: { wave: "theDart" },
+  veil: { wave: "theVeil" },
+  lid: { wave: "theLid" },
+  wisp: { wave: "theWisp" },
+  ghost: { wave: "theGhost" },
+  echo: { wave: "theEcho" },
+  rind: { wave: "theRind" },
+  gyre: { wave: "theGyre" },
   // The six on the rim are watched in that same wave and can be watched
   // nowhere else: nothing authors a mount, a wheel brings them.
-  mount: { wave: "THE GYRE" },
-  gauge: { wave: "THE GAUGE" },
-  fleet: { wave: "THE FLEET" },
-  snake: { wave: "SNAKE" },
-  pinball: { wave: "PINBALL" },
+  mount: { wave: "theGyre" },
+  gauge: { wave: "theGauge" },
+  fleet: { wave: "theFleet" },
+  snake: { wave: "snake" },
+  pinball: { wave: "pinball" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
-  briefing: { wave: "FIRST STEP", config: { briefings: true } },
+  briefing: { wave: "firstStep", config: { briefings: true } },
   // The grid is worth watching where the beat is already the enemy: a Throb
   // can only be hit while it is open, and a laid shot leaves on a named
   // moment. Half a beat is the value `apps/game` ships.
-  windup: { wave: "THE THROB", config: { shotChargeBeats: 0.5 } },
-  lance: { wave: "THE LANCE" },
+  windup: { wave: "theThrob", config: { shotChargeBeats: 0.5 } },
+  lance: { wave: "theLance" },
   // Three rocks on one beat and one shield: the only way through is a hand on
   // two of them, which is THE GRIP with nothing else in the way.
-  grip: { wave: "THE HAND" },
+  grip: { wave: "theHand" },
 };
 
 /** Where the demonstration wave sits in `WAVES`, or -1 if it has gone. */
 export function demonstrationIndex(id: MechanicId): number {
-  return WAVES.findIndex((w) => w.name === DEMONSTRATIONS[id].wave);
+  return WAVES.findIndex((w) => w.id === DEMONSTRATIONS[id].wave);
 }
 
 /** The wave itself. Throws rather than returning undefined — a name that no
@@ -124,7 +130,7 @@ export function demonstrationIndex(id: MechanicId): number {
 export function demonstrationWave(id: MechanicId): Wave {
   const wave = WAVES[demonstrationIndex(id)];
   if (!wave) {
-    throw new Error(`${id} names wave "${DEMONSTRATIONS[id].wave}", which is not in WAVES`);
+    throw new Error(`${id} names wave id "${DEMONSTRATIONS[id].wave}", which is not in WAVES`);
   }
   return wave;
 }

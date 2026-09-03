@@ -128,6 +128,23 @@ export interface WaveGuide {
 }
 
 export interface Wave {
+  /**
+   * The wave's name in code, which never changes.
+   *
+   * `name` is what a person reads, and the director can rewrite it from its
+   * own screen — so anything that *points at* a wave has to point at something
+   * else. It has already gone wrong once: ON THE BEAT became THE THROB and
+   * HOLD IT OPEN became THE LID, and four places naming a wave by string
+   * stayed where they were, which landed `main` red on a save the owner made
+   * from a page that never mentioned them.
+   *
+   * So this is the handle, and the one field the director's rail never edits.
+   * It is fixed at the moment a wave is written and outlives every rename;
+   * `test/waves.test.ts` holds that they are unique, and `serialize.ts` writes
+   * it back out first so a save carries it forward.
+   */
+  id: string;
+  /** What a person reads, on the HUD and in the wave list. Renameable. */
   name: string;
   /** The one-sentence test. Not flavour text — the reason the wave exists. */
   sentence: string;
@@ -175,4 +192,21 @@ export interface Wave {
    * anything.
    */
   controls?: ControlSetId;
+}
+
+/**
+ * An id no wave in `taken` is using.
+ *
+ * The director makes waves — a new one, or a copy — and every one of them
+ * needs a handle before anything can point at it. Opaque on purpose: an id
+ * derived from the name would be a second copy of the name, and the whole
+ * reason this field exists is that the name moves. What a person reads is
+ * `name`; this is only ever compared.
+ */
+export function freshWaveId(taken: Iterable<string>): string {
+  const used = new Set(taken);
+  for (let n = 1; ; n++) {
+    const id = `wave${n}`;
+    if (!used.has(id)) return id;
+  }
 }

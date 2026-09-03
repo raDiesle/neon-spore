@@ -156,6 +156,9 @@ function serializeBoss(boss: BossEntry): string {
 function serializeWave(wave: Wave): string {
   const lines: string[] = [];
   lines.push("  {");
+  // First, and before the name: it is the handle everything else points at,
+  // and a save must carry it forward untouched — see `Wave.id`.
+  lines.push(...textField("id", wave.id));
   lines.push(...textField("name", wave.name));
   lines.push(...textField("sentence", wave.sentence));
   // Directly under `sentence`, which is where the owner asked for it and where

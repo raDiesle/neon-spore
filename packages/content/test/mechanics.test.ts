@@ -89,6 +89,7 @@ describe("which kinds a wave may name", () => {
 describe("what a wave reaches", () => {
   it("reads a wave through content's own translation", () => {
     const found = mechanicsInWave({
+      id: "test1",
       name: "T",
       sentence: "s",
       entries: [
@@ -103,6 +104,7 @@ describe("what a wave reaches", () => {
 
   it("follows what a boss brings with it", () => {
     const warden = mechanicsInWave({
+      id: "test2",
       name: "T",
       sentence: "s",
       entries: [],
@@ -111,6 +113,7 @@ describe("what a wave reaches", () => {
     expect(warden.has("tether")).toBe(true);
 
     const queen = mechanicsInWave({
+      id: "test3",
       name: "T",
       sentence: "s",
       entries: [],

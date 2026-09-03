@@ -1,4 +1,4 @@
-import type { Wave } from "@neon-spore/content";
+import { freshWaveId, type Wave } from "@neon-spore/content";
 
 export type { BrushGroup } from "./brush-groups.js";
 export { BRUSH_GROUPS } from "./brush-groups.js";
@@ -56,12 +56,15 @@ function copyBoss(boss: Wave["boss"]): Wave["boss"] {
  * both are written, which is the one-sentence test doing its job at the moment
  * the wave is made rather than in review.
  */
-export function emptyWave(): Wave {
-  return { name: "", sentence: "", entries: [] };
+export function emptyWave(taken: Iterable<string> = []): Wave {
+  return { id: freshWaveId(taken), name: "", sentence: "", entries: [] };
 }
 
-export function copyWave(wave: Wave): Wave {
+export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
   return {
+    // A copy is a different wave, so it is a different handle. Carrying the
+    // original's would make two waves one thing to everything that points.
+    id: freshWaveId(taken),
     name: `${wave.name} COPY`,
     sentence: wave.sentence,
     guide: wave.guide ? { ...wave.guide } : undefined,

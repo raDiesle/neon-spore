@@ -11,6 +11,7 @@ import {
   queueFromWave,
   WAVES,
 } from "../src/index.js";
+import { DEMONSTRATIONS } from "../src/waves-demo.js";
 
 const beatSeconds = 60 / DEFAULT_CONFIG.bpm;
 const secondsToHull = DEFAULT_CONFIG.rows * beatSeconds;
@@ -33,6 +34,31 @@ describe("wave content", () => {
    * is played, and is invisible to everything that names waves. The director
    * can rename a wave from its own screen, which is how one would arrive.
    */
+  /**
+   * The handle everything points at. A name may be rewritten from the
+   * director's own screen; an id may not, which is the whole reason it exists
+   * — so two waves sharing one would make every pointer ambiguous in exactly
+   * the way a duplicate name does, with nothing to notice it.
+   */
+  it("gives every wave an id of its own, which nothing renames", () => {
+    const seen = new Map<string, number>();
+    for (const [i, wave] of WAVES.entries()) {
+      expect(wave.id, `wave ${i} (${wave.name}) has no id`).toMatch(/\S/);
+      const first = seen.get(wave.id);
+      expect(first, `wave ${i} repeats the id of wave ${first}: ${wave.id}`).toBeUndefined();
+      seen.set(wave.id, i);
+    }
+  });
+
+  it("gives every mechanic a demonstration that resolves", () => {
+    for (const [mechanic, demo] of Object.entries(DEMONSTRATIONS)) {
+      expect(
+        WAVES.some((w) => w.id === demo.wave),
+        `${mechanic} points at wave id "${demo.wave}", which is not in WAVES`,
+      ).toBe(true);
+    }
+  });
+
   it("gives every wave a name of its own", () => {
     const seen = new Map<string, number>();
     for (const [i, wave] of WAVES.entries()) {

@@ -89,25 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## Bind a demonstration to its wave by something a rename cannot break
-
-- **Found:** 2026-09-03, claude/snake-svg-graphic-24d2fc
-- **Taken:** 2026-09-03, claude/queue-bind-a-demonstration-to-its-wave-by-something-a
-- **Files:** `packages/content/src/waves-demo.ts`, `packages/content/src/waves.ts`, `packages/content/test/waves-demo.test.ts`, `tools/director/test/brush-tooltip.test.ts`
-
-`DEMONSTRATIONS` names its wave by a string and the director can rename a wave
-from its own screen, so a save the owner makes lands `main` red. It has already
-happened once — `ON THE BEAT` became `THE THROB` and `HOLD IT OPEN` became
-`THE LID`, and four places naming a wave by string stayed where they were.
-"The names that point at waves follow the waves that were renamed" repaired the
-names; the seam that produced them is untouched, and the next rename does it
-again.
-
-Give a wave a stable id the registry holds instead — a field the director never
-edits — or make the director rewrite every reference as part of its save. The
-proof is the same either way: rename a wave through the director's own save
-path and watch `bun run check` stay green.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

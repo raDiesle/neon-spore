@@ -64,6 +64,7 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3: Wave[] = [
   {
+    id: "theLure",
     name: "THE LURE",
     sentence: "The one where the shot you are waiting for must never come.",
     guide: {
@@ -84,6 +85,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    id: "theThrob",
     name: "THE THROB",
     sentence: "The one where firing on sight is the miss.",
     guide: {
@@ -94,6 +96,7 @@ export const WAVES_ACT_3: Wave[] = [
     entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
   },
   {
+    id: "theThirdShot",
     name: "THE THIRD SHOT",
     sentence: "The one where the shot that worked twice is the miss.",
     guide: {
@@ -108,6 +111,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    id: "theClasp",
     name: "THE CLASP",
     sentence: "The one where the shield opens the enemy instead of stopping it.",
     guide: {
@@ -127,6 +131,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    id: "theDart",
     name: "THE DART",
     sentence: "The one where the column you were given is the column it has already left.",
     guide: {
@@ -145,6 +150,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    id: "theVeil",
     name: "THE VEIL",
     sentence: "The one where the colour you were given goes stale while you are loading it.",
     guide: {
@@ -164,6 +170,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
+    id: "theVane",
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     guide: {
@@ -188,6 +195,7 @@ export const WAVES_ACT_3: Wave[] = [
     boss: { kind: "vane" },
   },
   {
+    id: "theLance",
     name: "THE LANCE",
     sentence: "The one where three of the same colour arrive in one column.",
     entries: [
@@ -198,6 +206,7 @@ export const WAVES_ACT_3: Wave[] = [
     controls: "lance",
   },
   {
+    id: "thePurge",
     name: "THE PURGE",
     sentence: "The one where the field is cleared by swallowing, not by shooting.",
     guide: {
@@ -214,6 +223,7 @@ export const WAVES_ACT_3: Wave[] = [
     pods: [{ beat: 0, col: 3, row: 2, kind: "purge" }],
   },
   {
+    id: "theWard",
     name: "THE WARD",
     sentence: "The one where the shield answers four rocks untriggered and the fifth on its own.",
     guide: {

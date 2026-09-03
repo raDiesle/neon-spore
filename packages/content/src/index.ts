@@ -132,6 +132,7 @@ export {
   type WardenOpening,
   wardenOpening,
 } from "./warden-shape.js";
+export { freshWaveId } from "./wave-types.js";
 export { WAVES, type Wave, type WaveEntry, type WaveGuide } from "./waves.js";
 export {
   DEMONSTRATIONS,
