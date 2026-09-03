@@ -533,21 +533,6 @@ The hold card's own LEAVE ROOM is a deliberate answer to a broken
 line and stays immediate — this is only the two doors a player presses while the
 game is fine. Client-only, provable with `bun run check`.
 
-## The tuning panel still reads "TEST BUILD", from before the menu was the door
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-tuning-panel-still-reads-test-build-from-bef
-- **Files:** `apps/game/index.html`, `apps/game/src/testing.ts`
-
-`#panel`'s heading is "NEON SPORE — TEST BUILD" and its footer is a paragraph of
-desk keys, written when opening the game landed on the field and this panel was
-the whole of the chrome. TUNING is a menu entry now, reached by a player rather
-than only a tester. Refresh the heading (e.g. "TUNING") and drop or rehome the
-desk-keys footer — the menu's CONTROLS page already lists the keys, so the
-footer is a second copy that will drift. Keep the sliders, the god-mode toggle
-and the BACK button exactly as they are. Copy-only, provable with `bun run
-check`.
-
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
