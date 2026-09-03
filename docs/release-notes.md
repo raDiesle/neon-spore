@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 6d1f5af — The two apps/game units worth testing: the run's life, and the loop's clock
+
+Of 3 460 source lines in `apps/game`, the tests covered a URL parser, keyboard gating, the menu and the raster flag. `link.ts` and `loop.ts` were the two most valuable untested units, and both fail quietly rather than loudly.
+
 ## 2026-09-04 · 07c6cea — A wave carries a stable id, so a rename cannot break what points at it
 
 `DEMONSTRATIONS` named its wave by string and the director can rename a wave from its own screen, so a save the owner made landed `main` red. It has already happened once: ON THE BEAT became THE THROB, HOLD IT OPEN became THE LID, and the four places naming those waves by string stayed where they were. The names were repaired at the time; the seam that produced them was not, and the next rename would have done it again.
