@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · b9ee2ff — relay:check compares the two worlds at a tick they both reached
+
+`--rejoin` failed about one run in five with "the two worlds did not come back in step", A on tick 392 and B on 390, identical hashes. The verdict was `a.world.tick === b.world.tick && hashA === hashB`, read at the instant the run stopped — and delayed lockstep never promises the two devices are on the same tick at the same wall moment. It promises they simulate the same ticks with the same commands; a device may be up to `delayTicks` ahead of its peer's horizon. So the check was asking a question the protocol does not answer, and a flaky check is worse than none, because the next session reads a red one as its own doing.
+
+## 2026-09-04 · b514665 — A build empties its output directory rather than deleting it
+
+Both builds began with `rm(distDir, { recursive: true, force: true })`, and on Windows that fails with `EBUSY` whenever anything holds a handle on the directory node — an indexer, a file watcher, a browser that had the preview open. Everything *inside* deletes perfectly well in that state; only the directory itself is pinned. The build then stopped with an error naming a path nobody had touched, and `tools/frames/test/opening.test.ts` failed with "preview:once exited before printing its port", which points at the test rather than at the lock.
+
 ## 2026-09-04 · 6215b1b — The control-group union rule is enforced, so controlsForKinds is not dead
 
 `CLAUDE.md`, `creatures-table.ts` and the new-creature skill all state that a wave shows the union of its creatures' control groups. Nothing checked it: `controlsForKinds` had no caller anywhere, `ControlGroup` was imported by nothing outside content, and the panel a wave shows is a named `ControlSet` on the wave rather than a union of anything.
