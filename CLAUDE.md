@@ -269,6 +269,19 @@ The game opens straight onto the field; the main menu is behind `?menu=1`.
 server with a backgrounded shell command. The history behind all of this is in
 `docs/working-with-claude.md`.
 
+**Nothing on a local address installs a service worker**, and that is the same
+rule as asking who answered. A cache that replies when the server has idled out
+serves a build that no longer exists, and the stale page reads as a bug in the
+code that just replaced it — which is exactly what it did once. `?pwa=1` turns
+one on locally for the only case that wants it, testing the install itself;
+`apps/game/test/solo-is-quiet.test.ts` holds the rule.
+
+**Playing alone opens no socket.** The two-device layer is built on every run
+because solo is the default rather than a mode, and it is inert until a room is
+joined — no ping, no fingerprint, not even a status callback. The same test
+holds that, because "inert" is a claim that stays true in the reading and stops
+being true the moment a timer moves above the check for a socket.
+
 ## Verifying the relay
 
 `packages/net` is unit-tested against a wire the test controls, which proves the

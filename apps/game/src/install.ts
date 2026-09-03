@@ -69,12 +69,20 @@ function bindPrompt(): void {
 }
 
 /**
- * The worker, from the built page only.
+ * The worker, and only where somebody wants one.
  *
- * `sw.js` is a file in `public/` that the build copies into `dist/`, so it
- * exists in the bundle that ships and does not exist under `bun --hot`, where
- * the request would 404. Registration failing is not worth a word to anyone:
- * the page it would have cached is the page already on the screen.
+ * **Never on a local address.** Every local surface is one a person is testing
+ * on — the director's `/game`, the preview on 4173, `dev:game` on 3000 — and a
+ * cache that answers when the server does not is how a session ends up reading
+ * a build that no longer exists. That is not a hypothesis: it happened while
+ * this file was being written. The preview idled out mid-check, the worker
+ * served the previous bundle, and the stale page looked exactly like a bug in
+ * the code that had just replaced it. CLAUDE.md already says to ask who
+ * answered before trusting a measurement; this is the same rule one layer down.
+ *
+ * `?pwa=1` turns it on locally for the one case that wants it — actually
+ * testing the install — and `bun run deploy:game` is unaffected, which is where
+ * the shortcut is for.
  */
 function registerWorker(): void {
   if (!("serviceWorker" in navigator)) return;
@@ -82,7 +90,43 @@ function registerWorker(): void {
   // keeps a needless SecurityError out of the console on a LAN address, which
   // is exactly where a second phone is pointed while this is being built.
   if (!window.isSecureContext) return;
+  if (!workerWanted(location.href)) {
+    void retireWorkers();
+    return;
+  }
   window.addEventListener("load", () => {
     void navigator.serviceWorker.register("./sw.js").catch(() => {});
   });
+}
+
+/**
+ * Whether this address should have a service worker at all. Pure, so the rule
+ * that keeps a cache off a testing machine can be tested like `menuRequested`.
+ */
+export function workerWanted(url: string): boolean {
+  const parsed = new URL(url, "http://game.invalid/");
+  if (parsed.searchParams.has("pwa")) return true;
+  const host = parsed.hostname;
+  return host !== "localhost" && host !== "127.0.0.1" && host !== "::1" && host !== "[::1]";
+}
+
+/**
+ * Take away the ones already there.
+ *
+ * A worker registered by an earlier build outlives the change that stopped
+ * registering it — it keeps control of the page until something unregisters
+ * it — so a machine that has been testing this needs the old one taken off
+ * rather than merely not renewed. Its caches go with it: an unregistered
+ * worker stops answering, but its store stays on the disk for the next one to
+ * inherit.
+ */
+async function retireWorkers(): Promise<void> {
+  try {
+    for (const reg of await navigator.serviceWorker.getRegistrations()) await reg.unregister();
+    for (const name of await caches.keys()) {
+      if (name.startsWith("neon-spore-")) await caches.delete(name);
+    }
+  } catch {
+    // A browser that will not enumerate them is a browser with none to retire.
+  }
 }
