@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 15d13be — The phone buzzes for the two things a player must not miss
+
+The game is played in a room where two people are talking over each other, which is the one room a sound cue is worst in. A buzz in the hand survives it.
+
 ## 2026-09-04 · c006fcd — HOW TO PLAY: the two seats, and the one rule that is the whole game
 
 A page for the pair's first thirty seconds, before a wave's own briefing reaches them, built like the CONTROLS page beside it. It says four things and stops: there are two of you on two devices and neither screen shows what the other shows; PILOT slides the cannon, opens the maw and triggers the guard while NAVIGATOR slides the shield and fires; nothing you control travels, so there is no flying and nowhere to go; and therefore talking to each other is the control scheme.
