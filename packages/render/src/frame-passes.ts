@@ -87,22 +87,22 @@ export function drawBodies(
   // the single difference between the two screens in this whole pass, and it
   // is drawn after the bodies rather than as part of them so that nothing in
   // `drawCreatures` ever has to know which seat it is running on.
-  drawLureAlarms(ctx, l, world, view.beatPhase, view.bare);
+  drawLureAlarms(ctx, l, world, view.beatPhase, view.time, view.bare);
   // Player 2's other half-picture, on the same terms and for the same reason:
   // the arrow, the dotted legs and the placeholder say where a dart is going
   // and where it goes after that, and player 1 — who holds the cannon that has
   // to be standing there — is shown none of it.
   drawDartGuides(ctx, l, world, view.beatPhase, view.time);
   // And the other half of that same creature, on the other device: two arrows
-  // and a question mark over the body, which is the pilot being told that this
+  // a target lock around the body, which is the pilot being told that this
   // column is not one they can read — only one they can be told.
-  drawDartQueries(ctx, l, world, view.beatPhase);
+  drawDartQueries(ctx, l, world, view.beatPhase, view.time);
   // The third half-picture, and the first that is *both* screens carrying one
   // each rather than one screen carrying something the other has not got: a
-  // draining clock over every cloud on player 1's, a question mark on player
+  // draining clock over every cloud on player 1's, a target lock on player
   // 2's. `veil-marks.ts` owns which is which, so nothing in `drawCreatures`
   // has to know what seat it is running on.
-  drawVeilMarks(ctx, l, world, view.beatPhase);
+  drawVeilMarks(ctx, l, world, view.beatPhase, view.time);
   // And the fourth, which is the only one that stands in for a body rather
   // than describing one: a band across the row a ghost is in, on the screen
   // that is not drawn the ghost. Under everything the ship does and over the

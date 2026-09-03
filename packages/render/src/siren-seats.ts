@@ -8,7 +8,7 @@ import { PALETTE } from "./palette.js";
  * The two chips that flank the siren: which seat, and what that seat has to do
  * about the thing on the field.
  *
- * Its own file beside `siren.ts` for the reason `veil-question.ts` sits beside
+ * Its own file beside `siren.ts` for the reason `veil-marks.ts` sits beside
  * `veil-marks.ts`: next door is the *instrument* — a dial with rings and a
  * turning core, all of it phase off a clock — and this is the *answer*, which
  * has no motion in it worth speaking of and is entirely about legibility at

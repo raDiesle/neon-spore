@@ -1,10 +1,16 @@
-import { type Creature, type SimConfig, veilBeatsToMorph, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  type CreatureKind,
+  type SimConfig,
+  veilBeatsToMorph,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawRadarLock, drawTargetLock } from "./target-lock.js";
 import { showsVeilCore, VEIL_RADIUS_MUL, veils } from "./veil.js";
-import { drawQuestion } from "./veil-question.js";
-import { VEIL_TOP } from "./veil-shape.js";
+import { VEIL_FLATTEN, VEIL_TOP } from "./veil-shape.js";
 
 /**
  * What stands over a cloud, and it is a different thing in each seat.
@@ -23,24 +29,25 @@ import { VEIL_TOP } from "./veil-shape.js";
  * body, so a pair had to learn five markings to learn one sentence. It is said
  * once now, in the corner of the screen, by `siren.ts`.
  *
- * **Player 2 gets a question mark and nothing else.** Not a dimmed body, not a
+ * **Player 2 gets a target lock and nothing else.** Not a dimmed body, not a
  * guess, not a countdown — a countdown on the navigator's screen would be half
  * the pilot's sentence arriving without them, and the sentence is the game.
+ * It was a question mark until the owner asked for one picture instead of
+ * four; `target-lock.ts` carries that reversal and its reasoning.
  *
- * **Deliberately unlike `lure-alarm.ts`, and this is the check it owes.** That
- * file argued at length that two markings which look alike are worse than one
- * that is ugly, and it now has a neighbour to be unlike:
+ * **The two seats still share nothing, which is the check this owes.** They
+ * are the same creature seen from opposite sides, and if they converged the
+ * pair would stop talking:
  *
- * - *Where.* The lure's alarm is a ring **around** the body with a label out
- *   to one side. This stands **above** the cloud, clear of it, in the gap the
- *   radar strip already trains the eye to read downward from.
- * - *What colour.* The lure's alarm is pure white, which is the absence of a
- *   palette. This is the ammunition colour the cloud is about to want —
- *   because a mark over a veil is not an alarm. Nothing is going wrong.
- * - *What it says about time.* The lure's alarm is steady, because it is a
- *   label on a body that will resolve itself. The ring here **drains**, which
- *   is the one thing in this game that does, because the whole creature is a
- *   thing that expires.
+ * - *What it is.* The navigator gets a frame around a contact and no clock at
+ *   all. The pilot gets a clock and no frame: a ring that drains, the one
+ *   thing in this game that does, because the whole creature expires.
+ * - *What colour.* The navigator's frame is the HUD's off-white, which says
+ *   nothing about ammunition because there is nothing here it may say. The
+ *   pilot's ring is the colour the cloud is turning *into*.
+ * - *Where.* The navigator's frame is **around** the cloud, because a contact
+ *   is a thing with an extent. The pilot's clock stands **above** it, clear of
+ *   the weather, in the gap the radar strip trains the eye to read down from.
  */
 
 /** The off-white the empty half of the ring is drawn in — the HUD's own, not
@@ -52,20 +59,62 @@ const MARK = PALETTE.text;
  * cloud's radius. `VEIL_TOP` is where that edge is, so a cloud reshaped next
  * door does not leave a ring floating inside its own weather. */
 const LIFT = 0.5;
+/** How far the navigator's frame stands outside the cloud's own silhouette,
+ * in cloud radii. The heaps reach about 1.05 sideways (`BILLOWS`) and
+ * `VEIL_TOP`/`VEIL_FLATTEN` say how far up and down, so the frame is those
+ * plus a gap rather than four numbers typed beside them. */
+const BOX_GAP = 0.16;
+/** How wide the blip's own frame is on the radar strip, in pixels. */
+const BLIP_HALF = 7;
 
 export function drawVeilMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   beatPhase: number,
+  /** The wall clock, for the lock's flicker (`target-lock.ts`). */
+  time: number,
 ): void {
   for (const c of veils(world)) {
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = l.tile * 0.4 * VEIL_RADIUS_MUL;
-    const top = y - r * (VEIL_TOP + LIFT);
-    if (showsVeilCore(l)) drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, top, c);
-    else drawQuestion(ctx, l.tile, x, top);
+    if (showsVeilCore(l)) {
+      drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, y - r * (VEIL_TOP + LIFT), c);
+      continue;
+    }
+    // Around the weather rather than above it: the cloud is what was found,
+    // and a frame set off to one side of it would be pointing at the gap.
+    const halfH = (r * (VEIL_TOP + VEIL_FLATTEN)) / 2 + r * BOX_GAP;
+    const mid = y + (r * (VEIL_FLATTEN - VEIL_TOP)) / 2;
+    drawTargetLock(ctx, x, mid, r * (1.05 + BOX_GAP), halfH, MARK, time, 0.9, c.id);
   }
+}
+
+/**
+ * The strip's half of the same thing: a veil is announced as a **contact**,
+ * never as a colour.
+ *
+ * `drawRadar` reads `q.color` off the queue entry to tint every blip, and a
+ * veil's queue entry carries none — the body inside is rolled when it enters
+ * the field, so there is nothing there to read and the ordinary fallback would
+ * have painted it cyan. That would be worse than a leak: it would be a
+ * confident announcement of a colour that is right half the time.
+ *
+ * docs/spec/systems.md 5.2 asked for a question mark here by name, in the same
+ * paragraph that lists the veil among the rows that were not built. The word
+ * it wanted is the one this frame says; it is now said the same way over every
+ * body the game picks out, which the spec could not have anticipated.
+ */
+export function drawRadarVeilMark(
+  ctx: CanvasRenderingContext2D,
+  kind: CreatureKind,
+  x: number,
+  y: number,
+  alpha: number,
+  time: number,
+): void {
+  if (kind !== "veil") return;
+  drawRadarLock(ctx, x, y, BLIP_HALF, MARK, time, alpha, x);
 }
 
 /**

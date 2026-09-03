@@ -45,16 +45,16 @@ rest of her is decoration a shot cannot reach.
 
 | | player 1 | player 2 |
 |---|---|---|
-| armoured | the creature that is coming, a question mark inside it | a question mark |
+| armoured | the creature that is coming, a target lock inside it | a target lock |
 | which of the two marks is real | nothing | a pulsing ring |
 | open, the real mark | revealed, no question left | revealed |
 | open, the other one | a small armoured ball | a small armoured ball |
 
-The two question marks are the same statement from opposite sides. Player
-1's sits *inside* a creature they can already name — the shape is what is
-coming, the glyph is the half they are not being told. Player 2's stands *in
-place of* one: they know exactly which mark and nothing about what comes out
-of it.
+The two frames are the same statement from opposite sides. Player 1's sits
+*inside* a creature they can already name — the shape is what is coming, the
+frame is the half they are not being told. Player 2's stands *in place of*
+one, empty: they know exactly which mark and nothing about what comes out of
+it.
 
 Player 1 holds the cannon and the ammunition, so they are told *what*, and
 their two marks are drawn identically so the side never leaks. Player 2

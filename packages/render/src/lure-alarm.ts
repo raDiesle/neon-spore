@@ -1,6 +1,7 @@
 import type { Creature, CreatureKind, World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
+import { drawRadarLock, drawTargetLock } from "./target-lock.js";
 
 /**
  * The alarm player 2 sees over a lure, and player 1 never does.
@@ -10,33 +11,42 @@ import type { Layout } from "./layout.js";
  * own-motion. This file is the *only* difference between the two devices, and
  * it is drawn on one of them.
  *
- * **Deliberately unlike `torch-alarm.ts`, and that is the check this owes.**
- * There is already an alarm marking in this game, and two alarms that look
- * alike are worse than one alarm that is ugly. Every axis is opposed:
+ * **The ring and the exclamation are gone; the frame is `target-lock.ts`'s.**
+ * This file used to argue at length that it had to look unlike every other
+ * marking in the game, and that argument is answered in the file that replaced
+ * its ring: the pair was learning four pictures for one idea. What is left
+ * here is what is genuinely this creature's and nobody else's — the white and
+ * the words.
+ *
+ * **Still deliberately unlike `torch-alarm.ts`, and that is the check this
+ * owes.** There is another alarm in the game, and two alarms that look alike
+ * are worse than one alarm that is ugly. Every axis is still opposed:
  *
  * - *Where.* The torch alarm is a band across the HUD strip and a wash down
  *   both screen edges. This is on the body, in the field, and nowhere else.
  * - *What colour.* The torch alarm is `PALETTE.rock`, the grey the whole rock
  *   vocabulary is written in. This is white — a colour nothing else on the
  *   field carries, so it cannot be read as a body, a shot or a shield.
- * - *What it says about time.* The torch alarm pulses, because it is about
- *   something that has not arrived: the pulse is the countdown. This is
- *   steady, because it is a *label on a thing that is already here*, and the
- *   answer it wants is not a slide but a sentence. A pulse would have been
- *   read as "and it is getting worse", which is the one thing a lure never
- *   does — it goes on its own two rows short of the ship.
+ * - *What it says about time.* The torch alarm pulses hard, because it is
+ *   about something that has not arrived: the pulse is the countdown. The lock
+ *   only flickers, which is a signal being held rather than a clock running
+ *   down — the one thing a lure never does is get worse, it goes on its own
+ *   two rows short of the ship.
  *
- * So the pair learns two markings that share nothing: grey and moving at the
- * top of the screen means take the column; white and still around a body means
- * leave that one alone.
+ * So the pair still learns two markings that share nothing: grey and moving at
+ * the top of the screen means take the column; a white frame around a body
+ * means leave that one alone.
  */
 
 /** A colour nothing else on the field is drawn in. Not in `PALETTE`: it is not
  * part of the game's palette, it is the absence of one. */
 const ALARM = "#FFFFFF";
-/** The ring sits outside the body's own contour with a clear gap, so it never
- * reads as a rim the creature grew. */
-const RING_MUL = 1.55;
+/** The frame stands outside the body's own contour with a clear gap, so it
+ * never reads as a rim the creature grew. Square, because a lure wears an
+ * ordinary body and there is nothing beside it to make room for. */
+const BOX_MUL = 1.55;
+/** How wide the blip's own frame is on the radar strip, in pixels. */
+const BLIP_HALF = 7;
 const LABEL = "LURE — DO NOT SHOOT";
 
 /** Every lure on the field, in draw order. Exported so the radar and the body
@@ -59,18 +69,21 @@ export function drawLureAlarms(
   l: Layout,
   world: World,
   beatPhase: number,
+  /** The wall clock, for the lock's flicker. Render's own — see
+   * `target-lock.ts` on why the simulation never sees it. */
+  time: number,
   /**
    * A picture of the body rather than of the screen it is on (`ViewState.bare`)
-   * — the ring and the exclamation are on the body and stay; the words are as
-   * wide as a phone and are laid out against the screen's own edge, so in a
-   * crop three tiles across they arrive as a torn-off half sentence.
+   * — the frame is on the body and stays; the words are as wide as a phone and
+   * are laid out against the screen's own edge, so in a crop three tiles across
+   * they arrive as a torn-off half sentence.
    */
   bare = false,
 ): void {
   if (!showsLureAlarm(l)) return;
   for (const c of lures(world)) {
     const { x, y } = creatureCenter(l, c, beatPhase);
-    drawOne(ctx, l, x, y, creatureRadius(l, c, beatPhase, world.cfg), bare);
+    drawOne(ctx, l, x, y, creatureRadius(l, c, beatPhase, world.cfg), time, c.id, bare);
   }
 }
 
@@ -80,32 +93,16 @@ function drawOne(
   x: number,
   y: number,
   r: number,
+  time: number,
+  id: number,
   bare: boolean,
 ): void {
-  const ring = r * RING_MUL;
+  const half = r * BOX_MUL;
+  drawTargetLock(ctx, x, y, half, half, ALARM, time, 0.95, id);
+  if (bare) return;
   ctx.save();
-  ctx.strokeStyle = ALARM;
   ctx.fillStyle = ALARM;
-  ctx.lineWidth = Math.max(1.5, r * 0.09);
-
-  ctx.globalAlpha = 0.9;
-  ctx.beginPath();
-  ctx.arc(x, y, ring, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // The exclamation, drawn rather than typed: a bar and a dot scale with the
-  // body, and a glyph in a font does not — at 26 px a `!` in 10 px type is a
-  // smear, and this marking has half a second to be read in.
-  const top = y - ring - r * 0.55;
-  const barH = r * 0.5;
-  const barW = Math.max(1.5, r * 0.16);
-  ctx.globalAlpha = 1;
-  ctx.fillRect(x - barW / 2, top - barH, barW, barH);
-  ctx.beginPath();
-  ctx.arc(x, top + barW * 0.9, barW * 0.62, 0, Math.PI * 2);
-  ctx.fill();
-
-  if (!bare) drawLabel(ctx, l, x, y, ring);
+  drawLabel(ctx, l, x, y, half);
   ctx.restore();
 }
 
@@ -120,12 +117,12 @@ function drawLabel(
   l: Layout,
   x: number,
   y: number,
-  ring: number,
+  half: number,
 ): void {
   ctx.font = '600 9px "Courier New",monospace';
   ctx.textBaseline = "middle";
   const width = ctx.measureText(LABEL).width;
-  const gap = ring + 6;
+  const gap = half + 6;
   const right = x + gap + width <= l.width - 4;
   ctx.textAlign = right ? "left" : "right";
   ctx.globalAlpha = 0.92;
@@ -154,17 +151,15 @@ export function drawRadarLureMark(
   kind: CreatureKind,
   x: number,
   y: number,
+  time: number,
 ): void {
   if (!showsLureAlarm(l) || kind !== "lure") return;
   ctx.save();
+  // The same corner frame as on the body, small: one marking, two places, so
+  // the strip and the field are plainly saying the same word.
+  drawRadarLock(ctx, x, y, BLIP_HALF, ALARM, time, 1, x);
   ctx.fillStyle = ALARM;
   ctx.globalAlpha = 1;
-  // The same bar-and-dot as on the body, small: one glyph, two places, so the
-  // strip and the field are plainly saying the same word.
-  ctx.fillRect(x - 1, y - 15, 2, 5);
-  ctx.beginPath();
-  ctx.arc(x, y - 7.5, 1.2, 0, Math.PI * 2);
-  ctx.fill();
   ctx.font = '600 7px "Courier New",monospace';
   ctx.textAlign = "center";
   ctx.fillText("LURE", x, y - 18);

@@ -8,7 +8,7 @@ import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
-import { drawRadarVeilMark } from "./veil-question.js";
+import { drawRadarVeilMark } from "./veil-marks.js";
 
 /**
  * The field itself: the background, its depth, the cannon's column marker,
@@ -133,7 +133,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // field — so the ternary below would have fallen through to cyan and made
     // the strip announce a colour that is right half the time. `PALETTE.dim`
     // is this game's "nothing to say about this", and `drawRadarVeilMark`
-    // puts the question mark on top of it.
+    // puts the target lock on top of it.
     const hex =
       q.kind === "veil"
         ? PALETTE.dim
@@ -183,15 +183,15 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // which body is meant. Player 1's strip cannot carry this at all — it
     // shows `guard` kinds only, and a lure is an `aim` kind like the two
     // bodies it wears (`showsRadar` above is the whole gate).
-    drawRadarLureMark(ctx, l, q.kind, x, y);
+    drawRadarLureMark(ctx, l, q.kind, x, y, time);
 
     // And the one blip that is not a colour at all. A veil's queue entry
     // carries none — the body inside is rolled when it enters the field — so
     // the tint above fell through to cyan, which would have been a confident
     // announcement that is right half the time. `drawRadarVeilMark` paints a
-    // question mark over it instead. docs/spec/systems.md 5.2 asked for this
-    // shape by name.
-    drawRadarVeilMark(ctx, q.kind, x, y, a);
+    // corner frame over it instead — the same one every picked-out body in
+    // the game wears (`target-lock.ts`).
+    drawRadarVeilMark(ctx, q.kind, x, y, a, time);
 
     // And the mark that is not about this creature at all but about the two of
     // them: an eye over every blip whose secret is split across the screens.

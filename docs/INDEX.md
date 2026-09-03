@@ -307,7 +307,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
-| `packages/render/src/veil-question.ts` | Player 2's whole half of THE VEIL: a question mark, in the field over the cloud and on the strip over the blip |
 | `packages/render/src/veil-shape.ts` | THE VEIL's *form*: the silhouette a cloud has, and the vapour standing around it |
 | `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
 | `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
@@ -346,6 +345,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
 | `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — hub, rim and spokes, behind everything they carry |
+| `packages/render/src/target-lock.ts` | THE TARGET LOCK: the one marking in this game that means *an instrument has picked this body out, and it |
 
 ### packages/net
 

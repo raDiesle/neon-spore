@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, NO_SHELL, type QueenState } from "@neon-spore/sim";
 import { computeLayout, showsQueenHint, showsQueenShape, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { innerQuestionRadius, markOutline } from "../src/queen-glyph.js";
+import { innerLockHalf, markOutline } from "../src/queen-glyph.js";
 import { ballShare, drawMark, markGlow } from "../src/queen-weakpoint.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -128,8 +128,10 @@ function extent(d: string): number {
   return Math.max(...nums.map((n) => Math.abs(Number(n))));
 }
 
-/** How many question-mark glyphs a role's mark draws — the dot is its tell. */
-function glyphCount(
+/** How many target locks a role's mark draws — the four corner pips are the
+ * only `fillRect` anything in `drawMark` makes, so counting them and dividing
+ * counts frames. */
+function lockCount(
   role: ViewRole,
   queen: Creature,
   boss: QueenState,
@@ -138,20 +140,20 @@ function glyphCount(
 ): number {
   const l = layoutFor(role);
   const { ctx } = stubCanvas();
-  let arcs = 0;
+  let pips = 0;
   const spy = new Proxy(ctx, {
     get(target, prop, receiver) {
-      if (prop === "arc") {
+      if (prop === "fillRect") {
         return (...args: number[]) => {
-          arcs++;
-          return (target as unknown as { arc: (...a: number[]) => void }).arc(...args);
+          pips++;
+          return (target as unknown as { fillRect: (...a: number[]) => void }).fillRect(...args);
         };
       }
       return Reflect.get(target, prop, receiver);
     },
   }) as unknown as CanvasRenderingContext2D;
   drawMark(spy, l, 400, 300, 20, side, queen, boss, beat, 0, 1.2, 1);
-  return arcs;
+  return pips / 4;
 }
 
 describe("the queen's information split", () => {
@@ -232,25 +234,28 @@ describe("the queen's information split", () => {
     });
   });
 
-  describe("player 1's question marks", () => {
+  describe("player 1's target locks", () => {
     it("are drawn inside both shapes while the side is still unknown", () => {
       const queen = queenAt(null);
       const boss = bossState();
       for (const side of [-1, 1] as const) {
-        expect(glyphCount("p1", queen, boss, side, 4)).toBe(1);
+        expect(lockCount("p1", queen, boss, side, 4)).toBe(1);
       }
     });
 
     it("are gone from the mark that has opened", () => {
       const queen = queenAt("red");
       const boss = bossState({ openBeat: 0, closeBeat: 6, weakSide: 1 });
-      expect(glyphCount("p1", queen, boss, 1, 4)).toBe(0);
+      expect(lockCount("p1", queen, boss, 1, 4)).toBe(0);
     });
 
     it("fit inside a slick, which is the half-height case", () => {
-      // The glyph is 1.79 radii tall (`drawQuestionMark`'s own extremes).
+      // A slick is half as tall as it is wide, and the frame takes that aspect
+      // rather than being a square that would hang out of the top and bottom.
       const slickShare = markOutline("cyan", "red", 1, 0, 0).ryShare;
-      expect(innerQuestionRadius(1, slickShare) * 1.79).toBeLessThan(2 * slickShare);
+      const { halfW, halfH } = innerLockHalf(1, slickShare);
+      expect(halfW).toBeLessThan(1);
+      expect(halfH).toBeLessThan(slickShare);
     });
   });
 

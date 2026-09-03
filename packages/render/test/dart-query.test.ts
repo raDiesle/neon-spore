@@ -15,7 +15,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 /**
  * **Player 1's mark must say "ask" and it must never say "left".**
  *
- * Two arrows and a question mark, and the whole creature rests on the pilot
+ * Two arrows inside a target lock, and the whole creature rests on the pilot
  * being unable to read a side out of them. Nothing about that would throw or
  * look wrong if it broke: a mark that leaned even slightly toward the side the
  * body is really taking would quietly make the navigator unnecessary, and the
@@ -53,6 +53,7 @@ function marks(dir: -1 | 1, role: ViewRole = "p1"): string[] {
     computeLayout(SCREEN, CFG, role),
     hanging(dir),
     0.5,
+    1.2,
   );
   return ctx.log ?? [];
 }
@@ -73,12 +74,16 @@ function points(dir: -1 | 1): { x: number; y: number }[] {
     moveTo: at,
     lineTo: at,
     arc: at,
+    // The lock's corner pips, by their middles — a rectangle laid down by its
+    // top-left corner would read as an asymmetry the frame does not have.
+    fillRect: (x: number, y: number, w: number, h: number) => at(x + w / 2, y + h / 2),
   };
   drawDartQueries(
     ctx as unknown as CanvasRenderingContext2D,
     computeLayout(SCREEN, CFG, "p1"),
     hanging(dir),
     0.5,
+    1.2,
   );
   return seen;
 }
@@ -101,11 +106,14 @@ describe("the pilot's dart mark", () => {
     const world = hanging(1);
     const c = world.creatures[0];
     if (!c) throw new Error("no dart on the field");
-    const { y } = creatureCenter(computeLayout(SCREEN, CFG, "p1"), c, 0.5);
-    const r = creatureRadius(computeLayout(SCREEN, CFG, "p1"), c, 0.5, CFG);
-    // Every point of it above the body's own contour: a mark drawn across the
-    // thing it is about is a mark read as part of that thing.
-    for (const p of points(1)) expect(p.y).toBeLessThan(y - r);
+    const layout = computeLayout(SCREEN, CFG, "p1");
+    const { x, y } = creatureCenter(layout, c, 0.5);
+    const r = creatureRadius(layout, c, 0.5, CFG);
+    // Every point of it outside the body's own contour. The frame goes round
+    // the dart now rather than standing above it, so "clear" is a distance and
+    // no longer a direction — but a line put down *on* the silhouette would
+    // still be read as a rim the creature grew.
+    for (const p of points(1)) expect(Math.hypot(p.x - x, p.y - y)).toBeGreaterThan(r);
   });
 
   it("is on the pilot's screen and nowhere else", () => {

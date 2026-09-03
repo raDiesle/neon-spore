@@ -5,7 +5,6 @@ import {
   type Point,
 } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
-import { halo } from "./glow.js";
 
 /** Points around the contour — the same count `blobPath` itself walks. */
 const N = 40;
@@ -14,6 +13,10 @@ const mix = (a: number, b: number, k: number): number => a + (b - a) * k;
 
 /** How big the spent mark's ball is, as a share of a creature's own radius. */
 const BALL_SHARE = 0.34;
+
+/** How much of the mark's own half-extent the frame inside it takes. Well
+ * under one: a frame on the contour reads as the body's own edge. */
+const INNER_SHARE = 0.6;
 
 /** The outline of a creature part-way through turning into something else. */
 export interface MarkOutline {
@@ -80,67 +83,21 @@ export function markOutline(
 }
 
 /**
- * The question mark: what player 2 sees where player 1 sees a creature.
+ * How big a target lock drawn *inside* a mark should be, given how tall that
+ * mark currently is (`MarkOutline.ryShare`).
  *
- * It is not a placeholder for a shape that failed to load — it is the shape.
- * Player 2 is *not told* what is coming, and the mark says so in the one
- * character that means exactly that. Drawn in the same stroked-neon hand as
- * everything else on the field, with a slow tilt so it reads as alive rather
- * than as a glyph pasted on the hull.
+ * Player 1 gets the creature and the frame at once — the shape says what is
+ * coming, the frame says the side is not theirs to know — so the frame has to
+ * sit inside the silhouette at both extremes of the morph: a bulb is round and
+ * roomy, a slick is half as tall and would wear an unscaled mark like a hat.
+ * It takes the mark's own aspect, which is why it is a rectangle and not a
+ * square: a frame as tall as it is wide inside a slick is a frame with its top
+ * and bottom outside the body.
  *
- * Stroked, never filled: a filled question mark at this size closes its own
- * counter and turns into a blob, which is the one thing it must not look
- * like here — there is a real blob a tile away.
+ * There used to be a question mark here instead, drawn as a hook and a dot.
+ * `target-lock.ts` carries why it is a frame now, and it is the owner's
+ * reversal rather than this file's.
  */
-export function drawQuestionMark(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  r: number,
-  hex: string,
-  time: number,
-  alpha = 1,
-): void {
-  if (alpha <= 0) return;
-  const s = r;
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(cx, cy);
-  ctx.rotate(Math.sin(time * 1.3) * 0.07);
-
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = Math.max(1.5, s * 0.2);
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  // The hook: up the left shoulder, over the top, down the right side, then
-  // tucked back into the centre and straight down into the stem.
-  ctx.beginPath();
-  ctx.moveTo(-0.4 * s, -0.4 * s);
-  ctx.quadraticCurveTo(-0.42 * s, -0.95 * s, 0.02 * s, -0.95 * s);
-  ctx.quadraticCurveTo(0.46 * s, -0.95 * s, 0.46 * s, -0.5 * s);
-  ctx.quadraticCurveTo(0.46 * s, -0.14 * s, 0.06 * s, 0.06 * s);
-  ctx.quadraticCurveTo(-0.02 * s, 0.12 * s, -0.02 * s, 0.34 * s);
-  ctx.stroke();
-
-  // The dot, set well clear of the stem so the gap survives the stroke width.
-  ctx.beginPath();
-  ctx.arc(-0.02 * s, 0.72 * s, s * 0.12, 0, Math.PI * 2);
-  ctx.fillStyle = hex;
-  ctx.fill();
-
-  ctx.restore();
-  halo(ctx, cx, cy, s * 1.5, hex, 0.12 * alpha);
-}
-
-/**
- * How big a question mark drawn *inside* a mark should be, given how tall
- * that mark currently is (`MarkOutline.ryShare`). Player 1 gets the creature
- * and the glyph at once — the shape says what is coming, the glyph says the
- * side is not theirs to know — so the glyph has to sit inside the silhouette
- * at both extremes of the morph: a bulb is round and roomy, a slick is half
- * as tall and would wear an unscaled glyph like a hat.
- */
-export function innerQuestionRadius(r: number, ryShare: number): number {
-  return r * (0.34 + 0.34 * ryShare);
+export function innerLockHalf(r: number, ryShare: number): { halfW: number; halfH: number } {
+  return { halfW: r * INNER_SHARE, halfH: r * INNER_SHARE * ryShare };
 }

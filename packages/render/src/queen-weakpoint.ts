@@ -2,7 +2,8 @@ import type { Color, Creature, QueenState } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, showsQueenShape } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawQuestionMark, innerQuestionRadius, markOutline } from "./queen-glyph.js";
+import { innerLockHalf, markOutline } from "./queen-glyph.js";
+import { drawTargetLock } from "./target-lock.js";
 
 /** Breath speed at full health, out of bloom. */
 const BREATH_BASE = 1.5;
@@ -21,16 +22,17 @@ const PENDING_ALPHA = 0.45;
  *
  * | | player 1 | player 2 |
  * |---|---|---|
- * | armoured | the creature that is coming, a question mark inside it | a question mark |
+ * | armoured | the creature that is coming, a target lock inside it | a target lock |
  * | which side is real | nothing | a pulsing ring (`drawSideHint`) |
  * | open, the real mark | revealed, no question left | revealed |
  * | open, the other one | a small armoured ball | a small armoured ball |
  *
- * The two question marks are the same statement from opposite sides. Player
- * 1's sits *inside* a creature they can already name: the shape is what is
- * coming, the glyph is the half of it they are not being told. Player 2's
- * stands *in place of* one: they know exactly which mark, and nothing at all
- * about what comes out of it.
+ * The two frames are the same statement from opposite sides. Player 1's sits
+ * *inside* a creature they can already name: the shape is what is coming, the
+ * frame is the half of it they are not being told. Player 2's stands *in place
+ * of* one, empty: they know exactly which mark, and nothing at all about what
+ * comes out of it. It is the same frame every picked-out body in the game
+ * wears — `target-lock.ts` carries why they are all one picture now.
  *
  * Neither half is worth anything alone: player 1 holds the cannon and the
  * ammunition but does not know which of the two columns to take, player 2
@@ -159,7 +161,7 @@ export function drawMark(
   // all. It gives way to the ball as the mark that stayed shut spends itself,
   // and the reveal is universal — once a mark is open it is open.
   if (!revealed && !showsQueenShape(l.role)) {
-    drawQuestionMark(ctx, cx, cy, r, PALETTE.rock, t, 1 - ball);
+    drawTargetLock(ctx, cx, cy, r, r, PALETTE.rock, time, 1 - ball, side);
     if (ball <= 0) return;
   }
 
@@ -210,11 +212,12 @@ export function drawMark(
 
   ctx.restore();
 
-  // Player 1's half: the creature is named, the side is not. The glyph rides
+  // Player 1's half: the creature is named, the side is not. The frame rides
   // inside the silhouette and goes out exactly as the position comes in —
   // both off `revealShare`, because they are the same fact.
   if (showsQueenShape(l.role) && !revealed) {
-    const glyph = 1 - revealShare(boss, queen, beat, beatPhase);
-    drawQuestionMark(ctx, cx, cy, innerQuestionRadius(r, ryShare), PALETTE.rock, t, glyph);
+    const { halfW, halfH } = innerLockHalf(r, ryShare);
+    const left = 1 - revealShare(boss, queen, beat, beatPhase);
+    drawTargetLock(ctx, cx, cy, halfW, halfH, PALETTE.rock, time, left, side);
   }
 }

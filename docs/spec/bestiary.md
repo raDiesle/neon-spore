@@ -151,8 +151,9 @@ Runt was small and helpless and the whole point of it was that you could see
 that. A lure is the opposite: a full-size slick or a full-size bulb, in its
 real colour, with its real contour and its real own-motion, on player 1's
 screen — and its danger is that it looks like exactly what you want. Player 2
-sees the same body inside a white ring, with an exclamation over it and the
-same mark on the radar strip; player 1 has no tell at all, right up to the
+sees the same body inside a white target lock — corner brackets that flicker,
+the same frame every picked-out body in the game wears — and the same mark on
+the radar strip; player 1 has no tell at all, right up to the
 moment it goes. That asymmetry is the creature: the one who can see it cannot
 act on it, and the one who is acting cannot see it, so a sentence has to cross
 the room — *do not move to this one position, I will not shoot it anyway.*

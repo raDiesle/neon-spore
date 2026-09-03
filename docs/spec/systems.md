@@ -71,7 +71,7 @@ navigator's half — the strip currently shows only that something is coming,
 in the colour/kind it will arrive as, at a column.
 
 Radar lines: length = remaining time until arrival; a warning before the
-creature is visible. The veil appears on the radar as a question mark —
+creature is visible. The veil appears on the radar as a target lock —
 **built**, on player 2's strip, in `PALETTE.dim` rather than in either
 ammunition colour, because a veil's queue entry carries no colour to read and
 a confident cyan blip would have been right half the time

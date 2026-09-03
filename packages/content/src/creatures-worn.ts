@@ -127,7 +127,7 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     // Player 2's strip, with the aim kinds, and the rule crossing the controls
     // for the third time rather than an exception to it. What the strip says
     // is that something is coming and in which column; what it cannot say is
-    // *what*, so it says so — a question mark rather than a colour
+    // *what*, so it says so — a target lock rather than a colour
     // (`render/veil-marks.ts`, and docs/spec/systems.md 5.2, which asked for
     // exactly that before any of this was built). The half player 2 is missing
     // is on player 1's screen, in the field, where the cloud is see-through.

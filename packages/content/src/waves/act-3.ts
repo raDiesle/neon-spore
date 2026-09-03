@@ -69,7 +69,7 @@ export const WAVES_ACT_3: Wave[] = [
     guide: {
       both: "One of these is not what it looks like. Only one of you can tell.",
       p1: "You will see a body worth shooting and nothing will happen. Believe your partner and move — the column you are standing in is the one you are losing.",
-      p2: "The ringed one is a lure. Do not fire at it, and do not wait to be asked — say the column it is in and say the column to go to instead.",
+      p2: "The one in the corner frame is a lure. Do not fire at it, and do not wait to be asked — say the column it is in and say the column to go to instead.",
     },
     entries: [
       { beat: 0, col: 2, kind: "lure", color: "cyan" },
@@ -150,7 +150,7 @@ export const WAVES_ACT_3: Wave[] = [
     guide: {
       both: "A thundercloud, and something is falling inside it. The lightning is on the beat — count it.",
       p1: "You can see into the cloud and your partner cannot. Say the body and say how long: “cyan, two beats”. The ring over it is the clock.",
-      p2: "You have a question mark and nothing else, so ask. Fire on what you are told, not on what you last heard — a wrong colour shuts the cloud for two seconds and the answer changes while it is shut.",
+      p2: "You have a corner frame around it and nothing else, so ask. Fire on what you are told, not on what you last heard — a wrong colour shuts the cloud for two seconds and the answer changes while it is shut.",
     },
     entries: [
       { beat: 0, col: 3, kind: "veil", color: null },
