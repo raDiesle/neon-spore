@@ -1,4 +1,4 @@
-import { rm } from "node:fs/promises";
+import { mkdir, readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
@@ -43,7 +43,14 @@ const repoRootPath = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const distDir = Bun.fileURLToPath(new URL("./dist/", here));
 const indexHtml = Bun.fileURLToPath(new URL("./index.html", here));
 
-await rm(distDir, { recursive: true, force: true });
+// Emptied rather than deleted, for the reason `apps/game/build.ts` gives at
+// length: on Windows a handle on the directory node makes the directory itself
+// undeletable while everything in it deletes fine, and the build then stops on
+// a tree that is entirely fine.
+await mkdir(distDir, { recursive: true });
+for (const name of await readdir(distDir)) {
+  await rm(join(distDir, name), { recursive: true, force: true });
+}
 
 const result = await Bun.build({
   entrypoints: [indexHtml],

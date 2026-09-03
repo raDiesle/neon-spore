@@ -1,4 +1,4 @@
-import { readdir, rm } from "node:fs/promises";
+import { mkdir, readdir, rm } from "node:fs/promises";
 import { buildDateToday } from "../../tools/build-stamp.js";
 
 /**
@@ -26,7 +26,25 @@ const indexHtml = Bun.fileURLToPath(new URL("./index.html", here));
  */
 const swVersion = `${buildDateToday()}-${Date.now().toString(36)}`;
 
-await rm(distDir, { recursive: true, force: true });
+/**
+ * Empty the output directory rather than delete it.
+ *
+ * Deleting `dist` itself is what this used to do, and on Windows it fails with
+ * `EBUSY` whenever anything holds a handle on the directory — an indexer, a
+ * file watcher, a browser that had the preview open. Everything *inside* it
+ * deletes perfectly well in that state; only the directory node is pinned. So
+ * the build stopped on a tree that was entirely fine, with an error naming a
+ * path nobody had touched. Emptying is what the build actually wants: what
+ * matters is that nothing from the last build is left to ship.
+ */
+async function emptyDist(): Promise<void> {
+  await mkdir(distDir, { recursive: true });
+  for (const name of await readdir(distDir)) {
+    await rm(`${distDir}${name}`, { recursive: true, force: true });
+  }
+}
+
+await emptyDist();
 
 const result = await Bun.build({
   entrypoints: [indexHtml],
