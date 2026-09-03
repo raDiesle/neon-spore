@@ -6,6 +6,8 @@ import type { DemoRow } from "./demo-menu.js";
 import { roomLine } from "./join-words.js";
 import { menuEntries } from "./menu-entries.js";
 import { buildMenu } from "./menu-view.js";
+import { readName } from "./nickname.js";
+import { readPartners, roomForPair } from "./pairing.js";
 import { progressLine, readProgress } from "./progress.js";
 import type { RunState } from "./run-state.js";
 
@@ -44,6 +46,8 @@ export interface MenuBindings {
   seat: () => ViewRole;
   setSeat: (role: ViewRole) => void;
   openRoom: () => void;
+  /** Join a room by code, with the room screen showing it. */
+  joinRoom: (room: string) => void;
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
@@ -130,6 +134,12 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
       close,
       show: (page) => dom.show(page),
       openRoom: b.openRoom,
+      rejoin: () => {
+        const room = pairRoom();
+        if (room === "") return;
+        close();
+        b.joinRoom(room);
+      },
       openTuning: b.openTuning,
       demoCount: b.demos.length,
     }),
@@ -145,6 +155,17 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   // LEAVE ROOM drops the other player's game, so it asks in place first. Both
   // doors to it get the same two-step; the hold card's own LEAVE ROOM does
   // not, because that one answers a line that is already broken.
+  /**
+   * The room this device shares with the partner it played with last, or ""
+   * when there is nobody to share one with yet. Derived rather than stored —
+   * see `pairing.ts`.
+   */
+  const pairRoom = (): string => {
+    const mine = readName();
+    const theirs = readPartners()[0] ?? "";
+    return mine && theirs ? roomForPair(mine, theirs) : "";
+  };
+
   const leaveEntry = dom.entryRoot("leave");
   if (leaveEntry) {
     leaveStep = bindTwoStep(leaveEntry, "LEAVE", () => {
@@ -165,6 +186,14 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     dom.setEntry("continue", {
       on: !inRoom() && far.furthest > 0,
       desc: `From wave ${far.furthest + 1}, where this device got to.`,
+    });
+    // The way back in, once there is somebody to go back to. Off in a room,
+    // where the pair is already together, and off before the first meeting,
+    // which is what the four-character code is still for.
+    const partner = readPartners()[0] ?? "";
+    dom.setEntry("rejoin", {
+      on: !inRoom() && pairRoom() !== "",
+      desc: `Back into the room you and ${partner} share. No code to read out.`,
     });
     dom.setEntry("leave", { on: inRoom() });
     // The entry itself goes off with the room; its question has to go with it,

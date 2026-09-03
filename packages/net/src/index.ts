@@ -27,6 +27,7 @@ export {
 export {
   isRoomCode,
   normalizeRoomCode,
+  ROOM_ALPHABET,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "./room-code.js";

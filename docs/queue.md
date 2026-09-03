@@ -107,24 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## The room is named for the pair, so they never re-type a code
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-room-is-named-for-the-pair-so-they-never-re
-- **Files:** `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/menu-pages.ts`, `apps/game/test/pairing.test.ts`
-
-Depends on the two nickname items above. The four-character code stays the way
-in the **first** time — it is still read aloud, that is the game. What this adds
-is the way *back* in: once two named devices have shared a room, the pairing is
-remembered (both names, on each device, in `localStorage`) and offered as a
-one-tap "REJOIN <other name>" on the menu, with no code typed. Derive the room
-key from the two normalized names in a fixed order (a pure `roomForPair(a, b):
-string` in `pairing.ts`, tested), so the same pair always resolves to the same
-room wherever they are. This does not auto-resume the game state — that was
-deliberately left off the queue — it only removes the code from the second
-meeting onward. A device may remember more than one partner; show the most
-recent. Client-only past the room key, so `bun run check` proves it.
-
 ## The room stores the pair's stats and ends the run after long silence
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

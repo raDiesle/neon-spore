@@ -10,6 +10,7 @@ import {
 import { bindTwoStep } from "./confirm.js";
 import { bindNameField } from "./join-name.js";
 import { chipText, explain, seatWord, startButton } from "./join-words.js";
+import { rememberFrom } from "./pairing.js";
 
 export interface JoinBindings {
   join: (room: string) => void;
@@ -69,6 +70,8 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
 
   /** The screen, from the last status seen. Cheap, so it is redone rather than tracked. */
   const paint = (): void => {
+    // So the menu can offer the way back in without a code (`pairing.ts`).
+    rememberFrom(last);
     nameField.paint();
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);

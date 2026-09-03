@@ -26,6 +26,8 @@ export interface EntryActions {
   close: () => void;
   show: (page: MenuPage) => void;
   openRoom: () => void;
+  /** Straight into the room this device shares with its most recent partner. */
+  rejoin: () => void;
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
@@ -50,6 +52,12 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       label: "PLAY",
       desc: "Start over at the first wave, both seats on this device.",
       run: () => a.play(0),
+    },
+    {
+      key: "rejoin",
+      label: "REJOIN",
+      desc: "Back into the room you two share. No code to read out.",
+      run: () => a.rejoin(),
     },
     {
       key: "room",

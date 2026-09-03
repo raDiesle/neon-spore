@@ -99,6 +99,12 @@ export function bindShell(p: ShellParts): Link {
       seat: p.seat,
       setSeat: p.setSeat,
       openRoom: () => joinScreen?.open(true),
+      // The way back into a room the pair already share (`pairing.ts`). The
+      // room screen opens with it, because the pair still have to press START.
+      joinRoom: (room) => {
+        joinScreen?.open(true);
+        link.join(room);
+      },
       leaveRoom: () => link.leave(),
       openTuning: p.openTuning,
       demos,
