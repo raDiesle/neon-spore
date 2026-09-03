@@ -464,6 +464,7 @@ the writes wrapped in try/catch like the other `localStorage` users.
 ## LEAVE ROOM hangs up on the other player with no confirm
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-leave-room-hangs-up-on-the-other-player-with-no
 - **Files:** `apps/game/index.html`, `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/game.css`
 
 Both the room screen's `#joinLeave` and the menu's LEAVE ROOM entry call
