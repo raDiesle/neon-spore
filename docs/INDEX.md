@@ -351,6 +351,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |
 | `packages/render/src/wisp-tentacles.ts` | you are drawing the wisp's streamers — how they gather, trail and splash across a jump |
 | `packages/render/src/wisp-static.ts` | you are changing how a wisp comes through in bands — the interference that says one screen does not have it |
+| `packages/render/src/wisp-search.ts` | you are changing the box that walks the grid on the pilot's screen while a wisp is out — the seat that cannot see one |
 
 ### packages/net
 

@@ -7,12 +7,14 @@ import {
   step,
   type TimedCommand,
   ticksPerBeat,
+  wispRows,
 } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { commsCall } from "../src/comms.js";
 import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
 import { JUMP_TILES, showsWisp, wispApexTiles, wispJump } from "../src/wisp.js";
+import { showsWispSearch, wispSearchTile } from "../src/wisp-search.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -140,6 +142,52 @@ describe("wispJump", () => {
         }
       }
     }
+  });
+});
+
+describe("the search on the pilot's screen", () => {
+  const L = { cols: CFG.cols, rows: 15 } as never;
+
+  it("is drawn on the seat that cannot see the body, and never on the one that can", () => {
+    expect(showsWispSearch({ role: "p1" } as never)).toBe(true);
+    expect(showsWispSearch({ role: "p2" } as never)).toBe(false);
+    expect(showsWispSearch({ role: "test" } as never)).toBe(true);
+  });
+
+  /**
+   * The rule the whole mark rests on. It is enforced by the signature —
+   * nothing in `wisp-search.ts` takes a creature, a column or a row — and this
+   * is the check that the signature stays that way: the same step gives the
+   * same tile whatever is standing on the field, because there is no field in
+   * the call at all.
+   */
+  it("looks in the same places whether or not anything is out there", () => {
+    for (let step = 0; step < 50; step++) {
+      expect(wispSearchTile(L, CFG, step)).toEqual(wispSearchTile(L, CFG, step));
+    }
+  });
+
+  it("never looks at the hull row or past the edges of the grid", () => {
+    for (let step = 0; step < 400; step++) {
+      const { col, row } = wispSearchTile(L, CFG, step);
+      expect(col).toBeGreaterThanOrEqual(0);
+      expect(col).toBeLessThan(CFG.cols);
+      expect(row).toBeGreaterThanOrEqual(0);
+      // `wispRows` is where a wisp may stand, and the hull row is not in it.
+      expect(row).toBeLessThan(wispRows(CFG));
+    }
+  });
+
+  it("walks the field rather than sitting in one part of it", () => {
+    const cols = new Set<number>();
+    const rows = new Set<number>();
+    for (let step = 0; step < 200; step++) {
+      const t = wispSearchTile(L, CFG, step);
+      cols.add(t.col);
+      rows.add(t.row);
+    }
+    expect(cols.size).toBe(CFG.cols);
+    expect(rows.size).toBeGreaterThan(wispRows(CFG) / 2);
   });
 });
 

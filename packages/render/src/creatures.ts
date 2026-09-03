@@ -1,4 +1,10 @@
-import { isBossBody, isMeteorKind, veilArmourPhase, type World } from "@neon-spore/sim";
+import {
+  isBossBody,
+  isMeteorKind,
+  veilArmourPhase,
+  type World,
+  wispOnField,
+} from "@neon-spore/sim";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -11,6 +17,7 @@ import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
+import { drawWispSearch, showsWispSearch } from "./wisp-search.js";
 
 /**
  * Creature silhouettes come from `legacy/style-guide.html` by way of
@@ -37,12 +44,19 @@ export function drawCreatures(
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
-  // What a jumping wisp leaves on the field: its pool of light, its arc and
-  // the tile it is coming down on. Before every body and flat — outside the
+  // The two halves of a wisp that are not the body, both flat — outside the
   // per-body perspective transform below, because a mark that names a square
-  // has to be *on* that square (`wisp-ground.ts`). Behind `showsWisp` for the
-  // whole pass: the landing marker is the one thing player 1 must never have.
-  if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
+  // has to be *on* that square (`wisp-ground.ts`).
+  //
+  // On the navigator's screen: the pool of light under it, the arc it is
+  // flying and the tile it is coming down on, all behind `showsWisp`, because
+  // the landing marker is the one thing player 1 must never have. On the
+  // pilot's: a target-lock frame walking the grid, which knows nothing about
+  // where anything is and says so (`wisp-search.ts`). The rig draws both.
+  if (wispOnField(world)) {
+    if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
+    if (showsWispSearch(l)) drawWispSearch(ctx, l, world.cfg, time);
+  }
   // Farthest first: which of two overlapping bodies is in front used to be
   // decided by spawn order, which is not a fact about the picture. See
   // `byDepth` — it copies rather than sorting the simulation's own array.

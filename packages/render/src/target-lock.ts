@@ -33,6 +33,10 @@
  * The frame says *found*. What is in it says what was found and what is being
  * withheld, which is the half a shared marking was never carrying anyway.
  *
+ * The frame has a second state — the same instrument before it has found
+ * anything, walking the grid and holding nothing. `wisp-search.ts` is that
+ * one, and carries the argument for why it is a state and not a fifth picture.
+ *
  * **The flicker is not decoration.** A steady rectangle reads as a thing that
  * was drawn on the field; one that drops and jumps a pixel reads as a readout
  * off a machine that is doing its best, which is exactly the fiction — the
