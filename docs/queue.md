@@ -324,6 +324,7 @@ runtime cycle.
 ## Split tools/versus/prompt.ts into text, patch rendering and step builders
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-split-tools-versus-prompt-ts-into-text-patch-ren
 - **Files:** `tools/versus/prompt.ts`, `tools/versus/prompt-text.ts`, `tools/versus/prompt-changes.ts`, `tools/versus/prompt-steps.ts`, `tools/versus/test/prompt.test.ts`
 
 `prompt.ts` is 509 lines holding three responsibilities: lines 59 to 128 are
