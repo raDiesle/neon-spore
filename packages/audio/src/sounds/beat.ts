@@ -10,7 +10,7 @@
  * both hear. At 96 BPM a beat is 625 ms, and every fourth is accented.
  */
 
-import { glint, soft, sub, tick } from "../grain.js";
+import { burst, glint, noise, soft, sub, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const BEAT_SOUNDS: SoundDef[] = [
@@ -49,15 +49,13 @@ export const BEAT_SOUNDS: SoundDef[] = [
     use: "Before a wave that starts on a figure, and before a briefing hands over.",
     level: 0.4,
     layers: [
-      {
-        source: "noise",
-        freq: 5000,
-        gain: 0.5,
-        attack: 0.001,
-        release: 0.008,
-        filter: { type: "highpass", freq: 5000, q: 0.7 },
-        repeat: { times: 4, every: 0.625, decay: 1, detune: 6 },
-      },
+      burst(
+        noise(5000, { type: "highpass", freq: 5000, q: 0.7 }, 0.001, 0.008, 0.5),
+        4,
+        0.625,
+        1,
+        6,
+      ),
       { source: "sine", freq: 80, gain: 0.6, at: 1.875, attack: 0.004, release: 0.18 },
     ],
   },
@@ -90,14 +88,7 @@ export const BEAT_SOUNDS: SoundDef[] = [
     use: "A bar the game deliberately does not fill: the moment before a boss moves.",
     level: 0.26,
     layers: [
-      {
-        source: "noise",
-        freq: 900,
-        gain: 0.4,
-        attack: 0.001,
-        release: 0.02,
-        filter: { type: "lowpass", freq: 260, q: 0.8 },
-      },
+      noise(900, { type: "lowpass", freq: 260, q: 0.8 }, 0.001, 0.02, 0.4),
       sub(70, 0.08, 0.4),
     ],
   },

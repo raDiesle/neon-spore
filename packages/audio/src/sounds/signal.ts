@@ -9,7 +9,7 @@
  * (`docs/spec/couplings.md`).
  */
 
-import { after, burst, chime, glint, soft, sub, thud, tick } from "../grain.js";
+import { after, burst, chime, glint, noise, soft, sub, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const SIGNAL_SOUNDS: SoundDef[] = [
@@ -202,15 +202,10 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     use: "A strip blanked — the Jammer, from the side that lost the strip.",
     level: 0.26,
     layers: [
-      {
-        source: "noise",
-        freq: 3000,
-        gain: 0.35,
-        attack: 0.02,
-        release: 0.5,
-        filter: { type: "bandpass", freq: 5600, toFreq: 4400, q: 2.6 },
-        wobble: { rate: 31, cents: 400 },
-      },
+      noise(3000, { type: "bandpass", freq: 5600, toFreq: 4400, q: 2.6 }, 0.02, 0.5, 0.35, {
+        rate: 31,
+        cents: 400,
+      }),
     ],
   },
 ];

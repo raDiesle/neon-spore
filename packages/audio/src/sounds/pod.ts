@@ -7,7 +7,7 @@
  * one moment the game sounds like it agrees with you.
  */
 
-import { after, air, burst, chime, glint, soft, spore, sub, tick } from "../grain.js";
+import { after, air, burst, chime, glint, noise, soft, spore, sub, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const POD_SOUNDS: SoundDef[] = [
@@ -29,14 +29,7 @@ export const POD_SOUNDS: SoundDef[] = [
     level: 0.38,
     layers: [
       tick(0.45, 0, 4600),
-      {
-        source: "noise",
-        freq: 2600,
-        gain: 0.4,
-        attack: 0.002,
-        release: 0.09,
-        filter: { type: "bandpass", freq: 3000, toFreq: 700, q: 1.6 },
-      },
+      noise(2600, { type: "bandpass", freq: 3000, toFreq: 700, q: 1.6 }, 0.002, 0.09, 0.4),
       after(0.04, {
         source: "sine",
         freq: 420,
@@ -134,14 +127,7 @@ export const POD_SOUNDS: SoundDef[] = [
     level: 0.22,
     layers: [
       burst(
-        {
-          source: "noise",
-          freq: 700,
-          gain: 0.4,
-          attack: 0.01,
-          release: 0.05,
-          filter: { type: "lowpass", freq: 520, toFreq: 180, q: 2.2 },
-        },
+        noise(700, { type: "lowpass", freq: 520, toFreq: 180, q: 2.2 }, 0.01, 0.05, 0.4),
         3,
         0.14,
         0.82,
@@ -156,14 +142,7 @@ export const POD_SOUNDS: SoundDef[] = [
     use: "An intake opened on the wrong column, or a pod kind the hull cannot use yet.",
     level: 0.26,
     layers: [
-      {
-        source: "noise",
-        freq: 500,
-        gain: 0.5,
-        attack: 0.002,
-        release: 0.05,
-        filter: { type: "lowpass", freq: 300, q: 2 },
-      },
+      noise(500, { type: "lowpass", freq: 300, q: 2 }, 0.002, 0.05, 0.5),
       sub(64, 0.07, 0.4),
     ],
   },

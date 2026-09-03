@@ -8,7 +8,7 @@
  * voice of their own.
  */
 
-import { after, air, burst, glint, soft, spore, sub, swell } from "../grain.js";
+import { after, air, burst, glint, noise, soft, spore, sub, swell } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const SWARM_SOUNDS: SoundDef[] = [
@@ -80,14 +80,7 @@ export const SWARM_SOUNDS: SoundDef[] = [
     use: "The Colony, the Mother, and anything that spawns.",
     level: 0.32,
     layers: [
-      {
-        source: "noise",
-        freq: 1400,
-        gain: 0.45,
-        attack: 0.02,
-        release: 0.2,
-        filter: { type: "bandpass", freq: 1800, toFreq: 500, q: 1.4 },
-      },
+      noise(1400, { type: "bandpass", freq: 1800, toFreq: 500, q: 1.4 }, 0.02, 0.2, 0.45),
       after(0.16, burst(soft(0.6, glint(6600, 0.06)), 5, 0.08, 0.86, 7)),
     ],
   },

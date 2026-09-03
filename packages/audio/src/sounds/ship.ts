@@ -7,7 +7,7 @@
  * a control down is never a drone.
  */
 
-import { air, glint, metal, soft, spore, sub, thud, tick } from "../grain.js";
+import { air, glint, metal, noise, soft, spore, sub, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const SHIP_SOUNDS: SoundDef[] = [
@@ -68,14 +68,7 @@ export const SHIP_SOUNDS: SoundDef[] = [
     use: "Fire pressed inside the reload gap. Needs the refused command, which the sim does not report.",
     level: 0.24,
     layers: [
-      {
-        source: "noise",
-        freq: 700,
-        gain: 0.5,
-        attack: 0.001,
-        release: 0.03,
-        filter: { type: "lowpass", freq: 240, q: 1.4 },
-      },
+      noise(700, { type: "lowpass", freq: 240, q: 1.4 }, 0.001, 0.03, 0.5),
       sub(58, 0.05, 0.4),
     ],
   },
@@ -125,15 +118,6 @@ export const SHIP_SOUNDS: SoundDef[] = [
     status: "bound",
     use: "The intake window closing empty.",
     level: 0.22,
-    layers: [
-      {
-        source: "noise",
-        freq: 900,
-        gain: 0.4,
-        attack: 0.03,
-        release: 0.05,
-        filter: { type: "bandpass", freq: 1400, toFreq: 300, q: 2.4 },
-      },
-    ],
+    layers: [noise(900, { type: "bandpass", freq: 1400, toFreq: 300, q: 2.4 }, 0.03, 0.05, 0.4)],
   },
 ];

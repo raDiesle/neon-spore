@@ -13,7 +13,7 @@
  * `impact.ts`, because what a shot does is the shot's business.
  */
 
-import { after, air, burst, chime, glint, metal, soft, spore, sub, tick } from "../grain.js";
+import { after, air, burst, chime, glint, metal, noise, soft, spore, sub, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const CREATURE_SOUNDS: SoundDef[] = [
@@ -92,14 +92,7 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     use: "The gum docking on — the one that costs three evasive manoeuvres.",
     level: 0.3,
     layers: [
-      {
-        source: "noise",
-        freq: 800,
-        gain: 0.5,
-        attack: 0.02,
-        release: 0.3,
-        filter: { type: "lowpass", freq: 900, toFreq: 160, q: 1.8 },
-      },
+      noise(800, { type: "lowpass", freq: 900, toFreq: 160, q: 1.8 }, 0.02, 0.3, 0.5),
       spore(90, 0.4, 0.4, 70),
     ],
   },
@@ -177,14 +170,7 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     level: 0.34,
     layers: [
       metal(140, 0.12, 0.5, 130),
-      after(0.1, {
-        source: "noise",
-        freq: 600,
-        gain: 0.45,
-        attack: 0.01,
-        release: 0.24,
-        filter: { type: "lowpass", freq: 400, toFreq: 90, q: 2.4 },
-      }),
+      after(0.1, noise(600, { type: "lowpass", freq: 400, toFreq: 90, q: 2.4 }, 0.01, 0.24, 0.45)),
     ],
   },
   {

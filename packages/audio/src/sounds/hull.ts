@@ -11,8 +11,27 @@
  * mid-sentence at the moment the run ends.
  */
 
-import { after, air, burst, glint, metal, soft, spore, sub, thud, tick } from "../grain.js";
-import type { SoundDef } from "../types.js";
+import { after, air, burst, glint, metal, noise, soft, spore, sub, thud, tick } from "../grain.js";
+import type { Layer, SoundDef } from "../types.js";
+
+/**
+ * One of the alarm's two tones: a triangle held and said twice on the beat.
+ *
+ * It is not a grain. Two tones a semitone apart, each repeating, *is* the
+ * alarm — write the layer twice and the semitone becomes a thing two literals
+ * happen to agree on, and the day one of them is retuned the sound stops
+ * alternating and starts beating.
+ */
+const alarmTone = (freq: number, gain: number, at = 0): Layer => ({
+  source: "triangle",
+  freq,
+  gain,
+  at,
+  attack: 0.01,
+  hold: 0.1,
+  release: 0.08,
+  repeat: { times: 2, every: 0.31, decay: 1 },
+});
 
 export const HULL_SOUNDS: SoundDef[] = [
   {
@@ -34,14 +53,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     layers: [
       thud(180, 30, 0.5, 0.85),
       metal(52, 0.34, 0.55, 120),
-      {
-        source: "noise",
-        freq: 600,
-        gain: 0.4,
-        attack: 0.004,
-        release: 0.3,
-        filter: { type: "lowpass", freq: 500, toFreq: 90, q: 1.2 },
-      },
+      noise(600, { type: "lowpass", freq: 500, toFreq: 90, q: 1.2 }, 0.004, 0.3, 0.4),
       after(0.12, soft(0.5, burst(metal(70, 0.1, 0.3, 100), 3, 0.09, 0.7))),
     ],
   },
@@ -53,14 +65,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     use: "A crater growing after the impact that made it — waiting on a scar event to hang off.",
     level: 0.26,
     layers: [
-      {
-        source: "noise",
-        freq: 1600,
-        gain: 0.5,
-        attack: 0.001,
-        release: 0.06,
-        filter: { type: "bandpass", freq: 2400, toFreq: 900, q: 3.2 },
-      },
+      noise(1600, { type: "bandpass", freq: 2400, toFreq: 900, q: 3.2 }, 0.001, 0.06, 0.5),
       sub(70, 0.1, 0.35),
     ],
   },
@@ -72,28 +77,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     use: "Hull below the last quarter. It repeats until the hull is mended.",
     level: 0.34,
     pierce: "Below a quarter hull there is one thing left to say, and this is it saying it.",
-    layers: [
-      {
-        source: "triangle",
-        freq: 740,
-        gain: 0.35,
-        attack: 0.01,
-        hold: 0.1,
-        release: 0.08,
-        repeat: { times: 2, every: 0.31, decay: 1 },
-      },
-      {
-        source: "triangle",
-        freq: 700,
-        gain: 0.32,
-        at: 0.155,
-        attack: 0.01,
-        hold: 0.1,
-        release: 0.08,
-        repeat: { times: 2, every: 0.31, decay: 1 },
-      },
-      sub(58, 0.5, 0.45),
-    ],
+    layers: [alarmTone(740, 0.35), alarmTone(700, 0.32, 0.155), sub(58, 0.5, 0.45)],
   },
   {
     id: "hull.mend",
@@ -126,14 +110,7 @@ export const HULL_SOUNDS: SoundDef[] = [
         release: 1.5,
         filter: { type: "lowpass", freq: 2600, toFreq: 90, q: 1.4 },
       },
-      {
-        source: "noise",
-        freq: 4000,
-        gain: 0.4,
-        attack: 0.02,
-        release: 1.2,
-        filter: { type: "bandpass", freq: 3600, toFreq: 200, q: 0.8 },
-      },
+      noise(4000, { type: "bandpass", freq: 3600, toFreq: 200, q: 0.8 }, 0.02, 1.2, 0.4),
       after(0.9, soft(0.6, spore(64, 0.9, 0.4, 60))),
     ],
   },
@@ -165,14 +142,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     level: 0.3,
     layers: [
       burst(
-        {
-          source: "noise",
-          freq: 3000,
-          gain: 0.45,
-          attack: 0.001,
-          release: 0.05,
-          filter: { type: "bandpass", freq: 3800, toFreq: 2600, q: 4 },
-        },
+        noise(3000, { type: "bandpass", freq: 3800, toFreq: 2600, q: 4 }, 0.001, 0.05, 0.45),
         5,
         0.13,
         0.78,

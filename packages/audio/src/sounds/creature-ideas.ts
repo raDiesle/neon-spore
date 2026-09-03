@@ -10,7 +10,7 @@
  * cheapest way to find out whether they could.
  */
 
-import { after, air, burst, glint, metal, soft, spore, sub, tick } from "../grain.js";
+import { after, air, burst, glint, metal, noise, soft, spore, sub, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const CREATURE_IDEA_SOUNDS: SoundDef[] = [
@@ -32,14 +32,7 @@ export const CREATURE_IDEA_SOUNDS: SoundDef[] = [
     level: 0.24,
     layers: [
       spore(180, 0.3, 0.4, 30),
-      after(0.06, {
-        source: "noise",
-        freq: 500,
-        gain: 0.4,
-        attack: 0.06,
-        release: 0.3,
-        filter: { type: "lowpass", freq: 700, toFreq: 140, q: 1.4 },
-      }),
+      after(0.06, noise(500, { type: "lowpass", freq: 700, toFreq: 140, q: 1.4 }, 0.06, 0.3, 0.4)),
     ],
   },
   {
@@ -72,15 +65,10 @@ export const CREATURE_IDEA_SOUNDS: SoundDef[] = [
     use: "The Blind One — visible to one player, static to the other.",
     level: 0.26,
     layers: [
-      {
-        source: "noise",
-        freq: 2000,
-        gain: 0.4,
-        attack: 0.02,
-        release: 0.4,
-        filter: { type: "bandpass", freq: 3600, toFreq: 6400, q: 2.2 },
-        wobble: { rate: 17, cents: 200 },
-      },
+      noise(2000, { type: "bandpass", freq: 3600, toFreq: 6400, q: 2.2 }, 0.02, 0.4, 0.4, {
+        rate: 17,
+        cents: 200,
+      }),
       soft(0.4, burst(tick(0.3, 0, 6000), 6, 0.06, 0.9)),
     ],
   },
@@ -131,15 +119,13 @@ export const CREATURE_IDEA_SOUNDS: SoundDef[] = [
     level: 0.3,
     layers: [
       air(9000, 3800, 0.4, 0.2, 2.4),
-      after(0.3, {
-        source: "noise",
-        freq: 3000,
-        gain: 0.35,
-        attack: 0.05,
-        release: 0.6,
-        filter: { type: "bandpass", freq: 4600, q: 2.2 },
-        wobble: { rate: 23, cents: 300 },
-      }),
+      after(
+        0.3,
+        noise(3000, { type: "bandpass", freq: 4600, q: 2.2 }, 0.05, 0.6, 0.35, {
+          rate: 23,
+          cents: 300,
+        }),
+      ),
     ],
   },
 ];

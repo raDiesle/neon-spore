@@ -8,7 +8,19 @@
  * first thing a phone speaker in a noisy room throws away.
  */
 
-import { after, air, burst, chime, glint, metal, soft, spore, thud, tick } from "../grain.js";
+import {
+  after,
+  air,
+  burst,
+  chime,
+  glint,
+  metal,
+  noise,
+  soft,
+  spore,
+  thud,
+  tick,
+} from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const IMPACT_SOUNDS: SoundDef[] = [
@@ -21,14 +33,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     level: 0.44,
     layers: [
       thud(260, 60, 0.16, 0.7),
-      {
-        source: "noise",
-        freq: 2200,
-        gain: 0.5,
-        attack: 0.002,
-        release: 0.13,
-        filter: { type: "bandpass", freq: 2600, toFreq: 380, q: 1.1 },
-      },
+      noise(2200, { type: "bandpass", freq: 2600, toFreq: 380, q: 1.1 }, 0.002, 0.13, 0.5),
       after(0.03, soft(0.5, air(6000, 3400, 0.16, 0.18, 2.4))),
     ],
   },
@@ -41,14 +46,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     level: 0.44,
     layers: [
       thud(320, 74, 0.14, 0.65),
-      {
-        source: "noise",
-        freq: 3000,
-        gain: 0.45,
-        attack: 0.002,
-        release: 0.11,
-        filter: { type: "bandpass", freq: 3400, toFreq: 620, q: 1.2 },
-      },
+      noise(3000, { type: "bandpass", freq: 3400, toFreq: 620, q: 1.2 }, 0.002, 0.11, 0.45),
       after(0.02, chime(5400, 0.26, 0.2, 1500)),
       after(0.05, soft(0.5, glint(7600, 0.18))),
     ],
@@ -74,14 +72,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     use: "The wrong colour, or a rock, which is never destroyed by a shot.",
     level: 0.34,
     layers: [
-      {
-        source: "noise",
-        freq: 400,
-        gain: 0.55,
-        attack: 0.001,
-        release: 0.045,
-        filter: { type: "lowpass", freq: 260, q: 2.6 },
-      },
+      noise(400, { type: "lowpass", freq: 260, q: 2.6 }, 0.001, 0.045, 0.55),
       metal(46, 0.09, 0.5, 100),
     ],
   },
@@ -108,14 +99,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     level: 0.46,
     layers: [
       thud(150, 52, 0.24, 0.7),
-      {
-        source: "noise",
-        freq: 1800,
-        gain: 0.4,
-        attack: 0.003,
-        release: 0.18,
-        filter: { type: "bandpass", freq: 2000, toFreq: 300, q: 2.4 },
-      },
+      noise(1800, { type: "bandpass", freq: 2000, toFreq: 300, q: 2.4 }, 0.003, 0.18, 0.4),
       after(0.06, chime(4400, 0.34, 0.18, 900)),
     ],
   },
@@ -162,14 +146,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     use: "A wrong colour into THE VEIL (`veilRebuff`) — the cloud takes the shot and shuts over it for two seconds.",
     level: 0.32,
     layers: [
-      {
-        source: "noise",
-        freq: 900,
-        gain: 0.5,
-        attack: 0.004,
-        release: 0.2,
-        filter: { type: "lowpass", freq: 700, toFreq: 140, q: 1.6 },
-      },
+      noise(900, { type: "lowpass", freq: 700, toFreq: 140, q: 1.6 }, 0.004, 0.2, 0.5),
       spore(96, 0.22, 0.35, 55),
     ],
   },

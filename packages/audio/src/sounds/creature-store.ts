@@ -9,7 +9,7 @@
  * mechanic is a guessing game.
  */
 
-import { after, air, burst, chime, glint, metal, soft, spore, sub } from "../grain.js";
+import { after, air, burst, chime, glint, metal, noise, soft, spore, sub } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const CREATURE_STORE_SOUNDS: SoundDef[] = [
@@ -95,14 +95,7 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     use: "THE SHELL's last piece coming off, and the colour underneath (`shellBare`).",
     level: 0.32,
     layers: [
-      {
-        source: "noise",
-        freq: 1800,
-        gain: 0.34,
-        attack: 0.01,
-        release: 0.3,
-        filter: { type: "bandpass", freq: 2200, toFreq: 420, q: 2.6 },
-      },
+      noise(1800, { type: "bandpass", freq: 2200, toFreq: 420, q: 2.6 }, 0.01, 0.3, 0.34),
       after(0.24, metal(150, 0.2, 0.4, 130)),
       after(0.24, soft(0.5, glint(6200, 0.16))),
     ],

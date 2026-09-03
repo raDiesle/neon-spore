@@ -312,23 +312,6 @@ call `frame` twice, assert the recorded ids, include a tick-goes-backwards case)
 voices inside `LOOKAHEAD`), and extend `bind.test.ts` with one expected id per
 creature event.
 
-## Add a noise grain; 29 sound definitions hand-build the same filtered-noise layer
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/audio/src/grain.ts`, `packages/audio/src/sounds/`
-
-`grain.ts` says every sound should be composed from grains, but the sound files
-contain 121 inline `{ source: ... }` literals; 29 of them are `source: "noise"`
-with a filter (11 lowpass, 17 bandpass, 1 highpass), for example `ship.ts` lines
-66 to 73 and `hull.ts` lines 37 to 63. `hull.ts` lines 76 to 94 also repeat an
-identical triangle-plus-repeat layer twice differing only in `freq` and `at`.
-`impact.ts` (235 lines) and `motion.ts` (220) are nearest the 250 cap.
-
-Add `noise(colour, filter, release, gain, at?)` to `grain.ts` and replace the 29
-literals. Prove nothing audible moved with a one-off script that serialises
-`planSound(def)` for all 201 entries before and after and diffs the two JSON
-files; do not pin that as a test (`docs/decisions.md` #19).
-
 ## Extend bun run index to tools/ and the root-level app scripts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

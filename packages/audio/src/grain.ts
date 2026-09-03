@@ -40,6 +40,40 @@ export function tick(gain = 0.25, at = 0, colour = 5200): Layer {
   };
 }
 
+/**
+ * Noise through one filter, which is what most of the game's texture is.
+ *
+ * `tick` and `air` are the two shapes of it that come up often enough to have
+ * their own names and their own envelopes; everything else — a crack, a hiss,
+ * a body coming apart, a wind that has to start slowly — chooses its own
+ * attack and its own filter, and twenty-nine sounds were hand-building the
+ * same six-line literal to say so.
+ *
+ * `colour` is where the layer means to sit. Noise has no pitch, so neither the
+ * engine nor `band.ts` reads it — the filter is what decides both what comes
+ * out and whether it crosses the voice. It is carried because `Layer` asks
+ * every layer where it is, and because a bandpass at 2600 written over a
+ * colour of 400 is a sound somebody should look at twice.
+ */
+export function noise(
+  colour: number,
+  filter: NonNullable<Layer["filter"]>,
+  attack: number,
+  release: number,
+  gain: number,
+  wobble?: Layer["wobble"],
+): Layer {
+  return {
+    source: "noise",
+    freq: colour,
+    gain,
+    attack,
+    release,
+    filter,
+    ...(wobble && { wobble }),
+  };
+}
+
 /** Neon: a bare high sine. Nothing in the game is this clean except a signal. */
 export function glint(freq: number, release: number, gain = 0.16, at = 0): Layer {
   return { source: "sine", freq, gain, at, attack: 0.003, release };

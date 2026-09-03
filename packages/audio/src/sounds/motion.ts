@@ -14,6 +14,7 @@ import {
   chime,
   glint,
   metal,
+  noise,
   soft,
   spore,
   sub,
@@ -150,15 +151,10 @@ export const MOTION_SOUNDS: SoundDef[] = [
     use: "The pod wreck already drawn in render/pods.ts.",
     level: 0.22,
     layers: [
-      {
-        source: "noise",
-        freq: 500,
-        gain: 0.4,
-        attack: 0.2,
-        release: 1.2,
-        filter: { type: "lowpass", freq: 420, toFreq: 140, q: 1.2 },
-        wobble: { rate: 2.4, cents: 100 },
-      },
+      noise(500, { type: "lowpass", freq: 420, toFreq: 140, q: 1.2 }, 0.2, 1.2, 0.4, {
+        rate: 2.4,
+        cents: 100,
+      }),
       soft(0.5, metal(52, 0.8, 0.35, 110)),
     ],
   },

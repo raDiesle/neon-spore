@@ -8,7 +8,7 @@
  * the only way this mechanic pays for itself across a voice delay.
  */
 
-import { after, air, burst, chime, glint, soft, sub, thud, tick } from "../grain.js";
+import { after, air, burst, chime, glint, noise, soft, sub, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const GRIP_SOUNDS: SoundDef[] = [
@@ -20,14 +20,7 @@ export const GRIP_SOUNDS: SoundDef[] = [
     use: "THE GRIP: the moment a hand takes hold.",
     level: 0.4,
     layers: [
-      {
-        source: "noise",
-        freq: 1200,
-        gain: 0.5,
-        attack: 0.002,
-        release: 0.04,
-        filter: { type: "bandpass", freq: 1800, toFreq: 500, q: 1.6 },
-      },
+      noise(1200, { type: "bandpass", freq: 1800, toFreq: 500, q: 1.6 }, 0.002, 0.04, 0.5),
       thud(180, 90, 0.12, 0.5),
       after(0.05, soft(0.6, glint(3600, 0.14))),
     ],
@@ -60,14 +53,7 @@ export const GRIP_SOUNDS: SoundDef[] = [
     use: "A grip lost — the creature gone, or the hand taken off.",
     level: 0.3,
     layers: [
-      {
-        source: "noise",
-        freq: 2400,
-        gain: 0.45,
-        attack: 0.004,
-        release: 0.16,
-        filter: { type: "bandpass", freq: 2600, toFreq: 260, q: 1.2 },
-      },
+      noise(2400, { type: "bandpass", freq: 2600, toFreq: 260, q: 1.2 }, 0.004, 0.16, 0.45),
       thud(120, 44, 0.14, 0.4),
     ],
   },
@@ -79,14 +65,7 @@ export const GRIP_SOUNDS: SoundDef[] = [
     use: "Both players gripping in the same beat, if that is ever worth marking.",
     level: 0.36,
     layers: [
-      {
-        source: "noise",
-        freq: 1200,
-        gain: 0.45,
-        attack: 0.002,
-        release: 0.04,
-        filter: { type: "bandpass", freq: 1800, toFreq: 500, q: 1.6 },
-      },
+      noise(1200, { type: "bandpass", freq: 1800, toFreq: 500, q: 1.6 }, 0.002, 0.04, 0.45),
       thud(180, 90, 0.12, 0.45),
       after(0.04, chime(4600, 0.22, 0.16)),
       after(0.04, chime(6900, 0.2, 0.11)),

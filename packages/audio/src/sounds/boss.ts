@@ -10,7 +10,7 @@
  * easier to argue about once you can hear what it would sound like.
  */
 
-import { after, air, burst, chime, glint, metal, soft, spore, sub, thud } from "../grain.js";
+import { after, air, burst, chime, glint, metal, noise, soft, spore, sub, thud } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const BOSS_SOUNDS: SoundDef[] = [
@@ -117,14 +117,7 @@ export const BOSS_SOUNDS: SoundDef[] = [
     pierce: "A boss dying is the end of the conversation about the boss.",
     layers: [
       thud(300, 30, 1.2, 0.8),
-      {
-        source: "noise",
-        freq: 2600,
-        gain: 0.5,
-        attack: 0.01,
-        release: 0.9,
-        filter: { type: "bandpass", freq: 3200, toFreq: 200, q: 0.7 },
-      },
+      noise(2600, { type: "bandpass", freq: 3200, toFreq: 200, q: 0.7 }, 0.01, 0.9, 0.5),
       after(0.3, burst(chime(3600, 0.5, 0.2, 1100), 4, 0.17, 0.72, -5)),
       after(1.1, soft(0.6, spore(52, 1.2, 0.4, 70))),
     ],
