@@ -304,6 +304,7 @@ id, stops)` beside `tails/types.ts`. This is a refactor of a tool, not a look;
 ## Break the runtime import cycle in the SHAPES page and add a cycle check
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-break-the-runtime-import-cycle-in-the-shapes-pag
 - **Files:** `tools/director/src/shapes-pair.ts`, `tools/director/src/shapes-controls.ts`, `tools/director/src/shapes-axes.ts`, `tools/director/src/shapes-effect-axes.ts`, `tools/director/src/shapes-build-state.ts`, `tools/director/test/`
 
 Four import cycles exist in the director. Two are type-only (`backlog.ts` with
