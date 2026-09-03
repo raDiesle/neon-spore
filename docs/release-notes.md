@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 1a1e2f1 — Queue the trap this session fell into: a landed worktree cannot land again
+
+`bun run land` deletes the branch it landed and leaves the worktree detached. `auto-land.ts` reads `HEAD` as the branch name and exits silently as "not on a lane's own branch", so a session that keeps working after its first landing commits into detachment and never lands again. No error — the same nothing-happens failure the hooks were moved off bash to stop.
+
+## 2026-09-03 · 627784a — Five feature items stop being decisions and become tasks
+
+Items 22 to 32 were written as user-visible features with the design questions left open, which is the one thing that stops a queue item draining: a cold session cannot answer them and the owner is not in the room. He answered five on 3 September 2026, and each entry now carries the answer where the question was.
+
 ## 2026-09-03 · cde2f73 — Section 3's grain table is held to grain.ts, the way section 4's already was
 
 `catalogue.test.ts` holds section 4's family table against `CATALOGUE` row by row, because a table nobody checks is a document that stops being true. Section 3's grain table had no such check and had already gone stale once: `noise` was added to `grain.ts` and the table stayed nine rows long with every test green.
