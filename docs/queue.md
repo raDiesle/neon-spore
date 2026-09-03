@@ -578,6 +578,7 @@ question and the report says **unverified**.
 ## CLAUDE.md says a worktree's server never takes the base port, and it does
 
 - **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553
+- **Taken:** 2026-09-03, claude/queue-claude-md-says-a-worktrees-server-never-takes-th
 - **Files:** `CLAUDE.md`, `docs/working-with-claude.md`, `tools/ports.ts`
 
 CLAUDE.md's "Verifying in a browser" section says **"In a worktree the port is
