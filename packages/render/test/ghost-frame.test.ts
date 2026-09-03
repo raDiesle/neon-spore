@@ -1,21 +1,18 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import {
   createWorld,
-  DEFAULT_CONFIG,
   ghostIsCharging,
   ghostLaps,
-  type SimEvent,
   type SpawnEntry,
   step,
   type TimedCommand,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { showsGhostBody } from "../src/ghost.js";
 import { slabs } from "../src/ghost-glitch.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { CFG, installCanvasGlobals, ROLES, runFrames, VIEWPORT } from "./frame-harness.js";
 
 /**
  * THE GHOST, drawn — through the same canvas that refuses what a real one
@@ -34,9 +31,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * and is coming down at the ship — is drawn on both.
  */
 
-const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 beforeAll(installCanvasGlobals);
 
@@ -56,31 +51,15 @@ function paint(
   role: ViewRole,
   inputs: TimedCommand[] = [],
 ): Painted {
-  const world = createWorld(CFG, 1, queue);
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ width: 900, height: 1600, dpr: 2 });
   const log: string[] = [];
-  ctx.log = log;
-
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < ticks; tick++) {
-    step(world, byTick.get(tick) ?? []);
-    if (world.events.length) events.push(...world.events);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % TPB) / TPB,
-      role,
-      time: tick / CFG.tickHz,
-      dt: 4 / CFG.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
+  const { world, ctx } = runFrames(createWorld(CFG, 1, queue), role, ticks, {
+    onCanvas: (c) => {
+      c.log = log;
+    },
+    onTick: (tick, w) => step(w, byTick.get(tick) ?? []),
+  });
   return { world, calls: ctx.calls, log };
 }
 
@@ -114,8 +93,7 @@ describe("a ghost on the field", () => {
     const world = paint([falling(5)], TPB * 3, "p1").world;
     const body = world.creatures[0];
     expect(body).toBeDefined();
-    const layout = (role: ViewRole) =>
-      computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
+    const layout = (role: ViewRole) => computeLayout(VIEWPORT, CFG, role);
     if (!body) return;
     expect(showsGhostBody(layout("p1"), CFG, body)).toBe(false);
     expect(showsGhostBody(layout("p2"), CFG, body)).toBe(true);
@@ -153,7 +131,7 @@ describe("a ghost that crosses", () => {
 
   it("stops hiding from player 1 once it is coming down at the ship", () => {
     const world = createWorld(CFG, 1, [crossing(1)]);
-    const layout = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
+    const layout = computeLayout(VIEWPORT, CFG, "p1");
     let hiddenWhileProwling = true;
     let shownWhileCharging = false;
     for (let tick = 0; tick < spent; tick++) {

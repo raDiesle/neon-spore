@@ -117,39 +117,6 @@ on content. Keep the wheel-geometry tests in sim on a local fixture and move the
 permitted direction. Cut the remainder at the seam its header names (bridge, wheel,
 round).
 
-## Add stub-frame coverage for the draw paths no render test reaches
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/render/test/frame.test.ts`, `packages/render/src/round-draw.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/pinball-round.ts`, `packages/render/src/gyre.ts`, `packages/render/src/gyre-wind.ts`, `packages/render/src/living-draw.ts`
-
-`round-draw.ts` registers three rounds (gauge, snake, pinball); only snake is drawn
-by a test. No file under `packages/render/test` mentions `throb`, `rind`, `gyre`,
-`mount`, `pinball` or `gauge`, and `drawGaugeRound`, `drawPinballRound`,
-`drawGyres`, `drawGyreWind` are referenced by no test. The canvas stub exists to
-catch a NaN or a non-colour a type check cannot, and these paths get none of it.
-
-Add one `describe` per missing subject using the existing wave lookup pattern
-(`WAVES.findIndex((w) => w.boss?.kind === ...)`, and a queue containing `throb`,
-`rind`, `gyre`, `mount`), drawn for all three roles with an
-`expect(ctx.calls).toBeGreaterThan(...)` guard, like the snake block. Tests only.
-
-## Split frame.test.ts into per-subject files over one shared harness
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/render/test/frame.test.ts`, `packages/render/test/ghost-frame.test.ts`, `packages/render/test/clasp-frame.test.ts`
-
-`frame.test.ts` is 1269 lines, five times the limit. `renderer.draw({...})` appears
-17 times and eleven `*Frames` helpers (`frames`, `queenFrames`, `torchFrames`,
-`lanceFrames`, `lureFrames`, `dartFrames`, `mirrorFrames`, `wardenFrames`,
-`vaneFrames`, `gripFrames`, `veilFrames`) each re-type the same 20-line loop
-(step, collect `world.events`, `tick % 4`, build `ViewState`, clear events). The
-ghost, clasp and wisp already live in their own frame files.
-
-Extract `runFrames(world, role, ticks, { viewport?, onTick?(tick, world) })` into
-`test/frame-harness.ts` (the per-subject differences are all `onTick` hooks), then
-move each `describe` to `test/<subject>-frame.test.ts`. No source changes; the
-test count stays the same.
-
 ## Fold seven copies of the sin-hash and five of smoothstep into shared helpers
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -893,3 +860,19 @@ that pushes a `TimedCommand` into the same `InputBuffer` the canvas pushes to �
 and a `--hold` flag on `bun run frames` that sends it before the last
 `advance`. Do not reach into `world` from the capture: a picture taken by
 writing a field is a picture of a state the game cannot reach.
+
+## Fold the last five hand-rolled draw loops onto runFrames
+
+- **Found:** 2026-09-03, claude/bun-queue-list-command-0487de
+- **Files:** `packages/render/test/frame-pair.test.ts`, `packages/render/test/restart.test.ts`, `packages/render/test/shot-charge.test.ts`, `packages/render/test/wisp.test.ts`, `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`
+
+`frame-harness.ts` now carries the loop — step, collect `world.events`, draw
+every nth tick, clear the events — and every `*-frame.test.ts` reads it. Five
+files still type their own copy: `frame-pair.ts` three times, and
+`restart.ts`, `shot-charge.ts`, `wisp.ts` and `frame-budget.ts` once each.
+They are the copies that disagree about which tick a frame falls on.
+
+Convert each to `runFrames`, adding whatever option the one that resists needs
+rather than leaving it out — `frame-budget.ts` times the loop and may want the
+renderer handed back instead. `bun test packages/render` proves it, and the
+test count must not move.

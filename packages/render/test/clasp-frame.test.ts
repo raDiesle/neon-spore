@@ -1,19 +1,17 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import {
   createWorld,
-  DEFAULT_CONFIG,
   type SimEvent,
   type SpawnEntry,
   step,
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { claspResonanceIn } from "../src/clasp.js";
 import { ClaspBreakFx, claspBreakVisible } from "../src/clasp-break.js";
 import { ClaspStrikeFx } from "../src/clasp-strike.js";
 import { computeLayout, tileCX } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { CFG, installCanvasGlobals, runFrames, stubCanvas } from "./frame-harness.js";
 
 /**
  * THE CLASP, drawn — through the same canvas that refuses what a real one
@@ -28,7 +26,6 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * owner's description a number can actually check.
  */
 
-const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 
 beforeAll(installCanvasGlobals);
@@ -36,29 +33,11 @@ beforeAll(installCanvasGlobals);
 const clasp = (col: number): SpawnEntry => ({ beat: 0, col, kind: "clasp", color: "cyan" });
 
 function paint(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): number {
-  const world = createWorld(CFG, 1, queue);
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ width: 900, height: 1600, dpr: 2 });
-
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < ticks; tick++) {
-    step(world, byTick.get(tick) ?? []);
-    if (world.events.length) events.push(...world.events);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % TPB) / TPB,
-      role: "p1",
-      time: tick / CFG.tickHz,
-      dt: 4 / CFG.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
+  const { ctx } = runFrames(createWorld(CFG, 1, queue), "p1", ticks, {
+    onTick: (tick, w) => step(w, byTick.get(tick) ?? []),
+  });
   return ctx.calls;
 }
 
