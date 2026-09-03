@@ -617,6 +617,7 @@ question and the report says **unverified**.
 ## After a landing the worktree is detached, so nothing it does next can land
 
 - **Found:** 2026-09-03, claude/queue-feature-decisions
+- **Taken:** 2026-09-03, claude/queue-after-a-landing-the-worktree-is-detached-so-noth
 - **Files:** `tools/land/run.ts`, `tools/hooks/auto-land.ts`, `tools/hooks/test/stop.test.ts`, `docs/git-and-landing.md`
 
 `bun run land` deletes the branch it just landed, and the worktree standing on
