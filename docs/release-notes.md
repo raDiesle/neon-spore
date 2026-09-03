@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 7334bd9 — THE RIND is crushed to its size and its skin is thrown off
+
+A layer coming off a rind was a step and ten particles: the body was one size on one frame and a smaller one on the next. It is a sentence now. The silhouette it was wearing collapses onto the body it has become — the shrinking, the shrink cannon the owner asked for — while the same outline, left where it was, is thrown outward into the space around it, breaking into plates and going out in a bloom of the body's own colour. Both start on the same frame from the same contour and go opposite ways; the split is the picture.
+
 ## 2026-09-03 · 7e7eeca — The mouth is empty and the tongue flicks out of it
 
 The owner's note was that the open mouth looked strange. The red was why: a throat and a glottis taken from the reference, which at thirty pixels was the loudest thing on the screen and read as something held in the mouth rather than as the inside of one. An open mouth is a hole, so it is drawn as one — darker than the arena floor and no colour of its own — and what says the mouth is open is the tongue coming out of it.
