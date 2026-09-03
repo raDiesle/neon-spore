@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · cde2f73 — Section 3's grain table is held to grain.ts, the way section 4's already was
+
+`catalogue.test.ts` holds section 4's family table against `CATALOGUE` row by row, because a table nobody checks is a document that stops being true. Section 3's grain table had no such check and had already gone stale once: `noise` was added to `grain.ts` and the table stayed nine rows long with every test green.
+
+## 2026-09-03 · a510725 — A biome-ignore that suppresses nothing now fails the lint
+
+`noUnusedImports` and `noTemplateCurlyInString` are errors, so a dead import or an accidental `${}` in a plain string fails `bun run lint`. One category was still only advisory: `suppressions/unused`, which Biome reports when a `biome-ignore` comment no longer suppresses anything. It is not a rule under `linter.rules` and cannot be raised there, so `apps/game/test/sw.test.ts` carried a dead `lint/security/noGlobalEval` suppression long enough that nobody noticed — a comment claiming a danger the file no longer had.
+
+## 2026-09-03 · 692c817 — The last four hooks come off bash, and settings.json is finally read by a test
+
+`tools/hooks/guard.ts` moved the two `PreToolUse` guards off bash in August and left the other four. `settings.json` still invoked each as `bash .claude/hooks/x.sh`, so in a PowerShell session — the primary shell on this machine — there was no formatting after an edit, no determinism run after a sim edit, no typecheck on stop and no automatic landing. Nothing errored. That is the point: the failure was that nothing happened.
+
 ## 2026-09-03 · b88474e — A claim is written on main too, where a session in its own clone can see it
 
 The claim was a branch and nothing else, on the argument that a mark has to be committed to be seen and the session that took the item has not committed anything yet. That argument was about a mark on the *lane's* branch. Committed straight to `main`, a mark is visible the moment it is made — and on 3 September 2026 two sessions did the same six items in parallel because a local ref is nothing to a checkout that only ever sees `origin`.
