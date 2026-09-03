@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 08ec941 — The room starts on a shared press, not a three-second timer
+
+Beat zero was stamped the moment the second phone landed, three seconds ahead, on the ground that two people need a moment to look up from the code they were reading out and say "go". They do — but a timer cannot know whether they have, and a pair dropped onto a field mid-sentence has lost the wave before it started. This is what makes a testing session workable.
+
 ## 2026-09-04 · 6d1f5af — The two apps/game units worth testing: the run's life, and the loop's clock
 
 Of 3 460 source lines in `apps/game`, the tests covered a URL parser, keyboard gating, the menu and the raster flag. `link.ts` and `loop.ts` were the two most valuable untested units, and both fail quietly rather than loudly.
