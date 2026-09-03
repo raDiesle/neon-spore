@@ -141,28 +141,6 @@ undone". Write it in the same commit, in the same format the queue uses;
 `bun run queue` lists parked work first, because it is the only kind that gets
 harder while it waits. `tools/queue/test/queue.test.ts` holds both formats.
 
-**A technical defect found in passing is filed as a task, not said in the
-report.** Dead code, a stale document, a measured slowdown, a confirmed `TODO`,
-a missing test over something that broke once, a security hole seen on the way
-past: file it with the background-task tool, in the same turn, with enough in
-the prompt to act on without this conversation — a path, a symptom, and what
-"done" is. The owner clicks it or does not, and clicking spawns a session with
-its own context rather than borrowing this one's.
-
-This is not `docs/parked.md` coming back, and the difference is the only reason
-it is allowed. That list needed the owner to *do* each entry, so it grew faster
-than one person could drain it and had to be deleted by hand. A task is drained
-by clicking it. Nothing accumulates in the repository, nothing is counted, and
-nothing is owed.
-
-Two limits, and they are what keep it from becoming noise. **Only what is
-demonstrably wrong** — a defect with a symptom you could write down, never a
-code smell, a hunch, or a preference about how something reads. **Never a
-look**: anything that would change a frame of the running game goes to VERSUS or
-to a NOT BUILT YET card, because the owner decides those by looking, and a task
-that lands one unattended breaks the rule below. A fix small enough to do inside
-the current change is done, not filed.
-
 ## A look is offered, never replaced
 
 **Nothing run unattended changes what the game already draws.** A new colour, a
