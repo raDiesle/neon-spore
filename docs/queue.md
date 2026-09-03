@@ -232,6 +232,7 @@ function itself and the three documents. Nothing else about this entry changed.
 ## Test the content invariants nothing checks: wave names, beats, creature keys
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-test-the-content-invariants-nothing-checks-wave
 - **Files:** `packages/content/test/waves.test.ts`, `packages/content/test/creatures.test.ts`, `packages/content/src/waves-demo.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/creatures-table.ts`
 
 `Demonstration.wave` names a wave by string, `wavesUsingSet` returns names, and
