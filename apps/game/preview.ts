@@ -59,10 +59,13 @@ const noCache = {
   "cache-control": "no-store, must-revalidate",
 } as const;
 
+// The return type is spelled out because `fetch` reads `server.port` — without
+// it the handler's type and the server's each wait on the other, and `tsc`
+// gives up on both.
 const server = Bun.serve({
   port,
   hostname: process.env.PREVIEW_HOST ?? "::",
-  async fetch(req) {
+  async fetch(req): Promise<Response> {
     resetIdle();
     const path = new URL(req.url).pathname;
 

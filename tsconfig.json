@@ -21,8 +21,7 @@
     "packages/*/test/**/*.ts",
     "apps/*/src/**/*.ts",
     "apps/*/test/**/*.ts",
-    "apps/game/build.ts",
-    "apps/server/dev.ts",
+    "apps/*/*.ts",
     "tools/**/*.ts"
   ],
   "exclude": ["node_modules", "**/dist", "legacy", "apps/server/src"]
