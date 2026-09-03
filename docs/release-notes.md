@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 43b726c — A handle is carried any way at all, and never off the field
+
+Two things the owner asked for, and they turn out to be one rule.
+
 ## 2026-09-03 · 8701a55 — THE WARDEN is open below its eye, so the shot has a way in
 
 The body was a closed ring: a band of its own rock stood between the cannon and the one thing on it worth hitting. The rule said the shot lands and the picture said it could not, and of the two a player believes the picture.
