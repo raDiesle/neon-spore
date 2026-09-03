@@ -57,7 +57,7 @@ const SEATS: { role: ViewRole; tag: string; name: string; what: string }[] = [
     name: "PILOT",
     what: "Slides the cannon, opens the maw, triggers the guard.",
   },
-  { role: "p2", tag: "P2", name: "GUNNER", what: "Slides the shield, fires red and cyan." },
+  { role: "p2", tag: "P2", name: "NAVIGATOR", what: "Slides the shield, fires red and cyan." },
   {
     role: "test",
     tag: "BOTH",
