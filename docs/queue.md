@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## Write the apps/game tests worth having: link.ts and loop.ts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-write-the-apps-game-tests-worth-having-link-ts-a
 - **Files:** `apps/game/src/link.ts`, `apps/game/src/loop.ts`, `apps/game/test/`
 
 Of 3 460 source lines in `apps/game`, the 299 test lines cover a URL parser,
