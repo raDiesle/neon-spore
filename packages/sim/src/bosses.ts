@@ -191,7 +191,6 @@ export {
   vaneTipCol,
   vaneWeakCol,
 } from "./vane-cycle.js";
-export { wardenEyeOpen, wardenPullMilli, wardenTether } from "./warden.js";
 export {
   NO_TETHER,
   WARDEN_PHASES,
@@ -201,3 +200,9 @@ export {
   wardenCycleBeat,
   wardenPhase,
 } from "./warden-cycle.js";
+export {
+  wardenEyeOpen,
+  wardenHandleMilli,
+  wardenPullMilli,
+  wardenTether,
+} from "./warden-rope.js";

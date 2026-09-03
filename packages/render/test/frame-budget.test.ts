@@ -190,9 +190,11 @@ const EYES: readonly { name: string; index: number; pull: (world: World) => Time
   },
 ];
 
-/** THE WARDEN's rope, at a distance from where the hand grabbed. */
-function rope(fromMilli: number) {
-  return { kind: "drag", target: "wardenTether", on: true, fromMilli } as const;
+/** THE WARDEN's rope, carried that far **down** from where the hand grabbed —
+ * the one direction the field always has room for from where it hangs
+ * (`sim/handle-pull.ts`). */
+function rope(fromYMilli: number) {
+  return { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli } as const;
 }
 
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {

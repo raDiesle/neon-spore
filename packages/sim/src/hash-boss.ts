@@ -80,6 +80,11 @@ export function bossHashParts(boss: BossState | null): number[] {
     // disagree about how taut the line is — which is to say about whether the
     // shot player 2 just fired counted.
     push(boss.pullYMilli);
+    // And where the hand took it. Two devices that disagree about the anchor
+    // draw the handle in two places and bound it against two different pieces
+    // of the field, so one can reach taut where the other cannot.
+    push(boss.pullAnchorX);
+    push(boss.pullAnchorY);
   }
   if (boss !== null && boss.kind === "vane") {
     push(boss.pins);

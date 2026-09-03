@@ -184,5 +184,7 @@ function installWarden(world: World, entry: WardenEntry): void {
     pullOriginYMilli: 0,
     pullMilli: 0,
     pullYMilli: 0,
+    pullAnchorX: 0,
+    pullAnchorY: 0,
   };
 }

@@ -32,6 +32,22 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 
 /**
+ * A point the simulation named in thousandths of a tile, in pixels — the same
+ * arithmetic as `tileCX`/`tileCY` above with the thousandths left in.
+ *
+ * It exists because a handle's place is decided by the *rule* and not by the
+ * picture: where the hand took it, how far it carried it, and the edge it may
+ * not pass are all `sim/handle-pull.ts`, so render is handed a point rather
+ * than working one out.
+ */
+export function fieldPoint(l: Layout, milli: { x: number; y: number }): { x: number; y: number } {
+  return {
+    x: l.gridLeft + (milli.x * l.tile) / 1000,
+    y: l.gridTop + (milli.y * l.tile) / 1000,
+  };
+}
+
+/**
  * A handle's radius, and where it is decided.
  *
  * `cfg.handleRadiusMilli`, not a constant here, because the *rule* needs it:

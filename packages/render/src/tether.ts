@@ -5,6 +5,7 @@ import {
   type World,
   wardenColor,
   wardenCycle,
+  wardenHandleMilli,
   wardenPullMilli,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
@@ -12,6 +13,7 @@ import {
   drawHandleHint,
   drawHandleRest,
   drawHandleRing,
+  fieldPoint,
   HINT_LOUD,
   handleRadius,
   handleSag,
@@ -82,10 +84,10 @@ export function drawTether(
   // finger carried it, so the distance on the screen *is* the distance being
   // asked for. The simulation has already kept it on the field, so nothing here
   // has to bound it a second time (`sim/handle-pull.ts`).
-  const head = {
-    x: rest.x + (b.pullMilli * l.tile) / 1000,
-    y: rest.y + (b.pullYMilli * l.tile) / 1000,
-  };
+  // Where the handle is, straight from the rule: the anchor the hand took it
+  // from plus how far the hand carried it, so it stays under the finger while
+  // the pupil drifts out from under it (`sim/warden.ts`).
+  const head = fieldPoint(l, wardenHandleMilli(world, b));
   const pull = wardenPullMilli(world, b) / 1000;
   const held = b.pulling;
 

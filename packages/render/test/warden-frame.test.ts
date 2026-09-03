@@ -44,7 +44,10 @@ function wardenFrames(role: ViewRole, ticks: number) {
             kind: "drag",
             target: "wardenTether",
             on: true,
-            fromMilli: b.pulling ? CFG.wardenTautMilli : 0,
+            fromMilli: 0,
+            // Down, because that is the one direction the field always has
+            // room for from where this rope hangs (`sim/handle-pull.ts`).
+            fromYMilli: b.pulling ? CFG.wardenTautMilli : 0,
           },
         });
         if (wardenEyeOpen(w, b)) {

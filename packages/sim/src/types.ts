@@ -235,14 +235,16 @@ export interface Creature {
    * How far player 1's hand has carried THE LID's cord from where it grabbed,
    * across and down, in thousandths of a tile — and **absent on a lid nobody
    * has hold of**, which is what makes the absence itself the answer to "is a
-   * hand on this". A grab reports zero, so nought and nothing are two different
-   * states here and neither is spelled as the other.
-   *
-   * The two together are the pull and its **length** is the tension: a hand may
-   * carry a cord any way at all, so neither axis alone says how far open the
-   * plates stand. Read them through `lidPull`, `lidOpenMilli`, `lidIsOpen` and
-   * `lidIsHeld`, never directly, and see `handle-pull.ts` for what bounds them.
+   * hand on this": a grab reports zero, so nought and nothing are two states.
+   * The two together are the pull and its **length** is the tension. Read them
+   * through `lidPull`, `lidOpenMilli`, `lidIsOpen` and `lidIsHeld`, never
+   * directly; `handle-pull.ts` is what bounds them.
    */
   lidPullMilli?: number;
   lidPullYMilli?: number;
+  /** Where the handle was when the hand took it, held there until the hand lets
+   * go: the handle is this plus the pull, which is what keeps it under the
+   * finger while the body falls away (`lidHandleMilli`). Absent unheld. */
+  lidAnchorMilli?: number;
+  lidAnchorYMilli?: number;
 }

@@ -116,6 +116,14 @@ export interface WardenState {
    * partner's hand has to be the thing it is actually doing.
    */
   pullYMilli: number;
+  /**
+   * Where the handle was when the hand took it, in thousandths of a tile, held
+   * there until the hand lets go. The handle is this plus the pull, so it stays
+   * exactly under the finger — one hung off the rope's rest *today* slid out
+   * from under a still thumb as the pupil drifted (`wardenHandleMilli`).
+   */
+  pullAnchorX: number;
+  pullAnchorY: number;
 }
 
 /**

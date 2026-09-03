@@ -86,7 +86,7 @@ export {
   primeChargeMilli,
   priming,
 } from "./lance.js";
-export { lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
+export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";

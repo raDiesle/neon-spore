@@ -101,13 +101,26 @@ export function tileCentreMilli(col: number, row: number): PullVec {
 /**
  * The pull, cut to length and then kept on the field.
  *
- * `rest` is where the handle hangs with no hand on it and `raw` is what the
- * pulling device reported — a displacement from wherever the finger grabbed,
- * resolved on that device (`Command` in `command-types.ts`). What comes back
- * is what the handle actually did, which is what both the picture and the
- * openness are read off.
+ * `anchor` is **where the handle was when the hand took it**, frozen there for
+ * as long as the hand stays, and `raw` is what the pulling device reported — a
+ * displacement from wherever the finger grabbed, resolved on that device
+ * (`Command` in `command-types.ts`). Anchor plus pull is therefore the finger,
+ * and the handle stays under it however far the body it hangs off has moved
+ * since (`lidAnchorMilli`, `WardenState.pullAnchorX`).
+ *
+ * **Frozen, and not the handle's resting place today**, which is what it used
+ * to be and what made the bug: a lid falls a tile a beat, so a handle drawn at
+ * its current rest walked down the screen out from under a stationary thumb,
+ * and the warden's walked sideways as the pupil drifted. What comes back is
+ * what the handle actually did, which is what both the picture and the openness
+ * are read off.
  */
-export function clampPull(cfg: SimConfig, rest: PullVec, raw: PullVec, tautMilli: number): PullVec {
+export function clampPull(
+  cfg: SimConfig,
+  anchor: PullVec,
+  raw: PullVec,
+  tautMilli: number,
+): PullVec {
   const len = isqrt(raw.x * raw.x + raw.y * raw.y);
   // Cut to taut first, so the box below can only ever shorten it further and
   // the two bounds cannot fight over which one is the length.
@@ -118,8 +131,8 @@ export function clampPull(cfg: SimConfig, rest: PullVec, raw: PullVec, tautMilli
 
   const b = bounds(cfg);
   return {
-    x: Math.max(b.x0, Math.min(b.x1, rest.x + cut.x)) - rest.x,
-    y: Math.max(b.y0, Math.min(b.y1, rest.y + cut.y)) - rest.y,
+    x: Math.max(b.x0, Math.min(b.x1, anchor.x + cut.x)) - anchor.x,
+    y: Math.max(b.y0, Math.min(b.y1, anchor.y + cut.y)) - anchor.y,
   };
 }
 

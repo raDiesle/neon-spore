@@ -141,5 +141,9 @@ export function creatureHashParts(c: Creature): number[] {
   // the plates stand apart — which is to say about whether the shot player 2
   // just fired counted.
   out.push(c.lidPullYMilli ?? 0);
+  // And where the hand took the cord, for the reason above one more time: two
+  // devices that disagree about the anchor draw the handle in two places.
+  out.push(c.lidAnchorMilli ?? -1);
+  out.push(c.lidAnchorYMilli ?? -1);
   return out;
 }

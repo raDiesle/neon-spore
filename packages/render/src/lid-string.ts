@@ -1,9 +1,9 @@
 import { openSmoothPath } from "@neon-spore/content";
 import {
   type Creature,
+  lidHandleMilli,
   lidIsHeld,
   lidOpenMilli,
-  lidPull,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
@@ -13,6 +13,7 @@ import {
   drawHandleHint,
   drawHandleRest,
   drawHandleRing,
+  fieldPoint,
   HINT_SOFT,
   handleRadius,
   handleSag,
@@ -98,13 +99,13 @@ function drawOne(
   // asked for. The pull is thousandths of a tile, which is what `l.tile` turns
   // back into pixels — and the simulation has already kept it on the field, so
   // nothing here has to bound it a second time (`sim/handle-pull.ts`).
-  const carried = lidPull(c);
   const held = lidIsHeld(c);
   const pull = lidOpenMilli(cfg, c) / 1000;
-  const head = {
-    x: rest.x + (carried.x * l.tile) / 1000,
-    y: rest.y + (carried.y * l.tile) / 1000,
-  };
+  // Where the handle is, straight from the rule: the anchor the hand took it
+  // from plus how far the hand carried it, which is why it stays under the
+  // finger while the body falls away (`sim/lid.ts`). Not `rest + pull` — that
+  // is what walked the handle down the screen a tile a beat.
+  const head = fieldPoint(l, lidHandleMilli(cfg, c));
 
   // Under tension the cord goes thin and bright: it is its own gauge, and
   // there is no widget anywhere saying how far the pull has got.

@@ -110,6 +110,7 @@ export {
   wardenColor,
   wardenCycle,
   wardenEyeOpen,
+  wardenHandleMilli,
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
