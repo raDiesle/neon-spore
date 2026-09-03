@@ -151,6 +151,30 @@ function actualFamilies(): Map<string, [number, number]> {
 }
 
 /**
+ * Section 3's grain table and the sentence under it, as the document writes
+ * them. A row's first column is the grain's name in backticks; the sentence
+ * that follows names the three shapers the table deliberately leaves out.
+ *
+ * Sliced to the section first, because section 4's rows are the same shape and
+ * would otherwise be counted as grains.
+ */
+function documentedGrains(text: string): { rows: string[]; shapers: string[] } {
+  const start = text.indexOf("## 3 ");
+  const end = text.indexOf("## 4 ", start);
+  if (start < 0 || end < 0) return { rows: [], shapers: [] };
+  const section = text.slice(start, end);
+  const rows = [...section.matchAll(/^\| `(\w+)` \|[^|]*\|[^|]*\|$/gm)].map((m) => m[1] as string);
+  const line = /^(.*) shape a grain rather than adding one/m.exec(section);
+  const shapers = line ? [...line[1]!.matchAll(/`(\w+)`/g)].map((m) => m[1] as string) : [];
+  return { rows, shapers };
+}
+
+/** Every grain `grain.ts` exports, in the order it exports them. */
+function exportedGrains(source: string): string[] {
+  return [...source.matchAll(/^export function (\w+)\(/gm)].map((m) => m[1] as string);
+}
+
+/**
  * Section 4's table, as the document writes it. A row names one family or
  * several (`` `assist` · `signal` ``) and ends in "N of M", except `music`,
  * which is not in `CATALOGUE` at all and ends in an em dash.
@@ -195,6 +219,24 @@ describe("docs/spec/audio.md", () => {
         );
       expect(counts, key).toEqual(sum);
     }
+  });
+
+  it("names every grain `grain.ts` exports in section 3, and no other", async () => {
+    // The table had already gone stale once: `noise` was added to `grain.ts`
+    // and the table stayed nine rows long, with every test green. The rows and
+    // the three shapers the prose excludes have to account for the exports
+    // exactly — a new grain is a change to the game's voice, and the document
+    // is where that is argued.
+    const { rows, shapers } = documentedGrains(await Bun.file(AUDIO_DOC).text());
+    const source = await Bun.file(join(ROOT, "packages", "audio", "src", "grain.ts")).text();
+    expect([...rows, ...shapers].sort()).toEqual(exportedGrains(source).sort());
+  });
+
+  it("does not let a grain be listed as a shaper as well", async () => {
+    const { rows, shapers } = documentedGrains(await Bun.file(AUDIO_DOC).text());
+    expect(rows.length).toBeGreaterThan(0);
+    expect(shapers.length).toBeGreaterThan(0);
+    expect(rows.filter((r) => shapers.includes(r))).toEqual([]);
   });
 
   it("says how many are spare out of how many there are", async () => {

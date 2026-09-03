@@ -546,45 +546,6 @@ and separates commands with `;` and `|`. Decide whether one splitter can carry
 both dialects or the payload's tool name should choose between two, and cover
 the PowerShell spellings of each refused command with tests.
 
-## Nothing checks section 3 of `docs/spec/audio.md` against `grain.ts`
-
-- **Found:** 2026-09-03, claude/task-queue-work-49caa4
-- **Files:** `packages/audio/test/catalogue.test.ts`, `docs/spec/audio.md`, `packages/audio/src/grain.ts`
-
-`catalogue.test.ts`'s "the document" block already holds section 4's family
-table against `CATALOGUE`, row by row, because a table nobody checks is a
-document that stops being true. Section 3's grain table has no such check, and
-it has already gone stale once: `noise` was added to `grain.ts` and the table
-stayed nine rows long, with every test green. The row was put back by hand in
-the same commit as this entry, which is the part that does not scale.
-
-Read the exported function names out of `packages/audio/src/grain.ts` and
-require the table to name exactly those, minus the ones the prose already
-excludes as shapers rather than grains (`burst`, `after`, `soft`). The family
-table's parser two functions below is the pattern; the "Where it sits" column is
-prose and must not be asserted on.
-
-## A stale `biome-ignore` is a warning, so `bun run lint` passes over it
-
-- **Found:** 2026-09-03, claude/task-queue-work-49caa4
-- **Files:** `package.json`, `biome.json`
-
-`noUnusedImports` and `noTemplateCurlyInString` are errors now, so a dead import
-or an accidental `${}` in a plain string fails `bun run lint`. One category is
-still only advisory: `suppressions/unused`, which Biome reports when a
-`biome-ignore` comment no longer suppresses anything. It is not a rule under
-`linter.rules` and cannot be raised there, and `apps/game/test/sw.test.ts` had
-carried a dead `lint/security/noGlobalEval` suppression for long enough that
-nobody noticed — the rule it named had stopped firing, and the comment claimed a
-danger the file no longer had.
-
-`biome check --error-on-warnings .` makes every warning-level diagnostic exit
-non-zero, which is the same promise `linter.rules` gives per rule but for the
-categories that have no rule. The tree is at zero warnings today, so the flag
-costs nothing to add. Change the `lint` script, confirm `bun run check` is still
-green, and confirm the flag bites by pasting a `biome-ignore` for a rule that
-does not fire and watching lint go red.
-
 ## shapes-motion.test.ts is still three seconds, and none of it is the expects
 
 - **Found:** 2026-09-03, claude/dynamic-workflows-session-strategy-3637de
