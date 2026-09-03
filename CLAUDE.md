@@ -334,8 +334,11 @@ Kill the wrangler process when the check is done.
 ## Conventions
 
 - Tunable numbers are named fields in `SimConfig`, never literals in the code.
-- A new creature is one entry in `packages/content/src/creatures.ts`. Waves are
-  not touched: a wave shows the union of its creatures' control groups.
+- A new creature is one entry in `packages/content/src/creatures.ts`. Its
+  `controls` field classifies it — `aim`, `guard`, or both (`categoryOf`) — and
+  does not decide any wave's panel. A wave's panel is a named `ControlSet` it
+  points at (`Wave.controls` → `controlSetForWave`), chosen whole, never a
+  union of the creatures in it.
 - A new wave must pass the one-sentence test — if you cannot write
   `sentence`, the wave is padding. See `.claude/skills/new-wave`.
 - Silhouettes are judged through `tools/shape-sheet`, not by screenshotting the

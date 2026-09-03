@@ -4,8 +4,10 @@ import { ROCK_CREATURES } from "./creatures-rocks.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
 /**
- * Adding a creature means adding one entry here. Waves are not touched —
- * a wave shows the union of its creatures' control groups, nothing else.
+ * Adding a creature means adding one entry here. Waves are not touched — a
+ * wave's panel is a named `ControlSet` it points at (`Wave.controls`), not a
+ * union of the creatures on it; a creature's `controls` only classifies it
+ * (`categoryOf`).
  *
  * **One kind, one colour, one shape.** The pair plays across a voice channel
  * with a delay on it, so what one of them says has to be the same word every
@@ -121,8 +123,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is
     // the only thing that touches it — dragged rather than gripped — so it
-    // carries no control group at all and a wave containing one shows the band
-    // its other creatures ask for.
+    // carries no control group at all and `categoryOf` reads it as `special`.
+    // The panel a wave shows is its own named `ControlSet`, unaffected either
+    // way.
     controls: [],
     color: null,
     // Nobody's strip. It is installed by the boss rather than arriving from
@@ -164,11 +167,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   rind: WORN_CREATURES.rind,
   gyre: {
     kind: "gyre",
-    // The cannon alone, and that is the panel a wave with one on it shows.
-    // What makes this creature hard is *when* the shot has to be in a column
-    // rather than whether the shield reached it — and the maw, which is on
-    // that panel already and is not a control group at all (`ControlGroup` is
-    // aim and guard, the two things a wave may be missing).
+    // The cannon alone: `categoryOf` reads this as `cannon`. What makes the
+    // creature hard is *when* the shot has to be in a column rather than
+    // whether the shield reached it — and the maw, which is not a control
+    // group at all (`ControlGroup` is aim and guard) but a thing drawn on the
+    // field. Which panel the wave shows is its own `Wave.controls`, not this.
     controls: ["aim"],
     // The hub carries none and no arrival ever authors one, which is the
     // throb's blank rather than the dart's: what has a colour here is each of
@@ -186,11 +189,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   },
   lid: {
     kind: "lid",
-    // The cannon alone, and the panel a wave with one on it shows. The cord is
-    // not a control group: `ControlGroup` is aim and guard, the two things a
-    // wave may be missing, and a handle on the field is neither — it is drawn
-    // where the body is, the way THE WARDEN's rope and THE MAZE's string are,
-    // and no strip has to appear for it.
+    // The cannon alone: `categoryOf` reads this as `cannon`. The cord is not a
+    // control group — `ControlGroup` is aim and guard, and a handle on the
+    // field is neither: it is drawn where the body is, the way THE WARDEN's
+    // rope and THE MAZE's string are, and no strip has to appear for it. The
+    // wave's panel is its own `Wave.controls`, not read off this field.
     controls: ["aim"],
     // No colour of its own: a wave authors one per arrival, the way it does
     // for a clasp. The colour is the *lens's* — what player 2 has to load

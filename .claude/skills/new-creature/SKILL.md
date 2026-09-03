@@ -54,8 +54,10 @@ default, so a forgotten kind was drawn as a slick that swayed like one, or
 never lit its siren, and nothing anywhere said a word. They are total now,
 which is why they are on this list at all.
 
-`controls` decides which controls a wave containing it shows. Never edit a wave
-to make a creature work — the union is computed.
+`controls` classifies the creature — `aim`, `guard`, or both — and `categoryOf`
+reads it. It does **not** decide any wave's panel: that is a named `ControlSet`
+the wave points at (`Wave.controls`), chosen whole and never a union of the
+creatures on the field. So a new creature never edits a wave to be answerable.
 
 `color` is **one** colour, and it comes with **one** silhouette: the pair say
 these things out loud across a voice delay, so a shape must mean the same word

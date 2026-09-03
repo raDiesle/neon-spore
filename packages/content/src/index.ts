@@ -19,7 +19,6 @@ export {
 } from "./controls.js";
 export {
   authorsBodyColor,
-  type ControlGroup,
   CREATURES,
   type CreatureCategory,
   type CreatureDef,

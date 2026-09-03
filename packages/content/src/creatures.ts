@@ -1,7 +1,16 @@
 import { type Color, type CreatureKind, livingKindForColor } from "@neon-spore/sim";
 import { CREATURES } from "./creatures-table.js";
 
-/** The control groups a creature demands. Principle A, see docs/spec/systems.md. */
+/**
+ * How a creature is answered: with `aim` (the cannon) or `guard` (the shield),
+ * or both. It *classifies the creature* — `categoryOf` reads it — and it does
+ * **not** decide the panel a wave shows. That used to be its job (a wave was
+ * meant to show the union of its creatures' groups), but the panel is a named
+ * `ControlSet` on the wave now (`Wave.controls` → `controlSetForWave`), chosen
+ * whole rather than composed, so nothing unions these any more. Kept internal
+ * for that reason: the barrel exports `categoryOf`, not this. Principle A, see
+ * docs/spec/systems.md.
+ */
 export type ControlGroup = "aim" | "guard";
 
 /**
@@ -14,7 +23,11 @@ export type RadarOwner = "p1" | "p2" | "none";
 
 export interface CreatureDef {
   kind: CreatureKind;
-  /** Which controls a wave containing this creature must show. */
+  /**
+   * How this creature is answered — `aim`, `guard`, or both. Classifies the
+   * creature (`categoryOf`); it does not name the wave's panel, which is
+   * `Wave.controls`. See `ControlGroup`.
+   */
   controls: ControlGroup[];
   /**
    * The one colour this kind ever carries, or null if it carries none. A kind
@@ -57,9 +70,8 @@ export interface CreatureDef {
  * Split the day THE CLASP took this file past its 250-line limit, along the
  * seam `mechanics.ts` and `mechanics-table.ts` next door already use: a table
  * grows by one entry per creature forever, and the rules around it —
- * `controlsForKinds`, `radarOwner`, `categoryOf` — do not. Adding a creature
- * should cost the file that is a *list* and leave the file that is *logic*
- * untouched.
+ * `radarOwner`, `categoryOf` — do not. Adding a creature should cost the file
+ * that is a *list* and leave the file that is *logic* untouched.
  */
 export { CREATURES } from "./creatures-table.js";
 
@@ -79,12 +91,6 @@ export function kindForColor(color: Color): CreatureKind {
  */
 export function authorsBodyColor(kind: CreatureKind): boolean {
   return CREATURES[kind].authorsColor === true;
-}
-
-export function controlsForKinds(kinds: readonly CreatureKind[]): ControlGroup[] {
-  const set = new Set<ControlGroup>();
-  for (const k of kinds) for (const g of CREATURES[k].controls) set.add(g);
-  return [...set];
 }
 
 /**
