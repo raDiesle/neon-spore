@@ -52,7 +52,10 @@ export function brushCard(brush: Brush): HTMLElement | null {
   card.appendChild(line("brush-card-name", spec.label));
   const wave = brushTooltip(brush);
   if (wave) card.appendChild(line("brush-card-wave", wave));
-  if (spec.note) card.appendChild(line("brush-card-note", spec.note));
+  // The whole sentence here, not the palette's short line: the card is where
+  // somebody has stopped to ask, and the strip is where they are scanning.
+  const note = spec.detail ?? spec.note;
+  if (note) card.appendChild(line("brush-card-note", note));
   // The way to that wave, said where the wave is named. A modifier on a click
   // is the one kind of control nothing on screen can advertise by itself: the
   // palette lights the brushes it works on while the key is down

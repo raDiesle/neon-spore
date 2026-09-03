@@ -125,18 +125,54 @@ function cardSubjects(kind: CreatureKind): string[] {
   return [kind.toUpperCase()];
 }
 
+/**
+ * The one line the palette shows under a brush's name: the single thing that
+ * tells it apart at a glance, not what it does once it is on the field.
+ *
+ * A brush's own sentence used to be `CREATURES[kind].blurb`, which is written
+ * for the first-appearance preview — three clauses, everything true about the
+ * creature. Twenty of those stacked in a strip is a wall nobody reads, and the
+ * question being asked of the palette is only ever "which of these is the one
+ * I mean". The blurb is still on the hover card (`detail` below), where there
+ * is room for it and where somebody has stopped to ask.
+ *
+ * A kind with no line here falls back to its blurb, so a creature added to
+ * `CREATURES` still gets a brush that says something; `brushes.test.ts` fails
+ * if that fallback is what the palette ends up drawing, since a long sentence
+ * is exactly what this table exists to keep out of it.
+ */
+const SHORT_NOTE: Partial<Record<Brush, string>> = {
+  slick: "flat and wide, always red",
+  bulb: "round and swollen, always cyan",
+  lure: "a fake body — shooting it costs hull",
+  throb: "only a shot while it is swollen lands",
+  shell: "plating over two columns, chipped off a piece at a time",
+  clasp: "shots bounce — ward it open",
+  dart: "steps sideways; only p2 sees which way next",
+  veil: "p2 does not see what is inside",
+  wisp: "p1 cannot see it; hops tiles and never falls",
+  ghost: "p1 cannot see it — say the column",
+  echo: "slow, and splits in two",
+  rind: "starts bigger, shrinks when shot",
+  gyre: "a wheel of six bodies; the maw slows it",
+  mount: "a body bolted to the gyre's rim",
+  torch: "double-wide rock, the fastest thing there is",
+};
+
 const LIVING_BRUSHES: {
   brush: Brush;
   label: string;
   subjects: string[];
   stroke: string;
   note: string;
+  detail: string;
 }[] = LIVING_BRUSH_KINDS.map((kind) => ({
   brush: kind,
   label: kind.toUpperCase(),
   subjects: cardSubjects(kind),
   stroke: livingStroke(kind),
-  note: CREATURES[kind].blurb,
+  note: SHORT_NOTE[kind] ?? CREATURES[kind].blurb,
+  detail: CREATURES[kind].blurb,
 }));
 
 export const BRUSHES: {
@@ -145,7 +181,10 @@ export const BRUSHES: {
   /** SUBJECTS names drawn on the card. Two means the brush resolves to either. */
   subjects: string[];
   stroke: string;
+  /** The short line in the palette — what the brush is, at a glance. */
   note: string;
+  /** The whole sentence, for the hover card. Absent when `note` is already it. */
+  detail?: string;
 }[] = [
   ...LIVING_BRUSHES,
   {
@@ -153,42 +192,44 @@ export const BRUSHES: {
     label: "METEOR",
     subjects: ["METEOR"],
     stroke: PALETTE.rock,
-    note: "Dead rock. Cannot be shot. Speed and size are set under the map, per rock.",
+    note: "dead rock — cannot be shot, ward it",
+    detail: "Dead rock. Cannot be shot. Speed and size are set under the map, per rock.",
   },
   {
     brush: "torch",
     label: "TORCH",
     subjects: ["TORCH"],
     stroke: PALETTE.rock,
-    note: CREATURES.torch.blurb,
+    note: SHORT_NOTE.torch ?? CREATURES.torch.blurb,
+    detail: CREATURES.torch.blurb,
   },
   {
     brush: "mend",
     label: "MEND",
     subjects: ["POD"],
     stroke: PALETTE.pod,
-    note: "restores hull — the pod as it has always been",
+    note: "restores hull",
   },
   {
     brush: "purge",
     label: "PURGE",
     subjects: ["POD"],
     stroke: PALETTE.ember,
-    note: "clears every creature on the field",
+    note: "clears the field",
   },
   {
     brush: "ward",
     label: "WARD",
     subjects: ["POD"],
     stroke: PALETTE.shieldRim,
-    note: "holds the shield armed for a few beats, no trigger needed",
+    note: "shield stays armed a few beats",
   },
   {
     brush: "erase",
     label: "ERASE",
     subjects: [],
     stroke: "#574d84",
-    note: "takes back whatever is in the cell, entry or pod",
+    note: "takes back the cell",
   },
 ];
 
