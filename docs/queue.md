@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Bind a demonstration to its wave by something a rename cannot break
 
 - **Found:** 2026-09-03, claude/snake-svg-graphic-24d2fc
+- **Taken:** 2026-09-03, claude/queue-bind-a-demonstration-to-its-wave-by-something-a
 - **Files:** `packages/content/src/waves-demo.ts`, `packages/content/src/waves.ts`, `packages/content/test/waves-demo.test.ts`, `tools/director/test/brush-tooltip.test.ts`
 
 `DEMONSTRATIONS` names its wave by a string and the director can rename a wave
