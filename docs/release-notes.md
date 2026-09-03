@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · b30996b — SNAKE spits acid three tiles, crawls, and folds up when it crashes
+
+Seven things the owner asked for by name, which is the first of the three exemptions in CLAUDE.md's "a look is offered, never replaced".
+
 ## 2026-09-03 · 26ce6e9 — Two findings from the four-item batch, written down
 
 Both cost this session time and neither was in the file. A landing was refused for `.claude/launch.json`, whose only difference from `HEAD` was git's stat cache — `git diff` was empty and the blob matched — because `dirtyOf` reads `git status --porcelain` without a refresh, and the harness rewrites that file with identical bytes. And CLAUDE.md's flat "in a worktree the port is not 4173" is not what `claimPort` does: it tries the base port first by design, so a worktree's director with nothing else running announces 4174, and a session that believes the rule probes the derived port and thinks its server died.
