@@ -54,6 +54,26 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## The bash guard refuses `git commit --amend`
+
+- **Found:** 2026-09-03, claude/categorized-task-queue-4da693
+- **Files:** `.claude/hooks/bash-guard.sh`, `tools/hooks/test/`
+
+Line 47 matches `*"git commit --am"*` to catch `--am` as an abbreviation of `--all`.
+`--amend` starts with those same characters, so a plain reword of the commit you
+have just written is refused with a message about staging another lane's work,
+which is not what it does. The way round it is `git reset --soft HEAD~1` and a
+fresh commit — the same result in two steps, with no guard at all on what gets
+staged, which is worse than the case being guarded.
+
+The guard also matches its own text: a commit message or a heredoc that merely
+*quotes* the refused form is refused too, because the pattern is tested against
+the whole command line rather than its argv.
+
+Anchor the abbreviations so they end at a word boundary — `--am` and `--all`
+match, `--amend` does not — and match against arguments rather than the whole
+string. A test over the guard's cases proves it, and there is none today.
+
 ## `biome check --write --unsafe` eats a file's header docblock
 
 - **Found:** 2026-09-03, claude/categorized-task-queue-4da693
