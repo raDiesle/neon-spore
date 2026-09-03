@@ -1,6 +1,7 @@
 import { circleSubpath, openSmoothPath, type Point } from "@neon-spore/content";
 import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { drawHandleHint, HANDLE_TILES, HINT_LOUD } from "./handle-draw.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { mazeDrum } from "./maze-draw.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -42,7 +43,7 @@ const SWING_TILES = 1.5;
  */
 export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
   const d = mazeDrum(l, cfg);
-  return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: l.tile * 0.3 };
+  return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: l.tile * HANDLE_TILES };
 }
 
 /**
@@ -97,13 +98,5 @@ export function drawMazeString(
   // The word goes as soon as a hand lands, the way the tether's does: from
   // then on the handle's own position says it.
   if (m.dragging) return;
-  const mine = role !== "p2";
-  ctx.save();
-  ctx.font = `600 ${Math.round(l.tile * 0.3)}px system-ui, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? 0.9 : 0.45;
-  ctx.fillText(mine ? "PULL" : "PILOT'S", x, rest.y + l.tile * 0.65);
-  ctx.restore();
+  drawHandleHint(ctx, l, role, x, rest.y + l.tile * 0.65, HINT_LOUD);
 }

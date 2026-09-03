@@ -371,6 +371,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
+| `packages/render/src/handle-draw.ts` | you are changing how a handle reads — the ring, the gauge, the rest mark, the sag and the word, shared by all three |
 
 ### packages/net
 

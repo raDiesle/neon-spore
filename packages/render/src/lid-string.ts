@@ -1,4 +1,4 @@
-import { circleSubpath, openSmoothPath, type Point } from "@neon-spore/content";
+import { openSmoothPath } from "@neon-spore/content";
 import {
   type Creature,
   lidIsHeld,
@@ -8,7 +8,15 @@ import {
 } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
-import type { Circle, Layout, ViewRole } from "./layout.js";
+import {
+  drawHandleHint,
+  drawHandleRest,
+  drawHandleRing,
+  HANDLE_TILES,
+  HINT_SOFT,
+  handleSag,
+} from "./handle-draw.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -34,10 +42,6 @@ import { PALETTE, STROKE } from "./palette.js";
  * so it is drawn from wherever the body has glided to this frame — `beatPhase`
  * rather than the row it left.
  */
-
-/** The handle's radius, in tiles. Thumb-sized, and the tether's own figure:
- * the same gesture on the same thumb should not be two sizes to find. */
-const HANDLE_TILES = 0.3;
 
 /** How far below the body's centre the handle rests, in tiles. Clear of the
  * eye's own outline at every row, so a thumb reaching for the cord is never a
@@ -101,127 +105,22 @@ function drawOne(
 
   // Under tension the cord goes thin and bright: it is its own gauge, and
   // there is no widget anywhere saying how far the pull has got.
-  const cord = new Path2D(openSmoothPath(points(rest.x, x, top.y, rest.y, held, pull, time)));
+  const sag = handleSag({
+    restX: rest.x,
+    headX: x,
+    topY: top.y,
+    headY: rest.y,
+    held,
+    pull,
+    time,
+    segments: 10,
+    waveHeld: 1.1,
+    waveSlack: 2.4,
+  });
+  const cord = new Path2D(openSmoothPath(sag));
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
 
-  if (held) drawRest(ctx, rest, hex);
-  drawHandle(ctx, x, rest.y, rest.r, hex, rim, held, pull, time);
-  if (!held) drawHint(ctx, l, l.role, x, rest.y + l.tile * 0.62);
-}
-
-/**
- * The cord's own shape. Slack it sags off the straight line between its two
- * ends and a slow wave travels down it; taut it straightens out, and the sag
- * goes to nothing exactly as the tension goes to one.
- */
-function points(
-  restX: number,
-  headX: number,
-  topY: number,
-  headY: number,
-  held: boolean,
-  pull: number,
-  time: number,
-): Point[] {
-  const pts: Point[] = [];
-  const N = 10;
-  const sag = (1 - pull) * (held ? 0.35 : 1);
-  for (let i = 0; i <= N; i++) {
-    const t = i / N;
-    // A half-sine across the length, so both ends stay where they are anchored.
-    const belly = Math.sin(t * Math.PI);
-    const wave = held
-      ? Math.sin(time * 30 + t * 9) * 1.1 * (1 - pull)
-      : Math.sin(t * Math.PI * 3 - time * 3) * 2.4 * t;
-    // The cord bellies *behind* the hand, the way a line pulled sideways does:
-    // the straight line is what full tension looks like.
-    const straight = restX + (headX - restX) * t;
-    pts.push({
-      x: straight - (headX - restX) * belly * sag * 0.45 + wave,
-      y: topY + (headY - topY) * t,
-    });
-  }
-  return pts;
-}
-
-/** The column the handle hangs in, while it is not hanging in it. */
-function drawRest(ctx: CanvasRenderingContext2D, rest: Circle, hex: string): void {
-  const p = new Path2D(circleSubpath(rest.x, rest.y, rest.r * 0.9));
-  ctx.save();
-  ctx.globalAlpha = 0.22;
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.inner;
-  ctx.stroke(p);
-  ctx.restore();
-}
-
-/**
- * The handle, and the gauge closing around it.
- *
- * Empty and breathing it says *take hold of me*; filled it says *somebody has*;
- * and the arc sweeping round its edge is how much of the pull is in, drawn as a
- * continuous quantity rather than as a lamp that comes on at a threshold. The
- * player who is not holding it reads that arc, and it closes into a whole
- * circle at the instant a shot will land.
- */
-function drawHandle(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  hex: string,
-  rim: string,
-  held: boolean,
-  pull: number,
-  time: number,
-): void {
-  const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
-  const p = new Path2D(circleSubpath(x, y, r * breathe));
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(p);
-  ctx.fillStyle = hex;
-  ctx.globalAlpha = held ? 0.55 + pull * 0.45 : 0.18;
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, held ? rim : hex, STROKE.inner, held ? 1.2 : 0.8);
-
-  if (pull <= 0) return;
-  ctx.save();
-  ctx.strokeStyle = rim;
-  ctx.lineWidth = STROKE.outline * 1.6;
-  ctx.lineCap = "butt";
-  ctx.beginPath();
-  // From the top, clockwise, so it fills the way a dial does.
-  ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pull);
-  ctx.stroke();
-  ctx.restore();
-}
-
-/**
- * Whose cord it is, in words, and only while nobody has hold of it.
- *
- * The pair cannot see each other's thumbs, so the one thing the picture cannot
- * say by itself is which of the two of them is supposed to reach for it — and
- * that is the whole coupling. It is always the pilot's, the way THE MAZE's
- * string and THE WARDEN's rope are, so player 2 is told whose hand it is rather
- * than waiting for a turn that never comes. It goes as soon as a hand lands:
- * from then on the handle's own position says it.
- */
-function drawHint(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  role: ViewRole,
-  x: number,
-  y: number,
-): void {
-  const mine = role !== "p2";
-  ctx.save();
-  ctx.font = `600 ${Math.round(l.tile * 0.26)}px system-ui, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? 0.8 : 0.4;
-  ctx.fillText(mine ? "PULL" : "PILOT'S", x, y);
-  ctx.restore();
+  if (held) drawHandleRest(ctx, rest, hex);
+  drawHandleRing(ctx, { x, y: rest.y, r: rest.r, hex, rim, held, pull, time });
+  if (!held) drawHandleHint(ctx, l, l.role, x, rest.y + l.tile * 0.62, HINT_SOFT);
 }
