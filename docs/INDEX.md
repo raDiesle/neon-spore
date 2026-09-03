@@ -176,6 +176,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
+| `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 
 ### packages/content
 
