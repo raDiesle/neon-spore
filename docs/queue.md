@@ -547,25 +547,6 @@ footer is a second copy that will drift. Keep the sliders, the god-mode toggle
 and the BACK button exactly as they are. Copy-only, provable with `bun run
 check`.
 
-## The PreToolUse guard never sees a command run through the PowerShell tool
-
-- **Found:** 2026-09-03, claude/task-queue-work-5b5548
-- **Taken:** 2026-09-03, claude/queue-the-pretooluse-guard-never-sees-a-command-run-th
-- **Files:** `.claude/settings.json`, `tools/hooks/guard.ts`, `tools/hooks/shell-words.ts`, `tools/hooks/test/guard.test.ts`
-
-The hook's matcher in `settings.json` is `"Bash"`, and on Windows the session's
-primary shell is the separate PowerShell tool. Every rule the guard holds —
-staging everything, a push naming main, a hot dev server, removing the worktree
-the session stands in — is unenforced the moment the same command is typed into
-the other tool, which is the tool CLAUDE.md names first.
-
-Widen the matcher to both tools. The rules read arguments, so the work is in
-`shell-words.ts`: PowerShell quotes with `'` and `"` but escapes with a
-backtick, has no heredoc (`@'...'@` is a here-string terminated at column 0),
-and separates commands with `;` and `|`. Decide whether one splitter can carry
-both dialects or the payload's tool name should choose between two, and cover
-the PowerShell spellings of each refused command with tests.
-
 ## shapes-motion.test.ts is still three seconds, and none of it is the expects
 
 - **Found:** 2026-09-03, claude/dynamic-workflows-session-strategy-3637de

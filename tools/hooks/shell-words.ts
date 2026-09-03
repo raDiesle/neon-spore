@@ -4,22 +4,32 @@
  *
  * A shell glob is tested against the whole line, which is why a rule written
  * against `--am` also refused `--amend`, and why a commit message that merely
- * *quoted* a refused form was refused for quoting it. Here quotes, backslash
- * escapes and heredoc bodies are text rather than syntax: a `-m` argument that
- * reads like a footgun is one argument, and the body of a heredoc is data the
- * shell never runs.
+ * *quoted* a refused form was refused for quoting it. Here quotes, escapes and
+ * heredoc bodies are text rather than syntax: a `-m` argument that reads like a
+ * footgun is one argument, and the body of a heredoc is data the shell never
+ * runs.
  *
  * This is not a shell parser. It knows quoting, the operators that end a
  * command (`;`, `&&`, `||`, `|`, newline) and where a heredoc body ends;
  * expansion, subshells and redirection targets are left as ordinary words,
  * because no rule asks about them.
+ *
+ * It reads two dialects, because this session has two shells. The rules are the
+ * same in both — `git add -A` is spelled `git add -A` in PowerShell — but the
+ * quoting is not, and a splitter that reads the wrong one either loses an
+ * argument or finds a command inside a string. The caller knows which tool the
+ * line came from, so it says; nothing here guesses.
  */
+
+/** Which shell typed the line. `posix` is bash; `powershell` is the Windows tool. */
+export type Dialect = "posix" | "powershell";
 
 /**
  * A backslash outside quotes escapes the next character — but a Windows path
  * is made of backslashes, and this repo runs on Windows. Only the characters
  * that mean something to the shell are treated as escaped; `C:\Users` keeps
- * both of its own.
+ * both of its own. PowerShell has no such trouble: its escape is a backtick,
+ * which escapes whatever follows it, and a backslash is only ever a separator.
  */
 const BARE_ESCAPABLE = new Set([
   '"',
@@ -40,6 +50,8 @@ const BARE_ESCAPABLE = new Set([
 ]);
 const QUOTED_ESCAPABLE = new Set(['"', "`", "$", "\\", "\n"]);
 const DELIMITER_END = new Set([" ", "\t", "\n", ";", "&", "|", "<", ">"]);
+/** A quoted run with no escape character of its own: a bash or PowerShell `'...'`. */
+const EMPTY: ReadonlySet<string> = new Set<string>();
 
 /** The word a heredoc body ends on, and where the word stops. `<<<` is a herestring, whose word is data rather than a body. */
 function heredocDelimiter(line: string, at: number): { delim: string; next: number } | null {
@@ -74,8 +86,69 @@ function heredocEnd(line: string, from: number, delim: string): number {
   return line.length;
 }
 
+/**
+ * Where a PowerShell here-string ends: the first line that *starts* with `'@`
+ * or `"@`, at column zero, as the language requires. The body between is data,
+ * the same way a heredoc body is.
+ */
+function hereStringEnd(line: string, from: number, close: string): number {
+  let newline = line.indexOf("\n", from);
+  while (newline !== -1) {
+    const start = newline + 1;
+    if (line.startsWith(close, start)) return start + close.length;
+    newline = line.indexOf("\n", start);
+  }
+  return line.length;
+}
+
+/**
+ * The text of a quoted run and where it ends.
+ *
+ * `escapable` says which characters the dialect's escape actually escapes:
+ * `null` for all of them, an empty set for a run that has none. In PowerShell a
+ * doubled quote inside a run of the same quote is a literal one (`'it''s'`),
+ * which is the only way to write one; in bash it is a close followed by a fresh
+ * open, and `'a''b'` is `ab`.
+ */
+function readQuoted(
+  line: string,
+  at: number,
+  quote: string,
+  escapeChar: string,
+  escapable: ReadonlySet<string> | null,
+  doubledIsLiteral: boolean,
+): { text: string; next: number } {
+  let text = "";
+  let i = at + 1;
+  while (i < line.length) {
+    const c = line.charAt(i);
+    if (c === quote) {
+      if (doubledIsLiteral && line[i + 1] === quote) {
+        text += quote;
+        i += 2;
+        continue;
+      }
+      return { text, next: i + 1 };
+    }
+    if (
+      c === escapeChar &&
+      i + 1 < line.length &&
+      (escapable === null || escapable.has(line.charAt(i + 1)))
+    ) {
+      text += line.charAt(i + 1);
+      i += 2;
+      continue;
+    }
+    text += c;
+    i++;
+  }
+  return { text, next: i };
+}
+
 /** Every command in `line`, each as its list of arguments with quoting removed. */
-export function commandsIn(line: string): string[][] {
+export function commandsIn(line: string, dialect: Dialect = "posix"): string[][] {
+  const ps = dialect === "powershell";
+  const escapeChar = ps ? "`" : "\\";
   const commands: string[][] = [];
   let args: string[] = [];
   let token = "";
@@ -95,36 +168,30 @@ export function commandsIn(line: string): string[][] {
 
   for (let i = 0; i < line.length; i++) {
     const c = line[i];
-    if (c === "'") {
-      const close = line.indexOf("'", i + 1);
-      const end = close === -1 ? line.length : close;
-      token += line.slice(i + 1, end);
+    if (c === "'" || c === '"') {
+      // A single-quoted run is literal in both dialects; a double-quoted one
+      // takes the dialect's escape.
+      const escapable = c === "'" ? EMPTY : ps ? null : QUOTED_ESCAPABLE;
+      const read = readQuoted(line, i, c, escapeChar, escapable, ps);
+      token += read.text;
       started = true;
-      i = end;
+      i = read.next - 1;
       continue;
     }
-    if (c === '"') {
-      let j = i + 1;
-      for (; j < line.length && line[j] !== '"'; j++) {
-        if (line[j] === "\\" && QUOTED_ESCAPABLE.has(line[j + 1] ?? "")) {
-          token += line[j + 1];
-          j++;
-        } else {
-          token += line[j];
-        }
-      }
-      started = true;
-      i = j;
+    if (ps && c === "@" && (line[i + 1] === "'" || line[i + 1] === '"')) {
+      // `@'...'@` — the body is data, like a heredoc's, and never a command.
+      endToken();
+      i = hereStringEnd(line, i + 2, `${line[i + 1]}@`) - 1;
       continue;
     }
-    if (c === "\\" && i + 1 < line.length) {
+    if (c === escapeChar && i + 1 < line.length) {
       const next = line.charAt(i + 1);
-      token += BARE_ESCAPABLE.has(next) ? next : c + next;
+      token += ps || BARE_ESCAPABLE.has(next) ? next : c + next;
       started = true;
       i++;
       continue;
     }
-    if (c === "<" && line[i + 1] === "<") {
+    if (!ps && c === "<" && line[i + 1] === "<") {
       const found = heredocDelimiter(line, i);
       if (found) {
         heredoc = found.delim;

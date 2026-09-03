@@ -20,11 +20,17 @@
  * is what they were always about. The move off bash also took the hook's test
  * with it: `bun test` no longer needs `bash` on PATH, which it does not have
  * in PowerShell.
+ *
+ * It guards two tools, because the session has two shells and CLAUDE.md names
+ * the PowerShell one first. A matcher of `Bash` alone left every rule here
+ * unenforced against the tool most likely to type the command. The rules
+ * themselves are spelled the same in both shells; only the quoting differs, so
+ * the tool name on the payload picks the dialect and nothing else changes.
  */
 
 import { realpathSync } from "node:fs";
 import path from "node:path";
-import { commandsIn } from "./shell-words.ts";
+import { commandsIn, type Dialect } from "./shell-words.ts";
 
 /** Why the command was refused, and what to do instead. */
 export type Refusal = { readonly blocked: string; readonly instead: string };
@@ -180,11 +186,20 @@ function workerModelRefusal(line: string): Refusal | null {
   return REFUSALS.workerModel;
 }
 
+/** Which shell a `PreToolUse` payload's tool name means. Anything else is bash. */
+export function dialectFor(toolName: unknown): Dialect {
+  return toolName === "PowerShell" ? "powershell" : "posix";
+}
+
 /** The refusal this command line earns, or null to let it run. */
-export function refusalFor(line: string, cwd: string = process.cwd()): Refusal | null {
+export function refusalFor(
+  line: string,
+  cwd: string = process.cwd(),
+  dialect: Dialect = "posix",
+): Refusal | null {
   const worker = workerModelRefusal(line);
   if (worker) return worker;
-  for (const args of commandsIn(line)) {
+  for (const args of commandsIn(line, dialect)) {
     const refusal = commandRefusal(args, cwd);
     if (refusal) return refusal;
   }
@@ -193,13 +208,15 @@ export function refusalFor(line: string, cwd: string = process.cwd()): Refusal |
 
 async function main(): Promise<void> {
   let command = "";
+  let dialect: Dialect = "posix";
   try {
     const payload = JSON.parse(await Bun.stdin.text());
     command = payload?.tool_input?.command ?? "";
+    dialect = dialectFor(payload?.tool_name);
   } catch {
     process.exit(0);
   }
-  const refusal = command ? refusalFor(command) : null;
+  const refusal = command ? refusalFor(command, process.cwd(), dialect) : null;
   if (!refusal) process.exit(0);
   process.stderr.write(`Blocked: ${refusal.blocked}\n${refusal.instead}\n`);
   process.exit(2);
