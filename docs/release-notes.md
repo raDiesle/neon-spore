@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 78682db — A finished lane lands itself, and says LANDED! in the chat
+
+A lane could be green, committed and finished and still sit on its branch until somebody remembered to type `bun run land` — the one forgettable step in a history that is linear on purpose, where the cost of forgetting is a trunk that moved, a rebase that grows daily and another idle worktree. The `Stop` hook now takes that step: when a turn ends in a worktree whose branch is clean and ahead of `main`, it runs `bun run land` and prints the landing as one line in the chat. Mid-task work cannot land, by construction, because mid-task work is uncommitted.
+
 ## 2026-09-03 · 7f905de — Ctrl-click a brush and the director plays the wave it first arrives in
 
 The palette already knew which wave first puts a brush on the field — the hover card has named it since the card replaced a title attribute — and the only way to act on that was to read the number, find it in the rail and press it. Ctrl-click (or ⌘-click, since Ctrl-click is the context menu on a Mac) now opens that wave and starts it running, so "what is a Throb" and watching one arrive are one press apart.
