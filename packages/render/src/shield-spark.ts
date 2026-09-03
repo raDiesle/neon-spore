@@ -24,7 +24,7 @@ import { PALETTE } from "./palette.js";
  * — see the report on this lane for why.
  *
  * Deliberately not given `armed`: the guard's own window already got a
- * signal today (`guardLapse`, in `shield.ts`), and these arcs are asked to
+ * signal today (`guardLapse`, in `guard-lapse.ts`), and these arcs are asked to
  * say only that the shield exists and is charged, nothing about the instant
  * of a catch. `drawShieldSparks` takes no such parameter on purpose — its
  * caller has `armed` sitting right there in scope, which is the seam a later

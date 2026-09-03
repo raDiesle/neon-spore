@@ -2,10 +2,10 @@ import type { ControlDef } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { drawActionButton, drawAimButton, drawFireButton, drawSalvoButton } from "./controls.js";
 import { halo } from "./glow.js";
+import { guardLapse } from "./guard-lapse.js";
 import { drawLanceButton } from "./lance.js";
 import { type Circle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { guardLapse } from "./shield.js";
 
 /**
  * One control of the band, drawn — a lobe or a strip, whichever the set says.

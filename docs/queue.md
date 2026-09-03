@@ -54,27 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Remove the per-frame recomputation in controls, craters, backdrop and hull
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/render/src/controls.ts`, `packages/render/src/craters.ts`, `packages/render/src/hull.ts`, `packages/render/src/backdrop.ts`, `packages/render/src/shield.ts`, `packages/render/test/frame-budget.test.ts`
-
-Three constant-input rebuilds per frame, measured through the canvas stub on the
-`frame-budget.test.ts` scenario. `controls.ts` `drawColorButton` (around line 78)
-builds `new Path2D(blobPath(...))` every frame from arguments that are constants
-of the colour, two per frame on the p2 seat. `craters.ts` calls `mouth(c)` for the
-same crater twice a frame, once in `clipOutMouths` and once in `drawCraters`, each
-rebuilding an 8-point rotated polygon. `backdrop.ts` `drawMotes` calls `hash01`
-four times per mote for 44 motes whose inputs are `seedBase + i` only, and
-`hull.ts` line 142 does `Math.min(...pts.map(...))` over 141 points; `shield.ts`
-lines 190 to 198 spread `at.shield.map` the same way.
-
-Cache the button `Path2D` in a module-level `Map<Color, Path2D>`; add `left` and
-`right` to `Crater` filled in `craters()`; build a `{bx, by, size, alpha}[]` per
-`MoteStyle` at module load keeping the draw order and the per-frame `x` drift;
-replace the spreads with loops. The canvas call log is unchanged, so the frame is
-identical, and the render-perf skill says how to state the before and after.
-
 ## Count a failed reconnect attempt once, not twice
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

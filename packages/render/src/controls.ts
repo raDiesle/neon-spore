@@ -46,6 +46,27 @@ export function reticle(
 }
 
 /**
+ * The silhouette inside a fire button, kept rather than rebuilt.
+ *
+ * Every argument is a constant of the colour — the shape comes from
+ * `livingSilhouette(livingKindForColor(color))` and the path is drawn at the
+ * origin, scaled by the transform — so the string and the `Path2D` were the
+ * same two objects rebuilt twice a frame on player 2's seat, for as long as
+ * the game has run. Keyed on the colour, of which there are two.
+ */
+const FIRE_BLOBS = new Map<Color, Path2D>();
+
+function fireBlob(color: Color, shape: ReturnType<typeof livingSilhouette>): Path2D {
+  const held = FIRE_BLOBS.get(color);
+  if (held !== undefined) return held;
+  const made = new Path2D(
+    blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed),
+  );
+  FIRE_BLOBS.set(color, made);
+  return made;
+}
+
+/**
  * One of player 2's fire buttons: the colour, filled, with the silhouette that
  * colour resonates sitting dark inside it, and the reticle round the outside.
  * The silhouette is the point — the button shows what the colour is *for*.
@@ -74,11 +95,7 @@ export function drawFireButton(
   ctx.translate(x, y);
   ctx.scale(s, s);
   ctx.fillStyle = dark;
-  ctx.fill(
-    new Path2D(
-      blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed),
-    ),
-  );
+  ctx.fill(fireBlob(color, shape));
   ctx.restore();
   reticle(ctx, x, y, r, color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
 }

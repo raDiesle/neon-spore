@@ -29,7 +29,20 @@ export interface Crater {
   rotation: number;
   /** Which scarred columns this crater covers — two for a torch, one otherwise. */
   cols: readonly number[];
+  /**
+   * Where the hole cuts the skin, left and right — `mouth`'s answer, kept.
+   *
+   * It is the crystal's own outline intersected with `cutY`, an eight-point
+   * rotated polygon walked edge by edge, and it depends on nothing but the
+   * four fields above it. Both `clipOutMouths` and `drawCraters` need it, so
+   * it used to be computed twice a frame for every crater on the hull.
+   */
+  left: number;
+  right: number;
 }
+
+/** A crater before its mouth has been measured — what `mouth` needs and no more. */
+type CraterShape = Omit<Crater, "left" | "right">;
 
 /**
  * How far above the skin line the fill and the rim gap both start, rather
@@ -45,7 +58,7 @@ export interface Crater {
 const LID = 3;
 
 /** Where the fill and the rim-gap measurements actually start — `LID` above the true skin line. */
-function cutY(c: Crater): number {
+function cutY(c: CraterShape): number {
   return c.top.y - LID;
 }
 
@@ -59,6 +72,11 @@ function cutY(c: Crater): number {
  * long before the hole itself is open — a position that later changed once
  * the hole opened used to read as a second crack appearing out of nowhere.
  */
+/** A crater with its mouth measured — the one place `mouth` is ever called. */
+function withMouth(c: CraterShape): Crater {
+  return { ...c, ...mouth(c) };
+}
+
 export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) => Point): Crater[] {
   const out: Crater[] = [];
   const used = new Set<Scar>();
@@ -84,13 +102,15 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
     used.add(b);
     const loCol = Math.min(a.col, b.col);
     const x = tileCX(l, loCol + 0.5);
-    out.push({
-      x,
-      top: skinAt(x),
-      r: rockRadius(l, spanOf(a)),
-      rotation: torchRotation(x),
-      cols: [a.col, b.col],
-    });
+    out.push(
+      withMouth({
+        x,
+        top: skinAt(x),
+        r: rockRadius(l, spanOf(a)),
+        rotation: torchRotation(x),
+        cols: [a.col, b.col],
+      }),
+    );
   }
 
   // Every other rock kind scars a single column and gets its own, smaller
@@ -100,13 +120,15 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
     if (used.has(s) || !isMeteorKind(s.kind)) continue;
     used.add(s);
     const x = tileCX(l, s.col);
-    out.push({
-      x,
-      top: skinAt(x),
-      r: rockRadius(l, spanOf(s)),
-      rotation: torchRotation(x),
-      cols: [s.col],
-    });
+    out.push(
+      withMouth({
+        x,
+        top: skinAt(x),
+        r: rockRadius(l, spanOf(s)),
+        rotation: torchRotation(x),
+        cols: [s.col],
+      }),
+    );
   }
 
   return out;
@@ -115,7 +137,7 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
 /** The rock's centre while embedded: above the skin line by half its radius,
  * so only its bottom quarter-height ever crosses below the line. Shared with
  * `rock-impact.ts`'s stuck rock, which sits at exactly this height. */
-function centreY(c: Crater): number {
+function centreY(c: CraterShape): number {
   return c.top.y - c.r * 0.5;
 }
 
@@ -125,7 +147,7 @@ function centreY(c: Crater): number {
  * is left out over exactly this span and no more, so the outline stops where
  * the hull stops.
  */
-export function mouth(c: Crater): { left: number; right: number } {
+function mouth(c: CraterShape): { left: number; right: number } {
   const cy = centreY(c);
   const cutAt = cutY(c);
   const cos = Math.cos(c.rotation);
@@ -162,12 +184,11 @@ export function clipOutMouths(ctx: CanvasRenderingContext2D, l: Layout, list: Cr
   const p = new Path2D();
   p.rect(0, 0, l.width, l.height);
   for (const c of list) {
-    const m = mouth(c);
     // Tall enough to swallow the rim's own glow, which spreads well past the
     // line it is drawn on; the hull's fill above and below is unaffected,
     // because only the stroke is drawn through this clip.
     const pad = c.r * 0.5;
-    p.rect(m.left, cutY(c) - pad, m.right - m.left, pad * 2);
+    p.rect(c.left, cutY(c) - pad, c.right - c.left, pad * 2);
   }
   ctx.clip(p, "evenodd");
 }
@@ -210,16 +231,15 @@ export function drawCraters(ctx: CanvasRenderingContext2D, list: Crater[]): void
     // A hairline of the tail's old colour along the cut itself — the seam
     // where the rock ended and the skin resumes, still a little hot. It runs
     // the mouth's own width, so it reads as the lip of this hole.
-    const m = mouth(c);
-    const rim = ctx.createLinearGradient(m.left, c.top.y, m.right, c.top.y);
+    const rim = ctx.createLinearGradient(c.left, c.top.y, c.right, c.top.y);
     rim.addColorStop(0, "rgba(255,122,47,0)");
     rim.addColorStop(0.5, "rgba(255,122,47,0.4)");
     rim.addColorStop(1, "rgba(255,122,47,0)");
     ctx.strokeStyle = rim;
     ctx.lineWidth = 1.6;
     ctx.beginPath();
-    ctx.moveTo(m.left, c.top.y);
-    ctx.lineTo(m.right, c.top.y);
+    ctx.moveTo(c.left, c.top.y);
+    ctx.lineTo(c.right, c.top.y);
     ctx.stroke();
   }
 }

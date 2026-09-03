@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { isMeteorKind, type Scar } from "@neon-spore/sim";
-import { type Crater, mouth } from "./craters.js";
+import type { Crater } from "./craters.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -95,7 +95,7 @@ function crackOrigin(
   // geometry to read, so it falls back to the same random lean the zigzag
   // itself uses, rather than a side that's always the same.
   const side = crater.cols.length > 1 ? (s.col === Math.min(...crater.cols) ? -1 : 1) : lean;
-  const m = mouth(crater);
+  const m = { left: crater.left, right: crater.right };
   return { x: side < 0 ? m.left : m.right, side };
 }
 

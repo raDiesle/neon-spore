@@ -87,23 +87,54 @@ const NEAR: MoteStyle = {
   alpha: [0.07, 0.16],
 };
 
-function drawMotes(ctx: CanvasRenderingContext2D, l: Layout, time: number, style: MoteStyle): void {
+/**
+ * One mote's four fixed numbers. Every one of them is `hash01` of `seedBase + i`
+ * and nothing else — not of `time`, not of the layout — so the whole table is
+ * built once at module load rather than 176 hashes a frame. Only `x` moves,
+ * and it moves by a drift computed from `time` at the draw site, in the order
+ * the table is in, which is the order the motes were always drawn in.
+ */
+interface Mote {
+  bx: number;
+  by: number;
+  size: number;
+  alpha: number;
+}
+
+function motesOf(style: MoteStyle): Mote[] {
+  const out: Mote[] = [];
+  for (let i = 0; i < style.count; i++) {
+    const s = style.seedBase + i;
+    out.push({
+      bx: hash01(s * 4 + 1),
+      by: hash01(s * 4 + 2),
+      size: style.size[0] + hash01(s * 4 + 3) * (style.size[1] - style.size[0]),
+      alpha: style.alpha[0] + hash01(s * 4 + 4) * (style.alpha[1] - style.alpha[0]),
+    });
+  }
+  return out;
+}
+
+const FAR_MOTES = motesOf(FAR);
+const NEAR_MOTES = motesOf(NEAR);
+
+function drawMotes(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  time: number,
+  style: MoteStyle,
+  motes: readonly Mote[],
+): void {
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
   ctx.fillStyle = PALETTE.sparkDim;
-  for (let i = 0; i < style.count; i++) {
-    const s = style.seedBase + i;
-    const bx = hash01(s * 4 + 1);
-    const by = hash01(s * 4 + 2);
-    const sizeT = hash01(s * 4 + 3);
-    const alphaT = hash01(s * 4 + 4);
+  for (const m of motes) {
     // Wraps forever without ever going negative into `%`.
-    const frac = bx + time * style.speed;
+    const frac = m.bx + time * style.speed;
     const x = (frac - Math.floor(frac)) * l.width;
-    const y = by * height;
-    const size = style.size[0] + sizeT * (style.size[1] - style.size[0]);
-    ctx.globalAlpha = style.alpha[0] + alphaT * (style.alpha[1] - style.alpha[0]);
-    ctx.fillRect(x - size / 2, y - size / 2, size, size);
+    const y = m.by * height;
+    ctx.globalAlpha = m.alpha;
+    ctx.fillRect(x - m.size / 2, y - m.size / 2, m.size, m.size);
   }
   ctx.globalAlpha = 1;
 }
@@ -162,6 +193,6 @@ export function drawBackdrop(
   // top of them. Its own file: `light-shafts.ts` has the why and the geometry.
   drawLightShafts(ctx, l, time);
   drawHorizon(ctx, l, wave);
-  drawMotes(ctx, l, time, FAR);
-  drawMotes(ctx, l, time, NEAR);
+  drawMotes(ctx, l, time, FAR, FAR_MOTES);
+  drawMotes(ctx, l, time, NEAR, NEAR_MOTES);
 }
