@@ -553,3 +553,56 @@ the mixer does rather than from a second place, and default the setting **off**.
 decision — plus a thin caller that checks the setting and the capability.
 `bun run check` proves the mapping; whether the phone actually buzzes is a phone
 question and the report says **unverified**.
+
+## `bun run land` refuses a file whose only change is git's stat cache
+
+- **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553
+- **Files:** `tools/land/run.ts`, `tools/land/land.ts`, `tools/land/test/land.test.ts`
+
+A landing was refused with `1 uncommitted file here — a lane lands what it
+committed: .claude/launch.json`, and the file had no changes at all: `git diff`
+was empty, and `git hash-object` on the working copy gave the same blob the
+index and `HEAD` both held. What differed was the stat cache. Something had
+rewritten the file with identical bytes, so git marked the entry as needing a
+re-read, and `git status --porcelain` — which is what `dirtyOf` in `run.ts`
+reads — reports such an entry as ` M` until git refreshes it. `git update-index
+--refresh` did not clear it either; `git add` on that one path did, by writing
+the entry back.
+
+The cost is a landing that stops on a file the lane never touched, with a
+message that says the lane has uncommitted work when it has none. On this
+machine `.claude/launch.json` is rewritten by the harness, so it is the file
+this will keep happening to.
+
+Refresh before asking. `git status --porcelain` after a `git update-index -q
+--refresh` (or `git status` with the refresh it does implicitly), or read
+`git diff --name-only HEAD` instead, which compares content and never reports a
+stat-only difference. Whichever, keep the refusal for real uncommitted work —
+`land.test.ts` already covers that — and add a case for the shape that caused
+this: an entry git reports as modified whose content matches `HEAD`.
+
+## CLAUDE.md says a worktree's server never takes the base port, and it does
+
+- **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553
+- **Files:** `CLAUDE.md`, `docs/working-with-claude.md`, `tools/ports.ts`
+
+CLAUDE.md's "Verifying in a browser" section says **"In a worktree the port is
+not 4173"**, and the director's paragraph says the same of 4174. That is not
+what `claimPort` does. It tries the base port *first*, always — the comment
+above it says why, and the reason is good: "a single server in a single tree
+still answers where every document, launch config and `curl` line says it
+does". The tree's derived port is the *fallback*, taken only when something
+else is already holding the base and answering for another tree.
+
+So a director started in a worktree with nothing else running announces
+`http://localhost:4174`, which the rule says cannot happen. A session that
+believes the rule probes the derived port, gets nothing, and concludes its
+server failed to start — which is what happened here, twice, before the log was
+read.
+
+The advice one line later is the part that is right and should survive: read
+the port out of the server's own startup line rather than assuming it. Rewrite
+the claim around that — the base port when it is free, the tree's own when it
+is not — in both CLAUDE.md and `docs/working-with-claude.md`, and check
+`tools/ports.ts`'s own comments say the same. Documentation only; provable with
+`bun run check`.
