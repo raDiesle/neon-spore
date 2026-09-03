@@ -5,6 +5,7 @@ import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { WispJump } from "./wisp.js";
+import { drawBands, drawShards, wispBands } from "./wisp-static.js";
 import { drawTentacles } from "./wisp-tentacles.js";
 
 /**
@@ -24,6 +25,13 @@ import { drawTentacles } from "./wisp-tentacles.js";
  * remain one row in `content/silhouettes.ts` like every other body's. What is
  * added is underneath: five streamers hung off the hem, drawn behind the bell
  * so they come out of it rather than sit on it.
+ *
+ * **And the bell is not solid.** It is received in bands, a couple of which
+ * are missing on any given frame, so the field shows through the body of the
+ * one creature the other screen does not have at all — `wisp-static.ts` is
+ * the whole of that argument. What is drawn here is the order it goes down in:
+ * one continuous soft rim first, so the silhouette stays nameable whatever the
+ * interference is doing, and the bands over it.
  *
  * Everything here is in *silhouette units* — the same space `blobPath` returns
  * — and the one `ctx.scale` in `drawWispBody` takes the whole picture to
@@ -87,7 +95,15 @@ export function drawWispBody(
   ctx.rotate(pose.rot + heading * air * 0.24);
   ctx.scale(scale * pose.sx * sx, scale * pose.sy * sy);
 
-  drawTentacles(ctx, shape.rx, shape.ry, t, j, dive, air, heading, haze);
+  // How badly the signal is holding. Worst at the two ends of a jump and flat
+  // zero across the dwell, which is `wispBands`' own argument: the moment the
+  // thing moves is the moment it is least resolved, and the long stretch in
+  // between is the part a letter is read off.
+  const noise = Math.min(1, j.crouch * 0.8 + j.land * 0.9 + dive * 0.35);
+  const bands = wispBands(c.id, time, noise);
+  const lw = Math.max(1, r * 0.1) / scale;
+
+  drawTentacles(ctx, shape.rx, shape.ry, t, j, dive, air, heading, noise, haze);
 
   // The bell: the silhouette's own contour, lifted so its hem clears the
   // streamers' roots rather than sitting in the middle of them, and drawn
@@ -110,13 +126,28 @@ export function drawWispBody(
     ),
   );
 
+  // The rim, once, continuous and soft — under the bands rather than over
+  // them. This is the line that keeps the body nameable while the inside of it
+  // is coming and going, and it is the reason the interference can be as harsh
+  // as it is. It is *not* dashed: THE GHOST's outline is the one broken
+  // contour in this package, and a second one would make the two creatures the
+  // same word at a glance (`ghost.ts`, `wisp-static.ts`).
+  strokeGlow(ctx, bell, haze(PALETTE.wispRim), lw, 0.5);
+
   // The one body in the game filled through *both* ammunition colours at
   // once. It carries neither, and either shot kills it, so a fill that is
   // cyan at one edge and red at the other is the honest picture as well as
   // the unnameable one — see `PALETTE.wisp`.
-  ctx.fillStyle = spectrum(ctx, shape.rx, shape.ry, beats, haze);
-  ctx.fill(bell);
-  strokeGlow(ctx, bell, haze(PALETTE.wispRim), Math.max(1, r * 0.1) / scale, 1);
+  drawBands(
+    ctx,
+    bell,
+    bands,
+    shape.rx,
+    shape.ry,
+    spectrum(ctx, shape.rx, shape.ry, beats, haze),
+    haze(PALETTE.wispRim),
+    lw,
+  );
 
   // The ridge across the dome: one light line following the hem, which is what
   // makes the bell read as a dome seen from slightly above rather than as a
@@ -131,10 +162,14 @@ export function drawWispBody(
   ctx.stroke();
   ctx.restore();
 
+  // The core comes through whatever the bands are doing — it is the one part
+  // of this body that is never interrupted, which is what an eye holds on to
+  // while the rest of it drops in and out.
   drawCore(ctx, shape.rx, shape.ry, pose.sx * sx, pose.sy * sy, haze);
 
   ctx.restore();
 
+  drawShards(ctx, bands, noise, x, y + sink, r, haze(PALETTE.wispRim));
   halo(ctx, x, y + sink, r * 2.1, haze(PALETTE.wisp), 0.18 + 0.16 * air);
 }
 

@@ -21,6 +21,13 @@
  * is not a clock: wider throws, more of them, and a reach outside the body
  * that grows until the last turn, when the whole disguise comes off and the
  * body dives. A falling ghost sits at zero and never changes.
+ *
+ * **`slabAt` has a second reader, and only that one.** THE WISP's bands
+ * (`wisp-static.ts`) borrow the jitter and nothing else: one copy of the
+ * three-frequency trick rather than two that drift apart. What they do with it
+ * is the opposite of what happens below — a ghost's bands all stay and slide,
+ * a wisp's hold their place and drop out — so the two creatures never read as
+ * one treatment. Everything from `Slab` down is this creature's alone.
  */
 
 /** How many bands the body is cut into. Enough to read as torn, few enough

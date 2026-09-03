@@ -32,6 +32,14 @@ const TENTACLES = 5;
  *
  * The sway is on the contour's own clock, so a streamer breathes with the
  * bell it hangs off rather than on a second clock of its own.
+ *
+ * **And they come and go the way the bell does.** A fringe drawn solid under a
+ * body full of holes would be the one part of this creature claiming to be
+ * entirely present, and an eye goes to the part that is certain — which is
+ * exactly the wrong part here. Each strand carries its own hold, on the same
+ * two-frequency reading `wisp-static.ts` gives a band, so the whole picture is
+ * one signal being received rather than a solid fringe under an unreliable
+ * dome.
  */
 export function drawTentacles(
   ctx: CanvasRenderingContext2D,
@@ -42,6 +50,7 @@ export function drawTentacles(
   dive: number,
   air: number,
   heading: number,
+  noise: number,
   haze: (hex: string) => string,
 ): void {
   // Short when gathered, short when splashed, longest at the two ends of the
@@ -69,9 +78,13 @@ export function drawTentacles(
     // identical strands: an even fringe reads as a hem, and a hem does not
     // move separately from the body it is on.
     const middle = Math.abs(k) < 1.5;
+    // This strand's share of the signal. Never quite zero: a streamer that
+    // vanished outright would take the fringe's *count* with it, and five is
+    // part of what makes the body one word.
+    const hold = 0.25 + 0.75 * Math.max(0, Math.min(1, 0.62 + wave(t, i) * 0.5 - noise * 0.5));
     ctx.strokeStyle = haze(middle ? PALETTE.wispRim : PALETTE.wisp);
     ctx.lineWidth = middle ? ry * 0.09 : ry * 0.06;
-    ctx.globalAlpha = middle ? 0.9 : 0.7;
+    ctx.globalAlpha = (middle ? 0.9 : 0.7) * hold;
     ctx.beginPath();
     ctx.moveTo(bx, by * 0.4);
     ctx.bezierCurveTo(
@@ -85,4 +98,13 @@ export function drawTentacles(
     ctx.stroke();
   }
   ctx.restore();
+}
+
+/** One strand's own two-frequency wobble, in −1 to 1. The same shape of answer
+ * `wispBands` uses and deliberately not the same numbers: a fringe that faded
+ * in step with the band above it would read as one shutter over the whole
+ * body, which is a screen effect rather than a body. */
+function wave(t: number, i: number): number {
+  const k = i * 1.73 + 0.6;
+  return Math.sin(t * 2.3 + k) * 0.55 + Math.sin(t * 4.1 + k * 1.9) * 0.45;
 }
