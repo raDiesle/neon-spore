@@ -52,6 +52,11 @@ export interface MenuDom {
    * the other player (`confirm.ts`), and asking happens in the entry's place.
    */
   entryRoot: (key: string) => HTMLElement | undefined;
+  /**
+   * The line under the tagline saying how far this device has got. An empty
+   * string takes it off the page, which is a device that has never played.
+   */
+  setProgress: (line: string) => void;
   /** The spore breathes only while the menu is up. */
   animate: (on: boolean) => void;
 }
@@ -83,10 +88,15 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const spore = sporeSvg();
   const title = el("h1", undefined, "NEON SPORE");
   title.dataset.text = "NEON SPORE";
+  // How far this device has got, under the tagline. Empty and hidden until
+  // there is something to say — see `progress.ts`.
+  const progress = el("p", "progress");
+  progress.hidden = true;
   inner.append(
     spore.svg,
     title,
     el("p", "tag", "TWO PEOPLE · TWO DEVICES · TALKING IS THE CONTROL SCHEME"),
+    progress,
   );
 
   const rootPage = el("div", "page on");
@@ -136,6 +146,10 @@ export function buildMenu(h: MenuHandlers): MenuDom {
       if (next.on !== undefined) found.root.classList.toggle("off", !next.on);
     },
     entryRoot: (key) => entries.get(key)?.root,
+    setProgress: (line) => {
+      progress.textContent = line;
+      progress.hidden = line === "";
+    },
     animate: spore.animate,
   };
 }

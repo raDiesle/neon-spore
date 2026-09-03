@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
+import { reached, scored, updateProgress } from "./progress.js";
 
 /**
  * Wave progression: the two ways a wave starts, and the clock that carries its
@@ -84,8 +85,15 @@ export function createWaveProgression({
   let left = 0;
   /** The world tick the acks were sent on, or -1 while none has been sent. */
   let sentAtTick = -1;
+  /** Whether this run's final score has already been written down. */
+  let ended = false;
 
   const open = (wave: number): void => {
+    // How far this device has got, remembered here because here is where a
+    // wave is reached — and the score with it, so a run put down mid-way still
+    // leaves the number it was on. Solo and per device: it never touches the
+    // room (`progress.ts`).
+    updateProgress((p) => scored(reached(p, wave), world.score));
     startWave(
       world,
       wave,
@@ -103,6 +111,13 @@ export function createWaveProgression({
       if (e.type !== "needWave") continue;
       open(e.wave);
     }
+    // The end of a run is the one score worth keeping that no wave opening
+    // will ever record, because there is no wave after it.
+    if (world.over && !ended) {
+      ended = true;
+      updateProgress((p) => scored(p, world.score));
+    }
+    if (!world.over) ended = false;
   };
 
   const jumpToWave = (wave: number): void => {

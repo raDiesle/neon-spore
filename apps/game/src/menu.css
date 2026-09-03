@@ -144,6 +144,16 @@
   color: #6f639f;
 }
 
+/* How far this device has got. Quieter than the tagline above it: it is a
+   fact about the last time rather than a thing to read on the way in. */
+#menu .progress {
+  margin: -14px 0 22px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #8b7fc4;
+}
+
 /* One page at a time: the entries, the wave list, or the keys. */
 #menu .page {
   display: none;

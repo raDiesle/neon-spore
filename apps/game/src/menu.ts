@@ -1,10 +1,12 @@
-import { type MechanicId, WAVES } from "@neon-spore/content";
+import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
 import { roomLine } from "./join-words.js";
+import { menuEntries } from "./menu-entries.js";
 import { buildMenu } from "./menu-view.js";
+import { progressLine, readProgress } from "./progress.js";
 import type { RunState } from "./run-state.js";
 
 /**
@@ -119,67 +121,18 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   };
 
   const dom = buildMenu({
-    entries: [
-      {
-        key: "resume",
-        label: "RESUME",
-        desc: "Back to the field.",
-        run: () => {
-          b.run.hold("hand", false);
-          close();
-        },
+    entries: menuEntries({
+      resume: () => {
+        b.run.hold("hand", false);
+        close();
       },
-      {
-        key: "play",
-        label: "PLAY",
-        desc: "Start at the first wave, both seats on this device.",
-        run: () => play(0),
-      },
-      {
-        key: "room",
-        label: "TWO DEVICES",
-        desc: "Open a room and read the code out, or type in the one you were told.",
-        run: () => {
-          close();
-          b.openRoom();
-        },
-      },
-      {
-        key: "waves",
-        label: "WAVES",
-        desc: `All ${WAVES.length} authored waves, each by the sentence it exists for.`,
-        run: () => dom.show("waves"),
-      },
-      {
-        key: "demos",
-        label: "DEMOS",
-        desc: `One wave per mechanic, ${b.demos.length} in all, already switched on.`,
-        run: () => dom.show("demos"),
-      },
-      {
-        key: "keys",
-        label: "CONTROLS",
-        desc: "The keys, for one person at a desk playing both halves.",
-        run: () => dom.show("keys"),
-      },
-      {
-        key: "tuning",
-        label: "TUNING",
-        desc: "Tempo, the guard window, the intake window — the sliders, while it runs.",
-        run: () => {
-          close();
-          b.openTuning();
-        },
-      },
-      {
-        key: "leave",
-        label: "LEAVE ROOM",
-        desc: "Hang up and go back to one device. The other phone is told.",
-        // The press is answered by the two-step bound below, which asks in
-        // place before anything reaches `leaveRoom`. Nothing to do here.
-        run: () => {},
-      },
-    ],
+      play,
+      close,
+      show: (page) => dom.show(page),
+      openRoom: b.openRoom,
+      openTuning: b.openTuning,
+      demoCount: b.demos.length,
+    }),
     demos: b.demos,
     onWave: play,
     onDemo: playDemo,
@@ -204,6 +157,15 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   const paintLink = (): void => {
     dom.setEntry("resume", { on: opened, desc: `Back to wave ${b.wave() + 1}.` });
     dom.setEntry("play", { on: !inRoom() });
+    // How far this device has got: the line under the title, and the entry
+    // that goes back there. Both off for a device that has never played, and
+    // in a room, where the wave is the pair's rather than this device's.
+    const far = readProgress();
+    dom.setProgress(inRoom() ? "" : progressLine(far));
+    dom.setEntry("continue", {
+      on: !inRoom() && far.furthest > 0,
+      desc: `From wave ${far.furthest + 1}, where this device got to.`,
+    });
     dom.setEntry("leave", { on: inRoom() });
     // The entry itself goes off with the room; its question has to go with it,
     // because the row is the entry's sibling rather than its child.

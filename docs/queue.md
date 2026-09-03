@@ -364,22 +364,6 @@ page, so it is provable with `bun run check`; if a wording choice feels like a
 design call rather than a description, leave it plain and note it in the report
 rather than inventing flourish.
 
-## The menu remembers how far this device has got
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-menu-remembers-how-far-this-device-has-got
-- **Files:** `apps/game/src/progress.ts`, `apps/game/src/waves.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/test/progress.test.ts`
-
-The front door knows only PLAY versus RESUME. Give it the furthest wave reached
-and the last score, per device, in `localStorage` (a `progress.ts` with pure
-read/update helpers, tested without a DOM). The wave progression
-(`apps/game/src/waves.ts`) is where a wave is reached and a score changes, so
-record it there; the menu reads it to add a line under the title ("Furthest:
-wave 7 · Last score 12300") and to point PLAY at a "continue from your
-furthest" option beside "start over". Solo-only and per device — this is a
-convenience, not shared state, so it never touches the room or the wire. Keep
-the writes wrapped in try/catch like the other `localStorage` users.
-`bun run check` proves it.
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
