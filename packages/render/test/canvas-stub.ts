@@ -2,12 +2,12 @@
  * A canvas that answers like the real one and complains where the real one
  * would — or, in a few places, where the real one silently would not.
  *
- * `packages/render` is the one package with no tests, because its output is
- * pixels and pixels are not assertable. Its *arguments* are: a colour the
- * browser cannot parse, a coordinate that came out NaN, a negative radius.
- * Every one of those is a crash or an invisible object in the running game and
- * nothing at all in a type check. So the stub is strict, and a frame drawn
- * through it either passes or names the call that was wrong.
+ * A frame's output is pixels, and pixels are not assertable. Its *arguments*
+ * are: a colour the browser cannot parse, a coordinate that came out NaN, a
+ * negative radius. Every one of those is a crash or an invisible object in
+ * the running game and nothing at all in a type check. So the stub is strict,
+ * and a frame drawn through it either passes or names the call that was
+ * wrong.
  *
  * Bun has no DOM, so this also installs the two globals render/ reaches for:
  * `document.createElement("canvas")` (glow sprites, the dither tile) and

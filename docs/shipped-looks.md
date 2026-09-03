@@ -23,8 +23,8 @@ commit that fixes it.
 `docs/tower-defence.md` reads off Neon Pulsefire, and this project arrived at
 it independently: a creature shot in the wrong colour drops its glow, its
 trail and its halo, and is drawn as a **grey outline only**
-(`creatures.ts`, the `blocked > 0` branch). Nothing else about the drawing
-changes — same contour, same size, same position. The light going out *is* the
+(`living-draw.ts`, the `blocked > 0` branch in `drawLiving`). Nothing else
+about the drawing changes — same contour, same size, same position. The light going out *is* the
 message that the shot was spent.
 
 Anything added to the field has to keep that true. A glow that stayed on
@@ -33,14 +33,14 @@ looking at a number.
 
 ## Slick and bulb
 
-`packages/render/src/creatures.ts`, `drawCreature`. In draw order:
+`packages/render/src/living-draw.ts`, `drawLiving`. In draw order:
 
 | Pass | What | Numbers |
 |---|---|---|
 | fill | flat dark body | the creature's `dark` |
 | **glow** | `strokeGlow` — the same path stroked repeatedly, widest and faintest first, additively | 3 passes (`STROKE.glowPasses`), spread 5 (`STROKE.glowSpread`), alpha `0.1 / i`, composite `lighter`, then the crisp outline at `max(1, r * 0.1)` |
 | detail | `drawDetails` — see below | inner drawing thinner than the outline |
-| **tail** | `drawMotionTrail` — two halos strung *upward* | at `0.85r` and `0.73r`, a quarter tile apart, alpha `(1 - k/5) * 0.4 * 0.5`, slid sideways by `sin(t*3 + k) * tile * 0.05 * k` |
+| **tail** | `drawMotionTrail` — two halos strung *upward* | at `0.73r` and `0.61r` (`r * (0.85 - k * 0.12)` for k = 1, 2), a quarter tile apart, alpha `(1 - k/5) * 0.4 * 0.5`, slid sideways by `sin(t*3 + k) * tile * 0.05 * k` |
 | **glow** | one halo around the whole body | `1.9r`, alpha `0.16` |
 
 `strokeGlow` exists to avoid `ctx.shadowBlur`, which `glow.ts` names as the
@@ -51,8 +51,8 @@ have to come from a small fixed set or it grows a canvas per frame.
 
 **The difference between a slick and a bulb is `drawDetails` and nothing
 else.** A slick gets two dots at `(±0.12rx, 0.2ry)`, radius `0.07ry`. A bulb
-gets one core dot at `(0, 0.3ry)` and two filament curves sweeping up and out,
-stroked in the rim colour at half alpha. Same glow, same halo, same trail.
+gets one core dot at `(0, 0.3ry)`, radius `0.09ry`, and nothing else. Same
+glow, same halo, same trail.
 
 The tail is worth a second look while it is written down: **two steps of a
 quarter tile is less than one body-height of trail**, and it is made of the
