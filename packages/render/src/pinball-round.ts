@@ -2,15 +2,10 @@ import { controlSetForWave } from "@neon-spore/content";
 import { PINBALL_MORPH_BEATS, type PinballState, pinTargetsLeft } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import {
-  drawPinBall,
-  drawPinBucket,
-  drawPinCase,
-  drawPinPieces,
-  pinAt,
-  pinTable,
-  type Table,
-} from "./pinball-table.js";
+import { drawAim, drawPowerBar } from "./pinball-aim.js";
+import { drawPinBucket, drawPinLoaded } from "./pinball-bucket.js";
+import { drawPinPieces } from "./pinball-piece.js";
+import { drawPinBall, drawPinCase, pinTable } from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
 import { slabPanel } from "./slabs.js";
 
@@ -23,7 +18,7 @@ import { slabPanel } from "./slabs.js";
  *
  * **Both seats are shown the same table**, which is the one place this round
  * differs from every other one in the game, and it was the owner's decision
- * rather than an omission: the coupling here is in the *verbs* — three presses
+ * rather than an omission: the coupling here is in the *verbs* — two presses
  * that have to arrive from alternating seats in one order — rather than in
  * what each screen knows. `showsPinPieces` below is the seam that would change
  * that, and it is written as a role predicate for exactly that reason: making
@@ -59,11 +54,15 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
   drawTitle(ctx, l, view.role, boss);
   drawPinCase(ctx, table);
   if (boss.phase !== "morph") {
-    if (showsPinPieces(view.role)) drawPinPieces(ctx, table, boss);
+    if (showsPinPieces(view.role)) drawPinPieces(ctx, table, boss, view.time);
     drawAim(ctx, table, view, boss);
     if (boss.shot === "flight") drawPinBall(ctx, table, boss, cfg.pinballBallMilli);
   }
   drawPinBucket(ctx, table, boss, cfg.pinballBucketMilli, dropFlash(view, boss));
+  if (boss.phase === "play" && boss.shot !== "flight") {
+    drawPinLoaded(ctx, table, boss, cfg.pinballBucketMilli, cfg.pinballBallMilli);
+  }
+  drawPowerBar(ctx, l, table, boss);
   drawTally(ctx, l, view, boss);
   drawControls(ctx, l, view);
   if (boss.phase === "verdict") drawVerdict(ctx, l, boss);
@@ -74,52 +73,6 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
 function dropFlash(view: ViewState, boss: PinballState): number {
   if (boss.dropBeat < 0) return 0;
   return Math.max(0, 1 - (view.world.beat - boss.dropBeat + view.beatPhase));
-}
-
-/**
- * The dotted ray out of the bucket: where the ball will set off, and — once
- * the needle is latched — how hard.
- *
- * A straight line and never a predicted bounce. Drawing the trajectory would
- * answer the question the pair are supposed to be arguing about, and it is
- * also the one thing on this screen that would have to agree with the
- * simulation tick for tick to be worth anything.
- */
-function drawAim(
-  ctx: CanvasRenderingContext2D,
-  t: Table,
-  view: ViewState,
-  boss: PinballState,
-): void {
-  if (boss.shot === "flight") return;
-  const cfg = view.world.cfg;
-  const from = pinAt(t, boss.bucketMilli, t.rows * 1000 - cfg.pinballBucketMilli);
-  const angle = (boss.angleMilli / 1000) * (Math.PI / 180);
-  // During the sweep it is a fixed stub — the angle is the only thing being
-  // decided. Once it is latched the line breathes with the bar, which is the
-  // strength being decided in the one channel the pair are already watching.
-  const reach =
-    boss.shot === "aim" ? t.tile * 3 : t.tile * (2.5 + (boss.powerMilli / 1000) * (t.rows * 0.62));
-  const to = {
-    x: from.x + Math.sin(angle) * reach,
-    y: from.y - Math.cos(angle) * reach,
-  };
-  ctx.save();
-  ctx.strokeStyle = boss.armed ? PALETTE.pod : PALETTE.sparkDim;
-  ctx.lineWidth = Math.max(1.5, t.tile * 0.07);
-  ctx.setLineDash([t.tile * 0.22, t.tile * 0.24]);
-  ctx.beginPath();
-  ctx.moveTo(from.x, from.y);
-  ctx.lineTo(to.x, to.y);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  if (boss.shot === "power") {
-    ctx.fillStyle = PALETTE.podRim;
-    ctx.beginPath();
-    ctx.arc(to.x, to.y, t.tile * 0.16, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.restore();
 }
 
 /** The name, and the one line that says whose press the round is waiting for. */
@@ -141,14 +94,18 @@ function drawTitle(
  * Whose turn it is, said on both screens. The one thing that differs between
  * them is whether it says "you" or "them", which is not an information split —
  * it is the same fact, addressed.
+ *
+ * Two states rather than three, since the sweep is no longer opened by a press
+ * (`packages/sim/src/pinball-controls.ts`): the needle is player 1's to stop
+ * and the bar is player 2's to fire on.
  */
 function waiting(role: ViewRole, boss: PinballState): string {
   if (boss.phase === "morph") return "the ship is folding into the bucket";
   if (boss.shot === "flight") return "get under it";
-  const mine = boss.shot === "power" ? role !== "p1" : boss.armed ? role !== "p2" : role !== "p1";
+  const mine = boss.shot === "power" ? role !== "p1" : role !== "p2";
   const who = mine ? "you" : "they";
-  if (boss.shot === "power") return `${who} pick the strength`;
-  return boss.armed ? `${who} stop the needle` : `${who} open the sweep`;
+  if (boss.shot === "power") return `${who} fire on the bar`;
+  return `${who} stop the needle`;
 }
 
 /** Targets left, the clock, and what the drops have cost so far. */

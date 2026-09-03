@@ -118,13 +118,13 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "slab",
     label: "SET",
-    does: "Stops the sweeping needle where it stands. Does nothing until player 2 has opened the sweep.",
+    does: "Stops the sweeping needle where it stands, and the strength bar starts on the same press.",
   },
   {
     id: "pinLaunch",
     player: 2,
     form: "slab",
     label: "FIRE",
-    does: "Opens the aiming sweep, and then fires on the power bar. One button, and which of the two it is is whatever the screen is showing.",
+    does: "Fires, at whatever strength the bar is at that moment. It answers only once the needle has been stopped, which is the half of a shot that is not player 2's.",
   },
 ];

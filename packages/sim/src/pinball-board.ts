@@ -200,7 +200,6 @@ export function pinballHashParts(boss: PinballState): number[] {
   out.push(boss.round);
   out.push(boss.roundBeat);
   out.push(PIN_SHOTS.indexOf(boss.shot));
-  out.push(boss.armed ? 1 : 0);
   out.push(boss.angleMilli);
   out.push(boss.angleDir);
   out.push(boss.powerMilli);

@@ -16,10 +16,10 @@ import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-h
  *
  * A round replaces the picture, so no frame of the field ever reaches a line
  * of it — and a table nobody presses anything on is a sweep that walks for
- * half a minute and a ball that never leaves. The three verbs are pressed in
- * the order the round demands (open the sweep, latch it, launch on the bar),
- * and the bucket is slid under whatever comes down, so the aim, the power bar,
- * a ball in flight, a lit piece and the bucket in motion are all drawn.
+ * half a minute and a ball that never leaves. The two verbs are pressed in the
+ * order the round demands (latch the needle, launch on the bar), and the
+ * bucket is slid under whatever comes down, so the aim fan, the power bar, a
+ * ball in flight, a lit piece and the bucket in motion are all drawn.
  */
 
 beforeAll(installCanvasGlobals);
@@ -51,11 +51,9 @@ function pinballFrames(role: ViewRole, ticks: number) {
             watched.cleared,
             p.alive.filter((standing) => !standing).length,
           );
-          // Open the sweep, hand the latch over, and fire on the bar a few
-          // ticks later so the power reading is not always the same one.
-          if (p.shot === "aim" && !p.armed) {
-            commands.push({ tick, player: 2, command: { kind: "launch" } });
-          } else if (p.shot === "aim") {
+          // Stop the needle, and fire on the bar a few ticks later so the
+          // power reading is not always the same one.
+          if (p.shot === "aim") {
             commands.push({ tick, player: 1, command: { kind: "latch" } });
           } else if (p.shot === "power" && tick % 7 === 0) {
             commands.push({ tick, player: 2, command: { kind: "launch" } });

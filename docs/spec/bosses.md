@@ -658,14 +658,26 @@ the design: **where you fire from is where you must not be a second later**.
 The seat holding the bucket spends every shot undoing the position they took to
 aim it.
 
-**Three presses, alternating seats, in one order.** Player 2 opens the sweep
-with FIRE; a needle walks across the arc and player 1 stops it with SET; a
-power bar then grows and shrinks and player 2 fires on it with FIRE again. One
-seat owns *where from* and *which way*, the other owns *when* and *how hard*,
-and neither half is a shot. `PinballState.armed` is what holds the order: the
-needle sweeps from the moment the shot resets so both screens show the same
-arc, and the latch does nothing until player 2 has opened it — so the pair
-cannot skip the half belonging to the seat that did not start it.
+**Two presses, alternating seats, in one order.** A needle walks across the arc
+from the moment a shot resets and player 1 stops it with SET; the power bar
+starts on that same press, and player 2 fires on it with FIRE. One seat owns
+*where from* and *which way*, the other owns *when* and *how hard*, and neither
+half is a shot.
+
+**There were three, and the first one was cut.** Player 2 used to have to open
+the sweep before player 1 was allowed to latch it, held by a
+`PinballState.armed` flag. The order it bought was real and the press was not:
+the needle was already walking when it arrived, so the only thing on either
+screen that changed was the colour of a line — and the seat that pressed it then
+pressed the same button again to fire. Removed on the owner's call. The
+alternation survives, carried now by the two presses that each do the thing
+their screen is showing.
+
+**The arc is ±48°, and it was ±75°.** The wide one spent most of its sweep
+pointing at a side wall a tile away, so its two ends were the same shot twice
+and neither was worth a sentence. `pinballNeedleMilli` came down with it, from
+190 to 122, so the sweep still takes the same six and a half seconds to cross:
+what got smaller is the fan of answers, not the time to talk about them.
 
 **The sweep takes six and a half seconds, and that number is the round.** THE
 GAUGE's needle crosses in 2.8 s and is meant to be fought with a thumb. A
@@ -676,6 +688,18 @@ reflex round, which is the thing the beat exists to prevent
 ([interludes](interludes.md)). At `pinballNeedleMilli` the call lands while the
 needle is still short of where it was called, and "further… further… now" is a
 sentence rather than a race.
+
+**The pair are shown where the ball will actually go.** Not a hint and not a
+drawing of one: the preview is `pinLaunchVelocity` stepped by `stepBall`
+against the pieces really standing, cut at the first thing it touches, so there
+is no second copy of the gravity or the bounce anywhere in `packages/render`.
+During the sweep it is two arcs — the weakest and the strongest that angle can
+throw, which is the fan it reaches — and on the bar it collapses to the one
+live arc. What it never shows is the cascade after first contact, which is the
+part the pair are there to argue about. Asked for by the owner, against the
+line this file used to carry saying a trajectory would answer the round's own
+question; the fan is the shape that answers *where*, and leaves *what happens
+then* alone.
 
 **Both seats see the same table, and it is the one round where that is true.**
 That was the owner's decision, made against the recommendation, and it is

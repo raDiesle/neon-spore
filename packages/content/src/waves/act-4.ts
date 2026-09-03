@@ -210,7 +210,7 @@ export const WAVES_ACT_4: Wave[] = [
     guide: {
       both: "The ship folds into a bucket. One ball goes up out of it, comes down through the table, and the same bucket has to be under it when it lands — or the hull pays. Only the lit pieces have to go.",
       p1: "You hold the bucket and you stop the needle. Slide to where the shot should start, then SET the moment they have talked you onto the angle — and then get back under wherever the ball is coming down.",
-      p2: "You open the sweep with FIRE and you fire with it again. The needle takes six seconds to cross, so talk them onto the angle rather than racing it, then pick the strength off the bar.",
+      p2: "You fire, and only once they have stopped the needle. The sweep takes six seconds to cross, so talk them onto the angle rather than racing it — then the bar fills and empties, and FIRE is the strength you take off it.",
     },
     entries: [],
     boss: { kind: "pinball", rounds: PINBALL_ROUNDS },

@@ -289,7 +289,6 @@ function patchBoss(world: World): void {
     boss.passed = true;
     boss.roundBeat = 5;
     boss.shot = "flight";
-    boss.armed = true;
     boss.angleMilli = 21_000;
     boss.angleDir = -1;
     boss.powerMilli = 640;

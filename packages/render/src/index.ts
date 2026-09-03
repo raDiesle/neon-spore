@@ -31,16 +31,10 @@ export {
 } from "./layout.js";
 export { THROB_SWELL } from "./living-draw.js";
 export { PALETTE, STROKE } from "./palette.js";
+export { drawPinBucket, drawPinLoaded } from "./pinball-bucket.js";
+export { drawPinPieces } from "./pinball-piece.js";
 export { drawPinballRound, pinMorph01, showsPinPieces } from "./pinball-round.js";
-export {
-  drawPinBall,
-  drawPinBucket,
-  drawPinCase,
-  drawPinPieces,
-  pinAt,
-  pinTable,
-  type Table,
-} from "./pinball-table.js";
+export { drawPinBall, drawPinCase, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";

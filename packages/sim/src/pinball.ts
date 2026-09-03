@@ -18,13 +18,21 @@ import type { World } from "./world.js";
  * where you must not be a second later, so the seat holding the bucket is
  * spending the shot undoing the position they took to aim it.
  *
- * **The three presses.** Player 2 opens the sweep; the needle walks across the
- * arc and player 1 latches it; a power bar then grows and shrinks and player 2
+ * **The two presses.** The needle walks the arc from the moment a shot resets
+ * and player 1 latches it; a power bar then grows and shrinks and player 2
  * launches on it. So one seat owns *where from* and *which way*, the other
  * owns *when* and *how hard*, and neither half of an aim is a shot on its own.
  * The sweep takes six and a half seconds on purpose — a spoken exchange in
  * this game runs 2.1–3.6 s (`docs/spec/latency.md`), and a needle that could
  * not be talked over would be a test of two thumbs.
+ *
+ * **There used to be a third press**, player 2's, which opened the sweep
+ * before player 1 was allowed to latch it. It bought the order and cost the
+ * round its shape: the needle was already walking when it was pressed, so the
+ * press changed nothing either player could see except the colour of a line,
+ * and the seat that pressed it then had to press the same button again to
+ * fire. Taken out on the owner's call. The alternation is still there and it
+ * is now carried by the two presses that do something.
  *
  * **Nothing here is the field.** No hull is drawn, no column is named and the
  * ball travels — which the field forbids and a round does not
@@ -107,16 +115,6 @@ export interface PinballState {
    */
   lit: number[];
   shot: PinShot;
-  /**
-   * Whether player 2 has opened this sweep yet.
-   *
-   * The needle walks from the moment the shot resets, so both screens show the
-   * same arc before anybody has pressed anything — but the latch does nothing
-   * until this is true. That is what keeps the three presses in their order: a
-   * pair cannot skip the half of the shot belonging to the seat that did not
-   * open it, and player 1 cannot latch an aim player 2 never started.
-   */
-  armed: boolean;
   /** The needle, in thousandths of a degree either side of straight up. */
   angleMilli: number;
   /** Which way it is sweeping. It turns at each end and never wraps. */
@@ -157,7 +155,6 @@ export function openPinball(world: World, rounds: readonly PinballRound[]): Pinb
     alive: [],
     lit: [],
     shot: "aim",
-    armed: false,
     angleMilli: 0,
     angleDir: 1,
     powerMilli: 0,
@@ -206,7 +203,6 @@ export function pinTargetsLeft(state: PinballState): number {
  */
 export function resetShot(state: PinballState): void {
   state.shot = "aim";
-  state.armed = false;
   state.angleDir = 1;
   state.powerMilli = 0;
   state.powerDir = 1;

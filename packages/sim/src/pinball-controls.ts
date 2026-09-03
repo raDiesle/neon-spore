@@ -5,18 +5,19 @@ import type { World } from "./world.js";
 /**
  * The three verbs of the round, and the two seats they are split between.
  *
- * Player 1 slides the bucket and latches the needle; player 2 opens the sweep
- * and launches on the bar. The seat check is a rule of the simulation rather
- * than a coat of paint on the picture, for the reason THE GAUGE's and SNAKE's
- * are: a pilot who could also launch would be playing both halves of a shot
- * whose whole content is that he cannot, and both devices have to agree
- * exactly which presses counted.
+ * Player 1 slides the bucket and latches the needle; player 2 fires on the
+ * bar. The seat check is a rule of the simulation rather than a coat of paint
+ * on the picture, for the reason THE GAUGE's and SNAKE's are: a pilot who
+ * could also launch would be playing both halves of a shot whose whole content
+ * is that he cannot, and both devices have to agree exactly which presses
+ * counted.
  *
- * **One button, two meanings, and the phase decides which.** `launch` opens
- * the sweep while the shot is at `aim` and fires it at `power` — one wide slab
- * on player 2's screen and no mode to explain, because the thing it is about
- * to do is the thing their screen is currently showing. A second button would
- * be a second thing to be pressed at the wrong moment.
+ * **Two presses, and each of them does the thing its screen is showing.** SET
+ * freezes the needle where it stands and the bar starts; FIRE launches on the
+ * bar, that tick, at the strength the bar is at. There is no mode to explain
+ * and no press that only unlocks another press — the one that used to, player
+ * 2's opening of the sweep, was taken out because the needle was already
+ * walking when it arrived (`pinball.ts`).
  *
  * **Nothing either of them can press reaches a ball already in the air.** That
  * is the round's one piece of held breath: an aim is argued over for as long
@@ -42,18 +43,15 @@ export function pinballHeard(
     // The pilot's too, and the pairing is the point: the seat that chose
     // *where from* also chooses *which way*, so one player's half of an aim is
     // a place and a direction and the other's is a moment and a strength.
-    if (player !== 1 || state.shot !== "aim" || !state.armed) return;
+    // The angle is frozen by leaving `aim`: nothing steps `angleMilli` in any
+    // other shot, so the needle stops on the tick this arrives.
+    if (player !== 1 || state.shot !== "aim") return;
     state.shot = "power";
     return;
   }
   if (command.kind !== "launch" || player !== 2) return;
-  if (state.shot === "aim") {
-    // The needle is already walking — it does that from the moment the shot
-    // resets, so both screens show the same arc before anybody has pressed
-    // anything. What this press does is hand the latch to player 1
-    // (`PinballState.armed`).
-    state.armed = true;
-    return;
-  }
+  // Only on the bar. During the sweep the navigator has nothing to press, and
+  // a button that quietly did nothing would be worse than one that is not
+  // theirs yet — which is what the picture says instead.
   if (state.shot === "power") launchBall(world, state);
 }

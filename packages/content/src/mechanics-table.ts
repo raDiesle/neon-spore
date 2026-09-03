@@ -198,7 +198,7 @@ export const MECHANICS = {
     reach: "spawn",
   },
   pinball: {
-    what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other opens the sweep and picks the strength — and then the same bucket has to be under the ball when it comes back down.",
+    what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other picks the strength off a bar and fires — and then the same bucket has to be under the ball when it comes back down.",
     reach: "spawn",
   },
   briefing: {

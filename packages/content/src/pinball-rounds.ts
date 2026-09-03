@@ -125,15 +125,25 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
  * The three boards, and they are a difficulty curve in the one currency this
  * round has: **how far a target is from a lane the ball can come back down.**
  *
+ * **The pegs are chained rather than scattered.** They used to sit on
+ * alternating squares, a tile of air on every side, and a ball fell through
+ * that board the way it falls through nothing — one peg at a time, at random,
+ * with nothing to aim along. Drawn on the owner's call as **tracks** instead:
+ * runs of pegs shoulder to shoulder, so a ball arriving at one end of a run
+ * skids down the whole of it. That is what a cluster is for, and it is the
+ * difference between "hit that peg" and "come in along the top and let it
+ * run".
+ *
  * **The first** is open, so almost any launch that goes up comes back through
- * something and the pair learns what a bounce does. Four targets spread across
- * it: every launch finds one.
+ * something and the pair learns what a run does. Five targets under and beside
+ * the arcs: every launch finds one.
  *
  * **The second** puts two walls across the middle, which is where blocks start
  * mattering — a flat face returns a ball along a line the pair can predict out
  * loud, and that is the board where "bank it off the left wall" becomes a
  * sentence. A ball straight up comes straight back; the way in is off a side
- * wall and along a block.
+ * wall and along a block. The target in the middle is buried inside a closed
+ * band of pegs, so it is reached along a track and not through one.
  *
  * **The third** is a funnel. The middle is a chute back to the bucket and
  * worth nothing; the targets are in the shoulders and only a wall bounce
@@ -156,15 +166,15 @@ export const PINBALL_ROUNDS: PinballRound[] = [
     beats: 44,
     pieces: pinBoard(`
       ...........
-      ..o.o.o.o..
-      .o.O.o.O.o.
-      ..o.o.o.o..
+      ..ooooooo..
+      .oo.....oo.
+      .O.......O.
       ...........
-      .o.o.O.o.o.
-      ..o.o.o.o..
+      ..ooOoOoo..
+      .oo.....oo.
       ...........
-      ...o.O.o...
-      ...........
+      ...ooooo...
+      ....oOo....
       ...........
     `),
   },
@@ -173,28 +183,28 @@ export const PINBALL_ROUNDS: PinballRound[] = [
     pieces: pinBoard(`
       ...........
       ..O.....O..
-      .o.o...o.o.
+      .oo.....oo.
+      .ooo...ooo.
       .===...===.
       ...........
-      ..o.o.o.o..
-      .o.o.#.o.o.
-      ...........
+      ..ooooooo..
+      .oo..#..oo.
+      ..ooooooo..
       ....===....
       ...o.O.o...
-      ...........
     `),
   },
   {
     beats: 52,
     pieces: pinBoard(`
       .O.......O.
-      .o.......o.
       .oo.....oo.
-      ..=o...o=..
-      ...o...o...
+      .ooo...ooo.
+      ..=oo.oo=..
+      ...oo.oo...
       ...O...O...
-      ...o...o...
-      ....o.o....
+      ...oo.oo...
+      ....ooo....
       ....===....
       ...........
       .....O.....

@@ -82,7 +82,7 @@ export interface PinballConfig {
  * slower one turns every shot into waiting and a faster one is over before
  * either player has said anything about it.
  *
- * `pinballNeedleMilli: 190` sweeps the needle across its whole arc in about
+ * `pinballNeedleMilli: 122` sweeps the needle across its whole arc in about
  * six and a half seconds. That number is the round: a spoken exchange in this game
  * takes 2.1–3.6 s (`docs/spec/latency.md`), so a sweep this slow is one a pair
  * can talk *during* — "further… further… now" lands while the needle is still
@@ -105,10 +105,17 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   pinballWallPermille: 820,
   pinballLaunchMilli: 250,
   pinballWeakPermille: 450,
-  // Seventy-five degrees either side of straight up: the needle covers
-  // everything above the bucket and never points at the floor it just left.
-  pinballSweepMilli: 75_000,
-  pinballNeedleMilli: 190,
+  // Forty-eight degrees either side of straight up. It was seventy-five, and
+  // an arc that wide spent most of its sweep pointing at a side wall a tile
+  // away — the two ends of it were the same shot twice and the pair could say
+  // nothing useful about either. Narrowed on the owner's call: the needle now
+  // covers the board rather than the cabinet, and every degree of it is a
+  // different answer.
+  pinballSweepMilli: 48_000,
+  // Narrowed with the arc, so the sweep still takes the same six and a half
+  // seconds to cross: 122 over ±48° is 190 over ±75°. The arc is what got
+  // smaller; the sentence the pair say over it is not.
+  pinballNeedleMilli: 122,
   // A hundred and twenty-five ticks to full and as many back, so the bar's
   // whole cycle is 2.1 s — the short end of a spoken exchange, deliberately.
   pinballPowerMilli: 8,

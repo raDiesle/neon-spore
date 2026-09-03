@@ -20,7 +20,7 @@ import { type Command, pinballHolds, type World } from "@neon-spore/sim";
  * game is right.
  *
  * **Both seats, from one mouse.** Every slab is on screen in `test`, and the
- * three presses of a shot alternate between the seats — so one person at a
+ * two presses of a shot alternate between the seats — so one person at a
  * desk has to be able to reach all four, or the round cannot be tried at all.
  *
  * **Two of the four are held**, and they are the bucket's: a thing that has to

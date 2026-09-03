@@ -105,10 +105,10 @@ export type Command =
    * presses at a ball in the air would be two people doing arithmetic instead
    * of talking. `latch` is player 1's too and stops the sweeping needle.
    *
-   * `launch` is player 2's, and it is one button that means two things by the
-   * phase the shot is in: it opens the sweep, and then it fires on the power
-   * bar. One slab and no mode to explain — what it is about to do is what
-   * their screen is already showing (`pinball-controls.ts`).
+   * `launch` is player 2's, and it fires on the power bar. It used to mean a
+   * second thing before that — opening the sweep — and did not survive being
+   * looked at: the needle was already walking when it arrived
+   * (`pinball-controls.ts`).
    */
   | { kind: "slide"; on: boolean; dir: -1 | 1 }
   | { kind: "latch" }
