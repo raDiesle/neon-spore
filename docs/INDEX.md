@@ -431,7 +431,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp.ts` | you are timing a wisp's jump against the beat, or deciding which screen sees one |
 | `packages/render/src/ghost-glitch.ts` | THE GHOST's camouflage: the thing it is wearing instead of being invisible |
 | `packages/render/src/ghost-release.ts` | A ghost let go of, and the one moment both screens carry this creature |
-| `packages/render/src/ghost-row.ts` | What player 1 gets instead of the body: a band across the row it is in, and nothing whatever about the column |
+| `packages/render/src/ghost-row.ts` | What player 1 gets instead of the body: a box scanning the row it is in, and nothing whatever about the column |
 | `packages/render/src/ghost.ts` | THE GHOST, drawn — a dome with a hem of tails, wearing a camouflage that is coming apart in horizontal bands |
 | `packages/render/src/fleet-chart.ts` | THE FLEET's chart: the lattice of squares the whole fight is named against |
 | `packages/render/src/fleet-hulls.ts` | THE FLEET's ships — the pilot's alone, until one goes down in front of both of them |
@@ -458,7 +458,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |
 | `packages/render/src/wisp-tentacles.ts` | you are drawing the wisp's streamers — how they gather, trail and splash across a jump |
 | `packages/render/src/wisp-static.ts` | you are changing how a wisp comes through in bands — the interference that says one screen does not have it |
-| `packages/render/src/wisp-search.ts` | you are changing the box that walks the grid on the pilot's screen while a wisp is out — the seat that cannot see one |
+| `packages/render/src/wisp-search.ts` | you are changing the box that blinks across the grid on the pilot's screen while a wisp is out — the seat that cannot see one |
 | `packages/render/src/lure-hole.ts` | THE HOLE THROUGH A LURE, and what is coming out of it |
 | `packages/render/src/ghost-eyes.ts` | THE GHOST's eyes, and they are the whole of what makes the shape a face rather than a bell |
 | `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |

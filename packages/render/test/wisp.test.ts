@@ -145,7 +145,7 @@ describe("the search on the pilot's screen", () => {
 
   it("stays on the grid and never over the hull row", () => {
     for (let k = 0; k < 2000; k++) {
-      const { col, row } = wispSearchAt(L, CFG, k * 0.11);
+      const { col, row } = wispSearchAt(L, CFG, k * 0.011);
       expect(col).toBeGreaterThanOrEqual(0);
       expect(col).toBeLessThanOrEqual(CFG.cols - 1);
       expect(row).toBeGreaterThanOrEqual(0);
@@ -155,53 +155,59 @@ describe("the search on the pilot's screen", () => {
   });
 
   /**
-   * The reason the sweep is two sines at unrelated rates rather than a walk
-   * between tiles: a head that stopped square on a square would be read as
-   * *the enemy is there*, and the pilot would fire at it.
+   * The reason a box that holds still is safe here at all: it holds still
+   * *between* tiles. A frame square on a square would be read as *the enemy is
+   * there*, and the pilot would fire at it; a frame on a crossing has four
+   * tiles under it and points at none of them.
    */
-  it("never stops, so it can never be read as pointing at a tile", () => {
-    let still = 0;
+  it("only ever lands on a crossing, never on a tile", () => {
+    for (let k = 0; k < 3000; k++) {
+      const { col, row } = wispSearchAt(L, CFG, k * 0.017);
+      expect(col - Math.floor(col)).toBeCloseTo(0.5, 10);
+      expect(row - Math.floor(row)).toBeCloseTo(0.5, 10);
+    }
+  });
+
+  /** It blinks rather than travels: any two moments are the same place or a
+   * whole tile apart, and there is no crawl in between for an eye to follow. */
+  it("jumps, and never drifts", () => {
     let last = wispSearchAt(L, CFG, 0);
     for (let k = 1; k < 3000; k++) {
       const at = wispSearchAt(L, CFG, k * 0.05);
-      if (Math.hypot(at.col - last.col, at.row - last.row) < 1e-3) still++;
+      const moved = Math.hypot(at.col - last.col, at.row - last.row);
+      expect(moved === 0 || moved >= 1).toBe(true);
       last = at;
     }
-    expect(still).toBe(0);
   });
 
-  it("almost never travels along a row or a column", () => {
-    let axial = 0;
-    let last = wispSearchAt(L, CFG, 0);
-    for (let k = 1; k < 3000; k++) {
-      const at = wispSearchAt(L, CFG, k * 0.05);
-      const dx = Math.abs(at.col - last.col);
-      const dy = Math.abs(at.row - last.row);
-      // Axis-aligned means one component is a rounding error beside the other.
-      if (dx < dy * 0.02 || dy < dx * 0.02) axial++;
-      last = at;
-    }
-    expect(axial / 3000).toBeLessThan(0.02);
+  /** And it is dark for a good part of every step. A frame that were lit the
+   * whole time would be a marker being carried around the field. */
+  it("is off about as often as it is on", () => {
+    let lit = 0;
+    const runs = 4000;
+    for (let k = 0; k < runs; k++) if (wispSearchAt(L, CFG, k * 0.00713).on) lit++;
+    expect(lit / runs).toBeGreaterThan(0.35);
+    expect(lit / runs).toBeLessThan(0.75);
   });
 
-  it("walks the whole field rather than one part of it", () => {
+  it("strikes all over the field rather than one part of it", () => {
     let minCol = Number.POSITIVE_INFINITY;
     let maxCol = Number.NEGATIVE_INFINITY;
     let minRow = Number.POSITIVE_INFINITY;
     let maxRow = Number.NEGATIVE_INFINITY;
     for (let k = 0; k < 4000; k++) {
-      const at = wispSearchAt(L, CFG, k * 0.09);
+      const at = wispSearchAt(L, CFG, k * 0.019);
       minCol = Math.min(minCol, at.col);
       maxCol = Math.max(maxCol, at.col);
       minRow = Math.min(minRow, at.row);
       maxRow = Math.max(maxRow, at.row);
     }
-    // Within about half a tile of both edges on both axes — the inset that
-    // keeps the frame from hanging off the grid, and nothing more.
-    expect(minCol).toBeLessThan(0.7);
-    expect(maxCol).toBeGreaterThan(CFG.cols - 1.7);
-    expect(minRow).toBeLessThan(0.7);
-    expect(maxRow).toBeGreaterThan(wispRows(CFG) - 1.7);
+    // The outermost crossings on both axes, which are half a tile inside the
+    // edges of the grid and are as far as a frame can go without hanging off.
+    expect(minCol).toBeCloseTo(0.5, 10);
+    expect(maxCol).toBeCloseTo(CFG.cols - 1.5, 10);
+    expect(minRow).toBeCloseTo(0.5, 10);
+    expect(maxRow).toBeCloseTo(wispRows(CFG) - 1.5, 10);
   });
 });
 

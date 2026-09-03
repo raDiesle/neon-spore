@@ -190,3 +190,27 @@ to `scene-films.test.ts` beside it. The two halves fail for different reasons �
 one when the scene format changes, the other when a creature's rule does — and
 they will keep being added to at different rates, which is the whole argument
 for the cut.
+
+## CRLF on disk fails the lint while `git status` says the tree is clean
+
+- **Found:** 2026-09-03, claude/scan-box-wisp-ghost-4f7c35
+- **Files:** `tools/land/run.ts`, `package.json`, `tools/land/test/`
+
+`bun run land` failed in this lane on a file the lane had never touched:
+`.claude/launch.json` had CRLF endings on disk. Its blob in `HEAD` was LF and
+`git status` was clean, so nothing said the working tree was the problem —
+biome printed the whole file as a formatter diff and the landing stopped with
+`script "lint" exited with code 1` and no cause an eye could pick out. The fix
+was one line of `\r\n` → `\n`, and finding it took six commands.
+
+It is newly reachable: biome only began checking `.json`, `.css` and `.js` in
+"Move the director's 1 100 lines of CSS out of index.html", and a Windows tool
+that rewrites a tracked file — `.claude/launch.json` is written by the harness
+itself — puts CRLF back whatever `.gitattributes` says, because the attribute
+governs checkout and commit rather than a third party's write. So every
+worktree on that machine can go red on a file nobody edited, and the message
+will name a formatter rather than a line ending.
+
+Have the landing say it. Before `bun run check` runs, look for `\r\n` in the
+tracked text files biome checks and stop with the list and the one command that
+fixes it (`bun run format`), rather than letting a whole-file formatter diff

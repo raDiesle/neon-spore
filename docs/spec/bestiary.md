@@ -242,9 +242,10 @@ would make the count a lie about where the design came from.
 **It is the first creature whose secret is a *place*.** Everything split across
 the two screens until now hid a property of a body both players could see — the
 side a dart takes, the colour inside a cloud, whether a slick is really a slick.
-The ghost hides the body. Player 2 sees it whole; player 1 is drawn a band
-across the row it is standing in and nothing whatever about the column, and
-player 1 is the seat holding the cannon. So the sentence the pair has to say is
+The ghost hides the body. Player 2 sees it whole; player 1 is drawn a box
+scanning the row it is standing in, left to right and several times a second,
+and nothing whatever about the column, and player 1 is the seat holding the
+cannon. So the sentence the pair has to say is
 a bare number, which nothing else in this game has ever asked for, and the
 handover is the mechanic: the number is worth nothing until the cannon is
 standing on it, and only the player who cannot check can put it there.
@@ -314,12 +315,12 @@ which one is the flight, and a shot at the named tile connects from the moment
 the body leaves the ground, because the simulation has already put it there.
 
 **And the pilot gets an instrument that is visibly looking.** A target-lock
-frame (`render/target-lock.ts`) crosses the grid on two sweeps that share no
-period: it never stops, never lines up with a row or a column, and is between
-tiles almost all of the time. It knows nothing — nothing in `wisp-search.ts`
-takes a creature, a column or a row — and the motion is what says so. A box
-that settled square on a square would be read as *the enemy is there*, and a
-pilot who fires at it is a pilot who has stopped listening.
+frame (`render/target-lock.ts`) strikes somewhere on the grid about eight times
+a second, holds for a fraction of one and is gone. It knows nothing — nothing
+in `wisp-search.ts` takes a creature, a column or a row — and every strike
+lands on a *crossing*, dead between four tiles, so there is no square it can be
+pointing at. A box that settled square on a square would be read as *the enemy
+is there*, and a pilot who fires at it is a pilot who has stopped listening.
 
 **The body itself is not solid.** It is received in horizontal bands, a couple
 of which are missing on any frame, so the field shows through the one creature
