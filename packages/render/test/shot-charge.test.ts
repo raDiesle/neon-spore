@@ -5,16 +5,14 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   type SimConfig,
-  type SimEvent,
   type SpawnEntry,
   step,
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { drawLay } from "../src/cannon-maw.js";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { installCanvasGlobals, ROLES, runFrames, stubCanvas } from "./frame-harness.js";
 
 /**
  * The shot being laid, drawn — the cloaca straining, the egg crowning and the
@@ -32,7 +30,6 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 const CFG: SimConfig = { ...DEFAULT_CONFIG, shotChargeBeats: 0.5 };
 const TPB = ticksPerBeat(CFG);
 const PART = chargePartTicks(CFG);
-const ROLES: ViewRole[] = ["p1", "p2", "test"];
 const COL = 3;
 
 beforeAll(installCanvasGlobals);
@@ -46,37 +43,22 @@ function layFrames(role: ViewRole, ticks: number) {
     { beat: 0, col: COL, kind: "slick", color: "red" },
     { beat: 2, col: COL, kind: "slick", color: "red" },
   ];
-  const world = createWorld(CFG, 5, queue);
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ width: 900, height: 1600, dpr: 2 });
-
   let laid = 0;
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < ticks; tick++) {
-    const inputs: TimedCommand[] =
-      tick === 0
-        ? [{ tick, player: 1, command: { kind: "cannonCol", col: COL } }]
-        : tick === 3 || tick === TPB + 3
-          ? [{ tick, player: 2, command: { kind: "fire", color: "red" } }]
-          : [];
-    step(world, inputs);
-    if (world.charge !== null) laid++;
-    if (world.events.length) events.push(...world.events);
-    // Every second tick is a frame here, not every fourth: a wind-up is 38
-    // ticks long and the top of it is a handful of them.
-    if (tick % 2 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % TPB) / TPB,
-      role,
-      time: tick / CFG.tickHz,
-      dt: 2 / CFG.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
+  // Every second tick is a frame here, not every fourth: a wind-up is 38
+  // ticks long and the top of it is a handful of them.
+  const { world, ctx } = runFrames(createWorld(CFG, 5, queue), role, ticks, {
+    every: 2,
+    onTick: (tick, w) => {
+      const inputs: TimedCommand[] =
+        tick === 0
+          ? [{ tick, player: 1, command: { kind: "cannonCol", col: COL } }]
+          : tick === 3 || tick === TPB + 3
+            ? [{ tick, player: 2, command: { kind: "fire", color: "red" } }]
+            : [];
+      step(w, inputs);
+      if (w.charge !== null) laid++;
+    },
+  });
   return { world, ctx, laid };
 }
 

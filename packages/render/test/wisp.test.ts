@@ -1,21 +1,18 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import {
   createWorld,
-  DEFAULT_CONFIG,
-  type SimEvent,
   type SpawnEntry,
   step,
   type TimedCommand,
   ticksPerBeat,
   wispRows,
 } from "@neon-spore/sim";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { commsCall } from "../src/comms.js";
 import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
 import { JUMP_TILES, showsWisp, wispApexTiles, wispJump } from "../src/wisp.js";
 import { showsWispSearch, wispSearchAt } from "../src/wisp-search.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 /**
  * THE WISP's two halves that a type check cannot see: the body is drawn on one
@@ -27,37 +24,16 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * the seats differ.
  */
 
-const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 beforeAll(installCanvasGlobals);
 
 function frames(role: ViewRole, ticks: number, queue: SpawnEntry[], inputs: TimedCommand[] = []) {
-  const world = createWorld(CFG, 3, queue);
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ width: 900, height: 1600, dpr: 2 });
-
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < ticks; tick++) {
-    step(world, byTick.get(tick) ?? []);
-    if (world.events.length) events.push(...world.events);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % TPB) / TPB,
-      role,
-      time: tick / CFG.tickHz,
-      dt: 4 / CFG.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
-  return { ctx, world };
+  return runFrames(createWorld(CFG, 3, queue), role, ticks, {
+    onTick: (tick, world) => step(world, byTick.get(tick) ?? []),
+  });
 }
 
 const wisp = (col: number): SpawnEntry => ({ beat: 0, col, kind: "wisp", color: null });

@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { createWorld, DEFAULT_CONFIG, type SimEvent, step } from "@neon-spore/sim";
+import { createWorld, type SimEvent, step } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { ShieldBody } from "../src/shield.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { CFG, installCanvasGlobals, runFrames, stubCanvas, VIEWPORT } from "./frame-harness.js";
 
 /**
  * The bug this guards, once: the director restarts a wave by building a whole
@@ -20,8 +20,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * and fails loudly the moment one does not.
  */
 
-const CFG = DEFAULT_CONFIG;
-const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
+const L = computeLayout(VIEWPORT, CFG, "test");
 const _BEAT_SECONDS = 60 / CFG.bpm;
 
 /** One of everything that leaves a mark: a miss, a deflect, a swallow, a
@@ -76,33 +75,24 @@ describe("a wave restart", () => {
   });
 
   it("leaves Canvas2DRenderer's eased pose indistinguishable from a fresh one after a restart", () => {
+    // Every tick is a frame, and the pose is eased on `dt`: the state a
+    // restart has to undo is what a run of them leaves behind.
+    const { renderer } = runFrames(createWorld(CFG, 3), "test", 60, {
+      every: 1,
+      onTick: (tick, world) =>
+        step(
+          world,
+          tick === 5
+            ? [
+                { tick, player: 1, command: { kind: "cannonCol", col: 4 } },
+                { tick, player: 2, command: { kind: "shieldCol", col: 4 } },
+                { tick, player: 1, command: { kind: "guard" } },
+                { tick, player: 2, command: { kind: "intake" } },
+              ]
+            : [],
+        ),
+    });
     const { canvas } = stubCanvas();
-    const renderer = new Canvas2DRenderer(canvas);
-    renderer.resize({ width: 900, height: 1600, dpr: 2 });
-
-    const world = createWorld(CFG, 3);
-    for (let tick = 0; tick < 60; tick++) {
-      step(
-        world,
-        tick === 5
-          ? [
-              { tick, player: 1, command: { kind: "cannonCol", col: 4 } },
-              { tick, player: 2, command: { kind: "shieldCol", col: 4 } },
-              { tick, player: 1, command: { kind: "guard" } },
-              { tick, player: 2, command: { kind: "intake" } },
-            ]
-          : [],
-      );
-      renderer.draw({
-        world,
-        beatPhase: 0,
-        role: "test",
-        time: tick / CFG.tickHz,
-        dt: 1 / CFG.tickHz,
-        events: world.events,
-        running: true,
-      });
-    }
 
     // It really did move off a fresh renderer's pose, or the comparison below
     // proves nothing.
@@ -125,7 +115,7 @@ describe("a wave restart", () => {
     // A brand new renderer, drawing that same first frame, is what
     // `resetPose` promises to leave `renderer` indistinguishable from.
     const freshRenderer = new Canvas2DRenderer(canvas);
-    freshRenderer.resize({ width: 900, height: 1600, dpr: 2 });
+    freshRenderer.resize(VIEWPORT);
     freshRenderer.draw(restartFrame);
     expect(pose(renderer)).toEqual(pose(freshRenderer));
   });

@@ -1,8 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, startWave, step, ticksPerBeat } from "@neon-spore/sim";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { createWorld, startWave, step } from "@neon-spore/sim";
+import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
 
 /**
  * An op-count budget, not a frame-rate one — see `.claude/skills/render-perf`.
@@ -20,8 +19,6 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * `ctx.tally` (log it, or `console.log(ctx.tally)` in a scratch run of this
  * same setup) and update the row that changed — do not pad it "to be safe".
  */
-
-const CFG = DEFAULT_CONFIG;
 
 type Budget = Partial<
   Record<
@@ -75,31 +72,27 @@ const BUDGETS: readonly Budget[] = [
 describe("a busy frame's op count", () => {
   it("stays inside the measured budget for two consecutive frames", () => {
     installCanvasGlobals();
-    const { canvas, ctx } = stubCanvas();
-    const renderer = new Canvas2DRenderer(canvas);
-    renderer.resize({ width: 390, height: 844, dpr: 3 });
-
     const world = createWorld(CFG, 3, []);
     const index = 2;
     startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
     while (world.creatures.length < 3) step(world, []);
 
-    const tpb = ticksPerBeat(CFG);
-    for (const [i, budget] of BUDGETS.entries()) {
-      ctx.tally.clear();
-      for (let t = 0; t < 4; t++) step(world, []);
-      renderer.draw({
-        world,
-        beatPhase: (world.tick % tpb) / tpb,
-        role: "p1",
-        time: (i * 4) / CFG.tickHz,
-        dt: 4 / CFG.tickHz,
-        events: world.events,
-        running: true,
-      });
-      for (const [key, max] of Object.entries(budget)) {
-        expect(ctx.tally.get(key) ?? 0).toBeLessThanOrEqual(max as number);
-      }
-    }
+    let measured = 0;
+    runFrames(world, "p1", BUDGETS.length * 4, {
+      viewport: { width: 390, height: 844, dpr: 3 },
+      onDrawn: (ctx, frame) => {
+        const budget = BUDGETS[frame] as Budget;
+        for (const [key, max] of Object.entries(budget)) {
+          expect(ctx.tally.get(key) ?? 0).toBeLessThanOrEqual(max as number);
+        }
+        // Zeroed between frames: each row is one frame's own count, and the
+        // second row is lower only because the first left the caches warm.
+        ctx.tally.clear();
+        measured++;
+      },
+    });
+    // Both rows were actually weighed: a run that drew one frame would let the
+    // second budget pass by never being asked.
+    expect(measured).toBe(BUDGETS.length);
   });
 });

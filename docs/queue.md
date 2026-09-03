@@ -860,19 +860,3 @@ that pushes a `TimedCommand` into the same `InputBuffer` the canvas pushes to �
 and a `--hold` flag on `bun run frames` that sends it before the last
 `advance`. Do not reach into `world` from the capture: a picture taken by
 writing a field is a picture of a state the game cannot reach.
-
-## Fold the last five hand-rolled draw loops onto runFrames
-
-- **Found:** 2026-09-03, claude/bun-queue-list-command-0487de
-- **Files:** `packages/render/test/frame-pair.test.ts`, `packages/render/test/restart.test.ts`, `packages/render/test/shot-charge.test.ts`, `packages/render/test/wisp.test.ts`, `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`
-
-`frame-harness.ts` now carries the loop — step, collect `world.events`, draw
-every nth tick, clear the events — and every `*-frame.test.ts` reads it. Five
-files still type their own copy: `frame-pair.ts` three times, and
-`restart.ts`, `shot-charge.ts`, `wisp.ts` and `frame-budget.ts` once each.
-They are the copies that disagree about which tick a frame falls on.
-
-Convert each to `runFrames`, adding whatever option the one that resists needs
-rather than leaving it out — `frame-budget.ts` times the loop and may want the
-renderer handed back instead. `bun test packages/render` proves it, and the
-test count must not move.

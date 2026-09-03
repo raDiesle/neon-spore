@@ -11,15 +11,13 @@ import {
   readyFraction,
   readyHoldTicks,
   type SimConfig,
-  type SimEvent,
   seatReady,
   startWave,
   step,
   ticksPerBeat,
 } from "@neon-spore/sim";
-import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { installCanvasGlobals, ROLES, runFrames, VIEWPORT } from "./frame-harness.js";
 
 /**
  * The other half of `frame.test.ts`.
@@ -39,7 +37,6 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  */
 
 const CFG_PAIR: SimConfig = { ...DEFAULT_CONFIG, ...PAIR_ON };
-const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 beforeAll(installCanvasGlobals);
 
@@ -48,38 +45,12 @@ beforeAll(installCanvasGlobals);
  * is meant to stay up for as long as anyone is looking at it, so nothing here
  * ever sends a `brief` command.
  */
-function briefingFrames(
-  role: ViewRole,
-  ticks: number,
-  acked: 0 | 1 = 0,
-  viewport = { width: 900, height: 1600, dpr: 2 },
-) {
+function briefingFrames(role: ViewRole, ticks: number, acked: 0 | 1 = 0, viewport = VIEWPORT) {
   const world = createWorld(CFG_PAIR, 7, buildQueue(0, CFG_PAIR.cols));
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize(viewport);
   // One seat is already done: the footer's "WAITING FOR THEM"
   // and one filled pip are only reached with the two seats disagreeing.
   if (acked === 1) ackBriefing(world, 1);
-
-  const tpb = ticksPerBeat(CFG_PAIR);
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < ticks; tick++) {
-    step(world, []);
-    if (world.events.length) events.push(...world.events);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % tpb) / tpb,
-      role,
-      time: tick / CFG_PAIR.tickHz,
-      dt: 4 / CFG_PAIR.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
-  return { world, ctx };
+  return runFrames(world, role, ticks, { viewport });
 }
 
 describe("a wave's opening", () => {
@@ -114,41 +85,20 @@ describe("a wave's opening", () => {
  * passed to `startWave` by hand: `createWorld` never claims one, so nothing
  * else in this file has ever reached the guide at all.
  */
-function gateFrames(
-  role: ViewRole,
-  fillTicks: number,
-  viewport = { width: 900, height: 1600, dpr: 2 },
-) {
+function gateFrames(role: ViewRole, fillTicks: number, viewport = VIEWPORT) {
   const world = createWorld(CFG_PAIR, 7);
   startWave(world, 0, buildQueue(0, CFG_PAIR.cols), [], null, true);
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize(viewport);
   // Past the introduction and onto the guide, without waiting out its timer.
   ackBriefing(world, 1);
   ackBriefing(world, 2);
-
-  const tpb = ticksPerBeat(CFG_PAIR);
-  let events: SimEvent[] = [];
-  for (let tick = 0; tick < fillTicks; tick++) {
-    step(world, [
-      { tick, player: 1, command: { kind: "brief", on: true } },
-      { tick, player: 2, command: { kind: "brief", on: true } },
-    ]);
-    if (world.events.length) events.push(...world.events);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % tpb) / tpb,
-      role,
-      time: tick / CFG_PAIR.tickHz,
-      dt: 4 / CFG_PAIR.tickHz,
-      events,
-      running: true,
-    });
-    events = [];
-  }
-  return { world, ctx };
+  return runFrames(world, role, fillTicks, {
+    viewport,
+    onTick: (tick, w) =>
+      step(w, [
+        { tick, player: 1, command: { kind: "brief", on: true } },
+        { tick, player: 2, command: { kind: "brief", on: true } },
+      ]),
+  });
 }
 
 describe("the ready gate", () => {
@@ -172,26 +122,16 @@ describe("the ready gate", () => {
     startWave(world, 0, buildQueue(0, CFG_PAIR.cols), [], null, true);
     ackBriefing(world, 1);
     ackBriefing(world, 2);
-    const { canvas, ctx } = stubCanvas();
-    const renderer = new Canvas2DRenderer(canvas);
-    renderer.resize({ width: 900, height: 1600, dpr: 2 });
-    for (let tick = 0; tick < FULL + 8; tick++) {
-      step(world, [{ tick, player: 1, command: { kind: "brief", on: true } }]);
-    }
+    const { ctx } = runFrames(world, "p1", FULL + 8, {
+      onTick: (tick, w) => step(w, [{ tick, player: 1, command: { kind: "brief", on: true } }]),
+    });
     expect(seatReady(world, 1)).toBe(true);
     expect(seatReady(world, 2)).toBe(false);
     expect(guideHolds(world)).toBe(true);
-    renderer.draw({
-      world,
-      beatPhase: 0,
-      role: "p1",
-      time: 1,
-      dt: 1 / CFG_PAIR.tickHz,
-      events: [],
-      running: true,
-    });
-    // One frame rather than a run of them, so the bar is lower than above.
-    expect(ctx.calls).toBeGreaterThan(100);
+    // The run fills one circle and then goes on drawing the latched word for
+    // the eight ticks after it — the frames this test exists for are the last
+    // of them, not the first.
+    expect(ctx.calls).toBeGreaterThan(500);
   });
 
   it("fills both circles and the wave starts", () => {

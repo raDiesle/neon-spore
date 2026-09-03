@@ -54,29 +54,40 @@ export interface FramesOptions {
    * pictures rather than as counts.
    */
   onCanvas?: (ctx: StubContext) => void;
+  /**
+   * The canvas just after the nth frame was drawn on it — for a caller that
+   * measures one frame at a time and needs the tally zeroed between them.
+   */
+  onDrawn?: (ctx: StubContext, frame: number) => void;
 }
 
 /**
  * Runs `world` for `ticks`, drawing it as `role`. Returns the world it left
- * behind, the canvas that took the frames, and every event the run produced —
- * the last of which is what a caller checks when it needs to know the run
- * reached the state its frames were supposed to prove.
+ * behind, the canvas that took the frames, the renderer that drew them — for
+ * a caller that carries on drawing after the run, which is how a restart is
+ * told from a fresh start — and every event the run produced, the last of
+ * which is what a caller checks when it needs to know the run reached the
+ * state its frames were supposed to prove.
  */
 export function runFrames(
   world: World,
   role: ViewRole,
   ticks: number,
   options: FramesOptions = {},
-): { world: World; ctx: StubContext; events: SimEvent[] } {
+): { world: World; ctx: StubContext; renderer: Canvas2DRenderer; events: SimEvent[] } {
   const { canvas, ctx } = stubCanvas();
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize(options.viewport ?? VIEWPORT);
   options.onCanvas?.(ctx);
 
   const every = options.every ?? 4;
-  const tpb = ticksPerBeat(CFG);
+  // The world's own configuration, not `DEFAULT_CONFIG`: a subject built on
+  // `PAIR_ON` or a charged shot runs at whatever tempo it was created with.
+  const cfg = world.cfg;
+  const tpb = ticksPerBeat(cfg);
   const all: SimEvent[] = [];
   let events: SimEvent[] = [];
+  let frame = 0;
   for (let tick = 0; tick < ticks; tick++) {
     if (options.onTick) options.onTick(tick, world);
     else step(world, []);
@@ -89,12 +100,13 @@ export function runFrames(
       world,
       beatPhase: (world.tick % tpb) / tpb,
       role,
-      time: tick / CFG.tickHz,
-      dt: every / CFG.tickHz,
+      time: tick / cfg.tickHz,
+      dt: every / cfg.tickHz,
       events,
       running: true,
     });
     events = [];
+    options.onDrawn?.(ctx, frame++);
   }
-  return { world, ctx, events: all };
+  return { world, ctx, renderer, events: all };
 }
