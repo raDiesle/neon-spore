@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 6215b1b — The control-group union rule is enforced, so controlsForKinds is not dead
+
+`CLAUDE.md`, `creatures-table.ts` and the new-creature skill all state that a wave shows the union of its creatures' control groups. Nothing checked it: `controlsForKinds` had no caller anywhere, `ControlGroup` was imported by nothing outside content, and the panel a wave shows is a named `ControlSet` on the wave rather than a union of anything.
+
 ## 2026-09-03 · f396515 — Four content invariants that nothing was checking
 
 `Demonstration.wave` names a wave by string, `wavesUsingSet` returns names, and several tests resolve one with `WAVES.findIndex((w) => w.name === name)` — and nothing said the names were unique. A second "THE WALL", which the director can produce from its own rename screen, would point every one of those lookups at the first and be invisible to all of them.
