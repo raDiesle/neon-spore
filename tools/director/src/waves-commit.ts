@@ -31,10 +31,17 @@ export function commitMessage(waves: number, rels: readonly string[]): string {
   ].join("\n");
 }
 
-async function run(args: string[], cwd: string): Promise<{ code: number; err: string }> {
+async function run(
+  args: string[],
+  cwd: string,
+): Promise<{ code: number; out: string; err: string }> {
   const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [code, err] = await Promise.all([proc.exited, new Response(proc.stderr).text()]);
-  return { code, err };
+  const [code, out, err] = await Promise.all([
+    proc.exited,
+    new Response(proc.stdout).text(),
+    new Response(proc.stderr).text(),
+  ]);
+  return { code, out, err };
 }
 
 /**
@@ -49,13 +56,19 @@ export async function commitWaves(
   if (process.env.DIRECTOR_NO_COMMIT) return null;
   if (rels.length === 0) return null;
 
-  // Biome may have put every byte back where it found it, and a save that
-  // changed nothing is not a commit.
-  const changed = await run(["diff", "--quiet", "HEAD", "--", ...rels], root);
-  if (changed.code === 0) return null;
-  if (changed.code !== 1) return changed.err.trim() || "git diff failed";
+  // Which of the files a save may write actually moved. Biome may have put
+  // every byte back where it found it, and a save that changed nothing is not
+  // a commit — and a message naming all six acts when one wave moved would say
+  // the wrong thing in the release note.
+  const seen = await run(["diff", "--name-only", "HEAD", "--", ...rels], root);
+  if (seen.code !== 0) return seen.err.trim() || "git diff failed";
+  const changed = seen.out
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (changed.length === 0) return null;
 
-  const done = await run(["commit", "-m", commitMessage(waves, rels), "--", ...rels], root);
+  const done = await run(["commit", "-m", commitMessage(waves, changed), "--", ...changed], root);
   if (done.code !== 0) return done.err.trim() || "git commit failed";
   return null;
 }

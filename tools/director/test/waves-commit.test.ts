@@ -49,6 +49,22 @@ test("nothing at all is committed when the environment says not to", async () =>
   }
 });
 
+test("the message names the files that moved, not the files it might have written", async () => {
+  const dir = await repo();
+  try {
+    await writeFile(join(dir, "act.ts"), "two\n");
+    // `other.ts` is offered and unchanged: a save may write six act files and
+    // move one, and the release note must not claim the other five.
+    expect(await commitWaves(["act.ts", "other.ts"], 7, dir)).toBeNull();
+    const body = await git(["log", "-1", "--format=%b"], dir);
+    expect(body).toContain("one file");
+    expect(body).toContain("- act.ts");
+    expect(body).not.toContain("other.ts");
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test("a save that wrote no files is not a commit", async () => {
   expect(await commitWaves([], 0, process.cwd())).toBeNull();
 });
