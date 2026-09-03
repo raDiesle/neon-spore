@@ -24,6 +24,7 @@
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
+ *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
@@ -35,6 +36,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
+import { parseHold } from "./hold.js";
 import { captureAt, git, root, run } from "./serve.js";
 
 /**
@@ -115,7 +117,8 @@ async function main(): Promise<void> {
   const sha = argv[0];
   if (!sha || sha.startsWith("--")) {
     throw new Error(
-      'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] [--out DIR]',
+      'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
+        "[--hold prime|mazeString=N|wardenTether=N|lidString=N,id=N] [--hold-ticks N] [--out DIR]",
     );
   }
   const flag = (name: string, fallback: number): number => {
@@ -127,6 +130,9 @@ async function main(): Promise<void> {
   if (seat !== undefined && seat !== "p1" && seat !== "p2" && seat !== "test") {
     throw new Error(`--seat ${seat}: one of p1, p2 or test`);
   }
+  const holdFlag = argv.indexOf("--hold");
+  const hold = holdFlag === -1 ? undefined : parseHold(argv[holdFlag + 1] ?? "");
+
   const outFlag = argv.indexOf("--out");
   const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
@@ -157,6 +163,8 @@ async function main(): Promise<void> {
     frames: flag("frames", 1),
     strideTicks: flag("stride", 4),
     seat,
+    hold: hold as FrameSpec["hold"],
+    holdTicks: flag("hold-ticks", 30),
   };
 
   const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));

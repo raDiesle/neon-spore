@@ -1,4 +1,4 @@
-import { type SimEvent, step, type World } from "@neon-spore/sim";
+import { type Command, type SimEvent, step, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -47,6 +47,25 @@ export function installTestingHandle(parts: HandleParts): void {
      */
     advanceOpening(seconds: number) {
       progression.tickOpening(seconds);
+    },
+    /**
+     * One press, into the same buffer the canvas pushes to.
+     *
+     * Without it a headless caller has every verb a *wave* needs and none a
+     * **held control** needs, so the four mechanics whose whole picture is a
+     * thumb that is down — THE LID's plates parted, THE WARDEN's hatch, THE
+     * MAZE's wheel mid-turn, THE LANCE's full lobe — could only ever be
+     * photographed released.
+     *
+     * It goes through the buffer rather than into `world`, and that is the
+     * point of it: a picture taken by writing a field is a picture of a state
+     * the game cannot reach. `drain(tick)` stamps it on the next tick
+     * `advance` runs, exactly as it stamps a finger's, so a `drag` sent here
+     * arrives the same way and through the same rules — including the seat
+     * check the round does on it.
+     */
+    send(player: 1 | 2, command: Command) {
+      buffer.push(player, command);
     },
     advance(ticks: number) {
       for (let i = 0; i < ticks; i++) {

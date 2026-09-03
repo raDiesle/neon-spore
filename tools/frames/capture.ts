@@ -3,6 +3,7 @@ import { dirname } from "node:path";
 import { chromium } from "playwright-core";
 import { findChrome } from "./chrome.js";
 import { clearOpening } from "./opening.js";
+import type { FrameSpec } from "./spec.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -13,38 +14,14 @@ import { clearOpening } from "./opening.js";
  * same seat every time.
  */
 
-export interface FrameSpec {
-  /** 0-based wave index, the same number `jumpToWave` already takes. */
-  wave: number;
-  /** Ticks to advance, from the wave's own start, before the first capture. */
-  ticks: number;
-  /**
-   * A strip rather than a still, for a check about motion. 1 is a single
-   * frame at `ticks`; more than that captures `frames` frames, `strideTicks`
-   * apart, starting at `ticks`.
-   */
-  frames?: number;
-  /** Ticks between frames of a strip. Ignored when `frames` is 1. */
-  strideTicks?: number;
-  /** CSS viewport the phone is drawn at. A fixed size is part of what makes
-   * two captures comparable — the layout math reads the viewport back. */
-  viewport?: { width: number; height: number };
-  /**
-   * Whose screen this is. Omitted leaves the build's own default, which is the
-   * test rig showing both halves at once.
-   *
-   * A creature whose whole point is that the two devices carry two different
-   * pictures — THE VEIL, THE LURE, THE DART — cannot be photographed at all
-   * without this: the rig's frame is neither of the two frames a player sees,
-   * and it is the one this tool used to be able to take.
-   */
-  seat?: "p1" | "p2" | "test";
-}
-
 /** Which browser a capture opens. Six callers across `tools/` ask this file
  * for it, so it is re-exported rather than moved — the subject itself lives in
  * `chrome.ts`, out of the way of driving a frame. */
 export { findChrome, pickChrome } from "./chrome.js";
+/** The shape of what a capture asks for, and of the handle it drives. Its own
+ * file because this one was at the ceiling CLAUDE.md sets, and because a caller
+ * usually wants the spec without the browser behind it. */
+export type { FrameSpec, HoldSpec } from "./spec.js";
 
 export interface CaptureResult {
   /** One path per frame, in capture order. */
@@ -53,25 +30,10 @@ export interface CaptureResult {
 
 const DEFAULT_VIEWPORT = { width: 390, height: 844 } as const;
 
-declare global {
-  interface Window {
-    neonSpore?: {
-      // Both fields are optional: `bun run frames <sha>` drives a commit and
-      // its own parent through this same evaluated function, and `phase`
-      // replaced `due` in the commit that added the introduction
-      // (`f6be23b`). A parent checked out from before that lands on the
-      // older shape, so this has to recognise either rather than assume the
-      // one the current tree happens to have.
-      world: { brief: { phase?: number; due?: readonly unknown[] } };
-      jumpToWave(wave: number): void;
-      dismissBriefing(): void;
-      /** Missing on a build from before the introduction existed. */
-      advanceOpening?(seconds: number): void;
-      advance(ticks: number): void;
-      paint(): void;
-    };
-  }
-}
+/** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
+ * LANCE's lobe is well into filling, so the picture shows the hold rather than
+ * the instant it began. */
+const DEFAULT_HOLD_TICKS = 30;
 
 /**
  * `STORAGE_KEY` from `apps/game/src/view.ts`, copied for `OPENING_PLAY`'s
@@ -179,8 +141,36 @@ export async function captureFrames(
         const ns = window.neonSpore;
         if (!ns) throw new Error("window.neonSpore missing mid-capture");
         ns.advance(ticks);
-        ns.paint();
       }, advanceBy);
+
+      // **After the wave's own ticks, never before them.** A hand takes hold of
+      // something that is already there: a `drag` names a creature by the id
+      // the simulation dealt it, and at tick zero of a wave that creature has
+      // not arrived — the command lands on a stale id, `setGrip` drops it, and
+      // the frame comes back released while every number in the capture says
+      // the hold was sent. That is the exact failure this flag exists to end,
+      // so the press goes in here and gets its own short run of ticks to show
+      // in.
+      if (i === 0 && spec.hold) {
+        await page.evaluate((hold) => {
+          const ns = window.neonSpore;
+          if (!ns) throw new Error("window.neonSpore missing before the hold");
+          if (!ns.send) {
+            throw new Error(
+              "this build has no window.neonSpore.send — --hold needs a commit at or after the " +
+                "one that added it, and a before/after pair cannot hold anything on its parent",
+            );
+          }
+          ns.send(hold.player, hold.command);
+        }, spec.hold);
+        await page.evaluate((ticks) => {
+          window.neonSpore?.advance(ticks);
+        }, spec.holdTicks ?? DEFAULT_HOLD_TICKS);
+      }
+
+      await page.evaluate(() => {
+        window.neonSpore?.paint();
+      });
 
       if (pageErrors.length > 0) {
         throw new Error(`page threw while driving the loop: ${pageErrors[0]}`);
