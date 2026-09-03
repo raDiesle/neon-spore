@@ -484,3 +484,37 @@ body.player-view #waveSkip {
     monospace;
   letter-spacing: 2px;
 }
+
+/* The question a destructive button asks in place of itself (`confirm.ts`).
+   It takes the button's slot, so nothing shifts and no overlay arrives under a
+   thumb already travelling; SURE? sits first, where the press just landed, so
+   a second tap on that spot answers nothing. */
+.twostep {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  font:
+    600 13px "Courier New",
+    monospace;
+  letter-spacing: 0.08em;
+  color: #9c8fd6;
+}
+.twostep button {
+  background: none;
+  border: 1px solid #3b3163;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  color: #9c8fd6;
+  cursor: pointer;
+}
+.twostep button.yes {
+  border-color: #ff5470;
+  color: #ff5470;
+}
+/* The entry it replaces is hidden when it does not apply, and the row is that
+   entry's sibling rather than its child — so it has to be hidden with it. */
+#menu .entry.off + .twostep {
+  display: none;
+}

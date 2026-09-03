@@ -1,6 +1,7 @@
 import { type MechanicId, WAVES } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
+import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
 import { roomLine } from "./join-words.js";
 import { buildMenu } from "./menu-view.js";
@@ -77,7 +78,15 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    */
   const inRoom = (): boolean => link !== null && link.state !== "solo";
 
+  /**
+   * LEAVE ROOM's question, once the page it sits on exists. Held here because
+   * every way off this page puts it away again: a question that outlives the
+   * screen it was asked on is a yes waiting to be pressed by accident.
+   */
+  let leaveStep: TwoStep | undefined;
+
   const close = (): void => {
+    leaveStep?.cancel();
     dom.root.classList.remove("on");
     document.body.classList.remove("menu-open");
     if (chip) chip.textContent = "☰";
@@ -166,10 +175,9 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
         key: "leave",
         label: "LEAVE ROOM",
         desc: "Hang up and go back to one device. The other phone is told.",
-        run: () => {
-          b.leaveRoom();
-          dom.show("root");
-        },
+        // The press is answered by the two-step bound below, which asks in
+        // place before anything reaches `leaveRoom`. Nothing to do here.
+        run: () => {},
       },
     ],
     demos: b.demos,
@@ -181,11 +189,25 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
   });
 
+  // LEAVE ROOM drops the other player's game, so it asks in place first. Both
+  // doors to it get the same two-step; the hold card's own LEAVE ROOM does
+  // not, because that one answers a line that is already broken.
+  const leaveEntry = dom.entryRoot("leave");
+  if (leaveEntry) {
+    leaveStep = bindTwoStep(leaveEntry, "LEAVE", () => {
+      b.leaveRoom();
+      dom.show("root");
+    });
+  }
+
   /** The three things on this page that a link changes. Cheap, so it is redone. */
   const paintLink = (): void => {
     dom.setEntry("resume", { on: opened, desc: `Back to wave ${b.wave() + 1}.` });
     dom.setEntry("play", { on: !inRoom() });
     dom.setEntry("leave", { on: inRoom() });
+    // The entry itself goes off with the room; its question has to go with it,
+    // because the row is the entry's sibling rather than its child.
+    if (!inRoom()) leaveStep?.cancel();
     dom.setEntry("room", {
       desc: link ? roomLine(link) : "Open a room, or type in the code you were told.",
     });

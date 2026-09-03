@@ -46,6 +46,12 @@ export interface MenuDom {
   lockSeats: (locked: boolean, why: string) => void;
   /** Re-label an entry, or take it off the page. Named by `key`. */
   setEntry: (key: string, next: { label?: string; desc?: string; on?: boolean }) => void;
+  /**
+   * The button an entry is, for the one caller that needs to put something in
+   * front of it rather than beside it — LEAVE ROOM asks before it hangs up on
+   * the other player (`confirm.ts`), and asking happens in the entry's place.
+   */
+  entryRoot: (key: string) => HTMLElement | undefined;
   /** The spore breathes only while the menu is up. */
   animate: (on: boolean) => void;
 }
@@ -129,6 +135,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
       if (next.desc !== undefined) found.desc.textContent = next.desc;
       if (next.on !== undefined) found.root.classList.toggle("off", !next.on);
     },
+    entryRoot: (key) => entries.get(key)?.root,
     animate: spore.animate,
   };
 }

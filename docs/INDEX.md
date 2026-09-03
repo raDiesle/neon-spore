@@ -471,6 +471,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
 | `apps/game/preview.ts` | Which checkout this one serves |
+| `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
 
 ### apps/server
 

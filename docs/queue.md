@@ -461,24 +461,6 @@ furthest" option beside "start over". Solo-only and per device — this is a
 convenience, not shared state, so it never touches the room or the wire. Keep
 the writes wrapped in try/catch like the other `localStorage` users.
 `bun run check` proves it.
-## LEAVE ROOM hangs up on the other player with no confirm
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-leave-room-hangs-up-on-the-other-player-with-no
-- **Files:** `apps/game/index.html`, `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/game.css`
-
-Both the room screen's `#joinLeave` and the menu's LEAVE ROOM entry call
-`link.leave()` at once, which drops the other player's game — one mis-tap ends
-it. Put a one-tap confirm in front of it. **The owner chose the inline two-step
-on 3 September 2026**, over a dialog: the button becomes
-"SURE? · LEAVE / CANCEL" in place and reverts on its own after a few seconds if
-neither is pressed. No new overlay, nothing to dismiss, and nothing a thumb
-already travelling can tap through. Both doors get the same two-step.
-
-The hold card's own LEAVE ROOM is a deliberate answer to a broken
-line and stays immediate — this is only the two doors a player presses while the
-game is fine. Client-only, provable with `bun run check`.
-
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three

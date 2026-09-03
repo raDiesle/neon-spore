@@ -6,6 +6,7 @@ import {
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "@neon-spore/net";
+import { bindTwoStep } from "./confirm.js";
 import { chipText, explain, seatWord } from "./join-words.js";
 
 export interface JoinBindings {
@@ -112,11 +113,16 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     else if (stateEl) stateEl.textContent = `A code is ${ROOM_CODE_LENGTH} characters.`;
   });
 
-  document.getElementById("joinLeave")?.addEventListener("click", () => {
-    b.leave();
-    open(false);
-    b.back();
-  });
+  // Not a straight `click` → `leave()`: this hangs up on the other player, so
+  // it asks in place first. See `confirm.ts`.
+  const leaveButton = document.getElementById("joinLeave");
+  if (leaveButton) {
+    bindTwoStep(leaveButton, "LEAVE", () => {
+      b.leave();
+      open(false);
+      b.back();
+    });
+  }
 
   // Reading four characters aloud is the design and stays the design — the two
   // players are already talking, and that is the game. This is for the minute
