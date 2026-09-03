@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 7e7eeca — The mouth is empty and the tongue flicks out of it
+
+The owner's note was that the open mouth looked strange. The red was why: a throat and a glottis taken from the reference, which at thirty pixels was the loudest thing on the screen and read as something held in the mouth rather than as the inside of one. An open mouth is a hole, so it is drawn as one — darker than the arena floor and no colour of its own — and what says the mouth is open is the tongue coming out of it.
+
+## 2026-09-03 · 7bbd71e — Queue the seam behind the renamed waves, which is still open
+
+`main` repaired the four names that pointed at ON THE BEAT and HOLD IT OPEN, and left the reason they went stale: a demonstration holds its wave by a string, and the director can rewrite that string from its own screen. The next rename lands red the same way.
+
+## 2026-09-03 · e2a8a41 — SNAKE gets the light, the shadow and the skin off the reference
+
+The owner sent a drawing of a python and asked why the round could not look like it. Most of that drawing cannot survive here — the head is about thirty pixels long on a phone against a hundred and twenty in the reference, so its palate ridges, heat pits and twenty-unit diamond skin arrive as grey mud. What survives is what works on a shape rather than on a detail, and that is what is here: one light down the whole arena, a shadow on the floor under the body, a lit side along the back, and scales coarse enough to be a third of a tile.
+
 ## 2026-09-03 · 0a39b91 — A round that ends keeps its own picture until the next wave
 
 THE GAUGE, SNAKE and PINBALL took themselves off the world the moment their verdict had stood, and the field came straight back — hull, grid and ship — for the three beats of rest before the next wave. On a wave that restarts into itself, which is what the director does all afternoon, that reads as PINBALL dropping out to the wrong picture and back: 300 ticks of a ship on a wave whose whole point is that there is no ship.
