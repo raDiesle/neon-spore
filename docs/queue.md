@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## SNAKE's mouth can be tapped open forever: the rest is shorter than the window
 
 - **Found:** 2026-09-03, claude/snake-boss-visuals-c5f82f
+- **Taken:** 2026-09-03, claude/queue-snakes-mouth-can-be-tapped-open-forever-the-rest
 - **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/test/snake.test.ts`
 
 `snakeMawRestTicks` is 30 and `snakeMawTicks` is 84, so a thumb pressing MAW
