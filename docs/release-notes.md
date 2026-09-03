@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · feba8a8 — One eye for THE LID and THE WARDEN, and three times the pull to open either
+
+The owner asked for four things by name, which is the exemption this lands under rather than being offered beside the shipped look.
+
 ## 2026-09-03 · 317d230 — Weigh player 2's frame too, so the fire buttons' cached paths stay cached
 
 The commit before this one said the budget measures both seats; it did not, because `frame-budget.test.ts` was rewritten on `main` between the measurement and the landing and this lane took `main`'s file whole rather than fighting it.
