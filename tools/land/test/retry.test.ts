@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { keepDays, orphanPaths, type RetryOpts, removeUntilGone } from "../worktree.js";
+import { type RetryOpts, removeUntilGone } from "../retry.js";
 
 /** A fake disk: `gone` is how many attempts it takes before the path leaves. */
 function disk(gone: number): { opts: RetryOpts; attempts: () => number; waits: () => number } {
@@ -71,36 +71,5 @@ describe("removeUntilGone", () => {
     const d = disk(99);
     await removeUntilGone("/x", async () => {}, d.opts);
     expect(d.waits()).toBe(2); // three attempts, two gaps
-  });
-});
-
-describe("keepDays", () => {
-  test("unset is the default window", () => {
-    expect(keepDays(undefined)).toBe(5);
-    expect(keepDays("")).toBe(5);
-  });
-
-  test("a number is taken as given, zero included", () => {
-    expect(keepDays("14")).toBe(14);
-    expect(keepDays("0")).toBe(0);
-  });
-
-  test("a typo falls back rather than reading as sweep-everything-now", () => {
-    expect(keepDays("soon")).toBe(5);
-    expect(keepDays("-3")).toBe(5);
-  });
-});
-
-describe("orphanPaths", () => {
-  test("what is on disk and not in git's list", () => {
-    expect(orphanPaths(["/a", "/b", "/c"], ["/b"])).toEqual(["/a", "/c"]);
-  });
-
-  test("nothing on disk is nothing orphaned", () => {
-    expect(orphanPaths([], ["/b"])).toEqual([]);
-  });
-
-  test("a fully registered set orphans none of it", () => {
-    expect(orphanPaths(["/a", "/b"], ["/a", "/b", "/main"])).toEqual([]);
   });
 });

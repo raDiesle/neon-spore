@@ -11,9 +11,11 @@
 import { readdir, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { git, gitOrDie } from "./git.js";
+import { idleDays, KEEP_DAYS } from "./idle.js";
 import type { LandState } from "./land.js";
 import { type Landed, prepend } from "./notes.js";
-import { idleDays, KEEP_DAYS, orphanWorktrees, removeOrphan, removeWorktree } from "./worktree.js";
+import { orphanWorktrees, removeOrphan } from "./orphans.js";
+import { removeWorktree } from "./worktree.js";
 
 /** One file's identity for the purposes of the spent-specs sweep. */
 export interface FileStat {
