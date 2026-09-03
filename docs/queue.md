@@ -114,25 +114,6 @@ Add a `--press` that takes a sequence of presses with tick offsets, e.g.
 in `captureAt`'s tick loop. Prove it with a unit test on the parser (`hold.ts`
 already has one to copy) and by capturing a frame of THE RIND mid-shed.
 
-## PINBALL draws its slabs from the shipped wave, not the one being played
-
-- **Found:** 2026-09-03, claude/wave-restart-special-bosses-6e5af4
-- **Taken:** 2026-09-03, claude/queue-pinball-draws-its-slabs-from-the-shipped-wave-no
-- **Files:** `packages/render/src/pinball-round.ts`, `packages/render/test/pinball-frame.test.ts`
-
-`drawControls` in `pinball-round.ts` calls `slabPanel(l, controlSetForWave(view.world.wave), view.role)`
-— it re-derives the panel from the wave *index* and ignores `view.controls`,
-which the host hands it. Its two siblings do not: `gauge-round.ts` and
-`snake-panel.ts` both read `view.controls === undefined ? controlSetForWave(...) : view.controls`,
-and `band.ts` says in a comment why that fallback is the rule rather than the
-re-derivation.
-
-It matters in the director, which plays the *draft* wave: the picker writes a
-wave's `controls` field, `stage-pinball.ts` hit-tests against that field, and
-the renderer draws a different set — buttons drawn where nothing answers them,
-which is the failure `test/stage-rounds.test.ts` exists to prevent, arriving
-through the drawing side. Make the call match its two siblings and add a frame
-test that draws PINBALL with a `controls` set that is not the wave's own.
 ## Bind a demonstration to its wave by something a rename cannot break
 
 - **Found:** 2026-09-03, claude/snake-svg-graphic-24d2fc

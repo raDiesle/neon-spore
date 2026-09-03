@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import type { ControlSet } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   PINBALL_MORPH_BEATS,
@@ -31,7 +32,7 @@ interface Watched {
   cleared: number;
 }
 
-function pinballFrames(role: ViewRole, ticks: number) {
+function pinballFrames(role: ViewRole, ticks: number, controls?: ControlSet, labels?: string[]) {
   const world = createWorld(CFG, 5);
   const index = waveWith("pinball");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
@@ -40,6 +41,18 @@ function pinballFrames(role: ViewRole, ticks: number) {
   const watched: Watched = { phases: new Set(), shots: new Set(), cleared: 0 };
 
   const frames = runFrames(world, role, ticks, {
+    controls,
+    // The stub logs a `fillText` by its coordinates and not its string, so a
+    // test about *which* label was drawn collects them on the way past.
+    onCanvas: labels
+      ? (ctx) => {
+          const write = ctx.fillText.bind(ctx);
+          ctx.fillText = (text: string, x: number, y: number) => {
+            labels.push(text);
+            write(text, x, y);
+          };
+        }
+      : undefined,
     onTick: (tick, w) => {
       const p = w.boss?.kind === "pinball" ? w.boss : null;
       const commands: TimedCommand[] = [];
@@ -85,6 +98,20 @@ describe("PINBALL draws on all three screens", () => {
       expect(ctx.calls).toBeGreaterThan(500);
     });
   }
+
+  it("draws the panel it was handed, not the one the wave index names", () => {
+    // The director plays a *draft* wave: `world.wave` indexes the shipped
+    // `WAVES` and says PINBALL, while the picker has written some other set
+    // onto the draft and `stage-pinball.ts` hit-tests against that one.
+    // Buttons drawn where nothing answers them is the failure
+    // `test/stage-rounds.test.ts` exists to prevent, arriving through the
+    // drawing side.
+    const labels: string[] = [];
+    const ticks = ticksPerBeat(CFG) * (PINBALL_MORPH_BEATS + 4);
+    pinballFrames("test", ticks, controlSet("snake"), labels);
+    expect(labels).toContain("MAW");
+    expect(labels).not.toContain("SET");
+  });
 
   it("really launched a ball and knocked something out, or the frames proved nothing", () => {
     const { watched } = pinballFrames("test", TICKS);

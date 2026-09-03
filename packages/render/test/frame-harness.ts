@@ -1,4 +1,4 @@
-import { WAVES, type Wave } from "@neon-spore/content";
+import { type ControlSet, WAVES, type Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
@@ -59,6 +59,12 @@ export interface FramesOptions {
    * measures one frame at a time and needs the tally zeroed between them.
    */
   onDrawn?: (ctx: StubContext, frame: number) => void;
+  /**
+   * The panel to draw, for a caller standing in for a host playing a wave the
+   * shipped `WAVES` does not hold — the director's draft. Left unset, the
+   * drawing infers it from `world.wave`, which is the phone's case.
+   */
+  controls?: ControlSet;
 }
 
 /**
@@ -104,6 +110,7 @@ export function runFrames(
       dt: every / cfg.tickHz,
       events,
       running: true,
+      controls: options.controls,
     });
     events = [];
     options.onDrawn?.(ctx, frame++);
