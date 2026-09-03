@@ -2,12 +2,7 @@ import gameHtml from "../../apps/game/index.html";
 import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
-import {
-  readAssistantsText,
-  readBorrowedText,
-  readSpecFiles,
-  readTowerDefenceText,
-} from "./src/docs-api.js";
+import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
 
@@ -201,6 +196,21 @@ const server = Bun.serve({
     },
 
     /**
+     * One study per route, each answering with a whole document — see
+     * `DOC_ROUTES` in `docs-api.ts` for the table, which `build.ts` bakes from
+     * as well. Written out from the table rather than by hand so the served
+     * set and the baked set are the same set.
+     */
+    ...Object.fromEntries(
+      Object.entries(DOC_ROUTES).map(([path, read]) => [
+        path,
+        {
+          GET: withIdle(async () => Response.json({ text: await read() }, { headers: noCache })),
+        },
+      ]),
+    ),
+
+    /**
      * Every spec file, verbatim. The roster and concept endpoints parse the
      * design into entries, and a parse is a choice about what to keep — the
      * naming rules, the categories, the rejected names and the ceiling are
@@ -209,31 +219,6 @@ const server = Bun.serve({
      * it: the directory is read, so a new file appears here without being
      * added to a list.
      */
-    /**
-     * `docs/borrowed.md`, whole. A study of two other co-op games and whether
-     * each of their mechanics can reach this one — see `borrowed.ts` for why
-     * it is served as text rather than parsed into entries like the rest.
-     */
-    "/api/borrowed": {
-      GET: withIdle(async () =>
-        Response.json({ text: await readBorrowedText() }, { headers: noCache }),
-      ),
-    },
-
-    /** `docs/tower-defence.md`, whole — see `readTowerDefenceText`. */
-    "/api/tower-defence": {
-      GET: withIdle(async () =>
-        Response.json({ text: await readTowerDefenceText() }, { headers: noCache }),
-      ),
-    },
-
-    /** `docs/claude-vs-chatgpt.md`, whole — see `readAssistantsText`. */
-    "/api/claude-vs-chatgpt": {
-      GET: withIdle(async () =>
-        Response.json({ text: await readAssistantsText() }, { headers: noCache }),
-      ),
-    },
-
     "/api/spec": {
       GET: withIdle(async () =>
         Response.json({ files: await readSpecFiles() }, { headers: noCache }),

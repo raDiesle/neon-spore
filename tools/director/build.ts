@@ -3,12 +3,7 @@ import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
-import {
-  readAssistantsText,
-  readBorrowedText,
-  readSpecFiles,
-  readTowerDefenceText,
-} from "./src/docs-api.js";
+import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 
 /**
@@ -78,9 +73,12 @@ await Promise.all([
   bake("api/waves", JSON.stringify({ waves: WAVES, token: "" })),
   bake("api/backlog", await backlogRes.text()),
   bake("api/notes", await notesRes.text()),
-  bake("api/borrowed", JSON.stringify({ text: await readBorrowedText() })),
-  bake("api/tower-defence", JSON.stringify({ text: await readTowerDefenceText() })),
-  bake("api/claude-vs-chatgpt", JSON.stringify({ text: await readAssistantsText() })),
+  // The whole-document routes, from the table `server.ts` serves them from:
+  // the baked set is the served set by construction rather than by two lists
+  // being kept level by hand.
+  ...Object.entries(DOC_ROUTES).map(async ([path, read]) =>
+    bake(path.slice(1), JSON.stringify({ text: await read() })),
+  ),
   bake("api/spec", JSON.stringify({ files: await readSpecFiles() })),
   bake(
     "__director",

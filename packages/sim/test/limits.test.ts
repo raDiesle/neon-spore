@@ -39,7 +39,6 @@ const LIMIT = 250;
  */
 const KNOWN_LONG: Record<string, number> = {
   "tools/versus/prompt.ts": 509,
-  "tools/director/server.ts": 260,
 };
 function sourceFiles(): string[] {
   // `**` rather than `*/src/**`: a file outside a `src/` directory is still a

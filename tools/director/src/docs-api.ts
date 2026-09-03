@@ -54,6 +54,24 @@ export async function readAssistantsText(): Promise<string> {
   return await Bun.file(assistantsFile).text();
 }
 
+/**
+ * The routes that answer with one document's whole text, as a table.
+ *
+ * `server.ts` serves these and `build.ts` bakes them, and the two lists were
+ * written out by hand on both sides. They drifted: the comment above the
+ * borrowed route in `server.ts` described `/api/spec`, and each new study had
+ * to be added in two places that nothing held together. One table read by both
+ * cannot disagree with itself, and a fourth study is one line here.
+ *
+ * Keyed by the path the client already fetches, so `build.ts` bakes to
+ * `dist/<path>` by dropping the leading slash and nothing else.
+ */
+export const DOC_ROUTES: Record<string, () => Promise<string>> = {
+  "/api/borrowed": readBorrowedText,
+  "/api/tower-defence": readTowerDefenceText,
+  "/api/claude-vs-chatgpt": readAssistantsText,
+};
+
 /** Every spec file, verbatim. */
 export async function readSpecFiles(): Promise<{ name: string; text: string }[]> {
   const dir = Bun.fileURLToPath(specDir);
