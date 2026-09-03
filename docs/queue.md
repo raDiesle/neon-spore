@@ -265,27 +265,6 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Split director.css, which Biome's formatter turned into 2 985 lines
-
-- **Found:** 2026-09-03, claude/director-group-queue-batch-161302
-- **Taken:** 2026-09-03, claude/queue-split-director-css-which-biomes-formatter-turned
-- **Files:** `tools/director/src/director.css`, `tools/director/index.html`, `tools/director/test/rail-boss-guard.test.ts`
-
-Cutting the `<style>` block out of `index.html` and putting `**/*.css` into
-Biome's includes left one sheet of 2 985 lines — the compact one-liners the
-block was written in are now one declaration per line. That is twelve times the
-~250-line ceiling every other file in the repository keeps.
-
-The sheet already carries its own section comments, and they fall on the page's
-own seams: the shell (`:root`, `html`, `body`, `header`, `button`, `textarea`),
-the columns and their resize handles, BRUSH, MAP and the grid, and the
-`max-width` media blocks. Split it into `director-shell.css`,
-`director-columns.css`, `director-brush.css` and `director-map.css` (or
-whatever the comments actually divide into), link each from `index.html` — Bun's
-bundler already follows several `<link>` tags, as `apps/game/index.html` shows
-— and point `rail-boss-guard.test.ts` at whichever file keeps `button:disabled`.
-A `bun run dev:once` look at `/` proves the page is unchanged.
-
 ## The room starts on a shared press, not a three-second timer
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

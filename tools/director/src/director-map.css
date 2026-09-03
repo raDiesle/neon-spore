@@ -1,0 +1,223 @@
+/**
+ * MAP: the beat-by-column grid, the hover card over a brush, the panel for the
+ * selected cell and the pod list under it.
+ */
+
+#grid {
+  display: inline-grid;
+  gap: 2px;
+}
+#grid .head {
+  color: var(--dim);
+  font-size: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.1;
+  align-items: center;
+  justify-content: center;
+}
+#grid .head .maps {
+  color: #4b4177;
+  font-size: 8px;
+}
+#grid .beat {
+  color: var(--dim);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: 24px;
+  cursor: pointer;
+}
+#grid .beat:hover {
+  color: var(--ink);
+}
+#grid .beat.now {
+  color: var(--gold);
+}
+#grid .cell {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line-soft);
+  border-radius: 5px;
+  background: #0a0719;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--dim);
+}
+#grid .cell:hover {
+  border-color: #3b3163;
+}
+#grid .cell.now {
+  border-color: #3b3163;
+  background: #120c2b;
+}
+/* The selected cell. Gold, and a ring rather than a border colour, so it
+   reads on top of `.now` — the marked beat and the selected cell are two
+   different questions and are regularly the same cell. */
+#grid .cell.sel {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+#grid .cell .pod {
+  position: absolute;
+  right: 1px;
+  bottom: 0;
+  font-size: 9px;
+  color: var(--gold);
+}
+#grid .cell svg {
+  display: block;
+  margin: auto;
+}
+#grid .cell img.brush-art {
+  margin: auto;
+}
+
+/* The hover card (`brush-tooltip.ts`): the brush's picture at a size
+   worth looking at, its name, the wave it first arrives in and its own
+   sentence. Fixed rather than absolute — it is placed against the
+   window, and the palette it opens beside is inside a column that
+   scrolls. */
+#brushTip {
+  position: fixed;
+  z-index: 40;
+  pointer-events: none;
+  background: #0a0719;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+  max-width: 200px;
+}
+#brushTip[hidden] {
+  display: none;
+}
+.brush-card img.brush-art {
+  margin: 0 auto 8px;
+}
+.brush-card-name {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.brush-card-wave {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.brush-card-note {
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.45;
+  margin-top: 5px;
+}
+/* The way to that wave, under the sentence about it. Dimmer than the
+   wave line above: it is an instruction, not a fact about the brush. */
+.brush-card-jump {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #4b4177;
+  margin-top: 6px;
+}
+
+/* Capped for #gridNote's reason, one line above: a block child with no
+   width cap contributes its unwrapped line length to the column's
+   auto-sizing pass and pushes the map column wider than its grid. */
+/* Above the grid now, not below it, so the rule and the spacing that
+   separated it from the map are on its bottom edge rather than its top. */
+#cellPanel {
+  margin-bottom: 12px;
+  max-width: 262px;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 10px;
+}
+#cellPanel:empty {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#cellPanel h2 {
+  margin: 0 0 6px;
+}
+.cell-holds {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 1px;
+}
+.cell-holds svg {
+  flex: 0 0 26px;
+  background: #0a0719;
+  border-radius: 5px;
+}
+.cell-config {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 8px 0 2px;
+}
+.cell-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cell-row-label {
+  flex: 0 0 44px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+.cell-row .chip {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  padding: 3px 7px;
+}
+.cell-row .chip svg {
+  flex: 0 0 20px;
+  background: #0a0719;
+  border-radius: 4px;
+}
+.cell-row .chip.on {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.cell-actions {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0 6px;
+}
+.cell-actions button {
+  font-size: 9px;
+  padding: 4px 9px;
+}
+
+#podList {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pod-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--dim);
+}
+.pod-row input {
+  width: 46px;
+}

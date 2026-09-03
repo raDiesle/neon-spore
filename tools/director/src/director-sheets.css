@@ -1,0 +1,164 @@
+/**
+ * The full-screen sheet, which covers the editor rather than sitting beside it:
+ * GAME MECHANICS and its state shots, and BACKLOG.
+ */
+
+/* The backlog sheet. Covers the editor rather than sitting beside it:
+   a paragraph does not fit in a 300px authoring column. */
+/* GAME MECHANICS. Same full-screen shell as the other sheets, and now
+   the same tab-over-one-body shape #backlog uses — #statesTabs plays
+   the part #backlogTabs does, #statesBody the part #backlogBody does.
+   Folded in from four other doors, to save four topbar buttons. */
+#states {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: var(--bg);
+}
+#states.on {
+  display: flex;
+  flex-direction: column;
+}
+#states > header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex: 0 0 auto;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+}
+#states .title {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 13px;
+}
+#states .sub {
+  color: var(--dim);
+  font-size: 10px;
+  max-width: 720px;
+}
+/* MAIN MENU rides the same `margin-left: auto` every other sheet gives
+   its CLOSE button, so it — not CLOSE — is what the growing `.sub`
+   pushes toward the end of the row; CLOSE then sits flush after it. */
+#states > header a.linkbtn {
+  margin-left: auto;
+}
+#statesTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 10px 20px 0;
+}
+#statesBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 20px 40px;
+}
+#statesBody section {
+  margin-bottom: 26px;
+}
+#statesBody .note {
+  color: var(--dim);
+  font-size: 10px;
+  margin: 0 0 10px;
+}
+.states-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.state {
+  width: 210px;
+}
+/* The frame is the picture's own edge, so a crop that happens to end on
+   black is still seen to be a crop and not the page behind it. */
+.state .shot {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #05040b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+.state .shot.is-broken {
+  color: var(--red);
+  font-size: 18px;
+  min-height: 120px;
+}
+.state canvas {
+  display: block;
+}
+.state .name {
+  color: var(--ink);
+  letter-spacing: 2px;
+  font-size: 10px;
+  margin-top: 6px;
+}
+.state .seat {
+  color: var(--cyan);
+  letter-spacing: 1px;
+  font-size: 8px;
+}
+.state .blurb {
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.45;
+  margin: 3px 0 0;
+}
+
+#backlog {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: var(--bg);
+}
+#backlog.on {
+  display: flex;
+  flex-direction: column;
+}
+#backlog > header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex: 0 0 auto;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+}
+#backlog .title {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 13px;
+}
+#backlog .sub {
+  color: var(--dim);
+  font-size: 10px;
+}
+#backlog > header button {
+  margin-left: auto;
+}
+#backlogTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 10px 20px 0;
+}
+#backlogBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 20px 40px;
+}
+/* RELEASE NOTES. Same full-screen sheet as the backlog, and for the same
+   reason: it is read between pieces of work, not beside one.
+
+   Deliberately plainer than the TO CHECK sheet it replaces. That one
+   needed a bar of buttons, a done state, a failure box and a red banner,
+   because every row was an obligation with a verdict pending. Nothing
+   here is pending, so none of that has anything to be. */

@@ -1,0 +1,214 @@
+/**
+ * The boss panel's own controls — a labelled slider row, a paired checkbox —
+ * and THE FLEET's chart, which is the one boss authored by dragging a map.
+ */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 7px 0;
+  font-size: 10px;
+}
+.row label {
+  flex: 0 0 96px;
+  color: var(--dim);
+}
+.row span {
+  flex: 0 0 62px;
+  text-align: right;
+}
+.row input[type="range"] {
+  flex: 1;
+  accent-color: var(--gold);
+}
+.note {
+  font-size: 9px;
+  color: #574d84;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+
+.pair-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.pair-row input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--gold);
+}
+.pair-row b {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  font-weight: 400;
+}
+.pair-row .note {
+  margin: 2px 0 0;
+}
+
+#bossPanel {
+  margin: 4px 0 14px;
+  padding: 8px 0 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+#bossPanel > button {
+  width: 100%;
+}
+.boss-fields {
+  display: flex;
+  gap: 14px;
+  margin: 10px 0;
+}
+.boss-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+.boss-field input {
+  width: 64px;
+}
+table.boss-phases {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 9px;
+}
+table.boss-phases th,
+table.boss-phases td {
+  padding: 3px 5px;
+  text-align: left;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line-soft);
+}
+table.boss-phases th {
+  color: var(--cyan);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+table.boss-phases td:first-child {
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+
+/* THE FLEET's chart. The map is the editor: every other boss is authored
+   as a number and this one is authored as a picture, so the placement is
+   edited on the same lattice the pair will play it on. */
+.fleet-chart {
+  display: grid;
+  gap: 1px;
+  margin: 10px 0;
+}
+.fleet-axis {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--dim);
+  text-align: center;
+  align-self: center;
+  padding: 0 3px;
+}
+button.fleet-cell {
+  padding: 0;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 2px;
+  border: 1px solid var(--line-soft);
+  background: #0a0719;
+}
+button.fleet-cell.on {
+  background: #241b4f;
+  border-color: var(--cyan);
+}
+button.fleet-cell.held {
+  background: #3a2a6b;
+  border-color: var(--gold);
+}
+.fleet-ships {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0;
+}
+.fleet-ship {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.fleet-ship.held button.fleet-take {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+button.fleet-take {
+  flex: 1;
+  text-align: left;
+  letter-spacing: 1px;
+}
+button.fleet-len {
+  width: 26px;
+}
+button.fleet-add {
+  width: 100%;
+  margin-top: 4px;
+}
+.fleet-fault {
+  color: var(--red);
+}
+.pin-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 8px 0 4px;
+  flex-wrap: wrap;
+}
+button.pin-tab {
+  flex: 1;
+  min-width: 54px;
+  letter-spacing: 1px;
+}
+button.pin-tab.on {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.pin-grid {
+  display: grid;
+  gap: 1px;
+  margin: 8px 0;
+}
+button.pin-cell {
+  padding: 0;
+  aspect-ratio: 1;
+  min-width: 0;
+  font-size: 10px;
+  line-height: 1;
+  border-radius: 2px;
+  border: 1px solid var(--line-soft);
+  background: #0a0719;
+  color: var(--dim);
+}
+button.pin-cell.mPeg,
+button.pin-cell.mPegLit {
+  border-radius: 50%;
+}
+button.pin-cell.mPeg,
+button.pin-cell.mBlock {
+  background: #123a44;
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+button.pin-cell.mPegLit,
+button.pin-cell.mBlockLit {
+  background: #3a2a05;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.pin-clock {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 6px 0;
+}

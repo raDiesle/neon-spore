@@ -1,0 +1,213 @@
+/**
+ * CONTROLS, SHIP, CARDS and BULB QUEEN VARIANTS — four tabs of GAME MECHANICS
+ * that each show one built thing beside the drafts offered against it.
+ */
+
+/* CONTROLS. A tab of GAME MECHANICS now, not its own sheet — renamed
+   from CONTROL SETS so it can hold both kinds of control the pair
+   touches, not only the panel below the field. Three inner tabs:
+   PANELS (one card per registered panel, unchanged below),
+   ON THE FIELD (`.field-control`, new) and TRIED AND SET ASIDE
+   (`.tried-control`, new). See docs/spec/controls.md. */
+.ctltabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0 16px;
+}
+.ctlpage {
+  display: none;
+}
+.ctlpage.on {
+  display: block;
+}
+.field-control {
+  max-width: 700px;
+  margin: 0 0 16px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.field-control h3 {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+.field-control .stamp {
+  color: var(--cyan);
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-right: 8px;
+}
+.field-control dl {
+  margin: 6px 0 0;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.field-control dt {
+  color: var(--cyan);
+  letter-spacing: 1px;
+  float: left;
+  width: 74px;
+  clear: left;
+}
+.field-control dd {
+  margin: 0 0 3px 78px;
+  color: var(--dim);
+}
+.field-control dd.does {
+  color: var(--ink);
+}
+.tried-control {
+  max-width: 700px;
+  margin: 0 0 16px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.tried-control h3 {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+.tried-control p {
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--dim);
+  margin: 4px 0;
+}
+.tried-control .ref {
+  color: var(--cyan);
+}
+.control-set-card {
+  max-width: 700px;
+  margin: 0 0 26px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.control-set-card h2 {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+}
+.control-set-shot {
+  margin: 8px 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #05040b;
+  width: fit-content;
+}
+.control-set-shot canvas {
+  display: block;
+}
+.control-set-cols {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 8px 0 0;
+}
+.control-set-col {
+  flex: 1 1 220px;
+}
+.control-set-col h3 {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+.control-set-col ul {
+  margin: 0;
+  padding-left: 15px;
+}
+.control-set-col li {
+  margin: 0 0 5px;
+  color: var(--dim);
+  line-height: 1.4;
+  font-size: 10px;
+}
+.control-set-col li b {
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* SHIP: the ship's own dials, a tab of GAME MECHANICS now — see
+   ship.ts. Capped like DEMOS and CONTROLS so a row of `.cap`s does
+   not stretch the width the sheet itself would happily give it. */
+#shipSheetBody {
+  max-width: 700px;
+}
+
+/* CARDS: every briefing card, grouped by the wave that first raises it
+   — the documented half of what NOT BUILT YET's own CARDS tab now
+   calls a proposal (`guide-page.ts`). A tab of GAME MECHANICS now
+   (`#mech-guides`, in `#statesBody`) rather than a sheet of its own —
+   one fewer topbar button. `.scenes`/`.scene`/`.note` are the same
+   classes the backlog's own scene frames already use, so a wave's
+   group of cards needs only its own heading style. */
+.card-wave-head {
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+/* BULB QUEEN VARIANTS: the torch-only holder drafts and the whole-body
+   drafts below them, each a canvas on the page's own beat. A row
+   rather than the backlog's column, because the whole question is a
+   comparison and a comparison read by scrolling is not one. The
+   whole-body cards reuse the same classes at a larger `max-width`
+   since a whole queen needs more room than a single torch. */
+.holder-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: flex-start;
+}
+.holder-card {
+  flex: 1 1 300px;
+  max-width: 340px;
+  border-bottom: none;
+}
+.holder-shot {
+  display: block;
+  margin: 8px 0;
+  background: #0a0719;
+  border-radius: 6px;
+}
+.holder-card .blurb {
+  color: var(--ink);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.holder-card .note {
+  font-size: 10px;
+  line-height: 1.5;
+}
+.queen-row .holder-card {
+  flex-basis: 320px;
+  max-width: 380px;
+}
+.queen-axis {
+  color: var(--cyan);
+  letter-spacing: 2px;
+  font-size: 11px;
+  margin: 18px 0 2px;
+}
+.gallery-cat {
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 11px;
+  margin: 18px 0 2px;
+}
+.gallery-empty {
+  font-size: 9px;
+  color: #574d84;
+  margin: 0 0 10px;
+}

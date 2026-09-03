@@ -1,0 +1,184 @@
+/**
+ * `<main>`'s four columns: the grid they sit in, the drag handle on each one's
+ * right edge, the whole-column collapse, and the wave rail that fills the
+ * first of them.
+ */
+
+main {
+  display: grid;
+  grid-template-columns: 210px minmax(340px, 1.1fr) minmax(320px, 460px) minmax(560px, 1.6fr);
+  min-height: 0;
+  overflow-x: auto;
+}
+main {
+  position: relative;
+}
+main > section {
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+  padding: 10px;
+  min-height: 0;
+}
+/* The drag handle on a column's right edge (`column-resize.ts`). Absolute
+   inside `main` rather than a grid item of its own or a child of the
+   section: an extra track per boundary would have to be threaded through
+   columns.ts's DOM-order walk, and a handle inside a `<section>` would
+   scroll away with that section's own content. Six pixels wide, drawn as
+   a one-pixel line on hover so an undragged edge looks like the border it
+   already was. */
+.column-grip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  z-index: 5;
+  cursor: col-resize;
+  background: transparent;
+}
+.column-grip::after {
+  content: "";
+  position: absolute;
+  inset: 0 2px;
+  background: transparent;
+}
+.column-grip:hover::after,
+.column-grip.dragging::after {
+  background: var(--cyan);
+}
+/* While a drag is live the pointer is captured by the handle, but text
+   inside the columns it sweeps over would still select. */
+body.resizing-columns {
+  user-select: none;
+  cursor: col-resize;
+}
+/* A flex column, not the plain scrolling box every other section is:
+   the canvas needs a definite height to measure itself against
+   (`resize()` reads `canvas.getBoundingClientRect()`). The field takes
+   the whole column and the transport row sits at its bottom — the
+   column used to split 3-of-5 with a note-and-balance-sheet block below
+   it, which left the field too small to judge whether the cannon has
+   time to reach a column. */
+main > section.stage-col {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* The flex-column behaviour above lands on `.column-body` now that
+   columns.ts has put one between the section and #stageWrap — a plain
+   block child would give #stageWrap's own `flex: 1 1 0` nothing to
+   size against. */
+main > section.stage-col > .column-body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+main > section:last-child {
+  border-right: 0;
+}
+h2 {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+/* Every column of `<main>` can be put away as one unit — `columns.ts`,
+   which wraps a `<section data-column>`'s own children in
+   `.column-body` behind a `.column-head` bar. Collapsing hides the
+   body and rewrites `main`'s grid-template-columns so the freed track
+   goes to the columns still open, not to a blank strip nothing can
+   use. */
+section.collapsed {
+  overflow: hidden;
+}
+.column-head {
+  display: flex;
+}
+.column-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 2px 0;
+  margin: 0 0 8px;
+  border: none;
+  background: none;
+  color: var(--cyan);
+  font:
+    11px "Courier New",
+    monospace;
+  letter-spacing: 2px;
+}
+.column-toggle:hover {
+  color: var(--ink);
+}
+.column-toggle::before {
+  content: "▾";
+  color: var(--dim);
+  font-size: 9px;
+}
+section.collapsed .column-toggle::before {
+  content: "▸";
+}
+section.collapsed .column-toggle {
+  margin-bottom: 0;
+}
+/* Collapsed to a bare strip: the title is what has to survive at
+   36px, so it reads top-to-bottom rather than truncating sideways. */
+section.collapsed .column-toggle {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  height: 100%;
+  justify-content: flex-start;
+}
+section.collapsed .column-toggle::before {
+  transform: rotate(90deg);
+}
+section.collapsed .column-body {
+  display: none;
+}
+
+#waveList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+#waveList button {
+  text-align: left;
+  border-color: transparent;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#waveList button.on {
+  border-color: var(--gold);
+}
+#waveList .n {
+  color: #4b4177;
+  margin-right: 6px;
+}
+#waveList .boss-mark {
+  color: var(--gold);
+}
+#waveList .control-mark {
+  color: var(--cyan);
+}
+#waveList .card-mark {
+  color: #7dffb0;
+}
+.rail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* The section itself now only stacks .column-head above .column-body
+   (columns.ts) — the head/body split below is subcols.ts's, one level
+   further in: BRUSH stacks above MAP rather than sitting beside it, so
+   reaching a brush on a wide map never means scrolling back across the
+   row (see the comment beside #brushCol/#mapCol in the markup). */

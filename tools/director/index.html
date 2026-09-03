@@ -4,12 +4,37 @@
     <meta charset="utf-8" />
     <!-- Without this a phone renders the page at a desktop-width layout
          viewport (~980px) and zooms out to fit it, so the max-width:700px
-         media query in `src/director.css` never matches at all regardless of
-         the device's actual screen — the mobile layout was unreachable on a
-         real phone. -->
+         media query in `src/director-phone.css` never matches at all
+         regardless of the device's actual screen — the mobile layout was
+         unreachable on a real phone. -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Neon Spore — Director</title>
-    <link rel="stylesheet" href="./src/director.css" />
+    <!-- One sheet, in seventeen files. Cutting the <style> block out of this
+         page and letting Biome format it left 2 985 lines in one file, twelve
+         times the ceiling every other file here keeps; the sheet's own section
+         comments already fell on the page's seams, so those are the seams.
+
+         The order below is the order the declarations were written in, and it
+         is load-bearing: a split stylesheet is still one cascade, so a sheet
+         moved up or down this list can change which of two equally specific
+         rules wins. Add a new one where its rules already sit. -->
+    <link rel="stylesheet" href="./src/director-shell.css" />
+    <link rel="stylesheet" href="./src/director-columns.css" />
+    <link rel="stylesheet" href="./src/director-brush.css" />
+    <link rel="stylesheet" href="./src/director-map.css" />
+    <link rel="stylesheet" href="./src/director-field.css" />
+    <link rel="stylesheet" href="./src/director-plans.css" />
+    <link rel="stylesheet" href="./src/director-markdown.css" />
+    <link rel="stylesheet" href="./src/director-sheets.css" />
+    <link rel="stylesheet" href="./src/director-notes.css" />
+    <link rel="stylesheet" href="./src/director-sounds.css" />
+    <link rel="stylesheet" href="./src/director-music.css" />
+    <link rel="stylesheet" href="./src/director-versus.css" />
+    <link rel="stylesheet" href="./src/director-shapes.css" />
+    <link rel="stylesheet" href="./src/director-boss.css" />
+    <link rel="stylesheet" href="./src/director-rounds.css" />
+    <link rel="stylesheet" href="./src/director-controls.css" />
+    <link rel="stylesheet" href="./src/director-phone.css" />
   </head>
   <body>
     <header>

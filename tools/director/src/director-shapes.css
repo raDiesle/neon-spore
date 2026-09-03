@@ -1,0 +1,235 @@
+/**
+ * SHAPES: the skin, motion and light bars, BUILD's recipe rows, the body picker
+ * on OVERVIEW, and the card each shape is drawn on.
+ */
+
+.shapes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.skinbar {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0 14px;
+  flex-wrap: wrap;
+}
+.skinbar .skin {
+  font:
+    10px "Courier New",
+    monospace;
+  letter-spacing: 2px;
+  cursor: pointer;
+  padding: 5px 11px;
+  border-radius: 3px;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.skinbar .skin:hover {
+  color: var(--ink);
+  border-color: var(--dim);
+}
+.skinbar .skin.is-on {
+  color: var(--bg);
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+/* Three named axes — skin, motion, light — each its own heading, its
+   own line of prose, and its own row of buttons, stacked rather than
+   run together in the one row `.skinbar` alone lays out. */
+.skinbar.control-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.skinbar.control-bar .control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.skinbar.control-bar .control-heading {
+  font:
+    12px "Courier New",
+    monospace;
+  letter-spacing: 3px;
+  color: var(--ink);
+  margin: 0;
+}
+.skinbar.control-bar .control-desc {
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 640px;
+}
+.skinbar.control-bar .control-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* BUILD: one attachment per row, with its own six nudge buttons, and
+   the recipe box underneath. `.build-row .skin` reuses the same button
+   look the rest of the page's controls have, just smaller — a nudge is
+   pressed several times in a row and six full-size buttons per
+   attachment would be most of the tab. */
+.build-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--dim);
+  margin: 4px 0;
+}
+.build-row .skin {
+  padding: 3px 8px;
+  font-size: 10px;
+}
+.build-recipe {
+  width: 100%;
+  max-width: 640px;
+  min-height: 160px;
+  resize: vertical;
+  font:
+    11px "Courier New",
+    monospace;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px;
+  white-space: pre;
+}
+
+/* The body picker on OVERVIEW. The names used to be text buttons, which
+   is the one thing a shape picker must not be: the reader is choosing
+   between pictures, so the picture is the button and the name is its
+   caption. Same states as `.skin` — a border that lifts on hover and a
+   cyan one when it is the body the three grids below are drawn from. */
+.bodybar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+  align-items: flex-start;
+}
+.bodybar .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.bodybar .body:hover {
+  border-color: var(--dim);
+}
+.bodybar .body:hover .body-name {
+  color: var(--ink);
+}
+.bodybar .body.is-on {
+  border-color: var(--cyan);
+  background: #041013;
+}
+.bodybar .body.is-on .body-name {
+  color: var(--cyan);
+}
+.bodybar .body-name {
+  font:
+    8px "Courier New",
+    monospace;
+  letter-spacing: 1px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.shape {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  width: 330px;
+  padding: 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  font-size: 10px;
+}
+.shape.is-free {
+  border-color: #5a4a1f;
+  background: #120d05;
+}
+.shape.is-draft {
+  border-color: #1d5a63;
+  background: #041013;
+}
+.shape.is-draft .stamp {
+  color: var(--cyan);
+}
+/* The idea a draft is offered to, above the reasoning: it is the first
+   thing worth knowing and the only line that is not about the picture. */
+.shape .suggest {
+  margin: 3px 0 0;
+  color: var(--cyan);
+  letter-spacing: 1px;
+  font-size: 9px;
+}
+.shape .suggest b {
+  color: var(--ink);
+  font-weight: 600;
+}
+/* The hull is six times as wide as it is tall; a square card draws it as
+   a hairline, so those cards take two slots and stack their text. */
+.shape.is-wide {
+  width: 686px;
+  flex-direction: column;
+}
+.shape svg {
+  flex: 0 0 auto;
+  background: #0a0719;
+  border-radius: 6px;
+}
+.shape > div {
+  min-width: 0;
+}
+.shape .name {
+  color: var(--ink);
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+.shape .stamp {
+  float: right;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #574d84;
+}
+.shape.is-free .stamp {
+  color: var(--gold);
+}
+.shape .blurb {
+  margin: 3px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+}
+.shape .figures {
+  margin: 4px 0 0;
+  color: #574d84;
+  font-size: 9px;
+}
+.spec-file {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.spec-file details.more > summary {
+  color: var(--ink);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.spec-file .blurb {
+  margin: 3px 0 0;
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 1.45;
+}

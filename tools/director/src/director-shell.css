@@ -1,0 +1,204 @@
+/**
+ * The page itself: the reset, the palette every other sheet reads, the header
+ * bar, and the four controls that appear on every page — button, link-button,
+ * textarea and labelled field.
+
+ * `button:disabled` lives here rather than beside any one panel because it is
+ * about every disabled button in the director; `test/rail-boss-guard.test.ts`
+ * reads this file for it.
+ */
+
+* {
+  box-sizing: border-box;
+}
+:root {
+  --bg: #07060f;
+  --panel: #0e0a22;
+  --line: #241b4f;
+  --line-soft: #1a1436;
+  --ink: #f2e9dc;
+  --dim: #7a6fa8;
+  --gold: #ffc24b;
+  --cyan: #2fe0f0;
+  --red: #ff5470;
+  --blue: #5b8cff;
+  --green: #3ddc84;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font:
+    12px / 1.5 "Courier New",
+    monospace;
+  display: grid;
+  grid-template-rows: 38px 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+header h1 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  font-weight: 600;
+}
+header .spacer {
+  flex: 1;
+}
+/* Phone-only chrome — see mobile-menu.ts and the @media block below.
+   On a wide screen #menuToggle never shows and the nine `.menu-item`
+   buttons are exactly the header row this project has always had. */
+#menuToggle {
+  display: none;
+}
+header button[data-view] {
+  display: none;
+}
+#status {
+  font-size: 10px;
+  color: var(--dim);
+}
+#status.bad {
+  color: var(--red);
+}
+#buildStamp {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #3c3468;
+}
+
+button {
+  font:
+    11px "Courier New",
+    monospace;
+  color: var(--dim);
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+button:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: #3b3163;
+}
+/* Every disabled button in the director, not just the ones under
+   `.cell-actions`. `button` sets a flat `color` and `cursor: pointer`
+   unconditionally, so without this a disabled button renders
+   pixel-identical to a live, unhovered one and invites the press it
+   will refuse. Hover is excluded above for the same reason. */
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+button.on {
+  background: #2a1f4e;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+/* The save button says whether there is anything to save: blue while the
+   store is ahead of disk, green once the two agree. No words beside it. */
+button.primary {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+button.primary.saved {
+  color: var(--green);
+  border-color: var(--green);
+}
+button.primary:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+a.linkbtn {
+  font:
+    11px "Courier New",
+    monospace;
+  color: var(--cyan);
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+a.linkbtn:hover {
+  color: var(--ink);
+  border-color: var(--cyan);
+}
+input,
+textarea {
+  font:
+    11px "Courier New",
+    monospace;
+  color: var(--ink);
+  background: #0a0719;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 4px 6px;
+  width: 100%;
+}
+/* Every textarea grows to fit what is typed into it instead of
+   scrolling — `autoGrowTextarea` in guide-fields.ts sets the height
+   inline on every keystroke, so there is nothing left here for a drag
+   handle to do. */
+textarea {
+  resize: none;
+  overflow: hidden;
+}
+label.field {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  margin: 9px 0 3px;
+}
+#fControlSet {
+  font:
+    11px "Courier New",
+    monospace;
+  color: var(--ink);
+  background: #0a0719;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 4px 6px;
+  width: 100%;
+}
+
+/* Below ~1160px the four columns no longer fit side by side. Rather than
+   clip one of them off-screen — the tabs used to vanish silently on a
+   narrower desktop window (commit 4b7e57d) — main scrolls horizontally
+   instead.
+
+   The game preview is the one column with a real ceiling: the canvas
+   inside it is a fixed aspect ratio (`#stage`, 0.56) sized off the
+   column's *height*, so a wider track than the canvas's own width never
+   grows the picture — it only pads the section with the black margin
+   either side of it, which is exactly the unused strip this used to
+   leave when the column was the flexible `1fr` track. `minmax(320px,
+   460px)` gives it room without a share of the leftover, and the two
+   columns either side of it are `fr` tracks that take what the game
+   column no longer does — WAVE, which is a form and reads better wide,
+   and BRUSH & MAP, which is two, since the buttons under BRUSH can wrap
+   into more than the one narrow list a fixed track had room for.
+
+   Neither of those two needs the old content-driven cap any more: the
+   cap on #brushCol (below) existed because a `max-content` track grows
+   to fit whatever its widest unwrapped line is — a hint sentence with
+   nowhere to break — and an `fr` track is sized from the available
+   space instead, so the same text wraps inside whatever width the row
+   gives it rather than dictating one. */

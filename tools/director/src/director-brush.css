@@ -1,0 +1,239 @@
+/**
+ * BRUSH: the two-subcolumn frame it shares with MAP, the category accordion,
+ * the brush buttons and their own pictures, the hint mode, and the ctrl-held
+ * jump to the wave a brush first appears in.
+ */
+
+main > section.brush-col {
+  display: flex;
+  flex-direction: column;
+}
+/* Two columns, not a stack: BRUSH on the left at whatever width its own
+   buttons need, MAP taking the rest — with the selected cell's panel at
+   the top of that second column, above the grid. `minmax(0, 1fr)` on the
+   map track rather than `auto`, so a wide grid scrolls inside its own
+   column instead of pushing the palette off the left edge. */
+main > section.brush-col > .column-body {
+  display: grid;
+  grid-template-columns: max-content minmax(262px, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+/* #brushCol used to be capped for the reason #gridNote still is below —
+   a `max-content` grid track grows to fit an unwrapped hint line — but
+   `main`'s BRUSH & MAP track is an `fr` track now (see the comment
+   beside `main` above), sized from the space available rather than
+   from its content, so nothing here can pull it wide any more. Left
+   uncapped, the extra room goes to the option list wrapping into more
+   than one column instead of a single stack nobody asked to be narrow. */
+/* Narrow and *fixed*, not content-width: as narrow as a picture and a
+   name allow — which is what makes room for the map beside it — and
+   three brushes to a row at this width. It was `max-content` for one
+   revision, and folding a category then narrowed the whole palette and
+   slid the map sideways under the pointer. A column that wants more can
+   be dragged wider (column-resize.ts). */
+#brushCol {
+  width: 250px;
+  min-width: 0;
+}
+#mapCol {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+/* #gridNote must not force #mapCol wider than the grid — a block child
+   with no width cap contributes its own unwrapped line length to the
+   auto-sizing pass, which is exactly the leftover-space bug this column
+   exists to avoid. The grid's width is fixed, not tuned: it is always
+   AUTHORED_COLS (7) columns of 32px plus the 24px beat-label column and
+   2px gaps between all eight (grid.ts sets gridTemplateColumns from the
+   same constant) — 24 + 7*32 + 7*2 = 262px, whatever `cfg.cols` is. */
+#gridNote {
+  max-width: 262px;
+}
+/* subcols.ts: BRUSH and MAP each close on their own, independent of the
+   whole-column collapse above. Same visual language as .column-toggle
+   (▾/▸, cyan label) but horizontal rather than the vertical strip a
+   collapsed top-level column becomes — there is no grid track to give
+   back here, just vertical space in a stack. */
+.subcol-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 2px 0;
+  margin: 0 0 8px;
+  border: none;
+  background: none;
+  color: var(--cyan);
+  font:
+    9px "Courier New",
+    monospace;
+  letter-spacing: 2px;
+}
+.subcol-toggle:hover {
+  color: var(--ink);
+}
+.subcol-toggle::before {
+  content: "▾";
+  color: var(--dim);
+  font-size: 9px;
+}
+[data-subcol].collapsed .subcol-toggle::before {
+  content: "▸";
+}
+[data-subcol].collapsed .subcol-toggle {
+  margin-bottom: 0;
+}
+[data-subcol].collapsed .subcol-body {
+  display: none;
+}
+/* CANNON, SHIELD… as an accordion: the category is a header button and
+   its own brushes sit directly beneath it in the same column, so two
+   categories can be read at once. It was a rail of tabs beside a wide
+   grid of options, which put exactly one category on screen and made
+   the palette as wide as the map. Every category starts open — what
+   localStorage holds is the *closed* set (brush-category.ts), so a
+   first run has nothing stored and nothing folded. palette.ts rebuilds
+   the whole list on every brush pick, which is why the fold state
+   cannot live in the DOM. */
+#brushes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.brush-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.brush-category {
+  width: 100%;
+  text-align: left;
+  padding: 3px 6px;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-color: var(--line-soft);
+}
+.brush-category::before {
+  content: "▾";
+  color: var(--dim);
+  font-size: 8px;
+}
+.brush-group.closed .brush-category::before {
+  content: "▸";
+}
+.brush-group.closed .brush-list {
+  display: none;
+}
+/* The buttons take the smallest width and height a 26px picture and a
+   name allow, and wrap rather than stretching: a category with three
+   brushes leaves the rest of its row blank instead of three wide
+   buttons nobody asked for. */
+.brush-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-content: start;
+}
+/* A tool action rather than one more category, and the one destructive
+   button in the column — so it is bordered like a button (three of its
+   four borders were removed, which read as a stray glyph rather than
+   something clickable), red, named, and larger than the brushes above
+   it. */
+#brushErase {
+  width: 100%;
+  margin-top: 10px;
+  padding: 7px 9px;
+  border: 1px solid var(--red);
+  border-radius: 5px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--red);
+  background: #1d0a15;
+}
+#brushErase:hover {
+  color: #fff;
+  background: var(--red);
+}
+#brushHintToggle {
+  font-size: 9px;
+  margin: 0 0 6px;
+  padding: 3px 7px;
+}
+button.brush {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: left;
+  padding: 2px 4px;
+  max-width: 100%;
+}
+button.brush svg {
+  flex: 0 0 26px;
+  background: #0a0719;
+  border-radius: 4px;
+}
+/* A brush's own picture (`brush-art.ts`) — a bare frame of the real
+   renderer, trimmed to the body it drew, so the chip is black with the
+   creature filling it rather than a crop of starfield with something in
+   one corner. Black rather than the panel's #0a0719 because that is what
+   the frame itself is filled with, and a rounded corner over a lighter
+   box would show the join. */
+img.brush-art {
+  flex: 0 0 auto;
+  background: #000;
+  border-radius: 5px;
+  display: block;
+}
+button.brush > div {
+  display: flex;
+  flex-direction: column;
+}
+.brush .name {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.brush .hint {
+  font-size: 9px;
+  color: var(--dim);
+  line-height: 1.3;
+  max-width: 190px;
+}
+/* With the hints showing, a button is a paragraph rather than a chip:
+   one per row, since three of them side by side would each be too
+   narrow to read. */
+#brushes:not(.hide-hints) .brush-list {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+#brushes:not(.hide-hints) .brush .name {
+  white-space: normal;
+}
+/* Default: hidden. #brushHintToggle flips this class on #brushes. */
+#brushes.hide-hints .brush .hint {
+  display: none;
+}
+/* Ctrl (or ⌘) held: a click opens the wave that first puts the brush on
+   the field instead of painting the selected cell (`palette.ts`). The
+   palette says so before the press rather than after it — a modifier is
+   the one control nothing on screen can advertise by itself. Gold is
+   what "this is where the eye goes" already means here (`button.on`,
+   the selected cell, the beat now playing); a brush no wave carries
+   dims to the same 0.35 every refused button in the director uses. */
+#brushes.jump button.brush.can-jump {
+  border-color: var(--gold);
+  color: var(--ink);
+  cursor: alias;
+}
+#brushes.jump button.brush:not(.can-jump) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

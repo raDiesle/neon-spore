@@ -1,0 +1,118 @@
+/**
+ * The field itself — the stage box that keeps the renderer's aspect, the
+ * transport row under it — and the KEYBINDINGS modal that covers it.
+ */
+
+/* Fills the whole column — the field is the reason the tool exists,
+   and the transport row below is `flex: 0 0 auto`, so it is pinned to
+   the bottom of the screen rather than floating in a shared column.
+   `align-items: center` centers `.transport`, which is narrower than
+   the column; `#stageBox` overrides it with its own `width: 100%`. */
+#stageWrap {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+/* The canvas would otherwise size itself from its own width attribute, which
+   the renderer sets from its measured width — a loop that settles at zero. */
+#stageBox {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+/* The stage aspect the renderer uses — STAGE_ASPECT in packages/render/src/layout.ts. */
+#stage {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 0.56;
+  background: #05040c;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: block;
+  cursor: crosshair;
+}
+/* One row of the same kind of control — wraps rather than clipping or
+   scrolling sideways once BRIEFINGS joined the buttons that were
+   already here. Last child of `#stageWrap`, so it sits at the bottom
+   of the column with no growable sibling below it to push it further. */
+.transport {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+/* KEYBINDINGS: "for the time being" — a modal over the field, not a
+   settings page and not the full-screen shell CARDS/SHIP/CONTROL SETS
+   use, because there is nothing here to navigate, only to read. Closed
+   by its own button or by a click on the backdrop, same as those. */
+#keyHelpModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(5, 4, 12, 0.72);
+  align-items: center;
+  justify-content: center;
+}
+#keyHelpModal.on {
+  display: flex;
+}
+#keyHelpModal .sheet {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+#keyHelpModal header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+#keyHelpModal .title {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 12px;
+}
+#keyHelpModal header button {
+  margin-left: auto;
+}
+#keyHelpBody h3 {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin: 12px 0 4px;
+  font-weight: 400;
+}
+#keyHelpBody h3:first-child {
+  margin-top: 0;
+}
+#keyHelpBody ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#keyHelpBody li {
+  display: flex;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 11px;
+  color: var(--ink);
+}
+#keyHelpBody .key {
+  flex: 0 0 20px;
+  color: var(--gold);
+  font-weight: 600;
+}

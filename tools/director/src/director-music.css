@@ -1,0 +1,114 @@
+/**
+ * MUSIC — one column rather than three, because a piece is half a minute long —
+ * and the generic sheet page the rest of the tabs are built out of.
+ */
+
+/* MUSIC. One column rather than three: a piece is half a minute long and
+   its roll wants the whole width, where a sound's plot fits in 190px. */
+.theme {
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 8px 0;
+  max-width: 900px;
+}
+.theme .head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme .name {
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+.theme .id {
+  color: #4d4478;
+  font-size: 9px;
+}
+.theme .stamp {
+  margin-left: auto;
+  font-size: 9px;
+  color: #574d84;
+  letter-spacing: 2px;
+}
+.theme .note {
+  margin: 4px 0 0;
+  max-width: none;
+}
+.theme .use {
+  margin: 2px 0;
+  color: var(--dim);
+  font-size: 10px;
+}
+.theme .kind {
+  margin: 2px 0 6px;
+  color: #a98cff;
+  font-size: 9px;
+}
+.theme .roll {
+  display: block;
+  width: 100%;
+  height: 96px;
+  border-radius: 5px;
+  border: 1px solid var(--line-soft);
+}
+.playbtn.on {
+  color: var(--red);
+}
+.cells {
+  margin: 18px 0 0;
+  max-width: 900px;
+}
+.cells h2 {
+  color: var(--dim);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin: 0 0 6px;
+}
+.cellrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.cellbtn {
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.sheetpage {
+  display: none;
+}
+.sheetpage.on {
+  display: block;
+}
+.sheetpage > .note {
+  max-width: 620px;
+}
+/* The answer to "what is this page", pulled out of the `.note` fog:
+   `.note` is 9px and #574d84 everywhere else in this file too, so a
+   page's own explanation read as just another caption among dozens and
+   the eye went straight past it to the cards.
+
+   It used to be `position: sticky` as well, to keep it under the tab bar
+   while the cards scrolled. That was wrong: the paragraph has a
+   background only as wide as its own 620px column, so everything to the
+   right of it scrolled *through* the text, and on the tabs that render a
+   document whole the paragraph is longest and covered the most. It is
+   read once, before the page is read — a heading that follows you down a
+   page earns its room only when it says where you are, and this one says
+   what you already decided to open. */
+.sheetpage > .pagewhat {
+  max-width: 620px;
+  margin: 0 0 14px;
+  padding: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-soft);
+}
+.sheetpage h2 {
+  color: var(--cyan);
+  letter-spacing: 3px;
+  font-size: 11px;
+  margin: 18px 0 2px;
+}

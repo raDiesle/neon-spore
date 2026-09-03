@@ -1,0 +1,234 @@
+/**
+ * The sheets' shared page furniture: the tab strip, the caption block, and the
+ * three cards a spec is drawn as — a plan with its concept art, a scene with
+ * its two seats, and a bare idea.
+ */
+
+#tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.tabpage {
+  display: none;
+}
+.tabpage.on {
+  display: block;
+}
+
+.cap {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 10px;
+}
+.cap b {
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.cap .num {
+  color: var(--gold);
+  float: right;
+}
+.cap p {
+  margin: 2px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+}
+
+.plan {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 10px;
+}
+.plan .head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plan svg {
+  flex: 0 0 auto;
+  background: #0a0719;
+  border-radius: 5px;
+}
+.plan .name {
+  color: var(--dim);
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+.plan.is-built .name {
+  color: var(--ink);
+}
+.plan .stamp {
+  margin-left: auto;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #574d84;
+}
+.plan.is-built .stamp {
+  color: var(--cyan);
+}
+.plan .kind {
+  color: #a98cff;
+  margin-left: 6px;
+  font-size: 9px;
+}
+.plan .blurb {
+  margin: 2px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+}
+/* Why a draft is that shape. Cyan, like the draft's own frame, so the
+   sentence and the picture it explains read as one thing. */
+.plan .drawn {
+  margin: 3px 0 0 54px;
+  color: #6fb9c4;
+  line-height: 1.4;
+  font-size: 9px;
+}
+.plan .drawn b {
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+/* Always the same width whether it holds a shape or a gap, so a column
+   of entries stays a column and the names line up down the page. */
+.concept-art {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 5px;
+  background: #0a0719;
+}
+.concept-art.is-wide {
+  width: 132px;
+}
+.concept-art.is-draft {
+  border-color: #1d5a63;
+  background: #041013;
+}
+.concept-art.is-none {
+  color: #3b3163;
+  font-size: 13px;
+}
+.concept-art svg {
+  background: none;
+}
+.plan .drawn.is-wide {
+  margin-left: 140px;
+}
+
+/* ON THE FIELD. Never scaled: the frame is cut at the phone's own width
+   and drawn at it, so a creature is 27 px across on this page because it
+   is 27 px across on the device. A rule that fitted one of these to its
+   column would take away the only thing it is for. */
+.scenes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 8px 0 4px;
+}
+.scene {
+  width: 380px;
+}
+.scene-shot {
+  position: relative;
+  width: 380px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #05040b;
+}
+.scene-shot canvas {
+  display: block;
+}
+/* The unbuilt half, stacked exactly over the frame it belongs to. */
+.scene-shot canvas.over {
+  position: absolute;
+  inset: 0;
+}
+.scene .claim {
+  margin: 5px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+  font-size: 9px;
+}
+.scene .claim b {
+  color: var(--ink);
+  font-weight: 400;
+}
+.scene .seat {
+  margin: 2px 0 0;
+  color: #574d84;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.concept {
+  padding: 6px 0 10px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 10px;
+}
+.concept .name {
+  color: var(--ink);
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+.concept .status {
+  float: right;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #574d84;
+}
+.concept .status.is-built {
+  color: var(--cyan);
+}
+.concept .blurb {
+  margin: 4px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+}
+table.concept-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 0;
+  font-size: 9px;
+}
+table.concept-table th,
+table.concept-table td {
+  padding: 3px 5px;
+  text-align: left;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line-soft);
+}
+table.concept-table th {
+  color: var(--cyan);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+table.concept-table td:first-child {
+  color: var(--ink);
+}
+
+.idea {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 10px;
+}
+.idea .name {
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+.idea .blurb {
+  margin: 2px 0 0;
+  color: var(--dim);
+  line-height: 1.45;
+}
+
+/* The spec as the spec wrote it — every entry that has more than its one
+   parsed line carries one of these, shut. */

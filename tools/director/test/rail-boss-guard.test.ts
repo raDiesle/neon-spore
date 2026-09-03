@@ -17,14 +17,16 @@ import { describe, expect, it } from "bun:test";
  * `:disabled` rule was scoped to `.cell-actions`, so a disabled COPY/DELETE
  * rendered pixel-identical to a live, unhovered one. `.disabled` alone was
  * never going to look disabled. That is now the stylesheet's job — an
- * unscoped `button:disabled` in `src/director.css`, which covers every
+ * unscoped `button:disabled` in `src/director-shell.css`, which covers every
  * disabled button in the director rather than the two `rail.ts` could reach —
- * so the second test below reads the stylesheet instead of this file.
+ * so the second test below reads the stylesheet instead of this file. It is
+ * `director-shell.css` because the rule is about every button on the page and
+ * not about any one panel, which is what that file holds.
  */
 
 const source = await Bun.file(Bun.fileURLToPath(new URL("../src/rail.ts", import.meta.url))).text();
 const css = await Bun.file(
-  Bun.fileURLToPath(new URL("../src/director.css", import.meta.url)),
+  Bun.fileURLToPath(new URL("../src/director-shell.css", import.meta.url)),
 ).text();
 
 describe("the boss guard on COPY and DELETE", () => {

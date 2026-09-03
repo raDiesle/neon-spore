@@ -1,0 +1,94 @@
+/**
+ * The phone layout. Below 700px the four desktop columns become three *views*,
+ * chosen from the header menu — see `mobile-menu.ts`.
+
+ * `index.html` carries the viewport meta this depends on: without it a phone
+ * lays the page out at ~980px and nothing here ever matches.
+ */
+
+/* On a phone the four desktop columns become three *views* — choosing
+   a wave, playing it, painting it — because nobody does two of them at
+   the same instant. Below the
+   breakpoint `main` drops to one column and every section but the one
+   named by `main[data-view]` is hidden; above it none of this matches,
+   so a desktop keeps all four columns exactly as it always has — this
+   is a phone arrangement, not a redesign. Placed last in the sheet so
+   its specificity ties with `.stage-col`/`.brush-col` above resolve in
+   its favour rather than by accident of selector shape.
+
+   The way in is `#menuToggle` (mobile-menu.ts): tapping it turns
+   `<header>` itself into a full-screen menu of every `.menu-item` —
+   the three views and the six pages the header always had, wrapped
+   into a cramped multi-row bar before this existed. Reachable from
+   any of the three views because the header sits outside every
+   section; a page opened from the menu carries its own ✕ CLOSE back
+   to whichever view was showing underneath. */
+@media (max-width: 700px) {
+  body {
+    grid-template-rows: auto 1fr;
+  }
+  #menuToggle {
+    display: inline-flex;
+    order: -1;
+  }
+  header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px 12px;
+  }
+  header .menu-item {
+    display: none;
+  }
+  body.menu-open header {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    padding: 16px;
+    gap: 8px;
+  }
+  body.menu-open header h1,
+  body.menu-open header #save,
+  body.menu-open header #status,
+  body.menu-open header #shippedNote,
+  body.menu-open header #buildStamp,
+  body.menu-open header .spacer {
+    display: none;
+  }
+  body.menu-open header .menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    font-size: 12px;
+  }
+  main {
+    grid-template-columns: 1fr;
+    overflow-x: hidden;
+  }
+  main > section,
+  main > section.stage-col,
+  main > section.brush-col {
+    display: none;
+  }
+  main[data-view="wave"] > section[data-view="wave"] {
+    display: block;
+  }
+  main[data-view="game"] > section.stage-col[data-view="game"] {
+    display: flex;
+  }
+  main[data-view="map"] > section.brush-col[data-view="map"] {
+    display: flex;
+  }
+  /* A column never collapses on a phone — one section already fills
+     the screen, and columns.ts skips the relayout that would
+     otherwise fight this block's own grid-template-columns. */
+  .column-head {
+    display: none;
+  }
+  section.collapsed .column-body {
+    display: block;
+  }
+}
