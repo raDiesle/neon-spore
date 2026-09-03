@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · fb2dff5 — The pilot gets a box walking the grid while a wisp is out
+
+Player 1 had a lattice, a siren and a pip on every hop — three true things, all of them at the edges of the picture. The field in the middle was an empty grid, which is what a field with nothing on it looks like, and this is the wave where the field is not empty. The seat holding the cannon was being asked to stare at a plausible nothing.
+
+## 2026-09-03 · 813576b — The wisp comes through in bands, with holes in it
+
+A wisp drawn as a solid jellyfish is a solid jellyfish, and the one thing the body never said was that the other screen has nothing on it at all. The split is the whole creature.
+
 ## 2026-09-03 · 5342475 — A brush says one thing in the palette, and the whole sentence on its card
 
 The line under a brush's name was CREATURES[kind].blurb, which is written for the first-appearance preview: three clauses, everything true about the creature. Twenty of those stacked in the strip is a wall, and the question the palette is being asked is only ever "which of these is the one I mean". Each brush now carries a short line for that — "starts bigger, shrinks when shot", "p2 does not see what is inside" — and the blurb moves to the hover card, where there is room for it and where somebody has stopped to ask.
