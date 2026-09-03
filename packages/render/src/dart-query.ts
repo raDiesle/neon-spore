@@ -20,11 +20,11 @@ import { drawTargetLock } from "./target-lock.js";
  *  - the **two arrows**, one down each diagonal, drawn with the same call that
  *    draws player 2's single one. Two of a mark that means "this way" is the
  *    only way to say "either way" in a vocabulary the pair already has;
- *  - the **target lock** around both of them and the body under them, which is
- *    the game's one picture for a seat that is being shown a contact and not
- *    what it is (`target-lock.ts`). It replaced a question mark that stood in
- *    the same place, for the reason that file carries: four markings for one
- *    idea is three too many;
+ *  - the **target lock** around the body, which is the game's one picture for
+ *    a seat that is being shown a contact and not what it is
+ *    (`target-lock.ts`). It replaced a question mark that stood above the
+ *    arrows, for the reason that file carries: four markings for one idea is
+ *    three too many;
  *  - and the **off-white itself**, which is what keeps this from reading as
  *    player 2's arrow. That one is in the body's own colour, because it is a
  *    fact about that body; these are not about the body at all, they are about
@@ -40,18 +40,24 @@ const MARK = PALETTE.text;
 /** How faint the two arrows are beside player 2's one. */
 const ALPHA = 0.5;
 /**
- * The frame's half-extents, in body radii, and where its centre sits above the
- * body's own.
- *
- * A portrait rectangle rather than a square, because what is being locked is
- * not the body alone: the two arrows stand about two radii above it
- * (`drawDartArrow`), and a frame that cut across them would have picked out
- * half of its own sentence. So the box holds the body and both arrows, and
- * nothing of it comes within a radius of the contour underneath.
+ * The frame's half-extent, in body radii — a square around the body and
+ * nothing else, exactly the one a lure wears (`lure-alarm.ts`). Two markings
+ * that mean *picked out* have to be the same size as well as the same shape,
+ * or the pair reads the difference as information.
  */
-const BOX_HALF_W = 1.35;
-const BOX_HALF_H = 1.78;
-const BOX_LIFT = 0.48;
+const BOX_MUL = 1.55;
+/**
+ * How much further above the body the two arrows stand than they do on player
+ * 2's screen, in radii.
+ *
+ * They used to sit where `drawDartArrow` puts them, which is inside where the
+ * frame now is — and an arrow crossing a corner bracket reads as part of the
+ * bracket, which loses the one mark on this screen that carries a *side*. So
+ * they are lifted clear of the frame's top edge, in the gap the question mark
+ * used to stand in. `drawDartArrow` is handed a raised centre rather than
+ * given a parameter: the mark is unchanged, only where it is put.
+ */
+const ARROW_LIFT = 0.62;
 
 export function drawDartQueries(
   ctx: CanvasRenderingContext2D,
@@ -69,11 +75,12 @@ export function drawDartQueries(
     if (c.kind !== "dart") continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = creatureRadius(l, c, beatPhase, world.cfg);
-    drawDartArrow(ctx, x, y, r, -1, MARK, ALPHA);
-    drawDartArrow(ctx, x, y, r, 1, MARK, ALPHA);
+    const above = y - r * ARROW_LIFT;
+    drawDartArrow(ctx, x, above, r, -1, MARK, ALPHA);
+    drawDartArrow(ctx, x, above, r, 1, MARK, ALPHA);
     // Sized off the body's own radius rather than off a tile: a body far up
     // the field draws smaller than its tile (`depthScale`), and a frame that
     // ignored that would stand a fixed size around a shrinking creature.
-    drawTargetLock(ctx, x, y - r * BOX_LIFT, r * BOX_HALF_W, r * BOX_HALF_H, MARK, time, 0.9, c.id);
+    drawTargetLock(ctx, x, y, r * BOX_MUL, r * BOX_MUL, MARK, time, 0.9, c.id);
   }
 }
