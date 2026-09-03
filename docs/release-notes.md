@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 01a93ee — PINBALL is alive, and a shot is two presses instead of three
+
+The table's pieces were circles with a highlight on them, correct and the only screen in this game where nothing breathed. A peg is a cell now, drawn through the same `blobPath` every creature on the field is, lit from inside and haloed from outside; a block is a slab of the same tissue. The bucket was a flat trapezoid, which is a hopper and not a ship — it takes the hull's own skin now, the four-stop body ramp and the rim glow and the key light, in a bowl with two horns and no cannon, and the ball waits in its mouth between shots.
+
 ## 2026-09-03 · c3b22f6 — A room checks before it seats, and gives a lost seat back
 
 The eight queued items on the two-device layer, worked together because the last three are one change: the version check, the seat eviction and the Durable Object's first test all live in the same twenty lines of `room.ts`. The relay is the part of this game no test had ever run, and it now has one.
