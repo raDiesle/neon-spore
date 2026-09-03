@@ -69,7 +69,7 @@ export const WAVES_ACT_5: Wave[] = [
     ],
   },
   {
-    name: "HOLD IT OPEN",
+    name: "The Lid",
     sentence: "The one where doing your half first is the same as not doing it.",
     guide: {
       both: "An armoured eye with a cord hanging off it. The plates over the lens part while the cord is pulled aside and shut the moment it is let go — and only while they stand fully apart does the lens's own colour land.",
