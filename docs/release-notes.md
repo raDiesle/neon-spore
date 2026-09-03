@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · e41ebe6 — LEAVE ROOM asks in place, on both doors a player presses while the game is fine
+
+Both the room sheet's LEAVE ROOM and the menu's called `link.leave()` on a single tap, and that call drops the other player's game — one mis-tap ended a run for two people.
+
 ## 2026-09-03 · 5d2d657 — The view switch goes away on a player's device, like the rest of the test rig
 
 P1 / P2 / TEST sat top-centre in every mode. It predates the menu's seat cards, which are how a seat is chosen now — and on a phone the room has already handed one out, so the switch was a second seat-picker floating over the field whose wrong answer is silent: `view.ts` decides what answers a touch from the mode, so a player who taps the seat their device was not given simply stops being able to play.
