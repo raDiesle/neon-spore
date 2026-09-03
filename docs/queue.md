@@ -578,6 +578,7 @@ question and the report says **unverified**.
 ## `bun run land` refuses a file whose only change is git's stat cache
 
 - **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553
+- **Taken:** 2026-09-03, claude/queue-bun-run-land-refuses-a-file-whose-only-change-is
 - **Files:** `tools/land/run.ts`, `tools/land/land.ts`, `tools/land/test/land.test.ts`
 
 A landing was refused with `1 uncommitted file here — a lane lands what it
