@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 7f905de — Ctrl-click a brush and the director plays the wave it first arrives in
+
+The palette already knew which wave first puts a brush on the field — the hover card has named it since the card replaced a title attribute — and the only way to act on that was to read the number, find it in the rail and press it. Ctrl-click (or ⌘-click, since Ctrl-click is the context menu on a Mac) now opens that wave and starts it running, so "what is a Throb" and watching one arrive are one press apart.
+
 ## 2026-09-02 · 481177a — THE GYRE: the column you were told is right for one beat
 
 Six bodies bolted round a turning rim, alternating red and cyan. Every other creature holds one of colour and column still — a slick keeps both the whole way down, the dart moves the lane, the veil turns the colour over. This one turns them into each other: the body standing in a column *is* a different colour a beat later, so "red in four" is a true sentence with a shelf life of one beat, and the pair has to name a moment instead of a place.
