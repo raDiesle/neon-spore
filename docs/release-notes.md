@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 1d91a3f — Queue the bash guard's refusal of a commit reword
+
+The guard matches `git commit --am` to catch `--am` as short for `--all`, and `--amend` begins with those characters — so rewording the commit you have just written is refused with a message about staging another lane's work. It also matches its own text, so a message that quotes the refused form cannot be committed either. Found by hitting both; the entry says to anchor the abbreviations, match argv rather than the whole command line, and add the test the guard has never had.
+
+## 2026-09-03 · 0fcfdfc — Six package scripts nothing could run, and the one import that broke installs
+
+`packages/sim` and `packages/net` each declared `"build": "tsc -b"` with no `tsconfig.json` to build, so the script errored the moment it was called; the `queue`, `index`, `orphans` and `scope` scripts inside their tool packages duplicated root scripts that already call the same files by path. All six are gone. `tools/icons` reached `../frames/capture.js` relatively while declaring no dependency on it, and under Bun's isolated linker that is what left `playwright-core` unresolved for `icons` in the main tree — it imports `@neon-spore/frames/capture.js` now and declares the workspace dependency, re-locked in this commit.
+
+## 2026-09-03 · e38e31d — A dead import is now an error, and the twenty-four already there are gone
+
+`biome check .` reported twenty-seven warnings and exited 0, so `bun run lint`, the stop hook and `bun run land` all walked past them. `noUnusedImports` and `noTemplateCurlyInString` are `"error"` now, and `bun run lint` is clean: twenty-four dead imports removed across `sim`, `render` and the director, and the three `"${ctx.uid}"` the director's tests look for in source text are suppressed by name, because there the placeholder is the thing being asserted.
+
+## 2026-09-03 · 4282524 — The preview server is inside the type check, and had two errors in it
+
+The root tsconfig named `apps/game/build.ts` and `apps/server/dev.ts` by hand and missed `apps/game/preview.ts` — the one server every agent verifies against was the one root-level script tsc never looked at. `apps/*/*.ts` replaces both entries and catches all three. It found a real fault: `fetch` reads `server.port` from inside the object that defines `server`, so each waited on the other and both came out `any`. Spelling out the handler's return type breaks the cycle.
+
 ## 2026-09-03 · ad20e53 — Queue the INDEX drift nothing catches
 
 Five rows in `docs/INDEX.md` were fixed by hand this week and `bun run index` was green over every one of them, because the generator only derives a row's text for a path that has no row yet.
