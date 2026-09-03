@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 30549ae — Nicknames are unique, held by a registry, and recoverable with a code
+
+A name is how the other phone knows who is in the other seat, so two people called DAVID in one room is the thing it must not be possible to be. Uniqueness needs somewhere to be unique *in*, and a room is the wrong place: rooms come and go, and the pair who play tomorrow are the same two people. So there is exactly one more Durable Object, holding every claimed name.
+
 ## 2026-09-04 · 74e1dfd — A nickname, asked once and carried into the room
 
 The seat pills said HERE, which is only that somebody is there. Knowing *who* is there is the whole reason to ask, so the room screen asks the first time a device reaches it and never again — changing a name belongs on the settings page, where the rest of "things about me" will live.
