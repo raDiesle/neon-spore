@@ -382,6 +382,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
+| `packages/render/src/rind-shed.ts` | A layer coming off THE RIND — the owner's picture of it: it should look like it is shrinking, hit with a |
 
 ### packages/net
 

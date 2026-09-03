@@ -109,6 +109,7 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
       row: hit.row,
       color: b.color,
       left,
+      id: hit.id,
     });
     return false;
   }

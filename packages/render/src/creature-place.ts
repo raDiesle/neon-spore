@@ -106,6 +106,23 @@ export function livingBodyMul(c: Creature): number {
 const RIND_LAYER_MUL = 1;
 
 /**
+ * The footprint the body had **one layer ago** — what a rind was wearing on
+ * the frame before the shed that just happened.
+ *
+ * Here rather than in `rind-shed.ts` because it is the same rule as
+ * `livingBodyMul` read one step back, and `RIND_LAYER_MUL` is the whole of the
+ * step. A husk drawn at a size spelled out by hand at its own draw site is a
+ * second copy of how big a layer is, and the day the step stops being a whole
+ * body it is the skin that quietly stops fitting the body it came off.
+ *
+ * Defined for any creature, and one whole layer above `livingBodyMul` for all
+ * of them: nothing but a rind ever sheds, so nothing else asks.
+ */
+export function rindPrevBodyMul(c: Creature): number {
+  return livingBodyMul(c) + RIND_LAYER_MUL;
+}
+
+/**
  * The echo's share of a body's footprint. Six tenths: small enough to read as
  * a different creature at a glance beside a slick in the next column, and not
  * so small that the 20 px floor the style guide sets for an object at the top

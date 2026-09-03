@@ -4,13 +4,15 @@ import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
+import { RindShedFx } from "./rind-shed.js";
 import { VeilTearFx } from "./veil-tear.js";
 
 /**
- * The transients that belong to **one body** and outlive it by less than a
- * beat: a lure folding to a point, the ward's bolts reaching up a column, a
- * clasp's shield blinking out, a veil's cloud tearing open on the body inside
- * it, a ghost letting go and climbing out of the top of the field.
+ * The transients that belong to **one body** and outlive the moment that made
+ * them by less than a beat: a lure folding to a point, the ward's bolts
+ * reaching up a column, a clasp's shield blinking out, a veil's cloud tearing
+ * open on the body inside it, a ghost letting go and climbing out of the top
+ * of the field, a layer coming off a rind.
  *
  * Split out of `effects.ts` when the second one arrived and that file went
  * over its 250-line limit — the same reason `effects-spark.ts` and
@@ -20,19 +22,21 @@ import { VeilTearFx } from "./veil-tear.js";
  * by the whole field. These are none of those. Each is a short picture of one
  * creature's last moment, spawned from one event, drawn under the hull, and
  * dropped on a restart — four verbs they agree on completely, which is what
- * makes one object out of four.
+ * makes one object out of six.
  *
  * **Two draw calls, not one.** A lure is gone, so its picture is frozen at the
  * place it was and needs nothing but a canvas — and so is a torn veil, for the
- * same reason and by the same test. The two clasp transients are
- * about a body that is still falling and have to be redrawn around wherever it
- * is this frame, so they take the layout, the world and the beat phase. That
- * is the seam, and it is the reason the split is a signature difference rather
- * than a filing preference.
+ * same reason and by the same test. The two clasp transients and the rind's
+ * shed skin are about a body that is still falling and have to be redrawn
+ * around wherever it is this frame, so they take the layout, the world and the
+ * beat phase. That is the seam, and it is the reason the split is a signature
+ * difference rather than a filing preference.
  *
- * All four are *pure render*: the simulation has already finished with the
- * body by the time any of them starts, so nothing here is ever read back into
- * a world, and nothing in a world can be recovered from it.
+ * All six are *pure render*: nothing here is ever read back into a world, and
+ * nothing in a world can be recovered from it. Four of them draw a body the
+ * simulation has already finished with; the two that do not — a clasp's shield
+ * and a rind's skin — draw something that came *off* a body still falling,
+ * which is the same promise from the other side.
  */
 export class BodyTransients {
   private lureVanish = new LureVanishFx();
@@ -40,13 +44,23 @@ export class BodyTransients {
   private claspStrike = new ClaspStrikeFx();
   private veilTear = new VeilTearFx();
   private ghostRelease = new GhostReleaseFx();
+  private rindShed = new RindShedFx();
 
-  ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig, beatSeconds: number): void {
+  /** `time` is the wall clock the contour wobble is sampled at — the husk
+   * freezes the outline the body had on the frame the layer came off. */
+  ingest(
+    events: readonly SimEvent[],
+    l: Layout,
+    cfg: SimConfig,
+    beatSeconds: number,
+    time: number,
+  ): void {
     this.lureVanish.ingest(events, l);
     this.claspBreak.ingest(events, cfg, beatSeconds);
     this.claspStrike.ingest(events);
     this.veilTear.ingest(events, l);
     this.ghostRelease.ingest(events, l);
+    this.rindShed.ingest(events, time);
   }
 
   update(dt: number): void {
@@ -55,6 +69,7 @@ export class BodyTransients {
     this.claspStrike.update(dt);
     this.veilTear.update(dt);
     this.ghostRelease.update(dt);
+    this.rindShed.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -69,12 +84,15 @@ export class BodyTransients {
     this.ghostRelease.draw(ctx);
   }
 
-  /** The two that are drawn around a body the world still has. */
+  /** The three that are drawn around a body the world still has. */
   drawOnBodies(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
     // The strike first, the shell coming apart over it: the bolt arrives and
     // then the thing it hit fails, which is the order the pair caused.
     this.claspStrike.draw(ctx, l, world, beatPhase);
     this.claspBreak.draw(ctx, l, world, beatPhase);
+    // And a rind's skin, thrown off a body that is one size smaller than it
+    // was a frame ago and still coming.
+    this.rindShed.draw(ctx, l, world, beatPhase);
   }
 
   /**
@@ -89,5 +107,6 @@ export class BodyTransients {
     this.claspStrike.clear();
     this.veilTear.clear();
     this.ghostRelease.clear();
+    this.rindShed.clear();
   }
 }

@@ -112,7 +112,7 @@ export class Effects {
     const beatSeconds = 60 / cfg.bpm;
     this.mirror.ingest(events);
     this.warden.ingest(events);
-    this.bodies.ingest(events, l, cfg, beatSeconds);
+    this.bodies.ingest(events, l, cfg, beatSeconds, time);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);

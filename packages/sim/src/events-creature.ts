@@ -173,8 +173,14 @@ export type CreatureEvent =
    * It carries the colour that took the layer — which is the body's own, since
    * nothing else can shed one — so the burst is the body's colour rather than
    * a grey one: this was a hit and it should feel like one.
+   *
+   * And it carries the body's `id`, for `claspBreak`'s reason: the layer comes
+   * off a creature that is *still falling*, so the picture of it coming off has
+   * to be redrawn around wherever that body is this frame rather than frozen at
+   * the tile the shot met it on (`render/src/rind-shed.ts`). A column and a row
+   * name a place; only an id names the thing that moved.
    */
-  | { type: "rindShed"; col: number; row: number; color: Color; left: number }
+  | { type: "rindShed"; col: number; row: number; color: Color; left: number; id: number }
   /**
    * THE GYRE's wheel failing, a beat after the last body left its rim
    * (`breakSpentGyres`). The hub's own tile and not the kill's: what breaks is

@@ -107,6 +107,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "lureVanished":
     case "claspBreak":
     case "veilTorn":
+    // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
+    // skin it came off in is `rind-shed.ts`, ingested with the rest of
+    // `effects-body.ts` before this loop starts. The size the body steps down
+    // to is not remembered anywhere — it is redrawn every frame straight off
+    // `rindLayers` (`livingBodyMul`), which is the one thing that cannot go
+    // stale across a restart.
+    case "rindShed":
     // Nothing here remembers anything past this frame: `burstFor`'s table
     // already said what a burst it is or is not, and none of these change
     // what `Effects` carries into the next one.
@@ -131,10 +138,6 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "lureSeen":
     case "shellBreak":
     case "shellBare":
-    // A layer off THE RIND leaves nothing behind either: the burst is thrown
-    // by `burstFor` above and the size the body steps down to is redrawn every
-    // frame straight off `rindLayers`, which needs no state here.
-    case "rindShed":
     case "veilMorph":
     case "veilRebuff":
     // A wisp hopping leaves nothing behind on the field: the ring and the beam

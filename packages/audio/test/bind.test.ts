@@ -70,7 +70,7 @@ const SAMPLES: Record<string, SimEvent> = {
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
-  rindShed: { type: "rindShed", col: 3, row: 5, color: "red", left: 1 },
+  rindShed: { type: "rindShed", col: 3, row: 5, color: "red", left: 1, id: 7 },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },

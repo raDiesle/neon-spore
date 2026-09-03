@@ -54,6 +54,31 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
+
+- **Found:** 2026-09-03, claude/rind-hit-effect-d14725
+- **Files:** `tools/frames/spec.ts`, `tools/frames/hold.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/test/hold.test.ts`
+
+`--hold` is the only way a capture presses anything, and `parseHold` accepts
+exactly four controls — `prime`, `mazeString`, `wardenTether`, `lidString`. All
+four are *held* controls, and none of them is a shot. So every effect that only
+exists because a bullet met a body — a shed layer, a shell piece, a clasp
+opening, a torn veil, a bare core — cannot be photographed by the tool
+`CLAUDE.md` names for showing the owner something. This lane needed a frame of
+one and hand-rolled a throwaway playwright script against `preview` to get it,
+which is the fifth throwaway `tools/frames/shot.ts`'s own header counts.
+
+The handle already has the verb: `window.neonSpore.send` takes any `Command`,
+and `advance` stamps it on the next tick, so `{kind:"cannonCol",col}` followed
+by `{kind:"fire",color}` is a shot. What is missing is a way to *say* it on the
+command line and a way to say *when* — a shot has to land while the target is
+on the field, which the existing `holdTicks` shape already models.
+
+Add a `--press` that takes a sequence of presses with tick offsets, e.g.
+`--press 60:1:cannonCol=3,60:2:fire=red`, parsed beside `parseHold` and applied
+in `captureAt`'s tick loop. Prove it with a unit test on the parser (`hold.ts`
+already has one to copy) and by capturing a frame of THE RIND mid-shed.
+
 ## PINBALL draws its slabs from the shipped wave, not the one being played
 
 - **Found:** 2026-09-03, claude/wave-restart-special-bosses-6e5af4
