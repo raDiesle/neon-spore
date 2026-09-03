@@ -287,7 +287,7 @@ describe("the rounds, and the two ways out of them", () => {
     expect(snake.roundBeat).toBe(world.beat);
   });
 
-  it("passes when the last one is cleared, and stands there before it goes", () => {
+  it("passes when the last one is cleared, and holds its own picture after", () => {
     const world = open();
     play(world);
     const snake = round(world);
@@ -298,8 +298,12 @@ describe("the rounds, and the two ways out of them", () => {
     step(world, []);
     expect(snake.phase).toBe("verdict");
     expect(snake.passed).toBe(true);
+    // Spent rather than gone: the round stays installed so the field — with
+    // its hull and its ship — does not come back for the beats of rest before
+    // the next wave (`sim/wave-end.ts`).
     for (let i = 0; i < 6 * TPB; i++) step(world, []);
-    expect(snakeRound(world)).toBeNull();
+    expect(snake.phase).toBe("spent");
+    expect(snakeRound(world)).not.toBeNull();
   });
 
   it("costs the hull when the clock runs out, and says so", () => {

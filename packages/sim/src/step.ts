@@ -15,6 +15,7 @@ import { advancePods } from "./pods.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden.js";
+import { endSpentRound, progressWave } from "./wave-end.js";
 import type { World } from "./world.js";
 
 /** Advance exactly one tick. The only way the world ever changes. */
@@ -60,6 +61,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepGaugeRound(world);
+    // A round that has run its course ends its wave from here: there is no
+    // field to be empty, and its picture holds until the next wave arrives.
+    endSpentRound(world);
     return;
   }
   // SNAKE has it instead, and the branch is the same shape for the same
@@ -76,6 +80,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepSnakeRound(world);
+    // A round that has run its course ends its wave from here: there is no
+    // field to be empty, and its picture holds until the next wave arrives.
+    endSpentRound(world);
     return;
   }
   // PINBALL has it third, and the branch is the same shape once more. What is
@@ -91,6 +98,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepPinballRound(world);
+    // A round that has run its course ends its wave from here: there is no
+    // field to be empty, and its picture holds until the next wave arrives.
+    endSpentRound(world);
     return;
   }
   // Commands are read even when the hull is through — otherwise `restart`
@@ -146,18 +156,4 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   advancePods(world);
   regenerateHull(world);
   progressWave(world);
-}
-
-/**
- * The rest between waves is over — and mark it spent, so the question is not
- * asked again on every following tick while the host gets around to it.
- *
- * It used to be able to stop here instead and wait for two thumbs (THE FORK).
- * It cannot any more, and nothing was lost: the pair's moment moved to the end
- * of the guide, where there is something to have been reading (`briefing.ts`).
- */
-function progressWave(world: World): void {
-  if (world.restBeat <= 0 || world.beat < world.restBeat) return;
-  world.restBeat = -1;
-  world.events.push({ type: "needWave", wave: world.wave + 1 });
 }

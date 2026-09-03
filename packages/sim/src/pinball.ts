@@ -46,13 +46,18 @@ import type { World } from "./world.js";
  */
 
 /**
- * The three parts of the round. `morph` is the ship becoming the bucket, which
+ * The parts of the round. `morph` is the ship becoming the bucket, which
  * is a picture rather than a rule and is exactly why it is a phase: the pair
  * needs beats to read a screen that has stopped being the field. SNAKE's
  * argument, and the beat counts beside it are constants in `pinball-round.ts`
  * rather than `SimConfig` fields for the same reason.
+ *
+ * `spent` is the last and it draws nothing new: the round is over and only
+ * being looked at, and it stays installed so the picture holds until the next
+ * wave replaces it rather than dropping back to the field for the beats of
+ * rest in between (`wave-end.ts`).
  */
-export const PINBALL_PHASES = ["morph", "play", "verdict"] as const;
+export const PINBALL_PHASES = ["morph", "play", "verdict", "spent"] as const;
 export type PinballPhase = (typeof PINBALL_PHASES)[number];
 
 /**

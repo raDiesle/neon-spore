@@ -99,8 +99,11 @@ export function stepGaugeRound(world: World): void {
     if (since >= GAUGE_LEAD_BEATS) enterPhase(round, "play", world.beat);
     return;
   }
+  // Over, and only being looked at. The round stays installed so the field
+  // does not come back for the beats of rest (`wave-end.ts`).
+  if (round.phase === "spent") return;
   if (round.phase === "verdict") {
-    if (since >= GAUGE_VERDICT_BEATS) closeGauge(world);
+    if (since >= GAUGE_VERDICT_BEATS) enterPhase(round, "spent", world.beat);
     return;
   }
 
@@ -127,10 +130,12 @@ function spendHull(world: World): void {
 }
 
 /**
- * The round is over: the boss goes, and the wave clears on the next beat
- * exactly as any other boss wave does once the last of it is off the field
- * (`beat.ts`). Passing and failing leave by the same door — what failing cost
- * was already taken, on the beat the time ran out.
+ * Take the round off the world outright, picture and all.
+ *
+ * Not how a round ends — one that has run its course goes to `spent` and
+ * stays on screen until the next wave replaces it (`wave-end.ts`). This is
+ * for a run being *left*: `restart` in `commands.ts`, which has to clear a
+ * boss that holds the whole of `step` before the host answers `needWave`.
  */
 export function closeGauge(world: World): void {
   if (!gaugeHolds(world)) return;

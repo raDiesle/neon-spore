@@ -7,6 +7,7 @@ import {
   gaugeRound,
   gaugeSeated,
   hashWorld,
+  roundSpent,
   type SimConfig,
   type SimEvent,
   startWave,
@@ -86,9 +87,11 @@ function run(world: World, ticks: number, bot: Bot = SILENT): SimEvent[] {
 }
 
 /**
- * Tick until the round is over, and hand back the round itself. The state
- * object outlives being detached from the world, which is the only way to read
- * a verdict that is by then in the past.
+ * Tick until the round is over, and hand back the round itself.
+ *
+ * "Over" is `spent` and not gone: a round that has run its course stays
+ * installed so the field does not come back for the beats of rest before the
+ * next wave (`sim/wave-end.ts`), and the state object is still the world's.
  */
 function runToEnd(
   world: World,
@@ -97,7 +100,7 @@ function runToEnd(
 ): { events: SimEvent[]; result: GaugeState } {
   const events: SimEvent[] = [];
   const result = round(world);
-  for (let i = 0; i < cap && gaugeHolds(world); i++) {
+  for (let i = 0; i < cap && gaugeHolds(world) && !roundSpent(world); i++) {
     step(world, bot(world));
     events.push(...world.events);
   }
@@ -205,9 +208,10 @@ describe("leaving the round", () => {
     expect(result.passed).toBe(true);
     expect(world.hullMilli).toBe(100_000);
     expect(world.scars.length).toBe(0);
-    // The boss is gone, so the field behind it is an empty wave — it clears on
-    // the next beat and asks for the one after, through the ordinary door.
-    expect(world.boss).toBeNull();
+    // The round is spent rather than gone: it holds its own picture, and ends
+    // its wave from there rather than through an empty field (`wave-end.ts`).
+    expect(roundSpent(world)).toBe(true);
+    expect(world.boss?.kind).toBe("gauge");
     const after = run(world, TPB * (CFG.waveRestBeats + 4));
     expect(after.some((e) => e.type === "needWave" && e.wave === WAVE + 1)).toBe(true);
   });
@@ -219,8 +223,10 @@ describe("leaving the round", () => {
     const { result } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
     expect(result.passed).toBe(false);
     expect(result.marks).toBe(0);
-    // Time is still what a *call* costs; the round costs the hull.
-    expect(world.score).toBe(700);
+    // Time is still what a *call* costs; the round costs the hull. The wave's
+    // own clear is credited either way, and now on the tick the round spends
+    // itself rather than a beat later through an empty field.
+    expect(world.score).toBe(700 + CFG.scoreWave);
     expect(world.hullMilli).toBe(61_000 - CFG.damageGauge * 1000);
     expect(world.scars.length).toBe(1);
     expect(world.over).toBe(false);

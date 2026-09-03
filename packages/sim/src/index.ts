@@ -149,6 +149,7 @@ export {
   veilMorphs,
   veilOnSpawn,
 } from "./veil.js";
+export { roundSpent } from "./wave-end.js";
 export { wispHops, wispOnField, wispRows, wispTileAt } from "./wisp.js";
 export {
   type BossEntry,

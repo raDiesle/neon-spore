@@ -5,9 +5,11 @@ import { gripsCreature, setGrip } from "./grip.js";
 import { endPrime, startPrime } from "./lance.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
+import { closePinball } from "./pinball-round.js";
 import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
+import { closeSnake } from "./snake-round.js";
 import { bodyCenterCol, type TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
@@ -41,11 +43,14 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // and the host does not answer `needWave` on the same tick it is asked, so
     // there are ticks in between for a charge to go out into (`shot-charge.ts`).
     endCharge(world);
-    // And THE GAUGE, for the third time the same argument: a run being left is
-    // not a run standing at a dial. Only that one — every other boss goes when
+    // And the three rounds that take the whole picture, for the third time
+    // the same argument: a run being left is not a run standing at a dial, in
+    // an arena or over a table. Only those three — every other boss goes when
     // `startWave` installs the next wave's, and none of the others holds the
     // whole of `step` in the ticks before it gets there.
     closeGauge(world);
+    closeSnake(world);
+    closePinball(world);
     world.events.push({ type: "needWave", wave: 0 });
     return;
   }

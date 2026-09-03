@@ -54,6 +54,25 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## PINBALL draws its slabs from the shipped wave, not the one being played
+
+- **Found:** 2026-09-03, claude/wave-restart-special-bosses-6e5af4
+- **Files:** `packages/render/src/pinball-round.ts`, `packages/render/test/pinball-frame.test.ts`
+
+`drawControls` in `pinball-round.ts` calls `slabPanel(l, controlSetForWave(view.world.wave), view.role)`
+— it re-derives the panel from the wave *index* and ignores `view.controls`,
+which the host hands it. Its two siblings do not: `gauge-round.ts` and
+`snake-panel.ts` both read `view.controls === undefined ? controlSetForWave(...) : view.controls`,
+and `band.ts` says in a comment why that fallback is the rule rather than the
+re-derivation.
+
+It matters in the director, which plays the *draft* wave: the picker writes a
+wave's `controls` field, `stage-pinball.ts` hit-tests against that field, and
+the renderer draws a different set — buttons drawn where nothing answers them,
+which is the failure `test/stage-rounds.test.ts` exists to prevent, arriving
+through the drawing side. Make the call match its two siblings and add a frame
+test that draws PINBALL with a `controls` set that is not the wave's own.
+
 ## Ignore `docs/frames/`, which every `bun run frames` blocks a landing with
 
 - **Found:** 2026-09-03, claude/gyre-animation-wheel-visuals-ab2e28

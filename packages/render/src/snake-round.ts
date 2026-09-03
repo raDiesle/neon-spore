@@ -46,7 +46,9 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawBodies(ctx, l, arena, view, boss);
   drawTally(ctx, l, view, boss);
   drawControls(ctx, l, view, boss);
-  if (boss.phase === "verdict") drawVerdict(ctx, l, boss);
+  // The verdict stands through `spent` too: the round is over and holding
+  // its own picture until the next wave arrives (`sim/wave-end.ts`).
+  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
 }
 

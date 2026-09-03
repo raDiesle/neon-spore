@@ -85,8 +85,10 @@ export function stepSnakeRound(world: World): void {
     round.stepTick = world.tick;
     return;
   }
+  // Over, and only being looked at — THE GAUGE's spent phase, same reason.
+  if (round.phase === "spent") return;
   if (round.phase === "verdict") {
-    if (since >= SNAKE_VERDICT_BEATS) closeSnake(world);
+    if (since >= SNAKE_VERDICT_BEATS) enterPhase(round, "spent", world.beat);
     return;
   }
 
@@ -108,9 +110,8 @@ function spendHull(world: World): void {
 }
 
 /**
- * The round is over: the boss goes, and the wave clears on the next beat
- * exactly as any other boss wave does. Passing and failing leave by the same
- * door — what failing cost was taken on the beat the time ran out.
+ * Take the round off the world outright, picture and all. `closeGauge` says
+ * why that is not how a round ends: this is for a run being left.
  */
 export function closeSnake(world: World): void {
   if (!snakeHolds(world)) return;

@@ -78,9 +78,9 @@ function gaugeFrames(role: ViewRole, ticks: number) {
 }
 
 describe("THE GAUGE draws on all three screens", () => {
-  // The lead-in, the whole of the play and a verdict standing at the end of
-  // it: every phase this round has, through a canvas that refuses what a real
-  // one refuses.
+  // The lead-in, the whole of the play, a verdict standing at the end of it
+  // and the spent round holding that picture afterwards: every phase this
+  // round has, through a canvas that refuses what a real one refuses.
   const TICKS = ticksPerBeat(CFG) * (GAUGE_LEAD_BEATS + CFG.gaugeRoundBeats + 2);
 
   for (const role of ROLES) {
@@ -95,7 +95,7 @@ describe("THE GAUGE draws on all three screens", () => {
 
   it("really turned the needle, landed calls and missed one, or the frames proved nothing", () => {
     const { watched } = gaugeFrames("test", TICKS);
-    expect([...watched.phases].sort()).toEqual(["lead", "play", "verdict"]);
+    expect([...watched.phases].sort()).toEqual(["lead", "play", "spent", "verdict"]);
     expect(watched.marks).toBeGreaterThan(0);
     expect(watched.misses).toBeGreaterThan(0);
     expect(watched.passed).toBe(true);

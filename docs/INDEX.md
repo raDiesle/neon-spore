@@ -178,6 +178,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
+| `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 
 ### packages/content
 

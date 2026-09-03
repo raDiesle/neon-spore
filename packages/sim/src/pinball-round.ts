@@ -76,8 +76,10 @@ export function stepPinballRound(world: World): void {
     state.roundBeat = world.beat;
     return;
   }
+  // Over, and only being looked at — THE GAUGE's spent phase, same reason.
+  if (state.phase === "spent") return;
   if (state.phase === "verdict") {
-    if (since >= PINBALL_VERDICT_BEATS) closePinball(world);
+    if (since >= PINBALL_VERDICT_BEATS) enterPhase(state, "spent", world.beat);
     return;
   }
 
@@ -173,8 +175,8 @@ function spendHull(world: World, amount: number, col: number): void {
 }
 
 /**
- * The round is over: the boss goes, and the wave clears on the next beat
- * exactly as any other boss wave does.
+ * Take the round off the world outright, picture and all. `closeGauge` says
+ * why that is not how a round ends: this is for a run being left.
  */
 export function closePinball(world: World): void {
   if (!pinballHolds(world)) return;

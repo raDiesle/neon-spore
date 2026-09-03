@@ -36,16 +36,21 @@ import type { World } from "./world.js";
 export const GAUGE_FULL = 1000;
 
 /**
- * The three parts of the round. They used to belong to a shell every round of
+ * The parts of the round. They used to belong to a shell every round of
  * this kind entered through; the shell is gone and they are the round's own —
  * a lead-in so the pair can read two screens that have just stopped being the
- * field, the play, and a verdict that stands before the field comes back.
+ * field, the play, and a verdict that stands at the end of it.
+ *
+ * `spent` is the fourth and it draws nothing new: the round is over and
+ * only being looked at, and it stays installed so the picture holds until
+ * the next wave replaces it rather than dropping back to the field for the
+ * beats of rest in between (`wave-end.ts`).
  *
  * Choreography rather than difficulty, which is why the beat counts beside
  * them in `gauge-round.ts` are constants and not `SimConfig` fields — the same
  * argument `mirror.ts` makes about `SHOW_BEATS`.
  */
-export const GAUGE_PHASES = ["lead", "play", "verdict"] as const;
+export const GAUGE_PHASES = ["lead", "play", "verdict", "spent"] as const;
 export type GaugePhase = (typeof GAUGE_PHASES)[number];
 
 /**

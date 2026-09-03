@@ -12,6 +12,7 @@ import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
 import { isBossBody } from "./types.js";
 import { veilMorph } from "./veil.js";
+import { noteWaveCleared } from "./wave-end.js";
 import { stepWisp, wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
 
@@ -180,11 +181,5 @@ export function onBeat(world: World): void {
   // field at all, so without this its wave would clear on its first beat.
   const cleared =
     world.spawned >= world.queue.length && world.creatures.length === 0 && world.boss === null;
-  if (cleared) {
-    if (world.restBeat === 0) {
-      world.balance.wavesCleared += 1;
-      world.score += world.cfg.scoreWave;
-      world.restBeat = world.beat + world.cfg.waveRestBeats;
-    }
-  }
+  if (cleared) noteWaveCleared(world);
 }

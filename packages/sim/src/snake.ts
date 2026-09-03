@@ -40,15 +40,20 @@ import type { World } from "./world.js";
  */
 
 /**
- * The three parts of the round. `morph` is the ship becoming the snake, which
+ * The parts of the round. `morph` is the ship becoming the snake, which
  * is a picture rather than a rule and is exactly why it is a phase: the pair
  * needs the beats to read two screens that have stopped being the field.
+ *
+ * `spent` is the fourth and it draws nothing new: the round is over and
+ * only being looked at, and it stays installed so the picture holds until
+ * the next wave replaces it rather than dropping back to the field for the
+ * beats of rest in between (`wave-end.ts`).
  *
  * Choreography rather than difficulty, so the beat counts beside them are
  * constants in `snake-round.ts` and not `SimConfig` fields — the argument
  * `gauge.ts` and `mirror.ts` already make.
  */
-export const SNAKE_PHASES = ["morph", "play", "verdict"] as const;
+export const SNAKE_PHASES = ["morph", "play", "verdict", "spent"] as const;
 export type SnakePhase = (typeof SNAKE_PHASES)[number];
 
 /** One tile of the arena. Never a column of the field. */

@@ -46,7 +46,9 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawTally(ctx, l, view, boss);
   drawControls(ctx, l, view, boss);
   if (boss.phase === "lead") drawLead(ctx, l, view, boss);
-  if (boss.phase === "verdict") drawVerdict(ctx, l, view, boss);
+  // The verdict stands through `spent` too: the round is over and holding
+  // its own picture until the next wave arrives (`sim/wave-end.ts`).
+  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, view, boss);
   ctx.textAlign = "left";
 }
 
