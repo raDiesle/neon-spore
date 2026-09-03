@@ -1,4 +1,4 @@
-import type { SimConfig } from "./config.js";
+import { msToTicks, type SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
 /**
@@ -106,7 +106,7 @@ export function newBriefings(): Briefings {
 
 /** How many ticks a seat has to hold before its circle says READY. */
 export function readyHoldTicks(cfg: SimConfig): number {
-  return Math.max(1, Math.round((cfg.readyHoldMs / 1000) * cfg.tickHz));
+  return Math.max(1, msToTicks(cfg, cfg.readyHoldMs));
 }
 
 /** Whether anything is holding the wave, which is the whole of whether it is frozen. */

@@ -54,23 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Own the ms-to-ticks conversion in one function and guard it in the purity table
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/briefing.ts`, `packages/sim/src/veil.ts`, `packages/sim/src/gyre.ts`, `packages/sim/src/hull.ts`, `packages/sim/src/pods.ts`, `packages/render/src/canvas2d.ts`, `packages/render/src/shield.ts`, `packages/audio/src/memory.ts`, `packages/sim/test/purity.test.ts`
-
-`Math.round((xMs / 1000) * cfg.tickHz)` is written out nine times across three
-packages. The purity table guards one spelling only (`veilArmourMs / 1000`), so the
-other eight pass. It also goes through a float where
-`Math.round((ms * tickHz) / 1000)` is exact on integers.
-
-Add `msToTicks(cfg, ms)` beside `ticksPerBeat` in `config.ts`, make
-`readyHoldTicks`, `veilArmourTicks`, `gyreSuckTicks` and the window sites call it,
-and replace the `veilArmourMs / 1000` purity row with a general one matching
-`Ms\s*\/\s*1000\s*\)\s*\*\s*[\w.]*tickHz`, owned by `config.ts`. Check that the
-integer form gives the same tick count for every config value in use before
-switching the arithmetic.
-
 ## Add removeCreature and removeCreatures for the fourteen removal sites
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

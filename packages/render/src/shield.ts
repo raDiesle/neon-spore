@@ -1,5 +1,5 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
-import { guardArmed, ticksSinceGuard, type World } from "@neon-spore/sim";
+import { guardArmed, msToTicks, ticksSinceGuard, type World } from "@neon-spore/sim";
 import { type Glide, glideTo } from "./glide.js";
 import { strokeGlow } from "./glow.js";
 import type { LobePositions } from "./hull.js";
@@ -243,7 +243,7 @@ export function guardLapse(world: World): number {
   // A ward can hold the shield armed past a press's own window; the fade is
   // about the guard going out, not about that window.
   if (guardArmed(world)) return 0;
-  const afterglowTicks = Math.round((GUARD_LAPSE_MS / 1000) * world.cfg.tickHz);
+  const afterglowTicks = msToTicks(world.cfg, GUARD_LAPSE_MS);
   const sinceExpiry = ticksSinceGuard(world);
   if (sinceExpiry < 0 || sinceExpiry >= afterglowTicks) return 0;
   return 1 - sinceExpiry / afterglowTicks;

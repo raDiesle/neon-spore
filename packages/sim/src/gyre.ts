@@ -1,4 +1,4 @@
-import { hullRow } from "./config.js";
+import { hullRow, msToTicks } from "./config.js";
 import {
   GYRE_MOUNTS,
   GYRE_RADIUS,
@@ -69,7 +69,7 @@ export function isMount(c: Creature): boolean {
 
 /** Ticks the maw stays open against a wheel, from `gyreSuckMs` at this rate. */
 export function gyreSuckTicks(world: World): number {
-  return Math.round((world.cfg.gyreSuckMs / 1000) * world.cfg.tickHz);
+  return msToTicks(world.cfg, world.cfg.gyreSuckMs);
 }
 
 /**

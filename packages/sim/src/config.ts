@@ -225,6 +225,22 @@ export function ticksPerBeat(cfg: SimConfig): number {
 }
 
 /**
+ * A duration in milliseconds as a whole number of ticks.
+ *
+ * Every window is authored in milliseconds and lived in ticks, and that
+ * conversion was written out nine times across three packages. It belongs
+ * beside `ticksPerBeat`: how the config's units meet lockstep's clock.
+ *
+ * `(ms * tickHz) / 1000` and not `(ms / 1000) * tickHz` — the same number for
+ * every value the game ships, but the second divides first and rounds a float
+ * that has lost the exact product, landing on the wrong side of a .5 boundary
+ * for nine (tickHz, ms) pairs under five seconds.
+ */
+export function msToTicks(cfg: SimConfig, ms: number): number {
+  return Math.round((ms * cfg.tickHz) / 1000);
+}
+
+/**
  * The row the hull occupies. A creature that arrives here has reached it, so a
  * creature entering at row 0 travels `rows - 1` beats — 8.75 s at the defaults,
  * which is the 4-second rule from docs/spec/latency.md with room to spare.

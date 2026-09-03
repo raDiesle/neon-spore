@@ -384,14 +384,21 @@ const COPIES: Copy[] = [
     pattern: /%\s*[\w.]*\bveilMorphBeats\b/,
   },
   {
-    // How long a wrong colour keeps a cloud shut, in ticks. The conversion is
-    // one multiplication and it has two readers — the shot the simulation
-    // refuses and the red cloud render/ draws — so a second copy is a picture
-    // that stops being angry a few frames before or after the body stops being
-    // armoured. `veilIsArmoured` and `veilArmourPhase` are the two ways to ask.
-    call: "veilArmourTicks",
-    owner: "packages/sim/src/veil.ts",
-    pattern: /veilArmourMs\s*\/\s*1000/,
+    // Milliseconds into ticks, the conversion under every window in the game.
+    // This row used to name one spelling of it — `veilArmourMs / 1000` — and
+    // the other eight walked past: the guard's window, the maw's, the ready
+    // hold, the gyre's suck and the button glow each divided by 1000 in their
+    // own file. Which is how a picture comes to stop being angry a few frames
+    // before the body stops being armoured.
+    //
+    // `config.ts` owns the row by naming the spelling it rejects: it divides
+    // last, and its comment says why. Matched with comments left in, so that
+    // sentence counts — a file that explains this conversion is a file that is
+    // about to write it out.
+    call: "msToTicks",
+    owner: "packages/sim/src/config.ts",
+    pattern: /\bms\s*\/\s*1000\s*\)\s*\*\s*[\w.]*tickHz/i,
+    strip: false,
   },
   {
     call: "fallTilesPerBeat",

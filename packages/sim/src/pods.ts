@@ -1,5 +1,5 @@
 import { markMoment } from "./balance.js";
-import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+import { hullRow, msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { nextInt } from "./rng.js";
 import { type Color, isMeteorKind, type Pod } from "./types.js";
@@ -33,7 +33,7 @@ import { MILLI, type World } from "./world.js";
 
 /** Ticks the maw stays open, from `intakeWindowMs` at this tick rate. */
 export function intakeWindowTicks(cfg: SimConfig): number {
-  return Math.round((cfg.intakeWindowMs / 1000) * cfg.tickHz);
+  return msToTicks(cfg, cfg.intakeWindowMs);
 }
 
 /**

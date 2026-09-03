@@ -1,5 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
-import type { SimConfig } from "./config.js";
+import { msToTicks, type SimConfig } from "./config.js";
 import { livingKindForColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
 import type { Bullet, Color, Creature, CreatureKind } from "./types.js";
@@ -44,7 +44,7 @@ import type { World } from "./world.js";
 
 /** How many ticks a wrong colour keeps the cloud shut. */
 export function veilArmourTicks(cfg: SimConfig): number {
-  return Math.round((cfg.veilArmourMs / 1000) * cfg.tickHz);
+  return msToTicks(cfg, cfg.veilArmourMs);
 }
 
 /**

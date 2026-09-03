@@ -1,5 +1,5 @@
 import { markMoment } from "./balance.js";
-import { hullRow, type SimConfig } from "./config.js";
+import { hullRow, msToTicks, type SimConfig } from "./config.js";
 import { ghostImpactDamage } from "./ghost.js";
 import { bodyCenterCol, type Creature, isMeteorKind, occupiesCol, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -24,7 +24,7 @@ export function shieldRow(cfg: SimConfig): number {
 
 /** Ticks the guard window stays open, from `guardWindowMs` at this tick rate. */
 export function guardWindowTicks(cfg: SimConfig): number {
-  return Math.round((cfg.guardWindowMs / 1000) * cfg.tickHz);
+  return msToTicks(cfg, cfg.guardWindowMs);
 }
 
 /**
