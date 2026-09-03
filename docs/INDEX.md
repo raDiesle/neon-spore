@@ -354,7 +354,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
-| `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — hub, rim and spokes, behind everything they carry |
+| `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — membrane, rim, bowed spokes and the organelle they meet at, behind everything they carry |
 | `packages/render/src/target-lock.ts` | THE TARGET LOCK: the one marking in this game that means *an instrument has picked this body out, and it |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
 | `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
@@ -372,6 +372,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
 | `packages/render/src/handle-draw.ts` | you are changing how a handle reads — the ring, the gauge, the rest mark, the sag and the word, shared by all three |
+| `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |
+| `packages/render/src/gyre-place.ts` | you are asking where a gyre's hub, rim or mounts are drawn between beats — the arc, the ease and the jam |
 
 ### packages/net
 

@@ -10,6 +10,7 @@ import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, nearness } from "./depth.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
+import { mountPlace } from "./gyre-place.js";
 import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
 import { drawLidCords } from "./lid-string.js";
@@ -74,8 +75,14 @@ export function drawCreatures(
     // under the ones below. The six on its rim are `mount`s and go through
     // the ordinary living draw below, which is the whole creature.
     if (c.kind === "gyre") continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    const row = drawnRow(c, beatPhase);
+    // A body on a rim is placed by the wheel that carries it, not by the walk
+    // every falling body takes: it turns rather than crosses, and the arc is
+    // written down once in `gyre-place.ts` so the rim, the spokes and the six
+    // contours cannot come apart. Null for everything else, which is what keeps
+    // this a line rather than a branch.
+    const onRim = mountPlace(l, world, c, beatPhase, time);
+    const { x, y } = onRim ?? creatureCenter(l, c, beatPhase);
+    const row = onRim ? onRim.row : drawnRow(c, beatPhase);
     const near = nearness(l, row);
     // Perspective as one transform about the body's own centre, rather than a
     // radius threaded through three drawing files: it takes the rock and the

@@ -89,6 +89,15 @@ export function onBeat(world: World): void {
     // A boss body holds its row: the queen until petals make her descend, the
     // Warden for good. `isBossBody` is the one place both are named.
     if (isBossBody(c.kind)) continue;
+    // A body on a rim, and it is skipped **before** the two lines below rather
+    // than after them. `stepGyre` has already written its `col`, `row` and both
+    // `from` fields — the hub comes first in this list and carries its six with
+    // it (`carryMounts`) — so a mount that fell through to the assignments
+    // would have where it came from overwritten with where it now is, and six
+    // bodies that teleport once a beat instead of turning are a wheel that
+    // jumps rather than a wheel that moves. Stepping it again would carry it
+    // twice as well: once around the rim and once straight down.
+    if (c.kind === "mount") continue;
     c.fromRow = c.row;
     // Where it is coming *from*, sideways. Set for every kind and moved by
     // one, so `drawnCol` has an origin to glide a dart out of and every other
@@ -134,11 +143,6 @@ export function onBeat(world: World): void {
       stepGyre(world, c);
       continue;
     }
-    // And the six themselves, which are moved by the hub above rather than by
-    // anything of their own. `stepGyre` has already written their `col`, `row`
-    // and both `from` fields, so a mount stepped again here would be carried
-    // twice in one beat — once around the rim and once straight down.
-    if (c.kind === "mount") continue;
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     c.row += grippedFallTiles(world, c);

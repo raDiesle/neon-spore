@@ -54,6 +54,25 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## Ignore `docs/frames/`, which every `bun run frames` blocks a landing with
+
+- **Found:** 2026-09-03, claude/gyre-animation-wheel-visuals-ab2e28
+- **Files:** `.gitignore`, `tools/frames/run.ts`
+
+`bun run frames` writes its PNGs into `docs/frames/<sha>/` — inside a tracked
+directory, with no ignore rule — so the pictures land in the tree as untracked
+files. `.claude/hooks/auto-land.sh` and `bun run land` both decide a worktree is
+clean with `git status --porcelain`, which counts untracked files, so a lane that
+took a picture to show the owner cannot land until somebody deletes it by hand.
+The tool exists to be used at the end of a piece of work, which is exactly the
+moment landing happens, so this fires every time.
+
+Add `docs/frames/` to `.gitignore` beside `tools/shape-sheet/skin-sheet.svg`,
+whose entry already makes the same argument in the same words — output that is a
+question somebody asked rather than a state of the tree. Check `tools/frames`'s
+own docs and `docs/working-with-claude.md` for a sentence that says the frames
+are committed; if one exists it is the thing to fix instead.
+
 ## Count a failed reconnect attempt once, not twice
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
