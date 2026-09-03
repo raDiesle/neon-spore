@@ -350,6 +350,7 @@ the rest.
 ## A "how to play" page: the two seats, and that talking is the control
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-a-how-to-play-page-the-two-seats-and-that-talkin
 - **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu.css`
 
 A HOW TO PLAY entry on the root menu opening a short page (built like the
