@@ -58,7 +58,7 @@ different thing, and its thinking tokens are billed as output — the reason its
 per-task cost sits above what its input rate suggests.
 
 Never an Anthropic model through OpenRouter, and this one is enforced by
-`.claude/hooks/worker-model-guard.sh` because it already happened: a session
+`tools/hooks/guard.ts` because it already happened: a session
 whose worker had missed put `--model openrouter/anthropic/claude-sonnet-4.5` on
 the command line and escalated that way twenty-five times. A command-line
 `--model` overrides the config file and every provider rule in it, so prose

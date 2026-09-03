@@ -77,44 +77,6 @@ While there: `bun run queue release <n>` reports success by deleting a branch,
 so a claim that has already been swept fails with a git error rather than saying
 the item was never held. Either is fine to say; the git error is not.
 
-## The bash guard refuses `git commit --amend`
-
-- **Found:** 2026-09-03, claude/categorized-task-queue-4da693
-- **Files:** `.claude/hooks/bash-guard.sh`, `tools/hooks/test/`
-
-Line 47 matches `*"git commit --am"*` to catch `--am` as an abbreviation of `--all`.
-`--amend` starts with those same characters, so a plain reword of the commit you
-have just written is refused with a message about staging another lane's work,
-which is not what it does. The way round it is `git reset --soft HEAD~1` and a
-fresh commit — the same result in two steps, with no guard at all on what gets
-staged, which is worse than the case being guarded.
-
-The guard also matches its own text: a commit message or a heredoc that merely
-*quotes* the refused form is refused too, because the pattern is tested against
-the whole command line rather than its argv.
-
-Anchor the abbreviations so they end at a word boundary — `--am` and `--all`
-match, `--amend` does not — and match against arguments rather than the whole
-string. A test over the guard's cases proves it, and there is none today.
-
-## `biome check --write --unsafe` eats a file's header docblock
-
-- **Found:** 2026-09-03, claude/categorized-task-queue-4da693
-- **Files:** `.claude/hooks/format-edited.sh`, `package.json`, `tools/hooks/`
-
-Now that `noUnusedImports` is an error, the fix for it is offered as *unsafe*,
-and `biome check --write --unsafe .` applies it by deleting the whole import
-statement — including any comment attached above it. On
-`tools/director/src/shapes-all.ts` that took the sixty-line file header with it,
-silently, in a run whose only reported change was "removed unused imports".
-The header had to be put back by hand off `git show HEAD:`.
-
-`bun run format` is the safe half and does not do this, but nothing stops the
-next session reaching for `--unsafe` when the safe run says "no fixes applied".
-Either refuse `--unsafe` in the bash guard the way other footguns are refused,
-or add a check that fails when a file that had a leading `/**` docblock no
-longer does. A test over a fixture file proves whichever is chosen.
-
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 
 - **Found:** 2026-09-03, claude/rind-hit-effect-d14725
@@ -478,24 +440,6 @@ Move the SHAPES page state the axes read and write into a leaf `shapes-state.ts`
 three, and add a 30-line DFS test over `from "./..."` imports that fails on any
 runtime cycle.
 
-## Move the two PreToolUse guards from bash to a bun script
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `.claude/hooks/bash-guard.sh`, `.claude/hooks/worker-model-guard.sh`, `.claude/settings.json`, `tools/hooks/guard.ts`, `tools/hooks/test/bash-guard.test.ts`
-
-`bash-guard.sh` lines 18 to 27 already spawn `bun -e` to parse the payload because
-bash regexes cannot read a JSON-escaped Windows path, then go back to `grep`,
-`sed` and `awk` for the matching. `worker-model-guard.sh` line 15 still uses the
-broken regex extraction the other file's comment warns about. `settings.json`
-invokes every hook as `bash .claude/hooks/x.sh` and the test does
-`spawnSync("bash", ...)`, so `bun test` goes red in any shell without `bash` on
-PATH, which is the PowerShell failure already in the owner's notes.
-
-Write `tools/hooks/guard.ts` (payload in, exit 2 plus message out) holding both
-guards' rules, point `settings.json` at `bun tools/hooks/guard.ts`, and make the
-test call the `.ts` entry with `bun`. Add one case with a backslash path for the
-worker-model guard.
-
 ## Split tools/versus/prompt.ts into text, patch rendering and step builders
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -726,3 +670,21 @@ takes `deriveHeaderSentence`, and fails when the row and the header disagree
 about a **backticked identifier or a number** — the two things that go stale —
 while leaving the hand-written prose alone. `packages/audio/test/catalogue.test.ts`
 does the same job for `docs/spec/audio.md` and is the pattern.
+
+## The PreToolUse guard never sees a command run through the PowerShell tool
+
+- **Found:** 2026-09-03, claude/task-queue-work-5b5548
+- **Files:** `.claude/settings.json`, `tools/hooks/guard.ts`, `tools/hooks/shell-words.ts`, `tools/hooks/test/guard.test.ts`
+
+The hook's matcher in `settings.json` is `"Bash"`, and on Windows the session's
+primary shell is the separate PowerShell tool. Every rule the guard holds —
+staging everything, a push naming main, a hot dev server, removing the worktree
+the session stands in — is unenforced the moment the same command is typed into
+the other tool, which is the tool CLAUDE.md names first.
+
+Widen the matcher to both tools. The rules read arguments, so the work is in
+`shell-words.ts`: PowerShell quotes with `'` and `"` but escapes with a
+backtick, has no heredoc (`@'...'@` is a here-string terminated at column 0),
+and separates commands with `;` and `|`. Decide whether one splitter can carry
+both dialects or the payload's tool name should choose between two, and cover
+the PowerShell spellings of each refused command with tests.

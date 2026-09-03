@@ -23,7 +23,11 @@ division of labour, not a limitation.
   does not have to be explained.
 - **`.claude/hooks/`** — for what must happen without exception. The
   determinism test runs after every edit inside `packages/sim`. A rule in
-  CLAUDE.md is a hint; a hook is binding.
+  CLAUDE.md is a hint; a hook is binding. The one that refuses a command
+  outright is `tools/hooks/guard.ts` rather than a shell script, because
+  deciding what a command *is* outgrew a glob over its text — a glob matched
+  `--amend` against a rule about `--all`, and refused a commit message for
+  quoting the form it refuses.
 - **Plan mode** — read and plan first, check the plan, then build. It suits the
   way this project has been worked on so far.
 - **Subagents** — for searching the codebase, so the main session does not fill
