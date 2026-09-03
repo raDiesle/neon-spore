@@ -171,4 +171,112 @@ alternative for `tools/versus/` and not a landing.
 `crawler-budget.test.ts` come down and `packages/render/test/crawler-frame.test.ts`
 still draws.
 
+## Every organic shape is rebuilt as an SVG path *string* on every frame
 
+- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `packages/content/src/shapes.ts`, `packages/render/src/hull.ts`, `packages/render/src/creatures.ts`, `packages/render/src/shield.ts`, `packages/render/src/maw.ts`, `packages/render/test/frame-budget.test.ts`
+
+`openSmoothPath` and `blobPath` both return a **string**, built with
+`toFixed(2)` on every coordinate, and every caller in `render/` hands that
+string straight to `new Path2D(...)`, which parses the decimal text back into
+the numbers it was made from. The round trip runs once per shape per frame.
+
+Measured on this machine (Bun, null canvas, 375x812 dpr2, wave 12):
+
+| what | us per frame |
+|---|---|
+| `drawShip` (the whole pass) | 118 |
+| — of which `drawHull` | 117 |
+| — — of which `openSmoothPath(141 pts)` | 54 |
+| — — of which 141 x `surface()` | 21 |
+| `drawBodies`, 2 creatures | 28 |
+| `drawFieldBack` | 2 |
+| `drawOverlays` | 2 |
+
+`drawHull` alone is 78% of a quiet frame and it is paid on **every** frame of
+**every** wave, because the hull is always there. Its contour is
+`pointsAcross(f, l, 140)` — 141 points — and `openSmoothPath` then makes 840
+`toFixed(2)` calls and one 5 085-character string out of them. `blobPath` does
+the same at `N = 40` for each creature body, which is where the ~14us per
+creature goes.
+
+The work: add a sibling of each that writes into a `Path2D` with `moveTo` /
+`bezierCurveTo` instead of building text, and use it at the sites in `render/`
+that only ever wanted the `Path2D`. The SVG-string form stays for
+`tools/shape-sheet`, which really does want text. Dropping `toFixed(2)` moves
+a coordinate by less than 0.005 px, which `.claude/skills/render-perf` calls
+*imperceptible* and lands, but say so in the commit message in those terms and
+prove it with the ordered call log the skill describes. Lower the rows in
+`frame-budget.test.ts` in the same commit.
+
+## The op-count budget weighs one quiet wave; the five expensive ones have none
+
+- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`
+
+`frame-budget.test.ts` pins wave 3 on both seats and two open eyes. Wave 3 is
+one of the *cheapest* pictures in the game. Measured over all 38 waves, each
+stepped to the tick where it carries the most bodies, in Chrome at 390x844
+dpr2 with the CPU throttled 4x (DevTools' mid-tier-mobile preset), the five
+dearest frames are:
+
+| wave | | ms per paint at 4x |
+|---|---|---|
+| 32 | THE GHOST | 7.06 |
+| 31 | THE WISP | 6.80 |
+| 15 | BULB QUEEN | 6.47 |
+| 34 | THE ECHO | 6.41 |
+| 37 | THE GYRE | 6.38 |
+
+— against a floor of 3.5 ms on wave 1 and 0.76 ms on THE GAUGE, whose round
+has no field and no hull. None of the five has a budget row, so any of them can
+get slower without a test noticing.
+
+Add a row per wave for those five, both seats, built the way the existing rows
+are: step to the wave's peak population (the harness needs a helper for that —
+step in small increments and keep the tick with the most `world.creatures`),
+measure `ctx.tally`, and write down the exact number. Do not pad.
+
+## THE GHOST is the dearest frame in the game, and it is dearer on one seat
+
+- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `packages/render/src/ghost-trail.ts`, `packages/render/src/ghost-row.ts`, `packages/render/src/ghost-eyes.ts`, `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`, `packages/render/src/ghost-release.ts`
+
+Wave 32 costs 7.06 ms per paint at 4x CPU throttle and 12.45 ms at 6x
+(DevTools' low-end-mobile preset) — 75% of a 60 Hz frame with the hull, the
+field and everything else still to pay for. On a 75 Hz display at 6x it already
+misses 38 frames in 186. It is also the one wave measured where the two seats
+disagree by more than noise: 1.41 ms on player 2 against 1.04 ms on player 1,
+unthrottled, at peak population.
+
+Five of the six files above set `globalCompositeOperation = "lighter"`, and
+`ghost-row.ts` draws a band across a whole row of the field on the seat that is
+*not* shown the ghost — which is player 2, the dearer one. A `lighter` pass over
+a large area is a blend the compositor cannot skip.
+
+Find out which of the six costs what, the way this entry's numbers were found:
+time each draw call separately through a null canvas (see the table in "Every
+organic shape is rebuilt as an SVG path *string*"), then decide. A saving that
+changes a pixel is a VERSUS candidate, not a landing.
+
+## The game paints a full field frame behind the main menu, under a blur
+
+- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/loop.ts`, `apps/game/src/menu.css`, `apps/game/src/run-state.ts`
+
+`startLoop`'s `onFrame` calls `paint()` unconditionally. The `menu` hold stops
+the *world* from ticking but nothing stops the *drawing*, so while the main menu
+is up the device draws a complete field frame — hull, bodies, band, HUD — sixty
+times a second. `#menu` is `position: fixed; inset: 0` over it, and
+`#menu .sky` carries `backdrop-filter: blur(5px) saturate(1.35)` with a scrim
+that runs from `rgba(7, 6, 15, 0.93)` at the top to fully opaque at the bottom.
+So the phone pays for a frame, and then pays again to blur that frame, to show
+at most 7% of it through the scrim at the very top.
+
+This is the first screen a player sees and the one a phone sits on longest.
+
+Measure it first — how much of a menu-idle frame is the paint and how much is
+the blur — then choose. If the visible 7% carries no motion the world is not
+running anyway, a lower repaint rate behind the menu is a straight win; if it
+does, the reduced rate is a look and goes to `tools/versus/candidates/` for the
+owner to judge. Say which in the commit.
