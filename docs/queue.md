@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## The room is named for the pair, so they never re-type a code
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-the-room-is-named-for-the-pair-so-they-never-re
 - **Files:** `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/menu-pages.ts`, `apps/game/test/pairing.test.ts`
 
 Depends on the two nickname items above. The four-character code stays the way
