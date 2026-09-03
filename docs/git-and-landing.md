@@ -143,6 +143,25 @@ It shares the `Stop` event with `check-on-stop.ts`, and they never do the same
 work twice: that one returns immediately when the tree is clean, this one
 returns immediately when it is not.
 
+**After its own landing a session is standing on a detached `HEAD`.** The
+landing deleted the branch — the branch is spent, its tip is an ancestor of
+`main`, and a fix found afterwards belongs on a fresh one off the current trunk
+— and it left the worktree on `main`'s tip rather than removing it, because
+removing the ground a session is standing on is worse. So `git rev-parse
+--abbrev-ref HEAD` says `HEAD` from then on, and the tree's content is `main`'s.
+
+Nothing has to be done about that. Carry on committing; the next `Stop` opens a
+branch over the commits — the worktree's own name under `claude/`, which is
+usually the name the landing just deleted — and lands them the ordinary way,
+saying so on stderr before it does. `git switch -c <name>` by hand does the same
+thing earlier and is what `bun run land` prints as it leaves.
+
+This mattered because it used to be silent. `auto-land.ts` read `HEAD`, decided
+this was "not on a lane's own branch", and exited without a word, so a session
+that kept working after its first landing committed into detachment and never
+landed again. It happened in the session that found it: batch two landed itself,
+the next commit went nowhere, and only a `git rev-parse` noticed.
+
 **A landing that fails blocks the turn.** The session gets the last twenty-five
 lines of the failure back and goes to work on it, once — `stop_hook_active`
 guards the second round, so a lane that cannot land stops being nagged and

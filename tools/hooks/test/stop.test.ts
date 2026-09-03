@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { badge, type LaneState, whyNotLanding } from "../auto-land.ts";
+import {
+  badge,
+  branchForDetached,
+  isDetached,
+  type LaneState,
+  whyNotLanding,
+} from "../auto-land.ts";
 import { tailOf, testScope } from "../check-on-stop.ts";
 
 /**
@@ -39,10 +45,29 @@ describe("whether a finished lane lands itself", () => {
     );
   });
 
-  it("never lands from main, a detached HEAD, or a branch git could not name", () => {
-    for (const branch of ["main", "HEAD", ""]) {
+  it("never lands from main, or from a branch git could not name", () => {
+    for (const branch of ["main", ""]) {
       expect(whyNotLanding(lane({ branch }))).toMatch(/not on a lane's own branch/);
     }
+  });
+
+  /**
+   * A landing deletes the branch it landed and leaves the worktree detached, so
+   * every commit a session made after its first landing read as "not on a
+   * lane's own branch" and never landed at all — silently, which is the failure
+   * these hooks exist to stop. A detached tree with commits on it is a lane.
+   */
+  it("lands a detached lane, which is what a worktree is after its own landing", () => {
+    expect(whyNotLanding(lane({ branch: "HEAD" }))).toBeNull();
+    expect(isDetached("HEAD")).toBe(true);
+    expect(isDetached("claude/some-lane")).toBe(false);
+  });
+
+  /** The ordinary state right after a landing: detached, and carrying nothing. */
+  it("says nothing about a detached worktree with no commits on it", () => {
+    expect(whyNotLanding(lane({ branch: "HEAD", ahead: 0 }))).toBe(
+      "the branch is not ahead of main",
+    );
   });
 
   it("never lands a branch with nothing on it", () => {
@@ -62,6 +87,35 @@ describe("whether a finished lane lands itself", () => {
   it("checks the switch before anything git can answer", () => {
     // `NO_AUTO_LAND=1` means *off*, not "off unless the lane looks landable".
     expect(whyNotLanding(lane({ disabled: true, dirty: true, ahead: 0 }))).toBe("NO_AUTO_LAND=1");
+  });
+});
+
+describe("the branch a detached lane gets back", () => {
+  it("is the worktree's own name, which is the one the landing deleted", () => {
+    expect(branchForDetached("C:/repo/.claude/worktrees/wave-editor-9f1", [])).toBe(
+      "claude/wave-editor-9f1",
+    );
+    expect(branchForDetached("/repo/.claude/worktrees/wave-editor-9f1", [])).toBe(
+      "claude/wave-editor-9f1",
+    );
+  });
+
+  it("reads a Windows path, where the separator is the other one", () => {
+    const path = ["C:", "repo", ".claude", "worktrees", "wave-editor-9f1"].join("\\");
+    expect(branchForDetached(path, [])).toBe("claude/wave-editor-9f1");
+  });
+
+  it("steps aside for a name something already holds", () => {
+    const taken = ["main", "claude/wave-editor-9f1", "claude/wave-editor-9f1-2"];
+    expect(branchForDetached("/repo/worktrees/wave-editor-9f1", taken)).toBe(
+      "claude/wave-editor-9f1-3",
+    );
+  });
+
+  it("has a name for a path that ends in a separator", () => {
+    expect(branchForDetached("/repo/worktrees/wave-editor-9f1/", [])).toBe(
+      "claude/wave-editor-9f1",
+    );
   });
 });
 

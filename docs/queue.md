@@ -596,28 +596,3 @@ the mixer does rather than from a second place, and default the setting **off**.
 decision — plus a thin caller that checks the setting and the capability.
 `bun run check` proves the mapping; whether the phone actually buzzes is a phone
 question and the report says **unverified**.
-
-## After a landing the worktree is detached, so nothing it does next can land
-
-- **Found:** 2026-09-03, claude/queue-feature-decisions
-- **Taken:** 2026-09-03, claude/queue-after-a-landing-the-worktree-is-detached-so-noth
-- **Files:** `tools/land/run.ts`, `tools/hooks/auto-land.ts`, `tools/hooks/test/stop.test.ts`, `docs/git-and-landing.md`
-
-`bun run land` deletes the branch it just landed, and the worktree standing on
-that branch is left on a detached `HEAD`. That is correct as far as it goes.
-What it costs is the next turn: `auto-land.ts` asks `git rev-parse
---abbrev-ref HEAD`, reads `HEAD`, and exits silently as "not on a lane's own
-branch". So a session that keeps working after its first landing commits into
-detachment and never lands again — with no error, which is the same
-nothing-happens failure the hooks were just moved off bash to stop.
-
-It happened in the session that found this: batch two landed itself, the next
-commit went onto a detached `HEAD`, and only a `git rev-parse` noticed.
-
-Two ways to fix it, and the second is probably right. Either `bun run land`
-leaves the worktree on a fresh branch off the new `main` rather than detached —
-naming it after the one it replaced — or `auto-land.ts` treats a detached `HEAD`
-that is ahead of `main` as a lane and opens a branch for it before calling
-`land`. Whichever, `stop.test.ts` grows a case: a detached lane with commits on
-it must not read as "nothing to land". Note in `docs/git-and-landing.md` what a
-session sees after its own landing, because at the moment nothing says.
