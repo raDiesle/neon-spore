@@ -17,6 +17,12 @@ export type Item = {
   readonly title: string;
   /** The `Found:` line's text — a date, and whatever the finder said after it. */
   readonly found: string;
+  /**
+   * The `Taken:` line's text, or "" when nobody has claimed it. Written on
+   * `main` by `bun run queue next` and pushed, so a session that only ever sees
+   * `origin` knows the item is already somebody's.
+   */
+  readonly taken: string;
   /** Paths the next session should open first. */
   readonly files: readonly string[];
   /** Everything under the heading, comments and blank edges removed. */
@@ -25,6 +31,7 @@ export type Item = {
 
 const HEADING = /^##\s+(\S.*?)\s*$/;
 const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
+const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
 const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
@@ -74,6 +81,7 @@ export function parseItems(md: string, source: Source): Item[] {
       source,
       title,
       found: fieldOf(text, FOUND),
+      taken: fieldOf(text, TAKEN),
       files: splitFiles(fieldOf(text, FILES)),
       body: text,
     });
@@ -128,21 +136,58 @@ export function order(queue: readonly Item[], parked: readonly Item[]): Item[] {
   return [...parked, ...queue];
 }
 
+/**
+ * The lines of one `##` section, as a half-open range over `lines`.
+ * `[-1, -1]` when no entry carries that title.
+ */
+function sectionOf(lines: readonly string[], title: string): [number, number] {
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const m = HEADING.exec(lines[i] ?? "");
+    if (!m) continue;
+    if (start === -1 && m[1] === title) start = i;
+    else if (start !== -1) return [start, i];
+  }
+  return start === -1 ? [-1, -1] : [start, lines.length];
+}
+
+/**
+ * The markdown with a `Taken:` line written into one entry — the claim, as the
+ * file itself says it.
+ *
+ * It goes directly under `Found:` so the two dates read together: when this was
+ * noticed, and when somebody picked it up. An entry that already carries one is
+ * an error rather than an overwrite, because the only way to reach that state
+ * is two sessions claiming the same item, which is the thing the mark exists to
+ * make impossible.
+ */
+export function markTaken(md: string, title: string, mark: string): string {
+  const lines = md.split("\n");
+  const [start, end] = sectionOf(lines, title);
+  if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
+  let at = -1;
+  for (let i = start; i < end; i++) {
+    const line = (lines[i] ?? "").trim();
+    if (TAKEN.test(line)) throw new Error(`${JSON.stringify(title)} is already taken: ${line}`);
+    if (FOUND.test(line) || (at === -1 && FILES.test(line))) at = i;
+  }
+  if (at === -1) throw new Error(`${JSON.stringify(title)} has no Found: or Files: line to sit by`);
+  return [...lines.slice(0, at + 1), `- **Taken:** ${mark}`, ...lines.slice(at + 1)].join("\n");
+}
+
+/** The markdown with one entry's `Taken:` line removed. Silent when there is none. */
+export function clearTaken(md: string, title: string): string {
+  const lines = md.split("\n");
+  const [start, end] = sectionOf(lines, title);
+  if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
+  const kept = lines.filter((line, i) => !(i >= start && i < end && TAKEN.test(line.trim())));
+  return kept.join("\n");
+}
+
 /** The markdown with one `##` section taken out. Throws if the title is not there. */
 export function removeItem(md: string, title: string): string {
   const lines = md.split("\n");
-  let start = -1;
-  let end = lines.length;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i] ?? "";
-    const m = HEADING.exec(line);
-    if (!m) continue;
-    if (start === -1 && m[1] === title) start = i;
-    else if (start !== -1) {
-      end = i;
-      break;
-    }
-  }
+  const [start, end] = sectionOf(lines, title);
   if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
   const kept = [...lines.slice(0, start), ...lines.slice(end)];
   return `${kept

@@ -120,18 +120,24 @@ The test for an entry is one question: **could a fresh session finish this
 alone and prove it with `bun run check`?** That is what makes a queue safe to
 keep — every item in it drains without the owner deciding anything.
 
-**A queue item is worked by a session that has nothing else in it.**
-`bun run queue` lists what is waiting and who is on what; `bun run queue next`
-hands out the first free item — it creates that item's branch and prints a
-prompt naming it, so two sessions can never be given the same one. The session
-checks that branch out in its own worktree, does the item, removes the entry
-(`bun run queue done <n|title>`) and lands; landing deletes the branch, which
-releases the item. `bun run queue release <n|title>` gives back one that was
-handed out and never started. A session draining several items in one sitting
-claims each with `bun run queue take <n|title>` instead, which makes the same
-branch and nothing else. `bun run queue status` answers "is anything still
-being worked on" in one word — DONE, IDLE or BUSY — which is the question to
-ask before turning the machine off.
+**A queue item is worked by a session that has nothing else in it, and it is
+claimed before any of the work starts.** `bun run queue` lists what is waiting
+and who is on what; `bun run queue next` hands out the first free item — it
+creates that item's branch, writes a `Taken:` line into the entry **on `main`**
+and pushes it, then prints a prompt naming the branch. Both halves are the
+claim: the branch is instant but local, and the line is what a session in its
+own clone can see. Never start a queue item without going through `next` or
+`take`, and never work one the list already shows as taken — two sessions did
+the same six items on 3 September 2026 by skipping exactly that. The session
+checks the branch out in its own worktree, does the item, removes the entry
+(`bun run queue done <n|title>`) and lands, which releases it.
+`bun run queue release <n|title>` gives back one that was handed out and never
+started. A session draining several items in one sitting claims each with
+`bun run queue take <n|title>` instead, which makes the same claim — branch and
+line both — and stops there, with no prompt and no worktree.
+`bun run queue status` answers "is anything still being worked on" in one word —
+DONE, IDLE or BUSY — which is the question to ask before turning the machine
+off.
 
 **An idea for the game is still not collected.** What the game could have and
 does not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
@@ -217,8 +223,8 @@ bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run queue          # technical work waiting, and who is already on what
 bun run queue status   # DONE, IDLE or BUSY — is anything still being worked on
-bun run queue next     # hand out the first free item: claims it, prints a prompt
-bun run queue take <n> # mark an item ongoing without opening a lane for it
+bun run queue next     # hand out the first free item: branch + Taken: on main
+bun run queue take <n> # the same claim, without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
 bun run check          # typecheck + lint + test, run this before saying "done"

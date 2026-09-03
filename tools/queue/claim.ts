@@ -1,18 +1,25 @@
 /**
  * Who is already working on a queue item.
  *
- * The claim is a branch, not a mark in the file. A mark would have to be
- * committed to be seen by anybody, and the session that took the item has not
- * committed anything yet — so the moment the mark is useful is the moment it
- * does not exist. Worktrees of one repository share their refs, so a branch
- * created by one lane is visible to the next `bun run queue` immediately, with
- * no commit and no push. And `bun run land` deletes the branch, which releases
- * the claim exactly when the work reaches `main` rather than a step early or a
- * step late.
+ * A claim is written in two places, because neither one alone is visible to
+ * everybody who needs it.
  *
- * The limit, said out loud: a cloud session works in its own clone, so its
- * claim is not visible here until it pushes. Two at once is the ceiling
- * anyway, and locally the ceiling is what this enforces.
+ * The **branch** is instant. Worktrees of one repository share their refs, so
+ * `claude/queue-<slug>` created by one lane is visible to the next
+ * `bun run queue` with no commit and no push, and `git branch` failing is what
+ * stops `next` handing the same item to two sessions. `bun run land` deletes
+ * it, which releases the claim exactly when the work reaches `main`.
+ *
+ * The **`Taken:` line on `main`** is the half a branch cannot do. A session in
+ * its own clone — every cloud session, and every session that never runs
+ * `bun run queue next` at all — sees only what `origin` carries, and a local
+ * ref is nothing to it. So `next` also writes the line into `docs/queue.md` on
+ * `main` and pushes it, which is the first thing anybody reads before starting.
+ * This used to be argued against here, on the grounds that a mark has to be
+ * committed to be seen and the session that took the item has not committed
+ * anything yet. That argument was about a mark on the *lane's* branch. Committed
+ * straight to `main`, it is visible the moment it is made — and on 3 September
+ * 2026 two sessions did the same six items in parallel for want of it.
  */
 
 import type { Item } from "./queue.js";
@@ -54,10 +61,24 @@ function bare(ref: string): string {
   return ref.startsWith("origin/") ? ref.slice("origin/".length) : ref;
 }
 
-/** The branch holding this item, if one does. */
+/** What one `Taken:` line says: the day it was claimed, and the branch holding it. */
+export function takenMark(branch: string, today: string): string {
+  return `${today}, ${branch}`;
+}
+
+/**
+ * Who has this item, or undefined when nobody has.
+ *
+ * The branch answers first because it is the more current of the two: it is
+ * gone the instant the lane lands, whereas the `Taken:` line goes with the
+ * entry itself and so cannot outlive it either. The line is what answers in a
+ * clone that has never seen the branch, and it is the one that would have
+ * spoken up on 3 September 2026.
+ */
 export function claimOn(item: Item, refs: readonly string[]): string | undefined {
   const branch = branchFor(item);
-  return refs.some((r) => bare(r.trim()) === branch) ? branch : undefined;
+  if (refs.some((r) => bare(r.trim()) === branch)) return branch;
+  return item.taken || undefined;
 }
 
 /** The items nobody has taken, in queue order. */

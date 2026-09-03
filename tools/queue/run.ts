@@ -9,69 +9,22 @@
  * `bun run queue done <n|title>` — take an entry out once it has landed.
  *
  * The queue is a file rather than a chat message because the next session
- * clones `origin` and sees nothing else. Handing an item out creates its
- * branch, and that branch is the claim: `next` cannot give the same item to
- * two sessions, because the second `git branch` fails.
+ * clones `origin` and sees nothing else. Claiming an item does two things, and
+ * `claim.ts` says why it takes both: it creates the item's branch, which is the
+ * gate — the second `git branch` fails, so two sessions cannot be given the
+ * same item — and it writes a `Taken:` line into the entry on `main` and pushes
+ * it, which is the half a local ref cannot do for a session in its own clone.
  */
 
-import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
 import { branchFor, claimOn, promptFor, statusLines, statusOf, unclaimed } from "./claim.js";
-import { type Item, order, parseItems, pick, problemsIn, removeItem } from "./queue.js";
-
-const ROOT = join(import.meta.dirname, "..", "..");
-const PATHS = { queue: join(ROOT, "docs", "queue.md"), parked: join(ROOT, "docs", "parked.md") };
-
-function git(...args: string[]): { ok: boolean; out: string; err: string } {
-  const r = spawnSync("git", args, { cwd: ROOT, encoding: "utf8" });
-  return { ok: r.status === 0, out: (r.stdout ?? "").trim(), err: (r.stderr ?? "").trim() };
-}
-
-/** Every branch this checkout can see — its own and, if it has one, origin's. */
-function refs(): string[] {
-  const r = git("for-each-ref", "--format=%(refname:short)", "refs/heads", "refs/remotes/origin");
-  return r.out
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
+import { clearTaken, type Item, order, parseItems, pick, problemsIn, removeItem } from "./queue.js";
+import { claim, drop, hasBranch, onTrunk, PATHS, refs } from "./repo.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
   const parked = parseItems(readFileSync(PATHS.parked, "utf8"), "parked");
   return order(queue, parked);
-}
-
-/** Creates the claim. Fails, rather than overwrites, if somebody got there first. */
-function claim(item: Item): string {
-  const branch = branchFor(item);
-  const made = git("branch", branch, "main");
-  if (!made.ok) throw new Error(`could not claim ${JSON.stringify(item.title)}: ${made.err}`);
-  return branch;
-}
-
-/**
- * Gives a claim back, and says what happened to it.
- *
- * `git branch -d` asks the wrong question here: it wants to know whether the
- * branch is merged into *HEAD*, and the session dropping a claim is standing on
- * its own lane rather than on the claim. A claim carries no commits by
- * construction, so the question worth asking is whether its tip is already on
- * `main` — if it is, nothing can be lost. If it is not, somebody committed on
- * the claim itself and it stays, which is a `queue next` lane mid-work.
- */
-function drop(branch: string): { ok: boolean; note: string } {
-  if (git("rev-parse", "--abbrev-ref", "HEAD").out === branch) {
-    return { ok: true, note: `${branch} is checked out here — landing deletes it` };
-  }
-  if (!git("merge-base", "--is-ancestor", branch, "main").ok) {
-    return { ok: false, note: `${branch} holds commits that are not on main — left standing` };
-  }
-  const gone = git("branch", "-D", branch);
-  return gone.ok
-    ? { ok: true, note: `${branch} deleted` }
-    : { ok: false, note: `${branch} left standing: ${gone.err}` };
 }
 
 const [command, arg] = process.argv.slice(2);
@@ -109,19 +62,20 @@ if (!command || command === "list") {
     console.log(
       items.length === 0
         ? "The queue is empty. Nothing is waiting."
-        : "Every item is taken. `bun run queue` says by which branch.",
+        : "Every item is taken. `bun run queue` says who is on each.",
     );
   } else {
     const held = claimOn(item, known);
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
-    console.log(promptFor(item, claim(item)));
+    const branch = claim(item);
+    console.log(`\n${promptFor(item, branch)}`);
   }
 } else if (command === "take") {
   if (!arg) throw new Error("usage: bun run queue take <n|title>");
   const item = pick(items, arg);
   const held = claimOn(item, known);
   if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
-  console.log(`Ongoing: ${item.title} (${claim(item)} created)`);
+  console.log(`Ongoing: ${item.title} (${claim(item)})`);
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {
   if (!arg) throw new Error("usage: bun run queue release <n|title>");
@@ -132,9 +86,16 @@ if (!command || command === "list") {
   // answer wanted is "nobody is on this", not git's answer to a different
   // question about a ref that is not there.
   if (!claimOn(item, known)) {
-    console.log(`Not held: ${item.title} (no ${branch} — nobody is on it)`);
+    console.log(`Not held: ${item.title} (no ${branch}, no Taken: line — nobody is on it)`);
   } else {
-    const { ok, note } = drop(branch);
+    if (item.taken) {
+      onTrunk(item, (md) => clearTaken(md, item.title), `Give ${JSON.stringify(item.title)} back`);
+    }
+    // The line can outlive the branch — a landing sweeps the branch, and a clone
+    // never had one — so "no branch" is a shape of release rather than a failure.
+    const { ok, note } = hasBranch(branch)
+      ? drop(branch)
+      : { ok: true, note: `no ${branch} — the Taken: line was the whole claim` };
     console.log(`${ok ? "Released" : "Still held"}: ${item.title} (${note})`);
   }
 } else if (command === "done") {
@@ -144,7 +105,9 @@ if (!command || command === "list") {
   writeFileSync(path, removeItem(readFileSync(path, "utf8"), item.title));
   console.log(`Removed from docs/${item.source}.md: ${item.title}`);
   // An entry that is out of the file is not ongoing, whichever branch did it.
-  if (claimOn(item, known)) console.log(`         ${drop(branchFor(item)).note}`);
+  // The `Taken:` line needs nothing done to it: it lived inside the entry, and
+  // the entry has just gone.
+  if (hasBranch(branchFor(item))) console.log(`         ${drop(branchFor(item)).note}`);
 } else {
   throw new Error(
     `unknown command ${JSON.stringify(command)} — list | status | next | take | release | done`,
