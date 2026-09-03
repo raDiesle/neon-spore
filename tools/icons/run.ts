@@ -16,8 +16,8 @@
  * off. Drawing at 72% of the frame means the cut never reaches the body.
  */
 
+import { findChrome } from "@neon-spore/frames/capture.js";
 import { chromium } from "playwright-core";
-import { findChrome } from "../frames/capture.js";
 
 interface Target {
   file: string;

@@ -54,6 +54,24 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## `biome check --write --unsafe` eats a file's header docblock
+
+- **Found:** 2026-09-03, claude/categorized-task-queue-4da693
+- **Files:** `.claude/hooks/format-edited.sh`, `package.json`, `tools/hooks/`
+
+Now that `noUnusedImports` is an error, the fix for it is offered as *unsafe*,
+and `biome check --write --unsafe .` applies it by deleting the whole import
+statement — including any comment attached above it. On
+`tools/director/src/shapes-all.ts` that took the sixty-line file header with it,
+silently, in a run whose only reported change was "removed unused imports".
+The header had to be put back by hand off `git show HEAD:`.
+
+`bun run format` is the safe half and does not do this, but nothing stops the
+next session reaching for `--unsafe` when the safe run says "no fixes applied".
+Either refuse `--unsafe` in the bash guard the way other footguns are refused,
+or add a check that fails when a file that had a leading `/**` docblock no
+longer does. A test over a fixture file proves whichever is chosen.
+
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 
 - **Found:** 2026-09-03, claude/rind-hit-effect-d14725
@@ -493,57 +511,6 @@ Write `tools/hooks/guard.ts` (payload in, exit 2 plus message out) holding both
 guards' rules, point `settings.json` at `bun tools/hooks/guard.ts`, and make the
 test call the `.ts` entry with `bun`. Add one case with a backslash path for the
 worker-model guard.
-
-## Make noUnusedImports an error; 19 dead imports hide behind warnings
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `biome.json`, `packages/sim/src/echo.ts`, `packages/sim/src/events.ts`, `packages/sim/src/hash-boss.ts`, `packages/sim/src/vane-cycle.ts`, `tools/director/src/`
-
-`biome check .` reports 22 warnings (19 `noUnusedImports`, 3
-`noTemplateCurlyInString`) and exits 0, so `bun run lint`, the stop hook and
-`bun run land` all pass over them. Four of the dead imports are in `packages/sim`
-(`echo.ts` line 4, `events.ts` line 4, `hash-boss.ts` line 6, `vane-cycle.ts`
-line 2); the other fifteen are under `tools/director/`. Every one is auto-fixable.
-
-Set both rules to `"error"` under `linter.rules`, run `biome check --write .`
-once, and confirm `bun run lint` is clean and stays red on the next one.
-
-## Typecheck apps/game/preview.ts, and make apps/server's tsconfig extend the root
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tsconfig.json`, `apps/server/tsconfig.json`, `apps/game/preview.ts`
-
-The root `include` names `apps/game/build.ts` and `apps/server/dev.ts` by hand but
-not `apps/game/preview.ts`, and `apps/*/src/**/*.ts` does not reach it, so the
-server every agent verifies against is the one root-level script outside the type
-check (`tsc --listFilesOnly` confirms). `apps/server/tsconfig.json` repeats all
-fourteen `compilerOptions` of the root file because the root excludes
-`apps/server/src`; the two agree only by copy.
-
-Replace the two hand-listed entries with `apps/*/*.ts`, and make the server
-config `extends` the root and override only `lib`, `types` and `include`.
-`bun run typecheck` proves both; confirm with `tsc --listFilesOnly | grep preview`.
-
-## Delete the dead tsc -b scripts, duplicate tool scripts and unused workspace deps
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/package.json`, `packages/net/package.json`, `tools/frames/package.json`, `tools/raster/package.json`, `tools/icons/run.ts`, `tools/icons/package.json`, `tools/queue/package.json`, `tools/index/package.json`, `tools/orphans/package.json`, `tools/hooks/package.json`, `bun.lock`
-
-`packages/sim` and `packages/net` declare `"build": "tsc -b"` and neither has a
-`tsconfig.json`, so the script errors immediately; nothing calls it. `tools/frames`
-declares `@neon-spore/content` and imports it nowhere. `tools/raster` declares
-`@neon-spore/render` but only its test uses it. `tools/icons/run.ts` line 20
-reaches `../frames/capture.js` relatively while `tools/raster` imports
-`@neon-spore/frames/capture.js` and declares the dependency; with Bun's isolated
-linker that inconsistency is what left `playwright-core` unresolved for
-`tools/icons` in the main tree. The `queue`, `index`, `orphans` and `scope`
-scripts inside the tool packages duplicate root scripts that already call the
-files by path.
-
-Remove the dead and duplicate scripts, drop the unused deps, import
-`@neon-spore/frames/capture.js` in `icons` and declare it, and re-lock in the same
-commit. `bun install --frozen-lockfile && bun run check` proves nothing else
-depended on them.
 
 ## Split tools/versus/prompt.ts into text, patch rendering and step builders
 

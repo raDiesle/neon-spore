@@ -97,6 +97,9 @@
     "tools/icons": {
       "name": "@neon-spore/icons",
       "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/frames": "workspace:*",
+      },
       "devDependencies": {
         "playwright-core": "^1.62.1",
       },
