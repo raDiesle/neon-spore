@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 12e1845 — The room's clock is a file of its own, and link.ts has room again
+
+`link.ts` was at 250 lines, which is the limit `packages/sim/test/limits.test.ts` enforces, so the next sentence anybody added to it would have failed the check. Working the net items had already cost it two extractions and four trimmed comments to get back under, and that is not a thing to do twice.
+
 ## 2026-09-04 · b9ee2ff — relay:check compares the two worlds at a tick they both reached
 
 `--rejoin` failed about one run in five with "the two worlds did not come back in step", A on tick 392 and B on 390, identical hashes. The verdict was `a.world.tick === b.world.tick && hashA === hashB`, read at the instant the run stopped — and delayed lockstep never promises the two devices are on the same tick at the same wall moment. It promises they simulate the same ticks with the same commands; a device may be up to `delayTicks` ahead of its peer's horizon. So the check was asking a question the protocol does not answer, and a flaky check is worse than none, because the next session reads a red one as its own doing.
