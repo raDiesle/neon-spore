@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · b66efac — SNAKE's mouth rests as long as it stands open, so it cannot be tapped open
+
+`snakeMawRestTicks` was 30 against a `snakeMawTicks` of 84, so a thumb pressing MAW every thirty ticks held the jaws apart for the whole round. The comment beside the rest claimed it "stops a thumb tapping it every tick from being the same as leaving it open", and at those two numbers it stopped tapping it every tick and nothing else. Widening the window from 60 to 84 for the look of the thing made the gap worse rather than making it.
+
 ## 2026-09-03 · c0116f4 — The tuning panel is called TUNING, and stops repeating the key list
 
 Its heading read "NEON SPORE — TEST BUILD" and its footer was a paragraph of desk keys, both written when opening the game landed on the field and this panel was the whole of the chrome. TUNING is a menu entry now, reached by a player rather than only a tester, so the heading is the page's own name.
