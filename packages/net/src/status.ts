@@ -40,6 +40,15 @@ export interface LinkStatus {
   room: string;
   /** Which seat this device holds, 0 before the room says. */
   player: 0 | 1 | 2;
+  /**
+   * How many are in the room, as the room itself counts them — 0 with no room,
+   * 1 waiting alone, 2 once the other phone is here. The room refuses a third,
+   * so it never exceeds two. Carried rather than re-derived from `state`: the
+   * screen needs to know the other seat is filled, and a rule that reads that
+   * off which `LinkState` we are in is a second copy of the room's own count
+   * that drifts the moment a state is added.
+   */
+  peers: number;
   /** Median round trip in milliseconds, -1 before it is measured. */
   rttMs: number;
   /** Ticks the peer's promise reaches past the simulation. Negative is a stall. */

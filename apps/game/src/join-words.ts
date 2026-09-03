@@ -52,32 +52,20 @@ export function explain(status: LinkStatus): string {
 }
 
 /**
- * Whether the room holds two people, as far as this device can tell.
+ * What a seat pill says: this device's own seat, or the other player's.
  *
- * The status carries no head count — the room's `peers` message is consumed
- * inside `link.ts` — but it does not need to: every state from `syncing`
- * onwards is one the room only reaches with two seats filled, and `waiting` is
- * the one that means exactly the opposite.
+ * Whether the other seat is filled is the room's own count (`status.peers`),
+ * not a guess read off which `LinkState` we happen to be in. The two agree
+ * today — every state from `syncing` onwards is one the room only reaches with
+ * two seats — but the count is the fact and the state is a symptom of it, so a
+ * state added tomorrow cannot make a full room's pill read WAITING.
  */
-export function peerHere(status: LinkStatus): boolean {
-  switch (status.state) {
-    case "syncing":
-    case "countdown":
-    case "live":
-    case "stalled":
-      return true;
-    default:
-      return false;
-  }
-}
-
-/** What a seat pill says: this device's own seat, or the other player's. */
 export function seatWord(status: LinkStatus, seat: 1 | 2): string {
   if (status.state === "solo") return "—";
   if (status.player === seat) return "YOU";
   if (status.state === "stalled") return "QUIET";
   if (status.state === "lost") return "GONE";
-  return peerHere(status) ? "HERE" : "WAITING…";
+  return status.peers >= 2 ? "HERE" : "WAITING…";
 }
 
 /** What the TWO DEVICES entry says, which is the whole room in one line. */

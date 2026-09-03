@@ -54,27 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## The room counts the seats and the screen guesses them back
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Files:** `packages/net/src/status.ts`, `apps/game/src/link.ts`, `apps/game/src/link-report.ts`, `apps/game/src/join-words.ts`, `apps/game/test/pause.test.ts`
-
-The room sends `peers` and `welcome` carries a count; `link.ts` reads both into
-a local `peers` and never passes it on. So `join-words.ts` re-derives whether
-the other phone is there by asking which `LinkState` the link is in —
-`peerHere` returns true for `syncing`, `countdown`, `live` and `stalled`,
-because those are the states a full room reaches. That is the rule spelled out
-by hand rather than called, which CLAUDE.md names as the thing that drifts: a
-state added to `LinkState` is a state `peerHere` silently answers false for,
-and the two seat pills on the room screen then say WAITING… at a room that has
-two people in it.
-
-Carry the count instead: add `peers: 0 | 1 | 2` to `LinkStatus`, fill it in
-`link-report.ts` from the value `link.ts` already holds, and delete `peerHere`
-in favour of reading it. `seatWord` keeps its shape — only the question it asks
-changes. `apps/game/test/pause.test.ts` already covers the four cases and
-should keep passing with the statuses' `peers` filled in.
-
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 
 - **Found:** 2026-09-03, claude/rind-hit-effect-d14725

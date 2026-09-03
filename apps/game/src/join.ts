@@ -62,6 +62,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     state: "solo",
     room: "",
     player: 0,
+    peers: 0,
     rttMs: -1,
     slack: 0,
     countdownMs: 0,

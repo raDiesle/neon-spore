@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { LinkStatus } from "@neon-spore/net";
 import { HOLD_AFTER_MS, troubleOf } from "../src/hold.js";
-import { peerHere, seatWord } from "../src/join-words.js";
+import { seatWord } from "../src/join-words.js";
 import { createRunState } from "../src/run-state.js";
 
 /**
@@ -56,6 +56,7 @@ const SOLO: LinkStatus = {
   state: "solo",
   room: "",
   player: 0,
+  peers: 0,
   rttMs: -1,
   slack: 0,
   countdownMs: 0,
@@ -98,23 +99,34 @@ describe("what a bad line is called", () => {
   });
 });
 
-describe("who is in the room", () => {
-  test("nobody, before the second phone arrives", () => {
-    const alone = status({ state: "waiting", room: "ACDE", player: 1 });
-    expect(peerHere(alone)).toBe(false);
+describe("who the seat pills say is in the room", () => {
+  test("the other seat is empty until the room counts two", () => {
+    // Alone in the room: the room's own head count is 1, so the pill for the
+    // seat this device does not hold is still waiting on a second phone.
+    const alone = status({ state: "waiting", room: "ACDE", player: 1, peers: 1 });
     expect(seatWord(alone, 1)).toBe("YOU");
     expect(seatWord(alone, 2)).toBe("WAITING…");
   });
 
-  test("both, from the moment the clocks start agreeing", () => {
-    const two = status({ state: "syncing", room: "ACDE", player: 2 });
-    expect(peerHere(two)).toBe(true);
+  test("both, from the moment the room's count reaches two", () => {
+    const two = status({ state: "syncing", room: "ACDE", player: 2, peers: 2 });
     expect(seatWord(two, 1)).toBe("HERE");
     expect(seatWord(two, 2)).toBe("YOU");
   });
 
+  test("the count is the fact, not the state it was guessed from", () => {
+    // A state the pill has no case for — imagine one added tomorrow — falls
+    // back to the count rather than to WAITING. Here `live` with two present
+    // reads HERE for the other seat because the room says two are in it, and
+    // would keep reading HERE whatever new state sat beside `live`.
+    const both = status({ state: "live", room: "ACDE", player: 1, peers: 2 });
+    expect(seatWord(both, 2)).toBe("HERE");
+    const solo = status({ state: "live", room: "ACDE", player: 1, peers: 1 });
+    expect(seatWord(solo, 2)).toBe("WAITING…");
+  });
+
   test("a stall is the other seat's word, never this one's", () => {
-    const quiet = status({ state: "stalled", room: "ACDE", player: 1, stalledMs: 3000 });
+    const quiet = status({ state: "stalled", room: "ACDE", player: 1, peers: 2, stalledMs: 3000 });
     expect(seatWord(quiet, 1)).toBe("YOU");
     expect(seatWord(quiet, 2)).toBe("QUIET");
   });

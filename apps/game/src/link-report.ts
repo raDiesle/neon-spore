@@ -21,6 +21,8 @@ export interface ReportParts {
   state: LinkState;
   room: string;
   player: 0 | 1 | 2;
+  /** The room's own head count — see `LinkStatus.peers`. */
+  peers: number;
   clock: ClockSync;
   run: Run;
   /** Null before a room is joined, and after one is left. */
@@ -36,6 +38,7 @@ export function report(p: ReportParts): LinkStatus {
     state: p.state,
     room: p.room,
     player: p.player,
+    peers: p.peers,
     rttMs: p.clock.sampleCount > 0 ? Math.round(p.clock.rttMs) : -1,
     slack: p.run.slack,
     countdownMs:

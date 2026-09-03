@@ -88,7 +88,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, clock, run, socket, startMs, now });
+    report({ state, room, player, peers, clock, run, socket, startMs, now });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
