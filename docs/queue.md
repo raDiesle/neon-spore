@@ -780,7 +780,7 @@ CONTROLS page in `menu-pages.ts`) for the pair's first thirty seconds, before a
 wave's own briefing reaches them. It says, in English and in the game's fixed
 vocabulary (hull, cannon, shield, guard, pod, column — do not invent synonyms):
 there are two of you, on two devices, with different jobs — PILOT slides the
-cannon and opens the maw, GUNNER slides the shield and fires; nothing you
+cannon and opens the maw, NAVIGATOR slides the shield and fires; nothing you
 control travels; and the one rule that is the whole game, that talking to each
 other is the control scheme. Keep it to a screen. This is copy on a static
 page, so it is provable with `bun run check`; if a wording choice feels like a
@@ -802,3 +802,45 @@ furthest" option beside "start over". Solo-only and per device — this is a
 convenience, not shared state, so it never touches the room or the wire. Keep
 the writes wrapped in try/catch like the other `localStorage` users.
 `bun run check` proves it.
+## The view switch is a second seat-picker floating over a player's field
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/test/view.test.ts`
+
+The `#viewSwitch` (P1 / P2 / TEST, top-centre) sits in every mode. Now that the
+menu's seat cards are the way to choose a seat, the switch is a duplicate — and
+on a player's phone, tapping the seat the room did not assign silently sends
+that device's touches nowhere (the mode changes what answers a touch;
+`view.ts`). Hide it on player devices: it is a desk/TEST affordance. `game.css`
+already hides `#pauseBtn`, `#gear` and `#waveSkip` under `body.player-view`;
+extend that rule to `#viewSwitch`. The way to the TEST/desk view is still there
+— the menu's third seat card ("ONE SCREEN") sets it — so nothing is stranded.
+A tiny test asserting the CSS rule exists (the way `input-pc.test.ts` asserts
+against source, since this repo's runner has no DOM) proves it; `bun run check`.
+
+## LEAVE ROOM hangs up on the other player with no confirm
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/index.html`, `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/game.css`
+
+Both the room screen's `#joinLeave` and the menu's LEAVE ROOM entry call
+`link.leave()` at once, which drops the other player's game — one mis-tap ends
+it. Put a one-tap confirm in front of it: an inline two-step on the button
+("LEAVE ROOM" → "SURE? · LEAVE / CANCEL"), or a small dialog reusing the hold
+card's shape. The hold card's own LEAVE ROOM is a deliberate answer to a broken
+line and stays immediate — this is only the two doors a player presses while the
+game is fine. Client-only, provable with `bun run check`.
+
+## The tuning panel still reads "TEST BUILD", from before the menu was the door
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/index.html`, `apps/game/src/testing.ts`
+
+`#panel`'s heading is "NEON SPORE — TEST BUILD" and its footer is a paragraph of
+desk keys, written when opening the game landed on the field and this panel was
+the whole of the chrome. TUNING is a menu entry now, reached by a player rather
+than only a tester. Refresh the heading (e.g. "TUNING") and drop or rehome the
+desk-keys footer — the menu's CONTROLS page already lists the keys, so the
+footer is a second copy that will drift. Keep the sliders, the god-mode toggle
+and the BACK button exactly as they are. Copy-only, provable with `bun run
+check`.

@@ -101,3 +101,29 @@ faded would be showing a decay the simulation never asked for.
 Roles are chosen before the game starts — in the finished game, not in the test
 phase — with separate high scores per role split, as an incentive to swap.
 **Not built.**
+
+### Swapping seats in a room — not built
+
+Today the room hands seats out by arrival order (`apps/server/src/room.ts`): the
+first phone is PILOT, the second is NAVIGATOR, and the only way to trade is for
+both to leave and rejoin in the other order. The two roles are deliberately
+asymmetric, so a pair that wants to learn both halves has to swap — which the
+per-role high scores above are meant to reward, and which nothing yet lets them
+do without dropping the room.
+
+The shape, if built: a swap is a coupling ([couplings](couplings.md) 2), not a
+setting — one player asks, the other agrees, and only then do the seats trade.
+It rides the wire like any other room fact (read the `net-change` skill): a
+`swap` request relayed to the peer, an accept relayed back, and the room
+reassigning the seat tags. Because the seat decides which device's touches are
+which player's commands (`apps/game/src/link.ts`, `view.ts`), the trade cannot
+happen mid-run — flipping the routing under a live lockstep would desync it. It
+happens the way beat zero does: at a fresh start the room stamps for both.
+
+Unworked out: whether a swap re-stamps beat zero and restarts the wave, or is
+only offered at the menu between runs — the second is the safer of the two and
+probably the answer; whether the per-role high scores follow the person or the
+seat, since that split is the whole incentive; and whether a "swap seats" button
+needs the other player's confirm at all, or whether reading it aloud — "let's
+swap" — is the confirm, in a game whose whole premise is that the two are
+already talking.
