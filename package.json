@@ -39,7 +39,7 @@
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "relay:check": "bun run --cwd tools/relay-check check",
     "typecheck": "tsc --noEmit && bun run --cwd apps/server typecheck",
-    "lint": "biome check .",
+    "lint": "biome check --error-on-warnings .",
     "format": "biome check --write .",
     "check": "bun run typecheck && bun run lint && bun test",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
