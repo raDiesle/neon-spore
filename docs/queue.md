@@ -285,6 +285,7 @@ at `/` proves the page is unchanged.
 ## Extract the shared queen shell draw and SVG fade from the director drafts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-extract-the-shared-queen-shell-draw-and-svg-fade
 - **Files:** `tools/director/src/holders/hairline.ts`, `tools/director/src/holders/withdrawal.ts`, `tools/director/src/holders/underglow.ts`, `tools/director/src/holders/queen-shared.ts`, `tools/director/src/tails/ribbon.ts`, `tools/director/src/tails/wedge.ts`, `tools/director/src/tails/smoke.ts`, `tools/director/src/tails/types.ts`
 
 A shingle scan over the director puts hairline/withdrawal (32% shared),
