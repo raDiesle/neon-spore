@@ -251,39 +251,6 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Cut shapes-motion.test.ts from six seconds and eleven million expects
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/test/shapes-motion.test.ts`
-
-This one file takes 5.7 s of the director suite's 6.6 s and makes 11 473 102
-`expect()` calls. Lines 52 to 61 loop 200 time samples times every contour point
-times four expects, for every `CATALOGUE` entry. The claim under test is only that
-the box contains every point.
-
-Compute min and max x and y over the points in plain arithmetic and make four
-expects per entry and time sample, or one `expect(outside).toEqual([])` per entry
-naming the offending point on failure. Same guarantee; the file should drop to
-well under a second.
-
-## Stop leaking a module instance per GET /api/waves in the director
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/src/waves-api.ts`, `tools/director/src/serialize.ts`, `tools/director/test/`
-
-`readWaves()` does a dynamic `import()` of the waves barrel with a `?t=Date.now()`
-cache-buster on every request, and `writeWaves()` does the same once per act file
-on every save. Each distinct URL is a new ES module record Bun keeps for the life
-of the process, in a server that stays up as long as a tab beats every 25 s. Two
-GETs in one millisecond also share a module and can return a stale list after a
-save.
-
-Memoise on the token `wavesToken()` already computes: if the token is unchanged,
-return the last result, so a fresh import happens only when a file actually
-changed. In `writeWaves` the per-act length only needs the array length, which
-`serialize.ts` can count in the source it already reads. A test that calls
-`wavesState()` twice with unchanged files and asserts one import proves it.
-
 ## Call runStageLoop instead of carrying three copies of the fixed-timestep loop
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -351,37 +318,6 @@ Move the first block to `stage-afterrun.test.ts`, the third to
 `stage-touch.test.ts` with the stubs installed in `beforeAll` and restored in
 `afterAll`, and the second to `packages/sim/test` or delete it if
 `briefing.test.ts` already covers a fresh `Briefings` per `createWorld`.
-
-## Add a unit test for shape-fit.ts, the largest pure director module without one
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/src/shape-fit.ts`, `tools/director/test/shape-fit.test.ts`
-
-Of the director modules no test imports, most are DOM-bound; `shape-fit.ts` (216
-lines) is not. It is `stillOf`, `fitOf`, `isWide`, `figureLayout`, a scan over a
-contour plus a memo table, and its header says it was split out because none of
-it touches the document. `long-axis.test.ts` covers `shapes-motion.ts` next door,
-not this.
-
-Write `shape-fit.test.ts` over `CATALOGUE`: `isWide` is true for the hull and
-false for a round body, `fitOf` contains `stillOf` for every entry and every
-`FIT_TIMES` moment, and `figureLayout` returns the same object on a second call.
-
-## Table the director's three document routes and bring server.ts under 250 lines
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/server.ts`, `tools/director/src/docs-api.ts`, `tools/director/build.ts`, `tools/director/test/build-imports.test.ts`
-
-`server.ts` is 260 lines. The doc comment at lines 203 to 211 describes
-`/api/spec`, but the route beneath it (line 217) is `/api/borrowed`; the actual
-`/api/spec` route at line 237 has no comment. Lines 217 to 235 are three routes
-that differ only in the reader they call.
-
-Declare `DOC_ROUTES = { "/api/borrowed": readBorrowedText, "/api/tower-defence":
-readTowerDefenceText, "/api/claude-vs-chatgpt": readAssistantsText }` in
-`docs-api.ts` so `build.ts` bakes from the same table, spread it into `routes`,
-and move the spec comment onto the spec route. `curl /api/borrowed` on a running
-director confirms the answer is unchanged.
 
 ## Break the runtime import cycle in the SHAPES page and add a cycle check
 
@@ -668,3 +604,24 @@ categories that have no rule. The tree is at zero warnings today, so the flag
 costs nothing to add. Change the `lint` script, confirm `bun run check` is still
 green, and confirm the flag bites by pasting a `biome-ignore` for a rule that
 does not fire and watching lint go red.
+
+## shapes-motion.test.ts is still three seconds, and none of it is the expects
+
+- **Found:** 2026-09-03, claude/dynamic-workflows-session-strategy-3637de
+- **Files:** `tools/director/test/shapes-motion.test.ts`, `tools/shape-sheet/src/contour.ts`
+
+"Cut shapes-motion.test.ts from six seconds and eleven million expects" said the
+assertion count was the cost. It was not. Removing all 11 473 102 of them took
+the file from 5.9 s to 5.2 s; hoisting the transform's regex parse out of the
+per-point loop took it to 3.2 s. What is left is `subject.pointsAt(t)`, called
+once per `CATALOGUE` entry per sample — 101 × 200 contours built from scratch,
+at roughly 0.15 ms each, and every one of them thrown away after four
+comparisons.
+
+The claim under test needs *poses*, not points: the box has to contain the
+contour at each sample. Either memoise `pointsAt` per subject and time (the
+director's own `shape-fit.ts` keeps a memo for exactly this reason and says
+why), or reduce `LATER` from 200 samples to a set chosen to cover the same
+phase space — and say in the file which, because a smaller sample is a weaker
+guarantee and the next reader will want to know it was deliberate. A memo is
+the honest one; the samples are the cheap one.
