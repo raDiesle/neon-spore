@@ -50,6 +50,7 @@ function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
     case "mazeString":
     case "wardenTether":
+    case "lidString":
       return target;
     default:
       return assertNever(target);
@@ -70,7 +71,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
   });
 
   test("every DragTarget has its own FIELD_CONTROLS entry", () => {
-    const targets: DragTarget[] = (["mazeString", "wardenTether"] as const).map(
+    const targets: DragTarget[] = (["mazeString", "wardenTether", "lidString"] as const).map(
       documentedDragTarget,
     );
     for (const target of targets) {

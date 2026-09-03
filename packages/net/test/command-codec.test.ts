@@ -18,6 +18,7 @@ const ACCEPTED: Command[] = [
   { kind: "snakeFire" },
   { kind: "snakeMaw" },
   { kind: "drag", target: "mazeString", on: true, fromMilli: 1500 },
+  { kind: "drag", target: "lidString", on: true, fromMilli: -1500, id: 4 },
   { kind: "restart" },
 ];
 
@@ -74,6 +75,31 @@ describe("decodeCommand: rejections", () => {
     expect(decodeCommand("guard")).toBeNull();
     expect(decodeCommand(null)).toBeNull();
     expect(decodeCommand(undefined)).toBeNull();
+  });
+
+  /**
+   * A drag reports a **displacement** from where the finger grabbed, so half of
+   * every pull is negative — and a codec that took only non-negative numbers
+   * dropped exactly those frames, which is a rope that worked on the device it
+   * was pulled on and never crossed the wire.
+   */
+  it("keeps a pull to the left, which is a negative displacement", () => {
+    const left = { kind: "drag", target: "wardenTether", on: true, fromMilli: -2400 };
+    expect(decodeCommand(left)).toEqual(left as Command);
+  });
+
+  it("refuses a pull wider than any screen", () => {
+    expect(
+      decodeCommand({ kind: "drag", target: "lidString", on: true, fromMilli: -1e12 }),
+    ).toBeNull();
+  });
+
+  /** The id names *which* cord, for the one drag target that is a creature.
+   * Absent is legal — the two fixtures need none — and a broken one is not. */
+  it("refuses a drag whose id is not a whole non-negative number", () => {
+    const bad = { kind: "drag", target: "lidString", on: true, fromMilli: 0, id: -1 };
+    expect(decodeCommand(bad)).toBeNull();
+    expect(decodeCommand({ ...bad, id: 1.5 })).toBeNull();
   });
 
   it("refuses infinities", () => {

@@ -53,7 +53,14 @@ export type SimEvent =
    * eye has to be.
    */
   | { type: "tether"; col: number; color: Color }
-  /** The line came fully taut and the hatch stands open. One shot counts. */
+  /**
+   * Something armoured came open under a hand and the thing behind it can be
+   * shot: THE WARDEN's hatch, when the line comes fully taut, and THE LID's
+   * plates, when the cord does. **One event for both**, because they are one
+   * moment — a gate held open by somebody pulling, in the colour the shot has
+   * to carry — and the ear has nothing to gain from telling them apart when
+   * the eye already has (`lid.ts`, `warden.ts`).
+   */
   | { type: "eyeOpen"; col: number; color: Color }
   /** A plate off the rim. `color` is the rim's, which is what took it. */
   | { type: "plate"; col: number; row: number; left: number; color: Color }

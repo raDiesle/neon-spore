@@ -93,6 +93,14 @@ export const MECHANICS = {
     // than from anything an author could write (`mountColor`).
     waveNames: true,
   },
+  lid: {
+    what: "An armoured eye. The plates over its lens part from the middle outwards, by degrees, for exactly as long as one of you keeps the cord pulled aside — and only while they stand fully apart does the lens's colour land. Let go and they shut.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // clasp: the silhouette is the lid's and the colour is the lens's, which
+    // is which trigger answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
   mount: {
     what: "One of the six on that rim. An ordinary slick or bulb, answered by the ordinary rule — the matching colour, in the column it is standing in — except that it is only standing there for a beat.",
     reach: "spawn",

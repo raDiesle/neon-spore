@@ -39,6 +39,7 @@ export type GroupName =
   | "THE ECHO — one body that becomes eight"
   | "THE RIND — one body, three sizes"
   | "THE GYRE — six bodies on a turning rim"
+  | "THE LID — an armoured eye held open by a hand"
   | "SCORE"
   | "WARDEN"
   | "VANE"
@@ -71,6 +72,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE ECHO — one body that becomes eight",
   "THE RIND — one body, three sizes",
   "THE GYRE — six bodies on a turning rim",
+  "THE LID — an armoured eye held open by a hand",
   "SCORE",
   "WARDEN",
   "VANE",
@@ -82,6 +84,15 @@ export const GROUP_ORDER: GroupName[] = [
 ];
 
 export const GROUP_NOTE: Record<GroupName, string> = {
+  "THE LID — an armoured eye held open by a hand":
+    "An armoured eye with a cord hanging off it. Player 1 takes the cord and " +
+    "pulls it aside; the two plates over the lens part from the middle " +
+    "outwards in proportion to the tension, and only while they stand fully " +
+    "apart does a shot of the lens's own colour land. Let go and they shut, so " +
+    "the pull and the shot are one moment in two hands rather than two things " +
+    "done in an order. Nothing about it is hidden from either screen — what " +
+    "the pair has to agree on is when. See lid.ts.",
+
   "PINBALL — a table the ship is the bucket of":
     "The third built round, and the first body in the game under an " +
     "acceleration. The ship folds into a bucket that is both the gun and the " +

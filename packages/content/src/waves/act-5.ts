@@ -33,6 +33,23 @@ import type { Wave } from "../wave-types.js";
  * 3. Beat 26, a rock. It arrives about when a wheel left alone starts
  *    grinding, so the pair is choosing between the shield's column and the
  *    wheel's beat with the hull already going down. That is the wave.
+ *
+ * **HOLD IT OPEN, in three figures**, and the same shape of argument. What has
+ * to bite is that a lid is not a thing you do and then a thing they do: the
+ * pull and the shot have to be the same instant, and the pilot's thumb is off
+ * the cannon strip for the whole of it.
+ *
+ * 1. Beat 0, one lid alone, dead centre. Nothing else on the field, so the
+ *    pair can spend the whole fall discovering that the plates follow the hand
+ *    and shut when it lifts. A lid left alone reaches the ship like any other
+ *    body, so a slow start costs the hull rather than nothing at all.
+ * 2. Beats 14–16, a lid off to one side and an ordinary bulb the other. This
+ *    is the wave: the cannon has to be under the lid *before* the cord is
+ *    taken, and the bulb is the column the pilot is not in while they hold it.
+ *    The pair either agree an order out loud or lose one of the two.
+ * 3. Beats 24–26, the same pairing tightened by two beats, so the second body
+ *    is on the field while the first lid is still open. What was a decision at
+ *    16 is a sentence with a deadline on it here.
  */
 export const WAVES_ACT_5: Wave[] = [
   {
@@ -49,6 +66,22 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 16, col: 6, color: "cyan" },
       { beat: 20, col: 1, color: "red" },
       { beat: 26, col: 5, kind: "meteor", color: null },
+    ],
+  },
+  {
+    name: "HOLD IT OPEN",
+    sentence: "The one where doing your half first is the same as not doing it.",
+    guide: {
+      both: "An armoured eye with a cord hanging off it. The plates over the lens part while the cord is pulled aside and shut the moment it is let go — and only while they stand fully apart does the lens's own colour land.",
+      p1: "Put the cannon in its column BEFORE you take the cord. Both your thumbs are spoken for once you have hold of it, and the plates close the instant you let go.",
+      p2: "Load the colour you can see in the seam and then wait. Count them in out loud: the shot has to leave while the plates are open, not after.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "lid", color: "cyan" },
+      { beat: 14, col: 1, kind: "lid", color: "red" },
+      { beat: 16, col: 5, color: "cyan" },
+      { beat: 24, col: 5, kind: "lid", color: "red" },
+      { beat: 26, col: 2, color: "red" },
     ],
   },
 ];

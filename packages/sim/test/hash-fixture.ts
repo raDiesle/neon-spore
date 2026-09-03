@@ -50,6 +50,7 @@ const creature = (): Required<Creature> => ({
   gyreStep: 9,
   gyreId: 5,
   gyreSlot: 3,
+  lidPullMilli: -1800,
 });
 
 const bullet = (): Required<Bullet> => ({

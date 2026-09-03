@@ -172,6 +172,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
 | `packages/sim/src/field.ts` | taking a body off the field — the counterpart to `spawn.ts` |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
+| `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
+| `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
+| `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
+| `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 
 ### packages/content
 
@@ -209,6 +213,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
+| `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 
 ### packages/render
 
@@ -360,6 +365,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-eyes.ts` | THE GHOST's eyes, and they are the whole of what makes the shape a face rather than a bell |
 | `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
+| `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
+| `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
 
 ### packages/net
 

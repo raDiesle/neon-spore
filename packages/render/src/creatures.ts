@@ -11,6 +11,8 @@ import { drawDartJet } from "./dart.js";
 import { byDepth, depthScale, drawnRow, nearness } from "./depth.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
+import { drawLid } from "./lid.js";
+import { drawLidCords } from "./lid-string.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
 import { drawTorch } from "./torch.js";
@@ -127,7 +129,14 @@ export function drawCreatures(
           wispJump(world.cfg, world.beat, beatPhase),
         );
       }
-    } else if (c.kind !== "veil" || showsVeilCore(l))
+    }
+    // An armoured eye, and the second body with a contour of its own that is
+    // not a blob: two arcs meeting at a corner either side, which no radial
+    // contour describes (`content/lid-shape.ts`). Both screens draw the whole
+    // of it — nothing about a lid is split — so unlike the ghost and the veil
+    // above it has no gate, only a draw path of its own (`lid.ts`).
+    else if (c.kind === "lid") drawLid(ctx, l, world.cfg, c, x, y, time, near);
+    else if (c.kind !== "veil" || showsVeilCore(l))
       drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
     // The weather over that body, on both screens and identical on both — the
     // clasp's arrangement below, one creature earlier in the pass.
@@ -155,4 +164,8 @@ export function drawCreatures(
     }
     ctx.restore();
   }
+  // The cords, after every body: flat, outside the perspective transform, and
+  // last so that a handle is never behind the eye it hangs off or behind the
+  // body in the next column (`lid-string.ts`).
+  drawLidCords(ctx, l, world, beatPhase, time);
 }

@@ -5,6 +5,10 @@ import type { GhostDir } from "./ghost.js";
 /** The two ammunition colours. Colour is bioluminescence, not decoration. */
 export type Color = "red" | "cyan";
 
+// What a shot in flight is: lifted out when THE LID's own field took this
+// file over its limit, and re-exported so nothing reaching for one had to
+// move. `bullet-types.ts` says why the bullet is the half that moved.
+export type { Bullet } from "./bullet-types.js";
 // What a press *is* — the one thing in this file that was never a shape a
 // world is made of. It lives in `command-types.ts` now and is re-exported
 // here, the way `creature-kinds.ts` and `kinds.ts` already are, so nothing
@@ -227,24 +231,19 @@ export interface Creature {
    */
   gyreId?: number;
   gyreSlot?: number;
-}
-
-export interface Bullet {
-  id: number;
-  col: number;
-  /** Tile row, counted from the hull upwards. Bullets sit on tile centres. */
-  row: number;
-  /** Progress towards the next tile, 0..999. Interpolation only. */
-  subMilli: number;
-  color: Color;
   /**
-   * True for a shot that left a full lobe — THE LANCE. It travels at
-   * `lanceTilesPerBeat` instead of `bulletTilesPerBeat` and passes through
-   * bodies of its own colour rather than stopping at the first one. Decided
-   * once, when the shot leaves: a charge that fills while the shot is in the
-   * air arms the *next* one (`lance.ts`).
+   * How far player 1's hand has carried THE LID's cord from where it grabbed,
+   * in thousandths of a tile, clamped to `lidTautMilli` either way — and
+   * **absent on a lid nobody has hold of**, which is what makes the absence
+   * itself the answer to "is a hand on this". A grab reports zero, so nought
+   * and nothing are two different states here and neither is spelled as the
+   * other.
+   *
+   * Signed, and the sign is only ever a picture: the cord is drawn swinging
+   * the way the hand went, while the rule takes the magnitude (`lid.ts`).
+   * Read it through `lidOpenMilli`, `lidIsOpen` and `lidIsHeld`, never
+   * directly — how far the plates have parted, whether a shot lands and
+   * whether the handle is drawn filled are three readings of this one number.
    */
-  lance: boolean;
-  /** Bodies this shot has already gone through. 0 for everything but a lance. */
-  pierced: number;
+  lidPullMilli?: number;
 }

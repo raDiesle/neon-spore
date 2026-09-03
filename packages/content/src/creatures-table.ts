@@ -184,6 +184,30 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster and faster, sinking a row each lap until the bottom of it grinds along the ship. Open the maw and the wheel slows, wherever the cannon happens to be standing.",
   },
+  lid: {
+    kind: "lid",
+    // The cannon alone, and the panel a wave with one on it shows. The cord is
+    // not a control group: `ControlGroup` is aim and guard, the two things a
+    // wave may be missing, and a handle on the field is neither — it is drawn
+    // where the body is, the way THE WARDEN's rope and THE MAZE's string are,
+    // and no strip has to appear for it.
+    controls: ["aim"],
+    // No colour of its own: a wave authors one per arrival, the way it does
+    // for a clasp. The colour is the *lens's* — what player 2 has to load
+    // before the plates part — and it is visible on both screens the whole way
+    // down, out of the seam between the plates. What the armour buys here is
+    // not surprise, it is timing.
+    color: null,
+    authorsColor: true,
+    // Player 2's strip, like every other aim target. Deliberately not player
+    // 1's, for all that the cord is player 1's hand: the pilot already has the
+    // body itself to look at from the moment it enters, and a strip announcing
+    // one to the seat that cannot fire would be a warning aimed away from the
+    // trigger that answers it.
+    radar: "p2",
+    blurb:
+      "An armoured eye with a cord hanging off it. The two plates over the lens part from the middle outwards for exactly as long as the pilot keeps the cord pulled aside, and only while they stand fully apart does the lens's own colour land — so the pull and the shot are one moment in two hands.",
+  },
   // The six on that rim, and the sixth worn body — an ordinary slick or bulb
   // with a wheel under it. Next door with the other five for their reason: it
   // is drawn as the body its colour names, and `wornKind` resolves it.

@@ -71,8 +71,8 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 88 square cards the catalogue now holds", () => {
-    expect(SQUARE.length).toBe(88);
+  it("has the 89 square cards the catalogue now holds", () => {
+    expect(SQUARE.length).toBe(89);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {

@@ -14,7 +14,7 @@ import { type Color, type Command, type DragTarget, SNAKE_TURNS } from "@neon-sp
  * second copy elsewhere would be caught.
  */
 const COLORS = ["red", "cyan"] as const;
-const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether"];
+const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether", "lidString"];
 
 const isColor = (x: unknown): x is Color =>
   typeof x === "string" && (COLORS as readonly string[]).includes(x);
@@ -31,6 +31,18 @@ type SnakeTurn = (typeof SNAKE_TURNS)[number];
 
 const isSnakeTurn = (x: unknown): x is SnakeTurn =>
   typeof x === "string" && (SNAKE_TURNS as readonly string[]).includes(x);
+
+/**
+ * How far a hand has carried a handle, in thousandths of a tile. Signed, and
+ * that is the whole reason it is not `isNonNegInt`: a drag reports a
+ * displacement from where the finger grabbed, so half of every pull is
+ * negative. Bounded by a magnitude a screen cannot exceed — a hundred tiles is
+ * far wider than any phone — so a peer sending a number meant to overflow
+ * arithmetic three layers down is rejected here, which is `isTick`'s argument
+ * pointed at the other half of the number line.
+ */
+const isPull = (x: unknown): x is number =>
+  typeof x === "number" && Number.isInteger(x) && Math.abs(x) <= 100_000;
 
 /** A finite whole number, never negative — a column or an id. */
 const isNonNegInt = (x: unknown): x is number =>
@@ -103,9 +115,27 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "snakeFire" };
     case "snakeMaw":
       return { kind: "snakeMaw" };
+    // `fromMilli` is a **displacement**, so it is signed: a hand that carried
+    // a handle to the left reports a negative number, and `isNonNegInt` here
+    // dropped exactly those frames — a pull that worked on one device and
+    // never crossed the wire. `isPull` is the bound instead, and it is a
+    // magnitude bound rather than a floor.
+    //
+    // `id` is present only for a target that is a creature (THE LID's cord),
+    // and optional for the two that are fixtures, so a peer on an older build
+    // sending a drag without one is still understood.
     case "drag":
-      return isDragTarget(c.target) && isBool(c.on) && isNonNegInt(c.fromMilli)
-        ? { kind: "drag", target: c.target, on: c.on, fromMilli: c.fromMilli }
+      return isDragTarget(c.target) &&
+        isBool(c.on) &&
+        isPull(c.fromMilli) &&
+        optional(c.id, isNonNegInt)
+        ? {
+            kind: "drag",
+            target: c.target,
+            on: c.on,
+            fromMilli: c.fromMilli,
+            ...(c.id === undefined ? {} : { id: c.id as number }),
+          }
         : null;
     case "restart":
       return { kind: "restart" };

@@ -134,15 +134,25 @@ export type Command =
    * that never arrived is gone for good and leaves the wheel a step out of true
    * — the same property that makes `cannonCol` send a column and not "one to the
    * left". `target` names the element, and the rounds to come add to that list.
+   *
+   * **`id` names *which* one, for a target that is a creature.** A rope hung by
+   * a boss is the only one of its kind on the field, so its target name is
+   * address enough; THE LID is an ordinary arrival and a wave may send three
+   * down at once, so the grab has to say which cord the hand landed on and
+   * every move after it has to keep saying so. Absent for a target that is a
+   * fixture — an id there would be a second, weaker way of naming a thing that
+   * already has exactly one name.
    */
-  | { kind: "drag"; target: DragTarget; on: boolean; fromMilli: number }
+  | { kind: "drag"; target: DragTarget; on: boolean; fromMilli: number; id?: number }
   | { kind: "restart" };
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
  * list rather than a creature id, because THE MAZE's string is not a creature —
  * a drag that could only name one could not reach the first thing that wanted
- * it, and THE WARDEN's rope is one that is. */
-export type DragTarget = "mazeString" | "wardenTether";
+ * it, and THE WARDEN's rope is one that is. THE LID's cord is the third, and
+ * the first that is *many*: the target says what kind of handle this is and
+ * `id` above says which body it hangs off. */
+export type DragTarget = "mazeString" | "wardenTether" | "lidString";
 
 /**
  * The two ways SNAKE's body can be turned, and they are quarter turns rather

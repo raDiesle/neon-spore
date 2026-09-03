@@ -7,6 +7,9 @@ import {
   type GhostSilhouette,
   ghostOutline,
   hullRadiusMul,
+  LID,
+  type LidSilhouette,
+  lidOutline,
   livingBodyKinds,
   livingSilhouette,
   METEOR,
@@ -112,6 +115,25 @@ export function ghost(name: string, s: GhostSilhouette, note: string): Subject {
   };
 }
 
+/**
+ * Two arcs meeting at a corner either side — THE LID, and the fourth contour
+ * family the sheet knows about.
+ *
+ * It samples `lidOutline` for `ghost`'s reason one shape along: the same
+ * geometry the canvas strokes, so what is judged here is what ships. There is
+ * no radial `…RadiusMul` for it to call, because an eye is not radial —
+ * `content/lid-shape.ts` is the whole of that argument.
+ */
+export function lid(name: string, s: LidSilhouette, note: string): Subject {
+  return {
+    name,
+    note,
+    open: false,
+    pointsAt: (t) => lidOutline(s.rx, s.ry, s.droop, s.wobble, t, s.seed),
+    path: catmullRomToBezierPath,
+  };
+}
+
 export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
   return {
     name,
@@ -159,6 +181,10 @@ export const SUBJECTS: Subject[] = [
   // draws and this one is drawn by `render/ghost.ts` — the same reason the
   // rock and the queen's shell are named by hand below.
   ghost("GHOST", GHOST, `${GHOST.tails} tails · dome over a hanging hem`),
+  // Off `LIVING_SUBJECTS` for THE GHOST's reason: it is drawn by
+  // `render/lid.ts` rather than by `drawLiving`, so `living-look.ts` gives it
+  // no row and nothing here is generated for it.
+  lid("LID", LID, `${LID.lashes} lashes · two arcs meeting at a corner`),
   blob("POD", POD),
   meteor,
   torch,

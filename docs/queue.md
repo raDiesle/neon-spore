@@ -851,3 +851,45 @@ Replace the three steps with `bun run check`, add `actions/cache` keyed on
 `bun.lock`, pin `bun-version` to the version in use locally (`bun --version`), and
 drop the pull-request trigger. Provable only by the workflow going green on the
 next push.
+
+## Draw a handle once, not three times
+
+- **Found:** 2026-09-03, claude/armored-eye-enemy-52ff29
+- **Files:** `packages/render/src/tether.ts`, `packages/render/src/lid-string.ts`,
+  `packages/render/src/maze-string.ts`
+
+There are three handles on the field now — THE MAZE's string, THE WARDEN's rope
+and THE LID's cord — and the last two draw the same four things with the same
+numbers in two files: a ring that breathes while nobody has it and fills when
+somebody does, a gauge arc sweeping round it that closes at full tension, a
+faint circle marking where it rests, and a rope that sags on a half-sine and
+straightens as the pull comes in. `lid-string.ts` was written by reading
+`tether.ts` and changing the anchor, which is exactly the shape of thing that
+drifts: a fix to one handle's read is a fix to one of them.
+
+Cut a `handle-draw.ts` holding the ring, the gauge, the rest mark, the sag
+curve and the PULL/PILOT'S hint, take the anchor and the colour as arguments,
+and have all three files call it. The hit circles stay where they are — each
+handle rests somewhere different, and `handles.ts` already asks each file for
+its own. `packages/render/test/touch.test.ts` and `frame.test.ts` are what
+prove nothing moved.
+
+## `bun run frames` cannot photograph anything that needs a finger held down
+
+- **Found:** 2026-09-03, claude/armored-eye-enemy-52ff29
+- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`
+
+`captureFrames` drives `jumpToWave`, `dismissBriefing`, `advance` and `paint`,
+which is every verb a wave needs — and none that a *held control* needs. So the
+one picture of THE LID that says what the creature is, the plates parted with a
+hand on the cord, cannot be taken with the shipped tool; it had to be got by
+hand. The same gap covers THE WARDEN's hatch, THE MAZE's wheel mid-turn and
+THE LANCE's full lobe: four mechanics whose whole picture is a thumb that is
+down, and the tool can only ever photograph them released.
+
+`window.neonSpore` (`apps/game/src/handle.ts`) exposes `world` but no way to
+push a `Command`, so a capture cannot press anything. Add one verb — a `send`
+that pushes a `TimedCommand` into the same `InputBuffer` the canvas pushes to —
+and a `--hold` flag on `bun run frames` that sends it before the last
+`advance`. Do not reach into `world` from the capture: a picture taken by
+writing a field is a picture of a state the game cannot reach.

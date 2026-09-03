@@ -100,6 +100,7 @@ export {
   primeTicks,
   priming,
 } from "./lance.js";
+export { lidIsHeld, lidIsOpen, lidOpenMilli } from "./lid.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";

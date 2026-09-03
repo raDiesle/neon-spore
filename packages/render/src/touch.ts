@@ -42,7 +42,10 @@ import { lobeMeans } from "./touch-lobe.js";
  *
  * So being draggable is a property of **the hold**, settled at the press — not
  * of the creature kind, since THE MAZE's string is not a creature, and not of
- * the drawing, which does not get to decide the control scheme. A draggable
+ * the drawing, which does not get to decide the control scheme. `id` is the
+ * same argument one step further on: THE LID's cord *is* on a creature and a
+ * wave may send three of them down at once, so which body the press landed on
+ * is the second thing only the press can know. A draggable
  * element answers where the hand went; everything else answers only that a
  * hand is there. Whoever owns the canvas keeps this between the press and the
  * lift and hands it back untouched, so none of them learns what any of it
@@ -57,7 +60,7 @@ export type Hold =
   | { kind: "shield" }
   | { kind: "grip" }
   | { kind: "lance" }
-  | { kind: "drag"; target: DragTarget; player: 1 | 2; originX: number };
+  | { kind: "drag"; target: DragTarget; player: 1 | 2; originX: number; id?: number };
 
 export interface Touch {
   player: 1 | 2;
@@ -211,13 +214,23 @@ export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
   }
   if (hold.kind === "drag") {
     const fromMilli = Math.round(((x - hold.originX) * 1000) / l.tile);
-    return {
-      player: hold.player,
-      command: { kind: "drag", target: hold.target, on: true, fromMilli },
-      hold,
-    };
+    return { player: hold.player, command: dragging(hold, fromMilli, true), hold };
   }
   return null;
+}
+
+/**
+ * One `drag` message for a hold that is already under way.
+ *
+ * The `id` rides along only for a handle that hangs off a creature, and it is
+ * carried from the press because that is the one moment anything knew which
+ * body it was. Written once and called twice: a move and a lift say the same
+ * thing about *which* handle, and two spellings of that is how a lift comes to
+ * let go of a different cord than the one the hand was on.
+ */
+function dragging(hold: Extract<Hold, { kind: "drag" }>, fromMilli: number, on: boolean): Command {
+  const { target, id } = hold;
+  return { kind: "drag", target, on, fromMilli, ...(id === undefined ? {} : { id }) };
 }
 
 /**
@@ -230,11 +243,7 @@ export function touchUp(hold: Hold, field: Field): Touch | null {
     return { player: 1, command: { kind: "prime", on: false }, hold: null };
   }
   if (hold.kind === "drag") {
-    return {
-      player: hold.player,
-      command: { kind: "drag", target: hold.target, on: false, fromMilli: 0 },
-      hold: null,
-    };
+    return { player: hold.player, command: dragging(hold, 0, false), hold: null };
   }
   if (hold.kind !== "grip") return null;
   return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };

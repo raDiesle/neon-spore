@@ -122,7 +122,15 @@ export type CreatureKind =
    * that changes on the beat. Answered by the ordinary rule, and `wornKind`
    * resolves the body it is drawn as (`gyre-rim.ts`).
    */
-  | "mount";
+  | "mount"
+  /**
+   * An armoured eye with a cord hanging off it. Two plates meet down the
+   * middle of the lens and part from the middle outwards, by degrees, for
+   * exactly as long as player 1 keeps the cord pulled aside — and only at full
+   * tension does a shot of the lens's own colour land. `Creature.lidPullMilli`
+   * is the whole of its state, and `lid.ts` is the whole of what it means.
+   */
+  | "lid";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -159,6 +167,7 @@ export const CREATURE_KINDS = [
   "rind",
   "gyre",
   "mount",
+  "lid",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

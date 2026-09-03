@@ -1,16 +1,18 @@
 import { metColor, missedColor } from "./balance.js";
+// The queen's petals and the warden's plates, next door: what a shot does when
+// it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
+import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature, removeCreatures } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
+import { lidStruck } from "./lid.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { type Bullet, type Creature, isMeteorKind } from "./types.js";
 import { veilStruck } from "./veil.js";
-import { wardenEyeOpen } from "./warden.js";
-import { wardenColor, wardenCycle } from "./warden-cycle.js";
 import { wispStruck } from "./wisp.js";
 import type { World } from "./world.js";
 
@@ -74,6 +76,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // The matching colour, like a slick — but the first shots land on a layer
   // rather than on the body, which is the whole creature (`rind.ts`).
   if (hit.kind === "rind") return rindStruck(world, b, hit);
+  if (hit.kind === "lid") {
+    // Plates that only part while a hand is on the cord, and the lens behind
+    // them. All three answers a shot can get are one rule, in `lid.ts` for
+    // `claspStruck`'s reason.
+    lidStruck(world, b, hit);
+    return false;
+  }
   if (hit.kind === "throb") {
     resolveThrob(world, b, hit);
     return false;
@@ -108,97 +117,6 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   removeCreature(world, hit.id);
   b.pierced += 1;
   return b.lance && b.pierced < world.cfg.lancePierce;
-}
-
-/**
- * The queen wears her petals as armour. A shot that matches her open colour,
- * in the one column of the two marks that is actually real this bloom,
- * takes one; anything else — the wrong colour, the wrong side, or a shot at
- * either mark while neither is open — skids off. The last petal brings her
- * down.
- *
- * `b.col`, not `hit.col`, is what the events below carry: `hit.col` is her
- * own centre column, where nothing stands, and a spark or a reject drawn
- * there instead of at the mark a player actually aimed at is drawn nowhere
- * a player was looking.
- */
-function resolveQueen(world: World, b: Bullet, hit: Creature): void {
-  if (hit.color === null || hit.color !== b.color) {
-    // A colour that could never have matched. Which of the two marks it went
-    // up does not change that, so it is the colour balance's to carry.
-    missedColor(world);
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-  const weakSide = world.boss?.kind === "queen" ? world.boss.weakSide : 0;
-  if (b.col !== hit.col + weakSide) {
-    // Right colour, wrong mark — and deliberately *not* a colour miss. The
-    // ammunition was correct; what failed was the side, which is the other
-    // player's half of the call (`queen-mark.ts`). Charging it to the colour
-    // balance would read the failure to the wrong player.
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-
-  metColor(world);
-  hit.petals -= 1;
-  world.score += world.cfg.scoreQueenPetal;
-  hit.color = null;
-  if (world.boss?.kind === "queen") world.boss.closeBeat = world.beat;
-  world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
-
-  if (hit.petals <= 0) {
-    removeCreature(world, hit.id);
-    world.score += world.cfg.scoreQueenDown;
-    world.boss = null;
-    world.events.push({ type: "queenDown", col: b.col, row: hit.row });
-  }
-}
-
-/**
- * THE WARDEN is armour everywhere except the hole, and the hole is only a
- * target for the two beats the rim's recoil holds it open. Three things have
- * to line up and each of them belongs to a different half of the pair's
- * attention: the eye has to be open, which is the rescue the *other* player
- * just made; the shot has to be in the pupil's column, which drifts; and it
- * has to carry the rim's colour, which follows the clamp and is therefore
- * known a whole cycle in advance.
- *
- * A second shot inside the same opening does nothing at all. A spray must not
- * be allowed to skip a plate — the fight is one aimed shot per rescue.
- */
-function resolveWarden(world: World, b: Bullet, hit: Creature): void {
-  const boss = world.boss;
-  if (boss === null || boss.kind !== "warden") return;
-  if (!wardenEyeOpen(world, boss) || boss.eyeSpent || b.col !== boss.pupilCol) {
-    // Armour, a shut iris, or an opening already spent. Deliberately *not* a
-    // colour miss: the ammunition may have been perfectly right and the moment
-    // wrong, and charging that to the colour balance would read the failure to
-    // the wrong player.
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-  const rim = wardenColor(wardenCycle(world.cfg, world.waveBeat));
-  if (b.color !== rim) {
-    // The rim has carried this colour since the tether attached, on both
-    // screens. Getting it wrong is a colour miss and nothing else.
-    missedColor(world);
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-
-  metColor(world);
-  boss.eyeSpent = true;
-  boss.plates -= 1;
-  world.score += world.cfg.scoreWardenPlate;
-  world.events.push({ type: "plate", col: b.col, row: hit.row, left: boss.plates, color: rim });
-
-  if (boss.plates <= 0) {
-    removeCreatures(world, [hit.id, boss.tetherId]);
-    world.score += world.cfg.scoreWardenDown;
-    world.boss = null;
-    world.events.push({ type: "wardenDown", col: b.col, row: hit.row });
-  }
 }
 
 /**

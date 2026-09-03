@@ -1,8 +1,14 @@
 /**
  * What one *creature* costs and how long its own clock runs: the lure's price
  * and the row it leaves on, the throb's cycle, the shell's chipping, the
- * clasp's break, the veil's morph and its armour,
- * and the wisp's dwell.
+ * clasp's break, the veil's morph and its armour, the wisp's dwell and how far
+ * a hand has to carry THE LID's cord.
+ *
+ * **THE GHOST's six live next door**, in `config-ghost.ts`, for the reason
+ * `config-gyre.ts` gives about the seven it took with it: a creature with two
+ * numbers is a row in this shared list, and a creature with six is a section —
+ * and a section is a file. That is also what stopped this one going over its
+ * limit the day THE LID arrived.
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-shot.ts` and `config-boss.ts` already give: every call site still
@@ -94,52 +100,6 @@ export interface CreatureConfig {
    * to say it, hear it, aim and fire. */
   scoreWispKill: number;
   /**
-   * What a ghost is worth. The veil's figure exactly, and that is the point
-   * rather than a coincidence: both are a body the pair can only reach by
-   * saying one thing out loud in time, and a pair that learned one of them
-   * priced above the other would be learning that one sentence is worth more
-   * than the other. The sentence is the same size — a colour and a number.
-   */
-  scoreGhostKill: number;
-  /**
-   * The row a crossing ghost prowls along. Three: far enough down that it is
-   * drawn at a size player 2 can actually read a column off, far enough up
-   * that the dive at the end of its temper is a fall the pair watches rather
-   * than an arrival.
-   */
-  ghostCrossRow: number;
-  /**
-   * Columns a crossing ghost takes each beat.
-   *
-   * Two, and the number is set by the *length of the crossing* rather than by
-   * how fast the body should look. The field is thirteen columns wide, so at
-   * one a crossing is twelve beats and three of them are twenty-two seconds —
-   * a whole wave spent on one arrival. At two it is six beats out and one
-   * standing at the wall, which is about a spoken exchange, and three of them
-   * fit inside a wave that has other things in it.
-   *
-   * It also makes the call expire properly: two lanes a beat is more than a
-   * cannon slides comfortably in one, so the column player 2 says has to be
-   * where it is *going*, which is the sentence this path exists to demand.
-   */
-  ghostCrossCols: number;
-  /**
-   * Walls a crossing ghost turns at before it gives up and dives. Three,
-   * because it is a number the pair counts out loud while doing something
-   * else, and two is over before the counting has started.
-   */
-  ghostChargeLaps: number;
-  /** Tiles a charging ghost falls each beat. `meteorFast`'s three: fast enough
-   * to read as a decision and slow enough to still be shot on the way down. */
-  ghostDiveTiles: number;
-  /**
-   * What a charging ghost costs the hull. Above `damageCreature` and below
-   * `damageMeteor`: it is the one arrival that *aimed* at the ship, so it is
-   * worse than a body that merely arrived — and it was answerable for three
-   * whole crossings, which a rock never is.
-   */
-  damageGhostDive: number;
-  /**
    * Beats between one step down and the next for THE ECHO. Two — it is the
    * whole of "half as fast", and it is the smallest number that is one: at
    * three the body hangs long enough that the pair stops reading it as
@@ -213,6 +173,25 @@ export interface CreatureConfig {
    * first two shots were a tax rather than the fight.
    */
   scoreRindShed: number;
+  /**
+   * Thousandths of a tile player 1's hand must carry THE LID's cord for the
+   * plates to stand fully apart. `wardenTautMilli`'s figure exactly, and that
+   * is the point rather than a coincidence: it is the same gesture asked of
+   * the same thumb, and a pull that took a different distance on an ordinary
+   * arrival than on the boss would be two hands to learn for one movement.
+   *
+   * Two and a half tiles is far enough that the pull is a commitment — the
+   * thumb is off the cannon strip for as long as it lasts — and short enough
+   * to be inside one comfortable travel of a thumb on a phone.
+   */
+  lidTautMilli: number;
+  /**
+   * What a lid is worth. `scoreVeilKill`'s and `scoreGhostKill`'s figure, and
+   * for their reason: all three are bodies the pair can only reach by doing
+   * one thing together at one moment, and pricing one above the others would
+   * teach that one kind of agreement is worth more than another.
+   */
+  scoreLidKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -230,16 +209,12 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   scoreVeilKill: 250,
   wispDwellBeats: 6,
   scoreWispKill: 300,
-  scoreGhostKill: 250,
-  ghostCrossRow: 3,
-  ghostCrossCols: 2,
-  ghostChargeLaps: 3,
-  ghostDiveTiles: 3,
-  damageGhostDive: 18,
   echoFallBeats: 2,
   echoSplits: 3,
   echoSplitBeats: 3,
   scoreEchoKill: 25,
   rindLayers: 2,
   scoreRindShed: 50,
+  lidTautMilli: 2500,
+  scoreLidKill: 250,
 };

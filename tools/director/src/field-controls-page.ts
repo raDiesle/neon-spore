@@ -80,6 +80,20 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "wardenTether",
   },
   {
+    name: "THE LID'S CORD",
+    where: "on the cord's resting circle, under every armoured eye on the field",
+    seat: "player 1 — the pilot pulls, player 2 keeps both colours",
+    gesture: "grab and drag",
+    does:
+      "Parts the plates over the lens in proportion to the pull, and only " +
+      "while they stand fully apart does a shot land. Letting go shuts them " +
+      "(sim/lid.ts, render/lid-string.ts). The one drag target that is a " +
+      "creature, so the command names which body by id.",
+    source: "touch.ts — lidCordUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "lidString",
+  },
+  {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",
     seat: "both, independently — each seat fills its own circle",

@@ -128,5 +128,13 @@ export function creatureHashParts(c: Creature): number[] {
   // tiles. `-1` for a body carrying none, a value no tile index can take.
   out.push(c.wispNext ?? -1);
   out.push(c.wears === undefined ? 0 : kindCode(c.wears) + 1);
+  // THE LID's cord, as two numbers rather than one. Whether a hand is on it
+  // decides whether the plates are shut, and how far it has been carried
+  // decides whether a shot lands — so two devices that disagree about either
+  // disagree about whether the body player 2 just fired at was open. They
+  // cannot be folded into one: the pull is signed and a grab reports zero, so
+  // there is no value of it left over to mean "nobody is holding this".
+  out.push(c.lidPullMilli === undefined ? 0 : 1);
+  out.push(c.lidPullMilli ?? 0);
   return out;
 }

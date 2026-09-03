@@ -76,6 +76,13 @@ const TALKER = {
   // look for something withheld, and nothing is.
   gyre: null,
   mount: null,
+  // THE LID, and it is the gyre's `null` said about a hand instead of a beat.
+  // Both screens draw the whole body, the plates, how far they have parted and
+  // the colour of the lens behind them — nothing at all is withheld — and the
+  // pair still has to talk, because what they have to agree on is a *moment*
+  // in two hands. A siren here would teach them to look for something hidden,
+  // and there is nothing hidden to find.
+  lid: null,
   // Both screens carry these whole: nothing about them is split, so a siren
   // over one would be a lamp saying "look at the field", which is not news.
   slick: null,

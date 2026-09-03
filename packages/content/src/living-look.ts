@@ -76,6 +76,14 @@ const LIVING_LOOK = {
   // `render/gyre.ts` the way THE GHOST is drawn by `ghost.ts` — routed away in
   // `drawCreatures` before the living pass ever sees it.
   gyre: null,
+  // THE LID is the second body drawn by a path of its own rather than by a
+  // radial contour, and THE GHOST's case exactly: an eye is two arcs meeting
+  // at a point either end, and `blobRadiusMul` samples one radius all the way
+  // round, so every corner it grew at the sides it would grow at the top and
+  // the bottom as well — a lens drawn that way is a lumpy oval. `lid-shape.ts`
+  // is the geometry and `render/lid.ts` strokes it, routed away in
+  // `drawCreatures` before the living pass ever sees one.
+  lid: null,
   // No body of their own: crystals, a line down a column, and the two bosses.
   meteor: null,
   meteorMedium: null,

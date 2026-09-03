@@ -88,6 +88,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   clasp: { wave: "THE CLASP" },
   dart: { wave: "THE DART" },
   veil: { wave: "THE VEIL" },
+  lid: { wave: "HOLD IT OPEN" },
   wisp: { wave: "THE WISP" },
   ghost: { wave: "THE GHOST" },
   echo: { wave: "THE ECHO" },
