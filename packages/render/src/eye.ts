@@ -1,0 +1,238 @@
+import { circleSubpath } from "@neon-spore/content";
+import { halo, strokeGlow } from "./glow.js";
+import { PALETTE, STROKE } from "./palette.js";
+
+/**
+ * **An eye, drawn once.** THE WARDEN has had one behind its hatch since it was
+ * built; THE LID is an eye all the way through. The owner asked for the two to
+ * be the same picture — the warden's animating lens on the lid, and the fluid
+ * around the warden's on both — so it is one file, and neither body carries a
+ * second copy of what an eye looks like.
+ *
+ * Four parts, in the order they are drawn and in the order they read:
+ *
+ *  1. **the fluid** — a wash of the eye's own colour standing outside the
+ *     socket, wobbling on its own clock, so the thing looks wet rather than
+ *     machined;
+ *  2. **the lens** — a gap that grows from a shut slit to a round eye, with an
+ *     iris filling it and a pupil that goes from a line to a disc;
+ *  3. **the pupil's breath** — the one thing here on a clock rather than on the
+ *     pull, so a fully open eye is never a still picture;
+ *  4. **the fringe** — lashes standing off the top rim and cilia combing the
+ *     bottom one, which is the pair of details that stop a lens reading as a
+ *     porthole.
+ *
+ * **Everything but the breath is `openness`**, and `openness` arrives already
+ * correct and is never eased. How far an eye stands open is the only thing the
+ * seat that is *not* holding the cord has to go on, so a picture that lagged
+ * the rule would lie at exactly the moment somebody is deciding to fire
+ * (`sim/lid.ts`, `sim/warden.ts`).
+ *
+ * **What it costs, because the owner asked.** One eye is three `Path2D`s, one
+ * cached sprite blit and four `strokeGlow`s — about twenty canvas calls, flat,
+ * whatever the openness. Every loop below has a fixed point count, the fringe
+ * is one path rather than one path per hair, and there is no gradient anywhere:
+ * `createRadialGradient` is a canvas call with an allocation behind it and the
+ * wash it was buying is a `halo` sprite that is cached by colour and radius
+ * (`glow.ts`).
+ */
+
+/** The two colours an eye is drawn in: its own, and the brighter rim of it. */
+export interface EyeInk {
+  hex: string;
+  rim: string;
+}
+
+/** Points around the fluid's contour. Sixteen is where a wobbling ring stops
+ * reading as a polygon at the couple of dozen pixels a body draws at, and
+ * every one of them is a `lineTo` on a path built once a frame. */
+const FLUID_POINTS = 16;
+
+/** How far outside the socket the fluid stands, as a multiple of its radius. */
+const FLUID_MUL = 1.18;
+
+/**
+ * Where a hair is rooted, as a multiple of the socket's radius — **outside the
+ * film, not on the socket**, and that is the one number in this file that was
+ * got wrong first time. Rooted at the rim, a lash starts under the wet edge and
+ * crosses it on the way out, so at the couple of dozen pixels a body draws at
+ * the fringe read as scratches *over* the lens rather than as hair growing off
+ * it. Rooted just past the film, every hair begins where the eye ends and only
+ * ever travels away from it.
+ */
+const ROOT_MUL = FLUID_MUL + 0.04;
+
+/** Lashes on the upper rim. Seven: enough to read as a fringe, few enough that
+ * they are still separate things when the body is small and far up the field. */
+const LASHES = 7;
+
+/** Cilia along the lower rim. More and finer than the lashes, because that is
+ * what the two are on a real eye — the top lid carries a few long ones and the
+ * bottom a comb of short ones, and it is the *difference* between them that
+ * says which way up the thing is without a single other line. */
+const CILIA = 13;
+
+/**
+ * The wet film around the eye: one closed contour outside the socket, filled
+ * faintly in the eye's own colour and rimmed in the brighter one, with a soft
+ * wash behind it.
+ *
+ * **It wobbles on the wall clock and on nothing else.** Everything that follows
+ * from the pull is drawn from `openness`, and this is deliberately not — a film
+ * that thickened as the eye opened would be a second, slower copy of the one
+ * readout the other player is reading, and two copies of a quantity that
+ * disagree by a frame is worse than one. What `openness` does buy it is
+ * brightness, which nobody reads a number off.
+ *
+ * `rx`/`ry` are the socket's own half-extents, so a round socket (THE WARDEN's
+ * hole) gets a ring and a lens-shaped one (THE LID) gets a film that hugs the
+ * two corners.
+ */
+export function drawEyeFluid(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  ink: EyeInk,
+  openness: number,
+  t: number,
+): void {
+  const film = new Path2D();
+  for (let i = 0; i <= FLUID_POINTS; i++) {
+    const a = (i / FLUID_POINTS) * Math.PI * 2;
+    // Two frequencies that do not share a period, so the film never settles
+    // into a shape somebody could learn — the same argument `TREMBLE` makes
+    // about a body that must not read as mechanical.
+    const m =
+      FLUID_MUL * (1 + 0.045 * Math.sin(a * 3 + t * 1.7) + 0.03 * Math.sin(a * 5 - t * 1.1));
+    const x = cx + Math.cos(a) * rx * m;
+    const y = cy + Math.sin(a) * ry * m;
+    if (i === 0) film.moveTo(x, y);
+    else film.lineTo(x, y);
+  }
+  film.closePath();
+
+  ctx.save();
+  ctx.fillStyle = ink.hex;
+  ctx.globalAlpha = 0.1 + openness * 0.14;
+  ctx.fill(film);
+  ctx.restore();
+  strokeGlow(ctx, film, ink.rim, STROKE.inner, 0.45 + openness * 0.55);
+  // The wash behind it. A cached sprite rather than a gradient built per frame
+  // — `halo` keys its cache on the colour and a rounded radius, and both are
+  // drawn from a small fixed set here (`glow.ts`).
+  halo(ctx, cx, cy, Math.max(rx, ry) * 1.9, ink.hex, 0.08 + openness * 0.12);
+}
+
+/**
+ * The lens, the iris and the pupil — the part of this picture that was already
+ * in the game, moved here whole.
+ *
+ * Two lids opening on one number: a lens whose gap grows from a closed slit to
+ * a round eye, an iris in the eye's colour filling it, and a pupil that goes
+ * from a line to a disc as the lids come apart. There are not two things to
+ * keep in step, which is what stops the picture drifting from the rule.
+ *
+ * `rx` and `ry` are the socket's own half-extents rather than one radius: THE
+ * WARDEN's hole is round and passes the same number twice, and THE LID's is an
+ * almond half as tall as it is wide. One radius would have made the lid's lens
+ * taller than the body it sits in.
+ *
+ * `t` is the **beat clock**, not the wall clock, so the breath below is the
+ * same on both phones (`content/own-motion.ts` on why a pose is sampled on
+ * beats).
+ */
+export function drawEyeLens(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  ink: EyeInk,
+  openness: number,
+  t: number,
+): void {
+  const w = rx * 0.92;
+  const h = ry * 0.9 * openness;
+  const lens = new Path2D(
+    `M ${cx - w} ${cy} Q ${cx} ${cy - h * 2} ${cx + w} ${cy} Q ${cx} ${cy + h * 2} ${cx - w} ${cy} Z`,
+  );
+  ctx.save();
+  ctx.fillStyle = ink.hex;
+  ctx.globalAlpha = 0.35 + 0.5 * openness;
+  ctx.fill(lens);
+  ctx.restore();
+  strokeGlow(ctx, lens, ink.rim, STROKE.inner, 0.8 + openness * 0.6);
+
+  // The pupil: a slit while the lids are nearly shut, a disc when they are
+  // wide. It breathes, so a fully open eye is never a still picture.
+  const pulse = 0.85 + 0.15 * Math.sin(t * Math.PI * 2);
+  const pr = Math.min(h * 0.8, w * 0.34) * pulse;
+  if (pr <= 0) return;
+  const pupil = new Path2D(circleSubpath(cx, cy, pr));
+  ctx.save();
+  ctx.globalAlpha = openness;
+  ctx.fillStyle = PALETTE.background;
+  ctx.fill(pupil);
+  strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2 * openness);
+  ctx.restore();
+}
+
+/**
+ * Lashes above, cilia below — and they are **two paths and two glows, not
+ * twenty**. Every hair on the top rim goes into one `Path2D` and every hair on
+ * the bottom into another, so the cost of the fringe is fixed no matter how
+ * many hairs there are; the only reason it is two rather than one is that they
+ * are stroked at different weights, which is the whole of what tells them
+ * apart.
+ *
+ * The lashes are long, few, and sweep outward from the top; the cilia are
+ * short, many, and comb down off the bottom. Both flick on the wall clock, at
+ * frequencies that do not share a period with each other or with the beat — a
+ * fringe that pulsed on the beat would be a second clock beside the one the
+ * pair is already counting.
+ */
+export function drawEyeFringe(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  ink: EyeInk,
+  openness: number,
+  t: number,
+): void {
+  const lashes = new Path2D();
+  for (let i = 0; i < LASHES; i++) {
+    const s = (i + 0.5) / LASHES;
+    // Along the upper rim, from one corner to the other, and out along the
+    // normal of the ellipse at that point — so a lash always leaves the body
+    // rather than crossing it, whatever the socket's proportions.
+    const a = Math.PI + s * Math.PI;
+    const x = cx + Math.cos(a) * rx * ROOT_MUL;
+    const y = cy + Math.sin(a) * ry * ROOT_MUL;
+    // Long, short, long: an even fringe reads as a gear, and this one has to
+    // read as hair.
+    const len = ry * (i % 2 === 0 ? 0.62 : 0.42) * (1 + openness * 0.25);
+    const flick = Math.sin(t * 1.6 + i * 2.1) * 0.22;
+    lashes.moveTo(x, y);
+    lashes.lineTo(x + Math.cos(a) * len + flick * len, y + Math.sin(a) * len);
+  }
+  strokeGlow(ctx, lashes, ink.rim, STROKE.inner * 1.2, 0.5 + openness * 0.7);
+
+  const cilia = new Path2D();
+  for (let i = 0; i < CILIA; i++) {
+    const s = (i + 0.5) / CILIA;
+    const a = s * Math.PI;
+    const x = cx + Math.cos(a) * rx * ROOT_MUL;
+    const y = cy + Math.sin(a) * ry * ROOT_MUL;
+    // A third of a lash, and every one the same length: a comb rather than a
+    // fringe, which is what the lower lid of a real eye actually looks like.
+    const len = ry * 0.2 * (1 + openness * 0.15);
+    const flick = Math.sin(t * 2.3 + i * 1.3) * 0.12;
+    cilia.moveTo(x, y);
+    cilia.lineTo(x + Math.cos(a) * len + flick * len, y + Math.sin(a) * len);
+  }
+  strokeGlow(ctx, cilia, ink.hex, STROKE.inner * 0.6, 0.35 + openness * 0.4);
+}

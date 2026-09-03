@@ -1,8 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, startWave, step } from "@neon-spore/sim";
+import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
+import {
+  createWorld,
+  startWave,
+  step,
+  type TimedCommand,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
+import { CFG, installCanvasGlobals, runFrames, waveWith } from "./frame-harness.js";
 
 /**
  * An op-count budget, not a frame-rate one — see `.claude/skills/render-perf`.
@@ -133,6 +140,157 @@ describe("a busy frame's op count", () => {
       });
       // Both rows were actually weighed: a run that drew one frame would let
       // the second budget pass by never being asked.
+      expect(measured).toBe(rows.length);
+    });
+  }
+});
+
+/**
+ * The eye's own budget, and it is a second `describe` rather than two more rows
+ * above because the scene is different, not the seat: the busy field carries
+ * neither of the two bodies that wear an eye, so the picture the owner asked to
+ * be cheap had no budget at all.
+ *
+ * **Both are measured held open**, which is the expensive state: shut, the lens
+ * and the pupil return before they draw anything, so a budget taken on a shut
+ * eye would pass while the open one got slower. The pull is sent as a real
+ * `drag` on the tick the run reaches it — the same command a thumb sends — so
+ * what is weighed is the picture a player actually produces.
+ */
+const EYES: readonly { name: string; index: number; pull: (world: World) => TimedCommand[] }[] = [
+  {
+    name: "THE WARDEN's eye",
+    index: waveWith("warden"),
+    // The grab and the distance from it, in that order (`sim/warden.ts`).
+    pull: (world) => [
+      { tick: world.tick, player: 1, command: rope(0) },
+      { tick: world.tick, player: 1, command: rope(CFG.wardenTautMilli) },
+    ],
+  },
+  {
+    name: "THE LID",
+    index: WAVES.findIndex((w) => w.entries.some((e) => e.kind === "lid")),
+    pull: (world) => {
+      const body = world.creatures.find((c) => c.kind === "lid");
+      if (!body) throw new Error("no lid on the field to hold open");
+      return [
+        {
+          tick: world.tick,
+          player: 1,
+          command: {
+            kind: "drag",
+            target: "lidString",
+            on: true,
+            fromMilli: CFG.lidTautMilli,
+            id: body.id,
+          },
+        },
+      ];
+    },
+  },
+];
+
+/** THE WARDEN's rope, at a distance from where the hand grabbed. */
+function rope(fromMilli: number) {
+  return { kind: "drag", target: "wardenTether", on: true, fromMilli } as const;
+}
+
+const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
+  "THE WARDEN's eye": [
+    {
+      fillRect: 64,
+      stroke: 72,
+      fill: 22,
+      clip: 3,
+      save: 21,
+      drawImage: 10,
+      createLinearGradient: 8,
+      createRadialGradient: 2,
+      "new Path2D": 18,
+      fillText: 4,
+    },
+    {
+      fillRect: 64,
+      stroke: 74,
+      fill: 22,
+      clip: 3,
+      save: 21,
+      drawImage: 10,
+      createLinearGradient: 4,
+      createRadialGradient: 1,
+      "new Path2D": 18,
+      fillText: 4,
+    },
+  ],
+  "THE LID": [
+    {
+      fillRect: 66,
+      stroke: 60,
+      fill: 18,
+      clip: 4,
+      save: 21,
+      drawImage: 10,
+      createLinearGradient: 8,
+      createRadialGradient: 2,
+      "new Path2D": 15,
+      fillText: 4,
+    },
+    {
+      fillRect: 66,
+      stroke: 62,
+      fill: 18,
+      clip: 4,
+      save: 21,
+      drawImage: 10,
+      createLinearGradient: 4,
+      // The eye builds none of its own: the wash around it is a `halo` sprite
+      // cached by colour and radius, and the one left is `key-light.ts`'s
+      // layout-only slot (`render/eye.ts`).
+      createRadialGradient: 1,
+      "new Path2D": 15,
+      fillText: 4,
+    },
+  ],
+};
+
+describe("an open eye's op count", () => {
+  for (const eye of EYES) {
+    it(`stays inside the measured budget — ${eye.name}`, () => {
+      installCanvasGlobals();
+      const world = createWorld(CFG, 3, []);
+      expect(eye.index, eye.name).toBeGreaterThanOrEqual(0);
+      startWave(
+        world,
+        eye.index,
+        buildQueue(eye.index, CFG.cols),
+        [],
+        buildBoss(eye.index, CFG.cols),
+      );
+      // Six beats down, which is far enough that both waves have a body under
+      // the eye and neither has run out of things to draw.
+      for (let t = 0; t < ticksPerBeat(CFG) * 6; t++) step(world, []);
+
+      const rows = EYE_BUDGETS[eye.name] as readonly Budget[];
+      let measured = 0;
+      let pulled = false;
+      runFrames(world, "p1", rows.length * 4, {
+        viewport: { width: 390, height: 844, dpr: 3 },
+        onTick: (_tick, w) => {
+          step(w, pulled ? [] : eye.pull(w));
+          pulled = true;
+        },
+        onDrawn: (ctx, frame) => {
+          const budget = rows[frame] as Budget;
+          for (const [key, max] of Object.entries(budget)) {
+            expect(
+              ctx.tally.get(key) ?? 0,
+              `${eye.name} frame ${frame} ${key}`,
+            ).toBeLessThanOrEqual(max as number);
+          }
+          ctx.tally.clear();
+          measured++;
+        },
+      });
       expect(measured).toBe(rows.length);
     });
   }

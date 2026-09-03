@@ -180,9 +180,15 @@ export interface CreatureConfig {
    * the same thumb, and a pull that took a different distance on an ordinary
    * arrival than on the boss would be two hands to learn for one movement.
    *
-   * Two and a half tiles is far enough that the pull is a commitment — the
-   * thumb is off the cannon strip for as long as it lasts — and short enough
-   * to be inside one comfortable travel of a thumb on a phone.
+   * **Seven and a half tiles, and it was two and a half.** The owner asked for
+   * three times the travel on every handle that opens a gate, and what it buys
+   * is that the pull stops being a flick: at two and a half a thumb reached
+   * taut without leaving the column it started in, so holding one open cost
+   * almost nothing and the seat with the cord could keep a hand near the
+   * cannon strip. At seven and a half the hand crosses most of the glass, the
+   * gate is plainly *held* rather than switched, and the partial openings in
+   * between — which are the only thing the other seat can read — are spread
+   * over a distance an eye can actually resolve.
    */
   lidTautMilli: number;
   /**
@@ -215,6 +221,6 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   scoreEchoKill: 25,
   rindLayers: 2,
   scoreRindShed: 50,
-  lidTautMilli: 2500,
+  lidTautMilli: 7500,
   scoreLidKill: 250,
 };

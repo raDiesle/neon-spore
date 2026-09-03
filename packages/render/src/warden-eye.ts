@@ -1,4 +1,4 @@
-import { circleSubpath } from "@neon-spore/content";
+import { drawEyeFluid, drawEyeFringe, drawEyeLens, type EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -59,14 +59,17 @@ export function drawHatch(
 }
 
 /**
- * The eye behind the door, and it has to read as an eye rather than as a
- * coloured circle appearing.
+ * The whole eye behind the door: the film around it, the lens and the fringe,
+ * in that order.
  *
- * Two lids, opening on the same number the hatch does: a lens whose gap grows
- * from a closed slit to a round eye, an iris in the rim's colour filling it, and
- * a pupil that goes from a line to a disc as the lids come apart. Both lids and
- * door are one quantity — there are not two things to keep in step, which is
- * what stops the picture drifting from the rule.
+ * A wrapper rather than three calls at the site, because the *order* is the
+ * picture — the fluid stands outside the socket and has to be under the lens,
+ * and the fringe stands outside both and has to be over them — and a second
+ * caller that got it wrong would be a second eye that looks like a different
+ * animal. THE LID makes exactly this call (`render/lid.ts`).
+ *
+ * `t` is the beat clock: the pupil breathes on it, so both phones breathe
+ * together.
  */
 export function drawEye(
   ctx: CanvasRenderingContext2D,
@@ -77,29 +80,10 @@ export function drawEye(
   rim: string,
   openness: number,
   t: number,
+  time: number,
 ): void {
-  const w = r * 0.92;
-  const h = r * 0.9 * openness;
-  const lens = new Path2D(
-    `M ${cx - w} ${cy} Q ${cx} ${cy - h * 2} ${cx + w} ${cy} Q ${cx} ${cy + h * 2} ${cx - w} ${cy} Z`,
-  );
-  ctx.save();
-  ctx.fillStyle = hex;
-  ctx.globalAlpha = 0.35 + 0.5 * openness;
-  ctx.fill(lens);
-  ctx.restore();
-  strokeGlow(ctx, lens, rim, STROKE.inner, 0.8 + openness * 0.6);
-
-  // The pupil: a slit while the lids are nearly shut, a disc when they are
-  // wide. It breathes, so a fully open eye is never a still picture.
-  const pulse = 0.85 + 0.15 * Math.sin(t * Math.PI * 2);
-  const pr = Math.min(h * 0.8, w * 0.34) * pulse;
-  if (pr <= 0) return;
-  const pupil = new Path2D(circleSubpath(cx, cy, pr));
-  ctx.save();
-  ctx.globalAlpha = openness;
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(pupil);
-  strokeGlow(ctx, pupil, rim, STROKE.inner, 1.2 * openness);
-  ctx.restore();
+  const ink: EyeInk = { hex, rim };
+  drawEyeFluid(ctx, cx, cy, r, r, ink, openness, time);
+  drawEyeLens(ctx, cx, cy, r, r, ink, openness, t);
+  drawEyeFringe(ctx, cx, cy, r, r, ink, openness, time);
 }

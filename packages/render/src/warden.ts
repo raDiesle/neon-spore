@@ -126,7 +126,12 @@ export function drawWarden(
 
   drawPlates(ctx, cx, cy, r, b, cfg, time);
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
-  if (openness > 0) drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, openness, beat + beatPhase);
+  // The eye behind the door — the same one THE LID wears, `eye.ts`. The fluid
+  // and the fringe are drawn whether or not the hatch is open, because they are
+  // what makes the hole read as an eye at all rather than as a porthole that
+  // sometimes lights up; only the lens is gated, and it gates itself on
+  // `openness` (`warden-eye.ts`).
+  drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, openness, beat + beatPhase, time);
 }
 
 /**

@@ -320,6 +320,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
 | `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
 | `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
+| `packages/render/src/eye.ts` | you are drawing an eye — the film, the lens that opens from a slit, the breathing pupil, the lashes and the cilia, shared by THE LID and THE WARDEN |
 | `packages/render/src/warden-fx.ts` | The one thing about THE WARDEN that outlives a frame |
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, its name and its sentence, as |

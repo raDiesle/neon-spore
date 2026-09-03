@@ -135,7 +135,7 @@ export function drawCreatures(
     // contour describes (`content/lid-shape.ts`). Both screens draw the whole
     // of it — nothing about a lid is split — so unlike the ghost and the veil
     // above it has no gate, only a draw path of its own (`lid.ts`).
-    else if (c.kind === "lid") drawLid(ctx, l, world.cfg, c, x, y, time, near);
+    else if (c.kind === "lid") drawLid(ctx, l, world.cfg, c, x, y, time, beats, near);
     else if (c.kind !== "veil" || showsVeilCore(l))
       drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
     // The weather over that body, on both screens and identical on both — the
