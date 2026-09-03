@@ -3,7 +3,7 @@ import { dirname } from "node:path";
 import { chromium } from "playwright-core";
 import { findChrome } from "./chrome.js";
 import { clearOpening } from "./opening.js";
-import type { FrameSpec } from "./spec.js";
+import type { FrameSpec, PressSpec } from "./spec.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -21,7 +21,7 @@ export { findChrome, pickChrome } from "./chrome.js";
 /** The shape of what a capture asks for, and of the handle it drives. Its own
  * file because this one was at the ceiling CLAUDE.md sets, and because a caller
  * usually wants the spec without the browser behind it. */
-export type { FrameSpec, HoldSpec } from "./spec.js";
+export type { FrameSpec, HoldSpec, PressSpec } from "./spec.js";
 
 export interface CaptureResult {
   /** One path per frame, in capture order. */
@@ -138,14 +138,51 @@ export async function captureFrames(
       window.requestAnimationFrame = () => 0;
     });
 
+    /** Send one press into the page, refusing a build too old to take it. */
+    const press = async (one: PressSpec): Promise<void> => {
+      await page.evaluate((sent) => {
+        const ns = window.neonSpore;
+        if (!ns) throw new Error("window.neonSpore missing before a press");
+        if (!ns.send) {
+          throw new Error(
+            "this build has no window.neonSpore.send — --press needs a commit at or after the " +
+              "one that added it, and a before/after pair cannot press anything on its parent",
+          );
+        }
+        ns.send(sent.player, sent.command);
+      }, one);
+    };
+
     const paths: string[] = [];
     for (let i = 0; i < frames; i++) {
       const advanceBy = i === 0 ? spec.ticks : strideTicks;
-      await page.evaluate((ticks) => {
-        const ns = window.neonSpore;
-        if (!ns) throw new Error("window.neonSpore missing mid-capture");
-        ns.advance(ticks);
-      }, advanceBy);
+      if (i === 0 && spec.press) {
+        // The presses walk the same tick line the first advance does, so a
+        // shot lands while its target is on the field rather than at whatever
+        // tick the wave happens to have reached. `parsePress` sorted them.
+        let at = 0;
+        for (const one of spec.press) {
+          const step = Math.min(one.tick, advanceBy) - at;
+          if (step > 0) {
+            await page.evaluate((ticks) => {
+              window.neonSpore?.advance(ticks);
+            }, step);
+            at += step;
+          }
+          await press(one);
+        }
+        if (advanceBy - at > 0) {
+          await page.evaluate((ticks) => {
+            window.neonSpore?.advance(ticks);
+          }, advanceBy - at);
+        }
+      } else {
+        await page.evaluate((ticks) => {
+          const ns = window.neonSpore;
+          if (!ns) throw new Error("window.neonSpore missing mid-capture");
+          ns.advance(ticks);
+        }, advanceBy);
+      }
 
       // **After the wave's own ticks, never before them.** A hand takes hold of
       // something that is already there: a `drag` names a creature by the id
@@ -156,17 +193,7 @@ export async function captureFrames(
       // so the press goes in here and gets its own short run of ticks to show
       // in.
       if (i === 0 && spec.hold) {
-        await page.evaluate((hold) => {
-          const ns = window.neonSpore;
-          if (!ns) throw new Error("window.neonSpore missing before the hold");
-          if (!ns.send) {
-            throw new Error(
-              "this build has no window.neonSpore.send — --hold needs a commit at or after the " +
-                "one that added it, and a before/after pair cannot hold anything on its parent",
-            );
-          }
-          ns.send(hold.player, hold.command);
-        }, spec.hold);
+        await press({ ...spec.hold, tick: spec.ticks });
         await page.evaluate((ticks) => {
           window.neonSpore?.advance(ticks);
         }, spec.holdTicks ?? DEFAULT_HOLD_TICKS);

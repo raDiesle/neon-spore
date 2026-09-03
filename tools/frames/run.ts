@@ -25,6 +25,7 @@
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
+ *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
@@ -36,7 +37,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
-import { parseHold } from "./hold.js";
+import { parseHold, parsePress } from "./hold.js";
 import { captureAt, git, root, run } from "./serve.js";
 
 /**
@@ -118,7 +119,8 @@ async function main(): Promise<void> {
   if (!sha || sha.startsWith("--")) {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
-        "[--hold prime|mazeString=N|wardenTether=N|lidString=N,id=N] [--hold-ticks N] [--out DIR]",
+        "[--hold prime|mazeString=N|wardenTether=N|lidString=N,id=N] [--hold-ticks N] " +
+        "[--press TICK:SEAT:control=value,…] [--out DIR]",
     );
   }
   const flag = (name: string, fallback: number): number => {
@@ -132,6 +134,8 @@ async function main(): Promise<void> {
   }
   const holdFlag = argv.indexOf("--hold");
   const hold = holdFlag === -1 ? undefined : parseHold(argv[holdFlag + 1] ?? "");
+  const pressFlag = argv.indexOf("--press");
+  const press = pressFlag === -1 ? undefined : parsePress(argv[pressFlag + 1] ?? "");
 
   const outFlag = argv.indexOf("--out");
   const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
@@ -165,7 +169,18 @@ async function main(): Promise<void> {
     seat,
     hold: hold as FrameSpec["hold"],
     holdTicks: flag("hold-ticks", 30),
+    press,
   };
+
+  // A press past the picture is a press nobody ever sees, and silently
+  // clamping it would produce a frame that looks like the shot missed.
+  const late = (press ?? []).find((one) => one.tick > spec.ticks);
+  if (late) {
+    throw new Error(
+      `--press: a press at tick ${late.tick} is after --ticks ${spec.ticks}, so the picture is ` +
+        "taken before it lands. Raise --ticks, or move the press earlier",
+    );
+  }
 
   const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
   const start = Date.now();

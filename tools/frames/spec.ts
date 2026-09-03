@@ -54,6 +54,18 @@ export interface FrameSpec {
    * enough for what the hold does to be visible — plates parting, a lobe
    * filling — and short enough not to be a different moment of the wave. */
   holdTicks?: number;
+  /**
+   * Presses sent at named ticks on the way to `ticks`, in order.
+   *
+   * `hold` is a thumb that stays down; this is the other half — the verbs that
+   * happen and are over, of which the important one is a *shot*. Every effect
+   * that exists only because a bullet met a body was unphotographable without
+   * it. Each press names its own tick, counted from the wave's start on the
+   * same axis as `ticks`, because a shot has to land while the target is on
+   * the field. A press at or before tick 0 goes in before the first advance;
+   * one past `ticks` is refused rather than silently dropped.
+   */
+  press?: PressSpec[];
 }
 
 /**
@@ -66,6 +78,11 @@ export interface FrameSpec {
 export interface HoldSpec {
   player: 1 | 2;
   command: { kind: string } & Record<string, unknown>;
+}
+
+/** A `HoldSpec` with a tick to arrive on. Parsed by `parsePress` in `hold.ts`. */
+export interface PressSpec extends HoldSpec {
+  tick: number;
 }
 
 declare global {
