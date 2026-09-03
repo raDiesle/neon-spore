@@ -568,6 +568,7 @@ the PowerShell spellings of each refused command with tests.
 ## shapes-motion.test.ts is still three seconds, and none of it is the expects
 
 - **Found:** 2026-09-03, claude/dynamic-workflows-session-strategy-3637de
+- **Taken:** 2026-09-03, claude/queue-shapes-motion-test-ts-is-still-three-seconds-and
 - **Files:** `tools/director/test/shapes-motion.test.ts`, `tools/shape-sheet/src/contour.ts`
 
 "Cut shapes-motion.test.ts from six seconds and eleven million expects" said the
