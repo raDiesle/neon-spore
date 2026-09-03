@@ -367,6 +367,7 @@ rather than inventing flourish.
 ## The menu remembers how far this device has got
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-the-menu-remembers-how-far-this-device-has-got
 - **Files:** `apps/game/src/progress.ts`, `apps/game/src/waves.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/test/progress.test.ts`
 
 The front door knows only PLAY versus RESUME. Give it the furthest wave reached
