@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · bd94065 — The desk rig asks midCol where the ship stands, and the guard can see it
+
+`keys.ts` parked the cannon and the shield at `Math.floor(cols / 2)` on the first keypress — the tenth copy of the middle column, and the one the `COPIES` row walked past, because its pattern demanded `cfg.` before the division and the desk rig took its count from `layout().cols`. `bindControls` already holds the config for the hit test, so it is one field to hand on: `keys.ts` calls `midCol(cfg)` now, and `layout().cols` stays what it is for — clamping a slide to the screen that is actually there.
+
 ## 2026-09-03 · 0490f52 — Queue the tenth copy of the centre column, in apps/game
 
 `midCol` now owns `Math.floor(cfg.cols / 2)` and a purity row fails the next copy, but `keys.ts` parks the cannon at `Math.floor(cols / 2)` off a render layout with no config in reach, so the row walks past it.
