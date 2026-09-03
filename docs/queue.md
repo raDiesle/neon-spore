@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 
 - **Found:** 2026-09-03, claude/rind-hit-effect-d14725
+- **Taken:** 2026-09-03, claude/queue-bun-run-frames-cannot-fire-the-cannon-so-no-hit
 - **Files:** `tools/frames/spec.ts`, `tools/frames/hold.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/test/hold.test.ts`
 
 `--hold` is the only way a capture presses anything, and `parseHold` accepts
