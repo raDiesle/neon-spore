@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## A nickname, asked once and carried into the room
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-a-nickname-asked-once-and-carried-into-the-room
 - **Files:** `apps/game/index.html`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`, `apps/game/src/main.ts`, `apps/game/src/game.css`, `apps/game/test/nickname.test.ts`
 
 Stands alone, and the two identity items below build on it — do this one first.
