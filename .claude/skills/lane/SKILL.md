@@ -15,6 +15,14 @@ here.
 git worktree add .claude/worktrees/<name> -b claude/<name>
 ```
 
+**A queue item arrives with its branch already made** — `bun run queue next`
+created it, and that branch is what stops a second session being handed the
+same item. Check it out, do not make another:
+
+```bash
+git worktree add .claude/worktrees/queue-<slug> claude/queue-<slug>
+```
+
 Then, **from inside the new tree**, `bun install`. This is not optional and
 `node_modules` must not be linked or copied from the main checkout: the
 workspace links inside it point at the main tree's `packages/*` by absolute

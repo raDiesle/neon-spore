@@ -20,9 +20,23 @@ only way to choose one is to see it. Mixing decisions into this file is exactly
 what buried the last one under sixty-two entries nobody could face.
 
 **Draining it.** `bun run queue` lists what is waiting, half-done work from
-`docs/parked.md` first. `bun run queue next` prints the first item as a prompt
-for a fresh session. That session does the item, lands it, and removes the
-entry in the same commit — `bun run queue done <n|title>`.
+`docs/parked.md` first, and says which items somebody is already on.
+`bun run queue next` *hands out* the first free one: it creates that item's
+branch and prints a prompt naming it. The branch is the claim — two sessions
+cannot be given the same item, because the second `git branch` fails and the
+item is skipped. The session checks that branch out in its own worktree, does
+the item, removes the entry with `bun run queue done <n|title>`, and lands;
+landing deletes the branch, which releases the item at the moment the work
+reaches `main`. If a handed-out item is never started, `bun run queue release
+<n|title>` gives it back.
+
+The claim is a branch rather than a mark in this file because a mark has to be
+committed to be seen, and the session that took the item has not committed
+anything yet — the moment the mark would be useful is the moment it does not
+exist. Worktrees of one repository share their refs, so a lane's branch is
+visible to the next `bun run queue` with no commit and no push. A cloud session
+works in its own clone, so its claim is invisible here until it pushes; two at
+once is the ceiling anyway, and locally that ceiling is enforced.
 
 **The format**, one `##` per item, and both fields are required because the
 session that picks it up has read nothing else:

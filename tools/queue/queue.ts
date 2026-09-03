@@ -128,25 +128,6 @@ export function order(queue: readonly Item[], parked: readonly Item[]): Item[] {
   return [...parked, ...queue];
 }
 
-/** The prompt a fresh session is opened with. Copy-pasteable, and cold-readable. */
-export function promptFor(item: Item): string {
-  const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
-  return [
-    `Work this item on Neon Spore. It is a technical improvement, not a look —`,
-    `it lands on main like any refactor. Open it in its own worktree`,
-    `(.claude/skills/lane), read CLAUDE.md first.`,
-    "",
-    `## ${item.title}`,
-    "",
-    item.body,
-    "",
-    `When it is green: bun run check, commit, land, and remove the entry from`,
-    `${from} in the same commit — \`bun run queue done "${item.title}"\`.`,
-    `If it turns out to be bigger than one session, leave what you finished`,
-    `committed and rewrite the entry to say what is left.`,
-  ].join("\n");
-}
-
 /** The markdown with one `##` section taken out. Throws if the title is not there. */
 export function removeItem(md: string, title: string): string {
   const lines = md.split("\n");

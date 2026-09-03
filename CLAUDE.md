@@ -119,10 +119,13 @@ alone and prove it with `bun run check`?** That is what makes a queue safe to
 keep — every item in it drains without the owner deciding anything.
 
 **A queue item is worked by a session that has nothing else in it.**
-`bun run queue` lists what is waiting, `bun run queue next` prints the first
-item as a prompt to paste into a fresh session. That session does the item,
-lands it, and removes the entry in the same commit
-(`bun run queue done <n|title>`).
+`bun run queue` lists what is waiting and who is on what; `bun run queue next`
+hands out the first free item — it creates that item's branch and prints a
+prompt naming it, so two sessions can never be given the same one. The session
+checks that branch out in its own worktree, does the item, removes the entry
+(`bun run queue done <n|title>`) and lands; landing deletes the branch, which
+releases the item. `bun run queue release <n|title>` gives back one that was
+handed out and never started.
 
 **An idea for the game is still not collected.** What the game could have and
 does not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
@@ -196,8 +199,9 @@ bun test               # everything
 bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
-bun run queue          # technical work waiting for a session of its own
-bun run queue next     # the first item, as a prompt to paste into a fresh one
+bun run queue          # technical work waiting, and who is already on what
+bun run queue next     # hand out the first free item: claims it, prints a prompt
+bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
 bun run check          # typecheck + lint + test, run this before saying "done"
 bun run land           # rebase, check, fast-forward, note it, sweep, push

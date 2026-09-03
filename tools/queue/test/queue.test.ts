@@ -1,7 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { order, parseItems, pick, problemsIn, promptFor, removeItem } from "../queue.js";
+import { branchFor, claimOn, promptFor, slugFor, unclaimed } from "../claim.js";
+import { order, parseItems, pick, problemsIn, removeItem } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
@@ -72,10 +73,59 @@ describe("order", () => {
 describe("promptFor", () => {
   it("names the file the entry has to be removed from when it lands", () => {
     const item = parseItems(ENTRY, "parked")[0]!;
-    const prompt = promptFor(item);
+    const prompt = promptFor(item, branchFor(item));
     expect(prompt).toContain("docs/parked.md");
     expect(prompt).toContain(item.title);
     expect(prompt).toContain("bun run check");
+  });
+
+  it("hands over the branch that was already claimed, not a name to invent", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    const branch = branchFor(item);
+    const prompt = promptFor(item, branch);
+    expect(prompt).toContain(
+      `git worktree add .claude/worktrees/queue-split-the-wave-editors-cell-panel ${branch}`,
+    );
+  });
+});
+
+describe("the claim", () => {
+  const item = parseItems(ENTRY, "queue")[0]!;
+
+  it("is a branch named from the title, so the same item always claims the same one", () => {
+    expect(branchFor(item)).toBe("claude/queue-split-the-wave-editors-cell-panel");
+  });
+
+  it("survives a title made of punctuation", () => {
+    expect(slugFor("!!! ??? ---")).toBe("item");
+  });
+
+  it("stays inside a sane branch length", () => {
+    expect(slugFor("a".repeat(200)).length).toBe(48);
+  });
+
+  it("does not end in a hyphen when the cut lands mid-word", () => {
+    expect(slugFor(`${"a".repeat(47)} tail`)).not.toMatch(/-$/);
+  });
+
+  it("reads origin's copy of a branch as the same claim", () => {
+    expect(claimOn(item, ["origin/claude/queue-split-the-wave-editors-cell-panel"])).toBe(
+      branchFor(item),
+    );
+  });
+
+  it("is nothing when no branch matches", () => {
+    expect(claimOn(item, ["main", "claude/something-else"])).toBeUndefined();
+  });
+
+  it("hides a taken item from what is free", () => {
+    const items = parseItems(
+      `${ENTRY}
+${ENTRY.replace("Split", "Finish")}`,
+      "queue",
+    );
+    const free = unclaimed(items, [branchFor(items[0]!)]);
+    expect(free.map((i) => i.title)).toEqual(["Finish the wave editor's cell panel"]);
   });
 });
 
