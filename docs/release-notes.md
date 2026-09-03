@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · ba89a9d — Queue the eight features the owner chose off the end-of-phase questions
+
+The navigation work threw off a batch of user-visible features too big to fold into it — a shared start, nicknames, lasting rooms, stored stats, and three menu pages. Per the rule that same lane added to CLAUDE.md, they went to the owner at the end of the turn rather than onto the queue by a session's guess. He answered item by item; these eight are the ones he sent here.
+
+## 2026-09-03 · 3b4d4e6 — The address opens the menu, and the menu is where the game is joined and left
+
+A plain address landed on the field: no seat, no room, no way to reach either, and a chip in the corner reading SOLO — a button that reports the absence of the thing it opens. The menu is the front door now and `?play` is the way past it, which is what `tools/frames` drives so a captured frame is still the game. The seat is three cards with the job written on each rather than P1/P2/TEST; the room screen is a sheet with two seat pills that say who is actually in it; LEAVE ROOM hangs up and comes back to the menu; and a line that has gone bad puts up a card with a clock on it and the only two answers there are — keep waiting, or leave and pick this up later.
+
 ## 2026-09-03 · 388e1ee — The eye sits in a bigger pool, and it is neon green
 
 Asked for by name, which is the exemption this lands under.
