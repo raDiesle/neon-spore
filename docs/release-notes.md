@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 0a39b91 — A round that ends keeps its own picture until the next wave
+
+THE GAUGE, SNAKE and PINBALL took themselves off the world the moment their verdict had stood, and the field came straight back — hull, grid and ship — for the three beats of rest before the next wave. On a wave that restarts into itself, which is what the director does all afternoon, that reads as PINBALL dropping out to the wrong picture and back: 300 ticks of a ship on a wave whose whole point is that there is no ship.
+
 ## 2026-09-03 · 01a93ee — PINBALL is alive, and a shot is two presses instead of three
 
 The table's pieces were circles with a highlight on them, correct and the only screen in this game where nothing breathed. A peg is a cell now, drawn through the same `blobPath` every creature on the field is, lit from inside and haloed from outside; a block is a slab of the same tissue. The bucket was a flat trapezoid, which is a hopper and not a ship — it takes the hull's own skin now, the four-stop body ramp and the rim glow and the key light, in a bowl with two horns and no cannon, and the ball waits in its mouth between shots.
