@@ -1,5 +1,5 @@
 import { markMoment } from "./balance.js";
-import { hullRow, ticksPerBeat } from "./config.js";
+import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { nextInt } from "./rng.js";
 import { type Color, isMeteorKind, type Pod } from "./types.js";
@@ -30,6 +30,24 @@ import { MILLI, type World } from "./world.js";
  * the two players' work stays "be in the right column, be open at the right
  * time" rather than becoming a tracking problem on top of it.
  */
+
+/** Ticks the maw stays open, from `intakeWindowMs` at this tick rate. */
+export function intakeWindowTicks(cfg: SimConfig): number {
+  return Math.round((cfg.intakeWindowMs / 1000) * cfg.tickHz);
+}
+
+/**
+ * Whether the maw is open this tick — the one place that decides it.
+ *
+ * `resolveIntake` asks it of an arriving pod, and the button and the sound ask
+ * the same question rather than writing the window out again. They used `<`
+ * where this uses `<=`, so the mouth drew and sounded shut one tick before it
+ * stopped swallowing.
+ */
+export function mawOpen(world: World): boolean {
+  const windowTicks = intakeWindowTicks(world.cfg);
+  return world.tick - world.intakeTick <= windowTicks && world.intakeTick <= world.tick;
+}
 
 /** Position and speed in thousandths, all derived from the config. */
 function fallMilli(world: World): number {
@@ -152,9 +170,8 @@ export function advancePods(world: World): void {
  */
 function resolveIntake(world: World, pod: Pod): void {
   const col = Math.round(pod.colMilli / MILLI);
-  const windowTicks = Math.round((world.cfg.intakeWindowMs / 1000) * world.cfg.tickHz);
   const inColumn = world.cannonCol === col;
-  const inTime = world.tick - world.intakeTick <= windowTicks && world.intakeTick <= world.tick;
+  const inTime = mawOpen(world);
 
   if (inColumn && inTime) {
     world.balance.podsTaken += 1;

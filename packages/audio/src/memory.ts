@@ -60,8 +60,3 @@ export function blankMemory(): Memory {
     over: false,
   };
 }
-
-/** Whether a window opened at `since` is still open on `tick`. */
-export function inWindow(tick: number, since: number, windowMs: number, tickHz: number): boolean {
-  return tick - since < Math.round((windowMs / 1000) * tickHz);
-}

@@ -1,4 +1,11 @@
-import { chargeMilli, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
+import {
+  chargeMilli,
+  guardArmed,
+  mawOpen,
+  ticksPerBeat,
+  type World,
+  wispOnField,
+} from "@neon-spore/sim";
 import { drawWaveOpening } from "./briefing.js";
 import { claspResonanceIn } from "./clasp.js";
 import { Effects } from "./effects.js";
@@ -164,11 +171,12 @@ export class Canvas2DRenderer implements Renderer {
       return;
     }
 
-    const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
-    const isArmed = world.tick - world.guardTick < windowTicks;
+    // The sim owns both windows; drawing them from a second copy of the
+    // arithmetic is what made the button go dark a tick early and stay dark
+    // through a ward.
+    const isArmed = guardArmed(world);
     this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
-    const intakeTicks = Math.round((world.cfg.intakeWindowMs / 1000) * world.cfg.tickHz);
-    const isOpen = world.tick - world.intakeTick < intakeTicks;
+    const isOpen = mawOpen(world);
     this.intake += ((isOpen ? 1 : 0) - this.intake) * Math.min(1, view.dt * 11);
     glideTo(this.cannon, world.cannonCol, view.dt);
     this.shield.update(world.shieldCol, view.dt);

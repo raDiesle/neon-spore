@@ -84,7 +84,7 @@ export {
   mountOffset,
 } from "./gyre-rim.js";
 export { hashWorld } from "./hash.js";
-export { hullPercent } from "./hull.js";
+export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
 export {
   lanceReady,
   NO_PRIME,
@@ -92,6 +92,7 @@ export {
   primeTicks,
   priming,
 } from "./lance.js";
+export { mawOpen } from "./pods.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";

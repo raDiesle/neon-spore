@@ -22,6 +22,43 @@ export function shieldRow(cfg: SimConfig): number {
   return Math.max(0, hullRow(cfg) - 1);
 }
 
+/** Ticks the guard window stays open, from `guardWindowMs` at this tick rate. */
+export function guardWindowTicks(cfg: SimConfig): number {
+  return Math.round((cfg.guardWindowMs / 1000) * cfg.tickHz);
+}
+
+/**
+ * Whether the shield answers a rock this tick — the one place that decides it.
+ *
+ * Two ways to be armed and both belong here: a trigger whose window has not
+ * run out yet, and a ward pod holding the shield open without one. Anything
+ * that draws the button, sounds it or resolves a rock asks this rather than
+ * spelling the window out again; four spellings of it disagreed by a tick at
+ * the closing edge, and the ward term was missing from three of them, so the
+ * glow said "closed" while `resolveHull` was still turning rocks away.
+ */
+export function guardArmed(world: World): boolean {
+  const windowTicks = guardWindowTicks(world.cfg);
+  // A ward frees player 1 from the *timing* only, not from the aiming — the
+  // shield still has to be in the meteor's column, so player 2's job is
+  // untouched.
+  return (
+    (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
+    world.tick <= world.wardUntilTick
+  );
+}
+
+/**
+ * Ticks since the guard window closed; negative while it is still open.
+ *
+ * The button's afterglow is the only thing that needs the moment of closing
+ * rather than the state, and it gets it from here instead of subtracting the
+ * window itself for a second time.
+ */
+export function ticksSinceGuard(world: World): number {
+  return world.tick - world.guardTick - guardWindowTicks(world.cfg);
+}
+
 /**
  * Check for impacts at the hull. Creatures that reach the hull row either
  * damage it (normal creatures and undeflected meteors) or are deflected
@@ -55,13 +92,7 @@ export function resolveHull(world: World): void {
 
     if (isMeteorKind(c.kind)) {
       const inColumn = occupiesCol(c, world.shieldCol);
-      const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
-      // A ward frees player 1 from the *timing* only, not from the aiming — the
-      // shield still has to be in the meteor's column, so player 2's job is
-      // untouched.
-      const inTime =
-        (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
-        world.tick <= world.wardUntilTick;
+      const inTime = guardArmed(world);
 
       if (inColumn && inTime) {
         world.guard.tries += 1;

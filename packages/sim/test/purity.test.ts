@@ -412,6 +412,29 @@ const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // Whether the shield answers a rock. The sim decides it in `resolveHull`,
+    // and the button glow, the shield's afterglow and the mixer each wrote the
+    // window out again — with `<` where the sim has `<=`, and without the ward
+    // term. So the glow went dark a tick before the shield stopped turning
+    // rocks, and a ward armed the shield in the sim while render drew it cold.
+    call: "guardArmed",
+    owner: "packages/sim/src/hull.ts",
+    pattern: /tick\s*-\s*world\s*\.\s*guardTick/,
+    strip: false,
+  },
+  {
+    // The same defect on player 1's other window. `gyre.ts` is allowed it
+    // because it owns a neighbouring rule made of the same pieces: the wheel's
+    // suck window opens on the very same trigger and closes on its own
+    // `gyreSuckMs`, so `gyreSucked` cannot be written without naming the tick
+    // the maw opened on.
+    call: "mawOpen",
+    owner: "packages/sim/src/pods.ts",
+    pattern: /tick\s*-\s*world\s*\.\s*intakeTick/,
+    strip: false,
+    also: ["packages/sim/src/gyre.ts"],
+  },
+  {
     // The Throb's swell — the two sizes that say whether a shot lands. It stood
     // in `creatures.ts` as a ternary and again in the shape sheet's nameability
     // axes as `[0.7, 1.3]`, under a comment admitting where it had been copied

@@ -1,5 +1,5 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
-import type { World } from "@neon-spore/sim";
+import { guardArmed, ticksSinceGuard, type World } from "@neon-spore/sim";
 import { type Glide, glideTo } from "./glide.js";
 import { strokeGlow } from "./glow.js";
 import type { LobePositions } from "./hull.js";
@@ -218,33 +218,33 @@ export function drawShieldRim(
 /**
  * How long the guard button (`band.ts`) keeps fading after its own window
  * closes, in milliseconds. Render-only: `cfg.guardWindowMs` decides when a
- * press stops being able to deflect anything, and that timing is untouched.
- * This only decides how long the *picture* of that moment lingers.
+ * press stops being able to deflect anything, and that timing is untouched —
+ * this is only how long the *picture* of that moment lingers.
  *
  * Short enough to clear inside a beat at the shipped tempo (96 bpm is about
  * 625ms) so it never overlaps the next press's own arm-and-fade, long enough
- * that a glance which is not fixed on the button still catches the flash
- * going out rather than finding a dark button that offers no further clue.
+ * that a glance not fixed on the button still catches the flash going out
+ * rather than finding a dark button that offers no further clue.
  */
 const GUARD_LAPSE_MS = 300;
 
 /**
  * 1 the instant the guard's window closes, fading to 0 over `GUARD_LAPSE_MS`.
- * 0 while still armed, and 0 again once the fade is done — so idle-and-lapsed
- * settle back to the same dark button, which is correct: only the moment of
- * going out is the new signal, not a permanent mark.
+ * 0 while still armed, and 0 again once the fade is done — idle and lapsed
+ * settle back to the same dark button: only going out is a signal.
  *
- * Computed straight from the tick counters the simulation already carries
- * (`guardTick`, `guardWindowMs`, `tickHz`) — nothing new is stored here, this
- * only says out loud what `resolveHull` already decided. It fires on every
- * press's window closing, deflect or no deflect: the button has no way to
- * know which, and a deflect already gets its own, louder feedback elsewhere
- * (`deflect.ts`). This is only about the transition itself being visible.
+ * Computed from the simulation's own `guardArmed` and `ticksSinceGuard`, so
+ * nothing is stored here and nothing is derived twice: this only says out loud
+ * what `resolveHull` already decided. It fires on every press's window
+ * closing, deflect or no deflect — the button has no way to know which, and a
+ * deflect gets its own, louder feedback in `deflect.ts`.
  */
 export function guardLapse(world: World): number {
-  const windowTicks = Math.round((world.cfg.guardWindowMs / 1000) * world.cfg.tickHz);
+  // A ward can hold the shield armed past a press's own window; the fade is
+  // about the guard going out, not about that window.
+  if (guardArmed(world)) return 0;
   const afterglowTicks = Math.round((GUARD_LAPSE_MS / 1000) * world.cfg.tickHz);
-  const sinceExpiry = world.tick - world.guardTick - windowTicks;
+  const sinceExpiry = ticksSinceGuard(world);
   if (sinceExpiry < 0 || sinceExpiry >= afterglowTicks) return 0;
   return 1 - sinceExpiry / afterglowTicks;
 }

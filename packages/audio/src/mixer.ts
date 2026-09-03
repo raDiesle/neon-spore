@@ -15,11 +15,11 @@
  * is noticed — the same arrangement `Effects.reset()` makes in render/.
  */
 
-import { hullRow, type SimEvent, type World } from "@neon-spore/sim";
+import { guardArmed, hullRow, mawOpen, type SimEvent, type World } from "@neon-spore/sim";
 import { cueFor, panForCol } from "./bind.js";
 import { sound } from "./catalogue.js";
 import { Engine } from "./engine.js";
-import { blankMemory, inWindow } from "./memory.js";
+import { blankMemory } from "./memory.js";
 
 /** The hull is in trouble below a quarter of it, in thousandths. */
 const QUARTER = 25_000;
@@ -124,13 +124,15 @@ export class Mixer {
     m.shieldCol = world.shieldCol;
 
     // The guard and the maw are windows, and both ends of a window are worth
-    // hearing: one player opened it, and the other has to know it shut.
-    const armed = inWindow(world.tick, world.guardTick, world.cfg.guardWindowMs, world.cfg.tickHz);
+    // hearing: one player opened it, and the other has to know it shut. The
+    // sim owns where those ends are — a second copy here sounded the shut one
+    // tick early and never heard a ward arm the shield at all.
+    const armed = guardArmed(world);
     if (armed && !m.guardArmed) this.play("ship.guard", panForCol(world.shieldCol, cols));
     if (!armed && m.guardArmed && !first) this.play("ship.guardLapse");
     m.guardArmed = armed;
 
-    const open = inWindow(world.tick, world.intakeTick, world.cfg.intakeWindowMs, world.cfg.tickHz);
+    const open = mawOpen(world);
     if (open && !m.intakeOpen) this.play("ship.intake", panForCol(world.shieldCol, cols));
     if (!open && m.intakeOpen && !first) this.play("ship.intakeShut");
     m.intakeOpen = open;

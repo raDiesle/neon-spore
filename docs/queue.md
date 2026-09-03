@@ -54,27 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Export the guard and intake windows from sim; render and audio re-derive them
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/src/hull.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/index.ts`, `packages/render/src/canvas2d.ts`, `packages/render/src/shield.ts`, `packages/audio/src/memory.ts`, `packages/audio/src/mixer.ts`, `packages/sim/test/purity.test.ts`
-
-The sim decides "is the shield armed" in `hull.ts` (around line 58) as
-`tick - guardTick <= windowTicks && guardTick <= tick || tick <= wardUntilTick`,
-and "is the maw open" in `pods.ts` (around line 155) with `<=`. `render/canvas2d.ts`
-line 168 spells the same window out again with `<` and no ward term,
-`audio/memory.ts` `inWindow` uses `<` too, and `render/shield.ts` (around line 246)
-recomputes it a fourth time. So the button glow and the sound say "closed" one tick
-before the sim does, and a ward pod arms the shield in the sim while render draws it
-unarmed. This is the class the `COPIES` table in `purity.test.ts` exists for and it
-has no row.
-
-Add `guardArmed(world)` and `mawOpen(world)` to `hull.ts` / `pods.ts`, export them,
-call them from `resolveHull`, `resolveIntake`, `canvas2d.ts`, `shield.ts` and the
-mixer, delete `inWindow`, and add a `COPIES` row matching
-`tick\s*-\s*world\.(guard|intake)Tick` outside sim. This is a fix to something
-wrong (a one-tick disagreement), not a look.
-
 ## Own the ms-to-ticks conversion in one function and guard it in the purity table
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
