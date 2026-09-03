@@ -1,17 +1,18 @@
 /**
- * Six pieces of music, none of which the game plays.
+ * Nine pieces of music, none of which the game plays — the six below, and the
+ * three `deep.ts` adds for a deep sea underground.
  *
  * They exist to be **chosen between**. The spec says no soundtrack
  * (`docs/spec/systems.md` 5.3) and the argument behind that is sound — a bed
  * of music under a game whose control scheme is talking is a bed under the
  * control scheme. But "no soundtrack" was decided without anything to listen
- * to, and these are six answers to *what would it even be*, written cheaply
- * enough that throwing five of them away costs nothing.
+ * to, and these are answers to *what would it even be*, written cheaply enough
+ * that throwing all but one away costs nothing.
  *
- * Each one names where it would sit. Two of them (`pulseFloor`, `deepCurrent`)
- * would run under a wave and are the ones the rule is really about; the other
- * four sit where nobody is talking — the title screen, the menu, the pause
- * after a boss — which is the loophole worth looking at first.
+ * Each one names where it would sit. Two of the six here (`pulseFloor`,
+ * `deepCurrent`) would run under a wave and are the ones the rule is really
+ * about; the other four sit where nobody is talking — the title screen, the
+ * menu, the pause after a boss — which is the loophole worth looking at first.
  *
  * **Bells never go down.** `BELL` and `STAR` sit just above 3 kHz, so a
  * negative degree walks them into the speech band; the bass has the same rule

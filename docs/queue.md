@@ -274,22 +274,6 @@ call `frame` twice, assert the recorded ids, include a tick-goes-backwards case)
 voices inside `LOOKAHEAD`), and extend `bind.test.ts` with one expected id per
 creature event.
 
-## Bring docs/spec/audio.md and the in-code sound counts back to the catalogue
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `docs/spec/audio.md`, `packages/audio/src/types.ts`, `packages/audio/src/music/themes.ts`, `docs/INDEX.md`, `packages/audio/test/catalogue.test.ts`
-
-Actual: 201 sounds, 125 spare and 76 bound, 16 music cells, 9 themes. `audio.md`
-line 66 says 190 sounds, line 110 says 137 spare, the family table (lines 87 to
-101) is wrong in every row, line 131 says the status test reads two files (it
-reads three), and line 179, `themes.ts` line 2 and `INDEX.md` line 396 say six
-pieces. `types.ts` line 8 says about 130 sounds.
-
-Delete the hand-typed numbers where they carry no argument, and for the ones that
-do (the status line, the family table) add a test in the pattern of
-`content/test/categories.test.ts` that reads the doc and compares to `CATALOGUE`,
-so the next drift fails `bun test packages/audio`.
-
 ## Move the live-voice cap ahead of the loop and register modulators in live
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

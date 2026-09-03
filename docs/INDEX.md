@@ -419,7 +419,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/music/drift.ts` | `line` and `pulse`, with the grid taken out |
 | `packages/audio/src/music/model.ts` | A piece of music, written the way a sound is: numbers, not a recording |
 | `packages/audio/src/music/player.ts` | Playing a theme, one second at a time |
-| `packages/audio/src/music/themes.ts` | Six pieces of music, none of which the game plays |
+| `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
 
 ### apps/game
 

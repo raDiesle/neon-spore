@@ -48,24 +48,26 @@ someone.
 Every sound is a handful of numbers a synthesiser builds at the moment it
 plays. There is no sample pack, no audio sprite, no fetch.
 
-Measured on the build: **190 sounds cost 20.4 kB gzipped**, about 110 bytes
-each — roughly what one and a half seconds of compressed audio costs. The same
-catalogue as samples would be the largest thing the game ships by a wide
-margin, on a portrait mobile web game that currently loads in 57 kB total.
+Measured on the build: **a sound costs about 110 bytes gzipped**, so the whole
+catalogue comes to roughly what one and a half seconds of compressed audio
+costs. The figure is per sound on purpose — it is the one that does not go
+stale every time a family grows. The same catalogue as samples would be the
+largest thing the game ships by a wide margin, on a portrait mobile web game
+that currently loads in 57 kB total.
 
 It buys three things beyond the bytes. A sound can be **parameterised at the
 moment it plays** — a column becomes a stereo position and a row becomes a
 pitch, so where something happened is heard rather than looked up. It can be
 **checked**: a recipe is data, so `bun test` can assert the speech-band rule
-across all 190 at once, which no waveform allows. And it can be **edited by
-argument** — changing a boss's voice is changing a number in a diff.
+across the whole catalogue at once, which no waveform allows. And it can be
+**edited by argument** — changing a boss's voice is changing a number in a diff.
 
 ## 3 · The grains
 
 A sound is a stack of grains, not a hand-built oscillator graph
-(`packages/audio/src/grain.ts`). The catalogue holds 190 sounds and they have
-to belong to one game: if every sound invents its own bell, the game has 190
-bells.
+(`packages/audio/src/grain.ts`). Every sound in the catalogue has to belong to
+one game: if each invents its own bell, the game has as many bells as it has
+sounds.
 
 | Grain | What it is | Where it sits |
 |---|---|---|
@@ -88,17 +90,17 @@ grain changes the game's voice and should be rare; adding a sound is not.
 |---|---|---|
 | `beat` | the click track | 2 of 7 |
 | `ship` | cannon, shield, maw, and THE GRIP | 11 of 17 |
-| `impact` | what a shot does when it arrives | 6 of 14 |
+| `impact` | what a shot does when it arrives | 9 of 14 |
 | `hull` | the hull taking it | 5 of 10 |
 | `pod` | hanging, loose, taken, lost | 5 of 10 |
-| `boss` | the Bulb Queen, and nine names holding a slot | 7 of 18 |
+| `boss` | the bosses that are built, and the names holding a slot | 14 of 24 |
 | `mirror` | THE MIRROR's half of a sequence, and the verdict | 15 of 17 |
 | `ui` | menu, room, banner, balance sheet | 2 of 17 |
 | `ambient` | the room; never a foreground sound | 0 of 8 |
-| `creature` | the bestiary, built and unbuilt | 0 of 32 |
-| `assist` · `signal` | the couplings and the assists | 0 of 20 |
-| `swarm` · `motion` · `ruin` | the field, and things ending | 0 of 20 |
-| `music` | ten instruments, and not in `CATALOGUE` at all — section 8 | — |
+| `creature` | the bestiary, built and unbuilt | 6 of 36 |
+| `assist` · `signal` | the couplings and the assists | 6 of 21 |
+| `swarm` · `motion` · `ruin` | the field, and things ending | 1 of 20 |
+| `music` | the instruments a theme is played on, and not in `CATALOGUE` at all — section 8 | — |
 
 Four outcomes the pair must tell apart across a voice channel — destroyed, went
 through, wrong colour, deflected — are separated by **shape**, not by pitch: a
@@ -107,10 +109,9 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-137 of the 190 are `spare`: finished, tested, and nothing
-plays it. That is deliberate. A creature that is still a name in
-`bestiary.md` is easier to argue about once you can hear what it would sound
-like, and several idea-store entries stand or fall on exactly that — the
+125 of the 201 are `spare`: finished, tested, and nothing plays them. That is
+deliberate. A creature that is still a name in `bestiary.md` is easier to argue
+about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and
 either that reads instantly or the mechanic is a guessing game.
 
@@ -128,9 +129,9 @@ three things on every row:
   red. This is section 1 made visible — a sound either goes through the red or
   around it, and almost all of them go around.
 
-The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts` and
-`mixer.ts` and fails if a sound claims to be wired and is not, or is played and
-claims to be spare. Five bound sounds have no subject to draw — the beat, a
+The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
+`bind-creatures.ts` and `mixer.ts` and fails if a sound claims to be wired and
+is not, or is played and claims to be spare. Five bound sounds have no subject to draw — the beat, a
 hole punched in whatever was hit, a wave opening and closing — and each carries
 a written reason in `sound-link.ts`, the same arrangement `pierce` makes here.
 
@@ -167,16 +168,17 @@ read this; nothing writes back."*
   the leaks are. The music candidates in section 8 keep that rule: a theme
   repeats by being *scheduled again*, a second at a time, not by a node with
   `loop` set on it.
-- **No music.** Six pieces exist to be listened to and refused; section 8.
+- **No music.** Nine pieces exist to be listened to and refused; section 8.
 
-## 8 · Music — six candidates, and no decision
+## 8 · Music — nine candidates, and no decision
 
 `docs/spec/systems.md` 5.3 says **no soundtrack**, and section 1 is the reason:
 a bed of music under a game whose control scheme is talking is a bed under the
 control scheme. Nothing here overturns that. What it does is make the rule
 arguable, because it was decided with nothing to listen to.
 
-`packages/audio/src/music/` holds six pieces. None is bound, nothing in the
+`packages/audio/src/music/` holds nine pieces — six in `themes.ts`, and three
+more in `deep.ts` for a deep sea underground. None is bound, nothing in the
 game plays one, and they are deliberately **not in `CATALOGUE`** — `spare`
 there means "something could claim this tomorrow", and half a chord is not a
 sound the game will ever trigger.
@@ -189,16 +191,19 @@ sound the game will ever trigger.
 | `glassRain` | bells falling, and no bass at all | the menu and the results screen |
 | `pressure` | a very low saw walking down, the pulse doubling | a boss |
 | `ember` | clicks scattering and slowing, one chord opening | after a boss dies, and after a run ends |
+| `tide` | two low swells on rates that never meet, high glints between | under a wave that should feel submerged, and the title screen |
+| `cavern` | open fourths and fifths hanging unresolved, each bell answered twice | a boss below the floor, and the pause after one |
+| `silt` | grain scattered on two crossing rates, over a rumble too low to place | under a wave in a flooded level, where nothing has settled |
 
 They are built out of the same grains as everything else and carved around the
-voice the same way, which is the point: **all six read 0.00 s of speech band
+voice the same way, which is the point: **all nine read 0.00 s of speech band
 per minute**. `test/music.test.ts` holds that line at four seconds per minute
 and checks it per note as well as per piece — a pitch multiplier moves a cell's
 filters with it, so a bell walked down seven semitones lands in the middle of
 the voice even though the cell it came from is clean.
 
 Two things follow from being written rather than recorded. A whole theme is
-about as many bytes as a sound, so keeping five refused ones costs nothing.
+about as many bytes as a sound, so keeping eight refused ones costs nothing.
 And the choosing is a page rather than a meeting: the director's SOUND sheet
 has a **MUSIC** tab where each piece has a play button, a roll drawn on the same
 axis as the sound plots, and its own speech-band number.

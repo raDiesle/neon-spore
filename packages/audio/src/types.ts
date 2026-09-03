@@ -4,8 +4,8 @@
  * Nothing in this package is a recording. Every sound is a handful of numbers
  * that a synthesiser builds at the moment it plays, which is the whole reason
  * the catalogue can be this large: a sample pack is usually the biggest thing
- * a mobile web game ships, and all ~130 sounds here together cost less to
- * download than one second of mono WAV. See docs/spec/audio.md.
+ * a mobile web game ships, and every sound here together costs less to download
+ * than one second of mono WAV. See docs/spec/audio.md.
  *
  * A `Layer` is one voice. A `SoundDef` is a few of them stacked and offset —
  * which is what makes a click a click and a bell a bell.

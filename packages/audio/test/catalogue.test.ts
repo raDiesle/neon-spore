@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { judgeBand, VOICE_BUDGET_SECONDS } from "../src/band.js";
 import { CATALOGUE } from "../src/catalogue.js";
+import { THEMES } from "../src/music/themes.js";
 import { planSound } from "../src/plan.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -95,23 +96,27 @@ describe("the catalogue", () => {
 });
 
 /**
+ * Every file that names a sound id. `bind-creatures.ts` was split out of
+ * `bind.ts` the day THE VEIL arrived, and it took nine bound ids with it — so
+ * a list of two files quietly reported eight sounds as played by nothing.
+ * `docs/spec/audio.md` names this list as well, and "the document" below holds
+ * the two together so a fourth file cannot be added to one alone.
+ */
+const WIRING = [
+  "packages/audio/src/bind.ts",
+  "packages/audio/src/bind-creatures.ts",
+  "packages/audio/src/mixer.ts",
+];
+
+/**
  * The `status` field is a claim about the rest of the repository, and a claim
  * nobody checks is a catalogue that says a sound is wired up months after it
- * stopped being. So it is checked: the two files that name sounds are read,
- * and every id in them has to be `bound` and every `bound` id has to be in
- * them. This is the whole reason the SOUND tab can be trusted.
+ * stopped being. So it is checked: every file that names a sound is read, and
+ * every id in them has to be `bound` and every `bound` id has to be in them.
+ * This is the whole reason the SOUND tab can be trusted.
  */
 describe("status", () => {
-  // Every file that names a sound id. `bind-creatures.ts` was split out of
-  // `bind.ts` the day THE VEIL arrived, and it took nine bound ids with it —
-  // so a list of two files quietly reported eight sounds as played by nothing.
-  const wiring = [
-    "packages/audio/src/bind.ts",
-    "packages/audio/src/bind-creatures.ts",
-    "packages/audio/src/mixer.ts",
-  ]
-    .map((f) => Bun.file(join(ROOT, f)))
-    .map(async (f) => await f.text());
+  const wiring = WIRING.map((f) => Bun.file(join(ROOT, f))).map(async (f) => await f.text());
 
   // The 250-line limit is `packages/sim/test/limits.test.ts`'s rule and it
   // already covers `packages/*/src`. It is not restated here.
@@ -125,5 +130,96 @@ describe("status", () => {
         wrong.push(`${def.id} is marked bound but nothing plays it`);
     }
     expect(wrong).toEqual([]);
+  });
+});
+
+const AUDIO_DOC = join(ROOT, "docs", "spec", "audio.md");
+
+/** `family` → how many are bound and how many there are, from `CATALOGUE`. */
+function actualFamilies(): Map<string, [number, number]> {
+  const rows = new Map<string, [number, number]>();
+  for (const def of CATALOGUE) {
+    const row = rows.get(def.family) ?? [0, 0];
+    row[1] += 1;
+    if (def.status === "bound") row[0] += 1;
+    rows.set(def.family, row);
+  }
+  return rows;
+}
+
+/**
+ * Section 4's table, as the document writes it. A row names one family or
+ * several (`` `assist` · `signal` ``) and ends in "N of M", except `music`,
+ * which is not in `CATALOGUE` at all and ends in an em dash.
+ */
+function documentedFamilies(text: string): Map<string, [number, number] | null> {
+  const rows = new Map<string, [number, number] | null>();
+  for (const line of text.split("\n")) {
+    const row = /^\|((?:\s*`\w+`\s*·?)+)\|[^|]*\|\s*(?:(\d+) of (\d+)|—)\s*\|$/.exec(line);
+    if (!row) continue;
+    const families = [...row[1]!.matchAll(/`(\w+)`/g)].map((m) => m[1]!).sort();
+    rows.set(families.join(" · "), row[2] ? [Number(row[2]), Number(row[3])] : null);
+  }
+  return rows;
+}
+
+/**
+ * A document is not compiled, so every number in one is a claim nothing holds
+ * to the code. These are the claims in `docs/spec/audio.md` that a new sound
+ * silently falsifies — the family table, the spare count, and the list of
+ * files the `status` test above reads. The table had drifted in every row and
+ * the spare count by twelve before anyone counted.
+ */
+describe("docs/spec/audio.md", () => {
+  it("has a family row for every family in the catalogue, and no other", async () => {
+    const documented = documentedFamilies(await Bun.file(AUDIO_DOC).text());
+    const named = [...documented.keys()]
+      .flatMap((k) => k.split(" · "))
+      .filter((f) => f !== "music");
+    expect(named.sort()).toEqual([...actualFamilies().keys()].sort());
+  });
+
+  it("counts each row's bound and spare the way the catalogue does", async () => {
+    const documented = documentedFamilies(await Bun.file(AUDIO_DOC).text());
+    const actual = actualFamilies();
+    for (const [key, counts] of documented) {
+      if (!counts) continue; // `music`, which is not in CATALOGUE
+      const sum = key
+        .split(" · ")
+        .reduce<[number, number]>(
+          (acc, f) => [acc[0] + (actual.get(f)?.[0] ?? 0), acc[1] + (actual.get(f)?.[1] ?? 0)],
+          [0, 0],
+        );
+      expect(counts, key).toEqual(sum);
+    }
+  });
+
+  it("says how many are spare out of how many there are", async () => {
+    const text = await Bun.file(AUDIO_DOC).text();
+    const said = /(\d+) of the (\d+) are `spare`/.exec(text);
+    expect(said, "section 5 no longer states the spare count").not.toBeNull();
+    const spare = CATALOGUE.filter((s) => s.status === "spare").length;
+    expect([Number(said![1]), Number(said![2])]).toEqual([spare, CATALOGUE.length]);
+  });
+
+  it("names the same wiring files the status test reads", async () => {
+    const text = await Bun.file(AUDIO_DOC).text();
+    const start = text.indexOf("The `BOUND` stamp");
+    const end = text.indexOf("claims to be spare.", start);
+    expect(start >= 0 && end > start, "the BOUND paragraph has been renamed").toBe(true);
+    // Odd positions in a backtick split are what was inside the backticks.
+    const named = text
+      .slice(start, end)
+      .split("`")
+      .filter((part, i) => i % 2 === 1 && part.endsWith(".ts"))
+      .sort();
+    expect(named).toEqual(WIRING.map((f) => f.split("/").pop()!).sort());
+  });
+
+  it("lists every music theme in section 8, and no theme that was dropped", async () => {
+    const text = await Bun.file(AUDIO_DOC).text();
+    const ids = THEMES.map((t) => t.id.replace(/^music\./, "")).sort();
+    const rows = [...text.matchAll(/^\| `(\w+)` \|[^|]*\|[^|]*\|$/gm)].map((m) => m[1]!);
+    expect(rows.filter((r) => ids.includes(r)).sort()).toEqual(ids);
   });
 });
