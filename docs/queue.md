@@ -117,6 +117,7 @@ already has one to copy) and by capturing a frame of THE RIND mid-shed.
 ## PINBALL draws its slabs from the shipped wave, not the one being played
 
 - **Found:** 2026-09-03, claude/wave-restart-special-bosses-6e5af4
+- **Taken:** 2026-09-03, claude/queue-pinball-draws-its-slabs-from-the-shipped-wave-no
 - **Files:** `packages/render/src/pinball-round.ts`, `packages/render/test/pinball-frame.test.ts`
 
 `drawControls` in `pinball-round.ts` calls `slabPanel(l, controlSetForWave(view.world.wave), view.role)`
