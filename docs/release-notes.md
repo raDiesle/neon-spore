@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · ad20e53 — Queue the INDEX drift nothing catches
+
+Five rows in `docs/INDEX.md` were fixed by hand this week and `bun run index` was green over every one of them, because the generator only derives a row's text for a path that has no row yet.
+
+## 2026-09-03 · 0eb38a2 — The audio spec is checked against the catalogue, not typed out beside it
+
+Every number in `docs/spec/audio.md` had drifted: 190 sounds where there are 201, 137 spare where there are 125, a family table wrong in six rows of thirteen, a status paragraph naming two of the three files the test reads, and six music candidates where there are nine — `deep.ts` added TIDE, CAVERN and SILT and nothing said so. `types.ts` still said about 130 sounds and INDEX still called `themes.ts` six pieces.
+
+## 2026-09-03 · fb8dd16 — Three documents that had stopped describing the code
+
+`apps/server`'s own `deploy` script called the root `deploy`, which builds the director and pushes `wrangler.director.jsonc` — so the relay package's deploy never once deployed the relay. It points at `deploy:game` now, and the README says which upload is which and that `dev` prints the port its tree was given rather than fixing it at 8787.
+
 ## 2026-09-03 · 9d9c4ab — The room screen reads the seat count, instead of guessing it from the state
 
 The room already knew how many were in it — `welcome` and `peers` carry the number and `link.ts` held it in a local `peers` — but the number stopped there, so `join-words.ts` re-derived "is the other seat filled" by listing the LinkStates a full room passes through (syncing, countdown, live, stalled). That is the room's own count copied out by hand, and CLAUDE.md names that as the thing that drifts: a state added to LinkState is one the list forgets, and the seat pill then reads WAITING at a room that has two people in it.
