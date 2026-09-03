@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 73ce8b1 — The vote prompt is five files, and KNOWN_LONG is empty
+
+`tools/versus/prompt.ts` was 509 lines — the longest file in the repository, twice the limit, and the only entry left in `KNOWN_LONG`. Most of it was one 315-line function whose only structure was a row of banner comments, so the step you wanted was found by scrolling and the context it read was whatever happened to be in scope.
+
+## 2026-09-03 · 1d1204c — The SHAPES page's state is a leaf, and a test says it stays one
+
+`shapes-pair.ts` held the page's state and re-exported `controlBar` from `shapes-controls.ts`; the control bar built the axis rows, and the axis rows imported the state back out of `shapes-pair.ts`. Two runtime cycles — `shapes-axes.ts` and `shapes-effect-axes.ts` each close one — and they worked only because everything in them is called after module evaluation. The first value read at module scope would have found an uninitialised binding.
+
+## 2026-09-03 · f83a38a — A queen draft says only the thing it argues about
+
+The three whole-body BULB QUEEN drafts carried twenty-five byte-identical lines each — the marks, the shell's ellipse and its three-stop gradient, the `PALETTE.rock` stroke, the two sockets and the petal row — and differed in one modifier apiece: cracks, an ember, a squeeze. An axis whose values agree only by coincidence is an axis that stops being one the first time a gradient stop is edited in one file.
+
+## 2026-09-03 · 2c3b5cd — The director's stylesheet is a file Biome can see
+
+`tools/director/index.html` carried 1 104 lines of CSS in a `<style>` block, and `biome.json` included `**/*.ts` alone — so the director's whole look was neither formatted nor linted, and neither were `game.css`, `menu.css` and `sw.js`. `format-edited.ts` handed all of them to Biome and had them skipped in silence, which is the hook's own comment admitting the gap.
+
 ## 2026-09-03 · 1a1e2f1 — Queue the trap this session fell into: a landed worktree cannot land again
 
 `bun run land` deletes the branch it landed and leaves the worktree detached. `auto-land.ts` reads `HEAD` as the branch name and exits silently as "not on a lane's own branch", so a session that keeps working after its first landing commits into detachment and never lands again. No error — the same nothing-happens failure the hooks were moved off bash to stop.
