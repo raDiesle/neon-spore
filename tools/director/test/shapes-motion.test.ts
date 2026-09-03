@@ -15,10 +15,21 @@ import { motionTransform, tilePixels, transformedBounds } from "../src/shapes-mo
 const FIT_TIMES = [0, 0.2, 0.4, 0.6, 0.8].map((f) => f * WOBBLE_PERIOD);
 const LATER = Array.from({ length: 200 }, (_, i) => i * 0.17);
 
-function applied(x: number, y: number, transform: string): { x: number; y: number } {
+type Apply = (x: number, y: number) => { x: number; y: number };
+
+/** The identity, for a shape whose motion writes no transform at all. */
+const AS_DRAWN: Apply = (x, y) => ({ x, y });
+
+function applier(transform: string): Apply {
   // The transform the panel writes, read back: translate, rotate, scale,
   // translate. Parsed rather than re-derived, so this tests the string that
   // actually reaches the DOM and not a second copy of the arithmetic.
+  //
+  // Parsed once per transform and not once per point: the string is the same
+  // for every point of a pose, and re-running the regex and the two
+  // trigonometric calls per point was what made this file the slowest in the
+  // director's suite.
+  if (transform === "") return AS_DRAWN;
   const nums = [...transform.matchAll(/-?\d+(?:\.\d+)?/g)].map(Number);
   const [tx, ty, deg, sx, sy, bx, by] = nums as [
     number,
@@ -29,12 +40,13 @@ function applied(x: number, y: number, transform: string): { x: number; y: numbe
     number,
     number,
   ];
-  const px = (x + bx) * sx;
-  const py = (y + by) * sy;
   const r = (deg * Math.PI) / 180;
-  return {
-    x: tx + px * Math.cos(r) - py * Math.sin(r),
-    y: ty + px * Math.sin(r) + py * Math.cos(r),
+  const cos = Math.cos(r);
+  const sin = Math.sin(r);
+  return (x, y) => {
+    const px = (x + bx) * sx;
+    const py = (y + by) * sy;
+    return { x: tx + px * cos - py * sin, y: ty + px * sin + py * cos };
   };
 }
 
@@ -49,17 +61,22 @@ describe("a card's frame", () => {
       // No tolerance: `transformedBounds` already carries its own margin, and
       // the whole claim under test is that the box it returns is the box the
       // shape stays inside. A tolerance here would only test the tolerance.
+      //
+      // One assertion per entry rather than four per point: the comparison is
+      // the same, and an `expect` for every one of two hundred samples times
+      // every contour point cost this file five of the director suite's six
+      // seconds. A point that escapes names itself in the failure instead.
+      const outside: string[] = [];
       for (const t of LATER) {
         const pts = entry.subject.pointsAt(t);
-        const transform = motionTransform(entry.motion, t, pivot, tile);
+        const apply = applier(motionTransform(entry.motion, t, pivot, tile));
         for (const p of pts) {
-          const q = transform === "" ? p : applied(p.x, p.y, transform);
-          expect(q.x).toBeGreaterThan(b.x0);
-          expect(q.x).toBeLessThan(b.x1);
-          expect(q.y).toBeGreaterThan(b.y0);
-          expect(q.y).toBeLessThan(b.y1);
+          const q = apply(p.x, p.y);
+          if (q.x <= b.x0 || q.x >= b.x1 || q.y <= b.y0 || q.y >= b.y1)
+            outside.push(`t=${t.toFixed(2)} (${q.x.toFixed(1)}, ${q.y.toFixed(1)})`);
         }
       }
+      expect(outside).toEqual([]);
     });
   }
 
