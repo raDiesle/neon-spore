@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/net";
 import type { TimedCommand } from "@neon-spore/sim";
 import { readName } from "./nickname.js";
+import { socketOrigin } from "./origin.js";
 
 /**
  * Where local presses come from. `InputBuffer` is the one in the game; the
@@ -106,14 +107,12 @@ export function openRelay(
  * the rooms off a worker somewhere else.
  */
 function relayUrl(code: string): string {
-  const override = new URL(location.href).searchParams.get("relay");
-  const base = override ?? `${location.protocol === "https:" ? "wss:" : "ws:"}//${location.host}`;
   // The version rides the upgrade rather than a first message. A `join` frame
   // could only be read after the socket was already seated and greeted — and
   // if this was the second phone, after beat zero had been stamped for the
   // peer. A room that cannot play with this build must say so before any of
   // that happens, which means before `acceptWebSocket`.
-  const origin = base.replace(/^http/, "ws").replace(/\/$/, "");
+  const origin = socketOrigin();
   // The name rides the upgrade beside the version, for the same reason: the
   // room hands out a seat and greets both phones before any message could be
   // read, so a name sent afterwards would arrive after the screen that wanted

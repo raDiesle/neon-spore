@@ -56,3 +56,14 @@ export function nameFromWire(value: unknown): string {
   const name = normalizeName(value);
   return isName(name) ? name : "";
 }
+
+/**
+ * The one sentence for both refusals a claim can meet: a name somebody else
+ * holds, and a name whose recovery code was wrong.
+ *
+ * They must read identically. If they did not, this route would be a way to
+ * ask which names exist — one guess at a time, told apart by whether the
+ * answer said "wrong code" or "not yours". `apps/server/test/names.test.ts`
+ * asserts the two answers are equal, field for field.
+ */
+export const TAKEN_MESSAGE = "That name is taken. Choose another, or type its recovery code.";

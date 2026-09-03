@@ -107,43 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## Nicknames are unique, held server-side
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-nicknames-are-unique-held-server-side
-- **Files:** `apps/server/src/names.ts`, `apps/server/src/index.ts`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `wrangler.jsonc`, `apps/server/test/names.test.ts`
-
-Depends on "A nickname, asked once" — do that first. A name has to be unique
-across the server to identify a person, so it needs a store. Use one Durable
-Object as a name registry (a `NAMES` binding beside `ROOMS`), reached over a
-small HTTP route on the worker (`apps/server/src/index.ts`) — **not** the room
-socket, which stays a dumb relay (rule 2 of `net-change`). The registry claims
-a normalized name for a device token the browser generates and keeps, answers
-"taken" when someone else holds it, and is idempotent for the same token so a
-returning device keeps its own name.
-
-**Decided by the owner on 3 September 2026: the global registry as written, and
-a recovery code.** A token dies with the browser's storage — a new phone,
-cleared site data, a private window — and without a way back the name is gone
-for good. So a successful claim also mints a short recovery code and shows it
-*once*, in the same breath as the name: "DAVID is yours. Write down 7K2Q."
-Entering a name and its code from another device moves the claim to that
-device's token, which is the whole of the recovery flow: no accounts, no email,
-and nothing new kept on the device but the token it already has. The code is
-generated inside the Durable Object, never on the client, stored beside the
-claim and compared there; a wrong code answers exactly as a taken name does, so
-the route cannot be used to find out which names exist. The room screen grows
-the two fields — the name, and a code that is only needed to take a name
-somebody's old device still holds — and the settings page reuses them for a
-change of name.
-
-Test the DO the way `apps/server/test/room.test.ts` tests the room — claim,
-re-claim by the same token, collision by a different one, recovery with the
-right code, refusal with the wrong one, and that the refusal is
-indistinguishable from a collision. The room screen surfaces "that name is
-taken" and asks for another. Kept out of the lockstep path entirely, so it needs
-no relay to prove: `bun test apps/server` covers it.
-
 ## The room is named for the pair, so they never re-type a code
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

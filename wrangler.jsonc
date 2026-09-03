@@ -7,8 +7,18 @@
   },
   // One Durable Object per room, addressed by the four-character code the two
   // players read to each other. See apps/server/README.md.
+  //
+  // And exactly one more, holding every claimed name: uniqueness needs
+  // somewhere to be unique in, and a room is the wrong place because rooms
+  // come and go while the pair who play tomorrow are the same two people.
   "durable_objects": {
-    "bindings": [{ "name": "ROOMS", "class_name": "Room" }]
+    "bindings": [
+      { "name": "ROOMS", "class_name": "Room" },
+      { "name": "NAMES", "class_name": "Names" }
+    ]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }]
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["Room"] },
+    { "tag": "v2", "new_sqlite_classes": ["Names"] }
+  ]
 }

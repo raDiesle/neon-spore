@@ -481,6 +481,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
+| `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 
 ### apps/server
 
@@ -492,6 +493,7 @@ place — the generator keeps whatever is there.
 | `apps/server/dev.ts` | `wrangler dev`, on a port that belongs to this tree |
 | `apps/server/src/start-gate.ts` | The two presses that stand between a full room and beat zero |
 | `apps/server/src/room-start.ts` | The gate's two sockets-facing halves: telling both phones who has pressed |
+| `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
 
 ### tools
 

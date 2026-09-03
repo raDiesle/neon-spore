@@ -1,4 +1,5 @@
-import { isName, normalizeName } from "@neon-spore/net";
+import { isName, NAME_ROUTE, normalizeName } from "@neon-spore/net";
+import { httpOrigin } from "./origin.js";
 
 /**
  * This device's player name: asked once, kept here, carried into every room.
@@ -19,6 +20,17 @@ import { isName, normalizeName } from "@neon-spore/net";
 
 /** The key the browser keeps it under. Namespaced like the others. */
 export const NAME_KEY = "neon-spore.name";
+/**
+ * The key this device is known by at the registry.
+ *
+ * Generated here, kept here, and sent with every claim: it is what makes a
+ * returning device the same device, so re-claiming the name it already holds
+ * answers yes rather than "taken". It is not an account and identifies nobody
+ * — it is a random string this browser happens to remember.
+ *
+ * It dies with the browser's storage, which is what the recovery code is for.
+ */
+export const TOKEN_KEY = "neon-spore.token";
 
 /** The stored name, or "" for a device that has never given one. */
 export function readName(): string {
@@ -62,4 +74,62 @@ export function nameProblem(raw: string): string {
   if (name === "") return "A name, so the other phone knows who you are.";
   if (!isName(name)) return "Three to twelve letters, so it fits on a seat.";
   return "";
+}
+
+/**
+ * This device's token, minted on first use.
+ *
+ * A device that cannot store one gets a fresh token every time, which means it
+ * can claim a free name and never re-claim it. That is the honest behaviour
+ * for a private window: the name is theirs for the session and held by nobody
+ * afterwards.
+ */
+export function deviceToken(): string {
+  try {
+    const held = localStorage.getItem(TOKEN_KEY);
+    if (held && held.length >= 16) return held;
+  } catch {
+    // Unreadable storage. Fall through and mint one for this session.
+  }
+  const minted = [...crypto.getRandomValues(new Uint8Array(16))]
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+  try {
+    localStorage.setItem(TOKEN_KEY, minted);
+  } catch {
+    // Nothing to be done; see above.
+  }
+  return minted;
+}
+
+/** What the registry said. `code` arrives once, on a fresh claim only. */
+export interface NameClaim {
+  ok: boolean;
+  name?: string;
+  code?: string;
+  why?: string;
+}
+
+/**
+ * Ask the registry for a name, offering a recovery code if one was typed.
+ *
+ * A network that will not answer is not a refusal: the player keeps the name
+ * on this device and plays. Uniqueness is worth having and it is not worth
+ * standing between somebody and the game — the room still shows two names, and
+ * the worst case is two people called DAVID who can both see that they are.
+ */
+export async function claimName(raw: string, code = ""): Promise<NameClaim> {
+  const name = normalizeName(raw);
+  if (!isName(name)) return { ok: false, why: nameProblem(raw) };
+  try {
+    const res = await fetch(`${httpOrigin()}${NAME_ROUTE}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name, token: deviceToken(), code }),
+    });
+    const answer = (await res.json()) as NameClaim;
+    return typeof answer?.ok === "boolean" ? answer : { ok: true, name };
+  } catch {
+    return { ok: true, name };
+  }
 }

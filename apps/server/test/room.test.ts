@@ -55,12 +55,16 @@ function relay(vars: Record<string, string> = {}): Miniflare {
           },
           env: {
             ROOMS: { type: "durable-object", worker: "relay", exportName: "Room" },
+            NAMES: { type: "durable-object", worker: "relay", exportName: "Names" },
             ...Object.fromEntries(
               Object.entries(vars).map(([k, value]) => [k, { type: "text", value }]),
             ),
           },
           // `wrangler.jsonc` migrates `Room` as a `new_sqlite_classes` entry.
-          exports: { Room: { type: "durable-object", storage: "sqlite" } },
+          exports: {
+            Room: { type: "durable-object", storage: "sqlite" },
+            Names: { type: "durable-object", storage: "sqlite" },
+          },
         },
       },
     ],

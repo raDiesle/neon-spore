@@ -9,6 +9,7 @@ export {
   NAME_MIN,
   nameFromWire,
   normalizeName,
+  TAKEN_MESSAGE,
 } from "./nickname.js";
 export {
   type ClientMessage,
@@ -16,6 +17,7 @@ export {
   decodeServer,
   encode,
   NAME_PARAM,
+  NAME_ROUTE,
   type PlayerId,
   PROTOCOL_VERSION,
   type RefusalCode,

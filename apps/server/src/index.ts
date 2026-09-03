@@ -1,9 +1,17 @@
-import { isRoomCode, NAME_PARAM, normalizeRoomCode, VERSION_PARAM } from "@neon-spore/net";
+import {
+  isRoomCode,
+  NAME_PARAM,
+  NAME_ROUTE,
+  normalizeRoomCode,
+  VERSION_PARAM,
+} from "@neon-spore/net";
 
+export { Names } from "./names.js";
 export { Room } from "./room.js";
 
 export interface Env {
   ROOMS: DurableObjectNamespace;
+  NAMES: DurableObjectNamespace;
 }
 
 const ROOM_PATH = /^\/room\/([^/]+)$/;
@@ -36,6 +44,15 @@ export default {
     // check against a relay cannot quietly be a check against something else.
     if (url.pathname === "/net/health") {
       return Response.json({ app: "neon-spore-relay", ok: true });
+    }
+
+    // Claiming a name is not a room and not lockstep: it happens once, before
+    // a room exists, and the relay stays a dumb relay that never looks inside
+    // anything. So it is a plain HTTP route to the one registry object —
+    // `idFromName("names")` is what makes it the one.
+    if (url.pathname === NAME_ROUTE) {
+      const registry = env.NAMES.get(env.NAMES.idFromName("names"));
+      return registry.fetch(new Request("https://names/", request));
     }
 
     const match = ROOM_PATH.exec(url.pathname);
