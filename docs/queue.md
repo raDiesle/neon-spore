@@ -272,6 +272,10 @@ delete `controlsForKinds` and `ControlGroup` from the public surface and rewrite
 the three documents to say `controls` classifies a creature and `Wave.controls`
 names the panel. The first is the smaller change and keeps the documents true.
 
+`controlsForKinds` has already left `content`'s barrel (2026-09-03, the
+barrel-trimming item), so what is left of the second option is deleting the
+function itself and the three documents. Nothing else about this entry changed.
+
 ## Test the content invariants nothing checks: wave names, beats, creature keys
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
