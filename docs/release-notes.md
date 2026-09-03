@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 6b1ab3b — The palette lines say what to do about a brush, not what it looks like
+
+The owner's pass over the sixteen: a brush is picked to be placed in a wave, and what an author is holding in mind is the answer the pair will have to find — "shot with the red cannon", "ward it, then shoot", "shoot the armour away first" — rather than the silhouette, which is already the picture beside the words.
+
 ## 2026-09-03 · 874f459 — The save's commit names the files that moved
 
 A save may write six act files and move one wave in one of them, and the message was listing all six — which is what the release note would then say. It now asks git which of the offered paths actually changed, and both the message and the commit's pathspec are that list.
