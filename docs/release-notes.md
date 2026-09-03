@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 5342475 — A brush says one thing in the palette, and the whole sentence on its card
+
+The line under a brush's name was CREATURES[kind].blurb, which is written for the first-appearance preview: three clauses, everything true about the creature. Twenty of those stacked in the strip is a wall, and the question the palette is being asked is only ever "which of these is the one I mean". Each brush now carries a short line for that — "starts bigger, shrinks when shot", "p2 does not see what is inside" — and the blurb moves to the hover card, where there is room for it and where somebody has stopped to ask.
+
 ## 2026-09-03 · 508bcee — The bulb loses the two curved strokes over its core
 
 Inside a bulb, above the core dot, sat two mirrored quadratic strokes at half alpha. They read as stray rounded lines rather than as part of the body, so they are gone; the bulb keeps its core dot and its rim. Asked for by name, so it lands on the field rather than going to VERSUS.
