@@ -1,8 +1,7 @@
-import { describe, expect, it } from "bun:test";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { controlSetForWave } from "@neon-spore/content";
 import { computeLayout, type ViewRole } from "@neon-spore/render";
 import {
-  ackBriefing,
   briefingHolds,
   type Command,
   createWorld,
@@ -18,167 +17,37 @@ import {
 import { bindStageTouch, pointerSeat } from "../src/stage-touch.js";
 
 /**
- * THE DIRECTOR DRAWS "TAP TO RESTART" AND NOTHING IS LISTENING.
+ * Split out of `stage.test.ts`, which held this beside two unrelated subjects
+ * and installed a fake `window` on `globalThis` inside a helper without ever
+ * removing it. `bun test` runs every file in one process, so every file loaded
+ * after it inherited that window. It goes up in `beforeAll` and comes down in
+ * `afterAll` here.
  *
- * `balance.ts` (in `packages/render`, not owned here) writes "tap to restart"
- * onto the after-run screen. The director never answered that instruction:
- * `bindStageTouch` binds `pointerdown` on `#stage`, but a pointerdown that
- * finds no field command (there is none once `world.over`) does nothing, and
- * `▣ SHEET` (`#endRun`) only ever called `endRun` — a second press re-ended an
- * already-ended run, so the button read as dead too.
- *
- * Both dismissals now live in `stage-afterrun.ts`, which is dependency-injected
- * the same way `stage-interlude.ts` is (a stub canvas and a stub button rather
- * than `document.getElementById`), so this is a real behavioural test — the
- * canvas click restarts, and a second `#endRun` press un-ends the run — rather
- * than the source-regex `stage.ts` itself would have needed, since `bindStage`
- * is still `ResizeObserver` and `requestAnimationFrame` end to end and this
- * repo's test runner carries no DOM. Whether the field actually comes back at
- * tempo is a browser question, not a `bun test` one — see the `Check:` trailer
- * on the commit that added this file.
+ * `bindStageTouch` binds the press on the canvas and the release on the window,
+ * and both have to reach the same `fire`, so the stub window forwards to
+ * whichever map the current stub canvas is holding.
  */
 
-type Listener = () => void;
+type WindowListener = (e: unknown) => void;
+let windowOn = new Map<string, WindowListener[]>();
+let hadWindow: unknown;
 
-/** The smallest clickable thing: an element that remembers who is listening. */
-function stubClickable() {
-  const listeners: Listener[] = [];
-  return {
-    el: {
-      addEventListener: (type: string, fn: Listener) => {
-        if (type === "click") listeners.push(fn);
-      },
-      textContent: "",
-    } as unknown as HTMLElement,
-    click: (): void => {
-      for (const fn of listeners) fn();
+beforeAll(() => {
+  const g = globalThis as { window?: unknown };
+  hadWindow = g.window;
+  g.window = {
+    addEventListener: (type: string, fn: WindowListener): void => {
+      const list = windowOn.get(type) ?? [];
+      list.push(fn);
+      windowOn.set(type, list);
     },
   };
-}
-
-// Reassigned fresh by every `armed()` call, so each test's button carries only
-// its own listener — `bindStageAfterRun` looks it up once, by id, itself.
-let currentEndRunBtn = stubClickable();
-(globalThis as unknown as { document: unknown }).document = {
-  getElementById: (id: string) => (id === "endRun" ? currentEndRunBtn.el : null),
-};
-
-const { bindStageAfterRun } = await import("../src/stage-afterrun.js");
-
-function armed() {
-  let world = createWorld(DEFAULT_CONFIG, 10);
-  let running = true;
-  let rebuilds = 0;
-  let paintPlays = 0;
-  const canvas = stubClickable();
-  currentEndRunBtn = stubClickable();
-  const endRunBtn = currentEndRunBtn;
-  const handle = bindStageAfterRun({
-    canvas: canvas.el as unknown as HTMLCanvasElement,
-    world: () => world,
-    rebuild: () => {
-      rebuilds++;
-      world = createWorld(DEFAULT_CONFIG, 10);
-    },
-    setRunning: (r) => {
-      running = r;
-    },
-    paintPlay: () => {
-      paintPlays++;
-    },
-  });
-  return {
-    canvas,
-    endRunBtn,
-    handle,
-    world: () => world,
-    running: () => running,
-    rebuilds: () => rebuilds,
-    paintPlays: () => paintPlays,
-  };
-}
-
-describe("the stage answers its own after-run screen", () => {
-  it("a click on the canvas does nothing while the run is live", () => {
-    const s = armed();
-    s.canvas.click();
-    expect(s.rebuilds()).toBe(0);
-  });
-
-  it("a click on the canvas restarts the wave once the run is over", () => {
-    const s = armed();
-    s.world().over = true;
-    s.canvas.click();
-    expect(s.rebuilds()).toBe(1);
-  });
-
-  it("a first ▣ SHEET press ends the run and pauses", () => {
-    const s = armed();
-    s.endRunBtn.click();
-    expect(s.world().over).toBe(true);
-    expect(s.running()).toBe(false);
-    expect(s.paintPlays()).toBe(1);
-    expect(s.endRunBtn.el.textContent).toBe("▣ FIELD");
-  });
-
-  it("a second ▣ SHEET press un-ends the run in place instead of re-ending it", () => {
-    const s = armed();
-    s.endRunBtn.click();
-    s.endRunBtn.click();
-    expect(s.world().over).toBe(false);
-    expect(s.running()).toBe(true);
-    expect(s.rebuilds()).toBe(0); // un-ending, not rebuilding
-    expect(s.endRunBtn.el.textContent).toBe("▣ SHEET");
-  });
-
-  it("the handle repaints the label to match whatever `over` is now", () => {
-    const s = armed();
-    s.world().over = true;
-    s.handle.paint();
-    expect(s.endRunBtn.el.textContent).toBe("▣ FIELD");
-  });
 });
 
-/**
- * `↺ WAVE` REPLAYS THE WAVE'S OPENING THE WAY A FRESH PAIR MEETS IT.
- *
- * `stage.ts`'s `rebuild()` calls `createWorld` before every `startWave`, and
- * `createWorld` always hands back a fresh `Briefings` (`met: 0`). So with
- * the PAIR_ON switch lit — briefings, which is the switch the
- * owner's "card and briefing" both refers to — resetting a wave is never
- * "what has this run already taught", it is always "what would a pair who
- * has met nothing see", the same fresh-pair rule `wave-opening.ts` already
- * uses on purpose for the CARDS gallery. This test does the same two calls
- * `rebuild()` makes, without a DOM, and checks the card opens immediately
- * and reopens identically on the next reset rather than staying dismissed.
- */
-describe("a fresh reset opens the wave, every time", () => {
-  const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
-  const queue = [{ beat: 0, col: 0, kind: "slick" as const, color: null }];
-
-  it("the opening is up the instant the wave starts, not after a delay", () => {
-    const world = createWorld(cfg, 0);
-    startWave(world, 0, queue);
-    expect(briefingHolds(world)).toBe(true);
-  });
-
-  it("dismissing it does not survive a rebuild — the next world is fresh again", () => {
-    const first = createWorld(cfg, 0);
-    startWave(first, 0, queue);
-    // The introduction, and then the guide if the wave carries one — acked
-    // here one state at a time, the way two seats would.
-    while (briefingHolds(first)) {
-      ackBriefing(first, 1);
-      ackBriefing(first, 2);
-    }
-    expect(briefingHolds(first)).toBe(false);
-
-    // `rebuild()` never reuses `first` — it builds a new `World`, exactly as
-    // `stage.ts` does, and nothing remembers a wave was ever read anyway.
-    const second = createWorld(cfg, 0);
-    startWave(second, 0, queue);
-    expect(briefingHolds(second)).toBe(true);
-  });
+afterAll(() => {
+  const g = globalThis as { window?: unknown };
+  if (hadWindow === undefined) delete g.window;
+  else g.window = hadWindow;
 });
 
 /**
@@ -226,7 +95,9 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         list.push(fn);
         map.set(type, list);
       };
-    (globalThis as { window?: unknown }).window = { addEventListener: add(on) };
+    // The window stub above forwards here, so a release reaches the same
+    // listeners the press was bound into.
+    windowOn = on as Map<string, WindowListener[]>;
     return {
       canvas: {
         addEventListener: add(on),
