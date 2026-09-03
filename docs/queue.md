@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## The room stores the pair's stats and ends the run after long silence
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-the-room-stores-the-pairs-stats-and-ends-the-run
 - **Files:** `apps/server/src/room.ts`, `apps/server/src/seat.ts`, `apps/server/src/stats.ts`, `packages/net/src/protocol.ts`, `apps/server/test/room.test.ts`
 
 Read `net-change`. Today a seat silent for `SEAT_SILENT_MS` (10 s) is evicted
