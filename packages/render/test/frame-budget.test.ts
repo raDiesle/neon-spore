@@ -199,7 +199,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
       fillRect: 64,
-      stroke: 72,
+      // Two more than the plates alone would take: the opening below the eye
+      // splits the plate it stands under into the two pieces either side of
+      // it, and a plate is a stroke (`render/warden.ts`).
+      stroke: 74,
       fill: 22,
       clip: 3,
       save: 21,
@@ -211,7 +214,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
     },
     {
       fillRect: 64,
-      stroke: 74,
+      stroke: 76,
       fill: 22,
       clip: 3,
       save: 21,

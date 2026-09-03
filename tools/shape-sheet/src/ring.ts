@@ -6,6 +6,7 @@ import {
   type RingSilhouette,
   WARDEN_PUPIL_OPEN,
   WARDEN_RING,
+  wardenOpening,
 } from "@neon-spore/content";
 import type { Subject } from "./contour.js";
 
@@ -55,19 +56,24 @@ export function ring(name: string, s: RingSilhouette, note: string): Subject {
     }
     return pts;
   };
+  const outer = (t: number): Point[] => loop(s.outer, s.outer.rx, s.outer.ry, 0, t);
+  const pupil = (t: number): Point[] =>
+    loop(s.pupil, s.outer.rx * s.pupilMul, s.outer.ry * s.pupilMul, s.pupilTravel * s.outer.rx, t);
   return {
     name,
     note,
     open: false,
-    pointsAt: (t) => loop(s.outer, s.outer.rx, s.outer.ry, 0, t),
-    hole: (t) =>
-      loop(
-        s.pupil,
-        s.outer.rx * s.pupilMul,
-        s.outer.ry * s.pupilMul,
-        s.pupilTravel * s.outer.rx,
-        t,
-      ),
+    pointsAt: outer,
+    hole: pupil,
+    // What is *drawn* is the body with the way in cut through it — one loop,
+    // `wardenOpening`, the same call the canvas makes. `pointsAt` and `hole`
+    // stay the two loops it is built from, because that is what the metrics
+    // mean: the clearance a pupil keeps from the rim is still the number six
+    // parameters can quietly destroy, opening or no opening.
+    loopsAt: (t) => {
+      const cut = wardenOpening(outer(t), pupil(t), 0, 0);
+      return cut === null ? [outer(t), pupil(t)] : [cut.contour];
+    },
     path: catmullRomToBezierPath,
   };
 }

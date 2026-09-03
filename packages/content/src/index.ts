@@ -123,7 +123,14 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
-export { type RingSilhouette, WARDEN_PUPIL_OPEN, WARDEN_RING } from "./warden-shape.js";
+export {
+  type RingSilhouette,
+  WARDEN_OPENING,
+  WARDEN_PUPIL_OPEN,
+  WARDEN_RING,
+  type WardenOpening,
+  wardenOpening,
+} from "./warden-shape.js";
 export { WAVES, type Wave, type WaveEntry, type WaveGuide } from "./waves.js";
 export {
   DEMONSTRATIONS,

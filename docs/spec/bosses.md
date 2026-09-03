@@ -201,12 +201,21 @@ can do between them**. It splits no information at all — both screens show
 everything it does — because the Queen already owns that coupling and a second
 boss built on it would be a re-skin.
 
-**A ring with a hole in it.** Five columns wide, at `wardenRow`, dead centre,
-and it never walks: it is a fixture, not an arrival. What moves is the **pupil**
-— the hole slides a column a beat, back and forth inside the ring, so the column
-that matters changes while the body does not. Through the hole you see the
-field, the grid pulse and the stars behind it: the only object in the game you
-can see past.
+**A horseshoe standing over a hole.** Five columns wide, at `wardenRow`, dead
+centre, and it never walks: it is a fixture, not an arrival. What moves is the
+**pupil** — the hole slides a column a beat, back and forth inside the body, so
+the column that matters changes while the body does not. Through the hole you
+see the field, the grid pulse and the stars behind it: the only object in the
+game you can see past.
+
+**It is open underneath.** Two walls run down from the pupil's widest points and
+out through the rim, and the material between them is gone, plates and all
+(`wardenOpening` in content, `render/src/warden.ts`). The shot that counts goes
+into the open eye, and a body closed all the way round put a band of its own
+rock between the cannon and the one thing on it worth hitting — the rule said
+the shot lands and the picture said it could not, and of the two a player
+believes the picture. The way in widens as the eye does, because its width is
+the pupil's.
 
 **The rope.** Every `wardenCycleBeats`, on beat 0, a line is lowered out of the
 **middle** of the rim, with a handle on the end of it, and it hangs there. It
@@ -308,7 +317,7 @@ the edge you look *through* is the one that moves.
 
 Inside the hole, at `HATCH` of its radius, sits the **trapdoor**: two plates that
 meet when the rope is slack and part as it comes taut. It covers two thirds of
-the hole and no more, so the ring keeps the one thing it says about itself.
+the hole and no more, so the body keeps the one thing it says about itself.
 Behind the door the **eye** opens on the same number — a lens whose lids come
 apart, an iris in the rim's colour, and a pupil that goes from a slit to a disc.
 Both are one quantity, so there are not two things to keep in step.
