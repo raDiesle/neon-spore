@@ -1,8 +1,9 @@
 import { markMoment } from "./balance.js";
 import { hullRow, msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
+import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { nextInt } from "./rng.js";
-import { type Color, isMeteorKind, type Pod } from "./types.js";
+import { type Color, isMeteorKind, type Pod, type PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -30,6 +31,18 @@ import { MILLI, type World } from "./world.js";
  * the two players' work stays "be in the right column, be open at the right
  * time" rather than becoming a tracking problem on top of it.
  */
+
+/**
+ * What a pod gives when it is swallowed. A wave that does not say means mend.
+ *
+ * One `??` and therefore exactly the size of thing a second reader writes out
+ * again: `mechanics.ts` had its own copy, so a changed default would have made
+ * the wave guide name a mechanic the field never produces, and the guide test
+ * would have passed for the wrong wave.
+ */
+export function podKindOf(entry: PodEntry): PodKind {
+  return entry.kind ?? "mend";
+}
 
 /** Ticks the maw stays open, from `intakeWindowMs` at this tick rate. */
 export function intakeWindowTicks(cfg: SimConfig): number {
@@ -73,7 +86,7 @@ export function spawnPods(world: World): void {
       rowMilli: entry.row * MILLI,
       driftMilli: 0,
       loose: false,
-      kind: entry.kind ?? "mend",
+      kind: podKindOf(entry),
     });
     world.podSpawned += 1;
   }

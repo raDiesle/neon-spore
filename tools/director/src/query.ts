@@ -1,5 +1,5 @@
 import { kindForColor, type Wave, type WaveEntry } from "@neon-spore/content";
-import { bossFillsWave, type Color, isMeteorKind, type PodEntry } from "@neon-spore/sim";
+import { bossFillsWave, type Color, isMeteorKind, type PodEntry, podKindOf } from "@neon-spore/sim";
 import { type Brush, LIVING_BRUSH_KINDS, ROCK_BRUSHES } from "./brushes.js";
 
 /**
@@ -55,7 +55,7 @@ export function brushOf(entry: WaveEntry): Brush {
 
 /** What kind of pod a cell holds, as the brush that would have made it. */
 export function podBrushOf(pod: PodEntry): Brush {
-  return pod.kind ?? "mend";
+  return podKindOf(pod);
 }
 
 /** The brushes that place a living creature or a rock, never a pod. */

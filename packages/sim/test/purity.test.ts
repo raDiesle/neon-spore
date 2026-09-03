@@ -384,6 +384,16 @@ const COPIES: Copy[] = [
     pattern: /%\s*[\w.]*\bveilMorphBeats\b/,
   },
   {
+    // "An unnamed pod is a mend". `mechanics.ts` carried its own copy, so a
+    // changed default would have had the wave guide naming a mechanic the
+    // field never produces — and `waves.test.ts` would have gone green about
+    // the wrong wave. The director had a third copy for its brushes.
+    call: "podKindOf",
+    owner: "packages/sim/src/pods.ts",
+    pattern: /\?\?\s*"mend"/,
+    strip: false,
+  },
+  {
     // The middle column. It is the cannon's home, the shield's, where THE FLEET
     // breaches the hull, where THE GAUGE, SNAKE and PINBALL cost it, the gyre's
     // rest column and the vane's pivot — nine places, and only two of them had

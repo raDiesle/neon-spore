@@ -1,4 +1,10 @@
-import type { BossEntry, CreatureKind, PodKind, SimConfig } from "@neon-spore/sim";
+import {
+  type BossEntry,
+  type CreatureKind,
+  type PodKind,
+  podKindOf,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { MECHANICS } from "./mechanics-table.js";
 import { AUTHORED_COLS, bossFromWave, podsFromWave, queueFromWave } from "./queue.js";
 import type { Wave } from "./wave-types.js";
@@ -157,7 +163,7 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
 export function mechanicsInWave(wave: Wave): Set<MechanicId> {
   const found = new Set<MechanicId>();
   for (const e of queueFromWave(wave, AUTHORED_COLS)) found.add(e.kind);
-  for (const p of podsFromWave(wave, AUTHORED_COLS)) found.add(p.kind ?? "mend");
+  for (const p of podsFromWave(wave, AUTHORED_COLS)) found.add(podKindOf(p));
   const boss = bossFromWave(wave, AUTHORED_COLS);
   if (boss) found.add(boss.kind);
   addCarried(found);

@@ -54,19 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Stop re-deriving the pod-kind default in content; call sim's rule
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/content/src/mechanics.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/index.ts`, `packages/sim/test/purity.test.ts`
-
-`mechanics.ts` line 160 writes `p.kind ?? "mend"`; `sim/src/pods.ts` line 58
-writes `entry.kind ?? "mend"`. Two copies of "an unnamed pod is a mend". If sim
-changes the default, `mechanicsInWave` reports the wrong mechanic and the guide
-test in `waves.test.ts` passes for the wrong wave.
-
-Export `podKindOf(entry)` from sim, use it in both places, and add a purity row so
-`?? "mend"` in content fails.
-
 ## Trim the barrel exports nobody outside the package imports
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
