@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · b491814 — A queue claim survives every landing but its own
+
+`bun run queue next` claims an item by creating `claude/queue-<slug>` off main and nothing else, so the branch carries no commits, points at main's tip, and `git branch --merged` offers it to the sweep at the end of any other lane's landing. Both sessions running on 3 September 2026 lost every claim they held within minutes of the other one landing, then did the same item twice.
+
 ## 2026-09-03 · adc7516 — The context map covers the tools, and notices a row that stopped being true
 
 `bun run index` walked `packages` and `apps` only, so 252 files had no row and the test that fails on a missing one could not see them: all of `tools/dev`, `tools/land`, the director's own scripts, `apps/game/build.ts`. Scope now follows where source actually lives — under `src/` in a package or an app, beside its directory in a tool — and `bun run index --check` writes nothing and exits non-zero on drift.
