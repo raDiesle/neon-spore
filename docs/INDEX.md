@@ -353,6 +353,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp-static.ts` | you are changing how a wisp comes through in bands — the interference that says one screen does not have it |
 | `packages/render/src/wisp-search.ts` | you are changing the box that walks the grid on the pilot's screen while a wisp is out — the seat that cannot see one |
 | `packages/render/src/lure-hole.ts` | THE HOLE THROUGH A LURE, and what is coming out of it |
+| `packages/render/src/ghost-eyes.ts` | THE GHOST's eyes, and they are the whole of what makes the shape a face rather than a bell |
+| `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |
 
 ### packages/net
 

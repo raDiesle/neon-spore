@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
+import { drawGhostEyes } from "./ghost-eyes.js";
 import { slabs } from "./ghost-glitch.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -64,8 +65,12 @@ export function ghostRadius(l: Layout): number {
 
 /** The colour it carries, as a fill and a rim. A ghost with no colour cannot
  * be authored, and is drawn cyan for the same reason `veilBecomes` falls back
- * to a slick: the picture must not depend on a case nothing can produce. */
-function palette(color: Color | null): { hex: string; rim: string; dark: string } {
+ * to a slick: the picture must not depend on a case nothing can produce.
+ *
+ * Exported because the trail draws the same body in the same colour
+ * (`ghost-trail.ts`), and an echo in a colour of its own would be a second
+ * creature standing in the column this one just left. */
+export function ghostPalette(color: Color | null): { hex: string; rim: string; dark: string } {
   if (color === "red") return { hex: PALETTE.red, rim: PALETTE.redRim, dark: PALETTE.redDark };
   return { hex: PALETTE.cyan, rim: PALETTE.cyanRim, dark: PALETTE.cyanDark };
 }
@@ -90,7 +95,7 @@ export function drawGhost(
   const scale = r / Math.max(GHOST.rx, GHOST.ry);
   const halfW = GHOST.rx * scale;
   const t = contourClock(c.id, time);
-  const { hex, rim, dark } = palette(c.color);
+  const { hex, rim, dark } = ghostPalette(c.color);
   const haze = (h: string): string => hazed(cfg, h, near);
 
   const d = ghostPath(
@@ -122,16 +127,15 @@ export function drawGhost(
 
   drawTears(ctx, body, c.id, time, rage, haze(rim));
 
-  // The outline, dashed. The one line in this package that is: every other
-  // contour in the game is drawn solid, so a broken one reads as a body the
-  // screen is having trouble holding on to — and it is the mark player 2
-  // finds it by at a glance, before they have read anything else about it.
-  ctx.setLineDash([GHOST.ry * 0.14, GHOST.ry * 0.09]);
-  ctx.lineDashOffset = -(t * GHOST.ry * 0.25) % (GHOST.ry * 0.23);
+  // The outline, solid — the same contour every other body in the game is
+  // drawn with. It was dashed once, on the argument that a broken line reads
+  // as a body the screen cannot hold on to; what it actually read as at 26 px
+  // was a shape coming apart into dots, and the tears inside the body and the
+  // shards thrown clear of it already say the camouflage is failing. A whole
+  // outline is what player 2 finds it by, and the tears are what it is.
   strokeGlow(ctx, body, haze(rim), STROKE.outline / scale, 0.7 + rage * 0.6);
-  ctx.setLineDash([]);
 
-  drawEyes(ctx, haze(rim), haze(PALETTE.background), rage, t);
+  drawGhostEyes(ctx, haze(rim), haze(PALETTE.text), haze(PALETTE.background), rage, t);
   ctx.restore();
 
   // The camouflage's own light, outside the body — the "bigger glow" the owner
@@ -201,39 +205,6 @@ function drawShards(
       w,
       Math.max(0.6, s.height * r * 0.35),
     );
-  }
-  ctx.restore();
-}
-
-/**
- * Two eyes, and they are the whole of what makes this shape a face rather
- * than a bell. Dark holes with a dashed bright rim — the same broken line the
- * outline is drawn in, so the two read as one treatment — and they narrow as
- * the thing gets angry, which is the only expression in the game.
- */
-function drawEyes(
-  ctx: CanvasRenderingContext2D,
-  rim: string,
-  dark: string,
-  rage: number,
-  t: number,
-): void {
-  const ex = GHOST.rx * 0.42;
-  const ey = -GHOST.ry * 0.16;
-  const rw = GHOST.rx * 0.2;
-  const rh = GHOST.ry * (0.2 - rage * 0.09);
-  ctx.save();
-  ctx.setLineDash([rh * 0.5, rh * 0.34]);
-  ctx.lineDashOffset = (t * rh * 0.6) % (rh * 0.84);
-  ctx.lineWidth = Math.max(0.5, GHOST.ry * 0.035);
-  for (const side of [-1, 1]) {
-    const eye = new Path2D();
-    eye.ellipse(side * ex, ey, rw, rh, 0, 0, Math.PI * 2);
-    ctx.fillStyle = dark;
-    ctx.fill(eye);
-    ctx.strokeStyle = rim;
-    ctx.globalAlpha = 0.85;
-    ctx.stroke(eye);
   }
   ctx.restore();
 }

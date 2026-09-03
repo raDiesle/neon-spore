@@ -149,10 +149,12 @@ export class GhostReleaseFx {
     ctx.globalAlpha = 0.9 * (1 - u ** 3);
     ctx.strokeStyle = e.rim;
     ctx.lineWidth = Math.max(0.5, GHOST.ry * 0.04);
-    // The dashed outline it wore on the field, coming apart: the gaps grow
-    // until the line is more absence than line, which is the camouflage
-    // failing rather than the body fading.
-    ctx.setLineDash([GHOST.ry * 0.14 * (1 - u), GHOST.ry * (0.09 + u * 0.4)]);
+    // The whole outline it wore on the field, coming apart on the way up: it
+    // leaves solid and the gaps open as it climbs, until the line is more
+    // absence than line. The body's own contour is unbroken now (`ghost.ts`),
+    // so this is the only dashed line in the game and it is an event rather
+    // than a finish — the camouflage failing, not the body fading.
+    ctx.setLineDash([GHOST.ry * 0.14, GHOST.ry * u * 0.5]);
     ctx.stroke(body);
     ctx.restore();
   }

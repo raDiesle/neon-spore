@@ -227,7 +227,10 @@ is not drawn at all — a halo, a glow pass and a rim all reach outside the
 contour they belong to, so anything drawn at any opacity would be the column
 given away in light (`render/ghost.ts`). On player 2's it wears the disguise it
 is failing to hold: torn horizontal bands, a few of them thrown clear of the
-outline, and a dashed contour, which is the one broken line in the game.
+outline, two eyes burning in dark sockets, and the places it
+has just been, fading out behind it (`render/ghost-trail.ts`) — over its head
+on the fall, and back along the row on the crossing, where it is the one thing
+that says which way the body is travelling.
 
 **Its silhouette is the first that is not a closed lobed blob.** A dome over a
 hem that hangs in four tails, taller than it is wide by enough that `longAxis`

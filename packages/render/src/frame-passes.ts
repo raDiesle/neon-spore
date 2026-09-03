@@ -9,6 +9,7 @@ import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
+import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
@@ -77,6 +78,9 @@ export function drawBodies(
   // an armature five rows tall cannot take its turn inside a loop that
   // sorts body by body (`gyre.ts`).
   drawGyres(ctx, l, world, view.beatPhase, view.time);
+  // Where a ghost has just been, under every body on the field: a stamp drawn
+  // over the slick in the next column would read as a body in front of it.
+  drawGhostTrails(ctx, l, world, effects.ghostTrail, view.beatPhase, view.time);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

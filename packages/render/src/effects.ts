@@ -7,6 +7,7 @@ import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
 import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
+import { GhostTrail } from "./ghost-trail.js";
 import type { Layout } from "./layout.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -57,6 +58,13 @@ export class Effects {
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
+  /**
+   * Where every ghost has just been. Public and driven from the field pass
+   * rather than fed by an event, for the coord grid's reason below: it is a
+   * sample of where a body is drawn, and only the pass that draws it knows
+   * that. It lives here because it outlives its frame — see `ghost-trail.ts`.
+   */
+  readonly ghostTrail = new GhostTrail();
   /**
    * The lettered grid coming up and going again. Public and driven from
    * `canvas2d.ts` rather than fed by an event, because it is not a transient
@@ -153,6 +161,7 @@ export class Effects {
     this.warden.update(dt);
     this.bodies.update(dt);
     this.spriteBursts.update(dt);
+    this.ghostTrail.update(dt);
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. The
@@ -212,6 +221,7 @@ export class Effects {
     this.bodies.clear();
     this.spriteBursts.clear();
     this.coordGrid.clear();
+    this.ghostTrail.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
