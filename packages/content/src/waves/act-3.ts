@@ -84,7 +84,7 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
-    name: "ON THE BEAT",
+    name: "THE THROB",
     sentence: "The one where firing on sight is the miss.",
     guide: {
       both: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
