@@ -40,11 +40,12 @@
  * registry rather than from click order, and names NONE.
  *
  * The state itself — which skin, whether the light is on, which motion, which
- * glows — still lives in `shapes-pair.ts`. This file only reads it through the
- * getters that file already exported for `shapes-all.ts`, and writes it
- * through the small setters beside them. `shapes-pair.ts`
- * re-exports `controlBar` from here, so `shapes-panel.ts` keeps importing it
- * from the same place it always has and nothing else has to move.
+ * glows — lives in `shapes-state.ts`, a leaf nothing in the page imports back.
+ * The axis rows read it through the getters there and write it through the
+ * small setters beside them. `shapes-pair.ts` re-exports `controlBar` from
+ * here, so `shapes-panel.ts` keeps importing it from the same place it always
+ * has; that re-export is why the state had to move out of `shapes-pair.ts`,
+ * which the axes it builds were importing back.
  *
  * Rebuilding every card is the whole of switching: a figure's fill, aura and
  * clip are decided when it is constructed, and mutating them in place would

@@ -30,7 +30,7 @@
  * options and what each hands to `shapeFigure` differ. `grid()` below is that
  * one function, called three times.
  *
- * **Each grid holds the other two axes at whatever `shapes-pair.ts`'s control
+ * **Each grid holds the other two axes at whatever `shapes-state.ts`'s control
  * row currently says**, read through its three getters. A body demonstrating
  * PERISTALSIS while wearing nothing is a contour, not a look, and a skin held
  * still is half of what a skin is — so a grid never shows its own axis
@@ -60,6 +60,7 @@ import { MOTIONS } from "@neon-spore/shape-sheet";
 import { GLOWS } from "./glows/index.js";
 import { HITS } from "./hits/index.js";
 import { grid } from "./shapes-grid.js";
+import { bodyPicker, pickedEntry } from "./shapes-picker.js";
 import {
   currentGlows,
   currentHits,
@@ -67,8 +68,7 @@ import {
   currentMotion,
   currentSkin,
   currentTails,
-} from "./shapes-pair.js";
-import { bodyPicker, pickedEntry } from "./shapes-picker.js";
+} from "./shapes-state.js";
 import { SKINS } from "./skins/index.js";
 import { TAILS } from "./tails/index.js";
 

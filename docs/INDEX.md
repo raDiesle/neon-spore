@@ -636,7 +636,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/shapes-effect-axes.ts` | The three effect axes on COMPOSE: GLOW, HIT and TAIL |
 | `tools/director/src/shapes-grid.ts` | One grid, written once and walked per axis |
 | `tools/director/src/shapes-page-app.ts` | The shape catalogue as a page that can be handed to somebody |
-| `tools/director/src/shapes-pair.ts` | What every card on the SHAPES tab is wearing: one skin, one light, one forced motion |
+| `tools/director/src/shapes-pair.ts` | One card's picture, at whatever the page's controls currently say |
+| `tools/director/src/shapes-state.ts` | What every card on the SHAPES tab is wearing, and the only place it is written |
 | `tools/director/src/shapes-picker.ts` | The body picker: one button per catalogue name, and the button is the body |
 | `tools/director/src/shapes-trigger.ts` | The page's hit clock: when the next one lands, and where in it we are |
 | `tools/director/src/shapes-widgets.ts` | The two things every control row is built out of: a button, and a named group around a row of them |

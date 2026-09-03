@@ -12,7 +12,9 @@
  * next door stack.
  *
  * `button` and `group` are in `shapes-widgets.ts`, since both files need them.
- * The state is all in `shapes-pair.ts`. Nothing here holds any.
+ * The state is all in `shapes-state.ts`, which is a leaf on purpose — this file
+ * reading it out of `shapes-pair.ts` is what made the page's import cycle.
+ * Nothing here holds any.
  */
 
 import { MOTIONS } from "@neon-spore/shape-sheet";
@@ -24,7 +26,7 @@ import {
   setMotion,
   setSkin,
   toggleLit,
-} from "./shapes-pair.js";
+} from "./shapes-state.js";
 import { button, group } from "./shapes-widgets.js";
 import { SKINS } from "./skins/index.js";
 

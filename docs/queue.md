@@ -285,26 +285,6 @@ bundler already follows several `<link>` tags, as `apps/game/index.html` shows
 — and point `rail-boss-guard.test.ts` at whichever file keeps `button:disabled`.
 A `bun run dev:once` look at `/` proves the page is unchanged.
 
-## Break the runtime import cycle in the SHAPES page and add a cycle check
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-break-the-runtime-import-cycle-in-the-shapes-pag
-- **Files:** `tools/director/src/shapes-pair.ts`, `tools/director/src/shapes-controls.ts`, `tools/director/src/shapes-axes.ts`, `tools/director/src/shapes-effect-axes.ts`, `tools/director/src/shapes-build-state.ts`, `tools/director/test/`
-
-Four import cycles exist in the director. Two are type-only (`backlog.ts` with
-`backlog-ideas.ts`, `skins/types.ts` with `hits/types.ts`) and harmless. Two are
-runtime: `shapes-pair.ts` imports `shapes-controls.ts`, which imports
-`shapes-axes.ts` (line 36), which imports state setters back from
-`shapes-pair.ts`; `shapes-effect-axes.ts` line 13 does the same. `shapes-axes.ts`
-line 15 says the state is all in `shapes-pair.ts`, and the cycle is the axes
-reaching into the pair for it. It works today only because everything is called
-after module evaluation.
-
-Move the SHAPES page state the axes read and write into a leaf `shapes-state.ts`
-(as `shapes-build-state.ts` already does for the build tab), import it from all
-three, and add a 30-line DFS test over `from "./..."` imports that fails on any
-runtime cycle.
-
 ## Split tools/versus/prompt.ts into text, patch rendering and step builders
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

@@ -34,7 +34,8 @@ import { CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { isWide } from "./shape-figure.js";
 import { renderShapesAll } from "./shapes-all.js";
-import { controlBar, driving, picture } from "./shapes-pair.js";
+import { controlBar, picture } from "./shapes-pair.js";
+import { driving } from "./shapes-state.js";
 
 const BOX = 92;
 /** The frame a long shape gets instead of the square one — see `isWide`. */

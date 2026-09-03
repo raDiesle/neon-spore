@@ -10,7 +10,7 @@ import {
   toggleGlow,
   toggleHit,
   toggleTail,
-} from "./shapes-pair.js";
+} from "./shapes-state.js";
 import { autoHits, fireHit, toggleAutoHits } from "./shapes-trigger.js";
 import { button, group } from "./shapes-widgets.js";
 import { TAILS } from "./tails/index.js";
