@@ -13,7 +13,33 @@ import { motionTransform, tilePixels, transformedBounds } from "../src/shapes-mo
  * own that are nowhere near it.
  */
 const FIT_TIMES = [0, 0.2, 0.4, 0.6, 0.8].map((f) => f * WOBBLE_PERIOD);
-const LATER = Array.from({ length: 200 }, (_, i) => i * 0.17);
+
+/**
+ * Eighty moments over the same thirty-four seconds two hundred used to cover,
+ * and the reduction is deliberate: a smaller sample is a weaker guarantee, so
+ * here is what was measured before it was taken.
+ *
+ * A memo is the answer this file cannot use. `shape-fit.ts` keeps one because
+ * the page asks for the same fit again on every skin switch; here every
+ * `(subject, t)` pair in the sweep is asked for exactly once, and a table of
+ * answers nothing looks up twice is only a table. What could be shared was
+ * shared instead — `transformedBounds` used to build each contour twice, and
+ * that is fixed in `shapes-motion.ts` where the whole sheet gets it.
+ *
+ * What is left is one contour per entry per sample, and the sample count is
+ * the only lever. The box the fit returns is not tight: across the whole
+ * catalogue the closest any drawn point comes to an edge is 1.58% of the
+ * frame's span, at SPIKE around t=29.7. At eighty samples the same sweep finds
+ * 1.66% at t=29.5 — the same near-miss, from a step away — so the density was
+ * never what the claim rested on, and dropping it costs 0.08 points of a
+ * margin that has four percent built into it on purpose.
+ *
+ * The step is chosen against the frame rather than for a round number: the fit
+ * scans at 0.16 s and the wobble's period is 2π/0.9, and 0.4213 divides neatly
+ * into neither, so the sweep keeps landing between the moments the frame was
+ * fitted over — which is the whole point of sampling *later* at all.
+ */
+const LATER = Array.from({ length: 80 }, (_, i) => i * 0.4213);
 
 type Apply = (x: number, y: number) => { x: number; y: number };
 
@@ -63,9 +89,9 @@ describe("a card's frame", () => {
       // shape stays inside. A tolerance here would only test the tolerance.
       //
       // One assertion per entry rather than four per point: the comparison is
-      // the same, and an `expect` for every one of two hundred samples times
-      // every contour point cost this file five of the director suite's six
-      // seconds. A point that escapes names itself in the failure instead.
+      // the same, and an `expect` for every sample times every contour point
+      // cost this file five of the director suite's six seconds. A point that
+      // escapes names itself in the failure instead.
       const outside: string[] = [];
       for (const t of LATER) {
         const pts = entry.subject.pointsAt(t);

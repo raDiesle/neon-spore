@@ -153,6 +153,12 @@ export function transformedBounds(
   // metaball bisection for the cluster forms, and thirty-odd cards are built
   // in one go the first time the sheet is opened.
   const scan = [...times, ...Array.from({ length: 128 }, (_, i) => i * 0.16)];
+  // Sampled once and read twice. A contour sample is a metaball bisection and
+  // the most expensive thing in this file; the pass below that finds the still
+  // box and the pass at the bottom that moves the points walk the same scan, so
+  // building the contour again for the second of them was half the cost of
+  // every card on the sheet and half of `shapes-motion.test.ts`.
+  const poses = scan.map((t) => subject.pointsAt(t));
   // A second pass, over the motion alone and far finer. `TWITCH` holds still
   // for two thirds of its cycle and then flicks: a 0.2 s step walks straight
   // over the flick, fits the card to the stillness, and the flick then leaves
@@ -161,8 +167,8 @@ export function transformedBounds(
   // instead of sixty-four and can only ever make the frame roomier.
   if (motion) {
     const still = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
-    for (const t of scan) {
-      for (const p of subject.pointsAt(t)) {
+    for (const pts of poses) {
+      for (const p of pts) {
         if (p.x < still.x0) still.x0 = p.x;
         if (p.x > still.x1) still.x1 = p.x;
         if (p.y < still.y0) still.y0 = p.y;
@@ -190,8 +196,8 @@ export function transformedBounds(
     }
   }
 
-  for (const t of scan) {
-    const pts = subject.pointsAt(t);
+  for (const [i, t] of scan.entries()) {
+    const pts = poses[i] ?? [];
     if (!motion) {
       for (const p of pts) {
         if (p.x < b.x0) b.x0 = p.x;

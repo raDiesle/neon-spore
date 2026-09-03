@@ -547,28 +547,6 @@ footer is a second copy that will drift. Keep the sliders, the god-mode toggle
 and the BACK button exactly as they are. Copy-only, provable with `bun run
 check`.
 
-## shapes-motion.test.ts is still three seconds, and none of it is the expects
-
-- **Found:** 2026-09-03, claude/dynamic-workflows-session-strategy-3637de
-- **Taken:** 2026-09-03, claude/queue-shapes-motion-test-ts-is-still-three-seconds-and
-- **Files:** `tools/director/test/shapes-motion.test.ts`, `tools/shape-sheet/src/contour.ts`
-
-"Cut shapes-motion.test.ts from six seconds and eleven million expects" said the
-assertion count was the cost. It was not. Removing all 11 473 102 of them took
-the file from 5.9 s to 5.2 s; hoisting the transform's regex parse out of the
-per-point loop took it to 3.2 s. What is left is `subject.pointsAt(t)`, called
-once per `CATALOGUE` entry per sample — 101 × 200 contours built from scratch,
-at roughly 0.15 ms each, and every one of them thrown away after four
-comparisons.
-
-The claim under test needs *poses*, not points: the box has to contain the
-contour at each sample. Either memoise `pointsAt` per subject and time (the
-director's own `shape-fit.ts` keeps a memo for exactly this reason and says
-why), or reduce `LATER` from 200 samples to a set chosen to cover the same
-phase space — and say in the file which, because a smaller sample is a weaker
-guarantee and the next reader will want to know it was deliberate. A memo is
-the honest one; the samples are the cheap one.
-
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
