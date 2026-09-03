@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · fa3c766 — PINBALL draws the panel it was handed, like its two siblings already do
+
+`drawControls` called `slabPanel(l, controlSetForWave(view.world.wave), ...)`, re-deriving the panel from the wave *index* and ignoring the `view.controls` the host hands it. `gauge-round.ts` and `snake-panel.ts` both read the explicit set when one is given, and `band.ts` says in a comment why that fallback is the rule rather than the re-derivation.
+
 ## 2026-09-03 · b66efac — SNAKE's mouth rests as long as it stands open, so it cannot be tapped open
 
 `snakeMawRestTicks` was 30 against a `snakeMawTicks` of 84, so a thumb pressing MAW every thirty ticks held the jaws apart for the whole round. The comment beside the rest claimed it "stops a thumb tapping it every tick from being the same as leaving it open", and at those two numbers it stopped tapping it every tick and nothing else. Widening the window from 60 to 84 for the look of the thing made the gap worse rather than making it.
