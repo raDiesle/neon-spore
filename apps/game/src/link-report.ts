@@ -1,4 +1,4 @@
-import type { LinkState, LinkStatus } from "@neon-spore/net";
+import type { LinkState, LinkStatus, PlayerId } from "@neon-spore/net";
 import type { RoomClock } from "./link-clock.js";
 import type { Run } from "./link-run.js";
 import type { RoomSocket } from "./link-socket.js";
@@ -24,6 +24,8 @@ export interface ReportParts {
   player: 0 | 1 | 2;
   /** The room's own head count — see `LinkStatus.peers`. */
   peers: number;
+  /** The seats the room says have pressed START. */
+  readySeats: readonly PlayerId[];
   clock: RoomClock;
   run: Run;
   /** Null before a room is joined, and after one is left. */
@@ -41,6 +43,8 @@ export function report(p: ReportParts): LinkStatus {
     rttMs: p.clock.sampleCount > 0 ? Math.round(p.clock.rttMs) : -1,
     slack: p.run.slack,
     countdownMs: p.run.started || p.startMs === 0 ? 0 : p.clock.countdownMs(p.startMs),
+    readyHere: p.player !== 0 && p.readySeats.includes(p.player),
+    readyThere: p.readySeats.some((seat) => seat !== p.player),
     delayMs: p.run.delayMs,
     stalledMs: p.run.stalledMs,
     awayMs: p.socket?.awayMs ?? 0,

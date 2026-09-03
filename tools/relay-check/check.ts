@@ -144,6 +144,12 @@ await new Promise<void>((done) => {
     const half = (seconds * 1000) / 2;
     for (const d of c ? [a, b, c] : [a, b]) {
       d.link.frame(FRAME_MS);
+      // Two thumbs, stood in for. The room stamps no beat zero until both
+      // seats have pressed START, so a headless device has to press — and has
+      // to press again after a rejoin, because the presses go with the run
+      // they started. `ready` is refused everywhere else, so this is safe to
+      // say on every frame it is true.
+      if (d.link.status().state === "ready") d.link.ready();
       for (let i = 0; i < TICKS_PER_FRAME && d.link.mayTick(); i++) {
         step(d.world, d.link.drain());
         d.link.checkpoint();

@@ -122,24 +122,88 @@ describe("a room hands out two seats", () => {
     one.close();
   });
 
-  test("the second phone is seat 2, and both are given the same beat zero", async () => {
+  test("the second phone is seat 2, and neither is started by arriving", async () => {
     const one = await phone("AACC");
     await one.settle();
     const two = await phone("AACC");
     await two.settle();
     await one.settle();
 
-    const first = of(one.said, "welcome");
     const second = of(two.said, "welcome");
     expect(second[0]?.player).toBe(2);
     expect(second[0]?.peers).toBe(2);
-    // Neither device picks its own beat zero. That is the whole reason the
-    // room exists rather than a handshake between the two phones.
-    expect(second[0]?.startMs).toBeGreaterThan(0);
-    expect(first.at(-1)?.startMs).toBe(second[0]?.startMs ?? -1);
-    expect(first.at(-1)?.player).toBe(1);
+    // A full room is not a started one. Beat zero waits on two presses — a
+    // timer cannot know that two people have looked up from their screens,
+    // and a pair dropped onto a field mid-sentence has lost the wave before
+    // it began.
+    expect(second[0]?.startMs).toBe(0);
+    expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
     one.close();
     two.close();
+  });
+
+  test("both presses stamp one beat zero, and both phones are told the same one", async () => {
+    const one = await phone("AADD");
+    await one.settle();
+    const two = await phone("AADD");
+    await two.settle();
+
+    one.send({ t: "ready" });
+    await one.settle();
+    // One press is not a start: the other person has not looked up yet.
+    expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
+    expect(of(one.said, "ready").at(-1)?.players).toEqual([1]);
+    expect(of(two.said, "ready").at(-1)?.players).toEqual([1]);
+
+    two.send({ t: "ready" });
+    await two.settle();
+    await one.settle();
+
+    // Neither device picks its own beat zero. That is the whole reason the
+    // room exists rather than a handshake between the two phones.
+    const stamped = of(two.said, "welcome").at(-1)?.startMs ?? 0;
+    expect(stamped).toBeGreaterThan(0);
+    expect(of(one.said, "welcome").at(-1)?.startMs).toBe(stamped);
+    one.close();
+    two.close();
+  });
+
+  test("a press from one phone alone starts nothing at all", async () => {
+    const one = await phone("AAEE");
+    await one.settle();
+    one.send({ t: "ready" });
+    one.send({ t: "ready" });
+    await one.settle();
+    // Twice, from the only seat there is: a thumb that lands twice is one
+    // ready seat, and one ready seat is nobody to start with.
+    expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
+    one.close();
+  });
+
+  test("a seat that leaves takes its press with it", async () => {
+    const one = await phone("AAFF");
+    await one.settle();
+    const two = await phone("AAFF");
+    await two.settle();
+
+    two.send({ t: "ready" });
+    await two.settle();
+    await one.settle();
+    expect(of(one.said, "ready").at(-1)?.players).toEqual([2]);
+
+    two.close();
+    await one.settle();
+    // The one still here must not be one thumb away from starting a game with
+    // nobody in the other chair.
+    expect(of(one.said, "ready").at(-1)?.players).toEqual([]);
+
+    const three = await phone("AAFF");
+    await three.settle();
+    one.send({ t: "ready" });
+    await one.settle();
+    expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
+    one.close();
+    three.close();
   });
 
   test("a third phone is refused through the socket, not in front of it", async () => {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import type { LinkStatus } from "@neon-spore/net";
+import { type LinkStatus, SOLO_STATUS } from "@neon-spore/net";
 import { HOLD_AFTER_MS, troubleOf } from "../src/hold.js";
 import { seatWord } from "../src/join-words.js";
 import { createRunState } from "../src/run-state.js";
@@ -52,26 +52,11 @@ describe("the holds on the world", () => {
   });
 });
 
-const SOLO: LinkStatus = {
-  state: "solo",
-  room: "",
-  player: 0,
-  peers: 0,
-  rttMs: -1,
-  slack: 0,
-  countdownMs: 0,
-  delayMs: 0,
-  stalledMs: 0,
-  awayMs: 0,
-  desyncTick: null,
-  brokenPromises: 0,
-};
-
-const status = (over: Partial<LinkStatus>): LinkStatus => ({ ...SOLO, ...over });
+const status = (over: Partial<LinkStatus>): LinkStatus => ({ ...SOLO_STATUS, ...over });
 
 describe("what a bad line is called", () => {
   test("a line that is fine is not a card", () => {
-    expect(troubleOf(SOLO)).toBeNull();
+    expect(troubleOf(SOLO_STATUS)).toBeNull();
     expect(troubleOf(status({ state: "live", room: "ACDE", player: 1 }))).toBeNull();
   });
 

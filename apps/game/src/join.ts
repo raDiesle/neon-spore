@@ -5,13 +5,16 @@ import {
   normalizeRoomCode,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
+  SOLO_STATUS,
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
-import { chipText, explain, seatWord } from "./join-words.js";
+import { chipText, explain, seatWord, startButton } from "./join-words.js";
 
 export interface JoinBindings {
   join: (room: string) => void;
   leave: () => void;
+  /** This seat is ready. The room starts once the other one says so too. */
+  ready: () => void;
   /** The way out of this screen, which is the menu it was opened from. */
   back: () => void;
 }
@@ -54,30 +57,26 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const codeEl = document.getElementById("joinCode");
   const stateEl = document.getElementById("joinState");
   const input = document.getElementById("joinInput") as HTMLInputElement | null;
+  const startEl = document.getElementById("joinStart") as HTMLButtonElement | null;
   const seatEls: [1 | 2, HTMLElement | null][] = [
     [1, document.getElementById("joinSeat1")],
     [2, document.getElementById("joinSeat2")],
   ];
 
-  let last: LinkStatus = {
-    state: "solo",
-    room: "",
-    player: 0,
-    peers: 0,
-    rttMs: -1,
-    slack: 0,
-    countdownMs: 0,
-    delayMs: 0,
-    stalledMs: 0,
-    awayMs: 0,
-    desyncTick: null,
-    brokenPromises: 0,
-  };
+  let last: LinkStatus = SOLO_STATUS;
 
   /** The screen, from the last status seen. Cheap, so it is redone rather than tracked. */
   const paint = (): void => {
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);
+    // The press that starts the run. Enabled only where a press means
+    // something, and saying which of the three waits this is — see
+    // `startButton` and `readyLine` in `join-words.ts`.
+    if (startEl) {
+      const { label, enabled } = startButton(last);
+      startEl.textContent = label;
+      startEl.disabled = !enabled;
+    }
     // In a room the way in is over: the code box and CREATE would only offer to
     // throw the room away, which is what LEAVE ROOM is for and says so.
     sheet?.classList.toggle("in-room", last.state !== "solo");
@@ -99,6 +98,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   document.getElementById("joinClose")?.addEventListener("click", () => {
     open(false);
     b.back();
+  });
+
+  document.getElementById("joinStart")?.addEventListener("click", () => {
+    b.ready();
   });
 
   document.getElementById("joinCreate")?.addEventListener("click", () => {

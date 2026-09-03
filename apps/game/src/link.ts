@@ -1,45 +1,12 @@
 import type { LinkState, LinkStatus, PlayerId, ServerMessage } from "@neon-spore/net";
-import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
 import { createRoomClock } from "./link-clock.js";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
 import { report } from "./link-report.js";
 import { createRun, type Run } from "./link-run.js";
-import { openRoomSocket, type RoomSocket, type RoomSocketHandlers } from "./link-socket.js";
-import type { CommandSource } from "./relay.js";
+import { openRoomSocket, type RoomSocket } from "./link-socket.js";
+import type { Link, LinkOptions } from "./link-types.js";
 
-export interface LinkOptions {
-  cfg: SimConfig;
-  world: World;
-  buffer: CommandSource;
-  /** Beat zero. The run starts over here, on both devices, at the same moment. */
-  onStart: (player: PlayerId) => void;
-  onStatus: (status: LinkStatus) => void;
-  /**
-   * The clock this link measures itself against. `performance.now()` by
-   * default — monotonic, unlike `Date.now()`, which an NTP step or a phone's
-   * owner nudging the time can move mid-countdown, taking beat zero with it on
-   * that device alone. `ClockSync`'s offset is against whichever clock this is,
-   * so `toLocal` stays comparable as long as both sides of a comparison use it.
-   */
-  now?: () => number;
-  /** How the room is reached. The real socket, except where a test hands over its own. */
-  openSocket?: (room: string, handlers: RoomSocketHandlers) => RoomSocket;
-}
-
-export interface Link {
-  /** Join a room. Leaves any room already held. */
-  join(room: string): void;
-  leave(): void;
-  /** Whether the simulation may advance one tick. Always true when playing solo. */
-  mayTick(): boolean;
-  /** The commands for the current tick. Consumes the local input buffer. */
-  drain(): TimedCommand[];
-  /** Called once per tick, after `step`. Exchanges fingerprints on the agreed ticks. */
-  checkpoint(): void;
-  /** Called once per frame, whether or not a tick ran. */
-  frame(dtMs: number): void;
-  status(): LinkStatus;
-}
+export type { Link, LinkOptions } from "./link-types.js";
 
 /**
  * Everything the game needs to be two devices instead of one, and nothing the
@@ -73,6 +40,8 @@ export function createLink(o: LinkOptions): Link {
    */
   let startedAt = 0;
   let peers = 0;
+  /** The seats the room says have pressed START. Cleared with the room. */
+  let readySeats: PlayerId[] = [];
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -82,7 +51,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, peers, clock, run, socket, startMs });
+    report({ state, room, player, peers, readySeats, clock, run, socket, startMs });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -101,6 +70,7 @@ export function createLink(o: LinkOptions): Link {
     startMs = 0;
     startedAt = 0;
     peers = 0;
+    readySeats = [];
     player = 0;
     room = "";
     clock.reset();
@@ -145,7 +115,13 @@ export function createLink(o: LinkOptions): Link {
         // side. Carrying on would leave the two devices counting from different
         // ticks: not lag, but two games with one fingerprint check between them.
         if (run.started && startMs !== startedAt) run.end();
+        // A stamp is a new run, and the presses that bought it are spent.
+        if (startMs !== 0) readySeats = [];
         settle(peers >= 2 ? (clock.ready ? "countdown" : "syncing") : "waiting");
+        return;
+      case "ready":
+        readySeats = message.players;
+        o.onStatus(status());
         return;
       case "peers":
         peers = message.peers;
@@ -188,6 +164,10 @@ export function createLink(o: LinkOptions): Link {
       settle("waiting");
     } else if (!clock.ready) {
       settle("syncing");
+    } else if (startMs === 0) {
+      // Both here, clocks agreed, waiting on the press — for as long as the
+      // two people want it to.
+      settle("ready");
     } else if (!clock.reached(startMs)) {
       settle("countdown");
     } else {
@@ -224,5 +204,8 @@ export function createLink(o: LinkOptions): Link {
     if (run.checkpoint()) settle("desync");
   };
 
-  return { join, leave, mayTick, drain: run.drain, checkpoint, frame, status };
+  /** A press, not a start: the room decides what two of them are worth. */
+  const ready = (): void => socket?.send({ t: "ready" });
+
+  return { join, leave, ready, mayTick, drain: run.drain, checkpoint, frame, status };
 }

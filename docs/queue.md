@@ -107,32 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## The room starts on a shared press, not a three-second timer
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-room-starts-on-a-shared-press-not-a-three-se
-- **Files:** `packages/net/src/protocol.ts`, `packages/net/src/status.ts`, `packages/net/src/lockstep.ts`, `apps/server/src/room.ts`, `apps/game/src/link.ts`, `apps/game/src/link-run.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`
-
-Read the `net-change` skill first — this crosses the wire and every rule in it
-applies. Today the second phone landing makes the room stamp beat zero
-`COUNTDOWN_MS` (3000 ms) ahead and both devices start on that timer
-(`room.ts` `greet`). Replace the timer with a shared press: both seats reach a
-new `ready` state, and beat zero is stamped only once **both** have sent a
-`ready` client message. This is what makes a testing session workable — nobody
-is dropped onto a field before the other person has looked up.
-
-The shape: add a `ready` client message and a `LinkState` of `"ready"` (both
-here, waiting on the press) where `countdown` sat. The room holds the two ready
-flags and stamps `startMs = Date.now() + shortLeadMs` (a small lead, ~800 ms,
-for the two clocks to land together) when the second arrives. The menu/room
-screen grows a START button, enabled once `peers === 2` and the clocks agree,
-that sends `ready`; its label reports "waiting for the other phone" until the
-peer's ready arrives. A seat that leaves clears its ready. Decode without
-trusting (`ready` carries no payload, so it is only a tag). Prove it with
-`bun run relay:check` against a running wrangler — say **unverified** in the
-report if no wrangler was available, and name the check. The `solo-is-quiet`
-test must stay green: a ready press only exists in a room.
-
 ## A nickname, asked once and carried into the room
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

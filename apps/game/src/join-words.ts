@@ -32,6 +32,8 @@ export function explain(status: LinkStatus): string {
       return `Room ${status.room}. Say it out loud, or send the link — the other phone types it in.`;
     case "syncing":
       return "Both here. Agreeing on the beat.";
+    case "ready":
+      return readyLine(status);
     case "countdown":
       return `Seat ${status.player}. Starting in ${Math.ceil(status.countdownMs / 1000)}.`;
     case "live":
@@ -79,6 +81,8 @@ export function roomLine(status: LinkStatus): string {
       return `Room ${status.room}. Waiting for the other phone — say the code out loud.`;
     case "syncing":
       return `Room ${status.room}. Both here, agreeing on the beat.`;
+    case "ready":
+      return `Room ${status.room}. ${readyLine(status)}`;
     case "countdown":
       return `Room ${status.room}. Seat ${status.player}. Starting in ${Math.ceil(status.countdownMs / 1000)}.`;
     case "live":
@@ -92,4 +96,31 @@ export function roomLine(status: LinkStatus): string {
     case "desync":
       return "The two worlds parted. This is a bug, not a lag spike.";
   }
+}
+
+/**
+ * The wait on the press, from this device's side.
+ *
+ * Three different waits, and a player has to be able to tell which one they
+ * are in: nobody has pressed, I have pressed and the other phone has not, or
+ * the other phone has pressed and I have not. Saying "waiting" to all three
+ * leaves the person who has already pressed wondering whether their tap landed.
+ */
+export function readyLine(status: LinkStatus): string {
+  if (status.readyHere && !status.readyThere) return "Waiting for the other phone.";
+  if (status.readyThere && !status.readyHere) return "The other phone is ready. Press START.";
+  return "Both here. Press START when you are both looking up.";
+}
+
+/** What the START button says, and whether it can be pressed. */
+export function startButton(status: LinkStatus): { label: string; enabled: boolean } {
+  if (status.state === "ready" && !status.readyHere) return { label: "START", enabled: true };
+  if (status.state === "ready") return { label: "WAITING…", enabled: false };
+  if (status.state === "countdown") {
+    return { label: `STARTING ${Math.ceil(status.countdownMs / 1000)}`, enabled: false };
+  }
+  // Before the clocks agree there is nothing to press: a press that stamped a
+  // beat zero the two devices place differently is the whole failure the clock
+  // sync exists to prevent.
+  return { label: "START", enabled: false };
 }

@@ -76,6 +76,7 @@ export function bindShell(p: ShellParts): Link {
   joinScreen = bindJoinScreen({
     join: (room) => link.join(room),
     leave: () => link.leave(),
+    ready: () => link.ready(),
     back: () => menu?.open(),
   });
 

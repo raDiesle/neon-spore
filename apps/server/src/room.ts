@@ -7,6 +7,7 @@ import {
   type ServerMessage,
   VERSION_PARAM,
 } from "@neon-spore/net";
+import { pressStart, tellReady } from "./room-start.js";
 import {
   hangUp,
   lastSeen,
@@ -17,13 +18,14 @@ import {
   send,
   stamp,
 } from "./seat.js";
+import { emptiedRoom, StartGate } from "./start-gate.js";
 
 /**
- * Milliseconds between the second phone arriving and beat zero. Long enough
- * for two people to look up from their screens and say "go", which is the only
- * thing the countdown is for — the clocks have already agreed by then.
+ * Milliseconds between the **second press** and beat zero — only the short
+ * lead the two clocks need to land it together. The wait for the two people
+ * is the press itself; see `start-gate.ts` for why it is not a timer.
  */
-const COUNTDOWN_MS = 3000;
+const START_LEAD_MS = 800;
 
 interface RoomEnv {
   SEAT_SILENT_MS?: string;
@@ -43,6 +45,8 @@ export class Room {
   private readonly silentMs: number;
   private code = "";
   private startMs = 0;
+  /** The two presses between a full room and beat zero. See `start-gate.ts`. */
+  private readonly gate = new StartGate();
 
   constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
@@ -149,20 +153,33 @@ export class Room {
           hash: message.hash,
         });
         return;
+      case "ready":
+        void this.press(me.player);
+        return;
     }
   }
 
-  /** Tell a new arrival who it is, and stamp beat zero once there are two. */
+  /** A seat pressed START. `start-gate.ts` decides what that is worth. */
+  private async press(player: PlayerId): Promise<void> {
+    const startMs = await pressStart(
+      this.gate,
+      player,
+      {
+        code: this.code,
+        startMs: this.startMs,
+        seats: this.seats(),
+        persist: (at) => this.ctx.storage.put("startMs", at),
+      },
+      START_LEAD_MS,
+    );
+    if (startMs !== 0) this.startMs = startMs;
+  }
+
+  /** Tell a new arrival who it is. Nothing is stamped by an arrival any more:
+   * beat zero waits on two presses, which is the whole of `start-gate.ts`. */
   private async greet(socket: WebSocket, player: PlayerId): Promise<void> {
     const seats = this.seats();
     const peers = seats.length;
-    if (peers >= 2) {
-      // Beat zero is stamped when the second phone lands, and both are told the
-      // same number. Neither device picks its own: that is the whole reason the
-      // room exists rather than a peer-to-peer handshake.
-      this.startMs = Date.now() + COUNTDOWN_MS;
-      await this.ctx.storage.put("startMs", this.startMs);
-    }
     for (const seat of seats) {
       send(seat.socket, {
         t: "welcome",
@@ -172,11 +189,23 @@ export class Room {
         peers,
       });
     }
+    if (peers >= 2) tellReady(this.gate, seats);
   }
 
   private announce(gone: WebSocket): void {
     const left = this.seats().filter((s) => s.socket !== gone);
+    // A seat that leaves takes its press with it: the one still here must not
+    // be one thumb away from starting a game with nobody in the other chair.
+    const goneSeat = this.playerOf(gone);
+    if (goneSeat) this.gate.drop(goneSeat);
+    // A room below two seats has no run in it any more, so beat zero goes with
+    // the seat — see `emptiedRoom` in `start-gate.ts` for what happens without it.
+    if (emptiedRoom(left.length, this.startMs)) {
+      this.startMs = 0;
+      void this.ctx.storage.put("startMs", 0);
+    }
     for (const seat of left) send(seat.socket, { t: "peers", peers: left.length });
+    if (left.length > 0) tellReady(this.gate, left);
   }
 
   private relay(from: Seat, message: ServerMessage): void {

@@ -17,7 +17,17 @@ export type LinkState =
   | "waiting"
   /** Both present; the clocks have not agreed yet. */
   | "syncing"
-  /** Both present, clocks agreed, beat zero still ahead. */
+  /**
+   * Both here, clocks agreed, and the room is waiting on the press.
+   *
+   * Beat zero used to be stamped the moment the second phone landed, so the
+   * pair was dropped onto a field three seconds later whether or not either of
+   * them had looked up. Nothing is stamped now until both seats say they are
+   * ready, and this is that wait — which may last as long as the two people
+   * want it to.
+   */
+  | "ready"
+  /** Both pressed, clocks agreed, beat zero still ahead. */
   | "countdown"
   /** Playing. */
   | "live"
@@ -55,6 +65,10 @@ export interface LinkStatus {
   slack: number;
   /** Milliseconds until beat zero, 0 once it has passed. */
   countdownMs: number;
+  /** Whether this device has pressed START. */
+  readyHere: boolean;
+  /** Whether the other seat has. Always false while there is no other seat. */
+  readyThere: boolean;
   /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the
@@ -87,11 +101,38 @@ export interface LinkStatus {
   brokenPromises: number;
 }
 
+/**
+ * The link before there is one: no room, no seat, nothing measured.
+ *
+ * Written down once because it was written down twice — the room screen and a
+ * test each carried their own copy, and every field added to `LinkStatus` had
+ * to be added to both or the type check found it in the wrong place. It is the
+ * honest starting value for anything that has to hold a status before the link
+ * has said anything, which is every screen that draws one.
+ */
+export const SOLO_STATUS: LinkStatus = {
+  state: "solo",
+  room: "",
+  player: 0,
+  peers: 0,
+  rttMs: -1,
+  slack: 0,
+  countdownMs: 0,
+  readyHere: false,
+  readyThere: false,
+  delayMs: 0,
+  stalledMs: 0,
+  awayMs: 0,
+  desyncTick: null,
+  brokenPromises: 0,
+};
+
 const LABELS: Record<LinkState, string> = {
   solo: "SOLO",
   connecting: "LINK…",
   waiting: "WAIT",
   syncing: "SYNC",
+  ready: "PRESS",
   countdown: "READY",
   live: "LINK",
   stalled: "HOLD",

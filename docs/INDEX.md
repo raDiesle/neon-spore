@@ -477,6 +477,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-entries.ts` | The rows on the menu's front page, in the order they are read |
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
+| `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 
 ### apps/server
 
@@ -486,6 +487,8 @@ place — the generator keeps whatever is there.
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
 | `apps/server/src/seat.ts` | A seat, and everything one does to a socket that holds one |
 | `apps/server/dev.ts` | `wrangler dev`, on a port that belongs to this tree |
+| `apps/server/src/start-gate.ts` | The two presses that stand between a full room and beat zero |
+| `apps/server/src/room-start.ts` | The gate's two sockets-facing halves: telling both phones who has pressed |
 
 ### tools
 

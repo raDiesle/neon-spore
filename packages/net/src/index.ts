@@ -20,4 +20,10 @@ export {
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "./room-code.js";
-export { type LinkState, type LinkStatus, linkIsFault, linkLabel } from "./status.js";
+export {
+  type LinkState,
+  type LinkStatus,
+  linkIsFault,
+  linkLabel,
+  SOLO_STATUS,
+} from "./status.js";

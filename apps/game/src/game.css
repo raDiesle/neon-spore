@@ -252,6 +252,21 @@ canvas {
   border-color: #3b3163;
   color: #9c8fd6;
 }
+/* The press that starts the run. It is the one thing on this screen a player
+   is waiting to do, so it reads as the action rather than as another option —
+   and it goes flat and quiet the moment it has been pressed, because the wait
+   after that is the other phone's. */
+#joinScreen .acts button.start {
+  border-color: #22d6e7;
+  color: #22d6e7;
+  background: rgba(34, 214, 231, 0.08);
+}
+#joinScreen .acts button.start:disabled {
+  border-color: #2b2450;
+  background: none;
+  color: #4b4177;
+  cursor: default;
+}
 #joinScreen .acts button.leave {
   border-color: #ff5470;
   color: #ff5470;

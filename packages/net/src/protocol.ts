@@ -43,7 +43,20 @@ export type ClientMessage =
   /** `c1` is the sender's clock when it left. It comes back untouched in `pong`. */
   | { t: "ping"; c1: number }
   /** The sender's world fingerprint at `tick`, for desync detection. */
-  | { t: "hash"; tick: number; hash: number };
+  | { t: "hash"; tick: number; hash: number }
+  /**
+   * "I have looked up from my screen and I am ready."
+   *
+   * Beat zero used to be stamped the moment the second phone landed, three
+   * seconds ahead, and the pair was dropped onto a field whether or not either
+   * of them had noticed. This is what replaced that: the room stamps nothing
+   * until **both** seats have pressed.
+   *
+   * It carries no payload at all, which is the point — it is a tag, and the
+   * room knows which seat sent it from the socket it arrived on. A press that
+   * named its own seat would be a press one phone could send for the other.
+   */
+  | { t: "ready" };
 
 export type ServerMessage =
   | {
@@ -60,6 +73,14 @@ export type ServerMessage =
     }
   /** Someone joined or left. Two is a game; one is a wait. */
   | { t: "peers"; peers: number }
+  /**
+   * Which seats have pressed START, whenever that changes.
+   *
+   * Both devices are told the whole set rather than "the other one pressed",
+   * so a phone that reconnects is told the truth by the next one of these
+   * instead of having to have heard every earlier edge.
+   */
+  | { t: "ready"; players: PlayerId[] }
   | { t: "input"; player: PlayerId; tick: number; commands: Command[] }
   | { t: "confirm"; player: PlayerId; tick: number }
   /** `s1` when the ping arrived, `s2` when the pong left — the four-timestamp measure. */
@@ -107,6 +128,11 @@ export function decodeClient(raw: string): ClientMessage | null {
       return typeof m.c1 === "number" ? { t: "ping", c1: m.c1 } : null;
     case "hash":
       return isTick(m.tick) && isUint32(m.hash) ? { t: "hash", tick: m.tick, hash: m.hash } : null;
+    // No payload to check: the seat is the socket it came in on, and a press
+    // that named its own seat would be a press one phone could send for the
+    // other. There is nothing here to distrust.
+    case "ready":
+      return { t: "ready" };
     default:
       return null;
   }
@@ -128,6 +154,14 @@ export function decodeServer(raw: string): ServerMessage | null {
         : null;
     case "peers":
       return typeof m.peers === "number" ? { t: "peers", peers: m.peers } : null;
+    case "ready": {
+      // A list of seats, and nothing else may be in it: an unknown number here
+      // would become a seat the screen believes in and the room does not.
+      const players = Array.isArray(m.players) ? m.players.filter(isPlayer) : null;
+      return players && players.length === (m.players as unknown[]).length
+        ? { t: "ready", players }
+        : null;
+    }
     case "input": {
       const commands = isPlayer(m.player) && isTick(m.tick) ? decodeCommands(m.commands) : null;
       return commands ? { t: "input", player: m.player, tick: m.tick, commands } : null;
