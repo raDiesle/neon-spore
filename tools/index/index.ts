@@ -26,12 +26,27 @@ export interface Row {
   line: string;
 }
 
+/**
+ * Where source lives, by root. A package or an app keeps it under `src/`; a
+ * tool is a script and keeps it beside its own directory, so `tools/land/run.ts`
+ * and `tools/build-stamp.ts` count and `tools/director/src/**` does too. An
+ * app's own build and preview scripts sit next to its `src/` rather than in it.
+ */
+const SCOPE_PATTERNS = [
+  /^(?:packages|apps)\/[^/]+\/src\//,
+  /^apps\/[^/]+\/[^/]+\.ts$/,
+  /^tools\/[^/]+\.ts$/,
+  /^tools\/[^/]+\/[^/]+\.ts$/,
+  /^tools\/[^/]+\/src\//,
+];
+
 /** True for a file the Code table must carry a row for. */
 export function isInScope(relPath: string): boolean {
   if (!relPath.endsWith(".ts") || relPath.endsWith(".test.ts")) return false;
   if (relPath.split("/").pop() === "index.ts") return false;
   if (relPath.includes("/node_modules/") || relPath.includes("/dist/")) return false;
-  return /^(?:packages|apps)\/[^/]+\/src\//.test(relPath);
+  if (/(^|\/)test\//.test(relPath)) return false;
+  return SCOPE_PATTERNS.some((p) => p.test(relPath));
 }
 
 export function filterScopeFiles(allPaths: string[]): string[] {
@@ -82,12 +97,28 @@ export function deriveHeaderSentence(source: string): string {
   return "(no header comment — add one)";
 }
 
+const LIMIT = 110;
+
 function truncateSentence(raw: string): string {
   const stopAt = raw.indexOf(". ");
   let cut = stopAt === -1 ? raw : raw.slice(0, stopAt);
-  if (cut.length > 110) {
-    const lastSpace = cut.slice(0, 110).lastIndexOf(" ");
-    cut = cut.slice(0, lastSpace === -1 ? 110 : lastSpace);
+  let elided = false;
+  if (cut.length > LIMIT) {
+    // A clause boundary reads as a finished thought; a bare word boundary does
+    // not, and says so with an ellipsis rather than stopping mid-sentence.
+    const head = cut.slice(0, LIMIT);
+    const clause = Math.max(
+      head.lastIndexOf(" — "),
+      head.lastIndexOf(", "),
+      head.lastIndexOf(": "),
+    );
+    if (clause > LIMIT / 3) {
+      cut = head.slice(0, clause);
+    } else {
+      const lastSpace = head.lastIndexOf(" ");
+      cut = head.slice(0, lastSpace === -1 ? LIMIT - 1 : lastSpace);
+      elided = true;
+    }
   }
   cut = cut.trim();
   if (cut.endsWith(".")) cut = cut.slice(0, -1);
@@ -95,6 +126,7 @@ function truncateSentence(raw: string): string {
   if ((cut.match(/\*\*/g)?.length ?? 0) % 2 === 1) {
     cut = cut.replace(/\*\*[^*]*$/, "").trimEnd();
   }
+  if (elided) cut = `${cut.replace(/[,;:—-]+$/, "").trimEnd()}…`;
   return cut;
 }
 

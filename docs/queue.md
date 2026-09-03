@@ -272,23 +272,6 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Extend bun run index to tools/ and the root-level app scripts
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/index/index.ts`, `tools/index/run.ts`, `tools/index/test/`, `docs/INDEX.md`
-
-`GROUPS` lists `tools` but `isInScope` accepts only `packages/*/src` and
-`apps/*/src`, and `run.ts` walks only those two. Every existing row's path exists,
-but 176 of the director's 207 source files, all of `tools/dev/`,
-`tools/land/{run,sweep,git}.ts`, `tools/build-stamp.ts`, `apps/game/build.ts`,
-`apps/game/preview.ts` and `apps/server/dev.ts` have no row and the index test
-cannot fail on them. There is no `--check` flag; `run.ts` always writes.
-
-Extend `isInScope` to `tools/<name>/src/**`, `tools/<name>/*.ts` and
-`apps/*/*.ts`, walk `tools` in `run.ts`, let the generator append rows from each
-file's header sentence, and add a `--check` mode that exits non-zero on drift so
-the test "generating changes nothing" guards the whole tree.
-
 ## Cut shapes-motion.test.ts from six seconds and eleven million expects
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -649,27 +632,6 @@ desk-keys footer — the menu's CONTROLS page already lists the keys, so the
 footer is a second copy that will drift. Keep the sliders, the god-mode toggle
 and the BACK button exactly as they are. Copy-only, provable with `bun run
 check`.
-
-## Nothing notices a `docs/INDEX.md` row that stopped describing its file
-
-- **Found:** 2026-09-03, claude/task-queue-work-339593
-- **Files:** `tools/index/index.ts`, `tools/index/run.ts`, `tools/index/test/`, `docs/INDEX.md`
-
-`generateIndex` derives a row's text from the file's header comment only when
-the path has no row yet — every existing row is passed through byte for byte,
-on purpose, because the text is hand-curated after the first run. The cost is
-that `bun run index` is green over a table that has gone wrong: five rows were
-fixed by hand this week (`world.ts` naming a `step` that lives in `step.ts`,
-`creatures.ts` pointing at a table that moved, `serialize.ts` writing into a
-barrel it never touches, `backlog-api.ts` reading ten files where nine are read,
-`themes.ts` at six themes where there are nine), and nothing in the repository
-would have failed if they had not been.
-
-Add a drift check rather than regenerating: a test that reads every row's file,
-takes `deriveHeaderSentence`, and fails when the row and the header disagree
-about a **backticked identifier or a number** — the two things that go stale —
-while leaving the hand-written prose alone. `packages/audio/test/catalogue.test.ts`
-does the same job for `docs/spec/audio.md` and is the pattern.
 
 ## The PreToolUse guard never sees a command run through the PowerShell tool
 

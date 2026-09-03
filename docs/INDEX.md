@@ -5,6 +5,10 @@ Keep this current — it is the cheapest file in the repo and it saves the most.
 The Code table below is completed by `bun run index`, which adds a row for
 any in-scope source file that does not have one yet; a hand-written row is
 never overwritten, so improve one by editing its text in place.
+`bun run index --check` writes nothing and fails when the table has drifted
+from the tree. A row's prose is yours, but the two things in it that go stale
+on their own are checked: a backticked name has to be a file or a word in the
+file, and a count has to agree with what the file's own header counts.
 
 ## Decisions and architecture
 
@@ -206,7 +210,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/wave-types.ts` | what a wave is made of |
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
-| `packages/content/src/waves/act-2.ts` | act two: the first five bosses, back to back, nothing else |
+| `packages/content/src/waves/act-2.ts` | act two: the first six bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
@@ -460,6 +464,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
+| `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
+| `apps/game/preview.ts` | Which checkout this one serves |
 
 ### apps/server
 
@@ -468,6 +474,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/index.ts` | the worker: `/room/:code` and `/net/health` |
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
 | `apps/server/src/seat.ts` | A seat, and everything one does to a socket that holds one |
+| `apps/server/dev.ts` | `wrangler dev`, on a port that belongs to this tree |
 
 ### tools
 
@@ -490,7 +497,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/sound-art.ts` | that subject drawn — a contour or a control glyph, never an invented icon |
 | `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
-| `tools/director/src/backlog.ts` | the six spec-derived groups, and where `queue`/`designs` are stitched in |
+| `tools/director/src/backlog.ts` | the six groups NOT BUILT YET is arranged into: five parsed out of the spec, and `designs` built in `design-docs.ts` |
 | `tools/director/src/backlog-api.ts` | `GET /api/backlog`: nine files read, parsed and joined into one response |
 | `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
@@ -518,5 +525,255 @@ place — the generator keeps whatever is there.
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |
 | `tools/delegate/mentions.ts` | the paths a spec names, handed over read-only |
 | `tools/delegate/ignored.ts` | what `.aiderignore` keeps out of the worker's reach |
+| `tools/build-stamp.ts` | The day the bundle in front of you was built |
+| `tools/delegate/timeout.ts` | Aider has no run-level limit of its own |
+| `tools/dev/supervise.ts` | `bun run dev` — a hot server, and a hand on its shoulder |
+| `tools/dev/tree-moves.ts` | When the working tree was rewritten under a running server, and by whom |
+| `tools/director/build.ts` | Builds the director the way `apps/game/preview.ts` builds the game: a static bundle |
+| `tools/director/server.ts` | The director's server |
+| `tools/director/shapes-page.ts` | Build the shape catalogue into one self-contained page |
+| `tools/director/shapes-still.ts` | Draw a skin without starting anything |
+| `tools/director/src/backlog-ideas.ts` | The "accepted in principle, not worked out" half of the backlog — split out of `backlog.ts` on line count |
+| `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
+| `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
+| `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
+| `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
+| `tools/director/src/brush-frame.ts` | The frame a brush's specimen is photographed through, and the places a crop can be centred on |
+| `tools/director/src/brush-groups.ts` | How the palette is divided into sections |
+| `tools/director/src/brush-poses.ts` | The moment each brush is photographed at |
+| `tools/director/src/brush-tooltip.ts` | How big the hover card's picture is |
+| `tools/director/src/brush-trim.ts` | Cutting a drawn body out of the black it was drawn on |
+| `tools/director/src/brush-wave.ts` | Which wave a brush is first seen in, and how to get there |
+| `tools/director/src/cell-panel.ts` | The panel under the map: what the selected cell holds, and what can be done to it |
+| `tools/director/src/column-resize.ts` | Every top-level column of `<main>` can be dragged wider or narrower by its right-hand edge |
+| `tools/director/src/column-width.ts` | A column's dragged width, in pixels |
+| `tools/director/src/columns.ts` | Every top-level column in the director's `<main>` can be put away as one unit |
+| `tools/director/src/concept-art.ts` | The picture beside a planned concept |
+| `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
+| `tools/director/src/demo-panel.ts` | DEMOS — one wave and one set of switches per mechanic, opened in one click |
+| `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md`, `docs/tower-defence.md` |
+| `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
+| `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
+| `tools/director/src/gallery-clips.ts` | "COLLECTED LOOKS" on the OTHER GRAPHICS tab: hand-painted frame sequences from outside this repo |
+| `tools/director/src/gallery-page.ts` | "COLLECTED LOOKS": external hand-painted frame sequences |
+| `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |
+| `tools/director/src/glows/bloom.ts` | Optical glare: bright pixels bleeding softly into what is around them |
+| `tools/director/src/glows/corona.ts` | A halo made of rays rather than of haze |
+| `tools/director/src/glows/emissive.ts` | The body as a light source rather than as a lit thing |
+| `tools/director/src/glows/halo.ts` | A soft luminous outline standing off the contour |
+| `tools/director/src/glows/pulse.ts` | Rings leaving the body, over and over, on the page's beat |
+| `tools/director/src/glows/sparks.ts` | A particle system: motes leaving the body on seeded paths |
+| `tools/director/src/glows/swarm.ts` | One soft cloud under the whole figure, rather than a halo per body |
+| `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
+| `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
+| `tools/director/src/grid-pods.ts` | The two things under the map that are about the wave rather than about one cell: the list of pods |
+| `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a wave's guide is made of |
+| `tools/director/src/guide-gallery.ts` | Every guide in the game, drawn in both roles side by side |
+| `tools/director/src/guide-order.ts` | How one wave opens, drawn in order: the introduction, then its guide |
+| `tools/director/src/guide-page.ts` | A GUIDES tab, added to the NOT BUILT YET sheet |
+| `tools/director/src/guide-sheet.ts` | GUIDES: every wave that carries a guide, in the order a pair plays them |
+| `tools/director/src/guide-waves.ts` | Which waves carry a guide, and a world posed at the moment one opens |
+| `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |
+| `tools/director/src/hits/flash.ts` | One bright frame, then gone |
+| `tools/director/src/hits/ring.ts` | A circle leaving the body and fading — the shockwave |
+| `tools/director/src/hits/shake.ts` | The figure jitters on impact and settles |
+| `tools/director/src/hits/shards.ts` | A burst of short strokes thrown outward and falling away |
+| `tools/director/src/hits/squash.ts` | The body flattens on impact and springs back |
+| `tools/director/src/hits/telegraph.ts` | A glow building over the beats before the hit, snapping off the instant it lands |
+| `tools/director/src/hits/types.ts` | What a hit is, and what it is told |
+| `tools/director/src/holders-panel.ts` | The BULB QUEEN VARIANTS tab |
+| `tools/director/src/holders/collar.ts` | THE COLLAR — the reference picture's own answer, turned on its side |
+| `tools/director/src/holders/cradle.ts` | THE CRADLE — she is holding it with herself |
+| `tools/director/src/holders/crane.ts` | THE CRANE — the owner's own suggestion: an arm holds the rock out and lets go of it |
+| `tools/director/src/holders/hairline.ts` | HAIRLINE — her shell keeps every petal she has lost as a crack across it |
+| `tools/director/src/holders/queen-cycle.ts` | The one clock the three whole-body BULB QUEEN VARIANTS run on |
+| `tools/director/src/holders/queen-panel.ts` | Mounting for the three whole-body BULB QUEEN VARIANTS |
+| `tools/director/src/holders/queen-shared.ts` | What every whole-body BULB QUEEN VARIANT shares |
+| `tools/director/src/holders/types.ts` | What a holder draft is, and what it is told |
+| `tools/director/src/holders/underglow.ts` | UNDERGLOW — the shell stays whole; what changes is the light through it |
+| `tools/director/src/holders/withdrawal.ts` | WITHDRAWAL — she hunches, rather than cracking or glowing, as she is hurt |
+| `tools/director/src/keep-alive.ts` | The page telling its server that somebody still has it open |
+| `tools/director/src/key-help.ts` | The keybindings, shown rather than remembered — "for the time being," in the owner's own words |
+| `tools/director/src/keys.ts` | Both roles on one keyboard, so a wave can be tried the moment it is placed |
+| `tools/director/src/main.ts` | The director: one screen where a wave is placed, played and judged — not |
+| `tools/director/src/markdown.ts` | The little of markdown the spec actually writes, turned into DOM: headings, paragraphs, bullets |
+| `tools/director/src/mobile-menu.ts` | On a phone the director opens on a menu, not on a wave |
+| `tools/director/src/music-page.ts` | MUSIC: six pieces nobody has decided to use |
+| `tools/director/src/music-plot.ts` | A theme drawn: the whole piece on one axis, time across, frequency up |
+| `tools/director/src/notes-api.ts` | `GET /api/notes` — the release notes, and the two facts VERSUS votes against |
+| `tools/director/src/paint.ts` | The edits: what a click does to a wave, and what takes it back |
+| `tools/director/src/pair-panel.ts` | The one switch that exists because the game has two people in front of it |
+| `tools/director/src/pinball-editor.ts` | PINBALL's boards, painted on the grid the round is played on |
+| `tools/director/src/pose-art.ts` | A posed world, drawn — one frame of the shipping renderer, cut down to the part of the phone the pose is about |
+| `tools/director/src/pose-kit.ts` | The apparatus behind a posed frame: a world put into one named state |
+| `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
+| `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
+| `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
+| `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
+| `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
+| `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |
+| `tools/director/src/raster-cards.ts` | The card builders for "THE BURST, THREE WAYS" and the caps table for "WHAT THIS BROWSER CAN DO" |
+| `tools/director/src/raster-demos.ts` | The three canvas demos on the RASTER tab — the atlas driven by hand, outside a `World` |
+| `tools/director/src/raster-field.ts` | A real wave, playable, with the baked burst on a switch |
+| `tools/director/src/raster-page.ts` | The OTHER GRAPHICS tab: every look offered beside what the field already draws, never in place of it |
+| `tools/director/src/raster-play.ts` | "PLAY IT" — the section that puts the burst where it would actually live |
+| `tools/director/src/scene-art.ts` | The unbuilt half of a scene, drawn over a real frame of the game |
+| `tools/director/src/scene-box.ts` | `⌖ ON THE FIELD`, beside a backlog entry: the idea drawn where it happens |
+| `tools/director/src/scene-panel.ts` | A scene, assembled: a real frame of the game with an unbuilt idea standing in it |
+| `tools/director/src/scene-world.ts` | The *built* half of a scene: a real world with the game's own creatures run to where the scene wants them… |
+| `tools/director/src/selection.ts` | Which cell of the map is under the cursor's attention — one beat and one column, or nothing |
+| `tools/director/src/serialize-pinball.ts` | PINBALL's boards, written back out as the pictures they were drawn as |
+| `tools/director/src/session.ts` | Where you are in the director, kept in the URL — and nothing else is |
+| `tools/director/src/shape-figure.ts` | One contour, fitted into a frame and animated |
+| `tools/director/src/shape-fit.ts` | How big a frame a shape needs, and which way round the shape is |
+| `tools/director/src/shape-loop.ts` | The page's one clock, and every figure hanging off it |
+| `tools/director/src/shapes-all.ts` | The transpose of the SHAPES tab: one body, drawn once per option, on one screen |
+| `tools/director/src/shapes-axes.ts` | How the body is drawn: a skin, a motion and a light, each picked once for the whole page |
+| `tools/director/src/shapes-build-state.ts` | BUILD's own state: the base, the attachments, and the recipe text they add up to |
+| `tools/director/src/shapes-build.ts` | BUILD — a live composer over `grown()`, for trying a recipe before it is one |
+| `tools/director/src/shapes-controls.ts` | The control rows on SHAPES: which view, and — on COMPOSE only — a skin, a motion, a light and a glow stack |
+| `tools/director/src/shapes-effect-axes.ts` | The three effect axes on COMPOSE: GLOW, HIT and TAIL |
+| `tools/director/src/shapes-grid.ts` | One grid, written once and walked per axis |
+| `tools/director/src/shapes-page-app.ts` | The shape catalogue as a page that can be handed to somebody |
+| `tools/director/src/shapes-pair.ts` | What every card on the SHAPES tab is wearing: one skin, one light, one forced motion |
+| `tools/director/src/shapes-picker.ts` | The body picker: one button per catalogue name, and the button is the body |
+| `tools/director/src/shapes-trigger.ts` | The page's hit clock: when the next one lands, and where in it we are |
+| `tools/director/src/shapes-widgets.ts` | The two things every control row is built out of: a button, and a named group around a row of them |
+| `tools/director/src/ship-fields.ts` | Every `SimConfig` field, sorted into the card that explains it to a person standing at the ship |
+| `tools/director/src/ship-groups.ts` | The cards the SHIP tab is divided into: their names, the order they are read in |
+| `tools/director/src/shipped.ts` | The two things the *build* decides about the director, rather than the session running it |
+| `tools/director/src/silhouette.ts` | Case-insensitive: callers pass a creature's spec name, not a SUBJECTS key |
+| `tools/director/src/skin-still.ts` | One card, drawn at one moment, as a string |
+| `tools/director/src/skins/carapace.ts` | CARAPACE — few, large, geometric plates separated by dark seams |
+| `tools/director/src/skins/chamber-packing.ts` | How CHAMBER is packed, and the elements it packs with |
+| `tools/director/src/skins/chamber.ts` | A body packed with compartments, each holding its own level, and a scatter of swellings over them |
+| `tools/director/src/skins/cilia.ts` | CILIA — a hundred short strands at the rim, and a sparser handful over the interior |
+| `tools/director/src/skins/contour-ruler.ts` | Where a point is, a given fraction of the way around a contour |
+| `tools/director/src/skins/core.ts` | MEMBRANE with a value gradient under it, falling outward to the card's own dark rather than to the rim colour |
+| `tools/director/src/skins/crater.ts` | TURN's machinery over a meteorite: a pitted landscape, rims catching the key light and floors in shadow |
+| `tools/director/src/skins/light.ts` | The key light: one direction, four constructs, one line that hangs them on a body |
+| `tools/director/src/skins/line.ts` | The outline, and nothing else |
+| `tools/director/src/skins/membrane.ts` | A dark fill and the game's own layered aura |
+| `tools/director/src/skins/mounted.ts` | The projection every turning skin shares, in one place |
+| `tools/director/src/skins/nacre-film.ts` | The film's colour arithmetic — where iridescence stops being a material and starts being a rainbow |
+| `tools/director/src/skins/nacre.ts` | NACRE — mother-of-pearl |
+| `tools/director/src/skins/parts.ts` | The passes more than one skin draws |
+| `tools/director/src/skins/pore.ts` | PORE — a frog's skin: bumps scattered without a lattice, dense in places and sparse in others |
+| `tools/director/src/skins/scale.ts` | SCALE — many small, soft plates, laid in offset rows around the body's own centre and shrinking toward the rim |
+| `tools/director/src/skins/seed.ts` | Determinism, for skins |
+| `tools/director/src/skins/sucker.ts` | SUCKER — an octopus arm: concentric rings, largest along a spine and falling off to either side |
+| `tools/director/src/skins/turn.ts` | The first skin that turned |
+| `tools/director/src/skins/types.ts` | What a skin is, and what it is told |
+| `tools/director/src/skins/vein-pulse.ts` | VEIN again, with the strands breaking the surface and a pulse running out along them |
+| `tools/director/src/skins/vein.ts` | CORE with filaments under the skin, clipped to the body |
+| `tools/director/src/skins/wind.ts` | WIND — the same turning body, but the phase varies along it |
+| `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
+| `tools/director/src/spec.ts` | The SPEC tab: every file in `docs/spec/` verbatim, one expander each |
+| `tools/director/src/stage-afterrun.ts` | The after-run screen honours its own instruction |
+| `tools/director/src/stage-gauge.ts` | A ROUND THAT IS NOT THE FIELD ANSWERS A MOUSE |
+| `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
+| `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
+| `tools/director/src/stage-pinball.ts` | PINBALL'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
+| `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
+| `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
+| `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
+| `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
+| `tools/director/src/states-page.ts` | GAME MECHANICS: the topbar's four reference doors — STATES, CONTROL SETS, SHIP and DEMOS |
+| `tools/director/src/subcols.ts` | A finer-grained collapse than `columns.ts`'s whole-section one |
+| `tools/director/src/svg-dom.ts` | The smallest document a skin can be built into, outside a browser |
+| `tools/director/src/tabs.ts` | Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id |
+| `tools/director/src/tails/embers.ts` | Sparks shed off the body and falling away behind it |
+| `tools/director/src/tails/haloes.ts` | A short string of fading halos above the body |
+| `tools/director/src/tails/ribbon.ts` | One continuous stroke tapering away above the body — the classic trail renderer |
+| `tools/director/src/tails/smoke.ts` | A soft plume widening away above the body |
+| `tools/director/src/tails/streak.ts` | A hard bright line straight up from the body — the bullet's tail, put on a falling body |
+| `tools/director/src/tails/types.ts` | What a body leaves behind it as it falls |
+| `tools/director/src/tails/wedge.ts` | A tapering gradient wedge running away above the body — **what a torch wears in the game today** |
+| `tools/director/src/tuning.ts` | The numbers a wave is judged against, movable while it plays |
+| `tools/director/src/versus-controls.ts` | The generic widgets a live ALTERNATIVES screen runs on — a toggle button and a rate picker |
+| `tools/director/src/versus-hash.ts` | FNV-1a over every byte — not a cryptographic claim, only "did two renders match" |
+| `tools/director/src/versus-page.ts` | The ALTERNATIVES section: a contact sheet, not an instrument |
+| `tools/director/src/versus-pair.ts` | One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet |
+| `tools/director/src/versus-pose.ts` | Which pose puts a slot's own animation on screen |
+| `tools/director/src/versus-seat.ts` | Whether a candidate needs the other seat drawn beside it — decided once, honestly, rather than guessed |
+| `tools/director/src/versus-vote.ts` | The vote box: the reason field, the two buttons and the swap-guard banner |
+| `tools/director/src/wave-opening.ts` | What the wave being edited puts in front of a pair before it starts |
+| `tools/director/src/waves-commit.ts` | A save in the wave editor is a commit |
+| `tools/director/src/whole-doc.ts` | The tabs that render one document whole — BORROWED (`docs/borrowed.md`) |
+| `tools/frames/capture.ts` | One picture, or a short strip of them, off the running game |
+| `tools/frames/chrome.ts` | Which browser `tools/frames` opens, and where it lives on the two machines this repository runs on |
+| `tools/frames/hold.ts` | `--hold` on the command line: the one thing this tool could not photograph |
+| `tools/frames/opening.ts` | Getting a wave's own opening out of the way, so a capture can start on the field |
+| `tools/frames/run.ts` | `bun run frames <sha> --wave N` — a before-and-after picture for a landing |
+| `tools/frames/serve.ts` | Getting one *revision* of this game running, so a frame can be taken off it: a scratch worktree, an install |
+| `tools/frames/shot.ts` | `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500] [--hold Control]`… |
+| `tools/frames/spec.ts` | What a capture is asked for, and what it finds in the page when it gets there |
+| `tools/frames/svg.ts` | `bun run png <in.svg> <out.png>` — turn a sheet into something a phone shows |
+| `tools/hooks/guard.ts` | The PreToolUse guard: a handful of Bash commands that are wrong in this repo specifically |
+| `tools/hooks/scope.ts` | The Stop hook typechecks unconditionally and then decides which test directories can possibly have moved |
+| `tools/hooks/shell-words.ts` | A command line, split the way the rules in `guard.ts` need to read it: into commands |
+| `tools/icons/run.ts` | `bun run icons` — the home-screen icons, from `apps/game/icon.svg` |
+| `tools/index/run.ts` | `bun run index` — completes `docs/INDEX.md`'s "## Code" table: every in-scope source file gets a row |
+| `tools/land/git.ts` | The two ways `land` talks to git — one that swallows failure into `""` for questions where "unknown" and… |
+| `tools/land/idle.ts` | How long a merged worktree is left standing, and how long it has been since anybody worked in one |
+| `tools/land/orphans.ts` | The litter left behind when a removal was trusted instead of verified |
+| `tools/land/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
+| `tools/land/run.ts` | `bun run land` — put this lane on the trunk, linearly, and leave nothing behind |
+| `tools/land/sweep.ts` | Everything that happens after the fast-forward and does not touch a ref: the release note |
+| `tools/orphans/run.ts` | `bun run orphans` — what is built and reached by nothing |
+| `tools/queue/claim.ts` | Who is already working on a queue item |
+| `tools/queue/queue.ts` | The technical queue: what a session found and did not do, written in a shape a fresh session can pick up cold |
+| `tools/queue/run.ts` | `bun run queue` — what is waiting, and what somebody is already on |
+| `tools/raster/pack.ts` | `bun run raster:pack <dir> [--size N] [--quality Q] [--stills N]` |
+| `tools/raster/run.ts` | `bun run raster` — regenerates every baked asset in `assets/raster/` |
+| `tools/raster/src/apng.ts` | An APNG, assembled from still PNGs a browser already encoded |
+| `tools/raster/src/burst-art.ts` | One frame of the burst, drawn into a 2D context |
+| `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
+| `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
+| `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
+| `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
+| `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |
+| `tools/shape-sheet/src/contour.ts` | An open contour must not be filled — SVG would close it across the ends |
+| `tools/shape-sheet/src/drawn-size.ts` | The 20–26 px floor `docs/spec/graphics.md` sets for a body to stay nameable |
+| `tools/shape-sheet/src/free-contours.ts` | The spare contours: a picture with no behaviour behind it |
+| `tools/shape-sheet/src/grown-bodies.ts` | Fourteen bodies that are nothing but a base blob and a handful of parts |
+| `tools/shape-sheet/src/hull-subjects.ts` | The hull, and the window onto its own contour |
+| `tools/shape-sheet/src/iso.ts` | The outline of a field, as however many closed loops it actually has |
+| `tools/shape-sheet/src/jelly-bodies.ts` | Eight bodies that swim |
+| `tools/shape-sheet/src/main.ts` | The SVG test sheet |
+| `tools/shape-sheet/src/metrics.ts` | Numbers about a silhouette, so that judging one does not always cost a look |
+| `tools/shape-sheet/src/motion.ts` | The motion sheet: the shape sheet's answer to animation |
+| `tools/shape-sheet/src/motions/borrowed.ts` | The spare motions read off other games — `docs/tower-defence.md` |
+| `tools/shape-sheet/src/motions/depth.ts` | The motions that claim a third dimension, out of four numbers that have none |
+| `tools/shape-sheet/src/motions/plane.ts` | The spare motions that happen in the picture plane |
+| `tools/shape-sheet/src/motions/pose.ts` | A pose, positionally |
+| `tools/shape-sheet/src/motions/pulse.ts` | The four that pulse, as opposed to the one that breathes |
+| `tools/shape-sheet/src/nameability.ts` | The three axes a silhouette is told apart on, and the rule that says when two kinds are the same word |
+| `tools/shape-sheet/src/parts-sheet.ts` | The parts sheet: every secondary form drawn on its own, grouped, labelled |
+| `tools/shape-sheet/src/parts/alien.ts` | ALIEN — the parts that are not biology |
+| `tools/shape-sheet/src/parts/base.ts` | Where the base body is, and where its rim is in any direction |
+| `tools/shape-sheet/src/parts/drift.ts` | DRIFT — what hangs under a swimming bell |
+| `tools/shape-sheet/src/parts/geometry.ts` | The four constructions every part is built out of |
+| `tools/shape-sheet/src/parts/grown.ts` | A body assembled out of a base contour and a list of parts |
+| `tools/shape-sheet/src/parts/growth.ts` | GROWTH — the parts that are *made of* the body rather than reaching out of it |
+| `tools/shape-sheet/src/parts/limbs.ts` | REACH — the parts that leave the body |
+| `tools/shape-sheet/src/parts/registry.ts` | Every secondary form, in one list |
+| `tools/shape-sheet/src/parts/rim.ts` | RIM — the parts that only bend the outline |
+| `tools/shape-sheet/src/parts/swim.ts` | A swimming bell's contraction, as a function of time |
+| `tools/shape-sheet/src/parts/types.ts` | A **part** is a secondary form attached to somebody else's rim: a tentacle, a spore, a crystal, a fin |
+| `tools/shape-sheet/src/recipe.ts` | A body written as a base and a list of parts |
+| `tools/shape-sheet/src/report.ts` | The shape sheet in numbers |
+| `tools/shape-sheet/src/retired.ts` | Shapes that were in the catalogue under their own heading and are not any more |
+| `tools/shape-sheet/src/ring.ts` | The ring: the one contour in this game with a hole through it |
+| `tools/shape-sheet/src/scene.ts` | A scene: an unbuilt idea's *mechanic*, drawn on the field it would happen on |
+| `tools/shape-sheet/src/scenes/bosses.ts` | The bosses, placed on the field |
+| `tools/shape-sheet/src/scenes/creatures.ts` | The creature ideas, placed on the field |
+| `tools/shape-sheet/src/svg.ts` | Cell geometry and page furniture, shared by the shape sheet and the motion sheet |
+| `tools/shape-sheet/src/swim-sheet.ts` | The swim sheet: one pulse cycle of every jelly, left to right |
+| `tools/versus/prompt.ts` | VERSUS — the text a vote puts on the clipboard, and the only thing it leaves |
+| `tools/versus/run.ts` | `bun run versus` — which slots are open, and what a vote on each one would reach |
+| `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
+| `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
+| `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 
 <!-- index:code:end -->

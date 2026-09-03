@@ -18,7 +18,7 @@ function walk(dir: string, out: string[]): void {
 
 function currentScope(): string[] {
   const all: string[] = [];
-  for (const top of ["packages", "apps"]) walk(join(ROOT, top), all);
+  for (const top of ["packages", "apps", "tools"]) walk(join(ROOT, top), all);
   const relPaths = all.map((p) => relative(ROOT, p).split("\\").join("/"));
   return filterScopeFiles(relPaths);
 }
@@ -75,11 +75,22 @@ describe("deriveHeaderSentence", () => {
     expect(deriveHeaderSentence(source)).toBe("(no header comment — add one)");
   });
 
-  test("truncates a long sentence at 110 characters, on a word boundary", () => {
+  test("truncates a long sentence at 110 characters, and says that it did", () => {
     const long = `${"a".repeat(60)} ${"b".repeat(60)}`;
     const source = `/** ${long} */\nexport const x = 1;`;
     const result = deriveHeaderSentence(source);
     expect(result.length).toBeLessThanOrEqual(110);
-    expect(result.endsWith("a") || result.endsWith("b")).toBe(true);
+    expect(result).toBe(`${"a".repeat(60)}…`);
+  });
+
+  /**
+   * A clause is a finished thought and needs no ellipsis. The last one before
+   * the limit wins — an earlier one would throw away half the line — and a
+   * clause in the first third is too little of the sentence to stand for it.
+   */
+  test("prefers a clause boundary to a word boundary", () => {
+    const head = "The panel under the map, and what can be done to what it holds";
+    const source = `/** ${head}, ${"and a long tail ".repeat(8)} */\nexport const x = 1;`;
+    expect(deriveHeaderSentence(source)).toBe(head);
   });
 });
