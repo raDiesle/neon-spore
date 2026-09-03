@@ -12,7 +12,7 @@ import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { commsCall } from "../src/comms.js";
 import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
-import { JUMP_TILES, showsWisp, wispJump } from "../src/wisp.js";
+import { JUMP_TILES, showsWisp, wispApexTiles, wispJump } from "../src/wisp.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -85,15 +85,23 @@ describe("wispJump", () => {
   });
 
   it("leaves the ground and comes back to it, highest in the middle", () => {
-    expect(wispJump(CFG, 6, 0).lift).toBeCloseTo(0, 5);
-    expect(wispJump(CFG, 6, 0.5).lift).toBeCloseTo(JUMP_TILES, 5);
-    expect(wispJump(CFG, 6, 1).lift).toBeCloseTo(0, 5);
-    // `arc` is `lift` as a share of the apex, and the two may never part
-    // company — four sites read the height off one or the other.
-    for (const phase of [0.1, 0.4, 0.8]) {
-      const j = wispJump(CFG, 6, phase);
-      expect(j.arc * JUMP_TILES).toBeCloseTo(j.lift, 6);
-    }
+    expect(wispJump(CFG, 6, 0).arc).toBeCloseTo(0, 5);
+    expect(wispJump(CFG, 6, 0.5).arc).toBeCloseTo(1, 5);
+    expect(wispJump(CFG, 6, 1).arc).toBeCloseTo(0, 5);
+  });
+
+  /**
+   * A wisp may stand on row 0, and a body that rose the full apex out of it
+   * would arc through the lettered axis and off the top of the grid — over
+   * the one thing the pair reads this creature by.
+   */
+  it("takes only the headroom it has, and the full apex once there is room", () => {
+    const at = (fromRow: number, row: number): number => wispApexTiles({ fromRow, row } as never);
+    expect(at(0, 0)).toBeCloseTo(0.9, 6);
+    expect(at(8, 0)).toBeCloseTo(0.9, 6);
+    expect(at(0, 8)).toBeCloseTo(0.9, 6);
+    expect(at(2, 5)).toBeCloseTo(JUMP_TILES, 6);
+    expect(at(9, 9)).toBeCloseTo(JUMP_TILES, 6);
   });
 
   it("gathers at the tail of the beat before and absorbs at the head of the beat after", () => {

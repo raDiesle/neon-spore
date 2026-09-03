@@ -3,7 +3,7 @@ import { creatureCenter } from "./creature-place.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { JUMP_TILES, type WispJump, wispJump, wisps } from "./wisp.js";
+import { type WispJump, wispApexTiles, wispJump, wisps } from "./wisp.js";
 import { drawGather, drawImpact } from "./wisp-land.js";
 
 const TAU = Math.PI * 2;
@@ -55,7 +55,7 @@ export function drawWispGround(
     const from = { x: tileCX(l, c.fromCol ?? c.col), y: tileCY(l, c.fromRow) };
     const to = { x: tileCX(l, c.col), y: tileCY(l, c.row) };
     if (j.flying) {
-      drawArc(ctx, l, from, to, j.flight, beatPhase);
+      drawArc(ctx, l, from, to, j.flight, beatPhase, wispApexTiles(c));
       drawTarget(ctx, l, to, j.flight);
     }
     if (j.land > 0) drawImpact(ctx, l, to, j.land);
@@ -89,6 +89,7 @@ function drawArc(
   to: { x: number; y: number },
   flight: number,
   beatPhase: number,
+  apexTiles: number,
 ): void {
   const dash = l.tile * 0.16;
   ctx.save();
@@ -120,7 +121,7 @@ function drawArc(
   // has been, when the only thing worth saying is where it is going.
   ctx.quadraticCurveTo(
     (from.x + to.x) / 2,
-    (from.y + to.y) / 2 - l.tile * JUMP_TILES * ARC_LIFT * 2 * across,
+    (from.y + to.y) / 2 - l.tile * apexTiles * ARC_LIFT * 2 * across,
     to.x,
     to.y,
   );

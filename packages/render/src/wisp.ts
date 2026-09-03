@@ -87,12 +87,31 @@ const CROUCH = 0.26;
 const LAND = 0.34;
 
 /**
- * How high the arc goes, in tiles. Not a tunable in `SimConfig`, because
- * nothing in the simulation can see it: the body is on its landing tile for
- * the whole beat whatever this number is (`sim/wisp.ts`), so it changes the
- * picture and nothing else.
+ * How high the arc goes, in tiles, when the field has room for it. Not a
+ * tunable in `SimConfig`, because nothing in the simulation can see it: the
+ * body is on its landing tile for the whole beat whatever this number is
+ * (`sim/wisp.ts`), so it changes the picture and nothing else.
  */
 export const JUMP_TILES = 2.2;
+
+/**
+ * The apex this particular jump actually gets, in tiles — `JUMP_TILES` or as
+ * much of it as there is field above the body, whichever is less.
+ *
+ * A wisp may stand on row 0, and a body that rose two tiles out of row 0 would
+ * arc up through the lettered axis and off the top of the grid, taking its
+ * guide line with it. The letters are the pair's whole vocabulary for this
+ * creature; a body drawn over them is a body eating the thing it is asking
+ * them to read. So the hop from a high row is a low one, which is also what it
+ * looks like when something jumps in a low room.
+ *
+ * Read off the *higher* of the two ends — `Math.min` of the rows — because
+ * the arc has to clear both, and the tenth of a tile left over keeps the bell
+ * off the axis rather than exactly on it.
+ */
+export function wispApexTiles(c: Creature): number {
+  return Math.min(JUMP_TILES, Math.min(c.fromRow, c.row) + 0.9);
+}
 
 /** Where a wisp is in its jump this frame. One value per question the picture
  * asks, all four derived from the shared beat and none of them stored. */
@@ -102,13 +121,16 @@ export interface WispJump {
   /** How far through the flight, 0 leaving the old tile, 1 landing on the new
    * one. Zero when it is not in the air, which is most of a dwell. */
   flight: number;
-  /** Height above the ground in tiles — 0 standing, `JUMP_TILES` at the apex. */
-  lift: number;
-  /** The same height as a share of the apex, 0 on the ground and 1 at the top.
-   * Carried beside `lift` rather than divided out at each of the four sites
-   * that want it: the lean, the halo, the streamers' spread and the shadow are
-   * one reading of how high it is, and a second copy of `JUMP_TILES` is how
-   * they come to disagree about it. */
+  /**
+   * How high it is as a share of its apex — 0 on the ground, 1 at the top.
+   *
+   * A share and not a height in tiles, because the height is a fact about the
+   * *body* rather than about the beat: a wisp jumping out of row 0 has less
+   * field above it than one jumping out of row 8, and `wispApexTiles` is where
+   * that is settled. Everything that reads the height — the lift, the lean,
+   * the halo, the streamers' spread, the pool on the ground — reads this one
+   * number, so none of them can disagree about how high it is.
+   */
   arc: number;
   /** The gather before it goes: 0 standing, 1 at the instant of the launch. */
   crouch: number;
@@ -118,7 +140,7 @@ export interface WispJump {
 
 /** A wisp standing still on its tile — the shape of most of a dwell, and what
  * a rig with no beat of its own draws. */
-const STILL: WispJump = { flying: false, flight: 0, lift: 0, arc: 0, crouch: 0, land: 0 };
+const STILL: WispJump = { flying: false, flight: 0, arc: 0, crouch: 0, land: 0 };
 
 /**
  * The jump, read straight off the beat.
@@ -137,8 +159,13 @@ const STILL: WispJump = { flying: false, flight: 0, lift: 0, arc: 0, crouch: 0, 
  */
 export function wispJump(cfg: SimConfig, beat: number, beatPhase: number): WispJump {
   if (wispHops(cfg, beat)) {
-    const arc = Math.sin(Math.PI * beatPhase);
-    return { flying: true, flight: beatPhase, lift: arc * JUMP_TILES, arc, crouch: 0, land: 0 };
+    return {
+      flying: true,
+      flight: beatPhase,
+      arc: Math.sin(Math.PI * beatPhase),
+      crouch: 0,
+      land: 0,
+    };
   }
   // The beat after a hop: it came down at the top of this one.
   const land = wispHops(cfg, beat - 1) && beatPhase < LAND ? 1 - beatPhase / LAND : 0;
@@ -153,7 +180,7 @@ export function wispJump(cfg: SimConfig, beat: number, beatPhase: number): WispJ
  *
  * `x`/`y` are the ground position `creatureCenter` gives every body — for a
  * wisp mid-hop that is the linear glide from the old tile to the new one, and
- * the arc is what this adds to it. Up and not down: `lift` is subtracted,
+ * the arc is what this adds to it. Up and not down: the lift is subtracted,
  * because screen y grows toward the hull.
  */
 export function drawWisp(
@@ -169,5 +196,5 @@ export function drawWisp(
   j: WispJump,
 ): void {
   const haze = (h: string): string => hazed(cfg, h, near);
-  drawWispBody(ctx, l, c, x, y - j.lift * l.tile, time, beats, j, haze);
+  drawWispBody(ctx, l, c, x, y - j.arc * wispApexTiles(c) * l.tile, time, beats, j, haze);
 }
