@@ -1,5 +1,11 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import {
+  buildBoss,
+  buildQueue,
+  type ControlSet,
+  controlSet,
+  controlSetForWave,
+} from "@neon-spore/content";
 import {
   createWorld,
   PINBALL_MORPH_BEATS,
@@ -7,9 +13,19 @@ import {
   step,
   type TimedCommand,
   ticksPerBeat,
+  type World,
 } from "@neon-spore/sim";
+import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-harness.js";
+import { stubCanvas } from "./canvas-stub.js";
+import {
+  CFG,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  VIEWPORT,
+  waveWith,
+} from "./frame-harness.js";
 
 /**
  * PINBALL over the whole stage, played rather than watched.
@@ -71,6 +87,27 @@ function pinballFrames(role: ViewRole, ticks: number) {
   return { ...frames, watched };
 }
 
+/**
+ * Draws one PINBALL frame with an explicit control set and returns how many
+ * calls it made. The world is not mutated, so two draws differ only in `set`.
+ */
+function drawOnce(world: World, set: ControlSet): number {
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize(VIEWPORT);
+  renderer.draw({
+    world,
+    beatPhase: 0,
+    role: "test",
+    time: 0,
+    dt: 1 / CFG.tickHz,
+    events: [],
+    running: true,
+    controls: set,
+  });
+  return ctx.calls;
+}
+
 describe("PINBALL draws on all three screens", () => {
   // The ship folding into the bucket, and then the table for as long as the
   // first board is given.
@@ -85,6 +122,25 @@ describe("PINBALL draws on all three screens", () => {
       expect(ctx.calls).toBeGreaterThan(500);
     });
   }
+
+  // The director plays a *draft* wave, so `view.world.wave` indexes the
+  // shipped `WAVES` and points at the wrong panel; the host states the real
+  // set in `view.controls`. `drawControls` must draw that set, not re-derive
+  // one from the wave index — the same rule `band.ts` and `gauge-round.ts`
+  // follow. Drawing the same world with a set of a different size is the proof:
+  // the button count follows `view.controls`, not the wave.
+  it("draws the controls it is handed, not the ones the wave index would derive", () => {
+    const world = createWorld(CFG, 5);
+    const index = waveWith("pinball");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    // The pinball wave's own set has four slabs; THE GAUGE's has three. The
+    // frame given the smaller set must make strictly fewer draw calls than the
+    // frame that re-derives the wave's four — before the fix both drew four.
+    expect(controlSetForWave(index).controls.length).toBe(4);
+    const wide = drawOnce(world, controlSet("pinball"));
+    const narrow = drawOnce(world, controlSet("gauge"));
+    expect(narrow).toBeLessThan(wide);
+  });
 
   it("really launched a ball and knocked something out, or the frames proved nothing", () => {
     const { watched } = pinballFrames("test", TICKS);

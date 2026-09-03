@@ -136,7 +136,12 @@ function drawTally(
 
 /** The round's own buttons, in the seat each belongs to. */
 function drawControls(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
-  const slabs = slabPanel(l, controlSetForWave(view.world.wave), view.role);
+  // See `ViewState.controls`: `view.world.wave` only indexes the shipped
+  // `WAVES` for a host actually playing them, so an explicit `view.controls`
+  // wins when one is given. Not `??` — see `band.ts` for why that spelling is
+  // reserved for a re-derivation `purity.test.ts` watches for.
+  const set = view.controls === undefined ? controlSetForWave(view.world.wave) : view.controls;
+  const slabs = slabPanel(l, set, view.role);
   ctx.font = '600 15px "Courier New",monospace';
   for (const slab of slabs) {
     ctx.fillStyle = PALETTE.background;
