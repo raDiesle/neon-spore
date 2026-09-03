@@ -33,6 +33,20 @@ canvas { display: block; width: 100%; height: 100%; }
 #linkChip.live { border-color: #2fe0f0; color: #2fe0f0; }
 #linkChip.fault { border-color: #ff5470; color: #ff5470; }
 
+/* The offer of a home-screen shortcut. It is hidden until the browser says the
+   page can be installed and gone again the moment it is, so on a phone that
+   already has the icon — and on every desktop — there is nothing here at all.
+   It sits beside the indicator rather than over the field: this is the one
+   control on screen that is about the browser and not about the game. */
+#installChip {
+  position: fixed; top: calc(8px + env(safe-area-inset-top, 0px));
+  left: calc(70px + env(safe-area-inset-left, 0px)); z-index: 6; display: none;
+  height: 22px; padding: 0 9px; border-radius: 7px;
+  border: 1px solid #ffc24b; background: rgba(20, 14, 45, 0.75); color: #ffc24b;
+  font: 10px/1 "Courier New", monospace; letter-spacing: 1px;
+}
+#installChip.on { display: block; }
+
 #joinScreen {
   position: fixed; inset: 0; z-index: 11; display: none; overflow-y: auto;
   background: rgba(7, 6, 15, 0.97); padding: 26px 18px 40px;

@@ -7,6 +7,27 @@
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
     />
     <title>Neon Spore</title>
+    <!--
+      The home-screen shortcut. `theme-color` is the browser's own furniture
+      painted the field's black, so the strip above the game stops being a
+      white bar over a dark picture; the Apple pair is the same thing for a
+      phone that has never heard of a manifest.
+
+      The manifest and the two icon links are **not here**: they are added to
+      `dist/index.html` by `build.ts`, and this is the only place that says so.
+      The bundler follows every `<link href>` it finds, hashes what it lands on
+      and rewrites the href to match — which is right for a stylesheet and
+      wrong for these three, because a phone asks for a manifest and an icon by
+      the exact name the manifest itself uses. Written here, they stop the
+      build; written by the build, they name files it copied whole.
+
+      The metas below have no href, so they are nobody's to follow and stay.
+    -->
+    <meta name="theme-color" content="#07060f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Neon Spore" />
     <link rel="stylesheet" href="./src/menu.css" />
     <link rel="stylesheet" href="./src/game.css" />
   </head>
@@ -14,6 +35,9 @@
     <canvas id="stage"></canvas>
     <div id="viewSwitch"></div>
     <button type="button" id="linkChip">SOLO</button>
+    <button type="button" id="installChip" title="Put Neon Spore on the home screen">
+      INSTALL
+    </button>
 
     <div id="joinScreen">
       <h2>ROOM</h2>
@@ -27,6 +51,7 @@
       <div class="acts">
         <button type="button" id="joinGo">JOIN</button>
         <button type="button" id="joinCreate">CREATE</button>
+        <button type="button" id="joinShare" class="quiet">SEND LINK</button>
         <button type="button" id="joinSolo" class="quiet">PLAY ALONE</button>
         <button type="button" id="joinClose" class="quiet">BACK</button>
       </div>

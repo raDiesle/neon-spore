@@ -1,5 +1,6 @@
 export { type ClockSample, ClockSync, sampleOffset, sampleRtt } from "./clock.js";
 export { decodeCommand, decodeCommands, isTick, isUint32 } from "./command-codec.js";
+export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
 export { Lockstep, type LockstepOptions } from "./lockstep.js";
 export {
@@ -10,6 +11,7 @@ export {
   otherPlayer,
   type PlayerId,
   PROTOCOL_VERSION,
+  type RefusalCode,
   type ServerMessage,
 } from "./protocol.js";
 export {

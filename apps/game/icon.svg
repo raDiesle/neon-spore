@@ -1,0 +1,76 @@
+<!--
+  The home-screen icon: one spore, drawn by the rules the game draws by.
+
+  A closed contour with lobes, which is what every body in this game is
+  (`blobPath`), lit from inside rather than shaded from outside. The palette is
+  the field's own — #07060f behind everything, cyan for what is alive, amber for
+  what is lit, pink for what is about to matter.
+
+  The source is here and the PNGs the manifest names are generated from it:
+  `bun run icons`. Nothing reads this file at runtime.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="flesh" cx="42%" cy="36%" r="72%">
+      <stop offset="0%" stop-color="#4a2f6e" />
+      <stop offset="55%" stop-color="#241a45" />
+      <stop offset="100%" stop-color="#120d28" />
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff4d6" />
+      <stop offset="45%" stop-color="#ffc24b" />
+      <stop offset="100%" stop-color="#ffc24b" stop-opacity="0" />
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <!--
+      The same glow for something small. A filter region is a percentage of the
+      thing it is filtering, so the region that comfortably holds a blurred
+      body cuts a square hole around a blurred dot — the region has to grow as
+      the object shrinks, not with it.
+    -->
+    <filter id="glowDot" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="7" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" fill="#07060f" />
+
+  <g id="art">
+    <!--
+      The body: seven lobes at uneven angles and no two the same depth, closed
+      and smooth. Evenly spaced points with alternating radii draw a rounded
+      polygon, which is a shape and not a creature — the unevenness is the
+      whole difference between a blob and a diamond.
+    -->
+    <path
+      id="body"
+      d="M 425.4,285.9
+         C 416.4,324.1 362.7,357.0 320.8,377.8
+         C 278.9,398.6 205.9,425.1 173.8,410.5
+         C 141.8,395.9 138.6,330.8 128.5,290.2
+         C 118.5,249.6  92.3,196.9 113.5,167.0
+         C 134.8,137.1 212.4,114.0 256.0,111.0
+         C 299.6,108.0 346.7,119.8 374.9,148.9
+         C 403.1,178.1 434.4,247.8 425.4,285.9 Z"
+      fill="url(#flesh)"
+      stroke="#2fe0f0"
+      stroke-width="9"
+      filter="url(#glow)"
+    />
+    <!-- What is lit inside it. -->
+    <circle cx="262" cy="258" r="92" fill="url(#core)" opacity="0.9" />
+    <circle cx="262" cy="258" r="32" fill="#fff4d6" />
+    <!-- One thing about to matter. -->
+    <circle cx="344" cy="172" r="15" fill="#ff5470" filter="url(#glowDot)" />
+  </g>
+</svg>

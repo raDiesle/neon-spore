@@ -19,6 +19,7 @@ import { demoRows, openDemonstration } from "./demo-menu.js";
 import { bindGauge } from "./gauge.js";
 import { installTestingHandle } from "./handle.js";
 import { bindControls, InputBuffer } from "./input.js";
+import { bindInstall } from "./install.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { createLink } from "./link.js";
 import { startLoop } from "./loop.js";
@@ -109,8 +110,7 @@ const tickKeys = bindControls({
 
 const brief = bindBriefing({ canvas, buffer, world });
 // THE GAUGE brings its own controls, on its own listener — neither player's
-// band is the answer, and the two seats do not get the same one
-// (`gauge.ts`, docs/spec/interludes.md).
+// band is the answer, and the two seats differ (`gauge.ts`, interludes.md).
 bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });
 // SNAKE brings its own six, on its own listener, for the same reason
 // (`snake.ts`). Neither round's listener can fire while the other is up: the
@@ -147,6 +147,10 @@ joinScreen = bindJoinScreen({
   leave: () => link.leave(),
 });
 
+// The home-screen shortcut (`install.ts`), and the room the address named.
+void bindInstall();
+joinScreen.invite();
+
 /**
  * The main menu, and only when it was asked for: a build that was opened to
  * look at a wave goes straight to the field. See `menu.ts`.
@@ -168,9 +172,9 @@ if (menuRequested(location.href)) {
 void bindRasterBurst(renderer.sprites, location.href);
 
 /**
- * Beat zero. Both devices land here within a few milliseconds of each other and
- * from here on the tick counter is the only clock either of them reads —
- * which is why the clock goes back to zero and not merely the run.
+ * Beat zero. Both devices land here within a few milliseconds of each other,
+ * and from here the tick counter is the only clock either reads — which is why
+ * the clock goes back to zero and not merely the run.
  */
 function startTogether(): void {
   resetClock(world, 0);

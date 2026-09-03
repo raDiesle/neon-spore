@@ -89,6 +89,29 @@ a `confirm`.
 arrives. Otherwise the player with the worse connection is punished and the one
 who presses early is rewarded — fatal for a game whose core is a shared beat.
 
+**The delay is measured, not configured, and each device holds its own**
+(`packages/net/src/delay.ts`). `cfg.inputDelayTicks` is 12 ticks — a tenth of a
+second, which is right for two phones on one wifi and short of the trip out to a
+Durable Object and back down to a handset on mobile data. A delay shorter than
+that trip does not feel quicker: every press misses the tick it was meant for
+and the run lives in `stalled`. So the delay is taken from the measured round
+trip, rising the moment the link asks and falling a tick a second when it
+recovers, with the configured value as its floor and 400 ms as its ceiling.
+
+It is never agreed with the peer, and that is the point: every command crosses
+the wire stamped with the exact tick it lands on, and a device's `confirm`
+horizon is derived from whatever its own delay is at the moment it is sent. Two
+devices holding different numbers are still one game — the bad line costs feel
+in the hand that owns it rather than in both. Which is also why it is not in
+`SimConfig`: a number the two must agree on would have to be handed out by the
+room and hashed, and this one does not. `packages/net/test/two-devices.test.ts`
+plays nine hundred ticks with mismatched delays, and again with both being
+retuned mid-run, comparing fingerprints on every tick.
+
+A delay that falls needs one guard, and has it: a press is never scheduled at or
+before a tick already confirmed empty (`Lockstep.scheduleFor`). The promise
+outlives the number that produced it.
+
 Clock sync: four timestamps per measurement, take the median of several, adjust
 the offset *gently* and never in a jump. The device clock is never touched,
 only game time. It is used for one thing: turning the room's beat zero into a
@@ -110,6 +133,26 @@ or a field escaped the hash.
 Server: one Cloudflare Durable Object per room, WebSocket, hibernation. It
 relays inputs, distributes the beat zero point and answers clock syncs. Nothing
 else — see `apps/server/README.md`.
+
+**A socket that goes away is the ordinary case on a phone**, not the
+exceptional one: a screen locks, a train enters a tunnel, wifi hands over to the
+mobile network. The client reaches for the room again a few times before it
+tells the player anything is wrong, and it keeps the clock offset while it does
+— that offset is the same server's clock either way, and re-acquiring it would
+spend two seconds inside the room's three-second countdown.
+
+**A new beat zero ends the run that was on.** The room stamps one every time it
+fills, so a phone rejoining hands both devices a timestamp that is not the one
+they started on; both throw the run away and count down again. Resuming instead
+would leave the two counting from different ticks, which is not lag — it is two
+games with one fingerprint check between them.
+
+**A third device is refused through the socket, not in front of it.** An HTTP
+409 reaches the page as a socket that would not open, and that is
+indistinguishable from a dead line. So the upgrade completes, the room says
+`full` in the vocabulary the indicator reads (`status.ts`), and only then closes
+— because telling somebody their connection died when the truth is that the room
+is busy sends them to check a signal that is fine.
 
 Order on the wire is load-bearing. A `confirm` overtaking the `input` it was sent
 after is a device breaking its own promise, and the scheduler is right to refuse

@@ -62,15 +62,55 @@ off a worker somewhere else. `?relay=` says where.
 http://localhost:4173/?relay=ws://localhost:8787
 ```
 
+## Two real phones
+
+One upload carries both halves, so there is one command and no separate
+front end to host:
+
+```
+bun run deploy:game
+```
+
+It builds `apps/game/dist` and pushes it with the worker, which serves the
+bundle as static assets and the rooms from `/room/:code` on the same origin.
+That is what makes the default `?relay=` unnecessary in the shipped game: the
+page and the room are the same host, so a phone needs the address and nothing
+else.
+
+Then, on the two handsets:
+
+1. Both open the address. Either one taps the indicator in the corner and then
+   **CREATE**, which makes a four-character code.
+2. The other types it in, or taps **SEND LINK** on the first phone and opens
+   what arrives — `?room=ACDE` walks straight into the room. The code stays the
+   way in; the link is only a way to deliver one to somebody who is not in the
+   same kitchen.
+3. When the second phone lands, both count down from three and start together.
+   The room hands out the seats, so neither player chooses which half they are
+   holding.
+
+**Add it to the home screen when asked.** It is a fullscreen portrait web app
+(`apps/game/public/manifest.webmanifest`); installed, it drops the browser's
+address bar, which is thirty vertical pixels the field would rather have.
+
 ## What a room does
 
-1. Two sockets, seats 1 and 2. A third is refused with 409.
+1. Two sockets, seats 1 and 2. A third completes the upgrade, is told
+   `{"t":"error","code":"full"}` and is closed with 4000. It is deliberately
+   *not* a 409: an HTTP refusal reaches the page as a socket that would not
+   open, which is what a dead line looks like too, and a player told their
+   connection died over a room that is merely busy goes off to check a signal
+   that is fine.
 2. When the second one lands, beat zero is stamped as `now + 3 s` and **both**
    are told the same number. Neither device picks its own — that is the whole
    reason the room exists rather than a peer-to-peer handshake.
-3. `input`, `confirm` and `hash` are forwarded to the other seat with the
+3. That restamping is also how a rejoin works. A phone that dropped and came
+   back fills the room again, so a fresh beat zero goes to both, and both throw
+   the run away and count down again — the alternative is two devices counting
+   from different ticks, which is not lag but two games.
+4. `input`, `confirm` and `hash` are forwarded to the other seat with the
    sender's seat stamped on them, in order and unexamined.
-4. `ping` comes back as `pong` carrying two server timestamps, so the client can
+5. `ping` comes back as `pong` carrying two server timestamps, so the client can
    take the room's own handling time back out of the round trip.
 
 The seat is kept as a WebSocket *tag*: hibernation wakes the object with nothing

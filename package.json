@@ -33,6 +33,7 @@
     "raster:pack": "bun run tools/raster/pack.ts",
     "raster:verify": "bun run tools/raster/verify.ts",
     "png": "bun run tools/frames/svg.ts",
+    "icons": "bun run tools/icons/run.ts",
     "shot": "bun run tools/frames/shot.ts",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",

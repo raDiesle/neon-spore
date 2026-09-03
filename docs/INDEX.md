@@ -370,6 +370,7 @@ place — the generator keeps whatever is there.
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
 | `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
+| `packages/net/src/delay.ts` | How far ahead of the screen a press is scheduled — chosen from the link that is actually there, rather than |
 
 ### packages/audio
 
@@ -421,6 +422,9 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-round.ts` | The keys that belong to a round rather than to the field |
 | `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
 | `apps/game/src/pinball.ts` | The host's half of PINBALL: the four thumbs that play it |
+| `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |
+| `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
+| `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
 
 ### apps/server
 

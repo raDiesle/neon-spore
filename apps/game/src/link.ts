@@ -1,26 +1,17 @@
 import {
-  type ClientMessage,
   ClockSync,
-  HashLedger,
   type LinkState,
   type LinkStatus,
-  Lockstep,
   type PlayerId,
   type ServerMessage,
 } from "@neon-spore/net";
-import {
-  hashWorld,
-  type SimConfig,
-  type TimedCommand,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
-import { type CommandSource, openRelay, type Relay } from "./relay.js";
+import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
+import { createRun, type Run } from "./link-run.js";
+import { openRoomSocket, type RoomSocket } from "./link-socket.js";
+import type { CommandSource } from "./relay.js";
 
 /** Milliseconds between clock samples. Seven of them fill the median window in five seconds. */
 const PING_EVERY_MS = 700;
-/** Beats between fingerprint exchanges. Often enough to catch a split within a breath. */
-const HASH_EVERY_BEATS = 4;
 
 export interface LinkOptions {
   cfg: SimConfig;
@@ -31,14 +22,12 @@ export interface LinkOptions {
   onStatus: (status: LinkStatus) => void;
   /**
    * The clock this link measures itself against. Defaults to
-   * `performance.now()` — monotonic, unlike `Date.now()`, which an NTP step
-   * or a phone's owner nudging the time can move mid-countdown, taking beat
-   * zero with it on that device alone. Injectable so a test can drive the
-   * countdown and the clock-jump case without a real clock in the loop.
-   *
-   * `ClockSync`'s offset is "the server's clock minus this device's clock",
-   * whichever clock that is — `toLocal` stays comparable to whatever `now`
-   * returns as long as both sides of a comparison use the same one.
+   * `performance.now()` — monotonic, unlike `Date.now()`, which an NTP step or
+   * a phone's owner nudging the time can move mid-countdown, taking beat zero
+   * with it on that device alone. Injectable so a test can drive the countdown
+   * and the clock-jump case without a real clock in the loop; `ClockSync`'s
+   * offset is against whichever clock this is, so `toLocal` stays comparable
+   * as long as both sides of a comparison use the same one.
    */
   now?: () => number;
 }
@@ -62,38 +51,49 @@ export interface Link {
  * Everything the game needs to be two devices instead of one, and nothing the
  * game needs to be one device: solo is the default and costs a boolean.
  *
- * The rest is `packages/net` driven by a socket — a `Lockstep` for the inputs,
- * a `ClockSync` for beat zero and a `HashLedger` for the moment it all goes
- * wrong. This file holds the wall clock and the WebSocket, and nothing below
- * it holds either.
+ * This file is **the room**: a seat, a clock, a countdown, and the state a
+ * player reads in the corner of the screen. Either side of it is one thing
+ * each — `link-socket.ts` the socket and its reconnection, `link-run.ts` the
+ * scheduler and the fingerprints. Several runs can pass over one socket, since
+ * every phone that drops and returns makes the room stamp a fresh beat zero,
+ * and that is exactly why they are not one file.
+ *
+ * The wall clock is held here and nowhere below it.
  */
 export function createLink(o: LinkOptions): Link {
-  const tpb = ticksPerBeat(o.cfg);
-  const hashEvery = tpb * HASH_EVERY_BEATS;
   const now = o.now ?? (() => performance.now());
 
-  let relay: Relay | null = null;
+  let socket: RoomSocket | null = null;
   let state: LinkState = "solo";
   let room = "";
   let player: 0 | 1 | 2 = 0;
   let clock = new ClockSync();
-  let ledger = new HashLedger();
-  let lockstep: Lockstep | null = null;
   let startMs = 0;
-  let started = false;
+  /**
+   * The beat zero this run actually began on. The room stamps a new one every
+   * time it fills, so a value that has moved is it saying "that run is over,
+   * here is the next" — which is what a rejoin looks like from in here.
+   */
+  let startedAt = 0;
   let peers = 0;
   let pingTimer = 0;
 
-  const send = (message: ClientMessage): void => relay?.send(message);
+  const run: Run = createRun({
+    cfg: o.cfg,
+    world: o.world,
+    buffer: o.buffer,
+    send: (message) => socket?.send(message),
+  });
 
   const status = (): LinkStatus => ({
     state,
     room,
     player,
     rttMs: clock.sampleCount > 0 ? Math.round(clock.rttMs) : -1,
-    slack: lockstep?.slack ?? 0,
-    countdownMs: started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - now()),
-    desyncTick: ledger.desyncTick,
+    slack: run.slack,
+    countdownMs: run.started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - now()),
+    delayMs: run.delayMs,
+    desyncTick: run.desyncTick,
   });
 
   const settle = (next: LinkState): void => {
@@ -102,18 +102,20 @@ export function createLink(o: LinkOptions): Link {
     o.onStatus(status());
   };
 
+  /** The two states the room turned this device away in, and will again. */
+  const refused = (): boolean => state === "full" || state === "desync";
+
   const leave = (): void => {
-    const old = relay;
-    relay = null;
+    const old = socket;
+    socket = null;
     old?.close();
-    lockstep = null;
-    started = false;
+    run.end();
     startMs = 0;
+    startedAt = 0;
     peers = 0;
     player = 0;
     room = "";
     clock = new ClockSync();
-    ledger = new HashLedger();
     settle("solo");
   };
 
@@ -121,16 +123,23 @@ export function createLink(o: LinkOptions): Link {
     leave();
     room = code;
     settle("connecting");
-    relay = openRelay(code, {
+    socket = openRoomSocket(code, {
       message: receive,
-      dropped: () => settle("lost"),
-      // Fire the first ping the moment the socket is open rather than
-      // waiting for `frame()`'s 700 ms timer — the three samples clock
-      // acquisition needs (2100 ms) otherwise eat into the 3000 ms countdown
-      // on a slow handshake, and can miss it outright.
+      // Fire the first ping the moment the socket is open rather than waiting
+      // for `frame()`'s 700 ms timer — the 2100 ms three samples take would
+      // otherwise eat into the 3000 ms countdown, and can miss it outright.
       opened: () => {
         pingTimer = PING_EVERY_MS;
-        send({ t: "ping", c1: now() });
+        socket?.send({ t: "ping", c1: now() });
+      },
+      worthRetrying: () => room !== "" && !refused(),
+      waiting: () => {
+        run.end();
+        settle("connecting");
+      },
+      gone: () => {
+        run.end();
+        if (!refused()) settle("lost");
       },
     });
   };
@@ -142,6 +151,14 @@ export function createLink(o: LinkOptions): Link {
         room = message.room;
         peers = message.peers;
         startMs = message.startMs;
+        socket?.rearm();
+        // A beat zero that is not the one this run began on is the room saying
+        // the run is over and the next one starts here — which is what a phone
+        // rejoining after a drop looks like from this side. Carrying on instead
+        // would leave the two devices counting from different ticks, and that
+        // is not lag, it is two different games with one fingerprint check
+        // between them.
+        if (run.started && startMs !== startedAt) run.end();
         settle(peers >= 2 ? (clock.ready ? "countdown" : "syncing") : "waiting");
         return;
       case "peers":
@@ -149,37 +166,43 @@ export function createLink(o: LinkOptions): Link {
         // Before beat zero the room is simply not full yet. After it, a seat
         // going empty ends the run: there is no one left to be in step with,
         // and a lockstep that waits for nobody waits for ever.
-        if (peers < 2) settle(started ? "lost" : "waiting");
+        if (peers < 2) settle(run.started ? "lost" : "waiting");
         return;
       case "pong":
         clock.add({ c1: message.c1, s1: message.s1, s2: message.s2, c2: now() });
         return;
       case "error":
-        settle("lost");
+        // Turned away on purpose, so there is nothing to reach for again —
+        // and "full" is not a fault of the line, so it is not dressed as one.
+        socket?.surrender();
+        settle(message.code === "full" ? "full" : "lost");
         return;
       default:
-        lockstep?.receive(message);
-        if (message.t === "hash" && ledger.observe(message.tick, message.hash) === "mismatch") {
-          settle("desync");
-        }
+        if (run.receive(message)) settle("desync");
     }
   };
 
   const frame = (dtMs: number): void => {
-    if (!relay) return;
+    if (!socket) return;
+    socket.frame(dtMs);
+    // Waiting out a reconnection: no clock to settle, nothing to send.
+    if (!socket.present) {
+      o.onStatus(status());
+      return;
+    }
     clock.settle(dtMs);
     pingTimer -= dtMs;
     if (pingTimer <= 0) {
       pingTimer = PING_EVERY_MS;
-      send({ t: "ping", c1: now() });
+      socket.send({ t: "ping", c1: now() });
     }
-    if (state === "lost" || state === "desync") {
+    run.observeLink(clock.sampleCount > 0 ? clock.rttMs : -1, dtMs);
+    if (state === "lost" || refused()) {
       o.onStatus(status());
       return;
     }
-    if (started && lockstep) {
-      lockstep.pump(o.world.tick);
-      settle(lockstep.stalledTicks > tpb ? "stalled" : "live");
+    if (run.started) {
+      settle(run.pump() ? "stalled" : "live");
     } else if (peers < 2) {
       settle("waiting");
     } else if (!clock.ready) {
@@ -203,41 +226,25 @@ export function createLink(o: LinkOptions): Link {
    * commands at all while both devices insisted they were in step.
    */
   const begin = (): void => {
-    started = true;
-    if (player === 0) return;
-    o.onStart(player);
-    lockstep = new Lockstep({ player, delayTicks: o.cfg.inputDelayTicks, send });
-    settle("live");
+    startedAt = startMs;
+    if (player !== 0) o.onStart(player);
+    run.begin(player);
+    if (player !== 0) settle("live");
   };
 
   const mayTick = (): boolean => {
-    // Solo: nothing to wait for. In a room, the world holds still from the
-    // moment the socket opens — a device that plays on while it waits arrives
-    // at beat zero on a tick count that has to be thrown away.
-    if (!relay) return true;
-    if (state === "desync" || state === "lost") return false;
-    if (!started || !lockstep) return false;
-    return lockstep.ready(o.world.tick);
-  };
-
-  const drain = (): TimedCommand[] => {
-    const pressed = o.buffer.drain(o.world.tick);
-    if (!lockstep) return pressed;
-    // The timestamp is the tick the screen was touched on, and the seat is this
-    // device's. The keyboard can still send both halves at a desk; the half
-    // this device does not hold is dropped rather than played twice.
-    for (const p of pressed) lockstep.press(p.player, p.command, o.world.tick);
-    return lockstep.commandsFor(o.world.tick);
+    // Solo: nothing to wait for. In a room the world holds still from the
+    // moment the socket opens, because a device that plays on while it waits
+    // arrives at beat zero on a tick count that has to be thrown away — and a
+    // device waiting out a reconnection is in a room, not alone.
+    if (!socket) return room === "";
+    if (state === "lost" || refused()) return false;
+    return run.mayTick();
   };
 
   const checkpoint = (): void => {
-    if (!lockstep || !started) return;
-    const tick = o.world.tick;
-    if (tick % hashEvery !== 0) return;
-    const hash = hashWorld(o.world);
-    if (ledger.record(tick, hash) === "mismatch") settle("desync");
-    send({ t: "hash", tick, hash });
+    if (run.checkpoint()) settle("desync");
   };
 
-  return { join, leave, mayTick, drain, checkpoint, frame, status };
+  return { join, leave, mayTick, drain: run.drain, checkpoint, frame, status };
 }

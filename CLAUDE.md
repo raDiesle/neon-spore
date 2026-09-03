@@ -204,6 +204,7 @@ bun run land           # rebase, check, fast-forward, note it, sweep, push
 bun run index          # regenerate the file map in docs/INDEX.md
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
+bun run icons          # regenerate the home-screen PNGs from apps/game/icon.svg
 bun run raster         # regenerate the baked assets under assets/raster/
 bun run raster:verify  # open them in a real browser and check every frame decodes
 bun run deploy         # build the director, then push it to Cloudflare
@@ -274,10 +275,14 @@ order a socket delivers in. For that:
 bun run --cwd apps/server dev     # wrangler; it prints the port
 bun run relay:check               # two headless devices, same code the phone runs
 bun run relay:check ws://127.0.0.1:8800 8 --split
+bun run relay:check ws://127.0.0.1:8800 8 --full
+bun run relay:check ws://127.0.0.1:8800 14 --rejoin
 ```
 
 `--split` reaches into one of the two worlds on purpose, to prove the desync
-detector is watching. The relay's port belongs to its tree the same way the
+detector is watching. `--full` sends a third device at a room that has two, and
+`--rejoin` drops one mid-run and brings it back — the two things the Durable
+Object does that no unit test reaches, and both of them were broken. The relay's port belongs to its tree the same way the
 preview's does; `curl -s http://127.0.0.1:<port>/net/health` says who answered.
 Kill the wrangler process when the check is done.
 

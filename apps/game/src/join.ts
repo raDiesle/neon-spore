@@ -22,6 +22,11 @@ export interface JoinScreen {
    * rather than by clicking the chip on the player's behalf.
    */
   open: (isOpen: boolean) => void;
+  /**
+   * Join the room the address names, if it names one. Call it once the status
+   * callback has somewhere to go — see the note on the implementation.
+   */
+  invite: () => void;
 }
 
 /**
@@ -43,6 +48,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const joinBtn = document.getElementById("joinGo");
   const soloBtn = document.getElementById("joinSolo");
   const closeBtn = document.getElementById("joinClose");
+  const shareBtn = document.getElementById("joinShare");
 
   let last: LinkStatus = {
     state: "solo",
@@ -51,6 +57,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     rttMs: -1,
     slack: 0,
     countdownMs: 0,
+    delayMs: 0,
     desyncTick: null,
   };
 
@@ -85,6 +92,17 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     open(false);
   });
 
+  // Reading four characters aloud is the design and stays the design — the two
+  // players are already talking, and that is the game. This is for the minute
+  // before they are: the room has to be got to the other phone somehow, and on
+  // two handsets in two cities that is a message rather than a voice.
+  shareBtn?.addEventListener("click", () => {
+    if (!last.room) return;
+    void shareRoom(last.room).then((said) => {
+      if (stateEl) stateEl.textContent = said;
+    });
+  });
+
   input?.addEventListener("input", () => {
     input.value = normalizeRoomCode(input.value);
   });
@@ -105,7 +123,27 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   };
 
   update(last);
-  return { update, open };
+
+  /**
+   * A link with a room in it walks straight into that room, and puts this
+   * screen up so there are words for what is happening while it does. The code
+   * is still the way in — a link only saves the second player from typing one
+   * they were sent rather than told, which is the whole difference between two
+   * people in a kitchen and two people on a call in two cities.
+   *
+   * It is the caller's to fire and not done on the way out of here, because
+   * joining immediately reports a status and the caller cannot route that
+   * anywhere until it holds what this function is still in the middle of
+   * returning.
+   */
+  const invite = (): void => {
+    const room = roomRequested(location.href);
+    if (!room) return;
+    open(true);
+    b.join(room);
+  };
+
+  return { update, open, invite };
 }
 
 function chipText(status: LinkStatus): string {
@@ -136,11 +174,13 @@ function explain(status: LinkStatus): string {
     case "countdown":
       return `Seat ${status.player}. Starting in ${Math.ceil(status.countdownMs / 1000)}.`;
     case "live":
-      return `Seat ${status.player}, ${status.rttMs} ms round trip.`;
+      return `Seat ${status.player}, ${status.rttMs} ms round trip, ${status.delayMs} ms of lay.`;
     case "stalled":
       return "The other phone has gone quiet. Still connected — waiting for it.";
     case "lost":
       return "The connection is gone. Rejoin the room, or carry on alone.";
+    case "full":
+      return `Room ${status.room} already has two people in it. Your line is fine — the room is not free.`;
     case "desync":
       return `The two worlds parted at tick ${status.desyncTick}. This is a bug, not a lag spike.`;
   }
@@ -151,4 +191,53 @@ function freshCode(): string {
   const bytes = new Uint8Array(ROOM_CODE_LENGTH);
   crypto.getRandomValues(bytes);
   return roomCodeFromBytes(bytes);
+}
+
+/**
+ * The room a link was opened on, or "" for none. Pure, so the rule can be
+ * tested the way `menuRequested` is.
+ *
+ * A code is still the way in and a link is only a way to deliver one, so this
+ * accepts nothing a person could not have typed: the code goes through
+ * `normalizeRoomCode` and is refused unless it is a whole one, which keeps a
+ * mistyped or truncated address out of a room rather than into a wrong one.
+ */
+export function roomRequested(url: string): string {
+  const given = new URL(url, "http://game.invalid/").searchParams.get(ROOM_PARAM);
+  if (!given) return "";
+  const code = normalizeRoomCode(given);
+  return isRoomCode(code) ? code : "";
+}
+
+const ROOM_PARAM = "room";
+
+/** The address that opens this room, for a message the other phone can tap. */
+export function roomLink(room: string): string {
+  const url = new URL(location.href);
+  url.hash = "";
+  url.search = "";
+  url.searchParams.set(ROOM_PARAM, room);
+  return url.href;
+}
+
+/**
+ * Hand the room to the other phone by whatever the handset has. The share
+ * sheet where there is one — that is the Android path and the one that
+ * matters — the clipboard where there is not, and the plain address where
+ * neither is allowed, because a code that cannot be copied can still be read.
+ */
+async function shareRoom(room: string): Promise<string> {
+  const url = roomLink(room);
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Neon Spore", text: `Room ${room}`, url });
+      return `Sent. Room ${room}.`;
+    }
+    await navigator.clipboard.writeText(url);
+    return `Link copied. Room ${room}.`;
+  } catch {
+    // A share sheet the player dismissed, or a clipboard the browser refused.
+    // Neither is a failure worth a red word: the address is right there.
+    return url;
+  }
 }

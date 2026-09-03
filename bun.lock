@@ -93,6 +93,13 @@
       "name": "@neon-spore/hooks",
       "version": "0.0.0",
     },
+    "tools/icons": {
+      "name": "@neon-spore/icons",
+      "version": "0.0.0",
+      "devDependencies": {
+        "playwright-core": "^1.62.1",
+      },
+    },
     "tools/index": {
       "name": "@neon-spore/index",
       "version": "0.0.0",
@@ -172,6 +179,8 @@
     "@neon-spore/game": ["@neon-spore/game@workspace:apps/game"],
 
     "@neon-spore/hooks": ["@neon-spore/hooks@workspace:tools/hooks"],
+
+    "@neon-spore/icons": ["@neon-spore/icons@workspace:tools/icons"],
 
     "@neon-spore/index": ["@neon-spore/index@workspace:tools/index"],
 

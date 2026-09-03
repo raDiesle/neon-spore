@@ -5,6 +5,7 @@ import {
   isRoomCode,
   type PlayerId,
   PROTOCOL_VERSION,
+  type RefusalCode,
   type ServerMessage,
 } from "@neon-spore/net";
 
@@ -56,7 +57,13 @@ export class Room {
     }
 
     const seats = this.seats();
-    if (seats.length >= 2) return new Response("room full", { status: 409 });
+    // A third phone is refused *through* the socket rather than in front of it.
+    // A 409 never reaches the page as anything but a socket that would not
+    // open, which is indistinguishable from a dead line — so the upgrade is
+    // completed, the reason is said in the one vocabulary the indicator reads,
+    // and only then is the socket closed. It is never given a seat tag, so it
+    // is not a seat and `announce` will not count it as one leaving.
+    if (seats.length >= 2) return refuse("full", `room ${code} already has two`);
 
     const pair = new WebSocketPair();
     const client = pair[0];
@@ -89,7 +96,11 @@ export class Room {
     switch (message.t) {
       case "join":
         if (message.v !== PROTOCOL_VERSION) {
-          send(socket, { t: "error", why: `protocol version ${PROTOCOL_VERSION} expected` });
+          send(socket, {
+            t: "error",
+            why: `protocol version ${PROTOCOL_VERSION} expected`,
+            code: "protocol",
+          });
           socket.close(1002, "protocol");
         }
         return;
@@ -179,6 +190,23 @@ export class Room {
 }
 
 const seatTag = (player: PlayerId): string => `p${player}`;
+
+/**
+ * A completed upgrade that says one sentence and hangs up.
+ *
+ * `accept()` and not `ctx.acceptWebSocket()`: this socket lives for one message
+ * and must never be hibernated, tagged or counted among the seats. The close
+ * code is in the private 4000 range so it cannot be mistaken for one of the
+ * protocol's own.
+ */
+function refuse(code: RefusalCode, why: string): Response {
+  const pair = new WebSocketPair();
+  const server = pair[1];
+  server.accept();
+  send(server, { t: "error", why, code });
+  server.close(4000, code);
+  return new Response(null, { status: 101, webSocket: pair[0] });
+}
 
 function send(socket: WebSocket, message: ServerMessage): void {
   try {

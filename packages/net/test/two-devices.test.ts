@@ -84,57 +84,101 @@ interface Device {
   lock: Lockstep;
 }
 
+/**
+ * A whole run, tick by tick, with the two worlds compared at every one of them.
+ *
+ * `delays` is what each device schedules by. It is a pair rather than a number
+ * because the two are allowed to differ: every command crosses the wire stamped
+ * with the tick it lands on, so the delay never has to be agreed — which is
+ * what lets a device on a bad line carry its own lag instead of imposing it.
+ * `retune` is called each tick so a test can move those numbers mid-run.
+ */
+function playTogether(
+  delays: [number, number],
+  retune?: (tick: number, a: Lockstep, b: Lockstep) => void,
+): void {
+  const wire = new Wire();
+  const make = (player: PlayerId): Device => ({
+    world: createWorld({ ...DEFAULT_CONFIG }, 0, [...QUEUE.map((e) => ({ ...e }))]),
+    lock: new Lockstep({
+      player,
+      delayTicks: delays[player - 1] ?? DEFAULT_CONFIG.inputDelayTicks,
+      send: (m) => wire.post(player, m),
+    }),
+  });
+  const a = make(1);
+  const b = make(2);
+  const deliver = (to: PlayerId, message: ServerMessage): void =>
+    (to === 1 ? a : b).lock.receive(message);
+
+  // Seat 1 holds the cannon and the trigger, seat 2 the shield and the
+  // colours, so the two scripts are different on purpose: the interesting
+  // desyncs are the ones where the order of two seats' commands could differ.
+  const p1 = script(11);
+  const p2 = script(29);
+
+  for (let tick = 0; tick < TICKS; tick++) {
+    retune?.(tick, a.lock, b.lock);
+    for (const c of p1.get(tick) ?? []) a.lock.press(1, c, tick);
+    for (const c of p2.get(tick) ?? []) b.lock.press(2, c, tick);
+
+    // The real client pumps once a frame whether or not the tick ran; the
+    // extra spins are the stall, which at the start of a run is every tick
+    // until the first promises have crossed.
+    let spins = 0;
+    do {
+      a.lock.pump(tick);
+      b.lock.pump(tick);
+      wire.advance(deliver);
+      if (++spins > 4 * LATENCY + 8 + Math.max(...delays)) {
+        throw new Error(`deadlocked at tick ${tick}`);
+      }
+    } while (!a.lock.ready(tick) || !b.lock.ready(tick));
+
+    // Each device works out its own list. That they are the same list is the
+    // claim under test, before a single tick of the simulation runs on it.
+    const forA = a.lock.commandsFor(tick);
+    const forB = b.lock.commandsFor(tick);
+    expect(forB).toEqual(forA);
+    step(a.world, forA);
+    step(b.world, forB);
+    expect(hashWorld(b.world)).toBe(hashWorld(a.world));
+  }
+
+  // A run that never desynced but also never happened proves nothing.
+  expect(a.world.tick).toBe(TICKS);
+  expect(a.world.score + a.world.guard.tries).toBeGreaterThan(0);
+  expect(a.lock.brokenPromises).toBe(0);
+  expect(b.lock.brokenPromises).toBe(0);
+}
+
 describe("two devices", () => {
   it("play the same game over a delayed link", () => {
-    const wire = new Wire();
-    const make = (player: PlayerId): Device => ({
-      world: createWorld({ ...DEFAULT_CONFIG }, 0, [...QUEUE.map((e) => ({ ...e }))]),
-      lock: new Lockstep({
-        player,
-        delayTicks: DEFAULT_CONFIG.inputDelayTicks,
-        send: (m) => wire.post(player, m),
-      }),
+    const delay = DEFAULT_CONFIG.inputDelayTicks;
+    playTogether([delay, delay]);
+  });
+
+  /**
+   * The claim `InputDelay` rests on. One phone on a good line and one on a bad
+   * one hold different delays and are still one game — if that were not true,
+   * the delay would have to be handed out by the room and hashed, and a player
+   * on wifi would be made to feel their partner's mobile data.
+   */
+  it("play the same game with a different delay in each hand", () => {
+    playTogether([6, 24]);
+  });
+
+  /**
+   * And they may move while the run is going, which is what a link being
+   * measured actually looks like: the rise is immediate and the fall is a tick
+   * at a time, so both directions cross this run.
+   */
+  it("play the same game while both delays are being retuned", () => {
+    playTogether([8, 16], (tick, a, b) => {
+      if (tick === 200) a.setDelayTicks(28);
+      if (tick === 350) b.setDelayTicks(5);
+      if (tick >= 500 && tick % 40 === 0) a.setDelayTicks(Math.max(5, a.delay - 1));
+      if (tick === 700) b.setDelayTicks(30);
     });
-    const a = make(1);
-    const b = make(2);
-    const deliver = (to: PlayerId, message: ServerMessage): void =>
-      (to === 1 ? a : b).lock.receive(message);
-
-    // Seat 1 holds the cannon and the trigger, seat 2 the shield and the
-    // colours, so the two scripts are different on purpose: the interesting
-    // desyncs are the ones where the order of two seats' commands could differ.
-    const p1 = script(11);
-    const p2 = script(29);
-
-    for (let tick = 0; tick < TICKS; tick++) {
-      for (const c of p1.get(tick) ?? []) a.lock.press(1, c, tick);
-      for (const c of p2.get(tick) ?? []) b.lock.press(2, c, tick);
-
-      // The real client pumps once a frame whether or not the tick ran; the
-      // extra spins are the stall, which at the start of a run is every tick
-      // until the first promises have crossed.
-      let spins = 0;
-      do {
-        a.lock.pump(tick);
-        b.lock.pump(tick);
-        wire.advance(deliver);
-        if (++spins > 4 * LATENCY + 8) throw new Error(`deadlocked at tick ${tick}`);
-      } while (!a.lock.ready(tick) || !b.lock.ready(tick));
-
-      // Each device works out its own list. That they are the same list is the
-      // claim under test, before a single tick of the simulation runs on it.
-      const forA = a.lock.commandsFor(tick);
-      const forB = b.lock.commandsFor(tick);
-      expect(forB).toEqual(forA);
-      step(a.world, forA);
-      step(b.world, forB);
-      expect(hashWorld(b.world)).toBe(hashWorld(a.world));
-    }
-
-    // A run that never desynced but also never happened proves nothing.
-    expect(a.world.tick).toBe(TICKS);
-    expect(a.world.score + a.world.guard.tries).toBeGreaterThan(0);
-    expect(a.lock.brokenPromises).toBe(0);
-    expect(b.lock.brokenPromises).toBe(0);
   });
 });

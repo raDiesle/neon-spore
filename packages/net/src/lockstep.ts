@@ -9,6 +9,9 @@ export interface LockstepOptions {
    * effect on — the "delayed" in delayed lockstep. It has to be longer than
    * one trip to the peer, or every press arrives after the tick it was meant
    * for and the run stalls instead of playing.
+   *
+   * The starting value only. `setDelayTicks` moves it as the link is measured,
+   * and `InputDelay` decides where to move it to.
    */
   delayTicks: number;
   send: (message: ClientMessage) => void;
@@ -31,7 +34,7 @@ export interface LockstepOptions {
 export class Lockstep {
   readonly player: PlayerId;
   readonly peer: PlayerId;
-  private readonly delayTicks: number;
+  private delayTicks: number;
   private readonly send: (m: ClientMessage) => void;
 
   /** Scheduled commands, by tick, for each seat. Cleared as ticks are consumed. */
@@ -60,9 +63,38 @@ export class Lockstep {
     this.send = options.send;
   }
 
-  /** The tick a press made now will take effect on, here and on the peer alike. */
+  /**
+   * Move the delay as the measured link changes (`InputDelay`). Nothing about
+   * it is agreed with the peer: every command goes over the wire stamped with
+   * the tick it lands on, and the horizon below is derived from whatever this
+   * value is at the moment it is sent — so two devices holding different
+   * numbers are still one game, and a bad line costs feel in the hand that
+   * owns it rather than in both.
+   *
+   * Lowering it is safe for two reasons, and only for those two: `scheduleFor`
+   * refuses to put a command on a tick this device has already promised to
+   * leave alone, and `pump` only ever moves the horizon forward. A delay that
+   * drops simply sends no `confirm` until `head` has caught up with the promise
+   * already made, and the peer is by then further ahead than it can use.
+   */
+  setDelayTicks(ticks: number): void {
+    this.delayTicks = Math.max(1, Math.round(ticks));
+  }
+
+  get delay(): number {
+    return this.delayTicks;
+  }
+
+  /**
+   * The tick a press made now will take effect on, here and on the peer alike.
+   *
+   * Never at or before the horizon already sent. That clamp is the whole reason
+   * a shrinking delay is safe: the promise is that nothing is scheduled before
+   * the confirmed tick, and it has to hold even when the delay that produced
+   * that confirmation has since been given back.
+   */
   scheduleFor(head: number): number {
-    return head + this.delayTicks;
+    return Math.max(head + this.delayTicks, this.sentHorizon + 1);
   }
 
   /**
@@ -81,17 +113,31 @@ export class Lockstep {
   }
 
   /**
+   * Put what has been pressed on the wire, now.
+   *
+   * Called at the end of the tick that pressed it rather than left to the
+   * frame's `pump`, because a frame is up to sixteen milliseconds and every
+   * press was paying them on top of the trip it still had to make. Nothing else
+   * goes out here: the horizon is `pump`'s, and it has to follow the inputs it
+   * covers rather than precede them.
+   */
+  flush(): void {
+    if (this.outbox.size === 0) return;
+    for (const tick of [...this.outbox.keys()].sort((a, b) => a - b)) {
+      const commands = this.outbox.get(tick);
+      if (commands) this.send({ t: "input", tick, commands });
+    }
+    this.outbox.clear();
+  }
+
+  /**
    * Called once per attempted tick, whether or not the tick was simulated —
    * a stalled device still has to keep talking, or the two wait for each other
    * for good.
    */
   pump(head: number): void {
     this.head = head;
-    for (const tick of [...this.outbox.keys()].sort((a, b) => a - b)) {
-      const commands = this.outbox.get(tick);
-      if (commands) this.send({ t: "input", tick, commands });
-    }
-    this.outbox.clear();
+    this.flush();
 
     // Everything through here is settled: a press arriving now lands later.
     const horizon = head + this.delayTicks - 1;

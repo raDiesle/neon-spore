@@ -56,7 +56,23 @@ export type ServerMessage =
   /** `s1` when the ping arrived, `s2` when the pong left — the four-timestamp measure. */
   | { t: "pong"; c1: number; s1: number; s2: number }
   | { t: "hash"; player: PlayerId; tick: number; hash: number }
-  | { t: "error"; why: string };
+  /**
+   * The room is refusing. `why` is for a log and `code` is for the indicator:
+   * a third phone arriving at a room that already has two people in it is not
+   * a dropped connection, and telling a player it was one sends them to check
+   * their signal over something their signal had nothing to do with.
+   */
+  | { t: "error"; why: string; code: RefusalCode };
+
+/**
+ * Why a room refused, as a closed list — `status.ts` has a word on screen for
+ * each of these, and a code with no word is a player staring at a dead game.
+ * `other` is what an unknown one decodes to, never what a room sends.
+ */
+export type RefusalCode = "full" | "protocol" | "other";
+
+const isRefusal = (n: unknown): n is RefusalCode =>
+  n === "full" || n === "protocol" || n === "other";
 
 export function encode(message: ClientMessage | ServerMessage): string {
   return JSON.stringify(message);
@@ -122,7 +138,9 @@ export function decodeServer(raw: string): ServerMessage | null {
         ? { t: "hash", player: m.player, tick: m.tick, hash: m.hash }
         : null;
     case "error":
-      return typeof m.why === "string" ? { t: "error", why: m.why } : null;
+      return typeof m.why === "string"
+        ? { t: "error", why: m.why, code: isRefusal(m.code) ? m.code : "other" }
+        : null;
     default:
       return null;
   }
