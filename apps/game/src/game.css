@@ -335,9 +335,15 @@ canvas {
   color: #9c8fd6;
 }
 
-/* A player's device carries no test rig. */
+/* A player's device carries no test rig. The view switch is part of it: the
+   menu's seat cards are how a seat is chosen now, and on a phone the room has
+   already handed one out — so tapping the seat this device was not given only
+   sends its touches nowhere, silently, because the mode decides what answers a
+   touch (`view.ts`). The way to the desk view is still the menu's third seat
+   card, ONE SCREEN, so nothing is stranded by hiding this. */
 body.player-view #pauseBtn,
 body.player-view #gear,
+body.player-view #viewSwitch,
 body.player-view #waveSkip {
   display: none;
 }

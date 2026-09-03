@@ -461,23 +461,6 @@ furthest" option beside "start over". Solo-only and per device — this is a
 convenience, not shared state, so it never touches the room or the wire. Keep
 the writes wrapped in try/catch like the other `localStorage` users.
 `bun run check` proves it.
-## The view switch is a second seat-picker floating over a player's field
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-view-switch-is-a-second-seat-picker-floating
-- **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/test/view.test.ts`
-
-The `#viewSwitch` (P1 / P2 / TEST, top-centre) sits in every mode. Now that the
-menu's seat cards are the way to choose a seat, the switch is a duplicate — and
-on a player's phone, tapping the seat the room did not assign silently sends
-that device's touches nowhere (the mode changes what answers a touch;
-`view.ts`). Hide it on player devices: it is a desk/TEST affordance. `game.css`
-already hides `#pauseBtn`, `#gear` and `#waveSkip` under `body.player-view`;
-extend that rule to `#viewSwitch`. The way to the TEST/desk view is still there
-— the menu's third seat card ("ONE SCREEN") sets it — so nothing is stranded.
-A tiny test asserting the CSS rule exists (the way `input-pc.test.ts` asserts
-against source, since this repo's runner has no DOM) proves it; `bun run check`.
-
 ## LEAVE ROOM hangs up on the other player with no confirm
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
