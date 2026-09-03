@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { removeCreature } from "./field.js";
 import { livingKindForColor } from "./kinds.js";
 import { clampSpanCol } from "./span.js";
 import type { Bullet, Creature, CreatureKind } from "./types.js";
@@ -138,7 +139,7 @@ export function echoStruck(world: World, b: Bullet, hit: Creature): boolean {
   metColor(world);
   world.score += world.cfg.scoreEchoKill * echoBodies(hit);
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
   b.pierced += 1;
   return b.lance && b.pierced < world.cfg.lancePierce;
 }

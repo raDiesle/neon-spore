@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { removeCreature } from "./field.js";
 import { livingKindForColor } from "./kinds.js";
 import type { Bullet, Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
@@ -118,7 +119,7 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
   // able to feel that it is over.
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
   b.pierced += 1;
   return b.lance && b.pierced < world.cfg.lancePierce;
 }

@@ -170,6 +170,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
+| `packages/sim/src/field.ts` | taking a body off the field — the counterpart to `spawn.ts` |
 
 ### packages/content
 

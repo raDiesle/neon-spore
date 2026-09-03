@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import { msToTicks, type SimConfig } from "./config.js";
+import { removeCreature } from "./field.js";
 import { livingKindForColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
 import type { Bullet, Color, Creature, CreatureKind } from "./types.js";
@@ -169,7 +170,7 @@ export function veilStruck(world: World, b: Bullet, hit: Creature): boolean {
     kind: veilBecomes(hit),
   });
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
   b.pierced += 1;
   return b.lance && b.pierced < world.cfg.lancePierce;
 }

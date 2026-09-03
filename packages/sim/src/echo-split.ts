@@ -1,5 +1,6 @@
 import { hullRow, type SimConfig } from "./config.js";
 import { echoSplitsLeft } from "./echo.js";
+import { removeCreatures } from "./field.js";
 import { clampSpanCol } from "./span.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -124,8 +125,10 @@ export function splitEchoes(world: World): void {
     (c) => c.kind === "echo" && echoDue(world.cfg, world.beat, c),
   );
   if (dividing.length === 0) return;
-  const gone = new Set(dividing.map((c) => c.id));
-  world.creatures = world.creatures.filter((c) => !gone.has(c.id));
+  removeCreatures(
+    world,
+    dividing.map((c) => c.id),
+  );
   // Nothing above the top row and nothing on the hull row: a division must not
   // put a body through the ship. The parent was above it, so its halves are.
   const lowest = hullRow(world.cfg) - 1;

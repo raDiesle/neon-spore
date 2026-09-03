@@ -54,21 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Add removeCreature and removeCreatures for the fourteen removal sites
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/src/bullet-hit.ts`, `packages/sim/src/echo.ts`, `packages/sim/src/ghost.ts`, `packages/sim/src/rind.ts`, `packages/sim/src/veil.ts`, `packages/sim/src/wisp.ts`, `packages/sim/src/warden.ts`, `packages/sim/src/beat.ts`, `packages/sim/src/echo-split.ts`, `packages/sim/src/gyre.ts`
-
-`world.creatures = world.creatures.filter((c) => c.id !== id)` appears eleven
-times, and the three-line `const gone = new Set(...); world.creatures =
-world.creatures.filter((c) => !gone.has(c.id))` three more. Every new creature file
-copies one of the two, and `bullet-hit.ts` sits at exactly 250 lines with five of
-them being this.
-
-Put `removeCreature(world, id)` and `removeCreatures(world, ids)` in a small
-`field.ts` (or `spawn.ts`, which already owns arrival) and replace the fourteen
-sites. Determinism tests prove the order of the survivors is unchanged.
-
 ## Name the centre column once in config.ts instead of nine times
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

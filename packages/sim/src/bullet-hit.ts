@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
+import { removeCreature, removeCreatures } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
 import { rindStruck } from "./rind.js";
@@ -104,7 +105,7 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   metColor(world);
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
   b.pierced += 1;
   return b.lance && b.pierced < world.cfg.lancePierce;
 }
@@ -147,7 +148,7 @@ function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
 
   if (hit.petals <= 0) {
-    world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+    removeCreature(world, hit.id);
     world.score += world.cfg.scoreQueenDown;
     world.boss = null;
     world.events.push({ type: "queenDown", col: b.col, row: hit.row });
@@ -193,8 +194,7 @@ function resolveWarden(world: World, b: Bullet, hit: Creature): void {
   world.events.push({ type: "plate", col: b.col, row: hit.row, left: boss.plates, color: rim });
 
   if (boss.plates <= 0) {
-    const gone = new Set([hit.id, boss.tetherId]);
-    world.creatures = world.creatures.filter((c: Creature) => !gone.has(c.id));
+    removeCreatures(world, [hit.id, boss.tetherId]);
     world.score += world.cfg.scoreWardenDown;
     world.boss = null;
     world.events.push({ type: "wardenDown", col: b.col, row: hit.row });
@@ -229,7 +229,7 @@ function resolveWarden(world: World, b: Bullet, hit: Creature): void {
 function resolveLure(world: World, _b: Bullet, hit: Creature): void {
   costHull(world, world.cfg.damageLure);
   world.events.push({ type: "lureHit", col: hit.col, row: hit.row });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
 }
 
 /**
@@ -246,5 +246,5 @@ function resolveThrob(world: World, b: Bullet, hit: Creature): void {
   }
   world.score += world.cfg.scoreThrobHit;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
-  world.creatures = world.creatures.filter((c: Creature) => c.id !== hit.id);
+  removeCreature(world, hit.id);
 }

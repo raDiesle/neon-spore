@@ -3,6 +3,7 @@ import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
 import { echoFalls } from "./echo.js";
 import { splitEchoes } from "./echo-split.js";
+import { removeCreatures } from "./field.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { breakSpentGyres, stepGyre } from "./gyre.js";
@@ -59,8 +60,10 @@ export function onBeat(world: World): void {
         color: c.color ?? "cyan",
       });
     }
-    const gone = new Set(spent.map((c) => c.id));
-    world.creatures = world.creatures.filter((c) => !gone.has(c.id));
+    removeCreatures(
+      world,
+      spent.map((c) => c.id),
+    );
   }
 
   // Every wheel with nothing left on its rim, taken off before anything else

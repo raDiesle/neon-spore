@@ -1,4 +1,5 @@
 import { hullRow, msToTicks } from "./config.js";
+import { removeCreatures } from "./field.js";
 import {
   GYRE_MOUNTS,
   GYRE_RADIUS,
@@ -213,6 +214,8 @@ export function breakSpentGyres(world: World): void {
     world.score += world.cfg.scoreGyreBreak;
     world.events.push({ type: "gyreBroke", col: hub.col, row: hub.row });
   }
-  const gone = new Set(spent.map((c) => c.id));
-  world.creatures = world.creatures.filter((c) => !gone.has(c.id));
+  removeCreatures(
+    world,
+    spent.map((c) => c.id),
+  );
 }

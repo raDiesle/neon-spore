@@ -1,4 +1,5 @@
 import type { WardenState } from "./boss-state.js";
+import { removeCreature } from "./field.js";
 import { NO_SHELL } from "./shell.js";
 import { type Command, type Creature, WARDEN_COLS } from "./types.js";
 import {
@@ -198,7 +199,7 @@ function cutTether(world: World, b: WardenState): void {
   if (b.tetherId === NO_TETHER) return;
   const id = b.tetherId;
   b.tetherId = NO_TETHER;
-  world.creatures = world.creatures.filter((c) => c.id !== id);
+  removeCreature(world, id);
 }
 
 /**
