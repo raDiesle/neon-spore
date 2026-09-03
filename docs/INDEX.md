@@ -776,5 +776,6 @@ place — the generator keeps whatever is there.
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
+| `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 
 <!-- index:code:end -->

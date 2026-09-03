@@ -208,6 +208,29 @@ function serializeWave(wave: Wave): string {
  * — never `WAVES` itself, which names a spread in `waves.ts` rather than a
  * literal array and would find nothing to regenerate correctly.
  */
+/**
+ * How many waves one act's array holds, read off the source.
+ *
+ * A save needs each act's *current* length to know where to cut the flat list
+ * it was handed, and it used to get that by importing the act file with a
+ * cache-busting query — one fresh ES module record per act per save, kept for
+ * the life of a server that stays up all afternoon. The source is already read
+ * a line later to serialize into, so the number is there for the counting.
+ *
+ * A wave is the only thing in one of these files that begins at two spaces of
+ * indentation: a guide sits at four and an entry at six, and `serializeWave`
+ * writes every one of them. So the count is the count of those openings after
+ * the array's own marker.
+ */
+export function countWaveArray(source: string, exportName: string): number {
+  const marker = `export const ${exportName}: Wave[] = [`;
+  const idx = source.indexOf(marker);
+  if (idx === -1) {
+    throw new Error(`Could not find ${exportName} array in source`);
+  }
+  return (source.slice(idx).match(/^ {2}\{$/gm) ?? []).length;
+}
+
 export function serializeWaveArray(source: string, waves: Wave[], exportName: string): string {
   const marker = `export const ${exportName}: Wave[] = [`;
   const idx = source.indexOf(marker);
