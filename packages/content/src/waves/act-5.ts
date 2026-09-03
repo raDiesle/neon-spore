@@ -34,7 +34,7 @@ import type { Wave } from "../wave-types.js";
  *    grinding, so the pair is choosing between the shield's column and the
  *    wheel's beat with the hull already going down. That is the wave.
  *
- * **HOLD IT OPEN, in three figures**, and the same shape of argument. What has
+ * **THE LID, in three figures**, and the same shape of argument. What has
  * to bite is that a lid is not a thing you do and then a thing they do: the
  * pull and the shot have to be the same instant, and the pilot's thumb is off
  * the cannon strip for the whole of it.

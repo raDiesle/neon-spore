@@ -113,7 +113,7 @@ Built: slick, bulb, meteor, lure, throb, dart, veil, torch. Slick, bulb and
 meteor carry the teaching waves; the torch is the meteor's own widened
 relative, not one of the original thirteen. Lure, throb, dart and veil are the
 next four of that thirteen — none of them needed a new control group, only an
-entry and a state machine (see THE LURE, ON THE BEAT, THE DART and THE VEIL
+entry and a state machine (see THE LURE, THE THROB, THE DART and THE VEIL
 waves, and `.claude/skills/new-creature`).
 
 **The veil is the lure's split turned over**, and the pair is the point: THE

@@ -68,7 +68,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   slick: { wave: "FIRST STEP" },
   bulb: { wave: "TWO COLOURS" },
   lure: { wave: "THE LURE" },
-  throb: { wave: "ON THE BEAT" },
+  throb: { wave: "THE THROB" },
   shell: { wave: "THE THIRD SHOT" },
   meteor: { wave: "THE ROCK" },
   meteorMedium: { wave: "THE WARD" },
@@ -88,7 +88,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   clasp: { wave: "THE CLASP" },
   dart: { wave: "THE DART" },
   veil: { wave: "THE VEIL" },
-  lid: { wave: "HOLD IT OPEN" },
+  lid: { wave: "THE LID" },
   wisp: { wave: "THE WISP" },
   ghost: { wave: "THE GHOST" },
   echo: { wave: "THE ECHO" },
@@ -107,7 +107,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   // The grid is worth watching where the beat is already the enemy: a Throb
   // can only be hit while it is open, and a laid shot leaves on a named
   // moment. Half a beat is the value `apps/game` ships.
-  windup: { wave: "ON THE BEAT", config: { shotChargeBeats: 0.5 } },
+  windup: { wave: "THE THROB", config: { shotChargeBeats: 0.5 } },
   lance: { wave: "THE LANCE" },
   // Three rocks on one beat and one shield: the only way through is a hand on
   // two of them, which is THE GRIP with nothing else in the way.

@@ -12,8 +12,10 @@ import { BRUSHES } from "../src/brushes.js";
 describe("brushTooltip", () => {
   test("names the wave and its name for a brush a wave carries", () => {
     // The numbers move when a wave is authored ahead of these two — THE FLEET
-    // added a sixth boss to act two and pushed both on by one.
-    expect(brushTooltip("throb")).toBe("First in WAVE 22 · ON THE BEAT");
+    // added a sixth boss to act two and pushed both on by one — and the *names*
+    // move when the owner renames a wave in the director, which is how wave 22
+    // stopped being ON THE BEAT.
+    expect(brushTooltip("throb")).toBe("First in WAVE 22 · THE THROB");
     expect(brushTooltip("shell")).toBe("First in WAVE 23 · THE THIRD SHOT");
   });
 
