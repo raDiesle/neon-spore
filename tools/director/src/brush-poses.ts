@@ -1,5 +1,4 @@
 import { authorsBodyColor, CREATURES } from "@neon-spore/content";
-import type { ViewRole } from "@neon-spore/render";
 import {
   type Color,
   type CreatureKind,
@@ -7,9 +6,8 @@ import {
   SHELL_INTACT,
   type World,
 } from "@neon-spore/sim";
-import { trimToSubject } from "./brush-trim.js";
+import { COL, creatureAt, midpoint, podAt, tile } from "./brush-frame.js";
 import { type Brush, LIVING_BRUSH_KINDS } from "./brushes.js";
-import { frameWorld } from "./pose-art.js";
 import {
   aim,
   fresh,
@@ -23,7 +21,7 @@ import {
 } from "./pose-kit.js";
 
 /**
- * The moment each brush is photographed at, and the frame that photographs it.
+ * The moment each brush is photographed at.
  *
  * Split from `brush-art.ts`, which is now only the cache and the element the
  * three callers hang on their page. The line between them is the one worth
@@ -35,58 +33,17 @@ import {
  * a plate looks like laid over it. So these are real frames — the same
  * `Canvas2DRenderer` the phone runs, against a real `World`.
  *
- * Two things make a frame a *picture of the creature* rather than a picture of
- * the game with the creature somewhere in it, and both used to be missing:
- *
- *  - the frame is drawn **bare** (`ViewState.bare`), so the starfield, the
- *    radar and the grid are not there to be mistaken for the subject at 34 px;
- *  - and the crop is **measured, not declared** (`brush-trim.ts`) — the body
- *    is found in the black and centred as large as it will go, so a moored pod
- *    and a lure with its ring both fill their chip.
- *
- * What each builder still decides is the *moment*: a shell with one plate
- * already off, a clasp inside its bubble, a torch on the one beat it is on the
- * field at all. That is the part no measurement can recover.
+ * The frame itself — bare, and cropped by measuring rather than by declaring
+ * — is `brush-frame.ts`. What each builder here decides is the *moment*: a
+ * shell with one plate already off, a clasp inside its bubble, a torch on the
+ * one beat it is on the field at all, an echo one beat after it came apart.
+ * That is the part no measurement can recover.
  *
  * Built once per brush and kept as a data URL: a settled frame costs dozens of
  * simulation ticks and a full render pass, and the same picture is wanted in
  * three places at three sizes — the palette, the map's cells and the hover
  * card — where one canvas element cannot be in two of them at once.
  */
-
-const COL = 3;
-/** The square a specimen is drawn into before it is measured and cut down. */
-const SOURCE = 320;
-/** The square it is cut down to. Bigger than any use of it, so the hover
- * card's picture is a picture rather than a magnified thumbnail. */
-const ART = 256;
-function creatureAt(world: World, kind?: CreatureKind): { col: number; row: number } {
-  const c = (kind ? world.creatures.find((x) => x.kind === kind) : undefined) ?? world.creatures[0];
-  return c ? { col: c.col, row: c.row } : { col: COL, row: 7 };
-}
-
-function podAt(world: World): { col: number; row: number } {
-  const p = world.pods[0];
-  return p ? { col: p.colMilli / 1000, row: p.rowMilli / 1000 } : { col: COL, row: 3 };
-}
-
-/**
- * One bare frame around `at`, trimmed to whatever it drew.
- *
- * `span` is no longer the picture's framing — the trim decides that — it is
- * the *reach*: how far from the body something may be and still count as part
- * of it. Generous enough for a lure's exclamation and a torch's tail, tight
- * enough that a neighbouring column could never wander in.
- */
-function tile(
-  world: World,
-  at: { col: number; row: number },
-  span = 4,
-  role: ViewRole = "test",
-): HTMLCanvasElement {
-  const framed = frameWorld(world, role, "tile", SOURCE, at, span, Number.POSITIVE_INFINITY, true);
-  return trimToSubject(framed.canvas, ART);
-}
 
 /** A settled meteor. */
 function meteorArt(): HTMLCanvasElement {
@@ -185,6 +142,52 @@ function dartArt(): HTMLCanvasElement {
   return tile(world, creatureAt(world, "dart"), 4, "p1");
 }
 
+/**
+ * THE ECHO, one beat after its first division: two small bodies standing side
+ * by side.
+ *
+ * The settled single body every other living kind gets drew a small slick or
+ * bulb and stopped there — a picture of a body that happens to be little,
+ * saying nothing about the one thing this brush places. What an echo *is* is a
+ * thing that comes apart, and `ECHO_AXES[0]` is sideways precisely because
+ * "two halves side by side is the plainest picture of a thing coming apart"
+ * (`sim/echo-split.ts`). So the pose waits for that division rather than for a
+ * settling, and the chip shows the pair.
+ *
+ * One division and not three. Eight bodies in a block is what the pair sees
+ * when they have already lost the argument, and at 34 px it is a smudge; two
+ * is the sentence the brush is for.
+ *
+ * Cyan, so the two are bulbs — the same authored colour `livingArt` gives any
+ * kind that carries none, reached the same way (`authorsBodyColor`).
+ */
+function echoArt(): HTMLCanvasElement {
+  const world = echoPairWorld();
+  return tile(world, midpoint(echoes(world)), 4.5);
+}
+
+/**
+ * The world that frame is taken from, exported so the moment can be tested
+ * without a canvas — `brush-art.ts` swallows a pose that cannot be built and
+ * falls back to the plain contour, so a division this run stopped reaching
+ * would go quiet rather than red (`brush-poses.test.ts`).
+ */
+export function echoPairWorld(): World {
+  const world = fresh([{ beat: 0, col: COL, kind: "echo", color: "cyan" }]);
+  until(world, "the echo divided once", (w) => echoes(w).length >= 2);
+  // And then the rest of that beat. The two halves inherit the parent's
+  // `fromCol`, so on the tick the division lands they are both still drawn
+  // where the one body stood (`splitEchoes`) — the glide apart is the whole of
+  // that beat, and a frame taken at its start is a picture of one body again.
+  run(world, TPB - 1);
+  return world;
+}
+
+/** The echo bodies on the field, in the order the world holds them. */
+export function echoes(world: World): { col: number; row: number }[] {
+  return world.creatures.filter((c) => c.kind === "echo");
+}
+
 /** A pod, moored — `mend`, `purge` and `ward` are three marks on the one
  * shape (`pods.ts`), never the torch. */
 function podArt(kind: PodKind | undefined): HTMLCanvasElement {
@@ -213,6 +216,7 @@ const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   shell: shellArt,
   clasp: claspArt,
   dart: dartArt,
+  echo: echoArt,
   mend: () => podArt(undefined),
   purge: () => podArt("purge"),
   ward: () => podArt("ward"),
