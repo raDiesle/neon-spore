@@ -350,6 +350,7 @@ the rest.
 ## A buzz for the two things a player must not miss
 
 - **Found:** 2026-09-03, claude/queue-parked-hooks-and-three
+- **Taken:** 2026-09-03, claude/queue-a-buzz-for-the-two-things-a-player-must-not-miss
 - **Files:** `apps/game/src/haptics.ts`, `apps/game/src/settings.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/loop.ts`, `apps/game/test/haptics.test.ts`
 
 Asked for by the owner on 3 September 2026, alongside the settings page, and
