@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 74e1dfd — A nickname, asked once and carried into the room
+
+The seat pills said HERE, which is only that somebody is there. Knowing *who* is there is the whole reason to ask, so the room screen asks the first time a device reaches it and never again — changing a name belongs on the settings page, where the rest of "things about me" will live.
+
 ## 2026-09-04 · 08ec941 — The room starts on a shared press, not a three-second timer
 
 Beat zero was stamped the moment the second phone landed, three seconds ahead, on the ground that two people need a moment to look up from the code they were reading out and say "go". They do — but a timer cannot know whether they have, and a pair dropped onto a field mid-sentence has lost the wave before it started. This is what makes a testing session workable.
