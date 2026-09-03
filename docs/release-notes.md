@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 1169d67 — Queue three nav follow-ups; spec the seat swap the owner asked to design
+
+Off the second round of end-of-turn questions. Three go to the queue: the view switch is a second seat-picker floating over a player's field where a wrong tap sends their touches nowhere; LEAVE ROOM hangs up on the other player with no confirm; and the tuning panel still reads "TEST BUILD" with a desk-keys footer, from before the menu was the front door. Each drains with one `bun run check`.
+
+## 2026-09-03 · 18a307c — Player 2 is the NAVIGATOR on the seat card, not a GUNNER
+
+The seat cards and the room screen's second pill were labelled GUNNER — a synonym I coined for a role the rest of the game and the whole spec call the NAVIGATOR (`docs/spec/roles.md`, the director's states and poses). CLAUDE.md fixes the design vocabulary and forbids inventing a second word for a thing that has one, and a player reading NAVIGATOR in a briefing and GUNNER on the card they picked is the exact confusion the rule prevents.
+
 ## 2026-09-03 · ba89a9d — Queue the eight features the owner chose off the end-of-phase questions
 
 The navigation work threw off a batch of user-visible features too big to fold into it — a shared start, nicknames, lasting rooms, stored stats, and three menu pages. Per the rule that same lane added to CLAUDE.md, they went to the owner at the end of the turn rather than onto the queue by a session's guess. He answered item by item; these eight are the ones he sent here.
