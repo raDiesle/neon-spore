@@ -1,3 +1,4 @@
+import { smoothstep } from "./ease.js";
 /**
  * The cannon's wind-up, as pure arithmetic — no canvas anywhere near it.
  *
@@ -41,11 +42,6 @@
 /** Where in the wind-up the egg starts to come through. */
 export const CROWN_AT = 0.62;
 
-function smooth(u: number): number {
-  const c = Math.max(0, Math.min(1, u));
-  return c * c * (3 - 2 * c);
-}
-
 /** The three beats, from the laying phase and the renderer's clock. */
 export interface EggBeats {
   /** 0..1, the swelling while nothing has left. */
@@ -67,7 +63,7 @@ export interface EggBeats {
 const AT_DEPARTURE = 0.9;
 
 export function eggBeats(phase: number, time: number): EggBeats {
-  const strain = phase <= 0 ? 0 : phase < CROWN_AT ? smooth(phase / CROWN_AT) : 1;
+  const strain = phase <= 0 ? 0 : phase < CROWN_AT ? smoothstep(phase / CROWN_AT) : 1;
   const crown =
     phase < CROWN_AT ? 0 : phase >= 1 ? 1 : ((phase - CROWN_AT) / (1 - CROWN_AT)) ** 2.4;
   const relief = phase <= 1 ? 0 : Math.min(1, phase - 1);

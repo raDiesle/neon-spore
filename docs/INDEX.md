@@ -366,6 +366,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
 | `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
+| `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
+| `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
 
 ### packages/net
 

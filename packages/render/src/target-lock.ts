@@ -1,3 +1,5 @@
+import { sinHash } from "./hash.js";
+
 /**
  * THE TARGET LOCK: the one marking in this game that means *an instrument has
  * picked this body out, and it cannot tell you the rest*.
@@ -73,18 +75,6 @@ const GLOW_ALPHA = 0.18;
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
 
-/**
- * A repeatable 0..1 off one number. Not `Rng` — that is the simulation's, and
- * a marking that pulled from it would move the shared stream and desync two
- * devices over a flicker. Not `Math.random` either: this has to give the same
- * answer twice within a frame, because the jitter is read once for the box and
- * once for the corner ticks.
- */
-function noise(n: number): number {
-  const v = Math.sin(n * 12.9898) * 43758.5453;
-  return v - Math.floor(v);
-}
-
 /** The four corner brackets, as one path ready to stroke. */
 function corners(
   ctx: CanvasRenderingContext2D,
@@ -140,7 +130,7 @@ export function drawTargetLock(
   const w = Math.max(MIN_WEIGHT, short * WEIGHT);
 
   const step = Math.floor(time / STEP) + seed * 17;
-  const bad = noise(step) < DROP_CHANCE;
+  const bad = sinHash(step) < DROP_CHANCE;
   // A shallow shimmer under the drops, so the frame is never quite still even
   // on a good step — an instrument holding a lock is still working at it.
   const shimmer = 0.9 + 0.1 * Math.sin(time * 9 + seed);
@@ -148,7 +138,7 @@ export function drawTargetLock(
   if (a <= 0.01) return;
   // Sideways only, and only on a bad step: a frame that wandered in both axes
   // every frame would read as a thing floating rather than as a bad signal.
-  const jx = bad ? (noise(step * 1.7 + 3) - 0.5) * w * 1.6 : 0;
+  const jx = bad ? (sinHash(step * 1.7 + 3) - 0.5) * w * 1.6 : 0;
 
   const left = cx - halfW + jx;
   const right = cx + halfW + jx;

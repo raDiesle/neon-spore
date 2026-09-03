@@ -372,4 +372,24 @@ export const COPIES: Copy[] = [
     pattern: /throbOpen\s*\?\s*1\.3\s*:\s*0\.7|\[\s*0\.7\s*,\s*1\.3\s*\]/,
     strip: false,
   },
+  {
+    // The one repeatable 0..1 in render/. Seven files carried this arithmetic
+    // privately, under seven doc comments each re-arguing why it is not `Rng`
+    // and not `Math.random`. Two magic numbers written out again is a marking
+    // drawing off a different stream from the one beside it, which is the kind
+    // of thing nobody sees and nobody can unsee afterwards.
+    call: "sinHash",
+    owner: "packages/render/src/hash.ts",
+    pattern: /12\.9898|43758\.5453/,
+    strip: false,
+  },
+  {
+    // The one easing curve. Five copies, three of them trusting the caller to
+    // have clamped and two clamping themselves — the difference between them
+    // being invisible until a value arrives out of range.
+    call: "smoothstep",
+    owner: "packages/render/src/ease.ts",
+    pattern: /\*\s*\(\s*3\s*-\s*2\s*\*/,
+    strip: false,
+  },
 ];

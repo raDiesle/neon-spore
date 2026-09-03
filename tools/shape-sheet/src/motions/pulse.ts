@@ -1,4 +1,5 @@
 import type { OwnMotion } from "@neon-spore/content";
+import { smoothstep } from "@neon-spore/render";
 import { pose } from "./pose.js";
 
 /**
@@ -224,12 +225,6 @@ const OUT = 0.3;
 const SPAN = 0.13;
 const BULGE = 0.14;
 
-/** Smoothstep, clamped — `LURCH`'s ramp, which is where this shape came from. */
-function ramp(x: number): number {
-  const c = Math.min(1, Math.max(0, x));
-  return c * c * (3 - 2 * c);
-}
-
 export const PERISTALSIS: OwnMotion = {
   name: "PERISTALSIS",
   note: "a bulge swallowed at one end and squeezed to the other — width travels, length does not",
@@ -238,7 +233,7 @@ export const PERISTALSIS: OwnMotion = {
     const p = t % PERISTALSIS_PERIOD;
     if (p >= TRAVERSE) return pose(0, 0, 0, 1, 1);
     const u = p / TRAVERSE;
-    const presence = ramp(u / IN) - ramp((u - (1 - OUT)) / OUT);
+    const presence = smoothstep(u / IN) - smoothstep((u - (1 - OUT)) / OUT);
     return pose(SPAN * presence * (2 * u - 1), 0, 0, 1, 1 + presence * BULGE);
   },
 };

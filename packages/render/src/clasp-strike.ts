@@ -1,6 +1,7 @@
 import type { SimEvent, World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { halo } from "./glow.js";
+import { signedHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -45,12 +46,6 @@ const BOLTS = 3;
 const STEPS = 9;
 /** Sideways wander per vertex, as a share of a tile. */
 const JITTER = 0.3;
-
-/** Deterministic, not `Math.random` — `shield-spark.ts` makes the argument. */
-function signedHash(n: number): number {
-  const s = Math.sin(n * 12.9898) * 43758.5453;
-  return (s - Math.floor(s)) * 2 - 1;
-}
 
 /**
  * One bolt from `(x0, y0)` to `(x1, y1)`, drawn twice: a wide soft pass and a

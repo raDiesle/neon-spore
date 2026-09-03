@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { sinHash } from "@neon-spore/render";
 import { linePath, type Subject } from "../contour.js";
 import { isoLoops, resampleAll } from "../iso.js";
 
@@ -40,16 +41,6 @@ interface Unit {
 const FACET_POINTS = 192;
 
 /**
- * Deterministic in its inputs and spread across 0..1. A tool may hash; only
- * `sim` and `content` are held to the seeded `Rng`, and this draws nothing the
- * game ships.
- */
-function scatter(seed: number, i: number, k: number): number {
-  const x = Math.sin(seed * 12.9898 + i * 78.233 + k * 37.719) * 43758.5453;
-  return x - Math.floor(x);
-}
-
-/**
  * The widest course at the bottom and one on top — the arrangement that reads
  * as *stacked* rather than as a heap, which is the whole job of the shape.
  *
@@ -89,7 +80,7 @@ function unitsAt(o: PileOpts, t: number): Unit[] {
   const inner = (r: number) => r * Math.cos(Math.PI / o.sides);
   const radii: number[] = [];
   for (let i = 0; i < o.units; i++) {
-    radii.push(o.radius * (0.82 + 0.36 * scatter(o.seed, i, 3)));
+    radii.push(o.radius * (0.82 + 0.36 * sinHash(o.seed, i, 3)));
   }
 
   // Spacing is derived from the units' own reach rather than laid on a grid,
@@ -132,14 +123,14 @@ function unitsAt(o: PileOpts, t: number): Unit[] {
       const i = base + j;
       const radius = radii[i] as number;
       // Screen y grows downward, so course 0 — the widest — sits at the bottom.
-      const x = (xs[j] as number) - centre + (scatter(o.seed, i, 1) - 0.5) * o.radius * 0.1;
-      const y = (rowY[r] as number) - lift + (scatter(o.seed, i, 2) - 0.5) * o.radius * 0.08;
+      const x = (xs[j] as number) - centre + (sinHash(o.seed, i, 1) - 0.5) * o.radius * 0.1;
+      const y = (rowY[r] as number) - lift + (sinHash(o.seed, i, 2) - 0.5) * o.radius * 0.08;
       // A pile settles, it does not breathe: a small slow shift per unit, out
       // of step with its neighbours, so the seams work against each other
       // instead of the whole thing pulsing like one body.
       const drift = { x: Math.sin(t * 1.7 + i * 2.1), y: Math.cos(t * 1.3 + i * 1.7) };
       const pull = o.pull?.unit === i ? o.pull : null;
-      const spin = scatter(o.seed, i, 4) * Math.PI * 2 + Math.sin(t * 0.4 + i) * 0.05;
+      const spin = sinHash(o.seed, i, 4) * Math.PI * 2 + Math.sin(t * 0.4 + i) * 0.05;
       const step = (Math.PI * 2) / o.sides;
       const nx: number[] = [];
       const ny: number[] = [];

@@ -1,4 +1,5 @@
 import { type Creature, dartHeading } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -51,14 +52,10 @@ export function dartLean(c: Creature, beatPhase: number): number {
   if (c.dartFloat) {
     // Taking aim: level where the last run left it, full lean by the moment
     // the next one starts.
-    return dir * LEAN_HOLD * smooth(p);
+    return dir * LEAN_HOLD * smoothstep(p);
   }
   // Running: out at the aim, deeper through the middle, level on arrival.
   return dir * (LEAN_HOLD + (LEAN_RUN - LEAN_HOLD) * Math.sin(Math.PI * p)) * (1 - p * p);
-}
-
-function smooth(p: number): number {
-  return p * p * (3 - 2 * p);
 }
 
 /**

@@ -1,4 +1,5 @@
 import type { OwnMotion } from "@neon-spore/content";
+import { smoothstep } from "@neon-spore/render";
 import { pose } from "./pose.js";
 
 /**
@@ -125,8 +126,7 @@ export const LURCH: OwnMotion = {
     const period = 5.12;
     const p = (t % period) / period;
     // A trapezoid in time: ramp, hold, ramp back, hold.
-    const ramp = (x: number): number =>
-      Math.min(1, Math.max(0, x)) ** 2 * (3 - 2 * Math.min(1, Math.max(0, x)));
+    const ramp = smoothstep;
     const go = ramp((p - 0.05) / 0.25) - ramp((p - 0.55) / 0.25);
     return pose((go - 0.5) * 0.3, 0, (go - 0.5) * 0.24);
   },
@@ -182,10 +182,7 @@ export const CANT: OwnMotion = {
   poseAt(t) {
     const period = 8;
     const p = (t % period) / period;
-    const edge = (x: number): number => {
-      const c = Math.min(1, Math.max(0, x));
-      return c * c * (3 - 2 * c);
-    };
+    const edge = smoothstep;
     // A square wave with eased shoulders: -1 held, then +1 held.
     const lean = (edge(p / 0.12) - edge((p - 0.5) / 0.12)) * 2 - 1;
     return pose(lean * 0.09, 0, lean * 0.26, 1, 1);

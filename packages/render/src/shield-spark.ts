@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { signedHash, sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -122,20 +123,6 @@ export function resonantLook(base: ShieldSparkLook, resonance: number): ShieldSp
  * clock — the owner's "2 of them", irregularly, rather than a strobe. */
 const SLOTS = 2;
 
-/** Deterministic, not `Math.random`: `time` is each device's own wall clock
- * (`apps/game/src/main.ts`), so this draws the same arc on the same device
- * from one frame to the next, not the same arc on both devices at once — the
- * way the rim's shimmer already works. */
-function hash(n: number): number {
-  const s = Math.sin(n * 12.9898) * 43758.5453;
-  return s - Math.floor(s);
-}
-
-/** -1..1 from the same stream, for jitter that bends both ways. */
-function signedHash(n: number): number {
-  return hash(n) * 2 - 1;
-}
-
 /**
  * A few thin, branched arcs thrown outward from the shield's rim — sudden,
  * brief, then gone. `cols` is the shield's current segment columns, the same
@@ -156,7 +143,7 @@ export function drawShieldSparks(
   const colMax = Math.max(...cols);
 
   for (let k = 0; k < SLOTS; k++) {
-    const period = (SLOTS / look.perSecond) * (0.7 + hash(k * 53.7) * 0.9);
+    const period = (SLOTS / look.perSecond) * (0.7 + sinHash(k * 53.7) * 0.9);
     const activeFrac = Math.min(0.5, Math.max(0.02, look.life / period));
     const phase = time / period + k / SLOTS;
     const cycle = Math.floor(phase);
@@ -183,7 +170,7 @@ function drawOneArc(
   if (alpha <= 0) return;
 
   const seed = cycle * 97 + slot * 31;
-  const colFrac = hash(seed + 1);
+  const colFrac = sinHash(seed + 1);
   const originX = tileCX(l, colMin + (colMax - colMin) * colFrac);
   const origin = surface(originX);
 
@@ -198,8 +185,8 @@ function drawOneArc(
   }
   strokeArc(ctx, pts, look.width, look.intensity, alpha);
 
-  if (look.segments >= 3 && hash(seed + 99) < look.forkChance) {
-    const forkAt = 1 + Math.floor(hash(seed + 7) * (look.segments - 2));
+  if (look.segments >= 3 && sinHash(seed + 99) < look.forkChance) {
+    const forkAt = 1 + Math.floor(sinHash(seed + 7) * (look.segments - 2));
     const base = pts[forkAt]!;
     const branch: Point[] = [base];
     const branchStep = step * 0.7;

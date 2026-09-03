@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { CLASP_RADIUS_MUL } from "./clasp.js";
 import { creatureCenter } from "./creature-place.js";
 import { depthScale, drawnRow } from "./depth.js";
+import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -67,14 +68,6 @@ export function claspBreakVisible(t: number): boolean {
 /** How many fragments tumble inside the ball while it is coming apart. */
 const SHARDS = 9;
 
-/** Deterministic, not `Math.random`: the same argument `shield-spark.ts`
- * makes — `time` is each device's own wall clock, so this is repeatable per
- * device, not shared between the two. */
-function hash(n: number): number {
-  const s = Math.sin(n * 12.9898) * 43758.5453;
-  return s - Math.floor(s);
-}
-
 /**
  * The blizzard inside the circle — the owner's word for it: *"some blizzards
  * in the shield circle indicating its being destroyed"*.
@@ -105,12 +98,12 @@ function drawBlizzard(
   ctx.lineWidth = Math.max(0.6, r * 0.08);
   for (let i = 0; i < SHARDS; i++) {
     // Each fragment has its own tumble rate, so they never sweep as one ring.
-    const spin = 1.4 + hash(i * 17.3) * 2.6;
-    const a = hash(i * 5.1) * Math.PI * 2 + t * spin;
+    const spin = 1.4 + sinHash(i * 17.3) * 2.6;
+    const a = sinHash(i * 5.1) * Math.PI * 2 + t * spin;
     // Outward over the fragment's life: the shell is throwing itself apart.
-    const d = r * (0.12 + 0.55 * ((hash(i * 9.7) + t * 1.6) % 1));
-    const len = r * (0.12 + 0.14 * hash(i * 3.3));
-    const flicker = hash(i * 2.9 + Math.floor(t * 24)) * 0.7 + 0.3;
+    const d = r * (0.12 + 0.55 * ((sinHash(i * 9.7) + t * 1.6) % 1));
+    const len = r * (0.12 + 0.14 * sinHash(i * 3.3));
+    const flicker = sinHash(i * 2.9 + Math.floor(t * 24)) * 0.7 + 0.3;
     ctx.globalAlpha = Math.min(1, strength * flicker);
     ctx.beginPath();
     ctx.moveTo(x + Math.cos(a) * d, y + Math.sin(a) * d);

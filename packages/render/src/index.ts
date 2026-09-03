@@ -1,6 +1,7 @@
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
+export { smoothstep } from "./ease.js";
 export {
   type Dial,
   type DialView,
@@ -11,6 +12,7 @@ export {
 export { drawGaugeRound } from "./gauge-round.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
+export { signedHash, sinHash } from "./hash.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
   type Circle,

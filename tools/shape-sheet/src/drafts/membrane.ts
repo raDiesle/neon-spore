@@ -1,4 +1,5 @@
 import { bumpAdd, openSmoothPath, type Point } from "@neon-spore/content";
+import { smoothstep } from "@neon-spore/render";
 import type { Subject } from "../contour.js";
 import { hull, hullArc } from "../hull-subjects.js";
 
@@ -118,11 +119,6 @@ export function welt(height: number): Feature {
   return (dx) => bumpAdd(dx, height, COLUMN * 0.5, COLUMN * 0.2);
 }
 
-function ease(x: number): number {
-  const c = Math.min(1, Math.max(0, x));
-  return c * c * (3 - 2 * c);
-}
-
 /**
  * A lobe that stands while the partner's thumb is down and goes out when it
  * lifts — held for a little over half the cycle, with eased edges so the
@@ -135,7 +131,7 @@ export function held(height: number, period: number): Feature {
   return (dx, t) => {
     const p = (((t + period * 0.25) % period) + period) % period;
     const f = p / period;
-    const down = ease(f / 0.08) - ease((f - 0.55) / 0.08);
+    const down = smoothstep(f / 0.08) - smoothstep((f - 0.55) / 0.08);
     return bumpAdd(dx, height * down, COLUMN * 0.5, COLUMN * 0.25);
   };
 }

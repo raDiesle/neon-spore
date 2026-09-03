@@ -54,20 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Fold seven copies of the sin-hash and five of smoothstep into shared helpers
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/render/src/clasp-break.ts`, `packages/render/src/clasp-strike.ts`, `packages/render/src/lure-hole.ts`, `packages/render/src/shield-flash.ts`, `packages/render/src/shield-spark.ts`, `packages/render/src/target-lock.ts`, `packages/render/src/veil-bolt.ts`, `packages/render/src/dart.ts`, `packages/render/src/egg-curve.ts`, `packages/render/src/rock-impact.ts`, `packages/render/src/snake-morph.ts`, `packages/render/src/simon-verdict.ts`, `packages/render/src/sheen.ts`, `packages/render/src/hex.ts`, `packages/sim/test/purity.test.ts`
-
-`Math.sin(n * 12.9898) * 43758.5453` is private to seven render files;
-`t * t * (3 - 2 * t)` to five; `sheen.ts` `mix` duplicates `hex.ts` `mixHex` and
-`hex.ts` already says so in a comment.
-
-Add `src/hash.ts` (`sinHash`, `signedHash`) and `src/ease.ts` (`smoothstep`),
-replace the private copies with imports, and have `sheen.ts` call `mixHex` (same
-integer rounding, so the colours are byte-identical). Add a purity row so the next
-copy fails. The frame is pixel-identical; the frame tests prove it.
-
 ## Remove the per-frame recomputation in controls, craters, backdrop and hull
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

@@ -1,4 +1,5 @@
 import type { OwnMotion } from "@neon-spore/content";
+import { smoothstep } from "@neon-spore/render";
 import { pose } from "./pose.js";
 
 /**
@@ -140,10 +141,7 @@ export const PITCH: OwnMotion = {
   poseAt(t) {
     const period = 8;
     const p = (t % period) / period;
-    const edge = (x: number): number => {
-      const c = Math.min(1, Math.max(0, x));
-      return c * c * (3 - 2 * c);
-    };
+    const edge = smoothstep;
     // CANT's square wave with eased shoulders, driving an angle instead of rot.
     const lean = (edge(p / 0.12) - edge((p - 0.5) / 0.12)) * 2 - 1;
     const over = TIP * lean + LENS;
@@ -194,7 +192,7 @@ export const CRAWL: OwnMotion = {
     const p = (t % CRAWL_PERIOD) / CRAWL_PERIOD;
     const lunging = p < LUNGE;
     const x = lunging ? p / LUNGE : (p - LUNGE) / (1 - LUNGE);
-    const ease = x * x * (3 - 2 * x);
+    const ease = smoothstep(x);
     // Reach out over a third of the cycle and lose it over the rest, with the
     // speed of the reach — not its extent — driving the stretch.
     const out = lunging ? ease : 1 - ease;

@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -45,15 +46,6 @@ export const SHIELD_FLASH_LOOK: ShieldFlashLook = {
  * they never share a clock — "a few, irregularly", not a strobe. */
 const SLOTS = 4;
 
-/** Deterministic, not `Math.random`: `time` is each device's own wall clock
- * (`apps/game/src/main.ts`), so this draws the same flash on the same device
- * from one frame to the next, not the same flash on both devices at once —
- * the way `shield-spark.ts`'s arcs already work. */
-function hash(n: number): number {
-  const s = Math.sin(n * 12.9898) * 43758.5453;
-  return s - Math.floor(s);
-}
-
 /**
  * Up to four soft flashes above the shield's rim, each at its own random spot
  * and its own random timing within a range — sudden, brief, then gone. `from`
@@ -77,9 +69,9 @@ export function drawShieldFlashes(
   for (let k = 0; k < SLOTS; k++) {
     // Each slot's own period wobbles by up to ±45% around the shared rate, so
     // the flashes drift in and out of sync instead of ticking in lockstep.
-    const period = (SLOTS / look.perSecond) * (0.7 + hash(k * 71.3 + 5) * 0.9);
+    const period = (SLOTS / look.perSecond) * (0.7 + sinHash(k * 71.3 + 5) * 0.9);
     const activeFrac = Math.min(0.5, Math.max(0.02, look.life / period));
-    const phase = time / period + hash(k * 41.1 + 2);
+    const phase = time / period + sinHash(k * 41.1 + 2);
     const cycle = Math.floor(phase);
     const pos = phase - cycle;
     if (pos >= activeFrac) continue;
@@ -105,7 +97,7 @@ function drawOneFlash(
   if (alpha <= 0) return;
 
   const seed = cycle * 131 + slot * 17;
-  const posFrac = hash(seed + 1);
+  const posFrac = sinHash(seed + 1);
   const originX = from + (to - from) * posFrac;
   const origin = surface(originX);
   const rise = look.heightMul * l.tile;

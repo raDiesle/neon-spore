@@ -1,37 +1,10 @@
 import { hullPercent, midCol, type SnakeState } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { drawHull } from "./hull.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
-
-/**
- * The ship becoming the snake, and it is **the ship**.
- *
- * This used to be three rounded bars closing onto three tiles, and the owner
- * said what was wrong with it in one sentence: that is not the thing they
- * steer on every other wave. So the fold draws the real hull — `drawHull`, the
- * same call `frame-passes.ts` makes on the field, with the run's own scars on
- * it — and takes it apart.
- *
- * **In two movements, because one was not a morph.** Scaling the ship down and
- * fading it out is a ship going away; what the owner asked for is a ship
- * *becoming* something. So the first half draws it in place and squeezes it —
- * the hull narrows towards the head's column while it keeps most of its height,
- * so the wide shallow ship turns into a tall narrow one, which is the shape of
- * a body — and the second half carries that shape to the head tile and grows
- * the length out behind it, tile by tile, as the ship's own outline lets go.
- *
- * Nothing about it is stored. The whole animation is one number read off the
- * round's phase beat (`morph01`), so a restart cannot bring half a fold into
- * the next run and `Effects.reset` has nothing of it to clear — the rule
- * `restart.test.ts` holds this package to.
- */
-
-/** Ease so a movement starts and stops rather than running at one speed. */
-function ease(t: number): number {
-  return t * t * (3 - 2 * t);
-}
 
 /** Where the second movement starts. The first is the squeeze, on the spot. */
 const HANDOVER = 0.45;
@@ -58,8 +31,8 @@ export function drawSnakeMorph(
 ): void {
   const head = snake.body[0];
   if (!head) return;
-  const squeeze = ease(Math.min(1, morph01 / HANDOVER));
-  const carry = ease(morphBodyGrowth(morph01));
+  const squeeze = smoothstep(Math.min(1, morph01 / HANDOVER));
+  const carry = smoothstep(morphBodyGrowth(morph01));
 
   const fromX = l.gridLeft + l.gridWidth / 2;
   const fromY = l.hullY;

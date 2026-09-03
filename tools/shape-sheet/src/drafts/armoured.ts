@@ -1,3 +1,4 @@
+import { smoothstep } from "@neon-spore/render";
 import type { CatalogueEntry } from "../catalogue.js";
 import { curled, valved } from "../forms/index.js";
 import { SHIVER, SLITHER, SWELL, TUMBLE, TWITCH } from "../motions.js";
@@ -57,7 +58,7 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
         if (p < 0.74) return 1;
         if (p < 0.95) {
           const x = (p - 0.74) / 0.21;
-          return 1 - x * x * (3 - 2 * x);
+          return 1 - smoothstep(x);
         }
         return 0;
       },
@@ -121,7 +122,7 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
         if (p < 0.62) return ((p - 0.55) / 0.07) ** 0.7;
         if (p < 0.8) return 1;
         const x = Math.min(1, (p - 0.8) / 0.2);
-        return 1 - x * x * (3 - 2 * x);
+        return 1 - smoothstep(x);
       },
     }),
     motion: TWITCH,

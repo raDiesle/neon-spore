@@ -1,4 +1,5 @@
 import type { MirrorStep, MirrorVerdictReason } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -49,7 +50,7 @@ export interface Flight {
 
 function ease(t: number): number {
   // Slow off the mark and fast into the hull: it is being thrown, not floated.
-  return t * t * (3 - 2 * t) * 0.35 + t * t * 0.65;
+  return smoothstep(t) * 0.35 + t * t * 0.65;
 }
 
 export class VerdictFx {

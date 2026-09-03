@@ -1,5 +1,6 @@
 import { hash01 } from "./backdrop.js";
 import { halo } from "./glow.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -17,22 +18,11 @@ import { PALETTE } from "./palette.js";
 /** The film, as a loop: it wraps, so the drift never reaches an end. */
 const FILM = ["#4FE9E0", "#6E8CFF", "#C05CFF", "#FF6BD6", "#8B5BFF"] as const;
 
-function mix(a: string, b: string, t: number): string {
-  const ca = Number.parseInt(a.slice(1), 16);
-  const cb = Number.parseInt(b.slice(1), 16);
-  const ch = (shift: number): string =>
-    Math.round(((ca >> shift) & 255) * (1 - t) + ((cb >> shift) & 255) * t)
-      .toString(16)
-      .padStart(2, "0");
-  // `#rrggbb`, not `rgb()`: `halo` appends a hex alpha to whatever it is given.
-  return `#${ch(16)}${ch(8)}${ch(0)}`;
-}
-
 /** The film colour at a position along the loop. `at` wraps, in turns. */
 function film(at: number): string {
   const p = ((at % 1) + 1) * FILM.length;
   const i = Math.floor(p) % FILM.length;
-  return mix(FILM[i] as string, FILM[(i + 1) % FILM.length] as string, p - Math.floor(p));
+  return mixHex(FILM[i] as string, FILM[(i + 1) % FILM.length] as string, p - Math.floor(p));
 }
 
 /**

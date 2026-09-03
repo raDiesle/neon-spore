@@ -1,4 +1,5 @@
 import { type CreatureKind, fallTilesPerBeat } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -28,11 +29,6 @@ const DRIFT_SPEED = 30;
 /** Sideways acceleration once it lets go, in px/s² — on top of `DRIFT_SPEED`,
  * so it leaves at a believable pace and keeps gathering. */
 const DRIFT_ACCEL = 28;
-
-function smoothstep(t: number): number {
-  const c = Math.max(0, Math.min(1, t));
-  return c * c * (3 - 2 * c);
-}
 
 interface Impact {
   kind: CreatureKind;

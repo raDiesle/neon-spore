@@ -1,5 +1,6 @@
 import { blobPath, type CreatureSilhouette } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
+import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { showsLureAlarm } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
@@ -52,14 +53,6 @@ const REACH = 1.9;
  * purpose: two rhythms read as something erratic burning, one reads as a
  * blinking light. */
 const POP_SECONDS = 0.53;
-
-/** A repeatable 0..1 off one number — `target-lock.ts`'s, for its reason: not
- * `Rng`, which is the simulation's and would desync two devices over a spark;
- * not `Math.random`, which cannot be asked the same question twice. */
-function noise(n: number): number {
-  const v = Math.sin(n * 12.9898) * 43758.5453;
-  return v - Math.floor(v);
-}
 
 /** Whether this body, on this screen, is drawn with a hole in it. */
 export function lureVented(l: Layout, c: Creature): boolean {
@@ -128,9 +121,9 @@ function drawSpark(
   id: number,
   i: number,
 ): void {
-  const run = time / SPARK_SECONDS + noise(id * 7.3 + i * 3.1);
+  const run = time / SPARK_SECONDS + sinHash(id * 7.3 + i * 3.1);
   const u = run - Math.floor(run);
-  const angle = noise(id * 2.7 + i * 5.9 + Math.floor(run) * 1.7) * Math.PI * 2;
+  const angle = sinHash(id * 2.7 + i * 5.9 + Math.floor(run) * 1.7) * Math.PI * 2;
   const dist = r * (HOLE_MUL * 0.5 + (REACH - HOLE_MUL * 0.5) * u);
   const len = Math.max(2, r * 0.42 * (1 - u * 0.5));
   const ax = Math.cos(angle);
@@ -157,7 +150,7 @@ function drawPop(
   time: number,
   id: number,
 ): void {
-  const run = time / POP_SECONDS + noise(id * 11.7);
+  const run = time / POP_SECONDS + sinHash(id * 11.7);
   const u = run - Math.floor(run);
   const radius = r * HOLE_MUL * (0.55 + 1.15 * u);
   ctx.globalAlpha = 0.8 * (1 - u);
