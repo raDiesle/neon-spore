@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 9f0e733 — The rule about filing a finding is said once, where the queue already says it
+
+Two sessions wrote the same rule at the same time and both landed. `docs/queue.md` and `bun run queue` arrived on main while a lane was adding a paragraph saying a finding is filed as a background task and kept out of the repository; the rebase replayed one under the other, so the file gave two answers and they disagreed on the central point — whether a finding is written down at all.
+
 ## 2026-09-03 · 2c51ff2 — A technical defect found in passing is filed as a task, not said once and lost
 
 Dead code, a stale document, a measured slowdown, a confirmed TODO, a missing test over something that broke once: these were said in the closing block and then gone, because the rule against `docs/parked.md` correctly refuses a list the owner has to drain by hand. A background task is drained by clicking it, so it is not that list — nothing accumulates in the repository and nothing is owed.
