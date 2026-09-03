@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 874f459 — The save's commit names the files that moved
+
+A save may write six act files and move one wave in one of them, and the message was listing all six — which is what the release note would then say. It now asks git which of the offered paths actually changed, and both the message and the commit's pathspec are that list.
+
+## 2026-09-03 · 411bb30 — A wave saved in the director is a wave committed
+
+The editor's save wrote source files and left them dirty, so an afternoon of authoring arrived as one shapeless diff and any session that came along in between saw uncommitted work it had to step around. A wave placed in the editor is finished authoring at the moment the save returns, so it is committed at that moment.
+
+## 2026-09-03 · 4500c4f — A merged tree no longer leaves the dev server showing yesterday
+
+A hot bundler rebuilds the module whose file changed, which is right while a person saves one file at a time and wrong the moment git rewrites two hundred of them. A pull, a rebase, a landing from another worktree or a plain checkout takes a second or two to write the tree; the bundler starts on the first file and finishes against a tree that has moved underneath it, and the incremental graph it keeps from that build is half of each revision — and stays that way.
+
 ## 2026-09-03 · a43be30 — A lure is burning through, and says two words instead of four
 
 The corner frame and the words both sit outside the contour, so the middle of a lure — the part the eye lands on — said nothing at all. Now there is a hole through it, in the shape of the body itself: the same lobes, the same seed, the same wobble clock, filled even-odd so the field and the light shafts show through the middle of the creature. Nothing else in this game is see-through in the middle. Sparks come out of it and it flashes at the mouth, in `ember`, the colour already spent on something going wrong.
