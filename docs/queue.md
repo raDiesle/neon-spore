@@ -107,22 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## Write the apps/game tests worth having: link.ts and loop.ts
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-write-the-apps-game-tests-worth-having-link-ts-a
-- **Files:** `apps/game/src/link.ts`, `apps/game/src/loop.ts`, `apps/game/test/`
-
-Of 3 460 source lines in `apps/game`, the 299 test lines cover a URL parser,
-keyboard gating, the menu and the raster flag. `link.ts` (a welcome restamp ends
-the run, `peers < 2` after start is `lost`, `error full` surrenders) and `loop.ts`
-(the 250 ms catch-up cap, and that `stop()` ends the rAF chain) are the two most
-valuable untested units; `link-socket.ts` is covered by the reconnect entry.
-
-`createLink` already takes `now`; drive it with a fake `RoomSocket` and assert the
-state after each message. Give `startLoop` injectable `now` and `raf` (one
-parameter each) and test the cap and the stop. Keep each file under 250 lines.
-
 ## The room starts on a shared press, not a three-second timer
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
