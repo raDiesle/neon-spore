@@ -51,5 +51,23 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-<!-- No entries. That is the normal state: most sessions finish what they start
-     and park nothing. -->
+## Four of the six hooks are still bash
+
+- **Found:** 2026-09-03, claude/task-queue-work-e618bf
+- **Files:** `.claude/hooks/format-edited.sh`, `.claude/hooks/after-sim-edit.sh`, `.claude/hooks/check-on-stop.sh`, `.claude/hooks/auto-land.sh`, `.claude/settings.json`, `tools/hooks/`
+
+The two `PreToolUse` guards moved to `tools/hooks/guard.ts` and are now a table
+of rules over arguments, with a test that spawns `bun` rather than `bash`. The
+other four did not move: `settings.json` still invokes each as
+`bash .claude/hooks/x.sh`, so a session whose shell has no `bash` on PATH
+silently gets no formatting after an edit, no typecheck on stop and no automatic
+landing. The failure is that nothing happens, which is the hardest kind to
+notice, and it is the same PowerShell gap the guards were moved to close.
+
+`format-edited.sh` and `after-sim-edit.sh` are a few lines each and are the
+place to start; `check-on-stop.sh` and `auto-land.sh` are longer and both shell
+out to `bun run` anyway. The pattern to follow is `guard.ts`: payload in on
+stdin, parsed once with `JSON.parse`, the decision a pure exported function the
+test calls directly, and only a thin `import.meta.main` block touching the
+process. Point `settings.json` at `bun tools/hooks/<name>.ts` as each one moves.
+
