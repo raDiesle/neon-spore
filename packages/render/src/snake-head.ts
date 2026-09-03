@@ -1,5 +1,6 @@
 import { PALETTE } from "./palette.js";
 import type { Arena } from "./snake-draw.js";
+import { cavity, fang, tongue } from "./snake-mouth.js";
 import { castShadow, clearShadow } from "./snake-skin.js";
 
 /**
@@ -20,6 +21,17 @@ import { castShadow, clearShadow } from "./snake-skin.js";
  * The cavity is drawn **inside the jaws and nowhere else**: the owner's one
  * note on the reference was to lose the round red field behind the head, which
  * was bigger than the mouth and read as a glow rather than as a throat.
+ *
+ * **There is no red left in it at all.** The throat was the reference's, and
+ * at this size a red field between two violet jaws did not read as a throat —
+ * it read as something held in the mouth. An open mouth is a *hole*, so it is
+ * drawn as one, and what tells the pair the mouth is open is the tongue coming
+ * out of it.
+ *
+ * **The tongue flicks**, and its phase is `flick` — a number the caller
+ * derives from `world.tick` (`snake-round.ts`). Nothing is stored for it: two
+ * devices on the same tick are at the same point of the same dart, and a
+ * restart begins the cycle again because the tick it is read off begins again.
  */
 
 /** How far each jaw swings at a full gape, in radians. */
@@ -32,6 +44,7 @@ export function drawSnakeHead(
   dirCol: number,
   dirRow: number,
   gape: number,
+  flick: number,
 ): void {
   const a = Math.atan2(dirRow, dirCol);
   ctx.save();
@@ -48,8 +61,8 @@ export function drawSnakeHead(
   skin.addColorStop(0, "#4A2288");
   skin.addColorStop(0.6, "#2A1150");
   skin.addColorStop(1, "#170A2E");
-  if (gape > 0.02) drawOpen(ctx, arena, r, Math.max(0, Math.min(1, gape)), skin);
-  else drawShut(ctx, arena, r, skin);
+  if (gape > 0.02) drawOpen(ctx, arena, r, Math.max(0, Math.min(1, gape)), skin, flick);
+  else drawShut(ctx, arena, r, skin, flick);
   ctx.restore();
 }
 
@@ -64,8 +77,9 @@ function drawShut(
   arena: Arena,
   r: number,
   skin: CanvasGradient,
+  flick: number,
 ): void {
-  tongue(ctx, r, 1);
+  tongue(ctx, r, r * 0.95, flick);
   jaw(ctx, arena, r, 0, 1, skin);
   jaw(ctx, arena, r, 0, -1, skin);
   // A join down the middle, so the two halves read as a mouth that could open
@@ -86,9 +100,14 @@ function drawOpen(
   r: number,
   gape: number,
   skin: CanvasGradient,
+  flick: number,
 ): void {
   const swing = GAPE_ANGLE * gape;
   cavity(ctx, r, swing);
+  // Out of the mouth rather than out of a shut snout, so it starts at the
+  // hinge and is drawn before the jaws — whatever of it is behind a jaw is
+  // covered by that jaw, which is what puts it *in* the mouth.
+  tongue(ctx, r, -r * 0.3, flick);
   jaw(ctx, arena, r, swing, 1, skin);
   jaw(ctx, arena, r, swing, -1, skin);
   fang(ctx, r, swing, 1);
@@ -143,51 +162,6 @@ function jaw(
   ctx.restore();
 }
 
-/**
- * The throat, between the jaws and no wider than they are. Two triangles
- * meeting at the hinge, so nothing of it is ever drawn outside the mouth.
- */
-function cavity(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
-  // **Shorter the wider it opens.** A jaw's tip is about `r * 1.5` from the
-  // hinge, so swinging it away pulls the tip back to `cos(swing)` of that; a
-  // throat at a fixed reach therefore grew out past the snout at a full gape
-  // and read as a red flag flying off the front of the head. It follows the
-  // tips instead, and stops short of them.
-  const reach = r * 1.5 * Math.cos(swing) * 0.86;
-  // Wide enough to fill the gape rather than the reach: the corners follow
-  // where the jaw *tips* have swung to, so no strip of the floor is left
-  // showing between the throat and the jaw that is meant to be holding it.
-  const open = Math.sin(swing) * r * 1.5;
-  ctx.beginPath();
-  ctx.moveTo(-r * 0.4, 0);
-  ctx.lineTo(reach * 0.9, -open);
-  ctx.lineTo(reach, 0);
-  ctx.lineTo(reach * 0.9, open);
-  ctx.closePath();
-  ctx.fillStyle = "#54061F";
-  ctx.fill();
-  // The glottis, which is the one detail that says throat rather than gap.
-  ctx.fillStyle = "#2A030B";
-  ctx.beginPath();
-  ctx.ellipse(r * 0.15, 0, r * 0.2, r * 0.12, 0, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-/** One fang, on the jaw it belongs to and swinging with it. */
-function fang(ctx: CanvasRenderingContext2D, r: number, swing: number, side: number): void {
-  ctx.save();
-  ctx.translate(-r * 0.45, 0);
-  ctx.rotate(swing * side);
-  ctx.beginPath();
-  ctx.moveTo(r * 1.0, side * r * 0.42);
-  ctx.lineTo(r * 1.18, side * r * 0.42);
-  ctx.lineTo(r * 1.02, side * r * 0.02);
-  ctx.closePath();
-  ctx.fillStyle = PALETTE.hullRim;
-  ctx.fill();
-  ctx.restore();
-}
-
 /** Two eyes on the brow, riding whichever jaw they are set into. */
 function eyes(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
   for (const side of [-1, 1]) {
@@ -204,25 +178,4 @@ function eyes(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
     ctx.fill();
     ctx.restore();
   }
-}
-
-/**
- * The tongue, out in front while the mouth is shut. Drawn from the head's own
- * geometry and nothing else — no clock, no stored phase — so it is the same on
- * both devices and survives a restart by never having existed.
- */
-function tongue(ctx: CanvasRenderingContext2D, r: number, out: number): void {
-  const tip = r * (1.05 + 0.5 * out);
-  ctx.strokeStyle = PALETTE.red;
-  ctx.lineWidth = 1.4;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(r * 0.9, 0);
-  ctx.lineTo(tip, 0);
-  ctx.moveTo(tip, 0);
-  ctx.lineTo(tip + r * 0.22, -r * 0.16);
-  ctx.moveTo(tip, 0);
-  ctx.lineTo(tip + r * 0.22, r * 0.16);
-  ctx.stroke();
-  ctx.lineCap = "butt";
 }

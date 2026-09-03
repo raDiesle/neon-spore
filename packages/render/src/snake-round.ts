@@ -95,6 +95,7 @@ function drawBodies(
       showsSnakeBody(view.role),
       snakeSlide(round, view.world.tick),
       gape(view, round),
+      flick(view.world.tick),
     );
     ctx.restore();
   }
@@ -104,6 +105,22 @@ function drawBodies(
   if (since < 1.2) drawSnakeShot(ctx, arena, round, 1 - since / 1.2);
   if (fold < 1) drawSnakeMorph(ctx, l, arena, view, round, fold);
 }
+
+/**
+ * How far through one flick of the tongue this tick is, 0 to 1.
+ *
+ * A whole cycle in `FLICK_TICKS` — the dart out, the pause and the wait — read
+ * straight off the tick counter and nothing else. It belongs here beside
+ * `gape` for the same reason `gape` is here: both are the world reduced to one
+ * number for the drawing, so `snake-head.ts` is handed a phase rather than
+ * left to invent one out of a clock it must not have.
+ */
+export function flick(tick: number): number {
+  return (((tick % FLICK_TICKS) + FLICK_TICKS) % FLICK_TICKS) / FLICK_TICKS;
+}
+
+/** Ticks in one flick of the tongue: a little under a second at sixty. */
+const FLICK_TICKS = 52;
 
 /**
  * How wide the mouth is standing open, 0 to 1.

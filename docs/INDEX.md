@@ -381,6 +381,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-bucket.ts` | you are drawing PINBALL's bucket — the ship's own skin in another shape, and the ball waiting in its mouth |
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
+| `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
 
 ### packages/net
 

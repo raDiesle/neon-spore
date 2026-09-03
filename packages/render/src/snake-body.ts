@@ -94,13 +94,14 @@ export function drawSnakeBody(
   showBody: boolean,
   t: number,
   gape = 0,
+  flick = 0,
 ): void {
   const joints = snakeJoints(arena, snake, t);
   const head = joints[0];
   if (!head) return;
   if (showBody && joints.length > 1) drawLength(ctx, arena, joints);
   else if (joints.length > 1) drawEnds(ctx, arena, joints);
-  drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, gape);
+  drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, gape, flick);
 }
 
 /**
