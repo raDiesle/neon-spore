@@ -754,3 +754,24 @@ desk-keys footer — the menu's CONTROLS page already lists the keys, so the
 footer is a second copy that will drift. Keep the sliders, the god-mode toggle
 and the BACK button exactly as they are. Copy-only, provable with `bun run
 check`.
+
+## Nothing notices a `docs/INDEX.md` row that stopped describing its file
+
+- **Found:** 2026-09-03, claude/task-queue-work-339593
+- **Files:** `tools/index/index.ts`, `tools/index/run.ts`, `tools/index/test/`, `docs/INDEX.md`
+
+`generateIndex` derives a row's text from the file's header comment only when
+the path has no row yet — every existing row is passed through byte for byte,
+on purpose, because the text is hand-curated after the first run. The cost is
+that `bun run index` is green over a table that has gone wrong: five rows were
+fixed by hand this week (`world.ts` naming a `step` that lives in `step.ts`,
+`creatures.ts` pointing at a table that moved, `serialize.ts` writing into a
+barrel it never touches, `backlog-api.ts` reading ten files where nine are read,
+`themes.ts` at six themes where there are nine), and nothing in the repository
+would have failed if they had not been.
+
+Add a drift check rather than regenerating: a test that reads every row's file,
+takes `deriveHeaderSentence`, and fails when the row and the header disagree
+about a **backticked identifier or a number** — the two things that go stale —
+while leaving the hand-written prose alone. `packages/audio/test/catalogue.test.ts`
+does the same job for `docs/spec/audio.md` and is the pattern.
