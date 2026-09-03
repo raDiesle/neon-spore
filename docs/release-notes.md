@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 94eddd8 — The ECHO brush is drawn as the two bodies it becomes
+
+Its chip fell through to the settled-body pose every living kind gets, and drew one small bulb — a picture of a body that happens to be little, saying nothing about the one thing this brush places. So the pose now waits for the first division and photographs the pair: `ECHO_AXES[0]` is sideways precisely because two halves side by side is the plainest picture of a thing coming apart. One division and not three — eight bodies in a block is what the pair sees once they have lost the argument, and at 34 px it is a smudge.
+
 ## 2026-09-03 · 78682db — A finished lane lands itself, and says LANDED! in the chat
 
 A lane could be green, committed and finished and still sit on its branch until somebody remembered to type `bun run land` — the one forgettable step in a history that is linear on purpose, where the cost of forgetting is a trunk that moved, a rebase that grows daily and another idle worktree. The `Stop` hook now takes that step: when a turn ends in a worktree whose branch is clean and ahead of `main`, it runs `bun run land` and prints the landing as one line in the chat. Mid-task work cannot land, by construction, because mid-task work is uncommitted.
