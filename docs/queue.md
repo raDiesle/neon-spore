@@ -268,6 +268,7 @@ expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 ## Move the director's 1 100 lines of CSS out of index.html; lint .css and .js
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-move-the-directors-1-100-lines-of-css-out-of-ind
 - **Files:** `tools/director/index.html`, `tools/director/src/director.css`, `biome.json`, `apps/game/public/sw.js`, `tools/hooks/format-edited.ts`
 
 `tools/director/index.html` is 1 736 lines and its `<style>` spans lines 11 to
