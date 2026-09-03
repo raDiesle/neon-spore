@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 90eb768 — The menu remembers how far this device has got
+
+The front door knew only PLAY versus RESUME, so a player who put the phone down at wave seven came back to a menu offering them wave one and a thirty-eight-row list to find their place in.
+
 ## 2026-09-04 · 12e1845 — The room's clock is a file of its own, and link.ts has room again
 
 `link.ts` was at 250 lines, which is the limit `packages/sim/test/limits.test.ts` enforces, so the next sentence anybody added to it would have failed the check. Working the net items had already cost it two extractions and four trimmed comments to get back under, and that is not a thing to do twice.
