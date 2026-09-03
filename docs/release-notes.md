@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 3d54385 — Park the half of the hook migration that did not move
+
+`tools/hooks/guard.ts` took the two PreToolUse guards off bash. The other four hooks are still invoked as `bash .claude/hooks/x.sh`, so a session whose shell has no bash silently gets no formatting after an edit, no typecheck on stop and no automatic landing — the failure is that nothing happens, which is the same gap the guards were moved to close and the hardest kind to notice.
+
+## 2026-09-03 · 4e4cc64 — The queue says whether anything is being worked on, in one word
+
+`bun run queue status` prints DONE when nothing is left at all, IDLE when items are waiting and nobody is on one, and BUSY when somebody is, naming the items and the branches holding them. It exists to be asked of a machine that is about to be turned off, where "is the queue finished" has to be answerable without reading the file and judging by eye — an item can be in the file and already claimed, and an empty-looking file is not the same as nothing in flight.
+
 ## 2026-09-03 · 80e59ed — The grain table names the grain that was added, and four manifests end in a newline
 
 `noise` went into `grain.ts` and section 3 of `docs/spec/audio.md` stayed nine rows long. Nothing failed, because that table — unlike the family table one section below it — is held against nothing. The row is back, and the check that would have caught it is queued.
