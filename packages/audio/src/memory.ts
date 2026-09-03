@@ -12,8 +12,6 @@ export interface Memory {
   tick: number;
   cannonCol: number;
   shieldCol: number;
-  guardTick: number;
-  intakeTick: number;
   gripP1: number;
   gripP2: number;
   hullMilli: number;
@@ -42,8 +40,6 @@ export function blankMemory(): Memory {
     tick: -1,
     cannonCol: -1,
     shieldCol: -1,
-    guardTick: -1_000_000,
-    intakeTick: -1_000_000,
     gripP1: -1,
     gripP2: -1,
     hullMilli: -1,

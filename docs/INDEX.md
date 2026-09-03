@@ -420,6 +420,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/music/model.ts` | A piece of music, written the way a sound is: numbers, not a recording |
 | `packages/audio/src/music/player.ts` | Playing a theme, one second at a time |
 | `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
+| `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
 
 ### apps/game
 

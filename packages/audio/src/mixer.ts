@@ -20,6 +20,7 @@ import { cueFor, panForCol } from "./bind.js";
 import { sound } from "./catalogue.js";
 import { Engine } from "./engine.js";
 import { blankMemory } from "./memory.js";
+import { soundBoss } from "./mixer-boss.js";
 
 /** The hull is in trouble below a quarter of it, in thousandths. */
 const QUARTER = 25_000;
@@ -105,12 +106,12 @@ export class Mixer {
       this.play(cue.id, cue.pan, cue.pitch, cue.gain);
     }
 
-    this.sounddifferences(world, cols);
+    this.soundDifferences(world, cols);
     this.mem.tick = world.tick;
   }
 
   /** Everything the sim does not report because it is state and not an event. */
-  private sounddifferences(world: World, cols: number): void {
+  private soundDifferences(world: World, cols: number): void {
     const m = this.mem;
     const first = m.tick < 0;
 
@@ -167,53 +168,8 @@ export class Mixer {
     if (world.over && !m.over) this.play("hull.dead");
     m.over = world.over;
 
-    this.soundBoss(world, cols, first);
+    soundBoss(world, cols, first, this.mem, (id, pan) => this.play(id, pan));
     this.soundWave(world, first);
-  }
-
-  /** Whichever boss is installed, and the two things each of them does on a clock. */
-  private soundBoss(world: World, cols: number, first: boolean): void {
-    const m = this.mem;
-    const boss = world.boss;
-    const kind = boss?.kind ?? "";
-    if (kind !== m.bossKind) {
-      if (kind === "queen") this.play("boss.arrive");
-      if (kind === "mirror") this.play("mirror.arrive");
-      m.bossKind = kind;
-      m.bossCol = -1;
-      m.queenOpen = false;
-      m.mirrorPhase = "";
-    }
-
-    if (boss?.kind === "queen") {
-      const queen = world.creatures.find((c) => c.id === boss.creatureId);
-      if (queen && queen.col !== m.bossCol) {
-        if (!first && m.bossCol >= 0) this.play("boss.queenStep", panForCol(queen.col, cols));
-        m.bossCol = queen.col;
-      }
-      // Her armour is the whole fight: the two beats it is open are the only
-      // two the pair can spend, and both edges of them are worth hearing.
-      const open = boss.openBeat >= 0 && world.beat >= boss.openBeat && world.beat < boss.closeBeat;
-      if (open && !m.queenOpen) this.play("boss.queenOpen", panForCol(queen?.col ?? 0, cols));
-      if (!open && m.queenOpen) this.play("boss.queenShut", panForCol(queen?.col ?? 0, cols));
-      m.queenOpen = open;
-    }
-
-    if (boss?.kind === "mirror" && boss.phase !== m.mirrorPhase) {
-      // `lead` is the count-in: the beats it spends before performing.
-      if (boss.phase === "lead") this.play("mirror.countIn");
-      m.mirrorPhase = boss.phase;
-    }
-
-    // A torch is the one arrival too fast to be talked about, so it announces
-    // itself twice: the alarm, and the weight of the thing falling.
-    const torches = world.creatures.filter((c) => c.kind === "torch").length;
-    if (!first && torches > m.torches) {
-      const torch = world.creatures.find((c) => c.kind === "torch");
-      this.play("boss.torchWarn");
-      this.play("boss.torchDrop", panForCol(torch?.col ?? 0, cols));
-    }
-    m.torches = torches;
   }
 
   /** The wave running out, which the simulation reports by asking for the next one. */

@@ -130,8 +130,8 @@ three things on every row:
   around it, and almost all of them go around.
 
 The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
-`bind-creatures.ts` and `mixer.ts` and fails if a sound claims to be wired and
-is not, or is played and claims to be spare. Five bound sounds have no subject to draw — the beat, a
+`bind-creatures.ts`, `mixer.ts` and `mixer-boss.ts` and fails if a sound claims
+to be wired and is not, or is played and claims to be spare. Five bound sounds have no subject to draw — the beat, a
 hole punched in whatever was hit, a wave opening and closing — and each carries
 a written reason in `sound-link.ts`, the same arrangement `pierce` makes here.
 

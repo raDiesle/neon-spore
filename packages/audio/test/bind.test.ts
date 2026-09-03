@@ -176,3 +176,48 @@ describe("bindings", () => {
     expect(pitchForRow(0, 1)).toBe(1);
   });
 });
+
+/**
+ * Which sound each body's events reach for, spelled out.
+ *
+ * The test above proves every event names *a* sound that exists, which is the
+ * check that catches a typo and nothing else: swap two ids and it still
+ * passes. These bindings are decisions, and several of them are decisions
+ * about telling two things apart — a rind shedding is `impact.split` and not a
+ * destroy because the column has not closed; a clasp breaking is
+ * `creature.moult` and not a split because it has only ever had one covering.
+ * A swap is exactly the change nobody would notice, and it costs the pair the
+ * distinction the comment in `bind-creatures.ts` argues for.
+ */
+const CREATURE_IDS: Record<string, string> = {
+  shellBreak: "impact.split",
+  shellBare: "creature.moult",
+  rindShed: "impact.split",
+  claspBreak: "creature.moult",
+  lureHit: "impact.wrongTarget",
+  lureSeen: "signal.lureWarn",
+  lureVanished: "creature.lureFold",
+  veilMorph: "signal.radarUnknown",
+  veilRebuff: "impact.absorb",
+  veilTorn: "creature.veilFlash",
+  wispHop: "signal.bearing",
+  ghostRelease: "creature.ghostRelease",
+  ghostTurn: "creature.ghostTurn",
+  ghostCharge: "creature.ghostCharge",
+};
+
+describe("what one body did", () => {
+  it("covers every event `creatureCue` names, so a new one cannot be left out", async () => {
+    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-creatures.ts")).text();
+    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
+    expect(cases.sort()).toEqual(Object.keys(CREATURE_IDS).sort());
+  });
+
+  for (const [type, id] of Object.entries(CREATURE_IDS)) {
+    it(`plays ${id} for ${type}`, () => {
+      const sample = SAMPLES[type];
+      expect(sample, `${type} has no sample`).toBeDefined();
+      expect(cueFor(sample as SimEvent, 7, 12)?.id).toBe(id);
+    });
+  }
+});

@@ -287,31 +287,6 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Test the three audio units carrying real logic: Mixer, MusicPlayer, creatureCue
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/audio/src/mixer.ts`, `packages/audio/src/memory.ts`, `packages/audio/src/music/player.ts`, `packages/audio/src/bind-creatures.ts`, `packages/audio/test/mixer.test.ts`, `packages/audio/test/player.test.ts`, `packages/audio/test/bind.test.ts`
-
-No test references `Mixer` or `MusicPlayer`. `mixer.ts` lines 113 to 226 are the
-stateful half its own header calls the one dangerous thing: restart detection,
-guard and intake lapse edges, the hull alarm on every fourth beat, the torch count,
-and the per-frame duplicate cap in `play`. `Engine.play` returns early without a
-context, so a test can stub `mixer.engine.play` and feed hand-built worlds
-headlessly. `MusicPlayer` takes its engine by constructor, so a fake recording
-`playPlan(plan, when)` proves the loop arithmetic (`base += loopSeconds`, cursor
-reset, stop-on-end). `bind.test.ts` only asserts each creature event names some
-existing sound, not which one, so a swapped id passes.
-
-While there: `soundBoss` runs `world.creatures.find` for the queen, a `filter`
-to count torches (allocating an array to read its length) and a second `find` for
-the first torch, every frame; one loop gives all three. `sounddifferences` is the
-only identifier in the package that breaks camelCase. Write `mixer.test.ts`
-(build a `World` via sim's `createWorld`, mutate `guardTick`, `hullMilli`, `tick`,
-call `frame` twice, assert the recorded ids, include a tick-goes-backwards case),
-`player.test.ts` (fake engine with settable `now`; first pump schedules only
-voices inside `LOOKAHEAD`), and extend `bind.test.ts` with one expected id per
-creature event.
-
 ## Extend bun run index to tools/ and the root-level app scripts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
