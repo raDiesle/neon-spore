@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · c3b22f6 — A room checks before it seats, and gives a lost seat back
+
+The eight queued items on the two-device layer, worked together because the last three are one change: the version check, the seat eviction and the Durable Object's first test all live in the same twenty lines of `room.ts`. The relay is the part of this game no test had ever run, and it now has one.
+
 ## 2026-09-03 · 43b726c — A handle is carried any way at all, and never off the field
 
 Two things the owner asked for, and they turn out to be one rule.
