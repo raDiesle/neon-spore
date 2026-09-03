@@ -7,11 +7,8 @@
  * test of its own and the catalogue has several.
  */
 
-import { type Plan, type PlayOptions, planSound } from "./plan.js";
+import { admits, type Plan, type PlayOptions, planSound } from "./plan.js";
 import type { SoundDef } from "./types.js";
-
-/** Mobile audio dies under node churn long before it runs out of CPU. */
-const MAX_LIVE_VOICES = 64;
 
 export interface EngineOptions {
   /** 0..1, the whole game. */
@@ -23,9 +20,12 @@ export class Engine {
   private master: GainNode | null = null;
   private noise: AudioBuffer | null = null;
   /**
-   * Every source currently scheduled or sounding. It is a set rather than a
-   * count because `silence()` has to reach them: a voice built a second ahead
-   * of the clock has not started yet and cannot be waited out.
+   * Every source currently scheduled or sounding, the modulators included. It
+   * is a set rather than a count because `silence()` has to reach them: a
+   * voice built a second ahead of the clock has not started yet and cannot be
+   * waited out. And it holds the ring and vibrato oscillators too, because a
+   * modulator left running after its source was stopped is a node the set no
+   * longer knows about and nothing will ever close.
    */
   private live = new Set<AudioScheduledSourceNode>();
   private muted = false;
@@ -98,9 +98,11 @@ export class Engine {
     const ctx = this.ctx;
     const master = this.master;
     if (!ctx || !master || this.muted) return;
+    // A whole plan or none of it: a sound that plays its click and drops its
+    // body is heard as a fault, where one that never starts is heard as room.
+    if (!admits(this.live.size, plan)) return;
     const t0 = Math.max(ctx.currentTime, when || ctx.currentTime) + 0.002;
     for (const v of plan.voices) {
-      if (this.live.size >= MAX_LIVE_VOICES) return;
       const start = t0 + v.start;
       const end = start + v.attack + v.hold + v.release;
 
@@ -142,8 +144,7 @@ export class Engine {
         const depth = ctx.createGain();
         depth.gain.value = v.ring.depth;
         mod.connect(depth).connect(ring.gain);
-        mod.start(start);
-        mod.stop(end);
+        this.track(mod, start, end);
         ring.connect(head);
         head = ring;
       }
@@ -157,16 +158,27 @@ export class Engine {
         const depth = ctx.createGain();
         depth.gain.value = v.wobble.cents;
         lfo.connect(depth).connect((source.node as OscillatorNode).detune);
-        lfo.start(start);
-        lfo.stop(end);
+        this.track(lfo, start, end);
       }
       source.start(start);
       source.stop(end);
-      this.live.add(source.node);
-      source.node.onended = () => {
-        this.live.delete(source.node);
-      };
+      this.hold(source.node);
     }
+  }
+
+  /** Start and stop a modulator, and keep it where `silence()` can reach it. */
+  private track(node: OscillatorNode, start: number, end: number): void {
+    node.start(start);
+    node.stop(end);
+    this.hold(node);
+  }
+
+  /** Remember a source until it ends, so `silence()` can end it sooner. */
+  private hold(node: AudioScheduledSourceNode): void {
+    this.live.add(node);
+    node.onended = () => {
+      this.live.delete(node);
+    };
   }
 
   private source(

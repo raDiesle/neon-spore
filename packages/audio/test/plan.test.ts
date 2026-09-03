@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { endOf, planSound } from "../src/plan.js";
+import { admits, endOf, MAX_LIVE_VOICES, planSound } from "../src/plan.js";
 import type { SoundDef } from "../src/types.js";
 
 const one: SoundDef = {
@@ -69,5 +69,35 @@ describe("planSound", () => {
     const withPan: SoundDef = { ...one, layers: [{ ...one.layers[0]!, pan: -0.9 }] };
     expect(planSound(withPan).voices[0]?.pan).toBe(-0.9);
     expect(planSound(withPan, { pan: 0.3 }).voices[0]?.pan).toBe(0.3);
+  });
+});
+
+/**
+ * The engine cannot run under `bun test` — there is no `AudioContext` — so the
+ * one decision it makes that could be wrong lives here instead. It used to be
+ * a `>=` inside the per-voice loop, which admitted a multi-layer sound at the
+ * ceiling and then ran out of room part way through building it.
+ */
+describe("admits", () => {
+  const voices = (n: number) =>
+    planSound({
+      ...one,
+      layers: [{ ...one.layers[0]!, repeat: { times: n, every: 0.01, decay: 1 } }],
+    });
+
+  it("lets a plan through when the whole of it fits", () => {
+    expect(admits(MAX_LIVE_VOICES - 4, voices(4))).toBe(true);
+  });
+
+  it("refuses a plan that fits only in part, rather than truncating it", () => {
+    expect(admits(MAX_LIVE_VOICES - 3, voices(4))).toBe(false);
+  });
+
+  it("refuses everything once the cap is already reached", () => {
+    expect(admits(MAX_LIVE_VOICES, voices(1))).toBe(false);
+  });
+
+  it("admits a plan against an empty engine", () => {
+    expect(admits(0, voices(4))).toBe(true);
   });
 });

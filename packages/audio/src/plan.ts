@@ -43,6 +43,26 @@ export interface PlayOptions {
   pan?: number;
 }
 
+/**
+ * Mobile audio dies under node churn long before it runs out of CPU, so the
+ * engine holds a ceiling on how many sources may be alive at once. The number
+ * lives here rather than next to the nodes because the decision it feeds is
+ * `admits`, and that decision is the kind this file exists to keep testable.
+ */
+export const MAX_LIVE_VOICES = 64;
+
+/**
+ * Whether a plan may start at all, given what is already sounding.
+ *
+ * A whole plan or none of it. The cap used to be read inside the engine's
+ * per-voice loop, which let a multi-layer sound arriving at the ceiling play
+ * its first layers and drop the rest — a click with no body, which is worse
+ * than the silence it was rationing towards.
+ */
+export function admits(liveCount: number, plan: Plan): boolean {
+  return liveCount + plan.voices.length <= MAX_LIVE_VOICES;
+}
+
 /** An oscillator cannot glide exponentially to or from zero, and 20 Hz is inaudible anyway. */
 const MIN_HZ = 20;
 const MAX_HZ = 20_000;

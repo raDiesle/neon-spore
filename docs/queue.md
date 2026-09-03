@@ -312,23 +312,6 @@ call `frame` twice, assert the recorded ids, include a tick-goes-backwards case)
 voices inside `LOOKAHEAD`), and extend `bind.test.ts` with one expected id per
 creature event.
 
-## Move the live-voice cap ahead of the loop and register modulators in live
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/audio/src/engine.ts`, `packages/audio/src/plan.ts`, `packages/audio/test/`
-
-`engine.ts` line 103 checks `this.live.size >= MAX_LIVE_VOICES` inside the
-per-voice loop and returns, so a multi-layer sound arriving at the cap plays its
-first layers and drops the rest, a click without its body. The ring modulator and
-vibrato oscillators (lines 139 to 161) are started and stopped but never added to
-`live`, so `silence()` stops the sources and leaves the modulators running to their
-scheduled end; `live` no longer means what its comment says.
-
-Test `this.live.size + plan.voices.length > MAX_LIVE_VOICES` once before the loop
-and drop the whole plan; add the modulators to `live` or stop them from the
-source's `onended`. Pull the admission decision into a pure `admits(liveCount,
-plan)` in `plan.ts` and unit-test it, since the engine cannot run under `bun test`.
-
 ## Add a noise grain; 29 sound definitions hand-build the same filtered-noise layer
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
