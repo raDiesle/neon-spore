@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · f396515 — Four content invariants that nothing was checking
+
+`Demonstration.wave` names a wave by string, `wavesUsingSet` returns names, and several tests resolve one with `WAVES.findIndex((w) => w.name === name)` — and nothing said the names were unique. A second "THE WALL", which the director can produce from its own rename screen, would point every one of those lookups at the first and be invisible to all of them.
+
 ## 2026-09-03 · e41ebe6 — LEAVE ROOM asks in place, on both doors a player presses while the game is fine
 
 Both the room sheet's LEAVE ROOM and the menu's called `link.leave()` on a single tap, and that call drops the other player's game — one mis-tap ended a run for two people.
