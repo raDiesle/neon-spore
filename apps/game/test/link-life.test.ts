@@ -69,7 +69,14 @@ function joined() {
  */
 function running() {
   const h = joined();
-  h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS });
+  h.wire.say({
+    t: "welcome",
+    player: 1,
+    room: "ACDE",
+    peers: 2,
+    startMs: START_MS,
+    names: ["", ""],
+  });
   // Three samples is what `ClockSync` wants before it believes an offset. The
   // server answers instantly at `START_MS`, so the offset is `START_MS` and
   // beat zero lands on this device's tick 0 — already reached.
@@ -83,7 +90,7 @@ function running() {
 describe("getting to beat zero", () => {
   test("waits for the second phone before it counts down to anything", () => {
     const h = joined();
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 1, startMs: 0 });
+    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 1, startMs: 0, names: ["", ""] });
     expect(h.state()).toBe("waiting");
   });
 
@@ -100,7 +107,14 @@ describe("a welcome that stamps a different beat zero", () => {
     // The room fills again and stamps a fresh beat zero. Carrying on would
     // leave the two devices counting from different ticks: not lag, but two
     // games with one fingerprint check between them.
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS + 5000 });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS + 5000,
+      names: ["", ""],
+    });
     // The frame is what tells the two apart. A run that was ended has to count
     // down to the new stamp; one that was not simply reports itself live, and
     // that is the bug — a live run on a beat zero the other phone is not on.
@@ -110,12 +124,26 @@ describe("a welcome that stamps a different beat zero", () => {
 
   test("begins again when the new beat zero arrives", () => {
     const h = running();
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS + 5000 });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS + 5000,
+      names: ["", ""],
+    });
     h.link.frame(16);
     expect(h.starts).toEqual([1]);
     // The device's clock is stopped at 0, so the new beat zero is reached by
     // moving the room's stamp back to one this device has already passed.
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS,
+      names: ["", ""],
+    });
     h.link.frame(16);
     expect(h.starts).toEqual([1, 1]);
   });
@@ -125,7 +153,14 @@ describe("a welcome that stamps a different beat zero", () => {
     // A welcome is re-sent whenever the room has something to say. The same
     // beat zero is the same run, and ending it would restart the game under
     // two people who were playing it.
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS,
+      names: ["", ""],
+    });
     h.link.frame(16);
     expect(h.state()).toBe("live");
     expect(h.starts).toEqual([1]);
@@ -135,14 +170,21 @@ describe("a welcome that stamps a different beat zero", () => {
 describe("a seat that empties", () => {
   test("ends the run once it has started, because lockstep waits for nobody", () => {
     const h = running();
-    h.wire.say({ t: "peers", peers: 1 });
+    h.wire.say({ t: "peers", peers: 1, names: ["", ""] });
     expect(h.state()).toBe("lost");
   });
 
   test("is only waiting when it happens before beat zero", () => {
     const h = joined();
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 2, startMs: START_MS });
-    h.wire.say({ t: "peers", peers: 1 });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS,
+      names: ["", ""],
+    });
+    h.wire.say({ t: "peers", peers: 1, names: ["", ""] });
     // Nothing has started, so nobody has been dropped out of anything: the
     // room is simply not full yet.
     expect(h.state()).toBe("waiting");

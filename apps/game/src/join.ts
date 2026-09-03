@@ -8,6 +8,7 @@ import {
   SOLO_STATUS,
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
+import { bindNameField } from "./join-name.js";
 import { chipText, explain, seatWord, startButton } from "./join-words.js";
 
 export interface JoinBindings {
@@ -64,9 +65,11 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   ];
 
   let last: LinkStatus = SOLO_STATUS;
+  const nameField = bindNameField(() => paint());
 
   /** The screen, from the last status seen. Cheap, so it is redone rather than tracked. */
   const paint = (): void => {
+    nameField.paint();
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);
     // The press that starts the run. Enabled only where a press means

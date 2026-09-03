@@ -4,10 +4,18 @@ export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
 export { AHEAD_LIMIT_SECONDS, Lockstep, type LockstepOptions } from "./lockstep.js";
 export {
+  isName,
+  NAME_MAX,
+  NAME_MIN,
+  nameFromWire,
+  normalizeName,
+} from "./nickname.js";
+export {
   type ClientMessage,
   decodeClient,
   decodeServer,
   encode,
+  NAME_PARAM,
   type PlayerId,
   PROTOCOL_VERSION,
   type RefusalCode,

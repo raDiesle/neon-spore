@@ -1,4 +1,4 @@
-import { isRoomCode, normalizeRoomCode, VERSION_PARAM } from "@neon-spore/net";
+import { isRoomCode, NAME_PARAM, normalizeRoomCode, VERSION_PARAM } from "@neon-spore/net";
 
 export { Room } from "./room.js";
 
@@ -49,10 +49,17 @@ export default {
     // it arrived, digits or nonsense alike: judging it is the room's job.
     const version = url.searchParams.get(VERSION_PARAM) ?? "";
 
+    // The name travels with the upgrade for the same reason the version does,
+    // and is passed through as it arrived: judging it is the room's job, and
+    // the room does that with the same rule both clients use.
+    const name = url.searchParams.get(NAME_PARAM) ?? "";
+
     // `idFromName` is what makes the code the room: two phones typing the same
     // four characters reach the same object, wherever in the world they are.
     const room = env.ROOMS.get(env.ROOMS.idFromName(code));
-    const to = `https://room/?code=${code}&${VERSION_PARAM}=${encodeURIComponent(version)}`;
+    const to =
+      `https://room/?code=${code}&${VERSION_PARAM}=${encodeURIComponent(version)}` +
+      `&${NAME_PARAM}=${encodeURIComponent(name)}`;
     return room.fetch(new Request(to, request));
   },
 };

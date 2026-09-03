@@ -42,6 +42,8 @@ export function createLink(o: LinkOptions): Link {
   let peers = 0;
   /** The seats the room says have pressed START. Cleared with the room. */
   let readySeats: PlayerId[] = [];
+  /** What the two people are called, by seat, as the room last said. */
+  let names: [string, string] = ["", ""];
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -51,7 +53,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, peers, readySeats, clock, run, socket, startMs });
+    report({ state, room, player, peers, readySeats, names, clock, run, socket, startMs });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -71,6 +73,7 @@ export function createLink(o: LinkOptions): Link {
     startedAt = 0;
     peers = 0;
     readySeats = [];
+    names = ["", ""];
     player = 0;
     room = "";
     clock.reset();
@@ -106,6 +109,7 @@ export function createLink(o: LinkOptions): Link {
     switch (message.t) {
       case "welcome":
         player = message.player;
+        names = message.names;
         room = message.room;
         peers = message.peers;
         startMs = message.startMs;
@@ -125,6 +129,7 @@ export function createLink(o: LinkOptions): Link {
         return;
       case "peers":
         peers = message.peers;
+        names = message.names;
         // Before beat zero the room is simply not full yet. After it, an empty
         // seat ends the run: a lockstep that waits for nobody waits for ever.
         if (peers < 2) settle(run.started ? "lost" : "waiting");

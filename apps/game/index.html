@@ -47,6 +47,19 @@
           Two people, two devices, one voice channel. One of you opens a room and reads
           the code out; the other types it in.
         </p>
+        <div id="joinName">
+          <label class="sub" for="joinNameInput">YOUR NAME</label>
+          <input
+            id="joinNameInput"
+            type="text"
+            inputmode="text"
+            autocomplete="nickname"
+            spellcheck="false"
+            maxlength="12"
+          />
+          <button type="button" id="joinNameGo" class="enter">THAT IS ME</button>
+          <p class="sub" id="joinNameWhy"></p>
+        </div>
         <div id="joinCode">————</div>
         <div id="joinSeats">
           <div class="pill empty" id="joinSeat1">

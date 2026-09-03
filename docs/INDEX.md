@@ -406,6 +406,7 @@ place — the generator keeps whatever is there.
 | `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
 | `packages/net/src/delay.ts` | How far ahead of the screen a press is scheduled — chosen from the link that is actually there, rather than |
+| `packages/net/src/nickname.ts` | A player's name: what the other phone calls them |
 
 ### packages/audio
 
@@ -478,6 +479,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
+| `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
+| `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 
 ### apps/server
 

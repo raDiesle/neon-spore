@@ -1,5 +1,11 @@
 import { afterAll, describe, expect, test } from "bun:test";
-import { decodeServer, PROTOCOL_VERSION, type ServerMessage, VERSION_PARAM } from "@neon-spore/net";
+import {
+  decodeServer,
+  NAME_PARAM,
+  PROTOCOL_VERSION,
+  type ServerMessage,
+  VERSION_PARAM,
+} from "@neon-spore/net";
 import { Miniflare } from "miniflare";
 
 /**
@@ -71,9 +77,10 @@ async function phone(
   code: string,
   version: number | string = PROTOCOL_VERSION,
   server: Miniflare = mf,
+  name = "",
 ) {
   const res = await server.dispatchFetch(
-    `https://room.test/room/${code}?${VERSION_PARAM}=${version}`,
+    `https://room.test/room/${code}?${VERSION_PARAM}=${version}&${NAME_PARAM}=${encodeURIComponent(name)}`,
     {
       headers: { Upgrade: "websocket" },
     },
@@ -359,5 +366,55 @@ describe("a seat that went silent is not held against its owner", () => {
     } finally {
       await brief.dispose();
     }
+  });
+});
+
+describe("the names two people are called", () => {
+  test("ride the upgrade and come back on the welcome, by seat", async () => {
+    const one = await phone("ACAD", PROTOCOL_VERSION, mf, "Ada");
+    await one.settle();
+    const two = await phone("ACAD", PROTOCOL_VERSION, mf, "David");
+    await two.settle();
+    await one.settle();
+
+    // `names[0]` is player 1's, whichever phone is reading it.
+    expect(of(two.said, "welcome").at(-1)?.names).toEqual(["Ada", "David"]);
+    expect(of(one.said, "welcome").at(-1)?.names).toEqual(["Ada", "David"]);
+    one.close();
+    two.close();
+  });
+
+  test("are clamped by the room, which never reads them", async () => {
+    // The room carries a name; it has no opinion about one. What it will not
+    // carry is something that is not a name at all — the same rule both
+    // clients apply on the way out, applied again on the way in.
+    const one = await phone("ADAE", PROTOCOL_VERSION, mf, "  D~a!v?i,d  ");
+    await one.settle();
+    const two = await phone("ADAE", PROTOCOL_VERSION, mf, "<img src=x onerror=1>");
+    await two.settle();
+    await one.settle();
+
+    expect(of(one.said, "welcome").at(-1)?.names).toEqual(["David", ""]);
+    one.close();
+    two.close();
+  });
+
+  test("leave a blank where a seat is empty, so a screen may always read both", async () => {
+    const one = await phone("AEAF", PROTOCOL_VERSION, mf, "Ada");
+    await one.settle();
+    expect(of(one.said, "welcome").at(-1)?.names).toEqual(["Ada", ""]);
+    one.close();
+  });
+
+  test("go with the seat that leaves", async () => {
+    const one = await phone("AFAG", PROTOCOL_VERSION, mf, "Ada");
+    await one.settle();
+    const two = await phone("AFAG", PROTOCOL_VERSION, mf, "David");
+    await two.settle();
+    await one.settle();
+    two.close();
+    await one.settle();
+    expect(of(one.said, "peers").at(-1)?.names).toEqual(["Ada", ""]);
+    one.close();
   });
 });

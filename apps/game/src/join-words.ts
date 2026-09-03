@@ -67,7 +67,11 @@ export function seatWord(status: LinkStatus, seat: 1 | 2): string {
   if (status.player === seat) return "YOU";
   if (status.state === "stalled") return "QUIET";
   if (status.state === "lost") return "GONE";
-  return status.peers >= 2 ? "HERE" : "WAITING…";
+  if (status.peers < 2) return "WAITING…";
+  // A name beats HERE, which says only that somebody is there — and knowing
+  // *who* is there is the whole reason a name is asked for. A seat whose
+  // player gave none falls back to the word, which is still true.
+  return status.names[seat - 1] || "HERE";
 }
 
 /** What the TWO DEVICES entry says, which is the whole room in one line. */

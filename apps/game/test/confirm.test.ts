@@ -131,3 +131,21 @@ describe("both doors a player presses while the game is fine", () => {
     expect(hold).not.toContain("bindTwoStep");
   });
 });
+
+const css = await Bun.file(Bun.fileURLToPath(new URL("../src/game.css", import.meta.url))).text();
+
+describe("hidden means hidden", () => {
+  it("does not give a hidden element a display that outranks the attribute", () => {
+    // `[hidden]`'s own rule is `display: none` at the specificity of one
+    // attribute selector, so a plain class beats it and the element is shown
+    // whether or not it is hidden. The row asking "SURE?" in front of LEAVE
+    // ROOM sat open on the room screen at all times because of exactly that.
+    // Both of these are shown and hidden with `el.hidden`.
+    expect(css).toContain(".twostep:not([hidden])");
+    expect(css).toContain("#joinName:not([hidden])");
+  });
+
+  it("still gives the row a display of its own for when it is shown", () => {
+    expect(css).toMatch(/\.twostep:not\(\[hidden\]\)\s*\{[^}]*display:\s*flex/);
+  });
+});

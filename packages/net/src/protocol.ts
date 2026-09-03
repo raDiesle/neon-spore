@@ -1,5 +1,6 @@
 import type { Command } from "@neon-spore/sim";
 import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
+import { nameFromWire } from "./nickname.js";
 
 /**
  * Every message that crosses the wire, in one file, so the Durable Object and
@@ -22,6 +23,16 @@ export const PROTOCOL_VERSION = 1;
  * that, which means before `acceptWebSocket`.
  */
 export const VERSION_PARAM = "v";
+
+/**
+ * The query parameter a device's name rides in on.
+ *
+ * It travels with the upgrade rather than as a first message for the same
+ * reason the version does: the room hands out a seat and greets both phones
+ * before any message could be read, so a name sent afterwards would arrive
+ * after the screen that wanted it had already drawn.
+ */
+export const NAME_PARAM = "n";
 
 /** 1 = pilot (cannon, trigger, maw), 2 = navigator (shield, colours). */
 export type PlayerId = 1 | 2;
@@ -70,9 +81,19 @@ export type ServerMessage =
        */
       startMs: number;
       peers: number;
+      /**
+       * What the two people are called, by seat — `["", ""]` before either has
+       * given a name, and one entry per seat whether or not it is filled.
+       *
+       * The room carries these and never reads them: a name is a thing the two
+       * screens draw, and a server that understood one would be a server with
+       * an opinion about the game. Both clients clamp what arrives with
+       * `nameFromWire` before drawing it.
+       */
+      names: [string, string];
     }
   /** Someone joined or left. Two is a game; one is a wait. */
-  | { t: "peers"; peers: number }
+  | { t: "peers"; peers: number; names: [string, string] }
   /**
    * Which seats have pressed START, whenever that changes.
    *
@@ -138,6 +159,17 @@ export function decodeClient(raw: string): ClientMessage | null {
   }
 }
 
+/**
+ * The two seats' names, clamped. Anything that is not a pair of names becomes
+ * a pair of blanks rather than a refusal: a peer whose name is nonsense is a
+ * peer with no name, which every screen already has a word for, and refusing
+ * the whole message over it would drop a `welcome` and take the room with it.
+ */
+function namesFromWire(value: unknown): [string, string] {
+  const list = Array.isArray(value) ? value : [];
+  return [nameFromWire(list[0]), nameFromWire(list[1])];
+}
+
 export function decodeServer(raw: string): ServerMessage | null {
   const m = parse(raw);
   if (!m) return null;
@@ -150,10 +182,13 @@ export function decodeServer(raw: string): ServerMessage | null {
             room: m.room,
             startMs: m.startMs,
             peers: Number(m.peers) || 0,
+            names: namesFromWire(m.names),
           }
         : null;
     case "peers":
-      return typeof m.peers === "number" ? { t: "peers", peers: m.peers } : null;
+      return typeof m.peers === "number"
+        ? { t: "peers", peers: m.peers, names: namesFromWire(m.names) }
+        : null;
     case "ready": {
       // A list of seats, and nothing else may be in it: an unknown number here
       // would become a seat the screen believes in and the room does not.

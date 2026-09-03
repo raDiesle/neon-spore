@@ -107,39 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## A nickname, asked once and carried into the room
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-a-nickname-asked-once-and-carried-into-the-room
-- **Files:** `apps/game/index.html`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`, `apps/game/src/main.ts`, `apps/game/src/game.css`, `apps/game/test/nickname.test.ts`
-
-Stands alone, and the two identity items below build on it — do this one first.
-The first time a device enters the room screen with no stored name, ask for one:
-a single field, kept in `localStorage` under `neon-spore.name` (wrapped in
-try/catch like `view.ts`'s store) and everything in English.
-
-**The rules, decided by the owner on 3 September 2026.** A name is *required* —
-the room screen does not continue without one. `normalizeName` trims the ends,
-collapses any run of inner whitespace to one space, and drops anything that is
-not a letter, a digit or one of those spaces; `isName` then holds the result to
-3 to 12 characters. Twelve because a seat pill on a narrow phone is what has to
-hold it. Drawn uppercase like the rest of the UI, by CSS rather than by storing
-it that way — what is stored is what was typed. Once set it is shown; *changing*
-it lives on the settings page (see "A settings page on the menu"), not here, so
-this screen only ever asks the first time.
-
-Pure helpers in `nickname.ts` — `normalizeName(raw): string` and
-`isName(s): boolean` — tested the way `join-words.ts`'s functions are, so no DOM
-is needed to prove the rules.
-
-The name rides the join so the other phone can show it: this is a wire change,
-so read the `net-change` skill and add the field to the `welcome`/`peers` path
-in `packages/net/src/protocol.ts` and `apps/server/src/room.ts` in the same
-pass (a name added to the client and not the wire shows only on your own
-screen). The seat pills (`seatWord`, `#joinSeats`) then read the peer's name
-instead of "HERE". Decode without trusting: a name from the wire is clamped by
-the same `normalizeName` before it is drawn, never inserted as markup.
-
 ## Nicknames are unique, held server-side
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

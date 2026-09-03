@@ -2,6 +2,8 @@ import {
   type ClientMessage,
   decodeClient,
   isRoomCode,
+  NAME_PARAM,
+  nameFromWire,
   type PlayerId,
   PROTOCOL_VERSION,
   type ServerMessage,
@@ -10,10 +12,14 @@ import {
 import { pressStart, tellReady } from "./room-start.js";
 import {
   hangUp,
-  lastSeen,
+  namesOf,
+  nameTag,
+  occupiedSeats,
+  playerOfSocket,
   refuse,
   SEAT_SILENT_MS,
   type Seat,
+  seatOfSocket,
   seatTag,
   send,
   stamp,
@@ -95,7 +101,11 @@ export class Room {
     const player: PlayerId = seats.some((s) => s.player === 1) ? 2 : 1;
     // The seat is a tag rather than a field: hibernation wakes the object with
     // nothing but its sockets, and a tag survives that where a Map does not.
-    this.ctx.acceptWebSocket(server, [seatTag(player)]);
+    // The name rides the upgrade beside the version, clamped on the way in by
+    // the same rule both clients apply on the way out. It is a tag because the
+    // seat is: hibernation wakes this object holding nothing but sockets.
+    const name = nameFromWire(new URL(request.url).searchParams.get(NAME_PARAM));
+    this.ctx.acceptWebSocket(server, [seatTag(player), nameTag(name)]);
     stamp(server);
     await this.greet(server, player);
     return new Response(null, { status: 101, webSocket: client });
@@ -187,6 +197,7 @@ export class Room {
         room: this.code,
         startMs: this.startMs,
         peers,
+        names: namesOf(seats),
       });
     }
     if (peers >= 2) tellReady(this.gate, seats);
@@ -204,7 +215,9 @@ export class Room {
       this.startMs = 0;
       void this.ctx.storage.put("startMs", 0);
     }
-    for (const seat of left) send(seat.socket, { t: "peers", peers: left.length });
+    for (const seat of left) {
+      send(seat.socket, { t: "peers", peers: left.length, names: namesOf(left) });
+    }
     if (left.length > 0) tellReady(this.gate, left);
   }
 
@@ -214,36 +227,16 @@ export class Room {
     }
   }
 
-  /**
-   * The seats that are actually occupied. A socket that has not spoken in
-   * `SEAT_SILENT_MS` is hung up on and left out of the count — a phone whose
-   * connection vanished is not holding its seat against its own return.
-   */
+  /** The seats that are actually occupied — see `occupiedSeats`. */
   private seats(): Seat[] {
-    const out: Seat[] = [];
-    const now = Date.now();
-    for (const socket of this.ctx.getWebSockets()) {
-      const player = this.playerOf(socket);
-      if (!player) continue;
-      if (now - lastSeen(socket) > this.silentMs) {
-        hangUp(socket);
-        continue;
-      }
-      out.push({ socket, player });
-    }
-    return out;
+    return occupiedSeats(this.ctx, this.silentMs);
   }
 
   private seatOf(socket: WebSocket): Seat | null {
-    const player = this.playerOf(socket);
-    return player ? { socket, player } : null;
+    return seatOfSocket(this.ctx, socket);
   }
 
   private playerOf(socket: WebSocket): PlayerId | null {
-    for (const tag of this.ctx.getTags(socket)) {
-      if (tag === seatTag(1)) return 1;
-      if (tag === seatTag(2)) return 2;
-    }
-    return null;
+    return playerOfSocket(this.ctx, socket);
   }
 }

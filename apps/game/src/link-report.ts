@@ -26,6 +26,8 @@ export interface ReportParts {
   peers: number;
   /** The seats the room says have pressed START. */
   readySeats: readonly PlayerId[];
+  /** What the two people are called, by seat. "" for a seat with no name. */
+  names: readonly [string, string];
   clock: RoomClock;
   run: Run;
   /** Null before a room is joined, and after one is left. */
@@ -45,6 +47,7 @@ export function report(p: ReportParts): LinkStatus {
     countdownMs: p.run.started || p.startMs === 0 ? 0 : p.clock.countdownMs(p.startMs),
     readyHere: p.player !== 0 && p.readySeats.includes(p.player),
     readyThere: p.readySeats.some((seat) => seat !== p.player),
+    names: p.names,
     delayMs: p.run.delayMs,
     stalledMs: p.run.stalledMs,
     awayMs: p.socket?.awayMs ?? 0,

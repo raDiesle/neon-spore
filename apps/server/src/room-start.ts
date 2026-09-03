@@ -1,5 +1,5 @@
 import type { PlayerId } from "@neon-spore/net";
-import { type Seat, send } from "./seat.js";
+import { namesOf, type Seat, send } from "./seat.js";
 import type { StartGate } from "./start-gate.js";
 
 /**
@@ -58,6 +58,7 @@ export async function pressStart(
       room: room.code,
       startMs,
       peers: room.seats.length,
+      names: namesOf(room.seats),
     });
   }
   return startMs;

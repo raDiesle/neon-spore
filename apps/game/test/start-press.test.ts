@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { type LinkStatus, SOLO_STATUS } from "@neon-spore/net";
-import { readyLine, startButton } from "../src/join-words.js";
+import { readyLine, seatWord, startButton } from "../src/join-words.js";
 
 /**
  * The press that starts a run, from the screen's side.
@@ -62,5 +62,30 @@ describe("the line under it", () => {
     const mine = readyLine(at({ ...bothHere, readyHere: true }));
     const theirs = readyLine(at({ ...bothHere, readyThere: true }));
     expect(new Set([neither, mine, theirs]).size).toBe(3);
+  });
+});
+
+describe("the seat pills", () => {
+  test("say the other player's name once there is one", () => {
+    const status = at({ state: "live", peers: 2, player: 1, names: ["Ada", "David"] });
+    expect(seatWord(status, 2)).toBe("David");
+  });
+
+  test("say YOU for your own seat, whatever it is called", () => {
+    const status = at({ state: "live", peers: 2, player: 1, names: ["Ada", "David"] });
+    expect(seatWord(status, 1)).toBe("YOU");
+  });
+
+  test("fall back to HERE for a player who gave no name", () => {
+    const status = at({ state: "live", peers: 2, player: 1, names: ["Ada", ""] });
+    expect(seatWord(status, 2)).toBe("HERE");
+  });
+
+  test("still say what the line is doing, which outranks a name", () => {
+    // A name on a seat that has gone quiet would say somebody is there.
+    const names: [string, string] = ["Ada", "David"];
+    expect(seatWord(at({ state: "stalled", peers: 2, player: 1, names }), 2)).toBe("QUIET");
+    expect(seatWord(at({ state: "lost", peers: 2, player: 1, names }), 2)).toBe("GONE");
+    expect(seatWord(at({ state: "waiting", peers: 1, player: 1, names }), 2)).toBe("WAITING…");
   });
 });

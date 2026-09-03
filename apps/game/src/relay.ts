@@ -2,11 +2,13 @@ import {
   type ClientMessage,
   decodeServer,
   encode,
+  NAME_PARAM,
   PROTOCOL_VERSION,
   type ServerMessage,
   VERSION_PARAM,
 } from "@neon-spore/net";
 import type { TimedCommand } from "@neon-spore/sim";
+import { readName } from "./nickname.js";
 
 /**
  * Where local presses come from. `InputBuffer` is the one in the game; the
@@ -111,5 +113,11 @@ function relayUrl(code: string): string {
   // if this was the second phone, after beat zero had been stamped for the
   // peer. A room that cannot play with this build must say so before any of
   // that happens, which means before `acceptWebSocket`.
-  return `${base.replace(/^http/, "ws").replace(/\/$/, "")}/room/${code}?${VERSION_PARAM}=${PROTOCOL_VERSION}`;
+  const origin = base.replace(/^http/, "ws").replace(/\/$/, "");
+  // The name rides the upgrade beside the version, for the same reason: the
+  // room hands out a seat and greets both phones before any message could be
+  // read, so a name sent afterwards would arrive after the screen that wanted
+  // it had already drawn. Encoded, because a name may hold a space.
+  const name = encodeURIComponent(readName());
+  return `${origin}/room/${code}?${VERSION_PARAM}=${PROTOCOL_VERSION}&${NAME_PARAM}=${name}`;
 }

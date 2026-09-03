@@ -30,6 +30,8 @@ export const SEAT_SILENT_MS = 10_000;
 export interface Seat {
   socket: WebSocket;
   player: PlayerId;
+  /** What this player is called, or "" if they gave no name. */
+  name: string;
 }
 
 /**
@@ -38,6 +40,35 @@ export interface Seat {
  * does not.
  */
 export const seatTag = (player: PlayerId): string => `p${player}`;
+
+/**
+ * A player's name, as a second tag on the same socket and for the same reason
+ * the seat is one: hibernation wakes this object holding nothing but sockets.
+ *
+ * The room carries the name and never reads it — a server with an opinion
+ * about what a player is called is a server with an opinion about the game.
+ * It is clamped on the way in by `nameFromWire`, which is the same rule both
+ * clients apply on the way out, so nothing longer or stranger than a name can
+ * be stored here at all.
+ */
+const NAME_PREFIX = "n:";
+export const nameTag = (name: string): string => `${NAME_PREFIX}${name}`;
+export const nameFromTags = (tags: string[]): string =>
+  tags.find((tag) => tag.startsWith(NAME_PREFIX))?.slice(NAME_PREFIX.length) ?? "";
+
+/**
+ * The two seats' names in seat order, for the wire.
+ *
+ * Always a pair, whether or not both seats are filled: a screen that reads
+ * `names[1]` for player 2 must not have to know how many people are in the
+ * room to do it, and "" is what an empty seat is called.
+ */
+export function namesOf(seats: readonly Seat[]): [string, string] {
+  return [
+    seats.find((s) => s.player === 1)?.name ?? "",
+    seats.find((s) => s.player === 2)?.name ?? "",
+  ];
+}
 
 /**
  * When this seat was last heard from. Kept as the socket's attachment rather
@@ -88,4 +119,45 @@ export function send(socket: WebSocket, message: ServerMessage): void {
     // A socket that has already gone away is not an error worth propagating:
     // the close handler is on its way and will tell the survivor.
   }
+}
+
+/**
+ * Which seat a socket holds, read off its tags.
+ *
+ * These three live here rather than on `Room` because a tag is this file's
+ * idea: hibernation wakes the object holding nothing but its sockets, so
+ * "which seat is this" and "what is this player called" are both questions
+ * only the tags can answer, and the room should not have to know that.
+ */
+export function playerOfSocket(ctx: DurableObjectState, socket: WebSocket): PlayerId | null {
+  for (const tag of ctx.getTags(socket)) {
+    if (tag === seatTag(1)) return 1;
+    if (tag === seatTag(2)) return 2;
+  }
+  return null;
+}
+
+export function seatOfSocket(ctx: DurableObjectState, socket: WebSocket): Seat | null {
+  const player = playerOfSocket(ctx, socket);
+  return player ? { socket, player, name: nameFromTags(ctx.getTags(socket)) } : null;
+}
+
+/**
+ * The seats that are actually occupied. A socket that has not spoken in
+ * `silentMs` is hung up on and left out of the count — a phone whose
+ * connection vanished is not holding its seat against its own return.
+ */
+export function occupiedSeats(ctx: DurableObjectState, silentMs: number): Seat[] {
+  const out: Seat[] = [];
+  const now = Date.now();
+  for (const socket of ctx.getWebSockets()) {
+    const player = playerOfSocket(ctx, socket);
+    if (!player) continue;
+    if (now - lastSeen(socket) > silentMs) {
+      hangUp(socket);
+      continue;
+    }
+    out.push({ socket, player, name: nameFromTags(ctx.getTags(socket)) });
+  }
+  return out;
 }

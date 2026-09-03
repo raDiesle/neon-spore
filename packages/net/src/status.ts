@@ -70,6 +70,12 @@ export interface LinkStatus {
   /** Whether the other seat has. Always false while there is no other seat. */
   readyThere: boolean;
   /**
+   * What the two people are called, by seat — `names[0]` is player 1's.
+   * "" for a seat that is empty or whose player gave no name, which every
+   * screen already has a word for.
+   */
+  names: readonly [string, string];
+  /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the
    * one number that says how the link *feels* rather than how it measures, so
@@ -120,6 +126,7 @@ export const SOLO_STATUS: LinkStatus = {
   countdownMs: 0,
   readyHere: false,
   readyThere: false,
+  names: ["", ""],
   delayMs: 0,
   stalledMs: 0,
   awayMs: 0,

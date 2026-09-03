@@ -71,7 +71,7 @@ describe("a room that says it is full", () => {
     const { link, wire } = linked();
     // It was seated once. Then the connection vanished — a locked screen, a
     // tunnel — and the room has not noticed the dead socket yet.
-    wire.say({ t: "welcome", player: 2, room: "ACDE", startMs: 0, peers: 1 });
+    wire.say({ t: "welcome", player: 2, room: "ACDE", startMs: 0, peers: 1, names: ["", ""] });
     expect(link.status().player).toBe(2);
 
     wire.say(FULL);
@@ -87,7 +87,7 @@ describe("a room that says it is full", () => {
     // `worthRetrying` only says the attempt is worth making. Running out of
     // attempts is `link-socket.ts`'s job and stays its job.
     const { link, wire } = linked();
-    wire.say({ t: "welcome", player: 1, room: "ACDE", startMs: 0, peers: 1 });
+    wire.say({ t: "welcome", player: 1, room: "ACDE", startMs: 0, peers: 1, names: ["", ""] });
     wire.say(FULL);
     expect(link.status().state).toBe("full");
     link.leave();
@@ -100,7 +100,7 @@ describe("a room that says it is full", () => {
     // it asks. `surrender` is what stops it — the attempts are given up rather
     // than the room being judged not worth reaching.
     const { link, wire } = linked();
-    wire.say({ t: "welcome", player: 1, room: "ACDE", startMs: 0, peers: 1 });
+    wire.say({ t: "welcome", player: 1, room: "ACDE", startMs: 0, peers: 1, names: ["", ""] });
     wire.say({ t: "error", why: "protocol version 1 expected", code: "protocol" });
     expect(link.status().state).toBe("lost");
     expect(wire.calls.surrender).toBe(1);

@@ -504,7 +504,13 @@ body.player-view #waveSkip {
    It takes the button's slot, so nothing shifts and no overlay arrives under a
    thumb already travelling; SURE? sits first, where the press just landed, so
    a second tap on that spot answers nothing. */
-.twostep {
+/* `:not([hidden])`, and every rule in this file that gives something a
+   `display` and then hides it with `el.hidden` needs the same. The attribute's
+   own rule is `display: none` at the specificity of one attribute selector, so
+   a plain class beats it and the element is shown whether or not it is hidden.
+   The row asking "SURE?" in front of LEAVE ROOM sat open on the room screen at
+   all times because of exactly this. */
+.twostep:not([hidden]) {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -531,5 +537,59 @@ body.player-view #waveSkip {
 /* The entry it replaces is hidden when it does not apply, and the row is that
    entry's sibling rather than its child — so it has to be hidden with it. */
 #menu .entry.off + .twostep {
+  display: none;
+}
+
+/* "What are you called?", asked once (`join-name.ts`). It sits where the room
+   code will be, because it is the thing standing in front of the room. */
+/* See `.twostep` on why this is `:not([hidden])` rather than plain. */
+#joinName:not([hidden]) {
+  display: grid;
+  gap: 8px;
+  margin: 4px 0 18px;
+}
+#joinName input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #3b3163;
+  border-radius: 10px;
+  background: #0e0a22;
+  font:
+    600 18px "Courier New",
+    monospace;
+  letter-spacing: 0.14em;
+  /* Drawn upper case, stored as typed: a person who writes "David" is not
+     told the game thinks their name is DAVID. */
+  text-transform: uppercase;
+  color: #c8bdf5;
+}
+#joinName button {
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid #ffc24b;
+  background: transparent;
+  color: #ffc24b;
+  font:
+    12px "Courier New",
+    monospace;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+#joinName .sub {
+  margin: 0;
+  color: #ff5470;
+  min-height: 1.2em;
+}
+#joinName label.sub {
+  color: #6f639f;
+}
+/* Nothing past the name is reachable until there is one, so nobody ends up
+   halfway into a room under no name at all. */
+#joinSheet.unnamed #joinCode,
+#joinSheet.unnamed #joinSeats,
+#joinSheet.unnamed #joinState,
+#joinSheet.unnamed #joinEnter,
+#joinSheet.unnamed .acts {
   display: none;
 }
