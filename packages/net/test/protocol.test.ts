@@ -6,6 +6,7 @@ import {
   encode,
   HashLedger,
   isRoomCode,
+  MAX_COMMANDS_PER_FRAME,
   normalizeRoomCode,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
@@ -37,6 +38,23 @@ describe("protocol", () => {
       commands: [{ kind: "guard" }, { kind: "fire", color: "purple" }],
     } as never);
     expect(decodeClient(raw)).toBeNull();
+  });
+
+  it("drops a frame carrying more commands than a thumb could have pressed", () => {
+    const guards = (n: number) => Array.from({ length: n }, () => ({ kind: "guard" }));
+    const full = encode({ t: "input", tick: 1, commands: guards(MAX_COMMANDS_PER_FRAME) } as never);
+    expect(decodeClient(full)).not.toBeNull();
+
+    // One past the cap. Cloudflare will carry a mebibyte per message, and a
+    // peer filing tens of thousands of these is filling the other device's
+    // memory rather than playing.
+    const over = encode({
+      t: "input",
+      tick: 1,
+      commands: guards(MAX_COMMANDS_PER_FRAME + 1),
+    } as never);
+    expect(decodeClient(over)).toBeNull();
+    expect(decodeServer(JSON.stringify({ ...JSON.parse(over), player: 1 }))).toBeNull();
   });
 
   it("drops a whole server frame when one command in it is bad", () => {

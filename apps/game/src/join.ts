@@ -59,6 +59,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     countdownMs: 0,
     delayMs: 0,
     desyncTick: null,
+    brokenPromises: 0,
   };
 
   /** The screen, from the last status seen. Cheap, so it is redone rather than tracked. */
@@ -181,8 +182,12 @@ function explain(status: LinkStatus): string {
       return "The connection is gone. Rejoin the room, or carry on alone.";
     case "full":
       return `Room ${status.room} already has two people in it. Your line is fine — the room is not free.`;
+    // Two ways here, found in two different places: a peer that broke the
+    // model, or two worlds that drifted apart. Saying which saves the next hour.
     case "desync":
-      return `The two worlds parted at tick ${status.desyncTick}. This is a bug, not a lag spike.`;
+      return status.brokenPromises > 0
+        ? `The other phone sent ${status.brokenPromises} inputs it had promised not to send. This is a bug, not a lag spike.`
+        : `The two worlds parted at tick ${status.desyncTick}. This is a bug, not a lag spike.`;
   }
 }
 

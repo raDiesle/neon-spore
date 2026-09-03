@@ -1,4 +1,4 @@
-import { isRoomCode, normalizeRoomCode } from "@neon-spore/net";
+import { isRoomCode, normalizeRoomCode, VERSION_PARAM } from "@neon-spore/net";
 
 export { Room } from "./room.js";
 
@@ -7,6 +7,22 @@ export interface Env {
 }
 
 const ROOM_PATH = /^\/room\/([^/]+)$/;
+
+/**
+ * The percent-escapes a path can carry, undone — or the raw text where it
+ * cannot be. `%E0` is not valid UTF-8 and `decodeURIComponent` throws
+ * `URIError` on it, which unhandled is a 500 saying nothing about a request
+ * that was simply malformed. `normalizeRoomCode` drops a `%` anyway, so a path
+ * that does not decode fails the code check a line later, which is the 400 the
+ * next line always meant.
+ */
+function decoded(raw: string): string {
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+}
 
 /**
  * The whole worker. Static assets are served by the assets binding before this
@@ -25,12 +41,18 @@ export default {
     const match = ROOM_PATH.exec(url.pathname);
     if (!match) return new Response("not found", { status: 404 });
 
-    const code = normalizeRoomCode(decodeURIComponent(match[1] ?? ""));
+    const code = normalizeRoomCode(decoded(match[1] ?? ""));
     if (!isRoomCode(code)) return new Response("bad room code", { status: 400 });
+
+    // The protocol version travels with the upgrade so the room can refuse a
+    // build it cannot play with *before* handing out a seat. Passed through as
+    // it arrived, digits or nonsense alike: judging it is the room's job.
+    const version = url.searchParams.get(VERSION_PARAM) ?? "";
 
     // `idFromName` is what makes the code the room: two phones typing the same
     // four characters reach the same object, wherever in the world they are.
     const room = env.ROOMS.get(env.ROOMS.idFromName(code));
-    return room.fetch(new Request(`https://room/?code=${code}`, request));
+    const to = `https://room/?code=${code}&${VERSION_PARAM}=${encodeURIComponent(version)}`;
+    return room.fetch(new Request(to, request));
   },
 };

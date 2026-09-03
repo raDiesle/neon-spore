@@ -14,8 +14,30 @@ export interface LockstepOptions {
    * and `InputDelay` decides where to move it to.
    */
   delayTicks: number;
+  /**
+   * How far past the simulation a peer's word is allowed to reach, in ticks.
+   * Everything beyond it is refused — see `AHEAD_LIMIT_TICKS`. Defaults to ten
+   * seconds at 60 Hz; the caller passes its own tick rate where it has one.
+   */
+  aheadLimitTicks?: number;
   send: (message: ClientMessage) => void;
 }
+
+/**
+ * Ten seconds at 60 Hz, which is the default because that is the tick rate the
+ * game runs at and a caller that knows better says so.
+ *
+ * The bound exists because `theirs` is a map the peer writes into. `receive`
+ * files commands under whatever tick they name, up to 2**31, and `commandsFor`
+ * frees only the tick it consumes — so commands filed under a tick the run
+ * never reaches are never freed. One `input` at tick 2 000 000 000 is a leak
+ * the run cannot drain, and a room code is four characters from a 25-letter
+ * alphabet, so an uninvited seat is not exotic. A peer more than this far ahead
+ * of the simulation is not a peer with a good connection; it is not playing
+ * this run.
+ */
+export const AHEAD_LIMIT_SECONDS = 10;
+const AHEAD_LIMIT_TICKS = 60 * AHEAD_LIMIT_SECONDS;
 
 /**
  * Delayed lockstep over a relay that never simulates anything.
@@ -55,11 +77,13 @@ export class Lockstep {
   private stalled = 0;
   /** Frames the peer broke its own promise. Non-zero means the run is not trustworthy. */
   private violations = 0;
+  private readonly aheadLimit: number;
 
   constructor(options: LockstepOptions) {
     this.player = options.player;
     this.peer = otherPlayer(options.player);
     this.delayTicks = Math.max(1, Math.round(options.delayTicks));
+    this.aheadLimit = Math.max(1, Math.round(options.aheadLimitTicks ?? AHEAD_LIMIT_TICKS));
     this.send = options.send;
   }
 
@@ -175,7 +199,7 @@ export class Lockstep {
       // The peer's scheduled ticks never decrease, so an input at or before a
       // tick it already promised to leave alone is a broken promise, not a
       // late packet. Applying it would desync the two worlds silently.
-      if (message.tick <= this.peerHorizon) {
+      if (message.tick <= this.peerHorizon || this.tooFarAhead(message.tick)) {
         this.violations++;
         return;
       }
@@ -185,8 +209,20 @@ export class Lockstep {
       return;
     }
     if (message.t === "confirm" && message.player === this.peer) {
+      // The same bound, and for a second reason: a horizon out at 2**31 would
+      // make `ready` true for every tick this run will ever reach, and the
+      // device would race ahead of a peer it is supposed to be in step with.
+      if (this.tooFarAhead(message.tick)) {
+        this.violations++;
+        return;
+      }
       this.peerHorizon = Math.max(this.peerHorizon, message.tick);
     }
+  }
+
+  /** Past anything this run could reach from where it stands. */
+  private tooFarAhead(tick: number): boolean {
+    return tick > this.head + this.aheadLimit;
   }
 
   /** How far ahead of the simulation the peer's promise reaches, in ticks. */

@@ -1,8 +1,8 @@
 export { type ClockSample, ClockSync } from "./clock.js";
-export { decodeCommands } from "./command-codec.js";
+export { decodeCommands, MAX_COMMANDS_PER_FRAME } from "./command-codec.js";
 export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
-export { Lockstep, type LockstepOptions } from "./lockstep.js";
+export { AHEAD_LIMIT_SECONDS, Lockstep, type LockstepOptions } from "./lockstep.js";
 export {
   type ClientMessage,
   decodeClient,
@@ -12,6 +12,7 @@ export {
   PROTOCOL_VERSION,
   type RefusalCode,
   type ServerMessage,
+  VERSION_PARAM,
 } from "./protocol.js";
 export {
   isRoomCode,

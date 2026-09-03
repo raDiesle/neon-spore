@@ -95,22 +95,31 @@ address bar, which is thirty vertical pixels the field would rather have.
 
 ## What a room does
 
-1. Two sockets, seats 1 and 2. A third completes the upgrade, is told
+1. The protocol version rides the upgrade as `?v=`, and a build that does not
+   match is refused before `acceptWebSocket` — before a seat, a greeting or a
+   beat zero stamped for the peer of a run that cannot happen.
+2. Two sockets, seats 1 and 2. A third completes the upgrade, is told
    `{"t":"error","code":"full"}` and is closed with 4000. It is deliberately
    *not* a 409: an HTTP refusal reaches the page as a socket that would not
    open, which is what a dead line looks like too, and a player told their
    connection died over a room that is merely busy goes off to check a signal
    that is fine.
-2. When the second one lands, beat zero is stamped as `now + 3 s` and **both**
+3. When the second one lands, beat zero is stamped as `now + 3 s` and **both**
    are told the same number. Neither device picks its own — that is the whole
    reason the room exists rather than a peer-to-peer handshake.
-3. That restamping is also how a rejoin works. A phone that dropped and came
+4. That restamping is also how a rejoin works. A phone that dropped and came
    back fills the room again, so a fresh beat zero goes to both, and both throw
    the run away and count down again — the alternative is two devices counting
    from different ticks, which is not lag but two games.
-4. `input`, `confirm` and `hash` are forwarded to the other seat with the
+5. A seat that has not said a word in ten seconds is hung up on and stops being
+   counted. A socket whose connection simply vanished — a locked screen, a
+   tunnel — stays open here until the edge times it out minutes later, and
+   without this the phone comes back 900 ms later and is told the room is full
+   by the room holding its own seat. Every seat pings every 700 ms, so silence
+   that long is a connection that is gone whatever the socket still says.
+6. `input`, `confirm` and `hash` are forwarded to the other seat with the
    sender's seat stamped on them, in order and unexamined.
-5. `ping` comes back as `pong` carrying two server timestamps, so the client can
+7. `ping` comes back as `pong` carrying two server timestamps, so the client can
    take the room's own handling time back out of the round trip.
 
 The seat is kept as a WebSocket *tag*: hibernation wakes the object with nothing

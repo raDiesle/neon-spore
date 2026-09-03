@@ -66,10 +66,16 @@ self.addEventListener("fetch", (event) => {
 async function pageFirstFromNetwork(request) {
   try {
     const fresh = await fetch(request);
-    const cache = await caches.open(CACHE);
-    // `./` and not the request: a room link carries a query string, and one
-    // cache entry per room would fill the store with copies of one page.
-    await cache.put("./", fresh.clone());
+    // Only a page worth serving offline. A 404 or a 503 during a deploy, or a
+    // Cloudflare error page, is a real answer from the network and is handed
+    // straight back — but writing it to the cache would replace the shell with
+    // it, and the next open with no network would serve the error for good.
+    if (fresh.ok) {
+      const cache = await caches.open(CACHE);
+      // `./` and not the request: a room link carries a query string, and one
+      // cache entry per room would fill the store with copies of one page.
+      await cache.put("./", fresh.clone());
+    }
     return fresh;
   } catch {
     const cached = await caches.match("./", { ignoreSearch: true });

@@ -13,6 +13,7 @@
     "@neon-spore/net": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250803.0"
+    "@cloudflare/workers-types": "^4.20250803.0",
+    "miniflare": "5.20260831.0-alpha"
   }
 }

@@ -70,6 +70,30 @@ describe("clock sync", () => {
     clock.settle(10_000);
     expect(clock.offsetMs).toBe(0);
   });
+
+  it("snaps to the measured offset while nothing has started", () => {
+    const clock = new ClockSync();
+    for (let i = 0; i < 3; i++) clock.add(trip(i * 700, 20, 0));
+    expect(clock.offsetMs).toBe(0);
+
+    // A minute asleep: `performance.now()` stood still and the room's clock
+    // did not, so every fresh trip reads a minute of offset. Four of them
+    // carry the seven-sample median outright.
+    for (let i = 0; i < 4; i++) clock.add(trip(60_000 + i * 700, 20, 60_000));
+    expect(clock.target).toBe(60_000);
+    expect(clock.offsetMs).toBe(0);
+
+    clock.snap();
+    expect(clock.offsetMs).toBe(60_000);
+  });
+
+  it("snaps nothing before the first acquisition", () => {
+    const clock = new ClockSync();
+    clock.add(trip(0, 20, 5000));
+    clock.snap();
+    expect(clock.ready).toBe(false);
+    expect(clock.offsetMs).toBe(0);
+  });
 });
 
 /**

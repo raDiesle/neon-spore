@@ -13,6 +13,16 @@ import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
  */
 export const PROTOCOL_VERSION = 1;
 
+/**
+ * The query parameter the version rides on, from `relay.ts` through the
+ * worker's `fetch` to `Room.fetch`. It is on the upgrade rather than in a first
+ * message because a message can only be read after the socket has been seated
+ * and greeted — and, for the second phone, after beat zero has been stamped for
+ * the peer. A room that cannot play with this build has to refuse before any of
+ * that, which means before `acceptWebSocket`.
+ */
+export const VERSION_PARAM = "v";
+
 /** 1 = pilot (cannon, trigger, maw), 2 = navigator (shield, colours). */
 export type PlayerId = 1 | 2;
 
@@ -22,7 +32,6 @@ export function otherPlayer(player: PlayerId): PlayerId {
 }
 
 export type ClientMessage =
-  | { t: "join"; v: number }
   /**
    * Commands the sender has scheduled for `tick`. Scheduled ticks from one
    * sender never decrease, so receiving this is also a promise that nothing
@@ -88,8 +97,6 @@ export function decodeClient(raw: string): ClientMessage | null {
   const m = parse(raw);
   if (!m) return null;
   switch (m.t) {
-    case "join":
-      return typeof m.v === "number" ? { t: "join", v: m.v } : null;
     case "input": {
       const commands = isTick(m.tick) ? decodeCommands(m.commands) : null;
       return commands ? { t: "input", tick: m.tick, commands } : null;

@@ -1,13 +1,22 @@
 import {
   type ClientMessage,
   decodeClient,
-  encode,
   isRoomCode,
   type PlayerId,
   PROTOCOL_VERSION,
-  type RefusalCode,
   type ServerMessage,
+  VERSION_PARAM,
 } from "@neon-spore/net";
+import {
+  hangUp,
+  lastSeen,
+  refuse,
+  SEAT_SILENT_MS,
+  type Seat,
+  seatTag,
+  send,
+  stamp,
+} from "./seat.js";
 
 /**
  * Milliseconds between the second phone arriving and beat zero. Long enough
@@ -16,9 +25,8 @@ import {
  */
 const COUNTDOWN_MS = 3000;
 
-interface Seat {
-  socket: WebSocket;
-  player: PlayerId;
+interface RoomEnv {
+  SEAT_SILENT_MS?: string;
 }
 
 /**
@@ -32,11 +40,14 @@ interface Seat {
  */
 export class Room {
   private readonly ctx: DurableObjectState;
+  private readonly silentMs: number;
   private code = "";
   private startMs = 0;
 
-  constructor(ctx: DurableObjectState, _env: unknown) {
+  constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
+    const given = Number(env?.SEAT_SILENT_MS);
+    this.silentMs = Number.isFinite(given) && given > 0 ? given : SEAT_SILENT_MS;
     // Hibernation drops everything held in memory, so the two facts that must
     // outlive it are read back the moment the object is built again.
     ctx.blockConcurrencyWhile(async () => {
@@ -56,6 +67,15 @@ export class Room {
       await this.ctx.storage.put("code", code);
     }
 
+    // Before a seat is handed out, and before beat zero can be stamped for the
+    // peer: a build that cannot play this protocol must be turned away with
+    // nothing spent on it. The version rides the upgrade for that reason —
+    // a first message could only be read after all of it had already happened.
+    const version = new URL(request.url).searchParams.get(VERSION_PARAM);
+    if (Number(version) !== PROTOCOL_VERSION) {
+      return refuse("protocol", `protocol version ${PROTOCOL_VERSION} expected`);
+    }
+
     const seats = this.seats();
     // A third phone is refused *through* the socket rather than in front of it.
     // A 409 never reaches the page as anything but a socket that would not
@@ -72,6 +92,7 @@ export class Room {
     // The seat is a tag rather than a field: hibernation wakes the object with
     // nothing but its sockets, and a tag survives that where a Map does not.
     this.ctx.acceptWebSocket(server, [seatTag(player)]);
+    stamp(server);
     await this.greet(server, player);
     return new Response(null, { status: 101, webSocket: client });
   }
@@ -81,29 +102,27 @@ export class Room {
     const message = decodeClient(raw);
     const me = this.seatOf(socket);
     if (!message || !me) return;
+    // Anything at all is proof the seat is still there. The ping every 700 ms
+    // is what makes that a heartbeat rather than a hope.
+    stamp(socket);
     this.route(me, message, socket);
   }
 
+  // The socket is closed from this side too, and not merely mourned: a half of
+  // a connection this object still holds open is a seat nobody is sitting in
+  // and nobody else may have.
   webSocketClose(socket: WebSocket): void {
+    hangUp(socket);
     this.announce(socket);
   }
 
   webSocketError(socket: WebSocket): void {
+    hangUp(socket);
     this.announce(socket);
   }
 
   private route(me: Seat, message: ClientMessage, socket: WebSocket): void {
     switch (message.t) {
-      case "join":
-        if (message.v !== PROTOCOL_VERSION) {
-          send(socket, {
-            t: "error",
-            why: `protocol version ${PROTOCOL_VERSION} expected`,
-            code: "protocol",
-          });
-          socket.close(1002, "protocol");
-        }
-        return;
       case "ping": {
         // Two server timestamps, so the client can take this object's own
         // handling time back out of the round trip.
@@ -166,11 +185,22 @@ export class Room {
     }
   }
 
+  /**
+   * The seats that are actually occupied. A socket that has not spoken in
+   * `SEAT_SILENT_MS` is hung up on and left out of the count — a phone whose
+   * connection vanished is not holding its seat against its own return.
+   */
   private seats(): Seat[] {
     const out: Seat[] = [];
+    const now = Date.now();
     for (const socket of this.ctx.getWebSockets()) {
       const player = this.playerOf(socket);
-      if (player) out.push({ socket, player });
+      if (!player) continue;
+      if (now - lastSeen(socket) > this.silentMs) {
+        hangUp(socket);
+        continue;
+      }
+      out.push({ socket, player });
     }
     return out;
   }
@@ -186,33 +216,5 @@ export class Room {
       if (tag === seatTag(2)) return 2;
     }
     return null;
-  }
-}
-
-const seatTag = (player: PlayerId): string => `p${player}`;
-
-/**
- * A completed upgrade that says one sentence and hangs up.
- *
- * `accept()` and not `ctx.acceptWebSocket()`: this socket lives for one message
- * and must never be hibernated, tagged or counted among the seats. The close
- * code is in the private 4000 range so it cannot be mistaken for one of the
- * protocol's own.
- */
-function refuse(code: RefusalCode, why: string): Response {
-  const pair = new WebSocketPair();
-  const server = pair[1];
-  server.accept();
-  send(server, { t: "error", why, code });
-  server.close(4000, code);
-  return new Response(null, { status: 101, webSocket: pair[0] });
-}
-
-function send(socket: WebSocket, message: ServerMessage): void {
-  try {
-    socket.send(encode(message));
-  } catch {
-    // A socket that has already gone away is not an error worth propagating:
-    // the close handler is on its way and will tell the survivor.
   }
 }

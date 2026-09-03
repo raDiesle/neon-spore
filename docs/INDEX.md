@@ -443,6 +443,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |
 | `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
 | `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
+| `apps/game/src/link-refusal.ts` | What a room turning this device away means, as three rules and no state |
 
 ### apps/server
 
@@ -450,6 +451,7 @@ place — the generator keeps whatever is there.
 |---|---|
 | `apps/server/src/index.ts` | the worker: `/room/:code` and `/net/health` |
 | `apps/server/src/room.ts` | the Durable Object — seats, beat zero, relay, clock sync |
+| `apps/server/src/seat.ts` | A seat, and everything one does to a socket that holds one |
 
 ### tools
 

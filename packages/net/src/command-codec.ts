@@ -150,13 +150,23 @@ export function decodeCommand(x: unknown): Command | null {
 }
 
 /**
+ * Commands one frame may carry. A tick is a sixtieth of a second and a hand has
+ * two thumbs, so anything past a handful is not a player — it is a peer filling
+ * the other device's memory, which Cloudflare will carry a mebibyte of per
+ * message. Generous rather than tight, because the cost of being wrong here is
+ * a dropped frame in a real game.
+ */
+export const MAX_COMMANDS_PER_FRAME = 32;
+
+/**
  * A whole input frame. Returns `null` if any single command in it fails —
  * a half-applied frame (three good presses and a dropped fourth) is worse
  * than a dropped one: the two devices would agree the frame arrived and
- * silently disagree about what it said.
+ * silently disagree about what it said. An oversized frame goes the same way,
+ * and for the same reason: whole, or not at all.
  */
 export function decodeCommands(x: unknown): Command[] | null {
-  if (!Array.isArray(x)) return null;
+  if (!Array.isArray(x) || x.length > MAX_COMMANDS_PER_FRAME) return null;
   const out: Command[] = [];
   for (const item of x) {
     const c = decodeCommand(item);

@@ -53,6 +53,28 @@ export class ClockSync {
     }
   }
 
+  /**
+   * Take the measured offset outright, jump and all.
+   *
+   * The same licence the first acquisition has, generalised to every moment
+   * that shares its reason: there is no established beat to disturb, because
+   * nothing has started. It matters on a rejoin. A phone measures against
+   * `performance.now()`, which does not advance while the handset is suspended,
+   * while the room's `Date.now()` does — so a screen locked for a minute comes
+   * back with an offset stale by a minute, and 4 ms per second would take four
+   * hours to walk it off. `toLocal(startMs)` would put beat zero a minute out
+   * and leave the other phone in HOLD.
+   *
+   * The window still has the stale samples in it for a few seconds after the
+   * rejoin, so this is called on every sample rather than once: the median
+   * crosses over as the new trips fill the window, and the applied offset
+   * follows it there instead of trailing it by a walk.
+   */
+  snap(): void {
+    if (!this.acquired) return;
+    this.applied = this.target;
+  }
+
   /** Walk the applied offset towards the measured one. Never a jump. */
   settle(elapsedMs: number): void {
     if (!this.acquired) return;

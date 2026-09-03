@@ -1,4 +1,5 @@
 import {
+  AHEAD_LIMIT_SECONDS,
   type ClientMessage,
   HashLedger,
   InputDelay,
@@ -47,11 +48,17 @@ export interface Run {
   drain(): TimedCommand[];
   /** After `step`. True when the two fingerprints have parted. */
   checkpoint(): boolean;
-  /** True when the two fingerprints have parted. */
+  /** True when the run is no longer trustworthy — parted fingerprints, or a broken promise. */
   receive(message: ServerMessage): boolean;
   readonly slack: number;
   readonly delayMs: number;
   readonly desyncTick: number | null;
+  /**
+   * Inputs the peer filed for a tick it had already promised to leave alone,
+   * or so far ahead of this run that it is not in it. Non-zero means the two
+   * worlds have already parted, whatever the fingerprints say yet.
+   */
+  readonly brokenPromises: number;
 }
 
 /**
@@ -96,6 +103,7 @@ export function createRun(o: RunOptions): Run {
       lockstep = new Lockstep({
         player: player as PlayerId,
         delayTicks: delay.ticks,
+        aheadLimitTicks: o.cfg.tickHz * AHEAD_LIMIT_SECONDS,
         send: o.send,
       });
     },
@@ -154,6 +162,11 @@ export function createRun(o: RunOptions): Run {
 
     receive(message) {
       lockstep?.receive(message);
+      // A dropped input is a parting the fingerprints have not caught up with:
+      // the two worlds already differ, and `HashLedger` will not say so for up
+      // to four beats — and when it does, it names a tick that says nothing
+      // about the cause. So the promise is the report, and it is immediate.
+      if (lockstep && lockstep.brokenPromises > 0) return true;
       return message.t === "hash" && ledger.observe(message.tick, message.hash) === "mismatch";
     },
 
@@ -167,6 +180,10 @@ export function createRun(o: RunOptions): Run {
 
     get desyncTick() {
       return ledger.desyncTick;
+    },
+
+    get brokenPromises() {
+      return lockstep?.brokenPromises ?? 0;
     },
   };
 }

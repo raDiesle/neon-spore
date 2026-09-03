@@ -1,8 +1,8 @@
 import type { ClientMessage, ServerMessage } from "@neon-spore/net";
-import { openRelay, type Relay } from "./relay.js";
+import { openRelay, type Relay, type RelayHandlers } from "./relay.js";
 
 /** Milliseconds before a socket that went away is reached for again. */
-const RECONNECT_MS = 900;
+export const RECONNECT_MS = 900;
 /**
  * How many times. A handset that locks its screen, goes through a tunnel or
  * hands over from wifi to the mobile network drops the socket and gets it back
@@ -10,7 +10,7 @@ const RECONNECT_MS = 900;
  * who has put the phone down, and telling them the truth beats reaching for a
  * room forever.
  */
-const RECONNECT_TRIES = 6;
+export const RECONNECT_TRIES = 6;
 
 export interface RoomSocketHandlers {
   message: (message: ServerMessage) => void;
@@ -53,7 +53,12 @@ export interface RoomSocket {
  * and re-acquiring it would spend two seconds inside the room's three-second
  * countdown.
  */
-export function openRoomSocket(room: string, on: RoomSocketHandlers): RoomSocket {
+export function openRoomSocket(
+  room: string,
+  on: RoomSocketHandlers,
+  /** How a socket is opened. The real one, except where a test hands over its own. */
+  connect: (code: string, handlers: RelayHandlers) => Relay = openRelay,
+): RoomSocket {
   let relay: Relay | null = null;
   let retryIn = 0;
   let triesLeft = RECONNECT_TRIES;
@@ -61,7 +66,7 @@ export function openRoomSocket(room: string, on: RoomSocketHandlers): RoomSocket
 
   const open = (): void => {
     retryIn = 0;
-    relay = openRelay(room, { message: on.message, opened: on.opened, dropped: drop });
+    relay = connect(room, { message: on.message, opened: on.opened, dropped: drop });
   };
 
   const drop = (): void => {

@@ -1,6 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import type { Command } from "@neon-spore/sim";
-import { type ClientMessage, Lockstep, type PlayerId, type ServerMessage } from "../src/index.js";
+import {
+  AHEAD_LIMIT_SECONDS,
+  type ClientMessage,
+  Lockstep,
+  type PlayerId,
+  type ServerMessage,
+} from "../src/index.js";
 
 /**
  * Two `Lockstep`s wired to each other, with a queue in between that only moves
@@ -128,6 +134,36 @@ describe("lockstep", () => {
     wire.p1.receive({ t: "input", player: 2, tick: 9, commands: [FIRE] });
     expect(wire.p1.ready(8)).toBe(true);
     expect(wire.p1.ready(9)).toBe(false);
+  });
+
+  it("refuses an input a fixed window past the head, and frees nothing", () => {
+    // `theirs` is a map the peer writes into and `commandsFor` frees only the
+    // tick it consumes, so a frame filed under a tick the run never reaches is
+    // a leak that never drains. One `input` near 2**31 used to be enough.
+    const wire = new Wire(2);
+    wire.p1.pump(100);
+    const far = 100 + 60 * AHEAD_LIMIT_SECONDS + 1;
+    wire.p1.receive({ t: "input", player: 2, tick: far, commands: [FIRE] });
+    expect(wire.p1.brokenPromises).toBe(1);
+    expect(wire.p1.commandsFor(far)).toEqual([]);
+    // And the refusal is not itself a promise: the horizon has not moved.
+    expect(wire.p1.ready(101)).toBe(false);
+
+    // The edge of the window is still a peer with a long lay, not an attack.
+    const near = 100 + 60 * AHEAD_LIMIT_SECONDS;
+    wire.p1.receive({ t: "input", player: 2, tick: near, commands: [FIRE] });
+    expect(wire.p1.brokenPromises).toBe(1);
+    expect(wire.p1.commandsFor(near)).toEqual([{ tick: near, player: 2, command: FIRE }]);
+  });
+
+  it("refuses a confirm past the same window, so the run cannot be raced ahead", () => {
+    // A horizon out at 2**31 makes `ready` true for every tick this run will
+    // ever reach, and the device leaves the peer it is meant to be in step with.
+    const wire = new Wire(2);
+    wire.p1.pump(0);
+    wire.p1.receive({ t: "confirm", player: 2, tick: 2 ** 31 - 1 });
+    expect(wire.p1.brokenPromises).toBe(1);
+    expect(wire.p1.ready(1)).toBe(false);
   });
 
   it("keeps a press out of a tick that has already been simulated", () => {

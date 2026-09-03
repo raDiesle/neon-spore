@@ -4,6 +4,7 @@ import {
   encode,
   PROTOCOL_VERSION,
   type ServerMessage,
+  VERSION_PARAM,
 } from "@neon-spore/net";
 import type { TimedCommand } from "@neon-spore/sim";
 
@@ -36,6 +37,16 @@ export interface RelayHandlers {
 }
 
 /**
+ * How the socket itself is made. The browser's is the default and the only one
+ * that ships; a test injects its own so the listeners below can be driven the
+ * way a real socket drives them. It takes the room code rather than a URL, so
+ * nothing but the default ever reads `location`.
+ */
+export type SocketFactory = (code: string) => WebSocket;
+
+const browserSocket: SocketFactory = (code) => new WebSocket(relayUrl(code));
+
+/**
  * The socket, and only the socket. `link.ts` gets messages in and messages out
  * and never touches a `WebSocket`, which is what lets `tools/relay-check` drive
  * the real client code with nothing of the browser present but this one class.
@@ -43,15 +54,23 @@ export interface RelayHandlers {
  * A frame that does not decode is dropped here, where it is one lost packet,
  * rather than three layers down where it is a desync nobody can explain.
  */
-export function openRelay(code: string, on: RelayHandlers): Relay {
-  const socket = new WebSocket(relayUrl(code));
+export function openRelay(
+  code: string,
+  on: RelayHandlers,
+  socketFor: SocketFactory = browserSocket,
+): Relay {
+  const socket = socketFor(code);
   let closed = false;
+  /**
+   * One loss is one report. A socket that fails to connect or dies abnormally
+   * fires `error` and then `close`, and the caller counts reconnection attempts
+   * — so an unlatched pair of events spends two of the six on one drop and
+   * gives up after three.
+   */
+  let reported = false;
 
-  // The version handshake belongs to the socket, not to the game above it: a
-  // room running a different protocol should say so before anything else does.
   socket.addEventListener("open", () => {
     if (closed) return;
-    socket.send(encode({ t: "join", v: PROTOCOL_VERSION }));
     on.opened?.();
   });
   socket.addEventListener("message", (e) => {
@@ -60,7 +79,9 @@ export function openRelay(code: string, on: RelayHandlers): Relay {
     if (message) on.message(message);
   });
   const dropped = (): void => {
-    if (!closed) on.dropped();
+    if (closed || reported) return;
+    reported = true;
+    on.dropped();
   };
   socket.addEventListener("close", dropped);
   socket.addEventListener("error", dropped);
@@ -85,5 +106,10 @@ export function openRelay(code: string, on: RelayHandlers): Relay {
 function relayUrl(code: string): string {
   const override = new URL(location.href).searchParams.get("relay");
   const base = override ?? `${location.protocol === "https:" ? "wss:" : "ws:"}//${location.host}`;
-  return `${base.replace(/^http/, "ws").replace(/\/$/, "")}/room/${code}`;
+  // The version rides the upgrade rather than a first message. A `join` frame
+  // could only be read after the socket was already seated and greeted — and
+  // if this was the second phone, after beat zero had been stamped for the
+  // peer. A room that cannot play with this build must say so before any of
+  // that happens, which means before `acceptWebSocket`.
+  return `${base.replace(/^http/, "ws").replace(/\/$/, "")}/room/${code}?${VERSION_PARAM}=${PROTOCOL_VERSION}`;
 }

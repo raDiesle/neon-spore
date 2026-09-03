@@ -6,8 +6,9 @@ import {
   type ServerMessage,
 } from "@neon-spore/net";
 import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
+import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
 import { createRun, type Run } from "./link-run.js";
-import { openRoomSocket, type RoomSocket } from "./link-socket.js";
+import { openRoomSocket, type RoomSocket, type RoomSocketHandlers } from "./link-socket.js";
 import type { CommandSource } from "./relay.js";
 
 /** Milliseconds between clock samples. Seven of them fill the median window in five seconds. */
@@ -21,15 +22,15 @@ export interface LinkOptions {
   onStart: (player: PlayerId) => void;
   onStatus: (status: LinkStatus) => void;
   /**
-   * The clock this link measures itself against. Defaults to
-   * `performance.now()` — monotonic, unlike `Date.now()`, which an NTP step or
-   * a phone's owner nudging the time can move mid-countdown, taking beat zero
-   * with it on that device alone. Injectable so a test can drive the countdown
-   * and the clock-jump case without a real clock in the loop; `ClockSync`'s
-   * offset is against whichever clock this is, so `toLocal` stays comparable
-   * as long as both sides of a comparison use the same one.
+   * The clock this link measures itself against. `performance.now()` by
+   * default — monotonic, unlike `Date.now()`, which an NTP step or a phone's
+   * owner nudging the time can move mid-countdown, taking beat zero with it on
+   * that device alone. `ClockSync`'s offset is against whichever clock this is,
+   * so `toLocal` stays comparable as long as both sides of a comparison use it.
    */
   now?: () => number;
+  /** How the room is reached. The real socket, except where a test hands over its own. */
+  openSocket?: (room: string, handlers: RoomSocketHandlers) => RoomSocket;
 }
 
 export interface Link {
@@ -62,6 +63,7 @@ export interface Link {
  */
 export function createLink(o: LinkOptions): Link {
   const now = o.now ?? (() => performance.now());
+  const openSocket = o.openSocket ?? openRoomSocket;
 
   let socket: RoomSocket | null = null;
   let state: LinkState = "solo";
@@ -70,9 +72,8 @@ export function createLink(o: LinkOptions): Link {
   let clock = new ClockSync();
   let startMs = 0;
   /**
-   * The beat zero this run actually began on. The room stamps a new one every
-   * time it fills, so a value that has moved is it saying "that run is over,
-   * here is the next" — which is what a rejoin looks like from in here.
+   * The beat zero this run began on. The room stamps a new one every time it
+   * fills, so a value that has moved is a rejoin, seen from in here.
    */
   let startedAt = 0;
   let peers = 0;
@@ -94,6 +95,7 @@ export function createLink(o: LinkOptions): Link {
     countdownMs: run.started || startMs === 0 ? 0 : Math.max(0, clock.toLocal(startMs) - now()),
     delayMs: run.delayMs,
     desyncTick: run.desyncTick,
+    brokenPromises: run.brokenPromises,
   });
 
   const settle = (next: LinkState): void => {
@@ -102,8 +104,8 @@ export function createLink(o: LinkOptions): Link {
     o.onStatus(status());
   };
 
-  /** The two states the room turned this device away in, and will again. */
-  const refused = (): boolean => state === "full" || state === "desync";
+  const refused = (): boolean => turnedAway(state);
+  const reclaiming = (): boolean => reclaimingSeat(state, player);
 
   const leave = (): void => {
     const old = socket;
@@ -123,7 +125,7 @@ export function createLink(o: LinkOptions): Link {
     leave();
     room = code;
     settle("connecting");
-    socket = openRoomSocket(code, {
+    socket = openSocket(code, {
       message: receive,
       // Fire the first ping the moment the socket is open rather than waiting
       // for `frame()`'s 700 ms timer — the 2100 ms three samples take would
@@ -132,7 +134,7 @@ export function createLink(o: LinkOptions): Link {
         pingTimer = PING_EVERY_MS;
         socket?.send({ t: "ping", c1: now() });
       },
-      worthRetrying: () => room !== "" && !refused(),
+      worthRetrying: () => worthReaching(state, player, room),
       waiting: () => {
         run.end();
         settle("connecting");
@@ -152,30 +154,31 @@ export function createLink(o: LinkOptions): Link {
         peers = message.peers;
         startMs = message.startMs;
         socket?.rearm();
-        // A beat zero that is not the one this run began on is the room saying
-        // the run is over and the next one starts here — which is what a phone
-        // rejoining after a drop looks like from this side. Carrying on instead
-        // would leave the two devices counting from different ticks, and that
-        // is not lag, it is two different games with one fingerprint check
-        // between them.
+        // A beat zero that is not this run's is the room saying the run is over
+        // and the next starts here, which is what a rejoin looks like from this
+        // side. Carrying on would leave the two devices counting from different
+        // ticks: not lag, but two games with one fingerprint check between them.
         if (run.started && startMs !== startedAt) run.end();
         settle(peers >= 2 ? (clock.ready ? "countdown" : "syncing") : "waiting");
         return;
       case "peers":
         peers = message.peers;
-        // Before beat zero the room is simply not full yet. After it, a seat
-        // going empty ends the run: there is no one left to be in step with,
-        // and a lockstep that waits for nobody waits for ever.
+        // Before beat zero the room is simply not full yet. After it, an empty
+        // seat ends the run: a lockstep that waits for nobody waits for ever.
         if (peers < 2) settle(run.started ? "lost" : "waiting");
         return;
       case "pong":
         clock.add({ c1: message.c1, s1: message.s1, s2: message.s2, c2: now() });
+        // No beat to disturb before anything has started, and a phone back from
+        // a locked screen has an offset stale by however long it slept — which
+        // 4 ms per second would still be walking off long after beat zero.
+        if (!run.started) clock.snap();
         return;
       case "error":
+        settle(stateAfterRefusal(message.code));
         // Turned away on purpose, so there is nothing to reach for again —
-        // and "full" is not a fault of the line, so it is not dressed as one.
-        socket?.surrender();
-        settle(message.code === "full" ? "full" : "lost");
+        // unless this is the room holding a seat that is this device's own.
+        if (!reclaiming()) socket?.surrender();
         return;
       default:
         if (run.receive(message)) settle("desync");
@@ -216,14 +219,11 @@ export function createLink(o: LinkOptions): Link {
   };
 
   /**
-   * Beat zero, in the only order that works: the host puts its clock back to
-   * zero first, and the scheduler is built after that.
-   *
-   * Built before, it would spend the wait pumping promises about a tick count
-   * from the run that is about to be thrown away — and then keep them. The peer
-   * would be told that nothing is coming before tick 47, the clock would go
-   * back to 0, and the first forty-seven ticks of the real run would carry no
-   * commands at all while both devices insisted they were in step.
+   * Beat zero, in the only order that works: the world's clock goes back to
+   * zero first, and the scheduler is built after that. Built before, it would
+   * spend the wait promising the peer that nothing is coming before tick 47 —
+   * and keep that promise across the reset, so the first forty-seven ticks of
+   * the real run would carry no commands while both devices called it in step.
    */
   const begin = (): void => {
     startedAt = startMs;
@@ -233,10 +233,10 @@ export function createLink(o: LinkOptions): Link {
   };
 
   const mayTick = (): boolean => {
-    // Solo: nothing to wait for. In a room the world holds still from the
-    // moment the socket opens, because a device that plays on while it waits
-    // arrives at beat zero on a tick count that has to be thrown away — and a
-    // device waiting out a reconnection is in a room, not alone.
+    // Solo: nothing to wait for. In a room the world holds still from the moment
+    // the socket opens, because a device that plays on while it waits reaches
+    // beat zero on a tick count that has to be thrown away — and one waiting out
+    // a reconnection is in a room, not alone.
     if (!socket) return room === "";
     if (state === "lost" || refused()) return false;
     return run.mayTick();

@@ -73,153 +73,63 @@ question somebody asked rather than a state of the tree. Check `tools/frames`'s
 own docs and `docs/working-with-claude.md` for a sentence that says the frames
 are committed; if one exists it is the thing to fix instead.
 
-## Count a failed reconnect attempt once, not twice
+## Give apps/game/src/link.ts room by moving the clock out of it
 
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/game/src/relay.ts`, `apps/game/src/link-socket.ts`, `apps/game/test/link-socket.test.ts`
+- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Files:** `apps/game/src/link.ts`, `apps/game/src/link-clock.ts`, `apps/game/src/link-refusal.ts`, `apps/game/test/`
 
-`relay.ts` registers the same `dropped` callback on both `close` and `error`,
-guarded only by the local `closed` flag, which is false for a socket that died on
-its own. A WebSocket that fails to connect or closes abnormally fires `error` and
-then `close`, so `drop()` in `link-socket.ts` runs twice per loss: `triesLeft--`
-twice and `on.waiting()` twice. `RECONNECT_TRIES = 6` is really three attempts.
+`link.ts` is at exactly 250 lines, which is the limit
+`packages/sim/test/limits.test.ts` enforces, so the next sentence anyone adds to
+it fails the check. Working the eight net items already cost it two extractions
+(`link-refusal.ts`) and four trimmed comments to get back under, and that is not
+a thing to do twice.
 
-Latch the callback in `relay.ts` (`let reported = false`). Prove it with a new
-`link-socket.test.ts` that injects a fake `openRelay` (add an optional third
-parameter to `openRoomSocket` defaulting to the real one) which fires `error` then
-`close`, and asserts `gone` is called on the seventh failure, not the fourth.
+The seam its own header names is the clock: "a seat, **a clock**, a countdown,
+and the state a player reads". Move `PING_EVERY_MS`, the `ClockSync`, the ping
+timer, the `now` it measures against and the `pong` case into `link-clock.ts`,
+exposing `add(pong, started)`, `settle(dtMs)`, `framePingDue(dtMs)`,
+`countdownMs(startMs)`, `reached(startMs)`, `ready`, `rttMs` and `sampleCount`.
+That is about fifteen lines out of `link.ts` and puts the wall clock in one
+file, which is what the header claims for it already. `bun run relay:check`
+against a running wrangler is what proves it, not `bun test` alone.
 
-## Let a phone that lost its socket reclaim its seat instead of being told full
+## relay:check --rejoin compares tick counts at one instant, and flakes
 
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/server/src/room.ts`, `apps/game/src/link.ts`, `packages/net/src/protocol.ts`, `tools/relay-check/check.ts`
+- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Files:** `tools/relay-check/check.ts`
 
-`room.ts` refuses a third socket when `getWebSockets()` holds two seats, and
-`webSocketClose` / `webSocketError` never call `socket.close()`, so a seat whose
-TCP connection simply vanished (screen lock, wifi-to-mobile handover, the cases
-`link-socket.ts` says reconnection is for) stays counted until the edge times it
-out. The reconnecting phone arrives 900 ms later, is told `full`, and `link.ts`
-answers with `surrender()` and a terminal state. `relay:check --rejoin` only tests
-a graceful `leave()`, which sends a close frame, so this path is unexercised.
+One run in five of `bun run relay:check ws://127.0.0.1:<port> 14 --rejoin`
+reports "the two worlds did not come back in step" with A on tick 392 and B on
+tick 390 — a two-tick spread at the moment the harness happens to read them, not
+a parting. The other four runs pass with identical ticks and identical hashes,
+and `--split`, `--full` and the plain run pass every time.
 
-Close the server side in `webSocketClose` / `webSocketError`. Every seat pings
-every 700 ms, so stamp `lastSeen` on the socket with `serializeAttachment` on each
-ping and, in `fetch`, evict a seat silent for longer than about 10 s before
-deciding the room is full. In `link.ts` treat `full` as retryable while
-`player !== 0` until `triesLeft` runs out. Prove the eviction with the Durable
-Object test (its own entry) and the client rule with a `link.ts` test driven by a
-fake `RoomSocket`. Read `.claude/skills/net-change` first.
+`agreed` is `a.world.tick === b.world.tick && hashA === hashB`, and delayed
+lockstep does not promise the two devices are on the same tick at the same wall
+moment: it promises they simulate the same ticks with the same commands. A
+device may be up to `delayTicks` ahead of its peer's horizon. Compare instead at
+a tick they have both reached — step the trailing world to the leading one's
+tick before hashing, or record each world's hash at an agreed checkpoint tick
+and compare those. A flaky check is worse than none, because the next session
+reads a red one as its own doing.
 
-## Snap the clock offset while no run has started
+## Move apps/server off the miniflare alpha when a stable 5 ships
 
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/net/src/clock.ts`, `apps/game/src/link.ts`, `packages/net/test/clock.test.ts`
+- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Files:** `apps/server/package.json`, `apps/server/test/room.test.ts`, `bun.lock`
 
-`ClockSync` may jump only on first acquisition and afterwards walks at 4 ms/s, and
-`link.ts` deliberately keeps the `ClockSync` across a reconnect. `link.ts` measures
-against `performance.now()`, which on Android and iOS does not advance while the
-device is suspended, whereas the room's `Date.now()` does. A phone that locks for a
-minute and rejoins has an offset stale by a minute, and `toLocal(startMs)` puts the
-restamped beat zero a minute out; the other phone sits in HOLD.
+`apps/server/test/room.test.ts` pins `miniflare` at `5.20260831.0-alpha`, exactly
+and on purpose. The last stable 4.x is `4.20260730.0`, whose workerd binary
+refuses the `compatibility_date` in `wrangler.jsonc` ("newest date supported by
+this server binary is 2026-08-06"), and the test reads that date from the
+deploy's own config rather than carrying a second copy of it — so a stable 4
+would mean testing on a date the deploy does not use.
 
-Generalise the existing "no beat to disturb before anything has started" rule: add
-`ClockSync.snap()` (set `applied = target`) and call it whenever a sample arrives
-while `!run.started`. Test in `clock.test.ts`: acquire at offset 0, add three
-samples at 60 000, `snap()`, expect `offsetMs` 60 000; keep the existing
-"does not move an acquired beat zero" test green.
-
-## Bound what a peer can put into Lockstep.theirs
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/net/src/command-codec.ts`, `packages/net/src/lockstep.ts`, `packages/net/test/protocol.test.ts`, `packages/net/test/lockstep.test.ts`
-
-`decodeCommands` accepts an array of any length, and `Lockstep.receive` appends
-every command for any tick above `peerHorizon` up to `TICK_MAX` (2^31).
-`commandsFor` deletes only the tick it consumes, so commands filed under a tick the
-run never reaches are never freed. The room relays unexamined and Cloudflare allows
-1 MiB per message, so one `input` with tens of thousands of `{"kind":"call"}`
-entries at tick 2 000 000 000 lands them in the peer's map permanently. Room codes
-are four characters from a 25-letter alphabet, so an uninvited seat is not exotic.
-
-Cap the frame in `decodeCommands` (32 is generous for a thumb) and reject in
-`receive` any tick more than a fixed window ahead of `head` (say
-`cfg.tickHz * 10`), counting it as a violation. Tests: "drops a frame of 33
-commands" and "refuses an input ten seconds ahead of the head and frees nothing".
-
-## Give the Durable Object its first test; answer a malformed room path with 400
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/server/src/room.ts`, `apps/server/src/index.ts`, `apps/server/package.json`, `apps/server/test/room.test.ts`
-
-`apps/server` has zero test files. The seat handout, the `full` refusal, the
-beat-zero restamp on rejoin and the version check are covered only by
-`bun run relay:check`, which needs a human to start wrangler and is listed as
-unverified by every cloud session. Separately, `index.ts` line 28 calls
-`decodeURIComponent` on whatever followed `/room/`; `%E0` throws `URIError`,
-which becomes a Worker 500 rather than the 400 the next line intends.
-
-Add `miniflare` as a devDependency of `apps/server` (wrangler stays out, as the
-README wants) and write `room.test.ts`: `Bun.build` the worker to a string,
-`new Miniflare({ modules: true, script, durableObjects: { ROOMS: "Room" },
-compatibilityDate })`, `dispatchFetch` with an `Upgrade: websocket` header,
-`res.webSocket.accept()`, then assert: first socket gets `welcome` with
-`player: 1, peers: 1`; second gets `player: 2` and both receive the same
-`startMs`; a third gets `{t:"error",code:"full"}` then close 4000; a `join` with
-`v: 99` gets `code:"protocol"` and close 1002; `/room/%E0` returns 400 (wrap the
-decode, or skip it since `normalizeRoomCode` already drops `%`). The first run also
-settles whether miniflare's workerd starts under `bun test` on both Windows and
-macOS; if not, fall back to `unstable_startWorker` from wrangler on an ephemeral
-port and Bun's own `WebSocket`.
-
-## Do not cache a failed page response as the offline shell
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/game/public/sw.js`, `apps/game/test/sw.test.ts`
-
-`pageFirstFromNetwork` in `sw.js` puts `fresh` into the cache under `./` without
-checking `fresh.ok`, while `assetFirstFromCache` does check. A 404 or 503 from the
-origin during a deploy, or a Cloudflare error page, replaces the good shell, and
-the next offline open serves the error page. The install-time `cache.add("./")`
-does reject on non-2xx, so only the runtime path is exposed.
-
-Guard the put with `if (fresh.ok)`. No harness runs `sw.js`; add `sw.test.ts` that
-loads the file with `new Function` under a fake `self`, `caches` and `fetch`, and
-covers the three branches (network ok, network error, network fails). Biome does
-not lint `.js` today either (see the Biome entry).
-
-## Surface brokenPromises; a peer that broke one is a desync not yet detected
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/net/src/lockstep.ts`, `apps/game/src/link-run.ts`, `packages/net/src/status.ts`, `apps/game/src/join.ts`
-
-`Lockstep.receive` silently drops an input for a tick the peer already promised to
-leave alone and increments `violations`; `brokenPromises` is read only by tests.
-After a drop the two worlds already differ, but the `HashLedger` notices up to four
-beats later and reports a `desyncTick` that says nothing about the cause. The doc
-comment on `lockstep.ts` says non-zero means the run is not trustworthy, and
-nothing acts on it.
-
-In `link-run.ts` `receive`, return true (which `link.ts` turns into
-`settle("desync")`) when `lockstep.brokenPromises > 0`, and add `brokenPromises`
-to `LinkStatus` so `join.ts` `explain` can say it. Test: build a run, feed an
-`input` at a tick at or below the confirmed horizon, expect `receive` to return
-true.
-
-## Check the protocol version before a seat is handed out, not after
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/server/src/room.ts`, `apps/server/src/index.ts`, `apps/game/src/relay.ts`, `packages/net/src/protocol.ts`
-
-A socket is seated, greeted and, if it is the second, causes beat zero to be
-stamped for the peer before its `join` message is ever read. A client with the
-wrong version or none at all still gets a seat, and the peer still counts down.
-
-Carry the version on the upgrade URL (`?v=${PROTOCOL_VERSION}` in `relay.ts`,
-forwarded by `index.ts`) and refuse in `Room.fetch` with `refuse("protocol", ...)`
-before `acceptWebSocket`. The `join` message then has no job and can be removed
-from `ClientMessage`, following the net-change rule that a message type touches
-protocol, link and room together. The Durable Object test asserts a `?v=99`
-upgrade is refused and no `peers` message reaches an existing seat.
+When a non-alpha 5 is published, move to it and check the config shape the test
+builds by hand (`workers[0].config` with `manifest.modules` and
+`exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
+`{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
+shim that shows what the new shape wants if it changed again.
 
 ## Point apps/server's deploy script at deploy:game and fix its README
 

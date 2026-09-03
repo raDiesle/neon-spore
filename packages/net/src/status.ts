@@ -55,6 +55,13 @@ export interface LinkStatus {
   delayMs: number;
   /** The tick the two worlds parted, or null. */
   desyncTick: number | null;
+  /**
+   * Inputs the peer filed for a tick it had already promised to leave alone,
+   * or so far ahead of this run that it is not in it. A `desync` reached this
+   * way is a peer that broke the model rather than two worlds that drifted, and
+   * the screen says which — the two are found in different places.
+   */
+  brokenPromises: number;
 }
 
 const LABELS: Record<LinkState, string> = {
