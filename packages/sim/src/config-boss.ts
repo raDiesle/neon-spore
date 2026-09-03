@@ -120,7 +120,7 @@ export interface BossConfig {
    * How near a column's centre a way in has to come before it clicks onto it,
    * in thousandths of a column. It has to be wider than the furthest the rim
    * moves in one tick or a column could be turned straight past, and narrow
-   * enough that a lit mouth reads as standing on the column — `test/maze.test.ts`
+   * enough that a lit mouth reads as standing on the column — `test/maze-bridge.test.ts`
    * holds both ends of that against these two numbers.
    */
   mazeSnapMilli: number;

@@ -16,7 +16,8 @@ import { type MazeMove, type MazeWheel, mazeRoute } from "@neon-spore/sim";
  * makes from it: `in` one ring toward the middle, `cw` and `ccw` one sector
  * round. `mazeRoute` turns those into the cells the shot stands on, so the
  * picture and the shot read the same list; `mazeFault` refuses anything that
- * steps through a wall, and `test/maze.test.ts` runs it over all three.
+ * steps through a wall, and `content/test/maze-rounds.test.ts` runs it over
+ * all three.
  *
  * **Neither player knows which one goes anywhere.** The drum is drawn closed —
  * rings and mouths, no corridors — so the shot is what finds out, and it costs

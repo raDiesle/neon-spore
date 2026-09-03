@@ -54,24 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Split purity.test.ts and move the authored-maze checks into content
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/test/purity.test.ts`, `packages/sim/test/maze.test.ts`, `packages/content/src/maze-rounds.ts`, `packages/content/test/`
-
-`purity.test.ts` (477 lines) is two tests in one file: the determinism bans (lines
-1 to 112) and the `COPIES` table (114 onward), which grows by a row per finding.
-Split it into `purity.test.ts` and `copies.test.ts` sharing `stripNonCode`.
-
-`maze.test.ts` (507 lines) imports `../../content/src/maze-rounds.js` by path, and
-that file imports `@neon-spore/sim` by package name, so the sim suite depends on
-`content` through its test graph while its own comment says sim must not depend
-on content. Keep the wheel-geometry tests in sim on a local fixture and move the
-"every authored drum is legal, exactly one entrance reaches the core" checks over
-`MAZE_ROUNDS` into `packages/content/test/`, where content depending on sim is the
-permitted direction. Cut the remainder at the seam its header names (bridge, wheel,
-round).
-
 ## Fold seven copies of the sin-hash and five of smoothstep into shared helpers
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
