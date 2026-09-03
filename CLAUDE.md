@@ -111,8 +111,10 @@ longer describes the code, a tool that would have helped. It goes in
 what to do — and it is committed with the work that found it. Do not ask
 first, do not weigh whether it is worth the owner's attention, and do not
 settle for saying it in the report: the report scrolls away, and the next
-session clones `origin` and sees only files. Then, in the same turn, offer it
-as a background task, so one click gives it a session of its own.
+session clones `origin` and sees only files. The file is the whole mechanism —
+do **not** also offer it as a suggested background task. A chip is a popup the
+owner has to dismiss, and it says nothing `docs/queue.md` does not already say
+to `bun run queue`.
 
 The test for an entry is one question: **could a fresh session finish this
 alone and prove it with `bun run check`?** That is what makes a queue safe to
