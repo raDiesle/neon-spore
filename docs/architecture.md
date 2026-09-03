@@ -5,7 +5,7 @@
 ```
 content ──▶ sim ──▶ render
               │
-              └──▶ net (phase 2)
+              └──▶ net
 ```
 
 `content` is data. `sim` turns data plus commands into a world. `render` reads
@@ -17,17 +17,25 @@ work instead of waiting for a human to notice.
 
 ## The tick
 
-The simulation only ever hears "one tick has passed". Wall-clock time exists in
-exactly one file: `apps/game/src/loop.ts`.
+The simulation only ever hears "one tick has passed". The rule is not that a
+clock is read in one place — `apps/game` reads one in `loop.ts`, `main.ts`,
+`link.ts` and `testing.ts` — it is that **`sim` and `content` never read one at
+all**, and that is enforced rather than remembered:
+`packages/sim/test/purity.test.ts` scans every file in both for
+`performance.now`, `Date.now`, `Math.random`, a DOM global or an import of
+`render`. Time reaches a rule as the tick counter, and nothing else.
 
 `tickHz` and `bpm` must give a whole number of ticks per beat —
 `ticksPerBeat()` throws otherwise. At the defaults: 120 Hz, 96 BPM, 75 ticks
 per beat. A fractional value would let the beat drift apart on two devices,
 which is the one thing lockstep cannot survive.
 
-Creatures move exactly one tile per beat and are only ever on tile centres.
-Everything between beats is interpolation in `render`, computed from
-`beatPhase`. The simulation never sees it.
+Creatures are only ever on tile centres, and each kind has its own speed:
+`fallTilesPerBeat` (`kinds.ts`) gives a meteor its tier in tiles per beat and a
+torch eight above the fastest of those, while a wisp, a tether and both halves
+of THE GYRE take zero and are moved by rules of their own. Everything between
+beats is interpolation in `render`, computed from `beatPhase`. The simulation
+never sees it.
 
 ## Integers
 
@@ -46,8 +54,12 @@ outside the hash is a field that can desync two devices silently.
 
 ## Randomness
 
-One seeded xorshift32, seeded by the wave index. The same wave always plays out
-the same way.
+One seeded xorshift32, seeded **once per run**: `resetClock(world, 0)` at beat
+zero puts the tick counter, the id counter and the rng back together, and
+`startWave` never reseeds. So a wave does not play the same way from whichever
+wave you jump into it — it plays the same way from the same beat zero, which is
+what two devices in lockstep need and what a replay reproduces. A run is the
+unit of reproducibility, not a wave.
 
 The rule from the spec: **random is only what one player knows and the other
 does not.** Positions, timings, order and normally visible colours are fixed.

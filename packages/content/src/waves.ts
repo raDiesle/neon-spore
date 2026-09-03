@@ -13,8 +13,9 @@ export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
  * carried the receipt. The list is now split by act into `waves/act-*.ts`, one
  * file per chapter of the game (`act-1.ts` is the tutorial arc ending on
  * `FINALE`, `act-2.ts` is the first five bosses back to back, `act-3.ts` is
- * everything after them, `act-4.ts` is where new waves land now); this file
- * only concatenates them in order, so what stands here stays short no matter
+ * everything after them, and `act-5.ts` is where new waves land now — each act
+ * file is cut when it reaches the 250-line limit, not when a chapter ends); this
+ * file only concatenates them in order, so what stands here stays short no matter
  * how many waves the acts hold.
  *
  * `tools/director/src/serialize.ts` regenerates one act file at a time —

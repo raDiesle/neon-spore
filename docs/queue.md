@@ -192,41 +192,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## Point apps/server's deploy script at deploy:game and fix its README
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `apps/server/package.json`, `apps/server/README.md`, `package.json`
-
-Root `deploy` builds the director and pushes `wrangler.director.jsonc`; the relay
-(which is `apps/server/src/index.ts`, `wrangler.jsonc`) ships with `deploy:game`.
-`apps/server/package.json` `deploy` runs root `deploy`, so the server package's own
-deploy script deploys the director and never the relay. Its README (lines 23 to
-36 and 71) says the same wrong thing and also fixes the relay on port 8787, while
-`dev.ts` derives the port from the tree path.
-
-Point the alias at `deploy:game` or delete it, rewrite the README commands and
-the port note ("prints its port"). `bun run deploy:game:dry` proves the script.
-
-## Bring docs/architecture.md back in line with the code
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `docs/architecture.md`, `docs/INDEX.md`
-
-Four claims no longer hold. Line 8 has `net (phase 2)` in the diagram while line
-71 says the network is built. Lines 20 to 21 say wall-clock time exists in exactly
-one file, `apps/game/src/loop.ts`; it is read in `main.ts` (lines 188, 201, 241),
-`link.ts` line 64 and `testing.ts` line 135. Line 28 says creatures move exactly
-one tile per beat; `kinds.ts` `fallTilesPerBeat` gives rocks several, the dart
-steps diagonally, the wisp hops, the echo skips beats. Lines 49 to 50 say the rng
-is seeded by the wave index so the same wave always plays the same way; `main.ts`
-seeds with 0 and `startWave` never reseeds (`run.ts` reseeds at beat zero only), so
-wave N depends on how many draws the earlier waves made. `docs/INDEX.md` line 91
-says `world.ts` holds the single `step` function; `step` lives in `step.ts`.
-
-Rewrite the sentences to what the code does: the rule is that sim and content
-never read a clock, enforced by `purity.test.ts`; per-kind speed; rng seeded once
-per run at beat zero; net built. Fix the `world.ts` row. Doc only.
-
 ## Write the apps/game tests worth having: link.ts and loop.ts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -358,24 +323,6 @@ Add `noise(colour, filter, release, gain, at?)` to `grain.ts` and replace the 29
 literals. Prove nothing audible moved with a one-off script that serialises
 `planSound(def)` for all 201 entries before and after and diffs the two JSON
 files; do not pin that as a test (`docs/decisions.md` #19).
-
-## Fix the stale file headers docs/INDEX.md is generated from
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/content/src/waves.ts`, `packages/content/src/waves/act-4.ts`, `packages/content/src/waves/act-5.ts`, `packages/content/src/creatures.ts`, `tools/director/src/backlog-api.ts`, `tools/director/src/docs-api.ts`, `tools/director/src/serialize.ts`, `docs/INDEX.md`
-
-`waves.ts` line 16 says `act-4.ts` is where new waves land; `act-5.ts` lines 9 to
-10 say act-4 filled and act-5 is where they land, and INDEX carries both claims.
-INDEX describes `creatures.ts` as the bestiary and control-visibility table, but
-the table moved to `creatures-table.ts`; it describes `waves.ts` as authored waves
-when it is a 32-line barrel. The INDEX row for `serialize.ts` says waves are
-written back into `waves.ts`, but `waves-api.ts` says `waves.ts` is never written,
-only the act files. `backlog-api.ts` lines 7 to 8 and its row say ten files read
-when the code reads nine. `docs-api.ts` line 5 cites a `checks-api.ts` that no
-longer exists.
-
-Edit the headers, run `bun run index`, and confirm the diff to `INDEX.md` is only
-those rows.
 
 ## Extend bun run index to tools/ and the root-level app scripts
 

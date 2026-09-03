@@ -1,9 +1,8 @@
 /**
  * The GET routes that only read a document off disk — `docs/borrowed.md`,
  * `docs/tower-defence.md`, `docs/claude-vs-chatgpt.md` and the spec directory —
- * split out of `server.ts`
- * the same way `backlog-api.ts` and `checks-api.ts` were, and for a sharper
- * reason than tidiness.
+ * split out of `server.ts` the same way `backlog-api.ts` and `notes-api.ts`
+ * were, and for a sharper reason than tidiness.
  *
  * `build.ts` bakes these same answers into `dist/api/`, so it needs the
  * readers. It used to import them from `server.ts`, and importing that file

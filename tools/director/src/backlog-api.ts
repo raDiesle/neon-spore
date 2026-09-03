@@ -4,10 +4,9 @@
  * RELEASE NOTES route: a request handler is not the file where a server binds
  * its port.
  *
- * Nine files are read on every request rather than cached: six spec files,
- * the spec files and the three design documents, all parsed fresh for the
- * reason the roster always was — a copy kept beside the spec goes stale
- * silently. Every one of them is a pure read; the reads are what keep this
+ * Nine files are read on every request rather than cached: the six spec files
+ * and the three design documents, all parsed fresh for the reason the roster
+ * always was — a copy kept beside the spec goes stale silently. Every one of them is a pure read; the reads are what keep this
  * async.
  */
 

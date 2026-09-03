@@ -7,7 +7,7 @@
   "scripts": {
     "typecheck": "tsc -p . --noEmit",
     "dev": "bun run dev.ts",
-    "deploy": "bun run --cwd ../.. deploy"
+    "deploy": "bun run --cwd ../.. deploy:game"
   },
   "dependencies": {
     "@neon-spore/net": "workspace:*"

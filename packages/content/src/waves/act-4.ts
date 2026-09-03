@@ -9,7 +9,8 @@ import type { Wave } from "../wave-types.js";
  * because a list that grows a dozen lines a wave has to be cut somewhere, and
  * a chapter of the game is the least arbitrary place to cut it. `act-3.ts`
  * reached the 250-line limit the day THE WISP was written, exactly as
- * `act-2.ts` did before it, so this is where new waves land now.
+ * `act-2.ts` did before it. This one filled in its own turn the day THE GYRE
+ * was written; `act-5.ts` is where new waves land now.
  */
 /**
  * **THE WISP, in three figures.** Here for the reason the two blocks above

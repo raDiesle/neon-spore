@@ -1,15 +1,15 @@
 /**
- * Regenerates one act's wave array — `WAVES_ACT_1`, `WAVES_ACT_2`, or
- * `WAVES_ACT_3` in `packages/content/src/waves/act-*.ts` — while preserving
- * that file's own header and doc comment byte-for-byte. The browser cannot
+ * Regenerates one act's wave array — `WAVES_ACT_1` through `WAVES_ACT_5`, in
+ * `packages/content/src/waves/act-*.ts` — while preserving that file's own
+ * header and doc comment byte-for-byte. The browser cannot
  * write files directly, so the editor produces diffs you can review and
  * commit.
  *
  * The list used to be one flat array in `waves.ts` itself, regenerated under
  * a single fixed marker. It is split by act now because that file could not
  * grow forever, so the marker names which act's array it is rewriting —
- * `waves.ts` is only the barrel that concatenates the three and is never
- * itself a save target.
+ * `waves.ts` is only the barrel that concatenates the acts in order and is
+ * never itself a save target.
  */
 import type { Wave, WaveEntry, WaveGuide } from "@neon-spore/content";
 import type { BossEntry, PodEntry } from "@neon-spore/sim";

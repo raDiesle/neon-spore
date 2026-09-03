@@ -20,9 +20,9 @@ drift apart about what a field means.
 ## Running it
 
 ```
-bun run --cwd apps/server dev      # wrangler dev, on 8787
-bun run deploy                     # build the game, then push the worker
-bun run deploy:dry                 # the same, stopping short of uploading
+bun run --cwd apps/server dev      # wrangler dev; it prints its port
+bun run deploy:game                # build the game, then push the worker
+bun run deploy:game:dry            # the same, stopping short of uploading
 ```
 
 Wrangler is Node-oriented and is deliberately not a dependency of this
@@ -32,8 +32,10 @@ The deploy is a **root** script and not this package's, because one upload
 carries two things and only one of them is here: the worker's code, and the
 game's bundle as static assets. Deploying without building the game first
 ships whatever `apps/game/dist` happened to hold — an old bundle, or nothing.
-So `bun run deploy` runs `build:game` first, and
+So `bun run deploy:game` runs `build:game` first, and
 `bun run --cwd apps/server deploy` is kept only as an alias that calls it.
+Root `bun run deploy` is a different upload altogether — the director, off
+`wrangler.director.jsonc` — and never touches the relay.
 
 It needs a Cloudflare login, which wrangler asks for in a browser the first
 time (`npx wrangler login`), or a `CLOUDFLARE_API_TOKEN` in the environment.
@@ -43,10 +45,12 @@ things: the built game from `apps/game/dist` as static assets, and the rooms
 from this code. An asset match wins, so `/room/ACDE` only ever reaches the
 worker.
 
-Whether a relay is really answering:
+The port is the tree's own, derived from its path (`tools/ports.ts`) so two
+worktrees never ask for one socket; `dev` prints it, and the number is read out
+of that log rather than assumed. Whether a relay is really answering:
 
 ```
-curl -s http://localhost:8787/net/health
+curl -s http://127.0.0.1:<port>/net/health
 ```
 
 Only the relay answers `{"app":"neon-spore-relay","ok":true}` — the same
@@ -59,7 +63,7 @@ common case is the other one: the game off `bun run preview` on 4173, the rooms
 off a worker somewhere else. `?relay=` says where.
 
 ```
-http://localhost:4173/?relay=ws://localhost:8787
+http://localhost:4173/?relay=ws://127.0.0.1:<port>
 ```
 
 ## Two real phones

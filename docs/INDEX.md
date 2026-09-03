@@ -88,7 +88,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config.ts` | every tunable number, `ticksPerBeat`, `hullRow` |
 | `packages/sim/src/rng.ts` | the only permitted source of randomness |
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
-| `packages/sim/src/world.ts` | the world and the single `step` function |
+| `packages/sim/src/world.ts` | the `World` shape and `createWorld`; `step` itself lives in `step.ts` |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
 | `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on something falling, and how much it slows |
@@ -185,8 +185,8 @@ place — the generator keeps whatever is there.
 
 | Path | One line |
 |---|---|
-| `packages/content/src/creatures.ts` | bestiary and control-visibility table |
-| `packages/content/src/waves.ts` | authored waves, 7-column coordinates |
+| `packages/content/src/creatures.ts` | what a creature demands: `CreatureDef`, radar owner, category — the table itself is in `creatures-table.ts` |
+| `packages/content/src/waves.ts` | the barrel: every act's array concatenated in order, never a save target |
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
@@ -210,7 +210,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
-| `packages/content/src/waves/act-4.ts` | you are adding a wave — this is the act new ones land in |
+| `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
@@ -490,13 +490,13 @@ place — the generator keeps whatever is there.
 | `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
 | `tools/director/src/backlog.ts` | the six spec-derived groups, and where `queue`/`designs` are stitched in |
-| `tools/director/src/backlog-api.ts` | `GET /api/backlog`: ten files read, parsed and joined into one response |
+| `tools/director/src/backlog-api.ts` | `GET /api/backlog`: nine files read, parsed and joined into one response |
 | `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |
 | `tools/director/src/shapes-motion.ts` | a sway in tiles turned into a card that does not clip |
-| `tools/director/src/serialize.ts` | the WAVES array, written back into waves.ts |
+| `tools/director/src/serialize.ts` | one act's wave array, written back into its own `waves/act-*.ts` |
 | `tools/director/src/waves-api.ts` | `GET`/`PUT /api/waves`, and the base-revision token that refuses a clobber |
 | `tools/director/src/waves-io.ts` | the page's half of that: load, save, and the token it holds in between |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
