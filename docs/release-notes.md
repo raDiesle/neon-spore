@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 80e59ed — The grain table names the grain that was added, and four manifests end in a newline
+
+`noise` went into `grain.ts` and section 3 of `docs/spec/audio.md` stayed nine rows long. Nothing failed, because that table — unlike the family table one section below it — is held against nothing. The row is back, and the check that would have caught it is queued.
+
 ## 2026-09-03 · b491814 — A queue claim survives every landing but its own
 
 `bun run queue next` claims an item by creating `claude/queue-<slug>` off main and nothing else, so the branch carries no commits, points at main's tip, and `git branch --merged` offers it to the sweep at the end of any other lane's landing. Both sessions running on 3 September 2026 lost every claim they held within minutes of the other one landing, then did the same item twice.
