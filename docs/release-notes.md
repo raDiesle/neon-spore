@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 469d9ef — The queue hands an item out, and the branch it makes is the claim
+
+Two sessions opened on the same queue asked it the same question and got the same answer, because `next` printed item one and changed nothing. The second session found out it was duplicating work by rebasing onto it.
+
 ## 2026-09-03 · 9f0e733 — The rule about filing a finding is said once, where the queue already says it
 
 Two sessions wrote the same rule at the same time and both landed. `docs/queue.md` and `bun run queue` arrived on main while a lane was adding a paragraph saying a finding is filed as a background task and kept out of the repository; the rebase replayed one under the other, so the file gave two answers and they disagreed on the central point — whether a finding is written down at all.
