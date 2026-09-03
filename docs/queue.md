@@ -549,6 +549,7 @@ check`.
 ## The PreToolUse guard never sees a command run through the PowerShell tool
 
 - **Found:** 2026-09-03, claude/task-queue-work-5b5548
+- **Taken:** 2026-09-03, claude/queue-the-pretooluse-guard-never-sees-a-command-run-th
 - **Files:** `.claude/settings.json`, `tools/hooks/guard.ts`, `tools/hooks/shell-words.ts`, `tools/hooks/test/guard.test.ts`
 
 The hook's matcher in `settings.json` is `"Bash"`, and on Windows the session's
