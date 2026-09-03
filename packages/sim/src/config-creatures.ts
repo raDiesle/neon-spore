@@ -180,17 +180,33 @@ export interface CreatureConfig {
    * the same thumb, and a pull that took a different distance on an ordinary
    * arrival than on the boss would be two hands to learn for one movement.
    *
-   * **Seven and a half tiles, and it was two and a half.** The owner asked for
-   * three times the travel on every handle that opens a gate, and what it buys
-   * is that the pull stops being a flick: at two and a half a thumb reached
-   * taut without leaving the column it started in, so holding one open cost
-   * almost nothing and the seat with the cord could keep a hand near the
-   * cannon strip. At seven and a half the hand crosses most of the glass, the
-   * gate is plainly *held* rather than switched, and the partial openings in
-   * between — which are the only thing the other seat can read — are spread
-   * over a distance an eye can actually resolve.
+   * **Seven tiles, and it was two and a half.** The owner asked for three times
+   * the travel on every handle that opens a gate, and what it buys is that the
+   * pull stops being a flick: at two and a half a thumb reached taut without
+   * leaving the column it started in, so holding one open cost almost nothing
+   * and the seat with the cord could keep a hand near the cannon strip. At
+   * seven the hand crosses most of the glass, the gate is plainly *held* rather
+   * than switched, and the partial openings in between — the only thing the
+   * other seat can read — are spread over a distance an eye can resolve.
+   *
+   * It is `wardenTautMilli`'s number, and that file says why the last half tile
+   * went: a handle may not be carried off the field, and seven is the longest
+   * pull the field can hold in a straight line from where a gate's handle
+   * hangs. One gesture, one distance, on both.
    */
   lidTautMilli: number;
+  /**
+   * How far below THE LID's own centre its cord hangs, in thousandths of a
+   * tile. Far enough to be clear of the eye at every row, so a thumb reaching
+   * for the cord is never a thumb landing on the body behind it.
+   *
+   * **A `SimConfig` number rather than a render constant**, because the rule
+   * reads it: the clamp that keeps a handle on the field needs to know where
+   * that handle hangs (`handle-pull.ts`), and a length written once in render
+   * and once in the clamp is a control drawn in one place and bounded in
+   * another.
+   */
+  lidCordMilli: number;
   /**
    * What a lid is worth. `scoreVeilKill`'s and `scoreGhostKill`'s figure, and
    * for their reason: all three are bodies the pair can only reach by doing
@@ -221,6 +237,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   scoreEchoKill: 25,
   rindLayers: 2,
   scoreRindShed: 50,
-  lidTautMilli: 7500,
+  lidTautMilli: 7000,
+  lidCordMilli: 800,
   scoreLidKill: 250,
 };

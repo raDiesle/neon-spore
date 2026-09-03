@@ -73,7 +73,13 @@ export function bossHashParts(boss: BossState | null): number[] {
     // whether the hatch is open, which is whether the next shot counts.
     push(boss.pulling ? 1 : 0);
     push(boss.pullOriginMilli);
+    push(boss.pullOriginYMilli);
     push(boss.pullMilli);
+    // And the other half of the pull. A hand may carry the rope any way it
+    // likes now, so two devices that agreed about the x and not the y would
+    // disagree about how taut the line is — which is to say about whether the
+    // shot player 2 just fired counted.
+    push(boss.pullYMilli);
   }
   if (boss !== null && boss.kind === "vane") {
     push(boss.pins);

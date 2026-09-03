@@ -151,6 +151,20 @@ export interface SimConfig
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
   /**
+   * How far a handle's circle reaches from its own centre, in thousandths of a
+   * tile — THE MAZE's string, THE WARDEN's rope and THE LID's cord all wear the
+   * same one.
+   *
+   * **It is here rather than in render/ because the rule needs it.** A pull may
+   * not carry a handle off the field (`handle-pull.ts`), and what has to stay on
+   * is the whole circle rather than its centre — so the bound is inset by
+   * exactly this, and the simulation has to know the number the picture is
+   * drawn at. It was a `HANDLE_TILES` constant written out in two render files;
+   * a third copy in the clamp is how a control comes to be answered somewhere
+   * it is not drawn.
+   */
+  handleRadiusMilli: number;
+  /**
    * Perspective by row: how much larger a body draws on the hull row than on
    * the top row. 1 is the flat field. Read by render/ (`depth.ts`) and by
    * nothing else — `hashWorld` leaves `cfg` out, so two devices may disagree
@@ -210,6 +224,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   bandPct: 37,
   bandSoloPct: 27,
   radarHeightPx: 34,
+  handleRadiusMilli: 300,
   depthNearScale: 1.125,
   depthHaze: 0.3,
   briefings: false,

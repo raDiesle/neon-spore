@@ -233,17 +233,16 @@ export interface Creature {
   gyreSlot?: number;
   /**
    * How far player 1's hand has carried THE LID's cord from where it grabbed,
-   * in thousandths of a tile, clamped to `lidTautMilli` either way — and
-   * **absent on a lid nobody has hold of**, which is what makes the absence
-   * itself the answer to "is a hand on this". A grab reports zero, so nought
-   * and nothing are two different states here and neither is spelled as the
-   * other.
+   * across and down, in thousandths of a tile — and **absent on a lid nobody
+   * has hold of**, which is what makes the absence itself the answer to "is a
+   * hand on this". A grab reports zero, so nought and nothing are two different
+   * states here and neither is spelled as the other.
    *
-   * Signed, and the sign is only ever a picture: the cord is drawn swinging
-   * the way the hand went, while the rule takes the magnitude (`lid.ts`).
-   * Read it through `lidOpenMilli`, `lidIsOpen` and `lidIsHeld`, never
-   * directly — how far the plates have parted, whether a shot lands and
-   * whether the handle is drawn filled are three readings of this one number.
+   * The two together are the pull and its **length** is the tension: a hand may
+   * carry a cord any way at all, so neither axis alone says how far open the
+   * plates stand. Read them through `lidPull`, `lidOpenMilli`, `lidIsOpen` and
+   * `lidIsHeld`, never directly, and see `handle-pull.ts` for what bounds them.
    */
   lidPullMilli?: number;
+  lidPullYMilli?: number;
 }

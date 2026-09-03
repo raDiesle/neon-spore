@@ -11,6 +11,12 @@ import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
+
+// What a hit test is handed: lifted out when this file went over its limit, and
+// re-exported so nothing reaching for a `Field` had to move (`touch-field.ts`).
+export type { Field } from "./touch-field.js";
+
+import type { Field } from "./touch-field.js";
 import { lobeMeans } from "./touch-lobe.js";
 
 /**
@@ -60,62 +66,20 @@ export type Hold =
   | { kind: "shield" }
   | { kind: "grip" }
   | { kind: "lance" }
-  | { kind: "drag"; target: DragTarget; player: 1 | 2; originX: number; id?: number };
+  | {
+      kind: "drag";
+      target: DragTarget;
+      player: 1 | 2;
+      originX: number;
+      originY: number;
+      id?: number;
+    };
 
 export interface Touch {
   player: 1 | 2;
   command: Command;
   /** Null for a press that is over the moment it happens — a shot, a guard. */
   hold: Hold | null;
-}
-
-export interface Field {
-  creatures: readonly Creature[];
-  /** 0..1 within the beat, so a grab lands on the creature as drawn. */
-  beatPhase: number;
-  /**
-   * Whose hand a touch on the *field* is. The strips below say who they belong
-   * to by where they are; the field belongs to both players, so it can only be
-   * signed by the seat this screen holds.
-   */
-  seat: 1 | 2;
-  /**
-   * The numbers a hit test needs: the row THE WARDEN's rim hangs its tether
-   * from (`creatureAt`), and how wide THE MAZE's drum stands. The whole config
-   * rather than the one number picked out of it, which is what this was — the
-   * second thing to want one would have been a second field to copy across.
-   */
-  cfg: SimConfig;
-  /**
-   * THE MAZE, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the reason the comment under
-   * `controls` gives: a caller that quietly meant `null` would leave the pilot
-   * pressing a handle that is drawn and answers nothing.
-   */
-  maze: MazeState | null;
-  /**
-   * THE WARDEN, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the same reason `maze` is: a caller
-   * that quietly meant `null` would leave the pilot pressing a handle that is
-   * drawn and answers nothing, which is the one failure this whole file exists
-   * to prevent.
-   */
-  warden: WardenState | null;
-  /**
-   * The whole panel this wave is played on — both seats at once, never a
-   * combination (`packages/content/src/control-sets.ts`).
-   *
-   * It is on the field for the same reason `wardenRow` is: this file is handed
-   * a field, never a world, and which panel is up is a fact about the wave.
-   *
-   * It is **required** rather than defaulted, and that is the whole repair.
-   * The band learned to walk a set and this file did not, so it went on
-   * answering a fixed `l.lanceButton` whatever the wave said — the lance was
-   * invisible on every ordinary wave and still primed under the thumb. A
-   * default would put that back the first time a caller forgot to pass one;
-   * a required field makes the compiler ask.
-   */
-  controls: ControlSet;
 }
 
 /** A press. Null where nothing is. */
@@ -201,11 +165,14 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
  * A grip still answers nothing, deliberately: a hand on something falling only
  * slows it, and that is all a grip has ever been (`sim/grip.ts`). Nothing that
  * cared only that a hand was there has to learn that some hands now report
- * where they went. And there is still no `y`, because nothing is dragged up the
- * screen yet — THE WARDEN's rope is pulled *aside*, which is what clears the
- * shot lane its own column was standing in.
+ * where they went.
+ *
+ * **There is a `y` now.** A pull was one number across for as long as the only
+ * handle in the game hung under a rim and was swung *aside*; the owner asked
+ * for the whole circle, so a drag reports both axes and the strips — which are
+ * still a column and nothing else — go on ignoring the second.
  */
-export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
+export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | null {
   if (hold.kind === "cannon") {
     return { player: 1, command: { kind: "cannonCol", col: colFromX(l, x) }, hold };
   }
@@ -213,8 +180,20 @@ export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
     return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold };
   }
   if (hold.kind === "drag") {
-    const fromMilli = Math.round(((x - hold.originX) * 1000) / l.tile);
-    return { player: hold.player, command: dragging(hold, fromMilli, true), hold };
+    // Both axes now: the owner asked for a handle to be carriable any way at
+    // all, so what a move reports is a displacement rather than a distance
+    // across. Where it is allowed to end up is the simulation's
+    // (`sim/handle-pull.ts`) — this only says where the finger went.
+    return {
+      player: hold.player,
+      command: dragging(
+        hold,
+        Math.round(((x - hold.originX) * 1000) / l.tile),
+        Math.round(((y - hold.originY) * 1000) / l.tile),
+        true,
+      ),
+      hold,
+    };
   }
   return null;
 }
@@ -228,9 +207,21 @@ export function touchMove(l: Layout, hold: Hold, x: number): Touch | null {
  * thing about *which* handle, and two spellings of that is how a lift comes to
  * let go of a different cord than the one the hand was on.
  */
-function dragging(hold: Extract<Hold, { kind: "drag" }>, fromMilli: number, on: boolean): Command {
+function dragging(
+  hold: Extract<Hold, { kind: "drag" }>,
+  fromMilli: number,
+  fromYMilli: number,
+  on: boolean,
+): Command {
   const { target, id } = hold;
-  return { kind: "drag", target, on, fromMilli, ...(id === undefined ? {} : { id }) };
+  return {
+    kind: "drag",
+    target,
+    on,
+    fromMilli,
+    fromYMilli,
+    ...(id === undefined ? {} : { id }),
+  };
 }
 
 /**
@@ -243,7 +234,7 @@ export function touchUp(hold: Hold, field: Field): Touch | null {
     return { player: 1, command: { kind: "prime", on: false }, hold: null };
   }
   if (hold.kind === "drag") {
-    return { player: hold.player, command: dragging(hold, 0, false), hold: null };
+    return { player: hold.player, command: dragging(hold, 0, 0, false), hold: null };
   }
   if (hold.kind !== "grip") return null;
   return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };

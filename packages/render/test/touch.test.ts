@@ -255,10 +255,11 @@ describe("a finger that moves", () => {
   const l = layout("test");
 
   it("drags the strip it started on, and nothing else", () => {
-    expect(touchMove(l, { kind: "cannon" }, l.gridLeft + l.tile / 2)).toMatchObject({ player: 1 });
-    expect(touchMove(l, { kind: "shield" }, l.gridLeft + l.tile / 2)).toMatchObject({ player: 2 });
+    const mid = l.gridLeft + l.tile / 2;
+    expect(touchMove(l, { kind: "cannon" }, mid, 0)).toMatchObject({ player: 1 });
+    expect(touchMove(l, { kind: "shield" }, mid, 0)).toMatchObject({ player: 2 });
     // A grip stays on its creature: the finger is not steering anything.
-    expect(touchMove(l, { kind: "grip" }, l.width * 0.9)).toBeNull();
+    expect(touchMove(l, { kind: "grip" }, l.width * 0.9, 0)).toBeNull();
   });
 });
 
@@ -280,8 +281,14 @@ describe("a hand on THE MAZE's string", () => {
     const t = grab(mazeField(1));
     expect(t).toEqual({
       player: 1,
-      command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
-      hold: { kind: "drag", target: "mazeString", player: 1, originX: handle().x },
+      command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },
+      hold: {
+        kind: "drag",
+        target: "mazeString",
+        player: 1,
+        originX: handle().x,
+        originY: handle().y,
+      },
     });
   });
 
@@ -293,29 +300,47 @@ describe("a hand on THE MAZE's string", () => {
   it("reports the distance from the grab, in thousandths of a tile", () => {
     const hold = grab(mazeField(1))?.hold;
     if (hold?.kind !== "drag") throw new Error("the handle was not grabbed");
-    expect(touchMove(l, hold, hold.originX + l.tile * 2)?.command).toEqual({
+    expect(touchMove(l, hold, hold.originX + l.tile * 2, hold.originY)?.command).toEqual({
       kind: "drag",
       target: "mazeString",
       on: true,
       fromMilli: 2000,
+      fromYMilli: 0,
     });
-    expect(touchMove(l, hold, hold.originX - l.tile / 2)?.command).toEqual({
+    expect(touchMove(l, hold, hold.originX - l.tile / 2, hold.originY)?.command).toEqual({
       kind: "drag",
       target: "mazeString",
       on: true,
       fromMilli: -500,
+      fromYMilli: 0,
+    });
+    // Both axes: a hand may carry a handle any way at all now, so a move down
+    // the screen is a move and not a rounding of one across it.
+    expect(touchMove(l, hold, hold.originX, hold.originY + l.tile * 1.5)?.command).toMatchObject({
+      fromMilli: 0,
+      fromYMilli: 1500,
     });
     // Back where it started is zero again, however it got there: the origin is
     // fixed at the press, so a move can never accumulate.
-    expect(touchMove(l, hold, hold.originX)?.command).toMatchObject({ fromMilli: 0 });
+    expect(touchMove(l, hold, hold.originX, hold.originY)?.command).toMatchObject({
+      fromMilli: 0,
+      fromYMilli: 0,
+    });
   });
 
   it("is an integer at every position across the field", () => {
-    const hold: Hold = { kind: "drag", target: "mazeString", player: 1, originX: 0 };
+    const hold: Hold = {
+      kind: "drag",
+      target: "mazeString",
+      player: 1,
+      originX: 0,
+      originY: 0,
+    };
     for (let x = 0; x <= l.width; x += 1) {
-      const c = touchMove(l, hold, x)?.command;
+      const c = touchMove(l, hold, x, x)?.command;
       if (c?.kind !== "drag") throw new Error("a drag answered something else");
       expect(Number.isInteger(c.fromMilli)).toBe(true);
+      expect(Number.isInteger(c.fromYMilli)).toBe(true);
     }
   });
 
@@ -324,7 +349,7 @@ describe("a hand on THE MAZE's string", () => {
     if (!hold) throw new Error("the handle was not grabbed");
     expect(touchUp(hold, mazeField(1))).toEqual({
       player: 1,
-      command: { kind: "drag", target: "mazeString", on: false, fromMilli: 0 },
+      command: { kind: "drag", target: "mazeString", on: false, fromMilli: 0, fromYMilli: 0 },
       hold: null,
     });
   });

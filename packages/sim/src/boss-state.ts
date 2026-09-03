@@ -98,17 +98,24 @@ export interface WardenState {
    * `types.ts`); this is the sim's copy of the one the pulling device resolved.
    */
   pullOriginMilli: number;
+  /** The same, down the screen. Absent from the wire before the pull became a
+   * circle, so it is nought on every replay recorded until then. */
+  pullOriginYMilli: number;
   /**
-   * How far the handle has been carried off its column, in thousandths of a
-   * tile, clamped to `wardenTautMilli` either way.
-   *
-   * **Signed**, and the sign is the picture rather than the rule: the tension
-   * is its magnitude, so a gate on a block and tackle does not care which way
-   * you lean — but the rope has to be drawn swinging the way the hand actually
-   * went, or the one thing player 2 can see about their partner's hand is a
-   * mirror image of it.
+   * How far the handle has been carried across the field, in thousandths of a
+   * tile — the x of a pull that may now go any way at all.
    */
   pullMilli: number;
+  /**
+   * And how far down. The pair of them is the pull, and its **length** is the
+   * tension — `pullIsTaut` compares the two squares rather than taking a root,
+   * so the rule has no rounding in it at all (`handle-pull.ts`).
+   *
+   * Both are the picture as well as the rule: the rope is drawn running to
+   * wherever the hand carried it, and one thing player 2 can see about their
+   * partner's hand has to be the thing it is actually doing.
+   */
+  pullYMilli: number;
 }
 
 /**

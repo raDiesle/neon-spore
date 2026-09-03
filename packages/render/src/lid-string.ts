@@ -3,6 +3,7 @@ import {
   type Creature,
   lidIsHeld,
   lidOpenMilli,
+  lidPull,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
@@ -12,8 +13,8 @@ import {
   drawHandleHint,
   drawHandleRest,
   drawHandleRing,
-  HANDLE_TILES,
   HINT_SOFT,
+  handleRadius,
   handleSag,
 } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
@@ -43,11 +44,6 @@ import { PALETTE, STROKE } from "./palette.js";
  * rather than the row it left.
  */
 
-/** How far below the body's centre the handle rests, in tiles. Clear of the
- * eye's own outline at every row, so a thumb reaching for the cord is never a
- * thumb landing on the body behind it. */
-const HANG_TILES = 0.8;
-
 /**
  * Where this lid's handle rests, with no hand on it.
  *
@@ -60,9 +56,12 @@ const HANG_TILES = 0.8;
  * costs nothing, because by then the pointer is captured and nothing is
  * hit-tested again.
  */
-export function lidCordCircle(l: Layout, c: Creature, beatPhase: number): Circle {
+export function lidCordCircle(l: Layout, cfg: SimConfig, c: Creature, beatPhase: number): Circle {
   const { x, y } = creatureCenter(l, c, beatPhase);
-  return { x, y: y + l.tile * HANG_TILES, r: l.tile * HANDLE_TILES };
+  // How far under the body it hangs is the simulation's number too, not this
+  // file's: the clamp that keeps a pulled handle on the field is written
+  // against exactly this hang (`sim/handle-pull.ts`).
+  return { x, y: y + (l.tile * cfg.lidCordMilli) / 1000, r: handleRadius(l, cfg) };
 }
 
 /**
@@ -92,24 +91,26 @@ function drawOne(
 ): void {
   const hex = c.color === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-  const rest = lidCordCircle(l, c, beatPhase);
+  const rest = lidCordCircle(l, cfg, c, beatPhase);
   const top = creatureCenter(l, c, beatPhase);
-  // One to one with the hand: the handle stands exactly where the finger
-  // carried it, so the distance on the screen *is* the distance being asked
-  // for. `lidPullMilli` is thousandths of a tile, which is what `l.tile`
-  // turns back into pixels.
-  const off = ((c.lidPullMilli ?? 0) * l.tile) / 1000;
+  // One to one with the hand, in both axes: the handle stands exactly where the
+  // finger carried it, so the distance on the screen *is* the distance being
+  // asked for. The pull is thousandths of a tile, which is what `l.tile` turns
+  // back into pixels — and the simulation has already kept it on the field, so
+  // nothing here has to bound it a second time (`sim/handle-pull.ts`).
+  const carried = lidPull(c);
   const held = lidIsHeld(c);
   const pull = lidOpenMilli(cfg, c) / 1000;
-  const x = rest.x + off;
+  const head = {
+    x: rest.x + (carried.x * l.tile) / 1000,
+    y: rest.y + (carried.y * l.tile) / 1000,
+  };
 
   // Under tension the cord goes thin and bright: it is its own gauge, and
   // there is no widget anywhere saying how far the pull has got.
   const sag = handleSag({
-    restX: rest.x,
-    headX: x,
-    topY: top.y,
-    headY: rest.y,
+    anchor: { x: rest.x, y: top.y },
+    head,
     held,
     pull,
     time,
@@ -121,6 +122,6 @@ function drawOne(
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
 
   if (held) drawHandleRest(ctx, rest, hex);
-  drawHandleRing(ctx, { x, y: rest.y, r: rest.r, hex, rim, held, pull, time });
-  if (!held) drawHandleHint(ctx, l, l.role, x, rest.y + l.tile * 0.62, HINT_SOFT);
+  drawHandleRing(ctx, { x: head.x, y: head.y, r: rest.r, hex, rim, held, pull, time });
+  if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.62, HINT_SOFT);
 }

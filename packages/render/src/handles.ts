@@ -50,8 +50,8 @@ function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch |
   if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
   return {
     player: 1,
-    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
-    hold: { kind: "drag", target: "mazeString", player: 1, originX: x },
+    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },
+    hold: { kind: "drag", target: "mazeString", player: 1, originX: x, originY: y },
   };
 }
 
@@ -69,8 +69,8 @@ function wardenRopeUnder(l: Layout, x: number, y: number, field: Field): Touch |
   if (!hitCircle(tetherHandleCircle(l, field.cfg, rope.col), x, y)) return null;
   return {
     player: 1,
-    command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0 },
-    hold: { kind: "drag", target: "wardenTether", player: 1, originX: x },
+    command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli: 0 },
+    hold: { kind: "drag", target: "wardenTether", player: 1, originX: x, originY: y },
   };
 }
 
@@ -94,7 +94,7 @@ function lidCordUnder(l: Layout, x: number, y: number, field: Field): Touch | nu
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
     if (c.kind !== "lid") continue;
-    const circle = lidCordCircle(l, c, field.beatPhase);
+    const circle = lidCordCircle(l, field.cfg, c, field.beatPhase);
     if (!hitCircle(circle, x, y)) continue;
     const d = Math.hypot(x - circle.x, y - circle.y);
     if (d >= bestDist) continue;
@@ -104,7 +104,14 @@ function lidCordUnder(l: Layout, x: number, y: number, field: Field): Touch | nu
   if (best === null) return null;
   return {
     player: 1,
-    command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, id: best },
-    hold: { kind: "drag", target: "lidString", player: 1, originX: x, id: best },
+    command: {
+      kind: "drag",
+      target: "lidString",
+      on: true,
+      fromMilli: 0,
+      fromYMilli: 0,
+      id: best,
+    },
+    hold: { kind: "drag", target: "lidString", player: 1, originX: x, originY: y, id: best },
   };
 }

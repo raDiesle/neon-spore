@@ -45,14 +45,20 @@ export interface BossConfig {
    * Sideways, because the handle hangs under the middle of the ring and swinging
    * it aside is what clears the shot lane it was standing in.
    *
-   * **Seven and a half tiles, and it was two and a half.** The owner asked for
-   * three times the travel on every handle that opens a gate, and `lidTautMilli`
-   * next door carries the same number for the same reason: at a quarter of the
-   * field's width the pull was a flick that never took the hand out of the
-   * column it began in, so a gate could be held open at almost no cost. Most of
-   * the glass, and it is plainly a hold — and the partial openings between shut
-   * and taut, which are the only thing player 2 can read, are now spread over a
-   * distance an eye can resolve.
+   * **Seven tiles, and it was two and a half.** The owner asked for three times
+   * the travel on every handle that opens a gate, and `lidTautMilli` next door
+   * carries the same number for the same reason: at a quarter of the field's
+   * width the pull was a flick that never took the hand out of the column it
+   * began in, so a gate could be held open at almost no cost.
+   *
+   * **Seven and not seven and a half, and the half tile is the boundary's.** A
+   * pull may not carry the handle off the field (`handle-pull.ts`), and this
+   * rope hangs at `wardenRow + wardenHangRows` with 7.2 tiles of field above it
+   * and 7.2 below. At 7500 no straight pull reached taut from there — only a
+   * diagonal did, and *which* diagonal changed as the pupil drifted, so the
+   * obvious gesture failed for a reason nothing on the screen explained. Seven
+   * is the longest pull the field can hold straight, with a fifth of a tile in
+   * hand.
    */
   wardenTautMilli: number;
   /** Plates the ring wears. One comes off per opened eye, and the gap never fills. */
@@ -157,7 +163,7 @@ export const BOSS_DEFAULTS: BossConfig = {
   wardenRow: 2,
   wardenCycleBeats: 12,
   wardenHangRows: 5,
-  wardenTautMilli: 7500,
+  wardenTautMilli: 7000,
   wardenPlates: 5,
   scoreWardenPlate: 500,
   scoreWardenDown: 2500,

@@ -136,5 +136,10 @@ export function creatureHashParts(c: Creature): number[] {
   // there is no value of it left over to mean "nobody is holding this".
   out.push(c.lidPullMilli === undefined ? 0 : 1);
   out.push(c.lidPullMilli ?? 0);
+  // And the other half of it. A hand may carry a cord any way it likes, so two
+  // devices that agreed about the x and not the y would disagree about how far
+  // the plates stand apart — which is to say about whether the shot player 2
+  // just fired counted.
+  out.push(c.lidPullYMilli ?? 0);
   return out;
 }

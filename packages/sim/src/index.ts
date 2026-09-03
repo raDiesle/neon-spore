@@ -77,6 +77,7 @@ export {
   mountColor,
   mountOffset,
 } from "./gyre-rim.js";
+export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
 export { hashWorld } from "./hash.js";
 export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
 export {
@@ -85,7 +86,7 @@ export {
   primeChargeMilli,
   priming,
 } from "./lance.js";
-export { lidIsHeld, lidIsOpen, lidOpenMilli } from "./lid.js";
+export { lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";

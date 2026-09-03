@@ -12,8 +12,8 @@ import {
   drawHandleHint,
   drawHandleRest,
   drawHandleRing,
-  HANDLE_TILES,
   HINT_LOUD,
+  handleRadius,
   handleSag,
 } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
@@ -60,7 +60,7 @@ export function tetherHandleCircle(l: Layout, cfg: SimConfig, col: number): Circ
   return {
     x: tileCX(l, col),
     y: tileCY(l, cfg.wardenRow + cfg.wardenHangRows),
-    r: l.tile * HANDLE_TILES,
+    r: handleRadius(l, cfg),
   };
 }
 
@@ -78,10 +78,14 @@ export function drawTether(
 
   const rest = tetherHandleCircle(l, cfg, col);
   const topY = wardenRimY(l, cfg.wardenRow);
-  // One to one with the hand: the handle stands exactly where the finger
-  // carried it, so the distance on the screen *is* the distance being asked for.
-  const off = (b.pullMilli * l.tile) / 1000;
-  const x = rest.x + off;
+  // One to one with the hand, in both axes: the handle stands exactly where the
+  // finger carried it, so the distance on the screen *is* the distance being
+  // asked for. The simulation has already kept it on the field, so nothing here
+  // has to bound it a second time (`sim/handle-pull.ts`).
+  const head = {
+    x: rest.x + (b.pullMilli * l.tile) / 1000,
+    y: rest.y + (b.pullYMilli * l.tile) / 1000,
+  };
   const pull = wardenPullMilli(world, b) / 1000;
   const held = b.pulling;
 
@@ -89,10 +93,8 @@ export function drawTether(
   // its own gauge, and there is no widget anywhere saying how far the pull has
   // got. Slack, it hangs with a slow wave travelling down it.
   const sag = handleSag({
-    restX: rest.x,
-    headX: x,
-    topY,
-    headY: rest.y,
+    anchor: { x: rest.x, y: topY },
+    head,
     held,
     pull,
     time,
@@ -107,8 +109,8 @@ export function drawTether(
   // The column it hangs in, marked faintly, so the swing reads as a distance
   // from somewhere rather than as a handle that happens to be over there.
   if (held) drawHandleRest(ctx, rest, hex);
-  drawHandleRing(ctx, { x, y: rest.y, r: rest.r, hex, rim, held, pull, time });
-  if (!held) drawHandleHint(ctx, l, l.role, x, rest.y + l.tile * 0.7, HINT_LOUD);
+  drawHandleRing(ctx, { x: head.x, y: head.y, r: rest.r, hex, rim, held, pull, time });
+  if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.7, HINT_LOUD);
 }
 
 /** Where it comes out of the rim, brightening as the tension takes. */

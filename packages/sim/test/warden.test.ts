@@ -89,10 +89,19 @@ const at = (beat: number, player: 1 | 2, command: TimedCommand["command"]): Time
   command,
 });
 
-/** A hand on the handle, `fromMilli` from where it grabbed. */
-const drag = (player: 1 | 2, on: boolean, fromMilli: number): Omit<TimedCommand, "tick"> => ({
+/**
+ * A hand on the handle, `milli` from where it grabbed — and **down the screen
+ * rather than across it**, because that is where the field has the room.
+ *
+ * The direction is not a flourish. A pull may not carry the handle off the
+ * field (`handle-pull.ts`); the rope hangs at `wardenRow + wardenHangRows`,
+ * which leaves 7.2 tiles below it and 7.2 above, while the width either side
+ * depends on where the pupil has drifted to. Down is the one direction whose
+ * room does not move, and `wardenTautMilli` is set to fit inside it.
+ */
+const drag = (player: 1 | 2, on: boolean, milli: number): Omit<TimedCommand, "tick"> => ({
   player,
-  command: { kind: "drag", target: "wardenTether", on, fromMilli },
+  command: { kind: "drag", target: "wardenTether", on, fromMilli: 0, fromYMilli: milli },
 });
 
 /** Grab the handle and haul it `milli` thousandths of a tile aside. Two ticks. */
@@ -175,11 +184,27 @@ describe("the pull", () => {
     expect(run.events.some((e) => e.type === "eyeOpen")).toBe(true);
   });
 
-  it("does not care which way the hand went", () => {
-    const run = open();
-    beats(run, 1);
-    haul(run, -TAUT);
-    expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
+  /**
+   * The rule is the pull's **length**, and the field is what decides which
+   * directions can supply it. From where this rope hangs there are 7.2 tiles of
+   * field below and, once the app's own chrome along the top is taken off, 6.2
+   * above — so down reaches taut and up cannot, and the hand has somewhere to
+   * go rather than a sign to get right.
+   *
+   * Pulling down leaves the rope in the pupil's own column, which is fine: a
+   * tether never stopped a shot (`bullets.ts`), so the lane was only ever
+   * cleared for the look of it.
+   */
+  it("takes any direction the field has room for, and no more", () => {
+    const down = open();
+    beats(down, 1);
+    haul(down, TAUT);
+    expect(wardenEyeOpen(down.world, warden(down.world))).toBe(true);
+
+    const up = open();
+    beats(up, 1);
+    haul(up, -TAUT);
+    expect(wardenEyeOpen(up.world, warden(up.world))).toBe(false);
   });
 
   it("shuts the moment the hand lifts", () => {

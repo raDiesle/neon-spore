@@ -157,7 +157,7 @@ export function bindStageTouch({
   canvas.addEventListener("pointermove", (e) => {
     const hold = holding.get(e.pointerId);
     if (!hold) return;
-    const t = touchMove(layout(), hold, at(e).x);
+    const t = touchMove(layout(), hold, at(e).x, at(e).y);
     if (t) push(t.player, t.command);
   });
   // On the window, not the canvas: a thumb that leaves the picture still has

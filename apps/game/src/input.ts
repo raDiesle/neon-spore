@@ -181,7 +181,7 @@ export function bindControls({
     if (!p) return;
     const hold = holding.get(e.pointerId);
     if (!hold) return;
-    const t = touchMove(layout(), hold, p.x);
+    const t = touchMove(layout(), hold, p.x, p.y);
     if (t) buffer.push(t.player, t.command);
   });
   const up = (e: PointerEvent): void => {

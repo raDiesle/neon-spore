@@ -78,6 +78,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   echoSplitBeats: "THE ECHO — one body that becomes eight",
   scoreEchoKill: "SCORE",
   lidTautMilli: "THE LID — an armoured eye held open by a hand",
+  lidCordMilli: "THE LID — an armoured eye held open by a hand",
   scoreLidKill: "SCORE",
   rindLayers: "THE RIND — one body, three sizes",
   scoreRindShed: "SCORE",
@@ -95,6 +96,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   bandPct: "PLUMBING — not a dial a person turns",
   bandSoloPct: "PLUMBING — not a dial a person turns",
   radarHeightPx: "PLUMBING — not a dial a person turns",
+  handleRadiusMilli: "GRIP — a hand on the field",
   depthNearScale: "PLUMBING — not a dial a person turns",
   depthHaze: "PLUMBING — not a dial a person turns",
   // BossConfig

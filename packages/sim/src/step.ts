@@ -8,7 +8,7 @@ import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
-import { lidHeard } from "./lid.js";
+import { lidHeard, stepLidPulls } from "./lid.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
@@ -128,7 +128,13 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // so the tick it comes full on is this one, whatever else happens next.
   noteLanceFull(world);
   const tpb = ticksPerBeat(world.cfg);
-  if (world.tick % tpb === 0) onBeat(world);
+  if (world.tick % tpb === 0) {
+    onBeat(world);
+    // After the field has fallen, and only then: a held cord has to stay on the
+    // field as the body under it moves, or a handle pinned at the bottom edge
+    // is off the screen a beat later with no command to notice (`lid.ts`).
+    stepLidPulls(world);
+  }
 
   advanceBullets(world);
   // After the shots, before anything else asks who is holding what: a hand

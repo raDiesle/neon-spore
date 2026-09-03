@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
 import { removeCreature } from "./field.js";
+import { clampPull, pullIsTaut, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
 import type { Bullet, Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -44,10 +45,24 @@ import type { World } from "./world.js";
  * deciding to fire. `wardenPullMilli` makes the same argument about a hatch.
  */
 export function lidOpenMilli(cfg: SimConfig, c: Creature): number {
-  const pull = c.lidPullMilli;
-  if (pull === undefined) return 0;
-  const full = Math.max(1, cfg.lidTautMilli);
-  return Math.min(1000, Math.round((Math.abs(pull) * 1000) / full));
+  if (c.lidPullMilli === undefined) return 0;
+  return pullOpenMilli(lidPull(c), cfg.lidTautMilli);
+}
+
+/** The pull as a vector, nought where a lid has no hand on it. Read it through
+ * this rather than the two fields: the y is absent on every world recorded
+ * before a pull could go any way but sideways. */
+export function lidPull(c: Creature): { x: number; y: number } {
+  return { x: c.lidPullMilli ?? 0, y: c.lidPullYMilli ?? 0 };
+}
+
+/** Where this lid's cord hangs with no hand on it, in thousandths of a tile —
+ * `lidCordMilli` below the body's own centre. The one place it is said, so the
+ * clamp that keeps the handle on the field and the cord render draws to it
+ * cannot disagree about where it started. */
+function cordRest(cfg: SimConfig, c: Creature): { x: number; y: number } {
+  const centre = tileCentreMilli(c.col, c.row);
+  return { x: centre.x, y: centre.y + cfg.lidCordMilli };
 }
 
 /**
@@ -60,8 +75,7 @@ export function lidOpenMilli(cfg: SimConfig, c: Creature): number {
  * belongs to the picture and must never decide a hit.
  */
 export function lidIsOpen(cfg: SimConfig, c: Creature): boolean {
-  const pull = c.lidPullMilli;
-  return pull !== undefined && Math.abs(pull) >= cfg.lidTautMilli;
+  return c.lidPullMilli !== undefined && pullIsTaut(lidPull(c), cfg.lidTautMilli);
 }
 
 /** Whether a hand is on this lid's cord at all. Absent is the whole of "no
@@ -106,17 +120,59 @@ export function lidHeard(world: World, player: 1 | 2, command: Command): void {
     return;
   }
   const was = lidIsOpen(world.cfg, held);
-  const taut = world.cfg.lidTautMilli;
-  for (const c of world.creatures) if (c !== held) c.lidPullMilli = undefined;
-  held.lidPullMilli = Math.max(-taut, Math.min(taut, command.fromMilli));
+  for (const c of world.creatures) {
+    if (c === held) continue;
+    c.lidPullMilli = undefined;
+    c.lidPullYMilli = undefined;
+  }
+  // Cut to taut and then kept on the field, both in one rule and neither of
+  // them spelled out here (`handle-pull.ts`).
+  const pulled = clampPull(
+    world.cfg,
+    cordRest(world.cfg, held),
+    { x: command.fromMilli, y: command.fromYMilli ?? 0 },
+    world.cfg.lidTautMilli,
+  );
+  held.lidPullMilli = pulled.x;
+  held.lidPullYMilli = pulled.y;
   if (!was && lidIsOpen(world.cfg, held) && held.color !== null) {
     world.events.push({ type: "eyeOpen", col: held.col, color: held.color });
   }
 }
 
+/**
+ * Every held cord, kept on the field as the body under it moves.
+ *
+ * **A pull is state, and the world moves under it.** The clamp in `lidHeard`
+ * settles where a handle may be at the instant a finger reports, and a lid
+ * falls a tile a beat afterwards — so a handle pinned against the bottom of
+ * the field is off it one beat later, with no new command to notice. The hand
+ * has not moved and the picture would still be drawn from the pull, so the
+ * circle the owner asked to stay whole on screen would sink out of it.
+ *
+ * Re-clamping shortens the pull rather than moving the body, which is the
+ * honest reading of what happened: the handle reached the floor and the lid
+ * went on falling, so the cord paid it out and the plates close by themselves.
+ * Both seats see it, because both draw the same number.
+ *
+ * Called from `step` once a beat, after the field has fallen.
+ */
+export function stepLidPulls(world: World): void {
+  for (const c of world.creatures) {
+    if (c.kind !== "lid" || c.lidPullMilli === undefined) continue;
+    const kept = clampPull(world.cfg, cordRest(world.cfg, c), lidPull(c), world.cfg.lidTautMilli);
+    c.lidPullMilli = kept.x;
+    c.lidPullYMilli = kept.y;
+  }
+}
+
 /** Every cord let go of, however it happened. */
 export function releaseLids(world: World): void {
-  for (const c of world.creatures) if (c.kind === "lid") c.lidPullMilli = undefined;
+  for (const c of world.creatures) {
+    if (c.kind !== "lid") continue;
+    c.lidPullMilli = undefined;
+    c.lidPullYMilli = undefined;
+  }
 }
 
 /**

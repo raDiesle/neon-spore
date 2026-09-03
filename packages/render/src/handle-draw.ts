@@ -1,4 +1,5 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
+import type { SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -30,18 +31,34 @@ import { PALETTE, STROKE } from "./palette.js";
  * draws, which is not what a refactor may do.
  */
 
-/** A handle's radius, in tiles. Thumb-sized, and the same on every one of them:
- * the same gesture on the same thumb should not be two sizes to find. */
-export const HANDLE_TILES = 0.3;
+/**
+ * A handle's radius, and where it is decided.
+ *
+ * `cfg.handleRadiusMilli`, not a constant here, because the *rule* needs it:
+ * a pull may not carry a handle off the field and what has to stay on is the
+ * whole circle, so the clamp is inset by exactly this
+ * (`sim/handle-pull.ts`). A control bounded at one size and drawn at another is
+ * a control that leaves the screen anyway.
+ */
+export function handleRadius(l: Layout, cfg: SimConfig): number {
+  return (l.tile * cfg.handleRadiusMilli) / 1000;
+}
 
-/** The rope's own shape. Slack it sags off the straight line between its two
+/**
+ * The rope's own shape. Slack it sags off the straight line between its two
  * ends and a slow wave travels down it; taut it straightens out, and the sag
- * goes to nothing exactly as the tension goes to one. */
+ * goes to nothing exactly as the tension goes to one.
+ *
+ * **The belly hangs across the line rather than sideways on the screen.** A
+ * hand may now carry a handle in any direction at all, so a sag that was always
+ * horizontal would lie flat along a rope pulled straight left and bulge out of
+ * one pulled straight down. The perpendicular to the line between the two ends
+ * is the same picture whichever way the hand went — and for a rope swung aside,
+ * which is all this used to have to draw, it is the picture it always was.
+ */
 export function handleSag(opts: {
-  restX: number;
-  headX: number;
-  topY: number;
-  headY: number;
+  anchor: Point;
+  head: Point;
   held: boolean;
   pull: number;
   time: number;
@@ -51,9 +68,14 @@ export function handleSag(opts: {
   waveHeld: number;
   waveSlack: number;
 }): Point[] {
-  const { restX, headX, topY, headY, held, pull, time } = opts;
+  const { anchor, head, held, pull, time } = opts;
   const pts: Point[] = [];
   const sag = (1 - pull) * (held ? 0.35 : 1);
+  const dx = head.x - anchor.x;
+  const dy = head.y - anchor.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const nx = -dy / len;
+  const ny = dx / len;
   for (let i = 0; i <= opts.segments; i++) {
     const t = i / opts.segments;
     // A half-sine across the length, so both ends stay where they are anchored.
@@ -61,13 +83,10 @@ export function handleSag(opts: {
     const wave = held
       ? Math.sin(time * 30 + t * 9) * opts.waveHeld * (1 - pull)
       : Math.sin(t * Math.PI * 3 - time * 3) * opts.waveSlack * t;
-    // The line bellies *behind* the hand, the way a rope pulled sideways does:
-    // the straight line is what full tension looks like.
-    const straight = restX + (headX - restX) * t;
-    pts.push({
-      x: straight - (headX - restX) * belly * sag * 0.45 + wave,
-      y: topY + (headY - topY) * t,
-    });
+    // The line bellies *behind* the hand: the straight line is what full
+    // tension looks like.
+    const off = belly * sag * len * 0.28 + wave;
+    pts.push({ x: anchor.x + dx * t + nx * off, y: anchor.y + dy * t + ny * off });
   }
   return pts;
 }

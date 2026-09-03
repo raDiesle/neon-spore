@@ -1,5 +1,6 @@
 import type { WardenState } from "./boss-state.js";
 import { removeCreature } from "./field.js";
+import { clampPull, pullIsTaut, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
 import { NO_SHELL } from "./shell.js";
 import { type Command, type Creature, WARDEN_COLS } from "./types.js";
 import {
@@ -44,24 +45,24 @@ export function wardenTether(world: World): Creature | null {
 
 /**
  * How taut the line is, 0..1000 — and so how far open the hatch and the eyelids
- * stand, because they are the same number drawn twice.
- *
- * There is no easing anywhere between this and the hatch. The openness *is*
- * player 2's readout of a hand they cannot see, and a readout that lags the rule
- * is a readout that lies at exactly the moment somebody is deciding to fire.
+ * stand, because they are the same number drawn twice (`handle-pull.ts` on why
+ * nothing between the rule and the picture may ease it).
  */
 export function wardenPullMilli(world: World, b: WardenState): number {
-  const full = Math.max(1, world.cfg.wardenTautMilli);
-  return Math.min(1000, Math.round((Math.abs(b.pullMilli) * 1000) / full));
+  return pullOpenMilli({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
 }
 
-/**
- * Whether the core is exposed this instant. The only window a shot counts in,
- * and the hatch is the sole way to it — nothing opens on a clock any more.
- */
+/** Where the handle hangs with nobody on it, in thousandths of a tile. */
+function ropeRest(world: World, b: WardenState): { x: number; y: number } {
+  const cfg = world.cfg;
+  return tileCentreMilli(b.pupilCol, cfg.wardenRow + cfg.wardenHangRows);
+}
+
+/** Whether the core is exposed this instant: the only window a shot counts in,
+ * and the hatch is the sole way to it. */
 export function wardenEyeOpen(world: World, b: WardenState): boolean {
   if (b.tetherId === NO_TETHER) return false;
-  return Math.abs(b.pullMilli) >= world.cfg.wardenTautMilli;
+  return pullIsTaut({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
 }
 
 /**
@@ -71,17 +72,14 @@ export function wardenEyeOpen(world: World, b: WardenState): boolean {
  * fires: player 2's panel carries both colours, so a fight where either seat
  * could take the rope would be a fight one phone could play.
  *
- * `fromMilli` is how far the hand has come from where it grabbed, in thousandths
- * of a tile — a displacement and not a place, resolved on the device whose
- * finger it is (`Command` in `types.ts` has why). The grab's own position is the
- * origin, kept here, and the pull is the distance from it. The **sign** is kept
- * so the rope can be drawn swinging the way the hand went; the **rule** takes
- * its magnitude, because a gate on a block and tackle does not care which way
- * you lean.
+ * `fromMilli` and `fromYMilli` are how far the hand has come from where it
+ * grabbed, in thousandths of a tile — a displacement and not a place, resolved
+ * on the device whose finger it is (`Command` in `types.ts` has why). Any
+ * direction will do: what opens the gate is the *length* of the pull, because a
+ * gate on a block and tackle does not care which way you lean.
  *
  * A hand that lifts lets the tension go and the gate shuts with it. That and a
- * landed shot are the only two things that shut it — there is no tearing, and
- * holding it taut all cycle is allowed (`docs/spec/bosses.md` 11.4).
+ * landed shot are the only two that shut it (`docs/spec/bosses.md` 11.4).
  */
 export function wardenTetherHeard(world: World, player: 1 | 2, command: Command): void {
   const b = world.boss;
@@ -97,13 +95,24 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
     // now is rather than arriving taut.
     b.pulling = true;
     b.pullOriginMilli = command.fromMilli;
+    b.pullOriginYMilli = command.fromYMilli ?? 0;
     b.pullMilli = 0;
+    b.pullYMilli = 0;
     return;
   }
   const was = wardenEyeOpen(world, b);
-  const taut = world.cfg.wardenTautMilli;
-  const pulled = command.fromMilli - b.pullOriginMilli;
-  b.pullMilli = Math.max(-taut, Math.min(taut, pulled));
+  // Cut to taut and then kept on the field — one rule, `handle-pull.ts`.
+  const pulled = clampPull(
+    world.cfg,
+    ropeRest(world, b),
+    {
+      x: command.fromMilli - b.pullOriginMilli,
+      y: (command.fromYMilli ?? 0) - b.pullOriginYMilli,
+    },
+    world.cfg.wardenTautMilli,
+  );
+  b.pullMilli = pulled.x;
+  b.pullYMilli = pulled.y;
   if (!was && wardenEyeOpen(world, b)) {
     world.events.push({
       type: "eyeOpen",
@@ -122,7 +131,9 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
 function slacken(b: WardenState): void {
   b.pulling = false;
   b.pullOriginMilli = 0;
+  b.pullOriginYMilli = 0;
   b.pullMilli = 0;
+  b.pullYMilli = 0;
 }
 
 /**
@@ -150,6 +161,19 @@ export function stepWarden(world: World, b: WardenState): void {
   if (b.tetherId !== NO_TETHER && wardenTether(world) === null) cutTether(world, b);
   if (wardenCycleBeat(world.cfg, world.waveBeat) === 0) attach(world, b, body);
   drift(b, body, wardenPhase(b.plates).drift);
+  // The pupil moved, so the rope's anchor did, and a hand held against the edge
+  // of the field is off it the moment that happens (`stepLidPulls` has the
+  // argument): the handle stays whole on screen and the tension pays out.
+  if (b.pulling) {
+    const kept = clampPull(
+      world.cfg,
+      ropeRest(world, b),
+      { x: b.pullMilli, y: b.pullYMilli },
+      world.cfg.wardenTautMilli,
+    );
+    b.pullMilli = kept.x;
+    b.pullYMilli = kept.y;
+  }
 }
 
 /**

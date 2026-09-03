@@ -226,9 +226,9 @@ is behind, so the rope starts standing in the shot lane and the pull that opens
 the hatch is the same movement that clears it.
 
 **Player 1 pulls; player 2 fires; neither can reach the other's half.** The
-pilot takes the handle and carries it aside, and the **hatch in the middle of
-the ring, with the eyelids behind it, opens by degrees in proportion to the
-tension**. The navigator fires the rim's colour into the pupil's column while it
+pilot takes the handle and carries it away — any direction will do — and the
+**hatch in the middle of the ring, with the eyelids behind it, opens by degrees
+in proportion to the tension**. The navigator fires the rim's colour into the pupil's column while it
 is open. A hit takes a plate, shuts eye and hatch together, and snaps the rope
 back. Repeat until the plates are gone.
 
@@ -239,11 +239,19 @@ cannot see. The talking is not decoration on the mechanic, it **is** the
 mechanic.
 
 **How far is far enough** is `wardenTautMilli`, thousandths of a tile of hand
-travel, and the pull is a **distance rather than a duration**. Sideways, because
-the handle is one-to-one with the finger and the rope swinging aside is the
-picture. The **sign** is kept so the rope can be drawn going the way the hand
-went; the **rule** takes the magnitude, because a gate on a block and tackle
-does not care which way you lean.
+travel, and the pull is a **distance rather than a duration**. What counts is
+its **length**, in whatever direction the hand went: a gate on a block and
+tackle does not care which way you lean, and the handle is one-to-one with the
+finger, so the rope is drawn running wherever it was carried.
+
+**A handle may not be carried off the field.** The circle stays wholly on the
+screen and slides along the edge it reaches rather than stopping dead
+(`packages/sim/src/handle-pull.ts`), and it stops a tile short of the very top,
+which is the app's own chrome. That bound and `wardenTautMilli` between them
+decide which directions can open the gate at all: this rope hangs with 7.2 tiles
+of field below it and 6.2 above once the chrome is off, so a downward pull
+reaches taut and an upward one cannot. The hand has somewhere to go rather than
+a sign to get right, and the boundary is what teaches it.
 
 **Nothing but the tension holds it open.** There is no tear and no clock. Keep
 pulling and it stays open; slacken and it shuts; land a shot and the rope is

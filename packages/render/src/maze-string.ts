@@ -1,7 +1,7 @@
 import { circleSubpath, openSmoothPath, type Point } from "@neon-spore/content";
 import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { drawHandleHint, HANDLE_TILES, HINT_LOUD } from "./handle-draw.js";
+import { drawHandleHint, HINT_LOUD, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { mazeDrum } from "./maze-draw.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -43,7 +43,7 @@ const SWING_TILES = 1.5;
  */
 export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
   const d = mazeDrum(l, cfg);
-  return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: l.tile * HANDLE_TILES };
+  return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: handleRadius(l, cfg) };
 }
 
 /**

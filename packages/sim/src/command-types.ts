@@ -142,8 +142,23 @@ export type Command =
    * every move after it has to keep saying so. Absent for a target that is a
    * fixture — an id there would be a second, weaker way of naming a thing that
    * already has exactly one name.
+   *
+   * **`fromMilli` is the x of it and `fromYMilli` the y**, and the two names do
+   * not match because the wire has a history: a pull was one signed number
+   * along x for as long as the only handle in the game hung under a rim and was
+   * swung *aside*. The owner asked for the whole circle, so a hand may now
+   * carry a handle in any direction — and an absent `fromYMilli` means nought,
+   * which is exactly what every drag sent before today was. Renaming the first
+   * one would have said the same thing at the cost of every recorded replay.
    */
-  | { kind: "drag"; target: DragTarget; on: boolean; fromMilli: number; id?: number }
+  | {
+      kind: "drag";
+      target: DragTarget;
+      on: boolean;
+      fromMilli: number;
+      fromYMilli?: number;
+      id?: number;
+    }
   | { kind: "restart" };
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
