@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 0854288 — The dart wears the lure's frame, and its arrows stand clear of it
+
+The first cut boxed the body and both arrows together, and at a tile that is thirty pixels wide the arrow tips landed on the top corner brackets and were read as part of them — which loses the one mark on the pilot's screen that carries a side. The frame is now the square a lure wears, around the body alone, and the arrows are lifted into the gap the question mark had.
+
+## 2026-09-03 · 5b0b878 — One frame for every body the game picks out
+
+A lure, a dart, a veil and the queen's two marks each had their own way of saying "this one is not ordinary, and the screen you are on is not the one being told" — a white ring and an exclamation, two arrows under a question mark, a question mark over a cloud, a question mark inside a mark. Four pictures for one idea, and a pair had to learn all four.
+
 ## 2026-09-03 · 94eddd8 — The ECHO brush is drawn as the two bodies it becomes
 
 Its chip fell through to the settled-body pose every living kind gets, and drew one small bulb — a picture of a body that happens to be little, saying nothing about the one thing this brush places. So the pose now waits for the first division and photographs the pair: `ECHO_AXES[0]` is sideways precisely because two halves side by side is the plainest picture of a thing coming apart. One division and not three — eight bodies in a block is what the pair sees once they have lost the argument, and at 34 px it is a smudge.
