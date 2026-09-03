@@ -1,9 +1,11 @@
 name: check
 
+# Pushes to the trunk only. The repository takes no pull requests — history on
+# `main` is linear and `bun run land` is the only way in — so a `pull_request`
+# trigger was a job that could never fire.
 on:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   check:
@@ -12,8 +14,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          # Pinned rather than `latest`: with `latest`, a Bun release can turn
+          # `main` red with no commit behind it, and the failure looks like the
+          # last landing's fault. Raise it deliberately, to whatever
+          # `bun --version` says locally.
+          bun-version: 1.4.0
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          restore-keys: bun-${{ runner.os }}-
       - run: bun install --frozen-lockfile
-      - run: bun run typecheck
-      - run: bun run lint
-      - run: bun test
+      # One step, and the same one a session runs before saying "done" —
+      # spelling out typecheck, lint and test here made a second definition of
+      # `check` that could drift out of step with the first.
+      - run: bun run check
