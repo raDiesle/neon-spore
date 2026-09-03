@@ -1,0 +1,317 @@
+{
+  "measuredAt": "2026-09-03",
+  "commit": "eb548f1bfe7142e2c1abef784254acdb63fe1c0b",
+  "throttle": 4,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 2
+  },
+  "calibration": 39630,
+  "waves": [
+    {
+      "wave": 1,
+      "name": "FIRST STEP",
+      "bodies": 1,
+      "typical": 2.56,
+      "mean": 2.55,
+      "p90": 2.93
+    },
+    {
+      "wave": 2,
+      "name": "TWO COLOURS",
+      "bodies": 2,
+      "typical": 2.7,
+      "mean": 2.77,
+      "p90": 3.17
+    },
+    {
+      "wave": 3,
+      "name": "ALTERNATING",
+      "bodies": 3,
+      "typical": 2.49,
+      "mean": 2.58,
+      "p90": 3.15
+    },
+    {
+      "wave": 4,
+      "name": "THE ROCK",
+      "bodies": 1,
+      "typical": 1.99,
+      "mean": 2.12,
+      "p90": 2.69
+    },
+    {
+      "wave": 5,
+      "name": "TWO ROCKS",
+      "bodies": 2,
+      "typical": 1.99,
+      "mean": 2.03,
+      "p90": 2.17
+    },
+    {
+      "wave": 6,
+      "name": "THE HAND",
+      "bodies": 3,
+      "typical": 2.16,
+      "mean": 2.23,
+      "p90": 2.51
+    },
+    {
+      "wave": 7,
+      "name": "TORCH",
+      "bodies": 1,
+      "typical": 2.41,
+      "mean": 2.42,
+      "p90": 2.7
+    },
+    {
+      "wave": 8,
+      "name": "SHIELD, THEN CANNON",
+      "bodies": 2,
+      "typical": 2.11,
+      "mean": 2.21,
+      "p90": 2.61
+    },
+    {
+      "wave": 9,
+      "name": "THE WALL",
+      "bodies": 4,
+      "typical": 2.42,
+      "mean": 2.48,
+      "p90": 2.93
+    },
+    {
+      "wave": 10,
+      "name": "SHOOT AND SHIELD",
+      "bodies": 4,
+      "typical": 2.27,
+      "mean": 2.28,
+      "p90": 2.49
+    },
+    {
+      "wave": 11,
+      "name": "IN ITS SHADOW",
+      "bodies": 4,
+      "typical": 2.2,
+      "mean": 2.24,
+      "p90": 2.53
+    },
+    {
+      "wave": 12,
+      "name": "CROWDED",
+      "bodies": 5,
+      "typical": 2.49,
+      "mean": 2.5,
+      "p90": 2.73
+    },
+    {
+      "wave": 13,
+      "name": "SALVAGE",
+      "bodies": 2,
+      "typical": 2.26,
+      "mean": 2.29,
+      "p90": 2.48
+    },
+    {
+      "wave": 14,
+      "name": "FINALE",
+      "bodies": 7,
+      "typical": 2.72,
+      "mean": 2.85,
+      "p90": 3.54
+    },
+    {
+      "wave": 15,
+      "name": "BULB QUEEN",
+      "bodies": 2,
+      "typical": 3.2,
+      "mean": 3.24,
+      "p90": 3.72
+    },
+    {
+      "wave": 16,
+      "name": "THE MIRROR",
+      "bodies": 0,
+      "typical": 3.46,
+      "mean": 3.43,
+      "p90": 3.86
+    },
+    {
+      "wave": 17,
+      "name": "THE MAZE",
+      "bodies": 0,
+      "typical": 1.9,
+      "mean": 1.95,
+      "p90": 2.17
+    },
+    {
+      "wave": 18,
+      "name": "THE GAUGE",
+      "bodies": 0,
+      "typical": 0.22,
+      "mean": 0.24,
+      "p90": 0.34
+    },
+    {
+      "wave": 19,
+      "name": "THE WARDEN",
+      "bodies": 2,
+      "typical": 2.63,
+      "mean": 2.67,
+      "p90": 2.98
+    },
+    {
+      "wave": 20,
+      "name": "THE FLEET",
+      "bodies": 0,
+      "typical": 2.1,
+      "mean": 2.14,
+      "p90": 2.4
+    },
+    {
+      "wave": 21,
+      "name": "THE LURE",
+      "bodies": 7,
+      "typical": 3.18,
+      "mean": 3.72,
+      "p90": 6.02
+    },
+    {
+      "wave": 22,
+      "name": "THE THROB",
+      "bodies": 1,
+      "typical": 2.35,
+      "mean": 2.33,
+      "p90": 2.6
+    },
+    {
+      "wave": 23,
+      "name": "THE THIRD SHOT",
+      "bodies": 3,
+      "typical": 3.33,
+      "mean": 3.45,
+      "p90": 4.7
+    },
+    {
+      "wave": 24,
+      "name": "THE CLASP",
+      "bodies": 4,
+      "typical": 2.71,
+      "mean": 2.8,
+      "p90": 3.16
+    },
+    {
+      "wave": 25,
+      "name": "THE DART",
+      "bodies": 4,
+      "typical": 3,
+      "mean": 3.07,
+      "p90": 3.59
+    },
+    {
+      "wave": 26,
+      "name": "THE VEIL",
+      "bodies": 5,
+      "typical": 2.8,
+      "mean": 3.05,
+      "p90": 3.99
+    },
+    {
+      "wave": 27,
+      "name": "THE VANE",
+      "bodies": 5,
+      "typical": 3.11,
+      "mean": 3.22,
+      "p90": 4.14
+    },
+    {
+      "wave": 28,
+      "name": "THE LANCE",
+      "bodies": 3,
+      "typical": 2.88,
+      "mean": 2.89,
+      "p90": 3.55
+    },
+    {
+      "wave": 29,
+      "name": "THE PURGE",
+      "bodies": 4,
+      "typical": 2.55,
+      "mean": 2.62,
+      "p90": 3.47
+    },
+    {
+      "wave": 30,
+      "name": "THE WARD",
+      "bodies": 5,
+      "typical": 2.8,
+      "mean": 2.87,
+      "p90": 3.46
+    },
+    {
+      "wave": 31,
+      "name": "THE WISP",
+      "bodies": 6,
+      "typical": 3.76,
+      "mean": 3.91,
+      "p90": 4.59
+    },
+    {
+      "wave": 32,
+      "name": "THE GHOST",
+      "bodies": 4,
+      "typical": 6.13,
+      "mean": 5.77,
+      "p90": 6.78
+    },
+    {
+      "wave": 33,
+      "name": "SNAKE",
+      "bodies": 0,
+      "typical": 1.18,
+      "mean": 0.97,
+      "p90": 1.61
+    },
+    {
+      "wave": 34,
+      "name": "THE ECHO",
+      "bodies": 17,
+      "typical": 4.84,
+      "mean": 5.03,
+      "p90": 5.9
+    },
+    {
+      "wave": 35,
+      "name": "PINBALL",
+      "bodies": 0,
+      "typical": 0.39,
+      "mean": 2.01,
+      "p90": 4.71
+    },
+    {
+      "wave": 36,
+      "name": "THE RIND",
+      "bodies": 6,
+      "typical": 2.34,
+      "mean": 2.43,
+      "p90": 2.8
+    },
+    {
+      "wave": 37,
+      "name": "THE GYRE",
+      "bodies": 10,
+      "typical": 3.88,
+      "mean": 3.96,
+      "p90": 4.69
+    },
+    {
+      "wave": 38,
+      "name": "THE LID",
+      "bodies": 4,
+      "typical": 2.66,
+      "mean": 2.77,
+      "p90": 3.36
+    }
+  ]
+}

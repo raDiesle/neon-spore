@@ -122,6 +122,16 @@
         "@neon-spore/content": "workspace:*",
       },
     },
+    "tools/perf": {
+      "name": "@neon-spore/perf",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+      },
+      "devDependencies": {
+        "playwright-core": "^1.62.1",
+      },
+    },
     "tools/queue": {
       "name": "@neon-spore/queue",
       "version": "0.0.0",
@@ -274,6 +284,8 @@
     "@neon-spore/net": ["@neon-spore/net@workspace:packages/net"],
 
     "@neon-spore/orphans": ["@neon-spore/orphans@workspace:tools/orphans"],
+
+    "@neon-spore/perf": ["@neon-spore/perf@workspace:tools/perf"],
 
     "@neon-spore/queue": ["@neon-spore/queue@workspace:tools/queue"],
 

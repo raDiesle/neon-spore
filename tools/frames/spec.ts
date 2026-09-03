@@ -170,8 +170,14 @@ declare global {
       // one the current tree happens to have.
       // `steps` is optional for its own reason: a build from before the guide
       // had pages has no such field, and 0 is exactly what it means there.
+      // `wave` and `creatures` are what `tools/perf` reads to find the tick a
+      // wave carries the most bodies. Both have been on `World` since long
+      // before either tool existed, so neither is optional the way `brief`'s
+      // two shapes are.
       world: {
         brief: { phase?: number; steps?: number; due?: readonly unknown[] };
+        wave: number;
+        creatures: readonly unknown[];
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
       };

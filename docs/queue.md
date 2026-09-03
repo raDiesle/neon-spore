@@ -280,3 +280,28 @@ the blur — then choose. If the visible 7% carries no motion the world is not
 running anyway, a lower repaint rate behind the menu is a straight win; if it
 does, the reduced rate is a look and goes to `tools/versus/candidates/` for the
 owner to judge. Say which in the commit.
+
+## A frame can be measured on this desk but not on the phone it is for
+
+- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/handle.ts`, `tools/perf/measure.ts`, `docs/performance.md`
+
+`bun run perf` measures every wave at its busiest tick with Chrome's CPU
+throttled to DevTools' mid-tier-mobile setting, and `docs/performance.md` says
+what that is worth: a good proxy, and not a phone. The half that is still
+missing is the one that needs no proxy at all — a page the owner can open on the
+device the game is actually for.
+
+Add `?perf=1`, beside `?play=1` and `?raster=1` (`apps/game/src/raster.ts` is
+the pattern for reading a flag off the URL). It runs the same sweep
+`tools/perf/measure.ts` runs — enter each wave, step to its peak population,
+time sixty paced paints — and prints the table on screen rather than to a
+console nobody on a phone can read. The measuring logic is already written and
+already has a home; what this needs is a caller that runs it in the page and a
+plain readout, with the totals big enough to photograph.
+
+`window.neonSpore` is installed in every build (`handle.ts`), so the sweep has
+everything it needs. Keep the same viewport-independent shape the tool records —
+throttle is meaningless on a phone, so the page records `null` for it and
+`docs/performance.md` gains a line saying a phone run is compared against other
+phone runs, never against a throttled desktop one.

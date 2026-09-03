@@ -222,6 +222,8 @@ bun run preview:once   # same, on a free port that nobody else can be holding
 bun test               # everything
 bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
+bun run perf           # what a frame costs, wave by wave, at phone speed
+bun run perf --save    # keep this run as the baseline the next one is read against
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run queue          # technical work waiting, and who is already on what
 bun run queue status   # DONE, IDLE or BUSY — is anything still being worked on
@@ -317,6 +319,31 @@ because solo is the default rather than a mode, and it is inert until a room is
 joined — no ping, no fingerprint, not even a status callback. The same test
 holds that, because "inert" is a claim that stays true in the reading and stops
 being true the moment a timer moves above the check for a socket.
+
+## Measuring what a frame costs
+
+**A new shape or a new animation gets a performance run. An ordinary change does
+not.** A creature, a boss, a round, or a new animated behaviour on a body that
+already exists is the only kind of change that can put per-frame cost on the
+field that nobody has weighed; tuning a number, moving a control or fixing a bug
+cannot.
+
+```
+bun run perf           # every wave, at its busiest tick, CPU throttled to a phone
+bun run perf --save    # keep it as the baseline, once the change is one you meant
+```
+
+It drives the built bundle in Chrome at 390x844 dpr2 with
+`Emulation.setCPUThrottlingRate` — DevTools' own mid-tier-mobile slowdown — and
+prints what changed against `tools/perf/baseline.json`, worst first. It is not a
+substitute for `packages/render/test/frame-budget.test.ts`, which counts canvas
+*operations*: an op is not a millisecond, and neither answers the other's
+question.
+
+Never `--save` to make a regression stop being reported.
+
+The mechanism, the numbers it last agreed with, and where the time actually goes:
+`docs/performance.md`.
 
 ## Verifying the relay
 
