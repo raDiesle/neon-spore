@@ -132,27 +132,6 @@ edits — or make the director rewrite every reference as part of its save. The
 proof is the same either way: rename a wave through the director's own save
 path and watch `bun run check` stay green.
 
-## Give apps/game/src/link.ts room by moving the clock out of it
-
-- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
-- **Taken:** 2026-09-03, claude/queue-give-apps-game-src-link-ts-room-by-moving-the-cl
-- **Files:** `apps/game/src/link.ts`, `apps/game/src/link-clock.ts`, `apps/game/src/link-refusal.ts`, `apps/game/test/`
-
-`link.ts` is at exactly 250 lines, which is the limit
-`packages/sim/test/limits.test.ts` enforces, so the next sentence anyone adds to
-it fails the check. Working the eight net items already cost it two extractions
-(`link-refusal.ts`) and four trimmed comments to get back under, and that is not
-a thing to do twice.
-
-The seam its own header names is the clock: "a seat, **a clock**, a countdown,
-and the state a player reads". Move `PING_EVERY_MS`, the `ClockSync`, the ping
-timer, the `now` it measures against and the `pong` case into `link-clock.ts`,
-exposing `add(pong, started)`, `settle(dtMs)`, `framePingDue(dtMs)`,
-`countdownMs(startMs)`, `reached(startMs)`, `ready`, `rttMs` and `sampleCount`.
-That is about fifteen lines out of `link.ts` and puts the wall clock in one
-file, which is what the header claims for it already. `bun run relay:check`
-against a running wrangler is what proves it, not `bun test` alone.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

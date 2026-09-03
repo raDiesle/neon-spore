@@ -1,4 +1,5 @@
-import type { ClockSync, LinkState, LinkStatus } from "@neon-spore/net";
+import type { LinkState, LinkStatus } from "@neon-spore/net";
+import type { RoomClock } from "./link-clock.js";
 import type { Run } from "./link-run.js";
 import type { RoomSocket } from "./link-socket.js";
 
@@ -23,14 +24,12 @@ export interface ReportParts {
   player: 0 | 1 | 2;
   /** The room's own head count — see `LinkStatus.peers`. */
   peers: number;
-  clock: ClockSync;
+  clock: RoomClock;
   run: Run;
   /** Null before a room is joined, and after one is left. */
   socket: RoomSocket | null;
   /** Beat zero, on the room's clock. 0 before the room has stamped one. */
   startMs: number;
-  /** The wall clock, which is the room's and nothing below it holds. */
-  now: () => number;
 }
 
 export function report(p: ReportParts): LinkStatus {
@@ -41,8 +40,7 @@ export function report(p: ReportParts): LinkStatus {
     peers: p.peers,
     rttMs: p.clock.sampleCount > 0 ? Math.round(p.clock.rttMs) : -1,
     slack: p.run.slack,
-    countdownMs:
-      p.run.started || p.startMs === 0 ? 0 : Math.max(0, p.clock.toLocal(p.startMs) - p.now()),
+    countdownMs: p.run.started || p.startMs === 0 ? 0 : p.clock.countdownMs(p.startMs),
     delayMs: p.run.delayMs,
     stalledMs: p.run.stalledMs,
     awayMs: p.socket?.awayMs ?? 0,

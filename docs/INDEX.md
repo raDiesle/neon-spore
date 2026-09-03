@@ -472,6 +472,7 @@ place — the generator keeps whatever is there.
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
 | `apps/game/preview.ts` | Which checkout this one serves |
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
+| `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 
 ### apps/server
 

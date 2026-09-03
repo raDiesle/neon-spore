@@ -1,19 +1,11 @@
-import {
-  ClockSync,
-  type LinkState,
-  type LinkStatus,
-  type PlayerId,
-  type ServerMessage,
-} from "@neon-spore/net";
+import type { LinkState, LinkStatus, PlayerId, ServerMessage } from "@neon-spore/net";
 import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
+import { createRoomClock } from "./link-clock.js";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
 import { report } from "./link-report.js";
 import { createRun, type Run } from "./link-run.js";
 import { openRoomSocket, type RoomSocket, type RoomSocketHandlers } from "./link-socket.js";
 import type { CommandSource } from "./relay.js";
-
-/** Milliseconds between clock samples. Seven of them fill the median window in five seconds. */
-const PING_EVERY_MS = 700;
 
 export interface LinkOptions {
   cfg: SimConfig;
@@ -54,13 +46,16 @@ export interface Link {
  * game needs to be one device: solo is the default and costs a boolean.
  *
  * This file is **the room**: a seat, a clock, a countdown, and the state a
- * player reads in the corner of the screen. Either side of it is one thing
- * each — `link-socket.ts` the socket and its reconnection, `link-run.ts` the
- * scheduler and the fingerprints. Several runs can pass over one socket, since
- * every phone that drops and returns makes the room stamp a fresh beat zero,
- * and that is exactly why they are not one file.
+ * player reads in the corner of the screen. Each of those clauses is now a
+ * file of its own and this is what holds them together — `link-socket.ts` the
+ * socket and its reconnection, `link-run.ts` the scheduler and the
+ * fingerprints, `link-clock.ts` the clock and the countdown it decides,
+ * `link-report.ts` the state the player reads. Several runs can pass over one
+ * socket, since every phone that drops and returns makes the room stamp a
+ * fresh beat zero, and that is exactly why they are not one file.
  *
- * The wall clock is held here and nowhere below it.
+ * The wall clock is measured in `link-clock.ts` and nowhere else; what stays
+ * here is `now` itself, because the room is what owns it and hands it down.
  */
 export function createLink(o: LinkOptions): Link {
   const now = o.now ?? (() => performance.now());
@@ -70,7 +65,7 @@ export function createLink(o: LinkOptions): Link {
   let state: LinkState = "solo";
   let room = "";
   let player: 0 | 1 | 2 = 0;
-  let clock = new ClockSync();
+  const clock = createRoomClock(now);
   let startMs = 0;
   /**
    * The beat zero this run began on. The room stamps a new one every time it
@@ -78,7 +73,6 @@ export function createLink(o: LinkOptions): Link {
    */
   let startedAt = 0;
   let peers = 0;
-  let pingTimer = 0;
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -88,7 +82,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, peers, clock, run, socket, startMs, now });
+    report({ state, room, player, peers, clock, run, socket, startMs });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -109,7 +103,7 @@ export function createLink(o: LinkOptions): Link {
     peers = 0;
     player = 0;
     room = "";
-    clock = new ClockSync();
+    clock.reset();
     settle("solo");
   };
 
@@ -123,8 +117,8 @@ export function createLink(o: LinkOptions): Link {
       // for `frame()`'s 700 ms timer — the 2100 ms three samples take would
       // otherwise eat into the 3000 ms countdown, and can miss it outright.
       opened: () => {
-        pingTimer = PING_EVERY_MS;
         socket?.send({ t: "ping", c1: now() });
+        clock.pingSent();
       },
       worthRetrying: () => worthReaching(state, player, room),
       waiting: () => {
@@ -160,11 +154,7 @@ export function createLink(o: LinkOptions): Link {
         if (peers < 2) settle(run.started ? "lost" : "waiting");
         return;
       case "pong":
-        clock.add({ c1: message.c1, s1: message.s1, s2: message.s2, c2: now() });
-        // No beat to disturb before anything has started, and a phone back from
-        // a locked screen has an offset stale by however long it slept — which
-        // 4 ms per second would still be walking off long after beat zero.
-        if (!run.started) clock.snap();
+        clock.add(message, run.started);
         return;
       case "error":
         settle(stateAfterRefusal(message.code));
@@ -186,11 +176,7 @@ export function createLink(o: LinkOptions): Link {
       return;
     }
     clock.settle(dtMs);
-    pingTimer -= dtMs;
-    if (pingTimer <= 0) {
-      pingTimer = PING_EVERY_MS;
-      socket.send({ t: "ping", c1: now() });
-    }
+    if (clock.framePingDue(dtMs)) socket.send({ t: "ping", c1: now() });
     run.observeLink(clock.sampleCount > 0 ? clock.rttMs : -1, dtMs);
     if (state === "lost" || refused()) {
       o.onStatus(status());
@@ -202,7 +188,7 @@ export function createLink(o: LinkOptions): Link {
       settle("waiting");
     } else if (!clock.ready) {
       settle("syncing");
-    } else if (now() < clock.toLocal(startMs)) {
+    } else if (!clock.reached(startMs)) {
       settle("countdown");
     } else {
       begin();
