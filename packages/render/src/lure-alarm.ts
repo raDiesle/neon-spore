@@ -15,8 +15,10 @@ import { drawRadarLock, drawTargetLock } from "./target-lock.js";
  * This file used to argue at length that it had to look unlike every other
  * marking in the game, and that argument is answered in the file that replaced
  * its ring: the pair was learning four pictures for one idea. What is left
- * here is what is genuinely this creature's and nobody else's — the white and
- * the words.
+ * here is what is genuinely this creature's and nobody else's — the white, the
+ * words, and the hole burning through the middle of the body — that last is
+ * drawn with the body rather than here (`lure-hole.ts`), because it is a hole
+ * in a contour and only the file that has the contour can cut one.
  *
  * **Still deliberately unlike `torch-alarm.ts`, and that is the check this
  * owes.** There is another alarm in the game, and two alarms that look alike
@@ -47,7 +49,12 @@ const ALARM = "#FFFFFF";
 const BOX_MUL = 1.55;
 /** How wide the blip's own frame is on the radar strip, in pixels. */
 const BLIP_HALF = 7;
-const LABEL = "LURE — DO NOT SHOOT";
+/** Two words, and the shortest pair that is still an instruction. It was
+ * `LURE — DO NOT SHOOT` until the owner asked for it shorter: the hole in the
+ * middle of the body now carries *which creature this is*, so the words beside
+ * it only have to carry *what to do*, and a label half as wide is one that
+ * fits beside a body in the first or last column. */
+const LABEL = "DO NOT SHOOT";
 
 /** Every lure on the field, in draw order. Exported so the radar and the body
  * marking ask the same question once. */

@@ -7,6 +7,7 @@ import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -114,7 +115,13 @@ export function drawLiving(
     shape.seed,
     28,
   );
-  const path = new Path2D(d);
+  // THE LURE's hole, and the one thing drawn here that is *not* the disguise.
+  // Two contours in one path filled even-odd is a hole the field shows through
+  // (`lure-hole.ts`), and it is cut on the seat that is being told and nowhere
+  // else — player 1 gets an ordinary slick or bulb, which is the whole wave.
+  const vent = lureVented(l, c);
+  const path = new Path2D(vent ? `${d} ${lureHolePath(shape, t)}` : d);
+  const rule: CanvasFillRule = vent ? "evenodd" : "nonzero";
 
   ctx.save();
   ctx.translate(x + ox, y + oy);
@@ -134,17 +141,27 @@ export function drawLiving(
     ctx.stroke(path);
   } else {
     ctx.fillStyle = dark;
-    ctx.fill(path);
+    ctx.fill(path, rule);
     strokeGlow(ctx, path, hex, Math.max(1, r * 0.1) / scale, 1);
+    // Clipped to the body-minus-hole when there is a hole: an interior detail
+    // painted across the opening would fill in the one thing the opening says.
+    if (vent) {
+      ctx.save();
+      ctx.clip(path, rule);
+    }
     drawDetails(ctx, isBulb, shape.rx, shape.ry, rim);
     // And the furrow it will part along, cut across that same axis. In here
     // with the details rather than outside the body, because it is a marking
     // on the contour and takes the contour's own aspect and strain with it.
     drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, dark);
+    if (vent) ctx.restore();
   }
   ctx.restore();
 
   if (blocked <= 0) {
+    // Out of the hole, in screen space: the sparks are thrown by the body and
+    // must not take its lean, its strain or its squash with them.
+    if (vent) drawLureVent(ctx, x + ox, y + oy, r, time, c.id);
     drawMotionTrail(ctx, l, x, y, r, hex, t);
     halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
   }
