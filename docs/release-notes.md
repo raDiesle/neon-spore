@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · f5adb66 — Thirteen copies of one draw loop become one, and six rounds get drawn
+
+`frame.test.ts` was 1269 lines and eleven re-typings of the same twenty — step, collect `world.events`, draw every fourth tick, clear them — with the copies already disagreeing about which tick a frame falls on. The loop is now `test/frame-harness.ts` (`runFrames`), the only difference between subjects is what happens during a tick, and every subject with a picture of its own has a `*-frame.test.ts` of its own. The ghost's and the clasp's own files were two more copies and read the harness now too. Same 46 tests, same assertions.
+
 ## 2026-09-03 · c2f56b2 — An armoured eye one of you holds open while the other shoots the lens
 
 THE LID: a body with two plates across it and a cord hanging off the bottom. Player 1 takes the cord and pulls it aside; the plates part from the middle outwards in proportion to the tension, and only while they stand fully apart does a shot of the lens's own colour land. Let go and they shut. It is THE CLASP's coupling made continuous — a clasp is opened by a moment and can be shot whenever, a lid is opened by a hold — so the pull and the shot are one instant in two hands, and the seat holding the cord has its thumb off the cannon strip for the whole of it. Nothing is hidden from either screen: what the pair has to agree on is when, not what.
