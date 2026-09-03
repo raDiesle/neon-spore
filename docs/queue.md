@@ -285,24 +285,6 @@ bundler already follows several `<link>` tags, as `apps/game/index.html` shows
 — and point `rail-boss-guard.test.ts` at whichever file keeps `button:disabled`.
 A `bun run dev:once` look at `/` proves the page is unchanged.
 
-## Split tools/versus/prompt.ts into text, patch rendering and step builders
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-split-tools-versus-prompt-ts-into-text-patch-ren
-- **Files:** `tools/versus/prompt.ts`, `tools/versus/prompt-text.ts`, `tools/versus/prompt-changes.ts`, `tools/versus/prompt-steps.ts`, `tools/versus/test/prompt.test.ts`
-
-`prompt.ts` is 509 lines holding three responsibilities: lines 59 to 128 are
-generic text layout (`WIDTH`, `HARD`, `wrap`, `row`, `named`, `count`, `list`,
-`quoted`, `show`, `block`); lines 130 to 193 render one patch's old-to-new table
-(`changes`, `packagesOf`); lines 195 to 509 are `votePrompt`, one 315-line
-function whose banner comments already mark steps 0 to 7. The test imports only
-`readCurrent`, `Vote` and `votePrompt`.
-
-Move the three parts to `prompt-text.ts`, `prompt-changes.ts` and
-`prompt-steps.ts` (one exported function per step taking a small context of
-`slot`, `subject`, `candidates`, `won`, `pkgs`, `dirs`, `files`, `isContent`,
-`nameWidth`); `prompt.ts` keeps `Vote`, `readCurrent`, validation and the join.
-The public API is unchanged, so the existing 322-line test proves it untouched.
 ## The room starts on a shared press, not a three-second timer
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

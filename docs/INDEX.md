@@ -774,6 +774,10 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/svg.ts` | Cell geometry and page furniture, shared by the shape sheet and the motion sheet |
 | `tools/shape-sheet/src/swim-sheet.ts` | The swim sheet: one pulse cycle of every jelly, left to right |
 | `tools/versus/prompt.ts` | VERSUS — the text a vote puts on the clipboard, and the only thing it leaves |
+| `tools/versus/prompt-changes.ts` | One patch's `old -> new`, the half of a prompt a cold session checks against the files first |
+| `tools/versus/prompt-close.ts` | Steps 4 to 7 of a vote prompt: remove the slot, what not to do, check, commit |
+| `tools/versus/prompt-steps.ts` | Steps 0 to 3 of a vote prompt: the header, the refusal, the adoption, the readers |
+| `tools/versus/prompt-text.ts` | The text layout a vote prompt is set in: the wrapper, the rows, the words for small numbers |
 | `tools/versus/run.ts` | `bun run versus` — which slots are open, and what a vote on each one would reach |
 | `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |

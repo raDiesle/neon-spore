@@ -31,15 +31,17 @@ const LIMIT = 250;
  * Files over the limit that the ratchet did not use to reach, at the length
  * they had when it started reaching them. They may shrink and never grow.
  *
- * Every one is a tool's *entry point* — the file a session opens first when it
- * lands a lane, judges a versus pair or takes a picture — which is exactly the
- * class the old glob missed, because it only looked inside `src/` and a tool's
- * entry point sits above one. They are seeded rather than split here: five
- * splits in a lane that owns none of the five would be five seams nobody chose.
+ * **It is empty, and the aim is that it stays empty.** It was seeded with five
+ * tool entry points — the class the old glob missed, because it only looked
+ * inside `src/` and a tool's entry point sits above one — rather than split on
+ * the spot, since five seams chosen by a lane that owns none of the five are
+ * five seams nobody chose. All five have since been split by lanes that did own
+ * them, the last being `tools/versus/prompt.ts` at 509 lines.
+ *
+ * A new entry is a promise to split a file later, and the only reason to make
+ * one is that the split is a real decision the current lane cannot make.
  */
-const KNOWN_LONG: Record<string, number> = {
-  "tools/versus/prompt.ts": 509,
-};
+const KNOWN_LONG: Record<string, number> = {};
 function sourceFiles(): string[] {
   // `**` rather than `*/src/**`: a file outside a `src/` directory is still a
   // file somebody has to read, and the four longest in the repository were all
