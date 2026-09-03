@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 508bcee — The bulb loses the two curved strokes over its core
+
+Inside a bulb, above the core dot, sat two mirrored quadratic strokes at half alpha. They read as stray rounded lines rather than as part of the body, so they are gone; the bulb keeps its core dot and its rim. Asked for by name, so it lands on the field rather than going to VERSUS.
+
 ## 2026-09-03 · 812a768 — A wisp jumping out of the top row no longer arcs over the letters
 
 The apex was a flat 2.2 tiles, and a wisp may stand on row 0. Out of the top rows the body and its dotted guide line both rose through the lettered axis and off the top of the grid — over the one thing the pair reads this creature by.
