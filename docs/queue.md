@@ -208,6 +208,7 @@ parameter each) and test the cap and the stop. Keep each file under 250 lines.
 ## Retire or enforce the control-group union rule; controlsForKinds is dead code
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
+- **Taken:** 2026-09-03, claude/queue-retire-or-enforce-the-control-group-union-rule-c
 - **Files:** `packages/content/src/creatures.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/index.ts`, `packages/render/src/band.ts`, `packages/content/test/waves.test.ts`, `CLAUDE.md`, `.claude/skills/new-creature/SKILL.md`
 
 `controlsForKinds` (`creatures.ts` lines 84 to 88) has no caller anywhere;
