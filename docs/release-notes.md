@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 2c51ff2 — A technical defect found in passing is filed as a task, not said once and lost
+
+Dead code, a stale document, a measured slowdown, a confirmed TODO, a missing test over something that broke once: these were said in the closing block and then gone, because the rule against `docs/parked.md` correctly refuses a list the owner has to drain by hand. A background task is drained by clicking it, so it is not that list — nothing accumulates in the repository and nothing is owed.
+
+## 2026-09-03 · 0874596 — Two phones hold a room over a real network, and the game goes on a home screen
+
+The lay between a touch and the tick it lands on is measured now rather than configured. A tenth of a second is right for two phones on one wifi and short of the trip out to a Durable Object and back down to a handset on mobile data, where every press missed the tick it was meant for and the run lived in `stalled` — lag you can play through beats a stutter you cannot. Each device carries its own, rising the moment the link asks and giving a tick back a second when it recovers, because every command crosses the wire stamped with the tick it lands on and the two therefore never have to agree on the number.
+
 ## 2026-09-03 · 5fad0f0 — A technical finding is queued and drains itself; an idea still is not
 
 Suggestions used to be said once in the report and then be the owner's to keep or drop. That was the right answer to a backlog of *ideas* — sixty-two entries nobody but him could decide on — and the wrong answer to the other half. A refactor stepped around, a rule re-derived instead of called, a slow path, a missing test: those need no decision at all, and saying them once meant every session found the same ones again.
