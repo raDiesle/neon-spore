@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · c22438d — A finding goes in the queue file, and nowhere else
+
+A technical finding was written to `docs/queue.md` and then also offered as a suggested background task, which arrives as a chip the owner has to dismiss. The chip carries nothing the file does not: `bun run queue` already lists what is waiting and hands the next item out with its own branch. The rule now ends at the file.
+
 ## 2026-09-03 · f5adb66 — Thirteen copies of one draw loop become one, and six rounds get drawn
 
 `frame.test.ts` was 1269 lines and eleven re-typings of the same twenty — step, collect `world.events`, draw every fourth tick, clear them — with the copies already disagreeing about which tick a frame falls on. The loop is now `test/frame-harness.ts` (`runFrames`), the only difference between subjects is what happens during a tick, and every subject with a picture of its own has a `*-frame.test.ts` of its own. The ghost's and the clasp's own files were two more copies and read the harness now too. Same 46 tests, same assertions.
