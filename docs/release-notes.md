@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 812a768 — A wisp jumping out of the top row no longer arcs over the letters
+
+The apex was a flat 2.2 tiles, and a wisp may stand on row 0. Out of the top rows the body and its dotted guide line both rose through the lettered axis and off the top of the grid — over the one thing the pair reads this creature by.
+
+## 2026-09-03 · ec070fa — The wisp's rim scallops instead of spiking, and its guide line stops running off the top
+
+Three things the first frames of the jump showed.
+
+## 2026-09-03 · 369c8fa — THE WISP jumps, and the tile it lands on is called before it gets there
+
+It used to blink: a squash, a stretch into a line, two thirds of a beat of nothing, and the same run backwards into a new tile. Player 2 saw a body go out and a body come in and had to infer they were the same body — and had a dwell of two beats, 1.25 s, to read a letter and a number off the arrival and get it across the room. That is under what a spoken exchange takes, which was the intent (force a shorthand) and not the effect (a tile that expired while it was being said).
+
 ## 2026-09-03 · 0854288 — The dart wears the lure's frame, and its arrows stand clear of it
 
 The first cut boxed the body and both arrows together, and at a tile that is thirty pixels wide the arrow tips landed on the top corner brackets and were read as part of them — which loses the one mark on the pilot's screen that carries a side. The frame is now the square a lure wears, around the body alone, and the arrows are lifted into the gap the question mark had.
