@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 312c4b2 — A card's frame is fitted with one contour per sample, not two
+
+shapes-motion.test.ts was 2.9 s and none of it was the assertions. Most of it was not the sweep either: `transformedBounds` walks its 133 scan times twice, once to find the still box and once to move the points, and it built the contour again for the second pass. A contour sample is a metaball bisection and the most expensive thing in the file, so that was half the cost of every card the SHAPES sheet draws as well as half the test — 1743 ms of the test's fit becomes 1079 ms with the samples read twice instead of taken twice.
+
+## 2026-09-03 · c577c2e — A detached worktree with commits on it is a lane, and lands
+
+`bun run land` deletes the branch it just landed and leaves the worktree on `main`'s tip, detached. `auto-land.ts` then asked `git rev-parse --abbrev-ref HEAD`, read `HEAD`, and exited as "not on a lane's own branch" — so a session that kept working after its first landing committed into detachment and never landed again, with nothing said. That is the same nothing-happens failure the hooks were moved off bash to stop.
+
+## 2026-09-03 · 9cca6c8 — The guard stands in front of PowerShell too, in PowerShell's own quoting
+
+The PreToolUse matcher named `Bash`, and on Windows the session's primary shell is the separate PowerShell tool — the one CLAUDE.md names first. Every rule the guard holds was unenforced the moment the same command was typed into the other tool, silently, which is the failure mode the hooks were moved off bash to stop.
+
 ## 2026-09-03 · 73ce8b1 — The vote prompt is five files, and KNOWN_LONG is empty
 
 `tools/versus/prompt.ts` was 509 lines — the longest file in the repository, twice the limit, and the only entry left in `KNOWN_LONG`. Most of it was one 315-line function whose only structure was a row of banner comments, so the step you wanted was found by scrolling and the context it read was whatever happened to be in scope.
