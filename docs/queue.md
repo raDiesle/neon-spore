@@ -54,6 +54,29 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
+## A queue claim is a branch, and `bun run land` sweeps other lanes' branches
+
+- **Found:** 2026-09-03, claude/categorized-task-queue-bd59d8
+- **Files:** `tools/land/sweep.ts`, `tools/queue/claim.ts`, `tools/land/test/`, `docs/queue.md`
+
+`bun run queue next` claims an item by creating `claude/queue-<slug>` off `main`,
+and `docs/queue.md` says that branch *is* the claim: two sessions cannot be given
+the same item, because the second `git branch` fails. It does not hold. A claim
+branch has no commits on it, so it points at `main` and reads as fully merged,
+and the sweep at the end of any other lane's `bun run land` deletes it. Both
+sessions running on 3 September 2026 lost every claim they held within minutes
+of the other one landing, and the two of them then did the same queue item twice
+— one of the two commits was thrown away at the rebase, along with the session
+that wrote it.
+
+Teach the sweep to leave `claude/queue-*` alone, or give a claim something the
+sweep will not delete. Whichever it is, `tools/land/test/` should hold it: the
+failure is silent, and it costs a whole session's work rather than a rebase.
+
+While there: `bun run queue release <n>` reports success by deleting a branch,
+so a claim that has already been swept fails with a git error rather than saying
+the item was never held. Either is fine to say; the git error is not.
+
 ## The bash guard refuses `git commit --amend`
 
 - **Found:** 2026-09-03, claude/categorized-task-queue-4da693
