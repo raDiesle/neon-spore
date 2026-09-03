@@ -155,6 +155,7 @@ against a running wrangler is what proves it, not `bun test` alone.
 ## relay:check --rejoin compares tick counts at one instant, and flakes
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Taken:** 2026-09-03, claude/queue-relay-check-rejoin-compares-tick-counts-at-one-i
 - **Files:** `tools/relay-check/check.ts`
 
 One run in five of `bun run relay:check ws://127.0.0.1:<port> 14 --rejoin`
