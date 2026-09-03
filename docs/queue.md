@@ -268,6 +268,7 @@ expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 ## Split director.css, which Biome's formatter turned into 2 985 lines
 
 - **Found:** 2026-09-03, claude/director-group-queue-batch-161302
+- **Taken:** 2026-09-03, claude/queue-split-director-css-which-biomes-formatter-turned
 - **Files:** `tools/director/src/director.css`, `tools/director/index.html`, `tools/director/test/rail-boss-guard.test.ts`
 
 Cutting the `<style>` block out of `index.html` and putting `**/*.css` into
