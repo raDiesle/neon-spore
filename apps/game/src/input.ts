@@ -220,6 +220,7 @@ export function bindControls({
   return bindKeys({
     buffer,
     layout,
+    cfg,
     isOver,
     creatures,
     guideHolds,

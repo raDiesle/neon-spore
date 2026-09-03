@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import type { Layout } from "@neon-spore/render";
-import type { Command } from "@neon-spore/sim";
+import { type Command, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { bindKeys } from "../src/keys.js";
 
 /**
@@ -38,7 +38,8 @@ function desk(guideUp: boolean) {
         sent.push({ player, command });
       },
     } as never,
-    layout: () => ({ cols: 7 }) as Layout,
+    layout: () => ({ cols: DEFAULT_CONFIG.cols }) as Layout,
+    cfg: DEFAULT_CONFIG,
     isOver: () => false,
     creatures: () => [],
     guideHolds: () => guideUp,

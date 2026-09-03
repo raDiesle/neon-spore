@@ -400,9 +400,14 @@ const COPIES: Copy[] = [
     // a name. An even `cols` is what the copies are waiting for: some of them
     // would move left and some right, and the pair would be told a column the
     // ship is not in.
+    //
+    // The pattern names the division and not `cfg.` before it: `keys.ts` was
+    // the tenth copy and the row walked straight past it, because the desk rig
+    // took its count from `layout().cols` and had no config in reach. A column
+    // count halved is the rule whatever the variable is called.
     call: "midCol",
     owner: "packages/sim/src/config-derived.ts",
-    pattern: /Math\.floor\(\s*[\w.]*cfg\.cols\s*\/\s*2\s*\)/,
+    pattern: /\bcols\s*\/\s*2\b/i,
   },
   {
     // Milliseconds into ticks, the conversion under every window in the game.

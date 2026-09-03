@@ -851,18 +851,3 @@ Replace the three steps with `bun run check`, add `actions/cache` keyed on
 `bun.lock`, pin `bun-version` to the version in use locally (`bun --version`), and
 drop the pull-request trigger. Provable only by the workflow going green on the
 next push.
-
-## Give apps/game the centre column instead of a tenth copy of it
-
-- **Found:** 2026-09-03, claude/bun-run-queue-92ce70
-- **Files:** `apps/game/src/keys.ts`, `packages/sim/src/config-derived.ts`, `packages/sim/test/purity.test.ts`
-
-`midCol(cfg)` now owns `Math.floor(cfg.cols / 2)` and a `COPIES` row fails a
-second copy of it — but `keys.ts` (around line 120) parks the cannon and the
-shield at `Math.floor(cols / 2)` from `layout().cols`, with no `cfg` in reach,
-so the row walks past it. It is the same rule: where the ship stands when a key
-arrives before either player has moved.
-
-Either hand `keys.ts` the config it already has upstream and call `midCol`, or
-widen the row's pattern to `cols\s*\/\s*2` and give the file whatever it needs
-to pass. Deciding which is the whole of the work; `bun run check` proves it.

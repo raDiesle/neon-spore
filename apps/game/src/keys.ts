@@ -1,5 +1,5 @@
 import type { Layout } from "@neon-spore/render";
-import { type Creature, isGrippable, NO_GRIP } from "@neon-spore/sim";
+import { type Creature, isGrippable, midCol, NO_GRIP, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 
@@ -12,6 +12,8 @@ import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 export interface KeyBindings {
   buffer: InputBuffer;
   layout: () => Layout;
+  /** For `midCol`: where the ship stands before either player has moved. */
+  cfg: SimConfig;
   isOver: () => boolean;
   /** The field, for G — the grip needs something to take hold of. */
   creatures: () => readonly Creature[];
@@ -78,6 +80,7 @@ const KEY_REPEAT_INTERVAL_TICKS = 8;
 export function bindKeys({
   buffer,
   layout,
+  cfg,
   isOver,
   creatures,
   guideHolds,
@@ -116,9 +119,8 @@ export function bindKeys({
   window.addEventListener("keydown", (e) => {
     if (held.has(e.code)) return;
     held.add(e.code);
-    const cols = layout().cols;
-    if (cannon < 0) cannon = Math.floor(cols / 2);
-    if (shield < 0) shield = Math.floor(cols / 2);
+    if (cannon < 0) cannon = midCol(cfg);
+    if (shield < 0) shield = midCol(cfg);
 
     // Never the page's scroll: every arrow means something here.
     if (e.code.startsWith("Arrow")) e.preventDefault();
