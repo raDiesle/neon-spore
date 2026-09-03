@@ -1,8 +1,9 @@
 import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
-import { openSnake, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
+import type { SnakePhase, SnakeRound, SnakeState } from "./snake.js";
 import { snakeHeard } from "./snake-controls.js";
 import { stepSnake } from "./snake-move.js";
+import { openSnake } from "./snake-open.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 

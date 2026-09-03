@@ -42,6 +42,19 @@ export function snakeRockAt(snake: SnakeState, col: number, row: number): boolea
   return snakeCurrent(snake).rocks.some((t) => t.col === col && t.row === row);
 }
 
+/**
+ * Whether the round is still holding still after a crash.
+ *
+ * The one question three files ask and none of them may answer twice: the
+ * step does not run while it is true (`snake-move.ts`), the trigger and the
+ * mouth are dead (`snake-controls.ts`), and the picture spends it on the bump
+ * and the return (`render/snake-crash.ts`). Written here beside every other
+ * question asked about a round in progress.
+ */
+export function snakeStunned(world: World, snake: SnakeState): boolean {
+  return world.tick - snake.repeatTick < world.cfg.snakeStunTicks;
+}
+
 /** Whether the mouth is open on this tick. Player 1's whole timing problem. */
 export function snakeMawOpen(world: World, snake: SnakeState): boolean {
   return world.tick - snake.mawTick < world.cfg.snakeMawTicks;

@@ -60,6 +60,26 @@ export const PALETTE = {
    */
   eyeFluid: "#4CFF4C",
   eyeFluidRim: "#C9FFC9",
+  /**
+   * SNAKE's spit, and the **fourth** green here — asked for by name, in those
+   * words: a nice green poison, out of the head, the way it is looking.
+   *
+   * It is taken the way `claspShield` and `eyeFluid` were, and the distance is
+   * carried the same way: by the hue and by where it appears. `good` is a mint
+   * that flashes across the ship's own row, `claspShield` a deep emerald
+   * wrapped round a body up the field, `eyeFluid` a neon pooled under an eye.
+   * This is a yellow-green venom that exists **only inside SNAKE's arena**,
+   * which is a screen with no field, no hull and no creature on it at all —
+   * there is nothing in that picture for it to be confused with, and the round
+   * is over before any of the other three can be on screen again.
+   *
+   * It is also the one colour in the round that is not the ship's. That is the
+   * point of it: everything the body is made of is hull violet and shield
+   * cyan, so the thing it *spits* has to be the one thing that is not.
+   */
+  venom: "#9BE81E",
+  venomRim: "#EDFFB4",
+  venomDeep: "#3F7A08",
   sparkDim: "#8B85AB",
   /**
    * THE WISP's middle band, and the one hue in this palette that is not a

@@ -30,16 +30,17 @@ const WAVE = 6;
 
 /**
  * One round, placed for the rig rather than for a player: the body opens in
- * column 4 heading up, so an enemy at (4,4) is four steps straight ahead and a
- * point at (4,6) is two. The **second** enemy and the second point are in
- * corners nothing here ever reaches, and they are load-bearing: without them,
- * spending the two in the path would clear the arena and move the round on
- * under whichever test was watching it.
+ * column 4 heading up, so an enemy at (4,5) is three steps straight ahead —
+ * the far end of the spit's reach (`snakeShotTiles`) — and a point at (4,6) is
+ * two. The **second** enemy and the second point are in corners nothing here
+ * ever reaches, and they are load-bearing: without them, spending the two in
+ * the path would clear the arena and move the round on under whichever test
+ * was watching it.
  */
 const ROUNDS = [
   {
     enemies: [
-      { col: 4, row: 4 },
+      { col: 4, row: 5 },
       { col: 8, row: 0 },
     ],
     points: [
@@ -180,7 +181,28 @@ describe("player 1 shoots, and only player 1", () => {
     press(world, 1, { kind: "snakeFire" });
     expect(snake.struck).toEqual([0]);
     expect(snake.shotHit).toBe(true);
-    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({ col: 4, row: 4 });
+    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({ col: 4, row: 5 });
+  });
+
+  /**
+   * The spit carries three tiles and no more, which is what makes the trigger
+   * a reason to steer: an enemy one tile beyond the reach is answered by
+   * driving at it, not by pressing harder.
+   */
+  it("stops in mid-air short of what it cannot reach", () => {
+    const world = open();
+    play(world);
+    const snake = round(world);
+    const enemy = snake.rounds[0]?.enemies[0];
+    if (!enemy) throw new Error("the rig's own enemy is missing");
+    enemy.row = 4;
+    press(world, 1, { kind: "snakeFire" });
+    expect(snake.struck).toEqual([]);
+    expect(snake.shotHit).toBe(false);
+    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({
+      col: 4,
+      row: CFG.snakeRows - 3 - CFG.snakeShotTiles,
+    });
   });
 
   it("misses when the head is not pointing at anything", () => {
@@ -266,11 +288,75 @@ describe("the four ways an attempt ends, which are one rule", () => {
     play(world);
     const snake = round(world);
     // The point two steps ahead is already swallowed, so the straight line
-    // holds nothing but the enemy at four.
+    // holds nothing but the enemy at three.
     snake.taken = [0];
-    for (let i = 0; i < ROUNDS[0]!.stepTicks * 4 + 2; i++) step(world, []);
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * 3 + 2; i++) step(world, []);
     expect(snake.repeats).toBe(1);
     expect(snake.body[0]).toEqual({ col: 4, row: CFG.snakeRows - 3 });
+  });
+});
+
+/**
+ * THE PAUSE AFTER A CRASH.
+ *
+ * The attempt used to start over on the tick it ended, which is the one moment
+ * of this round neither seat could read. Nothing is judged while it holds:
+ * the body does not step, the clock does not run down, and player 1's two
+ * verbs are dead — there is no head on the arena for either of them to leave.
+ */
+describe("the arena holds still between two attempts", () => {
+  /** Ticks a crash into the wall, and stops on the tick it happens. */
+  function crash(world: World): SnakeState {
+    const snake = round(world);
+    clearPath(snake);
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * (CFG.snakeRows + 2); i++) {
+      step(world, []);
+      if (snake.repeats > 0) return snake;
+    }
+    throw new Error("the body never met the wall");
+  }
+
+  it("keeps the body where it was reset and does not step it", () => {
+    const world = open();
+    play(world);
+    const snake = crash(world);
+    const at = snake.body.map((t) => ({ ...t }));
+    for (let i = 0; i < CFG.snakeStunTicks - 1; i++) step(world, []);
+    expect(snake.body).toEqual(at);
+    // And it sets off again on the far side of it.
+    for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
+    expect(snake.body).not.toEqual(at);
+  });
+
+  it("keeps what it was doing and where it went wrong, for the picture", () => {
+    const world = open();
+    play(world);
+    const snake = crash(world);
+    expect(snake.ghost.length).toBe(CFG.snakeStartTiles);
+    // Off the top of the board, which is where the head went rather than
+    // where it was allowed to be.
+    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: -1 });
+    expect([snake.ghostDirCol, snake.ghostDirRow]).toEqual([0, -1]);
+  });
+
+  it("hands the attempt its whole clock back", () => {
+    const world = open();
+    play(world);
+    const snake = crash(world);
+    for (let i = 0; i < CFG.snakeStunTicks - 1; i++) step(world, []);
+    expect(snake.roundBeat).toBe(world.beat);
+    expect(snake.phase).toBe("play");
+  });
+
+  it("is deaf to the trigger and the mouth while it holds", () => {
+    const world = open();
+    play(world);
+    const snake = crash(world);
+    snake.struck = [];
+    press(world, 1, { kind: "snakeFire" });
+    press(world, 1, { kind: "snakeMaw" });
+    expect(snake.struck).toEqual([]);
+    expect(world.tick - snake.mawTick).toBeGreaterThan(CFG.snakeMawTicks);
   });
 });
 

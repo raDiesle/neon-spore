@@ -89,6 +89,27 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## SNAKE's mouth can be tapped open forever: the rest is shorter than the window
+
+- **Found:** 2026-09-03, claude/snake-boss-visuals-c5f82f
+- **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/test/snake.test.ts`
+
+`snakeMawRestTicks` is 30 and `snakeMawTicks` is 84, so a thumb pressing MAW
+every 30 ticks holds the mouth open for the whole round. `snake-controls.ts`
+says in as many words that the rest "is what stops a thumb tapping it every tick
+from being the same as leaving it open", and at these two numbers it does not:
+it stops tapping it *every* tick and nothing else. The gap predates this lane —
+the window was 60 against the same rest of 30 — and widening the window to 84
+made it worse rather than making it.
+
+The mouth is meant to be a moment player 1 times against a step, which is the
+whole of what the round asks of that seat, so the fix is to make the rest at
+least as long as the window: a press that opens the mouth should be a press
+that cannot be repeated until the mouth has shut on its own. One number in
+`SNAKE_DEFAULTS`, and a test in `snake.test.ts` that presses MAW twice inside
+one window and proves the second press moved nothing — `mawTick` unchanged, and
+a point driven over after the window is a repeat.
+
 ## `bun run frames` cannot fire the cannon, so no hit effect can be photographed
 
 - **Found:** 2026-09-03, claude/rind-hit-effect-d14725

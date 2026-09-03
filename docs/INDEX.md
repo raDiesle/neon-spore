@@ -184,6 +184,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
+| `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 
 ### packages/content
 
@@ -388,6 +389,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
 | `packages/render/src/rind-shed.ts` | A layer coming off THE RIND — the owner's picture of it: it should look like it is shrinking, hit with a |
+| `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
+| `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
+| `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
+| `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 
 ### packages/net
 

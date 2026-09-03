@@ -143,6 +143,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   snakeMawTicks: "SNAKE — a round the ship is the body of",
   snakeMawRestTicks: "SNAKE — a round the ship is the body of",
   snakeFireRestBeats: "SNAKE — a round the ship is the body of",
+  snakeShotTiles: "SNAKE — a round the ship is the body of",
+  snakeStunTicks: "SNAKE — a round the ship is the body of",
   damageSnake: "SNAKE — a round the ship is the body of",
   damageSnakeRepeat: "SNAKE — a round the ship is the body of",
   pinballCols: "PINBALL — a table the ship is the bucket of",

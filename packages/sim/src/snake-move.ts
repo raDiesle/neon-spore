@@ -1,6 +1,6 @@
 import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
-import { resetBody, type SnakeState, snakeCurrent } from "./snake.js";
+import { type SnakeState, snakeCurrent } from "./snake.js";
 import {
   snakeCleared,
   snakeEnemyAt,
@@ -9,7 +9,9 @@ import {
   snakeOnBoard,
   snakePointAt,
   snakeRockAt,
+  snakeStunned,
 } from "./snake-arena.js";
+import { resetBody } from "./snake-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -41,6 +43,15 @@ export function stepSnake(world: World, snake: SnakeState): boolean | null {
   // Cleared first, so the last enemy shot on the last beat of an attempt wins
   // it rather than losing it by a tick.
   if (snakeCleared(snake)) return openNextRound(world, snake);
+  // The pause after a crash, and it is free. Both clocks are carried along
+  // with it — the attempt's beats and the interval to the next step — so what
+  // the pair watches is the bump and the return rather than a round quietly
+  // running down while the arena is empty (`snakeStunTicks`).
+  if (snakeStunned(world, snake)) {
+    snake.roundBeat = world.beat;
+    snake.stepTick = world.tick;
+    return null;
+  }
   if (world.beat - snake.roundBeat >= round.beats) return false;
   if (world.tick - snake.stepTick < round.stepTicks) return null;
   snake.stepTick = world.tick;
@@ -106,14 +117,14 @@ function advance(world: World, snake: SnakeState): void {
   const col = head.col + dirCol;
   const row = head.row + dirRow;
   if (!snakeOnBoard(world, col, row)) {
-    repeat(world, snake);
+    repeat(world, snake, col, row);
     return;
   }
   // The tail is spared unless a point is still being paid out: it moves off
   // its tile on the same step the head arrives, so a body going round its own
   // end is a corner and not a bite.
   if (snakeOccupies(snake, col, row, snake.grow === 0)) {
-    repeat(world, snake);
+    repeat(world, snake, col, row);
     return;
   }
   // An enemy is a hazard as well as a target, and touching one is the same
@@ -121,7 +132,7 @@ function advance(world: World, snake: SnakeState): void {
   // A meteor is the same mistake with nobody to blame but the steering —
   // there was never anything either of them could have done to it.
   if (snakeEnemyAt(snake, col, row) !== -1 || snakeRockAt(snake, col, row)) {
-    repeat(world, snake);
+    repeat(world, snake, col, row);
     return;
   }
 
@@ -130,7 +141,7 @@ function advance(world: World, snake: SnakeState): void {
     // Reached with the mouth shut. This is the one failure that is nobody's
     // reflex and both of their timing: player 2 drove them onto it and player
     // 1 was the only one who could see it coming.
-    repeat(world, snake);
+    repeat(world, snake, col, row);
     return;
   }
 
@@ -152,6 +163,11 @@ function advance(world: World, snake: SnakeState): void {
  * answering where the body was when they pressed. It stops at the first
  * standing enemy, its own body or the wall, whichever comes first.
  *
+ * **And it is short.** `snakeShotTiles` is the whole of its reach, counted
+ * from the tile in front of the head. A spit that carried the arena made the
+ * steering irrelevant to the trigger; one that carries three tiles makes
+ * "bring me to it" the sentence the pair says most.
+ *
  * Returns whether it found something, and leaves where it stopped on the state
  * for the picture to draw.
  */
@@ -162,7 +178,7 @@ export function fireSnake(world: World, snake: SnakeState): boolean {
   let row = head.row;
   snake.shotBeat = world.beat;
   snake.shotHit = false;
-  for (;;) {
+  for (let reach = 0; reach < world.cfg.snakeShotTiles; reach++) {
     col += snake.dirCol;
     row += snake.dirRow;
     if (!snakeOnBoard(world, col, row)) {
@@ -187,6 +203,12 @@ export function fireSnake(world: World, snake: SnakeState): boolean {
       return false;
     }
   }
+  // Nothing inside the reach. The spit still lands, and where it lands is the
+  // whole of what player 1 learns: the picture draws it stopping in mid-air,
+  // which is the pair being told they are not close enough yet.
+  snake.shotCol = col;
+  snake.shotRow = row;
+  return false;
 }
 
 /**
@@ -198,13 +220,21 @@ export function fireSnake(world: World, snake: SnakeState): boolean {
  * still there when the field comes back, so a pair who repeated four times can
  * see what the round took.
  */
-function repeat(world: World, snake: SnakeState): void {
+function repeat(world: World, snake: SnakeState, col: number, row: number): void {
   snake.repeats += 1;
   snake.repeatBeat = world.beat;
+  snake.repeatTick = world.tick;
+  // Where it went wrong and what it looked like at the time, kept for the
+  // picture alone — `resetBody` below is about to throw both away, and the
+  // pause that follows has nothing else to draw (`SnakeState.ghost`).
+  snake.bumpCol = col;
+  snake.bumpRow = row;
+  snake.ghost = snake.body.map((t) => ({ ...t }));
+  snake.ghostDirCol = snake.dirCol;
+  snake.ghostDirRow = snake.dirRow;
   snake.roundBeat = world.beat;
   snake.struck = [];
   snake.taken = [];
-  const col = midCol(world.cfg);
-  breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnakeRepeat);
+  breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damageSnakeRepeat);
   resetBody(world, snake);
 }

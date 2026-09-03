@@ -161,8 +161,22 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.shotHit ? 1 : 0);
     push(boss.repeats);
     push(boss.repeatBeat);
+    push(boss.repeatTick);
+    push(boss.bumpCol);
+    push(boss.bumpRow);
     push(boss.body.length);
     for (const tile of boss.body) {
+      push(tile.col);
+      push(tile.row);
+    }
+    // The body as it stood on the tick of the last crash. Nothing but the
+    // picture reads it, and it is in here anyway: rule 4 has no clause for a
+    // field only the drawing wants, because a device that disagrees about one
+    // is a device drawing a different round.
+    push(boss.ghostDirCol);
+    push(boss.ghostDirRow);
+    push(boss.ghost.length);
+    for (const tile of boss.ghost) {
       push(tile.col);
       push(tile.row);
     }

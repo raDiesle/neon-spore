@@ -3,6 +3,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
+import { crash01, crashReturn, drawSnakeCrash } from "./snake-crash.js";
 import {
   type Arena,
   drawArena,
@@ -80,19 +81,28 @@ function drawBodies(
 ): void {
   const fold = morph01(view, round);
   const pulse = Math.abs(0.5 - view.beatPhase) * 2;
+  const shows = showsSnakeBody(view.role);
   drawSnakeRocks(ctx, arena, round);
   if (showsSnakeFood(view.role)) drawSnakeItems(ctx, arena, round, pulse);
-  const grown = morphBodyGrowth(fold);
+  // The pause after a crash. While it runs the body on the world is standing
+  // at the start doing nothing, so what is drawn is the one that crashed
+  // folding up, and the one at the start only once it is time for it to come
+  // back (`snake-crash.ts`).
+  const crash = crash01(round, view.world.tick, view.world.cfg.snakeStunTicks);
+  if (crash !== null) drawSnakeCrash(ctx, arena, round, shows, crash);
+  const grown = morphBodyGrowth(fold) * (crash === null ? 1 : crashReturn(crash));
   if (grown > 0) {
     ctx.save();
     // The body is extruded, not faded: while the fold runs, only the part of
-    // it that has come out of the ship is drawn at all.
+    // it that has come out of the ship is drawn at all. The return from a
+    // crash borrows the same ramp, which is what makes the two arrivals one
+    // picture rather than two.
     ctx.globalAlpha = Math.min(1, grown * 1.6);
     drawSnakeBody(
       ctx,
       arena,
       round,
-      showsSnakeBody(view.role),
+      shows,
       snakeSlide(round, view.world.tick),
       gape(view, round),
       flick(view.world.tick),
@@ -102,7 +112,9 @@ function drawBodies(
   // One beat of afterglow, and no state kept for it: the world says which beat
   // the shot left on, so the fade is that number against this one.
   const since = view.world.beat - round.shotBeat + view.beatPhase;
-  if (since < 1.2) drawSnakeShot(ctx, arena, round, 1 - since / 1.2);
+  if (since < 1.2) {
+    drawSnakeShot(ctx, arena, round, 1 - since / 1.2, snakeSlide(round, view.world.tick));
+  }
   if (fold < 1) drawSnakeMorph(ctx, l, arena, view, round, fold);
 }
 
@@ -136,8 +148,14 @@ export function gape(view: ViewState, round: SnakeState): number {
   const age = view.world.tick - round.mawTick;
   if (age < 0 || age >= span) return 0;
   const t = age / span;
-  // Snaps open over the first fifth, holds, and closes over the last third.
-  if (t < 0.2) return t / 0.2;
-  if (t < 0.66) return 1;
-  return 1 - (t - 0.66) / 0.34;
+  // Snaps open over the first eighth, **stands open for three quarters of the
+  // window**, and swings shut over what is left. The owner asked for a mouth
+  // that stays open longer, and there were two ways to give it: the window
+  // itself is longer now (`snakeMawTicks`), and the share of it spent wide
+  // open went from under half to three quarters. The jaws used to start
+  // closing about as soon as they had finished opening, which read as a
+  // twitch rather than as a mouth held open for something to be driven into.
+  if (t < 0.12) return t / 0.12;
+  if (t < 0.86) return 1;
+  return 1 - (t - 0.86) / 0.14;
 }

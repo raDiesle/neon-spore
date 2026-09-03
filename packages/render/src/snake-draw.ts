@@ -1,6 +1,7 @@
 import type { SimConfig, SnakeState } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawSnakeEnemy, drawSnakePoint } from "./snake-items.js";
 
 /**
  * SNAKE's arena and everything standing in it.
@@ -102,11 +103,11 @@ export function drawArena(ctx: CanvasRenderingContext2D, arena: Arena): void {
  * swallowed.
  *
  * Drawn only on the screen that is allowed to see them, which is player 1's —
- * the seat that can shoot and open the mouth and cannot steer. Both are hard
- * shapes rather than blobs, because a round is machinery where the field is
- * bodies (`docs/spec/interludes.md`): an enemy is a barbed square in the ember
- * this game already spends on damage, and a point is the amber ring it already
- * spends on "take that in".
+ * the seat that can shoot and open the mouth and cannot steer. What each of
+ * them looks like is `snake-items.ts`, and the short of it is that neither is
+ * a new shape: an enemy is a slick or a bulb and a point is a pod, borrowed
+ * whole off the field so the seat with the trigger never has to be told which
+ * is which.
  */
 export function drawSnakeItems(
   ctx: CanvasRenderingContext2D,
@@ -118,11 +119,11 @@ export function drawSnakeItems(
   if (!round) return;
   round.enemies.forEach((tile, i) => {
     if (snake.struck.includes(i)) return;
-    drawEnemy(ctx, arena, tile.col, tile.row);
+    drawSnakeEnemy(ctx, arena, tile.col, tile.row, i, pulse);
   });
   round.points.forEach((tile, i) => {
     if (snake.taken.includes(i)) return;
-    drawPoint(ctx, arena, tile.col, tile.row, pulse);
+    drawSnakePoint(ctx, arena, tile.col, tile.row, pulse);
   });
 }
 
@@ -170,50 +171,4 @@ export function drawSnakeRocks(
     ctx.arc(x + r * 0.25, y - r * 0.2, r * 0.22, 0, Math.PI * 2);
     ctx.fill();
   }
-}
-
-/** One enemy: a square with its sides bitten in, which nothing else here is. */
-function drawEnemy(ctx: CanvasRenderingContext2D, arena: Arena, col: number, row: number): void {
-  const x = arenaX(arena, col) + arena.tile / 2;
-  const y = arenaY(arena, row) + arena.tile / 2;
-  const r = arena.tile * 0.3;
-  ctx.fillStyle = "#2A0F04";
-  ctx.strokeStyle = PALETTE.ember;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(x - r, y - r);
-  ctx.lineTo(x, y - r * 0.55);
-  ctx.lineTo(x + r, y - r);
-  ctx.lineTo(x + r * 0.55, y);
-  ctx.lineTo(x + r, y + r);
-  ctx.lineTo(x, y + r * 0.55);
-  ctx.lineTo(x - r, y + r);
-  ctx.lineTo(x - r * 0.55, y);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-}
-
-/** One point: an amber ring that breathes, so it reads as a thing to be taken. */
-function drawPoint(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  col: number,
-  row: number,
-  pulse: number,
-): void {
-  const x = arenaX(arena, col) + arena.tile / 2;
-  const y = arenaY(arena, row) + arena.tile / 2;
-  const r = arena.tile * (0.24 + 0.04 * pulse);
-  ctx.fillStyle = PALETTE.podDark;
-  ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = PALETTE.podRim;
-  ctx.beginPath();
-  ctx.arc(x, y, arena.tile * 0.09, 0, Math.PI * 2);
-  ctx.fill();
 }

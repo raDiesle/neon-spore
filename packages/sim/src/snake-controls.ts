@@ -1,4 +1,5 @@
 import type { SnakeState } from "./snake.js";
+import { snakeStunned } from "./snake-arena.js";
 import { fireSnake } from "./snake-move.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -22,6 +23,12 @@ import type { World } from "./world.js";
  * picture, for the reason THE GAUGE's is: a driver who could also fire would
  * be playing both halves of a round whose entire content is that he cannot,
  * and both devices have to agree exactly which presses counted.
+ *
+ * **Nothing player 1 has works while the body is folded up.** During the pause
+ * after a crash there is no head to spit out of and no mouth to open, so a
+ * press that counted would be a shot leaving a body that is not on the arena.
+ * The wheel is left alone: a turn is queued rather than taken, and the queue
+ * is the one thing the pair may usefully agree about while they wait.
  */
 
 export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, command: Command): void {
@@ -33,14 +40,14 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
     return;
   }
   if (command.kind === "snakeFire") {
-    if (player !== 1) return;
+    if (player !== 1 || snakeStunned(world, snake)) return;
     // A rest between two shots, so a thumb held on the trigger is not a way of
     // clearing a row without having been told where to point.
     if (world.beat - snake.shotBeat < world.cfg.snakeFireRestBeats) return;
     fireSnake(world, snake);
     return;
   }
-  if (command.kind !== "snakeMaw" || player !== 1) return;
+  if (command.kind !== "snakeMaw" || player !== 1 || snakeStunned(world, snake)) return;
   // The mouth is a *window* and not a hold: it opens on the press and shuts on
   // its own a fraction of a step later (`snakeMawTicks`), which is what makes
   // it a thing to time rather than a thing to leave on. The rest is what stops

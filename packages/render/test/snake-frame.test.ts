@@ -14,7 +14,10 @@ import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-h
  *
  * Long enough to cross all three phases and to have crashed at least once,
  * which is the only frame where the body is drawn from a standing start while
- * a scar is on a hull nobody can see.
+ * a scar is on a hull nobody can see — and, since the pause was added, the
+ * only frames that reach the bump, the folded body and the dotted outline it
+ * leaves behind (`snake-crash.ts`). Nothing here drives, so the body meets the
+ * enemy standing in front of it and the crash picture is unavoidable.
  */
 
 beforeAll(installCanvasGlobals);
@@ -39,6 +42,9 @@ describe("SNAKE draws on all three screens", () => {
       // met a wall, which is the frame the verdict and the scar hang off.
       const boss = world.boss;
       expect(boss?.kind === "snake" && boss.phase !== "morph").toBe(true);
+      // And it went wrong at least once, so every line of the pause was drawn
+      // through the stub as well as every line of the body.
+      expect(boss?.kind === "snake" && boss.repeats > 0).toBe(true);
     });
   }
 });

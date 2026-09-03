@@ -167,6 +167,27 @@ either of them can act on. So the seat that can reach a thing cannot see it and
 the seat that can see it cannot reach it, and every verb in the round is
 somebody answering a sentence.
 
+**The shot carries three tiles and no further** (`snakeShotTiles`). It used to
+carry the width of the arena, which quietly took the steering out of the round:
+an enemy eight tiles up column four was answered from the opening square, and
+player 2 had nothing to do with it. A spit that reaches three tiles turns the
+sentence the pair says most from "it is lined up" into "bring me to it", which
+is the sentence the round is for. The picture says so — the venom lands in
+mid-air when it found nothing, which is the pair being told the reach ran out
+rather than the aim did.
+
+**A failed attempt pauses before it starts again** (`snakeStunTicks`). The
+round used to reset on the tick it went wrong: the body was somewhere, and on
+the next frame it was three tiles long at the bottom with the whole arena
+standing. Neither seat could say what had happened, which in a round whose
+entire content is two people saying what is happening is the one thing it could
+not afford. So the arena holds still for a second and a quarter — the head
+knocks against whatever stopped it and the body folds up behind it, a dotted
+outline is left where it was, and then it is drawn back in at the starting
+square. Nothing is judged during it: the attempt's clock is carried along with
+the pause and player 1's two verbs are dead, because there is no head on the
+arena for either of them to leave.
+
 **The meteors are the exception, and they are what proves the rule.** They can
 be neither shot nor swallowed, and a shot stops dead on one, so the only answer
 to a meteor is the steering — which means telling player 1 about one would buy

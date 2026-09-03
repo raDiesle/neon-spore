@@ -1,5 +1,3 @@
-import type { World } from "./world.js";
-
 /**
  * SNAKE: one of you drives it and the other one works it.
  *
@@ -31,8 +29,11 @@ import type { World } from "./world.js";
  * `docs/spec/interludes.md`). What is at stake is the same hull as ever —
  * `snake-move.ts` breaks it on a repeat and `snake-round.ts` on the clock.
  *
- * This file is the state and the shape of it. What is standing on a given
- * tile is `snake-arena.ts`, the step is `snake-move.ts`, the four verbs are
+ * This file is the shape of it and nothing else — the phases, the authored
+ * map and every field the round remembers between ticks. Building one and
+ * putting a body back where it started is `snake-open.ts`, which is the only
+ * half of the state that needs the world. What is standing on a given tile is
+ * `snake-arena.ts`, the step is `snake-move.ts`, the four verbs are
  * `snake-controls.ts`, and the clock the whole thing hangs off is
  * `snake-round.ts`. **There is no rng anywhere in the round**: every tile
  * that matters was placed by a person, which is what makes it a thing two
@@ -150,72 +151,36 @@ export interface SnakeState {
   repeats: number;
   /** `world.beat` of the last one, so the picture can flinch. -1 before the first. */
   repeatBeat: number;
-}
-
-/** Far enough back that the first shot and the first mouth are never blocked. */
-const LONG_AGO = -1_000_000;
-
-export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeState {
-  // A wave that carries this boss and authors nothing is a round with no way
-  // to end, which is worse than one nobody can pass: it would run its clock
-  // out on an empty arena and cost the hull for it.
-  if (rounds.length === 0) throw new Error("a snake wave with no rounds is not a round");
-  const snake: SnakeState = {
-    kind: "snake",
-    phase: "morph",
-    phaseBeat: world.beat,
-    openBeat: world.beat,
-    passed: false,
-    rounds: rounds.map((r) => ({
-      beats: r.beats,
-      stepTicks: r.stepTicks,
-      enemies: r.enemies.map((t) => ({ ...t })),
-      points: r.points.map((t) => ({ ...t })),
-      rocks: r.rocks.map((t) => ({ ...t })),
-    })),
-    round: 0,
-    roundBeat: world.beat,
-    body: [],
-    dirCol: 0,
-    dirRow: -1,
-    turn: 0,
-    stepTick: world.tick,
-    grow: 0,
-    struck: [],
-    taken: [],
-    mawTick: LONG_AGO,
-    shotBeat: LONG_AGO,
-    shotCol: -1,
-    shotRow: -1,
-    shotHit: false,
-    repeats: 0,
-    repeatBeat: -1,
-  };
-  resetBody(world, snake);
-  return snake;
-}
-
-/**
- * The body back to what it opens with: short, in the middle, at the bottom,
- * heading up. Where the ship was and the way it points, which is what the
- * morph has just finished drawing — and after a repeat it is the same picture
- * again, so the pair always starts from a place they have a word for.
- */
-export function resetBody(world: World, snake: SnakeState): void {
-  const cfg = world.cfg;
-  const col = Math.floor(cfg.snakeCols / 2);
-  const bottom = cfg.snakeRows - 1;
-  snake.body = [];
-  for (let i = 0; i < cfg.snakeStartTiles; i++) {
-    snake.body.push({ col, row: Math.max(0, bottom - cfg.snakeStartTiles + 1 + i) });
-  }
-  snake.dirCol = 0;
-  snake.dirRow = -1;
-  snake.turn = 0;
-  snake.grow = 0;
-  // A fresh interval, so the first step of an attempt is a whole one rather
-  // than whatever was left of the step the last one ended on.
-  snake.stepTick = world.tick;
+  /**
+   * `world.tick` of the last one, and the clock the pause after it runs on.
+   *
+   * A beat is too coarse for it: the body steps on the tick, so the hold that
+   * stops it stepping has to be counted in the same unit or the pause would be
+   * a different length depending on where in the beat the crash landed.
+   */
+  repeatTick: number;
+  /**
+   * The tile the head was trying to enter when it went wrong, or -1 before
+   * the first crash. A wall is off the board and that is deliberate: it is
+   * where the head *went*, not where it is allowed to be, and the picture
+   * bumps the nose against exactly that place.
+   */
+  bumpCol: number;
+  bumpRow: number;
+  /**
+   * The body as it stood on the tick of the crash, head first, and the way it
+   * was pointing.
+   *
+   * Kept because `resetBody` runs on the same tick: without it the only body
+   * on the state during the pause is the one standing at the start, and there
+   * would be nothing left to draw folding up. It is not read by any rule —
+   * only the picture asks for it — and it is fingerprinted all the same,
+   * because a field outside the fingerprint is a field that can desync two
+   * devices silently (CLAUDE.md, rule 4).
+   */
+  ghost: SnakeTile[];
+  ghostDirCol: number;
+  ghostDirRow: number;
 }
 
 /** The round being played. Clamped, so a state read after the last one still answers. */

@@ -15,7 +15,9 @@ import type { SnakeRound } from "@neon-spore/sim";
  * shape neither player can describe.
  *
  * **How to read a row.** `enemies` must be shot before the head reaches them —
- * touching one starts the attempt over. `points` must be driven over with the
+ * touching one starts the attempt over, and the spit only carries three tiles
+ * (`snakeShotTiles`), so an enemy has to be driven *at* before it can be
+ * answered. `points` must be driven over with the
  * mouth open, and driven over with it shut starts the attempt over too.
  * `rocks` are meteors: they cannot be shot and cannot be taken, they stop a
  * shot dead, and touching one starts the attempt over like anything else.
@@ -31,15 +33,16 @@ import type { SnakeRound } from "@neon-spore/sim";
  * **The step, in ticks.** At 120 ticks a second, 60 is half a second a tile and
  * 38 is under a third. The body slides between tiles rather than jumping
  * (`snake-body.ts`), so these are the speeds of a thing that moves rather than
- * of a thing that ticks. The mouth stands open for 60 ticks whatever the round
- * (`snakeMawTicks`), so the press that is a whole step in round one is under
- * two thirds of one by round three — the round gets harder in the one place it
+ * of a thing that ticks. The mouth stands open for 84 ticks whatever the round
+ * (`snakeMawTicks`), so the press that is well over a step in round one is
+ * barely two by round three — the round gets harder in the one place it
  * should, without a second number saying so.
  */
 export const SNAKE_ROUNDS: SnakeRound[] = [
-  // Learning what the two seats are. One enemy straight ahead — player 1 has
-  // about four seconds to notice it and fire — and three points spread wide
-  // enough that each one is a turn somebody has to call.
+  // Learning what the two seats are. One enemy straight ahead, standing at the
+  // far end of the spit's reach on the tile the body opens on, so the first
+  // thing player 1 ever does is fire at something already in range — and three
+  // points spread wide enough that each one is a turn somebody has to call.
   {
     enemies: [
       { col: 4, row: 5 },

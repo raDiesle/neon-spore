@@ -42,6 +42,27 @@ export interface SnakeConfig {
   /** Beats between two shots, so a held trigger is not a cleared row. */
   snakeFireRestBeats: number;
   /**
+   * Tiles the spit carries, counted from the tile in front of the head.
+   *
+   * It used to carry the width of the arena, which made the shot a thing the
+   * pair *aimed* rather than a thing they had to be brought to: an enemy eight
+   * tiles up column four was answered from the opening tile, and the steering
+   * had nothing to do with it. A spit is short, and a short spit is what turns
+   * "it is lined up" into "get me closer to it".
+   */
+  snakeShotTiles: number;
+  /**
+   * Ticks the arena holds still after a crash, before the body sets off again.
+   *
+   * The attempt used to start over on the same tick it ended, which is the
+   * one moment of this round nobody could read: the body was somewhere, then
+   * it was somewhere else, and neither seat could say what had happened. The
+   * pause is the round admitting it. Nothing is judged during it — the clock
+   * is pushed along with it and the trigger and the mouth are dead — so what
+   * it costs is only the time it takes to watch (`snake-move.ts`).
+   */
+  snakeStunTicks: number;
+  /**
    * What running out of time takes off the hull, in whole points. The round
    * draws no hull and the hull is at stake anyway — `damageGauge`'s argument,
    * one round along.
@@ -72,12 +93,21 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeRows: 11,
   snakeStartTiles: 3,
   snakeGrowTiles: 1,
-  // Half a second, against a step of three quarters of one in the first round
-  // and under half by the last: generous where the pair is learning what the
-  // mouth is for, and the whole difficulty of the last round.
-  snakeMawTicks: 60,
+  // Seven tenths of a second, against a step of half of one in the first round
+  // and under a third by the last. It was half a second, and the owner asked
+  // for a mouth that stands open long enough to be seen standing open: at the
+  // old window the jaws were swinging shut about as soon as they had finished
+  // swinging apart, which read as a twitch rather than as a mouth.
+  snakeMawTicks: 84,
   snakeMawRestTicks: 30,
   snakeFireRestBeats: 1,
+  // Three tiles, which is the far side of the tile the head is entering plus
+  // two. Short enough that the shot is a reason to steer.
+  snakeShotTiles: 3,
+  // A second and a quarter: long enough for the bump, the body folding up and
+  // the empty arena to be three separate things the pair sees, and short
+  // enough that a repeat is still a repeat rather than an interruption.
+  snakeStunTicks: 150,
   // THE GAUGE's number, because it is the same event: a round the pair did not
   // finish. The owner turns one, they both move.
   damageSnake: 20,
