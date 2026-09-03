@@ -285,25 +285,6 @@ bundler already follows several `<link>` tags, as `apps/game/index.html` shows
 — and point `rail-boss-guard.test.ts` at whichever file keeps `button:disabled`.
 A `bun run dev:once` look at `/` proves the page is unchanged.
 
-## Extract the shared queen shell draw and SVG fade from the director drafts
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-extract-the-shared-queen-shell-draw-and-svg-fade
-- **Files:** `tools/director/src/holders/hairline.ts`, `tools/director/src/holders/withdrawal.ts`, `tools/director/src/holders/underglow.ts`, `tools/director/src/holders/queen-shared.ts`, `tools/director/src/tails/ribbon.ts`, `tools/director/src/tails/wedge.ts`, `tools/director/src/tails/smoke.ts`, `tools/director/src/tails/types.ts`
-
-A shingle scan over the director puts hairline/withdrawal (32% shared),
-hairline/underglow (26%) and ribbon/wedge/smoke at the top. In the holders a
-25-line block (`cx/cy/rx/ry/markY/markR`, `drawQueenMarks`, the ellipse and the
-same three-stop gradient, the `PALETTE.rock` stroke, two `drawQueenSocket` calls,
-`drawPetalRow`) is byte-identical in three files, each differing in one modifier
-(cracks, squeeze, ember). In the tails the `linearGradient` plus three `<stop>`
-construction is copied per tail with only the stop table differing.
-
-Add `drawQueenShell(ctx, geom, cycle)` to `queen-shared.ts` (taking the pre-shell
-hook for the halo and the rx/ry override for withdrawal) and `verticalFade(ctx,
-id, stops)` beside `tails/types.ts`. This is a refactor of a tool, not a look;
-`tails.test.ts` and a `bun run shapes:still` frame prove the pixels did not move.
-
 ## Break the runtime import cycle in the SHAPES page and add a cycle check
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31

@@ -1,4 +1,4 @@
-import type { SkinContext, SkinFrame } from "../skins/types.js";
+import { type SkinContext, type SkinFrame, SVG } from "../skins/types.js";
 
 /**
  * What a body leaves behind it as it falls.
@@ -66,4 +66,58 @@ export interface Tail<Id extends string = string> {
    */
   readonly shipped?: string;
   build(ctx: TailContext): void;
+}
+
+/**
+ * One `<stop>` of a fade: how far along the ramp it sits, and how opaque the
+ * card's own colour is there.
+ */
+export type FadeStop = readonly [offset: string, alpha: string];
+
+/**
+ * The `<defs>` half of a painted tail, which RIBBON, WEDGE and SMOKE were each
+ * writing out by hand.
+ *
+ * Only the stop table ever differed between the three — the id keyed on
+ * `ctx.uid`, the `<stop>` per row, the `stop-color` taken from the card, and
+ * the append into `ctx.defs` were the same nine lines each time. A tail now
+ * says what its ramp *is* and gets the `url(#…)` back.
+ *
+ * It lives in this file rather than one of its own because `tails.test.ts`
+ * counts the files in the directory against the length of `TAILS`: a seventh
+ * file there is a seventh tail, and this is not one.
+ */
+function fade(ctx: TailContext, grad: SVGElement, id: string, stops: readonly FadeStop[]): string {
+  grad.setAttribute("id", `${ctx.uid}-${id}`);
+  for (const [offset, alpha] of stops) {
+    const s = document.createElementNS(SVG, "stop");
+    s.setAttribute("offset", offset);
+    s.setAttribute("stop-color", ctx.colour);
+    s.setAttribute("stop-opacity", alpha);
+    grad.appendChild(s);
+  }
+  ctx.defs.appendChild(grad);
+  return `url(#${ctx.uid}-${id})`;
+}
+
+/**
+ * A ramp running **along** a tail rather than across it.
+ *
+ * `objectBoundingBox` with `x1 = x2` makes it vertical whatever the shape's
+ * proportions turn out to be, which is the part that is easy to get subtly
+ * wrong: a wedge two body-heights tall and a fifth as wide, given a diagonal
+ * axis, fades across its own width instead of away from the body.
+ */
+export function verticalFade(ctx: TailContext, id: string, stops: readonly FadeStop[]): string {
+  const grad = document.createElementNS(SVG, "linearGradient");
+  grad.setAttribute("x1", "0");
+  grad.setAttribute("y1", "0");
+  grad.setAttribute("x2", "0");
+  grad.setAttribute("y2", "1");
+  return fade(ctx, grad, id, stops);
+}
+
+/** A ramp out from the middle of the shape it paints — SMOKE's soft-edged puff. */
+export function radialFade(ctx: TailContext, id: string, stops: readonly FadeStop[]): string {
+  return fade(ctx, document.createElementNS(SVG, "radialGradient"), id, stops);
 }

@@ -1,5 +1,5 @@
 import { SVG } from "../skins/types.js";
-import type { Tail } from "./types.js";
+import { type Tail, verticalFade } from "./types.js";
 
 /**
  * One continuous stroke tapering away above the body — the classic trail
@@ -33,24 +33,11 @@ export const RIBBON: Tail<"ribbon"> = {
   hint: "one continuous stroke tapering to nothing — the classic trail renderer, versus TRAIL's dots",
   reachUp: REACH,
   build(ctx) {
-    const grad = document.createElementNS(SVG, "linearGradient");
-    grad.setAttribute("id", `${ctx.uid}-ribbon`);
-    grad.setAttribute("x1", "0");
-    grad.setAttribute("y1", "0");
-    grad.setAttribute("x2", "0");
-    grad.setAttribute("y2", "1");
-    for (const [offset, alpha] of [
+    const paint = verticalFade(ctx, "ribbon", [
       ["0%", "0"],
       ["55%", "0.28"],
       ["100%", "0.7"],
-    ] as const) {
-      const s = document.createElementNS(SVG, "stop");
-      s.setAttribute("offset", offset);
-      s.setAttribute("stop-color", ctx.colour);
-      s.setAttribute("stop-opacity", alpha);
-      grad.appendChild(s);
-    }
-    ctx.defs.appendChild(grad);
+    ]);
 
     const rx = ctx.extent.w / 2;
     const ry = ctx.extent.h / 2;
@@ -58,7 +45,7 @@ export const RIBBON: Tail<"ribbon"> = {
     const top = y - ry * REACH * 2;
     const ribbon = document.createElementNS(SVG, "path");
     ctx.body.appendChild(ribbon);
-    ribbon.setAttribute("fill", `url(#${ctx.uid}-ribbon)`);
+    ribbon.setAttribute("fill", paint);
     ribbon.setAttribute("stroke", "none");
 
     ctx.onFrame(({ t }) => {

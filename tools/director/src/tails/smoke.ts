@@ -1,5 +1,5 @@
 import { SVG } from "../skins/types.js";
-import type { Tail } from "./types.js";
+import { radialFade, type Tail } from "./types.js";
 
 /**
  * A soft plume widening away above the body.
@@ -28,20 +28,11 @@ export const SMOKE: Tail<"smoke"> = {
   hint: "a plume that widens and dissipates — the only tail here that spreads instead of tapering",
   reachUp: REACH,
   build(ctx) {
-    const grad = document.createElementNS(SVG, "radialGradient");
-    grad.setAttribute("id", `${ctx.uid}-smoke`);
-    for (const [offset, alpha] of [
+    const paint = radialFade(ctx, "smoke", [
       ["0%", "0.34"],
       ["55%", "0.16"],
       ["100%", "0"],
-    ] as const) {
-      const s = document.createElementNS(SVG, "stop");
-      s.setAttribute("offset", offset);
-      s.setAttribute("stop-color", ctx.colour);
-      s.setAttribute("stop-opacity", alpha);
-      grad.appendChild(s);
-    }
-    ctx.defs.appendChild(grad);
+    ]);
 
     const rx = ctx.extent.w / 2;
     const ry = ctx.extent.h / 2;
@@ -53,7 +44,7 @@ export const SMOKE: Tail<"smoke"> = {
       e.setAttribute("cy", (ctx.centre.y - ry * up).toFixed(2));
       e.setAttribute("rx", (rx * (0.55 + k * 0.3)).toFixed(2));
       e.setAttribute("ry", (ry * (0.5 + k * 0.22)).toFixed(2));
-      e.setAttribute("fill", `url(#${ctx.uid}-smoke)`);
+      e.setAttribute("fill", paint);
       e.setAttribute("opacity", (1 - k / (PUFFS + 1)).toFixed(3));
       ctx.body.appendChild(e);
       puffs.push(e);

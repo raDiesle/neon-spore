@@ -1,5 +1,5 @@
 import { SVG } from "../skins/types.js";
-import type { Tail } from "./types.js";
+import { type Tail, verticalFade } from "./types.js";
 
 /**
  * A tapering gradient wedge running away above the body — **what a torch
@@ -29,6 +29,9 @@ import type { Tail } from "./types.js";
  * The torch also only draws it once it has actually travelled — `c.row !==
  * c.fromRow` — because a streak behind a rock still sitting in its socket
  * would read as a fall that has not started.
+ *
+ * The gradient runs *along* the wedge and not across it — `verticalFade` in
+ * `types.ts` is where that axis is set, and why.
  */
 const WIDE_AT_BODY = 0.9;
 const NARROW_AT_END = 0.12;
@@ -41,26 +44,11 @@ export const WEDGE: Tail<"wedge"> = {
   reachUp: REACH,
   shipped: "torch — torch.ts, drawTorchTail",
   build(ctx) {
-    const grad = document.createElementNS(SVG, "linearGradient");
-    grad.setAttribute("id", `${ctx.uid}-wedge`);
-    // Along the tail rather than across it: `objectBoundingBox` with x1 = x2
-    // makes a vertical ramp whatever the wedge's proportions turn out to be.
-    grad.setAttribute("x1", "0");
-    grad.setAttribute("y1", "0");
-    grad.setAttribute("x2", "0");
-    grad.setAttribute("y2", "1");
-    for (const [offset, alpha] of [
+    const paint = verticalFade(ctx, "wedge", [
       ["0%", "0"],
       ["75%", "0.1"],
       ["100%", "0.3"],
-    ] as const) {
-      const s = document.createElementNS(SVG, "stop");
-      s.setAttribute("offset", offset);
-      s.setAttribute("stop-color", ctx.colour);
-      s.setAttribute("stop-opacity", alpha);
-      grad.appendChild(s);
-    }
-    ctx.defs.appendChild(grad);
+    ]);
 
     const rx = ctx.extent.w / 2;
     const ry = ctx.extent.h / 2;
@@ -73,7 +61,7 @@ export const WEDGE: Tail<"wedge"> = {
         ` L ${ctx.centre.x + rx * WIDE_AT_BODY} ${ctx.centre.y}` +
         ` L ${ctx.centre.x - rx * WIDE_AT_BODY} ${ctx.centre.y} Z`,
     );
-    wedge.setAttribute("fill", `url(#${ctx.uid}-wedge)`);
+    wedge.setAttribute("fill", paint);
     wedge.setAttribute("stroke", "none");
     ctx.body.appendChild(wedge);
   },

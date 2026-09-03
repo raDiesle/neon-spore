@@ -1,10 +1,6 @@
 import { PALETTE } from "@neon-spore/render";
-import {
-  drawPetalRow,
-  drawQueenMarks,
-  drawQueenSocket,
-  type QueenVariant,
-} from "./queen-shared.js";
+import type { QueenVariant } from "./queen-shared.js";
+import { drawQueenShell, type QueenGeom, queenGeom } from "./queen-shell.js";
 
 /**
  * HAIRLINE — her shell keeps every petal she has lost as a crack across it.
@@ -25,14 +21,8 @@ import {
 /** How far a crack reaches out from the shell's centre, as a share of the body's own radius. */
 const CRACK_REACH = 0.92;
 
-function drawCracks(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  rx: number,
-  ry: number,
-  lost: number,
-): void {
+function drawCracks(ctx: CanvasRenderingContext2D, geom: QueenGeom, lost: number): void {
+  const { cx, cy, rx, ry } = geom;
   ctx.strokeStyle = PALETTE.rockDark;
   ctx.lineWidth = Math.max(1, rx * 0.03);
   for (let i = 0; i < lost; i++) {
@@ -59,36 +49,8 @@ export const HAIRLINE: QueenVariant = {
     "Against it: cracks are the busiest of the three at phone size, and a silhouette with damage baked into its own edge is the hardest of the three to keep reading as one clean shape once she is down to her last petal.",
 
   draw(ctx, w, h, cycle) {
-    const cx = w * 0.5;
-    const sinkRange = h * 0.16;
-    const cy = h * 0.4 + (1 - cycle.healthShare) * sinkRange;
-    const rx = w * 0.24;
-    const ry = h * 0.14;
-    const markY = cy + ry * 1.7;
-    const markR = h * 0.075;
-
-    drawQueenMarks(ctx, cx, markY, markR, rx * 0.75, cycle, cycle.t);
-
-    ctx.beginPath();
-    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-    const grad = ctx.createLinearGradient(cx - rx, cy - ry, cx + rx, cy + ry);
-    grad.addColorStop(0, "#6B707E");
-    grad.addColorStop(0.55, "#3C3F49");
-    grad.addColorStop(1, PALETTE.rockDark);
-    ctx.fillStyle = grad;
-    ctx.fill();
-    ctx.strokeStyle = PALETTE.rock;
-    ctx.lineWidth = Math.max(1, Math.min(rx, ry) * 0.06);
-    ctx.stroke();
-
-    drawCracks(ctx, cx, cy, rx, ry, cycle.startPetals - cycle.petals);
-
-    const rockR = h * 0.1;
-    for (const side of [-1, 1] as const) {
-      const sockX = cx + side * rx * 1.55;
-      drawQueenSocket(ctx, w, h, sockX, cy, rockR, cx + side * rx * 0.6, side, cycle, cycle.t);
-    }
-
-    drawPetalRow(ctx, cx, cy - ry * 1.9, rx * 1.3, cycle);
+    drawQueenShell(ctx, queenGeom(w, h, cycle), cycle, {
+      onShell: (c, geom) => drawCracks(c, geom, cycle.startPetals - cycle.petals),
+    });
   },
 };

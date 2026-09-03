@@ -589,6 +589,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/holders/queen-cycle.ts` | The one clock the three whole-body BULB QUEEN VARIANTS run on |
 | `tools/director/src/holders/queen-panel.ts` | Mounting for the three whole-body BULB QUEEN VARIANTS |
 | `tools/director/src/holders/queen-shared.ts` | What every whole-body BULB QUEEN VARIANT shares |
+| `tools/director/src/holders/queen-shell.ts` | The baseline BULB QUEEN body a whole-body draft starts from |
 | `tools/director/src/holders/types.ts` | What a holder draft is, and what it is told |
 | `tools/director/src/holders/underglow.ts` | UNDERGLOW — the shell stays whole; what changes is the light through it |
 | `tools/director/src/holders/withdrawal.ts` | WITHDRAWAL — she hunches, rather than cracking or glowing, as she is hurt |

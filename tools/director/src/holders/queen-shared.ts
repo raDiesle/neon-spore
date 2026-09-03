@@ -9,6 +9,9 @@ import type { HolderContext } from "./types.js";
  * and not in whether they got the marks, the sockets or the petal row right.
  * The five load-bearing properties live here rather than being re-derived
  * per file: a variant calls these, it does not redraw them.
+ *
+ * The parts are here; the body that arranges them is `queen-shell.ts`, which a
+ * draft calls once and then adds its own argument to.
  */
 
 /** A whole-body draft, shown against the same clock as its two siblings. */

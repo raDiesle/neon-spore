@@ -19,6 +19,7 @@ const FILES = readdirSync(DIR).filter(
   (f) => f.endsWith(".ts") && f !== "index.ts" && f !== "types.ts",
 );
 const SOURCE = new Map(FILES.map((f) => [f, readFileSync(join(DIR, f), "utf8")]));
+const TYPES = readFileSync(join(DIR, "types.ts"), "utf8");
 
 /** The file with its comments taken out — see `glows.test.ts` for why. */
 function code(src: string): string {
@@ -86,10 +87,25 @@ describe("what a tail file may not contain", () => {
   });
 
   it("keys every defs id on the figure's uid", () => {
-    for (const [file, src] of SOURCE) {
+    // `types.ts` is not a tail and so is not in SOURCE, but `verticalFade` and
+    // `radialFade` are where RIBBON, WEDGE and SMOKE's ids are written now —
+    // an id built there and not keyed on the uid would collide across every
+    // card on the page at once, which is worse than one tail getting it wrong.
+    for (const [file, src] of [...SOURCE, ["types.ts", TYPES] as const]) {
       const ids = src.match(/setAttribute\("id", `[^`]*`\)/g) ?? [];
       // biome-ignore lint/suspicious/noTemplateCurlyInString: this reads source text, and the placeholder is the thing being looked for.
       for (const id of ids) expect(id, file).toContain("${ctx.uid}");
+    }
+  });
+
+  it("leaves the gradient boilerplate to the shared fades", () => {
+    // Three tails were each writing the same nine lines of `<linearGradient>`
+    // and `<stop>`, differing only in the stop table. A fourth copy is how the
+    // axis ends up comparing two ramps that were meant to be the same one.
+    for (const [file, src] of SOURCE) {
+      expect(code(src), file).not.toContain('createElementNS(SVG, "stop")');
+      expect(code(src), file).not.toContain("linearGradient");
+      expect(code(src), file).not.toContain("radialGradient");
     }
   });
 });
