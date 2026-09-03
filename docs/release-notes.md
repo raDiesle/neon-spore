@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · e7ebb42 — Testing alone is quiet: no socket, and no service worker on a local address
+
+A cache that answers when the server has idled out serves a build that no longer exists, and the stale page reads as a bug in the code that just replaced it. That is not a hypothesis — it happened while the service worker was being written, on the preview, and cost a confused half hour chasing a fault that had already been fixed. So no local address installs one: not the director's `/game`, not the preview on 4173, not `dev:game` on 3000. Ones already there are taken off rather than merely not renewed, along with their caches, because a worker outlives the change that stopped registering it. `?pwa=1` turns one on locally for the only case that wants it, which is testing the install itself.
+
 ## 2026-09-03 · 91997f6 — Fifty technical findings from a review of every package, filed in the queue
 
 A read-only review of sim, render, content, audio, net, the server, the game app, the director and the repo tooling, one lane per area. Nothing in the code moved; the findings went to docs/queue.md as entries a fresh session can drain alone and prove with bun run check. The ones that matter most: render and audio re-derive the guard window and disagree with the sim by one tick; a failed reconnect is counted twice, so six tries are three; a peer can fill the other phone's lockstep map without bound; the service worker caches an error page as the offline shell; the Durable Object has no test; the director's shapes-motion test spends six seconds on eleven million expects; and nineteen dead imports sit behind Biome warnings that nothing turns red on.
