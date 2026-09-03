@@ -229,25 +229,6 @@ names the panel. The first is the smaller change and keeps the documents true.
 barrel-trimming item), so what is left of the second option is deleting the
 function itself and the three documents. Nothing else about this entry changed.
 
-## Test the content invariants nothing checks: wave names, beats, creature keys
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Taken:** 2026-09-03, claude/queue-test-the-content-invariants-nothing-checks-wave
-- **Files:** `packages/content/test/waves.test.ts`, `packages/content/test/creatures.test.ts`, `packages/content/src/waves-demo.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/creatures-table.ts`
-
-`Demonstration.wave` names a wave by string, `wavesUsingSet` returns names, and
-tests resolve via `WAVES.findIndex((w) => w.name === name)`, but nothing checks
-wave names are unique, that a non-boss wave has entries, or that every entry's
-`beat >= 0`. A second "THE WALL" landed by the director would silently point every
-lookup at the first. `CREATURES` is `Record<CreatureKind, CreatureDef>` and every
-row repeats its key in `kind`; nothing reads `.kind` off a def and
-`slick: { kind: "bulb" }` type-checks.
-
-Add to `waves.test.ts`: `new Set(WAVES.map((w) => w.name)).size === WAVES.length`,
-a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one line
-to the creature test: `for (const [k, d] of Object.entries(CREATURES))
-expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
-
 ## The room starts on a shared press, not a three-second timer
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

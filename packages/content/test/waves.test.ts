@@ -12,6 +12,60 @@ describe("wave content", () => {
     expect(secondsToHull).toBeGreaterThanOrEqual(4);
   });
 
+  /**
+   * A wave is reached by name from four places — `Demonstration.wave`,
+   * `wavesUsingSet`, and the tests that resolve one with
+   * `WAVES.findIndex((w) => w.name === name)` — and none of them can tell a
+   * second "THE WALL" from the first. Every one of those lookups would quietly
+   * point at the earlier wave, so the duplicate would be a wave that exists,
+   * is played, and is invisible to everything that names waves. The director
+   * can rename a wave from its own screen, which is how one would arrive.
+   */
+  it("gives every wave a name of its own", () => {
+    const seen = new Map<string, number>();
+    for (const [i, wave] of WAVES.entries()) {
+      const first = seen.get(wave.name);
+      expect(first, `wave ${i} repeats the name of wave ${first}: ${wave.name}`).toBeUndefined();
+      seen.set(wave.name, i);
+    }
+  });
+
+  /**
+   * `beat` is counted from the start of the wave, so a negative one asks for a
+   * creature that entered before the wave did. Nothing rejects it: the queue
+   * builder would simply spawn it on the first tick, a beat early and for a
+   * reason nobody could read off the file.
+   */
+  it("counts every entry from the start of its wave, not before it", () => {
+    for (const wave of WAVES) {
+      for (const [i, entry] of wave.entries.entries()) {
+        expect(
+          entry.beat,
+          `${wave.name} entry ${i} arrives at beat ${entry.beat}`,
+        ).toBeGreaterThanOrEqual(0);
+      }
+      for (const [i, pod] of (wave.pods ?? []).entries()) {
+        expect(
+          pod.beat,
+          `${wave.name} pod ${i} arrives at beat ${pod.beat}`,
+        ).toBeGreaterThanOrEqual(0);
+      }
+    }
+  });
+
+  /**
+   * A wave with no boss and no entries is a wave that opens, has nothing in
+   * it, and ends — which reads as a hang rather than as a wave. Only a boss
+   * wave may be empty, because three of the four bosses are the whole encounter
+   * and their waves carry nothing else.
+   */
+  it("gives a wave without a boss something to send", () => {
+    for (const wave of WAVES) {
+      if (wave.boss) continue;
+      expect(wave.entries.length, `${wave.name} has no boss and no entries`).toBeGreaterThan(0);
+    }
+  });
+
   it("passes the one-sentence test", () => {
     for (const wave of WAVES) {
       expect(wave.sentence, `${wave.name} has no one-sentence description`).toMatch(/\S/);

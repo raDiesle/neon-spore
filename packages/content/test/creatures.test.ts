@@ -41,3 +41,18 @@ describe("POD_CATEGORY", () => {
     expect(POD_CATEGORY).toBe("suck");
   });
 });
+
+describe("the table's keys", () => {
+  /**
+   * `CREATURES` is a `Record<CreatureKind, CreatureDef>` and every row repeats
+   * its own key in `kind`, so the two can disagree — `slick: { kind: "bulb" }`
+   * type-checks perfectly. Nothing reads `.kind` off a definition today, which
+   * is exactly why a wrong one would sit there until the first thing that did.
+   */
+  it("names each creature the same way twice", () => {
+    for (const key of Object.keys(CREATURES) as (keyof typeof CREATURES)[]) {
+      const def = CREATURES[key];
+      expect(def.kind, `CREATURES.${key} calls itself ${def.kind}`).toBe(key);
+    }
+  });
+});
