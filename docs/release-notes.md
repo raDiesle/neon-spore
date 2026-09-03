@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 84e4841 — bun run frames can fire the cannon, so a hit effect can be photographed
+
+`--hold` was the only way a capture pressed anything, and all four controls it accepts are *held* — none of them is a shot. So every effect that exists only because a bullet met a body (a shed layer, a shell piece, a clasp opening, a torn veil, a bare core) could not be photographed by the tool CLAUDE.md names for showing the owner something, and the lane that wanted one hand-rolled a throwaway playwright script to get it — the fifth such script `shot.ts`'s own header counts.
+
 ## 2026-09-04 · 15d13be — The phone buzzes for the two things a player must not miss
 
 The game is played in a room where two people are talking over each other, which is the one room a sound cue is worst in. A buzz in the hand survives it.
