@@ -54,6 +54,11 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   writes the release note, deletes the branch, sweeps spent worktrees and pushes
   `main`. Do not do any of that by hand, and do not skip a step because it looks
   done.
+- **A finished lane lands itself.** The `Stop` hook `.claude/hooks/auto-land.sh`
+  runs `bun run land` when a turn ends in a worktree that is clean and ahead of
+  `main`, and prints a **LANDED!** badge in the chat. Uncommitted work is
+  unfinished work and never lands; `NO_AUTO_LAND=1` turns it off for a session
+  that wants to land by hand.
 - **The rebase happens before the check, not after.** `bun run land` already
   orders it that way; a green check taken before the rebase is a result about a
   tree that no longer exists.

@@ -115,3 +115,41 @@ section below describes — a session started from a phone clones `origin` and
 is briefed on code that is not there. The saving was never real and the trap
 always was.
 
+
+## Landing without being asked
+
+The commit rule above has a gap at the end of it. A lane could be finished,
+green and committed, and still sit on a branch until somebody remembered to
+type `bun run land` — which, in a repository whose history is linear on
+purpose, is the one step where forgetting is expensive: the trunk moves under
+the branch, the rebase gets larger every day, and the twenty-seventh idle
+worktree is the same failure in a different shape.
+
+So the last step is taken by the machine. `.claude/hooks/auto-land.sh` runs on
+`Stop`, when the turn is already over, and asks three questions git can answer
+without trusting anybody's account of the work:
+
+- is this a worktree, on a branch of its own that is not `main`?
+- is the tree clean?
+- is the branch ahead of `main`?
+
+Only all three together mean *finished*. The clean-tree question is the load
+bearing one: mid-task work cannot land, by construction, because mid-task work
+is uncommitted. Everything else — is the code good, does it replay, does it
+check — is `bun run land`'s to refuse, and it already refuses on its own terms,
+before the trunk has moved.
+
+It shares the `Stop` event with `check-on-stop.sh`, and they never do the same
+work twice: that one returns immediately when the tree is clean, this one
+returns immediately when it is not.
+
+**A landing that fails blocks the turn.** The session gets the last twenty-five
+lines of the failure back and goes to work on it, once — `stop_hook_active`
+guards the second round, so a lane that cannot land stops being nagged and
+stays a branch.
+
+**The badge is the whole report.** A hook's one channel into the chat is
+`systemMessage`, and it is read from a phone, so the landing has to fit a line:
+the branch, the sha it went to and how many commits moved.
+
+`NO_AUTO_LAND=1` turns it off for a session that wants to land by hand.
