@@ -13,9 +13,15 @@ import { statSync } from "node:fs";
  * looking at. That is the same failure the fixed ports were chosen to prevent,
  * arriving through the other door.
  *
- * So a port belongs to a tree. The main checkout keeps the number that is
- * written down everywhere; every worktree derives its own from its path, the
- * same one every time, so a session can `curl` twice and get the same server.
+ * So a port belongs to a tree — but only when it has to. `claimPort` tries the
+ * number written down everywhere first, so a single server in a single tree
+ * still answers at 4173 or 4174 whether or not that tree is a worktree; the
+ * port derived from the tree's path is the fallback, taken when another
+ * checkout's copy of the same server already holds the base. Being a worktree
+ * is not by itself a reason to move. The derivation is stable either way, so a
+ * session can `curl` twice and get the same server, and `portFor` — which
+ * *does* move unconditionally — is for the relay, whose wrangler answers no
+ * marker and so cannot be settled with.
  */
 
 /** FNV-1a over the path, so the same worktree always lands on the same port. */

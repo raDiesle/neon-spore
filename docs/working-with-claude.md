@@ -78,6 +78,21 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+*Amended 2026-09-03:* a worktree does **not** get its own port as a matter of
+course, and for a while both this file's neighbour and `CLAUDE.md` said it did.
+`claimPort` tries the base port first, always — 4173 for the preview, 4174 for
+the director — because a single server in a single tree should answer where
+every document, launch config and `curl` line says it does. The tree's derived
+port is a *fallback*, taken only when the base is already held by the same
+server serving a different checkout. So a director started in an otherwise idle
+worktree announces `http://localhost:4174`, which the old rule said could not
+happen; a session that believed the old rule probed the derived port, got
+nothing, and twice concluded its own server had failed to start before anybody
+read the log. The advice that survives is the one that was always right: read
+the port out of the server's own startup line, which prints the number and the
+tree together. The relay is the exception that proves it — wrangler answers no
+marker, so `claimPort` is no use and `relayPort` derives unconditionally.
+
 ## A hot server and a tree that moved
 
 *Added 2026-09-03.* A hot bundler reloads the module whose file changed, which

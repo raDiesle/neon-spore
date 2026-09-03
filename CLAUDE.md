@@ -278,10 +278,15 @@ Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
 checkout it serves in `tree`. If that tree is not the one under test, the number
 came off the wrong server.
 
-**In a worktree the port is not 4173.** A server steps aside onto a port derived
-from its tree's path (`tools/ports.ts`) and prints the port and the tree on
-startup, so read the port out of the server's own log rather than assuming it.
-The director does the same from 4174.
+**Read the port out of the server's own startup line.** A worktree's preview
+takes 4173 when 4173 is free — a single server in a single tree still answers
+where every document and `curl` line says it does — and steps aside onto a port
+derived from its tree's path (`tools/ports.ts`) only when another tree's server
+is already holding the base. So the port is one of two numbers and the log says
+which, along with the tree. The director does the same from 4174. Do not read
+"this is a worktree" as "the port is derived": a session that assumed that
+probed the derived port, found nothing, and concluded its server had failed to
+start.
 
 **In a worktree, `.claude/launch.json` is the wrong tool** — its entries carry no
 `cwd`, so they start the *main* checkout's server, which then serves main's
@@ -325,8 +330,10 @@ bun run relay:check ws://127.0.0.1:8800 14 --rejoin
 `--split` reaches into one of the two worlds on purpose, to prove the desync
 detector is watching. `--full` sends a third device at a room that has two, and
 `--rejoin` drops one mid-run and brings it back — the two things the Durable
-Object does that no unit test reaches, and both of them were broken. The relay's port belongs to its tree the same way the
-preview's does; `curl -s http://127.0.0.1:<port>/net/health` says who answered.
+Object does that no unit test reaches, and both of them were broken. The relay is the one server whose port
+*is* always derived in a worktree — wrangler answers no marker, so there is
+nothing to settle with and `relayPort` simply hands it a number of its tree's
+own; `curl -s http://127.0.0.1:<port>/net/health` says who answered.
 Kill the wrangler process when the check is done.
 
 ## Where things live
