@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · c0116f4 — The tuning panel is called TUNING, and stops repeating the key list
+
+Its heading read "NEON SPORE — TEST BUILD" and its footer was a paragraph of desk keys, both written when opening the game landed on the field and this panel was the whole of the chrome. TUNING is a menu entry now, reached by a player rather than only a tester, so the heading is the page's own name.
+
 ## 2026-09-03 · 5d12058 — The port rule says what claimPort does: the base first, the tree's own second
 
 CLAUDE.md said "in a worktree the port is not 4173", and the director's paragraph said the same of 4174. `claimPort` has never worked that way: it tries the base port first, always, so a single server in a single tree answers where every document and `curl` line says it does, and the port derived from the tree's path is the fallback taken only when another checkout's copy of the same server is already holding the base. A director started in an otherwise idle worktree announces 4174, which the rule said could not happen — and a session that believed the rule probed the derived port, found nothing, and concluded twice that its own server had failed to start.
