@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · fae5a13 — The director's stylesheet is seventeen files, cut where its comments already cut
+
+Taking the `<style>` block out of `index.html` and letting Biome format it left one sheet of 2 985 lines — one declaration per line where the block had been written in compact one-liners, and twelve times the ~250-line ceiling every other file here keeps.
+
 ## 2026-09-03 · 312c4b2 — A card's frame is fitted with one contour per sample, not two
 
 shapes-motion.test.ts was 2.9 s and none of it was the assertions. Most of it was not the sweep either: `transformedBounds` walks its 133 scan times twice, once to find the still box and once to move the points, and it built the contour again for the second pass. A contour sample is a metaball bisection and the most expensive thing in the file, so that was half the cost of every card the SHAPES sheet draws as well as half the test — 1743 ms of the test's fit becomes 1079 ms with the samples read twice instead of taken twice.
