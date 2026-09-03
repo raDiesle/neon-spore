@@ -46,7 +46,7 @@ export function drawTentacles(
 ): void {
   // Short when gathered, short when splashed, longest at the two ends of the
   // arc — a streamer is longest exactly when the body is moving hardest.
-  const len = ry * (1.25 - j.crouch * 0.7 - j.land * 0.72 + dive * 0.5);
+  const len = ry * (1.5 - j.crouch * 0.85 - j.land * 0.88 + dive * 0.6);
   // Outward when it lands and only then: the splash is the one moment these
   // are not hanging.
   const splay = 1 + j.land * 2.2 + air * 0.25;
@@ -57,8 +57,8 @@ export function drawTentacles(
   ctx.lineCap = "round";
   for (let i = 0; i < TENTACLES; i++) {
     const k = i - (TENTACLES - 1) / 2;
-    const bx = k * rx * 0.34;
-    const by = ry * 0.4;
+    const bx = k * rx * 0.32;
+    const by = ry * 0.34;
     const sway = Math.sin(t * 1.7 + i * 1.15) * rx * 0.2 * (1 - j.land);
     const tipX = bx * splay + drag + sway;
     // The splash throws the tips up as well as out — a streamer flat on the
@@ -70,7 +70,7 @@ export function drawTentacles(
     // move separately from the body it is on.
     const middle = Math.abs(k) < 1.5;
     ctx.strokeStyle = haze(middle ? PALETTE.wispRim : PALETTE.wisp);
-    ctx.lineWidth = middle ? ry * 0.075 : ry * 0.05;
+    ctx.lineWidth = middle ? ry * 0.09 : ry * 0.06;
     ctx.globalAlpha = middle ? 0.9 : 0.7;
     ctx.beginPath();
     ctx.moveTo(bx, by * 0.4);

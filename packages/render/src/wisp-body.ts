@@ -90,13 +90,17 @@ export function drawWispBody(
   drawTentacles(ctx, shape.rx, shape.ry, t, j, dive, air, heading, haze);
 
   // The bell: the silhouette's own contour, lifted so its hem clears the
-  // streamers' roots rather than sitting in the middle of them.
+  // streamers' roots rather than sitting in the middle of them, and drawn
+  // wider than tall — a dome rather than a ball. The proportion is here and
+  // not in `silhouettes.ts` on purpose: the card on the shape sheet is asking
+  // whether this contour is *nameable*, and a bell squashed toward its own
+  // hem is a fact about a body that has a hem.
   const bell = new Path2D(
     blobPath(
       0,
-      -shape.ry * 0.14,
-      shape.rx,
-      shape.ry * 0.86,
+      -shape.ry * 0.16,
+      shape.rx * 1.06,
+      shape.ry * 0.76,
       shape.lobes,
       shape.depth,
       shape.wobble,

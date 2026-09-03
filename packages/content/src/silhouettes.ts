@@ -117,31 +117,44 @@ export const DART: CreatureSilhouette = {
 };
 
 /**
- * Wisp: four deep lobes on a round body, and the one contour in this file
- * chosen for a *count* rather than for a proportion.
+ * Wisp: a bell with a scalloped hem — five shallow lobes on a round body,
+ * where it used to be four deep ones.
  *
- * Every axis but one is already crowded. Slick is flat and the other three are
- * round, so aspect cannot separate a fifth body from Bulb and Throb; and every
- * living kind is drawn at the same fixed footprint, so size cannot either.
- * What is left is the lobe count — the axis `tools/shape-sheet/src/nameability.ts`
- * says is holding the roster apart today — and 2, 3, 6 and 9 are taken. Four
- * is free, it is far from all four of them, and at `depth` 0.3 it reads at a
- * glance as the one thing none of the others is: a body with corners.
+ * **The count is still what separates it, and the depth is what changed.**
+ * Every other axis was already crowded when this body arrived: slick is flat
+ * and the other three are round, so aspect cannot separate a fifth body from
+ * Bulb and Throb, and every living kind draws at the same fixed footprint, so
+ * size cannot either. Lobe count is what is left, it is the axis
+ * `tools/shape-sheet/src/nameability.ts` measures, and 5 is as free as 4 was.
  *
- * That matters more here than for any body before it, because only one player
- * ever sees this one. Player 2 has to say what it is *and* where, across a
- * voice delay, to somebody who cannot check — so if the shape is not one word
- * on its own, nothing downstream of it can be.
+ * What 4 lobes at `depth` 0.3 produced on the field was a four-pointed star.
+ * That is a fine unique silhouette and the wrong picture for a thing that
+ * jumps: a jump is read off squash, stretch and a trailing fringe
+ * (`render/wisp-body.ts`), and corners fight all three — a star flattening is
+ * a star with bent points, not a mass meeting the ground. Five lobes at 0.22
+ * is the same claim made softly: a rim that scallops rather than one that
+ * spikes, which is what the hem of a bell actually does.
  *
- * The wobble is the highest on the roster and the reason is the same: a body
- * that only one of them can see should not look solid. It is a hologram of a
- * thing rather than a thing, and a contour that breathes twice as hard as a
- * bulb's is what says so without a second colour or a second effect.
+ * 0.22 and not less, and the floor is measured rather than chosen: below about
+ * 0.2 `nameability` stops being able to count the lobes at all and the span
+ * opens to 3–5, which is a body that reads as one shape on some frames and
+ * another on others — worse than either. That test is the gate; this number
+ * sits just inside it.
+ *
+ * Only one player ever sees this one, and player 2 has to say what it is *and*
+ * where across a voice delay to somebody who cannot check. What makes the word
+ * come out in one piece is now as much what hangs *under* the contour — five
+ * streamers no other body on this roster has — as the contour itself.
+ *
+ * The wobble is still the highest on the roster and the reason is unchanged: a
+ * body that only one of them can see should not look solid. It is a hologram
+ * of a thing rather than a thing, and a contour that breathes twice as hard as
+ * a bulb's is what says so without a second colour or a second effect.
  */
 export const WISP: CreatureSilhouette = {
-  lobes: 4,
-  depth: 0.3,
-  wobble: 0.1,
+  lobes: 5,
+  depth: 0.22,
+  wobble: 0.12,
   rx: 46,
   ry: 46,
   seed: 6.0,

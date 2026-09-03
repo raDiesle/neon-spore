@@ -105,6 +105,14 @@ function drawArc(
   ctx.lineDashOffset = -beatPhase * dash * 4;
   ctx.beginPath();
   ctx.moveTo(from.x, from.y);
+  // How much the drawn curve bows, in tiles: the full apex once the jump
+  // crosses a couple of columns, and nothing at all when it goes straight up
+  // its own column. A quadratic whose two ends share an x degenerates — it
+  // becomes a line drawn twice, running off the top of the field and back —
+  // which is a picture of nothing. The body still arcs; on an in-column jump
+  // the guide is simply the straight run to the tile, which is the honest
+  // drawing of a hop that does not go anywhere sideways.
+  const across = Math.min(1, Math.abs(to.x - from.x) / (l.tile * 2));
   // The control point of a quadratic sits at twice the height the curve
   // reaches, hence the doubling. The whole curve is drawn from the first frame
   // of the flight and does not grow with the body: it is the *path*, and a
@@ -112,7 +120,7 @@ function drawArc(
   // has been, when the only thing worth saying is where it is going.
   ctx.quadraticCurveTo(
     (from.x + to.x) / 2,
-    (from.y + to.y) / 2 - l.tile * JUMP_TILES * ARC_LIFT * 2,
+    (from.y + to.y) / 2 - l.tile * JUMP_TILES * ARC_LIFT * 2 * across,
     to.x,
     to.y,
   );
