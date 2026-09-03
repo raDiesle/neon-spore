@@ -89,14 +89,17 @@ do not ask the owner to confirm that something was tested. Write the commit
 message well instead: it is the release note, and it is the only part of this
 that anybody sees twice.
 
-**Suggestions go in `docs/parked.md`, not in the report.** Anything the session
-noticed and did not do — a refactor it stepped around, a tool that would have
-helped, an idea for the game — is written there as one `##` section in the same
-commit, and then it is in the clone forever instead of four sessions up a
-transcript. It is deliberately not the release notes: a note records something that
-already happened and is closed, a parked idea is a thing nobody has decided to
-do and is open. Picking one up later is a fresh session and a `git rm`-shaped
-edit to that file. `docs/parked.md` says the rest.
+**A technical finding goes in `docs/queue.md`, not in the report.** A refactor
+the session stepped around, a slow path, a missing test, a document that no
+longer describes the code: one `##` section, in the same commit, and then it is
+in the clone forever instead of four sessions up a transcript. Half-done work
+goes in `docs/parked.md` the same way. An *idea for the game* goes in neither —
+that is a decision, it belongs in `docs/spec/`, and the owner picks it up by
+hand. The queue is deliberately not the release notes: a note records something
+that already happened and is closed, a queue item is work nobody has started
+and is open. Picking one up later is a fresh session — `bun run queue next`
+prints the prompt — which removes the entry in the commit that finishes it.
+`docs/queue.md` says the rest.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with

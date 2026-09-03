@@ -64,6 +64,11 @@ describe("scopeFor", () => {
     expect(scopeFor(["docs/decisions.md"])).toEqual(["tools/director"]);
   });
 
+  it("the queue and the parked list have a second reader that checks their format", () => {
+    expect(scopeFor(["docs/queue.md"])).toEqual(["tools/director", "tools/queue"]);
+    expect(scopeFor(["docs/parked.md"])).toEqual(["tools/director", "tools/queue"]);
+  });
+
   it(".claude/, README.md and CLAUDE.md carry no code a test reads", () => {
     expect(scopeFor([".claude/hooks/check-on-stop.sh"])).toEqual([]);
     expect(scopeFor(["README.md"])).toEqual([]);

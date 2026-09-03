@@ -62,10 +62,16 @@ const ROWS: readonly Row[] = [
   { prefix: "CLAUDE.md", dirs: [] },
 ];
 
-/** `docs/<name>.md` at the top level (not `docs/spec/...`) maps like docs/spec/. */
+/**
+ * `docs/<name>.md` at the top level (not `docs/spec/...`) maps like docs/spec/.
+ * The queue and the parked list have a second reader: `tools/queue` parses both
+ * and fails on an entry a cold session could not act on.
+ */
 function docsTopLevelRow(path: string): readonly string[] | null | undefined {
   const m = /^docs\/([^/]+\.md)$/.exec(path);
-  return m ? ["tools/director"] : undefined;
+  if (!m) return undefined;
+  if (m[1] === "queue.md" || m[1] === "parked.md") return ["tools/director", "tools/queue"];
+  return ["tools/director"];
 }
 
 /** `tools/<name>/...` maps to that tool's own directory, whatever its name. */
