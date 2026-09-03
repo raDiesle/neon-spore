@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 8701a55 — THE WARDEN is open below its eye, so the shot has a way in
+
+The body was a closed ring: a band of its own rock stood between the cannon and the one thing on it worth hitting. The rule said the shot lands and the picture said it could not, and of the two a player believes the picture.
+
 ## 2026-09-03 · 767dfcc — The wheel turns instead of teleporting, and it has a middle now
 
 THE GYRE's six bodies never glided at all. `onBeat` writes `fromRow` and `fromCol` for every creature and only *then* skips a mount, so the two fields `carryMounts` had just filled in were overwritten with where the body now stands — from and to identical, six bodies jumping from tile to tile once a beat with nothing drawn in between. That is the whole of what "jumping pictures" was, and the guard now comes before the assignments.
