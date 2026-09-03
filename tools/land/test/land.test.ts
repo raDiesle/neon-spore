@@ -1,5 +1,5 @@
 import { expect, describe as group, test } from "bun:test";
-import { describe, type LandState, plan } from "../land.js";
+import { describe, type LandState, plan, uncommittedOf } from "../land.js";
 
 function state(over: Partial<LandState> = {}): LandState {
   return {
@@ -130,5 +130,27 @@ group("describe", () => {
     const skip = plan(noOrigin);
     if (!skip.go) throw new Error("expected a landing");
     expect(describe(noOrigin, skip).join("\n")).not.toContain("push");
+  });
+});
+
+group("uncommittedOf", () => {
+  test("reads content differences and untracked files as uncommitted", () => {
+    expect(uncommittedOf("packages/sim/src/beat.ts", "docs/new-note.md")).toEqual([
+      "docs/new-note.md",
+      "packages/sim/src/beat.ts",
+    ]);
+  });
+
+  test("says nothing for a file git calls modified whose content matches HEAD", () => {
+    // The stat-cache shape: something rewrote `.claude/launch.json` with
+    // identical bytes, so `git status --porcelain` prints " M" for it and
+    // `git diff --name-only HEAD` prints nothing at all. A landing that
+    // believed `status` stopped on a file the lane never touched.
+    expect(uncommittedOf("", "")).toEqual([]);
+  });
+
+  test("names a path once when it is both staged and changed again", () => {
+    const twice = ["apps/game/src/loop.ts", "apps/game/src/loop.ts"].join("\n");
+    expect(uncommittedOf(twice, "")).toEqual(["apps/game/src/loop.ts"]);
   });
 });

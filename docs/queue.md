@@ -575,34 +575,6 @@ decision — plus a thin caller that checks the setting and the capability.
 `bun run check` proves the mapping; whether the phone actually buzzes is a phone
 question and the report says **unverified**.
 
-## `bun run land` refuses a file whose only change is git's stat cache
-
-- **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553
-- **Taken:** 2026-09-03, claude/queue-bun-run-land-refuses-a-file-whose-only-change-is
-- **Files:** `tools/land/run.ts`, `tools/land/land.ts`, `tools/land/test/land.test.ts`
-
-A landing was refused with `1 uncommitted file here — a lane lands what it
-committed: .claude/launch.json`, and the file had no changes at all: `git diff`
-was empty, and `git hash-object` on the working copy gave the same blob the
-index and `HEAD` both held. What differed was the stat cache. Something had
-rewritten the file with identical bytes, so git marked the entry as needing a
-re-read, and `git status --porcelain` — which is what `dirtyOf` in `run.ts`
-reads — reports such an entry as ` M` until git refreshes it. `git update-index
---refresh` did not clear it either; `git add` on that one path did, by writing
-the entry back.
-
-The cost is a landing that stops on a file the lane never touched, with a
-message that says the lane has uncommitted work when it has none. On this
-machine `.claude/launch.json` is rewritten by the harness, so it is the file
-this will keep happening to.
-
-Refresh before asking. `git status --porcelain` after a `git update-index -q
---refresh` (or `git status` with the refresh it does implicitly), or read
-`git diff --name-only HEAD` instead, which compares content and never reports a
-stat-only difference. Whichever, keep the refusal for real uncommitted work —
-`land.test.ts` already covers that — and add a case for the shape that caused
-this: an entry git reports as modified whose content matches `HEAD`.
-
 ## CLAUDE.md says a worktree's server never takes the base port, and it does
 
 - **Found:** 2026-09-03, claude/queue-batch-pretooluse-detached-a83553

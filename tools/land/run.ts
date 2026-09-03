@@ -25,7 +25,7 @@
  */
 
 import { git, gitOrDie } from "./git.js";
-import { describe, type LandState, plan } from "./land.js";
+import { describe, type LandState, plan, uncommittedOf } from "./land.js";
 import { LOG_FORMAT, parseLanded } from "./notes.js";
 import { sweep, writeNotes } from "./sweep.js";
 
@@ -35,11 +35,13 @@ const dryRun = argv.includes("--dry-run");
 const noPush = argv.includes("--no-push");
 const TRUNK = "main";
 
-function dirtyOf(porcelain: string): string[] {
-  return porcelain
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => line.trim().replace(/^\S+\s+/, ""));
+/** What `uncommittedOf` needs, asked of one worktree. */
+async function uncommitted(cwd: string): Promise<string[]> {
+  const [changed, untracked] = await Promise.all([
+    git(["diff", "--name-only", "HEAD"], cwd),
+    git(["ls-files", "--others", "--exclude-standard"], cwd),
+  ]);
+  return uncommittedOf(changed, untracked);
 }
 
 /** Which worktree has the trunk checked out, if any. */
@@ -58,11 +60,11 @@ const tree = await trunkTree();
 const state: LandState = {
   branch,
   trunk: TRUNK,
-  dirty: dirtyOf(await git(["status", "--porcelain"], root)),
+  dirty: await uncommitted(root),
   ahead: Number(await git(["rev-list", "--count", `${TRUNK}..HEAD`], root)) || 0,
   behind: Number(await git(["rev-list", "--count", `HEAD..${TRUNK}`], root)) || 0,
   trunkTree: tree,
-  trunkDirty: tree ? dirtyOf(await git(["status", "--porcelain"], tree)) : [],
+  trunkDirty: tree ? await uncommitted(tree) : [],
   trunkStaged: tree
     ? (await git(["diff", "--cached", "--name-only"], tree)).split("\n").filter(Boolean)
     : [],
