@@ -9,6 +9,30 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 0490f52 — Queue the tenth copy of the centre column, in apps/game
+
+`midCol` now owns `Math.floor(cfg.cols / 2)` and a purity row fails the next copy, but `keys.ts` parks the cannon at `Math.floor(cols / 2)` off a render layout with no config in reach, so the row walks past it.
+
+## 2026-09-03 · 60bba2b — An unnamed pod is a mend, and sim is the only place that says so
+
+`?? "mend"` stood in `sim/pods.ts`, again in `content/mechanics.ts` and a third time in the director's brushes. If the default ever changed, `mechanicsInWave` would have named a mechanic the field never produces and the guide test in `waves.test.ts` would have gone green about the wrong wave.
+
+## 2026-09-03 · 964d201 — The middle column has a name, and the config's derived rules have a file
+
+`Math.floor(cfg.cols / 2)` stood in ten places — the cannon's home and the shield's, where THE FLEET breaches, where THE GAUGE, SNAKE and PINBALL cost the hull, the gyre's rest column, the vane's pivot, the snake's morph. Two of them already had names. `midCol(cfg)` is the rule now, and a `COPIES` row fails the eleventh copy; an even `cols` is what those copies were waiting for, since some would have moved left and some right.
+
+## 2026-09-03 · 3642cbb — Taking a body off the field is one function, not fourteen copies
+
+`world.creatures = world.creatures.filter((c) => c.id !== id)` was written out eleven times and its set-shaped sibling three more — in every file that kills something, which is every creature file there is. Each new creature copied whichever of the two its neighbour had, and `bullet-hit.ts` sat at exactly its line limit with five of them in it.
+
+## 2026-09-03 · d08c831 — One function turns milliseconds into ticks, and it divides last
+
+`Math.round((xMs / 1000) * cfg.tickHz)` was written out across sim, render and audio, and the purity table guarded exactly one spelling of it, so the others walked past. `msToTicks(cfg, ms)` now sits beside `ticksPerBeat`, and the guard's window, the maw's, the ready hold, the veil's armour, the gyre's suck and the button's afterglow all call it.
+
+## 2026-09-03 · 296fddd — The sim owns both of player 1's windows, and everything else asks it
+
+"Is the shield armed" was written out four times and "is the maw open" three, each with its own arithmetic: render and audio used `<` where the sim uses `<=`, and none of the copies carried the ward term. So the button glow and the sound said "closed" one tick before `resolveHull` stopped turning rocks away, and a ward pod armed the shield in the sim while render drew it cold.
+
 ## 2026-09-03 · e7ebb42 — Testing alone is quiet: no socket, and no service worker on a local address
 
 A cache that answers when the server has idled out serves a build that no longer exists, and the stale page reads as a bug in the code that just replaced it. That is not a hypothesis — it happened while the service worker was being written, on the preview, and cost a confused half hour chasing a fault that had already been fixed. So no local address installs one: not the director's `/game`, not the preview on 4173, not `dev:game` on 3000. Ones already there are taken off rather than merely not renewed, along with their caches, because a worker outlives the change that stopped registering it. `?pwa=1` turns one on locally for the only case that wants it, which is testing the install itself.
