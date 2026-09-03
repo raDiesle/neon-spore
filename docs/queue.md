@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## Nicknames are unique, held server-side
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-nicknames-are-unique-held-server-side
 - **Files:** `apps/server/src/names.ts`, `apps/server/src/index.ts`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `wrangler.jsonc`, `apps/server/test/names.test.ts`
 
 Depends on "A nickname, asked once" — do that first. A name has to be unique
