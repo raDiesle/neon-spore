@@ -2,6 +2,18 @@ import type { SnakeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
 import { drawSnakeHead } from "./snake-head.js";
+import {
+  backGradient,
+  castShadow,
+  clearShadow,
+  drawScales,
+  HEAD_HALF,
+  litRibbon,
+  ribbonSides,
+  rimStroke,
+  TAIL_HALF,
+  traceRibbon,
+} from "./snake-skin.js";
 
 /**
  * The body: where it is *between* two tiles, and what it looks like.
@@ -22,10 +34,6 @@ import { drawSnakeHead } from "./snake-head.js";
  * stay the ship's violet and cyan: the body is the ship, and green is spent
  * elsewhere (`palette.ts`).
  */
-
-/** How wide the body is at the head, and at the very end of the tail. */
-const HEAD_HALF = 0.4;
-const TAIL_HALF = 0.13;
 
 /** Where a tile's centre is, in pixels. */
 function centre(arena: Arena, col: number, row: number): { x: number; y: number } {
@@ -101,6 +109,12 @@ export function drawSnakeBody(
  * Built as one filled contour rather than a stroked path: a stroke is the same
  * width everywhere, and the taper is half of what makes this read as an animal
  * — the other half is the spine, drawn over it.
+ *
+ * Four passes over that one contour, in the order light arrives: a shadow on
+ * the floor, the arena's own gradient as the fill, then the scales and the lit
+ * side of the back **inside a clip of it**, then the rim. The clip is what
+ * lets the highlight be a shape pushed towards the light rather than a shape
+ * that has to know where the body's edge is (`snake-skin.ts`).
  */
 function drawLength(
   ctx: CanvasRenderingContext2D,
@@ -109,34 +123,23 @@ function drawLength(
 ): void {
   const half = (i: number): number =>
     arena.tile * (HEAD_HALF + (TAIL_HALF - HEAD_HALF) * (i / Math.max(1, joints.length - 1)));
-  const left: { x: number; y: number }[] = [];
-  const right: { x: number; y: number }[] = [];
-  for (const [i, p] of joints.entries()) {
-    const prev = joints[i - 1] ?? p;
-    const next = joints[i + 1] ?? p;
-    // The normal of the direction the body runs in here, which for a corner is
-    // the average of the two sides — that is what rounds a turn off.
-    const dx = next.x - prev.x;
-    const dy = next.y - prev.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -(dy / len) * half(i);
-    const ny = (dx / len) * half(i);
-    left.push({ x: p.x + nx, y: p.y + ny });
-    right.push({ x: p.x - nx, y: p.y - ny });
-  }
+  const sides = ribbonSides(joints, half);
 
-  ctx.beginPath();
-  ctx.moveTo(left[0]?.x ?? 0, left[0]?.y ?? 0);
-  for (const p of left.slice(1)) ctx.lineTo(p.x, p.y);
-  const end = joints[joints.length - 1];
-  if (end) ctx.lineTo(end.x, end.y);
-  for (const p of right.slice(0, -1).reverse()) ctx.lineTo(p.x, p.y);
-  ctx.closePath();
-  ctx.fillStyle = "#0C2C39";
+  castShadow(ctx, arena);
+  traceRibbon(ctx, joints, sides);
+  ctx.fillStyle = backGradient(ctx, arena);
   ctx.fill();
-  ctx.strokeStyle = PALETTE.shield;
-  ctx.lineWidth = 1.6;
-  ctx.stroke();
+  clearShadow(ctx);
+
+  ctx.save();
+  traceRibbon(ctx, joints, sides);
+  ctx.clip();
+  drawScales(ctx, arena, joints, half);
+  litRibbon(ctx, joints, half);
+  ctx.restore();
+
+  traceRibbon(ctx, joints, sides);
+  rimStroke(ctx);
   drawSpine(ctx, arena, joints);
 }
 
@@ -187,14 +190,18 @@ function drawEnds(
   const half = arena.tile * 0.22;
   const nx = -(dy / len) * half;
   const ny = (dx / len) * half;
-  ctx.beginPath();
-  ctx.moveTo(before.x + nx, before.y + ny);
-  ctx.lineTo(end.x + dx * 0.3, end.y + dy * 0.3);
-  ctx.lineTo(before.x - nx, before.y - ny);
-  ctx.closePath();
-  ctx.fillStyle = "#0C2C39";
+  const trace = (): void => {
+    ctx.beginPath();
+    ctx.moveTo(before.x + nx, before.y + ny);
+    ctx.lineTo(end.x + dx * 0.3, end.y + dy * 0.3);
+    ctx.lineTo(before.x - nx, before.y - ny);
+    ctx.closePath();
+  };
+  castShadow(ctx, arena);
+  trace();
+  ctx.fillStyle = backGradient(ctx, arena);
   ctx.fill();
-  ctx.strokeStyle = PALETTE.shield;
-  ctx.lineWidth = 1.6;
-  ctx.stroke();
+  clearShadow(ctx);
+  trace();
+  rimStroke(ctx);
 }

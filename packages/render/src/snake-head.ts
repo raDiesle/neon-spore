@@ -1,5 +1,6 @@
 import { PALETTE } from "./palette.js";
 import type { Arena } from "./snake-draw.js";
+import { castShadow, clearShadow } from "./snake-skin.js";
 
 /**
  * The head, shut and open.
@@ -37,8 +38,18 @@ export function drawSnakeHead(
   ctx.translate(at.x, at.y);
   ctx.rotate(a);
   const r = arena.tile * 0.46;
-  if (gape > 0.02) drawOpen(ctx, r, Math.max(0, Math.min(1, gape)));
-  else drawShut(ctx, r);
+  // The head's own light, once per head rather than once per jaw: the two jaws
+  // are the same wedge mirrored, so one gradient over the snout serves both
+  // and the pair reads as one solid thing rather than two lit separately. It
+  // is built in the head's own turned coordinates, which is why it cannot be
+  // cached the way the arena's is — a gradient bakes the transform it was made
+  // under, and this one turns with the body.
+  const skin = ctx.createRadialGradient(r * 0.5, 0, r * 0.1, r * 0.5, 0, r * 1.4);
+  skin.addColorStop(0, "#4A2288");
+  skin.addColorStop(0.6, "#2A1150");
+  skin.addColorStop(1, "#170A2E");
+  if (gape > 0.02) drawOpen(ctx, arena, r, Math.max(0, Math.min(1, gape)), skin);
+  else drawShut(ctx, arena, r, skin);
   ctx.restore();
 }
 
@@ -48,10 +59,15 @@ export function drawSnakeHead(
  * Drawn in the hull's violet — the head is the part of the ship that is
  * steering.
  */
-function drawShut(ctx: CanvasRenderingContext2D, r: number): void {
+function drawShut(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  r: number,
+  skin: CanvasGradient,
+): void {
   tongue(ctx, r, 1);
-  jaw(ctx, r, 0, 1);
-  jaw(ctx, r, 0, -1);
+  jaw(ctx, arena, r, 0, 1, skin);
+  jaw(ctx, arena, r, 0, -1, skin);
   // A join down the middle, so the two halves read as a mouth that could open
   // rather than as one lump.
   ctx.strokeStyle = "rgba(244,231,255,.35)";
@@ -64,11 +80,17 @@ function drawShut(ctx: CanvasRenderingContext2D, r: number): void {
 }
 
 /** Open: the same two jaws, swung apart about the neck, cavity between. */
-function drawOpen(ctx: CanvasRenderingContext2D, r: number, gape: number): void {
+function drawOpen(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  r: number,
+  gape: number,
+  skin: CanvasGradient,
+): void {
   const swing = GAPE_ANGLE * gape;
   cavity(ctx, r, swing);
-  jaw(ctx, r, swing, 1);
-  jaw(ctx, r, swing, -1);
+  jaw(ctx, arena, r, swing, 1, skin);
+  jaw(ctx, arena, r, swing, -1, skin);
   fang(ctx, r, swing, 1);
   fang(ctx, r, swing, -1);
   eyes(ctx, r, swing);
@@ -78,21 +100,46 @@ function drawOpen(ctx: CanvasRenderingContext2D, r: number, gape: number): void 
  * One jaw: half a wedge, hinged at the neck. `side` is -1 for the upper and 1
  * for the lower, which on a canvas whose y runs down is which.
  */
-function jaw(ctx: CanvasRenderingContext2D, r: number, swing: number, side: number): void {
+function jaw(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  r: number,
+  swing: number,
+  side: number,
+  skin: CanvasGradient,
+): void {
   ctx.save();
   ctx.translate(-r * 0.45, 0);
   ctx.rotate(swing * side);
+  // A neck as wide as the body, a cheek that falls away from it, and a snout
+  // that comes to a curve rather than to a flat.
+  //
+  // The width is the part that was actually wrong rather than merely plain:
+  // the neck was `r * 0.52` against a body of `tile * 0.4`, so the shoulders
+  // stood out either side of the head and the blunt end the body is capped
+  // with was drawn in the open. A head narrower than its own neck is a defect,
+  // and the two numbers are the same number now.
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.lineTo(0, side * r * 0.52);
-  ctx.quadraticCurveTo(r * 0.85, side * r * 0.6, r * 1.4, side * r * 0.16);
-  ctx.quadraticCurveTo(r * 1.5, 0, r * 1.4, 0);
+  ctx.lineTo(0, side * r * 0.92);
+  ctx.quadraticCurveTo(r * 0.72, side * r * 0.82, r * 1.3, side * r * 0.26);
+  ctx.quadraticCurveTo(r * 1.6, side * r * 0.12, r * 1.5, 0);
   ctx.closePath();
-  ctx.fillStyle = "#2A1150";
+  castShadow(ctx, arena);
+  ctx.fillStyle = skin;
   ctx.fill();
+  clearShadow(ctx);
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = 1.8;
   ctx.stroke();
+  // One specular, along the brow where the light this file puts above the
+  // arena would catch it. Clipped to the jaw so a wide gape cannot slide it
+  // off the snout.
+  ctx.clip();
+  ctx.fillStyle = "rgba(244,231,255,.12)";
+  ctx.beginPath();
+  ctx.ellipse(r * 0.72, side * r * 0.5, r * 0.44, r * 0.12, 0, 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 }
 
@@ -101,8 +148,16 @@ function jaw(ctx: CanvasRenderingContext2D, r: number, swing: number, side: numb
  * meeting at the hinge, so nothing of it is ever drawn outside the mouth.
  */
 function cavity(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
-  const reach = r * 1.35;
-  const open = Math.sin(swing) * reach;
+  // **Shorter the wider it opens.** A jaw's tip is about `r * 1.5` from the
+  // hinge, so swinging it away pulls the tip back to `cos(swing)` of that; a
+  // throat at a fixed reach therefore grew out past the snout at a full gape
+  // and read as a red flag flying off the front of the head. It follows the
+  // tips instead, and stops short of them.
+  const reach = r * 1.5 * Math.cos(swing) * 0.86;
+  // Wide enough to fill the gape rather than the reach: the corners follow
+  // where the jaw *tips* have swung to, so no strip of the floor is left
+  // showing between the throat and the jaw that is meant to be holding it.
+  const open = Math.sin(swing) * r * 1.5;
   ctx.beginPath();
   ctx.moveTo(-r * 0.4, 0);
   ctx.lineTo(reach * 0.9, -open);
@@ -141,11 +196,11 @@ function eyes(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
     ctx.rotate(swing * side);
     ctx.fillStyle = PALETTE.hullRim;
     ctx.beginPath();
-    ctx.ellipse(r * 0.78, side * r * 0.34, r * 0.15, r * 0.11, 0, 0, Math.PI * 2);
+    ctx.ellipse(r * 0.74, side * r * 0.5, r * 0.16, r * 0.12, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = "#1A0A2E";
     ctx.beginPath();
-    ctx.ellipse(r * 0.8, side * r * 0.34, r * 0.05, r * 0.09, 0, 0, Math.PI * 2);
+    ctx.ellipse(r * 0.76, side * r * 0.5, r * 0.055, r * 0.1, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
