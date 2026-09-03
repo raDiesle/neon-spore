@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 3f11fc0 — THE GHOST wears a whole outline, its eyes burn, and it leaves its last places behind it
+
+The dashed contour is gone: at 26 px a broken line read as a shape coming apart into dots rather than as camouflage failing, and the tears inside the body and the shards thrown clear of it already say that. The eyes are a hot core in a near-black socket now, with a glow that bleeds past the socket onto the body and reaches further as the temper goes up — a bright dot on a bright body is a highlight, and a bright dot in a black hole is an eye.
+
 ## 2026-09-03 · 6b1ab3b — The palette lines say what to do about a brush, not what it looks like
 
 The owner's pass over the sixteen: a brush is picked to be placed in a wave, and what an author is holding in mind is the answer the pair will have to find — "shot with the red cannon", "ward it, then shoot", "shoot the armour away first" — rather than the silhouette, which is already the picture beside the words.
