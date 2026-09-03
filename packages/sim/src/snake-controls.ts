@@ -50,8 +50,10 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
   if (command.kind !== "snakeMaw" || player !== 1 || snakeStunned(world, snake)) return;
   // The mouth is a *window* and not a hold: it opens on the press and shuts on
   // its own a fraction of a step later (`snakeMawTicks`), which is what makes
-  // it a thing to time rather than a thing to leave on. The rest is what stops
-  // a thumb tapping it every tick from being the same as leaving it open.
+  // it a thing to time rather than a thing to leave on. The rest is at least
+  // as long as the window, so the press that opens the mouth cannot be
+  // repeated until the mouth has shut: a shorter rest stops a thumb tapping
+  // every tick and nothing more, which is not the same thing at all.
   if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
   snake.mawTick = world.tick;
 }

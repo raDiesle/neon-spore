@@ -37,7 +37,16 @@ export interface SnakeConfig {
    * body gets faster, with nothing authored to make it so.
    */
   snakeMawTicks: number;
-  /** Ticks between two openings, so a thumb tapping it is not a mouth left open. */
+  /**
+   * Ticks between two openings, and never shorter than `snakeMawTicks`.
+   *
+   * A rest shorter than the window does not stop a thumb tapping the mouth
+   * open forever, it only stops it tapping *every tick*: at a rest of 30
+   * against a window of 84 a press every thirty ticks held the jaws apart for
+   * the whole round, which is the one thing the window exists to prevent. At
+   * or above the window, a press that opens the mouth is a press that cannot
+   * be repeated until the mouth has shut on its own.
+   */
   snakeMawRestTicks: number;
   /** Beats between two shots, so a held trigger is not a cleared row. */
   snakeFireRestBeats: number;
@@ -99,7 +108,8 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // old window the jaws were swinging shut about as soon as they had finished
   // swinging apart, which read as a twitch rather than as a mouth.
   snakeMawTicks: 84,
-  snakeMawRestTicks: 30,
+  // The window itself: the mouth reopens the tick it shuts, and not before.
+  snakeMawRestTicks: 84,
   snakeFireRestBeats: 1,
   // Three tiles, which is the far side of the tile the head is entering plus
   // two. Short enough that the shot is a reason to steer.

@@ -262,6 +262,36 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
   });
 
+  it("cannot be re-opened while it is still open", () => {
+    const world = open();
+    play(world);
+    const snake = round(world);
+    press(world, 1, { kind: "snakeMaw" });
+    const opened = snake.mawTick;
+    // Halfway through the window, which is well past the old rest of 30.
+    for (let i = 0; i < Math.floor(CFG.snakeMawTicks / 2); i++) step(world, []);
+    press(world, 1, { kind: "snakeMaw" });
+    expect(snake.mawTick).toBe(opened);
+  });
+
+  it("opens again once it has shut on its own", () => {
+    const world = open();
+    play(world);
+    const snake = round(world);
+    press(world, 1, { kind: "snakeMaw" });
+    const opened = snake.mawTick;
+    for (let i = 0; i < CFG.snakeMawTicks; i++) step(world, []);
+    press(world, 1, { kind: "snakeMaw" });
+    expect(snake.mawTick).toBeGreaterThan(opened);
+  });
+
+  it("keeps the rest at least as long as the window", () => {
+    // The two numbers are one rule and drifted apart once: a rest of 30
+    // against a window of 84 meant a thumb could hold the mouth open all
+    // round by pressing every thirty ticks.
+    expect(CFG.snakeMawRestTicks).toBeGreaterThanOrEqual(CFG.snakeMawTicks);
+  });
+
   it("is nobody else's mouth", () => {
     const world = open();
     play(world);
