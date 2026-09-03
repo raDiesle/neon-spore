@@ -652,3 +652,153 @@ Move the three parts to `prompt-text.ts`, `prompt-changes.ts` and
 `slot`, `subject`, `candidates`, `won`, `pkgs`, `dirs`, `files`, `isContent`,
 `nameWidth`); `prompt.ts` keeps `Vote`, `readCurrent`, validation and the join.
 The public API is unchanged, so the existing 322-line test proves it untouched.
+## The room starts on a shared press, not a three-second timer
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `packages/net/src/protocol.ts`, `packages/net/src/status.ts`, `packages/net/src/lockstep.ts`, `apps/server/src/room.ts`, `apps/game/src/link.ts`, `apps/game/src/link-run.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`
+
+Read the `net-change` skill first — this crosses the wire and every rule in it
+applies. Today the second phone landing makes the room stamp beat zero
+`COUNTDOWN_MS` (3000 ms) ahead and both devices start on that timer
+(`room.ts` `greet`). Replace the timer with a shared press: both seats reach a
+new `ready` state, and beat zero is stamped only once **both** have sent a
+`ready` client message. This is what makes a testing session workable — nobody
+is dropped onto a field before the other person has looked up.
+
+The shape: add a `ready` client message and a `LinkState` of `"ready"` (both
+here, waiting on the press) where `countdown` sat. The room holds the two ready
+flags and stamps `startMs = Date.now() + shortLeadMs` (a small lead, ~800 ms,
+for the two clocks to land together) when the second arrives. The menu/room
+screen grows a START button, enabled once `peers === 2` and the clocks agree,
+that sends `ready`; its label reports "waiting for the other phone" until the
+peer's ready arrives. A seat that leaves clears its ready. Decode without
+trusting (`ready` carries no payload, so it is only a tag). Prove it with
+`bun run relay:check` against a running wrangler — say **unverified** in the
+report if no wrangler was available, and name the check. The `solo-is-quiet`
+test must stay green: a ready press only exists in a room.
+
+## A nickname, asked once and carried into the room
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/index.html`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`, `apps/game/src/main.ts`, `apps/game/src/game.css`, `apps/game/test/nickname.test.ts`
+
+Stands alone, and the two identity items below build on it — do this one first.
+The first time a device enters the room screen with no stored name, ask for one:
+a single field, kept in `localStorage` under `neon-spore.name` (wrapped in
+try/catch like `view.ts`'s store), trimmed, length-capped, everything in
+English. Once set it is shown, with a way to change it. Pure helpers in
+`nickname.ts` — `normalizeName(raw): string` and `isName(s): boolean` — tested
+the way `join-words.ts`'s functions are, so no DOM is needed to prove the rules.
+
+The name rides the join so the other phone can show it: this is a wire change,
+so read the `net-change` skill and add the field to the `welcome`/`peers` path
+in `packages/net/src/protocol.ts` and `apps/server/src/room.ts` in the same
+pass (a name added to the client and not the wire shows only on your own
+screen). The seat pills (`seatWord`, `#joinSeats`) then read the peer's name
+instead of "HERE". Decode without trusting: a name from the wire is clamped by
+the same `normalizeName` before it is drawn, never inserted as markup.
+
+## Nicknames are unique, held server-side
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/server/src/names.ts`, `apps/server/src/index.ts`, `apps/game/src/nickname.ts`, `apps/game/src/join.ts`, `wrangler.jsonc`, `apps/server/test/names.test.ts`
+
+Depends on "A nickname, asked once" — do that first. A name has to be unique
+across the server to identify a person, so it needs a store. Use one Durable
+Object as a name registry (a `NAMES` binding beside `ROOMS`), reached over a
+small HTTP route on the worker (`apps/server/src/index.ts`) — **not** the room
+socket, which stays a dumb relay (rule 2 of `net-change`). The registry claims
+a normalized name for a device token the browser generates and keeps, answers
+"taken" when someone else holds it, and is idempotent for the same token so a
+returning device keeps its own name. Test the DO the way `apps/server/test/
+room.test.ts` tests the room — claim, re-claim by the same token, collision by
+a different one. The room screen surfaces "that name is taken" and asks for
+another. Kept out of the lockstep path entirely, so it needs no relay to prove:
+`bun test apps/server` covers it.
+
+## The room is named for the pair, so they never re-type a code
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/src/join.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/menu-pages.ts`, `apps/game/test/pairing.test.ts`
+
+Depends on the two nickname items above. The four-character code stays the way
+in the **first** time — it is still read aloud, that is the game. What this adds
+is the way *back* in: once two named devices have shared a room, the pairing is
+remembered (both names, on each device, in `localStorage`) and offered as a
+one-tap "REJOIN <other name>" on the menu, with no code typed. Derive the room
+key from the two normalized names in a fixed order (a pure `roomForPair(a, b):
+string` in `pairing.ts`, tested), so the same pair always resolves to the same
+room wherever they are. This does not auto-resume the game state — that was
+deliberately left off the queue — it only removes the code from the second
+meeting onward. A device may remember more than one partner; show the most
+recent. Client-only past the room key, so `bun run check` proves it.
+
+## The room stores the pair's stats and ends the run after long silence
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/server/src/room.ts`, `apps/server/src/seat.ts`, `apps/server/src/stats.ts`, `packages/net/src/protocol.ts`, `apps/server/test/room.test.ts`
+
+Read `net-change`. Today a seat silent for `SEAT_SILENT_MS` (10 s) is evicted
+and the peer told; a run with nobody in it simply hangs. Add a terminal step:
+when **both** seats have been silent past a longer window (30 s — the owner's
+figure), the room writes a small stats record to `ctx.storage` (waves reached,
+score, joint moments — a client sends its own tallies up periodically as a new
+`stats` message the relay stores but never reads into game state) and ends the
+run: it clears `startMs`, so the next arrival gets a fresh beat zero rather than
+rejoining a dead game. The 30-s window must be a `vars` override like
+`SEAT_SILENT_MS` so the DO test can prove eviction-then-store without waiting.
+Note the trade-off in the code: a longer window also lengthens how long a dead
+pair blocks a third phone from the room. `bun test apps/server` covers the
+storage and the timing; the wire addition wants `relay:check` — say
+**unverified** if no wrangler was run.
+
+## A settings page on the menu: sound, motion, and the install offer
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/settings.ts`, `apps/game/src/audio.ts`, `apps/game/src/install.ts`, `apps/game/src/menu.css`, `apps/game/test/settings.test.ts`
+
+A SETTINGS entry on the root menu opening a page (built like the WAVES/DEMOS
+pages in `menu-pages.ts`) with: a sound/mute toggle — the mixer exists and only
+the M key reaches it today (`audio.ts`), so wire the toggle to the same mute it
+already has and persist the choice in `localStorage`; a reduced-motion toggle
+that sets a `body` class the menu's animations already respect via
+`prefers-reduced-motion` (add a `data-motion` override so the button wins in
+both directions, the way the theme guidance does); and the home-screen install
+offer, which is a chip today (`install.ts`) and belongs here where a player
+looks for it rather than floating over the field. Keep the persisted flags in a
+small `settings.ts` with pure get/set helpers, tested without a DOM. The
+install chip may stay as the just-in-time prompt; this is the durable place for
+it. Client-only — `bun run check` proves it.
+
+## A "how to play" page: the two seats, and that talking is the control
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu.css`
+
+A HOW TO PLAY entry on the root menu opening a short page (built like the
+CONTROLS page in `menu-pages.ts`) for the pair's first thirty seconds, before a
+wave's own briefing reaches them. It says, in English and in the game's fixed
+vocabulary (hull, cannon, shield, guard, pod, column — do not invent synonyms):
+there are two of you, on two devices, with different jobs — PILOT slides the
+cannon and opens the maw, GUNNER slides the shield and fires; nothing you
+control travels; and the one rule that is the whole game, that talking to each
+other is the control scheme. Keep it to a screen. This is copy on a static
+page, so it is provable with `bun run check`; if a wording choice feels like a
+design call rather than a description, leave it plain and note it in the report
+rather than inventing flourish.
+
+## The menu remembers how far this device has got
+
+- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Files:** `apps/game/src/progress.ts`, `apps/game/src/waves.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/test/progress.test.ts`
+
+The front door knows only PLAY versus RESUME. Give it the furthest wave reached
+and the last score, per device, in `localStorage` (a `progress.ts` with pure
+read/update helpers, tested without a DOM). The wave progression
+(`apps/game/src/waves.ts`) is where a wave is reached and a score changes, so
+record it there; the menu reads it to add a line under the title ("Furthest:
+wave 7 · Last score 12300") and to point PLAY at a "continue from your
+furthest" option beside "start over". Solo-only and per device — this is a
+convenience, not shared state, so it never touches the room or the wire. Keep
+the writes wrapped in try/catch like the other `localStorage` users.
+`bun run check` proves it.
