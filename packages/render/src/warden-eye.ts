@@ -83,7 +83,7 @@ export function drawEye(
   time: number,
 ): void {
   const ink: EyeInk = { hex, rim };
-  drawEyeFluid(ctx, cx, cy, r, r, ink, openness, time);
+  drawEyeFluid(ctx, cx, cy, r, r, openness, time);
   drawEyeLens(ctx, cx, cy, r, r, ink, openness, t);
   drawEyeFringe(ctx, cx, cy, r, r, ink, openness, time);
 }

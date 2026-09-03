@@ -11,9 +11,9 @@ import { PALETTE, STROKE } from "./palette.js";
  *
  * Four parts, in the order they are drawn and in the order they read:
  *
- *  1. **the fluid** — a wash of the eye's own colour standing outside the
- *     socket, wobbling on its own clock, so the thing looks wet rather than
- *     machined;
+ *  1. **the fluid** — a pool of neon green standing outside the socket and
+ *     wobbling on its own clock, so the thing looks wet rather than machined
+ *     (and deliberately not the eye's own colour — `PALETTE.eyeFluid`);
  *  2. **the lens** — a gap that grows from a shut slit to a round eye, with an
  *     iris filling it and a pupil that goes from a line to a disc;
  *  3. **the pupil's breath** — the one thing here on a clock rather than on the
@@ -48,8 +48,13 @@ export interface EyeInk {
  * every one of them is a `lineTo` on a path built once a frame. */
 const FLUID_POINTS = 16;
 
-/** How far outside the socket the fluid stands, as a multiple of its radius. */
-const FLUID_MUL = 1.18;
+/**
+ * How far outside the socket the fluid stands, as a multiple of its radius.
+ * **1.45, and it was 1.18**: at 1.18 it read as a rim on the socket rather than
+ * as something the eye sits in. The fringe is rooted just outside it
+ * (`ROOT_MUL`) and moves out with it, so the lashes still begin where it ends.
+ */
+const FLUID_MUL = 1.45;
 
 /**
  * Where a hair is rooted, as a multiple of the socket's radius — **outside the
@@ -86,7 +91,8 @@ const CILIA = 13;
  *
  * `rx`/`ry` are the socket's own half-extents, so a round socket (THE WARDEN's
  * hole) gets a ring and a lens-shaped one (THE LID) gets a film that hugs the
- * two corners.
+ * two corners. It takes no `EyeInk`, and that absence is the decision: this is
+ * the one part of an eye that is not the eye's colour.
  */
 export function drawEyeFluid(
   ctx: CanvasRenderingContext2D,
@@ -94,7 +100,6 @@ export function drawEyeFluid(
   cy: number,
   rx: number,
   ry: number,
-  ink: EyeInk,
   openness: number,
   t: number,
 ): void {
@@ -114,15 +119,22 @@ export function drawEyeFluid(
   film.closePath();
 
   ctx.save();
-  ctx.fillStyle = ink.hex;
-  ctx.globalAlpha = 0.1 + openness * 0.14;
+  // **Neon green, and not the eye's own colour**, which is what the owner asked
+  // for and what `PALETTE.eyeFluid` argues at length: the lens, the iris and the
+  // lit seam between the plates all still say which trigger to load, so this
+  // surface is spent on saying *alive* instead of saying it a fourth time.
+  ctx.fillStyle = PALETTE.eyeFluid;
+  // Bright enough to be a *pool* rather than a tint: the area carries "bigger"
+  // and the alpha carries "neon", so both went up. Keeping the old opacity on
+  // the larger area produced a greenish smudge instead of a colour.
+  ctx.globalAlpha = 0.18 + openness * 0.22;
   ctx.fill(film);
   ctx.restore();
-  strokeGlow(ctx, film, ink.rim, STROKE.inner, 0.45 + openness * 0.55);
+  strokeGlow(ctx, film, PALETTE.eyeFluidRim, STROKE.inner * 1.3, 0.9 + openness * 0.9);
   // The wash behind it. A cached sprite rather than a gradient built per frame
   // — `halo` keys its cache on the colour and a rounded radius, and both are
   // drawn from a small fixed set here (`glow.ts`).
-  halo(ctx, cx, cy, Math.max(rx, ry) * 1.9, ink.hex, 0.08 + openness * 0.12);
+  halo(ctx, cx, cy, Math.max(rx, ry) * 2.3, PALETTE.eyeFluid, 0.14 + openness * 0.16);
 }
 
 /**

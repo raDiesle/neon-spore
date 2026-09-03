@@ -40,6 +40,26 @@ export const PALETTE = {
   claspShield: "#43C455",
   claspShieldRim: "#B6F5C0",
   goodRim: "#C7FFE4",
+  /**
+   * The wet film around an eye — THE LID's and THE WARDEN's — and the **third**
+   * green in this palette, asked for by name.
+   *
+   * The rule stated above `good` is that nothing else is ever green, and this
+   * is the second exception to it after `claspShield`. It is taken the same
+   * way: the distance is carried by the hue and by where each one appears
+   * rather than by the rule. `good` is a mint that only ever flashes across the
+   * ship's own row; `claspShield` is a deep emerald wrapped round a body up the
+   * field; this is a pure neon that only ever pools *around* an eye, under
+   * everything else the eye draws. Nothing puts two of them side by side.
+   *
+   * It is deliberately **not** the eye's own colour any more. The film used to
+   * be red or cyan, which made it a fourth thing saying which trigger to load —
+   * the lens, the iris and the lit seam between the plates all still say it, so
+   * nothing was lost by spending this surface on something that says *alive*
+   * instead.
+   */
+  eyeFluid: "#4CFF4C",
+  eyeFluidRim: "#C9FFC9",
   sparkDim: "#8B85AB",
   /**
    * THE WISP's middle band, and the one hue in this palette that is not a

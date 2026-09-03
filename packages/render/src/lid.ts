@@ -96,7 +96,7 @@ export function drawLid(
   // The film first, because it stands *outside* the socket and everything else
   // stands inside it. Unclipped for that reason — a wet edge cut off at the
   // rim would be a rim with a colour on it, which the body already has.
-  drawEyeFluid(ctx, 0, 0, LID.rx, LID.ry, ink, open, t);
+  drawEyeFluid(ctx, 0, 0, LID.rx, LID.ry, open, t);
   ctx.save();
   ctx.clip(socket);
   drawEyeLens(ctx, 0, 0, LID.rx, LID.ry, ink, open, beats);
