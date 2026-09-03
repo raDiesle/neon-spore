@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 9649f6f — The last five draw loops in render/ read the harness like the rest
+
+Five frame tests still typed their own step-collect-draw-clear loop, and the copies had already drifted: one drew every second tick, one every tick, one never derived a beat phase at all. Each is now a `runFrames` call, and the loop the harness holds is the only one left in the package.
+
 ## 2026-09-03 · c22438d — A finding goes in the queue file, and nowhere else
 
 A technical finding was written to `docs/queue.md` and then also offered as a suggested background task, which arrives as a chip the owner has to dismiss. The chip carries nothing the file does not: `bun run queue` already lists what is waiting and hands the next item out with its own branch. The rule now ends at the file.
