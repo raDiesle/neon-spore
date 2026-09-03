@@ -3,6 +3,7 @@ import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
+import { runStageLoop } from "./stage-loop.js";
 import { hashCanvas } from "./versus-hash.js";
 
 /**
@@ -116,7 +117,6 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   let blinkAt = 0;
   let frames = 0;
   let sinceChange = 0;
-  let raf = 0;
   /** A rebuilt world resets its events, the settle window, side-noise seed and cadence clock. */
   const rebuiltTo = (w: World): void => {
     world = w;
@@ -172,45 +172,44 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     }
   };
 
-  let last = performance.now();
-  let carry = 0;
-  const frame = (now: number): void => {
-    raf = requestAnimationFrame(frame);
-    const real = Math.min(0.25, (now - last) / 1000);
-    last = now;
+  /** Whether the world is moving at all — the pause, and the freeze. */
+  const stepping = (): boolean => running && !frozen;
+
+  // `stage.ts`'s loop, called rather than copied. What this pair differed by
+  // is the two hooks: a rate that scales real seconds into simulated ones, and
+  // a `paint` that also wants the real ones for the blink's own clock.
+  const loop = runStageLoop({
+    tickHz: () => world.cfg.tickHz,
     // `frozen` holds `dt` at 0 like `!running` does, but leaves `running` —
     // and so `view.running`, and so the pause overlay — untouched.
-    const dt = running && !frozen ? real * rate : 0;
-
-    if (running && !frozen) {
-      clock += dt;
-      carry += dt * world.cfg.tickHz;
-      const steps = Math.min(Math.floor(carry), world.cfg.tickHz);
-      for (let i = 0; i < steps; i++) {
-        const next = advance(world, () => pose.build(), pose);
-        if (next.world !== world) rebuiltTo(next.world);
-        events = next.events;
+    scale: (real) => (stepping() ? real * rate : 0),
+    advance: () => {
+      const next = advance(world, () => pose.build(), pose);
+      if (next.world !== world) rebuiltTo(next.world);
+      events = next.events;
+    },
+    paint: (dt, real) => {
+      if (stepping()) {
+        clock += dt;
+        // The one place a cadenced pose ever rebuilds.
+        if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
+      } else {
+        // Not running, or frozen: replaying a non-empty `events` on every
+        // static tick would re-ingest a `fire` or `deflect` again and again.
+        events = [];
       }
-      carry -= steps;
-      // The one place a cadenced pose ever rebuilds.
-      if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
-    } else {
-      // Not running, or frozen: replaying a non-empty `events` on every
-      // static tick would re-ingest a `fire` or `deflect` again and again.
-      events = [];
-    }
-    paint(dt);
+      paint(dt);
 
-    if (!blink) return;
-    blinkAt += real;
-    if (blinkAt < BLINK_SECONDS) return;
-    blinkAt = 0;
-    showing = showing === "left" ? "right" : "left";
-    left.canvas.style.opacity = showing === "left" ? "1" : "0";
-    right.canvas.style.opacity = showing === "right" ? "1" : "0";
-    hooks.onBlink(showing);
-  };
-  raf = requestAnimationFrame(frame);
+      if (!blink) return;
+      blinkAt += real;
+      if (blinkAt < BLINK_SECONDS) return;
+      blinkAt = 0;
+      showing = showing === "left" ? "right" : "left";
+      left.canvas.style.opacity = showing === "left" ? "1" : "0";
+      right.canvas.style.opacity = showing === "right" ? "1" : "0";
+      hooks.onBlink(showing);
+    },
+  });
 
   const zoom = (n: number): void => {
     for (const side of [left, right]) {
@@ -242,7 +241,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       frozen = true;
     },
     stop() {
-      cancelAnimationFrame(raf);
+      loop.stop();
       left.renderer.dispose();
       right.renderer.dispose();
     },

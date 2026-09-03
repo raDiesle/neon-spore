@@ -14,6 +14,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import stripUrl from "../../../assets/raster/burst-strip.webp";
+import { runStageLoop } from "./stage-loop.js";
 import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 
 /**
@@ -152,28 +153,21 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
     frameEvents = [];
   };
 
-  // The same fixed-timestep loop `stage.ts` runs, stopping the moment the
-  // canvas leaves the document so a closed sheet is not still stepping a world.
-  let last = performance.now();
-  let carry = 0;
-  const frame = (now: number): void => {
-    if (!canvas.isConnected) return;
-    const dt = Math.min(0.25, (now - last) / 1000);
-    last = now;
-    carry += dt * CFG.tickHz;
-    const steps = Math.min(Math.floor(carry), CFG.tickHz);
-    for (let i = 0; i < steps; i++) stepOnce();
-    carry -= steps;
-    paint(dt);
-    requestAnimationFrame(frame);
-  };
-
   void loadAtlas(stripUrl).then((atlas) => {
     if (atlas) renderer.sprites.install(atlas);
   });
 
   build();
-  requestAnimationFrame(frame);
+  // `stage.ts`'s loop, called rather than copied — the copy that used to sit
+  // here said so in a comment and then re-typed the catch-up cap. `alive` is
+  // the one thing it differed by: a sheet the page has closed stops stepping a
+  // world nobody can see.
+  runStageLoop({
+    tickHz: () => CFG.tickHz,
+    advance: stepOnce,
+    paint,
+    alive: () => canvas.isConnected,
+  });
 
   /**
    * Handle for a headless check, the same one `stage.ts` hangs on
