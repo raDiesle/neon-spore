@@ -464,6 +464,7 @@ the writes wrapped in try/catch like the other `localStorage` users.
 ## The view switch is a second seat-picker floating over a player's field
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-03, claude/queue-the-view-switch-is-a-second-seat-picker-floating
 - **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/test/view.test.ts`
 
 The `#viewSwitch` (P1 / P2 / TEST, top-centre) sits in every mode. Now that the
