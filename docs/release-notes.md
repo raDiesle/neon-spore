@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 975815c — The names that point at waves follow the waves that were renamed
+
+Two waves were renamed in the director and saved — ON THE BEAT became THE THROB, HOLD IT OPEN became THE LID — and four places that name a wave by string stayed where they were, so `bun run check` has been red on main since. `demonstrationWave` throws by design when a registry entry names a wave that no longer exists, which is exactly what it did.
+
 ## 2026-09-03 · a722d57 — bun run frames can photograph a thumb that is down
 
 captureFrames drove jumpToWave, dismissBriefing, advance and paint — every verb a wave needs and none a held control needs. So the one picture of THE LID that says what the creature is, the plates parted with a hand on the cord, could not be taken with the shipped tool; the same gap covered THE WARDEN's hatch, THE MAZE's wheel mid-turn and THE LANCE's full lobe.
