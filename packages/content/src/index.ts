@@ -24,9 +24,7 @@ export {
   type CreatureCategory,
   type CreatureDef,
   categoryOf,
-  controlsForKinds,
   kindForColor,
-  POD_CATEGORY,
   type RadarOwner,
   radarOwner,
   showsRadar,
@@ -35,7 +33,6 @@ export { GHOST, type GhostSilhouette, ghostOutline, ghostPath } from "./ghost-sh
 export {
   type Bump,
   bumpAdd,
-  bumpLift,
   hullAngleAtX,
   hullPointAtX,
   hullRadiusMul,
@@ -44,8 +41,8 @@ export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 // Which kinds are bodies, and what each one looks like — the contour and the
 // own-motion out of one row per kind, so the two cannot drift apart.
-export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
-export { LONG_AXIS_RATIO, type LongAxis, longAxis, poseOn } from "./long-axis.js";
+export { livingBodyKinds, livingSilhouette } from "./living-look.js";
+export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   MECHANIC_IDS,
@@ -54,7 +51,6 @@ export {
   type MechanicId,
   type MechanicSwitch,
   mechanic,
-  mechanicOn,
   mechanicsInWave,
   type Reach,
   type RunMechanicId,
@@ -114,7 +110,6 @@ export {
   type CreatureSilhouette,
   type CrystalSilhouette,
   HULL,
-  HULL_GEOMETRY,
   type HullSilhouette,
   type LobeShape,
   MAW,
@@ -126,7 +121,6 @@ export {
   SLICK,
   THROB,
   TORCH,
-  xToHullAngle,
 } from "./silhouettes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { type RingSilhouette, WARDEN_PUPIL_OPEN, WARDEN_RING } from "./warden-shape.js";

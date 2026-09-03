@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { ClockSync, sampleOffset, sampleRtt } from "../src/index.js";
+import { sampleOffset, sampleRtt } from "../src/clock.js";
+import { ClockSync } from "../src/index.js";
 
 /** One round trip: `trip` milliseconds each way, the server `offset` ahead. */
 function trip(c1: number, oneWay: number, offset: number, handlingMs = 0) {

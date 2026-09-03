@@ -1,5 +1,5 @@
-export { type ClockSample, ClockSync, sampleOffset, sampleRtt } from "./clock.js";
-export { decodeCommand, decodeCommands, isTick, isUint32 } from "./command-codec.js";
+export { type ClockSample, ClockSync } from "./clock.js";
+export { decodeCommands } from "./command-codec.js";
 export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
 export { Lockstep, type LockstepOptions } from "./lockstep.js";
@@ -8,7 +8,6 @@ export {
   decodeClient,
   decodeServer,
   encode,
-  otherPlayer,
   type PlayerId,
   PROTOCOL_VERSION,
   type RefusalCode,
@@ -17,7 +16,6 @@ export {
 export {
   isRoomCode,
   normalizeRoomCode,
-  ROOM_ALPHABET,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "./room-code.js";

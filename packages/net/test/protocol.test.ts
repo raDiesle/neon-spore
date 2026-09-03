@@ -7,10 +7,10 @@ import {
   HashLedger,
   isRoomCode,
   normalizeRoomCode,
-  ROOM_ALPHABET,
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "../src/index.js";
+import { ROOM_ALPHABET } from "../src/room-code.js";
 
 describe("protocol", () => {
   it("survives a round trip", () => {

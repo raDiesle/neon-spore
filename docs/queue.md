@@ -54,29 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Trim the barrel exports nobody outside the package imports
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/src/index.ts`, `packages/content/src/index.ts`, `packages/audio/src/index.ts`, `packages/net/src/index.ts`
-
-A whole-word grep across `apps/`, `packages/` and `tools/` finds no importer for
-these (tests import by relative path already). Sim: `GYRE_DIAMOND`,
-`GYRE_TURN_MILLI`, `VEIL_UNSTRUCK`, `breakClaspsInColumn`, `clearGrips`,
-`echoFalls`, `echoGeneration`, `gyreAt`, `gyreBecomes`, `gyreSuckTicks`, `isMount`,
-`lureIsSpent`, `markMoment`, `metColor`, `missedColor`, `openWave`, `primeTicks`,
-`shellOnSpawn`, `shellStruck`, `shellWithout`, `veilStruck`, `wispNextIndex`, and
-the types `DartDir`, `GuardStats`, `MazeEntry`, `RunStats`; also
-`export * from "./bosses.js"` makes the boss surface unauditable by name. Content:
-`controlsForKinds` (see the control-group entry), `hasOwnBody`, `mechanicOn`,
-`bumpLift`, `xToHullAngle`, `HULL_GEOMETRY`, `LONG_AXIS_RATIO`, `POD_CATEGORY`.
-Audio: `bandFraction`, `voiceBandSeconds`, `VOICE_BUDGET_SECONDS`, `endOf`,
-`hasSound`, `cueFor`, `panForCol`, `pitchForRow`. Net: `sampleOffset`, `sampleRtt`,
-`isTick`, `isUint32`, `decodeCommand`, `otherPlayer`, `ROOM_ALPHABET`.
-
-Re-run the grep for each name before removing it, remove it from the barrel
-(module-level exports stay), replace the `export *` with a named list, and let
-`bun run typecheck` prove nothing depended on them.
-
 ## Drop the export keyword from symbols only their own file uses; delete flare.ts
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -151,21 +128,6 @@ Cache the button `Path2D` in a module-level `Map<Color, Path2D>`; add `left` and
 `MoteStyle` at module load keeping the draw order and the per-frame `x` drift;
 replace the spreads with loops. The canvas call log is unchanged, so the frame is
 identical, and the render-perf skill says how to state the before and after.
-
-## Bring docs/shipped-looks.md and the canvas stub header in line with the code
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `docs/shipped-looks.md`, `packages/render/test/canvas-stub.ts`, `packages/render/src/living-draw.ts`, `packages/render/src/creature-detail.ts`
-
-The doc (lines 26, 36, 43, 53 to 54) says the slick and bulb pass and the
-`blocked > 0` branch are in `creatures.ts` / `drawCreature`; they moved to
-`living-draw.ts` / `drawLiving`. It says a bulb gets one core dot and two filament
-curves; `creature-detail.ts` draws one dot and returns. It gives the trail halos as
-`0.85r` and `0.73r`; the code computes `r * (0.85 - k * 0.12)` for k = 1, 2, which
-is `0.73r` and `0.61r`. `canvas-stub.ts` line 5 says render is the one package with
-no tests; it has 33 test files.
-
-Correct the four statements and delete the stub's sentence. Doc only.
 
 ## Count a failed reconnect attempt once, not twice
 

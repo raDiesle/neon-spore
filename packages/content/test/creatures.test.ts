@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { isMeteorKind } from "@neon-spore/sim";
-import { CREATURES, categoryOf, POD_CATEGORY } from "../src/index.js";
+import { POD_CATEGORY } from "../src/creatures.js";
+import { CREATURES, categoryOf } from "../src/index.js";
 
 describe("categoryOf", () => {
   it("groups aim-only creatures as cannon", () => {
