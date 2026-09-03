@@ -251,22 +251,6 @@ a `beat >= 0` check per entry, non-empty entries for a non-boss wave. Add one li
 to the creature test: `for (const [k, d] of Object.entries(CREATURES))
 expect(d.kind).toBe(k)`, or drop the `kind` field since the key is the kind.
 
-## Call runStageLoop instead of carrying three copies of the fixed-timestep loop
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/src/stage-loop.ts`, `tools/director/src/raster-field.ts`, `tools/director/src/versus-pair.ts`
-
-`stage-loop.ts` was split out so the loop exists once; `raster-field.ts` line 155
-says "the same fixed-timestep loop stage.ts runs" and then re-types the twelve
-lines (`carry`, `Math.min(0.25, ...)`, `Math.min(Math.floor(carry), tickHz)`).
-`versus-pair.ts` lines 175 to 192 hold a third copy with `rate` and `frozen`
-folded in. A change to the catch-up cap in one file will not reach the other two.
-
-Give `runStageLoop` a stop hook (raster-field stops when `!canvas.isConnected`,
-versus-pair on `cancelAnimationFrame`) and a `dt` scaler, then have both files call
-it. A small director test that greps for `carry +=` outside `stage-loop.ts` keeps
-it at one.
-
 ## Move the director's 1 100 lines of CSS out of index.html; lint .css and .js
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
@@ -300,24 +284,6 @@ Add `drawQueenShell(ctx, geom, cycle)` to `queen-shared.ts` (taking the pre-shel
 hook for the halo and the rx/ry override for withdrawal) and `verticalFade(ctx,
 id, stops)` beside `tails/types.ts`. This is a refactor of a tool, not a look;
 `tails.test.ts` and a `bun run shapes:still` frame prove the pixels did not move.
-
-## Split stage.test.ts into its three subjects and stop leaking global stubs
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `tools/director/test/stage.test.ts`, `packages/sim/test/briefing.test.ts`
-
-The file (378 lines) is three unrelated describes: lines 101 to 140 test
-`stage-afterrun.ts`, lines 155 to 182 test only `@neon-spore/sim`
-(`createWorld`, `startWave`, `briefingHolds`, no director import), and lines 209
-to 378 test `stage-touch.ts`. It installs `globalThis.document` at module scope
-(line 62) and `globalThis.window` inside a helper (line 229) without removing
-either, so later files in the same `bun test` process inherit them. Its header
-promises a `Check:` trailer, which CLAUDE.md now forbids.
-
-Move the first block to `stage-afterrun.test.ts`, the third to
-`stage-touch.test.ts` with the stubs installed in `beforeAll` and restored in
-`afterAll`, and the second to `packages/sim/test` or delete it if
-`briefing.test.ts` already covers a fresh `Briefings` per `createWorld`.
 
 ## Break the runtime import cycle in the SHAPES page and add a cycle check
 
