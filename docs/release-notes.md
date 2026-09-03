@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 767dfcc — The wheel turns instead of teleporting, and it has a middle now
+
+THE GYRE's six bodies never glided at all. `onBeat` writes `fromRow` and `fromCol` for every creature and only *then* skips a mount, so the two fields `carryMounts` had just filled in were overwritten with where the body now stands — from and to identical, six bodies jumping from tile to tile once a beat with nothing drawn in between. That is the whole of what "jumping pictures" was, and the guard now comes before the assignments.
+
 ## 2026-09-03 · 975815c — The names that point at waves follow the waves that were renamed
 
 Two waves were renamed in the director and saved — ON THE BEAT became THE THROB, HOLD IT OPEN became THE LID — and four places that name a wave by string stayed where they were, so `bun run check` has been red on main since. `demonstrationWave` throws by design when a registry entry names a wave that no longer exists, which is exactly what it did.
