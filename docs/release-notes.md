@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 5fad0f0 — A technical finding is queued and drains itself; an idea still is not
+
+Suggestions used to be said once in the report and then be the owner's to keep or drop. That was the right answer to a backlog of *ideas* — sixty-two entries nobody but him could decide on — and the wrong answer to the other half. A refactor stepped around, a rule re-derived instead of called, a slow path, a missing test: those need no decision at all, and saying them once meant every session found the same ones again.
+
 ## 2026-09-03 · ede4c70 — The wisp's next square is on the screen the moment it lands, and the pilot's box stops pointing
 
 Two things the owner found by playing it.
