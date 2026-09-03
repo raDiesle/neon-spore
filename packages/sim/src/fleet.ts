@@ -1,4 +1,5 @@
 import type { FleetState } from "./boss-state.js";
+import { midCol } from "./config.js";
 import type { FleetEntry } from "./entries.js";
 import {
   fleetCols,
@@ -112,7 +113,7 @@ export function stepFleet(world: World, b: FleetState): void {
   // has columns of its own and the ship does not stand under any of them —
   // the same call THE GAUGE makes for the same reason, and the scar is what
   // makes it read: it is still there when the next wave opens.
-  breachHull(world, Math.floor(world.cfg.cols / 2), "meteorFastest", 0, world.cfg.damageFleet);
+  breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damageFleet);
   world.boss = null;
 }
 

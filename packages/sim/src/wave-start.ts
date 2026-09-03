@@ -1,5 +1,6 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
+import { midCol } from "./config.js";
 import type { WardenEntry } from "./entries.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
@@ -38,7 +39,7 @@ export function startWave(
   boss: BossEntry | null = null,
   hasGuide = false,
 ): void {
-  const mid = Math.floor(world.cfg.cols / 2);
+  const mid = midCol(world.cfg);
   world.wave = waveIndex;
   world.waveBeat = 0;
   world.spawned = 0;

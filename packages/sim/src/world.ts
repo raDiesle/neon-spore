@@ -1,7 +1,7 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
 import type { BossState } from "./boss-state.js";
 import { type Briefings, newBriefings } from "./briefing.js";
-import { type SimConfig, ticksPerBeat } from "./config.js";
+import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
 import { NO_GRIP } from "./grip.js";
 import { NO_PRIME } from "./lance.js";
 import { createRng, type Rng } from "./rng.js";
@@ -116,7 +116,7 @@ export function createWorld(
   podQueue?: PodEntry[],
 ): World {
   ticksPerBeat(cfg); // fail loudly at construction, not mid-game
-  const mid = Math.floor(cfg.cols / 2);
+  const mid = midCol(cfg);
   const world: World = {
     cfg,
     rng: createRng(seed),

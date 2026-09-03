@@ -1,4 +1,4 @@
-import { hullPercent, type SnakeState } from "@neon-spore/sim";
+import { hullPercent, midCol, type SnakeState } from "@neon-spore/sim";
 import { drawHull } from "./hull.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -123,5 +123,5 @@ function drawSpark(
 }
 
 function mid(view: ViewState): number {
-  return Math.floor(view.world.cfg.cols / 2);
+  return midCol(view.world.cfg);
 }

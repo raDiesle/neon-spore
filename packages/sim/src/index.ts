@@ -32,6 +32,7 @@ export { breakClaspsInColumn, claspBecomes, claspIsShielded, claspStruck } from 
 export {
   DEFAULT_CONFIG,
   hullRow,
+  midCol,
   msToTicks,
   PAIR_ON,
   type SimConfig,

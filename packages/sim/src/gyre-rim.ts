@@ -1,4 +1,4 @@
-import type { SimConfig } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
 import { livingKindForColor } from "./kinds.js";
 import type { Color, Creature, CreatureKind } from "./types.js";
 
@@ -142,7 +142,7 @@ export function gyreRestRow(cfg: SimConfig): number {
 
 /** The column the diamond is centred on. Dead centre, for THE VANE's reason. */
 export function gyreRestCol(cfg: SimConfig): number {
-  return Math.floor(cfg.cols / 2);
+  return midCol(cfg);
 }
 
 /**

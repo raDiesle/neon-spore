@@ -1,4 +1,4 @@
-import { ticksPerBeat } from "./config.js";
+import { midCol, ticksPerBeat } from "./config.js";
 import type { GaugePhase, GaugeState } from "./gauge.js";
 import { gaugeHeard, openGauge, stepGauge } from "./gauge.js";
 import { breachHull } from "./hull.js";
@@ -122,7 +122,7 @@ export function stepGaugeRound(world: World): void {
  * hull when the field comes back and the pair can see what the round took.
  */
 function spendHull(world: World): void {
-  const col = Math.floor(world.cfg.cols / 2);
+  const col = midCol(world.cfg);
   breachHull(world, col, "meteorFastest", 0, world.cfg.damageGauge);
 }
 

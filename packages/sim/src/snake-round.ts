@@ -1,3 +1,4 @@
+import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
 import { openSnake, type SnakePhase, type SnakeRound, type SnakeState } from "./snake.js";
 import { snakeHeard } from "./snake-controls.js";
@@ -102,7 +103,7 @@ export function stepSnakeRound(world: World): void {
  * and a second round is not a second argument.
  */
 function spendHull(world: World): void {
-  const col = Math.floor(world.cfg.cols / 2);
+  const col = midCol(world.cfg);
   breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnake);
 }
 

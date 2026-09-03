@@ -384,6 +384,17 @@ const COPIES: Copy[] = [
     pattern: /%\s*[\w.]*\bveilMorphBeats\b/,
   },
   {
+    // The middle column. It is the cannon's home, the shield's, where THE FLEET
+    // breaches the hull, where THE GAUGE, SNAKE and PINBALL cost it, the gyre's
+    // rest column and the vane's pivot — nine places, and only two of them had
+    // a name. An even `cols` is what the copies are waiting for: some of them
+    // would move left and some right, and the pair would be told a column the
+    // ship is not in.
+    call: "midCol",
+    owner: "packages/sim/src/config-derived.ts",
+    pattern: /Math\.floor\(\s*[\w.]*cfg\.cols\s*\/\s*2\s*\)/,
+  },
+  {
     // Milliseconds into ticks, the conversion under every window in the game.
     // This row used to name one spelling of it — `veilArmourMs / 1000` — and
     // the other eight walked past: the guard's window, the maw's, the ready
@@ -391,12 +402,12 @@ const COPIES: Copy[] = [
     // own file. Which is how a picture comes to stop being angry a few frames
     // before the body stops being armoured.
     //
-    // `config.ts` owns the row by naming the spelling it rejects: it divides
-    // last, and its comment says why. Matched with comments left in, so that
-    // sentence counts — a file that explains this conversion is a file that is
-    // about to write it out.
+    // `config-derived.ts` owns the row by naming the spelling it rejects: it
+    // divides last, and its comment says why. Matched with comments left in,
+    // so that sentence counts — a file that explains this conversion is a file
+    // that is about to write it out.
     call: "msToTicks",
-    owner: "packages/sim/src/config.ts",
+    owner: "packages/sim/src/config-derived.ts",
     pattern: /\bms\s*\/\s*1000\s*\)\s*\*\s*[\w.]*tickHz/i,
     strip: false,
   },

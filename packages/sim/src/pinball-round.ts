@@ -1,3 +1,4 @@
+import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
 import {
   loadBoard,
@@ -101,7 +102,7 @@ export function stepPinballRound(world: World): void {
   }
   if (world.beat - state.roundBeat >= pinballCurrent(state).beats) {
     state.passed = false;
-    spendHull(world, world.cfg.damagePinball, Math.floor(world.cfg.cols / 2));
+    spendHull(world, world.cfg.damagePinball, midCol(world.cfg));
     enterPhase(state, "verdict", world.beat);
   }
 }

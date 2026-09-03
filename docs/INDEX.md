@@ -171,6 +171,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
 | `packages/sim/src/field.ts` | taking a body off the field — the counterpart to `spawn.ts` |
+| `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
 
 ### packages/content
 

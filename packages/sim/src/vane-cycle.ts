@@ -1,4 +1,4 @@
-import type { SimConfig } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
 import { type Color, type CreatureKind, clampSpanCol } from "./types.js";
 
 /**
@@ -166,7 +166,7 @@ export function vaneReachMilli(waveBeat: number): number {
  * on an off-centre pivot has a long side and a short one.
  */
 export function vanePivotCol(cfg: SimConfig): number {
-  return Math.floor(cfg.cols / 2);
+  return midCol(cfg);
 }
 
 /**

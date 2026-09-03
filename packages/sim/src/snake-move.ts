@@ -1,3 +1,4 @@
+import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
 import { resetBody, type SnakeState, snakeCurrent } from "./snake.js";
 import {
@@ -203,7 +204,7 @@ function repeat(world: World, snake: SnakeState): void {
   snake.roundBeat = world.beat;
   snake.struck = [];
   snake.taken = [];
-  const col = Math.floor(world.cfg.cols / 2);
+  const col = midCol(world.cfg);
   breachHull(world, col, "meteorFastest", 0, world.cfg.damageSnakeRepeat);
   resetBody(world, snake);
 }

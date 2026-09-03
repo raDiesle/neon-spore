@@ -54,21 +54,6 @@ say. Written for somebody who was not there.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on.
 
-## Name the centre column once in config.ts instead of nine times
-
-- **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
-- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/world.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/snake-move.ts`, `packages/sim/src/snake-round.ts`, `packages/sim/src/gyre-rim.ts`, `packages/sim/src/vane-cycle.ts`, `packages/sim/test/purity.test.ts`
-
-`Math.floor(cfg.cols / 2)` is the cannon's home, the shield's home, where THE
-FLEET breaches the hull, where THE GAUGE, SNAKE and PINBALL cost the hull, the
-gyre's rest column and the vane's pivot. Two of them already have names
-(`gyreRestCol`, `vanePivotCol`); seven are inline. `hullRow(cfg)` in `config.ts`
-is the precedent.
-
-Add `midCol(cfg)` next to `hullRow`, have `gyreRestCol` and `vanePivotCol` return
-it, replace the seven inline copies, and add a `COPIES` row matching
-`Math\.floor\(\s*[\w.]*cfg\.cols\s*\/\s*2\s*\)` owned by `config.ts`.
-
 ## Stop re-deriving the pod-kind default in content; call sim's rule
 
 - **Found:** 2026-09-03, claude/code-review-improvements-ec1b31
