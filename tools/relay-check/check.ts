@@ -52,6 +52,19 @@ const ROOM = "TUVW";
 const FRAME_MS = 16;
 /** Ticks per frame. Two is roughly 120 Hz at 60 fps, which is what a phone does. */
 const TICKS_PER_FRAME = 2;
+/**
+ * How often a device writes down its own fingerprint, in ticks.
+ *
+ * Delayed lockstep does not promise the two devices are on the same tick at
+ * the same wall moment — it promises they simulate the same ticks with the
+ * same commands, and a device may be up to `delayTicks` ahead of its peer's
+ * horizon. So comparing `a.world.tick` to `b.world.tick` at the instant the
+ * run stops asks a question the protocol never answers: one run in five came
+ * back two ticks apart, with identical hashes, and was reported as a parting.
+ * Each device marks itself at the same agreed ticks instead, and the verdict
+ * is taken at the last tick they both reached.
+ */
+const MARK_EVERY = 60;
 
 const cfg = { ...DEFAULT_CONFIG };
 
@@ -67,11 +80,14 @@ interface Device {
   world: World;
   link: Link;
   press: (player: PlayerId, command: Command) => void;
+  /** `hashWorld` at every `MARK_EVERY`th tick of the run now in progress. */
+  marks: Map<number, number>;
 }
 
 function device(name: string): Device {
   const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
   const pending: { player: PlayerId; command: Command }[] = [];
+  const marks = new Map<number, number>();
   const link = createLink({
     cfg,
     world,
@@ -80,6 +96,10 @@ function device(name: string): Device {
         pending.splice(0, pending.length).map((p) => ({ tick, ...p })),
     },
     onStart: () => {
+      // A rejoin stamps a fresh beat zero and the tick count starts again, so
+      // the marks from the run being thrown away would collide with the marks
+      // of the run replacing it. They go with the run they belong to.
+      marks.clear();
       resetClock(world, 0);
       resetRun(world);
       startWave(world, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
@@ -90,6 +110,7 @@ function device(name: string): Device {
     name,
     world,
     link,
+    marks,
     press: (player, command) => pending.push({ player, command }),
   };
 }
@@ -126,6 +147,7 @@ await new Promise<void>((done) => {
       for (let i = 0; i < TICKS_PER_FRAME && d.link.mayTick(); i++) {
         step(d.world, d.link.drain());
         d.link.checkpoint();
+        if (d.world.tick % MARK_EVERY === 0) d.marks.set(d.world.tick, hashWorld(d.world));
       }
     }
     if (split && !hasSplit && elapsed >= half) {
@@ -167,12 +189,21 @@ const sc = c?.link.status();
 a.link.leave();
 b.link.leave();
 c?.link.leave();
-const hashA = hashWorld(a.world);
-const hashB = hashWorld(b.world);
-console.log(`A  seat ${sa.player}  ${sa.state}  rtt ${sa.rttMs}ms  tick ${a.world.tick}  ${hashA}`);
-console.log(`B  seat ${sb.player}  ${sb.state}  rtt ${sb.rttMs}ms  tick ${b.world.tick}  ${hashB}`);
+console.log(`A  seat ${sa.player}  ${sa.state}  rtt ${sa.rttMs}ms  tick ${a.world.tick}`);
+console.log(`B  seat ${sb.player}  ${sb.state}  rtt ${sb.rttMs}ms  tick ${b.world.tick}`);
 
-const agreed = a.world.tick === b.world.tick && hashA === hashB;
+/** The last tick both devices fingerprinted, and whether they said the same there. */
+function meeting(x: Device, y: Device): { tick: number; same: boolean } | null {
+  let last = -1;
+  for (const tick of x.marks.keys()) if (y.marks.has(tick) && tick > last) last = tick;
+  if (last < 0) return null;
+  return { tick: last, same: x.marks.get(last) === y.marks.get(last) };
+}
+
+const met = meeting(a, b);
+if (met === null) console.log("A and B never reached a tick they both fingerprinted");
+else console.log(`met at tick ${met.tick}  ${a.marks.get(met.tick)} / ${b.marks.get(met.tick)}`);
+const agreed = met?.same === true;
 if (split) {
   const caught = sa.desyncTick !== null && sb.desyncTick !== null;
   console.log(caught ? `split caught at tick ${sa.desyncTick}` : "SPLIT WENT UNNOTICED");
@@ -195,7 +226,7 @@ if (sc) {
 // worlds go back to tick 0, and what is left of the run is whatever the three
 // second countdown did not eat.
 const enoughTicks = rejoin ? 100 : 300;
-if (!agreed || sa.state !== "live" || sb.state !== "live" || a.world.tick < enoughTicks) {
+if (!agreed || sa.state !== "live" || sb.state !== "live" || (met?.tick ?? 0) < enoughTicks) {
   console.error(
     rejoin ? "the two worlds did not come back in step" : "the two worlds did not stay in step",
   );

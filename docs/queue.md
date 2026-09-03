@@ -152,27 +152,6 @@ That is about fifteen lines out of `link.ts` and puts the wall clock in one
 file, which is what the header claims for it already. `bun run relay:check`
 against a running wrangler is what proves it, not `bun test` alone.
 
-## relay:check --rejoin compares tick counts at one instant, and flakes
-
-- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
-- **Taken:** 2026-09-03, claude/queue-relay-check-rejoin-compares-tick-counts-at-one-i
-- **Files:** `tools/relay-check/check.ts`
-
-One run in five of `bun run relay:check ws://127.0.0.1:<port> 14 --rejoin`
-reports "the two worlds did not come back in step" with A on tick 392 and B on
-tick 390 — a two-tick spread at the moment the harness happens to read them, not
-a parting. The other four runs pass with identical ticks and identical hashes,
-and `--split`, `--full` and the plain run pass every time.
-
-`agreed` is `a.world.tick === b.world.tick && hashA === hashB`, and delayed
-lockstep does not promise the two devices are on the same tick at the same wall
-moment: it promises they simulate the same ticks with the same commands. A
-device may be up to `delayTicks` ahead of its peer's horizon. Compare instead at
-a tick they have both reached — step the trailing world to the leading one's
-tick before hashing, or record each world's hash at an agreed checkpoint tick
-and compare those. A flaky check is worse than none, because the next session
-reads a red one as its own doing.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
