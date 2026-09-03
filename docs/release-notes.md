@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-03 · 9601bcb — The BOUND paragraph stops counting the sounds it cannot draw
+
+`docs/spec/audio.md` said five bound sounds have no subject to draw. `sound-link.ts` holds fifteen, and has for some time — a lure, a veil, a salvo into open water and a holed hull all arrived with a written reason and nothing counted them. The number carried no argument the sentence did not already make, so it goes rather than being pinned: what matters is that the exception is written down each time, which the director's own test already holds.
+
+## 2026-09-03 · fb67448 — The stateful half of audio is tested, and the bosses move next door
+
+No test named `Mixer` or `MusicPlayer`, which left the one dangerous thing in the package unwatched: the mixer remembers a frame of world and sounds the difference, and `world.tick` is not monotonic, so a restart it failed to notice would be heard as the middle of the last run. `mixer.test.ts` builds worlds with `createWorld`, replaces `engine.play` with a recorder and holds the edges — the guard and maw windows, the alarm on every fourth beat, the mend, the seat gate, the duplicate cap, and a tick going backwards. `player.test.ts` gives `MusicPlayer` a fake engine with a settable clock and holds the loop arithmetic. `bind.test.ts` proved only that each creature event named *a* sound that exists, so two swapped ids passed; it now names the id each one plays.
+
+## 2026-09-03 · 302f6b3 — Filtered noise is a grain, not a literal written twenty-nine times
+
+`grain.ts` says a sound is a stack of grains, and then twenty-nine of the sound definitions hand-built the same six-line `{ source: "noise", ... }` object because the two named noise grains, `tick` and `air`, carry their own envelopes and these needed their own. `noise(colour, filter, attack, release, gain, wobble?)` is that layer, and calling it takes `impact.ts` from 235 lines to 212 and `motion.ts` from 220 to 216.
+
+## 2026-09-03 · 3f37316 — A sound plays whole or not at all, and its modulators are held
+
+The live-voice cap was read inside the engine's per-voice loop, so a multi-layer sound arriving at the ceiling played its first layers and dropped the rest — a click with no body, which is heard as a fault where the silence it was rationing towards would have been heard as room. The decision moves to `admits(liveCount, plan)` in `plan.ts`, ahead of the loop, where `bun test` can reach it: the engine has an `AudioContext` in it and cannot run headless, so every decision it makes that could be wrong belongs next door.
+
 ## 2026-09-03 · 1d91a3f — Queue the bash guard's refusal of a commit reword
 
 The guard matches `git commit --am` to catch `--am` as short for `--all`, and `--amend` begins with those characters — so rewording the commit you have just written is refused with a message about staging another lane's work. It also matches its own text, so a message that quotes the refused form cannot be committed either. Found by hitting both; the entry says to anchor the abbreviations, match argv rather than the whole command line, and add the test the guard has never had.
