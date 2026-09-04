@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 340a89a — A rock lands on the ship and stands there for a beat, which is a beat the shield still has
+
+The shield did nothing when there was no room left. A rock's last drawn tile was a replay of a body the simulation had already removed and resolved (`rock-impact.ts`), so the trigger pressed while watching the rock cross that tile arrived at nothing — and the rock sank into the hull with the press still in the air. A rock's fall now stops on the ship's row instead of carrying it past, and it stands on the plating for the one beat render/ spends drawing it arrive. That beat is a third and last time the shield is asked, and it is the one the owner was pressing on. Every tier gets the same beat, a torch's thirteen tiles included, where before a fast rock spent its whole last step as a picture of something already gone.
+
 ## 2026-09-04 · 620a1e8 — The tutorial is the game's own screen, and it comes before the wave's name
 
 A wave with a guide now opens on it, and the wave's number, name and sentence come after — teaching first, naming second, so the pair reads FIRST STEP already knowing what a first step is. A wave with no guide is unchanged.
