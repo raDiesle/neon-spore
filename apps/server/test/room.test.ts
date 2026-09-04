@@ -422,3 +422,98 @@ describe("the names two people are called", () => {
     one.close();
   });
 });
+
+describe("what the pair got to, and the run that nobody came back to", () => {
+  test("is kept, and handed back on the next welcome", async () => {
+    const one = await phone("AGAH", PROTOCOL_VERSION, mf, "Ada");
+    await one.settle();
+    one.send({ t: "stats", wave: 8, score: 12_300 });
+    await one.settle();
+
+    // The room stores it and never reads it: what proves it is there is that
+    // it comes back, not anything the room did with it.
+    const two = await phone("AGAH", PROTOCOL_VERSION, mf, "David");
+    await two.settle();
+    expect(of(two.said, "welcome").at(-1)?.best).toEqual({ wave: 8, score: 12_300 });
+    one.close();
+    two.close();
+  });
+
+  test("takes the better of the two seats' figures, field by field", async () => {
+    const one = await phone("AHAJ", PROTOCOL_VERSION, mf, "Ada");
+    const two = await phone("AHAJ", PROTOCOL_VERSION, mf, "David");
+    await two.settle();
+    // One seat saw the furthest wave, the other the higher score — a run where
+    // the hull broke on wave nine after a good wave eight.
+    one.send({ t: "stats", wave: 9, score: 100 });
+    two.send({ t: "stats", wave: 8, score: 12_300 });
+    await two.settle();
+    one.close();
+    two.close();
+
+    const back = await phone("AHAJ", PROTOCOL_VERSION, mf, "Ada");
+    await back.settle();
+    expect(of(back.said, "welcome").at(-1)?.best).toEqual({ wave: 9, score: 12_300 });
+    back.close();
+  });
+
+  test("says nothing at all about a room never played in", async () => {
+    const one = await phone("AJAK", PROTOCOL_VERSION, mf, "Ada");
+    await one.settle();
+    expect(of(one.said, "welcome").at(-1)?.best).toBeNull();
+    one.close();
+  });
+
+  test("ends a run nobody came back to, so the next arrival starts a fresh one", async () => {
+    // Both windows shortened so the test does not sit still for the real ones.
+    const brief = relay({ SEAT_SILENT_MS: "100", RUN_OVER_MS: "200" });
+    try {
+      const one = await phone("AKAL", PROTOCOL_VERSION, brief);
+      const two = await phone("AKAL", PROTOCOL_VERSION, brief);
+      await two.settle();
+      one.send({ t: "ready" });
+      two.send({ t: "ready" });
+      await two.settle();
+      expect(of(two.said, "welcome").at(-1)?.startMs).toBeGreaterThan(0);
+
+      // Both phones stop answering — two pockets rather than one. Without this
+      // the room keeps the stamp, and the next arrival is handed a beat zero
+      // from a game that ended.
+      await quiet(400);
+
+      const back = await phone("AKAL", PROTOCOL_VERSION, brief);
+      await back.settle();
+      expect(of(back.said, "welcome").at(-1)?.startMs).toBe(0);
+      back.close();
+    } finally {
+      await brief.dispose();
+    }
+  });
+
+  test("leaves a run alone while somebody is still in the room", async () => {
+    const brief = relay({ SEAT_SILENT_MS: "10000", RUN_OVER_MS: "100" });
+    try {
+      const one = await phone("ALAM", PROTOCOL_VERSION, brief);
+      const two = await phone("ALAM", PROTOCOL_VERSION, brief);
+      await two.settle();
+      one.send({ t: "ready" });
+      two.send({ t: "ready" });
+      await two.settle();
+      const stamped = of(two.said, "welcome").at(-1)?.startMs ?? 0;
+      expect(stamped).toBeGreaterThan(0);
+
+      // Quiet for longer than the window, but the seats are still seated: one
+      // seat left alone is a wait, not an ending, and its partner may be back.
+      await quiet(300);
+      const third = await phone("ALAM", PROTOCOL_VERSION, brief);
+      await third.settle();
+      // The room is still busy, and still holding the run it stamped.
+      expect(of(third.said, "error")[0]?.code).toBe("full");
+      one.close();
+      two.close();
+      third.close();
+    } finally {
+      await brief.dispose();
+    }
+  });
+});

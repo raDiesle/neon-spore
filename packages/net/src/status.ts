@@ -76,6 +76,11 @@ export interface LinkStatus {
    */
   names: readonly [string, string];
   /**
+   * What this pair got to last time, or null for a room never played in. The
+   * room stores it and never reads it; the screen is what says it out loud.
+   */
+  best: { wave: number; score: number } | null;
+  /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the
    * one number that says how the link *feels* rather than how it measures, so
@@ -127,6 +132,7 @@ export const SOLO_STATUS: LinkStatus = {
   readyHere: false,
   readyThere: false,
   names: ["", ""],
+  best: null,
   delayMs: 0,
   stalledMs: 0,
   awayMs: 0,

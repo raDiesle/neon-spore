@@ -542,6 +542,15 @@ body.player-view #waveSkip {
 
 /* "What are you called?", asked once (`join-name.ts`). It sits where the room
    code will be, because it is the thing standing in front of the room. */
+/* What the two of you got to last time, when the room remembers a time. */
+#joinScreen .last {
+  margin: -6px 0 14px;
+  color: #6f639f;
+}
+#joinScreen .last:empty {
+  display: none;
+}
+
 /* See `.twostep` on why this is `:not([hidden])` rather than plain. */
 #joinName:not([hidden]) {
   display: grid;

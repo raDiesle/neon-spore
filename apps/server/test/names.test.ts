@@ -1,4 +1,4 @@
-import { expect, test } from "bun:test";
+import { afterAll, expect, test } from "bun:test";
 import { TAKEN_MESSAGE } from "@neon-spore/net";
 import { Miniflare } from "miniflare";
 
@@ -49,6 +49,11 @@ const mf = new Miniflare({
   ],
   // biome-ignore lint/suspicious/noExplicitAny: miniflare's config type is not exported in a usable shape.
 } as any);
+
+// Disposed, because `bun test` runs every file in one process and a workerd
+// this file left running is one the next file's own has to share a machine
+// with. `room.test.ts` does the same for the same reason.
+afterAll(() => mf.dispose());
 
 interface Answer {
   ok: boolean;

@@ -1,22 +1,20 @@
 import {
   type ClientMessage,
   decodeClient,
-  isRoomCode,
   NAME_PARAM,
   nameFromWire,
   type PlayerId,
-  PROTOCOL_VERSION,
   type ServerMessage,
-  VERSION_PARAM,
 } from "@neon-spore/net";
+import { refuseUpgrade } from "./room-open.js";
 import { pressStart, tellReady } from "./room-start.js";
+import { endStaleRun, keepBest, readBest } from "./room-tally.js";
 import {
   hangUp,
   namesOf,
   nameTag,
   occupiedSeats,
   playerOfSocket,
-  refuse,
   SEAT_SILENT_MS,
   type Seat,
   seatOfSocket,
@@ -25,6 +23,7 @@ import {
   stamp,
 } from "./seat.js";
 import { emptiedRoom, StartGate } from "./start-gate.js";
+import { NOTHING_YET, RUN_OVER_MS, type Tally, tallyFromWire, worthSaying } from "./tally.js";
 
 /**
  * Milliseconds between the **second press** and beat zero — only the short
@@ -35,6 +34,8 @@ const START_LEAD_MS = 800;
 
 interface RoomEnv {
   SEAT_SILENT_MS?: string;
+  /** How long a room holds a run open with nobody in it. See `tally.ts`. */
+  RUN_OVER_MS?: string;
 }
 
 /**
@@ -53,47 +54,51 @@ export class Room {
   private startMs = 0;
   /** The two presses between a full room and beat zero. See `start-gate.ts`. */
   private readonly gate = new StartGate();
+  private readonly runOverMs: number;
+  /** What this pair got to. Stored, handed back, never read. See `tally.ts`. */
+  private best: Tally = NOTHING_YET;
+  /** When this room last heard anything at all, for `runIsOver`. */
+  private heard = 0;
 
   constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
     const given = Number(env?.SEAT_SILENT_MS);
     this.silentMs = Number.isFinite(given) && given > 0 ? given : SEAT_SILENT_MS;
+    const over = Number(env?.RUN_OVER_MS);
+    this.runOverMs = Number.isFinite(over) && over > 0 ? over : RUN_OVER_MS;
     // Hibernation drops everything held in memory, so the two facts that must
     // outlive it are read back the moment the object is built again.
     ctx.blockConcurrencyWhile(async () => {
       this.code = (await ctx.storage.get<string>("code")) ?? "";
       this.startMs = (await ctx.storage.get<number>("startMs")) ?? 0;
+      this.best = await readBest(ctx.storage);
+      this.heard = (await ctx.storage.get<number>("heard")) ?? 0;
     });
   }
 
   async fetch(request: Request): Promise<Response> {
     const code = new URL(request.url).searchParams.get("code") ?? "";
-    if (!isRoomCode(code)) return new Response("bad room code", { status: 400 });
-    if (request.headers.get("Upgrade") !== "websocket") {
-      return new Response("expected websocket", { status: 426 });
+    // A run nobody has been playing is over before this phone is seated (see
+    // `runIsOver`), so the arrival gets a fresh beat zero.
+    const ended = await endStaleRun(
+      this.ctx.storage,
+      Date.now() - this.heard,
+      this.runOverMs,
+      this.seats().length,
+      this.startMs,
+    );
+    if (ended) {
+      this.startMs = 0;
+      this.gate.clear();
     }
+
+    const seats = this.seats();
+    const refused = refuseUpgrade(request, code, seats.length);
+    if (refused) return refused;
     if (this.code !== code) {
       this.code = code;
       await this.ctx.storage.put("code", code);
     }
-
-    // Before a seat is handed out, and before beat zero can be stamped for the
-    // peer: a build that cannot play this protocol must be turned away with
-    // nothing spent on it. The version rides the upgrade for that reason —
-    // a first message could only be read after all of it had already happened.
-    const version = new URL(request.url).searchParams.get(VERSION_PARAM);
-    if (Number(version) !== PROTOCOL_VERSION) {
-      return refuse("protocol", `protocol version ${PROTOCOL_VERSION} expected`);
-    }
-
-    const seats = this.seats();
-    // A third phone is refused *through* the socket rather than in front of it.
-    // A 409 never reaches the page as anything but a socket that would not
-    // open, which is indistinguishable from a dead line — so the upgrade is
-    // completed, the reason is said in the one vocabulary the indicator reads,
-    // and only then is the socket closed. It is never given a seat tag, so it
-    // is not a seat and `announce` will not count it as one leaving.
-    if (seats.length >= 2) return refuse("full", `room ${code} already has two`);
 
     const pair = new WebSocketPair();
     const client = pair[0];
@@ -119,6 +124,10 @@ export class Room {
     // Anything at all is proof the seat is still there. The ping every 700 ms
     // is what makes that a heartbeat rather than a hope.
     stamp(socket);
+    // The room's own clock for `runIsOver`: a socket's `lastSeen` goes with it
+    // when it is evicted, and what is measured is the silence after the last.
+    this.heard = Date.now();
+    void this.ctx.storage.put("heard", this.heard);
     this.route(me, message, socket);
   }
 
@@ -144,27 +153,24 @@ export class Room {
         send(socket, { t: "pong", c1: message.c1, s1, s2: Date.now() });
         return;
       }
+      // The three that are simply passed on, with the seat the socket holds
+      // stamped on. Spread rather than rebuilt field by field: the room never
+      // looks inside a `Command` and has no business naming the fields of one.
       case "input":
-        this.relay(me, {
-          t: "input",
-          player: me.player,
-          tick: message.tick,
-          commands: message.commands,
-        });
-        return;
       case "confirm":
-        this.relay(me, { t: "confirm", player: me.player, tick: message.tick });
-        return;
       case "hash":
-        this.relay(me, {
-          t: "hash",
-          player: me.player,
-          tick: message.tick,
-          hash: message.hash,
-        });
+        this.relay(me, { ...message, player: me.player });
         return;
       case "ready":
         void this.press(me.player);
+        return;
+      case "stats":
+        // Stored and never opened, the way a `Command` is relayed and never
+        // opened. Field by field, because one seat may hold the furthest wave
+        // and the other the higher score.
+        void keepBest(this.ctx.storage, this.best, tallyFromWire(message)).then((next) => {
+          this.best = next;
+        });
         return;
     }
   }
@@ -178,6 +184,7 @@ export class Room {
         code: this.code,
         startMs: this.startMs,
         seats: this.seats(),
+        best: worthSaying(this.best) ? this.best : null,
         persist: (at) => this.ctx.storage.put("startMs", at),
       },
       START_LEAD_MS,
@@ -198,6 +205,7 @@ export class Room {
         startMs: this.startMs,
         peers,
         names: namesOf(seats),
+        best: worthSaying(this.best) ? this.best : null,
       });
     }
     if (peers >= 2) tellReady(this.gate, seats);

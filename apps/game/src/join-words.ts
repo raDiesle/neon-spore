@@ -128,3 +128,16 @@ export function startButton(status: LinkStatus): { label: string; enabled: boole
   // sync exists to prevent.
   return { label: "START", enabled: false };
 }
+
+/**
+ * What the two of you got to last time, or "" for a room never played in.
+ *
+ * The one line the stored tally exists for. Once a room is named for the pair
+ * (`pairing.ts`), it follows the two people rather than the device — which is
+ * the point: a person who has changed phones is told what *they* reached.
+ */
+export function lastTimeLine(status: LinkStatus): string {
+  const best = status.best;
+  if (!best || (best.wave === 0 && best.score === 0)) return "";
+  return `Last time you two reached wave ${best.wave + 1} · ${best.score}.`;
+}

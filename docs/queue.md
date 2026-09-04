@@ -107,36 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## The room stores the pair's stats and ends the run after long silence
-
-- **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
-- **Taken:** 2026-09-03, claude/queue-the-room-stores-the-pairs-stats-and-ends-the-run
-- **Files:** `apps/server/src/room.ts`, `apps/server/src/seat.ts`, `apps/server/src/stats.ts`, `packages/net/src/protocol.ts`, `apps/server/test/room.test.ts`
-
-Read `net-change`. Today a seat silent for `SEAT_SILENT_MS` (10 s) is evicted
-and the peer told; a run with nobody in it simply hangs. Add a terminal step:
-when **both** seats have been silent past a longer window (30 s — the owner's
-figure), the room writes a small record to `ctx.storage` and ends the run: it
-clears `startMs`, so the next arrival gets a fresh beat zero rather than
-rejoining a dead game.
-
-**Decided by the owner on 3 September 2026: the record is the pair's furthest
-wave and last score, and the room screen reads it back.** Two fields rather than
-"waves reached, score and joint moments" — a record nothing reads is dead
-weight, and this one has a reader from the day it is written. A client sends its
-own tallies up periodically as a new `stats` message the relay stores and never
-reads into game state; the room hands them back in `welcome`, and the room
-screen shows one line when the pair returns — "you two reached wave 9 · 12 300".
-It is keyed by the room, and the room is keyed by the pair once "The room is
-named for the pair" lands, so the line follows the two people rather than the
-device. Where the two seats disagree the higher tally wins: a seat that dropped
-early holds the lower one, and neither is authoritative. The 30-s window must be a `vars` override like
-`SEAT_SILENT_MS` so the DO test can prove eviction-then-store without waiting.
-Note the trade-off in the code: a longer window also lengthens how long a dead
-pair blocks a third phone from the room. `bun test apps/server` covers the
-storage and the timing; the wire addition wants `relay:check` — say
-**unverified** if no wrangler was run.
-
 ## A settings page on the menu: sound, motion, your name and the way out
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd

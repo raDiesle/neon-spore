@@ -13,8 +13,6 @@ export {
 } from "./nickname.js";
 export {
   type ClientMessage,
-  decodeClient,
-  decodeServer,
   encode,
   NAME_PARAM,
   NAME_ROUTE,
@@ -24,6 +22,7 @@ export {
   type ServerMessage,
   VERSION_PARAM,
 } from "./protocol.js";
+export { decodeClient, decodeServer } from "./protocol-decode.js";
 export {
   isRoomCode,
   normalizeRoomCode,

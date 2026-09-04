@@ -44,6 +44,8 @@ export function createLink(o: LinkOptions): Link {
   let readySeats: PlayerId[] = [];
   /** What the two people are called, by seat, as the room last said. */
   let names: [string, string] = ["", ""];
+  /** What this pair got to last time, as the room last said. */
+  let best: { wave: number; score: number } | null = null;
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -53,7 +55,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, peers, readySeats, names, clock, run, socket, startMs });
+    report({ state, room, player, peers, readySeats, names, best, clock, run, socket, startMs });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -74,6 +76,7 @@ export function createLink(o: LinkOptions): Link {
     peers = 0;
     readySeats = [];
     names = ["", ""];
+    best = null;
     player = 0;
     room = "";
     clock.reset();
@@ -212,5 +215,10 @@ export function createLink(o: LinkOptions): Link {
   /** A press, not a start: the room decides what two of them are worth. */
   const ready = (): void => socket?.send({ t: "ready" });
 
-  return { join, leave, ready, mayTick, drain: run.drain, checkpoint, frame, status };
+  /** How far this device has got, for the room to keep. Stored, never read. */
+  const tally = (wave: number, score: number): void => {
+    socket?.send({ t: "stats", wave, score });
+  };
+
+  return { join, leave, ready, tally, mayTick, drain: run.drain, checkpoint, frame, status };
 }

@@ -28,6 +28,8 @@ export interface ReportParts {
   readySeats: readonly PlayerId[];
   /** What the two people are called, by seat. "" for a seat with no name. */
   names: readonly [string, string];
+  /** What this pair got to last time, or null. */
+  best: { wave: number; score: number } | null;
   clock: RoomClock;
   run: Run;
   /** Null before a room is joined, and after one is left. */
@@ -48,6 +50,7 @@ export function report(p: ReportParts): LinkStatus {
     readyHere: p.player !== 0 && p.readySeats.includes(p.player),
     readyThere: p.readySeats.some((seat) => seat !== p.player),
     names: p.names,
+    best: p.best,
     delayMs: p.run.delayMs,
     stalledMs: p.run.stalledMs,
     awayMs: p.socket?.awayMs ?? 0,

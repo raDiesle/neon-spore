@@ -42,6 +42,12 @@ export interface Link {
    * already stamped.
    */
   ready(): void;
+  /**
+   * Tell the room how far this device has got, now and then. It stores the
+   * better of the two seats' figures and hands it back on the next `welcome`,
+   * without ever reading it into game state — see `apps/server/src/tally.ts`.
+   */
+  tally(wave: number, score: number): void;
   /** Whether the simulation may advance one tick. Always true when playing solo. */
   mayTick(): boolean;
   /** The commands for the current tick. Consumes the local input buffer. */

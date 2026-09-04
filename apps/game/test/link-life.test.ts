@@ -76,6 +76,7 @@ function running() {
     peers: 2,
     startMs: START_MS,
     names: ["", ""],
+    best: null,
   });
   // Three samples is what `ClockSync` wants before it believes an offset. The
   // server answers instantly at `START_MS`, so the offset is `START_MS` and
@@ -90,7 +91,15 @@ function running() {
 describe("getting to beat zero", () => {
   test("waits for the second phone before it counts down to anything", () => {
     const h = joined();
-    h.wire.say({ t: "welcome", player: 1, room: "ACDE", peers: 1, startMs: 0, names: ["", ""] });
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 1,
+      startMs: 0,
+      names: ["", ""],
+      best: null,
+    });
     expect(h.state()).toBe("waiting");
   });
 
@@ -114,6 +123,7 @@ describe("a welcome that stamps a different beat zero", () => {
       peers: 2,
       startMs: START_MS + 5000,
       names: ["", ""],
+      best: null,
     });
     // The frame is what tells the two apart. A run that was ended has to count
     // down to the new stamp; one that was not simply reports itself live, and
@@ -131,6 +141,7 @@ describe("a welcome that stamps a different beat zero", () => {
       peers: 2,
       startMs: START_MS + 5000,
       names: ["", ""],
+      best: null,
     });
     h.link.frame(16);
     expect(h.starts).toEqual([1]);
@@ -143,6 +154,7 @@ describe("a welcome that stamps a different beat zero", () => {
       peers: 2,
       startMs: START_MS,
       names: ["", ""],
+      best: null,
     });
     h.link.frame(16);
     expect(h.starts).toEqual([1, 1]);
@@ -160,6 +172,7 @@ describe("a welcome that stamps a different beat zero", () => {
       peers: 2,
       startMs: START_MS,
       names: ["", ""],
+      best: null,
     });
     h.link.frame(16);
     expect(h.state()).toBe("live");
@@ -183,6 +196,7 @@ describe("a seat that empties", () => {
       peers: 2,
       startMs: START_MS,
       names: ["", ""],
+      best: null,
     });
     h.wire.say({ t: "peers", peers: 1, names: ["", ""] });
     // Nothing has started, so nobody has been dropped out of anything: the

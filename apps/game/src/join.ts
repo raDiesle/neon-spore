@@ -9,7 +9,7 @@ import {
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
 import { bindNameField } from "./join-name.js";
-import { chipText, explain, seatWord, startButton } from "./join-words.js";
+import { chipText, explain, lastTimeLine, seatWord, startButton } from "./join-words.js";
 import { rememberFrom } from "./pairing.js";
 
 export interface JoinBindings {
@@ -58,6 +58,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const sheet = document.getElementById("joinSheet");
   const codeEl = document.getElementById("joinCode");
   const stateEl = document.getElementById("joinState");
+  const lastEl = document.getElementById("joinLast");
   const input = document.getElementById("joinInput") as HTMLInputElement | null;
   const startEl = document.getElementById("joinStart") as HTMLButtonElement | null;
   const seatEls: [1 | 2, HTMLElement | null][] = [
@@ -75,6 +76,8 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     nameField.paint();
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);
+    // What the two of you got to last time, when the room remembers a time.
+    if (lastEl) lastEl.textContent = lastTimeLine(last);
     // The press that starts the run. Enabled only where a press means
     // something, and saying which of the three waits this is — see
     // `startButton` and `readyLine` in `join-words.ts`.

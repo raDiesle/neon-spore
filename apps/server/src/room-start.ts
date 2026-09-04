@@ -25,6 +25,8 @@ export interface StartRoom {
   /** Beat zero as it stands: non-zero means a run is already stamped. */
   startMs: number;
   seats: Seat[];
+  /** What this pair got to, handed back untouched. See `tally.ts`. */
+  best: { wave: number; score: number } | null;
   /** Write the new beat zero down, so a hibernating room keeps it. */
   persist: (startMs: number) => Promise<void>;
 }
@@ -59,6 +61,7 @@ export async function pressStart(
       startMs,
       peers: room.seats.length,
       names: namesOf(room.seats),
+      best: room.best,
     });
   }
   return startMs;

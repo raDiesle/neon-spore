@@ -407,6 +407,7 @@ place — the generator keeps whatever is there.
 | `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
 | `packages/net/src/delay.ts` | How far ahead of the screen a press is scheduled — chosen from the link that is actually there, rather than |
 | `packages/net/src/nickname.ts` | A player's name: what the other phone calls them |
+| `packages/net/src/protocol-decode.ts` | The distrusting half of the wire |
 
 ### packages/audio
 
@@ -495,6 +496,9 @@ place — the generator keeps whatever is there.
 | `apps/server/src/start-gate.ts` | The two presses that stand between a full room and beat zero |
 | `apps/server/src/room-start.ts` | The gate's two sockets-facing halves: telling both phones who has pressed |
 | `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
+| `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |
+| `apps/server/src/room-tally.ts` | The tally's storage half, and giving up on a run nobody is playing |
+| `apps/server/src/tally.ts` | What a pair got to, kept by the room they share |
 
 ### tools
 
