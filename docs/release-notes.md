@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · de41e9f — A petal comes off the queen, and the queue item that asked for it was wrong
+
+BULB QUEEN's film has its fourth page: the cannon walks to her weak side on her second cycle and a petal comes off. It is aimed at `col + weakSide` and not at the mark her middle is showing — those are two different columns, and telling them apart is the whole of what the pair does about her.
+
 ## 2026-09-04 · f479aef — The first boss rehearses itself, and the film that cannot fire says why
 
 BULB QUEEN opens on a film of herself: she swells and opens, the two marks under her middle appear on player 2's screen and not on player 1's, and a torch drops out of a wing on a clock of its own and takes the hull while the pair is still talking about the marks. That last page is the film's one shared page and it is spent well — the torch is the thing on her that neither screen owns, and the bar dropping is the sentence *she is doing two things at once and you are answering one of them*.
