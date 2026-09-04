@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · b1b484b — The lane question is asked once per commit, not once per turn
+
+"More to come" leaves the lane clean and ahead of `main`, which is exactly the state the hook fires on, so answering it would have brought the same question back at the end of every turn until the owner gave in and landed. The commit put to him is written to the worktree's own git directory, and the question is not asked again until `HEAD` moves — new work being the thing that makes it worth asking twice. A note that cannot be read or written means one extra ask, never a lost one.
+
+## 2026-09-04 · 81f8bec — A finished lane is offered to the owner instead of landing itself
+
+The `Stop` hook ran `bun run land` on any turn that ended clean and ahead of `main`, so a finished turn moved the trunk, swept the worktree and wrote the remote with nobody typing anything. That closed the right gap — a lane left on a branch is a rebase that grows every day — and overshot it, because landing is where a lane's life ends and the owner wants that moment to be a question. A turn ending is also not the same as a lane being finished: usually the next prompt for it is already coming.
+
 ## 2026-09-04 · 40ed85c — The window is left unpainted rather than punched out of the body
 
 `destination-out` takes away whatever is already on the canvas, and the body is already on it — `drawLiving` runs before the crust. So the porthole was erasing the slick along with the rock, and what the pair saw through the glass was a grey disc rather than the colour they have to call.
