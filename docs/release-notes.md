@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 4d3ecf8 — SHIELD, THEN CANNON teaches the other way to reach everything
+
+The ship has been a second panel since the day it was asked for — take hold of the cannon and carry it, let go without carrying it and the maw opens, drag the plate or press it to fire it, carry the muzzle left for red or right for cyan — and nothing in the game has ever said so. Wave seven does now, one page per gesture, on the wave where the pair already owns every one of the controls those gestures reach.
+
 ## 2026-09-04 · a1433b9 — The tutorial's corner plate is bigger than the words in it
 
 *The content is bigger than the button.* It was: the plate was sized as though a grown contour held the rectangle it is drawn around, sixteen points wider than the longest line with two rows of type filling it from edge to edge — so the end of the screen's name hung over the side of the body and the descenders sat where the curve had already closed.
