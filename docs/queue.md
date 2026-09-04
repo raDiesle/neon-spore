@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## A rehearsal cannot show a held cord, so THE LID has no film
 
 - **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
+- **Taken:** 2026-09-04, claude/queue-a-rehearsal-cannot-show-a-held-cord-so-the-lid-h
 - **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/render/src/guide-thumb.ts`
 
 Three things in this game are taken hold of and carried rather than pressed:
