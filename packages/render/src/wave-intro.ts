@@ -43,6 +43,11 @@ export const INTRO_SECONDS = 5.5;
 
 /** How long the exit takes. The entrance is `text-drop.ts`'s own. */
 const FADE = 0.55;
+/** The three baselines, as the gaps between them — `bottom` measures with these. */
+const NAME_DROP = 30;
+const SENTENCE_DROP = 28;
+const LINE = 18;
+const BODY = '13px "Courier New",monospace';
 
 export function drawIntroduction(
   ctx: CanvasRenderingContext2D,
@@ -50,6 +55,15 @@ export function drawIntroduction(
   world: World,
   age = Number.POSITIVE_INFINITY,
   fading = false,
+  /**
+   * Where the block's **last** line sits, when the caller has something under
+   * it the words belong with. The gate does: the wave's name, the line saying
+   * who is still reading, the two circles and the button are one column, and a
+   * name floating a third of a screen above it read as a page that had not
+   * finished being laid out. Left out, the block sits where it always has —
+   * centred in the play area, with nothing under it and nothing to meet.
+   */
+  bottom?: number,
 ): void {
   const wave = WAVES[world.wave];
   const name = wave?.name ?? "BEYOND THE AUTHORED WAVES";
@@ -61,11 +75,18 @@ export function drawIntroduction(
 
   ctx.textAlign = "center";
   const mid = l.width / 2;
+  ctx.font = BODY;
+  const lines = wrapText(ctx, sentence, l.width - 64);
   // Centred in the play area rather than low down where the old wave banner
   // sat. That banner shared the screen with a wave already running and had to
   // keep off a boss; nothing is on the field behind this, because the wave has
-  // not started, and the middle is where an eye already is.
-  let y = l.playHeight * 0.42;
+  // not started, and the middle is where an eye already is. A caller with
+  // something under the block hands a `bottom` instead, and the block is hung
+  // off that — never above the top of the play area, whatever it asks for.
+  let y =
+    bottom === undefined
+      ? l.playHeight * 0.42
+      : Math.max(NAME_DROP + 24, bottom - NAME_DROP - SENTENCE_DROP - (lines.length - 1) * LINE);
   let line = 0;
 
   drop(ctx, mid, y, age, line++, out, () => {
@@ -74,26 +95,25 @@ export function drawIntroduction(
     ctx.fillText(`WAVE ${world.wave + 1}`, 0, 0);
   });
 
-  y += 30;
+  y += NAME_DROP;
   drop(ctx, mid, y, age, line++, out, () => {
     ctx.font = '700 21px "Courier New",monospace';
     ctx.fillStyle = PALETTE.hullRim;
     ctx.fillText(name, 0, 0);
   });
 
-  y += 28;
-  ctx.font = '13px "Courier New",monospace';
+  y += SENTENCE_DROP;
   // The sentence's own lines share one place in the stagger, so they fall
   // together. Staggered against each other they overlapped on the way down —
   // two lines of type through one another is the one thing the entrance is not
   // allowed to cost.
-  for (const text of wrapText(ctx, sentence, l.width - 64)) {
+  for (const text of lines) {
     drop(ctx, mid, y, age, line, out, () => {
-      ctx.font = '13px "Courier New",monospace';
+      ctx.font = BODY;
       ctx.fillStyle = PALETTE.text;
       ctx.fillText(text, 0, 0);
     });
-    y += 18;
+    y += LINE;
   }
 
   ctx.textAlign = "left";
