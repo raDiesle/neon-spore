@@ -309,6 +309,7 @@ split that moved a wave would fail rather than reorder the game.
 ## A rehearsal's cannon can only reach seven of the field's eleven columns
 
 - **Found:** 2026-09-04, claude/tutorials-boss-controls
+- **Taken:** 2026-09-04, claude/queue-a-rehearsals-cannon-can-only-reach-seven-of-the
 - **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/content/test/scenes.test.ts`
 
 A `SceneAct` names its column in the seven-column grid every wave is authored
