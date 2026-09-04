@@ -124,6 +124,12 @@ declare global {
       send?(player: 1 | 2, command: unknown): void;
       advance(ticks: number): void;
       paint(): void;
+      /**
+       * Whether the wave is still arriving. Missing on a build from before it
+       * was exposed — which includes builds that *have* the rings, so
+       * `settleLaunch` paints a fixed count there rather than asking.
+       */
+      launching?(): boolean;
     };
   }
 }

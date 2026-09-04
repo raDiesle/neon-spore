@@ -89,28 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `canvas2d.ts` is on the 250-line ceiling, so render state cannot be asked for
-
-- **Found:** 2026-09-04, claude/task-queue-work-nybjkq
-- **Taken:** 2026-09-04, claude/queue-canvas2d-ts-is-on-the-250-line-ceiling-so-render
-- **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/frame-passes.ts`
-
-The queue item about `bun run frames` wanted the page asked whether the wave
-was still arriving — `get launching()` returning `this.effects.opening
-.launching`, three lines and a sentence saying why. The file is at 248 lines
-and the limit is 250, so it would not fit, and the fix went the other way: the
-tool paints for `LAUNCH_LIFE` seconds (`tools/frames/launch.ts`) instead of
-asking. That is honest but open-loop, and the next thing that wants to know
-what the renderer is in the middle of will hit the same wall.
-
-Split it. `draw` is most of the file and it is already a sequence of named
-passes (`frame-passes.ts` holds three of them), so the seam is between *what a
-frame is made of* and *what this renderer owns between frames* — the effects,
-the pose, the guide stage, the restart check and the accessors on them. Which
-side moves is the choice the split has to make, and either one leaves room.
-Then add the getter back and let `settleLaunch` paint until it is false, capped
-and throwing the way `clearOpening` does.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

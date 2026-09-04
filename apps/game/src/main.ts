@@ -228,4 +228,5 @@ installTestingHandle({
   progression,
   collect: frames.collect,
   paint: frames.paint,
+  launching: () => renderer.launching,
 });

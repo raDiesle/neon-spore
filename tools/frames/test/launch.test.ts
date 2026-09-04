@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { LAUNCH_LIFE, OpeningFx } from "../../../packages/render/src/opening-fx.js";
-import { LAUNCH_FRAMES } from "../launch.js";
+import { BLIND_FRAMES } from "../launch.js";
 
 /**
  * The two halves of getting the wave's arrival out of a capture: that painting
@@ -35,13 +35,14 @@ describe("the wave arriving", () => {
     for (let i = 0; i < 8; i++) fx.update(1 / 60, "");
     expect(fx.launching, "eight painted frames should not be enough").toBe(true);
 
-    for (let i = 0; i < LAUNCH_FRAMES; i++) fx.update(1 / 60, "");
+    for (let i = 0; i < BLIND_FRAMES; i++) fx.update(1 / 60, "");
     expect(fx.launching, "what a capture paints is not enough to clear it").toBe(false);
   });
 
-  it("is what the capture's frame count is measured against", () => {
-    // Not a magic number: it is the animation's own life plus a margin, so a
-    // change to `LAUNCH_LIFE` cannot leave the tool painting too few frames.
-    expect(LAUNCH_FRAMES).toBeGreaterThanOrEqual(Math.ceil(LAUNCH_LIFE * 60));
+  it("is long enough on a build that cannot be asked how long it has left", () => {
+    // The fallback is the animation's own life plus a margin rather than a
+    // number somebody chose, so a change to `LAUNCH_LIFE` cannot leave a
+    // capture of an older build painting too few frames.
+    expect(BLIND_FRAMES).toBeGreaterThanOrEqual(Math.ceil(LAUNCH_LIFE * 60));
   });
 });

@@ -472,6 +472,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-page.ts` | WHAT THIS GAME IS, ON THE GAME'S OWN SCREEN |
 | `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
 | `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
+| `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
 
 ### packages/net
 

@@ -1,11 +1,9 @@
-import { guardArmed, mawOpen, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
+import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawWaveOpening } from "./briefing.js";
-import { Effects } from "./effects.js";
-import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
-import { GuideStage } from "./guide-scene.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { openingKey } from "./opening-fx.js";
+import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -21,17 +19,9 @@ import type { SpriteBursts } from "./sprite-burst.js";
 export class Canvas2DRenderer implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-  private effects = new Effects();
-  /** Where the two lobes are and how the membrane feels — `field-pose.ts`. */
-  private pose = new FieldPose();
-  /**
-   * The rehearsal a wave's guide plays above its words, if it carries one.
-   * Render state that outlives a frame, so it lives here where a restart can
-   * clear it; `guide-scene.ts` owns everything about what it shows.
-   */
-  private guide = new GuideStage();
-  /** Enough of last frame's world to notice a wave starting over — see `waveRestarted`. */
-  private seen: { world: World; wave: number; waveBeat: number } | null = null;
+  /** Everything that is still true from last frame, and the forgetting of it
+   * when a wave starts over (`render-state.ts`). */
+  private held = new RenderState();
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -39,44 +29,17 @@ export class Canvas2DRenderer implements Renderer {
     this.ctx = ctx;
   }
 
-  /**
-   * The baked-burst player, for a host that wants to install an atlas into it.
-   * Exposed rather than reached for through `effects`, so the one thing a host
-   * is allowed to change about this renderer is the one thing it can see.
-   */
+  /** The three a host may reach: the atlas to install a baked burst into, the
+   * film REPLAY plays again, and whether the wave is still arriving. All of
+   * them are state rather than drawing, so all of them are `held`'s. */
   get sprites(): SpriteBursts {
-    return this.effects.spriteBursts;
+    return this.held.sprites;
   }
-
-  /** What REPLAY on a guide's bar reaches. The film's clock is render state and
-   * no part of the world, so it is a call and not a command (`guide-play.ts`). */
+  get launching(): boolean {
+    return this.held.launching;
+  }
   replayGuide(): void {
-    this.guide.replay();
-  }
-
-  /**
-   * Whether the wave on screen has just (re)started, so everything transient
-   * this renderer holds belongs to a run that no longer exists (`Effects.reset`
-   * says what goes wrong when it is kept). Three ways in, because the hosts
-   * restart differently: the director swaps in a whole new `World`, the game
-   * calls `startWave` on the one it has — same object, new index — and a
-   * restart of the *same* wave changes neither but always puts `waveBeat` to 0.
-   */
-  private waveRestarted(world: World): boolean {
-    const last = this.seen;
-    this.seen = { world, wave: world.wave, waveBeat: world.waveBeat };
-    if (!last) return false;
-    return last.world !== world || last.wave !== world.wave || world.waveBeat < last.waveBeat;
-  }
-
-  /**
-   * The ship itself, back to rest. `startWave` puts both lobes in the middle
-   * and closes the shield, and the ship should *be* like that on the first
-   * frame of the new run rather than sliding there from wherever the last one
-   * left it — the eased pose is the last render state that outlives a world.
-   */
-  private resetPose(): void {
-    this.pose.reset();
+    this.held.replayGuide();
   }
 
   resize(viewport: Viewport): void {
@@ -129,11 +92,8 @@ export class Canvas2DRenderer implements Renderer {
 
     // Before anything eases or ingests: a wave that just (re)started leaves
     // none of last run's state meaning anything, and this frame is already
-    // the new run's first.
-    if (this.waveRestarted(world)) {
-      this.effects.reset();
-      this.resetPose();
-    }
+    // the new run's first. `restarted` forgets as it answers.
+    this.held.restarted(world);
 
     // The wave's guide is carrying a rehearsal, and the two mini-screens in it
     // are the only thing on the stage worth a frame: the guide covers the
@@ -142,18 +102,18 @@ export class Canvas2DRenderer implements Renderer {
     // The opening's own clock, whether or not a rehearsal is up: the page
     // number, the wave's name dropping in and the blobs a READY throws are all
     // read off it, and none of them can be read off a world holding still.
-    this.effects.opening.update(view.dt, openingKey(world, view.role));
-    this.guide.update(world, view.dt, view.role);
-    if (this.guide.active) {
+    this.held.effects.opening.update(view.dt, openingKey(world, view.role));
+    this.held.guide.update(world, view.dt, view.role);
+    if (this.held.guide.active) {
       // Nothing under it painted the ground, so this does. The guide's own
       // scrim is translucent, and translucent over nothing is the last frame.
       ctx.fillStyle = "#05040B";
       ctx.fillRect(0, 0, stage.width, stage.height);
       drawWaveOpening(ctx, l, world, {
         role: view.role,
-        scene: this.guide,
+        scene: this.held.guide,
         time: view.time,
-        fx: this.effects.opening,
+        fx: this.held.effects.opening,
         names: view.names,
         pointer: view.pointer,
       });
@@ -173,7 +133,7 @@ export class Canvas2DRenderer implements Renderer {
       drawWaveOpening(ctx, l, world, {
         role: view.role,
         time: view.time,
-        fx: this.effects.opening,
+        fx: this.held.effects.opening,
         names: view.names,
         pointer: view.pointer,
       });
@@ -186,9 +146,9 @@ export class Canvas2DRenderer implements Renderer {
     // through a ward.
     const isArmed = guardArmed(world);
     const isOpen = mawOpen(world);
-    this.pose.update(isArmed, isOpen, world.cannonCol, world.shieldCol, view.dt);
-    const at = this.pose.at;
-    this.effects.ingest(
+    this.held.pose.update(isArmed, isOpen, world.cannonCol, world.shieldCol, view.dt);
+    const at = this.held.pose.at;
+    this.held.effects.ingest(
       view.events,
       l,
       view.time,
@@ -198,12 +158,12 @@ export class Canvas2DRenderer implements Renderer {
       },
       world.cfg,
     );
-    this.effects.update(view.dt, l);
+    this.held.effects.update(view.dt, l);
     // The lettered grid, eased toward whether anything on the field has to be
     // named by tile. Read straight off the world every frame rather than fed
     // by an event: a wisp arriving, being shot, or a wave being restarted
     // underneath one are three ways in, and the world answers all three.
-    this.effects.coordGrid.update(view.dt, wispOnField(world));
+    this.held.effects.coordGrid.update(view.dt, wispOnField(world));
 
     // The beat is loud at the moment of the beat and gone before the next one.
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
@@ -213,24 +173,32 @@ export class Canvas2DRenderer implements Renderer {
     // thumbnail contains is one branch a reader can hold, and the hull, the
     // band and the HUD cannot creep back into it a pass at a time.
     if (view.bare) {
-      drawBodies(ctx, l, world, view, this.effects);
+      drawBodies(ctx, l, world, view, this.held.effects);
       ctx.restore();
       return;
     }
 
-    drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.effects);
+    drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
+    drawBodies(ctx, l, world, view, this.held.effects);
 
-    drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), at);
+    drawShip(
+      ctx,
+      l,
+      world,
+      view,
+      this.held.effects,
+      this.held.pose.mood(world, this.held.effects),
+      at,
+    );
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,
-      fx: this.effects.opening,
+      fx: this.held.effects.opening,
     });
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
-    if (this.effects.opening.launching) {
-      this.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
+    if (this.held.effects.opening.launching) {
+      this.held.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
     }
     ctx.restore();
 

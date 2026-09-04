@@ -26,6 +26,9 @@ export interface HandleParts {
   /** Where a frame's events are collected for the next `paint`. */
   collect: (events: readonly SimEvent[]) => void;
   paint: (dt: number) => void;
+  /** Whether the wave is still arriving — a frame-clock animation over the
+   * whole field, which a caller stepping ticks can neither see nor wait out. */
+  launching: () => boolean;
 }
 
 export function installTestingHandle(parts: HandleParts): void {
@@ -77,5 +80,16 @@ export function installTestingHandle(parts: HandleParts): void {
       }
     },
     paint: () => parts.paint(1 / 60),
+    /**
+     * Whether the wave is still arriving.
+     *
+     * The rings a crossed gate throws are drawn off the *frame* clock, so a
+     * caller that steps the simulation and paints once per picture advances
+     * them by a sixtieth of a second per photograph and never gets past them:
+     * `bun run frames` took every capture it ever took through them, still
+     * there 2500 ticks into a wave. Painting is what moves them, and this is
+     * how a caller knows when to stop (`tools/frames/launch.ts`).
+     */
+    launching: parts.launching,
   };
 }

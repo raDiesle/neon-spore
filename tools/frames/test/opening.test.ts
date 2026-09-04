@@ -2,7 +2,9 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { captureFrames } from "../capture.js";
+import { chromium } from "playwright-core";
+import { captureFrames, findChrome } from "../capture.js";
+import { clearOpening } from "../opening.js";
 
 /**
  * The gap this landing closes: `bun run check` stayed green the whole time
@@ -100,6 +102,40 @@ describe("captureFrames past a wave's opening", () => {
     );
     expect(paths).toHaveLength(3);
     for (const path of paths) expect(await Bun.file(path).exists()).toBe(true);
+  }, 30_000);
+
+  /**
+   * The rings, and the reason they were in every picture this tool ever took.
+   *
+   * Crossing the ready gate throws two of them over the top two thirds of the
+   * field, on the **frame** clock. The capture steps the simulation and paints
+   * once per photograph, so it handed the animation a sixtieth of a second per
+   * picture and never got past it. `clearOpening` paints them out now, and the
+   * page is the only thing that can say whether it worked.
+   */
+  it("leaves the field with nothing arriving over it", async () => {
+    const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+    try {
+      const page = await browser.newPage();
+      await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
+      await page.waitForFunction(() => Boolean(window.neonSpore));
+      await page.evaluate(() => window.neonSpore?.jumpToWave(0));
+
+      const asks = await page.evaluate(() => typeof window.neonSpore?.launching);
+      expect(asks, "the handle no longer reports the arrival").toBe("function");
+
+      await clearOpening(page);
+      const launching = () => page.evaluate(() => window.neonSpore?.launching?.() ?? null);
+      expect(await launching(), "the field is still behind two rings").toBe(false);
+
+      // And ticks are the wrong clock, which is why `clearOpening`'s own loop
+      // never cleared them: ten more seconds of simulation move nothing that
+      // is painted.
+      await page.evaluate(() => window.neonSpore?.advance(600));
+      expect(await launching()).toBe(false);
+    } finally {
+      await browser.close();
+    }
   }, 30_000);
 
   it("refuses a guide the wave has not got, rather than photographing the field", async () => {
