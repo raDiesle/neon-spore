@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 0786d14 — The tutorial is a stack of pages, and each player turns their own
+
+A guide that carries a rehearsal is no longer a film that runs once at a tempo nobody can keep up with. It is six pages: five steps of the rehearsal, each repeating its own animation and its own words with a short pause between turns until the player presses NEXT, and then the gate — the game's own screen with the wave's number, its name and its sentence over it, and the READY button under them. BACK goes back a page and the bar says which page this is. Each seat has its own cursor, so the two read at their own speeds and only meet at the end.
+
 ## 2026-09-04 · ef8ca39 — The cannon swallows when you let go of it without going anywhere
 
 Player 1 had no way to open the maw on the field at all: taking hold of the cannon on the hull slid it, and the SUCK lobe in the band was the only way to reach the one control the ship's own picture is *about*. It is two gestures on one swelling now — carry it and it slides, let go without carrying it and it swallows — decided on the lift, exactly as player 2's muzzle swipe already works one seat over, and only on a panel that has a maw on it at all.
