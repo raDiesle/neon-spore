@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · f4911aa — Two findings from the overnight drain, written down
+
+Neither was worth stopping for and both cost time to work out, which is exactly what the queue is for.
+
 ## 2026-09-04 · 2707db5 — A settings page: sound, motion, buzz, your name and the way out
 
 The one durable place for "things about me". Sound was reachable only by the `M` key, which is not a key a phone has, and the mixer already had a mute — the switch wires to that one and persists, so a player who turned it off last time meant it.
