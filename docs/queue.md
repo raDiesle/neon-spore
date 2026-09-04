@@ -172,3 +172,25 @@ tool and `apps/game` may not import one, so the shared piece belongs in
 `packages/render` beside `computeStage`, with both hosts calling it. Prove it
 with a test that presses where a control is drawn on a canvas laid out at a
 different size from the one the renderer was given.
+
+## The ON THE FIELD list can miss a gesture, because it is checked per hold kind
+
+- **Found:** 2026-09-04, claude/game-touch-controls-helpers-195bbf
+- **Files:** `tools/director/src/field-controls-page.ts`, `tools/director/test/on-field-controls.test.ts`
+
+`FIELD_CONTROLS` is kept honest by an exhaustive switch over `Hold["kind"]`, so
+a *new* kind cannot be added without a row. That guard was exactly right while
+one hold meant one gesture, and it stopped being right the moment the cannon
+grew a second: a press that slides and a lift that opens the maw are both
+`kind: "cannon"`, the entry for THE MAW TAP was written by hand, and nothing
+would have failed if it had not been. The list is what the director's CONTROLS
+tab shows a person reading the game's controls, so a silent hole in it is a
+control nobody can find.
+
+Make the check count gestures rather than kinds: give `FieldControlDef` the
+`touch.ts` function that answers it — the pair (`holdKind`, the branch of
+`touchDown`/`touchUp` it comes out of) is already written into `source` as
+prose — or key the exhaustive switch on a `FieldGesture` union that
+`touch-ship.ts` and `touch.ts` export beside the holds, so a second gesture on
+an existing hold is a compile error until it has a row. Either way the test
+must fail if a branch of `touchUp` sends a command no entry describes.

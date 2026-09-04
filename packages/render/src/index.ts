@@ -51,9 +51,11 @@ export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from
 export {
   cannonGrab,
   type ShipHand,
+  type ShipMark,
   shieldGrab,
   shipHand,
   shipUnder,
+  sucksOnLift,
   swipeColor,
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";

@@ -14,9 +14,10 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
-import { renderFieldControls, renderTriedControls } from "./field-controls-page.js";
+import { renderFieldControls } from "./field-controls-page.js";
 import { frameWorld } from "./pose-art.js";
 import { bindTabs } from "./tabs.js";
+import { renderTriedControls } from "./tried-controls-page.js";
 
 /**
  * CONTROLS: every registered panel, drawn, plus the things the pair touches
@@ -30,7 +31,8 @@ import { bindTabs } from "./tabs.js";
  * a page or a test — each was built by whichever lane needed it. Three inner
  * tabs, one for each half of that sentence and one for what was played this
  * way before: PANELS (this file's original card-per-set body), ON THE FIELD
- * and TRIED AND SET ASIDE — both built by `field-controls-page.ts`, split
+ * and TRIED AND SET ASIDE — built by `field-controls-page.ts` and
+ * `tried-controls-page.ts`, split
  * out on line count. `docs/spec/controls.md` is the same list in prose, for
  * a reader who is not looking at this page.
  *

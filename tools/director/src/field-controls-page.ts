@@ -4,10 +4,14 @@ import type { DragTarget } from "@neon-spore/sim";
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
  * line count, the way `handles.ts` split out of `touch.ts` for the same
- * reason. Two lists: what is touched **on the field itself**, and what used
- * to be but was set aside. Neither is a `ControlSet` — `packages/content` has
- * no vocabulary for either, because a wave does not pick them by name the way
- * it picks a panel.
+ * reason: what is touched **on the field itself**, never on the panel below
+ * it. It is not a `ControlSet` — `packages/content` has no vocabulary for one
+ * of these, because a wave does not pick them by name the way it picks a
+ * panel.
+ *
+ * The list that used to sit under it, of controls tried and set aside, is next
+ * door in `tried-controls-page.ts`: this file went over its own limit in turn,
+ * and those two lists only ever shared a tab.
  */
 
 /**
@@ -65,8 +69,23 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Slides the cannon along the hull, the same absolute column the strip " +
       "in the band sends. A second way to reach a control that already " +
-      "exists, never a replacement for the strip.",
+      "exists, never a replacement for the strip. A hand that takes hold and " +
+      "carries it nowhere is the maw instead — see THE MAW TAP below.",
     source: "touch-ship.ts — pilot() under shipUnder()",
+    holdKind: "cannon",
+  },
+  {
+    name: "THE MAW TAP",
+    where: "on the same cannon swelling, on player 1's screen",
+    seat: "player 1 — the pilot's own lobe, and their own second gesture on it",
+    gesture: "press",
+    does:
+      "Let go of the cannon without having carried it anywhere and the maw " +
+      "opens, the same window the SUCK lobe in the band opens. Carry it a " +
+      "column and the lift says nothing: one swelling, two gestures, and the " +
+      "lift is what tells them apart — exactly as player 2's muzzle already " +
+      "works one seat over. Only on a panel that has a maw on it at all.",
+    source: "touch-ship.ts — pilot() under shipUnder(), sucksOnLift() on the lift",
     holdKind: "cannon",
   },
   {
@@ -192,56 +211,4 @@ export function renderFieldControls(): void {
   if (!body) return;
   body.replaceChildren();
   for (const c of FIELD_CONTROLS) body.appendChild(fieldControlRow(c));
-}
-
-/**
- * A control the game was played with before something else replaced it —
- * kept because the owner asked to, not because it is still reachable by any
- * wave. The write-up stays in the spec; this only names the section and
- * quotes nothing beyond it, so the two cannot say different things about
- * the same idea.
- */
-export interface TriedControlDef {
-  name: string;
-  /** Where the write-up lives, named so a reader can find it with a text
-   * search rather than a line number that will move. */
-  specHeading: string;
-  note: string;
-}
-
-export const TRIED_CONTROLS: readonly TriedControlDef[] = [
-  {
-    name: "HOLD-TO-TEAR",
-    specHeading:
-      "bosses.md 11.4 — Hold-to-tear, a window closed by succeeding rather than by giving up",
-    note:
-      "THE WARDEN's tether before the pull replaced it: hold, and only hold — " +
-      "no drag, no direction, a thumb on the line that accumulates ticks " +
-      "toward a tear. Implemented and working, not merely designed; the owner " +
-      "asked for it kept and possibly tested on another wave or boss.",
-  },
-];
-
-function triedControlRow(c: TriedControlDef): HTMLElement {
-  const section = document.createElement("section");
-  section.className = "tried-control";
-  const h3 = document.createElement("h3");
-  h3.textContent = c.name;
-  section.appendChild(h3);
-  const note = document.createElement("p");
-  note.textContent = c.note;
-  section.appendChild(note);
-  const ref = document.createElement("p");
-  ref.className = "ref";
-  ref.textContent = c.specHeading;
-  section.appendChild(ref);
-  return section;
-}
-
-/** TRIED AND SET ASIDE, built once alongside PANELS — see `renderFieldControls`. */
-export function renderTriedControls(): void {
-  const body = document.getElementById("controlsTriedBody");
-  if (!body) return;
-  body.replaceChildren();
-  for (const c of TRIED_CONTROLS) body.appendChild(triedControlRow(c));
 }

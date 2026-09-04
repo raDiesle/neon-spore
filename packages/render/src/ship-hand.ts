@@ -1,7 +1,9 @@
 import { halo, strokeGlow } from "./glow.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { cannonGrab, type ShipHand, shieldGrab } from "./touch-ship.js";
+import { drawShipMark } from "./ship-marks.js";
+import type { ShipHand } from "./touch-hand.js";
+import { cannonGrab, shieldGrab } from "./touch-ship.js";
 
 /**
  * The one thing on the screen that is about the **hand** rather than about the
@@ -69,6 +71,12 @@ export function drawShipHand(
   ctx.globalAlpha = alpha;
   strokeGlow(ctx, cup, base, 2, alpha);
   ctx.globalAlpha = 1;
+  // What this hand would *do*, in the colours the band already says it in —
+  // arrows for a swelling that travels, the maw, the bolt (`ship-marks.ts`).
+  // Player 2's two colours stay here rather than joining them: they are not a
+  // mark that a gesture exists, they are the gesture's own readout, and the
+  // one of them that is lit changes with every pixel the thumb moves.
+  for (const mark of hand.marks) drawShipMark(ctx, mark, at, r, base, alpha, time);
   if (hand.on === "muzzle") drawColours(ctx, at, r, hand, alpha);
   ctx.restore();
 }

@@ -400,6 +400,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
+| `packages/render/src/ship-marks.ts` | what letting go of a swelling would do: the slide arrows, the maw, the guard's bolt |
+| `packages/render/src/touch-hand.ts` | what a hand on the ship is shown as — read out of the rules that answer the lift, never a second copy |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
 | `packages/render/src/field-pose.ts` | the ship's eased pose: where the two lobes are and how the membrane feels, shared by the field and a guide's mini-screens |
@@ -607,7 +609,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
 | `tools/director/src/demo-panel.ts` | DEMOS — one wave and one set of switches per mechanic, opened in one click |
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md`, `docs/tower-defence.md` |
-| `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
+| `tools/director/src/field-controls-page.ts` | ON THE FIELD: every control touched on the field itself, and which branch of `touch.ts` answers it |
+| `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE: a control the game was played with before something replaced it |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/gallery-clips.ts` | "COLLECTED LOOKS" on the OTHER GRAPHICS tab: hand-painted frame sequences from outside this repo |
 | `tools/director/src/gallery-page.ts` | "COLLECTED LOOKS": external hand-painted frame sequences |

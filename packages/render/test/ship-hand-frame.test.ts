@@ -10,21 +10,28 @@ import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js"
  *
  * It asserts nothing about how it looks — that is the owner's, on a phone —
  * only that every value it hands the canvas is one a canvas accepts, in each
- * of the states a hand can be in: hovering, held, and held with one of player
- * 2's two colours locked in.
+ * of the states a hand can be in: hovering, held, held with one of player 2's
+ * two colours locked in, and each of the three marks that say what letting go
+ * would do (`ship-marks.ts`).
  */
 
 beforeAll(installCanvasGlobals);
 
 const HANDS: ShipHand[] = [
-  { on: "cannon", held: false, color: null },
-  { on: "cannon", held: true, color: null },
-  { on: "muzzle", held: false, color: null },
-  { on: "muzzle", held: true, color: null },
-  { on: "muzzle", held: true, color: "red" },
-  { on: "muzzle", held: true, color: "cyan" },
-  { on: "shield", held: false, color: null },
-  { on: "shield", held: true, color: null },
+  { on: "cannon", held: false, color: null, marks: ["slide"] },
+  { on: "cannon", held: true, color: null, marks: ["slide"] },
+  // The pilot standing still on the cannon: the arrows and the maw at once.
+  { on: "cannon", held: false, color: null, marks: ["slide", "suck"] },
+  { on: "cannon", held: true, color: null, marks: ["slide", "suck"] },
+  { on: "muzzle", held: false, color: null, marks: [] },
+  { on: "muzzle", held: true, color: null, marks: [] },
+  { on: "muzzle", held: true, color: "red", marks: [] },
+  { on: "muzzle", held: true, color: "cyan", marks: [] },
+  { on: "shield", held: false, color: null, marks: ["slide"] },
+  { on: "shield", held: true, color: null, marks: ["slide"] },
+  // Player 1 on the plate: the bolt, and no arrows — it is not theirs to move.
+  { on: "shield", held: false, color: null, marks: ["guard"] },
+  { on: "shield", held: true, color: null, marks: ["guard"] },
 ];
 
 describe("a hand on the ship", () => {
@@ -45,7 +52,7 @@ describe("a hand on the ship", () => {
   it("draws nothing at all when no hand is on it", () => {
     const bare = runFrames(createWorld(CFG, 7, buildQueue(0, CFG.cols)), "p1", 40).ctx.calls;
     const ringed = runFrames(createWorld(CFG, 7, buildQueue(0, CFG.cols)), "p1", 40, {
-      hand: { on: "muzzle", held: true, color: "red" },
+      hand: { on: "muzzle", held: true, color: "red", marks: [] },
     }).ctx.calls;
     expect(ringed).toBeGreaterThan(bare);
   });

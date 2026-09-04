@@ -79,7 +79,7 @@ export function bindControls({
     if (!t) return;
     if (t.hold) {
       holding.set(id, t.hold);
-      if (!opening()) hand.down(layout(), t.hold, x);
+      if (!opening()) hand.down(layout(), t.hold, x, y);
     }
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb landing on the muzzle, which is decided on the
@@ -138,6 +138,7 @@ export function bindControls({
       layout(),
       p ? (shipUnder(layout(), p.x, p.y, field())?.hold ?? null) : null,
       p?.x ?? 0,
+      p?.y ?? 0,
     );
   };
 
@@ -153,7 +154,7 @@ export function bindControls({
     const p = inStage(e);
     const hold = p && holding.get(e.pointerId);
     if (!hold) return hover(e, p);
-    hand.down(layout(), hold, p.x);
+    hand.down(layout(), hold, p.x, p.y);
     const t = touchMove(layout(), hold, p.x, p.y);
     if (t?.command) buffer.push(t.player, t.command);
   });

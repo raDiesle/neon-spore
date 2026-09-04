@@ -23,9 +23,14 @@ export class ShipHandWatch {
     return this.hand ?? undefined;
   }
 
-  /** A finger is down on this hold, and has got as far as `x`. */
-  down(l: Layout, hold: Hold, x: number): void {
-    this.hand = shipHand(l, hold, x, true);
+  /**
+   * A finger is down on this hold, and has got as far as `x`, `y`.
+   *
+   * Both axes, because player 1's tap on the cannon is a distance from where
+   * the press landed and a distance has two of them (`render/touch-hand.ts`).
+   */
+  down(l: Layout, hold: Hold, x: number, y: number): void {
+    this.hand = shipHand(l, hold, x, y, true);
   }
 
   /**
@@ -33,8 +38,8 @@ export class ShipHandWatch {
    * which element is active before swiping", which a phone answers with the
    * press itself because it has no hover to answer it with.
    */
-  over(l: Layout, hold: Hold | null, x: number): void {
-    this.hand = hold === null ? null : shipHand(l, hold, x, false);
+  over(l: Layout, hold: Hold | null, x: number, y: number): void {
+    this.hand = hold === null ? null : shipHand(l, hold, x, y, false);
   }
 
   clear(): void {

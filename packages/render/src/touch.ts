@@ -14,7 +14,7 @@ export type { Hold, Touch } from "./touch-hold.js";
 import type { Field } from "./touch-field.js";
 import type { Hold, Touch } from "./touch-hold.js";
 import { lobeMeans } from "./touch-lobe.js";
-import { shipUnder, swipeColor } from "./touch-ship.js";
+import { shipUnder, sucksOnLift, swipeColor } from "./touch-ship.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -188,14 +188,25 @@ function dragging(
  * as long as the finger does with nothing in the simulation decaying it, so
  * the lift has to be sent.
  *
- * `at` is the one thing a lift did not used to need: player 2's muzzle swipe
- * is decided by where the hand ended, so a lift with no point at all fires
- * nothing. That is the honest answer for the two ways a pointer is lost with
- * no position to report — a window losing focus and a mouse dragged off the
- * document (`bindControls`'s `releaseAll`) — where a shot the player never
- * finished would be worse than no shot.
+ * `at` is the one thing a lift did not used to need, and there are two of
+ * them now: player 2's muzzle swipe is decided by where the hand ended, and so
+ * is player 1's tap on the cannon, which is a tap only by comparison with
+ * where it began. A lift with no point at all does neither. That is the honest
+ * answer for the two ways a pointer is lost with no position to report — a
+ * window losing focus and a mouse dragged off the document (`bindControls`'s
+ * `releaseAll`) — where a shot or a maw the player never finished would be
+ * worse than none.
  */
 export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch | null {
+  // Player 1's tap on the cannon: it slid nowhere, so what it meant was the
+  // maw. `suck` is only on the hold at all when the wave's panel has one, and
+  // a lift with no point to report — a window losing focus, a mouse dragged
+  // off the document — swallows nothing, for the muzzle's reason one line
+  // below (`touch-ship.ts`).
+  if (hold.kind === "cannon") {
+    const tapped = hold.suck !== undefined && sucksOnLift(l, hold.suck, at);
+    return tapped ? { player: 1, command: { kind: "intake" }, hold: null } : null;
+  }
   if (hold.kind === "shot") {
     const color = at === undefined ? null : swipeColor(l, hold.originX, at.x);
     return color === null ? null : { player: 2, command: { kind: "fire", color }, hold: null };

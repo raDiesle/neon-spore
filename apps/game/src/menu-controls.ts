@@ -46,7 +46,7 @@ const PHONE: [string, string][] = [
   ],
   [
     "THE SHIP",
-    "The two swellings on the hull answer a finger as well as their strips do. Player 1 takes hold of the cannon and slides it, and presses the shield plate to fire the guard where it stands. Player 2 slides that same plate — and takes hold of the muzzle, carries it left for red or right for cyan, and lets go: the shot leaves on the lift, so a hand that comes back to the middle fires nothing. Whichever swelling you have hold of grows a bracket round it while you hold it.",
+    "The two swellings on the hull answer a finger as well as their strips do. Player 1 takes hold of the cannon and slides it — or lets go without carrying it anywhere, which opens the maw — and presses the shield plate to fire the guard where it stands. Player 2 slides that same plate, and takes hold of the muzzle, carries it left for red or right for cyan, and lets go: the shot leaves on the lift, so a hand that comes back to the middle fires nothing. Whichever swelling you have hold of grows a bracket round it while you hold it, with an arrow each side of anything that slides, the maw in its own amber and the guard as a bolt.",
   ],
   [
     "A HANDLE",

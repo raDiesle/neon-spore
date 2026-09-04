@@ -21,6 +21,8 @@ import { cannonGrab, shieldGrab, shipHand } from "../src/touch-ship.js";
 const CFG = DEFAULT_CONFIG;
 const STANDARD = controlSet("default");
 const FLEET = controlSet("fleet");
+/** The panel that trades the maw away for the lance — nothing to tap into. */
+const LANCE = controlSet("lance");
 const layout = (role: ViewRole = "test") =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
@@ -52,11 +54,50 @@ describe("player 1 on the ship", () => {
     expect(press).toEqual({
       player: 1,
       command: { kind: "cannonCol", col: f.cannonCol },
-      hold: { kind: "cannon", direct: true },
+      hold: { kind: "cannon", direct: true, suck: { x: at.x, y: at.y } },
     });
     // The same absolute rule the strip has: the finger's x is a column.
     const moved = touchMove(l, { kind: "cannon", direct: true }, cannonGrab(l, 7).x, at.y);
     expect(moved?.command).toEqual({ kind: "cannonCol", col: 7 });
+  });
+
+  /**
+   * The two gestures on one swelling. The press is the same either way — it is
+   * the lift that says which of them happened, exactly as player 2's muzzle
+   * already works one seat over.
+   */
+  it("opens the maw when the hand lets go without carrying the cannon anywhere", () => {
+    const f = field(1);
+    const at = cannonGrab(l, f.cannonCol);
+    const hold = touchDown(l, at.x, at.y, f)?.hold;
+    if (!hold) throw new Error("the press took hold of nothing");
+    expect(touchUp(l, hold, f, { x: at.x, y: at.y })).toEqual({
+      player: 1,
+      command: { kind: "intake" },
+      hold: null,
+    });
+  });
+
+  it("swallows nothing when the hand carried the cannon somewhere", () => {
+    const f = field(1);
+    const at = cannonGrab(l, f.cannonCol);
+    const hold = touchDown(l, at.x, at.y, f)?.hold;
+    if (!hold) throw new Error("the press took hold of nothing");
+    expect(touchUp(l, hold, f, { x: cannonGrab(l, 7).x, y: at.y })).toBeNull();
+    // Nor when it stayed inside the tap circle but crossed into the next
+    // column on the way: the cannon moved, so the gesture was a slide.
+    expect(touchUp(l, hold, f, { x: at.x + l.tile * 0.6, y: at.y })).toBeNull();
+    // Nor when the pointer was lost with no position to report at all.
+    expect(touchUp(l, hold, f)).toBeNull();
+  });
+
+  it("has no maw to open on a panel that does not carry one", () => {
+    const f = field(1, LANCE);
+    const at = cannonGrab(l, f.cannonCol);
+    const hold = touchDown(l, at.x, at.y, f)?.hold;
+    expect(hold).toEqual({ kind: "cannon", direct: true });
+    if (!hold) throw new Error("the press took hold of nothing");
+    expect(touchUp(l, hold, f, { x: at.x, y: at.y })).toBeNull();
   });
 
   it("fires the shield where player 2 left it, and does not move it", () => {
@@ -143,7 +184,7 @@ describe("what the ship refuses", () => {
 
   it("gives the finger to the lobe whose column it is nearer", () => {
     const f = field(1, STANDARD, [3, 4]);
-    expect(touchDown(l, cannonGrab(l, 3).x, cannonGrab(l, 3).y, f)?.hold).toEqual({
+    expect(touchDown(l, cannonGrab(l, 3).x, cannonGrab(l, 3).y, f)?.hold).toMatchObject({
       kind: "cannon",
       direct: true,
     });
@@ -160,7 +201,7 @@ describe("what the ship refuses", () => {
    */
   it("gives a shared column to the lobe this seat slides", () => {
     const at = cannonGrab(l, 5);
-    expect(touchDown(l, at.x, at.y, field(1, STANDARD, [5, 5]))?.hold).toEqual({
+    expect(touchDown(l, at.x, at.y, field(1, STANDARD, [5, 5]))?.hold).toMatchObject({
       kind: "cannon",
       direct: true,
     });
@@ -175,27 +216,50 @@ describe("the ring that says a hand is on the ship", () => {
   const l = layout();
 
   it("is drawn for a hold taken on the hull and never for one on a strip", () => {
-    expect(shipHand(l, { kind: "cannon", direct: true }, 0, true)).toEqual({
+    expect(shipHand(l, { kind: "cannon", direct: true }, 0, 0, true)).toEqual({
       on: "cannon",
       held: true,
       color: null,
+      marks: ["slide"],
     });
-    expect(shipHand(l, { kind: "cannon" }, 0, true)).toBeNull();
-    expect(shipHand(l, { kind: "shield" }, 0, true)).toBeNull();
-    expect(shipHand(l, { kind: "lance" }, 0, true)).toBeNull();
-    expect(shipHand(l, { kind: "grip" }, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "cannon" }, 0, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "shield" }, 0, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "lance" }, 0, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "grip" }, 0, 0, true)).toBeNull();
+  });
+
+  /**
+   * The marks are read out of the rules that answer the lift, never out of a
+   * second copy of them — so the maw is offered for exactly as long as letting
+   * go would open one, and the arrows are on whatever travels.
+   */
+  it("offers the maw while the hand stands still and withdraws it when it moves", () => {
+    const at = cannonGrab(l, 5);
+    const hold = { kind: "cannon", direct: true, suck: { x: at.x, y: at.y } } as const;
+    expect(shipHand(l, hold, at.x, at.y, true)?.marks).toEqual(["slide", "suck"]);
+    expect(shipHand(l, hold, at.x + l.tile, at.y, true)?.marks).toEqual(["slide"]);
+  });
+
+  it("shows the bolt on the plate the pilot fires, and no arrows on it", () => {
+    expect(shipHand(l, { kind: "guard" }, 0, 0, true)?.marks).toEqual(["guard"]);
+    expect(shipHand(l, { kind: "shield", direct: true }, 0, 0, true)?.marks).toEqual(["slide"]);
   });
 
   it("names the colour the lift would fire, and only past the threshold", () => {
     const hold = { kind: "shot", originX: 200 } as const;
-    expect(shipHand(l, hold, 200, true)).toEqual({ on: "muzzle", held: true, color: null });
-    expect(shipHand(l, hold, 200 - l.tile, true)?.color).toBe("red");
-    expect(shipHand(l, hold, 200 + l.tile, true)?.color).toBe("cyan");
+    expect(shipHand(l, hold, 200, 0, true)).toEqual({
+      on: "muzzle",
+      held: true,
+      color: null,
+      marks: [],
+    });
+    expect(shipHand(l, hold, 200 - l.tile, 0, true)?.color).toBe("red");
+    expect(shipHand(l, hold, 200 + l.tile, 0, true)?.color).toBe("cyan");
   });
 
   it("says whether a finger is down or a mouse is only over it", () => {
     const hold = { kind: "guard" } as const;
-    expect(shipHand(l, hold, 0, true)?.held).toBe(true);
-    expect(shipHand(l, hold, 0, false)?.held).toBe(false);
+    expect(shipHand(l, hold, 0, 0, true)?.held).toBe(true);
+    expect(shipHand(l, hold, 0, 0, false)?.held).toBe(false);
   });
 });

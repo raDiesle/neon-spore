@@ -1,3 +1,4 @@
+import type { Point } from "@neon-spore/content";
 import type { Command, DragTarget } from "@neon-spore/sim";
 
 /**
@@ -42,8 +43,15 @@ export type Hold =
    * says *you have hold of this* is drawn for a hand on the hull and not for a
    * thumb on a strip, which is where the owner drew the line — a strip already
    * shows what it is doing by being under the finger (`touch-ship.ts`).
+   *
+   * `suck` is where player 1's press on the cannon landed, and it is the same
+   * kind of value `shot` carries below and for the same reason: a lift is a
+   * tap only in relation to somewhere, and the press is the one moment
+   * anything knows where. It is set only when the wave's panel actually has a
+   * maw on it, so the presence of the field is the permission — nothing later
+   * has to ask the control set again (`sucksOnLift`).
    */
-  | { kind: "cannon"; direct?: true }
+  | { kind: "cannon"; direct?: true; suck?: Point }
   | { kind: "shield"; direct?: true }
   /**
    * Player 1's thumb resting on the shield lobe after triggering it. The guard

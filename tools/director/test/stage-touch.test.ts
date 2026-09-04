@@ -373,7 +373,14 @@ describe("bindStageTouch reports the hand on the ship", () => {
   it("a press on the pilot's swelling cups the cannon, and the lift takes it away", () => {
     const s = armed("p1");
     s.down(s.cannon.x, s.cannon.y);
-    expect(s.touch.hand()).toEqual({ on: "cannon", held: true, color: null });
+    // Both of the pilot's marks: the arrows that say it travels, and the maw
+    // it would open if the hand let go without carrying it anywhere.
+    expect(s.touch.hand()).toEqual({
+      on: "cannon",
+      held: true,
+      color: null,
+      marks: ["slide", "suck"],
+    });
     s.up();
     expect(s.touch.hand()).toBeUndefined();
   });
@@ -381,7 +388,12 @@ describe("bindStageTouch reports the hand on the ship", () => {
   it("a mouse over a swelling with nothing held cups it dimly", () => {
     const s = armed("p2");
     s.move(s.shield.x, s.shield.y);
-    expect(s.touch.hand()).toEqual({ on: "shield", held: false, color: null });
+    expect(s.touch.hand()).toEqual({
+      on: "shield",
+      held: false,
+      color: null,
+      marks: ["slide"],
+    });
     // Off the hull again: the cup goes with it.
     s.move(1, 1);
     expect(s.touch.hand()).toBeUndefined();
@@ -396,10 +408,10 @@ describe("bindStageTouch reports the hand on the ship", () => {
     s.world.shieldCol = cfg.cols - 1;
     const muzzle = cannonGrab(s.layout, 0);
     s.down(muzzle.x, muzzle.y);
-    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: null });
+    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: null, marks: [] });
     // A swipe far enough to the right is cyan, the order the band stands in.
     s.move(muzzle.x + VIEWPORT.width, muzzle.y);
-    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: "cyan" });
+    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: "cyan", marks: [] });
   });
 
   it("a press on the strip is not a hand on the ship", () => {

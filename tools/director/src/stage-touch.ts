@@ -186,7 +186,7 @@ export function bindStageTouch({
     e.preventDefault();
     if (t.hold) {
       holding.set(e.pointerId, t.hold);
-      setHand(shipHand(layout(), t.hold, p.x, true));
+      setHand(shipHand(layout(), t.hold, p.x, p.y, true));
     }
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb on the muzzle, decided on the lift
@@ -203,10 +203,10 @@ export function bindStageTouch({
       // Never while a card is up — the press belongs to the opening then, and
       // the ship is not what a hand on the glass is reaching for.
       const over = briefingHolds(world()) ? null : shipUnder(layout(), p.x, p.y, field());
-      setHand(over?.hold ? shipHand(layout(), over.hold, p.x, false) : null);
+      setHand(over?.hold ? shipHand(layout(), over.hold, p.x, p.y, false) : null);
       return;
     }
-    setHand(shipHand(layout(), hold, p.x, true));
+    setHand(shipHand(layout(), hold, p.x, p.y, true));
     const t = touchMove(layout(), hold, p.x, p.y);
     if (t?.command) push(t.player, t.command);
   });

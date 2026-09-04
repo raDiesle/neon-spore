@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import type { Hold } from "@neon-spore/render";
 import type { DragTarget } from "@neon-spore/sim";
-import { FIELD_CONTROLS, TRIED_CONTROLS } from "../src/field-controls-page.js";
+import { FIELD_CONTROLS } from "../src/field-controls-page.js";
+import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
 
 /**
  * The one guard the queue entry asks for: `FIELD_CONTROLS` is a hand-kept
