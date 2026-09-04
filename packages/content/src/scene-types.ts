@@ -1,3 +1,4 @@
+import type { BossEntry, PodEntry } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
 import type { WaveEntry } from "./wave-types.js";
 
@@ -120,6 +121,20 @@ export interface GuideScene {
   bpm: number;
   seed: number;
   entries: WaveEntry[];
+  /**
+   * Pods hanging in the field, and the boss it is played against — both in the
+   * same shapes a wave writes them in, and both optional because most films
+   * have neither.
+   *
+   * **They are here because a rehearsal that could not carry them could not
+   * teach half the game.** `sceneScript` used to hand the runner `pods: []` and
+   * `boss: null` as literals, which meant SALVAGE — a wave whose entire subject
+   * is a pod — and the six bosses of act two, each a mechanic taught nowhere
+   * else, were the waves a film could never be written for. Nothing in
+   * `packages/sim` was missing: `startWave` has always taken both.
+   */
+  pods?: PodEntry[];
+  boss?: BossEntry;
   acts: SceneAct[];
   steps: SceneStep[];
 }

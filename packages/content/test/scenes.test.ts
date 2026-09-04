@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
 import { control, controlSetForWave, setHas } from "../src/index.js";
 import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepAt, stepSpan } from "../src/scenes.js";
@@ -175,6 +175,56 @@ describe("the rehearsals a guide can show", () => {
           `${WAVES[wave]?.name}'s scene points at ${step.anchor.control}`,
         ).toBe(true);
       }
+    }
+  });
+
+  it("hands the runner the pods and the boss a film authors", () => {
+    // `sceneScript` used to write `pods: []` and `boss: null` as literals,
+    // which made SALVAGE — a wave whose whole subject is a pod — and every
+    // boss in act two impossible to write a film for. Both go through the
+    // wave's own remapping now, so a column authored in seven lands on the
+    // field the game is really played on.
+    for (const { wave, id } of USED) {
+      const script = sceneScript(id, wave, DEFAULT_CONFIG);
+      expect(script.pods.length, `${id} lost its pods`).toBe(SCENES[id].pods?.length ?? 0);
+      expect(script.boss === null, `${id} lost its boss`).toBe(SCENES[id].boss === undefined);
+      for (const pod of script.pods) {
+        expect(pod.col, `${id}: a pod landed off the field`).toBeLessThan(DEFAULT_CONFIG.cols);
+      }
+    }
+  });
+
+  it("plays out the way it was written to, every tick of it", () => {
+    // The one test that watches a film rather than reading it.
+    //
+    // A rehearsal is a real world stepped by the real `step`, which is the
+    // whole argument for it — and the price of that is that a film is only as
+    // true as the rules under it. A shot authored to land stops landing when
+    // the fall speed changes; a guard authored to catch a rock stops catching
+    // it when the window moves; a dart's side and a veil's colour come off the
+    // seeded rng and change when anything else touches that stream. Every one
+    // of those failures is silent in the picture: what the pair sees is a
+    // tutorial getting it wrong.
+    //
+    // The invariant that catches all of them needs no authored expectation:
+    // **a film costs the hull if and only if it has a page about the hull.**
+    // A shot that stops landing lets a body through and the hull pays for it;
+    // a deliberate miss that stops missing takes the mark away from under the
+    // page that is pointing at it.
+    for (const { wave, id } of USED) {
+      const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
+      const full = hullPercent(run.world);
+      const spent: SimEvent[] = [];
+      for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
+      const shared = SCENES[id].steps.some(
+        (s) => s.anchor.at === "hull" || s.anchor.at === "health",
+      );
+      expect(
+        hullPercent(run.world) < full,
+        shared
+          ? `${id} has a page about the hull and never marks it`
+          : `${id} loses hull with no page saying why`,
+      ).toBe(shared);
     }
   });
 

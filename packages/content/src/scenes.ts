@@ -1,8 +1,12 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
+import { THE_DART } from "./scenes/the-dart.js";
 import { THE_HAND } from "./scenes/the-hand.js";
+import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
+import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
+import { THE_VEIL } from "./scenes/the-veil.js";
 import { TWO_COLOURS } from "./scenes/two-colours.js";
 
 /**
@@ -26,7 +30,16 @@ import { TWO_COLOURS } from "./scenes/two-colours.js";
  * `scene-types.ts`; `.claude/skills/new-tutorial` is how to write one.
  */
 
-export type SceneId = "firstStep" | "twoColours" | "theRock" | "theHand" | "torch";
+export type SceneId =
+  | "firstStep"
+  | "twoColours"
+  | "theRock"
+  | "theHand"
+  | "torch"
+  | "theLure"
+  | "theThrob"
+  | "theDart"
+  | "theVeil";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -34,6 +47,10 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theRock: THE_ROCK,
   theHand: THE_HAND,
   torch: THE_TORCH,
+  theLure: THE_LURE,
+  theThrob: THE_THROB,
+  theDart: THE_DART,
+  theVeil: THE_VEIL,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

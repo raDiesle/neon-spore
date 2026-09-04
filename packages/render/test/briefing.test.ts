@@ -162,7 +162,12 @@ describe("a wave's opening on the stage", () => {
         expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
       }
     }
-  });
+    // Every page of every film, on three screens, drawn frame by frame: about
+    // a second per film on this machine, and the tutorial arc is still filling
+    // up. The default five seconds ran out at the ninth one. Raise this rather
+    // than thin the walk — what it is buying is the one check that catches a
+    // value that is a perfectly good number and not a colour.
+  }, 30_000);
 
   it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
     // A rehearsal is the whole stage, so there is no room left to run out of

@@ -71,6 +71,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "One of these is not what it looks like. Only one of you can tell.",
       p1: "You will see a body worth shooting and nothing will happen. Believe your partner and move — the column you are standing in is the one you are losing.",
       p2: "The one in the corner frame is a lure. Do not fire at it, and do not wait to be asked — say the column it is in and say the column to go to instead.",
+      scene: "theLure",
     },
     entries: [
       { beat: 0, col: 2, kind: "lure", color: "cyan" },
@@ -92,6 +93,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
       p1: "Call the beat it swells on, out loud, the way you call a column.",
       p2: "Fire on the count, not on sight — a shot on the wrong beat does nothing.",
+      scene: "theThrob",
     },
     entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
   },
@@ -138,6 +140,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "A dart never falls straight down. Every other beat it takes a diagonal — two rows down and two columns to one side — and in between it hangs for one beat, already aimed.",
       p1: "The column under it is the wrong column. Wait for the side, take two, and be standing there before the beat turns over.",
       p2: "Only your screen carries the arrow over it. Say the side while it is hanging, not while it is moving — by then it is your partner's eyes, not yours.",
+      scene: "theDart",
     },
     entries: [
       { beat: 0, col: 3, kind: "dart", color: "red" },
@@ -157,6 +160,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "A thundercloud, and something is falling inside it. The lightning is on the beat — count it.",
       p1: "You can see into the cloud and your partner cannot. Say the body and say how long: “cyan, two beats”. The ring over it is the clock.",
       p2: "You have a corner frame around it and nothing else, so ask. Fire on what you are told, not on what you last heard — a wrong colour shuts the cloud for two seconds and the answer changes while it is shut.",
+      scene: "theVeil",
     },
     entries: [
       { beat: 0, col: 3, kind: "veil", color: null },

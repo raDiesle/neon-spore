@@ -1,6 +1,6 @@
 import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
 import { type ControlId, control } from "./controls.js";
-import { mapCol, queueFromWave } from "./queue.js";
+import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-types.js";
 import { guideScene, type SceneId } from "./scenes.js";
 
@@ -101,8 +101,11 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     seed: scene.seed,
     wave,
     queue: queueFromWave(scene, sceneCfg.cols),
-    pods: [],
-    boss: null,
+    // The same remapping the arrivals get, and from the same two functions a
+    // wave's own pods and boss go through: a film is authored in the seven
+    // columns every wave is authored in (`queue.ts`).
+    pods: podsFromWave(scene, sceneCfg.cols),
+    boss: bossFromWave(scene, sceneCfg.cols),
     // Sorted, because a grip contributes its release as well as its hold and
     // that release can fall after the act written under it. `SceneRun` walks
     // the list once, in order, and would drop anything out of place.

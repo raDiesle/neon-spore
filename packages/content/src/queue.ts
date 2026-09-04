@@ -104,8 +104,14 @@ export function buildPods(waveIndex: number, cols: number): PodEntry[] {
   return [{ beat: 1 + nextInt(rng, 3), col: nextInt(rng, cols), row: 2 + nextInt(rng, 3) }];
 }
 
-/** `buildPods` for an unsaved wave. The sibling of `queueFromWave`. */
-export function podsFromWave(wave: Wave, cols: number): PodEntry[] {
+/**
+ * `buildPods` for an unsaved wave. The sibling of `queueFromWave`, and narrowed
+ * to the one field it reads for that function's own reason: a guide's
+ * **rehearsal** hangs pods in its field too (`scenes/`), and remapping them by
+ * hand over there would be the second copy of `mapCol` this file exists to
+ * prevent.
+ */
+export function podsFromWave(wave: Pick<Wave, "pods">, cols: number): PodEntry[] {
   return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
 }
 
@@ -117,13 +123,14 @@ export function buildBoss(waveIndex: number, cols: number): BossEntry | null {
 }
 
 /**
- * `buildBoss` for an unsaved wave. The sibling of `podsFromWave`.
+ * `buildBoss` for an unsaved wave. The sibling of `podsFromWave`, narrowed the
+ * same way and for the same reason — a rehearsal can be played against a boss.
  *
  * Only the queen has a column to remap — THE MIRROR stands over the ship
  * wherever the ship is, and THE WARDEN is a fixture dead centre, so neither
  * entry names a place at all and both pass through untouched.
  */
-export function bossFromWave(wave: Wave, cols: number): BossEntry | null {
+export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry | null {
   const boss = wave.boss;
   if (!boss) return null;
   if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };

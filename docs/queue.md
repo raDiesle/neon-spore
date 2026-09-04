@@ -245,25 +245,3 @@ was meant to be.
 
 It is worth doing first, before the next look lands: a session that cannot take
 an honest frame cannot show the owner anything, and this one could not.
-## A rehearsal cannot show a boss, because `sceneScript` hands the runner none
-
-- **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408
-- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scene-types.ts`, `packages/content/test/scenes.test.ts`
-
-`sceneScript` builds a `SceneScript` with `boss: null` and `pods: []`, both
-written out as literals. `SceneRun` passes them straight to `startWave`, which
-takes both, so the runner is already able to play a boss round or a field with
-a pod hanging in it — nothing about the simulation is missing. What is missing
-is the two lines that would let a scene author one.
-
-That is now the ceiling on the tutorial arc. Five waves carry a rehearsal and
-all five are ordinary arrivals; the next ones anybody would want are SALVAGE,
-whose whole subject is a pod, and the six bosses in act two, each of which is a
-mechanic no wave teaches anywhere else. Both are unreachable today.
-
-Give `GuideScene` an optional `pods: PodEntry[]` and an optional
-`boss: BossEntry`, pass them through `sceneScript` the way `entries` already
-goes through `queueFromWave`, and add a test that a scene naming a boss builds
-a script carrying it. The wave files already write both shapes, so nothing new
-has to be invented — this is wiring an existing authoring vocabulary through one
-more function.
