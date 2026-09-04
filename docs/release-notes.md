@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 3674f96 — A shot that lands sends it the wrong way
+
+THE RECOIL: a slick or a bulb inside a sprung cage. The matching colour does not kill it — it throws the body two rows back up the field, a lane to one side the seeded rng picks, and turns it over to the other colour on the way. Three times, with one more rib of the cage split each time, and only the fourth shot finishes it. What it costs the pair is the sentence they had already agreed: the column, the colour and the row all expire on the beat their own shot landed. `docs/tower-defence.md` has carried the row since the conversion — the PvZ pole vault, inverted — and it is built now with the owner's two additions, the three bounces and the colour turning over.
+
 ## 2026-09-04 · bb48ea6 — `bun run frames --opening intro|guide` photographs the opening
 
 `clearOpening` was unconditional: every capture this tool has ever taken advanced past the introduction and the guide on its way to the field, so the two screens a wave puts in front of a player were the one part of the game it could not photograph. That was fine while an opening was two blocks of text; a guide now carries a rehearsal that loops for a second and a half, and the lane that built it had to write a throwaway Playwright script to see its own work.
