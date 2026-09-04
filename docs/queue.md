@@ -305,3 +305,29 @@ put the rest in `packages/content/src/waves/act-6.ts`, concatenate it in
 in which file — it regenerates one act file at a time and holds that mapping.
 `test/waves.test.ts` checks ids are unique and the order is unchanged, so a
 split that moved a wave would fail rather than reorder the game.
+
+## A rehearsal's cannon can only reach seven of the field's eleven columns
+
+- **Found:** 2026-09-04, claude/tutorials-boss-controls
+- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/content/test/scenes.test.ts`
+
+A `SceneAct` names its column in the seven-column grid every wave is authored
+in, and `mapCol` sends those to `{0, 2, 3, 5, 7, 8, 10}` on the eleven-column
+field. Four real columns cannot be named by a film at all, and three separate
+rehearsals have already had to be bent around it: THE THIRD SHOT's shell is
+authored at column 4 because that is the only placement whose two adjacent
+halves are both reachable, THE VANE's arrival is chosen for where its fold
+lands, and THE RECOIL's seed is chosen for which lane its cage bounces to.
+
+BULB QUEEN is the one it actually defeated. Her two marks stand one column
+either side of her, she is clamped to the middle so her whole span stays on the
+field, and both of her columns are unreachable — so her film has three pages
+about looking and no shot at the end of it.
+
+Give `SceneAct` a second, exclusive way to say where: a real column, used only
+where the authored grid cannot reach. A rehearsal is not a wave — it is never
+dragged around in the director and never replayed at a different field width —
+so the argument for remapping does not apply to it the way it applies to
+`entries`, and a test that refuses both fields on one act keeps the two from
+being confused. Then add BULB QUEEN's fourth page, which is a shot up whichever
+mark she was showing.

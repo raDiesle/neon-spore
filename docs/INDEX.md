@@ -253,6 +253,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-recoil.ts` | THE RECOIL's rehearsal: your own shot is what makes the call wrong |
 | `packages/content/src/scenes/the-vane.ts` | THE VANE's rehearsal: the column you were told is never the column it lands in |
 | `packages/content/src/scenes/the-wisp.ts` | THE WISP's rehearsal: you call the square it is still falling toward |
+| `packages/content/src/scenes/bulb-queen.ts` | BULB QUEEN's rehearsal: the first boss, and the first film with no shot in it |
 
 ### packages/render
 

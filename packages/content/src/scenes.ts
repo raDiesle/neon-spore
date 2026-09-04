@@ -1,4 +1,5 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
+import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -63,7 +64,8 @@ export type SceneId =
   | "theWisp"
   | "theGyre"
   | "theRecoil"
-  | "theVane";
+  | "theVane"
+  | "bulbQueen";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -87,6 +89,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theGyre: THE_GYRE,
   theRecoil: THE_RECOIL,
   theVane: THE_VANE,
+  bulbQueen: BULB_QUEEN,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

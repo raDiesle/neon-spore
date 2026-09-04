@@ -21,6 +21,7 @@ export const WAVES_ACT_2: Wave[] = [
       both: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
       p1: "You see what is coming — the shape and the colour. Say both.",
       p2: "You see where — which of the two marks is real, and which wing drops. Say the side.",
+      scene: "bulbQueen",
     },
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4 }],
