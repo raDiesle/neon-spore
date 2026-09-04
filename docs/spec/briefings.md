@@ -1,12 +1,13 @@
 # Briefings
 
-> **Status: the introduction, the guide and the first rehearsal are built.** A
-> wave opens on its number, its name and its sentence — plain text on the
-> field, no panel — and then, if it carries one, on a split **guide** that
-> waits for both seats. FIRST STEP's guide now also carries a **scene**: two
-> mini-screens above the words, the same rehearsal world drawn twice through
-> the shipping renderer, looping. It is one specimen and not a system — §3.2
-> says what is deliberately still missing.
+> **Status: the guide, the introduction and the first rehearsal are built, in
+> that order.** A wave with a guide opens on it: for FIRST STEP that is a
+> **rehearsal** — the game's own screen at full size, playing the wave the pair
+> is about to meet, one device at a time, with the words inside the picture
+> beside the things they explain. It ends on the ready gate. *Then* the wave's
+> number, name and sentence, plain text on the field, which passes on a timer.
+> Then the wave. A wave with no guide opens straight on its introduction.
+> One rehearsal exists; §3.2 says what is deliberately still missing.
 >
 > **Three decisions below have been overturned on the way in**, and the
 > paragraphs that made them are rewritten rather than left standing beside code
@@ -19,17 +20,26 @@
 A wave's **opening** is what stands between the pair pressing play and the
 first creature falling. It has two states and the second is optional:
 
-1. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
+1. **The guide**, if the wave carries one — and it is *first*. A concrete
+   instruction about the control or the concept the pair is about to meet:
+   what the thing is, what he does about it, what she does about it. On a wave
+   that names a scene it is a rehearsal at full size instead of a panel of
+   prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
+   seat, each filling while that seat holds and saying READY when it is full.
+   The guide passes when both say READY. Only a wave that introduces something
+   new carries one — sixteen of twenty-six today, and a wave with no guide has
+   no circles either.
+2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
    text on the field — no panel, no border, nothing to press. It stands for a
    few seconds and passes on its own. Every wave has one, because every wave
    has a name and a sentence.
-2. **The guide.** A concrete instruction about the control or the concept the
-   pair is about to meet: what the thing is, what he does about it, what she
-   does about it. Split across the two screens, and it ends on **the ready
-   gate**: two circles, one per seat, each filling while that seat holds and
-   saying READY when it is full. The wave starts when both say READY. Only a
-   wave that introduces something new carries one — sixteen of twenty-six
-   today, and a wave with no guide has no circles either.
+
+**Teaching first and naming second is the owner's order, and it was the other
+way round to begin with.** What decided it is what each state is *for*: the
+introduction names the wave the pair is about to play, so it wants to be the
+last thing before the field rather than a title card standing in front of a
+tutorial. It also means the tutorial is what a pair sees the instant a wave
+starts, which is what the owner asked for in those words.
 
 Then the wave. [systems](systems.md) 5.9 has the gate's own rules — no
 timeout, no free repair bay, and what letting go does.
@@ -223,11 +233,23 @@ before a room is even joined.
 
 ### 3.2 The rehearsals — one specimen built
 
-`packages/render/src/briefing.ts` draws the guide's words; `wave-intro.ts`
-draws the introduction, and neither of them moves. Above the words, a guide
-that names a `scene` now draws a **rehearsal**: two mini-screens, side by side,
-the same small world drawn twice — once as player 1, once as player 2 — looping
-for about a second and a half. FIRST STEP has the only one.
+A guide that names a `scene` does not draw a panel of prose at all. It plays a
+**rehearsal**: the game's own screen at full size, one device at a time, with
+a red slick falling, a hand walking the cannon into its column, a slide across
+to the other player's screen, RED pressed, the shot taking it — and then a
+second slick nobody answers, so the last thing the pair is shown is the hull
+bar dropping. About five seconds, looping. FIRST STEP has the only one; every
+other guide is still the three strings and the two circles.
+
+**It was a card first, and the card is what the owner rejected.** The first
+build drew both devices as thumbnails above a block of prose. What came back
+was the shape of the thing now: give the tutorial the whole screen so the text
+and the graphics are not tiny; show one device at a time so it is unmistakable
+whose it is; put the words *inside* the picture in the position where they are
+explaining, because a paragraph under a shrunken picture is two things to look
+at and the eye reading the paragraph is not watching the thing it describes;
+and when the film moves to the other seat, **slide** there so the pair can
+follow the move. So: no card, no text block, one screen, a switch you can see.
 
 The load-bearing requirement is unchanged, and everything below follows from
 it: **the demonstration is drawn with the game's own geometry, not a diagram of
@@ -274,27 +296,56 @@ Three packages, and the split follows two precedents that were already here.
 This section used to call for splitting the tile-and-hull part of `Layout` out
 as a `Field` (`tile`, `gridLeft`, `gridTop`, `gridWidth`, `gridHeight`,
 `hullY`), so that a few-hundred-pixel panel could be one. **It is not needed
-and was not done.** `computeLayout` is already viewport-relative: a mini-screen
-is `computeLayout({width, height, dpr}, cfg, role)` at a virtual phone size,
-plus a translate and a scale on the context. Every pass then draws exactly as
-it does on a phone — the backdrop, the radar, the membrane sampled by
-`hull-frame.ts`, the band with its strips and lobes — because it *is* the
-phone draw, at a different scale.
+and was not done**, and a full-size film needs it even less than a thumbnail
+did: a rehearsal is `computeLayout` at the stage's own size for the seat that
+is showing, and every pass then draws exactly as it does on a phone — the
+backdrop, the radar, the membrane sampled by `hull-frame.ts`, the band with its
+strips and lobes — because it *is* the phone draw.
 
-Two things did have to move, and both are smaller than a `Field` would have
-been. `FieldPose` (`field-pose.ts`) is the eased pose and the hull mood lifted
-out of `canvas2d.ts`, so the renderer and each mini-screen share one copy of
-the easing instead of two. And each mini-screen owns its own `Effects`, cleared
-when the loop wraps — a rebuilt world starts `beat`, `tick` and `nextId` at 0
-again, so anything cached against them would be read by the next turn as its
-own (CLAUDE.md, `render/test/restart.test.ts`).
+Two things did have to move. `FieldPose` (`field-pose.ts`) is the eased pose
+and the hull mood lifted out of `canvas2d.ts`, so the renderer and each seat's
+view share one copy of the easing instead of two. And each seat owns its own
+`Effects`, cleared when the loop wraps — a rebuilt world starts `beat`, `tick`
+and `nextId` at 0 again, so anything cached against them would be read by the
+next turn as its own (CLAUDE.md, `render/test/restart.test.ts`).
 
-The one thing a rehearsal knowingly is not is the field's **height**: a scene
-sets its own `rows`, because two screens side by side inside a guide panel on a
-phone are about 160 px wide each, and fifteen rows at that width is a field of
-six-pixel tiles. The **columns** are the game's own and may not change — a
-scene teaches *which column*, so that is the one number it is not allowed to
-lie about.
+**A rehearsal's field is the game's field.** Same columns, same rows, same
+hull: there is nothing to be gained by shrinking it at full size and a shape
+would be taught wrongly if it were. Two things about the *world* are the
+scene's own and named as fields rather than hidden in a drawing: the tempo
+(`bpm`, quicker, because a film with five things to get through at the game's
+own beat is a film nobody watches twice) and `hullRegenPerSecond: 0`, because
+the last step shows what a miss costs and at three percent a second the bar had
+crept back to full inside the same loop.
+
+#### The screen it shows, and the switch between them
+
+A step owns a seat (`SceneStep`). While the seat does not change, one screen is
+drawn; the moment it does, the outgoing screen slides off to the left, the
+incoming one follows it in from the right with a lit seam on the join, and a
+banner names the screen that has arrived (`guide-switch.ts`). The hand is drawn
+only on the screen it belongs to — a thumb carried over from the other device
+would be a finger pressing a button that is not there.
+
+The gate is a strip **under** the film rather than a bar over it, and the film
+is laid out in the stage minus that strip. The band — the strips and the two
+lobes — is one of the things being taught, and a gate drawn on top of the lobes
+would hide the button the ghost thumb is pressing.
+
+#### The captions
+
+A step's words name a subject and the drawing finds it: a body on the field, a
+control on the band, the hull, or the bar that says what the hull has left
+(`SceneAnchor`, `guide-caption.ts`). Nothing is placed by coordinate, so a
+caption cannot come off its subject when the layout changes — the rule the
+ghost thumb already plays by. A body's ring is placed from `creatureCenter`,
+the one place the between-beats glide is written down, because a ring placed
+from the tile alone lands a whole row behind the shape it is meant to be
+around. The hull bar's position comes from `hullBarBox` in `hud.ts` for the
+same reason.
+
+Text is as short as it will go. `SLICK`, `P1 · SLIDE TO ITS COLUMN`,
+`P2 · FIRE RED`, `MISS ONE`, `AND THE HULL TAKES IT`.
 
 #### The ghost thumb is derived, never authored
 
@@ -312,27 +363,31 @@ tested without eyes: a scene only ever presses a control the wave's own panel
 carries, a strip act carries a column and a lobe act does not, every act is
 inside its own loop, and the tempo divides the tick rate.
 
-#### Two renders a frame, and what pays for them
+#### What a frame of it costs
 
 While a rehearsal is up, `canvas2d.ts` **stops drawing the real field behind
-it** — the guide covers it with a scrim anyway, so a field nobody can see is
-the whole of what a second render would have cost. Measured on a 390×844 stage,
-400 painted frames each: a guide frame with no scene is 0.53 ms, a guide frame
-with the rehearsal is 2.6 ms, and the playing field, for scale, is 1.7 ms.
-Playing frames are untouched — the stage is inactive and costs one
-`guideHolds` check.
+it**: the film is the whole stage, so a field nobody can see is pure waste.
+One screen is drawn per frame, and two only for the twenty-six ticks of a
+switch. Measured on a 390×844 stage, 400 painted frames each: a guide frame
+with no scene is 0.5 ms, a guide frame with the rehearsal is 1.6 ms, and the
+playing field, for scale, is 2.5 ms — so a tutorial frame is cheaper than a
+frame of the game it is teaching. Playing frames are untouched: the stage is
+inactive and costs one `guideHolds` check.
 
 #### Deliberately not built
 
 The specimen stops here. Each of these is a decision the owner has already made
 about what comes next, rather than something forgotten:
 
-- **The step sequencer.** A scene is one loop with one fixed caption. There are
-  no steps, no caption per step, and no step pips.
-- **The order of the opening.** The guide still comes after the wave's
-  introduction, and the wave text has no countdown of its own.
-- **Wave 2's bulb scene**, and every scene after it. One specimen is what is
-  being judged.
+- **Step pips.** The film has steps and a caption each, but nothing on screen
+  says how many there are or which one this is.
+- **A countdown on the wave text.** The introduction still passes on a plain
+  timer with nothing drawn to say how long is left.
+- **Wave 2's bulb scene**, and every scene after it. One rehearsal is what is
+  being judged, and every other guide is still words.
+- **A running preview in the director.** The `✎ GUIDES` sheet draws a
+  rehearsal as a still, because it draws through the shipping renderer; there
+  is no way to watch a loop at tempo while authoring one.
 - **The TUTORIALS menu page**, gated on `progress.furthest`, where a pair could
   watch a rehearsal again without playing the wave.
 - **`prefers-reduced-motion`**: a held pose instead of a loop, for a player who
@@ -394,7 +449,13 @@ it gates the **whole opening**, introduction included. That is why it kept the
 name: it is the switch on a feature that wants two people, not on one card. A
 determinism run, a shape sheet, `relay:check` and every sim test play with it
 off, and none of them has anything that would send the two acks a held wave
-waits for. `cfg.readyHoldMs` beside it is how long a circle takes to fill.
+waits for. `cfg.readyHoldMs` beside it is how long a circle takes to fill, and it is
+**420 ms**. It was 1200, which is long enough to feel like a penalty on the
+second run of a wave and long enough that a thumb put down and taken off again
+reads as a control that did not work. The gate's job is to prove the pair
+looked at the screen, and a fifth of a second of contact does that; the reading
+time is bought by the guide standing in front of them, not by the length of the
+hold. `packages/sim/src/ready-gate.ts` is where the gate's rules now live.
 
 ### 3.5 Two devices · built
 
@@ -412,9 +473,9 @@ The guide shows two pips, one per seat, lit as each ack lands. Without them a
 player who has tapped is looking at a guide that did nothing and has no way to
 tell whether it is their screen that is stuck or their partner.
 
-One ack does not carry from the introduction into the guide. The bits are
-cleared when a state passes, or a fast device would put away a screen its
-player never looked at.
+One seat's hold does not carry from the guide into the introduction. Both fills
+and both ack bits are cleared when a state passes, or a fast device would put
+away a screen its player never looked at.
 
 Still open: the link chip reads `STALLED` while one player is reading. Worth
 suppressing while the wave is held.

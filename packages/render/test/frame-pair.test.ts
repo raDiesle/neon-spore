@@ -87,10 +87,9 @@ describe("a wave's opening", () => {
  */
 function gateFrames(role: ViewRole, fillTicks: number, viewport = VIEWPORT) {
   const world = createWorld(CFG_PAIR, 7);
+  // The guide is the first thing a wave opens on when it carries one, so there
+  // is nothing to get past: `startWave` puts it up.
   startWave(world, 0, buildQueue(0, CFG_PAIR.cols), [], null, true);
-  // Past the introduction and onto the guide, without waiting out its timer.
-  ackBriefing(world, 1);
-  ackBriefing(world, 2);
   return runFrames(world, role, fillTicks, {
     viewport,
     onTick: (tick, w) =>
@@ -120,8 +119,6 @@ describe("the ready gate", () => {
     // reading, and the only one that draws the word.
     const world = createWorld(CFG_PAIR, 7);
     startWave(world, 0, buildQueue(0, CFG_PAIR.cols), [], null, true);
-    ackBriefing(world, 1);
-    ackBriefing(world, 2);
     const { ctx } = runFrames(world, "p1", FULL + 8, {
       onTick: (tick, w) => step(w, [{ tick, player: 1, command: { kind: "brief", on: true } }]),
     });

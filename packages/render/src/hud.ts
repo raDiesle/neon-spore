@@ -13,21 +13,31 @@ import type { ViewState } from "./renderer.js";
  * it says the pair agreed on *where* and missed on *when*, which is the thing
  * a voice delay actually breaks.
  */
+/**
+ * The hull bar, top right — where it is, rather than what it says.
+ *
+ * Exported because a guide's rehearsal points a caption at it (`AND THE HULL
+ * TAKES IT`, `guide-caption.ts`), and a caption placed from a second copy of
+ * these four numbers is a caption that ends up beside the bar rather than on
+ * it the first time anybody moves the readout.
+ */
+export function hullBarBox(l: Layout): { x: number; y: number; w: number; h: number } {
+  const w = l.width * 0.42;
+  return { x: l.width - w - 10, y: 14, w, h: 6 };
+}
+
 export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
   const { world } = view;
   ctx.font = '10px "Courier New",monospace';
   ctx.textAlign = "left";
 
-  // Hull bar, top right.
-  const bw = l.width * 0.42;
-  const bx = l.width - bw - 10;
-  const by = 14;
+  const { x: bx, y: by, w: bw, h: bh } = hullBarBox(l);
   ctx.fillStyle = "#2A1F4E";
-  ctx.fillRect(bx, by, bw, 6);
+  ctx.fillRect(bx, by, bw, bh);
   const hp = hullPercent(world) / 100;
   ctx.fillStyle = hp > 0.5 ? PALETTE.cyan : hp > 0.25 ? PALETTE.hull : PALETTE.red;
-  ctx.fillRect(bx, by, bw * hp, 6);
-  drawHeart(ctx, bx - 9, by + 3, 6, PALETTE.pod);
+  ctx.fillRect(bx, by, bw * hp, bh);
+  drawHeart(ctx, bx - 9, by + bh / 2, 6, PALETTE.pod);
 
   ctx.fillStyle = PALETTE.dim;
   ctx.fillText(`${world.score} P`, 10, 20);

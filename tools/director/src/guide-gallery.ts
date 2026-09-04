@@ -1,5 +1,5 @@
 import { WAVES } from "@neon-spore/content";
-import { ackBriefing, type World } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { waveLabel, waveOpeningWorld, wavesWithGuides } from "./guide-waves.js";
 import { frameWorld, PHONE } from "./pose-art.js";
 
@@ -20,15 +20,15 @@ import { frameWorld, PHONE } from "./pose-art.js";
  */
 
 /**
- * A world with one wave's guide up and its introduction already gone — posed
- * by starting the wave and sending the two acks the phone sends, so the state
- * on screen is one a pair can actually reach.
+ * A world with one wave's guide up.
+ *
+ * There is nothing to send any more: the guide is the *first* thing a wave
+ * opens on, so starting the wave is the whole of posing it. This used to ack
+ * both seats to get past the introduction, and doing that now would cross the
+ * gate and photograph the introduction instead.
  */
 export function guideWorld(waveIndex: number): World {
-  const world = waveOpeningWorld(waveIndex);
-  ackBriefing(world, 1);
-  ackBriefing(world, 2);
-  return world;
+  return waveOpeningWorld(waveIndex);
 }
 
 function roleFrame(waveIndex: number, role: "p1" | "p2"): HTMLElement {

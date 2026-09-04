@@ -100,9 +100,12 @@ export {
   guideScene,
   SCENES,
   type SceneAct,
+  type SceneAnchor,
   type SceneId,
+  type SceneStep,
   sceneCommand,
   sceneScript,
+  stepAt,
 } from "./scenes.js";
 export {
   blobPath,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { control, controlSetForWave, setHas } from "../src/index.js";
-import { SCENES, type SceneId, sceneScript } from "../src/scenes.js";
+import { SCENES, type SceneId, sceneScript, stepAt } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
 
 /**
@@ -56,6 +56,66 @@ describe("the rehearsals a guide can show", () => {
         expect(act.tick, `${id} presses past the end of its own loop`).toBeLessThan(scene.ticks);
         last = act.tick;
       }
+    }
+  });
+
+  it("starts on a step and keeps every one of them inside the loop, in order", () => {
+    // `stepAt` promises never to return undefined, and the whole of what makes
+    // that true is that a scene's first step is at tick 0.
+    for (const id of SCENE_IDS) {
+      const scene = SCENES[id];
+      expect(scene.steps[0]?.tick, `${id} has no step at tick 0`).toBe(0);
+      let last = -1;
+      for (const step of scene.steps) {
+        expect(step.tick, `${id}'s steps are out of order`).toBeGreaterThan(last);
+        expect(step.tick, `${id} has a step past the end of its own loop`).toBeLessThan(
+          scene.ticks,
+        );
+        last = step.tick;
+      }
+    }
+  });
+
+  it("keeps every caption short enough to read at a glance", () => {
+    // A caption is read beside the thing it is about, under a beat, by
+    // somebody who is watching something move. The owner's instruction was
+    // "as short as possible"; this is the half of it that can be checked.
+    for (const id of SCENE_IDS) {
+      for (const step of SCENES[id].steps) {
+        expect(step.text.length, `${id}: "${step.text}" is a long caption`).toBeLessThanOrEqual(28);
+      }
+    }
+  });
+
+  it("finds the step showing at any tick of the loop", () => {
+    for (const id of SCENE_IDS) {
+      const scene = SCENES[id];
+      for (const step of scene.steps) {
+        expect(stepAt(scene, step.tick)).toBe(step);
+      }
+      expect(stepAt(scene, scene.ticks - 1)).toBe(scene.steps[scene.steps.length - 1]!);
+    }
+  });
+
+  it("only points a caption at a control the wave's own panel carries", () => {
+    for (const { wave, id } of USED) {
+      const set = controlSetForWave(wave);
+      for (const step of SCENES[id].steps) {
+        if (step.anchor.at !== "control") continue;
+        expect(
+          setHas(set, step.anchor.control),
+          `${WAVES[wave]?.name}'s scene points at ${step.anchor.control}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("keeps a rehearsal's hull from mending, so a miss leaves a mark", () => {
+    // The last step of FIRST STEP's film is the hull bar dropping. At the
+    // game's own three percent a second the bar was back to full inside the
+    // same loop, which teaches the opposite of the words over it.
+    for (const { wave, id } of USED) {
+      expect(sceneScript(id, wave, DEFAULT_CONFIG).cfg.hullRegenPerSecond).toBe(0);
     }
   });
 

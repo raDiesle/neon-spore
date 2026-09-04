@@ -23,19 +23,16 @@ import { PALETTE } from "./palette.js";
  * The alternative was a list of coordinates beside the list of presses, which
  * is a second copy of where the buttons are — the exact failure `Layout.lobeY`
  * exists to prevent one level down.
+ *
+ * The hand is drawn only on the screen it belongs to. The film shows one device
+ * at a time (`guide-scene.ts`), and a hand carried over from the other one
+ * would be a finger pressing a button that is not on this screen.
  */
-
-/** One mini-screen: the layout it was drawn at, and where it was put. */
-export interface SceneScreen {
-  seat: 1 | 2;
-  layout: Layout;
-  x: number;
-  y: number;
-  scale: number;
-}
 
 interface Anchor {
   tick: number;
+  /** Which screen this press happens on. The hand is only drawn on that one. */
+  seat: 1 | 2;
   x: number;
   y: number;
   /** Whether this is a button going down, rather than a strip being dragged. */
@@ -44,28 +41,26 @@ interface Anchor {
 
 /** How long the hand stays visibly down after a lobe act, in ticks. */
 const PRESS_TICKS = 18;
+/** How far ahead of its first act a hand appears. Long enough to be seen
+ * arriving, short enough that it is not a thumb resting on nothing. */
+const LEAD_TICKS = 24;
 
 /**
  * Every act as a place on the panel. An act naming a control the seat's screen
  * does not carry is dropped rather than guessed at — `test/scenes.test.ts` in
  * `content` is what keeps a scene from authoring one at all.
  */
-export function thumbAnchors(
-  scene: GuideScene,
-  set: ControlSet,
-  screens: readonly SceneScreen[],
-): Anchor[] {
+export function thumbAnchors(scene: GuideScene, set: ControlSet, l: Layout): Anchor[] {
   const out: Anchor[] = [];
   for (const act of scene.acts) {
     const def = control(act.control);
-    const screen = screens.find((s) => s.seat === def.player);
-    if (!screen) continue;
-    const point = pointOn(screen.layout, set, act);
+    const point = pointOn(l, set, act);
     if (!point) continue;
     out.push({
       tick: act.tick,
-      x: screen.x + point.x * screen.scale,
-      y: screen.y + point.y * screen.scale,
+      seat: def.player,
+      x: point.x,
+      y: point.y,
       press: def.form === "lobe",
     });
   }
@@ -97,15 +92,20 @@ export function drawGhostThumb(
   anchors: readonly Anchor[],
   tick: number,
   radius: number,
+  seat: 1 | 2,
 ): void {
-  const first = anchors[0];
-  if (!first) return;
+  // Only the hand belonging to the screen that is showing. The film moves
+  // between two devices; a hand from the other one would be a finger pressing
+  // a button that is not there.
+  const anchors2 = anchors.filter((a) => a.seat === seat);
+  const first = anchors2[0];
+  if (!first || tick < first.tick - LEAD_TICKS) return;
   let at = first;
   let x = first.x;
   let y = first.y;
-  for (let i = 0; i < anchors.length - 1; i++) {
-    const a = anchors[i]!;
-    const b = anchors[i + 1]!;
+  for (let i = 0; i < anchors2.length - 1; i++) {
+    const a = anchors2[i]!;
+    const b = anchors2[i + 1]!;
     if (tick < a.tick || tick > b.tick) continue;
     const span = Math.max(1, b.tick - a.tick);
     const k = smoothstep(Math.min(1, Math.max(0, (tick - a.tick) / span)));
@@ -114,7 +114,7 @@ export function drawGhostThumb(
     at = a;
     break;
   }
-  const last = anchors[anchors.length - 1]!;
+  const last = anchors2[anchors2.length - 1]!;
   if (tick >= last.tick) {
     x = last.x;
     y = last.y;

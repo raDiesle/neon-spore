@@ -68,6 +68,14 @@ const INTRO_SECONDS_ENOUGH = 60;
 const OPENING_POLL_MS = 150;
 
 /**
+ * More ticks than `readyHoldMs` could ever be tuned up to, so one attempt
+ * always crosses a ready gate outright. Ticks and not a number of attempts,
+ * for `RETRY_TICKS`' reason next door: the fill is counted in the world's own
+ * clock and nothing about it depends on how often this file looks.
+ */
+const GATE_TICKS_ENOUGH = 1200;
+
+/**
  * `OPENING_POLL_MS` × this comfortably clears `INTRO_SECONDS` (5.5s) plus a
  * guide ack on a build with no `advanceOpening` at all, while still failing
  * loudly — rather than hanging the capture — on a wave whose opening
@@ -93,12 +101,19 @@ async function openingPhase(page: Page): Promise<number | "old"> {
 /**
  * Stand *in* the opening at the phase asked for, rather than run through it.
  *
- * The introduction is already the phase a wave opens in, so `"intro"` only has
- * to check it is there; `"guide"` has one screen to get past first, and gets
- * past it the way `clearOpening` does — `advanceOpening` exhausts the
- * introduction's own countdown and `advance(1)` lands the acks it queued. It
- * never calls `dismissBriefing`, because that is the ack a guide waits for and
- * acking the thing being photographed is the one move that cannot be undone.
+ * **The two are the other way round from how this was written.** A wave opens
+ * on its *guide* now, and its introduction stands behind that
+ * (`packages/sim/src/briefing.ts` — the introduction names the wave the pair is
+ * about to play, so it wants to be the last thing before the field). So
+ * `"guide"` is the phase a guided wave opens in and only has to be checked for,
+ * and `"intro"` is the one with a screen to get past.
+ *
+ * Getting past a guide means **crossing its gate**, which is two thumbs held
+ * for `readyHoldMs` — `dismissBriefing` is exactly that hold from both seats,
+ * and the ticks after it are what fill the circles. That is the one move this
+ * function used to refuse to make, on the grounds that acking the thing being
+ * photographed cannot be undone; with the order swapped it is the only way to
+ * reach the thing that *is* being photographed, and the guide is no longer it.
  *
  * Every refusal names the wave rather than timing out: a picture of the field
  * returned for `--opening guide` would be an honest-looking answer to a
@@ -120,21 +135,27 @@ async function holdOpening(page: Page, stopAt: OpeningStop): Promise<void> {
         stopAt === "intro"
           ? "this wave is already on the field: nothing is holding it, so there is no " +
               "introduction to photograph"
-          : "this wave carries no guide — its introduction passes straight onto the field",
+          : "this wave carries no guide — it opened straight on its introduction",
       );
     }
-    if (want === OPENING_INTRO) {
-      throw new Error("the introduction is already gone: --opening intro has nothing to stand on");
+    if (want === OPENING_GUIDE) {
+      throw new Error(
+        "this wave is on its introduction, which is *behind* the guide: it carries no " +
+          "guide to photograph",
+      );
     }
-    await page.evaluate((introSeconds) => {
+    // Standing on a guide with the introduction behind it. Cross the gate:
+    // both thumbs down, then the ticks that fill the two circles.
+    await page.evaluate((fillTicks) => {
       const ns = window.neonSpore;
       if (!ns) throw new Error("window.neonSpore missing mid-capture");
-      ns.advanceOpening?.(introSeconds);
+      ns.dismissBriefing();
       ns.advance(1);
-    }, INTRO_SECONDS_ENOUGH);
+      ns.advance(fillTicks);
+    }, GATE_TICKS_ENOUGH);
     await page.waitForTimeout(OPENING_POLL_MS);
   }
-  throw new Error("the introduction never passed — the guide never came up");
+  throw new Error("the guide never passed — the introduction never came up");
 }
 
 /**

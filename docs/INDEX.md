@@ -186,9 +186,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
-| `packages/sim/src/config-recoil.ts` | you are tuning how long THE RECOIL holds a column — the bounces, the rows one throws it, the price |
-| `packages/sim/src/creature-types.ts` | you are adding a field to a creature, or wondering what a body on the field is made of |
-| `packages/sim/src/recoil.ts` | you are working on THE RECOIL — the bounce, the lane it is rolled into and the colour it turns over to |
+| `packages/sim/src/ready-gate.ts` | you are changing the two circles a guide ends on — what fills one, what empties it, and how long the hold is |
+| `packages/sim/src/config-recoil.ts` | THE RECOIL's numbers: how many times a shot fails to kill it |
+| `packages/sim/src/creature-types.ts` | What a **body on the field** is made of |
+| `packages/sim/src/recoil.ts` | THE RECOIL: a slick or a bulb inside a sprung cage, and the first body a landed shot sends the **wrong way** |
 
 ### packages/content
 
@@ -402,17 +403,18 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
 | `packages/render/src/field-pose.ts` | the ship's eased pose: where the two lobes are and how the membrane feels, shared by the field and a guide's mini-screens |
-| `packages/render/src/guide-mini.ts` | one of a guide's two mini-screens, drawn through the shipping renderer's own four passes |
-| `packages/render/src/guide-scene.ts` | a guide's rehearsal, on two screens, looping — the clock, the framing and the caption |
+| `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the clock, which seat is showing, and the switch between them |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
-| `packages/render/src/guide-screen.ts` | one screen of a guide's rehearsal in its box: the transform, the frame, the dimming and the word above it |
-| `packages/render/src/recoil-vent.ts` | you are drawing what a bounce leaves behind — the downward jet and the ember wake up to the new lane |
-| `packages/render/src/recoil.ts` | you are drawing THE RECOIL's cage, or the damage it wears for every bounce already spent |
-| `packages/render/src/band-ground.ts` | the panel's own tissue — the sheet under the band, painted once per size |
-| `packages/render/src/band-seam.ts` | the membrane between the hull and the panel: where it is, what it is lit like, and the light it spills |
-| `packages/render/src/lobe-shell.ts` | a button's own contour, the socket it stands in and the wet film over it |
-| `packages/render/src/band-channel.ts` | a strip, as a channel cut in the panel's tissue — the trough, its lip and the lobe on it |
-| `packages/render/src/band-slime.ts` | the slime hanging off the panel's membrane, and the feeder running from it to every control |
+| `packages/render/src/guide-caption.ts` | a tutorial step's words and highlight, placed beside the body, control or bar they are about |
+| `packages/render/src/guide-seat.ts` | one seat's screen inside a guide's rehearsal, drawn through the shipping four passes |
+| `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial — the lit seam and the banner naming it |
+| `packages/render/src/band-channel.ts` | A STRIP, AS A CHANNEL CUT IN THE TISSUE |
+| `packages/render/src/band-ground.ts` | WHAT THE CONTROL PANEL IS MADE OF |
+| `packages/render/src/band-seam.ts` | WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE |
+| `packages/render/src/band-slime.ts` | WHAT RUNS OFF THE MEMBRANE, AND WHAT REACHES DOWN FROM IT |
+| `packages/render/src/lobe-shell.ts` | WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE |
+| `packages/render/src/recoil-vent.ts` | The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a shot met it in |
+| `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
 
 ### packages/net
 
@@ -841,7 +843,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
-| `tools/director/src/brush-cards.ts` | you are changing what a brush's card in the palette looks like — its stroke, its subjects or its one line |
-| `tools/director/src/stage-point.ts` | a click on the director's stage lands somewhere other than the control it was on |
+| `tools/director/src/brush-cards.ts` | What one brush's **card** says: the colour it is stroked in, the shape-sheet subjects it draws |
+| `tools/director/src/stage-point.ts` | WHERE A CLICK ON THE DIRECTOR'S CANVAS ACTUALLY LANDS |
 
 <!-- index:code:end -->

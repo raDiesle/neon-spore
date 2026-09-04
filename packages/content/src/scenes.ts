@@ -40,62 +40,107 @@ export interface SceneAct {
   col?: number;
 }
 
+/**
+ * What a caption is pointing at, so it is drawn beside the thing it explains
+ * rather than in a paragraph underneath the picture.
+ *
+ * The owner's instruction, and the whole reason there is no text block any
+ * more: *show the text inside the screen, in the position where it is
+ * explaining*. So a caption names a thing and the drawing finds it — a body on
+ * the field, a control on the band, the ship, the hull bar — which means a
+ * caption cannot drift away from its subject when the layout changes.
+ */
+export type SceneAnchor =
+  | { at: "body" }
+  | { at: "control"; control: ControlId }
+  | { at: "hull" }
+  | { at: "health" };
+
+/**
+ * One step of the film: a screen, a few words, and what they point at.
+ *
+ * **A step owns a seat, and that is what makes the switch legible.** The
+ * rehearsal is drawn one screen at a time at full size — the owner asked for
+ * the real screen and the room that buys — so the moment a step changes seat,
+ * the picture slides from one device to the other and says whose it now is
+ * (`guide-scene.ts`). A film that cut without saying would be two screens the
+ * pair could not tell apart.
+ */
+export interface SceneStep {
+  /** Tick this step begins on. Ordered, and the first one starts at 0. */
+  tick: number;
+  seat: 1 | 2;
+  /** As few words as will do. It is read at a glance, beside its subject. */
+  text: string;
+  anchor: SceneAnchor;
+}
+
 export interface GuideScene {
   /** How long one turn of the loop is, in ticks. */
   ticks: number;
   /**
-   * The rehearsal's tempo. Quicker than a wave on purpose: the loop has to
-   * show a fall, a slide, a crossing and a shot inside a second and a half,
-   * and the alternative to a quicker beat is a slower loop nobody watches
-   * twice. `test/scenes.test.ts` holds that it still divides the tick rate.
+   * The rehearsal's tempo. Quicker than a wave on purpose: a film that shows a
+   * fall, a slide, a switch, a shot and a hull taking a hit has five things to
+   * get through, and the alternative to a quicker beat is a loop nobody
+   * watches twice. `test/scenes.test.ts` holds that it still divides the tick
+   * rate.
+   *
+   * The *field* is the game's own, unlike the tempo: same columns, same rows,
+   * same hull. A rehearsal is played at full size now, so there is nothing to
+   * be gained by shrinking it and a shape to be taught wrongly if it were.
    */
   bpm: number;
-  /**
-   * How tall the rehearsal field is. Shorter than the game's, and this is the
-   * one place a scene is knowingly not the shipped picture: two of these stand
-   * side by side inside a guide panel on a phone, and fifteen rows at that
-   * width is a field of six-pixel tiles. The columns are the game's own — a
-   * scene teaches *which column*, so that is the number it may not change.
-   */
-  rows: number;
   seed: number;
   entries: WaveEntry[];
   acts: SceneAct[];
-  /** The one line under the two screens. Fixed — a scene has no step list yet. */
-  caption: string;
+  steps: SceneStep[];
 }
 
 export type SceneId = "firstStep";
 
 /**
- * FIRST STEP's rehearsal, which is the whole of the game's first minute in a
- * second and a half: a red slick shows on player 1's strip and falls, player
- * 1's thumb walks the cannon into its column, the hand crosses to the other
- * screen, presses RED, and the shot takes it.
+ * FIRST STEP's rehearsal: the whole of the game's first minute, in five
+ * seconds, on the two screens it actually happens on.
  *
- * The crossing is the part the words cannot say. Nothing on either screen
- * moves between the slide and the press, and that gap *is* the sentence one of
- * them has to speak out loud — which is why the caption's middle word is SAY.
+ * Two slicks fall. The pair takes the first one — player 1 slides the cannon
+ * into its column, the film switches to player 2's screen and fires red — and
+ * the second is left alone on purpose, so the last thing the pair is shown is
+ * what a miss costs. Nothing here is staged: both are ordinary arrivals in an
+ * ordinary world, and the hull bar drops because the hull was hit.
  */
 const FIRST_STEP: GuideScene = {
-  ticks: 192,
-  bpm: 120,
-  rows: 8,
+  ticks: 860,
+  bpm: 180,
   seed: 1,
-  entries: [{ beat: 0, col: 5, color: "red" }],
+  entries: [
+    { beat: 0, col: 5, color: "red" },
+    { beat: 4, col: 1, color: "red" },
+  ],
   // A finger arrives at a column on the tick the world hears about it, and the
   // lobe eases after it — so the steps are close together: a hand two columns
   // ahead of the cannon for half a second is a hand that is not dragging it.
   acts: [
-    // The hand starts where the cannon already is, so the first thing it does
-    // is visibly move rather than appear somewhere new.
-    { tick: 8, control: "cannon", col: 3 },
-    { tick: 18, control: "cannon", col: 4 },
-    { tick: 30, control: "cannon", col: 5 },
-    { tick: 44, control: "cannon", col: 5 },
-    { tick: 112, control: "fireRed" },
+    { tick: 150, control: "cannon", col: 3 },
+    { tick: 170, control: "cannon", col: 4 },
+    { tick: 190, control: "cannon", col: 5 },
+    { tick: 210, control: "cannon", col: 5 },
+    { tick: 330, control: "fireRed" },
   ],
-  caption: "SLIDE · SAY · FIRE",
+  steps: [
+    { tick: 0, seat: 1, text: "SLICK", anchor: { at: "body" } },
+    {
+      tick: 110,
+      seat: 1,
+      text: "P1 · SLIDE TO ITS COLUMN",
+      anchor: { at: "control", control: "cannon" },
+    },
+    { tick: 260, seat: 2, text: "P2 · FIRE RED", anchor: { at: "control", control: "fireRed" } },
+    { tick: 430, seat: 1, text: "MISS ONE", anchor: { at: "body" } },
+    // The second slick reaches the hull on beat 19, which is tick 760 at this
+    // tempo. The words go up just before it lands, so the pair reads them and
+    // then watches the bar drop rather than the other way round.
+    { tick: 700, seat: 1, text: "AND THE HULL TAKES IT", anchor: { at: "health" } },
+  ],
 };
 
 export const SCENES: Record<SceneId, GuideScene> = { firstStep: FIRST_STEP };
@@ -150,9 +195,13 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
   const sceneCfg: SimConfig = {
     ...cfg,
     bpm: scene.bpm,
-    rows: scene.rows,
     // A rehearsal held behind its own opening would be a guide inside a guide.
     briefings: false,
+    // And a rehearsal's hull does not mend. The last thing FIRST STEP's film
+    // shows is what a miss costs, and at three percent a second the bar had
+    // crept back to full inside the same loop — which teaches the opposite of
+    // the step it is under.
+    hullRegenPerSecond: 0,
   };
   return {
     cfg: sceneCfg,
@@ -164,4 +213,15 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     commands: scene.acts.map((a) => sceneCommand(a, sceneCfg.cols)),
     ticks: scene.ticks,
   };
+}
+
+/** The step showing at this tick of the loop. Never undefined: a scene's first
+ * step starts at tick 0, and `test/scenes.test.ts` is what holds that. */
+export function stepAt(scene: GuideScene, tick: number): SceneStep {
+  let found = scene.steps[0]!;
+  for (const step of scene.steps) {
+    if (step.tick > tick) break;
+    found = step;
+  }
+  return found;
 }

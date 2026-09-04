@@ -218,7 +218,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxHoles: 10,
   maxScars: 30,
   waveRestBeats: 3,
-  readyHoldMs: 1200,
+  readyHoldMs: 420,
   scoreDestroy: 100,
   scoreDeflect: 150,
   scoreWave: 300,

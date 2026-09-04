@@ -16,9 +16,14 @@ import { AUTHORED_WAVE_COUNT, waveOpeningWorld, wavesWithGuides } from "../src/g
  */
 
 describe("waveOpeningWorld", () => {
-  test("poses every authored wave on its introduction", () => {
+  test("poses every authored wave on the first state it opens on", () => {
+    // The guide when the wave carries one, the introduction when it does not:
+    // the guide comes first now, so a wave with one never stands on its name
+    // until the gate has been crossed (`packages/sim/src/briefing.ts`).
     for (let i = 0; i < AUTHORED_WAVE_COUNT; i++) {
-      expect(introHolds(waveOpeningWorld(i)), `wave ${i + 1}`).toBe(true);
+      const world = waveOpeningWorld(i);
+      const guided = WAVES[i]?.guide !== undefined;
+      expect(guided ? guideHolds(world) : introHolds(world), `wave ${i + 1}`).toBe(true);
     }
   });
 

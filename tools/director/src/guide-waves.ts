@@ -30,9 +30,9 @@ export function waveLabel(i: number): string {
 }
 
 /**
- * A world at the moment a wave starts — its introduction standing, its guide
- * behind that. Built fresh each call, like every other pose: nothing here is
- * shared between two questions asked of it.
+ * A world at the moment a wave starts — its guide standing if it carries one,
+ * and its introduction behind that. Built fresh each call, like every other
+ * pose: nothing here is shared between two questions asked of it.
  */
 export function waveOpeningWorld(waveIndex: number): World {
   const world = createWorld({ ...CARD_CFG }, waveIndex);

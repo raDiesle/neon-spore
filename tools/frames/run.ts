@@ -26,12 +26,14 @@
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
- *   bun run frames <sha> --wave 2 --opening intro   the card the wave opens on
  *   bun run frames <sha> --wave 2 --opening guide --frames 8 --stride 6   its rehearsal, looping
+ *   bun run frames <sha> --wave 2 --opening intro   the wave's name, after the guide
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--opening` stands in the wave's opening instead of running past it, which
- * every capture before it did unconditionally. On `guide`, `--frames` and
+ * every capture before it did unconditionally. A wave opens on its **guide**
+ * and its introduction stands behind that, so `intro` on a guided wave crosses
+ * the ready gate on the way (`opening.ts`). On `guide`, `--frames` and
  * `--stride` count **painted frames**: a rehearsal is drawn rather than
  * stepped, so a strip counted in ticks would be one picture over and over.
  *

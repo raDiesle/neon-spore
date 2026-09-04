@@ -6,25 +6,25 @@ import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 
 /**
- * One of a guide's two mini-screens: the rehearsal world, drawn through the
- * shipping renderer's own four passes at one seat's role.
+ * One seat's screen inside a guide's rehearsal, drawn through the shipping
+ * renderer's own four passes at that seat's role.
  *
- * **It is the game, small, and not a diagram of the game.** Everything here is
- * the same call the phone makes — the same backdrop, the same radar, the same
+ * **It is the game, and not a diagram of the game.** Everything here is the
+ * same call the phone makes — the same backdrop, the same radar, the same
  * bodies, the same membrane, the same band with the same strips and lobes on
  * it — because a guide that drew a simplified hull would teach a shape the
  * game does not have and go on teaching it until somebody changed the lobe
- * (`docs/spec/briefings.md` §3.2). The only thing the caller does is put a
- * transform on the context first.
+ * (`docs/spec/briefings.md` §3.2). It is drawn at the stage's full size, so
+ * the only thing the caller does is translate it during a switch.
  *
- * It owns its own `Effects` for the reason two seats always would: a spark is
- * a fact about one picture, and one collection shared between the two screens
- * would ingest every event twice. Both are cleared when the loop wraps — a
- * rebuilt world starts `beat`, `tick` and `nextId` at 0 again, and anything
- * cached against those would be read by the next turn as its own (CLAUDE.md,
- * and `test/restart.test.ts`).
+ * There is one of these per seat, each with its own `Effects`, because a spark
+ * is a fact about one picture and one collection shared between the two
+ * screens would ingest every event twice. Both are cleared when the loop wraps
+ * — a rebuilt world starts `beat`, `tick` and `nextId` at 0 again, and
+ * anything cached against those would be read by the next turn as its own
+ * (CLAUDE.md, and `test/restart.test.ts`).
  */
-export class MiniView {
+export class SeatView {
   private readonly effects = new Effects();
   private readonly pose = new FieldPose();
 

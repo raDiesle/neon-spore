@@ -6,6 +6,8 @@ import {
   type Command,
   createWorld,
   DEFAULT_CONFIG,
+  guideHolds,
+  introHolds,
   mazeRound,
   PAIR_ON,
   readyHoldTicks,
@@ -118,7 +120,8 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     const world = createWorld(cfg, 0);
     // A guide as well as an introduction, because the stepping under test is
     // the guide's: the introduction is the same on both screens and takes one
-    // press whatever the role.
+    // press whatever the role. The guide is what a wave opens on, so a world
+    // built here is already standing on it.
     startWave(world, 0, queue, [], null, true);
     let cardStepAt: 0 | 1 | 2 = 0;
     const sent: { player: 1 | 2; command: Command }[] = [];
@@ -206,9 +209,9 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
   }
 
   it("a tap steps `test` through player one's half, then two's, filling neither circle", () => {
+    // The guide is the first thing a wave opens on, so there is nothing to tap
+    // past to reach it.
     const s = armed("test");
-    s.tap(); // the introduction, which is not stepped
-    s.sent.length = 0;
     s.tap();
     expect(s.step()).toBe(1);
     s.tap();
@@ -220,22 +223,21 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
 
   it("a hold from the very first press fills both circles and opens the gate — stepping is never a toll", () => {
     const s = armed("test");
-    s.tap(); // the introduction
-    s.sent.length = 0;
     s.down();
     // Both circles fill in lockstep in `test`, so they land on `full` on the
     // very same tick — one short of it, neither has latched READY yet.
     s.tick(readyHoldTicks(cfg) - 1);
     expect(seatReady(s.world, 1)).toBe(false);
-    expect(briefingHolds(s.world)).toBe(true);
+    expect(guideHolds(s.world)).toBe(true);
     s.tick(1); // the tick both circles complete on together
-    expect(briefingHolds(s.world)).toBe(false);
+    // The gate is open, and what is behind it is the wave's own name.
+    expect(guideHolds(s.world)).toBe(false);
+    expect(introHolds(s.world)).toBe(true);
     s.up(); // the gate is already open; letting go now reaches nobody's fill
   });
 
   it("letting go before READY empties the circle instead of latching it", () => {
     const s = armed("test");
-    s.tap(); // the introduction
     s.down();
     s.tick(1); // some fill, nowhere near a full gate
     s.up();
@@ -247,8 +249,8 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
 
   it("only a hold that opens the gate lets the next press reach the cannon", () => {
     const s = armed("test");
-    s.tap(); // the introduction
     s.hold(); // the guide, filled for real
+    s.tap(); // and the introduction behind it, which is not stepped
     expect(briefingHolds(s.world)).toBe(false);
     s.sent.length = 0;
 

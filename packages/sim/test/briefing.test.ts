@@ -9,7 +9,6 @@ import {
   hashWorld,
   introHolds,
   OPENING_GUIDE,
-  OPENING_INTRO,
   OPENING_PLAY,
   type PodEntry,
   readyHoldTicks,
@@ -26,9 +25,12 @@ import {
  * the two questions here are the two that break a room: does it stop on both
  * devices, and does it start again only when both of them say so.
  *
- * The states are the introduction (number, name, sentence — passed by a timer
- * the app runs) and then the guide, if the wave carries one. Both hold the
- * field; neither is derived from anything.
+ * The states are the guide, if the wave carries one, and then the
+ * introduction (number, name, sentence — passed by a timer the app runs). Both
+ * hold the field; neither is derived from anything. The guide is first because
+ * the introduction names the wave the pair is about to play, which wants to be
+ * the last thing before the field rather than a title card in front of a
+ * tutorial (`briefing.ts`).
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG, briefings: true };
@@ -57,16 +59,14 @@ function holdBoth(world: World): void {
 }
 
 describe("the order a wave opens in", () => {
-  it("stands on its introduction first, whether or not it has a guide", () => {
+  it("stands on the guide first when there is one, and on the introduction when there is not", () => {
+    expect(guideHolds(open(true))).toBe(true);
+    expect(introHolds(open(true))).toBe(false);
     expect(introHolds(open(false))).toBe(true);
-    expect(introHolds(open(true))).toBe(true);
-    expect(guideHolds(open(true))).toBe(false);
   });
 
-  it("goes introduction, guide, field when the wave carries one", () => {
+  it("goes guide, introduction, field when the wave carries one", () => {
     const world = open(true);
-    step(world, tap(world, 1, 2));
-    expect(world.brief.phase).toBe(OPENING_GUIDE);
     // The guide does not pass on a press: both circles have to fill first.
     step(world, tap(world, 1, 2));
     expect(world.brief.phase).toBe(OPENING_GUIDE);
@@ -92,7 +92,6 @@ describe("the order a wave opens in", () => {
 describe("both seats, or neither", () => {
   it("keeps the guide up while only one circle is full", () => {
     const world = open(true);
-    step(world, tap(world, 1, 2));
     expect(guideHolds(world)).toBe(true);
     const full = readyHoldTicks(CFG);
     for (let i = 0; i < full; i++) step(world, tap(world, 1));
@@ -105,19 +104,18 @@ describe("both seats, or neither", () => {
     expect(guideHolds(world)).toBe(false);
   });
 
-  it("does not carry one seat's ack from the introduction into the guide", () => {
+  it("does not carry one seat's hold from the guide into the introduction", () => {
     const world = open(true);
-    step(world, tap(world, 1));
-    step(world, tap(world, 2));
-    expect(guideHolds(world)).toBe(true);
-    // Both bits were spent getting past the introduction; the guide starts
-    // clean, or player 1 would put away a screen they never looked at.
-    expect(briefingAcked(world, 1)).toBe(false);
-    expect(briefingAcked(world, 2)).toBe(false);
+    holdBoth(world);
+    // The wave has one state left. Both fills were spent crossing the gate;
+    // the introduction starts clean, or a fast device would put away a screen
+    // its player never looked at.
+    expect(introHolds(world)).toBe(false);
+    expect(briefingHolds(world)).toBe(false);
   });
 
   it("takes the same ack twice as one", () => {
-    const world = open(true);
+    const world = open(false);
     ackBriefing(world, 1);
     ackBriefing(world, 1);
     expect(introHolds(world)).toBe(true);
@@ -163,17 +161,21 @@ describe("the field behind it", () => {
 describe("the opening in the fingerprint", () => {
   it("hashes differently in each of the three states", () => {
     const world = open(true);
-    const atIntro = hashWorld(world);
-    step(world, tap(world, 1, 2));
     const atGuide = hashWorld(world);
+    // Exactly across the gate and no further: a tap on the tick after it lands
+    // on the introduction, and two of those would take the wave with them.
+    ackBriefing(world, 1);
+    ackBriefing(world, 2);
+    expect(introHolds(world)).toBe(true);
+    const atIntro = hashWorld(world);
     holdBoth(world);
     const playing = hashWorld(world);
-    expect(new Set([atIntro, atGuide, playing]).size).toBe(3);
+    expect(new Set([atGuide, atIntro, playing]).size).toBe(3);
   });
 
   it("hashes differently when only one seat has acked", () => {
-    const a = open(true);
-    const b = open(true);
+    const a = open(false);
+    const b = open(false);
     ackBriefing(a, 1);
     expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
@@ -187,7 +189,7 @@ describe("no memory", () => {
     // The met set is gone with the subjects it was over. A wave carries its
     // own help, and the director restarts a wave twenty times an afternoon.
     startWave(world, 0, SLICK, [], null, true);
-    expect(world.brief.phase).toBe(OPENING_INTRO);
+    expect(world.brief.phase).toBe(OPENING_GUIDE);
     expect(world.brief.guide).toBe(true);
   });
 

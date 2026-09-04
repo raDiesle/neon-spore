@@ -1,57 +1,41 @@
-import { msToTicks, type SimConfig } from "./config.js";
+import {
+  clearReady,
+  fillCircle,
+  fillHeldCircles,
+  gateCrossed,
+  holdHeard,
+  seatReady,
+} from "./ready-gate.js";
 import type { World } from "./world.js";
+
+export {
+  readyFill,
+  readyFraction,
+  readyHeld,
+  readyHoldTicks,
+  seatReady,
+} from "./ready-gate.js";
 
 /**
  * How a wave opens, and the only part of it the simulation owns.
  *
- * A wave opens in three states, and the field is behind the first two. **The
- * introduction** — number, name, sentence, plain text on the field — stands a
- * few seconds and passes on its own. **The guide**, if the wave carries one,
- * is split across the two screens and ends on **the ready gate**: each seat
- * holds, its circle fills, it says READY when full, and the wave starts when
- * both are. Then **the wave**. A wave with no guide gets the introduction and
- * plays — no circles where there was nothing to read.
+ * A wave opens in three states, and the field is behind the first two.
  *
- * ## The ready gate, and the two rules it inherits from THE FORK
+ * **The guide comes first**, if the wave carries one, and ends on **the ready
+ * gate**: each seat holds, its circle fills, it says READY when full, and the
+ * guide passes when both are. Then **the introduction** — number, name,
+ * sentence, plain text on the field — which stands a few seconds and passes on
+ * its own. Then **the wave**. A wave with no guide gets the introduction and
+ * plays: no circles where there was nothing to read.
  *
- * THE FORK was a second gate at the same seam — the rest between waves ended
- * in a wait only two thumbs could cross — and it is gone, because its idea
- * belongs at the end of the thing the pair is actually reading. Two of the
- * three things it argued survive the move, and are written here because they
- * are the reasoning somebody would otherwise re-derive.
+ * **That order is the owner's and it was the other way round first.** What
+ * decided it is what each state is *for*: the introduction names the wave the
+ * pair is about to play, so it wants to be the last thing before the field
+ * rather than a title card in front of a tutorial.
  *
- * **There is no timeout, deliberately.** A clock that eventually started the
- * wave anyway would make the wait decorative — the pair would learn its length
- * and stop committing, and the one moment that belongs to them would belong to
- * the clock again like everything else. The gate stays open forever, and the
- * only ways out are the two holds or leaving the run.
- *
- * **Nor is it a free repair bay.** The hull does not mend behind a gate with
- * no end on it, or the cheapest way to play would be to sit on a guide and
- * talk about nothing for a minute. This needs no check of its own and has
- * none: `step` returns before it reaches `regenerateHull` for as long as
- * `briefingHolds` is true, so the whole opening freezes the hull by the shape
- * of the tick rather than by a rule anybody has to remember. THE FORK needed
- * that rule spelled out in `regenerateHull` only because a fork was *not* one
- * of these states.
- *
- * ## Letting go empties the fill, and READY latches
- *
- * The one design question this gate had. THE WARDEN's pull **accumulates** and
- * `config-boss.ts` says why — *the question the fight asks is when the other
- * player can spare their hand, never whether they can hold it steady on a
- * phone.* That is about a fight and it does not transfer here, because of what
- * this fill is made of: it is the only evidence that time passed with the
- * guide on the screen. A fill that survived the lift is one you reach by
- * tapping ten times instead of waiting once, and tapping ten times is exactly
- * the pair skipping the reading the gate exists to buy. So a lift before the
- * circle is full empties it.
- *
- * **Once it is full it stays full.** Only the fill resets; READY is a latch.
- * Otherwise both seats would have to be holding in the same instant, which is
- * a coordination test this gate is not about — and an unfair one across two
- * seconds of voice delay. You hold until your circle says READY, then your
- * thumb is your own again and the wave waits for your partner.
+ * The gate the guide ends on — what fills a circle, what empties it, and why
+ * it has no timeout — is `ready-gate.ts`, next door, and re-exported from here
+ * so nothing that asks this file for `seatReady` had to move.
  *
  * ## Where the numbers live
  *
@@ -69,7 +53,8 @@ import type { World } from "./world.js";
 
 /**
  * The three states, as small integers because they go through `hashWorld`, and
- * ordered because an opening only ever counts downwards, towards playing.
+ * ordered because an opening only ever counts downwards, towards playing. The
+ * guide is the far end, then the introduction, then the field.
  */
 export const OPENING_PLAY = 0;
 export const OPENING_INTRO = 1;
@@ -104,11 +89,6 @@ export function newBriefings(): Briefings {
   return b;
 }
 
-/** How many ticks a seat has to hold before its circle says READY. */
-export function readyHoldTicks(cfg: SimConfig): number {
-  return Math.max(1, msToTicks(cfg, cfg.readyHoldMs));
-}
-
 /** Whether anything is holding the wave, which is the whole of whether it is frozen. */
 export function briefingHolds(world: World): boolean {
   return world.brief.phase !== OPENING_PLAY;
@@ -122,28 +102,6 @@ export function introHolds(world: World): boolean {
 /** Whether the guide is up. Only then does a press on the stage mean anything. */
 export function guideHolds(world: World): boolean {
   return world.brief.phase === OPENING_GUIDE;
-}
-
-/**
- * One seat's circle, asked four ways: the ticks it has filled, the same as a
- * fraction for drawing it, whether it is full and says READY — which latches —
- * and whether that seat's thumb is down right now, which is a different
- * question and looks different on the screen.
- */
-export function readyFill(world: World, player: 1 | 2): number {
-  return player === 1 ? world.brief.fillP1 : world.brief.fillP2;
-}
-
-export function readyFraction(world: World, player: 1 | 2): number {
-  return Math.min(1, readyFill(world, player) / readyHoldTicks(world.cfg));
-}
-
-export function seatReady(world: World, player: 1 | 2): boolean {
-  return readyFill(world, player) >= readyHoldTicks(world.cfg);
-}
-
-export function readyHeld(world: World, player: 1 | 2): boolean {
-  return player === 1 ? world.brief.holdP1 : world.brief.holdP2;
 }
 
 /**
@@ -170,11 +128,7 @@ export function briefHeard(world: World, player: 1 | 2, on: boolean): void {
     return;
   }
   if (b.phase !== OPENING_GUIDE) return;
-  if (player === 1) b.holdP1 = on;
-  else b.holdP2 = on;
-  if (on || seatReady(world, player)) return;
-  if (player === 1) b.fillP1 = 0;
-  else b.fillP2 = 0;
+  holdHeard(world, player, on);
 }
 
 /**
@@ -183,12 +137,9 @@ export function briefHeard(world: World, player: 1 | 2, on: boolean): void {
  * circle is already full stays full whatever its thumb does.
  */
 export function stepReady(world: World): void {
-  const b = world.brief;
-  if (b.phase !== OPENING_GUIDE) return;
-  const full = readyHoldTicks(world.cfg);
-  if (b.holdP1 && b.fillP1 < full) b.fillP1 += 1;
-  if (b.holdP2 && b.fillP2 < full) b.fillP2 += 1;
-  if (b.fillP1 >= full && b.fillP2 >= full) startPlaying(world);
+  if (world.brief.phase !== OPENING_GUIDE) return;
+  fillHeldCircles(world);
+  if (gateCrossed(world)) guidePassed(world);
 }
 
 /**
@@ -204,30 +155,22 @@ export function ackBriefing(world: World, player: 1 | 2): void {
   const b = world.brief;
   if (b.phase === OPENING_PLAY) return;
   if (b.phase === OPENING_GUIDE) {
-    const full = readyHoldTicks(world.cfg);
-    if (player === 1) b.fillP1 = full;
-    else b.fillP2 = full;
-    if (b.fillP1 >= full && b.fillP2 >= full) startPlaying(world);
+    fillCircle(world, player);
+    if (gateCrossed(world)) guidePassed(world);
     return;
   }
   b.ack |= player === 1 ? ACK_P1 : ACK_P2;
   if (b.ack !== ACK_BOTH) return;
   b.ack = 0;
   clearReady(b);
-  b.phase = b.guide ? OPENING_GUIDE : OPENING_PLAY;
+  b.phase = OPENING_PLAY;
 }
 
-function startPlaying(world: World): void {
-  world.brief.phase = OPENING_PLAY;
+/** The gate is crossed, so the wave's own name is what is left to read. */
+function guidePassed(world: World): void {
+  world.brief.phase = OPENING_INTRO;
   world.brief.ack = 0;
   clearReady(world.brief);
-}
-
-function clearReady(b: Briefings): void {
-  b.fillP1 = 0;
-  b.fillP2 = 0;
-  b.holdP1 = false;
-  b.holdP2 = false;
 }
 
 /**
@@ -244,5 +187,5 @@ export function openWave(world: World, hasGuide: boolean): void {
   b.ack = 0;
   clearReady(b);
   b.guide = hasGuide && world.cfg.briefings;
-  b.phase = world.cfg.briefings ? OPENING_INTRO : OPENING_PLAY;
+  b.phase = world.cfg.briefings ? (b.guide ? OPENING_GUIDE : OPENING_INTRO) : OPENING_PLAY;
 }

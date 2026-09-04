@@ -28,11 +28,10 @@ const CFG: SimConfig = { ...DEFAULT_CONFIG, briefings: true };
 const FULL = readyHoldTicks(CFG);
 const SLICK: SpawnEntry[] = [{ beat: 0, col: 3, kind: "slick", color: "red" }];
 
-/** A world standing on a guide, with the introduction already behind it. */
+/** A world standing on a guide, which is the first thing a wave opens on. */
 function atGuide(): World {
   const world = createWorld(CFG, 1);
   startWave(world, 0, SLICK, [], null, true);
-  step(world, hold(world, 1, 2));
   if (!guideHolds(world)) throw new Error("expected the guide to be up");
   return world;
 }

@@ -1,13 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import {
-  ackBriefing,
-  createWorld,
-  DEFAULT_CONFIG,
-  startWave,
-  step,
-  type World,
-} from "@neon-spore/sim";
+import { ackBriefing, createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -55,19 +48,21 @@ describe("the guides the waves carry", () => {
   });
 });
 
-/** A world holding a wave's introduction, and one holding its guide. */
+/**
+ * A world holding a wave's guide, and one holding its introduction — in that
+ * order, which is the order a wave opens in: the guide teaches, the gate is
+ * crossed, and then the wave's own name is the last thing before the field.
+ */
 function opening(waveIndex: number): { intro: World; guide: World } {
   const build = (): World => {
     const world = createWorld(CFG, 3);
     startWave(world, waveIndex, [], [], null, WAVES[waveIndex]?.guide !== undefined);
     return world;
   };
-  const guide = build();
-  step(guide, [
-    { tick: 0, player: 1, command: { kind: "brief" } },
-    { tick: 0, player: 2, command: { kind: "brief" } },
-  ]);
-  return { intro: build(), guide };
+  const intro = build();
+  ackBriefing(intro, 1);
+  ackBriefing(intro, 2);
+  return { intro, guide: build() };
 }
 
 describe("a wave's opening on the stage", () => {
@@ -113,9 +108,10 @@ describe("a wave's opening on the stage", () => {
       for (const i of SCENED) {
         const { guide } = opening(i);
         const stage = new GuideStage();
-        // Two full turns of the loop, a frame at a time, so the wrap and the
-        // frames either side of it are drawn rather than merely reached.
-        for (let f = 0; f < 220; f++) {
+        // A whole turn of the loop and a little past it, a frame at a time, so
+        // every step, both seat switches, the shot, the breach and the wrap all
+        // reach the canvas rather than merely being reached.
+        for (let f = 0; f < 430; f++) {
           stage.update(guide, 1 / 60);
           drawWaveOpening(
             ctx as unknown as CanvasRenderingContext2D,
@@ -131,18 +127,19 @@ describe("a wave's opening on the stage", () => {
     }
   });
 
-  it("shows the words alone on a screen with no room for a rehearsal", () => {
-    // A stage this short has nothing left over once the guide's prose has had
-    // what it needs, and the instruction is what may not be given up — so the
-    // scene stands down rather than squeezing both.
+  it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
+    // A rehearsal is the whole stage, so there is no room left to run out of
+    // — what a tiny screen tests instead is that every tile, lobe and caption
+    // still comes out as a number a canvas accepts.
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
     for (const i of SCENED) {
       const { guide } = opening(i);
       const stage = new GuideStage();
-      stage.update(guide, 1 / 60);
-      expect(stage.height(200, 40)).toBe(0);
-      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1", stage, 0);
+      for (let f = 0; f < 430; f++) {
+        stage.update(guide, 1 / 60);
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1", stage, f / 60);
+      }
     }
   });
 
@@ -151,8 +148,8 @@ describe("a wave's opening on the stage", () => {
     const { guide } = opening(SCENED[0]!);
     stage.update(guide, 1 / 60);
     expect(stage.active).toBe(true);
-    // Both seats ready, and the wave starts. Nothing is holding the field, so
-    // nothing is holding a rehearsal either.
+    // Both seats ready, and the guide gives way to the wave's introduction.
+    // Nothing is holding a rehearsal behind that.
     ackBriefing(guide, 1);
     ackBriefing(guide, 2);
     stage.update(guide, 1 / 60);
