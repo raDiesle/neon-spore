@@ -48,16 +48,48 @@ import { seatSkin } from "./seat-skin.js";
 /** How far the seam's glow reaches either side of the join. */
 const SEAM = 5;
 /**
- * Where the corner plate sits and how much room it takes, so a caption can keep
- * clear of it (`guide-caption.ts`). It starts below the HUD's own top row —
- * the score on the left, the hull bar on the right — rather than over it.
+ * Where the corner plate sits: below the HUD's own top row — the score on the
+ * left, the hull bar on the right — rather than over it.
  */
 export const BANNER_TOP = 24;
-export const BANNER_H = 46;
-/** Left edge, and how far in from it the type starts: a grown contour narrows
- * towards its ends, so words set against the box's own edge would run out. */
+/** How far in from the screen's edge it sits. */
 const EDGE = 8;
-const INSET = 16;
+
+/** The two rows, and the distance between their baselines. */
+const TITLE_FONT = '700 18px "Courier New",monospace';
+const TAG_FONT = '700 10px "Courier New",monospace';
+const ROW_GAP = 23;
+/** What the tag's own row takes, top to bottom; the name's row is `ROW_GAP`. */
+const TAG_ROW = 21;
+/** Room for the dot in front of TUTORIAL, and how far in front it sits. */
+const DOT_R = 3;
+const DOT_GAP = 9;
+
+/**
+ * How much bigger the plate is than the words it carries, across and down.
+ *
+ * **A grown contour is an ellipse, near enough, and an ellipse does not hold
+ * the rectangle it is drawn around** — its corners are outside the curve. The
+ * plate used to be sized as though it did: a box sixteen points wider than the
+ * longest line, with two rows of type filling it from top to bottom, so the
+ * ends of the screen's name hung over the edge of the body and the descenders
+ * sat where the contour had already closed. The owner's answer was that *the
+ * content is bigger than the button*.
+ *
+ * Half again in both directions is what a rectangle needs to sit inside an
+ * ellipse with its corners clear. Both are applied to the type rather than to
+ * a number somebody wrote down, so a longer name, a wider font or a second row
+ * all move the plate with them.
+ */
+const FIT_X = 1.36;
+const FIT_Y = 1.5;
+
+/**
+ * And so the height, which a caption keeps clear of (`guide-caption.ts`). It is
+ * the taller of the two: a page with no seat to name carries the tag alone.
+ */
+export const BANNER_H = Math.round((TAG_ROW + ROW_GAP) * FIT_Y);
+const TAG_ONLY_H = Math.round(TAG_ROW * FIT_Y);
 
 /** The join between the outgoing and incoming screens, lit as it travels. */
 export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: number): void {
@@ -102,29 +134,57 @@ export function drawGuideCorner(ctx: CanvasRenderingContext2D, l: Layout, p: Cor
   }
 
   const title = p.seat === undefined ? "" : `${seatName(p.seat, p.names)} · SCREEN`;
-  ctx.textAlign = "left";
-  ctx.font = '700 18px "Courier New",monospace';
-  const named = title === "" ? 0 : ctx.measureText(title).width;
-  ctx.font = '700 10px "Courier New",monospace';
-  const room = Math.max(named, ctx.measureText("TUTORIAL").width + 14) + INSET * 2;
-  const w = Math.min(l.width - EDGE * 2, room);
-  const h = title === "" ? 26 : BANNER_H;
+  const box = plateBox(ctx, l, title);
+  plate(ctx, l, box, skin?.tint ?? PALETTE.pod, flash, age);
 
-  plate(ctx, l, { x: EDGE, y: BANNER_TOP, w, h }, skin?.tint ?? PALETTE.pod, flash, age);
-
+  // Centred on the plate rather than set against its left edge, for the same
+  // reason the plate is bigger than the words: a contour is widest through its
+  // middle, so that is the one line every row can use the whole of.
+  const cx = box.x + box.w / 2;
+  const rows = title === "" ? 1 : 2;
+  const tagY = box.y + box.h / 2 + (rows === 1 ? 4 : 4 - ROW_GAP / 2);
+  ctx.textAlign = "center";
+  ctx.font = TAG_FONT;
+  const tagW = ctx.measureText("TUTORIAL").width;
   ctx.fillStyle = PALETTE.pod;
   ctx.beginPath();
-  ctx.arc(EDGE + INSET - 7, BANNER_TOP + 13, 3, 0, Math.PI * 2);
+  ctx.arc(cx - tagW / 2 - DOT_GAP, tagY - 3, DOT_R, 0, Math.PI * 2);
   ctx.fill();
-  ctx.font = '700 10px "Courier New",monospace';
   ctx.fillStyle = PALETTE.text;
   ctx.globalAlpha = 0.72;
-  ctx.fillText("TUTORIAL", EDGE + INSET, BANNER_TOP + 16);
+  ctx.fillText("TUTORIAL", cx + DOT_GAP / 2, tagY);
   ctx.globalAlpha = 1;
-  if (title === "" || !skin) return;
-  ctx.font = '700 18px "Courier New",monospace';
+  if (title === "" || !skin) {
+    ctx.textAlign = "left";
+    return;
+  }
+  ctx.font = TITLE_FONT;
   ctx.fillStyle = flash > 0.05 ? PALETTE.text : skin.rim;
-  ctx.fillText(title, EDGE + INSET, BANNER_TOP + 39);
+  ctx.fillText(title, cx, tagY + ROW_GAP);
+  ctx.textAlign = "left";
+}
+
+/**
+ * The plate itself: as wide and as tall as the words need, plus the room an
+ * ellipse costs them (`FIT_X`, `FIT_Y`).
+ *
+ * It is measured every frame rather than cached, and that is cheap and correct:
+ * the room knows what the two people are called (`seat-name.ts`), so the
+ * longest line changes when a name arrives, and a plate sized once at the wrong
+ * moment is a plate the name hangs out of for the rest of the guide.
+ */
+function plateBox(ctx: CanvasRenderingContext2D, l: Layout, title: string): Box {
+  ctx.font = TITLE_FONT;
+  const titleW = title === "" ? 0 : ctx.measureText(title).width;
+  ctx.font = TAG_FONT;
+  const tagW = ctx.measureText("TUTORIAL").width + DOT_GAP + DOT_R * 2;
+  const words = Math.max(titleW, tagW);
+  return {
+    x: EDGE,
+    y: BANNER_TOP,
+    w: Math.min(l.width - EDGE * 2, Math.round(words * FIT_X) + 14),
+    h: title === "" ? TAG_ONLY_H : BANNER_H,
+  };
 }
 
 interface Box {
