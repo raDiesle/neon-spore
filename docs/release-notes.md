@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · e956a16 — Landing and pushing are two answers, not one
+
+The lane question offered three answers and the owner wanted a fourth: land and send. So (c) `bun run land --keep` moves the *local* trunk and stops there, and (d) `bun run land --keep --push` does the same and gives `origin` the trunk too.
+
 ## 2026-09-04 · b1b484b — The lane question is asked once per commit, not once per turn
 
 "More to come" leaves the lane clean and ahead of `main`, which is exactly the state the hook fires on, so answering it would have brought the same question back at the end of every turn until the owner gave in and landed. The commit put to him is written to the worktree's own git directory, and the question is not asked again until `HEAD` moves — new work being the thing that makes it worth asking twice. A note that cannot be read or written means one extra ask, never a lost one.
