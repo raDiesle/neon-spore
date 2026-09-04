@@ -152,13 +152,16 @@ export function bindStageTouch({
     if (!t) return;
     e.preventDefault();
     if (t.hold) holding.set(e.pointerId, t.hold);
-    push(t.player, t.command);
+    // Null for the one press that takes hold of something and says nothing
+    // yet: player 2's thumb on the muzzle, decided on the lift
+    // (`render/touch-ship.ts`).
+    if (t.command) push(t.player, t.command);
   });
   canvas.addEventListener("pointermove", (e) => {
     const hold = holding.get(e.pointerId);
     if (!hold) return;
     const t = touchMove(layout(), hold, at(e).x, at(e).y);
-    if (t) push(t.player, t.command);
+    if (t?.command) push(t.player, t.command);
   });
   // On the window, not the canvas: a thumb that leaves the picture still has
   // to let go of what it was holding.
@@ -177,8 +180,8 @@ export function bindStageTouch({
     const hold = holding.get(e.pointerId);
     if (!hold) return;
     holding.delete(e.pointerId);
-    const t = touchUp(hold, field());
-    if (t) push(t.player, t.command);
+    const t = touchUp(layout(), hold, field(), at(e));
+    if (t?.command) push(t.player, t.command);
   };
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);

@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG, type SimEvent, step, ticksPerBeat, type World } from "@
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
+import type { ShipHand } from "../src/touch-ship.js";
 import type { StubContext } from "./canvas-stub.js";
 import { stubCanvas } from "./canvas-stub.js";
 
@@ -65,6 +66,12 @@ export interface FramesOptions {
    * drawing infers it from `world.wave`, which is the phone's case.
    */
   controls?: ControlSet;
+  /**
+   * What this device's own hand is on, for a caller drawing the ring that
+   * says so. Unset everywhere else, which is what a host with no pointer of
+   * its own hands the renderer.
+   */
+  hand?: ShipHand;
 }
 
 /**
@@ -111,6 +118,7 @@ export function runFrames(
       events,
       running: true,
       controls: options.controls,
+      hand: options.hand,
     });
     events = [];
     options.onDrawn?.(ctx, frame++);

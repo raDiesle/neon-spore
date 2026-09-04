@@ -1,6 +1,7 @@
 import { buildPods, buildQueue, controlSetForWave } from "@neon-spore/content";
 import { Canvas2DRenderer } from "@neon-spore/render";
 import {
+  briefingHolds,
   createWorld,
   DEFAULT_CONFIG,
   guideHolds,
@@ -26,6 +27,7 @@ import { bindRasterBurst } from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
 import { bindSnake } from "./snake.js";
+import { throttledTally } from "./tally.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
@@ -80,7 +82,9 @@ const jumpToWave = progression.jumpToWave;
  */
 const run = createRunState();
 
-const tickKeys = bindControls({
+// `hand` is the ring round whichever swelling this phone's own finger has hold
+// of: written by the pointer rig below, read by the frame, sent nowhere.
+const { tick: tickKeys, hand } = bindControls({
   canvas,
   buffer,
   layout,
@@ -101,6 +105,10 @@ const tickKeys = bindControls({
   // ask for has no button and answers no thumb (`content/control-sets.ts`).
   controls: () => controlSetForWave(world.wave),
   creatures: () => world.creatures,
+  // The ship answers a finger where it is drawn, not only on the strips below.
+  cannonCol: () => world.cannonCol,
+  shieldCol: () => world.shieldCol,
+  opening: () => briefingHolds(world),
   beatPhase,
   // Space at the keyboard must not be able to do what a tap on the field
   // already can't: put the introduction away before its timer does. See the
@@ -159,23 +167,8 @@ function startTogether(): void {
   jumpToWave(0);
 }
 
-/**
- * How far this device has got, up to the room now and then.
- *
- * Every few seconds rather than every frame: it is a line on a screen the pair
- * read when they come back, not something anybody is waiting for, and a socket
- * carrying inputs at 120 Hz has better things to do. The room keeps the better
- * of the two seats' figures and never reads it (`apps/server/src/tally.ts`).
- */
-const TALLY_EVERY_MS = 5000;
-let toldTallyAt = 0;
-
-function tellTally(): void {
-  const now = performance.now();
-  if (now - toldTallyAt < TALLY_EVERY_MS) return;
-  toldTallyAt = now;
-  link.tally(world.wave, world.score);
-}
+/** How far this device has got, up to the room now and then (`tally.ts`). */
+const tellTally = throttledTally((wave, score) => link.tally(wave, score));
 
 // Events are cleared every tick and a frame covers several ticks, so they are
 // collected here rather than read off the world.
@@ -198,6 +191,7 @@ const paint = (dt: number): void => {
     dt,
     events: frameEvents,
     running: run.running(),
+    hand: hand.current,
   });
   frameEvents = [];
 };
@@ -238,7 +232,7 @@ startLoop(
     const dt = Math.min(0.05, (now - lastFrame) / 1000);
     lastFrame = now;
     link.frame(dt * 1000);
-    tellTally();
+    tellTally(world.wave, world.score);
     // The wave's name and sentence stand for a few seconds and pass on their
     // own — counted here, because nothing in `sim` may read a clock.
     progression.tickOpening(dt);

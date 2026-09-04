@@ -100,6 +100,10 @@ export function bindStage(
     layout: () => computeLayout(viewport, cfg, role),
     field: () => ({
       creatures: world.creatures,
+      // The ship answers a finger where it is drawn, so the hit test needs
+      // both lobes' columns (`render/touch-ship.ts`).
+      cannonCol: world.cannonCol,
+      shieldCol: world.shieldCol,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
       seat: pointerSeat(role),
       cfg,

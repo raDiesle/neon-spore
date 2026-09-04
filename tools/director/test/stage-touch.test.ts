@@ -129,6 +129,8 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       layout: () => computeLayout(VIEWPORT, cfg, role),
       field: () => ({
         creatures: world.creatures,
+        cannonCol: world.cannonCol,
+        shieldCol: world.shieldCol,
         beatPhase: 0,
         seat: pointerSeat(role),
         cfg,

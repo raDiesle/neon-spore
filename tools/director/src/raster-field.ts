@@ -112,6 +112,8 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
     layout: () => computeLayout(viewport, CFG, "test"),
     field: () => ({
       creatures: world.creatures,
+      cannonCol: world.cannonCol,
+      shieldCol: world.shieldCol,
       beatPhase: (world.tick % ticksPerBeat(CFG)) / ticksPerBeat(CFG),
       seat: pointerSeat("test"),
       cfg: CFG,

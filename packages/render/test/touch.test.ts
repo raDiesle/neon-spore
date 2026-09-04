@@ -38,6 +38,8 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
   for (let i = 0; i < 200; i++) step(world, []);
   return {
     creatures: world.creatures,
+    cannonCol: world.cannonCol,
+    shieldCol: world.shieldCol,
     beatPhase: 0.5,
     seat,
     cfg: CFG,
@@ -77,9 +79,9 @@ describe("a press on the band", () => {
     const cannon = touchDown(l, l.width * 0.5, l.cannonStrip.y, field());
     const shield = touchDown(l, l.width * 0.5, l.shieldStrip.y, field());
     expect(cannon).toMatchObject({ player: 1, hold: { kind: "cannon" } });
-    expect(cannon?.command.kind).toBe("cannonCol");
+    expect(cannon?.command?.kind).toBe("cannonCol");
     expect(shield).toMatchObject({ player: 2, hold: { kind: "shield" } });
-    expect(shield?.command.kind).toBe("shieldCol");
+    expect(shield?.command?.kind).toBe("shieldCol");
   });
 
   it("gives the trigger to player 1 and the colours to player 2", () => {
@@ -109,7 +111,7 @@ describe("a press on the band", () => {
     });
     // The lift is the other half: nothing in the simulation empties a lobe on
     // its own, so a thumb coming off has to be sent.
-    expect(touchUp({ kind: "lance" }, field(1, LANCE))).toEqual({
+    expect(touchUp(l, { kind: "lance" }, field(1, LANCE))).toEqual({
       player: 1,
       command: { kind: "prime", on: false },
       hold: null,
@@ -127,7 +129,7 @@ describe("a press on the band", () => {
       const lance = drawnAt(role, LANCE, "lance");
       if (!lance) throw new Error("the lance panel has no lance");
       const answered = touchDown(layout(role), lance.x, lance.y, field(1, STANDARD));
-      expect(answered?.command.kind).not.toBe("prime");
+      expect(answered?.command?.kind).not.toBe("prime");
     }
   });
 
@@ -213,7 +215,7 @@ describe("what is drawn and what is touchable", () => {
           const t = touchDown(layout("test"), at.x, at.y, field(1, set));
           // Whatever else is at that point, it is never the absent control's
           // own command — the lance's is `prime`, the maw's is `intake`.
-          expect(t?.command.kind).not.toBe(c.id === "lance" ? "prime" : c.id);
+          expect(t?.command?.kind).not.toBe(c.id === "lance" ? "prime" : c.id);
         }
       }
     }
@@ -241,13 +243,13 @@ describe("a press on the field", () => {
   });
 
   it("lets go when the finger lifts, and only then", () => {
-    expect(touchUp({ kind: "grip" }, field(2))).toEqual({
+    expect(touchUp(l, { kind: "grip" }, field(2))).toEqual({
       player: 2,
       command: { kind: "grip", id: NO_GRIP },
       hold: null,
     });
-    expect(touchUp({ kind: "cannon" }, field())).toBeNull();
-    expect(touchUp({ kind: "shield" }, field())).toBeNull();
+    expect(touchUp(l, { kind: "cannon" }, field())).toBeNull();
+    expect(touchUp(l, { kind: "shield" }, field())).toBeNull();
   });
 });
 
@@ -347,7 +349,7 @@ describe("a hand on THE MAZE's string", () => {
   it("lets go, and says so", () => {
     const hold = grab(mazeField(1))?.hold;
     if (!hold) throw new Error("the handle was not grabbed");
-    expect(touchUp(hold, mazeField(1))).toEqual({
+    expect(touchUp(l, hold, mazeField(1))).toEqual({
       player: 1,
       command: { kind: "drag", target: "mazeString", on: false, fromMilli: 0, fromYMilli: 0 },
       hold: null,
@@ -356,14 +358,14 @@ describe("a hand on THE MAZE's string", () => {
 
   /** Only the pilot turns the wheel, so only the pilot's seat may grab it. */
   it("answers nothing from the navigator's seat", () => {
-    expect(grab(mazeField(2))?.command.kind).not.toBe("drag");
+    expect(grab(mazeField(2))?.command?.kind).not.toBe("drag");
   });
 
   it("answers nothing on a wave with no wheel, and none while a shot walks", () => {
-    expect(grab(field(1))?.command.kind).not.toBe("drag");
+    expect(grab(field(1))?.command?.kind).not.toBe("drag");
     const travelling = mazeField(1);
     travelling.maze.phase = "travel";
-    expect(grab(travelling)?.command.kind).not.toBe("drag");
+    expect(grab(travelling)?.command?.kind).not.toBe("drag");
   });
 
   /**

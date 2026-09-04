@@ -24,6 +24,7 @@ import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawShellArmour } from "./shell-draw.js";
+import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import { drawVeilMarks } from "./veil-marks.js";
@@ -168,6 +169,12 @@ export function drawShip(
   if (world.boss?.kind === "mirror") {
     effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
   }
+  // Last of the ship pass and over all of it: a ring that says which swelling
+  // this phone's own finger has hold of. It is drawn from the world's columns
+  // rather than from `at`, because that is where the press was answered — a
+  // ring that followed the eased lobe would drift off its own hit region
+  // (`touch-ship.ts`).
+  drawShipHand(ctx, l, world.cannonCol, world.shieldCol, view.hand, view.time);
 }
 
 /** What sits on top of a finished frame: HUD, alarms and the wave's opening. */

@@ -89,6 +89,27 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## The director's stage draws no ring for a hand on the ship
+
+- **Found:** 2026-09-04, claude/direct-touch-game-controls-6862c0
+- **Files:** `tools/director/src/stage-touch.ts`, `tools/director/src/stage.ts`,
+  `apps/game/src/ship-hand.ts`, `packages/render/src/ship-hand.ts`
+
+The cannon and the shield are now answered where they are drawn on the hull
+(`packages/render/src/touch-ship.ts`), and the game draws a cup round whichever
+swelling a finger has hold of. The director's stage goes through the same
+`touchDown`, so every one of those gestures works there — but it never fills
+`ViewState.hand`, so a person judging the control on the editor's own stage sees
+the ship answer and nothing saying which swelling answered.
+
+What to do: `ShipHandWatch` in `apps/game/src/ship-hand.ts` is a plain class over
+`render`'s `shipHand` with no DOM in it. Give `bindStageTouch` one (or take one
+in `StageTouch`), write to it from the same three places `bindControls` does —
+press, move, lift — and pass `hand: watch.current` into the `renderer.draw` call
+in `stage.ts`. `tools/director/test/stage-touch.test.ts` is where a test for it
+goes; the game's own `packages/render/test/ship-hand-frame.test.ts` already
+covers the drawing itself.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

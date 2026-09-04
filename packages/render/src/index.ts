@@ -48,4 +48,12 @@ export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 // it takes a radius and a time and reads no world.
 export { drawTorchRock, torchRadius } from "./torch.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
+export {
+  cannonGrab,
+  type ShipHand,
+  shieldGrab,
+  shipHand,
+  shipUnder,
+  swipeColor,
+} from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";

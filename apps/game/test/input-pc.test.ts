@@ -32,7 +32,7 @@ describe("a held control on a PC", () => {
 
   it("releaseAll answers touchUp for every hold still down, then clears it", () => {
     expect(inputSource).toMatch(
-      /const releaseAll = \(\): void => \{\s*for \(const \[id, hold\] of holding\) \{\s*holding\.delete\(id\);\s*const t = touchUp\(hold, field\(\)\);/,
+      /const releaseAll = \(\): void => \{\s*for \(const \[id, hold\] of holding\) \{\s*holding\.delete\(id\);[\s\S]*?const t = touchUp\(layout\(\), hold, field\(\)\);/,
     );
   });
 

@@ -393,6 +393,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
+| `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
+| `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
+| `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
 
 ### packages/net
 
@@ -442,7 +445,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
-| `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `render/touch.ts` |
+| `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
@@ -486,6 +489,10 @@ place — the generator keeps whatever is there.
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
 | `apps/game/src/menu-settings.ts` | The one durable place for "things about me" |
 | `apps/game/src/menu-controls.ts` | what a thumb does, every panel the game has, the field itself, then the keys |
+| `apps/game/src/input-bindings.ts` | what the pointer rig is handed, and why each of it is read fresh |
+| `apps/game/src/input-buffer.ts` | the queue every listener in the app writes into, drained a tick at a time |
+| `apps/game/src/ship-hand.ts` | what this device's own hand is doing on the ship, between the event and the frame |
+| `apps/game/src/tally.ts` | how far this device has got, up to the room every few seconds |
 
 ### apps/server
 

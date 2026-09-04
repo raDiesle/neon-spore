@@ -48,9 +48,10 @@ for.
 
 ## Where the in-screen list comes from, and where it does not
 
-`packages/render/src/touch.ts` is the truth for **three** of the four
-controls below — it is a decision procedure (`touchDown`, `touchMove`,
-`touchUp`, and `handleUnder` in `handles.ts` next door), not a data table like
+`packages/render/src/touch.ts` is the truth for every control below but the
+last — it is a decision procedure (`touchDown`, `touchMove`, `touchUp`, and
+`handleUnder` in `handles.ts` and `shipUnder` in `touch-ship.ts` next door),
+not a data table like
 `CONTROL_SETS`, so nothing can iterate it the way `controlsets-page.ts`
 iterates panels. What the director's `field-controls-page.ts` does instead:
 each entry names the exact function in `touch.ts` that answers it, and
@@ -62,7 +63,7 @@ page can go stale silently. That is as close to derived as a decision
 procedure allows; it is not the same guarantee `CONTROL_SETS` gets, and this
 page says so rather than implying otherwise.
 
-**The fourth is not in `touch.ts` at all, on purpose.** The guide's
+**The last one is not in `touch.ts` at all, on purpose.** The guide's
 whole-screen hold — the same press that fills the ready gate's two circles —
 is answered by `apps/game/src/briefing.ts`'s `bindBriefing`, a second
 listener on the same canvas. Its own comment says why: *"the press underneath
@@ -79,14 +80,55 @@ to notice by hand.
 | Control | Where | Seat | Gesture | Does |
 |---|---|---|---|---|
 | GRIP | on the field, over anything currently falling | either seat | hold | Slows the fall for as long as the finger stays down; letting it through costs the hull (`sim/grip.ts`). |
+| THE CANNON | on the cannon swelling itself, wherever it is standing | player 1 only | grab and drag | Slides the cannon along the hull, the same absolute column the strip sends. |
+| THE SHIELD PLATE | on the shield swelling itself, wherever it is standing | player 2 only | grab and drag | Slides the shield along the hull, the same absolute column the strip sends. |
+| THE SHIELD TRIGGER | on the same shield swelling, on player 1's screen | player 1 only | press | Opens the guard window where the plate is standing, and does not move it. |
+| THE MUZZLE SWIPE | on the cannon swelling, on player 2's screen | player 2 only | grab and drag | Carry the muzzle left for red or right for cyan and let go; a hand that comes back to the middle fires nothing. |
 | THE MAZE'S STRING | the drum's resting circle, only while the wheel is being read | player 1 only | grab and drag | Turns the wheel by how far the hand has come from where it grabbed. |
 | THE WARDEN'S TETHER | the tether's resting circle, while one hangs from the rim | player 1 only | grab and drag | Pulls the line taut; held taut long enough it opens a hatch. |
 | THE GUIDE'S HOLD | anywhere on screen, while a guide or the ready gate is up | both, independently | hold | Fills this seat's ready circle; the wave starts once both are full. Letting go before it is full empties it. |
 
 The director's `▣ GAME MECHANICS → CONTROLS → ON THE FIELD` tab draws the same
-four rows from `tools/director/src/field-controls-page.ts`'s `FIELD_CONTROLS`
+rows from `tools/director/src/field-controls-page.ts`'s `FIELD_CONTROLS`
 array — this table is that array in prose, kept beside it rather than typed
 from memory a second time.
+
+## The ship as a control
+
+The four ship rows above are the newest of these and the only ones that reach
+a control the band *already has*, so they are worth being explicit about.
+
+**Nothing was replaced.** Both strips and every lobe stay exactly where they
+were, and every wave is still playable with the band alone. This is a second
+way to reach two controls, for a hand that is already up on the field.
+
+**The split is untouched.** Player 1 carries the cannon and the trigger,
+player 2 carries the shield and both colours — the same halves the band deals
+out. Pressing the plate as player 1 fires it and does not move it; taking hold
+of it as player 2 moves it and does not fire it.
+
+**The muzzle swipe is the one new gesture**, and it is the answer to the
+question the owner asked with the request: the navigator has no cannon to
+slide, so what should the muzzle do under their thumb? It loads. They already
+hold both colours and the shot always leaves up whichever column player 1 is
+standing in, so the muzzle is the one thing on the ship that is theirs to act
+on. Left is red and right is cyan because that is the order the two lobes
+stand in on their own band. The press says nothing; the **lift** fires, and
+only past a threshold of six tenths of a tile — which is what lets a hand
+change its mind on the way back to the middle.
+
+**Only the ship's own controls get the ring.** A hand on either swelling grows
+a bracket round it — brighter once the finger is down, and on the muzzle a red
+mark to its left and a cyan one to its right, the one a lift would fire going
+bright. A thumb on a strip gets none of it, because a strip is already sitting
+under the thing it is moving. `render/ship-hand.ts` draws it; a mouse gets the
+same bracket on hover, which is the desktop's half of knowing what a press
+would take hold of before pressing.
+
+**The `test` view is player 1's.** One screen showing both bands still signs a
+finger on the field as player 1 (`apps/game/src/main.ts`), so the two gestures
+that are player 2's are reached there by switching the view, or by the band,
+which has all of them.
 
 ## Tried and set aside
 

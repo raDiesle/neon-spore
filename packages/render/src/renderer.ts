@@ -1,6 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { SimEvent, World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
+import type { ShipHand } from "./touch-ship.js";
 
 export interface Viewport {
   width: number;
@@ -46,6 +47,17 @@ export interface ViewState {
    * this and skipping it has reintroduced the bug this field exists to close.
    */
   controls?: ControlSet;
+  /**
+   * What this device's own hand is doing on the ship, if anything — the ring
+   * round the swelling a finger has taken hold of, and which colour player
+   * 2's muzzle swipe would fire (`ship-hand.ts`).
+   *
+   * Per device and never shared: it is a fact about one pair of eyes and one
+   * thumb, so it is neither in the world nor on the wire, and the other seat's
+   * screen shows nothing of it. Left unset by a host with no pointer of its
+   * own — a replay, a thumbnail, a frame test that is not about this.
+   */
+  hand?: ShipHand;
   /**
    * Bodies only, on flat black: no backdrop, no radar, no grid, no ship, no
    * band and no HUD — just what `drawBodies` puts on the field.

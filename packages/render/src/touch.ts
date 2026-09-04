@@ -1,16 +1,20 @@
-import { type ControlSet, setHas } from "@neon-spore/content";
-import type { Command, DragTarget } from "@neon-spore/sim";
+import { type ControlSet, type Point, setHas } from "@neon-spore/content";
+import type { Command } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
 
-// What a hit test is handed: lifted out when this file went over its limit, and
-// re-exported so nothing reaching for a `Field` had to move (`touch-field.ts`).
+// What a hit test is handed, and what it hands back: both lifted out when this
+// file went over its limit, and re-exported so nothing reaching for a `Field`,
+// a `Hold` or a `Touch` had to move (`touch-field.ts`, `touch-hold.ts`).
 export type { Field } from "./touch-field.js";
+export type { Hold, Touch } from "./touch-hold.js";
 
 import type { Field } from "./touch-field.js";
+import type { Hold, Touch } from "./touch-hold.js";
 import { lobeMeans } from "./touch-lobe.js";
+import { shipUnder, swipeColor } from "./touch-ship.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -29,52 +33,6 @@ import { lobeMeans } from "./touch-lobe.js";
  * finger is which belongs to whoever owns the canvas.
  */
 
-/**
- * What a drag and a lift continue to mean, after the press that started them.
- *
- * **A value and not a name, and that is the decision the eleven rounds still
- * to come inherit.** The press is the only moment anything knows *where* it
- * landed, so what a later move needs has to be handed back by it. `drag`
- * carries its origin for that reason: a string is turned by how far the hand
- * has come from where it grabbed, and once the hand has moved there is nothing
- * left to ask.
- *
- * So being draggable is a property of **the hold**, settled at the press — not
- * of the creature kind, since THE MAZE's string is not a creature, and not of
- * the drawing, which does not get to decide the control scheme. `id` is the
- * same argument one step further on: THE LID's cord *is* on a creature and a
- * wave may send three of them down at once, so which body the press landed on
- * is the second thing only the press can know. A draggable
- * element answers where the hand went; everything else answers only that a
- * hand is there. Whoever owns the canvas keeps this between the press and the
- * lift and hands it back untouched, so none of them learns what any of it
- * means and a new draggable element costs them nothing.
- *
- * `lance` follows nothing sideways — it is here because the *lift* matters:
- * the lobe fills for exactly as long as the thumb stays down, and nothing in
- * the simulation empties it on its own (`sim/lance.ts`).
- */
-export type Hold =
-  | { kind: "cannon" }
-  | { kind: "shield" }
-  | { kind: "grip" }
-  | { kind: "lance" }
-  | {
-      kind: "drag";
-      target: DragTarget;
-      player: 1 | 2;
-      originX: number;
-      originY: number;
-      id?: number;
-    };
-
-export interface Touch {
-  player: 1 | 2;
-  command: Command;
-  /** Null for a press that is over the moment it happens — a shot, a guard. */
-  hold: Hold | null;
-}
-
 /** A press. Null where nothing is. */
 export function touchDown(l: Layout, x: number, y: number, field: Field): Touch | null {
   // Above the band is the field, and the field answers both players: a finger
@@ -85,6 +43,11 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // (`handles.ts`).
     const handle = handleUnder(l, x, y, field);
     if (handle) return handle;
+    // Then the ship itself, for the same reason one step down: the hull is
+    // painted over every body on the field, so a hand on the cannon or the
+    // shield is not a hand on whatever is falling behind it (`touch-ship.ts`).
+    const ship = shipUnder(l, x, y, field);
+    if (ship) return ship;
     const held = creatureAt(l, field.creatures, x, y, field.beatPhase);
     if (!held) return null;
     return { player: field.seat, command: { kind: "grip", id: held.id }, hold: { kind: "grip" } };
@@ -218,11 +181,25 @@ function dragging(
 }
 
 /**
- * The finger lifted. Only the holds that are *held* have anything to say, and
- * all three of them are: each lasts exactly as long as the finger does and
- * nothing in the simulation decays any of them, so the lift has to be sent.
+ * The finger lifted, and **where it lifted from** — the layout and the point,
+ * in the same order `touchDown` takes them.
+ *
+ * Only the holds that are *held* have anything to say, and each lasts exactly
+ * as long as the finger does with nothing in the simulation decaying it, so
+ * the lift has to be sent.
+ *
+ * `at` is the one thing a lift did not used to need: player 2's muzzle swipe
+ * is decided by where the hand ended, so a lift with no point at all fires
+ * nothing. That is the honest answer for the two ways a pointer is lost with
+ * no position to report — a window losing focus and a mouse dragged off the
+ * document (`bindControls`'s `releaseAll`) — where a shot the player never
+ * finished would be worse than no shot.
  */
-export function touchUp(hold: Hold, field: Field): Touch | null {
+export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch | null {
+  if (hold.kind === "shot") {
+    const color = at === undefined ? null : swipeColor(l, hold.originX, at.x);
+    return color === null ? null : { player: 2, command: { kind: "fire", color }, hold: null };
+  }
   if (hold.kind === "lance") {
     return { player: 1, command: { kind: "prime", on: false }, hold: null };
   }

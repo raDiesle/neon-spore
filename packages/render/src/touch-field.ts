@@ -18,6 +18,18 @@ import type { Creature, MazeState, SimConfig, WardenState } from "@neon-spore/si
  */
 export interface Field {
   creatures: readonly Creature[];
+  /**
+   * Where the two lobes are standing, in whole columns — the world's own
+   * numbers, not the eased ones the renderer is carrying towards them.
+   *
+   * They are here because the ship became touchable where it is drawn
+   * (`touch-ship.ts`), and they are **required and stated** for the reason
+   * every field below is: a hit test that defaulted them to the middle column
+   * would put both grab circles somewhere neither lobe is, and every press on
+   * the hull would answer the wrong control or nothing at all.
+   */
+  cannonCol: number;
+  shieldCol: number;
   /** 0..1 within the beat, so a grab lands on the creature as drawn. */
   beatPhase: number;
   /**

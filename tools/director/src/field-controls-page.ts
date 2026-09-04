@@ -58,6 +58,54 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "grip",
   },
   {
+    name: "THE CANNON",
+    where: "on the cannon swelling itself, wherever it is standing on the hull",
+    seat: "player 1 — the pilot's own lobe; player 2's press on it loads instead",
+    gesture: "grab and drag",
+    does:
+      "Slides the cannon along the hull, the same absolute column the strip " +
+      "in the band sends. A second way to reach a control that already " +
+      "exists, never a replacement for the strip.",
+    source: "touch-ship.ts — pilot() under shipUnder()",
+    holdKind: "cannon",
+  },
+  {
+    name: "THE SHIELD PLATE",
+    where: "on the shield swelling itself, wherever it is standing on the hull",
+    seat: "player 2 — the navigator aims it; player 1's press on it fires it",
+    gesture: "grab and drag",
+    does:
+      "Slides the shield along the hull, the same absolute column the strip " +
+      "in the band sends. It still does nothing until player 1 triggers it.",
+    source: "touch-ship.ts — navigator() under shipUnder()",
+    holdKind: "shield",
+  },
+  {
+    name: "THE SHIELD TRIGGER",
+    where: "on the same shield swelling, on player 1's screen",
+    seat: "player 1 — the pilot fires what player 2 has aimed",
+    gesture: "press",
+    does:
+      "Opens the guard window where the plate is standing, and does not move " +
+      "it. The trigger and the aim in different hands is the rule the whole " +
+      "defence rests on, and pressing the plate does not cross it.",
+    source: "touch-ship.ts — pilot() under shipUnder()",
+    holdKind: "guard",
+  },
+  {
+    name: "THE MUZZLE SWIPE",
+    where: "on the cannon swelling, on player 2's screen only",
+    seat: "player 2 — the navigator holds both colours and no cannon",
+    gesture: "grab and drag",
+    does:
+      "Carry the muzzle left for red or right for cyan and let go: the lift " +
+      "fires, the press says nothing, and a hand that comes back to the " +
+      "middle fires nothing at all. Left and right are the order the two " +
+      "colours stand in on player 2's own band.",
+    source: "touch-ship.ts — navigator() under shipUnder(), swipeColor() on the lift",
+    holdKind: "shot",
+  },
+  {
     name: "THE MAZE'S STRING",
     where: "on the drum's resting circle, only while the wheel is being read",
     seat: "player 1 — the pilot's half of the round; player 2's press falls through",

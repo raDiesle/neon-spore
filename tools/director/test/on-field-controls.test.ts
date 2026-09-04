@@ -29,15 +29,24 @@ function assertNever(x: never): never {
   throw new Error(`on-field-controls.test.ts does not know this: ${JSON.stringify(x)}`);
 }
 
-/** One arm per `Hold["kind"]`. `"cannon"` and `"shield"` are panel strips —
- * `packages/content/src/controls.ts` already documents them — so they are
- * named here only to keep the switch exhaustive, not given a field entry. */
+/**
+ * One arm per `Hold["kind"]`. `"lance"` is a panel lobe and nothing else —
+ * `packages/content/src/controls.ts` already documents it — so it is named
+ * here only to keep the switch exhaustive, not given a field entry.
+ *
+ * `"cannon"` and `"shield"` used to sit beside it, and no longer do: the same
+ * two holds are now taken on the ship itself as well as on the strips
+ * (`render/touch-ship.ts`), so each needs a field entry of its own however
+ * fully the panel table describes the strip.
+ */
 function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
   switch (kind) {
-    case "cannon":
-    case "shield":
     case "lance":
       return "panel";
+    case "cannon":
+    case "shield":
+    case "guard":
+    case "shot":
     case "grip":
     case "drag":
       return "field";
@@ -59,9 +68,9 @@ function documentedDragTarget(target: DragTarget): DragTarget {
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {
   test("every field-kind Hold has a FIELD_CONTROLS entry", () => {
-    const fieldKinds: Hold["kind"][] = (["grip", "drag"] as const).filter(
-      (k) => documentedHoldKind(k) === "field",
-    );
+    const fieldKinds: Hold["kind"][] = (
+      ["cannon", "shield", "guard", "shot", "grip", "drag"] as const
+    ).filter((k) => documentedHoldKind(k) === "field");
     for (const kind of fieldKinds) {
       expect(
         FIELD_CONTROLS.some((c) => c.holdKind === kind),
