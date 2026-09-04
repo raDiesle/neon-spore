@@ -191,14 +191,22 @@ export function sceneSteps(id: SceneId): number {
 }
 
 /**
- * A page's span: the tick it opens on and the tick it ends on. The last page
- * runs to the end of the loop. This is what a page replays, over and over,
- * while the seat reading it takes as long as it likes.
+ * A page's span: the tick it opens on and the tick it ends on. This is what a
+ * page plays through and stands at the end of, while the seat reading it takes
+ * as long as it likes.
+ *
+ * **The last page ends one tick short of the loop.** `SceneRun.advance` wraps
+ * the moment its tick reaches `ticks` — it rebuilds the world and starts at 0
+ * again — so a span that ended *at* `ticks` was a span whose end the clock
+ * could never observe: the page ran on into the next turn of the loop, past its
+ * own words, and the caption vanished because the tick it was written against
+ * was in the future again. `guide-play.ts` stops the film at `to`, so `to` has
+ * to be a tick the run can actually stand on.
  */
 export function stepSpan(scene: GuideScene, index: number): { from: number; to: number } {
   const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, index))]!;
   const next = scene.steps[scene.steps.indexOf(step) + 1];
-  return { from: step.tick, to: next ? next.tick : scene.ticks };
+  return { from: step.tick, to: next ? next.tick : scene.ticks - 1 };
 }
 
 /** The step showing at this tick of the loop. Never undefined: a scene's first

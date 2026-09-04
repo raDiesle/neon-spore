@@ -136,7 +136,11 @@ function sign(
   ctx.globalAlpha = 1;
 }
 
-/** A grown arrow: a blunt head, a concave back, no straight edge anywhere. */
+/**
+ * A grown arrow: a blunt head, a concave back, no straight edge anywhere.
+ * `dir` is the way it points — `1` right for NEXT, `-1` left for BACK — so the
+ * head is the far end of it and the notch is the near one.
+ */
 function arrowSign(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -145,10 +149,10 @@ function arrowSign(
   dir: 1 | -1,
 ): void {
   ctx.beginPath();
-  ctx.moveTo(x + dir * r * 0.5, y - r);
-  ctx.quadraticCurveTo(x - dir * r * 0.3, y - r * 0.4, x - dir * r * 0.8, y);
-  ctx.quadraticCurveTo(x - dir * r * 0.3, y + r * 0.4, x + dir * r * 0.5, y + r);
-  ctx.quadraticCurveTo(x - dir * r * 0.06, y, x + dir * r * 0.5, y - r);
+  ctx.moveTo(x - dir * r * 0.5, y - r);
+  ctx.quadraticCurveTo(x + dir * r * 0.3, y - r * 0.4, x + dir * r * 0.8, y);
+  ctx.quadraticCurveTo(x + dir * r * 0.3, y + r * 0.4, x - dir * r * 0.5, y + r);
+  ctx.quadraticCurveTo(x + dir * r * 0.06, y, x - dir * r * 0.5, y - r);
   ctx.closePath();
   ctx.fill();
 }

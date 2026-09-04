@@ -191,21 +191,25 @@ function slab(ctx: CanvasRenderingContext2D, l: Layout, bar: NavBox, age: number
   ctx.fillStyle = cast;
   ctx.fillRect(0, bar.y - LIFT, l.width, LIFT);
 
-  // Slate, where the panel above it is violet tissue.
+  // Cold slate, where the panel above it is warm violet tissue. The two are
+  // not variations on one colour: the whole point of the slab is that a glance
+  // tells you it is not part of the ship.
   const ground = ctx.createLinearGradient(0, bar.y, 0, bar.y + bar.h);
-  ground.addColorStop(0, "#141A33");
-  ground.addColorStop(0.18, "#0C1024");
-  ground.addColorStop(1, "#070A18");
+  ground.addColorStop(0, "#1B2140");
+  ground.addColorStop(0.16, "#0B0E22");
+  ground.addColorStop(1, "#05070F");
   ctx.fillStyle = ground;
   ctx.fillRect(bar.x, bar.y, bar.w, bar.h);
 
-  // The rim, breathing, with its own light spilling onto the game above it.
-  halo(ctx, l.width / 2, bar.y, l.width * 0.6, PALETTE.pod, 0.1 + 0.04 * Math.sin(age * 1.6));
-  ctx.fillStyle = PALETTE.pod;
-  ctx.globalAlpha = 0.85;
+  // A pale rim, breathing, with its own light on the game above it. Pale and
+  // not pink: every lit edge in this game belongs to something the ship grew,
+  // and this one is the one edge that belongs to the tool laid over it.
+  halo(ctx, l.width / 2, bar.y, l.width * 0.55, PALETTE.text, 0.07 + 0.03 * Math.sin(age * 1.6));
+  ctx.fillStyle = PALETTE.text;
+  ctx.globalAlpha = 0.5;
   ctx.fillRect(0, bar.y, l.width, 2);
-  ctx.globalAlpha = 0.22;
-  ctx.fillRect(0, bar.y + 2, l.width, 1);
+  ctx.globalAlpha = 0.14;
+  ctx.fillRect(0, bar.y + 3, l.width, 1);
   ctx.globalAlpha = 1;
 }
 
