@@ -1,4 +1,5 @@
 import { blobPath } from "@neon-spore/content";
+import { bakedCache } from "./baked.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
@@ -31,7 +32,7 @@ const LOBES = 3;
 const DEPTH = 0.042;
 const SEED = 1907;
 
-const blobs = new Map<number, Path2D>();
+const blobs = bakedCache<number, Path2D>();
 
 /**
  * The button's outline at radius `r`, centred on the origin.
@@ -80,7 +81,7 @@ export function paintLobe(
 /** The margin a socket sprite adds round the button, as a share of `r`. */
 const SOCKET_PAD = 0.62;
 
-const sockets = new Map<string, HTMLCanvasElement>();
+const sockets = bakedCache<string, HTMLCanvasElement>();
 
 function socketSprite(
   r: number,
@@ -160,7 +161,7 @@ export function drawLobeSocket(
   ctx.drawImage(sprite, x - size / 2, y - size / 2, size, size);
 }
 
-const glosses = new Map<number, HTMLCanvasElement>();
+const glosses = bakedCache<number, HTMLCanvasElement>();
 
 function glossSprite(r: number, dpr: number): HTMLCanvasElement {
   const key = Math.max(2, Math.round(r * dpr));

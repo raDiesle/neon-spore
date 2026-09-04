@@ -14,6 +14,8 @@
  * `Path2D`.
  */
 
+import { clearBakedCaches } from "../src/baked.js";
+
 const COLOR = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\([^)]+\)$/i;
 
 class StubFail extends Error {}
@@ -395,8 +397,18 @@ export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: St
   return { canvas: canvas as unknown as HTMLCanvasElement, ctx };
 }
 
-/** Installs `document` and `Path2D`, which Bun does not have. */
+/**
+ * Installs `document` and `Path2D`, which Bun does not have, and empties every
+ * cache render bakes sprites into.
+ *
+ * The caches are module state and outlive a test, so whichever run first asked
+ * for a size paid for the bake and every run after it got it free — a frame
+ * budget's first row then carried whichever run happened to go first
+ * (`src/baked.ts`). Emptying them here is also the only thing that stops a
+ * sprite baked on one test's stub canvas being blitted onto the next one's.
+ */
 export function installCanvasGlobals(): void {
+  clearBakedCaches();
   const g = globalThis as Record<string, unknown>;
   g.Path2D = StubPath;
   g.document = {

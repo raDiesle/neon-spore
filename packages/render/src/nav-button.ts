@@ -1,4 +1,5 @@
 import { blobPath } from "@neon-spore/content";
+import { bakedCache } from "./baked.js";
 import { halo } from "./glow.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import type { SeatSkin } from "./seat-skin.js";
@@ -37,7 +38,7 @@ const LOBES = 3;
 const DEPTH = 0.05;
 const SEED = 2207;
 
-const paths = new Map<string, Path2D>();
+const paths = bakedCache<string, Path2D>();
 
 /** The contour, cached: the bar redraws every frame and the shape never moves. */
 export function navBlob(w: number, h: number): Path2D {

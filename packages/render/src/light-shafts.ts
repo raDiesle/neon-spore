@@ -1,5 +1,6 @@
 import { KEY } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
+import { bakedCache } from "./baked.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -58,7 +59,7 @@ const SHAFT_STYLES: readonly ShaftStyle[] = [
 const RAY = { x: -KEY.x, y: -KEY.y } as const;
 const RAY_ANGLE = Math.atan2(RAY.y, RAY.x);
 
-const spriteCache = new Map<number, HTMLCanvasElement>();
+const spriteCache = bakedCache<number, HTMLCanvasElement>();
 
 /**
  * One soft bar, long enough to cross the sky at any rotation, cached by its

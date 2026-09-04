@@ -464,6 +464,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
+| `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 
 ### packages/net
 

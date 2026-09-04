@@ -1,5 +1,6 @@
 import { blobPath } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
+import { bakedCache } from "./baked.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -29,7 +30,7 @@ import type { Layout } from "./layout.js";
 /** The palette of the chamber, top (nearest the hull) to bottom. */
 const GROUND = ["#150D33", "#0E0921", "#080513", "#04020A"] as const;
 
-const sheets = new Map<string, HTMLCanvasElement>();
+const sheets = bakedCache<string, HTMLCanvasElement>();
 
 /**
  * The sheet for a panel this size, baked once. Keyed on the pixel size it will

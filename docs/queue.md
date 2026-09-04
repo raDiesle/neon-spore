@@ -107,25 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## The frame budget's first row silently carries whichever run baked the panel
-
-- **Found:** 2026-09-04, claude/control-panel-ui-redesign-81216f
-- **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`, `packages/render/src/band-ground.ts`
-
-`band-ground.ts` paints the panel's sheet into an offscreen canvas the first
-time a size is asked for and blits it after that, and the cache is module
-state that outlives a test. So `p1`'s frame-0 row pays for every cell and vein
-in the sheet — fourteen extra `new Path2D` — and `p2`, which runs second at the
-same size, pays none of it. The rows are right for the order the loop happens
-to run in, and reordering the two seats would fail the test for a reason that
-has nothing to do with the frame.
-
-Give the harness a way to empty render's size-keyed caches (`band-ground.ts`'s
-sheets, `lobe-shell.ts`'s sockets and glosses, `glow.ts`'s halos) and call it in
-`installCanvasGlobals`, so every run starts cold and both seats' frame-0 rows
-mean the same thing. Then remeasure both rows and the two eye rows the same
-way `frame-budget.test.ts`'s own header describes.
-
 ## A touch in the game assumes the canvas starts at the top left of the window
 
 - **Found:** 2026-09-04, claude/control-panel-ui-redesign-81216f

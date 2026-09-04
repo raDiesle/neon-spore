@@ -1,4 +1,5 @@
 import { KEY, type LightHalf } from "@neon-spore/content";
+import { bakedCache } from "./baked.js";
 
 /**
  * THE KEY LIGHT, ON A CANVAS.
@@ -156,7 +157,7 @@ function litSpan(
  * ramp, and it bounds the cache at 24 entries per radius. */
 const SPIN_STEPS = 24;
 
-const sprites = new Map<string, HTMLCanvasElement>();
+const sprites = bakedCache<string, HTMLCanvasElement>();
 
 /** One face of the light, pre-rendered square and cached. The radius and the
  * spin arrive already quantised from `litRound`, its only caller. */

@@ -1,5 +1,6 @@
 import { blobPath, livingSilhouette } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
+import { bakedCache } from "./baked.js";
 import { halo } from "./glow.js";
 import { paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -61,7 +62,7 @@ export function reticle(
  * same two objects rebuilt twice a frame on player 2's seat, for as long as
  * the game has run. Keyed on the colour, of which there are two.
  */
-const FIRE_BLOBS = new Map<Color, Path2D>();
+const FIRE_BLOBS = bakedCache<Color, Path2D>();
 
 function fireBlob(color: Color, shape: ReturnType<typeof livingSilhouette>): Path2D {
   const held = FIRE_BLOBS.get(color);

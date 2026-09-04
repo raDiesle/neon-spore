@@ -29,6 +29,14 @@ import { CFG, installCanvasGlobals, runFrames, waveWith } from "./frame-harness.
  * If a legitimate change to the scene raises one of these, remeasure with
  * `ctx.tally` (log it, or `console.log(ctx.tally)` in a scratch run of this
  * same setup) and update the row that changed — do not pad it "to be safe".
+ *
+ * **Every run starts cold.** `installCanvasGlobals` empties render's baked
+ * caches (`src/baked.ts`), so each frame-0 row below pays for its own bake.
+ * Before it did, the first run to ask for a size baked the panel's sheet and
+ * every run after it was handed one free: p1's row carried fourteen
+ * `new Path2D` that p2's did not, at the same size, and reordering the two
+ * seats would have failed the test for a reason that had nothing to do with
+ * the frame.
  */
 
 type Budget = Partial<
@@ -62,11 +70,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       drawImage: 23,
       createLinearGradient: 13,
       createRadialGradient: 3,
-      // The panel's own sheet is painted here and only here: it depends on the
-      // size of the band and nothing else, so the frame that first asks for a
-      // size pays for every cell and vein in it and no frame after that pays
-      // anything (`band-ground.ts`). p2's row below is the proof — it runs
-      // second, at the same size, and is back down to the ordinary count.
+      // Fourteen of these are the panel's own sheet, painted here and only
+      // here: it depends on the size of the band and nothing else, so the
+      // first frame at a size pays for every cell and vein in it and no frame
+      // after that pays anything (`band-ground.ts`). The row below is the
+      // proof — same seat, same size, one frame later, and back down.
       "new Path2D": 26,
       fillText: 4,
     },
@@ -97,7 +105,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       drawImage: 25,
       createLinearGradient: 13,
       createRadialGradient: 3,
-      "new Path2D": 15,
+      // Two more than p1's frame 0: the sheet, and the fire buttons'
+      // silhouettes, which are on this seat's panel alone.
+      "new Path2D": 28,
       fillText: 2,
     },
     {
@@ -117,14 +127,21 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
   ],
 };
+/** The scene every row above was measured on: wave 2, stepped to the first
+ * tick with three creatures on the field. */
+function busyWorld(): World {
+  const world = createWorld(CFG, 3, []);
+  const index = 2;
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  while (world.creatures.length < 3) step(world, []);
+  return world;
+}
+
 describe("a busy frame's op count", () => {
   for (const role of ["p1", "p2"] as const) {
     it(`stays inside the measured budget for two consecutive frames on ${role}`, () => {
       installCanvasGlobals();
-      const world = createWorld(CFG, 3, []);
-      const index = 2;
-      startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-      while (world.creatures.length < 3) step(world, []);
+      const world = busyWorld();
 
       const rows = BUDGETS[role];
       let measured = 0;
@@ -216,7 +233,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 15,
       createLinearGradient: 13,
       createRadialGradient: 3,
-      "new Path2D": 24,
+      // Fourteen of them the panel's sheet, as on every frame 0 here.
+      "new Path2D": 37,
       fillText: 4,
     },
     {
@@ -242,7 +260,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 15,
       createLinearGradient: 13,
       createRadialGradient: 3,
-      "new Path2D": 21,
+      "new Path2D": 34,
       fillText: 4,
     },
     {

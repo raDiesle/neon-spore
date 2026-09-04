@@ -1,3 +1,4 @@
+import { bakedCache } from "./baked.js";
 import { STROKE } from "./palette.js";
 
 /**
@@ -33,7 +34,7 @@ export function strokeGlow(
   ctx.stroke(path);
 }
 
-const haloCache = new Map<string, HTMLCanvasElement>();
+const haloCache = bakedCache<string, HTMLCanvasElement>();
 
 /**
  * A pre-rendered radial gradient, cached per colour and size. The colour has to
