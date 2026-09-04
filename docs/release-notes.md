@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · ef8ca39 — The cannon swallows when you let go of it without going anywhere
+
+Player 1 had no way to open the maw on the field at all: taking hold of the cannon on the hull slid it, and the SUCK lobe in the band was the only way to reach the one control the ship's own picture is *about*. It is two gestures on one swelling now — carry it and it slides, let go without carrying it and it swallows — decided on the lift, exactly as player 2's muzzle swipe already works one seat over, and only on a panel that has a maw on it at all.
+
 ## 2026-09-04 · 340a89a — A rock lands on the ship and stands there for a beat, which is a beat the shield still has
 
 The shield did nothing when there was no room left. A rock's last drawn tile was a replay of a body the simulation had already removed and resolved (`rock-impact.ts`), so the trigger pressed while watching the rock cross that tile arrived at nothing — and the rock sank into the hull with the press still in the air. A rock's fall now stops on the ship's row instead of carrying it past, and it stands on the plating for the one beat render/ spends drawing it arrive. That beat is a third and last time the shield is asked, and it is the one the owner was pressing on. Every tier gets the same beat, a torch's thirteen tiles included, where before a fast rock spent its whole last step as a picture of something already gone.
