@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 620a1e8 — The tutorial is the game's own screen, and it comes before the wave's name
+
+A wave with a guide now opens on it, and the wave's number, name and sentence come after — teaching first, naming second, so the pair reads FIRST STEP already knowing what a first step is. A wave with no guide is unchanged.
+
 ## 2026-09-04 · 73be5c3 — The control panel is the inside of the ship, not a box under it
 
 Asked for by name — neon, fluid, living, slime, no sharp edges on the panel or its buttons, and integrated with the ship rather than bolted to it. It lands under the first exemption in CLAUDE.md's *A look is offered, never replaced*: the owner asked for this one, so the decision is already made.
