@@ -181,16 +181,24 @@ can answer without trusting anybody's account of the work —
 - is the branch ahead of `main`?
 
 — and, when all three say yes, blocks the stop and sends the session back with
-one question to put to the owner:
+one question to put to the owner, in four answers:
 
 - **a) Finished** — `bun run land --push`. The lane ends: the trunk takes it, the
   sweep clears the branch and any idle tree away, and `main` goes to `origin`.
 - **b) More to come** — nothing lands. The lane stays a branch and the next
   prompt continues it.
-- **c) Land and stay** — `bun run land --keep`. The trunk takes the work and
-  nothing else happens: no sweep, no push, the branch and the worktree exactly
-  where they were. This is the answer that keeps a long lane's rebase small
-  without ending it.
+- **c) Land and stay** — `bun run land --keep`. The *local* trunk takes the work
+  and nothing else happens: no sweep, no push, the branch and the worktree
+  exactly where they were. This is the answer that keeps a long lane's rebase
+  small without ending it.
+- **d) Land and send** — `bun run land --keep --push`. The same, and `origin`
+  gets `main` too.
+
+Two axes cross in those four: is the lane over, and does the remote get the
+trunk. (c) and (d) differ in nothing but the second, and that is the point —
+reaching `origin` is a decision of its own rather than a consequence of the
+lane ending. It is the same argument as the section above: the push is not a
+step of landing, it is a thing somebody decides.
 
 The clean-tree question is the load-bearing one: mid-task work is never asked
 about, by construction, because mid-task work is uncommitted. Everything else —

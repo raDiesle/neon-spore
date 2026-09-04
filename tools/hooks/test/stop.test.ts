@@ -143,7 +143,7 @@ describe("the branch a detached lane gets back", () => {
 });
 
 /**
- * The message is the whole hook. Nothing lands here any more, so if the three
+ * The message is the whole hook. Nothing lands here any more, so if the four
  * options or their commands are wrong the session invents something instead —
  * which is what the change was made to stop.
  */
@@ -156,15 +156,26 @@ describe("what the session is sent back to ask", () => {
     expect(question("claude/a-lane", 1)).toContain("1 commit,");
   });
 
-  it("carries all three options, and the command for each one that has one", () => {
+  it("carries all four options, and the command for each one that has one", () => {
     expect(asked).toContain("bun run land --push");
     expect(asked).toContain("bun run land --keep");
+    expect(asked).toContain("bun run land --keep --push");
     expect(asked).toContain("nothing lands");
   });
 
-  it("says not to land before the answer, and not to invent a fourth option", () => {
+  /**
+   * (c) and (d) differ in nothing but the remote, which is the distinction the
+   * owner asked for: reaching `origin` is a decision of its own, separate from
+   * whether the lane is over.
+   */
+  it("offers landing without a push and landing with one as two answers", () => {
+    expect(asked).toContain("no push");
+    expect(asked).toContain("origin gets main too");
+  });
+
+  it("says not to land before the answer, and not to invent a fifth option", () => {
     expect(asked).toContain("land nothing before the answer");
-    expect(asked).toContain("fourth option");
+    expect(asked).toContain("fifth option");
   });
 });
 

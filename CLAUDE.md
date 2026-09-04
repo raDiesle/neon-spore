@@ -58,13 +58,13 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   `bun run push` sends it. A clone with no worktrees pushes every time — nothing
   there to sweep, and the push is the hand-off.
 - **A finished lane is never landed silently.** When a turn ends in a worktree
-  clean and ahead of `main`, the `Stop` hook `tools/hooks/lane-finished.ts`
-  blocks the stop; put one question to the owner with these three answers and no
-  fourth: **a) Finished** — `bun run land --push`; **b) More to come** — nothing
-  lands; **c) Land and stay** — `bun run land --keep`, which moves `main` and
-  sweeps nothing, so the branch, the worktree and `origin` are untouched and the
-  next prompt carries on here. Land nothing before the answer.
-  `NO_LANE_PROMPT=1` turns the hook off.
+  clean and ahead of `main`, `tools/hooks/lane-finished.ts` blocks the stop; put
+  one question to the owner — these four answers, no fifth.
+  **a) Finished** — `bun run land --push`. **b) More to come** — nothing lands.
+  **c) Land and stay** — `bun run land --keep`: the local `main` moves and nothing
+  else does, no sweep and no push, so work carries on here. **d) Land and send** —
+  `bun run land --keep --push`: (c), and `origin` gets `main` too. Land nothing
+  before the answer. `NO_LANE_PROMPT=1` turns the hook off.
 - **The rebase happens before the check, not after.** `bun run land` already
   orders it that way; a green check taken before the rebase is a result about a
   tree that no longer exists.

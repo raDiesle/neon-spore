@@ -14,7 +14,7 @@
  *
  * So the questions git can answer are still asked here, and answering them all
  * now blocks the stop instead of starting a landing. The session is sent back
- * with three options to put to the owner and the command for each. Everything
+ * with four options to put to the owner and the command for each. Everything
  * this file will not do — a dirty tree, a branch that is not ahead, the main
  * checkout — is still a silent exit, which is most turns.
  *
@@ -129,23 +129,29 @@ export function branchForDetached(worktree: string, taken: readonly string[]): s
  * than a suggestion because a blocked stop is the session's whole account of
  * why it is still going, and "consider asking" is how a rule becomes optional.
  *
- * The three options are the owner's own, and the fourth one a session would
- * invent — landing quietly because the work is obviously finished — is the
- * behaviour this file was changed to stop.
+ * The four options are the owner's own. Two axes cross in them — is the lane
+ * over, and does `origin` get the trunk — and the pair that keeps the lane
+ * open, (c) and (d), differ in nothing but the second. That is deliberate:
+ * reaching the remote is its own decision, not a consequence of the other one.
+ *
+ * The fifth option a session would invent — landing quietly because the work is
+ * obviously finished — is the behaviour this file was changed to stop.
  */
 export function question(branch: string, ahead: number): string {
   const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
   return [
     `${branch} is finished — ${count}, nothing uncommitted — and landing it is the`,
-    "owner's call rather than yours. Put it to them as one question with these three",
+    "owner's call rather than yours. Put it to them as one question with these four",
     "options, then do what the answer says:",
     "",
-    "  a) Finished        bun run land --push  — land, sweep, and send main to origin",
-    "  b) More to come    nothing lands; keep the lane open for the next prompt",
-    "  c) Land and stay   bun run land --keep  — main moves, nothing is swept, origin",
-    "                                            is left alone, work carries on here",
+    "  a) Finished       bun run land --push         — land, sweep, main to origin",
+    "  b) More to come   nothing lands; the lane stays open for the next prompt",
+    "  c) Land and stay  bun run land --keep         — the local main moves and",
+    "                                                  nothing else does: no sweep,",
+    "                                                  no push, work carries on here",
+    "  d) Land and send  bun run land --keep --push  — (c), and origin gets main too",
     "",
-    "Ask once, land nothing before the answer, and do not invent a fourth option.",
+    "Ask once, land nothing before the answer, and do not invent a fifth option.",
   ].join("\n");
 }
 
