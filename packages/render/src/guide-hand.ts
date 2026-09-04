@@ -1,13 +1,16 @@
 import { control, type GuideScene } from "@neon-spore/content";
-import { gripsCreature, type World } from "@neon-spore/sim";
+import { gripsCreature, lidIsHeld, NO_TETHER, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
+import { lidCordCircle } from "./lid-string.js";
+import { mazeStringCircle } from "./maze-string.js";
 import { PALETTE } from "./palette.js";
+import { tetherHandleCircle } from "./tether.js";
 import { shipCircle } from "./touch-ship.js";
 
 /**
- * The hands that are **not** on the panel: one held on something falling, and
- * one pressed against the ship itself.
+ * The hands that are **not** on the panel: one held on something falling, one
+ * pressed against the ship itself, and one carrying a cord.
  *
  * Its own file beside `guide-thumb.ts`, split when that one reached the length
  * ceiling, along the seam it always had. Next door places a thumb from the
@@ -101,4 +104,37 @@ export function drawGripThumb(
   ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
   ctx.stroke();
   ctx.globalAlpha = 1;
+}
+
+/**
+ * And the third: a hand on a **cord, a string or a rope**.
+ *
+ * Only the pilot's, because all three handles are — the navigator carries both
+ * colours and fires (`render/handles.ts`) — and only while the world says a
+ * hand is actually on one. That is the whole placement rule: the simulation
+ * knows which handle is held, and each of the three already has one function
+ * saying where its resting circle is, which is the same one a real thumb is
+ * hit-tested against. So the ghost hand cannot be drawn on a handle the finger
+ * would have missed.
+ *
+ * A lid's cord is the one that moves under the hand: the body goes on falling
+ * while it is held, and `lidCordCircle` follows it. The other two hang off
+ * something that is not going anywhere.
+ */
+export function handleThumb(
+  l: Layout,
+  world: World,
+  seat: 1 | 2,
+  beatPhase: number,
+): { x: number; y: number; r: number } | null {
+  if (seat !== 1) return null;
+  const cfg = world.cfg;
+  const lid = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c));
+  if (lid) return lidCordCircle(l, cfg, lid, beatPhase);
+  const maze = world.boss?.kind === "maze" && world.boss.dragging ? mazeStringCircle(l, cfg) : null;
+  if (maze) return maze;
+  const warden = world.boss?.kind === "warden" && world.boss.pulling ? world.boss : null;
+  if (!warden || warden.tetherId === NO_TETHER) return null;
+  const rope = world.creatures.find((c) => c.id === warden.tetherId);
+  return rope ? tetherHandleCircle(l, cfg, rope.col) : null;
 }

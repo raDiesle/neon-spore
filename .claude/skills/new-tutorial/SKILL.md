@@ -177,7 +177,16 @@ authored:
   The command and the seat are unchanged; only where the hand is drawn moves.
   `ControlDef.ship` says which swelling answers which control, and a control
   without one is refused by the tests.
-- **A held cord or rope** is not authorable yet. `docs/queue.md` carries it.
+- **A held cord, a string or a rope** is `{ tick, drag, col?, until, toMilli? }`.
+  The seat is not authored: all three handles are the pilot's, because the
+  navigator carries both colours and fires. `col` says where the body is for
+  `lidString`, the one handle that is *many* — a wave may send three lids down
+  at once — and the runner finds the body standing there at the moment the hand
+  goes down, exactly as a grip's is found. Left out, `toMilli` is the handle's
+  own taut distance, which is what a page about a cord almost always wants;
+  written down, it is a pull that stops short. The carry travels over the ticks
+  between `tick` and `until` rather than arriving, because the parting *is* the
+  picture.
 
 The captions for those point at `{ at: "held" }`, `{ at: "ship", control }` and
 the pod, the radar strip or a round's slab as the case may be — never at a

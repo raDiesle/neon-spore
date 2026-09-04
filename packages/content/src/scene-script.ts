@@ -1,4 +1,4 @@
-import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
+import type { Command, DragTarget, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
 import { controlPress } from "./control-command.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
@@ -25,10 +25,100 @@ import { guideScene, type SceneId } from "./scenes.js";
  * is one no scene has ever needed; it throws rather than being ignored,
  * because a silently dropped act is a hand pressing nothing.
  */
-export function sceneCommands(act: SceneAct, cols: number): SceneCommand[] {
-  if (act.grip !== undefined) return gripCommands(act, cols);
+export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
+  if (act.grip !== undefined) return gripCommands(act, cfg.cols);
+  if (act.drag !== undefined) return dragCommands(act, cfg);
   const def = control(controlOf(act));
-  return [{ tick: act.tick, player: def.player, command: commandFor(act, cols) }];
+  return [{ tick: act.tick, player: def.player, command: commandFor(act, cfg.cols) }];
+}
+
+/**
+ * How far a handle is carried when the film does not say: as far as it goes.
+ *
+ * The three numbers are the simulation's own, and are read off the config
+ * rather than repeated here — `packages/sim/test/purity.test.ts` exists to
+ * catch exactly the second copy this would otherwise be.
+ */
+function tautMilli(target: DragTarget, cfg: SimConfig): number {
+  if (target === "lidString") return cfg.lidTautMilli;
+  if (target === "wardenTether") return cfg.wardenTautMilli;
+  return cfg.mazeTurnMilli;
+}
+
+/**
+ * Which way a handle is carried.
+ *
+ * **Down**, for the two that are pulled: a pull is clamped to stay on the
+ * field (`sim/handle-pull.ts`), and down is the one direction the field always
+ * has room for from where a cord or a rope hangs. Carried sideways by the same
+ * distance, a lid in the third column runs out of field and is clipped short
+ * of taut — the plates then never part, which is a film that shows the gesture
+ * and not the point of it.
+ *
+ * **Across**, for the one that is turned: a wheel is turned by how far the
+ * hand has come, and that is the x of it and nothing else
+ * (`sim/maze-controls.ts`).
+ */
+function pullsDown(target: DragTarget): boolean {
+  return target !== "mazeString";
+}
+
+/**
+ * A hand on a cord, carried and let go.
+ *
+ * **It travels rather than jumping.** A single command at the taut distance
+ * would be a hand that teleported, and the whole of what a page about a handle
+ * has to show is the carrying: the plates parting, the hatch coming up. So the
+ * pull is a handful of commands from the grab to the far end, which is also
+ * what a real thumb sends — a `drag` is cumulative from the grab, so each one
+ * supersedes the last and a film that drops one heals itself
+ * (`sim/command-types.ts`).
+ *
+ * The seat is the pilot's for all three targets and is not authored: the
+ * navigator carries both colours and fires, so a handle either of them could
+ * reach would be a round one phone could play (`render/handles.ts`).
+ */
+function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
+  const target = act.drag as DragTarget;
+  const to = act.toMilli ?? tautMilli(target, cfg);
+  const until = act.until ?? act.tick;
+  const span = Math.max(1, until - act.tick);
+  const steps = Math.max(1, Math.min(PULL_STEPS, span));
+  const out: SceneCommand[] = [];
+  for (let i = 0; i < steps; i++) {
+    const at = act.tick + Math.round((span * i) / steps);
+    out.push({
+      tick: at,
+      player: 1,
+      command: {
+        kind: "drag",
+        target,
+        on: true,
+        ...carry(target, Math.round((to * i) / (steps - 1 || 1))),
+      },
+      // Every one of them, not only the grab: a lid may have fallen a row
+      // between two of these, and the id is the address of the cord rather
+      // than of where it was.
+      ...(target === "lidString" ? { dragCol: actCol(act, cfg.cols) } : {}),
+    });
+  }
+  out.push({
+    tick: until,
+    player: 1,
+    command: { kind: "drag", target, on: false, ...carry(target, 0) },
+  });
+  return out;
+}
+
+/** How many messages one carry is spelled in. Enough that the plates are seen
+ * parting rather than found apart, and few enough to stay a gesture. */
+const PULL_STEPS = 6;
+
+/** One distance, on the axis this handle is carried along. */
+function carry(target: DragTarget, milli: number): { fromMilli: number; fromYMilli: number } {
+  return pullsDown(target)
+    ? { fromMilli: 0, fromYMilli: milli }
+    : { fromMilli: milli, fromYMilli: 0 };
 }
 
 /**
@@ -105,12 +195,11 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // columns every wave is authored in (`queue.ts`).
     pods: podsFromWave(scene, sceneCfg.cols),
     boss: bossFromWave(scene, sceneCfg.cols),
-    // Sorted, because a grip contributes its release as well as its hold and
-    // that release can fall after the act written under it. `SceneRun` walks
+    // Sorted, because a grip contributes its release as well as its hold, and a
+    // drag a whole run of carries — and any of those can fall after the act
+    // written under it. `SceneRun` walks
     // the list once, in order, and would drop anything out of place.
-    commands: scene.acts
-      .flatMap((a) => sceneCommands(a, sceneCfg.cols))
-      .sort((a, b) => a.tick - b.tick),
+    commands: scene.acts.flatMap((a) => sceneCommands(a, sceneCfg)).sort((a, b) => a.tick - b.tick),
     ticks: scene.ticks,
   };
 }

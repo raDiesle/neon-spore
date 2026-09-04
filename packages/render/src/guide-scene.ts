@@ -3,7 +3,7 @@ import type { World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawCaption } from "./guide-caption.js";
-import { drawGripThumb, fieldThumb, gripThumb } from "./guide-hand.js";
+import { drawGripThumb, fieldThumb, gripThumb, handleThumb } from "./guide-hand.js";
 import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
@@ -152,6 +152,10 @@ export class GuideStage {
     // way (`SceneAct.onField`).
     const onShip = fieldThumb(l, run.world, scene, run.tick, step.seat);
     if (onShip) drawGripThumb(ctx, { ...onShip, r: l.lobeR }, l.lobeR * (onShip.press ? 0.86 : 1));
+    // And the hand carrying a cord, a string or a rope (`SceneAct.drag`). Read
+    // off the world like the other two, so it rides a handle that is falling.
+    const onCord = handleThumb(l, run.world, step.seat, phase);
+    if (onCord) drawGripThumb(ctx, onCord, l.lobeR);
     drawGuideCorner(ctx, l, {
       seat: step.seat,
       names,

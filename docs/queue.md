@@ -107,26 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## A rehearsal cannot show a held cord, so THE LID has no film
-
-- **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
-- **Taken:** 2026-09-04, claude/queue-a-rehearsal-cannot-show-a-held-cord-so-the-lid-h
-- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/render/src/guide-thumb.ts`
-
-Three things in this game are taken hold of and carried rather than pressed:
-THE LID's cord, THE MAZE's string and THE WARDEN's rope. All three are the
-`drag` command, all three name a `DragTarget`, and the lid's also names the
-creature the cord hangs off — an id, which no author can know, exactly as a
-grip's target is an id no author can know.
-
-The grip solved that already: `SceneAct.grip` names a column and a span of
-ticks, and `SceneRun` finds the body standing in that column at the moment the
-hand goes down (`aimed` in `sim/scene.ts`). Do the same for a drag — a target,
-a column where the target is a lid, a from-position and an until — and draw the
-hand on the handle the way `gripThumb` draws it on the body. THE LID is the one
-ordinary wave left in act five with no rehearsal, and the two bosses become
-reachable with it.
-
 ## THE LID has no rehearsal, and it is the last ordinary wave without one
 
 - **Found:** 2026-09-04, claude/tutorials-the-mirror

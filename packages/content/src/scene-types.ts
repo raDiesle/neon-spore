@@ -1,4 +1,4 @@
-import type { BossEntry, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, DragTarget, PodEntry } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
 import type { WaveEntry } from "./wave-types.js";
 
@@ -41,8 +41,42 @@ export interface SceneAct {
   /** A hand on the field instead of on the panel: which seat's. The column is
    * `col`, which a grip always carries. */
   grip?: 1 | 2;
-  /** The tick that hand lifts again. A grip always says when it lets go —
-   * a hold with no end is a hand that stays down past the end of the loop. */
+  /**
+   * A hand on a **cord, a string or a rope** — the third gesture that is not a
+   * press on a button, and the one that had no way of being written down.
+   *
+   * All three are the pilot's: the navigator carries both colours and fires,
+   * so a handle either seat could reach would be a round one phone could play
+   * (`render/handles.ts` says it three times, once per handle). So the seat is
+   * read off the target rather than authored beside it, the way a press reads
+   * its seat off `ControlDef.player`.
+   *
+   * `col` says where the body is for `lidString`, which is the one handle that
+   * is *many* — a wave may send three lids down at once, and the cord names
+   * the body it hangs off by an id no author can know. It is the grip's
+   * arrangement exactly: the column is what an author can know, because it is
+   * what they wrote the arrival in, and `SceneRun` fills the id in at the
+   * moment the hand goes down. A maze has one string and a warden one rope, so
+   * neither needs it.
+   *
+   * `until` is when the hand lets go, and it is required for the reason a
+   * grip's is: a hold with no end is a hand still down on a world that is
+   * about to be rebuilt.
+   */
+  drag?: DragTarget;
+  /**
+   * How far the hand carries it, in thousandths of a tile — the units every
+   * draggable control speaks (`Command` in `sim/command-types.ts`).
+   *
+   * Left out, it is the target's own taut distance, which is what a film about
+   * a handle almost always wants: the plates fully apart, the hatch open, the
+   * wheel round. Written down, it is a pull that stops short — the picture a
+   * page about *not far enough* needs.
+   */
+  toMilli?: number;
+  /** The tick that hand lifts again. A grip and a drag always say when they let
+   * go — a hold with no end is a hand that stays down past the end of the
+   * loop. */
   until?: number;
   /**
    * Draw the hand **on the ship** rather than on the panel below it.

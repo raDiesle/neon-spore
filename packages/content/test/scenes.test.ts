@@ -38,23 +38,24 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
-  it("gives every act exactly one of a control and a grip", () => {
-    // The grip is the one gesture that is not on the panel — a finger held on
-    // the field — so an act carries either a `control` or a `grip` and never
-    // both, and never neither. `sceneCommands` throws on the third case rather
-    // than dropping it silently, and this is what keeps it from being thrown.
+  it("gives every act exactly one gesture", () => {
+    // Three gestures are not presses on the panel: a finger held on the field,
+    // and — since THE LID's cord — a hand carrying a cord, a string or a rope.
+    // So an act carries exactly one of `control`, `grip` and `drag`, never two
+    // and never none. `sceneCommands` throws on the empty case rather than
+    // dropping it silently, and this is what keeps it from being thrown.
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
-        const both = act.control !== undefined && act.grip !== undefined;
-        const neither = act.control === undefined && act.grip === undefined;
-        expect(both || neither, `${id} has an act at tick ${act.tick} that presses nothing`).toBe(
-          false,
-        );
-        if (act.grip === undefined) continue;
-        expect(act.col, `${id}: a grip at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
+        const gestures = [act.control, act.grip, act.drag].filter((g) => g !== undefined).length;
+        expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
+        // Both holds say where and both say when they let go. A hold with no
+        // end is a hand still down on a world about to be rebuilt, and a hold
+        // with no column is a hand on whatever happened to be underneath.
+        if (act.grip === undefined && act.drag !== "lidString") continue;
+        expect(act.col, `${id}: a hold at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
           0,
         );
-        expect(act.until ?? -1, `${id}: a grip at tick ${act.tick} never lets go`).toBeGreaterThan(
+        expect(act.until ?? -1, `${id}: a hold at tick ${act.tick} never lets go`).toBeGreaterThan(
           act.tick,
         );
       }
@@ -71,7 +72,7 @@ describe("the rehearsals a guide can show", () => {
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
         if (!act.onField) continue;
-        expect(act.control, `${id}: a grip cannot be on the ship as well`).toBeDefined();
+        expect(act.control, `${id}: a hold cannot be on the ship as well`).toBeDefined();
         expect(
           control(act.control as ControlId).ship,
           `${id}: ${act.control} has no gesture on the ship`,
@@ -277,12 +278,12 @@ describe("the rehearsals a guide can show", () => {
   it("builds a script whose presses are the seats the controls belong to", () => {
     for (const { wave, id } of USED) {
       const script = sceneScript(id, wave, DEFAULT_CONFIG);
-      // One command per press, and two per grip: a hand goes down and comes up
-      // again (`scene-script.ts`).
-      const grips = SCENES[id].acts.filter((a) => a.grip !== undefined).length;
-      expect(script.commands.length).toBe(SCENES[id].acts.length + grips);
+      // One command per press, two per grip — a hand goes down and comes up
+      // again — and a run of them per drag, because a carry travels rather
+      // than arriving (`scene-script.ts`). So the count is at least one each.
+      expect(script.commands.length).toBeGreaterThanOrEqual(SCENES[id].acts.length);
       for (const act of SCENES[id].acts) {
-        const seat = act.grip ?? control(act.control!).player;
+        const seat = act.grip ?? (act.drag ? 1 : control(act.control!).player);
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,
