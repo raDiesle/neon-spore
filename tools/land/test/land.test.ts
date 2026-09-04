@@ -1,5 +1,13 @@
 import { expect, describe as group, test } from "bun:test";
-import { describe, type LandState, plan, uncommittedOf } from "../land.js";
+import {
+  type Cleanup,
+  describe,
+  type LandState,
+  plan,
+  pushNow,
+  SWEPT_NOTHING,
+  uncommittedOf,
+} from "../land.js";
 
 function state(over: Partial<LandState> = {}): LandState {
   return {
@@ -13,6 +21,7 @@ function state(over: Partial<LandState> = {}): LandState {
     trunkStaged: [],
     hasOrigin: true,
     noPush: false,
+    forcePush: false,
     ...over,
   };
 }
@@ -89,24 +98,64 @@ group("plan", () => {
   });
 
   // The four combinations of "is there an origin" and "was --no-push given".
-  test("pushes when origin exists and --no-push was not given", () => {
+  test("may push when origin exists and --no-push was not given", () => {
     const decided = plan(state({ hasOrigin: true, noPush: false }));
-    expect(decided.go && decided.push).toBe(true);
+    expect(decided.go && decided.mayPush).toBe(true);
   });
 
   test("does not push without an origin, even without --no-push", () => {
     const decided = plan(state({ hasOrigin: false, noPush: false }));
-    expect(decided.go && decided.push).toBe(false);
+    expect(decided.go && decided.mayPush).toBe(false);
   });
 
   test("does not push with --no-push, even with an origin", () => {
     const decided = plan(state({ hasOrigin: true, noPush: true }));
-    expect(decided.go && decided.push).toBe(false);
+    expect(decided.go && decided.mayPush).toBe(false);
   });
 
   test("does not push with neither an origin nor permission", () => {
     const decided = plan(state({ hasOrigin: false, noPush: true }));
-    expect(decided.go && decided.push).toBe(false);
+    expect(decided.go && decided.mayPush).toBe(false);
+  });
+});
+
+group("pushNow", () => {
+  const landing = (over: Partial<LandState> = {}) => {
+    const decided = plan(state(over));
+    if (!decided.go) throw new Error("expected a landing");
+    return decided;
+  };
+  const cleared: Cleanup = { trees: 1, branches: 0 };
+
+  test("holds the trunk back when the sweep cleared nothing away", () => {
+    expect(pushNow(landing(), SWEPT_NOTHING)).toBe(false);
+  });
+
+  test("sends it when the sweep removed a worktree", () => {
+    expect(pushNow(landing(), cleared)).toBe(true);
+  });
+
+  test("sends it when the sweep deleted some other lane's branch", () => {
+    expect(pushNow(landing(), { trees: 0, branches: 1 })).toBe(true);
+  });
+
+  test("sends it when --push said so, swept or not", () => {
+    expect(pushNow(landing({ forcePush: true }), SWEPT_NOTHING)).toBe(true);
+  });
+
+  // A clone that only checks out lanes has no worktrees to sweep, so waiting
+  // for one would mean never pushing at all — and there the push is the whole
+  // hand-off.
+  test("sends it when nothing holds the trunk, however quiet the sweep", () => {
+    expect(pushNow(landing({ trunkTree: "" }), SWEPT_NOTHING)).toBe(true);
+  });
+
+  test("--no-push outranks every one of those", () => {
+    expect(pushNow(landing({ noPush: true, forcePush: true, trunkTree: "" }), cleared)).toBe(false);
+  });
+
+  test("no origin outranks them too", () => {
+    expect(pushNow(landing({ hasOrigin: false, forcePush: true }), cleared)).toBe(false);
   });
 });
 
@@ -130,6 +179,18 @@ group("describe", () => {
     const skip = plan(noOrigin);
     if (!skip.go) throw new Error("expected a landing");
     expect(describe(noOrigin, skip).join("\n")).not.toContain("push");
+  });
+
+  test("says the push is conditional unless something makes it certain", () => {
+    const s = state();
+    const decided = plan(s);
+    if (!decided.go) throw new Error("expected a landing");
+    expect(describe(s, decided).join("\n")).toContain("only if the sweep");
+
+    const forced = state({ forcePush: true });
+    const sure = plan(forced);
+    if (!sure.go) throw new Error("expected a landing");
+    expect(describe(forced, sure).join("\n")).not.toContain("only if the sweep");
   });
 });
 

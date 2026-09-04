@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { dueForSweep } from "../sweep.js";
+import { dueForSweep } from "../specs.js";
 
 describe("dueForSweep", () => {
   const DAY = 86_400_000;

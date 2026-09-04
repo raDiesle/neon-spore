@@ -106,14 +106,53 @@ Four conditions, all of them:
 4. One commit per coherent change. Unrelated work that was already lying in the
    tree gets its own commit, or none.
 
-Say what was committed, and **push `main` when it has landed something**. That
-rule used to be the other way round on this machine, on the reasoning that not
-pushing cost nothing because the work was already where the human was. It cost
-something the first day anybody worked at volume: forty-seven commits sat on a
-local `main` that `origin` had never seen, which is exactly the trap the cloud
-section below describes — a session started from a phone clones `origin` and
-is briefed on code that is not there. The saving was never real and the trap
-always was.
+Say what was committed. Pushing is a separate question, and the section below
+answers it.
+
+
+## Pushing the trunk, and how often
+
+`main` has to reach `origin`, and the argument is only about when. Not pushing
+at all was tried on this machine, on the reasoning that it cost nothing because
+the work was already where the human was. It cost something the first day
+anybody worked at volume: forty-seven commits sat on a local `main` that
+`origin` had never seen, which is exactly the trap the cloud section below
+describes — a session started from a phone clones `origin` and is briefed on
+code that is not there.
+
+The fix at the time was to push on every landing, which fixed the trap and
+overshot. Landing is not an event a person schedules any more — `auto-land`
+takes it at the end of any turn that finished something — so a push per landing
+is a push per turn, most of them carrying one commit onto a remote nobody was
+reading yet.
+
+**So the push rides on the sweep instead.** `origin/main` goes when the landing
+actually cleared a lane away: a worktree removed, or a branch deleted that was
+not the one being landed. That is roughly once per lane rather than once per
+turn, and it is the moment the work is finished in the sense that matters — the
+tree it was done in is gone.
+
+The lane's own branch is deliberately not counted. Every landing there has ever
+been deletes it, so counting it would make "after a cleanup" mean "every time",
+which is the frequency the rule exists to get away from.
+
+Two things push anyway:
+
+- **`bun run land --push`**, and **`bun run push`** from anywhere, which is the
+  owner saying so. `push` fetches `origin/main` before counting, because a
+  count against a stale remote-tracking ref reports work as unpushed that
+  somebody already sent — a number wrong in the reassuring direction is worse
+  than no number.
+- **A clone with no worktree on the trunk.** There is nothing there to sweep,
+  so waiting for a cleanup would mean waiting forever, and it is the one place
+  where the push is the entire output: a cloud session's work exists only where
+  `origin` can see it.
+
+`--no-push` still outranks all of it, and so does having no `origin`.
+
+The cost of the new rule is that a local `main` can now run several landings
+ahead of `origin`. Every landing that does not push says so, with the count and
+the command, so the number is never a thing anybody has to go and look up.
 
 
 ## Landing without being asked

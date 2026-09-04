@@ -69,8 +69,13 @@ bun run land
 
 From inside the lane's worktree. It rebases onto `main`, runs `bun run check` on
 the *rebased* tree, fast-forwards, writes the release note from your commit
-subject and first paragraph, deletes the branch, sweeps spent worktrees and
-pushes. Do not do any of that by hand and do not skip a step that looks done.
+subject and first paragraph, deletes the branch and sweeps spent worktrees. Do
+not do any of that by hand and do not skip a step that looks done.
+
+It pushes `origin/main` only when that sweep actually cleared a lane away, so
+most landings leave the trunk local and say how many commits are waiting.
+`bun run push` sends them when they are wanted; `bun run land --push` sends this
+one landing regardless.
 
 Two things it will refuse, and both refusals are right: a dirty tree (a lane
 lands what it committed), and a branch that does not replay onto `main` (resolve

@@ -30,6 +30,7 @@
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "land": "bun run tools/land/run.ts",
+    "push": "bun run tools/land/push.ts",
     "scope": "bun run tools/hooks/scope.ts",
     "versus": "bun run tools/versus/run.ts",
     "frames": "bun run tools/frames/run.ts",

@@ -1,42 +1,22 @@
 /**
  * Everything that happens after the fast-forward and does not touch a ref:
  * the release note, and the sweep of everything a landing leaves spent —
- * the lane's branch, its worktree once it has sat idle, and the delegate
- * specs under `.claude/tmp` that outlived the lane that wrote them.
+ * the lane's branch and its worktree once it has sat idle. The spent delegate
+ * specs under `.claude/tmp` go too, from `specs.ts`.
  *
  * Split out of `run.ts` because that file's job is deciding and moving refs;
  * this file's job is cleanup, and it was most of `run.ts`'s length.
  */
 
-import { readdir, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { partitionMerged } from "./claims.js";
 import { git, gitOrDie } from "./git.js";
 import { idleDays, KEEP_DAYS } from "./idle.js";
-import type { LandState } from "./land.js";
+import { type Cleanup, type LandState, SWEPT_NOTHING } from "./land.js";
 import { type Landed, prepend } from "./notes.js";
 import { orphanWorktrees, removeOrphan } from "./orphans.js";
+import { sweepSpecs } from "./specs.js";
 import { removeWorktree } from "./worktree.js";
-
-/** One file's identity for the purposes of the spent-specs sweep. */
-export interface FileStat {
-  path: string;
-  mtimeMs: number;
-}
-
-/**
- * Which of these files are old enough to sweep — idle, the same rule and the
- * same `KEEP_DAYS` window as a merged worktree, because a spent delegate spec
- * under `.claude/tmp` is the same shape of litter: worth nothing once it is
- * old, and never touched by anything that would reset its mtime.
- *
- * Pure so it can be tested against a handful of `{path, mtimeMs}` entries
- * rather than a real directory.
- */
-export function dueForSweep(entries: readonly FileStat[], now: number, keepDays: number): string[] {
-  const cutoffMs = now - keepDays * 86_400_000;
-  return entries.filter((entry) => entry.mtimeMs < cutoffMs).map((entry) => entry.path);
-}
 
 /** Every worktree by the branch it holds, so a sweep knows what to remove first. */
 async function worktreesByBranch(root: string): Promise<Map<string, string>> {
@@ -89,41 +69,6 @@ export async function writeNotes(state: LandState, landed: Landed[], TRUNK: stri
 }
 
 /**
- * Regular files directly under `.claude/tmp` older than `KEEP_DAYS` — spent
- * delegate specs, the same idle-not-old rule as a merged worktree, since
- * nothing ever touches one again once the delegation that wrote it is done.
- * Prints one line, and only when it actually removed something.
- */
-async function sweepSpecs(root: string): Promise<void> {
-  const dir = join(root, ".claude", "tmp");
-  let names: string[];
-  try {
-    names = await readdir(dir);
-  } catch {
-    return;
-  }
-
-  const entries: { path: string; mtimeMs: number }[] = [];
-  for (const name of names) {
-    const full = join(dir, name);
-    const info = await stat(full).catch(() => null);
-    if (info?.isFile()) entries.push({ path: full, mtimeMs: info.mtimeMs });
-  }
-
-  const due = dueForSweep(entries, Date.now(), KEEP_DAYS);
-  let swept = 0;
-  for (const path of due) {
-    try {
-      await rm(path, { force: true });
-      swept++;
-    } catch {
-      // Left in place; the next landing gets another try.
-    }
-  }
-  if (swept > 0) console.log(`  swept    ${swept} spent specs from .claude/tmp`);
-}
-
-/**
  * Sweeping is part of landing, not tidying afterwards — but the branch and the
  * worktree are two different things and they do not go at the same moment.
  *
@@ -165,9 +110,16 @@ async function sweepSpecs(root: string): Promise<void> {
  * deleting the branch out from under a worktree somebody may still be sitting
  * in buys nothing: `git branch --merged` will offer it again at the next
  * landing, and by then the tree is either gone or in use.
+ *
+ * What it returns is the count of what it took away, because that is what
+ * decides whether the trunk goes to `origin` — see `pushNow`. The lane's own
+ * branch is left out of the count on purpose: it goes on every landing, so it
+ * says nothing about whether this one ended anything.
  */
-export async function sweep(state: LandState, root: string, TRUNK: string): Promise<void> {
-  if (!state.trunkTree) return;
+export async function sweep(state: LandState, root: string, TRUNK: string): Promise<Cleanup> {
+  if (!state.trunkTree) return SWEPT_NOTHING;
+  let trees = 0;
+  let branches = 0;
 
   // Onto the trunk's tip, and off the lane's branch so `git branch -d` does not
   // refuse a ref that is still checked out somewhere.
@@ -208,6 +160,7 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
       }
       try {
         await removeWorktree(state.trunkTree, path);
+        trees++;
         console.log(`  removed  ${path} (${Math.floor(idle)}d idle)`);
       } catch (error) {
         console.log(`  ⚑ ${(error as Error).message}`);
@@ -215,6 +168,7 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
       }
     }
     const gone = await git(["branch", "-d", name], state.trunkTree);
+    if (gone && name !== state.branch) branches++;
     console.log(
       gone
         ? `  swept    ${name}`
@@ -237,6 +191,7 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
     }
     try {
       await removeOrphan(state.trunkTree, orphan);
+      trees++;
       console.log(`  removed  ${orphan.path} (git had forgotten it)`);
     } catch (error) {
       console.log(`  ⚑ ${(error as Error).message}`);
@@ -244,4 +199,5 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
   }
 
   await sweepSpecs(root);
+  return { trees, branches };
 }

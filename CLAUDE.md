@@ -51,9 +51,13 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   **not** be linked or copied from the main tree.
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
   It rebases onto `main`, runs `bun run check` on the result, fast-forwards,
-  writes the release note, deletes the branch, sweeps spent worktrees and pushes
-  `main`. Do not do any of that by hand, and do not skip a step because it looks
-  done.
+  writes the release note, deletes the branch and sweeps spent worktrees. Do not
+  do any of that by hand, and do not skip a step because it looks done.
+- **A landing does not push `origin/main`; a cleanup does.** The trunk goes to
+  `origin` when the sweep cleared a lane away, not on every turn that lands; in
+  between it moves locally and `bun run push` sends it (`land --push` forces one
+  landing). A clone with no worktrees pushes every time — there is nothing there
+  to sweep, and the push is the hand-off.
 - **A finished lane lands itself.** The `Stop` hook `tools/hooks/auto-land.ts`
   runs `bun run land` when a turn ends in a worktree that is clean and ahead of
   `main`, and prints a **LANDED!** badge in the chat. Uncommitted work is
@@ -228,7 +232,8 @@ bun run queue take <n> # the same claim, without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
 bun run check          # typecheck + lint + test, run this before saying "done"
-bun run land           # rebase, check, fast-forward, note it, sweep, push
+bun run land           # rebase, check, fast-forward, note it, sweep
+bun run push           # send main to origin, on purpose rather than on landing
 bun run index          # regenerate the file map in docs/INDEX.md
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip

@@ -33,6 +33,8 @@ export interface LandState {
   hasOrigin: boolean;
   /** `--no-push` was given: land, but leave `origin` alone. */
   noPush: boolean;
+  /** `--push` was given: push this landing whether or not it swept anything. */
+  forcePush: boolean;
 }
 
 export interface Landing {
@@ -45,12 +47,13 @@ export interface Landing {
    */
   moveRef: boolean;
   /**
-   * Push `origin/main` once the trunk has moved. On by default — an
-   * unpushed `main` is invisible to a cloud session, which clones `origin`
-   * and never sees this checkout — and off only when there is no `origin` to
-   * push to, or `--no-push` said so explicitly.
+   * Whether a push is *available* to this landing: there is an `origin` to
+   * push to and `--no-push` did not forbid it. Whether it actually happens is
+   * `pushNow`, which needs something only the sweep can say.
    */
-  push: boolean;
+  mayPush: boolean;
+  /** `--push`: send the trunk whatever the sweep does or does not clear away. */
+  forced: boolean;
   /** Things that are not refusals and are worth saying before the work starts. */
   warn: string[];
 }
@@ -136,9 +139,58 @@ export function plan(state: LandState): Plan {
     go: true,
     rebase: state.behind > 0,
     moveRef: state.trunkTree === "",
-    push: state.hasOrigin && !state.noPush,
+    mayPush: state.hasOrigin && !state.noPush,
+    forced: state.forcePush,
     warn,
   };
+}
+
+/**
+ * What a landing's sweep actually took away.
+ *
+ * The lane's own branch is deliberately not counted. It is deleted by every
+ * landing there has ever been, so counting it would make "push after a
+ * cleanup" mean "push every time", which is the frequency this exists to get
+ * away from.
+ */
+export interface Cleanup {
+  /** Worktrees removed — merged ones past their idle window, and orphans. */
+  trees: number;
+  /** Branches deleted other than the one this landing is standing on. */
+  branches: number;
+}
+
+/** A landing that swept nothing: what `--dry-run` and a refused sweep both produce. */
+export const SWEPT_NOTHING: Cleanup = { trees: 0, branches: 0 };
+
+/** Whether the sweep ended some lane's life, rather than only tidying this one's. */
+export function swept(cleanup: Cleanup): boolean {
+  return cleanup.trees > 0 || cleanup.branches > 0;
+}
+
+/**
+ * Whether this landing pushes `origin/main`.
+ *
+ * The trunk used to go to `origin` on every landing, which on a day of steady
+ * work is a push per turn — most of them carrying a single commit onto a
+ * remote nobody was reading yet. The push is now the *end of a lane's life*
+ * rather than the end of a turn: it rides on the sweep, and goes when the
+ * sweep cleared a worktree away or deleted some other lane's branch. Between
+ * those, `main` moves locally and `bun run push` sends it on demand.
+ *
+ * Two things override that, and both are cases where waiting for a sweep
+ * would mean waiting forever:
+ *
+ * - `--push`, which is the owner saying so.
+ * - `moveRef` — nothing has the trunk checked out, which is the shape of a
+ *   clone that only ever checks out lanes. There are no worktrees there to
+ *   sweep, and the push *is* the hand-off: a cloud session's whole output is
+ *   what `origin` ends up holding.
+ */
+export function pushNow(landing: Landing, cleanup: Cleanup): boolean {
+  if (!landing.mayPush) return false;
+  if (landing.forced || landing.moveRef) return true;
+  return swept(cleanup);
 }
 
 /** The pre-flight, in the order the steps will happen. */
@@ -153,6 +205,12 @@ export function describe(state: LandState, landing: Landing): string[] {
       ? `  land     move ${state.trunk} — no worktree holds it`
       : `  land     fast-forward ${state.trunk} in ${state.trunkTree}`,
   );
-  if (landing.push) lines.push(`  push     origin/${state.trunk}`);
+  if (landing.mayPush) {
+    lines.push(
+      landing.forced || landing.moveRef
+        ? `  push     origin/${state.trunk}`
+        : `  push     origin/${state.trunk} — only if the sweep clears a lane away`,
+    );
+  }
   return [...lines, ...landing.warn.map((w) => `  ⚠ ${w}`)];
 }

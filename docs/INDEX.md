@@ -923,5 +923,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE — the other list on the CONTROLS tab, and the smaller one |
 | `tools/frames/launch.ts` | Getting the *wave's arrival* out of the picture |
 | `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
+| `tools/land/push.ts` | `bun run push` — put the trunk on `origin`, because somebody asked |
+| `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
 
 <!-- index:code:end -->

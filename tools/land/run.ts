@@ -8,24 +8,29 @@
  * trunk, runs `bun run check` on the result, and only then fast-forwards — so
  * a red tree stops at the rebase rather than after the trunk has moved.
  *
- *   bun run land                 rebase, check, fast-forward main, push, sweep
+ *   bun run land                 rebase, check, fast-forward main, note, sweep
  *   bun run land --dry-run       say what it would do and stop
- *   bun run land --no-push       land, but leave origin/main alone
+ *   bun run land --push          send origin/main too, whatever the sweep did
+ *   bun run land --no-push       land, and leave origin/main alone regardless
  *
  * The one thing it will not do is merge. If the fast-forward is not available
  * the landing is refused, because the alternative is a fork in a history that
  * is linear on purpose.
  *
  * **Everything after the fast-forward happens without being asked.** Writing
- * the release note, pushing `origin/main`, deleting the branch, removing the
- * worktree, and sweeping whatever other lanes are already on the trunk — none
- * of that is a command anybody types, because the moment a lane's work is on
- * `main` is the moment all of it becomes true, and a cleanup step somebody has
- * to remember is a cleanup step that leaves twenty-seven directories standing.
+ * the release note, deleting the branch, removing the worktree, and sweeping
+ * whatever other lanes are already on the trunk — none of that is a command
+ * anybody types, because the moment a lane's work is on `main` is the moment
+ * all of it becomes true, and a cleanup step somebody has to remember is a
+ * cleanup step that leaves twenty-seven directories standing.
+ *
+ * **The push is the exception, and rides on the sweep.** `origin/main` goes
+ * when the sweep actually cleared a lane away, not on every landing — see
+ * `pushNow`. `bun run push` sends it in between.
  */
 
 import { git, gitOrDie } from "./git.js";
-import { describe, type LandState, plan, uncommittedOf } from "./land.js";
+import { describe, type LandState, plan, pushNow, uncommittedOf } from "./land.js";
 import { LOG_FORMAT, parseLanded } from "./notes.js";
 import { sweep, writeNotes } from "./sweep.js";
 
@@ -33,6 +38,7 @@ const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const noPush = argv.includes("--no-push");
+const forcePush = argv.includes("--push");
 const TRUNK = "main";
 
 /** What `uncommittedOf` needs, asked of one worktree. */
@@ -70,6 +76,7 @@ const state: LandState = {
     : [],
   hasOrigin: (await git(["remote", "get-url", "origin"], root)) !== "",
   noPush,
+  forcePush,
 };
 
 const decided = plan(state);
@@ -150,17 +157,23 @@ console.log(`✓ ${TRUNK} is at ${await git(["rev-parse", "--short", TRUNK], roo
 for (const commit of landed) console.log(`  ${commit.sha} ${commit.subject}`);
 
 await writeNotes(state, landed, TRUNK);
-await sweep(state, root, TRUNK);
+const cleanup = await sweep(state, root, TRUNK);
 
-if (decided.push) {
+if (pushNow(decided, cleanup)) {
   try {
     await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], state.trunkTree || root);
     console.log(`  pushed   origin/${TRUNK}`);
   } catch {
     const sha = await git(["rev-parse", "--short", TRUNK], state.trunkTree || root);
-    console.log(
-      `✗ ${TRUNK} is at ${sha} locally; origin was not updated — run: git push origin main`,
-    );
+    console.log(`✗ ${TRUNK} is at ${sha} locally; origin was not updated — run: bun run push`);
     process.exit(2);
   }
+} else if (decided.mayPush) {
+  const unpushed = await git(
+    ["rev-list", "--count", `origin/${TRUNK}..${TRUNK}`],
+    state.trunkTree || root,
+  );
+  const behind = Number(unpushed) || 0;
+  const many = behind === 1 ? "commit" : "commits";
+  console.log(`  held     origin/${TRUNK} — ${behind} ${many} unpushed; bun run push sends them`);
 }
