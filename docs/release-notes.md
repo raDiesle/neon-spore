@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 20b996e — The opening pages were painted beside the game rather than on it
+
+On a window wider than a phone the renderer draws into a phone-shaped stage cut out of the middle of the canvas, and hands the canvas back at the window's own origin. The intro painted straight onto that, so its six pages stood against the left edge with the field showing to their right, while SKIP and NEXT went on answering presses one stage offset away — which is why the only clicks that reached a button were the ones over the game.
+
 ## 2026-09-04 · daf82d1 — Queue: tools/frames' browser tests are flaky under a full check
 
 ## 2026-09-04 · ce03a63 — The ship lights the water above it, in its own seat's colour
