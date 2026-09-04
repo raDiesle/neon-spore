@@ -148,3 +148,25 @@ already carries a `Layout` at every call site above `known`, and
 to it already takes one. Then `seatSkin(l.role)` at the top of each and pass it
 through. Nothing about which glyph is drawn moves; `packages/render/test/mirror-frame.test.ts`
 covers the sequence and should stay green.
+
+## `tools/frames`' browser tests fail intermittently under a full `bun run check`
+
+- **Found:** 2026-09-04, claude/air-above-the-ship-seat-tint
+- **Files:** `tools/frames/test/opening.test.ts`, `tools/frames/capture.ts`, `tools/frames/serve.ts`
+
+Twice in five runs of `bun run check` a single test in `tools/frames/test/`
+failed, and once in isolation it passed immediately. The one run that named it
+was "captureFrames past a wave's opening > stands on the guide, and a strip of
+it counts painted frames", failing inside `captureFrames` at `capture.ts:193`.
+Every other test in the repository is a pure function or a stub canvas; these
+are the only ones that start a real preview server and drive a real browser,
+and `bun test` runs files in parallel, so under the full suite they are
+competing for a port and for CPU with two hundred other files.
+
+A green check that is only green four times in five is not a gate. Find the
+race — the likeliest candidates are the timeout `capture.ts` waits for a
+painted frame under, and whether `serve.ts` can be handed a port another test
+file's server has just taken — and make it deterministic. Running the file
+alone repeatedly is the reproduction to beat: it has to fail there before a fix
+means anything, so drive the load up rather than lowering the timeout and
+calling it fixed.
