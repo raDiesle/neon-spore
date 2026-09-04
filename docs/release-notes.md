@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · badd2f2 — Wave 1's guide rehearses the wave, on two screens, in a loop
+
+FIRST STEP's guide now carries a scene: two mini-screens above its words, the same small world drawn twice — once as player 1, once as player 2 — with a red slick falling on the radar that owns it, a ghost thumb walking the cannon into its column, crossing to the other screen and pressing RED, and the shot taking it. About a second and a half, looping. One specimen; the step sequencer, wave 2's scene, the TUTORIALS page and held poses are deliberately not here and are listed in docs/spec/briefings.md §3.2.
+
 ## 2026-09-04 · dc88319 — The CONTROLS page tells a player the ship itself is a control
 
 Player-facing, and the one place either of them can find out: the muzzle swipe exists on no panel at all, so a list of buttons describes it nowhere. One entry beside THE FIELD and A HANDLE, which are on the page for that exact reason.
