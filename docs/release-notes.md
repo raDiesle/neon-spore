@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 8fd8035 — The last page of a film stops on its own last tick
+
+Three fixes to the bar and the film, all found by looking at a frame of it.
+
+## 2026-09-04 · 8579eef — The tutorial's bar is a layer on top, and its buttons are signs
+
+The bar under a guide is no longer a fourth row of the control panel. It is a slab of a different colour, taller, with a lit rim, a shadow it casts up onto the game and slime running out of that rim into its sockets — because it does not belong to the game and had been dressed as though it did. The three buttons carry signs instead of words: arrows grown from curves with a bead of slime hanging off each, and a loop with a bulb on its point. Their outer ring is gone, which was the socket's lip sitting outside their own stroke and reading as a second border. NEXT is much louder once the step has played — a halo that breathes, a thicker rim and a sign that grows with it. The step count beside the dots is gone; the dots said it already. TUTORIAL has moved into the corner plate and joined the line naming the screen, which is now the prominent half of it, and the line that said which of the two screens you were holding is gone.
+
 ## 2026-09-04 · 421b7e5 — A step plays again when asked, and the bar says it is the tutorial
 
 The film under a guide's page used to start itself over every couple of seconds. It does not any more: a page plays once, stands on its last frame, and plays again when REPLAY is pressed — the middle of three buttons on the bar, because a picture restarting on its own beside words somebody is reading is movement the reader never chose. The bar now says TUTORIAL, in a lozenge cut from the same contour as the buttons, and the three of them are the panel's own buttons rather than plates: a wet socket underneath, a film of gloss over the top, a neck of slime feeding each one out of the edge above, and a body that carries its own colour. NEXT keeps its name to the last page. Whose screen the film is showing is a permanent label in the corner instead of a word that faded in and out, so a player who looks up mid-page can still find the answer. The miss and what it costs the hull are one step now rather than two. On the gate, the circles sit well below the wave's name, a press anywhere above the bar fills your own, and where the room knows what the two people are called it uses their names instead of PLAYER ONE and PLAYER TWO.
