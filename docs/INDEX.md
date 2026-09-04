@@ -500,6 +500,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/input-buffer.ts` | the queue every listener in the app writes into, drained a tick at a time |
 | `apps/game/src/ship-hand.ts` | what this device's own hand is doing on the ship, between the event and the frame |
 | `apps/game/src/tally.ts` | how far this device has got, up to the room every few seconds |
+| `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
+| `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
 
 ### apps/server
 

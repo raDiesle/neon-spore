@@ -4,6 +4,7 @@ import type { DemoRow } from "./demo-menu.js";
 import { buildControls } from "./menu-controls.js";
 import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
+import { buildSeats } from "./menu-seats.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
 
 /**
@@ -66,22 +67,6 @@ export interface MenuDom {
   /** The spore breathes only while the menu is up. */
   animate: (on: boolean) => void;
 }
-
-const SEATS: { role: ViewRole; tag: string; name: string; what: string }[] = [
-  {
-    role: "p1",
-    tag: "P1",
-    name: "PILOT",
-    what: "Slides the cannon, opens the maw, triggers the guard.",
-  },
-  { role: "p2", tag: "P2", name: "NAVIGATOR", what: "Slides the shield, fires red and cyan." },
-  {
-    role: "test",
-    tag: "BOTH",
-    name: "ONE SCREEN",
-    what: "Both bands and the test rig, for one person at a desk.",
-  },
-];
 
 export function buildMenu(h: MenuHandlers): MenuDom {
   const root = el("div");
@@ -190,53 +175,5 @@ export function buildMenu(h: MenuHandlers): MenuDom {
       progress.hidden = line === "";
     },
     animate: spore.animate,
-  };
-}
-
-/**
- * The seat, as three cards with the job written on each.
- *
- * It was a row of three buttons labelled P1, P2 and TEST, which is the shortest
- * thing that could be written and says nothing at all to the person holding the
- * phone: the whole point of two devices is that the two of you do different
- * jobs, and the choice is which job. So the card carries the name of the job
- * and the sentence that describes it, and the letters stay only as the tag the
- * rest of the game already uses.
- */
-function buildSeats(onSeat: (role: ViewRole) => void): {
-  seatBlock: HTMLElement;
-  paintSeat: (role: ViewRole) => void;
-  lockSeats: (locked: boolean, why: string) => void;
-} {
-  const block = el("div", "seats");
-  block.append(el("h2", undefined, "SEAT"));
-  const note = el("p", "seat-note");
-  const buttons = SEATS.map((s) => {
-    const button = el("button", "seat-card");
-    button.type = "button";
-    button.append(el("span", "tag", s.tag));
-    button.append(el("span", "name", s.name), el("span", "what", s.what));
-    button.addEventListener("click", () => {
-      if (button.disabled) return;
-      onSeat(s.role);
-    });
-    block.append(button);
-    return { role: s.role, el: button };
-  });
-  block.append(note);
-
-  return {
-    seatBlock: block,
-    paintSeat: (role) => {
-      for (const b of buttons) b.el.classList.toggle("on", b.role === role);
-    },
-    lockSeats: (locked, why) => {
-      for (const b of buttons) {
-        b.el.disabled = locked;
-        b.el.classList.toggle("locked", locked);
-      }
-      note.textContent = why;
-      block.classList.toggle("held", locked);
-    },
   };
 }

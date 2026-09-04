@@ -130,23 +130,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## Split menu.ts and menu-view.ts before the next menu page arrives
-
-- **Found:** 2026-09-04, claude/testing-menu-reorganization-60f985
-- **Taken:** 2026-09-04, claude/queue-split-menu-ts-and-menu-view-ts-before-the-next-m
-- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`
-
-Both are at the ~250 line limit — `menu.ts` at 249 and `menu-view.ts` at 242
-after TESTING and CONTROLS moved — and the menu is the part of `apps/game` that
-has grown every time the game learned to be a front door. The next page added
-pushes one of them over, and the split is then made under pressure.
-
-Two seams are already visible. In `menu-view.ts`, `buildSeats` is a whole
-control with its own three cards and its own lock, and nothing outside the
-returned `MenuDom` touches it — it lifts into `menu-seats.ts` with no change to
-`buildMenu`'s shape. In `menu.ts`, `paintLink` is the only thing that knows
-which entries a link changes; it takes `MenuDom`, the link and the pair's room
-and returns nothing, so it moves into `menu-link.ts` as a pure function of
-those three. Do one or both; `bun run check` proves it, and `apps/game/test`
-already drives the menu's front door and its copy.

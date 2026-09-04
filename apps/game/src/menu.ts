@@ -3,13 +3,12 @@ import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
-import { roomLine } from "./join-words.js";
 import { type EntryActions, menuEntries, testingEntries } from "./menu-entries.js";
+import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { SettingsHooks } from "./menu-settings.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
-import { progressLine, readProgress } from "./progress.js";
 import type { RunState } from "./run-state.js";
 
 /**
@@ -85,7 +84,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    * room the menu draws over a game that keeps running, and a pause that both
    * players share is a thing the wire cannot say yet.
    */
-  const inRoom = (): boolean => link !== null && link.state !== "solo";
+  const inRoom = (): boolean => linkIsRoom(link);
 
   /**
    * LEAVE ROOM's question, once the page it sits on exists. Held here because
@@ -183,40 +182,15 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     });
   }
 
-  /** The three things on this page that a link changes. Cheap, so it is redone. */
+  /**
+   * The page, repainted for whatever the link now says (`menu-link.ts`). The
+   * one thing that stays here is the question LEAVE ROOM is holding: the entry
+   * goes off with the room, and the question has to go with it, because the
+   * row is the entry's sibling rather than its child.
+   */
   const paintLink = (): void => {
-    dom.setEntry("resume", { on: opened, desc: `Back to wave ${b.wave() + 1}.` });
-    dom.setEntry("play", { on: !inRoom() });
-    // How far this device has got: the line under the title, and the entry
-    // that goes back there. Both off for a device that has never played, and
-    // in a room, where the wave is the pair's rather than this device's.
-    const far = readProgress();
-    dom.setProgress(inRoom() ? "" : progressLine(far));
-    dom.setEntry("continue", {
-      on: !inRoom() && far.furthest > 0,
-      desc: `From wave ${far.furthest + 1}, where this device got to.`,
-    });
-    // The way back in, once there is somebody to go back to. Off in a room,
-    // where the pair is already together, and off before the first meeting,
-    // which is what the four-character code is still for.
-    const partner = readPartners()[0] ?? "";
-    dom.setEntry("rejoin", {
-      on: !inRoom() && pairRoom() !== "",
-      desc: `Back into the room you and ${partner} share. No code to read out.`,
-    });
-    dom.setEntry("leave", { on: inRoom() });
-    // The entry itself goes off with the room; its question has to go with it,
-    // because the row is the entry's sibling rather than its child.
+    paintPage({ dom, link, pairRoom: pairRoom(), opened, wave: b.wave() });
     if (!inRoom()) leaveStep?.cancel();
-    dom.setEntry("room", {
-      desc: link ? roomLine(link) : "Open a room, or type in the code you were told.",
-    });
-    dom.lockSeats(
-      inRoom() && (link?.player ?? 0) !== 0,
-      inRoom() && link?.player
-        ? `The room gave you seat ${link.player}. Leave the room to play both halves on this device.`
-        : "One device, both seats, or one seat each once you are in a room.",
-    );
   };
 
   document.body.classList.add("has-menu");

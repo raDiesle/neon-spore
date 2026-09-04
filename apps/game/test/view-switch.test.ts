@@ -12,8 +12,10 @@ import { describe, expect, it } from "bun:test";
  */
 
 const css = await Bun.file(Bun.fileURLToPath(new URL("../src/game.css", import.meta.url))).text();
-const menuView = await Bun.file(
-  Bun.fileURLToPath(new URL("../src/menu-view.ts", import.meta.url)),
+// The three cards live in `menu-seats.ts` — lifted out of `menu-view.ts` when
+// that file reached its length limit, cards, lock and all.
+const menuSeats = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-seats.ts", import.meta.url)),
 ).text();
 
 /** The one `body.player-view { display: none }` block, as a list of selectors. */
@@ -41,7 +43,7 @@ describe("a player's device carries no test rig", () => {
   it("leaves the desk view reachable, so nothing is stranded", () => {
     // The menu's third seat card is what sets the test view now, and hiding
     // the switch would strand that view if it ever went away.
-    expect(menuView).toContain('role: "test"');
-    expect(menuView).toContain("ONE SCREEN");
+    expect(menuSeats).toContain('role: "test"');
+    expect(menuSeats).toContain("ONE SCREEN");
   });
 });
