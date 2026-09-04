@@ -115,7 +115,7 @@ Player 2 holds the cannon; player 1 reads the column. Every row's real cost is
 |---|---|---|---|---|---|
 | `SPLIT` | one hit does not kill it — it becomes two half-size bodies in the two neighbouring columns | Asteroids; the Bloons ceramic | one column becomes two, mid-sentence | yes | `FIELD` — the strongest row here |
 | `RIND` | three hits, and it visibly sheds a layer and gets smaller each time | Bloons ceramic, PvZ bucket-head | "again", twice — and the size is the health bar, so no bar is drawn | yes | **BUILT** — `rind` in the roster, three sizes on a slick or a bulb, and the wave THE RIND |
-| `RECOIL` | a hit throws it back up two rows instead of killing it, once; it vents fire downward as it goes | the PvZ pole vault, inverted | "it is coming again" — a column you had finished is live | yes | `FIELD` |
+| `RECOIL` | a hit throws it back up two rows instead of killing it; it vents fire downward as it goes | the PvZ pole vault, inverted | "it is coming again" — a column you had finished is live | yes | **BUILT** — `recoil` in the roster, three bounces, and the wave THE RECOIL |
 | `DRIFT` | changes column every four beats while it falls | the PvZ balloon zombie | the column has to be *re-said*, which is the first time a call goes stale | no — this is the co-op one | `FIELD` |
 | `FACE` | leans one way, armoured on the side it leans; only a shot from the column it is turned away from lands | the PvZ screen door | player 1 sees the lean, player 2 cannot — a second thing to say beside the column | no | `FIELD` |
 | `CREEP` | half speed, and it will not die until the fast one behind it has passed through | tower-defence tanks and swarmers mixed in one wave | ordering — "leave that one, take the second" | yes | `FIELD` |
@@ -168,6 +168,20 @@ control: one player supplies the fact, the other spends it.
 Source: [Screen Door Zombie](https://plantsvszombies.fandom.com/wiki/Screen_Door_Zombie_(PvZ)).
 
 ![Plants vs Zombies — the pole vaulting zombie, running with a vaulting pole held level](https://static.wikia.nocookie.net/plantsvszombies/images/f/fe/Pole_Vaulting_Zombie1.png/revision/latest?cb=20230830191502)
+
+**`RECOIL` is built** — `packages/sim/src/recoil.ts` — and it took the
+paragraph below almost whole: two rows back up, on a jet of its own fire that
+the renderer draws instead of another particle burst
+(`packages/render/src/recoil-vent.ts`). Two things it took further, both asked
+for by the owner when he commissioned it. The hit does not happen **once**: it
+happens three times, so *again* is a word the pair has to say until they are
+tired of it. And a bounce does not merely move the body — it moves it a lane
+to one side the seeded rng picks, and turns it over to the other colour, so
+the column, the colour and the row of the sentence the pair just agreed all
+expire together on the beat their own shot landed. The cage carries the count
+in the only place the field has room for it: one more rib split per bounce
+spent (`packages/render/src/recoil.ts`), which is `RIND`'s "the size is the
+health bar" argument applied to a body that must not change size.
 
 **`RECOIL`, from the pole vault, turned upside down.** The vaulter spends one
 leap and is ordinary afterwards; ours would spend one *hit*, be thrown two rows
@@ -625,7 +639,7 @@ besides.
 
 | Converted | From | What it does | Judge it against |
 |---|---|---|---|
-| `RECOIL` | the PvZ vault, inverted | knocked back hard, drifts down slowly, then **holds** for over half the cycle | `HEAVE`, which never stops — the hold is the whole difference and it is what reads as *coming on again* |
+| `RECOIL` | the PvZ vault, inverted | knocked back hard, drifts down slowly, then **holds** for over half the cycle | `HEAVE`, which never stops — the hold is the whole difference and it is what reads as *coming on again*. The creature of that name is built now and does **not** carry this: it wears the slick's own-motion or the bulb's, and the knock-back is a real move in the simulation rather than a pose, so the card is still a free offer |
 | `TUMBLE` | the meteor sprite's fire tail, and Sarelgaz's legs | a slow rotation with a tremor at seventeen times its rate riding on it | `TURN`, which is the same rotation with nothing on it. The pair asks whether a second clock is visible at 26 px or is simply noise |
 | `SETTLE` | Missile Command's smart bomb | wanders off its line over four beats, then snaps back onto it in half of one | `LURCH` and `CANT`, which both travel and both stay. This is the only one that returns, and the asymmetry is the tell: eased home reads as loose, snapped home reads as steered |
 | `WIND` | Ikaruga's third-chapter boss | spins faster and faster over twelve beats, then lets go and starts again from nothing | `TURN` and `TUMBLE`, which both hold one speed. A constant rate says machinery or alive; a climbing rate says *about to*, and it is the only way a silhouette can carry a countdown without the eye leaving the field for the radar strip |

@@ -212,6 +212,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "shellBreak":
     case "shellBare":
     case "rindShed":
+    case "recoilBounce":
     case "claspBreak":
     case "lureHit":
     case "lureSeen":

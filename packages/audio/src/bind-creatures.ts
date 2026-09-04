@@ -27,6 +27,7 @@ export function creatureCue(
         | "shellBreak"
         | "shellBare"
         | "rindShed"
+        | "recoilBounce"
         | "claspBreak"
         | "lureHit"
         | "lureSeen"
@@ -74,6 +75,24 @@ export function creatureCue(
       // both times.
       return {
         id: "impact.split",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "recoilBounce":
+      // The cue that was written for exactly this and never spent: a short
+      // click and a bolt leaving sideways. Deliberately not `impact.split`,
+      // which THE SHELL and THE RIND both use — that is the sound of a piece
+      // *leaving* a body, and nothing comes off a recoil; the whole body goes,
+      // in a direction, which is the one thing this cue says and no other one
+      // in the catalogue does.
+      //
+      // Placed where it was struck rather than where it landed, and pitched
+      // off the same row. The pair are looking at the tile the shot arrived
+      // in, and a cue that jumped ahead to the arrival would name the new lane
+      // before the eye has found it — which is the sentence they have to say
+      // to each other, taken out of their mouths.
+      return {
+        id: "impact.bounce",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

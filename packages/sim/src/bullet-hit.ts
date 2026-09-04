@@ -8,6 +8,7 @@ import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { costHull } from "./hull.js";
 import { lidStruck } from "./lid.js";
+import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
@@ -76,6 +77,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // The matching colour, like a slick — but the first shots land on a layer
   // rather than on the body, which is the whole creature (`rind.ts`).
   if (hit.kind === "rind") return rindStruck(world, b, hit);
+  // The matching colour, like a slick — and it throws the body two rows back
+  // up the field, a lane to one side, in the other colour. Everything the pair
+  // had agreed about this arrival expires on the beat their own shot landed,
+  // which is the whole creature (`recoil.ts`).
+  if (hit.kind === "recoil") return recoilStruck(world, b, hit);
   if (hit.kind === "lid") {
     // Plates that only part while a hand is on the cord, and the lens behind
     // them. All three answers a shot can get are one rule, in `lid.ts` for

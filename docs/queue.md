@@ -89,6 +89,32 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## The director's import-cycle test reads a type-only import as a runtime one
+
+- **Found:** 2026-09-04, claude/recoil-enemy-bouncing-ba8863
+- **Files:** `tools/director/test/import-cycles.test.ts`
+
+`runtimeEdges` matches every import in a file with one regex whose body is
+`[\s\S]*?`, which runs across newlines, so a value import that names a package
+rather than a relative path — `import { CREATURES } from "@neon-spore/content";`
+— starts a match that only ends at the *next* relative `from "…"` in the file.
+When that next one is `import type { … } from "./x.js"` the type import is
+recorded as a runtime edge, and the negative lookahead never sees it because it
+was checked against the earlier line's `import`.
+
+It cost a real workaround. `tools/director/src/brush-cards.ts` was split out of
+`brushes.ts` and needed `Brush` for one type annotation; the type-only import
+was reported as `brushes.ts -> brush-cards.ts -> brushes.ts` and the annotation
+had to be narrowed to `CreatureKind` to get past it. The narrowing turned out to
+be an improvement, which is luck rather than a defence of the regex.
+
+Anchor each match to a single line — split the source on newlines and test each
+line (and each continued import block) on its own, or parse with the same
+`stripNonCode` helper `packages/sim/test/source-scan.ts` already exports. Then
+add a fixture proving that a file whose first import is a package import and
+whose last is `import type … from "./sibling.js"` reports no edge, which is the
+exact shape that fooled it.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

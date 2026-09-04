@@ -58,6 +58,12 @@ const LIVING_LOOK = {
   // would be a second shape for a body the pair already has one word for —
   // and the word plus a size is the whole sentence this creature asks for.
   rind: null,
+  // THE RECOIL is the seventh, and the only one of them whose answer changes
+  // while it falls: it is a slick or a bulb with a cage over it, and a bounce
+  // turns the body inside over to the other colour — so `wornKind` returns a
+  // different row of this table on the next frame, which is the creature. A
+  // contour of its own would freeze the one thing about it that moves.
+  recoil: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

@@ -88,6 +88,7 @@ export {
 } from "./lance.js";
 export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
 export { mawOpen, podKindOf } from "./pods.js";
+export { recoilBouncesLeft, recoilRow } from "./recoil.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";

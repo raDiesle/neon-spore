@@ -4,6 +4,7 @@ import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
+import { RecoilVentFx } from "./recoil-vent.js";
 import { RindShedFx } from "./rind-shed.js";
 import { VeilTearFx } from "./veil-tear.js";
 
@@ -45,6 +46,7 @@ export class BodyTransients {
   private veilTear = new VeilTearFx();
   private ghostRelease = new GhostReleaseFx();
   private rindShed = new RindShedFx();
+  private recoilVent = new RecoilVentFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -61,6 +63,9 @@ export class BodyTransients {
     this.veilTear.ingest(events, l);
     this.ghostRelease.ingest(events, l);
     this.rindShed.ingest(events, time);
+    // Sized off the tile the shot arrived in rather than off the body, which
+    // the bounce has already moved two rows out of it (`recoil-vent.ts`).
+    this.recoilVent.ingest(events, l, cfg);
   }
 
   update(dt: number): void {
@@ -70,6 +75,7 @@ export class BodyTransients {
     this.veilTear.update(dt);
     this.ghostRelease.update(dt);
     this.rindShed.update(dt);
+    this.recoilVent.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -84,7 +90,7 @@ export class BodyTransients {
     this.ghostRelease.draw(ctx);
   }
 
-  /** The three that are drawn around a body the world still has. */
+  /** The four that are drawn around a body the world still has. */
   drawOnBodies(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
     // The strike first, the shell coming apart over it: the bolt arrives and
     // then the thing it hit fails, which is the order the pair caused.
@@ -93,6 +99,9 @@ export class BodyTransients {
     // And a rind's skin, thrown off a body that is one size smaller than it
     // was a frame ago and still coming.
     this.rindShed.draw(ctx, l, world, beatPhase);
+    // And the jet a recoil vented downward out of the tile it was struck in,
+    // with a wake of embers reaching up to wherever the body is now.
+    this.recoilVent.draw(ctx, l, world, beatPhase);
   }
 
   /**
@@ -108,5 +117,6 @@ export class BodyTransients {
     this.veilTear.clear();
     this.ghostRelease.clear();
     this.rindShed.clear();
+    this.recoilVent.clear();
   }
 }

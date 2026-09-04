@@ -85,6 +85,14 @@ export const MECHANICS = {
     // trigger answers it, so neither can be worked out from the other.
     waveNames: true,
   },
+  recoil: {
+    what: "A slick or a bulb in a sprung cage. The matching colour does not kill it: it throws the body two rows back up the field and a lane to one side neither of you can predict, and turns it over to the other colour on the way. Three times, with the cage visibly more broken each time, and only the fourth shot finishes it.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // rind: the silhouette is a slick's or a bulb's, and the colour is which
+    // trigger answers it *first* — every bounce turns it over from there.
+    waveNames: true,
+  },
   gyre: {
     what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
     reach: "spawn",

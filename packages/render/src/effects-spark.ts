@@ -105,6 +105,18 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "rindShed":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
 
+    // A recoil bouncing, and the one hit in this table whose burst is **not**
+    // a body's colour. Nothing living broke — the cage held and vented — so
+    // the particles are the fire's, which is also what the jet under them is
+    // drawn in (`recoil-vent.ts`). A red or cyan burst here would be the one
+    // misleading thing this file could draw: the colour on the event is the
+    // one the body has *become*, and a shower of it at the moment of the hit
+    // would read as the shot having matched what is standing there now.
+    // Thrown at the tile it was struck in and not the one it landed in, for
+    // the jet's reason: that is where the pair were looking.
+    case "recoilBounce":
+      return at(l, e.col, e.row, 10, PALETTE.ember);
+
     // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
     // because the shot did not bounce off anything — it went in and the
     // weather shut over it (`impact.absorb` is the ear's half of the same

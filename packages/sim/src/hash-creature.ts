@@ -145,5 +145,16 @@ export function creatureHashParts(c: Creature): number[] {
   // devices that disagree about the anchor draw the handle in two places.
   out.push(c.lidAnchorMilli ?? -1);
   out.push(c.lidAnchorYMilli ?? -1);
+  // How many bounces THE RECOIL has left. It decides whether the next matching
+  // shot throws the body two rows back up and a lane sideways or takes it off
+  // the field, so two devices that disagree about it disagree about where the
+  // body is a tick later and about whether the column is closed — the loudest
+  // kind of desync there is. The colour the bounce turns over and the lane it
+  // lands in need no fields of their own: they are `c.color` and `c.col` far
+  // above, and `rng.state` in `hash.ts` is what makes both devices roll the
+  // same side. `-1` for a kind that never bounces, which is a value no count
+  // can take, so "not a recoil" and "out of bounces" are never the same number
+  // in the fingerprint.
+  out.push(c.recoilBounces ?? -1);
   return out;
 }

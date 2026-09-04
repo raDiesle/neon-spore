@@ -114,6 +114,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // `rindLayers` (`livingBodyMul`), which is the one thing that cannot go
     // stale across a restart.
     case "rindShed":
+    // A recoil bouncing: the burst is thrown by `burstFor` above and the jet
+    // it vented is `recoil-vent.ts`, ingested with the rest of
+    // `effects-body.ts` before this loop starts. How broken the cage is drawn
+    // is not remembered anywhere — it is read every frame straight off
+    // `recoilBounces` (`recoil.ts`), which is the one thing that cannot go
+    // stale across a restart.
+    case "recoilBounce":
     // Nothing here remembers anything past this frame: `burstFor`'s table
     // already said what a burst it is or is not, and none of these change
     // what `Effects` carries into the next one.

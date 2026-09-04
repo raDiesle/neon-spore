@@ -79,6 +79,7 @@ describe("which kinds a wave may name", () => {
       "ghost",
       "echo",
       "rind",
+      "recoil",
       "gyre",
       "lid",
     ];

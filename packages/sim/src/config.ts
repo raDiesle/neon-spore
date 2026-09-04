@@ -6,6 +6,7 @@ import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
@@ -17,6 +18,7 @@ export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
@@ -33,6 +35,7 @@ export interface SimConfig
     GyreConfig,
     PairConfig,
     PinballConfig,
+    RecoilConfig,
     ShotConfig,
     SnakeConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
@@ -190,6 +193,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...GAUGE_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...GYRE_DEFAULTS,
+  ...RECOIL_DEFAULTS,
   ...PINBALL_DEFAULTS,
   ...SHOT_DEFAULTS,
   ...SNAKE_DEFAULTS,

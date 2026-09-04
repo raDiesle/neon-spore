@@ -112,12 +112,15 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the eight", () => {
+  test("is exactly the nine", () => {
     // The lure's disguise, the shell's core, the clasp's prisoner, the dart's
-    // colour, the ghost's, the echo's, the rind's and the lid's lens — eight
-    // bodies whose colour is a fact about one arrival rather than the kind.
+    // colour, the ghost's, the echo's, the rind's, the lid's lens and the
+    // recoil's first body — nine bodies whose colour is a fact about one
+    // arrival rather than about the kind. The recoil's is the shortest-lived
+    // of them: an author writes which trigger answers it *first*, and every
+    // bounce turns it over from there (`recoilStruck`).
     expect(new Set(bodied)).toEqual(
-      new Set(["lure", "shell", "clasp", "dart", "ghost", "echo", "rind", "lid"]),
+      new Set(["lure", "shell", "clasp", "dart", "ghost", "echo", "rind", "recoil", "lid"]),
     );
   });
 

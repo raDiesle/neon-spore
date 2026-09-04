@@ -182,6 +182,42 @@ export type CreatureEvent =
    */
   | { type: "rindShed"; col: number; row: number; color: Color; left: number; id: number }
   /**
+   * THE RECOIL took a matching shot and did not die: it has been thrown
+   * `recoilRows` back up the field, a lane to one side, and the body inside
+   * has turned over to the other colour.
+   *
+   * **It carries where it was and where it went, and it needs both.** `col`
+   * and `row` are the tile the shot arrived in — that is where the jet vents
+   * downward out of, and it is where the burst belongs, because that is where
+   * the pair were looking. `toCol` and `toRow` are where the body now is, and
+   * they are on the event rather than left to be read off the creature so that
+   * the ear and the eye can describe the *move* rather than only its end: a
+   * cue placed at the arrival would say nothing about the lane that just
+   * emptied.
+   *
+   * `color` is what it is **now**, on `veilMorph`'s terms and for its reason:
+   * the whole content of this event for player 2 is that the trigger they were
+   * holding has just expired and which one replaces it.
+   *
+   * `left` is how many bounces it still has, which is the number the pair is
+   * counting down — at zero the next matching shot is an ordinary kill. And
+   * `id` is the body, for `rindShed`'s reason: it is **still falling**, so the
+   * picture of the cage buckling has to be redrawn around wherever it is this
+   * frame rather than frozen on the tile the shot met it on
+   * (`render/recoil-vent.ts`). A column and a row name a place; only an id
+   * names the thing that moved.
+   */
+  | {
+      type: "recoilBounce";
+      id: number;
+      col: number;
+      row: number;
+      toCol: number;
+      toRow: number;
+      color: Color;
+      left: number;
+    }
+  /**
    * THE GYRE's wheel failing, a beat after the last body left its rim
    * (`breakSpentGyres`). The hub's own tile and not the kill's: what breaks is
    * the armature, and the sixth `destroy` threw its particles two columns away

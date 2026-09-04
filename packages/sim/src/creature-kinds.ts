@@ -130,7 +130,17 @@ export type CreatureKind =
    * tension does a shot of the lens's own colour land. `Creature.lidPullMilli`
    * is the whole of its state, and `lid.ts` is the whole of what it means.
    */
-  | "lid";
+  | "lid"
+  /**
+   * A slick or a bulb inside a sprung cage, and the first body a landed shot
+   * sends the **wrong way**. The matching colour does not kill it: it throws
+   * it `recoilRows` back up the field and a column to one side the seeded rng
+   * picks, and the body inside turns over to the other colour on the way — so
+   * the column, the colour and the row the pair had all agreed on expire in
+   * one instant. `Creature.recoilBounces` is the whole of its state, and it is
+   * also the damage the cage wears. See `recoil.ts`.
+   */
+  | "recoil";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -168,6 +178,7 @@ export const CREATURE_KINDS = [
   "gyre",
   "mount",
   "lid",
+  "recoil",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

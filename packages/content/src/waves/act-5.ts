@@ -50,6 +50,30 @@ import type { Wave } from "../wave-types.js";
  * 3. Beats 24–26, the same pairing tightened by two beats, so the second body
  *    is on the field while the first lid is still open. What was a decision at
  *    16 is a sentence with a deadline on it here.
+ *
+ * **THE RECOIL, in three figures**, and the argument is THE RIND's turned
+ * over. A rind costs the pair a *repeat* — the same colour, the same column,
+ * twice more — so a pair who learn it learn patience. A recoil costs them the
+ * sentence itself: the shot that lands is what makes the column wrong, the
+ * colour wrong and the row wrong, all at once and all on the same beat.
+ *
+ * 1. Beat 0, one alone. Nothing else on the field for a dozen beats, so the
+ *    pair can spend the whole descent discovering that their own hit is what
+ *    moved it — and that the cage is one bounce more broken each time, which
+ *    is the only count either of them gets. It still reaches the ship if they
+ *    give up on it, so a slow start costs the hull rather than nothing.
+ * 2. Beats 14–16, the recoil and an ordinary body. This is the wave: the
+ *    bounce puts the cannon in the wrong lane at the moment there is a second
+ *    lane that wants it, so the pair either agree out loud which one they are
+ *    finishing or lose both.
+ * 3. Beats 24–28, two of them in opposite colours with a rock between. Both
+ *    turn over on every hit, so the two calls swap colours independently while
+ *    the shield's column is already spoken for — which is where "say it again"
+ *    stops being an instruction and becomes the only way through.
+ *
+ * A recoil entry names its kind and its colour, the way a rind does: the
+ * colour is which trigger answers it *first*, and every bounce turns it over
+ * from there.
  */
 export const WAVES_ACT_5: Wave[] = [
   {
@@ -84,6 +108,24 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 16, col: 5, color: "cyan" },
       { beat: 24, col: 5, kind: "lid", color: "red" },
       { beat: 26, col: 2, color: "red" },
+    ],
+  },
+  {
+    id: "theRecoil",
+    name: "THE RECOIL",
+    sentence: "The one where your own shot is what makes the call wrong.",
+    guide: {
+      both: "A slick or a bulb in a sprung cage. The matching colour throws it two rows back up the field and a lane to one side instead of killing it, and the body inside turns over to the other colour on the way. Three times, and the cage breaks a little more each one.",
+      p1: "Do not slide off the column when it lands. It bounces a lane left or right and nothing tells you which, so watch where it comes down and get back under it before it starts falling again.",
+      p2: "The colour flips every time one of yours lands. Say the new one out loud before you reload — the trigger you are holding stopped working on your own hit.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "recoil", color: "red" },
+      { beat: 14, col: 1, kind: "recoil", color: "cyan" },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 24, col: 0, kind: "recoil", color: "red" },
+      { beat: 26, col: 3, kind: "meteor", color: null },
+      { beat: 28, col: 6, kind: "recoil", color: "cyan" },
     ],
   },
 ];

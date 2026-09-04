@@ -167,6 +167,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // by the shots it takes. Next door for the same reason as the other five —
   // it is drawn as the body its colour names and `wornKind` resolves it.
   rind: WORN_CREATURES.rind,
+  // THE RECOIL, and the seventh: a slick or a bulb in a cage that throws it
+  // back up the field instead of letting it die. Next door for the same reason
+  // as the other six — it is drawn as the body its *current* colour names, and
+  // `wornKind` resolves it afresh after every bounce.
+  recoil: WORN_CREATURES.recoil,
   gyre: {
     kind: "gyre",
     // The cannon alone, and that is the panel a wave with one on it shows.

@@ -8,7 +8,9 @@
  * `config-gyre.ts` gives about the seven it took with it: a creature with two
  * numbers is a row in this shared list, and a creature with six is a section —
  * and a section is a file. That is also what stopped this one going over its
- * limit the day THE LID arrived.
+ * limit the day THE LID arrived, and `config-recoil.ts` is what stopped it the
+ * day THE RECOIL did: three numbers, but three that have to be argued together
+ * because a count, a distance and a price only make sense against each other.
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-shot.ts` and `config-boss.ts` already give: every call site still

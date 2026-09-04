@@ -29,6 +29,21 @@ export function livingKindForColor(color: Color): CreatureKind {
 }
 
 /**
+ * The other ammunition colour — the one a body that turns over becomes.
+ *
+ * One line, and it is here rather than written out at the two sites that turn
+ * a body over for the reason every other rule in this file is: there are two
+ * of them now. THE VEIL flips on the shared beat (`veilMorph`) and THE RECOIL
+ * flips on the shot that failed to kill it (`recoilStruck`), and both mean the
+ * same thing to the pair — *the colour you were holding has just expired*. A
+ * third body that turns over would be a third hand-written ternary, and the
+ * day `Color` gains a member every one of them is silently wrong.
+ */
+export function otherColor(color: Color): Color {
+  return color === "red" ? "cyan" : "red";
+}
+
+/**
  * The five numbered tiers, in speed order, one tile per beat apart. `torch` is
  * a rock too but is not a tier — see `fallTilesPerBeat`, which is why it is
  * not in this list.

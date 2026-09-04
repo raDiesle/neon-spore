@@ -3,6 +3,7 @@ import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
+import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
@@ -23,7 +24,7 @@ import type { World } from "./world.js";
  * That is also why it grows and the other half does not. Every creature added
  * to the bestiary since THE LURE has wanted a field of its own on the beat it
  * enters, and each is one spread line here (`dartOnSpawn`, `veilOnSpawn`,
- * `ghostOnSpawn`, `echoOnSpawn`, `rindOnSpawn`, `gyreOnSpawn`) — a list, in a
+ * `ghostOnSpawn`, `echoOnSpawn`, `rindOnSpawn`, `recoilOnSpawn`, `gyreOnSpawn`) — a list, in a
  * file that is a list, rather than more lines inside a loop that is a rule.
  */
 
@@ -121,6 +122,10 @@ export function spawnArrivals(world: World): void {
       // A wheel arrives upright and with no age on it, so the first rim it
       // shows is the one `GYRE_RING` starts at and its turn begins at the
       // slowest it will ever go (`gyre.ts`).
+      // How many bounces this arrival still has in it, and absent on every
+      // other kind — so a body a shot simply kills carries no field at all and
+      // every wave written before THE RECOIL is byte-for-byte the same world.
+      ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
       ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,

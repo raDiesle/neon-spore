@@ -80,6 +80,11 @@ const BY_ID: Record<string, Subject> = {
   "signal.bearing": shape("WISP"),
   "impact.split": shape("BULB"),
   "creature.moult": shape("BULB"),
+  // THE RECOIL bouncing. The slick, because a recoil arrives red in the wave
+  // that introduces it — and because the body is the subject rather than the
+  // cage: what the sound says is that the thing standing there went somewhere
+  // else, and the cage has no contour of its own (`recoilBecomes`).
+  "impact.bounce": shape("SLICK"),
 
   "boss.arrive": QUEEN,
   "boss.queenStep": QUEEN,

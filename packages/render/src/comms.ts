@@ -99,6 +99,13 @@ const TALKER = {
   // they can both already see — a siren would be teaching them to look at the
   // strip instead of at the column they are meant to be holding.
   rind: null,
+  // THE RECOIL is the same `null` as THE GYRE's, said about a body instead of
+  // a wheel: both screens draw the cage, the damage on it and the colour
+  // inside, and nothing whatever is withheld. The pair still cannot stop
+  // talking, because what they have to say is a column and a colour that both
+  // went stale on the beat their own shot landed — and a siren here would
+  // teach them to look for something hidden that is not there.
+  recoil: null,
   shell: null,
   clasp: null,
   warden: null,

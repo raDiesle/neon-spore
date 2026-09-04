@@ -16,6 +16,7 @@ import { drawLid } from "./lid.js";
 import { drawLidCords } from "./lid-string.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
+import { drawRecoilCage } from "./recoil.js";
 import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
@@ -152,6 +153,12 @@ export function drawCreatures(
       const open = veilArmourPhase(world, c);
       drawVeilCloud(ctx, l, world.cfg, c, x, y, time, beats, near, open, seen);
     }
+    // And THE RECOIL's cage, on the same terms and for the same reason: it is
+    // a frame around a body rather than a substitute for one, so `wornKind`
+    // has already drawn the slick or the bulb inside it in whichever colour
+    // this bounce left it. Both screens get the whole of it — nothing about a
+    // recoil is split — so there is no gate, only a draw of its own.
+    if (c.kind === "recoil") drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near);
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2

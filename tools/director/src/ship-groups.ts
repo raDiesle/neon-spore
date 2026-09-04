@@ -36,6 +36,7 @@ export type GroupName =
   | "THE GHOST — a body with no column on one screen"
   | "THE ECHO — one body that becomes eight"
   | "THE RIND — one body, three sizes"
+  | "THE RECOIL — a shot that sends it the wrong way"
   | "THE GYRE — six bodies on a turning rim"
   | "THE LID — an armoured eye held open by a hand"
   | "SCORE"
@@ -69,6 +70,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GHOST — a body with no column on one screen",
   "THE ECHO — one body that becomes eight",
   "THE RIND — one body, three sizes",
+  "THE RECOIL — a shot that sends it the wrong way",
   "THE GYRE — six bodies on a turning rim",
   "THE LID — an armoured eye held open by a hand",
   "SCORE",
@@ -199,6 +201,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "the end that dies to an ordinary shot. How big it is *is* how much is " +
     "left, so nothing is drawn over it and no number is shown. What it costs " +
     "the pair is the column they had already finished with. See rind.ts.",
+  "THE RECOIL — a shot that sends it the wrong way":
+    "The one arrival whose own answer undoes the answer. A slick or a bulb " +
+    "in a sprung cage: the matching colour throws it two rows back up the " +
+    "field and a lane to one side the seeded rng picks, and turns the body " +
+    "over to the other colour on the way. Three times, one more rib split " +
+    "each time, and only the fourth shot kills it. See recoil.ts.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",

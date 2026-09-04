@@ -3,6 +3,7 @@ import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import { echoBecomes } from "./echo.js";
 import { gyreBecomes } from "./gyre-rim.js";
+import { recoilBecomes } from "./recoil.js";
 import { rindBecomes } from "./rind.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
@@ -93,6 +94,13 @@ export function wornKind(c: Creature): CreatureKind {
   // the same word plus a count of how many shots are left in it.
   // `rindBecomes` is the one copy of the pairing.
   if (c.kind === "rind") return rindBecomes(c);
+  // A recoil is the slick or the bulb inside its cage, with the cage laid over
+  // the top by render/ — the clasp's arrangement, with the one difference that
+  // this body's colour *changes*: a bounce turns it over (`recoilStruck`), so
+  // `recoilBecomes` is asked afresh every frame and the answer is a slick on
+  // one shot and a bulb on the next. That is the whole creature, and it is why
+  // the pairing is called here rather than resolved once at spawn.
+  if (c.kind === "recoil") return recoilBecomes(c);
   // One of the six on THE GYRE's rim: a slick or a bulb with nothing laid over
   // it at all, the way an echo is, and drawn at full size. It is here rather
   // than given a silhouette of its own because the pair already has a word for

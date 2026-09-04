@@ -186,6 +186,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
+| `packages/sim/src/config-recoil.ts` | you are tuning how long THE RECOIL holds a column — the bounces, the rows one throws it, the price |
+| `packages/sim/src/creature-types.ts` | you are adding a field to a creature, or wondering what a body on the field is made of |
+| `packages/sim/src/recoil.ts` | you are working on THE RECOIL — the bounce, the lane it is rolled into and the colour it turns over to |
 
 ### packages/content
 
@@ -403,6 +406,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal, on two screens, looping — the clock, the framing and the caption |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-screen.ts` | one screen of a guide's rehearsal in its box: the transform, the frame, the dimming and the word above it |
+| `packages/render/src/recoil-vent.ts` | you are drawing what a bounce leaves behind — the downward jet and the ember wake up to the new lane |
+| `packages/render/src/recoil.ts` | you are drawing THE RECOIL's cage, or the damage it wears for every bounce already spent |
 
 ### packages/net
 
@@ -831,5 +836,6 @@ place — the generator keeps whatever is there.
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
+| `tools/director/src/brush-cards.ts` | you are changing what a brush's card in the palette looks like — its stroke, its subjects or its one line |
 
 <!-- index:code:end -->

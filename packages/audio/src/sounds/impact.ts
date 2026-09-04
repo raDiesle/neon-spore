@@ -154,8 +154,8 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.bounce",
     family: "impact",
     blurb: "A shot changing its mind: a short click and a bolt leaving sideways.",
-    status: "spare",
-    use: "The Prism (ideas.md) — a hit that re-launches left or right.",
+    status: "bound",
+    use: "THE RECOIL bounced: a matching shot that throws the body back up the field and a lane sideways instead of killing it.",
     level: 0.36,
     layers: [
       tick(0.5, 0, 6400),

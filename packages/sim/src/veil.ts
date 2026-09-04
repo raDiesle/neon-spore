@@ -1,7 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import { msToTicks, type SimConfig } from "./config.js";
 import { removeCreature } from "./field.js";
-import { livingKindForColor } from "./kinds.js";
+import { livingKindForColor, otherColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
 import type { Bullet, Color, Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
@@ -124,7 +124,7 @@ export function veilOnSpawn(world: World): { color: Color } {
  */
 export function veilMorph(world: World, c: Creature): void {
   if (c.color === null || !veilMorphs(world.cfg, world.beat)) return;
-  c.color = c.color === "red" ? "cyan" : "red";
+  c.color = otherColor(c.color);
   world.events.push({ type: "veilMorph", col: c.col, row: c.row, color: c.color });
 }
 

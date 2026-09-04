@@ -9,14 +9,14 @@ import type { CreatureDef } from "./creatures.js";
  */
 type WornKind = Extract<
   CreatureKind,
-  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "mount"
+  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "recoil" | "mount"
 >;
 
 /**
- * The seven bodies that are drawn as something else: a slick or a bulb with a
- * disguise, plating, a membrane, weather, a size that is not the usual one —
- * smaller for THE ECHO and larger by however much is left for THE RIND — or a
- * wheel under it carrying it round.
+ * The eight bodies that are drawn as something else: a slick or a bulb with a
+ * disguise, plating, a membrane, weather, a sprung cage, a size that is not the
+ * usual one — smaller for THE ECHO and larger by however much is left for THE
+ * RIND — or a wheel under it carrying it round.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
  * 250-line limit, along the seam the game already reads on — these are exactly
@@ -179,6 +179,30 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A slick or a bulb three times the size of one. The matching colour does not kill it — it takes a layer off and the body underneath is a size smaller, twice, and only then does a shot finish it. How much is left is how big it is; there is no other read-out.",
+  },
+  recoil: {
+    kind: "recoil",
+    // The cannon alone, four times over. Nothing about the shield, the beat or
+    // the maw has anything to say to it — what a bounce changes is *which*
+    // column and *which* colour, and both of those are aiming.
+    controls: ["aim"],
+    // No colour of its own, the way a rind has none: a recoil arrives red or
+    // cyan, authored on the wave, and the matching cannon is what bounces it
+    // and then kills it. It is the seventh blank in this table and the one
+    // whose blank does the most work — the colour is not merely a fact about
+    // the arrival, it is a fact about *this instant*, because every bounce
+    // turns it over (`recoilStruck`). A colour here would be the kind claiming
+    // one of the two bodies it spends the whole fall alternating between.
+    color: null,
+    authorsColor: true,
+    // Player 2's strip, like every other aim target. Both players see the
+    // whole thing — the cage, the damage on it and the colour inside — and
+    // that is deliberate: nothing about this creature is withheld, and what
+    // the pair has to do is say the same three things again, faster, on the
+    // beat their own shot landed.
+    radar: "p2",
+    blurb:
+      "A slick or a bulb in a sprung cage. The matching colour does not kill it — it throws it two rows back up the field and a lane to one side you cannot predict, and the body inside turns over to the other colour on the way. Three times, and the cage is more broken each time. Only the fourth shot finishes it.",
   },
   mount: {
     kind: "mount",
