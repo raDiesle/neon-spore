@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 2707db5 — A settings page: sound, motion, buzz, your name and the way out
+
+The one durable place for "things about me". Sound was reachable only by the `M` key, which is not a key a phone has, and the mixer already had a mute — the switch wires to that one and persists, so a player who turned it off last time meant it.
+
 ## 2026-09-04 · 603b973 — The room keeps what the pair got to, and gives up on a run nobody came back to
 
 Two things, one shape. A seat silent past `SEAT_SILENT_MS` is evicted and its partner told, which handles one phone going away — and does nothing at all about *both* of them. The room was left holding a beat zero, no sockets and a run nobody was playing, and the next phone to arrive was handed that stamp and started from tick 0 against a game that ended half an hour ago. A room empty and quiet past a longer window has no run in it, so the arrival gets a fresh beat zero. The window is longer than the eviction one on purpose: this ends a *run*, and ending one because a lift went through a tunnel is worse than waiting. It is a `vars` override, so the test proves it without sitting still for thirty seconds — and the cost is said out loud in `runIsOver`, because that same window is how long a dead pair keeps a third phone out of their room.
