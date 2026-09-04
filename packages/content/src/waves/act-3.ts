@@ -105,6 +105,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "A slick or a bulb in plating a size too big for it, split down the middle: one piece in front of each of its two columns, and its colour showing through the cracks. Any colour chips a piece. Only when both are off does that colour finish it.",
       p1: "Two pieces, two columns. Say which one still has armour and stand under it — the bare half is already the body, and a shot up that column does nothing.",
       p2: "Fire anything at all while a piece is still on. When the last one goes, load the colour you have been able to see the whole way down — and not before.",
+      scene: "theThirdShot",
     },
     entries: [
       { beat: 0, col: 1, kind: "shell", color: "cyan" },
@@ -120,6 +121,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "A slick or a bulb inside a shield of its own. Shots bounce off it — the only thing that opens one is the ward, aimed up the field instead of down at the hull. What is left is an ordinary body in the colour you could see the whole time, and it still has to be shot.",
       p1: "Your strip says where they come in. Trigger while the shield is under one and it comes apart. But the shield is in one column at a time and the rocks want it too — say which you are spending it on.",
       p2: "Put the shield in the column your partner names and hold it. Do not fire until the shield is off: a shot at a shut clasp is wasted. The colour shows through, so you can be loaded before it opens.",
+      scene: "theClasp",
     },
     entries: [
       { beat: 0, col: 3, kind: "clasp", color: "cyan" },

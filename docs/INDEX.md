@@ -241,6 +241,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
 | `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
+| `packages/content/src/scenes/salvage.ts` | SALVAGE's rehearsal: shooting something is only half of getting it |
+| `packages/content/src/scenes/the-clasp.ts` | THE CLASP's rehearsal: the shield opens the enemy instead of stopping it |
+| `packages/content/src/scenes/the-rind.ts` | THE RIND's rehearsal: the shot that lands does not close the column |
+| `packages/content/src/scenes/the-third-shot.ts` | THE THIRD SHOT's rehearsal: the shot that worked twice is the miss |
 
 ### packages/render
 

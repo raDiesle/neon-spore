@@ -5,6 +5,7 @@ import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import { hullBarBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { podCenter } from "./pods.js";
 import { radarBlips } from "./radar-blip.js";
 import { wrapText } from "./wrap-text.js";
 
@@ -162,6 +163,14 @@ function anchorPoint(
       };
     }
     return null;
+  }
+  if (anchor.at === "pod") {
+    // The first one hanging, which is the only one any wave has ever had at
+    // once. `pods.ts` owns where it is drawn and how big it is.
+    const pod = world.pods[0];
+    if (!pod) return null;
+    const at = podCenter(l, pod);
+    return { x: at.x, y: at.y, r: at.r + 6, clear: CLEAR };
   }
   if (anchor.at === "radar") {
     // The soonest blip this screen carries, or the middle of the strip when it

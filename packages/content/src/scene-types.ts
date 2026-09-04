@@ -63,6 +63,9 @@ export type SceneAnchor =
    * the one anchor that follows a body chosen by the world rather than named
    * by the author. */
   | { at: "held" }
+  /** The pod hanging in the field — the subject of SALVAGE, THE PURGE and THE
+   * WARD, and the one thing on the field that is neither a body nor a shot. */
+  | { at: "pod" }
   /**
    * The warning strip along the top edge. It points at the blip when this
    * screen carries one and at the middle of the strip when it does not, which

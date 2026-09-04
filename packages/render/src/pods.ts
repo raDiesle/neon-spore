@@ -21,6 +21,26 @@ import { PALETTE, STROKE } from "./palette.js";
  * a pair has decided to chase it, see `glyph`.
  */
 
+/**
+ * How wide a pod is drawn, as a share of a tile, and where one is on the
+ * screen. Exported because a guide's caption points at a pod (`SALVAGE`'s
+ * film) and a ring placed from a second copy of these two lines would sit
+ * beside the thing it is meant to be round the first time either moves.
+ *
+ * The slow bob is deliberately not in it: it is a tenth of a tile of drift on
+ * a clock the caption does not have, and a ring that breathed with the pod
+ * would be a ring nobody could tell was still.
+ */
+export const POD_TILES = 0.38;
+
+export function podCenter(l: Layout, p: Pod): { x: number; y: number; r: number } {
+  return {
+    x: tileCX(l, p.colMilli / 1000),
+    y: tileCY(l, p.rowMilli / 1000),
+    r: l.tile * POD_TILES,
+  };
+}
+
 export function drawPods(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -28,8 +48,7 @@ export function drawPods(
   time: number,
 ): void {
   for (const p of pods) {
-    const x = tileCX(l, p.colMilli / 1000);
-    const y = tileCY(l, p.rowMilli / 1000);
+    const { x, y } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;
     if (p.loose) drawWreck(ctx, l, x, y, t, p.kind);
@@ -50,7 +69,7 @@ function drawMoored(
   t: number,
   kind: PodKind,
 ): void {
-  const r = l.tile * 0.38;
+  const r = l.tile * POD_TILES;
   const scale = r / Math.max(POD.rx, POD.ry);
   const bob = Math.sin(t * 1.1) * l.tile * 0.07;
   const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
@@ -78,7 +97,7 @@ function drawWreck(
   t: number,
   kind: PodKind,
 ): void {
-  const r = l.tile * 0.38;
+  const r = l.tile * POD_TILES;
   const scale = r / Math.max(POD.rx, POD.ry);
   const flicker = 0.55 + 0.45 * Math.sin(t * 17) * Math.sin(t * 6.3);
   const path = podPath(t * 2);

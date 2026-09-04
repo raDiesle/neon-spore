@@ -1,9 +1,13 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
+import { SALVAGE } from "./scenes/salvage.js";
+import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_LURE } from "./scenes/the-lure.js";
+import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
+import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
@@ -39,7 +43,11 @@ export type SceneId =
   | "theLure"
   | "theThrob"
   | "theDart"
-  | "theVeil";
+  | "theVeil"
+  | "salvage"
+  | "theThirdShot"
+  | "theClasp"
+  | "theRind";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -51,6 +59,10 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theThrob: THE_THROB,
   theDart: THE_DART,
   theVeil: THE_VEIL,
+  salvage: SALVAGE,
+  theThirdShot: THE_THIRD_SHOT,
+  theClasp: THE_CLASP,
+  theRind: THE_RIND,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

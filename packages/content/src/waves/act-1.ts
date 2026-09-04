@@ -159,6 +159,7 @@ export const WAVES_ACT_1: Wave[] = [
       both: "It hangs where it was left. Shooting it loose is only half of getting it — after that it sinks and drifts.",
       p1: "Chase it with the cannon and open the maw as it reaches the hull. It mends the ship.",
       p2: "Free it with a shot of either colour, then say which way it is drifting.",
+      scene: "salvage",
     },
     entries: [
       { beat: 2, col: 1, color: "cyan" },
