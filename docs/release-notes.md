@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · a1433b9 — The tutorial's corner plate is bigger than the words in it
+
+*The content is bigger than the button.* It was: the plate was sized as though a grown contour held the rectangle it is drawn around, sixteen points wider than the longest line with two rows of type filling it from edge to edge — so the end of the screen's name hung over the side of the body and the descenders sat where the curve had already closed.
+
 ## 2026-09-04 · 527213e — The film walk is shorter, because there are twenty-six of them
 
 Every page of every rehearsal is drawn frame by frame at three roles, and the walk was two hundred and sixty frames a page — chosen when there was one film to walk. Twenty-six of them took it past half a minute. A hundred and forty still crosses the shortest page a film may have, which is what the check is for: it catches a value that is a perfectly good number and not a colour.
