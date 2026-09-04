@@ -131,24 +131,3 @@ first keeps it linted; the second admits who owns it. Either way say which in
 the commit, and note the behaviour in `docs/working-with-claude.md` beside the
 worktree advice, because the next person to meet it will search for the message
 rather than the cause.
-
-## `packages/audio/test/player.test.ts` prints four lint warnings on every run
-
-- **Found:** 2026-09-04, claude/queue-notes-overnight
-- **Taken:** 2026-09-04, claude/queue-packages-audio-test-player-test-ts-prints-four-l
-- **Files:** `packages/audio/test/player.test.ts`
-
-Four `lint/complexity/useLiteralKeys` warnings, at lines 87, 107, 119 and 131,
-for `player["pump"]()`. `bun run lint` still exits 0 — they are below the
-`--error-on-warnings` threshold — so nothing is broken, and that is the
-problem: every `bun run lint` output during a session starts with four
-paragraphs of diff for something nobody is going to act on, and a session
-looking for its own error reads past them or greps them out. Warnings nobody
-will act on train people to ignore warnings.
-
-The bracket is presumably reaching a private member from a test. Either make
-`pump` reachable in a way the linter accepts — a documented internal name, or a
-narrow test-only accessor — or suppress the rule on those four lines with a
-`biome-ignore` saying why. What must not happen is the unsafe autofix
-(`player.pump()`), which will not type-check if the member really is private:
-check that before assuming it is a one-line change.

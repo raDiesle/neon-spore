@@ -71,6 +71,24 @@ afterEach(() => {
   for (const p of players.splice(0)) p.stop();
 });
 
+/**
+ * Run the player's own timer by hand.
+ *
+ * `pump` is private and should stay private — it is the player's business how
+ * often it reaches for the next note, and nothing outside should be able to
+ * make it. But it is also the only way to move a piece along without waiting
+ * out a real `setInterval`, which is what makes these tests take milliseconds
+ * instead of seconds.
+ *
+ * The cast is that reach, written once. It was `player["pump"]()` at four call
+ * sites, which is a computed key the linter flags every run — four paragraphs
+ * of warning in front of every `bun run lint` for the rest of the project's
+ * life, about something nobody was ever going to change.
+ */
+function pump(player: MusicPlayer): void {
+  (player as unknown as { pump: () => void }).pump();
+}
+
 describe("the first pump", () => {
   it("schedules what starts inside the lookahead and stops there", () => {
     const fake = fakeEngine();
@@ -84,7 +102,7 @@ describe("the first pump", () => {
     const player = playing(fake.engine);
     player.play(spaced);
     fake.now = 4;
-    player["pump"]();
+    pump(player);
     expect(fake.scheduled.map((s) => s.when)).toEqual([0.08, 4.08]);
   });
 
@@ -104,7 +122,7 @@ describe("looping", () => {
     const player = playing(fake.engine);
     player.play(spaced, { loop: true });
     fake.now = 20;
-    player["pump"]();
+    pump(player);
     const whens = fake.scheduled.map((s) => s.when);
     // The base was 0.08, the loop is eight seconds: the third note is the
     // first of the second time round.
@@ -116,7 +134,7 @@ describe("looping", () => {
     const player = playing(fake.engine);
     player.play({ ...spaced, beats: 0 }, { loop: true });
     fake.now = 20;
-    player["pump"]();
+    pump(player);
     expect(fake.scheduled).toHaveLength(2);
   });
 });
@@ -128,7 +146,7 @@ describe("the end of a piece", () => {
     let ended = 0;
     player.play(spaced, { onEnd: () => ended++ });
     fake.now = 60;
-    player["pump"]();
+    pump(player);
     expect(player.playing).toBeNull();
     expect(ended).toBe(1);
   });
