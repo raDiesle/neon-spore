@@ -110,22 +110,6 @@ side moves is the choice the split has to make, and either one leaves room.
 Then add the getter back and let `settleLaunch` paint until it is false, capped
 and throwing the way `clearOpening` does.
 
-## `briefing.test.ts`'s rehearsal walk runs out of its 30-second budget
-
-- **Found:** 2026-09-04, claude/task-queue-work-nybjkq
-- **Files:** `packages/render/test/briefing.test.ts`
-
-"draws a rehearsal, through every page of it, in every role" takes about 37
-seconds in a cloud session's container and times out at its 30-second budget,
-so `bun run check` is red there through no fault of the tree. It passes on the
-owner's machine, which is why the number has stood.
-
-The budget's own comment says what to do — *raise this rather than thin the
-walk* — because what the walk buys is the one check that catches a value that
-is a perfectly good number and not a colour. Raise it, and raise its narrow-
-screen neighbour with it; a lane that can time the two on both machines should
-pick a number with room in it rather than the next one up.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
