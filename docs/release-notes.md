@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · bcffcd3 — THE MIRROR rehearses itself, and the rest of the bosses are queued by wave
+
+The mirror performs two of the pair's own moves at their own ship and then asks for both of them back. The middle page is the wave: *nothing you press counts while it is still showing* is the instruction every pair breaks first, so the page that says it points at the button they are about to press, during the beats where pressing it does nothing. The verdict at the end of the film is the simulation's own `right` rather than a picture of one.
+
 ## 2026-09-04 · de41e9f — A petal comes off the queen, and the queue item that asked for it was wrong
 
 BULB QUEEN's film has its fourth page: the cannon walks to her weak side on her second cycle and a petal comes off. It is aimed at `col + weakSide` and not at the mark her middle is showing — those are two different columns, and telling them apart is the whole of what the pair does about her.
