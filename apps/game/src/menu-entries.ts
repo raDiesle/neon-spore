@@ -40,6 +40,9 @@ export interface EntryActions {
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
+  /** The six pages that say what this game is, again on purpose. The menu
+   * closes behind them and comes back when they are done (`intro.ts`). */
+  openIntro: () => void;
 }
 
 export function menuEntries(a: EntryActions): MenuEntry[] {
@@ -70,6 +73,12 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
         a.close();
         a.openRoom();
       },
+    },
+    {
+      key: "what",
+      label: "WHAT THIS IS",
+      desc: "Six pages on what the two of you are about to do. Shown once, on the first visit.",
+      run: () => a.openIntro(),
     },
     {
       key: "how",

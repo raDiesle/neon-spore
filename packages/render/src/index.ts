@@ -14,6 +14,7 @@ export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
 export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
 export { signedHash, sinHash } from "./hash.js";
+export { drawIntroPage, type IntroHit, introHit, skipBox } from "./intro-page.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
   type Circle,

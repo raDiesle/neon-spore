@@ -8,26 +8,24 @@ import {
   mazeRound,
   PAIR_ON,
   resetClock,
-  type SimEvent,
   snakeHolds,
-  step,
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
 import { openDemonstration } from "./demo-menu.js";
+import { startFrames } from "./frame.js";
 import { bindGauge } from "./gauge.js";
 import { installTestingHandle } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
-import { startLoop } from "./loop.js";
+import { bindIntro } from "./intro.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
 import { bindSnake } from "./snake.js";
-import { throttledTally } from "./tally.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
@@ -53,6 +51,11 @@ if (!canvas) throw new Error("canvas #stage missing");
 const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true, shotChargeBeats: 0.5 };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
+// The same context the renderer draws through: a second `getContext` on one
+// canvas hands back the one that is already there, so the intro paints over
+// the frame rather than onto a second surface nobody would see.
+const ctx = canvas.getContext("2d");
+if (!ctx) throw new Error("canvas 2d context unavailable");
 const buffer = new InputBuffer();
 // `view` is built below this line; the getter is read on a frame, long after.
 const audio = bindAudio(canvas, () => view.role());
@@ -77,6 +80,23 @@ const jumpToWave = progression.jumpToWave;
  * (`run-state.ts`).
  */
 const run = createRunState();
+
+/**
+ * The six pages that say what this game is, over the top of the frame.
+ *
+ * Bound here rather than in `shell.ts` because it needs the two things only
+ * this file has — the canvas's own context and the frame that has just been
+ * painted — and because a build opened with `?play=1` has no shell at all and
+ * still has to be able to not show it.
+ */
+const intro = bindIntro({
+  sheet: document.getElementById("introTap"),
+  layout,
+  inStage,
+  // The same hold the menu takes: somebody reading page two is not somebody
+  // who wants a wave arriving underneath them (`run-state.ts`).
+  hold: (on) => run.hold("menu", on),
+});
 
 // `hand` is the ring round the swelling this phone's finger has hold of and
 // `pointer` is where a desk's mouse rests: written below, read by the frame.
@@ -160,6 +180,7 @@ const link = bindShell({
   openTuning: () => testPanel.open(),
   openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
   onStart: () => startTogether(),
+  intro,
 });
 
 // The baked burst, behind `?raster=1` — `raster.ts` and `docs/raster.md`.
@@ -175,34 +196,29 @@ function startTogether(): void {
   jumpToWave(0);
 }
 
-/** How far this device has got, up to the room now and then (`tally.ts`). */
-const tellTally = throttledTally((wave, score) => link.tally(wave, score));
-
-// Events are cleared every tick and a frame covers several ticks, so they are
-// collected here rather than read off the world.
-let frameEvents: SimEvent[] = [];
-let lastFrame = performance.now();
-
-const paint = (dt: number): void => {
-  audio.frame(world, frameEvents);
-  haptics.frame(frameEvents);
-  renderer.draw({
-    world,
-    beatPhase: beatPhase(),
-    role: view.role(),
-    // Per device by design, not a value the two phones share — own-motion
-    // (a shimmer, a wobble) is allowed to differ between them because it
-    // touches nothing about the simulation.
-    time: performance.now() / 1000,
-    dt,
-    events: frameEvents,
-    running: run.running(),
-    hand: hand.current,
-    pointer: pointer(),
-    names: link.status().names,
-  });
-  frameEvents = [];
-};
+/**
+ * Every tick and every frame, from here on (`frame.ts`). Everything above this
+ * line is what the app is made of; everything the loop does is one subject and
+ * lives in one file.
+ */
+const frames = startFrames({
+  world,
+  tickHz: cfg.tickHz,
+  buffer,
+  run,
+  renderer,
+  ctx,
+  audio,
+  haptics,
+  intro,
+  role: () => view.role(),
+  beatPhase,
+  hand,
+  pointer,
+  tickKeys,
+  link,
+  progression,
+});
 
 installTestingHandle({
   world,
@@ -210,40 +226,6 @@ installTestingHandle({
   jumpToWave,
   dismissBriefing: brief.dismiss,
   progression,
-  collect: (events) => frameEvents.push(...events),
-  paint,
+  collect: frames.collect,
+  paint: frames.paint,
 });
-
-startLoop(
-  cfg.tickHz,
-  () => {
-    // Paused: drop whatever was pressed rather than letting it pile up for the
-    // moment play resumes. A finished run is not paused — its commands still
-    // go through, otherwise the restart tap would never arrive.
-    if (!run.running() && !world.over) {
-      buffer.drain(world.tick);
-      return;
-    }
-    // Lockstep: a tick may only run once the other device has promised that
-    // nothing more is coming for it. Solo, this is always true.
-    if (!link.mayTick()) return;
-    tickKeys();
-    step(world, link.drain());
-    if (world.events.length) {
-      frameEvents.push(...world.events);
-      progression.handle(world.events);
-    }
-    link.checkpoint();
-  },
-  () => {
-    const now = performance.now();
-    const dt = Math.min(0.05, (now - lastFrame) / 1000);
-    lastFrame = now;
-    link.frame(dt * 1000);
-    tellTally(world.wave, world.score);
-    // The wave's name and sentence stand for a few seconds and pass on their
-    // own — counted here, because nothing in `sim` may read a clock.
-    progression.tickOpening(dt);
-    paint(dt);
-  },
-);

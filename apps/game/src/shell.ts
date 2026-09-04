@@ -5,6 +5,7 @@ import type { SimConfig, World } from "@neon-spore/sim";
 import { type DemoRow, demoRows } from "./demo-menu.js";
 import { bindHoldCard } from "./hold.js";
 import { bindInstall, type Installer } from "./install.js";
+import { type Intro, opensIntro, readIntroSeen } from "./intro.js";
 import { bindJoinScreen, type JoinScreen, roomRequested } from "./join.js";
 import { createLink, type Link } from "./link.js";
 import { bindMainMenu, type MainMenu, opensOnMenu } from "./menu.js";
@@ -47,6 +48,12 @@ export interface ShellParts {
    * the world has been let go, so what it does is only the run itself.
    */
   onStart: (player: PlayerId) => void;
+  /**
+   * The six pages that say what this game is (`intro.ts`). The shell decides
+   * *when*: on a device that has never seen them they are the front door, and
+   * the menu comes up behind them when they are done.
+   */
+  intro: Intro;
 }
 
 /**
@@ -98,6 +105,21 @@ export function bindShell(p: ShellParts): Link {
     back: () => menu?.open(),
   });
 
+  /**
+   * WHAT THIS IS, from the room screen — bound here rather than in `join.ts`
+   * because it is a move *between* screens, which is this file's whole job,
+   * and because that one is at its line limit.
+   *
+   * It is the one place in the app where somebody meets the game without
+   * having passed the menu: they were sent a link and they are looking at a
+   * four-character code. The screen steps aside while the pages are up — it is
+   * opaque, and they are drawn on the canvas underneath it — and comes back.
+   */
+  document.getElementById("joinWhat")?.addEventListener("click", () => {
+    joinScreen?.open(false);
+    p.intro.open(() => joinScreen?.open(true));
+  });
+
   // The home-screen shortcut (`install.ts`), and the room the address named.
   void bindInstall().then((made) => {
     installer = made;
@@ -139,12 +161,19 @@ export function bindShell(p: ShellParts): Link {
         canInstall: () => installer?.available() ?? false,
       },
       openTuning: p.openTuning,
+      openIntro: (back) => p.intro.open(back),
       demos,
       openDemo: p.openDemo,
     });
     // A room link lands on the room screen rather than on the menu behind it,
     // and `invite` has already put that up by the time this runs.
-    if (!roomRequested(location.href)) menu.open();
+    if (roomRequested(location.href)) return link;
+    // The first visit reads the intro and lands on the menu afterwards; every
+    // visit after that lands on the menu, which is where the intro is asked
+    // for again by name (`menu-entries.ts`).
+    const toMenu = (): void => menu?.open();
+    if (opensIntro(readIntroSeen(), true)) p.intro.open(toMenu);
+    else toMenu();
   }
 
   return link;

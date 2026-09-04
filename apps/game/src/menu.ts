@@ -51,6 +51,9 @@ export interface MenuBindings {
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
+  /** Show the six pages that say what this game is, and put the menu back
+   * afterwards. */
+  openIntro: (back: () => void) => void;
   /** What the settings page needs of the rest of the app — see `menu-settings.ts`. */
   settings: SettingsHooks;
   /** One row per mechanic — see `demo-menu.ts`. */
@@ -145,6 +148,13 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
     openTuning: b.openTuning,
     demoCount: b.demos.length,
+    // The menu goes away behind it and comes back when it is done: the intro
+    // is drawn on the canvas, and the menu is markup over the canvas
+    // (`intro.ts`).
+    openIntro: () => {
+      close();
+      b.openIntro(() => open());
+    },
   };
 
   const dom = buildMenu({

@@ -39,6 +39,13 @@
       INSTALL
     </button>
 
+    <!--
+      The sheet that takes a press while the intro is up. It draws nothing —
+      the six pages are painted on the canvas underneath it (`src/intro.ts`
+      says why the presses are up here instead).
+    -->
+    <div id="introTap"></div>
+
     <div id="joinScreen">
       <div class="sheet" id="joinSheet">
         <button type="button" id="joinClose" class="back">← MENU</button>
@@ -99,6 +106,7 @@
           <button type="button" id="joinCreate" class="enter">CREATE ROOM</button>
           <button type="button" id="joinStart" class="roomed start">START</button>
           <button type="button" id="joinShare" class="quiet roomed">SEND LINK</button>
+          <button type="button" id="joinWhat" class="quiet">WHAT THIS IS</button>
           <button type="button" id="joinLeave" class="quiet roomed leave">LEAVE ROOM</button>
         </div>
       </div>

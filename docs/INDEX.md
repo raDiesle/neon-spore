@@ -260,6 +260,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/scenes/shield-then-cannon.ts` | SHIELD, THEN CANNON's rehearsal: the other way to reach everything |
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
+| `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN SIX PAGES |
 
 ### packages/render
 
@@ -467,6 +468,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
+| `packages/render/src/intro-figure.ts` | THE SIX PICTURES ON THE INTRO'S PAGES |
+| `packages/render/src/intro-page.ts` | WHAT THIS GAME IS, ON THE GAME'S OWN SCREEN |
+| `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
+| `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
 
 ### packages/net
 
@@ -567,6 +572,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
 | `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
+| `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
+| `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
 
 ### apps/server
 

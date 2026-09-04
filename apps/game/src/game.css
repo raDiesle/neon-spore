@@ -112,6 +112,37 @@ canvas {
   display: block;
 }
 
+/* The intro's press sheet. It is transparent and draws nothing: the six pages
+   are painted on the canvas below it, and this is only what a thumb lands on.
+   Above the chips so none of them is reachable while it is up — SKIP in the
+   corner is the way out — and below the menu, which replaces it rather than
+   sharing the screen with it. */
+#introTap {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  display: none;
+  touch-action: none;
+}
+#introTap.on {
+  display: block;
+}
+/* Every piece of chrome steps aside while the intro is up. It is the first
+   screen anybody sees, and a pause button, a gear and a keyboard hint over it
+   are three offers to do something else before there is anything to do —
+   SKIP in the corner is the only way out it needs. They are under the sheet
+   and unreachable anyway; this is so they are not *read* either. */
+body[data-intro="on"] #menuChip,
+body[data-intro="on"] #pauseBtn,
+body[data-intro="on"] #gear,
+body[data-intro="on"] #waveSkip,
+body[data-intro="on"] #viewSwitch,
+body[data-intro="on"] #linkChip,
+body[data-intro="on"] #installChip,
+body[data-intro="on"] .key-hint {
+  display: none;
+}
+
 /* The room screen. One sheet, centred, over a scrim — it is the second-most
    looked-at page in the game after the menu, and it used to be a stack of five
    equal buttons with no shape to it. */
