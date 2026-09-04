@@ -112,10 +112,16 @@ export const P2_SKIN: SeatSkin = {
   tint: "#FFAE3D",
   rim: "#FFF1D8",
   lip: ["rgba(250,196,120,0.3)", "rgba(206,140,50,0.07)", "rgba(98,58,20,0.24)"],
-  ground: ["#241000", "#1A0C05", "#0E0603", "#050201"],
-  flesh: ["#F8B65A", "#D9892A", "#A8651C"],
-  dead: ["#42300F", "#2A1D06"],
-  face: "#5A4116",
+  ground: ["#241000", "#180B04", "#0C0502", "#040201"],
+  // **Matched to player one's by value, not by hex.** Gold at the same energy
+  // as violet is a far lighter colour — `#F8B65A` against `#A666F8` is 189
+  // against 126 in luminance — and the first pass of this made player two's
+  // chamber a lit brown field where player one's is a dark violet one. Every
+  // stop below sits within a couple of points of the violet it stands opposite,
+  // so the two seats differ in hue and in nothing else.
+  flesh: ["#C87F22", "#96590F", "#7A4A14"],
+  dead: ["#33250B", "#201705"],
+  face: "#4A3410",
 };
 
 export function seatSkin(role: ViewRole): SeatSkin {

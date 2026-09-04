@@ -141,7 +141,10 @@ export function drawSeamSpill(
   ctx.globalCompositeOperation = "lighter";
   ctx.fillStyle = slotGradient(ctx, SPILL, `${top}|${deep}|${skin.tint}`, () => {
     const g = ctx.createLinearGradient(0, top, 0, deep);
-    g.addColorStop(0, rgba(skin.tint, 0.17));
+    // The tissue's brightest colour rather than the ship's rim: the spill is
+    // additive over the whole top of the panel, and a rim is the one colour on
+    // a seat bright enough to wash it out.
+    g.addColorStop(0, rgba(skin.flesh[0], 0.19));
     g.addColorStop(0.35, rgba(skin.flesh[1], 0.06));
     g.addColorStop(1, rgba(skin.flesh[2], 0));
     return g;
