@@ -13,7 +13,7 @@ import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
-import { type Bullet, type Creature, isMeteorKind } from "./types.js";
+import { type Bullet, type Creature, isWardable } from "./types.js";
 import { veilStruck } from "./veil.js";
 import { wispStruck } from "./wisp.js";
 import type { World } from "./world.js";
@@ -36,9 +36,15 @@ import type { World } from "./world.js";
  * shot has to be fired at one body at a time.
  */
 export function resolve(world: World, b: Bullet, hit: Creature): boolean {
-  if (isMeteorKind(hit.kind)) {
+  if (isWardable(hit.kind)) {
     // A rock cannot be broken, because it does not live. The shot leaves a
     // crater and nothing else — the rule made visible (docs/spec/graphics.md).
+    //
+    // `isWardable` rather than `isMeteorKind`, so THE VOLLEY's shell is here
+    // too: while it is on, the cannon has nothing to say to that body and the
+    // colour burning through the seams is a sentence for later. The instant
+    // the shell bursts the kind is a slick's or a bulb's and this branch stops
+    // catching it (`volley.ts`).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
     return false;

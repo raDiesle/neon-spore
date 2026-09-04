@@ -121,6 +121,15 @@ const TALKER = {
   // to remember rather than a thing to reveal, and a siren cannot help with
   // remembering.
   chute: null,
+  // THE VOLLEY, and it is THE CAROM's `null` said about a ward instead of a
+  // wall: both screens carry the whole body, the shell, the plates still on it
+  // and the colour burning through the seams, and nothing whatever is
+  // withheld. The pair still cannot stop talking, because what they have to
+  // agree is a column three times over and each one expires on the beat their
+  // own ward lands. A siren here would teach them to look for something hidden
+  // that is not there — the strip already says one is coming, on the seat that
+  // holds the trigger and cannot move the shield.
+  volley: null,
   shell: null,
   clasp: null,
   warden: null,

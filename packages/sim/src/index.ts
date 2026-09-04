@@ -150,6 +150,7 @@ export {
   isBossBody,
   isGrippable,
   isMeteorKind,
+  isWardable,
   livingKindForColor,
   METEOR_TIER_KINDS,
   occupiesCol,
@@ -169,6 +170,15 @@ export {
   veilMorphs,
   veilOnSpawn,
 } from "./veil.js";
+export {
+  type VolleyDir,
+  volleyBecomes,
+  volleyClimbLeft,
+  volleyHeading,
+  volleyIsClimbing,
+  volleyPlatesLeft,
+  volleyReturn,
+} from "./volley.js";
 export { roundSpent } from "./wave-end.js";
 export { wispHops, wispOnField, wispRows, wispTileAt } from "./wisp.js";
 export {

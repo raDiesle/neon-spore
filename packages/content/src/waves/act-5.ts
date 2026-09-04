@@ -100,6 +100,33 @@ import type { Wave } from "../wave-types.js";
  * silhouette is the crust's and the colour is the body sealed inside it, which
  * is which cannon opens it.
  */
+/**
+ * **THE VOLLEY, in three figures**, and it is THE CAROM's argument read
+ * backwards. There the shot that finished a body handed it to the shield; here
+ * the ward that answers one hands it straight back, three times, and only then
+ * to the cannon. What has to bite is the reflex every warded thing in the game
+ * has taught so far — *ward it and stop looking at it*. A pair who lift the
+ * thumb after a ward that worked lose the ship to the same body.
+ *
+ * 1. Beat 0, one alone, entered against the left wall so its first diagonal is
+ *    the long one. Nothing else on the field for twenty beats, so the pair can
+ *    spend the whole rally discovering that a ward sends it back rather than
+ *    away, that a plate comes off each time, and that the column they agreed on
+ *    is worthless by the time it comes down. It reaches the ship if they give
+ *    up on it, and it costs what a rock costs.
+ * 2. Beats 20–24, an ordinary bulb under a second volley. This is the wave:
+ *    the cannon is wanted in one lane by a body that dies to one shot while
+ *    the shield is wanted in another by a body that does not die at all, and
+ *    the first volley is bursting open somewhere above both of them.
+ * 3. Beats 40–42, a rock and a third volley. The rock takes exactly one ward
+ *    and the volley takes three, so the pair has to say which of the two the
+ *    shield is going to be under on each beat — and being wrong once about
+ *    that is the only mistake in this wave that cannot be taken back.
+ *
+ * A volley entry names its kind and its colour, the way a carom does: the
+ * silhouette is the shell's and the colour is the body sealed inside it, which
+ * is which cannon finishes it once the shield has run out of things to do.
+ */
 export const WAVES_ACT_5: Wave[] = [
   {
     id: "theGyre",
@@ -171,6 +198,23 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 16, col: 3, color: "cyan" },
       { beat: 24, col: 1, kind: "carom", color: "cyan" },
       { beat: 28, col: 5, kind: "carom", color: "red" },
+    ],
+  },
+  {
+    id: "theVolley",
+    name: "THE VOLLEY",
+    sentence: "The one where a ward that works is not a body that is gone.",
+    guide: {
+      both: "A rock on a diagonal with a body sealed inside it. The shield does not destroy it — a ward hits it back up the field and knocks one plate of shell off on the way, and it comes down again from higher up. Three wards, and the shell bursts open in mid-air over a plain slick or bulb the cannon has to finish.",
+      p1: "Do not lift your thumb off GUARD when it works. That was one of three, and it is already on its way back — then the third one hands it to you, so get under it while it is still falling.",
+      p2: "The lane you called dies the moment the ward lands. Say where it will come down, not where it is, and slide the shield there again — and load the colour you can see through the seams before the last plate goes.",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "volley", color: "red" },
+      { beat: 20, col: 4, color: "cyan" },
+      { beat: 24, col: 6, kind: "volley", color: "cyan" },
+      { beat: 40, col: 2, kind: "meteor", color: null },
+      { beat: 42, col: 5, kind: "volley", color: "red" },
     ],
   },
 ];

@@ -1,7 +1,8 @@
 import { markMoment } from "./balance.js";
 import { hullRow, msToTicks, type SimConfig } from "./config.js";
 import { impactDamage } from "./impact.js";
-import { bodyCenterCol, type Creature, isMeteorKind, occupiesCol, spanOf } from "./types.js";
+import { bodyCenterCol, type Creature, isWardable, occupiesCol, spanOf } from "./types.js";
+import { wardTurns } from "./ward.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -80,32 +81,27 @@ export function resolveHull(world: World): void {
   const guardRow = shieldRow(world.cfg);
 
   for (const c of world.creatures) {
-    // A rock is in reach of the shield a row before it is in reach of the
-    // hull. Nothing else is: the shield has nothing to say to a slick or a
-    // boss, so those are still only resolved on the ship's row. THE WARDEN's
-    // line never arrives here at all — it hangs where the rim puts it and
-    // falls no further (docs/spec/bosses.md 11.4).
-    if (c.row < (isMeteorKind(c.kind) ? guardRow : shipRow)) {
+    // A body the shield answers is in reach of it a row before it is in reach
+    // of the hull. Nothing else is: the shield has nothing to say to a slick
+    // or a boss, so those are still only resolved on the ship's row. THE
+    // WARDEN's line never arrives here at all — it hangs where the rim puts it
+    // and falls no further (docs/spec/bosses.md 11.4). `isWardable` rather
+    // than `isMeteorKind`, so THE VOLLEY is offered the same row: it is a rock
+    // until the pair has warded it three times.
+    if (c.row < (isWardable(c.kind) ? guardRow : shipRow)) {
       survivors.push(c);
       continue;
     }
 
-    if (isMeteorKind(c.kind)) {
+    if (isWardable(c.kind)) {
       const inColumn = occupiesCol(c, world.shieldCol);
       const inTime = guardArmed(world);
 
       if (inColumn && inTime) {
-        world.guard.tries += 1;
-        world.guard.deflected += 1;
-        markMoment(world, true);
-        world.score += world.cfg.scoreDeflect;
-        world.events.push({
-          type: "deflect",
-          col: bodyCenterCol(c, c.col),
-          span: spanOf(c),
-          kind: c.kind,
-          fromRow: c.fromRow,
-        });
+        // Turned. Most bodies leave the field here; a volley is hit back *up*
+        // it and comes down again, which is the one thing about a ward that is
+        // a fact about the creature rather than about the shield (`ward.ts`).
+        if (wardTurns(world, c)) survivors.push(c);
         continue;
       }
       // Nobody turned it at the surface, so it is inside the shield now. That

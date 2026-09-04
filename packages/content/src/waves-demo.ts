@@ -105,6 +105,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   // Watched in that same wave and nowhere else: nothing authors a chute, a
   // carom throws one out.
   chute: { wave: "theCarom" },
+  volley: { wave: "theVolley" },
   // The six on the rim are watched in that same wave and can be watched
   // nowhere else: nothing authors a mount, a wheel brings them.
   mount: { wave: "theGyre" },

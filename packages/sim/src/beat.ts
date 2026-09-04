@@ -15,6 +15,7 @@ import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
 import { isBossBody, isMeteorKind } from "./types.js";
 import { veilMorph } from "./veil.js";
+import { stepVolley } from "./volley.js";
 import { noteWaveCleared } from "./wave-end.js";
 import { stepWisp, wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
@@ -132,6 +133,16 @@ export function onBeat(world: World): void {
     // both climbed and fell would go nowhere at all.
     if (c.kind === "chute") {
       stepChute(world, c);
+      continue;
+    }
+    // A volley does not fall either: it comes in on a diagonal, and a ward
+    // sends it back up the same one for `volleyRiseBeats` before it turns over
+    // and comes down again — `stepVolley` is the whole of both directions,
+    // clamp included. In place of the line below for the dart's reason, with
+    // the sharpest version of it in the game: a body that both climbed and
+    // fell would end a ward exactly where it started one.
+    if (c.kind === "volley") {
+      stepVolley(world, c);
       continue;
     }
     // A wisp does not fall either, and it does not cross the ground between

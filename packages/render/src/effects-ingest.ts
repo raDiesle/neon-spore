@@ -88,6 +88,14 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       ctx.sparks.implode(tileCX(ctx.l, e.col), ctx.l.hullY, 22, PALETTE.pod, ctx.l.tile * 1.9);
       ctx.swallow.start(e.kind);
       break;
+    case "volleyReturn":
+      // The banner a ward earns, and the only half of a `deflect` a volley
+      // takes: the pair put the shield in the column and the trigger on the
+      // beat, so the ship says so. The tumbling rock `ingestDeflect` throws is
+      // deliberately not — the body is still standing there, climbing, and
+      // would be drawn twice (`sim/ward.ts`).
+      ctx.setGuardHit(BANNER_LIFE);
+      break;
     case "deflect":
       ingestDeflect(e, ctx.l, ctx.time, ctx.beatSeconds, {
         burst: ctx.burst,
@@ -134,6 +142,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // restart.
     case "caromEject":
     case "chuteOpen":
+    // The shell bursting off a volley. `burstFor` above has already thrown the
+    // rock it was made of, and nothing here is remembered past this frame: how
+    // many plates are drawn is read every frame straight off `volleyPlates`
+    // (`volley.ts`), and once the body is loose it is drawn by the same
+    // `drawLiving` every other body is — which is the one thing that cannot go
+    // stale across a restart.
+    case "volleyHatch":
     // Nothing here remembers anything past this frame: `burstFor`'s table
     // already said what a burst it is or is not, and none of these change
     // what `Effects` carries into the next one.

@@ -162,7 +162,18 @@ export type CreatureKind =
    * kills it exactly the way it kills a slick. `Creature.chuteOpen` is the
    * whole of its state and `chute.ts` the whole of what it means.
    */
-  | "chute";
+  | "chute"
+  /**
+   * A rock on a diagonal with a slick or a bulb sealed in it, and the first
+   * arrival the shield does **not** finish. A ward hits it back up the field
+   * instead of off it, taking one plate of shell with it; it falls again from
+   * higher up in a column nobody agreed on, and at the top of the climb after
+   * the last plate the shell bursts in mid-air and the body inside comes out
+   * as an ordinary slick or bulb for the cannon. `volley.ts` holds the whole
+   * of it, and `Creature.volleyDir`, `volleyPlates` and `volleyRise` are the
+   * whole of its state.
+   */
+  | "volley";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -203,6 +214,7 @@ export const CREATURE_KINDS = [
   "recoil",
   "carom",
   "chute",
+  "volley",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

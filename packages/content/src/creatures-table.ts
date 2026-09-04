@@ -1,5 +1,6 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
+import { BARE_CREATURES } from "./creatures-bare.js";
 import { ROCK_CREATURES } from "./creatures-rocks.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
@@ -162,11 +163,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // THE ECHO, and the fifth worn body: a small slick or bulb that divides.
   // Next door with the other four for the reason they are all there — it is
   // drawn as the body its colour names and `wornKind` is what resolves it.
-  echo: WORN_CREATURES.echo,
+  echo: BARE_CREATURES.echo,
   // THE RIND, and the sixth: an outsized slick or bulb that is cut back to one
   // by the shots it takes. Next door for the same reason as the other five —
   // it is drawn as the body its colour names and `wornKind` resolves it.
-  rind: WORN_CREATURES.rind,
+  rind: BARE_CREATURES.rind,
   // THE RECOIL, and the seventh: a slick or a bulb in a cage that throws it
   // back up the field instead of letting it die. Next door for the same reason
   // as the other six — it is drawn as the body its *current* colour names, and
@@ -221,7 +222,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // The six on that rim, and the sixth worn body — an ordinary slick or bulb
   // with a wheel under it. Next door with the other five for their reason: it
   // is drawn as the body its colour names, and `wornKind` resolves it.
-  mount: WORN_CREATURES.mount,
+  mount: BARE_CREATURES.mount,
   // THE CAROM, and the eighth worn body: a slick or a bulb inside a rock crust
   // that crosses the field instead of falling. Next door for the same reason
   // as the other seven — it is drawn as the body its colour names, and
@@ -232,4 +233,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // a cracked carom, under a canopy. Next door with the rest for their reason
   // — it is drawn as the body its colour names, and `wornKind` resolves it.
   chute: WORN_CREATURES.chute,
+  // THE VOLLEY, and the ninth worn body: a slick or a bulb inside a shell the
+  // shield knocks off it a plate at a time. Next door for the same reason as
+  // the other eight — it is drawn as the body its colour names, and `wornKind`
+  // resolves it right up until the shell bursts, after which there is nothing
+  // left to resolve.
+  volley: WORN_CREATURES.volley,
 };

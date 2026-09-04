@@ -76,6 +76,13 @@ const LIVING_LOOK = {
   // for a body the pair already has a word for — and the word is the whole
   // point, because this *is* the body they were looking at inside the rock.
   chute: null,
+  // THE VOLLEY is the tenth, and the carom's row with the sign turned over: it
+  // is a slick or a bulb with a rock shell over it, and the *ward* that opens
+  // the shell is what turns the whole body into an ordinary one — which has a
+  // row of its own further up and a contour of its own to go with it. So this
+  // row describes the creature only while it is a creature, and a contour here
+  // would be a second shape for a body the pair already has one word for.
+  volley: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

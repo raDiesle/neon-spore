@@ -112,15 +112,18 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the ten", () => {
+  test("is exactly the eleven", () => {
     // The lure's disguise, the shell's core, the clasp's prisoner, the dart's
     // colour, the ghost's, the echo's, the rind's, the lid's lens, the
-    // recoil's first body and the carom's prisoner — ten bodies whose colour
-    // is a fact about one arrival rather than about the kind. The recoil's is
-    // the shortest-lived of them: an author writes which trigger answers it
-    // *first*, and every bounce turns it over from there (`recoilStruck`).
-    // The carom's is the opposite — it never changes and then stops existing,
-    // because what the shot leaves behind is a rock with no colour at all.
+    // recoil's first body, the carom's prisoner and the volley's — eleven
+    // bodies whose colour is a fact about one arrival rather than about the
+    // kind. The recoil's is the shortest-lived of them: an author writes which
+    // trigger answers it *first*, and every bounce turns it over from there
+    // (`recoilStruck`). The carom's is the opposite — it never changes and
+    // then stops existing, because what the shot leaves behind is a rock with
+    // no colour at all. The volley's is that one read backwards: it never
+    // changes either, and it stops being sealed in rock instead of becoming
+    // it (`hatchVolley`).
     expect(new Set(bodied)).toEqual(
       new Set([
         "lure",
@@ -133,6 +136,7 @@ describe("the kinds whose colour a wave authors", () => {
         "recoil",
         "lid",
         "carom",
+        "volley",
       ]),
     );
   });

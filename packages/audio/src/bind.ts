@@ -14,6 +14,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { caromCue } from "./bind-carom.js";
 import { creatureCue } from "./bind-creatures.js";
+import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
   id: string;
@@ -204,12 +205,14 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "boss.fleetSunk", pan: panForCol(e.col, cols) };
     case "fleetDown":
       return { id: "boss.fleetDown", pan: panForCol(e.col, cols) };
-    // Everything one body did — armour chipping, a covering coming off, a
-    // disguise going, a cloud shutting or opening. `bind-creatures.ts` next
-    // door, listed case by case rather than reached through a `default`: a
-    // default would have taken the exhaustiveness of this switch with it, and
-    // the exhaustiveness is what makes a new event a compile error here
-    // instead of a silence nobody hears.
+    // What a covering did — armour chipping, a membrane coming off, a cage
+    // buckling, a crust cracking, a body turning at a wall — and, below it,
+    // what a body one of them cannot see did: a disguise going, a cloud
+    // shutting or opening, a tile expiring. `bind-armour.ts` and
+    // `bind-creatures.ts` next door, listed case by case rather than reached
+    // through a `default`: a default would have taken the exhaustiveness of
+    // this switch with it, and the exhaustiveness is what makes a new event a
+    // compile error here instead of a silence nobody hears.
     case "shellBreak":
     case "shellBare":
     case "rindShed":
@@ -236,5 +239,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "caromEject":
     case "chuteOpen":
       return caromCue(e, cols, rows);
+    // THE VOLLEY's two, on exactly the same terms and in `bind-volley.ts`.
+    case "volleyReturn":
+    case "volleyHatch":
+      return volleyCue(e, cols, rows);
   }
 }

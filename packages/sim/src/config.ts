@@ -7,9 +7,11 @@ import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
+import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -20,9 +22,11 @@ export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
+export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
@@ -38,9 +42,11 @@ export interface SimConfig
     GyreConfig,
     PairConfig,
     PinballConfig,
+    PodConfig,
     RecoilConfig,
     ShotConfig,
-    SnakeConfig {
+    SnakeConfig,
+    VolleyConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
   /** Grid height in rows. The hull occupies the last one. */
@@ -79,29 +85,6 @@ export interface SimConfig
    * the window may be tighter than the one that answers a rock.
    */
   intakeWindowMs: number;
-  /** How fast a pod that has been shot loose sinks, in tiles per beat. */
-  podFallTilesPerBeat: number;
-  /**
-   * How far a falling pod slides sideways, in tiles per beat. The direction is
-   * drawn from the seeded rng when the shot lands, so the cannon has to chase
-   * what it just freed rather than wait under it.
-   */
-  podDriftTilesPerBeat: number;
-  /**
-   * How close to the hull, in tiles, a falling pod has to be before it starts
-   * steering toward the cannon's column instead of drifting on its own.
-   */
-  podHomeTiles: number;
-  /**
-   * Sideways speed while steering toward the cannon, in tiles per beat. Once a
-   * pod is inside `podHomeTiles` of the hull this replaces
-   * `podDriftTilesPerBeat` entirely — the two never apply on the same tick.
-   */
-  podHomeTilesPerBeat: number;
-  /** Hull points a swallowed pod gives back. The energy boost, as a number. */
-  podRepair: number;
-  /** Beats a `ward` pod keeps the shield armed without a trigger. */
-  wardBeats: number;
   /**
    * Share of its speed a creature keeps for each hand held on it, in
    * thousandths — the whole of THE GRIP as a number. 550 leaves a little over
@@ -196,6 +179,7 @@ export interface SimConfig
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
+  ...VOLLEY_DEFAULTS,
   ...CREATURE_DEFAULTS,
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
@@ -203,6 +187,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...GYRE_DEFAULTS,
   ...RECOIL_DEFAULTS,
   ...PINBALL_DEFAULTS,
+  ...POD_DEFAULTS,
   ...SHOT_DEFAULTS,
   ...SNAKE_DEFAULTS,
   cols: 11,
@@ -212,12 +197,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   inputDelayTicks: 12,
   guardWindowMs: 900,
   intakeWindowMs: 800,
-  podFallTilesPerBeat: 3,
-  podDriftTilesPerBeat: 0.4,
-  podHomeTiles: 2,
-  podHomeTilesPerBeat: 2,
-  podRepair: 18,
-  wardBeats: 6,
   gripSlowPermille: 550,
   hullRegenPerSecond: 3,
   hullInvulnerable: false,

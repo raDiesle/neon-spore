@@ -10,21 +10,22 @@ import { BARE_CREATURES, type BareKind } from "./creatures-bare.js";
  */
 type WornKind = Extract<
   CreatureKind,
-  "lure" | "shell" | "clasp" | "veil" | "recoil" | "carom" | "chute"
+  "lure" | "shell" | "clasp" | "veil" | "recoil" | "carom" | "chute" | "volley"
 >;
 
 /**
- * The seven bodies with something **laid over them**: a slick or a bulb under
- * a disguise, plating, a membrane, weather, a sprung cage, a rock crust or a
- * canopy. The three with nothing over them at all — an echo drawn small, a
- * rind drawn large, a mount carried round a rim — are `creatures-bare.ts`,
- * spread in below so `WORN_CREATURES` still answers for all ten.
+ * The eight bodies with something **laid over them**: a slick or a bulb under
+ * a disguise, plating, a membrane, weather, a sprung cage, a rock crust, a
+ * canopy or a shell of plates. The three with nothing over them at all — an
+ * echo drawn small, a rind drawn large, a mount carried round a rim — are
+ * `creatures-bare.ts`, spread in below so `WORN_CREATURES` still answers for
+ * all eleven.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
- * 250-line limit, along the seam the game already reads on — these are exactly
+ * 250-line limit, along the seam the game already reads on — these are among
  * the kinds `living-look.ts` answers `null` for and `wornKind` resolves, so
- * the group is a fact about the field rather than a convenient cut. Four of
- * the five are also the reason `authorsColor` exists: the colour is the
+ * the group is a fact about the field rather than a convenient cut. Every one
+ * of them is also a reason `authorsColor` exists: the colour is the
  * *arrival's* and not the kind's, which is what the director offers a
  * SLICK/BULB choice for under the map.
  *
@@ -61,6 +62,32 @@ export const WORN_CREATURES: Record<WornKind | BareKind, CreatureDef> = {
     radar: "none",
     blurb:
       "The slick or the bulb that was sealed inside a carom, blown out of the hatch the moment the crust cracks. It is the only thing in this game that goes up: it climbs to the top of the field, opens a canopy there and drifts back down at half the speed of a slick, still in its own colour — and it still has to be shot.",
+  },
+  volley: {
+    kind: "volley",
+    // **Both**, in the order the carom takes them backwards. The shield opens
+    // this one — three times — and the cannon finishes what comes out, so a
+    // wave with one on it must show every button both halves need: a
+    // cannon-less panel is a body nobody can finish, which
+    // `test/waves.test.ts` stops.
+    controls: ["aim", "guard"],
+    // No colour of its own: a wave authors one per arrival, the way it does
+    // for a carom (`CreatureDef.authorsColor`). It is the body sealed inside
+    // the shell, and both screens read it through the seams the whole way
+    // down — which is the point rather than a leak, because after the third
+    // ward there is no time left to work it out.
+    color: null,
+    // **Player 1's strip, and it is the one row in this file that is not
+    // "every aim target is player 2's".** What answers a volley first is the
+    // shield, and the pilot is the seat holding its trigger and *not* the seat
+    // that can slide it into a column. So the warning goes to the one who has
+    // to say a number out loud and then keep a thumb free for four beats,
+    // which is the rocks' own arrangement — and a volley is a rock until the
+    // third ward.
+    radar: "p1",
+    authorsColor: true,
+    blurb:
+      "A rock on a diagonal with a slick or a bulb sealed in it. The shield does not destroy it — a ward hits it back up the field, takes one plate of shell with it, and it comes down again from higher up in a column nobody agreed on. Three wards, and the shell bursts in mid-air over a plain body the cannon has to finish.",
   },
   carom: {
     kind: "carom",

@@ -154,6 +154,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "crossing on a diagonal and turning at the walls twice before it lands. " +
     "The shield cannot touch it whole; the cannon cracks it, and what drops " +
     "out is a meteor that has to be warded. See carom.ts.",
+  "THE VOLLEY — a rock you have to hit back three times":
+    "The one arrival the shield does not finish. A ward hits it back up the " +
+    "field instead of off it and takes a plate of shell with it, and it comes " +
+    "down again in a column nobody agreed on. Three wards, and the shell " +
+    "bursts in mid-air over a body the cannon has to take. See volley.ts.",
   SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",

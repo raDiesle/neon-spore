@@ -23,6 +23,7 @@ export {
   isBossBody,
   isGrippable,
   isMeteorKind,
+  isWardable,
   livingKindForColor,
   METEOR_TIER_KINDS,
   otherColor,

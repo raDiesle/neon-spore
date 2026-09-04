@@ -1,4 +1,5 @@
 import type { CaromEvent } from "./events-carom.js";
+import type { VolleyEvent } from "./events-volley.js";
 import type { Color, CreatureKind } from "./types.js";
 
 /**
@@ -229,7 +230,13 @@ export type CreatureEvent =
   // canopy — are `events-carom.ts` next door, cut out when the fourth took
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
-  | CaromEvent;
+  | CaromEvent
+  // And THE VOLLEY's two — the ward that sends it back and the shell bursting
+  // over the body — are `events-volley.ts`, on exactly the same terms: one
+  // arrival taken apart, in a file of its own because this one is at its
+  // limit.
+  | VolleyEvent;
 
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { CaromEvent } from "./events-carom.js";
+export type { VolleyEvent } from "./events-volley.js";

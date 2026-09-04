@@ -12,12 +12,13 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
  * A copied list is a list that stops being true the day someone adds an event,
  * which is exactly the day the new event silently has no sound.
  *
- * **Both files**, because the union is written in two: everything one body did
- * is `CreatureEvent` in `events-creature.ts` — the same seam this package's
- * own `bind-creatures.ts` reads on — and `SimEvent` is that arm plus the ship,
- * the field, the pods and the bosses. Reading only the first would let a
- * creature event ship with no sound, which is the exact failure this test was
- * written for.
+ * **All three files**, because the union is written in three: what a covering
+ * did is `ArmourEvent` in `events-armour.ts`, what a body one of them cannot
+ * see did is `CreatureEvent` in `events-creature.ts` — the same two seams this
+ * package's own `bind-armour.ts` and `bind-creatures.ts` read on — and
+ * `SimEvent` is those two arms plus the ship, the field, the pods and the
+ * bosses. Reading only the first would let a creature event ship with no
+ * sound, which is the exact failure this test was written for.
  */
 async function eventTypes(): Promise<string[]> {
   const found: string[] = [];
@@ -30,6 +31,8 @@ async function eventTypes(): Promise<string[]> {
     // silently unheard, so the list has to be a thing somebody adds to on
     // purpose — and forgetting is a failure here rather than a silence.
     ["packages/sim/src/events-carom.ts", "export type CaromEvent ="],
+    // THE VOLLEY's two, on exactly the same terms and for the same reason.
+    ["packages/sim/src/events-volley.ts", "export type VolleyEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -91,6 +94,8 @@ const SAMPLES: Record<string, SimEvent> = {
   caromCrack: { type: "caromCrack", col: 3, row: 5, span: 2, color: "red" },
   caromEject: { type: "caromEject", id: 9, col: 3, row: 5, color: "red" },
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
+  volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
+  volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
@@ -241,6 +246,16 @@ const CAROM_IDS: Record<string, string> = {
   chuteOpen: "creature.moult",
 };
 
+/**
+ * And the same table again for THE VOLLEY's two, bound in `bind-volley.ts`.
+ * Apart for `CAROM_IDS`' reason: one table per source file, so a case list is
+ * always checked against the file it came from.
+ */
+const VOLLEY_IDS: Record<string, string> = {
+  volleyReturn: "impact.bounce",
+  volleyHatch: "creature.moult",
+};
+
 describe("what one body did", () => {
   it("covers every event `creatureCue` names, so a new one cannot be left out", async () => {
     const src = await Bun.file(join(ROOT, "packages/audio/src/bind-creatures.ts")).text();
@@ -254,7 +269,13 @@ describe("what one body did", () => {
     expect(cases.sort()).toEqual(Object.keys(CAROM_IDS).sort());
   });
 
-  for (const [type, id] of Object.entries({ ...CREATURE_IDS, ...CAROM_IDS })) {
+  it("covers every event `volleyCue` names, on the same terms", async () => {
+    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-volley.ts")).text();
+    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
+    expect(cases.sort()).toEqual(Object.keys(VOLLEY_IDS).sort());
+  });
+
+  for (const [type, id] of Object.entries({ ...CREATURE_IDS, ...CAROM_IDS, ...VOLLEY_IDS })) {
     it(`plays ${id} for ${type}`, () => {
       const sample = SAMPLES[type];
       expect(sample, `${type} has no sample`).toBeDefined();

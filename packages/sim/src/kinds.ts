@@ -88,6 +88,25 @@ export function isMeteorKind(kind: CreatureKind): boolean {
 }
 
 /**
+ * **Whether the shield is what answers this body at all**, and therefore
+ * whether a shot at it leaves a crater instead of a kill. Every rock, plus THE
+ * VOLLEY, which is a rock with something alive sealed in it.
+ *
+ * One function for two questions because they are one question: a body the
+ * shield turns is a body the cannon cannot break, and that has been true of
+ * every warded thing in this game since the first meteor. `resolveHull` asks
+ * it to decide which row to answer a body on, and `resolve` asks it to decide
+ * what a bolt does — two readings of one rule rather than two lists.
+ *
+ * Call it instead of writing `isMeteorKind(kind) || kind === "volley"`: that
+ * shape is the second copy, and the day a third warded body exists one of the
+ * two call sites will have it and the other will not.
+ */
+export function isWardable(kind: CreatureKind): boolean {
+  return isMeteorKind(kind) || kind === "volley";
+}
+
+/**
  * Tiles a creature falls each beat. Only the rock kinds ever differ from one
  * — five tiers, one tile per beat apart, `meteor` the original and slowest.
  *
@@ -183,6 +202,13 @@ export function isBossBody(kind: CreatureKind): boolean {
  * A list rather than a chain of `!==`, now that there are eight of them: a
  * chain that long is one somebody extends by pattern rather than by argument.
  */
+// THE VOLLEY is refused for THE CAROM's reason exactly: it crosses on a
+// diagonal and climbs on a ward rather than falling, so `stepVolley` never
+// goes near `grippedFallTiles` and there is no rate for a brake to scale. The
+// body that comes out of the shell is grippable again the instant it is a
+// slick or a bulb, which is the creature rather than an inconsistency — a hand
+// is worth nothing against the half the shield answers and buys the cannon a
+// beat against the half it does not.
 const UNGRIPPABLE: readonly CreatureKind[] = [
   "tether",
   "dart",
@@ -191,6 +217,7 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "mount",
   "carom",
   "chute",
+  "volley",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

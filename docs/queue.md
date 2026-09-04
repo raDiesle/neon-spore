@@ -128,6 +128,46 @@ use: the diagonal turning at a wall with nothing else on the field, the shot
 landing and the crust coming off, and the shield taking the rock. The rehearsal
 walk in `packages/content/test/` will pick it up on its own once it is named.
 
+## THE VOLLEY breaches the hull as a living body rather than as a rock
+
+- **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
+- **Files:** `packages/render/src/effects-breach.ts`,
+  `packages/render/src/craters.ts`, `packages/render/src/scars.ts`
+
+A volley the pair never warded arrives as the rock it looks like: `hull.ts`
+charges it `damageMeteor` through the same `damageSpan` every warded body goes
+through, and the scar it leaves names `kind: "volley"`. Render still asks
+`isMeteorKind` at three places downstream of that — the breach picture, the
+crater on the hull and the delay that holds a scar back until the rock has
+visibly landed — so the one thing on the field that is unmistakably a rock is
+drawn hitting the ship as a red burst with no crater and no arrival.
+
+`isWardable` in `packages/sim/src/kinds.ts` is the rule those three want and it
+is already exported; it is the one `hull.ts` and `bullet-hit.ts` were both moved
+onto when this creature landed. Swap the three call sites, and check
+`packages/render/test/rock-impact.test.ts` and `craters`' own frame tests still
+pass — a volley's span is one, so nothing about the two-wide torch path changes.
+
+## THE VOLLEY's guide has no rehearsal, so its wave is read rather than watched
+
+- **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/`,
+  `packages/content/src/waves/act-5.ts`
+
+THE VOLLEY shipped with a three-line prose guide and no `scene`, exactly as THE
+CAROM did two entries up and for the same reason: what the pair has to learn is
+a *shape* — a ward that sends the body back up the field rather than off it —
+and a shape does not read off a line of text. It is the worse of the two to
+describe, because the thing being taught is that a control they already know
+does something it has never done before.
+
+Write one under `packages/content/src/scenes/the-volley.ts` on the pattern
+`the-recoil.ts` sets, register it in `scenes.ts`, and put `scene: "theVolley"`
+on the `theVolley` wave's guide. Three steps: the diagonal coming down and the
+shield answering it, the body climbing away with one plate fewer, and the shell
+bursting in mid-air over a body the cannon then takes. The rehearsal walk in
+`packages/content/test/` picks it up on its own once it is named.
+
 ## THE MIRROR's glyphs draw player one's tissue on player two's screen
 
 - **Found:** 2026-09-04, claude/ship-graphics-p2-colors-616a16

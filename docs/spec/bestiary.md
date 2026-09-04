@@ -65,7 +65,7 @@ table in a document cannot be wrong in a way a compiler notices.
 |---|---|---|
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
-| `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom` |
+| `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley` |
 | `special` | neither | `tether`, `mount`, `chute` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 

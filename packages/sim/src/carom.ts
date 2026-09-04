@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { type CrossDir, crossAwayFromWall, crossField } from "./cross.js";
 import { livingKindForColor } from "./kinds.js";
 import { spanOf } from "./span.js";
 import type { Bullet, Creature, CreatureKind } from "./types.js";
@@ -56,25 +57,12 @@ import type { World } from "./world.js";
  * columns.
  */
 
-/** Which way across the field it is going. `1` is to the right. */
-export type CaromDir = -1 | 1;
-
-/** The leftmost column a body this wide may stand in. Zero, always — it is
- * here so the pair of walls is read out of one place rather than one of them
- * being a literal and the other a subtraction. */
-function leftWall(): number {
-  return 0;
-}
-
 /**
- * The rightmost column a body this wide may stand in. `spanOf` rather than the
- * kind's own width: a carom is two columns and the rock it becomes keeps them
- * (`caromStruck`), so the wall it turns at and the wall the shield has to
- * cover are one number.
+ * Which way across the field it is going. `1` is to the right, and it is
+ * `CrossDir` under this creature's own name: the wall it turns at is
+ * `cross.ts`, which THE VOLLEY crosses the field by as well.
  */
-function rightWall(cfg: SimConfig, c: Creature): number {
-  return Math.max(0, cfg.cols - spanOf(c));
-}
+export type CaromDir = CrossDir;
 
 /**
  * Which way this one is going. Call it rather than reading `caromDir` by hand:
@@ -99,8 +87,7 @@ export function caromHeading(c: Creature): CaromDir {
  * pair cannot do is be there.
  */
 export function caromOnSpawn(cfg: SimConfig, col: number, span: number): { caromDir: CaromDir } {
-  const hi = Math.max(0, cfg.cols - span);
-  return { caromDir: col - leftWall() < hi - col ? 1 : -1 };
+  return { caromDir: crossAwayFromWall(cfg.cols, col, span) };
 }
 
 /**
@@ -133,28 +120,16 @@ export function stepCarom(world: World, c: Creature): void {
   const cfg = world.cfg;
   c.row += cfg.caromRows;
 
-  const lo = leftWall();
-  const hi = rightWall(cfg, c);
-  // A field narrower than the body: there is nowhere to cross to, so it comes
-  // straight down. Not reachable at the shipped width, and cheaper to answer
-  // than to leave as a loop that could not terminate.
-  if (hi <= lo) return;
-
-  const dir = caromHeading(c);
-  const next = c.col + dir * cfg.caromCols;
-  if (next >= lo && next <= hi) {
-    c.col = next;
-    return;
+  // `crossField` is the whole of the sideways move, the wall included — a
+  // fresh arrival is pointed inward by `caromOnSpawn` and every turn after
+  // that leaves the wall behind on the following beat, so the two together
+  // mean a carom is always moving.
+  const step = crossField(cfg.cols, c.col, spanOf(c), caromHeading(c), cfg.caromCols);
+  c.col = step.col;
+  c.caromDir = step.dir;
+  if (step.turned) {
+    world.events.push({ type: "caromBounce", col: step.col, row: c.row, dir: step.dir });
   }
-
-  // Over the edge. It lands *on* the wall and turns in the same beat, so there
-  // is never a beat spent standing still against it — `caromOnSpawn` points a
-  // fresh arrival inward, and every turn after that leaves the wall behind on
-  // the following beat, so the two together mean a carom is always moving.
-  const wall = dir > 0 ? hi : lo;
-  c.col = wall;
-  c.caromDir = dir === 1 ? -1 : 1;
-  world.events.push({ type: "caromBounce", col: wall, row: c.row, dir: c.caromDir });
 }
 
 /**

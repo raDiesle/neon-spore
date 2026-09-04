@@ -10,6 +10,7 @@ import { rindBecomes } from "./rind.js";
 import { shellBecomes } from "./shell.js";
 import type { Creature, CreatureKind } from "./types.js";
 import { veilBecomes } from "./veil.js";
+import { volleyBecomes } from "./volley.js";
 
 /**
  * The state machines the bestiary asks for that are small enough to be one
@@ -125,6 +126,14 @@ export function wornKind(c: Creature): CreatureKind {
   // hanging over the field is the same word they said about the thing inside
   // the rock, and a second copy of it is how those become two creatures.
   if (c.kind === "chute") return chuteBecomes(c);
+  // A volley is the slick or the bulb sealed inside its shell, with the
+  // plating laid over the top by render/ — THE CAROM's arrangement, and its
+  // argument turned round: what the pair has to read through the seams is the
+  // colour, because the colour is the only thing either of them can do about
+  // this body *after* the shield has finished with it. `volleyBecomes` is the
+  // one copy of the pairing, and it is the same call the hatch makes — so what
+  // the pair has been looking at and what falls out are never two bodies.
+  if (c.kind === "volley") return volleyBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

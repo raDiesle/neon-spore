@@ -22,6 +22,7 @@ import { drawMeteor } from "./meteor.js";
 import { drawRecoilCage } from "./recoil.js";
 import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
+import { drawVolleyShell } from "./volley.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
 import { drawWispSearch, showsWispSearch } from "./wisp-search.js";
@@ -185,6 +186,13 @@ export function drawCreatures(
     // once it has turned round (`chute.ts`). Both screens get the whole of it,
     // so there is no gate — only a draw of its own.
     if (c.kind === "chute") drawChute(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
+    // And THE VOLLEY's shell, on exactly the same terms: plating around a body
+    // rather than a substitute for one, so `wornKind` has already drawn the
+    // slick or the bulb sealed inside it. Both screens get the whole of it —
+    // nothing about a volley is split — so there is no gate. Nothing is drawn
+    // once the last plate goes: by then `c.kind` is the body's own and
+    // `drawLiving` above has it (`volley.ts`).
+    if (c.kind === "volley") drawVolleyShell(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
     // And THE RECOIL's cage, on the same terms and for the same reason: it is
     // a frame around a body rather than a substitute for one, so `wornKind`
     // has already drawn the slick or the bulb inside it in whichever colour

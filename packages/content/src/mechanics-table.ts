@@ -1,4 +1,5 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
+import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
@@ -112,6 +113,15 @@ export const MECHANICS = {
     // been ejected from nothing.
     carriedBy: "carom",
   },
+  volley: {
+    what: "A rock on a diagonal with a slick or a bulb sealed in it. The shield does not destroy it: a ward hits it back up the field, eight rows, taking one plate of shell with it — and it comes down again in a column nobody agreed on. Three wards, and at the top of the last climb the shell bursts in mid-air and what falls out is a plain body the cannon has to finish.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // carom: the silhouette is the shell's and the colour is the body sealed
+    // inside it, which is which cannon finishes it once the shield is done, so
+    // neither can be worked out from the other.
+    waveNames: true,
+  },
   gyre: {
     what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
     reach: "spawn",
@@ -139,33 +149,10 @@ export const MECHANICS = {
     // arrives because a `gyre` did, six at a time, and a brush for one would
     // be a body an author could put on the field with no wheel under it.
   },
-  meteor: {
-    what: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
-    reach: "spawn",
-    waveNames: true,
-  },
-  meteorMedium: {
-    what: "The same rock, falling two rows a beat instead of one.",
-    reach: "spawn",
-    waveNames: true,
-  },
-  meteorFast: { what: "The same rock again, three rows a beat.", reach: "spawn", waveNames: true },
-  meteorFaster: {
-    what: "Four rows a beat. It crosses the field in the time a bulb takes to fall a quarter of it.",
-    reach: "spawn",
-    waveNames: true,
-  },
-  meteorFastest: {
-    what: "Five rows a beat, and nothing in the field is quicker except a torch.",
-    reach: "spawn",
-    waveNames: true,
-  },
-  torch: {
-    what: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
-    reach: "spawn",
-    carriedBy: "queen",
-    waveNames: true,
-  },
+  // The five speed tiers and the torch, next door in `mechanics-rocks.ts`.
+  // Spread in here rather than listed, at exactly the position they have
+  // always held, so key order is untouched — `MECHANIC_IDS` is read off it.
+  ...ROCK_MECHANICS,
   queen: {
     what: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
     reach: "spawn",

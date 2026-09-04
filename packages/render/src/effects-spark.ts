@@ -129,6 +129,24 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "caromCrack":
       return at(l, e.col, e.row, 20, PALETTE.rock);
 
+    // A plate off THE VOLLEY, in the **shield's** colour rather than the
+    // shell's — `caromCrack`'s argument arrived at from the third side. There
+    // the shell came off and what mattered was that the lane had not closed;
+    // here the shell has come off *and* the lane has not closed, and the one
+    // thing worth saying is which control just did the work. So the sparks are
+    // the dome's, thrown where the body met it, and the shell's own material
+    // is spent on the burst below.
+    case "volleyReturn":
+      return at(l, e.col, e.row, 14, PALETTE.shieldRim);
+
+    // And the shell itself, coming apart in mid-air. The rock's colour and a
+    // `caromCrack`'s worth of it, because it is the same moment at the same
+    // size — a covering leaving a body that goes on falling. The ordinary
+    // colours are deliberately not spent here: nothing died, and a red or cyan
+    // shower is what this game pays for a lane closing.
+    case "volleyHatch":
+      return at(l, e.col, e.row, 20, PALETTE.rock);
+
     // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
     // because the shot did not bounce off anything — it went in and the
     // weather shut over it (`impact.absorb` is the ear's half of the same
