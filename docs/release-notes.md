@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · daf82d1 — Queue: tools/frames' browser tests are flaky under a full check
+
+## 2026-09-04 · ce03a63 — The ship lights the water above it, in its own seat's colour
+
+The panel under the hull is the seat's colour throughout; above the hull there was none of it at all — the same cold violet sky on both devices, right up to a gold rim. This is the other half. A single gradient rises off the top of the band into the field, additive, peaking under a tenth and gone within a third of the sky: the brightest thread of the seat right against the skin, where a rim light would be spilling off it, and the tissue's own colour above that, which is what the chamber below is made of.
+
 ## 2026-09-04 · 2337517 — The first screen died on a window with no room in it
 
 The intro gave its picture whatever was left after the title and the nav bar, and never checked that anything was. Below about 230 device pixels of height that subtraction goes past zero, and a canvas that has not been laid out — a tab drawing while hidden, which still runs its frames — is 0 wide and takes the width past zero the same way. Either one reached `plate` as a negative corner radius, which a real canvas throws `IndexSizeError` on, so the whole page died rather than drawing a squeezed one.
