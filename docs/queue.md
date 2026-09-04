@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## A settings page on the menu: sound, motion, your name and the way out
 
 - **Found:** 2026-09-03, claude/multiplayer-game-nav-ux-ab89dd
+- **Taken:** 2026-09-04, claude/queue-a-settings-page-on-the-menu-sound-motion-your-na
 - **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/settings.ts`, `apps/game/src/audio.ts`, `apps/game/src/install.ts`, `apps/game/src/nickname.ts`, `apps/game/src/progress.ts`, `apps/game/src/pairing.ts`, `apps/game/src/menu.css`, `apps/game/test/settings.test.ts`
 
 A SETTINGS entry on the root menu opening a page (built like the WAVES/DEMOS
