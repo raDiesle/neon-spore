@@ -166,6 +166,7 @@ export const WAVES_ACT_4: Wave[] = [
       both: "Something is falling that only one of your screens draws. The other gets a band across the row it is in, and nothing at all about the column.",
       p1: "You will never see it — read the band for how long you have, and take the column you are told. Say the number back: you standing there is the only proof it was heard.",
       p2: "You are the only one who can see it, and you cannot move the cannon. Say the column as a digit, not “there”, and say it again until they are under it. The last one crosses: call where it is going.",
+      scene: "theGhost",
     },
     entries: [
       { beat: 0, col: 2, kind: "ghost", color: "cyan" },
@@ -198,6 +199,7 @@ export const WAVES_ACT_4: Wave[] = [
       both: "Half speed down, and it comes apart while it falls. The seam across it says which way — sideways, then up and down — and it strains wide just before it goes. Each wait is longer than the last, so a quiet one is not a finished one.",
       p1: "Have the cannon on it while it is still one. The fast bodies can wait a beat — this cannot, and every wait you spend on something else is another body to visit.",
       p2: "Fire it the beat they are under it, not the beat you are free. Once it is a knot, call them by row as well as column — top or bottom — and take them in that order.",
+      scene: "theEcho",
     },
     entries: [
       { beat: 0, col: 3, kind: "echo", color: "cyan" },

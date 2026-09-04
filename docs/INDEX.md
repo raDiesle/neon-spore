@@ -245,6 +245,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-clasp.ts` | THE CLASP's rehearsal: the shield opens the enemy instead of stopping it |
 | `packages/content/src/scenes/the-rind.ts` | THE RIND's rehearsal: the shot that lands does not close the column |
 | `packages/content/src/scenes/the-third-shot.ts` | THE THIRD SHOT's rehearsal: the shot that worked twice is the miss |
+| `packages/content/src/scenes/the-echo.ts` | THE ECHO's rehearsal: the slowest thing on the field is the one to take first |
+| `packages/content/src/scenes/the-ghost.ts` | THE GHOST's rehearsal: waiting to see it is the miss |
+| `packages/content/src/scenes/the-purge.ts` | THE PURGE's rehearsal: the field is cleared by swallowing, not by shooting |
+| `packages/content/src/scenes/the-ward.ts` | THE WARD's rehearsal: the shield answers a rock with nobody triggering it |
 
 ### packages/render
 

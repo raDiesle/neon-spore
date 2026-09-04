@@ -2,9 +2,8 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Act three: new mechanics after the first five bosses, one more boss among
- * them (`THE VANE`). New waves land here until this file is full in its own
- * turn — `waves.ts` is the barrel that concatenates this with the other acts,
- * see it for why the list was split by act in the first place.
+ * them (`THE VANE`). **It is full** — on the 250-line ceiling — so the next
+ * wave gets a fourth act file beside it. `waves.ts` says why acts at all.
  */
 /**
  * **THE LURE, in three figures.** Written here rather than beside the entries
@@ -219,6 +218,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "The same pod with different cargo: taking this one in clears the field of everything that is falling.",
       p1: "Hold it for the beat that is about to go wrong, not for the one that already has.",
       p2: "Freeing it is still a shot, and a shot spent here is a creature still coming.",
+      scene: "thePurge",
     },
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -236,6 +236,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "This pod holds the shield armed for six beats with no trigger at all — and the rocks that come with it are quicker than any you have met: three rows a beat, then four, then five.",
       p1: "Your trigger is free while it lasts, so spend the hand on something else. Call each rock from your strip the moment it appears — by the time it is on the field it is nearly here.",
       p2: "Armed is not aimed: the column is still yours to be standing in. Park the shield where the rock is going, not where it is — one slide, no correction.",
+      scene: "theWard",
     },
     entries: [
       { beat: 0, col: 0, kind: "meteor", color: null },
