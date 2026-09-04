@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · baa0899 — A rehearsal can put a hand on a cord
+
+Three things in this game are taken hold of and carried rather than pressed — THE LID's cord, THE MAZE's string and THE WARDEN's rope — and none of them could be written into a film at all. That is why THE LID is the last ordinary wave with no rehearsal and why two of the bosses could not be reached: the skill told authors so in as many words.
+
 ## 2026-09-04 · f4d64bd — What a renderer holds between frames is its own file
 
 `canvas2d.ts` sat at 248 lines against a limit of 250, and a three-line getter for whether the wave was still arriving would not fit. The fix went the long way round instead — `bun run frames` painted a fixed count and hoped — and the entry that went in the queue said what it had cost: the next thing that wants to know what the renderer is in the middle of hits the same wall.
