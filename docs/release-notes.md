@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 6c0ff59 — The intro is neon, wet and one line a page
+
+The owner's correction on the first version, in his own words: *colours should look neon slimy fluid cool and funny/friendly, use much shorter text, could be like advertisement.*
+
 ## 2026-09-04 · 4324d00 — Six pages that say what this game is, before anybody has chosen anything
 
 The owner asked for it by name — *a cinematic like tutorial when entering the game first, explaining the core concept of the game* — which is the first of the three exemptions in CLAUDE.md's rule about looks: the decision is already made, so this ships rather than being offered beside the shipped screen.
