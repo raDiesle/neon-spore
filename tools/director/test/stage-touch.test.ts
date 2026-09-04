@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { controlSetForWave } from "@neon-spore/content";
-import { computeLayout, type ViewRole } from "@neon-spore/render";
+import { controlSet, controlSetForWave } from "@neon-spore/content";
+import { cannonGrab, computeLayout, shieldGrab, type ViewRole } from "@neon-spore/render";
 import {
   briefingHolds,
   type Command,
@@ -124,7 +124,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     const sent: { player: 1 | 2; command: Command }[] = [];
     let pending: TimedCommand[] = [];
     const stub = stubCanvas();
-    bindStageTouch({
+    const touch = bindStageTouch({
       canvas: stub.canvas,
       layout: () => computeLayout(VIEWPORT, cfg, role),
       field: () => ({
@@ -159,13 +159,16 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         pending = [];
       }
     };
-    const down = (): void =>
+    const downAt = (x: number, y: number): void =>
       stub.fire("pointerdown", {
         pointerId: 1,
-        clientX: VIEWPORT.width / 2,
-        clientY: layout.cannonStrip.y,
+        clientX: x,
+        clientY: y,
         preventDefault: () => {},
       });
+    const down = (): void => downAt(VIEWPORT.width / 2, layout.cannonStrip.y);
+    const move = (x: number, y: number): void =>
+      stub.fire("pointermove", { pointerId: 1, clientX: x, clientY: y, preventDefault: () => {} });
     const up = (): void => {
       stub.fire("pointerup", { pointerId: 1 });
       tick(); // the release's own `on: false` has to reach the sim too
@@ -182,7 +185,20 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       tick(readyHoldTicks(cfg));
       up();
     };
-    return { tap, down, up, hold, tick, sent, world, step: () => cardStepAt };
+    return {
+      tap,
+      down,
+      downAt,
+      move,
+      up,
+      hold,
+      tick,
+      sent,
+      world,
+      layout,
+      touch,
+      step: () => cardStepAt,
+    };
   }
 
   it("a tap steps `test` through player one's half, then two's, filling neither circle", () => {
@@ -247,5 +263,139 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     expect(seatReady(s.world, 2)).toBe(false);
     // `cardStep` never left 0 — `role() !== "test"` never steps at all.
     expect(s.step()).toBe(0);
+  });
+});
+
+/**
+ * THE STAGE SAYS WHICH SWELLING ANSWERED.
+ *
+ * The editor's stage routes a mouse through the same `touchDown` the phone
+ * uses, so every gesture on the hull already worked here — and nothing was
+ * drawn to say which lobe had been taken hold of, on the one screen the
+ * control exists to be judged on. `bindStageTouch` now keeps the same value
+ * `apps/game/src/ship-hand.ts` keeps for the phone, out of `shipHand` rather
+ * than out of a second rule, and hands it to the paint.
+ */
+describe("bindStageTouch reports the hand on the ship", () => {
+  const VIEWPORT = { width: 400, height: 800, dpr: 1 };
+  const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON };
+
+  type Listener = (e: unknown) => void;
+
+  function armed(role: ViewRole) {
+    const world = createWorld(cfg, 0);
+    // No guide and no introduction: this block is about the field, and a card
+    // standing over it would swallow every press before `touchDown` saw one.
+    startWave(
+      world,
+      0,
+      [{ beat: 8, col: 0, kind: "slick" as const, color: null }],
+      [],
+      null,
+      false,
+    );
+    let pending: TimedCommand[] = [];
+    const on = new Map<string, Listener[]>();
+    const add = (type: string, fn: Listener): void => {
+      const list = on.get(type) ?? [];
+      list.push(fn);
+      on.set(type, list);
+    };
+    windowOn = on as Map<string, WindowListener[]>;
+    const canvas = {
+      addEventListener: add,
+      getBoundingClientRect: () => ({
+        left: 0,
+        top: 0,
+        width: VIEWPORT.width,
+        height: VIEWPORT.height,
+      }),
+    } as unknown as HTMLCanvasElement;
+    const layout = computeLayout(VIEWPORT, cfg, role);
+    const touch = bindStageTouch({
+      canvas,
+      layout: () => layout,
+      field: () => ({
+        creatures: world.creatures,
+        cannonCol: world.cannonCol,
+        shieldCol: world.shieldCol,
+        beatPhase: 0,
+        seat: pointerSeat(role),
+        cfg,
+        maze: mazeRound(world),
+        warden: world.boss?.kind === "warden" ? world.boss : null,
+        controls: controlSet("default"),
+      }),
+      push: (player, command) => pending.push({ tick: world.tick, player, command }),
+      world: () => world,
+      role: () => role,
+      cardStep: () => 0,
+      setCardStep: () => {},
+    });
+    const fire = (type: string, x: number, y: number): void => {
+      for (const fn of on.get(type) ?? [])
+        fn({ pointerId: 1, clientX: x, clientY: y, preventDefault: () => {} });
+    };
+    // Every wave raises its introduction, guide or no guide, and a card
+    // standing over the field swallows the press before `touchDown` sees it.
+    // One tap is what the stage answers that with (`stage-touch.ts`).
+    fire("pointerdown", 0, 0);
+    fire("pointerup", 0, 0);
+    step(world, pending);
+    pending = [];
+    expect(briefingHolds(world)).toBe(false);
+    return {
+      touch,
+      world,
+      layout,
+      cannon: cannonGrab(layout, world.cannonCol),
+      shield: shieldGrab(layout, world.shieldCol),
+      down: (x: number, y: number) => fire("pointerdown", x, y),
+      move: (x: number, y: number) => fire("pointermove", x, y),
+      up: () => fire("pointerup", 0, 0),
+    };
+  }
+
+  it("nothing is held and nothing is hovered, so there is no cup", () => {
+    expect(armed("p1").touch.hand()).toBeUndefined();
+  });
+
+  it("a press on the pilot's swelling cups the cannon, and the lift takes it away", () => {
+    const s = armed("p1");
+    s.down(s.cannon.x, s.cannon.y);
+    expect(s.touch.hand()).toEqual({ on: "cannon", held: true, color: null });
+    s.up();
+    expect(s.touch.hand()).toBeUndefined();
+  });
+
+  it("a mouse over a swelling with nothing held cups it dimly", () => {
+    const s = armed("p2");
+    s.move(s.shield.x, s.shield.y);
+    expect(s.touch.hand()).toEqual({ on: "shield", held: false, color: null });
+    // Off the hull again: the cup goes with it.
+    s.move(1, 1);
+    expect(s.touch.hand()).toBeUndefined();
+  });
+
+  it("the navigator's thumb on the muzzle says which colour a lift would fire", () => {
+    const s = armed("p2");
+    // The two lobes start in the same column, and there the navigator's own
+    // one wins (`shipUnder`). Slide the cannon away so the muzzle is a lobe
+    // of its own to take hold of.
+    s.world.cannonCol = 0;
+    s.world.shieldCol = cfg.cols - 1;
+    const muzzle = cannonGrab(s.layout, 0);
+    s.down(muzzle.x, muzzle.y);
+    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: null });
+    // A swipe far enough to the right is cyan, the order the band stands in.
+    s.move(muzzle.x + VIEWPORT.width, muzzle.y);
+    expect(s.touch.hand()).toEqual({ on: "muzzle", held: true, color: "cyan" });
+  });
+
+  it("a press on the strip is not a hand on the ship", () => {
+    const s = armed("p1");
+    const layout = computeLayout(VIEWPORT, cfg, "p1");
+    s.down(VIEWPORT.width / 2, layout.cannonStrip.y);
+    expect(s.touch.hand()).toBeUndefined();
   });
 });

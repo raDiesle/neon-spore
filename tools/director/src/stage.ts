@@ -95,7 +95,7 @@ export function bindStage(
     controls: currentControlSet,
     push: (player, command) => keys.push(player, command),
   });
-  bindStageTouch({
+  const touch = bindStageTouch({
     canvas,
     layout: () => computeLayout(viewport, cfg, role),
     field: () => ({
@@ -184,6 +184,8 @@ export function bindStage(
       events: frameEvents,
       running,
       controls: currentControlSet(),
+      // The cup over the swelling this stage's one mouse is on or holding.
+      hand: touch.hand(),
     });
     frameEvents = [];
     onFrame();

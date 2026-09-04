@@ -2,6 +2,9 @@ import {
   type Field,
   type Hold,
   type Layout,
+  type ShipHand,
+  shipHand,
+  shipUnder,
   touchDown,
   touchMove,
   touchUp,
@@ -98,6 +101,28 @@ export interface StageTouch {
   setCardStep: (step: 0 | 1 | 2) => void;
 }
 
+/**
+ * What the binding hands back: the cup over whichever swelling this stage's
+ * one mouse is on or holding, for the next paint to draw
+ * (`packages/render/src/ship-hand.ts`). The same shape `bindControls` returns
+ * to the game (`apps/game/src/input.ts`), and for the same reason — a pointer
+ * is the host's and a picture is the renderer's.
+ *
+ * The stage answered every one of those gestures already and said nothing
+ * about which swelling answered, so the one screen the control is judged on
+ * was the one screen missing its feedback.
+ *
+ * A getter rather than the game's `ShipHandWatch`: that class holds a single
+ * field and calls `shipHand` for every value it takes, and `keys.ts` says why
+ * this package does not import `apps/game` to get it. The rule is still
+ * called and not re-derived — every value here comes out of `shipHand`, which
+ * answers null for the two strips and for a hold that is not the ship's, so
+ * the stage cannot light a swelling the phone would leave dark.
+ */
+export interface StageHand {
+  hand: () => ShipHand | undefined;
+}
+
 export function bindStageTouch({
   canvas,
   layout,
@@ -107,8 +132,12 @@ export function bindStageTouch({
   role,
   cardStep,
   setCardStep,
-}: StageTouch): void {
+}: StageTouch): StageHand {
   const holding = new Map<number, Hold>();
+  let hand: ShipHand | undefined;
+  const setHand = (h: ShipHand | null): void => {
+    hand = h ?? undefined;
+  };
   // Which seat or seats a brief-hold in progress speaks for, keyed the same
   // way `holding` is — a second map rather than teaching `Hold` a briefing
   // shape it has nothing else in common with.
@@ -151,16 +180,30 @@ export function bindStageTouch({
     const t = touchDown(layout(), p.x, p.y, field());
     if (!t) return;
     e.preventDefault();
-    if (t.hold) holding.set(e.pointerId, t.hold);
+    if (t.hold) {
+      holding.set(e.pointerId, t.hold);
+      setHand(shipHand(layout(), t.hold, p.x, true));
+    }
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb on the muzzle, decided on the lift
     // (`render/touch-ship.ts`).
     if (t.command) push(t.player, t.command);
   });
   canvas.addEventListener("pointermove", (e) => {
+    const p = at(e);
     const hold = holding.get(e.pointerId);
-    if (!hold) return;
-    const t = touchMove(layout(), hold, at(e).x, at(e).y);
+    if (!hold) {
+      // Nothing held: the cup follows the cursor instead, dim. The stage is a
+      // desk tool and a desk has a hover, which is the half of "knows which
+      // element is active before swiping" a phone answers with the press.
+      // Never while a card is up — the press belongs to the opening then, and
+      // the ship is not what a hand on the glass is reaching for.
+      const over = briefingHolds(world()) ? null : shipUnder(layout(), p.x, p.y, field());
+      setHand(over?.hold ? shipHand(layout(), over.hold, p.x, false) : null);
+      return;
+    }
+    setHand(shipHand(layout(), hold, p.x, true));
+    const t = touchMove(layout(), hold, p.x, p.y);
     if (t?.command) push(t.player, t.command);
   });
   // On the window, not the canvas: a thumb that leaves the picture still has
@@ -180,9 +223,12 @@ export function bindStageTouch({
     const hold = holding.get(e.pointerId);
     if (!hold) return;
     holding.delete(e.pointerId);
+    setHand(null);
     const t = touchUp(layout(), hold, field(), at(e));
     if (t?.command) push(t.player, t.command);
   };
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);
+
+  return { hand: () => hand };
 }
