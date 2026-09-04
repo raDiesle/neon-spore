@@ -432,6 +432,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
+| `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 
 ### packages/net
 

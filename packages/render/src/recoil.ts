@@ -18,12 +18,20 @@ import { PALETTE } from "./palette.js";
  * changing.
  *
  * **The frame is the health readout, and that is why there is no bar.** THE
- * RIND's size is its own count and this one's cage is: `STRUTS` ribs around
- * the body, one of them blown open per bounce already spent, so *how many are
- * left* is a thing either seat can read from where they are sitting without
- * being told. `recoilBouncesLeft` in the simulation is the one thing it reads,
- * which is what stops the picture and the shot ever disagreeing about whether
- * the next one finishes it.
+ * RIND's size is its own count and this one's cage is: one rib per bounce the
+ * body arrived with, one of them blown open per bounce already spent, so *how
+ * many are left* is a thing either seat can read from where they are sitting
+ * without being told. `recoilBouncesLeft` in the simulation is the one thing
+ * it reads, which is what stops the picture and the shot ever disagreeing
+ * about whether the next one finishes it.
+ *
+ * **And the last bounce takes the whole frame with it.** Out of bounces, this
+ * file draws *nothing*: the cage comes apart on the shot that spends the third
+ * one (`recoil-cage-break.ts` throws the ribs off the tile it happened on) and
+ * what falls the rest of the way is an ordinary slick or an ordinary bulb.
+ * That is the creature's own sentence finishing — the shot after it is a shot
+ * at a plain body, and the pair has to be able to *see* that it is, rather
+ * than reading a fourth broken rib as one more thing still in the way.
  *
  * **The ribs are springs, because the mechanic is a trampoline.** A plain ring
  * would be plating, and plating is THE SHELL's word — chipped away a piece at
@@ -46,11 +54,21 @@ import { PALETTE } from "./palette.js";
  * (`depth.ts`) — a frame that touched its neighbour would argue with the
  * column player 1 has just been told. */
 const HOOP_MUL = 1.5;
-/** Ribs around the body. Four, one per shot the arrival can take: three
- * bounces and the kill, so an untouched cage is whole and the last rib
- * standing is the one that is about to fail. Any more and a broken one stops
- * being countable at the size a phone draws. */
-const STRUTS = 4;
+/**
+ * Ribs around the body: one per bounce the arrival carries, read off
+ * `cfg.recoilBounces` rather than typed here, so the frame and the count of
+ * shots it takes cannot be moved apart. An untouched cage is whole, the last
+ * rib standing is the one about to fail, and the shot that fails it leaves no
+ * cage at all. Three at the shipped number, which is about the ceiling for a
+ * broken one staying countable at the size a phone draws.
+ *
+ * At least one, because a cage of nothing is not a cage — a config that asked
+ * for no bounces would be a creature this file has no picture for, and a
+ * division by zero is a worse answer than a single rib.
+ */
+export function strutsFor(cfg: SimConfig): number {
+  return Math.max(1, cfg.recoilBounces);
+}
 /** Zigzag folds in one rib. Three reads as a spring at 26 px; two reads as a
  * kink and four reads as a scribble. */
 const FOLDS = 3;
@@ -79,12 +97,17 @@ export function drawRecoilCage(
   // rather than around a nominal tile — `creatureRadius` is the same rule the
   // grip's ring is drawn at, and a frame that disagreed with it would be a
   // frame a thumb grabs through.
-  const r = creatureRadius(l, c, 0, cfg) * HOOP_MUL;
   const left = recoilBouncesLeft(c);
+  // Out of bounces: the frame is gone rather than wrecked. `recoil-cage-break`
+  // has already thrown it off the tile the last shot landed in, and what is
+  // left standing here is the body alone.
+  if (left <= 0) return;
+  const struts = strutsFor(cfg);
+  const r = creatureRadius(l, c, 0, cfg) * HOOP_MUL;
   // Under tension and let go, on the wall clock: `sinHash` off the id spreads
   // the phase so two cages never breathe together, and the amount tightens as
   // the ribs go — a frame with one rib left is visibly working harder.
-  const strain = 1 + (STRUTS - left) / STRUTS;
+  const strain = 1 + (struts - left) / struts;
   const breath = 1 + BREATHE * strain * Math.sin(time * 4.2 + sinHash(c.id) * 6.3);
   const hoop = r * breath;
 
@@ -95,14 +118,14 @@ export function drawRecoilCage(
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  for (let i = 0; i < STRUTS; i++) {
+  for (let i = 0; i < struts; i++) {
     // Rib `i` is spent once fewer than `i` bounces remain. Counted from the
     // top and going round, so the damage accumulates in one direction and the
     // pair can read "how far round has it got" rather than "how many are lit".
     const spent = i >= left;
-    const a = (i / STRUTS) * Math.PI * 2 - Math.PI / 2;
+    const a = (i / struts) * Math.PI * 2 - Math.PI / 2;
     drawRib(ctx, x, y, a, creatureRadius(l, c, 0, cfg), hoop, spent, spent ? burnt : metal, time);
-    drawHoopArc(ctx, x, y, a, STRUTS, hoop, spent, spent ? burnt : metal, dark);
+    drawHoopArc(ctx, x, y, a, struts, hoop, spent, spent ? burnt : metal, dark);
   }
   ctx.restore();
 }

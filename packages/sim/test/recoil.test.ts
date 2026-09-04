@@ -263,6 +263,25 @@ describe("the side it is knocked into", () => {
     }
   });
 
+  /**
+   * And it always *goes* somewhere. A roll into the wall used to be clamped
+   * back onto the lane it was struck in, so a body against the edge stayed put
+   * on about half its bounces — and a bounce that moves nothing is the one
+   * outcome this creature cannot have: the whole cost of it is that the column
+   * the pair just agreed is now wrong.
+   */
+  it("takes the other side when the rolled one is a wall, so it never stays put", () => {
+    for (const col of [0, CFG.cols - 1]) {
+      for (let seed = 0; seed < 8; seed++) {
+        const r = fresh([recoil(col)], seed);
+        chase(r, 1);
+        const moved = bounces(r.events)[0]!;
+        expect(moved.toCol, `column ${col}, seed ${seed}`).not.toBe(moved.col);
+        expect(Math.abs(moved.toCol - moved.col)).toBe(1);
+      }
+    }
+  });
+
   /** A body struck in the top rows has nowhere left to be pushed, and comes to
    * rest on row zero rather than off the top of the world. */
   it("clamps to the top row rather than leaving the field upwards", () => {

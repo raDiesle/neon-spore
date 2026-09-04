@@ -94,7 +94,7 @@ export {
 } from "./lance.js";
 export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
 export { mawOpen, podKindOf } from "./pods.js";
-export { recoilBouncesLeft, recoilRow } from "./recoil.js";
+export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
@@ -146,6 +146,7 @@ export {
   livingKindForColor,
   METEOR_TIER_KINDS,
   occupiesCol,
+  otherColor,
   SNAKE_TURNS,
   spanCenterCol,
   spanOf,

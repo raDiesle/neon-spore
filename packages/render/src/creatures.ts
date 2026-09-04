@@ -1,6 +1,7 @@
 import {
   isBossBody,
   isMeteorKind,
+  recoilTurn,
   veilArmourPhase,
   type World,
   wispOnField,
@@ -144,8 +145,25 @@ export function drawCreatures(
     // of it — nothing about a lid is split — so unlike the ghost and the veil
     // above it has no gate, only a draw path of its own (`lid.ts`).
     else if (c.kind === "lid") drawLid(ctx, l, world.cfg, c, x, y, time, beats, near);
+    // The last argument is THE RECOIL's colour turning over mid-knock-back —
+    // one for every other body, and the whole of the crossing for that one
+    // (`recoilTurn` in sim/recoil.ts, derived from the two fields the glide
+    // itself is drawn between rather than from anything render remembers).
     else if (c.kind !== "veil" || showsVeilCore(l))
-      drawLiving(ctx, l, c, x, y, beats, beatPhase, time, blocked.get(c.id) ?? 0, world.cfg, near);
+      drawLiving(
+        ctx,
+        l,
+        c,
+        x,
+        y,
+        beats,
+        beatPhase,
+        time,
+        blocked.get(c.id) ?? 0,
+        world.cfg,
+        near,
+        recoilTurn(c, beatPhase),
+      );
     // The weather over that body, on both screens and identical on both — the
     // clasp's arrangement below, one creature earlier in the pass.
     if (c.kind === "veil") {

@@ -115,7 +115,7 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE RECOIL",
     sentence: "The one where your own shot is what makes the call wrong.",
     guide: {
-      both: "A slick or a bulb in a sprung cage. The matching colour throws it two rows back up the field and a lane to one side instead of killing it, and the body inside turns over to the other colour on the way. Three times, and the cage breaks a little more each one.",
+      both: "A slick or a bulb in a sprung cage. The matching colour throws it two rows back up the field and a lane to one side instead of killing it, and the body inside turns over to the other colour on the way. Three times: the cage loses a rib on each of the first two, and the third blows the whole frame off — what falls the rest of the way is a plain body, and the next shot kills it.",
       p1: "Do not slide off the column when it lands. It bounces a lane left or right and nothing tells you which, so watch where it comes down and get back under it before it starts falling again.",
       p2: "The colour flips every time one of yours lands. Say the new one out loud before you reload — the trigger you are holding stopped working on your own hit.",
     },

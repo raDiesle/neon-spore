@@ -4,6 +4,7 @@ import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
+import { RecoilCageBreakFx } from "./recoil-cage-break.js";
 import { RecoilVentFx } from "./recoil-vent.js";
 import { RindShedFx } from "./rind-shed.js";
 import { VeilTearFx } from "./veil-tear.js";
@@ -13,7 +14,7 @@ import { VeilTearFx } from "./veil-tear.js";
  * them by less than a beat: a lure folding to a point, the ward's bolts
  * reaching up a column, a clasp's shield blinking out, a veil's cloud tearing
  * open on the body inside it, a ghost letting go and climbing out of the top
- * of the field, a layer coming off a rind.
+ * of the field, a layer coming off a rind, a recoil's cage failing.
  *
  * Split out of `effects.ts` when the second one arrived and that file went
  * over its 250-line limit — the same reason `effects-spark.ts` and
@@ -47,6 +48,7 @@ export class BodyTransients {
   private ghostRelease = new GhostReleaseFx();
   private rindShed = new RindShedFx();
   private recoilVent = new RecoilVentFx();
+  private recoilCageBreak = new RecoilCageBreakFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -66,6 +68,8 @@ export class BodyTransients {
     // Sized off the tile the shot arrived in rather than off the body, which
     // the bounce has already moved two rows out of it (`recoil-vent.ts`).
     this.recoilVent.ingest(events, l, cfg);
+    // And the frame itself failing, on the bounce that spends the last one.
+    this.recoilCageBreak.ingest(events, l, cfg);
   }
 
   update(dt: number): void {
@@ -76,6 +80,7 @@ export class BodyTransients {
     this.ghostRelease.update(dt);
     this.rindShed.update(dt);
     this.recoilVent.update(dt);
+    this.recoilCageBreak.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -88,6 +93,10 @@ export class BodyTransients {
     // canvas for the same reason: the body is gone from the world by the time
     // this draws, and where it is going is the picture rather than the world.
     this.ghostRelease.draw(ctx);
+    // A recoil's cage coming apart, frozen on the tile the shot landed in for
+    // the same reason: the frame is debris the instant it fails, and the body
+    // it was around has already gone two rows and a lane away from it.
+    this.recoilCageBreak.draw(ctx);
   }
 
   /** The four that are drawn around a body the world still has. */
@@ -118,5 +127,6 @@ export class BodyTransients {
     this.ghostRelease.clear();
     this.rindShed.clear();
     this.recoilVent.clear();
+    this.recoilCageBreak.clear();
   }
 }

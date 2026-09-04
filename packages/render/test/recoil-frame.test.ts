@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from "bun:test";
 import { type Creature, NO_SHELL, type SimEvent, type World } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawRecoilCage } from "../src/recoil.js";
+import { RecoilCageBreakFx } from "../src/recoil-cage-break.js";
 import { RecoilVentFx } from "../src/recoil-vent.js";
 import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
 
@@ -12,7 +13,10 @@ import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness
  * **The cage is the count.** How many bounces are left is drawn and shown
  * nowhere else — no bar, no number — so a frame that drew the same cage at
  * three bounces and at one would be a creature with no readout at all, and
- * nothing in a type check can tell those two frames apart.
+ * nothing in a type check can tell those two frames apart. And the count runs
+ * out: a body with no bounces left has **no cage**, because the shot after
+ * that one is a shot at an ordinary slick and the pair has to be able to see
+ * that it is.
  *
  * **The jet stops, and it stops before the next beat.** It is keyed by
  * creature id and `world.nextId` restarts at 0 with a new world
@@ -92,16 +96,26 @@ describe("the cage", () => {
    * either player is told about how close the body is to dying.
    */
   it("says how many bounces are left, and says it differently each time", () => {
-    const frames = [3, 2, 1, 0].map((left) => cage(recoil(left)).log.join("\n"));
+    const frames = [3, 2, 1].map((left) => cage(recoil(left)).log.join("\n"));
     expect(new Set(frames).size).toBe(frames.length);
   });
 
-  /** A body outside the cage's own state still gets a frame rather than an
-   * exception: absent and zero are one state in the simulation too. */
-  it("draws a spent cage for a body carrying no count at all", () => {
+  /**
+   * The end of the count. Out of bounces there is no frame at all — the last
+   * bounce threw it off (`recoil-cage-break.ts`) — so what takes the killing
+   * shot is drawn as the plain body it now is.
+   */
+  it("draws nothing at all once the bounces are spent", () => {
+    expect(cage(recoil(0)).calls).toBe(0);
+  });
+
+  /** A body outside the cage's own state is a body with no bounces left:
+   * absent and zero are one state in the simulation too, so it draws the same
+   * nothing rather than throwing. */
+  it("treats a body carrying no count at all as one with none left", () => {
     const bare = { ...recoil(0) };
     delete (bare as { recoilBounces?: number }).recoilBounces;
-    expect(cage(bare).calls).toBeGreaterThan(0);
+    expect(cage(bare).calls).toBe(0);
   });
 });
 
@@ -136,5 +150,44 @@ describe("the jet a bounce vents", () => {
     fx.clear();
     expect(vent(fx, fieldOf(recoil(2)))).toBe(0);
     expect(fx).toEqual(new RecoilVentFx());
+  });
+});
+
+/** The same bounce, spending the last one rather than the second. */
+const lastBounce: SimEvent = { ...bounce, left: 0 };
+
+/** One frame of the wreckage. */
+function wreck(fx: RecoilCageBreakFx): number {
+  const { ctx } = stubCanvas();
+  ctx.log = [];
+  fx.draw(ctx as unknown as CanvasRenderingContext2D);
+  return ctx.calls;
+}
+
+describe("the cage failing", () => {
+  it("comes apart on the bounce that spends the last one, and on no other", () => {
+    const last = new RecoilCageBreakFx();
+    last.ingest([lastBounce], L, CFG);
+    expect(wreck(last)).toBeGreaterThan(0);
+
+    // A bounce with something still left in the cage leaves the cage standing:
+    // `drawRecoilCage` is still drawing it, and a frame thrown off it here
+    // would be the readout coming apart three shots early.
+    const early = new RecoilCageBreakFx();
+    early.ingest([bounce], L, CFG);
+    expect(wreck(early)).toBe(0);
+  });
+
+  it("is over inside a beat, and is dropped by a restart", () => {
+    const fx = new RecoilCageBreakFx();
+    fx.ingest([lastBounce], L, CFG);
+    fx.update(PAST_IT);
+    expect(wreck(fx)).toBe(0);
+
+    const restarted = new RecoilCageBreakFx();
+    restarted.ingest([lastBounce], L, CFG);
+    restarted.clear();
+    expect(wreck(restarted)).toBe(0);
+    expect(restarted).toEqual(new RecoilCageBreakFx());
   });
 });

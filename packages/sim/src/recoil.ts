@@ -98,6 +98,29 @@ export function recoilRow(cfg: SimConfig, row: number): number {
 }
 
 /**
+ * How far through turning over this body's colour is, 0 at the instant of the
+ * hit and 1 once it has landed. One for every body that is not mid-bounce,
+ * which is every body on the field but this one on the beat it was struck.
+ *
+ * **The turn rides the knock-back, and that is the whole of the rule.** A
+ * bounce is the only thing that ever moves a recoil out of its lane, so
+ * `fromCol` differing from `col` *is* the bounce — the same two fields render
+ * already glides the body between (`drawnCol`), read as a clock so the colour
+ * arrives exactly when the body does. Nothing is remembered anywhere to make
+ * that true: both devices derive it from the same two integers, and a restart
+ * cannot leave a half-turned body behind because there is no state to leave.
+ *
+ * It is a rule here rather than a comparison written at the draw site for the
+ * reason `recoilBouncesLeft` is: a second spelling of "this body is turning"
+ * is how the picture and the shot come to disagree about what colour the pair
+ * must load next.
+ */
+export function recoilTurn(c: Creature, beatPhase: number): number {
+  if (c.kind !== "recoil" || c.fromCol === undefined || c.fromCol === c.col) return 1;
+  return Math.max(0, Math.min(1, beatPhase));
+}
+
+/**
  * A shot met a recoil. Returns whether the bullet goes on, the same contract
  * `resolve` has.
  *
@@ -142,10 +165,20 @@ export function recoilStruck(world: World, b: Bullet, hit: Creature): boolean {
     // A lane to one side, rolled from the world's own stream — the one thing
     // about this creature nobody may plan against. `clampSpanCol` rather than
     // a pair of comparisons written here: keeping a body's whole width on the
-    // field is a rule this file calls and does not re-derive (`span.ts`), and
-    // a body knocked into the wall simply stays in the outermost lane.
+    // field is a rule this file calls and does not re-derive (`span.ts`).
+    //
+    // **And the roll is taken again on the far side when the near one is a
+    // wall.** A clamp alone left a body in the outermost lane exactly where it
+    // was struck, and a bounce that moves nothing is the one outcome this
+    // creature must never have: the whole cost of it is that the column the
+    // pair just said is wrong, and against the edge the roll silently stopped
+    // saying anything half the time. One draw either way, so the stream is
+    // spent identically whichever side comes up and the fingerprint is
+    // untouched.
     const side = nextInt(world.rng, 2) === 0 ? -1 : 1;
-    hit.col = clampSpanCol(fromCol + side, world.cfg.cols, spanOf(hit));
+    const span = spanOf(hit);
+    const rolled = clampSpanCol(fromCol + side, world.cfg.cols, span);
+    hit.col = rolled === fromCol ? clampSpanCol(fromCol - side, world.cfg.cols, span) : rolled;
     // And the colour the pair now has to load. Not null: a recoil is authored
     // red or cyan and `resolve` has already matched the bullet against it, so
     // there is no colourless branch to reach here.
