@@ -1,5 +1,5 @@
 import type { Command, DragTarget, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
-import { controlPress } from "./control-command.js";
+import { controlHold, controlPress } from "./control-command.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-types.js";
@@ -28,8 +28,19 @@ import { guideScene, type SceneId } from "./scenes.js";
 export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   if (act.grip !== undefined) return gripCommands(act, cfg.cols);
   if (act.drag !== undefined) return dragCommands(act, cfg);
-  const def = control(controlOf(act));
-  return [{ tick: act.tick, player: def.player, command: commandFor(act, cfg.cols) }];
+  const id = controlOf(act);
+  const def = control(id);
+  const down: SceneCommand = {
+    tick: act.tick,
+    player: def.player,
+    command: commandFor(act, cfg.cols),
+  };
+  if (act.until === undefined) return [down];
+  // A thumb that stays on a *control* rather than on a handle: the lance, the
+  // gauge's two valve slabs and the bucket's two. What lifting sends is the
+  // control's own release rather than a second act authored beside it
+  // (`control-command.ts`), which is the same bargain a drag's lift makes.
+  return [down, { tick: act.until, player: def.player, command: controlHold(id).up }];
 }
 
 /**

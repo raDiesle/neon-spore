@@ -67,6 +67,7 @@ export const WAVES_ACT_2: Wave[] = [
       both: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
       p1: "You hold the valve and you cannot see the marks. Turn it where she tells you, and stop when she says stop.",
       p2: "You can see the marks and you cannot turn anything. Say where it has to go, then call it — and the marks move.",
+      scene: "theGauge",
     },
     entries: [],
     boss: { kind: "gauge" },

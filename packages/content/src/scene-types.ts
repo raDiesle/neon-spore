@@ -74,9 +74,16 @@ export interface SceneAct {
    * page about *not far enough* needs.
    */
   toMilli?: number;
-  /** The tick that hand lifts again. A grip and a drag always say when they let
-   * go — a hold with no end is a hand that stays down past the end of the
-   * loop. */
+  /**
+   * The tick the thumb lifts.
+   *
+   * A grip and a drag always say when they let go — a hold with no end is a
+   * hand still down on a world that is about to be rebuilt. On an ordinary
+   * **control** it is what makes the act a hold rather than a press, and only
+   * the five that are held will take one: the lance, the gauge's two valve
+   * slabs and the bucket's two (`ControlPress.up`). Absent, on a control, is a
+   * press — which is what every other one is.
+   */
   until?: number;
   /**
    * Draw the hand **on the ship** rather than on the panel below it.

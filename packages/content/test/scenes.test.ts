@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
-import { type ControlId, control, controlSetForWave, setHas } from "../src/index.js";
+import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
 import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepAt, stepSpan } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
@@ -51,7 +51,19 @@ describe("the rehearsals a guide can show", () => {
         // Both holds say where and both say when they let go. A hold with no
         // end is a hand still down on a world about to be rebuilt, and a hold
         // with no column is a hand on whatever happened to be underneath.
-        if (act.grip === undefined && act.drag !== "lidString") continue;
+        if (act.grip === undefined && act.drag !== "lidString") {
+          // And a hold on an ordinary control only makes sense on one a thumb
+          // stays on — the lance, the gauge's two valve slabs and the bucket's
+          // two. Anything else asking for a release is asking for a command
+          // that does not exist, and `controlHold` throws on it a long way
+          // from where it was written.
+          if (act.until === undefined || act.control === undefined) continue;
+          expect(
+            controlHeld(act.control),
+            `${id}: ${act.control} is not a control a thumb stays on`,
+          ).toBe(true);
+          continue;
+        }
         expect(act.col, `${id}: a hold at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
           0,
         );

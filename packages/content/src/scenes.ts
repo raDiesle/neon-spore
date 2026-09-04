@@ -1,6 +1,7 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
+import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SHIELD_THEN_CANNON } from "./scenes/shield-then-cannon.js";
 import { SNAKE } from "./scenes/snake.js";
@@ -8,6 +9,7 @@ import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
+import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
@@ -75,7 +77,9 @@ export type SceneId =
   | "theFleet"
   | "snake"
   | "shieldThenCannon"
-  | "theLance";
+  | "theLance"
+  | "theGauge"
+  | "pinball";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -105,6 +109,8 @@ export const SCENES: Record<SceneId, GuideScene> = {
   snake: SNAKE,
   shieldThenCannon: SHIELD_THEN_CANNON,
   theLance: THE_LANCE,
+  theGauge: THE_GAUGE,
+  pinball: PINBALL,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
