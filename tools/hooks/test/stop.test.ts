@@ -27,6 +27,8 @@ const lane = (over: Partial<LaneState> = {}): LaneState => ({
   branch: "claude/some-lane",
   dirty: false,
   ahead: 2,
+  head: "abc1234",
+  askedFor: "",
   ...over,
 });
 
@@ -73,6 +75,26 @@ describe("whether a finished lane asks about itself", () => {
 
   it("never asks about a branch with nothing on it", () => {
     expect(whyNotAsking(lane({ ahead: 0 }))).toBe("the branch is not ahead of main");
+  });
+
+  /**
+   * "More to come" is one of the three answers, so the lane stays clean and
+   * ahead afterwards. Asking per turn would put the same question again at the
+   * end of every one of them until the owner gave in and landed it.
+   */
+  it("asks once per commit, not once per turn", () => {
+    expect(whyNotAsking(lane({ head: "abc1234", askedFor: "abc1234" }))).toBe(
+      "this commit was already put to the owner",
+    );
+  });
+
+  it("asks again as soon as the lane has something new on it", () => {
+    expect(whyNotAsking(lane({ head: "def5678", askedFor: "abc1234" }))).toBeNull();
+  });
+
+  /** A `HEAD` git would not name is not evidence that anything was asked. */
+  it("asks when it cannot tell what the lane is standing on", () => {
+    expect(whyNotAsking(lane({ head: "", askedFor: "" }))).toBeNull();
   });
 
   it("never asks underneath a stop that was already blocked", () => {

@@ -33,6 +33,12 @@
  * other. A detached tree with nothing on it is the ordinary state after a
  * landing, and still exits quietly.
  *
+ * **It asks once per commit, not once per turn.** "More to come" is one of the
+ * three answers, so a lane deliberately left open would otherwise be put to the
+ * owner again at the end of every turn until he gave in and landed it. The
+ * commit asked about is written to the worktree's own git directory and the
+ * question is not repeated until `HEAD` moves.
+ *
  * `NO_LANE_PROMPT=1` turns it off for a session that decides for itself.
  *
  * Moved off bash with the other three, and this is the one that mattered most:
@@ -41,6 +47,7 @@
  * nobody was waiting for.
  */
 
+import { readFileSync, writeFileSync } from "node:fs";
 import { readPayload, stopHookActive } from "./payload.ts";
 
 /** Either separator: git says `/` for a worktree's path and Windows says the other. */
@@ -60,6 +67,10 @@ export interface LaneState {
   readonly dirty: boolean;
   /** Commits this branch has that `main` does not. */
   readonly ahead: number;
+  /** The commit the lane is standing on. */
+  readonly head: string;
+  /** The commit this worktree was last asked about, or "" if it never has been. */
+  readonly askedFor: string;
 }
 
 /**
@@ -82,6 +93,12 @@ export function whyNotAsking(s: LaneState): string | null {
   // that sorts the two kinds of them: nothing on it is the ordinary state after
   // a landing, and commits on it are a lane whose branch the landing took away.
   if (s.ahead === 0) return "the branch is not ahead of main";
+  // Asked once per commit, not once per turn. "More to come" is one of the
+  // three answers, and a lane deliberately left open would otherwise be put to
+  // the owner again at the end of every turn until he gave in and landed it.
+  // New work moves `HEAD`, and new work is what makes the question worth
+  // asking a second time.
+  if (s.head !== "" && s.head === s.askedFor) return "this commit was already put to the owner";
   return null;
 }
 
@@ -137,6 +154,37 @@ function git(...args: string[]): string | null {
   return proc.exitCode === 0 ? proc.stdout.toString().trim() : null;
 }
 
+/**
+ * Where the last commit put to the owner is written down: the worktree's own
+ * git directory, which is per-tree, never committed, and swept along with the
+ * tree when the tree goes.
+ */
+function askedPath(): string | null {
+  const dir = git("rev-parse", "--absolute-git-dir");
+  return dir === null ? null : `${dir}/lane-finished-asked`;
+}
+
+function readAsked(): string {
+  const path = askedPath();
+  if (path === null) return "";
+  try {
+    return readFileSync(path, "utf8").trim();
+  } catch {
+    return "";
+  }
+}
+
+/** Best effort: a note that cannot be written means the question is asked twice, not lost. */
+function rememberAsked(head: string): void {
+  const path = askedPath();
+  if (path === null || head === "") return;
+  try {
+    writeFileSync(path, `${head}\n`);
+  } catch {
+    // Read-only or gone; asking again is the harmless failure of the two.
+  }
+}
+
 function laneState(stopActive: boolean): LaneState {
   // A worktree's own git dir sits under the shared one; the main checkout's is
   // the shared one. Asking about the main checkout is not what this is for.
@@ -150,6 +198,8 @@ function laneState(stopActive: boolean): LaneState {
     branch: git("rev-parse", "--abbrev-ref", "HEAD") ?? "",
     dirty: (git("status", "--porcelain") ?? "") !== "",
     ahead: Number(ahead ?? 0) || 0,
+    head: git("rev-parse", "HEAD") ?? "",
+    askedFor: readAsked(),
   };
 }
 
@@ -163,8 +213,9 @@ function branchToOffer(state: LaneState): string | null {
     .filter(Boolean);
   const branch = branchForDetached(root, taken);
   if (git("switch", "--quiet", "-c", branch) === null) return null;
+  const many = state.ahead === 1 ? "commit" : "commits";
   process.stderr.write(
-    `lane-finished: the last landing left this worktree detached; ${branch} opened over its ${state.ahead} commits\n`,
+    `lane-finished: the last landing left this worktree detached; ${branch} opened over its ${state.ahead} ${many}\n`,
   );
   return branch;
 }
@@ -181,6 +232,7 @@ async function main(): Promise<void> {
     process.exit(2);
   }
 
+  rememberAsked(state.head);
   process.stderr.write(`${question(branch, state.ahead)}\n`);
   process.exit(2);
 }
