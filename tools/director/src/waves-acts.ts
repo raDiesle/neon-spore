@@ -30,7 +30,12 @@ export interface ActFile {
 }
 
 /**
- * The acts, in order. A save splits the incoming flat list back across them at
+ * The act files, **in the order `waves.ts` concatenates them** — which is the
+ * order of the game and not of the names: `act-3b.ts` is the second half of act
+ * three and stands between act three and act four, because a file is cut where
+ * it fills up rather than where the game changes subject.
+ *
+ * A save splits the incoming flat list back across them at
  * each act's *current* length, except the last, which takes whatever is left
  * over — so a wave appended in the editor lands in the newest act
  * without either act needing to say which waves are its own.
@@ -52,6 +57,11 @@ export const ACT_FILES: readonly ActFile[] = [
     exportName: "WAVES_ACT_3",
   },
   {
+    file: new URL("../../../packages/content/src/waves/act-3b.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-3b.ts",
+    exportName: "WAVES_ACT_3B",
+  },
+  {
     file: new URL("../../../packages/content/src/waves/act-4.ts", import.meta.url),
     rel: "packages/content/src/waves/act-4.ts",
     exportName: "WAVES_ACT_4",
@@ -64,7 +74,7 @@ export const ACT_FILES: readonly ActFile[] = [
 ];
 
 /**
- * Write the array back across the three act files, then let Biome have the
+ * Write the array back across the act files, then let Biome have the
  * last word on formatting. The serializer already aims at Biome's output —
  * the round-trip test holds it to that — but a wave nobody has written yet
  * may wrap in a way the test never saw, and a save that turns the tree red is

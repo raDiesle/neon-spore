@@ -3,6 +3,7 @@ import type { Wave, WaveGuide } from "./wave-types.js";
 import { WAVES_ACT_1 } from "./waves/act-1.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
+import { WAVES_ACT_3B } from "./waves/act-3b.js";
 import { WAVES_ACT_4 } from "./waves/act-4.js";
 import { WAVES_ACT_5 } from "./waves/act-5.js";
 
@@ -13,9 +14,11 @@ export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
  * it grew a dozen lines a wave until it could not — `packages/sim/test/limits.test.ts`
  * carried the receipt. The list is now split by act into `waves/act-*.ts`, one
  * file per chapter of the game (`act-1.ts` is the tutorial arc ending on
- * `FINALE`, `act-2.ts` is the first five bosses back to back, `act-3.ts` is
- * everything after them, and `act-5.ts` is where new waves land now — each act
- * file is cut when it reaches the 250-line limit, not when a chapter ends); this
+ * `FINALE`, `act-2.ts` is the first five bosses back to back, `act-3.ts` and
+ * `act-3b.ts` are everything after them, and the newest act is where new waves
+ * land — a file is cut when it reaches the 250-line limit rather than when a
+ * chapter ends, which is why act three takes two of them and why the order
+ * here is the order of the game rather than the order of the names); this
  * file only concatenates them in order, so what stands here stays short no matter
  * how many waves the acts hold.
  *
@@ -29,6 +32,7 @@ export const WAVES: Wave[] = [
   ...WAVES_ACT_1,
   ...WAVES_ACT_2,
   ...WAVES_ACT_3,
+  ...WAVES_ACT_3B,
   ...WAVES_ACT_4,
   ...WAVES_ACT_5,
 ];

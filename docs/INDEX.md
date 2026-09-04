@@ -259,6 +259,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/scenes/shield-then-cannon.ts` | SHIELD, THEN CANNON's rehearsal: the other way to reach everything |
+| `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 
 ### packages/render
 

@@ -1,9 +1,14 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act three: new mechanics after the first five bosses, one more boss among
- * them (`THE VANE`). **It is full** — on the 250-line ceiling — so the next
- * wave gets a fourth act file beside it. `waves.ts` says why acts at all.
+ * Act three: new mechanics after the first five bosses.
+ *
+ * It ends on `THE VEIL` because it filled up there — `THE VANE` and the three
+ * waves after it are in `act-3b.ts`, in the same order, and `waves.ts`
+ * concatenates the acts so nothing about the game moved. Adding one `scene:`
+ * line here had cost two rounds of shaving a sentence out of a comment to stay
+ * under the 250-line ceiling, which is the warning the limits test exists to
+ * give. `waves.ts` says why acts at all.
  */
 /**
  * **THE LURE, in three figures.** Written here rather than beside the entries
@@ -172,79 +177,5 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 22, col: 6, color: "red" },
       { beat: 24, col: 0, kind: "veil", color: null },
     ],
-  },
-  {
-    id: "theVane",
-    name: "THE VANE",
-    sentence: "The one where the column you were told is never the column it lands in.",
-    guide: {
-      both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in. The rocks under it fall two rows a beat, not one.",
-      p1: "Your strip still says where a rock was aimed. Fold it before you say it, or you have named a column nothing lands in.",
-      p2: "Same for what you see coming. Count from the arm, not from the edge — and be in the column early, because there is no time to slide late.",
-      scene: "theVane",
-    },
-    entries: [
-      { beat: 0, col: 1, kind: "meteor", color: null },
-      { beat: 3, col: 5, color: "red" },
-      { beat: 6, col: 0, kind: "meteor", color: null },
-      { beat: 9, col: 4, color: "cyan" },
-      { beat: 12, col: 6, kind: "meteor", color: null },
-      { beat: 15, col: 2, color: "red" },
-      { beat: 18, col: 3, kind: "meteorMedium", color: null },
-      { beat: 21, col: 6, color: "cyan" },
-      { beat: 24, col: 1, kind: "meteor", color: null },
-      { beat: 27, col: 5, color: "red" },
-      { beat: 30, col: 0, kind: "meteorMedium", color: null },
-      { beat: 33, col: 3, color: "cyan" },
-    ],
-    boss: { kind: "vane" },
-  },
-  {
-    id: "theLance",
-    name: "THE LANCE",
-    sentence: "The one where three of the same colour arrive in one column.",
-    entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 1, col: 2, color: "red" },
-      { beat: 2, col: 2, color: "red" },
-    ],
-    controls: "lance",
-  },
-  {
-    id: "thePurge",
-    name: "THE PURGE",
-    sentence: "The one where the field is cleared by swallowing, not by shooting.",
-    guide: {
-      both: "The same pod with different cargo: taking this one in clears the field of everything that is falling.",
-      p1: "Hold it for the beat that is about to go wrong, not for the one that already has.",
-      p2: "Freeing it is still a shot, and a shot spent here is a creature still coming.",
-      scene: "thePurge",
-    },
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 1, col: 6, color: "red" },
-      { beat: 2, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 4, color: "cyan" },
-    ],
-    pods: [{ beat: 0, col: 3, row: 2, kind: "purge" }],
-  },
-  {
-    id: "theWard",
-    name: "THE WARD",
-    sentence: "The one where the shield answers four rocks untriggered and the fifth on its own.",
-    guide: {
-      both: "This pod holds the shield armed for six beats with no trigger at all — and the rocks that come with it are quicker than any you have met: three rows a beat, then four, then five.",
-      p1: "Your trigger is free while it lasts, so spend the hand on something else. Call each rock from your strip the moment it appears — by the time it is on the field it is nearly here.",
-      p2: "Armed is not aimed: the column is still yours to be standing in. Park the shield where the rock is going, not where it is — one slide, no correction.",
-      scene: "theWard",
-    },
-    entries: [
-      { beat: 0, col: 0, kind: "meteor", color: null },
-      { beat: 2, col: 2, kind: "meteorMedium", color: null },
-      { beat: 4, col: 5, kind: "meteorFast", color: null },
-      { beat: 6, col: 1, kind: "meteorFaster", color: null },
-      { beat: 7, col: 6, kind: "meteorFastest", color: null },
-    ],
-    pods: [{ beat: 0, col: 3, row: 2, kind: "ward" }],
   },
 ];

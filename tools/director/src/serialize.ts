@@ -1,5 +1,5 @@
 /**
- * Regenerates one act's wave array — `WAVES_ACT_1` through `WAVES_ACT_5`, in
+ * Regenerates one act's wave array — `WAVES_ACT_1` and the rest, in
  * `packages/content/src/waves/act-*.ts` — while preserving that file's own
  * header and doc comment byte-for-byte. The browser cannot
  * write files directly, so the editor produces diffs you can review and
