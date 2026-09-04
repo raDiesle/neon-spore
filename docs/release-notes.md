@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 009f1c7 — Four more rehearsals, and a caption can point at a pod
+
+SALVAGE, THE THIRD SHOT, THE CLASP and THE RIND now open on a film of themselves. SALVAGE is the first with nothing falling in it at all: a pod hangs where it was left, she shoots it loose, and the slide and the maw are one page because a wreck crosses the field in under two seconds and a film that gave them a page each would be teaching a tempo the wave has not got. THE THIRD SHOT puts the cannon under one half of the plating, chips it, moves to the other and chips that, and only then does the colour that was showing through the cracks the whole way down land. THE CLASP is the ward pointed up the field instead of down — her column, his trigger, and then the ordinary shot the pair already knows how to take. THE RIND carries the cannon to the body once and leaves it there for all three.
+
 ## 2026-09-04 · 86cddd2 — Four of act three rehearse themselves, and a film is watched by a test
 
 THE LURE, THE THROB, THE DART and THE VEIL now open on a film of themselves. Each is built round the one thing its wave takes away. THE LURE shows the same body on the two phones — a target on his screen, a corner frame reading DO NOT SHOOT on hers — then fires at it and lets the hull pay for the shot, which is what a lure really costs. THE THROB fires twice: once while it is shut, where the bolt is swallowed, and once on the count. THE DART puts the cannon two columns over and leaves it standing there for two beats before the body arrives, because a reaction is exactly what that wave has removed. THE VEIL spends its middle page on the cloud turning colour as it falls, on its own clock, while the words about it are being read.
