@@ -49,6 +49,30 @@ describe("the intro on the stage", () => {
     }
   });
 
+  it("draws on a window with no room in it at all", () => {
+    // Two ways the box for the picture goes negative. A window too short: the
+    // title and the nav bar alone fill it — a desktop browser at the
+    // director's `/game` door, a phone caught mid-rotation. And a canvas that
+    // has not been laid out, which is 0 by 0 and still gets frames while its
+    // tab is hidden. `plate` turned either into a negative corner radius,
+    // `arcTo` threw `IndexSizeError`, and the first screen of the game died
+    // before it drew anything.
+    const { ctx } = stubCanvas();
+    for (const [width, height] of [
+      [900, 0],
+      [900, 60],
+      [900, 200],
+      [900, 229],
+      [0, 0],
+      [20, 1600],
+    ] as const) {
+      const l = layoutAt(width, height);
+      for (let page = 0; page < INTRO_PAGES.length; page++) {
+        drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, page, 1);
+      }
+    }
+  });
+
   it("draws with a pointer resting on each of its own controls", () => {
     // A desk lights what a mouse is over, and the lit path is a second set of
     // colours that a phone never reaches (`guide-nav.ts`).

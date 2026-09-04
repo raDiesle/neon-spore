@@ -105,11 +105,18 @@ export function drawIntroPage(
   // The picture takes the room the words gave back: it is doing most of the
   // work now that there is one line under it rather than two paragraphs.
   const figureTop = y + 6;
-  const figureHeight = (l.height - NAV_H - figureTop) * 0.66;
+  // Neither side may go negative. Below about 230 device pixels of height the
+  // title and the nav bar already fill the window and the subtraction went
+  // past zero; a canvas that has not been laid out yet — a tab drawing while
+  // hidden, which still runs its frames — is 0 wide and takes the width past
+  // zero the same way. Either one reached `plate` as a negative corner radius,
+  // which a real canvas throws `IndexSizeError` on, so the first screen of the
+  // game died rather than drawing a squeezed one.
+  const figureHeight = Math.max(0, (l.height - NAV_H - figureTop) * 0.66);
   drawIntroFigure(
     ctx,
     entry.figure,
-    { x: 14, y: figureTop, w: l.width - 28, h: figureHeight },
+    { x: 14, y: figureTop, w: Math.max(0, l.width - 28), h: figureHeight },
     age,
   );
 
