@@ -69,7 +69,7 @@ const beatPhase = (): number => (world.tick % tpb) / tpb;
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
-const { layout, inStage } = bindViewport(canvas, renderer, cfg, () => view.role());
+const { layout, inStage, onStage } = bindViewport(canvas, renderer, cfg, () => view.role());
 const progression = createWaveProgression({ world, cfg, audio, buffer });
 const jumpToWave = progression.jumpToWave;
 
@@ -93,6 +93,7 @@ const intro = bindIntro({
   sheet: document.getElementById("introTap"),
   layout,
   inStage,
+  onStage,
   // The same hold the menu takes: somebody reading page two is not somebody
   // who wants a wave arriving underneath them (`run-state.ts`).
   hold: (on) => run.hold("menu", on),

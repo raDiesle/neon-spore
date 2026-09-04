@@ -64,6 +64,25 @@ describe("the way it is wired", () => {
     expect(source).toMatch(/localStorage\.setItem\(INTRO_KEY, INTRO_VERSION\);\s*\}\s*catch/);
   });
 
+  it("paints the pages where the frame under them was painted", () => {
+    // The renderer clips to the stage and translates to its corner, then hands
+    // the canvas back at the window's origin. Painting straight onto that put
+    // the six pages against the left edge of a desktop window, with the field
+    // showing to their right, while SKIP and NEXT went on answering a press one
+    // stage offset away — so the only presses that reached a button were the
+    // ones over the game. The offset belongs to `viewport.ts`, which is the
+    // same file `inStage` reads it from, so the two cannot disagree.
+    expect(source).toContain("b.onStage(ctx,");
+    const painting = source.slice(source.indexOf("over: (ctx, dt)"));
+    expect(painting).not.toMatch(/drawIntroPage\(ctx,/);
+  });
+
+  it("is handed that offset by the one place that owns it", () => {
+    expect(readFileSync(new URL("../src/main.ts", import.meta.url), "utf8")).toMatch(
+      /const \{ layout, inStage, onStage \} = bindViewport\(/,
+    );
+  });
+
   it("is the front door before the menu, and hands the menu back afterwards", () => {
     expect(shell).toMatch(/opensIntro\(readIntroSeen\(\), true\)\)\s*p\.intro\.open\(toMenu\)/);
   });

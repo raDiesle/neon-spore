@@ -38,6 +38,22 @@ export interface Geometry {
    * function now, and the canvas is measured at the moment of the event.
    */
   inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
+  /**
+   * Draw something over the frame, in the coordinates the frame was drawn in.
+   *
+   * The renderer clips to the stage and translates to its corner before it
+   * paints anything (`render/canvas2d.ts`); a caller that paints *after* it
+   * gets a canvas back at the window's own origin. On a phone those are the
+   * same point and nothing said otherwise — on a desktop the intro's six pages
+   * were painted flush against the left edge of the window with the game
+   * showing beside them, and their SKIP and NEXT answered a press one stage
+   * offset to the right, over the field. So the offset is applied in the one
+   * place that already owns it rather than by the overlay.
+   */
+  onStage: (
+    ctx: CanvasRenderingContext2D,
+    draw: (ctx: CanvasRenderingContext2D, layout: Layout) => void,
+  ) => void;
 }
 
 export function bindViewport(
@@ -80,5 +96,23 @@ export function bindViewport(
     return p.x < 0 || p.y < 0 || p.x > s.width || p.y > s.height ? null : p;
   };
 
-  return { layout, inStage };
+  const onStage = (
+    ctx: CanvasRenderingContext2D,
+    draw: (ctx: CanvasRenderingContext2D, layout: Layout) => void,
+  ): void => {
+    const s = stage();
+    if (s.width < 1 || s.height < 1) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(s.left, s.top, s.width, s.height);
+    ctx.clip();
+    ctx.translate(s.left, s.top);
+    // `layout()` rather than a second derivation of it: the overlay has to be
+    // drawn against the very layout its own hit test reads, and two spellings
+    // of that would drift the way `mapCol` does.
+    draw(ctx, layout());
+    ctx.restore();
+  };
+
+  return { layout, inStage, onStage };
 }

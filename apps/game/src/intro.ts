@@ -58,6 +58,20 @@ export interface IntroBinding {
   layout: () => Layout;
   /** A pointer event in the coordinates the renderer drew in (`viewport.ts`). */
   inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
+  /**
+   * Paints the pages where the frame underneath them was painted.
+   *
+   * Not `ctx` directly: the renderer draws inside the stage — a phone-shaped
+   * rectangle cut out of a canvas the size of the window — and hands the
+   * canvas back at the window's origin. Painting straight onto it put the six
+   * pages against the left edge of a desktop window with the field showing to
+   * their right, while SKIP and NEXT went on answering presses a stage offset
+   * away, over that field. `viewport.ts` owns the offset and applies it here.
+   */
+  onStage: (
+    ctx: CanvasRenderingContext2D,
+    draw: (ctx: CanvasRenderingContext2D, layout: Layout) => void,
+  ) => void;
   /** Down while the intro is up: the same hold the menu takes, so a reader is
    * not being played against. */
   hold: (on: boolean) => void;
@@ -155,7 +169,9 @@ export function bindIntro(b: IntroBinding): Intro {
     over: (ctx, dt) => {
       if (!open) return;
       age += dt;
-      drawIntroPage(ctx, b.layout(), page, age, pointer);
+      b.onStage(ctx, (c, l) => {
+        drawIntroPage(c, l, page, age, pointer);
+      });
     },
   };
 }
