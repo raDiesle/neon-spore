@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 2e047e4 — The trunk reaches origin when a lane is cleared away, not every landing
+
+`bun run land` pushed `origin/main` every time it moved the trunk. Landing stopped being something anybody schedules once `auto-land` took it at the end of every finished turn, so that was a push per turn — usually one commit onto a remote nobody was reading yet. The push now rides on the sweep instead: it goes when the landing actually cleared a lane away, a worktree removed or some other lane's branch deleted, which is about once per lane. The lane's own branch is not counted, because every landing there has ever been deletes it.
+
 ## 2026-09-04 · 20b996e — The opening pages were painted beside the game rather than on it
 
 On a window wider than a phone the renderer draws into a phone-shaped stage cut out of the middle of the canvas, and hands the canvas back at the window's own origin. The intro painted straight onto that, so its six pages stood against the left edge with the field showing to their right, while SKIP and NEXT went on answering presses one stage offset away — which is why the only clicks that reached a button were the ones over the game.
