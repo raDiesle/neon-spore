@@ -12,13 +12,11 @@ import type { GuideScene } from "../scene-types.js";
  * opening, the two marks, and the torch that arrives on a clock of its own
  * while they are still talking about the first two.
  *
- * **There is no shot, and that is a limitation rather than a decision.** Her
- * two marks stand one column either side of her, she is held at the middle of
- * the field so her whole span stays on it, and a scene's acts are authored in
- * the seven-column grid every wave is authored in — which reaches seven of the
- * field's eleven columns and neither of hers. `docs/queue.md` carries the
- * finding; when a film can send the cannon to a real column, the fourth page
- * of this one is a shot up the mark she was showing.
+ * **The fourth page is a real petal coming off her.** It is aimed at her weak
+ * side rather than at the mark her middle is showing — those are two different
+ * columns, and telling them apart is exactly what the pair has to do — and it
+ * is fired on the second of her two open beats, because the third is already
+ * shut.
  *
  * The torch is the film's one shared page and it is spent well: it is the
  * thing on her that neither screen owns, it lands while the pair is reading
@@ -26,15 +24,30 @@ import type { GuideScene } from "../scene-types.js";
  * things at once and you are only answering one of them*.
  */
 export const BULB_QUEEN: GuideScene = {
-  ticks: 900,
+  ticks: 1020,
   bpm: 120,
   seed: 1,
   entries: [],
   boss: { kind: "queen", col: 3, petals: 9 },
-  acts: [],
+  acts: [
+    // Under the *weak* mark rather than under the tell, and they are not the
+    // same column: `tellCol` is what her middle is showing and the petal comes
+    // off at `col + weakSide` (`bullet-hit-boss.ts`). Both of them move with
+    // her, so this is a measurement of where she has drifted to by beat twelve
+    // rather than a place chosen for her.
+    { tick: 630, control: "cannon", col: 3 },
+    { tick: 670, control: "cannon", col: 2 },
+    { tick: 770, control: "fireRed" },
+  ],
   steps: [
     { tick: 0, seat: 1, text: "THE QUEEN · SHE OPENS", anchor: { at: "body" } },
     { tick: 220, seat: 2, text: "ONE MARK IS REAL", anchor: { at: "body" } },
     { tick: 440, seat: 1, text: "A TORCH EVERY EIGHT BEATS", anchor: { at: "health" } },
+    {
+      tick: 700,
+      seat: 2,
+      text: "FIRE THE MARK SHE SHOWED",
+      anchor: { at: "control", control: "fireRed" },
+    },
   ],
 };

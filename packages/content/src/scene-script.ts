@@ -42,12 +42,22 @@ export function sceneCommands(act: SceneAct, cols: number): SceneCommand[] {
  */
 function gripCommands(act: SceneAct, cols: number): SceneCommand[] {
   const player = act.grip as 1 | 2;
-  const col = mapCol(act.col ?? 0, cols);
+  const col = actCol(act, cols);
   const until = act.until ?? act.tick;
   return [
     { tick: act.tick, player, command: { kind: "grip", id: 0 }, gripCol: col },
     { tick: until, player, command: { kind: "grip", id: 0 } },
   ];
+}
+
+/**
+ * The real column an act names: the authored one put through the wave's own
+ * remapping. One line, and it is a function because three callers wanted it —
+ * a press, a grip, and the ghost hand over on the drawing side
+ * (`render/guide-thumb.ts`), which had its own copy of the same expression.
+ */
+export function actCol(act: SceneAct, cols: number): number {
+  return mapCol(act.col ?? 0, cols);
 }
 
 /** The control an act is on, or a loud failure: a grip is handled above, and
@@ -59,7 +69,7 @@ function controlOf(act: SceneAct): ControlId {
 }
 
 function commandFor(act: SceneAct, cols: number): Command {
-  const col = mapCol(act.col ?? 0, cols);
+  const col = actCol(act, cols);
   switch (controlOf(act)) {
     case "cannon":
       return { kind: "cannonCol", col };

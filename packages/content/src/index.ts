@@ -95,7 +95,7 @@ export {
   podsFromWave,
   queueFromWave,
 } from "./queue.js";
-export { sceneCommands, sceneScript } from "./scene-script.js";
+export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
   type GuideScene,
   guideScene,

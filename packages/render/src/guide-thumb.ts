@@ -1,8 +1,8 @@
 import {
+  actCol,
   type ControlSet,
   control,
   type GuideScene,
-  mapCol,
   type SceneAct,
 } from "@neon-spore/content";
 import { gripsCreature, type World } from "@neon-spore/sim";
@@ -94,7 +94,9 @@ function pointOn(l: Layout, set: ControlSet, act: SceneAct): { x: number; y: num
   // finger against `|y - strip.y|`, so a hand drawn half a strip below it would
   // be a hand outside the region it is supposedly inside.
   const strip = act.control === "shield" ? l.shieldStrip : l.cannonStrip;
-  return { x: tileCX(l, mapCol(act.col ?? 0, l.cols)), y: strip.y };
+  // `actCol` is the one place an act's column becomes a real one, authored
+  // grid or not (`content/src/scene-script.ts`).
+  return { x: tileCX(l, actCol(act, l.cols)), y: strip.y };
 }
 
 /**
