@@ -128,6 +128,12 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // the one thing that cannot go stale across a restart.
     case "caromBounce":
     case "caromCrack":
+    // Nothing about the ejected body is remembered either: which way it is
+    // going and what is drawn over it are read every frame off `chuteOpen`
+    // (`chute.ts`), which is the one thing that cannot go stale across a
+    // restart.
+    case "caromEject":
+    case "chuteOpen":
     // Nothing here remembers anything past this frame: `burstFor`'s table
     // already said what a burst it is or is not, and none of these change
     // what `Effects` carries into the next one.

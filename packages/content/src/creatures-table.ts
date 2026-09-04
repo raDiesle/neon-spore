@@ -228,4 +228,8 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // `wornKind` resolves it right up until the crust comes off, after which
   // there is no body left to resolve.
   carom: WORN_CREATURES.carom,
+  // THE CHUTE, and the ninth worn body: the slick or the bulb thrown clear of
+  // a cracked carom, under a canopy. Next door with the rest for their reason
+  // — it is drawn as the body its colour names, and `wornKind` resolves it.
+  chute: WORN_CREATURES.chute,
 };

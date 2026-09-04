@@ -166,5 +166,11 @@ export function creatureHashParts(c: Creature): number[] {
   // off is `c.kind` at the top of this list, and the width it keeps is
   // `spanOf` beside it.
   out.push(c.caromDir ?? 0);
+  // Whether THE CHUTE's canopy is out. It decides which *direction* the body
+  // moves on the next beat, so two devices that disagree about it are two
+  // devices holding one body at one row and pulling it apart — the loudest
+  // desync a single boolean can buy. Absent and false are one state here
+  // (`chuteIsOpen`), so they fold to the same number on purpose.
+  out.push(c.chuteOpen ? 1 : 0);
   return out;
 }

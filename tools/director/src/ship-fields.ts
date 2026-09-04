@@ -82,6 +82,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scoreLidKill: "SCORE",
   rindLayers: "THE RIND — one body, three sizes",
   scoreRindShed: "SCORE",
+  chuteRiseRows: "THE CAROM — a rock with something alive in it",
+  chuteFallBeats: "THE CAROM — a rock with something alive in it",
   caromCols: "THE CAROM — a rock with something alive in it",
   caromRows: "THE CAROM — a rock with something alive in it",
   damageCarom: "THE CAROM — a rock with something alive in it",

@@ -24,6 +24,12 @@ async function eventTypes(): Promise<string[]> {
   for (const [file, decl] of [
     ["packages/sim/src/events.ts", "export type SimEvent ="],
     ["packages/sim/src/events-creature.ts", "export type CreatureEvent ="],
+    // THE CAROM's four, cut out of the file above when they took it over its
+    // 250-line limit. Named here rather than globbed for the reason the two
+    // above are: a file this test cannot find is a file whose events go
+    // silently unheard, so the list has to be a thing somebody adds to on
+    // purpose — and forgetting is a failure here rather than a silence.
+    ["packages/sim/src/events-carom.ts", "export type CaromEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -83,6 +89,8 @@ const SAMPLES: Record<string, SimEvent> = {
   },
   caromBounce: { type: "caromBounce", col: 0, row: 5, dir: 1 },
   caromCrack: { type: "caromCrack", col: 3, row: 5, span: 2, color: "red" },
+  caromEject: { type: "caromEject", id: 9, col: 3, row: 5, color: "red" },
+  chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
@@ -206,8 +214,6 @@ const CREATURE_IDS: Record<string, string> = {
   shellBare: "creature.moult",
   rindShed: "impact.split",
   recoilBounce: "impact.bounce",
-  caromBounce: "impact.bounce",
-  caromCrack: "impact.split",
   claspBreak: "creature.moult",
   lureHit: "impact.wrongTarget",
   lureSeen: "signal.lureWarn",
@@ -221,6 +227,20 @@ const CREATURE_IDS: Record<string, string> = {
   ghostCharge: "creature.ghostCharge",
 };
 
+/**
+ * The same table for THE CAROM's four, which are bound in `bind-carom.ts` —
+ * their own file for their own creature, the way `events-carom.ts` is the
+ * simulation's. Kept apart here rather than folded in above so the two source
+ * files and the two tables stay one-to-one: a case list checked against the
+ * wrong file is a check that passes while saying nothing.
+ */
+const CAROM_IDS: Record<string, string> = {
+  caromBounce: "impact.bounce",
+  caromCrack: "impact.split",
+  caromEject: "creature.gateLoop",
+  chuteOpen: "creature.moult",
+};
+
 describe("what one body did", () => {
   it("covers every event `creatureCue` names, so a new one cannot be left out", async () => {
     const src = await Bun.file(join(ROOT, "packages/audio/src/bind-creatures.ts")).text();
@@ -228,7 +248,13 @@ describe("what one body did", () => {
     expect(cases.sort()).toEqual(Object.keys(CREATURE_IDS).sort());
   });
 
-  for (const [type, id] of Object.entries(CREATURE_IDS)) {
+  it("covers every event `caromCue` names, on the same terms", async () => {
+    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-carom.ts")).text();
+    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
+    expect(cases.sort()).toEqual(Object.keys(CAROM_IDS).sort());
+  });
+
+  for (const [type, id] of Object.entries({ ...CREATURE_IDS, ...CAROM_IDS })) {
     it(`plays ${id} for ${type}`, () => {
       const sample = SAMPLES[type];
       expect(sample, `${type} has no sample`).toBeDefined();

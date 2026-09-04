@@ -14,6 +14,12 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * tell this apart from the ordinary thing it most resembles, because the pair
  * is deciding what to do next on the strength of it.
  *
+ * THE CAROM's four are `bind-carom.ts` next door, cut out when they took this
+ * file past its 250-line limit and along the seam `events-carom.ts` already
+ * cuts in the simulation: one arrival taken apart into a wall, a crack, a body
+ * thrown clear and a canopy, against a list of incidents that happen to be
+ * about bodies. `cueFor` names those four itself.
+ *
  * `cueFor` names each of these cases and delegates, rather than reaching this
  * file through a `default` — a default would take that switch's exhaustiveness
  * with it, and the exhaustiveness is what makes a new event a compile error
@@ -38,38 +44,13 @@ export function creatureCue(
         | "wispHop"
         | "ghostRelease"
         | "ghostTurn"
-        | "ghostCharge"
-        | "caromBounce"
-        | "caromCrack";
+        | "ghostCharge";
     }
   >,
   cols: number,
   rows: number,
 ): Cue | null {
   switch (e.type) {
-    case "caromBounce":
-      // The same bounce THE RECOIL gets, and it is the same word: the thing
-      // you were looking at went somewhere else. That one is knocked back up
-      // the field by a shot and this one turns at a wall on its own, and the
-      // pair does not need those told apart — what they need is to hear, while
-      // looking at the cannon strip rather than at the field, that the lane
-      // they had agreed on has stopped being on the way there.
-      return {
-        id: "impact.bounce",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
-    case "caromCrack":
-      // A crust coming apart, which is what `impact.split` was written for —
-      // and deliberately **not** `impact.destroyRed`/`Cyan`, which are the
-      // sound of a column closing. This column has not closed: what fell out
-      // of the shell is a rock, and the one thing this creature cannot survive
-      // is player 1 hearing a kill and taking their thumb off the trigger.
-      return {
-        id: "impact.split",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "shellBreak":
       // A crack and two halves ringing — the sound was written for a crystal
       // coming apart and this is the same event, a piece leaving a body that

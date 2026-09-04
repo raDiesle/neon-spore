@@ -32,7 +32,11 @@ describe("categoryOf", () => {
     // control group of its own and the wheel that brought it already shows
     // the panel. Both are also what keeps them out of the director's palette
     // (`LIVING_BRUSH_KINDS`), which is the visible half of this test.
-    expect(special).toEqual(["tether", "mount"]);
+    // THE CHUTE is the third, by the same door: the body a cracked carom
+    // throws out is never authored either, and the `carom` entry that made it
+    // already shows both panels — the cannon that has to finish it and the
+    // shield that owes the rock beside it.
+    expect(special).toEqual(["tether", "mount", "chute"]);
   });
 });
 

@@ -37,6 +37,7 @@ export {
   clampSpanCol,
   colSpan,
   occupiesCol,
+  occupiesLane,
   type RockSize,
   spanCenterCol,
   spanOf,

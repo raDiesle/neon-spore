@@ -1,3 +1,4 @@
+import type { CaromEvent } from "./events-carom.js";
 import type { Color, CreatureKind } from "./types.js";
 
 /**
@@ -224,27 +225,11 @@ export type CreatureEvent =
    * on the tick before this.
    */
   | { type: "gyreBroke"; col: number; row: number }
-  /**
-   * THE CAROM touched a side wall and turned. `dir` is which way it is going
-   * **now**, not which way it arrived, on `veilMorph`'s terms and for its
-   * reason: the whole content of this event is that the lane the pair had
-   * agreed on has stopped being on the way there. The wall is also the one
-   * instant of this creature either of them can plan around, and the ear gets
-   * it so the seat looking at the cannon rather than at the field hears the
-   * turn happen.
-   */
-  | { type: "caromBounce"; col: number; row: number; dir: -1 | 1 }
-  /**
-   * The crust came off a carom and what is left is a rock. `color` is the shot
-   * that opened it, which is also the body that was inside — nothing else
-   * cracks one — and `span` is how wide that rock is, which is how wide the
-   * carom was (`caromStruck`).
-   *
-   * Its own event rather than a `destroy`, and this is the sharpest case of
-   * the argument `rindShed` and `recoilBounce` already make: the reflex that
-   * pays off everywhere else on the field is only *half* right here. A kill
-   * sound would tell the pair the column is closed at the exact moment it has
-   * become the shield's problem, and the one thing this creature cannot
-   * survive is player 1 hearing "done" and lifting their thumb off the trigger.
-   */
-  | { type: "caromCrack"; col: number; row: number; span: number; color: Color };
+  // THE CAROM's four — the wall, the crack, the body thrown clear and the
+  // canopy — are `events-carom.ts` next door, cut out when the fourth took
+  // this file over its limit. One arrival taken apart, rather than four
+  // incidents that happen to share a creature.
+  | CaromEvent;
+
+// Re-exported so nothing that reaches for one through this file has to move.
+export type { CaromEvent } from "./events-carom.js";

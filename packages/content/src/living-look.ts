@@ -70,6 +70,12 @@ const LIVING_LOOK = {
   // further down and no contour either. So this row describes the creature
   // only while it is alive, which is exactly as long as it is a creature.
   carom: null,
+  // THE CHUTE is the ninth, and the echo's case again: the same slick or bulb,
+  // at the same size, with a canopy drawn above it rather than anything laid
+  // over it (`render/chute.ts`). A contour of its own would be a second shape
+  // for a body the pair already has a word for — and the word is the whole
+  // point, because this *is* the body they were looking at inside the rock.
+  chute: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

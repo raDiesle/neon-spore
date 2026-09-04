@@ -114,6 +114,13 @@ const TALKER = {
   // it, then ward what falls out. A siren here would teach them to look for
   // something hidden that is not there.
   carom: null,
+  // And the body it throws out, on exactly the same terms: both screens draw
+  // the whole of it, going up and then coming down, in a colour neither of
+  // them has to be told. What the pair has to say about one is *that it is
+  // still up there* while they are both looking at the rock — which is a thing
+  // to remember rather than a thing to reveal, and a siren cannot help with
+  // remembering.
+  chute: null,
   shell: null,
   clasp: null,
   warden: null,

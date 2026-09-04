@@ -49,6 +49,7 @@ const TWO_BODIED: readonly CreatureKind[] = [
   "recoil",
   "gyre",
   "carom",
+  "chute",
 ];
 
 export function cardSubjects(kind: CreatureKind): string[] {
@@ -122,6 +123,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   rind: "starts bigger, shrinks when shot",
   recoil: "a hit knocks it back up and flips its colour",
   carom: "bounces off the walls; shoot it, then ward the rock",
+  chute: "what a cracked carom throws out — it goes up, then drifts back down",
   gyre: "a wheel of six bodies; the maw slows it",
   lid: "p1 holds its cord open, p2 shoots the lens",
   torch: "p1 calls the column, p2 wards — the fastest rock",

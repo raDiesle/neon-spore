@@ -108,7 +108,27 @@ export function bodyCenterCol(body: { kind: CreatureKind; span?: number }, col: 
  * number of tiles. See `spanCenterCol` for where the centre is needed.
  */
 export function occupiesCol(c: Creature, col: number): boolean {
-  return col >= c.col && col < c.col + spanOf(c);
+  return occupiesLane(c.col, spanOf(c), col);
+}
+
+/**
+ * The same test, asked of a **lane and a width** rather than of a body.
+ *
+ * It exists because a body is not always standing in the column it is standing
+ * in. A carom crosses three lanes a beat and a dart two, and render glides
+ * both between `fromCol` and `col` (`drawnCol`) — so for most of every beat
+ * the thing a player is aiming at is not in the column the simulation has
+ * written down, and a shot fired at what is drawn misses what is there.
+ * `bullets.ts` asks this about the lane the body is *nearest* on the tick the
+ * shot sweeps past, which is the same correction `creatureMilli` next door
+ * already makes to the row and for exactly the same reason.
+ *
+ * `occupiesCol` above is the ordinary form and everything that is not testing
+ * a body mid-move should use it: the span is read off the creature there, and
+ * a caller that passed a width by hand could pass the wrong one.
+ */
+export function occupiesLane(leftCol: number, span: number, col: number): boolean {
+  return col >= leftCol && col < leftCol + span;
 }
 
 /**

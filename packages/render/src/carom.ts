@@ -1,5 +1,6 @@
 import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
 import { type Creature, caromHeading, type SimConfig, spanOf } from "@neon-spore/sim";
+import { drawWindow } from "./carom-window.js";
 import { depthScale, drawnRow, hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
@@ -9,34 +10,45 @@ import { PALETTE, STROKE } from "./palette.js";
 import { rockRadius } from "./torch.js";
 
 /**
- * THE CAROM's crust: the rock shell a slick or a bulb is sealed inside, and
- * the streak it drags behind it across the field.
+ * THE CAROM's crust: a meteor with a window cut in it, and the streak it drags
+ * behind it across the field.
  *
  * The body underneath is not drawn here at all. `wornKind` already answers
  * "slick" or "bulb" for a carom, so `creatures.ts` draws an ordinary living
  * body with its ordinary colour and its ordinary own-motion, and this file
- * lays one more object over the top of it — THE RECOIL's cage arrangement
- * exactly, and for the cage's reason: what the pair has to read through the
- * shell is the colour, because the colour is the only thing either of them can
- * do about this body while it is still crossing.
+ * lays the rock over the top of it — THE RECOIL's cage arrangement, with the
+ * one difference that a cage is a frame and this is a hull.
  *
- * **It is a ring and not a lid, and that is the whole of the drawing
- * decision.** A rock shell filled in would be a rock — indistinguishable from
- * the meteor it is about to become, and drawn over the one thing the pair has
- * to read. So the crust is an annulus: the same faceted crystal `meteor.ts`
- * strokes, with a smaller one cut out of the middle of it, and the living
- * body burning out of the hole. Both facts are then true at once and neither
- * is a caption — *this is rock*, and *there is something alive in it*.
+ * **It is a meteor first.** The first version drew a thin faceted ring, and it
+ * read as a plate with a body in the middle rather than as rock: the owner's
+ * correction was that the thing should *start* as the meteor shape it is going
+ * to become. So the outer contour is now `crystalPath` at the full `METEOR`
+ * parameters, filled with the same unlit mid-tone `meteor.ts` fills with and
+ * lit by the same key — the rock it cracks into is the identical drawing with
+ * the window closed up, which is what makes the crack read as one object
+ * changing rather than two objects swapped.
  *
- * **The streak is what says four lanes a beat.** Every other body on this
+ * **The window is glass, and round.** A hole is not a window: an angular gap
+ * in a rock is damage, and what the pair has to read through this one is a
+ * living body they are going to have to name a colour for. So it is a circle —
+ * the one round thing on a body made entirely of facets, which is what says
+ * *made* rather than *broken* — with a bezel around it, a tint across it and a
+ * specular crescent up its top-left shoulder, so the colour behind it is
+ * plainly behind something. `KEY` puts that crescent on the same side every
+ * other lit body in this game takes its highlight from.
+ *
+ * **And there is a hatch across the top of it.** Two rivets and a seam, drawn
+ * closed while the body is sealed in. It is the only part of this picture that
+ * is a promise about the future rather than a description of the present: when
+ * the shot lands, that is the line the body comes out of (`chute.ts`).
+ *
+ * **The streak is what says three lanes a beat.** Every other body on this
  * field either holds its lane or steps to a named tile; this one is somewhere
  * else before anybody has finished saying where it was, and a still picture of
  * it is a lie about the only thing that matters. So the crust drags a wedge of
  * its own colour behind it, along `caromHeading` — the direction the
  * simulation is actually going to move it — which means the picture and the
- * next beat can never point opposite ways. It is drawn *behind* the crust and
- * inside the perspective transform, so it grows down the field the way the
- * body does.
+ * next beat can never point opposite ways.
  *
  * Nothing here is remembered between frames. The heading comes off the world
  * and the shimmer off the wall clock spread by the body's own id, so a restart
@@ -45,31 +57,31 @@ import { rockRadius } from "./torch.js";
  */
 
 /**
- * The hole in the middle, as a share of the shell.
+ * The window, as a share of the rock's radius.
  *
- * The shell itself is **`rockRadius` at the body's own span** and not a
- * multiple of the living radius, which is the one number in this file that had
- * to be got right rather than chosen: a carom is two columns wide (`colSpan`)
- * and the rock it becomes keeps that width, so a crust drawn at one tile would
- * be a body the shield covers two columns of and the pair sees one of — and
- * the moment it cracked, the picture would jump to twice the size.
+ * The rock itself is **`rockRadius` at the body's own span** and not a multiple
+ * of the living radius, which is the one number in this file that had to be got
+ * right rather than chosen: a carom is two columns wide (`colSpan`) and the
+ * meteor it becomes keeps that width, so a crust drawn at one tile would be a
+ * body the shield covers two columns of and the pair sees one of — and the
+ * moment it cracked, the picture would double in size.
  *
- * Just under three quarters of it, so the living body inside — drawn at the
- * ordinary one tile by `drawLiving` — stands clear of the ring with a little
- * room around it, and what is left is a band of rock thick enough to read as
- * rock at the top of the field.
+ * Just under three fifths of it, which puts the glass a little wider than the
+ * one-tile footprint `drawLiving` gives the body inside: the whole creature
+ * shows through with a margin, and what is left all round is rock thick enough
+ * to read as rock at the top of the field.
  */
-const CORE_MUL = 0.72;
-/** How far the streak reaches behind it, in shell radii. Two: about half a
- * lane at the top of the field and most of one at the bottom, which is the
- * distance that reads as speed without reaching into the column next door. */
+const GLASS_MUL = 0.58;
+/** How far the streak reaches behind it, in rock radii. Two: about half a lane
+ * at the top of the field and most of one at the bottom, which is the distance
+ * that reads as speed without reaching into the column next door. */
 const TRAIL_MUL = 2.0;
-/** How much of the trail's own colour survives where it leaves the shell. */
+/** How much of the trail's own colour survives where it leaves the rock. */
 const TRAIL_ALPHA = 0.5;
 
 /**
  * The crust and its streak, over a body that is already drawn. `time` is
- * seconds, for the shell's own shimmer; `near` is `nearness`, so the far rows
+ * seconds, for the rock's own tumble; `near` is `nearness`, so the far rows
  * dim with everything else.
  */
 export function drawCaromCrust(
@@ -83,69 +95,55 @@ export function drawCaromCrust(
   beatPhase: number,
   near: number,
 ): void {
-  // The rock's own radius at this body's width, times the row's perspective —
-  // `drawMeteor` reads exactly the same two numbers, so the crust and the rock
+  // `drawMeteor` reads exactly these two numbers, so the crust and the rock
   // that falls out of it are the same size and the crack changes nothing about
   // how much of the lane the thing covers.
   const r = rockRadius(l, spanOf(c)) * depthScale(cfg, l, drawnRow(c, beatPhase));
+  const glass = r * GLASS_MUL;
   const spin = sinHash(c.id) * 6.3;
-  const turn = spin + time * 0.35;
   const dir = caromHeading(c);
 
   const metal = hazed(cfg, PALETTE.rock, near);
   const glow = hazed(cfg, c.color === "cyan" ? PALETTE.cyan : PALETTE.red, near);
+  const rim = hazed(cfg, c.color === "cyan" ? PALETTE.cyanRim : PALETTE.redRim, near);
 
   ctx.save();
   ctx.translate(x, y);
-
   drawTrail(ctx, r, dir, glow);
 
-  ctx.rotate(turn);
-  // Outer facets and inner facets in one path, wound so that `evenodd` leaves
-  // the ring and takes the middle out. Two calls to `crystalPath` rather than
-  // one scaled twice: the inner rim is a *break* rather than a smaller copy of
-  // the shell, so it carries its own phase and turns against the outer one.
+  // The rock turns and the window does not, which is the whole reason they are
+  // two paths in two frames rather than one path with a hole in it. A porthole
+  // that rolled with the stone would be a porthole nobody could look through,
+  // and the body behind it is drawn upright by `drawLiving` either way — so a
+  // turning frame would visibly slide across a body standing still.
+  const turn = spin + time * 0.12;
   const shell = new Path2D(
-    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.2, METEOR.seed),
-  );
-  shell.addPath(
-    new Path2D(
-      crystalPath(
-        0,
-        0,
-        r * CORE_MUL,
-        r * CORE_MUL,
-        METEOR.sides,
-        METEOR.depth * 1.6,
-        METEOR.wobble,
-        -time * 0.3,
-        METEOR.seed + 2,
-      ),
-    ),
+    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
   );
 
   ctx.save();
-  // The unlit mid-tone `meteor.ts` fills with, so a carom and the rock it
-  // becomes are visibly the same material — the light supplies the ends.
+  ctx.rotate(turn);
   ctx.fillStyle = "#8A8F9C";
-  ctx.fill(shell, "evenodd");
-  ctx.clip(shell, "evenodd");
+  ctx.fill(shell);
+  ctx.save();
+  ctx.clip(shell);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   ctx.restore();
-
   ctx.strokeStyle = metal;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(shell);
   ctx.restore();
 
-  // The light escaping out of the break, over the whole thing rather than
-  // clipped to the hole: a body sealed in rock that leaked no light at all
-  // would be a rock, and the colour is the sentence player 2 has to say.
-  halo(ctx, x, y, r * 1.4, glow, 0.16);
+  drawWindow(ctx, glass, metal, rim, glow);
+  ctx.restore();
+
+  // The light escaping past the glass. Small: most of it is behind something,
+  // which is the difference between this and a body in the open.
+  halo(ctx, x, y, r * 1.3, glow, 0.12);
 }
 
 /**
- * The wedge dragged behind it: widest at the shell, gone by the far end, and
+ * The wedge dragged behind it: widest at the rock, gone by the far end, and
  * pointing the way `caromHeading` says the body is going. Drawn in the body's
  * own colour rather than in rock, because what the streak is saying is *this
  * one is alive and it is already past you*.
@@ -153,9 +151,8 @@ export function drawCaromCrust(
 function drawTrail(ctx: CanvasRenderingContext2D, r: number, dir: number, glow: string): void {
   const back = -dir * r * TRAIL_MUL;
   const tip = -r * TRAIL_MUL * 0.5;
-  // Along the wedge rather than across it. The gradient used to run down and
-  // to the *right* while the wedge pointed up and to the left, so every point
-  // in it sampled the transparent end and the streak was drawn invisibly.
+  // Along the wedge rather than across it: a gradient running the other way
+  // samples the transparent end everywhere and draws nothing at all.
   const grad = ctx.createLinearGradient(0, 0, back, tip);
   grad.addColorStop(0, glow);
   grad.addColorStop(1, "rgba(0,0,0,0)");

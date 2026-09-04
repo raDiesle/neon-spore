@@ -35,6 +35,7 @@ export {
   caromHeading,
   caromImpactDamage,
 } from "./carom.js";
+export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export {
   DEFAULT_CONFIG,

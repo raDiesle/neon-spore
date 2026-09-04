@@ -195,6 +195,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/impact.ts` | **What one body costs the hull when it reaches it**, for everything the shield was never offered |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
+| `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
+| `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
 
 ### packages/content
 
@@ -271,6 +273,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
+| `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 
 ### packages/render
 
@@ -483,7 +486,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
 | `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
 | `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
-| `packages/render/src/carom.ts` | THE CAROM's crust: the rock shell a slick or a bulb is sealed inside |
+| `packages/render/src/carom.ts` | THE CAROM's crust: a meteor with a window cut in it, and the streak it drags |
+| `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
+| `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 
@@ -525,6 +530,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/music/player.ts` | Playing a theme, one second at a time |
 | `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
 | `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
+| `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
 
 ### apps/game
 

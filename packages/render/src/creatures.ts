@@ -7,6 +7,7 @@ import {
   wispOnField,
 } from "@neon-spore/sim";
 import { drawCaromCrust } from "./carom.js";
+import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -179,6 +180,11 @@ export function drawCreatures(
     // gate, only a draw of its own. Nothing is drawn for the rock it becomes:
     // by then `c.kind` is `meteor` and `drawMeteor` far above has it.
     if (c.kind === "carom") drawCaromCrust(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
+    // And the body that came out of one: the same living draw above, with a
+    // column of fire under it while it is still climbing and a canopy over it
+    // once it has turned round (`chute.ts`). Both screens get the whole of it,
+    // so there is no gate — only a draw of its own.
+    if (c.kind === "chute") drawChute(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
     // And THE RECOIL's cage, on the same terms and for the same reason: it is
     // a frame around a body rather than a substitute for one, so `wornKind`
     // has already drawn the slick or the bulb inside it in whichever colour

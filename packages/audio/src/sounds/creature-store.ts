@@ -53,8 +53,13 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     id: "creature.gateLoop",
     family: "creature",
     blurb: "The same thing going back up. Rising, and clearly a repeat.",
-    status: "spare",
-    use: "The wave gate looping for another pass — the pair must hear that it came back.",
+    // Drafted for an idea that never landed and spent on THE CAROM's ejection,
+    // which is the same two things at once: the body blown out of the crust is
+    // the only thing in this game that goes *up*, and it is the body the pair
+    // has just shot and is going to have to shoot again. A sound written for
+    // "it came back" was already the whole sentence.
+    status: "bound",
+    use: "A cracked carom throwing its body clear — rising, and still to be answered (`caromEject`).",
     level: 0.3,
     layers: [
       {

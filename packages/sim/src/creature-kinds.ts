@@ -152,7 +152,17 @@ export type CreatureKind =
    * warded. `carom.ts` holds the whole of it and `Creature.caromDir` is the
    * whole of its state.
    */
-  | "carom";
+  | "carom"
+  /**
+   * The slick or the bulb thrown clear of a cracked carom, and the only body
+   * in this game that goes **up**. It is never authored: it exists because a
+   * carom was opened, the way a mount exists because a wheel arrived. It
+   * climbs `chuteRiseRows` a beat to the top of the field, opens a canopy
+   * there and comes back down at half a slick's speed, and the matching cannon
+   * kills it exactly the way it kills a slick. `Creature.chuteOpen` is the
+   * whole of its state and `chute.ts` the whole of what it means.
+   */
+  | "chute";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -192,6 +202,7 @@ export const CREATURE_KINDS = [
   "lid",
   "recoil",
   "carom",
+  "chute",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

@@ -66,7 +66,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom` |
-| `special` | neither | `tether`, `mount` |
+| `special` | neither | `tether`, `mount`, `chute` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing

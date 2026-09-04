@@ -172,10 +172,26 @@ export function isBossBody(kind: CreatureKind): boolean {
  * against the half of it the cannon answers and buys the shield a beat against
  * the half it does not.
  *
- * A list rather than a chain of `!==`, now that there are seven of them: a
+ * THE CHUTE is refused for the third time on the same grounds, and it is the
+ * one that most looks like it wants a hand: a body drifting down under a
+ * canopy is exactly what a thumb reaches for. But it does not *fall* — it
+ * takes a whole row on the beats `chuteFalls` names and none at all on the
+ * others — so there is no rate for a brake to scale, and a hand on one would
+ * drag at nothing while showing every sign of working. That is the tether's
+ * defect wearing the most inviting body in the game, which is worse.
+ *
+ * A list rather than a chain of `!==`, now that there are eight of them: a
  * chain that long is one somebody extends by pattern rather than by argument.
  */
-const UNGRIPPABLE: readonly CreatureKind[] = ["tether", "dart", "wisp", "gyre", "mount", "carom"];
+const UNGRIPPABLE: readonly CreatureKind[] = [
+  "tether",
+  "dart",
+  "wisp",
+  "gyre",
+  "mount",
+  "carom",
+  "chute",
+];
 
 export function isGrippable(kind: CreatureKind): boolean {
   return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);

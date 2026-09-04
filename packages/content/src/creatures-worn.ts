@@ -1,5 +1,6 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
+import { BARE_CREATURES, type BareKind } from "./creatures-bare.js";
 
 /**
  * The keys of the table below, checked against the roster. `Extract` rather
@@ -9,14 +10,15 @@ import type { CreatureDef } from "./creatures.js";
  */
 type WornKind = Extract<
   CreatureKind,
-  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "recoil" | "mount" | "carom"
+  "lure" | "shell" | "clasp" | "veil" | "recoil" | "carom" | "chute"
 >;
 
 /**
- * The nine bodies that are drawn as something else: a slick or a bulb with a
- * disguise, plating, a membrane, weather, a sprung cage, a rock crust, a wheel
- * under it, or a size that is not the usual one — smaller for THE ECHO and
- * larger by however much is left for THE RIND.
+ * The seven bodies with something **laid over them**: a slick or a bulb under
+ * a disguise, plating, a membrane, weather, a sprung cage, a rock crust or a
+ * canopy. The three with nothing over them at all — an echo drawn small, a
+ * rind drawn large, a mount carried round a rim — are `creatures-bare.ts`,
+ * spread in below so `WORN_CREATURES` still answers for all ten.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
  * 250-line limit, along the seam the game already reads on — these are exactly
@@ -32,7 +34,34 @@ type WornKind = Extract<
  * walk it in key order, and a group spread in one place would have moved the
  * throb and the dart to the end of both.
  */
-export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
+export const WORN_CREATURES: Record<WornKind | BareKind, CreatureDef> = {
+  // The three with nothing laid over them — an echo drawn small, a rind drawn
+  // large, a mount carried round a rim — are `creatures-bare.ts` next door,
+  // cut out when THE CHUTE took this file over its limit for the third time.
+  // Spread rather than listed, because `creatures-table.ts` names every one of
+  // these by hand anyway and that is where the bestiary's order is kept.
+  ...BARE_CREATURES,
+  chute: {
+    kind: "chute",
+    // Nothing at all, and it is the mount's answer rather than a new one: a
+    // chute is thrown out of a carom and never authored, so a wave containing
+    // one already contains the `carom` that made it and already shows both
+    // panels that entry asks for. A control group here would be the same
+    // panel named twice, and a brush for a body no author may place.
+    controls: [],
+    // No colour of its own — but not because a wave authors one. It keeps
+    // whatever the body sealed in the crust was, which is the colour the pair
+    // has already been saying out loud, so there is deliberately no
+    // `authorsColor` either: the whole point of this body is that it is the
+    // one they were looking at a moment ago.
+    color: null,
+    // Nobody's strip, for the tether's reason: it does not arrive, the carom
+    // does. A blip for something that came out of a body already on the field
+    // would be a warning about the past.
+    radar: "none",
+    blurb:
+      "The slick or the bulb that was sealed inside a carom, blown out of the hatch the moment the crust cracks. It is the only thing in this game that goes up: it climbs to the top of the field, opens a canopy there and drifts back down at half the speed of a slick, still in its own colour — and it still has to be shot.",
+  },
   carom: {
     kind: "carom",
     // **Both**, and it is the first *arrival* that carries both — the queen
@@ -155,51 +184,6 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     blurb:
       "A thundercloud with a slick or a bulb inside it, and only the pilot can see which. It turns over from one to the other every few beats, so the colour you were told expires — and a shot in the wrong one shuts the cloud for two seconds rather than merely missing.",
   },
-  echo: {
-    kind: "echo",
-    // The cannon alone, and the panel says so. Everything hard about this one
-    // is *when* and *which of the four* — an order the pair has to agree out
-    // loud — and both of those are aiming rather than warding.
-    controls: ["aim"],
-    // No colour of its own, the way a dart has none: an echo arrives red or
-    // cyan, authored on the wave, and the matching cannon is what kills it. It
-    // is the fifth blank in this table and the plainest of them, because
-    // nothing is laid over the body at all — an echo simply *is* a small slick
-    // or a small bulb, so a colour here would be the kind claiming one of the
-    // two bodies it can be.
-    color: null,
-    authorsColor: true,
-    // Player 2's strip, like every other aim target. Deliberately not player
-    // 1's: both players see an echo whole and neither is missing anything
-    // about it, so the strip is doing its ordinary job — saying that something
-    // is coming and where — for a body whose difficulty is entirely in what
-    // the pair does about it next.
-    radar: "p2",
-    blurb:
-      "A small slick or bulb with a seam down it, coming half as fast as anything else. It strains and parts in two — sideways, then up and down, then both at once — and each wait is longer than the last. Nothing on the field is less urgent, and nothing costs so much to leave.",
-  },
-  rind: {
-    kind: "rind",
-    // The cannon alone, three times over. Nothing about the shield, the beat
-    // or the column changes — what changes is that one call is not enough, and
-    // control visibility has nothing to say about a repeat.
-    controls: ["aim"],
-    // No colour of its own, the way an echo has none: a rind arrives red or
-    // cyan, authored on the wave, and the matching cannon is what sheds it and
-    // then kills it. It is the sixth blank in this table and the one with the
-    // least laid over the body — a rind simply *is* an outsized slick or bulb,
-    // so a colour here would be the kind claiming one of the two it can be.
-    color: null,
-    authorsColor: true,
-    // Player 2's strip, like every other aim target. Both players see the
-    // whole thing, including how big it still is, and that is deliberate:
-    // the count is the one number in this game neither seat has to be told,
-    // so what the pair has to agree on is whether to spend three beats of one
-    // column on it now or after the small things.
-    radar: "p2",
-    blurb:
-      "A slick or a bulb three times the size of one. The matching colour does not kill it — it takes a layer off and the body underneath is a size smaller, twice, and only then does a shot finish it. How much is left is how big it is; there is no other read-out.",
-  },
   recoil: {
     kind: "recoil",
     // The cannon alone, four times over. Nothing about the shield, the beat or
@@ -223,28 +207,5 @@ export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A slick or a bulb in a sprung cage. The matching colour does not kill it — it throws it two rows back up the field and a lane to one side you cannot predict, and the body inside turns over to the other colour on the way. Three times, and the cage is more broken each time. Only the fourth shot finishes it.",
-  },
-  mount: {
-    kind: "mount",
-    // Nothing at all, and it is the tether's answer rather than a new one: a
-    // mount is installed by its wheel and never authored, so a wave containing
-    // one already contains the `gyre` that put it there and already shows the
-    // cannon that entry asks for. A control group here would be the same panel
-    // named twice, and it would put a brush in the director for a body no
-    // author may place (`LIVING_BRUSH_KINDS`, tools/director/src/brushes.ts).
-    controls: [],
-    // No colour of its own — but not because a wave authors one. A mount's
-    // colour comes from *where on the rim it is* (`mountColor`), which is the
-    // whole creature: the alternation is what makes a column's colour a thing
-    // that changes on the beat. So there is deliberately no `authorsColor`
-    // either; a director offering red or cyan here would be offering to switch
-    // the mechanic off.
-    color: null,
-    // Nobody's strip, for the tether's reason: it does not arrive, the wheel
-    // does. Six more rows for six bodies that came in on one announcement
-    // would be noise on a strip that exists to say what is coming.
-    radar: "none",
-    blurb:
-      "One of the six on a wheel's rim: an ordinary slick or bulb that does not fall, because the wheel carries it. It is answered exactly like a body in a lane — the right colour, in the right column — except that both of those are only true for a beat at a time.",
   },
 };

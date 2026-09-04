@@ -12,6 +12,7 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
+import { caromCue } from "./bind-carom.js";
 import { creatureCue } from "./bind-creatures.js";
 
 export interface Cue {
@@ -224,8 +225,16 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostRelease":
     case "ghostTurn":
     case "ghostCharge":
+      return creatureCue(e, cols, rows);
+    // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
+    // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
+    // `events-creature.ts`. Named here rather than reached through a default,
+    // for the reason every other case in this switch is: the exhaustiveness is
+    // what makes a new event a compile error instead of a silence.
     case "caromBounce":
     case "caromCrack":
-      return creatureCue(e, cols, rows);
+    case "caromEject":
+    case "chuteOpen":
+      return caromCue(e, cols, rows);
   }
 }

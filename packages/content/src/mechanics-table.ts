@@ -102,6 +102,16 @@ export const MECHANICS = {
     // from the other.
     waveNames: true,
   },
+  chute: {
+    what: "The body that was sealed inside a carom, blown out of the hatch when the crust cracks. It is the only thing in the game that goes up: it climbs to the top of the field, opens a canopy there and comes back down at half the speed of a slick, still in its own colour. The matching cannon kills it exactly the way it kills a slick — but the rock it came out of is falling at the same time, and that one is the shield's.",
+    reach: "spawn",
+    // Thrown out by the crust cracking, the way the six on a rim are brought
+    // by their wheel — so a wave reaches this without naming it, and there is
+    // no wave anywhere that could name it (`addCarried`). Deliberately no
+    // `waveNames`: a chute with no carom above it would be a body that had
+    // been ejected from nothing.
+    carriedBy: "carom",
+  },
   gyre: {
     what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
     reach: "spawn",

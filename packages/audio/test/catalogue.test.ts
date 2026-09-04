@@ -100,13 +100,15 @@ describe("the catalogue", () => {
  * `bind.ts` the day THE VEIL arrived, and it took nine bound ids with it — so
  * a list of two files quietly reported eight sounds as played by nothing.
  * `mixer-boss.ts` came off `mixer.ts` the same way, with the queen's and THE
- * MIRROR's cues in it. `docs/spec/audio.md` names this list as well, and "the
- * document" below holds the two together so a fifth file cannot be added to
- * one alone.
+ * MIRROR's cues in it. `bind-carom.ts` came off `bind-creatures.ts` in its own
+ * turn, with THE CAROM's four. `docs/spec/audio.md` names this list as well,
+ * and "the document" below holds the two together so a sixth file cannot be
+ * added to one alone.
  */
 const WIRING = [
   "packages/audio/src/bind.ts",
   "packages/audio/src/bind-creatures.ts",
+  "packages/audio/src/bind-carom.ts",
   "packages/audio/src/mixer.ts",
   "packages/audio/src/mixer-boss.ts",
 ];

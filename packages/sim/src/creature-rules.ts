@@ -1,4 +1,5 @@
 import { caromBecomes } from "./carom.js";
+import { chuteBecomes } from "./chute.js";
 import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
@@ -117,6 +118,13 @@ export function wornKind(c: Creature): CreatureKind {
   // the pairing, and nothing asks it again once the crust is off — by then the
   // body is a `meteor` and has no colour to pair with.
   if (c.kind === "carom") return caromBecomes(c);
+  // And the body once it is out of the crust: the same slick or bulb, still in
+  // the colour it was sealed in, with a canopy drawn over it rather than a
+  // shell around it (`render/chute.ts`). The pairing is called here for the
+  // carom's reason one step on — what the pair has to say about the thing
+  // hanging over the field is the same word they said about the thing inside
+  // the rock, and a second copy of it is how those become two creatures.
+  if (c.kind === "chute") return chuteBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

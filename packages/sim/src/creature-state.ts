@@ -194,4 +194,17 @@ export interface CreatureState {
    * disagree.
    */
   caromDir?: CaromDir;
+  /**
+   * Whether THE CHUTE's canopy is out, and absent on every other kind. It is
+   * the only state this creature carries and it answers two questions at once:
+   * which way the body is going — up while it is stowed, down once it is
+   * out — and what render draws over it.
+   *
+   * Read it through `chuteIsOpen`, never directly. Absent and `false` mean the
+   * same thing, which is right: a body is thrown out of the hatch with the
+   * canopy packed, so "no field yet" *is* "still climbing". A site that
+   * spelled the fallback again is a site where the picture and the step can
+   * disagree about which direction the thing is travelling.
+   */
+  chuteOpen?: boolean;
 }

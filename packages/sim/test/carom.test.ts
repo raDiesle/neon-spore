@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
+import { resolve } from "../src/bullet-hit.js";
 import { caromHeading, caromStruck } from "../src/carom.js";
 import {
+  chuteIsOpen,
   createWorld,
   DEFAULT_CONFIG,
   guardArmed,
@@ -137,7 +139,9 @@ describe("the crossing", () => {
     const beats = HULL / CFG.caromRows;
     const short = run([carom(0)], tickAtRow(HULL) - 1);
     expect(only(short.world)?.kind).toBe("carom");
-    expect(beats).toBe(7);
+    // Fourteen: the owner played it at seven and could not be under it, so the
+    // drop halved and the stride came down with it (`config-carom.ts`).
+    expect(beats).toBe(14);
   });
 
   /** A hand is worth nothing against a body with no rate to scale — the dart's
@@ -180,7 +184,9 @@ describe("what a shot does", () => {
     // Not a kill, and the event that means one was never pushed — the ear and
     // the eye both have to be able to tell "gone" from "now it is the shield's".
     expect(world.events.filter((e) => e.type === "destroy")).toHaveLength(0);
-    expect(world.creatures).toHaveLength(1);
+    // One arrival became two problems: the rock, and the body thrown out of it.
+    expect(world.creatures).toHaveLength(2);
+    expect(world.creatures.map((c) => c.kind).sort()).toEqual(["chute", "meteor"]);
   });
 
   it("keeps its width, so the shield covers what the pair has been watching", () => {
@@ -259,11 +265,98 @@ describe("the two controls, in order", () => {
       step(world, cmds);
     }
     expect(world.guard.deflected).toBe(1);
-    expect(world.creatures).toHaveLength(0);
+    // The rock is gone and the body it came out of is not: the shield answered
+    // its half, and the cannon still owes the other one.
+    expect(world.creatures.map((c) => c.kind)).toEqual(["chute"]);
     expect(hullPercent(world)).toBe(100);
     // Both halves paid: the crack and the deflection, which is the arithmetic
     // saying that one arrival took two controls.
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreCaromCrack + CFG.scoreDeflect);
+  });
+});
+
+describe("the body it throws out", () => {
+  /** The chute a crack leaves behind, and the world it is climbing in. */
+  function ejected(row = 6): { world: Run["world"]; chute: Creature } {
+    const { world, body } = standing(row);
+    caromStruck(world, bolt(body, "red"), body);
+    const chute = world.creatures.find((c) => c.kind === "chute");
+    expect(chute).toBeDefined();
+    return { world, chute: chute! };
+  }
+
+  it("comes out of the hatch on the tile the shot met, in the body's colour", () => {
+    const { world, chute } = ejected(6);
+    expect(chute.row).toBe(6);
+    expect(chute.color).toBe("red");
+    expect(wornKind(chute)).toBe("slick");
+    expect(chuteIsOpen(chute)).toBe(false);
+    const thrown = world.events.filter((e) => e.type === "caromEject");
+    expect(thrown).toHaveLength(1);
+    // The event names the body, not the tile: it is travelling, and the
+    // picture has to follow it (`events-creature.ts`).
+    expect(thrown[0] && "id" in thrown[0] && thrown[0].id).toBe(chute.id);
+  });
+
+  /** The only thing in this game that goes up. */
+  it("climbs chuteRiseRows a beat until it reaches the top, then opens", () => {
+    const { world, chute } = ejected(6);
+    // Exactly as far as the climb takes from row six: four rows, then the two
+    // that are left. A beat further and it would already be coming down.
+    const rows: number[] = [];
+    for (let t = 0; t < TPB * 2; t++) {
+      step(world, []);
+      if ((t + 1) % TPB === 0) rows.push(chute.row);
+    }
+    // Up on the first beat and up again on the second, rather than drifting.
+    expect(rows[0]).toBe(6 - CFG.chuteRiseRows);
+    expect(chute.row).toBe(0);
+    expect(chuteIsOpen(chute)).toBe(true);
+    // Clamped at the top rather than allowed past it, so the frame the canopy
+    // opens in is one both players are looking at.
+    for (const row of rows) expect(row).toBeGreaterThanOrEqual(0);
+  });
+
+  it("says so on the beat the canopy opens, once and not again", () => {
+    const { world, chute } = ejected(6);
+    const opens: number[] = [];
+    for (let t = 0; t < TPB * 10; t++) {
+      step(world, []);
+      opens.push(...world.events.filter((e) => e.type === "chuteOpen").map(() => world.beat));
+    }
+    expect(opens).toHaveLength(1);
+    expect(chuteIsOpen(chute)).toBe(true);
+  });
+
+  it("comes back down a row every chuteFallBeats, which is slower than a slick", () => {
+    const { world, chute } = ejected(6);
+    // Up to the top and open first.
+    for (let t = 0; t < TPB * 4; t++) step(world, []);
+    const from = chute.row;
+    for (let t = 0; t < TPB * CFG.chuteFallBeats * 2; t++) step(world, []);
+    expect(chute.row - from).toBe(2);
+  });
+
+  it("is killed by the matching colour exactly the way a slick is", () => {
+    const { world, chute } = ejected(6);
+    for (let t = 0; t < TPB * 4; t++) step(world, []);
+    const before = world.score;
+    const b: Bullet = {
+      id: 2,
+      col: chute.col,
+      row: chute.row,
+      subMilli: 0,
+      color: "red",
+      lance: false,
+      pierced: 0,
+    };
+    expect(resolve(world, b, chute)).toBe(false);
+    expect(world.creatures.some((c) => c.kind === "chute")).toBe(false);
+    expect(world.score - before).toBe(CFG.scoreDestroy);
+  });
+
+  it("refuses a hand, for the dart's reason: it has no rate to scale", () => {
+    expect(isGrippable("chute")).toBe(false);
   });
 });
 

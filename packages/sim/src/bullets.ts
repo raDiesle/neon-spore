@@ -4,7 +4,7 @@ import { endPrime, lanceReady, priming } from "./lance.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { queenOccupiesCol } from "./queen-mark.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
-import { type Bullet, type Color, type Creature, occupiesCol } from "./types.js";
+import { type Bullet, type Color, type Creature, occupiesLane, spanOf } from "./types.js";
 import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
 
@@ -109,6 +109,34 @@ function creatureMilli(world: World, c: Creature): number {
   return c.fromRow * MILLI + Math.round(((c.row - c.fromRow) * phase * MILLI) / tpb);
 }
 
+/**
+ * The **lane** a creature is in, on this tick, rounded to the nearest column.
+ *
+ * `creatureMilli` above makes this correction to the row and states the
+ * reason: a body glides between two beats, and that glide is the position the
+ * eye judges a hit by. Sideways it was never made, because for a long time
+ * nothing changed lanes — and then the dart did, two columns at a time, and
+ * THE CAROM did, three. For most of every beat those bodies are drawn between
+ * two lanes (`drawnCol`) while the simulation has already written down the one
+ * they are going to, so a shot fired at what is on the screen went through
+ * empty column and a shot that connected did so a beat before it looked like
+ * it should.
+ *
+ * Rounded rather than covering both lanes: a bolt goes up the middle of a
+ * column, and a body part-way across is in whichever lane it is nearest. The
+ * generous version would make a body crossing three lanes a beat hittable in
+ * all of them, which is not a hitbox, it is an apology.
+ *
+ * All integer arithmetic off `world.tick`, so two devices round the same way.
+ */
+function creatureLane(world: World, c: Creature): number {
+  const from = c.fromCol ?? c.col;
+  if (from === c.col) return c.col;
+  const tpb = ticksPerBeat(world.cfg);
+  const phase = world.tick % tpb;
+  return from + Math.round(((c.col - from) * phase) / tpb);
+}
+
 export function advanceBullets(world: World): void {
   const alive: Bullet[] = [];
   for (const b of world.bullets) if (sweep(world, b)) alive.push(b);
@@ -166,11 +194,16 @@ function sweep(world: World, b: Bullet): boolean {
 /**
  * The first creature the swept segment `from..to` touches, or undefined.
  *
- * Every creature carries an invisible box, one column wide and
+ * Every creature carries an invisible box, `spanOf` columns wide and
  * `hitHeightMilli` tall, centred on it. Shots only ever travel straight up the
  * middle of a column, so the column is the whole of the horizontal test and
  * the shape of the creature never enters into it — a lobe that leans out of
  * its column is drawing, not hitbox.
+ *
+ * That box is placed by `creatureLane` rather than by `c.col`, for the reason
+ * `creatureMilli` is not `c.row`: a body part-way through a move is part-way
+ * through it in both axes, and the eye judges a hit by where the thing is
+ * drawn.
  *
  * The queen is the one exception: her own column carries nothing, and the
  * two columns that do (`queenOccupiesCol`) are not a span either — nothing
@@ -192,7 +225,10 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
     // hub that stopped bolts would put a wall across five columns of the
     // field with no body anywhere in it.
     if (c.kind === "gyre") continue;
-    const inCol = c.kind === "queen" ? queenOccupiesCol(c.col, b.col) : occupiesCol(c, b.col);
+    const inCol =
+      c.kind === "queen"
+        ? queenOccupiesCol(c.col, b.col)
+        : occupiesLane(creatureLane(world, c), spanOf(c), b.col);
     if (!inCol) continue;
     const pos = creatureMilli(world, c);
     if (pos - half > from || pos + half < to) continue;

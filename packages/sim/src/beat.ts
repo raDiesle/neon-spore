@@ -1,5 +1,6 @@
 import { stepBoss } from "./boss.js";
 import { stepCarom } from "./carom.js";
+import { stepChute } from "./chute.js";
 import { hullRow } from "./config.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
@@ -122,6 +123,15 @@ export function onBeat(world: World): void {
     // count `caromCols` was chosen for would be wrong by half.
     if (c.kind === "carom") {
       stepCarom(world, c);
+      continue;
+    }
+    // And the body thrown out of one does not fall until it has finished
+    // going up. `stepChute` is the climb, the canopy opening at the top and
+    // the half-speed descent after it — in place of the line below for
+    // `stepDart`'s reason, and here it is the sign that matters: a body that
+    // both climbed and fell would go nowhere at all.
+    if (c.kind === "chute") {
+      stepChute(world, c);
       continue;
     }
     // A wisp does not fall either, and it does not cross the ground between

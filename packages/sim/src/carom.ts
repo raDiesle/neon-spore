@@ -19,13 +19,23 @@ import type { World } from "./world.js";
  *
  * **Nothing turns it away until somebody has shot it.** A whole carom is not a
  * `isMeteorKind`, so `resolveHull` never offers it the shield's row: a trigger
- * pressed at one answers nothing, whatever column the shield is in. The
- * matching colour cracks the crust, the light inside goes out, and what falls
- * the rest of the way is a plain `meteor` at a tile a beat — which the shield
- * now *must* take, because a rock is the one thing a cannon cannot touch. So
- * the pair's two controls are in series rather than in parallel for the first
- * time: player 2's colour, then player 2's column and player 1's trigger, in
- * that order, on one arrival.
+ * pressed at one answers nothing, whatever column the shield is in. Only the
+ * matching colour opens it.
+ *
+ * **And the shot that opens it kills nothing.** It splits one arrival into two
+ * problems that are answered by different people. The crust becomes a plain
+ * `meteor` and falls the rest of the way at a tile a beat, which the shield now
+ * *must* take, because a rock is the one thing a cannon cannot touch. The body
+ * sealed inside is blown out of the hatch and goes **up** — a `chute`, which
+ * climbs to the top of the field, opens a canopy there and drifts back down at
+ * half a slick's speed still wearing the colour it always had, and which the
+ * cannon has to answer all over again (`chute.ts`).
+ *
+ * So the pair's two controls are in series rather than in parallel for the
+ * first time, and the seat that has just finished is the seat that has to
+ * start: player 2's colour opens it, then player 2's column and player 1's
+ * trigger owe the rock, and player 1's column and player 2's trigger owe the
+ * body. One shot, three sentences, and none of them can be said alone.
  *
  * **And it does not fall.** It comes in on a diagonal — `caromCols` columns
  * and `caromRows` rows a beat — and reflects off the side walls of the field
@@ -43,8 +53,7 @@ import type { World } from "./world.js";
  * overshoots is truncated so the body stands *on* the outermost column it can
  * occupy, and turns there. A body that reflected the remainder would spend the
  * beat somewhere no column names, and the two players are talking about
- * columns. What it costs is up to three columns of travel per wall, which
- * `caromCols` is chosen to pay for.
+ * columns.
  */
 
 /** Which way across the field it is going. `1` is to the right. */
@@ -196,6 +205,34 @@ export function caromStruck(world: World, b: Bullet, hit: Creature): boolean {
     col: hit.col,
     row: hit.row,
     span,
+    color: b.color,
+  });
+  // The body, thrown clear before the crust it came out of is touched. It
+  // takes the colour with it — that is the whole of what makes it the same
+  // creature the pair were already looking at — and it starts on the tile the
+  // shot met, with the canopy stowed, so the climb is drawn out of the hatch
+  // rather than beginning somewhere above it.
+  const thrown: Creature = {
+    id: world.nextId++,
+    kind: "chute",
+    col: hit.col,
+    row: hit.row,
+    fromRow: hit.row,
+    fromCol: hit.col,
+    color: b.color,
+    holes: 0,
+    petals: 0,
+    dragMilli: 0,
+    throbOpen: false,
+    shell: 0,
+    chuteOpen: false,
+  };
+  world.creatures.push(thrown);
+  world.events.push({
+    type: "caromEject",
+    id: thrown.id,
+    col: hit.col,
+    row: hit.row,
     color: b.color,
   });
   hit.kind = "meteor";

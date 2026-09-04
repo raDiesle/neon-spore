@@ -183,6 +183,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // still do nothing about. The turn is drawn on the body — the streak
     // swings the other way on the next frame (`carom.ts`) — and heard rather
     // than seen at the wall.
+    // The hatch blowing and the canopy opening. Neither is a burst: the
+    // ejection is a body *travelling*, drawn as one on every frame after this
+    // (`render/chute.ts`) rather than as particles thrown once, and the crack
+    // beside it on the same tick has already put the crust's rock into the
+    // air. A second shower at the same tile would say two things broke.
+    case "caromEject":
+    case "chuteOpen":
     case "caromBounce":
     case "lureVanished":
     case "lureSeen": // Player 2's ear and player 2's strip; nothing on the field.
