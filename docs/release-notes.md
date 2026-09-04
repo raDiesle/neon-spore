@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · c76afce — biome stops having an opinion about the harness's launch.json
+
+The desktop harness rewrites `.claude/launch.json` whenever it opens a worktree, and writes it with CRLF. `bun run lint` then refuses it — thirty-three lines of identical JSON differing only in `␍` — for a file nobody edited, in a tree `git status` calls clean, and it stops every landing in that worktree until somebody reads the `␍` in biome's own diff. On the night of 3 September 2026 it was the first thing a session hit.
+
 ## 2026-09-04 · fe7e977 — The music player's test reaches its private pump once, not four times
 
 Four `lint/complexity/useLiteralKeys` warnings printed on every `bun run lint`, for `player["pump"]()`. Lint still exited 0, which is what made it worth fixing rather than urgent: every lint output in every session opened with four paragraphs of diff about something nobody was going to change, and warnings nobody will act on train people to read past warnings.
