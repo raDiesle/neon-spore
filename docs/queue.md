@@ -135,6 +135,7 @@ rather than the cause.
 ## `packages/audio/test/player.test.ts` prints four lint warnings on every run
 
 - **Found:** 2026-09-04, claude/queue-notes-overnight
+- **Taken:** 2026-09-04, claude/queue-packages-audio-test-player-test-ts-prints-four-l
 - **Files:** `packages/audio/test/player.test.ts`
 
 Four `lint/complexity/useLiteralKeys` warnings, at lines 87, 107, 119 and 131,
