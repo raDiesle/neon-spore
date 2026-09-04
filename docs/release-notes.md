@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 379d00d — The crust is drawn at the width the shield has to cover
+
+A carom is two columns wide (`colSpan`) and the rock it becomes keeps that width, but the crust was drawn at `creatureRadius` — one tile, whatever the span — so the pair saw one lane's worth of a body the shield covers two lanes of, and the picture would have doubled in size the instant it cracked. It is `rockRadius(l, spanOf(c))` now, the same two numbers `drawMeteor` reads, so nothing about the footprint changes when the shell comes off.
+
+## 2026-09-04 · 7b38476 — A body neither the cannon nor the shield can finish on its own
+
+THE CAROM is a slick or a bulb sealed inside a rock crust. It never falls: it comes in on a diagonal at four columns and two rows a beat and turns at the side walls of the field, twice from every column a wave can author it into, before it reaches the ship seven beats later. Whole, it is a rock and the shield has nothing to say to it — a trigger pressed at one answers nothing, whatever column the shield is in. The matching cannon cracks the crust, and what drops out is a plain meteor coming down at a row a beat, which now has to be warded. So the pair's two controls are in series for the first time, and the shot that "kills" it is what hands it to the other seat.
+
 ## 2026-09-04 · 566198e — Three films existed for an hour with no wave showing them
 
 THE LID, THE MAZE and THE WARDEN landed written, registered and unreachable: a reconciliation with another lane dropped the three `scene:` lines that point a wave at its film, and nothing said so. Every test that walks the waves skipped them silently — including the one that runs a rehearsal tick by tick, which is the test that would otherwise have caught anything else wrong with them.
