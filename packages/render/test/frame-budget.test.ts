@@ -62,16 +62,20 @@ type Budget = Partial<
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
-      fillRect: 65,
+      // One of them is the seat's own light in the water above the ship: one
+      // rect over the backdrop, one save for the composite mode it needs, and
+      // one gradient on the first frame at a size and none after
+      // (`ship-air.ts`).
+      fillRect: 66,
       // Five fewer than before the membrane's lit rim came off: `strokeGlow`
       // is four passes and the pale thread over it was the fifth
       // (`band-seam.ts`, and the owner's *remove the line*).
       stroke: 40,
       fill: 26,
       clip: 5,
-      save: 22,
+      save: 23,
       drawImage: 23,
-      createLinearGradient: 13,
+      createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
@@ -82,11 +86,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillText: 4,
     },
     {
-      fillRect: 65,
+      fillRect: 66,
       stroke: 42,
       fill: 26,
       clip: 5,
-      save: 22,
+      save: 23,
       drawImage: 23,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -100,7 +104,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   ],
   p2: [
     {
-      fillRect: 65,
+      fillRect: 66,
       // The seam's rim off (five, as on p1) and the fire buttons rebuilt: each
       // one lost a crosshair's two strokes and gained the outline round its
       // contour plus `strokeGlow`'s four passes round the creature inside it,
@@ -114,9 +118,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       clip: 5,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 24,
+      save: 25,
       drawImage: 25,
-      createLinearGradient: 13,
+      createLinearGradient: 14,
       createRadialGradient: 3,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
@@ -124,11 +128,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillText: 2,
     },
     {
-      fillRect: 65,
+      fillRect: 66,
       stroke: 50,
       fill: 31,
       clip: 5,
-      save: 24,
+      save: 25,
       drawImage: 25,
       createLinearGradient: 5,
       createRadialGradient: 1,
@@ -236,27 +240,27 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
-      fillRect: 65,
+      fillRect: 66,
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
       stroke: 85,
       fill: 28,
       clip: 5,
-      save: 26,
+      save: 27,
       drawImage: 15,
-      createLinearGradient: 13,
+      createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here.
       "new Path2D": 37,
       fillText: 4,
     },
     {
-      fillRect: 65,
+      fillRect: 66,
       stroke: 87,
       fill: 28,
       clip: 5,
-      save: 26,
+      save: 27,
       drawImage: 15,
       createLinearGradient: 5,
       createRadialGradient: 1,
@@ -266,23 +270,23 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   ],
   "THE LID": [
     {
-      fillRect: 67,
+      fillRect: 68,
       stroke: 72,
       fill: 24,
       clip: 6,
-      save: 26,
+      save: 27,
       drawImage: 15,
-      createLinearGradient: 13,
+      createLinearGradient: 14,
       createRadialGradient: 3,
       "new Path2D": 34,
       fillText: 4,
     },
     {
-      fillRect: 67,
+      fillRect: 68,
       stroke: 74,
       fill: 24,
       clip: 6,
-      save: 26,
+      save: 27,
       drawImage: 15,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite

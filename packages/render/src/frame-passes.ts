@@ -28,6 +28,7 @@ import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShellArmour } from "./shell-draw.js";
+import { drawShipAir } from "./ship-air.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
@@ -61,6 +62,9 @@ export function drawFieldBack(
   // same rect, so a fill under it never reaches the screen (canvas2d.ts's
   // own viewport fill covers the letterbox this pass does not reach).
   drawBackground(ctx, l, world.wave, view.time);
+  // The seat's own colour in the water the ship sits in — over the backdrop
+  // and under everything a player has to read (`ship-air.ts`).
+  drawShipAir(ctx, l, view.time, seatSkin(view.role));
   drawRadar(ctx, l, world, view.time);
   drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid);
 }
