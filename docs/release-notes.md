@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 8cf7565 — Every guide is pages now, and the director shows them
+
+The director opened every guide with its page count at zero, which the simulation reads as "this seat is already standing at the gate" — so turning BRIEFINGS on put the ready button up and nothing else, with the old card behind it. Its stage now tells `startWave` how many pages the guide has, read off the wave being edited rather than off the list on disk, so an unsaved guide is paged the way it will be.
+
 ## 2026-09-04 · 0786d14 — The tutorial is a stack of pages, and each player turns their own
 
 A guide that carries a rehearsal is no longer a film that runs once at a tempo nobody can keep up with. It is six pages: five steps of the rehearsal, each repeating its own animation and its own words with a short pause between turns until the player presses NEXT, and then the gate — the game's own screen with the wave's number, its name and its sentence over it, and the READY button under them. BACK goes back a page and the bar says which page this is. Each seat has its own cursor, so the two read at their own speeds and only meet at the end.
