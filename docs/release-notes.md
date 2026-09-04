@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · dc88319 — The CONTROLS page tells a player the ship itself is a control
+
+Player-facing, and the one place either of them can find out: the muzzle swipe exists on no panel at all, so a list of buttons describes it nowhere. One entry beside THE FIELD and A HANDLE, which are on the page for that exact reason.
+
+## 2026-09-04 · 003dcba — The ship answers a finger where it is drawn, not only on the strips
+
+Both lobes are controls now. Player 1 takes hold of the cannon on the hull and slides it, and presses the shield plate to fire the guard where player 2 left it. Player 2 takes hold of the same plate and slides it, and — the one new gesture — takes hold of the muzzle, carries it left for red or right for cyan, and lets go. The press says nothing; the lift fires, and only past six tenths of a tile, so a hand that comes back to the middle fires nothing at all. Left and right are the order the two colours already stand in on their own band.
+
 ## 2026-09-04 · 1277745 — The menu's front page is the game, and the rig is one press behind TESTING
 
 Four of the eleven rows a player read first were the test rig: PLAY with both seats on one device, the wave list, the demonstrations and the sliders. They are one entry now — TESTING — and named by what they do rather than by how the game is authored: SINGLE PLAYER, JUMP TO WAVE, JUMP TO ENEMY TYPE WAVE, TUNING. The front page is left with the game: come back, carry on, meet the other phone, learn what this is, set it up.
