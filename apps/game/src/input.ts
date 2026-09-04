@@ -54,6 +54,7 @@ export function bindControls({
   snakeHolds,
   onPauseToggle,
   onWaveStep,
+  onGuideReplay,
 }: Bindings): Controls {
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
@@ -208,6 +209,7 @@ export function bindControls({
       snakeHolds,
       onPauseToggle,
       onWaveStep,
+      onGuideReplay,
     }),
     hand,
   };

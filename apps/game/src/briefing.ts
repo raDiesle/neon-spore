@@ -1,11 +1,4 @@
-import {
-  type Layout,
-  navHit,
-  onNavBar,
-  onReadyCircle,
-  type Stage,
-  type ViewRole,
-} from "@neon-spore/render";
+import { type Layout, navHit, onNavBar, type Stage, type ViewRole } from "@neon-spore/render";
 import { guideHolds, guidePages, onReadyPage, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
@@ -38,6 +31,12 @@ export interface BriefingOptions {
   stage: () => Stage;
   /** Which seat this device holds, for the cursor a press belongs to. */
   role: () => ViewRole;
+  /**
+   * Play the page of film again. Not a command: the film's clock is render
+   * state and no part of the world, so REPLAY is asked of the renderer rather
+   * than sent to both seats (`render/guide-play.ts`).
+   */
+  replay: () => void;
 }
 
 /**
@@ -51,13 +50,14 @@ export interface BriefingOptions {
  * `navButtons` and `readyButtonBox`, which is the same geometry the drawing
  * uses: a button cannot be answered where it is not drawn.
  *
- * **READY is a hold, not a tap, and the target is the circle itself.** The
- * circle fills for as long as the thumb is down and empties if it lifts before
- * READY (`sim/ready-gate.ts` says why), so this listens for the lift as well as
- * the press — on the window, because a thumb dragged off the canvas has still
- * let go. The owner's *still any touch of screen will let the circle animate*
- * is why it is the circle and not the page: the gate has three things on it now
- * and only one of them is the answer.
+ * **READY is a hold, not a tap, and the target is the whole page.** The circle
+ * fills for as long as the thumb is down and empties if it lifts before READY
+ * (`sim/ready-gate.ts` says why), so this listens for the lift as well as the
+ * press — on the window, because a thumb dragged off the canvas has still let
+ * go. It was narrowed to the circle for a while and the owner asked for it
+ * back: *I want on fullscreen that press will make the circle ready.* Everything
+ * but the bar, then — that is the one strip of this page where a press already
+ * means something else.
  *
  * **Only while the guide is up.** The introduction passes on a timer and is not
  * a thing to dismiss (the owner's own answer), so a tap during it is dropped
@@ -76,6 +76,7 @@ export function bindBriefing({
   layout,
   stage,
   role,
+  replay,
 }: BriefingOptions): BriefingBinding {
   const seat = (): 1 | 2 => (role() === "p2" ? 2 : 1);
   const hold = (on: boolean): void => {
@@ -104,13 +105,13 @@ export function bindBriefing({
     const l = layout();
     const nav = navHit(l, p.x, p.y);
     if (nav) {
-      turn(nav === "back");
+      if (nav === "replay") replay();
+      else turn(nav === "back");
       return;
     }
     // Everything else on a page of film does nothing. The gate is the one page
-    // with something to hold, and its button is the only place holding it.
-    if (!onReadyPage(world, seat())) return;
-    if (onNavBar(l, p.y) || !onReadyCircle(l, p.x, p.y, role())) return;
+    // with something to hold, and there the whole page holds it.
+    if (!onReadyPage(world, seat()) || onNavBar(l, p.y)) return;
     down = true;
     hold(true);
   });

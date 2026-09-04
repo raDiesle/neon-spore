@@ -40,17 +40,6 @@ export class Canvas2DRenderer implements Renderer {
   }
 
   /**
-   * Whether the wave on screen has just (re)started, so everything transient
-   * this renderer is holding belongs to a run that no longer exists —
-   * `Effects.reset` says what goes wrong when it is kept.
-   *
-   * Three ways in, because the hosts restart differently: the director swaps
-   * in a whole new `World` (`tools/director/src/stage.ts`'s `rebuild`), the
-   * game keeps one world and calls `startWave` on it — same object, new wave
-   * index — and a restart of the *same* wave changes neither, but always puts
-   * `waveBeat` back to 0.
-   */
-  /**
    * The baked-burst player, for a host that wants to install an atlas into it.
    * Exposed rather than reached for through `effects`, so the one thing a host
    * is allowed to change about this renderer is the one thing it can see.
@@ -59,6 +48,20 @@ export class Canvas2DRenderer implements Renderer {
     return this.effects.spriteBursts;
   }
 
+  /** What REPLAY on a guide's bar reaches. The film's clock is render state and
+   * no part of the world, so it is a call and not a command (`guide-play.ts`). */
+  replayGuide(): void {
+    this.guide.replay();
+  }
+
+  /**
+   * Whether the wave on screen has just (re)started, so everything transient
+   * this renderer holds belongs to a run that no longer exists (`Effects.reset`
+   * says what goes wrong when it is kept). Three ways in, because the hosts
+   * restart differently: the director swaps in a whole new `World`, the game
+   * calls `startWave` on the one it has — same object, new index — and a
+   * restart of the *same* wave changes neither but always puts `waveBeat` to 0.
+   */
   private waveRestarted(world: World): boolean {
     const last = this.seen;
     this.seen = { world, wave: world.wave, waveBeat: world.waveBeat };
@@ -150,24 +153,32 @@ export class Canvas2DRenderer implements Renderer {
       // scrim is translucent, and translucent over nothing is the last frame.
       ctx.fillStyle = "#05040B";
       ctx.fillRect(0, 0, stage.width, stage.height);
-      drawWaveOpening(ctx, l, world, view.role, this.guide, view.time, this.effects.opening);
+      drawWaveOpening(ctx, l, world, {
+        role: view.role,
+        scene: this.guide,
+        time: view.time,
+        fx: this.effects.opening,
+        names: view.names,
+      });
       ctx.restore();
       return;
     }
 
-    // A round takes the whole stage and this method ends here. Not a panel
-    // over the grid and not a dimmed field behind one — the round's first
-    // condition is that the field is *gone* (`gauge-round.ts`), and the
+    // A round takes the whole stage and this method ends here: the round's
+    // first condition is that the field is *gone* (`gauge-round.ts`), and the
     // cheapest way to be sure of that is for none of the code below to run.
-    //
     // `ROUND_DRAWS` is the list and says why it is a list. Each draws the
-    // wave's opening itself, last — that pass is one a round replaces, and
-    // without it the pair get a picture standing still with nothing saying why
-    // (`sim/step.ts` holds the world behind the ready gate either way).
+    // wave's opening itself, last — without it the pair get a picture standing
+    // still with nothing saying why.
     const round = ROUND_DRAWS[world.boss?.kind ?? ""];
     if (round !== undefined) {
       round(ctx, l, view);
-      drawWaveOpening(ctx, l, world, view.role, undefined, view.time, this.effects.opening);
+      drawWaveOpening(ctx, l, world, {
+        role: view.role,
+        time: view.time,
+        fx: this.effects.opening,
+        names: view.names,
+      });
       ctx.restore();
       return;
     }
@@ -213,7 +224,11 @@ export class Canvas2DRenderer implements Renderer {
     drawBodies(ctx, l, world, view, this.effects);
 
     drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), at);
-    drawOverlays(ctx, l, world, view, isArmed, isOpen, undefined, this.effects.opening);
+    drawOverlays(ctx, l, world, view, {
+      armed: isArmed,
+      open: isOpen,
+      fx: this.effects.opening,
+    });
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
     if (this.effects.opening.launching) {

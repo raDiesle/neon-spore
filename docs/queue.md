@@ -89,18 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `drawWaveOpening` has seven positional parameters, three of them optional
-
-- **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408
-- **Files:** `packages/render/src/briefing.ts`, `packages/render/src/frame-passes.ts`,
-  `packages/render/src/canvas2d.ts`, `packages/render/test/briefing.test.ts`
-
-`(ctx, l, world, role, scene?, time, fx?)` — the tail grew one argument at a
-time, and two of the three callers now pass `undefined` in the middle of it to
-reach the last. `drawOverlays` inherited the same tail. Fold the optional three
-into one options object and update the four call sites and the test; nothing
-about what is drawn changes, so `bun run check` is the whole proof.
-
 ## The director's import-cycle test reads a type-only import as a runtime one
 
 - **Found:** 2026-09-04, claude/recoil-enemy-bouncing-ba8863
@@ -206,3 +194,25 @@ prose — or key the exhaustive switch on a `FieldGesture` union that
 `touch-ship.ts` and `touch.ts` export beside the holds, so a second gesture on
 an existing hold is a compile error until it has a row. Either way the test
 must fail if a branch of `touchUp` sends a command no entry describes.
+
+## An infinite `age` reaches drawing code that takes a sine of it
+
+- **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408
+- **Files:** `packages/render/src/guide-nav.ts`, `packages/render/src/opening-fx.ts`,
+  `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
+
+Every screen of a wave's opening reads its clock as `fx?.age ?? POSITIVE_INFINITY`
+— the sentinel that means "this has been up for ever, so draw it finished". That
+is right for a fade, which clamps, and wrong for anything that breathes:
+`Math.sin(Infinity)` is `NaN`, and a `NaN` coordinate is a call a real canvas
+refuses. It cost a red `frame.test.ts` the day the guide's bar grew a slime
+feeder whose width is a sine of the page's age, and `drawGuideNav` now guards
+its own copy with `Number.isFinite`.
+
+One guard in one function is not the fix. Either make the sentinel finite where
+it is produced — a large number of seconds rather than `Infinity`, which every
+fade clamps just the same — or give `OpeningFx` a `breath(rate)` that every
+pulsing thing calls instead of reaching for `age` itself. Then delete the guard
+in `guide-nav.ts`. A test that draws each opening screen with no `fx` at all,
+through the strict canvas, is the proof; `packages/render/test/briefing.test.ts`
+already does exactly that and is where the failure showed up.

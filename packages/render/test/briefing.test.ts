@@ -90,8 +90,8 @@ describe("a wave's opening on the stage", () => {
       const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
       for (let i = 0; i < WAVES.length; i++) {
         const { intro, guide } = opening(i);
-        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, role);
-        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, role);
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, { role: role });
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, { role: role });
       }
     }
   });
@@ -101,8 +101,8 @@ describe("a wave's opening on the stage", () => {
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
     for (const i of GUIDED) {
       const { intro, guide } = opening(i);
-      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, "p1");
-      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1");
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, intro, { role: "p1" });
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, { role: "p1" });
     }
   });
 
@@ -111,7 +111,7 @@ describe("a wave's opening on the stage", () => {
     const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
     const world = createWorld(CFG, 3);
     startWave(world, WAVES.length + 4, []);
-    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
+    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, { role: "p1" });
   });
 
   /**
@@ -133,15 +133,12 @@ describe("a wave's opening on the stage", () => {
     for (let page = 0; page < guidePages(world); page++) {
       for (let f = 0; f < framesPerPage; f++) {
         stage.update(world, 1 / 60, role);
-        drawWaveOpening(
-          ctx as CanvasRenderingContext2D,
-          l,
-          world,
+        drawWaveOpening(ctx as CanvasRenderingContext2D, l, world, {
           role,
-          stage,
-          f / 60,
-          new OpeningFx(),
-        );
+          scene: stage,
+          time: f / 60,
+          fx: new OpeningFx(),
+        });
       }
       guideStepHeard(world, 1, false);
       guideStepHeard(world, 2, false);
@@ -201,7 +198,7 @@ describe("a wave's opening on the stage", () => {
     const world = createWorld(DEFAULT_CONFIG, 3);
     startWave(world, 0, []);
     const calls = ctx.calls;
-    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
+    drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, { role: "p1" });
     expect(ctx.calls).toBe(calls);
   });
 });

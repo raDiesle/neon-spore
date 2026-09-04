@@ -158,6 +158,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       },
       world: () => world,
       role: () => role,
+      replay: () => {},
     });
     const layout = computeLayout(VIEWPORT, cfg, role);
     // Real ticks, through the sim's own `step()` — a `brief` only ever fills
@@ -373,6 +374,7 @@ describe("bindStageTouch reports the hand on the ship", () => {
       push: (player, command) => pending.push({ tick: world.tick, player, command }),
       world: () => world,
       role: () => role,
+      replay: () => {},
     });
     const fire = (type: string, x: number, y: number): void => {
       for (const fn of on.get(type) ?? [])

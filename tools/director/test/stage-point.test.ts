@@ -140,6 +140,7 @@ describe("the stage's pointer conversion", () => {
       push: (player, command) => sent.push({ player, command }),
       world: () => world,
       role: () => "test",
+      replay: () => {},
     });
 
     const l = layout();

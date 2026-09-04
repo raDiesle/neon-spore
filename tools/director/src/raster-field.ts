@@ -120,6 +120,7 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
     push,
     world: () => world,
     role: () => "test",
+    replay: () => renderer.replayGuide(),
   });
 
   // A cleared wave plays again rather than advancing: watching this one is the

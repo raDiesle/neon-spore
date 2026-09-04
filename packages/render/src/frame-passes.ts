@@ -183,17 +183,25 @@ export function drawShip(
   drawShipHand(ctx, l, world.cannonCol, world.shieldCol, view.hand, view.time);
 }
 
+/** The frame's two windows, and whatever the wave's opening needs drawing. */
+export interface OverlayState {
+  armed: boolean;
+  open: boolean;
+  /** A rehearsal the caller owns, on a host that has one. */
+  scene?: GuideStage;
+  /** The opening's own clock (`opening-fx.ts`). */
+  fx?: OpeningFx;
+}
+
 /** What sits on top of a finished frame: HUD, alarms and the wave's opening. */
 export function drawOverlays(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   view: ViewState,
-  isArmed: boolean,
-  isOpen: boolean,
-  scene?: GuideStage,
-  fx?: OpeningFx,
+  state: OverlayState,
 ): void {
+  const { armed: isArmed, open: isOpen, scene, fx } = state;
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
   // Over the HUD and under the band: the one instrument that says *talk*, for
@@ -206,5 +214,11 @@ export function drawOverlays(
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
   // anything worth seeing.
-  drawWaveOpening(ctx, l, world, view.role, scene, view.time, fx);
+  drawWaveOpening(ctx, l, world, {
+    role: view.role,
+    scene,
+    time: view.time,
+    fx,
+    names: view.names,
+  });
 }

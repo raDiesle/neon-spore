@@ -47,6 +47,7 @@ function desk(guideUp: boolean) {
     snakeHolds: () => false,
     onPauseToggle: () => {},
     onWaveStep: () => {},
+    onGuideReplay: () => {},
   });
   const fire = (type: string, code: string): void => {
     for (const fn of listeners[type] ?? []) fn({ code, preventDefault() {} });

@@ -63,6 +63,10 @@ export interface StageTouch {
   push: (player: 1 | 2, command: Command) => void;
   /** The world a card is read off — whether one is up at all right now. */
   world: () => World;
+  /** Play a guide's page of film again — the middle button on its bar. It is
+   * the renderer's own clock and not the world's, so it is a call rather than a
+   * command (`render/guide-play.ts`). */
+  replay: () => void;
   /** Which seat's screen the role bar is holding, the same value `field()`
    * already answers `pointerSeat` with — a card up under `test` has to be
    * stepped in words, one under `p1`/`p2` is already just the one screen the
@@ -101,6 +105,7 @@ export function bindStageTouch({
   push,
   world,
   role,
+  replay,
 }: StageTouch): StageHand {
   const holding = new Map<number, Hold>();
   let hand: ShipHand | undefined;
@@ -123,7 +128,14 @@ export function bindStageTouch({
     if (briefingHolds(world())) {
       e.preventDefault();
       const speaksFor: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
-      const seats = openingPress(world(), layout(), role(), speaksFor, at(e), push);
+      const seats = openingPress({
+        world: world(),
+        layout: layout(),
+        seats: speaksFor,
+        point: at(e),
+        push,
+        replay,
+      });
       if (seats) briefHolding.set(e.pointerId, seats);
       return;
     }

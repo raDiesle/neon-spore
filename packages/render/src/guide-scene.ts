@@ -8,6 +8,7 @@ import { SeatView } from "./guide-seat.js";
 import { drawSeatBanner, drawSwitchSeam } from "./guide-switch.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
+import type { SeatNames } from "./seat-name.js";
 
 /**
  * A guide's rehearsal: the game's own screen, at full size, playing the wave
@@ -30,9 +31,10 @@ import { computeLayout, type Layout, type ViewRole } from "./layout.js";
  *
  * ## The pair turns the pages
  *
- * A page is one step of the film, and it repeats until the seat reading it
- * presses NEXT. That clock is `guide-play.ts` next door; what is here is the
- * picture it produces, and the bar the pages are turned by (`guide-nav.ts`).
+ * A page is one step of the film. It plays once, stands on its last frame, and
+ * plays again only when the seat reading it presses REPLAY — NEXT is what moves
+ * on. That clock is `guide-play.ts` next door; what is here is the picture it
+ * produces, and the bar the pages are turned by (`guide-nav.ts`).
  *
  * ## It is a real simulation, and this draws only what it is given
  *
@@ -74,6 +76,15 @@ export class GuideStage {
     if (this.play.clear()) this.resetSeats();
   }
 
+  /**
+   * Play this page again, because the pair pressed REPLAY. A rebuilt world
+   * starts `beat`, `tick` and `nextId` at 0, so both seats' `Effects` go with
+   * it — the same clearing a page change already does.
+   */
+  replay(): void {
+    if (this.play.replayPage()) this.resetSeats();
+  }
+
   private resetSeats(): void {
     for (const s of this.seats) s.reset();
   }
@@ -90,7 +101,13 @@ export class GuideStage {
    * the one line that is about the viewer rather than about the film: whether
    * the screen on show is the phone in their own hand.
    */
-  draw(ctx: CanvasRenderingContext2D, box: Layout, time: number, role: ViewRole): void {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    box: Layout,
+    time: number,
+    role: ViewRole,
+    names?: SeatNames,
+  ): void {
     const { run, scene, set, page } = this.play;
     if (!run || !scene || !set) return;
 
@@ -123,11 +140,12 @@ export class GuideStage {
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
-    drawSeatBanner(ctx, l, step.seat, run.tick - step.tick, role, this.play.plays === 0);
+    drawSeatBanner(ctx, l, step.seat, role, names);
     drawGuideNav(ctx, box, {
       page,
       pages: scene.steps.length + 1,
       played: this.play.plays > 0,
+      replay: true,
       age: this.play.shown,
     });
   }

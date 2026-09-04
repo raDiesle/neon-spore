@@ -1,14 +1,15 @@
-import { type Layout, navHit, onReadyCircle, type ViewRole } from "@neon-spore/render";
+import { type Layout, navHit, onNavBar } from "@neon-spore/render";
 import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/sim";
 
 /**
  * A press on the stage while a wave's opening is up.
  *
  * The wave has not started, so the press belongs to its opening and not to the
- * cannon. It answers exactly what the phone answers — the introduction, BACK
- * and NEXT on a page of a stepped guide, and the hold on the gate — from
- * exactly the same geometry (`render/guide-nav.ts`, `render/ready-page.ts`), so
- * a button here cannot be somewhere the phone's is not.
+ * cannon. It answers exactly what the phone answers — the introduction, the
+ * three buttons on a page of a stepped guide, and the hold that fills the gate
+ * — from exactly the same geometry (`render/guide-nav.ts`), so a button here
+ * cannot be somewhere the phone's is not. The gate is the whole page minus that
+ * bar, on the owner's instruction, and so it is here too.
  *
  * One thing is deliberately unlike the phone: **the introduction takes a
  * press.** On a phone it stands for five and a half seconds and passes on its
@@ -26,29 +27,33 @@ import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/s
  * Returns the seats whose thumbs are now down, so the caller can let them go on
  * the lift, or `null` when the press did not begin a hold.
  */
-export function openingPress(
-  world: World,
-  layout: Layout,
-  role: ViewRole,
-  seats: readonly (1 | 2)[],
-  point: { x: number; y: number },
-  push: (player: 1 | 2, command: Command) => void,
-): readonly (1 | 2)[] | null {
+export interface OpeningPress {
+  world: World;
+  layout: Layout;
+  /** Whose thumbs this screen speaks for — `test` is both at once. */
+  seats: readonly (1 | 2)[];
+  point: { x: number; y: number };
+  push: (player: 1 | 2, command: Command) => void;
+  /** REPLAY, which is the renderer's and not the world's. */
+  replay: () => void;
+}
+
+export function openingPress(p: OpeningPress): readonly (1 | 2)[] | null {
+  const { world, layout, seats, point, push } = p;
   if (introHolds(world)) {
     push(1, { kind: "brief" });
     push(2, { kind: "brief" });
     return null;
   }
-  // A guide is paged rather than held through: BACK and NEXT are where they are
-  // drawn, and only the gate has anything to hold.
+  // A guide is paged rather than held through: the three buttons are where they
+  // are drawn, and only the gate has anything to hold.
   const nav = navHit(layout, point.x, point.y);
   if (nav) {
-    for (const seat of seats) push(seat, { kind: "guideStep", back: nav === "back" });
+    if (nav === "replay") p.replay();
+    else for (const seat of seats) push(seat, { kind: "guideStep", back: nav === "back" });
     return null;
   }
-  if (!onReadyPage(world, seats[0]!) || !onReadyCircle(layout, point.x, point.y, role)) {
-    return null;
-  }
+  if (!onReadyPage(world, seats[0]!) || onNavBar(layout, point.y)) return null;
   return hold(seats, push);
 }
 

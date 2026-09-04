@@ -21,13 +21,19 @@ import type { ViewRole } from "./layout.js";
  * The clock a rehearsal runs on, and the page it is running.
  *
  * **The pair turns the pages, and this owns only the clock.** A page is one
- * `SceneStep` and the span between it and the next one (`stepSpan`). It plays,
- * it pauses for a moment, and it plays again, for as long as the seat reading
- * it wants — the cursor is world state, one per seat (`sim/guide-steps.ts`),
- * and NEXT is what moves it. The owner asked for exactly that, in one sentence,
- * after watching a film that ran once at a tempo nobody could keep up with:
- * *until clicked, with a quick pause, it repeats the animation and explanation
- * in the current step*.
+ * `SceneStep` and the span between it and the next one (`stepSpan`). It plays
+ * once and then holds on its last frame, for as long as the seat reading it
+ * wants — the cursor is world state, one per seat (`sim/guide-steps.ts`), and
+ * NEXT is what moves it.
+ *
+ * **A page that has played stops, and REPLAY plays it again.** It used to loop
+ * on a timer, which was the first answer to a film nobody could keep up with;
+ * the owner watched that and said the loop was ugly, and asked for a button
+ * instead. He is right about why: a picture restarting on its own every couple
+ * of seconds is movement at the edge of the eye while you are reading the words
+ * beside it, and the reader never chooses the moment. So the film ends, the
+ * last frame stands, and the third button on the bar (`guide-nav.ts`) is what
+ * asks for it again.
  *
  * Replaying a page means rebuilding the rehearsal's world and running the ticks
  * before it silently — `SceneRun.restart` — which is why there is no rewind
@@ -46,8 +52,6 @@ import type { ViewRole } from "./layout.js";
 
 /** Never advance more than this in one frame: a stall is not fast-forwarded. */
 const MAX_CATCH_UP = 12;
-/** The quick pause on the end of a page before it plays again, in seconds. */
-const REPEAT_PAUSE = 0.7;
 
 export class ScenePlay {
   run: SceneRun | null = null;
@@ -55,8 +59,8 @@ export class ScenePlay {
   set: ControlSet | null = null;
   /** The page being played. `-1` until a world has been looked at. */
   page = -1;
-  /** How many times it has played through. 0 while it is still on its first
-   * turn, which is what NEXT's glow and the seat's announcement both read. */
+  /** How many times it has run to its end. 0 while it is still on its first
+   * turn, which is what NEXT's glow reads. */
   plays = 0;
   /** Seconds this page has been up, repeats included. For anything breathing. */
   shown = 0;
@@ -64,8 +68,8 @@ export class ScenePlay {
   private seen: { world: World; wave: number } | null = null;
   /** Where the page being played begins and ends in the loop. */
   private span = { from: 0, to: 0 };
-  /** Seconds left of the pause between one turn of a page and the next. */
-  private pause = 0;
+  /** Whether the page has reached its last tick and is standing on it. */
+  private held = false;
   private acc = 0;
 
   /** Whether there is a rehearsal up — the field behind it is not drawn. */
@@ -102,33 +106,24 @@ export class ScenePlay {
       this.span = stepSpan(scene, page);
       this.plays = 0;
       this.shown = 0;
+      this.held = false;
       this.replay();
       return true;
     }
     this.shown += dt;
     this.events.length = 0;
-    if (this.pause > 0) {
-      this.pause -= dt;
-      // The break is over: the page plays again, from its own first tick, with
-      // everything before it run silently. **Only this page** — the pair asked
-      // for the current step to repeat, not for the film to start over from
-      // step one every time they reach the end of step four.
-      if (this.pause <= 0) {
-        this.plays += 1;
-        this.replay();
-        return true;
-      }
-      return built;
-    }
+    // Played out, and standing on its last frame until a thumb says otherwise.
+    if (this.held) return built;
     this.acc += dt * this.run.world.cfg.tickHz;
     const ticks = Math.min(MAX_CATCH_UP, Math.floor(this.acc));
     this.acc -= ticks;
     for (let i = 0; i < ticks; i++) {
       if (this.run.tick >= this.span.to) {
-        // The page has played. A moment of the last frame standing still, and
-        // then it plays again — the pause is what keeps a repeat from reading
-        // as a stutter, and it is where the eye goes back to the words.
-        this.pause = REPEAT_PAUSE;
+        // The page has played. The last frame stands — which is the picture the
+        // words beside it are about, held still to be read rather than swept
+        // away by the film starting over.
+        this.held = true;
+        this.plays += 1;
         this.acc = 0;
         return built;
       }
@@ -137,12 +132,32 @@ export class ScenePlay {
     return built;
   }
 
+  /**
+   * This page again, because the pair pressed REPLAY. `plays` is deliberately
+   * left where it is: NEXT has already earned its glow and the page has already
+   * been seen, and taking either back would be the button undoing the thing it
+   * was pressed to repeat.
+   *
+   * Answers the way `update` does — `true` means the world under this was
+   * rebuilt and the drawing's cached state has to go with it.
+   */
+  replayPage(): boolean {
+    if (!this.run) return false;
+    this.held = false;
+    this.replay();
+    return true;
+  }
+
+  /** Whether the page has played out and is standing on its last frame. */
+  get finished(): boolean {
+    return this.held;
+  }
+
   /** This page from its own first tick, with everything before it really run. */
   private replay(): void {
     if (!this.run) return;
     this.events.length = 0;
     this.acc = 0;
-    this.pause = 0;
     this.run.restart(this.span.from);
   }
 
@@ -156,7 +171,7 @@ export class ScenePlay {
     this.page = -1;
     this.plays = 0;
     this.shown = 0;
-    this.pause = 0;
+    this.held = false;
     this.acc = 0;
     this.events.length = 0;
     return true;

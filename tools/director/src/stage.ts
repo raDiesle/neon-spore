@@ -116,6 +116,7 @@ export function bindStage(
     push: keys.push,
     world: () => world,
     role: () => role,
+    replay: () => renderer.replayGuide(),
   });
 
   // `createWorld` always returns a fresh `Briefings` (`met: 0`), and `rebuild`

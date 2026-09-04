@@ -50,7 +50,7 @@ export class SeatView {
     // No scene of its own, and that is the whole of the recursion guard: a
     // rehearsal's config has `briefings` off, so the opening pass finds
     // nothing to draw and a scene can never open a scene.
-    drawOverlays(ctx, l, world, view, isArmed, isOpen);
+    drawOverlays(ctx, l, world, view, { armed: isArmed, open: isOpen });
   }
 }
 

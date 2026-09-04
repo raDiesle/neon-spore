@@ -1,6 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { SimEvent, World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
+import type { SeatNames } from "./seat-name.js";
 import type { ShipHand } from "./touch-ship.js";
 
 export interface Viewport {
@@ -59,6 +60,16 @@ export interface ViewState {
    */
   hand?: ShipHand;
   /**
+   * What the two people are called, by seat, blank where nobody has said.
+   *
+   * The room carries them (`apps/game/src/link.ts`), and the only screens that
+   * read them are the ones that address a person rather than a seat: the gate
+   * a guide ends on, and the two halves of a written guide. Solo play, the
+   * director and every frame test leave it unset, and those screens say PLAYER
+   * 1 and PLAYER 2 instead (`seat-name.ts`).
+   */
+  names?: SeatNames;
+  /**
    * Bodies only, on flat black: no backdrop, no radar, no grid, no ship, no
    * band and no HUD — just what `drawBodies` puts on the field.
    *
@@ -83,4 +94,11 @@ export interface Renderer {
   resize(viewport: Viewport): void;
   draw(view: ViewState): void;
   dispose(): void;
+  /**
+   * Play the current page of a wave guide's rehearsal again, for a host with a
+   * REPLAY button to wire. Optional because it is the one thing on this
+   * interface that is not about a frame: a renderer with no guide in it has
+   * nothing to replay.
+   */
+  replayGuide?(): void;
 }

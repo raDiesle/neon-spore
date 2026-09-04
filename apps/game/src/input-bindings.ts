@@ -83,4 +83,6 @@ export interface Bindings {
   onPauseToggle: () => void;
   /** Wave step, for the test keys. Positive is forwards. */
   onWaveStep: (delta: number) => void;
+  /** R, behind a guide: play its page of film again (`render/guide-nav.ts`). */
+  onGuideReplay: () => void;
 }

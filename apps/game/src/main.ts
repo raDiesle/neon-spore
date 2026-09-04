@@ -119,6 +119,7 @@ const { tick: tickKeys, hand } = bindControls({
   snakeHolds: () => snakeHolds(world),
   onPauseToggle: () => run.hold("hand", !run.held("hand")),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
+  onGuideReplay: () => renderer.replayGuide(),
 });
 
 const brief = bindBriefing({
@@ -128,6 +129,7 @@ const brief = bindBriefing({
   layout,
   stage,
   role: () => view.role(),
+  replay: () => renderer.replayGuide(),
 });
 // THE GAUGE brings its own controls, on its own listener — neither player's
 // band is the answer, and the two seats differ (`gauge.ts`, interludes.md).
@@ -191,14 +193,14 @@ const paint = (dt: number): void => {
     role: view.role(),
     // Per device by design, not a value the two phones share — own-motion
     // (a shimmer, a wobble) is allowed to differ between them because it
-    // touches nothing about the simulation. A shared clock would instead be
-    // `(world.tick + alpha) / cfg.tickHz`, where `alpha` is the fractional
-    // tick this frame lands on.
+    // touches nothing about the simulation.
     time: performance.now() / 1000,
     dt,
     events: frameEvents,
     running: run.running(),
     hand: hand.current,
+    // Two people rather than two seats, on the screens that name them.
+    names: link.status().names,
   });
   frameEvents = [];
 };

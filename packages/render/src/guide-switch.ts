@@ -1,10 +1,11 @@
-import { smoothstep } from "./ease.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { type SeatNames, seatName } from "./seat-name.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
- * The move from one player's screen to the other, made unmissable.
+ * The move from one player's screen to the other, and the corner that says
+ * which one you are looking at.
  *
  * The owner's first instruction was that the switch must be something a pair
  * can *follow* — a cut between two screens that look alike is a screen that
@@ -12,18 +13,17 @@ import { seatSkin } from "./seat-skin.js";
  * there are two devices and they carry different halves. So the picture slides
  * (`guide-scene.ts` owns the slide) and a lit seam travels with the join.
  *
- * His second was that it still was not loud enough: *that it is player 1 or
- * player 2 screen and the switch animation must look more prominent — maybe
- * have "Player 1 screen" text in the middle of screen, then we can remove the
- * top header.* So the band across the top is gone and the announcement is a
- * card-sized word in the middle of the picture, arriving with the slide and
- * clearing off it a second later. It is the seat's own colour, which by then is
- * also the colour of the ship underneath it (`seat-skin.ts`) — the announcement
- * teaches the colour, and after that the colour does the work on its own.
- *
- * **It is announced once per page, not once per turn of it.** A page repeats
- * until the pair presses NEXT, and a word this big arriving every two seconds
- * would be the thing they were reading instead of the film.
+ * His second was that it was not loud enough, and the announcement grew into a
+ * word across the middle of the picture that arrived with the slide and left a
+ * second later. His third took the timing back out of it: *do not fade in or
+ * fade out "Player 2 screen" — show it immediately and keep it showing all the
+ * time, maybe top left.* That is the better answer and it is worth saying why:
+ * a label that comes and goes is only true while it is on screen, so a player
+ * who looks up in the middle of a page has to wait for the next one to find out
+ * whose screen this is. A permanent one is always the answer. It is small, in
+ * the corner, above the field and out of the caption's way — and it is in the
+ * seat's own colour, which by then is also the colour of the ship underneath it
+ * (`seat-skin.ts`).
  *
  * Its own file beside the stage because it is the one part of the rehearsal
  * that is pure decoration: nothing here reads a world, and removing it would
@@ -33,18 +33,12 @@ import { seatSkin } from "./seat-skin.js";
 /** How far the seam's glow reaches either side of the join. */
 const SEAM = 5;
 /**
- * Where a caption may start. There is no banner to keep clear of any more, so
- * this is the top of the picture plus room for the hull bar — which is the
- * thing the old banner used to sit on top of, and the reason the last page's
- * words could not be read against it.
+ * Where the corner label sits, and how much room it takes. The caption keeps
+ * clear of it (`guide-caption.ts`), and it keeps clear of the score and the
+ * hull bar, which the HUD draws along the very top of every screen.
  */
-export const BANNER_TOP = 6;
-export const BANNER_H = 22;
-
-/** Ticks the announcement takes to arrive, to stand, and to leave. */
-const IN_TICKS = 16;
-const HOLD_TICKS = 96;
-const OUT_TICKS = 26;
+export const BANNER_TOP = 26;
+export const BANNER_H = 32;
 
 /** The join between the outgoing and incoming screens, lit as it travels. */
 export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: number): void {
@@ -57,68 +51,41 @@ export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: numb
 }
 
 /**
- * Whose screen this is, across the middle of it.
+ * Whose screen this is, in the corner of it, for as long as it is up.
  *
- * `age` is ticks since this page opened and `first` is whether this is its
- * first turn — together they are the whole of when this shows. Two lines: the
- * seat, big, in its own colour, and under it whether that is the phone in this
- * player's own hand. The second line used to read "THIS SCREEN" whoever was
- * looking, which is true on one of the two devices and a lie on the other.
+ * Two lines: who, and whether that is the phone in this player's own hand. The
+ * second line used to read "THIS SCREEN" whoever was looking, which is true on
+ * one of the two devices and a lie on the other.
  */
 export function drawSeatBanner(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   seat: 1 | 2,
-  age: number,
   role: ViewRole,
-  first: boolean,
+  names?: SeatNames,
 ): void {
   const skin = seatSkin(seat === 1 ? "p1" : "p2");
-  // The edges are the quiet, permanent half and are drawn whatever the age is:
-  // a player who looked away and back reads the colour, not the word.
+  // The edges are the quiet half: a player who looked away and back reads the
+  // colour before they read anything at all.
   ctx.globalAlpha = 0.55;
   ctx.fillStyle = skin.tint;
   ctx.fillRect(0, 0, 4, l.height);
   ctx.fillRect(l.width - 4, 0, 4, l.height);
   ctx.globalAlpha = 1;
 
-  if (!first) return;
-  const k = fade(age);
-  if (k <= 0) return;
-
-  const mid = l.width / 2;
-  const y = l.playHeight * 0.42;
-  const text = seat === 1 ? "PLAYER 1 SCREEN" : "PLAYER 2 SCREEN";
-  ctx.textAlign = "center";
-  ctx.font = '700 26px "Courier New",monospace';
-  const w = ctx.measureText(text).width + 40;
-
-  // A band the width of the words and nothing more, so the film is covered for
-  // a second rather than hidden behind a card.
-  ctx.globalAlpha = k * 0.86;
-  ctx.fillStyle = "rgba(6,4,14,.94)";
-  ctx.fillRect(mid - w / 2, y - 34, w, 62);
-  ctx.fillStyle = skin.tint;
-  ctx.fillRect(mid - w / 2, y - 34, w, 3);
-  ctx.fillRect(mid - w / 2, y + 25, w, 3);
-
-  ctx.globalAlpha = k;
-  ctx.fillStyle = skin.rim;
-  ctx.fillText(text, mid, y);
-  ctx.font = '600 11px "Courier New",monospace';
-  ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(whose(seat, role), mid, y + 18);
+  const title = `${seatName(seat, names)} · SCREEN`;
   ctx.textAlign = "left";
-  ctx.globalAlpha = 1;
-}
-
-/** In, stand, out — 0 before and after. */
-function fade(age: number): number {
-  if (age < 0) return 0;
-  if (age < IN_TICKS) return smoothstep(age / IN_TICKS);
-  if (age < IN_TICKS + HOLD_TICKS) return 1;
-  const out = (age - IN_TICKS - HOLD_TICKS) / OUT_TICKS;
-  return out >= 1 ? 0 : 1 - smoothstep(out);
+  ctx.font = '700 13px "Courier New",monospace';
+  const w = Math.min(l.width - 16, ctx.measureText(title).width + 22);
+  ctx.fillStyle = "rgba(6,4,14,.92)";
+  ctx.fillRect(8, BANNER_TOP, w, BANNER_H);
+  ctx.fillStyle = skin.tint;
+  ctx.fillRect(8, BANNER_TOP, 3, BANNER_H);
+  ctx.fillStyle = skin.rim;
+  ctx.fillText(title, 19, BANNER_TOP + 15);
+  ctx.font = '600 9px "Courier New",monospace';
+  ctx.fillStyle = PALETTE.dim;
+  ctx.fillText(whose(seat, role), 19, BANNER_TOP + 26);
 }
 
 /**

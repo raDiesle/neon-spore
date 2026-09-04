@@ -29,6 +29,8 @@ export interface KeyBindings {
   snakeHolds: () => boolean;
   onPauseToggle: () => void;
   onWaveStep: (delta: number) => void;
+  /** R, behind a guide: the desk's REPLAY (`render/guide-nav.ts`). */
+  onGuideReplay: () => void;
 }
 
 /**
@@ -88,6 +90,7 @@ export function bindKeys({
   snakeHolds,
   onPauseToggle,
   onWaveStep,
+  onGuideReplay,
 }: KeyBindings): () => void {
   let cannon = -1;
   let shield = -1;
@@ -194,6 +197,12 @@ export function bindKeys({
       // dozen more cases here (`keys-round.ts`).
       case "KeyP":
         onPauseToggle();
+        break;
+      // R plays the page of film again, which is the middle button on the bar
+      // under it. Never a command: the film's clock is render state and the
+      // two devices have one each (`render/guide-play.ts`).
+      case "KeyR":
+        if (guideHolds()) onGuideReplay();
         break;
       case "Enter":
         if (isOver()) buffer.push(1, { kind: "restart" });

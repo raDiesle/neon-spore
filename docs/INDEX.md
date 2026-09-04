@@ -429,6 +429,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/egg-skin.ts` | What the cloaca is *made of*: depth, neon, wet, and the colour it burns off a shot in |
 | `packages/render/src/lay-echo.ts` | The part of the cannon's mouth that outlives a frame: the follow-through, and the burn's own clock |
 | `packages/render/src/seat-skin.ts` | WHICH SHIP THIS IS: player one's violet, player two's amber |
+| `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
+| `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 
 ### packages/net
 

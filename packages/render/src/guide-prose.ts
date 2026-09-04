@@ -4,6 +4,7 @@ import { drawGuideNav } from "./guide-nav.js";
 import type { Layout, ViewRole } from "./layout.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
+import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 import { drop } from "./text-drop.js";
 import { wrapText } from "./wrap-text.js";
 
@@ -28,9 +29,10 @@ import { wrapText } from "./wrap-text.js";
  *   the first ten seconds, that they never have to say anything to each other.
  *
  * In `test` — one person at a desk holding both seats — nothing is redacted and
- * the two halves are named PLAYER ONE and PLAYER TWO. That used to be a tap
- * cycling a `cardStep` through three renderings of one card; the pages are that
- * mechanism, so the director does not need its own any more.
+ * the two halves are named by seat. That used to be a tap cycling a `cardStep`
+ * through three renderings of one card; the pages are that mechanism, so the
+ * director does not need its own any more. Where the room knows what the two
+ * people are called, the halves are named after them instead (`seat-name.ts`).
  *
  * The gate after them is `ready-page.ts`, and it is the same gate a rehearsal
  * ends on.
@@ -42,15 +44,23 @@ const LINE = 19;
 const BODY = '13px "Courier New",monospace';
 const LABEL = '700 11px "Courier New",monospace';
 
+export interface ProseView {
+  role: ViewRole;
+  /** The page this seat is on, and how many its guide has in all. */
+  page: number;
+  pages: number;
+  fx?: OpeningFx;
+  /** What the two are called, by seat, when the room has said. */
+  names?: SeatNames;
+}
+
 export function drawProsePage(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  role: ViewRole,
-  page: number,
-  pages: number,
-  fx: OpeningFx | undefined,
+  view: ProseView,
 ): void {
+  const { role, page, pages, fx, names } = view;
   const guide = WAVES[world.wave]?.guide;
   if (!guide) return;
   const both = role === "test";
@@ -75,7 +85,9 @@ export function drawProsePage(
       y += LINE;
     }
   } else {
-    y = block(ctx, mid, y, age, line, both ? "PLAYER ONE" : "YOURS", PALETTE.shieldRim);
+    const mineSeat: 1 | 2 = role === "p2" ? 2 : 1;
+    const otherSeat: 1 | 2 = mineSeat === 1 ? 2 : 1;
+    y = block(ctx, mid, y, age, line, half(mineSeat, both, true, names), PALETTE.shieldRim);
     ctx.font = BODY;
     for (const text of wrapText(ctx, both || role !== "p2" ? guide.p1 : guide.p2, width)) {
       drop(ctx, mid, y, age, line, 0, () => body(ctx, text, PALETTE.text));
@@ -89,7 +101,7 @@ export function drawProsePage(
       y,
       age,
       line,
-      both ? "PLAYER TWO" : "THE OTHER SCREEN",
+      half(otherSeat, both, false, names),
       both ? PALETTE.shieldRim : PALETTE.dim,
     );
     ctx.font = BODY;
@@ -103,9 +115,19 @@ export function drawProsePage(
   }
 
   ctx.textAlign = "left";
-  // No glow on NEXT here: a page of type has nothing to finish, so there is no
-  // moment for it to point at (`guide-nav.ts`).
+  // No glow on NEXT here, and REPLAY is spent: a page of type has nothing to
+  // finish and nothing to play again (`guide-nav.ts`).
   drawGuideNav(ctx, l, { page, pages, age });
+}
+
+/**
+ * What to head a half with: the person's name where the room knows one, and
+ * otherwise the seat at a desk holding both, or which screen it is on a phone.
+ */
+function half(seat: 1 | 2, both: boolean, mine: boolean, names?: SeatNames): string {
+  if (hasSeatName(seat, names)) return seatName(seat, names);
+  if (both) return seatName(seat);
+  return mine ? "YOURS" : "THE OTHER SCREEN";
 }
 
 /** A section's name, and the y its first line of type sits on. */

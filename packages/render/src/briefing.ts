@@ -11,6 +11,7 @@ import type { GuideStage } from "./guide-scene.js";
 import type { Layout, ViewRole } from "./layout.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
+import type { SeatNames } from "./seat-name.js";
 import { drawIntroduction } from "./wave-intro.js";
 
 /**
@@ -37,20 +38,35 @@ import { drawIntroduction } from "./wave-intro.js";
  * the wave, or on the two clocks in `fx` — so nothing survives a frame that
  * `Effects.reset` cannot clear.
  *
- * `scene` is a `GuideStage` the caller owns and has already brought up to this
- * frame; `fx` is where the two clocks a still world cannot supply live — how
- * long this page has been up, and the blobs a READY throws off
- * (`opening-fx.ts`).
+ * One object rather than a tail of optionals: it was `(ctx, l, world, role,
+ * scene?, time, fx?)`, grown an argument at a time until two of the three
+ * callers were passing `undefined` in the middle of it to reach the last, and
+ * a fifth thing to say — what the two people are called — would have made it
+ * eight. `docs/queue.md` carried it as a finding and this is that finding done.
  */
+export interface OpeningView {
+  /** Which of the two screens this is, or both at once while testing. */
+  role: ViewRole;
+  /** A rehearsal the caller owns and has already brought up to this frame. */
+  scene?: GuideStage;
+  /** Seconds since the page opened, for anything with own-motion. */
+  time?: number;
+  /**
+   * Where the two clocks a still world cannot supply live — how long this page
+   * has been up, and the blobs a READY throws off (`opening-fx.ts`).
+   */
+  fx?: OpeningFx;
+  /** What the two people are called, by seat, when the room has said. */
+  names?: SeatNames;
+}
+
 export function drawWaveOpening(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  role: ViewRole,
-  scene?: GuideStage,
-  time = 0,
-  fx?: OpeningFx,
+  view: OpeningView,
 ): void {
+  const { role, scene, fx, names } = view;
   if (introHolds(world)) {
     drawIntroduction(ctx, l, world, fx?.age ?? Number.POSITIVE_INFINITY, true);
     return;
@@ -58,7 +74,7 @@ export function drawWaveOpening(
   if (!guideHolds(world)) return;
   // A rehearsal takes the whole stage and brings its own bar with it.
   if (scene?.active) {
-    scene.draw(ctx, l, time, role);
+    scene.draw(ctx, l, view.time ?? 0, role, names);
     return;
   }
   const seat: 1 | 2 = role === "p2" ? 2 : 1;
@@ -66,8 +82,8 @@ export function drawWaveOpening(
   // The gate: the field is behind this rather than covered, which is the whole
   // point of the page — it is the wave they are about to play (`ready-page.ts`).
   if (onReadyPage(world, seat)) {
-    drawReadyPage(ctx, l, world, role, fx, pages);
+    drawReadyPage(ctx, l, world, { role, pages, fx, names });
     return;
   }
-  drawProsePage(ctx, l, world, role, guidePage(world, seat), pages, fx);
+  drawProsePage(ctx, l, world, { role, page: guidePage(world, seat), pages, fx, names });
 }

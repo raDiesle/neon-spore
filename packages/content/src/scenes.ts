@@ -141,11 +141,11 @@ const FIRST_STEP: GuideScene = {
     { tick: 420, control: "cannon", col: 5 },
     { tick: 690, control: "fireRed" },
   ],
-  // Five pages, each one long enough to watch twice without being long enough
-  // to wait through: two seconds, three, two and a half, one and a half, two
-  // and a half at 120 ticks a second. Each begins where the one before it ends
-  // and is replayed from the top of the loop, so what a page shows is the world
-  // as it really stood at that tick and not a clip cut out of it.
+  // Four pages, each one long enough to watch twice without being long enough
+  // to wait through: two seconds, three, two and a half, four. Each begins where
+  // the one before it ends and is replayed from the top of the loop, so what a
+  // page shows is the world as it really stood at that tick and not a clip cut
+  // out of it.
   steps: [
     // ENEMY and not SLICK: it is the first thing either of them has ever seen
     // on this field, and a name for a kind of enemy teaches nothing until there
@@ -158,12 +158,19 @@ const FIRST_STEP: GuideScene = {
       anchor: { at: "control", control: "cannon" },
     },
     { tick: 600, seat: 2, text: "P2 · FIRE RED", anchor: { at: "control", control: "fireRed" } },
-    { tick: 900, seat: 1, text: "MISS ONE", anchor: { at: "body" } },
-    // The second slick reaches the hull on beat 19, which is tick 1140 at this
-    // tempo. The page opens three beats before that, so the pair reads the words
-    // and then watches the bar drop rather than the other way round — and has
-    // four beats left afterwards to look at what it cost.
-    { tick: 1080, seat: 1, text: "AND THE HULL TAKES IT", anchor: { at: "health" } },
+    // The miss and what it costs are one page, not two — the owner asked for
+    // them combined, and they were always one sentence cut in half: the second
+    // slick reaches the hull on beat 19, which is tick 1140 at this tempo, so a
+    // page that opens at 900 says the words, then lets the pair watch the thing
+    // arrive and the bar drop, with four beats left to look at what it cost. It
+    // points at the bar rather than at the body, because the bar is the half
+    // nobody notices on their own.
+    {
+      tick: 900,
+      seat: 1,
+      text: "MISS ONE · THE HULL TAKES IT",
+      anchor: { at: "health" },
+    },
   ],
 };
 
