@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · fe7e977 — The music player's test reaches its private pump once, not four times
+
+Four `lint/complexity/useLiteralKeys` warnings printed on every `bun run lint`, for `player["pump"]()`. Lint still exited 0, which is what made it worth fixing rather than urgent: every lint output in every session opened with four paragraphs of diff about something nobody was going to change, and warnings nobody will act on train people to read past warnings.
+
 ## 2026-09-04 · f4911aa — Two findings from the overnight drain, written down
 
 Neither was worth stopping for and both cost time to work out, which is exactly what the queue is for.
