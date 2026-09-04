@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 845ab65 — The gate is one column, and the button fills while it is held
+
+The wave's name and its sentence sat where a standing introduction sits, a third of the way down the screen, with a hand's width of nothing between them and the button. They are hung off the button's own stack now — name, sentence, who is still reading, the two circles, READY — so the page reads as one thing. The field is still behind it, which is the point of the page; what is gone is the gap.
+
 ## 2026-09-04 · 8cf7565 — Every guide is pages now, and the director shows them
 
 The director opened every guide with its page count at zero, which the simulation reads as "this seat is already standing at the gate" — so turning BRIEFINGS on put the ready button up and nothing else, with the old card behind it. Its stage now tells `startWave` how many pages the guide has, read off the wave being edited rather than off the list on disk, so an unsaved guide is paged the way it will be.
