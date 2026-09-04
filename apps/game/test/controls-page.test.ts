@@ -53,12 +53,18 @@ describe("the controls page", () => {
     }
   });
 
-  it("describes the two controls that are on no panel", () => {
+  it("describes the controls that are on no panel", () => {
     // The grip: a hand held on something falling drags at it (`sim/grip.ts`),
     // and it is the one control a list of buttons would never mention.
     expect(src).toContain("Press and hold anything falling");
     // A handle hangs over the field and is carried (`render/handles.ts`).
     expect(src).toContain("A HANDLE");
+    // The ship itself, which answers a finger where it is drawn as well as on
+    // the strips (`render/touch-ship.ts`). The muzzle swipe is the one gesture
+    // in the game that exists nowhere on a panel, so this page is the only
+    // place a player is ever told about it.
+    expect(src).toContain("THE SHIP");
+    expect(src).toContain("carries it left for red or right for cyan");
   });
 
   it("reads the panels off the registry rather than listing them", () => {

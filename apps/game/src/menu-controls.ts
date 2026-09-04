@@ -45,6 +45,10 @@ const PHONE: [string, string][] = [
     "Everything above the band answers both of you. Press and hold anything falling and your hand drags at it and slows it, for as long as the finger stays — both screens are told whose hand it is.",
   ],
   [
+    "THE SHIP",
+    "The two swellings on the hull answer a finger as well as their strips do. Player 1 takes hold of the cannon and slides it, and presses the shield plate to fire the guard where it stands. Player 2 slides that same plate — and takes hold of the muzzle, carries it left for red or right for cyan, and lets go: the shot leaves on the lift, so a hand that comes back to the middle fires nothing. Whichever swelling you have hold of grows a bracket round it while you hold it.",
+  ],
+  [
     "A HANDLE",
     "A cord or a rope hanging over the field is taken hold of and carried, any direction at all. It is asked before whatever is behind it, and you grab it where it rests rather than where it has swung to.",
   ],
