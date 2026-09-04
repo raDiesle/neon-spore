@@ -110,6 +110,7 @@ shim that shows what the new shape wants if it changed again.
 ## `.claude/launch.json` is rewritten with CRLF in a worktree, and biome refuses it
 
 - **Found:** 2026-09-04, claude/queue-notes-overnight
+- **Taken:** 2026-09-04, claude/queue-claude-launch-json-is-rewritten-with-crlf-in-a-w
 - **Files:** `.gitattributes`, `biome.json`, `.claude/launch.json`, `docs/working-with-claude.md`
 
 The desktop harness rewrites `.claude/launch.json` when it opens a worktree,
