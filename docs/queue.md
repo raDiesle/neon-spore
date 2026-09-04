@@ -249,6 +249,7 @@ an honest frame cannot show the owner anything, and this one could not.
 ## A rehearsal cannot press a round's own controls, so no boss can be filmed
 
 - **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
+- **Taken:** 2026-09-04, claude/queue-a-rehearsal-cannot-press-a-rounds-own-controls-s
 - **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes.test.ts`
 
 `commandFor` in `scene-script.ts` is a switch over seven control ids — the
