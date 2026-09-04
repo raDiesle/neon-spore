@@ -122,6 +122,15 @@ describe("a wave's opening on the stage", () => {
    * player 2's, and a walk that only moved one of them would leave one role
    * looking at page one for the whole test.
    */
+  /**
+   * Frames drawn per page. Two ticks each, so a hundred and forty of them
+   * crosses the shortest page a film may have and most of the longest — which
+   * is what this test is for. It was 260, chosen when there was one film to
+   * walk; there are twenty-six now and the walk grew past half a minute, so it
+   * was cut rather than the timeout raised a third time.
+   */
+  const FRAMES_PER_PAGE = 140;
+
   const walkPages = (
     ctx: unknown,
     l: ReturnType<typeof computeLayout>,
@@ -157,17 +166,17 @@ describe("a wave's opening on the stage", () => {
       for (const i of SCENED) {
         const { guide } = opening(i);
         const stage = new GuideStage();
-        walkPages(ctx, l, guide, role, stage, 260);
+        walkPages(ctx, l, guide, role, stage, FRAMES_PER_PAGE);
         // The last page is the gate, which is not a rehearsal at all.
         expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
       }
     }
-    // Every page of every film, on three screens, drawn frame by frame: about
-    // a second per film on this machine, and the tutorial arc is still filling
-    // up. The default five seconds ran out at the ninth one. Raise this rather
-    // than thin the walk — what it is buying is the one check that catches a
-    // value that is a perfectly good number and not a colour.
-  }, 30_000);
+    // Every page of every film, on three screens, drawn frame by frame. The
+    // default five seconds ran out at the ninth film and thirty at the
+    // twenty-sixth; the walk is shorter now (`FRAMES_PER_PAGE`) and this is
+    // the headroom for the rest of the arc. What it buys is the one check that
+    // catches a value that is a perfectly good number and not a colour.
+  }, 60_000);
 
   it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
     // A rehearsal is the whole stage, so there is no room left to run out of
@@ -177,10 +186,9 @@ describe("a wave's opening on the stage", () => {
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
     for (const i of SCENED) {
       const { guide } = opening(i);
-      walkPages(ctx, l, guide, "p1", new GuideStage(), 200);
+      walkPages(ctx, l, guide, "p1", new GuideStage(), FRAMES_PER_PAGE);
     }
-    // One screen rather than three, so it costs a third of the walk above —
-    // and it grew past the default five seconds two films after that one did.
+    // One screen rather than three, so it costs a third of the walk above.
   }, 30_000);
 
   it("puts a rehearsal away the moment the reader reaches the gate", () => {
