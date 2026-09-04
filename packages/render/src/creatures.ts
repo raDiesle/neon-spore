@@ -6,6 +6,7 @@ import {
   type World,
   wispOnField,
 } from "@neon-spore/sim";
+import { drawCaromCrust } from "./carom.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -171,6 +172,13 @@ export function drawCreatures(
       const open = veilArmourPhase(world, c);
       drawVeilCloud(ctx, l, world.cfg, c, x, y, time, beats, near, open, seen);
     }
+    // And THE CAROM's crust, on the same terms and for the same reason: it is
+    // a shell around a body rather than a substitute for one, so `wornKind`
+    // has already drawn the slick or the bulb burning inside it. Both screens
+    // get the whole of it — nothing about a carom is split — so there is no
+    // gate, only a draw of its own. Nothing is drawn for the rock it becomes:
+    // by then `c.kind` is `meteor` and `drawMeteor` far above has it.
+    if (c.kind === "carom") drawCaromCrust(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
     // And THE RECOIL's cage, on the same terms and for the same reason: it is
     // a frame around a body rather than a substitute for one, so `wornKind`
     // has already drawn the slick or the bulb inside it in whichever colour

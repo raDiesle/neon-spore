@@ -93,6 +93,15 @@ export const MECHANICS = {
     // trigger answers it *first* — every bounce turns it over from there.
     waveNames: true,
   },
+  carom: {
+    what: "A slick or a bulb sealed inside a rock crust. It never falls — it comes in on a diagonal, four columns and two rows a beat, and turns at the side walls twice before it reaches the ship. The shield has nothing to say to it while the crust is on. The matching cannon cracks it open, and what drops out of the shell is a plain meteor coming down at a row a beat, which now has to be warded.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // clasp: the silhouette is the crust's and the colour is the body sealed
+    // inside it, which is which cannon opens it, so neither can be worked out
+    // from the other.
+    waveNames: true,
+  },
   gyre: {
     what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
     reach: "spawn",

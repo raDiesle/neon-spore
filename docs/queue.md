@@ -106,3 +106,24 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
+
+## THE CAROM's guide has no rehearsal, so its wave is read rather than watched
+
+- **Found:** 2026-09-04, worktree-bridge-cse
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/`,
+  `packages/content/src/waves/act-5.ts`
+
+THE CAROM shipped with a three-line prose guide and no `scene`, so its pages are
+words on the game's own screen and nothing moves. Every wave landed in the two
+days before it carries a film — THE GYRE and THE RECOIL both do, and THE LID's
+was queued and built for exactly this reason — and this creature is the worst of
+the three to describe in a sentence: what the pair has to learn is a *shape*
+(a diagonal that turns at the wall) and an *order* (crack it, then ward what
+falls out), and neither reads off a line of text.
+
+Write one under `packages/content/src/scenes/the-carom.ts` on the pattern
+`the-recoil.ts` already sets, register it in `scenes.ts`, and put `scene:
+"theCarom"` on the `theCarom` wave's guide. Three steps is the shape the others
+use: the diagonal turning at a wall with nothing else on the field, the shot
+landing and the crust coming off, and the shield taking the rock. The rehearsal
+walk in `packages/content/test/` will pick it up on its own once it is named.

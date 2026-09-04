@@ -191,6 +191,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-types.ts` | What a **body on the field** is made of |
 | `packages/sim/src/recoil.ts` | THE RECOIL: a slick or a bulb inside a sprung cage, and the first body a landed shot sends the **wrong way** |
 | `packages/sim/src/guide-steps.ts` | A guide the pair turns the pages of, one seat at a time |
+| `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
+| `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
+| `packages/sim/src/impact.ts` | **What one body costs the hull when it reaches it**, for everything the shield was never offered |
+| `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 
 ### packages/content
 
@@ -479,6 +483,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
 | `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
 | `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
+| `packages/render/src/carom.ts` | THE CAROM's crust: the rock shell a slick or a bulb is sealed inside |
 
 ### packages/net
 
@@ -915,5 +920,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-opening.ts` | A press on the stage while a wave's opening is up |
 | `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE — the other list on the CONTROLS tab, and the smaller one |
 | `tools/frames/launch.ts` | Getting the *wave's arrival* out of the picture |
+| `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
 
 <!-- index:code:end -->

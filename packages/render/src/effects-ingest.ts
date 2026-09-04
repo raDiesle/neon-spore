@@ -121,6 +121,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // `recoilBounces` (`recoil.ts`), which is the one thing that cannot go
     // stale across a restart.
     case "recoilBounce":
+    // A carom turning at a wall, and one cracking open. Neither remembers
+    // anything past this frame: how the crust is drawn is read every frame
+    // straight off `c.kind` and `caromHeading` (`carom.ts`), and once it is a
+    // rock it is drawn by the same `drawMeteor` every other rock is — which is
+    // the one thing that cannot go stale across a restart.
+    case "caromBounce":
+    case "caromCrack":
     // Nothing here remembers anything past this frame: `burstFor`'s table
     // already said what a burst it is or is not, and none of these change
     // what `Effects` carries into the next one.

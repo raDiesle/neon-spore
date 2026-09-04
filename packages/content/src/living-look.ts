@@ -64,6 +64,12 @@ const LIVING_LOOK = {
   // different row of this table on the next frame, which is the creature. A
   // contour of its own would freeze the one thing about it that moves.
   recoil: null,
+  // THE CAROM is the eighth, and the only one whose answer *runs out*: it is a
+  // slick or a bulb with a rock crust over it, and the shot that cracks the
+  // crust turns the whole body into a `meteor` — which has a row of its own
+  // further down and no contour either. So this row describes the creature
+  // only while it is alive, which is exactly as long as it is a creature.
+  carom: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

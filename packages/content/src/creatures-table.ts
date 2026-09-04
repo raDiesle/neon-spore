@@ -222,4 +222,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // with a wheel under it. Next door with the other five for their reason: it
   // is drawn as the body its colour names, and `wornKind` resolves it.
   mount: WORN_CREATURES.mount,
+  // THE CAROM, and the eighth worn body: a slick or a bulb inside a rock crust
+  // that crosses the field instead of falling. Next door for the same reason
+  // as the other seven — it is drawn as the body its colour names, and
+  // `wornKind` resolves it right up until the crust comes off, after which
+  // there is no body left to resolve.
+  carom: WORN_CREATURES.carom,
 };

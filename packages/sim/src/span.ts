@@ -58,7 +58,14 @@ export function colSpan(kind: CreatureKind): number {
   // a width set here and a count set there could disagree and leave a column
   // with nothing in front of it -- or a piece with no column to be shot in.
   if (kind === "shell") return SHELL_COLS;
-  return kind === "torch" ? 2 : 1;
+  // THE CAROM is two as well, and it is the torch's number arrived at from
+  // the other side: a torch is wide because it is twice a rock, and a carom is
+  // wide because it has to be *seen* crossing four lanes a beat. A one-tile
+  // body at that speed is a flicker between columns rather than a thing with a
+  // path, and the path is the whole creature. The rock it becomes keeps the
+  // width — `caromStruck` writes it onto the body — so the shield covers what
+  // the pair has been watching rather than half of it.
+  return kind === "torch" || kind === "carom" ? 2 : 1;
 }
 
 /**

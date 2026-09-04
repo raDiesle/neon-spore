@@ -74,6 +74,31 @@ import type { Wave } from "../wave-types.js";
  * A recoil entry names its kind and its colour, the way a rind does: the
  * colour is which trigger answers it *first*, and every bounce turns it over
  * from there.
+ *
+ * **THE CAROM, in three figures**, and what has to bite is that finishing a
+ * body is no longer the end of it. Everything up to here has been answered by
+ * one control or the other — the cannon for a body, the shield for a rock —
+ * and the pair has learned to hand an arrival to whichever of them owns it. A
+ * carom is owned by both, in order, and the shot that "kills" it is what hands
+ * it over. A pair who celebrate the crack lose the ship to what falls out.
+ *
+ * 1. Beat 0, one alone, entered against the left wall so its first crossing is
+ *    the long one. Nothing else on the field for a dozen beats, so the pair can
+ *    spend the whole flight discovering that the trigger does nothing while the
+ *    crust is on, that it turns at the wall, and that cracking it is only half.
+ *    It reaches the ship if they give up, and it costs what a rock costs.
+ * 2. Beats 12–16, a carom the other way about with an ordinary bulb under it.
+ *    This is the wave: the bulb is the column player 1 is *not* in while they
+ *    are chasing a ball across four lanes a beat, and the ward is a thumb they
+ *    have to keep free for a rock that does not exist yet.
+ * 3. Beats 24–28, two caroms in opposite colours crossing each other. Both need
+ *    the cannon first and the shield second, and the two rocks come down a beat
+ *    apart in two columns — which is where "say which one we are finishing"
+ *    stops being advice and becomes the only way through.
+ *
+ * A carom entry names its kind and its colour, the way a clasp does: the
+ * silhouette is the crust's and the colour is the body sealed inside it, which
+ * is which cannon opens it.
  */
 export const WAVES_ACT_5: Wave[] = [
   {
@@ -129,6 +154,23 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 24, col: 0, kind: "recoil", color: "red" },
       { beat: 26, col: 3, kind: "meteor", color: null },
       { beat: 28, col: 6, kind: "recoil", color: "cyan" },
+    ],
+  },
+  {
+    id: "theCarom",
+    name: "THE CAROM",
+    sentence: "The one where the shot that finishes it is what starts the other half.",
+    guide: {
+      both: "A slick or a bulb sealed in a rock crust, thrown in on a diagonal and bouncing off the side walls. The shield cannot touch it while the crust is on. The matching cannon cracks it open — and what drops out is a plain meteor, coming down at a row a beat, that now has to be warded.",
+      p1: "Do not chase it. It crosses four lanes a beat and turns at the wall, so stand where it is going and wait — and keep a thumb on GUARD, because your own shot is what makes the rock.",
+      p2: "Call the wall, not the body: say which side it turns at and on what beat. Then load the colour burning through the shell, and be on the column the moment it cracks.",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "carom", color: "red" },
+      { beat: 12, col: 6, kind: "carom", color: "cyan" },
+      { beat: 16, col: 3, color: "cyan" },
+      { beat: 24, col: 1, kind: "carom", color: "cyan" },
+      { beat: 28, col: 5, kind: "carom", color: "red" },
     ],
   },
 ];

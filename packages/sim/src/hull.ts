@@ -1,6 +1,6 @@
 import { markMoment } from "./balance.js";
 import { hullRow, msToTicks, type SimConfig } from "./config.js";
-import { ghostImpactDamage } from "./ghost.js";
+import { impactDamage } from "./impact.js";
 import { bodyCenterCol, type Creature, isMeteorKind, occupiesCol, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -136,9 +136,10 @@ export function resolveHull(world: World): void {
       damageSpan(world, c, world.cfg.damageMeteor);
     } else {
       // What it costs. `damageCreature` for everything that merely arrived,
-      // and more for the one body that aimed itself at the ship — a charging
-      // ghost, head first (`ghostImpactDamage`).
-      breachHull(world, c.col, c.kind, c.fromRow, ghostImpactDamage(world.cfg, c));
+      // and more for the two that did not: a charging ghost, head first, and a
+      // carom nobody cracked open, which is a rock the shield was never
+      // offered. One question, asked once (`impact.ts`).
+      breachHull(world, c.col, c.kind, c.fromRow, impactDamage(world.cfg, c));
     }
   }
   world.creatures = survivors;

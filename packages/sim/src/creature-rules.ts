@@ -1,3 +1,4 @@
+import { caromBecomes } from "./carom.js";
 import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
@@ -108,6 +109,14 @@ export function wornKind(c: Creature): CreatureKind {
   // for a body in a lane, or the alternation around the rim is a new
   // vocabulary rather than the one they already say out loud.
   if (c.kind === "mount") return gyreBecomes(c);
+  // A carom is the slick or the bulb sealed inside its crust, with the crust
+  // laid over the top by render/ — the clasp's arrangement, and its argument
+  // one step further on: what the pair has to read through the shell is the
+  // colour, because the colour is the only thing either of them can do about
+  // this body while it is still crossing. `caromBecomes` is the one copy of
+  // the pairing, and nothing asks it again once the crust is off — by then the
+  // body is a `meteor` and has no colour to pair with.
+  if (c.kind === "carom") return caromBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

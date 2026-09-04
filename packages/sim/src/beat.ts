@@ -1,4 +1,5 @@
 import { stepBoss } from "./boss.js";
+import { stepCarom } from "./carom.js";
 import { hullRow } from "./config.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
@@ -111,6 +112,16 @@ export function onBeat(world: World): void {
     // and fell would be moving three rows on the beats it moved.
     if (c.kind === "dart") {
       stepDart(world, c);
+      continue;
+    }
+    // A carom does not fall either: it crosses the field on a diagonal and
+    // turns at the walls, and `stepCarom` is the whole of that — the drop is
+    // inside it. In place of the line below for the dart's reason, and with
+    // more riding on it than any of them: a body that both caromed and fell
+    // would be dropping twice the rows it is drawn dropping, and the wall
+    // count `caromCols` was chosen for would be wrong by half.
+    if (c.kind === "carom") {
+      stepCarom(world, c);
       continue;
     }
     // A wisp does not fall either, and it does not cross the ground between

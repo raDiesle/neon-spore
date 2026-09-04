@@ -156,5 +156,15 @@ export function creatureHashParts(c: Creature): number[] {
   // can take, so "not a recoil" and "out of bounces" are never the same number
   // in the fingerprint.
   out.push(c.recoilBounces ?? -1);
+  // Which way THE CAROM is going. It decides which column the body reaches on
+  // the next beat and which wall it turns at, so two devices that disagree
+  // about it are two devices holding the same ball on opposite sides of the
+  // field — and one of them has the cannon in a lane nothing arrives in. `0`
+  // for a body that never crosses, which is a value no direction can take, so
+  // "not a carom" and "going left" are never the same number in the
+  // fingerprint. What it *becomes* needs no field of its own: the crust coming
+  // off is `c.kind` at the top of this list, and the width it keeps is
+  // `spanOf` beside it.
+  out.push(c.caromDir ?? 0);
   return out;
 }

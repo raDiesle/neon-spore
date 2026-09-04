@@ -165,10 +165,17 @@ export function isBossBody(kind: CreatureKind): boolean {
  * slows the *turn* and is the coupling the creature was built around
  * (`gyreSucked`).
  *
- * A list rather than a chain of `!==`, now that there are six of them: a chain
- * that long is one somebody extends by pattern rather than by argument.
+ * THE CAROM is refused for the dart's reason exactly: it crosses the field on
+ * a diagonal rather than falling, so there is no rate for a brake to scale.
+ * The rock it becomes is grippable again the instant the crust comes off, and
+ * that is the creature rather than an inconsistency — a hand is worth nothing
+ * against the half of it the cannon answers and buys the shield a beat against
+ * the half it does not.
+ *
+ * A list rather than a chain of `!==`, now that there are seven of them: a
+ * chain that long is one somebody extends by pattern rather than by argument.
  */
-const UNGRIPPABLE: readonly CreatureKind[] = ["tether", "dart", "wisp", "gyre", "mount"];
+const UNGRIPPABLE: readonly CreatureKind[] = ["tether", "dart", "wisp", "gyre", "mount", "carom"];
 
 export function isGrippable(kind: CreatureKind): boolean {
   return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);

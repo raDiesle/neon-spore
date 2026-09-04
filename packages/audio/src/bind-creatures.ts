@@ -38,13 +38,38 @@ export function creatureCue(
         | "wispHop"
         | "ghostRelease"
         | "ghostTurn"
-        | "ghostCharge";
+        | "ghostCharge"
+        | "caromBounce"
+        | "caromCrack";
     }
   >,
   cols: number,
   rows: number,
 ): Cue | null {
   switch (e.type) {
+    case "caromBounce":
+      // The same bounce THE RECOIL gets, and it is the same word: the thing
+      // you were looking at went somewhere else. That one is knocked back up
+      // the field by a shot and this one turns at a wall on its own, and the
+      // pair does not need those told apart — what they need is to hear, while
+      // looking at the cannon strip rather than at the field, that the lane
+      // they had agreed on has stopped being on the way there.
+      return {
+        id: "impact.bounce",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "caromCrack":
+      // A crust coming apart, which is what `impact.split` was written for —
+      // and deliberately **not** `impact.destroyRed`/`Cyan`, which are the
+      // sound of a column closing. This column has not closed: what fell out
+      // of the shell is a rock, and the one thing this creature cannot survive
+      // is player 1 hearing a kill and taking their thumb off the trigger.
+      return {
+        id: "impact.split",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "shellBreak":
       // A crack and two halves ringing — the sound was written for a crystal
       // coming apart and this is the same event, a piece leaving a body that

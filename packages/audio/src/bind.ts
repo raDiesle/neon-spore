@@ -224,6 +224,8 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostRelease":
     case "ghostTurn":
     case "ghostCharge":
+    case "caromBounce":
+    case "caromCrack":
       return creatureCue(e, cols, rows);
   }
 }

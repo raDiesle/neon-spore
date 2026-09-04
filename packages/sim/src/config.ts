@@ -1,4 +1,5 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
+import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
@@ -11,6 +12,7 @@ import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
+export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
@@ -28,6 +30,7 @@ export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
  */
 export interface SimConfig
   extends BossConfig,
+    CaromConfig,
     CreatureConfig,
     FleetConfig,
     GaugeConfig,
@@ -145,19 +148,15 @@ export interface SimConfig
   /**
    * Share of the screen height the control band takes, in percent, on a screen
    * carrying **both** halves — the desk rig and the director's TEST view, never
-   * a phone. It was 37, and the owner asked why the game looked smaller there
-   * than on either player's view: this number is the answer and the field pays
-   * for it. It is down to where the lobes stop being limited by the band's
-   * height and start being limited by the stage's width (`layout.ts`), which is
-   * the most it can give back before the buttons shrink. Read by render/.
+   * a phone. It was 37, and the owner asked why the game looked smaller there:
+   * it is down to where the lobes stop being limited by the band's height and
+   * start being limited by the stage's width (`layout.ts`), which is the most
+   * it can give back before the buttons shrink. Read by render/.
    */
   bandPct: number;
-  /**
-   * The same share when a screen carries only one player's half of the band.
+  /** The same share when a screen carries only one player's half of the band.
    * The finished game is one role per device, so the field gets the space the
-   * missing controls leave behind — see the view switch in `apps/game`.
-   * Read by render/.
-   */
+   * missing controls leave behind — see the view switch in `apps/game`. */
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
@@ -196,6 +195,7 @@ export interface SimConfig
 
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
+  ...CAROM_DEFAULTS,
   ...CREATURE_DEFAULTS,
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,

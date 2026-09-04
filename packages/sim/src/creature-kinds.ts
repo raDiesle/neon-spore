@@ -140,7 +140,19 @@ export type CreatureKind =
    * one instant. `Creature.recoilBounces` is the whole of its state, and it is
    * also the damage the cage wears. See `recoil.ts`.
    */
-  | "recoil";
+  | "recoil"
+  /**
+   * A slick or a bulb sealed inside a hurtling rock crust, and the first body
+   * that **neither control can answer alone**. It never falls: it comes in on
+   * a diagonal at `caromCols` columns and `caromRows` rows a beat, and it
+   * turns at the side walls of the field the way a ball does, at least twice
+   * before it reaches the ship. Whole, it is a rock and the shield has nothing
+   * to say to it — only the matching cannon cracks the crust, and what that
+   * leaves is a plain `meteor`, falling at a tile a beat, which now has to be
+   * warded. `carom.ts` holds the whole of it and `Creature.caromDir` is the
+   * whole of its state.
+   */
+  | "carom";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -179,6 +191,7 @@ export const CREATURE_KINDS = [
   "mount",
   "lid",
   "recoil",
+  "carom",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

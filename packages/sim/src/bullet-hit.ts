@@ -2,6 +2,7 @@ import { metColor, missedColor } from "./balance.js";
 // The queen's petals and the warden's plates, next door: what a shot does when
 // it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
 import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
+import { caromStruck } from "./carom.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
@@ -82,6 +83,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // had agreed about this arrival expires on the beat their own shot landed,
   // which is the whole creature (`recoil.ts`).
   if (hit.kind === "recoil") return recoilStruck(world, b, hit);
+  // The matching colour, like a slick — and what is left standing is not a
+  // corpse, it is a rock. The shot is only the first half of this creature and
+  // the shield has to take the second, which is why it is the one kill in the
+  // game that hands a body to the other player (`carom.ts`).
+  if (hit.kind === "carom") return caromStruck(world, b, hit);
   if (hit.kind === "lid") {
     // Plates that only part while a hand is on the cord, and the lens behind
     // them. All three answers a shot can get are one rule, in `lid.ts` for

@@ -202,9 +202,16 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The torch was the only two-wide kind when this row was written, so the
+    // pattern was the whole ternary. THE CAROM is the second and the owner now
+    // reads `kind === "torch" || kind === "carom" ? 2 : 1`, so the middle is
+    // left open: what is being watched for is a *kind tested against a width*
+    // written out anywhere but here, and either spelling of it is the same
+    // defect — a hit test that knows how wide a torch is and not how wide a
+    // carom is.
     call: "colSpan",
     owner: "packages/sim/src/span.ts",
-    pattern: /kind\s*===\s*"torch"\s*\?\s*2\s*:\s*1/,
+    pattern: /kind\s*===\s*"torch"[^;]*\?\s*2\s*:\s*1/,
     strip: false,
   },
   {

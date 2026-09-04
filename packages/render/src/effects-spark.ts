@@ -117,6 +117,18 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "recoilBounce":
       return at(l, e.col, e.row, 10, PALETTE.ember);
 
+    // A carom's crust coming apart, in the **rock's** colour and not the
+    // body's — `recoilBounce`'s argument arrived at from the other side. There
+    // the body survived and the picture must not say a kill; here the body is
+    // gone and the picture must not say the *column* is. A red or cyan shower
+    // is what this game spends on a lane closing, and the lane has not closed:
+    // a rock is standing in it and somebody has to ward it. So the particles
+    // are the shell's, and there are as many of them as a `shellBare` gets,
+    // because it is the same moment — a covering coming off, at the size of
+    // the thing it came off (`e.span`).
+    case "caromCrack":
+      return at(l, e.col, e.row, 20, PALETTE.rock);
+
     // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
     // because the shot did not bounce off anything — it went in and the
     // weather shut over it (`impact.absorb` is the ear's half of the same
@@ -165,6 +177,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // only player 2 can see it.
     case "ghostTurn":
     case "ghostCharge":
+    // A carom turning at a wall, and it is `ghostTurn`'s reason inverted:
+    // nothing broke. The body bounced off the edge of the field intact, and a
+    // shower of sparks there would read as damage to something the pair can
+    // still do nothing about. The turn is drawn on the body — the streak
+    // swings the other way on the next frame (`carom.ts`) — and heard rather
+    // than seen at the wall.
+    case "caromBounce":
     case "lureVanished":
     case "lureSeen": // Player 2's ear and player 2's strip; nothing on the field.
     case "beat": // The click track and the HUD dots; no tile, nothing to burst.

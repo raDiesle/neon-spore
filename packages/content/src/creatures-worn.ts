@@ -9,14 +9,14 @@ import type { CreatureDef } from "./creatures.js";
  */
 type WornKind = Extract<
   CreatureKind,
-  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "recoil" | "mount"
+  "lure" | "shell" | "clasp" | "veil" | "echo" | "rind" | "recoil" | "mount" | "carom"
 >;
 
 /**
- * The eight bodies that are drawn as something else: a slick or a bulb with a
- * disguise, plating, a membrane, weather, a sprung cage, a size that is not the
- * usual one — smaller for THE ECHO and larger by however much is left for THE
- * RIND — or a wheel under it carrying it round.
+ * The nine bodies that are drawn as something else: a slick or a bulb with a
+ * disguise, plating, a membrane, weather, a sprung cage, a rock crust, a wheel
+ * under it, or a size that is not the usual one — smaller for THE ECHO and
+ * larger by however much is left for THE RIND.
  *
  * Split out of `creatures-table.ts` when THE ECHO took that file past its
  * 250-line limit, along the seam the game already reads on — these are exactly
@@ -33,6 +33,26 @@ type WornKind = Extract<
  * throb and the dart to the end of both.
  */
 export const WORN_CREATURES: Record<WornKind, CreatureDef> = {
+  carom: {
+    kind: "carom",
+    // **Both**, and it is the first *arrival* that carries both — the queen
+    // and the warden do, and each of those is a whole encounter. The cannon
+    // cracks the crust and the shield takes the rock that falls out, so a wave
+    // with one on it must show every button both halves need: a shield-less
+    // panel is a body nobody can answer, which `test/waves.test.ts` stops.
+    controls: ["aim", "guard"],
+    // No colour of its own: a wave authors one per arrival, the way it does
+    // for a clasp (`CreatureDef.authorsColor`). It is the body sealed inside
+    // the crust, and both screens can read it the whole way down — what is
+    // hard here is never *which* trigger, it is being in the lane at all.
+    color: null,
+    // Player 2's strip, like every other aim target, for all that player 1
+    // holds the trigger the second half wants: a rock announces itself.
+    radar: "p2",
+    authorsColor: true,
+    blurb:
+      "A slick or a bulb sealed inside a rock crust, thrown in on a diagonal and bouncing off the side walls twice before it reaches the ship. It never falls, and the shield cannot turn it — only the matching cannon cracks it open, and what drops out is a plain meteor that now has to be warded.",
+  },
   lure: {
     kind: "lure",
     // Same job as any other aim target — the cannon in its column, player 2

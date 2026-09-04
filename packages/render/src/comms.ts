@@ -106,6 +106,14 @@ const TALKER = {
   // went stale on the beat their own shot landed — and a siren here would
   // teach them to look for something hidden that is not there.
   recoil: null,
+  // THE CAROM, and it is THE RECOIL's `null` said about a wall instead of a
+  // bounce: both screens carry the whole body, the crust, the colour burning
+  // through it and the diagonal it is on, and nothing whatever is withheld.
+  // The pair still cannot stop talking, because what they have to agree is a
+  // column neither of them can reach in one beat and then an *order* — crack
+  // it, then ward what falls out. A siren here would teach them to look for
+  // something hidden that is not there.
+  carom: null,
   shell: null,
   clasp: null,
   warden: null,

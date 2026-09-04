@@ -29,6 +29,12 @@ export {
   seatReady,
   toReadyPage,
 } from "./briefing.js";
+export {
+  type CaromDir,
+  caromBecomes,
+  caromHeading,
+  caromImpactDamage,
+} from "./carom.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export {
   DEFAULT_CONFIG,

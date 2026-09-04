@@ -1,3 +1,4 @@
+import { caromOnSpawn } from "./carom.js";
 import { throbIsOpen } from "./creature-rules.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
@@ -127,6 +128,13 @@ export function spawnArrivals(world: World): void {
       // every wave written before THE RECOIL is byte-for-byte the same world.
       ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
       ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
+      // Which way THE CAROM sets off, and absent on every other kind — so a
+      // body that never crosses carries no field at all and every wave written
+      // before this creature is byte-for-byte the same world. Derived from the
+      // column and the field's width rather than rolled: both screens see the
+      // heading from the first frame, and what the pair cannot do is be there
+      // (`caromOnSpawn`).
+      ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
     // alternating, built from the hub that was just pushed so that they are

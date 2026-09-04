@@ -55,6 +55,7 @@ const creature = (): Required<Creature> => ({
   lidAnchorMilli: 4200,
   lidAnchorYMilli: 5100,
   recoilBounces: 2,
+  caromDir: -1,
 });
 
 const bullet = (): Required<Bullet> => ({
