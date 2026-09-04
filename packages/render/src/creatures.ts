@@ -22,7 +22,7 @@ import { drawMeteor } from "./meteor.js";
 import { drawRecoilCage } from "./recoil.js";
 import { drawTorch } from "./torch.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
-import { drawVolleyShell } from "./volley.js";
+import { drawVolleyShell, showsVolleyCore } from "./volley.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
 import { drawWispSearch, showsWispSearch } from "./wisp-search.js";
@@ -152,7 +152,14 @@ export function drawCreatures(
     // one for every other body, and the whole of the crossing for that one
     // (`recoilTurn` in sim/recoil.ts, derived from the two fields the glide
     // itself is drawn between rather than from anything render remembers).
-    else if (c.kind !== "veil" || showsVeilCore(l))
+    // A volley with every plate still on is drawn as *nothing at all* under
+    // its shell, and that is the owner's own instruction rather than a
+    // flourish: the ball is opaque and the only colour on it is the seams. Not
+    // a body under an opaque ball — a halo, a rim and a glow pass all reach
+    // outside the contour they belong to, so the colour would show as a ring
+    // of light around the one thing that is holding it back. THE VEIL's gate
+    // exactly; `showsVolleyCore` is the one copy of it (`volley.ts`).
+    else if ((c.kind !== "veil" || showsVeilCore(l)) && showsVolleyCore(world.cfg, c))
       drawLiving(
         ctx,
         l,

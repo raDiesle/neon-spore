@@ -15,69 +15,83 @@ import { PALETTE, STROKE } from "./palette.js";
 import { rockRadius } from "./torch.js";
 
 /**
- * THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside, and
- * the count of wards still to come, drawn as the plating itself.
+ * THE VOLLEY's shell: **a basketball made of meteor**, and the count of wards
+ * still to come drawn as how much of it is left.
  *
- * The body underneath is not drawn here at all. `wornKind` already answers
- * "slick" or "bulb" for a volley, so `creatures.ts` draws an ordinary living
- * body with its ordinary colour and its ordinary own-motion, and this file
- * lays one more object over the top of it — THE CAROM's crust arrangement
- * exactly, and for the crust's reason: what the pair has to read through the
- * shell is the colour, because the colour is the sentence they need ready
- * before the last ward opens it.
+ * The owner asked for this one by name — a ball in the rock's own colours,
+ * with the seams a basketball has, in the colour of the body sealed inside it,
+ * and *nothing else of that body showing while the shell is whole*. So the
+ * shell is the same `METEOR` contour `meteor.ts` strokes, filled with the same
+ * unlit mid-tone and lit by the same key light, and the only colour on it is
+ * four lines: the equator, the meridian and the two arcs that bow away from
+ * the meridian either side. Those lines *are* the sentence player 2 has to
+ * have ready — a red ball and a cyan ball are the same rock with a different
+ * pattern painted on it, which is exactly what a basketball is.
  *
- * **It is plates and not a ring, and that is the whole of the drawing
- * decision.** A carom's crust is an annulus because a carom has one state and
- * the ring only has to say *this is rock, and something is alive in it*. This
- * one has to say a **number**, on both screens, at the moment it changes —
- * there is no health bar in this game and THE RECOIL's cage is the precedent
- * for why (`render/recoil.ts`). So the shell is `volleyPlates` wedges of the
- * same faceted crystal `meteor.ts` strokes, laid round the body and clipped to
- * their own sectors, and a ward simply takes one away: three plates is a rock,
- * two is a rock with a hole in it, one is a body wearing a shield, and none is
- * a body. Nothing is dimmed and nothing is labelled — what is left is a gap
- * the colour pours out of, which a phone in a bright room cannot throw away.
+ * **A whole shell is opaque, and the body inside is not drawn at all.**
+ * `showsVolleyCore` is the gate `creatures.ts` reads, and it is THE VEIL's
+ * arrangement rather than a new one: a halo, a rim and a glow pass all reach
+ * outside the contour they belong to, so a body drawn under an opaque ball
+ * would show as a ring of light around it and the shell would leak the one
+ * thing it is holding back.
  *
- * **The gap leads the way it is going.** The plates are laid from the leading
- * edge round, so the first one lost is the one facing the way the body is
- * travelling: a volley coming down and to the right is bare on its lower right
- * flank, which is the face the shield hit. The shell is visibly worn where the
- * work was done rather than in an arbitrary place.
+ * **The count is how much of the ball is left.** There is no health bar in
+ * this game and THE RECOIL's cage is the precedent for why: a ward knocks one
+ * plate off, and what is drawn from then on is the ball minus that sector,
+ * with the body burning out of the break. Three plates is a closed ball, two
+ * is a ball with a bite out of it, one is a cap over a body, and none is a
+ * body. Nothing is dimmed and nothing is labelled.
  *
- * Nothing here is remembered between frames. The count comes off the world,
- * the climb comes off the world, and the shimmer off the wall clock spread by
- * the body's own id — so a restart cannot leave a stale shell behind and two
- * volleys in two lanes are never one drawing done twice (`restart.test.ts` is
- * the gate).
+ * **The break faces the way it is going.** Plates are laid from the leading
+ * edge round, so the first one lost is the one the shield actually hit: a
+ * volley coming down is broken open underneath, and one climbing away from a
+ * ward is broken open on top. The shell is worn where the work was done.
+ *
+ * Nothing here is remembered between frames. The count and the climb come off
+ * the world and the tumble off the wall clock spread by the body's own id, so
+ * a restart cannot leave a stale shell behind and two volleys in two lanes are
+ * never one drawing done twice (`restart.test.ts` is the gate).
  */
 
 /**
- * How far the shell stands off the body's own tile radius. A little over one,
- * so the living body drawn at the ordinary size sits inside the plating with
- * room for the light to escape between them rather than pressing on it.
+ * How far the ball stands off the body's own tile radius. `rockRadius` at the
+ * body's span, the number `drawMeteor` reads, so a volley and the rocks it
+ * shares a field with are the same size and the pair reads "rock" before they
+ * read anything else.
  */
-const SHELL_MUL = 1.15;
-/** How much of the shell's own radius the plating is thick, as a share. The
- * rest is the hole the body shows through — thick enough to read as rock at
- * the top of the field, thin enough that one plate left still reads as *one*. */
-const PLATE_MUL = 0.4;
+const BALL_MUL = 1.0;
 /**
- * The gap left between two neighbouring plates, in radians. A fifth of a
- * radian read as a hairline at the size a phone draws a body — three plates
- * looked like one ring, which is the one thing this shell must never look
- * like. A third of one is about four pixels of the body's own colour showing
- * through at the top of the field, so a whole shell is three bright slots in
- * grey and a shell with a plate off is a third of it plainly gone.
+ * How far the two side seams bow away from the meridian, as a share of the
+ * ball's radius. Just over half: the classic pattern, and the value where the
+ * four panels either side read as panels rather than as a lens.
  */
-const SEAM = 0.35;
-/** How much the shell shudders while a ward is carrying it up, as a share of
+const BOW_MUL = 0.54;
+/** How wide a seam is drawn, as a share of the radius. Thick enough to carry a
+ * colour at 26 px, thin enough that four of them are still lines. */
+const SEAM_MUL = 0.1;
+/** How far a seam's glow reaches past it, in the same share. The colour has to
+ * survive a phone in a bright room, and a bare stroke this thin does not. */
+const SEAM_GLOW = 2.2;
+/** How much the ball shudders while a ward is carrying it up, as a share of
  * its radius. Only while climbing: a shell under load looks like one. */
 const SHUDDER = 0.05;
 
 /**
- * The shell, over a body that is already drawn. `time` is seconds, for the
- * rock's own shimmer; `near` is `nearness`, so the far rows dim with
- * everything else.
+ * Whether the body sealed inside is drawn at all — false while every plate is
+ * still on, which is the whole of the first state the owner asked for.
+ *
+ * A rule here rather than a comparison at the draw site, for `showsVeilCore`'s
+ * reason: the gate and the shell are one fact, and a second spelling of it is
+ * how a body comes to be drawn glowing through a ball that is meant to be shut.
+ */
+export function showsVolleyCore(cfg: SimConfig, c: Creature): boolean {
+  return c.kind !== "volley" || volleyPlatesLeft(c) < cfg.volleyPlates;
+}
+
+/**
+ * The shell, over a body that has been drawn only if `showsVolleyCore` allowed
+ * it. `time` is seconds, for the ball's own tumble; `near` is `nearness`, so
+ * the far rows dim with everything else.
  */
 export function drawVolleyShell(
   ctx: CanvasRenderingContext2D,
@@ -92,91 +106,124 @@ export function drawVolleyShell(
 ): void {
   const plates = volleyPlatesLeft(c);
   // Out of plates: the shell is gone rather than wrecked. `effects-spark.ts`
-  // has already thrown it off the tile it burst over, and what is left falling
-  // is an ordinary slick or an ordinary bulb — which the pair has to be able
-  // to *see* it is, rather than reading one last shard as something still in
-  // the way.
+  // has already thrown the rock off the tile it burst over, and what is left
+  // falling is an ordinary slick or an ordinary bulb — which the pair has to
+  // be able to *see* it is, rather than reading one last shard as something
+  // still in the way.
   if (plates <= 0) return;
 
   const total = Math.max(1, cfg.volleyPlates);
-  const r = rockRadius(l, spanOf(c)) * SHELL_MUL * depthScale(cfg, l, drawnRow(c, beatPhase));
   const spin = sinHash(c.id) * 6.3;
-  // Which way the leading edge faces: down while it falls, up while a ward is
-  // carrying it, and the same `volleyIsClimbing` the simulation steps by — so
-  // the worn face and the direction of travel can never point opposite ways.
-  const lead = volleyIsClimbing(c) ? -Math.PI / 2 : Math.PI / 2;
-  const shudder = volleyIsClimbing(c) ? 1 + SHUDDER * Math.sin(time * 9 + spin) : 1;
-  const shell = r * shudder;
+  const climbing = volleyIsClimbing(c);
+  const shudder = climbing ? 1 + SHUDDER * Math.sin(time * 9 + spin) : 1;
+  const r =
+    rockRadius(l, spanOf(c)) * BALL_MUL * depthScale(cfg, l, drawnRow(c, beatPhase)) * shudder;
+  // The ball rolls, and the pattern rolls with it — which is the one thing a
+  // basketball does that a porthole must not (`carom.ts` argues the opposite
+  // case for the opposite reason). `drawMeteor`'s own rate, so a volley and a
+  // rock beside it turn together.
+  const turn = spin + time * 0.12;
+  // Which way the break faces: down while it falls, up while a ward carries
+  // it, off the same `volleyIsClimbing` the simulation steps by — so the worn
+  // face and the direction of travel can never point opposite ways.
+  const lead = climbing ? -Math.PI / 2 : Math.PI / 2;
 
-  const metal = hazed(cfg, PALETTE.rock, near);
   const glow = hazed(cfg, c.color === "cyan" ? PALETTE.cyan : PALETTE.red, near);
+  const metal = hazed(cfg, PALETTE.rock, near);
 
   ctx.save();
   ctx.translate(x, y);
-  const sweep = (Math.PI * 2) / total;
-  for (let i = 0; i < plates; i++) {
-    // Laid from the leading edge round, so plate zero is the one facing the
-    // way the body is going and the gap opens on the face the shield hit.
-    const from = lead + sweep * (i + 0.5) - sweep / 2 + SEAM / 2;
-    drawPlate(ctx, shell, from, sweep - SEAM, spin + time * 0.2, metal, time);
-  }
+  ctx.save();
+  // What is left of the ball, as a clip: the whole plane while every plate is
+  // on, so a closed shell has no seam of its own to give it away, and one
+  // sector short for every ward already spent.
+  if (plates < total) ctx.clip(remaining(lead, total, plates, r));
+  drawRock(ctx, r, turn, metal, time);
+  drawSeams(ctx, r, turn, glow);
+  ctx.restore();
   ctx.restore();
 
-  // The light escaping out of the seams, over the whole thing rather than
-  // clipped to the gap: a body sealed in rock that leaked no light at all
-  // would be a rock, and the colour is the sentence player 2 has to be
-  // holding by the time the last plate goes. It brightens as the shell opens.
-  halo(ctx, x, y, r * 1.4, glow, 0.12 + 0.12 * (1 - plates / total));
+  // The light out of the break, and none at all while the ball is closed —
+  // which is the whole of the first state. It grows as the shell opens,
+  // because by then the colour is what the pair has to be saying out loud.
+  const open = 1 - plates / total;
+  if (open > 0) halo(ctx, x, y, r * 1.5, glow, 0.16 * open);
 }
 
 /**
- * One plate: a wedge of the rock's own faceted crystal, clipped to its sector
- * and hollowed out so the body inside is not painted over.
- *
- * The facets are `crystalPath` at the shell's radius rather than a smooth arc,
- * so a plate and the rock it came off are the same material — the pair reads
- * "meteor" from the silhouette before they read a count off it, which is the
- * order the sentence has to arrive in.
+ * The sectors still on, as one path. Laid from the leading edge round, so
+ * sector zero is the face the shield meets and the break opens there first.
  */
-function drawPlate(
+function remaining(lead: number, total: number, plates: number, r: number): Path2D {
+  const sweep = (Math.PI * 2) / total;
+  const kept = new Path2D();
+  // The gap is `total - plates` sectors wide and starts at the leading edge,
+  // so what is kept is one arc rather than several — a ball with a bite out of
+  // it, which is what a broken ball looks like.
+  const from = lead + sweep * (total - plates);
+  kept.moveTo(0, 0);
+  kept.arc(0, 0, r * 1.4, from, from + sweep * plates);
+  kept.closePath();
+  return kept;
+}
+
+/**
+ * The ball itself: `meteor.ts`'s own drawing, so a volley and the rocks it
+ * shares a field with are visibly one material. The mid-tone fill, the key
+ * light handed the rotation so the light stays where it is while the ball
+ * rolls under it, and the rock's outline.
+ */
+function drawRock(
   ctx: CanvasRenderingContext2D,
   r: number,
-  from: number,
-  sweep: number,
   turn: number,
-  hex: string,
+  metal: string,
   time: number,
 ): void {
-  const inner = r * (1 - PLATE_MUL);
-  const wedge = new Path2D();
-  wedge.arc(0, 0, r, from, from + sweep);
-  wedge.arc(0, 0, inner, from + sweep, from, true);
-  wedge.closePath();
-
-  const rock = new Path2D(
-    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.2, METEOR.seed),
+  const ball = new Path2D(
+    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
   );
-
   ctx.save();
-  ctx.clip(wedge);
-  ctx.save();
-  // The unlit mid-tone `meteor.ts` fills with, so a plate and the rock every
-  // other body on this field is made of are visibly one material — the light
-  // supplies the ends.
+  ctx.rotate(turn);
   ctx.fillStyle = "#8A8F9C";
-  ctx.fill(rock);
-  ctx.clip(rock);
+  ctx.fill(ball);
+  ctx.save();
+  ctx.clip(ball);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   ctx.restore();
-  ctx.strokeStyle = hex;
+  ctx.strokeStyle = metal;
   ctx.lineWidth = STROKE.outline;
-  ctx.stroke(rock);
+  ctx.stroke(ball);
   ctx.restore();
+}
 
-  // The plate's own edges, drawn after the clip is lifted so the seam between
-  // two of them is a line rather than a place where two fills meet. This is
-  // what makes three plates count as three.
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(wedge);
+/**
+ * The four seams, in the colour of the body inside: the equator, the meridian
+ * and the two arcs that bow away from the meridian either side.
+ *
+ * The two arcs are one ellipse — `rx` at `BOW_MUL` and `ry` at the full
+ * radius — which is the same two curves drawn as one path and cannot come
+ * apart. Each seam is stroked twice: once wide and faint for the glow that
+ * carries the colour at the size a phone draws a body, once narrow and full
+ * for the line itself.
+ */
+function drawSeams(ctx: CanvasRenderingContext2D, r: number, turn: number, glow: string): void {
+  const path = new Path2D();
+  path.moveTo(-r, 0);
+  path.lineTo(r, 0);
+  path.moveTo(0, -r);
+  path.lineTo(0, r);
+  path.ellipse(0, 0, r * BOW_MUL, r, 0, 0, Math.PI * 2);
+
+  ctx.save();
+  ctx.rotate(turn);
+  ctx.lineCap = "round";
+  ctx.strokeStyle = glow;
+  ctx.globalAlpha = 0.3;
+  ctx.lineWidth = Math.max(1, r * SEAM_MUL * SEAM_GLOW);
+  ctx.stroke(path);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = Math.max(0.8, r * SEAM_MUL);
+  ctx.stroke(path);
+  ctx.restore();
 }
