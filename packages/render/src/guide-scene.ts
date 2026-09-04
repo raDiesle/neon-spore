@@ -3,11 +3,12 @@ import type { World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawCaption } from "./guide-caption.js";
+import { drawGripThumb, fieldThumb, gripThumb } from "./guide-hand.js";
 import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
-import { drawGhostThumb, drawGripThumb, gripThumb, thumbAnchors } from "./guide-thumb.js";
+import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
 
 /**
@@ -147,6 +148,10 @@ export class GuideStage {
     // slowing (`guide-thumb.ts`).
     const held = gripThumb(l, run.world, step.seat, phase);
     if (held) drawGripThumb(ctx, held, l.lobeR);
+    // And the hand on the ship, for a film about reaching a control the other
+    // way (`SceneAct.onField`).
+    const onShip = fieldThumb(l, run.world, scene, run.tick, step.seat);
+    if (onShip) drawGripThumb(ctx, { ...onShip, r: l.lobeR }, l.lobeR * (onShip.press ? 0.86 : 1));
     drawGuideCorner(ctx, l, {
       seat: step.seat,
       names,

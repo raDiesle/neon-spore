@@ -67,6 +67,23 @@ export interface ControlDef {
   label: string;
   /** One line, for somebody reading a list of panels rather than the code. */
   does: string;
+  /**
+   * Which swelling on the hull *also* reaches this control, where one does.
+   *
+   * The ship is a second way in for six of the seven standard controls
+   * (`render/src/touch-ship.ts`): the cannon carries itself, the maw on a lift
+   * that went nowhere, and — on player 2's screen — a colour on a lift that
+   * went sideways; the plate carries its own aim and the other seat's trigger.
+   * The lance has no gesture on the ship, and a round's own slabs are a panel
+   * and nothing else.
+   *
+   * It is here rather than in a switch beside the hit test because three
+   * places now ask it: the hit test, the hand a guide's rehearsal draws when a
+   * film is *about* these gestures, and the caption that points at one. A
+   * control that gained a gesture and not this line would be one the film
+   * could point at the wrong swelling for.
+   */
+  ship?: "cannon" | "shield";
 }
 
 /**
@@ -81,6 +98,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "strip",
     label: "PLAYER 1 · CANNON",
     does: "Slides the cannon along the hull. It only ever fires straight up.",
+    ship: "cannon",
   },
   {
     id: "guard",
@@ -88,6 +106,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "lobe",
     label: "SHIELD",
     does: "Triggers the shield wherever player 2 has left it. Half of every ward.",
+    ship: "shield",
   },
   {
     id: "intake",
@@ -95,6 +114,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "lobe",
     label: "SUCK",
     does: "Opens the maw, which takes in a pod and whatever is falling with it.",
+    ship: "cannon",
   },
   {
     id: "lance",
@@ -109,6 +129,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "strip",
     label: "PLAYER 2 · SHIELD",
     does: "Slides the shield along the hull. It does nothing until player 1 triggers it.",
+    ship: "shield",
   },
   {
     id: "fireRed",
@@ -116,6 +137,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "lobe",
     label: "RED",
     does: "Fires red up whichever column player 1 is standing in.",
+    ship: "cannon",
   },
   {
     id: "fireCyan",
@@ -123,6 +145,7 @@ export const CONTROLS: readonly ControlDef[] = [
     form: "lobe",
     label: "CYAN",
     does: "Fires cyan up whichever column player 1 is standing in.",
+    ship: "cannon",
   },
   ...ROUND_CONTROLS,
 ];

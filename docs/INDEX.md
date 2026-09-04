@@ -258,6 +258,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-command.ts` | What pressing a control *says*, for every control on every panel — one copy, here |
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
+| `packages/content/src/scenes/shield-then-cannon.ts` | SHIELD, THEN CANNON's rehearsal: the other way to reach everything |
 
 ### packages/render
 
@@ -461,6 +462,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
+| `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
+| `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 
 ### packages/net
 

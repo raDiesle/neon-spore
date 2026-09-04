@@ -44,6 +44,22 @@ export interface SceneAct {
   /** The tick that hand lifts again. A grip always says when it lets go —
    * a hold with no end is a hand that stays down past the end of the loop. */
   until?: number;
+  /**
+   * Draw the hand **on the ship** rather than on the panel below it.
+   *
+   * The command is unchanged and so is the seat: this is the same control
+   * reached the other way. Six of them can be — the cannon slid on the hull,
+   * a lift that carried it nowhere opening the maw, the plate dragged, the
+   * plate pressed to fire it, and the muzzle carried left or right for a
+   * colour (`render/src/touch-ship.ts`) — and a wave is playable with the band
+   * alone, so this is never what a film shows unless the film is *about* it.
+   *
+   * Where the hand goes is not authored with it. The swelling is wherever the
+   * world has left the cannon or the plate, so the drawing reads that rather
+   * than a column somebody typed beside the act — the rule the ghost hand has
+   * played by since it existed.
+   */
+  onField?: true;
 }
 
 /**
@@ -66,6 +82,13 @@ export type SceneAnchor =
   /** The pod hanging in the field — the subject of SALVAGE, THE PURGE and THE
    * WARD, and the one thing on the field that is neither a body nor a shot. */
   | { at: "pod" }
+  /**
+   * The swelling on the hull a control is reached through, rather than the
+   * button for it on the panel — the cannon, or the plate. Which of the two
+   * answers a given control is `shipCircle`'s, so a caption cannot point at
+   * one swelling while the hand presses the other.
+   */
+  | { at: "ship"; control: ControlId }
   /**
    * The warning strip along the top edge. It points at the blip when this
    * screen carries one and at the middle of the strip when it does not, which

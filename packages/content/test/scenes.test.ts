@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
-import { control, controlSetForWave, setHas } from "../src/index.js";
+import { type ControlId, control, controlSetForWave, setHas } from "../src/index.js";
 import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepAt, stepSpan } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
@@ -57,6 +57,25 @@ describe("the rehearsals a guide can show", () => {
         expect(act.until ?? -1, `${id}: a grip at tick ${act.tick} never lets go`).toBeGreaterThan(
           act.tick,
         );
+      }
+    }
+  });
+
+  it("only reaches for the ship with a control the ship answers", () => {
+    // Six of the seven standard controls have a second way in, on the hull
+    // itself: the cannon carries itself, the maw and a colour, and the plate
+    // carries its own aim and the other seat's trigger. `ControlDef.ship` is
+    // where that is written down, and an act asking for the hand to be drawn
+    // on a control without one would be a hand pressing nothing — silent in
+    // the picture, because the command still lands on the panel's own answer.
+    for (const id of SCENE_IDS) {
+      for (const act of SCENES[id].acts) {
+        if (!act.onField) continue;
+        expect(act.control, `${id}: a grip cannot be on the ship as well`).toBeDefined();
+        expect(
+          control(act.control as ControlId).ship,
+          `${id}: ${act.control} has no gesture on the ship`,
+        ).toBeDefined();
       }
     }
   });

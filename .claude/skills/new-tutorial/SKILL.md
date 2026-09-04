@@ -163,6 +163,26 @@ const TWO_COLOURS: GuideScene = {
 - **`steps`** are pages. The first is at tick 0; a page runs until the next one
   begins, and the last until one tick short of the loop.
 
+### The hand does not have to be on the panel
+
+Three gestures are not presses on a button, and each has its own way of being
+authored:
+
+- **A grip** — a finger held on something falling — is `{ tick, grip: 1|2, col,
+  until }`. The column is authored; *which body* is found by the runner at the
+  moment the hand goes down, because ids do not exist when a film is written.
+- **A control reached on the ship** — the cannon slid on the hull, a lift that
+  carried it nowhere opening the maw, the plate dragged or pressed, the muzzle
+  carried left or right for a colour — is an ordinary act with `onField: true`.
+  The command and the seat are unchanged; only where the hand is drawn moves.
+  `ControlDef.ship` says which swelling answers which control, and a control
+  without one is refused by the tests.
+- **A held cord or rope** is not authorable yet. `docs/queue.md` carries it.
+
+The captions for those point at `{ at: "held" }`, `{ at: "ship", control }` and
+the pod, the radar strip or a round's slab as the case may be — never at a
+coordinate. `packages/render/src/caption-anchor.ts` is the list.
+
 ## 3 · The checklist
 
 1. What **one** thing does this wave teach that the wave before it did not? If

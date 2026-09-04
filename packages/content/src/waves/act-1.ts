@@ -101,6 +101,12 @@ export const WAVES_ACT_1: Wave[] = [
     id: "shieldThenCannon",
     name: "SHIELD, THEN CANNON",
     sentence: "The one where you switch jobs mid-wave.",
+    guide: {
+      both: "Every control has a second way in: the ship itself. Nothing on the band goes away, and every wave is still playable with the strips alone — this is for a thumb that is already up on the field.",
+      p1: "Take hold of the cannon and carry it. Let go without carrying it anywhere and the maw opens instead. A press on the plate fires it where it stands.",
+      p2: "Drag the plate itself the way you drag the strip. And carry the muzzle left for red or right for cyan — the order the two colours stand in on your band.",
+      scene: "shieldThenCannon",
+    },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 5, col: 3, color: "cyan" },

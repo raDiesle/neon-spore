@@ -1,4 +1,4 @@
-import { type Point, setHas } from "@neon-spore/content";
+import { type ControlId, control, type Point, setHas } from "@neon-spore/content";
 import type { Color } from "@neon-spore/sim";
 import { type Circle, colFromX, hitCircle, type Layout, tileCX } from "./layout.js";
 import type { Field } from "./touch-field.js";
@@ -64,6 +64,28 @@ export function cannonGrab(l: Layout, col: number): Circle {
 /** The same for the shield, which is the wider and flatter of the two lobes. */
 export function shieldGrab(l: Layout, col: number): Circle {
   return { x: tileCX(l, col), y: l.hullY - l.tile * SHIELD_UP, r: l.tile * SHIELD_R };
+}
+
+/**
+ * Which swelling on the hull a control is reached through, as a circle a
+ * finger can be inside.
+ *
+ * The pairing itself is `ControlDef.ship` — it is a fact about a control, and
+ * three places ask it now: `pilot` and `navigator` below, the hand a guide's
+ * rehearsal draws when a film is about these gestures, and the caption that
+ * points at one. What is here is only where that swelling *is*.
+ *
+ * Null for every control the ship does not answer, which is most of them: a
+ * round's own panel is a panel and nothing else.
+ */
+export function shipCircle(
+  l: Layout,
+  field: { cannonCol: number; shieldCol: number },
+  id: ControlId,
+): Circle | null {
+  const swelling = control(id).ship;
+  if (swelling === undefined) return null;
+  return swelling === "cannon" ? cannonGrab(l, field.cannonCol) : shieldGrab(l, field.shieldCol);
 }
 
 /**
