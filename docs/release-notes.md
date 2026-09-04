@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 2337517 — The first screen died on a window with no room in it
+
+The intro gave its picture whatever was left after the title and the nav bar, and never checked that anything was. Below about 230 device pixels of height that subtraction goes past zero, and a canvas that has not been laid out — a tab drawing while hidden, which still runs its frames — is 0 wide and takes the width past zero the same way. Either one reached `plate` as a negative corner radius, which a real canvas throws `IndexSizeError` on, so the whole page died rather than drawing a squeezed one.
+
+## 2026-09-04 · 5da0a49 — The settings page read a name that only a bundle has
+
+`__BUILD_DATE__` is substituted by the two build scripts and by nothing else, so under a dev server the identifier is simply absent and reading it is a `ReferenceError`. The settings page read it raw, which killed `buildMenu` before it drew: the director's `/game` door — and `bun run dev:game` — opened on a runtime error whose stack pointed at the menu rather than at the build.
+
 ## 2026-09-04 · a647453 — The top of player two's chamber was a lit band where player one has a dark one
 
 The amber hull ended in `#241000`, and that stop is now the colour the panel opens on as well, so it was drawing a brown band right under the gold rim — the one place on the screen the join was still visible. It goes a shade deeper. The slime hanging off the membrane takes the tissue's own colours rather than the ship's rim, for the same reason the spill does: a rim is the brightest thing on a seat and the drips were reading as gold rather than as slime.
