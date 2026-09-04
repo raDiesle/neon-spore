@@ -27,6 +27,7 @@ export const WAVES_ACT_1: Wave[] = [
       both: "Round, swollen, and always cyan. Same fall, same lane — the colour is the whole of the difference.",
       p1: "The column is still yours to stand in. Say the colour you can see.",
       p2: "Cyan for this one. A wrong colour is spent, not missed.",
+      scene: "twoColours",
     },
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -51,6 +52,7 @@ export const WAVES_ACT_1: Wave[] = [
       both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
       p1: "It announces itself on your strip, before it is on the field. Trigger the shield at the moment it lands — not before.",
       p2: "Slide the shield into its column and hold it there. You cannot fire it yourself.",
+      scene: "theRock",
     },
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
   },
@@ -67,6 +69,12 @@ export const WAVES_ACT_1: Wave[] = [
     id: "theHand",
     name: "THE HAND",
     sentence: "The one where three arrive on the same beat and the shield is one column.",
+    guide: {
+      both: "Three rocks, one beat, one shield. Either of you can put a finger on the field and hold something back — it falls slower for as long as you hold it, and the hand is the cost.",
+      p1: "Hold the far one where it is. Your thumb is off your own strip while you do, so say what you are holding.",
+      p2: "Take the near one with the shield, then go and get the one he is holding.",
+      scene: "theHand",
+    },
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },
       { beat: 0, col: 3, kind: "meteor", color: null },
@@ -81,6 +89,7 @@ export const WAVES_ACT_1: Wave[] = [
       both: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
       p1: "It is on your strip and on nobody else's. Call it before it arrives.",
       p2: "It covers two columns at once. The shield has to sit across both of them.",
+      scene: "torch",
     },
     entries: [
       { beat: 6, col: 1, kind: "torch", color: null },

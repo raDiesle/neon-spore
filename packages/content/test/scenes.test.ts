@@ -29,6 +29,7 @@ describe("the rehearsals a guide can show", () => {
     for (const { wave, id } of USED) {
       const set = controlSetForWave(wave);
       for (const act of SCENES[id].acts) {
+        if (!act.control) continue;
         expect(
           setHas(set, act.control),
           `${WAVES[wave]?.name}'s scene presses ${act.control}, which ${set.name} has not got`,
@@ -37,9 +38,33 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
+  it("gives every act exactly one of a control and a grip", () => {
+    // The grip is the one gesture that is not on the panel — a finger held on
+    // the field — so an act carries either a `control` or a `grip` and never
+    // both, and never neither. `sceneCommands` throws on the third case rather
+    // than dropping it silently, and this is what keeps it from being thrown.
+    for (const id of SCENE_IDS) {
+      for (const act of SCENES[id].acts) {
+        const both = act.control !== undefined && act.grip !== undefined;
+        const neither = act.control === undefined && act.grip === undefined;
+        expect(both || neither, `${id} has an act at tick ${act.tick} that presses nothing`).toBe(
+          false,
+        );
+        if (act.grip === undefined) continue;
+        expect(act.col, `${id}: a grip at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
+          0,
+        );
+        expect(act.until ?? -1, `${id}: a grip at tick ${act.tick} never lets go`).toBeGreaterThan(
+          act.tick,
+        );
+      }
+    }
+  });
+
   it("gives a strip a column to be dragged to, and a lobe none", () => {
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
+        if (!act.control) continue;
         const form = control(act.control).form;
         expect(act.col === undefined, `${id}: ${act.control} carries the wrong argument`).toBe(
           form !== "strip",
@@ -95,19 +120,27 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
-  it("points every step at something one seat owns", () => {
-    // The film exists to teach a pair that they hold two different halves. A
-    // page anchored at the hull, or at what the hull has left, shows both of
-    // them the same picture and teaches neither of them anything about that —
-    // which is the owner's own reason for cutting the one page that did:
-    // "the game scene shows exactly the same for both players ... remove this,
-    // also for future tutorials". `body` is allowed once over, for the step
-    // that names the enemy before anybody has seen one.
+  it("spends at most one page on what both screens share", () => {
+    // The film exists to teach a pair that they hold two different halves, and
+    // a page anchored at the hull or at what the hull has left shows both of
+    // them the same picture. The owner cut the one page that did — "the game
+    // scene shows exactly the same for both players ... remove this, also for
+    // future tutorials" — and then asked for it back, because without it the
+    // film never says what a miss costs: "the step is missing to show that the
+    // enemy hits the ship and it loses health".
+    //
+    // One, then. A film built out of shared pages teaches nothing about the
+    // split; a film with none of them never names the price of getting it
+    // wrong. `body` is not shared — a body is what one of them can see and the
+    // other has to be told about, which is the split itself.
     for (const id of SCENE_IDS) {
-      for (const step of SCENES[id].steps) {
-        expect(step.anchor.at, `${id}: "${step.text}" points at the whole ship`).not.toBe("hull");
-        expect(step.anchor.at, `${id}: "${step.text}" points at the whole ship`).not.toBe("health");
-      }
+      const shared = SCENES[id].steps.filter(
+        (s) => s.anchor.at === "hull" || s.anchor.at === "health",
+      );
+      expect(
+        shared.length,
+        `${id} spends ${shared.length} pages on the whole ship`,
+      ).toBeLessThanOrEqual(1);
     }
   });
 
@@ -168,10 +201,21 @@ describe("the rehearsals a guide can show", () => {
   it("builds a script whose presses are the seats the controls belong to", () => {
     for (const { wave, id } of USED) {
       const script = sceneScript(id, wave, DEFAULT_CONFIG);
-      expect(script.commands.length).toBe(SCENES[id].acts.length);
-      script.commands.forEach((cmd, i) => {
-        expect(cmd.player).toBe(control(SCENES[id].acts[i]!.control).player);
-      });
+      // One command per press, and two per grip: a hand goes down and comes up
+      // again (`scene-script.ts`).
+      const grips = SCENES[id].acts.filter((a) => a.grip !== undefined).length;
+      expect(script.commands.length).toBe(SCENES[id].acts.length + grips);
+      for (const act of SCENES[id].acts) {
+        const seat = act.grip ?? control(act.control!).player;
+        const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
+        expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
+          0,
+        );
+      }
+      // Sorted, because `SceneRun` walks the list once and drops what is out of
+      // place — and a grip's release is written after the act it belongs to.
+      const ticks = script.commands.map((c) => c.tick);
+      expect(ticks, `${id}'s commands are out of order`).toEqual([...ticks].sort((a, b) => a - b));
       // The rehearsal is never itself held behind an opening.
       expect(script.cfg.briefings).toBe(false);
     }

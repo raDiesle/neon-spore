@@ -357,6 +357,9 @@ Kill the wrangler process when the check is done.
   not touched: a wave shows the union of its creatures' control groups.
 - A new wave must pass the one-sentence test — if you cannot write
   `sentence`, the wave is padding. See `.claude/skills/new-wave`.
+- A wave's **tutorial** is the game's own screen, not a card over it, and every
+  rule about one is a correction the owner has already made once. Read
+  `.claude/skills/new-tutorial` before writing or changing a guide's pages.
 - Silhouettes are judged through `tools/shape-sheet`, not by screenshotting the
   running game. `bun run shapes:report` prints the geometry as numbers — reach
   for that first; `bun run shapes` regenerates the sheets an eye needs.

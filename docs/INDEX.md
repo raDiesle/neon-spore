@@ -231,6 +231,12 @@ place — the generator keeps whatever is there.
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
+| `packages/content/src/scene-types.ts` | The shapes a rehearsal is written in |
+| `packages/content/src/scenes/first-step.ts` | FIRST STEP's rehearsal: the game's first exchange, in eleven seconds |
+| `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
+| `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
+| `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
+| `packages/content/src/scenes/two-colours.ts` | TWO COLOURS' rehearsal: the wrong colour, then the right one |
 
 ### packages/render
 
@@ -433,6 +439,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
+| `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 
 ### packages/net
 

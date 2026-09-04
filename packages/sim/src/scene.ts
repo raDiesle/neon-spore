@@ -1,8 +1,10 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
+import { NO_GRIP } from "./grip.js";
+import { occupiesCol } from "./span.js";
 import { step } from "./step.js";
-import type { Command } from "./types.js";
+import type { Command, Creature } from "./types.js";
 import { startWave } from "./wave-start.js";
 import { createWorld, type World } from "./world.js";
 
@@ -53,6 +55,18 @@ export interface SceneCommand {
   tick: number;
   player: 1 | 2;
   command: Command;
+  /**
+   * A grip whose target is found at the moment the hand goes down: the body
+   * standing in this column, lowest first.
+   *
+   * **A grip cannot be authored as an id.** Ids are dealt out by the
+   * simulation, and a scene is written years before any world exists — so a
+   * rehearsal that wanted to show a hand on a falling rock had nothing to name
+   * it by. The column is the thing an author *can* know, because it is the
+   * thing they wrote the arrival in. `command` still carries a real
+   * `{kind:"grip"}` for the shape of it; this is what fills the id in.
+   */
+  gripCol?: number;
 }
 
 export interface SceneScript {
@@ -134,7 +148,7 @@ export class SceneRun {
     const { commands } = this.script;
     while (this.next < commands.length && commands[this.next]!.tick <= this.tick) {
       const c = commands[this.next]!;
-      this.due.push({ ...c, tick: this.world.tick });
+      this.due.push({ ...c, tick: this.world.tick, command: aimed(this.world, c) });
       this.next += 1;
     }
     step(this.world, this.due);
@@ -147,6 +161,23 @@ export class SceneRun {
     this.turn += 1;
     return true;
   }
+}
+
+/**
+ * The command as it is actually sent. Everything but a grip is already whole;
+ * a grip is handed the column its author wrote and finds the body standing in
+ * it — the lowest one, because a hand goes on the thing that is arriving
+ * first. Nothing there is a hand on nothing, which `setGrip` already treats as
+ * a hand let go.
+ */
+function aimed(world: World, c: SceneCommand): Command {
+  if (c.gripCol === undefined) return c.command;
+  let held: Creature | null = null;
+  for (const body of world.creatures) {
+    if (!occupiesCol(body, c.gripCol)) continue;
+    if (!held || body.row > held.row) held = body;
+  }
+  return { kind: "grip", id: held?.id ?? NO_GRIP };
 }
 
 function build(script: SceneScript): World {

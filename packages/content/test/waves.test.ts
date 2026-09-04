@@ -209,10 +209,22 @@ describe("wave content", () => {
         seen.add(id);
         introduces = true;
       }
-      // Wave 1 is the exception, and it is the only one: its guide is about
-      // the split itself — two screens, two halves of one ship — which is not
-      // a creature and belongs to no wave's contents.
-      if (i === 0 || introduces) continue;
+      // A wave carrying a **rehearsal** is the exception, and there are two
+      // reasons rather than one.
+      //
+      // Wave 1's guide is about the split itself — two screens, two halves of
+      // one ship — which is not a creature and belongs to no wave's contents.
+      //
+      // THE HAND's is about a mechanic with `reach: "run"`. Those are on from
+      // the first wave to the last and are carried by no wave's entries, so no
+      // wave *introduces* one and the rule above can never ask for one to be
+      // taught — and the grip is the assist the whole of wave 6 is built
+      // around (docs/spec/assists.md names it as where it is taught). A film
+      // is fifty lines of choreography and nobody writes one by accident, so
+      // "this wave carries a scene" is a decision somebody made about where a
+      // thing is taught, which is exactly what this test cannot see for
+      // itself.
+      if (wave.guide?.scene !== undefined || introduces) continue;
       expect(
         wave.guide,
         `wave ${i + 1} · ${wave.name} carries a guide and introduces nothing`,

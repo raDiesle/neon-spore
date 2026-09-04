@@ -1,5 +1,4 @@
-import { showsRadar } from "@neon-spore/content";
-import { bodyCenterCol, isMeteorKind, spanOf, type World } from "@neon-spore/sim";
+import { isMeteorKind, type World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop.js";
 import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
@@ -8,6 +7,7 @@ import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
+import { radarBlips } from "./radar-blip.js";
 import { drawRadarVeilMark } from "./veil-marks.js";
 
 /**
@@ -120,14 +120,11 @@ function drawBeatSweep(ctx: CanvasRenderingContext2D, l: Layout, beatPhase: numb
  * screen only, and never the screen holding the cannon that has to be there.
  */
 export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World, time = 0): void {
-  const lead = world.cfg.radarLead;
   ctx.save();
-  for (let i = world.spawned; i < world.queue.length; i++) {
-    const q = world.queue[i]!;
-    if (!showsRadar(l.role, q.kind)) continue;
-    const inBeats = q.beat - (world.waveBeat - 1);
-    if (inBeats < 0 || inBeats > lead) continue;
-
+  // The walk, the gate and the geometry are `radar-blip.ts`'s — a guide's
+  // caption points at a blip and had to ask the same four questions.
+  for (const blip of radarBlips(l, world)) {
+    const { entry: q, x, y, s, span, alpha: a, inBeats } = blip;
     // A veil borrows no colour, and this is the one place it could have. Its
     // queue entry carries none — the body inside is rolled when it enters the
     // field — so the ternary below would have fallen through to cyan and made
@@ -142,17 +139,6 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
           : q.color === "red"
             ? PALETTE.red
             : PALETTE.cyan;
-    // `q.col` is a wide kind's leftmost column (see `spanCenterCol` in
-    // sim/types.ts) — the blip itself is drawn at the visual centre.
-    const x = tileCX(l, bodyCenterCol(q, q.col));
-    // How wide the thing being warned about actually is. Asked of the entry
-    // rather than of its kind: the torch is no longer the only two-tile rock,
-    // and a blip drawn one tile wide over a rock that covers two is a warning
-    // that names the wrong number of columns out loud.
-    const span = spanOf(q);
-    const y = l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead);
-    const a = Math.max(0.18, 1 - inBeats / (lead + 1));
-    const s = 5 + 4 * (1 - inBeats / (lead + 1));
 
     if (span > 1) {
       // As wide as the shape it warns about, and pulsing — the blip on the
@@ -182,7 +168,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // colour is still what has to be said out loud so that player 1 knows
     // which body is meant. Player 1's strip cannot carry this at all — it
     // shows `guard` kinds only, and a lure is an `aim` kind like the two
-    // bodies it wears (`showsRadar` above is the whole gate).
+    // bodies it wears (`showsRadar` is the whole gate).
     drawRadarLureMark(ctx, l, q.kind, x, y, time);
 
     // And the one blip that is not a colour at all. A veil's queue entry

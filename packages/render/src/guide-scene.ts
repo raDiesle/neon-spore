@@ -7,7 +7,7 @@ import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
-import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
+import { drawGhostThumb, drawGripThumb, gripThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
 
 /**
@@ -50,6 +50,12 @@ import { computeLayout, type Layout, type ViewRole } from "./layout.js";
 
 /** Ticks the slide from one screen to the other takes. */
 const SWITCH_TICKS = 26;
+/**
+ * And how long the corner goes on saying so after it. Longer than the slide,
+ * deliberately: the slide is over before an eye that was reading the words has
+ * looked up, and the corner is the thing it looks up *at*.
+ */
+const FLASH_TICKS = 40;
 
 export class GuideStage {
   private readonly seats: readonly [SeatView, SeatView] = [new SeatView(), new SeatView()];
@@ -136,7 +142,20 @@ export class GuideStage {
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
-    drawGuideCorner(ctx, l, { seat: step.seat, names });
+    // And the other hand, if this seat has one on the field. It is drawn from
+    // the world rather than from the script, so it rides the body it is
+    // slowing (`guide-thumb.ts`).
+    const held = gripThumb(l, run.world, step.seat, phase);
+    if (held) drawGripThumb(ctx, held, l.lobeR);
+    drawGuideCorner(ctx, l, {
+      seat: step.seat,
+      names,
+      // Only a page that actually changed seat flares, and it flares off the
+      // page's own tick — so a page replayed flares again, and nothing about it
+      // survives a frame.
+      flash: from === null ? 0 : Math.max(0, 1 - (run.tick - step.tick) / FLASH_TICKS),
+      age: this.play.shown,
+    });
     drawGuideNav(ctx, box, {
       page,
       pages: scene.steps.length + 1,
