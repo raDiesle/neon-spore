@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 73be5c3 — The control panel is the inside of the ship, not a box under it
+
+Asked for by name — neon, fluid, living, slime, no sharp edges on the panel or its buttons, and integrated with the ship rather than bolted to it. It lands under the first exemption in CLAUDE.md's *A look is offered, never replaced*: the owner asked for this one, so the decision is already made.
+
+## 2026-09-04 · 2237e82 — A click on the director's stage lands on the control it was on
+
+The renderer draws into a phone-shaped rectangle cut out of the canvas — `computeStage`, as wide as the columns and centred — and the director built its layout from the whole canvas instead, then turned a `PointerEvent` into canvas coordinates in four separate copies of the same three lines. At the size the panel actually takes, that draws the first lobe near x=93 with a radius of 17 and answers it near x=61 with a ring of 28: the two graze, which is why a press on a button worked some of the time, and why it changed with the height of the window.
+
 ## 2026-09-04 · 3674f96 — A shot that lands sends it the wrong way
 
 THE RECOIL: a slick or a bulb inside a sprung cage. The matching colour does not kill it — it throws the body two rows back up the field, a lane to one side the seeded rng picks, and turns it over to the other colour on the way. Three times, with one more rib of the cage split each time, and only the fourth shot finishes it. What it costs the pair is the sentence they had already agreed: the column, the colour and the row all expire on the beat their own shot landed. `docs/tower-defence.md` has carried the row since the conversion — the PvZ pole vault, inverted — and it is built now with the owner's two additions, the three bounces and the colour turning over.
