@@ -110,8 +110,8 @@ export function drawDrips(
   // violet drip off a golden hull was the loudest thing left on player two’s
   // panel saying the two halves were built at different times.
   const grad = ctx.createLinearGradient(0, seamTop(l), 0, deepest);
-  grad.addColorStop(0, rgba(skin.tint, 0.62));
-  grad.addColorStop(0.5, rgba(skin.flesh[0], 0.5));
+  grad.addColorStop(0, rgba(skin.flesh[0], 0.62));
+  grad.addColorStop(0.5, rgba(skin.flesh[1], 0.5));
   grad.addColorStop(1, rgba(skin.tint, 0.6));
   ctx.fillStyle = grad;
   ctx.fill(body);

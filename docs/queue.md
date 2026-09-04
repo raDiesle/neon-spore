@@ -126,8 +126,8 @@ Write one under `packages/content/src/scenes/the-carom.ts` on the pattern
 "theCarom"` on the `theCarom` wave's guide. Three steps is the shape the others
 use: the diagonal turning at a wall with nothing else on the field, the shot
 landing and the crust coming off, and the shield taking the rock. The rehearsal
-
 walk in `packages/content/test/` will pick it up on its own once it is named.
+
 ## THE MIRROR's glyphs draw player one's tissue on player two's screen
 
 - **Found:** 2026-09-04, claude/ship-graphics-p2-colors-616a16

@@ -104,7 +104,11 @@ export const P1_SKIN: SeatSkin = {
 
 export const P2_SKIN: SeatSkin = {
   hull: {
-    body: ["#FFC46B", "#D2761A", "#5E2A05", "#241000"],
+    // The last stop is a shade deeper than the amber hull shipped with, and it
+    // is the one place this skin's ship was changed: it is `ground[0]` as well
+    // now, so it is what the panel opens on, and `#241000` under a gold rim was
+    // a lit band across the top of the chamber where player one has a dark one.
+    body: ["#FFC46B", "#D2761A", "#5E2A05", "#1C0A02"],
     rim: "#FFAE3D",
     edge: "#FFF1D8",
     muzzle: "#2A0F08",
@@ -112,7 +116,7 @@ export const P2_SKIN: SeatSkin = {
   tint: "#FFAE3D",
   rim: "#FFF1D8",
   lip: ["rgba(250,196,120,0.3)", "rgba(206,140,50,0.07)", "rgba(98,58,20,0.24)"],
-  ground: ["#241000", "#180B04", "#0C0502", "#040201"],
+  ground: ["#1C0A02", "#150903", "#0B0502", "#040201"],
   // **Matched to player one's by value, not by hex.** Gold at the same energy
   // as violet is a far lighter colour — `#F8B65A` against `#A666F8` is 189
   // against 126 in luminance — and the first pass of this made player two's
