@@ -113,14 +113,10 @@ export class Canvas2DRenderer implements Renderer {
     if (stage.width < 1 || stage.height < 1) return;
     const l = this.layoutFor(view, stage);
 
-    // Outside the stage is not the game. It is painted flat and left alone, and
-    // everything below draws in stage coordinates — as does input hit-testing,
-    // which subtracts the same offset. A phone whose stage fills the viewport
-    // needs none of this: drawBackground's opaque radial gradient (or, on the
-    // gauge round, gauge-round.ts's own full-stage fill) covers the same rect
-    // a moment later. A bare frame skips that gradient, and a desktop window
-    // wider or taller than the stage has a letterbox nothing else paints —
-    // both still need the flat fill underneath.
+    // Outside the stage is not the game: painted flat and left alone, with
+    // everything below in stage coordinates — as is input hit-testing, which
+    // subtracts the same offset. A phone whose stage fills the viewport needs
+    // none of it; a bare frame and a window wider than the stage both do.
     if (view.bare || stage.width < this.viewport.width || stage.height < this.viewport.height) {
       ctx.fillStyle = view.bare ? "#000000" : "#05040B";
       ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
@@ -159,6 +155,7 @@ export class Canvas2DRenderer implements Renderer {
         time: view.time,
         fx: this.effects.opening,
         names: view.names,
+        pointer: view.pointer,
       });
       ctx.restore();
       return;
@@ -178,6 +175,7 @@ export class Canvas2DRenderer implements Renderer {
         time: view.time,
         fx: this.effects.opening,
         names: view.names,
+        pointer: view.pointer,
       });
       ctx.restore();
       return;

@@ -26,6 +26,12 @@ export { InputBuffer } from "./input-buffer.js";
 export interface Controls {
   tick: () => void;
   hand: ShipHandWatch;
+  /**
+   * Where a mouse is resting on the stage, or undefined — a phone never sets
+   * it. Read once a frame by whoever paints, so a button under the cursor can
+   * light up (`render/hover.ts`, `render/nav-button.ts`).
+   */
+  pointer: () => { x: number; y: number } | undefined;
 }
 
 /**
@@ -59,6 +65,8 @@ export function bindControls({
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
   const hand = new ShipHandWatch();
+  /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
+  let pointer: { x: number; y: number } | undefined;
   const field = (): Field => ({
     creatures: creatures(),
     cannonCol: cannonCol(),
@@ -108,6 +116,7 @@ export function bindControls({
       if (t?.command) buffer.push(t.player, t.command);
     }
     hand.clear();
+    pointer = undefined;
   };
 
   /**
@@ -130,7 +139,11 @@ export function bindControls({
    * on a phone.
    */
   const hover = (e: PointerEvent, p: { x: number; y: number } | null): void => {
-    if (e.pointerType !== "mouse" || holding.size > 0) return;
+    if (e.pointerType !== "mouse") return;
+    // Kept whatever else is up: while a wave's opening holds the screen, the
+    // ship is not what a cursor is over, but the guide's own buttons are.
+    pointer = p ?? undefined;
+    if (holding.size > 0) return;
     if (opening()) {
       hand.clear();
       return;
@@ -173,6 +186,7 @@ export function bindControls({
   // A mouse that left the picture is not over anything, and the ring it lit
   // has to go out with it — `pointermove` stops arriving the moment it does.
   canvas.addEventListener("pointerleave", () => {
+    pointer = undefined;
     if (holding.size === 0) hand.clear();
   });
   // The window losing focus (alt-tab, a click on another application) and the
@@ -212,5 +226,6 @@ export function bindControls({
       onGuideReplay,
     }),
     hand,
+    pointer: () => pointer,
   };
 }

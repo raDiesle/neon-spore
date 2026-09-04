@@ -1,14 +1,14 @@
 import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
+import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawCaption } from "./guide-caption.js";
 import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
-import { drawSeatBanner, drawSwitchSeam } from "./guide-switch.js";
+import { drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
-import type { SeatNames } from "./seat-name.js";
 
 /**
  * A guide's rehearsal: the game's own screen, at full size, playing the wave
@@ -101,13 +101,9 @@ export class GuideStage {
    * the one line that is about the viewer rather than about the film: whether
    * the screen on show is the phone in their own hand.
    */
-  draw(
-    ctx: CanvasRenderingContext2D,
-    box: Layout,
-    time: number,
-    role: ViewRole,
-    names?: SeatNames,
-  ): void {
+  draw(ctx: CanvasRenderingContext2D, box: Layout, view: OpeningView): void {
+    const { names } = view;
+    const time = view.time ?? 0;
     const { run, scene, set, page } = this.play;
     if (!run || !scene || !set) return;
 
@@ -140,13 +136,14 @@ export class GuideStage {
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
-    drawSeatBanner(ctx, l, step.seat, role, names);
+    drawGuideCorner(ctx, l, { seat: step.seat, names });
     drawGuideNav(ctx, box, {
       page,
       pages: scene.steps.length + 1,
       played: this.play.plays > 0,
       replay: true,
       age: this.play.shown,
+      pointer: view.pointer,
     });
   }
 

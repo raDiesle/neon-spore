@@ -26,9 +26,12 @@ import { seatSkin } from "./seat-skin.js";
  * colour, widening and fading, which is the whole of "this wants something from
  * you" without a word being spent on it.
  *
- * Yours is the brighter of the two and named YOU, theirs is dimmed and named
- * THEM. In `test` — one person at a desk holding both seats — neither is
- * "yours", so they are named PLAYER ONE and PLAYER TWO and drawn alike.
+ * **The name is under the circle and it is big.** It used to sit above in nine
+ * point, inside the reach of the ring that breathes around a circle waiting for
+ * its thumb — *move "player 1" and "player 2" below the button, make it bigger,
+ * and it should not overlay the animation of the buttons.* So the ring has the
+ * space above and around it, the name has the space below it, and the word that
+ * says this seat is done is inside the circle where nothing else is.
  *
  * Its own file rather than the tail of `ready-page.ts` for the reason every
  * split here happens: that file is a page, with a heading, a question and a
@@ -78,12 +81,6 @@ export function drawCircle(
   if (done) halo(ctx, cx, cy, r * 2.1, PALETTE.good, 0.24);
 
   ctx.textAlign = "center";
-  if (label) {
-    ctx.font = `600 ${Math.max(8, Math.round(r * 0.24))}px "Courier New",monospace`;
-    ctx.fillStyle = bright ? skin.rim : PALETTE.dim;
-    ctx.fillText(label, cx, cy - r - 12);
-  }
-
   ctx.lineWidth = line;
   ctx.strokeStyle = "#3B3163";
   ctx.beginPath();
@@ -105,8 +102,17 @@ export function drawCircle(
     ctx.fill();
   }
 
-  ctx.font = `700 ${Math.max(11, Math.round(r * 0.3))}px "Courier New",monospace`;
-  ctx.fillStyle = done ? PALETTE.good : PALETTE.dim;
-  ctx.fillText(done ? "READY" : "", cx, cy + r + Math.max(15, r * 0.42));
+  // Inside the circle, where the ring cannot reach it.
+  if (done) {
+    ctx.font = `700 ${Math.max(10, Math.round(r * 0.26))}px "Courier New",monospace`;
+    ctx.fillStyle = PALETTE.good;
+    ctx.fillText("READY", cx, cy + r * 0.09);
+  }
+  // Under it, clear of the breathing ring, in the size a name deserves.
+  if (label) {
+    ctx.font = `700 ${Math.max(13, Math.round(r * 0.34))}px "Courier New",monospace`;
+    ctx.fillStyle = bright ? skin.rim : PALETTE.dim;
+    ctx.fillText(label, cx, cy + r + Math.max(28, r * 0.66));
+  }
   ctx.textAlign = "left";
 }

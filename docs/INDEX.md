@@ -431,6 +431,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/seat-skin.ts` | WHICH SHIP THIS IS: player one's violet, player two's amber |
 | `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
+| `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 
 ### packages/net
 

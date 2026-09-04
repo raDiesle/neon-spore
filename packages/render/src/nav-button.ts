@@ -1,27 +1,35 @@
 import { blobPath } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
-import { PALETTE } from "./palette.js";
 import type { SeatSkin } from "./seat-skin.js";
 
 /**
- * One button on a guide's bar, and the contour every one of them is cut from.
+ * One button on a guide's bar: a grown body in a wet socket, with a sign on it
+ * instead of a word.
  *
  * **It is the panel's own button, stretched wide.** They were flat plates with
  * a stroke round them, and the owner said so twice — *make the buttons look
- * attractive like the control set*, and then *the BACK and NEXT buttons still
- * do not look like the cool design of the rest of the buttons: boring
- * background colour, slime missing*. He is right that a second look for a
- * second kind of button is the wrong answer: the picture above this bar is the
- * game's own screen, and a control on it sits in a wet socket, carries a film
- * of gloss and is fed by the ship (`lobe-shell.ts`, `band-slime.ts`). So does
- * this one. The whole button is drawn inside a horizontal stretch, which turns
- * the round socket and the round gloss the panel bakes into the long ones a
- * word needs, at no extra cost — they are the same two sprites.
+ * attractive like the control set*, and then *they still don't look like the
+ * cool design of the rest of the buttons: boring background colour, slime
+ * missing*. The picture above this bar is the game's own screen, and a control
+ * on it sits in a wet socket, carries a film of gloss and is fed by the ship.
+ * So does this one. The whole button is drawn inside a horizontal stretch,
+ * which turns the round socket and the round gloss the panel bakes into the
+ * long ones a wide button needs, at no extra cost.
+ *
+ * **One outline, not two.** The socket's own lip ring sat outside the button's
+ * stroke and read as a second border — *they have two borders, remove the outer
+ * one* — so the pool is drawn without it (`lobe-shell.ts`).
+ *
+ * **A sign rather than a word.** BACK, REPLAY and NEXT were set in type, and he
+ * asked for symbols that fit the game: *alien and slime if possible*. So the
+ * arrows are grown from curves with a concave back and a blunt head, each with
+ * a bead of slime hanging off it, and the loop has a bulb on its point. Nothing
+ * on this bar is a glyph out of a font any more.
  *
  * Its own file beside `guide-nav.ts` for the split that file always wanted:
- * next door decides where the three buttons are and what the bar says around
- * them, and this decides what one of them looks like.
+ * next door decides where the buttons are and what the bar around them looks
+ * like, and this decides what one of them looks like.
  */
 
 /** The contour every button on the bar is cut from — three lobes, shallow. */
@@ -42,23 +50,26 @@ export function navBlob(w: number, h: number): Path2D {
   return made;
 }
 
+/** Which sign a button carries. */
+export type NavSign = "back" | "replay" | "next";
+
 export interface NavPaint {
   x: number;
   y: number;
   w: number;
   h: number;
-  /** The word on it, and whether pressing it answers anything. */
-  text: string;
+  sign: NavSign;
+  /** Whether pressing it answers anything. */
   live: boolean;
   /** Its own colour, and how hard it is asking to be pressed, 0..1. */
   hex: string;
   glow: number;
+  /** Whether a mouse is resting on it. */
+  hover?: boolean;
   /** The screen it is drawn on, for the baked socket and gloss. */
   dpr: number;
   /** The light in this seat's tissue, so the socket is the ship's own colour. */
   lip: SeatSkin["lip"];
-  /** Whether it carries the circular arrow REPLAY is named by. */
-  loop?: boolean;
 }
 
 /**
@@ -69,42 +80,93 @@ export function drawNavButton(ctx: CanvasRenderingContext2D, p: NavPaint): void 
   const cx = p.x + p.w / 2;
   const cy = p.y + p.h / 2;
   const r = p.h / 2;
+  const lit = p.live && (p.hover ?? false);
 
   ctx.save();
   ctx.translate(cx, cy);
   ctx.scale(p.w / p.h, 1);
-  drawLobeSocket(ctx, 0, 0, r, p.dpr, p.lip);
-  if (p.glow > 0) halo(ctx, 0, 0, r * 1.7, p.hex, 0.5 * p.glow);
+  drawLobeSocket(ctx, 0, 0, r, p.dpr, p.lip, false);
+  if (p.glow > 0) halo(ctx, 0, 0, r * 2.1, p.hex, 0.62 * p.glow);
+  if (lit) halo(ctx, 0, 0, r * 1.7, p.hex, 0.34);
   // Tissue rather than a plate: lit from the seam above, darkest at the belly,
-  // and carrying its own colour instead of the one flat purple every button on
-  // this bar used to share.
+  // and carrying its own colour instead of one flat purple for all three.
+  const strength = p.live ? 0.34 + 0.3 * p.glow + (lit ? 0.22 : 0) : 0;
   const body = ctx.createLinearGradient(0, -r, 0, r);
-  body.addColorStop(0, p.live ? tint(p.hex, 0.34) : "rgba(30,23,58,.92)");
-  body.addColorStop(0.55, p.live ? tint(p.hex, 0.16) : "rgba(20,15,42,.92)");
+  body.addColorStop(0, p.live ? tint(p.hex, strength) : "rgba(30,23,58,.92)");
+  body.addColorStop(0.55, p.live ? tint(p.hex, strength * 0.48) : "rgba(20,15,42,.92)");
   body.addColorStop(1, p.live ? "rgba(14,9,32,.96)" : "rgba(13,9,28,.92)");
   ctx.fillStyle = body;
   const path = navBlob(p.h, p.h);
   ctx.fill(path);
   ctx.strokeStyle = p.live ? p.hex : "#2A2348";
-  ctx.lineWidth = p.live ? 2 : 1;
-  ctx.globalAlpha = p.live ? 0.6 + 0.4 * p.glow : 1;
+  ctx.lineWidth = p.live ? 2 + 1.4 * p.glow : 1;
+  ctx.globalAlpha = p.live ? 0.6 + 0.4 * Math.max(p.glow, lit ? 1 : 0) : 1;
   ctx.stroke(path);
   ctx.globalAlpha = 1;
   drawLobeGloss(ctx, 0, 0, r, p.dpr);
   ctx.restore();
 
-  // The type shrinks with the button, so a six-letter word still fits inside
-  // the contour on a 240-point screen instead of running out of both ends.
-  const size = Math.max(10, Math.min(14, Math.round(p.w / 7.6)));
-  ctx.textAlign = "center";
-  ctx.font = `700 ${size}px "Courier New",monospace`;
-  ctx.fillStyle = p.live ? PALETTE.text : PALETTE.dim;
-  const shift = p.loop ? 6 : 0;
-  ctx.fillText(p.text, cx + shift, cy + size * 0.36);
-  if (p.loop) {
-    loopGlyph(ctx, cx + shift - ctx.measureText(p.text).width / 2 - 9, cy, 5.5, p.hex, p.live);
-  }
-  ctx.textAlign = "left";
+  sign(ctx, p, cx, cy, lit);
+}
+
+/** The sign on the face, unstretched — a sign is a shape and not a letter. */
+function sign(
+  ctx: CanvasRenderingContext2D,
+  p: NavPaint,
+  cx: number,
+  cy: number,
+  lit: boolean,
+): void {
+  const size = Math.max(9, Math.min(14, p.h * 0.28)) * (1 + 0.1 * p.glow);
+  ctx.fillStyle = p.live ? (lit || p.glow > 0 ? "#F4ECFF" : p.hex) : "#3A3160";
+  ctx.strokeStyle = ctx.fillStyle;
+  if (p.sign === "replay") loopSign(ctx, cx, cy, size);
+  else arrowSign(ctx, cx, cy, size, p.sign === "next" ? 1 : -1);
+  // The bead that makes it the game's own sign rather than a font's: one drop
+  // hanging off the shape, and a smaller one already let go beneath it.
+  if (!p.live) return;
+  ctx.globalAlpha = 0.72;
+  ctx.beginPath();
+  ctx.arc(cx + size * 0.1, cy + size * 1.05, size * 0.15, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 0.4;
+  ctx.beginPath();
+  ctx.arc(cx + size * 0.1, cy + size * 1.5, size * 0.09, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+/** A grown arrow: a blunt head, a concave back, no straight edge anywhere. */
+function arrowSign(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  dir: 1 | -1,
+): void {
+  ctx.beginPath();
+  ctx.moveTo(x + dir * r * 0.5, y - r);
+  ctx.quadraticCurveTo(x - dir * r * 0.3, y - r * 0.4, x - dir * r * 0.8, y);
+  ctx.quadraticCurveTo(x - dir * r * 0.3, y + r * 0.4, x + dir * r * 0.5, y + r);
+  ctx.quadraticCurveTo(x - dir * r * 0.06, y, x + dir * r * 0.5, y - r);
+  ctx.closePath();
+  ctx.fill();
+}
+
+/** A circle with a gap and a bulb on its point: play this again. */
+function loopSign(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
+  ctx.lineWidth = Math.max(1.6, r * 0.22);
+  ctx.beginPath();
+  ctx.arc(x, y, r * 0.74, -Math.PI * 0.42, Math.PI * 1.16);
+  ctx.stroke();
+  const hx = x + r * 0.74 * Math.cos(-Math.PI * 0.42);
+  const hy = y + r * 0.74 * Math.sin(-Math.PI * 0.42);
+  ctx.beginPath();
+  ctx.moveTo(hx - r * 0.1, hy - r * 0.52);
+  ctx.quadraticCurveTo(hx + r * 0.5, hy - r * 0.1, hx - r * 0.2, hy + r * 0.3);
+  ctx.quadraticCurveTo(hx - r * 0.36, hy - r * 0.1, hx - r * 0.1, hy - r * 0.52);
+  ctx.closePath();
+  ctx.fill();
 }
 
 /**
@@ -125,8 +187,8 @@ export function drawNavFeeder(
   const reach = to - top;
   if (reach <= 2) return;
   const swell = 0.55 + 0.45 * Math.sin(phase);
-  const w = 2.2 + 1.8 * swell;
-  ctx.globalAlpha = 0.34;
+  const w = 2.6 + 2.2 * swell;
+  ctx.globalAlpha = 0.4;
   ctx.fillStyle = hex;
   ctx.beginPath();
   ctx.moveTo(x - w, top);
@@ -134,30 +196,13 @@ export function drawNavFeeder(
   ctx.quadraticCurveTo(x + w * 0.35, top + reach * 0.6, x + w, top);
   ctx.closePath();
   ctx.fill();
-  ctx.globalAlpha = 1;
-}
-
-/** A circle with a gap and an arrowhead: play this again. */
-function loopGlyph(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  hex: string,
-  live: boolean,
-): void {
-  ctx.strokeStyle = live ? hex : "#2A2348";
-  ctx.fillStyle = live ? hex : "#2A2348";
-  ctx.lineWidth = 1.8;
+  // A bead that has let go and is on its way down the neck.
+  const fall = (Math.sin(phase * 0.7) + 1) / 2;
+  ctx.globalAlpha = 0.3 * (1 - fall);
   ctx.beginPath();
-  ctx.arc(x, y, r, -Math.PI * 0.5, Math.PI * 1.15);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x, y - r - 3.2);
-  ctx.lineTo(x + 4.6, y - r);
-  ctx.lineTo(x, y - r + 3.2);
-  ctx.closePath();
+  ctx.arc(x, top + reach * (0.2 + 0.85 * fall), w * 0.42, 0, Math.PI * 2);
   ctx.fill();
+  ctx.globalAlpha = 1;
 }
 
 /** `#RRGGBB` at an alpha, for a gradient that has to carry a button's colour. */

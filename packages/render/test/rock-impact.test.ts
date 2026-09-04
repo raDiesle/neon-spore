@@ -105,10 +105,14 @@ describe("RockImpactFx deflect arrival target", () => {
     // above the skin — and `DeflectFx` bounces from it as given.
     expect(arriveY).toBeCloseTo(L.hullY - L.tile, 5);
     // And the replayed sprite stops on that same point rather than sinking to
-    // the skin, so the two halves of one motion meet.
+    // the skin, so the two halves of one motion meet. The slack is a share of a
+    // tile and not a count of pixels: the fall is sampled once a frame, so what
+    // is left over on the last one is a fraction of how far it moves in a
+    // frame, and that scales with the tile. Written as a constant, it went red
+    // the day the test view's band gave the field a bigger tile back.
     expect(translateYs.length).toBeGreaterThan(0);
     const lastY = translateYs[translateYs.length - 1] as number;
-    expect(Math.abs(lastY - (L.hullY - L.tile))).toBeLessThan(3);
+    expect(Math.abs(lastY - (L.hullY - L.tile))).toBeLessThan(L.tile * 0.12);
   });
 
   it("never bounces a last-beat catch back above where the rock was standing", () => {

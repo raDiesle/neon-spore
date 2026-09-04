@@ -52,6 +52,8 @@ export interface ProseView {
   fx?: OpeningFx;
   /** What the two are called, by seat, when the room has said. */
   names?: SeatNames;
+  /** Where a mouse is resting, for the bar's own hover. */
+  pointer?: { x: number; y: number };
 }
 
 export function drawProsePage(
@@ -117,7 +119,7 @@ export function drawProsePage(
   ctx.textAlign = "left";
   // No glow on NEXT here, and REPLAY is spent: a page of type has nothing to
   // finish and nothing to play again (`guide-nav.ts`).
-  drawGuideNav(ctx, l, { page, pages, age });
+  drawGuideNav(ctx, l, { page, pages, age, pointer: view.pointer });
 }
 
 /**

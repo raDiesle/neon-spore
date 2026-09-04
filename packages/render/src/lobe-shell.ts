@@ -82,12 +82,17 @@ const SOCKET_PAD = 0.62;
 
 const sockets = new Map<string, HTMLCanvasElement>();
 
-function socketSprite(r: number, dpr: number, lip: SeatSkin["lip"]): HTMLCanvasElement {
+function socketSprite(
+  r: number,
+  dpr: number,
+  lip: SeatSkin["lip"],
+  withLip: boolean,
+): HTMLCanvasElement {
   // Keyed on the light as well as the size: the two seats grew their tissue in
   // different colours, and a cache that only remembered radii would hand player
   // two whichever one was baked first (`seat-skin.ts`).
   const key = Math.max(2, Math.round(r * dpr));
-  const id = `${key}:${lip[0]}`;
+  const id = `${key}:${lip[0]}:${withLip ? 1 : 0}`;
   const held = sockets.get(id);
   if (held) return held;
   if (sockets.size > 24) sockets.clear();
@@ -97,7 +102,7 @@ function socketSprite(r: number, dpr: number, lip: SeatSkin["lip"]): HTMLCanvasE
   c.width = size;
   c.height = size;
   const g = c.getContext("2d");
-  if (g) paintSocket(g, size / 2, key, lip);
+  if (g) paintSocket(g, size / 2, key, lip, withLip);
   sockets.set(id, c);
   return c;
 }
@@ -111,6 +116,7 @@ function paintSocket(
   mid: number,
   r: number,
   lipColours: SeatSkin["lip"],
+  withLip: boolean,
 ): void {
   const outer = r * (1 + SOCKET_PAD);
   const pool = g.createRadialGradient(mid, mid, r * 0.6, mid, mid, outer);
@@ -120,7 +126,10 @@ function paintSocket(
   g.fillStyle = pool;
   g.fillRect(0, 0, mid * 2, mid * 2);
 
-  // The lip. Brightest along the top, where the light in this chamber is.
+  // The lip. Brightest along the top, where the light in this chamber is. A
+  // caller that draws its own outline asks for the pool without it: two rings
+  // round one button is the "two borders" the owner saw on the guide's bar.
+  if (!withLip) return;
   const lip = g.createLinearGradient(0, mid - r * 1.3, 0, mid + r * 1.3);
   lip.addColorStop(0, lipColours[0]);
   lip.addColorStop(0.5, lipColours[1]);
@@ -135,7 +144,8 @@ function paintSocket(
   g.restore();
 }
 
-/** The socket, under a button. */
+/** The socket, under a button. `withLip` false leaves the pool and drops the
+ * ring around it, for a button that carries an outline of its own. */
 export function drawLobeSocket(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -143,8 +153,9 @@ export function drawLobeSocket(
   r: number,
   dpr: number,
   lip: SeatSkin["lip"] = P1_SKIN.lip,
+  withLip = true,
 ): void {
-  const sprite = socketSprite(r, dpr, lip);
+  const sprite = socketSprite(r, dpr, lip, withLip);
   const size = r * (1 + SOCKET_PAD) * 2;
   ctx.drawImage(sprite, x - size / 2, y - size / 2, size, size);
 }

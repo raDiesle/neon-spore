@@ -44,16 +44,12 @@ if (!canvas) throw new Error("canvas #stage missing");
 // `PAIR_ON` is the other switch: the wave opening, on here and off by
 // default, because it wants two people. See `config-pair.ts`.
 //
-// `shotChargeBeats` sits beside it rather than inside it. Two forces set this
-// number now. The original, two-device one still holds: a shot laid over half
-// a beat is a press player 1 can *see happening*, not one that reaches him
-// only as a result (`shot-charge.ts`). And since the mouth was adopted as a
-// cloaca that strains, crowns and goes slack (`cannon-maw.ts`, `egg-curve.ts`)
-// rather than a rim that merely tightened and cut, this is also the window
-// that animation needs to read in — too short and the sequence goes by before
-// an eye can follow it. Shortening it trades against both; feel out a smaller
-// value on the director's TUNING → PAIR "Shot lay (testing)" slider rather
-// than here. Off in `DEFAULT_CONFIG` so every replay keeps its timing exact.
+// `shotChargeBeats` sits beside it rather than inside it. Two forces set it: a
+// shot laid over half a beat is a press player 1 can *see happening* rather
+// than one that reaches him as a result (`shot-charge.ts`), and it is also the
+// window the mouth's own sequence needs to read in (`cannon-maw.ts`). Shorten
+// it on the director's TUNING → PAIR slider rather than here. Off in
+// `DEFAULT_CONFIG` so every replay keeps its timing exact.
 const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true, shotChargeBeats: 0.5 };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
@@ -82,9 +78,13 @@ const jumpToWave = progression.jumpToWave;
  */
 const run = createRunState();
 
-// `hand` is the ring round whichever swelling this phone's own finger has hold
-// of: written by the pointer rig below, read by the frame, sent nowhere.
-const { tick: tickKeys, hand } = bindControls({
+// `hand` is the ring round the swelling this phone's finger has hold of and
+// `pointer` is where a desk's mouse rests: written below, read by the frame.
+const {
+  tick: tickKeys,
+  hand,
+  pointer,
+} = bindControls({
   canvas,
   buffer,
   layout,
@@ -101,8 +101,7 @@ const { tick: tickKeys, hand } = bindControls({
   // on the field, and a hit test that did not know the boss was up would leave
   // the pilot pressing something that answers nothing.
   warden: () => (world.boss?.kind === "warden" ? world.boss : null),
-  // Which panel is up follows from the wave, so a control the wave did not
-  // ask for has no button and answers no thumb (`content/control-sets.ts`).
+  // Which panel is up follows from the wave (`content/control-sets.ts`).
   controls: () => controlSetForWave(world.wave),
   creatures: () => world.creatures,
   // The ship answers a finger where it is drawn, not only on the strips below.
@@ -199,7 +198,7 @@ const paint = (dt: number): void => {
     events: frameEvents,
     running: run.running(),
     hand: hand.current,
-    // Two people rather than two seats, on the screens that name them.
+    pointer: pointer(),
     names: link.status().names,
   });
   frameEvents = [];

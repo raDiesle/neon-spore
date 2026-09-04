@@ -142,7 +142,15 @@ export interface SimConfig
   radarLead: number;
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
   bulletGlideMs: number;
-  /** Share of the screen height the control band takes, in percent. Read by render/. */
+  /**
+   * Share of the screen height the control band takes, in percent, on a screen
+   * carrying **both** halves — the desk rig and the director's TEST view, never
+   * a phone. It was 37, and the owner asked why the game looked smaller there
+   * than on either player's view: this number is the answer and the field pays
+   * for it. It is down to where the lobes stop being limited by the band's
+   * height and start being limited by the stage's width (`layout.ts`), which is
+   * the most it can give back before the buttons shrink. Read by render/.
+   */
   bandPct: number;
   /**
    * The same share when a screen carries only one player's half of the band.
@@ -225,7 +233,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   scorePod: 250,
   radarLead: 6,
   bulletGlideMs: 130,
-  bandPct: 37,
+  bandPct: 31,
   bandSoloPct: 27,
   radarHeightPx: 34,
   handleRadiusMilli: 300,

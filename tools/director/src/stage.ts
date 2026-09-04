@@ -190,8 +190,8 @@ export function bindStage(
       events: frameEvents,
       running,
       controls: currentControlSet(),
-      // The cup over the swelling this stage's one mouse is on or holding.
       hand: touch.hand(),
+      pointer: touch.pointer(), // whatever a desk's mouse is resting on
     });
     frameEvents = [];
     onFrame();

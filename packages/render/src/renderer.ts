@@ -60,6 +60,17 @@ export interface ViewState {
    */
   hand?: ShipHand;
   /**
+   * Where a mouse is resting on the stage, or unset.
+   *
+   * A desk has a hover and a phone does not, so a host sets this only for a
+   * real mouse and clears it when the pointer leaves. Everything that lights up
+   * under it reads it from here: the band's controls (`hover.ts`) and the three
+   * buttons on a guide's bar (`nav-button.ts`). The ship's own two swellings do
+   * not — they were already lit through `hand`, which carries more than a
+   * position (`ship-hand.ts`).
+   */
+  pointer?: { x: number; y: number };
+  /**
    * What the two people are called, by seat, blank where nobody has said.
    *
    * The room carries them (`apps/game/src/link.ts`), and the only screens that

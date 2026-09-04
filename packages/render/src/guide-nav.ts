@@ -1,17 +1,20 @@
+import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { drawNavButton, drawNavFeeder, navBlob } from "./nav-button.js";
+import { drawNavButton, drawNavFeeder } from "./nav-button.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
- * The bar a guide is turned by: BACK, REPLAY and NEXT, the step this seat is
- * on, and the word that says none of this is the game yet.
+ * The bar a guide is turned by: BACK, REPLAY and NEXT, and the dots that say
+ * how far through this seat has got.
  *
  * **The pair sets the pace, not a clock.** The owner's instruction was exactly
  * that — *we need some "next" button, which the player can decide when to
- * switch to the next thing to explain* — and the step count is here for the
- * same reason a book has a page number: somebody who has just pressed NEXT four
- * times wants to know whether that was most of it or the start of it.
+ * switch to the next thing to explain* — and the dots are here for the same
+ * reason a book has a page number: somebody who has just pressed NEXT twice
+ * wants to know whether that was most of it or the start of it. They used to
+ * have `STEP 2 / 5` beside them, which he cut: *it is duplicated with dots we
+ * already have; remove the numbered step and keep the dots.*
  *
  * **REPLAY is the middle button, and it replaced a loop.** The film used to
  * start itself over every couple of seconds; *the automatic repeat is ugly,
@@ -20,18 +23,19 @@ import { seatSkin } from "./seat-skin.js";
  * to (`guide-play.ts`). It is drawn spent on a page with no film — the sixteen
  * written guides, and the gate — because there a press would answer nothing.
  *
- * **NEXT glows once the page has played.** The owner asked for it by name —
- * *let next glow so it is clear when to press, when the animation finishes the
- * first time* — and it is the one piece of pacing advice the film can give
- * without taking the decision away.
+ * **NEXT is loud once the page has played.** He asked for the glow by name, and
+ * then for more of it: *when the animation is finished for a step, the next must
+ * raise more attention.* So it is a halo that breathes, a thicker rim, a body
+ * that carries its colour and a sign that grows with the pulse — the one piece
+ * of pacing advice the film can give without taking the decision away.
  *
- * **The badge says TUTORIAL.** His words: *can we make it visible, maybe with
- * some graphic top left or text, or better near the navigation buttons of
- * tutorial, that it is tutorial mode and not game.* Near the buttons is the
- * right half of that choice — the picture above them is the game's own screen,
- * pixel for pixel, and this bar is the only part of the stage that is not
- * pretending to be it. Whose screen is being shown is a separate question and
- * answered separately, in the corner of the picture (`guide-switch.ts`).
+ * **This bar is not part of the ship, and it says so.** *The area of tutorial
+ * navigation must look much more distinguished than the game control set above
+ * it, because it doesn't actually belong to the game — it should be a layer on
+ * top.* So it is a slab of a different colour from the panel's violet tissue,
+ * taller than it was, with its own lit rim, a shadow it casts up onto the game,
+ * and slime running out of that rim into the sockets. It reads as something
+ * laid over the phone rather than a fourth row of the control panel.
  *
  * **The geometry is written down once.** `navButtons` is what the drawing uses
  * and what a thumb is hit-tested against (`apps/game/src/briefing.ts`,
@@ -39,15 +43,16 @@ import { seatSkin } from "./seat-skin.js";
  * is not answered — the rule `bandLobes` already plays by one layer down.
  */
 
-/** How tall the bar under a page is: a row of type, then a row of buttons. */
-export const NAV_H = 104;
+/** How tall the bar under a page is: a row of dots, then a row of buttons. */
+export const NAV_H = 118;
+/** How far the bar's shadow reaches up over the game it is lying on. */
+const LIFT = 16;
 /** How wide one of the three is, at most, and how tall. */
-const BTN_W = 112;
-const BTN_H = 50;
+const BTN_W = 96;
+const BTN_H = 52;
 const EDGE = 12;
-/** The row of type above the buttons: where its middle sits inside the bar. */
-const ROW_Y = 19;
-const BADGE_FONT = '700 10px "Courier New",monospace';
+/** Where the row of dots sits inside the bar. */
+const DOTS_Y = 26;
 
 export interface NavBox {
   x: number;
@@ -68,7 +73,7 @@ export interface NavButtons {
 export function navButtons(l: Layout): NavButtons {
   const top = l.height - NAV_H;
   const w = Math.min(BTN_W, Math.max(46, (l.width - EDGE * 4) / 3));
-  const y = top + NAV_H - BTN_H - 14;
+  const y = top + NAV_H - BTN_H - 18;
   return {
     bar: { x: 0, y: top, w: l.width, h: NAV_H },
     back: { x: EDGE, y, w, h: BTN_H },
@@ -107,122 +112,116 @@ export interface NavState {
   played?: boolean;
   /** Seconds the page has been up, for anything that breathes. */
   age?: number;
+  /** Where a mouse is resting, in stage coordinates. Absent on a phone. */
+  pointer?: { x: number; y: number };
 }
 
 /**
  * The bar, with the step this seat is on. `page` and `pages` are the seat's
  * own: the pair reads at their own speeds and one of them being on step two
- * while the other is on step five is the arrangement working, not a fault.
+ * while the other is on the gate is the arrangement working, not a fault.
  */
 export function drawGuideNav(ctx: CanvasRenderingContext2D, l: Layout, s: NavState): void {
   const b = navButtons(l);
   // A page drawn with no clock behind it reports an infinite age, and every
-  // breathing thing on this bar is a sine of it — which is NaN, which is a
-  // `moveTo` a real canvas refuses (`test/frame.test.ts`).
+  // breathing thing here is a sine of it — which is NaN, which is a `moveTo` a
+  // real canvas refuses (`test/frame.test.ts`).
   const age = Number.isFinite(s.age) ? (s.age as number) : 0;
-  ctx.fillStyle = "#0A0818";
-  ctx.fillRect(b.bar.x, b.bar.y, b.bar.w, b.bar.h);
-  ctx.strokeStyle = PALETTE.grid;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(0, b.bar.y + 0.5);
-  ctx.lineTo(l.width, b.bar.y + 0.5);
-  ctx.stroke();
+  slab(ctx, l, b.bar, age);
 
   const canBack = (s.back ?? true) && s.page > 0;
   const last = s.page >= s.pages - 1;
   const skin = seatSkin(l.role);
-  // The three necks first, under the buttons they feed: slime out of the edge
-  // above, reaching down into each socket (`nav-button.ts`).
   const boxes = [b.back, b.replay, b.next] as const;
   const hues = [PALETTE.hull, PALETTE.shieldRim, PALETTE.pod] as const;
+  // The necks first, under the buttons they feed, and two more between them so
+  // the rim is dripping along its whole length rather than in three places.
   boxes.forEach((box, i) => {
-    drawNavFeeder(ctx, box.x + box.w / 2, b.bar.y + 1, box.y + 6, hues[i]!, age * 1.1 + i * 2.1);
+    drawNavFeeder(ctx, box.x + box.w / 2, b.bar.y + 2, box.y + 8, hues[i]!, age * 1.1 + i * 2.1);
   });
+  for (const [i, at] of [0.28, 0.72].entries()) {
+    drawNavFeeder(ctx, l.width * at, b.bar.y + 2, b.bar.y + 26, PALETTE.hull, age * 0.8 + i * 3.7);
+  }
+
+  const over = (box: NavBox): boolean =>
+    s.pointer !== undefined && inside(box, s.pointer.x, s.pointer.y);
   const paint = { dpr: l.dpr, lip: skin.lip };
-  drawNavButton(ctx, { ...b.back, ...paint, text: "BACK", live: canBack, hex: hues[0], glow: 0 });
+  drawNavButton(ctx, {
+    ...b.back,
+    ...paint,
+    sign: "back",
+    live: canBack,
+    hex: hues[0],
+    glow: 0,
+    hover: over(b.back),
+  });
   drawNavButton(ctx, {
     ...b.replay,
     ...paint,
-    text: "REPLAY",
+    sign: "replay",
     live: s.replay ?? false,
     hex: hues[1],
     glow: 0,
-    loop: true,
+    hover: over(b.replay),
   });
   // On the last page there is nowhere forward: that page *is* the gate, and its
-  // own circles are what end the guide (`ready-page.ts`). It stays NEXT to the
-  // end all the same — the owner asked for that in one line, and he is right
-  // that a button which renames itself on the second-to-last step is a button
-  // the thumb has to read again every time.
+  // own circles are what end the guide (`ready-page.ts`).
   drawNavButton(ctx, {
     ...b.next,
     ...paint,
-    text: "NEXT",
+    sign: "next",
     live: !last,
     hex: hues[2],
     glow: last || !s.played ? 0 : 0.55 + 0.45 * Math.abs(Math.sin(age * 2.4)),
+    hover: over(b.next),
   });
 
-  const cy = b.bar.y + ROW_Y;
-  const left = badge(ctx, EDGE, cy);
-  ctx.font = '700 11px "Courier New",monospace';
-  ctx.fillStyle = PALETTE.text;
-  ctx.textAlign = "right";
-  const count = `STEP ${s.page + 1} / ${s.pages}`;
-  ctx.fillText(count, l.width - EDGE, cy + 4);
-  ctx.textAlign = "left";
-  pips(ctx, s, left + 12, l.width - EDGE - ctx.measureText(count).width - 12, cy);
+  dots(ctx, s, l.width / 2, b.bar.y + DOTS_Y);
 }
 
 /**
- * The word that says this is not the game yet, cut from the same contour the
- * buttons under it are. Answers with its own right edge, so the pips beside it
- * know where they may start.
+ * The slab itself: a shadow cast up onto the game, a ground that is not the
+ * panel's colour, and a lit rim along the top edge. All three are saying the
+ * same thing — this is lying on the phone, not built into it.
  */
-function badge(ctx: CanvasRenderingContext2D, x: number, cy: number): number {
-  ctx.font = BADGE_FONT;
-  const w = ctx.measureText("TUTORIAL").width + 30;
-  const path = navBlob(w, 20);
-  ctx.save();
-  ctx.translate(x + w / 2, cy);
-  ctx.fillStyle = "rgba(255,86,168,.13)";
-  ctx.fill(path);
-  ctx.globalAlpha = 0.75;
-  ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 1.4;
-  ctx.stroke(path);
-  ctx.restore();
-  ctx.globalAlpha = 1;
+function slab(ctx: CanvasRenderingContext2D, l: Layout, bar: NavBox, age: number): void {
+  const cast = ctx.createLinearGradient(0, bar.y - LIFT, 0, bar.y);
+  cast.addColorStop(0, "rgba(0,0,0,0)");
+  cast.addColorStop(1, "rgba(0,0,0,.62)");
+  ctx.fillStyle = cast;
+  ctx.fillRect(0, bar.y - LIFT, l.width, LIFT);
+
+  // Slate, where the panel above it is violet tissue.
+  const ground = ctx.createLinearGradient(0, bar.y, 0, bar.y + bar.h);
+  ground.addColorStop(0, "#141A33");
+  ground.addColorStop(0.18, "#0C1024");
+  ground.addColorStop(1, "#070A18");
+  ctx.fillStyle = ground;
+  ctx.fillRect(bar.x, bar.y, bar.w, bar.h);
+
+  // The rim, breathing, with its own light spilling onto the game above it.
+  halo(ctx, l.width / 2, bar.y, l.width * 0.6, PALETTE.pod, 0.1 + 0.04 * Math.sin(age * 1.6));
   ctx.fillStyle = PALETTE.pod;
-  ctx.beginPath();
-  ctx.arc(x + 13, cy, 3.2, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.font = BADGE_FONT;
-  ctx.fillText("TUTORIAL", x + 21, cy + 3.5);
-  return x + w;
+  ctx.globalAlpha = 0.85;
+  ctx.fillRect(0, bar.y, l.width, 2);
+  ctx.globalAlpha = 0.22;
+  ctx.fillRect(0, bar.y + 2, l.width, 1);
+  ctx.globalAlpha = 1;
 }
 
 /**
- * One dot per step, the one this seat is on lit. The count beside it says which
- * step; these say how much of it is left, which is the other half of the same
- * question. Skipped when the room between the badge and the count is too narrow
- * to hold them — a row of dots overlapping a word is worse than no dots.
+ * One dot per step, the one this seat is on lit. The only readout left on this
+ * bar: the numbers beside them said the same thing twice.
  */
-function pips(
-  ctx: CanvasRenderingContext2D,
-  s: NavState,
-  from: number,
-  to: number,
-  cy: number,
-): void {
-  const gap = Math.min(9, (to - from) / Math.max(1, s.pages));
-  if (gap < 5) return;
-  const start = (from + to) / 2 - ((s.pages - 1) * gap) / 2;
+function dots(ctx: CanvasRenderingContext2D, s: NavState, mid: number, cy: number): void {
+  const gap = Math.min(16, Math.max(8, 200 / Math.max(1, s.pages)));
+  const from = mid - ((s.pages - 1) * gap) / 2;
   for (let i = 0; i < s.pages; i++) {
-    ctx.fillStyle = i === s.page ? PALETTE.pod : "#3B3163";
+    const here = i === s.page;
+    if (here) halo(ctx, from + i * gap, cy, 9, PALETTE.pod, 0.5);
+    ctx.fillStyle = here ? PALETTE.pod : "#332B57";
     ctx.beginPath();
-    ctx.arc(start + i * gap, cy, i === s.page ? 3.4 : 2.4, 0, Math.PI * 2);
+    ctx.arc(from + i * gap, cy, here ? 4.2 : 2.6, 0, Math.PI * 2);
     ctx.fill();
   }
 }

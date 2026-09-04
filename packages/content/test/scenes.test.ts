@@ -95,6 +95,22 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
+  it("points every step at something one seat owns", () => {
+    // The film exists to teach a pair that they hold two different halves. A
+    // page anchored at the hull, or at what the hull has left, shows both of
+    // them the same picture and teaches neither of them anything about that —
+    // which is the owner's own reason for cutting the one page that did:
+    // "the game scene shows exactly the same for both players ... remove this,
+    // also for future tutorials". `body` is allowed once over, for the step
+    // that names the enemy before anybody has seen one.
+    for (const id of SCENE_IDS) {
+      for (const step of SCENES[id].steps) {
+        expect(step.anchor.at, `${id}: "${step.text}" points at the whole ship`).not.toBe("hull");
+        expect(step.anchor.at, `${id}: "${step.text}" points at the whole ship`).not.toBe("health");
+      }
+    }
+  });
+
   it("keeps every caption short enough to read at a glance", () => {
     // A caption is read beside the thing it is about, under a beat, by
     // somebody who is watching something move. The owner's instruction was

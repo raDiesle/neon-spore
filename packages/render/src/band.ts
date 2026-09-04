@@ -42,6 +42,16 @@ import { seatSkin } from "./seat-skin.js";
  * runs off it, `lobe-shell.ts` for the socket every control stands in. This
  * file still only decides *what is on the panel and where*.
  */
+/**
+ * Which panel a caller means. Its own function because two passes need the
+ * answer now — the band itself, and the hover drawn over it (`hover.ts`) — and
+ * a second copy of the fallback is exactly the kind of re-derivation CLAUDE.md
+ * bans: a rule is called, never spelled out again.
+ */
+export function bandControlSet(controls: ControlSet | undefined, wave: number): ControlSet {
+  return controls === undefined ? controlSetForWave(wave) : controls;
+}
+
 export function drawBand(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -63,7 +73,7 @@ export function drawBand(
   // the game's behaviour today. Not `??`: that spelling is the pattern
   // `purity.test.ts` reserves for a *re-derivation* of `controlSetForWave`'s
   // own default, and this is a call to it, not a copy of it.
-  const set = controls === undefined ? controlSetForWave(world.wave) : controls;
+  const set = bandControlSet(controls, world.wave);
   const seam = seamPaths(l, time);
   ctx.save();
   // The chamber, cut to the membrane above it — so the tissue is bounded by a

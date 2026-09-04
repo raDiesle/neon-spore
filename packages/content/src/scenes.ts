@@ -108,17 +108,17 @@ export interface GuideScene {
 export type SceneId = "firstStep";
 
 /**
- * FIRST STEP's rehearsal: the whole of the game's first minute, in five
- * seconds, on the two screens it actually happens on.
+ * FIRST STEP's rehearsal: the game's first exchange, in seven seconds, on the
+ * two screens it actually happens on.
  *
- * Two slicks fall. The pair takes the first one — player 1 slides the cannon
- * into its column, the film switches to player 2's screen and fires red — and
- * the second is left alone on purpose, so the last thing the pair is shown is
- * what a miss costs. Nothing here is staged: both are ordinary arrivals in an
- * ordinary world, and the hull bar drops because the hull was hit.
+ * A slick falls and the pair takes it — player 1 slides the cannon into its
+ * column, the film switches to player 2's screen and fires red. That is the
+ * whole film, because that is the whole of what one seat can teach the other:
+ * a column and a colour, one per person. Nothing here is staged — it is an
+ * ordinary arrival in an ordinary world, stepped by the real `step`.
  */
 const FIRST_STEP: GuideScene = {
-  ticks: 1380,
+  ticks: 900,
   bpm: 120,
   seed: 1,
   entries: [
@@ -141,11 +141,22 @@ const FIRST_STEP: GuideScene = {
     { tick: 420, control: "cannon", col: 5 },
     { tick: 690, control: "fireRed" },
   ],
-  // Four pages, each one long enough to watch twice without being long enough
-  // to wait through: two seconds, three, two and a half, four. Each begins where
-  // the one before it ends and is replayed from the top of the loop, so what a
-  // page shows is the world as it really stood at that tick and not a clip cut
-  // out of it.
+  // Three pages, each one long enough to watch twice without being long enough
+  // to wait through: two seconds, three, two and a half at 120 ticks a second.
+  // Each begins where the one before it ends and is replayed from the top of
+  // the loop, so what a page shows is the world as it really stood at that tick
+  // and not a clip cut out of it.
+  //
+  // **Every page is about one seat's own screen**, and that is a rule and not a
+  // coincidence. There was a fourth — a slick let through, and the hull bar
+  // dropping — and the owner cut it: *the game scene shows exactly the same for
+  // both players, just the ship and control set colour is different, and that is
+  // not relevant for the tutorial. Remove this, also for future tutorials.* He
+  // is right about the whole class: the film exists to teach a pair that they
+  // hold two different halves, and a page both of them could watch on either
+  // phone teaches nothing about that. `test/scenes.test.ts` holds the checkable
+  // half of it — no step may point at the hull or at what it has left, because
+  // those are the two things on the screen that belong to neither seat.
   steps: [
     // ENEMY and not SLICK: it is the first thing either of them has ever seen
     // on this field, and a name for a kind of enemy teaches nothing until there
@@ -158,19 +169,6 @@ const FIRST_STEP: GuideScene = {
       anchor: { at: "control", control: "cannon" },
     },
     { tick: 600, seat: 2, text: "P2 · FIRE RED", anchor: { at: "control", control: "fireRed" } },
-    // The miss and what it costs are one page, not two — the owner asked for
-    // them combined, and they were always one sentence cut in half: the second
-    // slick reaches the hull on beat 19, which is tick 1140 at this tempo, so a
-    // page that opens at 900 says the words, then lets the pair watch the thing
-    // arrive and the bar drop, with four beats left to look at what it cost. It
-    // points at the bar rather than at the body, because the bar is the half
-    // nobody notices on their own.
-    {
-      tick: 900,
-      seat: 1,
-      text: "MISS ONE · THE HULL TAKES IT",
-      anchor: { at: "health" },
-    },
   ],
 };
 

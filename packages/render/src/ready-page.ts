@@ -35,31 +35,31 @@ import { drawIntroduction } from "./wave-intro.js";
  * already means three other things. It is still a **hold** — a lift before the
  * ring closes empties it (`sim/ready-gate.ts`) — and the ring is what says so.
  *
- * **Waiting is the loud part.** Two people reading at their own speeds means one
- * of them is nearly always waiting, and a gate that said so in nine-point grey
- * was a gate people assumed had broken.
+ * **Waiting is the loud part**, and it is one line. Two people reading at their
+ * own speeds means one is nearly always waiting, and a gate that said so in
+ * nine-point grey was one people assumed had broken.
  */
 
 /** How big a circle on this page is, and how far apart the two of them sit. */
 const R = 44;
-const GAP = 62;
+const GAP = 86;
 /** Where the column starts, as a share of the play area. */
-const TOP = 0.06;
+const TOP = 0.16;
 /**
- * The column, as the gaps between its rows.
- *
- * **Room is kept rather than measured.** `readyCircles` places the circles from
- * the layout alone — a circle whose place moved with the length of a wave's
- * sentence would be a circle that sat differently in every wave. So the name
- * block is given the room three wrapped lines need and most waves leave a
- * little of it empty, which is the cheap half of the bargain.
+ * The column, as the gaps between its rows. `readyCircles` places the circles
+ * from the layout alone — a circle whose place moved with the length of a
+ * wave's sentence would sit differently in every wave — so the name block is
+ * given the room three wrapped lines need and most waves leave some of it
+ * empty, which is the cheap half of that bargain.
  */
 const NAME_BLOCK = 94;
 const ASK_GAP = 92;
 const ASK_SUB = 18;
-const LABEL_GAP = 38;
-/** What has to fit under the circles: the line about who is still reading. */
-const FOOT = 70;
+const LABEL_GAP = 20;
+/** What has to fit under the circles: each one's name, then the line about who
+ * is still reading. Both moved down when the names came out from over the
+ * circles (`ready-circles.ts`). */
+const FOOT = 88;
 
 export interface ReadyCircle {
   x: number;
@@ -111,6 +111,8 @@ export interface ReadyView {
   fx?: OpeningFx;
   /** What the two are called, by seat, when the room has said. */
   names?: SeatNames;
+  /** Where a mouse is resting, for the bar's own hover. */
+  pointer?: { x: number; y: number };
 }
 
 export function drawReadyPage(
@@ -153,7 +155,7 @@ export function drawReadyPage(
     fx?.noteReady(seat, seatReady(world, seat), at.x, at.y, at.r);
   }
 
-  waiting(ctx, l, circles.p1.y + circles.p1.r + 42, {
+  waiting(ctx, l, circles.p1.y + circles.p1.r + 74, {
     mineReady: iAmReady,
     theirsReady: seatReady(world, other),
     both,
@@ -166,7 +168,13 @@ export function drawReadyPage(
   // under a thumb between the last page and this one. NEXT has nowhere to go,
   // and BACK has nowhere to go either once this seat has committed. REPLAY has
   // nothing to play: there is no film on this page.
-  drawGuideNav(ctx, l, { page: pages - 1, pages, back: !iAmReady, age: beat });
+  drawGuideNav(ctx, l, {
+    page: pages - 1,
+    pages,
+    back: !iAmReady,
+    age: beat,
+    pointer: view.pointer,
+  });
   fx?.draw(ctx);
 }
 
@@ -201,7 +209,7 @@ function ask(
     ctx.globalAlpha = 1;
     ctx.font = '11px "Courier New",monospace';
     ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("press and hold anywhere until your circle closes", l.width / 2, y + 18);
+    ctx.fillText("HOLD ANYWHERE", l.width / 2, y + 18);
   }
   ctx.textAlign = "left";
 }
@@ -216,8 +224,12 @@ interface WaitingState {
 }
 
 /**
- * Who is still reading, in the size that answer deserves. Nothing else on this
- * page changes while a pair waits, so this is what has to carry it.
+ * Who is still reading, in the size that answer deserves — and in one line.
+ *
+ * It used to be a heading and a sentence under it in each case, and the owner
+ * cut the page back: *shorten text to a minimum*. Nothing here was wrong and
+ * all of it was a second way of saying the thing above it, on a screen whose
+ * whole content is two circles and a question.
  */
 function waiting(ctx: CanvasRenderingContext2D, l: Layout, y: number, s: WaitingState): void {
   const them = s.both ? "THE OTHER SEAT" : seatName(s.other, s.names);
@@ -228,21 +240,10 @@ function waiting(ctx: CanvasRenderingContext2D, l: Layout, y: number, s: Waiting
     ctx.fillStyle = PALETTE.pod;
     ctx.fillText(`WAITING FOR ${them}`, l.width / 2, y);
     ctx.globalAlpha = 1;
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("they are still reading their half", l.width / 2, y + 19);
   } else if (s.theirsReady && !s.mineReady) {
-    ctx.font = '700 15px "Courier New",monospace';
+    ctx.font = '700 17px "Courier New",monospace';
     ctx.fillStyle = PALETTE.good;
     ctx.fillText(`${them} IS READY`, l.width / 2, y);
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("they are waiting on you", l.width / 2, y + 19);
-  } else if (!s.mineReady) {
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("both seats have to say ready", l.width / 2, y);
-    ctx.fillText("go back if you want to read a page again", l.width / 2, y + 17);
   }
   ctx.textAlign = "left";
 }

@@ -95,6 +95,9 @@ export interface StageTouch {
  */
 export interface StageHand {
   hand: () => ShipHand | undefined;
+  /** Where the mouse is resting on the stage, for whatever lights up under it
+   * (`render/hover.ts`). The desk is the only place this exists. */
+  pointer: () => { x: number; y: number } | undefined;
 }
 
 export function bindStageTouch({
@@ -109,6 +112,7 @@ export function bindStageTouch({
 }: StageTouch): StageHand {
   const holding = new Map<number, Hold>();
   let hand: ShipHand | undefined;
+  let pointer: { x: number; y: number } | undefined;
   const setHand = (h: ShipHand | null): void => {
     hand = h ?? undefined;
   };
@@ -152,8 +156,12 @@ export function bindStageTouch({
     // (`render/touch-ship.ts`).
     if (t.command) push(t.player, t.command);
   });
+  canvas.addEventListener("pointerleave", () => {
+    pointer = undefined;
+  });
   canvas.addEventListener("pointermove", (e) => {
     const p = at(e);
+    pointer = p;
     const hold = holding.get(e.pointerId);
     if (!hold) {
       // Nothing held: the cup follows the cursor instead, dim. The stage is a
@@ -187,5 +195,5 @@ export function bindStageTouch({
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);
 
-  return { hand: () => hand };
+  return { hand: () => hand, pointer: () => pointer };
 }

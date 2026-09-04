@@ -1,11 +1,12 @@
-import type { Layout, ViewRole } from "./layout.js";
+import { halo } from "./glow.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type SeatNames, seatName } from "./seat-name.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
  * The move from one player's screen to the other, and the corner that says
- * which one you are looking at.
+ * what this screen is.
  *
  * The owner's first instruction was that the switch must be something a pair
  * can *follow* — a cut between two screens that look alike is a screen that
@@ -13,32 +14,34 @@ import { seatSkin } from "./seat-skin.js";
  * there are two devices and they carry different halves. So the picture slides
  * (`guide-scene.ts` owns the slide) and a lit seam travels with the join.
  *
- * His second was that it was not loud enough, and the announcement grew into a
- * word across the middle of the picture that arrived with the slide and left a
- * second later. His third took the timing back out of it: *do not fade in or
- * fade out "Player 2 screen" — show it immediately and keep it showing all the
- * time, maybe top left.* That is the better answer and it is worth saying why:
- * a label that comes and goes is only true while it is on screen, so a player
- * who looks up in the middle of a page has to wait for the next one to find out
- * whose screen this is. A permanent one is always the answer. It is small, in
- * the corner, above the field and out of the caption's way — and it is in the
- * seat's own colour, which by then is also the colour of the ship underneath it
- * (`seat-skin.ts`).
+ * The announcement itself has been through three answers. It grew into a word
+ * across the middle of the picture that arrived with the slide and left a
+ * second later; then the timing came out of it — *do not fade in or fade out
+ * "Player 2 screen", show it immediately and keep it showing all the time,
+ * maybe top left* — because a label that comes and goes is only true while it
+ * is on screen. Then the word TUTORIAL joined it: *move it top left where the
+ * player screen box is, above it, and combine.* So the corner carries one
+ * plate: what this screen is, and whose it is.
  *
- * Its own file beside the stage because it is the one part of the rehearsal
- * that is pure decoration: nothing here reads a world, and removing it would
- * change how the film feels and not what it says.
+ * A third line used to say whether the screen on show was the phone in this
+ * player's own hand. It is gone — *"one of the two screens" we can remove, but
+ * make "Player 1 · Screen" more prominent* — and the room it freed went into
+ * the line that was worth reading.
+ *
+ * The plate is drawn on every page of a guide. On a page with no film there is
+ * no seat to name, so it says TUTORIAL and stops: the word is the half that is
+ * true of the written pages and the gate as well.
  */
 
 /** How far the seam's glow reaches either side of the join. */
 const SEAM = 5;
 /**
- * Where the corner label sits, and how much room it takes. The caption keeps
- * clear of it (`guide-caption.ts`), and it keeps clear of the score and the
- * hull bar, which the HUD draws along the very top of every screen.
+ * Where the corner plate sits and how much room it takes, so a caption can keep
+ * clear of it (`guide-caption.ts`). It starts below the HUD's own top row —
+ * the score on the left, the hull bar on the right — rather than over it.
  */
-export const BANNER_TOP = 26;
-export const BANNER_H = 32;
+export const BANNER_TOP = 24;
+export const BANNER_H = 46;
 
 /** The join between the outgoing and incoming screens, lit as it travels. */
 export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: number): void {
@@ -50,50 +53,47 @@ export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: numb
   ctx.fillRect(x - SEAM, 0, SEAM * 2, l.height);
 }
 
-/**
- * Whose screen this is, in the corner of it, for as long as it is up.
- *
- * Two lines: who, and whether that is the phone in this player's own hand. The
- * second line used to read "THIS SCREEN" whoever was looking, which is true on
- * one of the two devices and a lie on the other.
- */
-export function drawSeatBanner(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  seat: 1 | 2,
-  role: ViewRole,
-  names?: SeatNames,
-): void {
-  const skin = seatSkin(seat === 1 ? "p1" : "p2");
-  // The edges are the quiet half: a player who looked away and back reads the
-  // colour before they read anything at all.
-  ctx.globalAlpha = 0.55;
-  ctx.fillStyle = skin.tint;
-  ctx.fillRect(0, 0, 4, l.height);
-  ctx.fillRect(l.width - 4, 0, 4, l.height);
-  ctx.globalAlpha = 1;
-
-  const title = `${seatName(seat, names)} · SCREEN`;
-  ctx.textAlign = "left";
-  ctx.font = '700 13px "Courier New",monospace';
-  const w = Math.min(l.width - 16, ctx.measureText(title).width + 22);
-  ctx.fillStyle = "rgba(6,4,14,.92)";
-  ctx.fillRect(8, BANNER_TOP, w, BANNER_H);
-  ctx.fillStyle = skin.tint;
-  ctx.fillRect(8, BANNER_TOP, 3, BANNER_H);
-  ctx.fillStyle = skin.rim;
-  ctx.fillText(title, 19, BANNER_TOP + 15);
-  ctx.font = '600 9px "Courier New",monospace';
-  ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(whose(seat, role), 19, BANNER_TOP + 26);
+export interface CornerPlate {
+  /** Whose screen is on show, when a film is playing one. */
+  seat?: 1 | 2;
+  names?: SeatNames;
 }
 
-/**
- * Whether the screen on show is the one in this player's own hand. `test` is
- * one person holding both seats, so neither is theirs and neither is the
- * other's.
- */
-function whose(seat: 1 | 2, role: ViewRole): string {
-  if (role === "test") return "ONE OF THE TWO SCREENS";
-  return (role === "p1" ? 1 : 2) === seat ? "YOUR OWN SCREEN" : "YOUR PARTNER'S SCREEN";
+/** What this screen is, in the corner of it, for as long as the guide is up. */
+export function drawGuideCorner(ctx: CanvasRenderingContext2D, l: Layout, p: CornerPlate): void {
+  const skin = p.seat === undefined ? null : seatSkin(p.seat === 1 ? "p1" : "p2");
+  if (skin) {
+    // The edges are the quiet half: a player who looked away and back reads the
+    // colour before they read anything at all.
+    ctx.globalAlpha = 0.55;
+    ctx.fillStyle = skin.tint;
+    ctx.fillRect(0, 0, 4, l.height);
+    ctx.fillRect(l.width - 4, 0, 4, l.height);
+    ctx.globalAlpha = 1;
+  }
+
+  const title = p.seat === undefined ? "" : `${seatName(p.seat, p.names)} · SCREEN`;
+  ctx.textAlign = "left";
+  ctx.font = '700 18px "Courier New",monospace';
+  const wide = title === "" ? 0 : ctx.measureText(title).width;
+  ctx.font = '700 10px "Courier New",monospace';
+  const w = Math.min(l.width - 16, Math.max(wide, ctx.measureText("TUTORIAL").width + 14) + 24);
+  const h = title === "" ? 24 : BANNER_H;
+
+  if (skin) halo(ctx, 8 + w / 2, BANNER_TOP + h / 2, w * 0.7, skin.tint, 0.16);
+  ctx.fillStyle = "rgba(6,4,14,.94)";
+  ctx.fillRect(8, BANNER_TOP, w, h);
+  ctx.fillStyle = skin ? skin.tint : PALETTE.pod;
+  ctx.fillRect(8, BANNER_TOP, 3, h);
+
+  ctx.fillStyle = PALETTE.pod;
+  ctx.beginPath();
+  ctx.arc(19, BANNER_TOP + 12, 3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.font = '700 10px "Courier New",monospace';
+  ctx.fillText("TUTORIAL", 27, BANNER_TOP + 15);
+  if (title === "" || !skin) return;
+  ctx.font = '700 18px "Courier New",monospace';
+  ctx.fillStyle = skin.rim;
+  ctx.fillText(title, 19, BANNER_TOP + 38);
 }

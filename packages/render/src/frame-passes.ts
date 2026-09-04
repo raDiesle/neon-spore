@@ -14,6 +14,7 @@ import { drawGrips } from "./grip.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
+import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
 import { frame } from "./hull-frame.js";
@@ -210,6 +211,8 @@ export function drawOverlays(
   // a column (`siren.ts`).
   drawCommsSiren(ctx, l, world, view.time);
   drawBand(ctx, l, world, isArmed, isOpen, view.time, view.controls);
+  // Over the finished band: whichever control a desk's mouse is resting on.
+  drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
@@ -220,5 +223,6 @@ export function drawOverlays(
     time: view.time,
     fx,
     names: view.names,
+    pointer: view.pointer,
   });
 }

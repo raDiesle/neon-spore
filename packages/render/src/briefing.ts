@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
+import { drawGuideCorner } from "./guide-switch.js";
 import type { Layout, ViewRole } from "./layout.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
@@ -58,6 +59,11 @@ export interface OpeningView {
   fx?: OpeningFx;
   /** What the two people are called, by seat, when the room has said. */
   names?: SeatNames;
+  /**
+   * Where a mouse is resting, in stage coordinates, so a button under it can
+   * light up. Absent on a phone, which has no such thing as hovering.
+   */
+  pointer?: { x: number; y: number };
 }
 
 export function drawWaveOpening(
@@ -74,7 +80,7 @@ export function drawWaveOpening(
   if (!guideHolds(world)) return;
   // A rehearsal takes the whole stage and brings its own bar with it.
   if (scene?.active) {
-    scene.draw(ctx, l, view.time ?? 0, role, names);
+    scene.draw(ctx, l, view);
     return;
   }
   const seat: 1 | 2 = role === "p2" ? 2 : 1;
@@ -82,8 +88,18 @@ export function drawWaveOpening(
   // The gate: the field is behind this rather than covered, which is the whole
   // point of the page — it is the wave they are about to play (`ready-page.ts`).
   if (onReadyPage(world, seat)) {
-    drawReadyPage(ctx, l, world, { role, pages, fx, names });
-    return;
+    drawReadyPage(ctx, l, world, { role, pages, fx, names, pointer: view.pointer });
+  } else {
+    drawProsePage(ctx, l, world, {
+      role,
+      page: guidePage(world, seat),
+      pages,
+      fx,
+      names,
+      pointer: view.pointer,
+    });
   }
-  drawProsePage(ctx, l, world, { role, page: guidePage(world, seat), pages, fx, names });
+  // The corner says TUTORIAL on these pages too, and nothing else: there is no
+  // film, so there is no screen of one seat's to name (`guide-switch.ts`).
+  drawGuideCorner(ctx, l, {});
 }
