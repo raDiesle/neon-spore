@@ -98,6 +98,12 @@ class StubPath {
     nums("Path2D.arc", [x, y, r, from, to]);
     if (r < 0) fail("Path2D.arc", `radius ${r} is negative`);
   }
+  /** The rounded corner every plate in the intro is cut with. A real one
+   * refuses a negative radius the same way `arc` does. */
+  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void {
+    nums("Path2D.arcTo", [x1, y1, x2, y2, r]);
+    if (r < 0) fail("Path2D.arcTo", `radius ${r} is negative`);
+  }
   ellipse(
     x: number,
     y: number,

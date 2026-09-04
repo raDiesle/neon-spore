@@ -73,7 +73,7 @@ export function drawIntroPage(
   // Deep enough that the field's own words — a wave's name, the paused line —
   // do not compete with the page's, and not black: the field goes on moving
   // behind this, which is the point of drawing it here at all.
-  ctx.fillStyle = "rgba(5,4,11,.975)";
+  ctx.fillStyle = "rgba(5,4,11,.988)";
   ctx.fillRect(0, 0, l.width, l.height);
 
   const mid = l.width / 2;
@@ -81,42 +81,47 @@ export function drawIntroPage(
   ctx.textAlign = "center";
 
   let line = 0;
-  drop(ctx, mid, top + 26, age, line++, 0, () => {
+  drop(ctx, mid, top + 24, age, line++, 0, () => {
     ctx.font = SKIP_FONT;
     ctx.fillStyle = PALETTE.dim;
     ctx.fillText("NEON SPORE", 0, 0);
   });
-  drop(ctx, mid, top + 54, age, line++, 0, () => {
-    ctx.font = TITLE_FONT;
-    ctx.fillStyle = PALETTE.hullRim;
-    ctx.fillText(entry.title, 0, 0);
-  });
 
-  // The picture takes the middle third and the words sit under it, because a
-  // page read on a phone is read top to bottom and the argument is the picture.
-  const figureTop = top + 78;
-  const figureHeight = (l.height - NAV_H - figureTop) * 0.46;
+  // The title is the advertisement and takes the room to be one. It wraps
+  // rather than shrinking: a long one on a narrow phone is two lines of the
+  // same size, not one line nobody can read.
+  ctx.font = TITLE_FONT;
+  let y = top + 58;
+  for (const wrapped of wrapText(ctx, entry.title, l.width - 44)) {
+    drop(ctx, mid, y, age, line, 0, () => {
+      ctx.font = TITLE_FONT;
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fillText(wrapped, 0, 0);
+    });
+    y += 27;
+  }
+  line++;
+
+  // The picture takes the room the words gave back: it is doing most of the
+  // work now that there is one line under it rather than two paragraphs.
+  const figureTop = y + 6;
+  const figureHeight = (l.height - NAV_H - figureTop) * 0.66;
   drawIntroFigure(
     ctx,
     entry.figure,
-    { x: 18, y: figureTop, w: l.width - 36, h: figureHeight },
+    { x: 14, y: figureTop, w: l.width - 28, h: figureHeight },
     age,
   );
 
   ctx.font = BODY_FONT;
-  let y = figureTop + figureHeight + 30;
-  for (const text of entry.lines) {
-    for (const wrapped of wrapText(ctx, text, l.width - 52)) {
-      drop(ctx, mid, y, age, line, 0, () => {
-        ctx.font = BODY_FONT;
-        ctx.fillStyle = PALETTE.text;
-        ctx.fillText(wrapped, 0, 0);
-      });
-      y += 19;
-    }
-    // One place in the stagger per paragraph, so a paragraph lands together.
-    line++;
-    y += 8;
+  y = figureTop + figureHeight + 34;
+  for (const wrapped of wrapText(ctx, entry.line, l.width - 52)) {
+    drop(ctx, mid, y, age, line, 0, () => {
+      ctx.font = BODY_FONT;
+      ctx.fillStyle = PALETTE.text;
+      ctx.fillText(wrapped, 0, 0);
+    });
+    y += 21;
   }
 
   skip(ctx, l, page, pointer);

@@ -70,12 +70,20 @@ describe("the way it is wired", () => {
 });
 
 describe("what the pages say", () => {
-  it("gives every page a title, a picture and something to read", () => {
+  it("gives every page a title, a picture and one line", () => {
     expect(INTRO_PAGES.length).toBeGreaterThan(3);
     for (const page of INTRO_PAGES) {
       expect(page.title.length, page.id).toBeGreaterThan(0);
-      expect(page.lines.length, page.id).toBeGreaterThan(0);
-      for (const line of page.lines) expect(line.length, page.id).toBeGreaterThan(20);
+      expect(page.line.length, page.id).toBeGreaterThan(0);
+    }
+  });
+
+  it("keeps every line short enough to be an advertisement", () => {
+    // The owner's correction, in one number: *use much shorter text*. Nobody
+    // reads a paragraph on a screen they have not chosen yet, and a line that
+    // wraps three times on a phone is a paragraph however it was written.
+    for (const page of INTRO_PAGES) {
+      expect(page.line.length, `${page.id}: ${page.line}`).toBeLessThanOrEqual(48);
     }
   });
 
@@ -90,12 +98,12 @@ describe("what the pages say", () => {
   });
 
   it("says the thing the whole game rests on, in the game's own words", () => {
-    const all = INTRO_PAGES.flatMap((p) => [p.title, ...p.lines])
+    const all = INTRO_PAGES.flatMap((p) => [p.title, p.line])
       .join(" ")
       .toLowerCase();
-    // Two people, talking, about columns. A pitch that left any of the three
+    // Two people, and something said between them. A pitch that left either
     // out would be a pitch for a different game.
-    for (const word of ["two", "voice", "column", "hull"]) {
+    for (const word of ["two", "voice"]) {
       expect(all, word).toContain(word);
     }
   });

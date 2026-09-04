@@ -14,9 +14,10 @@
  * `packages/render/src/intro-page.ts` draws one of these; nothing in this file
  * knows a pixel.
  *
- * The vocabulary is the game's and stays that way — hull, column, cannon,
- * shield, panel, wave, boss — because the pair has to be able to say these
- * words to each other over a voice channel an hour from now.
+ * The vocabulary is the game's and stays that way — column, panel, wave, boss
+ * — because the pair has to be able to say these words to each other over a
+ * voice channel an hour from now. It is an advertisement rather than a
+ * manual: one line a page, and the pictures carry the rest.
  */
 
 /**
@@ -30,8 +31,16 @@ export interface IntroPage {
   /** Stable, so a test can name a page without counting. */
   id: string;
   title: string;
-  /** One idea per line. Two at most: this is read standing up, on a phone. */
-  lines: readonly string[];
+  /**
+   * One line, and a short one.
+   *
+   * The owner's correction, after the first version ran to two paragraphs a
+   * page: *use much shorter text, could be like advertisement.* Nobody reads a
+   * paragraph on a screen they have not chosen yet — what a first screen can
+   * do is land one idea and get out of the way. The picture beside it is doing
+   * most of the work anyway.
+   */
+  line: string;
   figure: IntroFigure;
 }
 
@@ -39,55 +48,37 @@ export const INTRO_PAGES: readonly IntroPage[] = [
   {
     id: "two",
     title: "TWO OF YOU",
-    lines: [
-      "A co-op arcade game in space, for two people on two devices — two phones, two computers, or one of each.",
-      "Neither screen shows what the other one shows. Neither of you can play it alone.",
-    ],
+    line: "Two players. Two screens. One voice.",
     figure: "twoScreens",
   },
   {
     id: "voice",
-    title: "TALKING IS THE CONTROL",
-    lines: [
-      "Each of you is given something the other one needs and cannot see. Say it out loud, and say it in time.",
-      "The game never listens: the voice channel is yours, and a column is the word you both have.",
-    ],
+    title: "SAY IT OUT LOUD",
+    line: "You see it. They shoot it. Talk fast.",
     figure: "voice",
   },
   {
     id: "field",
-    title: "WHAT COMES DOWN THE COLUMNS",
-    lines: [
-      "A hull along the bottom, columns above it, and a queue of creatures with a mechanic each — one hides, one lies about its colour, one has to be swallowed rather than shot.",
-      "Nothing you control travels. What moves is what is coming at you.",
-    ],
+    title: "IT KEEPS COMING",
+    line: "Slimes, liars and rocks. All at once.",
     figure: "columns",
   },
   {
     id: "panel",
-    title: "THE PANEL CHANGES UNDER YOU",
-    lines: [
-      "A wave brings its own controls. What your thumb did last wave may not be there this one.",
-      "Some rounds take the whole screen and hand you something else entirely.",
-    ],
+    title: "THE BUTTONS MOVE",
+    line: "New wave, new controls. Good luck.",
     figure: "panel",
   },
   {
     id: "boss",
-    title: "A BOSS IS A GAME OF ITS OWN",
-    lines: [
-      "Each one has its own rules, its own picture and its own way of being talked through — a small game inside the game.",
-      "They are the waves you will want to tell somebody about.",
-    ],
+    title: "BOSSES ARE LITTLE GAMES",
+    line: "Eight of them, and each one is its own.",
     figure: "boss",
   },
   {
     id: "run",
-    title: "FOR AS LONG AS YOU LIKE",
-    lines: [
-      "Authored waves first, then waves that keep coming. Your furthest is remembered, so you can stop and pick it up again.",
-      "Every run keeps its own count — and a perfect one is a thing to come back for.",
-    ],
+    title: "IT NEVER ENDS",
+    line: "Endless waves. Come back whenever.",
     figure: "run",
   },
 ];
