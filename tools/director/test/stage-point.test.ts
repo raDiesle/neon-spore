@@ -140,8 +140,6 @@ describe("the stage's pointer conversion", () => {
       push: (player, command) => sent.push({ player, command }),
       world: () => world,
       role: () => "test",
-      cardStep: () => 0,
-      setCardStep: () => {},
     });
 
     const l = layout();

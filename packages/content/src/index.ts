@@ -147,6 +147,8 @@ export {
 } from "./warden-shape.js";
 export { freshWaveId } from "./wave-types.js";
 export {
+  guideSteps,
+  PROSE_PAGES,
   WAVES,
   type Wave,
   type WaveEntry,

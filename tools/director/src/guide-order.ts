@@ -1,20 +1,23 @@
 import { WAVES } from "@neon-spore/content";
-import { ackBriefing, type World } from "@neon-spore/sim";
+import { guidePages, guideStepHeard, type World } from "@neon-spore/sim";
 import { AUTHORED_WAVE_COUNT, waveLabel, waveOpeningWorld } from "./guide-waves.js";
 import { frameWorld, PHONE } from "./pose-art.js";
 
 /**
- * How one wave opens, drawn in order: the introduction, then its guide.
+ * How one wave opens, drawn in order: every page of its guide, ending on the
+ * gate that carries the wave's own name.
  *
  * The question this answers used to be "which of a wave's several cards comes
- * first". A wave has one guide now, so the sequence is the two states of the
- * opening rather than a queue of subjects — and that is the more useful
- * picture anyway, because the introduction is the new part and the thing a
- * reader has not seen before.
+ * first". A wave has one guide now, and that guide is a stack of pages the pair
+ * turns itself (`packages/sim/src/guide-steps.ts`) — so the sequence is those
+ * pages, in the order a pair meets them.
  *
- * Each frame is a real world, posed by `startWave` and stepped forward by the
- * same ack the phone sends, so the second frame is what actually follows the
- * first rather than a second world built to look like it.
+ * **Each frame is a real world**, posed by `startWave` and walked forward by
+ * the same `guideStep` a thumb on NEXT sends, so page four is what actually
+ * follows page three rather than a fourth world built to look like it. It used
+ * to draw two frames, one labelled INTRODUCTION and one labelled GUIDE, and
+ * after the pages landed the first of those was page one of the guide under a
+ * heading that said otherwise.
  */
 
 function stateFrame(world: World, seat: string): HTMLElement {
@@ -41,14 +44,28 @@ function stateFrame(world: World, seat: string): HTMLElement {
 }
 
 /**
- * One wave's guide, drawn as the single unredacted `"test"`-role frame — the
- * picture `guide-sheet.ts`'s GUIDES sheet puts under each wave's heading.
+ * Every page of one wave's guide, in order, as unredacted `"test"`-role frames
+ * — the pictures `guide-sheet.ts`'s GUIDES sheet puts under each wave's
+ * heading, and what the ORDER page shows in a row.
+ *
+ * A fresh world per page rather than one world redrawn: `frameWorld` keeps the
+ * canvas it drew into, so two frames off one world would be two references to
+ * one picture. Walking each world forward from the top costs nothing anybody
+ * can measure and is the honest way round.
  */
-export function waveGuideFrame(waveIndex: number, label: string): HTMLElement {
-  const world = waveOpeningWorld(waveIndex);
-  ackBriefing(world, 1);
-  ackBriefing(world, 2);
-  return stateFrame(world, label);
+export function waveGuideFrames(waveIndex: number, label: string): HTMLElement[] {
+  const pages = guidePages(waveOpeningWorld(waveIndex));
+  const out: HTMLElement[] = [];
+  for (let page = 0; page < pages; page++) {
+    const world = waveOpeningWorld(waveIndex);
+    for (let i = 0; i < page; i++) {
+      guideStepHeard(world, 1, false);
+      guideStepHeard(world, 2, false);
+    }
+    const last = page === pages - 1;
+    out.push(stateFrame(world, `${label} · ${last ? "READY" : `PAGE ${page + 1}`}`));
+  }
+  return out;
 }
 
 function render(mount: HTMLElement, waveIndex: number): void {
@@ -58,14 +75,14 @@ function render(mount: HTMLElement, waveIndex: number): void {
   const summary = document.createElement("p");
   summary.className = "note";
   summary.textContent = wave?.guide
-    ? "Two states before the field: the introduction, then the guide. Both hold the wave."
+    ? "The pages this wave's guide is read in, ending on the gate both seats have to answer."
     : "Nothing new here — this wave opens on its introduction and then plays.";
   mount.appendChild(summary);
 
   const row = document.createElement("div");
   row.className = "scenes";
-  row.appendChild(stateFrame(waveOpeningWorld(waveIndex), "INTRODUCTION"));
-  if (wave?.guide) row.appendChild(waveGuideFrame(waveIndex, "GUIDE"));
+  if (wave?.guide) row.append(...waveGuideFrames(waveIndex, "GUIDE"));
+  else row.appendChild(stateFrame(waveOpeningWorld(waveIndex), "INTRODUCTION"));
   mount.appendChild(row);
 }
 

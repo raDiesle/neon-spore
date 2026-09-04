@@ -142,9 +142,10 @@ describe("a guide with pages", () => {
     expect(introHolds(world)).toBe(false);
   });
 
-  it("leaves a guide made of prose exactly as it was", () => {
-    // No pages, the whole screen is the button, and the wave's own name still
-    // stands behind the gate.
+  it("stands a guide nobody counted at its gate rather than nowhere", () => {
+    // Every guide has pages — `content/waves.ts` counts them — so a 0 here is a
+    // caller that forgot. The degenerate case is the gate, which is a screen
+    // the pair can get past, rather than a page index that does not exist.
     const world = open(0);
     expect(guideStepped(world)).toBe(false);
     expect(onReadyPage(world, 1)).toBe(true);

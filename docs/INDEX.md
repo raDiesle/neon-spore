@@ -424,6 +424,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
 | `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
+| `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |
+| `packages/render/src/text-drop.ts` | A line of type falling into place, and the one rule the owner attached to it |
 
 ### packages/net
 

@@ -1,4 +1,4 @@
-import { waveGuideFrame } from "./guide-order.js";
+import { waveGuideFrames } from "./guide-order.js";
 import { waveLabel, wavesWithGuides } from "./guide-waves.js";
 
 /**
@@ -53,9 +53,9 @@ function saveHidden(hidden: ReadonlySet<number>): void {
  * one worth drawing again right now.
  */
 function guideBox(waveIndex: number, hidden: Set<number>): HTMLElement {
-  // No class of its own: `waveGuideFrame` already returns a full `.scene` box
-  // (shot plus its own title caption), and a second `.scene` wrapped around it
-  // would only duplicate that class's width rule.
+  // `waveGuideFrames` returns full `.scene` boxes (a shot plus its own title
+  // caption), one per page, so they go in a `.scenes` row — the same container
+  // the ORDER page lays a guide's pages out in.
   const wrap = document.createElement("div");
 
   const label = document.createElement("label");
@@ -68,7 +68,10 @@ function guideBox(waveIndex: number, hidden: Set<number>): HTMLElement {
   const paint = (): void => {
     wrap.replaceChildren();
     if (!hidden.has(waveIndex)) {
-      wrap.appendChild(waveGuideFrame(waveIndex, waveLabel(waveIndex)));
+      const row = document.createElement("div");
+      row.className = "scenes";
+      row.append(...waveGuideFrames(waveIndex, waveLabel(waveIndex)));
+      wrap.appendChild(row);
     }
     wrap.appendChild(label);
   };

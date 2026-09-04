@@ -6,7 +6,7 @@ import {
   type Stage,
   type ViewRole,
 } from "@neon-spore/render";
-import { guideHolds, guidePages, guideStepped, onReadyPage, type World } from "@neon-spore/sim";
+import { guideHolds, guidePages, onReadyPage, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -43,15 +43,13 @@ export interface BriefingOptions {
 /**
  * A guide's presses: BACK, NEXT, and the hold that says READY.
  *
- * **The whole stage used to be the button, and on a guide made of prose it
- * still is.** There is exactly one thing to do with those sixteen and nowhere
- * else to press, so a target the size of the screen is one nobody has to look
- * for. A *stepped* guide cannot do that — the owner asked for a NEXT the pair
- * presses when they are ready to move on, and a BACK beside it — and a press
- * anywhere that meant NEXT would put BACK out of reach on half the screen. So
- * there the targets are the drawn ones, and they come from `navButtons` and
- * `readyButtonBox`, which is the same geometry the drawing uses: a button
- * cannot be answered where it is not drawn.
+ * **The whole stage used to be the button.** It could be, when a guide was one
+ * card with one thing to do to it. Every guide has pages now — the owner asked
+ * for a NEXT the pair presses when they are ready to move on, and a BACK beside
+ * it — and a press anywhere that meant NEXT would put BACK out of reach on half
+ * the screen. So the targets are the drawn ones, and they come from
+ * `navButtons` and `readyButtonBox`, which is the same geometry the drawing
+ * uses: a button cannot be answered where it is not drawn.
  *
  * **READY is a hold, not a tap.** The circle fills for as long as the thumb is
  * down and empties if it lifts before READY (`sim/ready-gate.ts` says why), so
@@ -98,11 +96,6 @@ export function bindBriefing({
   let down = false;
   canvas.addEventListener("pointerdown", (e) => {
     if (!guideHolds(world)) return;
-    if (!guideStepped(world)) {
-      down = true;
-      hold(true);
-      return;
-    }
     const p = at(e);
     if (!p) return;
     const l = layout();
@@ -133,7 +126,7 @@ export function bindBriefing({
       // to reach the gate from anywhere, because the commands all land on the
       // same tick and cannot see each other land — a turn past the last page is
       // clamped rather than an error (`sim/guide-steps.ts`).
-      if (guideStepped(world)) for (let i = 0; i < guidePages(world); i++) turn(false);
+      for (let i = 0; i < guidePages(world); i++) turn(false);
       hold(true);
     },
     holds: () => guideHolds(world),

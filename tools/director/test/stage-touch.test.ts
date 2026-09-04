@@ -1,13 +1,21 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { controlSet, controlSetForWave } from "@neon-spore/content";
-import { cannonGrab, computeLayout, shieldGrab, type ViewRole } from "@neon-spore/render";
+import { controlSet, controlSetForWave, waveGuideSteps } from "@neon-spore/content";
+import {
+  cannonGrab,
+  computeLayout,
+  navButtons,
+  readyButtonBox,
+  shieldGrab,
+  type ViewRole,
+} from "@neon-spore/render";
 import {
   briefingHolds,
   type Command,
   createWorld,
   DEFAULT_CONFIG,
   guideHolds,
-  introHolds,
+  guidePage,
+  guidePages,
   mazeRound,
   PAIR_ON,
   readyHoldTicks,
@@ -118,12 +126,11 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
 
   function armed(role: ViewRole) {
     const world = createWorld(cfg, 0);
-    // A guide as well as an introduction, because the stepping under test is
-    // the guide's: the introduction is the same on both screens and takes one
-    // press whatever the role. The guide is what a wave opens on, so a world
-    // built here is already standing on it.
-    startWave(world, 0, queue, [], null, true);
-    let cardStepAt: 0 | 1 | 2 = 0;
+    // A guide, because the paging under test is the guide's. A wave opens on
+    // it, so a world built here is already standing on its first page — and it
+    // is handed the page count, without which the simulation reads every seat
+    // as already standing at the gate.
+    startWave(world, 0, queue, [], null, true, waveGuideSteps(0));
     const sent: { player: 1 | 2; command: Command }[] = [];
     let pending: TimedCommand[] = [];
     const stub = stubCanvas();
@@ -151,10 +158,6 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       },
       world: () => world,
       role: () => role,
-      cardStep: () => cardStepAt,
-      setCardStep: (s) => {
-        cardStepAt = s;
-      },
     });
     const layout = computeLayout(VIEWPORT, cfg, role);
     // Real ticks, through the sim's own `step()` — a `brief` only ever fills
@@ -173,7 +176,22 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         clientY: y,
         preventDefault: () => {},
       });
-    const down = (): void => downAt(VIEWPORT.width / 2, layout.cannonStrip.y);
+    /** The gate's own button, which is the only thing a hold ever reaches. */
+    const down = (): void => {
+      const box = readyButtonBox(layout);
+      downAt(box.x + box.w / 2, box.y + box.h / 2);
+    };
+    /** NEXT, once. The bar is where a page is turned (`render/guide-nav.ts`). */
+    const next = (): void => {
+      const box = navButtons(layout).next;
+      downAt(box.x + box.w / 2, box.y + box.h / 2);
+      stub.fire("pointerup", { pointerId: 1 });
+      tick();
+    };
+    /** Through the pages to the gate, which is the only one with a button. */
+    const toGate = (): void => {
+      for (let i = 0; i < guidePages(world); i++) next();
+    };
     const move = (x: number, y: number): void =>
       stub.fire("pointermove", { pointerId: 1, clientX: x, clientY: y, preventDefault: () => {} });
     const up = (): void => {
@@ -204,25 +222,38 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       world,
       layout,
       touch,
-      step: () => cardStepAt,
+      next,
+      toGate,
     };
   }
 
-  it("a tap steps `test` through player one's half, then two's, filling neither circle", () => {
+  it("turns a page on NEXT, in `test` for both seats at once", () => {
     // The guide is the first thing a wave opens on, so there is nothing to tap
     // past to reach it.
     const s = armed("test");
-    s.tap();
-    expect(s.step()).toBe(1);
-    s.tap();
-    expect(s.step()).toBe(2);
+    s.next();
+    expect(guidePage(s.world, 1)).toBe(1);
+    expect(guidePage(s.world, 2)).toBe(1);
+    s.next();
+    expect(guidePage(s.world, 1)).toBe(2);
     expect(briefingHolds(s.world)).toBe(true);
     expect(seatReady(s.world, 1)).toBe(false);
-    expect(seatReady(s.world, 2)).toBe(false);
   });
 
-  it("a hold from the very first press fills both circles and opens the gate — stepping is never a toll", () => {
+  it("fills nothing while a page of the guide is still up", () => {
+    // The button is on the gate and nowhere else, so a press in the middle of a
+    // page reaches no circle at all.
     const s = armed("test");
+    s.downAt(VIEWPORT.width / 2, s.layout.cannonStrip.y);
+    s.tick(readyHoldTicks(cfg) + 4);
+    expect(seatReady(s.world, 1)).toBe(false);
+    expect(guideHolds(s.world)).toBe(true);
+    s.up();
+  });
+
+  it("a hold on the gate's own button fills both circles and starts the wave", () => {
+    const s = armed("test");
+    s.toGate();
     s.down();
     // Both circles fill in lockstep in `test`, so they land on `full` on the
     // very same tick — one short of it, neither has latched READY yet.
@@ -230,45 +261,48 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     expect(seatReady(s.world, 1)).toBe(false);
     expect(guideHolds(s.world)).toBe(true);
     s.tick(1); // the tick both circles complete on together
-    // The gate is open, and what is behind it is the wave's own name.
-    expect(guideHolds(s.world)).toBe(false);
-    expect(introHolds(s.world)).toBe(true);
+    // The gate was the wave's own name, so there is nothing behind it.
+    expect(briefingHolds(s.world)).toBe(false);
     s.up(); // the gate is already open; letting go now reaches nobody's fill
   });
 
   it("letting go before READY empties the circle instead of latching it", () => {
     const s = armed("test");
+    s.toGate();
     s.down();
     s.tick(1); // some fill, nowhere near a full gate
     s.up();
     expect(seatReady(s.world, 1)).toBe(false);
     expect(seatReady(s.world, 2)).toBe(false);
     expect(briefingHolds(s.world)).toBe(true);
-    expect(s.step()).toBe(1); // a release that did not fill it still steps `test`
   });
 
   it("only a hold that opens the gate lets the next press reach the cannon", () => {
     const s = armed("test");
-    s.hold(); // the guide, filled for real
-    s.tap(); // and the introduction behind it, which is not stepped
+    s.toGate();
+    s.hold(); // the gate, filled for real
     expect(briefingHolds(s.world)).toBe(false);
     s.sent.length = 0;
 
-    s.tap();
+    // On the strip this time, not on the gate's button: what is being asked is
+    // whether the field answers a press at all now, and the gate's button sat
+    // over the shield's strip rather than the cannon's.
+    s.downAt(VIEWPORT.width / 2, s.layout.cannonStrip.y);
+    s.up();
     expect(s.sent).toEqual([
       { player: 1, command: { kind: "cannonCol", col: expect.any(Number) } },
     ]);
   });
 
-  it("a hold in a single seat's own screen (p1/p2) fills only that seat, unstepped", () => {
+  it("a hold in a single seat's own screen (p1/p2) fills only that seat", () => {
     const s = armed("p1");
-    s.tap(); // the introduction — one press, both seats ack (never stepped)
+    s.toGate();
     s.sent.length = 0;
     s.hold();
     expect(seatReady(s.world, 1)).toBe(true);
     expect(seatReady(s.world, 2)).toBe(false);
-    // `cardStep` never left 0 — `role() !== "test"` never steps at all.
-    expect(s.step()).toBe(0);
+    // And that seat alone turned its own pages: player 2 is still on page one.
+    expect(guidePage(s.world, 2)).toBe(0);
   });
 });
 
@@ -339,8 +373,6 @@ describe("bindStageTouch reports the hand on the ship", () => {
       push: (player, command) => pending.push({ tick: world.tick, player, command }),
       world: () => world,
       role: () => role,
-      cardStep: () => 0,
-      setCardStep: () => {},
     });
     const fire = (type: string, x: number, y: number): void => {
       for (const fn of on.get(type) ?? [])

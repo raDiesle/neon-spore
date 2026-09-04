@@ -1,5 +1,5 @@
 import { sceneSteps } from "./scenes.js";
-import type { Wave } from "./wave-types.js";
+import type { Wave, WaveGuide } from "./wave-types.js";
 import { WAVES_ACT_1 } from "./waves/act-1.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
@@ -34,14 +34,39 @@ export const WAVES: Wave[] = [
 ];
 
 /**
- * How many pages of film a wave's guide has, and 0 for a guide made of prose.
+ * How many pages a guide made of prose is read in: the shared line, then the
+ * split. Two rather than one because the split is the thing the guide exists to
+ * teach — a page showing both halves at once would let a pair read the lot
+ * without ever noticing that one of them is holding a sentence the other cannot
+ * see.
+ */
+export const PROSE_PAGES = 2;
+
+/**
+ * How many pages a guide has in front of its gate.
  *
  * This is what `startWave` is handed beside `hasGuide`, and it is the whole of
- * what the simulation knows about a rehearsal: which page is the last one, and
+ * what the simulation knows about a guide: which page is the last one, and
  * therefore where the ready gate is (`sim/guide-steps.ts`). A count rather than
- * a scene, because `packages/sim` never reads `content`.
+ * a scene or a string, because `packages/sim` never reads `content`.
+ *
+ * **Every guide has pages.** One with a rehearsal has a page per step of the
+ * film; one made of prose has `PROSE_PAGES`, and it used to have a card with a
+ * border round it instead. The owner's instruction was flat — *I don't want to
+ * show old cards any longer* — so the panel is gone and its words are read the
+ * way a rehearsal's are: a page at a time, on the game's own screen, with the
+ * same NEXT and the same gate.
+ *
+ * It takes the guide rather than a wave's number because the director edits a
+ * wave that is not on disk yet, and a count read out of `WAVES` there would be
+ * the count of whatever was last saved.
  */
+export function guideSteps(guide: WaveGuide | undefined): number {
+  if (!guide) return 0;
+  return guide.scene === undefined ? PROSE_PAGES : sceneSteps(guide.scene);
+}
+
+/** The same, for a wave named by its number — what `apps/game` asks. */
 export function waveGuideSteps(wave: number): number {
-  const id = WAVES[wave]?.guide?.scene;
-  return id === undefined ? 0 : sceneSteps(id);
+  return guideSteps(WAVES[wave]?.guide);
 }

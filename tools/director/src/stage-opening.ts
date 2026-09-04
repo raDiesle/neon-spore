@@ -1,5 +1,5 @@
 import { type Layout, navHit, onReadyButton } from "@neon-spore/render";
-import { type Command, guideStepped, introHolds, onReadyPage, type World } from "@neon-spore/sim";
+import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/sim";
 
 /**
  * A press on the stage while a wave's opening is up.
@@ -38,10 +38,8 @@ export function openingPress(
     push(2, { kind: "brief" });
     return null;
   }
-  if (!guideStepped(world)) return hold(seats, push);
-
-  // A stepped guide is paged rather than held through: BACK and NEXT are where
-  // they are drawn, and only the gate has anything to hold.
+  // A guide is paged rather than held through: BACK and NEXT are where they are
+  // drawn, and only the gate has anything to hold.
   const nav = navHit(layout, point.x, point.y);
   if (nav) {
     for (const seat of seats) push(seat, { kind: "guideStep", back: nav === "back" });

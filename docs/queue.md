@@ -89,23 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## The director draws a guide's first page and calls it the guide
-
-- **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408
-- **Files:** `tools/director/src/guide-order.ts`, `tools/director/src/guide-sheet.ts`
-
-A guide that carries a rehearsal is a stack of pages now, one per step of the
-film, each with its own words and its own seat (`packages/sim/src/guide-steps.ts`).
-`waveGuideFrame` acks the world straight to the gate and photographs one frame,
-so the GUIDES sheet shows FIRST STEP's *last* page — the wave's name over the
-ready button — under a heading promising the guide. Nothing on that sheet says
-the other five exist.
-
-Draw one frame per page instead: `waveGuideSteps(wave)` is how many there are,
-and a `guideStep` command per turn walks a posed world through them the same way
-a thumb does. `stateFrame` already takes a label, so each page can carry its own
-number. Prove it by eye on the GUIDES sheet and with `bun run check`.
-
 ## `drawWaveOpening` has seven positional parameters, three of them optional
 
 - **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408

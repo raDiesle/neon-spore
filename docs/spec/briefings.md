@@ -175,14 +175,20 @@ past, and that is a tool decision rather than a game one: it is where somebody
 restarts a wave twenty times in an afternoon, and making them sit out the timer
 each time is what would get the whole opening switched off.
 
-### A guide with a rehearsal is a stack of pages
+### Every guide is a stack of pages
 
-A guide that carries a scene is not a film any more. It is **pages**, one per
-step of the rehearsal, and each seat has its own cursor into them
-(`world.brief.stepP1` / `stepP2`, both in the hash). A page repeats its own
-animation and its own words, with a short pause on the end of each turn, until
-the seat reading it presses NEXT; BACK goes back a page; the bar under the film
-says which page this is and how many there are.
+A guide is **pages**, and each seat has its own cursor into them
+(`world.brief.stepP1` / `stepP2`, both in the hash). BACK goes back a page, NEXT
+goes on, and the bar at the bottom says which page this is and how many there
+are. A guide that carries a scene has one page per step of the rehearsal, and
+each of those repeats its own animation and its own words with a short pause on
+the end of every turn until the seat reading it presses NEXT. A guide made of
+prose has two: the line both screens carry, then the split.
+
+**There is no card.** The bordered panel those sixteen used to be is gone, on
+the owner's instruction — *I don't want to show old cards any longer* — and
+their words are plain type on the game's own screen now, arriving the way the
+wave's own name does (`render/guide-prose.ts`, `render/text-drop.ts`).
 
 That is the owner's own arrangement, and the reasons are his: the film ran once
 at a tempo nobody could keep up with, and *every player has their own time to go
@@ -196,10 +202,10 @@ answered yet is the loudest thing on that page after the wave's name, because
 two people reading at their own speeds means one of them is nearly always
 waiting.
 
-A guide made of prose — the other sixteen — is unchanged: one panel, the whole
-screen is the button, and the wave's introduction still stands behind it.
-`world.brief.steps` is what tells the two apart, and it is a count handed to
-`startWave` from `content`, never a scene: the simulation still never reads one.
+`world.brief.steps` is the count, handed to `startWave` from `content` — never
+a scene and never the words: the simulation still reads neither. `guideSteps`
+takes the guide rather than a wave's number, because the director edits a wave
+that is not on disk yet.
 
 Replaying a page rebuilds the rehearsal's world and runs the ticks before the
 page silently (`SceneRun.restart`). There is no rewind, for the same reason

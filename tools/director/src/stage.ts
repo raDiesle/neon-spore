@@ -1,4 +1,10 @@
-import { bossFromWave, controlSet, podsFromWave, queueFromWave } from "@neon-spore/content";
+import {
+  bossFromWave,
+  controlSet,
+  guideSteps,
+  podsFromWave,
+  queueFromWave,
+} from "@neon-spore/content";
 import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
@@ -17,7 +23,7 @@ import { exposeStageHandle } from "./stage-handle.js";
 import { runStageLoop } from "./stage-loop.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRounds } from "./stage-rounds.js";
-import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
+import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { currentWave, type Store } from "./state.js";
 
@@ -62,9 +68,6 @@ export function bindStage(
   );
   let world: World = createWorld(cfg, store.index);
   let role: ViewRole = "test";
-  // Which half of a `test`-mode card is up — director state beside `role`,
-  // never the world's; stepped by `bindStageTouch`, read by `cardRenderRole`.
-  let cardStep: 0 | 1 | 2 = 0;
   let running = true;
   let frameEvents: SimEvent[] = [];
   let lastBeat = -1;
@@ -113,8 +116,6 @@ export function bindStage(
     push: keys.push,
     world: () => world,
     role: () => role,
-    cardStep: () => cardStep,
-    setCardStep: (s) => (cardStep = s),
   });
 
   // `createWorld` always returns a fresh `Briefings` (`met: 0`), and `rebuild`
@@ -125,7 +126,6 @@ export function bindStage(
   const rebuild = (): void => {
     const wave = currentWave(store);
     world = createWorld(cfg, store.index);
-    cardStep = 0; // unstepped, the same as a fresh `role`
     if (!wave) return;
     startWave(
       world,
@@ -134,6 +134,12 @@ export function bindStage(
       podsFromWave(wave, cfg.cols),
       bossFromWave(wave, cfg.cols),
       wave.guide !== undefined,
+      // And how many pages that guide is read in. Without it the stage opened
+      // every guide with `steps` at 0, which the simulation reads as "this seat
+      // is already at the gate" — so turning BRIEFINGS on put the ready button
+      // up and nothing else. It is read off the wave being *edited* rather than
+      // off `WAVES`, so an unsaved guide is paged the way it will be.
+      guideSteps(wave.guide),
     );
     lastBeat = 0;
     onBeat(0);
@@ -177,7 +183,7 @@ export function bindStage(
     renderer.draw({
       world,
       beatPhase: (world.tick % tpb) / tpb,
-      role: cardRenderRole(role, world, cardStep),
+      role,
       time: performance.now() / 1000,
       dt,
       events: frameEvents,

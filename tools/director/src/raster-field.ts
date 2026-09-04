@@ -16,7 +16,7 @@ import {
 import stripUrl from "../../../assets/raster/burst-strip.webp";
 import { runStageLoop } from "./stage-loop.js";
 import { stageGeometry } from "./stage-point.js";
-import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
+import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 
 /**
  * A real wave, playable, with the baked burst on a switch.
@@ -120,8 +120,6 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
     push,
     world: () => world,
     role: () => "test",
-    cardStep: () => 0,
-    setCardStep: () => {},
   });
 
   // A cleared wave plays again rather than advancing: watching this one is the
@@ -141,7 +139,7 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
     renderer.draw({
       world,
       beatPhase: (world.tick % tpb) / tpb,
-      role: cardRenderRole("test", world, 0),
+      role: "test",
       time: performance.now() / 1000,
       dt,
       events: frameEvents,

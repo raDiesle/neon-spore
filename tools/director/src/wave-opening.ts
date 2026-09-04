@@ -1,4 +1,4 @@
-import type { Wave } from "@neon-spore/content";
+import { guideSteps, type Wave } from "@neon-spore/content";
 
 /**
  * What the wave being edited puts in front of a pair before it starts, read
@@ -7,14 +7,21 @@ import type { Wave } from "@neon-spore/content";
  *
  * This used to run `openBriefings` over the wave's queue, pods and boss to
  * work out which catalogue cards it would raise. There is nothing to derive
- * now: a wave opens on its introduction, and then on the guide it carries or
- * on nothing. The note is short because the fact is.
+ * now: a wave opens on the guide it carries, page by page, and on its own name
+ * — which is the guide's last page where there is one and a screen of its own
+ * where there is not (`packages/sim/src/guide-steps.ts`). The note is short
+ * because the fact is.
  */
 
-/** The states this wave opens on, in order, as the pair meets them. */
+/** The screens this wave opens on, in order, as the pair meets them. */
 export function waveOpeningStates(wave: Wave | undefined): string[] {
   if (!wave) return [];
-  return wave.guide ? ["INTRODUCTION", "GUIDE"] : ["INTRODUCTION"];
+  const pages = guideSteps(wave.guide);
+  if (pages === 0) return ["INTRODUCTION"];
+  const out: string[] = [];
+  for (let i = 0; i < pages; i++) out.push(`GUIDE ${i + 1}`);
+  out.push("INTRODUCTION + READY");
+  return out;
 }
 
 /**

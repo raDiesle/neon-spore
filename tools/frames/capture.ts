@@ -33,6 +33,10 @@ export interface CaptureResult {
 
 const DEFAULT_VIEWPORT = { width: 390, height: 844 } as const;
 
+/** Painted frames spent settling a wave's opening before the frame that is
+ * kept — a second, longer than its longest entrance (`render/text-drop.ts`). */
+const SETTLE_FRAMES = 60;
+
 /** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
  * LANCE's lobe is well into filling, so the picture shows the hold rather than
  * the instant it began. */
@@ -179,6 +183,17 @@ export async function captureFrames(
         ns.send(sent.player, sent.command);
       }, one);
     };
+
+    // **An opening's words arrive rather than appear**, on painted frames rather
+    // than on ticks (`render/text-drop.ts`), so a capture that painted one frame
+    // caught them at zero opacity. Settled first, the way `pose-art.ts` settles
+    // the frame it keeps; the count goes over the wire because `evaluate` runs
+    // in the browser, where a constant declared here does not exist.
+    if (spec.opening) {
+      await page.evaluate((n) => {
+        for (let i = 0; i < n; i++) window.neonSpore?.paint();
+      }, SETTLE_FRAMES);
+    }
 
     const paths: string[] = [];
     for (let i = 0; i < frames; i++) {
