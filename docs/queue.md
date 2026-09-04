@@ -115,6 +115,7 @@ the parsing goes.
 ## The director's stage draws no ring for a hand on the ship
 
 - **Found:** 2026-09-04, claude/direct-touch-game-controls-6862c0
+- **Taken:** 2026-09-04, claude/queue-the-directors-stage-draws-no-ring-for-a-hand-on
 - **Files:** `tools/director/src/stage-touch.ts`, `tools/director/src/stage.ts`,
   `apps/game/src/ship-hand.ts`, `packages/render/src/ship-hand.ts`
 
