@@ -333,6 +333,7 @@ the events back before settling the ticks. The film-watching test in
 ## THE FLEET, SNAKE and PINBALL have no rehearsal — a round's own panel
 
 - **Found:** 2026-09-04, claude/tutorials-the-mirror
+- **Taken:** 2026-09-04, claude/queue-the-fleet-snake-and-pinball-have-no-rehearsal-a
 - **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-4.ts`
 
 Three of the four rounds with a panel of their own still open on prose. They
