@@ -63,7 +63,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
       fillRect: 65,
-      stroke: 45,
+      // Five fewer than before the membrane's lit rim came off: `strokeGlow`
+      // is four passes and the pale thread over it was the fifth
+      // (`band-seam.ts`, and the owner's *remove the line*).
+      stroke: 40,
       fill: 26,
       clip: 5,
       save: 22,
@@ -75,12 +78,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // first frame at a size pays for every cell and vein in it and no frame
       // after that pays anything (`band-ground.ts`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
-      "new Path2D": 26,
+      "new Path2D": 25,
       fillText: 4,
     },
     {
       fillRect: 65,
-      stroke: 47,
+      stroke: 42,
       fill: 26,
       clip: 5,
       save: 22,
@@ -91,38 +94,49 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // frame on.
       createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 12,
+      "new Path2D": 11,
       fillText: 4,
     },
   ],
   p2: [
     {
       fillRect: 65,
-      stroke: 47,
-      fill: 28,
+      // The seam's rim off (five, as on p1) and the fire buttons rebuilt: each
+      // one lost a crosshair's two strokes and gained the outline round its
+      // contour plus `strokeGlow`'s four passes round the creature inside it,
+      // which is how the field draws that body and the whole of what the owner
+      // asked for (`controls.ts`).
+      stroke: 48,
+      // Three more, and all three are `drawDetails`: the bulb's one core and
+      // the slick's two, drawn on the buttons now that the silhouettes are
+      // bodies rather than stencils.
+      fill: 31,
       clip: 5,
-      save: 26,
+      // Two fewer: a fire button's face is one `paintLobe` doing fill and
+      // stroke together where it used to be a fill and then a crosshair.
+      save: 24,
       drawImage: 25,
       createLinearGradient: 13,
       createRadialGradient: 3,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
-      "new Path2D": 28,
+      "new Path2D": 27,
       fillText: 2,
     },
     {
       fillRect: 65,
-      stroke: 49,
-      fill: 28,
+      stroke: 50,
+      fill: 31,
       clip: 5,
-      save: 26,
+      save: 24,
       drawImage: 25,
       createLinearGradient: 5,
       createRadialGradient: 1,
-      // Two fewer than frame 0, and the two are the fire buttons' silhouettes:
-      // every argument to them is a constant of the colour, so `controls.ts`
-      // keeps the two paths rather than rebuilding both every frame.
-      "new Path2D": 12,
+      // Back level with p1's second frame, and the two it came down by are the
+      // fire buttons' silhouettes: every argument to them is a constant of the
+      // colour, so `controls.ts` keeps the two paths rather than rebuilding
+      // both every frame.
+      "new Path2D": 11,
       fillText: 2,
     },
   ],

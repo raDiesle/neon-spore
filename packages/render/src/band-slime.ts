@@ -1,6 +1,7 @@
 import { hash01 } from "./backdrop.js";
 import { seamRise, seamTop, seamY } from "./band-seam.js";
 import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
@@ -105,17 +106,20 @@ export function drawDrips(
     if (d.bead) beads.ellipse(d.x, d.top + d.bead.y, d.bead.r, d.bead.r * 1.25, 0, 0, Math.PI * 2);
   }
 
+  // Every colour of it is the seat’s: this is the ship’s own fluid, and a
+  // violet drip off a golden hull was the loudest thing left on player two’s
+  // panel saying the two halves were built at different times.
   const grad = ctx.createLinearGradient(0, seamTop(l), 0, deepest);
-  grad.addColorStop(0, "rgba(186,96,255,0.62)");
-  grad.addColorStop(0.5, "rgba(158,78,236,0.5)");
-  grad.addColorStop(1, "rgba(206,130,255,0.6)");
+  grad.addColorStop(0, rgba(skin.flesh[0], 0.62));
+  grad.addColorStop(0.5, rgba(skin.flesh[1], 0.5));
+  grad.addColorStop(1, rgba(skin.tint, 0.6));
   ctx.fillStyle = grad;
   ctx.fill(body);
-  ctx.strokeStyle = "rgba(244,231,255,0.22)";
+  ctx.strokeStyle = rgba(skin.rim, 0.22);
   ctx.lineWidth = 0.7;
   ctx.stroke(body);
 
-  ctx.fillStyle = "rgba(214,140,255,0.7)";
+  ctx.fillStyle = rgba(skin.tint, 0.7);
   ctx.fill(beads);
   for (const d of all) {
     if (d.bead) halo(ctx, d.x, d.top + d.bead.y, d.bead.r * 3, skin.tint, d.bead.alpha * 0.35);
@@ -157,6 +161,7 @@ export function drawFeeders(
   l: Layout,
   targets: readonly { x: number; y: number }[],
   time: number,
+  skin: SeatSkin = P1_SKIN,
 ): void {
   if (targets.length === 0) return;
   const path = new Path2D();
@@ -176,10 +181,10 @@ export function drawFeeders(
     );
   }
   ctx.lineCap = "round";
-  ctx.strokeStyle = "rgba(150,88,238,0.2)";
+  ctx.strokeStyle = rgba(skin.flesh[1], 0.2);
   ctx.lineWidth = Math.max(1.4, l.tile * 0.08);
   ctx.stroke(path);
-  ctx.strokeStyle = "rgba(226,190,255,0.14)";
+  ctx.strokeStyle = rgba(skin.rim, 0.14);
   ctx.lineWidth = Math.max(0.6, l.tile * 0.026);
   ctx.stroke(path);
 }

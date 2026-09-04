@@ -26,3 +26,18 @@ export function mixHex(a: string, b: string, k: number): string {
   const hex = (ch(16) << 16) | (ch(8) << 8) | ch(0);
   return `#${hex.toString(16).padStart(6, "0")}`;
 }
+
+/**
+ * A `#rrggbb` colour as `rgba(...)` at `alpha`.
+ *
+ * The panel's tissue is written as hex in `seat-skin.ts` — one seat's colour,
+ * spelled once — and used at a dozen different opacities: a vein at .16, a
+ * cell at .03, a feeder at .2. Without this every one of those sites would
+ * either carry its own `rgba(...)` literal, which is a second copy of the
+ * seat's colour and drifts, or reach for `mixHex` against the ground, which is
+ * not the same picture over a texture that is already there.
+ */
+export function rgba(hex: string, alpha: number): string {
+  const v = Number.parseInt(hex.slice(1), 16);
+  return `rgba(${(v >> 16) & 255},${(v >> 8) & 255},${v & 255},${alpha})`;
+}

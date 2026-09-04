@@ -24,8 +24,8 @@ import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js"
 
 beforeAll(installCanvasGlobals);
 
-function veilFrames(role: ViewRole, ticks: number) {
-  const queue: SpawnEntry[] = [{ beat: 0, col: 3, kind: "veil", color: null }];
+function veilFrames(role: ViewRole, ticks: number, withVeil = true) {
+  const queue: SpawnEntry[] = withVeil ? [{ beat: 0, col: 3, kind: "veil", color: null }] : [];
   const tpb = ticksPerBeat(CFG);
   const { ctx, events } = runFrames(createWorld(CFG, 1, queue), role, ticks, {
     onTick: (tick, w) => {
@@ -77,8 +77,18 @@ describe("the veil", () => {
     // Player 1 draws the body inside the cloud as well as a ring with a switch
     // mark in it; player 2 draws a hook and a dot over weather. The gap is the
     // creature.
-    const p1 = veilFrames("p1", TICKS);
-    const p2 = veilFrames("p2", TICKS);
-    expect(p1.ctx.calls).toBeGreaterThan(p2.ctx.calls);
+    //
+    // **What each seat's run costs with the cloud taken out of it is subtracted
+    // first**, and without that this test is not about THE VEIL at all. Most of
+    // either number is the panel, and the two panels are not the same picture —
+    // player 2's carries the fire buttons. The frame those buttons draw grew
+    // (the creature on one is drawn the way the field draws it now, rather than
+    // punched out of the ammunition colour), player 2's whole run overtook
+    // player 1's, and this failed for a reason that had nothing to do with the
+    // creature it is about. A run of the same script over an empty field is the
+    // baseline for its seat; what is left over either side is the cloud.
+    const cost = (role: ViewRole): number =>
+      veilFrames(role, TICKS).ctx.calls - veilFrames(role, TICKS, false).ctx.calls;
+    expect(cost("p1")).toBeGreaterThan(cost("p2"));
   });
 });

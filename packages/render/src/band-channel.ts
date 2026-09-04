@@ -2,8 +2,10 @@ import { type ControlDef, openSmoothPath, type Point } from "@neon-spore/content
 import type { World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
+import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
 /**
  * A STRIP, AS A CHANNEL CUT IN THE TISSUE.
@@ -19,6 +21,14 @@ import { PALETTE } from "./palette.js";
  * edges, a dark pool inside it, a lip that catches the light from the seam
  * above, and the seat's own colour laid faintly along the bottom so the thing
  * reads as the rail the lobe runs on.
+ *
+ * **The trough is the seat’s colour; what runs in it is the control’s.** The
+ * tissue the channel is cut into, the lip that catches the light and the
+ * stations along the floor are all the ship’s own flesh, so they are violet on
+ * one seat and gold on the other. The rail and the block on it stay the
+ * cannon’s violet and the shield’s cyan on both screens, because those say
+ * *which control* and a pair with two vocabularies for one game is the thing
+ * `docs/spec/controls.md` argues against.
  *
  * Nothing about *where* it is has moved: `Layout.cannonStrip`/`shieldStrip`
  * still say, and `touchDown` still answers the same rectangle around them.
@@ -41,6 +51,7 @@ export function drawStripFor(
     cannon ? world.cannonCol : world.shieldCol,
     cannon ? PALETTE.hull : PALETTE.shield,
     c.label,
+    seatSkin(l.role),
   );
 }
 
@@ -118,6 +129,7 @@ function strip(
   col: number,
   hex: string,
   label: string,
+  skin: SeatSkin,
 ): void {
   ctx.fillStyle = hex;
   ctx.globalAlpha = 0.85;
@@ -126,27 +138,32 @@ function strip(
 
   const top = y - h / 2;
   const round = h / 2;
-  const key = `${top}|${h}|${l.gridLeft}|${l.gridWidth}`;
+  const key = `${top}|${h}|${l.gridLeft}|${l.gridWidth}|${skin.dead[0]}`;
   const channel = slotGradient(ctx, CHANNEL[which], key, () => new Path2D(channelPath(l, y, h)));
   ctx.fillStyle = slotGradient(ctx, POOL[which], key, () => {
     const g = ctx.createLinearGradient(0, top, 0, top + h);
-    g.addColorStop(0, "rgba(1,0,4,.94)");
-    g.addColorStop(0.5, "rgba(9,5,22,.9)");
-    g.addColorStop(1, "rgba(22,14,48,.82)");
+    g.addColorStop(0, rgba(skin.ground[3], 0.94));
+    g.addColorStop(0.5, rgba(skin.ground[2], 0.9));
+    g.addColorStop(1, rgba(skin.dead[0], 0.82));
     return g;
   });
   ctx.fill(channel);
   // The lip: bright where the light from the seam falls on it, dark below.
   // Across, not down: the stroke has to be gone at both ends or the channel
   // closes into a pill, and a pill with an outline is the box the panel was.
-  ctx.strokeStyle = slotGradient(ctx, LIP[which], `${l.gridLeft}|${l.gridWidth}`, () => {
-    const g = ctx.createLinearGradient(l.gridLeft, 0, l.gridLeft + l.gridWidth, 0);
-    g.addColorStop(0, "rgba(150,98,220,0)");
-    g.addColorStop(0.16, "rgba(168,112,232,.26)");
-    g.addColorStop(0.84, "rgba(168,112,232,.26)");
-    g.addColorStop(1, "rgba(150,98,220,0)");
-    return g;
-  });
+  ctx.strokeStyle = slotGradient(
+    ctx,
+    LIP[which],
+    `${l.gridLeft}|${l.gridWidth}|${skin.flesh[0]}`,
+    () => {
+      const g = ctx.createLinearGradient(l.gridLeft, 0, l.gridLeft + l.gridWidth, 0);
+      g.addColorStop(0, rgba(skin.flesh[1], 0));
+      g.addColorStop(0.16, rgba(skin.flesh[0], 0.26));
+      g.addColorStop(0.84, rgba(skin.flesh[0], 0.26));
+      g.addColorStop(1, rgba(skin.flesh[1], 0));
+      return g;
+    },
+  );
   ctx.lineWidth = 0.9;
   ctx.stroke(channel);
 
@@ -157,7 +174,7 @@ function strip(
   ctx.fillRect(l.gridLeft + round, y - 0.5, l.gridWidth - round * 2, 1);
   ctx.globalAlpha = 1;
 
-  ctx.fillStyle = "rgba(132,104,200,.26)";
+  ctx.fillStyle = rgba(skin.flesh[1], 0.26);
   for (let c = 0; c < l.cols; c++) {
     const x = tileCX(l, c);
     if (c === col) continue;
@@ -166,7 +183,7 @@ function strip(
     ctx.fillRect(x - 1, y - h * 0.2, 2, h * 0.4);
   }
 
-  block(ctx, l, which, y, h, col, hex);
+  block(ctx, l, which, y, h, col, hex, skin);
 }
 
 /** The column the seat is holding: a lobe in the channel, lit and wet. */
@@ -178,6 +195,7 @@ function block(
   h: number,
   col: number,
   hex: string,
+  skin: SeatSkin,
 ): void {
   const x = tileCX(l, col);
   const w = l.tile * 0.86;
@@ -186,11 +204,11 @@ function block(
   halo(ctx, x, y, h * 1.15, hex, 0.5);
   ctx.beginPath();
   ctx.roundRect(x - w / 2, top, w, bh, Math.min(w, bh) * 0.42);
-  ctx.fillStyle = slotGradient(ctx, BODY[which], `${top}|${bh}|${hex}`, () => {
+  ctx.fillStyle = slotGradient(ctx, BODY[which], `${top}|${bh}|${hex}|${skin.ground[2]}`, () => {
     const g = ctx.createLinearGradient(0, top, 0, top + bh);
     g.addColorStop(0, "rgba(255,255,255,.62)");
     g.addColorStop(0.34, hex);
-    g.addColorStop(1, "rgba(10,5,26,.5)");
+    g.addColorStop(1, rgba(skin.ground[2], 0.5));
     return g;
   });
   ctx.fill();

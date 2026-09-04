@@ -8,7 +8,7 @@ import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
-import { drawSeamFlesh, drawSeamRim, drawSeamSpill, seamPaths, seamTop } from "./band-seam.js";
+import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop } from "./band-seam.js";
 import { drawDrips, drawFeeders } from "./band-slime.js";
 import { bandLobes, type Layout, showsCannon, showsShield } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -41,6 +41,11 @@ import { seatSkin } from "./seat-skin.js";
  * tissue, `band-seam.ts` for the membrane it hangs from and the slime that
  * runs off it, `lobe-shell.ts` for the socket every control stands in. This
  * file still only decides *what is on the panel and where*.
+ *
+ * **All of it is the seat’s colour**, and that is one lookup here rather than
+ * a decision in each of the five: `seatSkin(l.role)` is read once and handed
+ * down, so the chamber, the light off the membrane, the slime and the feeders
+ * cannot disagree about whose ship this is (`seat-skin.ts`).
  */
 /**
  * Which panel a caller means. Its own function because two passes need the
@@ -74,19 +79,21 @@ export function drawBand(
   // `purity.test.ts` reserves for a *re-derivation* of `controlSetForWave`'s
   // own default, and this is a call to it, not a copy of it.
   const set = bandControlSet(controls, world.wave);
-  const seam = seamPaths(l, time);
+  const skin = seatSkin(l.role);
+  const chamber = chamberPath(l, time);
   ctx.save();
   // The chamber, cut to the membrane above it — so the tissue is bounded by a
-  // contour rather than by the top of a rectangle.
-  drawSeamFlesh(ctx, l);
+  // contour rather than by the top of a rectangle. Nothing traces that
+  // contour: the ship’s flesh above it and the chamber’s first colour below
+  // are the same colour, which is what makes the join invisible rather than
+  // merely soft (`band-seam.ts`).
+  drawSeamFlesh(ctx, l, skin);
   ctx.save();
-  ctx.clip(seam.ground);
-  drawBandGround(ctx, l, seamTop(l));
-  drawSeamSpill(ctx, l);
-  drawFeeders(ctx, l, feeders(l, set), time);
+  ctx.clip(chamber);
+  drawBandGround(ctx, l, seamTop(l), skin);
+  drawSeamSpill(ctx, l, skin);
+  drawFeeders(ctx, l, feeders(l, set), time, skin);
   ctx.restore();
-  const skin = seatSkin(l.role);
-  drawSeamRim(ctx, seam.rim, skin);
   drawDrips(ctx, l, time, skin);
 
   ctx.font = '9px "Courier New",monospace';

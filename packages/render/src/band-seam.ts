@@ -1,6 +1,6 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
-import { strokeGlow } from "./glow.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
+import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
@@ -15,10 +15,22 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * underside of the hull, seen from inside, and the controls are organs of it.
  *
  * So the edge is a membrane — a slow contour that rises into the hull and
- * never falls below `bandTop`, so nothing under it is ever uncovered — with a
- * lit rim, and slime hanging off it into the chamber. The owner asked for the
- * slime by name: *some slime from ship flowing down a little bit into the
- * control set*.
+ * never falls below `bandTop`, so nothing under it is ever uncovered — with
+ * slime hanging off it into the chamber. The owner asked for the slime by
+ * name: *some slime from ship flowing down a little bit into the control set*.
+ *
+ * **The membrane is not drawn.** It had a lit rim along it — a glow pass and a
+ * pale thread, the brightest line on the lower half of the screen — and that
+ * was the whole of what the owner objected to: *there is this wave line of
+ * control panel and then immediately comes the ship … remove the line, and
+ * then the ship should feel like part of the control panel*. A lit line along
+ * a join is a line **at** the join, and no amount of shaping it undoes that.
+ * So the contour stays as the edge the chamber is *cut to* — the tissue still
+ * ends in a grown contour rather than at the top of a rectangle — and nothing
+ * traces it. What is left saying where the ship ends is what should have been
+ * saying it all along: the ship’s flesh above, the same colour opening the
+ * chamber below (`seat-skin.ts`’s `ground`), and light spilling off the
+ * membrane into the top of the panel.
  *
  * **Every shape here is a pure function of `time`.** Nothing is stepped and
  * nothing is remembered, which is what makes it restart-safe by construction
@@ -87,38 +99,25 @@ export function seamBottom(l: Layout): number {
  * so the same deep violet the hull ends in is carried the rest of the way —
  * which is what it is: the inside of the belly, above the skin.
  */
-export function drawSeamFlesh(ctx: CanvasRenderingContext2D, l: Layout): void {
-  ctx.fillStyle = "#150632";
+export function drawSeamFlesh(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  skin: SeatSkin = P1_SKIN,
+): void {
+  ctx.fillStyle = skin.hull.body[3];
   ctx.fillRect(0, l.bandTop - 1, l.width, seamBottom(l) - l.bandTop + 1);
 }
 
-export function seamPaths(l: Layout, time: number): { rim: Path2D; ground: Path2D } {
+/**
+ * The chamber the membrane closes off, as one path to clip the panel to.
+ *
+ * It used to come back beside a second path for the rim to be stroked along;
+ * the rim is gone, and a pair whose other half nothing asks for is a pair.
+ */
+export function chamberPath(l: Layout, time: number): Path2D {
   const spline = openSmoothPath(seamPoints(l, time));
   const bottom = l.bandTop + l.bandHeight;
-  return {
-    rim: new Path2D(spline),
-    ground: new Path2D(`${spline} L ${l.width} ${bottom} L 0 ${bottom} Z`),
-  };
-}
-
-/**
- * The lit edge of the membrane, drawn over the chamber it closes.
- *
- * Two passes and no more: the hull's own rim above it is already the brightest
- * line on the screen, and a second one as loud would read as two ships.
- */
-export function drawSeamRim(
-  ctx: CanvasRenderingContext2D,
-  rim: Path2D,
-  skin: SeatSkin = P1_SKIN,
-): void {
-  ctx.lineCap = "round";
-  strokeGlow(ctx, rim, skin.tint, 1.4, 0.5);
-  ctx.globalAlpha = 0.38;
-  ctx.strokeStyle = skin.rim;
-  ctx.lineWidth = 0.8;
-  ctx.stroke(rim);
-  ctx.globalAlpha = 1;
+  return new Path2D(`${spline} L ${l.width} ${bottom} L 0 ${bottom} Z`);
 }
 
 /** The slot the spill's gradient lives in — layout-only, so one is enough. */
@@ -127,19 +126,24 @@ const SPILL = gradientSlot<CanvasGradient>();
 /**
  * The light the membrane lets through, pooling into the top of the chamber.
  *
- * Without it the seam is a lit line with darkness under it, which reads as an
- * edge between two things. Light falling *off* it is what says the panel is
- * the inside of what the line is the skin of.
+ * With the rim gone this is the only thing left marking the join, and that is
+ * the right thing to have left: a lit line says *edge*, and light falling
+ * *through* says the panel is the inside of the thing above it. It is in the
+ * seat’s own colour, so player two’s chamber is lit by player two’s ship.
  */
-export function drawSeamSpill(ctx: CanvasRenderingContext2D, l: Layout): void {
+export function drawSeamSpill(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  skin: SeatSkin = P1_SKIN,
+): void {
   const top = seamTop(l);
   const deep = l.bandTop + l.bandHeight * 0.42;
   ctx.globalCompositeOperation = "lighter";
-  ctx.fillStyle = slotGradient(ctx, SPILL, `${top}|${deep}`, () => {
+  ctx.fillStyle = slotGradient(ctx, SPILL, `${top}|${deep}|${skin.tint}`, () => {
     const g = ctx.createLinearGradient(0, top, 0, deep);
-    g.addColorStop(0, "rgba(150,86,238,0.19)");
-    g.addColorStop(0.35, "rgba(126,70,214,0.06)");
-    g.addColorStop(1, "rgba(110,60,190,0)");
+    g.addColorStop(0, rgba(skin.tint, 0.17));
+    g.addColorStop(0.35, rgba(skin.flesh[1], 0.06));
+    g.addColorStop(1, rgba(skin.flesh[2], 0));
     return g;
   });
   ctx.fillRect(0, top, l.width, deep - top);

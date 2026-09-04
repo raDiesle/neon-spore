@@ -1,13 +1,14 @@
 import type { ControlDef } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
-import { drawActionButton, drawAimButton, drawFireButton, drawSalvoButton } from "./controls.js";
+import { drawActionButton, drawFireButton } from "./controls.js";
+import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { drawLanceButton } from "./lance.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { PALETTE } from "./palette.js";
-import { seatSkin } from "./seat-skin.js";
+import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
 /**
  * One control of the band, drawn — a lobe or a strip, whichever the set says.
@@ -40,8 +41,9 @@ export function drawLobe(
   open: boolean,
 ): void {
   const { x, y, r } = circle;
-  drawLobeSocket(ctx, x, y, r, l.dpr, seatSkin(l.role).lip);
-  drawFace(ctx, circle, c, world, armed, open);
+  const skin = seatSkin(l.role);
+  drawLobeSocket(ctx, x, y, r, l.dpr, skin.lip);
+  drawFace(ctx, circle, c, world, armed, open, skin);
   drawLobeGloss(ctx, x, y, r, l.dpr);
 }
 
@@ -53,12 +55,13 @@ function drawFace(
   world: World,
   armed: boolean,
   open: boolean,
+  skin: SeatSkin,
 ): void {
   const { x, y, r } = circle;
   // The first two are lit for exactly as long as their window is open, so
   // player 1 can see what they are spending.
   if (c.id === "guard") {
-    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label);
+    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label, skin.dead[0]);
     // A press that outlives its own window looks, on this button, exactly
     // like a press that never happened — same dark fill, same outline. Once
     // `armed` drops there is nothing left on screen saying the guard used to
@@ -71,7 +74,7 @@ function drawFace(
     return;
   }
   if (c.id === "intake") {
-    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, c.label);
+    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, c.label, skin.dead[0]);
     return;
   }
   // Not a `drawActionButton`: the other two are lit or not, and this one has
@@ -85,14 +88,14 @@ function drawFace(
   // a chart has.
   const arrow = AIM_ARROWS[c.id];
   if (arrow) {
-    drawAimButton(ctx, x, y, r, arrow[0], arrow[1]);
+    drawAimButton(ctx, x, y, r, arrow[0], arrow[1], skin.dead[1]);
     return;
   }
   if (c.id === "salvo") {
-    drawSalvoButton(ctx, x, y, r, salvoRest(world), r > 16 ? c.label : null);
+    drawSalvoButton(ctx, x, y, r, salvoRest(world), r > 16 ? c.label : null, skin.dead[0]);
     return;
   }
-  drawFireButton(ctx, x, y, r, c.id === "fireRed" ? "red" : "cyan");
+  drawFireButton(ctx, x, y, r, c.id === "fireRed" ? "red" : "cyan", skin);
 }
 
 /** Which way each of player 2's four arrows points. */

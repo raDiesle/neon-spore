@@ -631,12 +631,20 @@ bestiary screen, and anything that reads a microphone — rule 4 stands.
 ## The two seats do not look alike
 
 Player one's ship is violet and player two's is amber
-(`packages/render/src/seat-skin.ts`). It reaches the hull, the lit edge of the
-membrane the panel hangs from, the light in a button's socket and the beads that
-run off the seam — the surfaces that say *this is your ship*. It deliberately
-does not reach the ammunition, the strips or a control's own face: red is red
-and cyan is cyan on both screens, and a pair with two vocabularies for one game
-is the thing `docs/spec/controls.md` exists to prevent.
+(`packages/render/src/seat-skin.ts`). It reaches the hull **and everything the
+control panel is made of**: the chamber under the ship, its cells and veins, the
+light spilling off the membrane into it, the slime hanging from that membrane,
+the feeders running down to each control, the socket a button stands in, the
+body of a button that is not lit, and the trough a strip slides along. The owner
+asked for exactly that reach — *the control set must be also fully in this
+golden design colour set* — and it is the honest one, because the panel is the
+ship seen from inside and all of that is the ship's own flesh.
+
+It deliberately does not reach the ammunition, a strip's own signal colour or
+what is drawn on a control's face: red is red and cyan is cyan on both screens,
+the cannon's rail is the cannon's colour and the shield's is the shield's, and a
+pair with two vocabularies for one game is the thing `docs/spec/controls.md`
+exists to prevent.
 
 The owner asked for it while looking at the tutorial — *give player 2 another
 colour of the ship as well, then we can easily distinguish* — and it is why the
@@ -647,3 +655,14 @@ colour carries it.
 Amber is `ship:hull-skin` / `warm`, which sat in `tools/versus/candidates/` as a
 question about replacing violet. It was answered by being given a seat instead,
 and the candidate is gone.
+
+**Nothing is drawn along the join between the ship and the panel.** The membrane
+had a lit rim traced along it, and the chamber below opened on a colour of its
+own; together they were a bright line with a step in value under it, which is
+three separate ways of saying *the ship stops here and a box begins*. The owner
+asked for none of them — *remove the line, and then the ship should feel like
+part of the control panel* — so the contour survives only as the shape the
+tissue is cut to, and the chamber's first colour **is** the hull's last one
+(`SeatSkin.ground[0]` is `SeatSkin.hull.body[3]`). What says where the ship ends
+is light falling through the membrane into the top of the panel, and nothing
+else (`packages/render/src/band-seam.ts`).

@@ -126,4 +126,25 @@ Write one under `packages/content/src/scenes/the-carom.ts` on the pattern
 "theCarom"` on the `theCarom` wave's guide. Three steps is the shape the others
 use: the diagonal turning at a wall with nothing else on the field, the shot
 landing and the crust coming off, and the shield taking the rock. The rehearsal
+
 walk in `packages/content/test/` will pick it up on its own once it is named.
+## THE MIRROR's glyphs draw player one's tissue on player two's screen
+
+- **Found:** 2026-09-04, claude/ship-graphics-p2-colors-616a16
+- **Files:** `packages/render/src/simon-glyph.ts`, `packages/render/src/simon-row.ts`, `packages/render/src/simon-verdict.ts`, `packages/render/src/controls.ts`
+
+Every body a control is made of is the seat's colour now — violet on player
+one's screen and gold on player two's — and `drawFireButton`, `drawActionButton`
+and `drawStripMark` all take that colour as an argument with `P1_SKIN`'s as the
+default. `band-control.ts` passes the seat's; THE MIRROR's sequence does not, so
+the glyphs the boss plays back are drawn in player one's flesh on both devices
+while the panel underneath them is gold. The pair is supposed to recognise a
+glyph as the button it is about, and on player two's seat it no longer looks
+like one.
+
+Thread the seat down to them. `drawStepGlyph` needs a `SeatSkin`; `simon-row.ts`
+already carries a `Layout` at every call site above `known`, and
+`SimonVerdict.drawFlights` does not — give it one, the same way `drawWord` next
+to it already takes one. Then `seatSkin(l.role)` at the top of each and pass it
+through. Nothing about which glyph is drawn moves; `packages/render/test/mirror-frame.test.ts`
+covers the sequence and should stay green.

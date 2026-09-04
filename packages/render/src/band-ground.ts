@@ -1,7 +1,9 @@
 import { blobPath } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { bakedCache } from "./baked.js";
+import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
  * WHAT THE CONTROL PANEL IS MADE OF.
@@ -25,22 +27,32 @@ import type { Layout } from "./layout.js";
  * Everything in it comes from `hash01`, so one size always bakes the same
  * sheet — a background that reshuffled itself on a resize would be the one
  * thing in the picture that noticed the window.
+ *
+ * **What colour it is, is the seat’s.** Every hue in here used to be a violet
+ * literal, which made player two a golden ship bolted to a violet chamber. It
+ * comes off `SeatSkin` now, so the panel is the same flesh as the hull above
+ * it on either device (`seat-skin.ts`).
  */
-
-/** The palette of the chamber, top (nearest the hull) to bottom. */
-const GROUND = ["#150D33", "#0E0921", "#080513", "#04020A"] as const;
 
 const sheets = bakedCache<string, HTMLCanvasElement>();
 
 /**
  * The sheet for a panel this size, baked once. Keyed on the pixel size it will
- * be blitted at, and cleared past a handful of entries — a window being
- * dragged wider walks through every width on the way.
+ * be blitted at **and on the seat**, and cleared past a handful of entries — a
+ * window being dragged wider walks through every width on the way. The seat is
+ * in the key for the reason the socket sprite’s is: two seats at one size are
+ * two different sheets, and a cache that only remembered sizes would hand
+ * player two whichever one was baked first.
  */
-export function groundSheet(width: number, height: number, dpr: number): HTMLCanvasElement {
+export function groundSheet(
+  width: number,
+  height: number,
+  dpr: number,
+  skin: SeatSkin = P1_SKIN,
+): HTMLCanvasElement {
   const w = Math.max(1, Math.round(width * dpr));
   const h = Math.max(1, Math.round(height * dpr));
-  const key = `${w}x${h}`;
+  const key = `${w}x${h}:${skin.ground[0]}`;
   const held = sheets.get(key);
   if (held) return held;
   if (sheets.size > 4) sheets.clear();
@@ -48,23 +60,33 @@ export function groundSheet(width: number, height: number, dpr: number): HTMLCan
   canvas.width = w;
   canvas.height = h;
   const g = canvas.getContext("2d");
-  if (g) paint(g, w, h);
+  if (g) paint(g, w, h, skin);
   sheets.set(key, canvas);
   return canvas;
 }
 
-function paint(g: CanvasRenderingContext2D, w: number, h: number): void {
-  ground(g, w, h);
-  cells(g, w, h);
-  veins(g, w, h);
-  mottle(g, w, h);
-  vignette(g, w, h);
+function paint(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
+  ground(g, w, h, skin);
+  cells(g, w, h, skin);
+  veins(g, w, h, skin);
+  mottle(g, w, h, skin);
+  vignette(g, w, h, skin);
 }
 
-/** The meat of it: dark violet at the top where the hull is, near black below. */
-function ground(g: CanvasRenderingContext2D, w: number, h: number): void {
+/**
+ * The meat of it: the hull’s own deepest colour at the top, near black below.
+ *
+ * The first stop is `skin.ground[0]`, which **is** `skin.hull.body[3]` — the
+ * colour the ship’s own fill ends in at `bandTop`. So the sheet opens on
+ * exactly what is above it and the join has nothing in it to see, which is what
+ * the owner asked for when the ruled membrane came off (`band-seam.ts`).
+ */
+function ground(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
+  const stops = skin.ground;
   const grad = g.createLinearGradient(0, 0, 0, h);
-  for (let i = 0; i < GROUND.length; i++) grad.addColorStop(i / (GROUND.length - 1), GROUND[i]!);
+  for (let i = 0; i < stops.length; i++) {
+    grad.addColorStop(i / (stops.length - 1), stops[i] as string);
+  }
   g.fillStyle = grad;
   g.fillRect(0, 0, w, h);
 }
@@ -80,7 +102,7 @@ function ground(g: CanvasRenderingContext2D, w: number, h: number): void {
  * two hundred of each would be two hundred allocations in the frame that first
  * asks for a size, and the picture is identical.
  */
-function cells(g: CanvasRenderingContext2D, w: number, h: number): void {
+function cells(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
   const count = Math.round(Math.min(200, (w * h) / 3000));
   const bands = 7;
   const d: string[] = Array.from({ length: bands }, () => "");
@@ -106,7 +128,7 @@ function cells(g: CanvasRenderingContext2D, w: number, h: number): void {
     if (!d[band]) continue;
     // Nearer the seam they catch the light; deeper down they are only mass.
     const lift = (1 - (band + 0.5) / bands) * 0.42 + 0.04;
-    g.fillStyle = `rgba(${Math.round(96 + 70 * lift)},${Math.round(56 + 40 * lift)},${Math.round(180 + 60 * lift)},${(0.026 + lift * 0.036).toFixed(3)})`;
+    g.fillStyle = rgba(mixHex(skin.flesh[2], skin.flesh[0], lift), 0.026 + lift * 0.036);
     g.fill(new Path2D(d[band] as string));
   }
 }
@@ -119,7 +141,7 @@ function cells(g: CanvasRenderingContext2D, w: number, h: number): void {
  * fed from the hull above. Three weights, three paths, three strokes — the
  * same bargain the cells make.
  */
-function veins(g: CanvasRenderingContext2D, w: number, h: number): void {
+function veins(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
   const count = Math.round(Math.min(16, w / 58));
   const weights = 3;
   const paths = Array.from({ length: weights }, () => new Path2D());
@@ -137,9 +159,9 @@ function veins(g: CanvasRenderingContext2D, w: number, h: number): void {
     }
   }
   const grad = g.createLinearGradient(0, 0, 0, h * 0.9);
-  grad.addColorStop(0, "rgba(168,102,248,0.16)");
-  grad.addColorStop(0.45, "rgba(132,78,222,0.06)");
-  grad.addColorStop(1, "rgba(112,66,192,0)");
+  grad.addColorStop(0, rgba(skin.flesh[0], 0.16));
+  grad.addColorStop(0.45, rgba(skin.flesh[1], 0.06));
+  grad.addColorStop(1, rgba(skin.flesh[2], 0));
   g.lineCap = "round";
   g.strokeStyle = grad;
   for (let i = 0; i < weights; i++) {
@@ -147,7 +169,7 @@ function veins(g: CanvasRenderingContext2D, w: number, h: number): void {
     g.stroke(paths[i] as Path2D);
   }
   // A thread of light down the middle of the thicker ones.
-  g.strokeStyle = "rgba(226,190,255,0.06)";
+  g.strokeStyle = rgba(skin.rim, 0.06);
   g.lineWidth = Math.max(0.6, w / 900);
   g.stroke(bright);
 }
@@ -157,10 +179,10 @@ function veins(g: CanvasRenderingContext2D, w: number, h: number): void {
  * gradient up so the ground never reads as a printed sheet. One gradient,
  * moved — every patch is the same soft disc at a different place and size.
  */
-function mottle(g: CanvasRenderingContext2D, w: number, h: number): void {
+function mottle(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
   const grad = g.createRadialGradient(0, 0, 0, 0, 0, 1);
-  grad.addColorStop(0, "rgba(116,68,206,0.03)");
-  grad.addColorStop(1, "rgba(116,68,206,0)");
+  grad.addColorStop(0, rgba(skin.flesh[2], 0.03));
+  grad.addColorStop(1, rgba(skin.flesh[2], 0));
   g.globalCompositeOperation = "lighter";
   g.fillStyle = grad;
   for (let i = 0; i < 16; i++) {
@@ -175,17 +197,18 @@ function mottle(g: CanvasRenderingContext2D, w: number, h: number): void {
 }
 
 /** The corners fall away, so the panel has a body rather than an edge. */
-function vignette(g: CanvasRenderingContext2D, w: number, h: number): void {
+function vignette(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
+  const floor = skin.ground[3];
   const grad = g.createLinearGradient(0, h * 0.45, 0, h);
-  grad.addColorStop(0, "rgba(4,2,10,0)");
-  grad.addColorStop(1, "rgba(3,1,8,0.72)");
+  grad.addColorStop(0, rgba(floor, 0));
+  grad.addColorStop(1, rgba(floor, 0.72));
   g.fillStyle = grad;
   g.fillRect(0, 0, w, h);
   const sides = g.createLinearGradient(0, 0, w, 0);
-  sides.addColorStop(0, "rgba(3,1,8,0.6)");
-  sides.addColorStop(0.13, "rgba(3,1,8,0)");
-  sides.addColorStop(0.87, "rgba(3,1,8,0)");
-  sides.addColorStop(1, "rgba(3,1,8,0.6)");
+  sides.addColorStop(0, rgba(floor, 0.6));
+  sides.addColorStop(0.13, rgba(floor, 0));
+  sides.addColorStop(0.87, rgba(floor, 0));
+  sides.addColorStop(1, rgba(floor, 0.6));
   g.fillStyle = sides;
   g.fillRect(0, 0, w, h);
 }
@@ -195,7 +218,12 @@ function vignette(g: CanvasRenderingContext2D, w: number, h: number): void {
  * the picture. `top` is the highest the seam reaches, so the sheet covers
  * every part of the panel the membrane above it can expose.
  */
-export function drawBandGround(ctx: CanvasRenderingContext2D, l: Layout, top: number): void {
+export function drawBandGround(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  top: number,
+  skin: SeatSkin = P1_SKIN,
+): void {
   const height = l.bandTop + l.bandHeight - top;
-  ctx.drawImage(groundSheet(l.width, height, l.dpr), 0, top, l.width, height);
+  ctx.drawImage(groundSheet(l.width, height, l.dpr, skin), 0, top, l.width, height);
 }
