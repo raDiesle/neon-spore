@@ -1,12 +1,5 @@
 import { controlHold, controlPress, controlSetForWave } from "@neon-spore/content";
-import {
-  hitSlab,
-  type Layout,
-  type Stage,
-  slabFor,
-  slabPanel,
-  type ViewRole,
-} from "@neon-spore/render";
+import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import { gaugeHolds, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
@@ -25,7 +18,9 @@ export interface GaugeBinding {
   buffer: InputBuffer;
   world: World;
   layout: () => Layout;
-  stage: () => Stage;
+  /** A pointer event on the stage, or null beside it — one conversion for
+   * every listener in the app (`viewport.ts`, `render/stage-point.ts`). */
+  inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   role: () => ViewRole;
 }
 
@@ -52,17 +47,9 @@ export interface GaugeBinding {
  * says (`content/src/control-command.ts`). */
 const valveOf = (dir: -1 | 1) => controlHold(dir < 0 ? "gaugeLeft" : "gaugeRight");
 
-export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeBinding): void {
+export function bindGauge({ canvas, buffer, world, layout, inStage, role }: GaugeBinding): void {
   /** Pointers currently holding a valve, and which way each pushes. */
   const turning = new Map<number, -1 | 1>();
-
-  const at = (e: PointerEvent): { x: number; y: number } | null => {
-    const s = stage();
-    const x = e.clientX - s.left;
-    const y = e.clientY - s.top;
-    if (x < 0 || y < 0 || x > s.width || y > s.height) return null;
-    return { x, y };
-  };
 
   const panel = () => slabPanel(layout(), controlSetForWave(world.wave), role());
 
@@ -75,7 +62,7 @@ export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeB
 
   canvas.addEventListener("pointerdown", (e) => {
     if (!gaugeHolds(world)) return;
-    const p = at(e);
+    const p = inStage(e);
     if (!p) return;
     const slabs = panel();
     for (const [id, dir] of [
@@ -99,7 +86,7 @@ export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeB
   canvas.addEventListener("pointermove", (e) => {
     const dir = turning.get(e.pointerId);
     if (dir === undefined) return;
-    const p = at(e);
+    const p = inStage(e);
     const slab = slabFor(panel(), dir < 0 ? "gaugeLeft" : "gaugeRight");
     if (!p || !slab || !hitSlab(slab, p.x, p.y)) release(e.pointerId);
   });

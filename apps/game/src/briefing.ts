@@ -1,4 +1,4 @@
-import { type Layout, navHit, onNavBar, type Stage, type ViewRole } from "@neon-spore/render";
+import { type Layout, navHit, onNavBar, type ViewRole } from "@neon-spore/render";
 import { guideHolds, guidePages, onReadyPage, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
@@ -28,7 +28,9 @@ export interface BriefingOptions {
   /** Read fresh on every event — the layout changes when the screen does. */
   layout: () => Layout;
   /** The phone-shaped rectangle the game is drawn into. Touches are relative to it. */
-  stage: () => Stage;
+  /** A pointer event on the stage, or null beside it — one conversion for
+   * every listener in the app (`viewport.ts`, `render/stage-point.ts`). */
+  inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   /** Which seat this device holds, for the cursor a press belongs to. */
   role: () => ViewRole;
   /**
@@ -74,7 +76,7 @@ export function bindBriefing({
   buffer,
   world,
   layout,
-  stage,
+  inStage,
   role,
   replay,
 }: BriefingOptions): BriefingBinding {
@@ -89,18 +91,10 @@ export function bindBriefing({
     buffer.push(2, { kind: "guideStep", back });
   };
 
-  const at = (e: PointerEvent): { x: number; y: number } | null => {
-    const s = stage();
-    const x = e.clientX - s.left;
-    const y = e.clientY - s.top;
-    if (x < 0 || y < 0 || x > s.width || y > s.height) return null;
-    return { x, y };
-  };
-
   let down = false;
   canvas.addEventListener("pointerdown", (e) => {
     if (!guideHolds(world)) return;
-    const p = at(e);
+    const p = inStage(e);
     if (!p) return;
     const l = layout();
     const nav = navHit(l, p.x, p.y);

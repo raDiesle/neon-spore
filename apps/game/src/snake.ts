@@ -1,12 +1,5 @@
 import { controlPress, controlSetForWave } from "@neon-spore/content";
-import {
-  hitSlab,
-  type Layout,
-  type Stage,
-  slabFor,
-  slabPanel,
-  type ViewRole,
-} from "@neon-spore/render";
+import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import { type Command, snakeHolds, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
@@ -34,7 +27,9 @@ export interface SnakeBinding {
   buffer: InputBuffer;
   world: World;
   layout: () => Layout;
-  stage: () => Stage;
+  /** A pointer event on the stage, or null beside it — one conversion for
+   * every listener in the app (`viewport.ts`, `render/stage-point.ts`). */
+  inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   role: () => ViewRole;
 }
 
@@ -55,18 +50,10 @@ const SLABS: readonly {
   { id: "snakeMaw", player: 1, command: controlPress("snakeMaw").down },
 ];
 
-export function bindSnake({ canvas, buffer, world, layout, stage, role }: SnakeBinding): void {
-  const at = (e: PointerEvent): { x: number; y: number } | null => {
-    const s = stage();
-    const x = e.clientX - s.left;
-    const y = e.clientY - s.top;
-    if (x < 0 || y < 0 || x > s.width || y > s.height) return null;
-    return { x, y };
-  };
-
+export function bindSnake({ canvas, buffer, world, layout, inStage, role }: SnakeBinding): void {
   canvas.addEventListener("pointerdown", (e) => {
     if (!snakeHolds(world)) return;
-    const p = at(e);
+    const p = inStage(e);
     if (!p) return;
     const slabs = slabPanel(layout(), controlSetForWave(world.wave), role());
     for (const entry of SLABS) {

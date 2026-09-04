@@ -2,6 +2,7 @@ import {
   computeLayout,
   computeStage,
   type Layout,
+  pointOnStage,
   type Stage,
   type Viewport,
   type ViewRole,
@@ -27,16 +28,14 @@ import type { SimConfig } from "@neon-spore/sim";
  * is why a click on a button worked some of the time and not the rest, and why
  * it changed with the height of the window.
  *
- * So the conversion is written once, here, and the four listeners call it. It
- * is the same rule CLAUDE.md states about `mapCol`: a hand-written second copy
- * of where something lands will drift, and this one had drifted before it was
- * ever written down.
+ * So the conversion is written once and the four listeners call it. The
+ * arithmetic itself lives in `render/stage-point.ts` — it moved there when the
+ * game turned out to be carrying the same assumption in a milder form, and a
+ * tool is the one thing `apps/game` may not import. What is left here is the
+ * wiring: the canvas, and the two functions that say how big it is now.
  *
  * `rect` is read per event rather than cached because the panel is resizable
- * and the role switches under it; the scale factor it produces also absorbs
- * the case the owner suspected — a canvas whose CSS box is not the size the
- * renderer was told about, which is what browser zoom and a stale
- * `ResizeObserver` both look like from in here.
+ * and the role switches under it.
  */
 export interface StagePoint {
   /** A pointer event, in the coordinates the renderer drew in. */
@@ -48,18 +47,7 @@ export function stagePoint(
   viewport: () => Viewport,
   stage: () => Stage,
 ): StagePoint["at"] {
-  return (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const v = viewport();
-    const s = stage();
-    // CSS pixels the canvas occupies, back into the pixels it was laid out in.
-    const kx = rect.width > 0 ? v.width / rect.width : 1;
-    const ky = rect.height > 0 ? v.height / rect.height : 1;
-    return {
-      x: (e.clientX - rect.left) * kx - s.left,
-      y: (e.clientY - rect.top) * ky - s.top,
-    };
-  };
+  return (e) => pointOnStage(e, canvas.getBoundingClientRect(), viewport(), stage());
 }
 
 /**

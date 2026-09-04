@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { Layout, Stage } from "@neon-spore/render";
+import type { Layout } from "@neon-spore/render";
 import type { Creature, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
@@ -19,8 +19,15 @@ export interface Bindings {
   buffer: InputBuffer;
   /** Read fresh on every event — the layout changes when the screen does. */
   layout: () => Layout;
-  /** The phone-shaped rectangle the game is drawn into. Touches are relative to it. */
-  stage: () => Stage;
+  /**
+   * A pointer event in the coordinates the picture was drawn in, or null when
+   * it landed beside the phone-shaped rectangle the game is drawn into.
+   *
+   * Handed in rather than worked out here for the reason
+   * `render/stage-point.ts` gives: a second copy of where a finger lands
+   * drifts. This file had one of five in `apps/game` alone (`viewport.ts`).
+   */
+  inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   isOver: () => boolean;
   /**
    * Which seat this device holds. The field belongs to both players, so a

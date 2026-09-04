@@ -107,27 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## A touch in the game assumes the canvas starts at the top left of the window
-
-- **Found:** 2026-09-04, claude/control-panel-ui-redesign-81216f
-- **Files:** `apps/game/src/input.ts`, `apps/game/src/viewport.ts`, `tools/director/src/stage-point.ts`
-
-`inStage` turns a `PointerEvent` into stage coordinates with
-`e.clientX - stage.left`, which is only right because `game.css` pins the canvas
-to the whole viewport and `bindViewport` measures `window.innerWidth`. Nothing
-says so and nothing fails if it stops being true. The director had the same
-assumption written four times and it was wrong there — every control was
-answered where it was not drawn, which is what `stage-point.ts` now exists to
-stop.
-
-Route the game through the same conversion: measure the canvas rather than the
-window, scale by the ratio between the canvas's CSS box and the viewport the
-renderer was told about, then subtract the stage offset. `stage-point.ts` is a
-tool and `apps/game` may not import one, so the shared piece belongs in
-`packages/render` beside `computeStage`, with both hosts calling it. Prove it
-with a test that presses where a control is drawn on a canvas laid out at a
-different size from the one the renderer was given.
-
 ## The ON THE FIELD list can miss a gesture, because it is checked per hold kind
 
 - **Found:** 2026-09-04, claude/game-touch-controls-helpers-195bbf

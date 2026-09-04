@@ -44,7 +44,7 @@ export function bindControls({
   canvas,
   buffer,
   layout,
-  stage,
+  inStage,
   isOver,
   player,
   cfg,
@@ -117,19 +117,6 @@ export function bindControls({
     }
     hand.clear();
     pointer = undefined;
-  };
-
-  /**
-   * Screen to stage. The game is drawn into a phone-shaped rectangle, so on a
-   * wide window a touch is offset by the same amount the picture is — and a
-   * touch beside the rectangle belongs to nothing.
-   */
-  const inStage = (e: PointerEvent): { x: number; y: number } | null => {
-    const s = stage();
-    const x = e.clientX - s.left;
-    const y = e.clientY - s.top;
-    if (x < 0 || y < 0 || x > s.width || y > s.height) return null;
-    return { x, y };
   };
 
   /**

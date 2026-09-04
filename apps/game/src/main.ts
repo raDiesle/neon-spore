@@ -66,7 +66,7 @@ const beatPhase = (): number => (world.tick % tpb) / tpb;
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
-const { stage, layout } = bindViewport(renderer, cfg, () => view.role());
+const { layout, inStage } = bindViewport(canvas, renderer, cfg, () => view.role());
 const progression = createWaveProgression({ world, cfg, audio, buffer });
 const jumpToWave = progression.jumpToWave;
 
@@ -88,7 +88,7 @@ const {
   canvas,
   buffer,
   layout,
-  stage,
+  inStage,
   isOver: () => world.over,
   // The seat decides whose hand a finger on the field is. `test` is both
   // halves on one screen, so it grips as player 1 and G grips as player 2.
@@ -126,18 +126,18 @@ const brief = bindBriefing({
   buffer,
   world,
   layout,
-  stage,
+  inStage,
   role: () => view.role(),
   replay: () => renderer.replayGuide(),
 });
 // THE GAUGE brings its own controls, on its own listener — neither player's
 // band is the answer, and the two seats differ (`gauge.ts`, interludes.md).
-bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });
+bindGauge({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 // SNAKE brings its own six, on its own listener, for the same reason
 // (`snake.ts`). Neither round's listener can fire while the other is up: the
 // simulation only holds one boss at a time and each asks whether it is theirs.
-bindSnake({ canvas, buffer, world, layout, stage, role: () => view.role() });
-bindPinball({ canvas, buffer, world, layout, stage, role: () => view.role() });
+bindSnake({ canvas, buffer, world, layout, inStage, role: () => view.role() });
+bindPinball({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 const testPanel = bindTestControls({ world, jumpToWave, run });
 
 /**
