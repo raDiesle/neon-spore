@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 53637df — Pin the recoil's colour crossing, and queue the frames tool's stuck launch
+
+`recoilTurn` had no test of its own: it is read only by render, so nothing in the simulation's own suite would have noticed it answering 1 on the frame of a hit. Taken on that frame rather than through `chase`, which leaves two beats behind it — that the crossing is over inside the beat it started is the second half of what the rule promises.
+
+## 2026-09-04 · fd55b5b — The recoil's cage blows off on the last bounce, and its colour crosses over
+
+Three things about THE RECOIL, all asked for by name — the look exemption CLAUDE.md names first, so none of them is offered beside the shipped one.
+
 ## 2026-09-04 · 8fd8035 — The last page of a film stops on its own last tick
 
 Three fixes to the bar and the film, all found by looking at a frame of it.
