@@ -9,6 +9,42 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 23719b2 — Take the rehearsal walk's budget finding back out of the queue
+
+It was queued because the walk took 38 seconds against a 30-second budget on a cloud session's container, so `bun run check` was red there through no fault of the tree. `The film walk is shorter, because there are twenty-six of them` landed on main in the meantime and answered it from the other end: the walk is 140 frames a page now, and the budget behind it is 60 seconds.
+
+## 2026-09-04 · d76249a — The capture paints the arrival out without asking the page
+
+The fix for the frozen launch animation put a `launching` getter on `Canvas2DRenderer` and carried it through the testing handle, and that getter took the file to 262 lines against a 250-line limit — a red `bun run check` that only the full suite showed. Shaving a comment to fit is exactly what the act-three item in this queue was about, so the getter comes back out.
+
+## 2026-09-04 · 3245127 — Act three takes two files, and the order is still the order of the game
+
+Adding one `scene:` line to a wave in act three had cost two rounds of shaving a sentence out of a comment to stay under the 250-line ceiling. That is the warning the limits test exists to give: the file was full, and the next change to it would have needed the same shave again.
+
+## 2026-09-04 · f628d0a — A capture waits for the wave to finish arriving
+
+Every picture `bun run frames` took of a wave with a gate had two enormous rings over the top two thirds of it, one violet and one amber, with the specimen hanging inside them. They are the wave arriving once the pair crosses the ready gate, and they run on the frame clock: the tool steps the simulation and paints once per photograph, so it handed the animation a sixtieth of a second per picture and never got past it. They were still there 2500 ticks in, and a session that cannot take an honest frame cannot show the owner anything.
+
+## 2026-09-04 · 1f50434 — The ON THE FIELD list is checked by gesture, not by hold kind
+
+`FIELD_CONTROLS` was kept honest by an exhaustive switch over `Hold["kind"]`, which was exactly right while one hold meant one gesture. It stopped being right the moment the cannon grew a second: a press that slides it and a lift that opens the maw are both `kind: "cannon"`, so the switch was satisfied by the first, THE MAW TAP was written by hand, and nothing would have failed if it had not been. The list is what the director's CONTROLS tab shows somebody reading the game's controls, so a silent hole in it is a control nobody can find.
+
+## 2026-09-04 · 03d468e — One conversion says where a pointer landed, for both hosts
+
+`inStage` turned a `PointerEvent` into stage coordinates with `e.clientX - stage.left`, which is right only because `game.css` pins the canvas to the whole window and `bindViewport` measures `window.innerWidth`. Nothing said so and nothing failed if it stopped being true — and there were five copies of it, in the field's listener, the guide's, THE GAUGE's, SNAKE's and PINBALL's. The director had the same three lines in four files and every one of them was wrong: each control was answered to the left of where it was drawn, which is what `tools/director/src/stage-point.ts` was written to stop.
+
+## 2026-09-04 · b671a83 — Every frame test starts with the baked caches cold
+
+The panel's sheet, the halos, the sockets and the button contours are baked once and kept in module maps, which outlive a test. So whichever run first asked for a size paid for the bake and every run after it was handed one free: `frame-budget.test.ts`'s p1 row carried fourteen `new Path2D` for a sheet that p2 — same size, same sheet, one run later — got for nothing. The rows were true for the order the loop happened to run in, and swapping the two seats would have failed the test for a reason that had nothing to do with the frame.
+
+## 2026-09-04 · 765444d — A page with no clock behind it reports a finite age
+
+Every screen of a wave's opening read its clock as `fx?.age ?? Infinity` — the sentinel for "this has been up for ever, so draw it finished". Right for a fade, which clamps; wrong for anything that breathes, because `Math.sin (Infinity)` is `NaN` and a `NaN` coordinate is a call a real canvas refuses. Two functions had grown a `Number.isFinite` guard of their own to stand in front of it, and the second one was written the day the guide's bar got a slime feeder.
+
+## 2026-09-04 · 47680ec — Read the director's imports one statement at a time
+
+The import-cycle test matched every import in a file with one regex whose body ran across newlines, so a value import naming a package — no relative specifier of its own to end on — opened a match that closed on the *next* relative `from "…"`. When that was an `import type`, the type-only edge was recorded as a runtime one: the negative lookahead had already been spent on the earlier line's keyword. Eighteen of the director's 210 files reported an edge that TypeScript erases, and `brush-cards.ts` carries a narrowed annotation that was written to get past one of them.
+
 ## 2026-09-04 · 4d3ecf8 — SHIELD, THEN CANNON teaches the other way to reach everything
 
 The ship has been a second panel since the day it was asked for — take hold of the cannon and carry it, let go without carrying it and the maw opens, drag the plate or press it to fire it, carry the muzzle left for red or right for cyan — and nothing in the game has ever said so. Wave seven does now, one page per gesture, on the wave where the pair already owns every one of the controls those gestures reach.
