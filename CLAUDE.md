@@ -50,19 +50,21 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   temporary. A fresh worktree needs its own `bun install` — `node_modules` must
   **not** be linked or copied from the main tree.
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
-  It rebases onto `main`, runs `bun run check` on the result, fast-forwards,
-  writes the release note, deletes the branch and sweeps spent worktrees. Do not
-  do any of that by hand, and do not skip a step because it looks done.
+  It rebases onto `main`, checks the result, fast-forwards, writes the release
+  note, deletes the branch and sweeps spent worktrees. Do not do any of it by
+  hand, and do not skip a step because it looks done.
 - **A landing does not push `origin/main`; a cleanup does.** The trunk goes to
-  `origin` when the sweep cleared a lane away, not on every turn that lands; in
-  between it moves locally and `bun run push` sends it (`land --push` forces one
-  landing). A clone with no worktrees pushes every time — there is nothing there
-  to sweep, and the push is the hand-off.
-- **A finished lane lands itself.** The `Stop` hook `tools/hooks/auto-land.ts`
-  runs `bun run land` when a turn ends in a worktree that is clean and ahead of
-  `main`, and prints a **LANDED!** badge in the chat. Uncommitted work is
-  unfinished work and never lands; `NO_AUTO_LAND=1` turns it off for a session
-  that wants to land by hand.
+  `origin` when the sweep cleared a lane away; in between it moves locally and
+  `bun run push` sends it. A clone with no worktrees pushes every time — nothing
+  there to sweep, and the push is the hand-off.
+- **A finished lane is never landed silently.** When a turn ends in a worktree
+  clean and ahead of `main`, the `Stop` hook `tools/hooks/lane-finished.ts`
+  blocks the stop; put one question to the owner with these three answers and no
+  fourth: **a) Finished** — `bun run land --push`; **b) More to come** — nothing
+  lands; **c) Land and stay** — `bun run land --keep`, which moves `main` and
+  sweeps nothing, so the branch, the worktree and `origin` are untouched and the
+  next prompt carries on here. Land nothing before the answer.
+  `NO_LANE_PROMPT=1` turns the hook off.
 - **The rebase happens before the check, not after.** `bun run land` already
   orders it that way; a green check taken before the rebase is a result about a
   tree that no longer exists.

@@ -35,6 +35,8 @@ export interface LandState {
   noPush: boolean;
   /** `--push` was given: push this landing whether or not it swept anything. */
   forcePush: boolean;
+  /** `--keep` was given: move the trunk and sweep nothing, so work carries on here. */
+  keep: boolean;
 }
 
 export interface Landing {
@@ -54,6 +56,14 @@ export interface Landing {
   mayPush: boolean;
   /** `--push`: send the trunk whatever the sweep does or does not clear away. */
   forced: boolean;
+  /**
+   * Whether the sweep runs at all. `--keep` turns it off, which is the answer
+   * for a lane that is landing mid-flight: the trunk takes the work, and the
+   * branch, the worktree and every other spent lane stay exactly where they
+   * are so the next prompt carries on in the same place. Nothing being swept
+   * also means nothing to push — see `pushNow`.
+   */
+  sweeps: boolean;
   /** Things that are not refusals and are worth saying before the work starts. */
   warn: string[];
 }
@@ -141,6 +151,7 @@ export function plan(state: LandState): Plan {
     moveRef: state.trunkTree === "",
     mayPush: state.hasOrigin && !state.noPush,
     forced: state.forcePush,
+    sweeps: !state.keep,
     warn,
   };
 }
@@ -205,6 +216,7 @@ export function describe(state: LandState, landing: Landing): string[] {
       ? `  land     move ${state.trunk} — no worktree holds it`
       : `  land     fast-forward ${state.trunk} in ${state.trunkTree}`,
   );
+  if (!landing.sweeps) lines.push("  keep     the branch and every worktree stay standing");
   if (landing.mayPush) {
     lines.push(
       landing.forced || landing.moveRef
@@ -213,4 +225,18 @@ export function describe(state: LandState, landing: Landing): string[] {
     );
   }
   return [...lines, ...landing.warn.map((w) => `  ⚠ ${w}`)];
+}
+
+/**
+ * The closing line of a landing, at a glance.
+ *
+ * It used to live in the `Stop` hook, which landed lanes itself and had
+ * `systemMessage` as its one channel to the chat. The hook asks now instead of
+ * landing, so the badge moved to the landing — where it reads the same however
+ * the landing started, and where somebody watching from a phone sees it for a
+ * landing they asked for by hand.
+ */
+export function badge(branch: string, trunk: string, sha: string, ahead: number): string {
+  const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
+  return `🟢 ╺━╸ L A N D E D ! ╺━╸ ${branch} → ${trunk} @ ${sha} (${count})`;
 }

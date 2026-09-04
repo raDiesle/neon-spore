@@ -77,6 +77,13 @@ most landings leave the trunk local and say how many commits are waiting.
 `bun run push` sends them when they are wanted; `bun run land --push` sends this
 one landing regardless.
 
+**Do not land a finished lane on your own account.** The `Stop` hook
+`tools/hooks/lane-finished.ts` blocks the turn when the tree is clean and ahead
+of `main`, and the owner picks one of three: `bun run land --push` (finished),
+nothing (more prompts coming), or `bun run land --keep` — which moves the trunk
+and sweeps nothing, so the branch, this worktree and `origin` stay as they are
+and the next prompt carries on here.
+
 Two things it will refuse, and both refusals are right: a dirty tree (a lane
 lands what it committed), and a branch that does not replay onto `main` (resolve
 the conflict on the branch, where it is cheap).

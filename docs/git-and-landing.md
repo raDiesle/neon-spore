@@ -42,7 +42,9 @@ leaves twenty-seven full checkouts on disk, which is what happened the first
 day anybody worked at volume. Each one is a copy of the repository at an
 earlier state of the trunk, down a path that looks exactly like a path into the
 repository, and a session that follows one reads superseded code and reports a
-result about it.
+result about it. `--keep` is the exception, and the section on being asked
+below says when it is the right answer: the trunk takes the work and nothing is
+cleaned up, because the lane is not over.
 
 **The branch and the worktree do not go at the same moment, and that is
 deliberate.** A branch whose tip is an ancestor of `main` is spent by
@@ -121,10 +123,10 @@ describes — a session started from a phone clones `origin` and is briefed on
 code that is not there.
 
 The fix at the time was to push on every landing, which fixed the trap and
-overshot. Landing is not an event a person schedules any more — `auto-land`
-takes it at the end of any turn that finished something — so a push per landing
-is a push per turn, most of them carrying one commit onto a remote nobody was
-reading yet.
+overshot. Landing had by then stopped being an event a person schedules — the
+`Stop` hook took it at the end of any turn that finished something — so a push
+per landing was a push per turn, most of them carrying one commit onto a remote
+nobody was reading yet.
 
 **So the push rides on the sweep instead.** `origin/main` goes when the landing
 actually cleared a lane away: a worktree removed, or a branch deleted that was
@@ -155,7 +157,7 @@ ahead of `origin`. Every landing that does not push says so, with the count and
 the command, so the number is never a thing anybody has to go and look up.
 
 
-## Landing without being asked
+## Landing is offered, not taken
 
 The commit rule above has a gap at the end of it. A lane could be finished,
 green and committed, and still sit on a branch until somebody remembered to
@@ -164,23 +166,42 @@ purpose, is the one step where forgetting is expensive: the trunk moves under
 the branch, the rebase gets larger every day, and the twenty-seventh idle
 worktree is the same failure in a different shape.
 
-So the last step is taken by the machine. `tools/hooks/auto-land.ts` runs on
-`Stop`, when the turn is already over, and asks three questions git can answer
-without trusting anybody's account of the work:
+The first answer was to take the step by machine: the `Stop` hook landed the
+lane itself, without being asked. It closed the gap and overshot it. Landing is
+where a lane's life ends — the trunk moves, the worktree is swept, the remote is
+written — and the owner wanted that moment to be a question rather than a
+notification after the fact. Especially because a turn ending is not the same as
+a lane being finished: often the next prompt for it is already coming.
+
+So `tools/hooks/lane-finished.ts` runs on `Stop`, asks the three questions git
+can answer without trusting anybody's account of the work —
 
 - is this a worktree, on a branch of its own that is not `main`?
 - is the tree clean?
 - is the branch ahead of `main`?
 
-Only all three together mean *finished*. The clean-tree question is the load
-bearing one: mid-task work cannot land, by construction, because mid-task work
-is uncommitted. Everything else — is the code good, does it replay, does it
-check — is `bun run land`'s to refuse, and it already refuses on its own terms,
-before the trunk has moved.
+— and, when all three say yes, blocks the stop and sends the session back with
+one question to put to the owner:
+
+- **a) Finished** — `bun run land --push`. The lane ends: the trunk takes it, the
+  sweep clears the branch and any idle tree away, and `main` goes to `origin`.
+- **b) More to come** — nothing lands. The lane stays a branch and the next
+  prompt continues it.
+- **c) Land and stay** — `bun run land --keep`. The trunk takes the work and
+  nothing else happens: no sweep, no push, the branch and the worktree exactly
+  where they were. This is the answer that keeps a long lane's rebase small
+  without ending it.
+
+The clean-tree question is the load-bearing one: mid-task work is never asked
+about, by construction, because mid-task work is uncommitted. Everything else —
+is the code good, does it replay, does it check — is `bun run land`'s to refuse,
+and it refuses on its own terms, before the trunk has moved.
 
 It shares the `Stop` event with `check-on-stop.ts`, and they never do the same
 work twice: that one returns immediately when the tree is clean, this one
-returns immediately when it is not.
+returns immediately when it is not. `stop_hook_active` guards the second round,
+so the question is asked once per turn and a lane the owner said (b) about is
+not nagged again in the same breath.
 
 **After its own landing a session is standing on a detached `HEAD`.** The
 landing deleted the branch — the branch is spent, its tip is an ancestor of
@@ -191,23 +212,20 @@ removing the ground a session is standing on is worse. So `git rev-parse
 
 Nothing has to be done about that. Carry on committing; the next `Stop` opens a
 branch over the commits — the worktree's own name under `claude/`, which is
-usually the name the landing just deleted — and lands them the ordinary way,
-saying so on stderr before it does. `git switch -c <name>` by hand does the same
-thing earlier and is what `bun run land` prints as it leaves.
+usually the name the landing just deleted — and asks about them the ordinary
+way, saying so on stderr before it does. `git switch -c <name>` by hand does the
+same thing earlier and is what `bun run land` prints as it leaves.
 
-This mattered because it used to be silent. `auto-land.ts` read `HEAD`, decided
-this was "not on a lane's own branch", and exited without a word, so a session
-that kept working after its first landing committed into detachment and never
-landed again. It happened in the session that found it: batch two landed itself,
-the next commit went nowhere, and only a `git rev-parse` noticed.
+This mattered because it used to be silent. The hook read `HEAD`, decided this
+was "not on a lane's own branch", and exited without a word, so a session that
+kept working after its first landing committed into detachment and never landed
+again. It happened in the session that found it: batch two landed itself, the
+next commit went nowhere, and only a `git rev-parse` noticed.
 
-**A landing that fails blocks the turn.** The session gets the last twenty-five
-lines of the failure back and goes to work on it, once — `stop_hook_active`
-guards the second round, so a lane that cannot land stops being nagged and
-stays a branch.
+**The badge is the whole report.** It is read from a phone, so a landing has to
+fit a line: the branch, the sha it went to and how many commits moved. It used
+to be printed by the hook, over `systemMessage`, which was the hook's one
+channel into the chat. `bun run land` prints it now, so the same line comes back
+however the landing started.
 
-**The badge is the whole report.** A hook's one channel into the chat is
-`systemMessage`, and it is read from a phone, so the landing has to fit a line:
-the branch, the sha it went to and how many commits moved.
-
-`NO_AUTO_LAND=1` turns it off for a session that wants to land by hand.
+`NO_LANE_PROMPT=1` turns the hook off for a session that decides for itself.

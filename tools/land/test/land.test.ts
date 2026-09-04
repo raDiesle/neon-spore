@@ -1,5 +1,6 @@
 import { expect, describe as group, test } from "bun:test";
 import {
+  badge,
   type Cleanup,
   describe,
   type LandState,
@@ -22,6 +23,7 @@ function state(over: Partial<LandState> = {}): LandState {
     hasOrigin: true,
     noPush: false,
     forcePush: false,
+    keep: false,
     ...over,
   };
 }
@@ -157,6 +159,19 @@ group("pushNow", () => {
   test("no origin outranks them too", () => {
     expect(pushNow(landing({ hasOrigin: false, forcePush: true }), cleared)).toBe(false);
   });
+
+  // --keep skips the sweep, so there is nothing for the push to ride on. It is
+  // the landing of a lane that is not finished, and the remote is for finished
+  // ones.
+  test("a --keep landing sweeps nothing and therefore sends nothing", () => {
+    const kept = landing({ keep: true });
+    expect(kept.sweeps).toBe(false);
+    expect(pushNow(kept, SWEPT_NOTHING)).toBe(false);
+  });
+
+  test("--keep and --push together still push, because --push is the owner", () => {
+    expect(pushNow(landing({ keep: true, forcePush: true }), SWEPT_NOTHING)).toBe(true);
+  });
 });
 
 group("describe", () => {
@@ -191,6 +206,25 @@ group("describe", () => {
     const sure = plan(forced);
     if (!sure.go) throw new Error("expected a landing");
     expect(describe(forced, sure).join("\n")).not.toContain("only if the sweep");
+  });
+
+  test("says when the sweep is not going to run", () => {
+    const kept = state({ keep: true });
+    const decided = plan(kept);
+    if (!decided.go) throw new Error("expected a landing");
+    expect(describe(kept, decided).join("\n")).toContain("stay standing");
+  });
+});
+
+group("the badge", () => {
+  test("reads at a glance, with one commit counted as one", () => {
+    expect(badge("claude/a-lane", "main", "abc1234", 1)).toBe(
+      "🟢 ╺━╸ L A N D E D ! ╺━╸ claude/a-lane → main @ abc1234 (1 commit)",
+    );
+  });
+
+  test("counts more than one as commits", () => {
+    expect(badge("claude/a-lane", "main", "abc1234", 8)).toContain("(8 commits)");
   });
 });
 

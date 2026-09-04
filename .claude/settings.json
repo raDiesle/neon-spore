@@ -37,7 +37,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun tools/hooks/auto-land.ts",
+            "command": "bun tools/hooks/lane-finished.ts",
             "timeout": 900
           }
         ]

@@ -919,7 +919,6 @@ place — the generator keeps whatever is there.
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |
-| `tools/hooks/auto-land.ts` | The turn is over and the lane is finished: put it on the trunk without being asked |
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
@@ -931,5 +930,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
 | `tools/land/push.ts` | `bun run push` — put the trunk on `origin`, because somebody asked |
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
+| `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: put the choice to the owner rather than taking it |
 
 <!-- index:code:end -->

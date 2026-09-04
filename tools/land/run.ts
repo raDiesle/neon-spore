@@ -10,6 +10,7 @@
  *
  *   bun run land                 rebase, check, fast-forward main, note, sweep
  *   bun run land --dry-run       say what it would do and stop
+ *   bun run land --keep          move the trunk and sweep nothing; carry on here
  *   bun run land --push          send origin/main too, whatever the sweep did
  *   bun run land --no-push       land, and leave origin/main alone regardless
  *
@@ -24,13 +25,29 @@
  * all of it becomes true, and a cleanup step somebody has to remember is a
  * cleanup step that leaves twenty-seven directories standing.
  *
- * **The push is the exception, and rides on the sweep.** `origin/main` goes
- * when the sweep actually cleared a lane away, not on every landing — see
- * `pushNow`. `bun run push` sends it in between.
+ * **`--keep` is the landing that is not the end of anything.** A lane whose
+ * next prompt is already coming still wants its work on the trunk — the trunk
+ * moves under it either way, and a rebase left to grow is the expensive
+ * mistake. So the trunk takes the commits, the release note is written, and
+ * the sweep does not run: the branch, this worktree and every other spent lane
+ * stay exactly where they were, and the next turn carries on in place.
+ *
+ * **The push rides on the sweep.** `origin/main` goes when the sweep actually
+ * cleared a lane away, not on every landing — see `pushNow`, and note that
+ * `--keep` therefore never pushes on its own. `bun run push` sends it in
+ * between.
  */
 
 import { git, gitOrDie } from "./git.js";
-import { describe, type LandState, plan, pushNow, uncommittedOf } from "./land.js";
+import {
+  badge,
+  describe,
+  type LandState,
+  plan,
+  pushNow,
+  SWEPT_NOTHING,
+  uncommittedOf,
+} from "./land.js";
 import { LOG_FORMAT, parseLanded } from "./notes.js";
 import { sweep, writeNotes } from "./sweep.js";
 
@@ -39,6 +56,7 @@ const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const noPush = argv.includes("--no-push");
 const forcePush = argv.includes("--push");
+const keep = argv.includes("--keep");
 const TRUNK = "main";
 
 /** What `uncommittedOf` needs, asked of one worktree. */
@@ -77,6 +95,7 @@ const state: LandState = {
   hasOrigin: (await git(["remote", "get-url", "origin"], root)) !== "",
   noPush,
   forcePush,
+  keep,
 };
 
 const decided = plan(state);
@@ -157,7 +176,8 @@ console.log(`✓ ${TRUNK} is at ${await git(["rev-parse", "--short", TRUNK], roo
 for (const commit of landed) console.log(`  ${commit.sha} ${commit.subject}`);
 
 await writeNotes(state, landed, TRUNK);
-const cleanup = await sweep(state, root, TRUNK);
+const cleanup = decided.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
+if (!decided.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
 
 if (pushNow(decided, cleanup)) {
   try {
@@ -177,3 +197,5 @@ if (pushNow(decided, cleanup)) {
   const many = behind === 1 ? "commit" : "commits";
   console.log(`  held     origin/${TRUNK} — ${behind} ${many} unpushed; bun run push sends them`);
 }
+
+console.log(badge(branch, TRUNK, await git(["rev-parse", "--short", TRUNK], root), state.ahead));

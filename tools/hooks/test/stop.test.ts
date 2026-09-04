@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
+import { tailOf, testScope } from "../check-on-stop.ts";
 import {
-  badge,
   branchForDetached,
   isDetached,
   type LaneState,
-  whyNotLanding,
-} from "../auto-land.ts";
-import { tailOf, testScope } from "../check-on-stop.ts";
+  question,
+  whyNotAsking,
+} from "../lane-finished.ts";
 
 /**
  * The two `Stop` hooks. Both used to be bash, and both were untestable for the
@@ -14,10 +14,10 @@ import { tailOf, testScope } from "../check-on-stop.ts";
  * script, so the only way to exercise it was to end a turn and see what
  * happened. The decision is a function now, and this is where it is asked.
  *
- * `auto-land` is the one worth being sure of. It moves the trunk without being
- * asked, so every question that stops it has to be right, and the failure it
- * guards against — landing a lane that is not finished — cannot be undone by
- * noticing afterwards.
+ * `lane-finished` is the one worth being sure of. It blocks the stop and sends
+ * the session back to put a question to the owner, so every question that keeps
+ * it quiet has to be right: too eager and every turn ends in a prompt nobody
+ * wanted, too shy and a finished lane sits on a branch unmentioned.
  */
 
 const lane = (over: Partial<LaneState> = {}): LaneState => ({
@@ -30,63 +30,64 @@ const lane = (over: Partial<LaneState> = {}): LaneState => ({
   ...over,
 });
 
-describe("whether a finished lane lands itself", () => {
-  it("lands when every question is answered", () => {
-    expect(whyNotLanding(lane())).toBeNull();
+describe("whether a finished lane asks about itself", () => {
+  it("asks when every question is answered", () => {
+    expect(whyNotAsking(lane())).toBeNull();
   });
 
-  it("never lands with uncommitted work — mid-task work is unfinished work", () => {
-    expect(whyNotLanding(lane({ dirty: true }))).toBe("the worktree has uncommitted work");
+  it("never asks with uncommitted work — mid-task work is unfinished work", () => {
+    expect(whyNotAsking(lane({ dirty: true }))).toBe("the worktree has uncommitted work");
   });
 
-  it("never lands from the main checkout", () => {
-    expect(whyNotLanding(lane({ inWorktree: false }))).toBe(
+  it("never asks from the main checkout", () => {
+    expect(whyNotAsking(lane({ inWorktree: false }))).toBe(
       "this is the main checkout, not a lane's worktree",
     );
   });
 
-  it("never lands from main, or from a branch git could not name", () => {
+  it("never asks from main, or from a branch git could not name", () => {
     for (const branch of ["main", ""]) {
-      expect(whyNotLanding(lane({ branch }))).toMatch(/not on a lane's own branch/);
+      expect(whyNotAsking(lane({ branch }))).toMatch(/not on a lane's own branch/);
     }
   });
 
   /**
    * A landing deletes the branch it landed and leaves the worktree detached, so
    * every commit a session made after its first landing read as "not on a
-   * lane's own branch" and never landed at all — silently, which is the failure
-   * these hooks exist to stop. A detached tree with commits on it is a lane.
+   * lane's own branch" and was never mentioned again — silently, which is the
+   * failure these hooks exist to stop. A detached tree with commits on it is a
+   * lane.
    */
-  it("lands a detached lane, which is what a worktree is after its own landing", () => {
-    expect(whyNotLanding(lane({ branch: "HEAD" }))).toBeNull();
+  it("asks about a detached lane, which is what a worktree is after its own landing", () => {
+    expect(whyNotAsking(lane({ branch: "HEAD" }))).toBeNull();
     expect(isDetached("HEAD")).toBe(true);
     expect(isDetached("claude/some-lane")).toBe(false);
   });
 
   /** The ordinary state right after a landing: detached, and carrying nothing. */
   it("says nothing about a detached worktree with no commits on it", () => {
-    expect(whyNotLanding(lane({ branch: "HEAD", ahead: 0 }))).toBe(
+    expect(whyNotAsking(lane({ branch: "HEAD", ahead: 0 }))).toBe(
       "the branch is not ahead of main",
     );
   });
 
-  it("never lands a branch with nothing on it", () => {
-    expect(whyNotLanding(lane({ ahead: 0 }))).toBe("the branch is not ahead of main");
+  it("never asks about a branch with nothing on it", () => {
+    expect(whyNotAsking(lane({ ahead: 0 }))).toBe("the branch is not ahead of main");
   });
 
-  it("never lands underneath a stop that was already blocked", () => {
-    expect(whyNotLanding(lane({ stopHookActive: true }))).toBe(
+  it("never asks underneath a stop that was already blocked", () => {
+    expect(whyNotAsking(lane({ stopHookActive: true }))).toBe(
       "a blocked stop is already in progress",
     );
   });
 
-  it("is off entirely for a session that lands by hand", () => {
-    expect(whyNotLanding(lane({ disabled: true }))).toBe("NO_AUTO_LAND=1");
+  it("is off entirely for a session that decides for itself", () => {
+    expect(whyNotAsking(lane({ disabled: true }))).toBe("NO_LANE_PROMPT=1");
   });
 
   it("checks the switch before anything git can answer", () => {
-    // `NO_AUTO_LAND=1` means *off*, not "off unless the lane looks landable".
-    expect(whyNotLanding(lane({ disabled: true, dirty: true, ahead: 0 }))).toBe("NO_AUTO_LAND=1");
+    // `NO_LANE_PROMPT=1` means *off*, not "off unless the lane looks finished".
+    expect(whyNotAsking(lane({ disabled: true, dirty: true, ahead: 0 }))).toBe("NO_LANE_PROMPT=1");
   });
 });
 
@@ -119,15 +120,29 @@ describe("the branch a detached lane gets back", () => {
   });
 });
 
-describe("the badge", () => {
-  it("counts one commit in the singular", () => {
-    expect(badge("claude/a-lane", "abc1234", 1)).toBe(
-      "🟢 ╺━╸ L A N D E D ! ╺━╸ claude/a-lane → main @ abc1234 (1 commit)",
-    );
+/**
+ * The message is the whole hook. Nothing lands here any more, so if the three
+ * options or their commands are wrong the session invents something instead —
+ * which is what the change was made to stop.
+ */
+describe("what the session is sent back to ask", () => {
+  const asked = question("claude/a-lane", 3);
+
+  it("names the lane and what is on it", () => {
+    expect(asked).toContain("claude/a-lane");
+    expect(asked).toContain("3 commits");
+    expect(question("claude/a-lane", 1)).toContain("1 commit,");
   });
 
-  it("counts the rest in the plural", () => {
-    expect(badge("claude/a-lane", "abc1234", 8)).toContain("(8 commits)");
+  it("carries all three options, and the command for each one that has one", () => {
+    expect(asked).toContain("bun run land --push");
+    expect(asked).toContain("bun run land --keep");
+    expect(asked).toContain("nothing lands");
+  });
+
+  it("says not to land before the answer, and not to invent a fourth option", () => {
+    expect(asked).toContain("land nothing before the answer");
+    expect(asked).toContain("fourth option");
   });
 });
 

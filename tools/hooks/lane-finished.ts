@@ -1,15 +1,22 @@
 #!/usr/bin/env bun
 
 /**
- * The turn is over and the lane is finished: put it on the trunk without being
- * asked, and say so in one line the owner can see from a phone.
+ * The turn is over and the lane is finished. Stop, and put the choice to the
+ * owner — do not take it.
  *
- * It lands only when the lane is *already* finished, which is a handful of
- * questions git can answer and none a session has to be trusted with — see
- * `whyNotLanding`. Anything else and it exits silently, which is most turns.
- * `bun run land` does the rest and refuses on its own terms too (it rebases,
- * checks, and only then fast-forwards), so this file never decides whether the
- * work is *good* — only whether the lane looks done.
+ * This used to be `auto-land.ts`, and it landed: it ran `bun run land` itself,
+ * so a finished turn moved the trunk, swept the tree and pushed `origin` with
+ * nobody typing anything. That solved the right problem — a lane left sitting
+ * on a branch is a rebase that grows every day — and overshot it. Landing is
+ * where a lane's life ends: the trunk moves, the worktree is swept, the remote
+ * is written. The owner asked for that moment to be a question rather than a
+ * notification after the fact.
+ *
+ * So the questions git can answer are still asked here, and answering them all
+ * now blocks the stop instead of starting a landing. The session is sent back
+ * with three options to put to the owner and the command for each. Everything
+ * this file will not do — a dirty tree, a branch that is not ahead, the main
+ * checkout — is still a silent exit, which is most turns.
  *
  * It does not collide with `check-on-stop.ts`, which shares this event and runs
  * beside it: that one returns immediately when the tree is clean, and this one
@@ -22,11 +29,11 @@
  * "not on a lane's own branch". Every commit after the first landing went into
  * detachment and stayed there, silently, which is the same nothing-happens
  * failure the hooks were moved off bash to stop. So a detached tree with
- * commits on it is a lane: it is handed a branch here and landed like any
+ * commits on it is a lane: it is handed a branch here and asked about like any
  * other. A detached tree with nothing on it is the ordinary state after a
  * landing, and still exits quietly.
  *
- * `NO_AUTO_LAND=1` turns it off for a session that wants to land by hand.
+ * `NO_LANE_PROMPT=1` turns it off for a session that decides for itself.
  *
  * Moved off bash with the other three, and this is the one that mattered most:
  * `bash .claude/hooks/auto-land.sh` in a PowerShell session meant a finished
@@ -41,7 +48,7 @@ const SEPARATOR = /[/\\]/;
 
 /** Everything the decision is made of, so the decision itself touches nothing. */
 export interface LaneState {
-  /** `NO_AUTO_LAND=1`, for a session that lands by hand. */
+  /** `NO_LANE_PROMPT=1`, for a session that decides for itself. */
   readonly disabled: boolean;
   /** A blocked stop already sent the session back to work. */
   readonly stopHookActive: boolean;
@@ -56,14 +63,15 @@ export interface LaneState {
 }
 
 /**
- * Why this turn does not land, or `null` when the lane looks done.
+ * Why this turn says nothing, or `null` when the lane is finished and the
+ * owner should be asked what to do with it.
  *
  * A string rather than a boolean because every one of these is a silent exit,
  * and a silent exit that cannot say which question it failed is the thing that
  * makes a hook impossible to debug from a phone.
  */
-export function whyNotLanding(s: LaneState): string | null {
-  if (s.disabled) return "NO_AUTO_LAND=1";
+export function whyNotAsking(s: LaneState): string | null {
+  if (s.disabled) return "NO_LANE_PROMPT=1";
   if (s.stopHookActive) return "a blocked stop is already in progress";
   if (!s.inWorktree) return "this is the main checkout, not a lane's worktree";
   if (s.branch === "" || s.branch === "main") {
@@ -100,12 +108,28 @@ export function branchForDetached(worktree: string, taken: readonly string[]): s
 }
 
 /**
- * The badge. `systemMessage` is the one channel a Stop hook has to the chat
- * itself, so the whole landing has to read at a glance in it.
+ * What the session is sent back to do. It is written as an instruction rather
+ * than a suggestion because a blocked stop is the session's whole account of
+ * why it is still going, and "consider asking" is how a rule becomes optional.
+ *
+ * The three options are the owner's own, and the fourth one a session would
+ * invent — landing quietly because the work is obviously finished — is the
+ * behaviour this file was changed to stop.
  */
-export function badge(branch: string, sha: string, ahead: number): string {
+export function question(branch: string, ahead: number): string {
   const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
-  return `🟢 ╺━╸ L A N D E D ! ╺━╸ ${branch} → main @ ${sha} (${count})`;
+  return [
+    `${branch} is finished — ${count}, nothing uncommitted — and landing it is the`,
+    "owner's call rather than yours. Put it to them as one question with these three",
+    "options, then do what the answer says:",
+    "",
+    "  a) Finished        bun run land --push  — land, sweep, and send main to origin",
+    "  b) More to come    nothing lands; keep the lane open for the next prompt",
+    "  c) Land and stay   bun run land --keep  — main moves, nothing is swept, origin",
+    "                                            is left alone, work carries on here",
+    "",
+    "Ask once, land nothing before the answer, and do not invent a fourth option.",
+  ].join("\n");
 }
 
 function git(...args: string[]): string | null {
@@ -115,12 +139,12 @@ function git(...args: string[]): string | null {
 
 function laneState(stopActive: boolean): LaneState {
   // A worktree's own git dir sits under the shared one; the main checkout's is
-  // the shared one. Landing from the main checkout is not what this is for.
+  // the shared one. Asking about the main checkout is not what this is for.
   const gitDir = git("rev-parse", "--absolute-git-dir");
   const common = git("rev-parse", "--path-format=absolute", "--git-common-dir");
   const ahead = git("rev-list", "--count", "main..HEAD");
   return {
-    disabled: process.env.NO_AUTO_LAND === "1",
+    disabled: process.env.NO_LANE_PROMPT === "1",
     stopHookActive: stopActive,
     inWorktree: gitDir !== null && common !== null && gitDir !== common,
     branch: git("rev-parse", "--abbrev-ref", "HEAD") ?? "",
@@ -130,7 +154,7 @@ function laneState(stopActive: boolean): LaneState {
 }
 
 /** The lane's own branch, opening one first when the last landing left the tree detached. */
-function branchToLand(state: LaneState): string | null {
+function branchToOffer(state: LaneState): string | null {
   if (!isDetached(state.branch)) return state.branch;
   const root = git("rev-parse", "--show-toplevel") ?? process.cwd();
   const taken = (git("branch", "--format=%(refname:short)") ?? "")
@@ -140,42 +164,25 @@ function branchToLand(state: LaneState): string | null {
   const branch = branchForDetached(root, taken);
   if (git("switch", "--quiet", "-c", branch) === null) return null;
   process.stderr.write(
-    `auto-land: the last landing left this worktree detached; ${branch} opened over its ${state.ahead} commits\n`,
+    `lane-finished: the last landing left this worktree detached; ${branch} opened over its ${state.ahead} commits\n`,
   );
   return branch;
 }
 
 async function main(): Promise<void> {
   const state = laneState(stopHookActive(await readPayload()));
-  if (whyNotLanding(state) !== null) process.exit(0);
+  if (whyNotAsking(state) !== null) process.exit(0);
 
-  const branch = branchToLand(state);
+  const branch = branchToOffer(state);
   if (branch === null) {
     process.stderr.write(
-      "auto-land: this worktree is detached with commits on it and no branch would open over them — main was not moved\n",
+      "lane-finished: this worktree is detached with commits on it and no branch would open over them — say so and stop\n",
     );
     process.exit(2);
   }
 
-  const proc = Bun.spawn([process.execPath, "run", "land"], { stdout: "pipe", stderr: "pipe" });
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
-  const output = `${out}${err}`;
-  if (code !== 0) {
-    const tail = output.split("\n").slice(-25).join("\n");
-    process.stderr.write(`auto-land: ${branch} did not land — main was not moved:\n${tail}\n`);
-    process.exit(2);
-  }
-
-  process.stderr.write(`${output}\n`);
-  const sha = git("rev-parse", "--short", "main") ?? "main";
-  process.stdout.write(
-    `${JSON.stringify({ systemMessage: badge(branch, sha, state.ahead), suppressOutput: true })}\n`,
-  );
-  process.exit(0);
+  process.stderr.write(`${question(branch, state.ahead)}\n`);
+  process.exit(2);
 }
 
 if (import.meta.main) await main();
