@@ -106,3 +106,48 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
+
+## `.claude/launch.json` is rewritten with CRLF in a worktree, and biome refuses it
+
+- **Found:** 2026-09-04, claude/queue-notes-overnight
+- **Files:** `.gitattributes`, `biome.json`, `.claude/launch.json`, `docs/working-with-claude.md`
+
+The desktop harness rewrites `.claude/launch.json` when it opens a worktree,
+and writes it with CRLF. The file is committed with LF, `core.autocrlf` is
+`true` on this machine so git reports the tree as clean, and `bun run lint`
+then fails on that one file with "Formatter would have printed the following
+content" — thirty-three lines of identical JSON differing only in `␍`.
+
+It stops every landing in that worktree until somebody notices, and what they
+notice first is a formatter complaining about a file nobody edited. On the
+night of 3 September 2026 it was the first thing a session hit and cost several
+minutes before the `␍` in biome's own diff was read.
+
+Two candidate fixes, and the right one is a judgement: a `.gitattributes` entry
+pinning the file to LF so git's checkout filter stops producing CRLF for it, or
+adding it to biome's ignore list on the ground that it is the harness's file
+rather than the repository's and nothing in the repository formats it. The
+first keeps it linted; the second admits who owns it. Either way say which in
+the commit, and note the behaviour in `docs/working-with-claude.md` beside the
+worktree advice, because the next person to meet it will search for the message
+rather than the cause.
+
+## `packages/audio/test/player.test.ts` prints four lint warnings on every run
+
+- **Found:** 2026-09-04, claude/queue-notes-overnight
+- **Files:** `packages/audio/test/player.test.ts`
+
+Four `lint/complexity/useLiteralKeys` warnings, at lines 87, 107, 119 and 131,
+for `player["pump"]()`. `bun run lint` still exits 0 — they are below the
+`--error-on-warnings` threshold — so nothing is broken, and that is the
+problem: every `bun run lint` output during a session starts with four
+paragraphs of diff for something nobody is going to act on, and a session
+looking for its own error reads past them or greps them out. Warnings nobody
+will act on train people to ignore warnings.
+
+The bracket is presumably reaching a private member from a test. Either make
+`pump` reachable in a way the linter accepts — a documented internal name, or a
+narrow test-only accessor — or suppress the rule on those four lines with a
+`biome-ignore` saying why. What must not happen is the unsafe autofix
+(`player.pump()`), which will not type-check if the member really is private:
+check that before assuming it is a one-line change.
