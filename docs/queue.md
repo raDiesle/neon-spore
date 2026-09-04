@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `canvas2d.ts` is on the 250-line ceiling, so render state cannot be asked for
 
 - **Found:** 2026-09-04, claude/task-queue-work-nybjkq
+- **Taken:** 2026-09-04, claude/queue-canvas2d-ts-is-on-the-250-line-ceiling-so-render
 - **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/frame-passes.ts`
 
 The queue item about `bun run frames` wanted the page asked whether the wave
