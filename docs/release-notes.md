@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 4324d00 — Six pages that say what this game is, before anybody has chosen anything
+
+The owner asked for it by name — *a cinematic like tutorial when entering the game first, explaining the core concept of the game* — which is the first of the three exemptions in CLAUDE.md's rule about looks: the decision is already made, so this ships rather than being offered beside the shipped screen.
+
+## 2026-09-04 · 1e7a3a5 — A cloud session's Bun may be older than the lockfile
+
+Three failures in this session all had one cause, and none of them said so: a container carrying Bun 1.3.11 against a `bun.lock` written by a newer one. `bun install` quietly downgraded `lockfileVersion` from 2 to 1 in the working tree, `bun install --frozen-lockfile` refused — which is the step `bun run land` takes straight after the rebase, so the landing stopped before the check ran — and every websocket case in `apps/server` timed out, because Bun's `ws` shim has no `upgrade` event for miniflare to use. Twenty-five red tests that are green on the owner's machine.
+
 ## 2026-09-04 · 23719b2 — Take the rehearsal walk's budget finding back out of the queue
 
 It was queued because the walk took 38 seconds against a 30-second budget on a cloud session's container, so `bun run check` was red there through no fault of the tree. `The film walk is shorter, because there are twenty-six of them` landed on main in the meantime and answered it from the other end: the walk is 140 frames a page now, and the budget behind it is 60 seconds.
