@@ -35,6 +35,7 @@ export const WAVES_ACT_2: Wave[] = [
       both: "The boss is your own ship. It performs a sequence of your own moves, then asks for the whole of it back.",
       p1: "Say every step out loud as it happens. Neither of you can hold six of them alone.",
       p2: "Nothing you press counts while it is still showing. Wait for it to finish.",
+      scene: "theMirror",
     },
     entries: [],
     boss: {

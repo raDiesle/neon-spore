@@ -305,3 +305,69 @@ put the rest in `packages/content/src/waves/act-6.ts`, concatenate it in
 in which file — it regenerates one act file at a time and holds that mapping.
 `test/waves.test.ts` checks ids are unique and the order is unchanged, so a
 split that moved a wave would fail rather than reorder the game.
+
+## THE LID has no rehearsal, and it is the last ordinary wave without one
+
+- **Found:** 2026-09-04, claude/tutorials-the-mirror
+- **Files:** `packages/content/src/scenes/the-lid.ts`, `packages/content/src/scenes.ts`, `packages/content/src/waves/act-5.ts`, `packages/content/src/scene-types.ts`
+
+Twenty-four waves open on a film of themselves. THE LID (act five) is the last
+one whose panel is the ordinary panel and which still opens on three lines of
+prose, and it is blocked on one thing: a cord that is **held**. Do the entry
+"a rehearsal cannot show a held cord" first — it is the same file and the same
+shape as `SceneAct.grip`, which already solves the identical problem of naming
+a creature an author cannot know.
+
+Then write the film. Read `.claude/skills/new-tutorial` before authoring, and
+`packages/content/src/scenes/the-clasp.ts` for the closest existing shape — a
+coupling where one seat holds and the other fires. The wave's own sentence is
+*doing your half first is the same as not doing it*, so the film has to show
+the cannon being placed BEFORE the cord is taken: both of player 1's thumbs are
+spoken for once he has hold of it, and the plates shut the instant he lets go.
+
+Measure it, never guess it: build the scene, run it through `SceneRun` and read
+the events back before settling the ticks. The film-watching test in
+`test/scenes.test.ts` will fail if the shot stops landing.
+
+## THE FLEET, SNAKE and PINBALL have no rehearsal — a round's own panel
+
+- **Found:** 2026-09-04, claude/tutorials-the-mirror
+- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-4.ts`
+
+Three of the four rounds with a panel of their own still open on prose. They
+are blocked on the same thing — `commandFor` in `scene-script.ts` is a switch
+over the standard panel's seven controls and throws on anything else — so do
+the entry "a rehearsal cannot press a round's own controls" first, and then
+these three in this order, because that is the order they get harder:
+
+1. **THE FLEET** (act two). Every control is a single press: `salvo` and the
+   four `aim` arrows. The chart is lettered and numbered on both screens and
+   only one of them has the ships on it, so the film is the two screens side by
+   side and then a square being walked to and fired at.
+2. **SNAKE** (act four). `snakeLeft`, `snakeRight`, `snakeFire`, `snakeMaw`,
+   all single presses. The body never stops, so the film's timing is the
+   round's rather than a fall's.
+3. **PINBALL** (act four). Two of its four are *held* — the bucket's — so it
+   needs the held-act shape as well, the way THE LID does.
+
+`test/scenes.test.ts` already refuses a scene that presses a control the wave's
+own panel has not got, so a film authored against the wrong set fails loudly.
+
+## THE GAUGE, THE MAZE and THE WARDEN have no rehearsal — a held control
+
+- **Found:** 2026-09-04, claude/tutorials-the-mirror
+- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `packages/content/src/waves/act-2.ts`
+
+The three bosses of act two whose whole picture is a thumb that is *down*: THE
+GAUGE's valve, THE MAZE's string and THE WARDEN's rope. All three are blocked
+on the held-act shape — the valve on a `{kind:"valve"}` held press, the other
+two on a `drag` whose target a scene has to be able to name. Do "a rehearsal
+cannot show a held cord" first; THE GAUGE additionally needs a round's own
+controls.
+
+THE GAUGE is the smallest of the three and the one to write first: two buttons
+and a call, and its round has no field to time anything against. THE WARDEN is
+the closest to THE LID's shape. THE MAZE is the one where the two halves are
+furthest apart — he turns the wheel and cannot fire, she fires and cannot turn
+anything — so it is the richest film and the one to leave until the shape is
+settled.

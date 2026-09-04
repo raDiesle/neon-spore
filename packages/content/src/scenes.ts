@@ -9,6 +9,7 @@ import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_LURE } from "./scenes/the-lure.js";
+import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
@@ -65,7 +66,8 @@ export type SceneId =
   | "theGyre"
   | "theRecoil"
   | "theVane"
-  | "bulbQueen";
+  | "bulbQueen"
+  | "theMirror";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -90,6 +92,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theRecoil: THE_RECOIL,
   theVane: THE_VANE,
   bulbQueen: BULB_QUEEN,
+  theMirror: THE_MIRROR,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

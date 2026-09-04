@@ -207,24 +207,28 @@ describe("the rehearsals a guide can show", () => {
     // tutorial getting it wrong.
     //
     // The invariant that catches all of them needs no authored expectation:
-    // **a film costs the hull if and only if it has a page about the hull.**
-    // A shot that stops landing lets a body through and the hull pays for it;
-    // a deliberate miss that stops missing takes the mark away from under the
-    // page that is pointing at it.
+    // **a film costs the hull if and only if it has a page anchored at what
+    // the hull has left.** A shot that stops landing lets a body through and
+    // the hull pays for it; a deliberate miss that stops missing takes the
+    // mark away from under the page that is pointing at it.
+    //
+    // `health` and not `hull`: the two are a cost and a place. The bar is only
+    // ever pointed at to say something has been paid for, while the ship
+    // itself is pointed at to say *there* — THE MIRROR stands over the hull and
+    // performs at it, and that page is about where to look rather than about
+    // damage.
     for (const { wave, id } of USED) {
       const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
       const full = hullPercent(run.world);
       const spent: SimEvent[] = [];
       for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
-      const shared = SCENES[id].steps.some(
-        (s) => s.anchor.at === "hull" || s.anchor.at === "health",
-      );
+      const paid = SCENES[id].steps.some((s) => s.anchor.at === "health");
       expect(
         hullPercent(run.world) < full,
-        shared
-          ? `${id} has a page about the hull and never marks it`
+        paid
+          ? `${id} points a page at what the hull has left and never marks it`
           : `${id} loses hull with no page saying why`,
-      ).toBe(shared);
+      ).toBe(paid);
     }
   });
 
