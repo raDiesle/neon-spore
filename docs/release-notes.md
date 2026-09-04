@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 11d0081 — The last three waves rehearse themselves, and a drag has two clocks
+
+THE LID, THE WARDEN and THE MAZE are films now, on the drag machinery that landed an hour ago. Every wave in the game that carries a guide carries a rehearsal.
+
+## 2026-09-04 · b91c222 — A rehearsal can hold a thumb down, and two more rounds have films
+
+Five controls in this game are held rather than pressed — the lance, the gauge's two valve slabs and the bucket's two — and a film could only ever press them. An act carries `until` now, which was the grip's field and is every hold's: the press goes down on its own tick and the control's own release goes up on that one, taken from the table that knows what a control says rather than authored beside it.
+
+## 2026-09-04 · c51539e — THE LANCE had no tutorial at all, and now it has a film
+
+The wave trades the maw for the lance, so a control the pair has used since SALVAGE simply vanishes off the panel and one nothing has ever mentioned takes its place — and the wave carried no guide of any kind. `waves.test.ts` could not see it: the lance is a mechanic with `reach: "run"`, on from the first wave to the last and carried by no wave's entries, so no wave *introduces* it and the rule that asks for a guide could never fire.
+
+## 2026-09-04 · 5729573 — Which Bun this project expects is said in the tree, not only in CI
+
+It could not be told from the repository at all. The only declaration was a literal inside `.github/workflows/ci.yml`, which nothing outside GitHub reads — so a cloud session, which clones `origin` and gets whatever Bun its image ships, had no way to know what the project was tested against, and neither did anybody opening it.
+
 ## 2026-09-04 · baa0899 — A rehearsal can put a hand on a cord
 
 Three things in this game are taken hold of and carried rather than pressed — THE LID's cord, THE MAZE's string and THE WARDEN's rope — and none of them could be written into a film at all. That is why THE LID is the last ordinary wave with no rehearsal and why two of the bosses could not be reached: the skill told authors so in as many words.
