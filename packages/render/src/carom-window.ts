@@ -33,16 +33,13 @@ export function drawWindow(
   rim: string,
   glow: string,
 ): void {
-  // Punch first. `destination-out` takes the rock away rather than painting
-  // over it, so what shows through is the body `drawLiving` already put down —
-  // a fill in the field's own background colour would cover it.
-  ctx.save();
-  ctx.globalCompositeOperation = "destination-out";
-  ctx.beginPath();
-  ctx.arc(0, 0, glass, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-
+  // Nothing is punched here. The hole is part of the rock's own path next door
+  // and is filled `evenodd`, so it was never painted and the body under it is
+  // already showing — this file only ever puts *glass* over that. It used to
+  // cut the hole with `destination-out`, which takes away whatever is beneath
+  // it and therefore took the body as well: a rock with a grey disc in it and
+  // no colour for the pair to call.
+  //
   // The tint. Thin enough that the colour behind it is still the colour the
   // pair says out loud, and cool enough that it reads as a pane rather than as
   // the body being dimmer than it is.

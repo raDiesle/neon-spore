@@ -117,16 +117,29 @@ export function drawCaromCrust(
   // and the body behind it is drawn upright by `drawLiving` either way — so a
   // turning frame would visibly slide across a body standing still.
   const turn = spin + time * 0.12;
+  // The facets and the hole in one path, filled `evenodd`, so the window is
+  // never painted at all and the body `drawLiving` already put down shows
+  // through it. The first version punched the hole out afterwards with
+  // `destination-out`, which took the body with it — the pair got a rock with
+  // a grey disc in it and no colour to call.
+  //
+  // The circle is added inside the rotated frame and is right to be: it is
+  // centred on the body, and a circle about the origin is the same circle
+  // whichever way the frame is turned. That is what lets the stone roll while
+  // the window stays where the eye left it.
   const shell = new Path2D(
     crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
   );
+  const hole = new Path2D();
+  hole.arc(0, 0, glass, 0, Math.PI * 2);
+  shell.addPath(hole);
 
   ctx.save();
   ctx.rotate(turn);
   ctx.fillStyle = "#8A8F9C";
-  ctx.fill(shell);
+  ctx.fill(shell, "evenodd");
   ctx.save();
-  ctx.clip(shell);
+  ctx.clip(shell, "evenodd");
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   ctx.restore();
   ctx.strokeStyle = metal;
