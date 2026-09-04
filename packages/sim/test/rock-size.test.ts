@@ -37,6 +37,9 @@ const HULL = hullRow(CFG);
 const RATE = fallTilesPerBeat("meteor");
 const IMPACT_BEAT = Math.ceil(HULL / RATE) + 1;
 const IMPACT_TICK = TPB * IMPACT_BEAT;
+/** One beat past the landing: a rock stands on the ship's row for the beat
+ * render/ draws it arriving, and only then is it through (`hull.ts`). */
+const BREACH_TICK = IMPACT_TICK + TPB;
 
 const big = (col: number): SpawnEntry => ({ beat: 0, col, kind: "meteor", color: null, span: 2 });
 const small = (col: number): SpawnEntry => ({ beat: 0, col, kind: "meteor", color: null });
@@ -107,7 +110,7 @@ describe("a two-tile meteor on the field", () => {
   });
 
   it("scars both columns and breaks the hull once, not twice", () => {
-    const { world, events } = run([big(2)], IMPACT_TICK + 1);
+    const { world, events } = run([big(2)], BREACH_TICK + 1);
     const breaches = events.filter((e) => e.type === "breach");
     expect(breaches).toHaveLength(1);
     expect(breaches[0]?.type === "breach" && breaches[0].span).toBe(2);
@@ -115,7 +118,7 @@ describe("a two-tile meteor on the field", () => {
     // Every scar carries the width, so a crater is drawn at the size of the
     // rock that made it rather than at its kind's.
     expect(world.scars.every((s) => spanOf(s) === 2)).toBe(true);
-    const oneWide = run([small(2)], IMPACT_TICK + 1).world;
+    const oneWide = run([small(2)], BREACH_TICK + 1).world;
     expect(hullPercent(world)).toBe(hullPercent(oneWide));
   });
 

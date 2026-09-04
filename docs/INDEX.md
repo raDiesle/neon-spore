@@ -314,7 +314,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/raster-load.ts` | Getting a baked atlas into a shape `drawImage` will take |
 | `packages/render/src/raster-probe.ts` | Two tiny images whose only job is to be decoded |
 | `packages/render/src/ready-circles.ts` | The ready gate a guide ends on: two circles, filling, and the wave waits until both say READY |
-| `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
+| `packages/render/src/rock-impact.ts` | The last step of a rock's fall, replayed, and what becomes of the rock after it |
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
@@ -415,6 +415,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lobe-shell.ts` | WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE |
 | `packages/render/src/recoil-vent.ts` | The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a shot met it in |
 | `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
+| `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
 
 ### packages/net
 

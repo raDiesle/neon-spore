@@ -4,16 +4,14 @@ import { DEFLECT_LOOK } from "../src/deflect-look.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * The bug this guards: `rock-impact.ts` hands `DeflectFx.spawn` the point it
- * last saw the rock, which is the hull's own breathing skin (`hullSkinY`) —
- * the same point an *undeflected* rock sinks into. The rule answers a
- * deflected meteor a whole row higher, at `shieldRow` (`packages/sim/src/
- * hull.ts`), and by the time the replayed fall actually reaches the hull the
- * shield's armed bulge has almost always eased back off, so that point reads
- * as the plain hull surface regardless of how armed the shield was at the
- * moment of the block. `DeflectFx.spawn` corrects for the one row that gap
- * always is — see the comment on `spawn` for why a fixed `tile` shift is the
- * part of this that does not need to know any of that.
+ * The bug this guards: a bounce drawn somewhere other than where the rock
+ * actually stopped. The rule answers a deflected meteor at `shieldRow`, a
+ * whole row above the hull (`packages/sim/src/hull.ts`), and *also* on the
+ * last beat of all, when the rock is already standing on the plating —
+ * `rock-impact.ts` knows which of the two this rock is and hands the point
+ * over. `DeflectFx` bounces from exactly the point it is given; the shift
+ * used to live here, which was right for the first case and a visible jump
+ * of a whole tile in the second.
  */
 
 const TILE = 75.6;
@@ -41,14 +39,14 @@ function trackY(ctx: ReturnType<typeof stubCanvas>["ctx"]): {
 }
 
 describe("DeflectFx.spawn", () => {
-  it("starts the bounced rock a tile above the point it is given, not on it", () => {
+  it("starts the bounced rock on the point it is given, not a tile off it", () => {
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 1);
     const { ctx } = stubCanvas();
     const { translateYs } = trackY(ctx);
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
     expect(translateYs.length).toBeGreaterThan(0);
-    for (const y of translateYs) expect(y).toBeCloseTo(1130 - TILE, 5);
+    for (const y of translateYs) expect(y).toBeCloseTo(1130, 5);
   });
 
   it("never draws the shockwave below the point it started at", () => {
@@ -62,7 +60,7 @@ describe("DeflectFx.spawn", () => {
     fx.update(0.1, TILE);
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
     expect(arcYs.length).toBeGreaterThan(0);
-    for (const y of arcYs) expect(y).toBeCloseTo(1130 - TILE, 5);
+    for (const y of arcYs) expect(y).toBeCloseTo(1130, 5);
   });
 });
 
@@ -79,7 +77,7 @@ describe("DeflectFx press-and-release", () => {
   it("presses the rock into the shield before it springs away", () => {
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 1);
-    const spawnY = 1130 - TILE;
+    const spawnY = 1130;
     const { ctx } = stubCanvas();
     const { translateYs } = trackY(ctx);
     // Covers the whole press window (`PRESS_LIFE`) and well beyond it, at a
@@ -99,7 +97,7 @@ describe("DeflectFx press-and-release", () => {
   it("keeps the press a fraction of a tile, not a lurch off the field", () => {
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 1);
-    const spawnY = 1130 - TILE;
+    const spawnY = 1130;
     const { ctx } = stubCanvas();
     const { translateYs } = trackY(ctx);
     for (let i = 0; i < 5; i++) {

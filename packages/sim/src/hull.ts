@@ -109,11 +109,22 @@ export function resolveHull(world: World): void {
         continue;
       }
       // Nobody turned it at the surface, so it is inside the shield now. That
-      // is not the end of it: the ship's own row is still a beat away for a
-      // rock that falls one tile a beat, and a trigger that arrives in that
-      // beat still saves the hull, exactly as it did before this row moved.
-      // Nothing that used to be answerable stopped being answerable.
-      if (c.row < shipRow) {
+      // is not the end of it, and `fromRow` is what says so: it is the row the
+      // picture is still gliding this rock out of, so while it is above the
+      // ship the rock is *arriving* rather than arrived, and the trigger has
+      // another beat to come in on.
+      //
+      // Two beats of grace fall out of that one line, and both are the same
+      // rule. A rock a row above the ship is arriving on the ship's row; a
+      // rock already standing on the ship's row is arriving at the plating,
+      // because `beat.ts` clamps its fall there and render/ spends that beat
+      // drawing it come down the last tile. Only on the beat after — the beat
+      // it is drawn standing still on the hull — is it through.
+      //
+      // Before the clamp, that last drawn tile was a replay of a body already
+      // removed (`rock-impact.ts`), and a trigger pressed while watching the
+      // rock cross it hit nothing. That is the report this answers.
+      if (c.fromRow < shipRow) {
         survivors.push(c);
         continue;
       }

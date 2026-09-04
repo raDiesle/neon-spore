@@ -67,16 +67,9 @@ export function drawTorchTail(
   ctx.restore();
 }
 
-/**
- * The rock itself: the ember ring, then the same crystal shape and stone-grey
- * fill as a plain meteor. Assumes `ctx` is already translated to the rock's
- * centre and rotated. Shared with `rock-impact.ts`'s fall-replay for every
- * rock kind, and the torch's own embed-and-drift on top of that, so a
- * bounced or embedded rock is unmistakably the same thing that fell.
- */
-export function drawTorchRock(ctx: CanvasRenderingContext2D, r: number, time: number): void {
-  // The tail's colour, kept only as a faint ring just outside the rock's own
-  // outline — a trace of the flame, not the flame itself.
+/** The torch's flame, kept only as a faint ring just outside the rock's own
+ * outline — a trace of it, not the flame itself. */
+function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): void {
   const ringD = crystalPath(
     0,
     0,
@@ -93,6 +86,29 @@ export function drawTorchRock(ctx: CanvasRenderingContext2D, r: number, time: nu
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(new Path2D(ringD));
   ctx.globalAlpha = 1;
+}
+
+/**
+ * The rock itself: the ember ring, then the same crystal shape and stone-grey
+ * fill as a plain meteor. Assumes `ctx` is already translated to the rock's
+ * centre and rotated. Shared with `rock-impact.ts`'s fall-replay for every
+ * rock kind, and the torch's own embed-and-drift on top of that, so a
+ * bounced or embedded rock is unmistakably the same thing that fell.
+ *
+ * `ember` is the ring, and it belongs to the torch alone — it is the flame
+ * this rock is named for. A plain meteor has none anywhere else it is drawn
+ * (`drawMeteor`, meteor.ts), so leaving it on here made a grey rock grow an
+ * orange outline in the last moment of its fall, which is exactly what the
+ * owner saw. It defaults on because the queen's sockets and the director's
+ * holders draw torches, and a torch is what this function is for.
+ */
+export function drawTorchRock(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  time: number,
+  ember = true,
+): void {
+  if (ember) drawEmberRing(ctx, r, time);
 
   const d = crystalPath(
     0,

@@ -320,8 +320,11 @@ describe("what a pod gives", () => {
       throbOpen: false,
       shell: NO_SHELL,
     });
+    // Two beats, not one: the rock lands on the ship's row and stands there
+    // for the beat render/ draws it arriving before it is through — the beat
+    // a trigger could still have turned it on (`hull.ts`).
     const events2: SimEvent[] = [];
-    for (let t = 0; t < TPB; t++) {
+    for (let t = 0; t < TPB * 2; t++) {
       step(world, []);
       events2.push(...world.events);
     }

@@ -26,6 +26,15 @@ const HULL = hullRow(CFG); // 14
  * 0; from there one row per beat. So it meets the hull on beat `HULL + 1`.
  */
 const IMPACT_TICK = TPB * (HULL + 1);
+/**
+ * The beat a rock nobody answered is actually *through* the hull: one beat
+ * past the beat it lands on it. A rock stops on the ship's row instead of
+ * falling past it, and spends the beat render/ draws it crossing that last
+ * tile standing there — which is the last beat the shield can still turn it
+ * (`hull.ts`). Every miss below is measured from here, every save from
+ * `IMPACT_TICK`.
+ */
+const BREACH_TICK = IMPACT_TICK + TPB;
 
 interface Run {
   world: ReturnType<typeof createWorld>;
@@ -120,14 +129,14 @@ describe("the shield", () => {
     // press 30 ticks past the edge of the window has to be 30 ticks past
     // that edge and not the ship's (`shieldRow`, sim/hull.ts).
     const early = IMPACT_TICK - TPB - Math.round((CFG.guardWindowMs / 1000) * CFG.tickHz) - 30;
-    const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 5), guard(early)]);
+    const { world } = run([meteor(5)], BREACH_TICK + 1, [shieldTo(10, 5), guard(early)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);
     expect(hullPercent(world)).toBeLessThan(100);
   });
 
   it("does nothing from the wrong column, however well timed", () => {
-    const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 2), guard(IMPACT_TICK - 20)]);
+    const { world } = run([meteor(5)], BREACH_TICK + 1, [shieldTo(10, 2), guard(IMPACT_TICK - 20)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(0);
     expect(world.guard.tries).toBe(1);
@@ -135,7 +144,7 @@ describe("the shield", () => {
   });
 
   it("position alone is not enough", () => {
-    const { world } = run([meteor(5)], IMPACT_TICK + 1, [shieldTo(10, 5)]);
+    const { world } = run([meteor(5)], BREACH_TICK + 1, [shieldTo(10, 5)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);
   });

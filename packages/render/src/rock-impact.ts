@@ -1,34 +1,31 @@
 import { type CreatureKind, fallTilesPerBeat } from "@neon-spore/sim";
-import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import {
+  currentX,
+  driftedOffscreen,
+  floatSeconds,
+  liftoffRise,
+  stickStart,
+  travelled,
+} from "./rock-drift.js";
 import { drawTorchRock, drawTorchTail, rockRadius, torchRotation } from "./torch.js";
 
-/** How long a missed rock sits sunk into the hull before it starts to drift off. */
-const STICK_LIFE = 2;
+/**
+ * **The last step of a rock's fall, and what becomes of the rock after it.**
+ * The simulation removes a body the same tick the beat's motion is computed,
+ * so render/ never gets a frame to glide it through that final step; this
+ * replays it at the speed every earlier beat had. A miss then sinks into the
+ * skin and rolls off the field, a deflect hands its point to `DeflectFx` and
+ * is gone. How it rolls off is `rock-drift.ts`.
+ */
+
 /** How long the torch's tail lasts once it is in the hull — long enough not
  * to blink out between two frames, short enough that it is gone by the time
  * anyone reads the crater: a rock lodged in the skin with a trail still
  * hanging off it reads as still falling, and there is no falling left to do. */
 const TAIL_LIFE = 0.15;
-/**
- * How long the *start* of the drift takes to reach its cruising height and
- * speed — the thing that used to jump instantly to a new height and speed
- * the moment it stopped being stuck. Everything about letting go eases
- * against this, so the liftoff is a beat, not the whole drift, which never
- * eases back down again — it simply keeps accelerating off the edge of the
- * field (`update`'s `offscreen`).
- */
-const RISE_TIME = 0.5;
-/** How fast it is already moving sideways the instant it lets go, in px/s.
- * Not zero: a rock accelerating up from a standstill spends its first half
- * second barely moving and barely turning, which reads as the hull letting
- * go reluctantly. With real speed it rolls out of its hole from frame one. */
-const DRIFT_SPEED = 30;
-/** Sideways acceleration once it lets go, in px/s² — on top of `DRIFT_SPEED`,
- * so it leaves at a believable pace and keeps gathering. */
-const DRIFT_ACCEL = 28;
 
 interface Impact {
   kind: CreatureKind;
@@ -61,24 +58,6 @@ interface Impact {
   /** Fires once, the frame the replay reaches the hull's skin. */
   onArrive: (x: number, y: number) => void;
   arrived: boolean;
-}
-
-/** When the stuck hold ends and drift-off begins, in `im.t` — meaningless for
- * a non-embedding impact, which is gone the moment it lands. */
-function stickStart(im: Impact): number {
-  return im.fallLife + (im.embed ? STICK_LIFE : 0);
-}
-
-/** How far it has rolled from where it landed, in px — 0 until it lets go.
- * A pure function of elapsed time, not accumulated state. */
-function travelled(im: Impact): number {
-  const floatT = Math.max(0, im.t - stickStart(im));
-  return DRIFT_SPEED * floatT + 0.5 * DRIFT_ACCEL * floatT * floatT;
-}
-
-/** Screen x right now. */
-function currentX(im: Impact): number {
-  return im.x0 + im.dir * travelled(im);
 }
 
 /**
@@ -140,20 +119,15 @@ export class RockImpactFx {
   }
 
   update(dt: number, l: Layout): void {
-    const margin = l.gridWidth * 0.3;
-    const left = l.gridLeft - margin;
-    const right = l.gridLeft + l.gridWidth + margin;
     for (let i = this.impacts.length - 1; i >= 0; i--) {
       const im = this.impacts[i]!;
       im.t += dt;
-      const x = currentX(im);
-      const offscreen = x < left || x > right;
-      // A drifting rock keeps drifting — accelerating the whole way, per
-      // `DRIFT_ACCEL` — until it is actually gone from view, not for some
+      // A drifting rock keeps drifting — accelerating the whole way
+      // (`rock-drift.ts`) — until it is actually gone from view, not for some
       // fixed time regardless of where that leaves it. A non-embedding
       // impact (a deflect) has nothing left to draw once it has arrived.
       const done = !im.embed && im.arrived;
-      if (done || offscreen) this.impacts.splice(i, 1);
+      if (done || driftedOffscreen(l, currentX(im))) this.impacts.splice(i, 1);
     }
   }
 
@@ -167,10 +141,13 @@ export class RockImpactFx {
       const x = currentX(im);
       const surfaceY = skinAt(x);
       const stuckY = surfaceY - im.r * 0.5;
-      // A deflected rock never sinks — the rule, and `DeflectFx`'s bounce
-      // (`deflect.ts`'s `y - tile`), stop it a `tile` short of the hull's
-      // skin, or the two halves of one motion would disagree.
-      const arriveY = im.embed ? stuckY : surfaceY - l.tile;
+      // A deflected rock never sinks: the rule turns it at `shieldRow`, a
+      // whole tile above the plating, and that is where its bounce starts.
+      // Never *above* where the replay began, though — a rock the shield
+      // answers on the last beat of all is already standing on the ship
+      // (`hull.ts`), and a bounce a tile higher than the rock the player is
+      // looking at is a jump, not a deflection.
+      const arriveY = im.embed ? stuckY : Math.max(im.y0, surfaceY - l.tile);
       if (im.fallLife === 0) im.fallLife = Math.max(0.001, (arriveY - im.y0) / im.fallSpeed);
       const stuckAt = stickStart(im);
 
@@ -179,16 +156,15 @@ export class RockImpactFx {
       const falling = im.t < im.fallLife;
       if (!falling && !im.arrived) {
         im.arrived = true;
-        // `surfaceY`: `DeflectFx.spawn` shifts up a `tile` itself.
-        im.onArrive(x, surfaceY);
+        // A miss reports the skin it broke — that is where its sparks and its
+        // crater belong. A deflect reports where the rock actually stopped,
+        // which is what `DeflectFx` bounces from.
+        im.onArrive(x, im.embed ? surfaceY : arriveY);
       }
 
       const floating = im.t > stuckAt;
-      const floatT = Math.max(0, im.t - stuckAt);
-      // 0 the instant it lets go, 1 once the liftoff has run its course —
-      // everything about leaving the hull eases in against this, so there is
-      // no frame where the height visibly jumps to a new value.
-      const rise = smoothstep(floatT / RISE_TIME);
+      const floatT = floatSeconds(im);
+      const rise = liftoffRise(im);
       // It came down without turning (`drawTorch`) and lands the same way up
       // it fell. Leaving, it *rolls*: the turn is its travel over its own
       // radius — the arc a wheel that size covers going that far — and since
@@ -223,7 +199,11 @@ export class RockImpactFx {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(rotation);
-      drawTorchRock(ctx, im.r, falling || floating ? time : im.spawnTime);
+      // The ember ring only for the one rock that carries a flame. Every tier
+      // shares this body, and a grey meteor that grew an orange outline for
+      // the last moments of its fall was this call handing the torch's ring
+      // to all of them (`drawTorchRock`).
+      drawTorchRock(ctx, im.r, falling || floating ? time : im.spawnTime, im.kind === "torch");
       ctx.restore();
     }
   }

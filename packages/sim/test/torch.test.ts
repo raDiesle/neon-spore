@@ -28,6 +28,14 @@ const RATE = fallTilesPerBeat("torch");
 // beat, so it first reaches the hull on beat ceil(HULL / rate) + 1.
 const IMPACT_BEAT = Math.ceil(HULL / RATE) + 1;
 const IMPACT_TICK = TPB * IMPACT_BEAT;
+/**
+ * The beat a rock nobody answered is actually *through* the hull. A rock's
+ * fall stops on the ship's row rather than carrying it past — a torch's
+ * thirteen tiles a beat included — and it stands there for the beat render/
+ * spends drawing it arrive, which is the last beat the shield can turn it
+ * (`hull.ts`). So a miss lands one beat after `IMPACT_TICK`.
+ */
+const BREACH_TICK = IMPACT_TICK + TPB;
 
 interface Run {
   world: ReturnType<typeof createWorld>;
@@ -130,14 +138,14 @@ describe("the torch", () => {
     const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
     const world = createWorld(noRegen, 0, [torch(5)]);
     const byTick = new Map<number, TimedCommand[]>();
-    for (let t = 0; t < IMPACT_TICK + 1; t++) step(world, byTick.get(t) ?? []);
+    for (let t = 0; t < BREACH_TICK + 1; t++) step(world, byTick.get(t) ?? []);
     expect(hullPercent(world)).toBe(100 - CFG.damageMeteor);
     const scarredCols = new Set(world.scars.map((s) => s.col));
     expect(scarredCols).toEqual(new Set([5, 6]));
   });
 
   it("fires a single breach event on a miss, on its visual centre between the two columns", () => {
-    const { events } = run([torch(5)], IMPACT_TICK + 1);
+    const { events } = run([torch(5)], BREACH_TICK + 1);
     const breaches = events.filter((e) => e.type === "breach");
     expect(breaches).toHaveLength(1);
     expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor, span: 2 });
@@ -152,9 +160,12 @@ describe("the torch", () => {
     // — the row held at the previous beat — is one step further back.
     const lastRow = RATE * (IMPACT_BEAT - 2);
 
-    const missed = run([torch(5)], IMPACT_TICK + 1);
+    // A rock that is not turned lands on the ship's row and breaks it from
+    // there a beat later, so a breach always falls the last half-tile out of
+    // `HULL` itself, whatever the tier's speed.
+    const missed = run([torch(5)], BREACH_TICK + 1);
     const breach = missed.events.find((e) => e.type === "breach");
-    expect(breach).toMatchObject({ kind: "torch", fromRow: lastRow });
+    expect(breach).toMatchObject({ kind: "torch", fromRow: HULL });
 
     const deflected = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 5), guard(IMPACT_TICK - 20)]);
     const deflect = deflected.events.find((e) => e.type === "deflect");

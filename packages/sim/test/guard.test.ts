@@ -40,6 +40,14 @@ const tickOfRow = (row: number): number => TPB * (row + 1);
 /** The beat the rock meets the shield, and the beat it would meet the ship. */
 const SHIELD_TICK = tickOfRow(SHIELD);
 const IMPACT_TICK = tickOfRow(HULL);
+/**
+ * The beat the rock is actually *through* the ship. It is not `IMPACT_TICK`:
+ * a rock's fall stops on the hull row instead of carrying it past, and it
+ * stands there for the one beat render/ spends drawing it cross that last
+ * tile. That beat is the third and last time the shield is asked, and it is
+ * the one the owner was pressing on when nothing happened.
+ */
+const BREACH_TICK = IMPACT_TICK + TPB;
 
 const rock = (col: number, kind: RockKind = "meteor"): SpawnEntry => ({
   beat: 0,
@@ -123,8 +131,8 @@ describe("the shield answers a rock where the shield is", () => {
     expect(hullPercent(world)).toBe(100);
   });
 
-  it("counts one try for a rock that is answered twice and turned neither time", () => {
-    const { world } = run([rock(5)], IMPACT_TICK + 1, [shieldTo(10, 5)]);
+  it("counts one try for a rock that is answered three times and turned none of them", () => {
+    const { world } = run([rock(5)], BREACH_TICK + 1, [shieldTo(10, 5)]);
     expect(world.guard.tries).toBe(1);
     expect(world.guard.mistimed).toBe(1);
     expect(world.guard.deflected).toBe(0);
@@ -135,11 +143,50 @@ describe("the shield answers a rock where the shield is", () => {
     // nobody answers goes all the way down, and the damage arrives with it.
     const early = run([rock(5)], SHIELD_TICK + 1);
     expect(hullPercent(early.world)).toBe(100);
-    const late = run([rock(5)], IMPACT_TICK + 1);
+    // And not on the beat it *reaches* the ship either. It lands there and
+    // stands on the plating for the beat render/ draws it arriving; the hull
+    // is whole for all of that beat, and breaks at the end of it.
+    const landing = run([rock(5)], IMPACT_TICK + 1);
+    expect(hullPercent(landing.world)).toBe(100);
+    const late = run([rock(5)], BREACH_TICK + 1);
     expect(hullPercent(late.world)).toBeLessThan(100);
-    // Last seen alive a row short of the plating, which is the beat it was
-    // removed on — a rock that nobody answered rides the shield's row down.
-    expect(late.deepestRow).toBe(HULL - 1);
+    // Last seen alive standing on the plating — the row it landed on and was
+    // removed from, rather than a row short of it.
+    expect(late.deepestRow).toBe(HULL);
+  });
+
+  it("still answers the trigger on the beat the rock is standing on the ship", () => {
+    // The report this file was reopened for: *the shield does nothing when
+    // there is no room left*. A press made while watching the rock cross the
+    // last tile used to arrive after the simulation had already resolved it,
+    // because that tile was a replay of a body it had removed a beat earlier
+    // (`rock-impact.ts`). The rock now stands on the ship for exactly that
+    // beat, and the press lands on something.
+    const { world, events } = run([rock(5)], BREACH_TICK + 1, [
+      shieldTo(10, 5),
+      guard(BREACH_TICK - 20),
+    ]);
+    expect(world.guard.deflected).toBe(1);
+    expect(world.guard.tries).toBe(1);
+    expect(hullPercent(world)).toBe(100);
+    expect(events.some((e) => e.type === "deflect")).toBe(true);
+  });
+
+  it("gives every tier the same one beat on the plating, however fast it fell", () => {
+    // A torch covers thirteen tiles a beat and used to spend the whole of
+    // that last step as a picture of something already gone. The fall stops
+    // on the hull row for every tier, so the beat of grace is the same one.
+    const tiers: RockKind[] = ["meteor", "meteorFast", "meteorFastest", "torch"];
+    for (const kind of tiers) {
+      const rate = fallTilesPerBeat(kind);
+      const landTick = TPB * (Math.ceil(HULL / rate) + 1);
+      const { world } = run([rock(4, kind)], landTick + TPB + 1, [
+        shieldTo(10, 4),
+        guard(landTick + TPB - 20),
+      ]);
+      expect({ kind, deflected: world.guard.deflected }).toEqual({ kind, deflected: 1 });
+      expect({ kind, hull: hullPercent(world) }).toEqual({ kind, hull: 100 });
+    }
   });
 
   it("answers every rock tier at the surface, whatever its speed", () => {

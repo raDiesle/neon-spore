@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { startWave } from "../src/beat.js";
 import type { QueenState } from "../src/boss-state.js";
-import { DEFAULT_CONFIG } from "../src/config.js";
+import { DEFAULT_CONFIG, hullRow } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import {
   colSpan,
@@ -209,10 +209,12 @@ test("what she releases falls at the torch's own speed, from the socket down", (
   const col = rock.col;
 
   // One beat on, it has left her by a whole torch fall and not a tile less —
-  // and it has not changed columns, because nothing of hers is under it.
+  // or by as much of one as there is field left, since a rock's fall stops on
+  // the ship's row rather than carrying it past (`beat.ts`) — and it has not
+  // changed columns, because nothing of hers is under it.
   runTo(world, beatTick(9));
   expect(rock.fromRow).toBe(queen.row);
-  expect(rock.row).toBe(queen.row + fallTilesPerBeat("torch"));
+  expect(rock.row).toBe(Math.min(queen.row + fallTilesPerBeat("torch"), hullRow(CFG)));
   expect(rock.col).toBe(col);
 });
 

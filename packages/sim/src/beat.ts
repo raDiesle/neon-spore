@@ -1,4 +1,5 @@
 import { stepBoss } from "./boss.js";
+import { hullRow } from "./config.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
 import { echoFalls } from "./echo.js";
@@ -10,7 +11,7 @@ import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
-import { isBossBody } from "./types.js";
+import { isBossBody, isMeteorKind } from "./types.js";
 import { veilMorph } from "./veil.js";
 import { noteWaveCleared } from "./wave-end.js";
 import { stepWisp, wispHops, wispOnField } from "./wisp.js";
@@ -146,7 +147,16 @@ export function onBeat(world: World): void {
     }
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
-    c.row += grippedFallTiles(world, c);
+    const fall = grippedFallTiles(world, c);
+    // **A rock lands on the ship's row and does not go past it.** Whatever its
+    // tier — a plain meteor at one tile a beat or a torch at thirteen — the
+    // last step of its fall ends on `hullRow`, and the beat it spends standing
+    // there is the beat render/ uses to draw it arriving. That beat is the one
+    // the shield still has (`resolveHull`): without the clamp a fast rock's
+    // whole last step was a picture of a body the simulation had already
+    // resolved, so a trigger pressed while watching the rock cross the last
+    // tile answered nothing that was still there to answer.
+    c.row = isMeteorKind(c.kind) ? Math.min(c.row + fall, hullRow(world.cfg)) : c.row + fall;
     // Decided once a beat, from the beat this creature now stands on, and
     // stored — bullet-hit.ts and render/ both read it off the creature rather
     // than asking `throbIsOpen` a second time at a possibly different tick.
