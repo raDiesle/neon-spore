@@ -155,6 +155,7 @@ shim that shows what the new shape wants if it changed again.
 ## Split menu.ts and menu-view.ts before the next menu page arrives
 
 - **Found:** 2026-09-04, claude/testing-menu-reorganization-60f985
+- **Taken:** 2026-09-04, claude/queue-split-menu-ts-and-menu-view-ts-before-the-next-m
 - **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-view.ts`
 
 Both are at the ~250 line limit — `menu.ts` at 249 and `menu-view.ts` at 242
