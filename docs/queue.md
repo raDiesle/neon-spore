@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run frames` cannot photograph a wave's opening
 
 - **Found:** 2026-09-04, claude/wave-guide-scene-specimen
+- **Taken:** 2026-09-04, claude/queue-bun-run-frames-cannot-photograph-a-waves-opening
 - **Files:** `tools/frames/opening.ts`, `tools/frames/spec.ts`, `tools/frames/run.ts`, `tools/frames/capture.ts`
 
 `clearOpening` is unconditional: every capture advances past the introduction
