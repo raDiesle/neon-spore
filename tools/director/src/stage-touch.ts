@@ -123,7 +123,7 @@ export function bindStageTouch({
     if (briefingHolds(world())) {
       e.preventDefault();
       const speaksFor: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
-      const seats = openingPress(world(), layout(), speaksFor, at(e), push);
+      const seats = openingPress(world(), layout(), role(), speaksFor, at(e), push);
       if (seats) briefHolding.set(e.pointerId, seats);
       return;
     }

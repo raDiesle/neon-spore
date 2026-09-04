@@ -12,6 +12,7 @@ import { drawSeamFlesh, drawSeamRim, drawSeamSpill, seamPaths, seamTop } from ".
 import { drawDrips, drawFeeders } from "./band-slime.js";
 import { bandLobes, type Layout, showsCannon, showsShield } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -74,8 +75,9 @@ export function drawBand(
   drawSeamSpill(ctx, l);
   drawFeeders(ctx, l, feeders(l, set), time);
   ctx.restore();
-  drawSeamRim(ctx, seam.rim);
-  drawDrips(ctx, l, time);
+  const skin = seatSkin(l.role);
+  drawSeamRim(ctx, seam.rim, skin);
+  drawDrips(ctx, l, time, skin);
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";

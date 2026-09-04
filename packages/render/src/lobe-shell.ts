@@ -1,4 +1,5 @@
 import { blobPath } from "@neon-spore/content";
+import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
  * WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE.
@@ -79,21 +80,25 @@ export function paintLobe(
 /** The margin a socket sprite adds round the button, as a share of `r`. */
 const SOCKET_PAD = 0.62;
 
-const sockets = new Map<number, HTMLCanvasElement>();
+const sockets = new Map<string, HTMLCanvasElement>();
 
-function socketSprite(r: number, dpr: number): HTMLCanvasElement {
+function socketSprite(r: number, dpr: number, lip: SeatSkin["lip"]): HTMLCanvasElement {
+  // Keyed on the light as well as the size: the two seats grew their tissue in
+  // different colours, and a cache that only remembered radii would hand player
+  // two whichever one was baked first (`seat-skin.ts`).
   const key = Math.max(2, Math.round(r * dpr));
-  const held = sockets.get(key);
+  const id = `${key}:${lip[0]}`;
+  const held = sockets.get(id);
   if (held) return held;
-  if (sockets.size > 12) sockets.clear();
+  if (sockets.size > 24) sockets.clear();
   const pad = Math.ceil(key * SOCKET_PAD);
   const size = (key + pad) * 2;
   const c = document.createElement("canvas");
   c.width = size;
   c.height = size;
   const g = c.getContext("2d");
-  if (g) paintSocket(g, size / 2, key);
-  sockets.set(key, c);
+  if (g) paintSocket(g, size / 2, key, lip);
+  sockets.set(id, c);
   return c;
 }
 
@@ -101,7 +106,12 @@ function socketSprite(r: number, dpr: number): HTMLCanvasElement {
  * The depression itself: a soft dark pool with a lip that catches the light
  * from the seam above, and a thin wet ring where the button meets it.
  */
-function paintSocket(g: CanvasRenderingContext2D, mid: number, r: number): void {
+function paintSocket(
+  g: CanvasRenderingContext2D,
+  mid: number,
+  r: number,
+  lipColours: SeatSkin["lip"],
+): void {
   const outer = r * (1 + SOCKET_PAD);
   const pool = g.createRadialGradient(mid, mid, r * 0.6, mid, mid, outer);
   pool.addColorStop(0, "rgba(6,3,16,0.72)");
@@ -112,9 +122,9 @@ function paintSocket(g: CanvasRenderingContext2D, mid: number, r: number): void 
 
   // The lip. Brightest along the top, where the light in this chamber is.
   const lip = g.createLinearGradient(0, mid - r * 1.3, 0, mid + r * 1.3);
-  lip.addColorStop(0, "rgba(190,132,250,0.3)");
-  lip.addColorStop(0.5, "rgba(126,78,206,0.07)");
-  lip.addColorStop(1, "rgba(52,28,98,0.24)");
+  lip.addColorStop(0, lipColours[0]);
+  lip.addColorStop(0.5, lipColours[1]);
+  lip.addColorStop(1, lipColours[2]);
   g.strokeStyle = lip;
   g.lineWidth = Math.max(1, r * 0.1);
   g.save();
@@ -132,8 +142,9 @@ export function drawLobeSocket(
   y: number,
   r: number,
   dpr: number,
+  lip: SeatSkin["lip"] = P1_SKIN.lip,
 ): void {
-  const sprite = socketSprite(r, dpr);
+  const sprite = socketSprite(r, dpr, lip);
   const size = r * (1 + SOCKET_PAD) * 2;
   ctx.drawImage(sprite, x - size / 2, y - size / 2, size, size);
 }

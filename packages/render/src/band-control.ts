@@ -7,6 +7,7 @@ import { drawLanceButton } from "./lance.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * One control of the band, drawn — a lobe or a strip, whichever the set says.
@@ -39,7 +40,7 @@ export function drawLobe(
   open: boolean,
 ): void {
   const { x, y, r } = circle;
-  drawLobeSocket(ctx, x, y, r, l.dpr);
+  drawLobeSocket(ctx, x, y, r, l.dpr, seatSkin(l.role).lip);
   drawFace(ctx, circle, c, world, armed, open);
   drawLobeGloss(ctx, x, y, r, l.dpr);
 }

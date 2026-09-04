@@ -56,14 +56,14 @@ export function drawIntroduction(
   age = Number.POSITIVE_INFINITY,
   fading = false,
   /**
-   * Where the block's **last** line sits, when the caller has something under
-   * it the words belong with. The gate does: the wave's name, the line saying
-   * who is still reading, the two circles and the button are one column, and a
-   * name floating a third of a screen above it read as a page that had not
-   * finished being laid out. Left out, the block sits where it always has —
-   * centred in the play area, with nothing under it and nothing to meet.
+   * Where the block's **first** line sits, when the caller is laying a column
+   * out around it. The gate does: the owner asked for that whole page to move
+   * to the top of the screen, so the wave's name starts it and the question,
+   * the circles and the line about who is waiting follow underneath. Left out,
+   * the block sits where a standing introduction always has — centred in the
+   * play area, with nothing above or below it to meet.
    */
-  bottom?: number,
+  top?: number,
 ): void {
   const wave = WAVES[world.wave];
   const name = wave?.name ?? "BEYOND THE AUTHORED WAVES";
@@ -80,13 +80,8 @@ export function drawIntroduction(
   // Centred in the play area rather than low down where the old wave banner
   // sat. That banner shared the screen with a wave already running and had to
   // keep off a boss; nothing is on the field behind this, because the wave has
-  // not started, and the middle is where an eye already is. A caller with
-  // something under the block hands a `bottom` instead, and the block is hung
-  // off that — never above the top of the play area, whatever it asks for.
-  let y =
-    bottom === undefined
-      ? l.playHeight * 0.42
-      : Math.max(NAME_DROP + 24, bottom - NAME_DROP - SENTENCE_DROP - (lines.length - 1) * LINE);
+  // not started, and the middle is where an eye already is.
+  let y = top ?? l.playHeight * 0.42;
   let line = 0;
 
   drop(ctx, mid, y, age, line++, out, () => {

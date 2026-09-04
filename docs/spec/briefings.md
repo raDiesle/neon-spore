@@ -177,6 +177,11 @@ each time is what would get the whole opening switched off.
 
 ### Every guide is a stack of pages
 
+Each page repeats on its own — it plays, pauses for a moment, and plays again,
+and it is **that page** that repeats rather than the film from the top. NEXT
+begins to glow once a page has played through once, which is the only pacing
+advice the film gives: the page goes on repeating either way.
+
 A guide is **pages**, and each seat has its own cursor into them
 (`world.brief.stepP1` / `stepP2`, both in the hash). BACK goes back a page, NEXT
 goes on, and the bar at the bottom says which page this is and how many there
@@ -196,11 +201,20 @@ through the tutorial, and just at the end both need to say they are ready.*
 
 **The last page is the gate, and it is the introduction.** Its picture is the
 game's own screen with the wave's number, its name and its sentence over it, and
-the READY button under them — so a guided wave has no separate introduction
-behind it, and crossing the gate starts the field. The line that says who has not
-answered yet is the loudest thing on that page after the wave's name, because
-two people reading at their own speeds means one of them is nearly always
-waiting.
+the two circles under them — so a guided wave has no separate introduction
+behind it, and crossing the gate starts the field. The whole column sits at the
+top of the screen, over the sky rather than over the ship.
+
+**The circle is the control, and there is no button.** There was one, filling as
+it was held, and it was one gauge too many — *we don't need button and circle to
+have progress, only stay with the circle*. So the circles are big, a thumb
+presses its own one, and above them the word **READY?** pulses instead of
+offering something to press. It is still a hold: a lift before the ring closes
+empties it. The one waiting for its player breathes in that seat's own colour;
+the line that says who has not answered yet is the loudest thing on the page
+after the wave's name, because two people reading at their own speeds means one
+of them is nearly always waiting. When both rings close, the two colours run out
+of the middle of the screen as rings of their own and the wave is behind them.
 
 `world.brief.steps` is the count, handed to `startWave` from `content` — never
 a scene and never the words: the simulation still reads neither. `guideSteps`
@@ -611,3 +625,25 @@ added quietly back here.
 
 Deliberately not in scope: figures (`wave-design.md` 8.1), an unlockable
 bestiary screen, and anything that reads a microphone — rule 4 stands.
+
+---
+
+## The two seats do not look alike
+
+Player one's ship is violet and player two's is amber
+(`packages/render/src/seat-skin.ts`). It reaches the hull, the lit edge of the
+membrane the panel hangs from, the light in a button's socket and the beads that
+run off the seam — the surfaces that say *this is your ship*. It deliberately
+does not reach the ammunition, the strips or a control's own face: red is red
+and cyan is cyan on both screens, and a pair with two vocabularies for one game
+is the thing `docs/spec/controls.md` exists to prevent.
+
+The owner asked for it while looking at the tutorial — *give player 2 another
+colour of the ship as well, then we can easily distinguish* — and it is why the
+guide's announcement of whose screen is showing can be a word that arrives and
+leaves rather than a band across the top: once the colour has been named, the
+colour carries it.
+
+Amber is `ship:hull-skin` / `warm`, which sat in `tools/versus/candidates/` as a
+question about replacing violet. It was answered by being given a seat instead,
+and the candidate is gone.

@@ -38,8 +38,9 @@ export { drawPinballRound, pinMorph01, showsPinPieces } from "./pinball-round.js
 export { drawPinBall, drawPinCase, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
-export { onReadyButton, readyButtonBox } from "./ready-page.js";
+export { onReadyCircle, readyCircles } from "./ready-page.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
+export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-draw.js";

@@ -1,7 +1,6 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
-import { HULL_WARM } from "./ship-hull.warm/index.js";
 // endregion
 
 /**
@@ -19,5 +18,12 @@ import { HULL_WARM } from "./ship-hull.warm/index.js";
  * An empty array is a correct state, not a broken one: `variant.ts`, `seed.ts`,
  * `run.ts` and this file all stay whether or not a slot is open. They are the
  * seam, the way `Effects` stays whether or not anything is exploding.
+ *
+ * `ship:hull-skin` / `warm` left this list by being *answered*, which is the
+ * only way anything is meant to. The answer was not "violet" or "amber" but
+ * both: the amber hull is player two's ship and the violet one is player one's,
+ * so the pair can tell whose screen they are looking at without reading a word
+ * (`packages/render/src/seat-skin.ts`). A question with a shipped answer is not
+ * a question, so the directory went with the entry.
  */
-export const VARIANTS: Variant[] = [HULL_WARM, SHOT_STREAK];
+export const VARIANTS: Variant[] = [SHOT_STREAK];

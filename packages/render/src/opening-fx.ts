@@ -1,6 +1,7 @@
 import { briefingHolds, guideHolds, guidePage, onReadyPage, type World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
 
 /**
  * The two things a wave's opening remembers between frames: how long the page
@@ -17,10 +18,15 @@ import { PALETTE } from "./palette.js";
  * exactly the class of ghost that rule exists to stop.
  */
 
+/** How long the wave takes to arrive once the gate is crossed, in seconds. */
+const LAUNCH_LIFE = 0.72;
 /** A blob's whole life, in seconds. */
 const BLOB_LIFE = 1.15;
 /** How many a circle throws when it latches. */
 const BLOB_COUNT = 22;
+/** The two seats' colours, named here so the ring does not reach for a skin. */
+const P1_HEX = P1_SKIN.tint;
+const P2_HEX = P2_SKIN.tint;
 
 interface Blob {
   x: number;
@@ -40,12 +46,15 @@ export class OpeningFx {
   private blobs: Blob[] = [];
   /** Whether each seat's circle was full last frame, so a latch is an edge. */
   private wasReady: [boolean, boolean] = [false, false];
+  /** Seconds left of the wave arriving. 0 when nothing is arriving. */
+  private launch = 0;
 
   reset(): void {
     this.key = "";
     this.shown = 0;
     this.blobs.length = 0;
     this.wasReady = [false, false];
+    this.launch = 0;
   }
 
   /**
@@ -56,6 +65,12 @@ export class OpeningFx {
    */
   update(dt: number, key: string): void {
     if (key !== this.key) {
+      // The gate crossed: the opening is over and the wave is what comes next.
+      // The owner asked for the moment to be marked — *when both are ready a
+      // cool animation should appear, a nice transition to the game going to
+      // happen now* — and this is where it can be seen from, because it is the
+      // one place that knows the page that was up a frame ago.
+      if (this.key.includes("|ready") && key === "") this.launch = LAUNCH_LIFE;
       this.key = key;
       this.shown = 0;
       // A page that is not the gate cannot have a circle on it, so nothing a
@@ -63,6 +78,7 @@ export class OpeningFx {
       if (!key.includes("|ready")) this.blobs.length = 0;
     }
     this.shown += dt;
+    this.launch = Math.max(0, this.launch - dt);
     for (const b of this.blobs) {
       b.age += dt;
       b.x += b.vx * dt;
@@ -93,7 +109,7 @@ export class OpeningFx {
   }
 
   private spit(x: number, y: number, r: number, seat: 1 | 2): void {
-    const hex = seat === 1 ? PALETTE.hull : PALETTE.cyan;
+    const hex = seat === 1 ? P1_HEX : P2_HEX;
     for (let i = 0; i < BLOB_COUNT; i++) {
       // Fanned by index rather than by a random number: a burst that comes out
       // the same every time is one somebody can look at twice, and `render` has
@@ -130,6 +146,48 @@ export class OpeningFx {
       ctx.fill();
     }
     ctx.globalAlpha = 1;
+  }
+
+  /** Whether the wave is still arriving, so the frame knows to ask. */
+  get launching(): boolean {
+    return this.launch > 0;
+  }
+
+  /**
+   * The wave arriving: two rings running out from where the circles were, in
+   * the two seats' own colours, and the light they leave behind.
+   *
+   * Over the whole frame rather than over the opening, because by the time this
+   * runs there is no opening left — the gate crossed and the field is already
+   * being drawn (`canvas2d.ts` calls it last). Additive, so it reads as light
+   * on the field rather than as a sheet over it.
+   */
+  drawLaunch(ctx: CanvasRenderingContext2D, width: number, height: number, midY: number): void {
+    if (this.launch <= 0) return;
+    const k = 1 - this.launch / LAUNCH_LIFE;
+    const reach = Math.hypot(width, height);
+    const prev = ctx.globalCompositeOperation;
+    ctx.globalCompositeOperation = "lighter";
+
+    // The flash first, under the rings: brightest at the instant the gate went.
+    ctx.globalAlpha = 0.2 * (1 - k) * (1 - k);
+    ctx.fillStyle = PALETTE.hull;
+    ctx.fillRect(0, 0, width, height);
+
+    for (const [i, hex] of [P1_HEX, P2_HEX].entries()) {
+      const lag = i * 0.12;
+      const t = Math.max(0, Math.min(1, (k - lag) / (1 - lag)));
+      if (t <= 0) continue;
+      ctx.globalAlpha = 0.7 * (1 - t) * (1 - t);
+      ctx.strokeStyle = hex;
+      ctx.lineWidth = 14 * (1 - t) + 2;
+      ctx.beginPath();
+      ctx.arc(width / 2, midY, t * reach * 0.7 + 8, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = prev;
   }
 }
 

@@ -1,5 +1,7 @@
 import { readyFraction, readyHeld, seatReady, type World } from "@neon-spore/sim";
+import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * One seat's circle at the gate a guide ends on: a dim track, an arc for the
@@ -16,22 +18,31 @@ import { PALETTE } from "./palette.js";
  * screen that drew only its own circle would be the same feature with the
  * meaning taken out.
  *
- * **They are gauges and never buttons.** The gate has a button of its own
- * (`ready-page.ts`), and it has to: BACK is on the same screen, so a press
- * anywhere cannot mean READY.
+ * **The circle is the control now**, not a gauge beside one. There was a button
+ * under these that filled as it was held, and the owner's answer was that one
+ * of the two had to go: *we don't need button and circle to have progress, only
+ * stay with the circle.* So this is what a thumb presses, it is drawn big, and
+ * the one waiting for its own player breathes — a ring of that seat's own
+ * colour, widening and fading, which is the whole of "this wants something from
+ * you" without a word being spent on it.
  *
  * Yours is the brighter of the two and named YOU, theirs is dimmed and named
  * THEM. In `test` — one person at a desk holding both seats — neither is
  * "yours", so they are named PLAYER ONE and PLAYER TWO and drawn alike.
  *
  * Its own file rather than the tail of `ready-page.ts` for the reason every
- * split here happens: that file is a page, with a heading, a button and a line
- * about whose turn it is, and this is one instrument on it.
+ * split here happens: that file is a page, with a heading, a question and a
+ * line about whose turn it is, and this is one instrument on it.
  */
 
-/** Half the distance between the two rings, from the page's centre. */
-export const RING_GAP = 46;
 export const RING_R = 22;
+
+export interface CircleMood {
+  /** Whether this one is waiting on the person holding this screen. */
+  calling?: boolean;
+  /** Seconds, for the breathing. */
+  beat?: number;
+}
 
 export function drawCircle(
   ctx: CanvasRenderingContext2D,
@@ -42,26 +53,45 @@ export function drawCircle(
   label: string,
   bright: boolean,
   r = RING_R,
+  mood: CircleMood = {},
 ): void {
   const fill = readyFraction(world, seat);
   const done = seatReady(world, seat);
   const holding = readyHeld(world, seat);
+  const skin = seatSkin(seat === 1 ? "p1" : "p2");
+  const beat = mood.beat ?? 0;
+  const line = Math.max(4, r * 0.16);
+
+  // The call: a ring that swells and fades on the beat of the words above it.
+  // Only ever on the circle whose thumb is missing (`ready-page.ts` decides).
+  if (mood.calling && !holding) {
+    const k = (Math.sin(beat * 2.2) + 1) / 2;
+    halo(ctx, cx, cy, r * (1.5 + 0.5 * k), skin.tint, 0.16 + 0.14 * k);
+    ctx.globalAlpha = 0.2 + 0.24 * (1 - k);
+    ctx.strokeStyle = skin.tint;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 6 + 10 * k, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+  if (done) halo(ctx, cx, cy, r * 2.1, PALETTE.good, 0.24);
 
   ctx.textAlign = "center";
   if (label) {
-    ctx.font = '600 8px "Courier New",monospace';
-    ctx.fillStyle = bright ? PALETTE.shieldRim : PALETTE.dim;
-    ctx.fillText(label, cx, cy - r - 8);
+    ctx.font = `600 ${Math.max(8, Math.round(r * 0.24))}px "Courier New",monospace`;
+    ctx.fillStyle = bright ? skin.rim : PALETTE.dim;
+    ctx.fillText(label, cx, cy - r - 12);
   }
 
-  ctx.lineWidth = 4;
+  ctx.lineWidth = line;
   ctx.strokeStyle = "#3B3163";
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
   ctx.stroke();
 
   if (fill > 0) {
-    ctx.strokeStyle = done ? PALETTE.good : bright ? PALETTE.hull : PALETTE.hullRim;
+    ctx.strokeStyle = done ? PALETTE.good : bright ? skin.tint : skin.rim;
     ctx.beginPath();
     ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * fill);
     ctx.stroke();
@@ -71,12 +101,12 @@ export function drawCircle(
   if (holding && !done) {
     ctx.fillStyle = "rgba(122,111,168,.30)";
     ctx.beginPath();
-    ctx.arc(cx, cy, r - 5, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r - line - 1, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  ctx.font = '700 11px "Courier New",monospace';
+  ctx.font = `700 ${Math.max(11, Math.round(r * 0.3))}px "Courier New",monospace`;
   ctx.fillStyle = done ? PALETTE.good : PALETTE.dim;
-  ctx.fillText(done ? "READY" : "", cx, cy + r + 15);
+  ctx.fillText(done ? "READY" : "", cx, cy + r + Math.max(15, r * 0.42));
   ctx.textAlign = "left";
 }

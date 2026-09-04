@@ -25,6 +25,7 @@ import { drawOtherHand } from "./other-hand.js";
 import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
 import type { ViewState } from "./renderer.js";
+import { seatSkin } from "./seat-skin.js";
 import { drawShellArmour } from "./shell-draw.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
@@ -159,7 +160,10 @@ export function drawShip(
     at,
     (x) => !effects.rockCoversCrater(x, l.tile),
     (col, beat) => effects.hasArrived(col, beat),
-    undefined,
+    // Whose ship this is. Violet on player one's screen, amber on player two's
+    // — the one thing on either screen that says which of the two it is without
+    // being read (`seat-skin.ts`).
+    seatSkin(view.role).hull,
     shake,
     f,
   );

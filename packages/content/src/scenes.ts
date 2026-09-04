@@ -128,12 +128,18 @@ const FIRST_STEP: GuideScene = {
   // A finger arrives at a column on the tick the world hears about it, and the
   // lobe eases after it — so the steps are close together: a hand two columns
   // ahead of the cannon for half a second is a hand that is not dragging it.
+  // Every press sits a beat and a half after the page that asks for it opens.
+  // The owner watched the hand start moving as the words arrived and asked for
+  // the other order — *before the slider starts moving it should briefly stay
+  // with the text, then slide with the text* — because a pair reading "slide to
+  // its column" while the column is already being slid to has been shown the
+  // answer rather than asked the question.
   acts: [
-    { tick: 260, control: "cannon", col: 3 },
-    { tick: 290, control: "cannon", col: 4 },
-    { tick: 320, control: "cannon", col: 5 },
-    { tick: 350, control: "cannon", col: 5 },
-    { tick: 660, control: "fireRed" },
+    { tick: 330, control: "cannon", col: 3 },
+    { tick: 360, control: "cannon", col: 4 },
+    { tick: 390, control: "cannon", col: 5 },
+    { tick: 420, control: "cannon", col: 5 },
+    { tick: 690, control: "fireRed" },
   ],
   // Five pages, each one long enough to watch twice without being long enough
   // to wait through: two seconds, three, two and a half, one and a half, two
@@ -141,7 +147,10 @@ const FIRST_STEP: GuideScene = {
   // and is replayed from the top of the loop, so what a page shows is the world
   // as it really stood at that tick and not a clip cut out of it.
   steps: [
-    { tick: 0, seat: 1, text: "SLICK", anchor: { at: "body" } },
+    // ENEMY and not SLICK: it is the first thing either of them has ever seen
+    // on this field, and a name for a kind of enemy teaches nothing until there
+    // is a second kind to tell it from. The owner's own correction.
+    { tick: 0, seat: 1, text: "ENEMY", anchor: { at: "body" } },
     {
       tick: 240,
       seat: 1,

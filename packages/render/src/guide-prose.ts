@@ -103,7 +103,9 @@ export function drawProsePage(
   }
 
   ctx.textAlign = "left";
-  drawGuideNav(ctx, l, page, pages);
+  // No glow on NEXT here: a page of type has nothing to finish, so there is no
+  // moment for it to point at (`guide-nav.ts`).
+  drawGuideNav(ctx, l, { page, pages, age });
 }
 
 /** A section's name, and the y its first line of type sits on. */

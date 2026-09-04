@@ -1,15 +1,29 @@
+import { smoothstep } from "./ease.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
- * The move from one player's screen to the other, made followable.
+ * The move from one player's screen to the other, made unmissable.
  *
- * The owner's instruction was that the switch must be something a pair can
- * *follow* — a cut between two screens that look alike is a screen that seems
- * to have changed by itself, and the whole lesson of the tutorial is that there
- * are two devices and they carry different halves. So the picture slides
- * (`guide-scene.ts` owns the slide), a lit seam travels with the join, and a
- * banner names the screen that has arrived.
+ * The owner's first instruction was that the switch must be something a pair
+ * can *follow* — a cut between two screens that look alike is a screen that
+ * seems to have changed by itself, and the whole lesson of the tutorial is that
+ * there are two devices and they carry different halves. So the picture slides
+ * (`guide-scene.ts` owns the slide) and a lit seam travels with the join.
+ *
+ * His second was that it still was not loud enough: *that it is player 1 or
+ * player 2 screen and the switch animation must look more prominent — maybe
+ * have "Player 1 screen" text in the middle of screen, then we can remove the
+ * top header.* So the band across the top is gone and the announcement is a
+ * card-sized word in the middle of the picture, arriving with the slide and
+ * clearing off it a second later. It is the seat's own colour, which by then is
+ * also the colour of the ship underneath it (`seat-skin.ts`) — the announcement
+ * teaches the colour, and after that the colour does the work on its own.
+ *
+ * **It is announced once per page, not once per turn of it.** A page repeats
+ * until the pair presses NEXT, and a word this big arriving every two seconds
+ * would be the thing they were reading instead of the film.
  *
  * Its own file beside the stage because it is the one part of the rehearsal
  * that is pure decoration: nothing here reads a world, and removing it would
@@ -19,16 +33,18 @@ import { PALETTE } from "./palette.js";
 /** How far the seam's glow reaches either side of the join. */
 const SEAM = 5;
 /**
- * Where the banner sits, and how tall it is. A caption keeps clear of it.
- *
- * It is more than twice the height it was, and it runs the full width. The
- * owner's instruction was that **whose screen this is has to be much more
- * visible** — the old banner was eleven-point type in a pill the width of its
- * own words, which said "player 1" to somebody already looking for it and
- * nothing at all to somebody watching a blob fall.
+ * Where a caption may start. There is no banner to keep clear of any more, so
+ * this is the top of the picture plus room for the hull bar — which is the
+ * thing the old banner used to sit on top of, and the reason the last page's
+ * words could not be read against it.
  */
-export const BANNER_TOP = 22;
-export const BANNER_H = 50;
+export const BANNER_TOP = 6;
+export const BANNER_H = 22;
+
+/** Ticks the announcement takes to arrive, to stand, and to leave. */
+const IN_TICKS = 16;
+const HOLD_TICKS = 96;
+const OUT_TICKS = 26;
 
 /** The join between the outgoing and incoming screens, lit as it travels. */
 export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: number): void {
@@ -41,54 +57,68 @@ export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: numb
 }
 
 /**
- * Whose screen this is, across the top. It fades in with the slide and stays
- * for the rest of the page: a pair who looked away and back has to be able to
- * answer "which of us is this" without waiting for the next switch.
+ * Whose screen this is, across the middle of it.
  *
- * Two lines, because they are two different facts and one of them is the one
- * that matters: **PLAYER 1** in twenty-two point, and under it, smaller,
- * whether that is the phone in this player's own hand. That second line used to
- * read "THIS SCREEN" whoever was looking, which is true on one of the two
- * devices and a lie on the other — the film is the same on both, and only the
- * viewer's own `role` says which of them is holding it.
- *
- * And a rule of the seat's own colour down both edges of the stage, so the
- * answer is on the screen even when the words are not what the eye is on.
+ * `age` is ticks since this page opened and `first` is whether this is its
+ * first turn — together they are the whole of when this shows. Two lines: the
+ * seat, big, in its own colour, and under it whether that is the phone in this
+ * player's own hand. The second line used to read "THIS SCREEN" whoever was
+ * looking, which is true on one of the two devices and a lie on the other.
  */
 export function drawSeatBanner(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   seat: 1 | 2,
-  k: number,
+  age: number,
   role: ViewRole,
+  first: boolean,
 ): void {
-  if (k <= 0) return;
-  const hex = seat === 1 ? PALETTE.hull : PALETTE.cyan;
-  const rim = seat === 1 ? PALETTE.hullRim : PALETTE.cyanRim;
-
-  ctx.globalAlpha = k;
-  // The edges first and under everything: they are the quiet half of this.
-  ctx.fillStyle = hex;
-  ctx.globalAlpha = k * 0.5;
+  const skin = seatSkin(seat === 1 ? "p1" : "p2");
+  // The edges are the quiet, permanent half and are drawn whatever the age is:
+  // a player who looked away and back reads the colour, not the word.
+  ctx.globalAlpha = 0.55;
+  ctx.fillStyle = skin.tint;
   ctx.fillRect(0, 0, 4, l.height);
   ctx.fillRect(l.width - 4, 0, 4, l.height);
+  ctx.globalAlpha = 1;
+
+  if (!first) return;
+  const k = fade(age);
+  if (k <= 0) return;
+
+  const mid = l.width / 2;
+  const y = l.playHeight * 0.42;
+  const text = seat === 1 ? "PLAYER 1 SCREEN" : "PLAYER 2 SCREEN";
+  ctx.textAlign = "center";
+  ctx.font = '700 26px "Courier New",monospace';
+  const w = ctx.measureText(text).width + 40;
+
+  // A band the width of the words and nothing more, so the film is covered for
+  // a second rather than hidden behind a card.
+  ctx.globalAlpha = k * 0.86;
+  ctx.fillStyle = "rgba(6,4,14,.94)";
+  ctx.fillRect(mid - w / 2, y - 34, w, 62);
+  ctx.fillStyle = skin.tint;
+  ctx.fillRect(mid - w / 2, y - 34, w, 3);
+  ctx.fillRect(mid - w / 2, y + 25, w, 3);
 
   ctx.globalAlpha = k;
-  ctx.fillStyle = "rgba(9,7,20,.94)";
-  ctx.fillRect(0, BANNER_TOP, l.width, BANNER_H);
-  ctx.fillStyle = hex;
-  ctx.fillRect(0, BANNER_TOP, l.width, 3);
-  ctx.fillRect(0, BANNER_TOP + BANNER_H - 3, l.width, 3);
-
-  ctx.textAlign = "center";
-  ctx.font = '700 22px "Courier New",monospace';
-  ctx.fillStyle = rim;
-  ctx.fillText(seat === 1 ? "PLAYER 1" : "PLAYER 2", l.width / 2, BANNER_TOP + 26);
-  ctx.font = '600 10px "Courier New",monospace';
+  ctx.fillStyle = skin.rim;
+  ctx.fillText(text, mid, y);
+  ctx.font = '600 11px "Courier New",monospace';
   ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(whose(seat, role), l.width / 2, BANNER_TOP + 41);
+  ctx.fillText(whose(seat, role), mid, y + 18);
   ctx.textAlign = "left";
   ctx.globalAlpha = 1;
+}
+
+/** In, stand, out — 0 before and after. */
+function fade(age: number): number {
+  if (age < 0) return 0;
+  if (age < IN_TICKS) return smoothstep(age / IN_TICKS);
+  if (age < IN_TICKS + HOLD_TICKS) return 1;
+  const out = (age - IN_TICKS - HOLD_TICKS) / OUT_TICKS;
+  return out >= 1 ? 0 : 1 - smoothstep(out);
 }
 
 /**
@@ -98,5 +128,5 @@ export function drawSeatBanner(
  */
 function whose(seat: 1 | 2, role: ViewRole): string {
   if (role === "test") return "ONE OF THE TWO SCREENS";
-  return (role === "p1" ? 1 : 2) === seat ? "YOUR SCREEN" : "YOUR PARTNER'S SCREEN";
+  return (role === "p1" ? 1 : 2) === seat ? "YOUR OWN SCREEN" : "YOUR PARTNER'S SCREEN";
 }

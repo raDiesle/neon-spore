@@ -2,7 +2,7 @@ import {
   type Layout,
   navHit,
   onNavBar,
-  onReadyButton,
+  onReadyCircle,
   type Stage,
   type ViewRole,
 } from "@neon-spore/render";
@@ -51,10 +51,13 @@ export interface BriefingOptions {
  * `navButtons` and `readyButtonBox`, which is the same geometry the drawing
  * uses: a button cannot be answered where it is not drawn.
  *
- * **READY is a hold, not a tap.** The circle fills for as long as the thumb is
- * down and empties if it lifts before READY (`sim/ready-gate.ts` says why), so
- * this listens for the lift as well as the press — on the window, because a
- * thumb dragged off the canvas has still let go.
+ * **READY is a hold, not a tap, and the target is the circle itself.** The
+ * circle fills for as long as the thumb is down and empties if it lifts before
+ * READY (`sim/ready-gate.ts` says why), so this listens for the lift as well as
+ * the press — on the window, because a thumb dragged off the canvas has still
+ * let go. The owner's *still any touch of screen will let the circle animate*
+ * is why it is the circle and not the page: the gate has three things on it now
+ * and only one of them is the answer.
  *
  * **Only while the guide is up.** The introduction passes on a timer and is not
  * a thing to dismiss (the owner's own answer), so a tap during it is dropped
@@ -107,7 +110,7 @@ export function bindBriefing({
     // Everything else on a page of film does nothing. The gate is the one page
     // with something to hold, and its button is the only place holding it.
     if (!onReadyPage(world, seat())) return;
-    if (onNavBar(l, p.y) || !onReadyButton(l, p.x, p.y)) return;
+    if (onNavBar(l, p.y) || !onReadyCircle(l, p.x, p.y, role())) return;
     down = true;
     hold(true);
   });

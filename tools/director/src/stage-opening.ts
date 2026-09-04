@@ -1,4 +1,4 @@
-import { type Layout, navHit, onReadyButton } from "@neon-spore/render";
+import { type Layout, navHit, onReadyCircle, type ViewRole } from "@neon-spore/render";
 import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/sim";
 
 /**
@@ -29,6 +29,7 @@ import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/s
 export function openingPress(
   world: World,
   layout: Layout,
+  role: ViewRole,
   seats: readonly (1 | 2)[],
   point: { x: number; y: number },
   push: (player: 1 | 2, command: Command) => void,
@@ -45,7 +46,9 @@ export function openingPress(
     for (const seat of seats) push(seat, { kind: "guideStep", back: nav === "back" });
     return null;
   }
-  if (!onReadyPage(world, seats[0]!) || !onReadyButton(layout, point.x, point.y)) return null;
+  if (!onReadyPage(world, seats[0]!) || !onReadyCircle(layout, point.x, point.y, role)) {
+    return null;
+  }
   return hold(seats, push);
 }
 

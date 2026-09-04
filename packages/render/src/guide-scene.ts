@@ -123,8 +123,13 @@ export class GuideStage {
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
-    drawSeatBanner(ctx, l, step.seat, from === null ? 1 : k, role);
-    drawGuideNav(ctx, box, page, scene.steps.length + 1);
+    drawSeatBanner(ctx, l, step.seat, run.tick - step.tick, role, this.play.plays === 0);
+    drawGuideNav(ctx, box, {
+      page,
+      pages: scene.steps.length + 1,
+      played: this.play.plays > 0,
+      age: this.play.shown,
+    });
   }
 
   private seat(

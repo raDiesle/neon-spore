@@ -2,7 +2,7 @@ import { hash01 } from "./backdrop.js";
 import { seamRise, seamTop, seamY } from "./band-seam.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
  * WHAT RUNS OFF THE MEMBRANE, AND WHAT REACHES DOWN FROM IT.
@@ -89,7 +89,12 @@ function bead(
  * seven strokes of a frame's budget for a thing nobody looks straight at
  * (`frame-budget.test.ts`). They are one path instead; the beads are a second.
  */
-export function drawDrips(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+export function drawDrips(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  time: number,
+  skin: SeatSkin = P1_SKIN,
+): void {
   const all = drips(l, time);
   const body = new Path2D();
   const beads = new Path2D();
@@ -113,7 +118,7 @@ export function drawDrips(ctx: CanvasRenderingContext2D, l: Layout, time: number
   ctx.fillStyle = "rgba(214,140,255,0.7)";
   ctx.fill(beads);
   for (const d of all) {
-    if (d.bead) halo(ctx, d.x, d.top + d.bead.y, d.bead.r * 3, PALETTE.hull, d.bead.alpha * 0.35);
+    if (d.bead) halo(ctx, d.x, d.top + d.bead.y, d.bead.r * 3, skin.tint, d.bead.alpha * 0.35);
   }
 }
 

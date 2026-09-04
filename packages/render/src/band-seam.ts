@@ -2,7 +2,7 @@ import { openSmoothPath, type Point } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
  * WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE.
@@ -107,11 +107,15 @@ export function seamPaths(l: Layout, time: number): { rim: Path2D; ground: Path2
  * Two passes and no more: the hull's own rim above it is already the brightest
  * line on the screen, and a second one as loud would read as two ships.
  */
-export function drawSeamRim(ctx: CanvasRenderingContext2D, rim: Path2D): void {
+export function drawSeamRim(
+  ctx: CanvasRenderingContext2D,
+  rim: Path2D,
+  skin: SeatSkin = P1_SKIN,
+): void {
   ctx.lineCap = "round";
-  strokeGlow(ctx, rim, PALETTE.hull, 1.4, 0.5);
+  strokeGlow(ctx, rim, skin.tint, 1.4, 0.5);
   ctx.globalAlpha = 0.38;
-  ctx.strokeStyle = PALETTE.hullRim;
+  ctx.strokeStyle = skin.rim;
   ctx.lineWidth = 0.8;
   ctx.stroke(rim);
   ctx.globalAlpha = 1;

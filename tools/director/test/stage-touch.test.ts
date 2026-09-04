@@ -4,7 +4,7 @@ import {
   cannonGrab,
   computeLayout,
   navButtons,
-  readyButtonBox,
+  readyCircles,
   shieldGrab,
   type ViewRole,
 } from "@neon-spore/render";
@@ -176,10 +176,11 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         clientY: y,
         preventDefault: () => {},
       });
-    /** The gate's own button, which is the only thing a hold ever reaches. */
+    /** This seat's own circle, which is the only thing a hold ever reaches. */
     const down = (): void => {
-      const box = readyButtonBox(layout);
-      downAt(box.x + box.w / 2, box.y + box.h / 2);
+      const c = readyCircles(layout);
+      const one = role === "p2" ? c.p2 : c.p1;
+      downAt(one.x, one.y);
     };
     /** NEXT, once. The bar is where a page is turned (`render/guide-nav.ts`). */
     const next = (): void => {
@@ -284,9 +285,8 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     expect(briefingHolds(s.world)).toBe(false);
     s.sent.length = 0;
 
-    // On the strip this time, not on the gate's button: what is being asked is
-    // whether the field answers a press at all now, and the gate's button sat
-    // over the shield's strip rather than the cannon's.
+    // On the strip this time, not on the gate's circle: what is being asked is
+    // whether the field answers a press at all now.
     s.downAt(VIEWPORT.width / 2, s.layout.cannonStrip.y);
     s.up();
     expect(s.sent).toEqual([

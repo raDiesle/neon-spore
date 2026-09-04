@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { navButtons, navHit, onNavBar } from "../src/guide-nav.js";
 import { computeLayout } from "../src/layout.js";
-import { onReadyButton, readyButtonBox } from "../src/ready-page.js";
+import { onReadyCircle, readyCircles } from "../src/ready-page.js";
 
 /**
  * A button is answered exactly where it is drawn.
@@ -61,16 +61,26 @@ describe("the bar a stepped guide is turned by", () => {
     }
   });
 
-  it("puts the gate's own button above the bar and answers it there", () => {
+  it("answers a thumb on the circle a seat may fill, and only that one", () => {
     for (const size of SIZES) {
       const l = computeLayout(size, DEFAULT_CONFIG, "p1");
-      const box = readyButtonBox(l);
-      expect(onReadyButton(l, box.x + box.w / 2, box.y + box.h / 2)).toBe(true);
-      expect(box.y + box.h).toBeLessThan(navButtons(l).bar.y);
-      expect(box.x).toBeGreaterThanOrEqual(0);
-      expect(box.x + box.w).toBeLessThanOrEqual(l.width);
-      // And nothing on the bar is on it, or one press would mean two things.
-      expect(onReadyButton(l, l.width / 2, l.height - 10)).toBe(false);
+      const { p1, p2 } = readyCircles(l);
+      // Player one's own, on player one's screen. Player two's is drawn there
+      // too — it is how you see your partner is still reading — but it is not a
+      // thing this seat may press.
+      expect(onReadyCircle(l, p1.x, p1.y, "p1")).toBe(true);
+      expect(onReadyCircle(l, p2.x, p2.y, "p1")).toBe(false);
+      expect(onReadyCircle(l, p2.x, p2.y, "p2")).toBe(true);
+      // `test` is one person holding both, so either answers.
+      expect(onReadyCircle(l, p1.x, p1.y, "test")).toBe(true);
+      expect(onReadyCircle(l, p2.x, p2.y, "test")).toBe(true);
+      // Nothing on the bar is, or one press would mean two things.
+      expect(onReadyCircle(l, l.width / 2, l.height - 10, "test")).toBe(false);
+      // And both stay on the screen and clear of each other.
+      expect(p1.x - p1.r).toBeGreaterThanOrEqual(0);
+      expect(p2.x + p2.r).toBeLessThanOrEqual(l.width);
+      expect(p1.x + p1.r).toBeLessThan(p2.x - p2.r);
+      expect(p1.y + p1.r).toBeLessThan(navButtons(l).bar.y);
     }
   });
 });

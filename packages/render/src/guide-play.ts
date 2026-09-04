@@ -55,6 +55,11 @@ export class ScenePlay {
   set: ControlSet | null = null;
   /** The page being played. `-1` until a world has been looked at. */
   page = -1;
+  /** How many times it has played through. 0 while it is still on its first
+   * turn, which is what NEXT's glow and the seat's announcement both read. */
+  plays = 0;
+  /** Seconds this page has been up, repeats included. For anything breathing. */
+  shown = 0;
   readonly events: SimEvent[] = [];
   private seen: { world: World; wave: number } | null = null;
   /** Where the page being played begins and ends in the loop. */
@@ -95,12 +100,24 @@ export class ScenePlay {
     if (page !== this.page) {
       this.page = page;
       this.span = stepSpan(scene, page);
+      this.plays = 0;
+      this.shown = 0;
       this.replay();
       return true;
     }
+    this.shown += dt;
     this.events.length = 0;
     if (this.pause > 0) {
       this.pause -= dt;
+      // The break is over: the page plays again, from its own first tick, with
+      // everything before it run silently. **Only this page** — the pair asked
+      // for the current step to repeat, not for the film to start over from
+      // step one every time they reach the end of step four.
+      if (this.pause <= 0) {
+        this.plays += 1;
+        this.replay();
+        return true;
+      }
       return built;
     }
     this.acc += dt * this.run.world.cfg.tickHz;
@@ -137,6 +154,8 @@ export class ScenePlay {
     this.set = null;
     this.seen = null;
     this.page = -1;
+    this.plays = 0;
+    this.shown = 0;
     this.pause = 0;
     this.acc = 0;
     this.events.length = 0;

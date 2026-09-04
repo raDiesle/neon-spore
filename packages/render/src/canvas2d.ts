@@ -214,6 +214,11 @@ export class Canvas2DRenderer implements Renderer {
 
     drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), at);
     drawOverlays(ctx, l, world, view, isArmed, isOpen, undefined, this.effects.opening);
+    // Last, over everything: the wave arriving, once the pair has crossed the
+    // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
+    if (this.effects.opening.launching) {
+      this.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
+    }
     ctx.restore();
 
     // A seam, so a wide window shows where the phone ends.
