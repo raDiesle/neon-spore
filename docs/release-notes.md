@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 86cddd2 — Four of act three rehearse themselves, and a film is watched by a test
+
+THE LURE, THE THROB, THE DART and THE VEIL now open on a film of themselves. Each is built round the one thing its wave takes away. THE LURE shows the same body on the two phones — a target on his screen, a corner frame reading DO NOT SHOOT on hers — then fires at it and lets the hull pay for the shot, which is what a lure really costs. THE THROB fires twice: once while it is shut, where the bolt is swallowed, and once on the count. THE DART puts the cannon two columns over and leaves it standing there for two beats before the body arrives, because a reaction is exactly what that wave has removed. THE VEIL spends its middle page on the cloud turning colour as it falls, on its own clock, while the words about it are being read.
+
 ## 2026-09-04 · cc3214b — Four more waves rehearse themselves, and the corner is grown
 
 The first five waves of the game now open on a film of themselves instead of on three lines of prose. TWO COLOURS fires red at a cyan bulb and lets the pair watch the shot be spent, then fires cyan; THE ROCK hands the shield across the split, her column and his trigger, and waits until the rock is nearly down before pressing it; THE HAND holds one of two rocks back with a finger on the field while the shield takes the other, then goes and gets the one that was held; TORCH shows the same instant on both phones — his strip carrying the blip that names the column, hers carrying the alarm and not the column — lets the first one through because nobody called it, and covers the second.
