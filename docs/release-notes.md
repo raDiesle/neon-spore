@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · de37c6b — Player two's ship is amber, and the gate is two circles
+
+Eight things the owner asked for after watching the tutorial, and one of them is not about the tutorial at all.
+
 ## 2026-09-04 · 44fbac8 — The cannon's mouth burns in the colour of the shot that just left
 
 The opening at the top of the cannon was a flat dark disc under a white line, and it said nothing at all about the shot going through it. It now does two things it did not. It burns: from the tick a bolt leaves, the whole body glows in that bolt's own red or cyan and fades back to the hull's light over about a second and a half of beat — held at full for the first third of that, because a burn that decays from frame one is over before an eye on the other side of a phone has arrived at it. And it is made of something: a lit volume of dark jelly, a rim that is a neon tube rather than a stroke, two wet highlights drifting on their own slow clock, and a swirl low in the body that brightens under load.
