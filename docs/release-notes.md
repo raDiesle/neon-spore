@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 566198e — Three films existed for an hour with no wave showing them
+
+THE LID, THE MAZE and THE WARDEN landed written, registered and unreachable: a reconciliation with another lane dropped the three `scene:` lines that point a wave at its film, and nothing said so. Every test that walks the waves skipped them silently — including the one that runs a rehearsal tick by tick, which is the test that would otherwise have caught anything else wrong with them.
+
 ## 2026-09-04 · 11d0081 — The last three waves rehearse themselves, and a drag has two clocks
 
 THE LID, THE WARDEN and THE MAZE are films now, on the drag machinery that landed an hour ago. Every wave in the game that carries a guide carries a rehearsal.
