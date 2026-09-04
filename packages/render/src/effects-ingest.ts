@@ -1,8 +1,8 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
-import type { LayEcho } from "./cannon-maw.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
+import type { LayEcho } from "./lay-echo.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
@@ -73,7 +73,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       ctx.setQueenShake(QUEEN_SHAKE_LIFE);
       break;
     case "fire":
-      ctx.layEcho.start(ctx.beatSeconds);
+      ctx.layEcho.start(ctx.beatSeconds, e.color);
       break;
     case "breach":
       ingestBreach(e, ctx.l, ctx.time, ctx.beatSeconds, {

@@ -1,7 +1,9 @@
 import type { Point } from "@neon-spore/content";
-import { eggContour, REST_RY } from "./egg-contour.js";
+import { eggContour, REST_RX, REST_RY } from "./egg-contour.js";
 import { eggBeats } from "./egg-curve.js";
+import { drawEggFlareHalo, drawEggSkin, type EggFlare, NO_FLARE } from "./egg-skin.js";
 import { halo, strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { type MouthFrame, muzzleCenterY } from "./muzzle.js";
 import { PALETTE } from "./palette.js";
@@ -14,8 +16,9 @@ import { PALETTE } from "./palette.js";
  * swells towards the ship, presses the shot out through a vent at its crown
  * and then goes slack — rather than a second visual vocabulary for the one
  * opening the ship has. A hen laying an egg, only alien; `egg-curve.ts` is
- * the timing, `egg-contour.ts` the shape it strains into, and `LAY_LOOK.draw`
- * below is only where the two meet a canvas.
+ * the timing, `egg-contour.ts` the shape it strains into, `egg-skin.ts` what
+ * it is made of, and `LAY_LOOK.draw` below is only where the three meet a
+ * canvas.
  *
  * **It is a tell, and it belongs to the other player.** Player 1 has no fire
  * buttons; until now a press by player 2 reached him only as a bolt already
@@ -24,11 +27,18 @@ import { PALETTE } from "./palette.js";
  * long enough to actually watch: the strain, the crowning, the slack
  * afterwards, not a rim that merely tightens and cuts.
  *
- * **It says the moment and not the colour.** The colour is player 2's half of
- * the split (docs/spec/systems.md 5.1), and a wind-up that leaked it would
- * hand player 1 the one thing he is supposed to have to be told. So everything
- * here is drawn in the hull's own light: what it carries is *when*, which both
- * of them need, and nothing else.
+ * **The wind-up says the moment and not the colour.** The colour is player 2's
+ * half of the split (docs/spec/systems.md 5.1), and a wind-up that leaked it
+ * would hand player 1 the one thing he is supposed to have to be told. So
+ * everything drawn before the departure is in the hull's own light: what it
+ * carries is *when*, which both of them need, and nothing else.
+ *
+ * **The release is the exception, and it costs nothing.** From the tick the
+ * shot leaves, the body burns in the ammunition colour and fades back to its
+ * own over about a second (`LayEcho.flare`). By then the bolt is on the field
+ * in exactly that colour, so there is no read left to give away — and the ship
+ * visibly finishing the act it started is the confirmation player 1 otherwise
+ * had to take from a dot already twelve tiles up.
  *
  * The picture used to be a function of `chargeMilli` alone — the world's, to
  * the tick, on both devices — and so nothing here outlived a frame. `LayEcho`
@@ -56,55 +66,17 @@ import { PALETTE } from "./palette.js";
  * follow-through — a mouth closing, a recoil, a body settling — needs this and
  * had to invent it. `Effects` owns it, because it outlives a frame.
  *
- * The shipped look ignores everything above 1, which is why the second half
- * could be added without moving a pixel.
+ * `flare` is a second clock beside it, deliberately not the same one: the body
+ * relaxes over six tenths of a beat, and the colour has to outlast that or the
+ * one thing that names which ammunition just left is gone before an eye on the
+ * other side of the phone has arrived at it.
  */
 export interface LayState {
   phase: number;
   /** The renderer's clock, for anything that shivers rather than eases. */
   time: number;
-}
-
-/**
- * The far half of the phase, as the only thing in this file that outlives a
- * frame — so it lives in `Effects` and is cleared by `Effects.reset()`, which
- * is not bookkeeping: a restart builds a fresh `World` and a mouth still
- * relaxing from the abandoned run would be relaxing on the new one's first
- * frame, from a shot nobody fired.
- *
- * A class rather than two fields on `Effects` for the reason `SwallowFx` is
- * one: it is a clock with a life as well as a countdown, and the arithmetic
- * that turns those two into a phase belongs beside the phase's definition.
- */
-export class LayEcho {
-  private left = 0;
-  private life = 0;
-
-  /** 1 the moment the shot goes, easing to 2, then 0. See `LayState`. */
-  get phase(): number {
-    if (this.left <= 0 || this.life <= 0) return 0;
-    return 2 - this.left / this.life;
-  }
-
-  /**
-   * A shot has left. The relaxation is longer than the half-beat wind-up in
-   * front of it on purpose — a release quicker than the strain reads as a
-   * flash, and one that outlasts it reads as effort — and it is measured in
-   * beats because everything else the ship does is.
-   */
-  start(beatSeconds: number): void {
-    this.life = beatSeconds * 0.6;
-    this.left = this.life;
-  }
-
-  update(dt: number): void {
-    this.left = Math.max(0, this.left - dt);
-  }
-
-  clear(): void {
-    this.left = 0;
-    this.life = 0;
-  }
+  /** The release burn. Absent is `NO_FLARE` — a mouth that has not just fired. */
+  flare?: EggFlare;
 }
 
 /** The moving half of the opening: what the shot does to it on its way out. */
@@ -120,9 +92,10 @@ export interface LayLook {
  * (`m.intake > 0.4`), rest included: the egg shape is a body part, and unlike
  * the old wind-up it does not vanish once the shot has gone, it *relaxes* —
  * `eggBeats`'s `relief` beat is exactly that follow-through, easing past rest
- * into slack before settling. Nothing here says which colour is coming: the
- * whole thing is drawn in the hull's own light, same as the wind-up it
- * replaces, because the colour is player 2's half of the split.
+ * into slack before settling. Nothing before the departure says which colour
+ * is coming: the wind-up is drawn in the hull's own light, because that is
+ * player 2's half of the split. After it, the burn is the ammunition's — see
+ * the header.
  */
 export const LAY_LOOK: LayLook = {
   draw(ctx, m, s) {
@@ -130,7 +103,11 @@ export const LAY_LOOK: LayLook = {
     if (m.intake > 0.4) return;
     const { l } = m;
     const b = eggBeats(s.phase, s.time);
+    const flare = s.flare ?? NO_FLARE;
     const cy = m.y;
+    // The contour's rough half width this frame, so the skin swells with the
+    // body instead of sitting still inside a shape straining around it.
+    const r = l.tile * REST_RX * (1 + b.bulge * 0.44);
 
     // Light gathering behind it, and only while something is actually being
     // pressed — the slack half of the follow-through is dark, because nothing
@@ -138,15 +115,18 @@ export const LAY_LOOK: LayLook = {
     if (b.strain > 0 && b.relief === 0) {
       halo(ctx, m.x, cy, l.tile * (0.16 + 0.34 * b.strain), PALETTE.hullRim, 0.15 + 0.5 * b.strain);
     }
+    drawEggFlareHalo(ctx, m.x, cy, r, flare);
 
     const path = eggContour(m.x, cy, l.tile, s.time, b);
     ctx.save();
-    ctx.fillStyle = "rgba(28,10,52,0.85)";
-    ctx.fill(path);
+    drawEggSkin(ctx, path, m.x, cy, r, s.time, b, flare);
     // The rim tightens and brightens under load and slackens after: the line
-    // weight is doing as much of the reading as the shape is.
+    // weight is doing as much of the reading as the shape is. It is the outer
+    // half of the tube `drawEggSkin` lights from within, so it takes the same
+    // hue.
     const load = Math.max(0, b.bulge);
-    strokeGlow(ctx, path, PALETTE.hullRim, 1.3 + 2.2 * load, 0.45 + 0.55 * load);
+    const rim = mixHex(PALETTE.hullRim, flare.color, 0.7 * flare.amount);
+    strokeGlow(ctx, path, rim, 1.3 + 2.2 * load, 0.45 + 0.55 * Math.max(load, flare.amount));
     ctx.restore();
 
     // The vent, at the top of the contour, open only while something is
@@ -154,7 +134,7 @@ export const LAY_LOOK: LayLook = {
     if (b.vent > 0.01) {
       ctx.save();
       ctx.globalAlpha = Math.min(1, 0.35 + 0.65 * b.vent);
-      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fillStyle = mixHex(PALETTE.hullRim, flare.color, 0.8 * flare.amount);
       ctx.beginPath();
       ctx.ellipse(
         m.x,
@@ -171,7 +151,9 @@ export const LAY_LOOK: LayLook = {
 
     // The shot itself, on its way through. It rides up out of the body and is
     // handed over to `drawBullets` at the tick it becomes live, so this is
-    // only ever the part of its travel that is still inside the ship.
+    // only ever the part of its travel that is still inside the ship — and it
+    // is hull-coloured, because as far as player 1 is concerned it does not
+    // exist yet.
     if (b.crown > 0 && b.relief === 0) {
       const ey = cy + l.tile * 0.06 - b.crown * l.tile * 0.44;
       const er = l.tile * 0.12 * (0.45 + 0.55 * b.crown);
@@ -186,6 +168,7 @@ export const LAY_LOOK: LayLook = {
 
 /**
  * @param lay the laying phase, 0 → 2. See `LayState`.
+ * @param flare the release burn, or nothing on a mouth that has not just fired.
  */
 export function drawLay(
   ctx: CanvasRenderingContext2D,
@@ -197,6 +180,7 @@ export function drawLay(
   /** How far the maw is already open for a swallow — the mouth moves with it. */
   intake: number,
   surface: (x: number) => Point,
+  flare: EggFlare = NO_FLARE,
 ): void {
   const m: MouthFrame = {
     x: cannonX,
@@ -206,5 +190,5 @@ export function drawLay(
     intake,
     surface,
   };
-  LAY_LOOK.draw(ctx, m, { phase: lay, time });
+  LAY_LOOK.draw(ctx, m, { phase: lay, time, flare });
 }

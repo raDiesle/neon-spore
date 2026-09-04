@@ -193,16 +193,16 @@ export function drawHull(
     crackArrived,
   );
   drawCraters(ctx, openCraters);
-  drawShieldRim(ctx, l, mood.armed, time, at, (x) => surface(f, x), mood.resonance ?? 0);
+  const on = (x: number) => surface(f, x);
+  drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
   drawMuzzle(ctx, f, l, mood.intake, skin_);
-  drawChew(ctx, l, mood, time, f.cannonX, (x) => surface(f, x));
+  drawChew(ctx, l, mood, time, f.cannonX, on);
   drawCharge(ctx, l, mood, filled, body);
-  // Last, and over everything the ship is otherwise doing: a shot about to
-  // leave is the most urgent thing on the hull, and it is the only thing here
-  // that either player has to act on within the beat.
-  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, (x) => surface(f, x));
+  // Last, and over everything the ship is otherwise doing: a shot about to leave
+  // is the only thing here either player has to act on within the beat.
+  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
   ctx.restore();
 }
 

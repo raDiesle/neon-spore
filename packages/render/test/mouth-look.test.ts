@@ -4,6 +4,7 @@ import { LAY_LOOK } from "../src/cannon-maw.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { MOUTH_LOOK, type MouthFrame } from "../src/muzzle.js";
+import { PALETTE } from "../src/palette.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -125,5 +126,68 @@ describe("the follow-through the world cannot say", () => {
     fx.update(BEAT_SECONDS * 0.4, L);
     fx.ingest(fired, L, 0, () => 0, CFG);
     expect(fx.layEcho.phase).toBe(1);
+  });
+});
+
+describe("the colour the mouth burns off a shot in", () => {
+  const fireIn = (color: "red" | "cyan"): SimEvent[] => [
+    { type: "fire", col: 3, color, lance: false },
+  ];
+
+  it("is the ammunition that just left, and nothing before it leaves", () => {
+    const fx = new Effects();
+    // Nothing has been fired: the mouth is in the hull's own light, which is
+    // the whole of player 1's half of the split — see `cannon-maw.ts`.
+    expect(fx.layEcho.flare.amount).toBe(0);
+
+    fx.ingest(fireIn("red"), L, 0, () => 0, CFG);
+    expect(fx.layEcho.flare.amount).toBe(1);
+    expect(fx.layEcho.flare.color).toBe(PALETTE.red);
+
+    fx.ingest(fireIn("cyan"), L, 0, () => 0, CFG);
+    expect(fx.layEcho.flare.color).toBe(PALETTE.cyan);
+  });
+
+  it("outlasts the body going slack, which is the point of a second clock", () => {
+    const fx = new Effects();
+    fx.ingest(fireIn("cyan"), L, 0, () => 0, CFG);
+    // One whole beat on: the follow-through is spent (six tenths of one) and
+    // the colour is still up, because a burn that ends with it is a blink.
+    fx.update(BEAT_SECONDS, L);
+    expect(fx.layEcho.phase).toBe(0);
+    expect(fx.layEcho.flare.amount).toBeGreaterThan(0);
+  });
+
+  it("holds at full before it fades, rather than decaying from frame one", () => {
+    const fx = new Effects();
+    fx.ingest(fireIn("red"), L, 0, () => 0, CFG);
+    fx.update(BEAT_SECONDS * 0.4, L);
+    // Still full a quarter of the way in: the plateau is what makes it
+    // readable on the other side of a phone.
+    expect(fx.layEcho.flare.amount).toBe(1);
+
+    fx.update(BEAT_SECONDS, L);
+    const mid = fx.layEcho.flare.amount;
+    expect(mid).toBeLessThan(1);
+    expect(mid).toBeGreaterThan(0);
+  });
+
+  it("runs out, so a resting mouth is back in the hull's own light", () => {
+    const fx = new Effects();
+    fx.ingest(fireIn("red"), L, 0, () => 0, CFG);
+    fx.update(BEAT_SECONDS * 2, L);
+    expect(fx.layEcho.flare.amount).toBe(0);
+  });
+
+  it("is drawn without being refused, at every step of the burn", () => {
+    for (const amount of [0, 0.25, 0.5, 0.75, 1]) {
+      const { ctx } = stubCanvas();
+      LAY_LOOK.draw(ctx as unknown as CanvasRenderingContext2D, mouth(), {
+        phase: 1.2,
+        time: 1.4,
+        flare: { amount, color: PALETTE.cyan },
+      });
+      expect(ctx.calls).toBeGreaterThan(0);
+    }
   });
 });

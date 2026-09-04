@@ -8,6 +8,7 @@ import {
   type Point,
   SHIELD_LOBE,
 } from "@neon-spore/content";
+import type { EggFlare } from "./egg-skin.js";
 import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
 import type { ShieldSegment } from "./shield.js";
@@ -95,6 +96,16 @@ export interface HullMood {
    * — THE MIRROR's copy performs shots rather than firing them.
    */
   lay?: number;
+  /**
+   * The release burn — how hot the cannon's mouth is still glowing, and in
+   * which ammunition colour (`egg-skin.ts`'s `EggFlare`).
+   *
+   * It is a separate field rather than part of `lay` because it is a separate
+   * clock: the body goes slack over six tenths of a beat and the colour has to
+   * stay legible for longer than that. Absent on a ship that has not fired,
+   * and on THE MIRROR's copy, which performs shots rather than firing them.
+   */
+  layFlare?: EggFlare;
 }
 
 export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {

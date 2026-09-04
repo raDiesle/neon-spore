@@ -426,6 +426,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 | `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |
 | `packages/render/src/text-drop.ts` | A line of type falling into place, and the one rule the owner attached to it |
+| `packages/render/src/egg-skin.ts` | What the cloaca is *made of*: depth, neon, wet, and the colour it burns off a shot in |
+| `packages/render/src/lay-echo.ts` | The part of the cannon's mouth that outlives a frame: the follow-through, and the burn's own clock |
 
 ### packages/net
 

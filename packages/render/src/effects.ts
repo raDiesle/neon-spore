@@ -1,13 +1,13 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
-import { LayEcho } from "./cannon-maw.js";
 import { CoordGrid } from "./coord-grid.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
 import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
 import { GhostTrail } from "./ghost-trail.js";
+import { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
 import { RockImpactFx } from "./rock-impact.js";

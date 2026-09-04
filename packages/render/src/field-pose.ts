@@ -90,6 +90,9 @@ export class FieldPose {
       chew: effects.chew,
       charge: effects.charge,
       lay: laying > 0 ? laying : effects.layEcho.phase,
+      // Its own clock, not `lay`'s: the burn outlasts the body's relaxation on
+      // purpose, so it cannot be read off the phase. See `LayEcho.flare`.
+      layFlare: effects.layEcho.flare,
     };
   }
 }
