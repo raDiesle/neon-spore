@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 28db5f3 — The seams are painted on the ball rather than over it
+
+Three faults in the first basketball, all of them the same fault: the four seams were drawn to the full radius while the rock's contour is faceted and is inside that radius almost everywhere, so they overhung the stone; the ellipse that draws the two side arcs continues whatever subpath it is called on, so the meridian ended in a tail running out to where the arc starts; and at a tenth of the radius they were thick enough to be the thing you saw instead of the rock.
+
+## 2026-09-04 · 7d5f1cc — THE VOLLEY's shell is a basketball made of meteor
+
+The owner asked for this one by name. The shell was a thin ring of plates with the body burning through the gaps between them; it is a ball now — the same `METEOR` contour `meteor.ts` strokes, the same unlit mid-tone, the same key light handed the rotation so the light stays put while the ball rolls under it — and the only colour on it is four seams in the colour of the body sealed inside: the equator, the meridian and the two arcs that bow away from the meridian either side, which is the pattern a basketball has.
+
+## 2026-09-04 · 4e77c03 — A rock the shield hits back rather than away, three times
+
+THE VOLLEY is a rock coming in on a diagonal with a slick or a bulb sealed inside it, and the first arrival the shield does not finish. A ward does not destroy it: it hits the body eight rows back up the field, knocks one plate of shell off on the way, and it falls again from higher up into a column nobody agreed on. Three wards, and at the top of the last climb — the middle of the field, in plain air, on both screens — the shell bursts and what was inside comes out as an ordinary slick or bulb, falling, with a colour, for the cannon. It is THE CAROM read backwards: opened by the shield and finished by the cannon rather than the other way about, so the pair's two controls now run in series in both orders. The count is the plating itself and there is no health bar — one plate drawn per ward still to come, THE RECOIL's cage arrangement.
+
 ## 2026-09-04 · e956a16 — Landing and pushing are two answers, not one
 
 The lane question offered three answers and the owner wanted a fourth: land and send. So (c) `bun run land --keep` moves the *local* trunk and stops there, and (d) `bun run land --keep --push` does the same and gives `origin` the trunk too.
