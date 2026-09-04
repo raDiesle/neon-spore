@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · cc3214b — Four more waves rehearse themselves, and the corner is grown
+
+The first five waves of the game now open on a film of themselves instead of on three lines of prose. TWO COLOURS fires red at a cyan bulb and lets the pair watch the shot be spent, then fires cyan; THE ROCK hands the shield across the split, her column and his trigger, and waits until the rock is nearly down before pressing it; THE HAND holds one of two rocks back with a finger on the field while the shield takes the other, then goes and gets the one that was held; TORCH shows the same instant on both phones — his strip carrying the blip that names the column, hers carrying the alarm and not the column — lets the first one through because nobody called it, and covers the second.
+
 ## 2026-09-04 · 53637df — Pin the recoil's colour crossing, and queue the frames tool's stuck launch
 
 `recoilTurn` had no test of its own: it is read only by render, so nothing in the simulation's own suite would have noticed it answering 1 on the frame of a hit. Taken on that frame rather than through `chase`, which leaves two beats behind it — that the crossing is over inside the beat it started is the second half of what the rule promises.
