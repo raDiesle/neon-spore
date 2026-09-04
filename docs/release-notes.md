@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 40ed85c — The window is left unpainted rather than punched out of the body
+
+`destination-out` takes away whatever is already on the canvas, and the body is already on it — `drawLiving` runs before the crust. So the porthole was erasing the slick along with the rock, and what the pair saw through the glass was a grey disc rather than the colour they have to call.
+
+## 2026-09-04 · 9cb3fdf — A cracked carom throws its body out of the hatch, and the shot counts now
+
+Six things the owner asked for, and one of them was a real defect.
+
 ## 2026-09-04 · 2e047e4 — The trunk reaches origin when a lane is cleared away, not every landing
 
 `bun run land` pushed `origin/main` every time it moved the trunk. Landing stopped being something anybody schedules once `auto-land` took it at the end of every finished turn, so that was a push per turn — usually one commit onto a remote nobody was reading yet. The push now rides on the sweep instead: it goes when the landing actually cleared a lane away, a worktree removed or some other lane's branch deleted, which is about once per lane. The lane's own branch is not counted, because every landing there has ever been deletes it.
