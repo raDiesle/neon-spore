@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · f474bb9 — The director's stage cups the swelling a hand is on
+
+The editor's stage routes a mouse through the same `touchDown` the phone uses, so every gesture on the hull already worked there — but it never filled `ViewState.hand`, and the one screen the control exists to be judged on was the one screen that said nothing about which swelling had answered. `bindStageTouch` now keeps that value and hands it back, the way `bindControls` hands the game its own, and `stage.ts` passes it into the draw.
+
 ## 2026-09-04 · badd2f2 — Wave 1's guide rehearses the wave, on two screens, in a loop
 
 FIRST STEP's guide now carries a scene: two mini-screens above its words, the same small world drawn twice — once as player 1, once as player 2 — with a red slick falling on the radar that owns it, a ghost thumb walking the cannon into its column, crossing to the other screen and pressing RED, and the shot taking it. About a second and a half, looping. One specimen; the step sequencer, wave 2's scene, the TUTORIALS page and held poses are deliberately not here and are listed in docs/spec/briefings.md §3.2.
