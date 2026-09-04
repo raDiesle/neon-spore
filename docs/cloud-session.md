@@ -130,6 +130,15 @@ Durable Object tests pass in six seconds, and the check is green for real
 rather than green apart from a suite that could not run. Do this before
 concluding that a suite is broken, and before reporting a landing as blocked.
 
+**And check which Bun it got against the one this project names.**
+`.bun-version` is the version the repository is tested against; `package.json`
+names it as its package manager, CI installs it from that file, and
+`tools/test/bun-version.test.ts` holds the three in step. Nothing refuses to run
+on a mismatch, so a session on a different Bun is not stopped — but it is a
+session whose green check is a result about a different runtime, and after the
+three failures above that is worth a line in the report rather than a shrug.
+`bun --version` against the file is the whole check.
+
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
 IPv6 and impossible on this one — and what Bun reports is `EADDRINUSE`, so the

@@ -14,11 +14,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          # Pinned rather than `latest`: with `latest`, a Bun release can turn
-          # `main` red with no commit behind it, and the failure looks like the
-          # last landing's fault. Raise it deliberately, to whatever
-          # `bun --version` says locally.
-          bun-version: 1.4.0
+          # Read out of `.bun-version` rather than written here. Pinned rather
+          # than `latest` for the reason it always was — with `latest`, a Bun
+          # release can turn `main` red with no commit behind it and the failure
+          # looks like the last landing's fault — but the number now lives in
+          # one file that `package.json` and `tools/test/bun-version.test.ts`
+          # agree with, so raising it is one edit rather than three.
+          bun-version-file: .bun-version
       - uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
