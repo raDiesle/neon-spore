@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · bb48ea6 — `bun run frames --opening intro|guide` photographs the opening
+
+`clearOpening` was unconditional: every capture this tool has ever taken advanced past the introduction and the guide on its way to the field, so the two screens a wave puts in front of a player were the one part of the game it could not photograph. That was fine while an opening was two blocks of text; a guide now carries a rehearsal that loops for a second and a half, and the lane that built it had to write a throwaway Playwright script to see its own work.
+
 ## 2026-09-04 · 4e52103 — The menu splits along its own two seams
 
 `menu.ts` was at 249 lines and `menu-view.ts` at 242, and the menu is the part of `apps/game` that has grown every time the game learned to be a front door — so the next page added was going to push one of them over and the split would have been made under pressure.
