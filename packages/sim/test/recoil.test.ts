@@ -7,6 +7,7 @@ import {
   hullRow,
   recoilBouncesLeft,
   recoilRow,
+  recoilTurn,
   record,
   runReplay,
   type SimConfig,
@@ -288,6 +289,45 @@ describe("the side it is knocked into", () => {
     expect(recoilRow(CFG, 1)).toBe(0);
     expect(recoilRow(CFG, 0)).toBe(0);
     expect(recoilRow(CFG, 5)).toBe(5 - CFG.recoilRows);
+  });
+});
+
+describe("the colour turning over", () => {
+  /**
+   * The crossing render draws the body between two colours on, and the reason
+   * it is a rule here rather than a comparison written at the draw site: a
+   * second spelling of "this body is turning" is how the picture and the shot
+   * come to disagree about what the pair must load next.
+   */
+  it("runs from the hit to the landing, and is over for every other body", () => {
+    // Taken on the frame the bounce happened rather than through `chase`,
+    // which leaves two whole beats behind it — the crossing is over inside the
+    // beat it started, which is the second half of what this pins.
+    const world = createWorld({ ...CFG }, 0, [recoil(COL)]);
+    for (let t = 0; t < TPB + 1; t++) step(world, []);
+    const body = only(world);
+    recoilStruck(
+      world,
+      { id: 1, col: body.col, row: body.row, subMilli: 0, color: "red", lance: false, pierced: 0 },
+      body,
+    );
+    // Mid-glide out of the lane it was struck in — the same two fields the
+    // knock-back itself is drawn between.
+    expect(recoilTurn(body, 0)).toBe(0);
+    expect(recoilTurn(body, 0.5)).toBe(0.5);
+    expect(recoilTurn(body, 1)).toBe(1);
+    // A body standing where it has always stood is not turning, and neither is
+    // anything that is not a recoil at all.
+    expect(recoilTurn({ ...body, fromCol: body.col }, 0.5)).toBe(1);
+    expect(recoilTurn({ ...body, kind: "slick" }, 0.5)).toBe(1);
+  });
+
+  it("is settled again on the beat after the bounce", () => {
+    const r = fresh([recoil(COL)]);
+    chase(r, 1);
+    // `chase` leaves a whole beat between shots, so the beat loop has already
+    // reseeded `fromCol` and there is nothing left to cross.
+    expect(recoilTurn(only(r.world), 0.5)).toBe(1);
   });
 });
 
