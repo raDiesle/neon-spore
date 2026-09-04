@@ -101,6 +101,35 @@ and is open. Picking one up later is a fresh session — `bun run queue next`
 prints the prompt — which removes the entry in the commit that finishes it.
 `docs/queue.md` says the rest.
 
+**Its Bun may be older than the lockfile, and three things fail in ways that
+name something else.** A cloud session's image carries whatever Bun it was
+built with — 1.3.11 on 4 September 2026, against a `bun.lock` written by a
+newer one. Three symptoms, none of which mentions a version:
+
+- `bun install` silently rewrites `lockfileVersion` from 2 to 1, so a lane that
+  stages `bun.lock` commits a downgrade nobody asked for. Leave that file
+  alone unless the change is a dependency you added.
+- `bun install --frozen-lockfile` fails with *lockfile had changes, but
+  lockfile is frozen*, which is the first thing `bun run land` does after the
+  rebase. The landing then stops before the check has even run.
+- `apps/server`'s suite fails outright: every websocket case times out, because
+  Bun's `ws` shim has no `upgrade` event for miniflare to use. Twenty-five red
+  tests that are green on the owner's machine, and a `bun run check` no lane
+  can turn green.
+
+The way out is one command, and the npm registry is one of the few hosts the
+sandbox's proxy allows:
+
+```
+npm install bun@latest --prefix /tmp/bun
+PATH=/tmp/bun/node_modules/.bin:$PATH bun run land
+```
+
+With a current Bun all three go away — the frozen install passes, the relay's
+Durable Object tests pass in six seconds, and the check is green for real
+rather than green apart from a suite that could not run. Do this before
+concluding that a suite is broken, and before reporting a landing as blocked.
+
 **Its servers need a host, and the error if you forget says the wrong thing.**
 `preview.ts` and the director both bind `::`, which is right on a machine with
 IPv6 and impossible on this one — and what Bun reports is `EADDRINUSE`, so the
