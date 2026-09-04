@@ -5,7 +5,11 @@ import {
   setControls,
 } from "@neon-spore/content";
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
-import { drawLobe, drawStripFor } from "./band-control.js";
+import { drawStripFor } from "./band-channel.js";
+import { drawLobe } from "./band-control.js";
+import { drawBandGround } from "./band-ground.js";
+import { drawSeamFlesh, drawSeamRim, drawSeamSpill, seamPaths, seamTop } from "./band-seam.js";
+import { drawDrips, drawFeeders } from "./band-slime.js";
 import { bandLobes, type Layout, showsCannon, showsShield } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -30,6 +34,12 @@ import { PALETTE } from "./palette.js";
  *
  * It is drawn on the canvas rather than in the DOM because every element is
  * per-column and has to line up with the grid exactly — see docs/decisions.md.
+ *
+ * **What it is made of is next door.** The plate used to be a `fillRect` and a
+ * ruled line; it is the chamber under the hull now — `band-ground.ts` for the
+ * tissue, `band-seam.ts` for the membrane it hangs from and the slime that
+ * runs off it, `lobe-shell.ts` for the socket every control stands in. This
+ * file still only decides *what is on the panel and where*.
  */
 export function drawBand(
   ctx: CanvasRenderingContext2D,
@@ -37,6 +47,7 @@ export function drawBand(
   world: World,
   armed: boolean,
   open: boolean,
+  time: number,
   controls?: ControlSet,
 ): void {
   // A boss can take the controls away (`mirrorHoldsControls`). When it has,
@@ -52,26 +63,45 @@ export function drawBand(
   // `purity.test.ts` reserves for a *re-derivation* of `controlSetForWave`'s
   // own default, and this is a call to it, not a copy of it.
   const set = controls === undefined ? controlSetForWave(world.wave) : controls;
+  const seam = seamPaths(l, time);
   ctx.save();
-  ctx.fillStyle = "#0E0A22";
-  ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
-  ctx.strokeStyle = "#33295C";
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(0, l.bandTop);
-  ctx.lineTo(l.width, l.bandTop);
-  ctx.stroke();
+  // The chamber, cut to the membrane above it — so the tissue is bounded by a
+  // contour rather than by the top of a rectangle.
+  drawSeamFlesh(ctx, l);
+  ctx.save();
+  ctx.clip(seam.ground);
+  drawBandGround(ctx, l, seamTop(l));
+  drawSeamSpill(ctx, l);
+  drawFeeders(ctx, l, feeders(l, set), time);
+  ctx.restore();
+  drawSeamRim(ctx, seam.rim);
+  drawDrips(ctx, l, time);
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
   if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open);
   if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open);
-  if (set.id !== DEFAULT_CONTROL_SET_ID) drawSetName(ctx, l, set);
+  if (set.id !== DEFAULT_CONTROL_SET_ID) drawSetName(ctx, l, set, time);
 
   ctx.restore();
   if (locked) drawLock(ctx, l);
   ctx.textAlign = "left";
+}
+
+/**
+ * Where a feeder from the membrane has to reach: every control this screen
+ * carries, asked of the same `bandLobes` that draws and answers them, so a
+ * tendril can never run to a button that is not there.
+ */
+function feeders(l: Layout, set: ControlSet): { x: number; y: number }[] {
+  const out: { x: number; y: number }[] = [];
+  for (const player of [1, 2] as const) {
+    for (const lobe of bandLobes(l, set, player)) {
+      out.push({ x: lobe.circle.x, y: lobe.circle.y - lobe.circle.r * 1.1 });
+    }
+  }
+  return out;
 }
 
 /**
@@ -96,7 +126,7 @@ function drawHalf(
   // layout, and `touchDown` asks it the same question with the same set — so
   // there is one answer to "where is this button", not two that have to agree.
   for (const lobe of bandLobes(l, set, player)) {
-    drawLobe(ctx, lobe.circle, lobe.control, world, armed, open);
+    drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open);
   }
 }
 
@@ -112,18 +142,29 @@ function drawHalf(
  * Left-aligned against the edge, so it never collides with the strip captions,
  * which are centred.
  */
-function drawSetName(ctx: CanvasRenderingContext2D, l: Layout, set: ControlSet): void {
-  const y = l.bandTop;
+function drawSetName(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  set: ControlSet,
+  time: number,
+): void {
+  const y = l.bandTop + l.bandHeight * 0.06;
   ctx.font = '700 8px "Courier New",monospace';
   ctx.textAlign = "left";
-  const w = ctx.measureText(set.name).width + 12;
-  ctx.fillStyle = "#0E0A22";
-  ctx.fillRect(4, y - 6, w, 12);
+  const w = ctx.measureText(set.name).width + 14;
+  // A lozenge rather than a rectangle: the plate hangs off a membrane now, and
+  // a square corner on it would be the only one on the panel.
+  ctx.beginPath();
+  ctx.roundRect(5, y - 6, w, 13, 6.5);
+  ctx.fillStyle = "rgba(12,7,28,.86)";
+  ctx.fill();
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineWidth = 1;
-  ctx.strokeRect(4.5, y - 5.5, Math.max(1, w - 1), 11);
+  ctx.globalAlpha = 0.65 + 0.15 * Math.sin(time * 1.4);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
   ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(set.name, 10, y + 3);
+  ctx.fillText(set.name, 12, y + 3);
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 }
@@ -141,7 +182,7 @@ function drawLock(ctx: CanvasRenderingContext2D, l: Layout): void {
   const y = l.bandTop + l.bandHeight / 2;
   ctx.save();
   ctx.fillStyle = "rgba(7,4,15,.78)";
-  ctx.fillRect(0, l.bandTop, l.width, l.bandHeight);
+  ctx.fillRect(0, seamTop(l), l.width, l.bandTop + l.bandHeight - seamTop(l));
   ctx.fillStyle = "rgba(7,4,15,.72)";
   ctx.fillRect(0, y - 15, l.width, 30);
   ctx.strokeStyle = PALETTE.red;

@@ -4,7 +4,8 @@ import { drawActionButton, drawAimButton, drawFireButton, drawSalvoButton } from
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { drawLanceButton } from "./lance.js";
-import { type Circle, type Layout, tileCX } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
+import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -21,7 +22,30 @@ import { PALETTE } from "./palette.js";
  * places them and `touchDown` answers them, both off the same list.
  */
 
+/**
+ * One control, in the socket the panel grew for it.
+ *
+ * The socket and the film over the top are the same two calls whatever the
+ * button is, so every control on every panel sits in the tissue the same way
+ * and nothing here has to know which one it is drawing (`lobe-shell.ts`).
+ */
 export function drawLobe(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  circle: Circle,
+  c: ControlDef,
+  world: World,
+  armed: boolean,
+  open: boolean,
+): void {
+  const { x, y, r } = circle;
+  drawLobeSocket(ctx, x, y, r, l.dpr);
+  drawFace(ctx, circle, c, world, armed, open);
+  drawLobeGloss(ctx, x, y, r, l.dpr);
+}
+
+/** The button itself, with nothing of the panel around it. */
+function drawFace(
   ctx: CanvasRenderingContext2D,
   circle: Circle,
   c: ControlDef,
@@ -92,50 +116,4 @@ function salvoRest(world: World): number {
   const rest = world.cfg.fleetSalvoRestBeats;
   if (rest <= 0) return 0;
   return Math.max(0, Math.min(1, (rest - (world.beat - boss.firedBeat)) / rest));
-}
-
-export function drawStripFor(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  c: ControlDef,
-): void {
-  const cannon = c.id === "cannon";
-  const s = cannon ? l.cannonStrip : l.shieldStrip;
-  strip(
-    ctx,
-    l,
-    s.y,
-    s.height,
-    cannon ? world.cannonCol : world.shieldCol,
-    cannon ? PALETTE.hull : PALETTE.shield,
-    c.label,
-  );
-}
-
-function strip(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  y: number,
-  h: number,
-  col: number,
-  hex: string,
-  label: string,
-): void {
-  ctx.fillStyle = hex;
-  ctx.fillText(label, l.width / 2, y - h / 2 - 4);
-  ctx.fillStyle = "rgba(36,27,79,.55)";
-  ctx.fillRect(l.gridLeft, y - h / 2, l.gridWidth, h);
-
-  for (let c = 0; c < l.cols; c++) {
-    const x = tileCX(l, c);
-    if (c === col) {
-      halo(ctx, x, y, h * 1.1, hex, 0.5);
-      ctx.fillStyle = hex;
-      ctx.fillRect(x - l.tile * 0.4, y - h / 2 + 2, l.tile * 0.8, h - 4);
-    } else {
-      ctx.fillStyle = "#3B3163";
-      ctx.fillRect(x - 1, y - h * 0.22, 2, h * 0.44);
-    }
-  }
 }

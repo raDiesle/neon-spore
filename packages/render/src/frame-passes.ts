@@ -195,7 +195,7 @@ export function drawOverlays(
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
   drawCommsSiren(ctx, l, world, view.time);
-  drawBand(ctx, l, world, isArmed, isOpen, view.controls);
+  drawBand(ctx, l, world, isArmed, isOpen, view.time, view.controls);
   drawOverlay(ctx, l, view);
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing

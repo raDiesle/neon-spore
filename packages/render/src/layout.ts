@@ -29,6 +29,13 @@ export interface Layout {
   role: ViewRole;
   width: number;
   height: number;
+  /**
+   * Device pixels per CSS pixel, carried through so a pass that bakes a
+   * picture into an offscreen canvas can bake it at the resolution it will be
+   * blitted at. Everything else here is in CSS pixels and stays that way —
+   * this is the one number that says how many real pixels one of those is.
+   */
+  dpr: number;
   cols: number;
   rows: number;
   tile: number;
@@ -153,6 +160,7 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     role,
     width,
     height,
+    dpr: viewport.dpr,
     cols: cfg.cols,
     rows: cfg.rows,
     tile,

@@ -408,6 +408,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-screen.ts` | one screen of a guide's rehearsal in its box: the transform, the frame, the dimming and the word above it |
 | `packages/render/src/recoil-vent.ts` | you are drawing what a bounce leaves behind — the downward jet and the ember wake up to the new lane |
 | `packages/render/src/recoil.ts` | you are drawing THE RECOIL's cage, or the damage it wears for every bounce already spent |
+| `packages/render/src/band-ground.ts` | the panel's own tissue — the sheet under the band, painted once per size |
+| `packages/render/src/band-seam.ts` | the membrane between the hull and the panel: where it is, what it is lit like, and the light it spills |
+| `packages/render/src/lobe-shell.ts` | a button's own contour, the socket it stands in and the wet film over it |
+| `packages/render/src/band-channel.ts` | a strip, as a channel cut in the panel's tissue — the trough, its lip and the lobe on it |
+| `packages/render/src/band-slime.ts` | the slime hanging off the panel's membrane, and the feeder running from it to every control |
 
 ### packages/net
 

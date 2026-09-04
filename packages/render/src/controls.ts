@@ -1,6 +1,7 @@
 import { blobPath, livingSilhouette } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -12,6 +13,12 @@ import { PALETTE, STROKE } from "./palette.js";
  * picture — a sequence that invents its own vocabulary for a control makes the
  * player translate before they can act, which is the one thing a boss about
  * memory under a clock cannot afford.
+ *
+ * **None of them is a circle.** Every body of every button is `lobe-shell.ts`'s
+ * one contour, which is the same kind of shape as everything else on screen —
+ * a closed contour with lobes, not an arc. The reticle stays a circle on
+ * purpose: it is an instrument laid over the button, and it is the one thing
+ * on this panel that is meant to read as made rather than grown.
  */
 
 /** Scope-style crosshair on a fire button, so it reads as a target. */
@@ -86,9 +93,7 @@ export function drawFireButton(
 
   halo(ctx, x, y, r * 1.6, hex, 0.45);
   ctx.fillStyle = hex;
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fill();
+  paintLobe(ctx, x, y, r, "fill");
 
   const s = (r * 0.62) / Math.max(shape.rx, shape.ry);
   ctx.save();
@@ -115,14 +120,13 @@ export function drawActionButton(
   litText: string,
   label: string | null,
 ): void {
-  ctx.fillStyle = lit ? hex : "#2A1F4E";
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fill();
+  // The glow goes down first, the way every other lit button in this file
+  // lays one — under the body rather than over the outline.
   if (lit) halo(ctx, x, y, r * 1.8, hex, 0.5);
+  ctx.fillStyle = lit ? hex : "#2A1F4E";
   ctx.strokeStyle = hex;
   ctx.lineWidth = 2;
-  ctx.stroke();
+  paintLobe(ctx, x, y, r, "both");
   if (label === null) return;
   ctx.fillStyle = lit ? litText : hex;
   ctx.fillText(label, x, y + 3);
@@ -147,12 +151,9 @@ export function drawAimButton(
 ): void {
   ctx.save();
   ctx.fillStyle = "#1A1338";
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fill();
   ctx.strokeStyle = PALETTE.shield;
   ctx.lineWidth = STROKE.outline;
-  ctx.stroke();
+  paintLobe(ctx, x, y, r, "both");
 
   ctx.translate(x, y);
   ctx.rotate(Math.atan2(dy, dx));
@@ -193,12 +194,9 @@ export function drawSalvoButton(
   ctx.save();
   if (ready) halo(ctx, x, y, r * 1.7, PALETTE.pod, 0.5);
   ctx.fillStyle = ready ? PALETTE.pod : "#2A1F4E";
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fill();
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineWidth = STROKE.outline;
-  ctx.stroke();
+  paintLobe(ctx, x, y, r, "both");
   reticle(ctx, x, y, r, ready ? PALETTE.podDark : PALETTE.podRim);
   if (label !== null) {
     ctx.fillStyle = ready ? PALETTE.podDark : PALETTE.pod;

@@ -55,63 +55,68 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
       fillRect: 64,
-      stroke: 35,
-      fill: 20,
-      clip: 3,
-      save: 17,
-      drawImage: 18,
-      createLinearGradient: 8,
+      stroke: 42,
+      fill: 24,
+      clip: 4,
+      save: 20,
+      drawImage: 23,
+      createLinearGradient: 13,
       createRadialGradient: 2,
-      "new Path2D": 7,
+      // The panel's own sheet is painted here and only here: it depends on the
+      // size of the band and nothing else, so the frame that first asks for a
+      // size pays for every cell and vein in it and no frame after that pays
+      // anything (`band-ground.ts`). p2's row below is the proof — it runs
+      // second, at the same size, and is back down to the ordinary count.
+      "new Path2D": 26,
       fillText: 4,
     },
     {
       fillRect: 64,
-      stroke: 37,
-      fill: 20,
-      clip: 3,
-      save: 17,
-      drawImage: 18,
+      stroke: 44,
+      fill: 24,
+      clip: 4,
+      save: 20,
+      drawImage: 23,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
-      // sites in field.ts and backdrop.ts, and key-light.ts's own slot) are
-      // cache hits from the second frame on.
-      createLinearGradient: 4,
+      // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
+      // channels' three in band-control.ts) are cache hits from the second
+      // frame on.
+      createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 7,
+      "new Path2D": 12,
       fillText: 4,
     },
   ],
   p2: [
     {
       fillRect: 64,
-      stroke: 35,
-      fill: 22,
-      clip: 3,
-      save: 21,
-      drawImage: 20,
-      createLinearGradient: 8,
+      stroke: 44,
+      fill: 26,
+      clip: 4,
+      save: 24,
+      drawImage: 25,
+      createLinearGradient: 13,
       createRadialGradient: 2,
-      "new Path2D": 9,
+      "new Path2D": 15,
       fillText: 2,
     },
     {
       fillRect: 64,
-      stroke: 37,
-      fill: 22,
-      clip: 3,
-      save: 21,
-      drawImage: 20,
-      createLinearGradient: 4,
+      stroke: 46,
+      fill: 26,
+      clip: 4,
+      save: 24,
+      drawImage: 25,
+      createLinearGradient: 5,
       createRadialGradient: 1,
       // Two fewer than frame 0, and the two are the fire buttons' silhouettes:
       // every argument to them is a constant of the colour, so `controls.ts`
       // keeps the two paths rather than rebuilding both every frame.
-      "new Path2D": 7,
+      "new Path2D": 12,
       fillText: 2,
     },
   ],
 };
-
 describe("a busy frame's op count", () => {
   for (const role of ["p1", "p2"] as const) {
     it(`stays inside the measured budget for two consecutive frames on ${role}`, () => {
@@ -204,60 +209,59 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
-      stroke: 74,
-      fill: 22,
-      clip: 3,
-      save: 21,
-      drawImage: 10,
-      createLinearGradient: 8,
+      stroke: 82,
+      fill: 26,
+      clip: 4,
+      save: 24,
+      drawImage: 15,
+      createLinearGradient: 13,
       createRadialGradient: 2,
-      "new Path2D": 18,
+      "new Path2D": 24,
       fillText: 4,
     },
     {
       fillRect: 64,
-      stroke: 76,
-      fill: 22,
-      clip: 3,
-      save: 21,
-      drawImage: 10,
-      createLinearGradient: 4,
+      stroke: 84,
+      fill: 26,
+      clip: 4,
+      save: 24,
+      drawImage: 15,
+      createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 18,
+      "new Path2D": 23,
       fillText: 4,
     },
   ],
   "THE LID": [
     {
       fillRect: 66,
-      stroke: 60,
-      fill: 18,
-      clip: 4,
-      save: 21,
-      drawImage: 10,
-      createLinearGradient: 8,
+      stroke: 69,
+      fill: 22,
+      clip: 5,
+      save: 24,
+      drawImage: 15,
+      createLinearGradient: 13,
       createRadialGradient: 2,
-      "new Path2D": 15,
+      "new Path2D": 21,
       fillText: 4,
     },
     {
       fillRect: 66,
-      stroke: 62,
-      fill: 18,
-      clip: 4,
-      save: 21,
-      drawImage: 10,
-      createLinearGradient: 4,
+      stroke: 71,
+      fill: 22,
+      clip: 5,
+      save: 24,
+      drawImage: 15,
+      createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`).
       createRadialGradient: 1,
-      "new Path2D": 15,
+      "new Path2D": 20,
       fillText: 4,
     },
   ],
 };
-
 describe("an open eye's op count", () => {
   for (const eye of EYES) {
     it(`stays inside the measured budget — ${eye.name}`, () => {

@@ -45,6 +45,7 @@ if (!selector || !out) {
   console.error(
     'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
   );
+  console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
@@ -68,7 +69,14 @@ const port = flag("port") ?? "4174";
  * a picture of a layout nobody will ever see.
  */
 const [vw, vh] = (flag("size") ?? "1240x900").split("x").map(Number);
-const url = `http://localhost:${port}`;
+/**
+ * What to ask that port for. The director is one page and has always been the
+ * bare origin, but `--port` points this at anything the tree serves — and the
+ * game keeps its field behind `?play=1`, so a shot of it without this is a
+ * picture of the main menu.
+ */
+const path = flag("path") ?? "";
+const url = `http://localhost:${port}${path}`;
 
 const browser = await chromium.launch({ executablePath: await findChrome(), headless: true });
 try {
