@@ -42,8 +42,13 @@ export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
 /**
  * The same translation, for a wave that is not in `WAVES` — the one the
  * director is editing before it has been saved.
+ *
+ * It asks for `entries` and nothing else, so a *rehearsal* can be put through
+ * the same translation as a wave (`scenes.ts`). A guide's scene is a handful
+ * of arrivals authored in the same 7 columns, and remapping them by hand there
+ * would be the second copy of `mapCol` this file exists to prevent.
  */
-export function queueFromWave(wave: Wave, cols: number): SpawnEntry[] {
+export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnEntry[] {
   const queue: SpawnEntry[] = [];
   for (const e of wave.entries) {
     const color = e.color;

@@ -1,21 +1,12 @@
-import {
-  chargeMilli,
-  guardArmed,
-  mawOpen,
-  ticksPerBeat,
-  type World,
-  wispOnField,
-} from "@neon-spore/sim";
+import { guardArmed, mawOpen, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
 import { drawWaveOpening } from "./briefing.js";
-import { claspResonanceIn } from "./clasp.js";
 import { Effects } from "./effects.js";
+import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
-import { type Glide, glideTo } from "./glide.js";
-import type { HullMood } from "./hull.js";
+import { GuideStage } from "./guide-scene.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
-import { ShieldBody } from "./shield.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -30,21 +21,14 @@ export class Canvas2DRenderer implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
   private effects = new Effects();
-  /** Eased 0..1 towards the armed state, so the shield swells instead of snapping. */
-  private armed = 0;
+  /** Where the two lobes are and how the membrane feels — `field-pose.ts`. */
+  private pose = new FieldPose();
   /**
-   * The same for the maw. Eased harder than the shield: the lobe has to travel
-   * through flat and out the other side, and a snap would read as two shapes
-   * rather than one turning inside out.
+   * The rehearsal a wave's guide plays above its words, if it carries one.
+   * Render state that outlives a frame, so it lives here where a restart can
+   * clear it; `guide-scene.ts` owns everything about what it shows.
    */
-  private intake = 0;
-  /**
-   * Where the two lobes are, in fractional columns. The world snaps to a
-   * column; these follow it, so the membrane slides instead of jumping. The
-   * shield follows with a whole chain of them and crawls.
-   */
-  private cannon: Glide = { value: Number.NaN, velocity: 0 };
-  private shield = new ShieldBody();
+  private guide = new GuideStage();
   /** Enough of last frame's world to notice a wave starting over — see `waveRestarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -88,10 +72,7 @@ export class Canvas2DRenderer implements Renderer {
    * left it — the eased pose is the last render state that outlives a world.
    */
   private resetPose(): void {
-    this.armed = 0;
-    this.intake = 0;
-    this.cannon = { value: Number.NaN, velocity: 0 };
-    this.shield.reset();
+    this.pose.reset();
   }
 
   resize(viewport: Viewport): void {
@@ -154,6 +135,21 @@ export class Canvas2DRenderer implements Renderer {
       this.resetPose();
     }
 
+    // The wave's guide is carrying a rehearsal, and the two mini-screens in it
+    // are the only thing on the stage worth a frame: the guide covers the
+    // field with a scrim anyway, and drawing a field nobody can see behind two
+    // that they can is the whole of what a second render per frame would cost.
+    this.guide.update(world, view.dt);
+    if (this.guide.active) {
+      // Nothing under it painted the ground, so this does. The guide's own
+      // scrim is translucent, and translucent over nothing is the last frame.
+      ctx.fillStyle = "#05040B";
+      ctx.fillRect(0, 0, stage.width, stage.height);
+      drawWaveOpening(ctx, l, world, view.role, this.guide, view.time);
+      ctx.restore();
+      return;
+    }
+
     // A round takes the whole stage and this method ends here. Not a panel
     // over the grid and not a dimmed field behind one — the round's first
     // condition is that the field is *gone* (`gauge-round.ts`), and the
@@ -175,12 +171,9 @@ export class Canvas2DRenderer implements Renderer {
     // arithmetic is what made the button go dark a tick early and stay dark
     // through a ward.
     const isArmed = guardArmed(world);
-    this.armed += ((isArmed ? 1 : 0) - this.armed) * Math.min(1, view.dt * 8);
     const isOpen = mawOpen(world);
-    this.intake += ((isOpen ? 1 : 0) - this.intake) * Math.min(1, view.dt * 11);
-    glideTo(this.cannon, world.cannonCol, view.dt);
-    this.shield.update(world.shieldCol, view.dt);
-    const at = { cannon: this.cannon.value, shield: this.shield.segments };
+    this.pose.update(isArmed, isOpen, world.cannonCol, world.shieldCol, view.dt);
+    const at = this.pose.at;
     this.effects.ingest(
       view.events,
       l,
@@ -214,25 +207,7 @@ export class Canvas2DRenderer implements Renderer {
     drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
     drawBodies(ctx, l, world, view, this.effects);
 
-    // Straight off the world, and the only one of the five that is: the tick
-    // the shot leaves is fixed for both devices, so an ease here would have
-    // one cannon working ahead of the other (`shot-charge.ts`). Past the
-    // departure the world has nothing left to say — `chargeMilli` snaps to 0 —
-    // so the far side of the phase is the renderer's own follow-through, which
-    // no two devices need to agree about to the tick. See `LayState`.
-    const laying = chargeMilli(world) / 1000;
-    const mood: HullMood = {
-      armed: this.armed,
-      // Read straight off the world every frame rather than stored: it is a
-      // fact about where two things are standing right now, and a cached copy
-      // would be a second answer to a question the world already answers.
-      resonance: claspResonanceIn(world),
-      intake: this.intake,
-      chew: this.effects.chew,
-      charge: this.effects.charge,
-      lay: laying > 0 ? laying : this.effects.layEcho.phase,
-    };
-    drawShip(ctx, l, world, view, this.effects, mood, at);
+    drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), at);
     drawOverlays(ctx, l, world, view, isArmed, isOpen);
     ctx.restore();
 

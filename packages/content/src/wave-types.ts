@@ -1,6 +1,7 @@
 import type { BossEntry, Color, GhostPath, PodEntry, RockSize } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { WaveKind } from "./mechanics.js";
+import type { SceneId } from "./scenes.js";
 
 /**
  * What a wave is made of.
@@ -125,6 +126,22 @@ export interface WaveGuide {
   p1: string;
   /** Player 2's half: the shield itself, and the two colours. */
   p2: string;
+  /**
+   * The rehearsal this guide shows above its words, by name, or nothing.
+   *
+   * **The key this interface was built to take** — the paragraph above has
+   * been promising it since the guide stopped being a bare string. It is a
+   * *name* rather than the choreography itself, for `Wave.controls`' reason:
+   * a named scene is something a person can be shown and told to change, it
+   * is one line for the director to write back out
+   * (`tools/director/src/serialize.ts`), and a hundred lines of timing in the
+   * middle of a list of arrivals is not a wave file anybody can read.
+   * `packages/content/src/scenes.ts` holds them.
+   *
+   * A guide with no scene is the sixteen guides that shipped before this one:
+   * the three lines, the ready gate, and nothing that moves.
+   */
+  scene?: SceneId;
 }
 
 export interface Wave {

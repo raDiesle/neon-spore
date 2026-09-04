@@ -1,7 +1,15 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
+import {
+  ackBriefing,
+  createWorld,
+  DEFAULT_CONFIG,
+  startWave,
+  step,
+  type World,
+} from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
+import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -19,6 +27,7 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
 const GUIDED = WAVES.map((w, i) => (w.guide ? i : -1)).filter((i) => i >= 0);
+const SCENED = WAVES.map((w, i) => (w.guide?.scene ? i : -1)).filter((i) => i >= 0);
 
 beforeAll(installCanvasGlobals);
 
@@ -90,6 +99,64 @@ describe("a wave's opening on the stage", () => {
     const world = createWorld(CFG, 3);
     startWave(world, WAVES.length + 4, []);
     drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
+  });
+
+  it("draws a rehearsal, through every frame of its loop, in every role", () => {
+    // The whole loop and not a frame of it: a scene is a world being stepped,
+    // so the values reaching the canvas change tick by tick — the muzzle
+    // flash, the spark burst, the wrap that rebuilds the world underneath two
+    // sets of `Effects`. One frame would prove almost nothing.
+    expect(SCENED.length, "no wave carries a scene to draw").toBeGreaterThan(0);
+    const { ctx } = stubCanvas();
+    for (const role of ROLES) {
+      const l = computeLayout({ width: 420, height: 860, dpr: 2 }, CFG, role);
+      for (const i of SCENED) {
+        const { guide } = opening(i);
+        const stage = new GuideStage();
+        // Two full turns of the loop, a frame at a time, so the wrap and the
+        // frames either side of it are drawn rather than merely reached.
+        for (let f = 0; f < 220; f++) {
+          stage.update(guide, 1 / 60);
+          drawWaveOpening(
+            ctx as unknown as CanvasRenderingContext2D,
+            l,
+            guide,
+            role,
+            stage,
+            f / 60,
+          );
+        }
+        expect(stage.active, `${WAVES[i]?.name} never brought its scene up`).toBe(true);
+      }
+    }
+  });
+
+  it("shows the words alone on a screen with no room for a rehearsal", () => {
+    // A stage this short has nothing left over once the guide's prose has had
+    // what it needs, and the instruction is what may not be given up — so the
+    // scene stands down rather than squeezing both.
+    const { ctx } = stubCanvas();
+    const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
+    for (const i of SCENED) {
+      const { guide } = opening(i);
+      const stage = new GuideStage();
+      stage.update(guide, 1 / 60);
+      expect(stage.height(200, 40)).toBe(0);
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1", stage, 0);
+    }
+  });
+
+  it("puts a rehearsal away the moment the guide does", () => {
+    const stage = new GuideStage();
+    const { guide } = opening(SCENED[0]!);
+    stage.update(guide, 1 / 60);
+    expect(stage.active).toBe(true);
+    // Both seats ready, and the wave starts. Nothing is holding the field, so
+    // nothing is holding a rehearsal either.
+    ackBriefing(guide, 1);
+    ackBriefing(guide, 2);
+    stage.update(guide, 1 / 60);
+    expect(stage.active).toBe(false);
   });
 
   it("draws nothing at all once the field is playing", () => {

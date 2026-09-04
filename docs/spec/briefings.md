@@ -1,10 +1,12 @@
 # Briefings
 
-> **Status: the introduction and the guide are built; the animation is not.** A
+> **Status: the introduction, the guide and the first rehearsal are built.** A
 > wave opens on its number, its name and its sentence — plain text on the
 > field, no panel — and then, if it carries one, on a split **guide** that
-> waits for both seats. What §3.2 asks for, the demonstration drawn with the
-> game's own geometry, is still a plan.
+> waits for both seats. FIRST STEP's guide now also carries a **scene**: two
+> mini-screens above the words, the same rehearsal world drawn twice through
+> the shipping renderer, looping. It is one specimen and not a system — §3.2
+> says what is deliberately still missing.
 >
 > **Three decisions below have been overturned on the way in**, and the
 > paragraphs that made them are rewritten rather than left standing beside code
@@ -77,13 +79,25 @@ and `.claude/skills/new-wave`, and the half that can be enforced is enforced:
 anything new has no guide, and fails the other way too, when a wave that
 introduces nothing carries one.
 
-The second rule is unchanged and is the game's own: **neither player is told
-the other's half.** Every guide carries three lines — one both screens read,
-and one for each device. A guide that put all of it on both screens would have
-taught the pair, in the first ten seconds, that they do not need to talk to
-each other, which is the one thing the game cannot survive. So this screen gets
-its own half in words and the other player's half as blocks: visibly there,
-plainly not yours to read.
+The second rule is the game's own and it has **one deliberate exception now**:
+**neither player is told the other's half.** Every guide carries three lines —
+one both screens read, and one for each device. A guide that put all of it on
+both screens would have taught the pair, in the first ten seconds, that they do
+not need to talk to each other, which is the one thing the game cannot survive.
+So this screen gets its own half in words and the other player's half as
+blocks: visibly there, plainly not yours to read.
+
+**The rehearsal breaks that on purpose, and only there.** A guide's scene draws
+*both* screens side by side (§3.2), which is the one place in the game where a
+player sees the other device. The rule is about **play**, and during play it is
+untouched: on the field each seat is shown only what it holds. The tutorial is
+the one moment it cannot hold, because the thing that has to be learned is
+precisely that the other screen exists and carries the answer — a pair shown
+one screen learns a control, and a pair shown both, once, before their first
+wave, learns the game. The asymmetry is kept in the framing instead: yours is
+bright and labelled YOUR SCREEN, theirs is dimmed and labelled THEIR SCREEN.
+Legible, and plainly not the screen you are holding. The **words** are still
+split exactly as before, and that is what carries the rule the rest of the way.
 
 ---
 
@@ -184,7 +198,15 @@ before a room is even joined.
   built step by step — and an object is the shape that takes a `scene`, a
   `picture` or a `steps` key without a single wave file moving. Anything added
   is optional, so the sixteen waves that carry words keep carrying only words.
-  §3.2 is what would add the first one.
+  §3.2 added the first one, and it cost exactly what this paragraph promised:
+  one optional key, and no wave file moved.
+- **`WaveGuide.scene` is a name, not the choreography.** It points at an entry
+  in `packages/content/src/scenes.ts`, the way `Wave.controls` points at a
+  control set, and for the same reasons `control-sets.ts` argues at the top of
+  itself: a named thing is something a person can be shown and told to change,
+  the director writes it back out as one line rather than needing a serializer
+  for a command track, and a hundred lines of timing in the middle of a list of
+  arrivals is not a wave file anybody can read.
 - The heading a guide is drawn under is the wave's own `name`. A guide has no
   title of its own; it belongs to one wave and that wave is already named on
   the introduction the pair read ten seconds ago.
@@ -199,31 +221,127 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The animations — `packages/render` · not built
+### 3.2 The rehearsals — one specimen built
 
-`packages/render/src/briefing.ts` draws the guide and nothing that moves;
-`wave-intro.ts` draws the introduction and nothing that moves either.
+`packages/render/src/briefing.ts` draws the guide's words; `wave-intro.ts`
+draws the introduction, and neither of them moves. Above the words, a guide
+that names a `scene` now draws a **rehearsal**: two mini-screens, side by side,
+the same small world drawn twice — once as player 1, once as player 2 — looping
+for about a second and a half. FIRST STEP has the only one.
 
-The load-bearing requirement: **the demonstration is drawn with the game's own
-geometry, not a diagram of it.** A guide that shows a simplified hull teaches a
-shape the game does not have, and goes on being wrong until somebody changes
-the lobe.
+The load-bearing requirement is unchanged, and everything below follows from
+it: **the demonstration is drawn with the game's own geometry, not a diagram of
+it.** A guide that shows a simplified hull teaches a shape the game does not
+have, and goes on being wrong until somebody changes the lobe.
 
-Concretely, that means splitting the tile-and-hull part of `Layout` out as a
-`Field` (`tile`, `gridLeft`, `gridTop`, `gridWidth`, `gridHeight`, `hullY`) so a
-few-hundred-pixel panel can be one, and `hull-frame.ts` can sample the real
-membrane inside it. Everything else — creatures, rocks, pods, bullets, the band
-strips — already draws from column and row.
+#### It is a real simulation, and a painted scene is forbidden
 
-Each scene is a pure function of `(ctx, panel, t, role)`. No state, so the same
-scene can be stepped by the game loop, by the director's preview, and by a
-test, and look the same in all three.
+This section used to ask for "a pure function of `(ctx, panel, t, role)`", and
+that was the wrong shape. A function that draws where a creature *would be* at
+`t` is a second copy of where a creature lands and of what a shot does — the
+exact class of drift `packages/sim/test/purity.test.ts` keeps a table against.
+It would have been correct on the day it was written and quietly wrong the day
+the fall speed changed, and nothing tests a painting.
 
-**Where it goes when it arrives:** a key on `WaveGuide`, beside the three
-strings, on the waves that want one. Not every wave, not a second table, and
-not a replacement for the words — a guide with a scene still says its three
-lines, because the split is what makes the pair talk and a picture is not
-split.
+So a scene is **played**. `SceneScript` (`packages/sim/src/scene.ts`) carries
+what `startWave` already takes — a queue, pods, a boss — plus a command track
+of `{tick, player, command}` and a length in ticks. `SceneRun` builds a world
+from it, steps it with the real `step`, and rebuilds it from the same seed when
+the loop wraps. The spawn is `spawnArrivals`, the fall is `onBeat`, the shot is
+`fire` and the hit is `resolve`; change any of those and the rehearsal changes
+with them.
+
+#### Who owns what, and why
+
+Three packages, and the split follows two precedents that were already here.
+
+- **`packages/content` owns the data.** A scene is authored in the game's own
+  vocabulary: arrivals are `WaveEntry`s in the same seven columns every wave is
+  written in, put through the same `queueFromWave`, and a press names a
+  `ControlId` and nothing else. `sceneScript` turns that into the sim-shaped
+  script.
+- **`packages/sim` owns the runner**, and is *handed* the built script — the
+  `startWave` precedent exactly. It never reads `content`, so the direction
+  stays `content -> sim`.
+- **`packages/render` owns the clock and the drawing.** `GuideStage`
+  (`guide-scene.ts`) turns wall-clock seconds into a number of ticks, asks the
+  runner for them, and draws what comes back twice. It contains no rule. The
+  rehearsal world is never hashed, never on the wire and never read back by
+  anything but a draw, which is why a picture is allowed to hold one at all.
+
+#### The `Field` split turned out to be unnecessary
+
+This section used to call for splitting the tile-and-hull part of `Layout` out
+as a `Field` (`tile`, `gridLeft`, `gridTop`, `gridWidth`, `gridHeight`,
+`hullY`), so that a few-hundred-pixel panel could be one. **It is not needed
+and was not done.** `computeLayout` is already viewport-relative: a mini-screen
+is `computeLayout({width, height, dpr}, cfg, role)` at a virtual phone size,
+plus a translate and a scale on the context. Every pass then draws exactly as
+it does on a phone — the backdrop, the radar, the membrane sampled by
+`hull-frame.ts`, the band with its strips and lobes — because it *is* the
+phone draw, at a different scale.
+
+Two things did have to move, and both are smaller than a `Field` would have
+been. `FieldPose` (`field-pose.ts`) is the eased pose and the hull mood lifted
+out of `canvas2d.ts`, so the renderer and each mini-screen share one copy of
+the easing instead of two. And each mini-screen owns its own `Effects`, cleared
+when the loop wraps — a rebuilt world starts `beat`, `tick` and `nextId` at 0
+again, so anything cached against them would be read by the next turn as its
+own (CLAUDE.md, `render/test/restart.test.ts`).
+
+The one thing a rehearsal knowingly is not is the field's **height**: a scene
+sets its own `rows`, because two screens side by side inside a guide panel on a
+phone are about 160 px wide each, and fifteen rows at that width is a field of
+six-pixel tiles. The **columns** are the game's own and may not change — a
+scene teaches *which column*, so that is the one number it is not allowed to
+lie about.
+
+#### The ghost thumb is derived, never authored
+
+A scene names a control and, for a strip, a column. Where that control *is*
+comes from `bandLobes` for a lobe and from the strip and `tileCX` for a strip —
+the same two answers the band is drawn from and a finger is hit-tested against.
+The same act is what becomes the press the world actually feels. So the hand
+cannot disagree with the panel it is pressing, and it cannot disagree with the
+world either. A list of coordinates beside the list of presses would have been
+a second copy of where the buttons are, which is what `Layout.lobeY` exists to
+prevent one level down.
+
+`packages/content/test/scenes.test.ts` holds the half of that which can be
+tested without eyes: a scene only ever presses a control the wave's own panel
+carries, a strip act carries a column and a lobe act does not, every act is
+inside its own loop, and the tempo divides the tick rate.
+
+#### Two renders a frame, and what pays for them
+
+While a rehearsal is up, `canvas2d.ts` **stops drawing the real field behind
+it** — the guide covers it with a scrim anyway, so a field nobody can see is
+the whole of what a second render would have cost. Measured on a 390×844 stage,
+400 painted frames each: a guide frame with no scene is 0.53 ms, a guide frame
+with the rehearsal is 2.6 ms, and the playing field, for scale, is 1.7 ms.
+Playing frames are untouched — the stage is inactive and costs one
+`guideHolds` check.
+
+#### Deliberately not built
+
+The specimen stops here. Each of these is a decision the owner has already made
+about what comes next, rather than something forgotten:
+
+- **The step sequencer.** A scene is one loop with one fixed caption. There are
+  no steps, no caption per step, and no step pips.
+- **The order of the opening.** The guide still comes after the wave's
+  introduction, and the wave text has no countdown of its own.
+- **Wave 2's bulb scene**, and every scene after it. One specimen is what is
+  being judged.
+- **The TUTORIALS menu page**, gated on `progress.furthest`, where a pair could
+  watch a rehearsal again without playing the wave.
+- **`prefers-reduced-motion`**: a held pose instead of a loop, for a player who
+  has asked for less movement.
+
+**Where it goes:** a key on `WaveGuide`, beside the three strings, on the waves
+that want one. Not every wave, not a second table, and not a replacement for
+the words — a guide with a scene still says its three lines, because the split
+is what makes the pair talk and a picture is not split.
 
 ### 3.3 Playback · built, without the player
 
@@ -376,8 +494,10 @@ added quietly back here.
    two halves that have to be spoken across, is what decides what the animated
    version looks like. Nothing in §3.2 should be started until a pair has read
    one on two phones.
-3. **The animation** — §3.2's `Field` split, the scenes, and the key on
-   `WaveGuide` that carries one.
+3. ~~**The animation**~~ — **one of it, built.** FIRST STEP's guide plays a
+   rehearsal; the key on `WaveGuide` is there, the `Field` split turned out to
+   be unnecessary, and §3.2 lists the five pieces deliberately left for after
+   the owner has looked at the specimen.
 4. **The gaps**, if looking at it says they matter: the grip and the lance,
    which no wave contains, and the four waves whose guides carry two subjects'
    words at once.

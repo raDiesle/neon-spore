@@ -15,6 +15,7 @@ export const WAVES_ACT_1: Wave[] = [
       both: "One ship, two screens — and the two screens do not show the same thing. What is coming is on one of them; the control that answers it is on the other. This first one is flat, wide and always red.",
       p1: "Yours is the cannon, the shield's trigger and the maw. Slide your strip until the cannon stands in its column, and say which column.",
       p2: "Yours is the shield itself, and the two colours. Press red — nothing leaves the hull until you do.",
+      scene: "firstStep",
     },
     entries: [{ beat: 0, col: 2, color: "red" }],
   },

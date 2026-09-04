@@ -96,6 +96,15 @@ export {
   queueFromWave,
 } from "./queue.js";
 export {
+  type GuideScene,
+  guideScene,
+  SCENES,
+  type SceneAct,
+  type SceneId,
+  sceneCommand,
+  sceneScript,
+} from "./scenes.js";
+export {
   blobPath,
   blobRadiusMul,
   catmullRomToBezierPath,

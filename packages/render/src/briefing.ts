@@ -1,5 +1,6 @@
 import { WAVES } from "@neon-spore/content";
 import { guideHolds, introHolds, type World } from "@neon-spore/sim";
+import type { GuideStage } from "./guide-scene.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawReadyGate, READY_FOOT_H } from "./ready-circles.js";
@@ -31,21 +32,37 @@ import { wrapText } from "./wrap-text.js";
  * one nobody has to look for. **The two circles under the guide are indicators
  * and never buttons** — pressing anywhere fills yours, and shrinking the
  * target to the drawn ring would be a regression dressed as precision.
+ *
+ * **A guide may also carry a rehearsal**, which is the one thing here that
+ * moves and the one thing here that is not stateless — so it is not held here.
+ * `scene` is a `GuideStage` the caller owns and has already brought up to this
+ * frame (`guide-scene.ts`); left out, a guide is exactly the words and the
+ * circles it was before scenes existed, which is what every wave but the first
+ * still gets.
  */
 export function drawWaveOpening(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   role: ViewRole,
+  scene?: GuideStage,
+  time = 0,
 ): void {
   if (introHolds(world)) {
     drawIntroduction(ctx, l, world);
     return;
   }
-  if (guideHolds(world)) drawGuide(ctx, l, world, role);
+  if (guideHolds(world)) drawGuide(ctx, l, world, role, scene, time);
 }
 
-function drawGuide(ctx: CanvasRenderingContext2D, l: Layout, world: World, role: ViewRole): void {
+function drawGuide(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  role: ViewRole,
+  scene: GuideStage | undefined,
+  time: number,
+): void {
   const wave = WAVES[world.wave];
   const guide = wave?.guide;
   if (!guide) return;
@@ -61,7 +78,7 @@ function drawGuide(ctx: CanvasRenderingContext2D, l: Layout, world: World, role:
   const mine = wrapText(ctx, role === "p2" ? guide.p2 : guide.p1, inner);
   const other = wrapText(ctx, role === "p2" ? guide.p1 : guide.p2, inner);
 
-  const height =
+  const words =
     TITLE_H +
     lead.length * LINE +
     RULE_H +
@@ -70,6 +87,12 @@ function drawGuide(ctx: CanvasRenderingContext2D, l: Layout, world: World, role:
     LABEL_H +
     other.length * LINE +
     FOOT_H;
+  // What is left over once the words have had what they need. The rehearsal
+  // takes that and no more: a scene that pushed the guide off the bottom of a
+  // short phone would have traded the instruction for the illustration.
+  const room = Math.max(0, l.playHeight - words - 24);
+  const sceneH = scene?.active ? scene.height(inner, room) : 0;
+  const height = words + sceneH;
   const y = Math.max(12, (l.playHeight - height) / 2);
 
   ctx.fillStyle = "rgba(5,4,11,.82)";
@@ -91,6 +114,15 @@ function drawGuide(ctx: CanvasRenderingContext2D, l: Layout, world: World, role:
   ctx.fillStyle = PALETTE.hullRim;
   ctx.fillText(wave?.name ?? "", x + padX, cy + 18);
   cy = y + TITLE_H;
+
+  // Above the words and under the wave's name: the pair watch it, then read
+  // what each of them is watching.
+  if (sceneH > 0 && scene) {
+    // `cy` is the baseline the first line of prose would have sat on; the
+    // block hangs below it and the words move down by exactly what it takes.
+    scene.draw(ctx, x + padX, cy - 6, inner, room, role, time);
+    cy += sceneH;
+  }
 
   ctx.font = BODY;
   ctx.fillStyle = PALETTE.text;

@@ -185,6 +185,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
+| `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
 
 ### packages/content
 
@@ -223,6 +224,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
+| `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 
 ### packages/render
 
@@ -396,6 +398,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
+| `packages/render/src/field-pose.ts` | the ship's eased pose: where the two lobes are and how the membrane feels, shared by the field and a guide's mini-screens |
+| `packages/render/src/guide-mini.ts` | one of a guide's two mini-screens, drawn through the shipping renderer's own four passes |
+| `packages/render/src/guide-scene.ts` | a guide's rehearsal, on two screens, looping — the clock, the framing and the caption |
+| `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
+| `packages/render/src/guide-screen.ts` | one screen of a guide's rehearsal in its box: the transform, the frame, the dimming and the word above it |
 
 ### packages/net
 

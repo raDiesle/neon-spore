@@ -11,6 +11,7 @@ import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
+import type { GuideStage } from "./guide-scene.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
 import { drawHud, drawOverlay } from "./hud.js";
@@ -185,6 +186,7 @@ export function drawOverlays(
   view: ViewState,
   isArmed: boolean,
   isOpen: boolean,
+  scene?: GuideStage,
 ): void {
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
@@ -198,5 +200,5 @@ export function drawOverlays(
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
   // anything worth seeing.
-  drawWaveOpening(ctx, l, world, view.role);
+  drawWaveOpening(ctx, l, world, view.role, scene, view.time);
 }

@@ -49,17 +49,15 @@ function textField(name: string, value: string): string[] {
  * The wave's guide, always over several lines even when three short strings
  * would fit on one. Biome keeps an object literal expanded once its author put
  * a newline after the brace, so "always expanded" is the only shape that round
- * trips — and a guide is about to grow keys for a picture or a scene, which is
- * not something to read off one long line.
+ * trips — and the first key past the three has arrived: `scene`, the rehearsal
+ * the guide plays. Written last and only when it is there, so the sixteen
+ * guides of words alone round trip as before; one line, because it is a *name*
+ * and not the choreography behind it.
  */
 function serializeGuide(guide: WaveGuide): string[] {
-  return [
-    "    guide: {",
-    ...guideLine("both", guide.both),
-    ...guideLine("p1", guide.p1),
-    ...guideLine("p2", guide.p2),
-    "    },",
-  ];
+  const keys: (keyof WaveGuide)[] = ["both", "p1", "p2", "scene"];
+  const lines = keys.flatMap((k) => (guide[k] === undefined ? [] : guideLine(k, guide[k])));
+  return ["    guide: {", ...lines, "    },"];
 }
 
 /**
@@ -67,9 +65,9 @@ function serializeGuide(guide: WaveGuide): string[] {
  * which is *not* the rule `textField` follows a level up. Biome breaks after
  * `sentence:` when that gets the string under the width, and leaves the same
  * string alone one level deeper inside `guide: {`. The formatter is the only
- * authority on this and `serialize.test.ts` is what proves the two agree, so
- * this is written as the two separate rules it turned out to be rather than as
- * one rule with an indent parameter that quietly disagreed at 103 characters.
+ * authority on this and `serialize.test.ts` proves the two agree, so it is the
+ * two separate rules it turned out to be rather than one rule with an indent
+ * parameter that quietly disagreed at 103 characters.
  */
 function guideLine(name: string, value: string): string[] {
   return [`      ${name}: "${escapeString(value)}",`];

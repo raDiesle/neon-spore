@@ -13,11 +13,13 @@ import type { Wave, WaveGuide } from "@neon-spore/content";
  * already at the line limit, and this piece — build the fields, read them back
  * as a `WaveGuide` or as nothing — is a whole small thing on its own.
  *
- * **Shaped for what comes next.** A guide is an object with named parts
- * precisely so a picture or an animation can arrive as another key
- * (`packages/content/src/wave-types.ts`). When it does, it gets its own
- * control here beside these three and `readBack` grows one line; no wave and
- * no other panel has to move.
+ * **Shaped for what comes next, and the first of it has arrived.** A guide is
+ * an object with named parts precisely so a picture or an animation can turn
+ * up as another key (`packages/content/src/wave-types.ts`), and `scene` is
+ * that key: the name of the rehearsal the guide plays above its words. It has
+ * no control here yet — a scene is chosen by watching it, and the page that
+ * would let somebody do that is not built — so what this file owes it is that
+ * editing the prose does not throw it away. See `readBack`.
  */
 
 export interface GuideFields {
@@ -71,6 +73,8 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
   const listeners: ((guide: WaveGuide | undefined) => void)[] = [];
   let addBtn: HTMLButtonElement | null = null;
   let fieldsWrap: HTMLElement | null = null;
+  /** The scene the wave on the stage names, held so `readBack` can give it back. */
+  let scene: WaveGuide["scene"];
 
   /**
    * All three or none. A guide with one half written is half an instruction on
@@ -83,7 +87,13 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
     const p1 = fields.get("p1")?.value ?? "";
     const p2 = fields.get("p2")?.value ?? "";
     if (!both && !p1 && !p2) return undefined;
-    return { both, p1, p2 };
+    // The rehearsal the guide names is carried through untouched. There is no
+    // control for it yet — a scene is chosen by looking at it, and the page
+    // that would let somebody do that is not built — but a guide read back
+    // *without* it would silently re-author the wave the first time anybody
+    // corrected a typo, which is the failure `serializeEntry` next door
+    // already learned once with `wears`.
+    return scene === undefined ? { both, p1, p2 } : { both, p1, p2, scene };
   };
 
   if (mount) {
@@ -131,6 +141,7 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
   return {
     render(wave) {
       const hasGuide = Boolean(wave?.guide);
+      scene = wave?.guide?.scene;
       // Reset to the button every time a different wave is selected — only a
       // wave that already carries a guide opens straight on the fields. The
       // button click above is the only other way the fields show, and it
