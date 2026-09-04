@@ -4,7 +4,7 @@ import type { ViewRole } from "@neon-spore/render";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
 import { roomLine } from "./join-words.js";
-import { menuEntries } from "./menu-entries.js";
+import { type EntryActions, menuEntries, testingEntries } from "./menu-entries.js";
 import type { SettingsHooks } from "./menu-settings.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
@@ -127,25 +127,30 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     close();
   };
 
+  // Both lists are handed the same actions: which page a row is drawn on is
+  // `menu-entries.ts`'s decision, and nothing here has to know it.
+  const actions: EntryActions = {
+    resume: () => {
+      b.run.hold("hand", false);
+      close();
+    },
+    play,
+    close,
+    show: (page) => dom.show(page),
+    openRoom: b.openRoom,
+    rejoin: () => {
+      const room = pairRoom();
+      if (room === "") return;
+      close();
+      b.joinRoom(room);
+    },
+    openTuning: b.openTuning,
+    demoCount: b.demos.length,
+  };
+
   const dom = buildMenu({
-    entries: menuEntries({
-      resume: () => {
-        b.run.hold("hand", false);
-        close();
-      },
-      play,
-      close,
-      show: (page) => dom.show(page),
-      openRoom: b.openRoom,
-      rejoin: () => {
-        const room = pairRoom();
-        if (room === "") return;
-        close();
-        b.joinRoom(room);
-      },
-      openTuning: b.openTuning,
-      demoCount: b.demos.length,
-    }),
+    entries: menuEntries(actions),
+    testing: testingEntries(actions),
     demos: b.demos,
     onWave: play,
     onDemo: playDemo,

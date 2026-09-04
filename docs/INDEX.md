@@ -467,7 +467,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/hold.ts` | the card that comes up when the line goes bad, with a clock on it |
 | `apps/game/src/join-words.ts` | the words the network wears — the chip's, the room screen's, the seat pills' |
 | `apps/game/src/link-report.ts` | what the screen is told about the link, gathered in one place |
-| `apps/game/src/menu-pages.ts` | the menu's three lists: the waves, the demonstrations, the keys |
+| `apps/game/src/menu-pages.ts` | the menu's two jump lists, and the page a pair reads first |
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
@@ -476,7 +476,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
-| `apps/game/src/menu-entries.ts` | The rows on the menu's front page, in the order they are read |
+| `apps/game/src/menu-entries.ts` | The rows on the menu's two lists of entries, in the order they are read |
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
@@ -485,6 +485,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
 | `apps/game/src/menu-settings.ts` | The one durable place for "things about me" |
+| `apps/game/src/menu-controls.ts` | what a thumb does, every panel the game has, the field itself, then the keys |
 
 ### apps/server
 

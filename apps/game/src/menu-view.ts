@@ -1,8 +1,9 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
-import { buildDemos, buildHowTo, buildKeys, buildWaves } from "./menu-pages.js";
-import { el, type MenuPage, sporeSvg } from "./menu-parts.js";
+import { buildControls } from "./menu-controls.js";
+import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
+import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
 
 /**
@@ -25,6 +26,8 @@ export interface MenuEntry {
 
 export interface MenuHandlers {
   entries: MenuEntry[];
+  /** The rig's own rows, on the page behind TESTING — see `menu-entries.ts`. */
+  testing: MenuEntry[];
   /** One row per mechanic — see `demo-menu.ts`. */
   demos: DemoRow[];
   /** A wave was picked out of the list. */
@@ -103,11 +106,14 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   );
 
   const rootPage = el("div", "page on");
+  const testingPage = el("div", "page");
   const pages: Record<MenuPage, HTMLElement> = {
     root: rootPage,
-    waves: buildWaves((p) => show(p), h.onWave),
-    demos: buildDemos((p) => show(p), h.demos, h.onDemo),
-    keys: buildKeys((p) => show(p)),
+    testing: testingPage,
+    // Both jump lists are opened from TESTING now, so both go back to it.
+    waves: buildWaves((p) => show(p), h.onWave, "testing"),
+    demos: buildDemos((p) => show(p), h.demos, h.onDemo, "testing"),
+    keys: buildControls((p) => show(p), "settings"),
     how: buildHowTo((p) => show(p)),
     settings: buildSettings((p) => show(p), h.settings),
   };
@@ -116,26 +122,54 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     scroll.scrollTop = 0;
   };
 
+  // One map over both lists: a key is a key wherever its row is drawn, so
+  // `setEntry("play", …)` goes on reaching SINGLE PLAYER after it moved behind
+  // TESTING. The two lists share no key, and `menu-entries.ts` is where that
+  // is kept true.
   const entries = new Map<string, { root: HTMLElement; label: HTMLElement; desc: HTMLElement }>();
-  h.entries.forEach((entry, i) => {
-    const button = el("button", "entry");
-    button.type = "button";
-    button.style.setProperty("--i", String(i));
-    const mark = el("span", "mark", "▸");
-    // Decoration. Without this it is read out in front of the entry's name.
-    mark.ariaHidden = "true";
-    const label = el("span", "label", entry.label);
-    const desc = el("span", "desc", entry.desc);
-    button.append(mark, label, desc);
-    button.addEventListener("click", entry.run);
-    rootPage.append(button);
-    entries.set(entry.key, { root: button, label, desc });
-  });
+  const drawEntries = (list: MenuEntry[], page: HTMLElement): void => {
+    list.forEach((entry, i) => {
+      const button = el("button", "entry");
+      button.type = "button";
+      button.style.setProperty("--i", String(i));
+      const mark = el("span", "mark", "▸");
+      // Decoration. Without this it is read out in front of the entry's name.
+      mark.ariaHidden = "true";
+      const label = el("span", "label", entry.label);
+      const desc = el("span", "desc", entry.desc);
+      button.append(mark, label, desc);
+      button.addEventListener("click", entry.run);
+      page.append(button);
+      entries.set(entry.key, { root: button, label, desc });
+    });
+  };
+  drawEntries(h.entries, rootPage);
+
+  testingPage.append(
+    backButton((p) => show(p)),
+    el("h2", undefined, "TESTING"),
+  );
+  drawEntries(h.testing, testingPage);
+  testingPage.append(
+    el(
+      "p",
+      "foot",
+      "One device, both seats. Two people on two phones start from the front page instead.",
+    ),
+  );
 
   const { seatBlock, paintSeat, lockSeats } = buildSeats(h.onSeat);
   rootPage.append(seatBlock);
 
-  inner.append(pages.root, pages.waves, pages.demos, pages.keys, pages.how, pages.settings);
+  inner.append(
+    pages.root,
+    pages.testing,
+    pages.waves,
+    pages.demos,
+    pages.keys,
+    pages.how,
+    pages.settings,
+  );
   document.body.append(root);
 
   return {

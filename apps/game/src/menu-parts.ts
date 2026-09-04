@@ -12,7 +12,7 @@ import { BULB, blobPath } from "@neon-spore/content";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-export type MenuPage = "root" | "waves" | "demos" | "keys" | "how" | "settings";
+export type MenuPage = "root" | "testing" | "waves" | "demos" | "keys" | "how" | "settings";
 
 export function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -25,10 +25,22 @@ export function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
-export function backButton(show: (page: MenuPage) => void): HTMLButtonElement {
+/**
+ * The way back, and where back *is*.
+ *
+ * It went to the front page and nowhere else for as long as every page hung
+ * off the front page. Two of them no longer do — the three testing lists sit
+ * behind TESTING and CONTROLS sits inside SETTINGS — and a back button that
+ * skipped the page it was opened from would drop the reader a floor below
+ * where they came in.
+ */
+export function backButton(
+  show: (page: MenuPage) => void,
+  to: MenuPage = "root",
+): HTMLButtonElement {
   const button = el("button", "back", "← BACK");
   button.type = "button";
-  button.addEventListener("click", () => show("root"));
+  button.addEventListener("click", () => show(to));
   return button;
 }
 

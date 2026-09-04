@@ -611,3 +611,77 @@ body[data-motion="off"] #menu .entry {
   letter-spacing: 0.04em;
   color: #b6ecf4;
 }
+
+/* CONTROLS: one block per panel, both seats in it. The blocks are read rather
+   than pressed, so they are quieter than an entry and carry no hover — the
+   only thing on the page a thumb can do is BACK. */
+#menu .panel {
+  margin: 14px 0;
+  padding: 13px 14px;
+  border: 1px solid #2b2450;
+  border-radius: 10px;
+}
+#menu .panel h3 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: #ffc24b;
+  font-weight: 600;
+}
+#menu .panel .why {
+  margin: 7px 0 0;
+  font-size: 10px;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+  color: #8b7fc4;
+}
+#menu .panel .form {
+  margin: 6px 0 0;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #4b4177;
+}
+#menu .panel .seat-half {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 0 10px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid #16112f;
+}
+#menu .panel .seat-half .tag {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: #6f639f;
+}
+#menu .panel .control {
+  margin-bottom: 8px;
+}
+#menu .panel .control:last-child {
+  margin-bottom: 0;
+}
+#menu .panel .control .name {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #c8bdf5;
+}
+#menu .panel .s {
+  display: block;
+  margin: 3px 0 0;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: #8b7fc4;
+}
+
+/* A second heading inside a page — the phone, the panels, the desk. The first
+   one sits under BACK and needs no gap above it; these do. */
+#menu .page h2 + .lead {
+  margin-top: 10px;
+}
+#menu .page .lead + .keys,
+#menu .page .keys + h2,
+#menu .page .panel + h2 {
+  margin-top: 26px;
+}

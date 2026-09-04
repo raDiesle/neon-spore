@@ -4,7 +4,7 @@ import type { MenuEntry } from "./menu-view.js";
 import { readProgress } from "./progress.js";
 
 /**
- * The rows on the menu's front page, in the order they are read.
+ * The rows on the menu's two lists of entries, in the order they are read.
  *
  * A list rather than a screen: `menu-view.ts` draws whatever it is handed, and
  * `menu.ts` decides which of these apply right now (`setEntry`), holds the
@@ -16,6 +16,15 @@ import { readProgress } from "./progress.js";
  * Every row is here even when it does not apply: `setEntry(key, { on })` takes
  * one off the page rather than this list being rebuilt, so a key that exists
  * stays addressable.
+ *
+ * **There are two lists, and the seam is who the row is for.** The front page
+ * is the game: come back to it, carry on, meet the other phone, learn what
+ * this is, set it up. `testingEntries` is the rig — one person at a desk with
+ * both seats, jumping at a wave or a mechanic, moving the sliders while it
+ * runs — and it lives one press away behind TESTING rather than beside
+ * CONTINUE, where it was four of the eleven things a player read first. The
+ * keys are the same argument taken further: they are a preference of the
+ * device rather than a way in, so CONTROLS is reached from SETTINGS.
  */
 
 export interface EntryActions {
@@ -48,12 +57,6 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       run: () => a.play(readProgress().furthest),
     },
     {
-      key: "play",
-      label: "PLAY",
-      desc: "Start over at the first wave, both seats on this device.",
-      run: () => a.play(0),
-    },
-    {
       key: "rejoin",
       label: "REJOIN",
       desc: "Back into the room you two share. No code to read out.",
@@ -69,34 +72,65 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       },
     },
     {
-      key: "waves",
-      label: "WAVES",
-      desc: `All ${WAVES.length} authored waves, each by the sentence it exists for.`,
-      run: () => a.show("waves"),
-    },
-    {
-      key: "demos",
-      label: "DEMOS",
-      desc: `One wave per mechanic, ${a.demoCount} in all, already switched on.`,
-      run: () => a.show("demos"),
-    },
-    {
       key: "how",
       label: "HOW TO PLAY",
       desc: "The two seats, and the one rule that is the whole game.",
       run: () => a.show("how"),
     },
     {
-      key: "keys",
-      label: "CONTROLS",
-      desc: "The keys, for one person at a desk playing both halves.",
-      run: () => a.show("keys"),
+      key: "testing",
+      label: "TESTING",
+      desc: "One device, both seats: start over, jump at a wave or a mechanic, move the sliders.",
+      run: () => a.show("testing"),
     },
     {
       key: "settings",
       label: "SETTINGS",
-      desc: "Sound, motion, buzz, your name — and the way to forget all of it.",
+      desc: "Sound, motion, buzz, your name, the controls — and the way to forget all of it.",
       run: () => a.show("settings"),
+    },
+    {
+      key: "leave",
+      label: "LEAVE ROOM",
+      desc: "Hang up and go back to one device. The other phone is told.",
+      // Answered by the two-step `menu.ts` binds to this row, which asks in
+      // place before anything reaches `leaveRoom`. Nothing to do here.
+      run: () => {},
+    },
+  ];
+}
+
+/**
+ * The rows behind TESTING: everything one person at a desk reaches for.
+ *
+ * Named by what they do rather than by what they are — SINGLE PLAYER says
+ * both seats are on this device, and the two lists say they are jumps rather
+ * than a campaign — because the words WAVES and DEMOS were only legible to
+ * somebody who already knew how the game is authored.
+ *
+ * The keys are the same `key` strings as before, so `paintLink` in `menu.ts`
+ * goes on taking SINGLE PLAYER off the page while there is a room, which is
+ * exactly as true here as it was on the front page.
+ */
+export function testingEntries(a: EntryActions): MenuEntry[] {
+  return [
+    {
+      key: "play",
+      label: "SINGLE PLAYER",
+      desc: "Start over at the first wave, both seats on this device.",
+      run: () => a.play(0),
+    },
+    {
+      key: "waves",
+      label: "JUMP TO WAVE",
+      desc: `All ${WAVES.length} authored waves, each by the sentence it exists for.`,
+      run: () => a.show("waves"),
+    },
+    {
+      key: "demos",
+      label: "JUMP TO ENEMY TYPE WAVE",
+      desc: `One wave per mechanic, ${a.demoCount} in all, already switched on.`,
+      run: () => a.show("demos"),
     },
     {
       key: "tuning",
@@ -106,14 +140,6 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
         a.close();
         a.openTuning();
       },
-    },
-    {
-      key: "leave",
-      label: "LEAVE ROOM",
-      desc: "Hang up and go back to one device. The other phone is told.",
-      // Answered by the two-step `menu.ts` binds to this row, which asks in
-      // place before anything reaches `leaveRoom`. Nothing to do here.
-      run: () => {},
     },
   ];
 }

@@ -77,6 +77,7 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
   const page = el("div", "page");
   page.append(backButton(show), el("h2", undefined, "SETTINGS"));
 
+  page.append(controlsRow(show));
   for (const row of TOGGLES) {
     if (row.available && !row.available()) continue;
     page.append(toggleRow(row, hooks));
@@ -87,6 +88,26 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
   // build already defines, not new machinery.
   page.append(el("p", "foot", `Build ${__BUILD_DATE__}`));
   return page;
+}
+
+/**
+ * The way to CONTROLS, which used to be a row on the front page.
+ *
+ * It is here because it is a thing about *this device* — which buttons this
+ * phone puts under a thumb, and which keys a desk answers — and that is the
+ * question people bring to a settings page. It is not a preference and so it
+ * is not a switch: a row that opens a page, in the place a person looks.
+ */
+function controlsRow(show: (page: MenuPage) => void): HTMLElement {
+  const block = el("div", "setting");
+  const button = el("button", "switch", "CONTROLS");
+  button.type = "button";
+  button.addEventListener("click", () => show("keys"));
+  block.append(
+    button,
+    el("span", "s", "What a thumb does, every panel in the game, and the keys at a desk."),
+  );
+  return block;
 }
 
 function toggleRow(row: ToggleRow, hooks: SettingsHooks): HTMLElement {
