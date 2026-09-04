@@ -1,5 +1,5 @@
 import { bossFromWave, controlSet, podsFromWave, queueFromWave, WAVES } from "@neon-spore/content";
-import { Canvas2DRenderer, computeLayout, loadAtlas, type Viewport } from "@neon-spore/render";
+import { Canvas2DRenderer, loadAtlas } from "@neon-spore/render";
 import {
   type Command,
   createWorld,
@@ -15,6 +15,7 @@ import {
 } from "@neon-spore/sim";
 import stripUrl from "../../../assets/raster/burst-strip.webp";
 import { runStageLoop } from "./stage-loop.js";
+import { stageGeometry } from "./stage-point.js";
 import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 
 /**
@@ -61,20 +62,14 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
   let world: World = createWorld(CFG, waveIndex);
   let frameEvents: SimEvent[] = [];
   let pending: TimedCommand[] = [];
-  let viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-
-  const resize = (): void => {
-    const rect = canvas.getBoundingClientRect();
-    if (rect.width < 1 || rect.height < 1) return;
-    viewport = {
-      width: rect.width,
-      height: rect.height,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
-    };
-    renderer.resize(viewport);
-  };
-  new ResizeObserver(resize).observe(canvas);
-  resize();
+  // This sheet is the editor's stage again, and it had the same miss
+  // (`stage-point.ts`), which is also where the measuring lives now.
+  const { layout, at } = stageGeometry(
+    canvas,
+    CFG,
+    () => "test",
+    (v) => renderer.resize(v),
+  );
 
   const wave = (): (typeof WAVES)[number] | undefined => WAVES[waveIndex];
   const controls = (): ReturnType<typeof controlSet> => controlSet(wave()?.controls);
@@ -109,7 +104,8 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
 
   bindStageTouch({
     canvas,
-    layout: () => computeLayout(viewport, CFG, "test"),
+    at,
+    layout,
     field: () => ({
       creatures: world.creatures,
       cannonCol: world.cannonCol,

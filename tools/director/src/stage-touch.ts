@@ -11,6 +11,7 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import { briefingHolds, type Command, guideHolds, introHolds, type World } from "@neon-spore/sim";
+import type { StagePoint } from "./stage-point.js";
 
 /**
  * The stage answers a finger the way the phone does — the same `touch.ts` the
@@ -72,6 +73,12 @@ export function cardRenderRole(role: ViewRole, world: World, cardStep: 0 | 1 | 2
 
 export interface StageTouch {
   canvas: HTMLCanvasElement;
+  /**
+   * A pointer event, in the coordinates the renderer drew in. Handed down
+   * rather than worked out here — see `stage-point.ts` for the four copies
+   * this replaced and the miss they caused.
+   */
+  at: StagePoint["at"];
   /** Read fresh: the panel is resizable and the role switches under it. */
   layout: () => Layout;
   /** The field a grab is tested against, and whose hand it is. */
@@ -125,6 +132,7 @@ export interface StageHand {
 
 export function bindStageTouch({
   canvas,
+  at,
   layout,
   field,
   push,
@@ -142,10 +150,6 @@ export function bindStageTouch({
   // way `holding` is — a second map rather than teaching `Hold` a briefing
   // shape it has nothing else in common with.
   const briefHolding = new Map<number, readonly (1 | 2)[]>();
-  const at = (e: PointerEvent): { x: number; y: number } => {
-    const rect = canvas.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  };
 
   canvas.addEventListener("pointerdown", (e) => {
     // The wave has not started: the press belongs to its opening, not to the

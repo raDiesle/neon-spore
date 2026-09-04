@@ -126,6 +126,10 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     const stub = stubCanvas();
     const touch = bindStageTouch({
       canvas: stub.canvas,
+      // The stub canvas sits at the origin at its natural size and the layout is
+      // built straight from the viewport, so there is no stage offset to undo
+      // here. `stage-point.test.ts` is where the conversion itself is checked.
+      at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => computeLayout(VIEWPORT, cfg, role),
       field: () => ({
         creatures: world.creatures,
@@ -314,6 +318,10 @@ describe("bindStageTouch reports the hand on the ship", () => {
     const layout = computeLayout(VIEWPORT, cfg, role);
     const touch = bindStageTouch({
       canvas,
+      // The stub canvas sits at the origin at its natural size and the layout is
+      // built straight from the viewport, so there is no stage offset to undo
+      // here. `stage-point.test.ts` is where the conversion itself is checked.
+      at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => layout,
       field: () => ({
         creatures: world.creatures,

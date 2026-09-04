@@ -2,6 +2,7 @@ import type { ControlSet } from "@neon-spore/content";
 import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import type { Command } from "@neon-spore/sim";
 import { gaugeHolds, type World } from "@neon-spore/sim";
+import type { StagePoint } from "./stage-point.js";
 
 /**
  * A ROUND THAT IS NOT THE FIELD ANSWERS A MOUSE.
@@ -32,6 +33,12 @@ import { gaugeHolds, type World } from "@neon-spore/sim";
  */
 export interface StageGauge {
   canvas: HTMLCanvasElement;
+  /**
+   * A pointer event, in the coordinates the renderer drew in. Handed down
+   * rather than worked out here — see `stage-point.ts` for the four copies
+   * this replaced and the miss they caused.
+   */
+  at: StagePoint["at"];
   /** Read fresh: the panel is resizable and the role switches under it. */
   layout: () => Layout;
   /** Which screen this is, so a seat sees the slabs its own seat is given. */
@@ -48,14 +55,17 @@ export interface StageGauge {
   push: (player: 1 | 2, command: Command) => void;
 }
 
-export function bindStageGauge({ canvas, layout, role, world, controls, push }: StageGauge): void {
+export function bindStageGauge({
+  canvas,
+  at,
+  layout,
+  role,
+  world,
+  controls,
+  push,
+}: StageGauge): void {
   /** Which way each held pointer is pushing the valve. */
   const turning = new Map<number, -1 | 1>();
-
-  const at = (e: PointerEvent): { x: number; y: number } => {
-    const rect = canvas.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  };
 
   const panel = () => slabPanel(layout(), controls(), role());
 

@@ -1,5 +1,5 @@
 import { bossFromWave, controlSet, podsFromWave, queueFromWave } from "@neon-spore/content";
-import { Canvas2DRenderer, computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
   mazeRound,
@@ -15,6 +15,7 @@ import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { exposeStageHandle } from "./stage-handle.js";
 import { runStageLoop } from "./stage-loop.js";
+import { stageGeometry } from "./stage-point.js";
 import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, cardRenderRole, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
@@ -67,20 +68,16 @@ export function bindStage(
   let running = true;
   let frameEvents: SimEvent[] = [];
   let lastBeat = -1;
-  let viewport: Viewport = { width: 0, height: 0, dpr: 1 };
 
-  const resize = (): void => {
-    const rect = canvas.getBoundingClientRect();
-    if (rect.width < 1 || rect.height < 1) return;
-    viewport = {
-      width: rect.width,
-      height: rect.height,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
-    };
-    renderer.resize(viewport);
-  };
-  new ResizeObserver(resize).observe(canvas);
-  resize();
+  // The renderer draws into a phone-shaped rectangle inside this canvas, so a
+  // layout built from the canvas answers every control somewhere the picture
+  // is not — `stage-point.ts` owns the measuring and the whole of that.
+  const { layout, at } = stageGeometry(
+    canvas,
+    cfg,
+    () => role,
+    (v) => renderer.resize(v),
+  );
 
   // The stage plays `store.waves` (the draft), not the shipped `WAVES` — the
   // panel comes from the wave's own `controls` field, the one `rail.ts`'s picker
@@ -89,7 +86,8 @@ export function bindStage(
   // Every round draws slabs, which `touchDown` cannot answer (`stage-rounds.ts`).
   bindStageRounds({
     canvas,
-    layout: () => computeLayout(viewport, cfg, role),
+    at,
+    layout,
     role: () => role,
     world: () => world,
     controls: currentControlSet,
@@ -97,7 +95,8 @@ export function bindStage(
   });
   const touch = bindStageTouch({
     canvas,
-    layout: () => computeLayout(viewport, cfg, role),
+    at,
+    layout,
     field: () => ({
       creatures: world.creatures,
       // The ship answers a finger where it is drawn, so the hit test needs

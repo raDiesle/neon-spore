@@ -1,6 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import { type Command, snakeHolds, type World } from "@neon-spore/sim";
+import type { StagePoint } from "./stage-point.js";
 
 /**
  * SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE.
@@ -24,6 +25,12 @@ import { type Command, snakeHolds, type World } from "@neon-spore/sim";
  */
 export interface StageSnake {
   canvas: HTMLCanvasElement;
+  /**
+   * A pointer event, in the coordinates the renderer drew in. Handed down
+   * rather than worked out here — see `stage-point.ts` for the four copies
+   * this replaced and the miss they caused.
+   */
+  at: StagePoint["at"];
   /** Read fresh: the panel is resizable and the role switches under it. */
   layout: () => Layout;
   role: () => ViewRole;
@@ -45,12 +52,18 @@ const SLABS: readonly {
   { id: "snakeMaw", player: 1, command: { kind: "snakeMaw" } },
 ];
 
-export function bindStageSnake({ canvas, layout, role, world, controls, push }: StageSnake): void {
+export function bindStageSnake({
+  canvas,
+  at,
+  layout,
+  role,
+  world,
+  controls,
+  push,
+}: StageSnake): void {
   canvas.addEventListener("pointerdown", (e) => {
     if (!snakeHolds(world())) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const { x, y } = at(e);
     const slabs = slabPanel(layout(), controls(), role());
     for (const entry of SLABS) {
       const slab = slabFor(slabs, entry.id);

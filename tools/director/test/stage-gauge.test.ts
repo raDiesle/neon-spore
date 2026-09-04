@@ -70,6 +70,10 @@ function armed(role: "test" | "p1" | "p2") {
   const stub = stubCanvas(VIEWPORT.width, VIEWPORT.height);
   bindStageGauge({
     canvas: stub.canvas,
+    // The stub canvas sits at the origin at its natural size and the layout is
+    // built straight from the viewport, so there is no stage offset to undo
+    // here. `stage-point.test.ts` is where the conversion itself is checked.
+    at: (e) => ({ x: e.clientX, y: e.clientY }),
     layout: () => layout,
     role: () => role,
     world: () => world,
@@ -146,6 +150,10 @@ describe("the director answers a round's own controls", () => {
     const stub = stubCanvas(VIEWPORT.width, VIEWPORT.height);
     bindStageGauge({
       canvas: stub.canvas,
+      // The stub canvas sits at the origin at its natural size and the layout is
+      // built straight from the viewport, so there is no stage offset to undo
+      // here. `stage-point.test.ts` is where the conversion itself is checked.
+      at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => layout,
       role: () => "test",
       world: () => world,

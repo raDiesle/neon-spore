@@ -1,6 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
 import { type Command, pinballHolds, type World } from "@neon-spore/sim";
+import type { StagePoint } from "./stage-point.js";
 
 /**
  * PINBALL'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE.
@@ -29,6 +30,12 @@ import { type Command, pinballHolds, type World } from "@neon-spore/sim";
  */
 export interface StagePinball {
   canvas: HTMLCanvasElement;
+  /**
+   * A pointer event, in the coordinates the renderer drew in. Handed down
+   * rather than worked out here — see `stage-point.ts` for the four copies
+   * this replaced and the miss they caused.
+   */
+  at: StagePoint["at"];
   /** Read fresh: the panel is resizable and the role switches under it. */
   layout: () => Layout;
   role: () => ViewRole;
@@ -51,6 +58,7 @@ const PRESSES: readonly {
 
 export function bindStagePinball({
   canvas,
+  at,
   layout,
   role,
   world,
@@ -59,11 +67,6 @@ export function bindStagePinball({
 }: StagePinball): void {
   /** Which way each held pointer is pushing the bucket. */
   const sliding = new Map<number, -1 | 1>();
-
-  const at = (e: PointerEvent): { x: number; y: number } => {
-    const rect = canvas.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  };
 
   const panel = () => slabPanel(layout(), controls(), role());
 

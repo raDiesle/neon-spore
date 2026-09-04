@@ -837,5 +837,6 @@ place — the generator keeps whatever is there.
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
 | `tools/director/src/brush-cards.ts` | you are changing what a brush's card in the palette looks like — its stroke, its subjects or its one line |
+| `tools/director/src/stage-point.ts` | a click on the director's stage lands somewhere other than the control it was on |
 
 <!-- index:code:end -->
