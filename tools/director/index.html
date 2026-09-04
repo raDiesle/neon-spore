@@ -124,6 +124,11 @@
           <label class="field" for="fControlSet">Control Set</label>
           <select id="fControlSet"></select>
           <p class="note" id="fControlSetWhy"></p>
+          <!-- What the picked set actually puts in their hands, seat by seat,
+               with a rung's held-back buttons shown in the places they keep.
+               `control-set-note.ts` fills it; the markup is one empty div so
+               that a set with nothing to say leaves nothing behind. -->
+          <div id="fControlSetRoster"></div>
 
           <div id="bossPanel"></div>
 

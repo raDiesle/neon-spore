@@ -196,10 +196,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/impact.ts` | **What one body costs the hull when it reaches it**, for everything the shield was never offered |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
-| `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
 | `packages/sim/src/config-pod.ts` | THE POD's numbers: how a capsule shot loose falls, how it steers itself into the maw |
 | `packages/sim/src/config-volley.ts` | THE VOLLEY's numbers: how steeply it comes in, how far a ward throws it back up the field |
 | `packages/sim/src/cross.ts` | **A body crossing the field and turning at its side walls** |
+| `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
 | `packages/sim/src/events-volley.ts` | **What THE VOLLEY does**, as events: a ward that sends it back |
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
@@ -279,6 +279,9 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
+| `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
+| `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, on its own |
+| `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 
@@ -493,13 +496,13 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
 | `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
 | `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
-| `packages/render/src/carom.ts` | THE CAROM's crust: a meteor with a window cut in it, and the streak it drags |
-| `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
-| `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
+| `packages/render/src/carom.ts` | THE CAROM's crust: the rock shell a slick or a bulb is sealed inside |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
-| `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
+| `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
+| `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
+| `packages/render/src/volley.ts` | THE VOLLEY's shell: **a basketball made of meteor** |
 
 ### packages/net
 
@@ -929,6 +932,7 @@ place — the generator keeps whatever is there.
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |
+| `tools/hooks/auto-land.ts` | The turn is over and the lane is finished: put it on the trunk without being asked |
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
@@ -938,8 +942,9 @@ place — the generator keeps whatever is there.
 | `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE — the other list on the CONTROLS tab, and the smaller one |
 | `tools/frames/launch.ts` | Getting the *wave's arrival* out of the picture |
 | `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
+| `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
+| `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished |
 | `tools/land/push.ts` | `bun run push` — put the trunk on `origin`, because somebody asked |
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
-| `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: put the choice to the owner rather than taking it |
 
 <!-- index:code:end -->

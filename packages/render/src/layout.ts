@@ -1,4 +1,10 @@
-import { type ControlDef, type ControlSet, setControls } from "@neon-spore/content";
+import {
+  type ControlDef,
+  type ControlSet,
+  layoutSet,
+  setControls,
+  setHas,
+} from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { Viewport } from "./renderer.js";
 
@@ -202,6 +208,15 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
  * It is a function of the *set* rather than a field of `Layout` because the
  * panel changes with the wave and the layout does not: the wave is known where
  * the band is drawn and where a finger is answered, and both ask here.
+ *
+ * **A rung of the ladder is laid out against the panel it reduces, not
+ * against itself** (`ControlSet.reduces`). The slots come from `layoutSet` and
+ * the held-back ones are dropped afterwards, so STANDARD 3's single trigger
+ * stands on the pixel STANDARD's trigger stands on and the maw's place beside
+ * it is simply empty. Laying the survivors out on their own would centre one
+ * lobe in the seat's share, and a pair would learn an arrangement in the first
+ * waves that moves under them in the fifth — which is the whole of what the
+ * owner asked for when he asked for a reduced panel.
  */
 export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   // A seat this screen does not carry has no buttons on it at all — not
@@ -209,7 +224,7 @@ export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   // whole width, so the absent seat's circles would otherwise land on top of
   // the present one's and both would claim the same thumb.
   if (player === 1 ? !showsCannon(l.role) : !showsShield(l.role)) return [];
-  const controls = setControls(set, player).filter((c) => c.form === "lobe");
+  const controls = setControls(layoutSet(set), player).filter((c) => c.form === "lobe");
   if (controls.length === 0) return [];
   const solo = l.role !== "test";
   // Each seat's share of the width, and the middle of it. In the test view the
@@ -219,10 +234,18 @@ export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   const share = solo ? 1 : 0.46;
   const pitch = Math.min(maxPitch, share / controls.length);
   const first = centre - ((controls.length - 1) / 2) * pitch;
-  return controls.map((control, i) => ({
-    control,
-    circle: { x: l.width * (first + i * pitch), y: l.lobeY, r: l.lobeR },
-  }));
+  return (
+    controls
+      .map((control, i) => ({
+        control,
+        circle: { x: l.width * (first + i * pitch), y: l.lobeY, r: l.lobeR },
+      }))
+      // The slot is kept and the button is not: a control the wave's own set has
+      // not got is drawn nowhere and answered nowhere, exactly as it was before
+      // the ladder existed. Filtered after the placement rather than before it,
+      // which is the whole difference.
+      .filter((lobe) => setHas(set, lobe.control.id))
+  );
 }
 
 export function tileCX(l: Layout, col: number): number {

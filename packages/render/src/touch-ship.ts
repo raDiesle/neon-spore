@@ -98,11 +98,16 @@ export function shipCircle(
  * Left is red and right is cyan because that is the order the two lobes stand
  * in on player 2's own band (`bandLobes` walks `setControls`, and `fireRed`
  * is listed first). A player who has learnt the panel already knows this one.
+ *
+ * `only` is a panel with one colour on it — the ladder's first two rungs — and
+ * then the direction says nothing, because there is no order to read off a
+ * single lobe. The swipe still has to clear the threshold: a thumb resting on
+ * the muzzle fires nothing on any panel.
  */
-export function swipeColor(l: Layout, originX: number, x: number): Color | null {
+export function swipeColor(l: Layout, originX: number, x: number, only?: Color): Color | null {
   const d = x - originX;
   if (Math.abs(d) < l.tile * SWIPE_TILES) return null;
-  return d < 0 ? "red" : "cyan";
+  return only ?? (d < 0 ? "red" : "cyan");
 }
 
 /**
@@ -232,6 +237,15 @@ function navigator(l: Layout, on: "cannon" | "shield", x: number, field: Field):
       hold: { kind: "shield", direct: true },
     };
   }
-  if (!setHas(field.controls, "fireRed") && !setHas(field.controls, "fireCyan")) return null;
-  return { player: 2, command: null, hold: { kind: "shot", originX: x } };
+  const red = setHas(field.controls, "fireRed");
+  const cyan = setHas(field.controls, "fireCyan");
+  if (!red && !cyan) return null;
+  // Which colours the muzzle may send is the panel's, decided here and carried
+  // on the hold — the lift is answered a long way from anything that knows the
+  // wave, which is the same bargain `suck` makes one seat over.
+  return {
+    player: 2,
+    command: null,
+    hold: { kind: "shot", originX: x, ...(red && cyan ? {} : { only: red ? "red" : "cyan" }) },
+  };
 }

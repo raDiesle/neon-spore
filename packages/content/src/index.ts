@@ -12,6 +12,8 @@ export {
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
   groupsCoveredBy,
+  heldBack,
+  layoutSet,
   panelForm,
   setControls,
   setHas,

@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import type { Command, DragTarget } from "@neon-spore/sim";
+import type { Color, Command, DragTarget } from "@neon-spore/sim";
 
 /**
  * **What a hit test hands back**: what a drag and a lift continue to mean,
@@ -69,7 +69,23 @@ export type Hold =
    * threshold fires nothing, which is what makes it a control a player can
    * change their mind inside.
    */
-  | { kind: "shot"; originX: number }
+  | {
+      kind: "shot";
+      originX: number;
+      /**
+       * The one colour this panel has, when it has only one — the ladder's
+       * first two rungs (`ControlSet.reduces`). Absent on a panel carrying
+       * both, which is every wave from STANDARD 2 on.
+       *
+       * It rides on the hold for `suck`'s reason one case up: the permission
+       * is read where the press is answered, and the lift is a long way from
+       * anything that knows the wave. Left and right are the two lobes' own
+       * order, and a seat with one lobe has no order to read — so a swipe
+       * either way sends the colour that exists rather than half the gesture
+       * firing nothing.
+       */
+      only?: Color;
+    }
   | {
       kind: "drag";
       target: DragTarget;

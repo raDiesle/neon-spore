@@ -83,7 +83,7 @@ export function shipHand(
   // press already did.
   if (hold.kind === "guard") return { on: "shield", held, color: null, marks: ["guard"] };
   if (hold.kind === "shot") {
-    return { on: "muzzle", held, color: swipeColor(l, hold.originX, x), marks: [] };
+    return { on: "muzzle", held, color: swipeColor(l, hold.originX, x, hold.only), marks: [] };
   }
   return null;
 }

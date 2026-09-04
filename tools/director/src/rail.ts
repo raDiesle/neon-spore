@@ -4,6 +4,7 @@ import {
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
+import { renderControlSetNote } from "./control-set-note.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { wavesWithGuides } from "./guide-waves.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
@@ -32,6 +33,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
   const controlsWhy = document.getElementById("fControlSetWhy");
+  const controlsRoster = document.getElementById("fControlSetRoster");
   const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
   const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
 
@@ -126,6 +128,8 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;
+    // What the choice puts in their hands, beside the choice itself.
+    renderControlSetNote(controlsRoster, active);
 
     guideFields.render(wave);
 

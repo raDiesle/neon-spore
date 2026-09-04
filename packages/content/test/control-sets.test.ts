@@ -6,6 +6,9 @@ import {
   controlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
+  groupsCoveredBy,
+  heldBack,
+  layoutSet,
   panelForm,
   setControls,
   setHas,
@@ -148,5 +151,109 @@ describe("a panel that is slabs rather than a band", () => {
       const index = WAVES.indexOf(w);
       expect(panelForm(controlSetForWave(index)), w.name).toBe("slabs");
     }
+  });
+});
+
+/**
+ * The standard ladder: four rungs that are the standard panel with buttons
+ * held back, so a pair meeting the game is handed one control at a time.
+ *
+ * The rules that make a rung a rung rather than a fifth panel somebody drew:
+ * everything on it is on the panel it reduces, each rung is strictly more than
+ * the one before it, and the last one plus the maw is the full panel — which
+ * is why there is no fifth entry and why STANDARD itself is the top of the
+ * ladder rather than something beside it.
+ */
+describe("the standard ladder", () => {
+  const LADDER: ControlSetId[] = ["standard1", "standard2", "standard3", "standard4"];
+
+  it("only ever reduces a panel that exists, and never itself", () => {
+    for (const set of CONTROL_SETS) {
+      if (set.reduces === undefined) continue;
+      expect(set.reduces, `${set.id} reduces itself`).not.toBe(set.id);
+      expect(controlSet(set.reduces).reduces, `${set.id} reduces a reduction`).toBeUndefined();
+    }
+  });
+
+  it("puts nothing on a rung that is not on the panel it reduces", () => {
+    for (const set of CONTROL_SETS) {
+      if (set.reduces === undefined) continue;
+      const base = controlSet(set.reduces);
+      for (const id of set.controls) {
+        expect(setHas(base, id), `${set.id} carries ${id}, which ${base.id} has not got`).toBe(
+          true,
+        );
+      }
+      // A "reduction" that held nothing back is the full panel under a second
+      // name, which is a panel nobody could tell from the one it copies.
+      expect(heldBack(set).length, `${set.id} holds nothing back`).toBeGreaterThan(0);
+    }
+  });
+
+  it("adds exactly one button a rung, and ends one short of the full panel", () => {
+    const full = controlSet(DEFAULT_CONTROL_SET_ID);
+    let previous: ControlSetId | null = null;
+    for (const id of LADDER) {
+      const set = controlSet(id);
+      expect(set.reduces, `${id} is not a reduction of the standard panel`).toBe(
+        DEFAULT_CONTROL_SET_ID,
+      );
+      if (previous) {
+        const below = controlSet(previous);
+        for (const had of below.controls) {
+          expect(setHas(set, had), `${id} took ${had} back off ${previous}`).toBe(true);
+        }
+        expect(
+          set.controls.length - below.controls.length,
+          `${id} adds more than one button to ${previous}`,
+        ).toBe(1);
+      }
+      previous = id;
+    }
+    // The top rung plus the one thing it holds back *is* the standard panel.
+    // That is what makes the ladder five rungs rather than six, and why the
+    // fifth is `default` itself rather than a copy of it.
+    expect(heldBack(controlSet("standard4")).map((c) => c.id)).toEqual(["intake"]);
+    expect(controlSet("standard4").controls.length + 1).toBe(full.controls.length);
+  });
+
+  it("lays a rung out against the panel it reduces, so nothing moves", () => {
+    // The whole promise of the ladder, and the one thing a wave author cannot
+    // see for themselves: a button that arrives has to arrive in the place it
+    // will keep. `bandLobes` reads the slots off this and drops the rest.
+    for (const id of LADDER) {
+      expect(layoutSet(controlSet(id)).id).toBe(DEFAULT_CONTROL_SET_ID);
+    }
+    expect(layoutSet(controlSet(DEFAULT_CONTROL_SET_ID)).id).toBe(DEFAULT_CONTROL_SET_ID);
+  });
+
+  /**
+   * The rung the coverage rule was rewritten for. STANDARD 3 has the trigger
+   * and no strip under the plate: the plate stands in the middle of the field
+   * whether or not anybody can carry it, so a rock in that column is answered
+   * and the group is covered. Without the trigger nothing raises it at all,
+   * and it is not.
+   */
+  it("counts a panel as guarding when it has the trigger, strip or no strip", () => {
+    expect(groupsCoveredBy(controlSet("standard3"))).toContain("guard");
+    expect(groupsCoveredBy(controlSet("standard2"))).not.toContain("guard");
+  });
+
+  it("plays the first waves of the game on the ladder, in order", () => {
+    // A rung nobody reaches is the same failure as a set nobody reaches, one
+    // level down: the ladder is only a ladder if the arc actually climbs it.
+    const rungs = WAVES.map((_, i) => controlSetForWave(i).id).filter((id) =>
+      (LADDER as string[]).includes(id),
+    );
+    expect(rungs).toEqual([
+      "standard1",
+      "standard2",
+      "standard2",
+      "standard2",
+      "standard3",
+      "standard4",
+      "standard4",
+      "standard4",
+    ]);
   });
 });

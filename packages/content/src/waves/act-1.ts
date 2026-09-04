@@ -5,6 +5,15 @@ import type { Wave } from "../wave-types.js";
  * of the ones before it, and it ends on `FINALE`, which asks for all of them
  * at once. `waves.ts` is the barrel that concatenates this with the other
  * acts — see it for why the list was split by act in the first place.
+ *
+ * **The panel grows with the arc**, which is the other half of the same rule.
+ * The first eight waves name a rung of the standard ladder rather than the
+ * standard panel — STANDARD 1 through 4, each one button more than the one
+ * before it (`control-sets-table.ts`) — so a pair meeting the game is handed
+ * exactly the controls the wave they are on asks for, in the places those
+ * controls will keep for the rest of the game. SHIELD, THEN CANNON is where
+ * the full panel arrives, because the maw is one of the five gestures that
+ * film is about and the maw is the last thing the ladder holds back.
  */
 export const WAVES_ACT_1: Wave[] = [
   {
@@ -18,6 +27,23 @@ export const WAVES_ACT_1: Wave[] = [
       scene: "firstStep",
     },
     entries: [{ beat: 0, col: 2, color: "red" }],
+    controls: "standard1",
+  },
+  {
+    id: "cyan",
+    name: "CYAN",
+    sentence: "The one where the second button is the only one that works.",
+    guide: {
+      both: "Round, swollen, and always cyan. Red is spent on one of these and nothing comes apart.",
+      p1: "Nothing changes for you. Stand in the column and say which one it is.",
+      p2: "There is a second button beside red now. Both of these are cyan.",
+      scene: "cyan",
+    },
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 3, col: 4, color: "cyan" },
+    ],
+    controls: "standard2",
   },
   {
     id: "twoColours",
@@ -33,6 +59,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 0, col: 2, color: "red" },
       { beat: 3, col: 4, color: "cyan" },
     ],
+    controls: "standard2",
   },
   {
     id: "alternating",
@@ -43,27 +70,40 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 2, col: 3, color: "red" },
       { beat: 4, col: 5, color: "cyan" },
     ],
+    controls: "standard2",
   },
   {
     id: "theRock",
     name: "THE ROCK",
-    sentence: "The one where neither of you can do it alone.",
+    sentence: "The one where a shot is no answer and the timing is everything.",
     guide: {
       both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
-      p1: "It announces itself on your strip, before it is on the field. Trigger the shield at the moment it lands — not before.",
-      p2: "Slide the shield into its column and hold it there. You cannot fire it yourself.",
+      p1: "It announces itself on your strip, before it is on the field. You have a trigger now: fire the shield at the moment it lands — not before.",
+      p2: "The plate is already standing in that column, and nothing on your panel moves it yet. Call the moment it arrives.",
       scene: "theRock",
     },
+    // Column 3 of seven is the middle of the field, and the plate rests in the
+    // middle until somebody carries it — which nothing on STANDARD 3 can. The
+    // rock is authored into that column on purpose: this wave is about the
+    // window, and the wave after it is about the column.
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
+    controls: "standard3",
   },
   {
     id: "twoRocks",
     name: "TWO ROCKS",
-    sentence: "The one where the same handover has to happen twice in a row.",
+    sentence: "The one where neither of you can do it alone.",
+    guide: {
+      both: "Two rocks, and the second one lands somewhere else. The plate moves now — one of you carries it and the other one fires it.",
+      p1: "The trigger is still yours and the plate is not. Say when, and say it late: the window is the moment it lands.",
+      p2: "The strip under the plate is new. Slide it into the column he calls and hold it there. You cannot fire it yourself.",
+      scene: "twoRocks",
+    },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 4, col: 2, kind: "meteor", color: null },
     ],
+    controls: "standard4",
   },
   {
     id: "theHand",
@@ -80,6 +120,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 0, col: 5, kind: "meteor", color: null },
     ],
+    controls: "standard4",
   },
   {
     id: "torch",
@@ -96,6 +137,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 12, col: 5, kind: "torch", color: null },
       { beat: 18, col: 3, kind: "torch", color: null },
     ],
+    controls: "standard4",
   },
   {
     id: "shieldThenCannon",

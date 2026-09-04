@@ -9,6 +9,7 @@ import {
   mechanic,
   mechanicsInWave,
   queueFromWave,
+  setHas,
   WAVES,
 } from "../src/index.js";
 import { DEMONSTRATIONS } from "../src/waves-demo.js";
@@ -126,6 +127,34 @@ describe("wave content", () => {
           covered,
           `${wave.name} sends something that demands ${group}, on a panel without it`,
         ).toContain(group);
+      }
+    }
+  });
+
+  /**
+   * The other half of the union rule, and the one the ladder made necessary.
+   *
+   * `ControlGroup` is aim and guard, which is coarse enough that a panel with
+   * one colour on it and a panel with both look identical to `groupsCoveredBy`
+   * — both aim. STANDARD 1 has red and nothing else, and a cyan body authored
+   * onto a wave played on it is a body the pair is shown and cannot answer,
+   * silently: the cannon goes under it, the shot they have is spent, and the
+   * hull pays. So the colour is checked directly, off the same built queue.
+   *
+   * A lure's authored colour is the disguise's rather than the body's, which
+   * is the right one to ask for here anyway: the disguise is what player 2 is
+   * being invited to fire at.
+   */
+  it("only sends a colour the wave's own panel can fire", () => {
+    for (const [i, wave] of WAVES.entries()) {
+      const set = controlSetForWave(i);
+      for (const entry of queueFromWave(wave, AUTHORED_COLS)) {
+        if (entry.color === null) continue;
+        const lobe = entry.color === "red" ? "fireRed" : "fireCyan";
+        expect(
+          setHas(set, lobe),
+          `${wave.name} sends ${entry.color}, which ${set.name} cannot fire`,
+        ).toBe(true);
       }
     }
   });

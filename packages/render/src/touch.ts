@@ -208,7 +208,7 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
     return tapped ? { player: 1, command: { kind: "intake" }, hold: null } : null;
   }
   if (hold.kind === "shot") {
-    const color = at === undefined ? null : swipeColor(l, hold.originX, at.x);
+    const color = at === undefined ? null : swipeColor(l, hold.originX, at.x, hold.only);
     return color === null ? null : { player: 2, command: { kind: "fire", color }, hold: null };
   }
   if (hold.kind === "lance") {

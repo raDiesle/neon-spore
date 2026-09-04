@@ -211,3 +211,65 @@
   color: #574d84;
   margin: 0 0 10px;
 }
+
+/* The roster under the wave editor's control-set picker
+   (`control-set-note.ts`): the whole standard panel, seat by seat, with a
+   rung's held-back buttons dimmed and struck through in the places they keep.
+   It sits in the rail rather than in a sheet, so it is small and reads as a
+   caption to the `<select>` above it rather than as a table. */
+.set-roster {
+  display: flex;
+  gap: 14px;
+  margin: 4px 0 10px;
+}
+.set-roster-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.set-roster-col h4 {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  font-weight: 400;
+  margin: 0 0 3px;
+}
+.set-roster-row {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.set-roster-mark {
+  color: var(--gold);
+}
+.set-roster-name {
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Held back: struck through rather than absent, because the place is kept. */
+.set-roster-row.off {
+  color: var(--dim);
+}
+.set-roster-row.off .set-roster-mark {
+  color: var(--dim);
+}
+.set-roster-row.off .set-roster-name {
+  text-decoration: line-through;
+}
+
+/* A rung's card on PANELS says what it is less than, above the two seat
+   columns — a reduced panel is only legible beside the panel it reduces. */
+.control-set-card .reduces {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--dim);
+  margin: 4px 0 0;
+}
+.control-set-card .reduces b {
+  color: var(--gold);
+  font-weight: 400;
+}

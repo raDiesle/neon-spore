@@ -3,6 +3,7 @@ import {
   type ControlDef,
   type ControlSet,
   controlSet,
+  heldBack,
   setControls,
   WAVES,
   wavesUsingSet,
@@ -88,6 +89,26 @@ function seatColumn(set: ControlSet, player: 1 | 2): HTMLElement {
   return col;
 }
 
+/**
+ * What a rung of the standard ladder is *less than*, and by exactly which
+ * buttons. Nothing at all for a panel that reduces nothing, which is most of
+ * them: a line saying "reduces nothing" is furniture.
+ *
+ * It sits above the two seat columns rather than under them because it is the
+ * first thing to know about such a card — the columns below list what the pair
+ * has, and this says what the same panel would have had.
+ */
+function reductionNote(set: ControlSet): HTMLElement | null {
+  const off = heldBack(set);
+  if (off.length === 0) return null;
+  const p = document.createElement("p");
+  p.className = "reduces";
+  const base = document.createElement("b");
+  base.textContent = controlSet(set.reduces).name;
+  p.append(base, document.createTextNode(` with ${off.map((c) => c.label).join(", ")} held back`));
+  return p;
+}
+
 function waveList(set: ControlSet): HTMLElement {
   const p = document.createElement("p");
   p.className = "note";
@@ -113,6 +134,9 @@ function setCard(set: ControlSet): HTMLElement {
   shot.className = "control-set-shot";
   shot.appendChild(frameWorld(setWorld(set), "test", "band", PANEL_WIDTH).canvas);
   card.appendChild(shot);
+
+  const reduces = reductionNote(set);
+  if (reduces) card.appendChild(reduces);
 
   const cols = document.createElement("div");
   cols.className = "control-set-cols";

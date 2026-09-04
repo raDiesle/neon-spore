@@ -1,4 +1,10 @@
-import { CONTROL_SETS, type ControlSet, panelForm, setControls } from "@neon-spore/content";
+import {
+  CONTROL_SETS,
+  type ControlSet,
+  heldBack,
+  panelForm,
+  setControls,
+} from "@neon-spore/content";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
 
 /**
@@ -143,6 +149,16 @@ function panelBlock(set: ControlSet): HTMLElement {
   const block = el("div", "panel");
   block.append(el("h3", undefined, set.name), el("p", "why", set.why));
   block.append(el("p", "form", panelForm(set) === "band" ? "A BAND" : "SLABS"));
+  // A rung of the standard ladder says what it is holding back. It is not an
+  // exception to the rule above it: a rung is a whole panel like any other,
+  // and what this line adds is that the buttons it has not got still have
+  // their places, so nothing moves when the next wave hands one over.
+  const off = heldBack(set);
+  if (off.length > 0) {
+    block.append(
+      el("p", "why", `Held back, in their places: ${off.map((c) => c.label).join(", ")}.`),
+    );
+  }
   for (const player of [1, 2] as const) {
     const seat = el("div", "seat-half");
     seat.append(el("span", "tag", `P${player}`));

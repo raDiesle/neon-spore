@@ -1,5 +1,6 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
+import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
@@ -31,6 +32,7 @@ import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_COLOURS } from "./scenes/two-colours.js";
+import { TWO_ROCKS } from "./scenes/two-rocks.js";
 
 /**
  * Every rehearsal a guide can show, and where a page of one begins and ends.
@@ -55,8 +57,10 @@ import { TWO_COLOURS } from "./scenes/two-colours.js";
 
 export type SceneId =
   | "firstStep"
+  | "cyan"
   | "twoColours"
   | "theRock"
+  | "twoRocks"
   | "theHand"
   | "torch"
   | "theLure"
@@ -89,8 +93,10 @@ export type SceneId =
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
+  cyan: CYAN,
   twoColours: TWO_COLOURS,
   theRock: THE_ROCK,
+  twoRocks: TWO_ROCKS,
   theHand: THE_HAND,
   torch: THE_TORCH,
   theLure: THE_LURE,

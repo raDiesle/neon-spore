@@ -1,6 +1,9 @@
+import { CONTROL_SETS } from "./control-sets-table.js";
 import { type ControlDef, type ControlId, control, type PanelForm } from "./controls.js";
 import type { ControlGroup } from "./creatures.js";
 import { WAVES } from "./waves.js";
+
+export { CONTROL_SETS } from "./control-sets-table.js";
 
 /**
  * A control set: the **whole** panel, both players at once, for one wave.
@@ -50,7 +53,17 @@ import { WAVES } from "./waves.js";
  * is a different mechanism and stays where it is.
  */
 
-export type ControlSetId = "default" | "lance" | "gauge" | "fleet" | "snake" | "pinball";
+export type ControlSetId =
+  | "default"
+  | "standard1"
+  | "standard2"
+  | "standard3"
+  | "standard4"
+  | "lance"
+  | "gauge"
+  | "fleet"
+  | "snake"
+  | "pinball";
 
 export interface ControlSet {
   id: ControlSetId;
@@ -60,62 +73,25 @@ export interface ControlSet {
   why: string;
   /** Everything both players have, in the order it is read out and drawn. */
   controls: readonly ControlId[];
+  /**
+   * The panel this one is a **reduction of**: every control here is on that
+   * one, and the rest are held back.
+   *
+   * It is the one relation between two sets in the whole file, and it exists
+   * for a single reason the owner gave in his own words: the buttons a rung
+   * does carry have to stand *exactly* where they will stand on the full
+   * panel. A reduced set laid out on its own terms would centre two lobes in
+   * a seat's share, and the pair would learn one arrangement in the first
+   * waves and have to unlearn it in the fifth — so `bandLobes` reads the slots
+   * off `layoutSet` and simply leaves the held-back ones empty.
+   *
+   * It does **not** make sets compose. There is still no "the standard panel
+   * plus a button": a rung is a whole named panel a person can be shown and
+   * argued with, and a wave names exactly one of them. What this says is only
+   * which panel it is a *picture of*, so the picture lines up.
+   */
+  reduces?: ControlSetId;
 }
-
-/**
- * Every panel in the game.
- *
- * `default` is the ordinary field: slide, trigger, swallow, fire. It used to
- * carry the lance as well, which meant every wave in the game shipped a button
- * for a coupling only one of them asks for.
- *
- * `lance` is that coupling's own panel, and the interesting part is what it
- * gives up. It is **not** the default with a button added: the maw is gone.
- * That is not tidiness, it is the simulation's own arithmetic — the maw *is*
- * the cannon lobe turned inside out (docs/spec/systems.md 5.7), so `intake`
- * empties a fill (`applyCommand` in `packages/sim/src/commands.ts`). A panel
- * carrying both puts two buttons on one opening and one of them undoes the
- * other. Warding stays, because a rock has no other answer and a panel that
- * could never carry one would not be a panel, it would be a demonstration.
- */
-export const CONTROL_SETS: readonly ControlSet[] = [
-  {
-    id: "default",
-    name: "STANDARD",
-    why: "The field as it is taught: slide, trigger, swallow, fire.",
-    controls: ["cannon", "guard", "intake", "shield", "fireRed", "fireCyan"],
-  },
-  {
-    id: "lance",
-    name: "LANCE PANEL",
-    why: "The maw traded for the lance, because they are the same opening and one empties the other.",
-    controls: ["cannon", "guard", "lance", "shield", "fireRed", "fireCyan"],
-  },
-  {
-    id: "gauge",
-    name: "THE GAUGE",
-    why: "The field is gone, so the band is too: two held slabs for the valve, one for the call.",
-    controls: ["gaugeLeft", "gaugeRight", "gaugeCall"],
-  },
-  {
-    id: "fleet",
-    name: "THE FLEET",
-    why: "One trigger against four arrows: the seat that can see the ships cannot move the sights, and the seat that can move them is shown nothing.",
-    controls: ["salvo", "aimLeft", "aimUp", "aimDown", "aimRight"],
-  },
-  {
-    id: "snake",
-    name: "SNAKE",
-    why: "One of you drives it and the other one works it: two quarter turns against a trigger and a mouth.",
-    controls: ["snakeLeft", "snakeRight", "snakeFire", "snakeMaw"],
-  },
-  {
-    id: "pinball",
-    name: "PINBALL",
-    why: "Three slabs against one: the seat that holds the bucket also stops the needle, and the seat that does not hold it is the only one that can fire.",
-    controls: ["pinLeft", "pinLatch", "pinRight", "pinLaunch"],
-  },
-];
 
 /**
  * Which kind of panel a set is, read off the controls in it.
@@ -153,6 +129,35 @@ export function setHas(set: ControlSet, id: ControlId): boolean {
 }
 
 /**
+ * The panel a set is **laid out against**: itself, or the one it reduces.
+ *
+ * One call, so that "where does this button stand" has a single answer read
+ * by everything that asks it — `bandLobes` draws from it, the hit test walks
+ * the same list, and the ghost thumb in a rehearsal finds the same circle.
+ * Spelled out a second time anywhere, a rung would drift a lobe by half a
+ * seat and nothing would say so.
+ */
+export function layoutSet(set: ControlSet): ControlSet {
+  return set.reduces === undefined ? set : controlSet(set.reduces);
+}
+
+/**
+ * What this rung holds back: the controls on the panel it reduces that are
+ * not on it, in that panel's own order.
+ *
+ * Empty for every set that reduces nothing, which is most of them. It is what
+ * a page showing a panel reads to say *what is missing and where* — the
+ * director's picker and the game's own CONTROLS page both do — because a
+ * reduced panel is only legible beside the thing it is less than.
+ */
+export function heldBack(set: ControlSet): readonly ControlDef[] {
+  if (set.reduces === undefined) return [];
+  return controlSet(set.reduces)
+    .controls.filter((id) => !setHas(set, id))
+    .map(control);
+}
+
+/**
  * Which control groups this panel can answer.
  *
  * `ControlGroup` is aim and guard — *the two things a wave may be missing* —
@@ -164,15 +169,24 @@ export function setHas(set: ControlSet, id: ControlId): boolean {
  *
  * Derived from the controls in the set rather than declared beside them,
  * because a declaration is a second copy of something already written down.
- * Aim is a cannon and something to fire out of it; guard is the trigger and
- * the shield it stands behind — either half alone is a group the pair cannot
- * actually use.
+ * Aim is a cannon and something to fire out of it: neither half alone puts a
+ * bolt up a column.
+ *
+ * **Guard is the trigger, and the strip that carries the plate is not part
+ * of it.** It used to ask for both, on the argument that either half alone
+ * was a group the pair could not use — and STANDARD 3 is the counter-example
+ * the ladder was built around. The plate is on the hull whether or not
+ * anybody can slide it; without the trigger nothing ever raises it, which is
+ * a rock nobody can answer, but with the trigger and no strip a rock in the
+ * plate's own column is answered exactly as the wave intends. So coverage is
+ * *can this panel answer the group at all*, and where the answer has to
+ * happen is the wave author's problem.
  */
 export function groupsCoveredBy(set: ControlSet): ControlGroup[] {
   const covered: ControlGroup[] = [];
   const fires = setHas(set, "fireRed") || setHas(set, "fireCyan");
   if (setHas(set, "cannon") && fires) covered.push("aim");
-  if (setHas(set, "guard") && setHas(set, "shield")) covered.push("guard");
+  if (setHas(set, "guard")) covered.push("guard");
   return covered;
 }
 
