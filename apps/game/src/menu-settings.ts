@@ -1,3 +1,4 @@
+import { BUILD_STAMP } from "../../../tools/build-stamp.js";
 import { canVibrate } from "./haptics.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
 import { claimName, readName, writeName } from "./nickname.js";
@@ -28,9 +29,6 @@ export interface SettingsHooks {
   /** Whether that offer is standing. */
   canInstall?: () => boolean;
 }
-
-/** Declared by the build (`apps/game/build.ts`), so this reads a constant. */
-declare const __BUILD_DATE__: string;
 
 interface ToggleRow {
   key: keyof Settings;
@@ -84,9 +82,12 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
   }
 
   page.append(nameRow(), installRow(hooks), forgetRow());
-  // Which build this phone is running, so a bug report can say. A constant the
-  // build already defines, not new machinery.
-  page.append(el("p", "foot", `Build ${__BUILD_DATE__}`));
+  // Which build this phone is running, so a bug report can say. Through
+  // `BUILD_STAMP` rather than the identifier the build substitutes: that name
+  // exists in a bundle and nowhere else, so under a dev server — the
+  // director's `/game`, or `bun run dev:game` — reading it directly threw
+  // before the menu was drawn. See `tools/build-stamp.ts`.
+  page.append(el("p", "foot", `Build ${BUILD_STAMP}`));
   return page;
 }
 
