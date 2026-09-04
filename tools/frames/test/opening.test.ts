@@ -64,4 +64,46 @@ describe("captureFrames past a wave's opening", () => {
     expect(paths).toHaveLength(1);
     expect(await Bun.file(paths[0] as string).exists()).toBe(true);
   }, 30_000);
+
+  /**
+   * And the other direction, which is what `--opening` added: the two screens
+   * a wave puts in front of a player were the one part of the game this tool
+   * could not photograph, because `clearOpening` ran through both of them on
+   * the way to every picture it ever took.
+   *
+   * Both of these stop somewhere the field is *held*, so what they prove is
+   * that the stop happened at all — a capture that quietly ran on would come
+   * back with a picture, and it would be a picture of the field.
+   */
+  it("stands on the introduction instead of running past it", async () => {
+    const { paths } = await captureFrames(
+      baseUrl,
+      { wave: 0, ticks: 30, opening: "intro" },
+      join(scratchOut, "intro"),
+    );
+    expect(paths).toHaveLength(1);
+    expect(await Bun.file(paths[0] as string).exists()).toBe(true);
+  }, 30_000);
+
+  it("stands on the guide, and a strip of it counts painted frames", async () => {
+    // Wave 1 carries a guide (`packages/content/src/waves/act-1.ts`), and its
+    // rehearsal is drawn rather than stepped — so the strip below is four
+    // paints apart on the frame clock, not four ticks apart on the world's.
+    const { paths } = await captureFrames(
+      baseUrl,
+      { wave: 0, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
+      join(scratchOut, "guide"),
+    );
+    expect(paths).toHaveLength(3);
+    for (const path of paths) expect(await Bun.file(path).exists()).toBe(true);
+  }, 30_000);
+
+  it("refuses a guide the wave has not got, rather than photographing the field", async () => {
+    // ALTERNATING teaches nothing new, so it carries no guide: its
+    // introduction passes straight onto the field and there is no second
+    // screen to stand on.
+    await expect(
+      captureFrames(baseUrl, { wave: 2, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
+    ).rejects.toThrow("carries no guide");
+  }, 30_000);
 });

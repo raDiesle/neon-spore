@@ -26,7 +26,14 @@
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
+ *   bun run frames <sha> --wave 2 --opening intro   the card the wave opens on
+ *   bun run frames <sha> --wave 2 --opening guide --frames 8 --stride 6   its rehearsal, looping
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
+ *
+ * `--opening` stands in the wave's opening instead of running past it, which
+ * every capture before it did unconditionally. On `guide`, `--frames` and
+ * `--stride` count **painted frames**: a rehearsal is drawn rather than
+ * stepped, so a strip counted in ticks would be one picture over and over.
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
  * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to the
@@ -38,6 +45,7 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
 import { parseHold, parsePress } from "./hold.js";
+import { parseOpening } from "./opening.js";
 import { captureAt, git, root, run } from "./serve.js";
 
 /**
@@ -120,7 +128,7 @@ async function main(): Promise<void> {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N|lidString=N,id=N] [--hold-ticks N] " +
-        "[--press TICK:SEAT:control=value,…] [--out DIR]",
+        "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
   const flag = (name: string, fallback: number): number => {
@@ -136,6 +144,8 @@ async function main(): Promise<void> {
   const hold = holdFlag === -1 ? undefined : parseHold(argv[holdFlag + 1] ?? "");
   const pressFlag = argv.indexOf("--press");
   const press = pressFlag === -1 ? undefined : parsePress(argv[pressFlag + 1] ?? "");
+  const openingFlag = argv.indexOf("--opening");
+  const opening = openingFlag === -1 ? undefined : parseOpening(argv[openingFlag + 1] ?? "");
 
   const outFlag = argv.indexOf("--out");
   const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
@@ -165,11 +175,16 @@ async function main(): Promise<void> {
     wave: waveIndex,
     ticks: flag("ticks", 120),
     frames: flag("frames", 1),
+    // On the guide these two are painted frames rather than ticks, and a
+    // rehearsal at 60Hz wants a wider step than a wave does — but the default
+    // stays one number, because a caller who wants a strip is already writing
+    // `--frames` and `--stride` next to each other.
     strideTicks: flag("stride", 4),
     seat,
     hold: hold as FrameSpec["hold"],
     holdTicks: flag("hold-ticks", 30),
     press,
+    opening,
   };
 
   // A press past the picture is a press nobody ever sees, and silently

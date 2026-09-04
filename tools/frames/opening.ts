@@ -22,6 +22,29 @@ import type { Page } from "playwright-core";
  * has the field".
  */
 const OPENING_PLAY = 0;
+const OPENING_INTRO = 1;
+const OPENING_GUIDE = 2;
+
+/**
+ * Which half of the opening a capture wants to stand *in*, rather than get
+ * past. `undefined` is the tool's whole history: run through both and
+ * photograph the field.
+ *
+ * The two named here are the two screens a wave puts in front of a player
+ * before it starts, and until this existed neither could be photographed at
+ * all — `clearOpening` was unconditional, so `bun run frames` advanced past
+ * the introduction and the guide on its way to every picture it has ever
+ * taken. The lane that built wave 1's rehearsal had to write a throwaway
+ * Playwright script to see its own work.
+ */
+export type OpeningStop = "intro" | "guide";
+
+/** `--opening <value>` off the command line. */
+export function parseOpening(value: string | undefined): OpeningStop | undefined {
+  if (value === undefined) return undefined;
+  if (value === "intro" || value === "guide") return value;
+  throw new Error(`--opening ${value}: one of intro, guide`);
+}
 
 /**
  * More seconds than `INTRO_SECONDS` (`apps/game/src/waves.ts`) could ever be
@@ -53,10 +76,74 @@ const OPENING_POLL_MS = 150;
 const MAX_OPENING_ATTEMPTS = 80;
 
 /**
- * Advance the page until nothing is holding the field, or throw. `page` is a
- * loaded preview with `window.neonSpore` already present.
+ * Where the page's opening is right now, or `"old"` for a build from before
+ * `phase` replaced `due` — that shape counts cards and cannot tell an
+ * introduction from a guide, which is the whole of what `stopAt` asks.
  */
-export async function clearOpening(page: Page): Promise<void> {
+async function openingPhase(page: Page): Promise<number | "old"> {
+  return await page.evaluate(() => {
+    const ns = window.neonSpore;
+    if (!ns) throw new Error("window.neonSpore missing mid-capture");
+    const brief = ns.world.brief;
+    if (Array.isArray(brief.due)) return "old" as const;
+    return brief.phase ?? 0;
+  });
+}
+
+/**
+ * Stand *in* the opening at the phase asked for, rather than run through it.
+ *
+ * The introduction is already the phase a wave opens in, so `"intro"` only has
+ * to check it is there; `"guide"` has one screen to get past first, and gets
+ * past it the way `clearOpening` does — `advanceOpening` exhausts the
+ * introduction's own countdown and `advance(1)` lands the acks it queued. It
+ * never calls `dismissBriefing`, because that is the ack a guide waits for and
+ * acking the thing being photographed is the one move that cannot be undone.
+ *
+ * Every refusal names the wave rather than timing out: a picture of the field
+ * returned for `--opening guide` would be an honest-looking answer to a
+ * question nobody asked.
+ */
+async function holdOpening(page: Page, stopAt: OpeningStop): Promise<void> {
+  const want = stopAt === "intro" ? OPENING_INTRO : OPENING_GUIDE;
+  for (let i = 0; i <= MAX_OPENING_ATTEMPTS; i++) {
+    const phase = await openingPhase(page);
+    if (phase === "old") {
+      throw new Error(
+        "--opening needs a build whose world.brief has a phase — this one predates the " +
+          "introduction, so it has no introduction and no guide to photograph",
+      );
+    }
+    if (phase === want) return;
+    if (phase === OPENING_PLAY) {
+      throw new Error(
+        stopAt === "intro"
+          ? "this wave is already on the field: nothing is holding it, so there is no " +
+              "introduction to photograph"
+          : "this wave carries no guide — its introduction passes straight onto the field",
+      );
+    }
+    if (want === OPENING_INTRO) {
+      throw new Error("the introduction is already gone: --opening intro has nothing to stand on");
+    }
+    await page.evaluate((introSeconds) => {
+      const ns = window.neonSpore;
+      if (!ns) throw new Error("window.neonSpore missing mid-capture");
+      ns.advanceOpening?.(introSeconds);
+      ns.advance(1);
+    }, INTRO_SECONDS_ENOUGH);
+    await page.waitForTimeout(OPENING_POLL_MS);
+  }
+  throw new Error("the introduction never passed — the guide never came up");
+}
+
+/**
+ * Advance the page until nothing is holding the field, or throw — unless
+ * `stopAt` names a phase to stand in instead, which is `holdOpening` above.
+ * `page` is a loaded preview with `window.neonSpore` already present.
+ */
+export async function clearOpening(page: Page, stopAt?: OpeningStop): Promise<void> {
+  if (stopAt) return await holdOpening(page, stopAt);
   // A commit and its own parent run through this same loop, and `due` (a
   // stack of cards) became `phase` (introduction, then an optional guide)
   // in the commit that added the introduction — so a parent checked out

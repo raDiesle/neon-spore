@@ -9,6 +9,8 @@
  * caller that already reached for a `FrameSpec` through it did not move.
  */
 
+import type { OpeningStop } from "./opening.js";
+
 export interface FrameSpec {
   /** 0-based wave index, the same number `jumpToWave` already takes. */
   wave: number;
@@ -66,6 +68,21 @@ export interface FrameSpec {
    * one past `ticks` is refused rather than silently dropped.
    */
   press?: PressSpec[];
+  /**
+   * Stand in the wave's own opening instead of running past it.
+   *
+   * Every capture this tool has ever taken went through `clearOpening`
+   * unconditionally, so the introduction and the guide — the two screens a
+   * wave puts in front of a player before it starts — were the one part of the
+   * game it could not photograph. A guide now carries a **rehearsal** that
+   * loops for a second and a half (`docs/spec/briefings.md` §3.2), and the
+   * lane that built it had to write a throwaway Playwright script to see it.
+   *
+   * `"guide"` also moves `frames` and `strideTicks` onto the **frame** clock:
+   * a rehearsal is drawn by `paint`, not stepped by the simulation, so a strip
+   * counted in ticks would be the same picture six times over.
+   */
+  opening?: OpeningStop;
 }
 
 /**

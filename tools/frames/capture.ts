@@ -18,6 +18,9 @@ import type { FrameSpec, PressSpec } from "./spec.js";
  * for it, so it is re-exported rather than moved — the subject itself lives in
  * `chrome.ts`, out of the way of driving a frame. */
 export { findChrome, pickChrome } from "./chrome.js";
+/** Which half of a wave's opening a capture stands in, and the flag that says
+ * so — the subject is `opening.ts`'s, and a caller wants the name without it. */
+export { type OpeningStop, parseOpening } from "./opening.js";
 /** The shape of what a capture asks for, and of the handle it drives. Its own
  * file because this one was at the ceiling CLAUDE.md sets, and because a caller
  * usually wants the spec without the browser behind it. */
@@ -99,7 +102,31 @@ export async function captureFrames(
       ns.jumpToWave(wave);
     }, spec.wave);
 
-    await clearOpening(page);
+    await clearOpening(page, spec.opening);
+
+    /**
+     * What `ticks` and `strideTicks` actually move.
+     *
+     * A wave is stepped by the simulation and a **rehearsal is not**: the
+     * guide's loop is drawn by `paint` off the frame clock, so a strip of it
+     * counted in ticks would be one picture repeated. On the guide, then, the
+     * two numbers count painted frames — the same numbers the caller wrote,
+     * against the only clock the thing in front of the camera runs on.
+     */
+    const paintDriven = spec.opening === "guide";
+    const advance = async (n: number): Promise<void> => {
+      await page.evaluate(
+        ([count, byFrame]) => {
+          const ns = window.neonSpore;
+          if (!ns) throw new Error("window.neonSpore missing mid-capture");
+          for (let i = 0; i < (count as number); i++) {
+            if (byFrame) ns.paint();
+            else ns.advance(1);
+          }
+        },
+        [n, paintDriven] as [number, boolean],
+      );
+    };
 
     // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
     // field for its first six seconds, and headless Chrome reports `pointer:
@@ -164,24 +191,14 @@ export async function captureFrames(
         for (const one of spec.press) {
           const step = Math.min(one.tick, advanceBy) - at;
           if (step > 0) {
-            await page.evaluate((ticks) => {
-              window.neonSpore?.advance(ticks);
-            }, step);
+            await advance(step);
             at += step;
           }
           await press(one);
         }
-        if (advanceBy - at > 0) {
-          await page.evaluate((ticks) => {
-            window.neonSpore?.advance(ticks);
-          }, advanceBy - at);
-        }
+        if (advanceBy - at > 0) await advance(advanceBy - at);
       } else {
-        await page.evaluate((ticks) => {
-          const ns = window.neonSpore;
-          if (!ns) throw new Error("window.neonSpore missing mid-capture");
-          ns.advance(ticks);
-        }, advanceBy);
+        await advance(advanceBy);
       }
 
       // **After the wave's own ticks, never before them.** A hand takes hold of
@@ -194,9 +211,7 @@ export async function captureFrames(
       // in.
       if (i === 0 && spec.hold) {
         await press({ ...spec.hold, tick: spec.ticks });
-        await page.evaluate((ticks) => {
-          window.neonSpore?.advance(ticks);
-        }, spec.holdTicks ?? DEFAULT_HOLD_TICKS);
+        await advance(spec.holdTicks ?? DEFAULT_HOLD_TICKS);
       }
 
       await page.evaluate(() => {

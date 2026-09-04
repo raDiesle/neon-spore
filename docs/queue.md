@@ -89,30 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `bun run frames` cannot photograph a wave's opening
-
-- **Found:** 2026-09-04, claude/wave-guide-scene-specimen
-- **Taken:** 2026-09-04, claude/queue-bun-run-frames-cannot-photograph-a-waves-opening
-- **Files:** `tools/frames/opening.ts`, `tools/frames/spec.ts`, `tools/frames/run.ts`, `tools/frames/capture.ts`
-
-`clearOpening` is unconditional: every capture advances past the introduction
-and the guide before it takes a picture, so the one tool the repository has for
-turning a sha into a PNG cannot photograph either of them. That was fine while
-an opening was two blocks of text; a guide now carries a **rehearsal** that
-loops for a second and a half (`docs/spec/briefings.md` §3.2), and the lane that
-built it had to write a throwaway Playwright script to see it at all — and will
-have to write it again for wave 2's scene, and for the step sequencer after
-that.
-
-Add an `--opening intro|guide` flag: a `FrameSpec` field that stops
-`clearOpening` at the named phase instead of running through it, and — for the
-guide — makes `--frames`/`--stride` count *painted frames* rather than ticks,
-because a rehearsal runs on the frame clock and not on the world's. The handle
-already has everything needed (`advanceOpening`, `advance`, `paint` in
-`apps/game/src/handle.ts`); what is missing is the spec field, the branch in
-`clearOpening`, and the paint-driven strip loop. `tools/frames/test` is where
-the parsing goes.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
