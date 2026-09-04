@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { guideSteps, WAVES } from "@neon-spore/content";
+import { guideSteps, WAVES, type Wave } from "@neon-spore/content";
 import { waveOpeningStates } from "../src/wave-opening.js";
 
 /**
@@ -23,8 +23,18 @@ describe("waveOpeningStates", () => {
   });
 
   test("a guide made of prose is read in pages too, not in a card", () => {
-    const prose = WAVES.find((w) => w.guide && !w.guide.scene);
-    if (!prose) throw new Error("no wave carries a guide made of prose");
+    // Built here rather than found in `WAVES`, because there is none left to
+    // find: every wave that carries a guide carries a rehearsal now. The shape
+    // is still reachable — the director edits a wave before it is on disk, and
+    // a guide's three lines are written before its film is — so what it opens
+    // on is still worth holding. Two pages and the gate, never a card.
+    const prose: Wave = {
+      id: "unsaved",
+      name: "UNSAVED",
+      sentence: "The one somebody is still writing.",
+      guide: { both: "Both of you.", p1: "His half.", p2: "Hers." },
+      entries: [],
+    };
     expect(waveOpeningStates(prose)).toEqual(["GUIDE 1", "GUIDE 2", "INTRODUCTION + READY"]);
   });
 

@@ -102,6 +102,7 @@ export const WAVES_ACT_5: Wave[] = [
       both: "An armoured eye with a cord hanging off it. The plates over the lens part while the cord is pulled aside and shut the moment it is let go — and only while they stand fully apart does the lens's own colour land.",
       p1: "Put the cannon in its column BEFORE you take the cord. Both your thumbs are spoken for once you have hold of it, and the plates close the instant you let go.",
       p2: "Load the colour you can see in the seam and then wait. Count them in out loud: the shot has to leave while the plates are open, not after.",
+      scene: "theLid",
     },
     entries: [
       { beat: 0, col: 3, kind: "lid", color: "cyan" },

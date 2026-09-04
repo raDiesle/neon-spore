@@ -25,6 +25,19 @@ const USED = WAVES.map((w, i) => ({ wave: i, id: w.guide?.scene })).filter(
 );
 
 describe("the rehearsals a guide can show", () => {
+  it("is named by a wave, so no film is written and left unwired", () => {
+    // A scene in `SCENES` that no wave points at is not merely dead weight: it
+    // is a film that was written, registered and never reached, and every test
+    // in this file that walks `USED` skips it silently — including the one
+    // that runs a rehearsal tick by tick. That is exactly how THE LID, THE
+    // MAZE and THE WARDEN came to exist for an hour without a wave naming one
+    // of them, after a reconciliation dropped three `scene:` lines.
+    const named = new Set(USED.map((u) => u.id));
+    for (const id of SCENE_IDS) {
+      expect(named.has(id), `${id} is a film no wave shows`).toBe(true);
+    }
+  });
+
   it("only ever presses a control the wave's own panel carries", () => {
     for (const { wave, id } of USED) {
       const set = controlSetForWave(wave);
