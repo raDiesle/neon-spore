@@ -20,6 +20,7 @@ import { frame } from "./hull-frame.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
 import { drawLureAlarms } from "./lure-alarm.js";
+import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
 import { drawPods } from "./pods.js";
 import { hullShake, torchTremor } from "./queen.js";
@@ -187,6 +188,7 @@ export function drawOverlays(
   isArmed: boolean,
   isOpen: boolean,
   scene?: GuideStage,
+  fx?: OpeningFx,
 ): void {
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
@@ -200,5 +202,5 @@ export function drawOverlays(
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
   // anything worth seeing.
-  drawWaveOpening(ctx, l, world, view.role, scene, view.time);
+  drawWaveOpening(ctx, l, world, view.role, scene, view.time, fx);
 }

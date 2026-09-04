@@ -95,6 +95,7 @@ export {
   podsFromWave,
   queueFromWave,
 } from "./queue.js";
+export { sceneCommand, sceneScript } from "./scene-script.js";
 export {
   type GuideScene,
   guideScene,
@@ -103,9 +104,9 @@ export {
   type SceneAnchor,
   type SceneId,
   type SceneStep,
-  sceneCommand,
-  sceneScript,
+  sceneSteps,
   stepAt,
+  stepSpan,
 } from "./scenes.js";
 export {
   blobPath,
@@ -145,7 +146,13 @@ export {
   wardenOpening,
 } from "./warden-shape.js";
 export { freshWaveId } from "./wave-types.js";
-export { WAVES, type Wave, type WaveEntry, type WaveGuide } from "./waves.js";
+export {
+  WAVES,
+  type Wave,
+  type WaveEntry,
+  type WaveGuide,
+  waveGuideSteps,
+} from "./waves.js";
 export {
   DEMONSTRATIONS,
   type Demonstration,

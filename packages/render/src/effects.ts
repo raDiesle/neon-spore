@@ -9,6 +9,7 @@ import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
 import { GhostTrail } from "./ghost-trail.js";
 import type { Layout } from "./layout.js";
+import { OpeningFx } from "./opening-fx.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
@@ -58,6 +59,11 @@ export class Effects {
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
+  /** The two clocks a wave's opening needs and a world standing still cannot
+   * give it: how long the page that is up has been up, and the blobs a circle
+   * throws when it says READY. Public for the mirror's reason — `briefing.ts`
+   * draws the opening, and this is only where it is kept and cleared. */
+  readonly opening = new OpeningFx();
   /**
    * Where every ghost has just been. Public and driven from the field pass
    * rather than fed by an event, for the coord grid's reason below: it is a
@@ -222,6 +228,7 @@ export class Effects {
     this.spriteBursts.clear();
     this.coordGrid.clear();
     this.ghostTrail.clear();
+    this.opening.reset();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

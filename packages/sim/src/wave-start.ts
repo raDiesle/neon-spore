@@ -38,6 +38,7 @@ export function startWave(
   podQueue: PodEntry[] = [],
   boss: BossEntry | null = null,
   hasGuide = false,
+  guideSteps = 0,
 ): void {
   const mid = midCol(world.cfg);
   world.wave = waveIndex;
@@ -140,7 +141,7 @@ export function startWave(
 
   // Last: the wave's name and sentence stand on the field, then its guide if
   // it has one, and the field holds still behind both of them.
-  openWave(world, hasGuide);
+  openWave(world, hasGuide, guideSteps);
 
   world.events.push({ type: "waveStart", wave: waveIndex });
 }

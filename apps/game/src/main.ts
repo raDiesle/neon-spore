@@ -121,7 +121,14 @@ const { tick: tickKeys, hand } = bindControls({
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
 });
 
-const brief = bindBriefing({ canvas, buffer, world });
+const brief = bindBriefing({
+  canvas,
+  buffer,
+  world,
+  layout,
+  stage,
+  role: () => view.role(),
+});
 // THE GAUGE brings its own controls, on its own listener — neither player's
 // band is the answer, and the two seats differ (`gauge.ts`, interludes.md).
 bindGauge({ canvas, buffer, world, layout, stage, role: () => view.role() });

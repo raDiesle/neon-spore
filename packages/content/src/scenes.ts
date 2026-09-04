@@ -1,6 +1,4 @@
-import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
-import { type ControlId, control } from "./controls.js";
-import { mapCol, queueFromWave } from "./queue.js";
+import type { ControlId } from "./controls.js";
 import type { WaveEntry } from "./wave-types.js";
 
 /**
@@ -67,7 +65,14 @@ export type SceneAnchor =
  * pair could not tell apart.
  */
 export interface SceneStep {
-  /** Tick this step begins on. Ordered, and the first one starts at 0. */
+  /**
+   * Tick this step begins on. Ordered, and the first one starts at 0.
+   *
+   * A step runs until the next one begins, and the last until the loop ends:
+   * that span is a **page**, and it is what repeats while a seat is reading it
+   * (`stepSpan`). So a tick here is not a cue inside a film any more, it is a
+   * page boundary — two steps close together are one page nobody can read.
+   */
   tick: number;
   seat: 1 | 2;
   /** As few words as will do. It is read at a glance, beside its subject. */
@@ -79,10 +84,14 @@ export interface GuideScene {
   /** How long one turn of the loop is, in ticks. */
   ticks: number;
   /**
-   * The rehearsal's tempo. Quicker than a wave on purpose: a film that shows a
-   * fall, a slide, a switch, a shot and a hull taking a hit has five things to
-   * get through, and the alternative to a quicker beat is a loop nobody
-   * watches twice. `test/scenes.test.ts` holds that it still divides the tick
+   * The rehearsal's tempo. It used to be 180 — a third quicker again than this
+   * — on the argument that a film with five things to show should not make
+   * anybody sit through them. That argument is spent: the film is not one run
+   * any more but a stack of pages the pair turns itself (`sim/guide-steps.ts`),
+   * so nothing is waiting on the end of it and the owner's answer to watching
+   * the old one was simply that **the animations were too fast**. 120 is a beat
+   * every half second, between the old film's third and the game's own
+   * five-eighths. `test/scenes.test.ts` holds that it still divides the tick
    * rate.
    *
    * The *field* is the game's own, unlike the tempo: same columns, same rows,
@@ -109,8 +118,8 @@ export type SceneId = "firstStep";
  * ordinary world, and the hull bar drops because the hull was hit.
  */
 const FIRST_STEP: GuideScene = {
-  ticks: 860,
-  bpm: 180,
+  ticks: 1380,
+  bpm: 120,
   seed: 1,
   entries: [
     { beat: 0, col: 5, color: "red" },
@@ -120,26 +129,32 @@ const FIRST_STEP: GuideScene = {
   // lobe eases after it — so the steps are close together: a hand two columns
   // ahead of the cannon for half a second is a hand that is not dragging it.
   acts: [
-    { tick: 150, control: "cannon", col: 3 },
-    { tick: 170, control: "cannon", col: 4 },
-    { tick: 190, control: "cannon", col: 5 },
-    { tick: 210, control: "cannon", col: 5 },
-    { tick: 330, control: "fireRed" },
+    { tick: 260, control: "cannon", col: 3 },
+    { tick: 290, control: "cannon", col: 4 },
+    { tick: 320, control: "cannon", col: 5 },
+    { tick: 350, control: "cannon", col: 5 },
+    { tick: 660, control: "fireRed" },
   ],
+  // Five pages, each one long enough to watch twice without being long enough
+  // to wait through: two seconds, three, two and a half, one and a half, two
+  // and a half at 120 ticks a second. Each begins where the one before it ends
+  // and is replayed from the top of the loop, so what a page shows is the world
+  // as it really stood at that tick and not a clip cut out of it.
   steps: [
     { tick: 0, seat: 1, text: "SLICK", anchor: { at: "body" } },
     {
-      tick: 110,
+      tick: 240,
       seat: 1,
       text: "P1 · SLIDE TO ITS COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 260, seat: 2, text: "P2 · FIRE RED", anchor: { at: "control", control: "fireRed" } },
-    { tick: 430, seat: 1, text: "MISS ONE", anchor: { at: "body" } },
-    // The second slick reaches the hull on beat 19, which is tick 760 at this
-    // tempo. The words go up just before it lands, so the pair reads them and
-    // then watches the bar drop rather than the other way round.
-    { tick: 700, seat: 1, text: "AND THE HULL TAKES IT", anchor: { at: "health" } },
+    { tick: 600, seat: 2, text: "P2 · FIRE RED", anchor: { at: "control", control: "fireRed" } },
+    { tick: 900, seat: 1, text: "MISS ONE", anchor: { at: "body" } },
+    // The second slick reaches the hull on beat 19, which is tick 1140 at this
+    // tempo. The page opens three beats before that, so the pair reads the words
+    // and then watches the bar drop rather than the other way round — and has
+    // four beats left afterwards to look at what it cost.
+    { tick: 1080, seat: 1, text: "AND THE HULL TAKES IT", anchor: { at: "health" } },
   ],
 };
 
@@ -152,67 +167,24 @@ export function guideScene(id: SceneId): GuideScene {
 }
 
 /**
- * What a press *is*, derived from the control it is on.
- *
- * The seat comes from `ControlDef.player`, so a scene cannot author a press
- * into the wrong half of the split, and the command comes from the id, so it
- * cannot author a thumb on RED that fires cyan. A control with no command here
- * is one no scene has ever needed; it throws rather than being ignored,
- * because a silently dropped act is a hand pressing nothing.
+ * How many pages of film a scene has. What the simulation is told about a wave's
+ * guide, so it knows which page is the last one and therefore where the ready
+ * gate is (`sim/guide-steps.ts`); it is a count and never a scene, because
+ * `packages/sim` may not read this file.
  */
-export function sceneCommand(act: SceneAct, cols: number): SceneCommand {
-  const def = control(act.control);
-  return { tick: act.tick, player: def.player, command: commandFor(act, cols) };
-}
-
-function commandFor(act: SceneAct, cols: number): Command {
-  const col = mapCol(act.col ?? 0, cols);
-  switch (act.control) {
-    case "cannon":
-      return { kind: "cannonCol", col };
-    case "shield":
-      return { kind: "shieldCol", col };
-    case "fireRed":
-      return { kind: "fire", color: "red" };
-    case "fireCyan":
-      return { kind: "fire", color: "cyan" };
-    case "guard":
-      return { kind: "guard" };
-    case "intake":
-      return { kind: "intake" };
-    default:
-      throw new Error(`no scene command for control ${act.control}`);
-  }
+export function sceneSteps(id: SceneId): number {
+  return guideScene(id).steps.length;
 }
 
 /**
- * A scene, as the runner takes it: a built queue and a built command track,
- * handed over the way `startWave`'s queue is. `packages/sim` never reads this
- * file — it is told, and the direction stays `content -> sim`.
+ * A page's span: the tick it opens on and the tick it ends on. The last page
+ * runs to the end of the loop. This is what a page replays, over and over,
+ * while the seat reading it takes as long as it likes.
  */
-export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScript {
-  const scene = guideScene(id);
-  const sceneCfg: SimConfig = {
-    ...cfg,
-    bpm: scene.bpm,
-    // A rehearsal held behind its own opening would be a guide inside a guide.
-    briefings: false,
-    // And a rehearsal's hull does not mend. The last thing FIRST STEP's film
-    // shows is what a miss costs, and at three percent a second the bar had
-    // crept back to full inside the same loop — which teaches the opposite of
-    // the step it is under.
-    hullRegenPerSecond: 0,
-  };
-  return {
-    cfg: sceneCfg,
-    seed: scene.seed,
-    wave,
-    queue: queueFromWave(scene, sceneCfg.cols),
-    pods: [],
-    boss: null,
-    commands: scene.acts.map((a) => sceneCommand(a, sceneCfg.cols)),
-    ticks: scene.ticks,
-  };
+export function stepSpan(scene: GuideScene, index: number): { from: number; to: number } {
+  const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, index))]!;
+  const next = scene.steps[scene.steps.indexOf(step) + 1];
+  return { from: step.tick, to: next ? next.tick : scene.ticks };
 }
 
 /** The step showing at this tick of the loop. Never undefined: a scene's first

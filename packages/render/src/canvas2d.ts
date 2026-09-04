@@ -5,6 +5,7 @@ import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { GuideStage } from "./guide-scene.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
+import { openingKey } from "./opening-fx.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -139,13 +140,17 @@ export class Canvas2DRenderer implements Renderer {
     // are the only thing on the stage worth a frame: the guide covers the
     // field with a scrim anyway, and drawing a field nobody can see behind two
     // that they can is the whole of what a second render per frame would cost.
-    this.guide.update(world, view.dt);
+    // The opening's own clock, whether or not a rehearsal is up: the page
+    // number, the wave's name dropping in and the blobs a READY throws are all
+    // read off it, and none of them can be read off a world holding still.
+    this.effects.opening.update(view.dt, openingKey(world, view.role));
+    this.guide.update(world, view.dt, view.role);
     if (this.guide.active) {
       // Nothing under it painted the ground, so this does. The guide's own
       // scrim is translucent, and translucent over nothing is the last frame.
       ctx.fillStyle = "#05040B";
       ctx.fillRect(0, 0, stage.width, stage.height);
-      drawWaveOpening(ctx, l, world, view.role, this.guide, view.time);
+      drawWaveOpening(ctx, l, world, view.role, this.guide, view.time, this.effects.opening);
       ctx.restore();
       return;
     }
@@ -162,7 +167,7 @@ export class Canvas2DRenderer implements Renderer {
     const round = ROUND_DRAWS[world.boss?.kind ?? ""];
     if (round !== undefined) {
       round(ctx, l, view);
-      drawWaveOpening(ctx, l, world, view.role);
+      drawWaveOpening(ctx, l, world, view.role, undefined, view.time, this.effects.opening);
       ctx.restore();
       return;
     }
@@ -208,7 +213,7 @@ export class Canvas2DRenderer implements Renderer {
     drawBodies(ctx, l, world, view, this.effects);
 
     drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), at);
-    drawOverlays(ctx, l, world, view, isArmed, isOpen);
+    drawOverlays(ctx, l, world, view, isArmed, isOpen, undefined, this.effects.opening);
     ctx.restore();
 
     // A seam, so a wide window shows where the phone ends.

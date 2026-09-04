@@ -1,7 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { control, controlSetForWave, setHas } from "../src/index.js";
-import { SCENES, type SceneId, sceneScript, stepAt } from "../src/scenes.js";
+import { sceneScript } from "../src/scene-script.js";
+import { SCENES, type SceneId, stepAt, stepSpan } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
 
 /**
@@ -72,6 +73,24 @@ describe("the rehearsals a guide can show", () => {
           scene.ticks,
         );
         last = step.tick;
+      }
+    }
+  });
+
+  it("gives every page long enough on the screen to be read", () => {
+    // A step is a page now, not a cue: it repeats until the seat reading it
+    // presses NEXT, and what it repeats is the span between it and the next
+    // one. A page under a second is a flicker nobody can follow, and the owner
+    // asked for the film to be slower rather than tighter.
+    for (const id of SCENE_IDS) {
+      const scene = SCENES[id];
+      const perSecond = DEFAULT_CONFIG.tickHz;
+      for (let i = 0; i < scene.steps.length; i++) {
+        const span = stepSpan(scene, i);
+        expect(
+          (span.to - span.from) / perSecond,
+          `${id}: "${scene.steps[i]?.text}" is a page that flickers past`,
+        ).toBeGreaterThanOrEqual(1.5);
       }
     }
   });

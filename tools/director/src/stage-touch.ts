@@ -10,7 +10,8 @@ import {
   touchUp,
   type ViewRole,
 } from "@neon-spore/render";
-import { briefingHolds, type Command, guideHolds, introHolds, type World } from "@neon-spore/sim";
+import { briefingHolds, type Command, guideHolds, type World } from "@neon-spore/sim";
+import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
 
 /**
@@ -156,28 +157,14 @@ export function bindStageTouch({
     // cannon. This has to run before `touchDown` below ever sees the press —
     // the same order the phone plays by, where nothing but the ack reaches the
     // ship while the wave is held (`step.ts`) — so the first press after the
-    // opening is gone is the first one that can move anything.
-    //
-    // The phone would not take a press on the introduction at all: it stands
-    // for five and a half seconds and passes on its own. Here it does, because
-    // this is the tool somebody restarts a wave on twenty times in an
-    // afternoon, and making them wait out the timer each time is the thing
-    // that would get the whole opening switched off.
+    // opening is gone is the first one that can move anything. What it answers
+    // there is `stage-opening.ts`, which is the same three targets the phone
+    // answers, from the same geometry.
     if (briefingHolds(world())) {
       e.preventDefault();
-      if (introHolds(world())) {
-        push(1, { kind: "brief" });
-        push(2, { kind: "brief" });
-        return;
-      }
-      // The guide: a hold, the same gesture `apps/game/src/briefing.ts` binds
-      // on a phone, on the seat or seats this screen speaks for. `test` is
-      // both — one hand filling both circles, the owner's own answer for a
-      // desk with one mouse and two seats to read (`ready-circles.ts`) — `p1`
-      // and `p2` are the one seat that screen would be on a real device.
-      const seats: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
-      for (const seat of seats) push(seat, { kind: "brief", on: true });
-      briefHolding.set(e.pointerId, seats);
+      const speaksFor: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
+      const seats = openingPress(world(), layout(), speaksFor, at(e), push);
+      if (seats) briefHolding.set(e.pointerId, seats);
       return;
     }
     const p = at(e);

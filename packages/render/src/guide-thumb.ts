@@ -44,6 +44,16 @@ const PRESS_TICKS = 18;
 /** How far ahead of its first act a hand appears. Long enough to be seen
  * arriving, short enough that it is not a thumb resting on nothing. */
 const LEAD_TICKS = 24;
+/**
+ * And how long after its last act it stays, for the same reason turned round.
+ *
+ * A hand used to stay for the rest of the loop, which was invisible while the
+ * loop ran on to its end a moment later. A page outlives its last press by
+ * whole seconds — FIRST STEP's last two are a miss and a hull taking it, and
+ * neither has a press in it — so the hand sat on the cannon strip pressing
+ * nothing for as long as the pair read the words. It leaves instead.
+ */
+const TRAIL_TICKS = 60;
 
 /**
  * Every act as a place on the panel. An act naming a control the seat's screen
@@ -100,6 +110,7 @@ export function drawGhostThumb(
   const anchors2 = anchors.filter((a) => a.seat === seat);
   const first = anchors2[0];
   if (!first || tick < first.tick - LEAD_TICKS) return;
+  if (tick > anchors2[anchors2.length - 1]!.tick + TRAIL_TICKS) return;
   let at = first;
   let x = first.x;
   let y = first.y;

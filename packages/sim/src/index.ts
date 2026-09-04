@@ -12,16 +12,22 @@ export {
   briefingAcked,
   briefingHolds,
   guideHolds,
+  guidePage,
+  guidePages,
+  guideStepHeard,
+  guideStepped,
   introHolds,
   OPENING_GUIDE,
   OPENING_INTRO,
   OPENING_PLAY,
   type OpeningPhase,
+  onReadyPage,
   readyFill,
   readyFraction,
   readyHeld,
   readyHoldTicks,
   seatReady,
+  toReadyPage,
 } from "./briefing.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export {

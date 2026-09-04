@@ -13,9 +13,12 @@ import { PALETTE } from "./palette.js";
  * screen that drew only its own circle would be the same feature with the
  * meaning taken out.
  *
- * **They are indicators, never buttons.** The press target is the whole
- * screen, the way the guide's own dismissal always was — shrinking it to the
- * drawn ring would be a regression dressed as precision.
+ * **On a guide made of prose they are indicators, never buttons**: the press
+ * target is the whole screen, the way that guide's dismissal always was, and
+ * shrinking it to the drawn ring would be a regression dressed as precision. A
+ * stepped guide cannot do that — it has BACK and NEXT on the same screen — so
+ * it draws a button of its own and the circles stay gauges there too
+ * (`ready-page.ts`).
  *
  * Yours is the brighter of the two and named YOU, theirs is dimmed and named
  * THEM. In `test` — one person at a desk holding both seats — neither is
@@ -28,20 +31,9 @@ import { PALETTE } from "./palette.js";
 
 /** Room a guide has to leave under itself for the circles, their names and READY. */
 export const READY_FOOT_H = 108;
-/**
- * How tall the strip under a rehearsal is.
- *
- * Under it and never over it: the band — the strips and the two lobes — is one
- * of the things the film is teaching, and a gate drawn on top of the lobes
- * would hide the button the ghost thumb is pressing. So the rehearsal is laid
- * out in the stage *minus* this, and gets a screen of its own.
- */
-export const READY_BAR_H = 74;
 /** Half the distance between the two rings, from the panel's centre. */
-const RING_GAP = 46;
-const RING_R = 22;
-/** Smaller in the bar: the words above them are what has to be read first. */
-const BAR_RING_R = 15;
+export const RING_GAP = 46;
+export const RING_R = 22;
 
 export function drawReadyGate(
   ctx: CanvasRenderingContext2D,
@@ -75,61 +67,10 @@ export function drawReadyGate(
 }
 
 /**
- * The same gate under a rehearsal, as a bar across the bottom of the stage.
- *
- * A guide with a scene has no panel to hang a foot off — the film is the whole
- * screen — so the gate is an overlay, and the owner asked for it to be *louder*
- * than the line of small print it used to be: the call to act goes **above** the
- * circles, in a size that reads at arm's length, and it is one word. The bar is
- * translucent rather than solid because it sits over the band, and the band is
- * one of the things the film is teaching.
- */
-export function drawReadyBar(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  role: ViewRole,
-): void {
-  const top = l.height - READY_BAR_H;
-  ctx.fillStyle = "#0A0818";
-  ctx.fillRect(0, top, l.width, READY_BAR_H);
-  ctx.strokeStyle = PALETTE.grid;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(0, top + 0.5);
-  ctx.lineTo(l.width, top + 0.5);
-  ctx.stroke();
-
-  const cx = l.width / 2;
-  ctx.textAlign = "center";
-  ctx.font = '700 15px "Courier New",monospace';
-  ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(callToAction(world, role), cx, top + 20);
-  ctx.textAlign = "left";
-
-  const cy = top + 48;
-  const mine: 1 | 2 | 0 = role === "p1" ? 1 : role === "p2" ? 2 : 0;
-  const both = role === "test";
-  for (const seat of [1, 2] as const) {
-    const own = seat === mine;
-    drawCircle(
-      ctx,
-      cx + (seat === 1 ? -RING_GAP : RING_GAP),
-      cy,
-      world,
-      seat,
-      "",
-      own || both,
-      BAR_RING_R,
-    );
-  }
-}
-
-/**
  * The one line the gate says. Short, because it is read at a glance by somebody
  * who has just watched a film and is about to press the screen.
  */
-function callToAction(world: World, role: ViewRole): string {
+export function callToAction(world: World, role: ViewRole): string {
   const mine: 1 | 2 | 0 = role === "p1" ? 1 : role === "p2" ? 2 : 0;
   const done = mine === 0 ? seatReady(world, 1) && seatReady(world, 2) : seatReady(world, mine);
   return done ? "WAITING FOR THEM" : "HOLD ANYWHERE — READY";
@@ -141,7 +82,7 @@ function callToAction(world: World, role: ViewRole): string {
  * clockwise, which is the direction every loading indicator has ever gone —
  * this is not the moment to be interesting about it.
  */
-function drawCircle(
+export function drawCircle(
   ctx: CanvasRenderingContext2D,
   cx: number,
   cy: number,
@@ -183,8 +124,8 @@ function drawCircle(
     ctx.fill();
   }
 
-  ctx.font = '600 9px "Courier New",monospace';
+  ctx.font = '700 11px "Courier New",monospace';
   ctx.fillStyle = done ? PALETTE.good : PALETTE.dim;
-  ctx.fillText(done ? "READY" : "", cx, cy + r + 13);
+  ctx.fillText(done ? "READY" : "", cx, cy + r + 15);
   ctx.textAlign = "left";
 }

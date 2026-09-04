@@ -1,4 +1,4 @@
-import type { Layout } from "./layout.js";
+import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -18,9 +18,17 @@ import { PALETTE } from "./palette.js";
 
 /** How far the seam's glow reaches either side of the join. */
 const SEAM = 5;
-/** Where the banner sits, and how tall it is. A caption keeps clear of it. */
-export const BANNER_TOP = 30;
-export const BANNER_H = 22;
+/**
+ * Where the banner sits, and how tall it is. A caption keeps clear of it.
+ *
+ * It is more than twice the height it was, and it runs the full width. The
+ * owner's instruction was that **whose screen this is has to be much more
+ * visible** — the old banner was eleven-point type in a pill the width of its
+ * own words, which said "player 1" to somebody already looking for it and
+ * nothing at all to somebody watching a blob fall.
+ */
+export const BANNER_TOP = 22;
+export const BANNER_H = 50;
 
 /** The join between the outgoing and incoming screens, lit as it travels. */
 export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: number): void {
@@ -34,30 +42,61 @@ export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: numb
 
 /**
  * Whose screen this is, across the top. It fades in with the slide and stays
- * for the rest of the step: a pair who looked away and back has to be able to
+ * for the rest of the page: a pair who looked away and back has to be able to
  * answer "which of us is this" without waiting for the next switch.
+ *
+ * Two lines, because they are two different facts and one of them is the one
+ * that matters: **PLAYER 1** in twenty-two point, and under it, smaller,
+ * whether that is the phone in this player's own hand. That second line used to
+ * read "THIS SCREEN" whoever was looking, which is true on one of the two
+ * devices and a lie on the other — the film is the same on both, and only the
+ * viewer's own `role` says which of them is holding it.
+ *
+ * And a rule of the seat's own colour down both edges of the stage, so the
+ * answer is on the screen even when the words are not what the eye is on.
  */
 export function drawSeatBanner(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   seat: 1 | 2,
   k: number,
+  role: ViewRole,
 ): void {
   if (k <= 0) return;
-  const text = seat === 1 ? "PLAYER 1 · THIS SCREEN" : "PLAYER 2 · THE OTHER SCREEN";
-  ctx.font = '700 11px "Courier New",monospace';
-  const w = ctx.measureText(text).width + 22;
-  const x = (l.width - w) / 2;
+  const hex = seat === 1 ? PALETTE.hull : PALETTE.cyan;
+  const rim = seat === 1 ? PALETTE.hullRim : PALETTE.cyanRim;
 
   ctx.globalAlpha = k;
-  ctx.fillStyle = "rgba(9,7,20,.9)";
-  ctx.fillRect(x, BANNER_TOP, w, BANNER_H);
-  ctx.strokeStyle = seat === 1 ? PALETTE.hullRim : PALETTE.cyan;
-  ctx.lineWidth = 1.2;
-  ctx.strokeRect(x + 0.5, BANNER_TOP + 0.5, w - 1, BANNER_H - 1);
-  ctx.fillStyle = seat === 1 ? PALETTE.hullRim : PALETTE.cyan;
+  // The edges first and under everything: they are the quiet half of this.
+  ctx.fillStyle = hex;
+  ctx.globalAlpha = k * 0.5;
+  ctx.fillRect(0, 0, 4, l.height);
+  ctx.fillRect(l.width - 4, 0, 4, l.height);
+
+  ctx.globalAlpha = k;
+  ctx.fillStyle = "rgba(9,7,20,.94)";
+  ctx.fillRect(0, BANNER_TOP, l.width, BANNER_H);
+  ctx.fillStyle = hex;
+  ctx.fillRect(0, BANNER_TOP, l.width, 3);
+  ctx.fillRect(0, BANNER_TOP + BANNER_H - 3, l.width, 3);
+
   ctx.textAlign = "center";
-  ctx.fillText(text, l.width / 2, BANNER_TOP + 15);
+  ctx.font = '700 22px "Courier New",monospace';
+  ctx.fillStyle = rim;
+  ctx.fillText(seat === 1 ? "PLAYER 1" : "PLAYER 2", l.width / 2, BANNER_TOP + 26);
+  ctx.font = '600 10px "Courier New",monospace';
+  ctx.fillStyle = PALETTE.dim;
+  ctx.fillText(whose(seat, role), l.width / 2, BANNER_TOP + 41);
   ctx.textAlign = "left";
   ctx.globalAlpha = 1;
+}
+
+/**
+ * Whether the screen on show is the one in this player's own hand. `test` is
+ * one person holding both seats, so neither is theirs and neither is the
+ * other's.
+ */
+function whose(seat: 1 | 2, role: ViewRole): string {
+  if (role === "test") return "ONE OF THE TWO SCREENS";
+  return (role === "p1" ? 1 : 2) === seat ? "YOUR SCREEN" : "YOUR PARTNER'S SCREEN";
 }

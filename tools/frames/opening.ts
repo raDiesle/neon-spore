@@ -88,13 +88,17 @@ const MAX_OPENING_ATTEMPTS = 80;
  * `phase` replaced `due` — that shape counts cards and cannot tell an
  * introduction from a guide, which is the whole of what `stopAt` asks.
  */
-async function openingPhase(page: Page): Promise<number | "old"> {
+async function openingPhase(page: Page): Promise<{ phase: number; steps: number } | "old"> {
   return await page.evaluate(() => {
     const ns = window.neonSpore;
     if (!ns) throw new Error("window.neonSpore missing mid-capture");
     const brief = ns.world.brief;
     if (Array.isArray(brief.due)) return "old" as const;
-    return brief.phase ?? 0;
+    // `steps` is how many pages of film this wave's guide has, and 0 for one
+    // made of prose. It decides whether there is an introduction behind the
+    // guide at all: a stepped guide's last page *is* the introduction, so
+    // crossing its gate starts the wave (`sim/guide-steps.ts`).
+    return { phase: brief.phase ?? 0, steps: brief.steps ?? 0 };
   });
 }
 
@@ -122,14 +126,21 @@ async function openingPhase(page: Page): Promise<number | "old"> {
 async function holdOpening(page: Page, stopAt: OpeningStop): Promise<void> {
   const want = stopAt === "intro" ? OPENING_INTRO : OPENING_GUIDE;
   for (let i = 0; i <= MAX_OPENING_ATTEMPTS; i++) {
-    const phase = await openingPhase(page);
-    if (phase === "old") {
+    const opening = await openingPhase(page);
+    if (opening === "old") {
       throw new Error(
         "--opening needs a build whose world.brief has a phase — this one predates the " +
           "introduction, so it has no introduction and no guide to photograph",
       );
     }
+    const { phase, steps } = opening;
     if (phase === want) return;
+    if (stopAt === "intro" && phase === OPENING_GUIDE && steps > 0) {
+      throw new Error(
+        "this wave's guide is stepped, so its introduction is the last page of the guide " +
+          "rather than a screen behind it — photograph it with --opening guide",
+      );
+    }
     if (phase === OPENING_PLAY) {
       throw new Error(
         stopAt === "intro"

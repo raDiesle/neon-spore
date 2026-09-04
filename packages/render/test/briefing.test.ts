@@ -1,9 +1,18 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { WAVES } from "@neon-spore/content";
-import { ackBriefing, createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
+import { WAVES, waveGuideSteps } from "@neon-spore/content";
+import {
+  ackBriefing,
+  createWorld,
+  DEFAULT_CONFIG,
+  guidePages,
+  guideStepHeard,
+  startWave,
+  type World,
+} from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
+import { OpeningFx } from "../src/opening-fx.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -49,20 +58,29 @@ describe("the guides the waves carry", () => {
 });
 
 /**
- * A world holding a wave's guide, and one holding its introduction — in that
- * order, which is the order a wave opens in: the guide teaches, the gate is
- * crossed, and then the wave's own name is the last thing before the field.
+ * A world holding a wave's guide, and one holding its introduction.
+ *
+ * The introduction is posed by opening the wave with no guide at all, which is
+ * what a wave without one does and what a wave with a prose guide reaches once
+ * its gate is crossed. It cannot be posed by crossing a *stepped* guide's gate
+ * any more: that guide's last page is the introduction, so passing it goes
+ * straight to the field (`sim/guide-steps.ts`).
  */
 function opening(waveIndex: number): { intro: World; guide: World } {
-  const build = (): World => {
+  const build = (guided: boolean): World => {
     const world = createWorld(CFG, 3);
-    startWave(world, waveIndex, [], [], null, WAVES[waveIndex]?.guide !== undefined);
+    startWave(
+      world,
+      waveIndex,
+      [],
+      [],
+      null,
+      guided && WAVES[waveIndex]?.guide !== undefined,
+      waveGuideSteps(waveIndex),
+    );
     return world;
   };
-  const intro = build();
-  ackBriefing(intro, 1);
-  ackBriefing(intro, 2);
-  return { intro, guide: build() };
+  return { intro: build(false), guide: build(true) };
 }
 
 describe("a wave's opening on the stage", () => {
@@ -96,11 +114,45 @@ describe("a wave's opening on the stage", () => {
     drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, "p1");
   });
 
-  it("draws a rehearsal, through every frame of its loop, in every role", () => {
-    // The whole loop and not a frame of it: a scene is a world being stepped,
-    // so the values reaching the canvas change tick by tick — the muzzle
-    // flash, the spark burst, the wrap that rebuilds the world underneath two
-    // sets of `Effects`. One frame would prove almost nothing.
+  /**
+   * Every page of a scened guide, played through and drawn, at a role.
+   *
+   * Both seats are paged together so that whichever seat the role reads its
+   * cursor off is the one moving — `test` and `p1` read player 1's, `p2` reads
+   * player 2's, and a walk that only moved one of them would leave one role
+   * looking at page one for the whole test.
+   */
+  const walkPages = (
+    ctx: unknown,
+    l: ReturnType<typeof computeLayout>,
+    world: World,
+    role: ViewRole,
+    stage: GuideStage,
+    framesPerPage: number,
+  ): void => {
+    for (let page = 0; page < guidePages(world); page++) {
+      for (let f = 0; f < framesPerPage; f++) {
+        stage.update(world, 1 / 60, role);
+        drawWaveOpening(
+          ctx as CanvasRenderingContext2D,
+          l,
+          world,
+          role,
+          stage,
+          f / 60,
+          new OpeningFx(),
+        );
+      }
+      guideStepHeard(world, 1, false);
+      guideStepHeard(world, 2, false);
+    }
+  };
+
+  it("draws a rehearsal, through every page of it, in every role", () => {
+    // Every page and not a frame of one: a scene is a world being stepped, so
+    // the values reaching the canvas change tick by tick — the muzzle flash,
+    // the spark burst, the rebuild under two sets of `Effects` every time a
+    // page repeats. One frame would prove almost nothing.
     expect(SCENED.length, "no wave carries a scene to draw").toBeGreaterThan(0);
     const { ctx } = stubCanvas();
     for (const role of ROLES) {
@@ -108,51 +160,38 @@ describe("a wave's opening on the stage", () => {
       for (const i of SCENED) {
         const { guide } = opening(i);
         const stage = new GuideStage();
-        // A whole turn of the loop and a little past it, a frame at a time, so
-        // every step, both seat switches, the shot, the breach and the wrap all
-        // reach the canvas rather than merely being reached.
-        for (let f = 0; f < 430; f++) {
-          stage.update(guide, 1 / 60);
-          drawWaveOpening(
-            ctx as unknown as CanvasRenderingContext2D,
-            l,
-            guide,
-            role,
-            stage,
-            f / 60,
-          );
-        }
-        expect(stage.active, `${WAVES[i]?.name} never brought its scene up`).toBe(true);
+        walkPages(ctx, l, guide, role, stage, 260);
+        // The last page is the gate, which is not a rehearsal at all.
+        expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
       }
     }
   });
 
   it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
     // A rehearsal is the whole stage, so there is no room left to run out of
-    // — what a tiny screen tests instead is that every tile, lobe and caption
-    // still comes out as a number a canvas accepts.
+    // — what a tiny screen tests instead is that every tile, lobe, caption and
+    // button still comes out as a number a canvas accepts.
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
     for (const i of SCENED) {
       const { guide } = opening(i);
-      const stage = new GuideStage();
-      for (let f = 0; f < 430; f++) {
-        stage.update(guide, 1 / 60);
-        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, "p1", stage, f / 60);
-      }
+      walkPages(ctx, l, guide, "p1", new GuideStage(), 200);
     }
   });
 
-  it("puts a rehearsal away the moment the guide does", () => {
+  it("puts a rehearsal away the moment the reader reaches the gate", () => {
     const stage = new GuideStage();
     const { guide } = opening(SCENED[0]!);
-    stage.update(guide, 1 / 60);
+    stage.update(guide, 1 / 60, "p1");
     expect(stage.active).toBe(true);
-    // Both seats ready, and the guide gives way to the wave's introduction.
-    // Nothing is holding a rehearsal behind that.
+    // The gate is the wave's own name over the field, not a page of film.
+    for (let i = 0; i < guidePages(guide); i++) guideStepHeard(guide, 1, false);
+    stage.update(guide, 1 / 60, "p1");
+    expect(stage.active).toBe(false);
+    // And both seats ready is the wave, with nothing left holding it.
     ackBriefing(guide, 1);
     ackBriefing(guide, 2);
-    stage.update(guide, 1 / 60);
+    stage.update(guide, 1 / 60, "p1");
     expect(stage.active).toBe(false);
   });
 

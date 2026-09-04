@@ -12,6 +12,7 @@ export {
 export { drawGaugeRound } from "./gauge-round.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
+export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
 export { signedHash, sinHash } from "./hash.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
@@ -37,6 +38,7 @@ export { drawPinballRound, pinMorph01, showsPinPieces } from "./pinball-round.js
 export { drawPinBall, drawPinCase, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
+export { onReadyButton, readyButtonBox } from "./ready-page.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
@@ -59,3 +61,4 @@ export {
   swipeColor,
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";
+export { INTRO_SECONDS } from "./wave-intro.js";

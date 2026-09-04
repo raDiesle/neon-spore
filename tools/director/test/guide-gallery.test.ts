@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { WAVES } from "@neon-spore/content";
+import { WAVES, waveGuideSteps } from "@neon-spore/content";
 import { ackBriefing, guideHolds, introHolds } from "@neon-spore/sim";
 import { guideWorld } from "../src/guide-gallery.js";
 import { wavesWithGuides } from "../src/guide-waves.js";
@@ -35,12 +35,17 @@ describe("guideWorld", () => {
     expect(guideWorld(0).over).toBe(false);
   });
 
-  test("gives way to the wave's introduction once the pair has read it", () => {
-    const world = guideWorld(0);
-    expect(WAVES[0]?.guide).toBeDefined();
-    ackBriefing(world, 1);
-    ackBriefing(world, 2);
-    expect(guideHolds(world)).toBe(false);
-    expect(introHolds(world)).toBe(true);
+  test("gives way once the pair has read it, to whatever is left to read", () => {
+    // A guide made of prose leaves the wave's own name still to come; a stepped
+    // one does not, because its last page *was* the name with the ready button
+    // under it (`sim/guide-steps.ts`).
+    for (const i of wavesWithGuides()) {
+      const world = guideWorld(i);
+      expect(WAVES[i]?.guide).toBeDefined();
+      ackBriefing(world, 1);
+      ackBriefing(world, 2);
+      expect(guideHolds(world), `wave ${i + 1}`).toBe(false);
+      expect(introHolds(world), `wave ${i + 1}`).toBe(waveGuideSteps(i) === 0);
+    }
   });
 });

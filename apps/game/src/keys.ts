@@ -1,6 +1,7 @@
 import type { Layout } from "@neon-spore/render";
 import { type Creature, isGrippable, midCol, NO_GRIP, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { guideKeyDown } from "./keys-guide.js";
 import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 
 /**
@@ -93,6 +94,15 @@ export function bindKeys({
   const held = new Set<string>();
   const repeatTicks = new Map<string, number>();
 
+  /** Whatever this key means to a wave's guide, if one is up. `false` when it
+   * meant nothing there and the key is still the ship's (`keys-guide.ts`). */
+  const guideKey = (code: string): boolean => {
+    if (!guideHolds()) return false;
+    const presses = guideKeyDown(code);
+    for (const p of presses) buffer.push(p.player, p.command);
+    return presses.length > 0;
+  };
+
   const moveCannon = (delta: number): void => {
     const cols = layout().cols;
     cannon = Math.min(cols - 1, Math.max(0, cannon + delta));
@@ -145,13 +155,8 @@ export function bindKeys({
       // which a wave has to name. At a desk it is always here; see the note
       // above `bindKeys`.
       case "KeyF":
-        // Behind a guide, F is player 1's half of the ready gate instead:
-        // nothing else reaches the ship there (`sim/step.ts`), so the key is
-        // free, and it is already that seat's one *held* key.
-        if (guideHolds()) {
-          buffer.push(1, { kind: "brief", on: true });
-          break;
-        }
+        // Behind a guide it is player 1's half of the ready gate (`keys-guide.ts`).
+        if (guideKey("KeyF")) break;
         buffer.push(1, { kind: "prime", on: true });
         break;
       case "KeyW":
@@ -173,30 +178,16 @@ export function bindKeys({
       // the other player's hand, and the word on the field that names it.
       case "KeyG": {
         // And G is player 2's half, for the same reason F is player 1's.
-        if (guideHolds()) {
-          buffer.push(2, { kind: "brief", on: true });
-          break;
-        }
+        if (guideKey("KeyG")) break;
         const target = nearestHull(creatures());
         if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
         break;
       }
       // Space is both seats at once, for the person at a desk playing both of
-      // them — the same answer the director's stage gives in `TEST`. F and G
-      // above are the two seats separately, for a desk beside a phone.
-      //
-      // **Held, not tapped.** All three send `on: true` here and `on: false`
-      // on the keyup below, so a key tapped and let go empties its circle the
-      // way a thumb lifted off the glass does (`sim/briefing.ts`).
-      //
-      // Only while the guide is up: the introduction passes on its own timer
-      // and is not a thing to dismiss (the owner's own answer), so Space
-      // pressed early would skip the wave's name before it had been read.
+      // them — the same answer the director's stage gives in `TEST`.
       case "Space":
         e.preventDefault();
-        if (!guideHolds()) break;
-        buffer.push(1, { kind: "brief", on: true });
-        buffer.push(2, { kind: "brief", on: true });
+        guideKey("Space");
         break;
       // Whichever round has taken the panel away — THE GAUGE's valve and
       // call, THE FLEET's sights and salvo. One table next door rather than a
@@ -212,8 +203,11 @@ export function bindKeys({
         // the world, and otherwise the sideways two step between waves.
         const round = roundKeyDown(e.code, snakeHolds());
         if (round) buffer.push(round.player, round.command);
-        else if (e.code === "ArrowRight") onWaveStep(1);
-        else if (e.code === "ArrowLeft") onWaveStep(-1);
+        // The sideways two turn a guide's pages while one is up, and step
+        // between waves otherwise (`keys-guide.ts`).
+        else if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
+          if (!guideKey(e.code)) onWaveStep(e.code === "ArrowLeft" ? -1 : 1);
+        }
         break;
       }
     }

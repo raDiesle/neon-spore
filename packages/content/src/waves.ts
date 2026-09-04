@@ -1,3 +1,4 @@
+import { sceneSteps } from "./scenes.js";
 import type { Wave } from "./wave-types.js";
 import { WAVES_ACT_1 } from "./waves/act-1.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
@@ -31,3 +32,16 @@ export const WAVES: Wave[] = [
   ...WAVES_ACT_4,
   ...WAVES_ACT_5,
 ];
+
+/**
+ * How many pages of film a wave's guide has, and 0 for a guide made of prose.
+ *
+ * This is what `startWave` is handed beside `hasGuide`, and it is the whole of
+ * what the simulation knows about a rehearsal: which page is the last one, and
+ * therefore where the ready gate is (`sim/guide-steps.ts`). A count rather than
+ * a scene, because `packages/sim` never reads `content`.
+ */
+export function waveGuideSteps(wave: number): number {
+  const id = WAVES[wave]?.guide?.scene;
+  return id === undefined ? 0 : sceneSteps(id);
+}

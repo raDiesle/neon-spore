@@ -107,6 +107,12 @@ export function hashWorld(world: World): number {
   push(world.brief.phase);
   push(world.brief.guide ? 1 : 0);
   push(world.brief.ack);
+  // And how far each seat has read. A stepped guide only lets a seat hold the
+  // gate from its last page, so two devices that disagree about a cursor
+  // disagree about whether that seat may start the wave (`guide-steps.ts`).
+  push(world.brief.steps);
+  push(world.brief.stepP1);
+  push(world.brief.stepP2);
 
   push(world.creatures.length);
   for (const c of world.creatures) {

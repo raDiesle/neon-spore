@@ -49,6 +49,14 @@ export type Command =
    */
   | { kind: "brief"; on?: boolean }
   /**
+   * One seat turning a page of a stepped guide — forwards, or `back`. Each seat
+   * has its own cursor and reads at its own speed; the gate at the end is what
+   * they arrive at together (`guide-steps.ts`). A seat that has already said
+   * READY does not move, so this is silently dropped there rather than
+   * un-readying a partner who is already waiting.
+   */
+  | { kind: "guideStep"; back?: boolean }
+  /**
    * THE GAUGE's own controls, and the reason they are here rather than
    * reusing the ship's: a round that is not the field has its own verbs, and a
    * pair told to "fire" at a dial would be learning that the words mean

@@ -111,7 +111,9 @@ declare global {
       // (`f6be23b`). A parent checked out from before that lands on the
       // older shape, so this has to recognise either rather than assume the
       // one the current tree happens to have.
-      world: { brief: { phase?: number; due?: readonly unknown[] } };
+      // `steps` is optional for its own reason: a build from before the guide
+      // had pages has no such field, and 0 is exactly what it means there.
+      world: { brief: { phase?: number; steps?: number; due?: readonly unknown[] } };
       jumpToWave(wave: number): void;
       dismissBriefing(): void;
       /** Missing on a build from before the introduction existed. */

@@ -5,6 +5,7 @@ import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import { hullBarBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { wrapText } from "./wrap-text.js";
 
 /**
  * A step's words, drawn beside the thing they are about.
@@ -20,12 +21,21 @@ import { PALETTE } from "./palette.js";
  * has left. Nothing is placed by coordinate, so a caption cannot come off its
  * subject when the layout changes — the same rule the ghost thumb plays by
  * (`guide-thumb.ts`).
+ *
+ * **It is loud now, and that was the owner's second answer to watching it.**
+ * The first version was thirteen-point type in a box at three-quarters opacity
+ * over a field with a blob falling through it, and the instruction was that the
+ * text has to be more visible. So: bigger type, a solid ground under it, a
+ * two-pixel edge in the subject's own colour, and it wraps rather than being
+ * pushed off the side of a narrow screen.
  */
 
 /** Ticks the caption takes to fade in, so a step arrives rather than blinks. */
 const FADE_TICKS = 10;
-const PAD = 9;
-const H = 26;
+const PAD = 13;
+/** One line's height, and the type it is set in. */
+const LINE = 21;
+const FONT = '700 16px "Courier New",monospace';
 
 export function drawCaption(
   ctx: CanvasRenderingContext2D,
@@ -52,34 +62,43 @@ export function drawCaption(
     ctx.stroke();
   }
 
-  ctx.font = '700 13px "Courier New",monospace';
-  const w = ctx.measureText(step.text).width + PAD * 2;
+  ctx.font = FONT;
+  // Wrapped rather than clamped: a caption wider than the screen used to be
+  // shoved sideways until it was no longer beside the thing it was about.
+  const lines = wrapText(ctx, step.text, l.width - 24 - PAD * 2);
+  const h = lines.length * LINE + 12;
+  let w = 0;
+  for (const line of lines) w = Math.max(w, ctx.measureText(line).width);
+  w += PAD * 2;
   // Above its subject when there is room above, below it when there is not:
   // the one thing a caption may never do is sit off the top of the screen. The
   // floor is the banner rather than the edge, because the banner is the other
   // thing that has to stay readable (`guide-switch.ts`).
-  const floor = BANNER_TOP + BANNER_H + 6;
-  const below = point.y - point.r - 14 - H < floor;
-  const y = below ? Math.max(floor, point.y + point.r + 14) : point.y - point.r - 14 - H;
-  const x = Math.max(8, Math.min(l.width - w - 8, point.x - w / 2));
+  const floor = BANNER_TOP + BANNER_H + 8;
+  const below = point.y - point.r - 16 - h < floor;
+  const y = below ? Math.max(floor, point.y + point.r + 16) : point.y - point.r - 16 - h;
+  const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
 
   ctx.globalAlpha = k;
-  ctx.fillStyle = "rgba(9,7,20,.88)";
-  ctx.fillRect(x, y, w, H);
+  ctx.fillStyle = "rgba(9,7,20,.96)";
+  ctx.fillRect(x, y, w, h);
   ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 1.2;
-  ctx.strokeRect(x + 0.5, y + 0.5, w - 1, H - 1);
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
 
   // A short leader, so a label pushed sideways to stay on screen still says
   // which thing it belongs to.
   ctx.beginPath();
-  ctx.moveTo(Math.max(x + 6, Math.min(x + w - 6, point.x)), below ? y : y + H);
+  ctx.moveTo(Math.max(x + 6, Math.min(x + w - 6, point.x)), below ? y : y + h);
   ctx.lineTo(point.x, below ? point.y + point.r + 2 : point.y - point.r - 2);
   ctx.stroke();
 
   ctx.fillStyle = PALETTE.text;
   ctx.textAlign = "center";
-  ctx.fillText(step.text, x + w / 2, y + 17);
+  ctx.font = FONT;
+  lines.forEach((line, i) => {
+    ctx.fillText(line, x + w / 2, y + 22 + i * LINE);
+  });
   ctx.textAlign = "left";
   ctx.globalAlpha = 1;
 }

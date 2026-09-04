@@ -1,21 +1,13 @@
-import {
-  type ControlSet,
-  controlSet,
-  type GuideScene,
-  guideScene,
-  type SceneStep,
-  sceneScript,
-  stepAt,
-  WAVES,
-} from "@neon-spore/content";
-import { guideHolds, SceneRun, type SimEvent, type World } from "@neon-spore/sim";
+import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
+import type { World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { drawCaption } from "./guide-caption.js";
+import { drawGuideNav, NAV_H } from "./guide-nav.js";
+import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { drawSeatBanner, drawSwitchSeam } from "./guide-switch.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
-import { READY_BAR_H } from "./ready-circles.js";
 
 /**
  * A guide's rehearsal: the game's own screen, at full size, playing the wave
@@ -36,104 +28,82 @@ import { READY_BAR_H } from "./ready-circles.js";
  * in the game either player sees the other's half, and `docs/spec/briefings.md`
  * argues why the tutorial is allowed to.
  *
- * ## It is a real simulation, and this owns only a clock
+ * ## The pair turns the pages
+ *
+ * A page is one step of the film, and it repeats until the seat reading it
+ * presses NEXT. That clock is `guide-play.ts` next door; what is here is the
+ * picture it produces, and the bar the pages are turned by (`guide-nav.ts`).
+ *
+ * ## It is a real simulation, and this draws only what it is given
  *
  * The rules are `SceneRun`'s, in `packages/sim`: a rehearsal is a real world
  * stepped by the real `step`, so the fall, the shot, the hit and the hull bar
- * dropping are the game's own and not a picture of them. What happens here is
- * that wall-clock seconds become a number of ticks, the runner is asked for
- * them, and what comes back is drawn.
+ * dropping are the game's own and not a picture of them.
  *
  * It is render state that outlives a frame, so it lives where the renderer can
- * clear it, and it clears both seats' `Effects` every time the loop wraps — a
- * rebuilt world starts `beat`, `tick` and `nextId` at 0 again (CLAUDE.md,
- * `test/restart.test.ts`).
+ * clear it, and it clears both seats' `Effects` every time the world underneath
+ * is rebuilt — which a rebuilt world needs, because `beat`, `tick` and `nextId`
+ * all start at 0 again (CLAUDE.md, `test/restart.test.ts`).
  */
 
 /** Ticks the slide from one screen to the other takes. */
 const SWITCH_TICKS = 26;
-/** Never advance more than this in one frame: a stall is not fast-forwarded. */
-const MAX_CATCH_UP = 12;
 
 export class GuideStage {
-  private run: SceneRun | null = null;
-  private scene: GuideScene | null = null;
-  private set: ControlSet | null = null;
-  private seen: { world: World; wave: number } | null = null;
-  private acc = 0;
-  private readonly events: SimEvent[] = [];
   private readonly seats: readonly [SeatView, SeatView] = [new SeatView(), new SeatView()];
+  private readonly play = new ScenePlay();
 
   /** Whether there is a rehearsal up — the field behind it is not drawn. */
   get active(): boolean {
-    return this.run !== null;
+    return this.play.active;
   }
 
   /**
-   * Bring the rehearsal up to this frame, or put it away. Called once per frame
-   * by the renderer, before anything is drawn.
+   * Bring the rehearsal up to this frame, or put it away. Once per frame.
+   *
+   * A `true` back from the play means the world underneath was rebuilt — a page
+   * replayed, a wave changed, the guide gone — and everything either seat's
+   * `Effects` was holding belongs to the world that has ended (CLAUDE.md,
+   * `test/restart.test.ts`).
    */
-  update(world: World, dt: number): void {
-    const id = guideHolds(world) ? WAVES[world.wave]?.guide?.scene : undefined;
-    if (id === undefined) {
-      this.clear();
-      return;
-    }
-    if (!this.run || this.seen?.world !== world || this.seen.wave !== world.wave) {
-      this.scene = guideScene(id);
-      this.set = controlSet(WAVES[world.wave]?.controls);
-      this.run = new SceneRun(sceneScript(id, world.wave, world.cfg));
-      this.seen = { world, wave: world.wave };
-      this.acc = 0;
-      for (const s of this.seats) s.reset();
-    }
-    this.events.length = 0;
-    this.acc += dt * this.run.world.cfg.tickHz;
-    const ticks = Math.min(MAX_CATCH_UP, Math.floor(this.acc));
-    this.acc -= ticks;
-    for (let i = 0; i < ticks; i++) {
-      if (!this.run.advance(this.events)) continue;
-      // The loop turned over. Everything either seat was holding belongs to the
-      // world that has just ended.
-      this.events.length = 0;
-      for (const s of this.seats) s.reset();
-    }
+  update(world: World, dt: number, role: ViewRole): void {
+    if (this.play.update(world, dt, role)) this.resetSeats();
   }
 
   clear(): void {
-    if (!this.run) return;
-    this.run = null;
-    this.scene = null;
-    this.set = null;
-    this.seen = null;
-    this.acc = 0;
-    this.events.length = 0;
+    if (this.play.clear()) this.resetSeats();
+  }
+
+  private resetSeats(): void {
     for (const s of this.seats) s.reset();
   }
 
   /**
    * The whole stage: the seat that is showing, the slide when it has just
-   * changed, the step's words beside their subject, and the hand.
+   * changed, the page's words beside their subject, the hand, and the bar the
+   * pages are turned by.
    *
    * `box` is the stage the viewer has. The rehearsal is laid out for the *seat*
    * it is showing rather than for the viewer's own role, because that is the
    * point of it — a player on the rig or on either phone is shown player 1's
-   * screen when the film is on player 1's screen.
+   * screen when the film is on player 1's screen. `role` is still needed, for
+   * the one line that is about the viewer rather than about the film: whether
+   * the screen on show is the phone in their own hand.
    */
-  draw(ctx: CanvasRenderingContext2D, box: Layout, time: number): void {
-    const run = this.run;
-    const scene = this.scene;
-    const set = this.set;
+  draw(ctx: CanvasRenderingContext2D, box: Layout, time: number, role: ViewRole): void {
+    const { run, scene, set, page } = this.play;
     if (!run || !scene || !set) return;
 
-    const step = stepAt(scene, run.tick);
+    // The page, not the tick: a page is what is being watched, and it holds its
+    // own words through the pause on the end of it.
+    const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, page))]!;
     const from = previousSeat(scene, step);
     const k = from === null ? 1 : smoothstep(Math.min(1, (run.tick - step.tick) / SWITCH_TICKS));
-    // The stage minus the gate's strip: the film is a whole phone screen, and
-    // the two circles get their own band under it rather than sitting on the
-    // one the film is teaching.
+    // The stage minus the nav bar: the film is a whole phone screen, and BACK,
+    // the page number and NEXT get their own band under it rather than sitting
+    // on the one the film is teaching.
     const l = computeLayout(
-      { width: box.width, height: Math.max(1, box.height - READY_BAR_H), dpr: 1 },
+      { width: box.width, height: Math.max(1, box.height - NAV_H), dpr: 1 },
       run.world.cfg,
       seatRole(step.seat),
     );
@@ -153,7 +123,8 @@ export class GuideStage {
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
-    drawSeatBanner(ctx, l, step.seat, from === null ? 1 : k);
+    drawSeatBanner(ctx, l, step.seat, from === null ? 1 : k, role);
+    drawGuideNav(ctx, box, page, scene.steps.length + 1);
   }
 
   private seat(
@@ -164,7 +135,7 @@ export class GuideStage {
     time: number,
     set: ControlSet,
   ): void {
-    const run = this.run;
+    const run = this.play.run;
     if (!run) return;
     const cfg = run.world.cfg;
     const tpb = (cfg.tickHz * 60) / cfg.bpm;
@@ -178,7 +149,7 @@ export class GuideStage {
       // A frame's own seconds, so a lobe eases at the speed it eases at on a
       // phone rather than at the speed the rehearsal's ticks happen to arrive.
       dt: 1 / 60,
-      events: this.events,
+      events: this.play.events,
       running: true,
       controls: set,
     });
@@ -191,9 +162,9 @@ function seatRole(seat: 1 | 2): ViewRole {
 }
 
 /**
- * The seat the film is sliding away from, or null when this step is not a
- * switch. Read off the step before rather than remembered, so the drawing holds
- * no state a wrap would have to clear.
+ * The seat the film is sliding away from, or null when this page is not a
+ * switch. Read off the page before rather than remembered, so the drawing holds
+ * no state a rebuild would have to clear.
  */
 function previousSeat(scene: GuideScene, step: SceneStep): 1 | 2 | null {
   const i = scene.steps.indexOf(step);

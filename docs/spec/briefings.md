@@ -175,6 +175,38 @@ past, and that is a tool decision rather than a game one: it is where somebody
 restarts a wave twenty times in an afternoon, and making them sit out the timer
 each time is what would get the whole opening switched off.
 
+### A guide with a rehearsal is a stack of pages
+
+A guide that carries a scene is not a film any more. It is **pages**, one per
+step of the rehearsal, and each seat has its own cursor into them
+(`world.brief.stepP1` / `stepP2`, both in the hash). A page repeats its own
+animation and its own words, with a short pause on the end of each turn, until
+the seat reading it presses NEXT; BACK goes back a page; the bar under the film
+says which page this is and how many there are.
+
+That is the owner's own arrangement, and the reasons are his: the film ran once
+at a tempo nobody could keep up with, and *every player has their own time to go
+through the tutorial, and just at the end both need to say they are ready.*
+
+**The last page is the gate, and it is the introduction.** Its picture is the
+game's own screen with the wave's number, its name and its sentence over it, and
+the READY button under them — so a guided wave has no separate introduction
+behind it, and crossing the gate starts the field. The line that says who has not
+answered yet is the loudest thing on that page after the wave's name, because
+two people reading at their own speeds means one of them is nearly always
+waiting.
+
+A guide made of prose — the other sixteen — is unchanged: one panel, the whole
+screen is the button, and the wave's introduction still stands behind it.
+`world.brief.steps` is what tells the two apart, and it is a count handed to
+`startWave` from `content`, never a scene: the simulation still never reads one.
+
+Replaying a page rebuilds the rehearsal's world and runs the ticks before the
+page silently (`SceneRun.restart`). There is no rewind, for the same reason
+there was none when the loop wrapped: a world is a large mutable thing with a
+random stream in it, and putting one back is a second definition of what a world
+is made of.
+
 ### Wave 1's guide, which is about the split
 
 `FIRST STEP` carries the guide the old catalogue called `opening` — the one
@@ -410,16 +442,23 @@ the world and the role, so it survives a restart by having nothing to survive �
 `Effects.reset()` has nothing of its own to clear, and §3.8 says that must stay
 true.
 
-The hit area is the whole stage, and it answers only the **guide**. A press
-during the introduction is dropped, because the introduction is not a thing to
-dismiss and a player who has just picked the phone up is exactly the person who
-would tap through the wave's name.
+The hit area answers only the **guide**. A press during the introduction is
+dropped, because the introduction is not a thing to dismiss and a player who has
+just picked the phone up is exactly the person who would tap through the wave's
+name.
 
-**The circles are indicators, never buttons.** A thumb anywhere on the screen
-fills this seat's own — shrinking the target to the drawn ring would be a
-regression dressed as precision. Both circles are drawn on both screens, which
-is what makes it a two-player gesture rather than two solo ones: you can see
-your partner is still reading.
+**On a guide made of prose the whole stage is the button, and the circles are
+indicators.** A thumb anywhere on the screen fills this seat's own — shrinking
+the target to the drawn ring would be a regression dressed as precision. On a
+**paged** guide it cannot be: BACK and NEXT are on the same screen, and a press
+anywhere that meant NEXT would put BACK out of reach on half of it. So there the
+targets are the drawn ones, and they come from `navButtons` and
+`readyButtonBox` — the same geometry the drawing uses, so a button is never
+answered where it is not drawn.
+
+Both circles are drawn on both screens either way, which is what makes it a
+two-player gesture rather than two solo ones: you can see your partner is still
+reading.
 
 Keyboard: space, as both seats at once, for a desk — one person at a desk is
 both seats, so it fills both circles, which is the same answer the director's
@@ -432,7 +471,8 @@ do it for the other.
 ### 3.4 Where it hooks into the game · built
 
 `startWave` opens the wave last, after the boss is installed, and is told
-whether the wave carries a guide — a boolean, not the words: the simulation
+whether the wave carries a guide and how many pages that guide has — a boolean
+and a count, not the words and not the scene: the simulation
 decides how many states hold the field and never reads one of them. `step` then
 refuses everything but the ack — the same rule THE MIRROR plays by while it is
 presenting — and the wave stands frozen on its first beat behind the opening.

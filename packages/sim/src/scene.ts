@@ -99,6 +99,31 @@ export class SceneRun {
   }
 
   /**
+   * Back to a tick of the loop, with everything that led to it having really
+   * happened: a fresh world from the same seed, then the ticks up to `toTick`
+   * run and thrown away.
+   *
+   * **This is what makes a page repeatable.** A guide is a stack of pages now
+   * and a seat reads one for as long as it likes (`guide-steps.ts`), so a page
+   * has to be played again from its own first tick — and the world it opens on
+   * is the world the ticks before it left, never a pose built to look like one.
+   * A rewind would be that pose: a world is a large mutable thing with a random
+   * stream in it, and putting one back is a second definition of what a world
+   * is made of. Replaying is a few hundred ticks of the real `step`, which is
+   * cheaper than it sounds and cannot be wrong.
+   */
+  restart(toTick: number): void {
+    this.world = build(this.script);
+    this.tick = 0;
+    this.next = 0;
+    const spent: SimEvent[] = [];
+    while (this.tick < Math.min(toTick, this.script.ticks - 1)) {
+      spent.length = 0;
+      this.advance(spent);
+    }
+  }
+
+  /**
    * One tick. Pushes what the world reported into `events` — the caller's
    * `Effects` want them and `world.events` is cleared by the next tick — and
    * answers whether the loop wrapped, which is when everything cached against

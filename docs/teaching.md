@@ -12,9 +12,11 @@
 
 ## What shipped
 
-A wave opens on its number, its name and its sentence, then — if it introduces
-something new — on a **guide**: three lines, split across the two screens,
-that name what the pair is about to meet and what each of them does about it.
+A wave opens on a **guide**, if it introduces something new, and on its number,
+its name and its sentence either way. A guide is three lines split across the
+two screens, naming what the pair is about to meet and what each of them does
+about it — or, where one carries a rehearsal, a stack of pages the pair turns
+itself, the last of which is the wave's name with the ready button under it.
 No dealt cards, no subject catalogue, no `taught` memory, no ordering rule.
 That is the whole of it, and `docs/spec/briefings.md` is where it is specified
 in full — the states, the two devices, the tests, the director panel. Nothing

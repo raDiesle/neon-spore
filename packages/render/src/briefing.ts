@@ -1,9 +1,18 @@
 import { WAVES } from "@neon-spore/content";
-import { guideHolds, introHolds, type World } from "@neon-spore/sim";
+import {
+  guideHolds,
+  guidePages,
+  guideStepped,
+  introHolds,
+  onReadyPage,
+  type World,
+} from "@neon-spore/sim";
 import type { GuideStage } from "./guide-scene.js";
 import type { Layout, ViewRole } from "./layout.js";
+import type { OpeningFx } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
-import { drawReadyBar, drawReadyGate, READY_FOOT_H } from "./ready-circles.js";
+import { drawReadyGate, READY_FOOT_H } from "./ready-circles.js";
+import { drawReadyPage } from "./ready-page.js";
 import { drawIntroduction } from "./wave-intro.js";
 import { wrapText } from "./wrap-text.js";
 
@@ -35,16 +44,24 @@ import { wrapText } from "./wrap-text.js";
  *
  * **A guide may carry a rehearsal instead of the panel**, and when it does
  * there is no panel at all: the film takes the whole stage, its words are drawn
- * inside the picture beside the things they explain, and the only thing over it
- * is the ready gate (`guide-scene.ts`, `guide-caption.ts`). The owner asked for
- * that directly — a card shrinks the game to a thumbnail and puts a paragraph
- * under it, and the eye reading the paragraph is not watching the thing it
- * describes. The three prose strings stay on the wave, because the sixteen
- * guides without a scene are still made of them.
+ * inside the picture beside the things they explain, and under it is the bar
+ * the pages are turned by (`guide-scene.ts`, `guide-caption.ts`,
+ * `guide-nav.ts`). The owner asked for that directly — a card shrinks the game
+ * to a thumbnail and puts a paragraph under it, and the eye reading the
+ * paragraph is not watching the thing it describes. The three prose strings
+ * stay on the wave, because the sixteen guides without a scene are still made
+ * of them.
+ *
+ * **Such a guide ends on a page of its own**, and that page is the wave's own
+ * name and sentence over the field with the ready button under them
+ * (`ready-page.ts`). It is where the introduction went: a stepped guide has
+ * already shown it, so it passes straight to the field.
  *
  * `scene` is a `GuideStage` the caller owns and has already brought up to this
- * frame; left out, a guide is exactly the words and the circles it was before
- * scenes existed.
+ * frame; `fx` is where the two clocks a still world cannot supply live — how
+ * long this page has been up, and the blobs a READY throws off
+ * (`opening-fx.ts`). Left out, a guide is exactly the words and the circles it
+ * was before scenes existed.
  */
 export function drawWaveOpening(
   ctx: CanvasRenderingContext2D,
@@ -53,15 +70,22 @@ export function drawWaveOpening(
   role: ViewRole,
   scene?: GuideStage,
   time = 0,
+  fx?: OpeningFx,
 ): void {
   if (introHolds(world)) {
-    drawIntroduction(ctx, l, world);
+    drawIntroduction(ctx, l, world, fx?.age ?? Number.POSITIVE_INFINITY, true);
     return;
   }
   if (!guideHolds(world)) return;
   if (scene?.active) {
-    scene.draw(ctx, l, time);
-    drawReadyBar(ctx, l, world, role);
+    scene.draw(ctx, l, time, role);
+    return;
+  }
+  // A stepped guide whose reader has reached the end of the film: the field is
+  // behind this rather than covered by a rehearsal, which is the whole point of
+  // the page (`ready-page.ts`).
+  if (guideStepped(world) && onReadyPage(world, role === "p2" ? 2 : 1)) {
+    drawReadyPage(ctx, l, world, role, fx, guidePages(world));
     return;
   }
   drawGuide(ctx, l, world, role);

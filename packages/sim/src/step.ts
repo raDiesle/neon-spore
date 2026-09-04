@@ -1,5 +1,5 @@
 import { beatMetronome, onBeat } from "./beat.js";
-import { briefHeard, briefingHolds, stepReady } from "./briefing.js";
+import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
@@ -39,6 +39,8 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   if (briefingHolds(world)) {
     for (const c of commands) {
       if (c.command.kind === "brief") briefHeard(world, c.player, c.command.on ?? true);
+      else if (c.command.kind === "guideStep")
+        guideStepHeard(world, c.player, c.command.back ?? false);
     }
     world.tick += 1;
     stepReady(world);

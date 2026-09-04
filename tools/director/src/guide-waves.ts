@@ -1,4 +1,4 @@
-import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildPods, buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
 
 /**
@@ -43,6 +43,9 @@ export function waveOpeningWorld(waveIndex: number): World {
     buildPods(waveIndex, CARD_CFG.cols),
     buildBoss(waveIndex, CARD_CFG.cols),
     WAVES[waveIndex]?.guide !== undefined,
+    // And how many pages that guide has, or the director would pose the one
+    // wave with a rehearsal as a guide made of prose (`sim/guide-steps.ts`).
+    waveGuideSteps(waveIndex),
   );
   return world;
 }

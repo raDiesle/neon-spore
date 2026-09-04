@@ -76,9 +76,13 @@ describe("captureFrames past a wave's opening", () => {
    * back with a picture, and it would be a picture of the field.
    */
   it("stands on the introduction instead of running past it", async () => {
+    // ALTERNATING, which carries no guide: its introduction is the only thing
+    // in front of the field. FIRST STEP cannot answer this any more — its guide
+    // is stepped, so the introduction is that guide's last page rather than a
+    // phase behind it (`sim/guide-steps.ts`).
     const { paths } = await captureFrames(
       baseUrl,
-      { wave: 0, ticks: 30, opening: "intro" },
+      { wave: 2, ticks: 30, opening: "intro" },
       join(scratchOut, "intro"),
     );
     expect(paths).toHaveLength(1);

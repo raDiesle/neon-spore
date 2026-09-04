@@ -1,4 +1,5 @@
-import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildPods, buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
+import { INTRO_SECONDS } from "@neon-spore/render";
 import {
   introHolds,
   resetRun,
@@ -35,11 +36,15 @@ import { reached, scored, updateProgress } from "./progress.js";
  */
 
 /**
- * How long the introduction stands. Long enough to read a short sentence
- * twice: at 2.6 s the old banner's hint was gone before anyone had finished
- * it, which made every wave feel like it started mid-sentence.
+ * How long the introduction stands — long enough to read a short sentence
+ * twice; at 2.6 s the old banner's hint was gone before anyone had finished it,
+ * which made every wave feel like it started mid-sentence.
+ *
+ * **The number lives in `render/wave-intro.ts` and is imported.** The words fade
+ * out over the last half-second of it, and the fade is drawn there while the
+ * countdown is run here — two places that have to agree about one duration,
+ * which is the definition of a number that should only be written once.
  */
-const INTRO_SECONDS = 5.5;
 
 /**
  * How long to wait, **in world ticks**, before asking again when the
@@ -101,6 +106,9 @@ export function createWaveProgression({
       buildPods(wave, cfg.cols),
       buildBoss(wave, cfg.cols),
       WAVES[wave]?.guide !== undefined,
+      // How many pages this wave's guide has, which is the whole of what the
+      // simulation knows about a rehearsal (`sim/guide-steps.ts`).
+      waveGuideSteps(wave),
     );
     left = INTRO_SECONDS;
     sentAtTick = -1;

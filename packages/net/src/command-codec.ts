@@ -96,6 +96,10 @@ export function decodeCommand(x: unknown): Command | null {
       return isBool(c.on) ? { kind: "prime", on: c.on } : null;
     case "brief":
       return optional(c.on, isBool) ? { kind: "brief", on: c.on as boolean | undefined } : null;
+    case "guideStep":
+      return optional(c.back, isBool)
+        ? { kind: "guideStep", back: c.back as boolean | undefined }
+        : null;
     case "valve":
       return isBool(c.on) && (c.dir === -1 || c.dir === 1)
         ? { kind: "valve", on: c.on, dir: c.dir }

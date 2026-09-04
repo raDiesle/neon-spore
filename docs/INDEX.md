@@ -190,6 +190,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-recoil.ts` | THE RECOIL's numbers: how many times a shot fails to kill it |
 | `packages/sim/src/creature-types.ts` | What a **body on the field** is made of |
 | `packages/sim/src/recoil.ts` | THE RECOIL: a slick or a bulb inside a sprung cage, and the first body a landed shot sends the **wrong way** |
+| `packages/sim/src/guide-steps.ts` | A guide the pair turns the pages of, one seat at a time |
 
 ### packages/content
 
@@ -229,6 +230,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
+| `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
 
 ### packages/render
 
@@ -314,7 +316,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/raster-load.ts` | Getting a baked atlas into a shape `drawImage` will take |
 | `packages/render/src/raster-probe.ts` | Two tiny images whose only job is to be decoded |
 | `packages/render/src/ready-circles.ts` | The ready gate a guide ends on: two circles, filling, and the wave waits until both say READY |
-| `packages/render/src/rock-impact.ts` | The last step of a rock's fall, replayed, and what becomes of the rock after it |
+| `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
@@ -400,8 +402,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
-| `packages/render/src/ship-marks.ts` | what letting go of a swelling would do: the slide arrows, the maw, the guard's bolt |
-| `packages/render/src/touch-hand.ts` | what a hand on the ship is shown as — read out of the rules that answer the lift, never a second copy |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
 | `packages/render/src/field-pose.ts` | the ship's eased pose: where the two lobes are and how the membrane feels, shared by the field and a guide's mini-screens |
@@ -417,7 +417,13 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lobe-shell.ts` | WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE |
 | `packages/render/src/recoil-vent.ts` | The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a shot met it in |
 | `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
+| `packages/render/src/guide-nav.ts` | BACK, the page number, and NEXT: the bar a stepped guide is turned by |
+| `packages/render/src/guide-play.ts` | The clock a rehearsal runs on, and the page it is running |
+| `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
+| `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
+| `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
+| `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 
 ### packages/net
 
@@ -517,6 +523,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/tally.ts` | how far this device has got, up to the room every few seconds |
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
 | `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
+| `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
 
 ### apps/server
 
@@ -609,8 +616,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
 | `tools/director/src/demo-panel.ts` | DEMOS — one wave and one set of switches per mechanic, opened in one click |
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md`, `docs/tower-defence.md` |
-| `tools/director/src/field-controls-page.ts` | ON THE FIELD: every control touched on the field itself, and which branch of `touch.ts` answers it |
-| `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE: a control the game was played with before something replaced it |
+| `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/gallery-clips.ts` | "COLLECTED LOOKS" on the OTHER GRAPHICS tab: hand-painted frame sequences from outside this repo |
 | `tools/director/src/gallery-page.ts` | "COLLECTED LOOKS": external hand-painted frame sequences |
@@ -849,5 +855,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
 | `tools/director/src/brush-cards.ts` | What one brush's **card** says: the colour it is stroked in, the shape-sheet subjects it draws |
 | `tools/director/src/stage-point.ts` | WHERE A CLICK ON THE DIRECTOR'S CANVAS ACTUALLY LANDS |
+| `tools/director/src/stage-opening.ts` | A press on the stage while a wave's opening is up |
+| `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE — the other list on the CONTROLS tab, and the smaller one |
 
 <!-- index:code:end -->
