@@ -1,12 +1,12 @@
 import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
-import { type Creature, caromHeading, type SimConfig } from "@neon-spore/sim";
-import { creatureRadius } from "./creature-place.js";
-import { hazed } from "./depth.js";
+import { type Creature, caromHeading, type SimConfig, spanOf } from "@neon-spore/sim";
+import { depthScale, drawnRow, hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { rockRadius } from "./torch.js";
 
 /**
  * THE CAROM's crust: the rock shell a slick or a bulb is sealed inside, and
@@ -44,22 +44,28 @@ import { PALETTE, STROKE } from "./palette.js";
  * drawing done twice (`docs/decisions.md`, and `restart.test.ts` is the gate).
  */
 
-/** How far the shell stands off the body it holds, as a multiple of its
- * radius. Wide enough that the ring is plainly a thing around the body rather
- * than a rim on it, and inside the fifth of a lane the gutter between two
- * columns is worth (`depth.ts`) — a crust that touched its neighbour would
- * argue with the column the pair have just agreed on. */
-const SHELL_MUL = 1.5;
-/** The hole in the middle, as a share of the shell. Just over half, so the
- * ring reads as thick rock and the body inside still draws at a size the
- * 20 px nameability floor is nowhere near. */
-const CORE_MUL = 0.62;
+/**
+ * The hole in the middle, as a share of the shell.
+ *
+ * The shell itself is **`rockRadius` at the body's own span** and not a
+ * multiple of the living radius, which is the one number in this file that had
+ * to be got right rather than chosen: a carom is two columns wide (`colSpan`)
+ * and the rock it becomes keeps that width, so a crust drawn at one tile would
+ * be a body the shield covers two columns of and the pair sees one of — and
+ * the moment it cracked, the picture would jump to twice the size.
+ *
+ * Just under three quarters of it, so the living body inside — drawn at the
+ * ordinary one tile by `drawLiving` — stands clear of the ring with a little
+ * room around it, and what is left is a band of rock thick enough to read as
+ * rock at the top of the field.
+ */
+const CORE_MUL = 0.72;
 /** How far the streak reaches behind it, in shell radii. Two: about half a
  * lane at the top of the field and most of one at the bottom, which is the
  * distance that reads as speed without reaching into the column next door. */
 const TRAIL_MUL = 2.0;
-/** How much of the trail's own colour survives at its far end. */
-const TRAIL_ALPHA = 0.34;
+/** How much of the trail's own colour survives where it leaves the shell. */
+const TRAIL_ALPHA = 0.5;
 
 /**
  * The crust and its streak, over a body that is already drawn. `time` is
@@ -77,11 +83,11 @@ export function drawCaromCrust(
   beatPhase: number,
   near: number,
 ): void {
-  // The body's own drawn radius, so the shell is around what is actually there
-  // rather than around a nominal tile — `creatureRadius` is the same rule the
-  // grip's ring is drawn at, and a crust that disagreed with it would be a
-  // crust a thumb grabs through.
-  const r = creatureRadius(l, c, beatPhase, cfg) * SHELL_MUL;
+  // The rock's own radius at this body's width, times the row's perspective —
+  // `drawMeteor` reads exactly the same two numbers, so the crust and the rock
+  // that falls out of it are the same size and the crack changes nothing about
+  // how much of the lane the thing covers.
+  const r = rockRadius(l, spanOf(c)) * depthScale(cfg, l, drawnRow(c, beatPhase));
   const spin = sinHash(c.id) * 6.3;
   const turn = spin + time * 0.35;
   const dir = caromHeading(c);
@@ -146,7 +152,11 @@ export function drawCaromCrust(
  */
 function drawTrail(ctx: CanvasRenderingContext2D, r: number, dir: number, glow: string): void {
   const back = -dir * r * TRAIL_MUL;
-  const grad = ctx.createLinearGradient(0, 0, back, r * TRAIL_MUL * 0.5);
+  const tip = -r * TRAIL_MUL * 0.5;
+  // Along the wedge rather than across it. The gradient used to run down and
+  // to the *right* while the wedge pointed up and to the left, so every point
+  // in it sampled the transparent end and the streak was drawn invisibly.
+  const grad = ctx.createLinearGradient(0, 0, back, tip);
   grad.addColorStop(0, glow);
   grad.addColorStop(1, "rgba(0,0,0,0)");
   ctx.save();
@@ -157,7 +167,7 @@ function drawTrail(ctx: CanvasRenderingContext2D, r: number, dir: number, glow: 
   // Behind and *above*: the body is falling as well as crossing, so a streak
   // laid flat along the row would describe a different creature. The wedge
   // leans back up the diagonal the simulation actually walked it down.
-  ctx.lineTo(back, -r * TRAIL_MUL * 0.5);
+  ctx.lineTo(back, tip);
   ctx.closePath();
   ctx.fillStyle = grad;
   ctx.fill();
