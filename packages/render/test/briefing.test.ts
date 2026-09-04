@@ -179,7 +179,9 @@ describe("a wave's opening on the stage", () => {
       const { guide } = opening(i);
       walkPages(ctx, l, guide, "p1", new GuideStage(), 200);
     }
-  });
+    // One screen rather than three, so it costs a third of the walk above —
+    // and it grew past the default five seconds two films after that one did.
+  }, 30_000);
 
   it("puts a rehearsal away the moment the reader reaches the gate", () => {
     const stage = new GuideStage();

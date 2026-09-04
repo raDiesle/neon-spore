@@ -5,16 +5,20 @@ import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
+import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
+import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
+import { THE_VANE } from "./scenes/the-vane.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_WARD } from "./scenes/the-ward.js";
+import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_COLOURS } from "./scenes/two-colours.js";
 
 /**
@@ -55,7 +59,11 @@ export type SceneId =
   | "thePurge"
   | "theWard"
   | "theEcho"
-  | "theGhost";
+  | "theGhost"
+  | "theWisp"
+  | "theGyre"
+  | "theRecoil"
+  | "theVane";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -75,6 +83,10 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theWard: THE_WARD,
   theEcho: THE_ECHO,
   theGhost: THE_GHOST,
+  theWisp: THE_WISP,
+  theGyre: THE_GYRE,
+  theRecoil: THE_RECOIL,
+  theVane: THE_VANE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

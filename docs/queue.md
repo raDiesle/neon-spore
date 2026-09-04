@@ -245,3 +245,63 @@ was meant to be.
 
 It is worth doing first, before the next look lands: a session that cannot take
 an honest frame cannot show the owner anything, and this one could not.
+
+## A rehearsal cannot press a round's own controls, so no boss can be filmed
+
+- **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
+- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes.test.ts`
+
+`commandFor` in `scene-script.ts` is a switch over seven control ids — the
+standard panel's — and it throws on anything else. Every round with a panel of
+its own is therefore unfilmable: THE GAUGE's valve, THE FLEET's four arrows and
+salvo, SNAKE's two turns, PINBALL's latch and launch. Eight waves carry a boss
+and none of them can carry a rehearsal, which is the largest remaining hole in
+the tutorial arc now that twenty-one ordinary waves have one.
+
+Extend the switch to every id in `controls-round.ts`, taking the command each
+one already sends in `apps/game/src/input-bindings.ts` rather than inventing
+one — that file is the single copy of what a press means, and a second copy
+here would be the exact drift `purity.test.ts` carries a table against. Then
+write one boss film to prove it: THE GAUGE is the smallest, two buttons and a
+call, and its round has no field to time against.
+
+`test/scenes.test.ts` already refuses a scene that presses a control the wave's
+own panel has not got, so a film authored against the wrong set fails loudly
+rather than drawing a hand over nothing.
+
+## A rehearsal cannot show a held cord, so THE LID has no film
+
+- **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
+- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`, `packages/render/src/guide-thumb.ts`
+
+Three things in this game are taken hold of and carried rather than pressed:
+THE LID's cord, THE MAZE's string and THE WARDEN's rope. All three are the
+`drag` command, all three name a `DragTarget`, and the lid's also names the
+creature the cord hangs off — an id, which no author can know, exactly as a
+grip's target is an id no author can know.
+
+The grip solved that already: `SceneAct.grip` names a column and a span of
+ticks, and `SceneRun` finds the body standing in that column at the moment the
+hand goes down (`aimed` in `sim/scene.ts`). Do the same for a drag — a target,
+a column where the target is a lid, a from-position and an until — and draw the
+hand on the handle the way `gripThumb` draws it on the body. THE LID is the one
+ordinary wave left in act five with no rehearsal, and the two bosses become
+reachable with it.
+
+## `act-3.ts` is on the 250-line ceiling with nothing left to give
+
+- **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
+- **Files:** `packages/content/src/waves/act-3.ts`, `packages/content/src/waves.ts`, `tools/director/src/serialize.ts`
+
+Adding a single `scene:` line to a wave in act three has now cost two rounds of
+shaving a sentence out of a comment to stay under the limit. That is the
+warning sign the limits test exists to give: the file is full, and the next
+change to it — a wave, a field, a line — will need the same shave again.
+
+CLAUDE.md's answer is already written down: a full act file gets a fourth act
+beside it rather than an entry in `KNOWN_LONG`. Cut act three after THE VEIL,
+put the rest in `packages/content/src/waves/act-6.ts`, concatenate it in
+`waves.ts`, and teach `tools/director/src/serialize.ts` which wave indices live
+in which file — it regenerates one act file at a time and holds that mapping.
+`test/waves.test.ts` checks ids are unique and the order is unchanged, so a
+split that moved a wave would fail rather than reorder the game.

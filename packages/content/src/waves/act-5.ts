@@ -84,6 +84,7 @@ export const WAVES_ACT_5: Wave[] = [
       both: "Six bodies bolted round a turning wheel, red and cyan alternating. It stops falling in the middle of the field, walks a diamond there, and turns faster the longer it is up — sinking a row each lap until it grinds along the ship.",
       p1: "SUCK slows the wheel for four beats and does not care where you are standing. Spend it on the beat you have both agreed to fire on, then be in the column — not the other way round.",
       p2: "Do not call where a body is, call where it will be. One position round the rim per beat, and the colour two along is the other one — so say the colour and the beat together, or it has turned by the time they hear it.",
+      scene: "theGyre",
     },
     entries: [
       { beat: 0, col: 3, kind: "gyre", color: null },
@@ -118,6 +119,7 @@ export const WAVES_ACT_5: Wave[] = [
       both: "A slick or a bulb in a sprung cage. The matching colour throws it two rows back up the field and a lane to one side instead of killing it, and the body inside turns over to the other colour on the way. Three times: the cage loses a rib on each of the first two, and the third blows the whole frame off — what falls the rest of the way is a plain body, and the next shot kills it.",
       p1: "Do not slide off the column when it lands. It bounces a lane left or right and nothing tells you which, so watch where it comes down and get back under it before it starts falling again.",
       p2: "The colour flips every time one of yours lands. Say the new one out loud before you reload — the trigger you are holding stopped working on your own hit.",
+      scene: "theRecoil",
     },
     entries: [
       { beat: 0, col: 3, kind: "recoil", color: "red" },

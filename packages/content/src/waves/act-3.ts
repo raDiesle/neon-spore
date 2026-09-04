@@ -20,10 +20,9 @@ import type { Wave } from "../wave-types.js";
  *    apart, one beat apart, the same red. Nothing but the ring tells them
  *    apart, so player 1 cannot guess and has to be told *which* — the moment
  *    the disguise stops being a trick and becomes the mechanic.
- * 3. Beats 14–20, the squeeze. Three cyan bulbs across the left half, the
- *    middle one a lie, and two reds after them at the far edges. Every beat
- *    spent on the middle one is a beat of the run either side of it, and by
- *    now the field is busy enough that those beats are not spare.
+ * 3. Beats 14–20, the squeeze. Three cyan bulbs across the left half with the
+ *    middle one a lie, then two reds at the far edges. Every beat spent on the
+ *    lie is a beat of the run either side, and the field is busy by then.
  *
  * A lure entry names its kind and its colour and nothing else: the body it
  * wears follows from the colour, the way every real arrival's does
@@ -182,6 +181,7 @@ export const WAVES_ACT_3: Wave[] = [
       both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in. The rocks under it fall two rows a beat, not one.",
       p1: "Your strip still says where a rock was aimed. Fold it before you say it, or you have named a column nothing lands in.",
       p2: "Same for what you see coming. Count from the arm, not from the edge — and be in the column early, because there is no time to slide late.",
+      scene: "theVane",
     },
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },

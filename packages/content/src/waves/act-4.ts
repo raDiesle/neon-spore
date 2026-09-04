@@ -147,6 +147,7 @@ export const WAVES_ACT_4: Wave[] = [
       both: "One of you cannot see this one at all. It never comes down at you — it jumps, and lands somewhere else on the field, and the lettered grid under everything is how you say where.",
       p1: "You will not see it once. Take the letter, put the cannon on it and wait — the square you are told is where it is going, not where it is, so being there early is the whole game. The box hunting the grid is not it.",
       p2: "Only your screen has it, and the square it will jump to next is marked from the moment it lands, with the arc drawn to it. Say that square immediately — they have the whole dwell to get there. Either colour kills it.",
+      scene: "theWisp",
     },
     entries: [
       { beat: 0, col: 3, kind: "wisp", color: null },
