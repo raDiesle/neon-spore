@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · cf0c58d — The wisp, the gyre, the recoil and the vane rehearse themselves
+
+Twenty-one of the game's waves now open on a film of themselves, and these four are the ones whose lesson is a place nobody can point at yet. THE WISP puts the cannon on the square two beats before the hop and lets the hop happen, which is the opposite of every reflex the pair has built up by then; its third page is on her screen rather than his because he cannot watch it arrive, and not watching is the point of having gone there. THE GYRE turns, is slowed by SUCK, and is shot inside the four beats that buys. THE RECOIL fires twice and kills nothing: each hit throws the cage two rows back up the field and turns the body over to the other colour, so the film ends inside the second undoing rather than on a corpse. THE VANE lets the arm fold one arrival right across the field and walks the cannon to where it came out.
+
 ## 2026-09-04 · 4997f90 — The two remaining pods, the echo and the ghost rehearse themselves
 
 THE PURGE fills the field and then empties it in one frame: four bodies come down and none of them is shot at, because the only shot in the film is the one that frees the pod — which is the wave's other half, a shot spent here being a creature still coming. THE WARD ends on a page about something not happening: the shield slides into the rock's column, nobody presses anything, and the rock is turned away, because the pod is holding the trigger player 1 has been pressing since wave four. THE ECHO runs two bodies so it can show both answers — one left alone on the left of the field, dividing while the pair reads about it, and one taken on its first pass before it has ever split. THE GHOST shows the same instant on the two phones, and on player 1's the ring is drawn round nothing at all, which is exactly the picture he has.
