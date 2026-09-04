@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · f479aef — The first boss rehearses itself, and the film that cannot fire says why
+
+BULB QUEEN opens on a film of herself: she swells and opens, the two marks under her middle appear on player 2's screen and not on player 1's, and a torch drops out of a wing on a clock of its own and takes the hull while the pair is still talking about the marks. That last page is the film's one shared page and it is spent well — the torch is the thing on her that neither screen owns, and the bar dropping is the sentence *she is doing two things at once and you are answering one of them*.
+
 ## 2026-09-04 · cf0c58d — The wisp, the gyre, the recoil and the vane rehearse themselves
 
 Twenty-one of the game's waves now open on a film of themselves, and these four are the ones whose lesson is a place nobody can point at yet. THE WISP puts the cannon on the square two beats before the hop and lets the hop happen, which is the opposite of every reflex the pair has built up by then; its third page is on her screen rather than his because he cannot watch it arrive, and not watching is the point of having gone there. THE GYRE turns, is slowed by SUCK, and is shot inside the four beats that buys. THE RECOIL fires twice and kills nothing: each hit throws the cage two rows back up the field and turns the body over to the other colour, so the film ends inside the second undoing rather than on a corpse. THE VANE lets the arm fold one arrival right across the field and walks the cannon to where it came out.
