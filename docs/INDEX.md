@@ -261,6 +261,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/shield-then-cannon.ts` | SHIELD, THEN CANNON's rehearsal: the other way to reach everything |
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN SIX PAGES |
+| `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 
 ### packages/render
 

@@ -11,6 +11,7 @@ import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
+import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
@@ -73,7 +74,8 @@ export type SceneId =
   | "theMirror"
   | "theFleet"
   | "snake"
-  | "shieldThenCannon";
+  | "shieldThenCannon"
+  | "theLance";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -102,6 +104,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theFleet: THE_FLEET,
   snake: SNAKE,
   shieldThenCannon: SHIELD_THEN_CANNON,
+  theLance: THE_LANCE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
