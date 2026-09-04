@@ -4,6 +4,7 @@ import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
+import { ROUND_DRAWS } from "./round-draw.js";
 
 /**
  * One seat's screen inside a guide's rehearsal, drawn through the shipping
@@ -38,6 +39,17 @@ export class SeatView {
     this.effects.ingest(view.events, l, view.time, (col, row) => idAt(world, col, row), world.cfg);
     this.effects.update(view.dt, l);
     this.effects.coordGrid.update(view.dt, wispOnField(world));
+
+    // A round replaces the whole picture rather than standing over the field,
+    // and it draws its own panel with it — so a rehearsal of one ends here for
+    // the same reason `canvas2d.ts` does: the cheapest way to be sure the
+    // field is gone is for none of the passes below to run. Without this,
+    // SNAKE's film was an empty field with a caption over it.
+    const round = ROUND_DRAWS[world.boss?.kind ?? ""];
+    if (round !== undefined) {
+      round(ctx, l, view);
+      return;
+    }
 
     const isArmed = guardArmed(world);
     const isOpen = mawOpen(world);

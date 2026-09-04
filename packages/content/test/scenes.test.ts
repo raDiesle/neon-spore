@@ -120,26 +120,29 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
-  it("spends at most one page on what both screens share", () => {
+  it("spends at most one page on what the hull has left", () => {
     // The film exists to teach a pair that they hold two different halves, and
-    // a page anchored at the hull or at what the hull has left shows both of
-    // them the same picture. The owner cut the one page that did — "the game
-    // scene shows exactly the same for both players ... remove this, also for
-    // future tutorials" — and then asked for it back, because without it the
-    // film never says what a miss costs: "the step is missing to show that the
-    // enemy hits the ship and it loses health".
+    // the bar saying what the hull has left is the one readout that is
+    // *identical* on both screens. The owner cut the one page that pointed at
+    // it — "the game scene shows exactly the same for both players ... remove
+    // this, also for future tutorials" — and then asked for it back, because
+    // without it the film never says what a miss costs: "the step is missing
+    // to show that the enemy hits the ship and it loses health".
     //
-    // One, then. A film built out of shared pages teaches nothing about the
-    // split; a film with none of them never names the price of getting it
-    // wrong. `body` is not shared — a body is what one of them can see and the
-    // other has to be told about, which is the split itself.
+    // One, then. A film built out of pages about the cost teaches nothing
+    // about the split; a film with none of them never names the price of
+    // getting it wrong.
+    //
+    // `hull` is deliberately not counted with it. That anchor is a *place* —
+    // the middle of the field — and what stands there is not always the same
+    // on the two screens: THE FLEET's chart fills it and carries the ships on
+    // one phone and nothing but water on the other, which is the split itself
+    // rather than an escape from it.
     for (const id of SCENE_IDS) {
-      const shared = SCENES[id].steps.filter(
-        (s) => s.anchor.at === "hull" || s.anchor.at === "health",
-      );
+      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "health");
       expect(
-        shared.length,
-        `${id} spends ${shared.length} pages on the whole ship`,
+        paid.length,
+        `${id} spends ${paid.length} pages on what the hull has left`,
       ).toBeLessThanOrEqual(1);
     }
   });

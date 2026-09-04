@@ -1,4 +1,10 @@
 export {
+  type ControlPress,
+  controlHeld,
+  controlHold,
+  controlPress,
+} from "./control-command.js";
+export {
   CONTROL_SETS,
   type ControlSet,
   type ControlSetId,

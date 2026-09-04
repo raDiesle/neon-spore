@@ -2,9 +2,11 @@ import type { GuideScene, SceneStep } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { SALVAGE } from "./scenes/salvage.js";
+import { SNAKE } from "./scenes/snake.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
+import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
@@ -67,7 +69,9 @@ export type SceneId =
   | "theRecoil"
   | "theVane"
   | "bulbQueen"
-  | "theMirror";
+  | "theMirror"
+  | "theFleet"
+  | "snake";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -93,6 +97,8 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theVane: THE_VANE,
   bulbQueen: BULB_QUEEN,
   theMirror: THE_MIRROR,
+  theFleet: THE_FLEET,
+  snake: SNAKE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

@@ -1,4 +1,4 @@
-import { controlSetForWave } from "@neon-spore/content";
+import { controlHold, controlPress, controlSetForWave } from "@neon-spore/content";
 import {
   hitSlab,
   type Layout,
@@ -48,6 +48,10 @@ export interface GaugeBinding {
  * showing. In a room the lockstep scheduler drops the half this device is not
  * sitting in; alone, one person plays both, which is the test view.
  */
+/** This slab's two commands, from the one table that knows what a control
+ * says (`content/src/control-command.ts`). */
+const valveOf = (dir: -1 | 1) => controlHold(dir < 0 ? "gaugeLeft" : "gaugeRight");
+
 export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeBinding): void {
   /** Pointers currently holding a valve, and which way each pushes. */
   const turning = new Map<number, -1 | 1>();
@@ -66,7 +70,7 @@ export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeB
     const dir = turning.get(id);
     if (dir === undefined) return;
     turning.delete(id);
-    buffer.push(1, { kind: "valve", on: false, dir });
+    buffer.push(1, valveOf(dir).up);
   };
 
   canvas.addEventListener("pointerdown", (e) => {
@@ -81,12 +85,12 @@ export function bindGauge({ canvas, buffer, world, layout, stage, role }: GaugeB
       const slab = slabFor(slabs, id);
       if (slab && hitSlab(slab, p.x, p.y)) {
         turning.set(e.pointerId, dir);
-        buffer.push(1, { kind: "valve", on: true, dir });
+        buffer.push(1, valveOf(dir).down);
         return;
       }
     }
     const call = slabFor(slabs, "gaugeCall");
-    if (call && hitSlab(call, p.x, p.y)) buffer.push(2, { kind: "call" });
+    if (call && hitSlab(call, p.x, p.y)) buffer.push(2, controlPress("gaugeCall").down);
   });
 
   // A thumb that slid off the slab is a thumb that stopped turning. Without

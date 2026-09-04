@@ -94,6 +94,7 @@ export const WAVES_ACT_2: Wave[] = [
       both: "A chart of squares over the water, lettered across and numbered down, with a fleet hidden in it. Sink all five before the clock runs out or the hull pays for it.",
       p1: "You can see every ship and you hold the only trigger. You cannot move the sights one square — so say the square, out loud, and keep saying it until it is under them.",
       p2: "You move the sights, one square a press, and you are shown nothing but water. Read him back where you are — the letter and the number are on your screen too.",
+      scene: "theFleet",
     },
     entries: [],
     boss: {

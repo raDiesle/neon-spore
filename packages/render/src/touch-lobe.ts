@@ -1,11 +1,18 @@
-import type { ControlId } from "@neon-spore/content";
+import { type ControlId, controlPress } from "@neon-spore/content";
 import type { Command } from "@neon-spore/sim";
 import { assertNever } from "./never.js";
 import type { Hold } from "./touch.js";
 
 /**
- * What pressing a lobe says. A lookup, not a rule — every entry is the command
- * that control has always sent. Split out of `touch.ts` on line count.
+ * Which lobes a finger can press, and what each of them says.
+ *
+ * The *saying* is not here any more: `content/src/control-command.ts` is the
+ * one copy of what every control on every panel sends, because there used to
+ * be four of them and a guide's rehearsal could not reach any of the round
+ * ones. What is left here is the half that is genuinely this file's — which
+ * ids a lobe answers at all, and which of them a thumb stays on.
+ *
+ * Split out of `touch.ts` on line count.
  *
  * The switch is exhaustive over `ControlId`, on purpose: two strips
  * (`cannon`, `shield`) are answered directly by `touchDown` before
@@ -17,30 +24,23 @@ import type { Hold } from "./touch.js";
 export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | null {
   switch (id) {
     case "guard":
-      return { command: { kind: "guard" }, hold: null };
     case "intake":
-      return { command: { kind: "intake" }, hold: null };
-    case "lance":
-      return { command: { kind: "prime", on: true }, hold: { kind: "lance" } };
     case "fireRed":
-      return { command: { kind: "fire", color: "red" }, hold: null };
     case "fireCyan":
-      return { command: { kind: "fire", color: "cyan" }, hold: null };
+      return { command: controlPress(id).down, hold: null };
+    case "lance":
+      return { command: controlPress(id).down, hold: { kind: "lance" } };
     // THE FLEET's five. The salvo is one press and is over the moment it
     // happens; each arrow is one square and is over just as fast — there is
     // nothing held here, which is why a hold would be wrong: a thumb resting
     // on an arrow that walked the sights would take the counting out of the
     // fight, and the counting is the fight (`sim/fleet.ts`).
     case "salvo":
-      return { command: { kind: "salvo" }, hold: null };
     case "aimLeft":
-      return { command: { kind: "aim", dcol: -1, drow: 0 }, hold: null };
     case "aimRight":
-      return { command: { kind: "aim", dcol: 1, drow: 0 }, hold: null };
     case "aimUp":
-      return { command: { kind: "aim", dcol: 0, drow: -1 }, hold: null };
     case "aimDown":
-      return { command: { kind: "aim", dcol: 0, drow: 1 }, hold: null };
+      return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":
     case "gaugeLeft":

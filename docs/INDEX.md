@@ -255,6 +255,9 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-wisp.ts` | THE WISP's rehearsal: you call the square it is still falling toward |
 | `packages/content/src/scenes/bulb-queen.ts` | BULB QUEEN's rehearsal: the first boss, and the first film with no shot in it |
 | `packages/content/src/scenes/the-mirror.ts` | THE MIRROR's rehearsal: Simon Says, played on the pair's own controls |
+| `packages/content/src/control-command.ts` | What pressing a control *says*, for every control on every panel — one copy, here |
+| `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
+| `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 
 ### packages/render
 

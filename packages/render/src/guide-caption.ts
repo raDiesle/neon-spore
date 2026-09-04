@@ -7,6 +7,7 @@ import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { podCenter } from "./pods.js";
 import { radarBlips } from "./radar-blip.js";
+import { slabFor, slabPanel } from "./slabs.js";
 import { wrapText } from "./wrap-text.js";
 
 /**
@@ -71,7 +72,11 @@ export function drawCaption(
     ctx.strokeStyle = PALETTE.pod;
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(point.x, point.y, point.r + 4 - 2 * k, 0, Math.PI * 2);
+    // An ellipse rather than a circle, because one subject is not round: a
+    // round's slab is a wide rectangle, and a circle big enough to contain one
+    // is a ring with the button rattling around inside it.
+    const grow = 4 - 2 * k;
+    ctx.ellipse(point.x, point.y, (point.rx ?? point.r) + grow, point.r + grow, 0, 0, Math.PI * 2);
     ctx.stroke();
   }
 
@@ -123,7 +128,10 @@ export function drawCaption(
 interface AnchorPoint {
   x: number;
   y: number;
+  /** Half the height of the ring, and what the box stands clear of. */
   r: number;
+  /** Half its width, where the subject is wider than it is tall. */
+  rx?: number;
   clear: number;
 }
 
@@ -190,6 +198,20 @@ function anchorPoint(
   }
   if (anchor.at === "control") {
     const def = control(anchor.control);
+    if (def.form === "slab") {
+      // A round's own panel: no band, no strip, a grid of squares instead
+      // (`slabs.ts`). The ring goes round the whole button rather than round a
+      // circle inside it, because a slab has no circle in it.
+      const slab = slabFor(slabPanel(l, set, l.role), anchor.control);
+      if (!slab) return null;
+      return {
+        x: slab.x + slab.w / 2,
+        y: slab.y + slab.h / 2,
+        r: slab.h / 2,
+        rx: slab.w / 2,
+        clear: CLEAR_STRIP,
+      };
+    }
     if (def.form === "lobe") {
       const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === anchor.control);
       return lobe ? { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR } : null;

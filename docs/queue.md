@@ -246,30 +246,6 @@ was meant to be.
 It is worth doing first, before the next look lands: a session that cannot take
 an honest frame cannot show the owner anything, and this one could not.
 
-## A rehearsal cannot press a round's own controls, so no boss can be filmed
-
-- **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
-- **Taken:** 2026-09-04, claude/queue-a-rehearsal-cannot-press-a-rounds-own-controls-s
-- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes.test.ts`
-
-`commandFor` in `scene-script.ts` is a switch over seven control ids — the
-standard panel's — and it throws on anything else. Every round with a panel of
-its own is therefore unfilmable: THE GAUGE's valve, THE FLEET's four arrows and
-salvo, SNAKE's two turns, PINBALL's latch and launch. Eight waves carry a boss
-and none of them can carry a rehearsal, which is the largest remaining hole in
-the tutorial arc now that twenty-one ordinary waves have one.
-
-Extend the switch to every id in `controls-round.ts`, taking the command each
-one already sends in `apps/game/src/input-bindings.ts` rather than inventing
-one — that file is the single copy of what a press means, and a second copy
-here would be the exact drift `purity.test.ts` carries a table against. Then
-write one boss film to prove it: THE GAUGE is the smallest, two buttons and a
-call, and its round has no field to time against.
-
-`test/scenes.test.ts` already refuses a scene that presses a control the wave's
-own panel has not got, so a film authored against the wrong set fails loudly
-rather than drawing a hand over nothing.
-
 ## A rehearsal cannot show a held cord, so THE LID has no film
 
 - **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
@@ -330,30 +306,27 @@ Measure it, never guess it: build the scene, run it through `SceneRun` and read
 the events back before settling the ticks. The film-watching test in
 `test/scenes.test.ts` will fail if the shot stops landing.
 
-## THE FLEET, SNAKE and PINBALL have no rehearsal — a round's own panel
+## PINBALL has no rehearsal, and it is the last round without one
 
-- **Found:** 2026-09-04, claude/tutorials-the-mirror
-- **Taken:** 2026-09-04, claude/queue-the-fleet-snake-and-pinball-have-no-rehearsal-a
-- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-4.ts`
+- **Found:** 2026-09-04, claude/queue-the-fleet-snake-and-pinball-have-no-rehearsal-a
+- **Files:** `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes.ts`, `packages/content/src/waves/act-4.ts`
 
-Three of the four rounds with a panel of their own still open on prose. They
-are blocked on the same thing — `commandFor` in `scene-script.ts` is a switch
-over the standard panel's seven controls and throws on anything else — so do
-the entry "a rehearsal cannot press a round's own controls" first, and then
-these three in this order, because that is the order they get harder:
+THE FLEET and SNAKE now open on films of themselves and PINBALL does not, for
+one reason: two of its four slabs are the bucket's, and the bucket is *held*.
+Do "a rehearsal cannot show a held cord" first — the same shape serves both,
+and `controlPress` already knows what a held slab sends going down and coming
+up (`content/src/control-command.ts`).
 
-1. **THE FLEET** (act two). Every control is a single press: `salvo` and the
-   four `aim` arrows. The chart is lettered and numbered on both screens and
-   only one of them has the ships on it, so the film is the two screens side by
-   side and then a square being walked to and fired at.
-2. **SNAKE** (act four). `snakeLeft`, `snakeRight`, `snakeFire`, `snakeMaw`,
-   all single presses. The body never stops, so the film's timing is the
-   round's rather than a fall's.
-3. **PINBALL** (act four). Two of its four are *held* — the bucket's — so it
-   needs the held-act shape as well, the way THE LID does.
+Everything else is in place. A round draws its own picture inside a rehearsal
+now (`render/src/guide-seat.ts` consults `ROUND_DRAWS`), a caption can be
+pointed at a slab, and the ghost hand lands in the middle of one. Read
+`packages/content/src/scenes/snake.ts` first: it is the closest shape — a round
+with a panel of its own, timed against a clock that never stops — and its
+comments say which ticks were measured and why.
 
-`test/scenes.test.ts` already refuses a scene that presses a control the wave's
-own panel has not got, so a film authored against the wrong set fails loudly.
+The wave's own sentence is *the thing you fire from is the thing you have to
+catch it with*, so the film has to end with the bucket going back under the
+ball rather than with the shot. Measure it, never guess it.
 
 ## THE GAUGE, THE MAZE and THE WARDEN have no rehearsal — a held control
 

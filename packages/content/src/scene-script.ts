@@ -1,4 +1,5 @@
 import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
+import { controlPress } from "./control-command.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-types.js";
@@ -69,23 +70,11 @@ function controlOf(act: SceneAct): ControlId {
 }
 
 function commandFor(act: SceneAct, cols: number): Command {
-  const col = actCol(act, cols);
-  switch (controlOf(act)) {
-    case "cannon":
-      return { kind: "cannonCol", col };
-    case "shield":
-      return { kind: "shieldCol", col };
-    case "fireRed":
-      return { kind: "fire", color: "red" };
-    case "fireCyan":
-      return { kind: "fire", color: "cyan" };
-    case "guard":
-      return { kind: "guard" };
-    case "intake":
-      return { kind: "intake" };
-    default:
-      throw new Error(`no scene command for control ${act.control}`);
-  }
+  // `control-command.ts` is the one copy of what a press says, for every panel
+  // in the game. It used to be a seven-case switch here, which is why no wave
+  // with a round of its own could carry a rehearsal: THE GAUGE's valve, THE
+  // FLEET's arrows, SNAKE's turns and PINBALL's latch all threw.
+  return controlPress(controlOf(act), actCol(act, cols)).down;
 }
 
 /**

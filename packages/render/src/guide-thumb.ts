@@ -8,8 +8,9 @@ import {
 import { gripsCreature, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
-import { bandLobes, type Layout, tileCX } from "./layout.js";
+import { bandLobes, type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { slabFor, slabPanel } from "./slabs.js";
 
 /**
  * The hand a guide's rehearsal is driven by, and the one rule it plays by:
@@ -85,6 +86,13 @@ export function thumbAnchors(scene: GuideScene, set: ControlSet, l: Layout): Anc
 function pointOn(l: Layout, set: ControlSet, act: SceneAct): { x: number; y: number } | null {
   if (!act.control) return null;
   const def = control(act.control);
+  if (def.form === "slab") {
+    // A round's own panel. The middle of the square, which is where a thumb
+    // actually lands — `slabs.ts` is the one place a slab's box is worked out,
+    // and `hitSlab` tests a finger against exactly that box.
+    const slab = slabFor(slabPanel(l, set, seatRole(def.player)), act.control);
+    return slab ? { x: slab.x + slab.w / 2, y: slab.y + slab.h / 2 } : null;
+  }
   if (def.form === "lobe") {
     const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === act.control);
     return lobe ? { x: lobe.circle.x, y: lobe.circle.y } : null;
@@ -211,4 +219,11 @@ export function drawGhostThumb(
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.stroke();
   ctx.globalAlpha = 1;
+}
+
+/** The role a seat's own screen is drawn as. `slabPanel` asks for one because
+ * a rig shows both halves and a phone shows one; a film is always showing one
+ * seat's screen, so it is that seat's. */
+function seatRole(player: 1 | 2): ViewRole {
+  return player === 1 ? "p1" : "p2";
 }

@@ -1,4 +1,4 @@
-import { controlSetForWave } from "@neon-spore/content";
+import { controlPress, controlSetForWave } from "@neon-spore/content";
 import {
   hitSlab,
   type Layout,
@@ -49,10 +49,10 @@ const SLABS: readonly {
   player: 1 | 2;
   command: Command;
 }[] = [
-  { id: "snakeLeft", player: 2, command: { kind: "snakeTurn", dir: "left" } },
-  { id: "snakeRight", player: 2, command: { kind: "snakeTurn", dir: "right" } },
-  { id: "snakeFire", player: 1, command: { kind: "snakeFire" } },
-  { id: "snakeMaw", player: 1, command: { kind: "snakeMaw" } },
+  { id: "snakeLeft", player: 2, command: controlPress("snakeLeft").down },
+  { id: "snakeRight", player: 2, command: controlPress("snakeRight").down },
+  { id: "snakeFire", player: 1, command: controlPress("snakeFire").down },
+  { id: "snakeMaw", player: 1, command: controlPress("snakeMaw").down },
 ];
 
 export function bindSnake({ canvas, buffer, world, layout, stage, role }: SnakeBinding): void {

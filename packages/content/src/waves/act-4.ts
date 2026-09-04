@@ -187,6 +187,7 @@ export const WAVES_ACT_4: Wave[] = [
       both: "The ship shrinks into a snake and it never stops. There are things to shoot, things to swallow, and meteors that can be neither — clearing the first two is the round. Touch anything you should not have, or take a point with the mouth shut, and it starts again.",
       p1: "You have FIRE and MAW and you cannot steer. Only your screen has the enemies and the points on it: say where the next one is and which of the two it is, then shoot it or open on it. A shot stops dead on a meteor.",
       p2: "You have both turns and you drive on their word alone — your screen has the body and the meteors, and nothing else. LEFT and RIGHT are a quarter turn each, from wherever it is already pointing.",
+      scene: "snake",
     },
     entries: [],
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },

@@ -1,4 +1,4 @@
-import { controlSetForWave } from "@neon-spore/content";
+import { controlHold, controlPress, controlSetForWave } from "@neon-spore/content";
 import {
   hitSlab,
   type Layout,
@@ -39,6 +39,10 @@ export interface PinballBinding {
   role: () => ViewRole;
 }
 
+/** This slab's two commands, from the one table that knows what a control
+ * says (`content/src/control-command.ts`). */
+const slideOf = (dir: -1 | 1) => controlHold(dir < 0 ? "pinLeft" : "pinRight");
+
 export function bindPinball({ canvas, buffer, world, layout, stage, role }: PinballBinding): void {
   /** Pointers currently holding the bucket, and which way each pushes. */
   const sliding = new Map<number, -1 | 1>();
@@ -57,7 +61,7 @@ export function bindPinball({ canvas, buffer, world, layout, stage, role }: Pinb
     const dir = sliding.get(id);
     if (dir === undefined) return;
     sliding.delete(id);
-    buffer.push(1, { kind: "slide", on: false, dir });
+    buffer.push(1, slideOf(dir).up);
   };
 
   canvas.addEventListener("pointerdown", (e) => {
@@ -72,17 +76,17 @@ export function bindPinball({ canvas, buffer, world, layout, stage, role }: Pinb
       const slab = slabFor(slabs, id);
       if (slab && hitSlab(slab, p.x, p.y)) {
         sliding.set(e.pointerId, dir);
-        buffer.push(1, { kind: "slide", on: true, dir });
+        buffer.push(1, slideOf(dir).down);
         return;
       }
     }
     const latch = slabFor(slabs, "pinLatch");
     if (latch && hitSlab(latch, p.x, p.y)) {
-      buffer.push(1, { kind: "latch" });
+      buffer.push(1, controlPress("pinLatch").down);
       return;
     }
     const launch = slabFor(slabs, "pinLaunch");
-    if (launch && hitSlab(launch, p.x, p.y)) buffer.push(2, { kind: "launch" });
+    if (launch && hitSlab(launch, p.x, p.y)) buffer.push(2, controlPress("pinLaunch").down);
   });
 
   // A thumb that slid off the slab is a thumb that stopped pushing. Without
