@@ -3,6 +3,7 @@ import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
 import { buildDemos, buildHowTo, buildKeys, buildWaves } from "./menu-pages.js";
 import { el, type MenuPage, sporeSvg } from "./menu-parts.js";
+import { buildSettings, type SettingsHooks } from "./menu-settings.js";
 
 /**
  * The menu's markup, built here rather than written into index.html.
@@ -31,6 +32,8 @@ export interface MenuHandlers {
   /** A demonstration was picked out of the list. */
   onDemo: (id: MechanicId) => void;
   onSeat: (role: ViewRole) => void;
+  /** What the settings page needs of the rest of the app. */
+  settings: SettingsHooks;
 }
 
 export interface MenuDom {
@@ -106,6 +109,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     demos: buildDemos((p) => show(p), h.demos, h.onDemo),
     keys: buildKeys((p) => show(p)),
     how: buildHowTo((p) => show(p)),
+    settings: buildSettings((p) => show(p), h.settings),
   };
   const show = (page: MenuPage): void => {
     for (const [name, node] of Object.entries(pages)) node.classList.toggle("on", name === page);
@@ -131,7 +135,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const { seatBlock, paintSeat, lockSeats } = buildSeats(h.onSeat);
   rootPage.append(seatBlock);
 
-  inner.append(pages.root, pages.waves, pages.demos, pages.keys, pages.how);
+  inner.append(pages.root, pages.waves, pages.demos, pages.keys, pages.how, pages.settings);
   document.body.append(root);
 
   return {

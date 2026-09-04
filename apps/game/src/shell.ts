@@ -4,12 +4,13 @@ import type { ViewRole } from "@neon-spore/render";
 import type { SimConfig, World } from "@neon-spore/sim";
 import { type DemoRow, demoRows } from "./demo-menu.js";
 import { bindHoldCard } from "./hold.js";
-import { bindInstall } from "./install.js";
+import { bindInstall, type Installer } from "./install.js";
 import { bindJoinScreen, type JoinScreen, roomRequested } from "./join.js";
 import { createLink, type Link } from "./link.js";
 import { bindMainMenu, type MainMenu, opensOnMenu } from "./menu.js";
 import type { CommandSource } from "./relay.js";
 import type { RunState } from "./run-state.js";
+import { hasMotionChoice, readSettings } from "./settings.js";
 
 /**
  * Everything around the field: the menu, the room screen, the bad-line card
@@ -37,6 +38,8 @@ export interface ShellParts {
   seat: () => ViewRole;
   setSeat: (role: ViewRole) => void;
   openTuning: () => void;
+  /** The mixer's mute, for the settings page's SOUND switch. */
+  setSound: (on: boolean) => void;
   /** Switches the run to a demonstration's config and opens its wave. */
   openDemo: (id: MechanicId) => void;
   /**
@@ -46,8 +49,23 @@ export interface ShellParts {
   onStart: (player: PlayerId) => void;
 }
 
+/**
+ * The motion choice, put on the body before anything animates.
+ *
+ * Only when this device has actually made one: with nothing stored the phone's
+ * own `prefers-reduced-motion` decides, which is what decided before the
+ * switch existed. See `hasMotionChoice`.
+ */
+function applyMotion(): void {
+  if (!hasMotionChoice()) return;
+  document.body.dataset.motion = readSettings().motion ? "on" : "off";
+}
+
 export function bindShell(p: ShellParts): Link {
+  applyMotion();
   let joinScreen: JoinScreen | null = null;
+  /** The home-screen offer, once the browser has made one. See `install.ts`. */
+  let installer: Installer | null = null;
   let menu: MainMenu | null = null;
 
   const link = createLink({
@@ -81,7 +99,9 @@ export function bindShell(p: ShellParts): Link {
   });
 
   // The home-screen shortcut (`install.ts`), and the room the address named.
-  void bindInstall();
+  void bindInstall().then((made) => {
+    installer = made;
+  });
   joinScreen.invite();
 
   /**
@@ -106,6 +126,18 @@ export function bindShell(p: ShellParts): Link {
         link.join(room);
       },
       leaveRoom: () => link.leave(),
+      settings: {
+        setSound: p.setSound,
+        // The animations are CSS, so the switch is a class. `data-motion` and
+        // not a plain class, so it can win in *both* directions against the
+        // phone's own `prefers-reduced-motion` — a player who asked their
+        // phone for less motion and wants this one to move must be able to.
+        setMotion: (on) => {
+          document.body.dataset.motion = on ? "on" : "off";
+        },
+        install: () => installer?.offer(),
+        canInstall: () => installer?.available() ?? false,
+      },
       openTuning: p.openTuning,
       demos,
       openDemo: p.openDemo,

@@ -24,9 +24,23 @@ interface InstallPrompt extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-export async function bindInstall(): Promise<void> {
+export async function bindInstall(): Promise<Installer> {
   registerWorker();
-  bindPrompt();
+  return bindPrompt();
+}
+
+/**
+ * The home-screen offer, for whoever wants to make it.
+ *
+ * The chip over the field is the just-in-time prompt and stays; the settings
+ * page is the durable place a player looks for this, and both ask the same
+ * held event.
+ */
+export interface Installer {
+  /** Whether the browser has offered, and the offer is still standing. */
+  available: () => boolean;
+  /** Make it. Does nothing when there is nothing to make. */
+  offer: () => void;
 }
 
 /**
@@ -38,10 +52,19 @@ function installed(): boolean {
   return legacy || matchMedia("(display-mode: standalone)").matches;
 }
 
-function bindPrompt(): void {
+function bindPrompt(): Installer {
   const chip = document.getElementById("installChip") as HTMLButtonElement | null;
-  if (!chip) return;
   let pending: InstallPrompt | null = null;
+
+  const offer = (): void => {
+    const prompt = pending;
+    if (!prompt) return;
+    // One prompt per event: the browser will not honour a second, so the offer
+    // goes away whichever way the player answers.
+    pending = null;
+    chip?.classList.remove("on");
+    void prompt.prompt().catch(() => {});
+  };
 
   window.addEventListener("beforeinstallprompt", (e) => {
     // Holding the event is what lets the offer be made where it belongs rather
@@ -49,23 +72,16 @@ function bindPrompt(): void {
     e.preventDefault();
     if (installed()) return;
     pending = e as InstallPrompt;
-    chip.classList.add("on");
+    chip?.classList.add("on");
   });
 
   window.addEventListener("appinstalled", () => {
     pending = null;
-    chip.classList.remove("on");
+    chip?.classList.remove("on");
   });
 
-  chip.addEventListener("click", () => {
-    const prompt = pending;
-    if (!prompt) return;
-    // One prompt per event: the browser will not honour a second, so the offer
-    // goes away whichever way the player answers.
-    pending = null;
-    chip.classList.remove("on");
-    void prompt.prompt().catch(() => {});
-  });
+  chip?.addEventListener("click", offer);
+  return { available: () => pending !== null, offer };
 }
 
 /**

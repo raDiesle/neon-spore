@@ -93,6 +93,12 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       run: () => a.show("keys"),
     },
     {
+      key: "settings",
+      label: "SETTINGS",
+      desc: "Sound, motion, buzz, your name — and the way to forget all of it.",
+      run: () => a.show("settings"),
+    },
+    {
       key: "tuning",
       label: "TUNING",
       desc: "Tempo, the guard window, the intake window — the sliders, while it runs.",

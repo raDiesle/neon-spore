@@ -5,6 +5,7 @@ import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
 import { roomLine } from "./join-words.js";
 import { menuEntries } from "./menu-entries.js";
+import type { SettingsHooks } from "./menu-settings.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
@@ -51,6 +52,8 @@ export interface MenuBindings {
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
+  /** What the settings page needs of the rest of the app — see `menu-settings.ts`. */
+  settings: SettingsHooks;
   /** One row per mechanic — see `demo-menu.ts`. */
   demos: DemoRow[];
   /** Switches the run to the demonstration's config and opens its wave. */
@@ -146,6 +149,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     demos: b.demos,
     onWave: play,
     onDemo: playDemo,
+    settings: b.settings,
     onSeat: (role) => {
       b.setSeat(role);
       dom.paintSeat(role);

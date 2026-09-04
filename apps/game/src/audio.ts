@@ -14,12 +14,15 @@
 
 import { Mixer } from "@neon-spore/audio";
 import type { SimEvent, World } from "@neon-spore/sim";
+import { readSettings } from "./settings.js";
 
 export interface GameAudio {
   frame: (world: World, events: readonly SimEvent[]) => void;
   /** A run is starting over; nothing remembered from the last one is true. */
   restarted: () => void;
   toggleMute: () => boolean;
+  /** Turn sound on or off outright. The settings page's switch. */
+  setSound: (on: boolean) => void;
 }
 
 /**
@@ -31,6 +34,9 @@ export interface GameAudio {
  */
 export function bindAudio(canvas: HTMLCanvasElement, seat: () => "p1" | "p2" | "test"): GameAudio {
   const mixer = new Mixer();
+  // A player who turned it off last time meant it. The `M` key still works and
+  // still does not persist: it is the desk's shortcut, not the setting.
+  mixer.setMuted(!readSettings().sound);
   const asSeat = (): 1 | 2 | null => {
     const role = seat();
     // `test` is both halves on one screen, so it hears both halves. A room
@@ -59,5 +65,6 @@ export function bindAudio(canvas: HTMLCanvasElement, seat: () => "p1" | "p2" | "
       mixer.setMuted(!mixer.muted);
       return mixer.muted;
     },
+    setSound: (on) => mixer.setMuted(!on),
   };
 }

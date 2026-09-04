@@ -133,6 +133,7 @@ const testPanel = bindTestControls({ world, jumpToWave, run });
  * one knot around the link and they are tied in `shell.ts`.
  */
 const link = bindShell({
+  setSound: (on) => audio.setSound(on),
   cfg,
   world,
   buffer,

@@ -472,16 +472,93 @@ body.menu-open .key-hint {
    browser that has been told not to animate must be given the finished state
    rather than nothing at all. */
 @media (prefers-reduced-motion: reduce) {
-  #menu .sky::after,
-  #menu h1::before,
-  #menu h1::after,
-  #menu .page.on,
-  #menu .entry {
+  /* `:not([data-motion="on"])` so the settings page's switch wins in *both*
+     directions: a player who asked their phone for less motion and wants this
+     one to move anyway must be able to say so, and a rule that only ever turns
+     motion off cannot hear them. Nothing stored means the phone decides, which
+     is what it decided before this switch existed. */
+  body:not([data-motion="on"]) #menu .sky::after,
+  body:not([data-motion="on"]) #menu h1::before,
+  body:not([data-motion="on"]) #menu h1::after,
+  body:not([data-motion="on"]) #menu .page.on,
+  body:not([data-motion="on"]) #menu .entry {
     animation: none;
   }
-  #menu .entry {
+  body:not([data-motion="on"]) #menu .entry {
     transition: none;
   }
+}
+
+/* And the other direction: a phone that was told nothing, by a player who has
+   asked this game for less motion. */
+body[data-motion="off"] #menu .sky::after,
+body[data-motion="off"] #menu h1::before,
+body[data-motion="off"] #menu h1::after,
+body[data-motion="off"] #menu .page.on,
+body[data-motion="off"] #menu .entry {
+  animation: none;
+}
+body[data-motion="off"] #menu .entry {
+  transition: none;
+}
+
+/* SETTINGS: one switch per row, with what it means underneath. */
+#menu .setting {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  padding: 14px;
+  border: 1px solid #2b2450;
+  border-radius: 10px;
+}
+#menu .setting .switch {
+  justify-self: start;
+  padding: 10px 14px;
+  border: 1px solid #3b3163;
+  border-radius: 8px;
+  background: none;
+  font:
+    600 12px "Courier New",
+    monospace;
+  letter-spacing: 0.14em;
+  color: #9c8fd6;
+  cursor: pointer;
+}
+#menu .setting .switch.on {
+  border-color: #22d6e7;
+  color: #22d6e7;
+}
+#menu .setting .switch.danger {
+  border-color: #ff5470;
+  color: #ff5470;
+}
+#menu .setting .switch:disabled {
+  border-color: #2b2450;
+  color: #4b4177;
+  cursor: default;
+}
+#menu .setting .s {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #8b7fc4;
+}
+#menu .setting input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #3b3163;
+  border-radius: 8px;
+  background: #0e0a22;
+  font:
+    600 14px "Courier New",
+    monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8bdf5;
+}
+#menu .setting label.sub {
+  margin: 0;
+  color: #6f639f;
 }
 
 /* HOW TO PLAY: two paragraphs and the two seats between them. The seats are
