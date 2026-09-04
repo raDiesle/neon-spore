@@ -2,7 +2,9 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { captureFrames } from "../capture.js";
+import { chromium } from "playwright-core";
+import { captureFrames, findChrome } from "../capture.js";
+import { clearOpening, settleLaunch } from "../opening.js";
 
 /**
  * The gap this landing closes: `bun run check` stayed green the whole time
@@ -100,6 +102,39 @@ describe("captureFrames past a wave's opening", () => {
     );
     expect(paths).toHaveLength(3);
     for (const path of paths) expect(await Bun.file(path).exists()).toBe(true);
+  }, 30_000);
+
+  /**
+   * The rings, and the reason they were in every picture this tool ever took.
+   *
+   * Crossing the ready gate throws two of them — one violet, one amber — over
+   * the top two thirds of the field, and they run on the **frame** clock. The
+   * capture steps the simulation and paints once per photograph, so it handed
+   * the animation a sixtieth of a second per picture and never got past it:
+   * still there 2500 ticks in. This drives the same handle and asks the page
+   * itself, which is the only place that knows.
+   */
+  it("paints the wave's arrival out, which no number of ticks would", async () => {
+    const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+    try {
+      const page = await browser.newPage();
+      await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
+      await page.waitForFunction(() => Boolean(window.neonSpore));
+      await page.evaluate(() => window.neonSpore?.jumpToWave(0));
+      await clearOpening(page);
+
+      const launching = () => page.evaluate(() => window.neonSpore?.launching?.() ?? null);
+      expect(await launching(), "the gate was crossed and nothing is arriving").toBe(true);
+      // Ticks are the wrong clock, which is the whole of the bug: the wave is
+      // ten seconds old and the rings have not moved.
+      await page.evaluate(() => window.neonSpore?.advance(600));
+      expect(await launching(), "600 ticks moved a frame-clock animation").toBe(true);
+
+      await settleLaunch(page);
+      expect(await launching(), "the field is still behind two rings").toBe(false);
+    } finally {
+      await browser.close();
+    }
   }, 30_000);
 
   it("refuses a guide the wave has not got, rather than photographing the field", async () => {

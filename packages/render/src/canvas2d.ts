@@ -55,6 +55,20 @@ export class Canvas2DRenderer implements Renderer {
   }
 
   /**
+   * Whether the wave is still arriving — the two rings a crossed gate throws
+   * over the field (`opening-fx.ts`).
+   *
+   * It runs on the frame clock and no part of it is in the world, so a
+   * headless caller stepping the simulation cannot see it and cannot wait it
+   * out: `bun run frames` photographed every wave through it, two enormous
+   * rings over the top two thirds of every picture the tool has ever taken.
+   * Asking is how it paints them out (`apps/game/src/handle.ts`).
+   */
+  get launching(): boolean {
+    return this.effects.opening.launching;
+  }
+
+  /**
    * Whether the wave on screen has just (re)started, so everything transient
    * this renderer holds belongs to a run that no longer exists (`Effects.reset`
    * says what goes wrong when it is kept). Three ways in, because the hosts

@@ -212,6 +212,7 @@ installTestingHandle({
   progression,
   collect: (events) => frameEvents.push(...events),
   paint,
+  launching: () => renderer.launching,
 });
 
 startLoop(

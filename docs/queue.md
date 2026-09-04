@@ -107,35 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## `bun run frames` photographs every wave through the frozen launch animation
-
-- **Found:** 2026-09-04, claude/recoil-enemy-destruction-animation-39cb91
-- **Files:** `tools/frames/capture.ts`, `tools/frames/opening.ts`, `packages/render/src/opening-fx.ts`
-
-Every capture this tool takes now has two enormous rings — one violet, one
-amber — laid over the top two thirds of the field, with the wave's specimen
-hanging inside them. They are `OpeningFx.drawLaunch`, the wave arriving after
-the pair crosses the ready gate (`canvas2d.ts`, behind `opening.launching`).
-
-The cause is that the launch runs on the *frame* clock and this tool does not
-turn one. `clearOpening` correctly waits until `world.brief.phase` is play, and
-then `advance(n)` steps the simulation while `paint` is called only at the
-moment each picture is taken — so `OpeningFx.update(view.dt, …)` receives a
-sixtieth of a second per captured frame and the launch never gets far enough to
-end. A strip of eight frames advances it by 0.13 s, so it is still there in the
-last picture, and it was still there 2500 ticks into a wave.
-
-What to do: after `clearOpening` and before the first advance, paint the
-opening out — call `ns.paint()` in a loop until `effects.opening.launching` is
-false, or expose the launch's remaining time on the handle and drive it the way
-`advanceOpening` drives the introduction's clock. Cap the loop and throw the
-way `clearOpening` does rather than spinning. Then a capture of any wave shows
-the field alone, which is what every picture this tool has ever been asked for
-was meant to be.
-
-It is worth doing first, before the next look lands: a session that cannot take
-an honest frame cannot show the owner anything, and this one could not.
-
 ## A rehearsal cannot show a held cord, so THE LID has no film
 
 - **Found:** 2026-09-04, claude/tutorials-wisp-gyre-lid-recoil
