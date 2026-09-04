@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · a647453 — The top of player two's chamber was a lit band where player one has a dark one
+
+The amber hull ended in `#241000`, and that stop is now the colour the panel opens on as well, so it was drawing a brown band right under the gold rim — the one place on the screen the join was still visible. It goes a shade deeper. The slime hanging off the membrane takes the tissue's own colours rather than the ship's rim, for the same reason the spill does: a rim is the brightest thing on a seat and the drips were reading as gold rather than as slime.
+
+## 2026-09-04 · 39eaeaf — Player two's chamber was a lit brown field, not a dark one
+
+Gold at the same hex energy as violet is a much lighter colour — `#F8B65A` against `#A666F8` is 189 against 126 in luminance — so the first pass of the seat's tissue gave player two a panel visibly brighter than player one's, when the only thing that should differ between the two is hue. Every new stop is matched by value to the violet it stands opposite.
+
+## 2026-09-04 · 38f38a7 — The ship and the panel are one piece, and player two's is gold throughout
+
+The membrane between the hull and the control panel had a lit rim traced along it, and the chamber below opened on a colour of its own — a bright line with a step in value under it, which is two separate ways of saying the ship stops here and a box begins. The line is gone. The contour survives only as the shape the tissue is cut to, and the chamber's first colour is now the hull's last one, so the join has nothing in it to see; what is left saying where the ship ends is light spilling through the membrane into the top of the panel.
+
 ## 2026-09-04 · 379d00d — The crust is drawn at the width the shield has to cover
 
 A carom is two columns wide (`colSpan`) and the rock it becomes keeps that width, but the crust was drawn at `creatureRadius` — one tile, whatever the span — so the pair saw one lane's worth of a body the shield covers two lanes of, and the picture would have doubled in size the instant it cracked. It is `rockRadius(l, spanOf(c))` now, the same two numbers `drawMeteor` reads, so nothing about the footprint changes when the shell comes off.
