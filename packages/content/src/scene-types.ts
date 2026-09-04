@@ -75,6 +75,19 @@ export interface SceneAct {
    */
   toMilli?: number;
   /**
+   * The tick the carry is *finished*, when that is not the tick the hand lets
+   * go. The messages spread over `tick`..`by` and then stop; the hand stays
+   * where it left them until `until`.
+   *
+   * Two clocks rather than one, because two of the three handles need them
+   * apart. A lid's plates shut the instant the cord is released, so a film has
+   * to fire while it is still held — and THE MAZE's wheel unlocks on the next
+   * *movement* after a click, so a hand that carried on past the column took
+   * it back off the pair. Absent, the carry runs to the release, which is a
+   * hand that arrives and immediately lets go.
+   */
+  by?: number;
+  /**
    * The tick the thumb lifts.
    *
    * A grip and a drag always say when they let go — a hold with no end is a
@@ -130,6 +143,9 @@ export type SceneAnchor =
    * one swelling while the hand presses the other.
    */
   | { at: "ship"; control: ControlId }
+  /** A handle on the field, wherever the hand has carried it — the maze's
+   * string, the warden's rope or a lid's cord (`render/handles.ts`). */
+  | { at: "handle"; target: DragTarget }
   /**
    * The warning strip along the top edge. It points at the blip when this
    * screen carries one and at the middle of the strip when it does not, which

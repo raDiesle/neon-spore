@@ -1,7 +1,16 @@
-import { NO_TETHER } from "@neon-spore/sim";
-import { hitCircle, type Layout } from "./layout.js";
+import {
+  type DragTarget,
+  lidHandleMilli,
+  lidIsHeld,
+  NO_TETHER,
+  occupiesCol,
+  type World,
+  wardenHandleMilli,
+} from "@neon-spore/sim";
+import { fieldPoint, handleRadius } from "./handle-draw.js";
+import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
-import { mazeStringCircle } from "./maze-string.js";
+import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
 import { tetherHandleCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -114,4 +123,51 @@ function lidCordUnder(l: Layout, x: number, y: number, field: Field): Touch | nu
     },
     hold: { kind: "drag", target: "lidString", player: 1, originX: x, originY: y, id: best },
   };
+}
+
+/**
+ * Where a handle is *standing*, as opposed to where it rests.
+ *
+ * `handleUnder` above answers where a finger may grab, and that is always the
+ * resting circle: by the time a handle has swung the pointer is captured and
+ * nothing is hit-tested again. This answers the other question, and two things
+ * ask it — the ghost hand in a guide's rehearsal, and the caption pointing at
+ * one. A thumb drawn at the rest while the cord it is holding swings away is a
+ * hand that has visibly let go.
+ *
+ * Each of the three comes out of the file that draws it, so the hand cannot
+ * stand where the handle is not. Null wherever the handle is not on the field:
+ * the wheel between rounds, a warden with no line, a wave with no eye in it.
+ */
+export function handleCircle(
+  l: Layout,
+  world: World,
+  target: DragTarget,
+  beatPhase: number,
+  col?: number,
+): Circle | null {
+  const cfg = world.cfg;
+  if (target === "mazeString") {
+    const m = world.boss?.kind === "maze" ? world.boss : null;
+    if (m === null || m.phase !== "read") return null;
+    const rest = mazeStringCircle(l, cfg);
+    return { x: mazeStringHandle(l, cfg, m).x, y: rest.y, r: rest.r };
+  }
+  if (target === "wardenTether") {
+    const b = world.boss?.kind === "warden" ? world.boss : null;
+    if (b === null || b.tetherId === NO_TETHER) return null;
+    const at = fieldPoint(l, wardenHandleMilli(world, b));
+    return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
+  }
+  // A cord hangs off a body, so which body has to be said: the one in the
+  // column the film named, and otherwise the first on the field.
+  const lid = world.creatures.find(
+    (c) => c.kind === "lid" && (col === undefined || occupiesCol(c, col)),
+  );
+  if (!lid) return null;
+  // Held, the handle is wherever the hand carried it; loose, it hangs under
+  // the body and follows it down, which is `lidCordCircle`'s own answer.
+  if (!lidIsHeld(lid)) return lidCordCircle(l, cfg, lid, beatPhase);
+  const at = fieldPoint(l, lidHandleMilli(cfg, lid));
+  return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
 }

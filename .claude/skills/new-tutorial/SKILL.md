@@ -188,6 +188,11 @@ authored:
   between `tick` and `until` rather than arriving, because the parting *is* the
   picture.
 
+A drag has **two clocks**: `by` is when the carry finishes and `until` is when
+the hand lets go. They are apart wherever a film has to act while a handle is
+still held — a lid's plates shut the instant the cord goes, and the maze's
+wheel unlocks on the next movement after a click.
+
 The captions for those point at `{ at: "held" }`, `{ at: "ship", control }` and
 the pod, the radar strip or a round's slab as the case may be — never at a
 coordinate. `packages/render/src/caption-anchor.ts` is the list.

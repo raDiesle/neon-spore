@@ -41,6 +41,26 @@ const SWING_TILES = 1.5;
  * swings while it is dragged and that costs nothing: by then the pointer is
  * captured and nothing is hit-tested again.
  */
+/**
+ * Where the handle actually stands: the resting circle carried by however far
+ * the hand has taken it, bounded by the swing the cord has in it.
+ *
+ * The handle sits under the finger on **both** screens, so the navigator
+ * watches the pilot pull rather than only the wheel's answer to it — and a
+ * guide's rehearsal reads the same answer, so the thumb it draws is on the
+ * handle rather than beside it (`handles.ts`).
+ */
+export function mazeStringHandle(
+  l: Layout,
+  cfg: SimConfig,
+  m: MazeState,
+): { x: number; off: number } {
+  const rest = mazeStringCircle(l, cfg);
+  const swing = l.tile * SWING_TILES;
+  const off = Math.max(-swing, Math.min(swing, (m.dragFromMilli * l.tile) / 1000));
+  return { x: rest.x + off, off };
+}
+
 export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
   const d = mazeDrum(l, cfg);
   return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: handleRadius(l, cfg) };
@@ -67,11 +87,7 @@ export function drawMazeString(
   if (m.phase !== "read") return;
   const rest = mazeStringCircle(l, cfg);
   const d = mazeDrum(l, cfg);
-  // The handle sits under the finger on **both** screens, so the navigator
-  // watches the pilot pull rather than only the wheel's answer to it.
-  const swing = l.tile * SWING_TILES;
-  const off = Math.max(-swing, Math.min(swing, (m.dragFromMilli * l.tile) / 1000));
-  const x = rest.x + off;
+  const { x, off } = mazeStringHandle(l, cfg, m);
   const live = m.dragging ? PALETTE.pod : PALETTE.hullRim;
 
   // Slack, so a pull bows the cord instead of swinging a lever. Built as a

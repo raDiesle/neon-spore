@@ -1,6 +1,7 @@
 import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { handleCircle } from "./handles.js";
 import { hullBarBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
@@ -96,6 +97,14 @@ export function anchorPoint(
     const at = shipCircle(l, world, anchor.control);
     if (!at) return null;
     return { x: at.x, y: at.y, r: at.r, clear: CLEAR };
+  }
+  if (anchor.at === "handle") {
+    // The cord, the rope or the string, wherever it is standing — the same
+    // answer the hand holding it gets (`handles.ts`), so the ring and the
+    // thumb can never be in two places.
+    const at = handleCircle(l, world, anchor.target, beatPhase);
+    if (!at) return null;
+    return { x: at.x, y: at.y, r: at.r + 6, clear: CLEAR };
   }
   if (anchor.at === "pod") {
     // The first one hanging, which is the only one any wave has ever had at

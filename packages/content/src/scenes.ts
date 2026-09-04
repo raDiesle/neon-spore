@@ -14,7 +14,9 @@ import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
+import { THE_LID } from "./scenes/the-lid.js";
 import { THE_LURE } from "./scenes/the-lure.js";
+import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
@@ -26,6 +28,7 @@ import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VANE } from "./scenes/the-vane.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_WARD } from "./scenes/the-ward.js";
+import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_COLOURS } from "./scenes/two-colours.js";
 
@@ -79,7 +82,10 @@ export type SceneId =
   | "shieldThenCannon"
   | "theLance"
   | "theGauge"
-  | "pinball";
+  | "pinball"
+  | "theLid"
+  | "theMaze"
+  | "theWarden";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -111,6 +117,9 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theLance: THE_LANCE,
   theGauge: THE_GAUGE,
   pinball: PINBALL,
+  theLid: THE_LID,
+  theMaze: THE_MAZE,
+  theWarden: THE_WARDEN,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

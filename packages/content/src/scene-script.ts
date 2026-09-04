@@ -93,7 +93,12 @@ function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
   const to = act.toMilli ?? tautMilli(target, cfg);
   const until = act.until ?? act.tick;
-  const span = Math.max(1, until - act.tick);
+  // The carry and the letting go are two clocks, not one. A film about a lid
+  // has to fire *while* the cord is held — the plates shut the instant it is
+  // released — so the hand reaches the end of its travel at `by` and stays
+  // there until `until`. Absent, they are the same tick, which is a hand that
+  // carries and immediately lets go.
+  const span = Math.max(1, (act.by ?? until) - act.tick);
   const steps = Math.max(1, Math.min(PULL_STEPS, span));
   const out: SceneCommand[] = [];
   for (let i = 0; i < steps; i++) {

@@ -1,11 +1,9 @@
 import { control, type GuideScene } from "@neon-spore/content";
-import { gripsCreature, lidIsHeld, NO_TETHER, type World } from "@neon-spore/sim";
+import { gripsCreature, lidIsHeld, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { handleCircle } from "./handles.js";
 import type { Layout } from "./layout.js";
-import { lidCordCircle } from "./lid-string.js";
-import { mazeStringCircle } from "./maze-string.js";
 import { PALETTE } from "./palette.js";
-import { tetherHandleCircle } from "./tether.js";
 import { shipCircle } from "./touch-ship.js";
 
 /**
@@ -117,9 +115,12 @@ export function drawGripThumb(
  * hit-tested against. So the ghost hand cannot be drawn on a handle the finger
  * would have missed.
  *
- * A lid's cord is the one that moves under the hand: the body goes on falling
- * while it is held, and `lidCordCircle` follows it. The other two hang off
- * something that is not going anywhere.
+ * **And it rides what it is holding.** `handleCircle` answers where a handle is
+ * *standing* rather than where it rests, so a thumb is never left behind by
+ * the cord in it — a hand drawn at the rest while the handle swings away is a
+ * hand that has visibly let go. The resting circles are still what a real
+ * finger is hit-tested against; that is a different question and `handles.ts`
+ * answers both.
  */
 export function handleThumb(
   l: Layout,
@@ -128,13 +129,13 @@ export function handleThumb(
   beatPhase: number,
 ): { x: number; y: number; r: number } | null {
   if (seat !== 1) return null;
-  const cfg = world.cfg;
   const lid = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c));
-  if (lid) return lidCordCircle(l, cfg, lid, beatPhase);
-  const maze = world.boss?.kind === "maze" && world.boss.dragging ? mazeStringCircle(l, cfg) : null;
-  if (maze) return maze;
-  const warden = world.boss?.kind === "warden" && world.boss.pulling ? world.boss : null;
-  if (!warden || warden.tetherId === NO_TETHER) return null;
-  const rope = world.creatures.find((c) => c.id === warden.tetherId);
-  return rope ? tetherHandleCircle(l, cfg, rope.col) : null;
+  if (lid) return handleCircle(l, world, "lidString", beatPhase, lid.col);
+  if (world.boss?.kind === "maze" && world.boss.dragging) {
+    return handleCircle(l, world, "mazeString", beatPhase);
+  }
+  if (world.boss?.kind === "warden" && world.boss.pulling) {
+    return handleCircle(l, world, "wardenTether", beatPhase);
+  }
+  return null;
 }
