@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import type { Hold } from "@neon-spore/render";
-import type { DragTarget } from "@neon-spore/sim";
+import { controlSetForWave } from "@neon-spore/content";
+import { computeLayout, type Field, type Hold, touchMove, touchUp } from "@neon-spore/render";
+import { DEFAULT_CONFIG, type DragTarget } from "@neon-spore/sim";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
 
@@ -19,7 +20,15 @@ import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
  * what actually catches drift. The runtime tests below only prove the two
  * functions still agree with `FIELD_CONTROLS` today.
  *
- * What this cannot catch: a control built entirely outside `touch.ts`, the
+ * A kind was not enough on its own. One hold can carry two gestures — a press
+ * on the cannon that slides it and a lift that opens the maw are both
+ * `kind: "cannon"` — so the switches above were satisfied by the first of them
+ * and would have said nothing if THE MAW TAP had never been written down by
+ * hand. So the last describe drives every shape a `Hold` can take through
+ * `touchMove` and `touchUp` and fails on a branch that sends a command no
+ * entry claims in its `sends`.
+ *
+ * What none of it can catch: a control built entirely outside `touch.ts`, the
  * way the guide's whole-screen hold is (`apps/game/src/briefing.ts`, by
  * design — see its own comment). That one has no `Hold` variant to miss, so
  * it stays honest only because a human read `briefing.ts` once and wrote it
@@ -105,5 +114,102 @@ describe("TRIED_CONTROLS points at the spec rather than repeating it", () => {
       expect(c.specHeading.length, c.name).toBeGreaterThan(0);
       expect(c.note.length, c.name).toBeLessThan(600);
     }
+  });
+});
+
+/**
+ * The layout every gesture below is answered against, and a field with nothing
+ * in it: what is being driven is the branch a `Hold` takes, and none of these
+ * branches reads a creature.
+ */
+const CFG = DEFAULT_CONFIG;
+const LAYOUT = computeLayout({ width: 390, height: 844, dpr: 3 }, CFG, "test");
+const FIELD: Field = {
+  creatures: [],
+  cannonCol: 5,
+  shieldCol: 5,
+  beatPhase: 0,
+  seat: 1,
+  cfg: CFG,
+  maze: null,
+  warden: null,
+  controls: controlSetForWave(0),
+};
+
+/**
+ * Every shape a `Hold` can take, and where the lift that ends it landed.
+ *
+ * Two of them are the same kind: the cannon carried along the hull, and the
+ * cannon put down where it was picked up, which is the maw. That pair is the
+ * whole reason this exists — they are one `kind` and two controls, and the
+ * `sends` on each entry is what tells them apart.
+ */
+const GESTURES: readonly { why: string; hold: Hold; at?: { x: number; y: number } }[] = [
+  { why: "the cannon carried along the hull", hold: { kind: "cannon" }, at: { x: 300, y: 700 } },
+  {
+    why: "the cannon put down where it was picked up",
+    hold: { kind: "cannon", suck: { x: 120, y: 500 } },
+    at: { x: 120, y: 500 },
+  },
+  { why: "the shield carried along the hull", hold: { kind: "shield" }, at: { x: 300, y: 700 } },
+  { why: "a thumb resting on the plate", hold: { kind: "guard" } },
+  { why: "a finger on something falling", hold: { kind: "grip" } },
+  { why: "a thumb on the lance lobe", hold: { kind: "lance" } },
+  {
+    why: "the muzzle carried far enough for a colour",
+    hold: { kind: "shot", originX: 40 },
+    at: { x: 340, y: 700 },
+  },
+  ...(["mazeString", "wardenTether", "lidString"] as const).map((target: DragTarget) => ({
+    why: `${target} let go of`,
+    hold: { kind: "drag", target, player: 1, originX: 40, originY: 200 } as Hold,
+    at: { x: 90, y: 260 },
+  })),
+];
+
+describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
+  test("every Hold kind has at least one gesture driven here", () => {
+    // The list below is the same one `documentedHoldKind` switches on, so a
+    // new kind cannot be added to `Hold` without this file failing to compile
+    // — and this says the kind is not merely named here but actually pressed.
+    const driven = new Set(GESTURES.map((g) => g.hold.kind));
+    for (const kind of ["cannon", "shield", "guard", "grip", "lance", "shot", "drag"] as const) {
+      expect(driven.has(kind), `${kind} is never driven`).toBe(true);
+      documentedHoldKind(kind);
+    }
+  });
+
+  test("no move or lift sends a command no entry describes", () => {
+    for (const { why, hold, at } of GESTURES) {
+      if (documentedHoldKind(hold.kind) === "panel") continue;
+      const sent = [
+        touchMove(LAYOUT, hold, at?.x ?? 0, at?.y ?? 0),
+        touchUp(LAYOUT, hold, FIELD, at),
+      ];
+      for (const touch of sent) {
+        const kind = touch?.command?.kind;
+        if (kind === undefined) continue;
+        const described = FIELD_CONTROLS.some(
+          (c) =>
+            c.holdKind === hold.kind &&
+            (hold.kind !== "drag" || c.dragTarget === hold.target) &&
+            c.sends.includes(kind),
+        );
+        expect(described, `${why} sends ${kind}, which no entry claims`).toBe(true);
+      }
+    }
+  });
+
+  test("the maw tap is a second gesture on the cannon, and is described as one", () => {
+    // The one this guard was written for. Both are `kind: "cannon"`; the lift
+    // is what tells them apart, and a check counting kinds saw only the first.
+    const carried = touchUp(LAYOUT, { kind: "cannon" }, FIELD, { x: 300, y: 700 });
+    const tapped = touchUp(LAYOUT, { kind: "cannon", suck: { x: 120, y: 500 } }, FIELD, {
+      x: 120,
+      y: 500,
+    });
+    expect(carried).toBeNull();
+    expect(tapped?.command?.kind).toBe("intake");
+    expect(FIELD_CONTROLS.filter((c) => c.holdKind === "cannon").length).toBe(2);
   });
 });

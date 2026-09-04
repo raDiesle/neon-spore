@@ -1,5 +1,5 @@
 import type { Hold } from "@neon-spore/render";
-import type { DragTarget } from "@neon-spore/sim";
+import type { Command, DragTarget } from "@neon-spore/sim";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -47,6 +47,19 @@ export interface FieldControlDef {
   holdKind: Hold["kind"] | null;
   /** Set only when `holdKind` is `"drag"` — which rope or string this is. */
   dragTarget?: DragTarget;
+  /**
+   * What this gesture actually sends the ship.
+   *
+   * A hold kind was not enough to keep the list honest. One hold can carry
+   * two gestures — a press on the cannon that slides it and a lift that opens
+   * the maw are both `kind: "cannon"` — so a check that only asked whether
+   * every kind had a row was satisfied by the first of them and would have
+   * said nothing if THE MAW TAP had never been written down. The commands are
+   * the gestures: `on-field-controls.test.ts` drives every shape of `Hold`
+   * through `touchMove` and `touchUp` and fails on one that sends something
+   * no entry here claims.
+   */
+  sends: readonly Command["kind"][];
 }
 
 export const FIELD_CONTROLS: readonly FieldControlDef[] = [
@@ -60,6 +73,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "Letting it through is what costs the hull (sim/grip.ts).",
     source: "touch.ts — creatureAt() under touchDown()",
     holdKind: "grip",
+    sends: ["grip"],
   },
   {
     name: "THE CANNON",
@@ -73,6 +87,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "carries it nowhere is the maw instead — see THE MAW TAP below.",
     source: "touch-ship.ts — pilot() under shipUnder()",
     holdKind: "cannon",
+    sends: ["cannonCol"],
   },
   {
     name: "THE MAW TAP",
@@ -87,6 +102,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "works one seat over. Only on a panel that has a maw on it at all.",
     source: "touch-ship.ts — pilot() under shipUnder(), sucksOnLift() on the lift",
     holdKind: "cannon",
+    sends: ["intake"],
   },
   {
     name: "THE SHIELD PLATE",
@@ -98,6 +114,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "in the band sends. It still does nothing until player 1 triggers it.",
     source: "touch-ship.ts — navigator() under shipUnder()",
     holdKind: "shield",
+    sends: ["shieldCol"],
   },
   {
     name: "THE SHIELD TRIGGER",
@@ -110,6 +127,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "defence rests on, and pressing the plate does not cross it.",
     source: "touch-ship.ts — pilot() under shipUnder()",
     holdKind: "guard",
+    sends: ["guard"],
   },
   {
     name: "THE MUZZLE SWIPE",
@@ -123,6 +141,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "colours stand in on player 2's own band.",
     source: "touch-ship.ts — navigator() under shipUnder(), swipeColor() on the lift",
     holdKind: "shot",
+    sends: ["fire"],
   },
   {
     name: "THE MAZE'S STRING",
@@ -133,6 +152,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch.ts — mazeStringUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "mazeString",
+    sends: ["drag"],
   },
   {
     name: "THE WARDEN'S TETHER",
@@ -145,6 +165,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch.ts — wardenRopeUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "wardenTether",
+    sends: ["drag"],
   },
   {
     name: "THE LID'S CORD",
@@ -159,6 +180,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch.ts — lidCordUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "lidString",
+    sends: ["drag"],
   },
   {
     name: "THE GUIDE'S HOLD",
@@ -172,6 +194,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "apps/game/src/briefing.ts — bindBriefing(), a second listener on the " +
       "same canvas rather than a case in touch.ts, by design",
     holdKind: null,
+    sends: ["brief"],
   },
 ];
 
