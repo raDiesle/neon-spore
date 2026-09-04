@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 527213e — The film walk is shorter, because there are twenty-six of them
+
+Every page of every rehearsal is drawn frame by frame at three roles, and the walk was two hundred and sixty frames a page — chosen when there was one film to walk. Twenty-six of them took it past half a minute. A hundred and forty still crosses the shortest page a film may have, which is what the check is for: it catches a value that is a perfectly good number and not a colour.
+
+## 2026-09-04 · 11de2c2 — What a control says is one table, and two rounds rehearse themselves
+
+THE FLEET and SNAKE open on films of themselves. The fleet's first two pages are the same instant on the two phones — every ship on his chart, nothing but water on hers — and then she walks the sights two squares and he fires into where they are standing. The sights open dead centre on a ship, and the film walks away from that on purpose: a salvo from the opening square would have hit without a word being said, which teaches the opposite of the wave. SNAKE shoots the enemy in the opening lane, turns late on the other seat's word, and shoots the one the turn was for.
+
 ## 2026-09-04 · bcffcd3 — THE MIRROR rehearses itself, and the rest of the bosses are queued by wave
 
 The mirror performs two of the pair's own moves at their own ship and then asks for both of them back. The middle page is the wave: *nothing you press counts while it is still showing* is the instruction every pair breaks first, so the page that says it points at the button they are about to press, during the beats where pressing it does nothing. The verdict at the end of the film is the simulation's own `right` rather than a picture of one.
