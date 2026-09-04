@@ -2,7 +2,7 @@ import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { chromium } from "playwright-core";
 import { findChrome } from "./chrome.js";
-import { clearOpening, settleLaunch } from "./opening.js";
+import { clearOpening } from "./opening.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
 
 /**
@@ -107,11 +107,6 @@ export async function captureFrames(
     }, spec.wave);
 
     await clearOpening(page, spec.opening);
-    // The gate crossing throws two rings over the whole field, on the frame
-    // clock rather than the world's, so nothing above can see them and no
-    // number of ticks gets past them. A capture standing *in* the opening
-    // wants them: it has not crossed a gate to make one (`opening.ts`).
-    if (!spec.opening) await settleLaunch(page);
 
     /**
      * What `ticks` and `strideTicks` actually move.

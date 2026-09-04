@@ -900,5 +900,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-point.ts` | WHERE A CLICK ON THE DIRECTOR'S CANVAS ACTUALLY LANDS |
 | `tools/director/src/stage-opening.ts` | A press on the stage while a wave's opening is up |
 | `tools/director/src/tried-controls-page.ts` | TRIED AND SET ASIDE — the other list on the CONTROLS tab, and the smaller one |
+| `tools/frames/launch.ts` | Getting the *wave's arrival* out of the picture |
 
 <!-- index:code:end -->

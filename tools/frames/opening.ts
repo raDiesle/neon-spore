@@ -11,6 +11,7 @@
  */
 
 import type { Page } from "playwright-core";
+import { settleLaunch } from "./launch.js";
 
 /**
  * `OPENING_PLAY` from `packages/sim/src/briefing.ts`, copied rather than
@@ -170,70 +171,16 @@ async function holdOpening(page: Page, stopAt: OpeningStop): Promise<void> {
 }
 
 /**
- * Frames given to the launch before this gives up on it. `LAUNCH_LIFE` is
- * 0.72s at a sixtieth each (`render/opening-fx.ts`), so this is nearly four
- * times what it takes — enough that a slower animation still finishes, and
- * short enough that a build whose rings never end says so rather than spins.
- */
-const MAX_LAUNCH_FRAMES = 160;
-
-/**
- * Frames painted on a build that cannot be asked. `bun run frames <sha>`
- * drives a commit and its own parent, and a parent from between the launch
- * landing and `launching` being exposed has the rings and no way to report
- * them: a second of frames is past `LAUNCH_LIFE` whichever of the two this is.
- */
-const BLIND_LAUNCH_FRAMES = 60;
-
-/**
- * Paint the wave's arrival out, so a capture is of the field rather than of
- * the field behind two enormous rings.
+ * Advance the page until nothing is holding the field *and* the wave has
+ * finished arriving, or throw — unless `stopAt` names a phase to stand in
+ * instead, which is `holdOpening` above. `page` is a loaded preview with
+ * `window.neonSpore` already present.
  *
- * The rings run on the **frame** clock and the world knows nothing about them,
- * so `clearOpening` above cannot see them: it steps the simulation, and
- * `OpeningFx.update` only ever gets the sixtieth of a second that each
- * photographed frame paints. Every capture this tool has ever taken went
- * through them — one violet, one amber, over the top two thirds of the field —
- * and they were still there 2500 ticks into a wave.
- *
- * Painting is the only thing that moves them, which is why this is a loop of
- * `paint` and not another `advance`. It is capped and throws the way
- * `clearOpening` does, rather than spinning on a build whose launch never ends.
- */
-export async function settleLaunch(page: Page): Promise<void> {
-  const asked = await page.evaluate(() => {
-    const ns = window.neonSpore;
-    if (!ns) throw new Error("window.neonSpore missing mid-capture");
-    return typeof ns.launching === "function";
-  });
-  if (!asked) {
-    await page.evaluate((n) => {
-      for (let i = 0; i < n; i++) window.neonSpore?.paint();
-    }, BLIND_LAUNCH_FRAMES);
-    return;
-  }
-  const painted = await page.evaluate((max) => {
-    const ns = window.neonSpore;
-    if (!ns) throw new Error("window.neonSpore missing mid-capture");
-    let i = 0;
-    while (ns.launching?.() && i < max) {
-      ns.paint();
-      i++;
-    }
-    return i;
-  }, MAX_LAUNCH_FRAMES);
-  if (painted >= MAX_LAUNCH_FRAMES) {
-    throw new Error(
-      `the wave was still arriving after ${MAX_LAUNCH_FRAMES} painted frames — ` +
-        "its launch animation never ends",
-    );
-  }
-}
-
-/**
- * Advance the page until nothing is holding the field, or throw — unless
- * `stopAt` names a phase to stand in instead, which is `holdOpening` above.
- * `page` is a loaded preview with `window.neonSpore` already present.
+ * The arrival is part of "nothing is holding the field" and not a second step
+ * a caller has to know about: it is what a crossed gate leaves on the screen,
+ * and every capture this tool took before `settleLaunch` existed has it. A
+ * capture standing *in* an opening has crossed no gate and has none to paint
+ * out.
  */
 export async function clearOpening(page: Page, stopAt?: OpeningStop): Promise<void> {
   if (stopAt) return await holdOpening(page, stopAt);
@@ -269,4 +216,5 @@ export async function clearOpening(page: Page, stopAt?: OpeningStop): Promise<vo
     }, INTRO_SECONDS_ENOUGH);
     await page.waitForTimeout(OPENING_POLL_MS);
   }
+  await settleLaunch(page);
 }

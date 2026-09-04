@@ -89,6 +89,43 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## `canvas2d.ts` is on the 250-line ceiling, so render state cannot be asked for
+
+- **Found:** 2026-09-04, claude/task-queue-work-nybjkq
+- **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/frame-passes.ts`
+
+The queue item about `bun run frames` wanted the page asked whether the wave
+was still arriving — `get launching()` returning `this.effects.opening
+.launching`, three lines and a sentence saying why. The file is at 248 lines
+and the limit is 250, so it would not fit, and the fix went the other way: the
+tool paints for `LAUNCH_LIFE` seconds (`tools/frames/launch.ts`) instead of
+asking. That is honest but open-loop, and the next thing that wants to know
+what the renderer is in the middle of will hit the same wall.
+
+Split it. `draw` is most of the file and it is already a sequence of named
+passes (`frame-passes.ts` holds three of them), so the seam is between *what a
+frame is made of* and *what this renderer owns between frames* — the effects,
+the pose, the guide stage, the restart check and the accessors on them. Which
+side moves is the choice the split has to make, and either one leaves room.
+Then add the getter back and let `settleLaunch` paint until it is false, capped
+and throwing the way `clearOpening` does.
+
+## `briefing.test.ts`'s rehearsal walk runs out of its 30-second budget
+
+- **Found:** 2026-09-04, claude/task-queue-work-nybjkq
+- **Files:** `packages/render/test/briefing.test.ts`
+
+"draws a rehearsal, through every page of it, in every role" takes about 37
+seconds in a cloud session's container and times out at its 30-second budget,
+so `bun run check` is red there through no fault of the tree. It passes on the
+owner's machine, which is why the number has stood.
+
+The budget's own comment says what to do — *raise this rather than thin the
+walk* — because what the walk buys is the one check that catches a value that
+is a perfectly good number and not a colour. Raise it, and raise its narrow-
+screen neighbour with it; a lane that can time the two on both machines should
+pick a number with room in it rather than the next one up.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

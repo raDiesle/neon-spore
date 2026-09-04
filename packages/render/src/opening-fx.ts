@@ -33,8 +33,16 @@ import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
  */
 export const SETTLED_AGE = 1e6;
 
-/** How long the wave takes to arrive once the gate is crossed, in seconds. */
-const LAUNCH_LIFE = 0.72;
+/**
+ * How long the wave takes to arrive once the gate is crossed, in seconds.
+ *
+ * Exported because it is the one number a headless capture needs and cannot
+ * observe: the rings are painted rather than stepped, so a tool that advances
+ * the simulation and paints once a picture never gets past them. `bun run
+ * frames` paints for this long before it keeps a frame
+ * (`tools/frames/launch.ts`).
+ */
+export const LAUNCH_LIFE = 0.72;
 /** A blob's whole life, in seconds. */
 const BLOB_LIFE = 1.15;
 /** How many a circle throws when it latches. */
