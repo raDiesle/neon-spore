@@ -106,29 +106,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## `.claude/launch.json` is rewritten with CRLF in a worktree, and biome refuses it
-
-- **Found:** 2026-09-04, claude/queue-notes-overnight
-- **Taken:** 2026-09-04, claude/queue-claude-launch-json-is-rewritten-with-crlf-in-a-w
-- **Files:** `.gitattributes`, `biome.json`, `.claude/launch.json`, `docs/working-with-claude.md`
-
-The desktop harness rewrites `.claude/launch.json` when it opens a worktree,
-and writes it with CRLF. The file is committed with LF, `core.autocrlf` is
-`true` on this machine so git reports the tree as clean, and `bun run lint`
-then fails on that one file with "Formatter would have printed the following
-content" — thirty-three lines of identical JSON differing only in `␍`.
-
-It stops every landing in that worktree until somebody notices, and what they
-notice first is a formatter complaining about a file nobody edited. On the
-night of 3 September 2026 it was the first thing a session hit and cost several
-minutes before the `␍` in biome's own diff was read.
-
-Two candidate fixes, and the right one is a judgement: a `.gitattributes` entry
-pinning the file to LF so git's checkout filter stops producing CRLF for it, or
-adding it to biome's ignore list on the ground that it is the harness's file
-rather than the repository's and nothing in the repository formats it. The
-first keeps it linted; the second admits who owns it. Either way say which in
-the commit, and note the behaviour in `docs/working-with-claude.md` beside the
-worktree advice, because the next person to meet it will search for the message
-rather than the cause.

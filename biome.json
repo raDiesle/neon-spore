@@ -11,7 +11,8 @@
       "**/*.css",
       "!**/node_modules",
       "!**/dist",
-      "!legacy"
+      "!legacy",
+      "!.claude/launch.json"
     ]
   },
   "formatter": {

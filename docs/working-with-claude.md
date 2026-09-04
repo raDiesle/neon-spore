@@ -78,6 +78,16 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+*Amended 2026-09-04:* `.claude/launch.json` is not the repository's file to
+format, and biome no longer looks at it. The desktop harness rewrites it
+whenever it opens a worktree, and writes CRLF; `.gitattributes` already pins
+every file to LF and git therefore checks it out correctly, so what is being
+fought is the harness rather than a contributor's `core.autocrlf`. The symptom
+is a landing that stops with "Formatter would have printed the following
+content" and thirty-three lines of identical JSON differing only in `␍` — for a
+file nobody edited, in a tree `git status` calls clean. The file is the
+harness's, so the repository stopped having an opinion about its line endings.
+
 *Amended 2026-09-03:* a worktree does **not** get its own port as a matter of
 course, and for a while both this file's neighbour and `CLAUDE.md` said it did.
 `claimPort` tries the base port first, always — 4173 for the preview, 4174 for
