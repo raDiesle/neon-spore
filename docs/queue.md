@@ -169,28 +169,6 @@ prose — or key the exhaustive switch on a `FieldGesture` union that
 an existing hold is a compile error until it has a row. Either way the test
 must fail if a branch of `touchUp` sends a command no entry describes.
 
-## An infinite `age` reaches drawing code that takes a sine of it
-
-- **Found:** 2026-09-04, claude/tutorial-animations-readiness-420408
-- **Files:** `packages/render/src/guide-nav.ts`, `packages/render/src/opening-fx.ts`,
-  `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
-
-Every screen of a wave's opening reads its clock as `fx?.age ?? POSITIVE_INFINITY`
-— the sentinel that means "this has been up for ever, so draw it finished". That
-is right for a fade, which clamps, and wrong for anything that breathes:
-`Math.sin(Infinity)` is `NaN`, and a `NaN` coordinate is a call a real canvas
-refuses. It cost a red `frame.test.ts` the day the guide's bar grew a slime
-feeder whose width is a sine of the page's age, and `drawGuideNav` now guards
-its own copy with `Number.isFinite`.
-
-One guard in one function is not the fix. Either make the sentinel finite where
-it is produced — a large number of seconds rather than `Infinity`, which every
-fade clamps just the same — or give `OpeningFx` a `breath(rate)` that every
-pulsing thing calls instead of reaching for `age` itself. Then delete the guard
-in `guide-nav.ts`. A test that draws each opening screen with no `fx` at all,
-through the strict canvas, is the proof; `packages/render/test/briefing.test.ts`
-already does exactly that and is where the failure showed up.
-
 ## `bun run frames` photographs every wave through the frozen launch animation
 
 - **Found:** 2026-09-04, claude/recoil-enemy-destruction-animation-39cb91

@@ -111,8 +111,7 @@ export interface CornerPlate {
    * seat, and on every page of a guide made of words.
    */
   flash?: number;
-  /** Seconds the page has been up, for the slime. Non-finite reads as 0: the
-   * written pages hand this an infinite age (`briefing.ts`). */
+  /** Seconds the page has been up, for the slime. */
   age?: number;
 }
 
@@ -120,7 +119,7 @@ export interface CornerPlate {
 export function drawGuideCorner(ctx: CanvasRenderingContext2D, l: Layout, p: CornerPlate): void {
   const skin = p.seat === undefined ? null : seatSkin(p.seat === 1 ? "p1" : "p2");
   const flash = Math.max(0, Math.min(1, p.flash ?? 0));
-  const age = Number.isFinite(p.age) ? (p.age as number) : 0;
+  const age = p.age ?? 0;
   if (skin) {
     // The edges are the quiet half: a player who looked away and back reads the
     // colour before they read anything at all. They swell with the flare, so

@@ -1,6 +1,7 @@
 import { WAVES } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
+import { SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
 import { drop } from "./text-drop.js";
 import { wrapText } from "./wrap-text.js";
@@ -53,7 +54,7 @@ export function drawIntroduction(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  age = Number.POSITIVE_INFINITY,
+  age = SETTLED_AGE,
   fading = false,
   /**
    * Where the block's **first** line sits, when the caller is laying a column

@@ -123,10 +123,10 @@ export interface NavState {
  */
 export function drawGuideNav(ctx: CanvasRenderingContext2D, l: Layout, s: NavState): void {
   const b = navButtons(l);
-  // A page drawn with no clock behind it reports an infinite age, and every
-  // breathing thing here is a sine of it — which is NaN, which is a `moveTo` a
-  // real canvas refuses (`test/frame.test.ts`).
-  const age = Number.isFinite(s.age) ? (s.age as number) : 0;
+  // A page drawn with no clock behind it is drawn at `SETTLED_AGE`, which is
+  // finite on purpose: everything breathing here is a sine of this number
+  // (`opening-fx.ts`).
+  const age = s.age ?? 0;
   slab(ctx, l, b.bar, age);
 
   const canBack = (s.back ?? true) && s.page > 0;

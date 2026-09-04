@@ -106,6 +106,28 @@ describe("a wave's opening on the stage", () => {
     }
   });
 
+  it("draws every page of every guide with no clock behind it", () => {
+    // No `fx` is a still — a capture, a shape sheet, the frames tool — and the
+    // page then reports `SETTLED_AGE` rather than an infinite one. Every
+    // entrance here clamps and could not tell the two apart, but the nav bar's
+    // feeders, its halo and the glow on NEXT are sines of that number, and
+    // `Math.sin(Infinity)` is a `NaN` this canvas refuses. Both guards that
+    // used to stand in front of it were deleted with the sentinel.
+    const { ctx } = stubCanvas();
+    for (const role of ROLES) {
+      const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
+      for (const i of GUIDED) {
+        const { guide } = opening(i);
+        // One past the last page is the gate, which is a different screen.
+        for (let page = 0; page <= guidePages(guide); page++) {
+          drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, guide, { role });
+          guideStepHeard(guide, 1, false);
+          guideStepHeard(guide, 2, false);
+        }
+      }
+    }
+  });
+
   it("draws a wave past the end of the authored list without a name to show", () => {
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");

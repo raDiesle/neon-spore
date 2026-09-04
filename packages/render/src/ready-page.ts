@@ -1,7 +1,7 @@
 import { seatReady, type World } from "@neon-spore/sim";
 import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import type { Layout, ViewRole } from "./layout.js";
-import type { OpeningFx } from "./opening-fx.js";
+import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
 import { drawCircle } from "./ready-circles.js";
 import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
@@ -128,7 +128,7 @@ export function drawReadyPage(
   ctx.fillStyle = "rgba(5,4,11,.72)";
   ctx.fillRect(0, 0, l.width, l.height);
 
-  const age = fx?.age ?? Number.POSITIVE_INFINITY;
+  const age = fx?.age ?? SETTLED_AGE;
   // No fade: on this page the pair is what ends the reading, and words that had
   // started to fade would be words that looked like a mistake.
   drawIntroduction(ctx, l, world, age, false, l.playHeight * TOP);

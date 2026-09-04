@@ -10,7 +10,7 @@ import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawGuideCorner } from "./guide-switch.js";
 import type { Layout, ViewRole } from "./layout.js";
-import type { OpeningFx } from "./opening-fx.js";
+import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
 import type { SeatNames } from "./seat-name.js";
 import { drawIntroduction } from "./wave-intro.js";
@@ -74,7 +74,7 @@ export function drawWaveOpening(
 ): void {
   const { role, scene, fx, names } = view;
   if (introHolds(world)) {
-    drawIntroduction(ctx, l, world, fx?.age ?? Number.POSITIVE_INFINITY, true);
+    drawIntroduction(ctx, l, world, fx?.age ?? SETTLED_AGE, true);
     return;
   }
   if (!guideHolds(world)) return;

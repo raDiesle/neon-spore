@@ -18,6 +18,21 @@ import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
  * exactly the class of ghost that rule exists to stop.
  */
 
+/**
+ * The age a page reports when nothing is counting for it: a still, a sheet, a
+ * capture, any drawing with no `OpeningFx` behind it. It means "this has been
+ * up for ever, so draw it finished", and every entrance and exit clamps, so a
+ * fortnight of seconds lands in exactly the same place infinity did.
+ *
+ * It is a number rather than `Infinity` because not everything on these pages
+ * fades. Something that breathes takes a sine of this, and `Math.sin(Infinity)`
+ * is `NaN` — a coordinate a real canvas refuses. That cost a red
+ * `frame.test.ts` the day the guide's bar grew a slime feeder whose width is a
+ * sine of the page's age, and two functions grew a `Number.isFinite` guard of
+ * their own before the sentinel itself was fixed.
+ */
+export const SETTLED_AGE = 1e6;
+
 /** How long the wave takes to arrive once the gate is crossed, in seconds. */
 const LAUNCH_LIFE = 0.72;
 /** A blob's whole life, in seconds. */

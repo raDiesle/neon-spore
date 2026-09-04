@@ -2,7 +2,7 @@ import { WAVES } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { drawGuideNav } from "./guide-nav.js";
 import type { Layout, ViewRole } from "./layout.js";
-import type { OpeningFx } from "./opening-fx.js";
+import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
 import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 import { drop } from "./text-drop.js";
@@ -66,7 +66,7 @@ export function drawProsePage(
   const guide = WAVES[world.wave]?.guide;
   if (!guide) return;
   const both = role === "test";
-  const age = fx?.age ?? Number.POSITIVE_INFINITY;
+  const age = fx?.age ?? SETTLED_AGE;
 
   // Dark enough to read against the ship and the band, light enough that the
   // screen the words are about is plainly still there.
