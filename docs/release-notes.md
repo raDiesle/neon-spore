@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 421b7e5 — A step plays again when asked, and the bar says it is the tutorial
+
+The film under a guide's page used to start itself over every couple of seconds. It does not any more: a page plays once, stands on its last frame, and plays again when REPLAY is pressed — the middle of three buttons on the bar, because a picture restarting on its own beside words somebody is reading is movement the reader never chose. The bar now says TUTORIAL, in a lozenge cut from the same contour as the buttons, and the three of them are the panel's own buttons rather than plates: a wet socket underneath, a film of gloss over the top, a neck of slime feeding each one out of the edge above, and a body that carries its own colour. NEXT keeps its name to the last page. Whose screen the film is showing is a permanent label in the corner instead of a word that faded in and out, so a player who looks up mid-page can still find the answer. The miss and what it costs the hull are one step now rather than two. On the gate, the circles sit well below the wave's name, a press anywhere above the bar fills your own, and where the room knows what the two people are called it uses their names instead of PLAYER ONE and PLAYER TWO.
+
 ## 2026-09-04 · de37c6b — Player two's ship is amber, and the gate is two circles
 
 Eight things the owner asked for after watching the tutorial, and one of them is not about the tutorial at all.
