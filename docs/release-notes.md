@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-04 · 1277745 — The menu's front page is the game, and the rig is one press behind TESTING
+
+Four of the eleven rows a player read first were the test rig: PLAY with both seats on one device, the wave list, the demonstrations and the sliders. They are one entry now — TESTING — and named by what they do rather than by how the game is authored: SINGLE PLAYER, JUMP TO WAVE, JUMP TO ENEMY TYPE WAVE, TUNING. The front page is left with the game: come back, carry on, meet the other phone, learn what this is, set it up.
+
 ## 2026-09-04 · c76afce — biome stops having an opinion about the harness's launch.json
 
 The desktop harness rewrites `.claude/launch.json` whenever it opens a worktree, and writes it with CRLF. `bun run lint` then refuses it — thirty-three lines of identical JSON differing only in `␍` — for a file nobody edited, in a tree `git status` calls clean, and it stops every landing in that worktree until somebody reads the `␍` in biome's own diff. On the night of 3 September 2026 it was the first thing a session hit.
