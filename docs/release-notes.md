@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · b6bd9614 — A hand held on a body aims the cannon at it
+
+THE LOCK: while player 1's hand is on a creature, every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. Take the hand off and a bolt already in the air stops steering and finishes its climb straight up from wherever it had got to. It is not a new gesture — it is THE GRIP, held by the seat that owns the cannon — so the price is already built in: a thumb on the field is a thumb off the strip below it, and the shot goes where the hand is instead of where the muzzle is.
+
 ## 2026-09-05 · 4af59d7c — THE VEER's clown gets a nose, and the palette gets a hue for it
 
 The figure was built entirely grey on the argument that every colour here is already spent and that a red nose on a rock reads as "shoot me" — the one thing a body nobody can fire at must never say. The owner overruled it for one mark, because a clown whose nose is stone is not a clown anybody sees.
