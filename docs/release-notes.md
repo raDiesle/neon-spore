@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 4395b15 — The maw arrives on the wave that asks for it
+
+SHIELD, THEN CANNON was the first wave on the full panel for no reason of its own: it introduces no creature and no mechanic, and the guide hung on it was five pages about the ship's alternate touch gestures, parked there because the panel rule already forced a guide onto the wave. The owner's call is that the gestures need no teaching at all — a pair finds them — so the film is gone and the wave keeps STANDARD 4 like the three before it.
+
 ## 2026-09-05 · 0f4bcea — The band no longer says which panel it is
 
 A named plate hung on the seam whenever a wave was played on anything but the ordinary panel, on the argument that a set is a whole panel and the surest way for that to read wrong is for it to read as the usual band with something swapped in. The owner saw it over player 2's plate and said plainly: do not show the panel name or variant in the game.
