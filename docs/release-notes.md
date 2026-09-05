@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 2a079c2 — CLAUDE.md's ceiling stops counting carriage returns
+
+The file is 21,991 characters in the repository and fits under the 22,000 ceiling, but a worktree that checks it out with CRLF measures 22,274 — and the test then says the file has grown when nothing has changed, on the first command of a lane, before a line of work has been done. One session went hunting for a paragraph to move into docs/ that did not need moving.
+
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
