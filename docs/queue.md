@@ -98,29 +98,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## `bun run push` hides why the push was refused
-
-- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
-- **Files:** `tools/land/push.ts`, `tools/land/test/`
-
-The catch prints `error.message.split("
-")[0]`, and git's first line on a
-refused push is the remote URL — so a session that has just landed is told
-`✗ origin was not updated: To https://github.com/…` and nothing else. The
-reason lives on the following lines (`! [rejected] main -> main
-(non-fast-forward)`, plus the hint), and a session with no reason in hand has
-to re-run the push by hand to find out, which the repository's own guard hook
-refuses. This happened on the eyelid landing: local `main` was 19 ahead and 36
-behind `origin/main`, and the output said none of that.
-
-Print the whole of git's stderr, or at minimum the first line that is not the
-`To <url>` banner, and say how the trunk stands — `origin/main` is ahead by N,
-so the trunk has to be reconciled before it can be sent. `push.ts` already
-fetches and counts `ahead`; counting `behind` beside it is one more
-`rev-list --count` and turns a dead end into an instruction.
-
-
-
 ## The build-stamp test walks `.claude/worktrees` and fails in the main checkout
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
@@ -247,3 +224,34 @@ jump and before the ticks. It has to go through the boss's own phase entry
 comes up at the wrong angle with the last round's lock still on it. `handle.ts`
 is where `window.neonSpore` is assembled and is already at the seam this
 belongs on: everything in it is about being driven from outside.
+
+## A landing can put back a queue entry another lane took out
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `tools/land/land.ts`, `tools/land/run.ts`, `tools/land/test/`
+
+Twice on 5 September 2026 a landing re-added `##` entries to `docs/queue.md`
+that another lane had already removed along with the work. The trunk carried
+`tools/land/refusal.ts` and `--settle` and `STARVED_MS`, all landed, and the
+queue went on listing all three as waiting. A session that believed the file —
+which is the whole point of the file — would have done them a second time,
+which is the failure the preamble above already describes happening on 3
+September.
+
+The mechanism is a rebase resolving `docs/queue.md` in the lane's favour. A
+lane branched before the removals holds a copy of the file that still has the
+entries in it; the conflict is in a document rather than in code, so it reads
+as prose to be kept rather than as a deletion to be honoured, and taking
+"ours" puts every one of them back in one move. Nothing fails: the file is
+still valid, the format test still passes, and the only sign is a queue that
+has grown.
+
+`bun run land` is where to catch it, because it is the one command that sees
+the lane and the trunk at once. Before the fast-forward, compare the `##`
+titles in the lane's `docs/queue.md` against the trunk's: an entry the trunk
+has *removed* since the merge base and the lane is putting back is a resolution
+nobody chose, and the landing should stop and name the titles. Removing an
+entry is ordinary and adding a new one is ordinary; only *re-adding* one is the
+mistake, and the merge base is what tells the three apart. The comparison is a
+pure function over two strings and a base, so `tools/land/test/` can hold every
+case without a repository.
