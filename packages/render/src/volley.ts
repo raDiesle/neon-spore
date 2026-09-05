@@ -36,17 +36,20 @@ import { drawSeams } from "./volley-seams.js";
  * would show as a ring of light around it and the shell would leak the one
  * thing it is holding back.
  *
- * **The count is how much of the ball is left.** There is no health bar in
- * this game and THE RECOIL's cage is the precedent for why: a ward knocks one
- * plate off, and what is drawn from then on is the ball minus that sector,
- * with the body burning out of the break. Three plates is a closed ball, two
- * is a ball with a bite out of it, one is a cap over a body, and none is a
- * body. Nothing is dimmed and nothing is labelled.
+ * **The count is how much of the stone is left, and the frame never goes.**
+ * There is no health bar in this game and THE RECOIL's cage is the precedent
+ * for why. A ward takes one sector of the *filling* away and nothing else: the
+ * rim and all four seams are drawn whole on every frame, so a volley warded
+ * twice is still round, still the size it was, and still unmistakably the same
+ * body — a ball-shaped skeleton with the thing inside burning through it. The
+ * owner asked for that, and it is also the better picture: a silhouette that
+ * changed with the count would be a creature whose *shape* meant something,
+ * and the shape is how the pair says the word "volley" to each other.
  *
- * **The break faces the way it is going.** Plates are laid from the leading
- * edge round, so the first one lost is the one the shield actually hit: a
- * volley coming down is broken open underneath, and one climbing away from a
- * ward is broken open on top. The shell is worn where the work was done.
+ * **The gap faces the way it is going.** Sectors are laid from the leading
+ * edge round, so the first one emptied is the face the shield actually hit: a
+ * volley coming down is hollow underneath, and one climbing away from a ward
+ * is hollow on top. The shell is worn where the work was done.
  *
  * Nothing here is remembered between frames. The count and the climb come off
  * the world and the tumble off the wall clock spread by the body's own id, so
@@ -120,24 +123,30 @@ export function drawVolleyShell(
   const glow = hazed(cfg, c.color === "cyan" ? PALETTE.cyan : PALETTE.red, near);
   const metal = hazed(cfg, PALETTE.rock, near);
 
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.save();
-  // What is left of the ball, as a clip: the whole plane while every plate is
-  // on, so a closed shell has no seam of its own to give it away, and one
-  // sector short for every ward already spent.
-  if (plates < total) ctx.clip(remaining(lead, total, plates, r));
-  // One path for both halves: the ball is filled and lit from it, and the
-  // seams are clipped to it. A seam drawn to the full radius runs off the
-  // stone — the contour is faceted and is inside `r` almost everywhere — and
-  // four lines overhanging a rock read as a scribble over it rather than as
-  // panels on it.
+  // One path for all three passes: the stone is filled from it, the skeleton
+  // is stroked from it, and the seams are clipped to it. A seam drawn to the
+  // full radius runs off the stone — the contour is faceted and is inside `r`
+  // almost everywhere — and four lines overhanging a rock read as a scribble
+  // over one rather than as panels on it.
   const ball = new Path2D(
     crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
   );
-  drawRock(ctx, ball, r, turn, metal);
-  drawSeams(ctx, ball, r, turn, glow);
+
+  ctx.save();
+  ctx.translate(x, y);
+  // **The stone goes and the frame stays.** A ward takes a sector of the
+  // *filling* away and nothing else: the outline and all four seams are drawn
+  // whole on every frame, so what is left after two wards is a ball-shaped
+  // skeleton with the body burning inside it rather than a shape with a bite
+  // out of it. The owner asked for exactly that, and it is the better picture
+  // as well — a silhouette that changed with the count would be a creature
+  // whose *shape* meant something, and the shape is how the pair says "volley".
+  ctx.save();
+  if (plates < total) ctx.clip(remaining(lead, total, plates, r));
+  fillRock(ctx, ball, r, turn);
   ctx.restore();
+  drawFrame(ctx, ball, turn, metal);
+  drawSeams(ctx, ball, r, turn, glow);
   ctx.restore();
 
   // The light out of the break, and none at all while the ball is closed —
@@ -165,26 +174,34 @@ function remaining(lead: number, total: number, plates: number, r: number): Path
 }
 
 /**
- * The ball itself: `meteor.ts`'s own drawing, so a volley and the rocks it
- * shares a field with are visibly one material. The mid-tone fill, the key
- * light handed the rotation so the light stays where it is while the ball
- * rolls under it, and the rock's outline.
+ * The stone: `meteor.ts`'s own filling, so a volley and the rocks it shares a
+ * field with are visibly one material. The mid-tone, and the key light handed
+ * the rotation so the light stays where it is while the ball rolls under it.
+ *
+ * Drawn inside whatever clip the caller has set, which is what makes a ward
+ * take material away. It is deliberately *only* the filling — the outline is
+ * `drawFrame` below, and the whole point of the two being separate is that one
+ * of them survives.
  */
-function drawRock(
-  ctx: CanvasRenderingContext2D,
-  ball: Path2D,
-  r: number,
-  turn: number,
-  metal: string,
-): void {
+function fillRock(ctx: CanvasRenderingContext2D, ball: Path2D, r: number, turn: number): void {
   ctx.save();
   ctx.rotate(turn);
   ctx.fillStyle = "#8A8F9C";
   ctx.fill(ball);
-  ctx.save();
   ctx.clip(ball);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   ctx.restore();
+}
+
+/**
+ * The rim, drawn whole however much filling is left. It is the skeleton the
+ * owner asked for: a volley that has been warded twice is still round, still
+ * the size it was, and still unmistakably the same body — what has changed is
+ * that you can see through it.
+ */
+function drawFrame(ctx: CanvasRenderingContext2D, ball: Path2D, turn: number, metal: string): void {
+  ctx.save();
+  ctx.rotate(turn);
   ctx.strokeStyle = metal;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(ball);
