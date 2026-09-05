@@ -323,6 +323,7 @@ prose there, leaving what a session has to *do*. Then put the missing
 ## `drawCreatures`' body chain is an `else if` run a new line can sever
 
 - **Found:** 2026-09-05, claude/veer-meteor-type-01a303
+- **Taken:** 2026-09-05, claude/queue-drawcreatures-body-chain-is-an-else-if-run-a-new
 - **Files:** `packages/render/src/creatures.ts`, `packages/render/test/frame.test.ts`
 
 The loop in `drawCreatures` picks a body's draw path with one long
