@@ -91,9 +91,9 @@ export class CrawlerFx {
     grad.addColorStop(1, PALETTE.hullRim);
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
-    ctx.globalAlpha = 0.5 * strength;
+    ctx.globalAlpha = 0.75 * strength;
     ctx.fillStyle = grad;
-    ctx.fillRect(x - l.tile * 0.34, l.gridTop, l.tile * 0.68, foot - l.gridTop);
+    ctx.fillRect(x - l.tile * 0.5, l.gridTop, l.tile, foot - l.gridTop);
     // The two ends going up it, as one pale slug shrinking into the top.
     ctx.globalAlpha = strength;
     ctx.fillStyle = PALETTE.hullRim;
@@ -104,22 +104,30 @@ export class CrawlerFx {
     ctx.restore();
   }
 
-  /** Two banks of plating either side of the hole, rising and settling. */
+  /**
+   * Two banks of plating either side of the hole, rising and settling.
+   *
+   * Anchored to `l.hullY` and not to the row the worm was standing on. It sat
+   * on `tileCY` for a frame, which put the banks a whole tile above the ship —
+   * two arcs floating in space over a hull that was visibly breaking somewhere
+   * else. What is thrown up here comes *out of the ship*, so it has to start at
+   * the surface of it.
+   */
   private drawMound(ctx: CanvasRenderingContext2D, l: Layout, m: Mound): void {
     const t = 1 - m.left / MOUND_LIFE;
     const x = tileCX(l, m.col);
-    const y = tileCY(l, m.row);
-    const rise = l.tile * 0.5 * Math.sin(Math.min(1, t * 1.6) * Math.PI * 0.8);
+    const y = l.hullY;
+    const rise = l.tile * 0.55 * Math.sin(Math.min(1, t * 1.6) * Math.PI * 0.8);
     ctx.save();
-    ctx.globalAlpha = 1 - t;
+    ctx.globalAlpha = 1 - t * 0.6;
     ctx.fillStyle = PALETTE.rockDark;
     ctx.strokeStyle = PALETTE.rock;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.4;
     for (const side of [-1, 1]) {
       const bank = new Path2D();
-      const base = x + side * l.tile * 0.28;
-      bank.moveTo(base - l.tile * 0.4, y + l.tile * 0.2);
-      bank.quadraticCurveTo(base, y - rise, base + l.tile * 0.4, y + l.tile * 0.2);
+      const base = x + side * l.tile * 0.3;
+      bank.moveTo(base - l.tile * 0.42, y);
+      bank.quadraticCurveTo(base, y - rise, base + l.tile * 0.42, y);
       bank.closePath();
       ctx.fill(bank);
       ctx.stroke(bank);
