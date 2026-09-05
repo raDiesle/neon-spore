@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 59ea92c — The briefings spec's wave numbers are held against WAVES
+
+The right-hand column of §1's table names each teaching block's wave as a number and a name — `5 · THE ROCK`, `16 · BULB QUEEN` — and nothing checked it, so every wave inserted before one of those rows moved all of them by one in silence. It was already wrong before anybody looked: the bosses row read `16–19, 23` while THE VANE had been at 27 for some time.
+
 ## 2026-09-05 · 601e50f — A hand on a ghost is not drawn on the screen the ghost is not
 
 `drawGrips` walked `world.creatures` and put a beam, a ring and a label at `creatureCenter` for every held body, with no idea which seat the screen belonged to. A falling ghost is grippable, and player 1 is not drawn its body at all — that seat gets a band across the row and nothing whatever about the column, because anything varying across the width of the field *is* the column, given away. So a pilot who swept a thumb along the row and found the body was then handed a marker sitting exactly in the lane the creature exists to keep from them: the whole of THE GHOST undone by an assist.
