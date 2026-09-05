@@ -178,6 +178,16 @@ function carryMounts(world: World, hub: Creature): void {
   const click = gyreClick(hub);
   for (const c of world.creatures) {
     if (c.gyreId !== hub.id) continue;
+    // A mount standing on the ship's row is off the wheel. It has arrived, and
+    // `resolveHull` breaks the hull with it at the end of this same beat —
+    // carried on around the rim it would be lifted back clear of the ship
+    // during the very beat it is being drawn landing on it, and the wheel
+    // would grind forever without ever costing the pair a thing.
+    if (c.row >= hullRow(world.cfg)) {
+      c.fromCol = c.col;
+      c.fromRow = c.row;
+      continue;
+    }
     const [dcol, drow] = mountOffset(click, c.gyreSlot ?? 0);
     c.fromCol = c.col;
     c.fromRow = c.row;

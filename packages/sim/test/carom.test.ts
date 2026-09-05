@@ -232,11 +232,14 @@ describe("the two controls, in order", () => {
    * `damageCreature`, because what arrived was the rock it always was.
    */
   it("cannot be warded while the crust is on, and costs a rock's damage", () => {
-    const impact = tickAtRow(HULL) + 1;
+    // One beat past the row, because a body that has reached the ship spends
+    // the beat render/ draws it come down the last tile standing there before
+    // it is through (`BREACH_TICK` in rules.test.ts).
+    const impact = tickAtRow(HULL) + TPB + 1;
     // The shield in every column and the trigger held down the whole way, so
     // the failure cannot be blamed on timing or on aim.
     const inputs: TimedCommand[] = [];
-    for (let beat = 0; beat <= HULL / CFG.caromRows; beat++) {
+    for (let beat = 0; beat <= HULL / CFG.caromRows + 1; beat++) {
       for (let col = 0; col < CFG.cols; col++) inputs.push(shield(TPB * beat, col));
       inputs.push(guard(TPB * beat));
     }

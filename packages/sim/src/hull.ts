@@ -71,6 +71,10 @@ export function ticksSinceGuard(world: World): number {
  * nothing that used to be saveable stops being saveable; what changes is that
  * a rock answered in time now turns at the surface instead of at the plating.
  *
+ * **Nothing is through on the beat it reaches the ship's row.** A body that
+ * came from above this beat is still being drawn arriving, whatever it is, and
+ * it breaks the hull on the beat after — the beat the pair watches it land.
+ *
  * Guard tries always increments for a meteor, once, on the beat it leaves the
  * field — turned away or not. Deflected and mistimed count the two failure
  * states that matter for learning (docs/spec/systems.md 5.8).
@@ -81,6 +85,7 @@ export function resolveHull(world: World): void {
   const guardRow = shieldRow(world.cfg);
 
   for (const c of world.creatures) {
+    const wardable = isWardable(c.kind);
     // A body the shield answers is in reach of it a row before it is in reach
     // of the hull. Nothing else is: the shield has nothing to say to a slick
     // or a boss, so those are still only resolved on the ship's row. THE
@@ -88,42 +93,41 @@ export function resolveHull(world: World): void {
     // and falls no further (docs/spec/bosses.md 11.4). `isWardable` rather
     // than `isMeteorKind`, so THE VOLLEY is offered the same row: it is a rock
     // until the pair has warded it three times.
-    if (c.row < (isWardable(c.kind) ? guardRow : shipRow)) {
+    if (c.row < (wardable ? guardRow : shipRow)) {
       survivors.push(c);
       continue;
     }
 
-    if (isWardable(c.kind)) {
-      const inColumn = occupiesCol(c, world.shieldCol);
-      const inTime = guardArmed(world);
+    const inColumn = wardable && occupiesCol(c, world.shieldCol);
 
-      if (inColumn && inTime) {
-        // Turned. Most bodies leave the field here; a volley is hit back *up*
-        // it and comes down again, which is the one thing about a ward that is
-        // a fact about the creature rather than about the shield (`ward.ts`).
-        if (wardTurns(world, c)) survivors.push(c);
-        continue;
-      }
-      // Nobody turned it at the surface, so it is inside the shield now. That
-      // is not the end of it, and `fromRow` is what says so: it is the row the
-      // picture is still gliding this rock out of, so while it is above the
-      // ship the rock is *arriving* rather than arrived, and the trigger has
-      // another beat to come in on.
-      //
-      // Two beats of grace fall out of that one line, and both are the same
-      // rule. A rock a row above the ship is arriving on the ship's row; a
-      // rock already standing on the ship's row is arriving at the plating,
-      // because `beat.ts` clamps its fall there and render/ spends that beat
-      // drawing it come down the last tile. Only on the beat after — the beat
-      // it is drawn standing still on the hull — is it through.
-      //
-      // Before the clamp, that last drawn tile was a replay of a body already
-      // removed (`rock-impact.ts`), and a trigger pressed while watching the
-      // rock cross it hit nothing. That is the report this answers.
-      if (c.fromRow < shipRow) {
-        survivors.push(c);
-        continue;
-      }
+    if (wardable && inColumn && guardArmed(world)) {
+      // Turned. Most bodies leave the field here; a volley is hit back *up*
+      // it and comes down again, which is the one thing about a ward that is
+      // a fact about the creature rather than about the shield (`ward.ts`).
+      if (wardTurns(world, c)) survivors.push(c);
+      continue;
+    }
+
+    // **Nothing is through on the beat it reaches the ship's row.** `fromRow`
+    // is the row the picture is still gliding this body out of, so while it
+    // came from above the ship it is *arriving* rather than arrived. Only on
+    // the beat after — the one it is drawn standing still on the hull — is it
+    // through, and until then the trigger and the cannon both still reach it.
+    //
+    // For a rock that is two beats of grace and they are one rule: a rock a
+    // row above the ship is arriving on the ship's row, and a rock standing on
+    // the ship's row is arriving at the plating, because the fall is clamped
+    // there (`beat.ts`) and render/ spends that beat drawing the last tile
+    // come down. The test used to name the shield, so a slick was taken off
+    // the field the beat it *entered* the ship's row, a whole tile clear of
+    // the hull, and was seen to burst in mid-air. The beat belongs to the
+    // body: what it buys is the picture of the thing landing on what it breaks.
+    if (c.fromRow < shipRow) {
+      survivors.push(c);
+      continue;
+    }
+
+    if (wardable) {
       // It leaves the field here, so this is where it counts as a try — once,
       // whichever of the two rows it was finally answered on.
       world.guard.tries += 1;

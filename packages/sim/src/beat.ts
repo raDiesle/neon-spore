@@ -13,7 +13,7 @@ import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
-import { isBossBody, isWardable } from "./types.js";
+import { isBossBody } from "./types.js";
 import { veilMorph } from "./veil.js";
 import { stepVolley, volleyIsClimbing } from "./volley.js";
 import { noteWaveCleared } from "./wave-end.js";
@@ -108,6 +108,15 @@ export function onBeat(world: World): void {
     // one, so `drawnCol` has an origin to glide a dart out of and every other
     // body keeps drawing exactly where it stands.
     c.fromCol = c.col;
+    // **A body standing on the ship's row has arrived, and an arrival does not
+    // move again.** `resolveHull` breaks the hull with it at the end of this
+    // same beat, and what it must break is the column the pair watched it come
+    // down in. Without this a body that travels sideways — a dart, a carom —
+    // would take one more stride during the beat it is being drawn landing and
+    // breach a column it was never drawn in. For everything that falls
+    // straight down the line costs nothing and says the same thing: the fall
+    // is over.
+    if (c.row >= hullRow(world.cfg)) continue;
     // A dart does not fall. It takes a diagonal every other beat and hangs in
     // between, and `stepDart` is the whole of that — deliberately in place of
     // the line below rather than beside it, because a body that both stepped
@@ -180,17 +189,20 @@ export function onBeat(world: World): void {
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     const fall = grippedFallTiles(world, c);
-    // **A body the shield answers lands on the ship's row and does not go past
-    // it.** Whatever its tier — a plain meteor at one tile a beat or a torch
-    // at thirteen — the last step of its fall ends on `hullRow`, and the beat
-    // it spends standing there is the beat render/ uses to draw it arriving.
-    // That beat is the one the shield still has (`resolveHull`): without the
-    // clamp a fast rock's whole last step was a picture of a body the
-    // simulation had already resolved, so a trigger pressed while watching the
-    // rock cross the last tile answered nothing that was still there to
-    // answer. `isWardable` rather than `isMeteorKind`, because THE VOLLEY
-    // wants exactly that beat for exactly that reason.
-    c.row = isWardable(c.kind) ? Math.min(c.row + fall, hullRow(world.cfg)) : c.row + fall;
+    // **A body lands on the ship's row and does not go past it.** Whatever its
+    // tier — a slick at one tile a beat or a torch at thirteen — the last step
+    // of its fall ends on `hullRow`, and the beat it spends standing there is
+    // the beat render/ uses to draw it arriving. That beat is the one the
+    // shield and the cannon still have (`resolveHull`): without the clamp a
+    // fast body's whole last step was a picture of something the simulation
+    // had already resolved, so a trigger pressed while watching the rock cross
+    // the last tile answered nothing that was still there to answer.
+    //
+    // It was the rocks' clamp alone until the owner reported the other half of
+    // the same defect: a slick was taken off the field the beat it *entered*
+    // the ship's row, a whole tile clear of the hull it was supposed to have
+    // hit, so a body was seen to burst in mid-air. Every kind lands now.
+    c.row = Math.min(c.row + fall, hullRow(world.cfg));
     // Decided once a beat, from the beat this creature now stands on, and
     // stored — bullet-hit.ts and render/ both read it off the creature rather
     // than asking `throbIsOpen` a second time at a possibly different tick.

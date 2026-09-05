@@ -21,6 +21,10 @@ const TPB = ticksPerBeat(CFG);
 const HULL = hullRow(CFG);
 // A creature entered at beat 0 stands on row (beat - 1) — see rules.test.ts.
 const IMPACT_TICK = TPB * (HULL + 1);
+// The beat it is actually *through* the hull, which is one past the beat it
+// lands on it: every body spends the beat render/ draws it come down the last
+// tile standing on the ship's row (`BREACH_TICK` in rules.test.ts).
+const BREACH_TICK = IMPACT_TICK + TPB;
 
 interface Run {
   world: ReturnType<typeof createWorld>;
@@ -91,7 +95,7 @@ describe("the throb", () => {
   it("costs the hull exactly like any other missed creature if never hit", () => {
     const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
     const world = createWorld(noRegen, 0, [throb(COL)]);
-    for (let t = 0; t < IMPACT_TICK + 1; t++) step(world, []);
+    for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
     expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
   });
 

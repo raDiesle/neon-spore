@@ -1,3 +1,4 @@
+import { hullRow } from "./config.js";
 import { nextInt, type Rng } from "./rng.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -114,7 +115,12 @@ export function stepDart(world: World, c: Creature): void {
     // exactly as it was: while the body travels, it is the direction of
     // travel, which is what the jet is drawn along.
     c.col = dartStepCol(c.col, world.cfg.cols, dartHeading(c));
-    c.row += DART_ROWS;
+    // Clamped onto the ship's row for the same reason every fall is
+    // (`onBeat`): a dart takes two rows at a time, so without this the one
+    // move that reaches the hull would carry it a row *under* the ship, and
+    // the beat render/ spends drawing it arrive would draw it arriving in the
+    // band. The row it lands on is the row it breaks the hull from.
+    c.row = Math.min(c.row + DART_ROWS, hullRow(world.cfg));
     c.dartFloat = false;
     return;
   }

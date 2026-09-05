@@ -27,12 +27,12 @@ const HULL = hullRow(CFG); // 14
  */
 const IMPACT_TICK = TPB * (HULL + 1);
 /**
- * The beat a rock nobody answered is actually *through* the hull: one beat
- * past the beat it lands on it. A rock stops on the ship's row instead of
+ * The beat a body nobody answered is actually *through* the hull: one beat
+ * past the beat it lands on it. Every body stops on the ship's row instead of
  * falling past it, and spends the beat render/ draws it crossing that last
- * tile standing there — which is the last beat the shield can still turn it
- * (`hull.ts`). Every miss below is measured from here, every save from
- * `IMPACT_TICK`.
+ * tile standing there — which is the last beat the shield can still turn a
+ * rock and the cannon can still break a slick (`hull.ts`). Every miss below is
+ * measured from here, every save from `IMPACT_TICK`.
  */
 const BREACH_TICK = IMPACT_TICK + TPB;
 
@@ -90,15 +90,15 @@ describe("the beat", () => {
 
 describe("the hull", () => {
   it("takes damage and keeps a break where a creature landed", () => {
-    const { world } = run([slick(4, "red")], IMPACT_TICK + 1);
+    const { world } = run([slick(4, "red")], BREACH_TICK + 1);
     expect(world.creatures).toHaveLength(0);
     expect(hullPercent(world)).toBeLessThan(100);
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
   it("regenerates slowly, and the break stays", () => {
-    const after = run([slick(4, "red")], IMPACT_TICK + 1);
-    const later = run([slick(4, "red")], IMPACT_TICK + CFG.tickHz);
+    const after = run([slick(4, "red")], BREACH_TICK + 1);
+    const later = run([slick(4, "red")], BREACH_TICK + CFG.tickHz);
     expect(hullPercent(later.world)).toBeGreaterThan(hullPercent(after.world));
     // A second of regeneration is worth exactly hullRegenPerSecond points.
     expect(hullPercent(later.world) - hullPercent(after.world)).toBeCloseTo(
