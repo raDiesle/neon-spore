@@ -54,7 +54,7 @@ export function drawMaze(
     drum.cx,
     drum.cy,
     (drum.r * mazeCircleMilli(wheel, 0)) / 1000,
-    m.round,
+    m,
     beat,
     beatPhase,
   );

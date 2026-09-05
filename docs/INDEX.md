@@ -520,6 +520,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
+| `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 
 ### packages/net
 

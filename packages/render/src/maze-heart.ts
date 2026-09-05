@@ -1,5 +1,7 @@
 import { blobPath } from "@neon-spore/content";
+import type { MazeState } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
+import { drawMazeBlood } from "./maze-blood.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -19,11 +21,19 @@ import { PALETTE, STROKE } from "./palette.js";
  * veins are the warden's veins — bent rather than radial, forked near the tip,
  * because a straight line into the middle of a ring reads as a spoke.
  *
- * **It beats twice a beat, on the beat.** A heart that thumped once would be a
- * lamp fading up and down; the double thump is what makes it a heart. It runs
- * off `world.beat` and the frame's phase and stores nothing, so a restart
+ * **It beats twice a thump, and the thumps come faster as it is hurt.** A heart
+ * that thumped once would be a lamp fading up and down; the double thump is
+ * what makes it a heart. Untouched it is slow — one squeeze every three beats
+ * — and every hit it takes speeds it up, so by the last round it is racing.
+ * That is the boss's condition told in the one way a body tells it. Everything
+ * runs off `world.beat` and the frame's phase and stores nothing, so a restart
  * leaves none of it behind (`Effects.reset()` has nothing of this to clear)
  * and both phones thump together without either of them being told to.
+ *
+ * **A hit is meant to be unmissable.** The muscle is thrown open, a ring of
+ * light leaves it, and blood goes out across the floor of the room and stays
+ * there — through the next round and the one after, because the drum is
+ * replaced and the heart is not (`maze-blood.ts`).
  *
  * **The colour switches every round**, between the two the field already
  * carries: a slick's red and a bulb's cyan. It is the one thing on this boss
@@ -83,24 +93,47 @@ function thump(phase: number): number {
   return Math.min(1, hit(0, 0.17, 1) + hit(0.22, 0.13, 0.55));
 }
 
+/** Thumps a beat at full health, and at none. The owner asked for it to start
+ * much slower than it did and to beat more as it is hurt; these are the two
+ * ends of that. */
+const SLOWEST = 0.34;
+const FASTEST = 1.15;
+
+/** Beats a hit's own burst lasts — the flare, the recoil and the throw. */
+const WOUND = 1.6;
+
 /**
  * The heart in the middle of the drum. `r` is the room it has — the radius of
  * the drum's middle — and it fills a little over half of that at rest so the
  * swell has somewhere to go.
+ *
+ * It reads the whole round rather than a colour and a beat: how much of the
+ * boss's hull is gone is how fast it beats and how much blood is round it, and
+ * a verdict just landed is a hit it has to show.
  */
 export function drawMazeHeart(
   ctx: CanvasRenderingContext2D,
   cx: number,
   cy: number,
   r: number,
-  round: number,
+  m: MazeState,
   beat: number,
   beatPhase: number,
 ): void {
-  const { tint, rim } = mazeHeartBlood(round);
-  const time = beat + beatPhase;
-  const squeeze = thump(time);
-  const body = r * REST * (1 + SWELL * squeeze);
+  const { tint, rim } = mazeHeartBlood(m.round);
+  const hurt = Math.max(0, Math.min(1, 1 - m.hullMilli / 100_000));
+  // Slow when it is whole, racing when it is not. A rate rather than a
+  // schedule, so nothing has to be stored between beats to know where it is.
+  const time = (beat + beatPhase) * (SLOWEST + (FASTEST - SLOWEST) * hurt);
+  // A hit throws the muscle open on top of whatever it was doing.
+  const struck =
+    m.phase === "verdict" && m.verdict === 1
+      ? Math.max(0, 1 - (beat - m.phaseBeat + beatPhase) / WOUND)
+      : 0;
+  const squeeze = Math.min(1, thump(time) + struck * 0.9);
+  const body = r * REST * (1 + SWELL * squeeze) * (1 + 0.28 * struck);
+
+  drawMazeBlood(ctx, cx, cy, r, m, (round) => mazeHeartBlood(round).tint, beat, beatPhase);
 
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
@@ -175,5 +208,20 @@ export function drawMazeHeart(
   ctx.fill();
   ctx.globalAlpha = 1;
   ctx.restore();
+
+  // The wound itself: a ring of the heart's own light leaving it, once, wide
+  // and quick. It is the loudest thing this boss ever does, which is what the
+  // owner asked for — a hit used to be a dot changing colour.
+  if (struck > 0) {
+    ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = struck * 0.85;
+    ctx.strokeStyle = rim;
+    ctx.lineWidth = 2 + 6 * struck;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * (0.5 + 1.5 * (1 - struck)), 0, Math.PI * 2);
+    ctx.stroke();
+    halo(ctx, cx, cy, r * (1.2 + 1.4 * struck), rim, struck * 0.5);
+    ctx.globalAlpha = 1;
+  }
   ctx.restore();
 }
