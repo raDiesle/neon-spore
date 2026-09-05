@@ -1,9 +1,13 @@
 import { type Creature, recoilBouncesLeft, type SimConfig } from "@neon-spore/sim";
 import { creatureRadius } from "./creature-place.js";
+import { colorTrio, turnedTrio } from "./creature-tint.js";
 import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawHoopArc, drawRib } from "./recoil-ribs.js";
 
 /**
  * THE RECOIL's cage: the sprung frame a slick or a bulb falls inside, and the
@@ -42,6 +46,22 @@ import { PALETTE } from "./palette.js";
  * breathes on the wall clock, spread by the body's own id, so two recoils in
  * two lanes are never one drawing done twice.
  *
+ * **And it is lit, in the colour of the body it holds.** A cage that returns
+ * a shot is the ship's own ward said again on the other side of the field, so
+ * it is drawn the way the ward is (`shield.ts`): every rib and every arc goes
+ * through `strokeGlow`, over an aura the width of the hoop. The light is the
+ * body's own colour rather than a colour of its own — `turnedTrio` is the same
+ * crossing `living-draw.ts` paints the body with, so the frame turns red to
+ * cyan on the same frame the thing inside it does. That is the point of
+ * mixing it in rather than lighting the cage white: what the pair has to read
+ * through the frame is still the colour, and a frame in that colour is one
+ * more thing saying it rather than one more thing over the top of it.
+ *
+ * **The dimmer it is, the more it burns.** The aura and the glow both rise
+ * with `strain`, so a cage down to its last rib is visibly working — the same
+ * count the ribs carry, said a second way for the seat that is reading light
+ * across a phone screen rather than counting spokes.
+ *
  * A broken rib is drawn rather than omitted. It hangs off the hoop, shortened
  * and scorched in `PALETTE.ember` — the colour of the jet that vented out of
  * it (`recoil-vent.ts`) — because a missing rib reads as a frame that was
@@ -69,14 +89,35 @@ const HOOP_MUL = 1.5;
 export function strutsFor(cfg: SimConfig): number {
   return Math.max(1, cfg.recoilBounces);
 }
-/** Zigzag folds in one rib. Three reads as a spring at 26 px; two reads as a
- * kink and four reads as a scribble. */
-const FOLDS = 3;
-/** How far a fold swings off the rib's own line, as a share of its length. */
-const FOLD_MUL = 0.34;
 /** How much the frame breathes, as a share of the hoop. Under a tenth: this is
  * tension, not a pulse, and the throb owns pulsing. */
 const BREATHE = 0.06;
+/** How far the metal is stained by the body's colour, 0 rock and 1 the body's
+ * own rim. Past halfway, because a cage that only tinted would read as grey
+ * lit from somewhere else — the frame is meant to be *of* the creature. */
+const STAIN = 0.78;
+/** And how far a spent rib's ember is, on the same scale. Lower: what is left
+ * of a blown rib is the fire that went through it, not the body. */
+const SCORCH = 0.3;
+/** `strokeGlow` intensity on a whole frame, and what the last rib adds. The
+ * ward's own two numbers are 0.35 and 1.6 (`WARD_LOOK`); a cage is a smaller
+ * object seen further away and takes rather less. */
+const GLOW_BASE = 1;
+const GLOW_STRAIN = 1.1;
+/** The aura's opacity on a whole frame, and what the last rib adds. Faint at
+ * both: the centre of a halo sprite is its brightest part, and the body inside
+ * has to stay the thing being read. */
+const AURA_BASE = 0.2;
+const AURA_STRAIN = 0.2;
+/** How far the aura reaches past the hoop. */
+const AURA_MUL = 1.35;
+/** How far the light swings either side of itself, as a share of it, and how
+ * fast. Two sines rather than one, the ward's own reason (`WARD_LOOK`): a
+ * single period is one an eye predicts, and a frame it can predict stops
+ * reading as something under tension. */
+const SHIMMER = 0.24;
+const SHIMMER_HZ_A = 1.5;
+const SHIMMER_HZ_B = 0.7;
 
 /**
  * The cage, over a body that is already drawn. `time` is seconds, for the
@@ -92,6 +133,7 @@ export function drawRecoilCage(
   y: number,
   time: number,
   near: number,
+  turn = 1,
 ): void {
   // The body's own drawn radius, so the hoop is around what is actually there
   // rather than around a nominal tile — `creatureRadius` is the same rule the
@@ -111,9 +153,35 @@ export function drawRecoilCage(
   const breath = 1 + BREATHE * strain * Math.sin(time * 4.2 + sinHash(c.id) * 6.3);
   const hoop = r * breath;
 
-  const metal = hazed(cfg, PALETTE.rock, near);
-  const dark = hazed(cfg, PALETTE.rockDark, near);
-  const burnt = hazed(cfg, PALETTE.ember, near);
+  // The body's own colour, mid-turn if it is mid-turn — one call, shared with
+  // the draw of the body itself, so the two can never be a frame apart.
+  const tint = turnedTrio(c.color, turn);
+  const metal = hazed(cfg, mixHex(PALETTE.rock, tint.rim, STAIN), near);
+  const dark = hazed(cfg, mixHex(PALETTE.rockDark, tint.dark, STAIN), near);
+  const burnt = hazed(cfg, mixHex(PALETTE.ember, tint.hex, SCORCH), near);
+  // Spread by the body's id along with the breath, so two cages in two lanes
+  // are never one drawing done twice.
+  const phase = sinHash(c.id) * 6.3;
+  const shimmer =
+    1 +
+    SHIMMER * Math.sin(time * SHIMMER_HZ_A + phase) +
+    SHIMMER * 0.6 * Math.sin(time * SHIMMER_HZ_B + phase + 1.7);
+  const lit = (GLOW_BASE + GLOW_STRAIN * (strain - 1)) * shimmer;
+
+  // The aura, under everything. Its colour is the one the body is *becoming*
+  // rather than the mixture it is passing through: `haloSprite` caches one
+  // canvas per colour and radius, and a mixture that moves every frame would
+  // mint a fresh canvas every frame (`glow.ts`). The radius is quantised for
+  // the same reason.
+  const step = Math.max(2, hoop * 0.25);
+  halo(
+    ctx,
+    x,
+    y,
+    Math.round((hoop * AURA_MUL) / step) * step,
+    hazed(cfg, colorTrio(c.color).hex, near),
+    (AURA_BASE + AURA_STRAIN * (strain - 1)) * shimmer,
+  );
 
   ctx.save();
   ctx.lineCap = "round";
@@ -124,95 +192,10 @@ export function drawRecoilCage(
     // pair can read "how far round has it got" rather than "how many are lit".
     const spent = i >= left;
     const a = (i / struts) * Math.PI * 2 - Math.PI / 2;
-    drawRib(ctx, x, y, a, creatureRadius(l, c, 0, cfg), hoop, spent, spent ? burnt : metal, time);
-    drawHoopArc(ctx, x, y, a, struts, hoop, spent, spent ? burnt : metal, dark);
+    const hex = spent ? burnt : metal;
+    const glow = spent ? lit * 0.25 : lit;
+    drawRib(ctx, x, y, a, creatureRadius(l, c, 0, cfg), hoop, spent, hex, time, glow);
+    drawHoopArc(ctx, x, y, a, struts, hoop, spent, hex, dark, glow);
   }
   ctx.restore();
-}
-
-/**
- * One rib: a zigzag leaf from the body out to the hoop.
- *
- * A spent one stops short of the hoop and leans off its own line — the spring
- * blew out and what is left is hanging. The lean is a fixed function of the
- * angle rather than of time, so a broken rib is *broken* and does not go on
- * flapping: the frame breathes and the wreckage does not, which is what makes
- * the two read as different materials.
- */
-function drawRib(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  a: number,
-  inner: number,
-  outer: number,
-  spent: boolean,
-  hex: string,
-  time: number,
-): void {
-  const reach = spent ? inner + (outer - inner) * 0.55 : outer;
-  const lean = spent ? 0.5 : 0;
-  const swing = spent ? 0 : 0.18 * Math.sin(time * 3.1 + a * 2);
-  ctx.strokeStyle = hex;
-  ctx.globalAlpha = spent ? 0.65 : 1;
-  ctx.lineWidth = Math.max(0.8, outer * (spent ? 0.05 : 0.08));
-  ctx.beginPath();
-  for (let k = 0; k <= FOLDS * 2; k++) {
-    const t = k / (FOLDS * 2);
-    const d = inner + (reach - inner) * t;
-    // The fold, alternating either side of the rib's line, and tapering to
-    // nothing at both ends so the leaf meets the body and the hoop square on.
-    const off = (k % 2 === 0 ? 0 : 1) * FOLD_MUL * (outer - inner) * Math.sin(t * Math.PI);
-    const ang = a + lean * t + swing * t + off / Math.max(1, d);
-    const px = x + Math.cos(ang) * d;
-    const py = y + Math.sin(ang) * d;
-    if (k === 0) ctx.moveTo(px, py);
-    else ctx.lineTo(px, py);
-  }
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-}
-
-/**
- * The quarter of the hoop this rib carries, and the bolt at its head.
- *
- * A spent rib's arc is drawn split: two short pieces with a gap where the bolt
- * was, so the hoop is visibly *open* there. That gap is the whole readout —
- * a shot could be said to have "damaged" a frame by dimming it, and dimming is
- * something a phone in a bright room throws away first.
- */
-function drawHoopArc(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  a: number,
-  struts: number,
-  r: number,
-  spent: boolean,
-  hex: string,
-  dark: string,
-): void {
-  const half = Math.PI / struts;
-  const gap = spent ? half * 0.45 : 0;
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = Math.max(0.8, r * (spent ? 0.05 : 0.075));
-  ctx.globalAlpha = spent ? 0.7 : 1;
-  ctx.beginPath();
-  ctx.arc(x, y, r, a - half, a - gap);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(x, y, r, a + gap, a + half);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-
-  // The bolt the rib meets the hoop at. Present while the rib is, gone when it
-  // is not — which is what the gap above is a gap in.
-  if (spent) return;
-  ctx.fillStyle = dark;
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = Math.max(0.6, r * 0.045);
-  ctx.beginPath();
-  ctx.arc(x + Math.cos(a) * r, y + Math.sin(a) * r, Math.max(1, r * 0.09), 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
 }

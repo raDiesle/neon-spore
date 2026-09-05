@@ -220,8 +220,10 @@ export function drawCreatures(
     // a frame around a body rather than a substitute for one, so `wornKind`
     // has already drawn the slick or the bulb inside it in whichever colour
     // this bounce left it. Both screens get the whole of it — nothing about a
-    // recoil is split — so there is no gate, only a draw of its own.
-    if (c.kind === "recoil") drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near);
+    // recoil is split — so there is no gate. The last argument is the turn the
+    // body took, because the cage is lit in the body's colour (`recoil.ts`).
+    if (c.kind === "recoil")
+      drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near, recoilTurn(c, beatPhase));
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2

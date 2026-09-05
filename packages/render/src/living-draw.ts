@@ -1,13 +1,12 @@
 import { blobPath, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
-import { type Color, type Creature, otherColor, type SimConfig, wornKind } from "@neon-spore/sim";
+import { type Creature, type SimConfig, wornKind } from "@neon-spore/sim";
 import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, livingBodyMul } from "./creature-place.js";
+import { turnedTrio } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
-import { smoothstep } from "./ease.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
 import { halo, strokeGlow } from "./glow.js";
-import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
@@ -66,22 +65,12 @@ export function drawLiving(
   // said the same thing in one frame, which is a frame nobody watching the
   // shot land is looking at the body for — the pair reads the new colour off a
   // body that has already moved, and the turn is the thing that carries the
-  // eye there. Eased at both ends so the crossing is a change of state rather
-  // than a dissolve running at a constant rate.
-  const k = turn >= 1 || neutral ? 1 : smoothstep(turn);
-  const was: Color | null = k >= 1 || c.color === null ? null : otherColor(c.color);
-  const turned = (from: string, to: string): string => haze(k >= 1 ? to : mixHex(from, to, k));
-  const trio = (color: Color | null): [string, string, string] =>
-    color === null
-      ? [PALETTE.sparkDim, PALETTE.dim, PALETTE.rockDark]
-      : color === "red"
-        ? [PALETTE.redRim, PALETTE.red, PALETTE.redDark]
-        : [PALETTE.cyanRim, PALETTE.cyan, PALETTE.cyanDark];
-  const to = trio(neutral ? null : c.color);
-  const from = was === null ? to : trio(was);
-  const rim = turned(from[0], to[0]);
-  const hex = turned(from[1], to[1]);
-  const dark = turned(from[2], to[2]);
+  // eye there. `turnedTrio` owns the crossing, because the cage around a
+  // recoil is lit in the same colour on the same frame (`recoil.ts`).
+  const tint = turnedTrio(neutral ? null : c.color, turn);
+  const rim = haze(tint.rim);
+  const hex = haze(tint.hex);
+  const dark = haze(tint.dark);
 
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its
