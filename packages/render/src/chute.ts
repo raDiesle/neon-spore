@@ -40,12 +40,14 @@ import { PALETTE, STROKE } from "./palette.js";
  * (`restart.test.ts` is the gate).
  */
 
-/** How far the canopy's crown stands above the body, in body radii. */
-const CANOPY_LIFT = 1.9;
+/** How far the canopy's crown stands above the body, in body radii. Exported
+ * for the moment it is cut off one (`chute-cut.ts`): a canopy that let go from
+ * anywhere but where it was hanging is a second canopy. */
+export const CANOPY_LIFT = 1.9;
 /** How wide the canopy is, in body radii. Wider than the body it carries by
  * half again: narrower and it reads as a hat, wider and it reaches into the
  * lane next door and argues with the column the pair have just agreed on. */
-const CANOPY_HALF = 1.5;
+export const CANOPY_HALF = 1.5;
 /** How far the whole assembly leans, in radians, at the ends of its sway. */
 const SWAY = 0.16;
 /** How long the plume under a climbing body reaches, in body radii. */
@@ -80,6 +82,43 @@ export function drawChute(
 }
 
 /**
+ * The dome itself, as a path about the body it hangs from — the crown
+ * `CANOPY_LIFT` above the origin and the hem `CANOPY_HALF` either side of it.
+ *
+ * A path rather than a run of `ctx` calls because it is drawn in two places
+ * now: here, over a body still coming down, and in `chute-cut.ts`, climbing
+ * away from one that has been shot out from under it. The pair must recognise
+ * the second as the first with nothing underneath it, and one shape drawn
+ * twice is the only way that stays true.
+ *
+ * `belly` is how far the crown is bellied up on this frame: 1 at rest, and the
+ * canopy's own slow breath either side of it.
+ */
+export function canopyPath(r: number, belly: number): Path2D {
+  const lift = -r * CANOPY_LIFT;
+  const half = r * CANOPY_HALF;
+  const p = new Path2D();
+  // A single curve from one lip to the other, bellied upward. Not a
+  // semicircle — a canopy under load is flatter at the crown than at the
+  // edges, and the difference is what stops it reading as a ball sitting on
+  // top of the body.
+  p.moveTo(-half, lift);
+  p.bezierCurveTo(
+    -half * 0.9,
+    lift - r * 1.5 * belly,
+    half * 0.9,
+    lift - r * 1.5 * belly,
+    half,
+    lift,
+  );
+  // Back along the underside, so the shape closes as a shell rather than as a
+  // lens: the hem hangs a little below the lips it is stretched between.
+  p.quadraticCurveTo(0, lift + r * 0.42, -half, lift);
+  p.closePath();
+  return p;
+}
+
+/**
  * The dome and its lines, leaning together about the body they hang from.
  * Rotated about the *body* and not about the canopy's own crown, because that
  * is where the weight is: a canopy pivoting on itself swings the body around
@@ -101,32 +140,16 @@ function drawCanopy(
   const lift = -r * CANOPY_LIFT;
   const half = r * CANOPY_HALF;
 
-  // The dome: a single curve from one lip to the other, bellied upward, with
-  // its own breath. Not a semicircle — a canopy under load is flatter at the
-  // crown than at the edges, and the difference is what stops it reading as a
-  // ball sitting on top of the body.
+  // The dome, with its own breath — the shape `chute-cut.ts` cuts loose.
   const belly = 1 + Math.sin(time * 1.6 + phase) * 0.06;
-  ctx.beginPath();
-  ctx.moveTo(-half, lift);
-  ctx.bezierCurveTo(
-    -half * 0.9,
-    lift - r * 1.5 * belly,
-    half * 0.9,
-    lift - r * 1.5 * belly,
-    half,
-    lift,
-  );
-  // Back along the underside, so the shape closes as a shell rather than as a
-  // lens: the hem hangs a little below the lips it is stretched between.
-  ctx.quadraticCurveTo(0, lift + r * 0.42, -half, lift);
-  ctx.closePath();
+  const dome = canopyPath(r, belly);
   ctx.fillStyle = glow;
   ctx.globalAlpha = 0.22;
-  ctx.fill();
+  ctx.fill(dome);
   ctx.globalAlpha = 1;
   ctx.strokeStyle = rim;
   ctx.lineWidth = STROKE.outline;
-  ctx.stroke();
+  ctx.stroke(dome);
 
   // Four lines, evenly across the hem and gathered at the body. Four rather
   // than two, because two is a handle; and evenly rather than at the edges,

@@ -238,6 +238,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "caromCrack":
     case "caromEject":
     case "chuteOpen":
+    case "chuteCut":
       return caromCue(e, cols, rows);
     // THE VOLLEY's two, on exactly the same terms and in `bind-volley.ts`.
     case "volleyReturn":

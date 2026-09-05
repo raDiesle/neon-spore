@@ -217,3 +217,24 @@ relay a budget that says why, next to the windows they are waiting out, so the
 next one written inherits it. `RUN_OVER_MS` and `SEAT_SILENT_MS` are already
 shortened deliberately so the test does not sit still for the real windows, and
 that comment is where the argument belongs.
+## Split `effects-spark.ts`: it is on the 250-line limit and blocks every new event
+
+- **Found:** 2026-09-05, claude/carom-enemy-deflection-d1bb2e
+- **Files:** `packages/render/src/effects-spark.ts`, `packages/sim/test/limits.test.ts`
+
+`burstFor` is one exhaustive switch over the whole of `SimEvent`, and the file
+is at 250 lines to the line. Adding `chuteCut` — one `case` and one clause of
+comment — pushed it over, and the only way to land it was to reword two
+comments belonging to other creatures until five lines came back. That is a
+cost every future event pays, and it is paid by editing prose nobody meant to
+touch, which is exactly how an argument written down carefully gets shortened
+by somebody with a different aim.
+
+Split it the way `effects-ingest.ts` was split out of `effects.ts`: the table
+is already in two halves that never mix — the cases that *return a burst* and
+the long tail that returns `null` because the event is drawn some other way.
+Move the tail into `effects-spark-silent.ts` as a `Set<SimEvent["type"]>` or a
+second exhaustive switch that `burstFor` consults first, keeping the property
+that matters — a new event that nobody accounts for is a compile error rather
+than a silence. Both files then have room, and `limits.test.ts` goes green
+without anybody rewriting a sentence about THE GHOST.

@@ -3,6 +3,7 @@ import { metColor, missedColor } from "./balance.js";
 // it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
 import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 import { caromStruck } from "./carom.js";
+import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
@@ -94,6 +95,12 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // the shield has to take the second, which is why it is the one kill in the
   // game that hands a body to the other player (`carom.ts`).
   if (hit.kind === "carom") return caromStruck(world, b, hit);
+  // The body that carom threw out, shot while it is hanging under its canopy.
+  // The same price a slick pays — the branch buys a picture, not a rule
+  // (`chute.ts`) — and only while the canopy is out: one still climbing under
+  // its own thrust has nothing to cut and falls through to the ordinary kill
+  // below, which is the branch a slick takes.
+  if (hit.kind === "chute" && chuteIsOpen(hit)) return chuteStruck(world, b, hit);
   if (hit.kind === "lid") {
     // Plates that only part while a hand is on the cord, and the lens behind
     // them. All three answers a shot can get are one rule, in `lid.ts` for

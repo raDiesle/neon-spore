@@ -142,6 +142,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // restart.
     case "caromEject":
     case "chuteOpen":
+    // And the canopy cut off one, which does outlive its frame — but as a
+    // transient belonging to one body, ingested with the rest of
+    // `effects-body.ts` before this loop starts (`chute-cut.ts`).
+    case "chuteCut":
     // The shell bursting off a volley. `burstFor` above has already thrown the
     // rock it was made of, and nothing here is remembered past this frame: how
     // many plates are drawn is read every frame straight off `volleyPlates`

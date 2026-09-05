@@ -94,6 +94,7 @@ const SAMPLES: Record<string, SimEvent> = {
   caromCrack: { type: "caromCrack", col: 3, row: 5, span: 2, color: "red" },
   caromEject: { type: "caromEject", id: 9, col: 3, row: 5, color: "red" },
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
+  chuteCut: { type: "chuteCut", col: 3, row: 6, color: "red", kind: "slick" },
   volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
   volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
@@ -244,6 +245,7 @@ const CAROM_IDS: Record<string, string> = {
   caromCrack: "impact.split",
   caromEject: "creature.gateLoop",
   chuteOpen: "creature.moult",
+  chuteCut: "impact.split",
 };
 
 /**

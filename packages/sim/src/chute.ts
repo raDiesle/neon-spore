@@ -1,6 +1,8 @@
+import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { removeCreature } from "./field.js";
 import { livingKindForColor } from "./kinds.js";
-import type { Creature, CreatureKind } from "./types.js";
+import type { Bullet, Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -31,12 +33,13 @@ import type { World } from "./world.js";
  * moment it touches row zero the canopy opens, and that is the only transition
  * this creature has. Read it through `chuteIsOpen`, never directly.
  *
- * **It is killed by the ordinary rule.** A chute carries a colour and reaches
- * no branch of its own in `bullet-hit.ts`, so the matching cannon takes it
- * exactly the way it takes a slick, for exactly what a slick pays. That is
- * deliberate rather than an omission: the pair has already been charged
- * something new for this arrival, and the second half has to be a sentence
- * they already know how to say.
+ * **It is killed by the ordinary rule.** A chute carries a colour and pays a
+ * slick's price for a matching shot — `chuteStruck` below is the same rule
+ * written out, not a different one. That is deliberate rather than an
+ * omission: the pair has already been charged something new for this arrival,
+ * and the second half has to be a sentence they already know how to say. What
+ * the branch buys is a *picture* — `chuteCut`, beside the destroy — and only
+ * while the canopy is out, because only then is there something to cut.
  */
 
 /** Whether the canopy is out — which is also whether it is coming down. */
@@ -97,4 +100,48 @@ export function stepChute(world: World, c: Creature): void {
     return;
   }
   if (chuteFalls(cfg, world.beat)) c.row += 1;
+}
+
+/**
+ * A shot met a chute with its canopy out. Returns whether the bullet goes on,
+ * the same contract `resolve` has — and it does exactly what the ordinary
+ * branch there would: a wrong colour is a colour miss, a matching one is a
+ * kill worth `scoreDestroy`, and a lance carries on through it. Nothing about
+ * the balance of this body changes here.
+ *
+ * What it adds is one event. `ghostStruck` is the precedent line for line:
+ * two events on one tick and two pictures — the ordinary destroy burst
+ * throwing the body's colour away from the tile, and, on top of it, the two
+ * halves of this creature coming apart. The canopy is cut loose and climbs
+ * away with nothing under it; the body it was carrying drops the instant
+ * nothing is holding it up, and goes (`render/chute-cut.ts`).
+ *
+ * It lives here rather than in `bullet-hit.ts` for `caromStruck`'s reason: it
+ * is a rule about one creature, and that file is at its length limit.
+ */
+export function chuteStruck(world: World, b: Bullet, hit: Creature): boolean {
+  if (hit.color !== b.color) {
+    // An ordinary colour miss. Both players have been looking at the body's
+    // colour since the crust came off it, so getting it wrong here is the same
+    // mistake it would be against a slick and is scored as one.
+    missedColor(world);
+    world.events.push({ type: "reject", col: hit.col, row: hit.row });
+    return false;
+  }
+
+  metColor(world);
+  world.score += world.cfg.scoreDestroy;
+  world.events.push({
+    type: "chuteCut",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    // What it looks like rather than what it is, through the one function that
+    // answers that — never `livingKindForColor` spelled out again here.
+    kind: chuteBecomes(hit),
+  });
+  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  removeCreature(world, hit.id);
+  b.pierced += 1;
+  return b.lance && b.pierced < world.cfg.lancePierce;
 }

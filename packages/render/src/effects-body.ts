@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
@@ -14,7 +15,8 @@ import { VeilTearFx } from "./veil-tear.js";
  * them by less than a beat: a lure folding to a point, the ward's bolts
  * reaching up a column, a clasp's shield blinking out, a veil's cloud tearing
  * open on the body inside it, a ghost letting go and climbing out of the top
- * of the field, a layer coming off a rind, a recoil's cage failing.
+ * of the field, a layer coming off a rind, a recoil's cage failing, a chute's
+ * canopy cut off the body it was carrying.
  *
  * Split out of `effects.ts` when the second one arrived and that file went
  * over its 250-line limit — the same reason `effects-spark.ts` and
@@ -49,6 +51,7 @@ export class BodyTransients {
   private rindShed = new RindShedFx();
   private recoilVent = new RecoilVentFx();
   private recoilCageBreak = new RecoilCageBreakFx();
+  private chuteCut = new ChuteCutFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -70,6 +73,9 @@ export class BodyTransients {
     this.recoilVent.ingest(events, l, cfg);
     // And the frame itself failing, on the bounce that spends the last one.
     this.recoilCageBreak.ingest(events, l, cfg);
+    // A canopy cut off the body it was carrying — the one transient here that
+    // is two gestures rather than one (`chute-cut.ts`).
+    this.chuteCut.ingest(events, l);
   }
 
   update(dt: number): void {
@@ -81,6 +87,7 @@ export class BodyTransients {
     this.rindShed.update(dt);
     this.recoilVent.update(dt);
     this.recoilCageBreak.update(dt);
+    this.chuteCut.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -97,6 +104,10 @@ export class BodyTransients {
     // the same reason: the frame is debris the instant it fails, and the body
     // it was around has already gone two rows and a lane away from it.
     this.recoilCageBreak.draw(ctx);
+    // A chute coming apart, frozen on the tile the shot met it in for the same
+    // reason: the body is gone from the world before this draws, and where its
+    // two halves go is the picture rather than the world.
+    this.chuteCut.draw(ctx);
   }
 
   /** The four that are drawn around a body the world still has. */
@@ -128,5 +139,6 @@ export class BodyTransients {
     this.rindShed.clear();
     this.recoilVent.clear();
     this.recoilCageBreak.clear();
+    this.chuteCut.clear();
   }
 }

@@ -16,7 +16,10 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * which of *two* controls to reach for on the strength of what they heard.
  */
 export function caromCue(
-  e: Extract<SimEvent, { type: "caromBounce" | "caromCrack" | "caromEject" | "chuteOpen" }>,
+  e: Extract<
+    SimEvent,
+    { type: "caromBounce" | "caromCrack" | "caromEject" | "chuteOpen" | "chuteCut" }
+  >,
   cols: number,
   rows: number,
 ): Cue | null {
@@ -67,6 +70,18 @@ export function caromCue(
       // happen in the same wave and both mean "that thing is not finished".
       return {
         id: "creature.moult",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "chuteCut":
+      // The canopy cut off the body, and `impact.split` again — the same sound
+      // the crust coming apart gets, because it is the same sentence about the
+      // same arrival: *that came in two pieces*. The ordinary `destroy` rides
+      // on the identical tick and is what says the column has closed, so this
+      // one is free to say only the shape of it, and the pair hears the two
+      // together as one thing ending in two parts.
+      return {
+        id: "impact.split",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

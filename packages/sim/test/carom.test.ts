@@ -355,6 +355,50 @@ describe("the body it throws out", () => {
     expect(world.score - before).toBe(CFG.scoreDestroy);
   });
 
+  /**
+   * The owner's ask: shot under the canopy, *the paraglider should be released
+   * from the enemy and vanish upward, and the enemy falls a little and then
+   * vanishes as well.* The rule does not change — a chute costs and scores
+   * what a slick does — so what the branch buys is one extra event carrying
+   * the picture, exactly as `ghostRelease` rides on top of a ghost's kill.
+   */
+  it("cuts the canopy loose beside the ordinary destroy when it is shot under it", () => {
+    const { world, chute } = ejected(6);
+    for (let t = 0; t < TPB * 4; t++) step(world, []);
+    expect(chuteIsOpen(chute)).toBe(true);
+    world.events.length = 0;
+    resolve(world, bolt(chute, "red"), chute);
+
+    const cut = world.events.filter((e) => e.type === "chuteCut");
+    expect(cut).toHaveLength(1);
+    // It names the body that was hanging there, so the picture draws a slick
+    // rather than a coloured disc (`render/chute-cut.ts`).
+    expect(cut[0] && "kind" in cut[0] && cut[0].kind).toBe("slick");
+    expect(cut[0] && "color" in cut[0] && cut[0].color).toBe("red");
+    // Beside the kill, never in place of it: the burst, the sound and the
+    // balance are a slick's.
+    expect(world.events.filter((e) => e.type === "destroy")).toHaveLength(1);
+  });
+
+  it("cuts nothing off one still climbing — there is no canopy out yet", () => {
+    const { world, chute } = ejected(6);
+    expect(chuteIsOpen(chute)).toBe(false);
+    world.events.length = 0;
+    resolve(world, bolt(chute, "red"), chute);
+    expect(world.events.filter((e) => e.type === "chuteCut")).toHaveLength(0);
+    expect(world.events.filter((e) => e.type === "destroy")).toHaveLength(1);
+  });
+
+  it("answers a wrong colour under the canopy as an ordinary colour miss", () => {
+    const { world, chute } = ejected(6);
+    for (let t = 0; t < TPB * 4; t++) step(world, []);
+    world.events.length = 0;
+    expect(resolve(world, bolt(chute, "cyan"), chute)).toBe(false);
+    expect(world.events.filter((e) => e.type === "reject")).toHaveLength(1);
+    expect(world.events.filter((e) => e.type === "chuteCut")).toHaveLength(0);
+    expect(world.creatures.some((c) => c.kind === "chute")).toBe(true);
+  });
+
   it("refuses a hand, for the dart's reason: it has no rate to scale", () => {
     expect(isGrippable("chute")).toBe(false);
   });

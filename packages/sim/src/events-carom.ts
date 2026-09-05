@@ -1,4 +1,4 @@
-import type { Color } from "./types.js";
+import type { Color, CreatureKind } from "./types.js";
 
 /**
  * **Everything THE CAROM and the body it throws out do**, as events.
@@ -64,4 +64,20 @@ export type CaromEvent =
    * this body has — and it happens off the top of the screen's attention,
    * while both players are busy with the rock the same shot made.
    */
-  | { type: "chuteOpen"; col: number; row: number; color: Color };
+  | { type: "chuteOpen"; col: number; row: number; color: Color }
+  /**
+   * A chute shot down **while the canopy was out**. `kind` is the body it was
+   * wearing — a slick or a bulb — so the picture can draw the thing that was
+   * hanging there rather than a coloured disc, on `veilTorn`'s terms and for
+   * its reason.
+   *
+   * Beside the ordinary `destroy` rather than in place of it, exactly as
+   * `ghostRelease` is: the kill is a kill and keeps its burst, its sound and
+   * its balance, and this is the *shape* of it that rides on top. What the
+   * pair has to be shown is that the two halves came apart — the canopy is cut
+   * loose and climbs away empty, and the body it was carrying drops the moment
+   * nothing is holding it up. A shot into a stowed chute is still climbing
+   * under its own thrust and there is no canopy to cut, so it gets no event
+   * here and dies the way a slick does.
+   */
+  | { type: "chuteCut"; col: number; row: number; color: Color; kind: CreatureKind };
