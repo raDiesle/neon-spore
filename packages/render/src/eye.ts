@@ -1,4 +1,4 @@
-import { circleSubpath } from "@neon-spore/content";
+import type { EyeInk } from "./eye-lens.js";
 import { halo, strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -14,8 +14,9 @@ import { PALETTE, STROKE } from "./palette.js";
  *  1. **the fluid** — a pool of neon green standing outside the socket and
  *     wobbling on its own clock, so the thing looks wet rather than machined
  *     (and deliberately not the eye's own colour — `PALETTE.eyeFluid`);
- *  2. **the lens** — a gap that grows from a shut slit to a round eye, with an
- *     iris filling it and a pupil that goes from a line to a disc;
+ *  2. **the lens** — an almond gap that grows from a shut line low in the
+ *     socket to a wide eye, with an iris filling it and a pupil the lids cut
+ *     from a slit into a disc;
  *  3. **the pupil's breath** — the one thing here on a clock rather than on the
  *     pull, so a fully open eye is never a still picture;
  *  4. **the fringe** — lashes standing off the top rim and cilia combing the
@@ -29,19 +30,17 @@ import { PALETTE, STROKE } from "./palette.js";
  * (`sim/lid.ts`, `sim/warden.ts`).
  *
  * **What it costs, because the owner asked.** One eye is three `Path2D`s, one
- * cached sprite blit and four `strokeGlow`s — about twenty canvas calls, flat,
- * whatever the openness. Every loop below has a fixed point count, the fringe
+ * cached sprite blit, one clip and four `strokeGlow`s — about twenty canvas
+ * calls, flat, whatever the openness. Every loop below has a fixed point count, the fringe
  * is one path rather than one path per hair, and there is no gradient anywhere:
  * `createRadialGradient` is a canvas call with an allocation behind it and the
  * wash it was buying is a `halo` sprite that is cached by colour and radius
  * (`glow.ts`).
  */
 
-/** The two colours an eye is drawn in: its own, and the brighter rim of it. */
-export interface EyeInk {
-  hex: string;
-  rim: string;
-}
+/** The lens is next door, and both bodies still reach it through this file:
+ * one import, one eye (`eye-lens.ts`). */
+export { drawEyeLens, type EyeInk } from "./eye-lens.js";
 
 /** Points around the fluid's contour. Sixteen is where a wobbling ring stops
  * reading as a polygon at the couple of dozen pixels a body draws at, and
@@ -135,60 +134,6 @@ export function drawEyeFluid(
   // — `halo` keys its cache on the colour and a rounded radius, and both are
   // drawn from a small fixed set here (`glow.ts`).
   halo(ctx, cx, cy, Math.max(rx, ry) * 2.3, PALETTE.eyeFluid, 0.14 + openness * 0.16);
-}
-
-/**
- * The lens, the iris and the pupil — the part of this picture that was already
- * in the game, moved here whole.
- *
- * Two lids opening on one number: a lens whose gap grows from a closed slit to
- * a round eye, an iris in the eye's colour filling it, and a pupil that goes
- * from a line to a disc as the lids come apart. There are not two things to
- * keep in step, which is what stops the picture drifting from the rule.
- *
- * `rx` and `ry` are the socket's own half-extents rather than one radius: THE
- * WARDEN's hole is round and passes the same number twice, and THE LID's is an
- * almond half as tall as it is wide. One radius would have made the lid's lens
- * taller than the body it sits in.
- *
- * `t` is the **beat clock**, not the wall clock, so the breath below is the
- * same on both phones (`content/own-motion.ts` on why a pose is sampled on
- * beats).
- */
-export function drawEyeLens(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  rx: number,
-  ry: number,
-  ink: EyeInk,
-  openness: number,
-  t: number,
-): void {
-  const w = rx * 0.92;
-  const h = ry * 0.9 * openness;
-  const lens = new Path2D(
-    `M ${cx - w} ${cy} Q ${cx} ${cy - h * 2} ${cx + w} ${cy} Q ${cx} ${cy + h * 2} ${cx - w} ${cy} Z`,
-  );
-  ctx.save();
-  ctx.fillStyle = ink.hex;
-  ctx.globalAlpha = 0.35 + 0.5 * openness;
-  ctx.fill(lens);
-  ctx.restore();
-  strokeGlow(ctx, lens, ink.rim, STROKE.inner, 0.8 + openness * 0.6);
-
-  // The pupil: a slit while the lids are nearly shut, a disc when they are
-  // wide. It breathes, so a fully open eye is never a still picture.
-  const pulse = 0.85 + 0.15 * Math.sin(t * Math.PI * 2);
-  const pr = Math.min(h * 0.8, w * 0.34) * pulse;
-  if (pr <= 0) return;
-  const pupil = new Path2D(circleSubpath(cx, cy, pr));
-  ctx.save();
-  ctx.globalAlpha = openness;
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(pupil);
-  strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2 * openness);
-  ctx.restore();
 }
 
 /**

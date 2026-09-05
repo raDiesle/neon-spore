@@ -392,7 +392,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
 | `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
 | `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
-| `packages/render/src/eye.ts` | you are drawing an eye — the film, the lens that opens from a slit, the breathing pupil, the lashes and the cilia, shared by THE LID and THE WARDEN |
+| `packages/render/src/eye.ts` | you are drawing an eye — the wet film round it and the lashes and cilia off it, shared by THE LID and THE WARDEN; the lens itself is `eye-lens.ts` |
 | `packages/render/src/warden-fx.ts` | The one thing about THE WARDEN that outlives a frame |
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, its name and its sentence, as |
@@ -521,6 +521,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
+| `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
 
 ### packages/net
 

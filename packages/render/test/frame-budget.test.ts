@@ -273,52 +273,64 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // open, which is deliberately not a glow (`warden-skin.ts`). Sixteen
       // eyelets, forty hairs and five veins are three paths between them, so
       // none of these rows moves when one of those counts does.
-      stroke: 89,
+      // One more than the plates and the skin between them account for: the
+      // two lids over the hole carry a fold each, and both folds are one path
+      // stroked once rather than a stroke apiece (`warden-eye.ts`).
+      stroke: 90,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 32,
-      // One more: the film and the veins share a single clip to the body.
-      clip: 6,
+      // Two more than the body's own: the film and the veins share a single
+      // clip to it, and the lens opens one of its own so the lids can cut the
+      // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
+      clip: 7,
       save: 29,
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
-      "new Path2D": 40,
+      // One is the lids' folds, and it is one however far apart they stand.
+      "new Path2D": 41,
       fillText: 4,
     },
     {
       fillRect: 66,
-      stroke: 91,
+      stroke: 92,
       fill: 32,
-      clip: 6,
+      clip: 7,
       save: 29,
       drawImage: 15,
       createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 26,
+      "new Path2D": 27,
       fillText: 4,
     },
   ],
   "THE LID": [
     {
       fillRect: 68,
-      stroke: 72,
+      // Five under the row that stood here, and none of the five was spent by
+      // this change: they were slack left behind by a saving that landed
+      // without lowering the row, which a ceiling test never notices. Measured
+      // again, and put where the frame actually is.
+      stroke: 67,
       fill: 24,
-      clip: 6,
+      // The one op this body's share of the new lens costs: the clip the lids
+      // cut the pupil through (`eye-lens.ts`).
+      clip: 7,
       save: 27,
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
-      "new Path2D": 34,
+      "new Path2D": 33,
       fillText: 4,
     },
     {
       fillRect: 68,
-      stroke: 74,
+      stroke: 69,
       fill: 24,
-      clip: 6,
+      clip: 7,
       save: 27,
       drawImage: 15,
       createLinearGradient: 5,
@@ -326,7 +338,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`).
       createRadialGradient: 1,
-      "new Path2D": 20,
+      "new Path2D": 19,
       fillText: 4,
     },
   ],
