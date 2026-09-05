@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · b9a7f0f — `bun run frames --settle N` photographs what only painting moves
+
+`advance(ticks)` steps the simulation and never paints; `paint()` moves every render effect by exactly a sixtieth of a second and never steps. So the two clocks come apart, and a capture had **one painted frame per photograph** however many ticks it ran: a strip at `--stride 3` moved the world three ticks and the sparks one frame. Anything living in painted seconds — a spark's 0.4 s, the last-step fall replay in `rock-impact.ts` — was therefore still on screen thousands of ticks later or had not started yet, and a burst at the hull was uncapturable. Four captures were spent on a colour change and not one frame of them held a single spark: the rock hung a few pixels off the skin for sixty painted frames with one second's worth of sixtieths behind it.
+
 ## 2026-09-05 · 67b6253 — THE VOLLEY's wave is watched rather than read
 
 It shipped with three lines of prose and no `scene`, exactly as THE CAROM did two entries before it and for the same reason: what the pair has to learn is a shape, and a shape does not read off a line of text. It is the worse of the two to describe, because the thing being taught is that a control they already know does something it has never done before — every warded body in this game so far has been a rock, and a rock answered is a rock gone.
