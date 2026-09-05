@@ -128,11 +128,12 @@ export function alignCrawler(world: World, crawlerId: number): void {
  * creature exists to make the pair say out loud.
  *
  * Three answers, and the two that are not kills are deliberately the same one
- * a rock gives. An end is armour and an armoured segment is armour, so the
- * bolt leaves a crater on either and nothing else — the rule made visible, and
- * the same picture the pair already reads off a meteor. There is no colour to
- * be wrong about on either, so neither is booked as a colour miss: what the
- * pair got wrong was the *control*, and the shield is still standing by.
+ * a rock gives. Every colourless link is the dome's — a plate, the head, the
+ * tail — so the bolt leaves a crater on any of them and nothing else: the rule
+ * made visible, and the same picture the pair already reads off a meteor.
+ * There is no colour to be wrong about on one, so it is not booked as a colour
+ * miss: what the pair got wrong was the *control*, and the shield is still
+ * standing by.
  */
 export function linkStruck(world: World, b: Bullet, hit: Creature): boolean {
   if (hit.color === null) {
@@ -146,15 +147,39 @@ export function linkStruck(world: World, b: Bullet, hit: Creature): boolean {
     return false;
   }
 
-  // The ordinary kill, and deliberately the ordinary event: the segment leaves
-  // the field and the column it was holding is open, which is exactly what a
-  // `destroy` means everywhere else. THE STRAND needed one of its own because
-  // a shrivelled bead stays hanging; nothing stays hanging here.
+  // The kill, and its **own** event rather than the plain `destroy` it was.
+  // What comes apart here is a sac of the colour the pair just named, and the
+  // owner asked for it to burst like one — a shower of that colour and the goo
+  // it lands in (`render/crawler-fx.ts`). The score and the streak are the
+  // ordinary ones: nothing about what this kill is *worth* has changed, only
+  // what it looks like.
   metColor(world);
   world.score += world.cfg.scoreDestroy;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
+  world.events.push({ type: "crawlerBreak", col: hit.col, row: hit.row, color: hit.color });
   const crawlerId = crawlerOf(hit);
   removeCreature(world, hit.id);
   alignCrawler(world, crawlerId);
+  crawlerCleared(world, crawlerId, hit.col, hit.row);
   return false;
+}
+
+/**
+ * The worm had its last ring taken off, and the ship sweeps the lane clean.
+ *
+ * Called by both controls at the point either of them empties a run — the
+ * cannon above, the shield in `crawler-beat.ts` — rather than on the next beat
+ * off the state they left. It used to be a beat late on purpose, because what
+ * the beam took was two ends the pair could never have shot and the delay was
+ * their moment to look at them. There are no such ends any more: every ring
+ * comes off, so the last one leaving *is* the ending, and holding the receipt
+ * back a beat would only mean a worm that has visibly stopped existing paying
+ * out afterwards.
+ *
+ * A no-op while anything is still standing, which is what makes it safe to
+ * call after every removal instead of at two carefully chosen ones.
+ */
+export function crawlerCleared(world: World, crawlerId: number, col: number, row: number): void {
+  if (crawlerId === -1 || crawlerLinks(world, crawlerId).length > 0) return;
+  world.score += world.cfg.scoreCrawlerBeam;
+  world.events.push({ type: "crawlerBeam", col, row });
 }

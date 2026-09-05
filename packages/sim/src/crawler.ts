@@ -15,17 +15,21 @@ import type { World } from "./world.js";
  *
  * ## What answers a link
  *
- * The two ends are armour with a mouth in one and a hook in the other, and
- * nothing takes either off. Between them are the segments, and their answers
- * **cycle** along the body: red, cyan, armour, red, cyan, armour
- * (`segmentColor`). So a pair looking at a worm can read the whole order off
- * it before they have said a word, which is what makes the sentence they then
- * have to say a *plan* rather than a reading.
+ * **Every ring of it comes off**, and there are two ways to take one. The
+ * segments between the ends cycle red, cyan, armour, red, cyan, armour
+ * (`segmentColor`); the head and the tail carry no colour, so they are armour
+ * too and the shield is what they want. A pair can read the whole order off a
+ * worm before saying a word, which is what makes the sentence they then have
+ * to say a *plan* rather than a reading.
  *
  * - A red or a cyan segment wants the matching cannon, in that segment's own
  *   column. Player 1 holds the column and player 2 holds the colour.
- * - An armoured segment wants the **shield**, under that same segment, on the
- *   beat. Player 2 holds the column and player 1 holds the trigger.
+ * - An armoured link — a plate, the head or the tail — wants the **shield**,
+ *   under it, on the beat. Player 2 holds the column, player 1 the trigger.
+ *
+ * Every link wears a crosshair and every armoured one the shield's own mark
+ * above it, so which control is owed where is read rather than worked out
+ * (`render/crawler-marks.ts`).
  *
  * Every third link turns the two of them round: the seat that was calling a
  * number is now the seat pressing on the count, and the seat that was pressing
@@ -44,10 +48,10 @@ import type { World } from "./world.js";
  *
  * ## The two endings
  *
- * With every segment gone the worm is two ends and nothing between them, and a
- * beam opens over the ship and takes it (`crawler-beat.ts`). With the head
- * over the far wall it eats its way in instead, in as many columns as it still
- * has body, and what that costs is exactly what the pair failed to take off it.
+ * With every ring off, the worm is finished where it stood and the ship sweeps
+ * the lane clean (`crawler-round.ts`). With the head over the far wall it eats
+ * its way in instead, in as many columns as it still has body, and what that
+ * costs is exactly what the pair failed to take off it.
  */
 
 /** Which way a crawler walks. `1` is to the right. */
@@ -170,24 +174,19 @@ export function crawlerHead(world: World, crawlerId: number): Creature | null {
 }
 
 /**
- * Whether this link is one of the two nothing takes off.
+ * Whether this link is one of the two ends — the head with the mouth in it, or
+ * the hooked tail.
  *
- * The head is the first of the order and the tail is the last of it, and both
- * are read off the run rather than stored: neither can ever be taken away, so
- * the greatest order on the field is the tail's for as long as the worm
- * exists. A stored flag would be a second answer to a question the order
- * already settles.
+ * It decides a *shape* and nothing else now: both ends carry no colour, so
+ * both are the shield's like any plate, and `linkIsArmoured` no longer asks
+ * this. Read off the run rather than stored, because the run already settles
+ * it — the first of the order is the head, the last of it is the tail — and a
+ * stored flag would be a second answer to a settled question.
  */
 export function linkIsEnd(world: World, c: Creature): boolean {
   if (c.kind !== "crawler") return false;
   const links = crawlerLinks(world, crawlerOf(c));
   return links.length > 0 && (c.id === links[0]!.id || c.id === links[links.length - 1]!.id);
-}
-
-/** The segments of this worm still on it — everything that is not an end. */
-export function crawlerSegmentsLeft(world: World, crawlerId: number): Creature[] {
-  const links = crawlerLinks(world, crawlerId);
-  return links.slice(1, Math.max(1, links.length - 1));
 }
 
 /**
@@ -208,16 +207,21 @@ export function segmentColor(place: number): Color | null {
 }
 
 /**
- * Whether this link is a segment the **shield** answers: not an end, and
- * carrying no colour.
+ * Whether this link is one the **shield** answers: a crawler carrying no
+ * colour, which is every third segment and both ends.
  *
  * One question rather than two at every call site, for `isWardable`'s reason:
- * a link the dome turns is a link the cannon cannot break, and neither end is
- * either. `resolve` asks it to decide what a bolt does and the beat asks it to
- * decide what the shield does.
+ * a link the dome turns is a link the cannon cannot break, and the reverse.
+ *
+ * It used to exclude the two ends, because nothing took either off. The owner
+ * asked for a worm every part of which comes apart, and there is nothing left
+ * for the exclusion to mean: "no colour" and "the shield has this one" are one
+ * fact, which is what `segmentColor`'s `null` has always said. So it asks
+ * about the body alone, and render can mark a link without walking its run
+ * (`render/crawler-marks.ts`).
  */
-export function linkIsArmoured(world: World, c: Creature): boolean {
-  return c.kind === "crawler" && c.color === null && !linkIsEnd(world, c);
+export function linkIsArmoured(c: Creature): boolean {
+  return c.kind === "crawler" && c.color === null;
 }
 
 /** Where the link of this rank stands, counting back from the head's column. */

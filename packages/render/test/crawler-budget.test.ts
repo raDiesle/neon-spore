@@ -17,16 +17,25 @@ import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
  * run can be diffed against it rather than compared to a memory.
  *
  * **What it says today.** Against the same phone-sized frame the busy field is
- * weighed on, a whole worm costs about twenty more `new Path2D`, fifteen more
- * `fill` and five more `clip` — the slime is three fills inside a clip on every
- * ring (`crawler-skin.ts`), which is where the *alive* comes from and is the
- * dearest thing on this body.
+ * weighed on, a whole worm costs about twenty-five more `new Path2D`, fifteen
+ * more `fill` and five more `clip` — the slime is three fills inside a clip on
+ * every ring (`crawler-skin.ts`), which is where the *alive* comes from and is
+ * the dearest thing on this body.
  *
  * The Path2D count is the row worth watching: unlike the panel's sheet beside
  * it, it does **not** come down on the second frame, because every ring builds
  * its contour afresh every frame — `crawlerPath` returns a string that a
  * `Path2D` then parses (`content/crawler-shape.ts`). That is THE LID's
  * arrangement and it is cheap at one body; at nine rings it is nine of them.
+ *
+ * **The marks cost twenty strokes and nine saves, and both were paid on
+ * purpose** (`crawler-marks.ts`). `strokeGlow` is four strokes, so a crosshair
+ * per ring is four per ring — which is why the shield's dome is appended to
+ * the crosshair's own path instead of being stroked separately, and why the
+ * marks are one glow rather than two. The saves are the other half of the same
+ * change: the depth envelope moved from one transform around the whole run to
+ * one per ring, because a scale about the canvas origin does not enlarge a
+ * worm, it slides it (`drawLink`).
  *
  * Every number is exact, measured after the change that earned it. If a
  * legitimate change raises one, remeasure and move that row — do not pad it.
@@ -41,12 +50,12 @@ type Budget = Partial<
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 66, stroke: 40, fill: 41, clip: 10, save: 23, "new Path2D": 45, fillText: 4 },
-    { fillRect: 66, stroke: 42, fill: 41, clip: 10, save: 23, "new Path2D": 31, fillText: 4 },
+    { fillRect: 66, stroke: 60, fill: 41, clip: 10, save: 32, "new Path2D": 50, fillText: 4 },
+    { fillRect: 66, stroke: 62, fill: 41, clip: 10, save: 32, "new Path2D": 36, fillText: 4 },
   ],
   p2: [
-    { fillRect: 66, stroke: 48, fill: 47, clip: 10, save: 25, "new Path2D": 47, fillText: 2 },
-    { fillRect: 66, stroke: 50, fill: 47, clip: 10, save: 25, "new Path2D": 31, fillText: 2 },
+    { fillRect: 66, stroke: 68, fill: 47, clip: 10, save: 34, "new Path2D": 52, fillText: 2 },
+    { fillRect: 66, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 36, fillText: 2 },
   ],
 };
 

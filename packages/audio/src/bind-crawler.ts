@@ -13,7 +13,7 @@ import { type Cue, panForCol } from "./bind.js";
  * silence nobody notices.
  *
  * **Neither of the worm's two *answers* is here**, and that is the point of
- * the file being this short. A segment shot off is a plain `destroy` and a
+ * the file being this short. A ring shot off shares `destroy`'s cue and a
  * plate warded off is a plain `deflect`, so both already have the sound the
  * pair has spent the whole game learning. What is new is only what happens at
  * the two ends of the encounter.
@@ -23,11 +23,10 @@ export function crawlerCue(
   cols: number,
 ): Cue {
   if (e.type === "crawlerBeam") {
-    // The ship opening a lane and two ends going up it. `motion.teleport` is
-    // "something leaving a tile and being in another one", which is exactly
-    // what the pair earned: the worm does not die, it is *taken*, and a death
-    // sound here would tell them they had killed a thing that in fact got away
-    // with its head.
+    // The ship sweeping a lane clean, on the ring that emptied it. The rings
+    // themselves have already sounded, one kill at a time, so what is owed
+    // here is not another death — it is the lane being handed back, and
+    // `motion.teleport` is "something that was in a tile is not any more".
     return { id: "motion.teleport", pan: panForCol(e.col, cols) };
   }
   // Plating giving way from behind, one line at a time. Deliberately not one

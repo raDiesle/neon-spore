@@ -6,7 +6,6 @@ import {
   crawlerLinks,
   crawlerOf,
   crawlerSegmentCount,
-  crawlerSegmentsLeft,
   crawlerSide,
   crawlRow,
   linkIsArmoured,
@@ -38,12 +37,13 @@ import type { Bullet, Creature } from "../src/types.js";
  * controls have to take apart together.
  *
  * What is worth pinning here is the half a reader of `crawler.ts` cannot check
- * by eye — that one queue entry really becomes a run of bodies whose two ends
- * nothing can take off, that the answers along it cycle red, cyan, plate, that
- * a link taken off closes the body up behind it rather than leaving a hole,
- * that the shield answers a plate where no shield has ever answered anything
- * before, that a stripped worm leaves by the beam and a whole one eats in, and
- * that a second device walking the same beats arrives at the same fingerprint.
+ * by eye — that one queue entry really becomes a run of bodies, that the
+ * answers along it cycle red, cyan, plate, that **every** ring comes off and
+ * the two ends are the dome's like any other plate, that a link taken off
+ * closes the body up behind it rather than leaving a hole, that the shield
+ * answers a plate where no shield has ever answered anything before, that the
+ * ring which empties a worm is what pays for it, and that a second device
+ * walking the same beats arrives at the same fingerprint.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -136,6 +136,15 @@ describe("the worm a wave authors", () => {
     expect(on[0]!.color).toBeNull();
     expect(on[on.length - 1]!.color).toBeNull();
   });
+
+  it("owes the shield every colourless link, the two ends included", () => {
+    const world = onField(4);
+    const on = wormOf(world);
+    // Head, third segment, tail: every ring with no colour on it, and the ends
+    // are no longer the exception they were.
+    expect(on.filter(linkIsArmoured).map(linkOrder)).toEqual([0, 3, on.length - 1]);
+    expect(on.every((c) => (c.color === null) === linkIsArmoured(c))).toBe(true);
+  });
 });
 
 describe("what a shot does to a link", () => {
@@ -171,6 +180,16 @@ describe("what a shot does to a link", () => {
     expect(wormOf(world)).toHaveLength(5);
     expect(world.events.filter((e: SimEvent) => e.type === "hole")).toHaveLength(6);
   });
+
+  it("bursts the ring in its own colour rather than pushing a plain destroy", () => {
+    const world = onField(3);
+    const red = wormOf(world)[1]!;
+    linkStruck(world, bolt(red.col, "red"), red);
+    const burst = world.events.find((e: SimEvent) => e.type === "crawlerBreak");
+    expect(burst).toBeDefined();
+    expect(burst).toMatchObject({ col: red.col, row: ROW, color: "red" });
+    expect(world.events.some((e: SimEvent) => e.type === "destroy")).toBe(false);
+  });
 });
 
 describe("what the shield does to a plate", () => {
@@ -180,7 +199,7 @@ describe("what the shield does to a plate", () => {
     const world = createWorld({ ...CFG }, 0, [crawler(segments)]);
     let seen = false;
     for (let t = 0; t < TPB * (CFG.cols + 2); t++) {
-      const plate = wormOf(world).find((c) => linkIsArmoured(world, c));
+      const plate = wormOf(world).find((c) => linkIsArmoured(c));
       if (plate) {
         seen = true;
         world.shieldCol = Math.max(0, plate.col);
@@ -190,42 +209,54 @@ describe("what the shield does to a plate", () => {
       // Only once there has been a plate to lose: on the first tick the queue
       // has not been read yet, so the field is empty and every worm on it is
       // trivially stripped.
-      if (seen && !wormOf(world).some((c) => linkIsArmoured(world, c))) break;
+      if (seen && !wormOf(world).some((c) => linkIsArmoured(c))) break;
     }
     return world;
   }
 
   it("takes it off when the dome is under it and the trigger is in time", () => {
     const world = wardThePlate(3);
-    expect(crawlerSegmentsLeft(world, wormOf(world)[0]?.id ?? -1).length).toBeLessThan(3);
+    expect(wormOf(world).filter(linkIsArmoured)).toHaveLength(0);
     expect(world.guard.deflected).toBeGreaterThan(0);
   });
 
   it("does nothing at all while the trigger is cold", () => {
     const world = createWorld({ ...CFG }, 0, [crawler(3)]);
     for (let t = 0; t < TPB * 4; t++) {
-      const plate = wormOf(world).find((c) => linkIsArmoured(world, c));
+      const plate = wormOf(world).find((c) => linkIsArmoured(c));
       if (plate) world.shieldCol = Math.max(0, plate.col);
       // The window is never opened, so `guardArmed` is false throughout.
       expect(world.tick - world.guardTick).toBeGreaterThan(guardWindowTicks(CFG));
       step(world, []);
     }
-    expect(wormOf(world).some((c) => linkIsArmoured(world, c))).toBe(true);
+    expect(wormOf(world).some((c) => linkIsArmoured(c))).toBe(true);
   });
 });
 
 describe("the two ways a worm stops existing", () => {
-  it("is taken by the beam once nothing is left between its ends", () => {
+  it("is finished by the ring that empties it, and the dome is what takes the ends", () => {
     const world = onField(2);
-    for (const seg of wormOf(world).slice(1, -1)) {
-      linkStruck(world, bolt(seg.col, seg.color ?? "red"), seg);
-    }
-    expect(crawlerSegmentsLeft(world, wormOf(world)[0]!.id)).toHaveLength(0);
     const before = world.score;
-    // The beam is asked on the *next* beat, so the pair is shown two ends
-    // standing on the ship with nothing between them.
-    for (let t = 0; t < TPB + 1; t++) step(world, []);
+    // The two colour rings by the cannon...
+    for (const link of wormOf(world)) {
+      if (link.color !== null) linkStruck(world, bolt(link.col, link.color), link);
+    }
+    // ...and the head and the tail by the dome, which is the only thing that
+    // can take either now. One a beat, the shield under whatever is left.
+    const beams: SimEvent[] = [];
+    for (let t = 0; t < TPB * CFG.cols && wormOf(world).length > 0; t++) {
+      const link = wormOf(world)[0];
+      if (link) {
+        world.shieldCol = Math.max(0, link.col);
+        world.guardTick = world.tick;
+      }
+      step(world, []);
+      beams.push(...world.events.filter((e: SimEvent) => e.type === "crawlerBeam"));
+    }
     expect(wormOf(world)).toHaveLength(0);
+    // Paid once, at the moment the run emptied — not a beat later off what was
+    // left standing, because nothing is ever left standing any more.
+    expect(beams).toHaveLength(1);
     expect(world.score - before).toBeGreaterThanOrEqual(CFG.scoreCrawlerBeam);
     expect(hullPercent(world)).toBe(100);
   });

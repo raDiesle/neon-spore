@@ -46,6 +46,15 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
   switch (e.type) {
     case "destroy":
       return at(l, e.col, e.row, 12, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+    // A ring off THE CRAWLER, and the largest shower this table throws for
+    // anything that is not a boss going down. It is the same kill a `destroy`
+    // is and it is worth the same score, so the size is not saying "this was
+    // harder" — it is saying what came apart. Every other body in the game
+    // goes out; a crawler's ring is a sac under pressure, and the owner asked
+    // for it to burst like one. The goo it throws with it is a shape rather
+    // than a spray and is drawn in `crawler-fx.ts`.
+    case "crawlerBreak":
+      return at(l, e.col, e.row, 30, e.color === "red" ? PALETTE.red : PALETTE.cyan);
     case "reject":
       return at(l, e.col, e.row, 5, PALETTE.sparkDim);
     // The moment a hand lands. The hold itself is drawn from the world every

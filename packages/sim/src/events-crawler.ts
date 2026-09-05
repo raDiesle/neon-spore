@@ -1,28 +1,45 @@
+import type { Color } from "./types.js";
+
 /**
- * THE CRAWLER's two: the worm taken by the beam, and the worm getting in.
+ * THE CRAWLER's three: a link coming apart, the worm cleared, and the worm
+ * getting in.
  *
- * Its own file rather than two more arms of `events-creature.ts`, for the
+ * Its own file rather than three more arms of `events-creature.ts`, for the
  * reason `events-strand.ts` and `events-carom.ts` are next door to that one:
  * it is at its 250-line limit. What is here joins `CreatureEvent` as a single
  * arm.
  *
- * **There are only two, and the ones that are missing are the point.** A
- * segment shot off pushes a plain `destroy` and a segment warded off pushes a
- * plain `deflect`, because that is what each of them *is* — a body killed by
- * the matching colour, and a body turned at the dome. THE STRAND needed events
- * of its own because a shrivelled bead stays hanging and a wrong shot swells
- * one back, neither of which any existing event describes. Nothing about a
- * crawler's two answers is new; only its two endings are.
+ * **A plate warded off is still a plain `deflect`**, because that is exactly
+ * what it is — a body turned at the dome, and the pair has no reason to learn
+ * a second word for it. A link *shot* off is not a plain `destroy` any more:
+ * every ring of this animal is a sac of its own colour, and the owner asked
+ * for the burst to say so.
  */
 export type CrawlerEvent =
   /**
-   * Every segment is off and the ship has opened a lane for what is left. The
-   * two ends cannot be shot and cannot be warded, so this is the only way a
-   * pair ever finishes one — `col` and `row` are the head's, which is where
-   * the beam comes down, and `links` is how much of the worm went up it, which
-   * is two whenever the creature is played as designed.
+   * A ring taken off by the matching cannon. `color` is the ring's own, which
+   * is what the burst and the splash are both thrown in.
+   *
+   * Its own event rather than the `destroy` it was, for `lureHit`'s reason
+   * said about the eye instead of the ear: this is the one kill in the game
+   * that bursts a *sac*, and the picture is a shower of the colour plus the
+   * goo it lands in (`crawler-fx.ts`). The ear is deliberately unchanged and
+   * shares `destroy`'s cue — a segment coming off should sound like a kill,
+   * because it is one.
    */
-  | { type: "crawlerBeam"; col: number; row: number; links: number }
+  | { type: "crawlerBreak"; col: number; row: number; color: Color }
+  /**
+   * The last ring of a worm is off and the ship sweeps the lane clean. `col`
+   * and `row` are where that last ring stood, which is where the light comes
+   * down.
+   *
+   * Nothing on a crawler is armour to the pair any more — a colour wants the
+   * cannon and a plate wants the shield, head and tail included — so this is
+   * the receipt for a body taken apart rather than the ship rescuing what
+   * could not be. It is pushed at the moment the run empties, by whichever of
+   * the two controls emptied it.
+   */
+  | { type: "crawlerBeam"; col: number; row: number }
   /**
    * The head reached the far wall and the worm has eaten its way into the
    * hull. `col` and `row` are where it went in; `links` is how much body went

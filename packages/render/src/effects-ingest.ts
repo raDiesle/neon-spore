@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
 import type { CrawlerFx } from "./crawler-fx.js";
+import { SIT } from "./crawler-place.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import type { LayEcho } from "./lay-echo.js";
@@ -65,10 +66,22 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       if (id) ctx.blockedUntil.set(id, REJECT_FLASH);
       break;
     }
-    // THE CRAWLER's two endings, and both of them outlive the worm they are
-    // about: by the frame after either event there is nothing standing there
-    // to hang a picture on, which is `rockImpactFx`'s reason for existing said
-    // about a body that left sideways (`crawler-fx.ts`).
+    // THE CRAWLER's three, and every one of them outlives what it is about:
+    // by the frame after the event there is nothing standing there to hang a
+    // picture on, which is `rockImpactFx`'s reason for existing said about a
+    // body that left sideways (`crawler-fx.ts`).
+    //
+    // The splash is placed at the point the ring was *drawn* on rather than at
+    // its tile's centre — a worm sits `SIT` of a tile low, so that it crawls on
+    // the plating instead of flying beside it (`crawler-place.ts`), and goo
+    // thrown from a tile centre would leave the animal's own outline.
+    case "crawlerBreak":
+      ctx.crawler.splash(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row) + ctx.l.tile * SIT, e.color);
+      // And the shipped kill sprite beside it, on the same terms as `destroy`
+      // below: this is a cannon shot that killed the thing it hit, and the
+      // pair should not have to learn a second reading of that.
+      ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
+      break;
     case "crawlerBeam":
       ctx.crawler.beam(e.col, e.row);
       break;

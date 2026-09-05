@@ -231,7 +231,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crawler-round.ts` |  |
 | `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
 | `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
-| `packages/sim/src/events-crawler.ts` | THE CRAWLER's two: the worm taken by the beam, and the worm getting in |
+| `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
@@ -588,12 +588,14 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
-| `packages/render/src/crawler-fx.ts` | THE CRAWLER's two endings, as pictures that outlive the body they are about |
-| `packages/render/src/crawler.ts` | THE CRAWLER, drawn one link at a time — a maggot lying along the ship's surface |
+| `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
+| `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
 | `packages/render/src/living-frame.ts` | Where a living body is standing this frame, and the transform that puts a pen in its own local units |
 | `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |
 | `packages/render/src/strand-plate.ts` | One bead's plating, as geometry |
+| `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
+| `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
 
 ### packages/net
 

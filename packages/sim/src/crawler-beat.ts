@@ -4,10 +4,9 @@ import {
   crawlerHeading,
   crawlerIds,
   crawlerLinks,
-  crawlerSegmentsLeft,
   linkIsArmoured,
 } from "./crawler.js";
-import { alignCrawler } from "./crawler-round.js";
+import { alignCrawler, crawlerCleared } from "./crawler-round.js";
 import { removeCreature, removeCreatures } from "./field.js";
 import { breachHull } from "./hull.js";
 import { guardArmed } from "./hull-guard.js";
@@ -15,21 +14,23 @@ import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **A beat of every worm on the field**: the step it takes, the shield it may
- * walk into, and the two ways it stops existing.
+ * **A beat of every worm on the field**: the step it takes, and the shield it
+ * may walk into.
  *
  * Its own file beside `crawler.ts` and `crawler-round.ts` because none of it
  * is a press. A bolt is answered where every other bolt is answered; this is
- * the clock, and it holds the four things the clock does to a crawler in the
- * order it does them.
+ * the clock, and it holds what the clock does to a crawler in the order it
+ * does it.
  *
- * **The order is the fairness.** The beam is asked first, off the state the
- * last beat left, so a pair who took the final segment always get the beat
- * that shows the worm leaving rather than losing it to a burrow decided in the
- * same instant. Then the walk, which is what can put a link over the far wall.
- * Then the shield, so a segment that has just stepped into an armed dome is
- * turned there — the same order `resolveHull` gives a rock, which falls first
- * and is answered afterwards.
+ * **The order is the fairness.** The walk first, which is what can put a link
+ * over the far wall; then the shield, so a link that has just stepped into an
+ * armed dome is turned there — the same order `resolveHull` gives a rock,
+ * which falls first and is answered afterwards.
+ *
+ * The clearing of a stripped worm used to be a third thing asked here, ahead
+ * of both, and it is not any more: nothing on a crawler resists the pair now,
+ * so the last ring coming off is the ending and it is booked where it happens
+ * (`crawlerCleared`).
  */
 
 /** Every worm, one beat. Called from `onBeat` before the fall loop, which
@@ -37,7 +38,6 @@ import type { World } from "./world.js";
  * `from` fields are written here and nowhere else. */
 export function stepCrawlers(world: World): void {
   for (const id of crawlerIds(world)) {
-    if (leaveByBeam(world, id)) continue;
     for (const link of crawlerLinks(world, id)) {
       link.fromRow = link.row;
       link.fromCol = link.col;
@@ -45,35 +45,6 @@ export function stepCrawlers(world: World): void {
     if (crawlerCrawls(world.cfg, world.beat) && crawlOn(world, id)) continue;
     wardLink(world, id);
   }
-}
-
-/**
- * A worm with nothing left between its two ends, taken by the beam.
- *
- * The head and the tail are armour and neither can be shot off, so a worm the
- * pair has stripped is a creature with nothing left to do and no way to be
- * finished — it would walk the rest of the ship as scenery and then eat into
- * it, which would make taking every segment off worse than taking none. So the
- * ship opens a lane for it: a column of light over the hull, and the two ends
- * go up it.
- *
- * Asked on the beat rather than at the instant the last segment goes, and the
- * delay is the picture — `breakSpentStrands`' argument exactly. A whole beat
- * of two ends standing on the ship with nothing between them is what the pair
- * is owed for having read the order right.
- */
-function leaveByBeam(world: World, crawlerId: number): boolean {
-  const links = crawlerLinks(world, crawlerId);
-  if (links.length === 0) return true;
-  if (crawlerSegmentsLeft(world, crawlerId).length > 0) return false;
-  world.score += world.cfg.scoreCrawlerBeam;
-  const head = links[0]!;
-  world.events.push({ type: "crawlerBeam", col: head.col, row: head.row, links: links.length });
-  removeCreatures(
-    world,
-    links.map((l) => l.id),
-  );
-  return true;
 }
 
 /**
@@ -151,12 +122,13 @@ function burrowIn(world: World, links: Creature[]): void {
  * What it produces is a plain `deflect`, and that is a decision rather than a
  * shortcut: a plate shrugged off the worm and thrown clear is the same picture
  * and the same sound as a rock turned at the dome, and the pair has no reason
- * to learn a second word for it.
+ * to learn a second word for it. The head and the tail are plates now too, so
+ * this is the control that finishes most worms.
  */
 function wardLink(world: World, crawlerId: number): void {
   if (!guardArmed(world)) return;
   const hit = crawlerLinks(world, crawlerId).find(
-    (c) => c.col === world.shieldCol && linkIsArmoured(world, c),
+    (c) => c.col === world.shieldCol && linkIsArmoured(c),
   );
   if (!hit) return;
   world.guard.tries += 1;
@@ -172,4 +144,7 @@ function wardLink(world: World, crawlerId: number): void {
   });
   removeCreature(world, hit.id);
   alignCrawler(world, crawlerId);
+  // The dome can take the last ring off a worm as easily as the cannon can,
+  // and more often than not it is the one that does: the tail is a plate.
+  crawlerCleared(world, crawlerId, hit.col, hit.row);
 }

@@ -331,3 +331,34 @@ the creature-by-creature clocks (`throbSpinBeats`, `throbFaceMilli`,
 score and damage numbers are another — and re-export both from `config.ts` so
 no call site moves. `bun run check` proves it: nothing outside the file should
 need an edit.
+
+## THE CRAWLER should ride over the cannon lobe instead of the flat surface
+
+- **Found:** 2026-09-05, claude/crawler-destructible-parts-9a6e68
+- **Files:** `packages/render/src/crawler-place.ts`,
+  `packages/render/src/crawler.ts`, `packages/render/src/hull-frame.ts`,
+  `packages/render/src/frame-field.ts`, `packages/render/test/crawler-budget.test.ts`
+
+The owner asked for this by name: *"it would be cool if worm walks the cannon,
+that it walks it up and down, so its part of the area it walks, not just the
+ship surface. when i move cannon, the worm is pushed up accordingly."*
+
+A crawler is drawn on a straight line — its tile centre dropped by `SIT`
+(`crawler-place.ts`) — while the hull under it is a membrane that swells where
+a player puts something (`hull-frame.ts`: the cannon and the shield are lobes
+of the same contour, `bumpAdd`). So a worm currently walks through the cannon
+rather than over it. What is wanted is the ring's drawn `y` lifted by the
+height of the surface beneath its own drawn column, so that sliding the cannon
+under a worm visibly pushes that stretch of it up and lets it fall again.
+
+**Render only.** Nothing about the ring's `row`, its `col`, or the hit test may
+move: a shot is aimed by column and `creatureMilli` reads rows, so a lift here
+is a picture and never a rule. `crawler-place.ts` is the one place a ring's
+screen point is decided, and the marks over it already ride on the same
+function (`crawler-marks.ts`), so the whole change is that one point plus
+whatever it takes to get the drawn lobe position into it — `drawBodies` already
+threads the eased `cannonCol` through for THE LOCK's line, which is the same
+number this needs. `hullPointAtX` is the height field; call it rather than
+approximating a bump, or the worm rides a curve the ship has not got.
+
+Remeasure `crawler-budget.test.ts` afterwards and move the rows it changes.

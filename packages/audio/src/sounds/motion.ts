@@ -30,7 +30,7 @@ export const MOTION_SOUNDS: SoundDef[] = [
     family: "motion",
     blurb: "Something leaving a tile and being in another one. Two clicks and a hole between them.",
     status: "bound",
-    use: "THE CRAWLER taken by the beam once its last segment is off (`crawlerBeam`).",
+    use: "THE CRAWLER's lane swept clean once its last ring is off (`crawlerBeam`).",
     level: 0.32,
     layers: [
       tick(0.5, 0, 6800),

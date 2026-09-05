@@ -226,7 +226,7 @@ export const MECHANICS = {
     reach: "spawn",
   },
   crawler: {
-    what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Every one taken off snaps the body together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
+    what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Every ring of it comes off: the segments run red, cyan, plate, red, cyan, plate, and the head and the tail are plates too — a colour wants the matching cannon under it, a plate wants the shield. Each ring wears a crosshair, and the ones the dome is owed wear its mark above them. Every ring taken off snaps the body together behind it. Take the last one and the ship sweeps the lane clean; let it reach the far wall and it eats its way in.",
     reach: "spawn",
     // A wave names this kind and never a colour, the way it does for a gyre:
     // what carries one is each segment, and each follows from its place along

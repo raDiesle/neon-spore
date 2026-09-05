@@ -99,6 +99,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "signal.markSet", pan: panForCol(e.col, cols) };
     case "lanceSpilled":
       return { id: "signal.markMissed", pan: panForCol(e.col, cols) };
+    // A ring off a crawler shares this exactly. The eye was given a burst of
+    // its own because a sac coming apart does not look like a slick going out
+    // (`events-crawler.ts`); the ear was not, because it *is* a kill and the
+    // pair has spent the whole game learning what one sounds like.
+    case "crawlerBreak":
     case "destroy":
       return {
         id: e.color === "red" ? "impact.destroyRed" : "impact.destroyCyan",

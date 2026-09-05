@@ -1,13 +1,21 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { createWorld, type SpawnEntry, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  createWorld,
+  type SimEvent,
+  type SpawnEntry,
+  step,
+  type TimedCommand,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { linkOnField } from "../src/crawler.js";
 import type { ViewRole } from "../src/layout.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 /**
- * THE CRAWLER, drawn: a run of links along the ship's own row, the necks
- * between them, and the two endings that outlive the body.
+ * THE CRAWLER, drawn: a run of links along the ship's own row, the marks over
+ * them, and the three pictures that outlive the body they are about.
  *
  * Nothing here can answer whether a worm *reads* as a worm at forty pixels —
  * that is a check that needs an eye, and it was made by looking at a captured
@@ -45,6 +53,29 @@ function crawlerFrames(role: ViewRole, ticks: number, segments = 5, col = 0) {
   });
 }
 
+/**
+ * Both seats' commands for this tick: the cannon and the matching lobe under
+ * whichever colour ring is standing furthest forward, and the shield and the
+ * trigger under the first plate. A link in a column the field has not got is
+ * skipped — no control can reach one, and aiming at it would park both seats
+ * off the side of the ship for the first several beats.
+ */
+function bothControls(w: World): TimedCommand[] {
+  const links = w.creatures.filter((c) => c.kind === "crawler" && c.col >= 0 && c.col < CFG.cols);
+  const shot = links.find((c) => c.color !== null);
+  const plate = links.find((c) => c.color === null);
+  const out: TimedCommand[] = [];
+  if (shot?.color) {
+    out.push({ tick: w.tick, player: 1, command: { kind: "cannonCol", col: shot.col } });
+    out.push({ tick: w.tick, player: 2, command: { kind: "fire", color: shot.color } });
+  }
+  if (plate) {
+    out.push({ tick: w.tick, player: 2, command: { kind: "shieldCol", col: plate.col } });
+    out.push({ tick: w.tick, player: 1, command: { kind: "guard" } });
+  }
+  return out;
+}
+
 describe("the crawler", () => {
   // Past the far wall, so every frame this creature produces — walking on over
   // the edge, the whole body standing, the burrow and the hull breaking under
@@ -67,20 +98,23 @@ describe("the crawler", () => {
     }
   });
 
-  it("draws the beam rather than the mound when the pair strips one", () => {
-    // A worm with every segment taken off by hand, then a beat: `leaveByBeam`
-    // is asked before the walk, so what this draws is the lane of light and
-    // never the banks. The two are one file and one `Effects` field, so a
-    // frame that reached only the mound would leave half of it unproved.
+  it("draws a burst ring's splash and the swept lane when the pair takes one apart", () => {
+    // A worm answered by both controls at a speed no pair could manage: the
+    // cannon under the first colour ring standing on the field with the
+    // matching lobe, and the dome under the first plate. What it is here to
+    // reach is the two pictures with no body left to hang them on — the goo a
+    // ring throws and the lane the ship sweeps — because the mound above is
+    // the only one of the three the walking test gets to on its own.
     const world: World = createWorld(CFG, 1, [crawler(3)]);
     for (let t = 0; t < ticksPerBeat(CFG) + 1; t++) step(world, []);
-    const links = world.creatures.filter((c) => c.kind === "crawler");
-    const ends = new Set([links[0]!.id, links[links.length - 1]!.id]);
-    world.creatures = world.creatures.filter((c) => ends.has(c.id));
-    const { ctx } = runFrames(world, "test", ticksPerBeat(CFG) * 3, {
+    const { ctx, events } = runFrames(world, "test", ticksPerBeat(CFG) * 24, {
       every: 2,
       controls: controlSet("default"),
+      onTick: (_tick, w) => step(w, bothControls(w)),
     });
+    const kinds = new Set(events.map((e: SimEvent) => e.type));
+    expect(kinds.has("crawlerBreak")).toBe(true);
+    expect(kinds.has("crawlerBeam")).toBe(true);
     expect(ctx.calls).toBeGreaterThan(1000);
   });
 

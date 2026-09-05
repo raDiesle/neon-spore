@@ -147,9 +147,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE CRAWLER",
     sentence: "The one where nothing is falling and standing still is what loses it.",
     guide: {
-      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks — but it must not reach the far wall. Head and tail are armour. The segments between run red, cyan, plate, red, cyan, plate.",
-      p1: "Take the cannon under a colour segment and say which colour you are standing under. Every third one is a plate and the trigger is yours — so keep a thumb on GUARD and press when you are told the shield is under it.",
-      p2: "Load what you are told and fire straight up. When the next one is a plate, take the shield under it yourself and say when you are there — you cannot fire it, and they cannot move it.",
+      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks — but it must not reach the far wall. Every ring comes off. A crosshair marks each one; the ones with the shield above them are the dome's, and that is the head, the tail and every third segment.",
+      p1: "Take the cannon under a colour ring and say which colour you are standing under. The plates are not yours to shoot and the trigger is — so keep a thumb on GUARD and press when you are told the shield is under one.",
+      p2: "Load what you are told and fire straight up. When the next ring wears the shield mark, take the dome under it yourself and say when you are there — you cannot fire it, and they cannot move it.",
     },
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },

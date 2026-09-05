@@ -130,7 +130,8 @@ const SAMPLES: Record<string, SimEvent> = {
   fleetSunk: { type: "fleetSunk", col: 4, row: 6, len: 3, left: 2 },
   fleetDown: { type: "fleetDown", col: 4, row: 6 },
   gyreBroke: { type: "gyreBroke", col: 3, row: 7 },
-  crawlerBeam: { type: "crawlerBeam", col: 6, row: 10, links: 2 },
+  crawlerBreak: { type: "crawlerBreak", col: 5, row: 10, color: "cyan" },
+  crawlerBeam: { type: "crawlerBeam", col: 6, row: 10 },
   crawlerBurrow: { type: "crawlerBurrow", col: 10, row: 10, links: 4 },
 };
 
