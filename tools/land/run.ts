@@ -58,6 +58,7 @@ import {
   uncommittedOf,
 } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
+import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { badge, describe } from "./say.js";
 import { sweep, writeNotes } from "./sweep.js";
 
@@ -131,6 +132,17 @@ if (dryRun) process.exit(0);
  * after this is the same either way.
  */
 async function moveTrunk(): Promise<Landed[]> {
+  // Read before the replay, asked after it: what the trunk had taken out of
+  // the queue, and what the lane branched from. A rebase that resolves
+  // `docs/queue.md` in the lane's favour puts every removed entry back in one
+  // move, and nothing else notices (`queue-guard.ts`).
+  const queueBefore = going.rebase
+    ? await queueSnapshots(
+        TRUNK,
+        (rev, file) => git(["show", `${rev}:${file}`], root),
+        (await git(["merge-base", TRUNK, "HEAD"], root)) || TRUNK,
+      )
+    : [];
   if (going.rebase) {
     const proc = Bun.spawn(["git", "rebase", TRUNK], { cwd: root, stdout: "pipe", stderr: "pipe" });
     const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
@@ -143,6 +155,11 @@ async function moveTrunk(): Promise<Landed[]> {
       process.exit(1);
     }
     console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
+    const back = await resurrectedAfter(root, queueBefore);
+    if (back.length > 0) {
+      for (const line of refusal(TRUNK, back)) console.log(line);
+      process.exit(1);
+    }
   }
 
   // A replay can bring a workspace package the lane never had — `tools/orphans`

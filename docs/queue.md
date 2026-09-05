@@ -160,35 +160,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## A landing can put back a queue entry another lane took out
-
-- **Found:** 2026-09-05, claude/queue-items-bj85ja
-- **Taken:** 2026-09-05, claude/queue-a-landing-can-put-back-a-queue-entry-another-lan
-- **Files:** `tools/land/land.ts`, `tools/land/run.ts`, `tools/land/test/`
-
-Twice on 5 September 2026 a landing re-added `##` entries to `docs/queue.md`
-that another lane had already removed along with the work. The trunk carried
-`tools/land/refusal.ts` and `--settle` and `STARVED_MS`, all landed, and the
-queue went on listing all three as waiting. A session that believed the file —
-which is the whole point of the file — would have done them a second time,
-which is the failure the preamble above already describes happening on 3
-September.
-
-The mechanism is a rebase resolving `docs/queue.md` in the lane's favour. A
-lane branched before the removals holds a copy of the file that still has the
-entries in it; the conflict is in a document rather than in code, so it reads
-as prose to be kept rather than as a deletion to be honoured, and taking
-"ours" puts every one of them back in one move. Nothing fails: the file is
-still valid, the format test still passes, and the only sign is a queue that
-has grown.
-
-`bun run land` is where to catch it, because it is the one command that sees
-the lane and the trunk at once. Before the fast-forward, compare the `##`
-titles in the lane's `docs/queue.md` against the trunk's: an entry the trunk
-has *removed* since the merge base and the lane is putting back is a resolution
-nobody chose, and the landing should stop and name the titles. Removing an
-entry is ordinary and adding a new one is ordinary; only *re-adding* one is the
-mistake, and the merge base is what tells the three apart. The comparison is a
-pure function over two strings and a base, so `tools/land/test/` can hold every
-case without a repository.

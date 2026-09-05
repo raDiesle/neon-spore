@@ -1009,5 +1009,6 @@ place — the generator keeps whatever is there.
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
+| `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
 
 <!-- index:code:end -->
