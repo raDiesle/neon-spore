@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 0edaf206 — THE VEER rolls one to four tiles a change, and shows the width to both seats
+
+Every change of lane used to step exactly one column. It now rolls a fresh width from one to veerMaxDist (4) each time, so a rock that always moved a tile the shield could shadow without a word said becomes one whose call is worth making. The width costs nothing to show — it says nothing about which lane the shield stands in without the side too — so it is drawn above the arrow in the rock's own grey, on both screens, while the side stays the pilot's alone.
+
 ## 2026-09-05 · c6ddcbab — Slow THE STRAND down, give it a wave, and show each seat what it may not shoot
 
 Six changes the owner asked for across one sitting, and together they make a creature a pair can actually play.
