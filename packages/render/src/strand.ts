@@ -21,7 +21,7 @@ import { drawGuess, drawLit, hoppedEnd } from "./strand-mark.js";
  * **Two marks, one for each seat, and neither is the other's.** The navigator
  * gets the bead that is lit — a blink, the shared target lock and an arrow —
  * and the pilot gets the same frame *hopping* between the two ends of what is
- * still alive, unable to choose. `strand-mark.ts` draws both and argues for
+ * still alive under a question mark, unable to choose. `strand-mark.ts` draws both and argues for
  * each; the cage over every bead a shot cannot answer is `strand-armour.ts`.
  *
  * The pilot's pair is not a leak and it is worth saying why. The ends of a run

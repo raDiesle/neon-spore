@@ -44,14 +44,32 @@ import { PALETTE } from "./palette.js";
 const PLATES = 6;
 const GAP = 0.24;
 
-/** How far the ring stands off the body's own drawn radius. Outside the
- * contour at every size, so a cage never hides the shape it is holding — the
- * pilot still has to read a slick from a bulb through it. */
-const RING_MUL = 1.42;
+/** How far the ring stands off the body's own drawn radius, inner edge and
+ * outer. Both are outside the contour at every size, so a cage never hides the
+ * shape it is holding — the pilot still has to read a slick from a bulb through
+ * it — and the band between them is what makes a plate a plate.
+ *
+ * **The first version of this was a line and it did not read as armour.** Six
+ * thin arcs at one radius are a dashed circle, which on a field of glowing
+ * bodies is a halo somebody drew badly. A plate has a thickness, a dark face
+ * and a lit edge, and it is those three that say *this is plating* from across
+ * a phone held at arm's length.
+ */
+const RING_IN = 1.34;
+const RING_OUT = 1.62;
 
-/** How thick a plate is drawn, as a share of a tile, and the floor under it in
- * pixels — a plate thinner than a line is a line. */
-const PLATE_WIDTH = 0.075;
+/** The rivet on each plate: where it sits across the band and how big it is,
+ * as a share of the plate's own thickness. Small, and there is one per plate —
+ * a plate with a fixing on it is a made thing rather than a shape. */
+const RIVET_AT = 0.5;
+const RIVET_R = 0.16;
+
+/** How heavily a plate is outlined and how brightly its outer edge is lit,
+ * both as shares of the band's thickness with a pixel floor under them — a
+ * rim thinner than a line is a line. */
+const RIM_WIDTH = 0.16;
+const EDGE_WIDTH = 0.3;
+const EDGE_ALPHA = 0.55;
 
 /**
  * The beads this screen must show as unanswerable: every live one that a shot
@@ -75,8 +93,16 @@ export function lockedBeads(
   return live.filter((c) => c.id !== guess?.id);
 }
 
-/** The cage around one bead: six plates in the rock's grey, standing off the
- * body far enough that the shape inside is still the shape the pair names. */
+/**
+ * The cage around one bead: six curved plates in the rock's grey, standing off
+ * the body far enough that the shape inside is still the shape the pair names.
+ *
+ * Each plate is a band rather than an arc — a dark face in `rockDark`, a rim
+ * in `rock` around the whole of it, a brighter arc along its outer edge where
+ * the light would catch, and one rivet in the middle of it. Four strokes on a
+ * closed path rather than one stroke on an open one, and the difference is
+ * that this one is plating and the other one was a dotted circle.
+ */
 export function drawBeadArmour(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -87,18 +113,44 @@ export function drawBeadArmour(
   const { x, y } = creatureCenter(l, c, beatPhase);
   const row = drawnRow(c, beatPhase);
   const k = depthScale(world.cfg, l, row);
-  const r = l.tile * 0.4 * RING_MUL * k;
+  const near = nearness(l, row);
+  const rIn = l.tile * 0.4 * RING_IN * k;
+  const rOut = l.tile * 0.4 * RING_OUT * k;
+  const band = rOut - rIn;
   const step = (Math.PI * 2) / PLATES;
   const span = step * (1 - GAP);
-  const ring = new Path2D();
+
+  const face = new Path2D();
+  const edge = new Path2D();
+  const rivets = new Path2D();
   for (let i = 0; i < PLATES; i++) {
     // One plate centred at the foot of the body, so a cage never reads as
     // hanging off the thread by a corner.
     const from = Math.PI / 2 + i * step - span / 2;
-    ring.moveTo(x + Math.cos(from) * r, y + Math.sin(from) * r);
-    ring.arc(x, y, r, from, from + span);
+    const to = from + span;
+    face.moveTo(x + Math.cos(from) * rIn, y + Math.sin(from) * rIn);
+    face.arc(x, y, rIn, from, to);
+    face.arc(x, y, rOut, to, from, true);
+    face.closePath();
+    edge.moveTo(x + Math.cos(from) * rOut, y + Math.sin(from) * rOut);
+    edge.arc(x, y, rOut, from, to);
+    const mid = (from + to) / 2;
+    const rMid = rIn + band * RIVET_AT;
+    const rivet = band * RIVET_R;
+    rivets.moveTo(x + Math.cos(mid) * rMid + rivet, y + Math.sin(mid) * rMid);
+    rivets.arc(x + Math.cos(mid) * rMid, y + Math.sin(mid) * rMid, rivet, 0, Math.PI * 2);
   }
-  ctx.strokeStyle = hazed(world.cfg, PALETTE.rock, nearness(l, row));
-  ctx.lineWidth = Math.max(1, l.tile * PLATE_WIDTH * k);
-  ctx.stroke(ring);
+
+  ctx.fillStyle = hazed(world.cfg, PALETTE.rockDark, near);
+  ctx.fill(face);
+  const rim = hazed(world.cfg, PALETTE.rock, near);
+  ctx.strokeStyle = rim;
+  ctx.lineWidth = Math.max(1, band * RIM_WIDTH);
+  ctx.stroke(face);
+  ctx.fillStyle = rim;
+  ctx.fill(rivets);
+  ctx.globalAlpha = EDGE_ALPHA;
+  ctx.lineWidth = Math.max(1, band * EDGE_WIDTH);
+  ctx.stroke(edge);
+  ctx.globalAlpha = 1;
 }

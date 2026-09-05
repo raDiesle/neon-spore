@@ -34,7 +34,10 @@ import { drawTargetLock } from "./target-lock.js";
  * The pilot gets the **same frame**, hopping fast between the two ends of the
  * live run — and the bead it is over is the one bead on their screen without a
  * cage on it (`strand-armour.ts`), so the two ends flick between armoured and
- * open several times a second.
+ * open several times a second. Over it stands a **question mark**, where the
+ * navigator's frame has an arrow: the two glyphs are one sentence split across
+ * the two screens, and the pilot's half of it is the one they have to say out
+ * loud.
  *
  * That is the owner's picture and it says the right thing. A steady mark on
  * two beads says *one of these two*, which is true and calm; a frame that
@@ -83,6 +86,19 @@ const BOX_MUL = 1.75;
 const ARROW_LIFT = 0.5;
 const ARROW_SIZE = 0.2;
 const ARROW_BOB = 0.08;
+
+/** And where the pilot's question mark hangs above theirs, and how big it is.
+ * A little larger than the arrow because a glyph read as a *word* has to be
+ * legible where a triangle only has to be seen, and lifted the same amount so
+ * the two seats' marks sit at the same height on the two screens.
+ *
+ * It does not bob and it does not blink. The one thing moving in the pilot's
+ * mark is the frame hopping between the two ends, and a second clock over it
+ * would be a second statement — this glyph is the *caption* on that hop, and a
+ * caption holds still. It hops with the frame because it is drawn over
+ * whichever bead the frame is on, which is the only motion it is owed. */
+const QUERY_LIFT = 0.5;
+const QUERY_SIZE = 0.3;
 
 /** The mark's colour: the palette's violet rim, which is neither ammunition
  * colour — a mark in red or cyan would be saying one of the two words the
@@ -182,6 +198,49 @@ export function drawGuess(
   halo(ctx, x, y, l.tile * 0.4 * GUESS_REACH * k, hex, GUESS_ALPHA);
   const half = l.tile * 0.4 * BOX_MUL * k;
   drawTargetLock(ctx, x, y, half, half, hex, time, 0.8, guess.id);
+  drawQuery(ctx, x, y - half - QUERY_LIFT * l.tile * k, l.tile * k, hex);
+}
+
+/**
+ * A question mark standing over the pilot's frame, where the navigator's
+ * screen has an arrow.
+ *
+ * **The two glyphs are one sentence between the two screens.** An arrow over a
+ * bead says *that one*; a question mark over a frame that cannot settle says
+ * *which one?* — and the pilot's whole job on this creature is to ask it out
+ * loud and wait to be answered. Before this the pilot had a frame flicking
+ * between two bodies and nothing saying what the flicking meant, which is a
+ * picture a pair reads as an instrument being broken rather than as a question
+ * being put.
+ *
+ * Stroked rather than filled, unlike the arrow: the arrow is a solid thing
+ * hanging in the field and this is a mark *written* over one, and the weight
+ * is the difference a glance reads before the shape is.
+ */
+function drawQuery(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  tile: number,
+  hex: string,
+): void {
+  const s = tile * QUERY_SIZE;
+  const hook = new Path2D();
+  // The bowl runs left, over the top and down the right of a circle sitting a
+  // size and a half above the anchor, then falls to the stem's head on the
+  // centre line — the diagonal that makes a question mark rather than a hook.
+  hook.arc(x, y - s * 1.5, s * 0.55, Math.PI, Math.PI * 2);
+  hook.lineTo(x, y - s * 0.95);
+  const prevCap = ctx.lineCap;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = Math.max(1, s * 0.26);
+  ctx.stroke(hook);
+  ctx.lineCap = prevCap;
+  const dot = new Path2D();
+  dot.arc(x, y - s * 0.2, s * 0.17, 0, Math.PI * 2);
+  ctx.fillStyle = hex;
+  ctx.fill(dot);
 }
 
 /** One swell, 0 at rest and 1 at the top. Spread by an id so two threads on a
