@@ -196,6 +196,7 @@ Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
 ## CLAUDE.md is nine characters under its own ceiling
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Taken:** 2026-09-05, claude/queue-claude-md-is-nine-characters-under-its-own-ceili
 - **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`
 
 `tools/test/claude-md.test.ts` caps the file at 22,000 characters because it is
