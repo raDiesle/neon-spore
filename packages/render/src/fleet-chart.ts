@@ -1,4 +1,6 @@
-import { type FleetState, fleetBeatsLeft, fleetCols, fleetRows, type World } from "@neon-spore/sim";
+import { type FleetState, fleetCols, fleetRows, type World } from "@neon-spore/sim";
+import { drawFleetClock } from "./fleet-clock.js";
+import { drawChartWater } from "./fleet-water.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -91,6 +93,7 @@ export function drawFleetChart(
   world: World,
   boss: FleetState,
   beatPhase: number,
+  time: number,
 ): void {
   // Loud on the beat and gone well before the next one. Derived from the
   // phase rather than handed down, because this is the only lattice in the
@@ -104,9 +107,12 @@ export function drawFleetChart(
 
   ctx.save();
   // Deeper than the field behind it, so the chart reads as a thing standing on
-  // the water rather than as a pattern printed on it.
+  // the water rather than as a pattern printed on it — and then the swell over
+  // that fill, under the lattice and under everything readable
+  // (`fleet-water.ts`).
   ctx.fillStyle = "rgba(4,8,20,.72)";
   ctx.fillRect(c.left, c.top, w, h);
+  drawChartWater(ctx, c, time);
 
   ctx.strokeStyle = `rgba(47,224,240,${0.1 + 0.16 * flash})`;
   ctx.lineWidth = 1;
@@ -140,7 +146,7 @@ export function drawFleetChart(
   ctx.globalAlpha = 1;
 
   drawAxis(ctx, c);
-  drawClock(ctx, c, world, boss);
+  drawFleetClock(ctx, c, world, boss, beatPhase);
   ctx.restore();
 }
 
@@ -169,24 +175,4 @@ function drawAxis(ctx: CanvasRenderingContext2D, c: Chart): void {
   for (let col = 0; col < c.cols; col++) {
     ctx.fillText(chartColName(col), chartX(c, col), y);
   }
-}
-
-/**
- * How long is left, as a bar under the letters rather than as a number.
- *
- * A count of beats is a thing one of them would read out, and this fight has
- * enough to say already. A bar draining across the whole width of the chart is
- * read without being said — and it goes red for its last eighth, which is the
- * only warning the pair gets that the hull is about to pay for the round.
- */
-function drawClock(ctx: CanvasRenderingContext2D, c: Chart, world: World, boss: FleetState): void {
-  const total = Math.max(1, world.cfg.fleetRoundBeats);
-  const left = fleetBeatsLeft(world, boss) / total;
-  const w = c.cols * c.tile;
-  const y = c.top + c.rows * c.tile + Math.max(13, c.tile * 0.6);
-  const h = Math.max(2, c.tile * 0.09);
-  ctx.fillStyle = "rgba(47,224,240,.14)";
-  ctx.fillRect(c.left, y, w, h);
-  ctx.fillStyle = left < 0.125 ? PALETTE.red : PALETTE.shield;
-  ctx.fillRect(c.left, y, w * Math.max(0, Math.min(1, left)), h);
 }

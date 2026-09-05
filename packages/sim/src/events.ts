@@ -109,6 +109,19 @@ export type SimEvent =
    * fired at spends neither. Both seats hear it — the chart is the one thing
    * in this fight the two of them share.
    */
+  /**
+   * A salvo left the cannon, whatever it is about to find. Pushed before the
+   * splash or the hit that rides beside it on the same tick, and carrying the
+   * square it is aimed at.
+   *
+   * Its own event because the *press* and the *arrival* are no longer the same
+   * moment on either screen: the shell is drawn arcing out of the muzzle and
+   * takes `FLEET_SHELL_BEATS` to land, and the two events after this one are
+   * held back by the same amount so the ear hears the water close over it when
+   * the eye sees it. Without this the pilot would press a trigger and get a
+   * second of silence back, which is the one thing a control may never do.
+   */
+  | { type: "fleetSalvo"; col: number; row: number }
   | { type: "fleetSplash"; col: number; row: number }
   /** A salvo that found a hull. The square is now marked on both screens. */
   | { type: "fleetHit"; col: number; row: number }

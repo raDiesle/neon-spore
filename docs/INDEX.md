@@ -547,6 +547,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
 | `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |
 | `packages/render/src/eye-iris.ts` | **The machinery inside an eye**: an aperture ring around the pupil and a ring of spokes turning slowly… |
+| `packages/render/src/fleet-clock.ts` | How long THE FLEET has left, as a bar and as a number |
+| `packages/render/src/fleet-fx.ts` | THE FLEET's one transient: a salvo between the muzzle and the square |
+| `packages/render/src/fleet-impact.ts` | What a shell does when it arrives: a rocket into a hull, or a column of water where there was nothing |
+| `packages/render/src/fleet-shell.ts` | A salvo in the air: the shell arcing out of the cannon, and its shadow walking the water underneath it |
+| `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
 
 ### packages/net
 
@@ -588,6 +593,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
 | `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
+| `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 
 ### apps/game
 

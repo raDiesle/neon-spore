@@ -96,6 +96,77 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+
+
+## `bun run push` hides why the push was refused
+
+- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Files:** `tools/land/push.ts`, `tools/land/test/`
+
+The catch prints `error.message.split("
+")[0]`, and git's first line on a
+refused push is the remote URL — so a session that has just landed is told
+`✗ origin was not updated: To https://github.com/…` and nothing else. The
+reason lives on the following lines (`! [rejected] main -> main
+(non-fast-forward)`, plus the hint), and a session with no reason in hand has
+to re-run the push by hand to find out, which the repository's own guard hook
+refuses. This happened on the eyelid landing: local `main` was 19 ahead and 36
+behind `origin/main`, and the output said none of that.
+
+Print the whole of git's stderr, or at minimum the first line that is not the
+`To <url>` banner, and say how the trunk stands — `origin/main` is ahead by N,
+so the trunk has to be reconciled before it can be sent. `push.ts` already
+fetches and counts `ahead`; counting `behind` beside it is one more
+`rev-list --count` and turns a dead end into an instruction.
+
+
+
+## The build-stamp test walks `.claude/worktrees` and fails in the main checkout
+
+- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Files:** `tools/test/build-stamp.test.ts`
+
+Its `sources()` walks the tree from the repository root with
+`SKIP = node_modules, dist, .git, legacy, assets`, and `.claude` is not in that
+list. The owner's main checkout keeps every open lane's worktree under
+`.claude/worktrees/`, so the scan descends into each of them and reports their
+`apps/game/build.ts`, `tools/build-stamp.ts` and `tools/director/build.ts` as
+offenders — the same four allowed files over and over, from a path the `ALLOWED`
+set cannot match because it is relative to the outer root. On this machine the
+test fails with about a hundred entries; in a fresh clone with no worktrees it
+passes, which is why it landed green.
+
+Add `.claude` to `SKIP`. Then check the other tree-walking tests for the same
+hole — anything that starts at the repository root and filters by directory
+name rather than by a package glob has it, and a worktree is a full copy of the
+repository sitting inside the repository.
+
+## THE FLEET's lattice costs 132 `fillRect` a frame for its crossings
+
+- **Found:** 2026-09-05, claude/fleet-boss-animations-ui-d7adb9
+- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/test/fleet-budget.test.ts`
+
+`drawFleetChart` marks every crossing of the chart with a small square, in a
+nested loop over `cols + 1` by `rows + 1` — twelve by eleven on the shipped
+field, so 132 `fillRect` calls every frame, for the whole length of the fight.
+The new budget beside it measures 192 in total on a frame of this boss, which
+makes the crossings roughly seventy per cent of every rectangle the game draws
+during it. Nothing else in the game draws a lattice this way; `field.ts` holds
+its own behind `SHOW_TILE_GRID` and has never been switched on.
+
+Draw them in one call instead. The crossings differ only in position, and the
+two things that change between frames are the shared alpha and the shared size
+— so one `Path2D` of rects, rebuilt only when the tile size or the pulse step
+changes, or a single baked sprite blitted once and stretched, both give the
+identical picture for one call. `packages/render/src/baked.ts` already has the
+cache a bake would live in, and `gradient-slot.ts` is the pattern for keying it
+to the layout.
+
+**The picture may not change.** This is a speed fix, not a look: the same
+squares, the same colour, the same pulse. `fleet-budget.test.ts` is the proof —
+lower its `fillRect` rows to whatever the change actually measures, in the same
+commit, and `packages/render/test/fleet-frame.test.ts` still has to pass.
+
 ## `bun run frames` cannot magnify the thing it photographed
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988

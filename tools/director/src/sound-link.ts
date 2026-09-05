@@ -179,6 +179,8 @@ export const NO_SUBJECT: Record<string, string> = {
     "a veil turning over is a body becoming a different body under weather neither player is looking through. There is nothing to draw that is not one of the two cards already on this page.",
   "impact.absorb":
     "a cloud shutting over a shot it took. What the picture would have to be is the two seconds afterwards, which is a state read off the world every frame and not a thing standing anywhere.",
+  "boss.fleetLaunch":
+    "a salvo leaving the cannon. What it is attached to is a flight rather than a body — the shell is drawn arcing over the chart for two beats (render/fleet-shell.ts) and there is no one moment of it a card could stand for.",
   "boss.fleetSplash":
     "a salvo into open water. The subject is the absence of a subject — the whole point of the sound is that there was nothing in the square.",
   "boss.fleetHit":

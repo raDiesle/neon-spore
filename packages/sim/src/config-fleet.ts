@@ -62,6 +62,26 @@ export interface FleetConfig {
  * clock is generous to a pair who name a square and mean, and short for a pair
  * who walk the sights about looking for one.
  */
+/**
+ * Beats a salvo's shell spends in the air, from the muzzle to the square.
+ *
+ * A number the *pictures* need and the rules do not: nothing in `fleet.ts`
+ * waits for it — a salvo is resolved on the tick it is pressed, because two
+ * devices must agree about a hit without either of them drawing anything. It
+ * lives here anyway, and not in `packages/render`, because two consumers read
+ * it and neither may import the other: the renderer flies the shell for this
+ * long and withholds the mark until it lands (`fleet-shell.ts`), and the mixer
+ * holds the splash or the clang back by the same amount so the ear and the eye
+ * agree about when the thing arrived (`bind.ts`). A second copy of it is a
+ * sound that lands a second before its own picture.
+ *
+ * Two beats is 1.25 seconds at 96 BPM — long enough that the arc is watched
+ * rather than glimpsed, and longer than `fleetSalvoRestBeats`, so a pair
+ * firing as fast as the rule allows have two shells in the air at once. The
+ * picture carries that (`fleet-fx.ts`); the simulation never sees it.
+ */
+export const FLEET_SHELL_BEATS = 2;
+
 export const FLEET_DEFAULTS: FleetConfig = {
   fleetRows: 10,
   fleetRoundBeats: 160,

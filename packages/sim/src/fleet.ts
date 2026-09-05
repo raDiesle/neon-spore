@@ -178,6 +178,10 @@ function salvo(world: World, b: FleetState): void {
   }
 
   b.firedBeat = world.beat;
+  // The shell leaving, said before what it finds. Both are on this tick — the
+  // rule is resolved the moment the thumb lands, and only the picture and the
+  // ear take the flight into account (`events.ts`, `fleetSalvo`).
+  world.events.push({ type: "fleetSalvo", col, row });
   b.struck.push(fleetIndex(cfg, col, row));
   b.lastCol = col;
   b.lastRow = row;

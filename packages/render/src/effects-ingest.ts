@@ -197,8 +197,12 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "ghostTurn":
     case "ghostCharge":
     // THE FLEET is drawn straight off the world every frame — the marks from
-    // `struck`, the sinking from `sunkBeat` — so nothing about it outlives a
-    // frame and there is nothing here to remember (`fleet-hulls.ts`).
+    // `struck`, the sinking from `sunkBeat` — with one exception, and the
+    // exception is read above this loop by an `ingest` of its own: a salvo is
+    // in the air for `FLEET_SHELL_BEATS` after the tick that resolved it, so
+    // the shell, its shadow and the burst it makes are `FleetFx`'s
+    // (`fleet-fx.ts`).
+    case "fleetSalvo":
     case "fleetSplash":
     case "fleetHit":
     case "fleetSunk":

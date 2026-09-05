@@ -19,6 +19,24 @@ import type { SoundDef } from "../types.js";
  */
 export const FLEET_SOUNDS: SoundDef[] = [
   {
+    id: "boss.fleetLaunch",
+    family: "boss",
+    blurb: "A mortar going off under the deck, and the shell leaving on a rising hiss.",
+    status: "bound",
+    use: "The beat a salvo leaves the cannon on THE FLEET's chart.",
+    level: 0.34,
+    // The one sound in this fight that answers the *press* rather than the
+    // arrival. It exists because the shell now takes `FLEET_SHELL_BEATS` to
+    // reach the square and the three sounds below are held back by exactly
+    // that: without it the pilot pulls a trigger and gets a second and a
+    // quarter of silence, which is the one thing a control may never do.
+    layers: [
+      thud(120, 44, 0.2, 0.62),
+      // Rising, where every impact in this file falls: a thing going away.
+      after(0.02, air(700, 3000, 0.34, 0.11, 0.9)),
+    ],
+  },
+  {
     id: "boss.fleetSplash",
     family: "boss",
     blurb: "A shell into open water: a short slap, and the sea closing over it.",

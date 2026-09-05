@@ -6,6 +6,7 @@ import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
 import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
+import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
 import { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
@@ -27,15 +28,24 @@ import { WardenFx } from "./warden-fx.js";
 export class Effects {
   private sparks = new Sparks();
   private deflectFx = new DeflectFx();
-  private rockImpactFx = new RockImpactFx();
+  /**
+   * The last step of a rock's fall, replayed until it reaches the hull, and
+   * the stuck-then-rolling rock afterwards. Public, and drawn *over* the hull
+   * unlike the rest of this class: a rock falling or lodged has to stay in
+   * front, so the ship pass calls it rather than `draw` doing it here. The
+   * hull also asks it whether a rock is still sitting in its own crater,
+   * before drawing that crater at all (`craters.ts`).
+   */
+  readonly rockImpact = new RockImpactFx();
   private blockedUntil = new Map<number, number>();
   private guardHit = 0;
   /** Taking a pod in — its own two-part clock, see `swallow.ts`. */
   private swallow = new SwallowFx();
   /** Counts down after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
-  /** Which impacts have visibly landed — see `arrivals.ts`. */
-  private arrivals = new Arrivals();
+  /** Which impacts have visibly landed. Public: the hull asks before it
+   * draws a scar's crack (`arrivals.ts`, `scars.ts`'s `arrived`). */
+  readonly arrivals = new Arrivals();
   /** The two transients that belong to one body — `effects-body.ts`. */
   private bodies = new BodyTransients();
   /**
@@ -48,6 +58,10 @@ export class Effects {
    * Public for the mirror's reason — the boss is drawn as a whole body by
    * `boss-draw.ts`, not as a handful of particles here. */
   readonly warden = new WardenFx();
+  /** THE FLEET's salvoes between the muzzle and the square. Public for the
+   * mirror's reason, and asked questions as well as drawn: the marks and the
+   * scars check with it before calling a square spent (`fleet-fx.ts`). */
+  readonly fleet = new FleetFx();
   /**
    * The baked burst, played from an atlas over a destroyed creature. Public
    * because installing the atlas is the *host's* decision, not the renderer's:
@@ -118,6 +132,7 @@ export class Effects {
     const beatSeconds = 60 / cfg.bpm;
     this.mirror.ingest(events);
     this.warden.ingest(events);
+    this.fleet.ingest(events, beatSeconds);
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
     for (const e of events) {
       const spark = burstFor(e, l);
@@ -133,7 +148,7 @@ export class Effects {
         creatureIdAt,
         sparks: this.sparks,
         spriteBursts: this.spriteBursts,
-        rockImpactFx: this.rockImpactFx,
+        rockImpactFx: this.rockImpact,
         arrivals: this.arrivals,
         deflectFx: this.deflectFx,
         swallow: this.swallow,
@@ -153,7 +168,7 @@ export class Effects {
   update(dt: number, l: Layout): void {
     this.sparks.update(dt);
     this.deflectFx.update(dt, l.tile);
-    this.rockImpactFx.update(dt, l);
+    this.rockImpact.update(dt, l);
     for (const [id, t] of this.blockedUntil) {
       const left = t - dt;
       if (left <= 0) this.blockedUntil.delete(id);
@@ -168,6 +183,10 @@ export class Effects {
     this.bodies.update(dt);
     this.spriteBursts.update(dt);
     this.ghostTrail.update(dt);
+    // A salvo's particles are thrown from here on the frame it lands, not from
+    // `burstFor` on the frame the event arrived — a second and a quarter
+    // earlier (`fleet-fx.ts`).
+    this.fleet.update(dt, l, (x, y, n, hex) => this.burst(x, y, n, hex));
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. The
@@ -180,34 +199,6 @@ export class Effects {
     this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
 
-  /**
-   * The last step of a rock's fall, replayed until it reaches the hull, and
-   * the stuck-then-rolling rock afterwards. Drawn *over* the hull, unlike the
-   * rest of this class: a rock falling or lodged has to stay in front.
-   * `skinAt` is the hull's real, breathing surface (`hullSkinY`), so a stuck
-   * rock rides the motion its crater does rather than an approximation of it.
-   */
-  drawRockImpact(
-    ctx: CanvasRenderingContext2D,
-    l: Layout,
-    time: number,
-    skinAt: (x: number) => number,
-  ): void {
-    this.rockImpactFx.draw(ctx, l, time, skinAt);
-  }
-
-  /** Whether a rock is still sitting in its own crater at this x — the hull
-   * asks before it draws that crater at all (`craters.ts`). */
-  rockCoversCrater(x: number, tile: number): boolean {
-    return this.rockImpactFx.coversCrater(x, tile);
-  }
-
-  /** Whether the rock that scarred this column on this beat has landed yet —
-   * the hull asks before drawing that scar's crack (`scars.ts`'s `arrived`). */
-  hasArrived(col: number, beat: number): boolean {
-    return this.arrivals.has(col, beat);
-  }
-
   /** Forget everything transient: a wave has (re)started and none of it
    * belongs on screen now. Without this a rock from the run just abandoned
    * latches an arrival (`arrivals.ts`) against a beat the new run is about to
@@ -215,7 +206,7 @@ export class Effects {
   reset(): void {
     this.sparks.clear();
     this.deflectFx.clear();
-    this.rockImpactFx.clear();
+    this.rockImpact.clear();
     this.arrivals.clear();
     this.blockedUntil.clear();
     this.guardHit = 0;
@@ -224,6 +215,7 @@ export class Effects {
     this.layEcho.clear();
     this.mirror.clear();
     this.warden.reset();
+    this.fleet.clear();
     this.bodies.clear();
     this.spriteBursts.clear();
     this.coordGrid.clear();

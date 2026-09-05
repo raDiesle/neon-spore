@@ -1,6 +1,6 @@
 import { wardenPullMilli, wardenTether } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
-import { drawFleetChart } from "./fleet-chart.js";
+import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
 import type { Layout } from "./layout.js";
@@ -92,15 +92,23 @@ export function drawBoss(
   }
 
   // THE FLEET, in the order the eye reads it: the water and its lattice, the
-  // hulls the seat is allowed to see, the record both seats share, and the
-  // sights on top of all of it. Nothing here is held between frames — the
-  // marks come off `struck` and the sinking off `sunkBeat`, so a restart draws
-  // a clear chart with no help from `Effects` (`fleet-hulls.ts`).
+  // hulls the seat is allowed to see, the record both seats share, the sights
+  // over that, and last the salvoes — the shells still in the air, then
+  // whatever the ones that have arrived are doing to the square.
+  //
+  // Almost none of it is held between frames: the marks come off `struck`, the
+  // sinking off `sunkBeat`, and a restart draws a clear chart. The exception
+  // is the flight itself, which outlives its frame by a second and a quarter
+  // and is cleared with everything else in `Effects.reset` (`fleet-fx.ts`).
   if (boss.kind === "fleet") {
-    drawFleetChart(ctx, l, world, boss, view.beatPhase);
-    drawFleetHulls(ctx, l, world, boss, view.beatPhase);
-    drawFleetMarks(ctx, l, world, boss);
+    const fleet = effects.fleet;
+    drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time);
+    drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet);
+    drawFleetMarks(ctx, l, world, boss, fleet);
     drawFleetSights(ctx, l, world, boss, view.beatPhase);
+    const chart = chartOf(l, world);
+    fleet.drawFlight(ctx, l, chart, world.cannonCol);
+    fleet.drawBursts(ctx, chart);
     return;
   }
 

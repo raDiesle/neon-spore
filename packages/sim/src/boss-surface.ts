@@ -24,6 +24,7 @@ export {
   fleetBeatsLeft,
   fleetCols,
   fleetFault,
+  fleetIndex,
   fleetOnBoard,
   fleetRows,
   fleetShipAt,

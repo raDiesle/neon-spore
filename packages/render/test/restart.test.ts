@@ -59,7 +59,7 @@ describe("a wave restart", () => {
     for (let i = 0; i < 240; i++) {
       t += 1 / 60;
       used.update(1 / 60, L);
-      used.drawRockImpact(ctx as unknown as CanvasRenderingContext2D, L, t, () => L.hullY);
+      used.rockImpact.draw(ctx as unknown as CanvasRenderingContext2D, L, t, () => L.hullY);
     }
     // It really did accumulate something, or the comparison below proves nothing.
     expect(used).not.toEqual(new Effects());

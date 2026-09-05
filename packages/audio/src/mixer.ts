@@ -103,7 +103,12 @@ export class Mixer {
       // that has not said which it is. Silence rather than sound: see `seat`.
       if (cue.seat !== undefined && cue.seat !== this.seat) continue;
       if (!this.clickTrack && (cue.id === "beat.tick" || cue.id === "beat.accent")) continue;
-      this.play(cue.id, cue.pan, cue.pitch, cue.gain);
+      // The one cue that does not sound now. A salvo's arrival is held back
+      // by the shell's flight so the ear and the eye agree about when it got
+      // there — the tempo is here and nowhere else, so the beats become
+      // seconds here (`bind.ts`, `Cue.delayBeats`).
+      const delay = cue.delayBeats === undefined ? 0 : (cue.delayBeats * 60) / world.cfg.bpm;
+      this.play(cue.id, cue.pan, cue.pitch, cue.gain, delay);
     }
 
     this.soundDifferences(world, cols);
@@ -183,13 +188,17 @@ export class Mixer {
     m.creatures = left;
   }
 
-  /** One sound, with the duplicate guard applied. */
-  play(id: string, pan?: number, pitch?: number, gain = 1): void {
+  /** One sound, with the duplicate guard applied. `delay` is seconds ahead. */
+  play(id: string, pan?: number, pitch?: number, gain = 1, delay = 0): void {
     const seen = this.thisFrame.get(id) ?? 0;
     // The fourth identical sound in one frame adds nothing but headroom loss.
     if (seen >= 3) return;
     this.thisFrame.set(id, seen + 1);
-    this.engine.play(sound(id), { pan, pitch, gain: gain * 0.7 ** seen });
+    this.engine.play(
+      sound(id),
+      { pan, pitch, gain: gain * 0.7 ** seen },
+      delay > 0 ? this.engine.now + delay : 0,
+    );
   }
 
   dispose(): void {

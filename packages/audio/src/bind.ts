@@ -14,6 +14,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { caromCue } from "./bind-carom.js";
 import { creatureCue } from "./bind-creatures.js";
+import { fleetCue } from "./bind-fleet.js";
 import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
@@ -33,6 +34,19 @@ export interface Cue {
    * is, so a device that was never told stays silent rather than leaking.
    */
   seat?: 1 | 2;
+  /**
+   * Beats to hold this cue back by, or absent for the overwhelming majority
+   * that sound the moment they are bound.
+   *
+   * THE FLEET is the only thing that uses it, and it uses it because its shot
+   * is no longer resolved where it is heard: the salvo is decided on the tick
+   * the thumb lands, and the shell is drawn arcing over the water for
+   * `FLEET_SHELL_BEATS` before it reaches the square. A splash that sounded on
+   * the press would close the water over a shell still climbing. In beats
+   * rather than seconds because the tempo is the game's clock and only the
+   * mixer knows it (`Mixer.frame`).
+   */
+  delayBeats?: number;
 }
 
 /** A column as a stereo position. The edges stop short of hard left and right. */
@@ -184,27 +198,15 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       };
     case "mazeDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
-    // THE FLEET's chart. Every one of them is panned to its column and pitched
-    // to its row, which is the only place in the game where that pairing is
-    // load-bearing rather than decoration: the seat holding the sights is
-    // shown no ships at all, so where a salvo landed is a thing they hear
-    // before they see it (`fleet-hulls.ts`).
+    // THE FLEET's five, in `bind-fleet.ts`: they carry more of the fight than
+    // any other row in the catalogue, and four of the five are held back by
+    // the shell's flight rather than sounding where they are bound.
+    case "fleetSalvo":
     case "fleetSplash":
-      return {
-        id: "boss.fleetSplash",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "fleetHit":
-      return {
-        id: "boss.fleetHit",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "fleetSunk":
-      return { id: "boss.fleetSunk", pan: panForCol(e.col, cols) };
     case "fleetDown":
-      return { id: "boss.fleetDown", pan: panForCol(e.col, cols) };
+      return fleetCue(e, cols, rows);
     // What a covering did — armour chipping, a membrane coming off, a cage
     // buckling, a crust cracking, a body turning at a wall — and, below it,
     // what a body one of them cannot see did: a disguise going, a cloud

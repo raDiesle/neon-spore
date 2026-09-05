@@ -583,17 +583,35 @@ where there was nothing. That is not a softening of the split: a pair who could
 not remember what they had already spent would be playing a longer fight, not a
 harder one. What stays hidden is only ever *where the ships are*.
 
+**A salvo is lobbed, and the mark waits for it.** The shell leaves the cannon,
+arcs up over the water with its shadow walking the squares underneath it, and
+comes down into the square two beats later; only then does the cross or the
+ripple appear, and only then does a holed ship start to go under. The
+simulation still resolves the whole thing on the tick the thumb lands — two
+devices have to agree about a hit without either of them drawing anything — so
+the flight is the picture's business alone, and it is the same rule a falling
+rock already plays by: nothing is *seen* to have happened until something is
+seen to arrive. A hit throws fire outwards; a splash throws water up. The two
+are told apart by shape rather than by colour, because the navigator is shown
+no ships and the burst is the first thing on their screen that answers the
+sentence they have just been counting out.
+
 **A ship going down is on both screens too, and it is the navigator's
 receipt.** They have spent the whole fight firing at squares somebody else
 named; the one moment they get to see what they were shooting at is the moment
-it rolls over and goes under. The sinking is derived from `sunkBeat` and the
-beat phase — no render state outlives a frame, so a restart draws a clear
-chart.
+it rolls over and goes under. The water closes over it — rings leaving the
+hull, a crest of foam, and bubbles once there is nothing left on the surface to
+explain them — because a ship that faded out was not sinking, it was being
+turned off. The sinking is derived from `sunkBeat`, the beat phase and the
+shell's own flight — no render state outlives a frame, so a restart draws a
+clear chart.
 
-**The clock is the whole of the danger.** Nothing THE FLEET does can reach the
-hull; what costs the hull is *not finishing*. `fleetRoundBeats` runs from the
-wave's first beat and a bar under the chart drains with it, red for its last
-eighth. Running out breaks the hull by `damageFleet` in the middle column — the
+**The clock is the whole of the danger, and it is drawn as a number.** Nothing
+THE FLEET does can reach the hull; what costs the hull is *not finishing*.
+`fleetRoundBeats` runs from the wave's first beat and a bar under the chart
+drains with it, red for its last eighth — with the seconds left spelled out
+under the bar, because a bar answers *roughly how much* and the question a pair
+actually ask each other under a clock is *how long*. Running out breaks the hull by `damageFleet` in the middle column — the
 same call THE GAUGE, THE MIRROR and THE MAZE make when a boss with no body has
 to cost the ship something — and the scar is still there when the next wave
 opens. A miss costs time and nothing else, which is the right currency: a wrong

@@ -17,7 +17,7 @@ import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
-export { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
+export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";

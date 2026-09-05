@@ -181,8 +181,8 @@ export function drawShip(
     mood,
     hullPercent(world),
     at,
-    (x) => !effects.rockCoversCrater(x, l.tile),
-    (col, beat) => effects.hasArrived(col, beat),
+    (x) => !effects.rockImpact.coversCrater(x, l.tile),
+    (col, beat) => effects.arrivals.has(col, beat),
     // Whose ship this is. Violet on player one's screen, amber on player two's
     // — the one thing on either screen that says which of the two it is without
     // being read (`seat-skin.ts`).
@@ -192,8 +192,10 @@ export function drawShip(
   );
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
-  // In front of the hull, unlike the rest of Effects.draw() — see Effects.drawRockImpact.
-  effects.drawRockImpact(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
+  // In front of the hull, unlike the rest of Effects.draw() — see
+  // `Effects.rockImpact`. `skinAt` is the hull's real, breathing membrane, so
+  // a stuck rock rides the motion its crater does rather than an approximation.
+  effects.rockImpact.draw(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
   effects.drawBanner(ctx, l);
   if (world.boss?.kind === "mirror") {
     effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);

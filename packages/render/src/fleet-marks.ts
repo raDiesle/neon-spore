@@ -1,5 +1,6 @@
 import { type FleetState, fleetShipAt, type World } from "@neon-spore/sim";
 import { type Chart, chartOf, chartSquareName, chartX, chartY } from "./fleet-chart.js";
+import type { FleetFx } from "./fleet-fx.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -19,12 +20,23 @@ import { PALETTE, STROKE } from "./palette.js";
  * enough that a glance across a phone tells them apart without counting.
  */
 
-/** Every square already spent, hit or splash. */
+/**
+ * Every square already spent, hit or splash — except the ones a shell has not
+ * reached yet.
+ *
+ * The simulation spends a square on the tick the thumb lands, because two
+ * devices have to agree about a hit without either of them drawing anything.
+ * The picture may not: a cross that appeared in a square while the shell was
+ * still climbing would answer the pair's sentence before the shot did, and the
+ * whole point of the arc is that they watch it arrive. `FleetFx` is what knows
+ * which squares are still owed something.
+ */
 export function drawFleetMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   boss: FleetState,
+  fx: FleetFx,
 ): void {
   const c = chartOf(l, world);
   if (c.tile <= 0) return;
@@ -32,6 +44,7 @@ export function drawFleetMarks(
   for (const at of boss.struck) {
     const col = at % c.cols;
     const row = Math.floor(at / c.cols);
+    if (fx.pending(col, row)) continue;
     if (fleetShipAt(boss.ships, col, row) === -1) splash(ctx, c, col, row);
     else hit(ctx, c, col, row);
   }

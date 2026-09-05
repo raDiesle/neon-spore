@@ -1,4 +1,5 @@
 import {
+  FLEET_SHELL_BEATS,
   type FleetShip,
   type FleetState,
   shipCol,
@@ -7,6 +8,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type Chart, chartOf, chartX, chartY } from "./fleet-chart.js";
+import type { FleetFx } from "./fleet-fx.js";
+import { drawSinkWash } from "./fleet-water.js";
 import { halo } from "./glow.js";
 import { type Layout, showsFleetHulls } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -55,7 +58,16 @@ const HULLS = [
 function sinkPhase(world: World, boss: FleetState, at: number, beatPhase: number): number {
   const beat = boss.sunkBeat[at] ?? -1;
   if (beat === -1) return -1;
-  return Math.min(1, (world.beat - beat + beatPhase) / FLEET_SINK_BEATS);
+  // The shell is still in the air. The simulation sank the ship on the beat
+  // the thumb landed, because two devices have to agree about that without
+  // either of them drawing anything — but nothing has reached the water yet,
+  // so the hull is still afloat as far as this picture is concerned. Arithmetic
+  // rather than a question put to `FleetFx`: the flight is a fixed number of
+  // beats, so subtracting it is the same answer with nothing to go stale
+  // (`fleet-shell.ts`).
+  const beats = world.beat - beat + beatPhase - FLEET_SHELL_BEATS;
+  if (beats < 0) return -1;
+  return Math.min(1, beats / FLEET_SINK_BEATS);
 }
 
 /** Every hull this screen is allowed to show, drawn on the chart. */
@@ -65,6 +77,7 @@ export function drawFleetHulls(
   world: World,
   boss: FleetState,
   beatPhase: number,
+  fx: FleetFx,
 ): void {
   const c = chartOf(l, world);
   if (c.tile <= 0) return;
@@ -74,7 +87,7 @@ export function drawFleetHulls(
     if (sinking >= 1) continue;
     // Afloat and this is the navigator's screen: there is nothing here.
     if (sinking < 0 && !seen) continue;
-    drawHull(ctx, c, boss, boss.ships[at]!, at, sinking);
+    drawHull(ctx, c, boss, boss.ships[at]!, at, sinking, fx);
   }
 }
 
@@ -92,6 +105,7 @@ function drawHull(
   ship: FleetShip,
   at: number,
   sinking: number,
+  fx: FleetFx,
 ): void {
   const skin = HULLS[at % HULLS.length]!;
   const head = { x: chartX(c, ship.col), y: chartY(c, ship.row) };
@@ -145,7 +159,12 @@ function drawHull(
   ctx.fill();
   ctx.restore();
 
-  drawScars(ctx, c, boss, ship, skin.rim);
+  // The water closing over it, on top of the hull rather than under it: what
+  // the owner asked for is a ship going *into* the sea, and a wash drawn
+  // behind the thing it is swallowing reads as a ring painted on the deck
+  // (`fleet-water.ts`).
+  drawSinkWash(ctx, cx, cy, long, ship.dir === "v", sinking);
+  drawScars(ctx, c, boss, ship, skin.rim, fx);
 }
 
 /**
@@ -162,6 +181,7 @@ function drawScars(
   boss: FleetState,
   ship: FleetShip,
   hex: string,
+  fx: FleetFx,
 ): void {
   ctx.save();
   ctx.globalAlpha = 0.75;
@@ -172,6 +192,10 @@ function drawScars(
     const col = at % c.cols;
     const row = Math.floor(at / c.cols);
     if (!shipCovers(ship, col, row)) continue;
+    // A shell still on its way to this square. The pilot may not read a hole
+    // in his own hull before anything has arrived to make one — the same rule
+    // the shared marks keep (`fleet-fx.ts`).
+    if (fx.pending(col, row)) continue;
     const x = chartX(c, col);
     const y = chartY(c, row);
     ctx.beginPath();

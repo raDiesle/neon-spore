@@ -46,6 +46,7 @@ export {
 } from "./colour-armour.js";
 export {
   DEFAULT_CONFIG,
+  FLEET_SHELL_BEATS,
   hullRow,
   midCol,
   msToTicks,
