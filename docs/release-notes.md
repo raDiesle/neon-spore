@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · ac40e91f — THE MAZE's heart starts slow, races as it is hurt, and bleeds where it is hit
+
+Four things the owner asked of the body in the middle, and they are one mechanism: what state it is in, and how it shows it.
+
+## 2026-09-05 · c990c145 — The way into THE MAZE is a gap with light coming out, and the shot goes in it
+
+Three things the owner watched and named, and they are one change: what the way in looks like, and what goes through it.
+
 ## 2026-09-05 · 6830d7e8 — The ball is big enough to hold the body, and a ward cracks what is left
 
 Two things the owner asked for by name.
