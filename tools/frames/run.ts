@@ -52,8 +52,9 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
-import { parseHold, parsePress } from "./hold.js";
+import { parseHold } from "./hold.js";
 import { parseOpening } from "./opening.js";
+import { parsePress } from "./press.js";
 import { captureAt, git, root, run } from "./serve.js";
 
 /**

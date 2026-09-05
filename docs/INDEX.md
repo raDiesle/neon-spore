@@ -1003,5 +1003,6 @@ place — the generator keeps whatever is there.
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
+| `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 
 <!-- index:code:end -->

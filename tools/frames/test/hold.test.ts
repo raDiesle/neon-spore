@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { parseHold, parsePress } from "../hold.js";
+import { parseHold } from "../hold.js";
+import { parsePress } from "../press.js";
 
 /**
  * `--hold` is the only flag on this tool that builds a `Command` rather than a
@@ -130,6 +131,21 @@ describe("parsePress", () => {
 
   it("refuses an empty press rather than pressing nothing", () => {
     expect(() => parsePress("")).toThrow(/nothing to press/);
+  });
+
+  it("steps THE FLEET's sights by name, and lobs from the seat that holds the trigger", () => {
+    expect(parsePress("20:2:aim=left")[0]?.command).toEqual({ kind: "aim", dcol: -1, drow: 0 });
+    expect(parsePress("20:2:aim=down")[0]?.command).toEqual({ kind: "aim", dcol: 0, drow: 1 });
+    expect(parsePress("90:1:salvo")[0]?.command).toEqual({ kind: "salvo" });
+  });
+
+  it("refuses THE FLEET's two from the wrong chair, which is the whole fight", () => {
+    expect(() => parsePress("90:2:salvo")).toThrow(/player 1's/);
+    expect(() => parsePress("20:1:aim=left")).toThrow(/player 2's/);
+  });
+
+  it("refuses a direction the sights cannot step", () => {
+    expect(() => parsePress("20:2:aim=sideways")).toThrow(/left, right, up, down/);
   });
 
   it("takes the grip from either seat, because it is the one that is not split", () => {
