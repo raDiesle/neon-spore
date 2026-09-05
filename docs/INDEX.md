@@ -553,6 +553,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-impact.ts` | What a shell does when it arrives: a rocket into a hull, or a column of water where there was nothing |
 | `packages/render/src/fleet-shell.ts` | A salvo in the air: the shell arcing out of the cannon, and its shadow walking the water underneath it |
 | `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
+| `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
+| `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 
 ### packages/net
 
