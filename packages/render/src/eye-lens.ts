@@ -45,17 +45,20 @@ const RISE_CAP = 0.7;
 const DIP_SHARE = 0.46;
 
 /**
- * How far the corners themselves ride down as the eye shuts, as a share of the
- * lower lid's dip.
+ * How far the gap's own middle rides down as the eye shuts, as a share of the
+ * upper lid's rise.
  *
  * **An eye closes downwards.** The lower lid barely moves and the upper one
  * comes down to meet it, so a nearly shut eye is a low crescent rather than a
- * thin lens hanging where the wide one was centred. That is the one thing the
- * old symmetric shape got most obviously wrong, and it costs nothing to fix:
- * the *height* of the gap is untouched by this and stays exactly linear in
- * `openness`, so the number the other seat reads off it is the same number.
+ * thin lens hanging where the wide one was centred. It is the *middle* that
+ * travels, not the corner line, which is what lets a wide eye sit square in the
+ * socket while a shut one sits at the foot of it — with the corners still
+ * standing above the floor and below the crown, where an eye's are.
+ *
+ * The *height* of the gap is untouched by any of this and stays exactly linear
+ * in `openness`, so the number the other seat reads off it is the same number.
  */
-const DESCENT = 0.6;
+const DESCENT = 0.45;
 
 /**
  * The corners' tilt off level, as a share of the upper lid's rise: the outer
@@ -117,25 +120,28 @@ export function drawEyeLens(
   const w = rx * LENS_W;
   const rise = Math.min(ry * RISE_MUL, w * RISE_CAP);
   const dip = rise * DIP_SHARE;
-  // Where the corners are standing this instant, and how far the two lids are
-  // off them. `up + low` is exactly `(rise + dip) * openness` however far the
-  // line has dropped, so the height of the gap is still the tension and
-  // nothing else — the descent moves the aperture without resizing it.
-  const my = cy + dip * DESCENT * (1 - openness);
+  // Where the gap's middle stands this instant, how far the two lids are off
+  // the corners, and where those corners are. `up + low` is exactly
+  // `(rise + dip) * openness` however far the middle has dropped, so the height
+  // of the gap is still the tension and nothing else — the descent moves the
+  // aperture without resizing it.
+  const mid = cy + rise * DESCENT * (1 - openness);
   const up = rise * openness;
   const low = dip * openness;
+  const my = mid + (up - low) / 2;
   const tilt = up * CANTHAL_TILT;
   const lens = new Path2D(
     // The upper lid, corner to corner, with its controls weighted toward the
     // left one so the crown of the arc stands inboard of the middle. Their `y`
     // offsets sum to eight thirds of the rise, which is what puts a cubic's
-    // own midpoint exactly there.
+    // own midpoint exactly there; their `x` sit well out toward the corners,
+    // which is what keeps each corner a short taper rather than a spike.
     `M ${cx - w} ${my + tilt}` +
-      ` C ${cx - w * 0.5} ${my - up * 1.6} ${cx + w * 0.34} ${my - up * 1.067} ${cx + w} ${my - tilt}` +
+      ` C ${cx - w * 0.62} ${my - up * 1.55} ${cx + w * 0.48} ${my - up * 1.117} ${cx + w} ${my - tilt}` +
       // And the lower lid back, weighted the other way, so its trough sits
       // outboard. The two offsets are opposite and unequal, and that pair of
       // facts is the whole of what stops this reading as a leaf on its side.
-      ` C ${cx + w * 0.52} ${my + low * 1.5} ${cx - w * 0.36} ${my + low * 1.167} ${cx - w} ${my + tilt} Z`,
+      ` C ${cx + w * 0.64} ${my + low * 1.45} ${cx - w * 0.5} ${my + low * 1.217} ${cx - w} ${my + tilt} Z`,
   );
   ctx.save();
   ctx.fillStyle = ink.hex;
@@ -153,7 +159,7 @@ export function drawEyeLens(
   const pulse = 0.85 + 0.15 * Math.sin(t * Math.PI * 2);
   const pr = w * PUPIL_MUL * pulse;
   if (pr > 0 && openness > 0) {
-    const pupil = new Path2D(circleSubpath(cx, my + (low - up) / 2, pr));
+    const pupil = new Path2D(circleSubpath(cx, mid, pr));
     ctx.save();
     ctx.clip(lens);
     ctx.globalAlpha = openness;
