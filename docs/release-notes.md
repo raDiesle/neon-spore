@@ -64,6 +64,14 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+## 2026-09-05 · e8adcc18 — A dotted line runs from the cannon to the body it is locked on
+
+The target frame says *this one is picked out* and says nothing about what picked it out — and the whole of the rule is that a bolt leaving a muzzle somewhere else entirely is going to arrive here. So the link is drawn: cannon at one end, body at the other, straight, in the grip's own amber.
+
+## 2026-09-05 · 05dda96e — CATCH AND AIM: the wave where the hand reaches further than the cannon
+
+THE LOCK arrived live in every wave and taught nowhere. This is its wave, and it sits between SALVAGE and FINALE because it needs the pod: nothing else in the game makes where the cannon *stands* matter for anything but a shot. A body can be answered on any beat before it lands, so a pair asked why they did not simply slide the strip would be right — a wreck cannot, because it sinks and is caught by the maw of a cannon already under it. So the cannon is pinned on the left, the bodies arrive on the right, and the hand is the only thing that reaches both.
+
 ## 2026-09-05 · 4337bac5 — Queue: bun run frames cannot magnify what it photographed
 
 A creature is forty pixels on a phone, so a before-and-after of a change to its shape is two pictures the change is invisible in. This lane had to hand-roll a crop-and-scale throwaway to judge its own work and to send the owner something he could see.
