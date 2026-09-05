@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 8951036 — The middle of THE MAZE has a heart in it, and it beats
+
+The owner's sheet has START printed in the middle. The field does not take printed words, and a plain disc said nothing about why a shot should want to get there — so what is at the end of the walk is a body, which is what he asked for: a beating heart with veins, in a slick's red or a bulb's cyan, switching every round.
+
+## 2026-09-05 · 17d45cd — THE MAZE counts only the bottom of its rim, and gains a way in each round
+
+Two answers from the owner, and they work on each other. A gap now clicks onto one column only — the one the drum stands over — because he asked for "the most bottom position of the maze, nearest to ship" and meant it. A gap anywhere else on the near half was over a column too, and the shot went up it and met the rim at an angle; that oblique entry is what read as wrong. The near-half check stays and is not redundant with the new one: a gap at the *top* of the drum stands over the same column, and the cosine is the only thing that tells them apart.
+
 ## 2026-09-05 · 0c80718 — A warded volley leaves the dome on the tick it is answered
 
 The owner's report was that it still reflects too late — that it moves inside the ship first and only then turns — and there were two ways it could.
