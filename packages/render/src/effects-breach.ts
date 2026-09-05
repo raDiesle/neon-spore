@@ -1,4 +1,4 @@
-import { isWardable, type SimEvent } from "@neon-spore/sim";
+import { type Color, type CreatureKind, isWardable, type SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
 import type { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -30,6 +30,18 @@ export interface BreachParts {
   arrivals: Arrivals;
 }
 
+/** The colour a body's own burst is thrown in: what it was shot with, and
+ * `red` for the colourless — a throb, a shell nobody opened, a round that
+ * costs the hull with nothing on the field. */
+function breachHue(color: Color | null): string {
+  return color === "cyan" ? PALETTE.cyan : PALETTE.red;
+}
+
+/** A rock's own colour: the torch carries a flame, every other tier is stone. */
+function rockHue(kind: CreatureKind): string {
+  return kind === "torch" ? PALETTE.ember : PALETTE.rock;
+}
+
 export function ingestBreach(
   e: Extract<SimEvent, { type: "breach" }>,
   l: Layout,
@@ -39,9 +51,9 @@ export function ingestBreach(
 ): void {
   // `isWardable` rather than `isMeteorKind`: THE VOLLEY is a rock the shield
   // answers, and a shell nobody warded arrives as the rock it looks like — the
-  // fall replay and the crack that waits for it, not a red burst at the hull.
+  // fall replay and the crack that waits for it, not a burst at the hull.
   if (!isWardable(e.kind)) {
-    parts.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
+    parts.burst(tileCX(l, e.col), l.hullY, 16 * e.span, breachHue(e.color));
     return;
   }
   // The event carries the width the body actually had — `colSpan(e.kind)`
@@ -49,11 +61,20 @@ export function ingestBreach(
   const span = e.span;
   const r = rockRadius(l, span);
   const loCol = Math.round(e.col - (span - 1) / 2);
-  // Two bursts flanking the crater, not one on top of it: sparks fly off the
-  // rim the rock tore, not out of thin air at its centre.
+  // Bursts flanking the crater rather than one on top of it: sparks fly off
+  // the rim the rock tore, not out of thin air at its centre.
   const arrive = (ax: number, ay: number): void => {
-    parts.burst(ax - r * 0.8, ay, 8 * e.span, PALETTE.red);
-    parts.burst(ax + r * 0.8, ay, 8 * e.span, PALETTE.red);
+    // A rock is the heaviest thing that reaches the hull and it now lands like
+    // it: three times the sparks a body throws, in the rock's own colour
+    // rather than red — the torch's ember, everything else's stone. Red said
+    // "damage" where the rock in front of the player said stone, and the two
+    // readings fought.
+    const hue = rockHue(e.kind);
+    parts.burst(ax - r * 0.8, ay, 24 * e.span, hue);
+    parts.burst(ax + r * 0.8, ay, 24 * e.span, hue);
+    // A third, tighter burst out of the crater itself, so the middle of the
+    // impact is not the one empty part of it.
+    parts.burst(ax, ay, 16 * e.span, PALETTE.ember);
     // Only now does this rock's own crack get to show.
     parts.arrivals.mark(loCol, span, e.beat);
   };

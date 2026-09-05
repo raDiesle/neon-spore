@@ -207,6 +207,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
+| `packages/sim/src/hull-guard.ts` | **The shield's own arithmetic**: where it stands, how long its window is open |
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how many times it changes lane on the way down |
 | `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |

@@ -26,8 +26,8 @@ const _BEAT_SECONDS = 60 / CFG.bpm;
 /** One of everything that leaves a mark: a miss, a deflect, a swallow, a
  * blocked shot, the queen. Enough that every collection has something in it. */
 const BUSY: SimEvent[] = [
-  { type: "breach", col: 3, damage: 5, span: 1, kind: "meteor", fromRow: 12, beat: 7 },
-  { type: "breach", col: 5, damage: 9, span: 2, kind: "torch", fromRow: 13, beat: 8 },
+  { type: "breach", col: 3, damage: 5, span: 1, kind: "meteor", fromRow: 12, color: null, beat: 7 },
+  { type: "breach", col: 5, damage: 9, span: 2, kind: "torch", fromRow: 13, color: null, beat: 8 },
   { type: "deflect", col: 2, span: 1, kind: "meteorFast", fromRow: 11 },
   { type: "podTaken", col: 4, kind: "mend" },
   { type: "reject", col: 1, row: 4 },

@@ -18,6 +18,7 @@ const breach: SimEvent = {
   damage: 9000,
   span: 1,
   kind: "meteor",
+  color: null,
   fromRow: 4,
   beat: 12,
 };

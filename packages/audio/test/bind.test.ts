@@ -59,7 +59,16 @@ const SAMPLES: Record<string, SimEvent> = {
   podLoose: { type: "podLoose", col: 4, row: 2 },
   podTaken: { type: "podTaken", col: 4, kind: "ward" },
   podLost: { type: "podLost", col: 4 },
-  breach: { type: "breach", col: 5, damage: 12_000, span: 1, kind: "slick", fromRow: 10, beat: 8 },
+  breach: {
+    type: "breach",
+    col: 5,
+    damage: 12_000,
+    span: 1,
+    kind: "slick",
+    fromRow: 10,
+    color: "red",
+    beat: 8,
+  },
   petal: { type: "petal", col: 3, row: 1, left: 2 },
   queenDown: { type: "queenDown", col: 3, row: 1 },
   tether: { type: "tether", col: 2, color: "cyan" },
@@ -173,6 +182,7 @@ describe("bindings", () => {
       span: 1,
       kind: "meteor",
       fromRow: 9,
+      color: null,
       beat: 1,
     } as const;
     const light = { ...heavy, damage: 3_000 };

@@ -363,7 +363,7 @@ export const COPIES: Copy[] = [
     // term. So the glow went dark a tick before the shield stopped turning
     // rocks, and a ward armed the shield in the sim while render drew it cold.
     call: "guardArmed",
-    owner: "packages/sim/src/hull.ts",
+    owner: "packages/sim/src/hull-guard.ts",
     pattern: /tick\s*-\s*world\s*\.\s*guardTick/,
     strip: false,
   },

@@ -31,7 +31,16 @@ function scarOf(kind: Scar["kind"], col = 4): Scar {
 }
 
 function breachOf(kind: Scar["kind"]): Extract<SimEvent, { type: "breach" }> {
-  return { type: "breach", col: 4, kind, span: 1, beat: 3, fromRow: CFG.rows - 3, damage: 1 };
+  return {
+    type: "breach",
+    col: 4,
+    kind,
+    span: 1,
+    beat: 3,
+    fromRow: CFG.rows - 3,
+    color: null,
+    damage: 1,
+  };
 }
 
 describe("a volley's breach", () => {

@@ -41,6 +41,12 @@ export type SimEvent =
       span: number;
       kind: Creature["kind"];
       fromRow: number;
+      /**
+       * The colour of the body that broke through, so the burst can be thrown
+       * in it (`effects-breach.ts`). null for everything colourless — a rock,
+       * and the rounds that break the hull with no body on the field at all.
+       */
+      color: Color | null;
       /** The beat this happened on — matches the `Scar`s it left, so render/
        * can tell a scar's crack apart from one an earlier beat left behind. */
       beat: number;
