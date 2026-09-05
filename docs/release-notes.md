@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · a4dc854 — A warded volley keeps its rim and loses its filling
+
+The owner asked for the outer line of the basketball to stay — a skeleton, and still round. It was cutting a sector out of the whole ball, so a body warded twice was a shape with a bite taken out of it and the silhouette meant something it should not.
+
+## 2026-09-05 · ff24d08 — A volley falls like a rock and is turned at the dome like one
+
+Three of the owner's reports, and one answer under all of them: it stops having physics of its own.
+
 ## 2026-09-05 · 0f0354b — A second answer to what a rock is made of, offered beside the grey one
 
 The meteor's material was inline in `drawMeteor`, so there was nowhere for a second answer to it to sit — `docs/versus.md` names the rock as the case the mechanism should be tested against and this is the seam that makes it possible. `METEOR_LOOK` (`meteor-look.ts`) carries the layers a rock is painted in — body, pit, an optional shell around it, and the halo — with the shipped stone filled in unchanged. `drawMeteor` keeps the placing, the spin and the wobble and calls into the record. Not a pixel moves.
