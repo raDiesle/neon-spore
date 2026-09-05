@@ -562,6 +562,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
+| `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
 
 ### packages/net
 

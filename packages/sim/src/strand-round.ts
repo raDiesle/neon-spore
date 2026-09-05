@@ -6,10 +6,13 @@ import {
   beadIsActive,
   beadIsSpent,
   beadOrder,
+  beadRowOffset,
   beadStrand,
   lightStrandEnd,
+  STRAND_STEP,
   strandBeadCount,
   strandLeft,
+  strandSpan,
 } from "./strand.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -30,7 +33,8 @@ import type { World } from "./world.js";
  * that bead's own place on it.
  *
  * The queue entry becomes the **leftmost** bead — `spawnArrivals` has already
- * pushed it — and this puts the others in the columns to its right, shifting
+ * pushed it — and this hangs the others out to its right, `STRAND_STEP`
+ * columns apart and every other one a row lower (`beadRowOffset`), shifting
  * the whole run inside the field when there is not room for it. The leftmost
  * bead carries the authored colour and every other alternates from it, so a
  * wave composes a thread by naming one end of a pattern.
@@ -45,13 +49,14 @@ import type { World } from "./world.js";
 export function stringStrand(world: World, first: Creature, asked: number | undefined): Creature[] {
   const count = strandBeadCount(world.cfg, asked);
   const fromLeft = nextInt(world.rng, 2) === 0;
-  const lo = Math.max(0, Math.min(first.col, world.cfg.cols - count));
+  const lo = Math.max(0, Math.min(first.col, world.cfg.cols - strandSpan(count)));
   // The leftmost bead's colour, which is what the wave authored. Not null: a
   // strand names a colour (`authorsColor`).
   const left = first.color ?? "red";
   const born: Creature[] = [];
   for (let place = 0; place < count; place++) {
-    const col = lo + place;
+    const col = lo + place * STRAND_STEP;
+    const drop = beadRowOffset(place);
     const color = beadColor(left, place);
     if (place === 0) {
       first.col = col;
@@ -66,11 +71,11 @@ export function stringStrand(world: World, first: Creature, asked: number | unde
       id: world.nextId++,
       kind: "strand",
       col,
-      row: first.row,
+      row: first.row + drop,
       // Out of the bead that arrived, so the first frame draws the thread
       // paying itself out rather than five bodies appearing in a row — the
       // same glide THE GYRE's rim comes out of its hub on.
-      fromRow: first.fromRow,
+      fromRow: first.fromRow + drop,
       fromCol: first.col,
       color,
       holes: 0,

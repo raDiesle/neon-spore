@@ -50,13 +50,23 @@ function same(a: unknown, b: unknown): boolean {
     // reporting anything. Two drawings are two drawings; identity is the only
     // honest answer, and it is the right one, because a candidate that reuses
     // the shipped function is not a candidate.
+    //
+    // Arity is the first guard and it is not enough on its own: `StrandLook.bead`
+    // takes **one argument** and it is a whole drawing, because everything a
+    // bead draw needs travels in one record. So the probe is also wrapped —
+    // a drawing handed a number throws, and a throw means "this was never a
+    // curve", not "the two disagree".
     if (a.length !== 1 || b.length !== 1) return Object.is(a, b);
     const f = a as (n: number) => number;
     const g = b as (n: number) => number;
-    for (let t = 0; t <= 1; t += 0.05) {
-      const [x, y] = [f(t), g(t)];
-      if (typeof x !== "number" || typeof y !== "number") return false;
-      if (Math.abs(x - y) > 1e-9) return false;
+    try {
+      for (let t = 0; t <= 1; t += 0.05) {
+        const [x, y] = [f(t), g(t)];
+        if (typeof x !== "number" || typeof y !== "number") return false;
+        if (Math.abs(x - y) > 1e-9) return false;
+      }
+    } catch {
+      return Object.is(a, b);
     }
     return true;
   }

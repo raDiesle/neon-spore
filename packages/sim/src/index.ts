@@ -141,15 +141,18 @@ export {
   beadIsLit,
   beadIsSpent,
   beadOrder,
+  beadRowOffset,
   beadStrand,
   STRAND_MAX,
   STRAND_MIN,
+  STRAND_STEP,
   strandBeadCount,
   strandBeads,
   strandBecomes,
   strandHead,
   strandLeft,
   strandLive,
+  strandSpan,
 } from "./strand.js";
 export type {
   Bullet,

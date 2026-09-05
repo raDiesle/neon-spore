@@ -91,7 +91,7 @@ export function drawBodies(
   // line taking its turn in that order would be over some of the beads it
   // joins and under the others (`strand.ts`). The mark on the bead that has to
   // be shot next rides with it, on player 2's screen only.
-  drawStrands(ctx, l, world, view.beatPhase);
+  drawStrands(ctx, l, world, view.beatPhase, view.time);
   // Where a ghost has just been, under every body on the field: a stamp drawn
   // over the slick in the next column would read as a body in front of it.
   drawGhostTrails(ctx, l, world, effects.ghostTrail, view.beatPhase, view.time);

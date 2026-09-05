@@ -69,11 +69,49 @@ import type { World } from "./world.js";
 
 /**
  * Beads a thread may be authored with. Two is the shortest run that has an end
- * to choose between at all; five is most of a seven-column field, and a wider
- * thread would leave the pilot nowhere to stand that is not already under one.
+ * to choose between at all; five is as many as a field this wide holds once
+ * they are spread (`STRAND_STEP`).
  */
 export const STRAND_MIN = 2;
 export const STRAND_MAX = 5;
+
+/**
+ * Columns between one bead and the next.
+ *
+ * **Two, and the empty lane between them is the point.** At one the beads
+ * touched: the thread joining them was hidden behind their own contours on
+ * both screens, and a pair counting "third from the left" was counting a run
+ * of bodies rather than reading a chain. At two there is a lane of field
+ * between every pair, so the line is visible along its whole length and the
+ * cannon has somewhere to be that is not already under a bead.
+ *
+ * It is also what makes the pilot travel. A thread of five now spans nine
+ * columns of eleven, so the column the navigator calls is a real journey
+ * rather than a nudge — which is the sentence this creature exists to make
+ * them say.
+ */
+export const STRAND_STEP = 2;
+
+/**
+ * The **rows** a bead hangs below the thread's own row: none, then one, then
+ * none again.
+ *
+ * A straight horizontal line of bodies reads as a row of arrivals that happen
+ * to be level, which is what the pair already sees every wave. Hanging every
+ * other one a row lower makes the thread a chain — the eye follows the zigzag
+ * from end to end without being told to — and it costs nothing that has to be
+ * believed, because the offset is a real row: a bead hanging low reaches the
+ * ship a beat before its neighbours, is shot in the lane it is drawn in, and
+ * breaks the hull where it lands.
+ */
+export function beadRowOffset(place: number): number {
+  return place % 2;
+}
+
+/** How many columns a thread of this many beads covers, end to end. */
+export function strandSpan(count: number): number {
+  return 1 + STRAND_STEP * (count - 1);
+}
 
 /**
  * How many beads this arrival actually gets: what the wave asked for, or
@@ -86,7 +124,11 @@ export const STRAND_MAX = 5;
  * screen it was never on.
  */
 export function strandBeadCount(cfg: SimConfig, asked: number | undefined): number {
-  const most = Math.max(1, Math.min(STRAND_MAX, cfg.cols));
+  // What fits once the beads are spread, which is the number the field really
+  // has a say in — `strandSpan` and not `cols` alone, or a thread of five on a
+  // narrow field would be clamped into a heap in the last column.
+  const fits = Math.floor((cfg.cols - 1) / STRAND_STEP) + 1;
+  const most = Math.max(1, Math.min(STRAND_MAX, fits));
   const wanted = Math.max(STRAND_MIN, Math.floor(asked ?? cfg.strandBeads));
   return Math.min(most, wanted);
 }

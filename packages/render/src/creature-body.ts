@@ -13,7 +13,7 @@ import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
 import { showsBeadColor } from "./strand.js";
-import { drawRaisin, drawSealedBead } from "./strand-bead.js";
+import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -151,20 +151,24 @@ function drawLivingBody(b: Body): void {
  * A bead already shot is a raisin on both, because how far along the thread
  * the pair has got is the one fact about this creature that is not split. A
  * live one is the slick or the bulb its colour names on the pilot's screen —
- * the ordinary living draw, `wornKind` and all — and a sealed bead on the
- * navigator's. Deliberately not the real body drawn grey: a slick is flat and
- * a bulb is round, so the silhouette alone would name the colour, which is
- * `showsVeilCore`'s argument about a halo said about a shape instead
- * (`strand-bead.ts`).
+ * the ordinary living draw, `wornKind` and all — and on the navigator's a reel
+ * rolling between the two of them. Deliberately not the real body drawn grey:
+ * a slick is flat and a bulb is round, so the silhouette alone would name the
+ * colour, which is `showsVeilCore`'s argument about a halo said about a shape
+ * instead (`strand-bead.ts`).
  */
 function drawStrandBody(b: Body): void {
   const { ctx, l, world, c, x, y, time, near } = b;
+  const bead = { ctx, l, cfg: world.cfg, c, x, y, time, near };
   if (beadIsSpent(c)) {
-    drawRaisin(ctx, l, world.cfg, c, x, y, time, near);
+    drawRaisin(bead);
     return;
   }
+  // Through the record rather than by calling the reel directly: a candidate
+  // look is a field patched onto `STRAND_LOOK` for the length of one draw, and
+  // a draw path that named the function would never see it (`docs/versus.md`).
   if (!showsBeadColor(l)) {
-    drawSealedBead(ctx, l, world.cfg, c, x, y, time, near);
+    STRAND_LOOK.bead(bead);
     return;
   }
   drawLivingBody(b);

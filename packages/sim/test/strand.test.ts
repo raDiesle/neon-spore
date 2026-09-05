@@ -4,6 +4,7 @@ import {
   beadIsLit,
   beadIsSpent,
   beadOrder,
+  beadRowOffset,
   beadStrand,
   createWorld,
   DEFAULT_CONFIG,
@@ -17,11 +18,13 @@ import {
   type SpawnEntry,
   STRAND_MAX,
   STRAND_MIN,
+  STRAND_STEP,
   step,
   strandBeadCount,
   strandHead,
   strandLeft,
   strandLive,
+  strandSpan,
   type TimedCommand,
   ticksPerBeat,
   wornKind,
@@ -99,13 +102,16 @@ function notLit(world: ReturnType<typeof createWorld>): Creature | null {
 }
 
 describe("the thread a wave authors", () => {
-  it("is one entry and several bodies, in consecutive columns", () => {
+  it("is one entry and several bodies, a lane apart and hung in a zigzag", () => {
     for (const beads of [STRAND_MIN, 3, STRAND_MAX]) {
       const world = onField(beads);
       const on = threadOf(world);
       expect(on).toHaveLength(beads);
-      const cols = on.map((c) => c.col).sort((a, b) => a - b);
-      expect(cols[cols.length - 1]! - cols[0]!).toBe(beads - 1);
+      // Spread `STRAND_STEP` columns apart, so there is a lane of empty field
+      // between every pair for the thread to be seen along.
+      expect(on.map((c) => c.col)).toEqual(on.map((_, i) => on[0]!.col + i * STRAND_STEP));
+      // And every other one hangs a row lower — a real row, not a drawn one.
+      expect(on.map((c) => c.row - on[0]!.row)).toEqual(on.map((_, i) => beadRowOffset(i)));
       // One thread, so one name — and it is the first bead's own id.
       expect(new Set(on.map(beadStrand)).size).toBe(1);
     }
@@ -115,8 +121,10 @@ describe("the thread a wave authors", () => {
     expect(strandBeadCount(CFG, undefined)).toBe(CFG.strandBeads);
     expect(strandBeadCount(CFG, 1)).toBe(STRAND_MIN);
     expect(strandBeadCount(CFG, 99)).toBe(STRAND_MAX);
-    // A field narrower than the ceiling is what actually decides it.
-    expect(strandBeadCount({ ...CFG, cols: 3 }, STRAND_MAX)).toBe(3);
+    // A field narrower than the ceiling is what actually decides it, and it is
+    // the *spread* run that has to fit rather than the bead count.
+    expect(strandBeadCount({ ...CFG, cols: 3 }, STRAND_MAX)).toBe(2);
+    expect(strandSpan(strandBeadCount(CFG, STRAND_MAX))).toBeLessThanOrEqual(CFG.cols);
   });
 
   it("alternates the two colours along the thread, from the authored one", () => {
@@ -306,8 +314,11 @@ describe("the thread as an arrival", () => {
 
   it("falls a tile a beat, every bead of it, and holds its lane", () => {
     const world = onField(3, "red", TPB * 5);
-    for (const bead of threadOf(world)) expect(bead.row).toBe(4);
-    expect(new Set(threadOf(world).map((c) => c.col)).size).toBe(3);
+    const on = threadOf(world);
+    // Four rows down from where each one entered, which is not the same row
+    // for all of them: the zigzag is carried the whole way down.
+    for (const [i, bead] of on.entries()) expect(bead.row).toBe(4 + beadRowOffset(i));
+    expect(new Set(on.map((c) => c.col)).size).toBe(3);
   });
 });
 
