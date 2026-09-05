@@ -50,8 +50,12 @@ export interface FrameSpec {
    * simulation has not dealt an id to yet. A strip holds from its first frame
    * on, so what it shows is the hold building rather than one held frame at
    * the end.
+   *
+   * A list, because a handle's first `drag` is the *grab* and carries no
+   * distance: what a thumb is doing is two commands on the wire and always was
+   * (`parseHold` in `hold.ts`).
    */
-  hold?: HoldSpec;
+  hold?: HoldSpec[];
   /** Ticks run with the hold in, after `ticks` and before the picture. Long
    * enough for what the hold does to be visible — plates parting, a lobe
    * filling — and short enough not to be a different moment of the wave. */

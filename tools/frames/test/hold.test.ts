@@ -10,28 +10,53 @@ import { parseHold, parsePress } from "../hold.js";
  */
 describe("parseHold", () => {
   it("a thumb on the lance is a held prime, from the pilot", () => {
-    expect(parseHold("prime")).toEqual({ player: 1, command: { kind: "prime", on: true } });
+    expect(parseHold("prime")).toEqual([{ player: 1, command: { kind: "prime", on: true } }]);
   });
 
-  it("a handle is a held drag, at the distance given in thousandths of a tile", () => {
-    expect(parseHold("wardenTether=900")).toEqual({
-      player: 1,
-      command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 900 },
-    });
+  it("a handle is the grab and then the pull, in thousandths of a tile", () => {
+    expect(parseHold("wardenTether=900")).toEqual([
+      { player: 1, command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0 } },
+      { player: 1, command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 900 } },
+    ]);
+  });
+
+  it("a rope carried down says so with y, and the grab is at zero on both axes", () => {
+    expect(parseHold("wardenTether=0,y=7000")).toEqual([
+      {
+        player: 1,
+        command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli: 0 },
+      },
+      {
+        player: 1,
+        command: {
+          kind: "drag",
+          target: "wardenTether",
+          on: true,
+          fromMilli: 0,
+          fromYMilli: 7000,
+        },
+      },
+    ]);
   });
 
   it("no distance is one whole tile — a hand that has plainly pulled", () => {
-    expect(parseHold("mazeString")).toEqual({
-      player: 1,
-      command: { kind: "drag", target: "mazeString", on: true, fromMilli: 1000 },
-    });
+    expect(parseHold("mazeString")).toEqual([
+      { player: 1, command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 } },
+      { player: 1, command: { kind: "drag", target: "mazeString", on: true, fromMilli: 1000 } },
+    ]);
   });
 
-  it("a cord says which body it hangs off", () => {
-    expect(parseHold("lidString=800,id=3")).toEqual({
-      player: 1,
-      command: { kind: "drag", target: "lidString", on: true, fromMilli: 800, id: 3 },
-    });
+  it("a cord says which body it hangs off, on the grab as well as the pull", () => {
+    expect(parseHold("lidString=800,id=3")).toEqual([
+      {
+        player: 1,
+        command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, id: 3 },
+      },
+      {
+        player: 1,
+        command: { kind: "drag", target: "lidString", on: true, fromMilli: 800, id: 3 },
+      },
+    ]);
   });
 
   it("a cord without an id is refused rather than guessed at", () => {
@@ -48,6 +73,10 @@ describe("parseHold", () => {
 
   it("a distance that is not a number is refused", () => {
     expect(() => parseHold("mazeString=far")).toThrow(/thousandths of a tile/);
+  });
+
+  it("a y that is not a number is refused the same way", () => {
+    expect(() => parseHold("wardenTether=0,y=down")).toThrow(/thousandths of a tile/);
   });
 
   it("prime takes nothing else", () => {

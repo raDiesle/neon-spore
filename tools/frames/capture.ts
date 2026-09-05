@@ -225,7 +225,8 @@ export async function captureFrames(
       // so the press goes in here and gets its own short run of ticks to show
       // in.
       if (i === 0 && spec.hold) {
-        await press({ ...spec.hold, tick: spec.ticks });
+        // In order and on the same tick: the grab first, then the pull off it.
+        for (const one of spec.hold) await press({ ...one, tick: spec.ticks });
         await advance(spec.holdTicks ?? DEFAULT_HOLD_TICKS);
       }
 

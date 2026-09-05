@@ -25,6 +25,7 @@
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
+ *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  the rope pulled taut
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
  *   bun run frames <sha> --wave 2 --opening guide --frames 8 --stride 6   its rehearsal, looping
  *   bun run frames <sha> --wave 2 --opening intro   the wave's name, after the guide
@@ -129,7 +130,7 @@ async function main(): Promise<void> {
   if (!sha || sha.startsWith("--")) {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
-        "[--hold prime|mazeString=N|wardenTether=N|lidString=N,id=N] [--hold-ticks N] " +
+        "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
