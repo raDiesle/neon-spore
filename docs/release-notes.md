@@ -13,6 +13,22 @@ commit message that read wrong, and the history is where that lives.
 
 `StubContext.log` claimed to be the ordered log of every call and left out the one part a path is: `StubPath`'s builders went through `nums` for validation and never through the log, so `new Path2D` appeared as a count and `rect`, `moveTo`, `arc` and the rest appeared not at all.
 
+## 2026-09-05 · 4b530728 — Hang THE STRAND in a zigzag, and roll its unknown beads like a slot machine
+
+Five changes the owner asked for, all of them about what the pair actually sees.
+
+## 2026-09-05 · 73a541d2 — Roll THE STRAND's lit end again after every bead, so neither seat can derive it
+
+A fixed march from one rolled end gives the creature away on the second bead. The first raisin shows the pilot which end the order started at, so from then on they know which bead is next without being told; and the navigator, who has heard one colour and can see that the beads alternate, works out all the rest from there. One exchange, and the thread answers itself.
+
+## 2026-09-05 · 29684505 — Hang THE STRAND's thread low enough to be seen between two beads
+
+The first frame of this creature had a thread nobody could see. Two beads stand in neighbouring columns and each is drawn about eight tenths of a tile across, so a line straight between their centres was a line behind them — on both screens, at every length. The sag is the control point of the curve rather than the dip it produces, so 0.16 of a tile was really 0.08, and the stroke was the inner weight rather than the outline one.
+
+## 2026-09-05 · 7ed0f1e5 — THE STRAND: beads on a thread, and the first body neither seat can answer alone
+
+Two to five slicks and bulbs threaded on one line, alternating red and cyan, and only the next one along the thread can be shot. The navigator is shown which bead is lit and no colours at all; the pilot is shown the colours and no mark — so the column crosses the room one way and the colour the other, for every bead. A shot at the wrong one swells the last shrivelled bead back to life, and when the last of them goes the thread parts.
+
 ## 2026-09-05 · fd85cb7 — THE FLEET's crossings are one fill: 192 rectangles a frame down to 60
 
 `drawFleetChart` marked every crossing of its own lattice with a small square, in a nested loop over twelve by eleven — 132 `fillRect` every frame for the whole length of the fight, which the budget beside it measured as roughly seventy per cent of every rectangle the game drew during it.
